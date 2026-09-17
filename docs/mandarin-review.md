@@ -564,6 +564,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 61–90 (迟到 → 电), deck order | 12 | four cards teaching a word their own sentences do not contain, all invisible to `check-example-fit.js` |
 | 2026-09-17 | `hsk30l3` notes 91–120 (电梯 → 房子), deck order, plus the two -logue spellings | 20 + 1 | a card whose three sentences were three different words beginning with its character |
 | 2026-09-17 | `hsk30l3` notes 121–150 (放 → 关机), deck order | 17 | six glosses naming a part of speech the gloss did not belong to |
+| 2026-09-17 | `hsk30l3` notes 151–180 (关系 → 或者), deck order, plus the bare-`afterward` class | 22 | two single-character cards whose sentences used the character and not the word |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -3459,5 +3460,136 @@ and should not. 风's first and 刮's first are that same arrangement. 公园's 
   tags past the sense list 0; stray spaces 0
 - every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token
 - `build-lang-decks.js`: re-run, and **exactly one row changed** — Level 3, the only deck touched
+- CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
+  `check-docs`, `check-questions`, `check-style`
+
+## Batch 29 — `hsk30l3` notes 151–180 (关系 → 或者), and the bare-`afterward` class
+
+Thirty notes read card by card in deck order, **twenty-two changed** and eight read and left alone.
+Two of the thirty were single-character cards, and both were the same fault batch 27 found on 东.
+
+**The leading fault is the single-character blind spot, twice in seven notes.** 海 is glossed "sea",
+and two of its three sentences used the character without the word: 那里人山人海 is the idiom *a sea
+of people* and 你国家的人吃海带吗 is **kelp**. 河 is glossed "river", and two of its three did the
+same: 河马 is a **hippopotamus** and 他开了先河 is the idiom *to set a precedent*. So each card left
+its reader exactly one sentence using the word it teaches, and on both the wrong two came first.
+`check-example-fit.js` skips a single-character headword outright — one character cannot straddle a
+boundary — so neither is reportable and neither ever will be. **Three consecutive batches have now
+found this class by reading and by nothing else**, and the two new ones are cheaper to find than
+batch 27's, because the swallowing compound is printed in the card's own English: a card glossed
+"sea" whose English says *kelp* is visible at a glance. That is the thing to scan for on a
+single-character card — read the three English lines and ask whether each is about the character.
+
+Both cards took two authored replacements and a `compounds` panel, 换 and 或 took a panel each, and
+four single-character cards in these thirty now carry one.
+
+**The second fault is batch 28's residue, unchanged in shape.** Three cards named more parts of
+speech, or more senses, than their gloss covered.
+
+- **关系** named *noun / verb* and glossed *relationship*, which is the noun. Its own third sentence,
+  不只是钱关系重大, is the verb — *to concern, to matter* — with nothing on the card defining it.
+  Split into CC-CEDICT's own two, in its order, `exSense` [1, 1, 2].
+- **关注** named one part of speech, *verb*, and its **first** sentence was the noun: 谢谢您的关注,
+  "thank you for your attention". `exSense` [2, 1, 1].
+- **好多** glossed *many*, and its first sentence 这样好多了 means *much better* — which CC-CEDICT
+  lists outright (/many/quite a lot/much better/) and the card did not. **It is not a straddle**: the
+  segmenter lands squarely on 好多, so `check-example-fit.js` sees nothing. The sense is recorded
+  rather than the sentence dropped, because the sentence is a real and common use of the word —
+  though it is worth writing down that most grammars parse 好多了 as 好 + 多了 rather than 好多 + 了,
+  and that CC-CEDICT is what settles it here rather than the grammar.
+
+**好多's fix retired a reverse-card hint, and that is a rule rather than an accident.** The card
+carried `not 许多`, because both were glossed *many* and the English → Chinese card had two right
+answers. A `senses` rewrite REPLACES the English field, so the hint would have been destroyed
+silently; the applier's own comment says a note given a distinguishing gloss no longer needs one. The
+first sense now reads *many; quite a lot* against 许多's *many*, so the collision is gone on its own
+terms and the `hints` row is deleted with it — measured afterwards, still-ambiguous reverse groups
+stayed at **2**.
+
+**Three glosses were simply not the commonest sense their own sentences showed.**
+
+- **或者** glossed *perhaps*, and all three of its sentences mean **or** — the commonest sense of one
+  of the commonest words in the language, missing from its own card. CC-CEDICT leads with /or/. It is
+  glossed *or; either ... or* rather than a bare *or* deliberately: 或, 或是 and 要么 already carry
+  the bare word, and the house rule gives a group of three or more distinguishing glosses rather than
+  a fourth `not X` hint.
+- **回答** glossed *reply*, and all three of its sentences answer a **question**. It is *to answer (a
+  question)*, the collocation written into the gloss, because the plain *to answer; to reply* is
+  already 应对's gloss word for word.
+- **环境** glossed *environment* alone, and two of its three sentences use the wider sense CC-CEDICT
+  also gives (/environment/circumstances/surroundings/) — 我适应新环境很慢 and 我需要换个环境, whose
+  English read "new situations" and "a change of scenery" and so taught a reader nothing about the
+  word on the card. The gloss is widened and the first sentence's English put back on the headword;
+  the third is left as it stands, "a change of scenery" being the idiomatic English for it.
+
+**And one gloss was an American spelling, in a family `check-british.js` cannot see.** 后来 was
+glossed **afterward** on a card whose own third sentence ends *afterwards*. `SPELL_PAIRS` has no
+-ward row at all, so the checker reports 0 over this as happily as over a clean corpus — batch 27's
+`-logue` finding in a second family, and the same shape: a class too small to be a table, found by
+reading. **Measured over all nine decks the class is three occurrences over two sites**: this gloss,
+and one Levels 7–9 sentence which that deck carries on two notes (瓦 and 盘旋 share it), whose English
+ended "for a few minutes afterward". All three are repaired here, the two out-of-range ones on batch
+27's precedent for a measured class of two. **Grep the -ward, -logue and -ward-like families by hand
+after a content batch; the checker covers neither.**
+
+**Three sentences were not grammatical Chinese.**
+
+- **国家**: 你是哪国家？ — 哪 needs its classifier before a noun, and 的 needs a head to hang on. The
+  repair keeps what the sentence was teaching, 你是哪个国家的人？
+- **黄色**: 红色和黄色和蓝色是颜色。 chains 和 the way English chains *and*, which Chinese does not:
+  a list takes 、 between its members and 和 before the last only.
+- **或**: 你结婚了或没结婚？ puts 或 in an alternative **question**, which is 还是's job (你结婚了还是
+  没结婚？) or the A-not-A form. 或 joins alternatives in a statement. This one is worth keeping in
+  mind: the card is *about* the word for "or", so a sentence misusing it teaches the one error the
+  card exists to prevent.
+
+**One punctuation repair, and a measurement that stopped it becoming a pass.** 关于's third sentence
+wrote its ellipsis as six ASCII full stops where Chinese writes ……. That is the deck-level
+punctuation pass's own class — a half-width mark inside a Chinese sentence — and the pass cannot see
+it, its table converting , ; : ! ? and pairing quotes with no row for the full stop, which is a
+legitimate mark inside a number. **Measured over all nine decks: seven sentences over five decks,
+against four that use …… correctly** — so it is not a table, and two of the seven (郊区很安静... and
+倾听...) are not sentences at all but truncated fragments needing judgement rather than a substitution.
+This one is repaired where it stands with `exSpace`, whose skeleton comparison strips both marks, and
+the other six are listed here for the batches that reach them: `hsk30l4` 郊区, `hsk30l5` 难得 /
+`hsk30l7` 生平 (one shared sentence), `hsk30l6` 倾听, `hsk30l7` 庙 / 劈 (one shared sentence).
+
+**Seven English lines said something the Chinese does not.** 关心's *"He is careless about money"*
+says he is bad with money where 不关心 says he does not care about it. 害怕's *"She never shivers"* is
+a translation of something else entirely on a card glossed *afraid*. 好像's *"How fascinating!"*
+renders 挺有趣 and drops the headword. 号码's said only "the number" over 电话号码. 画家's called
+Picasso an *artist*, which is 艺术家. 欢迎's *"Feel free to stay"* carries the sense and not the word.
+会议's made one meeting plural.
+
+**READ AND LEFT ALONE, with the reasons recorded.** 号码's measure word 堆 looks wrong for a number
+and is CC-CEDICT's own (CL:堆,個). 好久's *quite a while* matches all three sentences and CC-CEDICT's
+"(coll.) for a long time". 合适's first, "It is highly improper" for 这实在不合适, is loose and not
+wrong. 河's gloss keeps *river (the general word)*, which an earlier batch wrote to break a
+collision. 过节's second carries 慰劳, well above this level, but is a real sentence with a right
+translation. **And two of 或者's sentences are left with the question recorded rather than rewritten**:
+或者你必须搭这辆公车？ opens a question with 或者, which is attested as a discourse connector and
+marginal as a sentence, and 你钱或者信用卡带来没有？ is topic-fronted in a way that is possible in
+speech and clumsy on a card. Neither is settled by CC-CEDICT or by the card's own examples, so
+neither was touched.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2, unchanged** — which is the assertion that 好多's retired hint and 或者's new gloss
+  were both checked against every gloss in the nine decks before they were written
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged**, and no finding names a card this batch touched
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0** — which is exactly the reading it gives over the bare `afterward` this
+  batch repaired, and the reason that finding is written down rather than left to the checker
+- `check-say-reading.js`: unchanged at 10 of 1,503
+- `check-gloss-source.js`: unchanged, and no finding names a card this batch reglossed
+- `check-coarse.js`: identical to HEAD in all six columns
+- answer-leak set byte-identical to HEAD; 34,596 example blocks, **spoken == visible on every one**; sense
+  tags past the sense list 0; stray spaces 0
+- every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token,
+  and each checked for a duplicate against every sentence and every English line in all nine decks
+- `build-lang-decks.js`: re-run, and **exactly two rows changed** — Level 3 and Levels 7–9, the two decks touched
 - CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
   `check-docs`, `check-questions`, `check-style`

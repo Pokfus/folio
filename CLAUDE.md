@@ -1978,6 +1978,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is usually one an exam syllabus has no reason to list** — a dish, an occupation, a place name — so it
     will never enter this lexicon and the segmenter will go on landing squarely on the headword. Three
     batches running have found this class by reading and by nothing else.
+    **AND THE CARD'S OWN ENGLISH IS WHERE IT SHOWS** (batch 29, two more, both single-character): 海
+    is glossed "sea" and two of its three sentences were 人山人海, the idiom, and 海带, **kelp**; 河 is
+    glossed "river" and two of its three were 河马, a **hippopotamus**, and 先河, the idiom. A card
+    glossed "sea" whose own English line says *kelp* is visible at a glance, which is the cheapest way
+    to find this class: **read a single-character card's three English lines and ask whether each is
+    about the character.**
   · **AND THE HARVEST'S GUARD IS THE SAME FAULT ONE LAYER UP.** A sentence taken from the decks' own
     bank is refused where the target is SWALLOWED BY A LONGER headword, which says nothing about one
     spanning TWO SHORTER ones — 得分 harvested 我们在扔掉之前得分类, which is 得 (děi) plus 分类, the
@@ -2074,6 +2080,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     note. **A class of two is not a table**: `exLexis` is for a substitution worth applying in one place,
     and a one-word table applied twice is a table nobody will read. **Grep the five omitted families by
     hand after a content batch; this checker cannot.**
+  · **…AND THE -ward FAMILY IS A SECOND ONE, FOUND THE SAME WAY** (batch 29). `SPELL_PAIRS` has no
+    -ward row at all, so `afterward` against `afterwards` is invisible and the checker goes on
+    reporting 0. Measured over the nine decks: THREE occurrences over two sites — 后来's own gloss,
+    on a card whose third sentence ends *afterwards*, and one Levels 7–9 sentence that deck carries on
+    two notes. All three repaired per note. **Grep the -logue and -ward families by hand after a
+    content batch; this checker covers neither, and a class found twice in three batches is one to
+    expect a third time.**
   **RUN IT rather than quoting a figure here.** Not part of the site.
 - **A SHARED GLOSS IS DISAMBIGUATED BY THE DECK'S OWN `not <other word>` BLOCK.** The English → Chinese
   card's front is the gloss and nothing else, so two notes sharing one are a single question with

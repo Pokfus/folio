@@ -11258,7 +11258,7 @@
       "gloss": "always, invariably"
     },
     "hsk30l3/或": {
-      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | Found by READING the card (batch 29): 你结婚了或没结婚？ puts 或 in an alternative QUESTION, which Chinese does not do — that is 还是 (你结婚了还是没结婚？), or the A-not-A form 你结婚了没有？. 或 joins alternatives in a STATEMENT. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement joins two time words in topic position, where the card's other two sentences join objects. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
       "senses": [
         [
           "conjunction",
@@ -11267,6 +11267,37 @@
         [
           "adverb",
           "perhaps, maybe"
+        ]
+      ],
+      "dropEx": [
+        "你结婚了或没结婚？"
+      ],
+      "ex": [
+        [
+          "明天或后天我都有空。",
+          "I'm free tomorrow or the day after tomorrow."
+        ]
+      ],
+      "compounds": [
+        [
+          "或者",
+          "huò zhě",
+          "or; either ... or"
+        ],
+        [
+          "或许",
+          "huò xǔ",
+          "perhaps; maybe"
+        ],
+        [
+          "或是",
+          "huò shì",
+          "or; either one or the other"
+        ],
+        [
+          "间或",
+          "jiàn huò",
+          "occasionally; now and then"
         ]
       ]
     },
@@ -11453,8 +11484,44 @@
       ]
     },
     "hsk30l3/河": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "river (the general word)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | Found by READING the card (batch 29): the same fault on the very next single-character card in the deck: 河马 is a hippopotamus and 开先河 is an idiom (to set a precedent), so two of three sentences used 河 as a syllable of something else. The first replacement uses the classifier 条 the card carries. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "river (the general word)",
+      "dropEx": [
+        "河马喜欢水。",
+        "他开了先河。"
+      ],
+      "ex": [
+        [
+          "这条河很长，也很宽。",
+          "This river is long and wide."
+        ],
+        [
+          "孩子们在河里游泳。",
+          "The children are swimming in the river."
+        ]
+      ],
+      "compounds": [
+        [
+          "河流",
+          "hé liú",
+          "a river; rivers"
+        ],
+        [
+          "河边",
+          "hé biān",
+          "the riverbank"
+        ],
+        [
+          "银河",
+          "yín hé",
+          "the Milky Way"
+        ],
+        [
+          "运河",
+          "yùn hé",
+          "a canal"
+        ]
+      ]
     },
     "hsk30l3/游客": {
       "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
@@ -73896,7 +73963,7 @@
       ]
     },
     "hsk30l3/画家": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by READING the card (batch 29): the English was not what the Chinese says. 'Artist' is 艺术家; the card's own gloss, and CC-CEDICT's, is 'painter'.",
       "dropEx": [
         "以漫画家谋生几乎不可能。"
       ],
@@ -73905,10 +73972,16 @@
           "这位画家很年轻。",
           "This painter is very young."
         ]
+      ],
+      "exEn": [
+        [
+          "毕加索是一个有名的画家",
+          "Picasso is a famous painter."
+        ]
       ]
     },
     "hsk30l3/后来": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by READING the card (batch 29): the gloss was 'afterward', the AMERICAN form, on a card whose own third sentence ends 'afterwards'. The decks are authored British and the site's spelling switch never runs in the direction that would rescue them, so an American spelling written into deck content is what both readers see. `check-british.js` cannot see this one: `SPELL_PAIRS` has no -ward row at all, which is batch 27's -logue finding in a second family. CC-CEDICT gives /afterwards; later/, so the sense is widened with the spelling.",
       "dropEx": [
         "他十分钟之后来。"
       ],
@@ -73917,7 +73990,8 @@
           "后来我们就再没见过面。",
           "We never met again afterwards."
         ]
-      ]
+      ],
+      "gloss": "afterwards; later"
     },
     "hsk30l3/有关": {
       "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -90549,7 +90623,7 @@
       ]
     },
     "hsk30l7/盘旋": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because app.js's `SPELL_PAIRS` carries no -ward row — the second family found this way, after batch 27's -logue. Measured over all nine decks the class is THREE occurrences over two sites: 后来's gloss in Level 3 (repaired in this batch's own range) and this one sentence, which Levels 7-9 carries on two notes. The same sentence stands on 瓦 and on 盘旋, so the row is written on each.",
       "ex": [
         [
           "老鹰在空中盘旋。",
@@ -90558,6 +90632,12 @@
         [
           "山路盘旋而上。",
           "The mountain road spirals upward."
+        ]
+      ],
+      "exEn": [
+        [
+          "一团尘土与瓦砾腾空而起",
+          "A cloud of dust and debris rose and lingered in the sky for a few minutes afterwards."
         ]
       ]
     },
@@ -109582,6 +109662,264 @@
           "The papers were sent flying by the wind."
         ]
       ]
+    },
+    "hsk30l3/关系": {
+      "why": "Found by READING the card (batch 29): the card named two parts of speech and gave one gloss, and the gloss was the noun's — so its own third sentence, 不只是钱关系重大, was the VERB sense (to concern, to matter) with nothing on the card defining it. Batch 28's shape exactly. Both senses are CC-CEDICT's, in its order. The second sentence's English was also in the past tense over a present-tense Chinese.",
+      "senses": [
+        [
+          "noun",
+          "relation; relationship; connection"
+        ],
+        [
+          "verb",
+          "to concern; to affect"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "exEn": [
+        [
+          "我们的关系非常好",
+          "Our relationship is very good."
+        ]
+      ]
+    },
+    "hsk30l3/关注": {
+      "why": "Found by READING the card (batch 29): the card named one part of speech, verb, and its FIRST sentence was the noun — 谢谢您的关注, 'thank you for your attention' — a sense the card nowhere defined. CC-CEDICT carries both. The second sentence's English, 'he doesn't care much for baseball', said 关心 rather than 关注.",
+      "senses": [
+        [
+          "verb",
+          "to pay attention to"
+        ],
+        [
+          "noun",
+          "attention; concern"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ],
+      "exEn": [
+        [
+          "他不太关注棒球",
+          "He doesn't pay much attention to baseball."
+        ]
+      ]
+    },
+    "hsk30l3/好多": {
+      "why": "Found by READING the card (batch 29): the card glossed 'many' and its first sentence, 这样好多了, means 'this is much better' — a second sense CC-CEDICT lists outright (/many/quite a lot/much better/) and the card did not. It is NOT a straddle `check-example-fit.js` could have caught: the segmenter lands squarely on 好多. The sense is recorded rather than the sentence dropped, because the sentence is a real and common use of the word — though it is worth knowing that most grammars parse 好多了 as 好 + 多了 rather than 好多 + 了, and CC-CEDICT is what settles it here. The `not 许多` reverse-card hint is retired with the same edit and its row removed from `hints`: the first sense now reads 'many; quite a lot' where 许多 reads 'many', so the two no longer collide and a disambiguator disambiguating nothing is worse than none.",
+      "senses": [
+        [
+          "numeral",
+          "many; quite a lot"
+        ],
+        [
+          "adjective",
+          "much better"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ]
+    },
+    "hsk30l3/或者": {
+      "why": "Found by READING the card (batch 29): the card's only gloss was 'perhaps' and all three of its sentences mean 'or' — so the commonest sense of one of the commonest words in the language was missing from its own card. CC-CEDICT leads with /or/ and gives possibly/maybe/perhaps second. The conjunction is deliberately glossed 'or; either ... or' rather than a bare 'or': three other cards (或, 或是, 要么) already carry the bare word, and the house rule gives a group of three or more distinguishing glosses rather than a `not X` hint.",
+      "senses": [
+        [
+          "conjunction",
+          "or; either ... or"
+        ],
+        [
+          "adverb",
+          "perhaps; maybe"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l3/回答": {
+      "why": "Found by READING the card (batch 29): the card glossed 'reply' and all three of its sentences answer a QUESTION — 请回答问题, 这个问题很容易回答. CC-CEDICT gives /to reply; to answer/. The collocation is what distinguishes it and is written into the gloss, because the bare 'to answer; to reply' is already 应对's gloss word for word and a fourth card glossed 'answer' would be a reverse-card question with two right answers.",
+      "gloss": "to answer (a question)"
+    },
+    "hsk30l3/环境": {
+      "why": "Found by READING the card (batch 29): the card glossed 'environment' alone, and two of its three sentences use the word in the wider sense CC-CEDICT also carries (/environment/circumstances/surroundings/): 我适应新环境很慢 and 我需要换个环境, whose English said 'new situations' and 'a change of scenery' and so taught the reader nothing about the word on the card. The gloss is widened and the first sentence's English put back on the headword; the third is left as it stands, 'a change of scenery' being the idiomatic English for it and now covered by the gloss.",
+      "gloss": "environment; surroundings",
+      "exEn": [
+        [
+          "我适应新环境很慢",
+          "I'm slow to adapt to a new environment."
+        ]
+      ]
+    },
+    "hsk30l3/海": {
+      "why": "Found by READING the card (batch 29): two of the card's three sentences used the character and not the word: 人山人海 is an idiom (a sea of people) and 海带 is kelp, so a card glossed 'sea' showed a crowd and a vegetable. Batch 27's 东 finding again — `check-example-fit.js` skips a single-character headword outright, so neither is reportable. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "那里人山人海。",
+        "你国家的人吃海带吗？"
+      ],
+      "ex": [
+        [
+          "这个城市离海很近。",
+          "This city is very close to the sea."
+        ],
+        [
+          "海很深，我不敢下去。",
+          "The sea is deep and I do not dare go in."
+        ]
+      ],
+      "compounds": [
+        [
+          "海洋",
+          "hǎi yáng",
+          "the ocean"
+        ],
+        [
+          "海边",
+          "hǎi biān",
+          "the seaside; the shore"
+        ],
+        [
+          "大海",
+          "dà hǎi",
+          "the open sea"
+        ],
+        [
+          "海鲜",
+          "hǎi xiān",
+          "seafood"
+        ]
+      ]
+    },
+    "hsk30l3/国家": {
+      "why": "Found by READING the card (batch 29): 你是哪国家？ is not grammatical: 哪 needs its classifier before a noun, and the sentence needs a head for 的 to hang on. The repair keeps what the sentence was teaching — asking someone where they are from — in the form a speaker would use. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use.",
+      "dropEx": [
+        "你是哪国家？"
+      ],
+      "ex": [
+        [
+          "你是哪个国家的人？",
+          "Which country do you come from?"
+        ]
+      ]
+    },
+    "hsk30l3/黄色": {
+      "why": "Found by READING the card (batch 29): 红色和黄色和蓝色 chains 和 the way English chains 'and', which Chinese does not do: a list takes the enumeration comma 、 between its members and 和 before the last one only. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement is attributive, where the card's other two sentences are an object and a 是…的 predicate.",
+      "dropEx": [
+        "红色和黄色和蓝色是颜色。"
+      ],
+      "ex": [
+        [
+          "请把黄色的本子给我。",
+          "Please give me the yellow notebook."
+        ]
+      ]
+    },
+    "hsk30l3/换": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "交换",
+          "jiāo huàn",
+          "to exchange; to swap"
+        ],
+        [
+          "更换",
+          "gēng huàn",
+          "to replace"
+        ],
+        [
+          "兑换",
+          "duì huàn",
+          "to exchange (currency)"
+        ],
+        [
+          "换钱",
+          "huàn qián",
+          "to change money"
+        ]
+      ]
+    },
+    "hsk30l3/关于": {
+      "why": "Found by READING the card (batch 29): six ASCII full stops where Chinese writes the ellipsis ……. It is the deck-level punctuation pass's own class — a half-width mark inside a Chinese sentence — and the pass cannot see it: its table converts , ; : ! ? and pairs quotes, and has no row for the full stop, the full stop being a legitimate mark inside a number. Measured over all nine decks the class is SEVEN sentences over five decks against four that use …… correctly, and two of the seven (郊区很安静... and 倾听...) are not sentences at all but truncated fragments needing judgement — so it is not a table, and this one is repaired where it stands. The other six are recorded in docs/mandarin-review.md for the batches that reach them.",
+      "exSpace": [
+        [
+          "关于这件事......我真的不知道。",
+          "关于这件事……我真的不知道。"
+        ]
+      ]
+    },
+    "hsk30l3/关心": {
+      "why": "Found by READING the card (batch 29): the English was not what the Chinese says. 'He is careless about money' says he is bad with money; 不关心 says he does not care about it.",
+      "exEn": [
+        [
+          "他不关心钱",
+          "He doesn't care about money."
+        ]
+      ]
+    },
+    "hsk30l3/害怕": {
+      "why": "Found by READING the card (batch 29): the English was not what the Chinese says. 'She never shivers' is a translation of something else entirely, and the card is glossed 'afraid'.",
+      "exEn": [
+        [
+          "她从不害怕",
+          "She is never afraid."
+        ]
+      ]
+    },
+    "hsk30l3/好像": {
+      "why": "Found by READING the card (batch 29): the English was not what the Chinese says. 'How fascinating!' renders 挺有趣 and drops the headword, so the one word the card is teaching had nothing standing for it in the English.",
+      "exEn": [
+        [
+          "好像挺有趣",
+          "It seems quite interesting."
+        ]
+      ]
+    },
+    "hsk30l3/号码": {
+      "why": "Found by READING the card (batch 29): the English was not what the Chinese says. The Chinese says 电话号码 and the English said only 'the number'.",
+      "exEn": [
+        [
+          "电话号码是多少",
+          "What's the phone number?"
+        ]
+      ]
+    },
+    "hsk30l3/欢迎": {
+      "why": "Found by READING the card (batch 29): the English was not what the Chinese says. 'Feel free to stay' carries the sense and not the word, so the first of the card's three sentences did not show a reader what 欢迎 does.",
+      "exEn": [
+        [
+          "欢迎留下来",
+          "You're welcome to stay."
+        ]
+      ]
+    },
+    "hsk30l3/会议": {
+      "why": "Found by READING the card (batch 29): the English was not what the Chinese says. The Chinese is one meeting and the English was plural.",
+      "exEn": [
+        [
+          "会议怎么样",
+          "How was the meeting?"
+        ]
+      ]
+    },
+    "hsk30l7/瓦": {
+      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because app.js's `SPELL_PAIRS` carries no -ward row — the second family found this way, after batch 27's -logue. Measured over all nine decks the class is THREE occurrences over two sites: 后来's gloss in Level 3 (repaired in this batch's own range) and this one sentence, which Levels 7-9 carries on two notes.",
+      "exEn": [
+        [
+          "一团尘土与瓦砾腾空而起",
+          "A cloud of dust and debris rose and lingered in the sky for a few minutes afterwards."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -109669,7 +110007,6 @@
     "hsk30l3/嘴": "嘴巴",
     "hsk30l3/地点": "所在",
     "hsk30l3/奇怪": "蹊跷",
-    "hsk30l3/好多": "许多",
     "hsk30l3/干净": "清洁",
     "hsk30l3/开心": "高兴",
     "hsk30l3/忘记": "遗忘",
