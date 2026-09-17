@@ -3044,7 +3044,7 @@
       ]
     },
     "hsk30idm/宽宏大量": {
-      "why": "An idiom's gloss says what it MEANS and throws away what it SAYS, and the image is most of what makes a four-character idiom stick. Written from the characters, and only where the literal reading says something the meaning does not. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An idiom's gloss says what it MEANS and throws away what it SAYS, and the image is most of what makes a four-character idiom stick. Written from the characters, and only where the literal reading says something the meaning does not. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. **And this is one of the four the sweep found that a deletion would NOT fix**: the gap is doing a mark's work, so taking it away runs two clauses together. The row supplies the mark instead — which `exSpace` can do and nothing else in this record can, since it changes no word. ",
       "Literally": "broad and great in capacity",
       "ex": [
         [
@@ -3054,6 +3054,12 @@
         [
           "谢谢您宽宏大量。",
           "Thank you for your generosity."
+        ]
+      ],
+      "exSpace": [
+        [
+          "宽宏大量是个宝；与人无争结缘好 放下名利不烦恼；心生欢喜不觉老。",
+          "宽宏大量是个宝；与人无争结缘好，放下名利不烦恼；心生欢喜不觉老。"
         ]
       ]
     },
@@ -10769,8 +10775,14 @@
       ]
     },
     "hsk30l3/丢": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "to lose, to mislay; to throw away"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
+      "gloss": "to lose, to mislay; to throw away",
+      "exSpace": [
+        [
+          "我丢了手表 。",
+          "我丢了手表。"
+        ]
+      ]
     },
     "hsk30l3/中": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -11628,7 +11640,7 @@
       ]
     },
     "hsk30l3/难": {
-      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. **This one is the fault at its widest: the sentence is set with a space between every word, which is how a learner's textbook glosses Chinese and not how Chinese is written.** The deck already carries the word division in the structure line above the sentence, so the spaces say nothing the card was not already saying properly. ",
       "Pinyin": "nán / nàn",
       "Bopomofo": "ㄋㄢˊ / ㄋㄢˋ",
       "senses": [
@@ -11641,6 +11653,12 @@
           "nàn",
           "noun",
           "disaster, calamity; to blame"
+        ]
+      ],
+      "exSpace": [
+        [
+          "学习 汉语 难 不 难？",
+          "学习汉语难不难？"
         ]
       ]
     },
@@ -12157,8 +12175,14 @@
       "gloss": "window"
     },
     "hsk30l4/窗户": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "window (of a building; the everyday word)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. **This one is the fault at its widest: the sentence is set with a space between every word, which is how a learner's textbook glosses Chinese and not how Chinese is written.** The deck already carries the word division in the structure line above the sentence, so the spaces say nothing the card was not already saying properly. ",
+      "gloss": "window (of a building; the everyday word)",
+      "exSpace": [
+        [
+          "窗户 打开 了。",
+          "窗户打开了。"
+        ]
+      ]
     },
     "hsk30l4/美好": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
@@ -13056,11 +13080,17 @@
       "gloss": "cost of production, outlay"
     },
     "hsk30l5/或是": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. This one carried the fault twice and a third space after the first mark.",
       "ex": [
         [
           "在美国，当你进入餐厅时，你可选择坐在吸烟区或是禁烟区。",
           "In the U.S., you have the option, when you enter a restaurant, to sit in the smoking or non-smoking section."
+        ]
+      ],
+      "exSpace": [
+        [
+          "健康比财富重要。这句话是对呢 ? 或是错呢 ?",
+          "健康比财富重要。这句话是对呢？或是错呢？"
         ]
       ]
     },
@@ -16049,11 +16079,17 @@
       ]
     },
     "hsk30l6/品尝": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
       "ex": [
         [
           "在上海一家酒吧开始售我最喜欢的啤酒，所以我趁这个机会好好品尝。",
           "A bar in Shanghai started selling my favorite beer, so I'll take the opportunity to taste some."
+        ]
+      ],
+      "exSpace": [
+        [
+          "你在台湾品尝过火锅吗 ?",
+          "你在台湾品尝过火锅吗？"
         ]
       ]
     },
@@ -16675,10 +16711,10 @@
       ]
     },
     "hsk30l6/宏大": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | AND THE WHITESPACE SWEEP FOUND THIS CARD THROUGH ITS OWN RECORD (batch 25). The couplet is a real deck sentence that this note carries a COPY of, so the same stray space stood on three cards — two generator blocks, repaired with `exSpace`, and this one, where the record is what ships it and the row itself is the thing to fix. **A repair that reaches a sentence through the decks does not reach the record's own copy of it**, and a run of the applier would have put the space straight back.",
       "ex": [
         [
-          "宽宏大量是个宝; 与人无争结缘好 放下名利不烦恼; 心生欢喜不觉老.",
+          "宽宏大量是个宝; 与人无争结缘好, 放下名利不烦恼; 心生欢喜不觉老.",
           "Magnanimity is a great treasure; harmonious affinity with others is wonderful, Detachment from name and gain averts trouble; happiness makes older people feel young."
         ],
         [
@@ -27812,11 +27848,17 @@
       ]
     },
     "hsk30l7/饶": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
       "ex": [
         [
           "饶了我吧！",
           "Please give me a break."
+        ]
+      ],
+      "exSpace": [
+        [
+          "你喜欢饶舌音乐吗 ?",
+          "你喜欢饶舌音乐吗？"
         ]
       ]
     },
@@ -90042,7 +90084,7 @@
       ]
     },
     "hsk30l7/名利": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. **And this is one of the four the sweep found that a deletion would NOT fix**: the gap is doing a mark's work, so taking it away runs two clauses together. The row supplies the mark instead — which `exSpace` can do and nothing else in this record can, since it changes no word. The couplet runs 宝；…好，…恼；…老。 and the comma is the only mark that keeps that shape.",
       "ex": [
         [
           "他不追求名利。",
@@ -90051,6 +90093,12 @@
         [
           "名利不是一切。",
           "Fame and profit are not everything."
+        ]
+      ],
+      "exSpace": [
+        [
+          "宽宏大量是个宝；与人无争结缘好 放下名利不烦恼；心生欢喜不觉老。",
+          "宽宏大量是个宝；与人无争结缘好，放下名利不烦恼；心生欢喜不觉老。"
         ]
       ]
     },
@@ -94313,7 +94361,7 @@
       ]
     },
     "hsk30l7/孝顺": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. **And this is one of the four the sweep found that a deletion would NOT fix**: the gap is doing a mark's work, so taking it away runs two clauses together. The row supplies the mark instead — which `exSpace` can do and nothing else in this record can, since it changes no word. A numbered pair needs the comma between its two items.",
       "ex": [
         [
           "她很孝顺。",
@@ -94322,6 +94370,12 @@
         [
           "孝顺不只是给钱。",
           "Filial piety is more than giving money."
+        ]
+      ],
+      "exSpace": [
+        [
+          "世上有两件事不能等：一、孝顺 二、行善。",
+          "世上有两件事不能等：一、孝顺，二、行善。"
         ]
       ]
     },
@@ -94417,7 +94471,7 @@
       ]
     },
     "hsk30l7/欣慰": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. Three marks on one sentence, and the space is the least of them. The gap after 约翰 simply goes; the two commas listing the four names become the ENUMERATION comma 、, which is the mark Chinese uses inside a list and reserves the full comma for clauses; and a comma is supplied before the last clause, which had none. Every one of those is punctuation, so the row changes no word.",
       "ex": [
         [
           "看到进步他很欣慰。",
@@ -94426,6 +94480,12 @@
         [
           "父母感到欣慰。",
           "The parents felt gratified."
+        ]
+      ],
+      "exSpace": [
+        [
+          "我相信马太，马可，路加和约翰 所说的话。假如我在一场车祸中是受害者的话，如果他们成为我的证人（目击者）我会很欣慰。",
+          "我相信马太、马可、路加和约翰所说的话。假如我在一场车祸中是受害者的话，如果他们成为我的证人（目击者），我会很欣慰。"
         ]
       ]
     },
@@ -97447,11 +97507,17 @@
       ]
     },
     "hsk30l7/栽": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. Here the mark after the gap is a comma rather than a full stop, which is the same accident one mark over.",
       "ex": [
         [
           "他在院里栽了一棵树。",
           "He planted a tree in the yard."
+        ]
+      ],
+      "exSpace": [
+        [
+          "为了增添节日的气氛 ，那里的人用盆栽装饰他们的家。",
+          "为了增添节日的气氛，那里的人用盆栽装饰他们的家。"
         ]
       ]
     },
@@ -99238,11 +99304,17 @@
       ]
     },
     "hsk30l7/裸体": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
       "ex": [
         [
           "雕像是裸体的。",
           "The statue is nude."
+        ]
+      ],
+      "exSpace": [
+        [
+          "国王是裸体的 ！",
+          "国王是裸体的！"
         ]
       ]
     },
@@ -100822,11 +100894,17 @@
       ]
     },
     "hsk30l7/增添": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. Here the mark after the gap is a comma rather than a full stop, which is the same accident one mark over.",
       "ex": [
         [
           "这为节日增添了气氛。",
           "This added to the festive atmosphere."
+        ]
+      ],
+      "exSpace": [
+        [
+          "为了增添节日的气氛 ，那里的人用盆栽装饰他们的家。",
+          "为了增添节日的气氛，那里的人用盆栽装饰他们的家。"
         ]
       ]
     },
@@ -108740,6 +108818,176 @@
     "hsk30l3/假期": {
       "why": "A COLLISION THIS BATCH MADE ITSELF, and the fault is worth knowing before the next gloss dedupe: taking the American half off a gloss that carried both words leaves the British half, and the British half is often what a NEIGHBOURING note already says. `check-mandarin-coverage.js` went from 2 still-ambiguous reverse groups to 7 on this batch's first run. It collided with 假日 once “vacation” became “holiday”. 假期 is a STRETCH of holiday and 假日 a day off, which is the distinction the two glosses now carry.",
       "gloss": "holiday; holiday period"
+    },
+    "hsk30phr/没什么": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
+      "exSpace": [
+        [
+          "路上没什么车 。",
+          "路上没什么车。"
+        ]
+      ]
+    },
+    "hsk30l3/酒": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
+      "exSpace": [
+        [
+          "酒后别开车 。",
+          "酒后别开车。"
+        ]
+      ]
+    },
+    "hsk30l3/可爱": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
+      "exSpace": [
+        [
+          "他们可爱吗 ？",
+          "他们可爱吗？"
+        ]
+      ]
+    },
+    "hsk30l4/来不及": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
+      "exSpace": [
+        [
+          "不，如果不从现在开始练习，就来不及了 。",
+          "不，如果不从现在开始练习，就来不及了。"
+        ]
+      ]
+    },
+    "hsk30l4/友好": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
+      "exSpace": [
+        [
+          "你和他都很友好 。",
+          "你和他都很友好。"
+        ]
+      ]
+    },
+    "hsk30l5/专家": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
+      "exSpace": [
+        [
+          "据说她是个滑雪专家 。",
+          "据说她是个滑雪专家。"
+        ]
+      ]
+    },
+    "hsk30l6/滑雪": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
+      "exSpace": [
+        [
+          "据说她是个滑雪专家 。",
+          "据说她是个滑雪专家。"
+        ]
+      ]
+    },
+    "hsk30l4/重": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
+      "exSpace": [
+        [
+          "大象比河马重，不是吗 ?",
+          "大象比河马重，不是吗？"
+        ]
+      ]
+    },
+    "hsk30l5/大象": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
+      "exSpace": [
+        [
+          "大象比河马重，不是吗 ?",
+          "大象比河马重，不是吗？"
+        ]
+      ]
+    },
+    "hsk30l4/距离": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
+      "exSpace": [
+        [
+          "博物馆和这里之间距离多远 ?",
+          "博物馆和这里之间距离多远？"
+        ]
+      ]
+    },
+    "hsk30l4/之间": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
+      "exSpace": [
+        [
+          "博物馆和这里之间距离多远 ?",
+          "博物馆和这里之间距离多远？"
+        ]
+      ]
+    },
+    "hsk30l5/火锅": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once.  | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. Here the mark after the gap is a comma rather than a full stop, which is the same accident one mark over.",
+      "exSpace": [
+        [
+          "你在台湾品尝过火锅吗 ?",
+          "你在台湾品尝过火锅吗？"
+        ],
+        [
+          "吃火锅的时候 ,气氛往往是非常热闹的。",
+          "吃火锅的时候，气氛往往是非常热闹的。"
+        ]
+      ]
+    },
+    "hsk30l7/坠": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
+      "exSpace": [
+        [
+          "她曾经坠入过爱河吗 ?",
+          "她曾经坠入过爱河吗？"
+        ]
+      ]
+    },
+    "hsk30l7/贩卖": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
+      "exSpace": [
+        [
+          "你们有贩卖水果吗 ?",
+          "你们有贩卖水果吗？"
+        ]
+      ]
+    },
+    "hsk30l7/魔鬼": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
+      "exSpace": [
+        [
+          "你相不相信，这世界上有魔鬼 ?",
+          "你相不相信，这世界上有魔鬼？"
+        ]
+      ]
+    },
+    "hsk30l4/热闹": {
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. Here the mark after the gap is a comma rather than a full stop, which is the same accident one mark over.",
+      "exSpace": [
+        [
+          "吃火锅的时候 ,气氛往往是非常热闹的。",
+          "吃火锅的时候，气氛往往是非常热闹的。"
+        ]
+      ]
+    },
+    "hsk30l7/托": {
+      "why": "Found by the WHITESPACE sweep (batch 25), which is worth saying because the space was the least of it. **NOT ONE of the card's three sentences used 托 as a word at all**: it stood inside 贝内迪托 (Benedito), 托尼 (Tony) and 克里斯托弗 (Christopher) — three transliterations of European names, on a card glossed *to support with the hand or palm*. That is batch 22's character-error class in its other form, and nothing else in the pipeline can see it: `check-example-fit.js` skips a single-character headword outright, because one character cannot straddle a word boundary. | **And the third sentence's English was a different sentence altogether**: 为什么克里斯托弗·哥伦布离婚了？ asks why Christopher Columbus got DIVORCED, and the English under it read “What did Christopher Columbus discover?” | All three replaced with AUTHORED sentences, and the record says so: each uses 托 as a free verb in the sense the gloss gives it, and each takes a different construction — the instrument with 用手, a serial verb with 走了过来, and the resultative 托起.",
+      "dropEx": [
+        "贝内迪托与排队的粉丝们击掌。",
+        "托尼晚饭后学习吗？",
+        "为什么克里斯托弗·哥伦布离婚了 ？"
+      ],
+      "ex": [
+        [
+          "他用手托着下巴，认真地听着。",
+          "He rested his chin on his hand and listened carefully."
+        ],
+        [
+          "服务员托着一盘菜走了过来。",
+          "The waiter came over carrying a plate of food on his palm."
+        ],
+        [
+          "她双手托起那只小猫。",
+          "She lifted the kitten up with both hands."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",

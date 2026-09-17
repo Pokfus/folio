@@ -560,6 +560,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | **the violence half of that sweep, plus a public-figures sweep**, all nine decks | 29 | a living head of state accused of murder on a vocabulary card |
 | 2026-09-17 | **the American-spelling pass**, all nine decks, as a new `exBritish` deck field | 412 | 489 American spellings in decks the site's switch can never correct |
 | 2026-09-17 | **the American-word-choice pass**, all nine decks, as a new `exLexis` deck field plus 87 per-note rows | 189 | a word the spelling table cannot reach, because it is a different word |
+| 2026-09-17 | **the whitespace pass**, all nine decks, as a new `exSpace` note field | 30 | a card not one of whose three sentences used its own headword as a word |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -3058,3 +3059,88 @@ sixth-form or further-education college rather than a university.
 - `check-coarse.js`: unchanged in all six columns; `check-say-reading.js` unchanged
 - answer-leak sets byte-identical to HEAD on all nine decks; 34,596 example blocks, spoken == visible on every one; sense tags past the sense list 0
 - stray spaces: **32 blocks, 24 distinct** — unchanged, and now the only named batch left
+
+### 2026-09-17 — the whitespace pass
+
+**The last of the three standalone batches batch 20 named**, and the smallest of them: 32 example
+blocks carrying a space where Chinese sets none — between two characters, or between a character and
+the mark that ends the sentence. It is the least consequential fault in the backlog and it is on the
+card twice over, because the gap rides in `data-say` as well as in the visible text, so the speaker
+pauses where the writing does not.
+
+**It needed a new field, and the reason is `dropEx`.** The only way this record can change a
+generator's example is to drop the block and author a replacement — and a generator block carries a
+STRUCTURE LINE glossing every word's part of speech and bolds the headword inside its visible text,
+neither of which can be re-derived, so a drop-and-re-add loses both. `exStop` was written for exactly
+this shape one mark over (append a terminal full stop and nothing else) and cannot help here, its
+whole safety argument being that it only ever appends. `exSpace: [[was, now]]` is that argument one
+degree wider: **a row that can only move whitespace and punctuation cannot invalidate a structure
+line or a bolding**, and `zhSkeleton` is what enforces it — the two sides are compared with every
+space and every punctuation mark stripped out, and a row whose sides differ by so much as one
+character is a hard FAIL rather than a warning.
+
+**The edit is tag-aware, which a string replace is not.** `rewriteZhVisible` walks the block's
+visible text into tag tokens and character tokens, checks that the characters spell the old sentence
+exactly, records which tags open and close at which non-punctuation position, and re-emits the new
+sentence with each tag put back at the position it was at. So the `<b>` round the headword survives a
+comma being inserted four characters in front of it. If anything fails to line up it returns null and
+the row reports rather than writing.
+
+**One ordering inside it is load-bearing and got it wrong first.** The block's `data-say` also appears
+inside the visible div's own `uc-tts` span, so the match on the visible div is captured from the
+ORIGINAL block text — rewriting the attribute first leaves that replace with nothing to find, and it
+**fails silently**: the spoken field moves and the words on the card stand still, which is precisely
+the fault the standing spoken-vs-visible sweep exists to catch and which would have shipped if that
+sweep were not run. The visible text is replaced first and a comment says why.
+
+**What the 24 distinct sentences were.** Twenty were mechanical — seventeen a space before the mark
+that ends the sentence (我丢了手表 。), two set with a space between every word (学习 汉语 难 不 难？,
+窗户 打开 了。), one a space before a comma. Four were not, and those are the ones a deletion would
+have made worse, because the gap was doing a mark's work:
+
+- **宽宏大量's couplet**, where the space stands between two clauses of a four-part verse and a
+  deletion runs them together. The row supplies the enumeration comma instead.
+- **孝顺's numbered pair** (世上有两件事不能等：一、孝顺 二、行善。) — a numbered list needs the comma
+  between its items.
+- **欣慰's list of four evangelists**, which carried three faults at once: the space after 约翰, two
+  clause commas standing where Chinese uses the enumeration mark 、 inside a list, and a missing comma
+  before the final clause. All three are punctuation, so the row changes no word.
+- **火锅's second sentence** (吃火锅的时候 ,气氛…), where the space had also hidden the sentence from
+  the deck-level punctuation pass — that pass matches a mark sitting IMMEDIATELY after a character,
+  so the half-width comma beside the gap had never been converted either. **A stray space is not only
+  a stray space: it is a hole in every check keyed on what stands next to a character.**
+
+**And the sweep found two things that are not whitespace at all.**
+
+**托 — not one of its three sentences used the headword as a word.** The card is glossed *to support
+with the hand or palm*, and 托 stood inside 贝内迪托 (Benedito), 托尼 (Tony) and 克里斯托弗
+(Christopher): three transliterations of European names. That is batch 22's character-error class in
+its other form — the example is on this card only because the character happens to occur in somebody's
+name — and **nothing in the pipeline can see it**, because `check-example-fit.js` skips a
+single-character headword outright, one character being unable to straddle a word boundary. The third
+sentence was worse again: 为什么克里斯托弗·哥伦布离婚了？ asks why Christopher Columbus got DIVORCED,
+and the English under it read "What did Christopher Columbus discover?" — a different sentence
+altogether. All three dropped and replaced with authored ones, each using 托 as a free verb in three
+different constructions (the instrument with 用手, a serial verb with 走了过来, the resultative 托起).
+
+**宏大's copy of the 宽宏大量 couplet is shipped by the RECORD, not by the generator.** The couplet is
+a real deck sentence that this note was given a copy of in an earlier batch, so the same stray space
+stood on three cards: two generator blocks, repaired with `exSpace`, and this one, where the fix
+belongs in the record's own `ex` row. **A repair that reaches a sentence through the decks does not
+reach the record's own copy of it**, and a run of the applier would have put the space straight back —
+which is the same shape as batch 8's `dropEx` fault and is worth expecting whenever a sweep finds a
+sentence this record authored.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run of the applier writes nothing
+- both new guards proved live: a row that changes a word, and a block whose visible text disagrees with its `data-say`, each fail the run (exit 1) and restore to exit 0
+- **stray spaces: 32 blocks, 24 distinct → 0** — the whole finding, closed
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous reverse groups **2**, unchanged
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged** — and not one finding names a card this batch touched
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0**; the lexical residual is **232 over 13 words**, one more than batch 24's 231 over 12, and the one is batch 24's own deliberate 橡皮 gloss "rubber (the eraser)"
+- `check-coarse.js`: measured against HEAD, **identical in all six columns**; `check-say-reading.js` unchanged
+- answer-leak sets byte-identical to HEAD on all nine decks; 34,596 example blocks, **spoken == visible on every one**; sense tags past the sense list 0
+- `build-lang-decks.js`: re-run, and exactly the **seven touched decks** carry a new content revision — Levels 1 and 2 are byte-identical, so their readers are not offered an update they do not need

@@ -101,6 +101,50 @@ const ABBR = {
 };
 const abbr = (pos) => pos.split("/").map((p) => ABBR[p.trim()] || p.trim()).join("/");
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const deesc = (s) => String(s).replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&");
+
+/* ---------- MOVING WHITESPACE AND PUNCTUATION INSIDE A GENERATOR'S OWN SENTENCE ----------
+   `exStop` says in its own comment why it cannot be a general Chinese rewrite: a generator block
+   carries a STRUCTURE LINE glossing every word's part of speech and BOLDS the headword inside its
+   visible text, and neither can be re-derived for different words. Deleting a stray space, or turning
+   an ASCII comma into a full-width one, changes NO WORD — so both stay true, by exactly the argument
+   that lets `exStop` append a mark.
+   THE GUARD IS WHAT MAKES THAT AN ARGUMENT RATHER THAN A HOPE: `zhSkeleton` strips every space and
+   every mark from both sides of the row and REFUSES the pair unless what is left is identical. A row
+   therefore cannot add, remove or change a character of the sentence itself, whatever is typed in it.
+   THE BOLD IS RE-PLACED BY SKELETON INDEX, NOT BY STRING POSITION. The tags interleave with the very
+   characters being edited — `<b>窗户</b> 打开 了。` — so the visible text is tokenised into tags and
+   characters, each tag is recorded against the number of SKELETON characters before it, and the new
+   text is emitted with the tags flushed back at the same counts. An opening tag goes before its
+   skeleton character and a closing tag immediately after the previous one, which is what keeps a
+   trailing mark OUTSIDE the bold rather than inside it. */
+const ZH_PUNCT = /[\s　 ，。、；：？！“”‘’（）《》〈〉—…·,.;:?!"'()\[\]]/;
+const zhSkeleton = (t) => String(t).split("").filter((c) => !ZH_PUNCT.test(c)).join("");
+function rewriteZhVisible(html, oldPlain, newPlain) {
+  const toks = [];
+  for (let i = 0; i < html.length; ) {
+    if (html[i] === "<") { const j = html.indexOf(">", i); if (j < 0) return null; toks.push({ tag: html.slice(i, j + 1) }); i = j + 1; }
+    else { toks.push({ ch: html[i] }); i++; }
+  }
+  const plain = deesc(toks.filter((t) => t.ch !== undefined).map((t) => t.ch).join(""));
+  if (plain !== oldPlain) return null;
+  const opens = new Map(), closes = new Map();
+  let sk = 0;
+  for (const t of toks) {
+    if (t.tag !== undefined) {
+      const m = /^<\//.test(t.tag) ? closes : opens;
+      if (!m.has(sk)) m.set(sk, []);
+      m.get(sk).push(t.tag);
+    } else if (!ZH_PUNCT.test(t.ch)) sk++;
+  }
+  let out = "", n = 0;
+  for (const ch of String(newPlain)) {
+    if (!ZH_PUNCT.test(ch)) { out += (opens.get(n) || []).join(""); out += esc(ch); n++; out += (closes.get(n) || []).join(""); }
+    else out += esc(ch);
+  }
+  if (n !== sk) return null;
+  return out;
+}
 
 /* senses → the two fields that must agree. `multi` is decided by the sense list rather than passed in,
    so a note that gains a second reading gains its prefixes in both fields in the same pass. */
@@ -318,7 +362,7 @@ const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
 let hitsBrit = 0;
 let hitsLex = 0;
-let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [], badExStop = [];
+let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [], badExStop = [], badExSpace = [];
 let hitsPunct = 0;
 
 const hints = Object.entries(fixes.hints || {});
@@ -525,6 +569,43 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
       });
       fl.Examples = blocks.join("");
     }
+    /* ---------- THE SAME EDIT ONE DEGREE WIDER: STRAY WHITESPACE AND THE MARK BESIDE IT ----------
+       `exSpace` is `[[shipped, fixed]]`, matched on `data-say` EXACTLY as `exStop` is, written to
+       `data-say` and the visible text together, and idempotent — a block already carrying the fixed
+       form is a no-op. It is a DECLARED LIST rather than a deck-level sweep because four of the
+       twenty-four sentences it was written for want a COMMA where the space is rather than nothing,
+       which is a judgement per sentence; the rest are mechanical and are declared beside them so one
+       reading covers both. */
+    if (fix.exSpace) {
+      let blocks = String(fl.Examples || "").split('<div class="uc-exi').filter(Boolean)
+        .map((x) => '<div class="uc-exi' + x);
+      fix.exSpace.forEach(([was, now]) => {
+        if (!now || zhSkeleton(was) !== zhSkeleton(now)) {
+          badExSpace.push(w.key + " → changes more than spacing and punctuation: " + was); return;
+        }
+        let hit = 0, done = 0;
+        blocks = blocks.map((b) => {
+          const m = /data-say="([^"]*)"/.exec(b);
+          if (!m) return b;
+          if (m[1] === esc(now)) { done++; return b; }
+          if (m[1] !== esc(was)) return b;
+          const zd = /(<div class="uc-exz">)([\s\S]*?)(<\/div>)/.exec(b);
+          if (!zd) { badExSpace.push(w.key + " → no visible text: " + was); return b; }
+          const pre = /^(\s*<span class="uc-tts[^>]*><\/span>)?/.exec(zd[2])[0];
+          const vis = rewriteZhVisible(zd[2].slice(pre.length), was, now);
+          if (vis === null) { badExSpace.push(w.key + " → visible text does not match `data-say`: " + was); return b; }
+          hit++;
+          /* THE VISIBLE TEXT IS REPLACED FIRST, and that order is load-bearing: `zd[0]` was matched on
+             the ORIGINAL block and carries the old `data-say` inside its own `uc-tts` span, so
+             rewriting the attribute first leaves this replace with nothing to find — which fails
+             SILENTLY, the spoken field moving while the words on the card stand still. */
+          return b.replace(zd[0], () => zd[1] + pre + vis + zd[3])
+            .replace('data-say="' + m[1] + '"', () => 'data-say="' + esc(now) + '"');
+        });
+        if (!hit && !done) badExSpace.push(w.key + " → " + was);
+      });
+      fl.Examples = blocks.join("");
+    }
     if (fix.mw) {
       const bad = fix.mw.filter((ch) => !MW[ch]);
       if (bad.length) { badMW.push(w.key + " → " + bad.join(" ")); continue; }
@@ -699,6 +780,12 @@ if (badSense.length) {
 if (badCmp.length) {
   console.log("\n  FAIL  " + badCmp.length + " `compounds` row(s) that do not contain the headword, or repeat it:");
   badCmp.forEach((k) => console.log("        " + k));
+  process.exit(1);
+}
+if (badExSpace.length) {
+  console.log("\n  FAIL  " + badExSpace.length + " `exSpace` row(s) naming a sentence the note has not got," +
+    " or changing more than its spacing:");
+  badExSpace.forEach((k) => console.log("        " + k));
   process.exit(1);
 }
 if (badExStop.length) {

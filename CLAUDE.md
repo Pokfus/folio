@@ -1783,6 +1783,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     re-derived for different words — appending a mark at the end is the one edit that leaves both true.
     Both FAIL rather than warn when a row matches nothing, since unlike `dropEx` they are re-asserted
     on every run, so a row matching nothing is always a typo and never a repair already made.
+  · **`exSpace` IS THAT ARGUMENT ONE DEGREE WIDER, AND `zhSkeleton` IS WHAT BOUNDS IT.**
+    `exSpace: [[was, now]]` rewrites a generator block's CHINESE — which `exStop`'s own reasoning says
+    must not be possible — and is safe only because the two sides are compared with every space and
+    every punctuation mark stripped out: **a row that can only move whitespace and punctuation cannot
+    invalidate a structure line or a bolding**, and a row whose sides differ by one character is a hard
+    FAIL. It exists because 32 blocks carried a space where Chinese sets none, on the card and in
+    `data-say` both, and four of them needed a MARK supplied rather than the gap deleted, a deletion
+    running two clauses together.
+    **THE EDIT IS TAG-AWARE** (`rewriteZhVisible`): the visible text is walked into tag and character
+    tokens, the characters are checked to spell the old sentence exactly, and each tag is re-emitted at
+    the non-punctuation position it opened or closed at — so a `<b>` round the headword survives a comma
+    inserted in front of it, and anything that fails to line up reports rather than writing.
+    **AND THE VISIBLE TEXT IS REWRITTEN BEFORE `data-say`, WHICH IS LOAD-BEARING**: the block's
+    `data-say` also sits inside the visible div's own `uc-tts` span, so the visible div is matched
+    against the ORIGINAL text — doing the attribute first leaves that replace with nothing to find, and
+    it fails SILENTLY, the spoken field moving while the words on the card stand still.
+    **A STRAY SPACE IS ALSO A HOLE IN EVERY CHECK KEYED ON WHAT STANDS NEXT TO A CHARACTER**: the
+    deck-level punctuation pass matches a mark sitting IMMEDIATELY after one, so a half-width mark
+    behind a gap had never been converted either.
+    **AND A SWEEP OVER THE DECKS DOES NOT REACH A SENTENCE THIS RECORD SHIPS.** Where a note carries a
+    COPY of a deck sentence in its own `ex` row, the fix belongs in that row — repaired through the
+    decks it is put straight back by the next run of the applier. Ask which of the two is shipping a
+    sentence before writing a row about it; the same shape as `dropEx`'s own trap, from the other side.
   · **`exBritish` IS A DECK-LEVEL PASS AND THE TABLE IS app.js's OWN**, sliced out by text with the run
     STOPPING if the slice fails. The decks are authored British **because the site's switch never runs
     in the direction that would rescue them** — `applySpelling` returns at once under `en-GB`, the
