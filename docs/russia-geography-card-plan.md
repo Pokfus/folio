@@ -1823,12 +1823,16 @@ charter — which is the primary source for the sentence the four rungs were pro
   Constitutional Assembly on 10 July 2003) puts the capital in chapter 9 with the state symbols, at
   article 101: «Столицей Республики Дагестан является город Махачкала. Статус столицы определяется
   законом Республики Дагестан».
-- **IT IS NOT UNIVERSAL, AND THAT IS THE HALF WORTH RECORDING.** A scan of the first 120 articles found
-  NOTHING in the charters of **Chelyabinsk Oblast** (*Закон Челябинской области от 25 мая 2006 г.
-  N 22-ЗО*), **Samara Oblast** (18 December 2006, N 179-ГД), **Nizhny Novgorod Oblast** (30 December
-  2005, N 219-З), **Rostov Oblast** (29 May 1996, N 19-ЗС) or **Moscow Oblast** (11 December 1996,
-  N 55/96-ОЗ). Several of those charters name the centre nowhere at all; the state-symbols chapter is
-  the place to look first where they do, which is how Dagestan's turned up.
+- **⚠ THE "NOT UNIVERSAL" PARAGRAPH THAT STOOD HERE WAS WRONG, AND THE FAULT WAS A DEAD REGEX.** It
+  reported that a scan of the first 120 articles found NOTHING in the charters of Chelyabinsk, Samara,
+  Nizhny Novgorod, Rostov or Moscow Oblast. The scanner matched `административн\w+`, and **JS's `\w` is
+  ASCII-only, so it never matches Cyrillic at all**: the sweep could not have hit anything, and it
+  reported "none" for Dagestan too — whose article 101 had already been read by hand on this very
+  page. **What caught it was a LIVENESS TEST on the two known hits**, not the count: a scanner that
+  finds nothing and a scanner that cannot find anything read identically from the output. Written
+  `[\p{L}]*` with the `giu` flags, Samara's charter hits at once (article 53) and so does Nizhny
+  Novgorod's (article 5). **Any scanner over Russian text must be proved to fire on a hit you already
+  hold.**
 - **A TOC-TITLE FILTER IS THE WRONG INSTRUMENT AND MISSES A HIT IT HAS ALREADY FETCHED.** The first
   scanner matched only TOC links whose text began *Статья …*, and Dagestan's index writes its capital
   article's CHAPTER heading (*Глава 9. Государственные символы. Столица Республики Дагестан (ст. 101)*)
@@ -1857,3 +1861,74 @@ charter — which is the primary source for the sentence the four rungs were pro
   `gru-009` and `gru-011` both read their climate off the very station these two cards use, so the
   January and July means and the annual total were already spent; what was left is the WETTEST and
   DRIEST months, the rain-day counts, and the months whose nightly minimum sits below freezing.
+
+### Batch 22 — `gru-512` (Samara), `gru-513` (Nizhny Novgorod), and the whole charter shelf swept at once
+
+**THE BOTTLENECK IS BROKEN OPEN: 54 OF THE 85 CHARTERS STATE THEIR OWN CENTRE.** Batch 21 found the
+Garant rung one subject at a time; this batch swept all 85 at once
+(`scratchpad/garsweep2.js`, output `garall.txt`) and the answer sentence — the *X is the administrative
+centre of Y* / *столицей … является город …* sentence that every capital card needs and that no other
+rung reliably supplies — is in a primary source for 54 of them. **This is the single largest unlock the
+capital half has had**, and it is why the remaining centre cards should be planned against this list
+rather than researched blind one at a time.
+
+- **THE 54 THAT ANSWER**, by Garant slug: `cons_adig` `cons_altai` `cons_bashkor` `cons_buryat`
+  `cons_dagest` `cons_ingush` `cons_kabardin` `cons_karach` `cons_karel` `cons_mordov` `cons_tatar`
+  `cons_tiva`; `ustav_altai` `ustav_zabaikal` `ustav_kamchat` `ustav_perm` `ustav_primor` `ustav_habar`;
+  `ustav_arhangel` `ustav_astrah` `ustav_belgorod` `ustav_bryans` `ustav_vladim` `ustav_volgograd`
+  `ustav_vologod` `ustav_voroneg` `ustav_ivanov` `ustav_irkut` `ustav_kalug` `ustav_kemer` `ustav_kirov`
+  `ustav_kostrom` `ustav_kursk` `ustav_murman` `ustav_nijegor` `ustav_novgor` `ustav_novosib`
+  `ustav_penz` `ustav_ryazan` `ustav_samar` `ustav_sarat` `ustav_sahalin` `ustav_smolensk` `ustav_tambov`
+  `ustav_tver` `ustav_tulsk` `ustav_tumen` `ustav_ulyan` `ustav_yaroslav`; `ustav_evreis` `ustav_nenetsk`
+  `ustav_ugri` `ustav_chukot` `ustav_yamal`.
+- **THE 31 THAT DO NOT**: `cons_kalmik` `cons_komi` `cons_krim` `cons_mariy` `cons_saha` `cons_osetiya`
+  `cons_udmurt` `cons_hakas` `cons_chech` `cons_chuvash`; `ustav_krasnod` `ustav_krasnoyar`
+  `ustav_stavrop` `ustav_amur` `ustav_kalin` `ustav_kurgan` `ustav_leningrad` `ustav_lipetsk`
+  `ustav_magadan` `ustav_mosobl` `ustav_omsk` `ustav_orenburg` `ustav_orlov` `ustav_pskov` `ustav_rostov`
+  `ustav_sverdl` `ustav_tomsk` `ustav_chelyab` `ustav_moskv` `ustav_spb` `ustav_sevastopol`. Three of
+  those last are the two federal cities and Sevastopol, which need no centre card at all. **For the rest
+  the ladder's lower rungs still apply**, so a "none" here is a card that costs more research, never a
+  card that cannot be written — `gru-505` Yekaterinburg (`ustav_sverdl`) was written off Europe PMC's
+  full-text search before this sweep existed.
+- **A SWEEP OVER RUSSIAN TEXT MUST BE PROVED TO FIRE, AND THE FIRST ONE COULD NOT.** See the ⚠
+  paragraph in batch 21: `\w` is ASCII-only in JS, so `административн\w+` matched nothing anywhere and
+  the scanner reported "none" for all 85 — including Dagestan and Tyumen, whose articles had already
+  been read by hand. The rule that came out of it: **plant a hit you already hold and watch the scanner
+  find it** before believing a single "none".
+- **THE INDEX CARRIES CHAPTER HEADINGS AS WELL AS ARTICLES, and the chapter headings carry the article
+  RANGES** (`Глава 9. Государственные символы. Столица … (ст. 101)`). The sweep therefore targets a
+  chapter page whose heading matches `центр|столиц|символ|Основные положения|Общие положения`, plus any
+  article titled for it, plus any article whose number falls inside such a chapter's `ст. N` /
+  `ст.ст. N-M` range, plus every article numbered 12 or below. That targeting is what keeps a sweep of
+  85 charters to a few hundred requests instead of ten thousand.
+- **The two cards written on it.** `gru-512` **Samara** rests on `ustav_samar` article 53 plus the
+  *Guide to the Great Siberian Railway* (the 1586 stockaded post, the Samara Bend, the Zhiguli and Sokol
+  hills, the wheat-flour trade) and Reclus vol. 5 (the half-finished wooden town of the eighteen-eighties
+  and the Orenburg railway up the Samara valley). `gru-513` **Nizhny Novgorod** rests on `ustav_nijegor`
+  article 5, Rambaud vol. 1 pp. 121–22 (Yuri II founds the town in 1220 on a hill by the Oka's mouth,
+  with the Mordvan tradition beside it) and Reclus vol. 5 pp. 399–402 (the kremlin eminence 320 feet
+  above the Volga, the fair's migration from the Bulgar capital to Kazan to St Macarius and then here
+  after the fire of 1816, and its trade).
+- **THE SIBLING SUBJECT CARD IS THE CONSTRAINT ON A CENTRE CARD'S PROSE, and `gru-513` is the sharpest
+  case of it yet.** `gru-013` Nizhny Novgorod Oblast already spends its climate sentence on the WMO
+  station's January and July means and its annual total — the obvious figures — **and its whole second
+  paragraph on Minin and Pozharsky in 1612 and on the Great Fair as a visitor saw it in 1875**. So the
+  capital card had to take the same station's *wettest and driest months and its rain-day counts*, and
+  the same fair's *pre-history and its trade figures*, with 1612 left alone entirely. **Read the sibling
+  card before choosing which fact to use, not after**: on a Volga city the two cards' natural material
+  is very nearly the same material.
+- **A FOUNDING YEAR WITH ONE WITNESS IS STATED AS THAT WITNESS GIVES IT.** Rambaud dates the foundation
+  to **1220**, in his chapter heading and again in his text; Reclus gives no year, and Munro-Butler-
+  Johnstone's account of the fair gives none either. The card and its date line therefore say 1220 and
+  cite Rambaud. The conventional modern date is 1221, so **expect this one to look a year out beside
+  other reference works** — the alternative is a year Folio cannot cite, which is worse.
+- **Pictures.** Samara took a daylight view from a pleasure steamer across the Volga (CC BY-SA 4.0) for
+  the card and the pre-1917 timber **grain barns on the Samara river** (public domain) for the glossary
+  term, which is the wheat-flour trade the term's third sentence describes. Nizhny Novgorod took
+  Vmenkov's 2007 view across the Oka to the kremlin bluff (CC BY-SA 3.0) and, for the term, the 1870
+  Shishkin/Karelin print *Кремль, Нижний базаръ и ярмарка* (public domain), which shows the kremlin
+  eminence, the Lower Bazaar and the fair ground in one frame. **Three candidates were rejected by
+  looking at them**: the fetcher's own first pick for Nizhny Novgorod is a photograph **from a cruising
+  airliner**, half cloud, with the city a smudge on the horizon; `Город Самара - panoramio.jpg` is a
+  cosmonaut statue on a pavement; and `Панорама Самары.jpg` is shot through a balcony railing that fills
+  the bottom third. **The fetcher's `MISS`/`ok` verdict says nothing about what is in the frame.**

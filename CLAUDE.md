@@ -835,15 +835,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     subject's, and is the PRIMARY source the other rungs were proxies for — Tyumen Oblast's charter
     gives article 11 to it and Dagestan's constitution article 101, in the chapter on the state
     symbols; **it serves windows-1251, so decode it**, and **the slug is read off `/region/`'s own index
-    and never composed**, `ustav_krasnodar` being a guess that 404s. It is NOT universal: the
-    Chelyabinsk, Samara, Nizhny Novgorod, Rostov and Moscow Oblast charters name their centre nowhere
-    in 120 articles), else the subject's own portal through the Wayback Machine,
+    and never composed**, `ustav_krasnodar` being a guess that 404s. **ALL 85 CHARTERS HAVE NOW BEEN
+    SWEPT AND 54 OF THEM STATE THEIR OWN CENTRE**, which is the largest unlock the capital half has
+    had; the plan's batch 22 lists both sets by slug. **The sweep that said otherwise was a DEAD REGEX
+    — JS's `\w` is ASCII-only and never matches Cyrillic, so `административн\w+` reported "none" for
+    all 85 including the two already read by hand. Prove any scanner over Russian text fires on a hit
+    you already hold**), else the subject's own portal through the Wayback Machine,
     else a UNESCO page, else **Europe PMC's FULL-TEXT phrase search** (added Sep 2026, batch 20: DOAJ
     indexes abstracts, Europe PMC indexes the full text of its open-access subset, so a sentence sitting
     in a Study Area or a Methods section is reachable there and nowhere else — it is what carried
     Yekaterinburg), else an open-access abstract found through DOAJ. **A CENTRE WHOSE SENTENCE NO RUNG
     ANSWERS IS LEFT UNWRITTEN RATHER THAN ASSERTED**, which is why the capital numbers are not
-    contiguous. **📖 The plan's own "THE CAPITAL HALF'S RECIPE" section and its batches 20 and 21 have all of it,
+    contiguous. **📖 The plan's own "THE CAPITAL HALF'S RECIPE" section and its batches 20, 21 and 22 have all of it,
     including which portals the archive refuses, the hosts measured shut, and the Internet Archive's own
     intermittent *Temporarily Offline* page, which a one-shot probe reads as a dead host.** Not part of
     the site.
@@ -5270,7 +5273,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 88 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, `gru-505`, `gru-507`, `gru-508`, `gru-509` and `gru-511` being written of the 80 centres; **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced, so `gru-502`, `gru-503`, `gru-506` and `gru-510` are still to write**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 90 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, `gru-505`, `gru-507`, `gru-508`, `gru-509`, `gru-511`, `gru-512` and `gru-513` being written of the 80 centres; **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced, so `gru-502`, `gru-503`, `gru-506` and `gru-510` are still to write**, see below |
 
 The next id for any of them (substitute the prefix):
 
