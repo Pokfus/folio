@@ -55,10 +55,18 @@ const EN = {
   violence: ["kill","killed","murder","murdered","suicide","suicidal","corpse","slaughter","massacre","torture","tortured","execute","executed","hang","hanged","stab","stabbed","shoot","shot","strangle","strangled","behead","beheaded","drown","drowned","beat","beaten","abuse","abused","assault","assaulted","overdose","addict","addicted","heroin","cocaine","opium","drunk","drunken"],
   slur: ["retard","retarded","idiot","idiots","moron","moronic","stupid","ugly","fat","cripple","crippled","lame","dumb","deaf","blind","insane","crazy","lunatic","mad","freak","loser","losers","savage","savages","primitive","barbarian","barbarians","backward","inferior","greedy","lazy","filthy","dirty","disgusting","vulgar"],
 };
+/* AND A WORD LIST HAS A HOLE UNTIL SOMETHING FALLS THROUGH IT (batch 30). 鸡's second sentence was
+   我喜欢鸡鸡, whose own English read "I like dicks", on a card glossed *chicken* — and this file reported
+   nothing, because neither 鸡鸡 (the child word for the penis) nor 屌 was in the Chinese lists and neither
+   "dick" nor "cock" is in the English one. Both Chinese terms are added above; they have no innocent use.
+   THE ENGLISH SIDE IS DELIBERATELY NOT WIDENED, and that is a measurement rather than an oversight: with
+   鸡 repaired the corpus's only remaining "dick" is the personal name Dick (迪克, on hsk30l3/难听) and the
+   only "cock" would be a gloss of 公鸡, so the two words would report noise and nothing else. Add one when
+   a real site turns up, not before. */
 /* CHINESE — substring, since Chinese has no word boundary. */
 const ZH = {
   profanity: ["他妈的","妈的","操你","我靠","靠北","傻逼","傻B","混蛋","王八蛋","畜生","滚蛋","放屁","狗屎","该死","妈蛋","去死"],
-  sexual: ["阴茎","阴道","阴部","生殖器","睾丸","乳房","乳头","屁眼","肛门","精液","性交","做爱","上床","手淫","自慰","避孕套","安全套","嫖娼","妓女","卖淫","强奸","强暴","乱伦","色情","黄片","春药","高潮","勃起","处女膜","阳痿","性欲","调情"],
+  sexual: ["鸡鸡","屌","阴茎","阴道","阴部","生殖器","睾丸","乳房","乳头","屁眼","肛门","精液","性交","做爱","上床","手淫","自慰","避孕套","安全套","嫖娼","妓女","卖淫","强奸","强暴","乱伦","色情","黄片","春药","高潮","勃起","处女膜","阳痿","性欲","调情"],
   body: ["裸体","赤裸","光着","脱光","屁股","奶子","胸部","下体","阴毛","私处"],
   adult: ["性别","性生活","情人","小三","出轨","外遇","通奸","偷情","处女","怀孕","堕胎","流产","月经","避孕","绝育","阉割","勾引","诱惑"],
   violence: ["杀死","杀害","谋杀","自杀","尸体","屠杀","大屠杀","酷刑","折磨","处决","绞死","刺死","枪杀","勒死","砍头","淹死","毒打","虐待","强迫","吸毒","海洛因","可卡因","鸦片","喝醉","酗酒"],
@@ -86,7 +94,18 @@ for (const fn of fs.readdirSync("decks").filter((x) => /^Mandarin-.*\.folio-deck
        else — 阴茎 on the card for "cloudy", an obscenity on the card for 才. So a hit is dropped when
        the matched term IS the headword (either way round) or when the card's own gloss already
        carries the English word. */
-    const own = (h) => (h.length > 1 && (hw.indexOf(h) >= 0 || h.indexOf(hw) >= 0)) || gloss.indexOf(h.toLowerCase()) >= 0;
+    /* THE DISCRIMINATOR HAS A HOLE AT A ONE-CHARACTER HEADWORD, and it is what hid 鸡's obscene
+       sentence (batch 30). "The matched term CONTAINS the headword" is the branch that excuses a card
+       whose own subject is the coarse thing — 淹 and 淹死, 裸 and 赤裸 — and a single character is
+       contained in every compound built on it, INCLUDING the ones whose meaning it has nothing to do
+       with: 鸡 is glossed *chicken* and 鸡鸡 is the child word for the penis, so the sentence was dropped
+       as the card's own word. The branch is therefore required of a headword of MORE THAN ONE
+       character; the other direction (the HEADWORD contains the matched term) is untouched.
+       MEASURED: it adds TWELVE rows over ten cards, and every one is a single-character card met
+       through a compound it really is about (死/去死, 裸/赤裸, 经/月经, 醉/喝醉, 淹/淹死, 绞/绞死, 粗/粗俗,
+       傻/傻子, 聋/聋子, 俗/粗俗) — read and left. Twelve rows a reader passes over is the price of the
+       one that must never be missed, on a report that is read by eye anyway. */
+    const own = (h) => (h.length > 1 && (hw.indexOf(h) >= 0 || (hw.length > 1 && h.indexOf(hw) >= 0))) || gloss.indexOf(h.toLowerCase()) >= 0;
     scan("gloss", hw, deesc(String(fl.English || "").replace(/<[^>]*>/g, " ")), own);
     String(fl.Examples || "").split(/(?=<div class="uc-exi)/).forEach((b, i) => {
       const say = (/data-say="([^"]*)"/.exec(b) || [])[1]; if (say === undefined) return;

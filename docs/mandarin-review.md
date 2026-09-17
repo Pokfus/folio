@@ -565,6 +565,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 91–120 (电梯 → 房子), deck order, plus the two -logue spellings | 20 + 1 | a card whose three sentences were three different words beginning with its character |
 | 2026-09-17 | `hsk30l3` notes 121–150 (放 → 关机), deck order | 17 | six glosses naming a part of speech the gloss did not belong to |
 | 2026-09-17 | `hsk30l3` notes 151–180 (关系 → 或者), deck order, plus the bare-`afterward` class | 22 | two single-character cards whose sentences used the character and not the word |
+| 2026-09-17 | `hsk30l3` notes 181–210 (鸡 → 斤), deck order, plus the `programme` class and a hole in `check-coarse.js` | 27 | an obscene sentence on a card glossed *chicken*, which the coarse sweep was excusing by design |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -3591,5 +3592,141 @@ neither was touched.
 - every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token,
   and each checked for a duplicate against every sentence and every English line in all nine decks
 - `build-lang-decks.js`: re-run, and **exactly two rows changed** — Level 3 and Levels 7–9, the two decks touched
+- CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
+  `check-docs`, `check-questions`, `check-style`
+
+## Batch 30 — `hsk30l3` notes 181–210 (鸡 → 斤), the `programme` class, and a hole in `check-coarse.js`
+
+Thirty notes read card by card in deck order, **sixteen of them changed**, plus eleven notes across
+four other decks for a spelling family no checker can see and one note in Levels 7–9 found while
+measuring the batch's leading fault. Twenty-seven notes in all; the record goes 7,274 → 7,290 and the
+hint map 702 → 701.
+
+**The leading fault is that `check-coarse.js` was excusing an obscene sentence on purpose.** 鸡 is
+glossed *chicken* and its second sentence was `我喜欢鸡鸡。` — "I like dicks." 鸡鸡 is the child's word
+for the penis, and neither it nor 屌 was in the checker's Chinese lists, so the sweep had never
+reported it. Adding the two words is the small half. **The large half is that adding them would not
+have been enough**, and that is worth having written down: the checker's `own()` discriminator drops a
+hit when the matched term contains the headword *or* the headword contains the matched term, which is
+right — it is what stops the Everyday Phrases deck reporting 放屁 on the card that teaches 放屁 — and
+**at a one-character headword the first branch is always true.** Every compound built on a character
+contains it, including the ones whose meaning the character has nothing to do with, so 鸡 was
+permanently exempt from every term beginning 鸡, and would have gone on being exempt after the word
+was added to the list. The branch is now required of a headword of more than one character; the other
+direction is untouched.
+
+**The cost of that narrowing is measured rather than asserted: twelve rows over ten cards**, every one
+a single-character card met through a compound it genuinely is about — 死/去死, 裸/赤裸 (twice), 经/月经,
+醉/喝醉, 淹/淹死 (twice), 绞/绞死, 粗/粗俗, 傻/傻子, 聋/聋子, 俗/粗俗. Each was read and left; the totals
+move profanity 15 → 16, body 11 → 13, adult 98 → 99, violence 161 → 165 and slur 185 → 189, and
+sexual stays at 22 because both sentences the new words would have matched are dropped in this same
+commit. **Twelve rows a reader passes over is the right price for the one that must never be missed**,
+on a report that is read by eye anyway. The rule is in the script's own header beside the code.
+
+**The same measurement found the second one.** Sweeping the corpus for 屌 turned up `hsk30l7/山寨`,
+whose first sentence used 屌丝 — a vulgar internet word for a loser, literally the pubic hair of a
+penis — to disparage the users of a **named brand of telephone**. Dropped, and `从前这里是一个山寨。`
+authored in its place. Reading the card then showed a second fault the sweep had nothing to do with:
+its gloss named *noun / adjective* and defined only the knock-off sense, so the noun the word
+originally is — a fortified hill village, a mountain stronghold — was named in the part of speech and
+nowhere else. Split, and the three blocks tagged 2 / 2 / 1.
+
+**The third finding is a third spelling family `check-british.js` cannot see.** Batch 27 found
+`-logue` and batch 29 `-ward`; this one is `program` / `programme`, and it is invisible for a different
+reason from either. It IS in `SPELL_PAIRS`, but as a **one-way** row — British English writes *program*
+for a computer program too, so the reverse mapping would make *a television program* out of nothing —
+and `check-british.js` correctly excludes the one-way rows, so it goes on reporting 0. Measured over
+the nine decks: **twelve sites**, of which eleven are a broadcast or an event and are repaired
+(`hsk30l3/节目`, `hsk30l4/观看`, `hsk30l4/值得`, `hsk30l4/篇`, `hsk30l5/不良`, `hsk30l5/收看`,
+`hsk30l6/一律`, `hsk30l6/专科`, `hsk30l7/分发`, `hsk30l7/寥寥无几`, `hsk30l7/勤工俭学`), and the twelfth,
+`hsk30l5/下载`, is **left alone and is the point of the measurement** — its Chinese is 程序, a computer
+program, where *program* is the British spelling as well. **Three batches running have now found a
+family this checker is structurally blind to, so grep the one-way rows by hand after a content batch.**
+
+**The glosses.** 接 was glossed **connect**, and not one of its three sentences is *connect* — two are
+answering the telephone and one is meeting someone off a train. CC-CEDICT leads *to receive / to answer
+(the phone) / to meet or welcome sb* and gives *to connect* fourth, so the card was teaching the
+dictionary's fourth sense as its only one, against examples that all show the first two. It is now
+"to receive; to answer (the phone)". That retired its `not 连贯` hint: *connect* was never a pair but a
+**three-way** collision (接, 连, 连贯), and the house rule gives a group of three or more distinguishing
+glosses rather than a disambiguator naming one of the other two — and with 接 out of it, 连 and 连贯 are
+the pair the hint machinery is actually for. 借 was "to lend" alone, on a card whose own third sentence
+is *borrow* — Chinese does not distinguish the two directions and the card was teaching only one of
+them. 极 was glossed **extreme**, the adjective, under an **adverb** label; now *extremely*.
+
+**Two senses splits, and one of them was a label nobody had read.** 急 carried one gloss under
+*adjective* covering both the adjective and the verb; split, and the blocks tagged 1 / 2 / 1, its
+second sentence 你着什么急 being the verb. **角 is the more useful case.** An earlier batch had given it
+its two readings and, in doing so, inherited the deck's own part-of-speech label rather than authoring
+one — so the jiǎo half read **measure word** over a gloss beginning "horn; corner". A horn and a corner
+are nouns; only the currency unit is a measure word. Split into the noun and the measure word, keeping
+the jué sense the earlier fix added, and all three sentences tagged 1, which is what they are. **A
+label carried across by a fix aimed at something else is a label that has never been read**, and it is
+the shape to expect wherever an earlier batch touched only one field of a card.
+
+**Two more of the single-character class, both mild.** 季's first two sentences are both 雨季, so the
+card showed its character inside one compound twice; the duplicate-shaped one was dropped and
+`这部电视剧一共有三季。` authored, which is 季 as a free measure word. 加 had 加法 *addition* as its
+third, a noun the card does not teach; dropped, and `我们又加了两把椅子。` authored. Neither is
+reportable — `check-example-fit.js` skips a one-character headword outright — and neither is as bad as
+batch 29's 海 and 河, because in both cases the compound really is built on the sense the card gives.
+
+**Compounds** were authored for **every one of the fourteen single-character cards in the range**, none
+of which had any — 鸡, 极, 急, 记, 季, 加, 讲, 角, 脚, 接, 街, 节, 借 and 斤 — every row's
+reading and gloss checked against CC-CEDICT, and candidates taken from the corpus where it has them.
+On 讲 and 街 that is the whole of the change: both cards' glosses and all six sentences were read and
+are right as they stand. **Counting the single-character cards in the range and asserting the count
+back is worth doing**, because five of these were missed on the batch's first pass — the cards that
+needed a gloss or a sense split got the attention and the ones that needed only compounds were the
+ones left out, which is exactly the wrong way round.
+
+**Five English lines repaired, and two of them contradicted their own card.** 极's `真是惊人至极` read
+"It was all more and more surprising", which is not what 至极 says; it is now "It was utterly
+astonishing". 记's `我会记下来` read "I'll keep it", which drops the 记 the card is about; now "I'll
+note it down". **脚's `人有两只脚` read "People have two legs"** on a card glossed *foot* — the one
+English line a reader checks the gloss against was giving a different part of the body. And **斤's
+second called a 斤 a pound**, on a card whose own gloss says half a kilogram: a 斤 is 500 g and a pound
+454, so the sentence was contradicting the card two lines above it. And 假期's third read "on my time
+off", which carries the sense and not the word the card teaches.
+
+**What was read and left, and why.**
+
+- **节** keeps all three sentences although none of them is the *festival* sense its gloss names first.
+  Its first two are the measure word for lessons and its third is 节食, which is genuinely the verb
+  sense *to restrain, to economise* — so every sentence uses the word, and the gap is that the noun
+  senses have no sentence rather than that any sentence is wrong. Authoring two more would push the
+  card past three; the honest fix is a later pass that decides which sense a three-sentence card owes
+  its space to, and that is not a judgement to make one card at a time.
+- **斤's third sentence says "catty"** where the first two say "half a kilo". Both are right — *catty*
+  is the standard English name for the unit — and a reader meeting both learns something. Left.
+- **几乎's first sentence** (`他几乎不来。` / "He seldom, if ever, comes.") is a loose translation of a
+  Chinese sentence that literally says *he almost doesn't come*. It is idiomatic English and the
+  Chinese is natural; whether the pair teaches 几乎 well is a judgement CC-CEDICT and the card cannot
+  settle, so it is recorded rather than changed.
+- **检查's third** (`我想让你接受超声检查。`) uses the word inside 超声检查 rather than alone, but that is
+  a two-character headword the segmenter passes, and the compound is transparently *ultrasound* +
+  *examination*. Left.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2, unchanged** — which is the assertion that 接's retired hint was checked against
+  every gloss in the nine decks before it was deleted
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged**, and no finding names a card this batch touched
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0**, which is the reading it gives over the eleven `program` sites this batch
+  repaired, and the reason that class is written down rather than left to the checker
+- `check-say-reading.js`: unchanged at 10 of 1,503
+- `check-gloss-source.js`: unchanged, and no finding names a card this batch reglossed
+- `check-coarse.js`: profanity 16, sexual 22, body 13, adult 99, violence 165, slur 189 — the deltas
+  from the `own()` narrowing above, each row diffed against HEAD and read
+- answer-leak set **byte-identical to HEAD on all five touched decks**; 34,596 example blocks, spoken ==
+  visible on every one; sense tags past the sense list 0; stray spaces 0
+- every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token,
+  and each checked for a duplicate against every sentence and every English line in all nine decks
+- `build-lang-decks.js`: re-run, and **exactly five rows changed**, the five decks touched, each by its
+  `bytes` and `rev` alone
 - CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
   `check-docs`, `check-questions`, `check-style`

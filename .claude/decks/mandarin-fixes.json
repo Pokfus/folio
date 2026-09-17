@@ -11698,7 +11698,7 @@
       ]
     },
     "hsk30l3/节": {
-      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
       "senses": [
         [
           "noun",
@@ -11711,6 +11711,28 @@
         [
           "measure word",
           "(for lessons and railway carriages)"
+        ]
+      ],
+      "compounds": [
+        [
+          "节日",
+          "jié rì",
+          "a festival"
+        ],
+        [
+          "春节",
+          "chūn jié",
+          "Spring Festival"
+        ],
+        [
+          "节约",
+          "jié yuē",
+          "to economise"
+        ],
+        [
+          "节目",
+          "jié mù",
+          "a programme"
         ]
       ]
     },
@@ -11736,25 +11758,79 @@
       "gloss": "to meet, to see one another (by arrangement)"
     },
     "hsk30l3/角": {
-      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | Found by READING the card (batch 30): the jiǎo half named MEASURE WORD over a gloss reading \"horn; corner; jiao…\" — a horn and a corner are nouns, and only the currency unit is a measure word. The label was inherited from the deck by the earlier reading fix rather than authored, so it had never been read. Split into the noun and the measure word, keeping the jué sense that fix added. All three of the card's sentences are the corner, which is what the tags now say. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
       "Pinyin": "jiǎo / jué",
       "Bopomofo": "ㄐㄧㄠˇ / ㄐㄩㄝˊ",
       "senses": [
         [
           "jiǎo",
+          "noun",
+          "a horn; a corner; an angle"
+        ],
+        [
+          "jiǎo",
           "measure word",
-          "horn; corner; jiao (written) [unit of currency = 0.1 yuan]"
+          "jiao [unit of currency, 0.1 yuan]"
         ],
         [
           "jué",
           "noun",
-          "role, part (in a play); contest"
+          "a role, a part (in a play); a contest"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "角色",
+          "jué sè",
+          "a role, a part"
+        ],
+        [
+          "三角",
+          "sān jiǎo",
+          "a triangle"
+        ],
+        [
+          "角度",
+          "jiǎo dù",
+          "an angle; a point of view"
+        ],
+        [
+          "主角",
+          "zhǔ jué",
+          "the leading role"
         ]
       ]
     },
     "hsk30l3/讲": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "to speak, to tell, to explain"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to speak, to tell, to explain",
+      "compounds": [
+        [
+          "讲话",
+          "jiǎng huà",
+          "to speak; a speech"
+        ],
+        [
+          "演讲",
+          "yǎn jiǎng",
+          "to give a lecture"
+        ],
+        [
+          "讲究",
+          "jiǎng jiu",
+          "to be particular about"
+        ],
+        [
+          "讲座",
+          "jiǎng zuò",
+          "a lecture series"
+        ]
+      ]
     },
     "hsk30l3/词典": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
@@ -14193,7 +14269,7 @@
       ]
     },
     "hsk30l6/专科": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. A GLOSS rather than a sentence.",
       "ex": [
         [
           "他读的是专科。",
@@ -14207,7 +14283,8 @@
           "她在专科学了三年。",
           "She studied three years at the vocational college."
         ]
-      ]
+      ],
+      "gloss": "vocational college; specialised training programme"
     },
     "hsk30l6/专题": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -53922,7 +53999,7 @@
       ]
     },
     "hsk30l7/勤工俭学": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. A GLOSS rather than a sentence.",
       "ex": [
         [
           "他靠勤工俭学读完了大学。",
@@ -53936,7 +54013,8 @@
           "他靠勤工俭学完成了学业。",
           "He finished his studies by working his way through."
         ]
-      ]
+      ],
+      "gloss": "work-study programme / earn one's own tuition"
     },
     "hsk30l7/勤快": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -76362,7 +76440,7 @@
       ]
     },
     "hsk30l5/收看": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. A GLOSS rather than a sentence.",
       "ex": [
         [
           "请收看今晚的节目。",
@@ -76372,7 +76450,8 @@
           "很多人收看了直播。",
           "Many people watched the live broadcast."
         ]
-      ]
+      ],
+      "gloss": "to watch (a TV programme)"
     },
     "hsk30l5/书房": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -80758,7 +80837,7 @@
       ]
     },
     "hsk30l6/一律": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. The same sentence stands on two notes across two decks.",
       "ex": [
         [
           "价格一律五十元。",
@@ -80767,6 +80846,12 @@
         [
           "参加者一律免费。",
           "Admission is free for all participants."
+        ]
+      ],
+      "exEn": [
+        [
+          "这个节目变得千篇一律",
+          "This programme has become stereotyped."
         ]
       ]
     },
@@ -85963,7 +86048,7 @@
       "gloss": "to require effort; strenuous"
     },
     "hsk30l7/分发": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. Its Chinese is 节目单, which is the printed programme of an event.",
       "ex": [
         [
           "老师分发了试卷。",
@@ -85972,6 +86057,12 @@
         [
           "物资已经分发完毕。",
           "The supplies have all been distributed."
+        ]
+      ],
+      "exEn": [
+        [
+          "你能帮我给这些人分发节目单吗",
+          "Will you help me give out the programmes to those people?"
         ]
       ]
     },
@@ -89609,7 +89700,7 @@
       ]
     },
     "hsk30l7/寥寥无几": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right.",
       "ex": [
         [
           "来的人寥寥无几。",
@@ -89618,6 +89709,12 @@
         [
           "合格的样品寥寥无几。",
           "Qualified samples are very few."
+        ]
+      ],
+      "exEn": [
+        [
+          "值得观看的电视节目",
+          "Only a few TV programmes are worth watching."
         ]
       ]
     },
@@ -92066,7 +92163,25 @@
       ]
     },
     "hsk30l7/山寨": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by READING (batch 30), while measuring the class that hid 鸡's obscene sentence from `check-coarse.js`: the first sentence carries 屌丝, a vulgar internet word (literally the pubic hair of a penis) for a loser, and spends it disparaging the users of a NAMED BRAND of telephone. Neither 屌 nor 鸡鸡 was in the checker's Chinese lists, which is why the sweep had never reported either; both are added to it in the same commit. The sentence is dropped and an AUTHORED one put in its place showing the sense the card's gloss actually names. | The card named *noun / adjective* and glossed only the noun (\"Mountain stronghold / Mountain village\"), while TWO of its three sentences are the adjective — 山寨货 and 山寨产品, knock-off goods — which the card nowhere defined. Batch 28's shape. Both senses are CC-CEDICT's, which gives /fortified hill village/mountain stronghold (esp. of bandits)/(fig.) knockoff (goods)/counterfeit/, and they are written lower case, which is the corpus's house form and the majority of this deck's own glosses (3,211 against 2,342).",
+      "senses": [
+        [
+          "noun",
+          "a fortified hill village; a mountain stronghold"
+        ],
+        [
+          "adjective",
+          "knock-off; counterfeit"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        1
+      ],
+      "dropEx": [
+        "我似乎不太喜欢小米，我觉得小米是屌丝用的手机，就是个山寨机。"
+      ],
       "ex": [
         [
           "市场上有山寨货。",
@@ -92075,6 +92190,10 @@
         [
           "山寨产品质量差。",
           "Copycat products are poor in quality."
+        ],
+        [
+          "从前这里是一个山寨。",
+          "This was once a mountain stronghold."
         ]
       ]
     },
@@ -109010,8 +109129,14 @@
       ]
     },
     "hsk30l3/假期": {
-      "why": "A COLLISION THIS BATCH MADE ITSELF, and the fault is worth knowing before the next gloss dedupe: taking the American half off a gloss that carried both words leaves the British half, and the British half is often what a NEIGHBOURING note already says. `check-mandarin-coverage.js` went from 2 still-ambiguous reverse groups to 7 on this batch's first run. It collided with 假日 once “vacation” became “holiday”. 假期 is a STRETCH of holiday and 假日 a day off, which is the distinction the two glosses now carry.",
-      "gloss": "holiday; holiday period"
+      "why": "A COLLISION THIS BATCH MADE ITSELF, and the fault is worth knowing before the next gloss dedupe: taking the American half off a gloss that carried both words leaves the British half, and the British half is often what a NEIGHBOURING note already says. `check-mandarin-coverage.js` went from 2 still-ambiguous reverse groups to 7 on this batch's first run. It collided with 假日 once “vacation” became “holiday”. 假期 is a STRETCH of holiday and 假日 a day off, which is the distinction the two glosses now carry. | Found by READING the card (batch 30): the English was not what the Chinese says. \"On my time off\" carries the sense and not the word the card is teaching, which its own gloss gives as *holiday*.",
+      "gloss": "holiday; holiday period",
+      "exEn": [
+        [
+          "我假期哪里都没去",
+          "I didn't go anywhere on my holiday."
+        ]
+      ]
     },
     "hsk30phr/没什么": {
       "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
@@ -109920,6 +110045,396 @@
           "A cloud of dust and debris rose and lingered in the sky for a few minutes afterwards."
         ]
       ]
+    },
+    "hsk30l3/鸡": {
+      "why": "Found by READING the card (batch 30): the second sentence was 我喜欢鸡鸡, whose own English on the card read \"I like dicks\" — 鸡鸡 being child slang for the penis — on a card glossed *chicken*. `check-coarse.js` reports it under `sexual` and it was not the headword either way round, so it is the class that checker exists for, met by reading rather than by the sweep. The third used the characters and not the word, 鸡肉 being chicken MEAT and not a headword in these decks, so the segmenter lands squarely on 鸡: the single-character blind spot again. Both replaced. The gloss loses its definition half (\"a domesticated bird\"), which the card's own first sentence — *I often eat chicken* — contradicts; CC-CEDICT gives /fowl/chicken/. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other sentences do not already use. The first uses the classifier 只 the card carries. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "chicken; fowl",
+      "dropEx": [
+        "我喜欢鸡鸡。",
+        "鸡肉是生的。"
+      ],
+      "ex": [
+        [
+          "这只鸡很大。",
+          "This chicken is very big."
+        ],
+        [
+          "奶奶在院子里养了几只鸡。",
+          "Grandma keeps a few chickens in the yard."
+        ]
+      ],
+      "compounds": [
+        [
+          "鸡蛋",
+          "jī dàn",
+          "an egg"
+        ],
+        [
+          "鸡肉",
+          "jī ròu",
+          "chicken (the meat)"
+        ],
+        [
+          "公鸡",
+          "gōng jī",
+          "a cockerel"
+        ],
+        [
+          "母鸡",
+          "mǔ jī",
+          "a hen"
+        ]
+      ]
+    },
+    "hsk30l3/接": {
+      "why": "Found by READING the card (batch 30): the card glossed *connect* and not one of its three sentences means that — 接电话 twice and 接我 once, which are answering the phone and meeting someone. CC-CEDICT leads /to receive/to answer (the phone)/to meet or welcome sb/ and gives \"to connect\" fourth. The `not 连贯` reverse-card hint goes with the rewrite and its row is deleted: *connect* was a THREE-way collision (接, 连, 连贯), which the house rule says takes distinguishing glosses rather than a hint, and with 接 out of it 连 and 连贯 are the pair the hint machinery is for. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to receive; to answer (the phone)",
+      "compounds": [
+        [
+          "接受",
+          "jiē shòu",
+          "to accept"
+        ],
+        [
+          "直接",
+          "zhí jiē",
+          "direct"
+        ],
+        [
+          "接待",
+          "jiē dài",
+          "to receive (guests)"
+        ],
+        [
+          "接着",
+          "jiē zhe",
+          "next; to carry on"
+        ]
+      ]
+    },
+    "hsk30l3/借": {
+      "why": "Found by READING the card (batch 30): the card glossed *to lend* and its own third sentence is 这本书我能借多久 — *how long can I borrow this book*. 借 is both directions in Chinese and CC-CEDICT gives /to borrow/…/to lend/; a card teaching one of them leaves a reader unable to read half its own examples. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to lend; to borrow",
+      "compounds": [
+        [
+          "借口",
+          "jiè kǒu",
+          "an excuse; a pretext"
+        ],
+        [
+          "借用",
+          "jiè yòng",
+          "to borrow sth for a purpose"
+        ],
+        [
+          "借钱",
+          "jiè qián",
+          "to borrow or lend money"
+        ],
+        [
+          "租借",
+          "zū jiè",
+          "to lease"
+        ]
+      ]
+    },
+    "hsk30l3/极": {
+      "why": "Found by READING the card (batch 30): the card named ADVERB and glossed *extreme*, which is the adjective — CC-CEDICT's own first sense is /extremely/, and both of the card's clean sentences use it adverbially (极大的潜力, 飞得极快). The second sentence's English, \"It was all more and more surprising\", is a translation of something else: 惊人至极 is *utterly astonishing*. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "extremely",
+      "exEn": [
+        [
+          "真是惊人至极",
+          "It was utterly astonishing."
+        ]
+      ],
+      "compounds": [
+        [
+          "极其",
+          "jí qí",
+          "extremely"
+        ],
+        [
+          "积极",
+          "jī jí",
+          "active; positive"
+        ],
+        [
+          "北极",
+          "běi jí",
+          "the North Pole"
+        ],
+        [
+          "极限",
+          "jí xiàn",
+          "a limit"
+        ]
+      ]
+    },
+    "hsk30l3/急": {
+      "why": "Found by READING the card (batch 30): the card named *verb / adjective* and gave one gloss made of three adjectives, so the verb it names was nowhere defined — and its own second sentence, 你着什么急, is that verb (着急, with 什么 infixed). Batch 28's shape. Both senses are CC-CEDICT's, which gives /urgent/pressing/rapid/hurried/worried/ and then /to make (sb) anxious/. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "adjective",
+          "urgent; hurried"
+        ],
+        [
+          "verb",
+          "to worry; to be anxious"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ],
+      "compounds": [
+        [
+          "着急",
+          "zháo jí",
+          "to worry; to be anxious"
+        ],
+        [
+          "急忙",
+          "jí máng",
+          "hastily"
+        ],
+        [
+          "紧急",
+          "jǐn jí",
+          "urgent"
+        ],
+        [
+          "急救",
+          "jí jiù",
+          "first aid"
+        ]
+      ]
+    },
+    "hsk30l3/季": {
+      "why": "Found by READING the card (batch 30): not one of the card's three sentences used 季 as a word: the first is 季风 (the monsoon) inside 季节 — and is the very sentence 季节, the NEXT card in the deck, already carries — and the other two are 雨季. **季 is very largely a BOUND morpheme in modern Chinese and that is the honest finding here**, so the fix is not to replace all three: the duplicate goes, an authored sentence puts 季 in the one ordinary free use it has (a season of a television series, CC-CEDICT's own classifier sense), and the two 雨季 sentences stay, since a bound morpheme is genuinely met inside its compounds. The `compounds` panel is what now carries that. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "这是季风季节。"
+      ],
+      "ex": [
+        [
+          "这部电视剧一共有三季。",
+          "This TV series has three seasons in all."
+        ]
+      ],
+      "compounds": [
+        [
+          "季节",
+          "jì jié",
+          "a season"
+        ],
+        [
+          "季度",
+          "jì dù",
+          "a quarter of the year"
+        ],
+        [
+          "雨季",
+          "yǔ jì",
+          "the rainy season"
+        ],
+        [
+          "四季",
+          "sì jì",
+          "the four seasons"
+        ]
+      ]
+    },
+    "hsk30l3/加": {
+      "why": "Found by READING the card (batch 30): the third sentence used the characters and not the word, 加法 being ARITHMETIC ADDITION and not a headword in these decks, so the segmenter lands on 加. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other sentences do not already use. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "我的儿子还不懂加法。"
+      ],
+      "ex": [
+        [
+          "我们又加了两把椅子。",
+          "We added two more chairs."
+        ]
+      ],
+      "compounds": [
+        [
+          "加油",
+          "jiā yóu",
+          "to refuel; keep going!"
+        ],
+        [
+          "参加",
+          "cān jiā",
+          "to take part in"
+        ],
+        [
+          "增加",
+          "zēng jiā",
+          "to increase"
+        ],
+        [
+          "加班",
+          "jiā bān",
+          "to work overtime"
+        ]
+      ]
+    },
+    "hsk30l3/记": {
+      "why": "Found by READING the card (batch 30): the English was not what the Chinese says. 记下来 is to write something down; \"I'll keep it\" is a translation of something else. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "我会记下来",
+          "I'll note it down."
+        ]
+      ],
+      "compounds": [
+        [
+          "记得",
+          "jì de",
+          "to remember"
+        ],
+        [
+          "忘记",
+          "wàng jì",
+          "to forget"
+        ],
+        [
+          "日记",
+          "rì jì",
+          "a diary"
+        ],
+        [
+          "记者",
+          "jì zhě",
+          "a journalist"
+        ]
+      ]
+    },
+    "hsk30l3/脚": {
+      "why": "Found by READING the card (batch 30): the English was not what the Chinese says. The card is glossed *foot* and its first sentence's English said *legs*, which is 腿. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "人有两只脚",
+          "People have two feet."
+        ]
+      ],
+      "compounds": [
+        [
+          "脚步",
+          "jiǎo bù",
+          "a footstep"
+        ],
+        [
+          "赤脚",
+          "chì jiǎo",
+          "barefoot"
+        ],
+        [
+          "山脚",
+          "shān jiǎo",
+          "the foot of a mountain"
+        ],
+        [
+          "脚印",
+          "jiǎo yìn",
+          "a footprint"
+        ]
+      ]
+    },
+    "hsk30l3/街": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "街道",
+          "jiē dào",
+          "a street"
+        ],
+        [
+          "大街",
+          "dà jiē",
+          "a main street"
+        ],
+        [
+          "街头",
+          "jiē tóu",
+          "the street (as a place)"
+        ],
+        [
+          "逛街",
+          "guàng jiē",
+          "to go window-shopping"
+        ]
+      ]
+    },
+    "hsk30l3/斤": {
+      "why": "Found by READING the card (batch 30): the English was not what the Chinese says. The card's own gloss says a 斤 is half a kilogram and the second sentence's English called it a POUND, which is 454 grams — a factual error about the unit the card exists to teach, on a card whose other two sentences say \"half a kilo\" and \"catty\" correctly. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "一斤四元五毛",
+          "4.5 yuan for half a kilo, now isn't that cheap!"
+        ]
+      ],
+      "compounds": [
+        [
+          "公斤",
+          "gōng jīn",
+          "a kilogram"
+        ],
+        [
+          "斤两",
+          "jīn liǎng",
+          "weight; (figuratively) importance"
+        ],
+        [
+          "斤斤计较",
+          "jīn jīn jì jiào",
+          "to haggle over every ounce"
+        ]
+      ]
+    },
+    "hsk30l3/节目": {
+      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. This card's own second sentence already says *programme*, so it contradicted itself.",
+      "exEn": [
+        [
+          "我很喜欢这个节目",
+          "I like this programme a lot!"
+        ]
+      ]
+    },
+    "hsk30l4/观看": {
+      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right.",
+      "exEn": [
+        [
+          "值得观看的电视节目",
+          "Only a few TV programmes are worth watching."
+        ]
+      ]
+    },
+    "hsk30l4/值得": {
+      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. The same sentence stands on three notes across two decks, so the row is written on each.",
+      "exEn": [
+        [
+          "值得观看的电视节目",
+          "Only a few TV programmes are worth watching."
+        ]
+      ]
+    },
+    "hsk30l4/篇": {
+      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right.",
+      "exEn": [
+        [
+          "这个节目变得千篇一律",
+          "This programme has become stereotyped."
+        ]
+      ]
+    },
+    "hsk30l5/不良": {
+      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right.",
+      "exEn": [
+        [
+          "许多电视节目对儿童有不良的影响",
+          "Many TV programmes have a bad influence on children."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -110012,7 +110527,6 @@
     "hsk30l3/忘记": "遗忘",
     "hsk30l3/怎样": "如何",
     "hsk30l3/房子": "房屋",
-    "hsk30l3/接": "连贯",
     "hsk30l3/提高": "养育",
     "hsk30l3/新闻": "消息",
     "hsk30l3/方向": "走向",

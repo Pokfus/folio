@@ -2047,7 +2047,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **AND IT FOUND A FAULT CLASS NOBODY WAS LOOKING FOR: A CHARACTER ERROR THAT PUT THE HEADWORD
     THERE.** 电灯**炮** for 电灯泡 on the 炮 card, and 别**破**妈妈发现 for 别被妈妈发现 on 破 — the
     example is on that card ONLY because somebody typed the wrong character, and nothing in the pipeline
-    can see it, the sentence segmenting, speaking and translating perfectly. **📖
+    can see it, the sentence segmenting, speaking and translating perfectly.
+  · **THE DISCRIMINATOR HAD A HOLE AT A ONE-CHARACTER HEADWORD, AND IT WAS EXCUSING THE WORST SENTENCE
+    IN THE CORPUS** (batch 30). `own()` drops a hit when the matched term contains the headword **or**
+    the headword contains the matched term — the first branch being what stops Everyday Phrases
+    reporting 放屁 on the card that teaches 放屁 — and **at a one-character headword that branch is always
+    true**, every compound built on a character containing it. So 鸡, glossed *chicken*, was permanently
+    exempt from every term beginning 鸡, and its sentence 我喜欢鸡鸡 ("I like dicks", 鸡鸡 being the
+    child's word for the penis) would have gone on being excused even after the word was added to the
+    list. **Adding a missing word to a list is not the same as making the list reachable.** The branch
+    is now required of a headword of MORE THAN ONE character; the other direction is untouched.
+    **The price is measured rather than asserted — twelve rows over ten cards**, every one a
+    single-character card met through a compound it genuinely is about (死/去死, 裸/赤裸, 经/月经,
+    醉/喝醉, 淹/淹死, 绞/绞死, 粗/粗俗, 傻/傻子, 聋/聋子, 俗/粗俗), read and left. Twelve rows a
+    reader passes over is the right price on a report that is read by eye anyway. **📖
     `docs/mandarin-review.md` carries the first full read.** Not part of the site.
 - `.claude/decks/check-british.js` — **American spellings in the decks' own English**:
   `node .claude/decks/check-british.js [--list]`, report only, exit 0. **The decks are authored British
@@ -2084,10 +2097,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     -ward row at all, so `afterward` against `afterwards` is invisible and the checker goes on
     reporting 0. Measured over the nine decks: THREE occurrences over two sites — 后来's own gloss,
     on a card whose third sentence ends *afterwards*, and one Levels 7–9 sentence that deck carries on
-    two notes. All three repaired per note. **Grep the -logue and -ward families by hand after a
-    content batch; this checker covers neither, and a class found twice in three batches is one to
-    expect a third time.**
-  **RUN IT rather than quoting a figure here.** Not part of the site.
+    two notes. All three repaired per note.
+  · **…AND THE THIRD ONE IS INVISIBLE FOR A DIFFERENT REASON AGAIN: `program` / `programme`** (batch
+    30, the class the batch before predicted). That pair IS in `SPELL_PAIRS` — unlike -logue and -ward —
+    but as a **ONE-WAY** row, correctly, because British English writes *program* for a computer program
+    too and a two-way row would make *a television program* out of nothing; and this checker excludes the
+    one-way rows, also correctly, so it goes on reporting 0. **So a family can be missing from the table,
+    or present in it and one-way, and the checker is equally blind either way** — which means the
+    reading 0 says nothing about any word whose two spellings are not two-way. Measured over the nine
+    decks: TWELVE sites, eleven of them a broadcast or an event and repaired per note, and the twelfth,
+    `hsk30l5/下载`, LEFT — its Chinese is 程序, a computer program, where *program* is the British
+    spelling as well. **That twelfth is why this cannot become a table**: the correct spelling depends on
+    what the sentence is about, which is a judgement per site.
+  **RUN IT rather than quoting a figure here, and grep the -logue and -ward families AND the one-way rows
+  by hand after a content batch — three batches running have now found a family it cannot see.** Not part
+  of the site.
 - **A SHARED GLOSS IS DISAMBIGUATED BY THE DECK'S OWN `not <other word>` BLOCK.** The English → Chinese
   card's front is the gloss and nothing else, so two notes sharing one are a single question with
   several right answers — the reader types 再 for "again", is shown 又, and cannot tell a wrong answer
