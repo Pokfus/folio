@@ -618,6 +618,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 181–210 (传统 → 打破), deck order | 16 | **a gloss offering a word that does not exist, and one naming the wrong verb entirely** |
 | 2026-09-17 | `hsk30l5` notes 211–240 (打听 → 当年), deck order | 20 | **a third card with two readings under one pinyin, and a gloss rewrite that collided with its neighbour** |
 | 2026-09-17 | `hsk30l5` notes 241–270 (当前 → 电池), deck order | 19 | **a single-character card not one of whose three sentences used the sense it glosses, and a misspelling no checker can reach** |
+| 2026-09-17 | `hsk30l5` notes 271–300 (电动 → 队伍), deck order, plus a corpus sweep for one-sided hints | 15 + 17 | **seventeen disambiguators pointing at collisions that no longer exist, and a two-reading card with a sense filed under the wrong reading** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7500,4 +7501,103 @@ translation of anything in the sentence — and 地区's 路面, a road surface,
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 1; shared-gloss groups **324 → 323**; pinyin clean; example-fit 142 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 657 unchanged;
+`build-lang-decks.js` re-run.
+
+## Batch 83 — hsk30l5 notes 271–300 (电动 → 队伍), plus a corpus sweep for one-sided hints
+
+Thirty consecutive notes, **fifteen of them changed**, and then a sweep that one of those fifteen
+turned up: **seventeen more cards across five decks**, carrying a disambiguator for a collision that
+no longer exists.
+
+### The sweep: a dead one-sided hint
+
+**A `not <other word>` BLOCK ANSWERS A COLLISION, AND A COLLISION IS SYMMETRIC.** So wherever one card
+of a pair carries the block and its named partner does not carry the reverse, the pair has already
+been separated and the survivor is disambiguating nothing. Found on 动手, which was glossed `start
+work` and carried `not 上班` — and 上班 has since been rewritten to *to go to work; to be at work*, so
+the collision had gone and only this half of the pair still said so.
+
+**Swept over all nine decks: 17 of 661 hinted cards were one-sided, and every one of the seventeen was
+dead.** The pattern is the same in all of them, and it is this audit's own doing: the PARTNER's gloss
+had been sharpened by an earlier batch and the survivor kept pointing at a card that now gives a
+different answer. 书 `not 本子` against a 本子 rewritten to *a notebook; an exercise book*; 茶 `not 茶叶`
+against *tea leaves; tea*; 体力 `not 力气` against *muscle power, the strength to lift or push*; and the
+same again for 不良/坏, 个案/例子, 以内/内, 参赛/竞争, 外边/外, 情感/感情, 正确/不错, 苗头/牌子,
+草坪/草地, 许多/好多, 连贯/接, 道路/街道, 顺利/通顺 and 骨头/骨骼.
+
+**NOTHING IN THE PIPELINE REPORTS THIS.** `check-mandarin-coverage.js` counts the groups that DO share
+a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a
+card that no longer collides. Both of its figures read healthy throughout — 323 groups, 322 hinted,
+1 still ambiguous — while seventeen readers' cards told them a distinction existed that did not.
+
+**AND A HINT CANNOT BE RETIRED BY DELETING ITS ROW FROM THIS RECORD.** The applier WRITES a hint where
+the record has one and **never strips one**, so a deleted row simply leaves the block standing in the
+deck file — which is also why two of the seventeen, 体力 and 顺利, were not in the record at all: the
+generator shipped them. A dead hint is retired by rewriting the GLOSS, which rebuilds the English
+field. That turned out to be the right editorial answer as well: **every one of the seventeen was the
+thin one-word original the partner had already outgrown** — `book`, `tea`, `road`, `bone`, `correct`,
+`many`, `within`, `smooth`, and three capitalised singles (`Case`, `Sign`, `Lawn`) of the kind 地板's
+`Floor` was in batch 82. All seventeen rewritten from CC-CEDICT and each card's own three sentences,
+and the coverage checker re-run afterwards: shared-gloss groups unchanged at 323, still-ambiguous
+still 1, so **not one of the seventeen rewrites made a new collision** — which is the check batch 81
+learnt to run. One-sided hints 17 → 0; cards carrying a hint 661 → 644.
+
+**A BANK SENTENCE APPEARS ON SEVERAL CARDS AND AN ENGLISH FIX REACHES ONLY THE CARD IT WAS WRITTEN
+ON.** One of the seventeen, 参赛, carries 琳达是大会的参赛者之一 — the very sentence batch 81 corrected
+on 大会 in Level 5, where a 大会 had been called a *pageant*. The copy on this card went on saying it.
+**After fixing a translation, grep the decks for the sentence**: the bank is shared and a record row is
+per note.
+
+### The thirty notes
+
+**A TWO-READING CARD WITH A SENSE FILED UNDER THE WRONG READING.** 调 already carried both its
+readings, and its tiáo sense was written *to adjust, to blend, or a tune* — but a TUNE is **diào**.
+CC-CEDICT's two entries are unambiguous: diào holds `/key (in music)/mode (music)/tune/tone/melody/`
+and tiáo holds `/to harmonize/to blend/to adjust/to season (food)/`, with nothing musical in it at all.
+So the card's first sentence, 这首曲子是大调, is a diào sentence sitting under a gloss that filed its
+sense with tiáo, and a reader reading the card carefully came away with the two readings the wrong way
+round. Senses rewritten and all three sentences tagged (diào, tiáo, tiáo). **A card can carry both its
+readings and still be wrong about which is which** — checking that the READINGS are present is not the
+same as checking that the SENSES are under the right one.
+
+**SEVEN SINGLE-CHARACTER CARDS GAINED A `Compounds` SECTION** — 调, 冻, 洞, 堵, 度, 断, 堆 — of which
+冻, 洞 and 堆 had **nothing at all** in the reader's downloaded deck. 度's rows record one thing worth
+having: **态度 is written tàidu**, its second syllable neutral in CC-CEDICT, and a row given the tàidù
+a reader would guess would have been wrong.
+
+**FIVE GLOSSES THAT WERE NOT THE SENSE THE CARD TEACHES.** 冻 is labelled a VERB and was glossed
+*frozen; jelly* — an adjective and a noun, so its own label had no definition behind it. 堵 is labelled
+*verb / adjective / measure word* and glossed with the verb alone, while TWO of its three sentences are
+the measure word (这堵墙, 一堵墙). 动手 read *start work*, which fits none of its three sentences.
+队伍 read *troops; army* while all three of its sentences are a TEAM and none is military. And 断's
+one-word *to break* left its own second sentence, 不要挂断电话, without a sense — cutting a call off is
+not breaking it.
+
+**THREE SENTENCES THAT WERE NOT CHINESE.** 独自's 我快乐独自 is the English *I'm happy alone* with its
+words put into Chinese one at a time and left in English order — 独自 is an adverb and cannot stand
+after the predicate. 断's 她发现她已经断盐了 renders *she had run out of salt* character by character,
+and 断盐 is not something anyone says. 电器's 这个男人简直像一台被扯掉了电源的肮脏电器 came back as
+*This man is like a filthy electronic without a battery*, which is not a sentence in either language.
+
+**THE SAME ENGLISH TWICE ON ONE CARD, and it was this record's own doing.** 调研's 他们去乡下做调研 and
+他们下乡做调研 both came back as *They went to the countryside to do research* — the exact (not proxy)
+finding `check-senses.js` reports, and two rows written by an earlier batch of this audit. 电商 and
+动人 were the same shape a row apart: 现在电商发展很快 / 这家电商发展很快, and 她的歌声十分动人 /
+这首歌的旋律十分动人. All three replaced in place. **When a batch authors three sentences at once, the
+second and third are where the repetition gets in.**
+
+**TWO MORE REPEATS AND A SENSE NO SENTENCE SHOWED.** 堆's 我在堆雪人 and 是谁堆的雪人 are one snowman
+twice, and its replacement (桌上堆着一堆书) gives the card the MEASURE WORD its own label names and
+neither surviving sentence showed. All three of 度's sentences were the same sense — ten degrees, ten
+below, zero Celsius — on a card whose gloss names four; the replacement is the *to pass (time)* sense.
+And 动画's translations called it **anime**, the Japanese form specifically, where the word is
+animation in general.
+
+**Fifteen cards were read and left untouched**: 电动, 电视台, 电子版, 定期, 丢失, 豆腐, 豆浆, 独立,
+独特, 读音, 短处, 短期, 对比, 对待 and 对手.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 323 unchanged across both halves; **one-sided hints 17 → 0**,
+cards carrying a hint 661 → 644; pinyin clean; example-fit 142 unchanged; senses 152 → **151**;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 657 → 660;
 `build-lang-decks.js` re-run.

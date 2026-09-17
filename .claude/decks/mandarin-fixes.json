@@ -13901,7 +13901,7 @@
       ]
     },
     "hsk30l5/动人": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. Here two of the three rows THIS RECORD had written were 她的歌声十分动人 and 这首歌的旋律十分动人 — the same 十分动人 predicate about singing and then about a melody. The duplicate is replaced in place with the ATTRIBUTIVE use, which no sentence showed.",
       "ex": [
         [
           "太空竞赛是历史上激动人心的时期。",
@@ -13912,8 +13912,8 @@
           "Her singing is very moving."
         ],
         [
-          "这首歌的旋律十分动人。",
-          "The melody of this song is very moving."
+          "那是一个动人的故事。",
+          "It is a moving story."
         ]
       ],
       "dropEx": [
@@ -13921,7 +13921,7 @@
       ]
     },
     "hsk30l5/动画": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its third sentence was 现在的日本动画片越来越色情了！ — an opinion about pornography in Japanese animation, which is neither what the card teaches nor a claim a flashcard should be making.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its third sentence was 现在的日本动画片越来越色情了！ — an opinion about pornography in Japanese animation, which is neither what the card teaches nor a claim a flashcard should be making. | An example sentence taught nothing about the word: 许多动画的共同语言是字幕 (`the common language of many anime is subtitles`) is a remark about subtitling rather than a use of the headword anyone would learn from. It is dropped, with an AUTHORED replacement. | The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. And both surviving translations called 动画 **anime**, which is the Japanese form specifically; the word is animation in general, and CC-CEDICT gives /animation/cartoon/.",
       "ex": [
         [
           "现在的日本动画片越来越色情了！",
@@ -13930,10 +13930,21 @@
         [
           "这部动画是给孩子看的。",
           "This animation is for children."
+        ],
+        [
+          "他从小就喜欢看动画。",
+          "He has loved cartoons since he was small."
         ]
       ],
       "dropEx": [
-        "现在的日本动画片越来越色情了！"
+        "现在的日本动画片越来越色情了！",
+        "许多动画的共同语言是字幕"
+      ],
+      "exEn": [
+        [
+          "你看动画吗",
+          "Do you watch cartoons?"
+        ]
       ]
     },
     "hsk30l5/单一": {
@@ -14668,7 +14679,7 @@
       ]
     },
     "hsk30l5/电器": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An example sentence was not ordinary Chinese and its English rendered none of it: 这个男人简直像一台被扯掉了电源的肮脏电器 — a man `like a filthy electrical appliance with its power pulled out` — came back in English as `This man is like a filthy electronic without a battery`, which is not a sentence. Dropped, with an AUTHORED replacement.",
       "ex": [
         [
           "我把充电器的型号记下了。",
@@ -14677,10 +14688,15 @@
         [
           "新家还缺几件电器。",
           "The new home is still short of a few appliances."
+        ],
+        [
+          "这台电器很省电。",
+          "This appliance uses very little electricity."
         ]
       ],
       "dropEx": [
-        "我把充电器的型号记下了。"
+        "我把充电器的型号记下了。",
+        "这个男人简直像一台被扯掉了电源的肮脏电器"
       ]
     },
     "hsk30l5/电视台": {
@@ -23251,7 +23267,7 @@
       ]
     },
     "hsk30l7/个案": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "ex": [
         [
           "他打算从头开始重新审查这个案件。",
@@ -23272,7 +23288,8 @@
       ],
       "dropEx": [
         "他打算从头开始重新审查这个案件。"
-      ]
+      ],
+      "gloss": "an individual case; an isolated case"
     },
     "hsk30l7/临近": {
       "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -50159,7 +50176,7 @@
       ]
     },
     "hsk30l7/连贯": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown. Here the LABEL was wrong too: the card says `verb` and all three of its sentences are adjectival (前后不连贯, 文章前后连贯, 动作要连贯), which CC-CEDICT carries as /to link up (disparate elements)/coherent (narrative, argument etc)/.",
       "ex": [
         [
           "他的话前后不连贯。",
@@ -50172,6 +50189,12 @@
         [
           "动作要连贯。",
           "The movements must be continuous."
+        ]
+      ],
+      "senses": [
+        [
+          "verb / adjective",
+          "to link up; coherent; continuous"
         ]
       ]
     },
@@ -51861,7 +51884,7 @@
       ]
     },
     "hsk30l7/苗头": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "ex": [
         [
           "事情已经有了苗头。",
@@ -51875,7 +51898,8 @@
           "要注意不好的苗头。",
           "Watch for bad signs."
         ]
-      ]
+      ],
+      "gloss": "the first signs of something; an indication"
     },
     "hsk30l7/藐视": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -71662,15 +71686,15 @@
       ]
     },
     "hsk30l5/电商": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. Here two of the three rows THIS RECORD had written were 现在电商发展很快 and 这家电商发展很快 — the same predicate twice with the subject changed. The duplicate is replaced in place.",
       "ex": [
         [
           "现在电商发展很快。",
           "E-commerce is growing fast now."
         ],
         [
-          "这家电商发展很快。",
-          "This online retailer is growing fast."
+          "他在一家电商公司上班。",
+          "He works at an e-commerce company."
         ],
         [
           "电商改变了人们的购物方式。",
@@ -71696,15 +71720,15 @@
       ]
     },
     "hsk30l5/调研": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | THE SAME ENGLISH TWICE ON ONE CARD, which `check-senses.js` reports as an exact finding rather than a proxy: 他们去乡下做调研 and 他们下乡做调研 both came back as `They went to the countryside to do research` — two rows THIS RECORD had written, saying one thing in two ways. The duplicate is replaced in place.",
       "ex": [
         [
           "他们去乡下做调研。",
           "They went to the countryside to do research."
         ],
         [
-          "他们下乡做调研。",
-          "They went to the countryside to do research."
+          "公司做了一次市场调研。",
+          "The company carried out a piece of market research."
         ],
         [
           "调研报告下周交。",
@@ -75647,7 +75671,7 @@
       ]
     },
     "hsk30l4/道路": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '我爱的道路' is not a sentence — it is a noun phrase with no verb and no full stop, meaning *the road I love*, under an English line reading 'I love roads'. Replaced with an AUTHORED sentence, which the record says so is.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '我爱的道路' is not a sentence — it is a noun phrase with no verb and no full stop, meaning *the road I love*, under an English line reading 'I love roads'. Replaced with an AUTHORED sentence, which the record says so is. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "dropEx": [
         "要是不知道路的话去问警察吧。",
         "我爱的道路"
@@ -75661,7 +75685,8 @@
           "新修的道路通到了山上。",
           "The newly built road runs up to the mountain."
         ]
-      ]
+      ],
+      "gloss": "a road; a path; a way"
     },
     "hsk30l3/为了": {
       "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -76175,7 +76200,7 @@
       "gloss": "not only …; not merely"
     },
     "hsk30l4/参赛": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown. | A BANK SENTENCE APPEARS ON SEVERAL CARDS AND AN ENGLISH FIX REACHES ONLY THE CARD IT WAS WRITTEN ON. 琳达是大会的参赛者之一 sits on this card and on 大会 in Level 5, where batch 81 corrected its English — a 大会 is not a `pageant` — and the copy here went on saying it. The same correction, applied to this card as well. **After fixing a translation, grep the decks for the sentence**: the bank is shared and a row is per note.",
       "ex": [
         [
           "今年有二十个队参赛。",
@@ -76184,6 +76209,13 @@
         [
           "他因为受伤没能参赛。",
           "He could not compete because of an injury."
+        ]
+      ],
+      "gloss": "to take part in a competition; to enter a contest",
+      "exEn": [
+        [
+          "琳达是大会的参赛者之一",
+          "Linda is one of the contestants at the assembly."
         ]
       ]
     },
@@ -76860,13 +76892,14 @@
       "gloss": "a granddaughter, specifically a son's daughter"
     },
     "hsk30l4/以内": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "ex": [
         [
           "请在一周以内答复。",
           "Please reply within a week."
         ]
-      ]
+      ],
+      "gloss": "within (a limit); no more than"
     },
     "hsk30l4/用于": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The second sentence ran to forty-seven characters — 在一些农村地区，互联网主要用于农业信息以及农产品技术和价格信息等特殊目的 — which is a paragraph rather than an example, and its English is longer still. Replaced with a sentence a learner can hold in their head. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -79249,13 +79282,14 @@
       ]
     },
     "hsk30l5/体力": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "ex": [
         [
           "爬完山他的体力用尽了。",
           "After the climb his physical strength was spent."
         ]
-      ]
+      ],
+      "gloss": "physical strength; stamina"
     },
     "hsk30l5/统计": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -83177,13 +83211,14 @@
       ]
     },
     "hsk30l6/骨头": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "ex": [
         [
           "这块肉有骨头。",
           "This piece of meat has a bone in it."
         ]
-      ]
+      ],
+      "gloss": "a bone"
     },
     "hsk30l6/海面": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -103556,7 +103591,7 @@
       ]
     },
     "hsk30l1/茶": {
-      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, which is the syllabus's own frequency ordering, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written; a row's pinyin is written syllable by syllable, as the rest of the corpus writes a reading.",
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, which is the syllabus's own frequency ordering, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written; a row's pinyin is written syllable by syllable, as the rest of the corpus writes a reading. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "compounds": [
         [
           "喝茶",
@@ -103578,7 +103613,8 @@
           "chá guǎn",
           "a teahouse"
         ]
-      ]
+      ],
+      "gloss": "tea; the tea plant"
     },
     "hsk30l1/唱": {
       "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, which is the syllabus's own frequency ordering, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written; a row's pinyin is written syllable by syllable, as the rest of the corpus writes a reading.",
@@ -105659,7 +105695,7 @@
       ]
     },
     "hsk30l1/书": {
-      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 2 other words. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 2 other words. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "compounds": [
         [
           "书店",
@@ -105681,7 +105717,8 @@
           "shū bāo",
           "a schoolbag"
         ]
-      ]
+      ],
+      "gloss": "a book"
     },
     "hsk30l1/睡": {
       "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
@@ -105959,7 +105996,7 @@
       ]
     },
     "hsk30l1/外边": {
-      "why": "Its third example was 春季的时候，中国北边很冷，所以在外边的花不开花。 — 花不开花 is not Chinese (the noun and the verb are the same word said twice; it is 花不开). It is also thirty characters of Level 3 vocabulary on a Level 1 card. Replaced with an AUTHORED sentence a beginner can use.",
+      "why": "Its third example was 春季的时候，中国北边很冷，所以在外边的花不开花。 — 花不开花 is not Chinese (the noun and the verb are the same word said twice; it is 花不开). It is also thirty characters of Level 3 vocabulary on a Level 1 card. Replaced with an AUTHORED sentence a beginner can use. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "dropEx": [
         "春季的时候，中国北边很冷，所以在外边的花不开花。"
       ],
@@ -105968,7 +106005,8 @@
           "请到外边等一下。",
           "Please wait outside for a moment."
         ]
-      ]
+      ],
+      "gloss": "outside; out of doors"
     },
     "hsk30l1/玩": {
       "why": "Its third example's English read \"Wanna hang out tonight?\", one of the thirteen over-colloquial translations measured in batch 5: the Chinese is neutral and a learner cannot tell what register it carries from an English two registers below it. The Chinese is unchanged. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
@@ -110811,11 +110849,37 @@
       ]
     },
     "hsk30l5/堆": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Garbage” and “trash” are both American; British English says rubbish, and the container is a dustbin rather than a garbage can. ",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Garbage” and “trash” are both American; British English says rubbish, and the container is a dustbin rather than a garbage can.  | Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. 我在堆雪人 and 是谁堆的雪人 are one snowman twice. The second is dropped and an AUTHORED sentence put in its place, which also gives the card the MEASURE WORD its own label names and neither surviving sentence showed. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against two words in the collection.",
       "exEn": [
         [
           "垃圾真的开始成堆了",
           "The rubbish is really starting to pile up."
+        ]
+      ],
+      "dropEx": [
+        "是谁堆的雪人"
+      ],
+      "ex": [
+        [
+          "桌上堆着一堆书。",
+          "There is a pile of books stacked on the desk."
+        ]
+      ],
+      "compounds": [
+        [
+          "堆积",
+          "duījī",
+          "to pile up; to accumulate"
+        ],
+        [
+          "堆放",
+          "duīfàng",
+          "to pile up; to stack"
+        ],
+        [
+          "垃圾堆",
+          "lājīduī",
+          "a rubbish heap"
         ]
       ]
     },
@@ -112453,7 +112517,7 @@
       ]
     },
     "hsk30l5/不良": {
-      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. | 许多电视节目对儿童有不良的影响 and 这种玩具会对小孩子带来不良的影响 are the same sentence twice — a bad influence on children, in the same frame, with almost the same English. Replaced with 不良 in front of a different noun. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. | 许多电视节目对儿童有不良的影响 and 这种玩具会对小孩子带来不良的影响 are the same sentence twice — a bad influence on children, in the same frame, with almost the same English. Replaced with 不良 in front of a different noun. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "exEn": [
         [
           "许多电视节目对儿童有不良的影响",
@@ -112468,7 +112532,8 @@
           "他有不良的生活习惯。",
           "He has unhealthy habits."
         ]
-      ]
+      ],
+      "gloss": "bad; harmful; unhealthy"
     },
     "hsk30l3/经过": {
       "why": "Found by READING the card (batch 31): the gloss read \"pass through\" under a part of speech naming NOUN / VERB, so the noun the classifier 个 counts — the course of events, as in 事情的经过 — was named in the label and defined nowhere. CC-CEDICT gives /to pass/to go through/process/course/CL:個|个/. Split, and all three sentences tagged 2, which is what they are: the card shows the verb three times and the noun never.",
@@ -124757,9 +124822,232 @@
           "Cantonese dim sum is famous."
         ]
       ]
+    },
+    "hsk30l5/调": {
+      "why": "A two-reading card that put a sense under the WRONG reading. 调 is already carried with both its readings, and the tiáo sense was written `to adjust, to blend, or a tune` — but a TUNE is diào, not tiáo. CC-CEDICT's two entries are unambiguous: diào holds /key (in music)/mode (music)/tune/tone/melody/, and tiáo holds /to harmonize/to blend/to adjust/to season (food)/, with nothing musical in it at all. So the card's first sentence, 这首曲子是大调, is a diào sentence sitting under a gloss that filed its sense with tiáo, and a reader reading the card carefully would have come away with the two readings the wrong way round. The senses are rewritten and every sentence is now tagged with the reading it shows — the first diào, the second and third (调大声音, 调高冷气) tiáo. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had one word in the reader's downloaded deck against twenty-five in the collection; two of its rows are each reading.",
+      "senses": [
+        [
+          "diào",
+          "verb / noun",
+          "to transfer; to dispatch; a key or tune (music)"
+        ],
+        [
+          "tiáo",
+          "verb",
+          "to adjust; to blend; to season (food)"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ],
+      "compounds": [
+        [
+          "调查",
+          "diàochá",
+          "to investigate; a survey"
+        ],
+        [
+          "强调",
+          "qiángdiào",
+          "to emphasise; to stress"
+        ],
+        [
+          "空调",
+          "kōngtiáo",
+          "air conditioning"
+        ],
+        [
+          "调整",
+          "tiáozhěng",
+          "to adjust; to reorganise"
+        ]
+      ]
+    },
+    "hsk30l5/冻": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The card is labelled a VERB and glossed `frozen; jelly` — an adjective and a noun, neither of them a verb, so its own label had no definition behind it. CC-CEDICT gives /to freeze/to feel very cold/aspic or jelly/, and the card's own three sentences are the first, the first and the third. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against two words in the collection.",
+      "gloss": "to freeze; to feel very cold; jelly",
+      "compounds": [
+        [
+          "冰冻",
+          "bīngdòng",
+          "to freeze; frozen"
+        ],
+        [
+          "冷冻",
+          "lěngdòng",
+          "to freeze (food); freezing"
+        ],
+        [
+          "果冻",
+          "guǒdòng",
+          "a jelly (dessert)"
+        ],
+        [
+          "解冻",
+          "jiědòng",
+          "to thaw; to defrost"
+        ]
+      ]
+    },
+    "hsk30l5/洞": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against three words in the collection — one of which, 黑洞, is on the card's own first sentence.",
+      "compounds": [
+        [
+          "山洞",
+          "shāndòng",
+          "a cave"
+        ],
+        [
+          "黑洞",
+          "hēidòng",
+          "a black hole"
+        ],
+        [
+          "洞穴",
+          "dòngxué",
+          "a cave; a cavern"
+        ],
+        [
+          "漏洞",
+          "lòudòng",
+          "a leak; a loophole"
+        ]
+      ]
+    },
+    "hsk30l5/动手": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The card read `start work`, which fits none of its three sentences — 自己动手 (do it yourself), 动手能力 (practical, hands-on ability) and 动手打 (to raise a hand against someone). CC-CEDICT gives /to set about (a task)/to raise a hand to hit sb/to touch; to handle/. | AND THE GLOSS'S OWN DISAMBIGUATOR WAS ALREADY DEAD. The card carried a `not 上班` hint, from a collision with 上班 `start work` — but 上班 has since been rewritten to `to go to work; to be at work`, so the collision had gone and only this half of the pair still said so. **A one-sided hint is a hint that is already dead**, the collision being symmetric by definition: whenever one card of a pair carries `not X` and X does not carry `not <this>`, the pair has already been separated and the survivor is disambiguating nothing. Retired here; worth sweeping for.",
+      "gloss": "to set about (a task); to do something with one's hands; to raise a hand against"
+    },
+    "hsk30l5/独自": {
+      "why": "An example sentence was not Chinese at all: 我快乐独自 is the English `I'm happy alone` with its words put in Chinese one at a time and left in English order — 独自 is an adverb and cannot stand after the predicate. Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "我快乐独自"
+      ],
+      "ex": [
+        [
+          "她独自住在乡下。",
+          "She lives alone in the countryside."
+        ]
+      ]
+    },
+    "hsk30l5/堵": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The card is labelled `verb / adjective / measure word` and glossed `to block, obstruct, or stop up` — the verb alone — while TWO of its three sentences are the measure word (这堵墙, 一堵墙), which its own label names and its gloss never defined. CC-CEDICT gives /(classifier for walls)/ outright. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had one word in the reader's downloaded deck, against two in the collection.",
+      "gloss": "to block; to stop up; a measure word for walls",
+      "compounds": [
+        [
+          "堵车",
+          "dǔchē",
+          "a traffic jam"
+        ],
+        [
+          "堵住",
+          "dǔzhù",
+          "to block up"
+        ],
+        [
+          "堵塞",
+          "dǔsè",
+          "to clog up; a blockage"
+        ]
+      ]
+    },
+    "hsk30l5/度": {
+      "why": "All three of this card's sentences were the SAME sense — ten degrees on a thermometer, ten below zero, and zero Celsius — on a card whose gloss names four (`measure, degree, limit, or to pass through`). The third is dropped and an AUTHORED sentence for the `to pass (time)` sense put in its place. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had five words in the reader's downloaded deck against thirty-eight in the collection; 态度 is written **tàidu**, its second syllable being neutral in CC-CEDICT and not the tàidù a compound row would otherwise be given.",
+      "dropEx": [
+        "摄氏零度时水会结冰，对吧"
+      ],
+      "ex": [
+        [
+          "我们在海边度过了一个星期。",
+          "We spent a week at the seaside."
+        ]
+      ],
+      "compounds": [
+        [
+          "温度",
+          "wēndù",
+          "temperature"
+        ],
+        [
+          "速度",
+          "sùdù",
+          "speed; velocity"
+        ],
+        [
+          "态度",
+          "tàidu",
+          "an attitude; a manner"
+        ],
+        [
+          "角度",
+          "jiǎodù",
+          "an angle; a point of view"
+        ]
+      ]
+    },
+    "hsk30l5/断": {
+      "why": "An example sentence was not Chinese: 她发现她已经断盐了 renders `she had run out of salt` character by character, and 断盐 is not something anyone says (盐用完了 is). Dropped, with an AUTHORED replacement. | The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The one-word gloss `to break` also left the card's own second sentence, 不要挂断电话, without a sense — cutting a call off is not breaking it — so the gloss is widened to what CC-CEDICT carries. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had two words in the reader's downloaded deck, against seventeen in the collection.",
+      "gloss": "to break; to snap; to cut off; to give up (a habit)",
+      "dropEx": [
+        "她发现她已经断盐了"
+      ],
+      "ex": [
+        [
+          "绳子从中间断成两截。",
+          "The rope snapped in two in the middle."
+        ]
+      ],
+      "compounds": [
+        [
+          "不断",
+          "búduàn",
+          "unceasingly; continuously"
+        ],
+        [
+          "判断",
+          "pànduàn",
+          "to judge; a judgement"
+        ],
+        [
+          "中断",
+          "zhōngduàn",
+          "to break off; to interrupt"
+        ],
+        [
+          "断绝",
+          "duànjué",
+          "to sever; to break off"
+        ]
+      ]
+    },
+    "hsk30l5/队伍": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The card read `troops; army` while all three of its sentences are a TEAM — how many are there, being in one, wanting to join one — and neither sentence is military. CC-CEDICT gives /ranks/troops/queue/line/procession/, and the everyday sense the card shows was the one it did not carry.",
+      "gloss": "a team; ranks; a queue; troops"
+    },
+    "hsk30l5/情感": {
+      "why": "A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
+      "gloss": "feeling; emotion"
+    },
+    "hsk30l4/正确": {
+      "why": "A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
+      "gloss": "correct; right; proper"
+    },
+    "hsk30l7/草坪": {
+      "why": "A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
+      "gloss": "a lawn"
+    },
+    "hsk30l4/许多": {
+      "why": "A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
+      "gloss": "many; a lot of; a great deal"
+    },
+    "hsk30l4/顺利": {
+      "why": "A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
+      "gloss": "smooth; going without a hitch"
     }
   },
-  "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
+  "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead. | Batch 83: SEVENTEEN DEAD ONE-SIDED HINTS RETIRED. A `not <other word>` block answers a COLLISION, and a collision is symmetric — so wherever one card of a pair carries the block and its named partner does not carry the reverse, the pair has already been separated and the survivor is disambiguating nothing. Found while repairing 动手, whose `not 上班` had outlived a rewrite of 上班's own gloss. Swept: 17 of 661 hinted cards were one-sided, and every one of the seventeen was dead — in each case the PARTNER's gloss had been sharpened by an earlier batch of this audit (书 `not 本子` against a 本子 rewritten to `a notebook; an exercise book`, 茶 `not 茶叶` against `tea leaves; tea`, 体力 `not 力气` against `muscle power, the strength to lift or push`). TWO of the seventeen were not in this record at all — 体力 and 顺利, shipped by the generator — which is the other half of the finding: THE APPLIER WRITES A HINT AND NEVER STRIPS ONE, so deleting a row here does not take a block off a deck. A dead hint is retired by rewriting the gloss, which rebuilds the English field. Re-run the one-sided sweep after any batch that rewrites a gloss.",
   "hints": {
     "hsk30idm/伤心欲绝": "悲痛欲绝",
     "hsk30idm/夜深人静": "深更半夜",
@@ -124769,7 +125057,6 @@
     "hsk30idm/非比寻常": "非同寻常",
     "hsk30l1/上学": "就读",
     "hsk30l1/上班": "动手",
-    "hsk30l1/书": "本子",
     "hsk30l1/今天": "今日",
     "hsk30l1/再见": "道别",
     "hsk30l1/写": "书写",
@@ -124778,7 +125065,6 @@
     "hsk30l1/哪里": "哪儿",
     "hsk30l1/喜欢": "喜爱",
     "hsk30l1/外": "外边",
-    "hsk30l1/外边": "外",
     "hsk30l1/大家": "各位",
     "hsk30l1/女儿": "闺女",
     "hsk30l1/妈妈": "母亲",
@@ -124800,7 +125086,6 @@
     "hsk30l1/现在": "此时",
     "hsk30l1/电脑": "计算机",
     "hsk30l1/老师": "教师",
-    "hsk30l1/茶": "茶叶",
     "hsk30l1/这儿": "这里",
     "hsk30l1/这里": "这儿",
     "hsk30l1/钱": "金钱",
@@ -124873,7 +125158,6 @@
     "hsk30l4/之前": "以前",
     "hsk30l4/互相": "相互",
     "hsk30l4/仔细": "细心",
-    "hsk30l4/以内": "内",
     "hsk30l4/价格": "价钱",
     "hsk30l4/价钱": "价格",
     "hsk30l4/优秀": "出众",
@@ -124891,7 +125175,6 @@
     "hsk30l4/功课": "作业",
     "hsk30l4/千克": "公斤",
     "hsk30l4/印象": "观感",
-    "hsk30l4/参赛": "竞争",
     "hsk30l4/发送": "传输",
     "hsk30l4/叫作": "拨打",
     "hsk30l4/各位": "大家",
@@ -124917,7 +125200,6 @@
     "hsk30l4/早餐": "早饭",
     "hsk30l4/晚餐": "晚饭",
     "hsk30l4/样子": "相貌",
-    "hsk30l4/正确": "不错",
     "hsk30l4/母亲": "妈妈",
     "hsk30l4/汗": "汗水",
     "hsk30l4/消息": "新闻",
@@ -124940,14 +125222,12 @@
     "hsk30l4/表扬": "夸奖",
     "hsk30l4/西红柿": "番茄",
     "hsk30l4/观众": "听众",
-    "hsk30l4/许多": "好多",
     "hsk30l4/详细": "详尽",
     "hsk30l4/课堂": "教室",
     "hsk30l4/质量": "素质",
     "hsk30l4/赢": "胜出",
     "hsk30l4/进入": "进",
     "hsk30l4/适应": "改编",
-    "hsk30l4/道路": "街道",
     "hsk30l4/钥匙": "要害",
     "hsk30l4/降低": "缩小",
     "hsk30l4/青年": "青春",
@@ -124955,7 +125235,6 @@
     "hsk30l4/食物": "伙食",
     "hsk30l4/鼓励": "勉励",
     "hsk30l5/一代": "世代",
-    "hsk30l5/不良": "坏",
     "hsk30l5/主任": "董事",
     "hsk30l5/产业": "工业",
     "hsk30l5/产品": "产物",
@@ -124973,7 +125252,6 @@
     "hsk30l5/创造": "营造",
     "hsk30l5/剧场": "剧院",
     "hsk30l5/功能": "职能",
-    "hsk30l5/动手": "上班",
     "hsk30l5/医学": "药",
     "hsk30l5/含量": "内容",
     "hsk30l5/响声": "噪声",
@@ -124992,7 +125270,6 @@
     "hsk30l5/年纪": "年龄",
     "hsk30l5/彻底": "透彻",
     "hsk30l5/志愿者": "义工",
-    "hsk30l5/情感": "感情",
     "hsk30l5/成员": "会员",
     "hsk30l5/房屋": "房子",
     "hsk30l5/手段": "方法",
@@ -125127,7 +125404,6 @@
     "hsk30l6/青春": "青年",
     "hsk30l6/预期": "意料",
     "hsk30l6/马虎": "粗心",
-    "hsk30l6/骨头": "骨骼",
     "hsk30l6/高手": "行家",
     "hsk30l6/黑暗": "暗",
     "hsk30l7/一经": "曾经",
@@ -125142,7 +125418,6 @@
     "hsk30l7/丝绸": "丝",
     "hsk30l7/丢人": "丢脸",
     "hsk30l7/丢脸": "丢人",
-    "hsk30l7/个案": "例子",
     "hsk30l7/义工": "志愿者",
     "hsk30l7/乖巧": "听话",
     "hsk30l7/乞求": "乞讨",
@@ -125344,10 +125619,8 @@
     "hsk30l7/至此": "迄今",
     "hsk30l7/舆论": "民意",
     "hsk30l7/航海": "导航",
-    "hsk30l7/苗头": "牌子",
     "hsk30l7/茁壮": "蓬勃",
     "hsk30l7/草丛": "草",
-    "hsk30l7/草坪": "草地",
     "hsk30l7/萌发": "发芽",
     "hsk30l7/营救": "解救",
     "hsk30l7/营造": "创造",
@@ -125404,7 +125677,6 @@
     "hsk30l7/运转": "运作",
     "hsk30l7/返还": "退回",
     "hsk30l7/连绵": "连续",
-    "hsk30l7/连贯": "接",
     "hsk30l7/连连": "屡屡",
     "hsk30l7/追赶": "追",
     "hsk30l7/追随": "遵照",
