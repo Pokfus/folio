@@ -542,6 +542,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l1` notes 61–90 (给 → 饺子), deck order, plus a corpus-wide punctuation pass | 25 + 389 blocks | a Chinese sentence punctuated with ASCII marks |
 | 2026-09-17 | `hsk30l1` notes 91–120 (叫 → 没关系), deck order | 27 | a particle card describing a different particle |
 | 2026-09-17 | `hsk30l1` notes 121–150 (没事 → 您), deck order | 21 | an example sentence that is not grammatical Chinese |
+| 2026-09-17 | `hsk30l1` notes 151–180 (牛奶 → 少), deck order | 22 | an example that models the mistake the card should prevent |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1024,3 +1025,51 @@ got. (Compare 很 two batches ago, which builds *nothing* and so gets no section
 
 **们's list is the clearest case yet for the section existing.** All five of the 们 words in the
 reader's own deck are PRONOUNS; 孩子们 shows the half of the gloss the deck cannot.
+
+### 2026-09-17 — Level 1, notes 151–180
+
+**Twenty-two of the thirty**, thirteen of them single-character cards. Six of those thirteen show an
+HSK 1 reader nothing in the tap panel; **上's panel is the fullest in the deck at six words**, so its
+rows go elsewhere — 马上 above all, where 上 does work none of those six shows.
+
+**Another sentence that is not grammatical Chinese.** 起床's first example was **她晚了起床。** — the
+adverbial cannot stand there; it has to be 她起床晚了 or 她很晚才起床. That is the third such sentence in
+two batches (您们, 呢吗, and this), which is worth expecting rather than being surprised by.
+
+**And one that models the mistake the card should prevent.** 女士's first example was **我是位女士。** —
+位 is the POLITE measure word, used *of other people*. Using it of oneself is exactly what a learner
+has to be taught not to do, and the card was modelling it. Replaced with a sentence that uses 位
+correctly, of somebody else.
+
+**Two more examples do not let their own character stand alone**: 女's 孙子女 (a word, and a formal one
+three levels above this deck) and 千's 千层面, which is lasagna — so the card teaching the numeral for a
+thousand was illustrating it with an Italian dish.
+
+**A tense the Chinese does not have.** 朋友's first example, 我们是朋友。, was rendered "We *were*
+friends". The Chinese is present. On a beginner's card that teaches the wrong mapping outright.
+
+**上班's second example said the opposite of its Chinese** — 你今天晚上有没有要上班？rendered "Are you
+off tonight?" — and the Chinese itself is awkward besides.
+
+### The glosses
+
+- **请's gloss was "to invite; please" under a single verb part of speech**, and "please" is not a verb:
+  it is what 请 does at the head of a request, which is the card's own first example. Split, with the
+  examples tagged.
+- **上班 was glossed "start work"** — no "to ", and only one of the word's senses, while two of its three
+  examples are GOING to work.
+- **少's first sense was the single word "few"**, against examples that need *missing* (什么也没少) and
+  *seldom* (她很少出去).
+- **上午 was glossed "morning" — and so is 早上, two cards in the same deck for two different parts of
+  the day, told apart by nothing.** 上午 is the forenoon; 早上 is early morning. Said in English rather
+  than by naming the other card, since a gloss is the whole of the reverse card's front.
+
+### Found while working, and left for the batch that reaches it
+
+- **`早上`'s gloss carries "(everyday word)"** — the parenthetical author's note cut from 非常 four
+  batches ago. It is later in this deck. **Worth grepping for as a class**: it is the third shape of
+  "text that is not a gloss" this pass has met, after the truncation (们) and the cross-reference
+  boilerplate (闭嘴, 是的).
+- **Three compound rows take the DECK's reading over CC-CEDICT's** — 回去 huí qù, 别人 bié rén,
+  价钱 jià qián. That is now the settled rule and it has come up in four batches running: **where the
+  deck has a card for the word, the compound row matches the card.**
