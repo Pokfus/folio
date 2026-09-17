@@ -537,6 +537,7 @@ correct card, and re-deriving that costs a session.
 | date | batch | notes changed | leading fault |
 |---|---|---|---|
 | 2026-09-17 | `check-gloss-source.js`'s whole neighbour-gloss list (24) + its 4 reading findings | 24 | a gloss copied from the card sitting beside it in the exam list |
+| 2026-09-17 | `hsk30l1` notes 1–30 (爱 → 的), deck order | 24 | a gloss that names one use while the card's examples test another |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -647,3 +648,106 @@ this batch, being a checker's finding list, contains none — every one of its 2
 characters or more. It is still open, and the measurement it rests on stands: 639 of the 1,503
 single-character notes have no other word built on their character anywhere in their own deck, so
 the tap panel tells 42% of them nothing.
+
+### 2026-09-17 — Level 1, notes 1–30
+
+**The order changed with this batch, on request: deck by deck from Level 1 upward**, so the cards a
+beginner meets first are repaired first. That supersedes the triage order the audit request set out —
+the checker finding lists are no longer taken whole, they are read against whichever notes the current
+batch covers.
+
+**Twenty-four of the thirty needed something.** The shape of the fault at this level is not the
+transposition that dominated the first batch; it is **a gloss that names one use of a word while the
+card's own three examples test another**, which `check-senses.js` cannot see because a gloss and a
+sentence rarely share a content word anyway.
+
+- **菜** was glossed "vegetable" — CC-CEDICT's leading sense, and **not one of the card's three
+  examples shows it**: 你要点菜吗 is ordering dishes, 饭菜不太好 is the meals, 她是我的菜 is the
+  colloquial "my type". Both senses are now glossed and an authored sentence supplies the vegetable
+  use the card had never shown.
+- **病** is tagged `noun / verb` and glossed with three nouns, while its first example 听说你病了 is
+  the verb. **This is the deliberate kind of split CLAUDE.md permits on the 1,487 two-part-of-speech
+  notes** — the card really was teaching one use and testing two — and not the sweep of them that
+  file forbids.
+- **吧** gave only the suggestion sense while its second example is the tag question 那不对，对吧？;
+  **边** was glossed as a noun and a suffix while its first example is the 边…边… adverbial, which
+  CC-CEDICT carries as a sense of its own ("simultaneously"); **的** was glossed with the single word
+  "of" while its three examples are a possessive, an attributive and the sentence-final particle.
+  All three were split into the senses their own sentences show and **each example tagged with
+  `exSense`**, which is what that field is for where the senses genuinely differ. **不客气** already
+  had its two senses right and needed the tags alone.
+- **吧's gloss also had an unmatched closing bracket** — `[makes a suggestion, eg. "Let's …")]` —
+  which renders on the card.
+- **包子** was glossed "bao zi [steamed stuffed bun]", i.e. the card's own romanisation standing where
+  the English belongs: on the English → Chinese side the prompt was handing over the answer's pinyin.
+- **本** is a measure-word card whose three examples are all books, and its gloss led with "root";
+  **到** missed the sense its third example uses (做不到); **爱** was "to love" alone against an
+  example reading "Do you like to study?"; **车** was "vehicle, wheeled conveyance" against three
+  plain cars.
+
+**Four examples were replaced, all for reasons no checker reports.** 爸爸's 谁是你爸爸？was rendered
+"Who's your daddy?", an English phrase carrying a sense the Chinese does not and the last thing a
+beginner's card should teach. 包子's first example ran to sixty characters and two sentences about
+university snacks, carrying 咖哩牛肉 and 肉桂卷, neither of which is in any HSK level. 大学生's third
+was punctuated with ASCII commas and a full stop — 过去,我是中学生,现在我是大学生. — so the card showed a
+beginner the wrong punctuation for the language it teaches. 菜's second was the slang sense.
+
+**The mistake this batch made.** The first replacement written for 大学生 was 班里有很多大学生。, which
+puts 多 immediately before the headword; greedy segmentation reads that as 多大 + 学生 and
+`check-example-fit.js` reported it, so the batch had introduced a finding of exactly the kind it
+exists to remove. Rewritten with the headword at the head of the sentence. **Re-run
+`check-example-fit.js` after writing an example, not only after dropping one.** A second slip is worth
+the same warning: `Object.assign` on a record entry **replaces an existing `ex` array wholesale**, so
+包子 briefly shipped with one example instead of three. **Read a note's existing entry before adding
+to it.**
+
+### The `Compounds` field
+
+**Built in this batch, and it is the one thing here that is a change to the app rather than to a
+deck.** A single-character card glosses its character and stops. Tapping the character already opens a
+panel listing the other words built on it (`openCharWin` / `charNeighbours` in app.js), but that panel
+can only search the deck the reader has **downloaded** — and on Level 1, **71 of its 137
+single-character cards have no other word in that deck at all**, so for 52% of the cards the feature
+exists for it says "No other word in this deck uses it". Of the eighteen single-character cards in
+this batch, **ten show an HSK 1 reader nothing**.
+
+`Compounds` is the authored answer, bounded by the language rather than by the deck. Three notes on
+how it is built, for the next batch:
+
+- **It is written compactly and expanded**, which is `mw`'s and `senses`' rule: a row is
+  `[word, pinyin, gloss]` and `mandarin-fix.js` builds the markup, so the record stays readable and a
+  reading can be checked against a dictionary without parsing HTML out of it. The headword character
+  is bolded wherever it falls, as the example sentences already do — that is how a reader sees it
+  doing different work in each row.
+- **A field is added in three places or in none**: the type's `fields` list, the template on BOTH
+  cards, and the type's own scoped CSS. `decks.<id>.addFields` does all three; adding it to two of
+  them stores the field and shows it nowhere.
+- **The applier has no dictionary and cannot check a reading.** What it CAN refuse is a row that does
+  not contain the card's own character, or that merely repeats it — both render perfectly, the first
+  as a word with nothing bolded in it. The guard was proved to fire on both shapes before it was
+  trusted.
+
+**How the rows were chosen.** Words that show the character doing DIFFERENT work rather than three
+near-synonyms — 穿 gets 穿过, 穿越 and 看穿, which are the "pierce, pass through" sense its own gloss
+("to wear") never reaches; 大 gets 长大, 大概, 大约 and 伟大, i.e. a resultative complement, two
+adverbs of approximation and an intensifier, and none of 大家 / 大学 / 大学生, which the reader's own
+deck already shows. A polyphone gets a row per reading: **吧** is three words all read `bā` against
+the card's neutral-tone particle, and **的** carries 目的 `dì` and 的确 `dí`. Ordered by the HSK level
+each word is taught at, which is the syllabus's own frequency ordering, ties broken by how often the
+corpus's example sentences use it. **All 71 rows had their reading and gloss checked against
+CC-CEDICT before being written**, which caught one: 一百 has no dictionary entry at all (CC-CEDICT
+carries no plain numeral compound above 十九), so 百万 took its place rather than shipping a row
+nothing could verify.
+
+**The field is on `hsk30l1` only.** Every other deck gets it in the batch that reaches it: the
+catalogue's content revision is a hash over a deck's cards, so adding an empty field to eight decks
+would rewrite eight files and offer no reader an update.
+
+### Found while working, and left for the batch that reaches it
+
+- **`菜肴` (hsk30l7) is glossed "Conjecture".** 菜肴 is cooked dishes, food. The gloss appears to have
+  drifted from another card entirely, and it is invisible to every checker — it is a well-formed
+  gloss, and `check-gloss-source.js`'s neighbour rule only fires on a card within two either way.
+- **`不错` is glossed "correct" (hsk30l2)**, which reads wrong and **is not**: CC-CEDICT's own entry
+  leads "correct; right; not bad". Checked and deliberately left. Recorded because the next reader of
+  that card will have the same doubt.

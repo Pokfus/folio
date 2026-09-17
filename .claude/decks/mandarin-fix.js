@@ -50,6 +50,14 @@
   state 1,148 times over, so `["个","位"]` is expanded from their own table rather than retyped. A
   character the corpus has never used as a measure word is refused rather than guessed at.
 
+  `compounds` LISTS THE OTHER WORDS BUILT ON A SINGLE-CHARACTER CARD'S CHARACTER, as
+  `[word, pinyin, gloss]` rows expanded into the `Compounds` field below. It exists because the tap
+  panel that already does this (`openCharWin` in app.js) can only search the deck the reader has
+  DOWNLOADED — on Level 1, 71 of its 137 single-character cards have no other word in that deck at all
+  — so for half of the cards the feature is for, it says "No other word in this deck uses it". The
+  applier has no dictionary and cannot check a reading; what it CAN refuse is a row that does not
+  contain the card's own character, or that merely repeats it, both of which render perfectly.
+
   SENSES ARE WRITTEN COMPACTLY AND EXPANDED HERE. `[["yàn","verb","to swallow"],["yān","noun","throat"]]`
   becomes the two `uc-sense` divs the card type renders, with the reading prefix only where a note
   teaches more than one — which is the shape 过, 花, 空 and 重 already use and the shape this pass gave
@@ -116,7 +124,7 @@ const deckMeta = fixes.decks || {};
 let metaHit = 0;
 const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
-let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [];
+let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [];
 
 const hints = Object.entries(fixes.hints || {});
 const hintsByDeck = new Map();
@@ -209,7 +217,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
        record also carries `why`, `senses`, `mw`, `ex` and the rest, which are compact forms this file
        EXPANDS rather than values to be written through. A field added to the deck's type (see
        `decks.addFields`) has to be named here too, or the column is created and never filled. */
-    for (const k of ["Pinyin", "Bopomofo", "Say", "Measure word", "Literally", "Origin", "Examples"]) {
+    for (const k of ["Pinyin", "Bopomofo", "Say", "Measure word", "Literally", "Origin", "Examples", "Compounds"]) {
       if (fix[k] !== undefined) fl[k] = fix[k];
     }
     if (fix.ex || fix.dropEx) {
@@ -261,6 +269,37 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
           (trad ? '<span class="uc-mwc uc-mwt">' + trad + "</span>" : "") +
           '<span class="uc-mwp">' + pin + "</span></span>";
       }).join("");
+    }
+    /* ---------- THE OTHER WORDS BUILT ON A SINGLE-CHARACTER CARD'S CHARACTER (Sep 2026, on request) ----
+       1,503 of the 11,532 notes are a single character, and a character is not learnt in isolation: what
+       a reader wants next is the words it goes into. Tapping the character on a card already opens a
+       panel (`openCharWin` / `charNeighbours` in app.js) — but that panel can only search the deck the
+       reader has DOWNLOADED, and 639 of those 1,503 characters have no other word in their own deck at
+       all, so for 42% of the cards it exists for it says "No other word in this deck uses it". This
+       section is AUTHORED and is bounded by nothing but the language.
+
+       IT IS WRITTEN COMPACTLY AND EXPANDED HERE, which is `mw`'s and `senses`' rule: a row is
+       `[word, pinyin, gloss]` and the markup is built below, so the record stays readable and a reading
+       can be checked against a dictionary without parsing HTML out of it. The headword character is
+       BOLDED wherever it falls in the word, which is what the example sentences already do — it is how a
+       reader sees the character doing different work in each row.
+
+       A ROW MUST CONTAIN THE CARD'S OWN CHARACTER AND MUST NOT BE THE CARD'S OWN WORD. Both are faults
+       that render perfectly: a row filed against the wrong note shows a word with nothing bolded in it,
+       and a row repeating the headword teaches nothing while looking like a finished list. The applier
+       has no dictionary, so it cannot check a reading — that stays an authoring job, and the `why` says
+       against what it was checked. */
+    if (fix.compounds) {
+      const bad = fix.compounds.filter((r) => !Array.isArray(r) || r.length !== 3 ||
+        String(r[0]).indexOf(fl.Simplified) < 0 || String(r[0]) === fl.Simplified ||
+        !String(r[1]).trim() || !String(r[2]).trim());
+      if (bad.length) badCmp.push(w.key + " → " + bad.map((r) => (Array.isArray(r) ? r[0] : String(r))).join(" "));
+      else fl.Compounds = '<span class="uc-cmplab">built on this character</span>' +
+        fix.compounds.map(([word, pin, gloss]) =>
+          '<div class="uc-cmpi"><span class="uc-cmpw">' +
+          esc(word).split(esc(fl.Simplified)).join("<b>" + esc(fl.Simplified) + "</b>") + "</span>" +
+          '<span class="uc-cmpp">' + esc(pin) + "</span>" +
+          '<span class="uc-cmpg">' + esc(gloss) + "</span></div>").join("");
     }
     /* `gloss` is `senses` for the common case: ONE sense whose wording changes and whose part of speech
        does not. It exists because the disambiguation pass rewrites 857 glosses and nothing else about
@@ -355,6 +394,13 @@ if (badDrop.length && VERBOSE) {
 if (badSense.length) {
   console.log("\n  FAIL  " + badSense.length + " sense tag(s) that point at a sense the note has not got:");
   badSense.forEach((k) => console.log("        " + k));
+  process.exit(1);
+}
+/* A compound row that does not contain the card's own character is a row filed against the wrong note,
+   and one that IS the card's own word is a list that teaches nothing — both render perfectly. */
+if (badCmp.length) {
+  console.log("\n  FAIL  " + badCmp.length + " `compounds` row(s) that do not contain the headword, or repeat it:");
+  badCmp.forEach((k) => console.log("        " + k));
   process.exit(1);
 }
 if (badEx.length) {

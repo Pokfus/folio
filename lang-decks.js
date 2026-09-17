@@ -4,7 +4,7 @@
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
    section without fetching 152 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
-  { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 625226, rev: "a136e136dbc7" },
+  { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 639727, rev: "b3031619fe30" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 426940, rev: "99ad2d8515b7" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-3.folio-deck.json", id: "hsk30l3", title: "Mandarin Chinese — HSK 3.0 Level 3", sub: "491 more words, taking you to about 1,000 — the last beginner level", notes: 491, cards: 982, ex: 100, bytes: 1079087, rev: "268a49665374" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-4.folio-deck.json", id: "hsk30l4", title: "Mandarin Chinese — HSK 3.0 Level 4", sub: "990 more words, taking you to about 2,000 — the intermediate band begins", notes: 990, cards: 1980, ex: 100, bytes: 2150750, rev: "aaec295fec90" },
