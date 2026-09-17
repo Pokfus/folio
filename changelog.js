@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.783", released: "2026-09-17T05:22Z" };
+window.FOLIO_VERSION = { v: "1.784", released: "2026-09-17T05:41Z" };
 
 window.CHANGELOG = [
   {
@@ -54,7 +54,12 @@ window.CHANGELOG = [
       "<b>The daily quote\u2019s author and work are now glossary links</b>, as every other name on the site is.",
       "<b>Opening a place on your own atlas is no longer announced as a discovery</b> \u2014 you discovered it by studying its card.",
       "<b>The admin artefact list is readable on a phone</b> \u2014 its row wraps instead of squeezing the name to nothing.",
-      "<b>Two cards\u2019 dating is clearer</b> \u2014 one no longer reads as though a later date fell inside its period, and two more agree about the same split."
+      "<b>Two cards\u2019 dating is clearer</b> \u2014 one no longer reads as though a later date fell inside its period, and two more agree about the same split.",
+      "<b>True or False explains itself properly</b> \u2014 its answers now link glossary terms, carry citations, and give feet and inches to readers who use them.",
+      "<b>Your own atlas names every mark it draws</b> \u2014 a dot arrives with its label or not at all, and more of them appear as you zoom in.",
+      "<b>Pinching the Atlas no longer zooms the page</b> on a tablet, which used to leave the site enlarged with no easy way back.",
+      "<b>Adding a shared deck now adds it to your daily study</b>, and it reaches your other devices as any added deck does.",
+      "<b>Four measurements now convert for imperial readers</b> \u2014 two cards, two glossary terms and the daily-game answers that state a speed."
     ]
   },
   {

@@ -4425,6 +4425,9 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    corners belong to the search and the legend. It is a pair of buttons rather than a switch because a
    switch says "on/off" about one thing and these are two things. */
 .atlas-tabs{
+  /* …and the tab pill, for `.globe-stage`'s reason: it sits ABOVE the stage rather than inside it, so it
+     does not inherit the narrowing and is a two-finger target of its own. */
+  touch-action:pan-y;
   position:fixed; z-index:6; top:calc(var(--bar-h) + 12px); left:50%; transform:translateX(-50%);
   display:inline-flex; gap:2px; padding:3px; border-radius:99px;
   background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule);
@@ -4473,7 +4476,22 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    the one that moves down. */
 .atlas-mine .map-cartouche{top:52px;}
 @media (max-width:640px){ .atlas-mine .map-cartouche{top:14px;} }   /* there the bar is top-LEFT, so nothing is in its way */
-.globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden;}
+/* A PINCH OVER THE ATLAS MUST NOT ZOOM THE PAGE (Sep 2026, on a bug report: "on tablet, sometimes when
+   trying to zoom in on the atlas it zooms in on the webpage itself instead, and then it becomes nearly
+   impossible to zoom out of it again"). The CANVAS has always declared `touch-action:none`, so a pinch
+   that begins on the globe zooms the globe; what the report is about is a pinch that begins anywhere
+   ELSE — the strip beside the canvas, the legend, the timeline, the tab bar — where `body`'s own
+   `pan-y pinch-zoom` still applied and the browser zoomed the document instead.
+   AND THE SECOND HALF OF THE REPORT IS WHY IT STICKS: once the page is zoomed, nearly the whole screen is
+   the canvas, which refuses the pinch that would undo it, so the reader has almost nowhere to put two
+   fingers. Prevention is therefore the fix rather than a recovery.
+   `pan-y` RATHER THAN `none`, and that is load-bearing: `.country-pop` is a descendant of `.globe-stage`
+   and is a scrolling sheet on a phone, and `none` on an ancestor takes a descendant's scrolling with it.
+   `pan-y` forbids exactly the page zoom and leaves the sheet scrolling.
+   THE TOP BAR IS DELIBERATELY LEFT PINCHABLE. Narrowing it would be a site-wide change to a browser
+   accessibility feature for the sake of one route — and it is also the strip a reader who has somehow
+   zoomed the page can still pinch back out on, which is the stuck half of the report answered directly. */
+.globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden; touch-action:pan-y;}
 .globe-stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none;}
 .globe-stage canvas:active{cursor:grabbing;}
 .globe-hint{position:absolute; left:clamp(16px,4vw,40px); bottom:16px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); opacity:.6; pointer-events:none; user-select:none;}
@@ -4802,7 +4820,9 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .atlas-empty span{font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
 .atlas-empty .btn{padding:6px 13px; font-size:calc(12px * var(--fs));}
 
-.atlas-timebar{position:fixed; left:0; right:0; bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); height:var(--timebar-h); z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
+/* …and the timeline, which is a full-width strip at the bottom of the screen and so the likeliest
+   place on the Atlas for a thumb to land — see `.globe-stage` above. */
+.atlas-timebar{touch-action:pan-y; position:fixed; left:0; right:0; bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); height:var(--timebar-h); z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
 .tl-play{flex:none; width:34px; height:34px; border-radius:50%; appearance:none; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; margin-right:-8px;}
 .tl-play svg{width:16px; height:16px;}
 .tl-play:hover{border-color:var(--indigo); color:var(--indigo);}

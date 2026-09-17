@@ -452,8 +452,26 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   const close = await page.evaluate(PX);
   check("a world view thins the reader's marks where they crowd",
     close.marks > wide.marks, JSON.stringify({ wide: wide.marks, close: close.marks }));
-  check("...and the names wait for the zoom", wide.label === 0 && close.label > 0,
+  /* THE NAMES NO LONGER WAIT FOR A ZOOM (Sep 2026, on request: "dots and squares should not be visible
+     without their labels, and only appear more when zooming in more"). This asserted the opposite — that
+     no name was drawn at the wide view — which was `MINE_LBL_Z`, now gone: a mark arrives with its name or
+     not at all, and what thins the map is the labels' own collisions. So the reading that used to be zero
+     must now be positive, and zooming in must ADD names rather than reveal them all at once. */
+  check("...and the names arrive with their marks at every zoom", wide.label > 0 && close.label > wide.label,
     JSON.stringify({ wide: wide.label, close: close.label }));
+  /* …AND THE RULE ITSELF, WHICH NO PIXEL COUNT CAN SEE. A field of unnamed marks and a properly thinned
+     map both draw red; what tells them apart is the ORDER of the two decisions in `drawMineMarks` — the
+     label box is measured, and the dot is drawn only once it has been placed. Sliced out of app.js rather
+     than trusted, because moving those five lines back above the placement would put the old behaviour
+     back with every count in this file still passing. */
+  {
+    const from = APP.indexOf("function drawMineMarks()");
+    const body = from > 0 ? APP.slice(from, APP.indexOf("function mineWaterShown", from)) : "";
+    const noRoom = body.indexOf("if (!box) continue;");
+    const drawDot = body.indexOf("if (m.cap) ctx.rect(");
+    check("a mark is drawn only after its name has somewhere to go",
+      from > 0 && noRoom > 0 && drawDot > noRoom, JSON.stringify({ noRoom: noRoom, drawDot: drawDot }));
+  }
 
   /* ---------- 10) the stray border lines, the name as a target, and the gloss guard ---------- */
   /* All three are Sep 2026 requests and all three fail SILENTLY. A stray line looks like a country the

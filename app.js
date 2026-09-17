@@ -15121,7 +15121,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const U_METRIC = "(?:kilometres|kilometers|kilometre|kilometer|centimetres|centimeters|centimetre|centimeter|millimetres|millimeters|millimetre|millimeter|millilitres|milliliters|millilitre|milliliter|kilogrammes|kilogramme|kilograms|kilogram|hectares|hectare|tonnes|tonne|grammes|gramme|grams|gram|metres|meters|metre|meter|litres|liters|litre|liter|km²|m²|km|cm|mm|ml|kg|ha|°C|m|g)(?![A-Za-z²])";
   // the dashes include U+2212 MINUS SIGN, which is what a sub-zero temperature is written with and is not
   // any of the three dashes beside it — "(−129 °F)" was the fourth unseen shape
-  const U_FILL = "(?:and|or|to|by|of|its|the|per|hours?|square|cubic|sq|cu|fluid|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
+  // …and the denominators U_RATE now knows, or a bracket reading "(4,860 feet per second)" is not an
+  // imperial parenthetical as far as `isImperialParen` is concerned and the whole match is left alone
+  const U_FILL = "(?:and|or|to|by|of|its|the|per|each|hours?|seconds?|minutes?|days?|weeks?|months?|years?|square|cubic|sq|cu|fluid|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
   const U_IMP = "(?:miles?|sq\\s*mi|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)";
   const U_ONLY_RX = new RegExp("^(?:" + U_NW + "|" + U_IMP + "|" + U_FILL + ")+$", "i");
   const U_HAS_IMP_RX = new RegExp("(?:^|[^A-Za-z])" + U_IMP + "(?![A-Za-z])", "i");
@@ -15144,7 +15146,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      hour)"), which the whitespace-only gap could not cross — so the bracket was invisible and BOTH figures
      were shown to a metric reader. It is captured rather than tolerated: metric keeps it, since dropping it
      renders "winds of nearly 300 kilometres". */
-  const U_RATE = "((?:\\s+(?:an|per)\\s+hour|\\s*/\\s*h)?)";
+  /* …AND THE DENOMINATOR NEED NOT BE AN HOUR (Sep 2026, measured while citing the True-or-False pool).
+     This knew `an hour`, `per hour` and `/h` and nothing else, so "1,480 metres per second (4,860 feet per
+     second)" was invisible to it and BOTH figures were shown to a metric reader — the same fault the rate
+     capture was added to fix, one denominator over. Measured over the shipped corpus: 29 metric rate
+     figures, of which only the four written `kilometres an hour` were convertible at all.
+     THE WIDENING IS PROVED INERT rather than argued for: rendered over every string field of `data.js`,
+     `glossary.js` and `artefacts.js` in both directions, the new engine returns byte-for-byte what the old
+     one did — which it must, since none of the 25 it newly understands carries a bracket yet. What it buys
+     is that a bracket AUTHORED beside one now works; the 25 are a content pass of their own and are
+     recorded in `docs/units-plan.md`. */
+  const U_RATE = "((?:\\s+(?:an?|per|each)\\s+(?:hour|second|minute|day|week|month|year)|\\s*/\\s*[hs])?)";
   const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*" + U_DENOM + "(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")" + U_RATE + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   const U_BARE_RX = new RegExp(U_RUN + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   function unitSystem() { return UNIT_SYSTEMS.includes(S.settings && S.settings.units) ? S.settings.units : "metric"; }
@@ -29415,11 +29427,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       inst.disabled = true; inst.textContent = "Adding…";
       const r = await uDeckInstall(row, cards, gloss);
       if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = was; return; }
+      /* …AND IT JOINS THE DAILY STUDY (Sep 2026, on request: "when adding a shared community deck, it
+         should immediately also be added to the active decks. I added a shared community deck on one
+         device but it did not appear as added on the same account on another device").
+         Both halves of that report are ONE fault. Installing mounted the deck and wrote the account's
+         install row and never touched `S.active` — so the button said "Added" and nothing was added to
+         anything the reader studies; and `S.active` is the field that SYNCS, so with no entry in it there
+         was nothing for another device to receive either. `deck_installs` carries the file, not the
+         reader's arrangement of it.
+         IT IS DONE HERE RATHER THAN INSIDE `uDeckInstall`, and that is what keeps the two devices from
+         fighting. `communitySyncInstalls` calls that function too, so putting the line there would have
+         every device re-add the deck to its own review the first time it sees it — undoing a reader who
+         had taken it off the list on another device. Here it happens once, where the press was, and the
+         entry reaches every other device the way every other added deck does: through the progress blob,
+         which draws a pending row until the file lands (see `entryPending`). */
+      if (r.deck && r.deck.id) addActive(uDeckEntry(r.deck.id));
       // a write the account did not take is worth saying: the deck is usable here and will not travel, which
       // is precisely the silence this whole path exists to end
       toast(r.unannounced ? "Added here, but your account couldn't be reached — it won't reach your other devices yet"
-            : r.adopted ? "Added to your account — it will appear on your other devices"
-            : "Added to your decks");
+            : r.adopted ? "Added to your daily study — it will appear on your other devices"
+            : "Added to your daily study");
       render();
     });
     const upd = root.querySelector("#ddUpdate");
@@ -35690,6 +35717,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function gamesI18nPending(root) {
     return false;
   }
+  /* WHAT AN EXPLANATION IS MADE OF (Sep 2026, on request: "'True or False' minigame explanations should
+     have gloss terms, source citations and metric/imperial uk/us versions").
+     The `why` was written into the page with `esc()`, which is why it had none of the three. Escaped, a
+     footnote marker prints as the characters `<sup …>` and a glossary link cannot be added at all; and the
+     units and spelling passes, which ARE already standing observers over the whole document, can only
+     convert what the prose actually offers them — a figure with an imperial bracket beside it and a word
+     the authored British spelling covers. So the third of the three is a CONTENT rule rather than a code
+     one, enforced by `.claude/check-truefalse.js`, and the first two are here.
+     IT GOES THROUGH `sanitizeHTML`, not raw: the pool is content like a card's background, and `sup`,
+     `class="fn"` and `data-fn` are in the allowlist for exactly this. `<i>` for a work's title comes with
+     it, which the pool had no way to write before.
+     THE GLOSSARY PASS IS SCOPED TO THE PROSE AND NEVER TO THE CITATIONS — `autoLinkGlossary` skips links
+     and existing terms but knows nothing about `.notranslate`, and a citation names a work whose wording
+     is not ours to thread links through. */
+  function tfWhyHTML(it) { return sanitizeHTML(String(it.why || "")); }
+  function tfWireWhy(scope) {
+    if (!scope) return;
+    /* ONE `.src-note` PER SCOPE, which is what `wireFootnotes` is written for (`noteForNode` walks up to
+       the first one it finds) — so the summary, which draws five explanations with five lists, wires each
+       ROW rather than the page. */
+    const rows = scope.classList && scope.classList.contains("tf-summary")
+      ? Array.prototype.slice.call(scope.querySelectorAll(".tf-sum-row"))
+      : [scope];
+    rows.forEach((row) => {
+      try { wireFootnotes(row); } catch (e) {}
+      // `.tf-sum-a` on the summary rather than a second `.tf-why` class: that one carries the reveal's own
+      // serif and 15px, and a summary row is set smaller on purpose
+      const why = row.querySelector(".tf-why, .tf-sum-a");
+      if (why) { try { autoLinkGlossary(why, "", null, "site"); } catch (e) {} }
+      try { setupTooltips(row); } catch (e) {}
+    });
+  }
   PAGES.truefalse = function (root) {
     detachKeys();
     // the gate goes first: a reader who has played does not have to wait on a translation table to be told so
@@ -35731,8 +35790,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const rev = root.querySelector("#tfreveal"); rev.hidden = false;
       rev.innerHTML = `
         <div class="tf-verdict ${correct ? "ok" : "no"}">${correct ? "Correct" : "Not quite"} — it's <b>${it.a ? "True" : "False"}</b></div>
-        <p class="tf-why">${esc(it.why)}</p>
+        <p class="tf-why">${tfWhyHTML(it)}</p>
+        ${sourcesHTML(it.src, { shut: true })}
         <button class="btn" id="tf-next">${r + 1 < ROUNDS ? "Next round" : "See results"}</button>`;
+      tfWireWhy(rev);
       rev.querySelector("#tf-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : renderEnd(); });
     }
     function renderEnd() {
@@ -35746,11 +35807,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="tf-summary">${picks.map((it, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${esc(it.why)}</p></div>
+              <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}</div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">Five fresh statements arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="tf-home">Home</button></div>
         </div>`;
+      tfWireWhy(root.querySelector(".tf-summary"));
       root.querySelector("#tf-home").addEventListener("click", () => route("home"));
     }
   };
@@ -40272,8 +40334,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        AND THE CLICK FOLLOWS THE INK. `mineAt` reads the same thinned list, so a mark that is not drawn
        is not clickable either — otherwise a click on empty ground would open a popup about a place the
        reader cannot see, which is the one thing worse than crowding. */
+    /* A MARK IS NEVER DRAWN WITHOUT ITS NAME (Sep 2026, on request: "on the personal atlas, dots and
+       squares should not be visible without their labels, and only appear more when zooming in more, like
+       on the world atlas. Text labels should never be hidden behind dots of other locations").
+       It was two independent gates and they disagreed. `MINE_LBL_Z` held every name back below zoom 2.6,
+       so the opening view was a field of anonymous red marks; and above it a mark whose name could not be
+       placed was still drawn, because the dot went down before the label was even measured. Both come to
+       the same thing from a reader's side: a dot that says nothing.
+       SO THE NAME DECIDES THE MARK. The label box is measured FIRST and the dot is drawn only once it is
+       placed — which is the Atlas's own city rule ("a pin whose name cannot be placed is dropped WHOLE,
+       pin and all") and Google Earth's: a marker arrives with its label or not at all. What thins the map
+       at world scale is then the labels' own collisions rather than a zoom threshold, so zooming in only
+       ever ADDS, one name at a time, as the words stop overlapping. `MINE_SEP` stays as the cheap first
+       pass — it keeps the RANKING (a country's seat, then a province's, then a place) and stops the
+       measurement running over four hundred marks inside one pixel.
+       AND A NAME IS KEPT OFF EVERY OTHER PLACE'S MARK, not just off every other name: `clear` tested the
+       label boxes alone, so a word could land squarely on a neighbour's dot and hide it. The candidates'
+       own footprints are measured up front and tested too. */
     const MINE_SEP = (z) => clamp(58 - z * 7, 9, 58);   // screen px between two shown marks, by zoom
-    const MINE_LBL_Z = 2.6;                             // below this the marks stand unnamed — the popup is one click away
     function mineDotsShown() {
       const sep = MINE_SEP(zoom), sep2 = sep * sep, out = [];
       // a country's seat, then a province's, then a place — so a thinning keeps the mark that says most,
@@ -40305,12 +40383,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          is called is the popup's answer, one click away. */
       const dotFill = "rgba(200,69,60,0.95)", dotRing = CITY_RING;
       const fs = clamp(11 + (zoom - 2) * 0.9, 11, 14);
-      const names = zoom >= MINE_LBL_Z;
       const boxes = [];
       mineDotRects = [];
       ctx.save();
       ctx.font = "600 " + fs + "px " + labelFont;
       ctx.textBaseline = "middle";
+      // every candidate's own footprint — its mark plus the white ring round it — so a name can be kept
+      // off a neighbour's dot as well as off a neighbour's name. Measured over ALL the candidates rather
+      // than only the ones already drawn: a rule that depended on how far the loop had got would place a
+      // word differently depending on nothing a reader can see.
+      const dotHalf = (m) => (m.cap ? 6.2 : m.subcap ? 5.2 : 4.1);
+      const dotBoxes = dots.map((d) => { const h = dotHalf(d.m); return [d.x - h, d.y - h, h * 2, h * 2]; });
       for (let i = 0; i < dots.length; i++) {
         const m = dots[i].m, x = dots[i].x, y = dots[i].y;
         /* A CAPITAL IS A SQUARE (Sep 2026, on request: "make dots of capital cities instead slightly
@@ -40324,14 +40407,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            the same three ranks the reader is being asked to read off it — a country's seat, a province's
            seat, and a place — and the sort above deals them out in that order when they crowd, so the
            mark that survives a thinning is the one that says most. */
-        ctx.beginPath();
-        if (m.cap) ctx.rect(x - 5.4, y - 5.4, 10.8, 10.8);
-        else ctx.arc(x, y, m.subcap ? 4.4 : 3.3, 0, TAU);
-        ctx.fillStyle = dotFill; ctx.fill();
-        ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
-        if (!names) continue;
         const nm = gameCapFirst(m.title || "");
-        if (!nm) continue;
+        if (!nm) continue;   // …and a place with no name to put beside it is not drawn at all
         /* A NAME GOES TO THE RIGHT OF ITS DOT, OR TO THE LEFT WHERE THAT FITS BETTER (Sep 2026, on
            request). Right is the default because a reader scans left to right, so the dot is met before
            the word it names; left is taken when the right-hand box would collide with a name already
@@ -40343,12 +40420,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const clear = (b) => {
           if (b[0] < 2 || b[0] + b[2] > W - 2) return false;
           for (let k = 0; k < boxes.length; k++) if (rectsHit(b, boxes[k])) return false;
+          for (let k = 0; k < dotBoxes.length; k++) if (k !== i && rectsHit(b, dotBoxes[k])) return false;
           return true;
         };
         const box = clear(rBox) ? rBox : clear(lBox) ? lBox : null;
-        if (!box) continue;
+        if (!box) continue;   // nowhere to write the name — so the mark is not drawn either
         boxes.push(box);
-        mineDotRects.push({ m: m, box: box });
+        mineDotRects.push({ m: m, box: box, x: x, y: y });
+        // …and NOW the mark, once its name has somewhere to go
+        ctx.beginPath();
+        if (m.cap) ctx.rect(x - 5.4, y - 5.4, 10.8, 10.8);
+        else ctx.arc(x, y, m.subcap ? 4.4 : 3.3, 0, TAU);
+        ctx.fillStyle = dotFill; ctx.fill();
+        ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
         const tx = box === rBox ? x + 9 : x - 9;
         ctx.textAlign = box === rBox ? "left" : "right";
         ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, tx, y);
@@ -40402,9 +40486,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        area, the way a region's name is on a card map — `at` is a point the author picked somewhere inside
        it, which for a sea is a coast. A river has no area and is named at `at`, which for a river IS a
        point on its course. The same separation the dots use, and against the same list, so a river and a
-       city do not crowd each other; and the same zoom gate, so at world scale the earth stays clear. */
+       city do not crowd each other.
+       THE ZOOM GATE WENT WITH `MINE_LBL_Z` (Sep 2026). It held every water name back below zoom 2.6, which
+       was the same threshold the place names waited on — and now that a place is named at every zoom (see
+       drawMineMarks), a world view showing cities and no seas would be saying that one kind of studied
+       place is worth naming and the other is not. What keeps the earth clear is the separation above and
+       the box collision below, which is the regime the dots are now under too. */
     function mineWaterShown() {
-      if (zoom < MINE_LBL_Z) return [];
       const out = [];
       const marks = mineMarks().filter((m) => m.kind === "water" && m.at)
         .sort((a, b) => String(a.title || "").localeCompare(String(b.title || "")));
@@ -40445,13 +40533,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const ll = screenToLonLat(px, py); if (!ll) return null;
       const lon = ll[0], lat = ll[1];
       const marks = mineMarks();
-      // the DRAWN marks and no others — see mineDotsShown: a mark thinned out by zoom must not answer a
-      // click, or a press on empty ground opens a popup about a place that is not on the map
-      const dots = mineDotsShown();
+      /* THE DRAWN MARKS AND NO OTHERS — and since Sep 2026 that is `mineDotRects`, which the drawing pass
+         fills, rather than `mineDotsShown`, which is only the first of the two passes that decide. A mark
+         whose name could not be placed is no longer drawn (see drawMineMarks), so the thinned list now
+         holds candidates the reader cannot see; answering a click for one of them would open a popup
+         about a place that is not on the map, which is the very thing this rule exists to prevent. */
       let best = null, bd = Infinity;
-      for (let i = 0; i < dots.length; i++) {
-        const dx = dots[i].x - px, dy = dots[i].y - py, d = dx * dx + dy * dy;
-        if (d < 196 && d < bd) { bd = d; best = dots[i].m; }  // within 14px of the mark
+      for (let i = 0; i < mineDotRects.length; i++) {
+        const r = mineDotRects[i];
+        const dx = r.x - px, dy = r.y - py, d = dx * dx + dy * dy;
+        if (d < 196 && d < bd) { bd = d; best = r.m; }  // within 14px of the mark
       }
       if (best) return best;
       /* …AND SO DOES ITS NAME, which is the bigger half of the target (see mineDotRects). It is tried
