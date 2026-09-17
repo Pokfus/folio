@@ -1268,3 +1268,34 @@ paired glossary term at the bar and a picture. Findings worth keeping.
 - **A PINNED FILE CARRIES NO CAPTION, AND THE FETCHER WILL NOT INVENT ONE.** `subject` mode fills
   `title`, `desc` and `alt` from the subject's own name; `file` mode leaves all three empty, and an
   empty `desc` ships as a bare full stop. Write them by hand for every pinned picture.
+
+## The background against the grid — the facts-echo pass (Sep 2026)
+
+On request: *the background sections should never mention data that is already in the answer box data
+section.* The grid prints Capital / Population / Largest city / Area two inches above the prose, and
+55 of the 57 Russia cards gave at least one of those figures again. The pass ran over the whole
+Geography section and is recorded here because Russia was the worst of it. Findings.
+
+- **THE FIRST JOB WAS A CHECKER, BECAUSE "DONE" HAD TO BE MEASURABLE.** `.claude/facts-echo.js`
+  compares each background against its own grid and reports **264 figure echoes in 124 cards** across
+  the four map collections: 182 in the United States, 65 in Russia, 17 in the world, **0 in China**,
+  which had been written clean without anyone noticing it was a rule.
+- **DELETING THE FIGURE STRANDS THE CITATION, AND THAT IS THE WHOLE DIFFICULTY.** Every echoed
+  figure carried a source — Rosstat for the area and population, the United Nations for the city —
+  and `add-sources.js` rightly refuses a source nothing points at. **The replacement is therefore a
+  DERIVED figure the same source supports and the grid does not show**: Rosstat publishes a density
+  column of its own (verified against the yearbook: Tambov's printed 28.0 is exactly 966.3 / 34.5),
+  and the capital's SHARE of the subject's people needs the UN's city figure to state at all. So
+  every citation stayed where it was and **not one marker had to be renumbered.**
+- **WHERE THE CARD ALREADY NAMED A SECOND CITY, THAT IS THE CHEAPER FIX.** Thirty of the forty-three
+  Russia cards said "the United Nations put the capital at N and Xsk at M" — dropping the first
+  clause leaves the sentence sourced, shorter and about something the grid cannot show. Only the
+  eight cards whose UN sentence named the capital alone needed the share.
+- **AND A FIGURE CAN HIDE IN A SENTENCE THAT IS NOT ABOUT FIGURES.** `gru-014` opened its
+  demographic sentence with "More than 2.8 million people live in the krai" against a grid reading
+  2.89M — under the checker's rounding rules that is not an echo, and to a reader it plainly is.
+  **Read the sentence, not just the checker's list.**
+- **THE OKRUG TRAP IS STILL LIVE ONE LEVEL DOWN.** `rif23.json` holds Arkhangelsk's WITH-okrug row
+  (589.9 / 1,005.7) while the card and the grid use the less-Nenets figures (413.0 / 964.3), so a
+  density computed straight from the table would have been wrong by a third. **Compute a derived
+  figure from the numbers the CARD uses, never from the source row.**

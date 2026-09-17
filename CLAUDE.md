@@ -745,6 +745,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     after reading the card, and record why in the plan**. **Run `node .claude/gw-audit.js` rather than
     quoting a figure here**; the plan holds every batch's findings, among them the eleven things a
     constitution does instead of naming the capital and the four ways the WMO leg fails.
+  · **AND THE BACKGROUND MAY NOT RESTATE THE FACTS GRID EITHER** (Sep 2026, on request). The grid
+    prints Capital / Population / Largest city / Area two inches above the prose, so a background
+    giving those figures again makes the reader read the same number twice. **264 echoes across 124
+    cards were cleared in one pass** — the whole Geography section but China, which was already
+    clean. **📖 `.claude/facts-echo.js` — READ ITS HEADER BEFORE WRITING A MAP CARD**, for the two
+    tiers (a figure is refused, a name is a judgement), for why a RANK, a DENSITY or a SHARE is the
+    right replacement rather than a deletion, and for the three declared findings that are numbers
+    measuring something else.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request). The population
     is already in the facts grid two inches above. **A card with nothing else datable gets an EMPTY date
     line rather than a filler row**, which `test-date-line.js` is what caught — a non-empty line yielding
@@ -1349,6 +1357,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     or because **the caption carries more than the credit** — a date, a holding museum, an authored
     source sentence. **Do not widen the rules to reach them.**
   Not part of the site.
+- `.claude/facts-echo.js` — **A MAP CARD’S BACKGROUND MAY NOT RESTATE ITS OWN FACTS GRID**:
+  `node .claude/facts-echo.js [--prefix=] [--card=] [--names]`, exit 1 on a figure echo. The answer
+  box prints Capital / Population / Largest city / Area two inches above the background, so a
+  background that gives those figures again asks the reader to read the same number twice (on
+  request, Sep 2026). **Nothing else in the pipeline could see it** — every figure was correctly
+  cited, every word count in range, and every card rendered perfectly.
+  · **TWO TIERS, AND THE SECOND IS A JUDGEMENT.** A **FIGURE** — the subject’s population, its area
+    or the capital’s/largest city’s population — is an ERROR, and `add-card.js` refuses a new card
+    that carries one, **through this module rather than a copy of the rule**. A **NAME** is REPORTED
+    with `--names` and never failed: a name is often doing narrative work a number never does, and a
+    card about Astrakhan Oblast cannot tell the story of the khanate without writing *Astrakhan*.
+  · **A RANK, A DENSITY OR A SHARE IS NOT AN ECHO, AND IS USUALLY THE BETTER SENTENCE.** None of the
+    three is in the grid, each varies in a way the grid cannot show, and each keeps the citation that
+    the deleted figure was carrying — which is what stops the repair from stripping the apparatus.
+    The Russia cards took Rosstat’s own density column and the capital’s share of the subject; the
+    United States cards took the Census Bureau’s own population rank, **read out of the very CSV the
+    cards cite** rather than computed from the grid’s rounded figures, which had left four states
+    tied and unrankable.
+  · **THE COMPARISON IS AGAINST THE GRID’S OWN VALUE, EXPANDED INTO EVERY SHAPE PROSE COULD TAKE.**
+    A loose "any N million" rule matched a CITY’s figure on two state cards — the very fault this
+    pass is about, one level down. And **the rounding forms are the gap to watch**: the first cut
+    generated `5.96 million` and `6 million` but not `6.0 million`, and two cards walked through.
+  · **A HISTORICAL figure for the same quantity is not an echo** — "Reclus counted 26,403 people here
+    in the eighteen-seventies" is a different fact about a different century — and three findings are
+    DECLARED in `ADJUDICATED` (rainfall in inches, cubic feet of debris) where a number happens to
+    equal a grid value while measuring something else. A row is keyed by the card AND the matched
+    text, so a new echo on an excused card still reports.
+  · **Run it after any batch of map cards. It is in the CI fast gate.** Not part of the site.
 - `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
   [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
   tense as the state of the repository, and it is full of hand-written counts. **Its first run found
