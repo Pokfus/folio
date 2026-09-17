@@ -2541,7 +2541,13 @@ force depends on who is speaking and when, and an edition that tells you is doin
 one is a translator's note naming its own source, which is the thing to look for before building an
 argument on a passage.
 
-**AND IT OVERTURNS THIS FILE'S OWN EARLIER RULING, WHICH IS WHY THAT RULING IS QUOTED HERE.** The T55–T56 probe note ends on **“A statement about what a traveller did NOT bring back is not answered by his own book”** — and that is too strong. It is right about pasta's HISTORY, which Polo cannot settle and which needs al-Idrisi. It is wrong about the STATEMENT, whose whole content is what Marco Polo did: a book that has him carrying home Sumatran sago is direct evidence about him, not an argument from silence about Italy. **Ask what the statement is about before deciding a source cannot answer it.**
+**AND IT OVERTURNS THIS FILE'S OWN EARLIER RULING, WHICH IS WHY THAT RULING IS QUOTED HERE.** The
+T55–T56 probe note ends on **“A statement about what a traveller did NOT bring back is not answered
+by his own book”** — and that is too strong. It is right about pasta's HISTORY, which Polo cannot
+settle and which needs al-Idrisi. It is wrong about the STATEMENT, whose whole content is what Marco
+Polo did: a book that has him carrying home Sumatran sago is direct evidence about him, not an
+argument from silence about Italy. **Ask what the statement is about before deciding a source cannot
+answer it.**
 
 **SO THE CLAIM MADE IS THE NARROW ONE**: the book does not contain the story, in any of the versions
 this edition prints, and what it does contain is a Sumatran palm flour. That is enough for a statement
@@ -2696,6 +2702,57 @@ output, most of it monograph chapters behind a paywall, and a Crossref filter on
 journal search and is not one. Filter on the journal's own ISSN, or on the `s41599` stem in the DOI,
 before reading anything into the result.
 
+### The last four, worked and not closed — and six host claims corrected (2026-09-17)
+
+A session was spent on #1, #20, #47 and #80 with the intention of finishing the pass. **None of them
+closed, and the reason is the same for all four: the source that carries the claim is not reachable, and
+the sources that are reachable carry a NEIGHBOURING claim.** What follows is what each actually needs and
+what was eliminated, so the next attempt starts from the edge rather than from the middle.
+
+**THE BIGGEST FINDING IS THAT THIS FILE HAD CONFLATED A PATH WITH A HOST, SIX TIMES.** The closing note
+said "`loc.gov`'s classroom pages and every `nps.gov` path tried are 403 or 404", which reads as *those
+hosts are shut* and is not what was measured. Re-probed:
+
+| host | answer | what it means |
+|---|---|---|
+| `loc.gov/exhibits/` | **200**, 20 KB of real exhibition text | open; the 1492 exhibition reads fine |
+| `nps.gov` content pages | **200**, 36–52 KB | open; a 404 is a wrong path, and `/deso/`, `/casa/`, `/timu/` and `/caha/` all serve |
+| `nps.gov/search` | 200, and the body is **"Your search didn't work \| USAGov"** | the site is open and **cannot be searched** — `british-history.ac.uk`'s shape exactly |
+| `archives.gov` | 404 page, 30 KB | host up, path unknown |
+| `unesdoc.unesco.org` | **200** | open, where `whc.unesco.org` is 403 — **two UNESCO hosts, two different answers** |
+| `si.edu` | **403** | shut |
+| `en.bmy.com.cn` (the site museum) | **does not resolve** | no DNS, not a wall |
+
+**#20 — what is reachable is an enumeration, and an enumeration is not the negative.** The Library of
+Congress's *1492: An Ongoing Voyage* says Columbus "never abandoned the belief that he had reached Asia"
+and "led three more expeditions to the Caribbean". Four voyages, all Caribbean — which *implies* the
+statement and does not state it, and shipping it would be this pass's own standing fault, a clause
+outrunning its source. **It still wants a modern source written against the popular belief**, and NPS is
+open but unsearchable, which is the obstacle to finding one.
+
+**#1 — the well is the only thing missing, and it is missing everywhere.** Confirmed again this session:
+four more Heritage Science papers fetched whole through the `nature.com` DOI route and grepped for
+*farmer*, *peasant*, *accidentally*, *discovered in 1974* — nothing. The March-1974 discovery and the
+July excavation remain sourceable from `PMC11449754`; **a rewrite around that gap was drafted and
+rejected**, because "found in March, dug in July" is suggestive of a non-archaeological discovery and
+does not establish one.
+
+**#80 — it is not in the textbook and it is not in the preprints.** OpenStax's *College Physics 2e* drag
+chapter was fetched and contains no coin or penny example at all, which removes the most promising
+remaining shelf; arXiv returns **zero** across four queries (`"falling coin"`, `penny AND "drag
+coefficient"`, `"terminal velocity" AND "small objects"`, and the earlier penny query). **The obvious
+refutation is arithmetic from a drag equation, which would be this pass doing its own physics rather
+than citing anyone's.**
+
+**#47 — the comparative claim has no open home.** Crossref's relevance search returns De Gruyter's
+*Chinese Archaeology* and Artibus Asiae, both closed; the Tang census route could give Chang'an's own
+population out of the *Jiu Tangshu*, as T63 gave Wu Zetian's accession, but **"the largest in the world"
+is a comparison and no Chinese source can settle it.**
+
+**SO THE PASS CLOSES AT 216 OF 220 AND THE FOUR ARE NOT A BACKLOG.** Each is a statement whose evidence
+exists and is not reachable from here, documented to the clause. **Do not re-probe the hosts in the
+table above except `unesdoc` and `archives.gov`, which are open and whose paths are unknown.**
+
 ### Where the last four stand (2026-09-17)
 
 The pass closed this session at **216 of 220 (93→98%)**. Every remaining statement has been probed
@@ -2718,97 +2775,23 @@ canonical work to find. OpenStax's physics texts are fully readable and do not t
 this family's other member and is out of it: see T64** — it turned out to have a paper after all,
 two results down a DOAJ list whose first hits were on walled hosts.
 
-**THE DISCOVERY STORY IS NOT IN THE SCIENCE.** #1 (farmers and a well, 1974) survived every route: the
-two *Scientific Reports* papers Folio already cites were fetched in full from `nature.com` and neither
-recounts it, the Copernicus terracotta paper does not either, and DOAJ's other hits are conservation
-and photogrammetry. **A scientific paper cites the excavation reports and never tells the story.**
-
-**THE EVIDENCE IS OLDER OR ELSEWHERE THAN THE CLAIM.** **#175 is out of this list: see T67**, which
-is this sentence's own “Yule's Polo, open and full-text” being the answer rather than a consolation.
-#20 (Columbus and the mainland) — the Library of Congress's own exhibition says he "led three more
-expeditions to the Caribbean", which is suggestive and is not the negative stated; `loc.gov`'s
-classroom pages and every `nps.gov` path tried are 403 or 404. **#64 is out of this list: see T66**,
-which is this sentence being an instruction rather than a description. **#70 is out of this list:
-see T68**, which is that observation being half a citation rather than a dead end. That reading is
-right and the conclusion drawn from it was wrong. **A source that answers half a statement is half a
-citation, not a dead end** — the note treated it as a reason to stop rather than as one end of a
-pair, which is T30's rule about comparison statements arriving from a different direction. **THE
-OTHER END IS A PEER-REVIEWED HISTORY AND IT WAS ONE QUERY AWAY.** Europe PMC's earlier sweeps had
-been for `"Coca-Cola" AND cocaine`, which returns the clinical literature — the drink is what people
-present to an emergency department having drunk. Searching for the SUBJECT instead (`TITLE:"cocaine"
-AND TITLE:"history"`) returns Redman's review of cocaine as an anaesthetic, CC BY, whose second page
-says in terms that Coca-Cola was patented in 1887 and that "until 1903, this drink contained
-cocaine". **Search for the field, not for the example.** **AND THE OPINION IS STILL WORTH CITING,
-FOR EXACTLY WHAT IT SAYS.** A formula that has to have the cocaine eliminated from it is one that
-had cocaine in it; the trade-mark papers it quotes are the company's own. It is on `tile.loc.gov`,
-which serves the whole of *United States Reports* as PDFs **with a text layer** — 53,502 characters
-from 26 pages, greppable — and the page is calibrated rather than guessed: the scan opens at printed
-265, so PDF page 8 is printed 272, and a verso header confirms the parity. **THIS BATCH ALSO CHANGED
-`check-truefalse.js` FOR THE FIRST TIME SINCE ITS UNITS RULE, AND THE REASON IS THE FINDING.** Rule
-2 refused the statement over `flavor` — a word inside a **direct quotation from the Supreme Court**,
-where the only alternatives are to misquote a source or to drop the quotation. The rule now masks
-curly-quoted spans before the spelling pass, on the same reasoning the proper-noun mask carries:
-**the site's transform is one-way**, so an American spelling inside a quotation reaches every reader
-as its source wrote it. The mask is the curly pair and nothing else, an unbalanced opening quote
-matches nothing by design, and the change was **proved live** by planting `flavor` outside the
-quotation marks in the same sentence and watching rule 2 report it. ### Probes that failed in
-T62–T65, and one lead worth keeping (2026-09-17) Recorded so the next session does not repeat them.
-**None of these is a wall**; they are simply sources that turned out not to carry the claim, which
-is the commoner kind of no. - **#64, the Great Fire's death toll.** Charles Welch's *History of the
-Monument* (1921, archive.org, OCR readable) mentions no death from the fire at all — its only deaths
-are a man who fell from the gallery in 1750 and six suicides. The Europe PMC paper on **John
-Graunt**, who is the Bills of Mortality's own author, names the Fire three times and every one is
-about Graunt's house burning down. DOAJ has four papers on the Fire and the likeliest, a comparison
-with the Lisbon earthquake in *Conservar Património*, is about architectural heritage and gives no
-toll. - **#70, cocaine in Coca-Cola.** DOAJ returns exactly one hit for the two terms together and
-it is a survey of drug use among Honduran medical students. Europe PMC's open corpus returns the
-clinical literature, and the *Erythroxylum coca* genome paper — the one candidate whose background
-might have carried it — deposits metadata rather than full text. - **#38's uniqueness, before T63
-closed it.** OAPEN's REST search answers 500; DOAB's answers 200 with three books that do not carry
-the claim. **THE LEAD, AND WHAT IT TURNED OUT TO BE: `british-history.ac.uk` ANSWERS ITS CONTENT AND
-CHALLENGES ITS SEARCH.** A guessed path returned a 404 page of 10 KB, which is a fact about the path
-and not about the host — and following it up, `/cal-state-papers/domestic/chas2/1666-7` and
-`/no-series/survey-of-london-stow/1603` both serve in full while `/search/series?query=…` returns a
-CAPTCHA page. **So the archive is usable and is not searchable**, which means it is reached by
-knowing the volume you want. It holds Strype, Stow and the *Calendar of State Papers Domestic* for
-the year of the Fire, and it has never been read for #20. (#64 no longer needs it: see T66.) **AND
-THE *LONDON GAZETTE*'S OWN ARCHIVE IS OPEN BACK TO 1665 AND CANNOT BE GREPPED.**
-`thegazette.co.uk/London/issue/<n>/data.pdf` serves the scanned issue — 86 is the Fire number, of
-3–10 September 1666 — and the PDF is a pure image: `pypdf` extracts **one character** from two
-pages. It is a source that must be LOOKED AT rather than searched, which is the picture pass's rule
-arriving in the citation pass. Whether it carries a death count at all is unknown and is the thing
-to check before spending a reading on it. **THE OTHER LEAD IS NOT A HOST AT ALL, AND IT IS THE ONE
-THAT PAID.** #64 asks what the OFFICIAL RECORDS list, so what it wants is the record itself rather
-than a work about the event — and a contemporary account that simply does not mention deaths proves
-nothing, which is what Welch's *Monument* turned out to be. **T66 went and got the Bills.** ###
-Where the last four stand (2026-09-17) The pass closed this session at **216 of 220 (93→98%)**.
-Every remaining statement has been probed and the probe recorded; three families account for all
-four. **#44, #38, #128, #135 and #141 were in this list and are out of it** — see T62, which is the
-family below being asked the wrong question; T63, which is this note's own “do not re-probe” line
-being too blunt; T64, which is a walled result list that was not walled all the way down; and T65,
-which is a whole family named after a platform rather than after a wall. **A host that is SHUT and a
-host that is DOWN are different findings and this note now says which is which**: a 403, a
-Cloudflare challenge and a TLS reset are policy and hold; a 500 and a run of dropped connections are
-an afternoon and do not. **THE CANONICAL PAPER IS ON A JAVASCRIPT PLATFORM.** This family held #135
-and #141 and **is empty: see T65.** Both platforms are still shut — `psycnet.apa.org` is a shell and
-every Wayback capture of it is that same shell, and `journals.sagepub.com` is behind a Cloudflare
-challenge — and neither statement needed them. **A platform is where a publisher puts a paper, not
-where its content can be read.** **THE CLAIM IS NOT A RESEARCH SUBJECT AND HAS NO PAPER.** #80 (a
-penny from a skyscraper) has no canonical work to find. OpenStax's physics texts are fully readable
-and do not treat it. **#128 was this family's other member and is out of it: see T64** — it turned
-out to have a paper after all, two results down a DOAJ list whose first hits were on walled hosts.
 **THE DISCOVERY STORY IS NOT IN THE SCIENCE.** #1 (farmers and a well, 1974) survived every route:
 the two *Scientific Reports* papers Folio already cites were fetched in full from `nature.com` and
 neither recounts it, the Copernicus terracotta paper does not either, and DOAJ's other hits are
 conservation and photogrammetry. **A scientific paper cites the excavation reports and never tells
-the story.** **THE EVIDENCE IS OLDER OR ELSEWHERE THAN THE CLAIM.** **#175 is out of this list: see
-T67**, which is this sentence's own “Yule's Polo, open and full-text” being the answer rather than a
-consolation. #20 (Columbus and the mainland) — the Library of Congress's own exhibition says he "led
-three more expeditions to the Caribbean", which is suggestive and is not the negative stated;
-`loc.gov`'s classroom pages and every `nps.gov` path tried are 403 or 404. **#64 is out of this
-list: see T66**, which is this sentence being an instruction rather than a description. #70 (cocaine
-in Coca-Cola) has the 1916 Supreme Court opinion recording the extract used "with cocaine
-eliminated" — **evidence it was taken out, not of what was in the 1880s bottle**. #47 is Chinese
+the story.** **AND “SURVIVED EVERY ROUTE” IS TOO COARSE: ONLY ONE CLAUSE IS MISSING.** The
+March-1974 discovery and the July excavation are sourceable from `PMC11449754`; it is the WELL that
+nothing reachable carries, confirmed by a Europe PMC full-text search returning zero and by four
+more Heritage Science papers read whole. See the two entries above.
+
+**THE EVIDENCE IS OLDER OR ELSEWHERE THAN THE CLAIM.** **#175 is out of this list: see T67**, which
+is this sentence's own “Yule's Polo, open and full-text” being the answer rather than a consolation.
+#20 (Columbus and the mainland) — the Library of Congress's own exhibition says he "led three more
+expeditions to the Caribbean", which is suggestive and is not the negative stated; **the sentence
+that stood here about `loc.gov` and `nps.gov` was wrong and is corrected in the entry above** — both
+hosts serve their content and it was the paths that failed. **#64 is out of this list: see T66**,
+which is this sentence being an instruction rather than a description. **#70 is out of this list:
+see T68**, which is that observation being half a citation rather than a dead end. #47 is Chinese
 history whose standard works are modern monographs; HAL, DOAJ and the glossary's own 3,838 cited
 terms return nothing on it, and what it wants is not a monograph but a **comparative city-size
 table** — the claim is that Chang'an was the largest city in the world, which no Chinese source can
