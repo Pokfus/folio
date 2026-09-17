@@ -546,6 +546,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l1` notes 181–210 (谁 → 听见), deck order, plus a new `exEn` field | 19 | a gloss giving the dictionary's rarest sense as the card's only one |
 | 2026-09-17 | `hsk30l1` notes 211–240 (同学 → 写), deck order | 23 | a polyphone taught at the wrong reading of the two |
 | 2026-09-17 | `hsk30l1` notes 241–270 (谢谢 → 再), deck order | 20 | a gloss that stops dead in the middle of a phrase |
+| 2026-09-17 | `hsk30l1` notes 271–300 (在 → 做), deck order — **Level 1 complete** | 22 | a gloss naming one sense while the examples show another |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1412,3 +1413,98 @@ is exactly the gap this section exists to fill.
 sentences are all right as they stand. 再's gloss keeps its parenthetical, "(of something still to
 come)": unlike "(everyday word)" or "(the general verb)" that is a restriction on the MEANING — it is
 what separates 再 from 又 — and this pass cuts notes about a card, not restrictions on a word.
+
+### 2026-09-17 — Level 1, notes 271–300 — **the deck is finished**
+
+**What the batch was.** The last thirty cards of HSK 1, 在 → 做, read one at a time against CC-CEDICT
+and against their own three sentences. **Twenty-two were changed**, eight left alone. One card outside
+the range, 汉语, was reglossed because this batch's work on 中文 left the two saying the same thing.
+
+**All 300 cards of Level 1 have now been read.** Ten batches, roughly 220 cards changed.
+
+### The fault this batch found most of
+
+**A gloss naming one sense while the card's own sentences show another**, four times over, and every
+one of them a word a beginner uses daily:
+
+- **坐 was glossed "to sit"**, and two of its three sentences are 坐出租车 and 坐火车 — TAKING a taxi,
+  going BY train. You take a bus far more often than you announce that you are sitting down, and the
+  card gave a reader no way to produce it.
+- **怎么 was glossed "how?"**, and two of its three are WHY — 怎么会这样, 我怎么看不见他们 — as both of
+  the card's own English translations say.
+- **早's "early; morning"** was one `adjective`, and only "early" is 早 standing alone; marked
+  (bound form) exactly as its opposite 晚 was.
+- **做's "to do; to be; become (an occupation)"** glued two senses together with a semicolon and dropped
+  the "to" half way through.
+
+### And the other half: sentences that are not the card's word
+
+**再见's second and third examples were 再 plus 见** — 我们还能再见吗 is "can we MEET again", 我不会再见她
+is "I won't SEE her again" — where 再见 is the farewell the card glosses. That is the third card in two
+batches with this fault (有的 and 有点儿 were the others) and it is invisible to `check-example-fit.js`
+every time, for the same reason: the compound is in the decks' own lexicon, so the characters segment
+perfectly and only the meaning is wrong.
+
+**你们住这里。was the same sentence as 这里's own first example** — the third one-sentence-two-cards find
+in three batches, after 她晚了起床 and 新月出来了. It is worth grepping the deck for a sentence's text
+before authoring its replacement.
+
+**中学's 你是中学学生吗？ taught a form Chinese does not have**: the compound is 中学生, which is the very
+next card in the deck. Its English also said "high school" where the gloss and its sibling example say
+middle school.
+
+Also: 只's 我是只猫吗 (a classifier with no numeral in front of it), 字's 她不会读书写字 (字 inside 写字,
+in a fixed pair of two-character verbs), 真's 真男人喝茶 (真男人 is not standard; it is 真正的男人),
+找's 一个人藏，十个人找 (a proverb on a Level 5 verb), and 中学生's twenty-character sentence built on
+只不过, 普普通通 and 不算特别.
+
+### A mechanism finding: a hint and a gloss cannot sit on one note
+
+**中文 was glossed "Chinese [written language]" and its own first sentence is 我会说中文 — speaking it.**
+The bracket is simply false and CC-CEDICT gives "Chinese language" flat. But removing it left 中文 and
+汉语, two cards in the same deck, both reading "the Chinese language", and **the deck's own `not X` hint
+cannot fix that**: the applier writes the hint above the senses and then `gloss` REPLACES the whole
+English field, so a note carrying both keeps only the gloss. That is deliberate and documented — a note
+given a *distinguishing* gloss does not need a hint — but it means **a note whose gloss is merely
+CORRECTED cannot have one either**. The `--check` pass is no help: it reports the record's claims
+carried, and the wiped hint was never a claim.
+
+So the distinction is said in the gloss instead, in the words' own terms: **汉语 is "Chinese; the Han
+language"**, which is what every textbook tells a beginner and what 中文 does not say. The pair now
+differs on the front of the card rather than in a block that would not survive.
+
+### On the compound lists
+
+**这's four rows are all ones the panel cannot reach.** The reader's own Level 1 deck already holds
+这个, 这里, 这些, 这儿 and 这边, so a list repeating them would be noise — which is why 些 was given no
+section at all two batches ago. 这样, 这么, 这种 and 这时 are the next four and are in no Level 1 deck.
+One candidate had to be dropped on the way: **这次 is not a CC-CEDICT headword** (it is compositional),
+and the rule is that every row is checked, so it was replaced rather than kept.
+
+**船只 is the row that earns 只 its section.** It is the only one of the five on the **zhī** reading —
+the classifier this card teaches — where every other compound 只 builds abandons it for zhǐ.
+
+**坐下 takes CC-CEDICT's neutral-tone zuò xia**, and is the first row in four batches to take the
+dictionary's reading over a deck card's, for the simple reason that there is no deck card for it. The
+deck-reading rule only ever applies where the deck has one.
+
+### Read and left alone
+
+在, 早饭, 这个, 这里, 这儿, 这些, 正在, 中国, 中午, 昨天, 做饭 and 桌子's first and third sentences are
+right as they stand. 住's gloss keeps its parenthetical, "(a number of nights)": it is a restriction on
+the meaning, not a remark about the card, and this batch gave it the example it had been missing.
+
+### What Level 1 looked like, over ten batches
+
+The same handful of faults, again and again:
+
+1. **A gloss that is one of CC-CEDICT's senses and not the one the card's examples show** — 岁 at "year
+   (of crop harvests)", 坐 at "to sit", 太 at "very", 怎么 at "how?".
+2. **A sentence that does not contain the headword**, though its characters are all there — 有点儿, 有的,
+   再见, 外, 小, 字.
+3. **A verb glossed without its "to "**, or a phrase glossed under `verb` — 生病, 听, 知道, 谢谢, 起床.
+4. **A parenthetical that is a note about the card rather than English** — 非常, 早上, 午饭, 一下, 有的.
+   The line drawn: a note about register or usage is cut, a restriction on the meaning stays.
+5. **A gloss that stops in the middle of a phrase** — 们, 呢, 一.
+6. **English that is not the sentence** — a tense the Chinese does not carry, an idiom that drops the
+   headword, slang, or a dollar sign on the card for the yuan.
