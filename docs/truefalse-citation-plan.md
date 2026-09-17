@@ -2547,6 +2547,38 @@ argument on a passage.
 this edition prints, and what it does contain is a Sumatran palm flour. That is enough for a statement
 whose whole content is what Marco Polo is supposed to have done.
 
+### T68 — the 1916 opinion the note kept as evidence of the wrong thing (2026-09-17)
+
+One cited: #70 (cocaine in Coca-Cola). 215 → **216 of 220 (98%)**. The closing note had this one filed
+with a correct observation: the Supreme Court's opinion records the extract used "with cocaine
+eliminated", which is **evidence it was taken out, not of what was in the 1880s bottle**. That reading
+is right and the conclusion drawn from it was wrong. **A source that answers half a statement is half a
+citation, not a dead end** — the note treated it as a reason to stop rather than as one end of a pair,
+which is T30's rule about comparison statements arriving from a different direction.
+
+**THE OTHER END IS A PEER-REVIEWED HISTORY AND IT WAS ONE QUERY AWAY.** Europe PMC's earlier sweeps had
+been for `"Coca-Cola" AND cocaine`, which returns the clinical literature — the drink is what people
+present to an emergency department having drunk. Searching for the SUBJECT instead
+(`TITLE:"cocaine" AND TITLE:"history"`) returns Redman's review of cocaine as an anaesthetic, CC BY,
+whose second page says in terms that Coca-Cola was patented in 1887 and that "until 1903, this drink
+contained cocaine". **Search for the field, not for the example.**
+
+**AND THE OPINION IS STILL WORTH CITING, FOR EXACTLY WHAT IT SAYS.** A formula that has to have the
+cocaine eliminated from it is one that had cocaine in it; the trade-mark papers it quotes are the
+company's own. It is on `tile.loc.gov`, which serves the whole of *United States Reports* as PDFs **with
+a text layer** — 53,502 characters from 26 pages, greppable — and the page is calibrated rather than
+guessed: the scan opens at printed 265, so PDF page 8 is printed 272, and a verso header confirms the
+parity.
+
+**THIS BATCH ALSO CHANGED `check-truefalse.js` FOR THE FIRST TIME SINCE ITS UNITS RULE, AND THE REASON
+IS THE FINDING.** Rule 2 refused the statement over `flavor` — a word inside a **direct quotation from
+the Supreme Court**, where the only alternatives are to misquote a source or to drop the quotation. The
+rule now masks curly-quoted spans before the spelling pass, on the same reasoning the proper-noun mask
+carries: **the site's transform is one-way**, so an American spelling inside a quotation reaches every
+reader as its source wrote it. The mask is the curly pair and nothing else, an unbalanced opening quote
+matches nothing by design, and the change was **proved live** by planting `flavor` outside the quotation
+marks in the same sentence and watching rule 2 report it.
+
 ### Probes that failed in T62–T65, and one lead worth keeping (2026-09-17)
 
 Recorded so the next session does not repeat them. **None of these is a wall**; they are simply sources
@@ -2586,10 +2618,10 @@ contemporary account that simply does not mention deaths proves nothing, which i
 *Monument* turned out to be. **T66 went and got the Bills.**
 
 
-### Where the last five stand (2026-09-17)
+### Where the last four stand (2026-09-17)
 
-The pass closed this session at **215 of 220 (93→98%)**. Every remaining statement has been probed
-and the probe recorded; three families account for all five. **#44, #38, #128, #135 and #141 were
+The pass closed this session at **216 of 220 (93→98%)**. Every remaining statement has been probed
+and the probe recorded; three families account for all four. **#44, #38, #128, #135 and #141 were
 in this list and are out of it** — see T62, which is the family below being asked the wrong
 question; T63, which is this note's own “do not re-probe” line being too blunt; T64, which is a
 walled result list that was not walled all the way down; and T65, which is a whole family named
@@ -2618,26 +2650,104 @@ is this sentence's own “Yule's Polo, open and full-text” being the answer ra
 #20 (Columbus and the mainland) — the Library of Congress's own exhibition says he "led three more
 expeditions to the Caribbean", which is suggestive and is not the negative stated; `loc.gov`'s
 classroom pages and every `nps.gov` path tried are 403 or 404. **#64 is out of this list: see T66**,
-which is this sentence being an instruction rather than a description. #70 (cocaine in Coca-Cola)
-has the 1916 Supreme Court opinion recording the extract used "with cocaine eliminated" — **evidence
-it was taken out, not of what was in the 1880s bottle**. #47 is Chinese history whose standard works
-are modern monographs; HAL, DOAJ and the glossary's own 3,838 cited terms return nothing on it, and
-what it wants is not a monograph but a **comparative city-size table** — the claim is that Chang'an
-was the largest city in the world, which no Chinese source can settle. Ian Morris's
-social-development tables are the obvious candidate and `ianmorris.org` now serves a placeholder
-page with no PDFs on it. **#38 was in this paragraph and is out of it: see T63, and with it the
-reason this note used to give for leaving it — a list of five hosts, one of which was not shut but
-down.**
+which is this sentence being an instruction rather than a description. **#70 is out of this list:
+see T68**, which is that observation being half a citation rather than a dead end. That reading is
+right and the conclusion drawn from it was wrong. **A source that answers half a statement is half a
+citation, not a dead end** — the note treated it as a reason to stop rather than as one end of a
+pair, which is T30's rule about comparison statements arriving from a different direction. **THE
+OTHER END IS A PEER-REVIEWED HISTORY AND IT WAS ONE QUERY AWAY.** Europe PMC's earlier sweeps had
+been for `"Coca-Cola" AND cocaine`, which returns the clinical literature — the drink is what people
+present to an emergency department having drunk. Searching for the SUBJECT instead (`TITLE:"cocaine"
+AND TITLE:"history"`) returns Redman's review of cocaine as an anaesthetic, CC BY, whose second page
+says in terms that Coca-Cola was patented in 1887 and that "until 1903, this drink contained
+cocaine". **Search for the field, not for the example.** **AND THE OPINION IS STILL WORTH CITING,
+FOR EXACTLY WHAT IT SAYS.** A formula that has to have the cocaine eliminated from it is one that
+had cocaine in it; the trade-mark papers it quotes are the company's own. It is on `tile.loc.gov`,
+which serves the whole of *United States Reports* as PDFs **with a text layer** — 53,502 characters
+from 26 pages, greppable — and the page is calibrated rather than guessed: the scan opens at printed
+265, so PDF page 8 is printed 272, and a verso header confirms the parity. **THIS BATCH ALSO CHANGED
+`check-truefalse.js` FOR THE FIRST TIME SINCE ITS UNITS RULE, AND THE REASON IS THE FINDING.** Rule
+2 refused the statement over `flavor` — a word inside a **direct quotation from the Supreme Court**,
+where the only alternatives are to misquote a source or to drop the quotation. The rule now masks
+curly-quoted spans before the spelling pass, on the same reasoning the proper-noun mask carries:
+**the site's transform is one-way**, so an American spelling inside a quotation reaches every reader
+as its source wrote it. The mask is the curly pair and nothing else, an unbalanced opening quote
+matches nothing by design, and the change was **proved live** by planting `flavor` outside the
+quotation marks in the same sentence and watching rule 2 report it. ### Probes that failed in
+T62–T65, and one lead worth keeping (2026-09-17) Recorded so the next session does not repeat them.
+**None of these is a wall**; they are simply sources that turned out not to carry the claim, which
+is the commoner kind of no. - **#64, the Great Fire's death toll.** Charles Welch's *History of the
+Monument* (1921, archive.org, OCR readable) mentions no death from the fire at all — its only deaths
+are a man who fell from the gallery in 1750 and six suicides. The Europe PMC paper on **John
+Graunt**, who is the Bills of Mortality's own author, names the Fire three times and every one is
+about Graunt's house burning down. DOAJ has four papers on the Fire and the likeliest, a comparison
+with the Lisbon earthquake in *Conservar Património*, is about architectural heritage and gives no
+toll. - **#70, cocaine in Coca-Cola.** DOAJ returns exactly one hit for the two terms together and
+it is a survey of drug use among Honduran medical students. Europe PMC's open corpus returns the
+clinical literature, and the *Erythroxylum coca* genome paper — the one candidate whose background
+might have carried it — deposits metadata rather than full text. - **#38's uniqueness, before T63
+closed it.** OAPEN's REST search answers 500; DOAB's answers 200 with three books that do not carry
+the claim. **THE LEAD, AND WHAT IT TURNED OUT TO BE: `british-history.ac.uk` ANSWERS ITS CONTENT AND
+CHALLENGES ITS SEARCH.** A guessed path returned a 404 page of 10 KB, which is a fact about the path
+and not about the host — and following it up, `/cal-state-papers/domestic/chas2/1666-7` and
+`/no-series/survey-of-london-stow/1603` both serve in full while `/search/series?query=…` returns a
+CAPTCHA page. **So the archive is usable and is not searchable**, which means it is reached by
+knowing the volume you want. It holds Strype, Stow and the *Calendar of State Papers Domestic* for
+the year of the Fire, and it has never been read for #20. (#64 no longer needs it: see T66.) **AND
+THE *LONDON GAZETTE*'S OWN ARCHIVE IS OPEN BACK TO 1665 AND CANNOT BE GREPPED.**
+`thegazette.co.uk/London/issue/<n>/data.pdf` serves the scanned issue — 86 is the Fire number, of
+3–10 September 1666 — and the PDF is a pure image: `pypdf` extracts **one character** from two
+pages. It is a source that must be LOOKED AT rather than searched, which is the picture pass's rule
+arriving in the citation pass. Whether it carries a death count at all is unknown and is the thing
+to check before spending a reading on it. **THE OTHER LEAD IS NOT A HOST AT ALL, AND IT IS THE ONE
+THAT PAID.** #64 asks what the OFFICIAL RECORDS list, so what it wants is the record itself rather
+than a work about the event — and a contemporary account that simply does not mention deaths proves
+nothing, which is what Welch's *Monument* turned out to be. **T66 went and got the Bills.** ###
+Where the last four stand (2026-09-17) The pass closed this session at **216 of 220 (93→98%)**.
+Every remaining statement has been probed and the probe recorded; three families account for all
+four. **#44, #38, #128, #135 and #141 were in this list and are out of it** — see T62, which is the
+family below being asked the wrong question; T63, which is this note's own “do not re-probe” line
+being too blunt; T64, which is a walled result list that was not walled all the way down; and T65,
+which is a whole family named after a platform rather than after a wall. **A host that is SHUT and a
+host that is DOWN are different findings and this note now says which is which**: a 403, a
+Cloudflare challenge and a TLS reset are policy and hold; a 500 and a run of dropped connections are
+an afternoon and do not. **THE CANONICAL PAPER IS ON A JAVASCRIPT PLATFORM.** This family held #135
+and #141 and **is empty: see T65.** Both platforms are still shut — `psycnet.apa.org` is a shell and
+every Wayback capture of it is that same shell, and `journals.sagepub.com` is behind a Cloudflare
+challenge — and neither statement needed them. **A platform is where a publisher puts a paper, not
+where its content can be read.** **THE CLAIM IS NOT A RESEARCH SUBJECT AND HAS NO PAPER.** #80 (a
+penny from a skyscraper) has no canonical work to find. OpenStax's physics texts are fully readable
+and do not treat it. **#128 was this family's other member and is out of it: see T64** — it turned
+out to have a paper after all, two results down a DOAJ list whose first hits were on walled hosts.
+**THE DISCOVERY STORY IS NOT IN THE SCIENCE.** #1 (farmers and a well, 1974) survived every route:
+the two *Scientific Reports* papers Folio already cites were fetched in full from `nature.com` and
+neither recounts it, the Copernicus terracotta paper does not either, and DOAJ's other hits are
+conservation and photogrammetry. **A scientific paper cites the excavation reports and never tells
+the story.** **THE EVIDENCE IS OLDER OR ELSEWHERE THAN THE CLAIM.** **#175 is out of this list: see
+T67**, which is this sentence's own “Yule's Polo, open and full-text” being the answer rather than a
+consolation. #20 (Columbus and the mainland) — the Library of Congress's own exhibition says he "led
+three more expeditions to the Caribbean", which is suggestive and is not the negative stated;
+`loc.gov`'s classroom pages and every `nps.gov` path tried are 403 or 404. **#64 is out of this
+list: see T66**, which is this sentence being an instruction rather than a description. #70 (cocaine
+in Coca-Cola) has the 1916 Supreme Court opinion recording the extract used "with cocaine
+eliminated" — **evidence it was taken out, not of what was in the 1880s bottle**. #47 is Chinese
+history whose standard works are modern monographs; HAL, DOAJ and the glossary's own 3,838 cited
+terms return nothing on it, and what it wants is not a monograph but a **comparative city-size
+table** — the claim is that Chang'an was the largest city in the world, which no Chinese source can
+settle. Ian Morris's social-development tables are the obvious candidate and `ianmorris.org` now
+serves a placeholder page with no PDFs on it. **#38 was in this paragraph and is out of it: see T63,
+and with it the reason this note used to give for leaving it — a list of five hosts, one of which
+was not shut but down.**
 
 **WHAT WOULD MOVE THEM.** Not more probing of the same hosts. **#1 and #20** want a museum, archive
 or government page that is not behind a challenge — and `british-history.ac.uk` is one, serving its
 content while challenging only its search, so it is reached by knowing which volume you want.
-**#47** wants a comparative city-size table. **#70** wants a period analysis rather than the 1916
-opinion. **#80** wants a source that exists. The hosts measured SHUT are `ctext.org`
-(Turnstile), `mdpi.com` (403), `psycnet.apa.org` and `journals.sagepub.com`, `sciencedirect.com`,
-and `jfafu.journals.ekb.eg` (TLS reset). **Those do not change; do not re-probe them.** What was
-merely DOWN and is worth another try on another day: `jurnal.uai.ac.id` (500), OpenAlex (429 on a
-daily budget that resets at midnight UTC), OAPEN's REST search (500) — and `web.archive.org`, which
-was dropping every connection when that sentence was written and answered twenty minutes later,
-which is how #38 closed. **Each of the six is a fact about reach or about what exists, not about the
-pool**, which is why they are listed rather than cited to something that does not carry them.
+**#47** wants a comparative city-size table. **#80** wants a source that exists. The hosts measured
+SHUT are `ctext.org` (Turnstile), `mdpi.com` (403), `psycnet.apa.org` and `journals.sagepub.com`,
+`sciencedirect.com`, and `jfafu.journals.ekb.eg` (TLS reset). **Those do not change; do not re-probe
+them.** What was merely DOWN and is worth another try on another day: `jurnal.uai.ac.id` (500),
+OpenAlex (429 on a daily budget that resets at midnight UTC), OAPEN's REST search (500) — and
+`web.archive.org`, which was dropping every connection when that sentence was written and answered
+twenty minutes later, which is how #38 closed. **Each of the four is a fact about reach or about
+what exists, not about the pool**, which is why they are listed rather than cited to something that
+does not carry them.

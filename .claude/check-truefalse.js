@@ -112,6 +112,25 @@ const IMPERIAL_RX = new RegExp(
 
    THE MASK IS EXACT STRINGS, never a pattern: "anything capitalised" would excuse `Colour` at the head of
    a sentence, which is the one place a real spelling wears a capital. */
+/* A QUOTATION IS NOT AUTHORED TEXT, SO RULE 2 DOES NOT READ INSIDE ONE (Sep 2026). A statement may
+   quote a source verbatim — the pool already quotes Plutarch, a 1692 death warrant and Burckhardt — and
+   the moment one of those sources writes an American spelling, rule 2 refuses the statement and the only
+   ways out are to misquote or to reword. That happened on #70, where the Supreme Court's own record of
+   the Coca-Cola seizure says the extracts were used "for the purpose of obtaining a flavor".
+
+   IT IS SAFE FOR THE SAME REASON THE PROPER-NOUN MASK IS: the site's transform is ONE-WAY. `spellText`
+   returns at once under en-GB, the authored system, and converts only towards American — so a quotation
+   carrying an American spelling reaches every reader exactly as its source wrote it, and a quotation
+   carrying a British one is the only thing at risk, which is the direction a quotation should be in
+   anyway.
+
+   THE MASK IS THE CURLY PAIR AND NOTHING ELSE. That is the house form for a quotation throughout the
+   pool; a straight double quote cannot appear in this prose at all. An unbalanced opening quote matches
+   nothing, deliberately — the pattern requires its closer, so a typo leaves the text checked rather than
+   silently excused. What it does excuse is an authoring error inside quotation marks, which is the right
+   trade: text inside a quotation is not authored. */
+const QUOTED_RX = /\u201c[^\u201d]*\u201d/g;
+
 const PROPER_NOUNS = [
   ["Elisha Gray", "the inventor who filed a caveat for the telephone on the same day as Bell"],
   ["Registry of Tumors in Lower Animals", "the NCI-funded registry's own name — it is the institution that holds the shark tumour cases"],
@@ -133,6 +152,8 @@ POOL.forEach((it, i) => {
   // 2. spelling — the US→GB pass must be a no-op on authored text
   ["q", "why"].forEach((f) => {
     let txt = String(it[f] || "");
+    const quotes = [];
+    txt = txt.replace(QUOTED_RX, (m) => { quotes.push(m); return "\u0000QUOTE" + (quotes.length - 1) + "\u0000"; });
     PROPER_NOUNS.forEach((n, k) => { txt = txt.split(n[0]).join("\u0000NAME" + k + "\u0000"); });
     const gb = SP.spellText(txt, false);
     if (gb !== txt) {
