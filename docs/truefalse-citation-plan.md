@@ -69,7 +69,7 @@ card-side research is then shared.
 | T1 | Prehistory | **done** — written cited |
 | T2 | Ancient & classical | part done; T2a, T2b and T2c between them |
 | T3 | Chinese history | part done; `cnh-` cards carry most of it |
-| T4 | Modern history | part done; T4a took three of it |
+| T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511` |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six and T7b three, all researched |
@@ -492,6 +492,28 @@ date to cite them by, and answer from this sandbox.
 a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
 than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
 belt but does not carry the claim that every probe crossed it without dodging.
+
+### T4b — two American myths off the two federal hosts that answer (2026-09-17)
+
+**THE HOST SURVEY IS THE REUSABLE HALF OF THIS BATCH, because most of the obvious ones are shut.** Measured
+on 2026-09-17, for a category whose statements are nearly all American: `nps.gov` and
+`prologue.blogs.archives.gov` answer 200 and serve their prose; **`si.edu` and its subdomains are 403 behind
+Cloudflare**, so the National Postal Museum's own *Legend of Betsy Ross* page — the best single source there
+is for that statement — cannot be opened from here; **`loc.gov` is 403**; and **`americanhistory.si.edu` is
+403** with them. `awm.gov.au` answers, but **Trove serves an Anubis proof-of-work challenge** at
+`trove.nla.gov.au/newspaper/article/<id>` — a 200-status wall of a seventh kind, and one this pass will not
+solve — so the 1932 Emu War statement has no source: the contemporary Perth and Sydney newspaper reports
+that carry it are all behind it.
+
+- **Betsy Ross.** The National Archives' own blog says it flatly: her involvement in designing and making
+  the first flag is "largely fictitious", the story was "likely" developed in the 1870s by her grandson
+  William J. Canby, and her real connection was as a Philadelphia flag maker. The same post credits the
+  design to Francis Hopkinson, which the `why` already named — so both of its claims are on one page.
+- **Rosa Parks.** The NPS's *Montgomery Bus Boycott* gives Claudette Colvin's arrest on 2 March 1955, nine
+  months before Parks, and names the four *Browder v. Gayle* plaintiffs. **The `why` lost its second
+  sentence**, which said civil rights leaders chose Parks as the public face because she was older and
+  employed; that is the standard account and the page does not carry it, and what replaced it — the case
+  Colvin actually was part of — is on the page and says more.
 
 ### T6a — the first two of the hardest category, off a primary text and a government page (2026-09-17)
 
