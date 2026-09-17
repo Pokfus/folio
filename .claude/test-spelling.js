@@ -76,6 +76,25 @@ check("every two-way row round-trips", badTrip.length === 0, badTrip.slice(0, 8)
   check("`" + w + "` is left alone", !gbMap[w] && !usMap[w], gbMap[w] || usMap[w]);
 });
 
+/* A SUFFIX CAN MAKE A NON-WORD OUT OF A ROW THAT IS OTHERWISE RIGHT, and the `-our` family is where it
+   happens: British keeps the u in `honour` and `labour` and DROPS it in `honorary` and `laborious`, both
+   being straight from the Latin. The `ary` and `ious` suffixes shipped on those rows all the same, which
+   put `honourary` and `labourious` — neither of them a word in any system — into both maps.
+   ON THE SITE IT WAS INERT, the live direction being GB->US only and no author having written the
+   non-words; where it bit was the CHECKERS, which run the reverse direction and so REFUSED a True-or-False
+   statement carrying `laborious` and told the author to misspell it. Found writing one. Three shipped
+   cards say `laborious` and one says `honorary`, correctly, and all four now pass. */
+["laborious", "honorary"].forEach((w) => {
+  check("`" + w + "` is the British spelling and is left alone", !usMap[w], usMap[w]);
+});
+["labourious", "honourary"].forEach((w) => {
+  check("`" + w + "` is no word and is in neither map", !gbMap[w] && !usMap[w], gbMap[w] || usMap[w]);
+});
+/* …and the rest of both rows still works, or the fix would have been a deletion rather than a narrowing. */
+["honourable", "honoured", "labourer", "labourers"].forEach((w) => {
+  check("`" + w + "` still converts", !!gbMap[w] && usMap[gbMap[w]] === w, gbMap[w]);
+});
+
 if (spellText) {
   const gb2us = (t) => spellText(t, true), us2gb = (t) => spellText(t, false);
   check("British to American", gb2us("the colour of the centre") === "the color of the center", gb2us("the colour of the centre"));

@@ -4427,8 +4427,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **AND `spellSkip` IS ONE TEST FOR BOTH BRANCHES.** `spellTree`'s bare-text-node branch — the one the
     MutationObserver feeds — had **no skip test at all**, so a citation or a book's prose updated in place
     was rewritten while the same text reached through the walker was protected.
+  · **A SUFFIX CAN MAKE A NON-WORD OUT OF A ROW THAT IS OTHERWISE RIGHT** (Sep 2026). British keeps the u
+    in `honour` and `labour` and DROPS it in `honorary` and `laborious`, both straight from the Latin —
+    and the `ary` and `ious` suffixes shipped on those two rows anyway, putting **`honourary`** and
+    **`labourious`** into both maps. **ON THE SITE IT WAS INERT**, the live direction being GB→US only
+    and no author having written the non-words; where it bit was the CHECKERS, which run the reverse
+    direction, so `check-truefalse.js` REFUSED a statement carrying `laborious` and told the author to
+    misspell it. Found writing one. Three shipped cards say `laborious` and one says `honorary`,
+    correctly. **A row is judged by every word its suffix list makes, not by its stem** — and the change
+    was proved over the whole corpus in both directions, 8 of 175,126 renderings changed, every one of
+    them US→GB and every one a non-word becoming the right word.
   **Known limit, stated rather than papered over**: the card browser searches stored card TEXT, so
-  "color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (83
+  "color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (91
   assertions), and **its section 4 must stay in en-GB** — `favor` is an American form and the
   American-to-British direction is the one that corrupts it, so written against en-US it passes on the
   unfixed code. It carries a **liveness check** beside it for the same reason.
@@ -4743,6 +4753,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       load-bearing**: without it the file still parses under ASI, and the NEXT run's `lastIndexOf("];")`
       finds nothing and reads the array as garbage — a fault only a second run can see, so a missing
       terminator is now a refusal.
+      **`cite` MAY ALSO REWRITE THE STATEMENT ITSELF**, which is what the citation pass does when one
+      turns out to assert something no openable work carries: the pool predates the apparatus, so several
+      of its statements were written from memory, and the honest repair is to say what can be shown
+      rather than to attach a source that does not bear the claim out. **`a` is deliberately NOT
+      rewritable** — a statement whose truth value flips is a different statement and belongs in `add`,
+      where the duplicate check can see it — and **the duplicate test is re-asked over the FINISHED
+      pool**, since the per-entry checks read a snapshot in which two rewrites landing on one wording
+      both pass. A rewrite MOVES THE KEY: a later batch addresses that statement by its new `q`.
     · **📖 `docs/truefalse-citation-plan.md` — READ BEFORE CITING A STATEMENT OR ADDING ONE.** The bar
       (one openable source per statement, against a card's five, and why it is lower), the recipe for
       lifting a citation out of a card that already makes the claim — **by marker and index,

@@ -15294,10 +15294,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // -our / -or
     ["colour", "color", "|s|ed|ing|ful|less|ation|ations"],
     ["behaviour", "behavior", "|s|al|ally|ism|ist|ists"],
-    ["honour", "honor", "|s|ed|ing|able|ably|ary"],
+    ["honour", "honor", "|s|ed|ing|able|ably"],   // NOT `ary`: British writes `honorary`, and `honourary` is no word
     ["favour", "favor", "|s|ed|ing|able|ably|ite|ites|itism"],
     ["harbour", "harbor", "|s|ed|ing"],
-    ["labour", "labor", "|s|ed|ing|er|ers|ious"],
+    ["labour", "labor", "|s|ed|ing|er|ers"],   // NOT `ious`: British writes `laborious`, and `labourious` is no word
     ["armour", "armor", "|s|ed|er|ers|y|ies"],
     ["neighbour", "neighbor", "|s|ed|ing|hood|hoods|ly|liness"],
     ["splendour", "splendor", "|s"],

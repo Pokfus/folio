@@ -4,8 +4,18 @@
 
     node .claude/add-truefalse.js <batch.json> [--dry]
 
-    { "cite": { "<the statement's exact q>": { "why": "<with <sup> markers>", "src": ["<Chicago note>", …] } },
+    { "cite": { "<the statement's exact q>": { "why": "<with <sup> markers>", "src": ["<Chicago note>", …],
+                                              "q": "<a REWRITTEN statement, optional>" } },
       "add":  [ { "q": …, "a": true, "why": …, "cat": …, "src": [ … ] } ] }
+
+  `cite` MAY REWRITE THE STATEMENT ITSELF, and that is not a convenience — it is what the citation pass
+  does when a statement turns out to assert something no openable work carries. The pool predates the
+  apparatus, so several of its statements were written from memory; the honest repair is to say what can be
+  shown rather than to attach a source that does not bear the claim out, which is the fault
+  `docs/glossary-citation-plan.md` records three times over. The `a` is deliberately NOT rewritable: a
+  statement whose truth value flips is a different statement and belongs in `add`, where the duplicate
+  check can see it. NOTE that a rewrite moves the KEY — a later batch addresses the statement by its NEW
+  `q`.
 
   WHY A HELPER RATHER THAN AN EDIT. `truefalse.js` is the one content pool with no writer of its own, and
   it is about to gain a source per statement: a hand edit has nothing checking that a marker points at a
@@ -69,6 +79,16 @@ Object.keys(cite).forEach((q) => {
   const p = cite[q] || {};
   const why = p.why !== undefined ? p.why : pool[k].why;
   checkSrc("#" + k, why, p.src || pool[k].src);
+  // A REWRITTEN `q` IS CHECKED LIKE A NEW ONE, because that is what it is. Unvalidated it applied in
+  // silence: an empty string would leave a statement the game draws with no question on it, and one that
+  // collides with another statement would put the same claim in the pool twice — both of which look on the
+  // page like a pool that is simply short, and neither of which `check-truefalse.js` could attribute to
+  // this run. `a` is not rewritable at all; see the header.
+  if (p.a !== undefined) errs.push("#" + k + ": `a` cannot be rewritten — a statement whose answer flips is a new statement, so put it in `add`");
+  if (p.q !== undefined) {
+    if (typeof p.q !== "string" || !p.q.trim()) errs.push("#" + k + ": the rewritten `q` is empty");
+    else if (p.q !== q && byQ.has(p.q)) errs.push("#" + k + ": the rewritten `q` is already another statement in the pool");
+  }
 });
 (batch.add || []).forEach((n, k) => {
   const where = "add[" + k + "]";
@@ -89,6 +109,16 @@ Object.keys(cite).forEach((q) => {
   if (p.q !== undefined) pool[k].q = p.q;
 });
 (batch.add || []).forEach((n) => pool.push({ q: n.q, a: n.a, why: n.why, cat: n.cat, src: n.src }));
+
+// …and the duplicate check is re-asked over the FINISHED pool, not over the one this run started with.
+// The per-entry checks above read `byQ`, which is a snapshot: two rewrites landing on one wording, or a
+// rewrite freeing a wording that an `add` in the same batch then takes, both pass every one of them. The
+// pool is a running order nothing addresses from outside, so a duplicate breaks nothing loudly — it just
+// deals one claim twice and makes `dayPick` quietly less varied than it says it is.
+{
+  const seen = new Map();
+  pool.forEach((e, k) => { const q = String(e.q); if (seen.has(q)) die("two statements now read \u201c" + q.slice(0, 60) + "\u2026\u201d (#" + seen.get(q) + " and #" + k + ") — nothing written"); seen.set(q, k); });
+}
 
 // …and the SEMICOLON comes back with the bracket. `foot` begins after `];`, so emitting a bare "]" drops
 // it: the file still parses (ASI), and the next run's `lastIndexOf("];")` then finds nothing and reads the

@@ -512,7 +512,7 @@ is what keeps the known gap above from mangling the inside of words.
 MutationObserver feeds — had **no skip test at all**, so a citation or a book's prose updated in place
 was rewritten while the same text reached through the walker was protected.
 **Known limit, stated rather than papered over**: the card browser searches stored card TEXT, so
-"color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (83
+"color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (91
 assertions), most of which needs no browser — and its section 4 must stay in **en-GB**, since `favor` is
 an American form and the American-to-British direction is the one that corrupts it; written against
 en-US it passes on the unfixed code. It carries a **liveness check** beside it for the same reason: a

@@ -87,10 +87,16 @@ Three statements are known to need work and are recorded here rather than left t
   (`gizamedia.rc.fas.harvard.edu`, 502 through the proxy on every attempt), an ISAC Chicago PDF (404)
   and Cambridge Core (partially down). **Left uncited rather than cited to something unread**, which is
   the right answer and is why it is written down.
-- **Gunpowder.** The statement asserts a Tang-dynasty origin and "the earliest known formula in a
-  9th-century Taoist text". **Folio's own `wh-530` supports neither**: its cited prose gives the
-  *Wujing zongyao* of 1044. Either a source is found for the earlier claim or **the statement is
-  rewritten to what the corpus can stand behind** — and the second is the honest default.
+- ~~**Gunpowder.**~~ **Settled in T2b by rewriting it**, which is what this file said the honest
+  default was. The statement asserted a Tang-dynasty origin and "the earliest known formula in a
+  9th-century Taoist text"; `wh-530`'s cited prose gives the *Wujing zongyao* of 1044 and gives the Tang
+  connection only as a later Chinese scholar's reading of festival fireworks. A second sweep for an open
+  work on the alchemical origin found nothing reachable — OpenAlex rate-limits from here and DOAJ has one
+  article on the subject, about Ottoman firearms — and the three open works `wh-530` already cites
+  (Mayers 1871, Schlegel 1902, Carter 1925) say nothing about alchemists or an elixir. It now asks
+  whether gunpowder was **written about in China before it was used as a weapon**, which is the card's
+  own opening sentence, is a better question than the one it replaced, and is cited to the two works
+  that carry it.
 
 One correction already made, worth keeping as the shape of the fault: a statement dated papermaking to
 the 2nd century BCE, which the card cited for it does not say.
@@ -149,3 +155,47 @@ citable to a card whose CITED PROSE carries the claim, and twice the card carrie
 **A CARD'S OWN CAUTION IS WORTH CARRYING ACROSS.** `wh-386` is careful that Ashoka's Kalinga figures
 are the king's own count, published by him; the explanation written here says so in the same breath
 rather than reporting 100,000 killed as a measured number.
+
+### T2b — seven statements, of which two were rewritten (2026-09-17)
+
+Six came out of the corpus by the T2a recipe and one was researched. The batch: gunpowder (`wh-530`,
+above), the Ides of March (`rm-369`), Nero and the fire (`wh-366`), the Library of Alexandria (`wh-335`),
+the silkworm eggs (`wh-438`), the Edict of Milan (`wh-372` and a researched pair) and the Olympic games
+(`gr-229` and Pausanias).
+
+**TWO STATEMENTS WERE REWRITTEN RATHER THAN CITED, AND THAT IS THE BATCH'S REAL WORK.** Both predate the
+apparatus and both asserted, flatly and as TRUE, something Folio's own cited prose declines to say.
+Gunpowder is described above. The other is the silkworms: the statement had the secret "guarded in China
+on pain of death" and monks hiding eggs "in hollow canes", where `wh-438` is careful that the insects
+**probably came from Sogdiana rather than from China itself**, and Maksymiuk's paper — the card's own
+source, read for this batch — says so outright and quotes the Greek, in which the monks come *from India*
+and report having been in *Serinda*. The canes are not in the passage Maksymiuk quotes at all. The
+statement now asks what the record shows (monks, eggs, and an empire freed from buying raw silk through
+Persia) and the explanation says in its second sentence where the worms more probably came from.
+
+**`add-truefalse.js` COULD ALREADY REWRITE A `q` AND NOTHING CHECKED IT.** The path existed
+(`cite[q].q`) and was undocumented and unvalidated, so an empty rewrite would have left a statement the
+game draws with no question on it, and two rewrites landing on one wording would have put the same claim
+in the pool twice — neither of which the checker could attribute to the run that caused it. It is now
+documented in the header, `a` is refused outright (a statement whose answer flips is a new statement and
+belongs in `add`, where the duplicate check can see it), and the duplicate test is re-asked over the
+FINISHED pool rather than over the snapshot the per-entry checks read.
+
+**A CITATION ALREADY ON A CARD IS NOT AUTOMATICALLY ONE A READER CAN OPEN.** `wh-373` cites the Roman
+Law Library at `droitromain.univ-grenoble-alpes.fr` for the Edict of Thessalonica, and that host answers
+**403 from here** to curl and to a browser user-agent alike — an Apache 403 from the origin, not the
+proxy, whose relay log names only `gizamedia`. The pass's bar is a source a reader can OPEN, so the 380
+edict is cited here to two witnesses that do answer: Latin Wikisource, which carries the text with its
+own heading naming Gratian, Valentinian and Theodosius and its consular date, and Fordham's Internet
+Medieval Sourcebook for the English. **The shipped card was left alone**: a 403 at a datacentre address
+is not proof the link is dead for a reader at home, and rewriting a verified citation on that evidence
+would be worse than recording it.
+
+**AND THE CHECKER REFUSED THE BATCH OVER A WORD THAT WAS RIGHT.** Rule 2 holds the prose to British
+spelling by running app.js's own table in the US→GB direction, and it demanded `labourious` for
+`laborious`. That is not a word in any system: British keeps the u in `labour` and drops it in
+`laborious`, straight from the Latin, and the same is true of `honour` and `honorary`. Both rows carried
+the offending suffix. **On the site it was inert** — the live direction is GB→US only and no author had
+written the non-words — so the only place it could bite was a checker, which is where it did. Fixed in
+`SPELL_PAIRS`, proved byte-for-byte inert over 175,126 renderings of the whole corpus in both directions
+(8 changed, all US→GB, all a non-word becoming the right word), and pinned in `test-spelling.js`.
