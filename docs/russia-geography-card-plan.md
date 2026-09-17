@@ -1932,3 +1932,48 @@ rather than researched blind one at a time.
   airliner**, half cloud, with the city a smudge on the horizon; `Город Самара - panoramio.jpg` is a
   cosmonaut statue on a pavement; and `Панорама Самары.jpg` is shot through a balcony railing that fills
   the bottom third. **The fetcher's `MISS`/`ok` verdict says nothing about what is in the frame.**
+
+### Batch 23 — `gru-518` (Perm), `gru-521` (Irkutsk), `gru-523` (Barnaul), and the sibling-card constraint
+
+**Three cards written straight off the swept charter shelf.** Batch 22's sweep is now doing exactly
+what it was built for: each of these three opens on its own subject's own charter, read off
+`constitution.garant.ru` at a slug taken from the `/region/` index rather than composed —
+`ustav_perm` art. 1, `ustav_irkut` art. 14, `ustav_altai` art. 6 (which names the centre beside the
+arms and the flag, in the chapter on the state symbols). None of the three needed a rung below the
+first.
+
+**`gru-516` NOVOSIBIRSK AND `gru-517` KEMEROVO WERE SKIPPED, AND THE REASON IS A CONSTRAINT THIS HALF
+OF THE DECK WILL MEET AGAIN.** Both cities' founding stories are already told, with the same
+19th-century sources, on their own SIBLING SUBJECT CARDS — `gru-016` Novosibirsk Oblast and `gru-017`
+Kemerovo Oblast — because a young Siberian city IS its oblast's history in a way an old European
+Russian one is not. Writing the capital card out of the same Reclus and Kennan pages would have made
+two cards in one collection that say the same thing about the same place, which the reader meets one
+after the other. They need **modern open sources of their own**, so they cost more research than a
+charter lookup and were left for a batch that can pay for it. **Ask what the subject card already
+says before opening a centre whose city is younger than its oblast.**
+
+**A SOURCE DISAGREEMENT IS LEFT UNASSERTED RATHER THAN SETTLED BY PICKING A SIDE.** The *Guide to the
+Great Siberian Railway* dates the opening of the Perm–Yekaterinburg mining line to **1878** and
+Reclus to **1879**. The card states 1878 and cites the Guide alone for that sentence — so the claim
+rests on one witness that says it, rather than on two that disagree averaged into a year neither
+prints. The same rule the batch-22 Nizhny Novgorod founding year (1220 against the conventional 1221)
+was written under.
+
+**THE GUIDE IS PAGE-PINNED.** `guidetogreatsibe00russuoft` is an OCR'd volume whose own pagination
+runs ahead of the scan's leaf numbers; the Perm passage is **p. 55** of the printed book, and the
+citation gives that rather than the leaf the reader's browser lands on.
+
+**FIVE PICTURES WERE REJECTED BY LOOKING AT THEM**, and two of those rejections are the no-watermark
+bar doing real work: `Irkutsk North view.jpg` carries a URL printed along the bottom edge and
+`IrkutskDowntownEvening.jpg` a black border with "OscarR" set into it — both otherwise good wide views
+of the city, both unusable. A third Irkutsk candidate is a dark evening frame inside a printed border,
+a Perm candidate a murky rooftop, and a Barnaul candidate a grey ultra-wide with nothing in it. What
+shipped: `Irkutsk, Irkutsk, Russia.jpg`, a riverside view whose `desc` says what it is rather than
+claiming a skyline "seen from a distance"; `Barnaul Skyline 2007.jpg`; and for Perm the Kama
+waterfront panorama. **The three glossary pictures are period prints and photographs** — Yakunin's
+pre-1917 *Общий вид Перми с Камы*, the pre-revolutionary `074 Иркутск. Ангара. Ж-д вокзал и мост.jpg`,
+and the Library of Congress's 1885 `View of the Siberian city of Barnaul`.
+
+**One fetch note that will recur**: `upload.wikimedia.org` rate-limits (429) under a batch's own
+volume, and a 429 is not a dead link. Pace the check — or read the file through
+`Special:FilePath/<FILE>?width=N`, which keeps answering while the API is refusing.
