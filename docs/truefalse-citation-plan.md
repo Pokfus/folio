@@ -73,7 +73,7 @@ card-side research is then shared.
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two and T7d one, all researched |
-| T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables |
+| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md` |
 
@@ -492,6 +492,27 @@ date to cite them by, and answer from this sandbox.
 a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
 than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
 belt but does not carry the claim that every probe crossed it without dodging.
+
+### T8c — three mathematics statements out of one archive (2026-09-17)
+
+**MacTutor (`mathshistory.st-andrews.ac.uk`) IS THE HOST FOR THIS CATEGORY**: St Andrews' History of
+Mathematics Archive, signed by O'Connor and Robertson, open, and it carries the history a mathematics
+statement is usually about rather than the mathematics itself. Three statements came out of two of its
+pages, and **one page did two of them** — Lindemann's biography carries both Lambert's 1761 irrationality
+proof and the 1882 transcendence proof, which are the two halves of two different statements.
+
+- **π calculated in full.** Lambert 1761 (irrational, so the expansion neither ends nor repeats) and
+  Lindemann 1882 (transcendental). **The `why` lost its second sentence** — trillions of digits computed,
+  and a few dozen enough to place a circle the size of the observable universe to within an atom's width.
+  That is JPL's own illustration and **`jpl.nasa.gov` is 403 from here**, so it could not be cited.
+- **Squaring the circle.** The same page states the problem in the Greek terms, says why irrationality was
+  not enough — "certain algebraic numbers can be constructed with ruler and compass" — and then that
+  transcendence "finally established that squaring the circle with ruler and compasses is insoluble".
+- **Fermat's Last Theorem.** The Fermat biography gives the marginal note in Bachet's Diophantus and, more
+  usefully for this statement, the date the note BECAME KNOWN: 1670, when his son Samuel published the
+  edition carrying it. **That is what was cited rather than the usual "around 1637"**, which neither page
+  states — and it makes the three centuries checkable from the sources rather than from the reader's
+  arithmetic. The topic page carries the rest: June 1993, the withdrawal, Taylor through 1994.
 
 ### T10b — two statements Folio's own learning-science doc already had a source for (2026-09-17)
 
