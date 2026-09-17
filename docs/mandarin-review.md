@@ -603,6 +603,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 721–750 (提出 → 推迟), deck order, plus a new `parking lot` LEXIS row and a `fill out` sweep | 25 | six labels naming a part of speech the card's own gloss is not |
 | 2026-09-17 | `hsk30l4` notes 751–780 (推出 → 吸), deck order | 20 | a gloss that was simply the wrong word, papered over by a `not X` hint |
 | 2026-09-17 | `hsk30l4` notes 781–810 (西部 → 笑话), deck order | 17 | a SIBLING PAIR both illustrated with a sentence their headword is not in |
+| 2026-09-17 | `hsk30l4` notes 811–840 (血 → 研究生), deck order | 16 | a card teaching a Cantonese word for the animal its sentence is about |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6432,4 +6433,58 @@ third line.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 326 unchanged; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 569 → 575;
+`build-lang-decks.js` re-run.
+
+## Batch 68 — hsk30l4 notes 811–840 (血 → 研究生)
+
+Thirty consecutive notes; **sixteen changed**, and seven of them needed a `Compounds` block.
+
+**A card teaching a word that is not Mandarin.** 熊's first sentence was 看看那边的树熊 — **树熊 is the
+Cantonese and Taiwanese name for a koala**, which CC-CEDICT does not carry at all (it gives 树袋熊 and
+the loanword 考拉) — so a card about bears showed a marsupial, under a regional name, with the headword
+buried in the compound. Three faults in one sentence, and the only one any checker could in principle
+see is the third. **This is the second dialect word this audit has found in a shipped sentence**, after
+听力's 外父 (Cantonese for a father-in-law) last batch but two.
+
+**Two cards whose content was intimate or narrow.** 性's third sentence was 老公性无能，我该怎么办？ — a
+marital sexual-health problem on a card glossed *suffix: nature, character, innate quality*, which the
+sentence does not illustrate; `check-coarse.js` cannot reach it, 性 being a one-character headword whose
+`own()` exemption swallows every compound built on it. 性别's **three** sentences were all about gender
+identity — 跨性别, 变性者…维持性别特征, 非二元性别 — so the everyday word showed one narrow topic three
+times and none of the uses a learner meets first. The longest and most technical was replaced with a
+form asking your sex; the other two stand.
+
+**Five sentences that teach nothing about their own headword.** 血's second buried the character in
+吸血鬼 and asked whether vampires can taste. 压's three never used it as a free verb at all — 解压 and
+重压 bury it, and 强宾不压主 is a proverb a learner cannot adapt. 星星's third was an unnatural passive
+(星星没有被看到, *Not a star was to be seen*, word for word). 醒's second was a back-translation whose
+English belongs to the sentence it came FROM (我想办法不让你醒 for *I tried not to wake you up*, where
+Chinese says 我尽量不吵醒你). And 幸福's second was a **film title** — 当幸福敲门时, the Chinese name of
+*The Pursuit of Happyness* — a subordinate clause with no main clause and no terminal mark.
+
+**Two glosses missing the sense a learner meets daily.** 烟 was `smoke, mist, or vapour` while
+CC-CEDICT leads with **cigarette or pipe tobacco**, which is 抽烟 and 香烟 and which no sentence showed;
+the gloss is widened and the thinnest sentence replaced with it. 性格 was `temperament` while all three
+of the card's own English lines say **character**.
+
+**Four English lines, three of them American.** 学费's first said `college tuition`, which is American
+twice over — a British student is at UNIVERSITY, and in British English `tuition` is the teaching rather
+than what you pay for it, so the fees are *tuition fees*, which the card's own third line already says;
+that line in turn called a 银行卡 a credit card. `Catch a signal` for 收到一个信号, which is to RECEIVE
+one. And 辛苦 rendered as `hardworking`, which is 勤奋 — 辛苦 is having it hard, the toil rather than the
+diligence, and the card's own third line gets it right.
+
+**Seven `Compounds` blocks** — 血, 熊, 盐, 烟, 醒, 修, 压 — every row checked against CC-CEDICT first.
+**盐 has nothing built on it anywhere in the collection**, the sixth such character after 扔, 帅, 躺, 趟
+and 咸.
+
+**Read and left.** 心 (eight words in its panel already), 心情's other lines, 信息, 信心, 兴奋, 兄弟,
+修理, 学院, 压力, 牙膏, 亚洲, 盐's sentences, 严格, 研究, 研究生 — and **许多, whose `numeral` label is a
+judgement rather than a fault**: it is a quantifier rather than a number, but the decks' label
+vocabulary has no `determiner` and `numeral` is where 数 puts its own quantifying sense, so changing it
+would make this card disagree with its neighbours for no gain.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 326 unchanged; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 575 unchanged;
 `build-lang-decks.js` re-run.

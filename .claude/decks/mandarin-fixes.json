@@ -13277,7 +13277,7 @@
       ]
     },
     "hsk30l4/血": {
-      "why": "xuè is the citation reading and the one the corpus uses 13 times to 1; xiě is the colloquial standalone reading. Teaching one alone made a speech engine and the card disagree whichever was chosen, so both are named.",
+      "why": "xuè is the citation reading and the one the corpus uses 13 times to 1; xiě is the colloquial standalone reading. Teaching one alone made a speech engine and the card disagree whichever was chosen, so both are named. | The second sentence buried the character in 吸血鬼, a vampire, and asked whether vampires can taste — which teaches nothing about blood. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "Pinyin": "xuè / xiě",
       "Bopomofo": "ㄒㄩㄝˋ / ㄒㄧㄝˇ",
       "senses": [
@@ -13290,6 +13290,37 @@
           "xiě",
           "noun",
           "blood (colloquial reading)"
+        ]
+      ],
+      "dropEx": [
+        "吸血鬼有味觉吗"
+      ],
+      "ex": [
+        [
+          "他的伤口在流血。",
+          "His wound is bleeding."
+        ]
+      ],
+      "compounds": [
+        [
+          "血液",
+          "xuè yè",
+          "blood"
+        ],
+        [
+          "出血",
+          "chū xuè",
+          "to bleed"
+        ],
+        [
+          "献血",
+          "xiàn xuè",
+          "to donate blood"
+        ],
+        [
+          "血压",
+          "xuè yā",
+          "blood pressure"
         ]
       ]
     },
@@ -120934,6 +120965,288 @@
       "exStop": [
         [
           "鲜花因缺水而枯萎"
+        ]
+      ]
+    },
+    "hsk30l4/熊": {
+      "why": "The first sentence taught a word that is not Mandarin: 树熊 is the CANTONESE and Taiwanese name for a koala — CC-CEDICT does not carry it at all, giving 树袋熊 and the loanword 考拉 — and on top of that it buries the headword in a compound, so a card about bears showed a marsupial under a regional name. Replaced with the animal the card is for. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "看看那边的树熊"
+      ],
+      "ex": [
+        [
+          "熊冬天要冬眠。",
+          "Bears hibernate in winter."
+        ]
+      ],
+      "compounds": [
+        [
+          "熊猫",
+          "xióng māo",
+          "a panda"
+        ],
+        [
+          "北极熊",
+          "běi jí xióng",
+          "a polar bear"
+        ],
+        [
+          "树袋熊",
+          "shù dài xióng",
+          "a koala"
+        ],
+        [
+          "狗熊",
+          "gǒu xióng",
+          "a black bear; a coward"
+        ]
+      ]
+    },
+    "hsk30l4/性": {
+      "why": "The third sentence was 老公性无能，我该怎么办？ — a marital sexual-health problem on a Level 4 vocabulary card whose gloss is `suffix: nature, character, innate quality`, and which the sentence does not illustrate. `check-coarse.js` cannot reach it: 性 is a one-character headword, so `own()` excuses every compound built on it. Replaced with the suffix the card actually teaches. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "老公性无能"
+      ],
+      "ex": [
+        [
+          "这件事的重要性很明显。",
+          "The importance of this matter is obvious."
+        ]
+      ]
+    },
+    "hsk30l4/性别": {
+      "why": "All three sentences were about gender identity — 跨性别, 变性者…维持性别特征, 非二元性别 — so a card for the everyday word showed one narrow topic three times and none of the ordinary uses a learner meets first, which is a form asking your sex. The second was also the longest and most technical of the three. Replaced with the ordinary use; the other two stand. The first also ended with no terminal mark at all. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "变性者需要不断服用激素"
+      ],
+      "ex": [
+        [
+          "请在表格上填写性别。",
+          "Please state your sex on the form."
+        ]
+      ],
+      "exStop": [
+        [
+          "我是跨性别"
+        ]
+      ]
+    },
+    "hsk30l4/压": {
+      "why": "Not one of the three sentences used 压 as a free verb: 解压 and 重压 bury it in compounds and 强宾不压主 is a proverb that a learner cannot adapt. The proverb replaced with the plain sense the gloss leads on. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 压力. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "强宾不压主"
+      ],
+      "ex": [
+        [
+          "别压着我的手。",
+          "Don't press on my hand."
+        ]
+      ],
+      "compounds": [
+        [
+          "血压",
+          "xuè yā",
+          "blood pressure"
+        ],
+        [
+          "压迫",
+          "yā pò",
+          "to oppress; to constrict"
+        ],
+        [
+          "高压",
+          "gāo yā",
+          "high pressure; high-handed"
+        ],
+        [
+          "挤压",
+          "jǐ yā",
+          "to squeeze; to compress"
+        ]
+      ]
+    },
+    "hsk30l4/星星": {
+      "why": "The third sentence was an unnatural passive: 星星没有被看到 renders `Not a star was to be seen` word for word, and Chinese does not use 被看到 that way. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "星星没有被看到"
+      ],
+      "ex": [
+        [
+          "城里看不见星星。",
+          "You can't see the stars in the city."
+        ]
+      ]
+    },
+    "hsk30l4/醒": {
+      "why": "The second sentence was a back-translation: 我想办法不让你醒 is `I thought of ways not to let you wake`, where Chinese says 我尽量不吵醒你, and its English (`I tried not to wake you up`) is of the sentence it was translated FROM rather than the one on the card. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 提醒. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "我想办法不让你醒"
+      ],
+      "ex": [
+        [
+          "我每天六点醒。",
+          "I wake up at six every day."
+        ]
+      ],
+      "compounds": [
+        [
+          "清醒",
+          "qīng xǐng",
+          "clear-headed; sober"
+        ],
+        [
+          "唤醒",
+          "huàn xǐng",
+          "to wake somebody; to rouse"
+        ],
+        [
+          "睡醒",
+          "shuì xǐng",
+          "to wake up"
+        ],
+        [
+          "醒目",
+          "xǐng mù",
+          "eye-catching; striking"
+        ]
+      ]
+    },
+    "hsk30l4/幸福": {
+      "why": "The second sentence was a film title rather than a sentence — 当幸福敲门时, the Chinese name of *The Pursuit of Happyness* — a subordinate clause with no main clause and no terminal mark. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "当幸福敲门时"
+      ],
+      "ex": [
+        [
+          "他们过着幸福的生活。",
+          "They live a happy life."
+        ]
+      ]
+    },
+    "hsk30l4/心情": {
+      "why": "All three sentences were 心情好 or 心情不好, so the card showed one construction three times. One replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "你心情好吗"
+      ],
+      "ex": [
+        [
+          "音乐能影响人的心情。",
+          "Music can affect your mood."
+        ]
+      ]
+    },
+    "hsk30l4/烟": {
+      "why": "Glossed `smoke, mist, or vapour` and nothing else, while CC-CEDICT leads with **cigarette or pipe tobacco** — which is how a learner meets 烟 every day, in 抽烟 and 香烟 — and no sentence on the card showed it. The gloss is widened and the thinnest of the three sentences (快看那个烟) replaced with that sense. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "smoke, mist or vapour; a cigarette, tobacco",
+      "dropEx": [
+        "快看那个烟"
+      ],
+      "ex": [
+        [
+          "他一天抽一包烟。",
+          "He smokes a packet a day."
+        ]
+      ],
+      "compounds": [
+        [
+          "抽烟",
+          "chōu yān",
+          "to smoke"
+        ],
+        [
+          "香烟",
+          "xiāng yān",
+          "a cigarette"
+        ],
+        [
+          "烟花",
+          "yān huā",
+          "fireworks"
+        ],
+        [
+          "烟雾",
+          "yān wù",
+          "smoke; haze; fumes"
+        ]
+      ]
+    },
+    "hsk30l4/性格": {
+      "why": "Glossed `temperament` alone, while all three of the card's own English lines say **character** — 他的性格很消极, 性格坚强的女人, 影响人的性格. CC-CEDICT gives /nature/disposition/temperament/character/.",
+      "gloss": "one's character; temperament, personality"
+    },
+    "hsk30l4/学费": {
+      "why": "Two English lines. `college tuition` is American twice over — a British student is at UNIVERSITY, and in British English `tuition` is the teaching rather than what you pay for it, so the fees are `tuition fees` or simply `fees`, which the card's own third line already says. And 银行卡 is a BANK card, not a credit card.",
+      "exEn": [
+        [
+          "我工作是为了攒大学学费",
+          "I am working to save up for my university tuition fees."
+        ],
+        [
+          "今天是交学费的最后一天",
+          "Today is the last day to pay the tuition fees, and there's no money on my bank card."
+        ]
+      ]
+    },
+    "hsk30l4/信号": {
+      "why": "`Catch a signal` is not what 收到一个信号 says — 收到 is to RECEIVE one, which is what happened rather than what somebody was told to do.",
+      "exEn": [
+        [
+          "收到一个信号",
+          "A signal was received."
+        ]
+      ]
+    },
+    "hsk30l4/辛苦": {
+      "why": "`No one is more hardworking than you all` calls 辛苦 hardworking, which is 勤奋; 辛苦 is having it hard, the toil rather than the diligence, which the card's own third line translates correctly.",
+      "exEn": [
+        [
+          "没有谁比你们辛苦",
+          "Nobody has it harder than you."
+        ]
+      ]
+    },
+    "hsk30l4/盐": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all — and nor does the rest of the collection, which holds no other word built on this character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "食盐",
+          "shí yán",
+          "table salt"
+        ],
+        [
+          "盐水",
+          "yán shuǐ",
+          "salt water; brine"
+        ],
+        [
+          "盐分",
+          "yán fèn",
+          "salt content"
+        ]
+      ]
+    },
+    "hsk30l4/修": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 修理. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "修改",
+          "xiū gǎi",
+          "to amend; to alter"
+        ],
+        [
+          "装修",
+          "zhuāng xiū",
+          "to fit out; to decorate"
+        ],
+        [
+          "维修",
+          "wéi xiū",
+          "to maintain; to service"
+        ],
+        [
+          "修建",
+          "xiū jiàn",
+          "to build; to construct"
         ]
       ]
     }
