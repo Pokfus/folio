@@ -3855,7 +3855,16 @@ window.GLOSSARY = {
 "Sclaveni": "Sclaveni is the name that Greek and Latin writers of the 6th century give to one of the two great divisions of the early Slavs, the other being the Antes.<sup class=\"fn\" data-fn=\"1\"></sup> A Gothic history of about 551 places their abode between a Danube city called Noviodunum, a lake called Mursianus, the Dniester and the Vistula, and says that they have swamps and forests for their cities.<sup class=\"fn\" data-fn=\"1\"></sup> A Byzantine account of the same generation adds that the two peoples spoke one tongue, were ruled by no single man but referred decisions to the people, lived in scattered huts and fought on foot with small shields and javelins.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Slavic_paganism": "Slavic paganism is the pre-Christian religion of the Slavic peoples, known from outside observers, from Christian writers of the period after conversion, and from vocabulary and folklore.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest surviving description, written in the 540s, reports that they held one god, the maker of the lightning, to be sole lord of all things and sacrificed cattle to him, denied that fate had any power over men, and revered rivers, nymphs and other spirits.<sup class=\"fn\" data-fn=\"1\"></sup> After conversion the gods lost their standing as a source of religious meaning, passed into folklore and were denounced by the Church as maleficent idols.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Varangians": "Varangians is the name the eastern Slavs gave to the Scandinavians who came among them as raiders, merchants and hired soldiers; a chronicle compiled at Kyiv calls the Baltic the Varangian Sea and records them taking tribute from four northern peoples in 859.<sup class=\"fn\" data-fn=\"1\"></sup> Scandinavians had entered Byzantine service by the middle of the 9th century, but a separate unit was formed only in 988, when the emperor obtained warriors from the prince of Kyiv, and the guard that grew from it was the best paid of the imperial guards.<sup class=\"fn\" data-fn=\"2\"></sup> They were hired in the north on the same terms, and were as hard to hold.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Vyatichi": "The Vyatichi were a people of the upper and middle Oka basin, derived by a chronicle compiled at Kyiv from a man called Vyatko who is said to have settled on that river.<sup class=\"fn\" data-fn=\"1\"></sup> The same source describes their funeral rite as cremation, with the bones gathered into a small vessel and the vessel set on a post beside the road, and records them paying tribute to the Khazars in 859 before princes of Kyiv subdued them in 966, 981 and 982.<sup class=\"fn\" data-fn=\"1\"></sup> Radial and lobed temple rings are the ornament most particular to them.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Vyatichi": "The Vyatichi were a people of the upper and middle Oka basin, derived by a chronicle compiled at Kyiv from a man called Vyatko who is said to have settled on that river.<sup class=\"fn\" data-fn=\"1\"></sup> The same source describes their funeral rite as cremation, with the bones gathered into a small vessel and the vessel set on a post beside the road, and records them paying tribute to the Khazars in 859 before princes of Kyiv subdued them in 966, 981 and 982.<sup class=\"fn\" data-fn=\"1\"></sup> Radial and lobed temple rings are the ornament most particular to them.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Calling_of_the_Varangians": "The Calling of the Varangians is a Slavonic chronicle's account, set under the year 862, of how the peoples of the north sent overseas for a prince to rule over them.<sup class=\"fn\" data-fn=\"1\"></sup> It has them first drive their Varangian tribute-takers back across the sea, then fall into disorder, and send word that their country was great and rich but had no order in it.<sup class=\"fn\" data-fn=\"1\"></sup> Three brothers answered, taking seats at Ladoga, by the White Lake and at Izborsk, and the passage has served since as an origin story for the dynasty it introduces.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Gnyozdovo": "Gnyozdovo is an archaeological complex on the right bank of the Dnieper about 12 kilometres (7 miles) below Smolensk, and the largest that the 10th century left in the lands of the Rus'.<sup class=\"fn\" data-fn=\"1\"></sup> Its cemetery holds roughly four and a half thousand barrows raised between the beginning of the 10th century and the beginning of the 11th, and the site has been excavated for more than 130 years.<sup class=\"fn\" data-fn=\"2\"></sup> No surviving written source names the place, so the identifications proposed for it, among them a reconstructed Norse form and a town in a Byzantine emperor's list, remain no more than hypotheses.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Normanist_controversy": "The Normanist controversy is the long argument over how far Scandinavians were involved in making the first state among the eastern Slavs, and over what the name Rus' first meant.<sup class=\"fn\" data-fn=\"1\"></sup> A Swedish writer claimed as early as 1614 that Rurik had been a Swede, and the fullest early scholarly statement was a five-volume commentary on the Slavonic chronicle printed between 1802 and 1809, which derived the name from Roslagen on the Swedish coast.<sup class=\"fn\" data-fn=\"2\"></sup> The reply, made in 1808 and restated in 1814 and 1826, held that Roslagen was a late name and that the sagas' silence about Rurik was itself evidence.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Primary_Chronicle": "The Primary Chronicle, called in Slavonic the Tale of Bygone Years, is the narrative compiled at Kyiv early in the 12th century on which nearly every account of the early Rus' rests.<sup class=\"fn\" data-fn=\"1\"></sup> It opens outside dated time, dividing the earth among the sons of Noah and describing the road from the Varangians to the Greeks, before beginning its entries year by year.<sup class=\"fn\" data-fn=\"2\"></sup> Behind the surviving work a lost composition of the 1090s has been reconstructed, and behind that annalistic texts of the middle of the 11th century, none of which survives as a manuscript.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Route_from_the_Varangians_to_the_Greeks": "The route from the Varangians to the Greeks is a Slavonic chronicle's own name for the road of rivers and portages joining the Baltic to the Black Sea across the East European Plain.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle traces it up the Dnieper, over a portage to the Lovat, through Lake Ilmen and down the Volkhov to the sea, and insists that it could be travelled either way.<sup class=\"fn\" data-fn=\"1\"></sup> A Byzantine handbook of the 950s describes the southern half, with dugout boats gathering below Kyiv and running a series of named rapids on the way to Constantinople.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Rurik": "Rurik is the Varangian prince whom a chronicle compiled at Kyiv makes the founder of the dynasty that ruled the Rus' and the states that grew out of it.<sup class=\"fn\" data-fn=\"1\"></sup> Its account has the peoples of the north send overseas in 862 for a prince to rule and judge them, three brothers answering the call and two of them dying within two years.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing outside the Slavonic chronicle tradition mentions him, and whole-genome work on a prince who died in 1294 has established a male line for the later house without recovering any material of the earliest generation.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Staraya_Ladoga": "Staraya Ladoga is a settlement on the lower Volkhov in north-western Russia, standing where shipping out of the Baltic had to transfer to the rivers of the interior.<sup class=\"fn\" data-fn=\"1\"></sup> It was in touch with the Islamic world from the 8th and 9th centuries, and excavation has recovered a series of large post-and-plank halls, the first raised after 880 and a later one of the 940s holding balances, weights and wooden figures.<sup class=\"fn\" data-fn=\"1\"></sup> Its Norse name Aldeigjuborg, first written down in a court poem of about 1010, is the only one in eastern Europe formed to the ordinary Scandinavian pattern.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Veliky_Novgorod": "Veliky Novgorod is a city in north-western Russia standing where the Volkhov leaves Lake Ilmen, and writers in Old Norse called it Hólmgarðr.<sup class=\"fn\" data-fn=\"1\"></sup> That name and its Slavonic original most likely belonged first to the large political centre of the 9th and 10th centuries now known as Rurik's Hillfort, whose fortified core measured six or seven hectares (15 to 17 acres) in the middle of the 9th century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A chronicle compiled at Kyiv has a Varangian prince fortify a small town on the river, call it Novgorod and share out lands and towns among his men.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Volga_trade_route": "The Volga trade route ran from the Baltic and the northern forests down the Volga to the market of the Volga Bulgars and on to the Caspian and the caliphate beyond it.<sup class=\"fn\" data-fn=\"1\"></sup> Silver coins struck in the caliphate, above all in Khurasan and Transoxiana, document how far the traffic reached, and hoards of them lie thickest on Gotland, which served as its financial centre.<sup class=\"fn\" data-fn=\"1\"></sup> An embassy sent from Baghdad to the Bulgar king in 921 left the fullest description of the traders, watching them disembark on the river and raise great wooden houses along its bank.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5840,7 +5849,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sclaveni": "6th – 7th centuries CE",
 "Slavic_paganism": "to c. 1000 CE",
 "Varangians": "9th – 11th centuries CE",
-"Vyatichi": "9th – 12th centuries CE"
+"Vyatichi": "9th – 12th centuries CE",
+"Calling_of_the_Varangians": "862 CE, traditionally",
+"Gnyozdovo": "9th – 11th century CE",
+"Normanist_controversy": "18th – 21st century CE",
+"Primary_Chronicle": "early 12th century CE",
+"Route_from_the_Varangians_to_the_Greeks": "9th – 11th century CE",
+"Rurik": "d. 879 CE, traditionally",
+"Staraya_Ladoga": "8th – 11th century CE",
+"Veliky_Novgorod": "9th century CE onwards",
+"Volga_trade_route": "9th – 10th century CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8127,7 +8145,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sclaveni": ["Sclavenes","Sklaveni","Sclavene"],
 "Slavic_paganism": ["Slavic religion","Slavic pagan"],
 "Varangians": ["Varangian"],
-"Vyatichi": ["Viatichi","Vyatich"]
+"Vyatichi": ["Viatichi","Vyatich"],
+"Calling_of_the_Varangians": ["invitation of the Varangians"],
+"Gnyozdovo": ["Gnezdovo"],
+"Normanist_controversy": ["Normanist theory","Normanism","anti-Normanism","Norman theory"],
+"Primary_Chronicle": ["Tale of Bygone Years","Povest' vremennykh let"],
+"Route_from_the_Varangians_to_the_Greeks": ["trade route from the Varangians to the Greeks","Varangian route to the Greeks"],
+"Staraya_Ladoga": ["Aldeigjuborg","Aldeigja","Old Ladoga"],
+"Veliky_Novgorod": ["Novgorod","Novgorod the Great","Hólmgarðr","Holmgard"],
+"Volga_trade_route": ["Volga route"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12024,7 +12050,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sclaveni": ["people","history","migration","warfare","europe"],
 "Slavic_paganism": ["religion","practice","history","concept","europe"],
 "Varangians": ["people","history","warfare","trade","europe"],
-"Vyatichi": ["people","history","archaeology","politics","europe"]
+"Vyatichi": ["people","history","archaeology","politics","europe"],
+"Calling_of_the_Varangians": ["event","history","politics","europe"],
+"Gnyozdovo": ["place","archaeology","history","trade","europe"],
+"Normanist_controversy": ["theory","history","politics","europe"],
+"Primary_Chronicle": ["text","history","religion","politics","europe"],
+"Route_from_the_Varangians_to_the_Greeks": ["concept","trade","history","geography","europe"],
+"Rurik": ["person","ruler","history","politics","europe"],
+"Staraya_Ladoga": ["place","history","archaeology","trade","europe"],
+"Veliky_Novgorod": ["city","place","history","archaeology","europe"],
+"Volga_trade_route": ["concept","trade","history","geography","islam","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

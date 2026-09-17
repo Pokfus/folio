@@ -482,6 +482,125 @@ knowing: `East_Slavs` claims the adjective "East Slavic", and `Rus'_people` does
 ethnonym with a STRAIGHT apostrophe** — the corpus is mixed, but `ru-001`–`ru-020` are straight and a
 card's bolded answer term has to match its own `answer` field exactly.
 
+**2026-09-17, `ru-031`–`ru-040` written** — the Normanist controversy, Staraya Ladoga, Gnyozdovo and
+the two trade routes, which **finishes `ru-before` at its full 35 cards**, and then Kievan Rus',
+Rurik, the Primary Chronicle, the calling of the Varangians and Novgorod, which opens `ru-kievan`.
+**Two lines were retitled, one answer term was narrowed, and one card needed no glossary term at
+all.**
+
+**`ru-034` is now "The route from the Varangians to the Greeks."** The word *trade* was this file's
+and not the chronicle's: the passage at Léger 4–5 calls it simply the road from the Varangians to the
+Greeks, and that is also the title of the English article the glossary key follows. **Where a line
+paraphrases a source's own phrase, prefer the phrase.**
+
+**`ru-039` stands exactly as written, and that is worth recording because it looked like a
+retitle.** "The calling of the Varangians" reads like a description rather than a term, and the
+obvious candidate was *Invitation of the Varangians* — which turns out to be a REDIRECT to an
+English article titled *Calling of the Varangians*. **Check which of two names the encyclopedia
+actually heads before assuming the plan's wording is the loose one.**
+
+**`ru-040` "Novgorod in the ninth century" is answered by `Novgorod` alone**, keyed on the article
+slug `Veliky_Novgorod` with the bare name as its first alias. The line's own subject is the ninth
+century and the card keeps it — the likeliest history of the name is that both the Slavonic
+*Хълмъгородъ* and the Norse *Hólmgarðr* belonged first to the centre now called Rurik's Hillfort, two
+kilometres upstream, and were carried over to the city beside it, with Hedeby passing its name to
+Schleswig as the parallel. **A bare `Novgorod` alias was measured before it was claimed**: twelve
+occurrences in the corpus, none of them inside *Nizhny Novgorod* or *Novgorod-Seversky*. `ru-147`
+(the annexation of Nizhny Novgorod) will need its own term or a hand-written link when it is written.
+
+**`ru-036` needed no new glossary term, and this is the shape to check for FIRST.** `Kievan_Rus'` has
+been a cited term at the bar since the citation pass, so the pairing rule was already satisfied —
+and `add-glossary.js` overwrites in silence, so writing one would have replaced a four-source
+description with a three-sentence one. **Grep the glossary keys before the research, not after.**
+
+### What carried this batch
+
+**Four open works carry eight of the ten cards.** Shchavelev's survey of the tenth-century towns in
+*Shagi / Steps* is the spine: of 25 town names in the chronicle only Kyiv, Vyshgorod, Vruchiy and
+Rodnya can be confidently placed in that century (45); Ladoga's Norse *Aldeigjuborg* is the only
+oikonym in eastern Europe built to the standard Scandinavian X + borg pattern, first written in a
+skaldic poem of about 1010 (47); *Hólmgarðr* belonged first to Rurik's Hillfort and was transferred,
+on the Hedeby–Schleswig model (47–48); and Gnyozdovo — the largest tenth-century complex in the lands
+of the Rus' and an almost unreadable ninth-century farmstead before that — is named in no source, so
+*Sýrnesgarðr* and the treatise's *Miliniska* are both hypotheses (40, 48). Musin and Stanisławski in
+*Przegląd Archeologiczny* give Ladoga's post-and-plank halls (after 880, floors of the 920s and 930s,
+the large building of the 940s with balances, weights and wooden figures), the trade-diaspora reading
+of them, and the tenth-century pottery chronology for Novgorod and the hillfort (176, 207–208).
+Howard-Johnston's "Rus and Khazars" gives the dirham evidence, the fur argument, Gotland as the
+financial centre, and the **six or seven hectares** of the hillfort's fortified core in the middle of
+the ninth century (383–385, 389). And Montgomery's translation of Ibn Faḍlān gives the Rūsiyyah at
+the Atil, the ten-thousand-dirham neck bands and the merchants' prayer (5, 7, 8, 10) — plus, on p. 3,
+the sentence that let `ru-031` be written at all: *I am neither a Normanist nor an anti-Normanist.*
+
+**The Bonn corpus edition of `De administrando imperio` is open and is the primary source for the
+Dnieper road.** Bekker's 1840 *De thematibus et de administrando imperio* carries chapter 9 whole at
+pp. 74–80, Greek with a Latin translation facing — the monoxyla coming down from Nemogardas,
+Miliniska, Teliutza, Tzernegoga and Vousegrade, the gathering below Kyiv, and the named cataracts with
+their glosses (*Gelandri*, "the noise of the rapid"; *Neaset*, where the pelicans nest in the stones).
+**Look for the nineteenth-century corpus edition before writing a Byzantine work off as untranslated.**
+
+**Fomin and Isakova in the *RUDN Journal of Russian History* is the historiography, and it has to be
+read for what it establishes rather than for the side it takes.** Its author is an anti-Normanist;
+what the article documents, and what `ru-031` and `Normanist_controversy` rest on, is Schlözer's
+five-volume *Nestor* (Göttingen, 1802–1809) deriving *Rus'* from Roslagen, Ewers answering it in 1808
+and again in 1814 and 1826, the demonstration that Roslagen is a late name where Uppland was earlier
+*Sialand*, the "convincing silence" of the sagas about Rurik against their memory of Rollo, the Swede
+Petreius first claiming Rurik for Sweden in 1614–1615, and — the sharpest thing in it — that the
+charge of *Russian national pride* was introduced into the argument by Schlözer himself (153–156).
+
+**A student-section article was found, read and REFUSED.** *Norman Theory and the Formation of Russian
+Statehood* (RUDN Journal of Public Administration, 2023) is open, on subject, and dates the beginning
+of East Slavic statehood to "the beginning of the VIth century" in its own abstract. **Read the source
+before citing it**; a peer-reviewed journal's student section is not the bar this collection is held to.
+
+**Crossref registers Márta Font's article under its printed CYRILLIC byline.** The Slavia Antiqua
+piece on the early Slavs in the Primary Chronicle is printed «МАРТА ФоНТ» over a Russian title, and
+`check-citations.js` reported the Latin form as a mismatch on three cards. The citation was corrected
+to **Марта Фонт** — the byline the work carries. This is the last batch's journal-metadata rule met
+from a third side: the title, the journal name AND the author all follow the printing.
+
+**Two cards carry no locator, and both refusals are about disagreement rather than absence.** A
+controversy has no place a reader could stand, so `ru-031` has none; and `ru-037` has none because the
+chronicle's two recensions seat Rurik at two different towns, so a dot would settle what the card says
+is unsettled. `ru-034` and `ru-035` are routes rather than places and are marked at their cruces
+instead — the **Dnieper rapids** and **Bulgar** — which is the honest answer to "is there somewhere a
+reader could stand?" for a road hundreds of miles long.
+
+**And one locator name had to be set by hand.** `add-locators.js` defaults the dot's label to the
+card's own answer term, which for `ru-039` gave a dot labelled *Calling of the Varangians* — a place
+called an event. Passing `name` fixed it. **Read the tool's own report line for every locator it
+writes**; a wrong label draws perfectly.
+
+**Three pictures needed a caption that argues with them, and a fourth needed no date at all.** The
+Prokudin-Gorsky plate of Staraya Ladoga shows a collapsed rubble rampart rather than a fortress, so
+the caption says the walls were then in ruin; the 1805 engraving of Rurik sits above a plinth bearing
+his name and title, so the caption says no contemporary description of him survives and every portrait
+is an invention; and Kivshenko's painting of the calling is dated in the caption to 1889, a thousand
+years after the meeting it imagines. The fourth is the Black Chamber at Bolgar, whose standing
+building is much later than the ninth-century traffic — so the caption says the photograph was taken
+in 1886 **on the site of** the market rather than dating the building at all. **Where a date cannot
+be sourced, say where rather than when.**
+
+**`upload.wikimedia.org` and `api.php` both rate-limited hard in the middle of the picture pass, and
+`commons.wikimedia.org/w/thumb.php?f=<FILE>&width=N` was what still served.** Three candidates could
+not be looked at by either of the routes the contact sheet tries; that one fetched all three on the
+first attempt. **It is in CLAUDE.md's own list of fallbacks and it is the one that worked.**
+
+**One thing was measured and not acted on, for the second batch running.** `check-gloss-links.js`
+reports `ru-035`'s "coins" as a cross-region link to `Coinage`, tagged greece and anatolia. The term
+is a general definition of coined money and the link is right in sense. **Left as it is**, exactly as
+on `ru-024`.
+
+The glossary entries were written to match: `Normanist_controversy`, `Staraya_Ladoga`, `Gnyozdovo`,
+`Route_from_the_Varangians_to_the_Greeks`, `Volga_trade_route`, `Rurik`, `Primary_Chronicle`,
+`Calling_of_the_Varangians` and `Veliky_Novgorod` are all new, cited at the bar and illustrated —
+**nine new terms for ten cards**, the tenth being `Kievan_Rus'` above. `Normanist_controversy` is keyed
+on a REDIRECT rather than an article title, deliberately: English Wikipedia heads the subject
+*Anti-Normanism*, which names one side of a two-sided argument, and the controversy is what the
+literature calls it — Montgomery capitalises it. Its aliases carry *Normanist theory*, *Normanism*,
+*anti-Normanism* and *Norman theory*, so every surface reaches it. `Staraya_Ladoga` deliberately does
+NOT claim the bare "Ladoga", which is a lake.
+
 ---
 
 # The list
@@ -523,7 +642,7 @@ card's bolded answer term has to match its own `answer` field exactly.
     ru-031  The Normanist controversy
     ru-032  Staraya Ladoga
     ru-033  Gnyozdovo
-    ru-034  The trade route from the Varangians to the Greeks
+    ru-034  The route from the Varangians to the Greeks
     ru-035  The Volga trade route
 
 ### Kievan Rus' — `ru-kievan`
