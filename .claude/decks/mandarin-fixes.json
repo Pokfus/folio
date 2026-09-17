@@ -13715,12 +13715,19 @@
       ]
     },
     "hsk30l5/传递": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Two faults. 我正在传递正能量。嗡—— is a joke with a meditation hum written into it, and its English (`I'm sending positive vibes. Ommmmmm.`) is not a sentence a learner can use. And the sentence this record added in the example top-up OPENS ON 否则 — `otherwise` — so it is the second half of the card's first sentence and cannot stand on its own at all; a card deals its examples in whatever order it likes, and this one is unreadable anywhere but directly after the India sentence. It also explained that the left hand `is used for bathing`, which is a euphemism that leaves the sentence making no sense. The record's own row is deleted rather than dropped. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
-          "否则，用左手传递食物会被认为是不礼貌的，因为左手是用来洗澡的。",
-          "Otherwise, it is considered impolite to pass food with the left hand, because the left hand is used for bathing."
+          "请把盐传递给我。",
+          "Please pass me the salt."
+        ],
+        [
+          "这封信传递了一个重要的信息。",
+          "This letter conveyed an important message."
         ]
+      ],
+      "dropEx": [
+        "我正在传递正能量"
       ]
     },
     "hsk30l5/便": {
@@ -14849,8 +14856,44 @@
       ]
     },
     "hsk30l5/臭": {
-      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
-      "Say": "臭气"
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差. | All three sentences were one conversation about a person smelling — 你身上发臭了 / 不是的，你不臭 / 因为你真的很臭，这就是为什么 — so the card taught its word three times over on the one use of it nobody needs an example for, and the three read as an exchange lifted whole rather than as examples. Two replaced with the ordinary uses. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all — and nothing in the WHOLE COLLECTION either, the eighth character in this audit with an empty panel everywhere, which is exactly where authored rows are worth most. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "Say": "臭气",
+      "dropEx": [
+        "不是的，你不臭",
+        "因为你真的很臭"
+      ],
+      "ex": [
+        [
+          "垃圾放久了会发臭。",
+          "Rubbish starts to smell if it is left too long."
+        ],
+        [
+          "臭豆腐闻起来臭，吃起来香。",
+          "Stinky tofu smells foul and tastes good."
+        ]
+      ],
+      "compounds": [
+        [
+          "臭味",
+          "chòuwèi",
+          "a bad smell; a foul odour"
+        ],
+        [
+          "口臭",
+          "kǒuchòu",
+          "bad breath"
+        ],
+        [
+          "臭豆腐",
+          "chòudòufu",
+          "stinky tofu"
+        ],
+        [
+          "狐臭",
+          "húchòu",
+          "body odour"
+        ]
+      ]
     },
     "hsk30l5/药品": {
       "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
@@ -75151,14 +75194,19 @@
       ]
     },
     "hsk30l5/传说": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 神话和传说应该一代一代的传承下去 writes 的 where an adverbial takes 地 — the same fault as 表达's 流利的 in batch 76, and one of the two or three commonest written errors in Chinese. Repaired rather than replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "dropEx": [
-        "玲奶奶死的不瞑目。"
+        "玲奶奶死的不瞑目。",
+        "一代一代的传承"
       ],
       "ex": [
         [
           "这个传说在当地流传了很久。",
           "This legend has circulated locally for a long time."
+        ],
+        [
+          "神话和传说应该一代一代地传承下去。",
+          "Myths and legends should be handed down from generation to generation."
         ]
       ]
     },
@@ -76911,7 +76959,7 @@
       ]
     },
     "hsk30l5/初期": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The first example ran to forty-five characters of somebody's resolutions about a new blog — `I'll do my best not to be one of those people who blogs a lot right at the start and then quits` — with the headword buried in the middle of it. The same class as 本领's paragraph and 转机's fifty-character opener. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "工程初期进展缓慢。",
@@ -76920,7 +76968,14 @@
         [
           "初期的症状不明显。",
           "The early symptoms are not obvious."
+        ],
+        [
+          "这项技术还处于初期阶段。",
+          "This technology is still at an early stage."
         ]
+      ],
+      "dropEx": [
+        "我建立了部落格"
       ]
     },
     "hsk30l5/除夕": {
@@ -123801,6 +123856,250 @@
           "池塘",
           "chítáng",
           "a pond"
+        ]
+      ]
+    },
+    "hsk30l5/冲": {
+      "why": "The gloss read `to flush; vigorously; on the strength of` — and the last of those is **chòng**, the character's other reading, which CC-CEDICT gives as `powerful; vigorous; towards; in view of` and which this card carried under a chōng pinyin without saying so. The same fault as 称 two batches back. All three sentences are chōng (冲水, 冲进, 冲向); both readings are now carried with a sense each and every sentence tagged. The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against seven words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "Pinyin": "chōng / chòng",
+      "Bopomofo": "ㄔㄨㄥ / ㄔㄨㄥˋ",
+      "senses": [
+        [
+          "chōng",
+          "verb",
+          "to rush; to dash; to flush; to rinse"
+        ],
+        [
+          "chòng",
+          "adjective / preposition",
+          "powerful; pungent; facing; in view of"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "冲动",
+          "chōngdòng",
+          "an impulse; impetuous"
+        ],
+        [
+          "冲突",
+          "chōngtū",
+          "a conflict; to clash"
+        ],
+        [
+          "冲浪",
+          "chōnglàng",
+          "to surf; surfing"
+        ],
+        [
+          "冲击",
+          "chōngjī",
+          "an impact; to pound against"
+        ]
+      ]
+    },
+    "hsk30l5/充电": {
+      "why": "我得给它充电 and 我需要给手机充电 are the same sentence twice — `I need to charge it` and `I need to charge my mobile phone` — and the middle one is about a phone as well, so the card said one thing three times. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我需要给手机充电"
+      ],
+      "ex": [
+        [
+          "电池充电需要两个小时。",
+          "The battery takes two hours to charge."
+        ]
+      ]
+    },
+    "hsk30l5/抽": {
+      "why": "Glossed `to draw out, to pull out` while all three sentences are 抽烟 — to SMOKE, a sense CC-CEDICT gives (`to inhale, esp. smoke`) and this card did not. The gloss described a sense with no example and the examples showed a sense with no gloss, which is this level's commonest single fault. Both senses now given and every sentence tagged. The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against six words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "verb",
+          "to draw out; to pull out"
+        ],
+        [
+          "verb",
+          "to smoke (a cigarette)"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        2
+      ],
+      "compounds": [
+        [
+          "抽象",
+          "chōuxiàng",
+          "abstract; abstraction"
+        ],
+        [
+          "抽屉",
+          "chōuti",
+          "a drawer"
+        ],
+        [
+          "抽烟",
+          "chōuyān",
+          "to smoke"
+        ],
+        [
+          "抽奖",
+          "chōujiǎng",
+          "to draw a prize; a raffle"
+        ]
+      ]
+    },
+    "hsk30l5/丑": {
+      "why": "The gloss ended `the second of the Twelve` — cut off mid-phrase, the third garbled gloss of this level after 不要紧's `never` and 处's unclosed bracket. CC-CEDICT finishes it: the second of the twelve EARTHLY BRANCHES. And the third sentence was 那个丑男人在节食 under `Between you and me, the **fat** ugly man is on a diet` — an English that adds a word the Chinese does not have, on a sentence that is an insult about somebody's appearance and teaches nothing about the word that 这把椅子很丑 does not. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against five words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "adjective",
+          "ugly"
+        ],
+        [
+          "noun",
+          "a clown in Peking opera; the second of the twelve Earthly Branches"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "dropEx": [
+        "那个丑男人在节食"
+      ],
+      "ex": [
+        [
+          "丑小鸭最后变成了天鹅。",
+          "The ugly duckling turned into a swan in the end."
+        ]
+      ],
+      "compounds": [
+        [
+          "丑陋",
+          "chǒulòu",
+          "ugly"
+        ],
+        [
+          "小丑",
+          "xiǎochǒu",
+          "a clown"
+        ],
+        [
+          "出丑",
+          "chūchǒu",
+          "to make a fool of oneself"
+        ],
+        [
+          "丑闻",
+          "chǒuwén",
+          "a scandal"
+        ]
+      ]
+    },
+    "hsk30l5/初": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against ten words in the collection — and all three of the card's sentences bury the character in a compound or an idiom, 大病初愈, 初学者 and 和好如初, which is what a bound form does. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "当初",
+          "dāngchū",
+          "at that time; originally"
+        ],
+        [
+          "起初",
+          "qǐchū",
+          "at first; at the outset"
+        ],
+        [
+          "初步",
+          "chūbù",
+          "initial; preliminary"
+        ],
+        [
+          "初期",
+          "chūqī",
+          "the initial stage"
+        ]
+      ]
+    },
+    "hsk30l5/出席": {
+      "why": "谁也没有出席派对 puts 出席 in front of a party: the word is for formal occasions — a meeting, a ceremony, a hearing — and a party takes 参加. The card's own other two sentences are a meeting and a lecture hall, which is the register it belongs to. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "谁也没有出席派对"
+      ],
+      "ex": [
+        [
+          "部长出席了开幕典礼。",
+          "The minister attended the opening ceremony."
+        ]
+      ]
+    },
+    "hsk30l5/处": {
+      "why": "The chǔ gloss ended `to be in (a` — cut off inside its own bracket, the fourth garbled gloss of this level. And all three sentences are the OTHER reading, chù: 转角处, 不同之处, 别处. Tagged so a reader can see that the chǔ sense has no example rather than guessing which sentence might be it — the two cards immediately after this one, 处理 and 处于, are both chǔ and are where they will meet it.",
+      "senses": [
+        [
+          "chǔ",
+          "verb",
+          "to handle; to deal with; to get along with; to be in (a state)"
+        ],
+        [
+          "chù",
+          "noun",
+          "a place; a location; a department or office"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        2
+      ]
+    },
+    "hsk30l5/处理": {
+      "why": "算数处理数字 writes 算数 — which means `to count` or `to hold good` — where the subject is **算术**, arithmetic. A homophone pair a character apart, the same shape as 必需 for 必须 in batch 75. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "算数处理数字"
+      ],
+      "ex": [
+        [
+          "这件事由我来处理。",
+          "I will deal with this matter."
+        ]
+      ]
+    },
+    "hsk30l5/传": {
+      "why": "`Roll the ball to me` for 把球传给我 — 传 is to PASS, which is the card's own gloss, and rolling is a particular way of moving a ball that the Chinese does not specify.",
+      "exEn": [
+        [
+          "把球传给我",
+          "Pass me the ball."
+        ]
+      ]
+    },
+    "hsk30l5/传播": {
+      "why": "Two of the three sentences were disease transmission — Ebola through bodily fluids, and condoms against sexually transmitted disease — on a card glossed `disseminate; propagate`, a word whose ordinary uses are news, rumour, knowledge and culture. The Ebola sentence stands, being a real and neutral use of the word; the third is replaced, since a second disease sentence buys nothing the first did not and the subject is gratuitous on a vocabulary card. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "避孕套可以预防"
+      ],
+      "ex": [
+        [
+          "网络让消息传播得更快。",
+          "The internet makes news spread faster."
+        ]
+      ]
+    },
+    "hsk30l5/出版": {
+      "why": "`This book will be printed next year` for 出版, which is to PUBLISH — printing is one step of it, and the card's other two sentences both say publish.",
+      "exEn": [
+        [
+          "这本书明年要出版",
+          "This book is to be published next year."
         ]
       ]
     }

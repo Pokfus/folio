@@ -614,6 +614,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 61–90 (表面 → 册), deck order, plus three rows added to app.js's own `SPELL_PAIRS` | 29 | **a spelling family that IS in the table, with three of its members missing** |
 | 2026-09-17 | `hsk30l5` notes 91–120 (测 → 车祸), deck order, plus a corpus sweep for variant characters | 17 | **a Japanese character in a Chinese sentence, on three cards at once** |
 | 2026-09-17 | `hsk30l5` notes 121–150 (车库 → 持续), deck order | 13 | **a card that listed the same sense twice, and put two readings under one pinyin** |
+| 2026-09-17 | `hsk30l5` notes 151–180 (尺子 → 传说), deck order | 15 | **two more glosses cut off mid-phrase, and a second card with two readings under one pinyin** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7176,3 +7177,69 @@ one variety.
 still-ambiguous 1; shared-gloss groups 324 unchanged; pinyin clean — **including the new two-reading
 field on 称**; example-fit 143 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible
 on every one; sense-tagged 633 → 639; `build-lang-decks.js` re-run.
+
+## Batch 79 — hsk30l5 notes 151–180 (尺子 → 传说)
+
+Thirty consecutive notes; **fifteen cards changed**.
+
+**Two more glosses cut off mid-phrase, which makes four at this level.** 丑's ended `the second of the
+Twelve` — CC-CEDICT finishes it, *the second of the twelve EARTHLY BRANCHES* — and 处's ended
+`to be in (a`, inside its own unclosed bracket. With 不要紧's stray `never` and 册's label repeated
+inside its own gloss, this is now a recognisable class: **a gloss that stops mid-word reads to a reader
+as a card nobody finished**, and all four were pasted rather than written.
+
+**A second card with two readings under one pinyin, two batches after 称.** 冲 was glossed
+`to flush; vigorously; on the strength of` — and the last of those is **chòng**, which CC-CEDICT gives as
+*powerful; pungent; facing; in view of*, carried under a chōng pinyin with nothing to say so. All three
+sentences are chōng; both readings now carried with a sense each and every sentence tagged.
+
+**A third card glossing the sense it does not teach.** 抽 is `to draw out, to pull out` and all three of
+its sentences are 抽烟 — to SMOKE, which CC-CEDICT lists as *to inhale, esp. smoke* and the card did not.
+This has now been the level's commonest single fault for six batches running.
+
+**Another homophone pair written the wrong way round.** 处理's 算数处理数字 writes 算数, which means *to
+count* or *to hold good*, where the subject is **算术**, arithmetic — one character apart, and the same
+shape as 必需 for 必须 in batch 75.
+
+**Three cards where every sentence was one use of the word.** 臭's three were a single conversation about
+a person smelling (你身上发臭了 / 不是的，你不臭 / 因为你真的很臭) — an exchange lifted whole rather than
+three examples; 抽's three were all smoking; and 充电's said *I need to charge it* and *I need to charge
+my mobile phone*, which is one sentence twice.
+
+**A sentence that is the second half of another sentence.** 传递's third example OPENS ON 否则,
+*otherwise* — so it only reads directly after the card's first sentence, and a card deals its examples in
+whatever order it likes. It also explained that the left hand *is used for bathing*, a euphemism that
+leaves the sentence making no sense at all. Its second was a joke with a meditation hum written into it
+(`I'm sending positive vibes. Ommmmmm.`).
+
+**Two more long ones**, both the class 本领 and 转机 established: 初期's first example was forty-five
+characters of somebody's resolutions about a new blog, with the headword buried in the middle.
+
+**A sentence that was an insult, with a word in its English that is not in the Chinese.** 丑's third was
+那个丑男人在节食 under *Between you and me, the **fat** ugly man is on a diet* — the Chinese says only 丑.
+It taught nothing 这把椅子很丑 does not.
+
+**A word put in the wrong register** (谁也没有出席派对 — 出席 is for a meeting, a ceremony or a hearing,
+and a party takes 参加), **a 的 where the language wants 地** (传说's 一代一代的传承, the same fault as
+表达's 流利的 in batch 76), and **two English lines** (`Roll the ball to me` for 传, which is to pass, and
+`This book will be printed` for 出版, which is to publish).
+
+**A gratuitous subject where the word has a hundred ordinary uses.** 传播's third sentence was condoms
+and sexually transmitted disease, on a card whose other disease sentence — Ebola through bodily fluids —
+already covers that sense and stands. The word's ordinary subjects are news, rumour, knowledge and
+culture, which is what the replacement gives.
+
+**Five `Compounds` blocks** — 冲, 抽, 丑, 臭 and 初, every one of them with nothing at all in the reader's
+downloaded deck. **臭 has nothing in the whole COLLECTION either**, the eighth such character in this
+audit, which is exactly where authored rows are worth the most.
+
+**Read and left.** 尺子, 翅膀, 充分, 充满, 充值, 充足, 重复, 虫子, 宠物, 初级, 出色, 出售, 出自, 处于,
+成员-adjacent 传播's Ebola sentence, 传说's remaining two — and **除夕's first example**, which runs to
+forty characters and is the one long sentence this batch keeps: it is about the word's own subject
+(wrapping dumplings on New Year's Eve in northern China) rather than about something else with the
+headword buried in it, which is the distinction the other long ones fail.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 324 unchanged; pinyin clean — **including the new two-reading
+field on 冲**; example-fit 143 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible
+on every one; sense-tagged 639 → 651; `build-lang-decks.js` re-run.
