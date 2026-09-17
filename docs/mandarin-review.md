@@ -551,6 +551,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l2` notes 31–60 (但是 → 机场), deck order | 20 | a polyphone's commonest reading glossed at its narrowest sense |
 | 2026-09-17 | `hsk30l2` notes 61–90 (机票 → 路上), deck order | 19 | a gloss that is an archaism the dictionary marks (old) |
 | 2026-09-17 | `hsk30l2` notes 91–120 (旅游 → 肉), deck order | 19 | a card missing the sense two of its three sentences show |
+| 2026-09-17 | `hsk30l2` notes 121–150 (商场 → 位), deck order | 21 | the dictionary's own editorial note pasted into a gloss |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1903,3 +1904,97 @@ second way. The corrected sweep is in this batch's checks.
 晴, 让 and 鸟 are right as they stand. 票's third example is the same sentence as 门票's second, and
 拿's first the same as 过来's second — both the fifth and seventh one-sentence-two-cards finds, and both
 correct for both cards, so both are recorded rather than changed.
+
+### 2026-09-17 — Level 2, notes 121–150
+
+**What the batch was.** The thirty cards 商场 → 位, read one at a time against CC-CEDICT and against
+their own three sentences. **Twenty-one were changed**, nine left alone.
+
+### The one to read first
+
+**外面's gloss read "outside (also pr. [wài mian] for this sense)".** That is **CC-CEDICT's own editorial
+note**, brackets, abbreviation and all, sitting on the front of an English → Chinese card — so a reader
+is asked to produce 外面 from a sentence about how 外面 is pronounced. The dictionary's actual senses are
+"outside / surface / exterior". A new shape of fault, and worth grepping for: anything in a gloss
+reading *also pr.*, *variant of*, *abbr. for*, *see also* or *CL:* is the dictionary talking to
+lexicographers, not to a learner.
+
+### A gloss written against the wrong part of speech
+
+**位 was glossed "position" under a `measure word` part of speech** — the noun sense written against the
+classifier's label, so neither half described the other — while all three of its sentences are the
+polite classifier (她是位歌手, 哪一位啊). Split.
+
+Its second example was also **the very sentence dropped from 有的 six batches ago** (有的，先生你有几位？),
+which was 有的 used as an affirmative reply followed by an unrelated restaurant greeting. It is no better
+here; replaced. That is the eighth one-sentence-two-cards find, and the second where the sentence was
+already known to be bad.
+
+### The headword inside another word, five times
+
+- **题 had it in ALL THREE.** 跑题 is a word (to wander off the point), 小题大作 is a four-character
+  idiom, and 是非题 is a word too — so a Level 2 reader met 题 three times and never once on its own.
+- **上来's 从某种意义上来说** has the characters but not the word: the parse is 意义上 plus 来说.
+- **头's 这些是找头** — 找头 is the change from a purchase.
+- **手's 我在她手下工作** — 手下 is "under the command of".
+- **万's 我希望万事如意** — a New Year greeting in which 万 means "all", not ten thousand.
+
+### Not grammatical
+
+- **虽然's 虽然我没在火车上睡觉。 is a subordinate clause with no main clause**, which is not a sentence
+  in either language; 虽然 is correlative and wants 但是, 可是 or 还是 after it. The card's own English
+  carried the fragment across.
+- **忘's 不要再忘做那个** — 忘做 is not a construction Chinese builds (it wants 别忘了做), and the English
+  said the opposite of what the Chinese was reaching for.
+- **上面's 天花板上面有只苍蝇** was rendered "There is a fly on the ceiling", but 天花板上面 is ABOVE the
+  ceiling; on it is 天花板上. The Chinese and the English describe different places.
+
+### Two authored replacements thrown away — both caught by reading the finished card
+
+**This is the second batch running in which my own replacement was the thing that had to be fixed**, and
+the two failures are different enough to be worth naming:
+
+1. **头's first replacement, 他的头很疼, said the same thing as the line above it** (谁的头在疼). The card
+   names three senses — the head, "first", and a classifier for livestock — and had examples of only two,
+   so the sentence became 他家养了三头牛 and all three are now tagged.
+2. **上网's first replacement, 我每天上网查资料, tripped `check-example-fit.js`** — and that is a finding
+   about the checker rather than about the sentence. It is ordinary Chinese, but **每天 is in none of the
+   nine decks**, so the segmenter cannot see it: it takes 每 alone, then finds 天上, which IS a deck word,
+   and the headword is reported split between 天上 and 网. **An authored sentence can be flagged purely
+   because a common word is missing from the corpus's own lexicon.** Rewritten round it.
+
+**So: run the checkers after AUTHORING, not only after dropping.** Both of these were introduced by the
+repair.
+
+### The other glosses
+
+- **疼 was the single noun "pain"** under a part of speech reading `verb / adjective` — the card named two
+  categories and gave a third.
+- **送 was "to give (present); deliver; see someone off"**, the "to " on the first element only, so two of
+  three read as nouns. Eighth card caught by the register rule.
+- **时 gave the noun and the o'clock classifier**, and its third sentence is neither: 看书时不能吃东西 is
+  时 meaning WHEN or WHILE, which a reader meets constantly in written Chinese.
+
+### Four Englishes rewritten with the Chinese untouched
+
+商场's called it a SUPERMARKET (that is 超市, with a card of its own); 手表's was plural where the Chinese
+is singular; 舒服's "Where do you feel uncomfortable?" is not what a doctor asks in English, where
+哪儿不舒服 is the standard question and "Where does it hurt?" its standard rendering; and **踢 called it
+soccer twice and football once, contradicting itself** — the decks are authored British, so both became
+football, as 条's "pants" became trousers.
+
+### On the compound lists
+
+**Twelve cards got one; 踢 gets none.** That character builds almost nothing CC-CEDICT records — 踢腿,
+踢踏舞, 踢皮球 and the idiom 拳打脚踢 — and what a learner actually does with it (踢球, 踢足球) is a
+phrase rather than a word, which the section's rule does not admit. Fifth character in that position,
+after 谁, 它, 她 and 啊.
+
+**Three of 头's four rows put it in the NEUTRAL tone** (头发 tóu fa, 石头 shí tou, 木头), which is what
+the character does as a noun suffix and which the card's own reading, a full second tone, cannot show.
+**面条 is on 条's list deliberately**: 面 was given its noodle sense two batches ago and this is the word
+that carries it.
+
+### Read and left alone
+
+上去, 身体, 生日, 事情, 书包, 所以, 跳舞, 外国, 完, 网上 and 往 are right as they stand.
