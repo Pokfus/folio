@@ -2138,3 +2138,121 @@ plan** — a map is refused for a CARD and is the right answer for a term about 
 shows the Vezelka running through the town. Penza and Khanty-Mansiysk have no reachable period picture,
 so both take a second modern one. **`Unknown authorUnknown author` came back on four of the seven** —
 the Commons doubling CLAUDE.md records — and was halved before the credits were written.
+
+### Batch 26 — ten centres: `gru-516`, `gru-517`, `gru-540`–`gru-542`, `gru-544`, `gru-545`, `gru-548`, `gru-550`, `gru-551`
+
+Novosibirsk, Kemerovo, Vologda, Bryansk, Kirov, Kursk, Ryazan, Kaluga, Arkhangelsk and Chita — the
+ten remaining centres whose charter states its own centre in so many words. **All ten came off
+`constitution.garant.ru`**, and the headings vary enough to be worth writing down: Vologda's is an
+article of its own naming the centre as the seat of the region's organs of state power (art. 11),
+Novosibirsk's and Kemerovo's sit inside the article on administrative and territorial arrangement
+(arts. 5 and 2), Bryansk's inside the article on the region's *territory* (art. 2), Kursk's calls it
+simply "the administrative centre of the region" without naming Kursk Oblast twice (art. 8), Kaluga's
+states it and then leaves the centre's own status to a regional law (art. 4), Chita's calls it the
+capital as well and the seat of the legislative and highest executive organs (art. 7), and
+**Arkhangelsk's runs the other way round** — "the city of Arkhangelsk has the status of the
+administrative centre of Arkhangelsk Oblast" (art. 5) — so that card's first sentence had to be
+written to match what the article actually says rather than to the batch's usual shape.
+**Zabaykalsky's charter is dated 11 February 2009, not the 17th**, which is why every title is read
+off the chapter page rather than carried over.
+
+**THE SIBLING-CARD CONSTRAINT DECIDED EVERY ONE OF THE TEN, AND ON THIS BATCH IT BIT HARDEST.** These
+are the oldest and best-documented cities left, so the obvious material was already spent on the
+subject cards: `gru-040` had Vologda's Chancellor and Nepei, `gru-041` had Bryansk's Novgorod-Severski
+and Kulikovo, `gru-042` had Khlynov's founding, `gru-044` had Kursk's baskaki rising of 1284,
+`gru-045` had Ryazan's sack of 1237, `gru-048` had the stand on the Ugra in 1480, `gru-050` had
+Willoughby and Chancellor at the White Sea, and `gru-051` had Nerchinsk and Kiakhta. What each centre
+card is about is therefore *what its subject card left*:
+Vologda takes the Ilyinsky monastery cemetery and the 1897 railway to Archangel; Bryansk takes
+Olgerd's conquest, the defections of 1500 and Vedrosha, and Peter's ditch-and-rampart line from Pskov
+in 1708; Kirov takes the reduction of the Vyatka republic under Vasili the First, its tribute under
+Vasili the Blind, the retaking of 1489 and the 1499 push to the Pechora on dog sledges; Kursk takes
+Samokvasov's fifty earth enclosures in the government and Oleg of Kursk on the Kalka; Ryazan takes
+the 1521 annexation and the cannonade that took the humiliating treaty off Mehmed Girey; Kaluga takes
+1812 — Napoleon leaving Moscow by its gate meaning to march south for supplies, Kutuzov at Tarutino,
+the night messenger of 22 October and Maloyaroslavets; Arkhangelsk takes Kholmogory's ruin, the
+English traders and Peter's arsenal; and Chita takes the exile system whose march ended there.
+**Read the sibling before researching the centre; the second card's subject is what the first one
+left.**
+
+**THE 19TH-CENTURY SHELF CARRIED EIGHT OF THE TEN AND COULD NOT TOUCH THE OTHER TWO.** Novosibirsk
+and Kemerovo did not exist as towns when Reclus, Rambaud, Murchison and Morfill wrote, so those two
+rest entirely on open-access modern work, and the searches that found it are worth recording:
+`"Autonomous Industrial Colony Kuzbass"` on DOAJ returns exactly two articles and **both are
+usable** — Uskov on healthcare in Verkhotomsk volost and Shcheglovsk, which is where the card's
+names and dates come from (Ust-Iskitimskoye until 1918, Shcheglovsk 1918–1932), and Rabkina's review,
+which carries Ruth Epperson Kennell's years at the colony. `"Shcheglovsk"` alone returns the same two
+plus **Meerovich on the socialist-city planning of Shcheglovsk, Stalinsk and Novonikolaevsk**, which
+serves both Siberian cards at once. `"Novonikolaevsk"` gives **Papkov on the 1921 transfer of
+Siberia's governing bodies out of Omsk** and **Emelyanova and Goroshko on the Ob pine forest**, which
+is the only city-specific physical material either Siberian card has. **Ask DOAJ for the city's OLD
+name**: `"Kemerovo" AND history` returns 3,235 results of which none is about the city, because the
+regional university's journal is called after it.
+
+**FOUR PHYSICAL SENTENCES CAME OUT OF MURCHISON AND THEY ARE BETTER THAN ANY MODERN PAPER FOUND.**
+He went where these cities are: at Vologda the substratum is buried under a spread of detritus that
+defeated a circuit west to Cherepovets, Vesyegonsk and Mologa, and the marls upstream on the Sukhona
+are so empty of fossils that Meyendorf called them the mute limestones (p. 178); the lower
+carboniferous limestone of Kaluga is grey, whitish and bluish in beds two to four feet thick and
+divides near the town into courses with seams of shale and poor coal (pp. 79–80); Kursk stands on
+high ground above the Sem and the Tuskar where chalk marls overlie seven feet of pure white chalk
+without flints (p. 269), on a dome-like swell that turns the Oka north and holds the Don to a
+northward course (p. 20); and **towards the Vyatka the cupriferous conglomerate dies out and the
+party never went north to the town, having been told the beds around it were precisely like the ones
+they had just described** (p. 160) — which is a fact about the city's geology and about how it was
+recorded. For the three cities he does not reach, DOAJ supplied a city-specific physical pair each:
+the Desna's bottom sediments inside Bryansk, the Oka's near-channel alluvium below Ryazan, and
+**Landsat thermal imagery showing Chita lifting the Ingoda's surface temperature by six to eight
+degrees in January and by nothing at all in summer.**
+
+**RULE 1 OF `check-cards.js` FIRED TWICE AND THE FIX IS A PAGE RANGE, NOT A DROPPED CLAIM.** Kirov's
+five history sentences came off four Rambaud pages and Kaluga's off four Morfill pages, which reads
+to that checker as one modern scholar cited four times over. Consolidating to `ramb1('209, 214')` +
+`ramb1('221–22')` and `MORFILL('314–15')` + `MORFILL('317–21')` keeps every claim and every marker
+and takes both cards to two citations per author. **Run it before the batch is committed rather than
+after**: the first run of these ten reported the two violations and nothing else, and the repair cost
+a `git checkout` of the two data files and a re-add.
+
+**THE CROSSREF PASS FOUND ONE WRONG INITIAL AND ONE DOI CROSSREF DOES NOT HOLD.** DOAJ gives Uskov as
+`I. Y. Uskov` and Crossref as **`I. Yu. Uskov`**, which is the journal's own transliteration and is
+what shipped. **`10.7480/projectbaikal.42.795` returns "Resource not found" from Crossref because
+Project Baikal registers with DataCite**, whose record confirms Mark Meerovich, 2014 and issue 42 —
+and shows no volume, so the citation carries `no. 42` alone. A DOI that Crossref has never heard of
+is not a bad DOI; ask DataCite before rewriting one.
+
+**THE PICTURE PASS REJECTED SEVEN OF TEN FIRST CHOICES, the worst rate any batch has had**, and the
+rejections are the record worth keeping. A file whose Commons description names the OBLAST rather
+than the city is the warning sign: `Вид на Рязань.jpg` is captioned "Ryazanskaya oblast" and is a
+low-rise suburb under cloud. `Vologda 333.jpg` is a park with an obelisk. `Vyatka.jpg` is captioned
+"River Vyatka in surroundings of city Kirov" and shows the city as a smudge on the horizon; the
+bridge picture offered instead shows the floodplain and no city at all. `Aerial view of Kaluga from
+North-East.jpg` is a night shot of street lights **and carries the photographer's signature**.
+`Arkhangelsk, Russia.jpg`, the English article's lead, is a promenade monument, and `Геометрия
+большого города` is a bridge silhouette with a lens flare. Two Arkhangelsk waterfront views by one
+photographer both carry a **burned-in camera date stamp**, which is why the card ended on
+`Arkhangelsk. Northern Dvina River P7151348 2200.jpg` — the same subject, clean, in evening light.
+**`Views of Arkhangelsk` had to be read to the end to find it**; the panoramics subcategory holds
+only banner crops 87 to 286 pixels tall.
+
+**KIROV HAS NO SKYLINE ON COMMONS AND THE HONEST ANSWER IS ITS MONASTERY.** Every route was tried —
+the city category, `Views of Kirov, Kirov Oblast` (which does not exist), the aerial category (empty),
+both Wikipedia articles, and the one substantial photo series of the city, which is **FAL-licensed**
+and outside Folio's bar in any case. What the shelf does carry is the Trifonov Monastery ensemble
+photographed wide across the Ezhovskoye pond, so that is the card's picture with a caption saying so.
+**A city of 472,000 can still have no wide view, and a landmark photographed wide is better than a
+skyline that is not there.**
+
+**AND THE KEMEROVO PAIR SPLIT THE OTHER WAY ROUND.** `Кемерово.jpg` is CC0, 4,752 pixels wide and a
+fine wide view — of the chemical works across the Tom, which its own description says. That is the
+right picture for the glossary term, whose first sentence puts the city in the Kuzbass coalfield, and
+the wrong one for a card that has to show the city, so the card took `Kemerovo1.jpg` and the term took
+the works. The embankment picture that looked like the better term photograph **carries a signature
+watermark and a crowd of identifiable faces** and was dropped.
+
+**FIVE OF THE TWENTY SHIPPED `src` VALUES ARE ORIGINAL-FILE URLS AND ANSWER 429 TO THIS CONTAINER.**
+Where a file's original is 1,800 pixels or less on the long side the API returns the original as its
+own `thumburl` at every width asked for, so there is no `/thumb/` form to take — and
+`upload.wikimedia.org` rate-limits an original for our user agent while serving it to a browser.
+Each of the five was fetched successfully through `thumb.php` or a smaller API thumb before it was
+installed, so the files are real and the URLs are the API's own. **A 429 on an original is this
+sandbox's limit, not a dead link; confirm the file another way rather than composing a URL.**

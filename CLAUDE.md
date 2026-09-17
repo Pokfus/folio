@@ -846,7 +846,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     in a Study Area or a Methods section is reachable there and nowhere else — it is what carried
     Yekaterinburg), else an open-access abstract found through DOAJ. **A CENTRE WHOSE SENTENCE NO RUNG
     ANSWERS IS LEFT UNWRITTEN RATHER THAN ASSERTED**, which is why the capital numbers are not
-    contiguous. **📖 The plan's own "THE CAPITAL HALF'S RECIPE" section and its batches 20–25 have all of it,
+    contiguous. **📖 The plan's own "THE CAPITAL HALF'S RECIPE" section and its batches 20–26 have all of it,
     including which portals the archive refuses, the hosts measured shut, and the Internet Archive's own
     intermittent *Temporarily Offline* page, which a one-shot probe reads as a dead host.** Not part of
     the site.
@@ -5273,7 +5273,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 106 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, twenty-three of the 80 centres being written (`gru-505`, `gru-507`–`gru-509`, `gru-511`–`gru-513`, `gru-518`–`gru-523`, `gru-527`, `gru-528` and `gru-531`–`gru-538`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`, `gru-503`, `gru-506`, `gru-510`, `gru-514`–`gru-517`, `gru-524`–`gru-526`, `gru-529` and `gru-530` are still to write**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 116 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, thirty-three of the 80 centres being written (`gru-505`, `gru-507`–`gru-509`, `gru-511`–`gru-513`, `gru-516`–`gru-523`, `gru-527`, `gru-528`, `gru-531`–`gru-538`, `gru-540`–`gru-542`, `gru-544`, `gru-545`, `gru-548`, `gru-550` and `gru-551`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`, `gru-503`, `gru-506`, `gru-510`, `gru-514`, `gru-515`, `gru-524`–`gru-526`, `gru-529`, `gru-530`, `gru-539`, `gru-543`, `gru-546`, `gru-547`, `gru-549` and `gru-552`–`gru-583` less `gru-570` are still to write**, see below |
 
 The next id for any of them (substitute the prefix):
 
