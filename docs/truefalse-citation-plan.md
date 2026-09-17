@@ -2632,6 +2632,14 @@ contemporary account that simply does not mention deaths proves nothing, which i
   read from here.
 - **#47, Chang'an.** `ianmorris.org` now serves a **placeholder page with no PDFs on it**, so the
   social-development tables that were the obvious comparative source are no longer where they were.
+  **AND THE SEARCH TERM IS AN INSTITUTION'S NAME, SO THE QUERY CANNOT BE RUN AT ALL**: DOAJ returns
+  **1,355 results** for `"Chang'an"` and the first twenty are runway bridges, hydrogen dispersion and
+  lithium-ion state-of-charge estimation, because Chang'an University is an engineering school that
+  publishes heavily. A city, a dynasty or a person whose name a modern university, company or journal
+  also carries needs a query built round something else. Europe PMC is no help either and that is the
+  same lesson from the other side — it indexes biomedicine, and `"largest city in the world"` there
+  returns eighty papers about cancer screening and air pollution. **The index has to match the
+  discipline, and for pre-modern urban history none of the ones open from here does.**
 
 **THE INDEX NOBODY HAD ASKED: `export.arxiv.org`'s API ANSWERS 200 FROM HERE.** It returned no hit for
 the falling-penny query, which is a fact about the query rather than about the host, and **it had never
