@@ -3838,7 +3838,11 @@ window.GLOSSARY = {
 "Golden_Horde": "The <b>Golden Horde</b> was the westernmost of the states into which the Mongol Empire divided, ruling the steppe north of the Black and Caspian seas and holding the princes of Rus as tributaries for some two and a half centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Its wealth came from the trade linking the steppe, the northern forests and the Mediterranean, and Italian merchants held fortified posts on its southern coasts.<sup class=\"fn\" data-fn=\"2\"></sup> Its capital, Sarai, stood somewhere on the lower Volga, though the written sources use the name for more than one place and the excavated sites have not settled which was meant.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Pax_Mongolica": "<b>Pax Mongolica</b> is the term historians use for the period, roughly from the mid-13th century to the mid-14th, when Mongol authority across Eurasia allowed people and goods to travel unusually far and safely.<sup class=\"fn\" data-fn=\"1\"></sup> Its administrative core was a relay network of post stations along the main roads, described by travellers as holding hundreds of horses each and staffed by couriers who changed at fixed intervals.<sup class=\"fn\" data-fn=\"1\"></sup> Surviving documents record the animals and households each station was required to supply, and the period was neither continuous nor peaceful throughout, since the successor khanates fought one another.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Timur": "<b>Timur</b> was a Turco-Mongol conqueror who built an empire out of Central Asia in the second half of the 14th century, campaigning from northern India to Anatolia and making Samarkand his capital.<sup class=\"fn\" data-fn=\"1\"></sup> Not being descended from Genghis Khan, he could not take the title of khan and ruled instead as emir in the name of Chinggisid figureheads, an arrangement foreign envoys to his court noticed and recorded.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He presented his wars as fought in the cause of Islam, and Muslim writers of his own century assessed him in sharply opposed ways, some as its defender and others as the destroyer of its greatest cities.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Chinggisids": "The <b>Chinggisids</b> were the descendants of Genghis Khan, among whom the Mongol Empire was divided after 1260 and who supplied the ruling houses of much of Eurasia from the Black Sea to Manchuria into the 18th century.<sup class=\"fn\" data-fn=\"1\"></sup> Descent from him became the recognised qualification for the title of khan, so that rulers without it governed under lesser titles or in the name of a Chinggisid figurehead.<sup class=\"fn\" data-fn=\"1\"></sup> Which branch a dynasty descended from also carried weight, and houses tracing themselves to junior lines were long treated as peripheral by historians looking for a single centralising state.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Chinggisids": "The <b>Chinggisids</b> were the descendants of Genghis Khan, among whom the Mongol Empire was divided after 1260 and who supplied the ruling houses of much of Eurasia from the Black Sea to Manchuria into the 18th century.<sup class=\"fn\" data-fn=\"1\"></sup> Descent from him became the recognised qualification for the title of khan, so that rulers without it governed under lesser titles or in the name of a Chinggisid figurehead.<sup class=\"fn\" data-fn=\"1\"></sup> Which branch a dynasty descended from also carried weight, and houses tracing themselves to junior lines were long treated as peripheral by historians looking for a single centralising state.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Tikal": "Tikal is an ancient Maya city in the rainforest of the Petén, in northern Guatemala, whose core of pyramids, plazas and causeways was built and rebuilt through the Classic period, roughly 250 to 900 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It has no river or lake near it and drew its water from reservoirs fed by runoff from its own paved plazas, one of them filtered through quartz sand and zeolite in the earliest known water purification system in the Americas.<sup class=\"fn\" data-fn=\"2\"></sup> Its inscriptions record an armed arrival from central Mexico in 378 CE, and the city was abandoned in the late 9th century after decades of drought.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Classic_Maya_collapse": "The Classic Maya collapse is the depopulation and political breakdown of the cities of the southern Maya lowlands over the Terminal Classic period, roughly 800 to 1000 CE, when dated royal monuments ceased and heartland population fell by nearly 90 per cent.<sup class=\"fn\" data-fn=\"1\"></sup> It coincided with a spike of aridity from about 750 to 1050 CE, in which eight severe droughts cut rainfall 36 to 52 per cent below average, though cities had survived dry spells before.<sup class=\"fn\" data-fn=\"1\"></sup> It was uneven: the southern lowlands dried hardest and declined earliest while northern cities carried on, and modelling treats climate, warfare and the economics of city life as interacting causes.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Chichen_Itza": "Chichen Itza is a ruined Maya city in the northern Yucatán peninsula of Mexico, among the largest and most influential settlements of the Late and Terminal Classic periods, roughly 600 to 1000 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Its centre holds the stepped pyramid the Spanish called El Castillo, whose north portico carried columns cut as the feathered serpent K'uk'ulkan, and beneath which a survey has detected a water-filled cavity in the limestone.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A chamber beside its Sacred Cenote held 64 children, all male and several closely related, whose genomes show continuity with Maya people living in the district today.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Toltec": "The Toltecs were the people of Tula in Hidalgo, Mexico, the largest city of the central highlands between the fall of Teotihuacan and the rise of the Aztecs, whose centre moved to the Tula Grande complex after about 950 CE and lay in ruins by 1200.<sup class=\"fn\" data-fn=\"1\"></sup> Its temple on Pyramid B stood on carved stone columns, among them the standing figures known as the atlantes, and four of its pillars show sixteen richly dressed men.<sup class=\"fn\" data-fn=\"2\"></sup> Much of what is said about them comes from Mexica accounts recorded centuries later, in which they are the first settlers of the land and craftsmen whose name became a word for skilled work.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5808,7 +5812,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Golden_Horde": "1242 – 1502 CE",
 "Pax_Mongolica": "c. 1250 – 1350 CE",
 "Timur": "1336 – 1405 CE",
-"Chinggisids": "from 1206 CE"
+"Chinggisids": "from 1206 CE",
+"Tikal": "c. 250 – 900 CE",
+"Classic_Maya_collapse": "c. 800 – 1000 CE",
+"Chichen_Itza": "c. 600 – 1000 CE",
+"Toltec": "c. 950 – 1150 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8078,7 +8086,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Golden_Horde": ["Jochi Ulus","Ulus of Jochi","Kipchak Khanate"],
 "Pax_Mongolica": ["Mongol peace"],
 "Timur": ["Tamerlane","Timur Lang","Amir Timur"],
-"Chinggisids": ["Chinggisid","Genghisid","Chingissid"]
+"Chinggisids": ["Chinggisid","Genghisid","Chingissid"],
+"Classic_Maya_collapse": ["Maya collapse","collapse of the Classic Maya"],
+"Chichen_Itza": ["Chichén Itzá"],
+"Toltec": ["Toltecs","Toltec culture"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11958,7 +11969,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Golden_Horde": ["state","empire","history","trade","geography","asia"],
 "Pax_Mongolica": ["concept","era","history","trade","state","asia"],
 "Timur": ["person","ruler","history","warfare","state","asia"],
-"Chinggisids": ["people","concept","history","state","migration","asia"]
+"Chinggisids": ["people","concept","history","state","migration","asia"],
+"Tikal": ["place","city","history","archaeology","americas","guatemala"],
+"Classic_Maya_collapse": ["event","history","archaeology","americas","climate"],
+"Chichen_Itza": ["place","city","history","archaeology","americas","mexico"],
+"Toltec": ["culture","people","history","archaeology","americas","mexico"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
