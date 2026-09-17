@@ -609,6 +609,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 901–930 (月饼 → 之), deck order | 15 | three sentences whose Chinese says the opposite of their own English |
 | 2026-09-17 | `hsk30l4` notes 931–960 (支持 → 转), deck order, plus `major` and `gonna` sweeps | 22 | a split headword hidden by the fact that the pair IS a real word |
 | 2026-09-17 | `hsk30l4` notes 961–990 (转发 → 作者), deck order — **Level 4 complete** | 18 | a noun gloss on a card whose sentences are two different verbs |
+| 2026-09-17 | `hsk30l5` notes 1–30 (哎 → 报到), deck order | 25 | **two of one card's three sentences used its character for its sound in a name** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6783,3 +6784,83 @@ sentences each and zero repeats.
 still-ambiguous 2; shared-gloss groups 326 unchanged; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 593 → 609;
 `build-lang-decks.js` re-run.
+
+## Batch 74 — hsk30l5 notes 1–30 (哎 → 报到) — **Level 5 begins**
+
+The first thirty notes of the HSK 5 deck, the biggest of the graded six; **twenty-five cards changed**
+across two decks.
+
+**The leading fault is the transliterated-name class at twice its usual size.** 安 is glossed
+`peace, tranquility, safety`, and **two of its three sentences use the character as a person's name** —
+安没有妹妹 and 谁打电话给安, both rendered *Ann* in their own English. Only 城市安睡了 uses it for its
+meaning at all, so the card taught a sense **no sentence on it showed**. Fifth instance in this audit
+after 鸟取 and 由美, and the first where the name takes the majority of the card.
+
+**And it arrives twice in thirty notes.** 宝's second sentence is 宝拉为今天的考试念书了吗 — *Paula* —
+and its third is 宝塔, a pagoda, where the character contributes nothing a reader could carry anywhere
+else; that left one sentence in three showing `treasure`. **The Paula sentence is legitimate on
+hsk30l6/念书**, whose headword it is really about, and is left standing there: the same sentence can be
+right on one card and wrong on another, which is batch 27's finding met from the other side.
+
+**Three cards glossed the sense they do not teach.** 包裹 gave the two VERB senses, `wrap up; pack up`,
+while all three of its sentences are the noun — a parcel you lift, lose and have seized by customs.
+保安 gave `to ensure public security` over three sentences about a security guard you call, bother or
+send for. 把握 gave `to grasp; to hold; seize` under a `noun / verb` label while its second sentence is
+the noun — 没有任何人对它有把握, nobody can be SURE of it. Each now carries both senses with every
+sentence tagged.
+
+**A labelled sense with no gloss behind it.** 白's label read `adjective / adverb` and the gloss was
+`white` alone — while the FIRST sentence is the adverb, 他没有白死, *he did not die in vain*. A reader
+meeting it was shown a word for a colour doing something no colour does.
+
+**A polyphone taught at the wrong reading, on a sentence that should not be on a vocabulary card
+either.** 薄's first sentence was 女人薄情善变 under *A woman is ever fickle and changeable*. 薄情 is
+**bóqíng** — the character's other reading — on a card whose pinyin is báo and whose gloss is
+`thin; flimsy`, so the sentence showed neither the card's sound nor its sense; and it is a flat
+generalisation about women on a card about thinness. Replaced with the card's own sense.
+
+**A card's third sentence was another card's headword.** 保's was 保存在阴凉的地方 — which is 保存, note
+25 in this same deck, four cards further on. (Legitimate on hsk30l4/凉, where 阴凉 is the headword, and
+left there.)
+
+**Two calqued sentences.** 保持's 保持远距离关系不是最好的 is English put into Chinese word by word, where
+the language says 异地恋 — and its English, *Having a long distance relationship isn't the best*, is not
+English either. 宝贝's 他睡得像个宝贝似的 is *sleeping like a baby* taken across literally, where Chinese
+says 睡得像婴儿一样; as it stood it said he sleeps like a darling.
+
+**A hint pair retired, and the second half of it sharpened to make that honest.** 哎 and 嘿 were both
+glossed `hey` and carried a `not X` line at each other. They are not the same word and **each card's own
+three sentences say which is which** — all three of 嘿's call to somebody, where 哎's are surprise and
+dismay, none of them rendered *hey* in its own English. Both glosses sharpened, the collision dissolved
+and both hint rows removed. **Eleventh pair retired.** It also cost a lesson: the hints are keyed
+`<deckId>/<headword>`, and a first sweep looking them up by the bare word found none, so the `gloss`
+rewrite dropped 哎's hint before I had noticed it had one. **Read the hint map by its real key before
+rewriting a gloss.**
+
+**Three labels, one gloss, one word.** 半夜 was labelled `noun / numeral / measure word` over `midnight`
+— those belong to the two characters taken apart rather than to the word. And 宝贝's `treasure; baby`
+reads as the infant where 宝贝 is the term of endearment, which the card's own second line already
+called *honey*.
+
+**Two more missing terminal marks** (把握, 保留) **and one missing comma** (哎呀, which ran its
+interjection straight into the clause after it where its other two sentences both set it off).
+
+**Nine English lines**, of which three are worth naming: `Don't mistreat small animals!` for 要爱护小动物,
+which reverses the polarity of the positive imperative the card is teaching; `a talking machine` for
+发声器, which is a speaker; and `The weekdays are: Monday, ...` for 工作日包括, which drops the headword
+altogether.
+
+**Four `Compounds` blocks** — 暗, 薄, 宝 and 白, the first three with nothing at all in the reader's
+downloaded deck. 宝塔 is carried there as a row, which is where a word built on the character belongs
+once its sentence has gone.
+
+**Read and left.** 哎呀's own gloss, 安全带, 安慰 (whose `verb / adjective` label is the ordinary
+two-label shape rather than a missing sense), 安装's Chinese, 暗, 熬夜, 傍晚's other two, 包括's third,
+包装, 宝贵, 保留's other two, 保险 (whose 保险箱 swallows the headword but is a real compound the reader
+will meet), 保质期's Chinese, 报到 — and the whole of 唉 beyond its third sentence, which this record had
+itself added as 唉唷喂啊, a fixed exclamation showing nothing of the bare word.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups **326 → 325**, no new collision; pinyin clean; example-fit 143
+and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged
+609 → 624; `build-lang-decks.js` re-run.

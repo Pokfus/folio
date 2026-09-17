@@ -13747,12 +13747,27 @@
       ]
     },
     "hsk30l5/保安": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The gloss was `to ensure public security`, the verb, while all three sentences are the NOUN — a security guard you call, bother or send for. CC-CEDICT gives both; the card gave the one it does not show. Both senses now given and every sentence tagged.",
       "ex": [
         [
           "叫保安来！",
           "Call security!"
         ]
+      ],
+      "senses": [
+        [
+          "noun",
+          "a security guard"
+        ],
+        [
+          "verb",
+          "to ensure public security"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
       ]
     },
     "hsk30l5/信用": {
@@ -14010,12 +14025,19 @@
       "Say": "哎呀"
     },
     "hsk30l5/唉": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The sentence this record added in the example top-up was 唉唷喂啊, which is a fixed exclamation in its own right and shows nothing of 唉 as a sigh; with the first sentence being 唉呀 as well, two of the card's three were compounds and only one used the bare word. Replaced by a sigh, which is what the card's own gloss (`oh; ah; well`) is about. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "唉唷喂啊！",
           "Whoopsie!"
+        ],
+        [
+          "唉，没办法，只好这样了。",
+          "Ah well, there's nothing for it."
         ]
+      ],
+      "dropEx": [
+        "唉唷喂啊"
       ]
     },
     "hsk30l5/因而": {
@@ -76764,7 +76786,7 @@
       ]
     },
     "hsk30l5/保质期": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | `Is this bread's best-by OK?` is not English — a best-before date is a date, and the question the Chinese asks is whether the bread is still inside it.",
       "ex": [
         [
           "这盒牛奶的保质期是七天。",
@@ -76773,6 +76795,12 @@
         [
           "过了保质期就别吃了。",
           "Don't eat it once the date has passed."
+        ]
+      ],
+      "exEn": [
+        [
+          "这个面包的保质期",
+          "Is this bread still within its use-by date?"
         ]
       ]
     },
@@ -122499,6 +122527,370 @@
           "a phrase"
         ]
       ]
+    },
+    "hsk30l5/哎": {
+      "why": "The gloss was the bare `hey`, which is CC-CEDICT's first sense and is not this card's: the card's own three English lines read Ah, Grr and Argh, all of them surprise or dismay rather than calling to somebody. The gloss now carries both. And the second sentence was 哎呦, a different interjection that merely begins with the headword, so it is replaced by one using 哎 on its own — in the attention-getting sense the gloss leads with, which no sentence showed. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "hey; oh (expressing surprise or dismay)",
+      "dropEx": [
+        "哎呦好难受啊"
+      ],
+      "ex": [
+        [
+          "哎，你等等我！",
+          "Hey, wait for me!"
+        ]
+      ]
+    },
+    "hsk30l5/哎呀": {
+      "why": "The second sentence ran the interjection straight into the clause after it with no comma, where the card's other two sentences both set it off. Punctuation only.",
+      "exSpace": [
+        [
+          "哎呀我不知道啦。",
+          "哎呀，我不知道啦。"
+        ]
+      ]
+    },
+    "hsk30l5/爱护": {
+      "why": "Two English lines. The first turned a positive Chinese imperative (要爱护小动物 — DO care for small animals) into a negative English one, `Don't mistreat small animals`, which says roughly the same thing by reversing the polarity of the sentence the card is teaching. The third was not English: `we need to understand more how to care for it`.",
+      "exEn": [
+        [
+          "要爱护小动物",
+          "We should take good care of small animals!"
+        ],
+        [
+          "只有一个地球",
+          "We have only one earth, so we must learn all the more to look after it."
+        ]
+      ]
+    },
+    "hsk30l5/安": {
+      "why": "Two of the three sentences used 安 as a person's NAME — 安没有妹妹 and 谁打电话给安, both rendered `Ann` in their own English — so the card taught `peace, tranquility, safety` with no sentence showing that sense at all, and only 城市安睡了 used the character for its meaning. The fifth instance in this audit of a character carded for its sound in a transliteration. It is also a gloss written as three NOUNS under a `verb / adjective` label: CC-CEDICT marks the calm sense a bound form, which is why the free uses a learner can actually write are the verb `to install; to fit`, so both senses are now given and every sentence says which it shows. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "安没有妹妹",
+        "谁打电话给安"
+      ],
+      "ex": [
+        [
+          "我们在门上安了一把新锁。",
+          "We fitted a new lock on the door."
+        ],
+        [
+          "空调已经安好了。",
+          "The air conditioner has been installed."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to install; to fit"
+        ],
+        [
+          "adjective",
+          "calm; peaceful; safe"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ]
+    },
+    "hsk30l5/安全带": {
+      "why": "`None were wearing seat belts` for 没人系安全带, where 没人 is `nobody` and takes a singular verb.",
+      "exEn": [
+        [
+          "没人系安全带",
+          "Nobody was wearing a seat belt."
+        ]
+      ]
+    },
+    "hsk30l5/安装": {
+      "why": "`a talking machine` for 发声器, which is a speaker or sound-making device rather than anything that talks.",
+      "exEn": [
+        [
+          "发声器",
+          "Every robot has a speaker fitted to it."
+        ]
+      ]
+    },
+    "hsk30l5/暗": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all to show — the character appears in five words across the whole collection and in none of this deck's in the reader's own downloaded deck. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "黑暗",
+          "hēi'àn",
+          "darkness; dark"
+        ],
+        [
+          "暗示",
+          "ànshì",
+          "to hint; to suggest"
+        ],
+        [
+          "暗中",
+          "ànzhōng",
+          "in secret; on the sly"
+        ],
+        [
+          "暗号",
+          "ànhào",
+          "a secret signal; password"
+        ]
+      ]
+    },
+    "hsk30l5/把握": {
+      "why": "The label read `noun / verb` and the gloss was verb-only (`to grasp; to hold; seize`), while the second sentence is the NOUN — 没有任何人对它有把握, nobody can be SURE of it — which CC-CEDICT gives as assurance; certainty. Both senses now given and each sentence tagged. That same sentence also ended with no terminal mark.",
+      "exStop": [
+        [
+          "勇气是一个奇怪的东西：没有任何人对它有把握"
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to grasp; to seize; to make the most of"
+        ],
+        [
+          "noun",
+          "assurance; certainty"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ]
+    },
+    "hsk30l5/白": {
+      "why": "The label read `adjective / adverb` and the gloss was the adjective alone, `white` — while the FIRST sentence is the adverb: 他没有白死, he did not die IN VAIN, which is a sense CC-CEDICT lists and the card did not. A reader meeting that sentence was shown a word for a colour doing something no colour does. Both senses now given and each sentence tagged. The card glosses its character and stops, and the tap panel that lists the other words built on it had one word, 白酒, against sixteen in the collection in the reader's own downloaded deck. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "adjective",
+          "white"
+        ],
+        [
+          "adverb",
+          "in vain; for nothing"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "明白",
+          "míngbai",
+          "to understand; clear, obvious"
+        ],
+        [
+          "白天",
+          "báitiān",
+          "daytime"
+        ],
+        [
+          "空白",
+          "kòngbái",
+          "a blank space"
+        ],
+        [
+          "白菜",
+          "báicài",
+          "Chinese cabbage"
+        ]
+      ]
+    },
+    "hsk30l5/半夜": {
+      "why": "The label read `noun / numeral / measure word` over the single gloss `midnight` — the numeral and measure-word labels belong to the two characters taken apart, not to the word, and all three sentences are the noun.",
+      "senses": [
+        [
+          "noun",
+          "midnight; the middle of the night"
+        ]
+      ]
+    },
+    "hsk30l5/傍晚": {
+      "why": "The first sentence, 今天傍晚做些事, was written as an English `Let's do something later this evening!` with neither the subject nor the 吧 that makes a suggestion in Chinese, so it reads as a bare instruction with nobody in it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "今天傍晚做些事"
+      ],
+      "ex": [
+        [
+          "我们今天傍晚出去走走吧。",
+          "Let's go out for a walk this evening."
+        ]
+      ]
+    },
+    "hsk30l5/包裹": {
+      "why": "The label read `noun / verb` and the gloss gave the two VERB senses, `wrap up; pack up` — while all three sentences are the NOUN: 帮我抬包裹, 我的包裹到哪里了, 包裹被海关扣了, every one of them a parcel. The card glossed the sense it does not teach and taught the one it does not gloss. Both senses now given and every sentence tagged.",
+      "senses": [
+        [
+          "noun",
+          "a parcel; a package"
+        ],
+        [
+          "verb",
+          "to wrap up; to bind up"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l5/包含": {
+      "why": "`Chinese consists of hundreds of dialects` for 中文包含几百种方言 — 包含 is to contain or include, and `consists of` is a different claim about the relation between a language and its dialects.",
+      "exEn": [
+        [
+          "几百种方言",
+          "Strictly speaking, Chinese comprises hundreds of dialects."
+        ]
+      ]
+    },
+    "hsk30l5/包括": {
+      "why": "`The weekdays are: Monday, ...` drops the headword altogether — 包括 is `include`, which is the whole of what the sentence was chosen to show.",
+      "exEn": [
+        [
+          "工作日包括",
+          "The working week includes Monday, Tuesday, Wednesday, Thursday and Friday."
+        ]
+      ]
+    },
+    "hsk30l5/薄": {
+      "why": "The first sentence was 女人薄情善变, under the English `A woman is ever fickle and changeable`. It is wrong twice: 薄情 is bóqíng, the character's OTHER reading, on a card whose pinyin is báo and whose gloss is `thin; flimsy` — so the sentence showed neither the card's sound nor its sense — and it is a flat generalisation about women on a vocabulary card that is not about anything of the kind. Replaced with the card's own sense. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all, the character appearing in two words across the whole collection in the reader's own downloaded deck. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "女人薄情善变"
+      ],
+      "ex": [
+        [
+          "这件外套太薄了，冬天穿不了。",
+          "This coat is too thin to wear in winter."
+        ]
+      ],
+      "compounds": [
+        [
+          "薄饼",
+          "báobǐng",
+          "a thin pancake"
+        ],
+        [
+          "薄片",
+          "báopiàn",
+          "a thin slice; a flake"
+        ],
+        [
+          "薄膜",
+          "bómó",
+          "a membrane; a film"
+        ],
+        [
+          "单薄",
+          "dānbó",
+          "thin; frail; flimsy"
+        ]
+      ]
+    },
+    "hsk30l5/宝": {
+      "why": "The second sentence used 宝 for its sound in 宝拉, Paula — the sixth transliterated name in this audit — and the third was 宝塔, a pagoda, where the character contributes nothing a reader could carry to another word. That left one sentence out of three showing `treasure`. Both replaced, and 宝塔 kept as a compound row instead, which is where a word built on the character belongs. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. (The Paula sentence is legitimate on hsk30l6/念书, whose headword it really is about, and is left standing there.) The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all, against nine words in the collection in the reader's own downloaded deck. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "宝拉为今天的考试念书了吗",
+        "那是一座宝塔"
+      ],
+      "ex": [
+        [
+          "这幅画是无价之宝。",
+          "This painting is priceless."
+        ],
+        [
+          "爷爷把这块旧表当成宝。",
+          "Grandfather treasures this old watch."
+        ]
+      ],
+      "compounds": [
+        [
+          "宝石",
+          "bǎoshí",
+          "a precious stone; a gem"
+        ],
+        [
+          "珠宝",
+          "zhūbǎo",
+          "jewellery"
+        ],
+        [
+          "国宝",
+          "guóbǎo",
+          "a national treasure"
+        ],
+        [
+          "宝塔",
+          "bǎotǎ",
+          "a pagoda"
+        ]
+      ]
+    },
+    "hsk30l5/保": {
+      "why": "The third sentence was 保存在阴凉的地方, which is 保存 — the headword of note 25 in this same deck, four cards further on — so the single character it is meant to teach was swallowed by a two-character word the reader will meet on its own. Replaced with a sentence using 保 as a free verb, which the card's other two already do (保住面子, 性命不保). AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. (The same sentence is legitimate on hsk30l4/凉, where 阴凉 is the headword, and is left standing there.)",
+      "dropEx": [
+        "保存在阴凉的地方"
+      ],
+      "ex": [
+        [
+          "有我在，保你平安。",
+          "With me here, I guarantee you will be safe."
+        ]
+      ]
+    },
+    "hsk30l5/宝贝": {
+      "why": "The gloss `treasure; baby` reads as the infant, where 宝贝 is the term of endearment — CC-CEDICT gives darling beside baby, and the card's own second line is `honey`. And the third sentence, 他睡得像个宝贝似的, is a word-for-word calque of the English `sleeping like a baby`, which Chinese says 睡得像婴儿一样; as written it says he sleeps like a darling. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "a treasure; darling; sweetheart",
+      "dropEx": [
+        "他睡得像个宝贝似的"
+      ],
+      "ex": [
+        [
+          "这台旧相机是他的宝贝。",
+          "This old camera is his pride and joy."
+        ]
+      ]
+    },
+    "hsk30l5/保持": {
+      "why": "The second sentence, 保持远距离关系不是最好的, is a calque in both directions: 远距离关系 is English `long distance relationship` put into Chinese word by word, where the language says 异地恋, and `Having a long distance relationship isn't the best` is not English either. Replaced with 保持 before a noun, which is the construction the card lacked — its other two sentences are both 保持 before an adjective. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "保持远距离关系"
+      ],
+      "ex": [
+        [
+          "他们保持着很好的合作关系。",
+          "They have kept up a good working relationship."
+        ]
+      ]
+    },
+    "hsk30l5/保存": {
+      "why": "The third sentence, 他们保存了这建筑, puts 这 straight in front of a noun with no classifier, where Chinese requires one (这座建筑). Replaced with a 得-complement, a construction the card did not have. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "他们保存了这建筑"
+      ],
+      "ex": [
+        [
+          "这些文物保存得很好。",
+          "These relics are very well preserved."
+        ]
+      ]
+    },
+    "hsk30l5/保留": {
+      "why": "The second sentence ended with no terminal mark.",
+      "exStop": [
+        [
+          "请保留我的位置"
+        ]
+      ]
+    },
+    "hsk30l6/嘿": {
+      "why": "The other half of the 哎 / 嘿 pair, both of which were glossed `hey` and carried a `not X` line at each other. They are not in fact the same word, and each card's own three sentences say which is which: all three of 嘿's call to somebody (嘿，你！请稍候 / 嘿，看我找到了什么 / 嘿，你的狗刚咬了我), where 哎's are surprise and dismay. Sharpening both dissolves the collision, so the hint pair is retired — a disambiguator that no longer disambiguates anything is worse than none, a reader taking it for a real distinction.",
+      "gloss": "hey (calling to somebody)"
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -122719,7 +123111,6 @@
     "hsk30l5/医学": "药",
     "hsk30l5/含量": "内容",
     "hsk30l5/响声": "噪声",
-    "hsk30l5/哎": "嘿",
     "hsk30l5/哪怕": "即便",
     "hsk30l5/哲学": "哲理",
     "hsk30l5/嘴巴": "嘴",
@@ -122798,7 +123189,6 @@
     "hsk30l6/即便": "哪怕",
     "hsk30l6/后代": "后世",
     "hsk30l6/听话": "乖巧",
-    "hsk30l6/嘿": "哎",
     "hsk30l6/噪声": "响声",
     "hsk30l6/地域": "面积",
     "hsk30l6/墙壁": "墙",
