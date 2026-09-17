@@ -1016,6 +1016,82 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-451`–`rm-460`: the Jewish revolt to the death of Vitellius — what this batch found
+
+**THIS BATCH CROSSES FROM ONE DECK TO ANOTHER**: `rm-451`–`rm-455` close `rm-julio-claudians` and
+`rm-456`–`rm-460` are the first cards ever written into `rm-flavians`, so the second half sets that deck's
+`category` string, which is its own title.
+
+**THREE LINES WERE RETITLED AND ALL THREE ARE `ww2-133`'s RULE** — a line named after a person or a thing
+the glossary already holds has no term of its own left to teach. `Nero` and `Julio-Claudian_dynasty` were
+already cited terms, and `Galba` was about to be spent by `rm-457`, so: **`rm-453 The revolt of Galba`**
+takes **`Nymphidius Sabinus`**, the praetorian prefect who bought the guard for Galba with a largess that
+was never paid and then tried to take the throne himself; **`rm-454 The death of Nero`** takes **`hostis`**,
+the senate's declaration of a public enemy, which is the thing that actually reached Nero at Phaon's villa
+and the thing that made his death a legal event rather than a mood; and **`rm-455 The end of the
+Julio-Claudians`** takes **`Verginius Rufus`**, who beat Vindex, refused the empire three times and had it
+put on his own tomb that he claimed the imperial power *non sibi sed patriae*.
+
+**`rm-452` KEEPS ITS PLAN LINE AND NOT ITS WORDING**: the line reads *The revolt of Vindex* and the card is
+answered by **`Vindex`**, which is the term rather than the description. It needed no retitle, the
+strict answer-must-match check being the geography plans' rule alone, but it is recorded here because the
+glossary key is `Gaius_Julius_Vindex` with `Vindex` as an alias, on the pattern `Gnaeus_Domitius_Corbulo`
+set in the batch before.
+
+**A LOEB YEAR FAULT OF THE SAME CLASS AS THE TACITUS ONE WAS FOUND AND FIXED, AND IT WAS BIGGER.** Last
+batch corrected 36 citations that named the wrong volume of Jackson's Annals. The `dio()` helper had the
+same shape of bug and had been carrying it far longer: it defaulted to **1917**, which is right for Loeb
+volumes V and VI (books 46–55) and wrong for VII (56–60, **1924**) and VIII (61–70, **1925**). **52
+citations across 30 cards** named a volume that does not exist — every citation of books 56 to 63 in the
+Rome corpus. Nothing in the pipeline can see it: `add-card.js` checks a citation ends in a URL,
+`source-audit.js` counts them, `check-citations.js` needs a DOI, and the LacusCurtius page opens either way.
+**The page header states its own volume and year**, which is the same method that settled the Tacitus
+fault; all 22 cited books were read rather than inferred, and the helper now DERIVES the year from the book
+number instead of taking a default. Re-measured afterwards: 137 Dio citations, 0 wrong.
+
+**A `#` FRAGMENT MAY NOT CONTAIN A SPACE, WHICH IS A CITATION FAULT AND NOT A TIDINESS ONE.** `suet()`
+appends the section to the URL as an anchor, so `suet("Galba","20, 23")` produced `…Galba*.html#20, 23` —
+and `SRC_URL_RX` stops at whitespace, so the visible link text would have been truncated at `#20,` and the
+address dead. A RANGE is safe (`20-23` yields `#20`); a comma-separated list is not. Caught by curling
+every citation URL in the batch, which is what that rule is for.
+
+**THE PLINY CITATIONS ARE THE LATIN TEXT ON PERSEUS, DELIBERATELY.** The obvious English — Melmoth revised
+by Bosanquet, on Project Gutenberg — **renumbers the letters**, so its "XVII to Voconius Romanus" is what
+everyone else calls 2.1 and a citation reading `Letters 2.1` pointed at that page would send a reader to a
+different letter. Attalus carries Firth's 1900 translation in the standard numbering but says on its own
+banner that words and phrases have been modified. Perseus's `1999.02.0139` is structured `book:letter` and
+is the text the epitaph was read off, so `plinl()` cites `<i>Epistulae</i> 6.10` and points there.
+
+**AN ITALIAN ARTICLE WAS CITED FROM ITS PUBLISHED ABSTRACT AND THE REASON IS WORTH RECORDING.** Bellomo's
+*L'Italia settentrionale e le guerre civili del 68-69 d.C.* is open access and exactly on this subject, but
+**its PDF is glyph-ciphered**: the subset fonts carry per-font ToUnicode maps that the local extractor
+merges into one, so the body comes out as private-use punctuation. The journal's own article page carries
+the full Italian abstract, which states the findings cited here — Verginius Rufus of Milanese origin, twice
+refusing the purple; the two decisive battles at Bedriacum; Cremona destroyed for its disputed loyalty —
+and nothing beyond it was claimed. **A per-font CMap extractor would unlock the whole article** and is the
+thing to build before the next batch that wants an OJS PDF.
+
+**TWO CARDS SHIP WITH NO PICTURE AND ONE MORE NEARLY DID.** **`rm-455`** has none because no likeness of
+Verginius Rufus survives and the single Commons candidate, `Tomb of Lucius Verginius Rufus.png`, carries no
+source, no description and no authority beyond its uploader's file name — a concrete drum behind a modern
+railing, which the card would have to assert is his tomb. **`rm-459`** has none because the battlefield is
+unlocated farmland and the only candidate is a user-drawn map in German that carries a typo (*Mondena*) and
+dates the battle 14 April where the card follows Henderson's 15th; the card already has a locator globe at
+Bedriacum doing the map's work. **`rm-460` nearly took the Grimani bust**, which Commons itself files as
+*Pseudo-Vitellius*, and **`rm-458` nearly took a Rijksmuseum "Otho"** that is a lead GARDEN STATUE cast
+after Bartholomeus Eggers some time after 1674. The coins were the right answer for all three emperors:
+a legend round a portrait is the one identification that cannot be argued with.
+
+**AND THE MONTAGE ON `rm-456` IS BUILT FROM THE SAME CNG PHOTOGRAPHS**, one of which is the Galba aureus a
+first draft gave `rm-457`. `check-cards.js` compares file NAMES and would not have reported it, so the
+Galba card took the American Numismatic Society's own CC0 close-up instead — a different file, a better
+picture, and no coin met twice in one deck.
+
+**`upload.wikimedia.org` WAS 429 THROUGHOUT AND `commons.wikimedia.org/w/thumb.php` WAS NOT**, which is the
+BUSY state CLAUDE.md records rather than a wall: `Special:FilePath` and the plain upload path both refused
+while `thumb.php?f=<FILE>&width=N` served every file, and `?action=raw` on the file page gave the licence
+and author the whole time.
+
 ### The Julio-Claudians — `rm-julio-claudians`
 
     rm-416  Julio-Claudian dynasty
@@ -1055,9 +1131,9 @@ the exact site of the camp doubtful, so there is no coordinate to fetch that wou
     rm-450  Periodonikes
     rm-451  First Jewish–Roman War
     rm-452  The revolt of Vindex
-    rm-453  The revolt of Galba
-    rm-454  The death of Nero
-    rm-455  The end of the Julio-Claudians
+    rm-453  Nymphidius Sabinus
+    rm-454  Hostis
+    rm-455  Verginius Rufus
 
 ### Civil war and the Flavians — `rm-flavians`
 
