@@ -76487,12 +76487,19 @@
       ]
     },
     "hsk30l4/上门": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The headword was not in the sentence at all: its two characters stood next to each other across a word boundary, belonging to two different words. `check-example-fit.js` cannot see this — it reports an occurrence the segmenter SPLITS, and here greedy longest-match lands squarely ON the headword, which is the blind spot its own header names. Found by reading the card. 关上门，打开窗！ is 关上 + 门 — `close the door` — and its English says exactly that, with nothing in it about dropping in on anybody. This is the cleaner half of the blind spot: 上门 IS a real word, so the segmenter prefers it over 关上, which is not a headword in these decks, and the checker reports the card clean. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "修理工明天上门。",
           "The repairman is coming round tomorrow."
+        ],
+        [
+          "医生可以上门看病。",
+          "The doctor can make home visits."
         ]
+      ],
+      "dropEx": [
+        "关上门，打开窗"
       ]
     },
     "hsk30l4/孙女": {
@@ -110739,11 +110746,17 @@
       ]
     },
     "hsk30l4/热闹": {
-      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. Here the mark after the gap is a comma rather than a full stop, which is the same accident one mark over.",
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. Here the mark after the gap is a comma rather than a full stop, which is the same accident one mark over. | The card named three parts of speech — `noun / verb / adjective` — over a gloss that gives two adjectives and nothing else, and all three of its sentences are the adjective. 热闹 does have a noun use (凑热闹) and a verb one (热闹一下), but a label with nothing behind it is a promise the card does not keep.",
       "exSpace": [
         [
           "吃火锅的时候 ,气氛往往是非常热闹的。",
           "吃火锅的时候，气氛往往是非常热闹的。"
+        ]
+      ],
+      "senses": [
+        [
+          "adjective",
+          "bustling; lively"
         ]
       ]
     },
@@ -118773,6 +118786,197 @@
           "缺口",
           "quē kǒu",
           "a gap; a shortfall"
+        ]
+      ]
+    },
+    "hsk30l4/人生": {
+      "why": "The headword was not in the sentence at all: its two characters stood next to each other across a word boundary, belonging to two different words. `check-example-fit.js` cannot see this — it reports an occurrence the segmenter SPLITS, and here greedy longest-match lands squarely ON the headword, which is the blind spot its own header names. Found by reading the card. 没有人生还 is 没有人 + 生还 — `nobody survived` — and the card about 人生 `life` illustrated it with a sentence in which those two characters are the end of `nobody` and the start of `to survive`. The English, `No one escaped alive`, says so plainly and nothing flagged it. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "没有人生还"
+      ],
+      "ex": [
+        [
+          "人生短暂，要好好珍惜。",
+          "Life is short — make the most of it."
+        ]
+      ]
+    },
+    "hsk30l4/入住": {
+      "why": "An example sentence was wrong three times over. 玲奶奶死的不瞑目。流传说那栋房子至今未人敢入住。 writes 死的 for 死得, 流传说 where Chinese says 据说 or 传说, and 未人敢 for 没人敢 — and it is two sentences in a slot that holds one. Replaced, and with the sense the other two do not show: both of them are checking into a hotel, where 入住 also means moving into a house. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "玲奶奶死的不瞑目"
+      ],
+      "ex": [
+        [
+          "房子还没装修好，不能入住。",
+          "The house isn't finished yet, so nobody can move in."
+        ]
+      ]
+    },
+    "hsk30l4/森林": {
+      "why": "An example sentence was an English proverb translated word for word: 他因为这些树而看不见森林 is `can't see the wood for the trees` carried across into Chinese, and its English line, `Because of these trees, he can't see the forest`, is that translation carried back again — so the reader meets neither the proverb nor a natural Chinese sentence. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "他因为这些树而看不见森林"
+      ],
+      "ex": [
+        [
+          "这片森林里有很多野生动物。",
+          "There is a lot of wildlife in this forest."
+        ]
+      ]
+    },
+    "hsk30l4/稍": {
+      "why": "Two of the three sentences were the same request: 请稍等一下 and 麻烦您稍待一下 are both `please wait a moment`, so the card showed one use of the adverb twice and the other two of CC-CEDICT's senses not at all. The third replaced with 稍 modifying an adjective. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 稍微. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "麻烦您稍待一下"
+      ],
+      "ex": [
+        [
+          "这件衣服稍大了一点。",
+          "This piece of clothing is a little too big."
+        ]
+      ],
+      "compounds": [
+        [
+          "稍等",
+          "shāo děng",
+          "to wait a moment"
+        ],
+        [
+          "稍后",
+          "shāo hòu",
+          "in a little while; shortly after"
+        ],
+        [
+          "稍稍",
+          "shāo shāo",
+          "somewhat; slightly"
+        ],
+        [
+          "稍许",
+          "shāo xǔ",
+          "a little; a bit"
+        ]
+      ]
+    },
+    "hsk30l4/少见": {
+      "why": "Two of the three sentences were about a rare NAME — 她有一个少见的名字 and 我的名字在我的国家蛮少见的 — and the second also uses 蛮, which is southern colloquial and out of register for the rest of the deck. Replaced with the literal `seldom seen` sense, which the card's own gloss gives and none of its sentences showed. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我的名字在我的国家蛮少见的"
+      ],
+      "ex": [
+        [
+          "这种鸟在城市里很少见。",
+          "This kind of bird is rarely seen in the city."
+        ]
+      ]
+    },
+    "hsk30l4/任务": {
+      "why": "The gloss gave one English word and two of the card's three sentences render it with another: 发起新任务 and 谁选你来做这个任务 are both `mission` on the card itself, while the gloss said only `task`. CC-CEDICT gives /mission; assignment; task; duty; role/, so the widening is the dictionary's own.",
+      "gloss": "a task; a mission; an assignment"
+    },
+    "hsk30l4/商量": {
+      "why": "Same shape: glossed `to consult`, while two of the three sentences are rendered `discuss` on the card — 我得找人商量一下 and 有件事我一直想跟你商量. CC-CEDICT gives /to consult/to talk over/to discuss/.",
+      "gloss": "to discuss, to talk (something) over; to consult"
+    },
+    "hsk30l4/然而": {
+      "why": "Two English lines did not say what the Chinese says. 相反的理论往往也是真的 is `the opposite THEORY is OFTEN true`, and the card read `the contrary is always true`, dropping the noun and hardening 往往 into `always`. And 然而这也算不上什么像样的东西 came out as `But it isn't even worth calling stuff`, which is not English.",
+      "exEn": [
+        [
+          "相反的理论往往也是真的",
+          "And yet, the opposite theory is often true as well."
+        ],
+        [
+          "这也算不上什么像样的东西",
+          "But this can't be called anything decent either."
+        ]
+      ]
+    },
+    "hsk30l4/人数": {
+      "why": "The English dropped the headword. 观众人数庞大 is about the NUMBER of spectators, which is the word the card teaches, and `The audience was very large` leaves no trace of it. | An example sentence ended bare. The corpus-wide punctuation pass CONVERTS a half-width mark to a full-width one and never ADDS one, so about 150 sentences still stop with nothing at the end; this is one of them, and the fix appends a full stop and nothing else, to the visible text and the spoken field together.",
+      "exEn": [
+        [
+          "观众人数庞大",
+          "The number of spectators was enormous."
+        ]
+      ],
+      "exStop": [
+        [
+          "听说最近失业者人数正在增加"
+        ]
+      ]
+    },
+    "hsk30l4/入学": {
+      "why": "The English dropped the headword. 学生们，欢迎入学！ welcomes students to the school they have just enrolled at, and `Welcome, students!` says nothing about enrolling.",
+      "exEn": [
+        [
+          "学生们，欢迎入学",
+          "Students, welcome to the school!"
+        ]
+      ]
+    },
+    "hsk30l4/却": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "冷却",
+          "lěng què",
+          "to cool, literal and figurative"
+        ],
+        [
+          "退却",
+          "tuì què",
+          "to retreat; to shrink back"
+        ],
+        [
+          "忘却",
+          "wàng què",
+          "to put out of one's mind; to forget"
+        ],
+        [
+          "推却",
+          "tuī què",
+          "to decline; to turn down"
+        ]
+      ]
+    },
+    "hsk30l4/扔": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all — and nor does the rest of the collection, which holds no other word built on this character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "扔掉",
+          "rēng diào",
+          "to throw away; to throw out"
+        ],
+        [
+          "扔下",
+          "rēng xià",
+          "to throw down; to drop"
+        ],
+        [
+          "乱扔",
+          "luàn rēng",
+          "to throw about carelessly; to litter"
+        ],
+        [
+          "扔弃",
+          "rēng qì",
+          "to abandon; to discard"
+        ]
+      ]
+    },
+    "hsk30l4/仍": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 仍然. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "仍旧",
+          "réng jiù",
+          "still; to remain the same"
+        ],
+        [
+          "频仍",
+          "pín réng",
+          "frequent, of something unwelcome"
         ]
       ]
     }

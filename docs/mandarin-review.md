@@ -596,6 +596,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 511–540 (母子 → 排队), deck order | 19 | a sentence whose three headword characters were two OTHER words meeting, and a wrong pronoun in the Chinese |
 | 2026-09-17 | `hsk30l4` notes 541–570 (排球 → 千万), deck order | 20 | a label and a gloss that were different WORDS, and a question mark that was a full stop |
 | 2026-09-17 | `hsk30l4` notes 571–600 (签证 → 缺少), deck order | 25 | a gloss that was not any sense the word has, and a `not X` hint retired by giving both cards their real meaning |
+| 2026-09-17 | `hsk30l4` notes 601–630 (却 → 少见), deck order | 15 | a headword that was not in its own sentence at all, twice, and invisible to the checker both times |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5948,5 +5949,68 @@ means. 取得's remaining two lines are both about progress and were left, the c
 
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; **shared-gloss groups 330 → 329**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 548 unchanged;
+`build-lang-decks.js` re-run.
+
+## Batch 61 — hsk30l4 notes 601–630 (却 → 少见)
+
+Thirty consecutive notes of the HSK 4 deck in deck order. **Fifteen of the thirty changed** — the
+smallest share since the Level 4 run began, and the batch's leading fault is the sharpest yet.
+
+**A headword that was not in its own sentence at all, twice, and `check-example-fit.js` saw neither.**
+人生 `life` was illustrated with **没有人生还** — which is 没有人 + 生还, *nobody survived*: the two
+characters the card teaches are the end of one word and the start of another, and the card's own
+English says so plainly, *No one escaped alive*. 上门 `to drop in` was illustrated with
+**关上门，打开窗！** — 关上 + 门, *close the door*, whose English likewise mentions nobody dropping in
+on anybody. Both are the blind spot the checker's own header names: it reports an occurrence the
+segmenter SPLITS, and here greedy longest-match lands squarely ON the headword. The 上门 case is the
+cleaner illustration of why that blind spot cannot be closed by tuning — **上门 IS a word and 关上 is
+not a headword in these decks**, so the segmenter correctly prefers the longer real word it knows,
+and reports the card clean. Found by reading the English line against the Chinese, which is the only
+thing that finds this.
+
+**Two more sentences replaced for being bad Chinese, and two for teaching one thing twice.** 入住's
+second line, 玲奶奶死的不瞑目。流传说那栋房子至今未人敢入住。, is wrong three times over — 死的 for
+死得, 流传说 where Chinese says 据说 or 传说, 未人敢 for 没人敢 — and is two sentences in a slot that
+holds one; its replacement also carries the *move in* sense, both surviving lines being hotel
+check-ins. 森林's second was **an English proverb translated word for word**: 他因为这些树而看不见森林
+is *can't see the wood for the trees* carried into Chinese, and its English line was that translation
+carried back again, so the reader met neither the proverb nor a natural sentence. 稍's first and third
+were both *please wait a moment* (请稍等一下, 麻烦您稍待一下), and 少见's first and third were both
+about a rare NAME — the second of them also using 蛮, which is southern colloquial and out of register
+for the rest of the deck.
+
+**Three labels and glosses.** 热闹 named **three** parts of speech, `noun / verb / adjective`, over a
+gloss giving two adjectives and nothing else, with all three sentences the adjective. 任务 was glossed
+`task` while two of its three English lines say *mission* — the card contradicting its own gloss — and
+商量 was glossed `to consult` while two of its three say *discuss*; CC-CEDICT carries both senses for
+both words, so the widening is the dictionary's own rather than a judgement.
+
+**Four English lines that dropped the headword or hardened the Chinese.** 相反的理论往往也是真的 is
+*the opposite THEORY is OFTEN true*; the card read *the contrary is always true*, losing the noun and
+turning 往往 into `always`. 然而这也算不上什么像样的东西 came out as *But it isn't even worth calling
+stuff*, which is not English. 观众人数庞大 is about the NUMBER of spectators — the word the card
+teaches — and *The audience was very large* leaves no trace of it; 欢迎入学 welcomes students to the
+school they have just enrolled at, and *Welcome, students!* says nothing about enrolling.
+
+**One bare sentence.** 人数's second line ended with no terminal mark at all. The corpus-wide
+punctuation pass CONVERTS a half-width mark to a full-width one and never ADDS one, so about 150
+sentences still stop bare; `exStop` appends a full stop to the visible text and the spoken field
+together and does nothing else.
+
+**Four `Compounds` blocks**, every row checked against CC-CEDICT first: 却 and 扔 had **nothing at all**
+in the reader's downloaded deck, and 扔 has nothing anywhere in the collection either — it is the first
+character in this audit whose tap panel would be empty on a reader holding every Mandarin deck Folio
+ships. 仍 and 稍 had one word each. **仍's block is two rows rather than three or more, and that is the
+dictionary's limit rather than a short measure**: besides 仍然, which the deck already has, CC-CEDICT
+carries only 仍旧 and the literary 频仍.
+
+**Read and left.** 却, 确实, 人员, 任何, 扔 (its sentences), 仍, 仍然, 日常, 日记, 日期, 日子, 入,
+入口, 散步, 扫码, 商品, 伤心, 稍微 — and 入, whose three sentences are all bound compounds (入睡, 入会,
+入秋) rather than the free verb, which is what the character is: it takes no free use in modern
+Mandarin and its panel already shows six words.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 329 unchanged; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 548 unchanged;
 `build-lang-decks.js` re-run.
