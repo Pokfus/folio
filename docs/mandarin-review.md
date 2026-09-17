@@ -548,6 +548,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l1` notes 241–270 (谢谢 → 再), deck order | 20 | a gloss that stops dead in the middle of a phrase |
 | 2026-09-17 | `hsk30l1` notes 271–300 (在 → 做), deck order — **Level 1 complete** | 22 | a gloss naming one sense while the examples show another |
 | 2026-09-17 | `hsk30l2` notes 1–30 (啊 → 但), deck order | 18 | a gloss naming three senses the card shows none of |
+| 2026-09-17 | `hsk30l2` notes 31–60 (但是 → 机场), deck order | 20 | a polyphone's commonest reading glossed at its narrowest sense |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1611,3 +1612,95 @@ sentence**, 钱包在包里, where a reader meets it with no gloss at all.
 one-sentence-two-cards find, and the first where **both cards use it correctly**: each headword stands
 on its own in it and each gloss is what the sentence shows. Recorded rather than changed; a repeat a
 reader meets twice is a smaller cost than replacing a sentence that is right for both.
+
+### 2026-09-17 — Level 2, notes 31–60
+
+**What the batch was.** The thirty cards 但是 → 机场, read one at a time against CC-CEDICT and against
+their own three sentences. **Twenty were changed**, ten left alone.
+
+### The narrowest gloss found so far
+
+**过's guò sense was "to celebrate (a birthday)" and nothing else.** CC-CEDICT gives six — "to cross /
+to go over / to pass (time) / to celebrate (a holiday) / to live; to get along / excessively" — and the
+card had the fourth, on a character a beginner meets a dozen times a day. **Its own second sentence said
+so**: 他能过考试的 is passing an EXAM, which the gloss could not reach.
+
+### A trap in the record's own machinery, found by reading the finished deck
+
+**`exSense` is POSITIONAL, and `dropEx` plus `ex` REORDERS the blocks.** The applier keeps what survives
+the drop and APPENDS what the record adds, so a replaced sentence moves to the END of the card. Sense
+tags written against the order the card had *before* the batch therefore point at the wrong senses —
+and they render perfectly while doing it, a small numeral beside a sentence, with nothing anywhere to
+say it is wrong.
+
+It happened twice in this batch, on 得 and 画, and both were caught only by dumping the finished cards
+and reading the tags back against the sentences:
+
+- **得** was tagged `[3, 2, 1]` and wanted `[3, 1, 2]` — 你听得见吗 is the neutral-tone particle, not dé,
+  and the newly authored 她得了第一名 is dé, not the particle.
+- **画** was tagged `[1, 1, 2]` and wanted `[1, 2, 1]` — 那幅画有多少年了 is the noun and the newly
+  authored 我画了一只猫 is the verb.
+
+**So: write `exSense` against the order the card will have AFTER the drops and adds, and read the tags
+back off the finished deck.** The applier's own guard only catches a tag pointing PAST the end of the
+sense list (`badSense`); a tag pointing at the wrong sense *inside* the list is invisible to it. A sweep
+for the guard's own case is in this batch's checks and reads **0 of 164 tags**.
+
+### The glosses
+
+- **过去** was the verb alone, and its second sentence is the noun — "the last couple of days".
+- **花 had two faults in one gloss**: it led with the VERB, written "spend" with no "to ", and then
+  packed "flower; blossom; patterned; colorful" — a noun and an adjective — into one sense under
+  "noun / adjective". CC-CEDICT leads with the flower, which is also what the character *is*.
+- **坏** was the single word "bad", and its first sentence, 电视机坏了, is not an adjective: the
+  television has BROKEN.
+- **等's second sense was labelled a preposition**, which "and so on" is not — it closes an enumeration,
+  and CC-CEDICT says exactly that. Relabelled `suffix`; the meanings are unchanged.
+- **公交车 was "public transport vehicle"**, CC-CEDICT's first rendering and a thing nobody says. All
+  three of the card's sentences translate it BUS, which is the dictionary's second. A reader asked in
+  English for a public transport vehicle cannot be expected to produce 公交车.
+
+### The sentences
+
+- **A doubled verb.** 得's 谁这么说说得不对。 — 说说得 has the verb twice and the sentence is not
+  grammatical in any reading.
+- **A semicolon where Chinese takes a comma.** 地铁's 请问；地铁在哪儿？ The punctuation pass converted
+  the ASCII mark to its full-width form and could not know the mark itself was wrong — the same line
+  that pass draws round the sentences with no terminal stop.
+- **The wrong orthography.** 画's 我不知道你的计画。 — **计画 is the TAIWAN spelling of 计划**, in a
+  simplified-character deck that has 计划 as a card of its own. First of its kind found.
+- **The headword inside another word**, three times: 飞's 飞机场在那边 (and the deck has 机场 as a card
+  twenty-one notes later), 动's 动词变位很有趣的 — which also has 变位 well above Level 2 and an
+  ungrammatical 的 — and 懂's 她很懂汉字, where 懂 takes something one can *understand* rather than
+  something one can read.
+- **Folk stereotyping with ungrammatical English.** 个子's 个子矮的人心眼多。"Shorter people got more
+  tricks up their sleeves."
+- **A construction nobody uses.** 跟's 我不跟你要好了, and 坏's 坏的人，是我 — a cleft Chinese does not
+  build that way, with an English two centuries old.
+- **English that drops the word the card teaches.** 红茶's "How about a cup of tea?" — 红茶 is BLACK
+  tea, which is the whole point of the card (the Chinese names it by the colour of the liquor, the
+  English by the colour of the leaf). And 回去's "I don't wanna go back", another of the thirteen.
+
+### On the compound lists
+
+**Twelve cards got one, and three of the lists exist to show a reading the card's own examples cannot.**
+
+- **得 is the deck's worst polyphone — three readings on one character, none of them predictable from
+  it** — and the rows split between two: 觉得, 记得 and 懂得 on the neutral *de* against 得到 and 值得
+  on *dé*.
+- **Every row on 地 is the dì reading, on purpose**: all three of the card's sentences are the
+  neutral-tone particle, so the list is the only place a reader meets the other half of the card.
+- **高跟鞋 leads 跟's list** and is the only row of the three on that card's THIRD sense, the heel, which
+  the gloss names and no example shows.
+
+**过's panel already holds 过来, 过年 and 过去**, so all five rows go elsewhere — and every one of them
+is a verb ENDING in 过 rather than beginning with it, which is the shape the panel's three do not show.
+
+**Three rows take the deck's reading over CC-CEDICT's** — 值得 zhí dé, 不过 bú guò, 坏处 huài chù. Ninth
+batch running.
+
+### Read and left alone
+
+但是, 地, 饭馆, 高, 高中, 告诉, 过来, 过年, 还是, 黑色, 红色, 后面, 回来 and 机场 are right as they
+stand. The two `check-example-fit.js` findings in this deck (一会儿 inside 等一会, 准备 inside 不准) are
+the greedy segmenter losing to a longer word and are not faults.
