@@ -2376,11 +2376,53 @@ Funck-Brentano *via Project Gutenberg* and Johnson's *Pyrates* on the same footi
 the work's own title, as an anonymous or compiled work must, and says "transcribed at Chinese Wikisource"
 so a reader knows what they are opening. It carries **`[in Chinese]`**, which `src-langs.js` accepts.
 
-### Where the last eleven stand (2026-09-17)
+### T63 — a host that was down is not a host that is shut (2026-09-17)
 
-The pass closed this session at **209 of 220 (93→95%)**. Every remaining statement has been probed and
-the probe recorded; four families account for all eleven. **#44 was in this list and is out of it — see
-T62 above, which is the family below being asked the wrong question.**
+One cited: #38 (Wu Zetian the only female emperor). 209 → **210 of 220 (95%)**. The entry directly above
+this one had just finished writing #38 up as blocked, with five routes measured shut in one evening and
+a standing instruction not to re-probe them. **One of the five was not shut. It was down.**
+`web.archive.org` had dropped every connection for the previous hour; twenty minutes later it answered
+the first request with 507 KB, and the Wayback route past MDPI's 403 — the route that entry named as
+the cheapest remaining win — closed the statement immediately.
+
+**SO THE CLOSING NOTE HAS TO SAY WHICH KIND OF NO IT MET, AND UNTIL NOW IT DID NOT.** A 403, a
+Cloudflare challenge and a TLS reset are facts about a host's policy and do not change in an hour; a
+run of dropped connections and a 500 are facts about a host's afternoon. `check-reach.js` makes exactly
+this distinction one directory over — `SHUT` against `DOWN`, with its own header saying a 5xx "is not a
+refusal" and telling you to re-probe alone rather than deciding for you — and this file had been
+flattening the two into one list. **A blanket "do not re-probe" over a mixed list is how a working route
+gets written off**, which is the same shape as the fault T58 and T60 each corrected one host at a time.
+The list is now split.
+
+**WHAT ACTUALLY CLOSED IT WAS TWO DOCUMENTS OF DIFFERENT KINDS, WHICH IS WHAT THE STATEMENT IS.** Its
+question makes two claims and only one of them is an event: the accession is in the *Jiu Tangshu*'s
+sixth juan, on `zh.wikisource.org` where T62 found the *Mingshi* — 革唐命，改國號為周 … 加尊號曰聖神皇帝，降皇帝為皇嗣,
+the Mandate of Tang revoked, the dynasty renamed and the reigning emperor demoted to heir — and the
+annals carry the other end too, the title passed to the crown prince in the first month of 705.
+**Uniqueness is not an event and no primary source can carry it**; that is Wang's, whose study of the
+Bright Hall calls her in its own words “the only female emperor in China”. **Ask which of a statement's
+claims is a thing that happened before deciding what kind of source it needs.**
+
+**THE CITATION POINTS AT THE DOI AND NOT AT THE CAPTURE**, which is this pass's standing rule: the
+article is alive, open and CC BY 4.0, and MDPI's 403 is this sandbox's egress rather than a fact about
+the source. Crossref confirmed the author, the title, the volume, the issue and the article number
+before it was written — **the abstract was read through a capture, so the one thing not to trust is the
+byline a capture shows**.
+
+**AND THE OLD EXPLANATION LOST ITS COMPARISON.** It had contrasted Wu with Empress Dowager Cixi, who
+“wielded power behind the throne” — true, twelve centuries later, and in neither source. What replaced
+it is the annals' own sequence, which shows the distinction the question is about rather than asserting
+it: she took the title and the man holding it became her heir.
+
+### Where the last ten stand (2026-09-17)
+
+The pass closed this session at **210 of 220 (93→95%)**. Every remaining statement has been probed
+and the probe recorded; four families account for all ten. **#44 and #38 were both in this list and
+are both out of it** — see T62, which is the family below being asked the wrong question, and T63,
+which is this note's own “do not re-probe” line being too blunt. **A host that is SHUT and a host
+that is DOWN are different findings and this note now says which is which**: a 403, a Cloudflare
+challenge and a TLS reset are policy and hold; a 500 and a run of dropped connections are an
+afternoon and do not.
 
 **THE CANONICAL PAPER IS ON A JAVASCRIPT PLATFORM.** #135 (the Kitty Genovese reporting) is Manning,
 Levine and Collins in *American Psychologist*; APA is the publisher, `psycnet.apa.org` is a JavaScript
@@ -2406,30 +2448,26 @@ and photogrammetry. **A scientific paper cites the excavation reports and never 
 al-Idrisi on Sicilian *itriyya* in 1154 and a Genoese inventory of 1279, neither reachable; Yule's
 Polo, open and full-text, has him eating *bread*. #20 (Columbus and the mainland) — the Library of
 Congress's own exhibition says he "led three more expeditions to the Caribbean", which is suggestive
-and is not the negative stated; `loc.gov`'s classroom pages and every `nps.gov` path tried are 403 or
-404. #64 (the Great Fire's death toll) wants the Bills of Mortality. #70 (cocaine in Coca-Cola) has
-the 1916 Supreme Court opinion recording the extract used "with cocaine eliminated" — **evidence it
-was taken out, not of what was in the 1880s bottle**. #38 and #47 are Chinese history whose
-standard works are modern monographs; HAL, DOAJ and the glossary's own 3,838 cited terms return
-nothing on either. **#38 IS HALF CLOSED AND THE OPEN HALF IS THE UNIQUENESS.** The *Jiu Tangshu*'s sixth juan, the
-annals of Empress Zetian, records the accession itself — 九月九日壬午，革唐命，改國號為周 … 乙酉，加尊號曰聖神皇帝，降皇帝為皇嗣, the
-Mandate of Tang revoked, the dynasty renamed Zhou and the sitting emperor demoted to heir — and it
-is on `zh.wikisource.org`, where T62 found the *Mingshi*. **What no primary source can establish is
-that she was the ONLY one**, and every route to a secondary voice was measured shut in one evening:
-`ctext.org` serves a Cloudflare Turnstile challenge; DOAJ's four hits are three on `mdpi.com` (403)
-and one on `jfafu.journals.ekb.eg`, whose TLS connection is reset; the one open-access paper
-Semantic Scholar names with the phrase in its abstract is on `jurnal.uai.ac.id`, which answers
-**500**; OAPEN's REST search answers 500 and DOAB's answers 200 with three books that do not carry
-the claim; and `web.archive.org` dropped every connection through the evening, so the Wayback route
-past MDPI's 403 — which is the cheapest remaining win on this statement — was unavailable.
-**OpenAlex answers 429 with “Insufficient budget … Resets at midnight UTC”, which is a DAILY QUOTA
-rather than a rate limit**, so it is worth re-trying on another day and not worth re-trying on this
-one.
+and is not the negative stated; `loc.gov`'s classroom pages and every `nps.gov` path tried are 403
+or 404. #64 (the Great Fire's death toll) wants the Bills of Mortality. #70 (cocaine in Coca-Cola)
+has the 1916 Supreme Court opinion recording the extract used "with cocaine eliminated" — **evidence
+it was taken out, not of what was in the 1880s bottle**. #47 is Chinese history whose standard works
+are modern monographs; HAL, DOAJ and the glossary's own 3,838 cited terms return nothing on it, and
+what it wants is not a monograph but a **comparative city-size table** — the claim is that Chang'an
+was the largest city in the world, which no Chinese source can settle. Ian Morris's
+social-development tables are the obvious candidate and `ianmorris.org` now serves a placeholder
+page with no PDFs on it. **#38 was in this paragraph and is out of it: see T63, and with it the
+reason this note used to give for leaving it — a list of five hosts, one of which was not shut but
+down.**
 
 **WHAT WOULD MOVE THEM.** Not more probing of the same hosts. #135 and #141 want a repository copy or
 an interlibrary route; #1, #64 and #20 want a museum, archive or government page that is not behind a
-challenge; #38 wants one secondary voice for its uniqueness clause and #47 a comparative city-size table, and
-neither is a Chinese-language open journal away — `ctext`, MDPI, `ekb.eg` and `uai.ac.id` were all
-measured this evening and are listed above. **Do not re-probe them.**
+challenge; #47 wants a comparative city-size table, and the hosts already measured SHUT are `ctext.org`
+(Turnstile), `mdpi.com` (403), `psycnet.apa.org` and `journals.sagepub.com` (JavaScript shell and
+Cloudflare), `sciencedirect.com`, and `jfafu.journals.ekb.eg` (TLS reset). **Those do not change; do
+not re-probe them.** What was merely DOWN and is worth another try on another day:
+`jurnal.uai.ac.id` (500), OpenAlex (429 on a daily budget that resets at midnight UTC), OAPEN's REST
+search (500) — and `web.archive.org`, which was dropping every connection when that sentence was
+written and answered twenty minutes later, which is how #38 closed.
 **Each is a fact about reach, not about the pool**, which is why they are listed rather than cited to
 something that does not carry them.
