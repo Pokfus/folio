@@ -575,6 +575,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 391–420 (小区 → 以后), deck order | 19 | a sentence whose headword the segmenter finds and which is still not that word |
 | 2026-09-17 | `hsk30l3` notes 421–450 (以前 → 员), deck order, plus the whole `anymore` class | 39 | the same fault twice on one card, one reported and one invisible, and a card teaching a non-word |
 | 2026-09-17 | `hsk30l3` notes 451–480 (愿意 → 住院), deck order | 14 | a card glossed with the one sense none of its three sentences uses |
+| 2026-09-17 | `hsk30l3` notes 481–491 (字典 → 作业) — **Level 3 finished**, 491 of 491 read | 5 | the fullest character panel in the deck, ten words, every one of them the empty suffix |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4864,3 +4865,41 @@ no sentence on the card uses it — recorded rather than done.
 still-ambiguous 2; shared-gloss groups 338 → 338; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 353 → 365;
 `build-lang-decks.js` re-run.
+
+## Batch 40 — hsk30l3 notes 481–491 (字典 → 作业), and **Level 3 is finished**
+
+The deck's last eleven notes, **five cards changed** across 14 fields. **`hsk30l3` is now read card by
+card end to end — all 491 notes**, over batches 1 and 20–40.
+
+**THE FULLEST CHARACTER PANEL IN THE DECK, AND EVERY WORD IN IT THE EMPTY SUFFIX.** 子's tap panel shows
+**ten** words from its own deck — 电子书, 房子, 句子, 筷子, 盘子, 瓶子, 裙子, 勺子, 屋子, 箱子 — and so
+do all three of the card's own sentences (车子, 鞋子, 家子). Not one of them is the 子 the gloss
+describes: *child, offspring, seed, small thing*. Its `Compounds` rows are therefore 儿子, 孩子 and
+种子, the three words where the character still means something. **A full panel is not the same as a
+useful one**, which is a different reason for going elsewhere from the one 照 and 行 gave.
+
+**嘴's rows omit 嘴巴, that card's own `not X` disambiguator** — the trap 树 sprang in batch 35 and 牙 in
+batch 37, met a third time and now looked for before the rows are written.
+
+**总 named three parts of speech over the adjective alone** — *overall, general, chief* — while all
+three of its sentences are the adverb. Split, with the adverb worded *always; all the time* rather than
+总是's *always, invariably*, which is the very next card in the deck. **最后 read *lastly***, which fits
+none of its three sentences (attributive *last*, *in the end*, *last*); another standing
+`check-gloss-source.js` finding, now off its list. **字典's own point was lost in its own example**: a
+字典 is a dictionary OF CHARACTERS, and its third line read *This word can't be found in the dictionary*
+for 这个字.
+
+**WHAT LEVEL 3 LOOKED LIKE, over 491 notes.** The recurring faults, in the order they turned up most
+often: a gloss that is the dictionary's leading sense and not the card's (开机's class, met on 难过,
+盘子, 请客, 球场, 心里, 照, 主要, 只有, 最后); a card contradicting itself, its gloss having chosen one
+English word and its sentences using another (沙发, 司机, 小区, 校长, 行李, 运动会, 脏); a part of
+speech named and never glossed (清楚, 生活, 瘦, 双, 习惯, 要求, 选择, 总); a headword swallowed by a
+longer word, which `check-example-fit.js` can only see when the segmenter happens to straddle it (汽车
+in 公共汽车, 前年 in 大前年, 市 in 好市多, 山 in 人山人海, 西 in 南西, 树 in 树熊, 甜 in 甜心, 羊 in
+羊毛, 语言 in 语言学, 牙刷 and 有关, both invisible); and small American-usage classes, of which only
+three were worth a table row.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 338 → 338; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 365 → 368; both
+`not X` hints in range survived; `build-lang-decks.js` re-run.

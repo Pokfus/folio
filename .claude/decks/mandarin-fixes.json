@@ -11335,8 +11335,14 @@
       ]
     },
     "hsk30l3/字典": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "dictionary of characters"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | A 字典 is a dictionary OF CHARACTERS — which is the whole of what its gloss says and what distinguishes it from 词典 — and its third line read 'This WORD can't be found in the dictionary' for 这个字, which is a character. The card's own point was lost in its own example.",
+      "gloss": "dictionary of characters",
+      "exEn": [
+        [
+          "这个字字典里查不到",
+          "This character can't be found in the dictionary."
+        ]
+      ]
     },
     "hsk30l3/季节": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
@@ -113641,6 +113647,99 @@
           "白纸",
           "bái zhǐ",
           "blank paper"
+        ]
+      ]
+    },
+    "hsk30l3/总": {
+      "why": "The card named three parts of speech over one gloss, 'overall, general, chief', which is the ADJECTIVE alone — and all three of its sentences are the adverb (总觉得渴, 总有一些人, 总比没人好). CC-CEDICT gives both. Split, and the sentences tagged; the adverb is worded 'always; all the time' rather than 总是's 'always, invariably', which is the next card in the deck. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 总是, which is the very next card. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "adverb",
+          "always; all the time"
+        ],
+        [
+          "adjective",
+          "overall; general; chief"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "总共",
+          "zǒng gòng",
+          "altogether; in total"
+        ],
+        [
+          "总结",
+          "zǒng jié",
+          "to sum up; a summary"
+        ],
+        [
+          "总理",
+          "zǒng lǐ",
+          "a premier; a prime minister"
+        ],
+        [
+          "总统",
+          "zǒng tǒng",
+          "a president"
+        ]
+      ]
+    },
+    "hsk30l3/最后": {
+      "why": "The gloss was 'lastly', which fits none of the card's three sentences: 最后一个客人 is attributive, 最后她没有来 is 'in the end' and 最后看的 is 'last'. CC-CEDICT reads 'final; last; ultimate; finally; in the end'. Another standing `check-gloss-source.js` finding, off its list now.",
+      "gloss": "last; final; in the end"
+    },
+    "hsk30l3/嘴": {
+      "why": "'他嘴里一口方言。' is not a sentence a speaker writes, and its English — 'He speaks in a dialect' — says nothing about a mouth, so the card's first example neither used the word naturally nor translated it. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. 嘴巴 is deliberately NOT among the rows: it is this card's own `not X` disambiguator, so a row for it would list the very word the card tells a reader it is not — the trap 树 sprang in batch 35 and 牙 in batch 37, met a third time and now expected.",
+      "dropEx": [
+        "他嘴里一口方言。"
+      ],
+      "ex": [
+        [
+          "她捂住嘴笑了。",
+          "She covered her mouth and laughed."
+        ]
+      ],
+      "compounds": [
+        [
+          "闭嘴",
+          "bì zuǐ",
+          "to shut up"
+        ],
+        [
+          "嘴唇",
+          "zuǐ chún",
+          "a lip"
+        ],
+        [
+          "多嘴",
+          "duō zuǐ",
+          "to speak out of turn"
+        ]
+      ]
+    },
+    "hsk30l3/子": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows TEN words — 电子书, 房子, 句子, 筷子, 盘子, 瓶子, 裙子, 勺子, 屋子, 箱子 — which is the fullest panel the audit has met. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. Every one of those, and all three of this card's own sentences, is the EMPTY suffix; the rows are therefore the three words where 子 still means what the card's gloss says it means — a child, offspring, a seed.",
+      "compounds": [
+        [
+          "儿子",
+          "ér zi",
+          "a son"
+        ],
+        [
+          "孩子",
+          "hái zi",
+          "a child"
+        ],
+        [
+          "种子",
+          "zhǒng zi",
+          "a seed"
         ]
       ]
     }
