@@ -1427,11 +1427,14 @@ async function typeField(page, field, text) {
   check("...as a copy of its own beside hers, rather than over the top of it",
     !!stillMine && stillMine.copies === 2, JSON.stringify(stillMine));
 
-  // the reader's actual complaint: it is the DAILY STUDY the deck has to reach on the other device
+  /* the reader's actual complaint: it is the DAILY STUDY the deck has to reach on the other device — and
+     since Sep 2026 INSTALLING IS WHAT PUTS IT THERE (on request: "when adding a shared community deck, it
+     should immediately also be added to the active decks"). This section used to press the row's own +
+     here, because installing wrote the account's install row and touched nothing the reader studies; that
+     press is now what would take the deck back OUT, `wireAddButton` being a toggle. So nothing is pressed
+     and the assertion below is the stronger one: the deck is in `S.active` already. */
   await oneDevice.page.goto(base + "#decks", { waitUntil: "load" });
   await oneDevice.page.waitForTimeout(1600);
-  await oneDevice.page.evaluate(() => { const b = document.querySelector("[data-uadd]"); if (b) b.click(); });
-  await oneDevice.page.waitForTimeout(1200);
   const phoneActive = await oneDevice.page.evaluate(() =>
     (JSON.parse(localStorage.getItem("folio_v1") || "{}").active || []).filter((x) => String(x).startsWith("u:")));
   // THIS deck's entry, not a count: the account already studies a deck from an earlier section, and its
@@ -1448,12 +1451,12 @@ async function typeField(page, field, text) {
       rq.onerror = () => res("");
     });
   }, "Shared On One Device");
-  check("the second account puts it in the daily study here", !!localIdHere && phoneActive.indexOf("u:" + localIdHere) >= 0,
+  check("installing puts it in the daily study here, with nothing else pressed", !!localIdHere && phoneActive.indexOf("u:" + localIdHere) >= 0,
     "id=" + localIdHere + " active=" + JSON.stringify(phoneActive));
 
   /* WAIT FOR THE PHONE TO HAVE SPOKEN, and poll for it rather than sleeping. `S.active` reaches another
-     device through the PROGRESS BLOB — `uDeckInstall` puts the deck in the store and adds nothing to the
-     reader's list — and that push carries a 6s debounce, so a second device booted immediately reads an
+     device through the PROGRESS BLOB — `uDeckInstall` puts the deck in the store and the install handler
+     puts its entry on the reader's list — and that push carries a 6s debounce, so a second device booted immediately reads an
      account that has not yet said it studies this deck. This section passed for years on the accident
      that booting Folio took longer than the debounce; the eager load path went from 5.69 MB to 2.65 MB
      in Sep 2026 and it began failing, on a feature nobody had touched. A clock is what the section is

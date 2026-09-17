@@ -232,7 +232,7 @@ function load(rel) {
 {
   const GONE = ["cardWithQuestion", "COLLECTION_NUMERALS", "numeralIn", "cnNumeral", "romanNumeral",
     "greekNumeral", "devanagariNumeral", "cyrillicNumeral", "levelBadgeMarkup", "fromHome", "GB_SLOP",
-    "dailyPick", "startMiniGlobe", "langDeckMB", "setMode"];
+    "dailyPick", "startMiniGlobe", "langDeckMB", "setMode", "MINE_LBL_Z"];
   /* …and the one the file says SURVIVES, unused. Checking that direction too is what stops the list
      above from being a list of names that were never there. */
   const KEPT = ["traceMapToGeo"];

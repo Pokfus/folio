@@ -276,8 +276,18 @@ const PROBE = () => {
   await page.waitForFunction(() => document.querySelector(".reveal .ttip, .reveal .src-item"), { timeout: 20000 }).catch(() => {});
   await page.waitForTimeout(200);
   const ttip = await page.evaluate(async () => {
-    const t = document.querySelector(".ttip");
-    if (!t) return "no glossary term on the card";
+    /* THE FIRST `.ttip` ON A REVEALED CARD IS INSIDE A CLOSED FOLD, and `document.querySelector` does not
+       know that. The Think-it-through block sits ABOVE the Background and each of its three answers is a
+       `<details>` that starts closed, so since that block shipped the first glossary term in the DOM has
+       been one nothing can focus — and the check failed as "cannot take focus", which reads as the term
+       having lost its tabindex rather than as the fixture reaching for the wrong one. `test-sources.js`
+       met the same fault and answered it with Playwright's `:visible`.
+       **`offsetParent` IS NOT THE TEST HERE, and that was the second attempt.** A closed `<details>` hides
+       its contents with `content-visibility`, not `display:none`: the element keeps its layout box, so
+       `offsetParent` is non-null and `getComputedStyle` reports `visibility:visible` — and it still cannot
+       take focus. The fold's own state is what to ask. */
+    const t = [...document.querySelectorAll(".ttip")].find((el) => !el.closest("details:not([open])"));
+    if (!t) return "no glossary term on the card (of " + document.querySelectorAll(".ttip").length + ")";
     if (t.getAttribute("role") !== "button" || t.getAttribute("tabindex") !== "0") return "not a control: role=" + t.getAttribute("role") + " tabindex=" + t.getAttribute("tabindex");
     t.focus();
     if (document.activeElement !== t) return "cannot take focus";

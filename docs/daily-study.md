@@ -1118,3 +1118,67 @@ Clicking a **deck row in the home Daily-review list** starts a study session sco
 whole subtree** (`wireExpander`'s optional `rowClick` → `route("study",{scope:{type:"deck",id}})`, since a collection is in
 `NODE_BY_ID` and `subtreeCardIds` covers it); its **chevron still expands/collapses** the decks within (the chevron's
 `stopPropagation` keeps it from also studying). A coming-soon / empty collection falls back to toggling.
+
+## A deck finished for the day (Sep 2026, on request)
+
+> "When an active deck has been completed for the day, (i.e. no new/review cards remaining), it should turn
+> green and have a checkmark in the right of the deck background, in the same way as a completed minigame,
+> and gold if the review cards were completed perfectly."
+
+So this is `.game-tile.done` / `.game-tile.won` transposed onto a row, and the tile's own block in
+`styles.css` is the thing to read before changing it. What is worth writing down is the four decisions the
+transposition forced, and the one fault it produced while it was being written.
+
+**What "done" is.** The reader's own words define it — no new or review cards remaining — so the test is
+`entryPiles(entryId)` returning three zeroes, which is the function that DRAWS the three counts sitting at
+the left of the same row. Taking it from anywhere else would let the mark and the numbers beside it
+disagree, which on this list is the one thing they must never do. Two states are deliberately excluded.
+A **skipped** deck already returns three zeroes (`entrySkippedToday`), and green there would tell a reader
+they had finished work they have only put off. A row claiming **no cards at all** is not green either: it
+has completed nothing. Everything else that reads 0/0/0 goes green, including a deck that simply has
+nothing due today and was never opened — which is the row saying *there is nothing here for you now*, and
+is what a reader reads a list of decks to find out.
+
+**What "perfectly" is, and why it is the banner's reading rather than a narrower one.** The request says
+"the review cards"; the rule shipped counts every card's FIRST attempt today, new and review alike. That is
+`reviewDayRec()`'s own reading, and the review banner sits *directly above* these rows turning gold on
+exactly that test — so a row measuring something else would be a second answer to the same question on one
+screen. It is measured per deck out of `S.revlog`, the only record that says which cards were answered:
+two Sets (answered, missed) are built ONCE for the whole list rather than per row, and built BACKWARDS from
+the end so the walk stops at the first row that is not today's. Walking backwards also means the last thing
+written for a card is its EARLIEST row today, which is the first attempt — the only one that can decide
+"right first try".
+
+**Known limit, stated rather than papered over.** `revlog` is not in the synced progress blob (it has a
+table of its own, precisely so it can grow per review), so a deck finished perfectly on a phone shows
+**green** rather than gold on a laptop that has not pulled the log. That is an understatement rather than a
+false claim, which is the right way round for a flourish.
+
+**The specificity fault, which is the one to remember.** `--dk-accent` is `--gt-accent`'s lesson word for
+word: the row's hue arrives INLINE as `--coll-bg`, an inline declaration beats any selector without
+`!important`, so `.dk-done` cannot re-set the hue and sets a second property instead that the wash, the
+left bar, the hover wash and the tick all read. What the tile did not have to deal with is that a **group
+header and a language header declare a fallback hue of their own** — `#5AA9DC` rather than the deck row's
+`#9A6634` — at the same *two* classes, further down the file. On source order alone that declaration wins,
+so the first build painted a finished collection in its collection's red with a gold tick over it and a
+gold left bar: half the treatment, and it looks like a rendering bug rather than a cascade one. The fix is
+`.prog-done`'s own: outrank on selector COUNT rather than on position, hence `.active-decks
+.active-deck.dk-done`. `test-layout.js` asserts the row's left bar is in the state's colour for this
+reason, and that assertion is what caught it.
+
+**Three smaller decisions.** The **bar is not touched**: `.prog-done` already turns a row's bar and its
+title gold and means something else entirely — every card in this deck studied, ever, against this deck
+*today* — so the two are kept on different parts of the row and a reader can hold both at once. The
+**subject icon keeps the collection's hue**, where the tile's corner glyph is `display:none` once played:
+that glyph names a game whose name is written underneath it, while a row's mark names WHICH collection the
+deck belongs to, and is the reader's own where they have set one. And the **tick's height is arithmetic
+rather than taste** — the polyline runs y 6→17 of a 24 viewBox, so its ink is the middle 46% of a square
+box; at 152% of the shortest row kind (a group header, 7px padding, 41px against a deck row's 47px) that
+is a 29px tick on the line, with nothing but empty space spilling into `overflow:hidden`. Raising it starts cutting the top-right arm
+off on that row and nowhere else.
+
+**A container and its children can disagree, and that is the existing design.** Every level has an
+allowance of its own, so a collection whose day is spent reads 0/0/0 over a subdeck still offering its own
+share — which is what the counts have said since the per-deck limits shipped. This only paints it. Expect
+a green collection header above a red subdeck row, and do not "fix" it here: the fix, if one is ever
+wanted, is a decision about what a container's allowance means.

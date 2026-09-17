@@ -561,3 +561,49 @@ gets a looser budget than its neighbours.
 `sq mi` and `sq ft` no longer need a branch of their own, the bare units now being in the list, so the
 redundant `sq\s*(?:…)` alternative is gone.
 
+
+## A rate's denominator (Sep 2026)
+
+The engine converted `2,400 kilometres (1,500 miles)` and did not convert
+`300 kilometres an hour (190 miles an hour)` unless the denominator was written with exactly that word.
+`U_RATE` took `an hour` and nothing else, so three of the four shapes a rate is written in were
+invisible to it:
+
+| shape | example in the corpus | before |
+|---|---|---|
+| `per <unit>` | `250 kilometres an hour (155 miles **per** hour)` | unseen |
+| `a <unit>` other than hour | `2 centimetres **a year** (0.8 inches a year)` | unseen |
+| `each <unit>` | — | unseen |
+| `/h`, `/s` | `5 km/h` | unseen |
+
+A bracket the engine cannot see is a bracket both of whose figures are shown to every reader, in every
+setting — so the authored view looks perfect and only a reader who has asked for feet is being told
+twice. `U_RATE` now crosses `a` / `an` / `per` / `each` in front of
+`hour|second|minute|day|week|month|year`, plus the `/h` and `/s` shorthands, and `U_FILL` gained the
+same nouns so a RUN may be filled across one.
+
+**Proved byte-for-byte inert** over every other bracket-carrying field in the corpus, in BOTH
+directions — 23,019 renderings, none changed but the four below. That is the only way to widen one of
+these patterns: an over-wide rule renders perfectly in the authored metric view and corrupts the text
+for the imperial reader alone, which is the shape `U_DENOM`'s own note warns about.
+
+### What it fixed, and what is left
+
+Measured over the whole corpus with the engine's own `U_METRIC` list: **28 metric rate figures across 18
+subjects.**
+
+**Four carried a convertible bracket and now transform** — `gw-690` (250 km/h), `gw-700` (225–233 km/h),
+`gw-724` (nearly 300 km/h) and `gw-729` (an average of 30 km/h).
+
+**The other twenty-four are BARE — a metric rate with no imperial figure beside it at all** — and they
+are a content pass of their own, since the engine cannot invent a bracket the author did not write. They
+are on `rm-005`, `ps-035` (four of them, including a question and a why-question), `gw-064`, `gw-140`,
+`gw-163`, `gw-218`, `gw-223`, `gw-224`, `gw-228`, `gw-229`, `gw-231`, `gw-566`, `gw-607` (two),
+`gw-674`, `gw-704`, `gw-705` (three), `jp-023` and the glossary term `Nerve_conduction_velocity`.
+
+Most are wind speeds in metres per second, which is how the WMO's own normals report them — so the pass
+is not a mechanical sweep: **a figure quoted from a source that states it in m/s keeps that unit**, and
+what it wants beside it is the imperial equivalent in brackets, worked to the source figure's own
+precision. `ps-035`'s nerve-conduction figure is the one that also appears in a question, where the
+word limit does not count the conversion, and in `Nerve_conduction_velocity`, where the glossary's does
+not either — so the two must be corrected together, a correction not travelling between surfaces.

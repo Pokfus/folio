@@ -111,6 +111,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 
 | file | what is left |
 |---|---|
+| `truefalse-citation-plan.md` | The daily True-or-False pool, at one openable source per statement. **Run `node .claude/check-truefalse.js` for the standing rather than quoting one.** T1 (Prehistory) is done and written cited; T2–T4 are part done off the corpus; T5–T10 need research. **Two** statements are carried as open (the 1974 terracotta discovery and who built the Giza pyramids); the third, gunpowder, was settled in T2b by rewriting it. |
 | `history-focus-plan.md` | 45 cards flagged on the question and historiography rules; batches F1–F5. |
 | `book-text-plan.md` | Correcting errors baked into the Library's source texts. |
 | `atlas-rewrite-plan.md` | Rewriting every place popup to a card's standard, with citations. |
@@ -119,7 +120,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `refinements-plan.md` | ~60 items from one request, batched. |
 | `refinements-2026-08-27.md` | Thirty-five items from one request: what shipped, the four faults the fixes uncovered at scale, the four answers to "suggest a way", and a plan for the nine not built. |
 | `mandarin-review.md` | The Mandarin collection measured end to end and then repaired: why a downloaded deck never saw a fix, the cards a speech engine misreads, the polyphones teaching one of two readings, the unanswerable reverse cards, the Idioms deck — and, for the three of twelve items that could not be finished, exactly where they stop and why. |
-| `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and the seven things still open — the Rutter concentration, the Athens deck's register, and the coverage gaps. |
+| `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and what is still open — the Athens deck's register and the coverage gaps. **The Rutter concentration, its loudest finding, is CLEARED**: no `gr-` card cites that course website in more than two of its sources. |
 | `learning-science.md` | What the learning-science literature says works and does not, and twenty proposals for Folio. **Thirteen shipped Sep 2026; seven still proposals.** |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |
 | `geography-background-plan.md` | The World geography backgrounds, written out of the US recognition guide and therefore about American diplomacy rather than about the country. **THE COUNTRY HALF IS FINISHED (G1–G20); the CAPITAL half is open** — C1–C11 have shipped through `gw-564`. **Run `node .claude/gw-audit.js` for the figures rather than quoting any**; this row quoted three and all three are now years out. The four rules, why it cannot be a find-and-replace, and the batches. |

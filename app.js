@@ -1486,7 +1486,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -1667,6 +1667,16 @@
      someone who had already decided — so an older settings object (which cannot carry the key) is pinned
      to manual, and defaultState()'s `true` reaches first-time visitors alone. */
   if (S.settings && S.settings.themeAuto === undefined) S.settings.themeAuto = false;
+  /* QUESTION VARIETY SHIPS OFF (Sep 2026, on request: "ensure that Question Variety is turned off on all
+     decks by default"). It shipped ON, so every save made before today carries `questionVariety: true` —
+     and flipping `defaultState()` alone would have reached first-time visitors and nobody else, which is
+     the one outcome the request rules out. A stored `true` is coerced, and it is safe to coerce
+     UNCONDITIONALLY because NOTHING WRITES THIS KEY: there is no Settings row for it, and the deck
+     sheet's switch writes `S.deckOpts[id].variety` instead — so a stored `true` is definitionally the old
+     shipped default rather than a choice anybody made. ⚠ THE DAY A CONTROL WRITES IT, THIS LINE HAS TO GO
+     or become a one-shot, or it will overwrite that control on the next load. Per-deck overrides are left
+     alone: those are written only where the reader threw a deck's own switch. */
+  if (S.settings && S.settings.questionVariety !== false) S.settings.questionVariety = false;
   /* The Editor / Visitor chip is gone from the menu bar (Aug 2026, on request) and was the only thing
      that ever wrote this false. A stored `false` is therefore an admin stranded in the visitor view
      with no way back, so it is cleared on load; a first-time visitor is not admin-eligible at all and
@@ -6729,8 +6739,10 @@
      sheet is opened on a deck's own row as well as on the pooled review, and a setting that silently
      answered for every deck when thrown from one of them would be the one thing a reader could not
      predict. `S.deckOpts[id].variety` is written only where the reader has actually thrown the switch;
-     everything else follows `S.settings.questionVariety`, so nothing migrates and an untouched deck
-     behaves exactly as it always has. The REVIEW's own flag governs the pooled session, which is what
+     everything else follows `S.settings.questionVariety`, WHICH IS NOW FALSE — the switch shipped on and
+     was turned off for every reader in Sep 2026 on request (see the coercion beside `themeAuto`'s
+     back-fill), so an untouched deck asks its first phrasing every time and a reader who wants the three
+     turns the deck's own switch on. The REVIEW's own flag governs the pooled session, which is what
      `scopeEntryId` resolves a study scope to. */
   function deckVariety(id) {
     const v = deckOpt(id, "variety");            // …and it cascades — see entryChain
@@ -7129,6 +7141,37 @@
   function deckReviewRemaining(id) {
     return Math.max(0, deckLimits(id).maxReviews - deckDoneToday(id).rv);
   }
+  /* A LEARNING CARD IS NOT A REVIEW, AND THE REVIEW CAP MUST NOT CUT IT (Sep 2026, on a bug report: "one
+     of my active decks displays a red number saying I still have 4 cards to study, but when I click it it
+     says 'daily limit reached'").
+
+     Both figures were right and one of them was measuring the wrong thing. `entryPiles` caps only its
+     REVIEW pile by `deckReviewRemaining` and leaves LEARNING uncapped, deliberately — a card answered
+     wrong is unfinished work whatever the day's allowance has to say. Every queue-builder, though,
+     selected `isDueNow` and then sliced the whole run by that same allowance, learning cards included. So
+     a reader who had spent the day's reviews still had four cards in the red pile and a session that
+     dealt none of them; `learnAheadIds` could not rescue them either, since it only reaches a step that
+     has NOT come round and these were due. With nothing in the queue the study page fell through to its
+     first empty-session branch, which offers to study ahead — hence a row saying four and a screen saying
+     the limit was reached, neither of them lying and the two disagreeing anyway.
+
+     ONE HELPER RATHER THAN A RULE IN EACH OF THE SIX SLICES, for `learnAheadIds`'s own reason: the cap is
+     applied in three branches of `buildSession` and three places in `reviewQueue`, and a rule written six
+     times is the one the seventh forgets. `ids` arrives in due order and comes back in it; `left` is what
+     is still owed to REVIEWS, which is what the new-card cap chains off when `newIgnoresReview` is off.
+     This is also Anki's rule — the review limit counts reviews. `deckDoneToday` is untouched: what
+     COUNTS as a review answered today is a separate question from what may be dealt. */
+  const isLearningCard = (id) => { const c = S.cards[id]; return !!(c && schedIsLearning(c.status)); };
+  function capReviews(ids, cap) {
+    let left = Math.max(0, cap || 0);
+    const take = [];
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i];
+      if (isLearningCard(id)) { take.push(id); continue; }
+      if (left > 0) { take.push(id); left--; }
+    }
+    return { take: take, left: left };
+  }
   /* The three piles for ONE added deck, as its row in the daily review shows them. Deliberately not a slice
      of the pooled review: a deck's row states what that DECK still has for the reader today, which after a
      finished review is whatever share of its own new-card allowance the pooled draw did not take — the
@@ -7192,7 +7235,12 @@
       let rv = deckReviewRemaining(e);
       ids.filter((id) => isDueNow(id))
         .sort(byDue)
-        .forEach((id) => { if (rv <= 0 || seen.has(id)) return; seen.add(id); b.due.push(id); rv--; });
+        .forEach((id) => {
+          if (seen.has(id)) return;
+          const learning = isLearningCard(id);   // …and a learning card is not a review — see capReviews
+          if (!learning && rv <= 0) return;
+          seen.add(id); b.due.push(id); if (!learning) rv--;
+        });
       let nw = deckNewRemaining(e);
       // Anki's third switch: off, a deck that has used up its review allowance introduces nothing new either
       if (!deckLimits(e).newIgnoresReview) nw = Math.min(nw, rv);
@@ -7204,9 +7252,10 @@
         // the most overdue first, so a language's cap keeps the cards that have waited longest rather than
         // whichever of its decks the list happens to draw first
         b.due.sort(byDue);
-        b.due = b.due.slice(0, deckReviewRemaining(k));
+        const kc = capReviews(b.due, deckReviewRemaining(k));
+        b.due = kc.take;
         let n = deckNewRemaining(k);
-        if (!deckLimits(k).newIgnoresReview) n = Math.min(n, Math.max(0, deckReviewRemaining(k) - b.due.length));
+        if (!deckLimits(k).newIgnoresReview) n = Math.min(n, kc.left);
         b.fresh = b.fresh.slice(0, n);
       }
       b.due.forEach((id) => due.push(id));
@@ -7216,9 +7265,10 @@
     // …and then the review's own two caps, which are the parent deck's in Anki
     const RL = reviewLimits();
     const rvLeft = deckReviewRemaining(REVIEW_ENTRY);
-    const dueCapped = due.slice(0, rvLeft);
+    const rc = capReviews(due, rvLeft);
+    const dueCapped = rc.take;
     let take = newRemainingToday();
-    if (!RL.newIgnoresReview) take = Math.min(take, Math.max(0, rvLeft - dueCapped.length));
+    if (!RL.newIgnoresReview) take = Math.min(take, rc.left);
     const fresh = seededShuffle(pool, mulberry32(hashStr("review-" + todayStr()))).slice(0, take);
     /* Nothing due and nothing new left, but cards still on a learning step — deal them rather than
        telling the reader the day is done while the banner's red pile says otherwise. See learnAheadIds.
@@ -14446,7 +14496,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      added by somebody who has never read this. */
   const ADMIN_ROUTES = ["admin", "warofages"];
   const PAGE_META = {
-    home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, daily games and an interactive atlas."],
+    home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, science, art and languages, daily games and an interactive atlas."],
     search:    ["Search — Folio", "Find a card, a glossary term or a book by name, across everything Folio holds."],
     sample:    ["Try ten cards — Folio", "Ten cards from a Folio collection, read rather than studied — nothing is scheduled."],
     card:      ["A card — Folio", "One of Folio's cards, with its background, its dates and the works it rests on."],
@@ -15071,7 +15121,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const U_METRIC = "(?:kilometres|kilometers|kilometre|kilometer|centimetres|centimeters|centimetre|centimeter|millimetres|millimeters|millimetre|millimeter|millilitres|milliliters|millilitre|milliliter|kilogrammes|kilogramme|kilograms|kilogram|hectares|hectare|tonnes|tonne|grammes|gramme|grams|gram|metres|meters|metre|meter|litres|liters|litre|liter|km²|m²|km|cm|mm|ml|kg|ha|°C|m|g)(?![A-Za-z²])";
   // the dashes include U+2212 MINUS SIGN, which is what a sub-zero temperature is written with and is not
   // any of the three dashes beside it — "(−129 °F)" was the fourth unseen shape
-  const U_FILL = "(?:and|or|to|by|of|its|the|per|hours?|square|cubic|sq|cu|fluid|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
+  // …and the denominators U_RATE now knows, or a bracket reading "(4,860 feet per second)" is not an
+  // imperial parenthetical as far as `isImperialParen` is concerned and the whole match is left alone
+  const U_FILL = "(?:and|or|to|by|of|its|the|per|each|hours?|seconds?|minutes?|days?|weeks?|months?|years?|square|cubic|sq|cu|fluid|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
   const U_IMP = "(?:miles?|sq\\s*mi|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)";
   const U_ONLY_RX = new RegExp("^(?:" + U_NW + "|" + U_IMP + "|" + U_FILL + ")+$", "i");
   const U_HAS_IMP_RX = new RegExp("(?:^|[^A-Za-z])" + U_IMP + "(?![A-Za-z])", "i");
@@ -15094,7 +15146,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      hour)"), which the whitespace-only gap could not cross — so the bracket was invisible and BOTH figures
      were shown to a metric reader. It is captured rather than tolerated: metric keeps it, since dropping it
      renders "winds of nearly 300 kilometres". */
-  const U_RATE = "((?:\\s+(?:an|per)\\s+hour|\\s*/\\s*h)?)";
+  /* …AND THE DENOMINATOR NEED NOT BE AN HOUR (Sep 2026, measured while citing the True-or-False pool).
+     This knew `an hour`, `per hour` and `/h` and nothing else, so "1,480 metres per second (4,860 feet per
+     second)" was invisible to it and BOTH figures were shown to a metric reader — the same fault the rate
+     capture was added to fix, one denominator over. Measured over the shipped corpus: 29 metric rate
+     figures, of which only the four written `kilometres an hour` were convertible at all.
+     THE WIDENING IS PROVED INERT rather than argued for: rendered over every string field of `data.js`,
+     `glossary.js` and `artefacts.js` in both directions, the new engine returns byte-for-byte what the old
+     one did — which it must, since none of the 25 it newly understands carries a bracket yet. What it buys
+     is that a bracket AUTHORED beside one now works; the 25 are a content pass of their own and are
+     recorded in `docs/units-plan.md`. */
+  const U_RATE = "((?:\\s+(?:an?|per|each)\\s+(?:hour|second|minute|day|week|month|year)|\\s*/\\s*[hs])?)";
   const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*" + U_DENOM + "(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")" + U_RATE + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   const U_BARE_RX = new RegExp(U_RUN + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   function unitSystem() { return UNIT_SYSTEMS.includes(S.settings && S.settings.units) ? S.settings.units : "metric"; }
@@ -15232,10 +15294,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // -our / -or
     ["colour", "color", "|s|ed|ing|ful|less|ation|ations"],
     ["behaviour", "behavior", "|s|al|ally|ism|ist|ists"],
-    ["honour", "honor", "|s|ed|ing|able|ably|ary"],
+    ["honour", "honor", "|s|ed|ing|able|ably"],   // NOT `ary`: British writes `honorary`, and `honourary` is no word
     ["favour", "favor", "|s|ed|ing|able|ably|ite|ites|itism"],
     ["harbour", "harbor", "|s|ed|ing"],
-    ["labour", "labor", "|s|ed|ing|er|ers|ious"],
+    ["labour", "labor", "|s|ed|ing|er|ers"],   // NOT `ious`: British writes `laborious`, and `labourious` is no word
     ["armour", "armor", "|s|ed|er|ers|y|ies"],
     ["neighbour", "neighbor", "|s|ed|ing|hood|hoods|ly|liness"],
     ["splendour", "splendor", "|s"],
@@ -15272,6 +15334,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["litre", "liter", "|s"],
     ["millilitre", "milliliter", "|s"],
     ["theatre", "theater", "|s|goer|goers"],
+    /* …and the COMPOUND needs its own row, because the boundary is a lookaround: `theatre` cannot match
+       inside `amphitheatre`, so neither spelling of it converted for anybody. Measured over the corpus when
+       it was found: 18 British `amphitheatre` against one American, all eighteen shown as written to a
+       reader who had asked for American. */
+    ["amphitheatre", "amphitheater", "|s"],
     ["fibre", "fiber", "|s|glass"],
     ["sombre", "somber", ""],
     ["spectre", "specter", "|s"],
@@ -17351,9 +17418,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     {
       route: "home",
       title: "Welcome to Folio",
-      body: "Folio is a study companion for history — flashcards, a globe you can travel back through, and a " +
-        "library of whole books. This walkthrough takes about three minutes and covers the part that matters " +
-        "most: how the cards work.<p>Leave at any point with <b>Skip</b> or the Escape key.</p>",
+      body: "Folio is a study companion — flashcards for history, science, philosophy, art, geography and " +
+        "languages, a globe you can travel back through, and a library of whole books. This walkthrough takes " +
+        "about three minutes and covers the part that matters most: how the cards work.<p>Leave at any point with <b>Skip</b> or the Escape key.</p>",
     },
     {
       route: "home",
@@ -21855,6 +21922,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       show(wasOriginal);
       fig.style.minHeight = Math.max(a, b) + "px";
     };
+    /* THE AUTHOR AND THE WORK ARE GLOSSARY TERMS (Sep 2026, on request: "in the daily quote section on the
+       home page, authors and their works should (in english) be clickable as gloss terms"). Every other
+       surface on the site that names a person or a book links it — a card background, a glossary
+       description, an Atlas panel, a Library chapter — and this one named Confucius, Thucydides and the
+       Analects in plain text on the page a reader opens first.
+       THE CAPTION ONLY, NEVER THE QUOTATION. The words in the blockquote are the author's, and threading
+       links through somebody's sentence is an editorial act on a passage that is quoted verbatim; the
+       caption is Folio's own line about it and is where a reference belongs.
+       AND THE ENGLISH SIDE ONLY, which is what "(in english)" is about: `.dq-orig` is the passage in
+       Greek, Latin or Chinese, and the index is built on English surfaces, so linking there would match
+       nothing at best and the wrong thing at worst. `.dq-src` may carry no `.dq-live` at all — an
+       inscription has no title of its own, so `srcPair` emits it unpaired (see dailyQuoteHTML) — and that
+       bare line is linked directly. It runs BEFORE `lockHeight`, though it moves no text: a term becomes
+       a span around the same words, so the wrap cannot change, and doing it first is what keeps that
+       true if the styling ever gives a linked term a different weight. */
+    const cap = fig.querySelector("figcaption");
+    if (cap && uiLang() === "en") {
+      try {
+        const live = cap.querySelectorAll(".dq-live");
+        if (live.length) live.forEach((el) => autoLinkGlossary(el, "", null, "site"));
+        const src = cap.querySelector(".dq-src");
+        if (src && !src.querySelector(".dq-live")) autoLinkGlossary(src, "", null, "site");
+        setupTooltips(cap);
+      } catch (e) { /* a quote with no linkable term is the ordinary case, not a fault */ }
+    }
     const relock = () => { if (!busy && document.body.contains(fig)) lockHeight(); };
     lockHeight();
     // …and again once the things that change the wrap have landed: the i18n observer rewrites the quote a
@@ -21907,10 +21999,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const s = window.getSelection && window.getSelection();
       return !!(s && !s.isCollapsed && s.anchorNode && fig.contains(s.anchorNode));
     };
-    fig.addEventListener("click", () => {
+    fig.addEventListener("click", (e) => {
       const dragged = moved;
       down = null; moved = false;
       if (dragged || selectingInFig()) return;
+      // …and a glossary term in the caption is its own control: a tap on it opens the definition and must
+      // not also turn the quote into Greek behind the popup
+      if (e.target && e.target.closest && e.target.closest(".ttip")) return;
       flip();
     });
     fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
@@ -22605,6 +22700,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     }
   }
+  /* THE DAY'S COMPLETION MARK — two shapes in ONE PLACE (Aug 2026, on request).
+     Merely HAVING PLAYED is a small green circled check in the top-right. A PERFECT score is a shining
+     gold WAX SEAL with the same check impressed in it, in the SAME corner and at the same anchor — where
+     it used to be a diagonal ribbon reading "Perfect!" across the whole corner.
+     WHY THE SAME PLACE IS THE POINT: the two marks answer one question — how did today go — and while
+     one of them crossed the corner and the other sat inside it, a grid of nine tiles was two different
+     kinds of announcement in two different places, and the eye had to read the shape before it could
+     read the state. Same anchor, same size class, and the DIFFERENCE is the thing that differs: green
+     circle against gold wax. The seal is a fraction of the ribbon's surface and says more, because a
+     wax seal already means "sealed, finished, done properly" before a word is read.
+     Both still carry a NAME, which is what the ribbon was built for and is not weakened by the mark
+     getting smaller: each is `role="img"` with an aria-label, since a patch of colour says nothing to a
+     screen reader whatever shape it is. The check inside the seal is `aria-hidden` — the label on the
+     seal names it once, and reading a tick out twice says nothing the second time.
+
+     IT IS AT MODULE SCOPE, BESIDE ICON, AND THAT IS WHAT THE DECK ROWS NEEDED (Sep 2026, on request:
+     an active deck finished for the day "should turn green and have a checkmark … in the same way as a
+     completed minigame, and gold if the review cards were completed perfectly"). It was a `const` inside
+     PAGES.home declared some four hundred lines BELOW the IIFE that builds the deck list, so a row
+     calling it would have thrown on the temporal dead zone — which is the same reason `ICON` itself is
+     up here. Nothing about the two shapes changed; only where they are declared.
+
+     `labels` is how a row says what it means without a second copy of the markup: a game tile was PLAYED
+     and a deck was FINISHED, and a mark whose only job is to state the fact in words to a screen reader
+     has to state the right one. It defaults to the tile's pair, so no existing caller changes. */
+  const GT_CHECK_SVG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+  const doneMarkHTML = (done, won, labels) => {
+    const L = labels || {};
+    return won
+      ? '<span class="gt-seal" role="img" aria-label="' + esc(L.won || "Perfect today") + '"><span class="gt-seal-face">' + GT_CHECK_SVG + "</span></span>"
+      : done
+        ? '<span class="gt-check" role="img" aria-label="' + esc(L.done || "Played today") + '">' + GT_CHECK_SVG + "</span>"
+        : "";
+  };
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
@@ -22651,8 +22781,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        They are THIS DECK'S OWN piles (entryPiles), not its share of the pooled review: after the daily
        review has drawn its five at random from across the added decks, each row still shows whatever is
        left of that deck's own allowance, which is the "2 new / 3 new" a reader meets under a cleared banner. */
-    const adCounts = (entryId) => {
-      const c = entryPiles(entryId);
+    const adCounts = (c) => {
       // the title is built from the SAME three words the banner labels itself with, run through t() here —
       // a title attribute assembled from numbers is not a string the exact table could ever match
       const tip = c.skip
@@ -22664,6 +22793,62 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return `<div class="dk-counts" title="${esc(tip)}">
         <span class="dkc dkc-new${z(c.nw)}">${c.nw}</span><span class="dkc dkc-learn${z(c.lr)}">${c.lr}</span><span class="dkc dkc-rev${z(c.rv)}">${c.rv}</span>
       </div>`;
+    };
+    /* A DECK FINISHED FOR THE DAY GOES GREEN, AND GOLD IF NOTHING WAS MISSED (Sep 2026, on request:
+       "when an active deck has been completed for the day, (i.e. no new/review cards remaining), it
+       should turn green and have a checkmark in the right of the deck background, in the same way as a
+       completed minigame, and gold if the review cards were completed perfectly").
+
+       DONE IS THE ROW'S OWN THREE COUNTS AT ZERO, and nothing else. The reader's words define it — no
+       new or review cards remaining — and taking the test from `entryPiles`, which is what DRAWS those
+       three numbers, is what makes the mark and the numbers beside it arithmetically incapable of
+       disagreeing. So a deck whose day was spent goes green, and so does one that simply has nothing due
+       today; both are the row saying *there is nothing here for you now*, which is what a reader reads a
+       list of decks to find out. A SKIPPED deck is deliberately NOT green: `entryPiles` already returns
+       three zeroes for one sitting the day out, and green would tell a reader they had finished work they
+       have only postponed. A row claiming no cards at all is not green either, for the same reason a
+       chevron is not drawn on a leaf: nothing was completed.
+
+       GOLD IS THE BANNER'S OWN READING OF "PERFECTLY", not a narrower one. `reviewDayRec()` counts every
+       card's FIRST attempt today, new and review alike, and the banner directly above these rows turns
+       gold when none of them was missed — so a row using a different rule would be a second answer to the
+       same question on the same screen. It is measured per deck out of `S.revlog`, since that is the only
+       record that says WHICH cards were answered; the two Sets are built ONCE for the whole list rather
+       than per row, and built BACKWARDS so the walk can stop at the first row that is not today's.
+       KNOWN LIMIT, STATED RATHER THAN PAPERED OVER: `revlog` is not in the synced blob (it has a table of
+       its own), so a deck finished perfectly on the phone shows GREEN rather than gold on a laptop that
+       has not pulled the log. That is an understatement rather than a false claim, which is the right way
+       round for a flourish. */
+    const _today = todayStr();
+    const dayAnswered = new Set(), dayMissed = new Set();
+    (function () {
+      const log = S.revlog || [];
+      for (let i = log.length - 1; i >= 0; i--) {
+        const r = revRead(log[i]);
+        if (!r || !r.id) continue;
+        if (dayKey(r.t) !== _today) break;   // chronological, so everything before this is older still
+        /* walking backwards, the LAST thing written for a card is its EARLIEST row today — which is the
+           first attempt, the only one that can decide "right first try" (see logReviewDay) */
+        dayAnswered.add(r.id);
+        if (r.correct) dayMissed.delete(r.id); else dayMissed.add(r.id);
+      }
+    })();
+    const DK_DAY_LABELS = { done: "Finished for today", won: "Finished for today, nothing missed" };
+    /* ONE call to `entryPiles` per row rather than two: the counts and the day's state are the same
+       measurement read twice, and that function walks every card in the entry. */
+    const adDay = (entryId) => {
+      const c = entryPiles(entryId);
+      const counts = adCounts(c);
+      const ids = c.skip || c.nw + c.lr + c.rv > 0 ? null : entryCardIds(entryId);
+      if (!ids || !ids.length) return { counts: counts, cls: "", mark: "" };
+      let answered = 0, missed = 0;
+      ids.forEach((id) => { if (dayAnswered.has(id)) { answered++; if (dayMissed.has(id)) missed++; } });
+      const won = answered > 0 && missed === 0;
+      return {
+        counts: counts,
+        cls: won ? " dk-done dk-won" : " dk-done",
+        mark: doneMarkHTML(true, won, DK_DAY_LABELS),
+      };
     };
     /* Every row in the review list carries how far through it the reader is — the bar replaced a bare blue
        dot. The FIGURE beside it moved into the row's options sheet in Aug 2026, on request: a bar says
@@ -22684,7 +22869,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        a shorter form — so every pixel this takes is taken from the thing the reader is reading. */
     const adIconKey = (entryId, parentKey) => {
       const n = NODE_BY_ID[entryId];
-      if (n) return n.parentId ? "" : (COLLECTION_ICON[entryId] || "cards");
+      // …and the mark is the SECTION's rather than the collection's own subject symbol — see SECTION_ICON
+      if (n) return n.parentId ? "" : (SECTION_ICON[sectionOf(entryId)] || "cards");
       // a LANGUAGE container is the row that is a collection, so it wears the speech bubble its own
       // banner wears on the Collections page — the one place seven collections share a mark
       if (isLangCtxId(entryId)) return "speech";
@@ -23038,6 +23224,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const chev = hasKids.has(r.drag) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
           const title = rowTitle(r);
           const nodeAttr = r.node ? ` data-node="${esc(r.node.id)}"` : "";
+          /* The row's three piles AND its day state, from ONE walk of the entry (see adDay). A `pending`
+             row has no cards on this device and a `context` row claims none, so neither asks. */
+          const day = r.pending || (!r.langhead && !r.group && !r.flat && !r.active)
+            ? { counts: "", cls: "", mark: "" }
+            : adDay(r.active ? r.node.id : r.drag);
           /* A LANGUAGE HEADER (Aug 2026, on a bug report: "the languages collection headers in the active
              decks section looks greyed out and lacks the colored numbers on the left"). It used to fall
              through to the quiet `context` template at the foot of this list, which paints `--paper-2`
@@ -23060,10 +23251,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              row would have opened the sheet twice. (The earlier fix that walk was written for still
              stands: holding it must do something, and now it does what holding every other row does.) */
           if (r.langhead) {
-            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} data-review="${esc(r.drag)}" role="button" tabindex="0" title="Study everything in ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
-              ${grip}
+            return `<div class="active-deck dk-langhead${shut}${day.cls}"${nodeAttr} data-review="${esc(r.drag)}" role="button" tabindex="0" title="Study everything in ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+              ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
-              ${adCounts(r.drag)}
+              ${day.counts}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
                 ${adProg(entryCardIds(r.drag))}
@@ -23081,10 +23272,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              answer the same question two different ways. What still marks it as a header is the wash and the
              deeper indent of the rows beneath it. */
           if (r.group) {
-            return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Study everything in ${esc(title)}">
-              ${grip}
+            return `<div class="active-deck deck-group${shut}${day.cls}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Study everything in ${esc(title)}">
+              ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
-              ${adCounts(r.drag)}
+              ${day.counts}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
                 ${adProg(entryCardIds(r.drag))}
@@ -23117,10 +23308,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                taking that away to advertise an update would be the worse trade. The button stops its own
                press, like Download's, or holding it would open the options sheet over the fetch. */
             const up = r.update ? `<button class="btn tiny dk-dl dk-up" type="button" data-langup="${esc(r.update)}" title="A newer copy of this deck has been published. Updating keeps your progress.">Update</button>` : "";
-            return `<div class="active-deck${shut}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
-              ${grip}
+            return `<div class="active-deck${shut}${day.cls}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
+              ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
-              ${adCounts(r.drag)}
+              ${day.counts}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
                 ${adProg(entryCardIds(r.drag))}
@@ -23130,10 +23321,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             </div>`;
           }
           if (r.active) {
-            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(r.node.title)}">
-              ${grip}
+            return `<div class="active-deck${shut}${day.cls}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(r.node.title)}">
+              ${grip}${day.mark}
               ${adIcon(r.node.id, r.parent)}
-              ${adCounts(r.node.id)}
+              ${day.counts}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
                 ${adProg(entryCardIds(r.node.id))}
@@ -23176,30 +23367,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const playedWhatYearToday = gamePlayedToday("whatyear");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
     const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear") };
-    /* The game tiles' and the banner's marks are at module scope now (see ICON, above PAGES.home) —
-       the daily "Played today" placard needs them too. */
-    /* THE DAY'S COMPLETION MARK — two shapes in ONE PLACE (Aug 2026, on request).
-       Merely HAVING PLAYED is a small green circled check in the top-right. A PERFECT score is a shining
-       gold WAX SEAL with the same check impressed in it, in the SAME corner and at the same anchor — where
-       it used to be a diagonal ribbon reading "Perfect!" across the whole corner.
-       WHY THE SAME PLACE IS THE POINT: the two marks answer one question — how did today go — and while
-       one of them crossed the corner and the other sat inside it, a grid of nine tiles was two different
-       kinds of announcement in two different places, and the eye had to read the shape before it could
-       read the state. Same anchor, same size class, and the DIFFERENCE is the thing that differs: green
-       circle against gold wax. The seal is a fraction of the ribbon's surface and says more, because a
-       wax seal already means "sealed, finished, done properly" before a word is read.
-       Both still carry a NAME, which is what the ribbon was built for and is not weakened by the mark
-       getting smaller: each is `role="img"` with an aria-label, since a patch of colour says nothing to a
-       screen reader whatever shape it is. The check inside the seal is `aria-hidden` — the label on the
-       seal names it once, and reading a tick out twice says nothing the second time. */
-    const GT_CHECK_SVG =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
-    const doneMarkHTML = (done, won) =>
-      won
-        ? '<span class="gt-seal" role="img" aria-label="Perfect today"><span class="gt-seal-face">' + GT_CHECK_SVG + "</span></span>"
-        : done
-          ? '<span class="gt-check" role="img" aria-label="Played today">' + GT_CHECK_SVG + "</span>"
-          : "";
+    /* The day's completion mark is at module scope, beside ICON — see `doneMarkHTML`. */
     /* A TILE FLIPS TO ITS RECORD (Aug 2026, on request: "when long-pressing a minigame tile on the home
        page, the tile should flip around and reveal the user's general stats and site-wide average
        statistics for that minigame that day").
@@ -23259,14 +23427,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the title says what would unlock it. */
     const sweepRowHTML = () => {
       const done = DAILY_GAMES.map(gamePlayedToday);
+      /* …AND A PERFECT RUN LIGHTS ITS CHIP GOLD (Sep 2026, on request: "if the minigame is completed
+         perfectly and the tile turns gold, the line in the tiny grid should also turn gold"). The meter is
+         a miniature of the grid beneath it, and the grid has always had two marks rather than one — a
+         green check for played and a gold wax seal for perfect — so a meter that knew only the first was
+         a miniature of half of it. `gameWonToday` is the same predicate the tile's seal reads, so the two
+         cannot come to disagree about what perfect means. The gold is the seal's own pair of stops rather
+         than a third gold: at 15 × 4.5px there is no room for the fluting or the shine, and what has to
+         survive is the HUE. */
+      const won = DAILY_GAMES.map(gameWonToday);
       const n = done.filter(Boolean).length, all = DAILY_GAMES.length;
+      const nWon = won.filter(Boolean).length;
       const claimed = S.playChest === todayStr();
       const ready = n === all && !claimed;
       const chips = done.map((d, i) =>
-        '<span class="sw-chip' + (d ? " on" : "") + '" title="' + esc((GAME_NAMES[DAILY_GAMES[i]] || [])[0] || DAILY_GAMES[i]) +
-        (d ? " — finished today" : "") + '"></span>').join("");
+        '<span class="sw-chip' + (d ? " on" : "") + (won[i] ? " won" : "") + '" title="' + esc((GAME_NAMES[DAILY_GAMES[i]] || [])[0] || DAILY_GAMES[i]) +
+        (won[i] ? " — a perfect run today" : d ? " — finished today" : "") + '"></span>').join("");
       return '<div class="sweep-row">' +
-        '<div class="sweep-meter" role="img" aria-label="' + n + " of " + all + ' minigames finished today">' +
+        '<div class="sweep-meter" role="img" aria-label="' + n + " of " + all + ' minigames finished today' +
+          (nWon ? ", " + nWon + " of them perfectly" : "") + '">' +
           '<div class="sweep-chips">' + chips + "</div>" +
           '<span class="sweep-count"><b>' + n + "</b>/" + all + "</span>" +
         "</div>" +
@@ -24751,6 +24930,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   ];
   const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
+  /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
+     request: "in the active decks section, instead of their golden collection icons on the left, they
+     should have icons in the theme color of the deck indicating whether they're history/science,
+     geography, language or art decks (i.e. the type of cards inside)").
+     It is keyed on the SECTION rather than on the collection, which is the whole point of it: eleven
+     history collections wear eleven different marks on the Collections page, where the question a reader
+     is asking is "which one is this", and one mark here, where the question is "what sort of thing am I
+     about to study". Science and Philosophy keep marks of their own rather than being folded in with
+     History as the request's shorthand has them — the table already tells them apart, and giving two
+     subjects one icon would throw away a distinction for nothing.
+     LANGUAGE AND COMMUNITY ARE NOT IN IT because neither is a section: a language container already wears
+     the speech bubble and one of the reader's own decks the card stack, both decided in `adIconKey`. */
+  const SECTION_ICON = { History: "scroll", Geography: "globe", Science: "flask", Philosophy: "owl", "The Arts": "brush" };
 
   /* ---------- THE COLLECTIONS PAGE'S OWN TAB BAR (Sep 2026, on request) ----------
      "Put a menu bar at the top which defaults to 'All'. Other pages should be 'History', 'Geography',
@@ -25798,7 +25990,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // …and not a card buried by a sibling answered elsewhere: a group is another route to the same
       // cards, so leaving it out here would let a buried card come back through one
       const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
-      const gDue = gIds.filter((id) => isDueNow(id)).sort(byDue).slice(0, deckReviewRemaining(scope.id));
+      const gDue = capReviews(gIds.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(scope.id)).take;
       const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = mixPiles(orderPile(scope.id, gDue), orderPile(scope.id, gNew));
       if (deckRandom(scope.id)) shuffle(queue);
@@ -25813,7 +26005,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the deck's notes expanded into their cards (a reverse card is its own card here), template-major —
       // or one card per note where the row studied is a DIRECTION rather than a level; entryCardIds narrows
       const ids = studyOrder(ue, entryCardIds(ue).filter((id) => !isSuspended(id) && !isBuried(id)));
-      const due = ids.filter((id) => isDueNow(id)).sort(byDue).slice(0, deckReviewRemaining(ue));
+      const due = capReviews(ids.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(ue)).take;
       const unseen = ids.filter((id) => !isSeen(id));
       /* The new run is sliced FIRST and shuffled after, so pairing decides which words arrive and the
          shuffle only the order they arrive in — shuffling first would make the day's cards a random
@@ -25843,7 +26035,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // due cards in this deck first, then new, then any unseen if you want to push on — both piles bounded
       // by THIS deck's own daily limits (long-press its row in the review to change them), so a deck the
       // pooled review only took a couple of new cards from still has the rest of its share here
-      const due = ids.filter((id) => isDueNow(id)).sort(byDue).slice(0, deckReviewRemaining(sd.id));
+      const due = capReviews(ids.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(sd.id)).take;
       const unseen = ids.filter((id) => !isSeen(id));
       const fresh = unseen.slice(0, Math.max(deckNewRemaining(sd.id), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
       queue = mixPiles(orderPile(sd.id, due), orderPile(sd.id, fresh));
@@ -29330,11 +29522,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       inst.disabled = true; inst.textContent = "Adding…";
       const r = await uDeckInstall(row, cards, gloss);
       if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = was; return; }
+      /* …AND IT JOINS THE DAILY STUDY (Sep 2026, on request: "when adding a shared community deck, it
+         should immediately also be added to the active decks. I added a shared community deck on one
+         device but it did not appear as added on the same account on another device").
+         Both halves of that report are ONE fault. Installing mounted the deck and wrote the account's
+         install row and never touched `S.active` — so the button said "Added" and nothing was added to
+         anything the reader studies; and `S.active` is the field that SYNCS, so with no entry in it there
+         was nothing for another device to receive either. `deck_installs` carries the file, not the
+         reader's arrangement of it.
+         IT IS DONE HERE RATHER THAN INSIDE `uDeckInstall`, and that is what keeps the two devices from
+         fighting. `communitySyncInstalls` calls that function too, so putting the line there would have
+         every device re-add the deck to its own review the first time it sees it — undoing a reader who
+         had taken it off the list on another device. Here it happens once, where the press was, and the
+         entry reaches every other device the way every other added deck does: through the progress blob,
+         which draws a pending row until the file lands (see `entryPending`). */
+      if (r.deck && r.deck.id) addActive(uDeckEntry(r.deck.id));
       // a write the account did not take is worth saying: the deck is usable here and will not travel, which
       // is precisely the silence this whole path exists to end
       toast(r.unannounced ? "Added here, but your account couldn't be reached — it won't reach your other devices yet"
-            : r.adopted ? "Added to your account — it will appear on your other devices"
-            : "Added to your decks");
+            : r.adopted ? "Added to your daily study — it will appear on your other devices"
+            : "Added to your daily study");
       render();
     });
     const upd = root.querySelector("#ddUpdate");
@@ -30365,6 +30572,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }
       const c = pool.length > 1 ? Object.assign({}, base, { question: pool[qIdx] }) : base;
       const rc = remainingCounts();
+      /* WHERE THE SUCCESSIVE-RELEARNING ROW GOES (Sep 2026, on request: "on mobile, put the three days
+         dots and label instead on the same line as the three colored dots and numbers above the card").
+         On a phone the card's header already holds the state dot, the "Question" label with its phrasing
+         counter and the difficulty stars, and the study bar's three pile counts take a full-width line of
+         their own directly above it — which is the line that has room, and the line whose three coloured
+         dots these three read as a set with. Moved there the LABEL comes back too: the ≤1024px rule that
+         hides it is scoped to `.q-head`, so it only ever applied to the card's own copy.
+         THE BREAKPOINT IS DECLARED ONCE, IN CSS, and read back here — `cpSheetMode`'s own rule. A media
+         query in the stylesheet beside a `matchMedia` in here is one decision in two files, and getting
+         one of them means a row laid out for a phone and a header still reserving its column. */
+      const critHTML = critPipsHTML(id);
+      const critInBar = (getComputedStyle(document.body).getPropertyValue("--crit-slot") || "").trim() === "bar";
 
       root.innerHTML = `
         <div class="study-shell">
@@ -30391,6 +30610,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <button class="backbtn boxbtn${boxMs ? " on" : ""}" id="timeBox" type="button" title="Study for a set length of time"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9.5V13l2.2 1.6"/><path d="M9 2.5h6"/></svg> <span id="boxLbl">${boxMs ? esc(boxLeftLabel()) : "Time"}</span></button>
             <span class="study-where">${esc((params.scope.type === "review" && cardWhereLabel(id)) || sess.where)}</span>
             <div class="counts">
+              ${critInBar ? critHTML : ""}
               <span class="cnt new">${rc.nw}</span>
               <span class="cnt learn">${rc.lr}</span>
               <span class="cnt due">${rc.rv}</span>
@@ -30406,7 +30626,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     on request) — see critPipsHTML for why it moved and how it shortens on a phone. */""}
               <div class="q-head">
               <div class="q-lead">${cardStateDotHTML(id)}<span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span></div>
-              ${critPipsHTML(id)}
+              ${critInBar ? "" : critHTML}
               ${cardStarsHTML(c)}
               </div>
               <div class="question">${cardFrontHTML(c)}</div>
@@ -35592,6 +35812,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function gamesI18nPending(root) {
     return false;
   }
+  /* WHAT AN EXPLANATION IS MADE OF (Sep 2026, on request: "'True or False' minigame explanations should
+     have gloss terms, source citations and metric/imperial uk/us versions").
+     The `why` was written into the page with `esc()`, which is why it had none of the three. Escaped, a
+     footnote marker prints as the characters `<sup …>` and a glossary link cannot be added at all; and the
+     units and spelling passes, which ARE already standing observers over the whole document, can only
+     convert what the prose actually offers them — a figure with an imperial bracket beside it and a word
+     the authored British spelling covers. So the third of the three is a CONTENT rule rather than a code
+     one, enforced by `.claude/check-truefalse.js`, and the first two are here.
+     IT GOES THROUGH `sanitizeHTML`, not raw: the pool is content like a card's background, and `sup`,
+     `class="fn"` and `data-fn` are in the allowlist for exactly this. `<i>` for a work's title comes with
+     it, which the pool had no way to write before.
+     THE GLOSSARY PASS IS SCOPED TO THE PROSE AND NEVER TO THE CITATIONS — `autoLinkGlossary` skips links
+     and existing terms but knows nothing about `.notranslate`, and a citation names a work whose wording
+     is not ours to thread links through. */
+  function tfWhyHTML(it) { return sanitizeHTML(String(it.why || "")); }
+  function tfWireWhy(scope) {
+    if (!scope) return;
+    /* ONE `.src-note` PER SCOPE, which is what `wireFootnotes` is written for (`noteForNode` walks up to
+       the first one it finds) — so the summary, which draws five explanations with five lists, wires each
+       ROW rather than the page. */
+    const rows = scope.classList && scope.classList.contains("tf-summary")
+      ? Array.prototype.slice.call(scope.querySelectorAll(".tf-sum-row"))
+      : [scope];
+    rows.forEach((row) => {
+      try { wireFootnotes(row); } catch (e) {}
+      // `.tf-sum-a` on the summary rather than a second `.tf-why` class: that one carries the reveal's own
+      // serif and 15px, and a summary row is set smaller on purpose
+      const why = row.querySelector(".tf-why, .tf-sum-a");
+      if (why) { try { autoLinkGlossary(why, "", null, "site"); } catch (e) {} }
+      try { setupTooltips(row); } catch (e) {}
+    });
+  }
   PAGES.truefalse = function (root) {
     detachKeys();
     // the gate goes first: a reader who has played does not have to wait on a translation table to be told so
@@ -35633,8 +35885,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const rev = root.querySelector("#tfreveal"); rev.hidden = false;
       rev.innerHTML = `
         <div class="tf-verdict ${correct ? "ok" : "no"}">${correct ? "Correct" : "Not quite"} — it's <b>${it.a ? "True" : "False"}</b></div>
-        <p class="tf-why">${esc(it.why)}</p>
+        <p class="tf-why">${tfWhyHTML(it)}</p>
+        ${sourcesHTML(it.src, { shut: true })}
         <button class="btn" id="tf-next">${r + 1 < ROUNDS ? "Next round" : "See results"}</button>`;
+      tfWireWhy(rev);
       rev.querySelector("#tf-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : renderEnd(); });
     }
     function renderEnd() {
@@ -35648,11 +35902,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="tf-summary">${picks.map((it, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${esc(it.why)}</p></div>
+              <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}</div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">Five fresh statements arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="tf-home">Home</button></div>
         </div>`;
+      tfWireWhy(root.querySelector(".tf-summary"));
       root.querySelector("#tf-home").addEventListener("click", () => route("home"));
     }
   };
@@ -38364,7 +38619,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const c = CARD_BY_ID[hit.id];
       if (!c) { hideCountryPopup(); return; }
       const nm = gameCapFirst(hit.title || hit.name || String(c.answerText || ""));
-      if (markSeen("placesSeen", nm)) { sfx("discover"); checkAchievements(); }
+      /* CLICKING A PLACE HERE IS NOT A DISCOVERY, AND NEITHER MARKS IT NOR CHIMES (Sep 2026, on request:
+         "clicking a location on the personal atlas for the first time shouldn't count as a newly
+         discovered atlas location nor play the sound effect, since the user has already discovered the
+         location by studying the card for it"). It is the whole difference between the two tabs: the world
+         atlas is where a reader MEETS a place, and this globe holds only places they have already studied
+         — a shape is drawn here BECAUSE its card has a record, so announcing it as new congratulates them
+         for opening something they earned days ago. The design had already half-decided it, the "New
+         discovery!" chip being hidden two lines below since this panel shipped; what was left was a
+         register write and a chime nobody could see the reason for. `markSeen` is untouched everywhere
+         else, so the world atlas still discovers and the account page's meter still counts. */
       /* WHAT THE PANEL SAYS IS THE CARD, AND ONLY THE CARD (Sep 2026, on request: "remove the 'Answer'
          header and 'From your card' tagline, the title bar (should only display when popup is collapsed)
          and its dating"). Every one of those four repeats something the card back already carries — the
@@ -40165,8 +40429,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        AND THE CLICK FOLLOWS THE INK. `mineAt` reads the same thinned list, so a mark that is not drawn
        is not clickable either — otherwise a click on empty ground would open a popup about a place the
        reader cannot see, which is the one thing worse than crowding. */
+    /* A MARK IS NEVER DRAWN WITHOUT ITS NAME (Sep 2026, on request: "on the personal atlas, dots and
+       squares should not be visible without their labels, and only appear more when zooming in more, like
+       on the world atlas. Text labels should never be hidden behind dots of other locations").
+       It was two independent gates and they disagreed. `MINE_LBL_Z` held every name back below zoom 2.6,
+       so the opening view was a field of anonymous red marks; and above it a mark whose name could not be
+       placed was still drawn, because the dot went down before the label was even measured. Both come to
+       the same thing from a reader's side: a dot that says nothing.
+       SO THE NAME DECIDES THE MARK. The label box is measured FIRST and the dot is drawn only once it is
+       placed — which is the Atlas's own city rule ("a pin whose name cannot be placed is dropped WHOLE,
+       pin and all") and Google Earth's: a marker arrives with its label or not at all. What thins the map
+       at world scale is then the labels' own collisions rather than a zoom threshold, so zooming in only
+       ever ADDS, one name at a time, as the words stop overlapping. `MINE_SEP` stays as the cheap first
+       pass — it keeps the RANKING (a country's seat, then a province's, then a place) and stops the
+       measurement running over four hundred marks inside one pixel.
+       AND A NAME IS KEPT OFF EVERY OTHER PLACE'S MARK, not just off every other name: `clear` tested the
+       label boxes alone, so a word could land squarely on a neighbour's dot and hide it. The candidates'
+       own footprints are measured up front and tested too. */
     const MINE_SEP = (z) => clamp(58 - z * 7, 9, 58);   // screen px between two shown marks, by zoom
-    const MINE_LBL_Z = 2.6;                             // below this the marks stand unnamed — the popup is one click away
     function mineDotsShown() {
       const sep = MINE_SEP(zoom), sep2 = sep * sep, out = [];
       // a country's seat, then a province's, then a place — so a thinning keeps the mark that says most,
@@ -40198,12 +40478,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          is called is the popup's answer, one click away. */
       const dotFill = "rgba(200,69,60,0.95)", dotRing = CITY_RING;
       const fs = clamp(11 + (zoom - 2) * 0.9, 11, 14);
-      const names = zoom >= MINE_LBL_Z;
       const boxes = [];
       mineDotRects = [];
       ctx.save();
       ctx.font = "600 " + fs + "px " + labelFont;
       ctx.textBaseline = "middle";
+      // every candidate's own footprint — its mark plus the white ring round it — so a name can be kept
+      // off a neighbour's dot as well as off a neighbour's name. Measured over ALL the candidates rather
+      // than only the ones already drawn: a rule that depended on how far the loop had got would place a
+      // word differently depending on nothing a reader can see.
+      const dotHalf = (m) => (m.cap ? 6.2 : m.subcap ? 5.2 : 4.1);
+      const dotBoxes = dots.map((d) => { const h = dotHalf(d.m); return [d.x - h, d.y - h, h * 2, h * 2]; });
       for (let i = 0; i < dots.length; i++) {
         const m = dots[i].m, x = dots[i].x, y = dots[i].y;
         /* A CAPITAL IS A SQUARE (Sep 2026, on request: "make dots of capital cities instead slightly
@@ -40217,14 +40502,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            the same three ranks the reader is being asked to read off it — a country's seat, a province's
            seat, and a place — and the sort above deals them out in that order when they crowd, so the
            mark that survives a thinning is the one that says most. */
-        ctx.beginPath();
-        if (m.cap) ctx.rect(x - 5.4, y - 5.4, 10.8, 10.8);
-        else ctx.arc(x, y, m.subcap ? 4.4 : 3.3, 0, TAU);
-        ctx.fillStyle = dotFill; ctx.fill();
-        ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
-        if (!names) continue;
         const nm = gameCapFirst(m.title || "");
-        if (!nm) continue;
+        if (!nm) continue;   // …and a place with no name to put beside it is not drawn at all
         /* A NAME GOES TO THE RIGHT OF ITS DOT, OR TO THE LEFT WHERE THAT FITS BETTER (Sep 2026, on
            request). Right is the default because a reader scans left to right, so the dot is met before
            the word it names; left is taken when the right-hand box would collide with a name already
@@ -40236,12 +40515,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const clear = (b) => {
           if (b[0] < 2 || b[0] + b[2] > W - 2) return false;
           for (let k = 0; k < boxes.length; k++) if (rectsHit(b, boxes[k])) return false;
+          for (let k = 0; k < dotBoxes.length; k++) if (k !== i && rectsHit(b, dotBoxes[k])) return false;
           return true;
         };
         const box = clear(rBox) ? rBox : clear(lBox) ? lBox : null;
-        if (!box) continue;
+        if (!box) continue;   // nowhere to write the name — so the mark is not drawn either
         boxes.push(box);
-        mineDotRects.push({ m: m, box: box });
+        mineDotRects.push({ m: m, box: box, x: x, y: y });
+        // …and NOW the mark, once its name has somewhere to go
+        ctx.beginPath();
+        if (m.cap) ctx.rect(x - 5.4, y - 5.4, 10.8, 10.8);
+        else ctx.arc(x, y, m.subcap ? 4.4 : 3.3, 0, TAU);
+        ctx.fillStyle = dotFill; ctx.fill();
+        ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
         const tx = box === rBox ? x + 9 : x - 9;
         ctx.textAlign = box === rBox ? "left" : "right";
         ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, tx, y);
@@ -40295,9 +40581,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        area, the way a region's name is on a card map — `at` is a point the author picked somewhere inside
        it, which for a sea is a coast. A river has no area and is named at `at`, which for a river IS a
        point on its course. The same separation the dots use, and against the same list, so a river and a
-       city do not crowd each other; and the same zoom gate, so at world scale the earth stays clear. */
+       city do not crowd each other.
+       THE ZOOM GATE WENT WITH `MINE_LBL_Z` (Sep 2026). It held every water name back below zoom 2.6, which
+       was the same threshold the place names waited on — and now that a place is named at every zoom (see
+       drawMineMarks), a world view showing cities and no seas would be saying that one kind of studied
+       place is worth naming and the other is not. What keeps the earth clear is the separation above and
+       the box collision below, which is the regime the dots are now under too. */
     function mineWaterShown() {
-      if (zoom < MINE_LBL_Z) return [];
       const out = [];
       const marks = mineMarks().filter((m) => m.kind === "water" && m.at)
         .sort((a, b) => String(a.title || "").localeCompare(String(b.title || "")));
@@ -40338,13 +40628,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const ll = screenToLonLat(px, py); if (!ll) return null;
       const lon = ll[0], lat = ll[1];
       const marks = mineMarks();
-      // the DRAWN marks and no others — see mineDotsShown: a mark thinned out by zoom must not answer a
-      // click, or a press on empty ground opens a popup about a place that is not on the map
-      const dots = mineDotsShown();
+      /* THE DRAWN MARKS AND NO OTHERS — and since Sep 2026 that is `mineDotRects`, which the drawing pass
+         fills, rather than `mineDotsShown`, which is only the first of the two passes that decide. A mark
+         whose name could not be placed is no longer drawn (see drawMineMarks), so the thinned list now
+         holds candidates the reader cannot see; answering a click for one of them would open a popup
+         about a place that is not on the map, which is the very thing this rule exists to prevent. */
       let best = null, bd = Infinity;
-      for (let i = 0; i < dots.length; i++) {
-        const dx = dots[i].x - px, dy = dots[i].y - py, d = dx * dx + dy * dy;
-        if (d < 196 && d < bd) { bd = d; best = dots[i].m; }  // within 14px of the mark
+      for (let i = 0; i < mineDotRects.length; i++) {
+        const r = mineDotRects[i];
+        const dx = r.x - px, dy = r.y - py, d = dx * dx + dy * dy;
+        if (d < 196 && d < bd) { bd = d; best = r.m; }  // within 14px of the mark
       }
       if (best) return best;
       /* …AND SO DOES ITS NAME, which is the bigger half of the target (see mineDotRects). It is tried

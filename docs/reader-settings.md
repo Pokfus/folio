@@ -512,7 +512,7 @@ is what keeps the known gap above from mangling the inside of words.
 MutationObserver feeds — had **no skip test at all**, so a citation or a book's prose updated in place
 was rewritten while the same text reached through the walker was protected.
 **Known limit, stated rather than papered over**: the card browser searches stored card TEXT, so
-"color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (83
+"color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (91
 assertions), most of which needs no browser — and its section 4 must stay in **en-GB**, since `favor` is
 an American form and the American-to-British direction is the one that corrupts it; written against
 en-US it passes on the unfixed code. It carries a **liveness check** beside it for the same reason: a
@@ -586,3 +586,70 @@ was rewritten while the same text reached through the walker was protected.
 assertions), and **its section 4 must stay in en-GB** — `favor` is an American form and the
 American-to-British direction is the one that corrupts it, so written against en-US it passes on the
 unfixed code. It carries a **liveness check** beside it for the same reason.
+
+---
+
+## Is the corpus authored British? (2026-09-17)
+
+Nothing had ever asked. `check-style.js` has four rules and spelling is not one of them;
+`check-truefalse.js` asks it, but only of the 220 statements in `truefalse.js`. And it matters more than
+it sounds, because **`applySpelling` returns at once under en-GB**: the transform is one-way from the
+authored system, so an American spelling sitting in the data is never corrected for anybody — it is
+simply what BOTH readers see, while a British-authored word is converted correctly for each of them.
+Authoring British is therefore strictly better for readers, which is why the house rule says British.
+
+`.claude/check-spelling-corpus.js` is the measure. What it found on its first run:
+
+| family | British | American |
+|---|---|---|
+| `centre` / `center` | 641 | 3 |
+| `colonis` / `coloniz` | 128 | 2 |
+| `civilisation` / `civilization` | 112 | 0 |
+| `standardis` / `standardiz` | 36 | 1 |
+| **`Palaeolith` / `Paleolith`** | **38** | **90** |
+
+Everything leaned British except the `palaeo-` family, which leaned the other way by more than two to
+one — so a British reader met both spellings of the same term across the prehistory decks while an
+American reader met one. **The tag vocabulary had been British all along** (`palaeolithic`,
+`palaeontology`), which is what said the house form was not in doubt, and **all eleven `Paleolithic`
+glossary keys already carried the `Palae-` form as an alias**, so nothing was broken by the mixture and
+nothing was broken by converting it: the keys are Wikipedia slugs and were not touched.
+
+**What was converted**: 49 items over the `palaeo-` family, 6 over `haematite`, and 16 one-off sites
+(`colonization`, `standardized`, `encyclopedia`, `Orientalization`, `hybridization`, `fossilized`,
+`organizer`, `colonizer`, `decolonization`, `organized`, `civilization`). The prose now reads zero.
+**Nothing an American reader sees changed at all.**
+
+**What was NOT converted, and why it is declared rather than swept.** Three kinds:
+
+- **Borrowed text** — 124 distinct American spellings across citations, picture captions and credits. A
+  citation names a published work and a Commons caption is somebody else's words. It is the same mask
+  `check-style.js` puts over the citations before its own `--fix`, and the one time that mask was missing
+  it renamed six real works.
+- **Proper names**, seventeen declared rows with a reason each: the Indian Reorganization Act, the
+  Secretary of Labor, the Medal of Honor, the National Association for the Advancement of Colored People,
+  the International Trade Organization, the Oglala Sioux Civil Rights Organization, Pearl Harbor, the fur
+  trader Robert Gray, the University of Wisconsin Armory, the Paleo-Indian culture name, and the word
+  `'civilized'` quoted AS a word in a card explaining why the name fell out of use.
+- **Judged spellings**, seven rows keyed by item AND word on `CROSSREF_WRONG`'s rule, so a different
+  American spelling creeping into an excused item still reports: `fetus` on a biology card (the form
+  modern British scientific writing uses, and the Latin is *fetus*), and four glossary terms naming
+  themselves out of their own Wikipedia slug — `Saber-toothed_cat`, `Smilodon`, `Periodization` and
+  `Functional_specialization_(brain)`, the last of which already writes `localisation` in its next
+  clause.
+
+**Two faults the pass turned up in the tooling, both silent.**
+
+- **A SUFFIX CAN MAKE A NON-WORD OUT OF A ROW THAT IS OTHERWISE RIGHT.** `SPELL_PAIRS` carried
+  `honour`+`ary` and `labour`+`ious`, putting `honourary` and `labourious` into both maps. Inert on the
+  site, the live direction being GB→US only; where it bit was the CHECKERS, which run the reverse
+  direction — `check-truefalse.js` refused a statement carrying `laborious` and told the author to
+  misspell it. Fixed and pinned in `test-spelling.js`, having been proved over 175,126 renderings of the
+  whole corpus in both directions: 8 changed, every one US→GB and every one a non-word becoming the right
+  word.
+- **`fix-field.js` REPLACES THE FIRST OCCURRENCE OF A PAIR AND NO MORE.** `find` is a string, so
+  `text.replace(find, repl)` is a single substitution — right for a figure, which is what the tool was
+  written for, and a trap for a word. The first run of this pass patched 38 abstracts, reported success,
+  and left 13 of them still carrying a second copy of the word. The remedy is to repeat the pair once per
+  occurrence; the `includes` guard is re-asked each time, so a pair too many is a refusal rather than a
+  silent no-op. Now in the tool's own header.
