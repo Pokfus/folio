@@ -578,6 +578,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 481–491 (字典 → 作业) — **Level 3 finished**, 491 of 491 read | 5 | the fullest character panel in the deck, ten words, every one of them the empty suffix |
 | 2026-09-17 | `hsk30l4` notes 1–30 (爱情 → 便于), deck order — **Level 4 opens** | 11 | an elephant's 鼻子 is a trunk, and a card labelled a verb over a noun |
 | 2026-09-17 | `hsk30l4` notes 31–60 (标准 → 材料), deck order | 14 | two cards whose gloss is a sense not one of their sentences uses, and three malformed glosses |
+| 2026-09-17 | `hsk30l4` notes 61–90 (参观 → 出行), deck order | 13 | a third truncated gloss, and a `not X` hint retired by glossing the distinction it was patching |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4993,3 +4994,45 @@ jacket is made of on a card glossed *material*. 部分's first ended with no ful
 still-ambiguous 2; shared-gloss groups 338 → 338; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 371 → 377;
 `build-lang-decks.js` re-run.
+
+## Batch 43 — hsk30l4 notes 61–90 (参观 → 出行)
+
+Thirty notes read in deck order, **thirteen cards changed** across 30 fields.
+
+**A THIRD TRUNCATED GLOSS.** 场 read *[a level open space (eg. a threshing ground, market,* — no closing
+parenthesis, no closing bracket — and it described a NOUN under a *measure word* label. After 西北 and
+园 in Level 3 that is three cut off mid-sentence, and 不断, 不如 and 不光 malformed in the batch before:
+**six glosses broken as text rather than wrong as content, and nothing in the pipeline looks at a
+gloss's shape.** 乘 is the seventh — *to ride on; avail oneself of to multiply*, two senses run together.
+
+**A `not X` HINT RETIRED BY GLOSSING THE DISTINCTION IT WAS PATCHING.** 茶叶 was glossed *tea*, which is
+茶's own gloss, and the two were kept apart by a `not 茶` block. But 茶叶 is the **leaves**, the dry
+product — CC-CEDICT reads *tea; tea leaves*, its measure words are 盒 and 罐, a box and a tin, and its
+own second sentence is 茶叶蛋. Glossing it properly dissolves the collision, so the applier's own rule
+drops the hint with the rebuild and the record's `hints` entry goes with it. **Shared-gloss groups
+338 → 337 and still-ambiguous unchanged at 2**, which is what says the hint was a patch rather than a
+distinction. **A hint is worth reading as a question about the gloss under it.**
+
+**餐厅 WAS A CANTEEN**, which is none of the three things its own sentences are (a cafeteria, a dining
+room, a restaurant). **出口** named one of three senses while its second sentence, 就要说出口了, is
+another.
+
+**TWO SENTENCES WENT.** 厕所 opened on 你是个厕所！ — *You are a toilet!*, an insult that teaches the
+word in the one context where it says nothing about a lavatory. 厂 carried
+在汤姆的语句制造厂中，松鼠写句子 — *Squirrels write sentences in Tom's sentence factory*, one of the
+corpus's joke sentences, inside a compound nobody uses.
+
+**FIVE SINGLE-CHARACTER CARDS GAINED `Compounds`** — 厂, 场, 乘, 迟, 重. **场's panel is three words and
+every one of them the noun**, so a reader met the measure word nowhere; 重's is six deep, so its rows go
+elsewhere and show both readings, 重复 being the chóng no sentence on the card illustrates.
+
+**SMALLER FIXES.** 参观's third called a 家乡 a *home country* (it is a home town). 厕所's second said
+*restrooms*. 超过's third read *I have not more than ten books*. 出现's third read *WHEN did the error
+occur* for 怎么, which is how. And 出行's first was 他喜欢骑马出行 with the word-by-word English batch 36
+corrected on 骑's card — **the same sentence is carried by two cards and each keeps its own English**, so
+a fix on one does not reach the other.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 338 → 337, the 茶/茶叶 pair dissolving and nothing new appearing;
+pinyin clean; example-fit 143 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible
+on every one; sense-tagged 377 → 383; `build-lang-decks.js` re-run.

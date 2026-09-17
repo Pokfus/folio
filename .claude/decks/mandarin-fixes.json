@@ -109476,11 +109476,24 @@
       ]
     },
     "hsk30l4/厕所": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Where's the restroom?” — “restroom” is not used in British English at all.",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Where's the restroom?” — “restroom” is not used in British English at all. | Its second line said RESTROOMS, which is American; the card's own gloss is 'toilets; lavatory' and its third line says toilet. | '你是个厕所！' is an insult and not a sentence a learner needs — 'You are a toilet!' teaches the word in the one context where it says nothing about a lavatory. Replaced with an AUTHORED sentence, which the record says so is.",
       "exEn": [
         [
           "厕所在哪里",
           "Where's the toilet?"
+        ],
+        [
+          "对不起，附近有厕所吗",
+          "Excuse me, is there a toilet nearby?"
+        ]
+      ],
+      "dropEx": [
+        "你是个厕所！"
+      ],
+      "ex": [
+        [
+          "厕所在二楼，往左走。",
+          "The toilets are on the first floor, on your left."
         ]
       ]
     },
@@ -110136,11 +110149,33 @@
       ]
     },
     "hsk30l4/重": {
-      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once.  | The card gives both readings and all three of its sentences are zhòng, the heavy one; tagged, so the chóng it also states — again, to repeat — is visibly stated and not illustrated. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows SIX words — 重新, 体重, 严重, 重点, 重视 and 尊重 — so the rows go elsewhere, and deliberately show both readings. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. 重复 is chóng, which no sentence on the card illustrates.",
       "exSpace": [
         [
           "大象比河马重，不是吗 ?",
           "大象比河马重，不是吗？"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        2
+      ],
+      "compounds": [
+        [
+          "重复",
+          "chóng fù",
+          "to repeat"
+        ],
+        [
+          "重量",
+          "zhòng liàng",
+          "weight"
+        ],
+        [
+          "注重",
+          "zhù zhòng",
+          "to pay attention to"
         ]
       ]
     },
@@ -114093,6 +114128,154 @@
           "a footstep"
         ]
       ]
+    },
+    "hsk30l4/场": {
+      "why": "THE GLOSS WAS CUT OFF MID-BRACKET: '[a level open space (eg. a threshing ground, market,' — no closing bracket, no closing parenthesis — and it described a NOUN under a 'measure word' label. The third truncation the audit has met, after 西北 and 园. CC-CEDICT gives both, and the card's sentences are one measure word to two nouns (中场, 这场会议, 高尔夫球场). Split and tagged. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows three words — 操场, 市场 and 停车场 — all of them the NOUN, so a reader met the measure word nowhere. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "measure word",
+          "(for events, games and performances)"
+        ],
+        [
+          "noun",
+          "a ground; a field; an open space"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "广场",
+          "guǎng chǎng",
+          "a public square"
+        ],
+        [
+          "现场",
+          "xiàn chǎng",
+          "the scene; on the spot"
+        ],
+        [
+          "场地",
+          "chǎng dì",
+          "a site; a ground"
+        ]
+      ]
+    },
+    "hsk30l4/乘": {
+      "why": "The gloss ran two senses together with nothing between them — 'to ride on; avail oneself of to multiply' — the same malformation 不断 and 不如 carried in the batch before. CC-CEDICT gives them as three. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows three words — 乘客, 乘坐 and 换乘 — all of them the riding sense. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to ride (in a vehicle); to take advantage of; to multiply",
+      "compounds": [
+        [
+          "乘车",
+          "chéng chē",
+          "to ride in a vehicle"
+        ],
+        [
+          "乘法",
+          "chéng fǎ",
+          "multiplication"
+        ]
+      ]
+    },
+    "hsk30l4/餐厅": {
+      "why": "The gloss was 'canteen', which is none of the three things the card's own sentences are: 自助餐厅 is a cafeteria, 餐厅在哪里 is a dining room and 一家餐厅 is a restaurant. CC-CEDICT reads 'dining hall; dining room; restaurant'.",
+      "gloss": "a restaurant; a dining room"
+    },
+    "hsk30l4/茶叶": {
+      "why": "The gloss was 'tea', which is 茶's own gloss — and the two were kept apart only by the deck's `not 茶` disambiguator, which is a patch over a distinction the gloss could simply have made. 茶叶 is the LEAVES, the dry product: CC-CEDICT reads 'tea; tea leaves', its measure words are 盒 and 罐, a box and a tin, and its own second sentence is 茶叶蛋. With the gloss saying so the hint has nothing left to do, and the applier drops it with the rebuild.",
+      "gloss": "tea leaves; tea"
+    },
+    "hsk30l4/出口": {
+      "why": "The gloss named one of CC-CEDICT's three senses, 'exit [from a building]', and the card's second sentence is another of them — 就要说出口了, to get something out of one's mouth.",
+      "gloss": "an exit; to utter; to export"
+    },
+    "hsk30l4/参观": {
+      "why": "'我们第一次参观了他的家乡。' read 'We visited his home COUNTRY' — 家乡 is a home town, and the card is about visiting places.",
+      "exEn": [
+        [
+          "我们第一次参观了他的家乡",
+          "We visited his home town for the first time."
+        ]
+      ]
+    },
+    "hsk30l4/超过": {
+      "why": "'我的书不超过十本。' read 'I have NOT MORE than ten books', which is not English word order.",
+      "exEn": [
+        [
+          "我的书不超过十本",
+          "I have no more than ten books."
+        ]
+      ]
+    },
+    "hsk30l4/出现": {
+      "why": "'问题是怎么出现的？' read 'WHEN did the error occur?' — 怎么 is how, and the sentence is about the way a problem arose rather than the time.",
+      "exEn": [
+        [
+          "问题是怎么出现的",
+          "How did the problem arise?"
+        ]
+      ]
+    },
+    "hsk30l4/出行": {
+      "why": "'他喜欢骑马出行。' read 'He likes to get on the horse and go out', the Chinese word by word rather than a translation of it. Batch 36 corrected this same sentence on 骑's card; it is carried by two cards, and each keeps its own English.",
+      "exEn": [
+        [
+          "他喜欢骑马出行",
+          "He likes to travel on horseback."
+        ]
+      ]
+    },
+    "hsk30l4/厂": {
+      "why": "'在汤姆的语句制造厂中，松鼠写句子。' — 'Squirrels write sentences in Tom's sentence factory' — is one of the corpus's joke sentences, and it teaches the word inside a compound nobody uses. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 工厂. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "在汤姆的语句制造厂中，松鼠写句子。"
+      ],
+      "ex": [
+        [
+          "这家厂有三千工人。",
+          "This factory has three thousand workers."
+        ]
+      ],
+      "compounds": [
+        [
+          "厂长",
+          "chǎng zhǎng",
+          "a factory director"
+        ],
+        [
+          "厂家",
+          "chǎng jiā",
+          "a manufacturer"
+        ],
+        [
+          "工厂",
+          "gōng chǎng",
+          "a factory"
+        ]
+      ]
+    },
+    "hsk30l4/迟": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 推迟. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "迟到",
+          "chí dào",
+          "to arrive late"
+        ],
+        [
+          "迟早",
+          "chí zǎo",
+          "sooner or later"
+        ],
+        [
+          "推迟",
+          "tuī chí",
+          "to postpone"
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -114281,7 +114464,6 @@
     "hsk30l4/胳膊": "手臂",
     "hsk30l4/艺术": "美术",
     "hsk30l4/苦": "辛酸",
-    "hsk30l4/茶叶": "茶",
     "hsk30l4/著名": "有名",
     "hsk30l4/街道": "道路",
     "hsk30l4/表扬": "夸奖",
