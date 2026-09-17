@@ -606,6 +606,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 811–840 (血 → 研究生), deck order | 16 | a card teaching a Cantonese word for the animal its sentence is about |
 | 2026-09-17 | `hsk30l4` notes 841–870 (严重 → 勇敢), deck order | 21 | a gloss that was the wrong end of its own transaction |
 | 2026-09-17 | `hsk30l4` notes 871–900 (永远 → 约会), deck order | 16 | two thirds of a card illustrated with a Japanese name spelled in its headword |
+| 2026-09-17 | `hsk30l4` notes 901–930 (月饼 → 之), deck order | 15 | three sentences whose Chinese says the opposite of their own English |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6613,3 +6614,59 @@ now all three the same word.
 still-ambiguous 2; shared-gloss groups 326 unchanged (327 mid-run, corrected); pinyin clean;
 example-fit 143 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible on every one;
 sense-tagged 578 → 584; `build-lang-decks.js` re-run.
+
+## Batch 71 — hsk30l4 notes 901–930 (月饼 → 之)
+
+Thirty consecutive notes; **fifteen cards changed** across two decks.
+
+**Three sentences whose Chinese says something different from their own English**, which is this
+audit's most reliable single tell and the fault no checker can reach.
+· 者's first was 她不是伤害者 — she is not the one who HARMS — under the English *She is not the
+  victim*, which is 受害者, **the opposite party**. A reader would have learned the word for a
+  perpetrator as the word for a victim.
+· 证明's third was **数学喜欢证明事物**, *MATHEMATICS likes to prove things*, under an English saying
+  *Mathematicians* (数学家). As it stands a school subject does the proving.
+· 证's third wrote **应证**, which CC-CEDICT does not carry at all — it is a mis-writing of 印证, to
+  corroborate — under the English *That thought crossed my mind*, which is a different sentence again.
+  Two faults in eight characters.
+
+**A conjunction sense with nothing behind it.** 再说 carries two senses and all three of its sentences
+were the first: 改天再说吧, 再说一遍, 不要再说了. The CONJUNCTION — *besides, what is more*, which is how
+a learner meets 再说 in speech — had no example at all, and the third sentence was the second again, so
+it is replaced with one and each sentence now says which sense it shows.
+
+**Four glosses that are the wrong part of speech or the wrong word.** 阅读 `verb` over the gerund
+*reading*; 招聘 `verb` over the noun *recruitment*; 着火 glossed **`to burn`**, which is 燃烧, where
+着火 is to CATCH fire, as all three of its own sentences are; and 正常 carrying a sense the word has not
+got — `normal; fine; **generally speaking**`, the last of which is 一般来说.
+
+**The per-note rule, for the fourth time.** 增加's third sentence ended with no terminal mark — and it
+is the same sentence batch 61 gave a full stop to on hsk30l4/人数, sitting here uncorrected. A row
+reaches ONE note; a sentence carried by several needs one row each.
+
+**And a collision made rather than dissolved, for the second batch running.** Correcting 阅读 to the
+plain `to read` collided with hsk30l6/念书 — which is itself glossed `to read` while **all three of its
+sentences are studying** (边听音乐边念书, 为考试念书, 出国念书), so that card's own English contradicted
+its gloss too. Both sharpened: 阅读 to *to read (a text)*, 念书 to *to study; to attend school*. **A
+gloss correction can make a collision as easily as it dissolves one — read the shared-gloss delta, not
+just the count.**
+
+**One more sentence that is not Chinese**: 增加's 事故没减少而增加 puts 没…而… where the language says
+不但没减少，反而增加了, so it reads as a translation of *Instead of fewer accidents there are more*.
+
+**Three English lines.** 月饼's third **contradicted its own card twice in one sentence** — `moon cake`
+open where the gloss and the other two lines write *mooncake*, and `Mid-Autumn Day` where they write
+*the Mid-Autumn Festival*. 杂志's second put a present-tense invitation into the past. And 责任's *It is
+you that are to blame for it* is not English anyone writes.
+
+**Two `Compounds` blocks**: 云 had nothing at all, 整 two words.
+
+**Read and left.** 月份, 云's sentences, 允许, 再次, 暂时, 暂停, 早餐, 早晨, 增长, 真正, 整, 整个, 整理,
+正好, 证件, 正确, 正式, 之 — and 920 整 and 921 整个, whose first sentences are near-identical
+(她哭了一整晚 and 我哭了整个晚上): they are different cards teaching different words, and the pair is
+what shows the difference between them.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 326 unchanged (327 mid-run, corrected); pinyin clean;
+example-fit 143 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible on every one;
+sense-tagged 584 → 587; `build-lang-decks.js` re-run.

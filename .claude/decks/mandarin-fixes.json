@@ -73398,7 +73398,7 @@
       ]
     },
     "hsk30l4/再说": {
-      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense.",
+      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The card carries two senses and its three sentences showed only the first: 改天再说吧, 再说一遍 and 不要再说了 are all `to say again` or `to leave until later`, while the CONJUNCTION — `besides, what is more`, which is how a learner meets 再说 in speech — had nothing behind it. The third sentence, which was the second again, is replaced with it, and each sentence now says which sense it shows. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "senses": [
         [
           "verb",
@@ -73408,6 +73408,20 @@
           "conjunction",
           "besides; what is more"
         ]
+      ],
+      "dropEx": [
+        "好了，不要再说了"
+      ],
+      "ex": [
+        [
+          "太贵了，再说我也不需要。",
+          "It's too expensive — besides, I don't need it."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
       ]
     },
     "hsk30l5/眼": {
@@ -76296,7 +76310,7 @@
       ]
     },
     "hsk30l4/招聘": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Labelled `verb` over the noun `recruitment`, with all three sentences the verb or the compound 招聘会.",
       "ex": [
         [
           "公司正在招聘工程师。",
@@ -76306,7 +76320,8 @@
           "招聘会在体育馆举行。",
           "The recruitment fair is held in the gymnasium."
         ]
-      ]
+      ],
+      "gloss": "to recruit; to advertise a post"
     },
     "hsk30l4/中年": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was 她是个中年胖女人。 — \"She's a middle-aged fat woman.\" The word being taught is *middle age*; the rest of the sentence is doing no teaching at all.",
@@ -121718,6 +121733,157 @@
           "to attend a meeting — note the reading"
         ]
       ]
+    },
+    "hsk30l4/者": {
+      "why": "The first sentence and its English contradicted each other outright: 她不是伤害者 means she is not the one who HARMS, where the English said `She is not the victim` — which is 受害者, the opposite party. A reader would learn the word for a perpetrator as the word for a victim. Replaced with a sentence using the right one. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "她不是伤害者"
+      ],
+      "ex": [
+        [
+          "受害者已经报警。",
+          "The victim has already called the police."
+        ]
+      ]
+    },
+    "hsk30l4/证明": {
+      "why": "The third sentence said **数学喜欢证明事物** — `MATHEMATICS likes to prove things` — where its English says *Mathematicians*, which is 数学家. The Chinese as it stands has a school subject doing the proving. Replaced. The card is also labelled `noun / verb` over the single noun `proof` while all three sentences are the verb, so the two senses are split. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "senses": [
+        [
+          "verb",
+          "to prove; to demonstrate"
+        ],
+        [
+          "noun",
+          "proof; a certificate"
+        ]
+      ],
+      "dropEx": [
+        "数学喜欢证明事物"
+      ],
+      "ex": [
+        [
+          "这份文件可以证明他的身份。",
+          "This document proves his identity."
+        ]
+      ]
+    },
+    "hsk30l4/证": {
+      "why": "The third sentence was wrong twice: **应证 is a mis-writing of 印证** (to confirm, to corroborate) — CC-CEDICT does not carry 应证 at all — and its English, `That thought crossed my mind`, is a different sentence altogether, 印证了我的想法 being that something BORE the thought OUT. Replaced with the character standing on its own, which neither of the other two sentences shows (学生证 and 作证 both bury it). AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "这应证了我的想法"
+      ],
+      "ex": [
+        [
+          "没有证就不能进去。",
+          "You can't get in without a pass."
+        ]
+      ]
+    },
+    "hsk30l4/阅读": {
+      "why": "Labelled `verb` over the gerund `reading`, with all three sentences the verb. Sharpened further once the plain `to read` turned out to collide with hsk30l6/念书, which the shared-gloss check caught on the run.",
+      "gloss": "to read (a text)"
+    },
+    "hsk30l4/着火": {
+      "why": "Glossed `to burn`, which is 燃烧; 着火 is to CATCH fire or to be on fire, which is what all three of the card's sentences are — 纸容易着火, 房子着火了, 着火的时候.",
+      "gloss": "to catch fire; to be on fire"
+    },
+    "hsk30l4/正常": {
+      "why": "The gloss carried a sense the word has not got: `normal; fine; **generally speaking**` — the last of those is 一般来说, and 正常 never means it. Nothing on the card showed it either.",
+      "gloss": "normal; ordinary"
+    },
+    "hsk30l4/增加": {
+      "why": "The second sentence was a correlative Chinese does not have: 事故没减少而增加 puts 没…而… where the language says 不但没减少，反而增加了, so the sentence reads as a translation of `Instead of fewer accidents there are more` rather than as Chinese. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Its third sentence ended with no terminal mark — and it is the sentence batch 61 gave a full stop to on hsk30l4/人数, sitting here uncorrected. **The per-note rule for the fourth time**: a row reaches ONE note, and a sentence carried by several needs one row each.",
+      "dropEx": [
+        "事故没减少而增加"
+      ],
+      "ex": [
+        [
+          "公司增加了十名员工。",
+          "The company took on ten more staff."
+        ]
+      ],
+      "exStop": [
+        [
+          "听说最近失业者人数正在增加"
+        ]
+      ]
+    },
+    "hsk30l4/月饼": {
+      "why": "The third English line spelled the word two ways against the rest of the card: `moon cake` open, where the gloss and the other two lines write `mooncake`, and `Mid-Autumn Day` where they write `the Mid-Autumn Festival`. A card contradicting itself in English twice in one sentence.",
+      "exEn": [
+        [
+          "在中秋节，家人团聚，一起吃月饼、赏月",
+          "At the Mid-Autumn Festival, families gather to eat mooncakes and look at the moon together."
+        ]
+      ]
+    },
+    "hsk30l4/杂志": {
+      "why": "`Why didn't you read the magazine?` puts a present-tense suggestion into the past — 你为什么不读这杂志呢 is `why don't you read it`, which is an invitation rather than a reproach.",
+      "exEn": [
+        [
+          "你为什么不读这杂志呢",
+          "Why don't you read this magazine?"
+        ]
+      ]
+    },
+    "hsk30l4/责任": {
+      "why": "`It is you that are to blame for it` is not English anyone writes; 责任应该由你来负 is that the responsibility is yours to carry.",
+      "exEn": [
+        [
+          "责任应该由你来负",
+          "You are the one who should take responsibility."
+        ]
+      ]
+    },
+    "hsk30l4/云": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "云彩",
+          "yún cai",
+          "clouds"
+        ],
+        [
+          "乌云",
+          "wū yún",
+          "dark clouds"
+        ],
+        [
+          "云朵",
+          "yún duǒ",
+          "a cloud"
+        ]
+      ]
+    },
+    "hsk30l4/整": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows two words, 整个 and 整理. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "完整",
+          "wán zhěng",
+          "complete; intact"
+        ],
+        [
+          "调整",
+          "tiáo zhěng",
+          "to adjust; to revise"
+        ],
+        [
+          "整齐",
+          "zhěng qí",
+          "neat; tidy"
+        ],
+        [
+          "整天",
+          "zhěng tiān",
+          "all day long"
+        ]
+      ]
+    },
+    "hsk30l6/念书": {
+      "why": "Glossed `to read` while **all three of its sentences are studying** — 边听音乐边念书, 为考试念书了吗, 出国念书 — so the card's own English lines contradict its gloss, and it shared that gloss with hsk30l4/阅读 the moment that card's `reading` was corrected to a verb. CC-CEDICT gives /to read; to study/to attend school/, and the card teaches the second and third. Sharpened rather than left to collide — **a gloss correction can make a collision as easily as it dissolves one**, which is this audit's second instance in two batches.",
+      "gloss": "to study; to attend school"
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
