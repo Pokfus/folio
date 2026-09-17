@@ -5679,6 +5679,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Non-round numbers above 20 are numerals** ("27 chapters", never "twenty-seven chapters"). Round numbers may
   stay as words ("thirty kings", "eight hundred years"). Proper names keep their words (*Twenty-Four Histories*,
   *Twenty-four Filial Exemplars*).
+  **A COMPOUND IN FRONT OF `thousand` IS ONE NUMBER AND IS WRITTEN WHOLE** — "32,000", never "32 thousand"
+  and never "thirty-two thousand". The scale word survives for MILLION and BILLION ("37 million") and does
+  not for thousand, which is why only that case needs a rule; `check-style.js --fix` carried it into a card
+  question and a glossary description as "32 thousand" before it had one (Sep 2026). **And converting one
+  figure in a sentence makes its NEIGHBOUR a judgement**: "32,000 foot and four thousand five hundred horse"
+  is half numerals and half words, and the round sibling — which rule 1 permits in words — usually has to
+  follow it into numerals. The tool deliberately leaves that to the eye.
 - **Centuries and millennia are always numbered** ("11th century", "2nd millennium BCE" — never "eleventh century"),
   whatever the ordinal.
 - **Eras are BCE and CE, and NEVER BC or AD** (Aug 2026, on request: "ensure the use of BCE and CE always … across
