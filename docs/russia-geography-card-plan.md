@@ -591,7 +591,19 @@ still gives Moscow — a city that is a different federal subject. **Try an unam
 back to `gru-502` with it.
 
 **Until a recipe exists, a capital card cannot be written to the bar, and none should be written below
-it.** The subjects deck is unaffected and can be worked straight down the order.
+it.** The subjects deck is unaffected and can be worked straight down the order — and as of batch 18 it
+is FINISHED, so the eighty centres are all that is left of this collection.
+
+**Batch 18 took the question three steps further and did not close it.** Rosstat's own table 2.1 is
+titled *"Capitals, centers and largest cities of constituent entities of the Russian Federation"*, so the
+fact does sit in a citable government table — but the table never says which listed name is which, and
+position is not the rule (Moscow Region lists Krasnogorsk seventh). `pravo.gov.ru` and
+`publication.pravo.gov.ru` answer 200 from here, alone among Russian government hosts, and their document
+types include *Устав (Основной Закон)* — a subject's own charter, which is the document that names its
+centre — but the portal's `?q=` is inert, so no route to a particular charter has been found yet. And
+DOAJ and Crossref index metadata only, so the Study Area recipe costs one paper read per card rather than
+one query. **The charter route is the lead to try next**, on an unambiguous centre, per the paragraph
+above.
 
 ## Two sourcing findings that outlast this batch
 
@@ -1533,6 +1545,55 @@ openable from here gives a figure for any of them.
 - **`gru-081` IS THE ALLOWED NAME ECHO.** `facts-echo --names` reports Magadan twice on that card, as
   Capital and as Largest city, and neither can be written out: the oblast is named after the city and the
   background's bolded answer term is "Magadan Oblast". Figure echoes are 0 across the batch.
+
+### Batch 18 — `gru-083` (Nenets Autonomous Okrug), and the subjects deck closes at 83 of 83
+
+**THE FEDERAL SUBJECTS ARE FINISHED.** `gru-001`–`gru-083` are written, each with its paired glossary
+term at the bar and a picture. What remains of this collection is the eighty administrative centres, and
+they are still blocked — see the section above, which this batch's research extends rather than clears.
+
+- **A NESTED OKRUG STATES BOTH SIDES OF ITS OWN ARITHMETIC.** Nenets is counted inside Arkhangelsk Oblast,
+  so the oblast's figures are published both with it and without, exactly as Tyumen's are for Khanty-Mansi
+  and Yamalo-Nenets. The card says so rather than leaving a reader to reconcile two numbers that are both
+  correct; it is the fourth card to have to, and the rule is in the okrugs section above.
+- **THE LARGEST-CITY CELL IS `?` FOR THE SIXTH TIME.** Naryan-Mar is the only settlement of any size in the
+  okrug, and nothing openable ranks its towns, so the honest state is the question mark rather than a
+  restatement of the capital.
+- **RECLUS VOLUME 5 IS ON `/stream/`, NOT ON `/download/`.** `archive.org/download/universalgeograp05recl/
+  universalgeograp05recl_djvu.txt` answers with zero bytes and "No hOCR or Abbyy file present"; the same
+  text is served whole at `archive.org/stream/…_djvu.txt`. **Try the `/stream/` route before recording an
+  archive.org item as having no text layer.**
+- **THE WRONG PECHORA.** A picture search for the Pechora returned `Берега Печоры. Якша.jpg`, a good
+  photograph of the river at Yaksha — which is in the **Komi Republic**, on the upper river, several
+  hundred kilometres outside the okrug. A river that crosses three federal subjects is a subject-matching
+  trap the way an ambiguous city name is, and no metadata catches it: the file is correctly named and
+  correctly categorised. The card took the Bolshezemelskaya tundra and the term took Kolguyev Island.
+- **DO NOT SUPPLY A GIVEN NAME A SOURCE DOES NOT STATE.** Reclus writes only "Burrough" of the 1556
+  expedition to Vaygach; the draft said "the English captain Stephen Burrough", which is very probably the
+  right man and is not what the citation carries. It reads as researched detail and is invented, which is
+  the one failure this apparatus exists to prevent.
+
+**Three measured findings on the capital half, none of which is yet a recipe.**
+
+- **ROSSTAT'S TABLE 2.1 DOES NAME EVERY CENTRE, AND CANNOT BE USED TO IDENTIFY ONE.** The column is titled,
+  in Rosstat's own English, *"Capitals, centers and largest cities of constituent entities of the Russian
+  Federation"* — so the fact is in a citable government table. What the table does not do is say which of
+  the listed names is which, and **position is not the rule**: Khanty-Mansi lists Khanty-Mansiysk (the
+  centre, not the largest city) first, while **Moscow Region lists Krasnogorsk SEVENTH**, behind Balashikha,
+  Podolsk, Khimki, Korolev, Mytishchi and Lyubertsy. A first-name-wins reading would be right most of the
+  time and wrong without warning, which is worse than no recipe.
+- **`pravo.gov.ru` AND `publication.pravo.gov.ru` ANSWER 200 FROM THIS SANDBOX.** The Russian Federation's
+  official legal publication portal is the one Russian government host that does not fail TLS against the
+  national CA — unlike `rosstat.gov.ru`, `eng.rosstat.gov.ru`, `gks.ru` and `en.kremlin.ru` — and its
+  document-type list includes *Устав (Основной Закон)*, a subject's own charter, which is exactly the
+  document that names its administrative centre. **Its `?q=` parameter is inert**: the search is a
+  JavaScript form, and the bare URL returns all 1,700,615 documents. So the host is reachable and the
+  route to a particular charter is not yet found. **This is the most promising surviving lead.**
+- **DOAJ AND CROSSREF INDEX METADATA ONLY**, so the world deck's "an open paper's Study Area states the
+  fact" recipe cannot be located by phrase search: a sweep for `"capital of the Republic of Tatarstan"`
+  returns three metadata hits and nothing usable. The recipe still works; it costs one paper read per card
+  rather than one query, which is a different kind of cost and should be measured before eighty cards are
+  planned around it.
 
 ## The background against the grid — the facts-echo pass (Sep 2026)
 
