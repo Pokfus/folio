@@ -544,6 +544,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l1` notes 121–150 (没事 → 您), deck order | 21 | an example sentence that is not grammatical Chinese |
 | 2026-09-17 | `hsk30l1` notes 151–180 (牛奶 → 少), deck order | 22 | an example that models the mistake the card should prevent |
 | 2026-09-17 | `hsk30l1` notes 181–210 (谁 → 听见), deck order, plus a new `exEn` field | 19 | a gloss giving the dictionary's rarest sense as the card's only one |
+| 2026-09-17 | `hsk30l1` notes 211–240 (同学 → 写), deck order | 23 | a polyphone taught at the wrong reading of the two |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1206,3 +1207,105 @@ the same thing in answerable English, and that is a judgement rather than a subs
 **The five Level 1 `check-example-fit.js` findings are all the greedy segmenter losing to a longer
 word** (有时|间 in 你后天有时间吗, 不便|宜 in 这不便宜, 最好|听, 十分|钟, 看中|文). None is a real
 fault and none was introduced here.
+
+### 2026-09-17 — Level 1, notes 211–240
+
+**What the batch was.** The thirty cards 同学 → 写, read one at a time against CC-CEDICT and against
+their own three sentences. **Twenty-three were changed**, seven left alone. One card outside the range,
+十, had its compound list rewritten — see below.
+
+### The one fault a reader would hear
+
+**喂 was taught at the wrong tone.** The card said `interjection — hello` with the reading **wèi**, and
+CC-CEDICT files the two apart: **[wei2]** is "hello (when answering the phone)" and **[wei4]** is "hey
+/ to feed". So the card gave the telephone greeting at the feeding tone, and a learner picking up a
+phone and saying wèi is saying a different word. **The card's own sentences said so all along** — two
+of its three are feeding (我正在喂孩子, 我早上不喂狗) and only one is the greeting. Split into the two
+readings in the shape 便 and 咽 already use, and each example tagged. `check-pinyin.js` skips a
+two-reading card by design, so the bopomofo was written beside the pinyin by hand.
+
+### The character that was never shown doing its own job
+
+**外 was glossed "outside" and then shown three times inside a longer word** — 出外 twice and 外债 once
+— so a beginner never met it standing alone. The third of those, 我没有外债。rendered "I am free of
+debt", is wrong besides: 外债 is FOREIGN debt, a Level 7 word in a Level 1 sentence. **That mistake is
+also the missing half of the gloss.** CC-CEDICT gives "outside / in addition / foreign / external", and
+FOREIGN is the sense a learner meets first, in 外国 and 外语. Added, with an authored sentence for each
+sense.
+
+**Note for the next batch: `check-example-fit.js` cannot see this.** It segments against the nine
+decks' own 11,532 words, and 出外, 外债, 小雨 and 小孩子 are all real Chinese words that are not among
+them — so a card showing its headword inside one of them passes the checker and fails the reader. 小
+had the same fault (只 one of its three sentences had 小 standing alone) and was found the same way, by
+reading.
+
+### The glosses
+
+- **晚's gloss was "evening, night, late" under a single `adjective`**, and two of those three are
+  nouns. What the card could not say is that only "late" is 晚 standing on its own; the other two are
+  what it means *inside* a word (晚上, 夜晚, 傍晚). Marked **(bound form)**, which is CC-CEDICT's own
+  wording, and which is why no example can show that sense.
+- **想 led with the sense it never showed.** Glossed "to want; to think" while all three sentences were
+  THINK; the dictionary's own order puts thinking first and wanting fourth. Split, and the weakest of
+  the three sentences (我也这么想, which says what 我想没关系 already says) replaced with one for the
+  second sense — which a beginner needs in their first week.
+- **下 gave three senses and its own first example showed a fourth.** 下个星期见 is 下 meaning NEXT,
+  which CC-CEDICT states outright and the card did not have. Added and the examples tagged; 昨天下大雨
+  is left untagged, 下雨 being a word of its own with a card of its own.
+- **问题 was glossed "problem" alone**, where the dictionary leads with "question" — the sense a learner
+  meets every day in a classroom and could not produce from this card.
+- **午饭 carried "(everyday word)"**, the parenthetical author's-note class cut from 非常 and recorded
+  on 早上. That is now three of them found in Level 1; expect more.
+
+### The sentences
+
+Eight replaced or retranslated, in four kinds:
+
+- **Not grammatical.** 外边's 春季的时候…所以在外边的花不开花 (花不开花 is the noun and the verb said
+  twice; it is 花不开), and 小学生's 有两千小学生到校 (a counted noun needs its classifier — the card's
+  own measure-word row says 个 and 名).
+- **The sentence already dropped from another card.** 晚's first example was 她晚了起床, the same
+  ungrammatical line dropped from 起床 two batches ago. **A bad sentence can sit on two cards**, and
+  fixing one does not find the other; it is worth grepping the deck for a dropped sentence's text.
+- **English that is not English, or not the sentence.** 同学's "Do you like classmates in class?",
+  问题's "When did the error occur?" for 问题是怎么出现的 (怎么 is how, and 问题 is not an error),
+  些's "What am I hearing now?" for 我要听些什么, 下班's "When do you close?" (neither 公司 nor 下班 is
+  in it).
+- **Over-colloquial, or an idiom for its own sake.** 玩's "Wanna hang out tonight?" and 我's 他出卖了我
+  "He sold me down the river" — a Level 5 word and an idiom that says nothing about the Chinese, on the
+  card for the commonest pronoun in the language. Two more of the thirteen measured in batch 5; **the
+  `exEn` field added last batch is what made four of these repairable without throwing good Chinese
+  away.**
+
+Also 小朋友's 小朋友都是外国人 "Children are all foreigners", which is not a sentence anybody would say
+in either language.
+
+### On the compound lists
+
+**The rule this pass has actually been following is now written down, because the last batch got it
+wrong.** Candidates come from the corpus where it has them and **from CC-CEDICT where its words are too
+few or too advanced for the level**. Batch 8 drew 十's list from deck words only and so offered a
+Level 1 reader 十分, 十足 and 十字路口 — every row correct, checked, and not what anybody learning to
+count needs. **十's list is rewritten here**: 十一, 十二, 二十, 十分, 十字路口. None of the first three
+is in any of the nine decks.
+
+**五 is the same case and could only be done this way.** Every multi-character word the decks hold for
+it is an idiom — 五颜六色, 五湖四海, 四分五裂 — so all four rows are the dictionary's: 五月, 十五, 五十,
+星期五.
+
+**喂's three rows are all the FEEDING reading**, because the telephone greeting builds no word at all.
+That is worth a reader seeing directly beside the split gloss.
+
+**些 gets no section, and that is the honest answer.** Its tap panel already finds all five words it
+builds that a learner needs (这些, 一些, 有些, 那些, 哪些) — they are every one of them in the reader's
+own Level 1 deck — and a section repeating exactly those five is noise rather than information. The
+feature exists for the characters the panel underserves.
+
+**Four rows take the DECK's reading over CC-CEDICT's** — 学问 xué wen, 一下 yí xià, 下来 xià lái,
+小姐 xiǎo jiě. Sixth batch running for that rule.
+
+### Read and left alone
+
+晚饭, 晚上, 问, 我们, 五 (the card itself), 下雨, 下课, 下午, 先生, 现在, 小时, 小学, 写 are right as
+they stand. 外's first example, 我们出外吃饭吧, keeps its bound use: 出外 is natural Chinese and one of
+the three sentences may fairly show the character inside a word once the other two show it free.
