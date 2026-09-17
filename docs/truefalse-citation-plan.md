@@ -1838,3 +1838,26 @@ the source had made it.**
 STORY** — out of copyright, full-text on archive.org, and written by somebody in the room. Stern's
 volume also has the naming on page 39 and the December decision on page 48, so one citation carries
 both halves.
+
+### T48 — the Bastille's seven, counted by an archivist of its own papers (2026-09-17)
+
+One cited: #25. 191 → **192 of 220**, closing the item the T41 entry left open ("it wants a different
+search rather than a different host" — correct, and the different search was for the BOOK rather than
+for a journal article). Frantz Funck-Brentano spent his career on the Bastille's surviving archive,
+and *Legends of the Bastille* names the seven twice over: "four forgers whose arrest had been ordered
+by the Châtelet, whose case had been regularly tried, and whose proper place was an ordinary prison;
+two madmen who ought to have been at Charenton; and the Comte de Solages". The conquerors, he adds,
+were "somewhat surprised at the small number of victims".
+
+**AN ARCHIVE.ORG 401 IS NOT THE END OF THE BOOK — CHECK PROJECT GUTENBERG.** `legendsofbastill00fran`
+is a LENDING item whose `_djvu.txt` answers 401, exactly as Craig's *Newton at the Mint* did in T41.
+The same translation is Project Gutenberg ebook 43231, served whole as plain text at
+`gutenberg.org/cache/epub/<n>/pg<n>.txt`, with the title page, the translator and the 1899 Downey
+imprint all in the file. **`archive.org/advancedsearch.php` lists the Gutenberg copy alongside the
+lending one** — the identifier ends `gut` — so the alternative was in the same result set as the
+refusal.
+
+**AND THE BOOK IS AN ARGUMENT, WHICH IS WHY THE FIGURE IS SAFE TO TAKE FROM IT.** Funck-Brentano is
+writing against Michelet, and says so; a partisan work is a poor source for a judgement and an
+excellent one for a COUNT, because the count is the thing his opponents would have contested if they
+could.
