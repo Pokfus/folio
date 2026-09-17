@@ -597,6 +597,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 541–570 (排球 → 千万), deck order | 20 | a label and a gloss that were different WORDS, and a question mark that was a full stop |
 | 2026-09-17 | `hsk30l4` notes 571–600 (签证 → 缺少), deck order | 25 | a gloss that was not any sense the word has, and a `not X` hint retired by giving both cards their real meaning |
 | 2026-09-17 | `hsk30l4` notes 601–630 (却 → 少见), deck order | 15 | a headword that was not in its own sentence at all, twice, and invisible to the checker both times |
+| 2026-09-17 | `hsk30l4` notes 631–660 (少量 → 使), deck order, plus a new `cell phone` LEXIS row and a petrol sweep | 33 | a card glossed `province` not one of whose three sentences is a province |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6013,4 +6014,95 @@ Mandarin and its panel already shows six words.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 329 unchanged; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 548 unchanged;
+`build-lang-decks.js` re-run.
+
+## Batch 62 — hsk30l4 notes 631–660 (少量 → 使)
+
+Thirty consecutive notes of the HSK 4 deck, and the heaviest batch of the Level 4 run: **thirty-three
+cards changed across six decks**, because two measured word-choice families were swept with it.
+
+**The leading finding is the gloss-versus-examples fault in its purest form.** 省 was glossed
+**`province`** and **not one of its three sentences is a province**: 这辆车很省油, 你省了我好多时间
+and 天啊，省省吧 are all the verb 省 *to save, to economise*. Nothing on that card is misspelt,
+mislabelled or ungrammatical; every checker here passes it; and a reader would simply learn the wrong
+meaning of a Level 4 word. Both senses are now given with the verb leading, because that is what the
+card shows, and the third sentence — whose English, *Jeez, give it a rest*, is a stretch on a set
+phrase — was replaced with 他出生在四川省, so the card at last teaches the sense it was glossing. Each
+sentence now carries the number of the sense it shows.
+
+**That fix retired a `not X` hint pair, and the mechanics are worth writing down.** 省 and 省份 were
+both glossed `province` and carried a `not 省份` / `not 省` pair between them. **A sense rewrite always
+drops the hint**: the applier writes the block FIRST and `renderSenses` replaces the whole English
+field afterwards, which its own comment says is deliberate — a disambiguator disambiguating nothing is
+worse than none. So the pair could not have been kept even if it had been wanted, and it is not
+wanted: with 省 leading on the verb the two ask different questions. 省份's gloss was sharpened in the
+same pass to name the real distinction rather than leave the two sharing one English word — **省
+attaches to a province's NAME (四川省), where 省份 is the noun used on its own and in counting them**,
+which is exactly what that card's own three sentences do. Shared-gloss groups 329 → 328; **the fourth
+pair retired this way**, after 基础/基地, 民族/国籍 and 敲/撞.
+
+**A third headword that was not in its own sentence.** 十分's second line was 现在是七点五十分 — 五十
++ 分, *fifty minutes*, with its English reading *It's 7.50*. This is the shape
+`check-example-fit.js`'s own header names as a FALSE positive (十分|钟), met here as the real thing,
+and the checker reports nothing for the reason it reported nothing on 人生 and 上门 last batch. Three
+batches running have found this class by reading and by nothing else.
+
+**Two word-choice families measured in one pass, and only one of them became a table.**
+· **`cell phone` is a LEXIS row**, `railroad`'s shape: a straight American word for a British one with
+  no second sense to protect. **Nine occurrences on nine cards across five decks**, one sentence
+  carried by four of them, every one read and every one 手机 — not a proper noun among them, nothing to
+  judge per site, and the replacement contains a space so it can never match itself on a re-run. Both
+  forms occur, so both are declared.
+· **`gas` is NOT**, and refusing it is the more instructive half. It runs to **56 occurrences** across
+  the nine decks and about fifty are the SUBSTANCE — natural gas, coal gas, a gas leak, a gas bubble,
+  tear gas — which is British English too. Only the **six** that mean PETROL are American, and they
+  went to per-note `exEn` rows on 省, 油 (×2), 汽油 (×2, one of them a row this record itself ships)
+  and 耗. This is `fall` and `check` and `store` again: **the correct spelling depends on what the
+  sentence is about, which is a judgement per site.** `crossroad` was measured the same way and came to
+  **two** sites carrying one sentence — a class of two is not a table, so both are per note.
+
+**Five more glosses that were not the card's sense.** 剩 was glossed `spare`, which is not a sense
+CC-CEDICT gives it at all. 使 led on `to send (someone)` — the formal 使者 sense — while all three
+sentences are the causative. 十分 was `completely; utterly` over three sentences that all say *very*,
+and its bracketed literal called 分 a *point* where it is a tenth part. 少量 was **`a smidgen`**, which
+is CC-CEDICT's own first gloss and a word a learner will not meet again. 少年 was `early youth`, an
+abstract noun, on a card whose sentences all use it for a person. 师傅 was `master` alone, missing the
+use a learner meets first and which the card's own second sentence is: how you address a driver.
+
+**Four labels and one card that was a sense short.** 身 named `noun / measure word` over three nouns;
+失败 named `verb / adjective` over sentences that are the verb and the NOUN; 申请 carried a noun inside
+a gloss labelled `verb` alone. And **生 carried two senses while its three sentences show three** — 他
+不是个高中生 is 生 as *student*, which CC-CEDICT gives as a bound form and which neither sense covered.
+Its second sentence went with it: 生菜要洗吗？ buries the character in **生菜, which is LETTUCE**, and
+called it *fresh vegetables*, so the card was wrong about the word and wrong about the dish at once.
+
+**Five more sentences replaced.** 少数's two remaining lines were both `只有少数的人`, and the third was
+a state slogan with full-width brackets, an odd plural on 族裔们 and an English line reading *are kins
+in one family*. 少年 had a twelve-year-old proposing marriage. 社会's 他不仅社会学毕业，还有哲学
+mismatches 不仅…还有 and buries the headword in 社会学. 剩 carried a line about sons coming home in
+coffins, whose English did not translate it. 师傅's third was a long line on the layout of an ancient
+city, out of register for the deck. 实际 used 实际 as a bare adverb where Chinese says 实际上.
+
+**Three English lines corrected, plus two rows this record ships.** 我们没有失望 is *we were not
+disappointed*, and the card said *We have not lost hope* — a different sentence about a different
+feeling. 师傅's first was a mock-archaic pastiche (*Good day, lords. In what way can I refine upon my
+adroitness in aural comprehension?*). 您使我印象深刻 is a deep impression, not a heavy one. And two
+sentences the RECORD ships were corrected in their own rows rather than swept: 摄氏度's third had
+dropped the very unit the card teaches, and 汽油's was one of the petrol six. **Ask which of the two is
+shipping a sentence before writing a row about it** — the trap batch 61 met from the other side.
+
+**Three `Compounds` blocks**, every row checked against CC-CEDICT first: 深, 省 and 剩 had **nothing at
+all** in the reader's downloaded deck. 省's block deliberately includes **反省 fǎn xǐng**, the
+character's other reading, which nothing else on that card could tell the reader about.
+
+**One bare sentence**: 甚至's first ended with no terminal mark; `exStop` supplies the full stop and
+nothing else.
+
+**Read and left.** 社会 (its other lines), 摄氏度, 深, 身份证, 甚至, 生命, 生意, 失去, 师生, 时间表,
+实际上, 食品, 食堂, 食物, 实在, 十字路口 — and 深, whose `adjective / adverb` label is not shown by any
+sentence but whose gloss covers both, the adverbial use (深受影响) being one the deck may reach later.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 329 → 328**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 548 → 557;
 `build-lang-decks.js` re-run.

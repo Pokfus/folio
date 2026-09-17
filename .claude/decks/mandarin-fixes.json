@@ -14349,18 +14349,25 @@
       ]
     },
     "hsk30l5/汽油": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the AMERICAN-WORD-CHOICE sweep (batch 24). Its gloss read “gasoline; petrol”.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the AMERICAN-WORD-CHOICE sweep (batch 24). Its gloss read “gasoline; petrol”. | `gas` for PETROL is American and these decks are authored British, so the record's own sentence is corrected in its own row rather than swept. The card's remaining generator block, 我很确定我们有足够好的汽油回家, carries a stray 好 — 足够好的汽油 is `good enough petrol`, where the English says `enough gas` — and both of the card's other lines were about running out, so it is replaced rather than patched. AUTHORED, and the record says so.",
       "ex": [
         [
           "没汽油了。",
-          "We ran out of gas."
+          "We've run out of petrol."
         ],
         [
           "越来越多的环保者开始宣传和使用以环保的无铅汽油为燃料的汽车。",
           "More and more environmentalists advocate and use environmentally friendly unleaded petrol in cars."
+        ],
+        [
+          "汽油又涨价了。",
+          "Petrol has gone up in price again."
         ]
       ],
-      "gloss": "petrol"
+      "gloss": "petrol",
+      "dropEx": [
+        "我很确定我们有足够好的汽油回家"
+      ]
     },
     "hsk30l5/河流": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
@@ -70904,7 +70911,7 @@
       ]
     },
     "hsk30l4/摄氏度": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The third sentence's English dropped the very unit the card teaches: 零下五摄氏度 is minus five DEGREES CELSIUS, and `It was only minus five last night` leaves no trace of 摄氏度. The row belongs to this record rather than to the deck, so the fix belongs in the row.",
       "ex": [
         [
           "今天最高气温三十摄氏度。",
@@ -70916,7 +70923,7 @@
         ],
         [
           "昨晚只有零下五摄氏度。",
-          "It was only minus five last night."
+          "It was only minus five degrees Celsius last night."
         ]
       ]
     },
@@ -75024,16 +75031,22 @@
       ]
     },
     "hsk30l4/少年": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Glossed `early youth`, an abstract noun, on a card whose sentences all use the word for a PERSON — 他是个日本少年, 他还是个少年. CC-CEDICT gives /early youth/youngster/(literary) youth; young man/. | An example sentence had a boy of about twelve proposing marriage: 少年决定要向她求婚 is stilted Chinese and wrong about the word, 少年 being a youngster rather than a young man. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "dropEx": [
-        "多少年过去了。"
+        "多少年过去了。",
+        "少年决定要向她求婚"
       ],
       "ex": [
         [
           "他还是个少年。",
           "He is still a youth."
+        ],
+        [
+          "那个少年很有礼貌。",
+          "That boy is very polite."
         ]
-      ]
+      ],
+      "gloss": "a boy or young teenager; early youth"
     },
     "hsk30l4/语法": {
       "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -76106,7 +76119,7 @@
       ]
     },
     "hsk30l4/少量": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Glossed `a smidgen`, which is CC-CEDICT's own first gloss and is a colloquial English word a learner is unlikely to meet again; the card's three sentences are all plain `a small amount`.",
       "ex": [
         [
           "加少量的盐就够了。",
@@ -76116,7 +76129,8 @@
           "他只喝少量的酒。",
           "He drinks only a little."
         ]
-      ]
+      ],
+      "gloss": "a small amount of; a little"
     },
     "hsk30l4/收听": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -77553,7 +77567,7 @@
       ]
     },
     "hsk30l5/省份": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Its `not 省` block retired. 省 and 省份 were both glossed `province` and carried a `not X` hint pair between them; 省's card has now been given its verb sense, which is what two of its three sentences show, so the two no longer ask the same question — and the hint had to come off, since a sense rewrite REBUILDS the English field and the applier writes the block before that rather than after. The gloss is sharpened in the same pass to name the real distinction rather than leave the two carrying one word between them: 省 attaches to a province's NAME (四川省), where 省份 is the noun used on its own and in counting them, which is exactly what this card's own three sentences do.",
       "ex": [
         [
           "这个省份人口很多。",
@@ -77563,7 +77577,8 @@
           "他去过十几个省份。",
           "He has been to more than ten provinces."
         ]
-      ]
+      ],
+      "gloss": "a province, as one of a country's divisions"
     },
     "hsk30l5/省会": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -108132,7 +108147,7 @@
       ]
     },
     "hsk30l2/右": {
-      "why": "Its gloss was \"right side or direction\" — a run-on joining two renderings of one meaning with \"or\", the shape cut from 学, 天, 词 and 考 before it. CC-CEDICT gives \"right; right-hand side\". | Its third example was 他伸长了他的右手。 — 右手 is a word (the right hand), so the headword is inside it, and the sentence repeats 他 as subject and possessor where Chinese would drop the second. Replaced with an AUTHORED sentence. The first draft, 往右走就到了, used the same 往右 frame as the surviving 往右拐, so it was rewritten with 向 — the card's three sentences now show 右转, 往右 and 向右, which are the three ways a beginner meets it. (右手 is on the compound list instead.) | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. 右手 is on the list because it is the word this batch had to take OUT of the card's own examples, where it was swallowing the headword.",
+      "why": "Its gloss was \"right side or direction\" — a run-on joining two renderings of one meaning with \"or\", the shape cut from 学, 天, 词 and 考 before it. CC-CEDICT gives \"right; right-hand side\". | Its third example was 他伸长了他的右手。 — 右手 is a word (the right hand), so the headword is inside it, and the sentence repeats 他 as subject and possessor where Chinese would drop the second. Replaced with an AUTHORED sentence. The first draft, 往右走就到了, used the same 往右 frame as the surviving 往右拐, so it was rewritten with 向 — the card's three sentences now show 右转, 往右 and 向右, which are the three ways a beginner meets it. (右手 is on the compound list instead.) | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. 右手 is on the list because it is the word this batch had to take OUT of the card's own examples, where it was swallowing the headword. | `crossroad` is the American singular and British English has no such form. The same sentence is carried by hsk30l4/十字路口; a class of two is not a table, so both are fixed per note.",
       "gloss": "the right; the right-hand side",
       "dropEx": [
         "他伸长了他的右手。"
@@ -108158,6 +108173,12 @@
           "左右",
           "zuǒ yòu",
           "left and right; approximately"
+        ]
+      ],
+      "exEn": [
+        [
+          "在十字路口右转",
+          "Turn right at the crossroads."
         ]
       ]
     },
@@ -118979,6 +119000,319 @@
           "frequent, of something unwelcome"
         ]
       ]
+    },
+    "hsk30l4/省": {
+      "why": "The card was glossed `province` and NOT ONE of its three sentences is a province: 这辆车很省油, 你省了我好多时间 and 天啊，省省吧 are all the verb 省 `to save, to economise`. The gloss was right about the word and wrong about the card, which is this audit's commonest finding in its sharpest form — nothing here is misspelt, mislabelled or ungrammatical, and a reader would simply learn the wrong meaning. Both senses are now given, the verb leading because that is what the card shows, and the third sentence — 天啊，省省吧, whose English `Jeez, give it a rest` is a stretch on a set phrase — replaced with the province the gloss had been promising all along, so the card now teaches both. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | `gas` for PETROL is American, and the decks are authored British because the site's spelling switch runs one way only, from en-GB, so an American word written into deck content is what both readers see. This family cannot be a LEXIS row: `gas` runs to 56 occurrences across the nine decks and about fifty of them are the SUBSTANCE — natural gas, coal gas, a gas leak, a gas bubble, tear gas — which is British English too. Every occurrence was read; the six that mean petrol are fixed per note, which is `fall` and `check` and `store` again. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. 反省 is included deliberately: it is the character's OTHER reading, xǐng, which nothing else on the card could tell the reader about.",
+      "senses": [
+        [
+          "verb",
+          "to save, to economise on; to omit, to leave out"
+        ],
+        [
+          "noun",
+          "a province"
+        ]
+      ],
+      "dropEx": [
+        "天啊，省省吧"
+      ],
+      "ex": [
+        [
+          "他出生在四川省。",
+          "He was born in Sichuan Province."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "exEn": [
+        [
+          "这辆车很省油",
+          "This car is very economical on petrol."
+        ]
+      ],
+      "compounds": [
+        [
+          "节省",
+          "jié shěng",
+          "to save; to use sparingly"
+        ],
+        [
+          "省份",
+          "shěng fèn",
+          "a province"
+        ],
+        [
+          "省略",
+          "shěng lüè",
+          "to leave out; to omit"
+        ],
+        [
+          "反省",
+          "fǎn xǐng",
+          "to reflect upon oneself — note the reading"
+        ]
+      ]
+    },
+    "hsk30l4/剩": {
+      "why": "Glossed `spare`, which is not what 剩 means and is not a sense CC-CEDICT gives it (/to remain/to be left/to have as remainder/); all three of the card's sentences are `left over`. | An example sentence was a line about dead soldiers — 母亲们心里清楚，儿子回来时只剩一口棺材 — whose English, `Mothers know their sons are coming back in caskets`, does not translate it and whose subject has no business on a vocabulary card about leftovers. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to be left over; to remain",
+      "dropEx": [
+        "只剩一口棺材"
+      ],
+      "ex": [
+        [
+          "桌上还剩着半瓶酒。",
+          "There is still half a bottle of wine left on the table."
+        ]
+      ],
+      "compounds": [
+        [
+          "剩下",
+          "shèng xià",
+          "to remain; to be left over"
+        ],
+        [
+          "剩余",
+          "shèng yú",
+          "what is left; a surplus"
+        ],
+        [
+          "过剩",
+          "guò shèng",
+          "to be more than is needed; excess"
+        ]
+      ]
+    },
+    "hsk30l4/十分": {
+      "why": "Glossed `completely; utterly`, the strongest of CC-CEDICT's senses, while all of the card's sentences render it `very` — 她十分漂亮, 人生十分短暂. The bracketed literal `ten points` went with it: 分 here is a tenth part rather than a point, so the note was mildly wrong as well as beside the point. | The headword was not in the second sentence at all: 现在是七点五十分 is 五十 + 分, fifty MINUTES, and its English says `It's 7.50`. This is the batch's third such find and the one `check-example-fit.js`'s own header names as a false-positive shape — 十分|钟 — met here as the real thing. Replaced, and with a different construction from the two that remain, both of which are 十分 before an adjective. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "very, extremely",
+      "dropEx": [
+        "现在是七点五十分"
+      ],
+      "ex": [
+        [
+          "我十分感谢你的帮助。",
+          "I am extremely grateful for your help."
+        ]
+      ]
+    },
+    "hsk30l4/实际": {
+      "why": "The gloss gave `reality; specific; actual` and missed the sense the word is commonest in — practical, realistic, as in 不太实际. CC-CEDICT gives /reality/practice/practical/realistic/real/actual/. | An example sentence used 实际 as a bare adverb — 我实际并不知道 — where Chinese says 实际上, and its English, `I actually never knew that`, does not translate 并不知道 either. Replaced with the practical/realistic sense the widened gloss now names. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "actual, real; practical, realistic; reality",
+      "dropEx": [
+        "我实际并不知道"
+      ],
+      "ex": [
+        [
+          "这个计划不太实际。",
+          "This plan isn't very practical."
+        ]
+      ]
+    },
+    "hsk30l4/使": {
+      "why": "Glossed `to send (someone); cause`, leading on the formal sense of 使者 and 出使, which is not what any of the card's three sentences is: 新闻使她不安, 是什么使他如此心烦, 您使我印象深刻 are all the causative. CC-CEDICT leads /to make/to cause/to enable/. | `You have left a heavy impression on me` is not English; 您使我印象深刻 is a deep impression.",
+      "gloss": "to make, to cause (somebody to do something)",
+      "exEn": [
+        [
+          "您使我印象深刻",
+          "You made a deep impression on me."
+        ]
+      ]
+    },
+    "hsk30l4/师傅": {
+      "why": "Glossed `master` alone, which in English suggests a master craftsman and misses the use a learner will meet first — 师傅 is how you address any skilled worker, and above all a driver, which is exactly what the card's own second sentence does. CC-CEDICT gives /master/qualified worker/respectful form of address for older men/. | The third sentence was a long line about the layout of an ancient city — 远离宫殿的北方及南方是平民、商人、工艺师傅和工人 — out of register for the deck and using 师傅 inside 工艺师傅 rather than on its own. Replaced with the everyday trade use. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The first sentence's English was a pastiche: `Good day, lords. In what way can I refine upon my adroitness in aural comprehension?` for 早安，师傅。我应该怎么样提高听力能力？ — plural where the Chinese is singular, and mock-archaic throughout.",
+      "gloss": "a master craftsman; a polite form of address to a skilled worker, especially a driver",
+      "dropEx": [
+        "远离宫殿的北方及南方"
+      ],
+      "ex": [
+        [
+          "他是个修车师傅。",
+          "He is a car mechanic."
+        ]
+      ],
+      "exEn": [
+        [
+          "早安，师傅",
+          "Good morning, master. How can I improve my listening?"
+        ]
+      ]
+    },
+    "hsk30l4/身": {
+      "why": "The card named `noun / measure word` over a gloss that gives three nouns and nothing else, and none of its sentences is the classifier. 身 really is a measure word — for a suit of clothes, 一身衣服 — but a label with nothing behind it is a promise the card does not keep.",
+      "senses": [
+        [
+          "noun",
+          "body, person, oneself"
+        ]
+      ]
+    },
+    "hsk30l4/失败": {
+      "why": "The card named `verb / adjective` and its sentences are the verb and the NOUN: 实验失败了 is the verb, 失败的责任在他 is `the failure`, and nothing on the card is an adjective. CC-CEDICT gives /to be defeated/to lose/to fail/failure/defeat/.",
+      "senses": [
+        [
+          "verb",
+          "to fail; to be defeated"
+        ],
+        [
+          "noun",
+          "a failure; a defeat"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/申请": {
+      "why": "The gloss carried a noun — `to apply; application` — under a label reading `verb` alone, and two of the card's three sentences are built on the noun (申请人, 申请书). Split into the two senses the word has.",
+      "senses": [
+        [
+          "verb",
+          "to apply for"
+        ],
+        [
+          "noun",
+          "an application"
+        ]
+      ]
+    },
+    "hsk30l4/生": {
+      "why": "The card carried two senses and its three sentences show THREE, the missing one being the commonest thing a learner meets: 他不是个高中生 is 生 as `student`, which CC-CEDICT gives as `(bound form) student; person engaged in a field` and which neither of the card's senses covered. The second sentence went with it — 生菜要洗吗？ buries the character in 生菜, which is LETTUCE, and its English called it `fresh vegetables`, so the card was wrong about the word and wrong about the dish at once. Replaced with the raw/uncooked sense, and each sentence now says which of the three it is showing. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "senses": [
+        [
+          "verb",
+          "to be born; to give birth to; to grow"
+        ],
+        [
+          "adjective",
+          "raw, uncooked; unfamiliar, strange"
+        ],
+        [
+          "noun",
+          "(in compounds) a student"
+        ]
+      ],
+      "dropEx": [
+        "生菜要洗吗"
+      ],
+      "ex": [
+        [
+          "这肉还是生的。",
+          "This meat is still raw."
+        ]
+      ],
+      "exSense": [
+        1,
+        3,
+        2
+      ]
+    },
+    "hsk30l4/少数": {
+      "why": "Two of the three sentences were the same shape — 只有少数的人是无忧无虑的 and 只有少数的人才懂了我的意思, both `只有少数的人` — and the third, 汉满蒙回藏（以及中国的其他少数族裔们）一家亲, is a state slogan carrying full-width brackets, an odd plural on 族裔们 and an English line, `are kins in one family`, that is not English. Both replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "汉满蒙回藏",
+        "只有少数的人才懂了我的意思"
+      ],
+      "ex": [
+        [
+          "少数服从多数。",
+          "The minority yields to the majority."
+        ],
+        [
+          "赞成的人占少数。",
+          "Those in favour were in the minority."
+        ]
+      ]
+    },
+    "hsk30l4/社会": {
+      "why": "An example sentence was not grammatical: 他不仅社会学毕业，还有哲学 mismatches 不仅…还有, uses 社会学毕业 where Chinese needs 从…毕业 or 学的是, and buries the headword inside 社会学, sociology. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "他不仅社会学毕业"
+      ],
+      "ex": [
+        [
+          "我们要为社会做贡献。",
+          "We should contribute to society."
+        ]
+      ]
+    },
+    "hsk30l4/失望": {
+      "why": "The English said the opposite of the Chinese. 我们没有失望 is `we were not disappointed`; the card read `We have not lost hope`, which is 没有失去希望 — a different sentence about a different feeling.",
+      "exEn": [
+        [
+          "我们没有失望",
+          "We were not disappointed."
+        ]
+      ]
+    },
+    "hsk30l4/十字路口": {
+      "why": "`crossroad` is the American singular; British English has no such form — the noun is `crossroads` whether there is one of them or several, and the card's own second sentence already writes it that way. Two sites across the decks, this one and hsk30l2/右, which carry the same sentence; a class of two is not a table, so both are fixed per note.",
+      "exEn": [
+        [
+          "在十字路口右转",
+          "Turn right at the crossroads."
+        ]
+      ]
+    },
+    "hsk30l4/油": {
+      "why": "`gas` for PETROL is American, and the decks are authored British because the site's spelling switch runs one way only, from en-GB, so an American word written into deck content is what both readers see. This family cannot be a LEXIS row: `gas` runs to 56 occurrences across the nine decks and about fifty of them are the SUBSTANCE — natural gas, coal gas, a gas leak, a gas bubble, tear gas — which is British English too. Every occurrence was read; the six that mean petrol are fixed per note, which is `fall` and `check` and `store` again.",
+      "exEn": [
+        [
+          "这辆车很省油",
+          "This car is very economical on petrol."
+        ],
+        [
+          "我们没油了",
+          "We've run out of petrol."
+        ]
+      ]
+    },
+    "hsk30l7/耗": {
+      "why": "`gas` for PETROL is American, and the decks are authored British because the site's spelling switch runs one way only, from en-GB, so an American word written into deck content is what both readers see. This family cannot be a LEXIS row: `gas` runs to 56 occurrences across the nine decks and about fifty of them are the SUBSTANCE — natural gas, coal gas, a gas leak, a gas bubble, tear gas — which is British English too. Every occurrence was read; the six that mean petrol are fixed per note, which is `fall` and `check` and `store` again.",
+      "exEn": [
+        [
+          "我的车子很耗油",
+          "My car uses a lot of petrol."
+        ]
+      ]
+    },
+    "hsk30l4/甚至": {
+      "why": "An example sentence ended with no terminal mark at all. The corpus-wide punctuation pass CONVERTS a half-width mark to a full-width one and never ADDS one, so about 150 sentences still stop bare.",
+      "exStop": [
+        [
+          "我甚至不喜欢你"
+        ]
+      ]
+    },
+    "hsk30l4/深": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "深刻",
+          "shēn kè",
+          "profound; deep-going"
+        ],
+        [
+          "深入",
+          "shēn rù",
+          "to penetrate deeply; thorough"
+        ],
+        [
+          "加深",
+          "jiā shēn",
+          "to deepen"
+        ],
+        [
+          "深度",
+          "shēn dù",
+          "depth; profundity"
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -119152,7 +119486,6 @@
     "hsk30l4/皮肤": "肌肤",
     "hsk30l4/相互": "互相",
     "hsk30l4/相同": "同样",
-    "hsk30l4/省": "省份",
     "hsk30l4/知识": "学识",
     "hsk30l4/租": "出租",
     "hsk30l4/竞争": "参赛",
@@ -119247,7 +119580,6 @@
     "hsk30l5/由此": "特此",
     "hsk30l5/画面": "景象",
     "hsk30l5/番茄": "西红柿",
-    "hsk30l5/省份": "省",
     "hsk30l5/穷": "贫穷",
     "hsk30l5/紧急": "迫切",
     "hsk30l5/纪录": "唱片",

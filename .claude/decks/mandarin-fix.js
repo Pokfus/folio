@@ -333,7 +333,16 @@ function britExamples(html) {
    needed per site, and the replacement contains a space, which means it can never match itself on a
    re-run. British style sets it as two words; the decks were split 15 one word to 11 two, across eleven
    cards, every site read and none a proper noun — and `hsk30l4/家乡` CONTRADICTED ITSELF, its gloss
-   already reading `home town` over two sentences saying `hometown`. */
+   already reading `home town` over two sentences saying `hometown`.
+   `cell phone` IS `railroad`'S SHAPE (batch 62): a straight American word for a British one with no
+   second sense to protect — a cell phone is a mobile phone wherever it occurs, and unlike `gas`, which
+   this batch measured in the same pass and REFUSED a row for, there is nothing to judge per site.
+   (`gas` runs to 56 occurrences across the nine decks and about fifty of them are the SUBSTANCE —
+   natural gas, coal gas, a gas leak, a gas bubble — which is British English too; only the six that
+   mean PETROL are American, so that family went to per-note `exEn` rows, which is `fall` and `check`
+   and `store` again.) Measured over the nine decks: NINE occurrences on nine cards, one sentence
+   carried by four of them, every one read and every one 手机. The plural is declared beside it because
+   both forms occur, and the replacement contains a space, so it can never match itself on a re-run. */
 const LEXIS = (() => {
   const PAIRS = [
     ["driver's license", "driving licence"],
@@ -364,6 +373,8 @@ const LEXIS = (() => {
     ["trucks", "lorries"],
     ["truck", "lorry"],
     ["math", "maths"],
+    ["cell phones", "mobile phones"],
+    ["cell phone", "mobile phone"],
     ["hometowns", "home towns"],
     ["hometown", "home town"],
     ["railroads", "railways"],
