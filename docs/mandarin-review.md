@@ -594,6 +594,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 451–480 (老虎 → 留下), deck order | 18 | a card whose gloss named one sense while all three of its lines used another the gloss never gave |
 | 2026-09-17 | `hsk30l4` notes 481–510 (流行 → 母亲), deck order | 21 | a gloss that dismissed its own card three times over, and a second hint pair retired |
 | 2026-09-17 | `hsk30l4` notes 511–540 (母子 → 排队), deck order | 19 | a sentence whose three headword characters were two OTHER words meeting, and a wrong pronoun in the Chinese |
+| 2026-09-17 | `hsk30l4` notes 541–570 (排球 → 千万), deck order | 20 | a label and a gloss that were different WORDS, and a question mark that was a full stop |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5804,4 +5805,55 @@ and 内心's *Deep down, everyone is rich and beautiful* (batch 47 fixed it on �
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; **shared-gloss groups 332 → 331**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 524 → 530;
+`build-lang-decks.js` re-run.
+
+## Batch 59 — hsk30l4 notes 541–570 (排球 → 千万)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order. Twenty cards changed.
+
+**A LABEL AND A GLOSS THAT WERE DIFFERENT WORDS.** 千万 was labelled an ADVERB and glossed **ten million**,
+which is the numeral — and two of its three lines are the adverb (千万不要, 千万别), a sense the gloss did
+not carry at all. The label-against-gloss class has been a part of speech missing or misnamed until now;
+this is the first time the two named two different words.
+
+**A QUESTION MARK THAT WAS A FULL STOP.** 排球's second line ends a 吗 question with 。 — and **the
+deck-level punctuation pass cannot see it**, since that pass converts a mark standing immediately after a
+character and this mark is simply the wrong one. `exSpace` reaches it, its rule being that a row may only
+move whitespace and punctuation.
+
+**FOUR GLOSSES CARRYING THE WORDS "MEASURE WORD" INSIDE A GLOSS WHOSE LABEL ALREADY SAYS SO** — 篇, 片, 期
+and, by the same shape, 平常, which was labelled *noun / adjective* and glossed with three ADVERBS. 气 was
+labelled *noun / verb* against a gloss that is only the noun, where two of its lines are the verb, and 判断
+was glossed *to decide*, which is 决定 a few cards along, where its own first line is the noun *judgement*.
+That makes **seventy-eight over fourteen batches**.
+
+**A SHARED-GLOSS GROUP DISSOLVED.** 牌子 was glossed *sign*, a group it shared with 苗头, where two of its
+three lines are a BRAND. Groups 331 → 330, the seventh such retirement.
+
+**FOUR MORE SWALLOWS.** 篇's third was 千篇一律, a four-character idiom; 片's second was 生鱼片, **sashimi**;
+期's second was 缓期执行, a stay of **execution**, which is not a sentence a learner of this word needs; and
+葡萄's second was 葡萄糖, **glucose** — literally grape sugar, but its English says glucose, so a learner
+meeting 葡萄 for the first time beside it learns nothing about the fruit.
+
+**DROPPING A SENTENCE ORPHANS ANY `exEn` ROW THAT NAMED IT.** 篇 already carried an `exEn` rewriting the
+English of the very line this batch dropped, and the applier reported it on the next run — which is how it
+was found, and which is the batch-54 rule working in the direction that helps: a FAIL prints on every run,
+`--check` included, so an orphaned row announces itself rather than sitting in the record for ever.
+
+**THE `soda` CLASS, AND WHY IT IS NOT A TABLE ROW.** 汽水 was glossed *soda pop; carbonated soft drink* and
+all three of its lines read *soda* — which in British English is soda water, and this is not that. Seven
+American sites, on this card and one other (`hsk30l5/洒`), so per-note rows: **a bare `soda` → `fizzy
+drink` row would rewrite a genuine soda water**, which is the judgement-per-site case `highway` and `mall`
+already settled.
+
+**THREE SINGLE-CHARACTER CARDS GAINED `Compounds`** — 篇, 片 and 破, 篇's and 破's panels being empty.
+
+**EIGHT ENGLISH LINES.** 气候's first read *How's the WEATHER there?* on a card glossed *climate*. 普通话's
+second gave two ROMANISATIONS in place of a translation. 普遍's third dropped the headword and said it of
+all young people rather than most. 皮肤's called an 过敏 a *rash*. 皮鞋's dropped the leather. And 其次's
+third used *then* for both 其次 and 然后.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 331 → 330**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 530 → 548;
 `build-lang-decks.js` re-run.

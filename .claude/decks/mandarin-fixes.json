@@ -76463,11 +76463,17 @@
       ]
     },
     "hsk30l4/皮鞋": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '我要他擦亮我的皮鞋。' read 'polish my SHOES', dropping the 皮 that makes them the card's own word.",
       "ex": [
         [
           "他擦了擦皮鞋。",
           "He gave his leather shoes a wipe."
+        ]
+      ],
+      "exEn": [
+        [
+          "我要他擦亮我的皮鞋",
+          "I got him to polish my leather shoes."
         ]
       ]
     },
@@ -109515,7 +109521,7 @@
       ]
     },
     "hsk30l4/破": {
-      "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence, 去你的破网站, was translated \"Fuck your websites\" — the Chinese is dismissive rather than obscene, and the card is glossed *break*. | Its third is the **second character error** this sweep found: 希望别破妈妈发现才好 is 别**被**妈妈发现, \"I hope Mum doesn't find out\", which is exactly what its own English says. 破 for 被 is a typo, and the sentence is on this card only because of it. See 炮 in Levels 7–9 for the first.",
+      "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence, 去你的破网站, was translated \"Fuck your websites\" — the Chinese is dismissive rather than obscene, and the card is glossed *break*. | Its third is the **second character error** this sweep found: 希望别破妈妈发现才好 is 别**被**妈妈发现, \"I hope Mum doesn't find out\", which is exactly what its own English says. 破 for 被 is a typo, and the sentence is on this card only because of it. See 炮 in Levels 7–9 for the first. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against thirteen words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "dropEx": [
         "去你的破网站。",
         "希望别破妈妈发现才好。"
@@ -109528,6 +109534,23 @@
         [
           "他破了世界纪录。",
           "He broke the world record."
+        ]
+      ],
+      "compounds": [
+        [
+          "破坏",
+          "pò huài",
+          "to damage; to destroy"
+        ],
+        [
+          "突破",
+          "tū pò",
+          "to break through"
+        ],
+        [
+          "打破",
+          "dǎ pò",
+          "to break; to smash"
         ]
       ]
     },
@@ -111857,11 +111880,41 @@
       ]
     },
     "hsk30l4/篇": {
-      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right.",
-      "exEn": [
+      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. | The gloss carried the words 'measure word for writing' INSIDE a gloss whose label already says measure word — the shape 幅 and 棵 both had. | '这个节目变得千篇一律。' is the four-character idiom 千篇一律, all of a muchness — a fixed phrase that swallows the headword, and not the measure word the card is for. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. | The card's earlier `exEn` row, which rewrote this same sentence's English, is removed with it: DROPPING A SENTENCE ORPHANS ANY `exEn` ROW THAT NAMED IT, and the applier reports that on the next run — which is how this one was found.",
+      "senses": [
         [
-          "这个节目变得千篇一律",
-          "This programme has become stereotyped."
+          "measure word",
+          "[for articles, essays and texts]"
+        ],
+        [
+          "noun",
+          "a piece of writing"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "dropEx": [
+        "这个节目变得千篇一律。"
+      ],
+      "ex": [
+        [
+          "他写了三篇短文。",
+          "He wrote three short pieces."
+        ]
+      ],
+      "compounds": [
+        [
+          "篇幅",
+          "piān fú",
+          "the length of a piece of writing"
+        ],
+        [
+          "长篇",
+          "cháng piān",
+          "lengthy; full-length"
         ]
       ]
     },
@@ -112974,12 +113027,27 @@
       ]
     },
     "hsk30l4/气": {
-      "why": "Found by a hand sweep of the word MAD, which is American for *angry* and ordinary British English for *insane*. It cannot be a LEXIS row for exactly that reason — measured over the nine decks, 12 sentences carry it and 8 of them are the British sense (疯, 疯狂, 疯子, 理智, 痴迷's *mad about music*), so a table would have made *My cat is angry* out of 我的猫疯了. The four that are the American sense sit on cards whose headword IS anger, and are repaired by hand. This card's own third line already says 'Don't get angry at me', so it gave a reader both words for one sense.",
+      "why": "Found by a hand sweep of the word MAD, which is American for *angry* and ordinary British English for *insane*. It cannot be a LEXIS row for exactly that reason — measured over the nine decks, 12 sentences carry it and 8 of them are the British sense (疯, 疯狂, 疯子, 理智, 痴迷's *mad about music*), so a table would have made *My cat is angry* out of 我的猫疯了. The four that are the American sense sit on cards whose headword IS anger, and are repaired by hand. This card's own third line already says 'Don't get angry at me', so it gave a reader both words for one sense. | Labelled 'noun / verb' against a gloss that is only the noun — 'air, gas, vapour, breath, vital energy' — where TWO of the card's three lines are the verb: 我还是很气 and 你别生我的气. Split, and tagged.",
       "exEn": [
         [
           "我还是很气",
           "I'm still angry."
         ]
+      ],
+      "senses": [
+        [
+          "noun",
+          "air; gas; breath"
+        ],
+        [
+          "verb / adjective",
+          "to be angry; to anger"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
       ]
     },
     "hsk30l7/打赌": {
@@ -114158,12 +114226,27 @@
       ]
     },
     "hsk30l4/平常": {
-      "why": "Found by the same AT-THE-WEEKEND sweep; this card carries the same sentence as 周末's second.",
+      "why": "Found by the same AT-THE-WEEKEND sweep; this card carries the same sentence as 周末's second. | Labelled 'noun / adjective' and glossed with three ADVERBS — 'ordinarily; generally; usually'. Named properly, with the adverb leading, which is what all three of the card's lines are.",
       "exEn": [
         [
           "周末他平常不在家",
           "He is often away from home at the weekend."
         ]
+      ],
+      "senses": [
+        [
+          "adverb",
+          "usually; ordinarily"
+        ],
+        [
+          "adjective",
+          "ordinary; common"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
       ]
     },
     "hsk30l3/住院": {
@@ -118153,6 +118236,217 @@
           "玩弄",
           "wán nòng",
           "to play with; to toy with"
+        ]
+      ]
+    },
+    "hsk30l4/千万": {
+      "why": "THE LABEL AND THE GLOSS WERE DIFFERENT WORDS. Labelled an ADVERB and glossed 'ten million', which is the numeral — and two of the card's three lines are the adverb, 千万不要 and 千万别, which the gloss did not carry at all. Split, and tagged.",
+      "senses": [
+        [
+          "adverb",
+          "by all means; whatever you do"
+        ],
+        [
+          "numeral",
+          "ten million"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ]
+    },
+    "hsk30l4/判断": {
+      "why": "Glossed 'to decide' under a verb label, where the card's own first line is the NOUN — 你的判断是正确的 — and to decide is 决定 one letter along in the deck.",
+      "senses": [
+        [
+          "verb",
+          "to judge; to determine"
+        ],
+        [
+          "noun",
+          "judgement"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/片": {
+      "why": "The same shape: 'slice; piece; measure word for thin flat pieces' under a label already reading measure word. | '你不喜欢生鱼片，是吗？' is 生鱼片, SASHIMI — a fixed word that swallows the headword, and a dish rather than a measure word. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 图片, against fourteen in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "measure word",
+          "[for thin flat things, and for stretches of land or water]"
+        ],
+        [
+          "noun",
+          "a slice; a piece"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "dropEx": [
+        "你不喜欢生鱼片，是吗？"
+      ],
+      "ex": [
+        [
+          "医生让他每天吃两片药。",
+          "The doctor told him to take two tablets a day."
+        ]
+      ],
+      "compounds": [
+        [
+          "照片",
+          "zhào piàn",
+          "a photograph"
+        ],
+        [
+          "片刻",
+          "piàn kè",
+          "a moment"
+        ],
+        [
+          "影片",
+          "yǐng piàn",
+          "a film"
+        ]
+      ]
+    },
+    "hsk30l4/期": {
+      "why": "Glossed 'a period of time; to expect or hope for' under a MEASURE WORD label — the first is a noun and the second a verb, and neither is the measure word the label names. | '缓期执行在最后关头决定了下来。' is a stay of EXECUTION — 缓期 swallows the headword into a legal term, and it is not a sentence a learner of this word needs. Replaced with an AUTHORED sentence, which the record says so is.",
+      "senses": [
+        [
+          "measure word",
+          "[for periods, issues and courses]"
+        ],
+        [
+          "noun",
+          "a period; a term"
+        ],
+        [
+          "verb",
+          "to expect; to hope for"
+        ]
+      ],
+      "dropEx": [
+        "缓期执行在最后关头决定了下来。"
+      ],
+      "ex": [
+        [
+          "这个项目分三期完成。",
+          "The project will be completed in three phases."
+        ]
+      ]
+    },
+    "hsk30l4/牌子": {
+      "why": "Glossed 'sign', where two of the card's three lines are a BRAND — 什么牌子的酸奶 and 这个牌子的包包.",
+      "gloss": "a brand; a sign"
+    },
+    "hsk30l4/汽水": {
+      "why": "Glossed 'soda pop; carbonated soft drink' — soda pop is American, and in British English a bare soda is soda water, which this is not. The corpus's seven American sites are on this card and one other, so they are per-note rows rather than a table entry. | All three of its lines read SODA, which in British English is soda water. The second site of the class is hsk30l5/洒.",
+      "gloss": "a fizzy drink",
+      "exEn": [
+        [
+          "这汽水太甜了",
+          "This fizzy drink is too sweet."
+        ],
+        [
+          "你想来杯汽水吗",
+          "Would you like a glass of fizzy drink?"
+        ],
+        [
+          "我好想喝汽水",
+          "I would really like a fizzy drink."
+        ]
+      ]
+    },
+    "hsk30l4/排球": {
+      "why": "'你想打排球吗。' ends a 吗 question with a FULL STOP. The punctuation pass converts a mark standing immediately after a character and cannot see a mark that is simply the wrong one.",
+      "exSpace": [
+        [
+          "你想打排球吗。",
+          "你想打排球吗？"
+        ]
+      ]
+    },
+    "hsk30l4/气温": {
+      "why": "Its second line had no full stop at all, on the card and in the spoken field alike.",
+      "exStop": [
+        [
+          "昨天晚上气温突然下降"
+        ]
+      ]
+    },
+    "hsk30l4/葡萄": {
+      "why": "'护士给我打了葡萄糖。' is 葡萄糖, GLUCOSE — literally grape sugar, but its English says glucose, so a learner meeting 葡萄 for the first time beside it learns nothing about the fruit the card is for. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "护士给我打了葡萄糖。"
+      ],
+      "ex": [
+        [
+          "这串葡萄很甜。",
+          "This bunch of grapes is very sweet."
+        ]
+      ]
+    },
+    "hsk30l5/洒": {
+      "why": "The second site of the `soda` class corrected on 汽水's card: in British English a bare soda is soda water.",
+      "exEn": [
+        [
+          "谁把汽水洒了",
+          "Who spilled the fizzy drink?"
+        ]
+      ]
+    },
+    "hsk30l4/气候": {
+      "why": "'那里的气候怎么样？' read 'How's the WEATHER there?' — weather is 天气, and climate is the card's own one-word gloss and its other two lines.",
+      "exEn": [
+        [
+          "那里的气候怎么样",
+          "What is the climate like there?"
+        ]
+      ]
+    },
+    "hsk30l4/普遍": {
+      "why": "'我们国家的年轻人对政治普遍不感兴趣。' read 'The youth of our land are not interested in politics', which drops 普遍 — the card's whole subject — and says it of all of them.",
+      "exEn": [
+        [
+          "我们国家的年轻人对政治普遍不感兴趣",
+          "Young people in our country are generally not interested in politics."
+        ]
+      ]
+    },
+    "hsk30l4/普通话": {
+      "why": "'普通话和北京话是不同的。' read '\"Putonghua\" and \"Beijinghua\" are not the same' — two romanisations standing in for the translation, so a reader who did not know either still does not.",
+      "exEn": [
+        [
+          "普通话和北京话是不同的",
+          "Mandarin and the Beijing dialect are not the same."
+        ]
+      ]
+    },
+    "hsk30l4/皮肤": {
+      "why": "'我因为化妆品皮肤过敏了。' read 'a makeup-induced RASH' — 过敏 is an allergic reaction, which may or may not come out as a rash.",
+      "exEn": [
+        [
+          "我因为化妆品皮肤过敏了",
+          "I had an allergic reaction to the cosmetics."
+        ]
+      ]
+    },
+    "hsk30l4/其次": {
+      "why": "'首先他们嘲笑你，其次他们和你争执，然后你赢了。' read 'First they laugh at you, THEN they fight you, and THEN you win', using one word for both 其次 and 然后.",
+      "exEn": [
+        [
+          "首先他们嘲笑你",
+          "First they laugh at you, next they fight you, and then you win."
         ]
       ]
     }
