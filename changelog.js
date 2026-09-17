@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.795", released: "2026-09-17T18:00Z" };
+window.FOLIO_VERSION = { v: "1.797", released: "2026-09-17T20:14Z" };
 
 window.CHANGELOG = [
   {
@@ -43,7 +43,7 @@ window.CHANGELOG = [
     t: "The Second World War map now shades the United States",
     items: [
       "<b>The Second World War card shades every major power that fought</b> \u2014 the United States was missing from it altogether, along with a dozen more.",
-      "<b>Four more cards draw a globe of their own</b> \u2014 two marked with a single point and two shaded across the whole region they covered.",
+      "<b>Seven more cards draw a globe of their own</b> \u2014 four marked with a single point and three shaded across the whole region they covered.",
       "<b>Folio no longer calls itself a history site</b> \u2014 the walkthrough, the About page and the page description name every subject on the shelf.",
       "<b>The walkthrough no longer blurs what it is pointing at</b> \u2014 the ringed control stays readable behind the dimmed page, which on a phone it was not.",
       "<b>Question variety now ships off</b> \u2014 every card asks its first phrasing until you turn the switch on for a deck.",
@@ -54,7 +54,7 @@ window.CHANGELOG = [
       "<b>The daily quote\u2019s author and work are now glossary links</b>, as every other name on the site is.",
       "<b>Opening a place on your own atlas is no longer announced as a discovery</b> \u2014 you discovered it by studying its card.",
       "<b>The admin artefact list is readable on a phone</b> \u2014 its row wraps instead of squeezing the name to nothing.",
-      "<b>Two cards\u2019 dating is clearer</b> \u2014 one no longer reads as though a later date fell inside its period, and two more agree about the same split.",
+      "<b>Eleven cards and eight glossary terms now carry clearer dates</b> \u2014 the seven kings of Rome and a war get the years traditionally given them, and three more no longer read ambiguously.",
       "<b>True or False explains itself properly</b> \u2014 its answers now link glossary terms, carry citations, and give feet and inches to readers who use them.",
       "<b>Your own atlas names every mark it draws</b> \u2014 a dot arrives with its label or not at all, and more of them appear as you zoom in.",
       "<b>Pinching the Atlas no longer zooms the page</b> on a tablet, which used to leave the site enlarged with no easy way back.",
@@ -68,6 +68,13 @@ window.CHANGELOG = [
       ,"<b>A deck you have finished for the day turns green with a tick</b>, and gold when you got everything right first time."
       ,"<b>A hundred cards on the politics of East Asia</b> — a course collection of 24 decks, in a new Special section of the Collections page."
       ,"<b>A single-character Mandarin card lists the other words built on that character</b>, with their readings and meanings, whatever else you have downloaded."
+      ,"<b>Two card backgrounds are corrected</b> \u2014 one drops a population figure the card already shows and says when the city was founded instead, the other no longer names a modern scholar."
+      ,"<b>Two cards no longer contradict themselves</b> \u2014 one\u2019s questions gained the article they were missing, and the other\u2019s map no longer carries a name the card says was never formed."
+      ,"<b>A source not written in English now says which language it is in</b> \u2014 a chip beside the open-access one, on 381 citations across nine languages."
+      ,"<b>A card whose place is new to your atlas says so when you turn it over</b> \u2014 a Discovered! chip on its globe, with the sound the Atlas already uses."
+      ,"<b>Every card globe has a button through to your own atlas</b>, and a Back button there returns you to the card you were studying."
+      ,"<b>You can now hide a collection\u2019s places on your own atlas</b> \u2014 a switch per collection, beside where the world atlas keeps its layers."
+      ,"<b>A Library book says how many people have read it</b> \u2014 counted once per reader, and only once they have really read it."
     ]
   },
   {
