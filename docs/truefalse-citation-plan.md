@@ -75,7 +75,7 @@ card-side research is then shared.
 | T7 | Biology / Medicine | part done; T7a took six, all researched |
 | T8 | Physics / Chemistry / Mathematics | little in the corpus; research |
 | T9 | Astronomy / Earth science | part done; T9a took four off NASA, NOAA and NIST |
-| T10 | Psychology | `ps-` cards carry some |
+| T10 | Psychology | part done; T10a took four, all researched — the collection has only reached the 1800s, so nothing could be lifted |
 
 ## Open questions carried forward
 
@@ -359,3 +359,44 @@ batch does not look again. `wh-406` Terracotta Army says nothing about the farme
 1974, so that statement stands where the plan's open questions left it; `wh-565` has Zheng He at
 Malacca in 1409 and nothing about the size of his fleet; and no card in the corpus has Wu Zetian,
 foot-binding, chop suey or the fortune cookie as its subject.
+
+### T10a — four psychology statements, all researched from open journals (2026-09-17)
+
+**Nothing could be lifted out of the corpus.** The Psychology collection's fifty shipped cards run
+`ps-001` to `ps-050` — psychology's own foundations, ending at Titchener and imageless thought — so not
+one of the thirteen uncited Psychology statements has a card behind it. Milgram, Loftus, Zimbardo, the
+Mozart effect, the testing effect and the spacing effect are all hundreds of cards further down the
+running order. This batch is therefore research from scratch, and the route that worked is Europe PMC's
+own open-access filter (`… AND OPEN_ACCESS:Y`) followed by the full text, since what is wanted here is a
+work whose OWN abstract carries the claim.
+
+- **Left-brain / right-brain types.** Nielsen et al. 2013 in *PLOS ONE*, read in full. The statement's
+  `why` claimed the study "found no individuals with a left- or right-dominant network", which is one
+  step past what the paper says; it says the data "are not consistent with a whole-brain phenotype", and
+  the rewrite says that. The figures — 1,011 people aged 7 to 29, lateralisation measured between 7,266
+  regions — come off the abstract, and the left-lateralised hubs really do include Broca's and
+  Wernicke's areas, which is the first clause's own source.
+- **The Mozart effect.** Oberleiter and Pietschnig 2023 in *Scientific Reports*. The meta-analysis itself
+  is about EPILEPSY, not spatial reasoning, so it is cited for what its introduction states in its own
+  voice: that the topic was introduced in the context of spatial task performance and was "ultimately
+  demonstrated to be a consequence of low study power and bias-related measurement artifacts", and that
+  the claims about children's intelligence came afterwards and are what popularised it. The `why`'s
+  original detail — college students, one task, a gain fading in about fifteen minutes — is Rauscher,
+  Shaw and Ky 1993, which is a one-page *Nature* letter and is not open; rather than cite a paper for a
+  design it does not describe, the sentence was rewritten to what this one carries.
+- **Learning styles.** Two sources, because the statement makes two claims. Newton and Miah 2017 in
+  *Frontiers in Psychology* for the belief (58 per cent of 114 UK academics surveyed), and Aslaksen and
+  Lorås 2018, a mini-review in the same journal, for the evidence — and that one is the right source
+  because it is restricted to studies that actually test the meshing hypothesis: screen for a preference,
+  teach in matched and unmatched conditions, look for a crossover interaction. Pashler et al. 2008, the
+  obvious citation, is not open.
+- **Open-label placebo.** Kaptchuk et al. 2010 in *PLOS ONE*, read in full: 80 IBS patients, 43 to no
+  treatment and 37 to pills openly described as inert, significantly greater improvement on the Global
+  Improvement Scale at the 11-day midpoint and the 21-day endpoint. The second sentence — that what
+  improved was what the patients reported rather than the disease — is the paper's own outcome list,
+  every measure of which is patient-reported.
+
+**A GIVEN NAME READ OFF EUROPE PMC IS AN INITIAL, AND EXPANDING IT FROM MEMORY IS HOW A FABRICATED
+AUTHOR SHIPS.** Europe PMC gives "Aslaksen K"; the name that came to mind was Kjetil and the author is
+**Karoline**. All five citations' authors and article numbers were taken from Crossref before the batch
+was written, and all five URLs were curled afterwards — 200 to an open article page in every case.
