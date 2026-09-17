@@ -242,7 +242,18 @@ function imageObject(slug, file, info, titles) {
     const first = desc.split(/(?<=[.;])\s/)[0].replace(/\.$/, "").trim();
     if (first.length > altOut.length + 4 && first.length <= 140) altOut = first;
   }
-  desc += " " + provenance(info);
+  /* THE ATTRIBUTION GOES IN THE CREDIT, NOT IN THE CAPTION (Sep 2026).  It used to be appended
+     here, which is why every picture this tool wrote tripped `check-cards.js`'s `source-in-caption`
+     rule — a caption that credits itself — and why the Sep 2026 hand pass that took that check to
+     zero was undone by the next batch: the pass cleared the corpus and nothing taught the tool that
+     makes new ones.  Measured on the batch that found it: 47 cards in, 47 findings out.
+     The licence is not weakened by the move.  CC BY and CC BY-SA want the creator named, the
+     licence identified and the source reachable; `provenance()` still says the first two and the
+     Commons page still carries the third — they now sit together in `credit`, which is the field
+     the house form uses (2,173 of the corpus's 2,938 card credits) and the field `mediaCreditHTML`
+     renders under the frame.  What must NOT happen is the clause being cut from the caption while
+     the credit is still a bare URL: on a CC BY file that clause would then be the only attribution
+     the picture has, which is the refusal `strip-credit-captions.js` is built around. */
   /* An SVG keeps its own file — it is scalable, so it is sharp at any size the viewer opens it
      to, and it is a fraction of the bytes.  A raster takes the 1600px rendering rather than the
      original, which is high-resolution for a frame that caps at 680 CSS px while sparing the
@@ -252,7 +263,7 @@ function imageObject(slug, file, info, titles) {
     src,
     title: termTitle(slug, titles),
     desc,
-    credit: info.page,
+    credit: provenance(info) + " " + info.page,
     alt: altOut,
   };
 }
