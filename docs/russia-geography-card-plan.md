@@ -1977,3 +1977,61 @@ and the Library of Congress's 1885 `View of the Siberian city of Barnaul`.
 **One fetch note that will recur**: `upload.wikimedia.org` rate-limits (429) under a batch's own
 volume, and a 429 is not a dead link. Pace the check — or read the file through
 `Special:FilePath/<FILE>?width=N`, which keeps answering while the API is refusing.
+
+### Batch 24 — `gru-519` (Volgograd), `gru-520` (Saratov), `gru-522` (Voronezh)
+
+**Three more off the swept charter shelf**, and the first batch in which the charter article was found by
+grep rather than by reading: `ustav_volgograd` art. 12 (in the chapter on the region's symbols AND its
+centre — it adds that a regional law fixes the city's status), `ustav_sarat` art. 10 and
+`ustav_voroneg` art. 5, both in their charters' articles on the administrative and territorial
+arrangement. The Voronezh charter is the one whose TITLE the sweep did not capture, so it was read off
+`/region/ustav_voroneg/`'s own page: *Устав Воронежской области от 7 июня 2006 г.*
+
+**THE SIBLING-CARD CONSTRAINT DECIDED WHAT EACH OF THESE CARDS IS ABOUT, which is batch 23's lesson
+applied rather than met.** All three subject cards were read first, and each had already spent the
+obvious material: `gru-019` Volgograd Oblast carries Sarepta, Pugachev below Tsaritsyn and the closing
+of the Stalingrad pocket; `gru-020` Saratov Oblast carries Razin taking Saratov and Pugachev burning
+it; `gru-022` Voronezh Oblast carries Peter's 1709 flotilla and the Shipov Forest. So the three city
+cards take what is about the CITY and not the campaign — the Volga–Don portage and the railway terminus
+that made Tsaritsyn, Saratov's first site and its function on the frontier, and the 1695–96 shipyard
+that Peter built here after the first siege of Azov failed. **Read the sibling before researching the
+centre; the second card's subject is what the first one left.**
+
+**THREE STATIONS IN THIS BATCH CARRY RAINFALL NORMALS AND ONE READING OF THE JSON SAYS THEY DO NOT.**
+`climateMonth` rows expose `rainfall` and `raindays`, and a first pass read `raintext`/`raindaystext` —
+fields that do not exist on these records — and returned `undefined` for all twelve months of all three
+cities, which reads exactly like a station that reports temperature only. **Ask the row for its own
+keys before concluding a station is missing a series.**
+
+**MURCHISON IS THE THIRD LEG NOW, AND HIS PAGE NUMBERS ARE FOUND BY WALKING BACK TO THE RUNNING HEAD.**
+*The Geology of Russia in Europe and the Ural Mountains* (1845) carries the physical geography these
+three cards needed and the two Reclus volumes do not: the Volga's right bank as an outright cliff from
+the Oka's mouth down to the hilly ground at Tsaritsyn (Appendix M, p. 650), the absence of true black
+earth south of the city (p. 558), the Jurassic in the Saratov cliffs at 300 to 400 feet — a greater
+development than his party saw anywhere else in Russia (p. 246) — and the Finnish and Lapland erratics
+carried 700 to 800 miles down the Don valley to Voronezh (p. 524). The OCR prints each page number on
+its own line above a running head, so the citable page is the nearest preceding one, and it must be
+CHECKED against that head: a bare three-digit line is also how the volume sets a figure's scale.
+
+**THE VOLGOGRAD CARD SAYS NOTHING ABOUT STALINGRAD, DELIBERATELY, AND THAT IS WORTH STATING.** The
+battle is the single most famous thing about the city and it is already carded, with its own sources, on
+`gru-019`. What the city card explains instead is why there is a city there at all, which is the
+question a map card asks. A reader who wants the battle meets it on the subject card one number lower.
+
+**⚠ COMMONS NO LONGER SERVES AN ARBITRARY THUMBNAIL WIDTH, AND THE PIPELINE'S OWN DEFAULT IS ONE.**
+Measured in this batch: `upload.wikimedia.org/.../thumb/<shard>/<file>/900px-<file>` and `1200px-` both
+answer **400, "Use thumbnail sizes listed on https://w.wiki/GHai"**, and
+`commons.wikimedia.org/wiki/Special:FilePath/<file>?width=900` answers with an **EMPTY BODY** — which is
+the worse shape, since `curl` exits 0 and writes a zero-byte file that reads as a failed download rather
+than as a refused width. **1280px works**, as do the other listed sizes, and every batch-23 URL that
+resolved happened to be a 1920px one. Two consequences worth carrying:
+· **A LISTED WIDTH IS ONLY SERVED WHERE THE ORIGINAL IS WIDER.** For a file whose original is 1280px or
+  smaller, every `NNNpx-` thumb answers the same 400, so the only route is the ORIGINAL — and the
+  original is what Wikimedia rate-limits, answering *"Too many requests … or instead use thumbnail images
+  in sizes listed on…"*. A 1280×779 candidate could not be fetched at all while a 1644×1020 one at the
+  same moment came down first try. **Prefer a candidate wider than 1280**, which also happens to be the
+  size bar the picture rules already ask for.
+· **A 429 HERE IS A 200-STATUS HTML DOCUMENT**, so `curl -o file.jpg` writes a Wikimedia error page under
+  a `.jpg` name. `file -b` is what tells them apart, and the error's own text names which of the two
+  faults it is — **read it rather than assuming the host is busy**, since one of the two is a bad URL that
+  no amount of waiting will fix.
