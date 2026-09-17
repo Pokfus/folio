@@ -891,6 +891,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     are ancient authors and ordinary modern given names, and it excused **eleven living scholars** — hence
     the seven full forms leading that alternation, longest first, since JS takes the first branch that
     matches. **The run STOPS if the slice fails**, rather than silently checking nothing.
+  · **AND A WITNESS NEED NOT BE ANCIENT — THE LINE IS THE MODERN ARGUER, NOT A DATE** (Sep 2026, found
+    while verifying a merge). Seven of World History's Africa cards were reported for naming a
+    researcher, and every one names a fourteenth-century traveller on a fourteenth-century subject —
+    which is Herodotus' relation to Greece exactly. The last-token mechanism gave **Battuta**,
+    **Khaldun**, **Polo** and, from *Ibn Fadl Allah al-ʿUmari*, **Allah**, a latent finding on any
+    Islamic-history card whose question carries the word. **THE WHOLE-NAME TEST IS WHAT MAKES THE
+    ADDITION SAFE**: the corpus cites six living scholars whose given name is Marco, so `^marco` would
+    have excused all six where the anchored `marco polo` excuses none. Rule 1 goes 7 → 0 and
+    `check-cards.js`'s own findings are byte-for-byte unchanged, with the drop set read card by card and
+    the rule proved still to fire on a planted *Demichelis*.
   · **AN INSTITUTION AT THE HEAD OF A SEGMENT OWNS THE WHOLE OF IT**, which is the other half of
     `CORPORATE`'s per-name rule: a museum's object record is a catalogue entry, not a byline, so the Met's
     gave **Attic**, **Ergotimos** and **Kleitias** off the description of the very pot `gr-327` is about.
