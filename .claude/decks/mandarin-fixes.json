@@ -12530,16 +12530,20 @@
       ]
     },
     "hsk30l4/不便": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note. | TWO OF ITS THREE SENTENCES ARE 不便宜 — 不 + 便宜, 'not cheap' — and not this word at all, which is bú biàn, inconvenient. Both were ADDED by an earlier batch, so the fault is in what was harvested rather than in what the generator shipped: the guard against a swallowed headword catches a longer word CONTAINING it, and here the headword's two characters are split between 不 and 便宜. Both replaced with AUTHORED sentences, which the record says so is.",
       "ex": [
         [
-          "这不便宜, 是吗?",
-          "This wasn't cheap, was it?"
+          "这样安排对大家都不便。",
+          "An arrangement like this is inconvenient for everyone."
         ],
         [
-          "一点也不便宜，贵得不得了。",
-          "It's not even a little bit cheap, it's extremely expensive!"
+          "天黑了，出门很不便。",
+          "It is dark, and going out is very inconvenient."
         ]
+      ],
+      "dropEx": [
+        "这不便宜，是吗？",
+        "一点也不便宜，贵得不得了。"
       ]
     },
     "hsk30l4/中餐": {
@@ -12704,8 +12708,18 @@
       "gloss": "lunch (more formal; the word used on menus)"
     },
     "hsk30l4/博士": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "doctor, the holder of a doctorate"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | '预定在一点半与博士见面。' read 'I planned to meet the PROFESSOR at 1:30' — a 博士 holds a doctorate and a professor is 教授, which is a different card. The first line's 'a doctor's degree' is a doctorate.",
+      "gloss": "doctor, the holder of a doctorate",
+      "exEn": [
+        [
+          "预定在一点半与博士见面",
+          "I arranged to meet the doctor at half past one."
+        ],
+        [
+          "她取得了博士学位",
+          "She was awarded a doctorate."
+        ]
+      ]
     },
     "hsk30l4/各个": {
       "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -72952,7 +72966,7 @@
       ]
     },
     "hsk30l4/部": {
-      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information.",
+      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows SEVEN words — 北部, 部分, 部门, 东部, 南部, 全部 and 西部 — so the rows go elsewhere. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "senses": [
         [
           "noun",
@@ -72967,6 +72981,23 @@
         2,
         1,
         1
+      ],
+      "compounds": [
+        [
+          "内部",
+          "nèi bù",
+          "the inside; internal"
+        ],
+        [
+          "干部",
+          "gàn bù",
+          "a cadre; an official"
+        ],
+        [
+          "部长",
+          "bù zhǎng",
+          "a minister; a head of department"
+        ]
       ]
     },
     "hsk30l4/再说": {
@@ -75523,7 +75554,7 @@
       ]
     },
     "hsk30l4/不光": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was 'not the only one', which is CC-CEDICT's first wording and reads as a noun phrase; all three of the card's sentences are the 不光…还… construction.",
       "ex": [
         [
           "不光要努力，还要用对方法。",
@@ -75533,7 +75564,8 @@
           "他不光会说，还会写。",
           "He can not only speak it but write it."
         ]
-      ]
+      ],
+      "gloss": "not only …; not merely"
     },
     "hsk30l4/参赛": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -113893,6 +113925,172 @@
           "按摩",
           "àn mó",
           "massage; to massage"
+        ]
+      ]
+    },
+    "hsk30l4/表": {
+      "why": "ALL THREE OF ITS SENTENCES ARE A WATCH — 我的表停了, 我没带表, 这只表多少钱 — and the gloss did not contain the word: it read 'surface, exterior, to show, to express'. CC-CEDICT files the timepiece under its own traditional form 錶 and the card's own examples are nothing else. Re-glossed to lead with what it teaches. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows five words — 表格, 表示, 表现, 表扬 and 时间表 — every one of them the *express* or *table* sense, so the rows go to the WATCH the card's own three sentences are about. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "a watch; a surface; a table; to express",
+      "compounds": [
+        [
+          "手表",
+          "shǒu biǎo",
+          "a wristwatch"
+        ],
+        [
+          "代表",
+          "dài biǎo",
+          "to represent; a delegate"
+        ],
+        [
+          "外表",
+          "wài biǎo",
+          "outward appearance"
+        ]
+      ]
+    },
+    "hsk30l4/表现": {
+      "why": "The label was VERB and the gloss three nouns — 'expression; representation; display' — batch 31's third shape. CC-CEDICT gives both. Its second sentence also had to go: 我想你表现我怎么做那个 is not Chinese anybody writes, 表现 not being the verb for showing somebody how, and its English is the original of the machine translation it came from.",
+      "senses": [
+        [
+          "verb",
+          "to show; to behave"
+        ],
+        [
+          "noun",
+          "a performance; behaviour"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "dropEx": [
+        "我想你表现我怎么做那个。"
+      ],
+      "ex": [
+        [
+          "他这次考试表现得很好。",
+          "He did very well in this exam."
+        ]
+      ]
+    },
+    "hsk30l4/并": {
+      "why": "NOT ONE OF ITS THREE SENTENCES IS THE SENSE IT GLOSSED. The card read 'to combine, to merge' under three parts of speech, and its examples are 反思并回应 (the conjunction), 他并没有来 and 并不是不可以 (the adverb that strengthens a negative). CC-CEDICT records all of them. Split, and the sentences tagged.",
+      "senses": [
+        [
+          "adverb",
+          "(before a negative) actually; at all"
+        ],
+        [
+          "conjunction",
+          "and; also"
+        ],
+        [
+          "verb",
+          "to combine; to merge"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/不断": {
+      "why": "The gloss was malformed: 'ceaseless; uninterrupted; continual continuous;' — two words run together with no separator and a semicolon left hanging at the end. A typographical slip of the kind no checker here can see.",
+      "gloss": "ceaseless; continuous; continually"
+    },
+    "hsk30l4/不如": {
+      "why": "The gloss was malformed in the same way: 'it would be better to …not as good as' — CC-CEDICT's two senses run together with nothing between them. Set apart, and in the order the card's own sentences use them: two of the three are the comparison.",
+      "gloss": "not as good as; it would be better to …"
+    },
+    "hsk30l4/擦": {
+      "why": "Its second line read 'I ERASED the blackboard', which is American for what British English wipes or cleans, and its third rendered 擦了鞋 as 'scraped her shoes clean' — 擦 is wiping, and scraping is a different action. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "我为老师擦黑板",
+          "I cleaned the blackboard for the teacher."
+        ],
+        [
+          "她进屋前擦了鞋",
+          "She wiped her shoes before she came in."
+        ]
+      ],
+      "compounds": [
+        [
+          "擦干",
+          "cā gān",
+          "to wipe dry"
+        ],
+        [
+          "擦洗",
+          "cā xǐ",
+          "to wipe and wash"
+        ],
+        [
+          "摩擦",
+          "mó cā",
+          "friction"
+        ]
+      ]
+    },
+    "hsk30l4/材料": {
+      "why": "'这外套是什么材料作的？' read 'What STUFF is this jacket made of?', which is a register the card has not chosen — its own gloss is 'material'. (The Chinese writes 作 where 做 is standard here; the sentence is left as it stands, an authored replacement being a heavier repair than the fault.)",
+      "exEn": [
+        [
+          "这外套是什么材料作的",
+          "What material is this jacket made of?"
+        ]
+      ]
+    },
+    "hsk30l4/部分": {
+      "why": "'这部分是容易的' ended bare. The corpus-wide punctuation pass converts marks and never adds one.",
+      "exStop": [
+        [
+          "这部分是容易的"
+        ]
+      ]
+    },
+    "hsk30l4/不过": {
+      "why": "'我不过生日。' IS NOT THIS WORD: it is 不 + 过生日, 'I don't celebrate my birthday', which its own English says — the headword 不过, *however*, is not in the sentence at all. The other two sentences are the real word. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "我不过生日。"
+      ],
+      "ex": [
+        [
+          "他很累，不过还是来了。",
+          "He was tired, but he came all the same."
+        ]
+      ]
+    },
+    "hsk30l4/步": {
+      "why": "'你丢了步枪吗？' is about a RIFLE: 步枪 is its own word and the English mentions no step. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 散步. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "你丢了步枪吗？"
+      ],
+      "ex": [
+        [
+          "他往前走了几步。",
+          "He took a few steps forward."
+        ]
+      ],
+      "compounds": [
+        [
+          "步行",
+          "bù xíng",
+          "to go on foot"
+        ],
+        [
+          "进步",
+          "jìn bù",
+          "progress; to improve"
+        ],
+        [
+          "脚步",
+          "jiǎo bù",
+          "a footstep"
         ]
       ]
     }

@@ -577,6 +577,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 451–480 (愿意 → 住院), deck order | 14 | a card glossed with the one sense none of its three sentences uses |
 | 2026-09-17 | `hsk30l3` notes 481–491 (字典 → 作业) — **Level 3 finished**, 491 of 491 read | 5 | the fullest character panel in the deck, ten words, every one of them the empty suffix |
 | 2026-09-17 | `hsk30l4` notes 1–30 (爱情 → 便于), deck order — **Level 4 opens** | 11 | an elephant's 鼻子 is a trunk, and a card labelled a verb over a noun |
+| 2026-09-17 | `hsk30l4` notes 31–60 (标准 → 材料), deck order | 14 | two cards whose gloss is a sense not one of their sentences uses, and three malformed glosses |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4938,4 +4939,57 @@ English queues, and is searched. 毕业生's first was missing an article (*with
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 338 → 338; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 368 → 371;
+`build-lang-decks.js` re-run.
+
+## Batch 42 — hsk30l4 notes 31–60 (标准 → 材料)
+
+Thirty notes read in deck order, **fourteen cards changed** across 35 fields.
+
+**A CARD WHOSE GLOSS DID NOT CONTAIN THE WORD ITS THREE SENTENCES ARE ABOUT.** 表's examples are
+我的表停了, 我没带表 and 这只表多少钱 — all three a WATCH — and its gloss read *surface, exterior, to
+show, to express*. CC-CEDICT files the timepiece under the separate traditional form 錶, which is
+presumably how it fell out. Its `Compounds` rows go the same way: the card's own panel is five words
+deep and every one of them is the *express* or *table* sense, so the rows are 手表, 代表, 外表.
+
+**并 IS THE SAME THING WITH THREE PARTS OF SPEECH.** It read *to combine, to merge* under
+*verb / adverb / conjunction*, and its sentences are 反思并回应 (the conjunction), 他并没有来 and
+并不是不可以 (the adverb that strengthens a negative). Not one is the verb. Split three ways and
+tagged.
+
+**THREE GLOSSES WERE MALFORMED, WHICH IS A CLASS OF ITS OWN.** 不断 read *ceaseless; uninterrupted;
+continual continuous;* — two words run together with no separator and a semicolon left hanging. 不如
+read *it would be better to …not as good as*, CC-CEDICT's two senses with nothing between them. 不光
+read *not the only one*, a noun phrase for a construction. **With 西北's and 园's truncations in
+Level 3, that is five glosses the audit has found broken as TEXT rather than wrong as content** — no
+checker here looks at a gloss's shape, and a reader meets every one of them.
+
+**TWO SENTENCES WERE 不 PLUS A DIFFERENT WORD.** 不过's first was 我不过生日 — 不 + 过生日, *I don't
+celebrate my birthday*, which its own English says; the headword 不过, *however*, is not in it. And
+**不便's second and third were both 不便宜, 不 + 便宜, *not cheap*** — which is the same shape from the
+other side, and worse: **both were ADDED by an earlier batch**, so the harvest guard passed them. That
+guard refuses a sentence whose headword is swallowed by a LONGER word; here the headword's two
+characters are split between two SHORTER ones, which is the direction `check-example-fit.js`'s own
+header says a corpus-internal test cannot see.
+
+**AND REPLACING THEM NEEDED THE RECORD'S `ex` ARRAY REWRITTEN, NOT APPENDED TO.** The first attempt
+added two authored rows to the two that were already there; the applier takes `slice(0, room)` with
+`room = 3 − kept.length`, so it wrote the OLD two and dropped the new, and the card came back
+unchanged with nothing reported. **When a card's bad sentences are the record's own, replace the array
+and name them in `dropEx`** — appending silently loses the repair.
+
+**步 LOST A RIFLE** (步枪, its own word, whose English mentions no step) and 表现 lost
+我想你表现我怎么做那个, which is not Chinese anybody writes — 表现 is not the verb for showing somebody
+how, and the English beside it is the original the machine translation came from.
+
+**FOUR SINGLE-CHARACTER CARDS GAINED `Compounds`** — 表, 步, 部, 擦 — and **部's panel is seven words
+deep**, the second fullest the audit has met.
+
+**SMALLER FIXES.** 博士's second line called a 博士 a *professor* (that is 教授, a different card).
+擦's second said *erased* the blackboard, which is American for what British English wipes, and its
+third *scraped* shoes clean, which is a different action from 擦. 材料's second asked what *stuff* a
+jacket is made of on a card glossed *material*. 部分's first ended with no full stop.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 338 → 338; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 371 → 377;
 `build-lang-decks.js` re-run.
