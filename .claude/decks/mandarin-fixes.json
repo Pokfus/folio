@@ -76847,7 +76847,7 @@
       ]
     },
     "hsk30l5/病房": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | `the infirmary` for 病房, which is a hospital ward — the card's own gloss says so and its other two sentences both say ward.",
       "ex": [
         [
           "病房里很安静。",
@@ -76856,6 +76856,12 @@
         [
           "他住在三楼的病房。",
           "He is in a ward on the third floor."
+        ]
+      ],
+      "exEn": [
+        [
+          "病房里很冷",
+          "It was cold in the ward."
         ]
       ]
     },
@@ -78568,22 +78574,24 @@
       ]
     },
     "hsk30l5/不要紧": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss ran `not important; not serious It doesn't matter; never` — a missing separator between the second and third senses, and a fourth that is the single word `never`, which is not a sense of 不要紧 and is not even a phrase. A gloss that ends mid-word reads to a reader as a card that was never finished.",
       "ex": [
         [
           "只是小感冒，不要紧。",
           "It's just a mild cold, nothing serious."
         ]
-      ]
+      ],
+      "gloss": "not important; not serious; it does not matter"
     },
     "hsk30l5/彩色": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Glossed the bare `colour`, which is 颜色's gloss too — the two have been one of only two STILL-AMBIGUOUS reverse-card groups in the whole collection, a single English prompt with two right answers and no `not X` line on either. They are not the same word: 颜色 is colour as a property, and 彩色 is colour AS OPPOSED TO black and white, which is exactly what all three of this card's sentences are — colour film, coloured pens, colour pictures. Sharpening the gloss dissolves the group without a disambiguator, which is always the better of the two repairs.",
       "ex": [
         [
           "这本书里全是彩色的图片。",
           "This book is full of color pictures."
         ]
-      ]
+      ],
+      "gloss": "colour (as opposed to black and white); multicoloured"
     },
     "hsk30l5/长处": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -110723,11 +110731,33 @@
       ]
     },
     "hsk30l5/藏": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Closet” is American. 柜子 is a cupboard and 衣柜 a wardrobe — two different pieces of furniture, which is why the word is not in the table. Coming out of the closet is the same idiom in British English and 莫大's sentence is left alone. ",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Closet” is American. 柜子 is a cupboard and 衣柜 a wardrobe — two different pieces of furniture, which is why the word is not in the table. Coming out of the closet is the same idiom in British English and 莫大's sentence is left alone.  | The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against twelve words in the collection. 西藏 is included deliberately: it is the character's OTHER reading, zàng, which the pinyin column states and which a reader will otherwise meet with no warning. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "exEn": [
         [
           "你藏进柜子里去",
           "Hide in the cupboard."
+        ]
+      ],
+      "compounds": [
+        [
+          "收藏",
+          "shōucáng",
+          "to collect; a collection"
+        ],
+        [
+          "躲藏",
+          "duǒcáng",
+          "to hide oneself; to take cover"
+        ],
+        [
+          "藏书",
+          "cángshū",
+          "a library collection; to collect books"
+        ],
+        [
+          "西藏",
+          "Xīzàng",
+          "Tibet"
         ]
       ]
     },
@@ -112255,11 +112285,20 @@
       ]
     },
     "hsk30l5/不良": {
-      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right.",
+      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. | 许多电视节目对儿童有不良的影响 and 这种玩具会对小孩子带来不良的影响 are the same sentence twice — a bad influence on children, in the same frame, with almost the same English. Replaced with 不良 in front of a different noun. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "exEn": [
         [
           "许多电视节目对儿童有不良的影响",
           "Many TV programmes have a bad influence on children."
+        ]
+      ],
+      "dropEx": [
+        "这种玩具会对小孩子"
+      ],
+      "ex": [
+        [
+          "他有不良的生活习惯。",
+          "He has unhealthy habits."
         ]
       ]
     },
@@ -123089,6 +123128,208 @@
         [
           "他不善于表达自己的感情。",
           "He is not good at expressing his feelings."
+        ]
+      ]
+    },
+    "hsk30l5/表面": {
+      "why": "光看表面是不足够的 writes 不足够 where the language says 不够, and its English is a different proverb altogether — `All that glitters is not gold` for a sentence saying that looking only at the surface is not enough. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "光看表面是不足够的"
+      ],
+      "ex": [
+        [
+          "不能只看表面。",
+          "You must not judge by appearances alone."
+        ]
+      ]
+    },
+    "hsk30l5/表情": {
+      "why": "The second sentence was about 表情符号 — an emoji, which is its own word and a different thing from 表情, an expression on a face. The headword was swallowed by a compound in the one sentence of three that was not about a face at all. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "表情符号"
+      ],
+      "ex": [
+        [
+          "他脸上露出惊讶的表情。",
+          "A look of surprise came over his face."
+        ]
+      ]
+    },
+    "hsk30l5/饼": {
+      "why": "`I finished eating this cake` for 我把这包饼吃完了, where 一包饼 is a packet of biscuits — the classifier says so, and a cake does not come in packets.",
+      "exEn": [
+        [
+          "我把这包饼吃完了",
+          "I have finished this packet of biscuits."
+        ]
+      ]
+    },
+    "hsk30l5/病情": {
+      "why": "The second sentence wrote 随著 with the traditional 著 where the simplified decks write 着 — the same fault the traditional-character sweep found across all nine decks, arriving one card at a time since. Repaired rather than replaced: the sentence is a good one and only the one character is wrong. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "随著病情变化"
+      ],
+      "ex": [
+        [
+          "他们观察到她随着病情变化身体也渐渐衰弱下去。",
+          "They watched her weaken gradually as the illness progressed."
+        ]
+      ]
+    },
+    "hsk30l5/玻璃": {
+      "why": "Two of the three sentences were about a 玻璃杯, a tumbler, which swallows the headword — and the third of those also wrote 没有任何的牛奶, where 任何的 in front of a mass noun is not what the language does. Replaced with a sentence about glass itself, which is what the card is for; 她把鼻子贴在玻璃上 and the remaining tumbler sentence stand. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "没有任何的牛奶"
+      ],
+      "ex": [
+        [
+          "窗户的玻璃碎了一块。",
+          "A pane of the window glass is broken."
+        ]
+      ]
+    },
+    "hsk30l5/不利": {
+      "why": "判决对他不利 and 判决对政府不利 are the same sentence with the object changed — same verb, same construction, same English but for one word — so the card showed one pattern twice out of three. Replaced with a different subject and a different kind of disadvantage. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "判决对政府不利"
+      ],
+      "ex": [
+        [
+          "天气对比赛不利。",
+          "The weather was unfavourable for the match."
+        ]
+      ]
+    },
+    "hsk30l5/不幸": {
+      "why": "`Worse things have happened to both of us` is a different idiom from what 我们俩都经历过不幸 says, which is that we have both been through misfortune — the card's own word.",
+      "exEn": [
+        [
+          "我们俩都经历过不幸",
+          "We have both been through misfortune."
+        ]
+      ]
+    },
+    "hsk30l5/补充": {
+      "why": "你想补充么 writes 么 where standard simplified Chinese asks a question with 吗; and the sentence was in any case the card's third one over again — 我刚才说的内容，你想补充么 and 您对我说的话有什么要补充的吗 are the same question twice, and the card's own English lines say so. Replaced with the replenish sense the gloss names and no sentence showed. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "你想补充么"
+      ],
+      "ex": [
+        [
+          "公司正在补充新员工。",
+          "The company is taking on new staff."
+        ]
+      ]
+    },
+    "hsk30l5/不得了": {
+      "why": "The first sentence was 我记不得了 — which is 记不得 (cannot remember) plus 了, not the word 不得了 at all. A split headword the segmenter cannot see, because 不得了 IS a real word and greedy longest-match lands squarely on it: the seventh instance in this audit after 人生, 上门, 十分, 数年, 头痛, 线上/线下 and 只好. And the gloss was `desperately serious disastrous; terrible` while the other two sentences are both the INTENSIFIER — 气得不得了, 开心得不得了 — which CC-CEDICT gives as `extremely; exceedingly` and this card did not. Both senses now given, every sentence tagged, and the replacement shows the serious sense that had none. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我记不得了"
+      ],
+      "ex": [
+        [
+          "要是让他知道了可不得了。",
+          "It would be a disaster if he found out."
+        ]
+      ],
+      "senses": [
+        [
+          "adjective",
+          "extremely; exceedingly (after 得)"
+        ],
+        [
+          "adjective",
+          "desperately serious; disastrous"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l5/不然": {
+      "why": "The English drops 不然 altogether — the sentence turns on it (`otherwise I would have come to meet you`), and without it the two halves have no connection at all.",
+      "exEn": [
+        [
+          "不然我就去机场接你了",
+          "Why didn't you ring me? I would have come to the airport to meet you otherwise."
+        ]
+      ]
+    },
+    "hsk30l5/裁判": {
+      "why": "`The coin toss decides who will kick off` drops the headword: it is the REFEREE who tosses the coin, which is the whole reason the sentence is on this card.",
+      "exEn": [
+        [
+          "裁判抛硬币",
+          "The referee tosses a coin to decide who kicks off."
+        ]
+      ]
+    },
+    "hsk30l5/采取": {
+      "why": "`an impudent attitude` for 傲慢的态度, which is haughty or arrogant — impudence is cheek, a different thing and a different register.",
+      "exEn": [
+        [
+          "老人采取了傲慢的态度",
+          "The old man adopted a haughty attitude."
+        ]
+      ]
+    },
+    "hsk30l5/参考": {
+      "why": "不留名或详细的参考什么都可以 does not parse as Chinese — 详细的参考 is a noun phrase with nothing to attach to, and 什么都可以 has no subject to agree with; its English, `Anonymity or detailed reference are both fine`, is a translation of something that is not there. And the third sentence's English, `Tom is looking closely at the map`, drops 参考, which is to consult rather than to look at. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "不留名或详细的参考"
+      ],
+      "ex": [
+        [
+          "这个数据可以作为参考。",
+          "These figures can serve as a reference."
+        ]
+      ],
+      "exEn": [
+        [
+          "汤姆很仔细地参考地图",
+          "Tom consulted the map carefully."
+        ]
+      ]
+    },
+    "hsk30l5/参与": {
+      "why": "`I am not concerned with this affair` for 我不参与这件事, which is to take no PART in it — a different claim, and not the card's word.",
+      "exEn": [
+        [
+          "我不参与这件事",
+          "I am not taking part in this."
+        ]
+      ]
+    },
+    "hsk30l5/册": {
+      "why": "The gloss read `volume; book; measure word for books` under the label `measure word` — the label said it once and the gloss said it again, which is the shape of a field pasted in from a dictionary rather than written. The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against four words in the collection — and two of the card's three sentences are compounds, 小册子 and 宣传册, which is where a bound character's words belong. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "measure word",
+          "volume; a measure word for books and volumes"
+        ]
+      ],
+      "compounds": [
+        [
+          "手册",
+          "shǒucè",
+          "a manual; a handbook"
+        ],
+        [
+          "注册",
+          "zhùcè",
+          "to register; to enrol"
+        ],
+        [
+          "小册子",
+          "xiǎocèzi",
+          "a booklet; a pamphlet"
+        ],
+        [
+          "画册",
+          "huàcè",
+          "a picture album"
         ]
       ]
     }

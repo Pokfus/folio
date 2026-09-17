@@ -1278,7 +1278,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.35 MB and 48,958 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.35 MB and 48,961 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -2149,6 +2149,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     THEMSELVES**, glossing *meter* over a sentence reading *metres*. **So the sweep is finished and the
     rule is what to keep**: when a content batch adds English, check the seven families by hand, because
     the checker cannot.
+  · **AND A FAMILY CAN BE IN THE TABLE WITH MEMBERS MISSING, WHICH READS AS 0 EXACTLY LIKE AN
+    ABSENT FAMILY** (batch 76). The `-ll-` doubling family has fourteen rows — `travell`, `modell`,
+    `labell`, `cancell`, `counsell`, `jewell` and the rest — and it was missing `diall`, `quarrell`
+    and `marvell`, so seven deck sites and one deck GLOSS carried `dialed`, `quarreled` and
+    `marvelous` while this checker read 0. **The fix is the TABLE, never the sites**: three rows added
+    to `SPELL_PAIRS` converted all nine mechanically, because the decks' own `exBritish` pass slices
+    that table out of app.js — and it also let `check-spelling-corpus.js` see the family in Folio's
+    own prose for the first time (24 `quarrelled`, 12 `quarrelling`, 10 `marvellous`, and one
+    `marvelous` which is inside a `card.quote` from Herodotus and stays). **So when a family reads 0,
+    ask whether every member of it is in the table**, not just whether the family is.
   · **AND A FAMILY THE TABLE HAS NEVER HELD IS INVISIBLE TWICE OVER.** `kerb` is EXCLUDED FROM
     `SPELL_PAIRS` BY NAME — `curb` is also an ordinary English verb — so neither the site's table nor this
     checker can reach it, and `hsk30l3/路边` shipped glossed "**curb**; roadside; wayside", CC-CEDICT

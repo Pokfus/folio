@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.794", released: "2026-09-17T16:02Z" };
+window.FOLIO_VERSION = { v: "1.795", released: "2026-09-17T22:21Z" };
 
 window.CHANGELOG = [
   {
@@ -64,7 +64,7 @@ window.CHANGELOG = [
       "<b>Five cards now rest on a wider range of scholarship</b> \u2014 each had leaned on one author for more than half of its citations.",
       "<b>Fourteen chapters across five Library books get back a lost full stop, a lost line or a misread word</b> \u2014 each had been reading as though it stopped in mid-sentence."
       ,"<b>Fifteen more True or False answers now cite their sources</b>, and five statements are rewritten to say what those sources actually show."
-      ,"<b>British readers now see British spelling throughout</b> — several dozen cards and glossary terms stored the American form, which the switch cannot correct."
+      ,"<b>British readers now see British spelling throughout</b> — several dozen cards and glossary terms stored the American form, and the switch now covers three more word families besides."
       ,"<b>A deck you have finished for the day turns green with a tick</b>, and gold when you got everything right first time."
       ,"<b>A hundred cards on the politics of East Asia</b> — a course collection of 24 decks, in a new Special section of the Collections page."
       ,"<b>A single-character Mandarin card lists the other words built on that character</b>, with their readings and meanings, whatever else you have downloaded."

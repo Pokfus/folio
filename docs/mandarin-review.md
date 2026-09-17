@@ -611,6 +611,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 961–990 (转发 → 作者), deck order — **Level 4 complete** | 18 | a noun gloss on a card whose sentences are two different verbs |
 | 2026-09-17 | `hsk30l5` notes 1–30 (哎 → 报到), deck order | 25 | **two of one card's three sentences used its character for its sound in a name** |
 | 2026-09-17 | `hsk30l5` notes 31–60 (报道 → 表达), deck order, plus three cards outside it that share a sentence | 19 | **two of one card's three sentences were written with the wrong character of a homophone pair** |
+| 2026-09-17 | `hsk30l5` notes 61–90 (表面 → 册), deck order, plus three rows added to app.js's own `SPELL_PAIRS` | 29 | **a spelling family that IS in the table, with three of its members missing** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6950,3 +6951,85 @@ meet whole.
 still-ambiguous 2; shared-gloss groups 325 unchanged, no new collision; pinyin clean; example-fit 143
 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged
 624 unchanged; `build-lang-decks.js` re-run.
+
+## Batch 76 — hsk30l5 notes 61–90 (表面 → 册)
+
+Thirty consecutive notes, **twenty of them changed** — plus **nine more cards across three decks** that
+the batch's one app-level change swept mechanically. Twenty-nine cards in all.
+
+**The leading finding is a spelling family that is in `SPELL_PAIRS` with three of its members missing,
+which reads as 0 exactly like a family that is not there at all.** `check-british.js` has reported 0 for
+weeks. The `-ll-` doubling family has fourteen rows in app.js — `travell`, `modell`, `labell`,
+`cancell`, `counsell`, `jewell`, `levell`, `signall` and the rest — and it did not have `diall`,
+`quarrell` or `marvell`, so **seven deck sentences and one deck GLOSS** carried `dialed`, `quarreled`
+and `marvelous` with nothing able to see them. **The fix is the TABLE, never the sites**: three rows
+added to `SPELL_PAIRS` converted all nine at once, because the decks' own `exBritish` pass slices that
+table out of app.js rather than keeping a copy. It also let `check-spelling-corpus.js` see the family in
+Folio's own prose for the first time — 24 `quarrelled`, 12 `quarrelling`, 10 `marvellous`, 1
+`marvelled`, and one `marvelous` which is **inside a `card.quote` from Herodotus** and correctly
+classified as borrowed text. **So when a family reads 0, ask whether every MEMBER of it is in the
+table.** Recorded in CLAUDE.md under `check-british.js`; the app change carries a changelog line and a
+version bump, folded into the day's existing spelling line rather than added beside it.
+
+*(That sweep also surfaced one finding this batch deliberately leaves alone: `pea-014`'s answer term is
+**Civilizational state**, the American spelling, on a card whose own background writes `civilisation`
+two words later. It is a card ANSWER TERM, which reaches the glossary pairing, the cloze grading and the
+plan's own line, so it belongs to a `pea-` batch rather than to a Mandarin one. Recorded rather than
+fixed.)*
+
+**A split headword, the seventh in this audit.** 不得了's first sentence was 我记不得了 — which is
+记不得 (cannot remember) plus 了, and not the word at all. Invisible to `check-example-fit.js` by design,
+because 不得了 IS a real word and greedy longest-match lands squarely on it. The card was also glossed
+`desperately serious disastrous; terrible` while its other two sentences are both the INTENSIFIER
+(气得不得了, 开心得不得了), which CC-CEDICT gives as *extremely; exceedingly* and this card did not — so
+the gloss described a sense with no example and the examples showed a sense with no gloss. Both now
+given, every sentence tagged, and the replacement carries the serious sense.
+
+**One of the two remaining still-ambiguous reverse-card groups is dissolved.** 彩色 was glossed the bare
+`colour`, which is 颜色's gloss — a single English prompt with two right answers and no `not X` line on
+either. They are not the same word, and this card's own three sentences say which is which: colour film,
+coloured pens, colour pictures, all of them colour **as opposed to black and white**. Sharpening the
+gloss dissolves the group without a disambiguator, which is always the better of the two repairs.
+**Only 邻居 / 街坊 is left.**
+
+**A traditional character in a simplified deck.** 病情's second sentence wrote 随著 where the decks
+write 随着 — the fault the traditional-character sweep found across all nine decks, still arriving one
+card at a time. Repaired rather than replaced; only the one character was wrong.
+
+**A gloss that stops mid-word.** 不要紧 read `not important; not serious It doesn't matter; never` — a
+missing separator and then the single word `never`, which is not a sense of the word and is not even a
+phrase. And 册's read `volume; book; measure word for books` **under the label `measure word`**, saying
+it twice.
+
+**Three sentences that were the card's other sentence over again** — 不利's two 判决对…不利, 不良's two
+bad influences on children, and 补充's two *anything to add to what I said?* — each replaced with a
+different construction rather than a different object.
+
+**A sentence that does not parse.** 参考's 不留名或详细的参考什么都可以 has a noun phrase with nothing to
+attach to and a predicate with no subject, and its English translates something that is not there.
+
+**Two compounds swallowing their own headword**: 表情's second sentence was about 表情符号, an emoji,
+which is its own word and not a face at all; and two of 玻璃's three were about a 玻璃杯, a tumbler, one
+of them also writing 任何的 in front of a mass noun.
+
+**Eight English lines**, of which the ones worth naming are `the infirmary` for 病房 (a hospital ward,
+which the card's own gloss and other two lines both say), `I finished eating this cake` for 这包饼 (a
+packet of biscuits — the classifier says so), `an impudent attitude` for 傲慢 (haughty), and three that
+drop the headword outright: 不然, 裁判 (it is the REFEREE who tosses the coin) and 参与 (*not concerned
+with* for *not taking part in*).
+
+**Two `Compounds` blocks**, 藏 and 册, each with nothing at all in the reader's downloaded deck. 藏's
+carries **西藏**, deliberately: it is the character's other reading, zàng, which the pinyin column states
+and which a reader would otherwise meet with no warning.
+
+**Read and left.** 表明, 拨打's Chinese, 博物馆, 不符, 步行, 不足, 采访, 采用, 餐饮, 操作 — whose
+暗箱操作 swallows the headword in a set phrase whose English idiom is a fair match — 不然's first two,
+裁判's third, and **饼, whose tap panel is not empty but is not short either: it lists 饼干 and 月饼,
+which is everything the collection has, so a `Compounds` block would be adding words the reader has no
+other way of meeting rather than surfacing words the deck is hiding.**
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+**still-ambiguous 2 → 1**; shared-gloss groups 325 → 324; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 624 → 627;
+`check-style.js`, `check-claims.js`, `check-docs.js` and `test-spelling.js` all clean after the app.js
+change, with CLAUDE.md's app.js line count re-measured; `build-lang-decks.js` re-run.
