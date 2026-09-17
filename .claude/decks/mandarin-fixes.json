@@ -12559,8 +12559,17 @@
       "gloss": "among, in the midst of (written)"
     },
     "hsk30l4/从来": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "always, all along (usually with a negative: never)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | '我从来没乘坐船。' wants 过 — 从来没 + verb takes the experiential 过 ('我从来没坐过船'), and without it the sentence is ungrammatical rather than merely stilted; 乘坐船 is also written-register where the everyday word is 坐船. Replaced with an AUTHORED sentence, which the record says so is.",
+      "gloss": "always, all along (usually with a negative: never)",
+      "dropEx": [
+        "我从来没乘坐船。"
+      ],
+      "ex": [
+        [
+          "我从来没坐过船。",
+          "I have never been on a boat."
+        ]
+      ]
     },
     "hsk30l4/低于": {
       "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
@@ -13018,8 +13027,25 @@
       ]
     },
     "hsk30l4/窗": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "window"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 窗户. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "window",
+      "compounds": [
+        [
+          "窗口",
+          "chuāng kǒu",
+          "a service window; a counter"
+        ],
+        [
+          "窗帘",
+          "chuāng lián",
+          "a curtain"
+        ],
+        [
+          "车窗",
+          "chē chuāng",
+          "a vehicle window"
+        ]
+      ]
     },
     "hsk30l4/窗户": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. **This one is the fault at its widest: the sentence is set with a space between every word, which is how a learner's textbook glosses Chinese and not how Chinese is written.** The deck already carries the word division in the structure line above the sentence, so the spaces say nothing the card was not already saying properly. ",
@@ -75620,7 +75646,7 @@
       ]
     },
     "hsk30l4/打印": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '…我要去便利店打印文件。' read 'to COPY documents' — 打印 is to print, which is the card's own gloss and its own other two sentences, and the line before it is about a printer breaking down.",
       "ex": [
         [
           "请把文件打印两份。",
@@ -75629,6 +75655,12 @@
         [
           "打印机没墨了。",
           "The printer has run out of ink."
+        ]
+      ],
+      "exEn": [
+        [
+          "因为公司的打印机又坏了",
+          "The printer at my company has broken down again, so I'm going to the convenience store to print some documents."
         ]
       ]
     },
@@ -75922,11 +75954,17 @@
       ]
     },
     "hsk30l4/打工": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 'on weekends' is American; British English is 'at the weekend', which the decks use TEN times against this and one other site. Two sites is not a table — a LEXIS row governs a substitution worth applying everywhere, and 'weekend' is not a substitution at all, the difference being the preposition and the number — so both are per-note rows.",
       "ex": [
         [
           "他一边上学一边打工。",
           "He works while studying."
+        ]
+      ],
+      "exEn": [
+        [
+          "周末我在超市打工",
+          "I work part-time at the supermarket at the weekend."
         ]
       ]
     },
@@ -88034,7 +88072,7 @@
       ]
     },
     "hsk30l7/航海": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The second of the two 'on weekends' sites, corrected with 打工's; British English is 'at the weekend'.",
       "ex": [
         [
           "古人靠星星航海。",
@@ -88043,6 +88081,12 @@
         [
           "航海需要精确的地图。",
           "Navigation needs accurate charts."
+        ]
+      ],
+      "exEn": [
+        [
+          "我经常在周末去航海",
+          "I often go sailing at the weekend."
         ]
       ]
     },
@@ -114274,6 +114318,151 @@
           "推迟",
           "tuī chí",
           "to postpone"
+        ]
+      ]
+    },
+    "hsk30l4/出租": {
+      "why": "'我从出租车上下来。' is about a TAXI. 出租车 is a fixed word and is not a headword anywhere in the collection, so the segmenter splits it 出租|车 and check-example-fit.js reports nothing — the characters really are there and really do segment as the headword, while the sentence is not about renting anything. The blind spot batch 26 met on 加拿大人, one word along. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "我从出租车上下来。"
+      ],
+      "ex": [
+        [
+          "他把车库出租给邻居。",
+          "He rents the garage out to his neighbour."
+        ]
+      ]
+    },
+    "hsk30l4/厨师": {
+      "why": "'他喜欢我！—厨师的母鸡说。' — 'He likes me! - The cook's hen said.' — is one of the corpus's joke sentences, and a learner meeting 厨师 for the first time is handed a talking chicken. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "他喜欢我！—厨师的母鸡说。"
+      ],
+      "ex": [
+        [
+          "这家饭店的厨师来自四川。",
+          "The chef at this restaurant comes from Sichuan."
+        ]
+      ]
+    },
+    "hsk30l4/从中": {
+      "why": "ex1 and ex3 were the same sentence twice — 从中选一个。 and 从中选择一人。, 'Choose one from among these' and 'Choose one person' — so two of the card's three lines taught one construction. The third is AUTHORED and uses 从中得到 instead of another 选.",
+      "dropEx": [
+        "从中选择一人。"
+      ],
+      "ex": [
+        [
+          "他从中得到了不少好处。",
+          "He got quite a few benefits out of it."
+        ]
+      ]
+    },
+    "hsk30l4/错过": {
+      "why": "'人生总是在错过。' read 'Life is always A MISTAKE', which is 错 and not 错过 — the card's own gloss is 'to miss (train, opportunity etc)' and the sentence is about missing chances, so the English contradicted the word being taught.",
+      "exEn": [
+        [
+          "人生总是在错过",
+          "In life we are always missing something."
+        ]
+      ]
+    },
+    "hsk30l4/吹": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL — no other word in the level contains the character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "吹风",
+          "chuī fēng",
+          "to be out in the wind; to blow-dry"
+        ],
+        [
+          "鼓吹",
+          "gǔ chuī",
+          "to advocate; to agitate for"
+        ]
+      ]
+    },
+    "hsk30l4/此": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows four words — 此次, 此外, 从此 and 因此 — so the rows go elsewhere. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "如此",
+          "rú cǐ",
+          "so; like this"
+        ],
+        [
+          "此时",
+          "cǐ shí",
+          "at this moment"
+        ],
+        [
+          "彼此",
+          "bǐ cǐ",
+          "each other; one another"
+        ]
+      ]
+    },
+    "hsk30l4/粗": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 粗心. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "粗糙",
+          "cū cāo",
+          "coarse; rough"
+        ],
+        [
+          "粗话",
+          "cū huà",
+          "coarse language"
+        ]
+      ]
+    },
+    "hsk30l4/村": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 农村. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "村子",
+          "cūn zi",
+          "a village"
+        ],
+        [
+          "乡村",
+          "xiāng cūn",
+          "the countryside"
+        ]
+      ]
+    },
+    "hsk30l4/存": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against sixteen words in the collection — the widest gap this level has shown. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "存在",
+          "cún zài",
+          "to exist"
+        ],
+        [
+          "保存",
+          "bǎo cún",
+          "to preserve; to save"
+        ],
+        [
+          "存款",
+          "cún kuǎn",
+          "a bank deposit; to deposit money"
+        ]
+      ]
+    },
+    "hsk30l4/答": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 答应 and 答案. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "回答",
+          "huí dá",
+          "to reply; to answer"
+        ],
+        [
+          "解答",
+          "jiě dá",
+          "to answer; to solve"
         ]
       ]
     }

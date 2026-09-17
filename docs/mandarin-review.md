@@ -579,6 +579,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 1–30 (爱情 → 便于), deck order — **Level 4 opens** | 11 | an elephant's 鼻子 is a trunk, and a card labelled a verb over a noun |
 | 2026-09-17 | `hsk30l4` notes 31–60 (标准 → 材料), deck order | 14 | two cards whose gloss is a sense not one of their sentences uses, and three malformed glosses |
 | 2026-09-17 | `hsk30l4` notes 61–90 (参观 → 出行), deck order | 13 | a third truncated gloss, and a `not X` hint retired by glossing the distinction it was patching |
+| 2026-09-17 | `hsk30l4` notes 91–120 (出租 → 打折), deck order | 15 | a sentence about a TAXI on the card for *to rent*, which segments perfectly and no checker can see |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5036,3 +5037,49 @@ a fix on one does not reach the other.
 still-ambiguous 2; shared-gloss groups 338 → 337, the 茶/茶叶 pair dissolving and nothing new appearing;
 pinyin clean; example-fit 143 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible
 on every one; sense-tagged 377 → 383; `build-lang-decks.js` re-run.
+
+## Batch 44 — hsk30l4 notes 91–120 (出租 → 打折)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order, read card by card against the
+five questions. Fifteen cards changed: four sentences replaced, four English lines corrected and seven
+single-character cards given a `Compounds` block.
+
+**A SENTENCE CAN CONTAIN ITS HEADWORD, SEGMENT ON IT, AND STILL NOT BE ABOUT IT — AND HERE THE REASON IS
+THAT THE REAL WORD IS NOT A HEADWORD ANYWHERE.** 出租's first line was 我从出租车上下来 — *I got out of the
+taxi*. 出租车 is a fixed word, and it is in NO deck in the collection, so `check-example-fit.js`'s own
+lexicon has nothing longer than 出租 to match: the segmenter lands squarely on the headword, the
+characters really are there, and the checker is right to report nothing. This is batch 26's 加拿大人
+finding one word along, and it is worth stating the general form: **the checker can only be fooled by a
+compound it does not know, so the compounds that fool it are exactly the ones no exam syllabus lists** —
+and a taxi is as ordinary a word as there is. Replaced with an authored sentence.
+
+**THREE MORE SENTENCES WENT, each for its own reason.** 厨师's third was 他喜欢我！—厨师的母鸡说 — *He
+likes me! - The cook's hen said*, one of the corpus's joke lines, so a learner meets 厨师 beside a talking
+chicken. 从中's first and third were the same sentence twice, 从中选一个 and 从中选择一人, so two of three
+lines taught one construction; the replacement uses 从中得到 instead of a third 选. And 从来's second was
+我从来没乘坐船, which **wants 过**: 从来没 takes the experiential, so the line is ungrammatical rather than
+merely stilted, and 乘坐船 is written-register where the everyday word is 坐船. Nothing in the pipeline
+inspects a sentence's grammar — it segments, it speaks and it translates, and it is still wrong.
+
+**SEVEN SINGLE-CHARACTER CARDS GAINED `Compounds`** — 窗, 吹, 此, 粗, 村, 存, 答. **存's panel is EMPTY
+against sixteen words in the collection**, the widest gap this level has shown, and 吹's is empty against
+three. 此's four are all in the deck already (此次, 此外, 从此, 因此) so its rows go elsewhere — 如此, 此时,
+彼此. Every row's reading and gloss was checked against CC-CEDICT before it was written.
+
+**FOUR ENGLISH LINES.** 错过's third read *Life is always a mistake*, which is 错 and not 错过 — the card
+is about missing chances and its English said the opposite of its own gloss. 打印's first said *copy
+documents* for 打印文件 on a card glossed *print*, in a sentence whose other clause is about a printer
+breaking down. And **the two remaining `on weekends` sites were corrected together**: 打工's first here
+and `hsk30l7/航海`'s, against TEN uses of *at the weekend* elsewhere in the decks. **Two sites is not a
+table row** — `exLexis` governs a substitution worth applying in one place, and this is not a substitution
+at all, the difference being the preposition and the number.
+
+**Read and left.** 此外's *Moreover, I can fly* and 从此's *I've decided to stop wearing underwear* are
+both odd content out of the subtitle corpus and both teach their connective correctly; 此's 他不再工作于此
+is written-register rather than wrong. 粗's own sentences include 粗话, which is why that word is a fit
+`Compounds` row rather than a coarse finding.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 383 unchanged;
+`build-lang-decks.js` re-run.
