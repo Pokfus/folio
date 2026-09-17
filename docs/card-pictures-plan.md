@@ -426,3 +426,11 @@ this batch and unchanged by it: mostly "2nd century BC" inside a caption borrowe
 two `title-AMBIGUOUS` findings on Laozi. **Run it before and after a picture batch and compare the
 COUNT** — the findings are in other people's prose, so a new one is easy to miss in a list that is
 never empty.
+
+**BATCH 6a — one of the two held-back pictures came back.** `gr-566` (Lichas) fetched on the eighth
+attempt, forty minutes after the six that returned zero bytes, from the same `Special:FilePath`
+address that had been failing. **The BUSY state clears; retry before re-deriving a candidate.**
+Looking at it also corrected the caption drafted from its file name: it is a sixteenth-century
+ENGRAVING signed HSB, not a painting, inscribed *Deianira Nessi vestem per Licham servum Herculi
+mittit* — which is a better caption than anything the metadata offered. `ww2-011` (Article 22 of the
+League Covenant) is still unfetched and still held back.

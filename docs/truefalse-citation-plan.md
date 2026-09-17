@@ -2027,3 +2027,34 @@ parliamentary archives have not been probed yet.
 `commons.wikimedia.org/wiki/Special:FilePath` both returned zero bytes on six attempts across forty
 minutes, for two files whose description pages read perfectly. This is the BUSY state, not a wall:
 the same host served seven other files an hour earlier in the same session.
+
+### T54 — the Wayback Machine as a READING room for a host that is 403 here (2026-09-17)
+
+Two cited: #43 (chop suey and General Tso's) and #40 (fortune cookies). 197 → **199 of 220 (90%)**.
+Both come from Haiming Liu's article in the *Journal of Transnational American Studies*, which the
+previous entry recorded as identified and unreadable. It is readable after all.
+
+**THE PDF IS IN THE WAYBACK MACHINE EVEN THOUGH THE LANDING PAGE'S CAPTURE IS USELESS.** The earlier
+probe fetched `web.archive.org/web/2021/https://escholarship.org/uc/item/2bc4k55r` and got the site's
+navigation chrome. The right target is the CONTENT path with the `id_` suffix —
+`web.archive.org/web/2020id_/https://escholarship.org/content/qt<id>/qt<id>.pdf` — which returned
+284 KB and 21 pages of text. **`id_` asks for the raw capture without the archive's own toolbar
+rewriting**, and on a PDF that is the difference between the file and nothing.
+
+**THE CITATION STILL POINTS AT THE DOI, NOT AT THE ARCHIVE.** escholarship is genuinely open access
+and alive; the 403 is this sandbox's egress and not a fact about the source. The migration rule in
+`CLAUDE.md` is for a host that has DIED — **an archived copy used to READ a live open article is a
+reading room, not a citation target.**
+
+**AND THE ARTICLE ANSWERS BOTH STATEMENTS AT ONCE**, which is worth looking for: it says in one
+sentence that "what Americans came to know as chop suey, General Tso's chicken, and egg foo young
+were very different from their Chinese counterparts", in another that "high-class restaurants in
+China seldom served chop suey", and in a third that there were no such things as fortune cookies in
+China. It also supplies what the `why` for #43 needed to stop being a bare denial: there IS a Chinese
+dish behind the name, *chao zasui*, stir-fried animal intestines.
+
+**RULE 2 HAS NO QUOTATION MASK, AND THAT IS PROBABLY RIGHT.** The first draft of #40 quoted the
+sentence about fortune cookies and `check-truefalse.js` refused it over "realized". The clause was
+paraphrased rather than the checker widened: **a quotation is exactly where an authored American
+spelling could hide**, and the whole point of rule 2 is that the one-way transform never corrects
+one. Paraphrase, or quote a passage that happens to be British.
