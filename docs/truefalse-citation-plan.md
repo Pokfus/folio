@@ -2687,6 +2687,15 @@ note keeps running into: DOAJ is mostly STEM, Europe PMC is biomedicine, arXiv i
 pre-modern history had no open index open from here. **Try `10.1057/s41599` for #20 and #47 before
 either is written off again.**
 
+**TRIED, AND THE VENUE HAS NOTHING ON EITHER — WHICH IS A FACT ABOUT ITS CONTENTS, NOT ABOUT THE
+ROUTE.** A Crossref search of the prefix for *Chang'an Tang city* returns one HSSC article, on
+sustainable urban development policy, and for *Columbus voyages Americas landfall* it returns ten
+Palgrave chapters and no article at all. **AND THAT IS THE TRAP WORTH WRITING DOWN: `prefix:10.1057`
+IS NOT *Humanities and Social Sciences Communications*.** The prefix is Palgrave Macmillan's whole
+output, most of it monograph chapters behind a paywall, and a Crossref filter on it looks like a
+journal search and is not one. Filter on the journal's own ISSN, or on the `s41599` stem in the DOI,
+before reading anything into the result.
+
 ### Where the last four stand (2026-09-17)
 
 The pass closed this session at **216 of 220 (93→98%)**. Every remaining statement has been probed
