@@ -1114,3 +1114,67 @@ Lipetsk, Kursk, Ryazan, Tomsk and Sakha (Yakutia). Six findings.
   image is a **night shot, mostly black and watermarked**, and the Zheleznogorsk one would not download at
   all. **The Streletskaya steppe in flower is the right picture for a black-earth card** — the Central
   Black Earth Reserve is unploughed chernozem, which is the thing the prose is about.
+
+## Filling the grid — the population and area pass (Sep 2026)
+
+On request: *"within this deck, you're allowed to use Russian sources like the Federal State Statistics
+Service or others. The majority of sources on each card should be English but the Russian sources might
+help us access data on population and area numbers."* Every shipped `gru-` card carried `?` in the
+Population and Area cells; all 47 are now filled, and every card written from here on carries both from
+the start. Seven findings, of which the first three are about reaching the data at all.
+
+- **ROSSTAT'S OWN HOSTS CANNOT BE REACHED FROM THIS SANDBOX, AND IT IS NOT AN EGRESS POLICY.**
+  `rosstat.gov.ru`, `eng.rosstat.gov.ru`, `gks.ru` and `showdata.gks.ru` all fail TLS verification —
+  their certificates chain to a Russian national CA that no standard trust store carries — and
+  `www.fedstat.ru` answers and returns 403. The proxy's own status endpoint records no relay failure,
+  because the refusal is the client's. **There is no flag for this and there must not be one**: the
+  environment's rule is never to disable TLS verification.
+- **THE WAYBACK MACHINE SERVES THEM OVER ITS OWN CERTIFICATE, AND THAT IS THE ROUTE.**
+  `web.archive.org/web/<ts>id_/<rosstat url>` returns the real bytes. It is also how the publication
+  catalogue was read, the archived folder pages listing the files the live site links.
+- **THE SOURCE IS ONE BILINGUAL TABLE AND IT ANSWERS BOTH COLUMNS AT ONCE.** *Российский статистический
+  ежегодник 2023 / Russian Statistical Yearbook 2023* (Rosstat), «Территория и население субъектов
+  Российской Федерации на 1 января 2023 г. / Territory and urban settlements of constituent entities of
+  the Russian Federation as of January 1, 2023». Its own footnotes say what the figures are: territory
+  **according to Rosreestr**, the land-registry, and population **estimated in light of the 2021 census**.
+  Because the table prints an English column beside the Russian one, it is an ENGLISH source and does not
+  spend a card's Russian-source allowance at all.
+  Archived at `https://web.archive.org/web/2024id_/https://eng.rosstat.gov.ru/storage/mediabank/Yearbook%202023%281%29.pdf`
+  — **percent-encode the parentheses**, or `SRC_URL_RX` truncates the address at the first `(`.
+- **THE PDF READ AS NOTHING AT ALL, TWICE OVER, AND BOTH FAULTS ARE NOW FIXED IN `pdf-text.js`.** Every
+  dictionary in it lives inside a compressed `/Type /ObjStm`, so the object scan found no page and the
+  tool exited 0 with an empty file — the worst shape a failure can have. Unpacking those streams then
+  yielded the words and **12,343 digits in 2.2 MB**, because the CID-or-simple choice is made PER PAGE and
+  the yearbook sets its prose in a Type0 font and its FIGURES in a simple one, so every `(...)` run was
+  dropped. Reading both gives **359,507**. The unpack is a FALLBACK used only where the scan finds no page
+  and the literal decoding is `--literals`, both because neither is inert on a hybrid file: turning them
+  on unconditionally cost `rus17e.pdf` 67 KB of its own front matter. All ten PDFs this repo has read are
+  byte-identical under the default.
+- **THE NAME COLUMN AND THE NUMBER COLUMNS ARE SEPARATE RUNS, SO THE NAME IS TAKEN AFTER THE LAST
+  CYRILLIC CHARACTER** — not after the last `/`, which the PREVIOUS row's city list also carries, and not
+  by longest-suffix match against a name table, under which *Томская область / Tomsk Region* matches
+  `omsk region` and files Tomsk's figures under Omsk. **Leningrad Oblast is the one row no parser gets**:
+  its figures are split character by character (`8` `3` `,` `9`), so they were read by eye.
+- **THE SECOND WITNESS IS WHAT SAYS NO ROW WAS SWAPPED.** Every figure was diffed against
+  citypopulation.de, which compiles the same Rosstat series: **not one population differs by more than
+  2.9%**. The areas that do differ are the two sources genuinely disagreeing, and Rosstat's are the
+  official ones — Chechnya 16,200 km² against 12,300, Astrakhan 49,000 against 44,100, Ivanovo 21,400
+  against 23,900, Chukotka 721,500 against 737,700. The three autonomous okrugs have no row there at all,
+  citypopulation nesting them under their parent.
+- **THE OKRUG NESTING IS ANSWERED BY THE SOURCE ITSELF.** The table publishes both forms — «Тюменская
+  область без автономных округов» at 160.1 thousand km² and 1,608.5 thousand people, and «Архангельская
+  область без автономного округа» at 413.1 and 964.3 — so the four cards the plan flagged need no
+  judgement. Natural Earth's polygons tile, so the map shades the parent WITHOUT its okrugs: `gru-009`
+  Tyumen therefore gives the drawn figure and its cells say **“less okrugs”** outright. Arkhangelsk has
+  not been written yet and takes “less Nenets” when it is.
+
+**The grid is not footnoted, and that is the collection's own practice rather than an omission.** The 58
+China geography cards carry no census citation either; the figures are researched when the card is
+written and the source is recorded here. Folding a cited clause into the 47 shipped abstracts is a prose
+pass rather than a data fill — they run 274–325 words against a 330 ceiling, so thirty of them would have
+to be trimmed to make room, and CLAUDE.md's own warning about shortening cited prose applies.
+
+**The format is three significant figures, as asked for**: population as `1.13M (2023)` / `498k (2023)` /
+`47.8k (2023)`, matching the Largest city cell the deck already used; area in the site's own unit form,
+`24,000 km² (9,270 sq mi)`, rounded to the same precision, so the reader's metric/imperial switch can
+still find it.

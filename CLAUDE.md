@@ -801,6 +801,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     coordinates tested fall in Krasnoyarsk Krai, so the fault is the polygon and no coordinate reaches it.
     **The dot is not moved and is not snapped.** All three are enforced by `window.RUSSIA_CENTRES` holding
     80 rows rather than by the plan saying so, so `add-card.js` refuses such a card.
+  · **THE FACTS GRID IS FILLED FROM ONE BILINGUAL ROSSTAT TABLE, AND ROSSTAT'S OWN HOSTS CANNOT BE
+    REACHED FROM HERE.** `rosstat.gov.ru`, `eng.rosstat.gov.ru` and `gks.ru` fail TLS verification —
+    their certificates chain to a Russian national CA nothing here carries — and `fedstat.ru` 403s;
+    **the Wayback Machine serves them over its own certificate**, which is the route. The table is the
+    *Russian Statistical Yearbook 2023*'s territory-and-population page, Rosreestr for the area and the
+    2021 census for the population, with an English column beside the Russian one, so it spends no part
+    of a card's majority-English allowance. **Reading it needed two fixes in `.claude/pdf-text.js`** —
+    the whole file is object streams, and its FIGURES are set in a simple font on pages whose prose is
+    CID — both of them opt-in, because neither is inert on a hybrid PDF.
   · **THE OKRUGS DO NOT NEST ON THE MAP AND THE OFFICIAL FIGURES DO.** Natural Earth's polygons tile, so
     Tyumen is drawn at its 160,185 km² proper rather than the 1,464,173 km² an official table quotes with
     Khanty-Mansi and Yamalo-Nenets in, and Arkhangelsk likewise against Nenets. **So four cards must state
