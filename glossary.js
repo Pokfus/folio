@@ -3852,7 +3852,9 @@ window.GLOSSARY = {
 "Tiwanaku": "Tiwanaku was a city and ceremonial centre on the high plain south of Lake Titicaca, in what is now Bolivia, whose influence reached across the southern Andes between about 500 and 1000 CE.<sup class=\"fn\" data-fn=\"2\"></sup> Radiocarbon modelling places its founding around 180 CE, the end of monument building around 720 and the end of permanent residence around 1010, before the drought once blamed for its collapse.<sup class=\"fn\" data-fn=\"1\"></sup> Its ruined core holds the Akapana, a stepped platform 17 metres (56 feet) high with seven terraces, and the Pumapunku, a smaller platform renowned for oversized blocks and precisely cut ashlars that Spanish chroniclers already described as unfinished.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Inca_Empire": "The Inca Empire was the largest state of pre-Columbian America, whose rulers brought roughly 2 million square kilometres (770,000 square miles) of the Andes under one government in under a century, between 1438 and 1533 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It held that ground partly by systematic resettlement, moving conquered communities to provinces of a matching climate and sending long-settled subjects the other way, a policy the colonial record describes and archaeology tests by isotope, cranial shape, ceramic chemistry and genetics.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its works on the land included stone-faced terraces, managed woodland and llama herding, which a 4,200-year sediment record from a lake in its heartland shows held the soil and kept it fertile without large-scale burning.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Cusco": "Cusco is a city in the southern Peruvian Andes, standing in a high valley among mountains, which was the capital of the Inca Empire until the Spanish took it in 1533 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Its central square was the point from which four royal roads ran out, one to each quarter of the empire, and its chief temple, the Coricancha, was more than four hundred paces round with a band of gold set half way up its wall.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A modern city stands over the Inca one, so archaeology there works largely by survey: ground-penetrating radar was used on the main square for the first time in a project published in 2020.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Machu_Picchu": "Machu Picchu is an Inca settlement on a ridge above the Urubamba valley in southern Peru, built as a palace within the estate of the emperor Pachacuti.<sup class=\"fn\" data-fn=\"1\"></sup> Radiocarbon dates on bone and teeth from cemeteries around it put the occupation between about 1420 and 1532 CE, which is roughly two decades earlier than the written sources allow.<sup class=\"fn\" data-fn=\"2\"></sup> Genome-wide data from 34 people buried there show that the retainers serving the royal family came from across the empire and from Amazonia, and survey beneath the main plaza indicates that a quarry was opened and the drainage laid before the square took shape.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Machu_Picchu": "Machu Picchu is an Inca settlement on a ridge above the Urubamba valley in southern Peru, built as a palace within the estate of the emperor Pachacuti.<sup class=\"fn\" data-fn=\"1\"></sup> Radiocarbon dates on bone and teeth from cemeteries around it put the occupation between about 1420 and 1532 CE, which is roughly two decades earlier than the written sources allow.<sup class=\"fn\" data-fn=\"2\"></sup> Genome-wide data from 34 people buried there show that the retainers serving the royal family came from across the empire and from Amazonia, and survey beneath the main plaza indicates that a quarry was opened and the drainage laid before the square took shape.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Quipu": "A quipu is an Andean record made of knotted cords, on which the Inca state kept its accounts without the use of writing.<sup class=\"fn\" data-fn=\"1\"></sup> Pendant strings hang like a fringe from a thicker primary cord, knots along them carry numbers by position from units to thousands, and the colour of a string tells what it counts, yellow standing for gold and white for silver.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Officials called quipucamayocs kept them for each province, and cords of this kind were still being combined with alphabetic writing in Andean village ceremonies as late as the 1950s.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Inca_road_system": "The Inca road system, or Qhapaq Ñan, was the largest work of infrastructure built anywhere in the indigenous Americas, running at least 40,000 kilometres (25,000 miles) and joining the far edges of the empire to Cusco by a highland route and a coastal one.<sup class=\"fn\" data-fn=\"1\"></sup> More than two thousand provincial facilities stood along it, and it was named a World Heritage Site in 2014.<sup class=\"fn\" data-fn=\"1\"></sup> Messages travelled it by relay, from small houses set about half a league apart where pairs of runners waited to carry news onward, which moved word across hundreds of leagues in a few days.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5836,7 +5838,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Tiwanaku": "c. 180 – 1050 CE",
 "Inca_Empire": "1438 – 1533 CE",
 "Cusco": "1438 – 1533 CE",
-"Machu_Picchu": "c. 1420 – 1532 CE"
+"Machu_Picchu": "c. 1420 – 1532 CE",
+"Quipu": "c. 950 – 1950 CE",
+"Inca_road_system": "c. 1450 – 1533 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8116,7 +8120,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chinampa": ["chinampas"],
 "Wari_Empire": ["Wari","Huari Empire"],
 "Inca_Empire": ["Tawantinsuyu"],
-"Cusco": ["Cuzco","Qosqo"]
+"Cusco": ["Cuzco","Qosqo"],
+"Quipu": ["khipu","quipus","khipus"],
+"Inca_road_system": ["Qhapaq Ñan","Qhapaq Nan"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12010,7 +12016,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tiwanaku": ["place","city","archaeology","history","americas","bolivia"],
 "Inca_Empire": ["state","history","archaeology","americas","peru"],
 "Cusco": ["place","city","history","archaeology","americas","peru"],
-"Machu_Picchu": ["place","history","archaeology","americas","peru"]
+"Machu_Picchu": ["place","history","archaeology","americas","peru"],
+"Quipu": ["object","technology","history","archaeology","americas","peru"],
+"Inca_road_system": ["building","technology","history","archaeology","americas","peru"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
