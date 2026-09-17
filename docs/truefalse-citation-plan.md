@@ -74,7 +74,7 @@ card-side research is then shared.
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor, T32 one more off the DOE, T33 one off a 2021 neutron-tomography paper; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one, T26 one, T27 one and T29 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation, T27 one more and T28 one more off OpenStax |
-| T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151`, T26 three off OpenStax and NASA Space Place |
+| T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151`, T26 three off OpenStax and NASA Space Place, T34 one off two open diamond papers |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one; T27 two off OpenStax |
 
 ## Open questions carried forward
@@ -1403,4 +1403,30 @@ the direction of its finding would have sat oddly under a FALSE. **A SOURCE ABOU
 IS NOT A SOURCE ABOUT THE SAME QUESTION.** The classic refutation is Wolraich's meta-analysis in
 *JAMA*, and `bmj.com` and the JAMA network are both shut from here, so #155 and #124 remain blocked on
 a host rather than on research.
+
+### T34 — two papers for one statement, because neither carries both halves (2026-09-17)
+
+**One statement, 168 → 169 of 220 (77%).**
+
+· **#118 diamonds are not made from coal (FALSE)** — the mechanism from one paper and the setting
+  from another, and that is the point. Rakipov et al. (*Communications Earth & Environment*, 2026)
+  open on the sentence the statement needs: "Diamonds crystallise from fluids/melts circulating in the
+  Earth's mantle." Timmerman et al. (*Nature*, 2023) supply where and when: sublithospheric diamond
+  crystallisation "records the release of melts from subducting oceanic lithosphere at 300–700 km
+  depths", and thirteen stones from Juína and Kankan date to between 450 and 650 million years ago.
+  **WHAT WENT WAS THE BEST LINE IN THE OLD ANSWER** — "far older than the land plants that coal is
+  made from" — because saying so needs a cited date for land plants, and the two papers carry neither
+  that nor the old answer's "more than 150 kilometres down" and "over a billion years old". The
+  figures now shown are the papers' own, and they refute the statement without the flourish.
+  **A FIRST DRAFT RESTED ON THE RAKIPOV PAPER ALONE**, whose only quantities are 5 GPa and 973 °C for
+  a Siberian lithospheric diamond; converting 5 GPa to a depth in kilometres would have been Folio's
+  geophysics rather than the paper's claim, which is what sent the search after a second source.
+
+**`edisondigital.rutgers.edu` IS A WALL, not an open host.** It answers 200 with 6 KB reading
+"Verifying your browser… Powered by Omeka S", which is `check-reach.js`'s `WALL` outcome exactly. That
+costs **#75** (the 1947 moth and the word "bug") its primary source: Edison's 1878 letter to Puskás,
+where he calls small faults "Bugs", is in that edition. `edison.rutgers.edu` itself answers 200 and its
+`/research/quotations` path is a 404, so the letter needs a different route — a printed edition on
+archive.org is the next thing to try. **`si.edu` is 403 and `history.navy.mil` fails TLS verification
+through the proxy**, so the logbook page with the moth in it is not reachable either.
 
