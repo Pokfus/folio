@@ -1357,6 +1357,70 @@ establish. Findings.
   the peoples they describe, in terms this site will not print. What is taken is the durable factual
   content — the passes, the forest, the ore, the fisheries — and nothing else.
 
+### Batch 15 — Kostroma, the Ingush towers, the Abakan kurgans, Onega and the Yamal (`gru-068`–`gru-072`)
+
+Kostroma Oblast, Ingushetia, Khakassia, Karelia and the Yamalo-Nenets Autonomous Okrug. One finding in
+this batch is about the SOURCE TABLE rather than about any card, and it is the one to read first.
+
+- **ROSSTAT'S TERRITORY COLUMN AND ITS DENSITY COLUMN DISAGREE FOR EXACTLY TWO SUBJECTS, AND THE
+  DISAGREEMENT IS THE 2018 CHECHNYA–INGUSHETIA LAND SWAP.** Table 2.1 gives Ingushetia 3.1 thousand km²
+  beside a density of 143.1, which implies 3.63; and Chechnya 16.2 beside 98.0, which implies 15.65.
+  Every other row in the table is self-consistent to within rounding — that was checked by computing
+  population ÷ area against the printed density for all the rows the extraction resolves, and the only
+  other flag is Sakha, whose area is `3 083,5` split by its thousands space. **The 2022 edition prints
+  the same two pairs**, so it is not a glyph slip in one extraction. The pre-2018 areas were 3,628 km²
+  for Ingushetia and 15,647 km² for Chechnya, which reproduce both densities exactly, so the AREA column
+  carries the post-swap figures and the DENSITY column was computed on the old ones.
+  · **So `gru-069` takes 3,100 km² and states NO density** — the capital share carries its fifth
+    sentence instead. **A Chechnya card must do the same**, and that is the only other row affected.
+  · **The check that found it is arithmetic over the whole column, not a reading of one row.** A single
+    inconsistent figure in a cited table looks exactly like a correct one; what makes it visible is that
+    every other row agrees.
+- **A WMO STATION IS NOT ALWAYS IN THE CAPITAL, AND TWO OF THESE FIVE HAD NO CAPITAL RECORD AT ALL.**
+  `Nazran'` (1109) and `Abakan` (1108) are listed and carry no climate months. The answer is the
+  station the service DOES hold inside the same subject — `Ordzhonikedzevskaja` (1036), which is Sunzha
+  in Ingushetia, and `Hakasskaja` (1010) in Khakassia — and **the card names that place rather than
+  saying "the capital"**, since the sentence would otherwise be false. Salekhard is in the list under
+  the spelling `Salehard`, so a name that misses is worth trying again transliterated.
+- **THE PICTURE RULE COST FIVE REJECTIONS IN TEN.** A rock festival for Petrozavodsk and a zoo gate for
+  Abakan say nothing about Karelia or Khakassia; a winter aerial captioned *Ob river* is the middle Ob
+  at a forested town rather than the okrug's tundra; a street scene in Muravlenko is an ordinary street.
+  **And two otherwise excellent photographs carry a WATERMARK** — the Kizhi Pogost close-up ("Peer Gynt
+  2014") and a wide view of Nazran ("SAG") — which the licence bar excludes however good the picture is,
+  and which only looking at the file reveals.
+- **AN ARCHIVAL PHOTOGRAPH CAN BE THE BEST PICTURE OF A LANDSCAPE.** The great Salbyk kurgan was
+  photographed ringed with its upright slabs before excavation, with a horseman on the summit for scale,
+  which is precisely what `gru-070`'s prose describes and what no modern view of the site can show; and
+  the Yamal card carries Nenets herders before their tents in 1975, the okrug having no single famous
+  natural landmark to photograph. **Both captions say when the photograph was taken**, which is what
+  keeps a dated picture honest.
+- **THREE CROSSREF ROWS WERE DECLARED FOR THIS BATCH, ALL OF THEM RECORD FORMATTING RATHER THAN WRONG
+  NAMES.** Kavkazologiya deposits its byline surname-first; Kemerovo deposits a middle initial as a
+  CYRILLIC Е, which defeats the checker's initials comparison and reports as a differing given name;
+  and Arkheologiya Evraziyskikh Stepey publishes English bylines and deposits the Russian ones. Each was
+  settled by reading the article's own byline — the Dzarakhov PDF, the Kemerovo author page, the
+  journal's own English metadata — before the row was written.
+- **COMMONS' `api.php` IS HARD-THROTTLED FROM THIS SANDBOX AND ITS CATEGORY PAGES ARE NOT.** Every
+  `list=search` and `prop=imageinfo` call in this batch came back 429 or empty within seconds of the
+  first, which reads as *Commons has nothing* and is really *Commons will not answer*. **The HTML
+  category page answers every time** — `commons.wikimedia.org/wiki/Category:<name>`, scraped for
+  `/wiki/File:` links — and so does the file description page, which carries the author, the date, the
+  original pixel size and the licence short name. **And `Special:FilePath/<file>?width=1920` resolves
+  to the canonical `/thumb/<shard>/…/1920px-…` address**, so the two-character shard is READ rather
+  than guessed, which is the rule a hand-built `src` breaks. A 404 from a category page is a wrong
+  category name, not an empty category, exactly as a zero from a search is.
+- **THREE MORE PICTURES WERE REJECTED BY LOOKING AT THEM, AND ONE OF THEM IS THE THIRD WATERMARK OF
+  THE BATCH.** `Vadimrazumov copter - Erzi.jpg` is the best aerial view of the Erzi towers on Commons
+  and carries a photographer's URL burnt across the bottom right; `Kizhi, Kizhi Pogost - panoramio.jpg`
+  is a **museum information board** photographed at the landing stage, which is the text-panel fault
+  the contact sheet was written for; and `Кижский погост. Остров Кижи 2.jpg` is the jetty, with no
+  pogost in it at all. **Not one of the three could be told from its file name.**
+
+- **AND NEITHER `Karelia` NOR A BARE `Kostroma` WAS CLAIMED WITHOUT MEASURING.** *Karelia* occurs in one
+  shipped abstract outside this deck, `ww2-159`, where it means Soviet Karelia — the same territory the
+  term describes — so the alias is claimed; *Kostroma* occurs in `gru-018` meaning the governorate and
+  the city, so the term is keyed `Kostroma_Oblast` and claims no bare name.
+
 ## The background against the grid — the facts-echo pass (Sep 2026)
 
 On request: *the background sections should never mention data that is already in the answer box data

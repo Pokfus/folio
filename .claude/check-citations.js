@@ -198,6 +198,19 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Kavkazologiya deposited this byline surname-first with no family/given split, so
+  // Crossref carries "Dzarakhov Magomed M." The article's own PDF prints the full Russian
+  // form, Магомед Макшарипович Дзарахов, above the abstract.
+  ["10.31143/2542-212X-2024-3-432-446", "Magomed M. Dzarakhov", "Dzarakhov Magomed M."],
+  // Kemerovo deposited this byline with a CYRILLIC Е (U+0415) as the middle initial, which
+  // defeats the initials comparison, so the record reads as a differing given name rather
+  // than as an abbreviation. The journal's own author page prints Гульнара Е. Мамаева.
+  ["10.21603/2078-8975-2017-4-63-69", "Gulnara E. Mamaeva", "G. \u0415. Mamaeva"],
+  // Arkheologiya Evraziyskikh Stepey publishes English titles and bylines and deposits the
+  // RUSSIAN ones: Crossref carries Анна Алексеевна Пайзерова and Ольга Львовна Швец for the
+  // authors the journal's own English metadata names Anna A. Paizerova and Olga L. Shvets.
+  ["10.24852/2587-6112.2023.4.124.128", "Anna A. Paizerova", "\u0410\u043d\u043d\u0430 \u0410\u043b\u0435\u043a\u0441\u0435\u0435\u0432\u043d\u0430 \u041f\u0430\u0439\u0437\u0435\u0440\u043e\u0432\u0430"],
+  ["10.24852/2587-6112.2023.4.124.128", "Olga L. Shvets", "\u041e\u043b\u044c\u0433\u0430 \u041b\u044c\u0432\u043e\u0432\u043d\u0430 \u0428\u0432\u0435\u0446"],
   // The USGS Publications Warehouse catalogue record for this open-file report misspells
   // its first author, and Crossref relays the deposit. The report itself prints "by D. G.
   // Jordan and O. J. Cosner" on its title page, and its own Selected References list a
