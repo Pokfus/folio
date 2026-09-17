@@ -552,6 +552,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l2` notes 61–90 (机票 → 路上), deck order | 19 | a gloss that is an archaism the dictionary marks (old) |
 | 2026-09-17 | `hsk30l2` notes 91–120 (旅游 → 肉), deck order | 19 | a card missing the sense two of its three sentences show |
 | 2026-09-17 | `hsk30l2` notes 121–150 (商场 → 位), deck order | 21 | the dictionary's own editorial note pasted into a gloss |
+| 2026-09-17 | `hsk30l2` notes 151–180 (为什么 → 鱼), deck order | 16 | **an obscene example sentence on a Level 2 weather card** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1998,3 +1999,93 @@ that carries it.
 ### Read and left alone
 
 上去, 身体, 生日, 事情, 书包, 所以, 跳舞, 外国, 完, 网上 and 往 are right as they stand.
+
+### 2026-09-17 — Level 2, notes 151–180
+
+**What the batch was.** The thirty cards 为什么 → 鱼, read one at a time against CC-CEDICT and against
+their own three sentences. **Sixteen were changed**, fourteen left alone.
+
+### ⚠ The worst single thing this pass has found
+
+**阴's third example was 你的阴茎很大。 — "Your penis is big."**
+
+阴茎 is a word of its own, so the card's headword does not even stand alone in it; and the sentence has
+no business on a Level 2 vocabulary card glossed "cloudy" under any circumstances whatever. It was
+sitting on card 172 of a deck a beginner works through in their second month, and it has been shipped to
+every reader who downloaded that deck.
+
+**Nothing in the pipeline could see it.** It is grammatical, its translation is accurate, it segments
+cleanly, and `check-example-fit.js` does not flag it because 阴茎 is not in the decks' own lexicon — the
+same blind spot that hid 出外 and 外债 five batches ago. **Only reading the card finds this**, which is
+the argument for the whole audit in one line.
+
+Its first example, 天气依然阴雨, is the same structural fault without the offence — 阴雨 is a word (wet
+and overcast weather). Both replaced.
+
+**Worth doing before the next batch**, and recorded here rather than done, because it is a sweep of its
+own: the sentences in these decks come from a public corpus, and one of them got through. A pass over
+all 34,596 example blocks for anatomical and sexual vocabulary would say whether 阴茎 is alone.
+
+### Two glosses, one shape
+
+**姓 was "surname" under a part of speech reading `noun / verb`** — the verb's meaning missing entirely,
+while its own second sentence is that verb (我跟我妈妈姓, "I take my mother's surname"). That is the
+third card with this exact shape: 开始 and 考试 were the first two, all in Level 2.
+
+**希望 was "hope; wish" under a `verb`** — two bare stems, so the card claimed a verb and gave what reads
+as two nouns, and its third sentence is genuinely the noun.
+
+### The parenthetical author's note, for the sixth time
+
+**一起's gloss was "together, in company (everyday word)"** — after 非常, 早上, 午饭, 一下 and 有的. The
+class is now well enough attested to be worth a sweep of its own: a gloss ending in a bracketed remark
+about the card rather than about the word.
+
+### Not grammatical
+
+- **因为's 因为是那儿。"Because it is there"** is not a sentence: 因为 opens a clause and 是那儿 is not
+  one, with no subject and no main clause after it.
+- **下面's 那些钱藏了在地板下面。** — **藏了在** cannot stand: the aspect marker will not go between the
+  verb and its locative (it wants 藏在, and a passive besides for the English given).
+- **游泳's second example** was a two-line dialogue whose second half has **no terminal punctuation at
+  all** — “没错” closes the quotation and stops. One of the 150 the punctuation pass deliberately leaves,
+  since whether a fragment wants a stop is a judgement. Replaced rather than punctuated, the dialogue
+  being poor teaching material either way.
+
+### The headword inside another word
+
+游's 我不玩网游 (an online game, on a card glossed "to swim"), and 右's 他伸长了他的右手 — which also
+repeats 他 as both subject and possessor where Chinese drops the second.
+
+### Two more of my own replacements rewritten on reading the finished card
+
+**This is the third batch running**, and both were the same fault in different clothes:
+
+1. **右边's second replacement carried the SAME English as the sentence that survived**, word for word —
+   "Take the road on the right" twice on one card, which is what `check-senses.js` exists to catch.
+   Rewritten as an existential frame.
+2. **右's replacement used the same 往右 frame as the sentence above it.** Rewritten with 向, so the
+   card's three sentences now show 右转, 往右 and 向右 — the three ways a beginner meets it.
+
+**Reading the finished card is now the step that finds most of what a batch gets wrong.** The checkers
+catch none of these: a duplicate English passes `--check`, and two sentences in the same frame are not
+a finding anywhere.
+
+### On the compound lists
+
+**Seven cards got one.**
+
+- **阴 is the clearest case for the section yet**: every word the nine decks hold for that character is
+  Level 7 — 阴影, 阴暗, 阴历, 阴谋, 阴性 — so even a panel that could search the whole corpus would show
+  a Level 2 reader nothing usable. 阴天 leads and is in no deck at all.
+- **右手 is on 右's list because it is the word this batch took OUT of that card's examples**, where it
+  was swallowing the headword. The section is where such a word belongs.
+- **游戏 leads 游's** for the same reason from the other side: the sentence removed from that card was
+  about 网游, and 游戏 is the word a reader actually needs for it — which is not the card's own meaning.
+
+### Read and left alone
+
+为什么, 洗, 洗手间, 下来, 下去, 小时候, 姓名, 眼睛, 药, 药店, 爷爷, 一会儿, 已经, 意思, 有意思, 有时
+and 鱼 are right as they stand. 颜色's second English wrote "favorite color" and was put into British —
+"color" is in `SPELL_PAIRS` and would have been converted for an American reader anyway; "favorite" is
+the half that was stuck.
