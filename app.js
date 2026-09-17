@@ -2053,6 +2053,56 @@
     _gameStats = out; _gameStatsAt = Date.now();
     return out;
   }
+  /* ---------- HOW MANY TIMES A LIBRARY BOOK HAS BEEN READ (Sep 2026, on request) ----------
+     The third counter of this shape, after the card difficulties and the daily games, and it exists for
+     the same reason: `progress` is readable only by its owner and their accepted friends, so nothing can
+     count across readers — the figure has nowhere to live but a pooled table joined to nobody (schema
+     section 16).
+
+     A READ IS A READER, NOT AN OPENING. It is counted once per book per reader, the first time they have
+     actually spent `BOOK_READ_MIN` reading it, and the fact that it has been counted is written into the
+     reader's OWN progress — which syncs, so the same person on a second device does not count twice, and
+     somebody who opens a book, glances and leaves does not count at all. Counting every open would make
+     the number a measure of browsing, while the word on the page says "read".
+
+     OFF ON A DEV ORIGIN and LATCHING OFF on a 404, like both of its siblings: a project that has not run
+     the block is the normal case, and a shelf showing every book as "0 reads" would be a lie about the
+     books rather than a gap in the database. Nothing is drawn at all until a figure is known. */
+  let _bookStatsOff = false, _bookStats = null, _bookStatsAt = 0;
+  const BOOK_STATS_TTL = 300000;       // five minutes; the shelf must never wait on a fetch to paint
+  const BOOK_READ_MIN = 60000;         // a minute with the book actually open and being read
+  function bookStatsPost(id) {
+    if (_bookStatsOff || isDevOrigin() || !id) return;
+    supaFetch("/rest/v1/rpc/bump_book_read", { method: "POST", body: { b: String(id) } })
+      .then((r) => { if (r && r.status === 404) _bookStatsOff = true; });
+  }
+  /* Every book's count in ONE request — the shelf draws forty-eight tiles, so a fetch per tile would be
+     forty-eight requests for a figure that is a footnote on each. */
+  async function bookStatsLoad() {
+    if (_bookStatsOff || isDevOrigin()) return null;
+    if (_bookStats && Date.now() - _bookStatsAt < BOOK_STATS_TTL) return _bookStats;
+    const r = await supaFetch("/rest/v1/book_stats?select=book,reads");
+    if (!r || !r.ok) { if (r && r.status === 404) _bookStatsOff = true; return null; }
+    const out = Object.create(null);
+    (Array.isArray(r.data) ? r.data : []).forEach((row) => { if (row && row.book) out[row.book] = row.reads | 0; });
+    _bookStats = out; _bookStatsAt = Date.now();
+    return out;
+  }
+  // what this session knows, without asking: null until the first load settles
+  function bookReads(id) { return _bookStats ? (_bookStats[id] | 0) : null; }
+  /* Called from the reading clock. The flag lives on the reader's own reading record beside their place
+     and their time, so it syncs with them; `Object.assign` rather than a fresh object, for the reason
+     `setReadingPos` records — a rebuilt record here would wipe the clock it is reading. */
+  function bookReadMaybeCount(id) {
+    if (!id || _bookStatsOff || isDevOrigin()) return;
+    const r = S.reading && S.reading[id];
+    if (!r || r.cnt || (r.ms | 0) < BOOK_READ_MIN) return;
+    S.reading[id] = Object.assign({}, r, { cnt: 1 });
+    save();
+    bookStatsPost(id);
+    // the shelf's own figure is now one behind the server's; drop the cache so the next visit re-asks
+    _bookStats = null; _bookStatsAt = 0;
+  }
   function gamePlayedToday(key) { const g = S.games && S.games[key]; return !!(g && g.date === todayStr() && g.played); }
   function gameWonToday(key) { const g = S.games && S.games[key]; return !!(g && g.date === todayStr() && g.won); }   // won = a perfect run today (gold tile)
   function allGamesWonToday(prog) {
@@ -3888,6 +3938,17 @@
      It is cleared by route() on any navigation that is neither the editor nor the study page, so a hold can
      never sit waiting on a page the reader reached some other way. */
   let studyHold = null;
+  /* …AND THE SAME TRIP TO THE ATLAS AND BACK (Sep 2026, on request: a card's atlas window gets a button
+     to "take the user to that location on the personal atlas page, where there should then be a 'Back'
+     button to go back to the card study the user was in").
+     It is `studyHold`'s shape exactly and for the same reason: the Atlas is a PAGE, so reaching it routes,
+     and `route()` clears the study record by design — that being the one choke point that stops a stale
+     queue outliving the page it belongs to. Rather than weaken the rule for a second caller, the record is
+     captured when the button is pressed and written back when the reader presses Back.
+     `atlasFocus` carries the CARD ID rather than a coordinate, so the atlas resolves the place through
+     `atlasRegister` — the same rule that decides what is drawn there. A pair of numbers passed across
+     would be a second answer to "where is this card", free to disagree with the mark the globe draws. */
+  let atlasHold = null, atlasFocus = null;
 
   // remember which gloss popups are open (owning route + term + position) so a page reload can re-open them.
   // Uses sessionStorage: it survives an F5 / dev-server live-reload in the SAME tab, but a tab/browser CLOSE clears it,
@@ -5652,6 +5713,8 @@
     const add = Math.min(ms, STUDY_TICK_MS * 2);
     r.dms = (r.dms | 0) + add;
     r.ms = (r.ms | 0) + add;
+    // …and once a reader has really read it, count the reading across readers (see bookReadMaybeCount)
+    try { bookReadMaybeCount(bookId); } catch (e) {}
   }
   function readTimeToday(bookId) { const r = S.reading && S.reading[bookId]; return r && r.d === todayStr() ? (r.dms | 0) : 0; }
   function readTimeTotal(bookId) { const r = S.reading && S.reading[bookId]; return (r && (r.ms | 0)) || 0; }
@@ -14662,6 +14725,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (name !== "study") clearStudySession();
     // the hold belongs to the trip between the study page and the editor; going anywhere else ends it
     if (name !== "admin" && name !== "study") studyHold = null;
+    // …and the atlas hold to the trip between the study page and the Atlas
+    if (name !== "map" && name !== "study") { atlasHold = null; atlasFocus = null; }
     // the Atlas opens on the reader's own atlas every time — see the note beside `atlasTab`
     if (name === "map") atlasTab = "mine";
     /* An admin-only route is refused HERE and not in the page, so a deep link, a Back and a stray
@@ -26981,6 +27046,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <span class="bk-tile-foot">
             <span class="bk-tile-meta">${len}</span>
             ${orig ? `<span class="bk-tile-orig">${esc(orig)}</span>` : ""}
+            ${/* HOW MANY PEOPLE HAVE READ IT (Sep 2026, on request). Drawn only where there IS a figure:
+                  `bookReads` is null until the pooled table has answered, and on a project that has not
+                  run schema section 16 it stays null for good — a shelf of books each claiming "0 reads"
+                  would be a statement about the books rather than about the database. A book nobody has
+                  finished yet is 0 and says so, which is a real answer and a different one. */""}
+            ${(() => { const rd = bookReads(b.id); return rd == null ? "" : `<span class="bk-tile-reads notranslate" title="${esc(t("How many people have read this"))}">${rd === 1 ? esc(t("read once")) : rd + " " + esc(t("reads"))}</span>`; })()}
             ${pos ? `<span class="bk-tile-resume">${esc(where)}</span>` : `<span class="bk-tile-new">Start reading</span>`}
           </span>
         </span>
@@ -27079,6 +27150,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       wireHoldMenu(el, () => openBookMenu(el.dataset.book), () => route("book", { id: el.dataset.book }))
     );
     wireShelf();
+    /* THE READ COUNTS ARRIVE AFTER THE SHELF DOES, and the shelf is not held back for them. It is one
+       request for all forty-eight books (see `bookStatsLoad`), it is a footnote on each banner, and a
+       project that has not run schema section 16 never answers at all — so the tiles paint at once and
+       are repainted IN PLACE when the figures land, never through `render()`, which would take the
+       reader's search and scroll with it. A second visit inside the cache window redraws from `_bookStats`
+       with no request at all, so the figure is already there on the first paint. */
+    bookStatsLoad().then((st) => {
+      if (!st || !shelf.isConnected) return;
+      shelf.innerHTML = shelfHTML(bookQuery);
+      wireShelf();
+    });
     const f = root.querySelector("#bkFilter");
     const cnt = root.querySelector("#bkCount");
     if (f) f.addEventListener("input", () => {
@@ -31085,6 +31167,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         wireFootnotes(inner);   // number the in-prose markers and join them to the source list below
         wireSpeakControls(inner);   // a card type's read-aloud spans become real, focusable controls
         mountCardMaps(inner);   // …and start the locator globe, if the card carries one (see cardLocatorHTML)
+        /* …and say so if this reveal has just earned the reader somewhere new (see cardAtlasDiscover).
+           It goes HERE, after `buildBack`, and not beside `cardMapReveal` above: the locator window is
+           part of the card's BACK, so up there the chip does not exist yet and the call found nothing —
+           silently, since a card with no atlas window is the ordinary case and returns early too. */
+        cardAtlasDiscover(inner, c);
         /* …and, if this deck's sheet asked for it, say the first of them without being pressed. The FIRST
            only: a type that marks several runs is asking for a control on each, not for a recital. */
         if (fromReader && autoSpeakOn) {
@@ -31738,6 +31825,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "Open access": { cls: "src-access-open", title: "Free to read" },
     Paywalled: { cls: "src-access-pay", title: "Behind a paywall" },
   };
+  /* THE LANGUAGE A SOURCE IS WRITTEN IN, where it is not English (Sep 2026, on request: "cited sources
+     in non-English languages should feature a chip saying the language they're in"). CLAUDE.md's rule is
+     that a source in any language qualifies — "an English card may cite a French or German work where
+     that work carries detail no English one does, common for European prehistory, where the excavation
+     reports are written where the site is" — so the corpus really does rest on works in a dozen
+     languages, and until now a reader met them with nothing to say so until they followed the link.
+
+     IT IS DECLARED IN THE CITATION, NEVER SNIFFED OUT OF IT, and that is the whole design. The obvious
+     alternative is to guess the language from the work's title, which is what `.claude/check-cards.js`
+     rule 6 does — and that tool's own header records what guessing costs: of its seventeen findings SIX
+     were wrong, because the École française d'Athènes publishes its site notices in English and the
+     Chronique des fouilles en ligne is bilingual. A checker may report a candidate for a human to read;
+     a CHIP is an assertion made to the reader, and an assertion that a paper is in French when it is in
+     English is exactly the kind of quiet wrongness this site must not manufacture. So the author writes
+     the marker and this only draws it.
+
+     The mechanism is the access chip's, one rule further along the same text-node walk: a bracketed word
+     in the stored plain text, lifted out into a chip. `[` cannot appear in a URL match, so the three
+     passes cannot collide, and a citation with no marker simply gets no chip — which is the honest state
+     for the 29,000 English ones and for any whose language nobody has yet declared. The alternation is
+     ENUMERATED rather than `[in (\w+)]` so that a typo is a missing chip rather than a chip reading
+     "Frenhc", and `.claude/src-langs.js` slices this list out of here by text so the content tools refuse
+     a language app.js cannot draw. */
+  const SRC_LANG_NAMES = [
+    "French", "German", "Italian", "Spanish", "Portuguese", "Dutch", "Danish", "Swedish", "Norwegian",
+    "Finnish", "Greek", "Latin", "Russian", "Ukrainian", "Polish", "Czech", "Hungarian", "Romanian",
+    "Serbian", "Croatian", "Bulgarian", "Turkish", "Arabic", "Hebrew", "Persian", "Chinese", "Japanese",
+    "Korean", "Hindi", "Sanskrit", "Thai", "Vietnamese", "Indonesian", "Catalan", "Basque", "Galician",
+    "Estonian", "Latvian", "Lithuanian", "Slovak", "Slovene", "Albanian", "Armenian", "Georgian",
+  ];
+  const SRC_LANG_RX = new RegExp("\\[in (" + SRC_LANG_NAMES.join("|") + ")\\]", "g");
   // one text-node walk, one replacement rule — used for the URLs and then for the access chips
   function replaceInSrcText(li, rx, make, skipInsideLink) {
     const walk = document.createTreeWalker(li, NodeFilter.SHOW_TEXT, null);
@@ -31775,6 +31893,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       el.className = "src-access " + meta.cls;
       el.textContent = t(m[1]);
       el.title = t(meta.title);
+      return el;
+    }, false);
+    /* …and the language chip, on the same walk. It is deliberately the LAST pass: the access marker and
+       the URL are both fixed shapes this one cannot contain, so running after them costs nothing and
+       keeps the two older rules exactly as they were. */
+    replaceInSrcText(li, SRC_LANG_RX, (m) => {
+      const el = document.createElement("span");
+      el.className = "src-access src-lang";
+      el.textContent = t(m[1]);
+      el.title = t("Written in") + " " + t(m[1]);
       return el;
     }, false);
   }
@@ -32603,6 +32731,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!root || !root.querySelectorAll) return;
     root.querySelectorAll(".map-card").forEach((h) => { if (h._folioMap) h._folioMap.reveal(); });
   }
+  /* ---------- "DISCOVERED!" ON THE CARD THAT EARNED IT (Sep 2026, on request) ----------
+     Called from `showAnswer`, next to `cardMapReveal`, because the two are the same moment: the map may
+     now name what it was shading, and it may also be showing somewhere the reader has just earned.
+     It is asked BEFORE the card is graded, which is what makes the test work at all — `grade()` writes
+     `S.cards[id]`, and `atlasPlaceIsNew` reads its absence as "first sighting". */
+  function cardAtlasDiscover(root, c) {
+    if (!root || !root.querySelector || !c) return;
+    const chip = root.querySelector(".card-loc .mc-new");
+    if (!chip) return;                                   // no atlas window on this card
+    if (!atlasPlaceIsNew(c)) return;
+    chip.hidden = false;
+    // the chime is an EVENT and the chip is a STATEMENT: the chip is drawn on every render of this card,
+    // the sound plays once a sitting (see `_atlasHeard`)
+    if (!_atlasHeard.has(c.id)) { _atlasHeard.add(c.id); try { sfx("discover"); } catch (e) {} }
+  }
+  /* The way through to the reader's own globe, DELEGATED once for the document — this markup is drawn by
+     six surfaces and a per-render wiring is one forgotten call away from a button that does nothing. */
+  /* CAPTURE PHASE, for the reason the footnote handlers are: the window's own `.mc-btn` listener calls
+     `stopPropagation()` on every press in that stack, so a bubbling listener here never sees this button
+     at all — the press did nothing and nothing said why. */
+  document.addEventListener("click", (e) => {
+    const b = e.target && e.target.closest && e.target.closest('.map-card [data-mc="go"]');
+    if (!b) return;
+    e.preventDefault(); e.stopPropagation();
+    const host = b.closest(".map-card");
+    const id = host && host.getAttribute("data-map-card");
+    // capture the session BEFORE routing: route() clears it, which is the rule this works around
+    atlasHold = readStudySession();
+    atlasFocus = id ? { id: id } : null;
+    route("map");
+  }, true);
   function startCardGlobe(host) {
     const cv = host.querySelector(".mc-canvas");
     if (!cv) return;
@@ -33666,8 +33825,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     host.querySelectorAll(".mc-btn").forEach((b) => b.addEventListener("click", (e) => {
       e.stopPropagation();
       const w = b.getAttribute("data-mc");
+      /* NAMED, not "anything that is not home". The atlas button lives in this same stack and is wired
+         elsewhere; under the old `else` it fell through to the zoom branch and zoomed OUT on every
+         press, while also doing its own job — a control that works and misbehaves at once. */
       if (w === "home") { rotLon = homeLon; rotLat = homeLat; zoom = homeZoom; }
-      else zoom = clampN(zoom * (w === "in" ? 1.45 : 1 / 1.45), CMAP_ZMIN, CMAP_ZMAX);
+      else if (w === "in" || w === "out") zoom = clampN(zoom * (w === "in" ? 1.45 : 1 / 1.45), CMAP_ZMIN, CMAP_ZMAX);
+      else return;
       schedule();
     }));
     // …and from the keyboard, which is the only way a reader who cannot use a pointer reaches it at all
@@ -34509,31 +34672,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      unlocked before `worldcaps` lands appears when it lands rather than being dropped. */
   // the card kinds that are a POLITY OR A PEOPLE rather than a piece of geography — see the region branch below
   const MINE_POLITY = new Set(["culture", "people", "state", "dynasty", "empire", "civilisation"]);
-  function atlasUnlocks() {
-    const key = Object.keys(S.cards || {}).length + "|" + ((window.WORLD_GEO || []).length) + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length);
-    if (_atlasMineCache && _atlasMineCache.key === key) return _atlasMineCache.v;
-    const names = new Map(), subdiv = [], marks = [], need = new Set();
-    Object.keys(S.cards || {}).forEach((cid) => {
-      const c = CARD_BY_ID[cid];
-      if (!c) return;                                   // a community card names no place on this globe
+  /* WHAT ONE CARD PUTS ON THE PERSONAL ATLAS, lifted out of `atlasUnlocks` so there is ONE definition of
+     it (Sep 2026). Two callers need the answer and the rule is long: `atlasUnlocks` asks it of every card
+     the reader has a record for, and `atlasPlaceIsNew` asks it of the card in front of them, to decide
+     whether revealing it has just earned them somewhere they did not have. A second copy of ninety lines
+     of "a region is drawn only if its first tag is a polity, a range registers nothing, water is a label"
+     would go stale the first time either rule moved, and the symptom would be a chip announcing a
+     discovery the globe then does not draw. */
+  function atlasRegister(cid, c, out) {
       const title = String(c.answerText || "").trim() || String(cid);
+      /* WHICH COLLECTION EARNED THIS PLACE (Sep 2026, on request: "in the personal atlas, users should be
+         able to toggle locations from specific collections on/off"). Recorded at registration because
+         this is the one pass that has the card in hand; every consumer downstream reads marks and names
+         and would otherwise have to find its way back to the card to ask. */
+      const _root = cardCollectionRoot(cid), coll = _root ? _root.id : "";
       const spec = cardMapSpec(c);
       if (spec) {
         if (spec.layer === "world") {
-          spec.keys.forEach((k) => { const lk = k.toLowerCase(); if (!names.has(lk)) names.set(lk, { id: cid, title: title, key: k }); });
+          spec.keys.forEach((k) => { const lk = k.toLowerCase(); if (!out.names.has(lk)) out.names.set(lk, { id: cid, title: title, key: k, coll: coll }); });
         } else {
-          if (spec.def.bundle) need.add(spec.def.bundle);
-          subdiv.push({ id: cid, title: title, layer: spec.layer, keys: spec.keys, global: spec.def.global });
+          if (spec.def.bundle) out.need.add(spec.def.bundle);
+          out.subdiv.push({ id: cid, title: title, layer: spec.layer, keys: spec.keys, global: spec.def.global, coll: coll });
         }
         if (spec.dot) {
-          if (spec.def.pointsBundle) need.add(spec.def.pointsBundle);
+          if (spec.def.pointsBundle) out.need.add(spec.def.pointsBundle);
           /* A CAPITAL IS A SQUARE ONLY WHERE IT IS A COUNTRY'S (Sep 2026, on request: "province or state
              capitals should not have squares but normal sized circles. Only country capitals should have
              squares"). Every dot on this globe arrives from a geography card's `map.dot`, so all three
              kinds — Paris, Sacramento, Wuhan — were one square, and the mark said "capital" where the
              reader wanted it to say "capital OF WHAT". The layer already answers that in its own `what`,
              so there is nothing new to record and no table to keep in step. */
-          marks.push({ id: cid, title: title, kind: "dot", dot: spec.dot, points: spec.def.points, modern: true, cap: spec.def.what === "country", subcap: spec.def.what !== "country", y0: null, y1: null });
+          out.marks.push({ id: cid, title: title, kind: "dot", dot: spec.dot, points: spec.def.points, modern: true, cap: spec.def.what === "country", subcap: spec.def.what !== "country", y0: null, y1: null , coll: coll });
         }
         return;
       }
@@ -34549,7 +34718,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          decisive battle was fought is not the same claim as the shading that says who fought it. */
       const war = cardWar(c), wy = war ? cardWarYears(c) : null;
       if (war && wy) [["v", war.victors], ["l", war.losers]].forEach((pair) => {
-        marks.push({ id: cid, title: title, kind: "war", side: pair[0], sideName: pair[1].name, keys: pair[1].keys, area: pair[1].area, y0: wy.y0, y1: wy.y1 });
+        out.marks.push({ id: cid, title: title, kind: "war", side: pair[0], sideName: pair[1].name, keys: pair[1].keys, area: pair[1].area, y0: wy.y0, y1: wy.y1 , coll: coll });
       });
       const loc = cardLocator(c);
       if (!loc) return;
@@ -34585,7 +34754,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (loc.kind === "region" || loc.kind === "shelf") {
         if (!loc.area || !MINE_POLITY.has(String((c.tags || [])[0] || "").toLowerCase())) return;
         const y1 = ys.length ? Math.max.apply(null, ys) : null;
-        marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1 });
+        out.marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1 , coll: coll });
         return;
       }
       /* WATER IS NAMED, NOT MARKED (Sep 2026, on request: the Aegean Bronze Age card should "add its
@@ -34600,16 +34769,117 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          A RANGE STILL REGISTERS NOTHING. It is neither water nor a polity, and its mark was a line of
          triangles that at world scale is the rash the earlier request took off. */
       if (loc.kind === "river" || loc.kind === "sea") {
-        marks.push({ id: cid, title: loc.name || title, kind: "water", at: loc.at, area: loc.area || null, y0: y0 });
+        out.marks.push({ id: cid, title: loc.name || title, kind: "water", at: loc.at, area: loc.area || null, y0: y0 , coll: coll });
         return;
       }
       if (loc.kind === "range") return;
-      marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, y0: y0 });
+      out.marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, y0: y0 , coll: coll });
+  }
+  /* THE WHOLE REGISTER — every place the reader has earned, whatever they have chosen to look at. It is
+     what `atlasPlaceIsNew` asks (a place hidden behind a collection toggle is still one you have) and
+     what the collection list on the Atlas is built from. `atlasUnlocks` is the FILTERED view of it. */
+  function atlasRegisterAll() {
+    const key = Object.keys(S.cards || {}).length + "|" + ((window.WORLD_GEO || []).length) + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length);
+    if (_atlasMineCache && _atlasMineCache.key === key) return _atlasMineCache.v;
+    const out = { names: new Map(), subdiv: [], marks: [], need: new Set() };
+    Object.keys(S.cards || {}).forEach((cid) => {
+      const c = CARD_BY_ID[cid];
+      if (!c) return;                                   // a community card names no place on this globe
+      atlasRegister(cid, c, out);
     });
-    const v = { names: names, subdiv: subdiv, marks: marks, need: need, count: names.size + subdiv.length + marks.length };
+    const v = { names: out.names, subdiv: out.subdiv, marks: out.marks, need: out.need, count: out.names.size + out.subdiv.length + out.marks.length };
     _atlasMineCache = { key: key, v: v };
     return v;
   }
+  /* ---------- WHICH COLLECTIONS THE READER IS LOOKING AT (Sep 2026, on request) ----------
+     Stored as the ids that are OFF, so a collection the reader has never touched is shown and a
+     collection that ships later is shown too — the same rule `S.deckOpts` follows for a deck's limits.
+     It lives in `S.settings` rather than in the progress blob: it is a way of looking at the globe, like
+     the text size and the theme, and not a fact about what has been studied. */
+  function atlasCollHidden() { const a = S.settings && S.settings.atlasHidden; return Array.isArray(a) ? a : []; }
+  function atlasCollOff(id) { return atlasCollHidden().indexOf(String(id || "")) >= 0; }
+  function setAtlasColl(id, on) {
+    const cur = atlasCollHidden().filter((x) => x !== String(id));
+    if (!on) cur.push(String(id));
+    S.settings.atlasHidden = cur;
+    _atlasViewCache = null;
+    save();
+  }
+  /* Every collection that has put something on this globe, with how many places each holds — the list the
+     toggles are drawn from. Built off the WHOLE register, so turning one off never removes its own row. */
+  function atlasCollections() {
+    const u = atlasRegisterAll(), by = new Map();
+    const bump = (coll) => {
+      const id = String(coll || "");
+      if (!id) return;
+      if (!by.has(id)) {
+        const n = NODE_BY_ID[id];
+        by.set(id, { id: id, title: n ? nodeTitle(n) : id, n: 0 });
+      }
+      by.get(id).n++;
+    };
+    u.names.forEach((v) => bump(v.coll));
+    u.subdiv.forEach((d) => bump(d.coll));
+    u.marks.forEach((m) => bump(m.coll));
+    return [...by.values()].sort((a, b) => b.n - a.n || a.title.localeCompare(b.title));
+  }
+  let _atlasViewCache = null;
+  /* The filtered view every drawing pass reads. Keyed on the register's own cache object AND on the
+     hidden list, so switching a collection off re-derives and nothing else does. */
+  function atlasUnlocks() {
+    const all = atlasRegisterAll(), hid = atlasCollHidden();
+    if (!hid.length) return all;                         // the ordinary case — no copy, no second cache
+    const sig = hid.slice().sort().join(",");
+    if (_atlasViewCache && _atlasViewCache.src === all && _atlasViewCache.sig === sig) return _atlasViewCache.v;
+    const off = new Set(hid);
+    const names = new Map();
+    all.names.forEach((v, k) => { if (!off.has(String(v.coll || ""))) names.set(k, v); });
+    const subdiv = all.subdiv.filter((d) => !off.has(String(d.coll || "")));
+    const marks = all.marks.filter((m) => !off.has(String(m.coll || "")));
+    const v = { names: names, subdiv: subdiv, marks: marks, need: all.need, count: names.size + subdiv.length + marks.length };
+    _atlasViewCache = { src: all, sig: sig, v: v };
+    return v;
+  }
+  /* ---------- DOES REVEALING THIS CARD EARN THE READER A PLACE THEY DID NOT HAVE? (Sep 2026, on
+     request: "when a card with a new personal atlas location is discovered, the atlas window should have
+     a top left chip saying Discovered! and play a sound effect when the answer side is revealed")
+     ----------
+     THIS IS THE DISCOVERY THE PERSONAL ATLAS DELIBERATELY DOES NOT ANNOUNCE, arriving at the moment it
+     actually happens. Clicking a mark on that globe is explicitly NOT a discovery (see `showMinePopup`):
+     the place is drawn there BECAUSE its card has a record, so congratulating a reader for opening it
+     congratulates them for something they earned days ago. Earning it is this — the first reveal of a
+     card that puts somewhere new on the map — and until now it passed in silence.
+
+     THREE THINGS MUST ALL HOLD, and each rules out a way of announcing something that is not news:
+       · the card has NO record yet, so this is its first sighting rather than a review;
+       · it registers something at all, which `atlasRegister` decides and nothing here re-decides;
+       · and what it registers is not ALREADY on the globe from some other card — two cards on Athens
+         are one place, and the second is not a discovery.
+     The last is why this compares against `atlasUnlocks()` rather than just asking whether the card has
+     a locator: the corpus has whole runs of cards sharing a city.
+
+     A MARK IS COMPARED BY THE NAME IT DRAWS, which is what the reader would see appear. `title` is what
+     `drawMineMarks` labels, so two entries with one title are one mark on the map however they were
+     registered. */
+  function atlasPlaceIsNew(c) {
+    if (!c || !c.id) return false;
+    if (S.cards && S.cards[c.id]) return false;          // already studied — the place came in then
+    const mine = { names: new Map(), subdiv: [], marks: [], need: new Set() };
+    try { atlasRegister(c.id, c, mine); } catch (e) { return false; }
+    if (!mine.names.size && !mine.subdiv.length && !mine.marks.length) return false;
+    const u = atlasRegisterAll();   // a place hidden behind a toggle is still one the reader has
+    for (const k of mine.names.keys()) if (!u.names.has(k)) return true;
+    const drawn = new Set(u.marks.map((m) => String(m.title || "").toLowerCase()));
+    if (mine.marks.some((m) => !drawn.has(String(m.title || "").toLowerCase()))) return true;
+    const subs = new Set(u.subdiv.map((d) => d.layer + "|" + (d.keys || []).join("|").toLowerCase()));
+    if (mine.subdiv.some((d) => !subs.has(d.layer + "|" + (d.keys || []).join("|").toLowerCase()))) return true;
+    return false;
+  }
+  /* Announced ONCE per card per session. The chip is a true statement about the card and is drawn on
+     every render of it — a reload, a language switch, an undo — but the chime is an event, and a sound
+     that replays every time the page repaints is a fault rather than a flourish. Module-level, like the
+     held session below: it is a fact about this sitting. */
+  const _atlasHeard = new Set();
   function locatorSiblings(id) {
     const root = cardCollectionRoot(id);
     if (!root) return { dots: [], termName: new Map(), own: new Set() };
@@ -34730,7 +35000,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
       '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
-      "</div></div></div>" + cardWarKeyHTML(w);
+      /* …AND A WAY THROUGH TO THE READER'S OWN GLOBE (Sep 2026, on request: "each atlas window should
+         have an icon button to take the user to that location on the personal atlas page, where there
+         should then be a 'Back' button to go back to the card study the user was in"). It carries
+         `data-mc="go"` so the window's own closure handler can ignore it by name, and it is wired by a
+         DELEGATED document listener rather than in `startCardGlobe`: routing is not the globe's job, and
+         this markup is drawn by six surfaces that would each have to remember to wire it. */
+      '<button type="button" class="mc-btn mc-go" data-mc="go" aria-label="See this on your atlas" title="See this on your atlas">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></button>' +
+      "</div>" +
+      /* THE CHIP SHIPS IN THE MARKUP, HIDDEN, rather than being created when the answer is revealed —
+         `#toast`'s own rule: a live region inserted at the moment it has something to say is one the
+         screen reader has not been watching, and the announcement is lost. */
+      '<span class="mc-new" role="status" hidden>' + esc(t("Discovered!")) + "</span>" +
+      "</div></div>" + cardWarKeyHTML(w);
   }
   /* ---------- THE READER'S OWN NOTE (Sep 2026) ----------
      Rendered on the answer side, directly under the answer box, because a mnemonic is about the TERM and
@@ -38050,6 +38333,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ${GAME ? "" : `<div class="atlas-tabs" role="group" aria-label="Which atlas">
           <button class="at-tab${MINE ? " on" : ""}" type="button" data-atlastab="mine" aria-pressed="${MINE}">Your atlas</button>
           <button class="at-tab${MINE ? "" : " on"}" type="button" data-atlastab="world" aria-pressed="${!MINE}">World atlas</button>
+          ${/* THE WAY BACK, drawn only for a reader who arrived from a card's atlas window (see
+                `atlasHold`). It sits in the tab row rather than over the globe because that row is the
+                one piece of chrome above the map at every width, and a control floating on the canvas
+                would have to dodge the place panel, the zoom stack and the timeline. */""}
+          ${atlasHold ? `<button class="at-tab at-back" type="button" id="atlasBack">&#8617; ${esc(t("Back to studying"))}</button>` : ""}
         </div>`}
         <div class="globe-stage" id="globeStage">
           <div class="globe-limb-glow" id="globeHalo" aria-hidden="true"></div>
@@ -38157,6 +38445,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <label class="legend-row"><input type="checkbox" id="waterToggle"><span>Water</span></label>
             </div>
           </div>
+          ${/* ---------- WHICH COLLECTIONS THIS GLOBE SHOWS (Sep 2026, on request: "in the personal
+                atlas, users should be able to toggle locations from specific collections on/off")
+                ----------
+                It takes the LEGEND'S corner and the legend's shape — the world atlas's legend is hidden
+                on this tab, so the two never share the screen, and a reader who knows where the layer
+                switches live finds these in the same place. It is drawn only where there is something to
+                choose BETWEEN: with places from one collection the row would be a switch that can only
+                turn the map off. */""}
+          ${MINE && !GAME ? (() => {
+            const cs = atlasCollections();
+            if (cs.length < 2) return "";
+            return `<div class="globe-legend atlas-colls" id="atlasColls" role="group" aria-labelledby="collsTitle">
+              <div class="legend-head" id="collsHead">
+                <span class="legend-title" id="collsTitle">${esc(t("Collections"))}</span>
+                <button class="legend-collapse" id="collsCollapse" type="button" aria-label="${esc(t("Collapse legend"))}" aria-expanded="true"><span class="lc-sign">–</span><svg class="lc-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></button>
+              </div>
+              <div class="legend-body" id="collsBody">
+                ${cs.map((x) => `<label class="legend-row"><input type="checkbox" data-atlascoll="${esc(x.id)}"${atlasCollOff(x.id) ? "" : " checked"}><span>${esc(x.title)}</span><span class="lr-n notranslate">${x.n}</span></label>`).join("")}
+              </div>
+            </div>`;
+          })() : ""}
           <div class="map-edit-bar" id="mapEditBar" hidden>
             <span class="meb-title">Editing <b id="mebYear"></b></span>
             <div class="meb-tools">
@@ -41786,6 +42095,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (want === atlasTab) return;
       atlasTab = want; sfx("toggle"); render();
     }));
+    /* BACK TO THE CARD THE READER CAME FROM (see `atlasHold`). It is `#adminToStudy`'s handler exactly:
+       take the held record, drop the hold — a session is resumable once — write it back to the place a
+       reload reads, and route. With no record it simply goes home, which is what a pasted `#map` does. */
+    const ab = root.querySelector("#atlasBack");
+    if (ab) ab.addEventListener("click", () => {
+      const rec = atlasHold; atlasHold = null; atlasFocus = null;
+      if (!rec) { route("home"); return; }
+      writeStudySession(rec);
+      route("study", { scope: rec.scope, resume: rec });
+    });
+    /* ---------- THE COLLECTION TOGGLES (Sep 2026, on request) ----------
+       `setAtlasColl` writes the choice and drops the filtered view's cache; everything the globe draws
+       reads `atlasUnlocks()`, so the only thing left here is to invalidate the layers that cache SHAPES
+       of their own — `_mineFor` and `_mineWarFor` key on the register's count, which changes with the
+       filter, but `baseValid` does not. The panel is deliberately NOT re-rendered: re-running `render()`
+       would rebuild the whole page and take the reader's zoom and year with it. */
+    const collsEl = root.querySelector("#atlasColls");
+    if (collsEl) {
+      const cSign = collsEl.querySelector(".lc-sign"), cBtn = collsEl.querySelector("#collsCollapse");
+      const cSetOpen = (open) => {
+        collsEl.classList.toggle("collapsed", !open);
+        if (cSign) cSign.textContent = open ? "–" : "+";
+        if (cBtn) cBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      };
+      if (cBtn) cBtn.addEventListener("click", (e) => { e.stopPropagation(); cSetOpen(collsEl.classList.contains("collapsed")); });
+      // …a chip on a phone, for the legend's own reason: an open panel is a fifth of the map
+      if (window.matchMedia && window.matchMedia("(max-width:640px)").matches) cSetOpen(false);
+      collsEl.querySelectorAll("[data-atlascoll]").forEach((cb) => cb.addEventListener("change", () => {
+        setAtlasColl(cb.getAttribute("data-atlascoll"), cb.checked);
+        _mineFor = ""; _mineWarFor = ""; baseValid = false;
+        hideCountryPopup();   // the panel may be describing a place that has just left the map
+        draw();
+      }));
+    }
     const wire = (id, set, rebuild) => { const cb = root.querySelector(id); if (cb) cb.addEventListener("change", () => { set(cb.checked); if (rebuild) baseValid = false; draw(); }); };
     wire("#bordersToggle", (v) => bordersOn = v, true);
     wire("#riversToggle", (v) => riversOn = v, true);
@@ -42530,7 +42873,42 @@ let prev = null;
         flyTo(place.lon, place.lat, Math.max(zoom, 3.2), land);
       }
     }
+    /* ---------- ARRIVING FROM A CARD'S ATLAS WINDOW (Sep 2026, on request) ----------
+       `atlasFocus` carries the CARD ID, and the place is resolved here through `atlasRegister` — the one
+       rule that decides what this globe draws — rather than from a coordinate handed across, which would
+       be a second answer to "where is this card" and free to disagree with the mark beside it.
+       THE YEAR IS SET BEFORE THE FLIGHT, and it is the half that is easy to miss: a mark outside the
+       rail's current year is not drawn AT ALL, so flying to a civilisation's ground in a year it did not
+       stand lands the reader on an empty patch of map with nothing to say why. */
+    function focusMineCard(id) {
+      if (!id) return;
+      const c = CARD_BY_ID[id]; if (!c) return;
+      const tmp = { names: new Map(), subdiv: [], marks: [], need: new Set() };
+      try { atlasRegister(id, c, tmp); } catch (e) { return; }
+      const m = tmp.marks.filter((x) => !x.modern).find((x) => x.at || x.area) || tmp.marks[0];
+      if (m && m.y0 != null) {
+        const lo = m.y0, hi = m.y1 != null ? m.y1 : MAXY;
+        if (year < lo || year > hi) { year = clamp(Math.round(clamp(lo, MINY, MAXY)), MINY, MAXY); paintYear(); }
+      }
+      const land = () => { pulseCol = "rgba(255,178,46,1)"; scheduleDraw(); };
+      if (m && (m.at || m.area)) {
+        // an authored extent has no single point, so it is framed on the middle of its own bounding box
+        const at = m.at || (m.area && m.area.length ? (() => { const b = areaBBox(m); return [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2]; })() : null);
+        if (at) {
+          mineSel = (m.kind === "area") ? String(m.title || "") : "";
+          flyTo(at[0], at[1], Math.max(zoom, m.kind === "area" ? 2.2 : 3.4), land);
+          return;
+        }
+      }
+      // a COUNTRY is unlocked by name and has no coordinate of its own — the era map supplies its centre
+      const k = tmp.names.keys().next();
+      if (!k.done) {
+        const row = tmp.names.get(k.value), cc = countryCenter(row.key);
+        if (cc) { mineSel = row.key; flyTo(cc.lon, cc.lat, Math.max(zoom, 1.6), land); }
+      }
+    }
     if (params && params.focus) focusPlace(params.focus);
+    if (MINE && atlasFocus && atlasFocus.id) focusMineCard(atlasFocus.id);
   };
   // "Find it" — the daily geography minigame IS the Atlas page in game mode (same globe, same eras, same renderer)
   /* The gate goes here rather than inside PAGES.map, which is the whole Atlas and knows nothing about

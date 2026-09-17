@@ -5808,7 +5808,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Golden_Horde": "1242 – 1502 CE",
 "Pax_Mongolica": "c. 1250 – 1350 CE",
 "Timur": "1336 – 1405 CE",
-"Chinggisids": "from 1206 CE"
+"Chinggisids": "from 1206 CE",
+"Latin_War": "340 – 338 BCE",
+"Romulus": "traditionally 753 – 716 BCE",
+"Numa_Pompilius": "traditionally 715 – 673 BCE",
+"Tullus_Hostilius": "traditionally 673 – 642 BCE",
+"Ancus_Marcius": "traditionally 642 – 617 BCE",
+"Tarquinius_Priscus": "traditionally 616 – 579 BCE",
+"Servius_Tullius": "traditionally 578 – 535 BCE",
+"Tarquinius_Superbus": "traditionally 535 – 509 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */

@@ -1278,8 +1278,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.36 MB and 49,144 lines is hard to find your way around, so this
-  lists its 186 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.39 MB and 49,522 lines is hard to find your way around, so this
+  lists its 190 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -2596,6 +2596,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     REFERENCE AGAINST THE ACTUAL SHELF** — the book against app.js's own `BOOKS` registry and the section
     against the generated `books/<id>.js` — because the renderer's own guard renders NOTHING, and a silent
     blank is exactly what an author cannot see. Guarded by `.claude/test-card-quote.js`.
+  · **A BOOK SAYS HOW MANY PEOPLE HAVE READ IT** (`book_stats` + `bump_book_read`, **schema section 16**;
+    `bookStatsLoad` / `bookReads` / `bookReadMaybeCount` / `BOOK_READ_MIN` / `.bk-tile-reads`; Sep 2026,
+    on request). The third pooled counter after the card difficulties and the daily games, and it exists
+    for their reason: `progress` is readable only by its owner and their accepted friends, so nothing can
+    count across readers — the figure has nowhere to live but a table joined to nobody.
+    **A READ IS A READER, NOT AN OPENING**: counted once per book per reader, the first time they have
+    spent `BOOK_READ_MIN` (a minute) actually reading it, with the fact recorded in their OWN synced
+    progress (`S.reading[id].cnt`) so a second device does not count twice and a glance does not count at
+    all. Counting every open would make the number a measure of browsing while the word says "read".
+    **OFF ON A DEV ORIGIN and LATCHING OFF ON A 404**, like both siblings — and **nothing is drawn at
+    all** until a figure is known, since a shelf of books each claiming "0 reads" would be a statement
+    about the books rather than about the database. ⚠ **A TEST CANNOT EXERCISE THIS FROM `file://` OR
+    `127.0.0.1`**: `isDevOrigin()` covers both, so the live path only runs when the site is served from
+    something else — fulfil the real files from a fake https host.
+    The shelf paints WITHOUT the figures and is repainted IN PLACE when they land, never through
+    `render()`, which would take the reader's search and scroll with it.
   · **📖 `docs/library-feature.md` — READ BEFORE TOUCHING THE LIBRARY.** The shelf, the sort and
     search, the favourites, the chapter bar and its slide, the front matter, the bilingual reading and
     its gestures, the ink and highlights, and the per-book licence reasoning in full.
@@ -4028,6 +4044,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A MARKER JUMP MEASURES A FOLD THAT IS ALREADY OPEN AND CLEARS THE FIXED FURNITURE**
     (`openFootnote` / `scrollNoteIntoView`, reading `--bar-h` / `--tabbar-h`), or the note lands under the
     tab bar or below the viewport entirely.
+  · **A NON-ENGLISH SOURCE SAYS SO, AND THE LANGUAGE IS DECLARED RATHER THAN SNIFFED** (Sep 2026, on
+    request). The citation carries a marker — `… https://doi.org/…. [in French] [Open access]` — which
+    `linkifySrcItem` lifts into a chip on the same text-node walk as the access one, from an ENUMERATED
+    alternation (`SRC_LANG_NAMES`, 44 languages) so a typo is a missing chip rather than a chip reading
+    "Frenhc". **Guessing the language from the work's title is what `check-cards.js` rule 6 does and its
+    own header records the cost**: six of seventeen findings were wrong, the École française d'Athènes
+    publishing in English and the Chronique des fouilles being bilingual. A checker may report a
+    candidate for a human to read; a CHIP is an assertion made to the reader.
+    **`.claude/src-langs.js` SLICES THE LIST OUT OF app.js AND STOPS IF THE SLICE FAILS**, and
+    `add-card.js`, `add-sources.js` and `add-glossary.js` refuse a marker the site cannot draw — without
+    that a typo ships as a citation with no chip, which nothing on the page can report.
+    **381 citations are marked across nine languages**; count them rather than quoting that. Three rules
+    came out of reading every proposal and are the ones to re-apply when marking more: a **REVIEW** is
+    the reviewer's own prose (a German book reviewed in BMCR is an English source), an **`s.v.` HEADWORD
+    is not a title** (Liddell-Scott is an English lexicon and the quoted Greek is the entry), and a
+    **foreign script must CARRY a title rather than appear in it** ("Divided Power and Εὐνομία" is
+    English). The chip takes `--geo`: green already means open access and amber paywalled on the same
+    line, so a third chip in either would read as a third verdict about access.
   · **BARS AND STORAGE**: `SRC_TARGET` 5 per card, `GLOSS_SRC_TARGET` 2 per term, `ARTEFACT_SRC_TARGET` 3.
     Deltas are `sources` / `ADMIN_EDITS.glossarySources`; community decks get `uCardSetSources` /
     `uGlossSet`, sanitized on ingest. `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists.
@@ -4141,6 +4175,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **AND IT IS HONESTLY INACCESSIBLE TO A READER WHO CANNOT SEE IT** — a shape is the whole question, so
     there is no text alternative that does not answer it. The card can be READ where it cannot be ANSWERED;
     stated in `docs/geography-card-plan.md` rather than papered over.
+  · **THE WINDOW IS A WAY THROUGH TO THE READER'S OWN ATLAS, AND BACK** (`atlasHold` / `atlasFocus` /
+    `focusMineCard` / the `data-mc="go"` button / `#atlasBack`; Sep 2026, on request). It is
+    `studyHold`'s shape exactly and for its reason: the Atlas is a PAGE, so reaching it routes, and
+    `route()` clears the study record by design — so the record is CAPTURED when the button is pressed
+    and written back by the Back button in the atlas tab row. **`atlasFocus` carries the CARD ID, never
+    a coordinate**, so the place is resolved through `atlasRegister` — the one rule that decides what
+    that globe draws — rather than by a pair of numbers free to disagree with the mark beside them.
+    **THE YEAR IS SET BEFORE THE FLIGHT**: a mark outside the rail's year is not drawn AT ALL, so flying
+    to a civilisation's ground in a year it did not stand lands the reader on empty map.
+    **THE HANDLER IS CAPTURE-PHASE**, for the footnotes' reason — `startCardGlobe`'s own `.mc-btn`
+    listener calls `stopPropagation()` on every press in that stack, so a bubbling listener never sees
+    this button and the press does nothing, silently. And that listener now dispatches on the three
+    names it knows rather than on "anything that is not home", which had the atlas button zooming out
+    as well as routing.
+  · **AND IT SAYS "DISCOVERED!" WHEN THE REVEAL HAS EARNED A PLACE** (`atlasPlaceIsNew` /
+    `cardAtlasDiscover` / `_atlasHeard` / `.mc-new`; Sep 2026, on request). **THIS IS THE DISCOVERY THE
+    PERSONAL ATLAS DELIBERATELY DOES NOT ANNOUNCE** (see `showMinePopup`), arriving where it actually
+    happens: clicking a mark on that globe is not news, because the place is drawn there BECAUSE its
+    card has a record. **Three things must hold** — the card has no record yet, it registers something,
+    and what it registers is not already on the globe from another card, since two cards on Athens are
+    one place. **The chip is a STATEMENT and the chime an EVENT**: the chip is drawn on every render of
+    the card, the sound plays once a sitting. **It is called AFTER `buildBack`, not beside
+    `cardMapReveal`** — the locator window is part of the card's BACK, so up there it finds nothing, and
+    silently, a card with no atlas window being the ordinary case.
+  · **`atlasUnlocks` IS NOW A FILTERED VIEW OF `atlasRegisterAll`** (Sep 2026, on request: the reader can
+    toggle a collection's places off). `atlasRegister` is the per-card rule, lifted out so there is ONE
+    definition of it — `atlasRegisterAll` asks it of every studied card and `atlasPlaceIsNew` of the card
+    in hand. **A hidden collection is still EARNED**, so `atlasPlaceIsNew` reads the whole register and
+    never the view. The hidden ids live in `S.settings.atlasHidden` — stored as what is OFF, so a
+    collection that ships later is shown — and the panel takes the LEGEND's own corner, the world
+    atlas's legend being hidden on that tab. It is drawn only with two or more collections: with one,
+    the switch could only turn the map off.
   Guarded by `.claude/test-map-cards.js`. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
   `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `TINT_SEL` /
   `serializeCardData` / `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map

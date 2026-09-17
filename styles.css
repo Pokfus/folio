@@ -1937,6 +1937,20 @@ body.no-tts .ans-cn .ac-say{display:none;}
 }
 .mc-btn:hover{background:var(--card); color:var(--ink);}
 .mc-btn svg{width:14px; height:14px;}
+/* "Discovered!" — top LEFT, opposite the control stack, on a card whose reveal has just earned the
+   reader somewhere new (Sep 2026, on request). It takes --newterm, which is the ink the site already
+   uses for a term met for the first time, so a discovery looks the same wherever it happens. */
+.mc-new{
+  position:absolute; left:9px; top:9px; z-index:2; pointer-events:none;
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); font-weight:600; letter-spacing:.08em;
+  text-transform:uppercase; line-height:1.7; padding:0 8px; border-radius:999px; white-space:nowrap;
+  color:var(--newterm);
+  background:color-mix(in srgb, var(--newterm) 13%, var(--card));
+  border:1px solid color-mix(in srgb, var(--newterm) 38%, transparent);
+  animation:mcNewIn .34s var(--ease) both;
+}
+.mc-new[hidden]{display:none;}   /* the author `display` would beat the UA rule and pin it open */
+@keyframes mcNewIn{from{opacity:0; transform:translateY(-4px) scale(.96);} to{opacity:1; transform:none;}}
 /* The "Drag to turn · zoom to look closer" chip that sat bottom-left is gone (Sep 2026, on request); the
    canvas's aria-label still says what to do, which is the one reader the words were for. */
 /* the two lazy bundles behind it. A window that says nothing while it waits reads as one that failed. */
@@ -4441,6 +4455,14 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .at-tab:hover{color:var(--ink);}
 .at-tab.on{background:var(--indigo); color:#fff;}
 .at-tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* The way back to the card the reader came from (Sep 2026). It is a tab in shape so it belongs to the
+   row, and OUTLINED rather than filled: `.on` means "the atlas you are looking at", and a solid third
+   button would read as a third atlas. */
+.at-back{
+  border:1px solid var(--rule); background:color-mix(in srgb, var(--card) 88%, transparent);
+  color:var(--ink-soft); margin-inline-start:6px;
+}
+.at-back:hover{background:var(--card); color:var(--ink);}
 @media (max-width:640px){
   .atlas-tabs{top:10px; left:12px; transform:none;}   /* the search chip owns the right corner at this width */
   .at-tab{padding:5px 10px; font-size:calc(11px * var(--fs));}
@@ -4782,6 +4804,14 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .globe-legend .legend-collapse{border:none; background:transparent; color:var(--ink-faint); font-size:calc(15px * var(--fs)); line-height:1; width:18px; height:18px; padding:0; margin:-2px -4px -2px 0; cursor:pointer; border-radius:5px; display:flex; align-items:center; justify-content:center;}
 .globe-legend .legend-collapse:hover{background:color-mix(in srgb, var(--ink) 9%, transparent); color:var(--ink);}
 .lc-layers{display:none; width:16px; height:16px;}   /* shown only on the phone's collapsed chip, where a bare dash reads as nothing */
+/* The personal atlas's collection switches (Sep 2026). They take the legend's own corner and shape —
+   the world atlas's legend is hidden on that tab, so the two are never on screen together and a reader
+   who knows where the layer switches live finds these in the same place. The count beside each name is
+   how many places that collection has put on the globe, quiet and monospaced like every other figure. */
+.atlas-colls{max-width:min(240px, 46vw);}
+.atlas-colls .legend-row{justify-content:flex-start; gap:8px;}
+.atlas-colls .legend-row span:not(.lr-n){overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.lr-n{margin-inline-start:auto; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); color:var(--ink-faint);}
 .globe-legend.collapsed .legend-body{display:none;}
 .globe-legend .legend-row{display:flex; align-items:center; gap:8px; font-size:calc(12.5px * var(--fs)); color:var(--ink); cursor:pointer; line-height:1;}
 .globe-legend .legend-row + .legend-row{margin-top:6px;}
@@ -5543,6 +5573,15 @@ sup.fn.src-flash{padding:0 3px;}
   color:var(--ochre);
   background:color-mix(in srgb, var(--ochre) 13%, transparent);
   border-color:color-mix(in srgb, var(--ochre) 34%, transparent);
+}
+/* The language chip (Sep 2026). It takes --geo rather than a colour of its own: green already means
+   "free to read" and amber "paywalled" on the very same line, so a third chip in either would be read as
+   a third verdict about access. --geo is one of the quiet tokens `body.hc` already re-tones, so the
+   high-contrast mode covers this with no rule of its own. */
+.src-lang{
+  color:var(--geo);
+  background:color-mix(in srgb, var(--geo) 12%, transparent);
+  border-color:color-mix(in srgb, var(--geo) 32%, transparent);
 }
 .src-compact .src-access, .cp-src .src-access{font-size:calc(8.5px * var(--fs)); padding:0 5px;}
 /* the in-prose marker: a real superscript, clickable, in the SAME VERMILION as the answer term
@@ -8270,6 +8309,14 @@ body.night .book-tile, body.night .gloss-book{
   color:var(--bk-accent);
   border:1px solid color-mix(in srgb, var(--bk-accent) 42%, transparent);
   background:color-mix(in srgb, var(--bk-accent) 9%, transparent);
+}
+
+/* How many people have read the book (Sep 2026). Quiet and monospaced like every other figure on the
+   site — it is a footnote on the banner, not a badge: the tile's own chips say what the book IS, and a
+   readership count competing with them would read as a claim about the work. */
+.bk-tile-reads{
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.04em;
+  line-height:1; flex:none; white-space:nowrap; color:var(--ink-faint);
 }
 .bk-tile-new{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
 /* where the reader left off — the tile's one changing fact, so it takes the accent colour */
