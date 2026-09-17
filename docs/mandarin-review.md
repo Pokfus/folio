@@ -576,6 +576,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 421–450 (以前 → 员), deck order, plus the whole `anymore` class | 39 | the same fault twice on one card, one reported and one invisible, and a card teaching a non-word |
 | 2026-09-17 | `hsk30l3` notes 451–480 (愿意 → 住院), deck order | 14 | a card glossed with the one sense none of its three sentences uses |
 | 2026-09-17 | `hsk30l3` notes 481–491 (字典 → 作业) — **Level 3 finished**, 491 of 491 read | 5 | the fullest character panel in the deck, ten words, every one of them the empty suffix |
+| 2026-09-17 | `hsk30l4` notes 1–30 (爱情 → 便于), deck order — **Level 4 opens** | 11 | an elephant's 鼻子 is a trunk, and a card labelled a verb over a noun |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4903,3 +4904,38 @@ three were worth a table row.
 still-ambiguous 2; shared-gloss groups 338 → 338; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 365 → 368; both
 `not X` hints in range survived; `build-lang-decks.js` re-run.
+
+## Batch 41 — hsk30l4 notes 1–30 (爱情 → 便于), and **Level 4 opens**
+
+Thirty notes read in deck order, **eleven cards changed** across 21 fields. Level 4 is 990 notes, twice
+Level 3's, and its first thirty already show the same fault shapes — which is worth stating, because it
+means the classes the first forty batches established travel rather than being Level 3's own.
+
+**AN ELEPHANT'S 鼻子 IS A TRUNK.** 大象鼻子长 read *An elephant has a long nose*, on the card whose
+whole subject is that word. The Chinese is right and the English is the kind of translation that reads
+perfectly until you notice what it is about.
+
+**A CARD LABELLED A VERB OVER A NOUN.** 安检 gave *security check* under **verb**, and all three of its
+sentences are the noun (过安检, 机场的安检, 安检机). CC-CEDICT gives both — it is an abbreviation of
+安全检查 — and the card teaches one. **抱歉 is the mirror image**: *adjective* over the verb
+*apologise*, with all three sentences the adjective. Batch 31's third shape, twice in thirty notes.
+
+**背包 WAS A KNAPSACK.** That is CC-CEDICT's first word for it and dated in British English; a 背包 is a
+rucksack, and the card's own second line already says *backpackers*.
+
+**TWO CARDS SHOWED ONE STATEMENT TWICE.** 爱心's 他很有爱心 and 他是一个很有爱心的人 were *He is very
+loving* and *He is a very loving person* — and **loving is not what 有爱心 says**: the dictionary gives
+*compassion; kindness; care for others*. 办公's first two were both 办公桌, a desk, which swallows the
+headword, and both English lines are about a desk and neither about working.
+
+**FOUR SINGLE-CHARACTER CARDS GAINED `Compounds`** — 棒, 背, 笨, 按. **按's rows deliberately go to the
+PRESSING sense**: its own panel is 按时 and 按照, the next two cards, both of them the *according to*
+preposition, so a reader met the character twice in the sense its own gloss lists second.
+
+**SMALL BRITISH-USAGE FIXES.** 安检's first line said *pulled out of LINE* for *a pat-down* — British
+English queues, and is searched. 毕业生's first was missing an article (*with diploma*).
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 338 → 338; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 368 → 371;
+`build-lang-decks.js` re-run.

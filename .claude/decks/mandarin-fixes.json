@@ -13167,11 +13167,17 @@
       ]
     },
     "hsk30l4/鼻子": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | '大象鼻子长。' read 'An elephant has a long nose' — in English an elephant's is a TRUNK, and the word is exactly what the sentence is about.",
       "ex": [
         [
           "我的鼻子好痒。",
           "My nose is itchy."
+        ]
+      ],
+      "exEn": [
+        [
+          "大象鼻子长",
+          "An elephant has a long trunk."
         ]
       ]
     },
@@ -75408,7 +75414,7 @@
       ]
     },
     "hsk30l4/安检": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card was labelled a VERB over 'security check', which is a noun, and all three of its sentences are the noun (过安检, 机场的安检, 安检机). CC-CEDICT gives both — it is an abbreviation of 安全检查 — and the card teaches one of them. Its first line also said 'pulled out of LINE' and 'a pat-down', both American; British English queues, and is searched.",
       "ex": [
         [
           "机场的安检很严格。",
@@ -75417,6 +75423,18 @@
         [
           "请把包放上安检机。",
           "Please put your bag on the security scanner."
+        ]
+      ],
+      "senses": [
+        [
+          "noun",
+          "a security check"
+        ]
+      ],
+      "exEn": [
+        [
+          "当我们过安检的时候",
+          "When we were going through security, I was pulled out of the queue to be searched."
         ]
       ]
     },
@@ -75460,7 +75478,7 @@
       ]
     },
     "hsk30l4/毕业生": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '校长向每个毕业生颁发了毕业证书。' read 'presented each of the graduates with diploma', missing its article.",
       "ex": [
         [
           "今年的毕业生有八百人。",
@@ -75469,6 +75487,12 @@
         [
           "这家公司只招毕业生。",
           "This company recruits graduates only."
+        ]
+      ],
+      "exEn": [
+        [
+          "校长向每个毕业生颁发了毕业证书",
+          "The head teacher presented each of the graduates with a diploma."
         ]
       ]
     },
@@ -113740,6 +113764,135 @@
           "种子",
           "zhǒng zi",
           "a seed"
+        ]
+      ]
+    },
+    "hsk30l4/抱歉": {
+      "why": "The label and the gloss were different parts of speech — 'adjective' over the verb 'apologise' — batch 31's third shape. CC-CEDICT reads 'to be sorry; to feel apologetic', and all three of the card's sentences are the adjective (非常抱歉, 可抱歉的, 抱歉，我不是本地人).",
+      "gloss": "sorry; apologetic"
+    },
+    "hsk30l4/背包": {
+      "why": "The gloss was 'knapsack', which is CC-CEDICT's first word for it and is dated in British English — a 背包 is a rucksack, and the card's own second line already says *backpackers*. Its third called it simply a bag.",
+      "gloss": "a rucksack; a backpack",
+      "exEn": [
+        [
+          "你的背包在我办公桌上面",
+          "Your rucksack is on my desk."
+        ]
+      ]
+    },
+    "hsk30l4/爱心": {
+      "why": "Two of its three sentences were the same statement twice — 他很有爱心 and 他是一个很有爱心的人, as 'He is very loving' and 'He is a very loving person' — and *loving* is not what 有爱心 says: CC-CEDICT gives 'compassion; kindness; care for others'. The first line is re-translated and the third replaced with an AUTHORED sentence, which the record says so is.",
+      "exEn": [
+        [
+          "他很有爱心",
+          "He is very kind-hearted."
+        ]
+      ],
+      "dropEx": [
+        "他是一个很有爱心的人。"
+      ],
+      "ex": [
+        [
+          "她对流浪猫很有爱心。",
+          "She is very kind to stray cats."
+        ]
+      ]
+    },
+    "hsk30l4/办公": {
+      "why": "Two of its three sentences were 办公桌, a desk, which swallows the headword — and both English lines are about a desk and neither about working (他在他的办公桌前 / 'He is at his desk', 办公桌底下有没有任何书 / 'Are there any books under the desk?'). The second is replaced with an AUTHORED sentence, which the record says so is, and which uses 办公 as the card glosses it.",
+      "dropEx": [
+        "办公桌底下有没有任何书？"
+      ],
+      "ex": [
+        [
+          "他每天九点开始办公。",
+          "He starts work at nine every day."
+        ]
+      ]
+    },
+    "hsk30l4/背": {
+      "why": "The card gives both readings and all three of its sentences are bèi, the noun; tagged, so the bēi it also states — to carry on one's back — is visibly stated and not illustrated. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 背包, which is the very next card. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "后背",
+          "hòu bèi",
+          "the back (of the body)"
+        ],
+        [
+          "背后",
+          "bèi hòu",
+          "behind; at the back"
+        ],
+        [
+          "背景",
+          "bèi jǐng",
+          "a background; a context"
+        ]
+      ]
+    },
+    "hsk30l4/棒": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "棒球",
+          "bàng qiú",
+          "baseball"
+        ],
+        [
+          "冰棒",
+          "bīng bàng",
+          "an ice lolly"
+        ],
+        [
+          "棒子",
+          "bàng zi",
+          "a stick; a club"
+        ]
+      ]
+    },
+    "hsk30l4/笨": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "笨蛋",
+          "bèn dàn",
+          "a fool; an idiot"
+        ],
+        [
+          "笨拙",
+          "bèn zhuō",
+          "clumsy; awkward"
+        ],
+        [
+          "笨重",
+          "bèn zhòng",
+          "heavy; cumbersome"
+        ]
+      ]
+    },
+    "hsk30l4/按": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 按时 and 按照, which are the next two cards — so the rows go elsewhere, to the pressing sense those two do not show. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "按钮",
+          "àn niǔ",
+          "a button"
+        ],
+        [
+          "按键",
+          "àn jiàn",
+          "a key (on a device)"
+        ],
+        [
+          "按摩",
+          "àn mó",
+          "massage; to massage"
         ]
       ]
     }
