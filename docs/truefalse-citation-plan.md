@@ -72,9 +72,9 @@ card-side research is then shared.
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one and T23 one, all researched |
+| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one and T26 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation |
-| T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151` |
+| T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151`, T26 three off OpenStax and NASA Space Place |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one |
 
 ## Open questions carried forward
@@ -1092,4 +1092,52 @@ state that the Sun is white above the atmosphere (#88), that the belt is empty e
 unaimed (#95), or where Polaris ranks in brightness (#96) — the Sun page calls it a "yellow dwarf"
 and says nothing about colour as seen from space. All three want a different NASA page or a
 different host; they are the obvious next astronomy batch.
+
+### T26 — the same shelf, one chapter over (2026-09-17)
+
+**Four statements, 151 → 155 of 220 (70%).** T25's finding applied: OpenStax has an *Astronomy 2e*
+and a *Biology 2e* as well, and between them they answer three of the four statements outright, two
+of them by naming the misconception in the source's own words.
+
+· **#96 Polaris is not the brightest star (FALSE)** — *Astronomy 2e* 17.1 says it in a sentence: "It
+  is a common misconception that Polaris (magnitude 2.0) is the brightest star in the sky, but … that
+  distinction actually belongs to Sirius (magnitude −1.5)." The positional half comes from 2.1, which
+  calls Polaris the pole star and "the star that moves the least amount as the northern sky turns each
+  day". **THE OLD ANSWER'S "ranks somewhere around fiftieth" WENT** — no source reached here gives
+  Polaris a rank, and two magnitudes say the thing the rank was there to say.
+
+· **#95 the asteroid belt is not crowded (FALSE)** — *Astronomy 2e* 13.1: "the typical spacing between
+  objects (down to 1 kilometer in size) is several million kilometers", "if you were in the asteroid
+  belt, there would be far more empty space than asteroids", and the parenthesis about the spacecraft
+  "which needed to travel through the asteroid belt without a collision". **THE PROBE LIST IS THE
+  SOURCE'S, NOT OURS**: the old answer named Pioneer, Voyager, Galileo, Cassini and Juno; OpenStax
+  names Galileo, Cassini, Rosetta and New Horizons, so that is the list the answer now gives.
+
+· **#170 humans are closer to mushrooms than mushrooms are to plants (TRUE)** — *Biology 2e* 24.1,
+  which states the relationship twice and gives two of the traits behind it, chitin cell walls and
+  glycogen storage. **"Opisthokont" came out**: the word is not on the page, and the claim it was
+  carrying is.
+
+· **#88 the Sun is white seen from space (TRUE)** — the one that took two hosts and nearly did not
+  happen. *Astronomy 2e* 5.3 gives the first half ("sunlight, which looks white to us, is actually
+  made up of a mixture of all the colors of the rainbow"; "the white light from the Sun and stars")
+  and nothing about the atmosphere. NASA Space Place's **"Why Is the Sky Blue?"** gives the second,
+  and the passage that matters is under its own sub-heading rather than in the main text: "As the Sun
+  gets lower in the sky, its light is passing through more of the atmosphere to reach you. Even more
+  of the blue light is scattered, allowing the reds and yellows to pass straight through to your
+  eyes." **A SUB-HEADING IS NOT ALWAYS IN THE FIRST SCREEN OF EXTRACTED TEXT** — the sentence-level
+  grep that found the scattering found none of this, and it took reading the page from the heading
+  onwards.
+
+**NOT TAKEN.** #100 (a banana is a berry, a strawberry is not) is HALF sourced and left rather than
+half cited: *Biology 2e* 32.2 defines accessory fruits and names the strawberry's receptacle
+outright, and defines neither *berry* nor the banana. **Half a statement is not a cited statement**,
+and the missing half is the one the statement leads with.
+
+**Hosts.** `openstax.org` answers for *Astronomy 2e*, *Biology 2e*, *Chemistry 2e* and *University
+Physics*, which between T25 and T26 is where seven of nine citations came from. `spaceplace.nasa.gov`
+and `imagine.gsfc.nasa.gov` answer; **`scijinks.gov` does not** — the proxy returns `CONNECT tunnel
+failed, 502`, which is a different failure from a 403 and worth one retry before it is written off.
+**NASA's own `science.nasa.gov` facts pages remain the wrong shelf for this work**: they are written
+to enumerate, and none of the three astronomy statements here could be answered from them.
 
