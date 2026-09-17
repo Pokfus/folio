@@ -2816,8 +2816,7 @@
    ]
   },
   "hsk30idm/大错特错": {
-   "why": "An idiom's gloss says what it MEANS and throws away what it SAYS, and the image is most of what makes a four-character idiom stick. Written from the characters, and only where the literal reading says something the meaning does not. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
-   "Literally": "a great mistake and a particular mistake",
+   "why": "An idiom's gloss says what it MEANS and throws away what it SAYS, and the image is most of what makes a four-character idiom stick. Written from the characters, and only where the literal reading says something the meaning does not. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Read and LEFT in batch 21, and changed on the second look once the bare 靠 came out of the sweep's pattern list and the real profanity findings could be read together. Its generator sentence called the listener a 混蛋 — \"If you think that I'm still going to help a bastard like you…\" — and the insult does none of the teaching: the frame 如果你认为…那你就大错特错了 carries the idiom exactly as well without it. This is the one case in the whole profanity column where the first read's answer was wrong. | **AND THE FIRST ATTEMPT AT THIS EDIT CLOBBERED THE NOTE.** It was written with `Object.assign({ …mine }, existing)`, which puts the EXISTING fields last, so the note's own `ex` and `why` won and the replacement sentence was thrown away — the card went from three examples to two, with `--check` passing and nothing else reporting. The `add()` helper in every batch script since batch 11 exists for exactly this and was not used. It was caught by `check-mandarin-coverage.js` reading 11,531 of 11,532 notes at three sentences, which is why that check is run at the END of a batch and not only when a batch expects to change it.",
    "ex": [
     [
      "你要是这么想就大错特错了。",
@@ -2826,7 +2825,15 @@
     [
      "我当时的判断大错特错。",
      "My judgement at the time was utterly wrong."
+    ],
+    [
+     "如果你认为我会帮你，那你就大错特错了。",
+     "If you think I am going to help you, you are very much mistaken."
     ]
+   ],
+   "Literally": "a great mistake and a particular mistake",
+   "dropEx": [
+    "如果你认为我还会帮你这样的混蛋，那你大错特错了。"
    ]
   },
   "hsk30idm/大难临头": {
@@ -13290,12 +13297,19 @@
    ]
   },
   "hsk30l5/生肖": {
-   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. Its third sentence is forty characters of plot summary from a wuxia novel — a servant hiring the \"Twelve Zodiacs\" to ambush his master and his master's wife — naming three characters a reader has never heard of. It teaches nothing, and the card was missing **the one question anybody is ever asked with this word**.",
    "ex": [
     [
      "江枫的仆人雇了十二生肖杀江枫，他们伏击了江枫和江枫的妻子月奴。",
      "Jiang Feng's servant hired the \"Twelve Zodiacs\" to kill him. They ambushed him and his wife Yuenu."
+    ],
+    [
+     "你属什么生肖？",
+     "What is your zodiac animal?"
     ]
+   ],
+   "dropEx": [
+    "江枫的仆人雇了十二生肖杀江枫，他们伏击了江枫和江枫的妻子月奴。"
    ]
   },
   "hsk30l5/电器": {
@@ -17552,7 +17566,7 @@
    ]
   },
   "hsk30l6/情形": {
-   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the PUBLIC-FIGURES sweep: every example sentence in the nine decks against a list of well-known names. Nine sentences name one, and six are repaired here. Its third sentence puts an **invented quotation into the mouths of two real heads of state** — Putin telling Hu Jintao they must help Kyrgyzstan — and then says it was a dream. The dream frame is what makes it a joke rather than a claim, but a vocabulary card is not the place to test whether a learner spots the frame.",
    "ex": [
     [
      "一个经验丰富的律师会以其它方法来处理这个情形的。",
@@ -17561,7 +17575,14 @@
     [
      "普京对胡锦涛说：“咱们必须帮吉尔吉斯斯坦”……不过那只是在我梦里的情形。",
      "\"We need to help Kyrgyzstan,\" said Putin to Hu Jintao... in my dream."
+    ],
+    [
+     "这种情形以前从来没有发生过。",
+     "A situation like this has never happened before."
     ]
+   ],
+   "dropEx": [
+    "普京对胡锦涛说：“咱们必须帮吉尔吉斯斯坦”……不过那只是在我梦里的情形。"
    ]
   },
   "hsk30l6/戏曲": {
@@ -17774,7 +17795,7 @@
    ]
   },
   "hsk30l6/挫折": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | **A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here it was the same causal link as 失恋's, asked as a rhetorical question, on the card for *setback*.",
    "ex": [
     [
      "每件事情都有好的一面,　所以不用计算好处,　相反的要追求挫折,　才得到转机,　洞烛先机.",
@@ -17783,7 +17804,14 @@
     [
      "遇到挫折不要放弃。",
      "Do not give up when you meet setbacks."
+    ],
+    [
+     "这次挫折让他成熟了不少。",
+     "The setback made him a good deal more mature."
     ]
+   ],
+   "dropEx": [
+    "一个人得遇到多大的挫折才会自杀？"
    ]
   },
   "hsk30l6/捐款": {
@@ -18367,7 +18395,7 @@
    ]
   },
   "hsk30l6/棉": {
-   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. Its second sentence was a real terrorist bombing with its casualty count, on a Level 6 card glossed *cotton* — and 棉 appears in it **only inside 棉兰老岛**, the Chinese name of Mindanao. It is the same transliteration fault as 泼's Epstein: a proper noun's spelling putting the headword on a card it has nothing to do with. Its other two sentences are both 是棉的, so the replacement takes a different frame.",
    "ex": [
     [
      "3个马来西亚侨民与一个菲律宾国民在棉兰老岛达沃市爆炸里被炸死了。",
@@ -18376,7 +18404,14 @@
     [
      "这件衬衫是棉的。",
      "This shirt is cotton."
+    ],
+    [
+     "这条被子里填的是棉。",
+     "This quilt is filled with cotton."
     ]
+   ],
+   "dropEx": [
+    "3个马来西亚侨民与一个菲律宾国民在棉兰老岛达沃市爆炸里被炸死了。"
    ]
   },
   "hsk30l6/棍": {
@@ -19140,12 +19175,19 @@
    ]
   },
   "hsk30l6/特性": {
-   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | **A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here it was a literary aphorism about the gods' inability to kill themselves, on a card glossed *property*.",
    "ex": [
     [
      "在神的所有特性中，我觉得最让人同情的是他们没办法自杀这一点。",
      "Out of all the attributes of the gods, the one I find most pitiable is their inability to commit suicide."
+    ],
+    [
+     "这种材料的特性是又轻又结实。",
+     "The property of this material is that it is both light and strong."
     ]
+   ],
+   "dropEx": [
+    "在神的所有特性中，我觉得最让人同情的是他们没办法自杀这一点。"
    ]
   },
   "hsk30l6/特长": {
@@ -23616,7 +23658,7 @@
    ]
   },
   "hsk30l7/宣告": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. Its second sentence is a contested moral argument about the atomic bombings, fifty characters long, on a card glossed *to declare*. Replaced with the commonest frame this verb has.",
    "ex": [
     [
      "被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。",
@@ -23625,7 +23667,14 @@
     [
      "会议宣告结束。",
      "The meeting was declared closed."
+    ],
+    [
+     "法官宣告他无罪。",
+     "The judge declared him not guilty."
     ]
+   ],
+   "dropEx": [
+    "被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。"
    ]
   },
   "hsk30l7/寒暄": {
@@ -75198,7 +75247,7 @@
    ]
   },
   "hsk30l5/概括": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the PUBLIC-FIGURES sweep: every example sentence in the nine decks against a list of well-known names. Nine sentences name one, and six are repaired here. Its first sentence was a garbled campaign-speech mashup naming 习近平 — \"America is a nation that can be defined in a single word. I was in the foothills of the Himalayas with Xi Jinping\" — two halves that have nothing to do with each other, on a Level 5 card glossed *to summarise*.",
    "ex": [
     [
      "请概括一下文章的内容。",
@@ -75207,7 +75256,14 @@
     [
      "他的话很概括。",
      "His remarks were very general."
+    ],
+    [
+     "他用几句话概括了整个故事。",
+     "He summed up the whole story in a few sentences."
     ]
+   ],
+   "dropEx": [
+    "美国是一个可以用一个字来概括的国家。我曾与习近平主席一起在喜马拉雅山麓。"
    ]
   },
   "hsk30l5/高档": {
@@ -79282,7 +79338,7 @@
    ]
   },
   "hsk30l6/青春期": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | **A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here it was sixty characters of Bertrand Russell on hating life and being on the verge of suicide throughout adolescence — on the card for **puberty**, which is the age of the readers most likely to be studying it.",
    "ex": [
     [
      "青春期的孩子容易情绪化。",
@@ -79291,7 +79347,14 @@
     [
      "青春期身体变化很快。",
      "The body changes fast during puberty."
+    ],
+    [
+     "男孩在青春期声音会变。",
+     "A boy's voice changes at puberty."
     ]
+   ],
+   "dropEx": [
+    "在青春期，我厌倦生活，并持续陷入自杀的边缘。然而，在那期间，对数学知识的渴望，使我抑制住了那些负面情绪。"
    ]
   },
   "hsk30l6/情节": {
@@ -81414,11 +81477,17 @@
    ]
   },
   "hsk30l6/明明": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. Its first sentence's English, \"I didn't ask to be abused\", translates neither half: 明明 is *clearly*, which is this card's own gloss, and 招惹 is *to provoke*. The same sentence sits on 招 and is rewritten there too.",
    "ex": [
     [
      "我明明放在这里了。",
      "I clearly put it here."
+    ]
+   ],
+   "exEn": [
+    [
+     "我明明没招惹任何人。",
+     "I clearly did not provoke anybody."
     ]
    ]
   },
@@ -84647,7 +84716,7 @@
    ]
   },
   "hsk30l7/代言": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the PUBLIC-FIGURES sweep: every example sentence in the nine decks against a list of well-known names. Nine sentences name one, and six are repaired here. Its first sentence was eighty characters of a real American victory speech, naming its vice-president-elect, with the headword once in the middle. It is accurate and it is unreadable on a card; the two sentences beside it are five and six characters. Replaced with an AUTHORED sentence in the NOUN use, which neither of them has.",
    "ex": [
     [
      "他为这个品牌代言。",
@@ -84656,7 +84725,14 @@
     [
      "代言要负责任。",
      "An endorsement carries responsibility."
+    ],
+    [
+     "很多明星靠代言赚钱。",
+     "Many celebrities make money from endorsements."
     ]
+   ],
+   "dropEx": [
+    "我要感谢我的选举搭档，这位先生全心全意竞选，为与他在史克兰顿街头一起长大的男男女女代言，并和我一起乘火车回德拉瓦州，他就是副总统当选人，拜登先生。"
    ]
   },
   "hsk30l7/担保": {
@@ -90843,7 +90919,7 @@
    ]
   },
   "hsk30l7/枪毙": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. The card's subject is execution by shooting, so again this is register. 我要枪毙了他 is a first-person threat and its English, \"I need to kill him with a gun\", is not a sentence anybody says. Replaced with a historical statement in the passive, which is how the word is nearly always used.",
    "ex": [
     [
      "小说里的罪犯被枪毙了。",
@@ -90852,7 +90928,14 @@
     [
      "这个方案被枪毙了。",
      "This plan was killed off."
+    ],
+    [
+     "那个年代，逃兵会被枪毙。",
+     "In those days deserters were shot."
     ]
+   ],
+   "dropEx": [
+    "我要枪毙了他。"
    ]
   },
   "hsk30l7/强加": {
@@ -99181,12 +99264,19 @@
    ]
   },
   "hsk30l7/扭转": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. Its first sentence was 扭转治疗是酷刑。 — \"Conversion therapy is torture.\" Whatever one thinks of the claim, it is the same shape as the gender-affirming-care sentence cut from 豁 and 切割 in batch 21: a contemporary political argument arriving on a vocabulary card because it happens to contain the character. The card is glossed *to turn round; to reverse*; its other two sentences are both 扭转局面, so the replacement takes a third frame.",
    "ex": [
     [
      "他扭转了局面。",
      "He turned the situation round."
+    ],
+    [
+     "他努力扭转大家对他的看法。",
+     "He worked hard to turn round people's opinion of him."
     ]
+   ],
+   "dropEx": [
+    "扭转治疗是酷刑。"
    ]
   },
   "hsk30l7/攀升": {
@@ -100524,12 +100614,24 @@
    ]
   },
   "hsk30l7/孕妇": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. Its first sentence was 老天！我杀了一个孕妇！ — \"Oh my god! I've killed a pregnant woman!\" | Its second went with it: 孕妇一般会买大一号的内裤 is about underwear, rendered with a coarse English word for it, and teaches nothing about the headword that a neutral sentence would not.",
    "ex": [
     [
      "请给孕妇让座。",
      "Please give up your seat to a pregnant woman."
+    ],
+    [
+     "孕妇应该多吃蔬菜。",
+     "Pregnant women should eat plenty of vegetables."
+    ],
+    [
+     "这家医院有专门的孕妇门诊。",
+     "This hospital has a clinic just for expectant mothers."
     ]
+   ],
+   "dropEx": [
+    "老天！我杀了一个孕妇！",
+    "孕妇一般会买大一号的内裤。"
    ]
   },
   "hsk30l7/酝酿": {
@@ -107788,6 +107890,195 @@
     [
      "我才不管别人怎么想我。",
      "I really do not care what other people think of me."
+    ]
+   ]
+  },
+  "hsk30l6/泼": {
+   "why": "Found by the PUBLIC-FIGURES sweep: every example sentence in the nine decks against a list of well-known names. Nine sentences name one, and six are repaired here. **Two of its three sentences were internet conspiracy memes — 爱泼斯坦没有自杀 and 特朗普杀了爱泼斯坦, \"Trump killed Epstein\".** A flashcard is a thing a reader is asked to memorise, and this one accused a living former head of state of murder. | It is also the transliteration form of batch 21's character-error class: 泼 appears in NEITHER sentence in its own right, only inside 爱泼斯坦, the Chinese spelling of Epstein. The card is glossed *to splash; to spill*. Both replaced with AUTHORED sentences.",
+   "dropEx": [
+    "爱泼斯坦没有自杀。",
+    "特朗普杀了爱泼斯坦。"
+   ],
+   "ex": [
+    [
+     "她不小心把牛奶泼在地上了。",
+     "She accidentally spilled the milk on the floor."
+    ],
+    [
+     "孩子们在水边互相泼水。",
+     "The children splashed water at each other by the pool."
+    ]
+   ]
+  },
+  "hsk30l6/资产": {
+   "why": "Found by the PUBLIC-FIGURES sweep: every example sentence in the nine decks against a list of well-known names. Nine sentences name one, and six are repaired here. Its third sentence was 川普是俄罗斯的资产。 — \"Trump is a Russian asset\", a contested political accusation about a living person. | Its second was replaced with it for a different reason: 资产盈利能力或一些其他的价值，它们的主人。 **is not a sentence at all** — it is the words of \"Assets have earning power or some other value to their owner\" in Chinese order with no grammar joining them.",
+   "dropEx": [
+    "川普是俄罗斯的资产。",
+    "资产盈利能力或一些其他的价值，它们的主人。"
+   ],
+   "ex": [
+    [
+     "房子是他最重要的资产。",
+     "The house is his most important asset."
+    ],
+    [
+     "公司的资产去年增加了一倍。",
+     "The company's assets doubled last year."
+    ]
+   ]
+  },
+  "hsk30l7/君子": {
+   "why": "Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. Its second sentence was a generalisation about the criminals of a named country — \"Many criminals in America are addicted to drugs\" — and the headword appears in it only inside 瘾君子, an addict, which is a word of its own and very nearly the opposite of what this card teaches. Its other two sentences are the Confucian sense.",
+   "dropEx": [
+    "美国的罪犯大多是吸毒成瘾的瘾君子。"
+   ],
+   "ex": [
+    [
+     "在困难面前，君子不会退缩。",
+     "A gentleman does not flinch in the face of difficulty."
+    ]
+   ]
+  },
+  "hsk30l7/吸毒": {
+   "why": "Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. The card's SUBJECT is drug-taking, so this is a judgement about register and not about topic. 他是个吸毒男 is not standard Chinese and its English says **meth** where the Chinese says drugs; 你是不是吸毒吸傻了？ is an insult — *have drugs made you stupid?* — whose English, \"Do you have a drug problem?\", says something else entirely. (That second sentence was also 吸's, in Level 4, where batch 21 removed it; here it is on the right card and still had to go.)",
+   "dropEx": [
+    "他是个吸毒男。",
+    "你是不是吸毒吸傻了？"
+   ],
+   "ex": [
+    [
+     "吸毒会毁掉一个人的健康。",
+     "Taking drugs destroys a person's health."
+    ],
+    [
+     "警方抓到了几个吸毒的人。",
+     "The police arrested several people for taking drugs."
+    ]
+   ]
+  },
+  "hsk30l6/神": {
+   "why": "Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. Its third sentence was 我杀死了神。 — \"I killed God.\" It is a first-person declaration on a card glossed *god; deity*, and it teaches nothing 杀死 does not teach on its own card. Replaced with a sentence that shows the plural, which neither of the other two does.",
+   "dropEx": [
+    "我杀死了神。"
+   ],
+   "ex": [
+    [
+     "古希腊人相信很多神。",
+     "The ancient Greeks believed in many gods."
+    ]
+   ]
+  },
+  "hsk30l5/尝试": {
+   "why": "**A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here it was 你有没有尝试过自杀？ — a question put to the reader, in the second person, on a card glossed *to try*.",
+   "dropEx": [
+    "你有没有尝试过自杀？"
+   ],
+   "ex": [
+    [
+     "他尝试了三次才成功。",
+     "He succeeded only on his third try."
+    ]
+   ]
+  },
+  "hsk30l5/失恋": {
+   "why": "**A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here it was 他失恋了，所以便尝试自杀 — which does not merely mention the subject but **asserts the causal link**, on the card for being left by somebody. That is the one form of it worth removing whatever the rule.",
+   "dropEx": [
+    "他失恋了，所以便尝试自杀。"
+   ],
+   "ex": [
+    [
+     "失恋以后他很久都不出门。",
+     "After the break-up he did not go out for a long time."
+    ]
+   ]
+  },
+  "hsk30l6/服": {
+   "why": "**A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here it was 他服毒自杀了 on the card for 服 — kept on 毒, whose subject is poison, and replaced here with the *to submit; to obey* sense the gloss LEADS with and which neither other sentence shows (和服 is clothing and 服药 is taking medicine).",
+   "dropEx": [
+    "他服毒自杀了。"
+   ],
+   "ex": [
+    [
+     "他不服我的决定。",
+     "He would not accept my decision."
+    ]
+   ]
+  },
+  "hsk30l6/吊": {
+   "why": "**A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here the card had **two hanging deaths of its three sentences** — 他上吊自杀了 and 革命的时候他被吊死了. The second stays: an execution during a revolution is history and the card is glossed *to hang*. The first is replaced with the ordinary sense, which nothing on the card showed.",
+   "dropEx": [
+    "他上吊自杀了。"
+   ],
+   "ex": [
+    [
+     "天花板上吊着一盏灯。",
+     "A lamp hangs from the ceiling."
+    ]
+   ]
+  },
+  "hsk30l7/宁可": {
+   "why": "**A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here it was 与其向命运妥协，我宁可自杀 — one sentence sitting on TWO cards, this and 妥协, and replaced on both.",
+   "dropEx": [
+    "与其向命运妥协，我宁可自杀。"
+   ],
+   "ex": [
+    [
+     "我宁可走路也不坐这么挤的公交车。",
+     "I would rather walk than take such a crowded bus."
+    ]
+   ]
+  },
+  "hsk30l7/妥协": {
+   "why": "**A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. The second card carrying the sentence described on 宁可. Replaced with the NOUN use, which neither of its other two sentences shows.",
+   "dropEx": [
+    "与其向命运妥协，我宁可自杀。"
+   ],
+   "ex": [
+    [
+     "双方最后达成了妥协。",
+     "The two sides finally reached a compromise."
+    ]
+   ]
+  },
+  "hsk30l7/企图": {
+   "why": "**A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here it was 她企图自杀 on the card for *to attempt*.",
+   "dropEx": [
+    "她企图自杀。"
+   ],
+   "ex": [
+    [
+     "他企图掩盖真相。",
+     "He attempted to cover up the truth."
+    ]
+   ]
+  },
+  "hsk30l6/试图": {
+   "why": "**A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. And here 他试图自杀, on the card for the near-synonym. The two cards sat four hundred notes apart carrying the same sentence with the pronoun changed.",
+   "dropEx": [
+    "他试图自杀。"
+   ],
+   "ex": [
+    [
+     "科学家试图解释这个现象。",
+     "Scientists are trying to explain this phenomenon."
+    ]
+   ]
+  },
+  "hsk30l5/好奇": {
+   "why": "Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. Its first sentence's English was the English proverb \"Curiosity killed the cat\", which is not what 好奇会吃苦头的 says — 吃苦头 is *to suffer for it*, and there is no cat. A reader answering the reverse card off that line would produce something with 猫 in it.",
+   "exEn": [
+    [
+     "好奇会吃苦头的。",
+     "Being curious will land you in trouble."
+    ]
+   ]
+  },
+  "hsk30l6/招": {
+   "why": "Found in the `violence` half of the coarse-content sweep, the part batch 21 left unread. The second card carrying the sentence described on 明明.",
+   "exEn": [
+    [
+     "我明明没招惹任何人。",
+     "I clearly did not provoke anybody."
     ]
    ]
   }

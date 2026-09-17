@@ -557,6 +557,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 1–30 (阿姨 → 表演), deck order, plus a traditional-character sweep over all nine decks | 25 | a card whose gloss and all three of whose English lines disagreed |
 | 2026-09-17 | `hsk30l3` notes 31–60 (别的 → 城市), deck order, plus an American-spelling sweep over all nine decks | 29 | a card two of whose three sentences do not contain the headword at all |
 | 2026-09-17 | **the coarse-content sweep**, all nine decks, profanity · sexual · body · adult · slur read in full | 37 | a card all three of whose sentences were about penises |
+| 2026-09-17 | **the violence half of that sweep, plus a public-figures sweep**, all nine decks | 29 | a living head of state accused of murder on a vocabulary card |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -2710,3 +2711,156 @@ card-by-card reading the others got rather than a skim.
 - sense tags past the list: **0**; pinyin against bopomofo: **clean**
 - stray spaces: **32 blocks, 24 distinct** — unchanged
 - clobber sweep over the record diff: **0**; 19 existing notes changed, 18 added, which is the 37 cards
+
+### 2026-09-17 — the violence half of the sweep, and a public-figures sweep
+
+**What the batch was.** The half of batch 21's sweep left unread — `violence`, 200 findings — read card
+by card, plus a new sweep the first one suggested: every example sentence against a list of well-known
+names. **Twenty-nine cards across four decks changed.**
+
+**The `violence` column is mostly the decks working**, exactly as predicted: 杀 and 自杀 are cards of
+their own, a corpus of films and idioms is full of killing, and the list is thick with the honest
+(肯尼迪总统被刺杀了), the idiomatic (一箭双雕, 格杀勿论), the medical (镇痛, "kill the pain"), the
+proverbial (好奇害死猫) and the plainly false-positive (*drunk* for 喝, *drown out* the noise, *beat*,
+*shot*, *hang*). 161 of the 200 survive the read and every one of them was looked at.
+
+### The one to read first
+
+**泼 — glossed *to splash; to spill* — carried two internet conspiracy memes.**
+
+> 爱泼斯坦没有自杀。 — "Epstein didn't kill himself."
+> 特朗普杀了爱泼斯坦。 — "**Trump killed Epstein.**"
+
+A flashcard is a thing a reader is asked to memorise, and this one accused a living former head of
+state of murder. **And the headword is in neither sentence in its own right** — 泼 appears only inside
+爱泼斯坦, the Chinese spelling of *Epstein*. That is batch 21's character-error class wearing different
+clothes: **a proper noun's transliteration putting the headword on a card it has nothing to do with**.
+
+**棉 is the same fault exactly**: a real terrorist bombing with its casualty count, on a Level 6 card
+glossed *cotton*, where 棉 appears only inside 棉兰老岛 — Mindanao.
+
+### The public-figures sweep
+
+Testing all 34,596 sentences against a list of well-known names finds **nine**, and the split is clean:
+
+- **Three are plain historical fact** and stay — Bush following Reagan, and Kennedy's assassination
+  (twice, one sentence on two cards).
+- **Six were repaired.** Two are the Epstein memes above. 资产 carried 川普是俄罗斯的资产, "Trump is a
+  Russian asset", a contested political accusation about a living person. 情形 put an **invented
+  quotation into the mouths of two real heads of state** — Putin telling Hu Jintao they must help
+  Kyrgyzstan — and then revealed it as a dream; the frame is what makes it a joke rather than a claim,
+  but a vocabulary card is not the place to test whether a learner spots a frame. 概括 carried a garbled
+  campaign-speech mashup naming Xi Jinping, two halves with nothing to do with each other. And 代言 had
+  **eighty characters of a real victory speech** naming its vice-president-elect, with the headword once
+  in the middle, beside two sentences of five and six characters.
+
+**扭转's 扭转治疗是酷刑 ("Conversion therapy is torture") goes with them**, on the same reasoning as
+batch 21's gender-affirming-care sentence: whatever one thinks of the claim, it arrived on a vocabulary
+card because it happens to contain the character.
+
+### The rule this batch had to write down
+
+**A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.**
+
+自杀 is a real Level 6 card and keeps its own examples. What was removed is the same subject arriving
+at random on **eleven other cards** — 尝试, 失恋, 挫折, 青春期, 特性, 服, 吊, 宁可, 妥协, 企图, 试图 —
+so that a reader working through Levels 5 to 7 met it again and again with no context and no reason.
+
+It is a judgement about **how a flashcard is met** — one sentence at a time, out of order, repeatedly —
+rather than about the subject, which a language must be able to talk about. Two of the eleven would go
+under any rule:
+
+- **失恋's** 他失恋了，所以便尝试自杀 does not merely mention the subject, it **asserts the causal link**,
+  on the card for being left by somebody. 挫折's is the same link as a rhetorical question.
+- **青春期's** was sixty characters of Bertrand Russell on hating life and being continually on the
+  verge of suicide throughout adolescence — on the card for **puberty**, which is the age of the readers
+  most likely to be studying it.
+
+And 尝试's was **put to the reader in the second person**: 你有没有尝试过自杀？
+
+**Where the card's own subject IS the hard thing, the sentence stays**: 毒 keeps 他服毒自杀了 and 吊
+keeps 革命的时候他被吊死了. 吊 had two hanging deaths of its three, and only the first went.
+
+### Register on a card whose subject is right
+
+Three cards teach hard words and were kept, with the sentence changed:
+
+- **吸毒** — 他是个吸毒男 is not standard Chinese and its English said **meth** where the Chinese says
+  drugs; 你是不是吸毒吸傻了？ is an insult (*have drugs made you stupid?*) whose English, "Do you have a
+  drug problem?", says something else entirely. (That sentence was also 吸's in Level 4, where batch 21
+  removed it; here it was on the right card and still had to go.)
+- **枪毙** — 我要枪毙了他 is a first-person threat, and "I need to kill him with a gun" is not a sentence
+  anybody says. Replaced with a historical statement in the passive, which is how the word is used.
+- **神** — 我杀死了神, "I killed God", teaches nothing 杀死 does not teach on its own card.
+
+### Sentences that teach nothing and offend anyway
+
+**孕妇** opened with 老天！我杀了一个孕妇！ and its second sentence was about underwear in coarse
+English. **君子** carried a generalisation about the criminals of a named country, with the headword in
+it only inside 瘾君子 — *an addict*, very nearly the opposite of what the card teaches. **宣告** had
+fifty characters of contested moral argument about the atomic bombings. **生肖** had forty characters
+of wuxia plot summary naming three characters nobody has heard of — and the card was missing **the one
+question anybody is ever asked with this word**, 你属什么生肖？
+
+### English that is not the sentence
+
+- **好奇's** "Curiosity killed the cat" for 好奇会吃苦头的 — 吃苦头 is *to suffer for it*, and there is
+  no cat. A reader answering the reverse card off that line would produce something with 猫 in it.
+- **明明** and **招** share 我明明没招惹任何人, rendered "I didn't ask to be abused", which translates
+  neither half: 明明 is *clearly* — this card's own gloss — and 招惹 is *to provoke*.
+- **资产's** second sentence is not a sentence: 资产盈利能力或一些其他的价值，它们的主人 is the words of
+  "Assets have earning power or some other value to their owner" in Chinese order with no grammar.
+
+### A correction to batch 21's own figures
+
+**The profanity column was 108/125 noise and the noise was mine.** The sweep's Chinese list carried a
+bare **靠**, which is the ordinary verb *to rely on* and *to draw alongside* — so it matched 停靠, 依靠,
+不靠神仙皇帝 and, once this batch had written it, 很多明星靠代言赚钱. It is the INTERJECTION 我靠 that is
+vulgar. Narrowed to 我靠 and 靠北, the column goes **125 → 17**.
+
+**Batch 21's read was sound in spite of it**, and that is worth stating rather than assuming: all
+seventeen were re-read here and every one is a case that batch left deliberately — the 狗改不了吃屎
+proverb, "Prick up your ears", Shakespeare's "if you prick us, do we not bleed", 妈的 matching inside
+妈妈的 and 妈的衣角, and 可恶/糟了 rendered "Crap", which is mild. **One answer was wrong**: 大错特错's
+only generator sentence called the listener a 混蛋, and the insult does none of the teaching, the frame
+如果你认为…那你就大错特错了 carrying the idiom exactly as well without it.
+
+**Expect the same of any single character added to those lists.** A one-character Chinese pattern in a
+substring match will nearly always find the language rather than the fault.
+
+### And I clobbered a note doing it
+
+The 大错特错 edit was written with `Object.assign({ …mine }, existing)`, which puts the EXISTING fields
+last — so the note's own `ex` and `why` won, my replacement sentence was thrown away, and **the card
+went from three examples to two with `--check` passing and nothing else reporting**. The `add()` helper
+every batch script has carried since batch 11 exists for exactly this and I did not use it.
+
+**It was caught by `check-mandarin-coverage.js` reading 11,531 of 11,532 notes at three sentences** —
+which is why that check belongs at the END of every batch and not only when a batch expects to move it.
+Third occurrence of this fault in twenty-two batches (包子 in batch 2, 有的 in batch 10).
+
+### What the sweep holds now
+
+| category | at the start of batch 21 | now | read? |
+|---|---|---|---|
+| profanity | 141 | **15** | yes, twice |
+| sexual | 44 | 22 | yes |
+| body | 19 | 11 | yes |
+| adult | 106 | 99 | yes |
+| violence | 200 | 161 | **yes — this batch** |
+| slur | 195 | 192 | yes |
+
+**The sweep is now fully read.** What remains in every column is the innocent uses and the deliberate
+leaves, both listed in batch 21's entry and this one.
+
+### Standing invariants at the end of the batch
+
+- example blocks: **34,596**; **spoken == visible on every one**
+- example coverage: **11,532 of 11,532 notes at three sentences**, none showing the same twice — the
+  check that caught the clobber
+- Chinese leaking into an English line: all four touched decks **byte-identical to HEAD's**
+- `check-example-fit.js` over all nine decks: **not one finding names a card this batch touched**
+- sense tags past the list: **0**; pinyin against bopomofo: **clean**
+- stray spaces: **32 blocks, 24 distinct** — unchanged
+- sentences naming a well-known public figure: **9 → 3**, and all three are historical fact
+- clobber sweep over the record diff: **0** after the repair; 14 existing notes changed, 15 added

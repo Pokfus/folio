@@ -15,6 +15,11 @@
    where the card's own gloss already carries the English word; what is left is coarse content that
    arrived on a card about something else.
 
+   ONE PATTERN WAS NARROWED AFTER ITS FIRST FULL READ: bare 靠 is the ordinary verb *to rely on* and
+   *to draw alongside*, so it matched 停靠, 依靠, 靠代言赚钱 and 不靠神仙皇帝 and found nothing. It is
+   the INTERJECTION that is vulgar, so the list carries 我靠 and 靠北 instead. Expect the same of any
+   single character added here.
+
    IT IS A REPORT AND CANNOT BE ANYTHING ELSE. Every word in these lists has innocent uses — "naked
    eye", "an ass" the animal, "aroused his curiosity", "a period", 上床睡觉 (to go to bed), 妈的 inside
    妈妈的, 小三 inside 比我小三岁, 高潮 of a performance — and the `violence` and `slur` lists are the
@@ -52,7 +57,7 @@ const EN = {
 };
 /* CHINESE — substring, since Chinese has no word boundary. */
 const ZH = {
-  profanity: ["他妈的","妈的","操你","靠","傻逼","傻B","混蛋","王八蛋","畜生","滚蛋","放屁","狗屎","该死","妈蛋","去死"],
+  profanity: ["他妈的","妈的","操你","我靠","靠北","傻逼","傻B","混蛋","王八蛋","畜生","滚蛋","放屁","狗屎","该死","妈蛋","去死"],
   sexual: ["阴茎","阴道","阴部","生殖器","睾丸","乳房","乳头","屁眼","肛门","精液","性交","做爱","上床","手淫","自慰","避孕套","安全套","嫖娼","妓女","卖淫","强奸","强暴","乱伦","色情","黄片","春药","高潮","勃起","处女膜","阳痿","性欲","调情"],
   body: ["裸体","赤裸","光着","脱光","屁股","奶子","胸部","下体","阴毛","私处"],
   adult: ["性别","性生活","情人","小三","出轨","外遇","通奸","偷情","处女","怀孕","堕胎","流产","月经","避孕","绝育","阉割","勾引","诱惑"],
