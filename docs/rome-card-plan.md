@@ -1016,6 +1016,72 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-461`–`rm-470`: Cremona to the Second Temple — what this batch found
+
+All ten are in `rm-flavians`, and the batch carries the collection from the night battle outside Cremona
+to the burning of the temple at Jerusalem.
+
+**…AND A FOURTH LINE MOVED BECAUSE THE RETITLE COLLIDED WITH ONE 280 CARDS AWAY.** `rm-746` was already
+*Fiscus*, in the administration deck between *Aerarium* and *Roman currency*, and `test-card-plans.js`
+caught the duplicate topic the moment `rm-467` took the word. The card that was written wins, so `rm-746`
+is now **`Patrimonium`** — the emperor's inherited private property, the third Roman treasury and a real
+gap in that run rather than a substitute found in a hurry. **Grep the whole running order for a candidate
+term before retitling a line**, which costs one command and would have saved a round here.
+
+**THREE LINES WERE RETITLED, ALL BY `ww2-133`'s RULE — A LINE NAMED AFTER A THING THE GLOSSARY ALREADY
+HOLDS WANTS SOMETHING ELSE.** `rm-462` was *The burning of the Capitol*, and both `Capitoline_Hill` and
+`Temple_of_Jupiter_Optimus_Maximus` have been cited glossary terms since `rm-050` and `rm-075`, so the
+pairing rule was already satisfied and the line had no term of its own left to teach. It is answered by
+**`Titus Flavius Sabinus`** instead — Vespasian's elder brother, twelve years prefect of the city, the man
+who held the Capitol and was butchered on the palace steps — which keeps the card about the burning while
+giving the reader a name they meet again. `rm-467` was *Flavian finance*, a topic rather than a term, and is
+answered by **`fiscus`**: the emperor's own treasury is the word a reader meets again, `rm-473` builds the
+*fiscus Iudaicus* straight onto it, and Vespasian's reign is simply where the institution becomes visible.
+`rm-468` was *The Flavian censorship*, and `censorship` is `rm-117`'s answer term; the thing the Flavian
+censorship actually DID is **`adlectio`**, the enrolment of a man into the senate at a rank he never stood
+for, which is both narrower and more useful.
+
+**AN ANCIENT WITNESS UNDER 50% IS THE BAR, AND IT IS EASY TO MISCOUNT BY ONE.** `rm-461` and `rm-462` both
+shipped a first draft with FOUR Tacitus citations in eight, which is exactly 50% and raises
+`check-cards.js`'s one-witness note. The fix in both cases was to MERGE two adjacent Tacitus references
+rather than to add a source — `3.15-18` and `3.8-9` became `3.8-18`, `3.69` and `3.70` became `3.69-70` —
+which is the right answer when the two ranges are a continuous passage anyway. **Count the citations before
+writing the markers**, since renumbering them afterwards is the fiddly part.
+
+**THE LOEB VOLUME YEAR HAS TO BE READ OFF THE PAGE FOR EVERY AUTHOR, NOT JUST DIO.** Last batch's repair
+taught this for Cassius Dio; this one needed it again for Frontinus's *Stratagems* and for Tacitus's
+*Histories*, both of which are 1925. The LacusCurtius header states the volume and year on every page, so
+the rule is one curl per new work rather than a guess carried across from a neighbour.
+
+**THE `Histories` PAGE NAMES ARE `1A`…`5B` AND BOOK IV IS FOUR PAGES.** A first attempt used Thayer's
+letter-only scheme (`D*`, `E*`) and 404ed on all three; the real shape is `4A*` (chapters 1-37), `4B*`
+(38-53), `4C*` (54-79) and `4D*` (80-86), with book V split `5A*` (1-13) and `5B*` (14-26). Worth recording
+because the 404 looks exactly like the text not being there.
+
+**WHERE THE LATIN TEXT OF AN INSCRIPTION COMES FROM.** `rm-466` rests on the tablet itself, and the openable
+editions are **Bruns, *Fontes iuris Romani antiqui*, 7th ed. 1909, no. 56** and **Dessau, *ILS* 244**, both
+on archive.org with usable OCR. The two are worth having together: Bruns prints Mommsen's discussion of
+whether the thing is a law or a senatorial decree, and Dessau heads it *Fragmentum legis quae dicitur de
+imperio Vespasiani* — "the law which is SAID to be" — which is the same doubt in three words. `db.edcs.eu`
+answers 200 but serves a search form rather than a record, and `droitromain.univ-grenoble-alpes.fr` is 403
+from this sandbox.
+
+**GREENIDGE'S `Roman Public Life` CARRIED FOUR OF THESE CARDS AND IS WORTH INDEXING.** Pages 342-48 are the
+powers of the princeps, including the lex de imperio and the imperial censorship; 365 and 373 define
+*adlectio* and its grades; 395 defines the *fiscus* against the *aerarium*; 368 has Nerva's fiscal praetor.
+It is 1901 and says so, but on Roman constitutional machinery it states what the inscriptions state.
+
+**TWO CARDS SHIP WITH NO PICTURE AND TWO WITH NO LOCATOR, AND EACH ABSENCE IS A DECISION.** `rm-463`
+*arcanum imperii*, `rm-467` *fiscus* and `rm-468` *adlectio* are concepts and institutions with no place a
+reader could stand, so `rm-463` and `rm-467` take no locator at all rather than a dot on the Forum that
+would assert something the card does not. `rm-468` has no picture either: nothing openable on Commons
+depicts an adlection, and the inscriptions that record one are catalogue text rather than photographs.
+
+**A LOCATOR CAN BE FETCHED THROUGH THE MODERN TOWN WHEN THE ROMAN NAME HAS NO ARTICLE.** `Vetera` carries no
+primary coordinate on Wikipedia and `add-locators.js` correctly refused it; the fortress stood at Birten
+beside **Xanten**, whose article does carry one, so the batch names Xanten and labels the dot *Vetera*. The
+coordinate is still fetched and never typed, which is the rule the script exists for.
+
 ## `rm-451`–`rm-460`: the Jewish revolt to the death of Vitellius — what this batch found
 
 **THIS BATCH CROSSES FROM ONE DECK TO ANOTHER**: `rm-451`–`rm-455` close `rm-julio-claudians` and
@@ -1143,13 +1209,13 @@ and author the whole time.
     rm-459  First Battle of Bedriacum
     rm-460  Vitellius
     rm-461  Second Battle of Bedriacum
-    rm-462  The burning of the Capitol
+    rm-462  Flavius Sabinus
     rm-463  Arcanum imperii
     rm-464  Revolt of the Batavi
     rm-465  Vespasian
     rm-466  Lex de imperio Vespasiani
-    rm-467  Flavian finance
-    rm-468  The Flavian censorship
+    rm-467  Fiscus
+    rm-468  Adlectio
     rm-469  Siege of Jerusalem
     rm-470  The destruction of the Second Temple
     rm-471  Titus
@@ -1452,7 +1518,7 @@ and author the whole time.
     rm-743  Tributum
     rm-744  The provincial census
     rm-745  Aerarium
-    rm-746  Fiscus
+    rm-746  Patrimonium
     rm-747  Roman currency
     rm-748  Denarius
     rm-749  Roman public finance

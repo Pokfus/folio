@@ -3898,7 +3898,17 @@ window.GLOSSARY = {
 "Nymphidius_Sabinus": "Nymphidius Sabinus was a prefect of the Roman praetorian guard who served alongside Ofonius Tigellinus in the last years of Nero's reign.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says he persuaded the guard to salute Galba by telling them Nero had already fled the country, and by promising each praetorian 7,500 drachmas and each soldier outside Rome 1,250, a largess that was never paid.<sup class=\"fn\" data-fn=\"1\"></sup> Passed over when the new emperor appointed another prefect, he attempted to have the camp proclaim him in turn, found the soldiers turned against him by a tribune, and was killed there.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Otho": "Marcus Salvius Otho was Roman emperor for 95 days in 69 CE, from the murder of Galba in January until his own suicide in April.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A close companion of Nero who was sent to govern Lusitania for ten years after a quarrel over Poppaea Sabina, he joined Galba's revolt expecting adoption and turned on him when another man was chosen instead.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Defeated in the Po valley by the generals of Vitellius, he refused a second battle although reserves and fresh legions were available, and killed himself at Brixellum, saying that he had been the first to give the principate to a new house.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Vitellius": "Aulus Vitellius was Roman emperor in 69 CE, proclaimed by the legions of Lower Germany on 2 January and killed in Rome that December.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> The son of a man who had been three times consul and censor, he had been sent to the Rhine by Galba only months before, and Suetonius says the appointment was made in contempt for a man thought to care for nothing but food.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He took the additional name Germanicus but refused the name Caesar, left the fighting to his generals Caecina and Valens, and was dragged to the Gemonian stairs when the Flavian troops took the city.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Year_of_the_Four_Emperors": "The Year of the Four Emperors is the name given to 69 CE, when Galba, Otho, Vitellius and Vespasian each held or claimed the Roman principate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Tacitus opens his <i>Histories</i> on the period by counting four emperors fallen by the sword, three civil wars and more foreign ones, and Plutarch says the soldiery ushered rulers in and out as in play.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Three of the four were made by provincial or praetorian troops rather than at Rome, and the last of them, proclaimed in Egypt on 1 July, founded the Flavian dynasty.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Year_of_the_Four_Emperors": "The Year of the Four Emperors is the name given to 69 CE, when Galba, Otho, Vitellius and Vespasian each held or claimed the Roman principate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Tacitus opens his <i>Histories</i> on the period by counting four emperors fallen by the sword, three civil wars and more foreign ones, and Plutarch says the soldiery ushered rulers in and out as in play.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Three of the four were made by provincial or praetorian troops rather than at Rome, and the last of them, proclaimed in Egypt on 1 July, founded the Flavian dynasty.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Adlectio": "Adlectio was the enrolment of a man into the Roman senate at an artificial rank, so that he counted as having held a magistracy for which he had never stood.<sup class=\"fn\" data-fn=\"1\"></sup> The grades followed the ladder of offices, a man placed among the ex-quaestors being qualified for the tribunate and one among the ex-praetors for the consulship, while adlection among the ex-consuls was rare.<sup class=\"fn\" data-fn=\"1\"></sup> The power belonged to the censorship, which Claudius and then Vespasian revived in its old temporary form, and inscriptions record men adlected by Vespasian and Titus together.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Arcanum_imperii": "Arcanum imperii is a phrase from the preface to the Histories of Tacitus, where it names what the death of Nero in 68 CE made public: that a Roman emperor could be made somewhere other than Rome.<sup class=\"fn\" data-fn=\"1\"></sup> The Latin word means a thing kept hidden, and the remark is offered as an explanation of the civil war that followed rather than as part of its narrative.<sup class=\"fn\" data-fn=\"1\"></sup> It marks a break with the shape of the Augustan principate, whose powers reached an emperor as a grant voted at Rome, where Galba, Otho, Vitellius and Vespasian were each saluted by soldiers first.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Fiscus": "The fiscus was the treasury of a Roman emperor, fed by the revenues of the provinces he governed himself, certain dues from the public provinces, and windfalls such as confiscated estates and lapsed inheritances.<sup class=\"fn\" data-fn=\"1\"></sup> It stood apart from the aerarium, the treasury administered on the senate's behalf, and made the princeps financially independent of that body.<sup class=\"fn\" data-fn=\"1\"></sup> Vespasian's reign made it conspicuous: he opened it by declaring that 40,000 million sesterces were needed to set the state upright, revived taxes and raised provincial tribute, and paid the first salaried teachers of rhetoric out of it.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Lex_de_imperio_Vespasiani": "The Lex de imperio Vespasiani is a bronze tablet, now in the Capitoline Museum in Rome, on which the powers granted to the emperor Vespasian in 69 CE are set out clause by clause.<sup class=\"fn\" data-fn=\"1\"></sup> It begins in the middle of a sentence, so an unknown number of provisions is lost, and the surviving clauses cover treaty-making, the conduct of the senate, the commendation of candidates, the extension of the pomerium and release from named statutes.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Each clause cites the deified Augustus, Tiberius and Claudius as precedent, and the document is the only official text surviving on the powers of the early principate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Revolt_of_the_Batavi": "The Revolt of the Batavi was a rising on the lower Rhine that began in the autumn of 69 CE, led by Gaius Julius Civilis, a Batavian of royal descent who had commanded a cohort in Roman service.<sup class=\"fn\" data-fn=\"1\"></sup> Its occasion was a levy of Batavian youth, resented by a people whose treaty obligation was to supply men and arms instead of tribute, and Civilis opened the war claiming to be acting for Vespasian.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It spread to the Treveri and Lingones and drew Roman legions into an oath to a Gallic empire before Petillius Cerialis recovered the river in 70.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Second_Battle_of_Bedriacum": "The Second Battle of Bedriacum was fought in late October 69 CE on the Postumian Road between Bedriacum and Cremona, and decided the Roman civil war of that year for Vespasian.<sup class=\"fn\" data-fn=\"1\"></sup> Flavian forces from the Danube provinces under Marcus Antonius Primus met Vitellian legions that had marched up from Hostilia, and the fighting ran through the whole night with the same weapons and watchwords on both sides.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Vitellians broke at sunrise, their camp outside Cremona was stormed, and the colony was given over to four days of plunder and fire.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Second_Temple": "The Second Temple was the sanctuary at Jerusalem that stood from the return out of Babylon until 70 CE, the building destroyed by the Romans being Herod's enlargement of it.<sup class=\"fn\" data-fn=\"1\"></sup> Josephus describes a platform raised on filled valleys, double colonnades of white marble monoliths, and a screen carrying pillars inscribed in Greek and Latin forbidding foreigners to pass further.<sup class=\"fn\" data-fn=\"2\"></sup> It burned during the siege of 70; Josephus dates the fire to the tenth of the month Lous and blames a soldier acting without orders, while a later Latin chronicle says Titus had decided in council to destroy it.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Siege_of_Jerusalem_(70_CE)": "The Siege of Jerusalem was the operation by which Titus took the city in 70 CE and ended the main phase of the Jewish revolt against Rome.<sup class=\"fn\" data-fn=\"1\"></sup> The Romans closed on the city at Passover, when pilgrims had come up for the feast, took the outer wall on the fifteenth day and the second soon after, and then ringed the whole place with a wall of their own so that nobody could leave.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The temple burned in August and the upper city fell in early September; Josephus puts the dead at 1,100,000 and the captives at 97,000, figures that include the visitors trapped by the encirclement.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Titus_Flavius_Sabinus": "Titus Flavius Sabinus was the elder brother of the emperor Vespasian and held the prefecture of the city of Rome for twelve years, after governing Moesia for seven.<sup class=\"fn\" data-fn=\"1\"></sup> In December 69 CE he negotiated terms for Vitellius to lay down the empire, and when the abdication was shouted down he was driven with his following onto the Capitoline, where the temple of Jupiter burned during the assault.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He was taken unarmed, run through and dragged to the Gemonian stairs, and Tacitus says the reputation of the Flavian house had rested on him until his brother became emperor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Vespasian": "Vespasian, Titus Flavius Vespasianus, was Roman emperor from 69 to 79 CE and the founder of the Flavian dynasty.<sup class=\"fn\" data-fn=\"1\"></sup> He came of a family Suetonius calls obscure, commanded a legion in the invasion of Britain under Claudius, and was given the command against the Jewish revolt in 66 before the eastern armies saluted him at Alexandria on 1 July 69.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> As emperor he began the restoration of the burned Capitol, built the temple of Peace and started the amphitheatre in the middle of Rome, and was succeeded by his elder son Titus.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5923,7 +5933,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Nymphidius_Sabinus": "d. 68 CE",
 "Otho": "32 - 69 CE",
 "Vitellius": "15 - 69 CE",
-"Year_of_the_Four_Emperors": "69 CE"
+"Year_of_the_Four_Emperors": "69 CE",
+"Adlectio": "1st century CE onward",
+"Arcanum_imperii": "Histories 1.4",
+"Fiscus": "1st century CE onward",
+"Lex_de_imperio_Vespasiani": "69 CE",
+"Revolt_of_the_Batavi": "69 - 70 CE",
+"Second_Battle_of_Bedriacum": "October 69 CE",
+"Second_Temple": "c. 516 BCE - 70 CE",
+"Siege_of_Jerusalem_(70_CE)": "70 CE",
+"Titus_Flavius_Sabinus": "d. 19 December 69 CE",
+"Vespasian": "9 - 79 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8227,7 +8247,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nymphidius_Sabinus": ["Gaius Nymphidius Sabinus"],
 "Otho": ["Marcus Salvius Otho"],
 "Vitellius": ["Aulus Vitellius"],
-"Year_of_the_Four_Emperors": ["year of four emperors"]
+"Year_of_the_Four_Emperors": ["year of four emperors"],
+"Adlectio": ["adlected","adlection"],
+"Arcanum_imperii": ["arcana imperii"],
+"Fiscus": ["fiscus Caesaris"],
+"Lex_de_imperio_Vespasiani": ["lex de imperio"],
+"Revolt_of_the_Batavi": ["Batavian revolt"],
+"Second_Battle_of_Bedriacum": ["Battle of Cremona"],
+"Second_Temple": ["Temple in Jerusalem","Herod's Temple"],
+"Siege_of_Jerusalem_(70_CE)": ["Siege of Jerusalem","fall of Jerusalem"],
+"Titus_Flavius_Sabinus": ["Flavius Sabinus"],
+"Vespasian": ["Titus Flavius Vespasianus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12167,7 +12197,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Nymphidius_Sabinus": ["person","institution","history","rome","politics","classical"],
 "Otho": ["ruler","person","history","rome","politics","classical"],
 "Vitellius": ["ruler","person","history","rome","politics","classical"],
-"Year_of_the_Four_Emperors": ["event","history","rome","politics","warfare","classical"]
+"Year_of_the_Four_Emperors": ["event","history","rome","politics","warfare","classical"],
+"Adlectio": ["institution","concept","history","rome","politics","classical"],
+"Arcanum_imperii": ["concept","history","politics","rome","literature","classical"],
+"Fiscus": ["institution","concept","history","rome","politics","economy","classical"],
+"Lex_de_imperio_Vespasiani": ["object","law","history","rome","politics","classical"],
+"Revolt_of_the_Batavi": ["event","history","warfare","rome","germany","politics","classical"],
+"Second_Battle_of_Bedriacum": ["battle","event","history","warfare","rome","italy","classical"],
+"Second_Temple": ["building","place","history","religion","rome","judaea","classical"],
+"Siege_of_Jerusalem_(70_CE)": ["battle","event","history","warfare","rome","judaea","classical"],
+"Titus_Flavius_Sabinus": ["person","history","rome","politics","warfare","classical"],
+"Vespasian": ["ruler","person","history","rome","politics","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
