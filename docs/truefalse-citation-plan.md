@@ -1971,3 +1971,30 @@ index). The surviving-record group is now down to #1 the terracotta well, #6 foo
 Zetian, #40 fortune cookies, #43 chop suey, #44 Zheng He, #47 Chang'an, #64 the Great Fire, #70
 Coca-Cola and #175 Marco Polo. **Five of those have an entry above saying what was tried and why it
 failed** — read those before re-probing.
+
+### T53 — the O.K. Corral, and a source rejected on a misreading (2026-09-17)
+
+One cited: #28. 196 → **197 of 220 (90%)**. The National Park Service's 1978 nomination for
+Tombstone gives the ground plan outright: "The corral offices were on Allen Street between Third and
+Fourth, but the lot ran through to Fremont Street on the north. It was in the open lot between Fly's
+Photo Studio and the Harwood House where the rustlers waited" — and the Earps walked down Fremont
+Street, "passed Fly's Studio" and turned left into the yard.
+
+**THIS SOURCE WAS FOUND, READ AND REJECTED IN AN EARLIER SESSION, AND THE REJECTION WAS WRONG.** The
+staged note recorded that the nomination "calls it 'the gun fight at the OK Corral' in its own prose,
+so citing it would CONTRADICT the statement" — which confuses a NAME with a LOCATION. The document
+uses the popular name in one paragraph and puts the men in a lot on Fremont Street two paragraphs
+later, and that juxtaposition is not a contradiction: **it is the statement's own point, in one
+document.** The `why` now says so.
+
+**THE GENERAL RULE: A SOURCE THAT USES THE POPULAR NAME FOR A THING IS NOT THEREBY ENDORSING THE
+POPULAR CLAIM ABOUT IT.** Half the statements left in this pool are of the form "the famous X was
+not really Y", and the works that describe X will all call it by its famous name. **Reject a source
+on what it ASSERTS, never on what it calls something** — and when a probe is recorded as a failure,
+record the sentence it failed on, so the next session can re-read the judgement rather than only
+inherit it.
+
+**AND `npgallery.nps.gov/NRHP/GetAsset/NHLS/<refnum>_text` IS A GOOD HOST** — a real PDF with a text
+layer, 25,000 characters for this one, the preparer and date on the form itself (Marilyn Larew,
+Historic Sites Survey Division, February 1978). Reference numbers are guessable in blocks: 66000171
+is Tombstone and 66000172 answered too.
