@@ -4476,6 +4476,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     English writes `archaeology`, `ochre`, `aesthetic`, `dialogue`/`analogue` and `axe` the same way;
     `tyre` is the Phoenician city, `draught` the Knossos corridor, `kerb` excluded because `curb` is also
     a verb.
+  · **AND A SIXTH FAMILY IS ABSENT WITHOUT HAVING BEEN DECIDED — `per cent` / `percent`** (measured Sep
+    2026). It is a real GB/US pair, it is not in the table, and **`check-spelling-corpus.js` therefore
+    reports Folio's prose CLEAN while 24 American spellings sit in it**: 23 cards and one True-or-False
+    statement, against 594 card sites already writing the house form. The checker is not wrong — it tests
+    the families the TABLE names, so a family nobody added is a family nobody can see, which is this
+    corpus sweep's own blind spot and worth knowing before trusting its zero. **ADDING THE ROW IS AN
+    ENGINE CHANGE, NOT A TABLE CHANGE**, which is why it has not simply been done: all 148 rows are
+    SINGLE WORDS, the transform matches with word-boundary lookarounds around one token, and a phrase can
+    be split across two text nodes by markup, so `spellTree` would have to learn to match across a space
+    and across a node boundary. **The cheap half is a content pass** — normalise the 24 to `per cent`,
+    which makes every reader see one form instead of two — and it touches abstracts, questions, date
+    lines and `why` answers, so it is `fix-field.js` plus `set-date-line.js` plus `add-card-links.js`
+    rather than one tool. Not done; recorded so the zero is not misread.
   · **A URL IS NOT PROSE, AND THE MASK IS IN `spellText` RATHER THAN `spellTree`** (`SPELL_URL_RX`):
     `mediaCreditHTML` renders a credit URL as its own visible text.
   · **AND THE ONE PART OF A FOREIGN-LANGUAGE CARD THAT IS CERTAINLY ENGLISH IS SWEPT** (`SPELL_EN_SEL`
