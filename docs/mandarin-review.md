@@ -587,6 +587,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 241–270 (各 → 管理), deck order, plus the whole `railroad` class | 27 | the first new LEXIS row since batch 24, and a card whose gloss its own two translations contradicted |
 | 2026-09-17 | `hsk30l4` notes 271–300 (光 → 怀疑), deck order, plus the whole `skeptical` class | 22 | a fourth family `SPELL_PAIRS` has never held, and a card that contradicted itself over it |
 | 2026-09-17 | `hsk30l4` notes 301–330 (坏处 → 记者), deck order, plus a hint pair retired across two decks | 21 | a card whose own first line was the one sense its gloss had not got, twice over |
+| 2026-09-17 | `hsk30l4` notes 331–360 (加班 → 降低), deck order, plus the whole `hometown` class | 32 | a gloss that was a calque, a card glossing a reading it did not give, and a correction to batch 50 |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5451,4 +5452,58 @@ card's own examples, and the card is left alone. It is the deck's only occurrenc
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; **shared-gloss groups 337 → 336**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 425 → 446;
+`build-lang-decks.js` re-run.
+
+## Batch 52 — hsk30l4 notes 331–360 (加班 → 降低), plus the `hometown` class
+
+**What the batch was.** The next thirty notes of Level 4 in deck order, plus one spacing class swept across
+all nine decks. Thirty-two cards changed, the heaviest batch of the level.
+
+**A CARD GLOSSING A READING IT DID NOT GIVE.** 将's gloss ended *general, commander*, which is 将 **jiàng**
+— and the card's Pinyin and bopomofo said **jiāng** and nothing else, so a reader was shown a meaning they
+could not have pronounced. This is the mirror of the dual-reading cards batches 45 and 48 tagged: there the
+card gave two readings and illustrated one, here it gave one reading and glossed two. The card now carries
+both readings, three senses each labelled with the one it belongs to, and tags saying all three of its
+sentences are the jiāng adverb.
+
+**A GLOSS THAT WAS A CALQUE.** 加油 read *to add oil*, which is the two characters rather than the meaning
+— the word is to refuel and, quite separately, to cheer somebody on. **None of its three lines was
+refuelling**, and its first was the fixed idiom 火上加油, pouring oil on the flames, which swallows the
+headword; so the split names both senses and the replacement sentence supplies the one the card had none
+of. Two more glosses were simply not English or not the word: 加班 read *over work*, and 奖金 read
+*premium*, which in English is what one pays an insurer.
+
+**THE `hometown` CLASS, ON `anymore`'S REASONING.** British style sets it as two words; the decks were split
+**15 one word to 11 two, across eleven cards**, every site read and none a proper noun — **and `家乡`
+CONTRADICTED ITSELF, its gloss already reading *home town* over two sentences saying *hometown*.** It is a
+spacing rather than a word choice, so no judgement is needed per site, and the replacement contains a space
+and can never match itself on a re-run. Residual: zero. The `gas station` sites, by contrast, are **two on
+one card** and went to per-note rows — `exLexis` governs a substitution worth applying in one place.
+
+**A CORRECTION TO BATCH 50.** That batch measured 逛's tap panel, found the collection holds no other word
+on the character, and left it — reasoning there was nothing to list. **That tested the wrong thing**: a
+`Compounds` row is verified against CC-CEDICT and need not exist in the decks at all, and CC-CEDICT holds
+逛街, 逛逛 and 逛荡. The card has its block now. The same reasoning gives 江 one, whose panel is likewise
+empty and whose collection holds a single other word.
+
+**SEVEN SENTENCES WENT.** 假's 她请了天假 is ungrammatical, the numeral missing from inside 请假. 加上's
+second used the word as a VERB OF SPEECH, which Chinese does not do, and carried a stray space besides.
+家庭's second was about 家庭作业, homework. 江's third was a line of a wuxia novel with FOUR proper names, two
+of them 江 as a SURNAME — the character on the card three times and never in its own sense. 健身's first ran
+to fifty characters about bathhouses adding saunas. And 减 taught subtraction twice.
+
+**FOUR MORE LABEL-AGAINST-GLOSS CARDS** — 建议, 奖, and the two named above — which makes thirty-eight over
+eight batches.
+
+**SIX ENGLISH LINES.** 加油站's two *gas stations*; 家乡's *home country*, which batch 43 corrected on 参观's
+card and which each card keeps its own copy of; 将要's *He'll be asleep* for 将要睡觉, which is an action
+rather than a state; 降低's *little moderation in the temperature*; 奖学金's *students who receive
+scholarship*; and 健身房's *got so much slimmer lately*.
+
+**Read and left.** 健身房's 我去注册一家健身房 uses 注册 where a gym membership takes 办卡 or 报名; 降's
+他需要降班 is Taiwanese usage for being held back a year. Both are recorded rather than replaced.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 336 → 336; pinyin clean; example-fit 143 and senses 152 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 446 → 461;
 `build-lang-decks.js` re-run.

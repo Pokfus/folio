@@ -12687,7 +12687,7 @@
       ]
     },
     "hsk30l4/假": {
-      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | '她请了天假。' is ungrammatical — 请假 takes a duration between its two halves and the numeral is missing, so it reads 'she asked for day leave'. Replaced with an AUTHORED sentence, which the record says so is; the tags say which line is which reading.",
       "Pinyin": "jiǎ / jià",
       "Bopomofo": "ㄐㄧㄚˇ / ㄐㄧㄚˋ",
       "senses": [
@@ -12701,6 +12701,20 @@
           "noun",
           "holiday, leave of absence"
         ]
+      ],
+      "dropEx": [
+        "她请了天假。"
+      ],
+      "ex": [
+        [
+          "我请了三天假。",
+          "I have taken three days' leave."
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
       ]
     },
     "hsk30l4/公路": {
@@ -13046,8 +13060,34 @@
       ]
     },
     "hsk30l4/江": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "large river (and the word in the names of the great rivers)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | '与此同时江琴分散了江枫的哥哥燕大侠的注意力。' is a line of a wuxia novel carrying FOUR proper names, two of which are 江 used as a SURNAME — so the character is on the card three times and is the headword's sense none of them. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. The collection holds one other word on this character, but the rows come from CC-CEDICT rather than from the collection, which is what makes a block possible here at all.",
+      "gloss": "large river (and the word in the names of the great rivers)",
+      "dropEx": [
+        "与此同时江琴分散了江枫的哥哥燕大侠的注意力。"
+      ],
+      "ex": [
+        [
+          "这条江很宽，看不到对岸。",
+          "This river is so wide you cannot see the far bank."
+        ]
+      ],
+      "compounds": [
+        [
+          "长江",
+          "Cháng Jiāng",
+          "the Yangtze"
+        ],
+        [
+          "江南",
+          "Jiāng nán",
+          "the region south of the lower Yangtze"
+        ],
+        [
+          "江湖",
+          "jiāng hú",
+          "the wider world; the itinerant life"
+        ]
+      ]
     },
     "hsk30l4/法律": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | '新人新法律。' is not a sentence — it is a four-character slogan with no verb, glossed 'New people, new laws'. Replaced with an AUTHORED sentence, which the record says so is.",
@@ -75889,7 +75929,7 @@
       ]
     },
     "hsk30l4/健身": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Its first line ran to fifty characters about public bathhouses adding saunas, and its 健身器材 swallows the headword into a compound besides. Replaced with an AUTHORED sentence, which the record says so is.",
       "ex": [
         [
           "他每天早上去健身。",
@@ -75898,7 +75938,14 @@
         [
           "健身要坚持才有效果。",
           "Exercise works only if you keep it up."
+        ],
+        [
+          "医生建议他多健身。",
+          "The doctor advised him to exercise more."
         ]
+      ],
+      "dropEx": [
+        "生意停顿了以后，许多公共浴堂都添置了桑拿浴室、健身器材等的新设备，希望能吸引多点人来光顾。"
       ]
     },
     "hsk30l4/交警": {
@@ -76222,22 +76269,33 @@
       ]
     },
     "hsk30l4/加油站": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of its three lines read 'GAS STATION', which is American — the card's own gloss and its third line already say petrol station. Two sites on one card is not a table row: `exLexis` governs a substitution worth applying in one place, and this is one card's English.",
       "ex": [
         [
           "前面有个加油站。",
           "There is a petrol station ahead."
         ]
+      ],
+      "exEn": [
+        [
+          "这里附近有没有加油站",
+          "Is there a petrol station near here?"
+        ],
+        [
+          "我们在下个加油站停一下",
+          "Let's stop at the next petrol station."
+        ]
       ]
     },
     "hsk30l4/奖金": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Glossed 'premium', which in English is what one pays an insurer. 奖金 is prize money or a bonus, and the card's own three lines are a prize, prize money and a year-end bonus.",
       "ex": [
         [
           "公司年底发奖金。",
           "The company pays a bonus at the year's end."
         ]
-      ]
+      ],
+      "gloss": "a bonus; prize money"
     },
     "hsk30l4/今后": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -115861,7 +115919,7 @@
       "gloss": "a process; a course"
     },
     "hsk30l4/逛": {
-      "why": "'母亲去了逛街。' is ungrammatical — the aspect marker cannot sit between 去 and its purpose clause, which is 去逛街了 — and its English was the same 'gone shopping' the card's second line already had. Replaced with an AUTHORED sentence, which the record says so is.",
+      "why": "'母亲去了逛街。' is ungrammatical — the aspect marker cannot sit between 去 and its purpose clause, which is 去逛街了 — and its English was the same 'gone shopping' the card's second line already had. Replaced with an AUTHORED sentence, which the record says so is. | A CORRECTION TO BATCH 50, which measured this card's panel, found the collection holds no other word on the character, and left it — reasoning that there was nothing to list. That tested the wrong thing: the rows are verified against CC-CEDICT and need not exist in the decks at all, and CC-CEDICT holds 逛街, 逛逛 and 逛荡. The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, and the collection holds nothing either. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "dropEx": [
         "母亲去了逛街。"
       ],
@@ -115875,6 +115933,18 @@
         [
           "我们想下午到街上去逛",
           "We would like to go for a wander round the streets this afternoon."
+        ]
+      ],
+      "compounds": [
+        [
+          "逛街",
+          "guàng jiē",
+          "to stroll down the street; to window-shop"
+        ],
+        [
+          "逛逛",
+          "guàng guang",
+          "to have a wander round"
         ]
       ]
     },
@@ -116321,6 +116391,203 @@
           "售货员",
           "shòu huò yuán",
           "a shop assistant"
+        ]
+      ]
+    },
+    "hsk30l4/加班": {
+      "why": "The gloss was 'over work', which is not a word and not English — 加班 is to work overtime, which all three of the card's own translations already say.",
+      "gloss": "to work overtime"
+    },
+    "hsk30l4/家长": {
+      "why": "Glossed 'head of a household', where all three of the card's own translations say PARENTS — and that is the word's ordinary modern use, a pupil's parent or guardian. CC-CEDICT gives both, the parent first.",
+      "gloss": "a parent or guardian; the head of a household"
+    },
+    "hsk30l4/家乡": {
+      "why": "The gloss ran two senses together with NO SPACE after the semicolon — 'home town;native place' — the malformation batch 43 met on 不断 and 不如, in a milder form nothing in the pipeline can see. | '我们第一次参观了他的家乡。' read 'his home COUNTRY' — a 家乡 is a home town. Batch 43 corrected this same sentence on 参观's card; it is carried by two cards and each keeps its own English.",
+      "gloss": "a home town; a native place",
+      "exEn": [
+        [
+          "我们第一次参观了他的家乡",
+          "We visited his home town for the first time."
+        ]
+      ]
+    },
+    "hsk30l4/加油": {
+      "why": "THE GLOSS WAS A CALQUE: 'to add oil', which is the two characters and not the meaning — 加油 is to refuel and, quite separately, to cheer somebody on. None of the card's own three lines was refuelling, so the split names both and the replacement sentence supplies the sense that was missing. | '你现在说这种话，只会火上加油。' is the idiom 火上加油, pouring oil on the flames — a fixed four-character phrase that swallows the headword, and not the refuelling or the cheering the card is for. Replaced with an AUTHORED sentence supplying the sense no line on the card had.",
+      "senses": [
+        [
+          "verb",
+          "to refuel; to fill up"
+        ],
+        [
+          "verb",
+          "to cheer on; to make an extra effort"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        1
+      ],
+      "dropEx": [
+        "你现在说这种话，只会火上加油。"
+      ],
+      "ex": [
+        [
+          "车没油了，我们得去加油。",
+          "The car is out of fuel; we need to fill up."
+        ]
+      ]
+    },
+    "hsk30l4/建议": {
+      "why": "Labelled 'noun / verb' against a gloss that is only the verb, where two of the card's three lines are the NOUN — 没给我多少建议 and 他的建议.",
+      "senses": [
+        [
+          "verb",
+          "to suggest; to recommend"
+        ],
+        [
+          "noun",
+          "a suggestion; advice"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ]
+    },
+    "hsk30l4/奖": {
+      "why": "Labelled 'noun / verb' against the gloss 'to reward, to encourage', which is only the verb — and all three of the card's own lines are the NOUN: 头奖, 一等奖, 得了奖.",
+      "senses": [
+        [
+          "noun",
+          "a prize; an award"
+        ],
+        [
+          "verb",
+          "to reward; to give a prize"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/将": {
+      "why": "THE CARD GLOSSED A SENSE WHOSE READING IT DID NOT GIVE. Its gloss ended 'general, commander', which is 将 jiàng — and the card's Pinyin and bopomofo said jiāng and nothing else, so a reader was shown a meaning they could not have pronounced. CC-CEDICT gives the two readings apart; the second and third senses are added with the reading each belongs to, and all three of the card's own lines are the jiāng adverb.",
+      "Pinyin": "jiāng / jiàng",
+      "Bopomofo": "ㄐㄧㄤ / ㄐㄧㄤˋ",
+      "senses": [
+        [
+          "jiāng",
+          "adverb",
+          "will; shall"
+        ],
+        [
+          "jiāng",
+          "preposition",
+          "[marking the object, like 把]"
+        ],
+        [
+          "jiàng",
+          "noun",
+          "a general"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/家庭": {
+      "why": "'大学里也有家庭作业吗？' is about HOMEWORK. 家庭作业 is a fixed word that swallows the headword, and its English called a 大学 a college besides. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "大学里也有家庭作业吗？"
+      ],
+      "ex": [
+        [
+          "他来自一个普通家庭。",
+          "He comes from an ordinary family."
+        ]
+      ]
+    },
+    "hsk30l4/加上": {
+      "why": "'“一个晚上，” 迪马加上。' uses 加上 as a verb of speech, which Chinese does not do — that is 补充 — and it carried a stray space after the closing quotation mark besides. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "“一个晚上，” 迪马加上。"
+      ],
+      "ex": [
+        [
+          "加上运费一共两百块。",
+          "With the postage it comes to two hundred yuan in all."
+        ]
+      ]
+    },
+    "hsk30l4/减": {
+      "why": "Two of its three lines were arithmetic — 八减四得四 and 七减二是五 — so the card taught subtraction twice and the reducing sense once. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 减轻 and 减少, against eleven in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "七减二是五。"
+      ],
+      "ex": [
+        [
+          "公司减了一半的员工。",
+          "The company cut half its staff."
+        ]
+      ],
+      "compounds": [
+        [
+          "减肥",
+          "jiǎn féi",
+          "to lose weight"
+        ],
+        [
+          "减价",
+          "jiǎn jià",
+          "to cut the price"
+        ],
+        [
+          "削减",
+          "xuē jiǎn",
+          "to cut back; to reduce"
+        ]
+      ]
+    },
+    "hsk30l4/健身房": {
+      "why": "'欣怡最近瘦好多喔…' read 'Hsin-yi GOT so much slimmer lately', which wants a perfect, and 'Is it gym or heartbreak?' wants an article.",
+      "exEn": [
+        [
+          "欣怡最近瘦好多喔",
+          "Hsin-yi has got much slimmer lately. Is it the gym or a broken heart?"
+        ]
+      ]
+    },
+    "hsk30l4/奖学金": {
+      "why": "'三十二名领奖学金的马达加斯加学生飞往中国。' read 'students who receive SCHOLARSHIP', with no article and no plural.",
+      "exEn": [
+        [
+          "三十二名领奖学金的马达加斯加学生飞往中国",
+          "Thirty-two Madagascan students on scholarships are flying to China."
+        ]
+      ]
+    },
+    "hsk30l4/将要": {
+      "why": "'他将要睡觉。' read 'He'll be ASLEEP' — 将要睡觉 is about to go to sleep, which is an action rather than a state.",
+      "exEn": [
+        [
+          "他将要睡觉",
+          "He is about to go to sleep."
+        ]
+      ]
+    },
+    "hsk30l4/降低": {
+      "why": "'甚至在日落之后，气温也不见降低。' read 'there was little MODERATION in the temperature', which is not a thing anybody says.",
+      "exEn": [
+        [
+          "甚至在日落之后，气温也不见降低",
+          "Even after sunset the temperature hardly dropped."
         ]
       ]
     }

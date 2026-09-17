@@ -328,7 +328,12 @@ function britExamples(html) {
    that matters here, an American railroad company's NAME being a name. The plural is declared beside it
    on batch 35's rule. `mall` was measured in the same pass and DELIBERATELY LEFT: 商场's own gloss is
    `shopping mall`, which is ordinary British English (Bluewater and Westfield are shopping malls), so
-   the finding there is the sweep's and not the deck's — `stove` and `vest` again. */
+   the finding there is the sweep's and not the deck's — `stove` and `vest` again.
+   `hometown` IS `anymore`'S SHAPE (batch 52): a SPACING rather than a word choice, so no judgement is
+   needed per site, and the replacement contains a space, which means it can never match itself on a
+   re-run. British style sets it as two words; the decks were split 15 one word to 11 two, across eleven
+   cards, every site read and none a proper noun — and `hsk30l4/家乡` CONTRADICTED ITSELF, its gloss
+   already reading `home town` over two sentences saying `hometown`. */
 const LEXIS = (() => {
   const PAIRS = [
     ["driver's license", "driving licence"],
@@ -359,6 +364,8 @@ const LEXIS = (() => {
     ["trucks", "lorries"],
     ["truck", "lorry"],
     ["math", "maths"],
+    ["hometowns", "home towns"],
+    ["hometown", "home town"],
     ["railroads", "railways"],
     ["railroad", "railway"],
   ];
