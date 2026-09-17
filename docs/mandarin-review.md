@@ -607,6 +607,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 841–870 (严重 → 勇敢), deck order | 21 | a gloss that was the wrong end of its own transaction |
 | 2026-09-17 | `hsk30l4` notes 871–900 (永远 → 约会), deck order | 16 | two thirds of a card illustrated with a Japanese name spelled in its headword |
 | 2026-09-17 | `hsk30l4` notes 901–930 (月饼 → 之), deck order | 15 | three sentences whose Chinese says the opposite of their own English |
+| 2026-09-17 | `hsk30l4` notes 931–960 (支持 → 转), deck order, plus `major` and `gonna` sweeps | 22 | a split headword hidden by the fact that the pair IS a real word |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6670,3 +6671,57 @@ what shows the difference between them.
 still-ambiguous 2; shared-gloss groups 326 unchanged (327 mid-run, corrected); pinyin clean;
 example-fit 143 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible on every one;
 sense-tagged 584 → 587; `build-lang-decks.js` re-run.
+
+## Batch 72 — hsk30l4 notes 931–960 (支持 → 转)
+
+Thirty consecutive notes; **twenty-two cards changed** across four decks.
+
+**The split-headword class at its sharpest.** 只好's third sentence was 这支铅笔比那**只好** — which is
+那只 (that one, with its classifier) + 好, *this pencil is better than that one*, exactly as its own
+English says. The two characters are a very common classifier and a very common adjective sitting next
+to each other, and **只好 IS a real word**, so greedy longest-match lands squarely on it and
+`check-example-fit.js` reports the card clean. Sixth instance in this audit, after 人生, 上门, 十分,
+数年, 头痛 and 线上/线下.
+
+**A second reading the card does not carry.** 转's second sentence, 月球围着地球转, is **zhuàn** — to
+revolve, which CC-CEDICT gives its own entry — on a card whose pinyin field said zhuǎn and nothing
+else. 弹's fault from batch 64, and the fix is the shape 数, 血 and 熟 already use: both readings in the
+pinyin and bopomofo fields, a sense each, and every sentence tagged with the reading it shows.
+
+**Two word-choice families measured, and both went per note.**
+· **`major` for a university subject** is American — British English asks what you are STUDYING.
+  Measured over the nine decks: **29 occurrences, of which only five are this sense**; the rest are
+  *a major problem*, *the major cities*, a military rank and a musical key, all ordinary British
+  English. `gas` again, so it is a per-note fix — on 专业 twice and on hsk30l7/攻 and hsk30l7/宗.
+· **`gonna`** is a spoken contraction no learner should be shown as written English, and the decks'
+  English is standard everywhere else. Four sites across three decks, all corrected.
+
+**Four glosses and labels.** 支持 was `to be in favour of` under a verb label while its second sentence
+is the NOUN; 值得 was the adjective `worthy` under a verb label; 植物 was the bare plural `plants`; and
+中餐 gave one of the word's two senses while its third sentence needed the other — rendered *There's
+often rice or **pasta** for **lunch***, wrong twice, 面条 being noodles and the sentence being about
+Chinese cooking.
+
+**Three sentences that teach nothing about their headword.** 指's 指环没了光泽 buries the character in a
+RING; 著名's first and third were both a famous singer; 祝's first and third were both wishing somebody
+luck. And 纸巾's second wrote **。。。** where Chinese sets an ellipsis, with `gonna` in its English.
+
+**Seven English lines.** `His ideas never earned him a single penny` for 一文不值, which means
+WORTHLESS — and is the card's own gloss. `Do you enjoy your vocational field?`, which is not English.
+**`barrister`** for 律师, which asserts an English distinction the Chinese does not make. `Where were
+you?` dropping the 之前 the card is about. `She at least, she can face them!`, ungrammatical. `the
+accent was on unemployment`, in a sense almost nobody now writes. And `I want to feel important` for
+被人重视, which is hoping to be VALUED.
+
+**Four `Compounds` blocks**: 值, 指, 祝 and 转 — one or two words each in the reader's downloaded deck.
+指's block is where the card's noun sense went, 手指 and 戒指, once the gloss was reduced to the verb
+the card teaches.
+
+**Read and left.** 支付, 之后, 之间, 知识, 之中, 直接, 指出, 质量, 中年, 重点's other lines, 周围, 主意,
+祝贺 (whose 我为你的订婚祝贺 is slightly marked, 祝贺你订婚 being the ordinary order, but attested), 专门,
+转's third line (转小声 for a volume control, which is plausible if not the commonest verb).
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 326 unchanged; pinyin clean — **including the new two-reading
+field on 转**; example-fit 143 and senses 152 unchanged; british 0; `gonna` now 0; 34,596 blocks with
+spoken == visible on every one; sense-tagged 587 → 593; `build-lang-decks.js` re-run.

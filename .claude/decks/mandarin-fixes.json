@@ -12548,8 +12548,14 @@
       ]
     },
     "hsk30l4/中餐": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "Chinese food, Chinese cuisine"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The gloss gave one of the word's two senses and the card's third sentence needed the other: 中餐 is Chinese food AND the midday meal, and 中餐常有米饭或面条 was rendered `There's often rice or **pasta** for **lunch**` — wrong twice, since 面条 is noodles and the sentence is about Chinese cooking rather than lunchtime.",
+      "gloss": "Chinese food; (also) the midday meal",
+      "exEn": [
+        [
+          "中餐常有米饭或面条",
+          "Chinese meals often include rice or noodles."
+        ]
+      ]
     },
     "hsk30l4/主意": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
@@ -15172,11 +15178,17 @@
       ]
     },
     "hsk30l6/下线": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | `gonna` is a spoken contraction that no learner should be shown as written English, and the decks' English is standard everywhere else. Measured: four sites across three decks, all corrected in this batch.",
       "ex": [
         [
           "暂时下线洗澡吃饭，过40分左右回来!",
           "Break for bath & food, back in about 40 minutes!"
+        ]
+      ],
+      "exEn": [
+        [
+          "下线去洗澡",
+          "Signing off — going to take a shower."
         ]
       ]
     },
@@ -76691,12 +76703,19 @@
       ]
     },
     "hsk30l4/纸巾": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The second sentence wrote **。。。** where Chinese sets an ellipsis, and its English wrote `gonna`. Replaced rather than patched, the card's third line already being `Please give me a tissue`. `gonna` is a spoken contraction that no learner should be shown as written English, and the decks' English is standard everywhere else. Measured: four sites across three decks, all corrected in this batch. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "请给我一张纸巾。",
           "Please give me a tissue."
+        ],
+        [
+          "桌上放着一盒纸巾。",
+          "There is a box of tissues on the table."
         ]
+      ],
+      "dropEx": [
+        "我想我要打喷嚏了"
       ]
     },
     "hsk30l5/保质期": {
@@ -112089,13 +112108,14 @@
       ]
     },
     "hsk30l4/值得": {
-      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. The same sentence stands on three notes across two decks, so the row is written on each.",
+      "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. The same sentence stands on three notes across two decks, so the row is written on each. | Glossed `worthy`, an adjective, under a `verb` label; 值得 is to BE worth something, which is what all three of its sentences are.",
       "exEn": [
         [
           "值得观看的电视节目",
           "Only a few TV programmes are worth watching."
         ]
-      ]
+      ],
+      "gloss": "to be worth; to deserve"
     },
     "hsk30l4/篇": {
       "why": "An AMERICAN spelling in deck content, which the site's one-way spelling switch can never correct: `applySpelling` returns at once under en-GB, so what is authored is what both readers see. `check-british.js` is blind to it because `SPELL_PAIRS` marks program/programme ONE-WAY — reversing it would turn every computer PROGRAM into a programme — which is the third family found this way, after batch 27's -logue and batch 29's -ward. Measured over all nine decks the class is TWELVE sites over eight distinct strings; ELEVEN are a broadcast or event programme and are corrected, and `hsk30l5/下载` is left exactly as it is, its Chinese being 程序, a computer program, which British English writes the same way. **It is per note and never a deck table for that reason**: a mechanical substitution would rewrite the one site that is right. | The gloss carried the words 'measure word for writing' INSIDE a gloss whose label already says measure word — the shape 幅 and 棵 both had. | '这个节目变得千篇一律。' is the four-character idiom 千篇一律, all of a muchness — a fixed phrase that swallows the headword, and not the measure word the card is for. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. | The card's earlier `exEn` row, which rewrote this same sentence's English, is removed with it: DROPPING A SENTENCE ORPHANS ANY `exEn` ROW THAT NAMED IT, and the applier reports that on the next run — which is how this one was found.",
@@ -121884,6 +121904,304 @@
     "hsk30l6/念书": {
       "why": "Glossed `to read` while **all three of its sentences are studying** — 边听音乐边念书, 为考试念书了吗, 出国念书 — so the card's own English lines contradict its gloss, and it shared that gloss with hsk30l4/阅读 the moment that card's `reading` was corrected to a verb. CC-CEDICT gives /to read; to study/to attend school/, and the card teaches the second and third. Sharpened rather than left to collide — **a gloss correction can make a collision as easily as it dissolves one**, which is this audit's second instance in two batches.",
       "gloss": "to study; to attend school"
+    },
+    "hsk30l4/只好": {
+      "why": "The headword was not in the sentence: 这支铅笔比那只好 is 那**只** (that one, with its classifier) + **好**, `this pencil is better than that one`, which is what its own English says. The segmenter lands squarely on 只好 because 只好 IS a word, so `check-example-fit.js` reports the card clean — the blind spot its header names, met for the sixth time in this audit and on the sharpest kind of pair, two very common single characters that happen to sit next to each other. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "这支铅笔比那只好"
+      ],
+      "ex": [
+        [
+          "没有公交车，我们只好走路。",
+          "There was no bus, so we had to walk."
+        ]
+      ]
+    },
+    "hsk30l4/转": {
+      "why": "The second sentence is the character's OTHER reading. 月球围着地球转 is **zhuàn**, to revolve — CC-CEDICT gives it its own entry, /to revolve/to turn/to circle about/ — on a card whose pinyin field said zhuǎn and nothing else, so a reader met a different word with nothing to say so. This is 弹's fault (batch 64) exactly, and the fix is the shape 数, 血 and 熟 already use: both readings in the pinyin and bopomofo fields, a sense each, and every sentence tagged with the reading it shows. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows two words, 转发 and 转机. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "Pinyin": "zhuǎn / zhuàn",
+      "Bopomofo": "ㄓㄨㄢˇ / ㄓㄨㄢˋ",
+      "senses": [
+        [
+          "zhuǎn",
+          "verb",
+          "to turn; to change direction; to pass on"
+        ],
+        [
+          "zhuàn",
+          "verb",
+          "to revolve; to go round"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ],
+      "compounds": [
+        [
+          "转变",
+          "zhuǎn biàn",
+          "to change; a transformation"
+        ],
+        [
+          "转身",
+          "zhuǎn shēn",
+          "to turn round"
+        ],
+        [
+          "转告",
+          "zhuǎn gào",
+          "to pass a message on"
+        ],
+        [
+          "好转",
+          "hǎo zhuǎn",
+          "to take a turn for the better"
+        ]
+      ]
+    },
+    "hsk30l4/支持": {
+      "why": "Glossed `to be in favour of` under a `verb` label, while the second sentence — 我们需要她的支持 — is the NOUN, which the gloss does not reach. Split, with each sentence saying which it shows.",
+      "senses": [
+        [
+          "verb",
+          "to support; to be in favour of"
+        ],
+        [
+          "noun",
+          "support; backing"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ]
+    },
+    "hsk30l4/指": {
+      "why": "The gloss ran a noun and a verb together under a `verb` label — `finger; point at` — and the second sentence, 指环没了光泽, buries the character in a RING and teaches nothing about either. Replaced with a sentence showing both the finger and the pointing, and the gloss reduced to what the card is for; the noun lives in 手指 and 戒指, which the new `Compounds` block carries. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 指出. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to point at; to refer to",
+      "dropEx": [
+        "指环没了光泽"
+      ],
+      "ex": [
+        [
+          "他用手指指着地图。",
+          "He pointed at the map with his finger."
+        ]
+      ],
+      "compounds": [
+        [
+          "手指",
+          "shǒu zhǐ",
+          "a finger"
+        ],
+        [
+          "戒指",
+          "jiè zhi",
+          "a ring"
+        ],
+        [
+          "指导",
+          "zhǐ dǎo",
+          "to guide; guidance"
+        ],
+        [
+          "指挥",
+          "zhǐ huī",
+          "to conduct; to command"
+        ]
+      ]
+    },
+    "hsk30l4/植物": {
+      "why": "Glossed `plants`, the bare plural, where the card's own sentences use it as both a mass and a count noun.",
+      "gloss": "a plant; plants"
+    },
+    "hsk30l4/著名": {
+      "why": "The first and third sentences were both a famous SINGER, and the first's English called 著名 `popular`, which is 受欢迎 — a different claim about the same person. One replaced and the other's English corrected. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "exEn": [
+        [
+          "他成为了著名的歌手",
+          "He became a famous singer."
+        ]
+      ],
+      "dropEx": [
+        "她是一个著名的歌手"
+      ],
+      "ex": [
+        [
+          "这座城市以美食著名。",
+          "The city is famous for its food."
+        ]
+      ]
+    },
+    "hsk30l4/祝": {
+      "why": "The first and third sentences were both wishing somebody luck — 再见，祝好运 and 请祝我好运. One replaced with the commonest thing 祝 is used for. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows two words, 庆祝 and 祝贺. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "请祝我好运"
+      ],
+      "ex": [
+        [
+          "祝你生日快乐！",
+          "Happy birthday!"
+        ]
+      ],
+      "compounds": [
+        [
+          "祝福",
+          "zhù fú",
+          "to wish somebody well; a blessing"
+        ],
+        [
+          "祝愿",
+          "zhù yuàn",
+          "to wish"
+        ],
+        [
+          "祝寿",
+          "zhù shòu",
+          "to wish an elderly person a happy birthday"
+        ]
+      ]
+    },
+    "hsk30l4/值": {
+      "why": "`His ideas never earned him a single penny` is not what 一文不值 means: the idiom is that something is WORTHLESS, not that it failed to make money — which is also the card's own gloss, `value, worth`. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 值得. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "他的看法真是一文不值",
+          "His ideas are absolutely worthless."
+        ]
+      ],
+      "compounds": [
+        [
+          "价值",
+          "jià zhí",
+          "value; worth"
+        ],
+        [
+          "值班",
+          "zhí bān",
+          "to be on duty"
+        ],
+        [
+          "数值",
+          "shù zhí",
+          "a numerical value"
+        ],
+        [
+          "不值",
+          "bù zhí",
+          "not worth it"
+        ]
+      ]
+    },
+    "hsk30l4/职业": {
+      "why": "Two English lines. `Do you enjoy your vocational field?` is not English; and 律师 is a lawyer, where **barrister** is one particular English kind of lawyer and asserts a distinction the Chinese does not make.",
+      "exEn": [
+        [
+          "你喜欢你的职业吗",
+          "Do you like your profession?"
+        ],
+        [
+          "她从事律师职业多年",
+          "She practised as a lawyer for many years."
+        ]
+      ]
+    },
+    "hsk30l4/之前": {
+      "why": "`Where were you?` drops the word the card is about — 之前你在哪里 asks where you were BEFORE.",
+      "exEn": [
+        [
+          "之前你在哪里",
+          "Where were you before?"
+        ]
+      ]
+    },
+    "hsk30l4/至少": {
+      "why": "`She at least, she can face them!` is not grammatical English; the Chinese is a plain sentence with 至少 in front.",
+      "exEn": [
+        [
+          "至少她能面对他们",
+          "At least she can face them!"
+        ]
+      ]
+    },
+    "hsk30l4/重点": {
+      "why": "`In the discussion the accent was on unemployment` uses `accent` in a sense almost nobody now writes; 重点 is the focus or the main point, which is the card's own gloss.",
+      "exEn": [
+        [
+          "讨论的重点是失业问题",
+          "The focus of the discussion was unemployment."
+        ]
+      ]
+    },
+    "hsk30l4/重视": {
+      "why": "`I want to feel important` is a different sentence: 我希望我能被人重视 is hoping to be VALUED by others, which is what the card teaches.",
+      "exEn": [
+        [
+          "我希望我能被人重视",
+          "I hope people will value me."
+        ]
+      ]
+    },
+    "hsk30l4/专业": {
+      "why": "`major` for a university subject is American; British English asks what you are STUDYING or what your subject is. Measured over the nine decks: **29 occurrences, of which only five are this sense** — the rest are `major` meaning principal (a major problem, the major cities), a military rank and a musical key, all of them ordinary British English. `gas` again, so it is fixed per note rather than made a LEXIS row. Both of this card's English lines had it. Its second sentence also ended with no terminal mark at all.",
+      "exEn": [
+        [
+          "你选好专业了吗",
+          "Have you chosen your subject yet?"
+        ],
+        [
+          "你的专业是什么",
+          "What subject are you studying?"
+        ]
+      ],
+      "exStop": [
+        [
+          "你选好专业了吗"
+        ]
+      ]
+    },
+    "hsk30l7/攻": {
+      "why": "`major` for a university subject is American; British English asks what you are STUDYING or what your subject is. Measured over the nine decks: **29 occurrences, of which only five are this sense** — the rest are `major` meaning principal (a major problem, the major cities), a military rank and a musical key, all of them ordinary British English. `gas` again, so it is fixed per note rather than made a LEXIS row.",
+      "exEn": [
+        [
+          "我专攻经济学",
+          "I specialise in economics."
+        ],
+        [
+          "你专攻什么领域？",
+          "What field do you specialise in?"
+        ]
+      ]
+    },
+    "hsk30l7/宗": {
+      "why": "`major` for a university subject is American; British English asks what you are STUDYING or what your subject is. Measured over the nine decks: **29 occurrences, of which only five are this sense** — the rest are `major` meaning principal (a major problem, the major cities), a military rank and a musical key, all of them ordinary British English. `gas` again, so it is fixed per note rather than made a LEXIS row.",
+      "exEn": [
+        [
+          "我的专业是宗教学",
+          "I am reading comparative religion."
+        ]
+      ]
+    },
+    "hsk30l5/报警": {
+      "why": "`gonna` is a spoken contraction that no learner should be shown as written English, and the decks' English is standard everywhere else. Measured: four sites across three decks, all corrected in this batch.",
+      "exEn": [
+        [
+          "我要报警了",
+          "I'm going to call the police!"
+        ]
+      ]
+    },
+    "hsk30l6/鲨鱼": {
+      "why": "`gonna` is a spoken contraction that no learner should be shown as written English, and the decks' English is standard everywhere else. Measured: four sites across three decks, all corrected in this batch.",
+      "exEn": [
+        [
+          "我要让你下海喂鲨鱼",
+          "I'm going to feed you to the sharks."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
