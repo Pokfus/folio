@@ -126,6 +126,39 @@ one.**
 So: **10 shipped** — `gr-122`, `gr-138`, `gr-169`, `gr-176`, `gr-227`, `gr-486`, `ko-035`, `ko-079`,
 `rm-362`, `pea-075`. The 15 rejected keep their empty frame, which is the honest state.
 
+## The second batch was not applied at all, and that is the more useful result
+
+Thirty Rome cards, taken the sanctioned way: `pick-images.js --build` over a `chosen-*.json` naming
+each term's own top-ranked candidate, then the contact sheet. **Of the 27 that built, roughly half
+were wrong, and the wrong ones were not near-misses.**
+
+· **`rm-288` extortion court** — an American political cartoon captioned *HOW THEY DO IT IN SEATTLE*.
+· **`rm-278` decline of the Italian smallholder** — a map of the modern **Kingdom of Italy**.
+· **`rm-282` lex Sempronia agraria** — a 19th-century cartoon of skeletons in top hats.
+· **`rm-167` Pyrrhic victory** — a modern satirical cartoon with flags and top hats.
+· **`rm-272` philhellenism** — Delacroix's massacre at Chios. That is **19th-century** philhellenism,
+  the Greek War of Independence, on a card about Rome in the 2nd century BCE. Exactly the `gr-139`
+  fault: the right word, the wrong century.
+· **`rm-180` Roman Italy** and **`rm-267` Roman provincial system** — maps of the praetorian
+  prefectures and dioceses of **AD 380–395**, four centuries after the Republic these cards are in.
+· **`rm-203` Mercenary War** and **`rm-268` publicani** — Christian iconography (three crosses at
+  Golgotha; the calling of Matthew the publican) for a Carthaginian revolt and a Roman tax-farming
+  company.
+· **`rm-172` formula togatorum** — the Capitoline Wolf, which is not a register of allied levies and
+  is already on `rm-054`.
+· **`rm-010` Latins** — the article *Latins* is about the **Crusader** Latins, so the top candidate is
+  a 12th-century painting of crusaders.
+
+**THE LESSON IS ABOUT THE KIND OF TERM, NOT THE TOOL.** The first batch was concrete things — a cist
+grave, a stone cist, a map of Attica — and two thirds were usable. This one is Roman INSTITUTIONS: a
+law, a court, a levy register, a fiscal company, a constitutional crisis. **Nothing depicts an
+institution**, so the scorer falls back on whatever the article carries, and a Wikipedia article about
+an abstraction carries whatever anyone has uploaded near it. **Sort a batch by how picturable its
+answer terms are before fetching anything**, and expect the abstract end to need a hand-chosen file
+or an empty frame.
+
+The batch was discarded rather than half-applied. Nothing from it shipped.
+
 ## What to do next
 
 1. ~~The 25 whose term already has a picture.~~ **DONE — and it was not the free win it looked like;
