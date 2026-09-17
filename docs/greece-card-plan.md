@@ -1146,7 +1146,10 @@ the alias are the same string.
     gr-818  Euclid's Elements
     gr-819  Archimedes
     gr-820  Archimedes' principle
-    gr-821  Archimedes at the siege of Syracuse
+    gr-821  Claw of Archimedes  — retitled from "Archimedes at the siege of Syracuse" when the card
+             was written: the siege itself is already carded in Ancient Rome as rm-222, with the
+             engines in it, so the line had no term of its own left to teach; the iron hand that
+             Polybius and Plutarch both describe is the thing a reader will meet again
     gr-822  Apollonius of Perga
     gr-823  Conic sections
     gr-824  Eratosthenes
