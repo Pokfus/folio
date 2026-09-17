@@ -562,6 +562,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | **the American-word-choice pass**, all nine decks, as a new `exLexis` deck field plus 87 per-note rows | 189 | a word the spelling table cannot reach, because it is a different word |
 | 2026-09-17 | **the whitespace pass**, all nine decks, as a new `exSpace` note field | 30 | a card not one of whose three sentences used its own headword as a word |
 | 2026-09-17 | `hsk30l3` notes 61–90 (迟到 → 电), deck order | 12 | four cards teaching a word their own sentences do not contain, all invisible to `check-example-fit.js` |
+| 2026-09-17 | `hsk30l3` notes 91–120 (电梯 → 房子), deck order, plus the two -logue spellings | 20 + 1 | a card whose three sentences were three different words beginning with its character |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -3240,3 +3241,141 @@ risks a collision for a sense a reader meets rarely. Both are left as they are.
   on every one**; sense tags past the sense list 0; stray spaces 0
 - `build-lang-decks.js`: re-run, and **exactly one row changed** — Level 3's content revision — so only
   the readers of that deck are offered an update
+
+### 2026-09-17 — HSK 3 notes 91–120 (电梯 → 房子), deck order
+
+Thirty notes read card by card, **twenty changed**, ten read and left alone. One further card outside
+the range (`hsk30l6` 相声) is repaired here because it is the second and last member of a class this
+batch measured to a close.
+
+**The leading fault is batch 26's blind spot again, and worse.** 东 is glossed "east", and **not one of
+its three sentences used the word**: 别边吃东西边说话 is 东西 dōngxi "thing", 来广东玩吗 is 广东
+Guǎngdōng the province, and 东家说要提高租金 is 东家 dōngjiā "landlord". Three different words that
+merely begin with the character, on a card whose whole job is that character. Nothing in the pipeline
+can see it — `check-example-fit.js` **skips a single-character headword outright**, by design, since one
+character cannot straddle a boundary; and two of the three sentences segment cleanly anyway, so even a
+widened check would name only one. (The second sentence also carried no final mark at all.) All three
+replaced with authored sentences giving 东 its three ordinary free uses: after 往, after 朝, and as a
+bare predicate noun in a question.
+
+**发 is the same fault carrying a second reading with it.** Its first sentence was 我喜欢短发 — duǎnfà
+"short hair", which in traditional script is 短髮, **a different character from the card's own 發**. So a
+learner met the headword's shape with neither its sound nor its sense, on a card that also happens to be
+a polyphone. `check-say-reading.js` does not name 发 and is right not to: the corpus's majority reading
+IS fā, which is what the card teaches, so the speaker says the right thing while the example shows the
+wrong word. The gloss went with it — "to send (an email)" narrowed the word to one object and its
+parenthetical was a note about the card rather than a disambiguator, where CC-CEDICT gives "to send out;
+to issue; to develop" and the card's other two sentences are 发短信 and 发问.
+
+**Two more cards, and the shape they share.** 我喜欢短发 is on 短 as well as on 发 — the same sentence
+twice in one deck — and on 短 it is defensible, 短发 being transparently "short" + "hair". **A sentence
+can be right on one card and wrong on another**, which is why this class is found by reading rather than
+by a sweep over sentences.
+
+**Four sentences that are not grammatical Chinese.**
+
+- **饿**'s first was 我总是饿了 — the change-of-state 了 under 总是 "always", and a state that is always
+  true cannot also be a change into it. Replaced with the A-not-A question, a construction the card did
+  not have.
+- **发生**'s third was 这件事突然自己发生的 — a 是…的 cleft with the 是 missing, so the sentence ends on a
+  的 that nothing licenses.
+- **短**'s third was 短回答是是, "The short answer is yes" rendered character by character: Chinese has no
+  attributive 短回答, and the doubled 是是 reads as a stammer.
+- **而且**'s second restated its subject three times — 我有钱，我胖而且我快乐 — to carry an English list of
+  three adjectives, which is not what 而且 does. It joins CLAUSES, and Chinese does not put 我 in front of
+  each.
+
+**耳机 wrote 在戴着 twice**, the progressive 在 in front of the durative 着 on a verb that cannot take
+both, so the Chinese read as "is in the act of having on". Its first and third sentences also said very
+nearly the same thing in English. The first was repaired by dropping 在; the third was replaced with a
+sentence using the classifier 副 the card carries and never showed.
+
+**耳朵's first was a half-quoted idiom.** 我长耳朵了 stands alone as "I have grown ears"; what people
+actually say is 我又不是没长耳朵, and the card's English ("I have ears, you know.") was translating the
+idiom rather than the sentence on the card.
+
+**发现 and 发展 each had a sentence doing nothing.** 你家很容易发现 uses 发现 for finding a PLACE, which
+it does not do — an easily found house is 很好找 — where 发现 is noticing or discovering something one was
+not looking for; its replacement gives the card that sense, which CC-CEDICT lists first and which none of
+the three sentences showed. 发展's first and third were the same sentence twice, 中国发展得很快 and
+中国很快地发展, the second of them stilted besides; its replacement is the TRANSITIVE use, which the card
+did not have at all.
+
+**Six glosses, each read against CC-CEDICT and against the card's own three sentences.**
+
+- **段** was cut off mid-bracket — "section; paragraph; [measure word for stories, pieces" — so the card
+  ended on an open bracket and an unfinished list. Rewritten to the two senses CC-CEDICT gives, in the
+  shape the deck's other measure-word cards use (条's "(for long thin things: roads, fish, trousers)").
+  **All three of its English translations were wrong as well**: 一段时间 with 看 is watching rather than
+  looking after, 一段 is a paragraph and not a sentence, and 我跟你说段历史 offers a piece of history
+  rather than reporting a conversation.
+- **对话**'s part of speech and gloss contradicted each other: the card said "verb" and defined
+  "dialogue", a noun, and all three of its sentences are the noun. CC-CEDICT gives both halves.
+- **发烧** was "fever; have a fever" under a VERB label — a verb glossed with a noun first, and "fever" as
+  a noun is 烧 or 发热, which is not what any of the three sentences says.
+- **东北** named only the region ("Northeast China") while the card's own third sentence uses the
+  direction. CC-CEDICT carries the two as separate entries, capitalised Dōngběi and lower-case dōngběi.
+- **动物** and **耳朵** were glossed plural on cards carrying classifiers — 只/群 and 只/个 — which count
+  one animal and one ear, so each promised a countable noun and defined a mass of them. **Measured across
+  the nine decks, single-word noun glosses run 1,005 singular to 61 plural**, and most of that 61 is
+  English that has no singular (trousers, chopsticks, news, maths, headphones). **This is NOT swept**:
+  these two are the countable ones inside the range and the rest were left where they stand.
+
+No `exSense` on either 对话 or 段, for 带's reason in batch 26: all three of each card's sentences are one
+sense, and a tag repeating itself three times says nothing.
+
+**A CLASS OF TWO, MEASURED AND CLOSED: the American -logue spellings are invisible to
+`check-british.js`.** They are invisible to app.js's own `SPELL_PAIRS`, the -logue family being one of the
+five CLAUDE.md names as deliberately absent from that table — American English writes *dialogue* and
+*analogue* the same way often enough that a two-way row would do more harm than good. So the checker
+reports **0 American spellings over the whole corpus** while these stand. Measured: the nine decks carry
+exactly TWO, 对话's own first sentence ("I did not participate in the dialog.") and 相声's GLOSS in Level
+6 ("comic dialog"), the latter contradicting both of its own example translations, which say "crosstalk".
+Both are repaired here rather than left to reopen as a class. **Two is also why this is not a deck-level
+pass**: `exLexis` exists for a substitution worth applying in one place, and a table of one word applied
+twice is a table nobody will read.
+
+**Five English lines that were not what the Chinese says.** 电梯's 送你到电梯口 became "I will send you to
+the lift", where 送 is seeing somebody off and the English reads as dispatching them. 丢's 我不能丢下你离开
+is "I can't abandon you and go"; "I can't leave without you" says the opposite thing about who goes where.
+方便's "convenient to public transportation" is not English anybody writes, and 交通不方便 is about how hard
+the place is to reach. 方法's Chinese is active and carries 找到; the English turned it passive and dropped
+the finding. 方向's "I've mistaken the direction" is not idiomatic — 搞错 is getting a thing wrong. Three
+more went with the sentences above: 发生's "May it not happen!", 而且's "and in addition, it was windy",
+and 发展's "high speed development".
+
+**A FALSE POSITIVE, recorded so the next session does not re-derive it.**
+`check-gloss-source.js --deck=hsk30l3` names **电梯**: card "lift", dictionary "elevator; escalator". The
+card is right. Batch 24 deduped that gloss deliberately — the decks are authored British and the site's
+spelling switch never runs in the direction that would rescue an American word — and CC-CEDICT is an
+American-English dictionary, so every British word choice in these decks will land in that list for ever.
+
+**Two cards read and deliberately left, with the question recorded.** 懂得's gloss matches CC-CEDICT word
+for word ("to understand; to know; to comprehend") and its first two sentences, 我不懂得游泳 and
+他们懂得读这几个字吗, use 懂得 + verb for "know how to" — a pattern that is attested but far rarer than
+会 in both places. I could not settle whether they are wrong or merely uncommon, so the card stands.
+东方's third, 我对东方陶瓷有兴趣, is translated "oriental pottery": faithful to 东方陶瓷 and the
+conventional museum term, but a word whose other uses have made it one to avoid. Changing it would be a
+judgement about English rather than about the card, and it is recorded rather than made.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2**, unchanged — the six gloss rewrites made no new collision, checked against every
+  gloss in the nine decks before they were written
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged**, and no finding names a card this batch touched
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0** (see the -logue note above for what that zero does not cover)
+- `check-say-reading.js`: unchanged at 10 of 1,503; 发 is correctly not among them
+- `check-coarse.js`: **two findings fewer than HEAD, both accounted for** — SLUR 192 → 191 is 而且's
+  "I am rich, fat and happy", the sentence dropped as unnatural Chinese, and ADULT 99 → 98 is 段's "for a
+  period of time", where the `exEn` that corrected 看 to "watched" incidentally removed a false-positive
+  hit on *period*. No category rose.
+- answer-leak sets byte-identical to HEAD on both changed decks; 34,596 example blocks, **spoken ==
+  visible on every one**; sense tags past the sense list 0; stray spaces 0
+- every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token
+- `build-lang-decks.js`: re-run, and **exactly two rows changed** — Levels 3 and 6, the two decks touched
+- CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
+  `check-docs`, `check-questions`, `check-style`

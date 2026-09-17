@@ -10775,12 +10775,18 @@
       ]
     },
     "hsk30l3/丢": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap.  | Found by READING the card (batch 27): the English was not what the Chinese says. 我不能丢下你离开 is 'I can't abandon you and go'; 'I can't leave without you' says the opposite thing about who goes where.",
       "gloss": "to lose, to mislay; to throw away",
       "exSpace": [
         [
           "我丢了手表 。",
           "我丢了手表。"
+        ]
+      ],
+      "exEn": [
+        [
+          "我不能丢下你离开",
+          "I can't just go off and leave you behind."
         ]
       ]
     },
@@ -11574,9 +11580,23 @@
       ]
     },
     "hsk30l3/耳机": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | Found by READING the card (batch 27): two of the three sentences wrote 在戴着 — the progressive 在 in front of the durative 着 on a verb that cannot take both, so the Chinese read as 'is in the act of having on'. The two also said very nearly the same thing in English. The first is repaired by dropping 在; the third is replaced outright, and the replacement uses the classifier 副 the card carries and never showed. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use.",
       "mw": [
         "副"
+      ],
+      "dropEx": [
+        "每个人都在戴着耳机。",
+        "汤姆在戴着耳机。"
+      ],
+      "ex": [
+        [
+          "每个人都戴着耳机。",
+          "Everybody was wearing headphones."
+        ],
+        [
+          "我买了一副新耳机。",
+          "I bought a new pair of headphones."
+        ]
       ]
     },
     "hsk30l3/节": {
@@ -19656,7 +19676,7 @@
       ]
     },
     "hsk30l6/相声": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The AMERICAN -LOGUE FORMS ARE INVISIBLE TO `check-british.js`, because they are invisible to app.js's own `SPELL_PAIRS` (batch 27): the -logue family is one of the five CLAUDE.md names as deliberately absent from that table, so the checker reports zero over the whole corpus while these stand. Measured: the nine decks carry exactly TWO, one in this batch's range and one outside it, and both are repaired here rather than left to reopen as a class. Two is also why this is not a deck-level pass — `exLexis` exists for a substitution worth applying in one place, and a table of one word applied twice is a table nobody will read. On this card the American form was in the GLOSS — 'comic dialog' — while both of the card's own example translations say 'crosstalk' and the third says 'comic dialogue', so the card contradicted itself in one view. CC-CEDICT gives 'comic dialogue/sketch/crosstalk'.",
       "ex": [
         [
           "他们表演了一段相声。",
@@ -19670,7 +19690,8 @@
           "他从小就爱听相声。",
           "He has loved crosstalk since childhood."
         ]
-      ]
+      ],
+      "gloss": "comic dialogue; crosstalk"
     },
     "hsk30l6/相应": {
       "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -72383,13 +72404,14 @@
       ]
     },
     "hsk30l3/东北": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by READING the card (batch 27): the gloss named only the region and the card's own third sentence uses the direction — 东北的冬天特别冷, 'winters in the north-east'. CC-CEDICT carries the two as separate entries, capitalised Dōngběi 'Northeast China; Manchuria' and lower-case dōngběi 'northeast'. One gloss carrying both is what the card's three sentences between them mean.",
       "ex": [
         [
           "东北的冬天特别冷。",
           "Winters in the north-east are especially cold."
         ]
-      ]
+      ],
+      "gloss": "northeast; Northeast China"
     },
     "hsk30l3/过节": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -108368,8 +108390,14 @@
       "gloss": "film"
     },
     "hsk30l3/电梯": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). A gloss that already carries the British word beside the American one: the deck-level LEXIS table would otherwise turn it into the same word twice, so the dedupe is made here, per note, before that pass runs. “lift; elevator”.",
-      "gloss": "lift"
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). A gloss that already carries the British word beside the American one: the deck-level LEXIS table would otherwise turn it into the same word twice, so the dedupe is made here, per note, before that pass runs. “lift; elevator”. | Found by READING the card (batch 27): the English was not what the Chinese says. 送 here is seeing somebody off, and 'I will send you to the lift' reads in English as dispatching them to it.",
+      "gloss": "lift",
+      "exEn": [
+        [
+          "送你到电梯口",
+          "No worries, I'll see you to the lift."
+        ]
+      ]
     },
     "hsk30l7/卡车": {
       "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). A gloss that already carries the British word beside the American one: the deck-level LEXIS table would otherwise turn it into the same word twice, so the dedupe is made here, per note, before that pass runs. “lorry; truck”.",
@@ -109105,6 +109133,225 @@
         [
           "verb",
           "to bring; to take along"
+        ]
+      ]
+    },
+    "hsk30l3/东": {
+      "why": "Found by READING the card (batch 27): NOT ONE of the three sentences used the word the card teaches. 东 is glossed 'east' and the examples were 东西 dōngxi 'thing', 广东 Guǎngdōng the province, and 东家 dōngjiā 'landlord' — three different words that merely begin with the character. This is `check-example-fit.js`'s stated blind spot twice over: a SINGLE-CHARACTER headword is skipped by that tool outright, and two of the three sentences segment cleanly anyway. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The three replacements give 东 its three ordinary free uses — after 往, after 朝, and as a bare predicate noun in a question. (The second sentence, 来广东玩吗, also carried no final mark at all.)",
+      "dropEx": [
+        "别边吃东西边说话！",
+        "来广东玩吗",
+        "东家说要提高租金。"
+      ],
+      "ex": [
+        [
+          "往东走五分钟就到车站了。",
+          "Walk east for five minutes and you reach the station."
+        ],
+        [
+          "我家的窗户朝东。",
+          "The windows of my house face east."
+        ],
+        [
+          "请问，哪边是东？",
+          "Excuse me, which way is east?"
+        ]
+      ]
+    },
+    "hsk30l3/发": {
+      "why": "Found by READING the card (batch 27): the first sentence was about a DIFFERENT WORD AND A DIFFERENT READING. 我喜欢短发 is duǎnfà 'short hair', which in traditional script is 短髮 — a separate character from the card's own 發 — so a learner met the headword's shape carrying neither its sound nor its sense. Single-character headwords are skipped by `check-example-fit.js`, so nothing in the pipeline could see it. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The gloss went with it: 'to send (an email)' narrowed the word to one object and the parenthetical was a note about the card rather than a disambiguator. CC-CEDICT gives 發 fā as 'to send out; to issue; to develop', and the card's other two sentences are 发短信 and 发问, which the narrow gloss did not cover.",
+      "gloss": "to send out; to issue",
+      "dropEx": [
+        "我喜欢短发。"
+      ],
+      "ex": [
+        [
+          "我给你发了一封邮件。",
+          "I sent you an email."
+        ]
+      ]
+    },
+    "hsk30l3/耳朵": {
+      "why": "Found by READING the card (batch 27): the first sentence was a half-quoted retort. 我长耳朵了 stands on its own as 'I have grown ears'; the thing people actually say is 我又不是没长耳朵, and the card's English ('I have ears, you know.') was translating the idiom rather than the sentence. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The gloss went from 'ears' to 'ear' on the same card: it carries the classifiers 只 and 个, which count ONE ear, so the card was promising a countable noun and glossing a plural. Measured across the nine decks, single-word noun glosses run 1,005 singular to 61 plural, and most of that 61 is English that has no singular — trousers, chopsticks, news. This is not swept: 动物 in the same batch is the other countable one in range, and the rest were left alone.",
+      "gloss": "ear",
+      "dropEx": [
+        "我长耳朵了。"
+      ],
+      "ex": [
+        [
+          "他的耳朵有点儿疼。",
+          "His ear hurts a bit."
+        ]
+      ]
+    },
+    "hsk30l3/饿": {
+      "why": "Found by READING the card (batch 27): the sentence was UNGRAMMATICAL. 我总是饿了 puts the change-of-state 了 under 总是 'always', and a state that is always true cannot also be a change into it — 我总是很饿 or 我老是饿 is what is said. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The A-not-A question is a construction neither of the other two sentences uses.",
+      "dropEx": [
+        "我总是饿了。"
+      ],
+      "ex": [
+        [
+          "你饿不饿？",
+          "Are you hungry?"
+        ]
+      ]
+    },
+    "hsk30l3/发生": {
+      "why": "Found by READING the card (batch 27): the third sentence was UNGRAMMATICAL: 这件事突然自己发生的 is a 是…的 cleft with the 是 missing, so the sentence ends on a 的 that nothing licenses. The replacement uses the existential 发生了一件… , which is how the word is most often met and which neither other sentence shows. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The second sentence's English, 'May it not happen!', is an optative nobody writes; the Chinese is an ordinary 希望.",
+      "dropEx": [
+        "这件事突然自己发生的。"
+      ],
+      "ex": [
+        [
+          "昨天晚上发生了一件奇怪的事。",
+          "Something strange happened last night."
+        ]
+      ],
+      "exEn": [
+        [
+          "希望它不会发生",
+          "I hope it doesn't happen."
+        ]
+      ]
+    },
+    "hsk30l3/短": {
+      "why": "Found by READING the card (batch 27): the sentence was a word-for-word calque of its own English. 短回答是是 is 'The short answer is yes' rendered character by character; Chinese has no attributive 短回答, and the doubled 是是 reads as a stammer. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement is the comparative, which is the construction an adjective card most needs and which the card did not have.",
+      "dropEx": [
+        "短回答是是。"
+      ],
+      "ex": [
+        [
+          "这条路比那条短。",
+          "This road is shorter than that one."
+        ]
+      ]
+    },
+    "hsk30l3/而且": {
+      "why": "Found by READING the card (batch 27): the second sentence repeated its subject three times — 我有钱，我胖而且我快乐 — to carry an English list of three adjectives, which is not what 而且 does: it joins CLAUSES, and Chinese does not restate 我 in front of each. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement joins a clause to a degree complement, so the card's three sentences now show 不但…而且, a verb clause and an adjective clause rather than two of the last. The third sentence's English ('It was cold, and in addition, it was windy.') was stilted and put an unmarked sentence in the past.",
+      "dropEx": [
+        "我有钱，我胖而且我快乐。"
+      ],
+      "ex": [
+        [
+          "他会说中文，而且说得很好。",
+          "He speaks Chinese, and he speaks it well."
+        ]
+      ],
+      "exEn": [
+        [
+          "天气很冷，而且风很大",
+          "It's cold, and very windy too."
+        ]
+      ]
+    },
+    "hsk30l3/动物": {
+      "why": "Found by READING the card (batch 27): the gloss was plural on a card carrying the classifiers 只 and 群, which count one animal and one herd — so the card promised a countable noun and defined a mass of them. CC-CEDICT gives 'animal'. Measured across the nine decks, single-word noun glosses run 1,005 singular to 61 plural, and most of that 61 is English with no singular (trousers, chopsticks, news, maths); this is NOT swept — 耳朵 is the other countable one inside this batch's range and the rest were left where they stand.",
+      "gloss": "animal"
+    },
+    "hsk30l3/发烧": {
+      "why": "Found by READING the card (batch 27): a verb glossed with a noun first. 发烧 is 'to have a fever' and the gloss opened on 'fever', which is 烧 or 发热 as a noun and is not what any of the three sentences says. CC-CEDICT: 'to have a high temperature (from illness); to have a fever'.",
+      "gloss": "to have a fever"
+    },
+    "hsk30l3/对话": {
+      "why": "Found by READING the card (batch 27): the part of speech and the gloss contradicted each other: the card said 'verb' and defined 'dialogue', a noun, and all three of its sentences are the noun — 参与对话, 我们的对话, 维持一段对话. CC-CEDICT gives both halves, 'to talk (with sb)' and 'dialogue; conversation', so the repair is to state the sense the card was already teaching and keep the verb the label was pointing at. No `exSense`: all three examples are the noun, and a tag repeating itself three times says nothing. | The AMERICAN -LOGUE FORMS ARE INVISIBLE TO `check-british.js`, because they are invisible to app.js's own `SPELL_PAIRS` (batch 27): the -logue family is one of the five CLAUDE.md names as deliberately absent from that table, so the checker reports zero over the whole corpus while these stand. Measured: the nine decks carry exactly TWO, one in this batch's range and one outside it, and both are repaired here rather than left to reopen as a class. Two is also why this is not a deck-level pass — `exLexis` exists for a substitution worth applying in one place, and a table of one word applied twice is a table nobody will read. On this card it also contradicted the card's own gloss, which the same batch rewrote to 'dialogue; conversation'.",
+      "senses": [
+        [
+          "noun",
+          "dialogue; conversation"
+        ],
+        [
+          "verb",
+          "to talk with someone"
+        ]
+      ],
+      "exEn": [
+        [
+          "我没有参与对话",
+          "I did not take part in the dialogue."
+        ]
+      ]
+    },
+    "hsk30l3/段": {
+      "why": "Found by READING the card (batch 27): the gloss was CUT OFF MID-BRACKET — 'section; paragraph; [measure word for stories, pieces' — so the card ended on an open bracket and an unfinished list. Rewritten to the two senses CC-CEDICT gives ('paragraph/section/segment' and the classifier), in the shape the deck's other measure-word cards use, e.g. 条's '(for long thin things: roads, fish, trousers)'. All three of the card's English translations were wrong as well: 一段时间 with 看 is watching rather than looking after, 一段 is a paragraph and not a sentence, and 我跟你说段历史 offers a piece of history rather than reporting a conversation. No `exSense`: all three sentences are the classifier.",
+      "senses": [
+        [
+          "noun",
+          "a paragraph; a section; a stretch"
+        ],
+        [
+          "measure word",
+          "(for stretches of road or time, and for pieces of writing)"
+        ]
+      ],
+      "exEn": [
+        [
+          "我看了他一段时间",
+          "I watched him for a while."
+        ],
+        [
+          "每人读一段",
+          "Each of you read a paragraph."
+        ],
+        [
+          "我跟你说段历史",
+          "Let me tell you a bit of history."
+        ]
+      ]
+    },
+    "hsk30l3/发现": {
+      "why": "Found by READING the card (batch 27): 你家很容易发现 uses 发现 for finding a PLACE, which it does not do — a house one can find easily is 很好找 or 很容易找到, where 发现 is noticing or discovering something one was not looking for. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement gives the card the 'become aware' half of the word, which CC-CEDICT lists first and which none of the three sentences showed.",
+      "dropEx": [
+        "你家很容易发现。"
+      ],
+      "ex": [
+        [
+          "我发现自己错了。",
+          "I realised I was wrong."
+        ]
+      ]
+    },
+    "hsk30l3/发展": {
+      "why": "Found by READING the card (batch 27): the first and third sentences were the same sentence twice — 中国发展得很快 and 中国很快地发展, same subject, same claim, and the second of them stilted, a bare 很快地 before 发展 wanting a 得 complement instead. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement is the TRANSITIVE use, which the card did not have at all. The second sentence's English called it 'high speed development'.",
+      "dropEx": [
+        "中国很快地发展。"
+      ],
+      "ex": [
+        [
+          "他们正在发展新技术。",
+          "They are developing new technology."
+        ]
+      ],
+      "exEn": [
+        [
+          "他们都享受那么快的发展吗",
+          "Do they all enjoy such rapid development?"
+        ]
+      ]
+    },
+    "hsk30l3/方便": {
+      "why": "Found by READING the card (batch 27): the English was not what the Chinese says. 'Convenient to public transportation' is not English anybody writes, and 交通不方便 is about how hard the place is to reach.",
+      "exEn": [
+        [
+          "这地方交通不方便",
+          "This place isn't easy to get to by public transport."
+        ]
+      ]
+    },
+    "hsk30l3/方法": {
+      "why": "Found by READING the card (batch 27): the English was not what the Chinese says. The Chinese is active and carries 找到; the English turned it passive and dropped the finding.",
+      "exEn": [
+        [
+          "我们希望找到解决方法",
+          "We hope to find a solution."
+        ]
+      ]
+    },
+    "hsk30l3/方向": {
+      "why": "Found by READING the card (batch 27): the English was not what the Chinese says. 'I've mistaken the direction' is not idiomatic; 搞错 is getting a thing wrong.",
+      "exEn": [
+        [
+          "我把方向搞错了",
+          "Sorry, I got the direction wrong."
         ]
       ]
     }

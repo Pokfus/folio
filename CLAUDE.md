@@ -1963,6 +1963,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     verb + 得 + 到 and segment as 做|得到, 的话 in 他的话 is the possessive 的 plus 话. **A
     SINGLE-CHARACTER headword is skipped outright**, so 电 inside 电影院 and 电车站 is beyond it by
     design. **This class is found by READING and by nothing else.**
+    **AND THE SINGLE-CHARACTER EXEMPTION IS WHERE THE WORST OF IT LIVES** (batch 27). 东 is glossed
+    "east" and **not one of its three sentences used the word** — 东西 dōngxi "thing", 广东 the
+    province, 东家 "landlord": three different words that merely begin with the character, on a card
+    whose whole job is that character. 发 carried 我喜欢短发, which is duǎnfà "short hair" and in
+    traditional script a DIFFERENT CHARACTER (短髮 against the card's own 發) — so the headword's shape
+    appeared with neither its sound nor its sense, and `check-say-reading.js` is right not to name the
+    card, the corpus's majority reading being the one it teaches. **AND THE SAME SENTENCE CAN BE RIGHT
+    ON ONE CARD AND WRONG ON ANOTHER**: 我喜欢短发 also sits on 短, where 短发 is transparently
+    "short" + "hair" and the example is sound. So this is found by reading a CARD, never by sweeping
+    sentences.
   · **AND THE HARVEST'S GUARD IS THE SAME FAULT ONE LAYER UP.** A sentence taken from the decks' own
     bank is refused where the target is SWALLOWED BY A LONGER headword, which says nothing about one
     spanning TWO SHORTER ones — 得分 harvested 我们在扔掉之前得分类, which is 得 (děi) plus 分类, the
@@ -2050,6 +2060,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `us = spellSystem() === "en-US"`), and no shipped answer carries one of the five — so nothing is
     mis-graded today and the first card whose answer term does would mark a reader wrong for typing the
     correct English word. **📖 `docs/mandarin-review.md` carries the measurement.**
+  · **AND A ZERO FROM IT DOES NOT COVER THE FIVE FAMILIES `SPELL_PAIRS` LEAVES OUT** (batch 27). The
+    table deliberately omits the **-logue** family among others, because American English writes
+    *dialogue* and *analogue* the same way often enough that a two-way row would do more harm than good
+    — so an American *dialog* in deck content is invisible to this checker, which goes on reporting 0.
+    Measured over the nine decks: exactly TWO, 对话's own first example and 相声's GLOSS, which
+    contradicted both of its own example translations. Both are repaired in `mandarin-fixes.json` per
+    note. **A class of two is not a table**: `exLexis` is for a substitution worth applying in one place,
+    and a one-word table applied twice is a table nobody will read. **Grep the five omitted families by
+    hand after a content batch; this checker cannot.**
   **RUN IT rather than quoting a figure here.** Not part of the site.
 - **A SHARED GLOSS IS DISAMBIGUATED BY THE DECK'S OWN `not <other word>` BLOCK.** The English → Chinese
   card's front is the gloss and nothing else, so two notes sharing one are a single question with
@@ -2150,6 +2169,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   decks carry **2,582 verb glosses without it against 1,164 with**, and much of the majority is
   legitimately not an infinitive at all (对不起, 再见, 下雨, 没事). The house form is WITHOUT, so a sweep
   would be inventing a rule rather than applying one.
+  **AND A PLURAL NOUN GLOSS IS USUALLY RIGHT** (batch 27, measured): single-word noun glosses run
+  **1,005 singular to 61 plural**, and most of that 61 is English that has no singular — trousers,
+  shorts, chopsticks, socks, jeans, news, maths, physics, headphones, noodles, clothes. **The tell is a
+  MEASURE WORD on the same card**, which counts one of the thing: 动物 glossed "animals" carried 只 and
+  群, and 耳朵 glossed "ears" carried 只 and 个, so each promised a countable noun and defined a mass
+  of them. Those two were repaired inside their own batch's range; **the rest are NOT swept**.
 - **AN IDIOM CARD CARRIES A `Literally` LINE** (the Idioms deck's card type; Sep 2026). An idiom's gloss
   says what it MEANS and throws away what it SAYS, and the image is most of what makes a
   four-character idiom stick — 谢天谢地 is "thank goodness" and it says "thank heaven, thank earth".
