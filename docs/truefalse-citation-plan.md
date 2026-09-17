@@ -74,7 +74,7 @@ card-side research is then shared.
 | T6 | Science & invention | the hardest; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six and T7b three, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus |
-| T9 | Astronomy / Earth science | part done; T9a took four and T9b three, off NASA |
+| T9 | Astronomy / Earth science | part done; T9a took four, T9b three and T9c three, all off NASA |
 | T10 | Psychology | part done; T10a took four, all researched — the collection has only reached the 1800s, so nothing could be lifted |
 
 ## Open questions carried forward
@@ -492,6 +492,36 @@ date to cite them by, and answer from this sandbox.
 a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
 than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
 belt but does not carry the claim that every probe crossed it without dodging.
+
+### T9c — the microgravity page found under another path, and two more off NASA (2026-09-17)
+
+**T9b RECORDED THE ASTRONAUT STATEMENT AS HAVING NO SOURCE BECAUSE `nasa.gov/reference/what-is-microgravity/`
+IS A REAL 404. IT IS A REAL 404 AT A URL NOBODY PUBLISHED.** The page is alive at
+`nasa.gov/general/what-is-microgravity/` and states the refutation outright — "Many people mistakenly think
+that gravity does not exist in space … Earth's gravitational field at about 250 miles above the surface is
+88.8 percent of its strength at the surface. Therefore, orbiting spacecraft, like the space shuttle or space
+station, are kept in orbit around Earth by gravity." **A composed URL that 404s says nothing about whether
+the work exists**, which is the same fault as a composed DOI one step milder: the address was guessed from the
+shape of NASA's other paths, the 404 was honest, and the conclusion drawn from it was not. The `why`'s "about
+90 per cent" was narrowed to the page's own 88.8 per cent, and the altitude written metric-first.
+
+- **Mercury not the hottest.** *Venus Facts* gives 872 °F (467 °C) and names the runaway greenhouse effect;
+  *Mercury Facts* gives the 430 °C day and the −180 °C night and says in terms that "Mercury is not the
+  hottest planet in our solar system – that title belongs to nearby Venus". **The `why`'s figures were moved
+  onto NASA's**: it said 465 °C against the page's 467, which is the T9b lesson again at one degree.
+  The temperatures were also rewritten from "degrees Celsius (869 Fahrenheit)" into `467 °C (872 °F)`, the
+  house form, which is the only shape the units pass can convert.
+- **Saturn not alone in having rings.** Three pages rather than one, because the claim is about three planets:
+  *Jupiter Facts* ("Discovered in 1979 by NASA's Voyager 1 spacecraft, Jupiter's rings were a surprise …
+  difficult to see except when backlit by the Sun"), *Uranus Facts* ("Uranus has two sets of rings") and
+  *Neptune Facts* ("at least five main rings"). **The `why`'s "discovered between 1977 and 1989" went**: only
+  Jupiter's date is on a page read for this batch, and a range is a claim about all three.
+
+**THE ASTEROID-BELT STATEMENT IS STILL UNCITED, AND ITS `Asteroids: Facts` PAGE WAS RE-READ RATHER THAN
+ASSUMED.** It carries the belt's population (1.1 to 1.9 million bodies over 1 km) and the total mass, and
+says nothing about the spacing a probe meets. The arithmetic is elementary and the statement is true; what is
+missing is a work that states it, and composing one out of two figures on a NASA page would be the pass
+writing the source rather than finding it.
 
 ### T2c — two lifted out of the corpus, and one the corpus carries behind a paywall (2026-09-17)
 
