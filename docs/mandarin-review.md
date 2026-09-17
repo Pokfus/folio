@@ -555,6 +555,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l2` notes 151–180 (为什么 → 鱼), deck order | 16 | **an obscene example sentence on a Level 2 weather card** |
 | 2026-09-17 | `hsk30l2` notes 181–197 (远 → 左边), deck order, plus a new `exStop` field — **Level 2 complete** | 17 | a noun gloss on a card two of whose sentences are the verb |
 | 2026-09-17 | `hsk30l3` notes 1–30 (阿姨 → 表演), deck order, plus a traditional-character sweep over all nine decks | 25 | a card whose gloss and all three of whose English lines disagreed |
+| 2026-09-17 | `hsk30l3` notes 31–60 (别的 → 城市), deck order, plus an American-spelling sweep over all nine decks | 29 | a card two of whose three sentences do not contain the headword at all |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -2368,3 +2369,169 @@ negator or a modifier in front of the headword forming a word of its own (不安
 - stray spaces: **32 blocks, 24 distinct sentences** — unchanged, still a batch of its own
 - traditional-only Han characters in an example sentence: **0**, from 2
 - clobber sweep over the record diff: **0**; 5 existing notes changed, 20 added, which is the 25 cards
+
+### 2026-09-17 — Level 3, notes 31–60, and an American-spelling sweep
+
+**What the batch was.** The next thirty cards of HSK 3, 别的 → 城市, read one at a time against
+CC-CEDICT and against their own three sentences. **Twenty-nine of the thirty were changed** — the
+highest proportion of any batch so far, and the reason is in the sweep below: a great many of these
+cards are sound Chinese with English that was written by somebody else.
+
+### The one to read first
+
+**不见's second and third sentences do not contain the headword at all.** 我什么都看不见 and
+你看不见吗 are 看 + 不 + 见 — the negative potential complement of *to see* — in which 不见 is not a
+unit and is not this word. The card taught its own word once, in 好久不见.
+
+`check-example-fit.js` cannot see this and should not be taught to. It reports a headword **split
+between two words**; here the characters sit wholly INSIDE 看不见, which is the looser question its own
+header says it deliberately does not ask, because asking it returns 514 sentences of Chinese working
+normally. So this class is read for, exactly as 左手 was on 左 in Level 2.
+
+Both replaced, and the card gained the sense it was missing altogether: CC-CEDICT gives "not to see /
+not to meet / **to have disappeared / to be missing**", and only the first was on it. Split and tagged,
+so 好久不见了 and 钥匙不见了 are visibly two different words' worth of meaning.
+
+### An obscenity, and the sweep it makes overdue
+
+**才's second sentence was rendered "I don't give a fuck about what you say!"** — on a Level 3
+vocabulary card, and it is not what 我才不听你说的呢 says either, which is emphatic rather than
+obscene. It is the second of its kind this pass has found, after 阴's in Level 2.
+
+That is now two hits from two different decks found by reading rather than by any checker, which is
+what makes the corpus-wide sweep named after batch 17 worth doing as a batch of its own rather than
+waiting for it to turn up card by card.
+
+### The American-spelling sweep, and why it is a batch of its own
+
+The decks are authored British by house rule, because **the site's spelling switch never runs in the
+direction that would rescue them**: `applySpelling` returns immediately under `en-GB`, the authored
+system, and converts to American only for a reader who asks. So an American spelling inside deck
+content is simply what BOTH readers see.
+
+Sweeping all nine decks with `SPELL_PAIRS` **sliced out of `app.js` rather than copied** — the rule the
+Spanish record's `exBritish` already follows — finds **491 occurrences over 118 distinct words**,
+led by `color` (30), `favorite` (25), `behavior` (24), `organization` (24), `theater` (14), `defense`
+(12), `center` (11).
+
+**Two traps mean it must not be swept mechanically, which is why it is named here and not done here.**
+
+1. **The one-way rows must be excluded**, and `app.js` already knows which: it builds its own American
+   → British map with `if (!oneWay)`. Reversing them blindly turns every narrative *story* into a
+   *storey* (106 hits), the noun *practice* into the verb *practise* (56), a *license* into a *licence*
+   and a computer *program* into a television *programme*. A first run of this sweep reported 713
+   because it did not honour the flag.
+2. **A proper noun is not a spelling.** *Pearl Harbor*, *World Trade Center*, an Australian *Labor*
+   Party and the *Indian Reorganization Act* are names. The corpus has 8 `harbor`, 11 `center` and 9
+   `labor`; all the ones read so far are ordinary nouns, but a mechanical pass has no way to know that
+   and the next deck may not be so lucky.
+
+Only the two occurrences inside this batch's range were fixed by hand — 冰激凌's "flavored" and 城市's
+"center". **城市's sentence is shared with 图书馆**, one card further into this deck and outside the
+range; that copy is deliberately left, because fixing one instance of a shared sentence leaves the two
+disagreeing, and the sweep will take both together.
+
+### A latent fault in `app.js`, found by the same slice and deliberately not fixed here
+
+Building the American → British map exposes five entries whose output **is not a word in any variety of
+English**: `humorous → humourous`, `laborious → labourious`, `honorary → honourary`, `clamorous →
+clamourous`, `odorous → odourous`. The `-our` rows list `ous` and `ary` in their suffix strings, where
+real English drops the *u* before those endings.
+
+**It is latent rather than shipped**, and the reason is worth recording. That map has exactly one
+consumer: `spellTree` only ever runs with `us = spellSystem() === "en-US"`, so the rendering path never
+touches it, and the only call with the other argument is `gradeCloze`'s
+
+```js
+const ans = spellText(String(answer || ""), spellSystem() === "en-US")
+```
+
+which under the default `en-GB` maps American answer terms to British before comparing. Sweeping every
+shipped card's `answerText` against that map rewrites **11 answers and all 11 are correct and
+intended** — ten `Paleolithic`/`Paleo` and `us-096`'s `Reorganization`. **None of the five non-words
+occurs in any answer**, so nothing is mis-graded today; the first card whose answer term carries one
+would mark a reader wrong for typing the correct English word.
+
+It is an app change and so would need a changelog line and a version bump, which do not belong in a
+deck batch. Left for one of its own.
+
+### One gloss, two parts of speech — again
+
+The shape that led the batch before this one, and five cards had it:
+
+- **冰** gave the single noun "ice" under **noun / verb**, and no sentence showed the verb.
+- **才** gave "just now, only then, not until" and was missing the sense **two of its three sentences
+  use** — the emphatic 才 of 我才不听 and 你才是, which CC-CEDICT calls "(emphatic, esp. in contrast or
+  correction) really; actually" and which a beginner meets in speech first.
+- **差** was missing *to differ BY*, which is what its own 他们差六岁 is.
+- **层** carried two comma run-ons and, between them, no sentence for the layer sense.
+- **常** gave "constant, regular, ordinary" under an **adverb** — three ADJECTIVES under an adverb
+  label, and not one of its three sentences uses any of them; all three are *often*.
+
+### A gloss that is not what the card's own English says
+
+**宾馆** was "guesthouse" with three English lines saying *hotel*; **病人** was "sick person" with three
+saying *patient*; **草地** was "lawn" with three saying *grass*; **别的** was the single word "else",
+which only works after an interrogative; **差不多** was "almost", which fits one of its three;
+**常见** was the literal "commonly seen" where all three say plainly *common*; **不久** stopped at "not
+long (after)" where two of three are the forward-looking *soon*. Each extended from CC-CEDICT rather
+than replaced.
+
+### Sentences replaced, and the reason each had to go
+
+- **病人's** 医生向病人用药 — 用药 is what a doctor DOES, not something done 向 somebody.
+- **不同's** 这蛋糕吃起来不同一般 teaches a set phrase, *out of the ordinary*, on a card for the plain
+  adjective; its English, "The cake tastes divine!", keeps neither the structure nor the word.
+- **不久's** 可能不久会见你 misplaces the adverb, and its English says *later* where 不久 is *soon* —
+  the opposite end of the same scale.
+- **草's** first sentence is about 草地, which is the very next card in this deck and already carries
+  two sentences telling a reader to keep off it.
+- **草地's** 从草地里出来 means *come out of the grass* and its English said **"Stay off the grass"** —
+  which is not a translation of it, and is word for word what the sentence below it already says.
+- **层's** 外层空间 and 楼层 both bury the headword in a longer word; the second is thirty characters of
+  hotel narrative on a measure-word card.
+- **查's** first two sentences were both 查字典, one of them rendered "Remember to USE the dictionary".
+- **常用's** 信赖域的算法越来越常用 is graduate numerical optimisation on an HSK 3 card.
+- **冰's** 在这里有冰水吗 says COLD water for 冰水 and puts the locative in a slot Chinese does not use.
+
+### English that is not the sentence
+
+Ten lines across eight cards, and the shapes repeat: an English idiom standing in for the Chinese and
+dropping the headword with it (别人's "I always have trouble remembering names"), a good English
+sentence that throws away the very frame the card teaches (不但's "She is as clever as she is
+beautiful", for a card whose entire content is 不但…而且), a tense the Chinese has not got (不用), a
+judgement about a thing where the Chinese is a speaker refusing (不行), the wrong word entirely
+(冰激凌's **"We don't have any ice"** on the card for ice cream, 参加's "You should go too" for *take
+part*), one card using two English words for one thing (冰箱: refrigerator once, fridge twice — 足球's
+fault in the batch before), a Chinese hotel room and a Chinese shirt **priced in dollars** where 元 is
+yuan (宾馆, 衬衫), and a card whose gloss says *marks* while all three of its lines say *grades*
+(成绩).
+
+### On the compound lists
+
+**All eight single-character cards in the range got one** — 冰, 才, 草, 层, 查, 差, 尝, 常 — 31 rows,
+every reading and gloss checked against CC-CEDICT before it was written.
+
+- **差's list is chosen to show the polyphony its own `Say` field exists for**: 差不多 and 差点儿 are
+  chà, 差别 is chā, 出差 is chāi — three readings of one character in four rows.
+- **平常 carries the adjective sense this batch took OFF 常's gloss**, which was claiming it under an
+  adverb while none of the sentences showed it.
+- **楼层 is on 层's list** because it is one of the two words this batch took out of that card's own
+  examples — the repair 左手 got on 左, and 右手 before it.
+
+### Read and left alone
+
+菜单, 常见's sentences, 尝, 常常's Chinese, 不行's first sentence and 衬衫's third are right as they
+stand. Two things were read and deliberately not changed: **草地's 草地看来不错** would be more natural
+as 看起来, but 看来 is not wrong; and **衬衫's 他一直穿蓝衬衫** is *all along* rather than *always*, which
+its English glosses loosely and correctly enough.
+
+### Standing invariants at the end of the batch
+
+- example blocks: **34,596**; **spoken == visible on every one**
+- Chinese leaking into an English line: the Level 3 set is **byte-identical to HEAD's**
+- sense tags pointing past the sense list: **0**, and all five tagged cards read back off the finished
+  deck rather than trusted
+- stray spaces: **32 blocks, 24 distinct** — unchanged
+- American spellings: **491 → 489**, the two in range; the rest is a named batch
+- clobber sweep over the record diff: **0**; 4 existing notes changed, 25 added, which is the 29 cards

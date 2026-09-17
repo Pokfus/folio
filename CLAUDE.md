@@ -1618,7 +1618,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
   **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO** — no changelog line, no version bump.
   Currently **52 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
-  Portuguese, Spanish — **136,214 cards over 68,107 notes, 152 MB**. **Count them rather than quoting
+  Portuguese, Spanish — **136,214 cards over 68,107 notes, 153 MB**. **Count them rather than quoting
   that**: `node .claude/build-lang-decks.js` prints the tally on every run.
   · **A COMBINED FILE IS GITIGNORED**: it is an artefact of the levels it combines, every byte already
     in the repo, and its own `combine.py` regenerates it byte for byte. **Anything else in `decks/` is
@@ -1913,6 +1913,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     It also settled `嗯`, whose `ǹg` is not a pinyin syllable and which carries no bopomofo. **Fold erhua
     and split a two-reading card on the slash before comparing**, or every polyphone is a finding — 97
     before those two rules, 2 after.
+- `.claude/decks/check-british.js` — **American spellings in the decks' own English**:
+  `node .claude/decks/check-british.js [--list]`, report only, exit 0. **The decks are authored British
+  because the site's switch never runs in the direction that would rescue them** — `applySpelling`
+  returns at once under `en-GB`, the authored system, and converts to American only for a reader who
+  asks — so an American spelling written INTO deck content is what BOTH readers see. It slices
+  `SPELL_PAIRS` **out of `app.js` by text and STOPS if the slice fails**, the rule `spanish-fix.js`'s
+  `exBritish` already follows.
+  · **IT IS A REPORT AND NOT A `--fix`, for two reasons neither of which can be patterned away.** The
+    **one-way rows are excluded** and app.js already knows which (`if (!oneWay)`): reversing them turns
+    every narrative STORY into a storey, the noun PRACTICE into the verb, a LICENSE into a licence and a
+    computer PROGRAM into a programme — a first run that ignored the flag reported 713 against the real
+    489. And **a proper noun is not a spelling**: Pearl Harbor, the World Trade Center, an Australian
+    Labor Party and the Indian Reorganization Act are names, and the corpus carries 8 `harbor`, 11
+    `center` and 9 `labor`.
+  · **FIVE FORMS ARE EXCLUDED BY NAME BECAUSE THE REVERSE MAPPING IS NOT ENGLISH**, and that is a latent
+    fault in app.js's own table rather than in the decks: the `-our` rows list `ous` and `ary` in their
+    suffix strings where real English drops the u, so the American→British map holds `humorous →
+    humourous`, `laborious → labourious`, `honorary → honourary`, `clamorous → clamourous` and `odorous
+    → odourous`. **Its only consumer is `gradeCloze`** (`spellTree` only ever runs with
+    `us = spellSystem() === "en-US"`), and no shipped answer carries one of the five — so nothing is
+    mis-graded today and the first card whose answer term does would mark a reader wrong for typing the
+    correct English word. **📖 `docs/mandarin-review.md` carries the measurement.**
+  **RUN IT rather than quoting a figure here.** Not part of the site.
 - **A SHARED GLOSS IS DISAMBIGUATED BY THE DECK'S OWN `not <other word>` BLOCK.** The English → Chinese
   card's front is the gloss and nothing else, so two notes sharing one are a single question with
   several right answers — the reader types 再 for "again", is shown 又, and cannot tell a wrong answer
