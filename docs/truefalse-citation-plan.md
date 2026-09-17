@@ -2486,6 +2486,30 @@ what is open is its abstract, which is what the citation is being made for. The 
 rather than at the Europe PMC copy, on this pass's standing rule — the article is alive and CC BY, and
 SAGE's challenge is this sandbox's egress rather than a fact about the source.
 
+### Probes that failed in T62–T65, and one lead worth keeping (2026-09-17)
+
+Recorded so the next session does not repeat them. **None of these is a wall**; they are simply sources
+that turned out not to carry the claim, which is the commoner kind of no.
+
+- **#64, the Great Fire's death toll.** Charles Welch's *History of the Monument* (1921, archive.org,
+  OCR readable) mentions no death from the fire at all — its only deaths are a man who fell from the
+  gallery in 1750 and six suicides. The Europe PMC paper on **John Graunt**, who is the Bills of
+  Mortality's own author, names the Fire three times and every one is about Graunt's house burning down.
+  DOAJ has four papers on the Fire and the likeliest, a comparison with the Lisbon earthquake in
+  *Conservar Património*, is about architectural heritage and gives no toll.
+- **#70, cocaine in Coca-Cola.** DOAJ returns exactly one hit for the two terms together and it is a
+  survey of drug use among Honduran medical students. Europe PMC's open corpus returns the clinical
+  literature, and the *Erythroxylum coca* genome paper — the one candidate whose background might have
+  carried it — deposits metadata rather than full text.
+- **#38's uniqueness, before T63 closed it.** OAPEN's REST search answers 500; DOAB's answers 200 with
+  three books that do not carry the claim.
+
+**THE LEAD: `british-history.ac.uk` ANSWERS.** A guessed path returned a 404 page of 10 KB, which is a
+fact about the path and not about the host — so the archive that holds Strype's *Survey of London*, the
+*Calendar of State Papers Domestic* and much else of the period is reachable from here and has never
+been searched. **That is the obvious next move on #64 and possibly on #20**, both of which the closing
+note says want "a museum, archive or government page that is not behind a challenge".
+
 ### Where the last seven stand (2026-09-17)
 
 The pass closed this session at **213 of 220 (93→97%)**. Every remaining statement has been probed
