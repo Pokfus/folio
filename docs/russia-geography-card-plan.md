@@ -1306,6 +1306,57 @@ than the area and population the grid prints. Findings.
   photograph of the wrong river, used on that article to illustrate meanders. **The fetcher reports
   the licence and the size, never the subject**; the contact sheet is what caught it.
 
+### Batch 14 — the Alans, the Cheremis, the Kola ore, the Krom and the Volkhov (`gru-063`–`gru-067`)
+
+North Ossetia–Alania, Mari El, Murmansk Oblast, Pskov Oblast and Novgorod Oblast. Three new toolkit
+sources, and the batch that finally made the point about what a picture search can and cannot
+establish. Findings.
+
+- **THREE NEW TOOLKIT SOURCES, ALL OPEN.** Baddeley's <i>The Russian Conquest of the Caucasus</i>
+  (1908, `archive.org/details/cu31924028754616`) is the standard English narrative of the Caucasian
+  wars and carries the Ossetian passes for `gru-063`. **Dzitstsoity 2019** in <i>Voprosy onomastiki</i>
+  settles what nothing else reachable does — that <i>Alan</i> and the Ossetians' own <i>allon</i> are
+  the same word — which is the whole of why the republic carries a double name. And **Fedorov 2022**
+  in <i>Arktika i Sever</i> is the open account of how the Kola peninsula was industrialised, which
+  the nineteenth-century geographers by definition cannot supply.
+- **A GRAMMAR IS A DATE LINE.** `gru-064` had no datable modern event that was not also a claim about
+  Soviet nationality policy, and the honest fixed point turned out to be a book: Veniamin Puzew's
+  1775 <i>Works Belonging to the Grammar of the Cheremis Language</i>, the first grammar of Mari,
+  described by Mikhailov and Lastochkina. A card about a people whose name changed twice is anchored
+  by the year somebody first wrote their language down.
+- **A BARE CENTURY IS NOT A DATE `cardYears` CAN READ, AGAIN.** `gru-064`'s first draft dated the
+  Mari's appearance in the sources to the "13th century" and the card fell to a sort year of 0. It is
+  written `c. 1200 – 1300` — the span the century MEANS, asserting no precision the sources have not
+  got — and reads back correctly. The same check caught nothing on the other four, which is what
+  makes reading the sort year back a per-batch step rather than a per-card one.
+- **NEITHER `Mari` NOR `Novgorod` MAY BE CLAIMED AS A BARE ALIAS, AND BOTH WERE MEASURED.** *Mari*
+  occurs in `rm-029` as Mari on the Euphrates, a Bronze Age city in Syria; *Novgorod* occurs in four
+  shipped abstracts and means the MEDIEVAL CITY in every one of them, not the modern oblast. Both
+  terms are therefore reached by their full keys alone. **Ask the corpus before claiming a short
+  surface** — the republic's own name being a common word is exactly the shape that gets through.
+- **EIGHT SUBJECTS FAILED BEFORE MARI EL GOT A PICTURE.** `Mari Chodra National Park`, `Sheremetev
+  Castle`, `Yurino`, `Mari Chodra`, `Bolshaya Kokshaga Nature Reserve`, the city `Yoshkar-Ola` and
+  `Kozmodemyansk` all returned MISS from `fetch-geo-images.js`; `Volga River` returned a photograph
+  taken at Yaroslavl and `Mari people` returned Dmitriev's monks of the Michael-Archangel monastery,
+  both rejected on subject. What worked was a **paced category search** — and the category is not
+  guessable: `incategory:"Mari El Republic"` returns 0 and `incategory:"Mari El"` returns 22.
+  **A zero from a category query is a wrong category name far more often than it is an empty
+  category.**
+- **…AND THEN `subject: "Yoshkar-Ola"` WORKED WHERE `city: "Yoshkar-Ola"` HAD NOT.** The two modes ask
+  different endpoints, so a MISS from one says nothing about the other. The glossary term carries the
+  Brugge Embankment from it; the card carries Lake Yalchik out of the category search.
+- **THE COMMONS `list=search` ENDPOINT IS HARD-THROTTLED FROM THIS SANDBOX** and answers 429 to a
+  second query fired within a minute or two of the first. The subject, city and file modes of
+  `fetch-geo-images.js` use other endpoints and keep working throughout. **Pace the category queries
+  in a background task**; do not read a 429 as a shut host.
+- **A DOWNLOAD CAN SAVE AN HTML ERROR PAGE UNDER A `.jpg` NAME.** The Teriberka file's DISPLAYED title
+  and its URL's percent-encoded name differ by one Cyrillic character, and retyping the title by eye
+  produced a 404 body written straight into the file. The fix is to unquote the `File:` segment out
+  of the credit URL rather than to retype the name, and to `file -b` the result before looking at it.
+- **THE VICTORIAN SOURCES' JUDGEMENTS ARE NOT REPEATED.** Reclus and Baddeley both editorialise about
+  the peoples they describe, in terms this site will not print. What is taken is the durable factual
+  content — the passes, the forest, the ore, the fisheries — and nothing else.
+
 ## The background against the grid — the facts-echo pass (Sep 2026)
 
 On request: *the background sections should never mention data that is already in the answer box data
