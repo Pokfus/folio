@@ -541,6 +541,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l1` notes 31–60 (第 → 个), deck order | 25 | a gloss that leaks its own answer onto the reverse card |
 | 2026-09-17 | `hsk30l1` notes 61–90 (给 → 饺子), deck order, plus a corpus-wide punctuation pass | 25 + 389 blocks | a Chinese sentence punctuated with ASCII marks |
 | 2026-09-17 | `hsk30l1` notes 91–120 (叫 → 没关系), deck order | 27 | a particle card describing a different particle |
+| 2026-09-17 | `hsk30l1` notes 121–150 (没事 → 您), deck order | 21 | an example sentence that is not grammatical Chinese |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -962,3 +963,64 @@ could show.
   between an English that is *wrong* (高兴's "What makes you sad?", two batches ago) and one that is
   merely informal.
 - **妹妹** needs the mirror of 姐姐's third example.
+
+### 2026-09-17 — Level 1, notes 121–150
+
+**Twenty-one of the thirty.** Only nine are single-character cards this time, which left room for the
+glosses — and this is the first batch where the worst faults are in the **example sentences** rather
+than the glosses.
+
+**Two examples are not grammatical Chinese.**
+
+- **们's second example was 您们是学生吗？** and **您们 is not standard Chinese**: 您 has no plural
+  form — the plural is 你们, or a term of address — and CC-CEDICT has no entry for it. A beginner's
+  card was teaching an error.
+- **呢's third was 你能解决这个问题呢吗？** and **呢吗 cannot stack**: two sentence-final particles do
+  not co-occur.
+
+**Two more examples do not contain their own card's word.** 男's third was 你还是处男吗？— 处男 is a
+word, so 男 does not stand alone in it, and the subject is not one a beginner's card should raise
+unasked. 你好's third was 这是为你好 "It's for your own good", which is 为 + 你 + 好 and not the
+greeting at all.
+
+**And one English says the opposite of its Chinese.** 男朋友's first example was 我想男朋友。rendered
+"I want a boyfriend" — but 想 with a person as its object is **to miss** them, so the sentence means
+"I miss my boyfriend".
+
+**能's third example ended in 。 although 吗 makes it a question.** The punctuation pass cannot see
+this: the sentence HAS a terminal, it is simply the wrong one. **Measured over the whole corpus there
+are exactly two**, and the other (你想打排球吗。, Level 4) is recorded for its batch. Note that the
+obvious wider check — a sentence ending in a question particle and a full stop — is a **false-positive
+generator**: 吧 correctly ends a statement (我们分手吧。 is "Let's break up"), and so does 呢. Only 吗
+is safe to test.
+
+### The glosses
+
+- **们's gloss was cut off mid-phrase**: "plural suffix for pronouns and nouns referring to" — referring
+  to what? CC-CEDICT's own wording is "plural marker for pronouns, and nouns referring to individuals",
+  and the card carried the first two-thirds of it.
+- **没有 taught half of itself.** Glossed "don't have" under a part of speech of `verb / adverb`, while
+  **two of its three examples are the adverb** — 知道了没有 and 他还没有来 negate a completed action.
+  Among the commonest words in the language.
+- **呢's gloss read "[returns; forwards a question]"** — garbled exactly as 吗's was last batch, the
+  semicolon reading as a separator between two senses. **That is now three particle cards in two
+  batches whose glosses were mangled** (了, 吗, 呢); it is worth expecting on the rest.
+- **哪 and 那 are the same fault mirrored.** 哪 was glossed "which?" while two of its examples are
+  WHERE (爸爸去哪了), and 那 had no sense for its own second example 你还在那吗 "still out there". Both
+  are the colloquial reduction of the two-syllable place word, both are what a beginner actually hears,
+  and **neither is in CC-CEDICT** — so the added senses rest on the cards' own sentences and are marked
+  colloquial. The reduced forms are deliberately NOT written out in the glosses, since each contains its
+  own card's character.
+- **名字** was glossed "given name" while all three examples are simply a name.
+
+**The four sibling cards now agree.** 哥哥, 弟弟, 姐姐 and 妹妹 all state the relation in their own
+English and differ from each other by exactly 大/小. 妹妹 was recorded last batch and repaired here.
+
+### On the compound lists
+
+**您 gets ONE row, and that is the complete answer**: CC-CEDICT has exactly one word built on it, 您好.
+A section of one looks thin and is honest — and it is a word the reader needs that their deck has not
+got. (Compare 很 two batches ago, which builds *nothing* and so gets no section at all.)
+
+**们's list is the clearest case yet for the section existing.** All five of the 们 words in the
+reader's own deck are PRONOUNS; 孩子们 shows the half of the gloss the deck cannot.

@@ -8752,9 +8752,18 @@
    ]
   },
   "hsk30l1/男朋友": {
-   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | Its first example was 我想男朋友。rendered \"I want a boyfriend\", and that is not what the Chinese says: 想 with a person as its object is to MISS them. The sentence means \"I miss my boyfriend\". Replaced with an AUTHORED sentence that says what the English meant to.",
    "mw": [
     "个"
+   ],
+   "dropEx": [
+    "我想男朋友。"
+   ],
+   "ex": [
+    [
+     "我想有个男朋友。",
+     "I want to have a boyfriend."
+    ]
    ]
   },
   "hsk30l1/真": {
@@ -8830,15 +8839,46 @@
    ]
   },
   "hsk30l1/那": {
-   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | Its second example is 你还在那吗？\"Are you still out there?\" — 那 standing for the two-syllable place word, which neither of the card's two senses names. Added as a third, marked colloquial, and each example tagged. It is the exact mirror of 哪 in this same batch, and for the same reason: the reduced forms are what a beginner hears, and both cards tested them without teaching them. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 5 other words. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
    "senses": [
     [
      "pronoun",
-     "that, those"
+     "that; those"
     ],
     [
      "conjunction",
-     "then, in that case"
+     "then; in that case"
+    ],
+    [
+     "pronoun",
+     "(colloquially) there"
+    ]
+   ],
+   "exSense": [
+    1,
+    3,
+    1
+   ],
+   "compounds": [
+    [
+     "那么",
+     "nà me",
+     "like that; so; in that case"
+    ],
+    [
+     "那样",
+     "nà yàng",
+     "like that; of that kind"
+    ],
+    [
+     "那时",
+     "nà shí",
+     "at that time; then"
+    ],
+    [
+     "刹那",
+     "chà nà",
+     "an instant; a split second"
     ]
    ]
   },
@@ -100905,6 +100945,285 @@
      "夜猫子",
      "yè māo zi",
      "a night owl"
+    ]
+   ]
+  },
+  "hsk30l1/没有": {
+   "why": "Its gloss was \"don't have\" under a part of speech of `verb / adverb`, so the adverb half was tested and never taught — and TWO of the card's three examples are that half: 知道了没有 and 他还没有来 negate a completed action, where 他没有孩子 is the verb. CC-CEDICT lists both (\"haven't; hasn't\" beside \"to not have\"). Split, and each example tagged with the one it shows. This is among the commonest words in the language and the card taught half of it.",
+   "senses": [
+    [
+     "verb",
+     "not to have; there is not"
+    ],
+    [
+     "adverb",
+     "have not; has not (negating a completed action)"
+    ]
+   ],
+   "exSense": [
+    1,
+    2,
+    2
+   ]
+  },
+  "hsk30l1/们": {
+   "why": "Its gloss was CUT OFF MID-PHRASE: \"plural suffix for pronouns and nouns referring to\" — referring to what? CC-CEDICT's own wording is \"plural marker for pronouns, and nouns referring to individuals\", and the card carried the first two-thirds of it. Rewritten whole. | Its second example was 您们是学生吗？ and 您们 IS NOT STANDARD CHINESE — 您 has no plural form, the plural being 你们 or a term of address; CC-CEDICT has no entry for it. A beginner's card was teaching an error. Replaced with an AUTHORED sentence using 们 on a NOUN, which is what the second half of the gloss names and what the reader's own deck cannot show them: its five 们 words are all pronouns. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 5 other words. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. All five of the 们 words in the reader's own deck are PRONOUNS, so 孩子们 is the row that earns the section: it shows the half of the gloss the deck cannot.",
+   "gloss": "[plural marker, for pronouns and for nouns naming people]",
+   "dropEx": [
+    "您们是学生吗？"
+   ],
+   "ex": [
+    [
+     "老师们都很忙。",
+     "The teachers are all very busy."
+    ]
+   ],
+   "compounds": [
+    [
+     "人们",
+     "rén men",
+     "people"
+    ],
+    [
+     "咱们",
+     "zán men",
+     "we; us (including you)"
+    ],
+    [
+     "哥们",
+     "gē men",
+     "mates; buddies"
+    ],
+    [
+     "孩子们",
+     "hái zi men",
+     "children"
+    ]
+   ]
+  },
+  "hsk30l1/名字": {
+   "why": "Its gloss was \"given name\", but all three examples are simply a name — 你叫什么名字 is \"what is your name\". CC-CEDICT gives \"name (of a person or thing)\". On the English → Chinese card the old prompt would have a reader reaching for 名 or hesitating over whether the surname is wanted.",
+   "gloss": "a name; a given name"
+  },
+  "hsk30l1/哪": {
+   "why": "Its gloss was \"which?\", and TWO of the card's three examples are WHERE: 爸爸去哪了 and 我不知道他在哪. That is the colloquial reduction of the two-syllable form, and it is what a beginner will hear. CC-CEDICT gives only \"how; which\", so the second sense rests on the card's own sentences rather than on the dictionary, and is marked colloquial. The reduced form is NOT written out in the gloss, since it contains this card's own character and the gloss is the whole of the English → Chinese card's front. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 4 other words. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. This character is POLYPHONIC and the list carries a row for its other reading.",
+   "gloss": "which?; (colloquially) where?",
+   "compounds": [
+    [
+     "哪怕",
+     "nǎ pà",
+     "even if; no matter how"
+    ],
+    [
+     "哪知",
+     "nǎ zhī",
+     "who would have thought?"
+    ],
+    [
+     "哪吒",
+     "Né zhā",
+     "Nezha, a protection deity"
+    ]
+   ]
+  },
+  "hsk30l1/呢": {
+   "why": "Its gloss read \"[returns; forwards a question]\" — garbled in the way 吗's was, the semicolon reading as a separator between two senses. CC-CEDICT gives \"used in questions to link back to prior discourse or context\" and, separately, \"indicating that a state or situation still holds\", which is what the second example (我还什么都没找到呢) is. Rewritten as those two and each example tagged. | Its third example was 你能解决这个问题呢吗？ and 呢吗 is UNGRAMMATICAL — the two sentence-final particles cannot stack. Replaced with an AUTHORED sentence in the commonest use of all, the question put back. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. This character is POLYPHONIC and the list carries a row for its other reading.",
+   "senses": [
+    [
+     "particle",
+     "[puts a question back: \"and …?\"]"
+    ],
+    [
+     "particle",
+     "[marks a state that still holds, or softens a statement]"
+    ]
+   ],
+   "exSense": [
+    1,
+    2,
+    1
+   ],
+   "dropEx": [
+    "你能解决这个问题呢吗？"
+   ],
+   "ex": [
+    [
+     "我喜欢喝茶，你呢？",
+     "I like tea — and you?"
+    ]
+   ],
+   "compounds": [
+    [
+     "呢子",
+     "ní zi",
+     "woollen cloth"
+    ],
+    [
+     "呢喃",
+     "ní nán",
+     "to twitter; to murmur"
+    ],
+    [
+     "着呢",
+     "zhe ne",
+     "(at the end of a sentence) rather; quite"
+    ],
+    [
+     "管他呢",
+     "guǎn tā ne",
+     "never mind; whatever"
+    ]
+   ]
+  },
+  "hsk30l1/妹妹": {
+   "why": "Recorded in the previous batch and repaired here: two of its three examples translated 妹妹 as plain \"sister\", dropping the younger the card exists to teach. Replaced with the MIRROR of the sentence 姐姐 was given, so the four sibling cards — 哥哥, 弟弟, 姐姐, 妹妹 — now all state the relation in their own English and differ from each other by exactly 大/小.",
+   "dropEx": [
+    "她妹妹也唱得很漂亮。"
+   ],
+   "ex": [
+    [
+     "我妹妹比我小两岁。",
+     "My younger sister is two years younger than I am."
+    ]
+   ]
+  },
+  "hsk30l1/男": {
+   "why": "Its third example was 你还是处男吗？\"Are you still a virgin?\" — 处男 is a WORD, so the card's own character does not stand alone in it, and the subject is not one a beginner's card should raise unasked. Replaced with an AUTHORED sentence where 男 does stand alone, in a frame neither of the other two uses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "dropEx": [
+    "你还是处男吗？"
+   ],
+   "ex": [
+    [
+     "他有两个孩子，一男一女。",
+     "He has two children, a boy and a girl."
+    ]
+   ],
+   "compounds": [
+    [
+     "男人",
+     "nán rén",
+     "a man"
+    ],
+    [
+     "男孩",
+     "nán hái",
+     "a boy"
+    ],
+    [
+     "男生",
+     "nán shēng",
+     "a male student"
+    ],
+    [
+     "男女",
+     "nán nǚ",
+     "men and women"
+    ]
+   ]
+  },
+  "hsk30l1/你好": {
+   "why": "Its third example was 这是为你好。\"It's for your own good\" — where 你好 is not the greeting at all but 为 + 你 + 好, so the card's own word does not appear in the sentence. Replaced with an AUTHORED greeting in a frame the first example does not use.",
+   "dropEx": [
+    "这是为你好。"
+   ],
+   "ex": [
+    [
+     "老师你好！",
+     "Hello, teacher!"
+    ]
+   ]
+  },
+  "hsk30l1/能": {
+   "why": "Its third example ended in 。 although 吗 makes it a question — one of only TWO sentences in the whole corpus shaped that way (the other is 你想打排球吗。in Level 4, recorded for its batch). The deck-level punctuation pass cannot see it: the sentence HAS a terminal, it is simply the wrong one. Replaced with an AUTHORED question in the 能不能 frame, which neither of the other two uses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "dropEx": [
+    "能到这里来一下吗。"
+   ],
+   "ex": [
+    [
+     "你能不能帮我一下？",
+     "Could you give me a hand?"
+    ]
+   ],
+   "compounds": [
+    [
+     "可能",
+     "kě néng",
+     "possible; maybe"
+    ],
+    [
+     "能力",
+     "néng lì",
+     "ability; capability"
+    ],
+    [
+     "能源",
+     "néng yuán",
+     "energy resources"
+    ],
+    [
+     "才能",
+     "cái néng",
+     "talent; ability"
+    ]
+   ]
+  },
+  "hsk30l1/你": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 2 other words. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "compounds": [
+    [
+     "你我",
+     "nǐ wǒ",
+     "you and I; all of us"
+    ],
+    [
+     "迷你",
+     "mí nǐ",
+     "mini (loanword)"
+    ],
+    [
+     "你死我活",
+     "nǐ sǐ wǒ huó",
+     "a life-and-death struggle"
+    ],
+    [
+     "你争我夺",
+     "nǐ zhēng wǒ duó",
+     "fierce rivalry"
+    ]
+   ]
+  },
+  "hsk30l1/年": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 3 other words. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "compounds": [
+    [
+     "年轻",
+     "nián qīng",
+     "young"
+    ],
+    [
+     "年纪",
+     "nián jì",
+     "age (of a person)"
+    ],
+    [
+     "新年",
+     "xīn nián",
+     "the New Year"
+    ],
+    [
+     "童年",
+     "tóng nián",
+     "childhood"
+    ]
+   ]
+  },
+  "hsk30l1/您": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. ONE ROW, and that is the complete answer: CC-CEDICT has exactly one word built on this character. A section of one looks thin and is honest, and 您好 is a word the reader needs and the deck has not got.",
+   "compounds": [
+    [
+     "您好",
+     "nín hǎo",
+     "hello (polite)"
     ]
    ]
   }
