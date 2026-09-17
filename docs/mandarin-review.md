@@ -554,6 +554,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l2` notes 121–150 (商场 → 位), deck order | 21 | the dictionary's own editorial note pasted into a gloss |
 | 2026-09-17 | `hsk30l2` notes 151–180 (为什么 → 鱼), deck order | 16 | **an obscene example sentence on a Level 2 weather card** |
 | 2026-09-17 | `hsk30l2` notes 181–197 (远 → 左边), deck order, plus a new `exStop` field — **Level 2 complete** | 17 | a noun gloss on a card two of whose sentences are the verb |
+| 2026-09-17 | `hsk30l3` notes 1–30 (阿姨 → 表演), deck order, plus a traditional-character sweep over all nine decks | 25 | a card whose gloss and all three of whose English lines disagreed |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -2227,3 +2228,143 @@ contain 一会儿.
 - sense tags pointing past the sense list: **0**
 - stray spaces: **32 blocks, 24 distinct sentences** — unchanged, and still a batch of its own
 - clobber sweep over the record diff: **0**; 6 existing notes changed, 11 added, which is the 17 cards
+
+### 2026-09-17 — Level 3, notes 1–30, and a traditional-character sweep
+
+**What the batch was.** The first thirty cards of HSK 3, 阿姨 → 表演, read one at a time against
+CC-CEDICT and against their own three sentences. **Twenty-four of the thirty were changed**, plus one
+card in Level 6 caught by a corpus-wide sweep. Level 3's card type also gained the **`Compounds`**
+field, copied from Level 2's own definition in the record rather than retyped, so the three levels that
+now carry it cannot drift.
+
+### The one to read first
+
+**爱人's gloss says *spouse (PRC)* and all three of its English lines say *lover*.** CC-CEDICT splits
+the word exactly along that line — "spouse (PRC) / lover (non-PRC)" — and these are PRC decks, so the
+gloss is right and every sentence was translated on the other reading. On the second it stops being a
+register problem and becomes a different claim:
+
+> 有人看到了她在饭馆跟她爱人在一起。 — "She was seen at a restaurant with her **lover**."
+
+which in English says an affair, where the Chinese says she was out with her husband. All three
+rewritten; the Chinese is untouched. **A reader working the forward card was being taught the wrong
+word three times over while the gloss above it said the right one** — and no checker can see that,
+because the gloss is right, the sentences are right, and only the pairing is wrong.
+
+### The traditional character in a simplified field
+
+北's third sentence was **日本位於北半球。** — 於 is the traditional form of 于, inside the Simplified
+field of a Simplified deck. Nothing in the pipeline can see it: the sentence renders, reads and speaks
+correctly, and a learner copying it out writes a character the PRC does not use.
+
+The sweep it prompted is cheap and worth keeping. The decks' own `Simplified`/`Traditional` pairs
+identify **1,200 traditional-only Han characters**; testing all 34,596 example sentences against that
+set finds **exactly two**, both 於 — this one and 起源's 佛教起源於印度 in Level 6. Two sentences is the
+whole of a corpus-wide finding rather than a batch of its own, so both are fixed here.
+
+*(A first run of the sweep reported 58 and was wrong: it treated the SPACE as a traditional-only
+character, because spaces occur in `Traditional` fields and not in `Simplified` ones, so it was
+re-reporting the stray-space set. Restricting it to CJK gives the real answer.)*
+
+### One gloss, two parts of speech, and the sentences split between them
+
+The commonest shape in this range, and eight cards had it. In each the gloss named one part of speech
+and the card's own sentences used the other:
+
+- **安全** gave "safe; security" under an **adjective** — an adjective and a noun joined by a semicolon.
+- **变化** gave the single word "change" under **noun / verb**, which says nothing at all, English being
+  a language in which that word is both.
+- **比较** gave "compare" under **verb / adverb / preposition** while two of three sentences are the
+  adverb: 哪个比较贵 is *which is more expensive*, and that sense — the one a beginner uses daily — was
+  not on the card.
+- **表演** gave the noun "performance" under a **verb**; **帮助** gave "to help" while its third sentence
+  is the noun.
+- **遍** gave the measure word alone while 我们游遍全国各地 is the other sense, *all over*.
+- **被** gave "quilt; by (somebody/something)" under a single **preposition** label — a noun and a
+  grammatical particle wearing one part of speech.
+- **半天** is the same fault without the label: its gloss was "half of the day" and **not one of its
+  three sentences means half a day**; all three are *for ages*.
+
+Each was split, and where the division falls between the sentences they were tagged with `exSense`.
+
+**Two senses deliberately carry no example, and that is the finding rather than an omission.** 被's
+quilt is 被子 in modern Chinese, so there is no ordinary sentence in which bare 被 is one — the same
+shape as 着's two non-particle readings in the batch before. It leads the compound list instead.
+
+### Sentences that are not grammatical, and one that should not be in a beginner deck
+
+- **班级's** 我们学校里有三十班级。 has **no measure word**. A number cannot stand directly against a
+  noun in Chinese, and a beginner deck printing a count without its classifier models the single
+  commonest mistake its readers make.
+- **遍's** 我不会让自己说二遍。 — **二 cannot precede a measure word, 两 must.** Same class.
+- **比较's** 这把椅子比较小的。 — a bare 比较 + adjective takes no 的.
+- **变成's** 变成了绿色。 is a fragment with no subject, and its English supplies an "It" the Chinese
+  has not got.
+- **比如's** 勇气是非常重要的。比如肌肉，经常使用才得以加强。 is an English aphorism translated
+  backwards: 比如 introduces an EXAMPLE and cannot mean *like*, so 比如肌肉 reads "for example, muscle".
+- **北方's** 北方的春天送来狂风扫路。 is four images stacked with no grammar joining them — which is why
+  its English reads as poetry.
+- **矮's** 个子矮的人心眼多。 — "Shorter people got more tricks up their sleeves." A folk slur about
+  short people, on the card that teaches the word *short*, with ungrammatical English besides.
+
+### English that is not the sentence
+
+Five, and two of them contradicted something else on their own card:
+
+- **表演's** "Her performance is really good" is a NOUN rendering of 她表演得真好, **the one sentence on
+  that card this batch has just tagged as the verb**.
+- **变成's** "I want to be you" is 我想当您; 变成 is to TURN INTO, which the card's own gloss says.
+- **半天's** "I'm none the wiser for his explanation" is an English idiom standing in for two Chinese
+  clauses, and it drops 半天, the headword.
+- **办法's** "This type of problem should be able to be solved" is a passive knot that also loses 补救
+  办法, *a remedy*.
+- **比赛's** "We went to the races" is horse racing; 比赛 is a match of any kind.
+- **变化's** "changes easily" is 变化很快, quickly. **比赛's** was joined by a comma besides.
+
+### Glosses joined by a comma
+
+**办**, **变** and **比赛** wrote their senses `a, b, c` where every other gloss in these decks uses
+semicolons. On the reverse card, whose front is the gloss and nothing else, that reads as one long
+phrase rather than a list. 办 was also missing the sense two of its three sentences show — *to hold, to
+organise (an event)*, which is what 办过奥运会 and 办了音乐会 are.
+
+### My own replacement rewritten on reading the finished card
+
+**The fifth batch running**, and only one this time: 矮's replacement was first drafted 这张桌子太矮了,
+which is the SAME 太…了 frame as the surviving 她太矮了. 有点儿 instead, so the card's three sentences
+show a comparative, 太…了 and 有点儿.
+
+### On the compound lists
+
+**All nine single-character cards in the range got one** — 矮, 把, 搬, 办, 饱, 北, 被, 变, 遍 — 33 rows,
+every reading and gloss checked against CC-CEDICT before it was written.
+
+- **矮个子 was drafted and cut**: CC-CEDICT has no entry for it, and a row nobody can check is a row this
+  record may not carry. 低矮 in its place.
+- **把手's reading follows the DECK, not the dictionary.** CC-CEDICT reads it two ways — bǎ shǒu "to
+  shake hands" and bǎ shou "handle" — and the decks' own Level 7 card writes the handle as bǎ shǒu. The
+  standing rule is that where the deck has a card for the compound, the compound row takes the deck's
+  reading.
+- **被子 leads 被's** because it is the word that card's quilt sense actually lives in, and the reason
+  that sense can carry no sentence.
+
+### Read and left alone
+
+安静, 搬家, 办公室, 报纸, 笔记本, 必须 and 笔记's sentences are right as they stand. Three things were
+read and deliberately not changed: **北's 我的家坐北向南** ("My house looks to the south") loses 北 in
+the English but is what the Chinese means; **必须's "You need to leave"** for 你必须离开 is a fair
+colloquial *must*; and **阿姨's nanny sense** is real and common in the PRC but is a third thing the
+card's sentences do not show, so the gloss stops at two.
+
+**Eight of the nine `check-example-fit.js` findings in this deck are the same false positive** — a
+negator or a modifier in front of the headword forming a word of its own (不安 + 全, 不同 + 意, 不满 +
+意, 不容 + 易, 好奇 + 怪, 再见 + 面, 几年 + 级, 拍照 + 片, 写作 + 业). Only 安全's is in this range.
+
+### Standing invariants at the end of the batch
+
+- example blocks: **34,596**; **spoken == visible on every one**
+- Chinese leaking into an English line: the Level 3 and Level 6 sets are **byte-identical to HEAD's**
+- sense tags pointing past the sense list: **0**
+- stray spaces: **32 blocks, 24 distinct sentences** — unchanged, still a batch of its own
+- traditional-only Han characters in an example sentence: **0**, from 2
+- clobber sweep over the record diff: **0**; 5 existing notes changed, 20 added, which is the 25 cards
