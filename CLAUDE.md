@@ -6894,7 +6894,7 @@ division-capital city tier are inert dead code.
     after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
     community store's record shape, or the `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 333 assertions on **the shell**: the rules that break silently
+  · `node .claude/test-layout.js` — 345 assertions on **the shell**: the rules that break silently
     because nothing throws when a layout is wrong. **ITS FIXTURE MUST DISMISS EVERY FIRST-VISIT OVERLAY
     AND LAND ON THE TAB IT MEANS TO MEASURE** — when a feature gains a first-run card or a new default
     tab, the fixtures are part of the change. **Re-run after touching `.tabbar` / `--tabbar-h` /
