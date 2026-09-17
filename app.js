@@ -18949,6 +18949,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return el;
   }
   function applyWBState() {
+    /* THE PEN BEING DOWN IS A FACT ABOUT THE PAGE, not only about the panel (Sep 2026, on request: "if
+       the marker is turned on, the bottom of the card below the question should expand to create an
+       empty space to write on"). A study card is a page or two of prose with nowhere on it to work an
+       answer out, so the card opens a blank band under the question while the pen is down. It is one
+       body class read by the stylesheet rather than a branch in `renderCard`, which is what lets the
+       band appear and go the moment the pen is picked up or put down, on the card already on screen,
+       with no re-render to take a revealed answer away. It rides HERE because this is the one place
+       `WB.enabled` is applied — and it is set before the `wbToolsRef` guard, or a page whose panel has
+       not been built yet would leave the class behind from the page before it. */
+    document.body.classList.toggle("wb-down", !!WB.enabled);
     if (!wbToolsRef) return;
     wbToolsRef.classList.toggle("active", WB.panelOpen);          // the tools are showing
     wbToolsRef.querySelector(".wb-toggle").classList.toggle("on", WB.enabled);   // the pen is down — visible with the panel shut
@@ -18994,6 +19004,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const el = ensureWBTools(); el.classList.add("show"); wbApplyPos(el); applyWBState(); wbUpdateHistBtns();
   }
   function hideWBTools() {
+    document.body.classList.remove("wb-down");   // no marker on this page: no writing band either
     if (wbToolsRef) { wbToolsRef.classList.remove("show"); wbToolsRef.classList.remove("on-atlas"); }
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
@@ -30856,6 +30867,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${cardStarsHTML(c)}
               </div>
               <div class="question">${cardFrontHTML(c)}</div>
+              ${/* THE WRITING BAND (Sep 2026, on request). Empty, ruled and drawn only while the pen is
+                    down (`body.wb-down`, set by applyWBState) — so a reader who never picks the marker up
+                    sees exactly the card they saw before. It sits BETWEEN the question and the reveal
+                    rather than under the card, which is what keeps the request's second half: revealing
+                    the answer leaves the band where it is, with the working still on it, between the
+                    question and the answer box. It is `aria-hidden` and takes no focus: there is nothing
+                    in it to read, and what a reader writes on it is ink on a canvas rather than text. */""}
+              <div class="scratch" id="scratch" aria-hidden="true"></div>
               <div class="reveal" id="reveal"><div class="reveal-inner" id="revealInner"></div></div>
             </div>
             <div class="actions" id="actions"></div>
@@ -36494,6 +36513,63 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      out the ones that did not happen at a time — see the comment on that predicate for why `human
      evolution` must not be ordered at the ape split. Both are facts about the ANSWER TERM, so both are
      read off the card rather than derived from its date line, which cannot tell an onset from a span. */
+  /* ---------- A LITERARY WORK IS SET IN ITALIC AND SAYS WHOSE IT IS ----------
+     (Sep 2026, on request: "literary works should be italicised and mention the author its by to make
+     it clear that its a literary work".) A Timeline row is a bare term in a list of five, so `Histories`,
+     `Birds` and `Frogs` read as an event, a bird and an animal until the reader has the year in front of
+     them — and by then the puzzle is answered. Italic plus a by-line says what kind of thing it is at
+     the moment it is being ordered.
+
+     IT IS A DECLARED TABLE, NEVER A TAG TEST, and `FINDIT_NAMES` is the precedent: a map label is not a
+     question, and here a kind tag is not a genre. Measured over the corpus, 108 cards lead with the kind
+     `text` and they are the Code of Hammurabi, the Amarna letters, the Dipylon inscription and the
+     Knossos Linear B archive as much as they are the Odyssey — a law code and a clay archive are neither
+     italicised nor by anybody, so a rule keyed on the tag would set four wrong things in italic to get
+     one right. Adding `literature` to the test does not save it: `Solon's poems` is a body of verse
+     rather than a title, and `Old Oligarch` is the AUTHOR rather than the work.
+
+     AN EMPTY AUTHOR IS AN ANSWER, not a gap. The Epic of Gilgamesh, the Rigveda and the Classic of
+     Poetry have none; `Prometheus Bound` is transmitted under Aeschylus and its attribution is disputed
+     on the card's own prose. Those get the italic, which already says "this is a work", and no by-line —
+     inventing one would be exactly the fabrication the citation apparatus exists to prevent. The
+     scriptures are out of the table altogether: the Hebrew Bible and the Quran are not set in italic by
+     any style this site follows.
+
+     THE KEY IS THE CARD ID, never the answer term, so a retitled card keeps its entry and a second work
+     of the same name cannot inherit one. */
+  const CHRONO_WORKS = {
+    // Greece
+    "gr-130": "Homer",        "gr-131": "Homer",
+    "gr-141": "Hesiod",       "gr-142": "Hesiod",
+    "gr-439": "Herodotus",    "gr-441": "Aeschylus",
+    "gr-592": "Aeschylus",    "gr-593": "",              // Prometheus Bound — transmitted under Aeschylus, attribution long questioned
+    "gr-594": "Aeschylus",
+    "gr-596": "Sophocles",    "gr-597": "Sophocles",     "gr-598": "Sophocles",   "gr-599": "Sophocles",
+    "gr-601": "Euripides",    "gr-602": "Euripides",     "gr-603": "Euripides",   "gr-604": "Euripides",
+    "gr-608": "Aristophanes", "gr-609": "Aristophanes",  "gr-610": "Aristophanes", "gr-611": "Aristophanes",
+    "gr-620": "Xenophon",     "gr-621": "Xenophon",      "gr-631": "Xenophon",
+    "gr-630": "Plato",        "gr-693": "Demosthenes",
+    "gr-633": "",             // the Hippocratic Corpus — many authors, transmitted under one name
+    // Rome
+    "rm-351": "Julius Caesar",
+    // China and Korea
+    "cnh-067": "Sima Qian",   "cnh-241": "Sima Qian",    "ko-049": "Sima Qian",
+    "cnh-260": "Ban Gu",      "cnh-187": "Qu Yuan",
+    "ko-087": "Kim Busik",    "ko-089": "Chen Shou",
+    "cnh-028": "", "cnh-029": "", "cnh-056": "", "cnh-059": "", "cnh-060": "",
+    "cnh-126": "", "cnh-127": "", "cnh-143": "", "cnh-144": "", "cnh-185": "",
+    // Japan
+    "jp-098": "", "jp-099": "", "wh-543": "Murasaki Shikibu",
+    // the ancient Near East and India
+    "wh-183": "", "wh-193": "", "wh-215": "", "wh-241": "",
+  };
+  // the row's own name, italic where the card is a work and with its author after it where it has one
+  function chronoNameHTML(x) {
+    const name = esc(gameCapFirst(x.name));
+    if (!(x.id in CHRONO_WORKS)) return name;
+    const by = CHRONO_WORKS[x.id];
+    return "<i>" + name + "</i>" + (by ? '<span class="ci-by"> · ' + esc(by) + "</span>" : "");
+  }
   function chronoPool() {
     const avail = gameCardIdSet();
     /* `basis` is the date line's own label for the row the sort year came from — "Founded", "Reigned",
@@ -36655,7 +36731,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               the same reason: a row of a list is a heading naming the thing, not a word inside a sentence,
               and half the deck's answers are common nouns stored lower-case. Display only — the row is
               tracked by its card id, so nothing downstream sees the capital. */""}
-        <span class="ci-name">${esc(gameCapFirst(x.name))}</span>
+        <span class="ci-name">${chronoNameHTML(x)}</span>
         <span class="ci-year"></span>
         <div class="ci-arrows">
           <button class="ci-up" aria-label="Move earlier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>

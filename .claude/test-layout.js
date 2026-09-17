@@ -2195,6 +2195,21 @@ function scrimCheck() {
 
     // the real test: TAP Show answer with the pen down. A click through page.evaluate would bypass the very
     // hit-testing this is about, so it goes through the mouse.
+    /* SHUT THE PANEL FIRST — WHAT IS UNDER TEST IS THE INK, NOT THE TOOLS (Sep 2026).
+       The pen is down from the colour picker above ("reaching for a colour is asking to draw"), which is
+       what this section wants; the PANEL is also still open, and it is a 200px box floating over the
+       bottom-right of a 390px screen. Since Sep 2026 a study card opens a band to write on while the pen
+       is down (`body.wb-down`, see the marker bullet in CLAUDE.md), which pushes Show answer about 150px
+       down — from y=417 to y=563 on this card, straight under the open panel. Measured: the click landed
+       on `.wb-size`, and what came back was "Show answer still works under the ink" failing with every
+       grade "missing", which reads as the CANVAS swallowing the tap. It was the tools, which a reader
+       puts away with one tap and which this assertion was never about.
+       The scroll is belt and braces for the same growth: `page.mouse.click` takes VIEWPORT coordinates,
+       so a longer card's button below the fold would be a click on nothing. */
+    await page.evaluate(() => document.querySelector(".wb-toggle").click());   // panel away; the pen stays down
+    await page.waitForTimeout(250);
+    await page.evaluate(() => document.querySelector("#reveal-btn").scrollIntoView({ block: "center" }));
+    await page.waitForTimeout(250);
     const rb = await page.evaluate(() => document.querySelector("#reveal-btn").getBoundingClientRect().toJSON());
     await page.mouse.click(rb.x + rb.width / 2, rb.y + rb.height / 2);
     await page.waitForTimeout(700);
