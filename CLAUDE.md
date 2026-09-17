@@ -506,6 +506,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   finding: nothing openable from here states Old East Slavic's periodisation — four DOAJ and Crossref
   sweeps returned dialect dictionaries and one paywalled 1975 article — so the card claims only the
   eleventh-to-thirteenth-century written record its sources carry, and its date line says so.
+  **AND THE TENTH CARD IS THE COLLECTION'S FIRST PICTURE REFUSAL OF ITS OWN KIND**: `ru-070` the rota
+  system has none, because the Russian Wikipedia article on it carries **no image at all** and the one
+  Commons candidate is a contributor's SVG whose six-part legend cannot ride in a caption. **An article
+  with no picture of its own is evidence that its subject has no conventional depiction**, not a gap to
+  fill with a diagram. `ru-068` went the other way and is the reusable half: `Category:Saqaliba` holds a
+  panel of the **Gniezno door** of about 1170 showing captives pleaded for, a contemporary object where
+  every search had returned 19th-century imaginings — **read the CATEGORY before writing a subject off.**
   **AND `ru-036` AND `ru-044` NEEDED NO NEW GLOSSARY TERM, WHICH IS WORTH CHECKING FOR BEFORE THE RESEARCH
   RATHER THAN AFTER**: `Kievan_Rus'` has been a cited term since the citation pass and `Greek_fire` has
   been one, with a picture, for longer still, so the pairing rule was already satisfied and
@@ -5874,9 +5881,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - Enforcement: `node .claude/check-style.js` reports violations; `--fix` applies the safe ones (it masks the proper-name
   exceptions, skips plain-text fields and the glossary alias sections). Run it after bulk content additions. **Card text
   edits invalidate baked narration hashes — re-run `build-tts.js` for all four narrators after a style pass.**
-  It reads FOUR files now: rules 1–3 over `data.js` + `glossary.js` as before, and **rule 4 (BCE/CE) over those
-  plus `artefacts.js` and `countries.js`**, which are prose a reader reads and were the last two files still
-  saying "1500 BC". Two masks are what make `--fix` safe to run at all and neither may be dropped: the
+  **READ ITS `FILES` LIST RATHER THAN COUNTING THEM HERE** — this line said FOUR for a year while the list
+  grew to seven and then to twenty-three. What is a RULE rather than a number: rules 1–3 are a card's or a
+  term's own conventions and run over the card and glossary files; **rule 4 (BCE/CE) additionally sweeps
+  `artefacts.js`, `countries.js` and `crossword.js`** (the `ERA_ONLY` set), which are prose a reader reads
+  and were the last files still saying "1500 BC".
+  **AND `data-extra/<collection>.js` WAS MISSING FROM IT FOR AS LONG AS THE CARD SPLIT EXISTED** (added Sep
+  2026). `abstract`, `why` and a card's `image` moved into those sixteen files, so the checker went on
+  sweeping `data.js` — a question, an answer and a date line — and **reported a clean pass over the
+  MAJORITY of the site's text**: 261 findings were standing in the heavy halves the day it was added,
+  across every collection that has shipped a card. It is the fault `glossary-extra.js` and
+  `artefacts-extra.js` each had and each fixed, arriving a third time in the one file nobody thought to
+  add, and **the directory is READ rather than listed** so a collection added later is swept with nobody
+  remembering. All four rules bind there, unlike the two `-extra` files: a card's abstract is a card's own
+  prose. **The remaining backlog is a content pass of its own, per collection** — run it for the figure
+  rather than quoting that 261. Two masks are what make `--fix` safe to run at all and neither may be dropped: the
   CITATIONS (three spellings now — a card's `"sources":[…]`, glossary.js's whole `GLOSSARY_SOURCES` block, and
   artefacts.js's unquoted `sources: [`), and any **URL**, since a Commons file really is called
   `…c_2700_BC_(10465349433).jpg` and renaming it in an href breaks the picture.
@@ -5971,18 +5990,31 @@ the end of a successful add and print the candidates, their licences, their size
   glossary terms and one artefact today, most of them abstract concepts and living scholars — say so in the
   commit message rather than leaving the gap looking like an oversight. `--no-image` skips the lookup for a
   batch run with no network.
-· **WHEN `upload.wikimedia.org` RATE-LIMITS, `Special:FilePath` STILL SERVES THE FILE** (Aug 2026) —
-  `https://commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=900`, or
-  `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=900`, and the file DESCRIPTION page keeps working
-  throughout, which is where the licence and author are read from. **Use those to LOOK at a
-  candidate**; the `src` written into the card stays the normal `/thumb/…/1920px-…` URL, the limit
-  being this container's and not a reader's. **A host that will not serve a picture is a reason to
-  keep trying or to ship without one, never to install one unseen.**
+· **A THUMBNAIL WIDTH MUST COME FROM WIKIMEDIA'S OWN LIST, AND THIS BULLET RECOMMENDED A WIDTH THAT IS
+  NOW REFUSED** (corrected Sep 2026). Commons serves a thumbnail only at **20, 40, 60, 120, 250, 330,
+  500, 960, 1280, 1920 or 3840** pixels and answers anything else **400**, naming the list at
+  `w.wiki/GHai` — so the `?width=900` this bullet advised, and `800` and `640` beside it, are dead, while
+  `1280` is served on first request. **A COMMONS FETCH THAT FAILS IS A SIZE QUESTION BEFORE IT IS A RATE
+  QUESTION: READ THE ERROR BODY.** A 400 names the rule and a 429 says *too many requests*, and treating
+  the two alike is how a working host is written off; it cost a picture pass its afternoon, recorded here
+  first as throttling.
+  **AND A FILE NARROWER THAN THE WIDTH ASKED FOR HAS NO THUMBNAIL AT ALL** — MediaWiki will not upscale,
+  so `iiurlwidth=1280` on an 829-pixel original hands back the ORIGINAL url under `thumburl`, flagged
+  `thumbnail_unscaled`, and the original is the path that really is rate-limited. **Drop to the next
+  listed width DOWN.**
+  The file DESCRIPTION page keeps working throughout, which is where the licence and author are read
+  from. **A host that will not serve a picture is a reason to keep trying or to ship without one, never
+  to install one unseen.**
 · **AND THE `src` IS COPIED FROM THE API, NEVER BUILT BY HAND** (Sep 2026). An upload URL carries a
   two-character shard — `…/commons/0/07/<FILE>` — which is the first characters of the file name's MD5
   and CANNOT be guessed; a hand-typed one is a 404 on a card that otherwise looks finished. Ask
   `api.php` for `imageinfo` with `iiprop=url` and take `url` (or `thumburl`, minus its tracking query);
   where a `src` cannot be fetched to confirm it, compare it against the API's own string instead.
+  **TWO CORRECTIONS RIDE ON THAT STRING AND BOTH ARE EASY TO MISS**: it now carries a
+  `?utm_source=…&utm_campaign=imageinfo` **tracking query**, and `thumburl` now names the host
+  **`thumb.wikimedia.org`** where the shipped corpus uses `upload.wikimedia.org` with an identical path
+  after it. Strip the query and rewrite the host to the corpus's own — the shard and the filename are
+  the API's own either way, which is what this rule is actually about.
   **📖 `docs/media.md` — READ BEFORE FETCHING A CANDIDATE PICTURE OR WRITING AN IMAGE `src` BY HAND.**
 · It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
   artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always

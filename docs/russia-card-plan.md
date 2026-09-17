@@ -879,11 +879,67 @@ Yurayong's SUSA paper cannot be read at all), `link.springer.com` (a JavaScript 
 (403), and `septentrio.uit.no` at the DOI's own address (404).
 
 **AND `upload.wikimedia.org` IS BUSY RATHER THAN SHUT, WHICH COST THE PICTURE PASS ITS AFTERNOON.**
-`Special:FilePath` returned a *Wikimedia Error* page for four of five files fetched two seconds apart
-and every one of them on an eighteen-second gap; `api.php` returned an empty body for three searches in
-a row at three-second spacing and answered at twenty. **Space a Commons pass at twenty seconds a
-request and expect a batch of ten to take four minutes**, which is cheaper than concluding the host is
-closed.
+`api.php` returned an empty body for three searches in a row at three-second spacing and answered at
+twenty. **Space a Commons pass at twenty seconds a request and expect a batch of ten to take four
+minutes**, which is cheaper than concluding the host is closed.
+
+**HALF OF THAT WAS NOT A RATE LIMIT AT ALL, AND THIS PARAGRAPH SAID IT WAS.** `Special:FilePath`
+returned a *Wikimedia Error* page for four of five files and it was recorded here as throttling, on the
+evidence that an eighteen-second gap did not help. It did not help because **Wikimedia now serves a
+thumbnail only at a width from a FIXED LIST** — 20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920,
+3840 — and answers anything else **400**, with the list one request away at `w.wiki/GHai`. The
+afternoon's `?width=900`, `?width=800` and `?width=640` are all off it; `1280` was served on first
+request for every file wide enough to have one. **So a Commons fetch that fails is a SIZE question
+before it is a rate question: read the error body.** A 400 names the rule and a 429 says *too many
+requests*, and the two were being treated alike.
+
+**A FILE NARROWER THAN THE WIDTH ASKED FOR HAS NO THUMBNAIL, WHICH IS THE OTHER HALF OF THAT RULE.**
+MediaWiki will not upscale, so `iiurlwidth=1280` on an 829-pixel original hands back the ORIGINAL url
+under `thumburl`, flagged `thumbnail_unscaled` in the tracking query — and the original is the one path
+that really was rate-limited here. **Drop to the next listed width DOWN** (500 for the Liubech
+miniature and the Novgorod wall, each under 960), which both served at once.
+
+**AND THE `src` GOES THROUGH TWO CORRECTIONS THAT ARE EASY TO MISS.** The API's `url` and `thumburl`
+carry a `?utm_source=…&utm_campaign=imageinfo` **tracking query**, which is stripped; and `thumburl`
+now names the host **`thumb.wikimedia.org`**, where the 3,400-odd pictures already shipped use
+`upload.wikimedia.org` with an identical path after it. The host is rewritten to the corpus's own, the
+shard and the filename being the API's own strings either way — which is what the rule against
+hand-building a `src` is actually about.
+
+**NINE OF THE TEN CARRY A PICTURE AND THE TWO REFUSALS ARE DIFFERENT SHAPES.** `ru-068` **Saqaliba**
+has one after all: Commons' own `Category:Saqaliba` holds a panel of the **Gniezno door** of about 1170
+showing Adalbert of Prague pleading for captives standing bound — a CONTEMPORARY object on the card's
+own subject, where the category's alternatives are a 1909 painting and a 19th-century slave-market
+canvas, both of them imaginings. **Read the category before writing a subject off**; the search that
+preceded it returned nothing usable. What was refused there is `File:02019 1103 Eiserne Fesseln…`, iron
+fetters of the 11th and 12th centuries and perfectly on point, whose `author` field names **the author
+of the 1985 book the plate was scanned from** rather than the photographer — so the credit line would
+have named the wrong person, which is the fault `fix-image-credits.js` exists to prevent.
+`ru-070` **rota system** has none and is recorded as picture-not-found: the Russian Wikipedia article
+*Лествичное право* carries **no image at all**, and the one Commons candidate is a contributor's SVG
+whose six-part legend (dead, incumbent, predecessor, undisplaceable, excluded) cannot ride in a caption,
+so a reader would meet grey and crossed rectangles with no key. **An article with no picture of its own
+is evidence that its subject has no conventional depiction**, not a gap to be filled with a diagram.
+
+**AND `check-style.js` COULD NOT SEE ANY OF THIS BATCH'S PROSE, WHICH IS THE BIGGEST FINDING HERE.**
+Its `FILES` list was written when a card's abstract lived in `data.js`, and the card split moved
+`abstract`, `why` and `image` into `data-extra/<collection>.js` — so from the split until this batch the
+checker swept a card's question, answer and date line and **reported a clean pass over the majority of
+the site's text**. It is the fault the artefact and the glossary splits each had and each fixed, arriving
+a third time in the one file nobody thought to add. The directory is now READ rather than listed, so a
+collection added later is swept with nobody remembering; `--fix` is as safe there as on `data.js`, the
+citation mask already matching the card-shaped `"sources":[…]` these files write.
+**261 findings were standing in the heavy halves the day it was added** — every collection that has
+shipped a card — of which **33 were this batch's own**, all of rule 1 and rule 2: *eleventh to
+thirteenth centuries* for *11th to 13th*, *twenty-five envoys* for *25*, *nine hundred and sixty* for
+*960*. They were repaired through the sanctioned writers, which took **five** of them, because no single
+tool can reach all five fields: `add-sources.js` for the abstract, `add-questions.js --partial` for the
+extras, `add-card-links.js` for the why-answers, `add-images.js` for a caption and `fix-field.js` for the
+first question — **and `fix-field.js` reads `data.js` alone, so since the split it cannot reach an
+abstract at all**, which it refuses rather than mis-writes. **An ELLIPTICAL ordinal is not a rule-2
+finding and must be carried by hand**: the century word stands only after the first of a pair, so *the
+early 9th century and the early eleventh* passes the checker and numbers one half of its own sentence.
+The remaining 228 findings are a content pass of their own, per collection, and are not this batch's.
 
 **A DATE LINE READ BACK, AS THIS COLLECTION'S OWN RULE NOW REQUIRES.** All ten sort years were checked
 against `cardYears` after writing, by slicing it out of app.js on the markers `test-date-line.js` uses,
