@@ -583,6 +583,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 121–150 (打针 → 低于), deck order | 18 | a gloss that misspelt its own subject, and a card two of whose three sentences were not its word |
 | 2026-09-17 | `hsk30l4` notes 151–180 (底 → 多样), deck order | 21 | a fourth truncated gloss, and the label-against-gloss fault three more times in thirty cards |
 | 2026-09-17 | `hsk30l4` notes 181–210 (而 → 父亲), deck order | 22 | a fifth truncated gloss, a gloss that was not English, and a falafel on the card for *expense* |
+| 2026-09-17 | `hsk30l4` notes 211–240 (复印 → 歌手), deck order, plus the `highway` sites | 24 | six glosses whose label named a part of speech the gloss had not got, and an English line about the wrong people |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5236,4 +5237,53 @@ natural English for 那符合逻辑 even though it hides the headword.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 398 → 407;
+`build-lang-decks.js` re-run.
+
+## Batch 48 — hsk30l4 notes 211–240 (复印 → 歌手)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order, plus the two Levels 7–9 cards
+carrying a sentence this batch corrected. Twenty-four cards changed.
+
+**SIX GLOSSES WHOSE LABEL NAMED A PART OF SPEECH THE GLOSS HAD NOT GOT.** 负责 was *verb / adjective* over
+*responsible for*, which is an adjective PHRASE, so the verb its own three sentences all are had no gloss.
+感觉 was *noun / verb* over *feel*. 感 was labelled a SUFFIX and glossed only as one, where two of its
+sentences are the verb. 感受 ran a verb and two nouns together with nothing between them. 赶紧 put a
+participle phrase and a VERB under an adverb label. And 高于 read *greater than*, an adjective phrase under
+a verb label, on a card whose sentences are a temperature, a death rate and an output — all higher rather
+than greater. **This is the same fault batches 45, 46 and 47 each met three to five times**: the class is
+now fourteen cards across four batches, and every one was found by reading the label against the words.
+
+**AND ONE GLOSS THAT WAS TOO NARROW FOR ITS OWN CARD.** 赶 read *to catch up*, which is one of the things
+the character does and **none of the three its own sentences do** — 赶时间 is to be in a hurry, 赶你走 is to
+drive somebody out, 赶来 is to hurry over.
+
+**AN ENGLISH LINE ABOUT THE WRONG PEOPLE.** 感情's third read *I don't like him any more than he likes me*
+for 我们之间已经没有感情了, which says there are no feelings left BETWEEN US — neither 我 nor 他 is in the
+sentence, and the English is a different claim about a different number of people. 胳膊's second called an
+arm an ELBOW (肘), on a card whose one-word gloss is *arm*; 歌声's first made a 歌声 into countable *songs*;
+钢琴's turned 不错 into *without mistakes*; 改's turned 该 into *had to* and then asked *where do we have to
+change*, which in English is about trains.
+
+**THREE SENTENCES WENT.** 复杂 and 改变 each said the same thing twice — 语法非常复杂 beside 语法是很复杂的,
+and 什么都不会改变 beside 什么都改变了. And **父子's first line was 父父子子**, a fragment of the Confucian
+君君臣臣父父子子, which is not a sentence and **does not contain the word**: what is on the card is 父父
+followed by 子子. It was the record's own row, so the array was replaced and the fragment named in `dropEx`.
+
+**THE `highway` SITES, AND WHY THEY ARE NOT A LEXIS ROW.** 高速's two sentences called a 高速路 and a
+高速公路 a *highway*, which is American; the British word for that road is a motorway, and the same sentence
+is carried by 驮 and 货运 in Levels 7–9, so four sites were corrected together. **It must not become a
+`exLexis` row**, and the reason is batch 30's `program` finding exactly: 公路 on its own is an ordinary main
+road, which British English does call a highway in law, so the right word depends on which road the sentence
+means. **Two sites are left standing and are recorded here rather than swept**: `hsk30l4/公路` is glossed
+*highway* while its own three sentences translate it *the street* and *the road*, and `hsk30l5/架` renders
+上高架 as *take the highway* where 高架 is a flyover. Both are outside this batch's range and both want
+reading rather than replacing.
+
+**TWO SINGLE-CHARACTER CARDS GAINED `Compounds`** — 改 (one word in the deck against seventeen in the
+collection) and 敢, whose two rows are **both of the other words the whole collection holds** on that
+character. 赶 (three) and 感 (six) were measured and left.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 407 → 413;
 `build-lang-decks.js` re-run.

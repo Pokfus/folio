@@ -12933,8 +12933,17 @@
       ]
     },
     "hsk30l4/改变": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "to change, to alter (deliberately)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | Its second and third lines were the same frame twice — 什么都不会改变 and 什么都改变了 — so two of three taught 什么都. Replaced with an AUTHORED sentence, which the record says so is.",
+      "gloss": "to change, to alter (deliberately)",
+      "dropEx": [
+        "什么都改变了。"
+      ],
+      "ex": [
+        [
+          "这件事改变了他的一生。",
+          "This changed the whole course of his life."
+        ]
+      ]
     },
     "hsk30l4/数": {
       "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
@@ -13060,12 +13069,8 @@
       ]
     },
     "hsk30l4/父子": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '父父子子。' is not a sentence and does not contain the word: it is a fragment of the Confucian 君君臣臣父父子子, four characters in reduplicated pairs, so what is on the card is 父父 and 子子 rather than 父子. It was the record's OWN row, so the array is replaced and the fragment named in dropEx. The replacement is AUTHORED, which the record says so is.",
       "ex": [
-        [
-          "父父子子。",
-          "Let the fathers be fathers and the sons sons."
-        ],
         [
           "他们父子长得一模一样。",
           "Father and son look exactly alike."
@@ -13073,7 +13078,14 @@
         [
           "父子俩在院子里下棋。",
           "Father and son are playing chess in the yard."
+        ],
+        [
+          "这对父子都在同一家工厂上班。",
+          "This father and son both work at the same factory."
         ]
+      ],
+      "dropEx": [
+        "父父子子。"
       ]
     },
     "hsk30l4/牙膏": {
@@ -13281,24 +13293,30 @@
       ]
     },
     "hsk30l4/高温": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | '…最高温度要到三十八九度…' read 'temperatures of up to 38-9 degrees', which is a range written as a subtraction. 三十八九 is thirty-eight or thirty-nine.",
       "ex": [
         [
           "上海夏天的最高温度要到三十八九度，真快热死了！",
           "Shanghai summers can reach temperatures of up to 38-9 degrees. That is extremely hot!"
         ]
+      ],
+      "exEn": [
+        [
+          "上海夏天的最高温度要到三十八九度",
+          "Shanghai summers can reach thirty-eight or thirty-nine degrees, which is extremely hot!"
+        ]
       ]
     },
     "hsk30l4/高速": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note. | Both of its sentences called a 高速路 and a 高速公路 a HIGHWAY, which is American — the British word for that road is a motorway. THIS IS NOT A LEXIS ROW and must not become one: 公路 on its own is an ordinary main road, which British English does call a highway in law, so the right word depends on which road the sentence means, exactly as batch 30 found for `program`. The two sites here are the record's OWN rows, so the English is corrected in the array.",
       "ex": [
         [
           "那多山地区还没有高速路。所有货运被驮在人的背上或在马的背上。",
-          "There still aren't any highways in this mountain region. All goods are transported on the backs of people and horses."
+          "There are still no motorways in this mountainous region. All goods are carried on the backs of people and horses."
         ],
         [
           "奥地利的高速公路是收费的。",
-          "In Austria, you have to pay to use the highway."
+          "In Austria you have to pay to use the motorway."
         ]
       ]
     },
@@ -76132,31 +76150,44 @@
       ]
     },
     "hsk30l4/负责人": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '请让负责人来一下。' read 'Would the person in charge come over.' — a question with a full stop on the end of it.",
       "ex": [
         [
           "请让负责人来一下。",
           "Would the person in charge come over."
         ]
+      ],
+      "exEn": [
+        [
+          "请让负责人来一下",
+          "Could the person in charge come over, please?"
+        ]
       ]
     },
     "hsk30l4/感人": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '电影真的很感人。' read 'THAT film' where the Chinese says 电影 with no demonstrative at all.",
       "ex": [
         [
           "这是一个感人的故事。",
           "This is a moving story."
         ]
+      ],
+      "exEn": [
+        [
+          "电影真的很感人",
+          "The film was really moving."
+        ]
       ]
     },
     "hsk30l4/高于": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 'greater than' is an adjective phrase under a verb label, and 高 is high rather than great — the card's own sentences are a temperature, a death rate and an output, all of them higher rather than greater.",
       "ex": [
         [
           "今年的产量高于去年。",
           "Output this year is higher than last year's."
         ]
-      ]
+      ],
+      "gloss": "to be higher than"
     },
     "hsk30l4/寒假": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -83976,7 +84007,7 @@
       ]
     },
     "hsk30l7/驮": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The third site of the 高速路 sentence corrected on 高速's card: a motorway rather than a highway. The same sentence is carried by three cards and each keeps its own English.",
       "ex": [
         [
           "驴驮着两袋粮食。",
@@ -83985,6 +84016,12 @@
         [
           "他驮着孩子回家。",
           "He carried the child home on his back."
+        ]
+      ],
+      "exEn": [
+        [
+          "那多山地区还没有高速路",
+          "There are still no motorways in this mountainous region. All goods are carried on the backs of people and horses."
         ]
       ]
     },
@@ -99960,11 +99997,17 @@
       ]
     },
     "hsk30l7/货运": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The second site of the 高速路 sentence corrected on 高速's card: a motorway rather than a highway.",
       "ex": [
         [
           "这条铁路以货运为主。",
           "This railway is mainly for freight."
+        ]
+      ],
+      "exEn": [
+        [
+          "那多山地区还没有高速路",
+          "There are still no motorways in this mountainous region. All goods are carried on the backs of people and horses."
         ]
       ]
     },
@@ -102485,8 +102528,14 @@
       ]
     },
     "hsk30l4/感情": {
-      "why": "check-gloss-source.js: its gloss was 'feeling', which is 感觉's CC-CEDICT entry two cards before it ('feeling; impression; sensation'), not its own. CC-CEDICT gives 感情 'emotion; sentiment / affection; feelings between two persons', and all three of the card's examples are about an affective bond between people (玩弄他的感情, 我们之间已经没有感情了). Reglossed to name that. The `not 情感` block goes with the reworded gloss, as the applier's rule has it; 情感's own card keeps 'feeling' and its own hint, which still points at a genuine near-synonym.",
-      "gloss": "emotion; affection; feelings between two people"
+      "why": "check-gloss-source.js: its gloss was 'feeling', which is 感觉's CC-CEDICT entry two cards before it ('feeling; impression; sensation'), not its own. CC-CEDICT gives 感情 'emotion; sentiment / affection; feelings between two persons', and all three of the card's examples are about an affective bond between people (玩弄他的感情, 我们之间已经没有感情了). Reglossed to name that. The `not 情感` block goes with the reworded gloss, as the applier's rule has it; 情感's own card keeps 'feeling' and its own hint, which still points at a genuine near-synonym. | '我们之间已经没有感情了。' read 'I don't like him any more than he likes me', which is a different claim about different people — the Chinese says there are no feelings left BETWEEN US, and neither 我 nor 他 is in it.",
+      "gloss": "emotion; affection; feelings between two people",
+      "exEn": [
+        [
+          "我们之间已经没有感情了",
+          "There are no feelings left between us."
+        ]
+      ]
     },
     "hsk30l6/视力": {
       "why": "check-gloss-source.js: its gloss was 'vision; sight', which is 视觉's CC-CEDICT entry two cards before it. 视力 is 'eyesight; visual acuity' — what an eye test measures — and all three examples are eye tests and blurred vision (请验验我的视力, 你最近检查视力了吗). Reglossed to the dictionary's own words; 视觉 keeps 'sight' and the two are now distinct.",
@@ -115214,6 +115263,166 @@
           "股份",
           "gǔ fèn",
           "a share in a company"
+        ]
+      ]
+    },
+    "hsk30l4/负责": {
+      "why": "Labelled 'verb / adjective' against the single gloss 'responsible for', which is neither — it is an adjective PHRASE, and the verb sense the card's own three sentences all are had no gloss at all. Split, and tagged.",
+      "senses": [
+        [
+          "verb",
+          "to be in charge of; to take responsibility for"
+        ],
+        [
+          "adjective",
+          "responsible; conscientious"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/感受": {
+      "why": "The gloss ran a verb and two nouns together with nothing between them — 'be affected by; feeling; perception' — under a 'noun / verb' label. Split, and tagged: the card's own lines are two verbs to one noun.",
+      "senses": [
+        [
+          "verb",
+          "to feel; to experience"
+        ],
+        [
+          "noun",
+          "a feeling; an impression"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ]
+    },
+    "hsk30l4/感觉": {
+      "why": "Labelled 'noun / verb' against the single gloss 'feel', so the noun sense — which the card's own second sentence is, 我的手指没有感觉 — had no gloss.",
+      "senses": [
+        [
+          "verb",
+          "to feel"
+        ],
+        [
+          "noun",
+          "a feeling; a sensation"
+        ]
+      ]
+    },
+    "hsk30l4/感": {
+      "why": "Labelled a SUFFIX and glossed only as one, where the card's own second and third sentences are the VERB — 感兴趣 split by 不, and 感受到. CC-CEDICT gives both.",
+      "senses": [
+        [
+          "noun / suffix",
+          "a feeling; a sense of ~"
+        ],
+        [
+          "verb",
+          "to feel; to be moved"
+        ]
+      ]
+    },
+    "hsk30l4/赶": {
+      "why": "Glossed 'to catch up', which is one of the things 赶 does and none of the three the card's own sentences do — 赶时间 is to be in a hurry, 赶你走 is to drive somebody out, 赶来 is to hurry over. CC-CEDICT's list opens with the overtaking sense and carries all of them. | '对不起，刚刚还想赶你走。' read 'Sorry, I just wanted to drive you away', which loses 刚刚还 — a moment ago, and even then.",
+      "gloss": "to hurry; to catch up with; to drive away",
+      "exEn": [
+        [
+          "对不起，刚刚还想赶你走",
+          "Sorry — a moment ago I even wanted to throw you out."
+        ]
+      ]
+    },
+    "hsk30l4/赶紧": {
+      "why": "'at once; losing no time; hasten' puts a participle phrase and a VERB under an adverb label.",
+      "gloss": "at once; without delay"
+    },
+    "hsk30l4/复杂": {
+      "why": "Its first and third lines were the same sentence twice — 语法非常复杂 and 语法是很复杂的, both of them grammar being complicated. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "语法是很复杂的。"
+      ],
+      "ex": [
+        [
+          "这个问题比我想的复杂。",
+          "This problem is more complicated than I thought."
+        ]
+      ]
+    },
+    "hsk30l4/胳膊": {
+      "why": "'他把身子靠在胳膊上。' read 'He leaned on his ELBOWS' — an elbow is 肘, and 胳膊 is the arm, which is the card's own one-word gloss.",
+      "exEn": [
+        [
+          "他把身子靠在胳膊上",
+          "He leaned on his arms."
+        ]
+      ]
+    },
+    "hsk30l4/歌声": {
+      "why": "'远处传来歌声。' read 'SONGS can be heard in the distance' — a 歌声 is the SOUND of singing rather than a countable song, which is what the card's gloss says.",
+      "exEn": [
+        [
+          "远处传来歌声",
+          "Singing could be heard in the distance."
+        ]
+      ]
+    },
+    "hsk30l4/钢琴": {
+      "why": "'他钢琴弹得不错。' read 'He plays the piano WITHOUT MISTAKES' — 不错 is not bad, quite good; nothing in the sentence is about mistakes.",
+      "exEn": [
+        [
+          "他钢琴弹得不错",
+          "He plays the piano quite well."
+        ]
+      ]
+    },
+    "hsk30l4/改": {
+      "why": "'我该改一下我的计划。' read 'I HAD TO change my plans' — 该 is should and 一下 softens it; and 我们要改哪里 read 'Where do we have to change?', which in English is about trains. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 改变, against seventeen in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "我该改一下我的计划",
+          "I should change my plans a little."
+        ],
+        [
+          "我们要改哪里",
+          "Which part do we need to change?"
+        ]
+      ],
+      "compounds": [
+        [
+          "改革",
+          "gǎi gé",
+          "reform; to reform"
+        ],
+        [
+          "修改",
+          "xiū gǎi",
+          "to amend; to revise"
+        ],
+        [
+          "改正",
+          "gǎi zhèng",
+          "to correct; to put right"
+        ]
+      ]
+    },
+    "hsk30l4/敢": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 勇敢. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. The collection holds only three words on this character, so these are both of the others.",
+      "compounds": [
+        [
+          "敢于",
+          "gǎn yú",
+          "to dare to; to have the courage to"
+        ],
+        [
+          "果敢",
+          "guǒ gǎn",
+          "resolute; courageous"
         ]
       ]
     }
