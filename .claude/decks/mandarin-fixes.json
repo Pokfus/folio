@@ -12988,20 +12988,25 @@
       ]
     },
     "hsk30l4/数": {
-      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | The card's first sentence shows a sense neither of its two senses covers: 数年过去了 is shù meaning `several, a few`, which CC-CEDICT gives outright (/number; figure/several; a few/) and which is where a learner first meets this reading — 数年, 数十, 数百. Added to the shù sense rather than made a third, since it is the same reading and the same part of speech; and each sentence now says which of the two readings it is showing, which on a two-reading card is the whole difficulty.",
       "Pinyin": "shù / shǔ",
       "Bopomofo": "ㄕㄨˋ / ㄕㄨˇ",
       "senses": [
         [
           "shù",
           "noun / numeral",
-          "number; figure; mathematics"
+          "number; figure; mathematics; several, a few"
         ],
         [
           "shǔ",
           "verb",
           "to count; to enumerate; to be reckoned as"
         ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
       ]
     },
     "hsk30l4/日子": {
@@ -19231,7 +19236,7 @@
       ]
     },
     "hsk30l6/数目": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Glossed `amount`, the same single English word as hsk30l4/数量, which is why the two carried a `not X` hint pair. Sharpened to the sense this card's own sentences show — a sum, a total, the figure arrived at by counting — so the pair can be retired rather than kept papering over one English word doing two jobs.",
       "ex": [
         [
           "1000美元是个大数目。",
@@ -19245,7 +19250,8 @@
           "数目对不上。",
           "The numbers do not tally."
         ]
-      ]
+      ],
+      "gloss": "a number or a sum; the figure itself"
     },
     "hsk30l6/新媒体": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -110203,13 +110209,14 @@
       ]
     },
     "hsk30l4/市区": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Downtown” is American and has no one-word British equivalent, which is why it is not in the table: each of its five sentences wants a different phrase. ",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Downtown” is American and has no one-word British equivalent, which is why it is not in the table: each of its five sentences wants a different phrase.  | Glossed `urban district`, CC-CEDICT's first and the most bureaucratic of its three, while the card's own English lines say `in the city`, `into town` and `the town centre`. The gloss is not wrong; it is the one wording of the three a learner will never use.",
       "exEn": [
         [
           "到市区的公车站牌在哪里",
           "Where is the bus stop for the town centre?"
         ]
-      ]
+      ],
+      "gloss": "an urban district; the town centre, downtown"
     },
     "hsk30l5/中心": {
       "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Downtown” is American and has no one-word British equivalent, which is why it is not in the table: each of its five sentences wants a different phrase. ",
@@ -119313,6 +119320,218 @@
           "depth; profundity"
         ]
       ]
+    },
+    "hsk30l4/首": {
+      "why": "The label and the gloss were two DIFFERENT senses of the character, and the card's sentences show neither of them together: it is labelled `measure word` over the gloss `first (occasion, thing etc.)`, which is CC-CEDICT's third sense — the 首 of 首次 and 首都 — while all three sentences are 这首歌, the classifier for songs and poems. So the reader is told the word is a measure word and then told what it means as a noun, with nothing to connect the two. Both senses are now given, the classifier leading because that is what the card teaches, and each sentence says which it shows. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows two words, 首都 and 首先. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "measure word",
+          "for songs and poems"
+        ],
+        [
+          "noun",
+          "the head; the chief; the first"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "首次",
+          "shǒu cì",
+          "for the first time"
+        ],
+        [
+          "首领",
+          "shǒu lǐng",
+          "a head; a chief"
+        ],
+        [
+          "元首",
+          "yuán shǒu",
+          "a head of state"
+        ],
+        [
+          "部首",
+          "bù shǒu",
+          "the radical of a Chinese character"
+        ]
+      ]
+    },
+    "hsk30l4/数字": {
+      "why": "Glossed **`digital`** — CC-CEDICT's last sense, the attributive of 数字电视 — on a card whose three sentences are all the plain noun: 算数处理数字, 那些数字是什么, 这些数字总数不符. A reader would learn the one sense the card never shows and miss the one it teaches three times.",
+      "gloss": "a number, a figure, a digit; digital"
+    },
+    "hsk30l4/受不了": {
+      "why": "Glossed `cannot bear it`, with an object pinned to it that the word does not carry — 受不了 takes whatever object the sentence gives it, and the card's own sentences give three different ones.",
+      "gloss": "cannot bear; cannot stand"
+    },
+    "hsk30l4/帅": {
+      "why": "Glossed `handsome` alone, which is right about people and misses the use a learner meets constantly: CC-CEDICT gives /handsome; graceful; dashing; elegant/ and then `(coll.) cool!; sweet!`, which is what 帅 does for a car, a move or a haircut. The third sentence was also the first one again — 你真的很帅 and 你男朋友真帅 are both `really handsome` — so it is replaced with the sense the widened gloss now names. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all — and nor does the rest of the collection, which holds no other word built on this character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. The military rows are the character's older and commoner meaning, which the card's gloss does not reach at all.",
+      "gloss": "handsome, dashing; (colloquially) smart, cool",
+      "dropEx": [
+        "你男朋友真帅"
+      ],
+      "ex": [
+        [
+          "这辆车真帅！",
+          "That car looks really cool!"
+        ]
+      ],
+      "compounds": [
+        [
+          "帅哥",
+          "shuài gē",
+          "a good-looking young man"
+        ],
+        [
+          "帅气",
+          "shuài qì",
+          "handsome; dashing"
+        ],
+        [
+          "元帅",
+          "yuán shuài",
+          "a marshal; a commander-in-chief"
+        ],
+        [
+          "统帅",
+          "tǒng shuài",
+          "a commander-in-chief"
+        ]
+      ]
+    },
+    "hsk30l4/数量": {
+      "why": "Glossed `amount`, the same single English word as hsk30l6/数目, so the two were one question with two right answers and carried a `not 数目` / `not 数量` hint pair between them. The distinction is real and the cards' own sentences make it: 数量 is HOW MUCH or HOW MANY there is of something (数量不对, 机动车数量增加了), where 数目 is the FIGURE itself, a sum or a total (1000美元是个大数目, 请核对一下数目). Given those, the two no longer collide and the hint pair is retired — which it had to be in any case, since a sense rewrite rebuilds the English field and drops the block.",
+      "gloss": "a quantity, an amount; how many there are"
+    },
+    "hsk30l4/收入": {
+      "why": "The card named `noun / verb` over the single noun gloss `income`, and all three of its sentences are the noun. 收入 does take a verb use — to take in, to include in — but no sentence on the card shows it and a label with nothing behind it is a promise the card does not keep.",
+      "senses": [
+        [
+          "noun",
+          "income; earnings"
+        ]
+      ]
+    },
+    "hsk30l4/首先": {
+      "why": "The card named `adverb / pronoun`, and 首先 is not a pronoun in any sense — CC-CEDICT gives /first of all; in the first place/ and nothing else. All three sentences are the adverb.",
+      "senses": [
+        [
+          "adverb",
+          "first of all; to begin with"
+        ]
+      ]
+    },
+    "hsk30l4/世纪": {
+      "why": "The first two sentences were the same fact stated twice, once each way round: 一个世纪就是一百年 (`A century is one hundred years`) and 一百年叫做一个世纪 (`A hundred years is called a century`). The second teaches nothing the first did not. Replaced with the word used rather than defined. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "一百年叫做一个世纪"
+      ],
+      "ex": [
+        [
+          "二十世纪发生了两次世界大战。",
+          "Two world wars happened in the twentieth century."
+        ]
+      ]
+    },
+    "hsk30l4/使用": {
+      "why": "Two of the three sentences were the same question: 你知道怎么使用吗？ and 我不知道如何使用它。 differ only in the person and in 怎么 against 如何, and their English lines are `Do you know how to use this?` and `I do not know how to use it.` Replaced with a different construction. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我不知道如何使用它"
+      ],
+      "ex": [
+        [
+          "这个软件可以免费使用。",
+          "This software can be used free of charge."
+        ]
+      ]
+    },
+    "hsk30l4/收费": {
+      "why": "An example sentence was word-order-wrong Chinese built on a calque: 我为了停车计时收费器需要它 puts 为了…需要它 the wrong way round, and 停车计时收费器 is `parking meter` rendered morpheme by morpheme. Replaced with the ordinary use. (This is also the sentence batch 32's one-way-spelling sweep left standing as the corpus's single correct `meter` — the DEVICE, which is `meter` in British English too; the adjudication is moot now that the sentence is gone.) AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我为了停车计时收费器需要它"
+      ],
+      "ex": [
+        [
+          "这个停车场收费吗？",
+          "Does this car park charge?"
+        ]
+      ]
+    },
+    "hsk30l4/树林": {
+      "why": "An example sentence carried the wrong measure word: 有一个穿过树林的小路 — a 小路 takes 条, not 个, so the sentence is ungrammatical in the one place a learner is most likely to copy it from. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "有一个穿过树林的小路"
+      ],
+      "ex": [
+        [
+          "树林里很安静。",
+          "It is quiet in the woods."
+        ]
+      ]
+    },
+    "hsk30l4/熟": {
+      "why": "The card glosses four senses — ripe, cooked, familiar, skilled — and showed the last two twice over and the first two not at all: 人生地不熟 and 眼熟 are both `familiar`, 记熟 is `thoroughly`, and nothing on the card is ripe or cooked, which is where a learner meets the character first. The 人生地不熟 line also carries a stray 的 on the end of the idiom. Replaced with the leading sense. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 熟悉. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "我人生地不熟的"
+      ],
+      "ex": [
+        [
+          "这个西瓜熟了。",
+          "This watermelon is ripe."
+        ]
+      ],
+      "compounds": [
+        [
+          "成熟",
+          "chéng shú",
+          "mature; to ripen"
+        ],
+        [
+          "熟练",
+          "shú liàn",
+          "skilled; proficient"
+        ],
+        [
+          "熟人",
+          "shú rén",
+          "an acquaintance"
+        ],
+        [
+          "眼熟",
+          "yǎn shú",
+          "familiar-looking"
+        ]
+      ]
+    },
+    "hsk30l4/输": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "输入",
+          "shū rù",
+          "to input; to import"
+        ],
+        [
+          "运输",
+          "yùn shū",
+          "to transport; transportation"
+        ],
+        [
+          "输赢",
+          "shū yíng",
+          "win or loss; the outcome"
+        ],
+        [
+          "输血",
+          "shū xuè",
+          "to give a blood transfusion"
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -119471,7 +119690,6 @@
     "hsk30l4/播放": "转播",
     "hsk30l4/擦": "揉",
     "hsk30l4/教师": "老师",
-    "hsk30l4/数量": "数目",
     "hsk30l4/方面": "层面",
     "hsk30l4/早餐": "早饭",
     "hsk30l4/晚餐": "晚饭",
@@ -119643,7 +119861,6 @@
     "hsk30l6/技巧": "手法",
     "hsk30l6/捕": "逮",
     "hsk30l6/改编": "适应",
-    "hsk30l6/数目": "数量",
     "hsk30l6/时光": "时间",
     "hsk30l6/景象": "画面",
     "hsk30l6/朝代": "王朝",

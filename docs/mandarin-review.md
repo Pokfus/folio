@@ -598,6 +598,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 571–600 (签证 → 缺少), deck order | 25 | a gloss that was not any sense the word has, and a `not X` hint retired by giving both cards their real meaning |
 | 2026-09-17 | `hsk30l4` notes 601–630 (却 → 少见), deck order | 15 | a headword that was not in its own sentence at all, twice, and invisible to the checker both times |
 | 2026-09-17 | `hsk30l4` notes 631–660 (少量 → 使), deck order, plus a new `cell phone` LEXIS row and a petrol sweep | 33 | a card glossed `province` not one of whose three sentences is a province |
+| 2026-09-17 | `hsk30l4` notes 661–690 (使馆 → 顺便), deck order | 16 | a label and a gloss that were two different senses of the same character |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6105,4 +6106,75 @@ sentence but whose gloss covers both, the adverbial use (深受影响) being one
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; **shared-gloss groups 329 → 328**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 548 → 557;
+`build-lang-decks.js` re-run.
+
+## Batch 63 — hsk30l4 notes 661–690 (使馆 → 顺便)
+
+Thirty consecutive notes of the HSK 4 deck; **sixteen changed**.
+
+**The leading fault is one shape further on from the label-against-gloss class this audit keeps
+finding: a label and a gloss that are two DIFFERENT SENSES of the same character.** 首 is labelled
+`measure word` over the gloss **`first (occasion, thing etc.)`** — which is CC-CEDICT's third sense,
+the 首 of 首次 and 首都 — while all three of its sentences are 这首歌, the classifier for songs and
+poems. The reader is told what part of speech the word is and then told what it means as something
+else, with nothing connecting the two. Both senses are now given with the classifier leading, and each
+sentence says which it shows. **数字 is the same fault without the label**: glossed **`digital`**,
+CC-CEDICT's last sense and the attributive of 数字电视, on a card whose three sentences are all the
+plain noun.
+
+**A fourth hint pair retired, and this one by sharpening both sides.** 数量 and 数目 were both glossed
+`amount` — one English word doing two jobs — and carried a `not X` pair between them. The distinction
+is real and each card's own sentences make it: **数量 is HOW MUCH or HOW MANY there is of something**
+(数量不对, 机动车数量增加了), where **数目 is the FIGURE itself, a sum or a total** (1000美元是个大数目,
+请核对一下数目). Given those, the pair is retired rather than kept papering over the collision. Shared
+groups 328 → 327; the fifth pair retired in this audit, after 基础/基地, 民族/国籍, 敲/撞 and 省/省份.
+
+**A card that was a sense short, on its harder kind.** 数's first sentence, 数年过去了, is shù meaning
+**`several, a few`** — CC-CEDICT gives it outright and it is where a learner first meets that reading,
+in 数年, 数十, 数百 — and neither of the card's two senses covered it. It is added to the shù sense
+rather than made a third, being the same reading and the same part of speech, and each sentence now
+says which of the two READINGS it shows, which on a two-reading card is the whole difficulty.
+
+**Five sentences replaced, and two of the reasons are new to this run.** 世纪's first two were **the
+same fact stated twice, once each way round** — 一个世纪就是一百年 and 一百年叫做一个世纪 — so the
+second taught nothing the first did not; replaced with the word used rather than defined. 树林's third
+carried **the wrong measure word**: 有一个穿过树林的小路, where a 小路 takes 条, so the sentence is
+ungrammatical in the one place a learner is most likely to copy it from. 收费's was word-order-wrong
+Chinese built on a calque (为了…需要它 the wrong way round, and 停车计时收费器 for *parking meter*
+morpheme by morpheme) — **and it is the sentence batch 32's one-way-spelling sweep left standing as the
+corpus's single correct `meter`**, the DEVICE, which is `meter` in British English too; that
+adjudication is moot now the sentence is gone. 使用's third differed from its second only in the
+person, and 熟's first carried a stray 的 on the end of an idiom.
+
+**And 熟 shows the "different constructions" rule biting on SENSES rather than on shapes.** It glosses
+four — ripe, cooked, familiar, skilled — and showed the last two twice over (人生地不熟, 眼熟, 记熟) and
+the first two not at all, which is where a learner meets the character first. 这个西瓜熟了 replaces one
+of the two familiars. 帅 is the same argument: 你真的很帅 and 你男朋友真帅 are one sentence twice, and
+CC-CEDICT's `(coll.) cool!; sweet!` — what 帅 does for a car or a move — was neither glossed nor shown.
+
+**Two more labels with nothing behind them**: 收入 named `noun / verb` over a noun gloss with three
+noun sentences, and 首先 named `adverb / pronoun`, which 首先 is not in any sense CC-CEDICT gives. Two
+more glosses narrowed to the wrong register: 市区's `urban district` is the most bureaucratic of its
+three senses while the card's own English says *into town* and *the town centre*, and 受不了 pinned an
+object to itself (`cannot bear it`) that the word does not carry.
+
+**Four `Compounds` blocks.** 输 and 帅 had **nothing at all** in the reader's downloaded deck, and 帅
+has nothing anywhere in the collection either — **the second such character in this audit, after 扔**.
+熟 had one word and 首 two. 帅's block is deliberately half military (元帅, 统帅): that is the
+character's older and commoner meaning and the card's gloss does not reach it at all.
+
+**A trap in the record's own writing, worth keeping.** The scratchpad helper that merges an entry
+CONCATENATES arrays — which is right for `ex`, `dropEx` and `exEn`, where a later batch adds to what an
+earlier one wrote, and **wrong for `senses`, which is a replacement**. 数 already carried a `senses`
+array from an earlier batch, so the first run gave the card FOUR senses, the old pair followed by the
+new one. It renders perfectly — the card simply lists each reading twice — and nothing in the applier
+objects. Caught by reading the diff. **`senses` is set, never merged.**
+
+**Read and left.** 使馆 (whose second and third sentences say 大使馆, which is the headword with a
+prefix rather than a swallow), 市场, 是否, 适合, 视频, 试题, 适应, 收拾, 收听, 首都, 售票员, 受伤, 输
+(its sentences), 熟悉, 暑假, 数量 (its sentences), 帅 (its first two), 顺便.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 328 → 327**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 557 → 563;
 `build-lang-decks.js` re-run.
