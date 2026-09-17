@@ -3907,7 +3907,16 @@ window.GLOSSARY = {
 "Manuel_Chrysoloras": "<b>Manuel Chrysoloras</b> was a Byzantine scholar and diplomat who taught Greek at Florence from 1397 to 1400, to pupils who included Leonardo Bruni, Roberto Rossi and Niccolò Niccoli.<sup class=\"fn\" data-fn=\"1\"></sup> He spent the greater part of his career in the West as an envoy of the emperor Manuel II, seeking military help against the Ottomans, and in 1411 sent that emperor a letter comparing old and new Rome.<sup class=\"fn\" data-fn=\"2\"></sup> His question-and-answer grammar, the Erotemata, was the only Greek grammar in general use in Italy until 1476 and was printed at Venice in 1484.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Philippi": "<b>Philippi</b> is the ancient city of eastern Macedonia founded as Krenides in 360 or 359 BCE by colonists from Thasos, and renamed by Philip II, who took it in 356 BCE, walled it and settled new people in it.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus says Philip improved the scanty gold mines of its territory until they yielded him more than a thousand talents a year, which paid for mercenaries and for the gold coins called philippeioi.<sup class=\"fn\" data-fn=\"2\"></sup> In 42 BCE the armies of the Roman civil war fought in its plain, after which Roman colonists were settled there, and Paul founded a Christian church in the city in 49 CE.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Second_Sophistic": "The <b>Second Sophistic</b> is the name Philostratus coined for the Greek rhetorical culture of the Roman empire, insisting in his Lives of the Sophists that the manner should be called not new but second, and naming Aeschines of Athens as its founder.<sup class=\"fn\" data-fn=\"1\"></sup> Unlike the older sophistic, which he treats as philosophic rhetoric, it took definite themes from history and sketched the types of rich men and poor men, of princes and tyrants.<sup class=\"fn\" data-fn=\"1\"></sup> Its speakers were public men who represented cities and could rise in imperial service, as Dionysius of Miletus did when Hadrian made him a knight and a procurator.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Thessaloniki": "<b>Thessaloniki</b> is the Greek city at the head of the Thermaic Gulf, founded about 316 BCE by Cassander, who gathered the people of 26 small towns on the site and named it after his wife, a sister of Alexander the Great.<sup class=\"fn\" data-fn=\"1\"></sup> It stood where the Aegean met the land route north through the Axios valley, became the capital of the Roman province of Macedonia in 146 BCE and was made a colonia under Decius.<sup class=\"fn\" data-fn=\"1\"></sup> Pliny lists it among the free cities of the province and reckons about 360 kilometres (245 Roman miles) from it to Dyrrhachium on the Adriatic.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Thessaloniki": "<b>Thessaloniki</b> is the Greek city at the head of the Thermaic Gulf, founded about 316 BCE by Cassander, who gathered the people of 26 small towns on the site and named it after his wife, a sister of Alexander the Great.<sup class=\"fn\" data-fn=\"1\"></sup> It stood where the Aegean met the land route north through the Axios valley, became the capital of the Roman province of Macedonia in 146 BCE and was made a colonia under Decius.<sup class=\"fn\" data-fn=\"1\"></sup> Pliny lists it among the free cities of the province and reckons about 360 kilometres (245 Roman miles) from it to Dyrrhachium on the Adriatic.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Greek_mythology": "Greek mythology is the body of traditional stories the ancient Greeks told about their gods, their heroes and the beginnings of the world, carried in epic, lyric, tragedy, comedy, painted pottery and temple sculpture rather than in any single authorised text.<sup class=\"fn\" data-fn=\"1\"></sup> It survives in competing versions, since every telling reshaped what it had received, and there is no one definition of myth that covers all the uses the word is put to.<sup class=\"fn\" data-fn=\"2\"></sup> From the Hellenistic period onwards compilers gathered the stories into handbooks, of which the Library ascribed to Apollodorus is the fullest, and such collections now preserve traditions for which no other source survives.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Cosmogony": "A cosmogony is an account of how the world came into being, told as a narrative of beginnings rather than argued as a theory, and versions of one are found across the ancient Mediterranean and the Near East.<sup class=\"fn\" data-fn=\"1\"></sup> In several of these traditions the world is settled through a succession in which one generation of gods displaces another by force, a pattern attested in Hurro-Hittite and Babylonian poetry before it appears in Greek verse.<sup class=\"fn\" data-fn=\"1\"></sup> Later writers reworked such accounts into philosophical schemes about the relation between gods, human beings and the material world, so the same figures could serve both mythology and speculation.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Chaos_(cosmogony)": "Chaos is the first thing to come into being in the Greek account of the world’s beginning, standing before Earth, before Tartarus and before Eros.<sup class=\"fn\" data-fn=\"1\"></sup> From it are born Erebus and Night, whose own children are the darker powers of the world, so that it heads a line of descent separate from the one that runs to the Olympian gods.<sup class=\"fn\" data-fn=\"1\"></sup> What the word denotes has been argued over for a century, between a gap or opening between heaven and earth and a generative being in its own right, and the sense of a formless muddle carried by the modern English word is a later development.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Gaia": "Gaia is the Earth personified and worshipped as a goddess in Greek myth, one of the first beings to come into existence and called the ever-sure foundation of everything that follows.<sup class=\"fn\" data-fn=\"1\"></sup> She bears Heaven, the long hills and the barren sea, and then by Heaven the Titans, the Cyclopes and the hundred-handed brothers, so that most later divine genealogy descends from her.<sup class=\"fn\" data-fn=\"1\"></sup> A hymn addresses her as mother of all and eldest of all beings, who feeds every creature that walks or swims or flies and who grants or withholds the means of life to mortals.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Uranus_(mythology)": "Uranus is the sky personified as a god in Greek myth and the first ruler of the world, born of Earth and afterwards her consort.<sup class=\"fn\" data-fn=\"1\"></sup> He hid each of his children inside their mother as it was born, until Earth shaped a flint sickle and her son Cronus unmanned him from an ambush; the blood that fell produced the Erinyes and the Giants, and Aphrodite grew in the sea foam around the severed flesh.<sup class=\"fn\" data-fn=\"1\"></sup> The scene has close counterparts in Hurro-Hittite poetry, although the separation of heaven from earth that it carries in the Greek version does not appear to be its meaning there.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Titans": "The Titans are the twelve children of Earth and Heaven in Greek myth, the generation that held the world before the Olympian gods defeated them and shut them beneath it.<sup class=\"fn\" data-fn=\"1\"></sup> Their name is explained inside the earliest account from a word for straining, their father having called them so in reproach for an overreaching deed, and the list of who belonged to them was never quite fixed.<sup class=\"fn\" data-fn=\"1\"></sup> Only Cronus among them received cult worth the name, and the group resembles the Hittite Former Gods, a displaced generation likewise imprisoned in the underworld and sometimes counted as twelve.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Cronus": "Cronus is the youngest of the Titans in Greek myth and the ruler of the world between his father Uranus and his son Zeus.<sup class=\"fn\" data-fn=\"1\"></sup> He took the sickle his mother offered and unmanned his father, then held the rule by swallowing each of his own children at birth, having been warned that a son would overcome him; a stone in swaddling clothes was substituted for the last of them and later disgorged with the rest.<sup class=\"fn\" data-fn=\"1\"></sup> He is the one Titan with any cult at all, and festivals named after him could reverse for a day the ordinary order between masters and slaves.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Titanomachy": "The Titanomachy is the war in Greek myth by which Zeus and his brothers and sisters took the rule of the world from the Titans, fought for ten years with the issue evenly balanced.<sup class=\"fn\" data-fn=\"1\"></sup> It was decided when the younger gods released the hundred-handed brothers imprisoned beneath the earth, whose rocks buried the Titans and who were afterwards left as the warders of their prison in Tartarus.<sup class=\"fn\" data-fn=\"1\"></sup> A lost epic of the same name, ascribed in antiquity to Eumelus of Corinth, told the war at length but survives only in a handful of fragments quoted by later writers.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Rhea_(mythology)": "Rhea is a Titaness in Greek myth, the sister and wife of Cronus and the mother of Hestia, Demeter, Hera, Hades, Poseidon and Zeus.<sup class=\"fn\" data-fn=\"1\"></sup> When her husband swallowed each child at birth she concealed the last of them, handing him a stone in swaddling clothes instead and bearing Zeus in Crete, where the infant was hidden in a cave and reared in secret.<sup class=\"fn\" data-fn=\"1\"></sup> In later Greek writing she was drawn together with the Phrygian Mother of the Gods, so that images of a seated goddess cannot always be assigned to one of the two rather than the other.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -8236,7 +8245,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Via_Egnatia": ["Egnatian Way"],
 "Achaea_(Roman_province)": ["province of Achaea","Roman Achaea"],
 "Manuel_Chrysoloras": ["Chrysoloras"],
-"Thessaloniki": ["Thessalonica","Thessalonike"]
+"Thessaloniki": ["Thessalonica","Thessalonike"],
+"Chaos_(cosmogony)": ["Chaos"],
+"Gaia": ["Gaea"],
+"Uranus_(mythology)": ["Ouranos","Uranus"],
+"Titans": ["Titan"],
+"Cronus": ["Kronos"],
+"Rhea_(mythology)": ["Rhea"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -8274,7 +8289,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Varna_(Hinduism)": true,
 "Five_Thousand": true,
 "Four_Hundred": true,
-"Guilty_Men": true
+"Guilty_Men": true,
+"Chaos_(cosmogony)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -12185,7 +12201,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Manuel_Chrysoloras": ["person","literature","education","greece","byzantine","history"],
 "Philippi": ["city","geography","greece","macedonia","history"],
 "Second_Sophistic": ["concept","literature","rhetoric","greece","rome","history"],
-"Thessaloniki": ["city","geography","greece","macedonia","history"]
+"Thessaloniki": ["city","geography","greece","macedonia","history"],
+"Greek_mythology": ["concept","mythology","religion","literature","greece"],
+"Cosmogony": ["concept","mythology","religion","literature"],
+"Chaos_(cosmogony)": ["concept","mythology","religion","greece"],
+"Gaia": ["deity","mythology","religion","greece"],
+"Uranus_(mythology)": ["deity","mythology","religion","greece","near east"],
+"Titans": ["deity","mythology","religion","greece","near east"],
+"Cronus": ["deity","mythology","religion","greece"],
+"Titanomachy": ["event","mythology","religion","greece"],
+"Rhea_(mythology)": ["deity","mythology","religion","greece","crete"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

@@ -1339,15 +1339,37 @@ the alias are the same string.
 ### Olympians and cosmogony — `gr-olympians`
 
     gr-881  Greek mythology
-    gr-882  Greek cosmogony
-    gr-883  Chaos
+    gr-882  Greek cosmogony  — answered by the general word *cosmogony*, which is what the line names:
+             the card is about the Greek accounts and the glossary term is deck-agnostic, as the house
+             rule requires of a general concept. Its second block is the Near Eastern half of the
+             subject, the succession pattern being attested in Hurro-Hittite and Babylonian poetry
+             before it appears in Greek. The picture is NOT the Derveni papyrus, which `gr-366` and the
+             `Presocratic_philosophy` term already carry
+    gr-883  Chaos  — keyed `Chaos_(cosmogony)`, the article title, which claims no bare surface. It is
+             given the bare alias **Chaos** with `caseSensitive: true`, so the seven ordinary lower-case
+             uses in the corpus are not claimed. Measured before the batch: six capitalised occurrences,
+             five of them this god (`gr-141`, `gr-366`, `gr-611`) and one of them NOT — `cnh-027`, where
+             Chaos is one of four monsters Shun banished to the four distant regions. That one wrong
+             link is the accepted cost of the alias, on `Cell_(biology)`'s reasoning; it is recorded
+             here rather than papered over, and if it is ever thought too expensive the answer is to
+             narrow the alias, never to reword the China card
     gr-884  Gaia
-    gr-885  Uranus
+    gr-885  Uranus  — keyed `Uranus_(mythology)`, the bare name being the planet, with `Ouranos` and
+             `Uranus` as aliases: the corpus has no astronomy collection and the bare word occurred
+             nowhere in it before this card
     gr-886  The Titans
     gr-887  Cronus
     gr-888  The Titanomachy
-    gr-889  Rhea
-    gr-890  Zeus
+    gr-889  Rhea  — keyed `Rhea_(mythology)`, the bare name being a bird and a moon of Saturn, with
+             `Rhea` as an alias. That is safe because `Rhea_Silvia` already claims the longer surface
+             and `buildGlossIndex` sorts surfaces longest-first, so `rm-054` still resolves to the Vestal
+    gr-890  Zeus  — **the one card of the ten that needed no new glossary term**: `Zeus` has been a
+             cited term since the citation pass and the pairing rule is satisfied by a term that already
+             exists, so `add-glossary.js` was deliberately not run on it. Its description is about cult
+             at Olympia and on the Peloponnesian mountaintops where the card is about the myth, which is
+             the division of labour the two are meant to have. None of the other nine lines needed a
+             retitle either, allowing for the article: "The Titans" is answered by *Titans* and "The
+             Titanomachy" by *Titanomachy*
     gr-891  Hera
     gr-892  Poseidon
     gr-893  Demeter
