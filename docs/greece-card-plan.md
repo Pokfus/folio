@@ -1177,17 +1177,34 @@ the alias are the same string.
     gr-840  Chrysippus
     gr-841  Epicureanism
     gr-842  Epicurus
-    gr-843  The Garden
-    gr-844  Pyrrho and scepticism
+    gr-843  The Garden  — answered by "Garden of Epicurus" when the card was written: an
+             answer term never carries an article, and a bare "Garden" is an ordinary English
+             word that could not be a glossary key
+    gr-844  Pyrrho and scepticism  — answered by "Pyrrhonism" when the card was written: the
+             line names a man and a doctrine and one card can teach one term, and the tradition
+             is the name a reader meets again in Sextus Empiricus and in modern philosophy;
+             "Pyrrho" rides as an alias of it
     gr-845  Hellenistic sculpture
 
 ### Greece under Rome — `gr-under-rome`
 
-    gr-846  Pyrrhus of Epirus
+    gr-846  Pyrrhus of Epirus  — written as a DELIBERATE PAIR with rm-164, which carries the
+             same answer term: a line named after a man cannot be answered by anything else, so
+             the glossary term is REUSED rather than rewritten and the two cards are written from
+             opposite sides — Rome's on the Italian campaign, this one on Epirus, the Molossian
+             kingship, the two Macedonian reigns and the death at Argos
     gr-847  The Pyrrhic War
-    gr-848  Rome and the Greek East
-    gr-849  The Illyrian Wars
-    gr-850  The First Macedonian War
+    gr-848  Rome and the Greek East  — answered by "symploke" when the card was written:
+             "Rome and the Hellenistic world" is already rm-236's answer term, and the thing this
+             line is actually about has a name of its own — Polybius' word for the interweaving
+             of Greek, Italian and African affairs, dated by him to Naupactus in 217 BCE
+    gr-849  The Illyrian Wars  — answered by "Teuta" when the card was written: the wars are
+             already rm-237's answer term, and the Greek side of them is the Ardiaean queen whose
+             fleets took Phoenice and whose murder of a Roman envoy brought the fleet across
+    gr-850  The First Macedonian War  — answered by "Peace of Phoenice" when the card was
+             written: the war is already rm-238's answer term, and what it left behind is its
+             settlement, negotiated in the Epirote city the Illyrians had sacked a generation
+             earlier and resolving nothing between the two powers
     gr-851  Philip V of Macedon
     gr-852  The Second Macedonian War
     gr-853  Battle of Cynoscephalae

@@ -3877,7 +3877,16 @@ window.GLOSSARY = {
 "Pytheas": "Pytheas was a Greek from Massalia who about 325 BCE sailed into the north-eastern Atlantic and wrote an account of the voyage that is now entirely lost.<sup class=\"fn\" data-fn=\"1\"></sup> Quotations preserved by later geographers credit him with a circuit of Britain, a description of its tin, and a report of an island called Thule six days' sail north of it, beyond which he said the sea could not be navigated.<sup class=\"fn\" data-fn=\"1\"></sup> Eratosthenes used his figures for northern and western Europe while Polybius and Strabo rejected them, and the identity of Thule is still disputed.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Stoicism": "Stoicism is a philosophical school founded at Athens about 300 BCE by Zeno of Citium and named after the painted colonnade in the agora in which he taught.<sup class=\"fn\" data-fn=\"1\"></sup> Its adherents divided philosophy into logic, physics and ethics, insisted that the three could not properly be understood apart, held that everything which exists is corporeal, and identified the ordering principle of the world with reason, god and fate.<sup class=\"fn\" data-fn=\"1\"></sup> Their ethics made virtue the only good and treated other things, health and wealth among them, as indifferent however reasonable it might be to prefer them, defining the end of life as living in agreement with nature.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Zeno_of_Citium": "Zeno of Citium was a philosopher from Cyprus, of Phoenician descent, who founded the Stoic school at Athens about 300 BCE and led it until his death around 262 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient tradition has him turn to philosophy after a shipwreck, becoming a pupil of the Cynic Crates before studying with Megarian logicians and members of the Academy.<sup class=\"fn\" data-fn=\"1\"></sup> He taught in the painted colonnade from which the school took its name, wrote a <i>Republic</i> that later Stoics found awkward, and was the first to define the end of life as agreement with nature.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Chrysippus": "Chrysippus, from Soli or Tarsus in Cilicia, was a Greek philosopher of the 3rd century BCE who became the third head of the Stoic school at Athens and gave its doctrine the systematic form later antiquity knew.<sup class=\"fn\" data-fn=\"1\"></sup> He was credited with more than seven hundred books, none of which survives entire, and with defending the school against the criticisms of the sceptical Academy.<sup class=\"fn\" data-fn=\"1\"></sup> His most lasting work was in logic, where he treated whole propositions rather than terms as the units of inference and reduced argument to a small set of basic forms.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Chrysippus": "Chrysippus, from Soli or Tarsus in Cilicia, was a Greek philosopher of the 3rd century BCE who became the third head of the Stoic school at Athens and gave its doctrine the systematic form later antiquity knew.<sup class=\"fn\" data-fn=\"1\"></sup> He was credited with more than seven hundred books, none of which survives entire, and with defending the school against the criticisms of the sceptical Academy.<sup class=\"fn\" data-fn=\"1\"></sup> His most lasting work was in logic, where he treated whole propositions rather than terms as the units of inference and reduced argument to a small set of basic forms.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Epicureanism": "Epicureanism is a philosophical school founded at Athens about 306 BCE by Epicurus, whose members held its doctrines with unusually little change for some six centuries.<sup class=\"fn\" data-fn=\"1\"></sup> It falls into a canonic on the testing of claims, a physics of atoms in void in which the soul is material and disperses at death, and an ethics whose end is pleasure understood as freedom from bodily pain and mental disturbance.<sup class=\"fn\" data-fn=\"2\"></sup> Its gods exist but are blessed, untroubled and take no part in running the world, so its adherents held that neither divine anger nor death is to be feared, and that natural and necessary desires are cheaply met.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Epicurus": "Epicurus was a Greek philosopher, a citizen of Athens who was brought up on Samos, and the founder of the school that bears his name.<sup class=\"fn\" data-fn=\"1\"></sup> He taught first at Mytilene and Lampsacus and settled at Athens in 307 or 306 BCE, where he bought the property known as the Garden and lived there with his followers until his death.<sup class=\"fn\" data-fn=\"2\"></sup> Diogenes Laertius credits him with about three hundred rolls that cite no other writer, reports that he died of renal stone after a fortnight’s illness, and preserves a will leaving the school and its property to a named successor.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Garden_of_Epicurus": "The Garden of Epicurus was the property at Athens that Epicurus bought as the home of his school, and the name came in time to stand for the school itself.<sup class=\"fn\" data-fn=\"2\"></sup> Apollodorus, quoted by Diogenes Laertius, gives the purchase price as eighty minae and describes a frugal common life there, with property deliberately not pooled on the ground that pooling it would imply distrust among friends.<sup class=\"fn\" data-fn=\"1\"></sup> Pliny took it for the first attempt in Athens at dwelling in the country in the middle of the town, and the founder’s will placed the garden and its appurtenances at the disposal of a named successor and the members studying with him.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pyrrhonism": "Pyrrhonism is the sceptical tradition named after Pyrrho of Elis, who is reported to have held that nothing is by nature any more one thing than another, and that judgement should be withheld.<sup class=\"fn\" data-fn=\"1\"></sup> Pyrrho wrote nothing, so the position is reconstructed from later reports, chiefly the satirical verses of his pupil Timon of Phlius, and the fullest systematic account is the work of Sextus Empiricus some three centuries afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Its adherents assembled sets of modes, ten in the earliest surviving list, which set one appearance against another so that neither can be preferred, and they claimed that tranquillity follows the suspension of judgement as a shadow follows a body.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Hellenistic_sculpture": "Hellenistic sculpture is the sculpture of the Greek world between the death of Alexander and the Roman settlement of the eastern Mediterranean, conventionally dated from 323 to 31 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its leading centres lay outside Greece, at Pergamon, Rhodes, Tralles and Ephesus, and the kings of Pergamon in particular maintained a school of sculptors over several generations.<sup class=\"fn\" data-fn=\"1\"></sup> The work is marked by deep undercutting, poses composed to be walked around, and subjects extending to old age, pain, drunkenness and defeated barbarians, and much of it survives only in Roman marble copies whose relation to the lost originals is disputed.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Pyrrhic_War": "The Pyrrhic War was fought between 280 and 275 BCE by Rome against Pyrrhus of Epirus, who had been invited into Italy by the Greek city of Tarentum and its Samnite and Lucanian allies.<sup class=\"fn\" data-fn=\"2\"></sup> He beat Roman armies at Heraclea and at Asculum at a cost his own forces could not sustain, broke off in 278 to campaign in Sicily against Carthage, and returned to fight an indecisive battle at Beneventum in 275.<sup class=\"fn\" data-fn=\"1\"></sup> He then withdrew to Epirus; the garrison he had left in Tarentum surrendered the citadel in 272 BCE, and the Greek cities of southern Italy passed under Roman control.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Symploke": "Symploke is the term used by the historian Polybius for the interweaving of the affairs of Greece, Italy and Africa into a single connected history.<sup class=\"fn\" data-fn=\"1\"></sup> He dated the change to the 140th Olympiad and to a peace conference at Naupactus in 217 BCE, after which, he writes, the leading men of Greece made war and peace with their eyes on Italy rather than on Greece.<sup class=\"fn\" data-fn=\"2\"></sup> The term carries a claim about method as well as about events: that once the world’s affairs incline in one direction, a history of particular wars gives as poor a view of them as the dissevered limbs of an animal give of the living creature.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Teuta": "Teuta was the queen who governed the Illyrian kingdom on the eastern shore of the Adriatic after the death of her husband Agron about 231 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Under her the Illyrian fleets raided widely, taking Phoenice in Epirus and attacking Corcyra, Epidamnus and Issa, and Italian traders among those robbed carried their complaints to the Roman Senate.<sup class=\"fn\" data-fn=\"1\"></sup> A Roman envoy was killed on his way home from her court, Rome sent an expedition in 229 BCE, and the treaty imposed the following year required tribute and forbade more than two unarmed Illyrian vessels to sail south of Lissus.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Peace_of_Phoenice": "The Peace of Phoenice was the treaty of 205 BCE that ended the first war between Rome and Philip V of Macedon.<sup class=\"fn\" data-fn=\"1\"></sup> It was negotiated at Phoenice in Epirus, with the magistrates of the Epirotes and the king of the Athamanians mediating, and gave Rome the Parthini and three other places while allowing Atintania to pass to Macedon if the Senate consented.<sup class=\"fn\" data-fn=\"1\"></sup> Six further parties were written into it on the Macedonian side and seven on the Roman, the Roman people ratified it because their own war had by then moved to Africa, and it left the questions between the two powers unsettled.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5884,7 +5893,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Pytheas": "fl. c. 325 BCE",
 "Stoicism": "founded c. 300 BCE",
 "Zeno_of_Citium": "c. 334 – 262 BCE",
-"Chrysippus": "c. 280 – c. 206 BCE"
+"Chrysippus": "c. 280 – c. 206 BCE",
+"Epicureanism": "founded c. 306 BCE",
+"Epicurus": "341 – 270 BCE",
+"Garden_of_Epicurus": "bought c. 306 BCE",
+"Pyrrhonism": "from c. 300 BCE",
+"Hellenistic_sculpture": "c. 323 – 31 BCE",
+"Pyrrhic_War": "280 – 275 BCE",
+"Symploke": "dated from 217 BCE",
+"Teuta": "ruled c. 231 – 228 BCE",
+"Peace_of_Phoenice": "205 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8169,7 +8187,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ecumene": ["oikoumene","oecumene","inhabited world"],
 "Pytheas": ["Pytheas of Massalia"],
 "Stoicism": ["Stoic","Stoics"],
-"Chrysippus": ["Chrysippus of Soli"]
+"Chrysippus": ["Chrysippus of Soli"],
+"Epicureanism": ["Epicurean","Epicureans"],
+"Pyrrhonism": ["Pyrrho","Pyrrhonist","Pyrrhonian"],
+"Symploke": ["symplokē"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12088,7 +12109,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pytheas": ["person","geography","exploration","greece"],
 "Stoicism": ["school of thought","concept","philosophy","greece"],
 "Zeno_of_Citium": ["person","philosophy","greece","hellenistic"],
-"Chrysippus": ["person","philosophy","logic","greece","hellenistic"]
+"Chrysippus": ["person","philosophy","logic","greece","hellenistic"],
+"Epicureanism": ["concept","philosophy","greece"],
+"Epicurus": ["person","philosophy","greece"],
+"Garden_of_Epicurus": ["place","philosophy","greece"],
+"Pyrrhonism": ["concept","philosophy","greece"],
+"Hellenistic_sculpture": ["concept","art","sculpture","greece"],
+"Pyrrhic_War": ["event","warfare","history","greece","italy"],
+"Symploke": ["concept","history","greece"],
+"Teuta": ["ruler","person","history","illyria"],
+"Peace_of_Phoenice": ["event","history","politics","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
