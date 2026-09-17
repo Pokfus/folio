@@ -2259,3 +2259,40 @@ would take. The paper's body discusses crown and cylinder glass; the body was no
 replaced with the entailment the two sourced facts actually support: *so whatever makes those panes
 uneven, it is not the glass running.* **A supporting clause is a claim too** — this pass's own T50
 finding, met again.
+
+### T60 — nature.com serves its abstracts, and that closes the Coriolis statement (2026-09-17)
+
+One cited: #84 (the Coriolis effect and the bath). 205 → **206 of 220 (94%)**. T59 had just recorded
+this one as blocked for a reason "no amount of probing will change" — that Shapiro's 1962 letter and
+Trefethen's 1965 reply are of a date when *Nature* letters had no abstract, which Crossref and
+Semantic Scholar both confirmed by returning an empty abstract field. **Both of those indexes were
+wrong about the same thing, and the publisher's own page was never asked.** `nature.com` answers
+here, serves 221 KB for the 1962 letter and 238 KB for the 1965 one, and **both carry an `Abstract`
+section above the paywall gate**.
+
+**AN INDEX'S EMPTY ABSTRACT FIELD IS A FACT ABOUT THE INDEX.** Crossref and Semantic Scholar had
+nothing for either DOI; the abstracts exist and are public. **Ask the publisher before concluding a
+paper has no abstract** — it costs one request, and on this occasion it was the difference between a
+statement cited and a statement written off with a confident reason.
+
+**TREFETHEN'S ABSTRACT IS THE ONE THAT CARRIES THE CLAIM, AND SHAPIRO'S IS ONLY THE SET-UP.** Shapiro
+opens by saying one perennially hears the controversy and states the two camps; his result is in the
+body. Trefethen's says the rotation follows the hemisphere **"provided other influences were kept
+small compared with the influence of the rotation of the Earth"**, and that Shapiro and Binnie reached
+their result **"after surmounting difficulties in their early experiments"**. Those two clauses are the
+whole answer: the effect is real, and it is a fact about a tank in which everything else has been
+suppressed. **Fetch both ends of a controversy** — the paper everyone names was not the useful one.
+
+**THE PAYWALL GATE SITS BELOW THE ABSTRACT, WHICH IS WHY THIS WORKS.** Both pages print "This is a
+preview of subscription content" immediately after the abstract, so the citations carry `[Paywalled]`
+and the reader loses nothing a reader of the note needed. Author names, volume, issue and page range
+all came from Crossref rather than from the page, since Nature's own byline is set in capitals
+(`ASCHER H. SHAPIRO`) and would have shipped that way.
+
+**WHAT NATURE'S REACHABILITY DOES NOT BUY.** The two Terracotta Army papers Folio already cites are
+both *Scientific Reports* and both fetched whole, and **neither recounts the 1974 discovery** —
+Martinón-Torres et al. say only "since the first excavation of these bronze weapons in the 1970s".
+**A scientific paper does not tell the discovery story**, so #1 is not answerable from the corpus's
+own citations however open they are. The same pass found `openstax.org` fully readable (the page is
+server-rendered, despite a first extraction that suggested otherwise) but its Psychology 2e prosocial
+section does not mention the bystander effect at all, and `mdpi.com` 403s.
