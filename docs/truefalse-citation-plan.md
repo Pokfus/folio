@@ -67,10 +67,10 @@ card-side research is then shared.
 | batch | category | note |
 |---|---|---|
 | T1 | Prehistory | **done** — written cited |
-| T2 | Ancient & classical | part done; Greece and Rome cards carry most of it |
+| T2 | Ancient & classical | part done; T2a, T2b and T2c between them |
 | T3 | Chinese history | part done; `cnh-` cards carry most of it |
 | T4 | Modern history | part done; T4a took three of it |
-| T5 | Medieval & early modern | nothing in the corpus yet — research |
+| T5 | Medieval & early modern | part done; T2c took one out of `wh-511` |
 | T6 | Science & invention | the hardest; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six and T7b three, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus |
@@ -492,3 +492,28 @@ date to cite them by, and answer from this sandbox.
 a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
 than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
 belt but does not carry the claim that every probe crossed it without dodging.
+
+### T2c — two lifted out of the corpus, and one the corpus carries behind a paywall (2026-09-17)
+
+Two clean lifts, which is the recipe this plan opens with and the cheapest citation there is: the card's
+source was opened and read when the card was written, and the marker says which sentence it belongs to.
+
+- **Universities founded in the Middle Ages.** `wh-511` *medieval university*, sentence 3, source 1 —
+  Rashdall on archive.org. **THE STATEMENT'S OWN FOUNDATION DATES WERE DROPPED**: it gave Bologna
+  c. 1088, Oxford c. 1096 and Paris c. 1150, and `wh-511` carries none of the three. What the card does
+  carry is better for a True-or-False answer anyway — that in the second half of the 12th century Paris,
+  Bologna, Salerno and Oxford were nearly the whole list of places answering to *studium generale*, and
+  that what made the title worth having was the *jus ubique docendi*.
+- **The Colosseum flooded for a sea-fight.** `wh-362` *Colosseum*, sentence 4, which carries two markers
+  of its own: Cassius Dio 66.25 for the flooding, the cranes and the four elephants, and Suetonius
+  *Divus Titus* 7 for the five thousand beasts. Both lift across with their sentence. The statement's
+  second sentence — that flooding was possible only before the hypogeum was dug — is not in the card and
+  was dropped rather than carried on a citation that does not make it.
+
+**AND ONE WAS REFUSED ON THE BAR, WHICH IS WORTH RECORDING BECAUSE THE CLAIM IS TRUE AND THE CARD MAKES
+IT.** Statement #63, the Mongol Empire as the largest contiguous land empire, is `wh-594`'s own first
+sentence — and the source that sentence points at is David Morgan's chapter in *Beyond the Legacy of
+Genghis Khan*, which this corpus labels **[Paywalled]**. The bar here is one OPENABLE source, so the
+lift cannot be made; the statement needs an open work for that claim, or nothing. Its `why` also states
+"roughly 24 million square kilometres" with no imperial bracket beside it, which rule 5 would report the
+moment the statement is touched, so a future batch has two things to fix rather than one.
