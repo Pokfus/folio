@@ -72,10 +72,10 @@ card-side research is then shared.
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one and T26 one, all researched |
-| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation |
+| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one, T26 one and T27 one, all researched |
+| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation, T27 one more off OpenStax |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151`, T26 three off OpenStax and NASA Space Place |
-| T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one |
+| T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one; T27 two off OpenStax |
 
 ## Open questions carried forward
 
@@ -1140,4 +1140,47 @@ and `imagine.gsfc.nasa.gov` answer; **`scijinks.gov` does not** — the proxy re
 failed, 502`, which is a different failure from a 403 and worth one retry before it is written off.
 **NASA's own `science.nasa.gov` facts pages remain the wrong shelf for this work**: they are written
 to enumerate, and none of the three astronomy statements here could be answered from them.
+
+### T27 — four more off the same shelf, and what each one had to give up (2026-09-17)
+
+**Four statements, 155 → 159 of 220 (72%).** All four off OpenStax, which after three batches is now
+the pool's largest single publisher. The batch's interest is not the citations but the **four
+deletions they forced**, one per statement, each an unsourced clause that had been reading perfectly.
+
+· **#132 Milgram's volunteers obeyed (TRUE)** — *Psychology 2e* 12.4 gives the whole apparatus: forty
+  men, 15-volt steps to 450 volts, the shocks and the learner both staged, "65% of the participants
+  continued the shock to the maximum voltage and to the point that the learner became unresponsive".
+  **WHAT WENT WAS THE HEDGE**, and it is the hardest kind of cut to make: the old answer said later
+  analysis of Milgram's own archive shows the experimenter improvised more prompting than the
+  published account admits. That is true and it is not in any source reachable from here, and an
+  uncited hedge is still an uncited claim. It is worth restoring the day the archive work can be
+  cited.
+
+· **#133 recalling a memory changes it (FALSE)** — *Psychology 2e* 8.3, on reconstruction and on
+  Loftus's misinformation effect. **RECONSOLIDATION WENT**: the word is not on the page, Europe PMC's
+  open reconsolidation literature is all animal fear-conditioning rather than the claim as stated, and
+  the misinformation half carries the statement on its own.
+
+· **#102 venous blood is not blue (FALSE)** — *Anatomy and Physiology 2e* 18.1: "Blood that has just
+  taken up oxygen in the lungs is bright red, and blood that has released oxygen in the tissues is a
+  more dusky red … hemoglobin is a pigment that changes color, depending upon the degree of oxygen
+  saturation." **THE VEINS WENT.** The old answer explained why veins LOOK blue through the skin,
+  which is a real and separate finding about light in tissue, and nothing openable from here carries
+  it. The statement is refuted without it — blood is red at both ends of the circuit — so the
+  explanation was cut rather than left standing uncited.
+
+· **#112 salt does not make water boil sooner (FALSE)** — *Chemistry 2e* 11.4, which gives the
+  mechanism in one sentence: "a solution will require a higher temperature than will pure solvent to
+  achieve any given vapor pressure, including one equivalent to that of the surrounding atmosphere."
+  **THE MAGNITUDE WENT.** The old answer said cooking quantities move the boiling point "well under a
+  degree", which is true and which this page does not state; deriving it from the ebullioscopic
+  constant would be Folio's arithmetic rather than the source's claim. The direction is what the
+  statement asks about and the direction is what the answer now gives.
+
+**A CONCENTRATION WORTH WATCHING, stated now rather than found later.** T25, T26 and T27 have taken
+thirteen citations off `openstax.org` across six of its textbooks. No single statement rests on it
+twice over, and it is about six per cent of the pool's whole apparatus — but the Greece collection's
+Dartmouth finding is what this looks like early. **Prefer another host where one answers**, and treat
+a statement that can ONLY be answered from a first-year textbook as a statement to re-research rather
+than to cite a seventh time.
 
