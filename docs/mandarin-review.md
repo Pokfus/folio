@@ -586,6 +586,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 211–240 (复印 → 歌手), deck order, plus the `highway` sites | 24 | six glosses whose label named a part of speech the gloss had not got, and an English line about the wrong people |
 | 2026-09-17 | `hsk30l4` notes 241–270 (各 → 管理), deck order, plus the whole `railroad` class | 27 | the first new LEXIS row since batch 24, and a card whose gloss its own two translations contradicted |
 | 2026-09-17 | `hsk30l4` notes 271–300 (光 → 怀疑), deck order, plus the whole `skeptical` class | 22 | a fourth family `SPELL_PAIRS` has never held, and a card that contradicted itself over it |
+| 2026-09-17 | `hsk30l4` notes 301–330 (坏处 → 记者), deck order, plus a hint pair retired across two decks | 21 | a card whose own first line was the one sense its gloss had not got, twice over |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5398,4 +5399,56 @@ rather than the card's.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 413 → 425;
+`build-lang-decks.js` re-run.
+
+## Batch 51 — hsk30l4 notes 301–330 (坏处 → 记者)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order, plus the other half of a
+disambiguator pair that this batch's work retired. Twenty-one cards changed. **Nine of them are the
+label-against-gloss fault**, which takes that class to thirty-four over seven batches and makes it far and
+away the commonest thing wrong with these decks.
+
+**A CARD WHOSE OWN FIRST LINE WAS THE ONE SENSE ITS GLOSS HAD NOT GOT, TWICE OVER.** 活 is labelled
+*noun / verb / adjective* and glossed *to live; alive; living*, which is the last two — and its FIRST
+sentence, 活快干完了, is exactly the missing noun: a job nearly finished. Nothing on the card said 活 could
+mean work at all. 技术 is the same shape one gloss along: glossed *technology*, where 他的技术是公认的 is his
+SKILL and the card's own English already said so. **The tell in both is that the card contradicts itself in
+English**, which costs one glance per card and is how every one of these has been found.
+
+**AND THE MIRROR OF IT: A CARD WHOSE GLOSS NAMED A SENSE NONE OF ITS SENTENCES USE.** 环保's three lines
+are all the adjective and its only gloss was the noun; 激动's three are all the adjective and its only
+gloss was the verb; 回忆's gloss was the verb where two of three are the noun; 基础's was the bare noun
+where two of three are attributive. 回信 and 活动 each named two parts of speech against one gloss, and
+积极 was glossed *active*, which is not what 积极方面 — *the positive side* — means.
+
+**A HINT PAIR RETIRED ACROSS TWO DECKS.** 基础 and 基地 were both glossed *base* and were kept apart only by
+each other's `not X` block. Giving 基础 its real gloss dissolves the collision, and **a disambiguator that
+disambiguates nothing is worse than none**, a reader taking it for a real distinction. The senses rewrite
+drops 基础's own block; 基地's had to be removed by rebuilding its gloss, **because the applier REPLACES a
+hint it still holds and does not strip one the record has dropped** — so deleting a hint from the record is
+only half the job. Shared-gloss groups 337 → 336, the second such retirement after 茶/茶叶 in batch 43.
+
+**TWO OF 火's THREE LINES WERE ABOUT A TRAIN.** 火车票贵吗 and 不允许在火车上吸烟 are both 火车, a fixed
+word that swallows the character whole, so one line in three taught 火 as fire. Both replaced. **Three more
+cards said the same thing twice**: 及时's three lines were one English three ways, so the replacement teaches
+the *promptly* sense instead; 记者's first two both asked whether somebody is a reporter; and 基本上's third
+was 基本上吧, the adverb on its own with a particle after it.
+
+**THREE SINGLE-CHARACTER CARDS GAINED `Compounds`** — 火, 货 and 寄, two of the three panels empty. **既 was
+measured and LEFT**: the whole collection holds two words on that character, one of which is already in the
+deck and the other a legal term, so a block would have been one row a learner will never need — the second
+time after 逛 that the honest answer was no block.
+
+**TEN ENGLISH LINES.** 既's first and third dropped the correlative the card exists to teach (*He is tall and
+handsome* for 既高又帅). 技术's second turned 大数据技术 into *the network*. 会员's first called a 会员卡 a
+*points card* and its third took membership *in* rather than *of*. 寄's *registered mail* wanted *post* and
+its *Do you like to send it* wanted *would*. 活泼's read *an active person*, which is 积极 one card along.
+
+**A QUESTION RECORDED RATHER THAN ANSWERED.** 换乘's second line writes Shibuya as **涉谷**, where the
+standard Chinese is 涩谷. CC-CEDICT holds neither form, so it cannot be settled from the dictionary and the
+card's own examples, and the card is left alone. It is the deck's only occurrence.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 337 → 336**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 425 → 446;
 `build-lang-decks.js` re-run.

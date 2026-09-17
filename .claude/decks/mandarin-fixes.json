@@ -12796,15 +12796,15 @@
       "Pinyin": "èn"
     },
     "hsk30l4/基本上": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note. | '基本上吧。' is not a sentence — it is the adverb on its own with a particle after it, glossed 'Basically.' — and it was the record's OWN row, so the array is replaced. The new one is AUTHORED, which the record says so is.",
       "ex": [
         [
           "有时候发现自己基本上没有时间顾及一些无关紧要的琐事。",
           "Sometimes I find that I basically have no time to pay attention to irrelevant trivia."
         ],
         [
-          "基本上吧。",
-          "Basically."
+          "这件事基本上解决了。",
+          "This matter has basically been settled."
         ]
       ]
     },
@@ -75857,7 +75857,7 @@
       ]
     },
     "hsk30l4/活泼": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '他有点活泼。' read 'He is rather an ACTIVE person' — 活泼 is lively, which is the card's own gloss, and 'an active person' is 积极 one card along.",
       "ex": [
         [
           "这孩子很活泼。",
@@ -75866,6 +75866,12 @@
         [
           "她的性格开朗活泼。",
           "She is cheerful and lively by nature."
+        ]
+      ],
+      "exEn": [
+        [
+          "他有点活泼",
+          "He is rather lively."
         ]
       ]
     },
@@ -79992,7 +79998,7 @@
       ]
     },
     "hsk30l6/基地": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The other half of a hint pair this batch retired. 基础 and 基地 were kept apart only by each other's `not X` block, because both were glossed `base`; giving 基础 its real gloss — a foundation, a basis — dissolves the collision, and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. The senses rewrite drops 基础's own block; this card's has to be removed by rebuilding its gloss, since the applier REPLACES a hint it still holds and does not strip one the record has dropped. CC-CEDICT reads 'base (of operations); industrial or military base'.",
       "ex": [
         [
           "这里是训练基地。",
@@ -80002,7 +80008,8 @@
           "公司在南方建了生产基地。",
           "The company built a production base in the south."
         ]
-      ]
+      ],
+      "gloss": "a base (of operations)"
     },
     "hsk30l6/机动车": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -116010,6 +116017,312 @@
           "a cold sweat"
         ]
       ]
+    },
+    "hsk30l4/环保": {
+      "why": "Labelled 'noun / adjective' against the single gloss 'environmental protection', which is the noun — and ALL THREE of the card's own lines are the adjective: 环保型产品, 环保汽车, 你有多环保. The reader met one use and was tested on two.",
+      "senses": [
+        [
+          "adjective",
+          "environmentally friendly; green"
+        ],
+        [
+          "noun",
+          "environmental protection"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/回信": {
+      "why": "Labelled 'noun / verb' against the single gloss 'to reply', so the noun — a letter written back — had none. | '他没有回信。' read 'He FAILED TO answer the letter', which says he tried; 没有 says only that he did not.",
+      "senses": [
+        [
+          "verb",
+          "to write back; to reply"
+        ],
+        [
+          "noun",
+          "a reply; a letter in reply"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "exEn": [
+        [
+          "他没有回信",
+          "He did not write back."
+        ]
+      ]
+    },
+    "hsk30l4/回忆": {
+      "why": "Labelled a VERB and glossed only as one, where two of the card's three lines are the NOUN — 感谢那些回忆 and 勾起久远的回忆 are both memories rather than remembering. Split, and tagged.",
+      "senses": [
+        [
+          "verb",
+          "to recall; to look back on"
+        ],
+        [
+          "noun",
+          "a memory; memories"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/活": {
+      "why": "Labelled 'noun / verb / adjective' against the gloss 'to live; alive; living', which is the last two — so the NOUN had none, and the card's own FIRST line is exactly that noun: 活快干完了 is a job nearly finished, and nothing on the card said 活 could mean work.",
+      "senses": [
+        [
+          "verb",
+          "to live"
+        ],
+        [
+          "adjective",
+          "alive; living"
+        ],
+        [
+          "noun",
+          "work; a job"
+        ]
+      ],
+      "exSense": [
+        3,
+        2,
+        1
+      ]
+    },
+    "hsk30l4/活动": {
+      "why": "Labelled 'noun / verb' against the single gloss 'activity', so the verb — to move about, to get some exercise — had none. All three of the card's lines are the noun.",
+      "senses": [
+        [
+          "noun",
+          "an activity; an event"
+        ],
+        [
+          "verb",
+          "to move about; to get some exercise"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/激动": {
+      "why": "Labelled 'verb / adjective' against the single gloss 'to excite', where all three of the card's own lines are the ADJECTIVE — 别这么激动, 我激动不已, 他越激动.",
+      "senses": [
+        [
+          "adjective",
+          "excited; worked up"
+        ],
+        [
+          "verb",
+          "to excite; to stir up"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/基础": {
+      "why": "Glossed with the bare noun 'base' under a noun label, where two of the card's three lines are attributive — 基础自然科学 and 基础解剖课 are both 'basic' rather than 'a base'. Split, and tagged. | '物理是基础自然科学。' read 'Physics is the basic PHYSICAL science' — 自然科学 is natural science, and 'physical science' in English is a narrower thing that physics is only part of.",
+      "senses": [
+        [
+          "noun",
+          "a foundation; a basis"
+        ],
+        [
+          "adjective",
+          "basic; elementary"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ],
+      "exEn": [
+        [
+          "物理是基础自然科学",
+          "Physics is a basic natural science."
+        ]
+      ]
+    },
+    "hsk30l4/积极": {
+      "why": "Glossed 'active', which is one of three things it does and not the one its own third line uses — 积极方面 is the POSITIVE side. CC-CEDICT reads 'active; energetic; vigorous; positive'. | '我只想注意积极方面。' read 'I want to just focus on the positive', splitting an infinitive and dropping 方面. Batch 47 corrected the same sentence on 方面's card; it is carried by two cards and each keeps its own English.",
+      "gloss": "active; positive; enthusiastic",
+      "exEn": [
+        [
+          "我只想注意积极方面",
+          "I only want to pay attention to the positive side."
+        ]
+      ]
+    },
+    "hsk30l4/技术": {
+      "why": "Glossed 'technology', which the card's own FIRST line is not — 他的技术是公认的 is his SKILL, and its own English already says so. CC-CEDICT gives technology, technique and skill together. | '听说大数据技术现在很热门。' read 'I hear that the NETWORK is very popular now' — 大数据技术 is big-data technology, and neither 网络 nor anything like it is in the sentence.",
+      "gloss": "technology; technique; skill",
+      "exEn": [
+        [
+          "听说大数据技术现在很热门",
+          "I hear that big-data technology is very popular at the moment."
+        ]
+      ]
+    },
+    "hsk30l4/火": {
+      "why": "TWO OF ITS THREE LINES WERE ABOUT A TRAIN. 火车票贵吗 and 不允许在火车上吸烟 are both 火车, a fixed word that swallows the character whole, so only the first line taught 火 as fire at all. Both replaced with AUTHORED sentences, which the record says so are. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 着火, against twenty-five in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "火车票贵吗？",
+        "不允许在火车上吸烟。"
+      ],
+      "ex": [
+        [
+          "天黑了，他们生起了火。",
+          "It got dark and they lit a fire."
+        ],
+        [
+          "火很快就灭了。",
+          "The fire was put out quickly."
+        ]
+      ],
+      "compounds": [
+        [
+          "火灾",
+          "huǒ zāi",
+          "a fire; a blaze"
+        ],
+        [
+          "灭火",
+          "miè huǒ",
+          "to put out a fire"
+        ],
+        [
+          "火锅",
+          "huǒ guō",
+          "hotpot"
+        ]
+      ]
+    },
+    "hsk30l4/及时": {
+      "why": "All three of its lines were the same English three ways — 'He arrived in time', 'We'll be ready in time', 'I managed to get there in time' — so the card taught one construction three times and never the other sense the word has. The third was replaced with an AUTHORED sentence using 及时 as PROMPTLY, which the record says so is.",
+      "dropEx": [
+        "我设法及时到那里。"
+      ],
+      "ex": [
+        [
+          "请及时回复邮件。",
+          "Please reply to emails promptly."
+        ]
+      ]
+    },
+    "hsk30l4/记者": {
+      "why": "Its first and second lines were the same sentence twice — 你是个记者 and 你是记者吗 — so two of three asked whether somebody is a reporter. Replaced with an AUTHORED sentence, which the record says so is. | '我想到那位当记者的女人。' read 'I think OF the woman AS a journalist', which is a judgement about her; the Chinese is that somebody came to mind and she is one.",
+      "dropEx": [
+        "你是个记者。"
+      ],
+      "ex": [
+        [
+          "记者向部长提了三个问题。",
+          "The journalist put three questions to the minister."
+        ]
+      ],
+      "exEn": [
+        [
+          "我想到那位当记者的女人",
+          "I thought of that woman who works as a journalist."
+        ]
+      ]
+    },
+    "hsk30l4/会员": {
+      "why": "'您有会员卡吗？' read 'Do you have a POINTS card?' — a 会员卡 is a membership card, which is the card's own word; and 'membership IN the association' is American, British English taking membership OF.",
+      "exEn": [
+        [
+          "您有会员卡吗",
+          "Do you have a membership card?"
+        ],
+        [
+          "我申请成为协会会员",
+          "I applied for membership of the association."
+        ]
+      ]
+    },
+    "hsk30l4/既": {
+      "why": "Two of its three lines dropped the correlative the card exists to teach: 他既高又帅 read 'He is tall and handsome' and 我既紧张又害怕 read 'I am nervous and scared', neither of which contains the 'both ... and' that 既…又 is.",
+      "exEn": [
+        [
+          "他既高又帅",
+          "He is both tall and handsome."
+        ],
+        [
+          "我既紧张又害怕",
+          "I am both nervous and frightened."
+        ]
+      ]
+    },
+    "hsk30l4/寄": {
+      "why": "'请用挂号寄这个。' read 'by registered MAIL', which is American — British English sends it by registered post; and 您寄航空还是海运 read 'Do you LIKE to send it', which wants would. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "请用挂号寄这个",
+          "Please send this by registered post."
+        ],
+        [
+          "您寄航空还是海运",
+          "Would you like to send it by air mail or by sea?"
+        ]
+      ],
+      "compounds": [
+        [
+          "邮寄",
+          "yóu jì",
+          "to send by post"
+        ],
+        [
+          "寄托",
+          "jì tuō",
+          "to entrust to; to place one's hopes in"
+        ]
+      ]
+    },
+    "hsk30l4/计划": {
+      "why": "'这计划如何？' read 'How is this plan?', which is the Chinese word by word rather than a question in English.",
+      "exEn": [
+        [
+          "这计划如何",
+          "What do you think of this plan?"
+        ]
+      ]
+    },
+    "hsk30l4/货": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against eight words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "货物",
+          "huò wù",
+          "goods; merchandise"
+        ],
+        [
+          "百货",
+          "bǎi huò",
+          "general merchandise"
+        ],
+        [
+          "售货员",
+          "shòu huò yuán",
+          "a shop assistant"
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -116155,7 +116468,6 @@
     "hsk30l4/国籍": "民族",
     "hsk30l4/地址": "住址",
     "hsk30l4/地球": "大地",
-    "hsk30l4/基础": "基地",
     "hsk30l4/增长": "生长",
     "hsk30l4/复杂": "繁杂",
     "hsk30l4/多样": "缤纷",
@@ -116324,7 +116636,6 @@
     "hsk30l6/嘿": "哎",
     "hsk30l6/噪声": "响声",
     "hsk30l6/地域": "面积",
-    "hsk30l6/基地": "基础",
     "hsk30l6/墙壁": "墙",
     "hsk30l6/处处": "到处",
     "hsk30l6/外来": "外在",
