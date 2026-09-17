@@ -1430,3 +1430,42 @@ where he calls small faults "Bugs", is in that edition. `edison.rutgers.edu` its
 archive.org is the next thing to try. **`si.edu` is 403 and `history.navy.mil` fails TLS verification
 through the proxy**, so the logbook page with the moth in it is not reachable either.
 
+### T35 — psychology and botany, 3 statements
+
+**169 → 172 of 220 (78%).** A small batch, and its value is in three findings rather than its size.
+
+**A SOURCE WHOSE TITLE FITS CAN STILL CONTRADICT THE CLAUSE IT IS BEING CITED FOR.** #134's `why` ended
+*"the confident cues people rely on, such as looking away, are not associated with lying"*, and the
+open mock-crime study reached for it (Li et al. 2024) reports that liars in its sample showed **longer
+gaze aversion**. The clause was rewritten to what the literature does bear — that individual
+behavioural cues are *faint and unreliable*, and that eye-contact avoidance is a **stereotype about**
+liars rather than a finding about them, which is Volz et al.'s own wording. **The claim about police
+officers being no better than students was dropped outright**, neither open source carrying it.
+
+**AND A GIVEN NAME EXPANDED FROM AN INITIAL WAS WRONG AGAIN.** Europe PMC gives the byline as `Li H`;
+the name written from it was *Hanjing Li* and Crossref says **He Li**. That is the fourth time in this
+pass and the mechanism is always the same — the invented name reads perfectly, the DOI resolves, and
+every checker passes. **Crossref the first author of every citation before it ships.**
+
+**TWO OPEN-ACCESS ARTICLES 403 A SCRIPTED AGENT, AND THAT IS NOT A REASON TO DROP THEM.** `doi.org`
+resolved to 403 for MDPI's *Plants* and Sage's *Perspectives on Psychological Science*, and both PMC
+mirrors served a **200-status reCAPTCHA wall** rather than the article — the `WALL` outcome
+`check-reach.js` records. Both articles are genuinely open: Europe PMC's REST full-text endpoint
+serves them, and it serves full text only for open-access records, which is positive evidence
+independent of the probe. **So the citation carries the canonical DOI**, which is what a reader's
+browser resolves, and the openness was established by reading the text rather than by the status code.
+**Do not repoint a walled-here citation at a mirror that is also walled; establish openness another
+way and cite the canonical address.**
+
+Sources: Sahromi et al. (*Gates Open Research*, 2026) for the banana's fruit being a berry; Pérez-Rojas
+et al. (*Plants*, 2023) for the strawberry's receptacle and achenes; Volz, Reinhard and Müller
+(*Perspectives on Psychological Science*, 2023) for the 54% figure and the eye-contact stereotype;
+Li et al. (*Frontiers in Psychology*, 2024) for cues being faint and unreliable; Le Texier's PsyArXiv
+preprint (2019) for the Stanford prison experiment — the BBC study's different findings, the research
+team's instruction that the guards be firmly in control, and Banuazizi and Movahedi's 90% figure.
+
+**AND PDFs ARE READABLE IN THIS CONTAINER AFTER ALL**, which is worth more than the batch. `pdftotext`
+is absent and `pdfminer.six` would not install, but `pypdf` does — it simply panics on import because
+the system `cryptography` rust binding does, and shadowing that module with one that raises
+`ImportError` makes `pypdf` fall back to its own crypt provider and work. That is what got Le Texier's
+44-page preprint open. **Reach for it before writing a source off as a PDF.**
