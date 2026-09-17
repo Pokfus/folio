@@ -2618,6 +2618,28 @@ contemporary account that simply does not mention deaths proves nothing, which i
 *Monument* turned out to be. **T66 went and got the Bills.**
 
 
+### Probes that failed in T66–T68, and one index nobody had asked (2026-09-17)
+
+- **#20, Columbus and the mainland.** Justin Winsor's *Christopher Columbus* (1891) is on archive.org
+  with a readable OCR layer and does not state the negative: grepping it for *never saw*, *never set
+  foot*, *never touched*, *continent of North America* and *North American continent* returns two hits
+  and both are about other people. DOAJ returns five results for *Ponce de León AND Florida* and not one
+  is about Ponce de León. **The negative wants an enumeration of all four voyages by somebody who says
+  it is complete**, and `british-history.ac.uk`-style archives are the untried shape.
+- **#80, the penny.** DOAJ returns **zero** for `"terminal velocity" AND (coin OR penny)`.
+- **#1, the terracotta farmers.** `whc.unesco.org` is **403**, so the World Heritage file for the
+  Mausoleum of the First Qin Emperor — the obvious official account of the site's discovery — cannot be
+  read from here.
+- **#47, Chang'an.** `ianmorris.org` now serves a **placeholder page with no PDFs on it**, so the
+  social-development tables that were the obvious comparative source are no longer where they were.
+
+**THE INDEX NOBODY HAD ASKED: `export.arxiv.org`'s API ANSWERS 200 FROM HERE.** It returned no hit for
+the falling-penny query, which is a fact about the query rather than about the host, and **it had never
+been probed in sixty-eight batches** — which is the T68 lesson standing unlearned in a second discipline:
+Europe PMC is the index for medicine, arXiv is the index for physics, and this pass had been asking DOAJ
+for both. **Use `https`; the `http` endpoint answers 301 with an empty body.** Worth trying for #80 and
+for any physics or astronomy statement a later batch adds.
+
 ### Where the last four stand (2026-09-17)
 
 The pass closed this session at **216 of 220 (93→98%)**. Every remaining statement has been probed
