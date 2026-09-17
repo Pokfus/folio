@@ -2812,3 +2812,47 @@ OpenAlex (429 on a daily budget that resets at midnight UTC), OAPEN's REST searc
 twenty minutes later, which is how #38 closed. **Each of the four is a fact about reach or about
 what exists, not about the pool**, which is why they are listed rather than cited to something that
 does not carry them.
+
+---
+
+## T69 — the four are REMOVED from the pool, and the pass closes at 100% (2026-09-17)
+
+**On request: "the true or false questions whose answers cannot be properly sourced should be removed
+from the game."** The four documented above are gone from `truefalse.js`. **The pool is 220 → 216,
+and every one of the 216 carries a source: `check-truefalse.js` reads 100%.**
+
+**THIS IS THE PASS CLOSING, NOT THE PASS GIVING UP, AND THE DISTINCTION IS THE WHOLE OF WHY THE
+ENTRIES ABOVE STAY.** Each of the four was researched to the clause and the reason it could not be
+cited was written down — a discovery story the science never tells, a negative no exhibition states,
+a comparative table that is not open, a claim with no canonical work. **Removing a statement is what
+you do with that finding; deleting the finding is not.** Anything cited to a source that does not
+carry it would have passed every checker here and been wrong on the page, which is the outcome this
+whole pass exists to prevent.
+
+**WHAT WAS REMOVED, and why each is a real loss worth recording:**
+
+| was | why it went |
+|---|---|
+| #1 the terracotta army found by farmers digging a well | ONE CLAUSE short — the March-1974 discovery and July excavation are in `PMC11449754`; the WELL is in nothing reachable |
+| #20 Columbus never reached the continental US mainland | the LoC exhibition enumerates four Caribbean voyages, which IMPLIES the negative and does not state it |
+| #47 Chang'an the most populous city in the world | a comparative city-size table, which no Chinese source can settle and no open one carries |
+| #80 a penny from a skyscraper | no canonical work exists; OpenStax's drag chapter does not treat it and arXiv has nothing |
+
+**#80 IS THE ONE TO RECONSIDER FIRST IF THIS IS EVER REOPENED.** It is the pool's own shape at its
+best — a myth everybody has heard, false, with a real mechanism behind the refutation — and what it
+lacks is not evidence but a *paper*, terminal velocity and drag being textbook physics nobody writes
+a citable study about. A drag-coefficient worked example in a reachable, licensable text would
+restore it unchanged.
+
+**⚠ THE 0-BASED INDICES IN EVERY ENTRY ABOVE ARE NOW OFF, AND THERE IS NO WAY TO FIX THEM.** This
+file numbers statements by their position in `window.TRUEFALSE`, and four removals shift every index
+after #1 by up to four. The entries are a record of what each batch measured on the day and are
+right about that day, so they are NOT renumbered — but **an index read out of this file must be
+resolved against the statement's own `q`, never trusted as a position.** `add-truefalse.js` has
+always been keyed by exact `q` for this reason, and that is what makes the removals safe: no batch
+tool anywhere in this pipeline addresses a statement by number.
+
+**THE CATEGORY SPREAD SURVIVES IT.** All fourteen categories still hold statements — Chinese history
+24 → 22, Medieval & early modern 14 → 13, Physics 12 → 11 — so no category was emptied or left with
+too few to draw from, which was the one way four removals could have damaged the game rather than
+tidied it.

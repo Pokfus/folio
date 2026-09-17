@@ -4900,7 +4900,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     them US→GB and every one a non-word becoming the right word.
   · **AND NOTHING ASKED THE CORPUS THE SAME QUESTION UNTIL SEP 2026, WHICH IS WHAT
     `node .claude/check-spelling-corpus.js` NOW DOES.** `check-style.js` has four rules and spelling is
-    not one of them, and `check-truefalse.js` asks it only of the 220 statements in `truefalse.js` — so
+    not one of them, and `check-truefalse.js` asks it only of the 216 statements in `truefalse.js` — so
     the cards, the glossary and the artefacts had never been swept, and since the transform is ONE-WAY an
     American spelling sitting in the data is what BOTH readers see. Measured over Folio's own prose it
     leaned British and hard — `centre`/`center` 641 to 3, `colonis`/`coloniz` 128 to 2,
@@ -5262,9 +5262,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       museum and government hosts answer from this sandbox, which are 403, and — the category that costs
       the most time — which answer 200 and serve a JavaScript shell with no text in it.
     · Guarded by **`.claude/test-truefalse.js`**, which **serves a five-statement pool of its own** in
-      place of `truefalse.js`: the day's five are drawn from 220 by `dayPick` and only some are cited, so
-      a suite run against the real pool asserts nothing on most days, which is the shape of a test that
-      passes while the feature is broken. **Every fixture statement carries a glossary term, an element
+      place of `truefalse.js`: the day's five are drawn from 216 by `dayPick`, so a suite run against the
+      real pool asserts whatever that day's draw happens to carry, which is the shape of a test that
+      passes while the feature is broken. **That the shipped pool is now cited end to end does NOT
+      retire the fixture** — the apparatus this suite exists to check is a glossary term, an element an
+      escaped `why` would print as tags, a marker, a measurement and an American-convertible spelling,
+      and no draw of five can be relied on to carry all five. **Every fixture statement carries a glossary term, an element
       an escaped `why` would print as tags, and a citation with a marker**, because `dayPick` decides
       which round is dealt first and an assertion reading only that round is a coin toss on the fixture's
       own order. The shipped pool is still checked in Node for what a fixture cannot see.
