@@ -3838,7 +3838,16 @@ window.GLOSSARY = {
 "Golden_Horde": "The <b>Golden Horde</b> was the westernmost of the states into which the Mongol Empire divided, ruling the steppe north of the Black and Caspian seas and holding the princes of Rus as tributaries for some two and a half centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Its wealth came from the trade linking the steppe, the northern forests and the Mediterranean, and Italian merchants held fortified posts on its southern coasts.<sup class=\"fn\" data-fn=\"2\"></sup> Its capital, Sarai, stood somewhere on the lower Volga, though the written sources use the name for more than one place and the excavated sites have not settled which was meant.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Pax_Mongolica": "<b>Pax Mongolica</b> is the term historians use for the period, roughly from the mid-13th century to the mid-14th, when Mongol authority across Eurasia allowed people and goods to travel unusually far and safely.<sup class=\"fn\" data-fn=\"1\"></sup> Its administrative core was a relay network of post stations along the main roads, described by travellers as holding hundreds of horses each and staffed by couriers who changed at fixed intervals.<sup class=\"fn\" data-fn=\"1\"></sup> Surviving documents record the animals and households each station was required to supply, and the period was neither continuous nor peaceful throughout, since the successor khanates fought one another.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Timur": "<b>Timur</b> was a Turco-Mongol conqueror who built an empire out of Central Asia in the second half of the 14th century, campaigning from northern India to Anatolia and making Samarkand his capital.<sup class=\"fn\" data-fn=\"1\"></sup> Not being descended from Genghis Khan, he could not take the title of khan and ruled instead as emir in the name of Chinggisid figureheads, an arrangement foreign envoys to his court noticed and recorded.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He presented his wars as fought in the cause of Islam, and Muslim writers of his own century assessed him in sharply opposed ways, some as its defender and others as the destroyer of its greatest cities.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Chinggisids": "The <b>Chinggisids</b> were the descendants of Genghis Khan, among whom the Mongol Empire was divided after 1260 and who supplied the ruling houses of much of Eurasia from the Black Sea to Manchuria into the 18th century.<sup class=\"fn\" data-fn=\"1\"></sup> Descent from him became the recognised qualification for the title of khan, so that rulers without it governed under lesser titles or in the name of a Chinggisid figurehead.<sup class=\"fn\" data-fn=\"1\"></sup> Which branch a dynasty descended from also carried weight, and houses tracing themselves to junior lines were long treated as peripheral by historians looking for a single centralising state.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Chinggisids": "The <b>Chinggisids</b> were the descendants of Genghis Khan, among whom the Mongol Empire was divided after 1260 and who supplied the ruling houses of much of Eurasia from the Black Sea to Manchuria into the 18th century.<sup class=\"fn\" data-fn=\"1\"></sup> Descent from him became the recognised qualification for the title of khan, so that rulers without it governed under lesser titles or in the name of a Chinggisid figurehead.<sup class=\"fn\" data-fn=\"1\"></sup> Which branch a dynasty descended from also carried weight, and houses tracing themselves to junior lines were long treated as peripheral by historians looking for a single centralising state.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Alexandria": "Alexandria is a city on the Mediterranean coast of Egypt, founded in 331 BCE on a strip of land between the sea and a lagoon, and capital of the Ptolemaic kingdom until 30 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo describes the built area as shaped like a chlamys, crossed by two avenues broader than a plethrum, with royal palaces taking up as much as a third of the whole circuit.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus reports that the officials keeping its census returns gave him more than three hundred thousand free residents, and that many reckoned it the first city of the world.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Mouseion": "The Mouseion was a foundation for scholars at Alexandria, a shrine of the Muses in name and a salaried community of poets, critics and men of science in practice.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo, the one writer to describe it from sight, makes it part of the royal palaces and lists a covered walk, a hall furnished with seats, and a large house holding the members' common mess.<sup class=\"fn\" data-fn=\"1\"></sup> They held property in common under a priest appointed by the kings and, in his own day, by Caesar, an arrangement that let a scholar work without taking pupils for fees.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Lighthouse_of_Alexandria": "The Lighthouse of Alexandria was a tower raised by the Ptolemies on the island of Pharos, which closed the harbour of Alexandria, and it took its name from that island.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo describes it as admirably built of white marble with many storeys, standing on a sea-washed rock, and carrying an inscription naming Sostratus of Cnidus as its dedicator for the safety of mariners.<sup class=\"fn\" data-fn=\"1\"></sup> Pliny gives the cost as eight hundred talents and explains the fires at its top as warning ships of shoals by night and showing them the harbour mouth.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Demetrius_of_Phalerum": "Demetrius of Phalerum was an Athenian orator and Peripatetic philosopher, a pupil of Theophrastus, who governed Athens for Cassander from 317 to 307 BCE as the single overseer the peace terms allowed.<sup class=\"fn\" data-fn=\"1\"></sup> Diogenes Laertius says he held power by his speeches, enriched the city with revenues and buildings, and was voted three hundred and sixty bronze statues finished in under three hundred days.<sup class=\"fn\" data-fn=\"2\"></sup> Driven out when Demetrius Poliorcetes took the city, he went to Egypt, where the <i>Letter of Aristeas</i> puts him in charge of the royal collection of books.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Zenodotus": "Zenodotus of Ephesus was a grammarian and epic poet who produced the first scholarly edition of Homer at Alexandria in the early third century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Suda</i> makes him a pupil of Philetas, calls him the first corrector of the text of Homer, and says he directed the libraries at Alexandria and taught the king's children.<sup class=\"fn\" data-fn=\"1\"></sup> His lasting contribution was the obelos, a short marginal stroke set beside a line he judged spurious so as to record the doubt without deleting the line, a device that Aristophanes of Byzantium and Aristarchus took over and extended, and the ancestor of every later apparatus of critical signs.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Callimachus_(poet)": "Callimachus of Cyrene was a Greek poet and scholar at Alexandria under Ptolemy II, credited by the <i>Suda</i> with more than eight hundred books and with poems in every metre.<sup class=\"fn\" data-fn=\"1\"></sup> His largest prose work was a catalogue of writers distinguished in every branch of learning, with their works, in a hundred and twenty rolls.<sup class=\"fn\" data-fn=\"1\"></sup> In verse he argued against long continuous poems, reporting that Apollo had told him to feed the sacrificial victim fat but keep the Muse slender, and to travel narrow paths that carriages do not trample rather than the common road.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Aetia_(Callimachus)": "The <i>Aetia</i> is a Greek poem in four books of elegiac couplets by Callimachus, explaining the origins of rites, festivals, names and customs, mostly obscure local ones.<sup class=\"fn\" data-fn=\"2\"></sup> Its opening answers critics, called Telchines after the malignant creatures of myth, who had complained that its author wrote no single continuous poem of many thousands of lines about kings or heroes.<sup class=\"fn\" data-fn=\"1\"></sup> An ancient commentary names those critics as Asclepiades, Poseidippus, Praxiphanes of Mytilene and others, and the poem itself survives only in fragments of torn papyrus pieced out by such notes, so that whole episodes are known from a few words apiece.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Apollonius_of_Rhodes": "Apollonius of Rhodes was a Greek poet of the 3rd century BCE, author of the <i>Argonautica</i>, whom the <i>Suda</i> calls an Alexandrian, a pupil of Callimachus, and a successor of Eratosthenes as director of the library at Alexandria.<sup class=\"fn\" data-fn=\"1\"></sup> Two ancient lives, both drawn from one lost source, report that he recited the poem as a young man, met with condemnation, withdrew to Rhodes and revised it there.<sup class=\"fn\" data-fn=\"2\"></sup> Little of this is secure: his birth has been placed anywhere between 296 and 260 BCE, and the tradition of a quarrel with his teacher rests on very little.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Argonautica": "The <i>Argonautica</i> is a Greek epic in four books of hexameters by Apollonius of Rhodes, telling how Jason and his crew sailed the Argo to Colchis for the golden fleece and brought it home.<sup class=\"fn\" data-fn=\"1\"></sup> The poem opens with the oracle that warned Pelias of a man wearing one sandal, and with Jason arriving at his banquet having lost a sandal in a flooded river.<sup class=\"fn\" data-fn=\"1\"></sup> Its third book invokes Erato rather than a Muse of war, because what wins the fleece is the love of Medea, whose drugs and choices carry the second half of the story.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5808,7 +5817,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Golden_Horde": "1242 – 1502 CE",
 "Pax_Mongolica": "c. 1250 – 1350 CE",
 "Timur": "1336 – 1405 CE",
-"Chinggisids": "from 1206 CE"
+"Chinggisids": "from 1206 CE",
+"Alexandria": "founded 331 BCE",
+"Mouseion": "c. 300 BCE – 3rd century CE",
+"Lighthouse_of_Alexandria": "early 3rd century BCE – 14th century CE",
+"Demetrius_of_Phalerum": "c. 350 – c. 280 BCE",
+"Zenodotus": "active c. 285 – 270 BCE",
+"Callimachus_(poet)": "active under Ptolemy II, c. 280 – 245 BCE",
+"Aetia_(Callimachus)": "c. 270 – 245 BCE",
+"Apollonius_of_Rhodes": "c. 296 – 260 BCE, born; floruit 246 – 221 BCE",
+"Argonautica": "c. 270 – 245 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8078,7 +8096,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Golden_Horde": ["Jochi Ulus","Ulus of Jochi","Kipchak Khanate"],
 "Pax_Mongolica": ["Mongol peace"],
 "Timur": ["Tamerlane","Timur Lang","Amir Timur"],
-"Chinggisids": ["Chinggisid","Genghisid","Chingissid"]
+"Chinggisids": ["Chinggisid","Genghisid","Chingissid"],
+"Lighthouse_of_Alexandria": ["Pharos of Alexandria","Pharos lighthouse"],
+"Callimachus_(poet)": ["Callimachus of Cyrene"],
+"Aetia_(Callimachus)": ["Aetia"],
+"Apollonius_of_Rhodes": ["Apollonius Rhodius"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11958,7 +11980,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Golden_Horde": ["state","empire","history","trade","geography","asia"],
 "Pax_Mongolica": ["concept","era","history","trade","state","asia"],
 "Timur": ["person","ruler","history","warfare","state","asia"],
-"Chinggisids": ["people","concept","history","state","migration","asia"]
+"Chinggisids": ["people","concept","history","state","migration","asia"],
+"Alexandria": ["city","geography","history","egypt","greece","hellenistic"],
+"Mouseion": ["institution","literature","science","history","egypt","greece","hellenistic"],
+"Lighthouse_of_Alexandria": ["building","technology","history","egypt","greece","hellenistic"],
+"Demetrius_of_Phalerum": ["person","philosophy","history","literature","greece","athens","hellenistic"],
+"Zenodotus": ["person","literature","history","greece","egypt","hellenistic"],
+"Callimachus_(poet)": ["person","literature","history","greece","egypt","hellenistic"],
+"Aetia_(Callimachus)": ["text","literature","history","greece","egypt","hellenistic"],
+"Apollonius_of_Rhodes": ["person","literature","history","greece","egypt","hellenistic"],
+"Argonautica": ["text","literature","mythology","greece","egypt","hellenistic"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

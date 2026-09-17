@@ -209,6 +209,27 @@ surface cannot answer for two subjects, and `buildGlossIndex` resolves a KEY bef
 alias added there would simply lose and sit in the table doing nothing. Give Persephone `Kore` only
 if the sculpture term is renamed in the same commit, which would mean renaming `gr-333`'s answer.
 
+**AND THE SAME TRAP CAUGHT CALLIMACHUS, WHERE THE ANSWER WAS THE OTHER WAY ROUND** (Sep 2026,
+writing `gr-807`). The corpus holds two men of that name: the poet, and the Athenian polemarch of
+`gr-405`, whose term is already keyed `Callimachus_(polemarch)`. Measured over the shipped
+abstracts before this batch, the bare surface *Callimachus* occurred nine times and **five of them
+were the polemarch** (`wh-320`, `gr-403`, `gr-404`, `gr-405`, `gr-515`) against four the poet. So
+the poet is keyed **`Callimachus_(poet)`** even though the bare `Callimachus` IS his Wikipedia slug:
+a parenthetical key claims no bare name (`bareTaken` in `buildGlossIndex`), so neither man claims
+it, nothing already shipped was repointed, and the poet is reached through the alias *Callimachus of
+Cyrene*. It is `Life_(biology)`'s decision in a second subject, and it is deliberately NOT
+`Cell_(biology)`'s: there the dominant sense was worth buying and the wrong links were a handful of
+common nouns, where here a wrong link sends a reader reading about Marathon to a Cyrenean poet.
+**Re-measure before claiming the bare name** — the Alexandria deck will make the poet dominant, and
+the trade then becomes five hand-written `data-k` links against one alias.
+
+**`Pharos` IS NOT CLAIMED EITHER, AND FOR A CLEANER REASON.** `gr-804`'s term is keyed
+`Lighthouse_of_Alexandria` with the aliases *Pharos of Alexandria* and *Pharos lighthouse*. Of the
+five shipped abstracts carrying the bare word, **three are Pharos in Illyria** — Demetrius of
+Pharos, in `rm-237`, `rm-238` and `rm-239` — which is the island of Hvar and not a lighthouse. The
+card's own answer term is therefore *Pharos of Alexandria* rather than *Pharos*, so the answer and
+the alias are the same string.
+
 ---
 
 # The list

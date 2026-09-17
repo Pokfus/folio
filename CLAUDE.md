@@ -914,6 +914,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     have excused all six where the anchored `marco polo` excuses none. Rule 1 goes 7 → 0 and
     `check-cards.js`'s own findings are byte-for-byte unchanged, with the drop set read card by card and
     the rule proved still to fire on a planted *Demichelis*.
+  · **AND TWO HELLENISTIC POETS WERE THE SAME FAULT AGAIN** (Sep 2026, writing `gr-801`–`gr-810`).
+    `check-cards.js` reported `gr-810` OVER-CITED on *apollonius rhodius in 3 of 5 sources* — three
+    passages of the poem the card is about, which is the ancient-witness case the carve-out exists for —
+    and this tool reported `gr-809` under BOTH rules on *Callimachus*, cited there as the author of the
+    *Aetia*. `apollonius of rhodes|apollonius rhodius` went into `check-cards.js`'s regex and
+    `Callimachus` into this file's surname Set. **Both are narrow and both were diffed over the whole
+    corpus**: the first moved exactly one finding and excuses neither bare *Apollonius* nor *Apollonius
+    of Perga*, the second moved four findings and all four were the batch's own, and rule 1 was proved
+    still to fire on a planted *Seaton*.
   · **AN INSTITUTION AT THE HEAD OF A SEGMENT OWNS THE WHOLE OF IT**, which is the other half of
     `CORPORATE`'s per-name rule: a museum's object record is a catalogue entry, not a byline, so the Met's
     gave **Attic**, **Ergotimos** and **Kleitias** off the description of the very pot `gr-327` is about.
@@ -5956,7 +5965,7 @@ lookup.
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 600 cards, contiguous — next is `wh-601` |
-| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 810 cards, contiguous — next is `gr-811` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
