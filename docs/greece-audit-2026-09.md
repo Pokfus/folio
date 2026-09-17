@@ -1090,6 +1090,1204 @@ alone.**
 
 ---
 
+## The over-cited backlog, classified (measured 2026-09-14)
+
+**READ BEFORE OPENING ANOTHER OVER-CITED BATCH — it says which cards are still work and which are
+already answered.** `check-cards.js --report` gives 33 over-cited, and that figure has been read as a
+queue of 33. It is not: **five were already read and deliberately not repaired**, in R17 and R18, so a
+session that opens them re-derives an hour's work to reach the same answer.
+
+| card | why it is not a repair |
+|---|---|
+| `wh-389` stupa | both obvious substitutions lose content — Oldenberg carries sentences 2 and 3 exactly but nothing of sentence 1, and Foucher's footprints example is at Amaravati, not Sanchi |
+| `wh-207` Rosetta Stone | the reported fault is not the fault: two of the three Budge citations carry NO LOCATOR, one standing behind four claims. A whole-book citation is a citation that has not been read |
+| `rm-089` Lapis Niger | three ENTRIES of one gazetteer are three lookups, not one scholar's view three times — `INSTITUTIONAL` reasoning wearing two authors' names |
+| `gr-325` Exekias | Walters 1905 carries six of the ten sentences under one citation and his other two are one sentence each, so there is no citation to empty |
+| `ww2-023` Golden Twenties | blocked on one figure — "German output grew by half between 1924 and 1929" — which needs an index of industrial production, not another document |
+
+**The other 28 are open, and they are NOT mostly Greece.** By collection: **World History 11, Ancient
+Greece 10, China 4, Rome 1, Psychology 1, Second World War 1.**
+
+**AND ONLY ONE OF THE TEN GREECE CARDS IS THE DARTMOUTH SITE.** The rest are out-of-copyright handbooks
+— Evans on three cards, Walters, Gardner, Smyth on two, Meadows, Pestarino. **The Rutter pass is
+effectively closed as a RULE matter**: re-measured 2026-09-14, the site is **193 citations across 115
+cards, 183 of them in Greece — 4.43% of that collection's 4,128 citations**, where this file's own
+heading says 237 and 8.7%. The collection has grown 500 → 770 cards and R1–R18 cut into it. The
+distribution is what settles it: **40 cards carry one Rutter citation, 74 carry two, and exactly one
+carries five** (`gr-046`). The brief allows an author two per card, so 114 of the 115 are AT the bar.
+What remains is a concentration a reader might still be told about, not a backlog of violations.
+
+**THE CHINA CLUSTER IS THE ONE THAT MOST RESEMBLES THE BATCH THAT WENT FASTEST.** `cnh-015` and
+`cnh-021` are William Frederick Mayers and `cnh-022` and `cnh-039` are Henry Doré — two 19th-century
+reference works carrying several cards each, which is R11/R12's William Smith shape exactly, and that
+was the batch that cleared thirteen cards in two runs.
+
+### R19 — the China cluster, all four (shipped 2026-09-14)
+
+`check-cards.js --prefix=cnh-` now reports **no over-cited card**. Every replacement source was fetched
+from archive.org and READ before a marker was moved; the notes below are what that reading found, and
+they are the reusable half.
+
+| card | dropped | where the claims went |
+|---|---|---|
+| `cnh-015` Chang'e | Mayers pt. I no. 300 (the cassia entry) | pt. II 288–89 carries the cassia, the hare AND Wu Kang on its own, so the hare sentence simply lost a redundant marker. The sentence that rested on no. 300 alone — the cassia visible at mid-autumn, "plucking a leaf from the cassia" for taking a degree — could not be re-sourced and was **rewritten** onto two facts pt. II 289 states outright: the leaves conferring immortality, and the old man of the moon who ties the cord between two people destined to marry |
+| `cnh-021` Penglai | Mayers pt. I 163–64 (the Anqi Sheng entry) | Giles p. 3 carries Anqi Sheng as a magician of the isles whom the First Emperor sent Xu Shi to find, and adds the Han emperor Wu doing the same at Li Shaojun's urging — so the two sentences were rewritten onto what Giles states, losing Mayers's drug-seller and his three days and nights and gaining a second dynasty |
+| `cnh-022` Eight Immortals | Doré vol. 9, 36–38 | Werner 288 states the classification in the same terms ("old, young, male, female, civil, military, rich, poor, afflicted, cultured, noble"), and the emblem sentence moved to a second Werner citation at 289–303, where each immortal's own attribute is given |
+| `cnh-039` Guandi | Doré vol. 6, 71–72 | Werner 113–15 carries the WHOLE early life — the birthplace, the two name changes, the room and the window, the weeping pair, the killings, the brook, the barrier, the well stone and the peach orchard — and the existing Werner citation was split at the page break so each half is precise |
+
+**THREE SENTENCES WERE CORRECTED RATHER THAN RE-POINTED, and that is the rule this batch is worth
+remembering for.** A marker moved to a source that says something slightly different is a citation
+that does not bear out its own sentence, and nothing in the pipeline can see it. Doré had Guan Yu shut
+in a "back room" where Werner has "a room"; Doré's face turns "a dark ruddy colour" where Werner has
+"reddish-grey"; Doré has the name Guan "which had never been his family name" where Werner says only
+that he gave it and was known by it ever after. **Re-point the marker and correct the prose in the same
+edit, or do neither.**
+
+**THE PRONOUN CAN BE PART OF WHAT THE SOURCE SAYS.** `cnh-022`'s emblem sentence read "Lan Caihe plays
+his flute"; Werner, the source it now rests on, calls Lan Ts'ai-ho "she" and records that the immortal
+is "variously stated to have been a woman and an hermaphrodite". The sentence was recast without a
+pronoun rather than asserting a gender the cited source disputes.
+
+**AND A CARD CAN LOSE A CITATION WITHOUT LOSING A SOURCE.** Three of the four gained a source rather
+than losing one, because a single citation covering several pages of one book can honestly be split
+where different claims rest on different pages — Werner 113–17 became 113–15 and 116–17. That is
+precision, not padding, and it is only legitimate where the split is where the claims actually fall.
+
+### R20 — Madjedbebe, and one resource counted two ways (shipped 2026-09-14)
+
+**`wh-093` Madjedbebe** carried Chris Clarkson three times. The third, the 2015 *Journal of Human
+Evolution* paper on the site's archaeology and stratigraphy, marked exactly ONE sentence — the
+shelter's own description — and Florin et al. 2020, already on the card, opens by placing it:
+"Madjedbebe is a rockshelter in western Arnhem Land (northern Australia) situated at the base of the
+Djuwamba Massif, an escarpment outlier to the east of the Magela Creek floodplain". Read on PMC before
+the marker moved; the sentence was rewritten to what Florin states and the Clarkson citation dropped.
+**The card lost "ringed by Kakadu National Park"**, which no source on it carries in those words and
+which the Jabiluka-lease sentence beside it already implies.
+
+**`wh-203` Naqada culture was not an over-citation at all**, and the reason is worth keeping because it
+is a fault in the CHECKER's reach rather than in the card. `INSTITUTIONAL` has carried
+"digital egypt for universities" for months, and it works for the 74 citations of that resource which
+open on the page title — but 10 open on the site's two named editors instead, and those bypass the
+entry. The card cites five different PAGES of one UCL teaching resource, which is the case the table
+exists for. The editors' names were added to it, and **the drop set was measured first and is exactly
+one card**: wh-202 and wh-216 cite it twice, wh-201 once, and none of them moves. wh-203 now reports as
+a one-institution NOTE rather than a failure, which is what that table does — it reports separately,
+it does not excuse.
+
+### What is left, and which of it is not repairable the same way (measured 2026-09-14)
+
+**27 over-cited**, of which five are the read-and-blocked table above. The rest fall into three
+shapes, and only the first has the cheap fix this pair of batches used.
+
+1. **One reference work consulted several times.** `gr-350` and `gr-359` both rest on Smyth's *Greek
+   Melic Poets* (four and three citations), `wh-383`/`wh-384` on four chapters of the Cambridge History
+   of India, `gr-334` on Gardner, `gr-323` on Walters. These need a re-sourcing pass with new open
+   literature, card by card — there is no redundancy inside the existing list to exploit.
+2. **The excavator's own reports.** `gr-030`, `gr-032` and `gr-036` each cite three of Evans's
+   provisional reports on Knossos; `wh-126` cites Rollefson on 'Ain Ghazal; `wh-099` cites Dillehay on
+   Monte Verde. The repeated author is the site's excavator, so the citations are the primary record
+   rather than one scholar's view — but the honest repair is still to bring independent work onto the
+   card, not to excuse it.
+3. **One team's primary datasets, and this is the shape to think hardest about.** `wh-041` Homo naledi
+   cites Berger three times and Dirks twice — five of six sources are the excavating team — and
+   `wh-121` cites Bergström three times across three DIFFERENT ancient-genome datasets (2020 dogs, 2022
+   wolves, 2026 European dogs). **Both were read and neither was repaired**, because in each case the
+   repeated author is the source of a distinct dataset the card names in its own prose, and no
+   openly reachable work carries those findings independently. The naledi card would genuinely be
+   improved by the published critiques — Martinón-Torres et al. 2024 in the *Journal of Human
+   Evolution* and Egeland et al. 2018 in *PNAS*, both verified in Crossref — but ADDING a source does
+   not lower a count the rule reads absolutely, so that is a content improvement rather than a repair.
+   **Do not reach for an exemption table here.** `check-cards.js` is a report tool run by hand and is
+   deliberately not in the fast gate, so a standing backlog is what it is FOR; a table that made these
+   pass would buy a green run at the price of the one signal the check exists to give.
+
+### R21 — Greek lyric and one weight standard (shipped 2026-09-14)
+
+Three more cleared, all of shape 1 above, and the pattern is the same each time: **find the ONE
+citation whose markers another source on the card, or one openly reachable, already carries.**
+
+| card | dropped | where it went |
+|---|---|---|
+| `gr-350` lyric poetry | Smyth xx and vii–viii, two of his four | Jebb's own introduction states the canon better than Smyth does — "He is the latest of the nine poets whom the Alexandrians included in their lyric canon, the others being Alcman, Alcaeus, Sappho, Stesichorus, Ibycus, Anacreon, Simonides and Pindar" (p. 28) — and Edmonds's preface to *Lyra Graeca* carries what survives and how the Egyptian papyri enlarged it |
+| `gr-359` Anacreon | Smyth 280–81, one of his three | Murray 94–95, which has the *Anacreontea* "dating from various times between the third century B.C. and the Renaissance" and "the incessant imitations which have fixed him as a type of the festive and amorous septuagenarian" |
+| `gr-227` weight standard | Meadows's BMCR review of the Oxford Handbook, one of his three | Metcalf's BMCR review of von Reden, already on the card, which describes weight standards as monetary networks and gives the Ptolemaic case of foreign coin exchanged on entry for a lighter standard. **No prose changed at all** |
+
+**`gr-227` IS THE SHAPE TO LOOK FOR FIRST IN THE REST OF THE BACKLOG**: a third citation of one author
+whose only marker sits on a sentence ANOTHER source on the same card already shares. It costs one fetch
+to confirm and no rewriting. `wh-093` was the same shape one step out — the replacement was on the card
+already, it just had to be read.
+
+**AND ONE LOSS IS WORTH RECORDING.** `gr-350` gave up "scattered through the manuscripts of more than
+eighty later authors, grammarians, scholiasts and geographers", which is Smyth's own count and which
+nothing else openly reachable states. What replaced it — the slender store that the Egyptian papyrus
+finds enlarged — is Edmonds's, and it reads better against the next sentence, which is the 1896
+Bacchylides papyrus. **A re-sourcing pass costs facts; the question is whether the card is better after
+it, not whether nothing was lost.**
+
+### Read next, in this order
+
+1. **`wh-099` Monte Verde** — Dillehay in three of eight, and the card already carries Surovell, Waters
+   and two Meltzer papers. Its trap is that `[1]` is "Mario Pino and Tom D. Dillehay", a DIFFERENT author
+   key, so moving a claim onto it would clear the check while changing nothing about who the card rests
+   on. **Do not do that.**
+2. **`ps-048` structuralism** — Titchener in three of six, all three his own papers at
+   psychclassics.yorku.ca. Very close to the `citesOwnSubject` case the tool excuses, and CLAUDE.md
+   already records that it "correctly stays a finding" because the answer term is structuralism rather
+   than the man.
+3. **`gr-323` Corinthian pottery and `gr-334` archaic smile** — Walters in three of five and Gardner in
+   five of nine. These are the expensive end: `gr-334` needs three citations replaced, which is a
+   re-sourcing of most of the card.
+
+### R22 — papermaking, and the arithmetic that decides whether a drop is possible at all
+
+`wh-412` had Jean-Pierre Drège in three of five. His codicological notes on the Dunhuang and Turfan
+manuscripts marked one clause — that what a sheet is made of stays legible enough afterwards to date a
+manuscript by — which is that article's subject rather than this card's, so the clause went and the
+Shaanxi fibre analysis stayed on the review of Pan Jixing it came from.
+
+**THE DROP TOOK THE CARD TO FOUR SOURCES, UNDER THE BAR, WHICH IS THE CONSTRAINT TO CHECK FIRST.**
+`SRC_TARGET` is 5, so a card with five sources and one author in three of them cannot simply lose one:
+either a new source comes in, or an existing citation splits where its own claims already fall. Carter's
+did — it read "3–8 and 93–98", which is two citations written as one, and the two halves carry
+different sentences (Cai Lun and the 105 CE report; the craft's journey west after 751).
+
+**Run the arithmetic BEFORE the research**: `sources.length - 1 >= SRC_TARGET`, or the batch needs a new
+source however cheap the drop looked. It is what stopped `wh-126` 'Ain Ghazal in this batch — Rollefson
+in three of five, so dropping one needs a replacement, and the two independent studies of the statuary
+(Grissom in AJA 104 and Schmandt-Besserat in BASOR 310, both verified in Crossref) are on JSTOR where
+neither could be read to check that it carries the claim. **A paywalled citation this session could not
+open is one nobody checked**, which is the rule the whole apparatus rests on.
+
+### The tool, now committed: `node .claude/drop-candidates.js` (2026-09-14)
+
+The hand method below is now `.claude/drop-candidates.js`, so the figures are a command rather than a
+paragraph that will go stale — which this file has already had to correct once. It reports, per
+offending citation, `alone` (sentences whose only marker is that citation) against `shared`, states
+per card whether a drop would fall under the five-source bar, and takes `--prefix=` and `--card=`.
+**Run it rather than reading the numbers below back.**
+
+Three things about it are worth knowing before changing it. Its author rule is **sliced out of
+`check-cards.js` by text and the run STOPS if the slice fails**, so the two tools cannot come to
+disagree about which card is over-cited; `--prefix` is FORWARDED to that tool for the same reason,
+while `--card` is filtered locally because `check-cards.js` has no such flag and would ignore it. And
+the report is **captured through a file descriptor rather than a pipe**: piping `check-cards.js`'s
+stdout into `execFileSync` returned 42,785 bytes on one run and 32,811 on another, the second cut off
+before the over-cited section entirely — which made the tool print *no over-cited card*, the one answer
+it must never give by accident.
+
+#### What the whole backlog looks like, measured 2026-09-14
+
+**23 cards. 13 of them have nothing droppable at all** — every one of their offending citations carries
+at least one sentence by itself, so those want a new source and a re-pointed claim rather than a drop:
+`gr-030`, `gr-036`, `gr-046`, `gr-325`, `gr-323`, `wh-121`, `wh-126`, `wh-207`, `wh-376`, `wh-382`,
+`wh-383`, `wh-384`, `ww2-023`, `ww2-042`. **Eight sit at exactly five sources**, so they cannot lose one
+at all until a new source or a legitimate citation split is found first: `gr-032`, `gr-036`, `rm-038`,
+`wh-121`, `wh-126`, `gr-323`, `rm-089`, `wh-376`. **Six have a candidate that also clears the bar**:
+`wh-041`, `wh-099`, `gr-159`, `gr-334`, `ps-048`, `wh-389`.
+
+Of those six, **four are already read and recorded as the right answer** — `wh-041` and `wh-121` above,
+and `wh-099` and `ps-048` below. **`wh-389` was repaired the same day (R23 below), leaving `gr-334` as
+the one genuinely unexamined card with a candidate that clears the bar** — where the next batch starts.
+
+### The hand method this replaced
+
+For every over-cited card, count per offending citation how many sentences carry it ALONE (`excl`) and
+how many share it with another source (`shared`). A citation at **`excl=0`** can be dropped with no
+prose change at all, provided the co-cited source really carries the claim — which is `gr-227`'s shape
+and was found the same way. Measured over the whole backlog, the `excl=0` citations sit on `gr-032`,
+`gr-159`, `rm-038`, `ps-048`, `wh-412`, `wh-099` and `gr-334`, and **four of those seven are traps**:
+
+- `gr-032` — the co-cited source is the Dartmouth course website, so the drop clears the rule by
+  deepening the concentration this audit exists to reduce.
+- `ps-048` — the shared sentence says what Titchener ANSWERED, which Watson's manifesto beside it
+  cannot support.
+- `wh-099` — the co-cited source is "Mario Pino and Tom D. Dillehay", a different author KEY and the
+  same team, so the drop would change the count and nothing else.
+- `gr-159` — Pestarino is in four of six, so two must go and the card falls to four sources.
+
+### Two more probed and left, with the reason (2026-09-14)
+
+- **`wh-382` Jainism** — Charpentier in three of seven, all three pages of ONE chapter of the Cambridge
+  History of India, which `INSTITUTIONAL`'s own comment says is NOT to be excused. The third citation
+  marks one sentence, and **Jacobi's introduction to the *Gaina Sutras*, already on the card, carries
+  half of it outright**: "The redaction of the Gaina canon or the Siddhanta took place, according to the
+  unanimous tradition, on the council of Valabhi, under the presidency of Devarddhi. The date of this
+  event, 980 (or 993) A.V., corresponding to 454 (or 467) A.D., is incorporated in the Kalpa Sutra."
+  **What stopped it was the PAGE.** The introduction's running heads are stripped from both archive.org
+  renderings of that scan — the `/stream/` HTML and the raw `_djvu.txt` alike — so the passage cannot be
+  pinned to a page from here, and sacred-texts.com, which prints SBE page markers, is behind a Cloudflare
+  challenge. A page-less citation of a forty-page introduction is the whole-book citation `wh-207` is
+  blocked for. **The route back in is the item's own search-inside endpoint, which returns a LEAF number**
+  (the trick `witness-check.js` uses on the Library's books), or another scan of SBE 22.
+- **`gr-030` horns of consecration** — Evans in three of six, and his 1901 report marks one sentence:
+  his reading of the Knossos signet impression, which is his own interpretation of his own find. The only
+  source on the card that could take it is the Dartmouth lesson, which deepens the concentration this
+  audit exists to reduce. Needs an independent Minoan-religion source, not a re-pointing.
+
+### R23 — the stupa card comes off four pages of one chapter (shipped 2026-09-14)
+
+**`wh-389` stupa** was the clearest over-citation left: Marshall in four of six sources, all four being
+pages 623, 627, 627–628 and 630 of ONE chapter of the Cambridge History of India — the shape
+`INSTITUTIONAL`'s own comment says is not to be excused. Two sentences moved, and both were CORRECTED
+rather than re-pointed, which is R19's rule again.
+
+- **The relic deposit** was "relic caskets of beryl and rock crystal came out of the stupas at
+  Bhattiprolu and Piprahwa, and the lapidary's was the one art in which Maurya craftsmen excelled", on
+  Marshall p. 623. It is now **Alexander Rea's own excavation report** (ASI New Imperial Series 15, 1894,
+  pp. 11–12), and says what Rea found: a stone receptacle inscribed in Maurya characters, holding a
+  globular stone casket, holding a crystal phial with a flake of bone in it. Narrower, verifiable, and it
+  keeps the Maurya connection through the inscription Rea actually read.
+- **The aniconism sentence** is now **Foucher 1917**, pp. 5 and 104 — the scholar who established the
+  reading, writing about the Sanchi gateways specifically. The sentence was corrected on both halves:
+  Foucher's p. 5 names *the middle lintel of the eastern gate* and says the saddle-cloth is empty, and
+  his p. 104 says the seven past Buddhas are typified **alternately** by a tumulus and a tree — where the
+  card had said each earlier Buddha is a stupa. More accurate, and more interesting.
+
+**Two candidates were read and rejected first, which is what this batch is worth recording for.**
+**Maisey's *Sanchi and Its Remains* (1892) looks perfect and is not**: he describes the Great Stupa in
+detail and he describes the very relief — "an empty, chatta-shaded chariot, preceded by a loose horse,
+bridled and saddled" — but he reads it as *a horse and chariot dedicated to the deity*, not as the Great
+Departure. He predates the aniconic interpretation, so citing him for it would put a reading in his
+mouth that he explicitly does not give. **And his figures are his own**: 110 feet across the base and a
+basement terrace 14 feet high and 53 feet wide, against the card's 54-foot height and *narrow* ledge,
+which are Marshall's. A re-point there would have had to become a rewrite.
+**The Ashoka attribution and "not more than half the present size" are Marshall's too**, from his own
+1912–19 excavations, which postdate every 19th-century witness — so sentences 7 and 8 cannot be moved to
+Maisey, Cunningham or Fergusson at all without misattributing.
+
+**Source-finding notes for the next Indian-archaeology card.** DOAJ's full-text search is useless here —
+"sanchi" returns ginseng adulteration and Chagas cardiology. What works is **Crossref by bibliographic
+query** to find the literature and then testing each DOI for openness (`10.3126/…` NepJOL and
+`10.11606/…` USP both open; Taylor & Francis 403), and **archive.org's `advancedsearch.php` by title and
+creator** for the out-of-copyright standard works, which for this subject is where the usable sources
+are. `whc.unesco.org` is **403**, as `docs/china-geography-card-plan.md` already records. Persée's search
+page is JS-rendered and returns nothing to a plain fetch.
+**And an open paper on the right TOPIC is not a source for the right CLAIM**: Aldrovandi's "Aniconism
+revised" (2002) is open, on point and contains the word *Sanchi* **zero times** — it is a
+historiography of the theory, not a description of the monument. Fetched and grepped rather than assumed
+from the title.
+
+### Perseus FLAPS, and the reachability tool was lying about two hosts (2026-09-14, corrected 2026-09-15)
+
+Found while looking for a source for `gr-334`, and much the larger finding of the two.
+
+**`perseus.tufts.edu` is the corpus's THIRD-biggest host — 4,338 citations — and its two endpoints
+answer differently.** `/hopper/text` (4,299 of them) answered 200 throughout. `/hopper/artifact` (39
+citations over 25 distinct objects, all in `gr.js` and `glossary-extra.js`) answered **503 "Backend
+fetch failed"** on **ten consecutive probes over about eight minutes** — and then **200** the next
+evening, twice in three probes. The hopper HOME page served 200 from cache the whole time, so a single
+probe of the host reports it UP and hides the artifact endpoint entirely.
+
+**SO THE HEADLINE THIS SECTION FIRST CARRIED — "half down" — WAS WRONG, AND BEING WRONG IS THE FINDING.**
+Ten consecutive failures over eight minutes is not a flake by any ordinary standard, and it still did
+not mean the endpoint was dead. **A 503 bounds how long you watched, and nothing else.** That is exactly
+what the `DOWN` outcome added to `check-reach.js` the same hour says in its own header — the tool cannot
+tell a dead host from a bad minute — and the first thing written under it in this file forgot it. **Do
+not conclude an endpoint is gone from consecutive 503s; conclude it was not answering while you looked.**
+
+**Nothing was migrated, and that is now doubly the point.** UNdata was migrated the same day because the
+site had demonstrably been REBUILT — its own JS bundle proves there is no such route any more, which is
+a fact about the site rather than about the minute it was probed. Had those 39 Perseus citations been
+"repaired" on the strength of ten 503s, the repair would have been the damage.
+
+**And the tool that should have told us this was reporting two reachable hosts as SHUT.** Node's
+built-in `fetch` does not honour `HTTPS_PROXY` where curl does, so every probe went direct and the
+sandbox's egress policy answered instead of the host: `web.archive.org` gave curl 200 and fetch **403
+"Blocked by egress policy"**, Europe PMC gave curl 200 and fetch 504. `check-reach.js` now re-execs
+itself with `NODE_USE_ENV_PROXY=1` — setting it in-process does nothing, undici reading it once at
+startup. **This is the failure that tool exists to prevent, committed in the tool itself**, and it had
+been there since it was written.
+
+Two smaller things came out of the same hour. A **5xx is now its own outcome, `DOWN`**, because Europe
+PMC's 503 inside the sweep and Perseus's 503 over spaced probes are the same code meaning opposite
+things, and a transport throw is folded in with it — the Wayback row returned 27,019 bytes on one run
+and threw `fetch failed` four minutes later with nothing changed. And the table, which had 14 rows, was
+**missing the corpus's third-, sixth-, ninth-, tenth- and twelfth-biggest hosts**; it has 22 now, each
+row carrying its citation count so a row that stops answering names the work it was carrying.
+
+### `gr-334` archaic smile — CLEARED, and the last move was a content gain (2026-09-15)
+
+**This is the expensive end and it is worth knowing how far the money goes.** Gardner's *Handbook of
+Greek Sculpture* (1897) was in five of nine sources — pages 133, 138, 172–174, 179 and 204–205 — so
+THREE had to move, and `check-cards.js` counts absolutely, so adding sources could not have helped.
+It now passes on seven sources: Gardner 2, Tarbell 2, Walters 1, Murray 1, Al-Academy 1.
+
+**The two replacements, both verified in the source's own words before anything was written:**
+- **`H. B. Walters, The Art of the Greeks` (London: Methuen, 1906), 76** —
+  `archive.org/details/india.history.resource.100468`. One page carrying two things the card needed.
+  The Boeotian figure: "The Orchomenos figure is much less advanced than the others, **has no smile**,
+  and is generally heavier and stiffer." And the argument, at the Apollo of Tenea: "The meaning of this
+  expression has been **disputed**; it has been urged that it indicates the pleasurable effect the
+  artist desired his work to have upon the spectator, but it is perhaps only an attempt at giving
+  expression to the face." Walters' index confirms the page — *smile in, 76*.
+- **`A. S. Murray, A History of Greek Sculpture`, rev. ed., vol. 1 (London: John Murray, 1890), 215** —
+  `archive.org/details/historyofgreeksc01murr`, under the running head **WEST PEDIMENT OF ÆGINA
+  TEMPLE**: "the eyes are forward and slanting a little, in correspondence with which the curves of the
+  mouth turn gently up, the lips are full... **The expression of face varies little from a conventional
+  type**." That is the card's sentence about the west-pediment heads in an independent voice, and it is
+  about the west pediment *by name*, which is what the sentence claims.
+
+**THE THIRD MOVE WAS A DELETION, AND IT MADE THE CARD BETTER.** The Aristion sentence could not be
+re-pointed: the claim is that *the form of the smile is preserved and its effect entirely changed*,
+which is Gardner's judgement, where Walters p. 82 describes the hand drawn like a foot and the eye shown
+full face, Murray p. 141 the sidelong eye and the blocked beard, and the **Perseus record for Athens NM
+29 — fetched and read — gives the date, the signature and the hoplite dress and says nothing about the
+mouth at all.** Four sources describe the object and not one carries the claim. **Re-pointing a
+judgement to a source that describes the same object differently is the trap this whole pass keeps
+finding**, so the sentence went, and the sentence that replaced it is Walters' *disputed meaning* —
+which the card had never mentioned while asserting the convention reading as settled fact. A card that
+tells a reader its central term is argued over is worth more than one more example of it.
+
+**What the collateral cost was, and it is the part to plan for.** Rewriting an abstract moved three more
+things that no checker would have caught: **two of the three `why` answers** quoted the deleted
+sentences back verbatim ("their limbs drawn up in pain", "on the stele of Aristion its effect is
+entirely changed"), and the **date line carried an `Aristion stele` row** for an object the card no
+longer mentions. A `why` answer must say what the card's own cited prose says; after this edit two of
+them said what it used to say. **Grep the card's other fields for the words you are deleting** —
+`answerDate`, `why`, `questions`, the picture caption — before calling the batch done.
+
+**One thing measured and rejected, so it is not re-tried.** Mackenzie's "The East Pediment Sculptures of
+the Temple of Aphaia at Aegina" (*BSA* 1909) is the obvious independent authority and Cambridge Core
+serves only its abstract page. **And two candidates were opened and found not to carry the subject at
+all**: Furtwängler's *Masterpieces of Greek Sculpture* names Aegina four times in 1.6 MB, every one in
+passing (ear shape, bronze technique), and the card's own 2024 Al-Academy paper says *smile* twice in
+51,715 characters, both about its disappearance — which is already what it is cited for. **A famous
+excavator is not therefore a source on what he excavated.**
+
+### `gr-046` Minoan trade with Egypt — the Dartmouth concentration at its worst, cleared (2026-09-15)
+
+**Five of six sources were one Dartmouth course website**, the worst ratio in the corpus and the audit's
+own standing finding at its extreme. Three entries had to go, and `check-cards.js` counts absolutely, so
+adding sources could not have helped.
+
+**THE CHEAPEST THREE TO CLEAR ARE NOT THE THREE WITH THE MOST SENTENCES.** The rule counts ENTRIES, so
+the cost of clearing one is the number of sentences resting on it ALONE — Rutter's five entries carried
+three, two, one, one and one. Clearing the biggest (three sentences) removes exactly as much from the
+count as clearing the smallest. **Always cost them by alone-sentences before choosing**, which
+`drop-candidates.js` prints.
+
+**What replaced them, each verified in the source's own words:**
+- **Petrie, `Illahun, Kahun and Gurob` (1891), 9–10** — the excavator's own report of the very find the
+  card's central sentence is about: pottery "called Aegean in general… to judge by their material and
+  decoration", and "all were found in the rubbish heaps of the XIIth dynasty", so "the evidence
+  unmistakably shews that it must be of the time of Usertesen II". **The card had been citing a course
+  summary for a claim whose primary publication is free on archive.org.**
+- **Hall, `Ægean Archæology` (1915), 50–51** — and this is the move worth copying: **ONE entry carrying
+  TWO sentences removes TWO Rutter entries while adding one.** That single page range holds both a
+  Cretan stone pot "so precisely like a common and very typical Egyptian form of the VIth Dynasty that
+  we can hardly doubt that it is an actual importation", and the Koumasa figurines in the Mesara whose
+  "hatchet-shaped faces, remind us strongly of certain pre-Dynastic figurines from Egypt". **When
+  hunting replacements, look for one source covering two of the orphaned sentences rather than three
+  sources covering three.**
+- **Evans, `The Palace of Minos`, vol. 1 (1921), 266–270** — the continuous section on Late Minoan I
+  vessels in dated Egyptian contexts, Gurob Grave 245 "dated by scarabs to the early part of the XVIIIth
+  Dynasty" and the Anibeh tomb in Nubia. **The page is a RANGE because the OCR prints no marker between
+  266 and 270** and the discussion genuinely spans them; it is not a range hiding a guess at one page.
+
+**THREE SENTENCES WERE REWRITTEN, NOT RE-POINTED**, so the ostrich-egg rhyta, the tholos-derivation
+argument and the Kommos harbour left the card with the sources that carried them. **No open source for
+any of those three is reachable from here** — Kommos was excavated from 1976 and its literature is
+JSTOR and OUP, Xanthoudides' *Vaulted Tombs of Mesará* (1924) is not on archive.org at all, and the
+ostrich-egg rhyta want specialist modern work. That is the audit's standing finding restated: where the
+Dartmouth site is carrying a claim, it is often carrying a claim nothing else open carries, and the
+answer is to write the card from what CAN be opened rather than to force a substitution.
+
+**AND THE COLLATERAL BIT AGAIN, HARDER THAN ON `gr-334`.** Rewriting three sentences orphaned a `why`
+answer about the tholos derivation AND **the card's third question phrasing, which asked the reader
+about ostrich-egg rhyta the card no longer mentions** — a question must be answerable from its own
+card's background, and nothing in the pipeline compares the two. **`check-questions.js` passed it
+before and after.** Grep every other field for the words you are deleting: `answerDate`, `why`,
+`questions`, the picture caption.
+
+### `gr-159` Cypriot syllabary — when the over-cited "author" is a REVIEWER (2026-09-15)
+
+**Four of six sources were Beatrice Pestarino, and she wrote none of the books.** They are four BMCR
+reviews of four different books by four different sets of authors. **The rule is still right**: a
+citation to a review cites the REVIEWER's prose, which `card-focus.js` and `check-cards.js` both take
+from the author slot deliberately, so the card really was resting on one scholar's summaries. **Expect
+this shape wherever a card is built out of BMCR**, which is much of the Greece collection's modern
+apparatus.
+
+**DROPPING WAS ARITHMETICALLY IMPOSSIBLE, and that is worth checking first.** Two of the four had
+`alone=0` and looked like free drops — but TWO have to go to reach the cap, and 6 − 2 = 4, under the
+five-source bar. **A card with two zero-alone candidates can still be undroppable; multiply out before
+reading the sentences.**
+
+**What was shut, and it is the expensive half to re-learn.** The obvious replacements are Steele's
+*Syllabic Writing on Cyprus* and the Cypro-Minoan papers in *Antiquity* — all Cambridge, which serves a
+**200-status Cloudflare challenge** here (`check-reach.js`'s `WALL`), so they are unreadable and
+uncitable. **BMCR itself is open and searchable** (`bmcr.brynmawr.edu/?s=…`), which is what made the
+card fixable: the vein the card was already mining has other reviewers in it.
+
+**The fix, and it is `gr-046`'s trick again.** **Christian Körner's review of the IG Cyprus syllabic
+volume (BMCR 2021.02.24) carries TWO of the orphaned claims, so ONE new entry removed TWO Pestarino
+entries** — the script running "in two slightly different versions, one used mainly in Paphos and the
+other throughout the rest of the island", and its end: "it was only with the annexation of the island
+by the Ptolemies… that the Greek alphabet began to replace the Cypriot syllabary, the latter vanishing
+at the latest in the 1st century BC". **That ending is better card than what it replaced** — Nicocles'
+signary reform was a detail where this is the reason the script died. A second Petrakis review
+(BMCR 2015.01.24, Steele's *Linguistic History*) took the Golgoi claim off Pestarino as a sixth source;
+**Petrakis at two entries is at the cap, not over it.**
+
+**Nothing was orphaned this time**, and the reason is worth noting: the rewrites replaced the two
+SENTENCES nothing else referred to. Both extra question phrasings and all three `why` answers point at
+the 1872 decipherment, Linear B's narrower range and the Golgoi bilingual marker — all still in the
+card. **Check anyway; it was luck rather than design.**
+
+### The Evans cluster — `gr-030` and `gr-032` cleared, `gr-036` is the honest refusal (2026-09-15)
+
+Three Minoan cards are over-cited on **Arthur J. Evans**, and they are not the same problem three times.
+The distinction is worth having before opening any of them.
+
+**`gr-030` horns of consecration — cleared.** Evans held three entries, one of them (BSA 7, 1901) on a
+single sentence, which is the cheapest shape there is. **Nothing else in the open shelf has the term at
+all** — "horns of consecration" appears 7 times in Evans's own *Palace of Minos* and **zero** times in
+Hall, Murray or Walters, Evans having coined it. **The obvious escape was to move the sentence onto
+Rutter's Lesson 15, which is already on the card and would have cost no new entry — and that is gaming
+the check**, since it would clear the rule by leaning harder on the Dartmouth course site this whole
+audit exists to reduce. Instead **BMCR's own search** (`bmcr.brynmawr.edu/?s="horns of consecration"`)
+returned seven reviews, and Nota Kourou's review of Mieke Prent's *Cretan Sanctuaries and Cults* carries
+a better claim than the one it replaced: the horns are "among the most representative" cult equipment of
+the Late Minoan IIIC and Subminoan bench sanctuaries. **The card now says the type outlived the palaces,
+which it never did before.** One collateral: a `why` answer quoted the deleted signet sentence.
+
+**`gr-032` Minoan religion — cleared, and this one is a DIVERSIFICATION rather than an upgrade.** Say so
+plainly. Evans held three entries, two of them primary excavation reports shared with Rutter, and one
+(*Tree and Pillar Cult*) on the sentence that describes **what Evans himself read into the sacred trees
+and pillars** — that one can never move, being correctly cited to its own author. So BSA 9 went, replaced
+by Noula Karatzoglou's review of Lapatin's *Mysteries of the Snake Goddess*, which carries the faience
+figures "excavated from the Temple Repositories" squarely. **The prose did not change, so nothing was
+orphaned — and the card's evidence for that sentence is now a book review where it was the excavator's
+own report.** It diversifies the apparatus and it does not improve it. The card sat at **327 of 330
+words**, so the obvious improvement — Lapatin's actual argument, that the most famous Snake Goddess of
+all is probably a modern forgery — would not fit without a trim elsewhere. **Worth doing when that card
+is next opened.**
+
+**`gr-036` Minoan roads — NOT cleared, deliberately.** All three Evans entries carry two, three and three
+sentences ALONE: BSA 7, 8 and 9 are the annual reports of the dig that found the roads, and the card is a
+description of what those reports describe — the north roadway and its portico of twelve pillars, the
+guard-house and bastion, the West Court causeway, the Theatral Area's eighteen tiers. **This is the case
+the rule is worst at: the excavator cited three times is three annual instalments of one excavation, not
+three opinions.** Clearing it means finding modern descriptions of the Knossos road system, which is
+where the Cambridge wall stands. **Do not "fix" it by re-pointing to Rutter**; record it and leave it
+until a reachable modern survey turns up.
+
+### `wh-099` Monte Verde — cleared, and the drop was the least of what reading the sources found (2026-09-15)
+
+`wh-099` carried EIGHT sources with three counted under `tom d. dillehay`, and all three sat at
+`alone=0` — three candidates, which reads like the easy one of the batch. It was not, and the reason is
+worth keeping: **the point of confirming a co-cited source is not to license the drop, it is that reading
+two papers side by side against a sentence is the only thing that tests the sentence.** The drop took
+five minutes. Reading the two sources turned up two claims the card was making that neither of them
+carries.
+
+**Fault 1 — the card asserted the opposite of its own source.** The lithics sentence ended "with no fluted
+points at all", cited to [1] and [2]. [2] (Dillehay et al. 2015, PLOS ONE, open) says of MV-II: *"Although
+bifacial projectile points, flaked debitage, and grinding stones were recovered, most lithic tools were
+edge-trimmed pebble flakes and sling and grooved bola stones."* Bifacial projectile points WERE recovered.
+The point the card wants — that the assemblage is not Clovis-like — is true and is what the source says;
+the absolute the card had written is not. Now: *"most stone tools are edge-trimmed pebble flakes and
+grooved bola stones rather than fluted Clovis bifaces."* **A negative absolute is the shape to distrust:
+"no X at all" is a claim about everything that was found, and a source reporting what WAS found can
+almost never carry it.**
+
+**Fault 2 — "digging sticks", and "a child's footprint".** Neither is in either cited source. [1] (Pino &
+Dillehay 2023, *Antiquity*, open) describes the tent's contents at length and names no digging stick; both
+sources say "human footprints" and neither says child, juvenile or infant — grepped, not eyeballed. The
+child's footprint is repeated everywhere in the popular literature about Monte Verde, which is exactly why
+it got in. It was in the second question phrasing, so it had to come out of there too.
+
+**And "digging sticks" had travelled.** It was also in `why[0].a`, where the Think-it-through answer
+restates the preserved finds. That is the collateral rule again: **a rewritten abstract orphans the why
+answers, the extra phrasings and the date line, and nothing complains** — `check-questions.js` passed
+before and after.
+
+**What the drop actually was.** [8] (Dillehay et al. 2008, *Science*, "seaweed, food, medicine") sat with
+[1] on the finds sentence. [1] carries every element of that sentence and more, in its own words — the
+collapsed frame of the long tent, the clay-lined brazier pits on its floor, the communal hearths and
+wooden mortars outside, the masticated cuds of medicinal seaweed and boldo, and **the distance: "13 species
+of edible or medicinal imported seaweeds from the Pacific coast (approximately 60km away)"**. The card had
+"seaweed carried up from the distant coast"; it now says about 60 kilometres, which is a figure rather
+than an adjective. So the sentence was rewritten onto [1] and [8] retired, leaving 7 sources and two
+Dillehay entries. Dillehay drops from four of eight entries to three of seven.
+
+**Say what this is, because it is not what the rule hopes for.** It is a CONSOLIDATION onto the
+excavators' own latest synthesis, not the arrival of an independent witness — and none was available.
+Monte Verde's finds are the excavators' to report; the one independent account, the 1997 site-visit panel
+[7], is paywalled at Cambridge (abstract page only, no text), Erlandson, Braje & Graham 2008 in *Journal
+of Island and Coastal Archaeology* is 403 at Taylor & Francis, and a modern synthesis would be summarising
+Dillehay anyway. **`docs/greece-audit-2026-09.md`'s own rule holds here: keeping a source for a claim
+nothing else states is the right answer rather than a failure** — what made the drop legitimate was that
+[1] states the claim too, better.
+
+**Three things measured on the way, so the next session does not redo them.**
+· **All five checkable DOIs are exactly right** — authors, year, volume, issue and pages, against Crossref.
+· **`10.1371/journal.pone.0141923` is the article and `…pone.0145471` is its CORRECTION notice.** The
+  *Antiquity* reference list cites the correction. The card has the article, which is right; a session
+  "fixing" the card against that reference list would break it.
+· **`fundacionmonteverde.cl` served an `sgcaptcha` 202 on two attempts and a 200 on a third.** It is a bot
+  wall that flaps, not a dead link: a reader with a browser reaches the PDF. Not changed. And **the
+  TAMU "Three Critiques" PDF is a subsetted-font PDF whose text extracts as gibberish** — it downloads
+  (200, 8 pages, 262 KB) but cannot be read from here without solving the font encoding, so nothing new
+  was cited to it.
+
+**One tooling note that is not a fault.** A quick `https?://[^\s<>"')\]]+` over the sources returns each
+URL WITH the sentence's closing full stop and every DOI then 404s, which reads as a card full of dead
+links. app.js's own `SRC_URL_RX` ends `[^\s<>"')\].,;:]`, so the site trims it. **Sweep with app.js's
+pattern, not an approximation of it.**
+
+### `wh-041` Homo naledi — cleared by citing the work that was actually being cited (2026-09-15)
+
+Three Berger entries of six: [1] the 2015 species description, [5] the 2023/25 burial paper, [6] the
+engravings paper. The tool offered [5] and [6] as candidates at `alone=0`, and **both were false in the
+way the tool cannot see**: they sit on one sentence that makes two claims, one about the burial verdict
+and one about the engravings verdict, so each carries half of it and neither is droppable.
+
+**What the card was actually citing was not Berger.** Both entries carried the locator
+*"eLife assessment"* — the editorial verdict eLife attaches to a reviewed preprint, which the card
+reports honestly ("one reviewer found the burial case convincing and another found it incomplete"). That
+verdict is not written by the paper's authors. **eLife registers each assessment as its own work**, with
+its own DOI, its own type (`peer-review`), an `is-review-of` relation, and a named editor:
+· `10.7554/eLife.89106.3.sa0` — **George H. Perry**, on the burial paper
+· `10.7554/eLife.89102.3.sa0` — **Yonatan Sahle**, on the engravings paper
+
+So the card was **attributing to Berger a judgement about Berger**, and a reader following either
+citation met his byline over somebody else's verdict. That is a citation fault on its own terms, and
+fixing it is right whether or not anything is counting. It happens to take Berger from three entries to
+one, so the rule clears as a side effect rather than as the object of the exercise.
+
+Both assessments are open and were read. Perry: *"One of the reviewers concludes that the findings
+convincingly demonstrate intentional burial practices, while another considers evidence for such an
+unambiguous conclusion to be incomplete."* Sahle: significance **Important**, strength of evidence
+**Incomplete** — *"this report concerns preliminary findings, and as it stands the study is incomplete."*
+The card's sentence was already accurate to both; it now says *an eLife editor's assessment* rather than
+*the journal's own verdict*, and gives the engravings eLife's two ratings rather than a paraphrase.
+
+**The form matters, because two tools read it.** Written `<Reviewer>, review of “<title>,” by
+<authors>, …`: `check-cards.js` keys on the text before the first comma, so the entry now counts under
+Perry and Sahle; and **`card-focus.js`'s reviewer branch is `/^(.*?),\s*review of/i`, which runs AFTER
+titles are masked to `§TITLE§`** — so a quoted title placed between the name and "review of" would have
+it capture `Perry, §TITLE§` and yield no name at all. **"review of" goes immediately after the
+reviewer.** Verified: `card-focus` now reports Berger, Dirks, Hawks, Perry, Sahle, and `check-citations`
+checks all six against Crossref with nothing to eye.
+
+**Measured, so nobody looks for a pass that is not there: this fault occurs on exactly these two
+citations in the whole corpus** — grepped for the `eLife assessment` locator and for any
+assessment/peer-review locator on any journal. It is a one-card fault, not a backlog. But eLife's
+reviewed-preprint model keeps producing these, so the rule is worth having: **when a citation's locator
+names an editorial assessment, a peer review or a referee report, the work being cited is the review,
+and the review usually has a DOI and an author of its own.**
+
+**What could NOT be done, recorded so the next session does not spend the hour again.** The obvious
+improvement is an independent critique, and one exists: **María Martinón-Torres, Diego Garate, Andy
+I. R. Herries & Michael D. Petraglia, "No scientific evidence that Homo naledi buried their dead and
+produced rock art," *Journal of Human Evolution* 195 (2024): 103464, `10.1016/j.jhevol.2023.103464`.**
+It is not readable from here: the DOI lands on Elsevier's `linkinghub` shim (200, 2.7 KB, no text);
+Europe PMC returned 503 on four probes across several minutes; and **the Griffith repository record
+(`hdl.handle.net/10072/427314`) is metadata only** — its single bundle holds one 130-byte SWORD XML and
+no manuscript, which the DSpace bitstream API says outright and the item page does not. **A repository
+record is not a copy.** Nothing was cited to it, because a paper whose argument you have not read cannot
+be cited for its argument — its title states its conclusion, and that is not the same thing.
+
+### `wh-384` Chandragupta Maurya — a card written out of one 1922 chapter, and the question was backwards (2026-09-15)
+
+Four of six entries were **one chapter** of the 1922 *Cambridge History of India* — F. W. Thomas,
+"Chandragupta, the Founder of the Maurya Empire," at pages 467, 469–471, 472 and 473 — which is R23's
+shape exactly. But the count was the least of it. **Five of ten sentences were a close paraphrase of
+that chapter, including its judgements and its idiom**: *"is recognised without difficulty as"*, *"master
+of all Hindustan"*, *"took a safe retirement"*, and — worst — *"A precise date for that overthrow is on
+present evidence impossible."* **In a 1922 source, "on present evidence" means 1922's evidence**, and the
+card was repeating it in the present tense with no date attached. That is the shape to watch for whenever
+a card rests on an out-of-copyright standard work: the phrase reads as current because it was written to.
+
+**THE QUESTION HAD THE TRADE THE WRONG WAY ROUND.** It read *"took Pataliputra from the last Nanda king
+and later traded the Kabul valley to Seleucus for 500 elephants"* — which says Chandragupta gave away the
+land and received the elephants. It is the other way about: **Seleucus handed over land and Chandragupta
+gave him the elephants.** The card's own abstract had it right, so nothing was internally inconsistent
+enough to notice, and the question is the most-read text on a card. The third phrasing and the second
+Think-it-through answer carried the other half of the 1922 narrative — *"found Chandragupta master of all
+Hindustan and waiting with an immense army"*, *"settled for a safe retirement"* — which is not in any
+ancient source at all.
+
+**What replaced it.** `OAPEN` — CLAUDE.md's own "OAPEN finds the books" — has the full text of **Sushma
+Jansari, *Chandragupta Maurya: The Creation of a National Hero in India* (London: UCL Press, 2023)**,
+open access, and the book is about precisely this card's subject. Its findings rewrote block 2:
+· **"There are no South Asian sources for any aspect of their interaction"** — every modern account rests
+  on the same handful of Graeco-Roman passages.
+· **No source says who won, or what the fighting involved.** The card now says so.
+· **Only three terms of the treaty survive**: Seleucus transferred land, Chandragupta gave 500 elephants,
+  and there was a marriage alliance "although it is not clear who or what this involved".
+· **Strabo does not specify WHICH land.** The card had "the Greek dominions as far as the Kabul valley",
+  which is Thomas's inference; Strabo 15.2.9 says only *"Seleucus Nicator gave them to Sandrocottus in
+  consequence of a marriage contract, and received in return five hundred elephants"*, of countries along
+  the Indus that had formerly been Persian. **Cited to Strabo himself now**, on Perseus, rather than to a
+  paraphrase of him.
+· **The chronology**: the Purāṇas give 24 or 25 years, the Sri Lankan chronicles 24, the Jain list starts
+  him in 313 BCE — and Jansari's own caution, that chronologies stitched from these traditions "have
+  become accepted 'fact', despite standing on extremely shaky foundations".
+
+**Two things about doing this that are worth having next time.**
+· **OAPEN ships an extracted `.pdf.txt` bitstream beside the PDF, and it is what makes a 31 MB book
+  readable here** — `pdftotext` is not installed in this sandbox and neither is any Python PDF library.
+  Ask `library.oapen.org/rest/search?query=…&expand=bitstreams` and look for the `.txt`.
+· **Its running heads give you page numbers.** The extracted text keeps `<n> CHANDRAGUPTA MAURYA` and
+  `… banks of the Indus <n>`, so a passage can be pinned to a page and cited properly rather than cited to
+  a whole book.
+· **And the new source must not become the new over-citation.** Four Jansari page ranges were wanted;
+  four entries would have put her straight onto rule 1. They are **two entries carrying the pages each
+  claim needs** — 1–2 and 16–17 for the silence and the uncertain order, 26–27 for the chronology — which
+  is precise and inside the rule.
+
+**Verified before citing, not after.** McCrindle's Introduction really does read *"Megasthenês, who being
+sent by Seleukos Nikator on an embassy to Sandrakottos (Chandragupta), the king of the Prasii, whose
+capital was Palibothra"* — the card quotes it, and the phrase is **not** in the Cambridge History, which
+was the card's other citation for it. Charpentier pp. 156–57 really does give the Jain 313 BCE. All seven
+URLs answer 200. `card-focus` reports historiography 0 and no researcher in any question; `check-cards`
+reports nothing.
+
+**One limitation, stated.** The DOI `10.14324/111.9781800083882` resolves to Crossref's
+**multiple-resolution chooser**, which lists UCL Discovery and JSTOR — both free — rather than landing on
+the book. It is the canonical address and a reader reaches the text in two clicks; `uclpress.co.uk` is
+403 from here, so it could not be checked as an alternative.
+
+### `wh-383` and `wh-382` — the rest of the 1922 Indian cluster, and where the pages actually were (2026-09-15)
+
+The two siblings of `wh-384`, cleared the same day and by the same method: find the modern open-access
+work, read it, and rewrite the sentence to what it says.
+
+**`wh-383` Maurya Empire — four Thomas entries of six, and one of them cited the wrong pages.** The
+claim at block 2 sentence 5 — the Purāṇic 137 years, the end about 184 BCE, and Pushyamitra killing
+Brihadratha — was cited to Thomas, "Asoka," 511–512. That chapter **does** carry it (the running head
+`512 Aqoka [CH.]` sits in the middle of the passage, and Thomas is more sceptical than the card was:
+*"none of them justifies in detail the total of 137 years which they unanimously ascribe"*). But **the
+better page was already on the card**: Rapson's own chapter, "Indian Native States after the Period of
+the Maurya Empire", says it at **pp. 517–18** — *"Pushyamitra, the commander-in-chief of Brihadratha,
+the last of the Mauryas, slew his master and reigned in his stead"*, and *"this event happened 137 years
+after the accession of Chandragupta, i.e. c. 184 B.C."* So that entry gained one page range and the
+Thomas entry went. **When a card over-cites one author, look first at whether another author already on
+the card carries the claim on a page nobody looked up.**
+The Ashoka-chronology entry was replaced by Jansari pp. 27–28, which says the same thing and more: the
+fourteen Major Rock Edicts name Hellenistic kings, **which is why his inauguration is traditionally
+placed about 268 BCE** — a date the card did not have — with the long and short chronologies and
+Gombrich's 136 years beside it. Thomas keeps two entries; Jansari takes two.
+
+**`wh-382` Jainism — three Charpentier page ranges, and the merge that was refused.** The cheapest fix
+was obvious and wrong: fold two of the three entries into one carrying both page ranges. That clears the
+count and changes nothing about the card, which rests on five Charpentier sentences either way — **it
+dodges the letter of a rule whose whole subject is pages of one scholar.** Not done.
+What was done instead: `OAPEN` again, this time for **Royce Wiles, "The Dating of the Jaina Councils," in
+*Studies in Jaina History and Culture: Disputes and Dialogues*, ed. Peter Flügel (Routledge, 2006),
+pp. 61–85** — open access, and **a chapter whose argument is that the scholarly accounts of the Valabhi
+council are far more definite than their sources warrant, with Charpentier's own account examined by name
+and found to have "quite a few problems"**. The card's closing sentence now says the dating rests on much
+later commentaries rather than stating it flat, and the Think-it-through answer that repeated it was
+brought into line.
+**Jacobi was checked first and does not carry it.** SBE 22's Introduction has the Valabhi council and the
+sects' separation "probably in the second century after the Nirvāṇa", but **nothing on the Digambara
+rejection of the canon and nothing on the sects' names** — grepped, not assumed — so those two sentences
+stay on Charpentier, which is the right answer and keeps him at two.
+
+**One limitation, stated rather than papered over.** `doi.org/10.4324/9780203008539-4` returns **403**
+from this sandbox, and so do `taylorfrancis.com`, `library.oapen.org/handle/…` and OAPEN's own published
+bitstream URL — **with a browser user-agent as well**, so it is an egress refusal rather than a
+user-agent filter, and **a 403 is not a paywall**. The chapter was read in full through OAPEN's REST
+endpoint (`/rest/bitstreams/<uuid>/retrieve`, 200, 4.8 MB of PDF, plus the extracted `.txt`), and the
+book is on OAPEN because its rights holder released it open access. The citation carries the canonical
+chapter DOI, which is what Chicago asks for and what will outlive any of those addresses; `[Open access]`
+rests on the deposit, not on a fetch from here.
+
+### `wh-207` and `ww2-023` — read, NOT cleared, and what the next session should start from (2026-09-15)
+
+Two more worked and left standing. Recorded in detail because in both cases the hunt is most of the
+work and it should not be done twice.
+
+**`wh-207` Rosetta Stone — Budge in three of six, and nothing modern is open.** [2] and [3] are the same
+book (*The Decrees of Memphis and Canopus*, vol. 1), one with **no locator at all** and one at p. 168 —
+so the obvious move is to fold them into one entry. **Refused, for `wh-382`'s reason**: it clears the
+count and changes nothing about a card that rests on Budge either way. The replacement hunt came back
+empty and the results are worth having:
+· **`britishmuseum.org` is 403** from this sandbox — the museum's own object page for EA24 cannot be read
+  here, which is the obvious source for the slab, the line counts and the 1801 capitulation.
+· **`trismegistos.org` presents a certificate this sandbox cannot verify**, and that is not a thing to
+  work around.
+· The **Corpus of Ptolemaic Inscriptions** at `cpi.csad.ox.ac.uk` answers, but not at any inscription id
+  guessed for the Memphis decree (404). Finding the right id is the one lead left.
+· **DOAJ returns ZERO** for the Rosetta Stone and Ptolemy, and the modern editions (Simpson; Quirke &
+  Andrews; Parkinson's *Cracking Codes*) are all closed. `10.2307/j.ctv2ks6zhv` is Jonathan Downs,
+  *Discovery at Rosetta* (AUC Press, 2020) — popular, and on JSTOR rather than open.
+The card's three FRENCH sources (Leclant × 2 and Dewachter, all on Persée, all open) already carry the
+find and the decipherment well, so **what is missing is a modern source for the DECREE ITSELF** — its
+date, its clauses, Lycopolis — which is exactly where Budge stands.
+
+**`ww2-023` Golden Twenties — four LeMO pages by one author, and the blocker is one figure.** All four
+Scriba entries are chapters of the Deutsches Historisches Museum's *Lebendiges Museum Online*: a museum
+web encyclopedia answering for the Weimar economy four times over. **`germanhistorydocs.org` is the right
+spine and it IS open** — the GHI Washington's document collection, already cited twice on the card, with
+a Weimar volume whose *The Economy, 1918–1929* chapter holds 46 sources. Two of them matter:
+· **Helene Simon, "Unemployment" (April 1929)** states the AVAVG's rule directly — *"they have exhausted
+  the 26 weeks of benefits they can claim"*, with crisis assistance for a further 39 weeks, 52 over the
+  age of forty. That is a far better home for the card's benefit sentence than its present citation,
+  which is **a photograph of a barbershop sign**. But Simon carries **no wage fractions and no poverty
+  framing** — grepped, not assumed — so she cannot take that sentence or the one about want being
+  widespread without both being rewritten.
+· **"Reichstag Debate on the Unemployment Insurance Act (1927)"** is the obvious home for the card's
+  sentence on the July 1927 vote.
+**What actually blocks the card is "German output grew by half between 1924 and 1929"**, which rests on
+Scriba's Dawes-Plan page and **is also in the question**, so it cannot be dropped without rewriting the
+question too. GHDI's own *The Dawes Plan (1924)* carries the reparations context and the American loans,
+not that figure. **Find an open economic-history source for it and the card falls out in one pass**;
+`ifz-muenchen.de` (Vierteljahrshefte für Zeitgeschichte, whose back archive is free) answered 404 at the
+path tried and is the next thing to look at properly.
+
+### Two more read and left, and these are the rule working rather than failing (2026-09-14)
+
+Both showed a candidate at `alone=0` and both are the right answer as they stand. Recorded so the next
+batch does not re-derive them, and NOT put in any exemption table — a table that made these pass would
+buy a green run at the price of the one signal the check exists to give.
+
+- **`wh-099` Monte Verde** — Dillehay in three of eight, and the card is about a live controversy over
+  his own site. It cites the 2026 *Science* paper that challenges the date, the 1997 panel that visited
+  the excavation, Pino, Meltzer and Waters besides, so it plainly does not rest on one voice. Each of
+  the three is a distinct publication decades apart: the 2008 seaweed paper, the 2015 evidence paper,
+  and his May 2026 eLetter. **That last one looked like the free drop and is not.** The sentence reads
+  "Dillehay and others answered in May with three critiques", and citations 4, 5 and 6 ARE those three
+  critiques, one marker each — which is good apparatus, not padding. Worth knowing for anyone who opens
+  this card: **`Three-Critiques.pdf` contains all three letters**, so citation 6's separate
+  `fundacionmonteverde.cl` address is a second copy of a letter already in the file that 4 and 5 link.
+  Fetched and read to establish that, rather than assumed from the file name.
+- **`ps-048` structuralism** — Titchener in three of six, which is the school's founder cited for the
+  school's three founding documents: the 1898 manifesto, the 1899 reply to functionalism and the 1914
+  reply to Watson. That is a WITNESS cited three times, not a scholar's opinion three times, which is
+  the distinction `check-cards.js` already draws for ancient authors one era forward. `citesOwnSubject`
+  does not reach it because the answer term is *structuralism* rather than *Titchener* — correctly, since
+  that helper is about a card whose subject IS the cited author. The 1914 paper shows `alone=0` and is
+  the trap: its sentence **quotes it** ("the methods of science are in the last resort observational"),
+  which the Watson manifesto cited beside it cannot support.
+  **One real improvement is available here and was not made in this batch**: the card carries no modern
+  historical scholarship on structuralism at all — Titchener thrice, Watson, a paper on Calkins and an
+  OpenStax textbook. Adding one would not clear the FAIL, the rule being absolute, but it would make the
+  card better, and the Psychology plan's own rule about stating a finding's current standing asks for it.
+
+### `wh-121` dog domestication — the last untouched card, and the ONE PAPER PER LAB shape (2026-09-15)
+
+Anders Bergström first author on three of five, and the card at the bar. **This is not the Walters
+shape and should not be treated as it was**: these are three separate landmark papers with large and
+different teams — *Science* 2020, *Nature* 2022, *Nature* 2026 — in a field where one group has led.
+The rule is nevertheless about the card rather than the field, and the card really did put one name
+on three of its five sources.
+
+**The 2020 *Science* paper is the one that could go**, because both of its sentences were answerable
+elsewhere and the replacements are better card material.
+
+- **Perri, Feuerborn, Frantz, Larson, Malhi, Meltzer and Witt, *PNAS* 118, no. 6 (2021)** answers the
+  card's own second sentence. The card said "where it happened, when, and which people were involved
+  are all still unknown" and then never named a proposal; this one, matching dog and human population
+  divergences across Siberia, Beringia and North America, "suggests that dogs were domesticated in
+  Siberia by ∼23,000 y ago, possibly while both people and wolves were isolated during the harsh
+  climate of the Last Glacial Maximum", with dogs entering the Americas beside the first people from
+  ∼15,000 years ago. **The paper calls it a hypothesis and so does the card** — it also says in its
+  own text that "many other aspects of dog domestication … remain unresolved".
+- **Ní Leathlobhair et al., *Science* 361 (2018), 81–85** carries what became of those dogs, which is
+  the most arresting fact now on the card: American dogs form a lineage of their own that "almost
+  completely disappeared" after Europeans arrived, and "the closest detectable extant lineage to
+  pre-contact American dogs is the canine transmissible venereal tumor, a contagious cancer clone
+  derived from an individual dog that lived up to 8,000 years ago".
+- **Lin et al. 2025, already on the card, carries the gene-flow sentence alone** — 64.1% of modern
+  breed dogs carrying wolf ancestry from admixture "nearly a thousand generations ago on average", and
+  100% of the free-living village dogs analysed. So the sentence it had shared with Bergström 2020 did
+  not need a replacement, only rewriting to what Lin actually found.
+
+What is lost with the 2020 paper is its five-lineage divergence, and **the date line changed with
+it** — *Lineages · five by c. 11,000 years ago* became *To the Americas · from c. 15,000 years ago*,
+since a date-line row whose sentence has gone is a figure the card no longer supports. **Perri could
+NOT be cited for the lineage count**: her paper describes THREE ancestral lineages from a different
+analysis, and using her for Bergström's five would have been a number with the wrong source under it.
+
+**PNAS AND EUROPE PMC BOTH ANSWER 403 HERE, AND PMC ANSWERS 200.** `pnas.org` refuses the DOI
+redirect and `europepmc.org`'s article pages serve a Cloudflare interstitial, but
+`pmc.ncbi.nlm.nih.gov/articles/<PMCID>/` serves both new papers whole — including the Ní Leathlobhair
+one, which Europe PMC reports as `isOpenAccess: N` because it is an **author manuscript** rather than
+a CC deposit, and which is nonetheless freely readable there. **Europe PMC's REST search API is what
+finds the PMCID** (`/europepmc/webservices/rest/search?query=DOI:"…"&format=json&resultType=core`),
+and it returns the abstract too even where the article page is walled. While there, Lin's own citation
+was moved off the 403 PNAS DOI onto its PMC copy, so all six of this card's URLs now resolve from
+here.
+
+### `wh-376` mahajanapadas — read, not cleared, and the hunt recorded (2026-09-15)
+
+T. W. Rhys Davids in three of five, and the worst case of the 1905-handbook shape left in the
+backlog: FOUR of the five sources are pre-1929 British Indology — *Buddhist India* (1903) twice, his
+own chapter in the *Cambridge History of India* (1922), and Vincent Smith's *Early History of India*
+(1904) — with the *Mahā-parinibbāna Sutta* as the fifth. `drop-candidates.js` reports every entry
+carrying a sentence alone, and the card sits AT the bar, so it needs a new source before anything can
+move.
+
+**It also needs one on the merits, and the sentence to watch is named here so the next session does
+not have to find it.** The card says that in the clan states "a single chief was elected to preside
+over the sessions and over the state between them, and bore the title raja, which in that use must
+have meant something like a Roman consul". That is Rhys Davids' 1903 reading of the *gaṇa-saṅgha*,
+consul analogy and all, and it is the part of this card most exposed to a century of argument about
+whether those polities are usefully called republics at all. **Do not soften it by hand**: the fix is
+a modern source, and until there is one the card should keep saying what its source says.
+
+**Nothing citable was found, and here is the ground that was covered, so it is not covered twice.**
+
+- **DOAJ returns ZERO for `mahajanapada`, `gana-sangha`, `janapada early India` and
+  `early historic India state formation`.** Not "thin" — zero.
+- **OpenAIRE's open-access hits are two, and neither serves.** Hermann Kulke's *Der Maurya-Staat
+  (4.–2. Jh. v. Chr.)* (Harrassowitz 2014, 503–14) is by a leading historian and its landing page at
+  `fid4sa-repository.ub.uni-heidelberg.de` answers 200 — **but the PDF itself is behind Anubis**, the
+  same proof-of-work wall as ZORA and the Heidelberg journals platform. The other,
+  *Republicanism and the Concept of State in Ancient India*, is a six-page piece in *World Focus*, a
+  general monthly, and is **below the bar** (`docs/glossary-citation-plan.md`'s rule: academic,
+  museum, government or reputable NGO/IGO).
+- **Persée has nothing on this subject.** A search for `Licchavi` returns 66 results and every one of
+  them is the NEPALESE Licchavi period — a different polity six centuries later — or a review of a
+  book about Nepalese temple architecture. The BEFEO is a rich seam for Southeast Asia and not for
+  the middle Ganges in the 6th century BCE.
+
+**So the routes that worked on `gr-323`, `gr-325`, `rm-038` and `rm-089` — Persée, DOAJ, OpenAIRE and
+the open Italian and French journals — do not reach early historic India at all.** What would: the
+Indian open-access journals (`Ancient Asia`, Ubiquity Press; `Heritage: Journal of Multidisciplinary
+Studies in Archaeology`), Brill's and Springer's occasional open articles in the *Indo-Iranian
+Journal* and the *Journal of Indian Philosophy*, and the INSA journals. **None of those was probed in
+this batch**; that is the next thing to try, and it is a batch of its own rather than a detour inside
+a Track C card.
+
+### `rm-038` bucchero — the candidate that was NOT free, and the one that was (2026-09-15)
+
+Jean Gran-Aymerich in three of five sources, and the card at the bar. `drop-candidates.js` offered
+his 1999 *Images et mythes sur les vases noirs d'Étrurie* at `alone=0 shared=1` — **and it is not
+free**. The sentence it shares carries two claims, the shapes and the imagery, and the imagery half is
+what that paper is ABOUT; the Louvre technical study beside it cannot carry it. That is the tool's own
+warning working: *a candidate is a CANDIDATE*.
+
+The one that could go was his 2007 La Castellina paper, whose single sentence was the vaguest on the
+card — "Southern Etruria is notable for the variety and richness of both its own and its imported
+pottery". **Two open modern papers replace it, and take the card off the bar as well.**
+
+- **Longoni, Calore, Marzullo, Teseo, Duranti, Bagnasco Gianni and Bruni, *Ceramics* 6 (2023),
+  584–599** — 33 bucchero sherds from La Civita di Tarquinia read by flame atomic absorption, FTIR and
+  NIR. Local production is separated from imported; the firing was "never higher than 800 °C"; and the
+  imported pieces all date to the second half of the 7th and the first half of the 6th century,
+  "suggesting that after that period local production became predominant". That last is a historical
+  fact about the trade where the sentence it replaces was an impression.
+- **Garnery, *Frontière·s*, suppl. 1 (2022), 99–111** — the borrowing ran BOTH ways. The card said
+  bucchero "mixes Greek borrowings with the Etruscans' own strongly orientalising inventions"; Garnery
+  shows the Athenian potter Nikosthenes working bucchero shapes into his own black-figure repertoire
+  in the later 6th century and selling them almost exclusively back to Etruria, to Caere and Vulci.
+
+**MDPI ANSWERS 403 FROM THIS SANDBOX, PERSISTENTLY, AND THE PAPER IS STILL READABLE.** Two probes with
+a browser user-agent both refused; `air.unimi.it`, the authors' own institutional repository, serves
+the identical CC BY PDF at 200. **OpenAIRE is what names it**
+(`api.openaire.eu/search/publications?doi=…` returns the repository handle beside the DOI), and the
+handle page carries a `/retrieve/<uuid>/<file>.pdf` link. The citation keeps the **DOI**, which is the
+article's permanent address and what Chicago wants; the 403 is a fact about this sandbox rather than
+about the article, and it is recorded here so a future URL sweep does not read it as link rot.
+
+One thing this batch did not change and a future one should not either: the card's temperature. The
+1985 Louvre study gives 600 to 700 °C for the firing and the new paper gives a ceiling of 800 °C —
+**compatible, not contradictory**, so the card states both, the range in its technical sentence and
+the ceiling in the Tarquinia one.
+
+### `rm-089` Lapis Niger — the Platner-and-Ashby case, and a drop that was real (2026-09-15)
+
+The other 1929-book card CLAUDE.md names beside Walters: three of five sources were three entries of
+*A Topographical Dictionary of Ancient Rome*, and the card at the bar.
+
+**This one's drop candidate was real, and reading the co-cited source is what proved it.**
+`drop-candidates.js` reported the "Rostra" entry at `alone=0 shared=1`, its one sentence shared with
+Dionysius 1.87 — and Cary's text says the whole thing outright: *"Some say also that the stone lion
+which stood in the principal part of the Forum near the rostra was placed over the body of Faustulus,
+who was buried by those who found him in the place where he fell."* The dictionary entry was glossing
+a WORD, not carrying a claim. **That is the shape the tool's own warning is about in the other
+direction** — twice before, a candidate at `alone=0` turned out to be load-bearing (`gr-227`'s weight
+standard, `ps-048`'s quotation); here it genuinely is free, and only opening Dionysius could tell the
+two apart.
+
+The card was AT the bar, so the drop still needed a source added first. **Léa Flam-Zuckermann's review
+of Robert E. A. Palmer's *The King and the Comitium: A Study of Rome's Oldest Public Document*
+(*L'Antiquité Classique* 40, 1971, 357–58, open on Persée)** is the right one, because it is about
+THIS inscription and supplies what a 1929 dictionary could not: that the archaic stele found in 1899
+under the black paving *"n'a pas cessé de susciter commentaires et discussions à propos des
+restitutions du texte très mutilé"*, and that the reading turns on its two key words — RECEI, for the
+king, at line 5, and QO[MITI at line 16. The card said only that the lettering is placed at about 500
+BCE and that nothing fuller could be argued; it now says why the argument is still going on.
+
+Two things worth carrying.
+
+- **PERSÉE'S SEARCH FINDS COMPTES RENDUS, and a review of the standard monograph is often the only
+  open thing there is.** `http://www.persee.fr/search?ta=article&q=Lapis+Niger` returns 43,431 for a
+  two-word query — the engine is generous — but the first page held both the Palmer review and Michel
+  Humm's 70-page *Le Comitium du forum romain et la réforme des tribus d'Appius Claudius Caecus*
+  (MEFRA 111, 1999). **Humm was read and not used**: his subject is the tribal reform, the Comitium's
+  physical description is buried somewhere in seventy pages served one at a time, and the card needed
+  one sentence. A review that is ABOUT the card's own object beat a monograph that merely contains it.
+- **`card-focus.js`'s reviewer branch decides how a review is written.** Its pattern is
+  `/^(.*?),\s*review of/i` and it runs after titles are masked, so the reviewer's name must sit
+  immediately before ", review of" — which is why the citation reads *Léa Flam-Zuckermann, review of
+  <i>The King and the Comitium…</i>, by Robert E. A. Palmer* rather than putting the book first. The
+  build script asserts it rather than trusting it.
+
+A note on the apparatus that did NOT change: Dionysius is now two of five, which is correct and is not
+a finding — `check-cards.js` counts ancient authors separately, two passages of one witness being a
+different thing from two papers by one scholar.
+
+### `wh-126` 'Ain Ghazal — the conservator who lifted the cache (2026-09-15)
+
+Gary O. Rollefson in three of five sources, and the card AT the bar. Two of the three are literally a
+numbered series — *Ritual and Ceremony* (1983) and *Ritual and Ceremony III* (1998) — which is
+`gr-036`'s shape, a dig's own record in instalments. The third is his ARGUMENT, the
+soil-degradation thesis for the Pre-Pottery Neolithic B collapse, which the card states as "the
+excavator argued". So the card really did rest on one voice, and it could not be helped until
+something was added.
+
+**Kathryn W. Tubb lifted the 1983 cache and has spent her career on it**, and wrote an open first-hand
+account for *Archaeology International* 5 (2001), 47–50 — UCL Press, DOI, PDF one request away. She
+carries what Rollefson 1998 was carrying and brings three things he does not: the block lift and the
+laboratory excavation in the conservator's own words; **28 lime-plaster figures out of that cache**;
+and a correction worth the card's space — the statues "were for many years known as the earliest
+large-scale representations of the human form, until excavations at Nevalı Çori in eastern Turkey by
+the German archaeologist Harald Hauptmann in 1989 and 1990 recovered sculptural antecedents of them
+carved out of limestone".
+
+**The drop only became possible after reading the two sources that were left.** `drop-candidates.js`
+said nothing was droppable, and it was right about the card as it stood; what changed it was going to
+the papers.
+
+- **Rollefson 1983 p. 30 carries the cache's own context**: the statues and busts "were found in a
+  single cache deposited carefully in a pit dug into the fill of an abandoned house", and "it was
+  decided on the advice of the conservator to remove the entire collection en bloc in its protective
+  sediment cover". Both halves of the sentence Rollefson 1998 had been carrying are on that page, from
+  the same excavator fifteen years earlier.
+- **Bonogofsky 2001 carries the crania sentence entirely on her own.** Her introduction describes both
+  skulls: "The adult cranium AG 83 3078 062 has numerous striations on the ectocranial surface, was
+  painted red, and has plaster adhering to portions of the bone. The juvenile cranium AG 84 3083 107
+  exhibited 'scratches', was painted red, and has a black modeling substance on it" — and, the point
+  of her note, "neither specimen was reported as a plastered skull". The clause that had needed
+  Rollefson 1998 beside her, the burial of skulls in room corners, went with the drop.
+
+**One count was quietly wrong and is now gone.** The card said the first cache "held about ten figures
+80 to 90 centimetres tall along with eight or more busts". Rollefson's own p. 32 says "the twelve or
+so busts that comprise the arc at the feet of the statues", and Tubb's count for the same cache is 28
+figures. The literature genuinely differs, because the pieces were reassembled over twenty years in a
+laboratory — so the card now gives Tubb's figure for what came out of the cache and drops the
+as-excavated tally rather than printing two numbers for one deposit.
+
+Three findings for the next batch.
+
+- **PERSÉE SERVES A PALÉORIENT ARTICLE PAGE BY PAGE, and that is how a walled PDF gets read.** The
+  `/doc/<id>` landing page carries only the FIRST page of the text and the PDF is 403, but the HTML
+  holds a `data-content-url` per page (`/doc/page/<article-id>/<page-id>`), each of which serves that
+  page's OCR. That is how p. 30, p. 32 and p. 35 of Rollefson 1983 were read here. The same mechanism
+  gave the Mètis résumé on `gr-325`. **Paléorient is fully open on Persée and the southern Levantine
+  Neolithic is largely published in it** — worth knowing before writing off a claim as unsourceable.
+- **`check-citations.js`'s "to check by eye" was answered by another source on the same card.** Both
+  Rollefson citations spell out "Gary O. Rollefson" where Crossref holds "G. O. Rollefson", which is
+  where a fabricated given name hides. **Tubb's footnote 2 names him**: "The excavations at 'Ain
+  Ghazal were directed by Gary Rollefson, then at Yarmouk University". The expansion is right, and it
+  was confirmed rather than assumed.
+- **The card had no locator and plainly wanted one.** `add-locators.js` refused "Ain Ghazal" — that
+  title redirects to the Wikipedia article on the SUBURB, which carries no primary coordinate. The
+  archaeological site is at **"Ayn Ghazal (archaeological site)"**, which does. **When the fetcher says
+  "no primary coordinate", the likeliest cause is a redirect to a different article**, not a place
+  Wikipedia has not located; ask the search API which titles exist before giving up.
+
+### `gr-323` Corinthian pottery — the same 1905 book, and the jug that was not one (2026-09-15)
+
+`gr-325`'s sibling: H. B. Walters in three of five sources, all three the same handbook, and the card
+**at** the five-source bar, so nothing could be dropped until something was added. Two open modern
+papers did it, and between them they gave the card the thing it most lacked — a reason to care about
+Corinthian pottery beyond its ornament.
+
+- **Belfiore, Mastelloni, Barone and Mazzoleni, *Heritage Science* 10 (2022), art. 32** — portable XRF
+  on 35 Proto-Corinthian and Corinthian vessels from the Istmo necropolis at Milazzo and from Lipari.
+  Its **introduction** is the modern framing the card's opening sentence was missing: Corinthian ware
+  was widespread across the Mediterranean between the 8th and 6th centuries and is *the major
+  guide-line to ascertaining the chronology* of those centuries and an indicator of Greek settlement
+  in the west, on the succession defined in 1931 and confirmed by Corinth and Perachora. Its
+  **conclusion** identifies a non-Corinthian cluster: a local production, probably Zankle and its
+  subcolony Mylai, imitating Proto-Corinthian, Corinthian, Chalcidian and East Greek products with
+  clay from the Strait of Messina.
+- **Cuozzo, *Aristonothos* 17 (2021), 39–62** — the other half of the same point from Italy: fine
+  imitations of Early and Middle Protocorinthian coated with a thick cream slip to reproduce the
+  colour of Corinthian clay, credited by Buchner and Neeft to workshops set up on Pithekoussai. Its
+  DOI is mEDRA's, so `check-citations.js` reports it *"the DOI resolves, but Crossref holds no
+  metadata for it"* — the honest answer. **The publisher's own `citation_*` meta tags are the record
+  to read instead**: `riviste.unimi.it` serves `citation_firstpage`, `citation_lastpage`,
+  `citation_issue`, `citation_author` and `citation_journal_title` in the page head, which is where
+  the page range and the journal's full title came from.
+
+**Two content faults, both from reading Walters' own page rather than the card's paraphrase of it.**
+
+- **The question called the Pyrrhos vase "a jug", and it is not one.** Walters p. 308 says "One is a
+  signed vase (with the name of Pyrrhos)". The jug is a DIFFERENT sentence two paragraphs later — "A
+  characteristic shape is the jug with flat base rising in pyramidal form to a long cylindrical
+  neck" — describing the class, not that vase. Question 2 now says "A vase".
+- **"the earliest known signature on a pot" is a 1905 superlative, and Walters put it in scare quotes
+  himself**: "ranks as the earliest known 'signature'". Softened to "ranks among the earliest
+  signatures known on a pot", which the same page still supports and which does not age. The `why`
+  that repeated it went with it.
+
+Walters p. 306 was dropped: the sentence it carried was his own **five-class scheme** for Corinthian
+ware, superseded by the 1931 chronology the new opening sentence rests on. One more Walters sentence
+went to make room — the ground-ornaments "almost unknown in eastern art itself" and so "drawn from
+embroidered textiles", with the purple accessories, which is 1905 speculation stated as fact. **He is
+now two of six and keeps the four sentences he is still the best open source for**: the forms, the
+Pyrrhos inscription, the twenty miniature vases with the Macmillan at their head, and the arrival of
+the incised line with the compass-cut scale-patterns.
+
+Two smaller findings.
+
+- **`archive.org`'s `_djvu.txt` is how a 1905 handbook gets read, and it is worth reading.** 1.37 MB
+  for this volume, one request, and every claim the card makes can be checked against the sentence it
+  came from. Both faults above were found that way and neither is visible from the card.
+- **THE CARD'S PROSE AND ITS OWN PICTURE CAPTION DISAGREED ABOUT WHAT THE VESSEL IS.** Walters calls
+  it the "Macmillan lekythos"; the card's illustration is `Aryballos_Macmillan.JPG`, captioned "The
+  Macmillan aryballos, attributed to the Chigi Painter" with the British Museum accession. Both names
+  are in use and the shape is the same pear-shaped perfume flask, but a reader meets both on one
+  card. The sentence now says **"the little Macmillan vase in the British Museum"**, which is true
+  under either name and leaves the caption to be precise — rather than writing "aryballos" in prose
+  cited to a source that says lekythos. It also gained the size Walters gives, barely 7.3 centimetres
+  (2.9 inches), which is what makes "miniature" mean something.
+
+`gr-323` still carries **no `tags`**, like `gr-325` and 465 others; that is the separate content pass
+CLAUDE.md's card-tags bullet names, not an oversight of this batch.
+
+### `gr-325` Exekias — the 1905 figures the card was still quoting (2026-09-15)
+
+H. B. Walters in three of six sources, all three the same 1905 handbook at three page ranges. That is
+the shape `check-cards.js`'s own header calls out by name: not a data publisher cited three times, but
+a card **whose whole modern apparatus is one book**. `drop-candidates.js` reported nothing droppable —
+p. 379–381 carried six sentences, p. 357 one and p. 375 one.
+
+What the concentration was hiding is that **the card's two opening sentences were a 1905 inventory and
+both figures are now wrong**. It said ten vases carry his name and that he twice signed as painter as
+well as potter. Heide Mommsen's study of the signatures — *Beobachtungen zu den Exekias-Signaturen*,
+*Mètis* 13 (1998), 39–55, open access on Persée — gives the modern count in her own summary:
+**signatures attesting the name are known today on fifteen vases; three amphorae and probably four
+carry a double signature; and three vases he painted say by their signature that he was the potter as
+well.** She adds two things the card could not have had from Walters: **the shape of every signed vase
+is an innovation of its own**, and **two amphorae inscribed with his name as maker were painted by
+another hand, their characteristic shape showing he was already potting by about the middle of the 6th
+century** — which is why the date line gained an *Already a potter · c. 550 BCE* row above the
+*Vases dated · c. 540 – 530 BCE* it had. Question 2 was rewritten with it; it had asked for the ten and
+the twice.
+
+The second new source is **Jean-Marie Pailler, *Une mer vraiment dyonisiaque*, *Pallas* 81 (2009),
+191–200** (OpenEdition, open access), on the Munich cup: the mast become a vine-stock, the yards shoots
+and clusters, the pirates the dolphins, and — his point — **no sea at all**, the god having replaced it
+with his own world. That is a better sentence than the one it displaced, which was Walters p. 375 on
+the spirals under the handles being "descended from Mycenaean art by way of the Melian amphorae" —
+1905 diffusionism stated as fact. Walters p. 357 went with it. **Walters is now one of six, and he
+keeps the four sentences he is still the best open source for**: the Vatican amphora, the Onetorides
+inscription, what marks the work out, and the placing between Kleitias and what came after.
+
+Five findings from the search, all of them reusable on the rest of the Greece backlog.
+
+- **`persee.fr`'s SEARCH is the way in, and the article landing page carries the first page of the
+  text.** `http://www.persee.fr/search?ta=article&q=Exekias` returns 425 results; a result's
+  `https://www.persee.fr/doc/<id>` serves the record, the full bibliographic reference, the DOI — and,
+  for this article, the whole of p. 39 including its footnotes. **The PDF is 403** (the altcha gate
+  `docs/glossary-citation-plan.md` records), so the body beyond p. 1 cannot be read from here.
+- **…AND THE VOLUME'S OWN RÉSUMÉS ARE A SEPARATE PERSÉE DOCUMENT, WHICH IS WHERE THE FINDINGS WERE.**
+  Mètis prints an abstract of every article at the back of the volume, and Persée files that as its own
+  `/doc/` id — here `metis_1105-2201_1998_num_13_1_1102`, whose pages are served one at a time from the
+  `data-content-url` attributes in its HTML. **The summary is the author's own**: the article's first
+  footnote thanks Katrin Groß-Debacq for translating the *Zusammenfassung*, so the French résumé is
+  Mommsen's German summary in translation, not an editor's paraphrase. That is what made it safe to
+  cite the article for figures read only there. **Check who wrote the abstract before resting a number
+  on one.**
+- **THREE GERMAN AND SWISS REPOSITORIES ARE BEHIND ANUBIS AND ARE NOT TO BE RE-TRIED.** ZORA
+  (`zora.uzh.ch`), Heidelberg's journals platform (`journals.ub.uni-heidelberg.de`) and Heidelberg
+  digilit (`digi.ub.uni-heidelberg.de`) all serve a proof-of-work challenge rather than a page. That
+  shuts the 2022 Zurich conference volume *Exekias und seine Welt*, Martin Bürge's chapter
+  *"Exekias" — ein Künstlername?* (whose Casalini/Torrossa copy is JS-driven), Elizabeth Moignard's
+  review of the volume in the *Bonner Jahrbücher*, and Technau's 1936 monograph. **The modern state of
+  the Exekias question is therefore not reachable from this sandbox**, and the card rests on 1998 and
+  2009 instead — which is stated here rather than papered over.
+- **A 429 IS BUSY, AND ONE HOST CAN GIVE TWO ANSWERS.** `metmuseum.org`'s object pages returned 429 on
+  six probes spaced over three minutes, which would read as link rot on a citation that has been on
+  this card for months. **`collectionapi.metmuseum.org/public/collection/v1/objects/<id>` answered 200
+  throughout** and confirms the record exactly — accession 17.230.14a, b, "Terracotta neck-amphora
+  (jar) with lid and knob", Greek Attic, ca. 540 BCE, H. 18 1/2 in. (47 cm), artist Exekias. **Probe the
+  API before concluding the Met is down**, and note the museum's own figure is 18½ inches: the card
+  said 18 and now says 18.5.
+- **THE CHARIOT WEDDING IS IN THE REVIEW, AND IT WAS WORTH CHECKING.** Jenifer Neils' BMCR notice of
+  *How to Read Greek Vases* names "a black-figure neck-amphora with a chariot wedding scene by
+  Exekias" outright, so the card's description of the New York vase is carried by the source cited for
+  it rather than by the Met record beside it, which does not describe the scene.
+
+**No locator was added**, and that is a decision rather than an omission: `gr-310`–`gr-329` — the whole
+run of Athenian institution, technique and workshop cards around this one — carry none, and the places
+on this card are three European museums rather than anywhere the reader could stand. Athens is where
+the workshop was, and a dot there would say less than the collection's silence does.
+
+### `ww2-042` — the drop that was not there, and the war the card was not describing (2026-09-15)
+
+T. P. Nesterova in three of six sources, and `drop-candidates.js` reported `alone=2`, `alone=2`,
+`alone=2`: nothing droppable, every one of her three papers carrying a sentence by itself. That
+output is an instruction rather than a dead end — *this card wants a new source and a re-pointed
+claim* — and following it turned up the larger fault, which is that **a card on the Second
+Italo-Ethiopian War never mentioned the poison gas**. Ten sentences of Geneva diplomacy, and not one
+about what Italy actually did in Ethiopia. The apparatus was the symptom: three papers by one
+diplomatic historian describe the war as a problem in the chanceries, because that is what they are
+about, and a card written out of them inherits the frame.
+
+**The replacement is Christian Carnevale's `Proteste inascoltate` (*Nuova Antologia Militare* 4, no.
+16, 2023, pp. 439–464, open access, DOI through mEDRA rather than Crossref)** — an archive study
+built on the League of Nations archive, the Italian, French and American diplomatic records and the
+DDI, DDF and DBFP series. It carries the whole of what the card was missing and the two sentences
+Nesterova's third paper was carrying besides, so that paper came out and she is now two of seven.
+What it establishes, each read in the article rather than from its abstract: Italy signed the Geneva
+Protocol on 17 June 1925 and ratified it without reservations on 3 April 1928, and Mussolini's own
+programme document of 30 December 1934 nonetheless demanded «superiorità assoluta di artiglieria e
+di gas»; Badoglio ordered mustard gas onto the Takkaze on 22–23 December 1935, *before* Mussolini's
+authorisation arrived on the 28th, and Graziani did the same on the southern front on the 24th; the
+emperor telegraphed Avenol on 30 December and again on 1 January; his government asked for an
+impartial enquiry on 3 January and the Council, on 20 January, ignored the declaration and decided
+any enquiry was the International Red Cross's business — which in April returned a *fin de
+non-recevoir*. And the reason, in the article's own words: France and Britain «non avevano infatti
+alcun interesse a mettere Mussolini in stato d'accusa mentre dovevano fronteggiare la rinascita
+della Germania».
+
+**The second new source is the man himself.** The card asserted that Britain and France preferred an
+agreement at Ethiopia's expense and cited a modern paper for it; Sir Samuel Hoare explained exactly
+that to the Commons on 19 December 1935, the day after he resigned, and Hansard is open, permanent
+and free (`api.parliament.uk/historic-hansard/`). He says he had been "obsessed with the urgency of
+two grave issues" — preventing a European conflagration and avoiding an isolated war between Great
+Britain and Italy — that "it was essential to maintain Anglo-French solidarity", that the Paris
+proposals were "certainly the minimum basis upon which the French Government were prepared to
+proceed", and, most damningly, that he had been "terrified with the thought … that we might lead
+Abyssinia on to think that the League could do more than it can do". **A period actor's own account
+of his motive beats a modern paraphrase of it**, and it costs the card nothing: the claim is
+unchanged, the witness is better.
+
+Three things worth carrying forward.
+
+- **`api.parliament.uk/historic-hansard/` is open and navigable from here.** The sitting index
+  (`/sittings/<yyyy>/<mon>/<dd>`) lists every item of that day's business with its own permanent URL,
+  and a debate page serves the whole text. Column numbers come off the page (`HC Deb 19 December
+  1935 vol 307 cc2007-17`), so a Chicago note can be written exactly. **Do not guess the slug** —
+  `/commons/1935/dec/19/foreign-policy` is a one-question item and Hoare's statement is
+  `/personal-explanation`; the index is what tells you which.
+- **A citation naming a period minister trips rule 1 of `card-focus.js`, and that is what
+  `NOT_A_RESEARCHER` is for.** The question says "The Hoare-Laval plan of December 1935", and once
+  Hoare is an author in the card's own source list the last-token rule reads "Hoare" in the question
+  as a scholar named there. One row added, keyed by card AND name, with the reason beside it — the
+  eighth entry of the shape the table already holds for Mussolini, Hitler, Chamberlain and Edward III.
+  The alternative, opening the citation on the debate's title so it has no author at all, would have
+  hidden the speaker to please a checker.
+- **`pypdf` IS installed in this sandbox**, which the earlier batches' note about "no PDF tooling"
+  did not say. `pdftotext`, `PyPDF2` and `fitz` are all absent and `pypdf` is present, so an
+  open-access PDF can be read: `python3 -c "import pypdf; print(pypdf.PdfReader(f).pages[n].extract_text())"`.
+  That is what made this batch possible at all — the article exists only as a PDF behind a
+  publisher's shop page, whose "scarica" link serves it free.
+
+The card also gained a **locator** (Addis Ababa, fetched through `add-locators.js`), which it had
+been written without, and a date line of four events of the war itself in place of one carrying the
+Rhineland and "sanctions ended, summer 1936" — the Rhineland being a date of a different card.
+
 ## `check-cards.js`'s own findings, moved out of `CLAUDE.md` (2026-09-11)
 
 **READ BEFORE OPENING A RE-SOURCING BATCH ON THE GREECE COLLECTION.** The account as it stood in

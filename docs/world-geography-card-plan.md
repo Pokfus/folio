@@ -284,6 +284,8 @@ before starting, because most of the traps are already recorded there.
 - **UNdata country profiles** — `data.un.org/en/iso/<cc>.html`, server-rendered and per country. Capital,
   surface area, population, region, and a **UN membership date that dates the independence of most modern
   states for free**. It has no profile for a state without an ISO code, so Kosovo's `xk` 500s.
+  ⚠ **THAT ADDRESS IS DEAD AS OF SEP 2026 AND THE 864 CITATIONS OF IT NOW POINT AT AN ARCHIVED COPY** —
+  see "The day UNdata stopped existing" below before citing it again.
 - **The World Bank API** — `api.worldbank.org/v2/country/<ISO3>/indicator/SP.POP.TOTL` for population and
   `AG.SRF.TOTL.K2` for surface area, both as a series, so a figure can be dated rather than guessed at.
   Pass a semicolon-separated country list in one request. It serves a **UTF-8 BOM** (decode `utf-8-sig`).
@@ -9277,6 +9279,65 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
     node .claude/check-gloss-links.js
 
 ---
+
+## The day UNdata stopped existing — 864 citations, migrated rather than replaced (2026-09-14)
+
+`data.un.org/en/iso/<cc>.html` is the spine above. **It is gone.** The root answers 200, every country
+profile 404s, and the body served for both is the same 3,769-byte shell: the domain has been rebuilt as
+the **UN Data Commons for the SDGs**, a DataCommons single-page app. Its own JS bundle is the proof —
+its router declares `/countries`, `/goals`, `/sdgs`, `/topics` and `/search`, builds country links as
+`countries?p=country/<ISO3>`, and **has no `/en/iso/` route at all**.
+
+**So this was not a move, and rewriting the URL to the new site would have been the wrong repair.** The
+citation names its work by title — *UNdata Country Profile* — and the new site does not contain that work.
+It is an SDG indicator dashboard: it carries population, and it carries no *Capital city*, no *National
+currency*, no *UN membership date*, and no compiled country profile of any kind. Pointing the old title at
+it would leave 864 citations naming a document that is not at the address they give, which is the thing
+this whole apparatus exists to prevent.
+
+**Nor was replacement right.** Replacing 864 citations with a different live source means re-verifying
+every figure against that source, because a citation has to carry the claim — a pass of its own, over 468
+cards and 434 glossary terms, to throw away a citation that is still perfectly correct *about its work*.
+
+**The honest repair is the archived copy of the very document cited**, which is what Chicago provides for.
+The author, the title and the publisher are unchanged; the address becomes a Wayback permalink and the
+citation gains the date of the capture:
+
+> United Nations Statistics Division, “India,” UNdata Country Profile, archived 7 August 2026,
+> `https://web.archive.org/web/20260807193514/https://data.un.org/en/iso/in.html`. [Open access]
+
+**Five things measured on the way, worth having before the next host dies.**
+
+1. **THE WAYBACK AVAILABILITY API IS NOT A COVERAGE TEST.** `archive.org/wayback/available?url=…` returned
+   `{"archived_snapshots": {}}` for Andorra, Anguilla and American Samoa — consistently, over repeated
+   calls — while `web.archive.org/web/2026/<url>` redirects straight to a real 22,803-byte Andorra profile.
+   A sweep built on the availability API would have reported a coverage hole that does not exist and sent
+   the next session looking for replacement sources for countries that need none. **Use the `/web/<year>/`
+   redirect**: it resolves the timestamp AND proves the snapshot serves, in one request.
+2. **COVERAGE IS COMPLETE: 224 of 224 cited profiles resolve**, each fetched and confirmed to carry the
+   profile's own *General Information* table. The CDX wildcard API would have answered this in one request
+   and was 503 throughout; the per-code sweep at `-P6` took about four minutes.
+3. **"IS THE FIELD THERE" IS A PROXY AND IT HAS FALSE POSITIVES.** Grepping each snapshot for *Surface
+   area* flagged Sudan, South Sudan and the Vatican — all three are complete profiles that simply have no
+   surface-area row. *General Information* and *Capital city* are on all 224.
+4. **THE ARCHIVE URL SURVIVES `SRC_URL_RX` WHOLE**, nested `https://` and all, and was verified against the
+   pattern sliced out of `app.js` rather than assumed — a URL truncated at the wrong character hands the
+   reader a 404 under a citation that looks finished. Checked before the batch was built, not after.
+5. **AN `accessed` DATE BECOMES FALSE THE DAY THE PAGE DIES**, so the eighteen citations carrying one had
+   it replaced by the archive date rather than kept beside it.
+
+**The change was proved to be a substitution and nothing else**: both trees were loaded in *separate Node
+processes* and compared field by field — 3,215 cards and 3,739 glossary terms on each side, 426 cards and
+434 terms with `sources` changed, and **zero changes to any other field**, to any description, tag or
+image, or to any citation that does not name UNdata. One process cannot do this: `data.js` and `gloss-io`
+both build onto a shared `global.window`, so loading the second tree silently rewrites the first tree's
+objects in place and the diff comes back empty — which reads exactly like a change that did nothing.
+
+**One thing found and deliberately not fixed.** About forty of these citations use straight ASCII quotes
+where the other 820 use curly ones — a pre-existing house-style split that `check-style.js` does not cover.
+It is not this batch's subject, and folding a typographic normalisation into a link-rot migration makes an
+864-line diff unreviewable.
+
 
 # The list
 

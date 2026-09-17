@@ -94,7 +94,10 @@ date in the third sentence, and where the country page states it rather than a r
 C11's and C12's findings). What has to be added is the geography, and the passes above already record
 what is reachable from this sandbox:
 
-- **UNdata** (`data.un.org/en/iso/<cc>.html`) — the figures, and the Region field.
+- **UNdata** (`data.un.org/en/iso/<cc>.html`) — the figures, and the Region field. ⚠ **DEAD since Sep
+  2026** — the domain is now the UN Data Commons for the SDGs and has no country-profile route; the
+  shipped citations point at archived copies. See "The day UNdata stopped existing" in
+  `docs/world-geography-card-plan.md`.
 - **The World Bank indicator API** — `SP.POP.TOTL` for the population series and `AG.SRF.TOTL.K2` for
   surface area, which is a genuinely independent measurement (C9).
 - **The EU country pages** and **the Commonwealth Secretariat** for the states each covers (C1, C4).

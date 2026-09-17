@@ -891,6 +891,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     are ancient authors and ordinary modern given names, and it excused **eleven living scholars** — hence
     the seven full forms leading that alternation, longest first, since JS takes the first branch that
     matches. **The run STOPS if the slice fails**, rather than silently checking nothing.
+  · **AND A WITNESS NEED NOT BE ANCIENT — THE LINE IS THE MODERN ARGUER, NOT A DATE** (Sep 2026, found
+    while verifying a merge). Seven of World History's Africa cards were reported for naming a
+    researcher, and every one names a fourteenth-century traveller on a fourteenth-century subject —
+    which is Herodotus' relation to Greece exactly. The last-token mechanism gave **Battuta**,
+    **Khaldun**, **Polo** and, from *Ibn Fadl Allah al-ʿUmari*, **Allah**, a latent finding on any
+    Islamic-history card whose question carries the word. **THE WHOLE-NAME TEST IS WHAT MAKES THE
+    ADDITION SAFE**: the corpus cites six living scholars whose given name is Marco, so `^marco` would
+    have excused all six where the anchored `marco polo` excuses none. Rule 1 goes 7 → 0 and
+    `check-cards.js`'s own findings are byte-for-byte unchanged, with the drop set read card by card and
+    the rule proved still to fire on a planted *Demichelis*.
   · **AN INSTITUTION AT THE HEAD OF A SEGMENT OWNS THE WHOLE OF IT**, which is the other half of
     `CORPORATE`'s per-name rule: a museum's object record is a catalogue entry, not a byline, so the Met's
     gave **Attic**, **Ergotimos** and **Kleitias** off the description of the very pot `gr-327` is about.
@@ -995,6 +1005,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     hosts re-measured in Sep 2026 that DO open and what each carries, and the rule that came out of it:
     **the re-sourcing is a content pass, card by card, not a substitution table**, and keeping a source
     for a claim nothing else states is the right answer rather than a failure. Not part of the site.
+- `.claude/drop-candidates.js` — **which citation on an over-cited card is cheapest to drop**:
+  `node .claude/drop-candidates.js [--prefix=gr-] [--card=<id>]`. `check-cards.js` rule 1 names the
+  cards; it cannot say what to do about one, and the obvious answer — drop a citation — is right on
+  some and destructive on others. Per offending citation this counts the sentences whose ONLY marker
+  is that citation (`alone`) against those that cite it beside another source (`shared`). **RUN IT
+  FOR THE FIGURES RATHER THAN QUOTING ANY HERE.**
+  · **A CITATION AT `alone=0` IS A CANDIDATE AND NEVER A VERDICT.** Twice the co-cited source turned
+    out not to carry the claim: `gr-227`'s weight standard, and `ps-048`, where the sentence QUOTES
+    the words of the citation that looked free. **Read the sentence before dropping anything.**
+  · **IT STATES THE BAR CONSTRAINT, WHICH IS THE THING TO CHECK BEFORE THE RESEARCH RATHER THAN
+    AFTER** — a card at exactly `SRC_TARGET` sources cannot lose one at all and needs a new source or
+    a legitimate citation split first, which is what cost `wh-412` a round.
+  · **THE AUTHOR RULE IS `check-cards.js`'s, SLICED OUT BY TEXT, AND THE RUN STOPS IF THE SLICE
+    FAILS** — a second copy goes stale on a change made in a file nobody here has reason to open, and
+    the two tools would then disagree about which card is over-cited at all. `--prefix` is FORWARDED
+    to that tool for the same reason; `--card` is filtered locally, since `check-cards.js` has no such
+    flag and would silently ignore it.
+  · **THE REPORT IS CAPTURED THROUGH A FILE DESCRIPTOR, NOT A PIPE.** Piping `check-cards.js`'s stdout
+    into `execFileSync` returned a different, shorter string on different runs — 42,785 bytes once and
+    32,811 another, the second cut off before the over-cited section entirely — and a truncated
+    capture makes this tool print "no over-cited card", which is the one answer it must never give by
+    accident. An empty capture is a hard error for the same reason. Report-only, exits 0. Not part of
+    the site.
 - `.claude/fix-citation-form.js` — **A TRANSLATED ANCIENT WORK IS CITED BY ITS OWN AUTHOR OR ITS OWN
   TITLE, NEVER BY ITS TRANSLATOR**, applied over the whole corpus: `node
   .claude/fix-citation-form.js [--prefix=] [--emit=<batch.json>]`. The rule was already written down —
@@ -1218,7 +1251,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.32 MB and 48,635 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.33 MB and 48,647 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -1348,11 +1381,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     list, being object pronouns as well as possessive, so "…twins beneath her" was refused as a
     fragment; and it will not strip **an abbreviation's own full stop**, or a caption ships reading
     "Drawn after Huang Kejia et al".
-  · **WHAT IS LEFT IS A JUDGEMENT, NOT A GAP.** The sweep takes `source-in-caption` from 336 to 21 and
-    all 21 were read: each needs an editor, either because **the credit names the author differently**
-    ("Louis de Clercq" over "Clercq, M. de (Louis), 1836-1901") or names a different person altogether,
-    or because **the caption carries more than the credit** — a date, a holding museum, an authored
-    source sentence. **Do not widen the rules to reach them.**
+  · **WHAT IS LEFT IS A JUDGEMENT, NOT A GAP — AND THE JUDGEMENTS HAVE NOW BEEN MADE.** The sweep takes
+    `source-in-caption` from 336 to 21; those 21 were each read and edited by hand in Sep 2026, so the
+    check now reports **zero** and the rules are unchanged. **Do not widen them**: the residue was of
+    two shapes neither rule can decide, and a third rule would have been inventing an attribution.
+    **The credit names the author differently** ("Louis de Clercq" over "Clercq, M. de (Louis),
+    1836-1901") or names a different person altogether — `wh-198`'s caption credited the photographer
+    where Commons files the object under "Unknown artist" — and **the caption carries more than the
+    credit**: a date, a holding museum, an authored source sentence.
+  · **THE CREDIT GETS THE FACT BEFORE THE CAPTION LOSES IT, AND ON ONE CARD THAT WAS A LICENCE.**
+    `ps-029` is CC BY 4.0 and its credit named NO author, so the caption's "Wellcome Collection" was the
+    picture's only attribution and cutting it would have been a breach; Commons files that file under
+    *"Files with no machine-readable author"* and its sole author statement is the EXIF `Wellcome
+    Library, London`. The credit was written first, then the caption cut. Three China captions carried
+    the photograph's YEAR, which the credit had not got, so the year moved across rather than being
+    thrown away; `ps-050`'s bare archive.org credit gained the licence the caption was carrying.
+  · **AND ONE CAPTION HAD TO BE WRITTEN, BECAUSE THERE WAS NOTHING TO CUT BACK TO.** `wh-059`'s whole
+    `desc` was the Internet Archive's metadata dump ("Title : Annals of the South African Museum …
+    Contributing Library : Smithsonian Libraries…") and its `alt` repeated the volume title, which
+    describes nothing to a reader who cannot see it. **The picture was FETCHED AND LOOKED AT** — a plate
+    of eighteen numbered line drawings — and the plate's own printed caption read off the Commons file
+    page, which names what each number is. **A caption is written from the picture and its source, never
+    from the card's prose.** It uses the site's spelling of the answer term rather than the 1929 plate's
+    ("Howieson's Poort"), an unexplained variant of a card's own answer term beside the answer being a
+    confusion for nothing.
+  · **`upload.wikimedia.org`'s `api.php` CAN BE 429 WHILE THE FILE AND ITS PAGE SERVE PERFECTLY** — the
+    BUSY state `check-reach.js` records, not a wall. `Special:FilePath/<FILE>?width=N` (with `curl -L`;
+    it 302s) fetches the picture and `/wiki/File:<FILE>` serves the description page carrying the Author,
+    the licence and the source book's own caption. **Reach for those two before concluding Commons is
+    shut.**
   Not part of the site.
 - `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
   [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
@@ -1386,6 +1443,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   stale silently and stops work that would have succeeded.** CLAUDE.md said for six weeks that "this
   sandbox's egress policy blocks every scholarly host", summarising an attempt whose own log records a
   successful retry the next day.
+  · **IT PROBES THROUGH THE SANDBOX PROXY, AND WITHOUT THAT IT LIES** (fixed Sep 2026). Outbound HTTPS
+    here goes through the agent proxy named by `HTTPS_PROXY`; **curl honours it and Node's built-in
+    `fetch` does not**, so every probe went DIRECT and the egress policy answered for the host.
+    Measured on Node 22: `web.archive.org` gave curl 200 and fetch **403 "Blocked by egress policy"**,
+    and Europe PMC gave curl 200 and fetch 504 — so two plainly reachable hosts were reported SHUT,
+    which is the exact false claim about the environment this tool exists to prevent, and its worst
+    possible failure. `NODE_USE_ENV_PROXY=1` fixes it and **setting it with `process.env` does not
+    work**, undici reading it once at startup, so the tool RE-EXECS itself once with the variable set.
+    **If you change that, re-check a host the policy blocks directly** — Crossref is allowed either way
+    and will not show the fault.
+  · **A 5xx IS NOT A REFUSAL, AND IS NOW ITS OWN OUTCOME, `DOWN`.** Same measurement, opposite
+    conclusions: Europe PMC returned 503 inside the sweep and 200 on three probes four seconds apart,
+    while Perseus's artifact endpoint returned 503 on four probes spaced forty-five seconds apart and
+    is genuinely down. A transport THROW is folded in with it for the same reason — the Wayback row
+    returned 27,019 bytes on one run and threw `fetch failed` on the next, four minutes later, with
+    nothing changed. The tool cannot tell a dead host from a bad minute in one probe, so it says so and
+    tells you to re-probe alone rather than deciding for you.
+  · **ONE HOST CAN GIVE TWO ANSWERS, AND WHICH ENDPOINT YOU PROBE IS THE ANSWER.** Persée was already
+    split this way (the article record opens, the PDF is altcha-gated); **Perseus is the same and it
+    matters more**, since `/hopper/text` (4,299 citations) answers 200 while `/hopper/artifact` (39
+    citations, 25 distinct objects in `gr.js` and `glossary-extra.js`) answers 503 — and the hopper
+    home page serves 200 from cache throughout, so a single probe reports the host UP and hides that
+    those 39 citations resolve to nothing.
+  · **THE TABLE NOW COVERS THE HOSTS THE CORPUS ACTUALLY LEANS ON.** It had 14 rows and was missing the
+    third-, sixth-, ninth-, tenth- and twelfth-biggest — Perseus, LacusCurtius, the Wayback Machine,
+    the Office of the Historian, the handle resolver and the Dartmouth course site. Each row names its
+    citation count, so a row that stops answering names the work it was carrying. **Re-rank the hosts
+    before adding one**: one `grep -oh` over `data-extra/` and `glossary-extra.js` gives the order.
   · **IT REPORTS FOUR OUTCOMES AND THE MIDDLE TWO ARE THE POINT.** `OK` is a 200 carrying a word the
     real page must contain, so it cannot be fooled by the **200-status bot challenge** (`WALL`) that
     `docs/glossary-citation-plan.md` records five varieties of. `SHUT` is a 403 or a refused
@@ -1395,9 +1480,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     reported 403 and then served 332 KB once the probes were spaced**. A fast sweep reports a working
     sandbox as a blocked one, which is very likely what the original Pilot log met. Hence `GAP`, and
     hence a run that takes a minute.
-  · **Measured 2026-09-12: 12 of 14 answering** — Crossref, Europe PMC, DOAJ, archive.org's full text,
-    Persée, OpenEdition, the Stanford Encyclopedia, BMCR, OpenStax, the Commons API, JSTOR's stable
-    pages and UNESCO. Britannica and Encyclopaedia Iranica are walled. **Quote none of that; run it.**
+  · **THERE IS DELIBERATELY NO LIST OF ANSWERING HOSTS HERE ANY MORE.** One stood here, measured on
+    2026-09-12 over 14 rows, and by the next run it was wrong in both directions — the table had grown
+    to 22, Europe PMC had been reported shut by the proxy fault above, and UNESCO answers or refuses
+    depending on how fast the sweep before it ran. **Run it.**
   Not part of the site.
 - `.claude/check-sizes.js` — what Folio actually weighs: `node .claude/check-sizes.js [--json]`. It
   reads the eager path **out of `index.html`** rather than from a list, prints each file's raw and
@@ -1987,7 +2073,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   an ORDER as much as a set of labels, which is the one thing a hand edit gets wrong without anything saying
   so. It validates the WHOLE batch before writing anything, splices in the one-card-per-line shape every
   other helper writes, and re-parses afterwards; `--check` prints every map card's grid and writes nothing,
-  which is how a batch is reviewed by eye. **A CELL MAY BE `"?"` AND THAT IS DELIBERATE** (Sep 2026, on
+  which is how a batch is reviewed by eye. **IT TAKES AN ARTWORK CARD TOO, AND
+  REFUSED ONE FOR A FORTNIGHT** (Sep 2026): the artwork format ships a `facts` grid and this helper tested
+  `card.map`, so the only field that format ADDS had no sanctioned writer at all and the next edit of one
+  would have gone by hand into `data.js`. **The row bounds are `add-card.js`'s, sliced out by text, and the
+  run STOPS if the slice fails** — a map card's minimum and an artwork card's differ, and a second copy of
+  a bound goes stale in a file nobody editing a grid has reason to open. **A CELL MAY BE `"?"` AND THAT IS
+  DELIBERATE** (Sep 2026, on
   request: "if you cannot find data for any particular one, just put a questionmark there") — it is the card
   saying the figure was looked for and not found, which is the honest state and the one thing a fabricated
   number destroys. Not part of the site.
@@ -2897,6 +2989,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     silence being the honest alternative to a manufactured question — and `connectKin` and the `.elab-box`
     styles went with it, `cardKinship` remaining as Multiple Choice's distractor ranking. **Run `node
     .claude/why-count.js` for the figure rather than quoting one here.**
+    **AND IT PUT THE FIRST `.ttip` ON A REVEALED CARD INSIDE A CLOSED `<details>`, WHICH KILLED A WHOLE
+    SUITE** (found Sep 2026). The block sits ABOVE the Background, so its three answers' glossary terms
+    now come FIRST in the DOM and are not rendered until the reader presses Show answer —
+    `test-sources.js` clicked `.ttip` `.first()` and died on a 30-second actionability timeout, reported
+    as "element is not visible" with no clue which element or why, taking all 81 of its assertions with
+    it. `.ttip:visible` is the fix, on the COUNT as well as the click. **A section that starts collapsed
+    changes what `.first()` means for every selector in it**, which is `PAGES.order`'s own lesson above
+    wearing different clothes: when a feature gains a collapsed block, the fixtures are part of the change.
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
     background's own opening definition — inline under the answer, **with the footnote markers stripped**,
     since `sup.fn:empty::before` prints a marker's own digit and a lifted sentence would carry numerals
@@ -3288,9 +3388,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `practice`, `concept`, `fossil`, `culture`, `event`, `people`, `person`, `animal`, `building`, `theory`), then
   the subject areas (`archaeology`, `palaeontology`, `geology`, `science`, `history`, `prehistory`, `evolution`,
   `genetics`, `technology`, `art`, `geography`, `nature`, `climate`, `migration`), then the specifics — a
-  country, a region, a period. **Every shipped card is tagged.** Written by
+  country, a region, a period. Written by
   `node .claude/add-card-tags.js <batch.json>` (3–8 tags, lowercase, and it warns about a tag no other card
   shares — one that can never group anything); carried by `serializeCardData` beside `sources`.
+  **THIS BULLET SAID "EVERY SHIPPED CARD IS TAGGED" AND THAT WAS FALSE BY 467 CARDS** (measured Sep 2026,
+  14.5% of the corpus, while repairing `gr-334`). **`add-card.js` HAD NO TAGS GUARD** — where it REFUSED a
+  card with no `difficulty`, it took one with no tags in silence — so the gap arrived in whole contiguous
+  batches (`gr-611`–`gr-760`, `cnh-147`–`cnh-230`, `us-061`–`us-100`, `wh-151`–`wh-200`) rather than card by
+  card, and nothing anywhere reported it: an untagged card simply falls through to the `answerType`
+  fallback below and draws slightly worse Multiple Choice distractors, which **no reader would ever think
+  to report**. **IT HAS ONE NOW** (Sep 2026), refusing rather than defaulting for `difficulty`'s own reason
+  — there is no safe guess, only an invisible one — and **its rules are `add-card-tags.js`'s, SLICED OUT BY
+  TEXT, with the run STOPPING if the slice fails**, so the two tools cannot come to disagree about what a
+  tag is. **THE 467 WERE A CONTENT PASS OF THEIR OWN AND IT HAS SHIPPED** (Sep 2026): the corpus is
+  3,215 of 3,215 tagged. **Count them rather than quoting a figure here:**
+
+      node -e "global.window={};console.log(require('./.claude/card-io.js').loadCards().cards.reduce((a,c)=>(a[!c.tags||!c.tags.length?'no':'yes']++,a),{yes:0,no:0}))"
+
+  The claim was prose rather than a figure, so **`check-claims.js` could not see it** — which is that
+  tool's own stated blind spot arriving in the one file it exists to keep honest.
+  **HOW THE 467 WERE TAGGED, because it is the method rather than the batch that is worth keeping.**
+  The pairing rule gives every card a glossary entry for its OWN ANSWER TERM, tagged in the SAME
+  vocabulary by the same rules — so the categorisation had already been made once and could be READ rather
+  than re-derived. **460 of the 467 had such a term** and the transfer is not a guess: measured over the
+  2,695 already-tagged cards that have a tagged pair, the two sets are **IDENTICAL on 59% and overlap 0.87
+  by Jaccard**. Three things the measurement then forced.
+  **A COLLECTION TAG HAS TO BE TOPPED UP, BECAUSE THE GLOSSARY IS DECK-AGNOSTIC AND THE CARDS ARE NOT.**
+  A glossary term deliberately carries no `china` tag (China being that file's default context) while
+  **all 137 tagged China cards carry one** — so a straight transfer would have left them unable to group
+  with their own collection. The top-up is measured per collection at the 85% line rather than chosen:
+  `greece` 98%, `china` 100% + `history` 91%, `north america` 98% + `united states` 93%, `place` + `geography`
+  100% on `gw-`, and **nothing at all on `wh-`**, which is right — World History spans everything.
+  **TAG 1 MUST BE A KIND OTHER CARDS ALSO LEAD WITH**, and that is arithmetic rather than taste:
+  `tagKinship` scores a shared first tag at FOUR and then runs `if (ta[0] !== tb[0]) n = Math.min(n, 2)`, so a
+  card whose leading kind is unique is **capped at 2 against every card there is** and its distractors come
+  out of a flat field of ties — the exact failure tags exist to fix. Four of the glossary's leading kinds had
+  no card behind them: `creature` was KEPT (four cards take it and they are exactly the four that should
+  group), and `site`, `territory` and `symbol` were REORDERED rather than dropped, each already riding as a
+  secondary tag on 4, 30 and 1 cards. **`law` and `architecture` still lead exactly one card each** —
+  pre-existing, named here so the next session measures rather than re-finds it.
+  **WHAT IT BOUGHT, MEASURED**: the three closest siblings of a newly tagged card now score a mean kinship of
+  **7.35**, where an untagged card scored 1 or 0 against everything in the corpus; one card (`gr-741`
+  Hyphasis, the only `river` in Greece) has two real siblings rather than three.
   What they are FOR is **Multiple Choice**: `cardKinship(a, b)` counts the tags two cards share, weighting the
   first heavily (the kind is worth four subject areas) and capping the score when the kinds differ, and
   `buildChallengeQuestions` offers the three closest cards as the wrong answers. Before this the distractors
@@ -4052,6 +4191,83 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the store is never involved. It skips `.notranslate`.
   · **Two patterns**: `U_CONV_RX` for the ordinary form, and `U_BARE_RX` for the second half of a pair
     sharing the first's unit, without which imperial mode leaves such a sentence half-converted.
+  · **A DENOMINATOR MAY STAND ON EITHER SIDE OF THE UNIT, AND THERE IS A RULE FOR EACH.** `U_RATE`
+    crosses one standing AFTER it ("300 kilometres an hour (190 miles an hour)"); **`U_DENOM` crosses a
+    DENSITY's, which stands BEFORE it** — "73.6 people to the square kilometre (191 to the square mile)",
+    the shape 29 geography cards write, every one of which showed BOTH figures to every reader until it
+    was added (Sep 2026). It lives INSIDE the captured gap, since a metric reader is re-emitted
+    `num + gap + unit` and a rule that merely skipped the denominator would render "73.6 kilometre".
+    **ITS NOUN LIST IS DECLARED, NEVER A WILDCARD**: `\s+\w+\s+` there would let the gap swallow ordinary
+    prose between any number and any unit, which is this engine's worst failure shape — it corrupts text
+    for the IMPERIAL reader only, so the authored view looks perfect and nothing reports it, exactly as
+    "1,930 kilometres from Africa" once rendered "1,200 miles from Afric1,800 miles". Measured: 27 cards
+    write "people", one "inhabitants", one has no noun at all.
+  · **AN ENGINE CHANGE IS PROVED BY RENDERING THE WHOLE CORPUS BEFORE AND AFTER AND DIFFING IT.** There is
+    no other way to check these regexes: a widening that eats prose renders perfectly in the authored
+    metric view. `U_DENOM` was proved byte-for-byte inert on all 1,632 other transformed fields, with
+    exactly the 29 density cards changing — and the pinned shapes in `test-units.js` include one the rule
+    must NOT match, since a table of things that work cannot show that a widening stayed narrow.
+  · **A UNIT SPELLED OUT IS A UNIT THE ENGINE CANNOT SEE, ON EITHER SIDE.** `U_METRIC` knows `°C` and not
+    "degrees Celsius"; `U_IMP` knows `°F` and not "Fahrenheit" — and **test-units.js's own independent
+    sweep did not list "Fahrenheit" either**, so four cards and sixteen glossary terms writing
+    "19.9 degrees Celsius (67.8 Fahrenheit)" were invisible to BOTH of its corpus assertions and showed
+    both figures to everyone. Measured 359 cards use a `°C` figure against 17 that spelled it, so the
+    symbol is the house form and the words were rewritten to it; `STRONG` now lists "Fahrenheit" so the
+    hole cannot reopen. **Write a temperature `−4 °C (25 °F)`, never in words.**
+  · **…AND A TEMPERATURE WITH NO BRACKET AT ALL IS THE SHAPE NO SWEEP COULD SEE** (Sep 2026). Every
+    corpus sweep in `test-units.js` returns early on a field holding no `(`, so a metric figure with no
+    imperial one beside it is invisible to all of them: `bio-030` and its paired term wrote "raise one
+    litre of water by **one degree centigrade**", a DIFFERENCE, shown to every reader in Celsius with
+    nothing saying so. Both now read `1 °C (1.8 °F)`, and the suite FAILS on a temperature scale
+    named in words anywhere in the corpus, with a liveness assertion pinning the pre-fix sentence. **A
+    bare `degrees` is deliberately NOT in that rule** — 156 of the corpus's 172 are latitude, a slope
+    or "a high degree of autonomy", so claiming the word would report the language rather than a fault;
+    the **16 sites that really do write a bare temperature degree are a content pass of their own**, with
+    their two absolutes (−3 °C is 26.6 °F, and −40 is the one figure the two scales share) listed in
+    `docs/units-plan.md`.
+  · **THE SWEEPS ONLY EVER LOOKED AT FIVE FIELDS, AND THE TRANSFORM REACHES EVERYTHING A READER IS
+    SHOWN** (same batch). `question` / `answer` / `answerDate` / `abstract` / `answerText` and the
+    question pool — while `unitizeTree` is a DOM text-node pass, so a picture's CAPTION, a WHY-answer
+    and a map or artwork card's FACTS grid were all unswept. Widening the walk took the corpus sweep from
+    1,667 fields to 2,003 and found both remaining faults at once: `gr-712`'s caption read "several
+    kilometres (two miles) inland" (`U_RUN` needs a NUMBER and "several" is not one) and `art-005`'s Size
+    row read `136 × 54 cm (54 × 21 inches)` (`×` is in neither `U_JOIN` nor `U_FILL`). **Teaching the
+    engine `×` was built and proved inert over 56,702 renderings and is still REFUSED**: `U_FILL` governs
+    what may be EATEN out of prose, and 9 of the corpus's 10 `×` sites are multiplication (`6.02214076 ×
+    10²³`), so the character mostly does not mean what the widening would claim. `by` is the shape the
+    suite already pins. **When a card format gains a field, the sweeps are part of the change.**
+  · **A TEMPERATURE DIFFERENCE IS NOT A TEMPERATURE, AND THE TWO CONVERT BY DIFFERENT SUMS.** An
+    absolute figure takes `°F = °C × 1.8 + 32`; a DIFFERENCE takes `× 1.8` and no offset — so "about
+    6 °C colder than today" is **11 °F colder**, not 43. Measured Sep 2026 over the whole corpus: three
+    cards carry a genuine delta (`gw-007` a basin warming by 3.3 °C, `gw-729` a mean risen by 0.5 °C,
+    `bio-005` men born 0.59 °C cooler) and **all three are converted correctly**, so this rule exists to
+    stop a future sweep BREAKING them rather than to fix anything. A mechanical °C→°F pass over the
+    corpus would make every one of them wrong by a factor of four, and nothing would report it — the
+    bracket is authored, so the engine simply prints whatever is in it. **The tell is the construction,
+    not the unit**: `by`, `risen`, `a rise of`, or a comparative after the figure (`colder`, `warmer`).
+    Beware the false friend — "15 to 22 °C (59 to 72 °F) **higher up**" is altitude, and those are
+    absolutes converting the ordinary way.
+  · **A CONVERSION MAY NOT SWALLOW A FIGURE ITS BRACKET DOES NOT STATE, AND THAT IS NOW A COMMITTED
+    SWEEP** (Sep 2026). Every other check here asks what a bracket IS; this one asks what the replacement
+    THREW AWAY, and it is arithmetic on the engine's own captures — **a run that states more figures than
+    its bracket does is deleting one of them.** The shape is `from A (conv) in YEAR to B (conv)`, the
+    commonest way anyone writes a change over time: `to`, `and`, `or`, `by`, `of` and the bare comma are
+    all `U_JOIN`, so the run walks across the year between two measurements and the bracket eats it —
+    "4,140 millimetres (163 inches) in 1981 to 1,420 millimetres (56 inches)" rendered as **"163 inches in
+    56 inches"**. **Thirteen sites shipped this way**, eleven cards and two glossary terms, among them a
+    magnitude ("an earthquake of magnitude **11 miles deep**") and a count of columns — numbers that are
+    not measurements at all, eaten for standing next to one. **The repair is authorial and never a
+    widening**: break the join with a word the engine does not list (`against`, `but`, `down to`,
+    `standing`, `covering`), because every word added to `U_JOIN` is another word a run may swallow.
+    **Two shapes it must let through and both were measured**: a bracket stating its figure as the ARTICLE
+    (`(about a mile)` — `U_NW` counts `a`), and a FRACTION stating both figures (`40.1 of its 103 square
+    kilometres (15 of 40 square miles)`), which is what `U_JOIN` swallows `of its` for.
+  · **AND THE SIGN WORD IS THE ONE THAT CHANGES A NUMBER RATHER THAN HIDING IT.** `U_SIGN` is U+2212
+    alone, deliberately (a hyphen there is a range separator), so a temperature written "minus 4°C (25°F)"
+    leaves the word standing while the bracket supplies its own figure: an imperial reader was shown
+    **"minus 25°F" where the truth is 25°F**, and "minus 0°F", "almost minus 19°F", "about minus 27°F" on
+    three more cards and two glossary terms. Five cards and two terms were rewritten to U+2212. **Nothing
+    in the pipeline can see this** — the bracket IS recognised, so both corpus sweeps pass.
   · **`isImperialParen` is the guard against eating an ordinary bracket** — measurement-shaped all through,
     carrying a number and a STRONG imperial unit, since `in` and `mi` alone would take "(in 1920)".
     Verified over the whole corpus: 341 fields transform and no other bracket is touched. **Re-run that
@@ -4429,8 +4645,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     unflipped, and **the longer you held the more reliably it did**; a synthetic `el.click()` cannot see
     this at all. **The back is a different LAYOUT on a phone**, and every state keeps its own short form,
     since "Not collected", "Unavailable" and "None yet" say three different things. **The site-wide half is
-    a pooled counter table** (`game_stats` + `bump_game_score`, schema section 15 — **the user must run it
-    once**); a project without the block says so in a sentence rather than showing a zero, and **a fetch
+    a pooled counter table** (`game_stats` + `bump_game_score`, schema section 15 — **run on the live
+    project since Sep 2026**); a project without the block says so in a sentence rather than showing a
+    zero, and **a fetch
     that merely FAILED says something different again**. **THE DAY IS THE SERVER'S UTC DAY**, and the tile
     says "today" without claiming it is theirs. **THE FLIP IS 2D AND THAT IS FORCED**: `.game-tile` carries
     `overflow:hidden`, which flattens `transform-style` to `flat`. **And the two halves swap
@@ -5183,6 +5400,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **A DATABASE WITHOUT SECTION 14 SAYS SO AND NAMES THE BLOCK**, exactly as the publish path does for the
   deck-colour column: PostgREST answers 400/404 on a column that does not exist, which the loader turns into
   a `missing` flag rather than an error, and every account simply presents itself in the default meanwhile.
+  **The live project HAS run it** (Sep 2026), so a `missing` flag there is a fault rather than a block to ask
+  for — the degradation is for a fresh database, and that is the state to keep it working in.
 - **ONE DECK PER CARD (Aug 2026, on request).** The card editor's deck picker was checkboxes — a card could be
   cross-listed into any number of decks with one set of scheduling. Nothing shipped ever used it (all 119 cards
   sit in exactly one deck) and it made "which deck is this card in" a question with no single answer, which the
@@ -5277,6 +5496,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **prose** limits stay exactly as binding as they were: the finished corpus has the SAME 4 over-length
   abstracts and 1 out-of-range question it had before the pass, against 11 and 4 counting the conversions.
   The exemption is for the parentheses, not for the sentence around them.
+  **…AND A TOKEN OF PURE PUNCTUATION IS NOT A WORD EITHER** (`COUNTS_AS_WORD` in `add-card.js`, Sep
+  2026). `plain` replaces a tag with a SPACE — right, since it keeps the words either side apart — and
+  that also cuts a footnote marker out from between a word and its terminal stop, leaving the stop
+  standing as a token of its own. Measured over the corpus, **2,448 punctuation-only tokens were being
+  counted**: 1,173 lone full stops across the 114 cards that write the marker BEFORE the stop rather than
+  after it (30,093 sit after), plus 718 standalone em dashes, which are the house form of a parenthetical
+  dash. **Fifty-two Greece cards cleared the 270-word floor on that punctuation alone** and hold 260–269
+  words of prose, and `wh-145` was reported over the ceiling on it. **THE UNDERSCORE IS DELIBERATELY A
+  WORD CHARACTER**: `_____` is the cloze blank and the question rule says in terms that the blank counts
+  — without it every one of the 8,381 questions loses a word and 30 leave their band, which is how that
+  clause was found rather than guessed. **`add-card.js` owns the predicate and `card-length.js`,
+  `check-questions.js`, `add-questions.js` and `gloss-length.js` SLICE IT OUT by text, stopping if the
+  slice fails**, since eight tools counted words with eight copies of the rule. **AND SLICING A PATTERN IS
+  NOT SLICING A FUNCTION**: the helper that found this sliced `IMPERIAL_PAREN` out of the owning tools and
+  then re-implemented the counting around it, stripping tags with `""` rather than `" "`, and reported 62
+  cards short against the real 9. **Run `node .claude/card-length.js` for the figure rather than quoting
+  one here** — it was 67 under and 1 over as this was written, and the 58 newly visible cards were a
+  content pass of their own, **now COMPLETE**: `card-length.js` and `gloss-length.js` both read zero outside
+  the bar. Recorded in `docs/units-plan.md`.
+  **AND `IMPERIAL_PAREN` IS NOW SLICED THE SAME WAY, WHICH CLOSES THE SCAR THE BULLET ABOVE NAMES** (Sep
+  2026). It had been copied into NINE files and had drifted into THREE patterns: `check-questions.js` lacked
+  `tons?` where every other copy had it, so a question carrying a tonnage conversion was charged for it there
+  and not by `add-card.js` — four words apart on `gr-004`, `gr-065` and `wh-249`, none over a bar today and
+  every one a contradiction waiting for the card that is; and the two artefact tools had a third list widened
+  with VOLUME units, on the reasonable argument that an artefact is a jar rather than a landscape. **The
+  measurement settles that argument**: the union of all three eats **0 extra brackets in 4,945**, so the
+  per-corpus lists bought nothing and one file now holds the union. **`add-card.js` owns it and the other
+  eight slice it out by text, stopping if the slice fails** — proved by renaming the anchor and watching all
+  eight exit 2. **The alarming member is `in`, which would eat "(in 1920)" and has been in the pattern since
+  the beginning**: over the whole corpus every one of those 4,945 brackets is a measurement, the 53 not
+  shaped `<number> <unit>` being hyphenated attributives ("(100-foot)"), densities ("(191 to the square
+  mile)"), "(4 fluid ounces)" and "(11 Roman miles)" — not one ordinary aside. **Re-run that check before
+  widening it again**: a pattern that eats prose makes the budget looser for the cards that happen to carry
+  a bracket, and does it in silence.
   **THE PASS IS COMPLETE** (`docs/units-plan.md`): 486 conversions across all 119 cards and all 414 glossary
   terms, and **nothing metric is left bare**. Two sweeps say so and BOTH are needed: one for a digit before
   a unit, and one for a **spelled-out** number before a unit (`about four miles inland`, `a third of a
@@ -5649,7 +5902,21 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
   cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two
   blocks of 5 split by ` <br><br> `: sentences 1–5 give the general meaning/context, 6–10 the meaning in this
-  card's question. Information-heavy and precise, at the 17-year-old register set out above. **The only `<b>` bold is the answer term, at its first mention
+  card's question.
+  **AND THE SHAPE IS ENFORCED TOO SINCE SEP 2026, WHICH IT SAID IN ITS OWN ERROR MESSAGE FOR A YEAR AND
+  NEVER CHECKED.** `add-card.js` measured the WORDS and named the two blocks of five in the message it
+  printed when they were wrong — so four cards in 3,215 shipped outside the form and nothing anywhere
+  reported it: `gr-639` and `gr-678` with NINE sentences, `cnh-128` and `cnh-258` with ten split 6+4 and
+  4+6. **Every one reads perfectly and every one is in band on words**, which is the whole reason this
+  needs a count rather than an eye. **THE BLOCKS ARE CHECKED SEPARATELY, NOT JUST THE TOTAL**: two of the
+  four carried all ten sentences and were still wrong, the citation passes placing markers by sentence
+  index ACROSS both blocks while the reader meets them as two paragraphs — so a mis-placed break moves
+  where the card pauses without moving a word. It uses **`split-abstract.js`'s own splitter**, not a
+  second copy, so a card `add-card.js` accepts is a card the citation passes can mark; and that splitter
+  reads a sentence ending on a LONE CAPITAL as an initial (the deliberate `V. Gordon Childe` guard),
+  which is how `gr-639`'s "the letters A and N." counted as one sentence — **reword so the stop follows
+  a word** rather than reaching for the splitter. `node .claude/card-length.js` reports the whole corpus's
+  shapes at the foot of its output. Information-heavy and precise, at the 17-year-old register set out above. **The only `<b>` bold is the answer term, at its first mention
   opening the background**; use `<i>` for titles (and foreign terms). **No parenthetical asides** —
   never put information between parentheses. **No glossary links** — plain text only (`cnh-001`
   still uses the old `ttip`/`data-k` links and bolded facts; new cards omit both).
@@ -5708,6 +5975,19 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   site is. English is preferred only where it serves equally well, since most readers of the English card
   can check an English source themselves. Cite a foreign-language work under its own title, untranslated:
   a citation names a work that exists, and a translated title names one that does not.
+  **WHEN A CITED HOST IS REBUILT, MIGRATE TO AN ARCHIVED COPY OF THE WORK CITED — NEVER RE-POINT THE
+  TITLE AT THE NEW SITE** (Sep 2026, on `data.un.org`). A citation names its work by title, so pointing
+  that title at whatever now stands at the address is the fabrication the rules above forbid, however
+  official the replacement: UNdata's country profiles became an SDG indicator dashboard that carries no
+  capital, no currency and no membership date, and a URL rewrite would have left 864 citations naming a
+  document that is not there. Chicago provides for the repair — keep the author, the title and the
+  publisher, make the address a Wayback permalink and add `archived <D Month YYYY>, ` before it, replacing
+  any `accessed` date, which the page's death has made false. **Resolve the snapshot with
+  `web.archive.org/web/<year>/<url>`, which redirects to the newest capture and proves it serves; the
+  `archive.org/wayback/available` API reports real captures as absent** and a sweep built on it invents a
+  coverage hole. **📖 `docs/world-geography-card-plan.md` — READ BEFORE MIGRATING A DEAD HOST OR CITING
+  UNDATA AGAIN**, for the measurements behind every clause here and the
+  two-process diff that is the only way to prove such a batch changed nothing but the URLs.
   **A TRANSLATED ANCIENT WORK IS CITED ANCIENT-AUTHOR-FIRST, WITH THE TRANSLATOR AFTER** — `Livy,
   <i>The History of Rome</i> 2.1, trans. Canon Roberts`, `Plutarch, <i>Life of Pyrrhus</i> 21, trans.
   Bernadotte Perrin` — and an ANONYMOUS one opens on its own title (`<i>The Greek Anthology</i> 7.18,
@@ -5726,6 +6006,16 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   **📖 `docs/citation-plan.md` — READ BEFORE TRUSTING A CITATION WHOSE URL RESOLVES.** The 24 wrong given
   names found across 18 works in one sweep, every one on a citation whose URL opened perfectly, and the
   four Stanford Encyclopedia citations that were wrong four different ways under a 200.
+- `tags` — **REQUIRED for every new card: 3–8 lowercase category tags**, in the glossary's own vocabulary:
+  tag 1 is the KIND (`era`, `place`, `object`, `person`, `industry`, `culture`, `event`, `concept`,
+  `fossil`, …), then the subject areas (`archaeology`, `history`, `prehistory`, `science`, `geography`,
+  `art`, …), then the specifics — a country, a region, a period. **Reuse what the glossary and the shipped
+  cards already carry** rather than coining a near-synonym: a tag no other card shares can never group
+  anything. They are what **Multiple Choice** draws its three wrong answers from (`cardKinship`), so a card
+  without them falls through to the coarse `answerType` fallback and its distractors get quietly worse —
+  which is why `add-card.js` REFUSES a card with none rather than defaulting, exactly as it refuses one with
+  no `difficulty`. The bounds and the tag pattern are sliced out of `.claude/add-card-tags.js`, which is the
+  batch tool for cards already shipped. See the card-tags bullet under "How the app is wired".
 - `difficulty` — **REQUIRED for every new card: an integer 1–5 rating how well known the ANSWER TERM is to
   the general population.** **1** household name (Stone Age, Homer, Sparta, Neanderthal); **2** generally
   familiar, an ordinary secondary education reaches it (Neolithic, Knossos, phalanx, Lascaux); **3** known
@@ -6729,8 +7019,10 @@ division-capital city tier are inert dead code.
   + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`, plus the
   later blocks' `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, plus
   **sections 11 `user_decks.color`, 12 `login_email()` and 13 `card_stats` + `bump_card_grades()`,
-  run on the live project on 2026-09-13 on the owner's own report**; **14 `profiles.theme` and
-  15 `game_stats` are the two this file has never recorded either way**). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature
+  run on the live project on 2026-09-13 on the owner's own report, and 14 `profiles.theme` and
+  15 `game_stats`, confirmed run on 2026-09-14 by the owner's own `schema-check.sql` query returning true
+  for both** — so **THIS PROJECT'S DATABASE CARRIES EVERY BLOCK IN THE FILE**, and a feature reporting one
+  missing is a fault to investigate rather than a block to ask for). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature
   that needs one degrades to a sentence rather than an error, so the site works on a database that has
   only the first block — **keep it that way**, a block the owner has not run yet being the normal case
   rather than the broken one. **Which blocks a given database already has is answered by

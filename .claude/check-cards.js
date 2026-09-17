@@ -167,6 +167,19 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    characters neither of which JS counts as a word character — so the alternative matched the name and
    the anchor then threw the match away, silently, on the one author it had just been added for.  A
    negative lookahead for a Latin letter says what the anchor meant and is blind to no alphabet. */
+/* A WITNESS NEED NOT BE ANCIENT, AND FOUR MEDIEVAL ONES WERE REPORTING RULE 1 AS A FAULT (Sep 2026,
+   found while verifying a merge).  The house rule is that the line falls between the modern ARGUER and
+   the witness, not at any date: `Ibn Battuta reached Kilwa in 1331 and found a large town` is a
+   fourteenth-century traveller on a fourteenth-century subject, which is Herodotus' relation to Greece
+   exactly.  Seven of main's new Africa cards were reported by `card-focus.js` for naming one, because
+   the mechanism keys on a name's LAST token — `Ibn Battuta` yielded *Battuta*, `Ibn Khaldun` *Khaldun*,
+   `Marco Polo` *Polo*, and `Ibn Fadl Allah al-ʿUmari` yielded **Allah**, which is a latent finding on
+   any Islamic-history card whose question carries the word.  THE WHOLE-NAME TEST IS WHAT MAKES THIS
+   SAFE TO ADD: the corpus cites six living scholars whose given name is Marco — Demichelis five times,
+   plus Tizzoni, Rossi, Romboni, Fratus and Yseki — so a `^marco` prefix would have excused every one of
+   them, and the anchored full form `marco polo` excuses none.  al-ʿUmari is spelled with three
+   different apostrophes across the corpus, hence the class; he trips no card today and is added for the
+   reason the three above him were, that nothing would have said so until one did. */
 /* SEVEN NAMES ARE WRITTEN OUT IN FULL AND LEAD THE ALTERNATION, WHICH IS NOT TIDINESS (Sep 2026).
    `card-focus.js` reads this list to decide whether an author is a witness, and it measures the
    match against the WHOLE name — because the trap on the other side is an ancient author's name
@@ -177,7 +190,7 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    these seven are the shapes the corpus actually cites — Diodorus Siculus 242 times, Velleius
    Paterculus 83, Pliny the Elder 27.  JS alternation takes the FIRST branch that matches, so a
    long form placed after its own prefix would never be seen. */
-const ANCIENT = /^(diodorus siculus|lucius ampelius|velleius paterculus|pliny the elder|pliny the younger|ammianus marcellinus|eusebius of caesarea|memnon of heracleia|suda on line|herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|antiphon|lucian|pomponius|sun tz[uŭ]|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|augustus|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ampelius|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)(?![A-Za-z])/i;
+const ANCIENT = /^(ibn fadl allah al-[\u02bf\u2018\u2019']?umari|ibn battuta|ibn khaldun|marco polo|diodorus siculus|lucius ampelius|velleius paterculus|pliny the elder|pliny the younger|ammianus marcellinus|eusebius of caesarea|memnon of heracleia|suda on line|herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|antiphon|lucian|pomponius|sun tz[uŭ]|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|augustus|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ampelius|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)(?![A-Za-z])/i;
 
 /* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
    the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,
@@ -211,6 +224,16 @@ const INSTITUTIONAL = new Set([
      of a card really is one book, which is the finding this check exists for. */
   "mary ann clark",   // OpenStax, Biology 2e — three authors, cited per chapter (bio-003/014/015)
   "bruce alberts",    // Molecular Biology of the Cell — six authors, cited per chapter (bio-025/026)
+  /* ONE RESOURCE WAS BEING COUNTED TWO WAYS DEPENDING ON CITATION FORM (Sep 2026). "digital egypt
+     for universities" is already declared above, and it works for the 74 corpus citations that open
+     on the page title — but 10 open on the site's two named editors instead, and those bypassed the
+     entry entirely. wh-203 Naqada culture cites FIVE different pages of it (background, chronology,
+     predynastic burial customs, foreign relations, political unification), which is one teaching
+     resource consulted five times, not one scholar's view five times. Measured before adding: the
+     drop set is exactly ONE card — wh-202, wh-216 and wh-201 cite it twice or once and are unmoved —
+     and wh-203 moves from a FAIL to the one-institution note rather than to silence, which is what
+     this table is for. The card was read first. */
+  "wolfram grajetzki and stephen quirke",  // Digital Egypt for Universities, cited per page (wh-203)
 ]);
 
 /* Is this cited author the card's own subject? Folded to letters, digits and single spaces, and

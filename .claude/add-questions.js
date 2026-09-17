@@ -32,9 +32,28 @@ const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " 
    stripped before counting: the limit still binds what the card SAYS, and the conversion rides free. The
    pattern is deliberately narrow — a parenthesis holding a number and an imperial unit — so an ordinary
    aside is still counted (and asides are banned in an abstract anyway). */
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
+/* SLICED OUT OF add-card.js, WHICH OWNS IT — an imperial conversion is not charged against a length
+   limit (CLAUDE.md, "THE WORD LIMITS DO NOT COUNT A CONVERSION"). It was copied into nine files and had
+   drifted into three different patterns, so two tools could disagree about how long the same sentence is;
+   read add-card.js's own comment for what the divergence cost and what the union was measured against. */
+const IMPERIAL_PAREN = (() => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "add-card.js"), "utf8");
+  const m = src.match(/const IMPERIAL_PAREN = (\/.*\/gi);/);
+  if (!m) { console.error("ERROR: could not slice IMPERIAL_PAREN out of add-card.js — the two tools would disagree about how long the same sentence is."); process.exit(2); }
+  return eval(m[1]);
+})();
 const unconverted = (s) => String(s || "").replace(IMPERIAL_PAREN, "");
-const qWords = (s) => plain(unconverted(s)).split(" ").filter(Boolean).length;
+/* A TOKEN OF PURE PUNCTUATION IS NOT A WORD (Sep 2026) — see add-card.js's own header. The predicate is
+   SLICED OUT OF THE TOOL THAT OWNS IT rather than copied: a second copy goes stale on a change made in a
+   file nobody counting words has reason to open, which is the scar `IMPERIAL_PAREN` left across nine files
+   before it was closed the same way — see its own slice, usually directly above this one. */
+const COUNTS_AS_WORD = (() => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "add-card.js"), "utf8");
+  const m = src.match(/const COUNTS_AS_WORD = (\/.*\/u);/);
+  if (!m) { console.error("ERROR: could not slice COUNTS_AS_WORD out of add-card.js — the two tools would disagree about what a word is."); process.exit(2); }
+  return eval(m[1]);
+})();
+const qWords = (s) => plain(unconverted(s)).split(" ").filter((w) => COUNTS_AS_WORD.test(w)).length;
 
 const batchFile = process.argv[2], partial = process.argv.includes("--partial");
 if (!batchFile) { console.error("usage: node .claude/add-questions.js <batch.json> [--partial]"); process.exit(1); }

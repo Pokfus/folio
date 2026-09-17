@@ -54,9 +54,21 @@ const VERBOSE = process.argv.includes("--verbose");
 const MIN = 20, MAX = 34;
 const MAP_MIN = 5, MAP_MAX = 20;
 
-// An imperial conversion in parentheses is not charged against the word budget.
-const IMPERIAL_PAREN =
-  /\s*\((?=[^)]*\d)[^)]*\b(?:inch|inches|in|foot|feet|ft|yard|yards|yd|mile|miles|mi|pound|pounds|lb|lbs|ounce|ounces|oz|acre|acres|gallon|gallons|pint|pints|quart|quarts|sq\s*(?:mi|ft|in|yd))\b[^)]*\)/gi;
+/* An imperial conversion in parentheses is not charged against the word budget.
+   °F HAS ITS OWN BOUNDARY, AND THAT IS THE WHOLE OF WHY IT WORKS (Sep 2026). Written inside the \b(?:…)\b
+   group as the other units are, the leading \b sits between a SPACE and a DEGREE SIGN — two non-word
+   characters — so it can never match, and the house form "(1.8 °F)" was charged in full while the
+   spaceless "(1.8°F)" was not. The house form is the spaced one, 725 sites against 127. */
+/* SLICED OUT OF add-card.js, WHICH OWNS IT — an imperial conversion is not charged against a length
+   limit (CLAUDE.md, "THE WORD LIMITS DO NOT COUNT A CONVERSION"). It was copied into nine files and had
+   drifted into three different patterns, so two tools could disagree about how long the same sentence is;
+   read add-card.js's own comment for what the divergence cost and what the union was measured against. */
+const IMPERIAL_PAREN = (() => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "add-card.js"), "utf8");
+  const m = src.match(/const IMPERIAL_PAREN = (\/.*\/gi);/);
+  if (!m) { console.error("ERROR: could not slice IMPERIAL_PAREN out of add-card.js — the two tools would disagree about how long the same sentence is."); process.exit(2); }
+  return eval(m[1]);
+})();
 
 const BLANK_RX = /<span class="blank">_+<\/span>/;
 // A pronoun opening whose antecedent can only be the hidden answer.
@@ -65,9 +77,19 @@ const CATAPHORA = /^(Its|It|He|She|They|Their|His|Her|There|Here|Such|This|These
 const DUMMY_IT = /^It (?:was|is|has been|had been|had|would|will|may|might|seems|appears)\b/;
 
 const plain = s => s.replace(BLANK_RX, "").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+/* A TOKEN OF PURE PUNCTUATION IS NOT A WORD (Sep 2026) — see add-card.js's own header. The predicate is
+   SLICED OUT OF THE TOOL THAT OWNS IT rather than copied: a second copy goes stale on a change made in a
+   file nobody counting words has reason to open, which is the scar `IMPERIAL_PAREN` left across nine files
+   before it was closed the same way — see its own slice, usually directly above this one. */
+const COUNTS_AS_WORD = (() => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "add-card.js"), "utf8");
+  const m = src.match(/const COUNTS_AS_WORD = (\/.*\/u);/);
+  if (!m) { console.error("ERROR: could not slice COUNTS_AS_WORD out of add-card.js — the two tools would disagree about what a word is."); process.exit(2); }
+  return eval(m[1]);
+})();
 const words = s =>
   s.replace(/<[^>]*>/g, " ").replace(IMPERIAL_PAREN, " ")
-   .replace(/\s+/g, " ").trim().split(" ").filter(Boolean).length;
+   .replace(/\s+/g, " ").trim().split(" ").filter(w => COUNTS_AS_WORD.test(w)).length;
 
 const fails = [];
 let checked = 0, mapCards = 0, artCards = 0;

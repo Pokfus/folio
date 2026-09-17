@@ -31,7 +31,26 @@ const TAGS = global.window.GLOSSARY_TAGS || {};
    purely because its terms carry more measurements: a country term states an area, sometimes a height and a
    length too, at three words of conversion each. The leading space goes with the parenthetical, or the
    stripped text leaves a stray token behind. */
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
+/* SLICED OUT OF add-card.js, WHICH OWNS IT — an imperial conversion is not charged against a length
+   limit (CLAUDE.md, "THE WORD LIMITS DO NOT COUNT A CONVERSION"). It was copied into nine files and had
+   drifted into three different patterns, so two tools could disagree about how long the same sentence is;
+   read add-card.js's own comment for what the divergence cost and what the union was measured against. */
+const IMPERIAL_PAREN = (() => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "add-card.js"), "utf8");
+  const m = src.match(/const IMPERIAL_PAREN = (\/.*\/gi);/);
+  if (!m) { console.error("ERROR: could not slice IMPERIAL_PAREN out of add-card.js — the two tools would disagree about how long the same sentence is."); process.exit(2); }
+  return eval(m[1]);
+})();
+/* A TOKEN OF PURE PUNCTUATION IS NOT A WORD (Sep 2026) — see add-card.js's own header. The predicate is
+   SLICED OUT OF THE TOOL THAT OWNS IT rather than copied: a second copy goes stale on a change made in a
+   file nobody counting words has reason to open, which is the scar `IMPERIAL_PAREN` left across nine files
+   before it was closed the same way — see its own slice, usually directly above this one. */
+const COUNTS_AS_WORD = (() => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "add-card.js"), "utf8");
+  const m = src.match(/const COUNTS_AS_WORD = (\/.*\/u);/);
+  if (!m) { console.error("ERROR: could not slice COUNTS_AS_WORD out of add-card.js — the two tools would disagree about what a word is."); process.exit(2); }
+  return eval(m[1]);
+})();
 // the same order the popup renders in: markers first (they sit inside the prose), then tags, then entities
 function words(html) {
   return String(html || "")
@@ -43,7 +62,7 @@ function words(html) {
     .replace(/\s+/g, " ")
     .trim()
     .split(" ")
-    .filter(Boolean).length;
+    .filter((w) => COUNTS_AS_WORD.test(w)).length;
 }
 
 const args = process.argv.slice(2);

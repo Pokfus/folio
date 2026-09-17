@@ -64,10 +64,43 @@ const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " 
    and would otherwise squeeze the prose out of a card to make room for arithmetic. So the parenthetical is
    stripped before counting: the limit still binds what the card SAYS, and the conversion rides free. The
    pattern is deliberately narrow — a parenthesis holding a number and an imperial unit — so an ordinary
-   aside is still counted (and asides are banned in an abstract anyway). */
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
+   aside is still counted (and asides are banned in an abstract anyway).
+
+   THIS FILE OWNS IT, AND THE OTHER EIGHT TOOLS SLICE IT OUT BY TEXT (Sep 2026). It had been COPIED into
+   nine files and had drifted into THREE different patterns, which is the scar this comment exists to close:
+   `check-questions.js` lacked `tons?` while every other copy had it, so a question carrying a tonnage
+   conversion was charged for it THERE and not here — measured at four words apart on `gr-004`, `gr-065` and
+   `wh-249`, none over a bar today and every one of them a contradiction waiting for the card that is.
+   The artefact tools had a third list, widened with VOLUME units because an artefact is a jar or a cauldron;
+   that argument was right about the corpus and wrong about the fix, since the widening is INERT everywhere
+   else — measured, 0 brackets in 4,945 that the union eats and the narrowest copy did not. So the list is
+   the UNION of all three and one file holds it.
+
+   TWO THINGS THE MEASUREMENT SETTLED and which are worth not re-deriving. `sq mi` / `sq ft` need no rule of
+   their own now that the bare units are in the list, so the redundant branch is gone. And the alarming
+   member is `in`, which has been here since the beginning and would eat "(in 1920)": over the whole corpus
+   the pattern eats 4,945 brackets and EVERY ONE is a measurement — the 53 that are not shaped
+   `<number> <unit>` are hyphenated attributives ("(100-foot)"), densities ("(191 to the square mile)"),
+   "(4 fluid ounces)" and "(11 Roman miles)". Not one ordinary aside. Re-run that check before widening it
+   again; a pattern that eats prose makes the budget looser for the cards that happen to carry a bracket,
+   and does it in silence. */
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|mi|foot|feet|ft|inch(?:es)?|in|yards?|yd|pounds?|lbs?|ounces?|oz|tons?|acres?|gallons?|pints?|quarts?)\b|°F\b)[^)]*\)/gi;
 const unconverted = (s) => String(s || "").replace(IMPERIAL_PAREN, "");
-const qWords = (s) => plain(unconverted(s)).split(" ").filter(Boolean).length;
+/* A TOKEN OF PURE PUNCTUATION IS NOT A WORD, and counting one is how a card meets the floor on a full
+   stop (Sep 2026). `plain` replaces a tag with a SPACE, which is right — it keeps the words either side
+   apart — but it also cuts a footnote marker out from between a word and its terminal stop, leaving the
+   stop standing alone: `set aside<sup …></sup>.` counts as "aside" AND ".". Measured over the corpus,
+   2,448 such tokens were being counted, 1,173 of them a lone full stop across the 114 cards that write
+   the marker BEFORE the stop rather than after it (30,093 sit after), and 718 a standalone em dash, which
+   is the house form of a parenthetical dash and no more a word than the stop is. Fifty-two Greece cards
+   passed this bar on that punctuation alone and hold 260–269 words of prose; wh-145 was reported over the
+   ceiling on it. The UNDERSCORE is deliberately a word character here: `_____` is the cloze blank, and
+   CLAUDE.md's question rule says in terms that the blank counts as a word.
+   THIS PREDICATE IS THE ONE COPY. card-length.js, check-questions.js, add-questions.js and
+   gloss-length.js slice it out of this file by text and stop if the slice fails, because a second copy
+   goes stale on a change made in a file nobody counting words has reason to open. */
+const COUNTS_AS_WORD = /[\p{L}\p{N}_]/u;
+const qWords = (s) => plain(unconverted(s)).split(" ").filter((w) => COUNTS_AS_WORD.test(w)).length;
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 function leafDecks(node, acc) { for (const ch of node.children || []) { if (ch.cardIds) acc.push(ch); if (ch.children) leafDecks(ch, acc); } return acc; }
@@ -378,6 +411,61 @@ if (!Number.isInteger(card.difficulty) || card.difficulty < DIFF_MIN || card.dif
   process.exit(1);
 }
 
+/* …AND IT CARRIES ITS CATEGORISING TAGS, ON THE SAME REASONING AND FOR A DIFFERENT GAME (Sep 2026).
+   `tags` is 3–8 lowercase tags in the glossary's own vocabulary — the KIND first (`era`, `place`,
+   `object`, `person`, `industry`…), then the subject areas, then the specifics — and what they are FOR is
+   Multiple Choice: `cardKinship` counts the tags two cards share and offers the three closest as the wrong
+   answers, so the Mousterian is answered against the Oldowan and the Acheulean rather than against a cave,
+   an ice age and a fossil.
+
+   THERE WAS NO GUARD HERE UNTIL NOW, and the corpus records exactly what that cost: 467 cards, 14.5% of
+   it, carry no tags at all, and they arrived in whole CONTIGUOUS RUNS — `gr-611`–`gr-760`,
+   `cnh-147`–`cnh-230`, `us-061`–`us-100`, `wh-151`–`wh-200` — rather than card by card, because nothing
+   ever said no. It is the `difficulty` fault one game over and quieter still: an untagged card falls
+   through to the coarse `answerType` fallback, draws slightly worse distractors, and NOBODY EVER REPORTS A
+   SLIGHTLY WORSE DISTRACTOR. So it is REFUSED rather than defaulted, for `difficulty`'s reason — there is
+   no safe guess, only an invisible one. Batch-tag a card already shipped with `.claude/add-card-tags.js`.
+
+   The rules are that tool's own, SLICED OUT BY TEXT rather than copied, and the run STOPS if the slice
+   fails: a second copy goes stale on a change made in a file nobody here has reason to open, which is the
+   scar `add-card-tags.js` itself left when its private copy of a field list stripped `difficulty` and
+   `undatable` from all 500 cards in one run. */
+const TAG_RULES = (() => {
+  const src = fs.readFileSync(path.join(__dirname, "add-card-tags.js"), "utf8");
+  const n = /const MIN_TAGS = (\d+), MAX_TAGS = (\d+);/.exec(src);
+  const rx = /const TAG_RX = \/((?:\\.|[^\/\\])+)\/([a-z]*);/.exec(src);
+  if (!n || !rx) {
+    console.error("ERROR: could not read the tag rules out of .claude/add-card-tags.js (MIN_TAGS, MAX_TAGS, TAG_RX).\n" +
+      "       They are sliced out by text so the two tools cannot come to disagree about what a tag is.\n" +
+      "       Fix the slice rather than restating the rules here — a second copy is the thing that goes stale.");
+    process.exit(1);
+  }
+  return { min: +n[1], max: +n[2], rx: new RegExp(rx[1], rx[2]) };
+})();
+const TAG_HELP =
+  "       Tag 1 is the KIND (era, place, object, person, industry, culture, event, concept, fossil, …),\n" +
+  "       then the subject areas (archaeology, history, prehistory, science, geography, art, …), then the\n" +
+  "       specifics — a country, a region, a period:\n" +
+  '         "tags": ["industry", "archaeology", "prehistory", "stone tools", "france"]\n' +
+  "       REUSE the vocabulary the glossary and the shipped cards already carry rather than coining a\n" +
+  "       near-synonym: a tag no other card shares can never group anything. Multiple Choice draws its\n" +
+  "       three wrong answers from the cards sharing the most tags, so without them this card falls through\n" +
+  "       to the coarse `answerType` fallback and its distractors get quietly worse.";
+if (!Array.isArray(card.tags)) {
+  console.error("ERROR: card needs `tags` — an array of " + TAG_RULES.min + "–" + TAG_RULES.max + " lowercase category tags.\n" + TAG_HELP);
+  process.exit(1);
+}
+if (card.tags.length < TAG_RULES.min || card.tags.length > TAG_RULES.max) {
+  console.error("ERROR: card.tags has " + card.tags.length + " tag(s) — it wants " + TAG_RULES.min + "–" + TAG_RULES.max + ".\n" + TAG_HELP);
+  process.exit(1);
+}
+for (const t of card.tags) {
+  if (typeof t !== "string" || !TAG_RULES.rx.test(t)) {
+    console.error("ERROR: " + JSON.stringify(t) + " is not a tag — lowercase words, 2–29 characters, as the glossary's are.\n" + TAG_HELP);
+    process.exit(1);
+  }
+}
+
 /* OPTIONAL: `undatable: true` says the ANSWER TERM does not happen at a time — a process, a condition, a
    material, a category or a physical feature — so the Timeline game must not ask a reader to place it.
    It is not required and not guessed at: almost every card names something with a date, and the flag is
@@ -395,6 +483,28 @@ const aWords = qWords(card.abstract);
 if (aWords < A_MIN || aWords > A_MAX) {
   console.error("ERROR: the background is " + aWords + " words — it must be " + A_MIN + "–" + A_MAX +
     " (aim for ~300, in two blocks of five sentences; see CLAUDE.md).");
+  process.exit(1);
+}
+
+/* ...AND THE SHAPE, which this said in its error message for a year and never checked (Sep 2026).
+   The rule is TEN sentences in TWO BLOCKS OF FIVE split by ` <br><br> `, and nothing enforced it:
+   `gr-639` and `gr-678` shipped with NINE sentences, and `cnh-128` and `cnh-258` with ten split 6+4
+   and 4+6 — the break one sentence late and one sentence early. Four cards in 3,215, invisible,
+   because every one reads perfectly and every one is in band on words: THE COUNT IS THE ONLY THING
+   THAT CAN SEE THIS, which is why it is a guard rather than a note.
+     · AND THE BLOCKS ARE CHECKED SEPARATELY, NOT JUST THE TOTAL. Two of the four carried the full
+       ten sentences and were still wrong, because the citation passes place markers by sentence
+       index ACROSS BOTH BLOCKS while a reader meets them as two paragraphs of five — so a mis-placed
+       break moves where the card pauses without moving a single word.
+   THE SPLITTER IS split-abstract.js's, not a second copy: it is the module the citation passes place
+   markers by sentence index with, so a card this accepts is a card those can mark. */
+const SHAPE = require("./split-abstract.js").count(card.abstract);
+if (SHAPE.length !== 2 || SHAPE[0] !== 5 || SHAPE[1] !== 5) {
+  console.error("ERROR: the background splits " + JSON.stringify(SHAPE) + " — it must be exactly ten " +
+    "sentences in two blocks of five, separated by ` <br><br> ` (see CLAUDE.md).");
+  console.error("       If the prose really is 5+5, look for a sentence ending in a lone capital " +
+    "letter: the splitter reads that as an initial (the `V. Gordon Childe` guard), which is how " +
+    "gr-639's \"the letters A and N.\" counted as nine. Reword so the stop follows a word.");
   process.exit(1);
 }
 

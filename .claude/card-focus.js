@@ -94,6 +94,7 @@ const NOT_A_RESEARCHER = {
   "wh-518 Poitiers": "the battle, reached through the Black Prince's own letter to London announcing it",
   "ww2-036 Mussolini": "Mussolini, cited for his own Doctrine of Fascism",
   "ww2-039 Mussolini": "the same, on the law that gave that doctrine its legal form",
+  "ww2-042 Hoare": "Sir Samuel Hoare, cited for his own resignation statement to the Commons of 19 December 1935 — the minister who made the plan the question names, not a modern arguer",
   "ww2-141 Hitler": "Hitler, cited for his own Directive No. 1 for the Conduct of the War",
   "ww2-148 Chamberlain": "Chamberlain, cited for his own broadcast of 3 September 1939",
   "ww2-149 Hitler": "the same directive, on the card for the lull that followed it",

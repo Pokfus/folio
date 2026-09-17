@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.757", released: "2026-09-15T12:05Z" };
+window.FOLIO_VERSION = { v: "1.781", released: "2026-09-17T04:35Z" };
 
 window.CHANGELOG = [
   {
@@ -57,6 +57,27 @@ window.CHANGELOG = [
       "<b>The World geography collection is now called World Geography.</b>",
       "<b>The click sound is a soft bubble pop</b> in place of the dry tap.",
       "<b>Thirty new cards in the World History collection</b>, taking the Africa deck from Timbuktu to Lalibela and Makuria and running the steppe from the composite bow and Attila through Genghis Khan to Timur.",
+      "<b>The dog domestication card now follows the dogs to the Americas</b> \u2014 they came with the first people, and that lineage almost vanished after Europeans arrived.",
+      "<b>The bucchero card now says the borrowing ran both ways</b> \u2014 an Athenian potter copied Etruscan shapes and sold them back to Etruria, and chemistry can now tell local pots from imports.",
+      "<b>The Lapis Niger card now says why its inscription is still argued over</b> \u2014 the oldest Latin from Rome is badly broken, and the reading turns on two words.",
+      "<b>The ’Ain Ghazal card now tells the story of the statues’ rescue</b> \u2014 the whole cache was lifted out of the ground in one block of earth and taken apart in a laboratory.",
+      "<b>The Corinthian pottery card now says that not every Corinthian-looking pot is one</b> \u2014 copies were made elsewhere, and chemistry has begun sorting them from the real imports.",
+      "<b>The Exekias card was still counting his signed vases the way a 1905 handbook did</b> \u2014 fifteen of them carry his name, not ten, and three or four say he painted the pot as well as making it.",
+      "<b>The card on the Italian invasion of Ethiopia now covers the poison gas</b> — Italy had signed the ban on it, and the impartial enquiry Ethiopia asked the League for never came.",
+      "<b>The Maurya Empire and Jainism cards now say how shaky their dates are</b> \u2014 both leaned on one 1922 chapter, and modern work shows the sources for those chronologies are far later than the dates.",
+      "<b>The Chandragupta Maurya card had the famous bargain backwards</b> \u2014 Seleucus gave up the land and Chandragupta gave the 500 elephants, and the card now says what the ancient sources do and do not record.",
+      "<b>Two cards are corrected on what their own sources say</b> \u2014 Monte Verde had overstated how unlike Clovis its stone tools were, and the Homo naledi card credited a journal\u2019s verdict to the man it judged.",
+      "<b>The card on the archaic smile now says that what it meant has been argued over</b> \u2014 whether it flattered the onlooker or was only an attempt at expression at all.",
+      "<b>Multiple Choice now offers sensible wrong answers on 467 more cards</b> — they carried no subject labels, so their three decoys were picked at random.",
+      "<b>Four card backgrounds did not read as the two paragraphs of five every other one does</b> — two were a sentence short and two paused in the wrong place.",
+      "<b>Every card background and every glossary entry is now the length it is meant to be</b> \u2014 sixty-nine were short and each gains a fact from a source it already cites, not padding.",
+      "<b>A Korean Neolithic pottery card was leaning on Bronze Age evidence without saying so</b> \u2014 it now names the period and the cultures the residue study behind it actually covers.",
+      "<b>Two cards asked their question in nineteen words where the house rule is twenty</b> \u2014 each now carries a clause more, taken from what the card itself already says.",
+      "<b>Measurements now come out right in the units you chose</b> \u2014 twenty cards and seven glossary terms showed a bare degree, both systems at once, or a year eaten by a conversion.",
+      "<b>The Younger Dryas card quoted a figure its own source does not give</b> \u2014 the paper behind it measures how big the abrupt swings were, not how far below today Greenland sat.",
+      "<b>The card on Minoan trade with Egypt now rests on the excavators\u2019 own reports</b> \u2014 not on one teaching website, and three of its sentences are rewritten to match.",
+      "<b>The card on the Cypriot syllabary now says why the script died out</b> \u2014 the alphabet replaced it only after the Ptolemies took the island, and four of its six sources were one reviewer.",
+      "<b>The horns of consecration card now says the symbol outlived the palaces</b> \u2014 it and the card on Minoan religion leaned on one excavator, and each now carries an independent voice.",
     ],
   },
   {
@@ -71,9 +92,13 @@ window.CHANGELOG = [
       "<b>Three new cards in the Visual Art collection</b>, the first written to the new format and the beginning of the collection again.",
       "<b>Twenty new cards in the Ancient Greece collection</b>, on Hellenistic kingship and the successor kingdoms from Bactria and India to Galatia and Pergamon, with nineteen new glossary terms.",
       "<b>Eighty-nine more capital-city backgrounds are now about the city</b> \u2014 its rivers, its rock, its weather and its own history rather than a record of diplomatic recognition.",
-      "<b>Measurements read correctly in imperial again</b> \u2014 dozens of cards and glossary terms were dropping a word such as a place name when you asked for feet and miles.",
+      "<b>Measurements read correctly in imperial again</b> \u2014 dozens of cards and terms were dropping a word, showing both systems at once, or marking a temperature above freezing as below it.",
       "<b>Twenty new Ancient Rome cards</b> \u2014 the rise of Augustus from Caesar\u2019s will to the settlement of 27 BCE, with twenty new glossary terms.",
       "<b>Ten new cards in the World History collection</b>, closing South and Southeast Asia and opening Africa with Ghana, Mali and the Saharan gold road, each with a glossary term.",
+      "<b>Twenty-one card pictures no longer credit themselves twice</b> \u2014 the caption now says what the picture shows, and the line beneath it whose it is.",
+      "<b>Ten cards now rest on several writers rather than on one old handbook</b> \u2014 in China, World History and Ancient Greece, and nine sentences were corrected to what their new source says.",
+      "<b>Four glossary terms now cite a second work a reader can open</b> \u2014 each had one free source and one behind a paywall, which is half its apparatus out of reach.",
+      "<b>Hundreds of sources on the country cards no longer lead to a dead page</b> \u2014 the UN rebuilt its statistics site, so each now opens an archived copy of the profile it cites.",
     ],
   },
   {
