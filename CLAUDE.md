@@ -673,6 +673,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     dated, recurring job rather than a judgement. **Check Commons before researching a post-1900 line,
     not after**, and run `node .claude/check-image-free.js` before fetching a candidate.
   Not part of the site.
+- **📖 `docs/politics-east-asia-card-plan.md` — READ BEFORE WRITING A `pea-` CARD.** The running
+  order for the **Politics: East Asia** collection (`pea`), across 24 decks — Lectures 1–12 and Extra
+  1–12. The twentieth plan, and **the only one that is a COURSE rather than a subject shelf**: it is
+  a university syllabus, so it sits in a **Special** section of the Collections page rather than under
+  History or Science, and its running order **cannot be written ahead of the lectures**, whose slides
+  are supplied one at a time. Three things follow and the plan argues each. The numbering is
+  **sequential in the order the lectures are covered** rather than blocked out per deck (Lecture 1 took
+  `pea-001`–`pea-030`, Extra 1 `pea-091`–`pea-100`), so the registered numbering in
+  `test-card-plans.js` is **widened as a lecture lands** rather than declared at 480 and left full of
+  holes. **A deck heading with no lines under it is a deck waiting for its source material**, not a gap
+  to be filled from general reading — the point of the collection is that it covers the course as
+  taught. And **the answer terms come from the supplied material**, with the backgrounds researched out
+  and cited like any other card. The next card to write is the lowest `pea-NNN` not yet in `data.js`;
+  the index table under "THE TWENTY PLANNED COLLECTIONS" is the lookup. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -5946,7 +5960,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE NINETEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE TWENTY PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -5974,6 +5988,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
+| Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
 The next id for any of them (substitute the prefix):
 

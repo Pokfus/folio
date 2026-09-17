@@ -85,8 +85,9 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
 | `world-geography-card-plan.md` | World Geography (`geo-world`) — 471 cards, sorted by population | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
+| `politics-east-asia-card-plan.md` | Politics: East Asia (`pea`) — a COURSE, planned a lecture at a time | `pea-` |
 
-`china-card-findings.md` is China's per-card research log; the other eighteen keep theirs in their own plan
+`china-card-findings.md` is China's per-card research log; the other nineteen keep theirs in their own plan
 or in the citation plans. `node .claude/test-card-plans.js` checks every plan against `data.js`.
 
 ## Content passes — the finished ones
