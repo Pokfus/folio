@@ -612,6 +612,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 1–30 (哎 → 报到), deck order | 25 | **two of one card's three sentences used its character for its sound in a name** |
 | 2026-09-17 | `hsk30l5` notes 31–60 (报道 → 表达), deck order, plus three cards outside it that share a sentence | 19 | **two of one card's three sentences were written with the wrong character of a homophone pair** |
 | 2026-09-17 | `hsk30l5` notes 61–90 (表面 → 册), deck order, plus three rows added to app.js's own `SPELL_PAIRS` | 29 | **a spelling family that IS in the table, with three of its members missing** |
+| 2026-09-17 | `hsk30l5` notes 91–120 (测 → 车祸), deck order, plus a corpus sweep for variant characters | 17 | **a Japanese character in a Chinese sentence, on three cards at once** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7033,3 +7034,82 @@ other way of meeting rather than surfacing words the deck is hiding.**
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 624 → 627;
 `check-style.js`, `check-claims.js`, `check-docs.js` and `test-spelling.js` all clean after the app.js
 change, with CLAUDE.md's app.js line count re-measured; `build-lang-decks.js` re-run.
+
+## Batch 77 — hsk30l5 notes 91–120 (测 → 车祸)
+
+Thirty consecutive notes, **fifteen of them changed**, plus **two cards outside the range** that share a
+sentence with one inside it — seventeen cards in all.
+
+**The leading finding is a Japanese character in a Chinese sentence, and it took a new kind of sweep to
+name it.** 一项估计显示，今年的钢鉄产量将会达到一亿吨 writes **鉄** where Chinese writes **铁** — the
+Japanese shinjitai and old Chinese form — and the decks themselves spell it correctly on their own 钢铁
+card at hsk30l7. It is on **three cards at once** (产量, 吨, 亿), so it is three rows.
+
+**The sweep that found it is worth keeping, and the two that did not work are worth knowing.** Comparing
+the decks' characters against CC-CEDICT's whole inventory returns 73 findings and every one is noise —
+the card type shows a single character's COMPONENTS, so 阝, 钅, 礻 and seventy more are legitimate.
+Comparing against the SIMPLIFIED column alone, over the spoken sentences only, returns **zero**: CC-CEDICT
+carries 鉄 as an *old variant of 鐵|铁*, so it is a real Chinese character and the inventory cannot see it.
+What works is asking **which characters CC-CEDICT knows ONLY as a pointer at another character** — every
+one of their senses matching `variant of X` or `see X` and nothing else. Over all 11,532 notes that
+returns exactly **two**:
+
+    鉄  old variant of 鐵|铁   →  hsk30l5/产量  hsk30l5/吨  hsk30l5/亿
+    绔  variant of 褲|裤       →  hsk30idm/纨绔子弟
+
+and the second is the right answer — 纨绔子弟 is the standard written form of that idiom and 绔 occurs in
+nothing else. **One fault and one readable false positive over the whole corpus.** It is recorded here
+rather than shipped as a checker, on this file's own rule: its entire yield is spent, and a scanner that
+will report the same single false positive for ever is one nobody runs. **Re-run it by hand after a
+batch that harvests new sentences**, which is where a mixed-source corpus puts variant characters in.
+
+**A character buried in a compound on every sentence it has.** 测's three were 测速, 目测 and 小测, so a
+card glossing `to measure` never showed the character on its own — and it is an ordinary verb, 测体温,
+测血压, which is what the replacement gives. 产 was two of three the same way, and its first sentence was
+这是共产主义, which is both a compound and a political label.
+
+**The plainest duplicate in the deck.** 常识's first two sentences are 她缺乏常识 and 他缺乏常识 — one
+sentence with the pronoun changed, and English that differs by one word. Its gloss also read `general
+knowledge` while all three of its own English lines say *common sense*; CC-CEDICT gives both and the
+gloss now leads with the one the card teaches.
+
+**A sense the first sentence shows and the gloss did not carry.** 炒 was glossed `stir-fry` alone while
+秘书被炒了 is the secretary being SACKED — a sense CC-CEDICT gives, and a cooking word doing something no
+cooking word does. Both senses now given and every sentence tagged.
+
+**An adverb contradicting its own sentence.** 曾经 marks a past experience — something that was once so
+and is no longer — and 曾经有一个意外 reports a single event under an English present perfect (`There's
+been an accident`) that the adverb rules out.
+
+**Three more sentences that were the card's other sentence over again**: 拆's two people knocking down
+the same wall, 长处's third — **which this record had itself added in an example top-up, as a paraphrase
+of the sentence directly above it** — and 测试's, whose 测试我考了低分 also puts the topic in front of the
+subject with nothing to mark it, so the first two characters read as *test me*.
+
+**A statistical joke where a length should be.** 长度's 婚姻的长度与婚宴的花费负相关 measures a marriage
+in 长度, which is a physical length; duration takes 长短 or 持续时间.
+
+**Five `Compounds` blocks** — 测, 曾, 插, 拆 and 产, four of them with nothing at all in the reader's
+downloaded deck. 曾's carries **曾孙**, deliberately: it is the character's other reading, zēng, which
+this card does not carry and which a reader would otherwise meet with no warning — the same reason 藏's
+block carries 西藏.
+
+**One missing full stop** (超), **one dual-reading card tagged** (朝, all three sentences cháo, so the
+zhāo sense is now visibly the one without an example rather than left to be guessed at), and **one
+English line coarser than its Chinese** (`Crap` for 可恶, which is *how annoying*).
+
+**A fault of my own, recorded because it is a new shape of an old trap.** Replacing 长处's duplicate by
+APPENDING a row to the record's own `ex` array changed nothing: `room = 3 - kept.length` left one free
+slot and the array's FIRST row filled it — which was the row being replaced. **Where the sentence to be
+replaced is the record's own, delete the row; `dropEx` plus a new row is for a GENERATOR block.** It is
+silent either way, and was caught by the diff showing the card untouched.
+
+**Read and left.** 差别, 差距, 叉子, 产品, 产业, 长久, 长期, 尝试, 长途 (whose three sentences are all
+compounds, which is what 长途 is — it is an attributive and does not stand alone), 长远, 场所, 超出
+(whose 想像 is the Taiwan form of 想象 and is listed in CC-CEDICT with the same gloss), 超级, 超速, 吵,
+and 朝's three sentences themselves.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 324 unchanged; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 627 → 633;
+`build-lang-decks.js` re-run.

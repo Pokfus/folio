@@ -14011,12 +14011,19 @@
       ]
     },
     "hsk30l5/吨": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | One sentence on three cards wrote 钢鉄 with 鉄 — the Japanese and old Chinese form of the character — where Chinese writes 铁, which the decks themselves spell correctly on their own 钢铁 card at hsk30l7. Found by a sweep for characters CC-CEDICT knows ONLY as a pointer at another character: over all 11,532 notes it returns exactly two, this and 绔 in 纨绔子弟, which is the standard written form of that idiom and the right answer. Repaired on all three cards that carry the sentence — a row reaches one note. Read ahead of its own batch because the character was found on hsk30l5/产量, which shares the sentence; the rest of this card is not yet audited.",
       "ex": [
         [
           "我们要订18吨橄榄油。",
           "We'd like to order 18 tonnes of olive oil."
+        ],
+        [
+          "一项估计显示，今年的钢铁产量将会达到一亿吨。",
+          "According to one estimate, steel production will reach a hundred million tonnes this year."
         ]
+      ],
+      "dropEx": [
+        "钢鉄产量"
       ]
     },
     "hsk30l5/含量": {
@@ -14412,7 +14419,7 @@
       ]
     },
     "hsk30l5/朝": {
-      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | The card carries both readings, cháo and zhāo, and all three of its sentences are cháo — 朝南, 朝我们, 朝向. Tagged so a reader can see that the zhāo (morning) sense has no example rather than guessing which sentence might be it; the card's `Say` field already pins the spoken reading to 朝代.",
       "Say": "朝代",
       "Pinyin": "cháo / zhāo",
       "Bopomofo": "ㄔㄠˊ / ㄓㄠ",
@@ -14427,6 +14434,11 @@
           "noun",
           "morning; day"
         ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
       ]
     },
     "hsk30l5/朵": {
@@ -15030,11 +15042,15 @@
       ]
     },
     "hsk30l5/长度": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them. | 婚姻的长度与婚宴的花费负相关 is a statistical joke rather than a sentence, and 婚姻的长度 is not how Chinese measures a marriage — 长度 is a physical length, and duration takes 长短 or 持续时间. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "这艘船的长度是30米。",
           "The length of this ship is 30 meters."
+        ],
+        [
+          "请量一下桌子的长度。",
+          "Please measure the length of the table."
         ]
       ],
       "exEn": [
@@ -15042,6 +15058,9 @@
           "这艘船的长度是30米。",
           "The length of this ship is 30 metres."
         ]
+      ],
+      "dropEx": [
+        "婚姻的长度"
       ]
     },
     "hsk30l5/难得": {
@@ -78594,21 +78613,29 @@
       "gloss": "colour (as opposed to black and white); multicoloured"
     },
     "hsk30l5/长处": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The sentence this record added in the example top-up, 每个人都有自己的长处, is the card's second sentence over again — 每个人都有他的长处和短处 — so the top-up filled the third slot with a paraphrase of the one before it, and all three cards were about everyone having strengths. Replaced with a named strength, which is what the word is normally used to say. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The duplicate was this record's OWN `ex` row, so the row is deleted rather than dropped — appending a replacement beside it left the card with two rows competing for one free slot, and `room = 3 - kept.length` gives the FIRST of them, which is the row being replaced. Nothing changes and nothing reports it.",
       "ex": [
         [
-          "每个人都有自己的长处。",
-          "Everyone has their own strengths."
+          "他的长处是记性好。",
+          "His strength is a good memory."
         ]
       ]
     },
     "hsk30l5/常识": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 她缺乏常识 and 他缺乏常识 are the same sentence with the pronoun changed, and their English differs by one word: `She is lacking in common sense` and `He is lacking in common sense`. The plainest duplicate in the deck. The gloss is also widened to what the card's own English lines say: it read `general knowledge` while all three of them say common sense, and CC-CEDICT gives both. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "这是生活中的基本常识。",
           "This is basic common knowledge for daily life."
+        ],
+        [
+          "出门带伞是基本常识。",
+          "Taking an umbrella with you is basic common sense."
         ]
+      ],
+      "gloss": "common sense; general knowledge",
+      "dropEx": [
+        "他缺乏常识"
       ]
     },
     "hsk30l5/创新": {
@@ -123330,6 +123357,236 @@
           "画册",
           "huàcè",
           "a picture album"
+        ]
+      ]
+    },
+    "hsk30l5/测": {
+      "why": "All three sentences were compounds — 测速, 目测, 小测 — so a card glossing 测 `to measure` showed the character on its own not once. It is a verb in ordinary use (测体温, 测血压), which is what the replacement gives. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against fourteen words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "测速的方法有很多"
+      ],
+      "ex": [
+        [
+          "护士给他测了体温。",
+          "The nurse took his temperature."
+        ]
+      ],
+      "compounds": [
+        [
+          "测量",
+          "cèliáng",
+          "to measure; to survey"
+        ],
+        [
+          "观测",
+          "guāncè",
+          "to observe; observation"
+        ],
+        [
+          "预测",
+          "yùcè",
+          "to forecast; to predict"
+        ],
+        [
+          "测验",
+          "cèyàn",
+          "a test; to test"
+        ]
+      ]
+    },
+    "hsk30l5/测试": {
+      "why": "测试我考了低分 puts the topic in front of the subject with nothing to mark it, so the first two characters read as `test me` before the sentence corrects itself. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "测试我考了低分"
+      ],
+      "ex": [
+        [
+          "这次测试我考得不好。",
+          "I did badly in this test."
+        ]
+      ]
+    },
+    "hsk30l5/曾": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against three words in the collection. 曾孙 is included deliberately: it is the character's OTHER reading, zēng, which this card does not carry and which a reader would otherwise meet with no warning. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "曾经",
+          "céngjīng",
+          "once; formerly"
+        ],
+        [
+          "未曾",
+          "wèicéng",
+          "has never; did not ever"
+        ],
+        [
+          "何曾",
+          "hécéng",
+          "when did I ever …?"
+        ],
+        [
+          "曾孙",
+          "zēngsūn",
+          "a great-grandson"
+        ]
+      ]
+    },
+    "hsk30l5/曾经": {
+      "why": "曾经有一个意外 is not what 曾经 does: it marks a past EXPERIENCE, something that was once so and is no longer, where this sentence reports a single event and its English (`There's been an accident`) is a present perfect that the adverb contradicts. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "曾经有一个意外"
+      ],
+      "ex": [
+        [
+          "这里曾经是一片森林。",
+          "This was once a forest."
+        ]
+      ]
+    },
+    "hsk30l5/插": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against five words in the collection — and two of the card's three sentences are compounds, 插队 and 插头, which is where a character's words belong. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "插座",
+          "chāzuò",
+          "a socket; a power point"
+        ],
+        [
+          "插图",
+          "chātú",
+          "an illustration"
+        ],
+        [
+          "插队",
+          "chāduì",
+          "to jump a queue"
+        ],
+        [
+          "安插",
+          "ānchā",
+          "to place somebody in a post"
+        ]
+      ]
+    },
+    "hsk30l5/拆": {
+      "why": "他们拆掉了一部分墙 and 他们正在拆这面墙 are the same people knocking down the same wall — two of three sentences on one image. Replaced with the taking-apart sense, which the gloss names and no sentence showed. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "他们正在拆这面墙"
+      ],
+      "ex": [
+        [
+          "这台机器可以拆成三部分。",
+          "This machine can be taken apart into three pieces."
+        ]
+      ],
+      "compounds": [
+        [
+          "拆除",
+          "chāichú",
+          "to demolish; to dismantle"
+        ],
+        [
+          "拆开",
+          "chāikāi",
+          "to take apart; to open up"
+        ],
+        [
+          "拆迁",
+          "chāiqiān",
+          "to demolish a building and rehouse its residents"
+        ]
+      ]
+    },
+    "hsk30l5/产": {
+      "why": "The first sentence was 这是共产主义 — a compound that swallows the character whole, and a political label besides, on a card glossing 产 `to produce`. With 海产 in the second, two of three buried the headword and only 本产品产自中国 used it as a verb at all. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The card glosses its character and stops, and the tap panel that lists the other words built on it had one word, 产生, against twenty-six in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "这是共产主义"
+      ],
+      "ex": [
+        [
+          "这里产茶。",
+          "Tea is grown here."
+        ]
+      ],
+      "compounds": [
+        [
+          "生产",
+          "shēngchǎn",
+          "to produce; to manufacture"
+        ],
+        [
+          "财产",
+          "cáichǎn",
+          "property; assets"
+        ],
+        [
+          "特产",
+          "tèchǎn",
+          "a local speciality"
+        ],
+        [
+          "出产",
+          "chūchǎn",
+          "to produce; to yield"
+        ]
+      ]
+    },
+    "hsk30l5/产量": {
+      "why": "One sentence on three cards wrote 钢鉄 with 鉄 — the Japanese and old Chinese form of the character — where Chinese writes 铁, which the decks themselves spell correctly on their own 钢铁 card at hsk30l7. Found by a sweep for characters CC-CEDICT knows ONLY as a pointer at another character: over all 11,532 notes it returns exactly two, this and 绔 in 纨绔子弟, which is the standard written form of that idiom and the right answer. Repaired on all three cards that carry the sentence — a row reaches one note.",
+      "dropEx": [
+        "钢鉄产量"
+      ],
+      "ex": [
+        [
+          "一项估计显示，今年的钢铁产量将会达到一亿吨。",
+          "According to one estimate, steel production will reach a hundred million tonnes this year."
+        ]
+      ]
+    },
+    "hsk30l5/亿": {
+      "why": "One sentence on three cards wrote 钢鉄 with 鉄 — the Japanese and old Chinese form of the character — where Chinese writes 铁, which the decks themselves spell correctly on their own 钢铁 card at hsk30l7. Found by a sweep for characters CC-CEDICT knows ONLY as a pointer at another character: over all 11,532 notes it returns exactly two, this and 绔 in 纨绔子弟, which is the standard written form of that idiom and the right answer. Repaired on all three cards that carry the sentence — a row reaches one note. Read ahead of its own batch because the character was found on hsk30l5/产量, which shares the sentence; the rest of this card is not yet audited.",
+      "dropEx": [
+        "钢鉄产量"
+      ],
+      "ex": [
+        [
+          "一项估计显示，今年的钢铁产量将会达到一亿吨。",
+          "According to one estimate, steel production will reach a hundred million tonnes this year."
+        ]
+      ]
+    },
+    "hsk30l5/超": {
+      "why": "The third sentence ended with no terminal mark.",
+      "exStop": [
+        [
+          "我喜欢超现实主义"
+        ]
+      ]
+    },
+    "hsk30l5/炒": {
+      "why": "Glossed `stir-fry` alone, while the FIRST sentence is 秘书被炒了 — the secretary was SACKED, a sense CC-CEDICT gives and this card did not. A reader meeting it was shown a cooking word doing something no cooking word does. Both senses now given and every sentence tagged.",
+      "senses": [
+        [
+          "verb",
+          "to stir-fry"
+        ],
+        [
+          "verb",
+          "to sack; to fire (somebody)"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ]
+    },
+    "hsk30l5/车祸": {
+      "why": "`Crap` for 可恶, which is `how annoying` — the same class the coarse-content sweep found elsewhere, an English line coarser than the Chinese it translates.",
+      "exEn": [
+        [
+          "可恶",
+          "Has there been an accident? Damn, now I will never get to work on time!"
         ]
       ]
     }
