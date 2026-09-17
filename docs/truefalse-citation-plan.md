@@ -70,9 +70,9 @@ card-side research is then shared.
 | T2 | Ancient & classical | part done; T2a, T2b and T2c between them |
 | T3 | Chinese history | part done; `cnh-` cards carry most of it |
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
-| T5 | Medieval & early modern | part done; T2c took one out of `wh-511` |
+| T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six, T7b three and T7c two, all researched |
+| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two and T7d one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables |
 | T9 | Astronomy / Earth science | part done; T9a took four, T9b three and T9c three, all off NASA |
 | T10 | Psychology | part done; T10a took four, all researched — the collection has only reached the 1800s, so nothing could be lifted |
@@ -492,6 +492,29 @@ date to cite them by, and answer from this sandbox.
 a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
 than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
 belt but does not carry the claim that every probe crossed it without dodging.
+
+### T5b/T7d — a national museum and a park service, and the pool passes half cited (2026-09-17)
+
+Two statements from two different categories, put in one batch because they are the same recipe: **a
+public institution that has written the myth down in order to answer it.** A museum or a park service
+myth-busting page is a better source for a False statement than a research paper is, because the paper
+establishes the fact while the page addresses the belief — which is what the statement is about.
+
+- **Horned helmets.** The National Museum of Denmark's *Viking helmets*: "there is only one preserved
+  helmet from the Viking Age and this does not have horns", from the warrior's burial at Gjermundbu north
+  of Oslo; "none of the contemporary sources mention Vikings wearing horned headgear"; horns "would get in
+  the way" in battle and aboard a warship; and where the art does show them — the Golden Horns, the Oseberg
+  tapestry — "the horned figures … are berserkers", read as display or cult.
+  **THE `why` LOST WAGNER.** It attributed the image to 19th-century Romanticism and the costumes for the
+  1876 *Ring* cycle, which is the usual account and is not on the museum's page. The museum's own
+  explanation of the horned art replaced it, and is better evidence besides.
+- **Bats.** The NPS's *Myth Busters — Bats* answers it as a myth outright: bats "can see just fine and
+  actually have pretty good eyesight", some larger fruit-eating bats "can see 3 times better than humans",
+  and echolocation is for obstacles and prey "in low light conditions, like dawn and dusk". **The `why`'s
+  "roughly 1,400 bat species" went**, that figure being on no page read here. **USGS is 403 from this
+  sandbox**, so its own *Are bats blind?* FAQ — which the search surfaced first — could not be used.
+
+**With these two the pool passes half: 109 of 220 carry a source.**
 
 ### T7c — two biology statements off NIH and the Forest Service (2026-09-17)
 
