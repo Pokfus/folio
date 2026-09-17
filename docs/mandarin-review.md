@@ -567,6 +567,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 151–180 (关系 → 或者), deck order, plus the bare-`afterward` class | 22 | two single-character cards whose sentences used the character and not the word |
 | 2026-09-17 | `hsk30l3` notes 181–210 (鸡 → 斤), deck order, plus the `programme` class and a hole in `check-coarse.js` | 27 | an obscene sentence on a card glossed *chicken*, which the coarse sweep was excusing by design |
 | 2026-09-17 | `hsk30l3` notes 211–240 (经过 → 老人), deck order | 20 | four English lines that translated something other than their own Chinese |
+| 2026-09-17 | `hsk30l3` notes 241–270 (离开 → 南方), deck order, plus the whole ONE-WAY-ROW class | 40 | seven spelling families `check-british.js` reads 0 over by design, swept once and for all |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -3832,5 +3833,229 @@ taken from the corpus wherever it has them (31 of the 42 rows are words these de
 - every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token,
   and each checked for a duplicate against every sentence and every English line in all nine decks
 - `build-lang-decks.js`: re-run, and **exactly one row changed**, Level 3, by its `bytes` and `rev` alone
+- CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
+  `check-docs`, `check-questions`, `check-style`
+
+## Batch 32 — `hsk30l3` notes 241–270 (离开 → 南方), and the whole one-way-row class
+
+Thirty notes read card by card in deck order, **twenty-one changed and nine read and left alone**, plus
+nineteen cards outside the range taken by the sweep this batch's own cards started — **forty cards in
+all**.
+
+**THE LEADING FINDING IS A RULE RATHER THAN A CARD, AND IT CLOSES THREE EARLIER BATCHES' LOOSE ENDS.**
+Batches 27, 29 and 30 each found one small family of American spellings that `check-british.js` cannot
+see — `-logue`, `-ward`, `programme` — and each was written up as its own curiosity. It is not a
+curiosity: `SPELL_PAIRS` carries **twelve ONE-WAY rows over seven families** (`metre`, `mediaeval`,
+`licence`, `practis`, `storey`, `catalogue`, `programme`), the checker excludes every one of them
+correctly — reversing them would make a parking METRE, the noun PRACTISE, a two-storey novel and a
+television programme out of nothing — and it therefore **reads 0 over all seven whatever the decks
+contain**. The site's own switch runs one way from authored British, so an American spelling inside one
+of those families is not merely unconverted: it is what BOTH readers see, for ever.
+
+All seven were swept by hand. **Thirty-three sites over twenty-two cards; thirty-two repaired and one
+left.**
+
+- **metre — 12 sites over 10 cards**, and three of those cards CONTRADICTED THEMSELVES: 平方米 glossed
+  *square meter* over a sentence reading *square metres*, 立方米 glossed *Cubic meter* over three
+  sentences reading *cubic metres*, 冲刺 saying *100-meter* in its first sentence and *hundred metres*
+  in its second. The American form was the minority inside its own card.
+- **the one site left is the DEVICE**: 收费's *parking meter*, which is spelled `meter` in British
+  English too. That is exactly why the row is one-way, and it is the whole reason this had to be a
+  reading rather than a table row.
+- **practise — 10 sites over 6 cards**, all of them the VERB. The noun is `practice` in both dialects,
+  so the **other thirty-six** sites where the corpus writes *in practice*, *common practice*, *out of
+  practice* and *the usual practice* are correct and were left. 练 was glossed *to practice, to train, to drill*
+  — CC-CEDICT verbatim, American spelling and all — **while the very next card in the deck, 练习, already
+  read "to practise"**, so two adjacent cards disagreed about how to spell the verb they share.
+- **licence — 9 sites over 4 cards**, all of them the noun; there is no verb use of `license` anywhere
+  in the corpus. Eight are the two phrases *driver's license* and *license plate*, which went into the
+  deck-level LEXIS table as three new rows (the British is a different phrase besides — a *driver's
+  license* is a *driving licence*, which no word-for-word swap reaches). **牌照 and 驾照 contradicted
+  themselves here too**, each glossing *license* over a sentence already reading *licence*. The ninth
+  site is 执照's bare gloss, which carries neither phrase and took a per-note row.
+- **storey — 1 site in all nine decks**: Level-2 楼, glossed *multi-storied building*. The corpus
+  already writes *storeys* and *single-storey* correctly everywhere else.
+- **catalogue and mediaeval — 0.** The corpus writes `catalogue` twice and never `medieval`.
+
+**AND THE FAMILY THE TABLE LEAVES OUT ALTOGETHER IS IN THIS RANGE.** 路边 was glossed **"curb**;
+roadside; wayside", CC-CEDICT verbatim — and `kerb` is **EXCLUDED FROM `SPELL_PAIRS` BY NAME**, because
+`curb` is also an ordinary English verb, so neither the site's table nor the checker can reach it at
+all. The word was dropped rather than respelled: 路边 is the side of the road, which is what all three
+of the card's own sentences say, where a kerb is the stone edge of it (路缘石). **So a reading of 0 from
+`check-british.js` says nothing about a word whose two spellings are not two-way, and nothing at all
+about a word the table has never held.** Four batches running have now found a family it cannot see;
+this is the batch that measured the whole set rather than one more member of it.
+
+**THE SINGLE-CHARACTER BLIND SPOT, FOR THE SIXTH BATCH RUNNING.** Two of the range's nine
+single-character cards showed a sentence in which their character is not the word:
+
+- **聊**'s `不，我没有时间闲聊。` teaches 闲聊, a CC-CEDICT word in its own right, on a card about the
+  bare character.
+- **南**'s `我听说南西很漂亮。` is about **NANCY** — 南西 being a transliteration of the name — so a card
+  glossed *south* opened on a sentence with no south in it. This is batch 27's 东 class exactly, and
+  batch 29's test says it at a glance: the English line reads "I hear that Nancy is very pretty", which
+  is not about a compass direction.
+
+`check-example-fit.js` skips a one-character headword by design and is blind to a compound its own
+lexicon does not hold, so both were found by reading and by nothing else.
+
+**A REGIONAL WORD FORM, AND THE MEASUREMENT BEHIND IT.** 留学生's first sentence read
+`我是义大利留学生。` — **义大利 is the Taiwan form of Italy**, where these decks write 意大利 in eight
+other sentences. The Chinese had to change, which `exSpace` cannot do (its guard refuses any row that
+alters a character), so the block was rebuilt; the English went with it, 留学生 being an overseas or
+international student where an exchange student is 交换生.
+**The wider class was measured and deliberately NOT swept**: twelve sentences across the nine decks
+carry a Taiwan form against a mainland majority — 网路 2 (网络 24), 资讯 3 (信息 28), 软体 1 (软件 23),
+计程车 1 (出租车 12), 脚踏车 1 (自行车 26), 马铃薯 1 (土豆 8), 公尺 2 (米 109), 义大利 1, now 0.
+**Three of the twelve are not a fault at all**: 资讯 is itself a Levels 7–9 HEADWORD, so its own three
+sentences are the deck teaching the word on purpose. Of the rest, 马铃薯 is standard mainland usage for
+the potato and 公尺 is ordinary in technical mainland writing, so the honest residue is about five
+sentences in four other decks. **Each needs a `dropEx` plus an authored replacement**, which throws away
+the generator's structure line, and none of them is wrong Chinese — so this is recorded for a batch that
+reaches those decks rather than swept from here.
+
+**FIVE GLOSSES NAMED A PART OF SPEECH THEY DID NOT DEFINE, OR WERE LABELLED AS ONE THEY ARE NOT.**
+
+- **满意** was labelled a **VERB** over "pleased; satisfied", two adjectives, and all three of its
+  sentences are adjectival. The decks label a stative verb an adjective everywhere else — 高兴, 开心,
+  舒服, 方便 — so the label was the odd one rather than the gloss. Batch 31's 看来 exactly.
+- **练习** read "noun / verb — to practise" with the measure word 个 counting the noun nothing named;
+  split, and its weakest sentence (`她在开始练习`, a progressive on an inchoative) replaced by one
+  showing the exercise.
+- **明白** read "verb / adjective — to understand" with all three sentences the verb, two of them saying
+  much the same thing; split, and the third replaced.
+- **米** was labelled a **MEASURE WORD** over "rice; metre" — and rice is a noun. The two halves are not
+  even the same part of speech.
+- **难**'s second reading read "nàn — noun — disaster, calamity; to blame", and *to blame* is a verb.
+  The label was widened rather than the gloss cut, both parts being real.
+
+All five now carry their senses separately with the examples tagged. **难's three sentences are all the
+nán reading and are tagged so**, the nàn reading being shown by its compounds — 灾难 and 遇难 — rather
+than by a sentence forced onto a card with no room for one; **凉快** likewise gained the verb sense
+(*to cool off*) its third sentence had been showing under an adjective label.
+
+**A COARSE SENTENCE TEACHING NEITHER OF ITS CARD'S SENSES, AND `check-coarse.js` DOES NOT NAME IT.**
+毛's `你看个毛呢？` is the slang 个毛 — "what the hell are you looking at?" — where the card gives the
+noun *hair* and the measure word for a tenth of a yuan. **"What the hell" is in none of the checker's
+six lists**, so this was found by reading; and the replacement is the first sentence on the card to show
+the money sense plainly, that sense having been carried only by an idiom (半毛钱关系) whose English says
+neither hair nor cents.
+
+**A `not <other word>` BLOCK POINTING AT A WORD THAT NO LONGER SHARES THE GLOSS — a new finding list,
+and this batch made one of them.** Giving 凉快 its own two senses ended its collision with 凉爽, and the
+applier drops a re-glossed note's OWN hint automatically — but the PARTNER's hint is left standing,
+because `hints` is a static map here rather than being regenerated from the finished decks. 凉爽 was
+therefore telling the reader "not 凉快" about a word it no longer shares a meaning with, which is worse
+than no hint at all, a reader taking it for a real distinction. Removing one is not just deleting the
+`hints` key: the block is already written into the deck and **the applier is deliberately NOT
+authoritative for hints** — 104 of them are the generator's own and a blanket strip would delete those —
+so it needs a `gloss` row, which rebuilds the note's English field. 凉爽 got one ("cool and refreshing",
+which is CC-CEDICT's own wording and what the card's first sentence already says).
+
+**Swept over all nine decks, comparing each hint's target gloss with its own, case-folded, there are
+14 such orphans and 13 of them are pre-existing** — each a card whose partner an earlier batch
+re-glossed:
+
+> 书 (not 本子) · 外边 (not 外) · 顺利 (not 通顺) · 许多 (not 好多) · 演出 (not 表演) · 正确 (not 不错) ·
+> 不良 (not 坏) · 动手 (not 上班) · 情感 (not 感情) · 体力 (not 力气) · 骨头 (not 骨骼) · 草坪 (not 草地) ·
+> 连贯 (not 接)
+
+**Eleven of the thirteen carry a record-owned hint and can be cleared with a `gloss` row each; two —
+顺利 and 体力 — carry the GENERATOR's own block, which nothing in this record can remove**, and would
+need the applier to learn a rule it does not have. Recorded rather than swept: it is a finding list of
+its own and belongs in a batch that can read all thirteen cards. (**A case-INSENSITIVE comparison is
+what makes this measurable** — comparing byte-for-byte reports 202, of which 188 differ from their
+partner only by a capital letter, which the coverage checker's own grouping folds away.)
+
+**Three more English lines translated something other than their own Chinese** — batch 31's class, and
+it is now in every batch:
+
+- **难**'s `生意真难做！` was given as **"Man is business difficult!"**, which is not an English sentence
+  at all: the interjection and the subject had changed places.
+- **礼物**'s `他没送那个礼物给他。` was "He didn't **send** him that present" — 送 a present is to GIVE
+  one.
+- **了解**'s `我应该怎么去了解？` was "How am I supposed to **know**?", which is 我怎么知道; 去了解 asks
+  how one is to FIND OUT, and that verb is the whole point of the sentence.
+
+**One sentence's whole fault was a missing question mark.** 了解's `你了解它吗` simply stops — one of the
+~180 the corpus-wide punctuation pass deliberately left, that pass converting marks and never adding
+one. It is the second use of `exStop` and the first to need a mark other than a full stop: the sentence
+is a 吗-question, so the row names ？ explicitly.
+
+**One sentence was not grammatical.** 名单's `你的名字已经从名单删除了。` wants a localizer after the
+noun — 从名单**上**删掉, 从名单**中**删除 — and without one the 从 phrase has nothing to take its object
+from.
+
+**Three glosses were the dictionary's own first word where the card's sentences all show another.**
+**名人** read "personage", an archaism, where all three of its English lines say celebrity or famous
+people; **楼梯** read "stair", which is one step, where 楼梯 is the flight and both of its sentences say
+stairs; **路口** read "crossing" alone, thin enough to be read as 人行横道, where its own sentences say
+junction and railway crossing.
+
+**Compounds** were authored for **eight of the range's nine single-character cards** — 脸, 练, 聊, 马,
+毛, 米, 南, 难 — every row's reading and gloss checked against CC-CEDICT, and the candidates taken from
+the corpus wherever it has them. **The ninth, 辆, gets none, and that is the finding rather than an
+omission**: CC-CEDICT holds exactly four entries containing the character and three of them are built on
+the fourth (车辆, plus 机动车辆 and 装甲车辆). It is a bound measure word with no compound family, so a
+`Compounds` block would be one row long, which says less than no block at all.
+
+**What was read and left, and why.**
+
+- **离开, 历史, 聊天儿, 马路, 马上, 面前, 南方** are right as they stand. 面前's "in front of" under a
+  NOUN label is CC-CEDICT's own gloss and the shape the decks give every localizer, so it is the
+  house form rather than the mismatch class above.
+- **邻居** is one of the coverage checker's two remaining ambiguous groups ("noun neighbour" → 邻居,
+  街坊), and **the imprecise half is 街坊, which is in Levels 7–9**: CC-CEDICT reads "neighborhood;
+  neighbor" and the word is colloquial, so a gloss of "(coll.) neighbour; the neighbourhood" would close
+  the group in one line. 邻居's own "neighbour" is exactly right and there is nothing to do to it.
+  **Recorded for whichever batch reaches `hsk30l7`.** (The other group, "noun colour" → 颜色 / 彩色, wants
+  the same treatment on 彩色 in Level 5 — CC-CEDICT's "color; multicoloured", i.e. colour as against
+  black-and-white.)
+- **练**'s `你今天早上有练弹钢琴吗？` uses 有 + verb as a perfective interrogative, which is ordinary in
+  Taiwan and southern speech and non-standard in mainland Putonghua, where it would be 你今天早上练钢琴
+  了吗. Whether an HSK deck should carry it is a judgement CC-CEDICT and the card cannot settle, and
+  replacing a sentence I merely find regional is a larger claim than the evidence carries.
+  **Recorded as a question rather than changed.**
+- **楼梯**'s `这节楼梯吱吱响。` counts the stairs with 节 where 段 is commoner. Not confident enough to
+  call it wrong. Recorded.
+- **名单**'s first and third sentences are different constructions (存在句 against 不在) saying the same
+  thing, and their English lines are near-identical — "Her name wasn't on the list" / "His name is not on
+  the list". `check-senses.js` measures only an EXACT duplicate on one card, so it names neither. Left,
+  the two constructions being worth teaching; recorded because a reader sees the English.
+- **满意**'s `你老是不满意！` is `check-example-fit.js`'s standing false positive — 不满意 read as 不满|意,
+  the greedy segmenter losing to a negator. All nine of its Level-3 findings are that shape.
+- **句**-style sharing: 马上's first sentence is also 离开's. Batch 31 settled that two cards sharing a
+  sentence is not a fault — the sentence teaches a different word on each.
+- Three faults were seen **outside the range while sweeping it** and are recorded rather than fixed:
+  **教练** (Level 4) is glossed "noun — train; drill; (sports) coach", a NOUN label over two verb
+  glosses, where CC-CEDICT gives "to coach; to train / instructor; sports coach"; **执照** (Levels 7–9)
+  illustrates itself three times with 驾驶执照 and nothing else; and **业** (Level 6) carries
+  `让他们受业（于我们）`, a fragment in full-width brackets.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2, unchanged** — which is what says the five sense splits made no new collision, and
+  the disambiguated groups went 337 → 336 as 凉快/凉爽 stopped being a group at all
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged**, and no finding names a card this batch touched
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**, none of them in Level 3
+- `check-british.js`: **0** — which is the reading it gives over the thirty-two sites this batch
+  repaired, and the reason the whole class is written down here rather than left to the checker
+- `check-say-reading.js`: unchanged at 10 of 1,503
+- `check-coarse.js`: **identical to HEAD in all six columns** (profanity 16, sexual 22, body 13, adult 99,
+  violence 165, slur 189)
+- `check-gloss-source.js`: neighbour findings **3, unchanged**; the overlap list moved by three and every
+  one was read — 练习 came OUT (its split gloss now matches the dictionary's "to practice/exercise/drill"),
+  and 驾照 and 弄虚作假 went IN because *driving licence* and *practise deceit* share no token with an
+  American dictionary's *driver's license* and *practice fraud*. That is the same artefact the list
+  already holds for 电梯/lift, 数学/maths and 邻居/neighbour, not a fault
+- answer-leak set **byte-identical to HEAD**; 34,596 example blocks, spoken == visible on every one;
+  sense tags past the sense list 0; stray spaces 0
+- every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token,
+  and each checked for a duplicate against every sentence and every English line in all nine decks
+- `build-lang-decks.js`: re-run, and **exactly six rows changed**, the six decks touched, each by its
+  `bytes` and `rev` alone
 - CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
   `check-docs`, `check-questions`, `check-style`

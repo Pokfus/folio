@@ -1278,7 +1278,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.35 MB and 48,940 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.35 MB and 48,958 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -2136,8 +2136,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `hsk30l5/下载`, LEFT — its Chinese is 程序, a computer program, where *program* is the British
     spelling as well. **That twelfth is why this cannot become a table**: the correct spelling depends on
     what the sentence is about, which is a judgement per site.
-  **RUN IT rather than quoting a figure here, and grep the -logue and -ward families AND the one-way rows
-  by hand after a content batch — three batches running have now found a family it cannot see.** Not part
+  · **…AND THE WHOLE ONE-WAY CLASS HAS NOW BEEN SWEPT, ONCE** (batch 32). The three findings above were
+    written up as three curiosities; they are one rule. `SPELL_PAIRS` carries **twelve one-way rows over
+    seven families** — `metre`, `mediaeval`, `licence`, `practis`, `storey`, `catalogue`, `programme` —
+    this checker excludes every one of them correctly, and therefore **reads 0 over all seven whatever the
+    decks contain**. All seven were read by hand over the nine decks: **33 sites on 22 cards, 32 repaired
+    and 1 left** — metre 12 (the one left being 收费's *parking meter*, the DEVICE, which is `meter` in
+    British English too, and which is exactly why the row is one-way), practise 10 (all the VERB; the
+    other 36 `practice` sites are the noun and are correct in both dialects), licence 9 (all the noun;
+    eight of them the phrases *driver's license* and *license plate*, which became three LEXIS rows),
+    storey 1, catalogue 0, mediaeval 0, programme already done in batch 30. **Three cards CONTRADICTED
+    THEMSELVES**, glossing *meter* over a sentence reading *metres*. **So the sweep is finished and the
+    rule is what to keep**: when a content batch adds English, check the seven families by hand, because
+    the checker cannot.
+  · **AND A FAMILY THE TABLE HAS NEVER HELD IS INVISIBLE TWICE OVER.** `kerb` is EXCLUDED FROM
+    `SPELL_PAIRS` BY NAME — `curb` is also an ordinary English verb — so neither the site's table nor this
+    checker can reach it, and `hsk30l3/路边` shipped glossed "**curb**; roadside; wayside", CC-CEDICT
+    verbatim, until batch 32 read it. **A reading of 0 says nothing about a word the table does not
+    hold.**
+  **RUN IT rather than quoting a figure here, and grep the -logue and -ward families, the one-way rows AND
+  the words the table excludes by name (kerb) by hand after a content batch.** Not part
   of the site.
 - **A SHARED GLOSS IS DISAMBIGUATED BY THE DECK'S OWN `not <other word>` BLOCK.** The English → Chinese
   card's front is the gloss and nothing else, so two notes sharing one are a single question with
@@ -6247,7 +6265,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (280 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (295 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7179,7 +7197,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 280 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 295 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

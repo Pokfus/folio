@@ -11038,17 +11038,27 @@
       ]
     },
     "hsk30l3/名人": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The gloss was the dictionary's own first word where the card's own three sentences all show another — rule 1's trap, CC-CEDICT's senses being commonest-first in the language rather than commonest on this card. \"Personage\" is CC-CEDICT's first word and an archaism besides; all three of the card's own English lines say celebrity or famous people.",
       "mw": [
         "个",
         "位"
-      ]
+      ],
+      "gloss": "celebrity; famous person"
     },
     "hsk30l3/名单": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | A sentence that is not grammatical: 从名单删除 wants a localizer after the noun — 从名单上删掉, 从名单中删除 — and without one the 从 phrase has nothing to take its object from. The Chinese had to change, so the block is rebuilt rather than patched. The English is kept as it was.",
       "mw": [
         "份",
         "张"
+      ],
+      "dropEx": [
+        "你的名字已经从名单删除了。"
+      ],
+      "ex": [
+        [
+          "你的名字已经从名单上删掉了。",
+          "Your name has been crossed off the list."
+        ]
       ]
     },
     "hsk30l3/园": {
@@ -11554,15 +11564,56 @@
       ]
     },
     "hsk30l3/毛": {
-      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | A sentence teaching NEITHER of the card's two senses, and coarse besides: 你看个毛呢？ is the slang 个毛 (\"what the hell\"), where the card gives the noun hair and the measure word for a tenth of a yuan. `check-coarse.js` does not name it — \"what the hell\" is in none of its six lists — so this was found by reading. Replaced with a sentence that actually shows the money sense, which only an idiom had shown before, and the three tagged. The noun gloss also lost an article that stood in front of one of its three words and not the other two.",
       "senses": [
         [
           "noun",
-          "hair, fur, a feather"
+          "hair; fur; feather"
         ],
         [
           "measure word",
           "ten cents, a mao"
+        ]
+      ],
+      "dropEx": [
+        "你看个毛呢？"
+      ],
+      "ex": [
+        [
+          "这支笔三毛钱。",
+          "This pen costs thirty cents."
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "毛巾",
+          "máo jīn",
+          "towel"
+        ],
+        [
+          "毛衣",
+          "máo yī",
+          "sweater"
+        ],
+        [
+          "眉毛",
+          "méi mao",
+          "eyebrow"
+        ],
+        [
+          "羊毛",
+          "yáng máo",
+          "wool"
+        ],
+        [
+          "毛病",
+          "máo bìng",
+          "fault; ailment"
         ]
       ]
     },
@@ -11942,10 +11993,11 @@
       "gloss": "dictionary of words"
     },
     "hsk30l3/路口": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | A one-word gloss thin enough to be read as the wrong thing — \"crossing\" alone is as easily 人行横道 — where the card's own sentences say junction and railway crossing. CC-CEDICT's second word added.",
       "mw": [
         "个"
-      ]
+      ],
+      "gloss": "crossing; intersection"
     },
     "hsk30l3/遇到": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
@@ -11984,7 +12036,7 @@
       ]
     },
     "hsk30l3/难": {
-      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. **This one is the fault at its widest: the sentence is set with a space between every word, which is how a learner's textbook glosses Chinese and not how Chinese is written.** The deck already carries the word division in the structure line above the sentence, so the spaces say nothing the card was not already saying properly. ",
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. **This one is the fault at its widest: the sentence is set with a space between every word, which is how a learner's textbook glosses Chinese and not how Chinese is written.** The deck already carries the word division in the structure line above the sentence, so the spaces say nothing the card was not already saying properly.  | The part of speech named on the line and the gloss beside it were different parts of speech — batch 31's third shape. Read off the card's own line and invisible to everything else, the gloss being a well-formed English gloss and the label one the decks use everywhere. The nàn sense was labelled a NOUN over \"disaster, calamity; to blame\", and to blame is a verb — so the label was widened rather than the gloss cut, both parts being real. | The English line translated something other than its own Chinese. Invisible to every checker here: the sentence is grammatical, it segments, it speaks, and the English is a fluent English sentence about something else. 生意真难做！ was given as \"Man is business difficult!\", which is not an English sentence at all: the interjection and the subject had changed places. | Its three sentences are all the nán reading and are tagged so, the nàn reading being shown by the compounds instead — 灾难 and 遇难 — rather than by a sentence forced onto a card that has no room for one. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has DOWNLOADED. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
       "Pinyin": "nán / nàn",
       "Bopomofo": "ㄋㄢˊ / ㄋㄢˋ",
       "senses": [
@@ -11995,7 +12047,7 @@
         ],
         [
           "nàn",
-          "noun",
+          "noun / verb",
           "disaster, calamity; to blame"
         ]
       ],
@@ -12003,6 +12055,44 @@
         [
           "学习 汉语 难 不 难？",
           "学习汉语难不难？"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "exEn": [
+        [
+          "生意真难做！",
+          "Business really is hard going!"
+        ]
+      ],
+      "compounds": [
+        [
+          "难过",
+          "nán guò",
+          "to feel sad"
+        ],
+        [
+          "困难",
+          "kùn nan",
+          "difficulty"
+        ],
+        [
+          "难道",
+          "nán dào",
+          "could it be that…?"
+        ],
+        [
+          "灾难",
+          "zāi nàn",
+          "disaster"
+        ],
+        [
+          "遇难",
+          "yù nàn",
+          "to be killed (in an accident)"
         ]
       ]
     },
@@ -14140,11 +14230,17 @@
       ]
     },
     "hsk30l5/长度": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
       "ex": [
         [
           "这艘船的长度是30米。",
           "The length of this ship is 30 meters."
+        ]
+      ],
+      "exEn": [
+        [
+          "这艘船的长度是30米。",
+          "The length of this ship is 30 metres."
         ]
       ]
     },
@@ -14837,7 +14933,7 @@
       ]
     },
     "hsk30l6/从业": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
       "ex": [
         [
           "他从业已经二十年了。",
@@ -14851,7 +14947,8 @@
           "从业人员需要培训。",
           "Practitioners need training."
         ]
-      ]
+      ],
+      "gloss": "to practise (a trade)"
     },
     "hsk30l6/代理": {
       "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -17592,7 +17689,7 @@
       ]
     },
     "hsk30l6/平方米": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them. This card contradicted itself: its gloss and first sentence said meter where its other two said metre.",
       "ex": [
         [
           "工厂的面积是1000平方米。",
@@ -17605,6 +17702,13 @@
         [
           "每平方米的价格上涨了。",
           "The price per square metre has risen."
+        ]
+      ],
+      "gloss": "square metre",
+      "exEn": [
+        [
+          "工厂的面积是1000平方米。",
+          "The area of the factory is 1,000 square metres."
         ]
       ]
     },
@@ -19342,11 +19446,17 @@
       ]
     },
     "hsk30l6/海拔": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
       "ex": [
         [
           "这个镇海拔1500米。",
           "The town is situated 1,500 meters above sea level."
+        ]
+      ],
+      "exEn": [
+        [
+          "这个镇海拔1500米。",
+          "The town is situated 1,500 metres above sea level."
         ]
       ]
     },
@@ -49004,7 +49114,7 @@
       ]
     },
     "hsk30l7/立方米": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them. This card contradicted itself: its gloss said Cubic meter where all three of its sentences said cubic metres.",
       "ex": [
         [
           "这个水池能装十立方米水。",
@@ -49018,7 +49128,8 @@
           "土方量是三百立方米。",
           "The earthwork is three hundred cubic metres."
         ]
-      ]
+      ],
+      "gloss": "cubic metre"
     },
     "hsk30l7/立功": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -51947,7 +52058,7 @@
       ]
     },
     "hsk30l7/弄虚作假": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
       "ex": [
         [
           "做实验不能弄虚作假。",
@@ -51961,7 +52072,8 @@
           "弄虚作假迟早被发现。",
           "Falsification is found out sooner or later."
         ]
-      ]
+      ],
+      "gloss": "deceive people by false appearances / practise deceit"
     },
     "hsk30l7/女方": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -72621,7 +72733,7 @@
       ]
     },
     "hsk30l3/凉快": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card named one part of speech and its third sentence showed the other: 我们到树下凉快凉快吧 is the VERB, to cool off, which CC-CEDICT gives as a sense of its own and the card did not. Both senses now named and the three sentences tagged.",
       "ex": [
         [
           "下过雨以后凉快多了。",
@@ -72631,6 +72743,21 @@
           "我们到树下凉快凉快吧。",
           "Let's cool off under the tree."
         ]
+      ],
+      "senses": [
+        [
+          "adjective",
+          "pleasantly cool"
+        ],
+        [
+          "verb",
+          "to cool off"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
       ]
     },
     "hsk30l3/聊天儿": {
@@ -72714,16 +72841,23 @@
       ]
     },
     "hsk30l3/留学生": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A sentence written in the TAIWAN form of a name the rest of the corpus writes the mainland way: 义大利 (義大利) for Italy, where these decks say 意大利 everywhere else. The decks are simplified-character mainland HSK, so a learner who has met 意大利 in eight other sentences meets a word here they cannot look up. The Chinese had to change, which `exSpace` cannot do — its guard refuses any row that alters a character — so the block is rebuilt. The English went with it: 留学生 is an overseas or international student, where an exchange student is 交换生.",
       "ex": [
         [
           "学校今年招了很多留学生。",
           "The school took in many overseas students this year."
+        ],
+        [
+          "我是意大利留学生。",
+          "I am an international student from Italy."
         ]
+      ],
+      "dropEx": [
+        "我是义大利留学生。"
       ]
     },
     "hsk30l3/路边": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practise/practice, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, a licence to kill, the noun PRACTISE, a two-story novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, the site's switch running one way from authored British. All seven were swept by hand; this is one of the sites. This one is the family's blind spot at its widest: \"curb\" is the American spelling of KERB, and kerb is EXCLUDED FROM SPELL_PAIRS BY NAME — the site's own table leaves it out because \"curb\" is also an ordinary English verb — so neither the table nor the checker can see it. The gloss was CC-CEDICT's verbatim. The word is dropped rather than respelled: 路边 is the side of the road, which is what all three of the card's sentences say, where a kerb is the stone edge of it (路缘石).",
       "ex": [
         [
           "路边种着一排树。",
@@ -72736,7 +72870,8 @@
       ],
       "dropEx": [
         "我们家在公路边上。"
-      ]
+      ],
+      "gloss": "roadside; wayside"
     },
     "hsk30l3/难听": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -84637,7 +84772,7 @@
       ]
     },
     "hsk30l7/冲刺": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them. This card contradicted itself: its first sentence said 100-meter where its second said hundred metres.",
       "ex": [
         [
           "最后一百米他开始冲刺。",
@@ -84646,6 +84781,12 @@
         [
           "项目进入了冲刺阶段。",
           "The project has entered its final push."
+        ]
+      ],
+      "exEn": [
+        [
+          "我刚百米冲刺，还累得不行呢。",
+          "I just did a 100-metre sprint and I'm so exhausted."
         ]
       ]
     },
@@ -93006,7 +93147,7 @@
       ]
     },
     "hsk30l7/刷新": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
       "ex": [
         [
           "请刷新页面。",
@@ -93015,6 +93156,12 @@
         [
           "他刷新了纪录。",
           "He broke the record."
+        ]
+      ],
+      "exEn": [
+        [
+          "他刷新了百米短跑的世界纪录。",
+          "His record is a new world record in the 100-metre dash."
         ]
       ]
     },
@@ -98860,11 +99007,17 @@
       ]
     },
     "hsk30l7/高空": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
       "ex": [
         [
           "飞机在高空飞行。",
           "The plane flies at high altitude."
+        ]
+      ],
+      "exEn": [
+        [
+          "飞机在三千米的高空飞行。",
+          "The plane flew at an altitude of 3,000 metres."
         ]
       ]
     },
@@ -106194,7 +106347,7 @@
       ]
     },
     "hsk30l2/楼": {
-      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. 楼上 and 楼下 are in none of the nine decks and are the two words a reader needs first for this character; the corpus offers 阁楼 and 酒楼 instead, which are a loft and a tavern.",
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. 楼上 and 楼下 are in none of the nine decks and are the two words a reader needs first for this character; the corpus offers 阁楼 and 酒楼 instead, which are a loft and a tavern. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them. The corpus already writes storeys and single-storey correctly elsewhere; this was the only site in all nine decks.",
       "compounds": [
         [
           "楼梯",
@@ -106216,7 +106369,8 @@
           "dà lóu",
           "a large building"
         ]
-      ]
+      ],
+      "gloss": "multi-storeyed building"
     },
     "hsk30l2/路": {
       "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 2 other words. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
@@ -110853,6 +111007,396 @@
           "azure"
         ]
       ]
+    },
+    "hsk30l3/礼物": {
+      "why": "The English line translated something other than its own Chinese. Invisible to every checker here: the sentence is grammatical, it segments, it speaks, and the English is a fluent English sentence about something else. 送 a present is to GIVE one, not to send it.",
+      "exEn": [
+        [
+          "他没送那个礼物给他。",
+          "He didn't give him that present."
+        ]
+      ]
+    },
+    "hsk30l3/脸": {
+      "why": "An example whose English line is not about the character at all — batch 29's rule. 你还真不要脸 is the idiom 不要脸, and its English (\"My, aren't you a shameless one?\") contains no face; the card is glossed \"face\" and two of its three sentences (脸红, 洗脸) say so plainly. Replaced with a sentence using the noun with the very measure word the card lists. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since an example that repeats another's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has DOWNLOADED. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "你还真不要脸。"
+      ],
+      "ex": [
+        [
+          "我看见了一张熟悉的脸。",
+          "I saw a familiar face."
+        ]
+      ],
+      "compounds": [
+        [
+          "脸色",
+          "liǎn sè",
+          "complexion; look"
+        ],
+        [
+          "脸红",
+          "liǎn hóng",
+          "to blush"
+        ],
+        [
+          "洗脸",
+          "xǐ liǎn",
+          "to wash one's face"
+        ],
+        [
+          "笑脸",
+          "xiào liǎn",
+          "smiling face"
+        ],
+        [
+          "丢脸",
+          "diū liǎn",
+          "to lose face"
+        ]
+      ]
+    },
+    "hsk30l3/练": {
+      "why": "Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practise/practice, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, a licence to kill, the noun PRACTISE, a two-story novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, the site's switch running one way from authored British. All seven were swept by hand; this is one of the sites. The gloss was CC-CEDICT's verbatim, American spelling and all, and the very next card in the deck — 练习 — already reads \"to practise\", so two adjacent cards disagreed about how to spell the verb they share. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has DOWNLOADED. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to practise, to train, to drill",
+      "exEn": [
+        [
+          "你今天早上有练弹钢琴吗？",
+          "Did you practise the piano this morning?"
+        ],
+        [
+          "我需要找个地方练舞。",
+          "I need to find somewhere to practise dancing."
+        ]
+      ],
+      "compounds": [
+        [
+          "练习",
+          "liàn xí",
+          "to practise"
+        ],
+        [
+          "训练",
+          "xùn liàn",
+          "to train"
+        ],
+        [
+          "教练",
+          "jiào liàn",
+          "coach; instructor"
+        ],
+        [
+          "熟练",
+          "shú liàn",
+          "skilled; proficient"
+        ]
+      ]
+    },
+    "hsk30l3/练习": {
+      "why": "One `uc-sense` div carrying several senses joined by a semicolon or a comma, under a label naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the label already named, and the examples tagged. NOT done in bulk: 3,685 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense. The label read \"noun / verb\" and only the verb was defined, with the measure word 个 counting the noun — an exercise — that nothing on the card named. Its weakest sentence, 她在开始练习 (a progressive on an inchoative, and vague besides), is replaced by one showing the noun. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practise/practice, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, a licence to kill, the noun PRACTISE, a two-story novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, the site's switch running one way from authored British. All seven were swept by hand; this is one of the sites.",
+      "dropEx": [
+        "她在开始练习。"
+      ],
+      "ex": [
+        [
+          "这本书后面有很多练习。",
+          "There are a lot of exercises at the back of this book."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to practise"
+        ],
+        [
+          "noun",
+          "exercise; drill"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "exEn": [
+        [
+          "你可以和我一起练习日语吗？",
+          "Can you practise Japanese with me?"
+        ],
+        [
+          "你只要每天练习就可以了。",
+          "You have only to practise every day."
+        ]
+      ]
+    },
+    "hsk30l3/聊": {
+      "why": "An example sentence did not use the headword as a word: its characters were swallowed by a longer word standing in the same place. `check-example-fit.js` skips a one-character headword by design and is blind to a compound its own lexicon does not hold, so this class is found by reading and by nothing else. The sentence is dropped and an AUTHORED one that really uses the word put in its place. 不，我没有时间闲聊 teaches 闲聊, a CC-CEDICT word in its own right, on a card about the bare character. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since an example that repeats another's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has DOWNLOADED. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "不，我没有时间闲聊。"
+      ],
+      "ex": [
+        [
+          "我们聊了一个小时。",
+          "We chatted for an hour."
+        ]
+      ],
+      "compounds": [
+        [
+          "聊天",
+          "liáo tiān",
+          "to chat"
+        ],
+        [
+          "聊天室",
+          "liáo tiān shì",
+          "chat room"
+        ],
+        [
+          "无聊",
+          "wú liáo",
+          "bored; boring"
+        ],
+        [
+          "闲聊",
+          "xián liáo",
+          "to chat idly"
+        ]
+      ]
+    },
+    "hsk30l3/了解": {
+      "why": "A sentence ending with no terminal mark at all — 你了解它吗 simply stops, and it is a QUESTION, so the mark it wants is ？ rather than the 。 the applier defaults to. One of the ~180 the corpus-wide punctuation pass deliberately left, that pass converting marks and never adding one. | The English line translated something other than its own Chinese. Invisible to every checker here: the sentence is grammatical, it segments, it speaks, and the English is a fluent English sentence about something else. 我应该怎么去了解？ asks how one is to FIND OUT; \"How am I supposed to know?\" is 我怎么知道, and 去了解 is the whole point of the sentence.",
+      "exStop": [
+        [
+          "你了解它吗",
+          "？"
+        ]
+      ],
+      "exEn": [
+        [
+          "我应该怎么去了解？",
+          "How am I supposed to find out?"
+        ]
+      ]
+    },
+    "hsk30l3/留学": {
+      "why": "Two of the three sentences were the same sentence: 我出国留学 and 他出国留学了 differ by a pronoun and a 了, so the card taught one construction twice and its third a third time. Replaced with one that puts the word in a place and a length of time. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since an example that repeats another's shape teaches nothing the first did not.",
+      "dropEx": [
+        "他出国留学了。"
+      ],
+      "ex": [
+        [
+          "他在日本留学了三年。",
+          "He studied in Japan for three years."
+        ]
+      ]
+    },
+    "hsk30l3/楼梯": {
+      "why": "A one-word gloss that is the dictionary's first word and not the English a reader wants: a \"stair\" is one step, where 楼梯 is the whole flight, and both of the card's own sentences say stairs.",
+      "gloss": "stairs; staircase"
+    },
+    "hsk30l3/马": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has DOWNLOADED. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "马上",
+          "mǎ shàng",
+          "at once; immediately"
+        ],
+        [
+          "马路",
+          "mǎ lù",
+          "road; street"
+        ],
+        [
+          "骑马",
+          "qí mǎ",
+          "to ride a horse"
+        ],
+        [
+          "斑马",
+          "bān mǎ",
+          "zebra"
+        ],
+        [
+          "马虎",
+          "mǎ hu",
+          "careless"
+        ]
+      ]
+    },
+    "hsk30l3/满意": {
+      "why": "The part of speech named on the line and the gloss beside it were different parts of speech — batch 31's third shape. Read off the card's own line and invisible to everything else, the gloss being a well-formed English gloss and the label one the decks use everywhere. 满意 was labelled a VERB over \"pleased; satisfied\", two adjectives, and all three of its sentences are adjectival — 他们满意了, 你老是不满意, 让别人满意. The decks label a stative verb an adjective everywhere else (高兴, 开心, 舒服, 方便), so the label was the odd one rather than the gloss.",
+      "senses": [
+        [
+          "adjective",
+          "pleased; satisfied"
+        ]
+      ]
+    },
+    "hsk30l3/米": {
+      "why": "One `uc-sense` div carrying several senses joined by a semicolon or a comma, under a label naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the label already named, and the examples tagged. NOT done in bulk: 3,685 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense. Here the two halves are not even the same part of speech: the card was labelled a MEASURE WORD over \"rice; metre\", and rice is a noun. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practise/practice, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, a licence to kill, the noun PRACTISE, a two-story novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, the site's switch running one way from authored British. All seven were swept by hand; this is one of the sites. Its own third sentence read \"two meters away\". | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has DOWNLOADED. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "noun",
+          "rice"
+        ],
+        [
+          "measure word",
+          "metre"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "exEn": [
+        [
+          "车站在两米远。",
+          "The station is two metres away."
+        ]
+      ],
+      "compounds": [
+        [
+          "米饭",
+          "mǐ fàn",
+          "cooked rice"
+        ],
+        [
+          "大米",
+          "dà mǐ",
+          "rice (husked)"
+        ],
+        [
+          "玉米",
+          "yù mǐ",
+          "maize"
+        ],
+        [
+          "厘米",
+          "lí mǐ",
+          "centimetre"
+        ],
+        [
+          "毫米",
+          "háo mǐ",
+          "millimetre"
+        ]
+      ]
+    },
+    "hsk30l3/明白": {
+      "why": "One `uc-sense` div carrying several senses joined by a semicolon or a comma, under a label naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the label already named, and the examples tagged. NOT done in bulk: 3,685 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense. The label read \"verb / adjective\" and only the verb was defined, and all three sentences were the verb — two of them saying much the same thing. The third is replaced by one showing the adjective, and the three tagged.",
+      "dropEx": [
+        "现在我全都明白了。"
+      ],
+      "ex": [
+        [
+          "他的意思很明白。",
+          "His meaning is quite clear."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to understand"
+        ],
+        [
+          "adjective",
+          "clear; obvious"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l3/南": {
+      "why": "An example sentence in which the character is not the word at all: 我听说南西很漂亮 is about NANCY, 南西 being a transliteration of the name, so a card glossed \"south\" opened on a sentence with no south in it. This is batch 27's 东 class exactly, and `check-example-fit.js` skips a single-character headword by design. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since an example that repeats another's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has DOWNLOADED. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "我听说南西很漂亮。"
+      ],
+      "ex": [
+        [
+          "一直往南走就到了。",
+          "Keep going south and you'll be there."
+        ]
+      ],
+      "compounds": [
+        [
+          "南方",
+          "nán fāng",
+          "the south"
+        ],
+        [
+          "东南",
+          "dōng nán",
+          "southeast"
+        ],
+        [
+          "南部",
+          "nán bù",
+          "southern part"
+        ],
+        [
+          "指南针",
+          "zhǐ nán zhēn",
+          "compass"
+        ],
+        [
+          "越南",
+          "Yuè nán",
+          "Vietnam"
+        ]
+      ]
+    },
+    "hsk30l5/飞行": {
+      "why": "Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
+      "exEn": [
+        [
+          "飞机在三千米的高空飞行。",
+          "The plane flew at an altitude of 3,000 metres."
+        ]
+      ]
+    },
+    "hsk30l6/尺": {
+      "why": "Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
+      "exEn": [
+        [
+          "该建筑高一百公尺。",
+          "The building is one hundred metres high."
+        ],
+        [
+          "这块木板大约两公尺长。",
+          "The board is about two metres long."
+        ]
+      ]
+    },
+    "hsk30l6/业": {
+      "why": "Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
+      "exEn": [
+        [
+          "你是执业医师吗？",
+          "Are you a practising physician?"
+        ]
+      ]
+    },
+    "hsk30l4/教练": {
+      "why": "Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
+      "exEn": [
+        [
+          "这类运动可以单人练习，不需教练指导。",
+          "This type of exercise can be practised alone and does not require a coach's guidance."
+        ]
+      ]
+    },
+    "hsk30l7/执照": {
+      "why": "Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
+      "gloss": "licence; permit"
+    },
+    "hsk30l7/凉爽": {
+      "why": "A `not <other word>` block pointing at a word that no longer shares this gloss — a disambiguator disambiguating nothing, which is worse than none, since a reader takes it for a real distinction. Batch 32 gave 凉快 its own two senses (pleasantly cool / to cool off), so the pair no longer collides and this hint had nothing left to do. The record can drop its own hints key, but the block is already written into the deck and the applier is deliberately NOT authoritative for hints — 104 of them are the generator's own — so removing one means rebuilding the note's gloss, which `gloss` does. The capital was CC-CEDICT's wording made a heading; the dictionary reads \"cool and refreshing\", which is also what the card's own first sentence says.",
+      "gloss": "cool and refreshing"
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -111293,7 +111837,6 @@
     "hsk30l7/养殖": "滋生",
     "hsk30l7/养生": "健身",
     "hsk30l7/养育": "提高",
-    "hsk30l7/凉爽": "凉快",
     "hsk30l7/出众": "优秀",
     "hsk30l7/出具": "下达",
     "hsk30l7/出头": "出现",

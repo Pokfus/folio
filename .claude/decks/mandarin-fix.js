@@ -295,9 +295,18 @@ function britExamples(html) {
    THE PHRASE ROWS COME FIRST because the table is applied longest-first, and they exist for the two
    things a word-for-word swap gets wrong: a compound whose British name is not built from the same
    parts (`movie theatre` is a cinema, not a film theatre), and an ARTICLE that has to change with the
-   word after it (`an elevator` is `a lift`). */
+   word after it (`an elevator` is `a lift`).
+   THEY ALSO CARRY A THIRD CASE (batch 32): a ONE-WAY SPELL_PAIRS row whose American form is safe to
+   sweep only inside a phrase. `licence`/`license` is one-way because British English spells the VERB
+   `license`, so a bare row would make `to licence a driver`; but `driver's license` and `license plate`
+   are nouns wherever they occur, and the British forms are a different phrase besides — a `driver's
+   license` is a `driving licence`, which no word-for-word swap reaches. The bare word is left to a
+   per-note `gloss` row, which is where the corpus's one remaining site went. */
 const LEXIS = (() => {
   const PAIRS = [
+    ["driver's license", "driving licence"],
+    ["drivers license", "driving licence"],
+    ["license plate", "licence plate"],
     ["movie theatre", "cinema"],
     ["movie theater", "cinema"],
     ["to the movies", "to the cinema"],
