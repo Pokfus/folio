@@ -2035,3 +2035,106 @@ resolved happened to be a 1920px one. Two consequences worth carrying:
   a `.jpg` name. `file -b` is what tells them apart, and the error's own text names which of the two
   faults it is — **read it rather than assuming the host is busy**, since one of the two is a bad URL that
   no amount of waiting will fix.
+
+### Batch 25 — ten centres: `gru-527`, `gru-528`, `gru-531`–`gru-538`
+
+Vladivostok, Khanty-Mansiysk, Belgorod, Tula, Vladimir, Khabarovsk, Penza, Tver, Yaroslavl and
+Ulyanovsk, each with a paired glossary term at the bar and a picture. **The capital half now stands at
+23 of 80 and the collection at 106 of 163.**
+
+**THE SIBLING-CARD CONSTRAINT BOUND ON ALL TEN, AND IT IS WHAT DECIDED WHAT EACH CARD IS ABOUT.** All
+ten subject cards were read before any research began, and every one had already spent the obvious
+material: `gru-027` has Vladivostok's founding, its free-port status and its climate; `gru-034` has
+Khabarov, Albazin and the naming of Khabarovka; `gru-032` has Kulikovo, the Demidovs and the 1712 arms
+factory; `gru-033` has Bogolyubsky, the 1238 siege and the decay of Suzdal; `gru-036` has the Tvertsa
+junction, the Volochyok canal and the 1327 rising; `gru-037` has the founding by a son of Vladimir the
+Great and the 1612 army; `gru-038` has Razin, Karamzin and the Sviyaga; `gru-035` has the founding and
+Razin again; `gru-028` has the Khanty and the Mansi, the Mukhrino bog and the oil. **Read the sibling
+before researching the centre; the second card's subject is what the first one left.**
+
+**FOUR NEW SOURCES CAME OUT OF THAT, and three of them are worth knowing about before the next batch.**
+· **`cu31924071203685` — George Frederick Wright, *Asiatic Russia*, vol. 2 (1902)** — the shelf had no
+  general book on the Russian Far East besides Reclus and the Guide. Wright gives Vladivostok's 1897
+  census with its sex disparity and its tonnages, Khabarovsk on its promontory with 14,933 people, and
+  a table of when each Siberian river closes and opens. **It is a GEOLOGIST's book and its climate and
+  navigation chapters are the strongest part of it.**
+· **`cu31924028567711` — W. R. Morfill, *A History of Russia from the Birth of Peter the Great to the
+  Death of Alexander II* (1902)** — Reclus and Rambaud between them leave the eighteenth century thin,
+  and Morfill carries it: Pugachev's retreat through Penza and Saratov, his surrender at Simbirsk and
+  the iron cage, and Biron's removal from Pelim to Yaroslavl. **Two cards took adjacent facts from one
+  pair of pages (213–14) without overlapping**, which is the right way to spend a passage that covers
+  several towns at once.
+· **A DOAJ-INDEXED RUSSIAN JOURNAL WITH AN ENGLISH ABSTRACT IS WHAT MADE BELGOROD WRITABLE AT ALL.**
+  Belgorod is the hardest centre so far: `gru-031` had already spent the chalk, the name, the 1845
+  section, the Kursk Magnetic Anomaly and the 1943 recapture, and the nineteenth-century shelf holds
+  nothing else — Reclus gives it one clause (p. 437), Murchison's three mentions are the section
+  `gru-031` used, and every `Bielgorod` in Rambaud is the town near Kiev while the one in volume 2 is
+  **Belgrade**. Lyapin's *The Defense System of the South of Russia on the Eve of the Construction of
+  the Belgorod Line* (Vestnik VolGU ser. 4, no. 2, 2023) has a long structured English abstract that
+  carries five citable sentences: the line's dates, the Oka regiments that preceded it, why farming was
+  impossible, the 1630 weakening and the Crimean response, and what closing the frontier bought.
+  **Search DOAJ before concluding a Russian city cannot be sourced**, and prefer a journal whose
+  abstract is in English — a second Russian-language source on one card also trips rule 6 of
+  `check-cards.js`, the charter already being one.
+· **Europe PMC carried Khanty-Mansiysk's geography** (Pesnya and Bolotov, *Data in Brief* 41, 2022):
+  the Lower Irtysh valley is trapezoidal and 18 km wide, the study reach sits 13 km above the Ob
+  confluence, and the Ob–Irtysh interfluve holds the largest floodplain in the northern hemisphere.
+  **Its history block is the RIVER's rather than the town's**, deliberately: Khanty-Mansiysk is a
+  1930s foundation, nothing openable from here narrates it, and the Guide's *settlement of Samarovo*
+  (p. 204) cannot be asserted to BE the city without a source that says so. So the card tells the lower
+  Irtysh — the four directions of water communication from Tobolsk, the ice-free days, the transit
+  waterway to Biysk and Tyumen, steam from 1884, and the Ob basin's shared fleet.
+
+**`gru-528`'s GROWTH CELL IS A QUESTION MARK, AND IT IS THE FIRST ONE IN THIS DECK.** Rosstat's table
+4.9 carries the city only from 2020, since it was under 100,000 before that, so there is no 2010 census
+figure to measure the 2021 census against. The grid says `?` rather than a figure computed from a
+pre-census estimate, which is the convention the request set: the card saying the number was looked for
+and not found is the honest state.
+
+**TWO GLOSSARY KEYS ARE DELIBERATELY NOT THE BARE CITY NAME.**
+· **`Vladimir,_Russia` claims NO bare `Vladimir` alias**, because the wrong side of that surface is
+  growing faster than the right one. Measured over the shipped corpus: eleven bare occurrences, nine
+  the city, principality or province and two a person (`gru-037`'s *Vladimir the Great*, `gru-509`'s
+  *the Grand Duke Vladimir*) — and a Russia collection will meet Monomakh, Lenin and Putin many times
+  more. Its aliases are `Vladimir-na-Klyazme`, `Vladimir-Zalesskiy` and `city of Vladimir`, all
+  unambiguous. **The pairing rule is satisfied by the entry existing**; the auto-link on the bare word
+  is refused on purpose.
+· **`Tula,_Russia` DOES claim the bare alias, and that is a trade with a known expiry.** All six bare
+  occurrences in the corpus today are the Russian city, so the alias is right six times out of six —
+  but `art-222` in the Visual Art plan is *The Toltec Atlantean figures of Tula*, so the Mesoamerican
+  Tula will arrive. **The KEY is the stable part and the ALIAS is the removable claim**: when that card
+  ships, drop the `Tula` alias here and key the Mexican site separately. Keying the city bare would
+  have made the fix a renumbering instead of a deletion.
+
+**`check-citations.js` CAUGHT A FABRICATED GIVEN NAME AGAIN, FROM THE SAME ROUTE AS EVER.** The Vezelka
+paper's author list was expanded out of Europe PMC's initials — `Senchenkov VY` became *Vasiliy Y.*
+where Crossref has **Vladislav Yu.**, and `Pribylov DA` became *Denis A.* where Crossref has **Daniil
+A.** Four other names differed too. **Europe PMC abbreviates and Crossref does not; take the full names
+from Crossref and never expand an initial.**
+
+**AND THE PAPER'S OWN DOI IS WALLED HERE.** `doi.org/10.3390/microorganisms9010102` resolves to
+mdpi.com, which answers 403 to curl, so the citation ends at
+`ncbi.nlm.nih.gov/pmc/articles/PMC7824796/` instead, which answers 200. **A 403 from a publisher is not
+a paywall and is not a reason to drop an openly licensed paper** — cite the PMC copy, which also keeps
+the record `check-citations.js` needs.
+
+**THE PICTURE PASS REJECTED THREE OF THIRTEEN CANDIDATES, AND TWO OF THE THREE WERE TAKEN AT NIGHT.**
+`fetch-geo-images.js` found only 2 of 10 by itself, so eight were pinned by hand out of Commons'
+`Views of <city>` categories. What the contact sheet caught: **`Night Tula city aerial view.jpg` is a
+near-black frame** — the automatic pass had scored it top for Tula on the strength of `aerial` in its
+name; **`Khanty-Mansiysk … panoramio.jpg` is a lit car park at night**; and the first Khabarovsk aerial
+was **already on the `Khabarovsk_Krai` glossary term**, which `check-image-free.js` said before the
+picture was installed rather than after. **Run that check before fetching, not after.** The two
+leftovers worth recording: Vladimir has no city panorama on Commons at all, so its card takes the
+Dormition Cathedral on its escarpment above the Klyazma plain, and Tver has none either, so its card
+takes the 4,200 × 600 Volga embankment panorama — **a sharp daylight picture of the city on its river
+beats a hazy 10,970-metre aerial that shows the whole of it.**
+
+**A GLOSSARY TERM'S PERIOD PRINT IS FINDABLE FOR AN OLD CITY AND NOT FOR A NEW ONE.** Seven of the ten
+took one: Vladivostok in 1898, Tula engraved in 1807, Meyerberg's drawing of Tver, Blasius's 1844
+engraving of Yaroslavl from the Volga, Simbirsk photographed in 1865, Khabarovsk in the 1900s, and
+Prokudin-Gorsky's 1911 colour plate of Vladimir over the Klyazma. **Belgorod's is its own 1911 survey
+plan** — a map is refused for a CARD and is the right answer for a term about a city's site, since it
+shows the Vezelka running through the town. Penza and Khanty-Mansiysk have no reachable period picture,
+so both take a second modern one. **`Unknown authorUnknown author` came back on four of the seven** —
+the Commons doubling CLAUDE.md records — and was halved before the credits were written.
