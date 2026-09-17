@@ -1486,7 +1486,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -1667,6 +1667,16 @@
      someone who had already decided — so an older settings object (which cannot carry the key) is pinned
      to manual, and defaultState()'s `true` reaches first-time visitors alone. */
   if (S.settings && S.settings.themeAuto === undefined) S.settings.themeAuto = false;
+  /* QUESTION VARIETY SHIPS OFF (Sep 2026, on request: "ensure that Question Variety is turned off on all
+     decks by default"). It shipped ON, so every save made before today carries `questionVariety: true` —
+     and flipping `defaultState()` alone would have reached first-time visitors and nobody else, which is
+     the one outcome the request rules out. A stored `true` is coerced, and it is safe to coerce
+     UNCONDITIONALLY because NOTHING WRITES THIS KEY: there is no Settings row for it, and the deck
+     sheet's switch writes `S.deckOpts[id].variety` instead — so a stored `true` is definitionally the old
+     shipped default rather than a choice anybody made. ⚠ THE DAY A CONTROL WRITES IT, THIS LINE HAS TO GO
+     or become a one-shot, or it will overwrite that control on the next load. Per-deck overrides are left
+     alone: those are written only where the reader threw a deck's own switch. */
+  if (S.settings && S.settings.questionVariety !== false) S.settings.questionVariety = false;
   /* The Editor / Visitor chip is gone from the menu bar (Aug 2026, on request) and was the only thing
      that ever wrote this false. A stored `false` is therefore an admin stranded in the visitor view
      with no way back, so it is cleared on load; a first-time visitor is not admin-eligible at all and
@@ -6729,8 +6739,10 @@
      sheet is opened on a deck's own row as well as on the pooled review, and a setting that silently
      answered for every deck when thrown from one of them would be the one thing a reader could not
      predict. `S.deckOpts[id].variety` is written only where the reader has actually thrown the switch;
-     everything else follows `S.settings.questionVariety`, so nothing migrates and an untouched deck
-     behaves exactly as it always has. The REVIEW's own flag governs the pooled session, which is what
+     everything else follows `S.settings.questionVariety`, WHICH IS NOW FALSE — the switch shipped on and
+     was turned off for every reader in Sep 2026 on request (see the coercion beside `themeAuto`'s
+     back-fill), so an untouched deck asks its first phrasing every time and a reader who wants the three
+     turns the deck's own switch on. The REVIEW's own flag governs the pooled session, which is what
      `scopeEntryId` resolves a study scope to. */
   function deckVariety(id) {
     const v = deckOpt(id, "variety");            // …and it cascades — see entryChain
@@ -7129,6 +7141,37 @@
   function deckReviewRemaining(id) {
     return Math.max(0, deckLimits(id).maxReviews - deckDoneToday(id).rv);
   }
+  /* A LEARNING CARD IS NOT A REVIEW, AND THE REVIEW CAP MUST NOT CUT IT (Sep 2026, on a bug report: "one
+     of my active decks displays a red number saying I still have 4 cards to study, but when I click it it
+     says 'daily limit reached'").
+
+     Both figures were right and one of them was measuring the wrong thing. `entryPiles` caps only its
+     REVIEW pile by `deckReviewRemaining` and leaves LEARNING uncapped, deliberately — a card answered
+     wrong is unfinished work whatever the day's allowance has to say. Every queue-builder, though,
+     selected `isDueNow` and then sliced the whole run by that same allowance, learning cards included. So
+     a reader who had spent the day's reviews still had four cards in the red pile and a session that
+     dealt none of them; `learnAheadIds` could not rescue them either, since it only reaches a step that
+     has NOT come round and these were due. With nothing in the queue the study page fell through to its
+     first empty-session branch, which offers to study ahead — hence a row saying four and a screen saying
+     the limit was reached, neither of them lying and the two disagreeing anyway.
+
+     ONE HELPER RATHER THAN A RULE IN EACH OF THE SIX SLICES, for `learnAheadIds`'s own reason: the cap is
+     applied in three branches of `buildSession` and three places in `reviewQueue`, and a rule written six
+     times is the one the seventh forgets. `ids` arrives in due order and comes back in it; `left` is what
+     is still owed to REVIEWS, which is what the new-card cap chains off when `newIgnoresReview` is off.
+     This is also Anki's rule — the review limit counts reviews. `deckDoneToday` is untouched: what
+     COUNTS as a review answered today is a separate question from what may be dealt. */
+  const isLearningCard = (id) => { const c = S.cards[id]; return !!(c && schedIsLearning(c.status)); };
+  function capReviews(ids, cap) {
+    let left = Math.max(0, cap || 0);
+    const take = [];
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i];
+      if (isLearningCard(id)) { take.push(id); continue; }
+      if (left > 0) { take.push(id); left--; }
+    }
+    return { take: take, left: left };
+  }
   /* The three piles for ONE added deck, as its row in the daily review shows them. Deliberately not a slice
      of the pooled review: a deck's row states what that DECK still has for the reader today, which after a
      finished review is whatever share of its own new-card allowance the pooled draw did not take — the
@@ -7192,7 +7235,12 @@
       let rv = deckReviewRemaining(e);
       ids.filter((id) => isDueNow(id))
         .sort(byDue)
-        .forEach((id) => { if (rv <= 0 || seen.has(id)) return; seen.add(id); b.due.push(id); rv--; });
+        .forEach((id) => {
+          if (seen.has(id)) return;
+          const learning = isLearningCard(id);   // …and a learning card is not a review — see capReviews
+          if (!learning && rv <= 0) return;
+          seen.add(id); b.due.push(id); if (!learning) rv--;
+        });
       let nw = deckNewRemaining(e);
       // Anki's third switch: off, a deck that has used up its review allowance introduces nothing new either
       if (!deckLimits(e).newIgnoresReview) nw = Math.min(nw, rv);
@@ -7204,9 +7252,10 @@
         // the most overdue first, so a language's cap keeps the cards that have waited longest rather than
         // whichever of its decks the list happens to draw first
         b.due.sort(byDue);
-        b.due = b.due.slice(0, deckReviewRemaining(k));
+        const kc = capReviews(b.due, deckReviewRemaining(k));
+        b.due = kc.take;
         let n = deckNewRemaining(k);
-        if (!deckLimits(k).newIgnoresReview) n = Math.min(n, Math.max(0, deckReviewRemaining(k) - b.due.length));
+        if (!deckLimits(k).newIgnoresReview) n = Math.min(n, kc.left);
         b.fresh = b.fresh.slice(0, n);
       }
       b.due.forEach((id) => due.push(id));
@@ -7216,9 +7265,10 @@
     // …and then the review's own two caps, which are the parent deck's in Anki
     const RL = reviewLimits();
     const rvLeft = deckReviewRemaining(REVIEW_ENTRY);
-    const dueCapped = due.slice(0, rvLeft);
+    const rc = capReviews(due, rvLeft);
+    const dueCapped = rc.take;
     let take = newRemainingToday();
-    if (!RL.newIgnoresReview) take = Math.min(take, Math.max(0, rvLeft - dueCapped.length));
+    if (!RL.newIgnoresReview) take = Math.min(take, rc.left);
     const fresh = seededShuffle(pool, mulberry32(hashStr("review-" + todayStr()))).slice(0, take);
     /* Nothing due and nothing new left, but cards still on a learning step — deal them rather than
        telling the reader the day is done while the banner's red pile says otherwise. See learnAheadIds.
@@ -14446,7 +14496,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      added by somebody who has never read this. */
   const ADMIN_ROUTES = ["admin", "warofages"];
   const PAGE_META = {
-    home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, daily games and an interactive atlas."],
+    home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, science, art and languages, daily games and an interactive atlas."],
     search:    ["Search — Folio", "Find a card, a glossary term or a book by name, across everything Folio holds."],
     sample:    ["Try ten cards — Folio", "Ten cards from a Folio collection, read rather than studied — nothing is scheduled."],
     card:      ["A card — Folio", "One of Folio's cards, with its background, its dates and the works it rests on."],
@@ -17351,9 +17401,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     {
       route: "home",
       title: "Welcome to Folio",
-      body: "Folio is a study companion for history — flashcards, a globe you can travel back through, and a " +
-        "library of whole books. This walkthrough takes about three minutes and covers the part that matters " +
-        "most: how the cards work.<p>Leave at any point with <b>Skip</b> or the Escape key.</p>",
+      body: "Folio is a study companion — flashcards for history, science, philosophy, art, geography and " +
+        "languages, a globe you can travel back through, and a library of whole books. This walkthrough takes " +
+        "about three minutes and covers the part that matters most: how the cards work.<p>Leave at any point with <b>Skip</b> or the Escape key.</p>",
     },
     {
       route: "home",
@@ -21855,6 +21905,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       show(wasOriginal);
       fig.style.minHeight = Math.max(a, b) + "px";
     };
+    /* THE AUTHOR AND THE WORK ARE GLOSSARY TERMS (Sep 2026, on request: "in the daily quote section on the
+       home page, authors and their works should (in english) be clickable as gloss terms"). Every other
+       surface on the site that names a person or a book links it — a card background, a glossary
+       description, an Atlas panel, a Library chapter — and this one named Confucius, Thucydides and the
+       Analects in plain text on the page a reader opens first.
+       THE CAPTION ONLY, NEVER THE QUOTATION. The words in the blockquote are the author's, and threading
+       links through somebody's sentence is an editorial act on a passage that is quoted verbatim; the
+       caption is Folio's own line about it and is where a reference belongs.
+       AND THE ENGLISH SIDE ONLY, which is what "(in english)" is about: `.dq-orig` is the passage in
+       Greek, Latin or Chinese, and the index is built on English surfaces, so linking there would match
+       nothing at best and the wrong thing at worst. `.dq-src` may carry no `.dq-live` at all — an
+       inscription has no title of its own, so `srcPair` emits it unpaired (see dailyQuoteHTML) — and that
+       bare line is linked directly. It runs BEFORE `lockHeight`, though it moves no text: a term becomes
+       a span around the same words, so the wrap cannot change, and doing it first is what keeps that
+       true if the styling ever gives a linked term a different weight. */
+    const cap = fig.querySelector("figcaption");
+    if (cap && uiLang() === "en") {
+      try {
+        const live = cap.querySelectorAll(".dq-live");
+        if (live.length) live.forEach((el) => autoLinkGlossary(el, "", null, "site"));
+        const src = cap.querySelector(".dq-src");
+        if (src && !src.querySelector(".dq-live")) autoLinkGlossary(src, "", null, "site");
+        setupTooltips(cap);
+      } catch (e) { /* a quote with no linkable term is the ordinary case, not a fault */ }
+    }
     const relock = () => { if (!busy && document.body.contains(fig)) lockHeight(); };
     lockHeight();
     // …and again once the things that change the wrap have landed: the i18n observer rewrites the quote a
@@ -21907,10 +21982,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const s = window.getSelection && window.getSelection();
       return !!(s && !s.isCollapsed && s.anchorNode && fig.contains(s.anchorNode));
     };
-    fig.addEventListener("click", () => {
+    fig.addEventListener("click", (e) => {
       const dragged = moved;
       down = null; moved = false;
       if (dragged || selectingInFig()) return;
+      // …and a glossary term in the caption is its own control: a tap on it opens the definition and must
+      // not also turn the quote into Greek behind the popup
+      if (e.target && e.target.closest && e.target.closest(".ttip")) return;
       flip();
     });
     fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
@@ -22684,7 +22762,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        a shorter form — so every pixel this takes is taken from the thing the reader is reading. */
     const adIconKey = (entryId, parentKey) => {
       const n = NODE_BY_ID[entryId];
-      if (n) return n.parentId ? "" : (COLLECTION_ICON[entryId] || "cards");
+      // …and the mark is the SECTION's rather than the collection's own subject symbol — see SECTION_ICON
+      if (n) return n.parentId ? "" : (SECTION_ICON[sectionOf(entryId)] || "cards");
       // a LANGUAGE container is the row that is a collection, so it wears the speech bubble its own
       // banner wears on the Collections page — the one place seven collections share a mark
       if (isLangCtxId(entryId)) return "speech";
@@ -23259,14 +23338,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the title says what would unlock it. */
     const sweepRowHTML = () => {
       const done = DAILY_GAMES.map(gamePlayedToday);
+      /* …AND A PERFECT RUN LIGHTS ITS CHIP GOLD (Sep 2026, on request: "if the minigame is completed
+         perfectly and the tile turns gold, the line in the tiny grid should also turn gold"). The meter is
+         a miniature of the grid beneath it, and the grid has always had two marks rather than one — a
+         green check for played and a gold wax seal for perfect — so a meter that knew only the first was
+         a miniature of half of it. `gameWonToday` is the same predicate the tile's seal reads, so the two
+         cannot come to disagree about what perfect means. The gold is the seal's own pair of stops rather
+         than a third gold: at 15 × 4.5px there is no room for the fluting or the shine, and what has to
+         survive is the HUE. */
+      const won = DAILY_GAMES.map(gameWonToday);
       const n = done.filter(Boolean).length, all = DAILY_GAMES.length;
+      const nWon = won.filter(Boolean).length;
       const claimed = S.playChest === todayStr();
       const ready = n === all && !claimed;
       const chips = done.map((d, i) =>
-        '<span class="sw-chip' + (d ? " on" : "") + '" title="' + esc((GAME_NAMES[DAILY_GAMES[i]] || [])[0] || DAILY_GAMES[i]) +
-        (d ? " — finished today" : "") + '"></span>').join("");
+        '<span class="sw-chip' + (d ? " on" : "") + (won[i] ? " won" : "") + '" title="' + esc((GAME_NAMES[DAILY_GAMES[i]] || [])[0] || DAILY_GAMES[i]) +
+        (won[i] ? " — a perfect run today" : d ? " — finished today" : "") + '"></span>').join("");
       return '<div class="sweep-row">' +
-        '<div class="sweep-meter" role="img" aria-label="' + n + " of " + all + ' minigames finished today">' +
+        '<div class="sweep-meter" role="img" aria-label="' + n + " of " + all + ' minigames finished today' +
+          (nWon ? ", " + nWon + " of them perfectly" : "") + '">' +
           '<div class="sweep-chips">' + chips + "</div>" +
           '<span class="sweep-count"><b>' + n + "</b>/" + all + "</span>" +
         "</div>" +
@@ -24742,6 +24832,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   ];
   const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
+  /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
+     request: "in the active decks section, instead of their golden collection icons on the left, they
+     should have icons in the theme color of the deck indicating whether they're history/science,
+     geography, language or art decks (i.e. the type of cards inside)").
+     It is keyed on the SECTION rather than on the collection, which is the whole point of it: eleven
+     history collections wear eleven different marks on the Collections page, where the question a reader
+     is asking is "which one is this", and one mark here, where the question is "what sort of thing am I
+     about to study". Science and Philosophy keep marks of their own rather than being folded in with
+     History as the request's shorthand has them — the table already tells them apart, and giving two
+     subjects one icon would throw away a distinction for nothing.
+     LANGUAGE AND COMMUNITY ARE NOT IN IT because neither is a section: a language container already wears
+     the speech bubble and one of the reader's own decks the card stack, both decided in `adIconKey`. */
+  const SECTION_ICON = { History: "scroll", Geography: "globe", Science: "flask", Philosophy: "owl", "The Arts": "brush" };
 
   /* ---------- THE COLLECTIONS PAGE'S OWN TAB BAR (Sep 2026, on request) ----------
      "Put a menu bar at the top which defaults to 'All'. Other pages should be 'History', 'Geography',
@@ -25780,7 +25883,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // …and not a card buried by a sibling answered elsewhere: a group is another route to the same
       // cards, so leaving it out here would let a buried card come back through one
       const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
-      const gDue = gIds.filter((id) => isDueNow(id)).sort(byDue).slice(0, deckReviewRemaining(scope.id));
+      const gDue = capReviews(gIds.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(scope.id)).take;
       const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = mixPiles(orderPile(scope.id, gDue), orderPile(scope.id, gNew));
       if (deckRandom(scope.id)) shuffle(queue);
@@ -25795,7 +25898,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the deck's notes expanded into their cards (a reverse card is its own card here), template-major —
       // or one card per note where the row studied is a DIRECTION rather than a level; entryCardIds narrows
       const ids = studyOrder(ue, entryCardIds(ue).filter((id) => !isSuspended(id) && !isBuried(id)));
-      const due = ids.filter((id) => isDueNow(id)).sort(byDue).slice(0, deckReviewRemaining(ue));
+      const due = capReviews(ids.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(ue)).take;
       const unseen = ids.filter((id) => !isSeen(id));
       /* The new run is sliced FIRST and shuffled after, so pairing decides which words arrive and the
          shuffle only the order they arrive in — shuffling first would make the day's cards a random
@@ -25825,7 +25928,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // due cards in this deck first, then new, then any unseen if you want to push on — both piles bounded
       // by THIS deck's own daily limits (long-press its row in the review to change them), so a deck the
       // pooled review only took a couple of new cards from still has the rest of its share here
-      const due = ids.filter((id) => isDueNow(id)).sort(byDue).slice(0, deckReviewRemaining(sd.id));
+      const due = capReviews(ids.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(sd.id)).take;
       const unseen = ids.filter((id) => !isSeen(id));
       const fresh = unseen.slice(0, Math.max(deckNewRemaining(sd.id), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
       queue = mixPiles(orderPile(sd.id, due), orderPile(sd.id, fresh));
@@ -30347,6 +30450,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }
       const c = pool.length > 1 ? Object.assign({}, base, { question: pool[qIdx] }) : base;
       const rc = remainingCounts();
+      /* WHERE THE SUCCESSIVE-RELEARNING ROW GOES (Sep 2026, on request: "on mobile, put the three days
+         dots and label instead on the same line as the three colored dots and numbers above the card").
+         On a phone the card's header already holds the state dot, the "Question" label with its phrasing
+         counter and the difficulty stars, and the study bar's three pile counts take a full-width line of
+         their own directly above it — which is the line that has room, and the line whose three coloured
+         dots these three read as a set with. Moved there the LABEL comes back too: the ≤1024px rule that
+         hides it is scoped to `.q-head`, so it only ever applied to the card's own copy.
+         THE BREAKPOINT IS DECLARED ONCE, IN CSS, and read back here — `cpSheetMode`'s own rule. A media
+         query in the stylesheet beside a `matchMedia` in here is one decision in two files, and getting
+         one of them means a row laid out for a phone and a header still reserving its column. */
+      const critHTML = critPipsHTML(id);
+      const critInBar = (getComputedStyle(document.body).getPropertyValue("--crit-slot") || "").trim() === "bar";
 
       root.innerHTML = `
         <div class="study-shell">
@@ -30373,6 +30488,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <button class="backbtn boxbtn${boxMs ? " on" : ""}" id="timeBox" type="button" title="Study for a set length of time"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9.5V13l2.2 1.6"/><path d="M9 2.5h6"/></svg> <span id="boxLbl">${boxMs ? esc(boxLeftLabel()) : "Time"}</span></button>
             <span class="study-where">${esc((params.scope.type === "review" && cardWhereLabel(id)) || sess.where)}</span>
             <div class="counts">
+              ${critInBar ? critHTML : ""}
               <span class="cnt new">${rc.nw}</span>
               <span class="cnt learn">${rc.lr}</span>
               <span class="cnt due">${rc.rv}</span>
@@ -30388,7 +30504,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     on request) — see critPipsHTML for why it moved and how it shortens on a phone. */""}
               <div class="q-head">
               <div class="q-lead">${cardStateDotHTML(id)}<span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span></div>
-              ${critPipsHTML(id)}
+              ${critInBar ? "" : critHTML}
               ${cardStarsHTML(c)}
               </div>
               <div class="question">${cardFrontHTML(c)}</div>
@@ -38346,7 +38462,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const c = CARD_BY_ID[hit.id];
       if (!c) { hideCountryPopup(); return; }
       const nm = gameCapFirst(hit.title || hit.name || String(c.answerText || ""));
-      if (markSeen("placesSeen", nm)) { sfx("discover"); checkAchievements(); }
+      /* CLICKING A PLACE HERE IS NOT A DISCOVERY, AND NEITHER MARKS IT NOR CHIMES (Sep 2026, on request:
+         "clicking a location on the personal atlas for the first time shouldn't count as a newly
+         discovered atlas location nor play the sound effect, since the user has already discovered the
+         location by studying the card for it"). It is the whole difference between the two tabs: the world
+         atlas is where a reader MEETS a place, and this globe holds only places they have already studied
+         — a shape is drawn here BECAUSE its card has a record, so announcing it as new congratulates them
+         for opening something they earned days ago. The design had already half-decided it, the "New
+         discovery!" chip being hidden two lines below since this panel shipped; what was left was a
+         register write and a chime nobody could see the reason for. `markSeen` is untouched everywhere
+         else, so the world atlas still discovers and the account page's meter still counts. */
       /* WHAT THE PANEL SAYS IS THE CARD, AND ONLY THE CARD (Sep 2026, on request: "remove the 'Answer'
          header and 'From your card' tagline, the title bar (should only display when popup is collapsed)
          and its dating"). Every one of those four repeats something the card back already carries — the

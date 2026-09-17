@@ -730,7 +730,21 @@ body.night .coll-ic{color:#E6C765;}
 .cl-row .coll-ic img, .udeck .coll-ic img{width:calc(28px * var(--fs)); height:calc(28px * var(--fs));}
 /* …and on a review row, where the width belongs to the deck's name (see adIcon). No min-width: the mark
    sits in the flex line rather than reserving a column, so a row without one loses nothing. */
-.active-deck .coll-ic.dk-ic{min-width:0; margin-inline-end:2px;}
+.active-deck .coll-ic.dk-ic{min-width:0; margin-inline-end:2px;
+  /* …AND IT RUNS IN THE DECK'S OWN HUE, not the collection gold (Sep 2026, on request). The row already
+     carries that hue as `--coll-bg` (see hueStyle), and the mark is `currentColor` on a stroke, so this is
+     one declaration rather than a colour per row. It is MIXED TOWARDS `--ink` rather than used raw: the
+     hues are signature washes chosen to sit UNDER a banner, and several of them (Second World War's near
+     black, World History's mid brown) are a wash on paper by day and all but invisible on a dark card by
+     night. Mixing towards the ink raises the contrast in BOTH directions with no per-theme table, which is
+     the ratio `.elab-box`'s tab is solved the same way. The plain hue is declared first for a browser with
+     no `color-mix`. */
+  color:var(--coll-bg, #C39A2E);
+  color:color-mix(in srgb, var(--coll-bg, #C39A2E) 80%, var(--ink));}
+body.night .active-deck .coll-ic.dk-ic{color:color-mix(in srgb, var(--coll-bg, #C39A2E) 55%, var(--ink));}
+/* High contrast drops the hue and keeps the SHAPE, which is what carries the information: the mark says
+   what kind of cards are in the deck, and the colour only repeats the row's own wash. */
+body.hc .active-deck .coll-ic.dk-ic{color:var(--ink);}
 .active-deck .coll-ic.dk-ic svg, .active-deck .coll-ic.dk-ic img{width:calc(22px * var(--fs)); height:calc(22px * var(--fs));}
 /* The Daily-review banner carried a large plain golden numeral of its own — the day's whole pile — and it
    went in Aug 2026 on request, along with pileBadgeMarkup, the tick it showed on a cleared day and the
@@ -1183,6 +1197,11 @@ body.night .game-tile{ --gt-gold:#D8B355; }
   background:var(--rule); transition:background .25s var(--ease), box-shadow .25s var(--ease);
 }
 .sw-chip.on{background:var(--good, #4F9D67); box-shadow:0 0 0 1px color-mix(in srgb, var(--good, #4F9D67) 35%, transparent);}
+/* A PERFECT RUN'S CHIP IS GOLD, the same pair of stops the tile's wax seal is mixed from (`.gt-seal`),
+   so "perfect" is one colour on this page rather than two. It is written AFTER `.on` and at the same
+   specificity, so the later rule wins and a won chip needs no extra weight. */
+.sw-chip.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47;
+  box-shadow:0 0 0 1px color-mix(in srgb, #BE9829 45%, transparent);}
 .sweep-count{
   font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.04em;
 }
@@ -1245,8 +1264,15 @@ body.night .game-tile{ --gt-gold:#D8B355; }
    fullscreen media viewer (9800), which nothing here opens. The scrim is DARK rather than a paper wash —
    the Atlas's coach marks lighten their globe, and this one has to darken a page of prose in eight themes,
    so it is deliberately theme-independent. */
+/* NO `backdrop-filter` HERE, and that is the point rather than an omission (Sep 2026, on a bug report:
+   on mobile the tutorial "blurs the background while also trying to highlight elements from it"). The
+   scrim covers the whole page, targets included, so a blur on it blurs the very element the dashed ring
+   is drawn around — the step says look at this and then makes it unreadable. It bites hardest on a phone,
+   where the card docks to the bottom and the ringed element is the only other thing on screen, but the
+   contradiction is not a phone one and neither is the fix. The 55% black wash does the separating on its
+   own; `.page-help` KEEPS its blur, because a coach mark rings nothing. */
 .folio-tour{position:fixed; inset:0; z-index:9700; display:flex; align-items:center; justify-content:center; padding:20px;
-  background:color-mix(in srgb, #000 55%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
+  background:color-mix(in srgb, #000 55%, transparent);
   animation:tourIn .22s var(--ease) both;}
 @keyframes tourIn{from{opacity:0}to{opacity:1}}
 /* the arrow layer: no viewBox, so its user units are CSS pixels and the rects tourPlace() measures need no
@@ -1746,7 +1772,20 @@ body[data-theme="folio"].night .collection-deco{
    critPipsHTML in app.js, and the `.q-head` grid above for how it is centred. */
 .crit-row{display:flex; align-items:center; gap:7px; margin-top:9px;}
 .study-card .q-head .crit-row{margin-top:0; min-width:0; justify-self:center;}
-.study-card .q-head .card-stars{justify-self:end;}
+/* THE STARS ARE PLACED IN COLUMN 3 EXPLICITLY, not left to fall there (Sep 2026, on a bug report: "when
+   the three dots for three days studied have not yet appeared on the first time a card is shown, the
+   difficulty rating jumps to the center of the card when it should stay in the top right"). `critPipsHTML`
+   returns NOTHING for a card with no record, so on a card's first sighting the grid has two children
+   rather than three and the stars land in the `auto` MIDDLE column — where `justify-self:end` has nothing
+   to push against, an auto column being only as wide as its content. Naming the column is what makes the
+   corner the corner in every state, this one and the phone's, where the row moves to the study bar and
+   the middle child is absent again. */
+.study-card .q-head .card-stars{grid-column:3; justify-self:end;}
+/* WHERE THE ROW GOES — one declaration, read back by `renderCard` (see `--crit-slot` there). */
+body{--crit-slot:head;}
+/* …and in the study bar it keeps its label and sits opposite the three counts, which take a full-width
+   line of their own at this width (see `.counts` in the phone block). */
+.counts .crit-row{margin-top:0; margin-right:auto; min-width:0;}
 .crit-pips{display:inline-flex; gap:4px;}
 .crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--ink-faint); box-sizing:border-box;}
 .crit-pip.on{background:var(--ink-faint); border-color:var(--ink-faint);}
@@ -6043,6 +6082,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   .collection-row{padding:18px 16px; gap:14px;}
   .collection-title{font-size:calc(20px * var(--fs));}
   .counts{width:100%; margin-left:0; margin-top:4px;}
+  body{--crit-slot:bar;}
   .dp-name{width:120px;}
   .profile{flex-direction:column; text-align:center;}
   .namefield{text-align:center;}
@@ -6884,6 +6924,18 @@ body.grading .admin-edit-fab{bottom:108px;}
   .admin.timeline-mode .admin-list-items,.admin.feedback-mode .admin-list-items,
   .admin.dash-mode .admin-list-items,.admin.quotes-mode .admin-list-items,
   .admin.artefacts-mode .admin-list-items,.admin.themes-mode .admin-list-items{max-height:none;}
+  /* ---- Admin → Artefacts on a phone (Sep 2026, on a bug report: "on mobile, the artefact list on the
+     admin page isn't formatted very well"). The row is a flex line of a rarity bar, the name and FIVE
+     meta pills — the rarity, whether it has a picture, its word and sentence count, its citation count
+     and its edited state — and at 390px those five wrap onto three lines while squeezing the name, which
+     is the one thing on the row with no shorter form, into two or three characters. So the row wraps
+     properly instead: the bar and the name take the first line whole, and the pills take the next,
+     RANGED LEFT rather than right, since right-aligned pills under a left-aligned name read as a second
+     column that is not there. The swatch shortens with the line it is now marking. */
+  .a-main{flex-wrap:wrap; row-gap:8px; padding:10px; gap:10px;}
+  .a-swatch{height:26px;}
+  .a-name{flex:1 1 140px;}
+  .a-meta{flex:1 1 100%; justify-content:flex-start; gap:5px;}
   .tl-edit{padding:18px 14px;}
   .tl-era{flex-wrap:wrap; row-gap:8px;}
   /* the pane stops scrolling inside itself here (the admin stacks into one column and the PAGE scrolls), and

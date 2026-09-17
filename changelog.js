@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.782", released: "2026-09-17T05:00Z" };
+window.FOLIO_VERSION = { v: "1.783", released: "2026-09-17T05:22Z" };
 
 window.CHANGELOG = [
   {
@@ -43,7 +43,18 @@ window.CHANGELOG = [
     t: "The Second World War map now shades the United States",
     items: [
       "<b>The Second World War card shades every major power that fought</b> \u2014 the United States was missing from it altogether, along with a dozen more.",
-      "<b>Four more cards draw a globe of their own</b> \u2014 two marked with a single point and two shaded across the whole region they covered."
+      "<b>Four more cards draw a globe of their own</b> \u2014 two marked with a single point and two shaded across the whole region they covered.",
+      "<b>Folio no longer calls itself a history site</b> \u2014 the walkthrough, the About page and the page description name every subject on the shelf.",
+      "<b>The walkthrough no longer blurs what it is pointing at</b> \u2014 the ringed control stays readable behind the dimmed page, which on a phone it was not.",
+      "<b>Question variety now ships off</b> \u2014 every card asks its first phrasing until you turn the switch on for a deck.",
+      "<b>A deck row now says what KIND of cards are in it</b> \u2014 a mark for history, geography, science, philosophy, the arts or a language, in the deck\u2019s own colour.",
+      "<b>A deck that says it has cards left now deals them</b> \u2014 the daily review cap was cutting cards you were still learning while the red figure counted them.",
+      "<b>The difficulty stars stay in the corner on a card\u2019s first sighting</b>, and on a phone the three learned-day dots move up beside the day\u2019s counts.",
+      "<b>A perfect minigame turns its line in the little grid gold</b>, as its tile already does.",
+      "<b>The daily quote\u2019s author and work are now glossary links</b>, as every other name on the site is.",
+      "<b>Opening a place on your own atlas is no longer announced as a discovery</b> \u2014 you discovered it by studying its card.",
+      "<b>The admin artefact list is readable on a phone</b> \u2014 its row wraps instead of squeezing the name to nothing.",
+      "<b>Two cards\u2019 dating is clearer</b> \u2014 one no longer reads as though a later date fell inside its period, and two more agree about the same split."
     ]
   },
   {
