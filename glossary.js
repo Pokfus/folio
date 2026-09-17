@@ -3844,7 +3844,11 @@ window.GLOSSARY = {
 "Chichen_Itza": "Chichen Itza is a ruined Maya city in the northern Yucatán peninsula of Mexico, among the largest and most influential settlements of the Late and Terminal Classic periods, roughly 600 to 1000 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Its centre holds the stepped pyramid the Spanish called El Castillo, whose north portico carried columns cut as the feathered serpent K'uk'ulkan, and beneath which a survey has detected a water-filled cavity in the limestone.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A chamber beside its Sacred Cenote held 64 children, all male and several closely related, whose genomes show continuity with Maya people living in the district today.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Toltec": "The Toltecs were the people of Tula in Hidalgo, Mexico, the largest city of the central highlands between the fall of Teotihuacan and the rise of the Aztecs, whose centre moved to the Tula Grande complex after about 950 CE and lay in ruins by 1200.<sup class=\"fn\" data-fn=\"1\"></sup> Its temple on Pyramid B stood on carved stone columns, among them the standing figures known as the atlantes, and four of its pillars show sixteen richly dressed men.<sup class=\"fn\" data-fn=\"2\"></sup> Much of what is said about them comes from Mexica accounts recorded centuries later, in which they are the first settlers of the land and craftsmen whose name became a word for skilled work.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Aztec_Empire": "The Aztec Empire was the dominion of three allied cities of the Valley of Mexico — Mexico Tenochtitlan, Tacuba and Tezcuco — which consolidated around 1430 CE and each held provinces of its own.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It grew by conquest, recorded in 16th-century chronicles ruler by ruler, and took tribute in goods and land, part of which was shared among lords and part kept for the crown and worked by stewards.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its rule left the economies of subject towns largely alone, since their potters went on making their own wares, and it never took everything it attacked.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Tenochtitlan": "Tenochtitlan was the Mexica capital and the seat of the Aztec Empire, built on an island in the salt lake of the Valley of Mexico and reached from the mainland by four built causeways.<sup class=\"fn\" data-fn=\"1\"></sup> Its conqueror described it as the size of Seville or Cordoba, its main streets half land and half water, with a single market square holding more than sixty thousand buyers and sellers a day.<sup class=\"fn\" data-fn=\"1\"></sup> At its heart stood the Templo Mayor, rebuilt repeatedly between about 1375 and 1520 CE, where ritual objects were made of green obsidian from the Sierra de Pachuca while everyday blades came from many sources.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Tenochtitlan": "Tenochtitlan was the Mexica capital and the seat of the Aztec Empire, built on an island in the salt lake of the Valley of Mexico and reached from the mainland by four built causeways.<sup class=\"fn\" data-fn=\"1\"></sup> Its conqueror described it as the size of Seville or Cordoba, its main streets half land and half water, with a single market square holding more than sixty thousand buyers and sellers a day.<sup class=\"fn\" data-fn=\"1\"></sup> At its heart stood the Templo Mayor, rebuilt repeatedly between about 1375 and 1520 CE, where ritual objects were made of green obsidian from the Sierra de Pachuca while everyday blades came from many sources.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Aztec_religion": "Aztec religion was the public cult of the Mexica and their neighbours in central Mexico, ordered by a ritual year of eighteen months of twenty days, with five days at the end belonging to no month, and by a separate divinatory count of 260 days.<sup class=\"fn\" data-fn=\"1\"></sup> Its chief god at Tenochtitlan was the war god Huitzilopochtli, to whom captives and slaves were sacrificed, and its festivals were tied to the farming year through sunrise alignments along the mountains east of the Basin of Mexico.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Objects were buried as offerings in temple precincts, among them turquoise mosaics whose stone has been traced by isotopes to Mesoamerican rather than distant sources.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Aztec_society": "Aztec society was ordered as a nobility and a commonalty with slaves below both, a division the law itself recognised: one hall of the palace tried nobles, who could be executed, exiled or reduced to the rank of commoner, and another heard the suits of ordinary people.<sup class=\"fn\" data-fn=\"1\"></sup> Below rank, persons were described by their calling, and Nahua accounts set out the good and bad forms of the farmer, the merchant and the rich man.<sup class=\"fn\" data-fn=\"2\"></sup> The local grouping to which ordinary families belonged was the calpulli, read by some scholars as a kin group and by others as an administrative division.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Chinampa": "A chinampa is a strip of raised farmland built out into shallow fresh water from lake sediment, branches and decaying vegetation, staked in place and edged with ahuejote willows whose roots hold the soil.<sup class=\"fn\" data-fn=\"1\"></sup> Canals about 1.5 m (5 feet) deep and 4 to 6 m (13 to 20 feet) wide run between the beds, watering the crop by capillary rise and allowing cultivation through the year by rotation and mixed planting.<sup class=\"fn\" data-fn=\"2\"></sup> Fields of this kind were farmed in the Basin of Mexico from the Postclassic onward, and those surviving at Xochimilco were named a globally important agricultural heritage system in 2017.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Wari_Empire": "The Wari Empire was an expansionist Andean state of the Middle Horizon, about 600 to 1000 CE, which spread from its heartland in the Ayacucho valley of Peru into the highlands and down to the coast.<sup class=\"fn\" data-fn=\"1\"></sup> It planted colonies of rectilinear compounds where highland and coastal routes already met, held them by means ranging from garrison to intermarriage, and consolidated control of local resources such as the Alca obsidian sources of Arequipa.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its politics ran on feasting with beer made from molle fruit, and ancient DNA from the central coast shows its rule brought no wholesale replacement of the people already there.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5820,7 +5824,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Chichen_Itza": "c. 600 – 1000 CE",
 "Toltec": "c. 950 – 1150 CE",
 "Aztec_Empire": "c. 1430 – 1521 CE",
-"Tenochtitlan": "c. 1375 – 1521 CE"
+"Tenochtitlan": "c. 1375 – 1521 CE",
+"Aztec_religion": "c. 1375 – 1521 CE",
+"Aztec_society": "c. 1430 – 1521 CE",
+"Chinampa": "Postclassic – present",
+"Wari_Empire": "c. 600 – 1000 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8095,7 +8103,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chichen_Itza": ["Chichén Itzá"],
 "Toltec": ["Toltecs","Toltec culture"],
 "Aztec_Empire": ["Triple Alliance"],
-"Tenochtitlan": ["Mexico Tenochtitlan","México-Tenochtitlan"]
+"Tenochtitlan": ["Mexico Tenochtitlan","México-Tenochtitlan"],
+"Aztec_religion": ["Mexica religion"],
+"Chinampa": ["chinampas"],
+"Wari_Empire": ["Wari","Huari Empire"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11981,7 +11992,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chichen_Itza": ["place","city","history","archaeology","americas","mexico"],
 "Toltec": ["culture","people","history","archaeology","americas","mexico"],
 "Aztec_Empire": ["state","history","archaeology","americas","mexico","warfare"],
-"Tenochtitlan": ["place","city","history","archaeology","americas","mexico"]
+"Tenochtitlan": ["place","city","history","archaeology","americas","mexico"],
+"Aztec_religion": ["concept","religion","history","archaeology","americas","mexico"],
+"Aztec_society": ["concept","society","history","archaeology","americas","mexico"],
+"Chinampa": ["practice","object","agriculture","history","archaeology","americas","mexico"],
+"Wari_Empire": ["state","culture","history","archaeology","americas","peru"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
