@@ -1800,3 +1800,60 @@ about the ANSWER rung, which is where every capital card's cost sits.**
   Cyrillic Er — in Crossref's record AND in the journal's own *For citation* line. The mismatch report
   named it; the citation now reproduces the publisher's string exactly, which is what a citation is for.
   **A name that looks right and compares wrong is this checker's whole reason to exist.**
+
+### Batch 21 — `gru-509` (Tyumen) and `gru-511` (Makhachkala), and a PRIMARY-SOURCE rung above all four
+
+The batch's finding is the answer rung again, and this time it displaces the ladder's top:
+**`constitution.garant.ru` answers 200, is free, and hosts every federal subject's constitution or
+charter — which is the primary source for the sentence the four rungs were proxies for.**
+
+- **THE HOST, AND HOW TO READ IT.** `https://constitution.garant.ru/region/<slug>/` is a charter's own
+  index and `…/region/<slug>/chapter/<32 hex>/` is one article. **It serves windows-1251, not UTF-8** —
+  a naive read gives mojibake, so decode with `new TextDecoder('windows-1251')`. The article page's
+  plain text is mostly site navigation, so search it for the SENTENCE rather than reading the top of it.
+  `.claude/` carries no tool for this; `scratchpad/garscan.js` was written and thrown away with the
+  session, and rewriting it is ten minutes.
+- **THE SLUG IS READ OFF `/region/`'s OWN INDEX, NEVER COMPOSED.** `ustav_tumen`, `ustav_chelyab`,
+  `ustav_samar`, `ustav_nijegor`, `ustav_rostov`, `ustav_mosobl` and `cons_dagest` are real;
+  **`ustav_krasnodar` is a guess and 404s.** This is `add-locators.js`'s own rule one host over: look a
+  key up, do not derive it.
+- **TWO ANSWERS CAME OUT OF IT.** Tyumen Oblast's charter (*Устав Тюменской области от 30 июня 1995 г.
+  N 6*) gives article 11 the heading *Административный центр области* and one sentence under it:
+  «Административным центром области является город Тюмень». Dagestan's constitution (adopted by the
+  Constitutional Assembly on 10 July 2003) puts the capital in chapter 9 with the state symbols, at
+  article 101: «Столицей Республики Дагестан является город Махачкала. Статус столицы определяется
+  законом Республики Дагестан».
+- **IT IS NOT UNIVERSAL, AND THAT IS THE HALF WORTH RECORDING.** A scan of the first 120 articles found
+  NOTHING in the charters of **Chelyabinsk Oblast** (*Закон Челябинской области от 25 мая 2006 г.
+  N 22-ЗО*), **Samara Oblast** (18 December 2006, N 179-ГД), **Nizhny Novgorod Oblast** (30 December
+  2005, N 219-З), **Rostov Oblast** (29 May 1996, N 19-ЗС) or **Moscow Oblast** (11 December 1996,
+  N 55/96-ОЗ). Several of those charters name the centre nowhere at all; the state-symbols chapter is
+  the place to look first where they do, which is how Dagestan's turned up.
+- **A TOC-TITLE FILTER IS THE WRONG INSTRUMENT AND MISSES A HIT IT HAS ALREADY FETCHED.** The first
+  scanner matched only TOC links whose text began *Статья …*, and Dagestan's index writes its capital
+  article's CHAPTER heading (*Глава 9. Государственные символы. Столица Республики Дагестан (ст. 101)*)
+  where the article's own link text is the bare `Статья 101`. **Match the sentence in the body, and
+  walk the whole index rather than its first N entries.**
+- **A PAGE-NUMBER MAP FROM `_page_numbers.json` IS WRONG WHERE THE BOOK CARRIES PLATES, AND THE PAGE'S
+  OWN RUNNING HEAD IS RIGHT.** Pinning the *Guide to the Great Siberian Railway*'s Tyumen pages needed
+  a printed folio, and three routes disagreed: archive.org's `fulltext/inside.php` returns a LEAF index,
+  `_page_numbers.json` maps leaf → printed number and was **three out** across the Tyumen plates (it
+  read 131 for the leaf whose own header prints 124), and the bare numbers standing alone in the
+  `_djvu.txt` are as often a plate number as a folio. **Split `_djvu.xml` on `<OBJECT` and read the
+  running head off the page itself** — leaves 151–153 print 122, 123, 124, and leaves 235 and 249 print
+  204 and 218, which is what the citations carry. The same method pinned Baddeley's pages 25, 27, 373
+  and 459 off `badd.txt`'s own running headers.
+- **THE TWO CARDS' OTHER SOURCES, for reuse.** Tyumen: Kennan pp. 70 and 72 (the approach through the
+  swampy forest; the skyline of pyramidal board roofs and the marble column marking the citizens' leave
+  of the Grand Duke Vladimir in 1868) — pp. 74 and 80 are spent on `gru-009`; the *Guide* pp. 122–24 (Chingi
+  Tura and the khan Taibugu, the voyevodas to 1782, the 1616 monastery, the 1897 census of 29,588) and
+  pp. 204 and 218 (the Tura–Tobol–Ob transit water-way to Tomsk, Barnaul and Biysk, and steam navigation
+  from 1884). Makhachkala: Baddeley pp. 25 and 27 (Peter's cairn of August 1722 and the name given to the
+  town founded on the spot more than a century later; the coastal strip as the isthmus's only level
+  north–south route), p. 373 (the fort built three versts along the shore the year after the 1843
+  fighting, called Andji Kala, the *Flour Fort*) and p. 459 (Bariatinsky reaching Petrovsk in October
+  1856); Reclus vol. 6 p. 87 (the harbour, and Petrovsk supplanting Tarki).
+- **A SIBLING SUBJECT CARD'S CLIMATE SENTENCE IS THE ONE TO CHECK BEFORE WRITING A CAPITAL'S.**
+  `gru-009` and `gru-011` both read their climate off the very station these two cards use, so the
+  January and July means and the annual total were already spent; what was left is the WETTEST and
+  DRIEST months, the rain-day counts, and the months whose nightly minimum sits below freezing.
