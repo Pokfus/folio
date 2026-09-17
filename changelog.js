@@ -35,13 +35,18 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.792", released: "2026-09-17T09:18Z" };
+window.FOLIO_VERSION = { v: "1.793", released: "2026-09-17T10:44Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-17",
     t: "The Second World War map now shades the United States",
     items: [
+      "<b>Seventeen more True or False answers now name their source</b>, and several that claimed more than the evidence does have been rewritten.",
+      "<b>Twenty-four capital cards now say which of their sources are free to open</b>, as every other card already did.",
+      "<b>Numbers and centuries read the same way everywhere</b> \u2014 fifty-six places where a figure was spelled out in words now match the rest of the site.",
+      "<b>Three cards in the Biology deck gained an illustration.</b>",
+      "<b>A world geography card no longer names the neighbour you can already see beside it</b> on its own map.",
       "<b>The Second World War card shades every major power that fought</b> \u2014 the United States was missing from it altogether, along with a dozen more.",
       "<b>Four more cards draw a globe of their own</b> \u2014 two marked with a single point and two shaded across the whole region they covered.",
       "<b>Folio no longer calls itself a history site</b> \u2014 the walkthrough, the About page and the page description name every subject on the shelf.",
