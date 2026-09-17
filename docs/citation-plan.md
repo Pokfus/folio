@@ -2609,6 +2609,47 @@ All 120 are labelled `[Open access]`. **The two cards left flagged are the real 
 Songhai and `wh-578` Kilwa, both 2 open against 3 paywalled, and both with no open copy of any of their
 six paywalled works anywhere OpenAlex knows of. They are a research job rather than a labelling one.
 
+## `wh-572` and `wh-578`: the majority-open rule taken to its limit (2026-09-17)
+
+The two cards `source-audit.js` still flags, and they are the plan's own stated exception rather than
+work outstanding. Both stand at **2 open against 3 paywalled**, and each of the six paywalled works is
+the DEFINING publication for the claim standing on it:
+
+- **`wh-572` Songhai** — Lange on the political history of medieval Gao, Nixon's excavation report on
+  Essouk-Tadmakka, and McIntosh et al. on the Gao glass beads. Its two open sources are the *Tarikh
+  es-Soudan* and Leo Africanus, which carry the whole second half of the card.
+- **`wh-578` Kilwa** — Wynne-Jones' Kilwa excavation, Brown on the three known Kilwa gold coins, and
+  Sutton on the intercontinental gold trade. Its two open sources are Ibn Battuta and Duarte Barbosa,
+  which carry the two eyewitness descriptions the card is built around.
+
+**NOT ONE OF THE SIX HAS AN OPEN COPY ANYWHERE OPENALEX INDEXES** — all six report `is_oa: false,
+closed`, with no repository, preprint or PMC location at all, which is unusual enough to be worth
+recording. That is the check to run first next time, and it is one request per DOI.
+
+**The substitutes searched for and what each turned out to be**, so the next session does not look again:
+
+- **Persée** answers and its *Journal des africanistes* carries Moraes Farias' *The Oldest extant
+  writing of West Africa*, on the epigraphs of Essouk, Gao-Saney and Egef-n-Tawaqqast — the right
+  region and the wrong claim. It is 11th- and 12th-century funerary epigraphy; the card's sentence is
+  about 9th-century trade and Egyptian and Levantine glass, which the paper does not touch. **The right
+  region is not the same thing as the claim.**
+- **UNESCO** (`whc.unesco.org`) is **403** from here on the Kilwa and Tomb of Askia listings alike, on a
+  spaced probe rather than a fast sweep.
+- **OpenEdition** (`journals.openedition.org`) returns a **5 KB shell** with none of the article in it —
+  a 200-status wall, the sixth variety.
+- **archive.org** has the *Tarikh el-Fettach* but **its OCR is page furniture**: 251 KB for a whole book,
+  the word "Gao" occurring once, the French translation unreadable. That is the artefact plan's own rule
+  paying off — grep the `_djvu.txt` for a word the book must contain before believing a 200.
+- **CRAterre's *Kilwa 2013-2016: Final report*** is on archive.org under CC BY-SA and is a conservation
+  and community-development report whose historical passages are ministerial speeches. **A free licence
+  is not scholarship.**
+
+**So the flag stays at 2, deliberately, and `source-audit.js` gains no adjudication table.** The reason
+is the mirror of the one `gw-audit.js` gives for having one: a count that can never reach zero stops
+being read — but two is small enough to read, both are named here, and a declared table would be more
+machinery than the finding is worth and would hide the third card the day one appears. **If this count
+ever rises, read the new card rather than adding a row.**
+
 ## Working notes
 
 - **Keep a register.** `.claude/sources-register.md` (not shipped): every citation once verified, in final
