@@ -1162,9 +1162,15 @@ the alias are the same string.
     gr-831  Philo of Byzantium
     gr-832  Herophilus
     gr-833  Erasistratus
-    gr-834  Alexandrian anatomy
+    gr-834  Alexandrian anatomy  — answered by "human dissection" when the card was written:
+             the two anatomists are already gr-832 and gr-833, so the line's own term is the
+             PRACTICE they were licensed to carry out, which is what a reader meets again and
+             what Celsus argues about at length
     gr-835  The Antikythera mechanism
-    gr-836  Hellenistic geography
+    gr-836  Hellenistic geography  — answered by "oikoumene" when the card was written:
+             Eratosthenes and the measurement of the earth are already gr-824 and gr-825, and the
+             thing the period's geography actually bequeathed is the inhabited world itself, as a
+             shape with stated dimensions and a grid across it
     gr-837  Pytheas of Massalia
     gr-838  Stoicism
     gr-839  Zeno of Citium

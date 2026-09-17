@@ -3867,7 +3867,17 @@ window.GLOSSARY = {
 "Eratosthenes": "Eratosthenes of Cyrene was a Greek scholar of the 3rd century BCE who became librarian at Alexandria after being invited there to tutor a royal heir.<sup class=\"fn\" data-fn=\"1\"></sup> He worked in mathematics, geography, chronology, harmonics and poetry, and was nicknamed Beta and Pentathlos for standing second in each field rather than first in any one of them.<sup class=\"fn\" data-fn=\"1\"></sup> He is best known for measuring the earth from the noon shadows at two places taken to lie on one meridian, and he also devised a sieve for finding prime numbers and wrote the earliest computable chronology of Greek history.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Heliocentrism": "Heliocentrism is the view that the earth and the planets move round the sun, rather than the sun and everything else round the earth.<sup class=\"fn\" data-fn=\"1\"></sup> In antiquity it was put forward in the 3rd century BCE and is reported by a contemporary, who adds a further hypothesis that the sphere of the fixed stars is so vast that the circle the earth moves in counts for nothing beside it.<sup class=\"fn\" data-fn=\"1\"></sup> The proposal drew a charge of impiety from a Stoic philosopher for setting the hearth of the universe in motion, and only one later ancient writer is named as having held it.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Hipparchus_of_Nicaea": "Hipparchus of Nicaea was a Greek astronomer of the 2nd century BCE, born in Bithynia and observing chiefly at Rhodes, whose recorded observations run from 161 to 126 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He discovered the precession of the equinoxes, measured the tropical year more closely than his predecessors, compiled a catalogue of 850 or more stars with their positions and apparent sizes, and made the first systematic use of trigonometry.<sup class=\"fn\" data-fn=\"1\"></sup> Only one of his works survives complete, a commentary that picks holes in the star positions given in the astronomical poem of Aratus and in the work of Eudoxus behind it.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Precession_of_the_equinoxes": "The precession of the equinoxes is the slow movement of the equinoctial points around the ecliptic, which makes a year measured from equinox to equinox differ in length from one measured against the fixed stars.<sup class=\"fn\" data-fn=\"1\"></sup> It was discovered in the 2nd century BCE by setting the distance of the star Spica from the autumn equinoctial point beside a figure recorded about a century and a half earlier, a comparison that showed a shift of two degrees.<sup class=\"fn\" data-fn=\"1\"></sup> Ptolemy afterwards put the rate at one degree in a hundred years, which is appreciably slower than the true value.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Precession_of_the_equinoxes": "The precession of the equinoxes is the slow movement of the equinoctial points around the ecliptic, which makes a year measured from equinox to equinox differ in length from one measured against the fixed stars.<sup class=\"fn\" data-fn=\"1\"></sup> It was discovered in the 2nd century BCE by setting the distance of the star Spica from the autumn equinoctial point beside a figure recorded about a century and a half earlier, a comparison that showed a shift of two degrees.<sup class=\"fn\" data-fn=\"1\"></sup> Ptolemy afterwards put the rate at one degree in a hundred years, which is appreciably slower than the true value.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Philo_of_Byzantium": "Philo of Byzantium was a Greek engineer active in the later 3rd century BCE, author of a compendium of mechanics called the <i>Mechanike syntaxis</i>, of which four books and part of a fifth survive in Greek or in Arabic translation.<sup class=\"fn\" data-fn=\"1\"></sup> The surviving parts treat the lever and proportion, harbour works, the preparation and defence of a city under siege, devices worked by air and water, and artillery.<sup class=\"fn\" data-fn=\"2\"></sup> His artillery book sets out a method of building torsion engines in which every component is scaled from the diameter of the spring hole, a figure he says he took from engines examined at Alexandria and Rhodes.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Herophilus": "Herophilus of Chalcedon was a Greek physician who worked at Alexandria in the early 3rd century BCE and is among the earliest practitioners known to have dissected the human body.<sup class=\"fn\" data-fn=\"1\"></sup> None of his writings survives, and his findings are preserved in quotation by later medical authors: the separation of cerebrum from cerebellum, the membranes and cavities of the brain, the cranial and spinal nerves, the coats of the eye, and the parts he named the torcular and the duodenum.<sup class=\"fn\" data-fn=\"1\"></sup> He also made the pulse an object of measurement, describing its rhythms in terms drawn from music and reportedly timing it with a portable water clock.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Erasistratus": "Erasistratus of Ceos was a Greek physician of the 3rd century BCE who worked at Alexandria as a younger contemporary of Herophilus, and whose writings are lost but extensively quoted by later critics.<sup class=\"fn\" data-fn=\"1\"></sup> He described the valves of the heart and the way they close, the lacteal vessels of the mesentery and the action of the epiglottis, and he distinguished nerves of motion from nerves of sensation.<sup class=\"fn\" data-fn=\"1\"></sup> He held that the arteries of a living body convey pneuma rather than blood, and explained movement within the body by nature's refusal to permit a void, a doctrine Galen attacked at length.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Dissection": "Dissection is the cutting open of a body in order to examine its internal structure, used both in medical training and in biological research.<sup class=\"fn\" data-fn=\"1\"></sup> Human dissection has been restricted or forbidden in many societies: for most of antiquity anatomical knowledge was inferred from animals, and a brief period of human dissection in 3rd-century BCE Alexandria was followed by a gap of many centuries before bodies were again opened for teaching.<sup class=\"fn\" data-fn=\"1\"></sup> It became a fixture of medical education from the later Middle Ages onward, and its place in the curriculum is now debated against imaging, prosection and simulation.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Antikythera_mechanism": "The Antikythera mechanism is a geared bronze astronomical instrument of the 2nd or 1st century BCE, recovered in 1901 from a shipwreck off the Greek island of Antikythera.<sup class=\"fn\" data-fn=\"1\"></sup> About a third of it survives, in 82 fragments containing thirty corroded gearwheels, and much of its gearing and inscription has been recovered by X-ray computed tomography rather than by direct inspection.<sup class=\"fn\" data-fn=\"1\"></sup> Its dials showed a calendar and zodiac with pointers for sun and moon, the nineteen-year cycle reconciling lunar months with solar years, and a 223-month cycle used to predict eclipses.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Ecumene": "The ecumene, from the Greek <i>oikoumene</i>, is the inhabited part of the earth as ancient geography conceived it: a single landmass surrounded on every side by ocean and covering only a portion of a spherical globe.<sup class=\"fn\" data-fn=\"1\"></sup> Greek writers divided it into three continents and gave it measured dimensions, describing it as more than twice as long from east to west as it was broad from south to north, and likening its outline to a military cloak.<sup class=\"fn\" data-fn=\"1\"></sup> Its framework was a main parallel and a main meridian, along which distances reported by travellers and surveyors were laid out.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Pytheas": "Pytheas was a Greek from Massalia who about 325 BCE sailed into the north-eastern Atlantic and wrote an account of the voyage that is now entirely lost.<sup class=\"fn\" data-fn=\"1\"></sup> Quotations preserved by later geographers credit him with a circuit of Britain, a description of its tin, and a report of an island called Thule six days' sail north of it, beyond which he said the sea could not be navigated.<sup class=\"fn\" data-fn=\"1\"></sup> Eratosthenes used his figures for northern and western Europe while Polybius and Strabo rejected them, and the identity of Thule is still disputed.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Stoicism": "Stoicism is a philosophical school founded at Athens about 300 BCE by Zeno of Citium and named after the painted colonnade in the agora in which he taught.<sup class=\"fn\" data-fn=\"1\"></sup> Its adherents divided philosophy into logic, physics and ethics, insisted that the three could not properly be understood apart, held that everything which exists is corporeal, and identified the ordering principle of the world with reason, god and fate.<sup class=\"fn\" data-fn=\"1\"></sup> Their ethics made virtue the only good and treated other things, health and wealth among them, as indifferent however reasonable it might be to prefer them, defining the end of life as living in agreement with nature.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Zeno_of_Citium": "Zeno of Citium was a philosopher from Cyprus, of Phoenician descent, who founded the Stoic school at Athens about 300 BCE and led it until his death around 262 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient tradition has him turn to philosophy after a shipwreck, becoming a pupil of the Cynic Crates before studying with Megarian logicians and members of the Academy.<sup class=\"fn\" data-fn=\"1\"></sup> He taught in the painted colonnade from which the school took its name, wrote a <i>Republic</i> that later Stoics found awkward, and was the first to define the end of life as agreement with nature.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Chrysippus": "Chrysippus, from Soli or Tarsus in Cilicia, was a Greek philosopher of the 3rd century BCE who became the third head of the Stoic school at Athens and gave its doctrine the systematic form later antiquity knew.<sup class=\"fn\" data-fn=\"1\"></sup> He was credited with more than seven hundred books, none of which survives entire, and with defending the school against the criticisms of the sceptical Academy.<sup class=\"fn\" data-fn=\"1\"></sup> His most lasting work was in logic, where he treated whole propositions rather than terms as the units of inference and reduced argument to a small set of basic forms.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5866,7 +5876,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Eratosthenes": "c. 284 – c. 194 BCE",
 "Heliocentrism": "Proposed c. 280 BCE",
 "Hipparchus_of_Nicaea": "Observed 161 – 126 BCE",
-"Precession_of_the_equinoxes": "Discovered c. 128 BCE"
+"Precession_of_the_equinoxes": "Discovered c. 128 BCE",
+"Philo_of_Byzantium": "fl. c. 250 – c. 200 BCE",
+"Herophilus": "c. 330 – c. 260 BCE",
+"Erasistratus": "c. 315 – c. 240 BCE",
+"Antikythera_mechanism": "c. 150 – 100 BCE",
+"Pytheas": "fl. c. 325 BCE",
+"Stoicism": "founded c. 300 BCE",
+"Zeno_of_Citium": "c. 334 – 262 BCE",
+"Chrysippus": "c. 280 – c. 206 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8143,7 +8161,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Apollonius_of_Rhodes": ["Apollonius Rhodius"],
 "Bucolic_poetry": ["bucolic verse","pastoral poetry"],
 "Heliocentrism": ["heliocentric hypothesis"],
-"Precession_of_the_equinoxes": ["axial precession"]
+"Precession_of_the_equinoxes": ["axial precession"],
+"Philo_of_Byzantium": ["Philon of Byzantium"],
+"Herophilus": ["Herophilus of Chalcedon"],
+"Erasistratus": ["Erasistratus of Ceos"],
+"Dissection": ["human dissection","dissections"],
+"Ecumene": ["oikoumene","oecumene","inhabited world"],
+"Pytheas": ["Pytheas of Massalia"],
+"Stoicism": ["Stoic","Stoics"],
+"Chrysippus": ["Chrysippus of Soli"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12052,7 +12078,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Eratosthenes": ["person","science","geography","mathematics","greece","hellenistic"],
 "Heliocentrism": ["theory","science","astronomy","greece"],
 "Hipparchus_of_Nicaea": ["person","science","astronomy","mathematics","greece","anatolia"],
-"Precession_of_the_equinoxes": ["concept","science","astronomy","greece"]
+"Precession_of_the_equinoxes": ["concept","science","astronomy","greece"],
+"Philo_of_Byzantium": ["person","technology","science","greece","hellenistic"],
+"Herophilus": ["person","science","medicine","greece","hellenistic"],
+"Erasistratus": ["person","science","medicine","greece","hellenistic"],
+"Dissection": ["practice","science","medicine","biology"],
+"Antikythera_mechanism": ["object","technology","astronomy","science","greece"],
+"Ecumene": ["concept","geography","science"],
+"Pytheas": ["person","geography","exploration","greece"],
+"Stoicism": ["school of thought","concept","philosophy","greece"],
+"Zeno_of_Citium": ["person","philosophy","greece","hellenistic"],
+"Chrysippus": ["person","philosophy","logic","greece","hellenistic"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
