@@ -13207,8 +13207,22 @@
       ]
     },
     "hsk30l4/美好": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "fine, happy (of times, life and hopes; not of looks)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | BOTH of its first two lines were faulty. 美好的一切 is a noun phrase with no verb, glossed 'Everything is good' as though it were a sentence; and 天气是如此地美好 puts the adverbial 地 in front of a predicate adjective, where 如此 modifies it directly. Replaced with AUTHORED sentences, which the record says so are.",
+      "gloss": "fine, happy (of times, life and hopes; not of looks)",
+      "dropEx": [
+        "美好的一切。",
+        "天气是如此地美好。"
+      ],
+      "ex": [
+        [
+          "我们度过了一段美好的时光。",
+          "We had a wonderful time."
+        ],
+        [
+          "祝你有个美好的周末。",
+          "Have a lovely weekend."
+        ]
+      ]
     },
     "hsk30l4/老是": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
@@ -76039,7 +76053,7 @@
       ]
     },
     "hsk30l4/旅客": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '最近几年到新加坡的旅客人数不断增长。' read 'the number of VISITORS … has increased YEAR BY YEAR' — 最近几年 is in recent years, which is a period rather than a rate, and 旅客 is a traveller.",
       "ex": [
         [
           "旅客请到二号门登机。",
@@ -76048,6 +76062,12 @@
         [
           "这家旅馆的旅客很多。",
           "This hotel has many guests."
+        ]
+      ],
+      "exEn": [
+        [
+          "最近几年到新加坡的旅客人数不断增长",
+          "The number of travellers to Singapore has risen steadily in recent years."
         ]
       ]
     },
@@ -110346,11 +110366,43 @@
       ]
     },
     "hsk30l4/落": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Fall” for the season is American — but 71 of its 74 occurrences in these decks are the ordinary verb, so a table row would have made “Pride goes before an autumn”. These three are the season and are repaired by hand. This one had it both ways in one sentence — “The leaves fall off the trees in the fall”.",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Fall” for the season is American — but 71 of its 74 occurrences in these decks are the ordinary verb, so a table row would have made “Pride goes before an autumn”. These three are the season and are repaired by hand. This one had it both ways in one sentence — “The leaves fall off the trees in the fall”. | Glossed 'to fall, to drop; to decline; settlement, village' under a verb label, where the last two are a NOUN. Split, and tagged: all three of the card's lines are the verb. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 降落, against twenty-six in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "exEn": [
         [
           "秋天树叶会掉落",
           "The leaves fall off the trees in autumn."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to fall; to drop; to set (of the sun)"
+        ],
+        [
+          "noun",
+          "a settlement; whereabouts"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "落后",
+          "luò hòu",
+          "to fall behind; backward"
+        ],
+        [
+          "角落",
+          "jiǎo luò",
+          "a corner; a nook"
+        ],
+        [
+          "村落",
+          "cūn luò",
+          "a village"
         ]
       ]
     },
@@ -117611,6 +117663,231 @@
           "the moon"
         ]
       ]
+    },
+    "hsk30l4/流行": {
+      "why": "Labelled a VERB and glossed 'popular', which is an adjective — and all three of the card's own lines are the adjective, 流行音乐 attributively.",
+      "senses": [
+        [
+          "adjective",
+          "popular; fashionable"
+        ],
+        [
+          "verb",
+          "to be in fashion; to spread"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/馒头": {
+      "why": "The whole gloss stood inside square brackets — '[steamed bread]' — which is the house form for a measure word's scope note and not for a noun's definition; and a 馒头 is a bun rather than a loaf, which the card's own first and third lines already say. | '我给你吃个馒头。' read 'I'll give you a MANTOU to eat', which is the romanisation standing in for the translation — a reader who did not know the word still does not.",
+      "gloss": "a steamed bun",
+      "exEn": [
+        [
+          "我给你吃个馒头",
+          "I'll give you a steamed bun."
+        ]
+      ]
+    },
+    "hsk30l4/麻烦": {
+      "why": "'麻烦再一瓶葡萄酒。' has no verb: 麻烦 opens a request and 再 needs something to modify, so the sentence runs from the polite formula straight into a noun phrase. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "麻烦再一瓶葡萄酒。"
+      ],
+      "ex": [
+        [
+          "麻烦您帮我看一下行李。",
+          "Could I trouble you to keep an eye on my luggage?"
+        ]
+      ]
+    },
+    "hsk30l4/毛衣": {
+      "why": "'冬天穿羊毛衣。' rests on 羊毛衣, which is not a word — the garment is 毛衣 and the material 羊毛, and the two do not compound that way — and its English, 'We wear wool in winter', does not mention the garment at all. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "冬天穿羊毛衣。"
+      ],
+      "ex": [
+        [
+          "这件毛衣是妈妈织的。",
+          "My mother knitted this jumper."
+        ]
+      ]
+    },
+    "hsk30l4/旅行": {
+      "why": "'我喜欢旅行。' read 'I love TRIPS', which is the noun 旅行 as a countable thing — the card's own gloss is the verb.",
+      "exEn": [
+        [
+          "我喜欢旅行",
+          "I love travelling."
+        ]
+      ]
+    },
+    "hsk30l4/律师": {
+      "why": "'她从事律师职业多年。' read 'She practised as a BARRISTER', which names one half of a profession England divides and China does not — 律师 is simply a lawyer, as the card's other two lines say.",
+      "exEn": [
+        [
+          "她从事律师职业多年",
+          "She worked as a lawyer for many years."
+        ]
+      ]
+    },
+    "hsk30l4/美": {
+      "why": "'说她美不如说她可爱。' read 'She is more PRETTY than beautiful', which compares two English words where the Chinese compares 美 with 可爱, lovely.",
+      "exEn": [
+        [
+          "说她美不如说她可爱",
+          "It would be truer to call her lovely than beautiful."
+        ]
+      ]
+    },
+    "hsk30l4/乱": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against eleven words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "混乱",
+          "hùn luàn",
+          "chaos; disorder"
+        ],
+        [
+          "捣乱",
+          "dǎo luàn",
+          "to make trouble"
+        ],
+        [
+          "胡乱",
+          "hú luàn",
+          "carelessly; at random"
+        ]
+      ]
+    },
+    "hsk30l4/满": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 不满, against eleven in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "满意",
+          "mǎn yì",
+          "satisfied; pleased"
+        ],
+        [
+          "充满",
+          "chōng mǎn",
+          "to be full of"
+        ],
+        [
+          "满足",
+          "mǎn zú",
+          "to satisfy; content"
+        ]
+      ]
+    },
+    "hsk30l4/民族": {
+      "why": "GLOSSED 'nationality', WHICH IS 国籍 — the card two hundred slots back — and the two were kept apart only by each other's `not X` block, the 基础/基地 pair of batch 51 again. 民族 is an ethnic group or a people, which is what all three of its own translations say: peoples, a whole nation, an industrious people. Giving it its real gloss dissolves the collision and retires the pair.",
+      "gloss": "an ethnic group; a people"
+    },
+    "hsk30l4/国籍": {
+      "why": "The other half of the 民族 pair. Its own gloss was right, so the block has to be removed by rebuilding the gloss — the applier REPLACES a hint it still holds and does not strip one the record has dropped, which is batch 51's finding on 基地.",
+      "gloss": "nationality; citizenship"
+    },
+    "hsk30l4/梦想": {
+      "why": "GLOSSED 'hope vainly; pipe dream', which is a dismissal — and every one of the card's own three lines is the ordinary modern sense, an aspiration: 别放弃梦想, 你的梦想实现了吗, 没有梦想，人不能生存. The card contradicted itself in English three times over.",
+      "senses": [
+        [
+          "noun",
+          "a dream; an aspiration"
+        ],
+        [
+          "verb",
+          "to dream of"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/美丽": {
+      "why": "Glossed 'pretty', which is 漂亮 — the card's own first and third translations both say BEAUTIFUL.",
+      "gloss": "beautiful"
+    },
+    "hsk30l4/密码": {
+      "why": "Glossed 'code', where all three of the card's own translations say PASSWORD; and its second line had no full stop at all, on the card and in the spoken field alike, with an English that read 'He DOESN'T remember' for 忘记了, which is done.",
+      "gloss": "a password; a code",
+      "exStop": [
+        [
+          "他忘记了密码"
+        ]
+      ],
+      "exEn": [
+        [
+          "他忘记了密码",
+          "He has forgotten the password."
+        ]
+      ]
+    },
+    "hsk30l4/免费": {
+      "why": "Labelled a VERB, which 免费 is not — it is what a thing is or how it is given, and all three of the card's own lines are that.",
+      "senses": [
+        [
+          "adjective / adverb",
+          "free of charge"
+        ]
+      ]
+    },
+    "hsk30l4/末": {
+      "why": "Two of its three lines swallowed the character into something else: 本末倒置 is a four-character idiom, and 芥末 is MUSTARD, which has nothing to do with an end or a tip. Only 末班车 used it. Replaced with AUTHORED sentences, which the record says so are. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 期末, against four in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "不要把本末倒置。",
+        "不要加太多芥末。"
+      ],
+      "ex": [
+        [
+          "月末我要出差。",
+          "I am away on business at the end of the month."
+        ],
+        [
+          "这个故事的结末很意外。",
+          "The end of this story is a surprise."
+        ]
+      ],
+      "compounds": [
+        [
+          "末尾",
+          "mò wěi",
+          "the end; the tip"
+        ],
+        [
+          "周末",
+          "zhōu mò",
+          "the weekend"
+        ],
+        [
+          "末期",
+          "mò qī",
+          "the final phase"
+        ]
+      ]
+    },
+    "hsk30l4/面对": {
+      "why": "'至少她能面对他们！' read 'She at least, she can face them!', which repeats its own subject and is not a sentence in English.",
+      "exEn": [
+        [
+          "至少她能面对他们",
+          "At least she can face them!"
+        ]
+      ]
+    },
+    "hsk30l4/面试": {
+      "why": "'我今天有个面试。' read 'I have an AUDITION today' — an audition is 试镜, and the card's own gloss and its other two lines say interview.",
+      "exEn": [
+        [
+          "我今天有个面试",
+          "I have an interview today."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -117753,7 +118030,6 @@
     "hsk30l4/各位": "大家",
     "hsk30l4/同样": "相同",
     "hsk30l4/听众": "观众",
-    "hsk30l4/国籍": "民族",
     "hsk30l4/地址": "住址",
     "hsk30l4/地球": "大地",
     "hsk30l4/增长": "生长",
@@ -117778,7 +118054,6 @@
     "hsk30l4/样子": "相貌",
     "hsk30l4/正确": "不错",
     "hsk30l4/母亲": "妈妈",
-    "hsk30l4/民族": "国籍",
     "hsk30l4/汗": "汗水",
     "hsk30l4/消息": "新闻",
     "hsk30l4/演出": "表演",

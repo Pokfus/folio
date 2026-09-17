@@ -592,6 +592,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 391–420 (禁止 → 考生), deck order | 15 | the `compounds` guard refused a block, and a FAIL turns out to REPORT after the write rather than refuse |
 | 2026-09-17 | `hsk30l4` notes 421–450 (棵 → 浪漫), deck order | 18 | a card ALL THREE of whose sentences used its character for its sound alone, and a sixth truncated gloss |
 | 2026-09-17 | `hsk30l4` notes 451–480 (老虎 → 留下), deck order | 18 | a card whose gloss named one sense while all three of its lines used another the gloss never gave |
+| 2026-09-17 | `hsk30l4` notes 481–510 (流行 → 母亲), deck order | 21 | a gloss that dismissed its own card three times over, and a second hint pair retired |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5708,4 +5709,52 @@ word. And 理解's and 另's each put a past tense on a sentence with no past ma
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; **shared-gloss groups 334 → 333**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 503 → 515;
+`build-lang-decks.js` re-run.
+
+## Batch 57 — hsk30l4 notes 481–510 (流行 → 母亲)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order. Twenty-one cards changed.
+
+**A GLOSS THAT DISMISSED ITS OWN CARD THREE TIMES OVER.** 梦想 was glossed *hope vainly; pipe dream* — and
+every one of its three lines is the ordinary modern sense, an aspiration: 别放弃梦想 (*don't give up on your
+dreams*), 你的梦想实现了吗, 没有梦想，人不能生存. **The card contradicted itself in English on all three
+lines**, which is the cheapest tell there is and the one this audit keeps finding glosses by.
+
+**A SECOND HINT PAIR RETIRED, AND FOR THE SAME REASON AS THE FIRST.** 民族 was glossed **nationality**,
+which is 国籍 — the card two hundred slots back — and the two were kept apart only by each other's `not X`
+block. 民族 is an ethnic group or a people, which is what all three of its own translations say. Giving it
+its real gloss dissolves the collision, and **国籍's block had to be removed by rebuilding its own gloss**,
+because the applier replaces a hint it still holds and does not strip one the record has dropped — batch
+51's finding on 基地, met again. Groups 333 → 332.
+
+**MORE GLOSSES THAT SAID THE WRONG WORD.** 美丽 read *pretty*, which is 漂亮, where its own translations say
+beautiful. 密码 read *code*, where all three say PASSWORD. 例子's *case* went in batch 56 and this is its
+sibling. 馒头's whole gloss stood inside square brackets — the house form for a measure word's scope note —
+and called a bun *steamed bread*. 免费 was labelled a VERB, which it is not. And 落 was glossed with a NOUN
+(*settlement, village*) under a verb label.
+
+**A WORD THAT IS NOT A WORD.** 毛衣's first line rested on 羊毛衣: the garment is 毛衣 and the material 羊毛,
+and the two do not compound that way. Its English, *We wear wool in winter*, did not mention the garment at
+all. **`sweater` was measured in the same pass and LEFT** — nine against two `jumper`s, and a sweater is
+ordinary British English, so the finding is the sweep's and not the deck's, as `mall` and `stove` were.
+
+**A ROMANISATION STANDING IN FOR A TRANSLATION.** 馒头's third line read *I'll give you a MANTOU to eat* — a
+reader who did not know the word still does not.
+
+**FIVE MORE SENTENCES WENT.** 麻烦's second has no verb at all, running from the polite formula straight into
+a noun phrase. 美好's first is a noun phrase glossed as though it were a sentence, and its second puts the
+adverbial 地 in front of a predicate adjective. And **末 lost two of three to swallows** — 本末倒置, a
+four-character idiom, and 芥末, which is MUSTARD and has nothing to do with an end or a tip.
+
+**FOUR SINGLE-CHARACTER CARDS GAINED `Compounds`** — 落, 乱, 满 and 末, 乱's panel being empty against eleven
+words in the collection.
+
+**EIGHT ENGLISH LINES.** 律师's second read *She practised as a BARRISTER*, naming one half of a profession
+England divides and China does not. 面试's second read *audition*, which is 试镜. 面对's third repeated its
+own subject. 美's third compared two English words where the Chinese compares 美 with 可爱. And 旅行's first
+read *I love TRIPS* for a card glossed as a verb.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 333 → 332**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 515 → 524;
 `build-lang-decks.js` re-run.
