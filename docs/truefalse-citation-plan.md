@@ -72,7 +72,7 @@ card-side research is then shared.
 | T4 | Modern history | part done; T4a took three of it |
 | T5 | Medieval & early modern | nothing in the corpus yet — research |
 | T6 | Science & invention | the hardest; see the three below |
-| T7 | Biology / Medicine | `bio-` and `ps-` cards carry some |
+| T7 | Biology / Medicine | part done; T7a took six, all researched |
 | T8 | Physics / Chemistry / Mathematics | little in the corpus; research |
 | T9 | Astronomy / Earth science | little in the corpus; research |
 | T10 | Psychology | `ps-` cards carry some |
@@ -265,6 +265,37 @@ statement waits. George Washington's blood loss has no open work behind it that 
 three papers on his death are all closed — and its "3.5 to 5 pints" is one of the two imperial-only
 figures the new rule reports. Napoleon's height is the other; `napoleon.org` answers but renders its
 search in JavaScript and the obvious BMJ note is 403.
+
+### T7a — six biology and medicine statements, all researched, and one review that carried three (2026-09-17)
+
+The corpus has nothing on any of these, so all six were researched: the ten-per-cent-of-the-brain myth,
+the bacterial cell count, hair and nails after death, antibiotics against viruses, the etymology of
+*vaccine*, and shaving.
+
+**ONE OPEN REVIEW CARRIED THREE OF THEM.** Vreeman and Carroll's *Medical myths* (BMJ 2007) takes seven
+popular beliefs and works through the evidence for each, and three of this pool's statements are on its
+list. **That is the shape to look for in this half of the pool**: a myth-busting review in a medical
+journal is cheaper than three separate searches and is one work a reader can check for three answers.
+Europe PMC marks it `isOpenAccess: N` and it nevertheless **serves in full from PubMed Central**, which
+is the reminder that the bar here is *openable*, measured, rather than a licence field.
+
+**TWO EXPLANATIONS LOST A SENTENCE EACH TO THE RULE THAT A SOURCE MUST CARRY THE CLAIM.** The brain one
+said the organ uses about a fifth of the body's energy at rest, "which would be an extraordinary waste if
+nine-tenths of it did nothing" — a good argument that the BMJ review does not make and that nothing else
+openable was found for; it is replaced by what the review does give, which is where the myth came from
+(1907, self-improvement writing, and an attribution to Einstein with no recorded source). The *vaccine*
+one credited Pasteur with extending the word in Jenner's honour, which neither source carries.
+
+**AN ETYMOLOGY IS TWO SOURCES, NOT ONE, AND BOTH ARE PRIMARY.** Jenner's own 1798 *Inquiry* supplies
+*variolae vaccinae* in its title (archive.org, and its OCR passes the grep-for-a-word-the-book-must-contain
+test), and Lewis and Short's *A Latin Dictionary* at Perseus supplies *vaccinus*, "of or from cows", from
+*vacca*. **Perseus answers at `/hopper/text` and not at every entry**: the `vacca` entry returned 503 on
+the same run that served `vaccinus` 200, which is the split CLAUDE.md records of that host.
+
+**AND THE NEW UNITS RULE CAUGHT THIS BATCH'S OWN PROSE ON THE FIRST RUN.** The bacteria explanation quoted
+the paper's "70 kg reference man" with no bracket, so a reader who asks for pounds would have been shown
+kilograms; rewritten to "70-kilogram (150-pound)", and "0.2 kilograms (7 ounces)" with it. **A rule
+written in the morning finding a fault made in the afternoon is the argument for writing it.**
 
 ### T3a — three Chinese-history statements, and two more the corpus would not bear out (2026-09-17)
 
