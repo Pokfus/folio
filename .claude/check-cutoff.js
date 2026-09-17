@@ -19,17 +19,49 @@
    full stop, one six words, and Supplement q.95 the rest of its last article's answer and all nine
    paragraphs after it. Repaired in E43 from Gutenberg and CCEL.
 
-   THE OTHER SEVENTEEN ARE NOT TRUNCATIONS, AND THAT IS WORTH KNOWING BEFORE READING THIS REPORT
-   AGAIN. Eleven are VERSE — nine hymns of the Rigveda and two cantos of the Ramayana — where
-   Griffith's last line often carries no stop; three are the Satyricon, whose sections fall where
-   they fall (chapter 16's next chapter opens LOWERCASE and continues the sentence, so nothing is
-   missing at all); and Aesop's moral, Machiavelli's chapter 25 and a Canterbury colophon each want a
-   page-image read to settle a single mark. **Ask what the NEXT chapter opens with**: a lowercase
-   word means the division simply falls mid-sentence and nothing is lost.
+   THREE OF THE OTHER SEVENTEEN WERE TRUNCATIONS AFTER ALL, AND THE EXPLANATION THAT COVERED THEM IS
+   THE THING TO READ HERE (Sep 2026, batch E57). This header used to say the eleven VERSE findings
+   were Griffith's own practice — "his last line often carries no stop" — which is a reasonable
+   reading of a translator and was covering a dropped character: the 1896 printing of the Rigveda
+   sets a full stop after hymn 8.84's last line. **A MISSING CHARACTER HAS NO FIRST WITNESS**, since
+   the source is the thing under suspicion, so nothing here can be settled from the text in hand; it
+   takes a SECOND transcription of the same translation, and for three of the seventeen one was free
+   at Project Gutenberg or on archive.org. Repaired in E57: Aesop's moral, Machiavelli's chapter 25
+   and Rigveda 8.84.
+
+   THE ELEVEN THAT WERE LEFT ARE NOW SETTLED, AND WHAT SETTLED THEM IS TWO HABITS (Sep 2026, batch
+   E58). **LOOK FOR THE WITNESS THE BOOK ALREADY CITES.** E57 left eight Rigveda hymns standing
+   because the scan it used holds one part of the translation — true, and the answer was one block up
+   in the same entry of `fetch-book.js`, whose `fixes` table names the Internet Archive's scan of the
+   very second edition this text is of, in two volumes that between them hold the whole of it. Seven
+   were a lost terminal stop, FIVE OF THEM ENDING ON A COMMA where the printing sets a full stop; one
+   was not a lost character at all but a lost LINE, 6.75.19 being a two-line stanza carrying only its
+   first; and a ninth finding in that book was a section HEADING, the word VALAKHILYA, that the
+   transcription had appended to the hymn before the appendix it introduces.
+   **AND WHERE THERE IS NO SECOND TRANSCRIPTION, READ THE PAGE.** E44's rule, and it costs two
+   requests: fetch any leaf of the scan, read the printed number off its running head to get the
+   offset, then fetch the leaf you want, at
+   `archive.org/download/<id>/page/n<leaf>_w1600.jpg`. **The offset is not constant** — a plate
+   between two leaves moves it, and the Chaucer's was 43 at page 187 and 47 at page 214. It answered
+   all three remaining: the two Ramayana cantos set a full stop inside their closing quotation where
+   two OCRs had read a comma, and page 218 of the Chaucer sets the Clerk's colophon in italic with a
+   stop — **and answered a second fault three lines above it**, `waiL` for `wail.`, which is the
+   argument for looking at the page rather than at one line of it.
+   **A SCAN'S PUNCTUATION IS THE LEAST RELIABLE THING ON IT.** Three of these five were read as a
+   comma by an OCR and set as a full stop by the printing, so a comma in a scan is not evidence of a
+   comma in the book.
+
+   WHAT IS LEFT IS THREE, all of them the Satyricon and all three correct: chapter 16's next chapter
+   opens LOWERCASE and continues the sentence, and 68 and 69 end on a comma before direct speech that
+   the next section opens with, which is a capital and so invisible to the lowercase test.
+
+   **Ask what the NEXT chapter opens with**: a lowercase word means the division simply falls
+   mid-sentence and nothing is lost. **A COMMA IS NOT AN ANSWER EITHER WAY** — two of the Satyricon's
+   sections end on one and are right, and Machiavelli's chapter 25 ended on one and was wrong.
 
    IT EXITS 0 WHATEVER IT FINDS, like `check-twins.js` and `card-focus.js`. Its standing residue is
-   the seventeen above, read and recorded; a gate that goes red on a finding somebody has already
-   read is a gate everybody learns to ignore. */
+   the three above, read and recorded; a gate that goes red on a finding somebody has already read is
+   a gate everybody learns to ignore. */
 const fs = require("fs"), path = require("path");
 const VERBOSE = process.argv.includes("--verbose");
 const B = path.join(__dirname, "..", "books");

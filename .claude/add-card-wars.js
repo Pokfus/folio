@@ -89,6 +89,28 @@ if (args.includes("--check")) {
     console.log("      defeated " + side(c.war.losers));
     console.log("      years    " + (y ? y.y0 + " .. " + y.y1 + "  (" + y.from + ")" : "NONE — it will not draw on the personal atlas"));
   });
+  /* A KEY THAT NO PRESENT-DAY SHAPE CARRIES IS INVISIBLE ON THE CARD'S OWN WINDOW, and `checkWar`
+     cannot refuse one: `USSR`, `Empire of Japan` and `British Raj` are era-map names and are exactly
+     right. So it is REPORTED, per key, and read by eye — which is the one thing that would have caught
+     `ww2-001` naming the United States `United States`, the name the 1938 era map uses and `world.js`
+     does not, so the Second World War shaded every Allied power but the largest of them and the card
+     rendered perfectly while doing it. The side as a whole resolved, so nothing complained. */
+  const NM = mapNames();
+  const eraOnly = [];
+  have.forEach((c) => {
+    ["victors", "losers"].forEach((k) => {
+      (c.war[k].keys || []).forEach((n) => {
+        if (!NM.world.has(String(n).toLowerCase())) eraOnly.push(c.id + "  " + k + "  " + n);
+      });
+    });
+  });
+  console.log("");
+  if (!eraOnly.length) console.log("every key names a shape world.js has");
+  else {
+    console.log(eraOnly.length + " key" + (eraOnly.length === 1 ? " names" : "s name") + " no shape in world.js — right for an era-map name, a typo otherwise:");
+    eraOnly.forEach((l) => console.log("  " + l));
+  }
+
   /* …and what no per-card check can see: two blocks that put one piece of ground in two colours in the
      same year on the personal atlas. Reported rather than refused — see `checkClashes`. */
   const clash = checkClashes(cards, cardYears);

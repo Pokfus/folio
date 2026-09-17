@@ -783,12 +783,23 @@ years.** MEASURED: unclamped it DELAYS 264 countries and takes FRANCE off the 15
 — `gw-`'s date line for France records the United States' recognition in 1778 — and Japan off the same
 three on Perry's 1853. Clamped, 163 move earlier and none later. A state founded before the first map
 that shows it is drawn in THAT map's shape, which is the only shape Folio has for it.
-**THE MARKS AND THEIR NAMES ARE GATED BY ZOOM** (`MINE_SEP`, `MINE_LBL_Z`, `mineDotsShown`): a
-separation in screen pixels thins the marks and the NAMES wait for zoom 2.6 altogether. Which mark
-survives is RANKED — a capital first, then the title — so the set is stable between frames and zooming
-in only ever adds; first-come over `Object.keys(S.cards)` would reshuffle the map on every grade. **And
-`mineAt` reads the same thinned list**, or a click on empty ground opens a popup about a place that is
-not drawn.
+**A MARK IS NEVER DRAWN WITHOUT ITS NAME** (`MINE_SEP`, `dotHalf`, `mineDotsShown`, `mineDotRects`;
+Sep 2026, on request: the dots and squares "should never appear without labels", should "appear
+progressively as you zoom in", and a label should never be "hidden behind other dots"). It used to be
+two gates rather than one: a separation in screen pixels thinned the MARKS, and a second threshold —
+`MINE_LBL_Z`, zoom 2.6 — held every NAME back below it, so a world view was a scatter of dots naming
+nothing. **That threshold is DELETED.** The label is now placed first and the mark drawn only if the
+label was placed (`if (!box) continue;` stands in front of the dot's own path), so the two cannot come
+apart at any zoom, and `MINE_SEP` alone decides how many survive — which makes the appearance
+progressive by construction, zooming in only ever adding. **A name avoids other places' DOTS as well as
+other names**: `dotBoxes` is precomputed from each mark's own `dotHalf` radius (6.2 for a capital, 5.2
+for a dot, 4.1 for a thinned one) and the placement `clear()` tests every box but the mark's own, where
+before a label could be written straight across a neighbouring dot. Which mark survives is still RANKED
+— a capital first, then the title — so the set is stable between frames; first-come over
+`Object.keys(S.cards)` would reshuffle the map on every grade. **And `mineAt` reads `mineDotRects` —
+what was actually DRAWN, name box and all** — rather than re-deriving the thinned list, or a click on
+empty ground opens a popup about a place that is not there. **`mineWaterShown` lost the same gate**,
+having refused to place a sea's name below it.
 **A CAPITAL IS A SQUARE** and everything else a dot, which is the card maps' own convention one tab
 over; **a CIVILISATION'S wash is GREEN** (`mineAreaFill` / `mineAreaLine`), red having made it read as
 one of the reader's places writ large; and **`landDim` went from 0.87 to 0.78**, a step a reader can
