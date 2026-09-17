@@ -2653,6 +2653,40 @@ Europe PMC is the index for medicine, arXiv is the index for physics, and this p
 for both. **Use `https`; the `http` endpoint answers 301 with an empty body.** Worth trying for #80 and
 for any physics or astronomy statement a later batch adds.
 
+### #1 is HALF sourceable, and `nature.com` serves a whole open-access family (2026-09-17)
+
+No citation shipped from this probe; two things came out of it that change what the next attempt should
+do.
+
+**THE TERRACOTTA STATEMENT IS TWO CLAIMS AND ONLY ONE OF THEM IS MISSING.** The closing note says #1
+"survived every route", which is true and too coarse. **The date and the order ARE in the open
+literature**: the Frontiers microbiology paper on Pit No. 1 (`PMC11449754`) opens "The Terra Cotta
+Warriors were discovered in March 1974, and excavations began in July" — which is the *not by
+archaeologists* half of the statement, a four-month gap between the find and the dig, stated by a
+peer-reviewed source. **What no reachable source carries is the well.** Europe PMC's full-text search
+returns **zero** for `"digging a well" AND terracotta` and zero for `"well-digging" AND terracotta`, and
+four Heritage Science papers on the Army — fetched whole and grepped for *farmer*, *peasant*,
+*accidentally* and *discovered in 1974* — carry none of them. **So the next attempt needs one clause,
+not a statement**, and the honest options are a source for the well-diggers or a rewrite of the question
+around the four months.
+
+**AND THE ROUTE THAT FETCHED THOSE FOUR IS WORTH MORE THAN THE RESULT: `nature.com` SERVES BMC AND
+SPRINGERNATURE OPEN-ACCESS FULL TEXT THROUGH A DOI REDIRECT.** `https://doi.org/10.1186/s40494-…`
+lands on `nature.com/articles/s40494-…` and returns 350–450 KB of real article, greppable, every time —
+four for four. CLAUDE.md records nature.com as serving its *abstracts* above the paywall gate, which is
+what T60 used; this is the stronger fact, and it opens **Heritage Science, Scientific Reports and the
+rest of the BMC open family** to the same treatment. **Reach for a `10.1186/` or `10.1038/` DOI before
+deciding a paper is walled.**
+
+**VERIFIED ACROSS THREE FAMILIES RATHER THAN ASSUMED FROM ONE, WHICH IS WHAT TURNED IT FROM A ROUTE
+INTO A LEAD.** Seven DOIs, seven full articles with their reference lists: `10.1186/s40494`
+(Heritage Science, four), `10.1038/s41598` (Scientific Reports) and — the one that matters here —
+**`10.1057/s41599`, *Humanities and Social Sciences Communications***, which returned 88,860
+characters. **That is a HUMANITIES venue on a reachable host**, and the gap it fills is the one this
+note keeps running into: DOAJ is mostly STEM, Europe PMC is biomedicine, arXiv is physics, and
+pre-modern history had no open index open from here. **Try `10.1057/s41599` for #20 and #47 before
+either is written off again.**
+
 ### Where the last four stand (2026-09-17)
 
 The pass closed this session at **216 of 220 (93→98%)**. Every remaining statement has been probed
