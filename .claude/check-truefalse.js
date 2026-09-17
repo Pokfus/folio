@@ -128,7 +128,7 @@ POOL.forEach((it, i) => {
   const marks = [...String(it.why || "").matchAll(/<sup[^>]*data-fn="(\d+)"/g)].map((m) => +m[1]);
   marks.forEach((n) => { if (!(n >= 1 && n <= src.length)) say(id, "a marker points at source " + n + " and there " + (src.length ? "are only " + src.length : "are none") + " — wireFootnotes deletes it"); });
   src.forEach((s, k) => {
-    if (typeof s !== "string" || !/https?:\/\/\S+$/.test(s.trim())) say(id, "source " + (k + 1) + " does not end in a URL a reader can open");
+    if (typeof s !== "string" || !/https?:\/\/[^\s<>"']+/.test(s)) say(id, "source " + (k + 1) + " carries no URL a reader can open");
     if (marks.indexOf(k + 1) < 0) say(id, "source " + (k + 1) + " is cited by no marker — a reading list, not a footnote");
   });
   const tags = [...String(it.why || "").matchAll(/<\/?([a-z][a-z0-9]*)/gi)].map((m) => m[1].toLowerCase());
