@@ -198,6 +198,11 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // The NArFU Vestnik deposit reverses the name fields — Crossref carries given "Ushakov",
+  // family "M.V." — and files the institute as a first author beside it. The article's own
+  // landing page for the DOI prints the byline "Ушаков, М.В." (Ushakov Mikhail Vilorevich),
+  // so the Chicago form "M. V. Ushakov" is right and the record is the thing that is wrong.
+  ["10.17238/issn2227-6572.2016.2.24", "M. V. Ushakov", "Ushakov M.V."],
   // Kavkazologiya deposits its bylines surname-first with no family/given split, so
   // Crossref carries "Yakhutl Yuri A." The journal's own English article page
   // (caucasology.ru/jour/article/view/588?locale=en_US) prints "Yuri A. Yakhutl".

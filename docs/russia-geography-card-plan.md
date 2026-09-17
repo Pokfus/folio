@@ -1474,6 +1474,66 @@ this batch is about the SOURCE TABLE rather than about any card, and it is the o
   while every other candidate in the same run fetched first time. **A per-file throttle is not a reason
   to install a picture unseen**; the Adygea term took the Belaya at Rufabgo, which fetched at once.
 
+### Batch 17 — `gru-078` to `gru-082` (Kalmykia, Altai Republic, Jewish Autonomous Oblast, Magadan Oblast, Chukotka Autonomous Okrug)
+
+Five of the emptiest subjects in the federation, and the batch where the grid's question marks earn
+their keep: three of the five capitals are too small for the UN's 100,000-inhabitant table and nothing
+openable from here gives a figure for any of them.
+
+- **THREE LARGEST-CITY CELLS ARE `"?"` AND THAT IS THE HONEST STATE.** Gorno-Altaysk, Birobidzhan and
+  Anadyr all fall below the UN Demographic Yearbook's threshold, and Rosstat's bilingual territory table
+  gives the subject's population without breaking it down by settlement — so the cell says the figure was
+  looked for and not found, exactly as `gru-002` and `gru-024` already do. **The two cards that DO have
+  the figure spend it**: Elista and Magadan are both in the UN table, and both are their subject's only
+  town of any size, so each card's background could say what share of the subject lives there.
+- **DENISOVA CAVE IS IN ALTAI *KRAI*, NOT THE ALTAI REPUBLIC, AND SO IS CHINETA II.** The obvious
+  archaeology for `gru-079` is the wrong federal subject — the two are different entities with almost the
+  same name, and nothing about a paper on "the Altai" says which. The card rests on Molodin's Ukok
+  Plateau review instead, which states in its own words that the plateau is in the "southwestern part of
+  the Altai Republic". **Check which Altai a site is in before citing it**; the deck has both.
+- **A FIRST DRAFT CAME IN AT 222 WORDS BECAUSE THE SUBJECT IS EMPTY.** There is very little published in
+  English about the Altai Republic that is not about Denisova, so the first `gru-079` ran short of the
+  270-word floor and had to be rewritten longer off the Ukok material. The draft also carried an
+  unsupported "almost a third live in the capital" — which is the one figure the card cannot have, since
+  Gorno-Altaysk's population is exactly the cell that is `"?"`. **An empty subject pulls a background
+  towards the figures it has not got.**
+- **A CITATION CAN NAME A CLAIM ITS AUTHOR DOES NOT MAKE.** The `gru-080` draft hung an Amur-floodplain
+  sentence on Lonkina, whose paper is about the standing stock and age structure of the Bastak reserve's
+  woods and says nothing about the floodplain. Caught before writing; replaced with a Vitale-supported
+  sentence about the Chinese border. **Re-read the source for the sentence, not for the subject.**
+- **THE USHAKOV RECORD REVERSES THE NAME FIELDS, AND THE DOI IS NOT OPEN.** Crossref carries given
+  "Ushakov", family "M.V." with the institute filed as a first author beside it, so `check-citations`
+  reported the correct Chicago form as a mismatch; the row is declared in `CROSSREF_WRONG` with the
+  landing page's own byline (Ушаков, М.В.) as the ground. **And the DOI resolves to Rucont, which sells
+  the article for 90 roubles** — the abstract is free and carries every claim the card makes, but the
+  citation is `[Paywalled]`, not `[Open access]`. The journal's own host, `vestnik.narfu.ru`, answers
+  502. **An open-access label is a claim about the URL, and it has to be re-tested when the DOI is the
+  only route.**
+- **A PICTURE OF A NATURE RESERVE IS OFTEN A PICTURE OF AN ANIMAL.** Both Bastak and Chyornye Zemli lead
+  with wildlife — a tiger and a saiga — because that is what a reserve photographs. The saiga picture is
+  kept for the Kalmykia term: the herd is small in a wide frame and the picture is really of the flat dry
+  steppe the term describes. The tiger is not, so `gru-080` went looking elsewhere.
+- **AND `Bastak Nature.jpg` IS IN IRAN.** Pinned by hand off a Commons search for "Бастак", it shows arid
+  mountains, a minaret and a mosque — Bastak in Hormozgan, not the reserve in the Jewish Autonomous
+  Oblast. **A file name in the right script is not a file in the right country**, and only looking at it
+  said so. The card took the Bira embankment at Birobidzhan instead, which shows the river and the
+  oblast's wooded hills; the term took the Bira itself.
+- **HOSTS MEASURED SHUT THIS BATCH**, none of them worth retrying without a reason: `kigiran.elpub.ru`
+  (Oriental Studies) 503 on every path; the `10.31250/*` prefix fails TLS certificate verification;
+  `whc.unesco.org` 403; `www.mdpi.com` 403; IOP 403 behind a Radware captcha; SCIRP 403; the `10.37102/*`
+  and `10.22250/*` prefixes resolve to elibrary.ru login walls; and `10.17223/19988591/42/4` answers 200
+  with a 38-byte empty body. **A 200 is not a document.**
+- **A PARENTHESISED DOI IS PERCENT-ENCODED, NOT AVOIDED.** Grebenyuk's Ural Historical Journal article is
+  issue `2 (63)` and its DOI carries the brackets, which `SRC_URL_RX` stops at; written `2%2863%29` it
+  resolves and matches the pattern whole.
+- **THE COMMONS API RATE-LIMITS A SEARCH SWEEP HARD.** Three or four searches in a minute come back with
+  a plain-text "You are making too many requests" in place of JSON — which parses as a crash rather than
+  as a refusal. `fetch-geo-images.js` paces itself and did not trip it once; hand-rolled `curl` loops did,
+  repeatedly. **Go through the helper.**
+- **`gru-081` IS THE ALLOWED NAME ECHO.** `facts-echo --names` reports Magadan twice on that card, as
+  Capital and as Largest city, and neither can be written out: the oblast is named after the city and the
+  background's bolded answer term is "Magadan Oblast". Figure echoes are 0 across the batch.
+
 ## The background against the grid — the facts-echo pass (Sep 2026)
 
 On request: *the background sections should never mention data that is already in the answer box data
