@@ -1754,3 +1754,34 @@ A STORY ABOUT IT.** The obvious sources were all shut — the Smithsonian's reco
 403, `history.navy.mil` fails TLS verification through this proxy, and the Edison Papers' digital
 edition is a bot wall — and none of them would have been better than this, because each proves the
 moth rather than the word. **Ask what the statement actually turns on before choosing a host.**
+
+### T45 — two statements answered by an open paper's own opening sentence (2026-09-17)
+
+Two cited: #119 (the Dead Sea), #152 (glass recycling). 187 → **189 of 220**. Neither needed a
+specialist search, and that is the finding worth keeping: **both claims are the kind a paper states
+flatly in its INTRODUCTION as background, so the search term is the CLAIM rather than the subject.**
+A microbiology paper on Dead Sea halophiles opens "The Dead Sea, located 430 meters below sea level,
+is the lowest point on Earth", and a materials review on waste glass says glass "can be recycled
+infinitely without degradation of its molecular structure (typically observed with thermoplastic
+polymers, which undergo chain cracking upon remelting)". This is the T36 rule — a field states what
+everybody in it takes for granted where it sets up its own problem — used deliberately rather than
+met by accident.
+
+**The glass paper also supplies the statement's own contrast**, naming the material where the belief
+IS true, which is worth more on a True-or-False card than a bare refutation: the reader is left with
+why they thought it, not just that they were wrong.
+
+**FULL GIVEN NAMES COME FROM CROSSREF, NEVER FROM EUROPE PMC.** Europe PMC's `authorString` is
+initials and its full text often carries no `<given-names>` at all — the Dead Sea paper's XML yielded
+an empty author list — and `docs/citation-plan.md` records what happens when an initial is expanded by
+hand. One `api.crossref.org/works/<doi>` call gives the given names, the volume, the issue and the
+article number together.
+
+**AND TWO NEAR MISSES ARE WORTH RECORDING.** `bmj.com` is 403 here and so is `doi.org` for a BMJ DOI,
+but the Wayback Machine serves the 2008 *Festive medical myths* capture — which carries the whole
+"sugar causes hyperactivity" section (twelve double-blind trials, no behavioural difference, the
+parents' own perception reversed) and then stops at "View Full Text", so the head-heat section is
+behind the paywall. **#155 is NOT cited from it all the same**: a 2026 review in *Nutrients* argues
+the other way, so the statement now needs the acute-behaviour literature stated as such rather than a
+flat refutation, and that is a rewrite rather than a citation. **Note also that web.archive.org
+answered 503 and then served on a retry** — a 5xx here is the BUSY state, not a wall.
