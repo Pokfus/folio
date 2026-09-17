@@ -327,6 +327,82 @@ glossary entries were written to match — `Cimmerians`, `Scythians`, `Sarmatian
 `Animal_style`, `Eurasian_Steppe`, `Pontic-Caspian_steppe`, `Pastoral_nomadism` and
 `Bosporan_Kingdom` are all new; `Olbia` already existed, cited, from the glossary pass.
 
+**2026-09-17, `ru-011`–`ru-020` written** — the Goths, the Huns, the Avars, the Bulgars, Volga
+Bulgaria, the Khazars, the Khazar Correspondence, Itil, the Magyars and the Pechenegs, which finishes
+the steppe-neighbours half of `ru-before`. **One line was renamed and one answer term is not the
+line's own words.**
+
+**`ru-017` "The Khazar conversion to Judaism" is now "The Khazar Correspondence."** A card blanks one
+word, and the conversion is not a word a reader can be asked for; what the conversion is *known from*
+is, and it is the term a reader meets again. The card is therefore about the evidence — the letters
+Hasdai ibn Shaprut and King Joseph exchanged, recovered in the 16th century, and the different
+account in the Cairo Genizah fragment — with al-Mas'udi's third dating and the *Kuzari*'s fourth
+beside them. This is the shape `ww2-140` takes with the Hossbach Memorandum: **a line naming a
+PROCESS usually wants the document the process is known through.**
+
+**`ru-018`'s answer is `Itil` and its glossary key is `Atil`.** The house rule keys a term on the
+Wikipedia article slug, and the article is *Atil*; the translation the card rests on writes Itil, and
+so does most of the literature, so the term carries `Itil` as its first alias and the card blanks
+that form. A reader clicking "Itil" meets a popup headed "Atil" whose first clause says both, which
+is the honest way round.
+
+### What carried the batch, and what to reuse
+
+**The spine is four open sources and it will carry the next twenty cards too.** Léger's 1884 French
+translation of the *Chronique dite de Nestor* is the Primary Chronicle in an edition whose copyright
+has expired, and it carries the Obri proverb, the Khazar sword tribute, the 915 and 968 Pecheneg
+entries, Sviatoslav's skull cup and the 985 Bulgar campaign. **Bury's *A History of the Eastern Roman
+Empire* (1912) is the structural narrative** for the Khazars' neighbours, the Magyars' two steppe
+homes and the Pechenegs' eight tribes, all of it drawn from *De administrando imperio*, which has no
+open English translation. **Sprenger's 1841 al-Mas'udi** is the Arabic geography of the lower Volga —
+Itil in three parts, the nine judges, the Khwarezmian guard, the Volga Bulgar conversion. And the
+**ancient-DNA literature is open and excellent**: Gnecchi-Ruscone 2022 on the Avar elite, the same
+author's 2025 PNAS paper on the Huns, and Maróti 2022 on all three of Huns, Avars and Magyars at
+once.
+
+**A Russian-language journal registers its metadata in Russian, so cite the work in Russian.**
+`check-citations.js` reported three mismatches against Crossref for *Археология Евразийских степей*,
+because the citations had been written from the journal's own English article pages. Crossref is not
+wrong there and the `CROSSREF_WRONG` table is the wrong instrument: the article's own title IS
+Russian, and CLAUDE.md's rule already says to cite a foreign-language work untranslated. Rewritten in
+Cyrillic, all three match. **Expect this on every Russian, Ukrainian and Tatar journal this collection
+reaches for.**
+
+**AND RULE 6 OF `check-cards.js` CANNOT SEE ANY OF THEM, WHICH IS A GAP THIS COLLECTION WILL WIDEN.**
+Its `LANGS` table keys on journal-name patterns per language and has no Cyrillic row at all, so two
+Russian sources on one card pass in silence. `ru-018` is such a card and the judgement is deliberate:
+Samosdelka is published by its own excavator in Russian and nowhere else, so both papers are his and
+both are in that language. **The fix is NOT a single "Cyrillic" row** — Cyrillic is Russian,
+Ukrainian, Bulgarian and Serbian at once, and `wh-448` already cites a Ukrainian journal, so the
+table would conflate four languages the way its own header warns against. It wants a row per language,
+which is a tool change with its own measuring to do; measured on 2026-09-17, exactly two cards in the
+corpus would be reported.
+
+**The locator span rule bites hardest here.** A `people` or `state` card with an authored `area` is
+drawn on the personal atlas only for the years its own date line names, and BOTH ends bind
+(`test-date-line.js` section 4) — so a date line written in centuries draws nothing a reader will
+ever see. Every one of these ten states two readable years, which meant declining to assert an end
+date that could not be sourced: the Pechenegs are drawn 830–972 rather than to their real end,
+because Bury gives the westward move "early in the ninth century" and the chronicle gives 972, and
+nothing openable gave the rest. **A narrow honest window beats a wide invented one.**
+
+**Curta's negative finding is the most useful thing in the batch** and is why `ru-013` is what it is:
+early Avar belt fittings are absent from the lands north, east and south of the Carpathians beyond a
+couple of pieces, so the Avar dominion over eastern Europe that the Primary Chronicle's proverb
+implies is a historians' inference the archaeology does not support. The card carries the proverb AND
+the finding, which is this file's rule about a state's account of itself applied to a chronicle's.
+
+**One alias is a known future collision.** `Pannonian_Avars` claims the surfaces "Avars" and "Avar",
+which are also the names of a people of Dagestan — and `ru-peoples` will card the Caucasus. When that
+card is written, the Dagestani term needs a narrower head word and its own alias list, and this one's
+may need trimming; `check-gloss-links.js` is what will report it.
+
+The glossary entries were written to match: `Pannonian_Avars`, `Bulgars`, `Volga_Bulgaria`,
+`Khazar_Correspondence`, `Atil`, `Magyars` and `Pechenegs` are all new, cited at the bar and
+illustrated. **`Goths`, `Huns` and `Khazars` already existed**, cited, from earlier collections — so
+three of the ten cards satisfied the pairing rule without a new term, which is the head start this
+file predicted the collection would NOT have and does, wherever World History has been there first.
+
 ---
 
 # The list

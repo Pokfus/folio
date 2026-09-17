@@ -449,9 +449,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
   the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
-  under "Generating cards & glossary entries". **The first ten cards have shipped** (Sep 2026) — `ru-001`
-  to `ru-010`, the whole opening of `ru-before` — so the collection is live and its 28 empty decks are
-  coming-soon automatically, `isComingSoon` being true for a node holding no card. It is the first plan that has to
+  under "Generating cards & glossary entries". **`ru-001` to `ru-020` have shipped** (Sep 2026) — the
+  Scythian and Sarmatian steppe, then the Goths, Huns, Avars, Bulgars, Khazars, Magyars and Pechenegs, so
+  `ru-before` now holds two thirds of its 35 cards — and the collection is live with its 28 empty decks
+  coming-soon automatically, `isComingSoon` being true for a node holding no card. **One line was renamed
+  and one answer term is not the line's own words**: `ru-017` is answered by the **Khazar Correspondence**
+  rather than by "the Khazar conversion to Judaism", `ww2-140`'s shape — a line naming a PROCESS usually
+  wants the document the process is known through — and `ru-018`'s answer is `Itil` while its glossary key
+  is the Wikipedia slug `Atil`, which carries `Itil` as its first alias. **📖 `docs/russia-card-plan.md` — READ BEFORE WRITING A
+  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-020`: the four open sources
+  that will carry the next twenty cards too, the rule that a Russian-language journal is cited in Russian
+  because that is the title Crossref holds, the `check-cards.js` rule 6 gap that no single Cyrillic row
+  closes, and the future `Avars` alias collision with the Caucasus. It is the first plan that has to
   set **date, name and transliteration conventions** (the Julian/Gregorian gap, Kyiv against Kiev), and the
   first whose subject reaches the present day — read its "History, not archaeology" and "Sourcing" sections
   before writing anything after 1917. Not part of the site.
@@ -1278,7 +1287,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.35 MB and 48,940 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.35 MB and 48,958 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -5973,7 +5982,7 @@ lookup.
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
-| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 20 cards, contiguous — next is `ru-021` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
@@ -6001,7 +6010,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (280 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (295 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -6933,7 +6942,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 280 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 295 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

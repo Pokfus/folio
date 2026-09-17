@@ -3838,7 +3838,14 @@ window.GLOSSARY = {
 "Golden_Horde": "The <b>Golden Horde</b> was the westernmost of the states into which the Mongol Empire divided, ruling the steppe north of the Black and Caspian seas and holding the princes of Rus as tributaries for some two and a half centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Its wealth came from the trade linking the steppe, the northern forests and the Mediterranean, and Italian merchants held fortified posts on its southern coasts.<sup class=\"fn\" data-fn=\"2\"></sup> Its capital, Sarai, stood somewhere on the lower Volga, though the written sources use the name for more than one place and the excavated sites have not settled which was meant.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Pax_Mongolica": "<b>Pax Mongolica</b> is the term historians use for the period, roughly from the mid-13th century to the mid-14th, when Mongol authority across Eurasia allowed people and goods to travel unusually far and safely.<sup class=\"fn\" data-fn=\"1\"></sup> Its administrative core was a relay network of post stations along the main roads, described by travellers as holding hundreds of horses each and staffed by couriers who changed at fixed intervals.<sup class=\"fn\" data-fn=\"1\"></sup> Surviving documents record the animals and households each station was required to supply, and the period was neither continuous nor peaceful throughout, since the successor khanates fought one another.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Timur": "<b>Timur</b> was a Turco-Mongol conqueror who built an empire out of Central Asia in the second half of the 14th century, campaigning from northern India to Anatolia and making Samarkand his capital.<sup class=\"fn\" data-fn=\"1\"></sup> Not being descended from Genghis Khan, he could not take the title of khan and ruled instead as emir in the name of Chinggisid figureheads, an arrangement foreign envoys to his court noticed and recorded.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He presented his wars as fought in the cause of Islam, and Muslim writers of his own century assessed him in sharply opposed ways, some as its defender and others as the destroyer of its greatest cities.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Chinggisids": "The <b>Chinggisids</b> were the descendants of Genghis Khan, among whom the Mongol Empire was divided after 1260 and who supplied the ruling houses of much of Eurasia from the Black Sea to Manchuria into the 18th century.<sup class=\"fn\" data-fn=\"1\"></sup> Descent from him became the recognised qualification for the title of khan, so that rulers without it governed under lesser titles or in the name of a Chinggisid figurehead.<sup class=\"fn\" data-fn=\"1\"></sup> Which branch a dynasty descended from also carried weight, and houses tracing themselves to junior lines were long treated as peripheral by historians looking for a single centralising state.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Chinggisids": "The <b>Chinggisids</b> were the descendants of Genghis Khan, among whom the Mongol Empire was divided after 1260 and who supplied the ruling houses of much of Eurasia from the Black Sea to Manchuria into the 18th century.<sup class=\"fn\" data-fn=\"1\"></sup> Descent from him became the recognised qualification for the title of khan, so that rulers without it governed under lesser titles or in the name of a Chinggisid figurehead.<sup class=\"fn\" data-fn=\"1\"></sup> Which branch a dynasty descended from also carried weight, and houses tracing themselves to junior lines were long treated as peripheral by historians looking for a single centralising state.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pannonian_Avars": "The Pannonian Avars were a steppe people who settled the Carpathian Basin in 567 or 568 and held a khaganate there for better than two centuries.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Genome-wide data from the richest early Avar graves carry north-east Asian ancestry matching preceding Mongolian steppe populations, and Byzantine writers agree that the westward move followed the rise of the first Turkic khaganate in the 550s.<sup class=\"fn\" data-fn=\"1\"></sup> A Lombard historian records that his own people handed Pannonia over on leaving for Italy after Easter in 568, the Frankish annals have Pippin destroy the royal residence the Avars called the Ring in 796, and early Avar belt fittings are almost wholly absent beyond the Carpathians.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Bulgars": "The Bulgars were a Turkic-speaking people of the Pontic-Caspian steppe, counted from the 5th century among the Ogur groups of the western grasslands.<sup class=\"fn\" data-fn=\"3\"></sup> In the 7th century, a ruler whom the patriarch Nikephoros calls Kuvrat, nephew of Organa and chief of the Onogundurs, held a polity on the Azov steppe, and afterwards the people divided into a branch that founded a state on the lower Danube, a branch that went north to the middle Volga, and an easterly part reckoned to the Khazar empire.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Bulgar tribes occupied the coastlands from the Dniester almost to the Don, a continuity that was not cut in two until the 9th century.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Volga_Bulgaria": "Volga Bulgaria was a medieval state on the middle Volga and its tributary the Kama, in the country round what is now Kazan.<sup class=\"fn\" data-fn=\"1\"></sup> A 10th-century Arab geographer records that its king had become a Muslim after the year 310 of the Islamic era, in consequence of a vision, that his son had made the pilgrimage, and that caravans ran from the Bulgar country to Khwarezm and back.<sup class=\"fn\" data-fn=\"1\"></sup> Excavation of its town and village burial grounds puts the Muslimisation of the population from the 9th century, general well before the Mongol conquest, and a chronicle records that in 1236 the Tartars took the whole Bolgar land and its great city.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Khazar_Correspondence": "The Khazar Correspondence is an exchange of letters between Hasdai ibn Shaprut, a minister of the caliph of Cordova, and Joseph, king of the Khazars, and it is the chief evidence that the Khazar ruling house adopted Judaism.<sup class=\"fn\" data-fn=\"1\"></sup> That conversion is placed by some authorities about the middle of the 8th century and by others in the first half of the 7th, and the letters were recovered only in the 16th century.<sup class=\"fn\" data-fn=\"1\"></sup> A different account survives in a fragment from the Cairo Genizah, and the story was told again in the 12th-century dialogue called the <i>Kuzari</i>, where an angel comes to a Khazar king in a dream.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Atil": "Atil, also written Itil, was the later capital of the Khazar khaganate, on the lower Volga, and its site has never been securely identified.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A 10th-century Arab geographer describes a town in three parts split by a great river, with an island in midstream where the king lived and a palace joined to one bank by a bridge of boats, and says that Muslims, Christians, Jews and pagans all lived there.<sup class=\"fn\" data-fn=\"1\"></sup> The Samosdelka settlement in the Volga delta is the leading candidate, its lower layers holding two banks and an island with brick walls and gate towers, but its excavator reports that the question needs further study.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Magyars": "The Magyars are the people whose language is Hungarian, and who in the 9th century held the steppe north of the Black Sea before moving into the Carpathian Basin about 895.<sup class=\"fn\" data-fn=\"1\"></sup> Their seven tribes had no common ruler until the Khazar khagan proposed one, whereupon Árpád was chosen and raised on a shield after the Khazar custom, an eighth tribe being added when rebels called the Kabars joined them.<sup class=\"fn\" data-fn=\"1\"></sup> Whole-genome work traces the immigrant core of the conquest-period population to a mixture of Mansi, early Sarmatians and late Xiongnu, and King Béla III’s Y chromosome belongs to a lineage whose closest living kin are the Bashkirs.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pechenegs": "The Pechenegs were Turkic nomads of the western Eurasian steppe, whose earlier dominion lay between the Volga and the Ural, with the Burdas to the north-west, the Kipchaks north, the Uzes east and the Khazars south-west.<sup class=\"fn\" data-fn=\"1\"></sup> They made war on the Khazars, were beaten, and so left that country to take the land of the Magyars, whom they drove beyond the Dnieper, before the Uzes and the Khazars pushed them west of that river.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They had no king: eight tribes under their own chiefs, each in five divisions, and a chieftainship passed to a first cousin rather than to a son.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5808,7 +5815,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Golden_Horde": "1242 – 1502 CE",
 "Pax_Mongolica": "c. 1250 – 1350 CE",
 "Timur": "1336 – 1405 CE",
-"Chinggisids": "from 1206 CE"
+"Chinggisids": "from 1206 CE",
+"Pannonian_Avars": "567 – 796 CE",
+"Bulgars": "c. 450 – 800 CE",
+"Volga_Bulgaria": "c. 900 – 1236 CE",
+"Atil": "8th – 10th centuries CE",
+"Pechenegs": "9th – 11th centuries CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8078,7 +8090,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Golden_Horde": ["Jochi Ulus","Ulus of Jochi","Kipchak Khanate"],
 "Pax_Mongolica": ["Mongol peace"],
 "Timur": ["Tamerlane","Timur Lang","Amir Timur"],
-"Chinggisids": ["Chinggisid","Genghisid","Chingissid"]
+"Chinggisids": ["Chinggisid","Genghisid","Chingissid"],
+"Pannonian_Avars": ["Avars","Avar","Avar Khaganate"],
+"Bulgars": ["Bulgar"],
+"Volga_Bulgaria": ["Volga Bulgars","Bulgaria on the Volga"],
+"Khazar_Correspondence": ["Khazar letters"],
+"Atil": ["Itil"],
+"Magyars": ["Magyar"],
+"Pechenegs": ["Pecheneg","Patzinaks","Patzinak"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11958,7 +11977,14 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Golden_Horde": ["state","empire","history","trade","geography","asia"],
 "Pax_Mongolica": ["concept","era","history","trade","state","asia"],
 "Timur": ["person","ruler","history","warfare","state","asia"],
-"Chinggisids": ["people","concept","history","state","migration","asia"]
+"Chinggisids": ["people","concept","history","state","migration","asia"],
+"Pannonian_Avars": ["people","state","history","migration","warfare","europe"],
+"Bulgars": ["people","history","migration","state","trade","europe"],
+"Volga_Bulgaria": ["state","history","islam","trade","religion","archaeology"],
+"Khazar_Correspondence": ["text","history","religion","judaism","politics"],
+"Atil": ["city","history","archaeology","trade","geography"],
+"Magyars": ["people","history","migration","language","hungary","genetics"],
+"Pechenegs": ["people","history","warfare","migration","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
