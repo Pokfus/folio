@@ -20770,12 +20770,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      clearing at midnight by something, and nothing runs at midnight.
      Note that a reader's FIRST sweep pays twice, and that is correct rather than a double-count: the
      Clean Sweep badge unlocks on the same day and badges earn chests too, so one chest is for the day's
-     games and one is for the badge, which can never be earned again. */
+     games and one is for the badge, which can never be earned again.
+     IT PAYS THREE (Sep 2026, on request). Finishing all nine whatever the score pays one; a PERFECT run
+     in all nine is a different order of work, and paying the two the same said so nowhere. The figure is
+     a named constant read by both the grant and the sentence beside it, so the chest count and the words
+     announcing it cannot come apart — which is `maybeStreakChest`'s own arrangement one channel over. */
+  const SWEEP_CHESTS = 3;
   function maybeSweepChest() {
     if (S.sweepChest === todayStr() || !allGamesWonToday(S)) return;
     S.sweepChest = todayStr();
-    grantChest();
-    toast("🎯 A perfect score in every game today — a chest is waiting in your account.");
+    grantChest(SWEEP_CHESTS);
+    toast("🎯 A perfect score in every game today — " +
+      (SWEEP_CHESTS === 1 ? "a chest is" : SWEEP_CHESTS + " chests are") + " waiting in your account.");
   }
   /* A FOURTH CHANNEL, AND THE ONLY ONE THE READER HAS TO CLAIM (Sep 2026, on request: "completing (not
      perfecting) all the minigames each day should give the user a free chest… a locked chest which
