@@ -2446,23 +2446,62 @@ when the pair was cut to one figure, which is what said the fault was the bracke
 **Write the conversion with digits**, rounded to the source figure's own precision, as the house rule
 says.
 
-### Where the last nine stand (2026-09-17)
+### T65 — the family defined by a platform, closed off that platform (2026-09-17)
 
-The pass closed this session at **211 of 220 (93→96%)**. Every remaining statement has been probed
-and the probe recorded; four families account for all nine. **#44, #38 and #128 were in this list and are out of it** — see T62, which is the family below being
-asked the wrong question; T63, which is this note's own “do not re-probe” line being too blunt; and
-T64, which is a walled result list that was not walled all the way down. **A host that is SHUT and a
-host that is DOWN are different findings and this note now says which is which**: a 403, a
-Cloudflare challenge and a TLS reset are policy and hold; a 500 and a run of dropped connections are
-an afternoon and do not.
+Two cited: #135 (the Genovese reporting) and #141 (the 1957 popcorn study). 211 → **213 of 220 (97%)**.
+These two were the closing note's first family, **"the canonical paper is on a JavaScript platform"**,
+and the family was real: `psycnet.apa.org` is a shell, every Wayback capture of it is that same shell,
+and `journals.sagepub.com` is behind a Cloudflare challenge. **The family was also the wrong unit.** A
+platform is where a publisher puts a paper; it is not where the paper's content can be read, and both
+of these were readable somewhere else within a few minutes of asking.
 
-**THE CANONICAL PAPER IS ON A JAVASCRIPT PLATFORM.** #135 (the Kitty Genovese reporting) is Manning,
-Levine and Collins in *American Psychologist*; APA is the publisher, `psycnet.apa.org` is a JavaScript
-shell, and **every Wayback capture of it — the DOI URL, the record URL and the buy-option URL, 2020 to
-2026 — is that same shell**. Semantic Scholar has the record and an empty abstract. #141 (the 1957
-subliminal popcorn study) is the same shape one publisher over: `journals.sagepub.com` is behind a
-Cloudflare interactive challenge and the *Journal of Marketing* article has no Wayback capture at all.
-**Mark Levine's own open 2025 paper in the BJSP was fetched whole and does not mention Genovese.**
+**#135 WAS CLOSED BY T60'S OWN LESSON, WHICH HAD BEEN RECORDED AND THEN NOT APPLIED TO THE NEXT
+STATEMENT IN THE SAME LIST.** That entry established that **an index's empty abstract field is a fact
+about the index**, and the note on #135 then said in terms "Semantic Scholar has the record and an empty
+abstract" and stopped. *American Psychologist* is indexed in MEDLINE. **Europe PMC has the whole
+abstract**, and it carries the statement outright: no evidence for the presence of 38 witnesses, none
+that witnesses observed the murder, none that they remained inactive. **Ask the index that indexes that
+discipline**; a psychology paper in a MEDLINE journal is a PubMed record whatever its publisher's
+website does.
+
+**#141 WAS CLOSED BY T64'S, ONE HOUR OLD.** The note recorded that an open 2018 review repeats Vicary's
+figures as fact — true, and it is `PMC6027235`, and it is still not citable for that reason. **It was
+the fourth result of nine.** The sixth is Marcia Holmes on *The Ipcress File* in *History of the Human
+Sciences*, CC BY, full text open at Europe PMC, and it says in its own prose that Vicary "publicly
+tested the technology on cinema audiences and failed to prove its effectiveness" — and then gives the
+1962 London psychorama trial and Saltzman's own conclusion that subliminal messaging would not increase
+box-office takings. **A film-studies paper answered a psychology statement**, which is T61's finding
+again: the answer is in some paper's background, and the paper is usually about something else.
+
+**BOTH EXPLANATIONS LOST CLAIMS THEIR NEW SOURCES DO NOT CARRY.** #135's said several witnesses did not
+see the attack, that at least two called the police and that a neighbour went to her — all of which are
+in the later literature and none of which is in this abstract. #141's said Vicary "conceded that the
+study was a stunt and the figures made up" in 1962; Holmes does not say it, and the concession belongs
+to a trade-press interview nothing openable here carries. **What replaced both is what the cited source
+states**, which in #141's case is the stronger fact anyway: the public test failed, and the trade's own
+follow-up concluded there was no money in it.
+
+**ONE IS LABELLED `[Paywalled]` AND THAT IS THE HONEST LABEL.** Manning, Levine and Collins is not open;
+what is open is its abstract, which is what the citation is being made for. The other points at its DOI
+rather than at the Europe PMC copy, on this pass's standing rule — the article is alive and CC BY, and
+SAGE's challenge is this sandbox's egress rather than a fact about the source.
+
+### Where the last seven stand (2026-09-17)
+
+The pass closed this session at **213 of 220 (93→97%)**. Every remaining statement has been probed
+and the probe recorded; three families account for all seven. **#44, #38, #128, #135 and #141 were
+in this list and are out of it** — see T62, which is the family below being asked the wrong
+question; T63, which is this note's own “do not re-probe” line being too blunt; T64, which is a
+walled result list that was not walled all the way down; and T65, which is a whole family named
+after a platform rather than after a wall. **A host that is SHUT and a host that is DOWN are
+different findings and this note now says which is which**: a 403, a Cloudflare challenge and a TLS
+reset are policy and hold; a 500 and a run of dropped connections are an afternoon and do not.
+
+**THE CANONICAL PAPER IS ON A JAVASCRIPT PLATFORM.** This family held #135 and #141 and **is empty:
+see T65.** Both platforms are still shut — `psycnet.apa.org` is a shell and every Wayback capture of
+it is that same shell, and `journals.sagepub.com` is behind a Cloudflare challenge — and neither
+statement needed them. **A platform is where a publisher puts a paper, not where its content can be
+read.**
 
 **THE CLAIM IS NOT A RESEARCH SUBJECT AND HAS NO PAPER.** #80 (a penny from a skyscraper) has no
 canonical work to find. OpenStax's physics texts are fully readable and do not treat it. **#128 was
