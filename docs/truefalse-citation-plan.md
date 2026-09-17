@@ -1949,3 +1949,25 @@ extract in the formula, and that the ingredient is used "with cocaine eliminated
 the 1880s bottle**, which is what the statement claims — so citing it would be stretching a source
 to a claim it does not carry, exactly the fault three entries in `docs/glossary-citation-plan.md`
 record. It is the best lead the pool has left and is recorded rather than used.
+
+### T52 — a superlative cited from the book that made it (2026-09-17)
+
+One cited: #18. 195 → **196 of 220**. Burckhardt's *Civilisation of the Renaissance in Italy* is on
+Project Gutenberg in Middlemore's authorised translation and says the thing three ways: the Italian
+of the city-states "was the first-born among the sons of modern Europe"; the medieval veil over self
+and world "in Italy first melted into air"; and the rest of Europe "was free either to repel or else
+partly or wholly to accept the mighty impulse which came forth from Italy".
+
+**THIS IS T46's RULE AGAIN FROM THE OTHER SIDE.** There a superlative was cited from the survey that
+ranked the field; here it is cited from the ARGUMENT that established it, and the `why` says so —
+"one book made the case so thoroughly that the period has been described in its terms ever since"
+rather than presenting Burckhardt as a neutral report. **A classic statement is a legitimate source
+for a claim it is famous for making, provided the explanation does not pretend it is a survey.**
+
+**WHAT IS LEFT: 24 uncited.** The modern-finding group is unchanged and unreachable from here (#82,
+#85, #106, #136, #155 in the old numbering; #80, #81, #84, #105, #124, #128, #135, #141, #155 by
+index). The surviving-record group is now down to #1 the terracotta well, #6 foot-binding, #8 Giza,
+#20 Columbus, #21 the right of the first night, #24 the guillotine, #28 the O.K. Corral, #38 Wu
+Zetian, #40 fortune cookies, #43 chop suey, #44 Zheng He, #47 Chang'an, #64 the Great Fire, #70
+Coca-Cola and #175 Marco Polo. **Five of those have an entry above saying what was tried and why it
+failed** — read those before re-probing.
