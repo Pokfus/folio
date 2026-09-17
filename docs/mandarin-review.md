@@ -547,6 +547,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l1` notes 211–240 (同学 → 写), deck order | 23 | a polyphone taught at the wrong reading of the two |
 | 2026-09-17 | `hsk30l1` notes 241–270 (谢谢 → 再), deck order | 20 | a gloss that stops dead in the middle of a phrase |
 | 2026-09-17 | `hsk30l1` notes 271–300 (在 → 做), deck order — **Level 1 complete** | 22 | a gloss naming one sense while the examples show another |
+| 2026-09-17 | `hsk30l2` notes 1–30 (啊 → 但), deck order | 18 | a gloss naming three senses the card shows none of |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1508,3 +1509,105 @@ The same handful of faults, again and again:
 5. **A gloss that stops in the middle of a phrase** — 们, 呢, 一.
 6. **English that is not the sentence** — a tense the Chinese does not carry, an idiom that drops the
    headword, slang, or a dollar sign on the card for the yuan.
+
+### 2026-09-17 — Level 2, notes 1–30
+
+**What the batch was.** The first thirty cards of HSK 2, 啊 → 但, read one at a time against CC-CEDICT
+and against their own three sentences. **Eighteen were changed**, twelve left alone. The deck's card
+type also gained the **`Compounds`** field, copied from Level 1's own definition in the record rather
+than retyped, so the two cannot drift.
+
+### The one to read first
+
+**打's gloss named three senses and not one of its three sentences shows any of them.** It said "to hit,
+to strike, to make (a phone call)"; the card's examples are 他打了网球, 你不打网球吗 and 打的去旅馆吧 —
+playing tennis twice and taking a taxi. CC-CEDICT calls 打 "a semantically light transitive verb used
+with various objects", which is the whole difficulty with this character: what it means depends on what
+follows. Split into the three a beginner meets first and each example tagged.
+
+### The Level 1 fault shapes, all present in the first thirty cards of Level 2
+
+The six shapes the Level 1 log closes with are not a property of that deck. Every one of them turned up
+again here:
+
+- **A gloss that is CC-CEDICT's sense and not the card's.** 不错 was glossed "correct" with all three
+  sentences showing "not bad; pretty good". 班 was "class" while its third sentence counts a scheduled
+  FLIGHT. 错 was "wrong" while its second is the noun, "it's not my fault". 不好意思 was "to feel
+  embarrassed" while its second is the "excuse me" a stranger opens with.
+- **A gloss that creates the collision its own hint then papers over.** **本子 was glossed "book"**,
+  which is 书 — the very card its `not 书` block pointed at. All three of its sentences say notebook,
+  vocabulary book, exercise book. Said properly, the collision goes and the block with it. **That is a
+  new shape and worth watching for**: a `not X` hint on a card whose gloss is simply wrong is a
+  symptom, not a fix.
+- **A run-on with a sense tacked on by "or".** 词's "word, speech, statement, or a type of classical
+  Chinese", and 床's "bed; couch; framework" — the third of those being CC-CEDICT's "frame; chassis",
+  the 床 of 车床, a lathe.
+- **A verb without its "to ".** 帮忙's "lend a hand". Sixth card caught by that rule.
+- **A sentence translated out of English word by word.** 打开's 打开你的思想。"Open your mind" — Chinese
+  does not 打开 a mind — and 床's 不要走在花床上。, 花床 not being the Chinese for a flower bed (花坛 is).
+- **A sentence that is not grammatical.** 白色's 我狗是白色的。 — a possessive needs 的; 我狗 is not
+  Chinese.
+
+Also 爱好's 他们都是电影爱好者。, where 爱好者 is a word of its own so the headword does not stand alone.
+
+### A whitespace fault, measured — and a named list for a later batch
+
+别's third example carried **a space between the last character and the full stop**: 酒后别开车 。 The
+corpus-wide punctuation pass cannot touch this — it converts ASCII marks to their full-width forms and
+never moves whitespace — so it was re-added correctly here.
+
+**Swept for as a class, there are 17 distinct sentences like it, on 20 cards across 9 decks**:
+
+| deck | card | sentence |
+|---|---|---|
+| `hsk30phr` / `hsk30l2` | 没什么 / 路上 | 路上没什么车 。 |
+| `hsk30l3` | 丢 | 我丢了手表 。 |
+| `hsk30l3` / **`hsk30l2`** | 酒 / **别** | 酒后别开车 。 ← **fixed on 别 only; 酒 still carries it** |
+| `hsk30l3` | 可爱 | 他们可爱吗 ？ |
+| `hsk30l3` | 难 | 学习 汉语 难 不 难？ |
+| `hsk30l4` | 窗户 | 窗户 打开 了。 |
+| `hsk30l4` | 来不及 | …就来不及了 。 |
+| `hsk30l4` | 友好 | 你和他都很友好 。 |
+| `hsk30l5` / `hsk30l6` | 专家 / 滑雪 | 据说她是个滑雪专家 。 |
+| `hsk30l6` / `hsk30l7` / `hsk30idm` | 宏大 / 名利 / 宽宏大量 | 宽宏大量是个宝；…结缘好 放下名利… |
+| `hsk30l7` | 托 | …哥伦布离婚了 ？ |
+| `hsk30l7` / `hsk30l7` | 栽 / 增添 | …节日的气氛 ，那里的人… |
+| `hsk30l7` | 裸体 | 国王是裸体的 ！ |
+| `hsk30l7` | 孝顺 | 一、孝顺 二、行善。 |
+| `hsk30l7` | 欣慰 | …路加和约翰 所说的话。 |
+
+**It is NOT safe to sweep mechanically, and that is why it is a batch rather than a pass.** Fourteen of
+the seventeen are a stray space that can simply go. **Three are a space standing in for punctuation** —
+the 宽宏大量 idiom's 结缘好 · 放下名利, 孝顺's 一、孝顺 · 二、行善 — and deleting the space there runs two
+clauses together, which is worse than leaving it. What those want is a mark, and which mark is a
+judgement, exactly as the 150 sentences with no terminal punctuation are. The sweep is one regular
+expression over the rendered example text; it is in this batch's commit and takes a few seconds.
+
+### On the compound lists
+
+**Fourteen of the fifteen single-character cards in this range got one**, and the field had to be added
+to Level 2's card type first — the same anchor, markup and scoped CSS as Level 1's, read out of the
+record's own Level 1 entry so a change to one reaches the other.
+
+**啊 gets none**: the nine decks hold one word built on it (天啊) and CC-CEDICT little more, which is
+below the three-row floor. Fourth character in that position, after 谁, 它 and 她.
+
+**长's rows are split between its two readings on purpose** — 长期 on cháng against 校长, 成长 and 队长
+on zhǎng — so the list does the job the card's own examples cannot: show which words take which reading.
+That is the same argument 只's 船只 row made last batch, and it is the strongest case for this section
+existing on a polyphone at all.
+
+**出's panel is the fullest of the fourteen** (出来, 出去, 出门, 出国 are all in the reader's own Level 2
+deck), so all four rows go elsewhere. **钱包 is on 包's list because it is in the card's own first
+sentence**, 钱包在包里, where a reader meets it with no gloss at all.
+
+**别人 takes the deck's reading, bié rén, over CC-CEDICT's neutral bié ren** — eighth batch running.
+
+### Read and left alone
+
+啊, 帮, 包, 比, 笔, 车站, 出, 出国, 出来, 出门, 出去, 从, 从小, 次, 打车 and 但 are right as they stand.
+
+**不好意思's second example is the same sentence as 笔's second** (不好意思，请问你有笔吗？) — the fourth
+one-sentence-two-cards find, and the first where **both cards use it correctly**: each headword stands
+on its own in it and each gloss is what the sentence shows. Recorded rather than changed; a repeat a
+reader meets twice is a smaller cost than replacing a sentence that is right for both.

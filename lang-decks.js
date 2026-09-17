@@ -2,10 +2,10 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 152 MB of decks. The file itself is fetched on Add. */
+   section without fetching 153 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724346, rev: "0bfa5e481acf" },
-  { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 427023, rev: "87c94e6452f4" },
+  { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 439761, rev: "7bd95f17b267" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-3.folio-deck.json", id: "hsk30l3", title: "Mandarin Chinese — HSK 3.0 Level 3", sub: "491 more words, taking you to about 1,000 — the last beginner level", notes: 491, cards: 982, ex: 100, bytes: 1079262, rev: "5b6f4141cbab" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-4.folio-deck.json", id: "hsk30l4", title: "Mandarin Chinese — HSK 3.0 Level 4", sub: "990 more words, taking you to about 2,000 — the intermediate band begins", notes: 990, cards: 1980, ex: 100, bytes: 2151168, rev: "d9f640399145" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-5.folio-deck.json", id: "hsk30l5", title: "Mandarin Chinese — HSK 3.0 Level 5", sub: "1,579 more words, taking you to about 3,600", notes: 1579, cards: 3158, ex: 100, bytes: 3481734, rev: "3200f420486b" },
