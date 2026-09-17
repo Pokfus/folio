@@ -1077,3 +1077,40 @@ findings, of which the first is the one to carry into batch 10.
   UN table did give is the batch's one grid surprise: **Vologda Oblast's largest city is Cherepovets at
   315,000, against the capital Vologda's 305,000**, so the Largest city row names a town that is not the
   seat of government — the first time in this deck that the two have differed.
+
+### Batch 10 — the Don, the Seym, the Oka, the Tom and the Lena (`gru-043`–`gru-047`)
+
+Lipetsk, Kursk, Ryazan, Tomsk and Sakha (Yakutia). Six findings.
+
+- **A DOI COMPOSED FROM THE SHAPE OF ITS SIBLINGS RESOLVES TO A REAL PAPER THAT IS NOT YOURS.** The
+  Lebedev Devonian-fishes article was drafted with `10.3176/earth.2018.06`, built by counting articles in
+  the issue; Crossref hands that DOI back as *A new species of cyathaspid … Prince of Wales Island,
+  Nunavut* by Elliott et al. at pp. 88–95. The real one is **`10.3176/earth.2018.04`**, found by a
+  Crossref bibliographic query on the title. **Nothing downstream could have caught it** — the URL
+  resolves, the article is real, the marker rules pass — and it is exactly the fault CLAUDE.md's citation
+  bullet warns about. **Ask Crossref for the DOI; never derive one.**
+- **RAMBAUD'S "BATTLE OF LIPETSK" IS A DIFFERENT LIPETSK.** His 1216 battle is placed "near
+  Pereiaslavl-Zalieski", in Vladimir–Suzdal country, and has nothing to do with the Don one. What the
+  volume does carry for this oblast is Tamerlane's Tatars reaching **Yelets** on the Don in the campaign
+  that destroyed Astrakhan and Sarai in 1395 (p. 207). **A place name in a nineteenth-century index is
+  not a place.**
+- **AN AUTHOR CAP OF TWO DECIDES WHICH PASSAGES A CARD CAN USE.** Kursk has three good Rambaud pages —
+  the Severian principality (98), Oleg of Kursk on the Kalka (152) and the baskak revolts (167–68) — and
+  `check-cards.js` refuses a third citation by one author, so the Kalka was dropped and the card carries
+  98 and 167–68. That is also what gives it its only date: **the rising against the tax-gatherers in
+  1284**, the year two Olgovichi reigned there and one killed the other in the khan's name.
+- **MDPI IS WALLED FROM THIS SANDBOX AND COPERNICUS IS NOT.** `mdpi.com` and
+  `e3s-conferences.org` both answer 403; `bg.copernicus.org`, `intercarto.msu.ru`, `mir-nayka.com`,
+  `kirj.ee`, `goldhorde.ru`, `geology-mgri.ru` and `elib.sfu-kras.ru` all answer 200. A DOAJ search for
+  Yakutia returns mostly MDPI, so **read the host before reading the abstract**.
+- **A REPOSITORY HANDLE IS A CITABLE ADDRESS WHERE THERE IS NO DOI.** The Nikolaev and Skachkov
+  tree-ring paper has none; `elib.sfu-kras.ru/handle/2311/3009` resolves, carries the Dublin Core
+  metadata and serves the PDF, from which the English title and the page range 43–51 were read. It is
+  UNCHECKED by `check-citations.js` rather than wrong, which is the honest state.
+- **COMMONS RATE-LIMITS HARD ENOUGH TO DECIDE THE PICTURE PASS.** Category listings and `Special:FilePath`
+  both returned *Wikimedia Error* pages within a few calls, so the route that worked was the English
+  Wikipedia's own `prop=images` on a named article (a different host) followed by a paced
+  `Special:FilePath` fetch with retries. Two candidates were rejected on sight: the Ryazan Kremlin's lead
+  image is a **night shot, mostly black and watermarked**, and the Zheleznogorsk one would not download at
+  all. **The Streletskaya steppe in flower is the right picture for a black-earth card** — the Central
+  Black Earth Reserve is unploughed chernozem, which is the thing the prose is about.
