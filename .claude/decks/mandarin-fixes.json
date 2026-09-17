@@ -12806,14 +12806,20 @@
       "gloss": "surroundings, the area round about"
     },
     "hsk30l4/嗯": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The reading was written `ǹg`, which is not a pinyin syllable at all — the syllabic-nasal forms are ń / ň / ǹ — and the card carries no bopomofo, so nothing internal could check it; it was recorded as open in docs/mandarin-review.md for exactly that reason. A second source now answers it: CC-CEDICT records en1 | en4 | en5 for 嗯, and this card teaches the 'yes, uh-huh' sense, which is èn. THE TWO SOURCES DO NOT FULLY AGREE — 现代汉语词典 gives the syllabic-nasal readings — so what is written is the form both a reader and a checker can act on rather than a claim that the other is wrong.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The reading was written `ǹg`, which is not a pinyin syllable at all — the syllabic-nasal forms are ń / ň / ǹ — and the card carries no bopomofo, so nothing internal could check it; it was recorded as open in docs/mandarin-review.md for exactly that reason. A second source now answers it: CC-CEDICT records en1 | en4 | en5 for 嗯, and this card teaches the 'yes, uh-huh' sense, which is èn. THE TWO SOURCES DO NOT FULLY AGREE — 现代汉语词典 gives the syllabic-nasal readings — so what is written is the form both a reader and a checker can act on rather than a claim that the other is wrong. | '嗯，仅此而已。' read 'YEA, that's all it is' — yea is an archaic word of assent. Batch 53 corrected the same sentence on 仅's card; it is carried by two cards and each keeps its own English.",
       "ex": [
         [
           "嗯哪。",
           "Yep."
         ]
       ],
-      "Pinyin": "èn"
+      "Pinyin": "èn",
+      "exEn": [
+        [
+          "嗯，仅此而已",
+          "Yeah, that's all it is."
+        ]
+      ]
     },
     "hsk30l4/基本上": {
       "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note. | '基本上吧。' is not a sentence — it is the adverb on its own with a particle after it, glossed 'Basically.' — and it was the record's OWN row, so the array is replaced. The new one is AUTHORED, which the record says so is.",
@@ -12847,8 +12853,17 @@
       "gloss": "to lose (a chance, a friend, something abstract)"
     },
     "hsk30l4/女性": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "the female sex, women as a category"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | A WRONG CHARACTER AND A WRONG PRONOUN IN ONE LINE: '他是我最好的女性朋友。' writes 他 for 她, and its English then read 'She is HIS best girlfriend' where the Chinese says MY. Replaced with an AUTHORED sentence, which the record says so is.",
+      "gloss": "the female sex, women as a category",
+      "dropEx": [
+        "他是我最好的女性朋友。"
+      ],
+      "ex": [
+        [
+          "这家公司的女性员工占一半。",
+          "Half the staff at this company are women."
+        ]
+      ]
     },
     "hsk30l4/应聘": {
       "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
@@ -13229,8 +13244,14 @@
       "gloss": "always, keeps on (of something that irritates)"
     },
     "hsk30l4/能否": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "whether or not one can"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | '我们能否去玩？' read 'SHOULD we play?', which is 应该 — 能否 is whether one can.",
+      "gloss": "whether or not one can",
+      "exEn": [
+        [
+          "我们能否去玩",
+          "Can we go out to play?"
+        ]
+      ]
     },
     "hsk30l4/血": {
       "why": "xuè is the citation reading and the one the corpus uses 13 times to 1; xiě is the colloquial standalone reading. Teaching one alone made a speech engine and the card disagree whichever was chosen, so both are named.",
@@ -76418,11 +76439,17 @@
       ]
     },
     "hsk30l4/难忘": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Labelled a VERB and glossed 'unforgettable', which is an adjective, and all three of the card's own lines are that.",
       "ex": [
         [
           "那是一次难忘的旅行。",
           "That was an unforgettable journey."
+        ]
+      ],
+      "senses": [
+        [
+          "adjective",
+          "unforgettable; memorable"
         ]
       ]
     },
@@ -110084,11 +110111,43 @@
       ]
     },
     "hsk30l4/牌": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Downtown” is American and has no one-word British equivalent, which is why it is not in the table: each of its five sentences wants a different phrase. ",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Downtown” is American and has no one-word British equivalent, which is why it is not in the table: each of its five sentences wants a different phrase.  | Glossed 'a signboard, plaque, or tablet', where TWO of the card's three lines are PLAYING CARDS — 洗牌 is shuffling and 发牌 is dealing — a sense the gloss did not carry at all. Split, and tagged. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 牌子, against ten in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "exEn": [
         [
           "到市区的公车站牌在哪里",
           "Where is the bus stop for the town centre?"
+        ]
+      ],
+      "senses": [
+        [
+          "noun",
+          "a sign; a plate"
+        ],
+        [
+          "noun",
+          "a playing card; a tile"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "招牌",
+          "zhāo pái",
+          "a shop sign; a signboard"
+        ],
+        [
+          "名牌",
+          "míng pái",
+          "a famous brand; a name tag"
+        ],
+        [
+          "牌子",
+          "pái zi",
+          "a sign; a brand"
         ]
       ]
     },
@@ -117886,6 +117945,214 @@
         [
           "我今天有个面试",
           "I have an interview today."
+        ]
+      ]
+    },
+    "hsk30l4/农村": {
+      "why": "The gloss ran two senses together with NOTHING between them — 'countryside rural area' — the malformation this audit has now met on 不断, 不如, 家乡, 丰富 and 拉.",
+      "gloss": "the countryside; a rural area"
+    },
+    "hsk30l4/耐心": {
+      "why": "Labelled 'noun / adjective' against the single gloss 'patient', which is the adjective, so the noun — which the card's own second line is, 耐心不是我的强项 — had none. | '她耐心的等待他。' wants the adverbial 地 — 耐心地等待 — where 的 makes it a modifier with nothing to modify. Replaced with an AUTHORED sentence, which the record says so is.",
+      "senses": [
+        [
+          "noun",
+          "patience"
+        ],
+        [
+          "adjective",
+          "patient"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "dropEx": [
+        "她耐心的等待他。"
+      ],
+      "ex": [
+        [
+          "老师很耐心地回答了每个问题。",
+          "The teacher answered every question very patiently."
+        ]
+      ]
+    },
+    "hsk30l4/偶尔": {
+      "why": "Labelled 'adjective / adverb' against the single gloss 'occasionally', which is only the adverb.",
+      "senses": [
+        [
+          "adverb",
+          "occasionally; now and then"
+        ],
+        [
+          "adjective",
+          "occasional"
+        ]
+      ]
+    },
+    "hsk30l4/内": {
+      "why": "Glossed 'within' under a NOUN label, and within is a preposition. 内 is a localiser — the inside of something — which is what all three of the card's lines use it as.",
+      "gloss": "inside; within"
+    },
+    "hsk30l4/目的地": {
+      "why": "'偶尔漫无目的地走一走是很有乐趣的。' DOES NOT CONTAIN THE HEADWORD: it is 漫无目的 followed by the adverbial particle 地, so the three characters are an accident of two words meeting — the fault check-example-fit.js was written for, and one it cannot see here because 漫无目的 is a headword in no deck. And the third line had no full stop at all.",
+      "dropEx": [
+        "偶尔漫无目的地走一走是很有乐趣的。"
+      ],
+      "ex": [
+        [
+          "我们下午三点到达目的地。",
+          "We reached our destination at three in the afternoon."
+        ]
+      ],
+      "exStop": [
+        [
+          "这艘船即将到达她的目的地"
+        ]
+      ],
+      "exEn": [
+        [
+          "这艘船即将到达她的目的地",
+          "The ship was about to reach its destination."
+        ]
+      ]
+    },
+    "hsk30l4/男性": {
+      "why": "'女人喜欢男性的注意。' is a calque of the English 'male attention' — 男性的注意 is not a thing Chinese says — and it makes a claim about women that the card has no business teaching. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "女人喜欢男性的注意。"
+      ],
+      "ex": [
+        [
+          "这项研究的对象都是成年男性。",
+          "The subjects of this study were all adult males."
+        ]
+      ]
+    },
+    "hsk30l4/拍": {
+      "why": "'我们很合拍。' is 合拍, being in step with somebody — a fixed word that swallows the character, and nothing to do with clapping, patting or taking a photograph. Replaced with an AUTHORED sentence, which the record says so is. | '这些照片是在哪儿拍的？' read 'Where were these pictures taken AT?', which ends on a preposition that has nothing to govern. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against four words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "我们很合拍。"
+      ],
+      "ex": [
+        [
+          "他轻轻拍了拍我的肩膀。",
+          "He gave me a light pat on the shoulder."
+        ]
+      ],
+      "exEn": [
+        [
+          "这些照片是在哪儿拍的",
+          "Where were these pictures taken?"
+        ]
+      ],
+      "compounds": [
+        [
+          "拍照",
+          "pāi zhào",
+          "to take a photograph"
+        ],
+        [
+          "拍手",
+          "pāi shǒu",
+          "to clap one's hands"
+        ],
+        [
+          "拍卖",
+          "pāi mài",
+          "to auction"
+        ]
+      ]
+    },
+    "hsk30l4/排": {
+      "why": "TWO OF THREE SWALLOWED THE CHARACTER INTO SOMETHING ELSE: 我就要份牛排 is a STEAK and 你会开手排车吗 a manual gearbox, neither of which has anything to do with arranging or a row. Only the third line used it. Both replaced with AUTHORED sentences, which the record says so are.",
+      "dropEx": [
+        "我就要份牛排。",
+        "你会开手排车吗？"
+      ],
+      "ex": [
+        [
+          "请大家排好队。",
+          "Everybody get in line, please."
+        ],
+        [
+          "他把书按字母顺序排好。",
+          "He arranged the books in alphabetical order."
+        ]
+      ]
+    },
+    "hsk30l4/内心": {
+      "why": "'内心世界很丰富，不知该如何表达了！' read 'Deep down, EVERYONE is rich and beautiful', which invents a 每个人 and a 美丽 the sentence has not got. Batch 47 corrected it on 丰富's card; it is carried by two cards and each keeps its own English.",
+      "exEn": [
+        [
+          "内心世界很丰富",
+          "My inner world is so rich that I do not know how to express it!"
+        ]
+      ]
+    },
+    "hsk30l4/难受": {
+      "why": "'感冒真难受。' read 'It SUCKS having a cold', which is a register a vocabulary card should not teach; and 面包吃多了会难受的 read 'makes you SICK', which in English means vomiting where 难受 is feeling uncomfortable.",
+      "exEn": [
+        [
+          "感冒真难受",
+          "Having a cold is really unpleasant."
+        ],
+        [
+          "面包吃多了会难受的",
+          "Eating too much bread will make you feel uncomfortable."
+        ]
+      ]
+    },
+    "hsk30l4/难道": {
+      "why": "'这个房间太棒了，难道不是么？' read 'This room's pretty awesome, EH?', which carries nothing of the rhetorical 难道 the card exists to teach.",
+      "exEn": [
+        [
+          "这个房间太棒了，难道不是么",
+          "This room is wonderful, don't you think?"
+        ]
+      ]
+    },
+    "hsk30l4/能力": {
+      "why": "'你有能力去做这个吗？' read 'WERE you able to do it?' for a question about now.",
+      "exEn": [
+        [
+          "你有能力去做这个吗",
+          "Are you capable of doing this?"
+        ]
+      ]
+    },
+    "hsk30l4/排队": {
+      "why": "Two of its lines read 'in LINE', which is American — the card's own gloss is queue up, and the decks write queue ten times elsewhere.",
+      "exEn": [
+        [
+          "您必须排队",
+          "You have to queue."
+        ],
+        [
+          "他是排队的第一个",
+          "He was first in the queue."
+        ]
+      ]
+    },
+    "hsk30l4/弄": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "弄清",
+          "nòng qīng",
+          "to clarify; to get straight"
+        ],
+        [
+          "弄脏",
+          "nòng zāng",
+          "to make dirty"
+        ],
+        [
+          "玩弄",
+          "wán nòng",
+          "to play with; to toy with"
         ]
       ]
     }

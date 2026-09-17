@@ -593,6 +593,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 421–450 (棵 → 浪漫), deck order | 18 | a card ALL THREE of whose sentences used its character for its sound alone, and a sixth truncated gloss |
 | 2026-09-17 | `hsk30l4` notes 451–480 (老虎 → 留下), deck order | 18 | a card whose gloss named one sense while all three of its lines used another the gloss never gave |
 | 2026-09-17 | `hsk30l4` notes 481–510 (流行 → 母亲), deck order | 21 | a gloss that dismissed its own card three times over, and a second hint pair retired |
+| 2026-09-17 | `hsk30l4` notes 511–540 (母子 → 排队), deck order | 19 | a sentence whose three headword characters were two OTHER words meeting, and a wrong pronoun in the Chinese |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5757,4 +5758,50 @@ read *I love TRIPS* for a card glossed as a verb.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; **shared-gloss groups 333 → 332**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 515 → 524;
+`build-lang-decks.js` re-run.
+
+## Batch 58 — hsk30l4 notes 511–540 (母子 → 排队)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order. Nineteen cards changed.
+
+**A SENTENCE WHOSE THREE HEADWORD CHARACTERS WERE TWO OTHER WORDS MEETING.** 目的地's second line was
+偶尔漫无目的地走一走是很有乐趣的 — which is 漫无目的 followed by the adverbial particle **地**, so the word
+目的地 is not in it at all. It is the fault `check-example-fit.js` exists for, and one it cannot see here,
+since 漫无目的 is a headword in no deck and the segmenter therefore has nothing longer than the headword to
+prefer. The card's third line also had **no full stop**.
+
+**A WRONG CHARACTER AND A WRONG PRONOUN IN ONE LINE.** 女性's third read 他是我最好的女性朋友 — **他 for
+她** — and its English then read *She is HIS best girlfriend* where the Chinese says MY. Two faults in one
+sentence, neither of which anything in the pipeline can see: it segments, speaks and translates.
+
+**A SHARED-GLOSS GROUP DISSOLVED.** 内 was glossed *within*, a group it shared with 以内 — and *within* is a
+preposition under a NOUN label, where 内 is a localiser, the inside of something, which is what all three of
+its lines use it as. Groups 332 → 331, the sixth such retirement.
+
+**排 LOST TWO OF THREE TO SWALLOWS, and they are the funniest pair yet**: 我就要份牛排 is a **STEAK** and
+你会开手排车吗 a **manual gearbox**, neither of which has anything to do with arranging or a row. 拍's first
+was 合拍, being in step with somebody. The pattern is now unmistakable at single-character cards — 克, 拉,
+末, 交, 火, 江 and these — and it is the one class `check-example-fit.js` is exempt from by design.
+
+**A GLOSS THAT MISSED THE SENSE TWO OF ITS THREE LINES USE.** 牌 was glossed *a signboard, plaque, or
+tablet*, where 洗牌 is shuffling and 发牌 is dealing — PLAYING CARDS, a sense the gloss did not carry.
+Split and tagged. Four more label-against-gloss cards with it (耐心, 难忘, 偶尔, 内), making **seventy over
+thirteen batches**, and 农村's gloss ran two senses together with nothing between them — *countryside rural
+area* — the malformation now met on six cards.
+
+**THREE MORE SENTENCES WENT.** 耐心's third wants the adverbial 地 where 的 makes it a modifier with nothing
+to modify. 男性's first is a calque of the English *male attention*, which Chinese does not say, and makes a
+claim about women the card has no business teaching.
+
+**THREE SINGLE-CHARACTER CARDS GAINED `Compounds`** — 拍, 弄 and 牌, the first two with empty panels.
+
+**TEN ENGLISH LINES.** 排队's two read *in LINE*, which is American on a card glossed *queue up*. 难受's read
+*It SUCKS having a cold* and *makes you SICK*, which in English means vomiting where 难受 is feeling
+uncomfortable. 难道's third read *eh?*, carrying nothing of the rhetorical force the card exists to teach.
+And two were sentences other cards carry, each keeping its own English: 嗯's *Yea* (batch 53 fixed it on 仅)
+and 内心's *Deep down, everyone is rich and beautiful* (batch 47 fixed it on 丰富).
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 332 → 331**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 524 → 530;
 `build-lang-decks.js` re-run.
