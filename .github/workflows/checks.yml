@@ -1,6 +1,6 @@
 name: checks
 
-# WHY THIS EXISTS. Folio has 48 regression suites and every one of them was written
+# WHY THIS EXISTS. Folio has 56 regression suites and every one of them was written
 # because the failure it guards is SILENT -- a wrong interval is still a number on a
 # button, a deck row hidden by an ad blocker still renders, a stripped rating still
 # parses. Suites like that are worth exactly as much as the discipline of running them,
@@ -173,6 +173,16 @@ jobs:
   browser:
     name: Playwright suites
     runs-on: ubuntu-latest
+    # A CEILING, BECAUSE THE DEFAULT IS SIX HOURS AND THE RUNNER COUNT IS ONE (Sep 2026).
+    # Measured on this branch: the browser step took 43m15s for all 47 suites on a GitHub
+    # runner, against about forty minutes in a dev container. So 90 minutes is roughly
+    # double the real figure -- wide enough that a slow runner never fails on time alone,
+    # and narrow enough that a suite which HANGS (a `page.waitFor` on something that never
+    # appears is the shape) gives the runner back inside the hour instead of holding it
+    # until the afternoon. Without it, one hung suite blocks every later run on the repo,
+    # and the symptom is the same one `concurrency` above was added for: not a red build,
+    # but an answer that never arrives.
+    timeout-minutes: 90
     # A slow second opinion, not the gate. If the fast job is red the answer is already
     # known, so don't spend ten minutes confirming it.
     needs: fast
