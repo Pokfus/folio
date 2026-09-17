@@ -2414,15 +2414,47 @@ byline a capture shows**.
 it is the annals' own sequence, which shows the distinction the question is about rather than asserting
 it: she took the title and the man holding it became her heir.
 
-### Where the last ten stand (2026-09-17)
+### T64 — the DOAJ result that was not on a walled host (2026-09-17)
 
-The pass closed this session at **210 of 220 (93→95%)**. Every remaining statement has been probed
-and the probe recorded; four families account for all ten. **#44 and #38 were both in this list and
-are both out of it** — see T62, which is the family below being asked the wrong question, and T63,
-which is this note's own “do not re-probe” line being too blunt. **A host that is SHUT and a host
-that is DOWN are different findings and this note now says which is which**: a 403, a Cloudflare
-challenge and a TLS reset are policy and hold; a 500 and a run of dropped connections are an
-afternoon and do not.
+One cited: #128 (a microwave cooking from the inside out). 210 → **211 of 220 (96%)**. The closing note
+had this one under "the claim is not a research subject and has no paper", with DOAJ's microwave-heating
+hits recorded as sitting on `sciencedirect.com` and `mdpi.com`, both 403. **That was true of the first
+hit and of most of the rest, and the SECOND hit was on neither** — a 2001 modelling paper in the *Czech
+Journal of Food Sciences*, whose own site serves the abstract, the full PDF and a DOI without a
+challenge of any kind. **A result list that is mostly walled is not a walled result list; read to the
+end of it.**
+
+**AND THE QUESTION IT ANSWERS IS NOT THE ONE THE STATEMENT ASKS, WHICH IS WHY IT WAS PASSABLE.** Nothing
+in the literature sets out to refute a kitchen myth. What Houšová and Hoke model is the vertical
+temperature profile in a slab under microwaves, and the profile *is* the answer: the hottest point is at
+or near the surface and the coldest is at the centre, and the thicker the slab against the penetration
+depth the more uneven that gets. **This is T61's finding in another subject** — a myth-busting statement
+is usually answered by a paper about the mechanism rather than about the myth.
+
+**IT ALSO CARRIES THE GRAIN OF TRUTH, AND THAT IS THE PART WORTH HAVING.** The old explanation said food
+can seem to cook from within "because the dry surface loses heat to the air while the moist interior does
+not", which is roughly right and was nobody's finding. The paper gives the mechanism and the scale:
+surface cooling, by convective exchange with the air and by evaporation, moves the temperature peak a few
+millimetres *under* the surface and further in as heating continues. **The peak migrates inward from the
+outside, which is the opposite of what the myth says and looks like what the myth says.**
+
+**AND A BRACKET WITHOUT A DIGIT IS NOT A CONVERSION.** The first draft wrote the penetration depth as
+"6 and 12 millimetres (about a quarter and half an inch)" and `check-truefalse.js` reported a metric
+figure with no bracket beside it — correctly, because `isImperialParen` wants a NUMBER and a strong
+imperial unit, and "a quarter and half an inch" has no number in it. It reported the same thing again
+when the pair was cut to one figure, which is what said the fault was the bracket rather than the pair.
+**Write the conversion with digits**, rounded to the source figure's own precision, as the house rule
+says.
+
+### Where the last nine stand (2026-09-17)
+
+The pass closed this session at **211 of 220 (93→96%)**. Every remaining statement has been probed
+and the probe recorded; four families account for all nine. **#44, #38 and #128 were in this list and are out of it** — see T62, which is the family below being
+asked the wrong question; T63, which is this note's own “do not re-probe” line being too blunt; and
+T64, which is a walled result list that was not walled all the way down. **A host that is SHUT and a
+host that is DOWN are different findings and this note now says which is which**: a 403, a
+Cloudflare challenge and a TLS reset are policy and hold; a 500 and a run of dropped connections are
+an afternoon and do not.
 
 **THE CANONICAL PAPER IS ON A JAVASCRIPT PLATFORM.** #135 (the Kitty Genovese reporting) is Manning,
 Levine and Collins in *American Psychologist*; APA is the publisher, `psycnet.apa.org` is a JavaScript
@@ -2432,12 +2464,10 @@ subliminal popcorn study) is the same shape one publisher over: `journals.sagepu
 Cloudflare interactive challenge and the *Journal of Marketing* article has no Wayback capture at all.
 **Mark Levine's own open 2025 paper in the BJSP was fetched whole and does not mention Genovese.**
 
-**THE CLAIM IS NOT A RESEARCH SUBJECT AND HAS NO PAPER.** #80 (a penny from a skyscraper) and #128 (a
-microwave cooking from the inside out) have no canonical work to find. OpenStax's physics texts are
-fully readable and **explain the microwave mechanism without ever addressing the direction of cooking**
-— College Physics even says microwaves "penetrate more than shorter wavelengths into tissue", which a
-careless reader could take the wrong way. DOAJ's microwave-heating papers sit on `sciencedirect.com`
-and `mdpi.com`, both 403 here.
+**THE CLAIM IS NOT A RESEARCH SUBJECT AND HAS NO PAPER.** #80 (a penny from a skyscraper) has no
+canonical work to find. OpenStax's physics texts are fully readable and do not treat it. **#128 was
+this family's other member and is out of it: see T64** — it turned out to have a paper after all,
+two results down a DOAJ list whose first hits were on walled hosts.
 
 **THE DISCOVERY STORY IS NOT IN THE SCIENCE.** #1 (farmers and a well, 1974) survived every route: the
 two *Scientific Reports* papers Folio already cites were fetched in full from `nature.com` and neither
