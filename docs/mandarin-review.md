@@ -619,6 +619,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 211–240 (打听 → 当年), deck order | 20 | **a third card with two readings under one pinyin, and a gloss rewrite that collided with its neighbour** |
 | 2026-09-17 | `hsk30l5` notes 241–270 (当前 → 电池), deck order | 19 | **a single-character card not one of whose three sentences used the sense it glosses, and a misspelling no checker can reach** |
 | 2026-09-17 | `hsk30l5` notes 271–300 (电动 → 队伍), deck order, plus a corpus sweep for one-sided hints | 15 + 17 | **seventeen disambiguators pointing at collisions that no longer exist, and a two-reading card with a sense filed under the wrong reading** |
+| 2026-09-17 | `hsk30l5` notes 301–330 (对象 → 方), deck order | 16 | **a split headword this audit itself introduced, a card that contradicts itself, and a sentence dropped from one card still standing on another** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7601,3 +7602,80 @@ still-ambiguous 1; shared-gloss groups 323 unchanged across both halves; **one-s
 cards carrying a hint 661 → 644; pinyin clean; example-fit 142 unchanged; senses 152 → **151**;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 657 → 660;
 `build-lang-decks.js` re-run.
+
+## Batch 84 — hsk30l5 notes 301–330 (对象 → 方)
+
+Thirty consecutive notes; **sixteen of them changed**, plus one card in Levels 7–9 that a gloss
+rewrite here freed. Three findings are new shapes, and the first of them is this audit's own.
+
+**A SPLIT HEADWORD THAT THIS RECORD PUT THERE.** 儿女's first sentence was 那高个**儿女**人很漂亮 —
+高个儿 (a tall person) followed by 女人 (a woman), with the characters 儿女 an accident of the two
+meeting, exactly as 加拿大会 was on 大会 (batch 81) and 雨断断续续**地下** on 地下 (batch 82). The card
+bolded them and a reader was shown a word that is not in the sentence. **The third of this class in
+four batches and the first this audit itself introduced**: the row was harvested from the decks' own
+bank by an earlier batch, and that harvest's guard refuses a target SWALLOWED by a longer headword
+while saying nothing about one STRADDLING two shorter ones — the same one-directional blind spot
+`check-example-fit.js` has, met from the harvesting side. **When a batch harvests a sentence, the
+straddle is the case to read for**, because nothing in the pipeline will.
+
+**A CARD THAT CONTRADICTS ITSELF.** 番茄's first sentence read 番茄是蔬菜而不是水果 (*the tomato is a
+vegetable, not a fruit*) and its third 严格地讲，番茄是水果 (*strictly speaking, the tomato is a
+fruit*) — both true in their own register, cookery against botany, and flatly opposed on one card with
+nothing to say which a reader should take away. The same shape as the three self-contradicting cards
+the British-spelling sweep found in batch 32. The first is dropped and a sentence about the food put in
+its place, leaving the botanical remark standing alone, where it is a fact rather than half an
+argument.
+
+**A SENTENCE DROPPED FROM ONE CARD IS NOT DROPPED FROM THE OTHERS THAT CARRY IT.** 这个年级的法方代表
+是谁？ was dropped from 代表 in batch 82 as incoherent — a school year group and *the French side* in
+one clause, with an English rendering neither — and the copy of it on 方 went on standing. This is the
+mirror image of batch 83's finding that an English fix reaches only the card it was written on: **the
+bank is shared and a record row is per note**, so a sentence condemned on one card has to be grepped
+for across the decks.
+
+**COARSE CONTENT THAT ARRIVED ON A CARD ABOUT SOMETHING ELSE.** 反's second sentence was
+她很反感性爱 — *she strongly dislikes sex* — on a Level 5 card about the character 反, where the
+headword is buried inside 反感 and the sentence teaches nothing about it. This is exactly what
+`check-coarse.js` exists for and exactly why it cannot be a gate: every other checker passes it, the
+Chinese being grammatical, the translation accurate, the segmentation clean and the speech correct.
+
+**A LIVE COLLISION NEITHER GLOSS EXPLAINED.** 范围 and 区间 both read `range` and each carried a
+`not <other word>` block — which answers the reverse card honestly and tells the reader nothing about
+what separates the two words. The distinction is real and each card's own sentences show it: 范围 is an
+extent or scope (势力范围, 校园范围内, 能力范围之外) where 区间 is a DELIMITED interval — a numerical
+band, or a defined section of a route, which is what its own third sentence, 这是区间列车, is about and
+which its gloss did not carry at all. Both rewritten, both hints retired, shared-gloss groups 323 →
+322, and the coverage checker re-run to confirm no new collision. **That makes three consecutive
+batches in which a hint turned out to be standing in for a distinction a gloss should have stated.**
+
+**SIX SINGLE-CHARACTER CARDS GAINED A `Compounds` SECTION** — 朵, 躲, 罚, 翻, 反, 方 — of which 朵, 躲
+and 罚 had **nothing at all** in the reader's downloaded deck, 躲 against a single word in the whole
+collection, the thinnest showing yet. 反's rows include 反而 and 反正, which are the very next cards in
+this deck. 耳朵 is written **ěrduo**, its second syllable neutral in CC-CEDICT — the same trap as
+态度's tàidu one batch back.
+
+**FIVE GLOSSES THAT WERE NOT THE SENSE THE CARD TEACHES**, and two of them named a sense the dictionary
+does not give at all: 朵 opened on **stem**, which is in no CC-CEDICT entry for the character, and 发明
+read `invent; **expound**`, where the dictionary holds only /to invent/an invention/. 翻's gloss was
+`turn over; turn around; reverse` while its own three sentences are 翻倍, 机翻 and 后空翻 — so *to
+translate* and *to double*, two of the three senses actually on the card, had no definition behind them.
+二手 read `indirectly acquired`, the abstract first sense, over three sentences all about second-hand
+goods. And 反映's one-word `to mirror` is the literal half of the word and the rarest thing it is used
+for.
+
+**FOUR SENTENCES REPLACED FOR THEIR CHINESE.** 发达's 因为**缺乏的**政府的关注 carries a stray 的 that
+no reading of the clause allows; 发布's 墙上杂志 is not what a wall newspaper is called; 朵's 我卖两朵花
+is not a thing anyone says; and 翻's 价值翻倍了 is a two-word stub. **THREE MORE FOR THEIR ENGLISH**:
+`Is the incurrence of this penalty correct?` is not English, 男生的肌肉比女生发达 lost both the headword
+and the noun it is predicated of, and 经济繁荣稳定 kept only the stability.
+
+**AND ONE REPEAT.** 发起's 他发起攻击 and 敌人对我们发起了攻击 are one attack twice; the replacement
+gives the card the *to initiate, to sponsor* sense its gloss names and neither military sentence showed.
+
+**Fourteen cards were read and left untouched**: 对象, 吨, 二维码, 发表, 发挥, 发言, 发音, 罚款, 法院,
+反而, 反复, 返回, 反应 and 反正.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups **323 → 322**; one-sided hints still 0, cards carrying a hint
+644 → 642; pinyin clean; example-fit 142 and senses 151 unchanged; british 0; 34,596 blocks with
+spoken == visible on every one; sense-tagged 660 unchanged; `build-lang-decks.js` re-run.

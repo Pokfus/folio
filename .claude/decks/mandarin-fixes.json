@@ -13809,11 +13809,11 @@
       ]
     },
     "hsk30l5/儿女": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | AN EXAMPLE SENTENCE DID NOT CONTAIN THIS WORD AT ALL, AND THIS RECORD IS WHAT PUT IT THERE. 那高个**儿女**人很漂亮 is 高个儿 (a tall person) followed by 女人 (a woman) — the characters 儿女 an accident of the two meeting, exactly as 加拿大会 was on 大会 and 雨断断续续地下 on 地下. The card bolded them and a reader was shown a word that is not in the sentence. It is the third of this class in four batches AND THE FIRST THIS AUDIT ITSELF INTRODUCED: the row was harvested from the decks' own bank by an earlier batch, whose guard refuses a target SWALLOWED by a longer headword and says nothing about one straddling two shorter ones — the same one-directional blind spot `check-example-fit.js` has, met from the harvesting side. Replaced with an AUTHORED sentence.",
       "ex": [
         [
-          "那高个儿女人很漂亮。",
-          "The tall woman is beautiful."
+          "他们的儿女都成家了。",
+          "Their children have all married and set up homes of their own."
         ],
         [
           "他有三个儿女。",
@@ -14480,8 +14480,35 @@
       ]
     },
     "hsk30l5/朵": {
-      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.",
-      "Say": "花朵"
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差. | The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The card opened on `stem`, which is not a sense CC-CEDICT gives this character at all — it holds /flower/earlobe/classifier for flowers, clouds etc/ — and a reader met a wrong word before the right one. | An example sentence was thin: 我卖两朵花 (`I sell two flowers`) is not a thing anyone says, and it repeats the numeral-plus-classifier shape the card already had. Dropped, with an AUTHORED replacement. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against two words in the collection; 耳朵 is written **ěrduo**, its second syllable neutral in CC-CEDICT.",
+      "Say": "花朵",
+      "gloss": "a flower; an earlobe; a measure word for flowers and clouds",
+      "dropEx": [
+        "我卖两朵花"
+      ],
+      "ex": [
+        [
+          "他送了她九朵玫瑰。",
+          "He gave her nine roses."
+        ]
+      ],
+      "compounds": [
+        [
+          "花朵",
+          "huāduǒ",
+          "a flower"
+        ],
+        [
+          "云朵",
+          "yúnduǒ",
+          "a cloud"
+        ],
+        [
+          "耳朵",
+          "ěrduo",
+          "an ear"
+        ]
+      ]
     },
     "hsk30l5/机构": {
       "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
@@ -14807,11 +14834,17 @@
       ]
     },
     "hsk30l5/繁荣": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. 经济繁荣稳定 is an economy both PROSPEROUS and stable; the English kept only the stability and dropped the headword.",
       "ex": [
         [
           "上海那么繁荣，主要是一百六十年前开埠以后发生的变化。",
           "Shanghai is so prosperous; notably it was after the port was opened for trade one hundred and sixty years ago that things started to change."
+        ]
+      ],
+      "exEn": [
+        [
+          "经济繁荣稳定",
+          "A prosperous and stable economy is the aim of every government."
         ]
       ]
     },
@@ -55506,7 +55539,7 @@
       ]
     },
     "hsk30l7/区间": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A LIVE COLLISION NEITHER GLOSS EXPLAINED. 范围 and 区间 both read `range` and each carried a `not <other word>` block — which answers the reverse card honestly and tells the reader nothing about what separates the two words. The distinction is real and each card's own sentences show it: 范围 is an extent or scope (势力范围, 校园范围内, 能力范围之外) where 区间 is a DELIMITED interval — a numerical band, or a defined section of a route, which is what its own third sentence, 这是区间列车, is about and which its gloss did not carry at all. Both rewritten to say which they are, and both hints retired with the collision. This is 地面/地板 from batch 82 exactly, and the check is the same: re-run the coverage checker afterwards, because a rewrite can make a NEW collision as easily as it dissolves an old one.",
       "ex": [
         [
           "温度在这个区间比较合适。",
@@ -55520,7 +55553,8 @@
           "这是区间列车。",
           "This is a shuttle train."
         ]
-      ]
+      ],
+      "gloss": "an interval (numerical); a defined section of a route"
     },
     "hsk30l7/区区": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -110503,13 +110537,14 @@
       ]
     },
     "hsk30l5/二手": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Store” is the American word for a shop. It is not in the deck-level table because British English uses it too, in compounds a table cannot tell apart — a department store, a convenience store, a chain store, to set great store by something — so the fourteen sentences where it plainly means a shop are repaired one at a time here. This one said “used-book stores and used-clothing shops” — both words in one sentence, which is what a half-converted corpus looks like from the reader's side.",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Store” is the American word for a shop. It is not in the deck-level table because British English uses it too, in compounds a table cannot tell apart — a department store, a convenience store, a chain store, to set great store by something — so the fourteen sentences where it plainly means a shop are repaired one at a time here. This one said “used-book stores and used-clothing shops” — both words in one sentence, which is what a half-converted corpus looks like from the reader's side. | The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The card read `indirectly acquired` — CC-CEDICT's first sense and the abstract one — while all three of its sentences are SECOND-HAND goods: a second-hand thing, second-hand bookshops and clothes shops, second-hand clothing as a fashion.",
       "exEn": [
         [
           "我很喜欢逛二手书店和二手衣店",
           "I like browsing second-hand bookshops and second-hand clothes shops."
         ]
-      ]
+      ],
+      "gloss": "second-hand; indirectly acquired"
     },
     "hsk30l6/珠宝": {
       "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Store” is the American word for a shop. It is not in the deck-level table because British English uses it too, in compounds a table cannot tell apart — a department store, a convenience store, a chain store, to set great store by something — so the fourteen sentences where it plainly means a shop are repaired one at a time here. ",
@@ -125045,6 +125080,235 @@
     "hsk30l4/顺利": {
       "why": "A DEAD ONE-SIDED DISAMBIGUATOR. This card carried a `not <other word>` block answering a collision that no longer exists: the partner's gloss has since been sharpened by an earlier batch of this audit, so the two no longer share an English prompt and only this half of the pair still said they did. A collision is SYMMETRIC, so a hint one card carries and its named partner does not is a hint that is already dead — and a disambiguator that disambiguates nothing is worse than none, a reader taking it for a real distinction. Seventeen were found by sweeping the decks for it and every one was dead. NOTHING IN THE PIPELINE REPORTS THIS: check-mandarin-coverage.js counts the groups that DO share a gloss and whether each carries a disambiguator; it never asks whether a disambiguator points at a card that no longer collides. The hint cannot simply be deleted from this record either — the applier WRITES a hint where the record has one and never strips one the generator shipped — so it is retired by rewriting the gloss, which rebuilds the English field; and the gloss wanted rewriting anyway, every one of the seventeen being the thin one-word original the partner had already outgrown.",
       "gloss": "smooth; going without a hitch"
+    },
+    "hsk30l5/躲": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against one word in the collection — the thinnest showing of the seven this batch and the previous one have filled.",
+      "compounds": [
+        [
+          "躲避",
+          "duǒbì",
+          "to evade; to take shelter"
+        ],
+        [
+          "躲藏",
+          "duǒcáng",
+          "to hide oneself"
+        ],
+        [
+          "躲开",
+          "duǒkāi",
+          "to get out of the way; to avoid"
+        ]
+      ]
+    },
+    "hsk30l5/发布": {
+      "why": "An example sentence was not ordinary Chinese: 墙上杂志就要发布了 calls a wall newspaper a 墙上杂志, which is not what it is called (墙报 is), and the sentence teaches nothing about the word. Dropped, with an AUTHORED replacement in the commonest register this word has.",
+      "dropEx": [
+        "墙上杂志就要发布了"
+      ],
+      "ex": [
+        [
+          "新产品下周发布。",
+          "The new product will be released next week."
+        ]
+      ]
+    },
+    "hsk30l5/发达": {
+      "why": "An example sentence was grammatically broken: 因为缺乏的政府的关注，这个区域还不发达 carries a stray 的 after 缺乏 that no reading of the clause allows. Dropped, with an AUTHORED replacement. | The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. 男生的肌肉比女生发达 says men's MUSCLES are more developed; the English (`men are physically stronger than women`) rendered neither the headword nor the noun it is predicated of.",
+      "dropEx": [
+        "因为缺乏的政府的关注"
+      ],
+      "ex": [
+        [
+          "沿海地区比内地发达。",
+          "The coastal regions are more developed than the interior."
+        ]
+      ],
+      "exEn": [
+        [
+          "男生的肌肉比女生发达",
+          "Generally speaking, men's muscles are more developed than women's."
+        ]
+      ]
+    },
+    "hsk30l5/发明": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The card read `invent; expound`, and `expound` is a sense CC-CEDICT does not give this word at all — it holds /to invent/an invention/ and nothing else. The card is labelled `noun / verb` and its own second and third sentences are the NOUN, which the gloss did not carry.",
+      "gloss": "to invent; an invention"
+    },
+    "hsk30l5/发起": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. 他发起攻击 and 敌人对我们发起了攻击 are one attack twice. The shorter is dropped and an AUTHORED sentence put in its place, which also gives the card the `to initiate, to sponsor` sense its gloss names and neither military sentence showed.",
+      "dropEx": [
+        "他发起攻击"
+      ],
+      "ex": [
+        [
+          "几位学生发起了这个活动。",
+          "A few students got this campaign going."
+        ]
+      ]
+    },
+    "hsk30l5/罚": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. 您不会受罚 and 我做了该受罚的坏事 are both 受罚, on a card all three of whose sentences buried the character inside a compound (受罚, 判罚, 受罚) and none of which used it on its own. The second 受罚 is dropped and an AUTHORED sentence with the bare verb put in its place. | The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. `Is the incurrence of this penalty correct?` is not English; 判罚 is a referee's decision. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against three words in the collection.",
+      "dropEx": [
+        "我做了该受罚的坏事"
+      ],
+      "ex": [
+        [
+          "老师罚他打扫教室。",
+          "The teacher punished him by making him clean the classroom."
+        ]
+      ],
+      "exEn": [
+        [
+          "这个点球的判罚正确吗",
+          "Was that penalty the right decision?"
+        ]
+      ],
+      "compounds": [
+        [
+          "罚款",
+          "fákuǎn",
+          "a fine; to fine"
+        ],
+        [
+          "处罚",
+          "chǔfá",
+          "to punish; to penalise"
+        ],
+        [
+          "惩罚",
+          "chéngfá",
+          "punishment; to punish"
+        ],
+        [
+          "判罚",
+          "pànfá",
+          "to penalise (in sport)"
+        ]
+      ]
+    },
+    "hsk30l5/翻": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The gloss read `turn over; turn around; reverse` while the card's own sentences are 翻倍 (to double), 机翻 (machine translation) and 后空翻 (a backflip) — so TWO of the three senses on the card, `to translate` and `to double`, had no definition behind them. CC-CEDICT carries both. | The first sentence, 价值翻倍了, is also a two-word stub, and none of the three used the character on its own; it is dropped and an AUTHORED sentence with the bare verb put in its place. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had one word in the reader's downloaded deck, against seven in the collection.",
+      "gloss": "to turn over; to rummage through; to translate; to double",
+      "dropEx": [
+        "价值翻倍了"
+      ],
+      "ex": [
+        [
+          "请翻到第五页。",
+          "Please turn to page five."
+        ]
+      ],
+      "compounds": [
+        [
+          "翻译",
+          "fānyì",
+          "to translate; a translator"
+        ],
+        [
+          "翻身",
+          "fānshēn",
+          "to turn over; to free oneself"
+        ],
+        [
+          "翻倍",
+          "fānbèi",
+          "to double"
+        ],
+        [
+          "推翻",
+          "tuīfān",
+          "to overthrow"
+        ]
+      ]
+    },
+    "hsk30l5/番茄": {
+      "why": "A CARD THAT CONTRADICTS ITSELF. Its first sentence read 番茄是蔬菜而不是水果 (`the tomato is a vegetable, not a fruit`) and its third 严格地讲，番茄是水果 (`strictly speaking, the tomato is a fruit`) — both true in their own register, cookery against botany, and flatly opposed on one card with nothing to say which the reader should take away. The same shape as the three self-contradicting cards the British-spelling sweep found in batch 32. The first is dropped and an AUTHORED sentence about the food put in its place, leaving the botanical remark standing alone, where it is a fact rather than half an argument.",
+      "dropEx": [
+        "番茄是蔬菜而不是水果"
+      ],
+      "ex": [
+        [
+          "我喜欢吃番茄炒蛋。",
+          "I like tomato fried with egg."
+        ]
+      ]
+    },
+    "hsk30l5/反": {
+      "why": "COARSE CONTENT THAT ARRIVED ON A CARD ABOUT SOMETHING ELSE, which is the class `check-coarse.js` exists for: 她很反感性爱 (`she strongly dislikes sex`) sat on a Level 5 card about the character 反, where the headword is buried inside 反感 and the sentence teaches nothing about it. Every other checker passes it — the Chinese is grammatical, the translation accurate, it segments and speaks correctly. Dropped, with an AUTHORED sentence using the character on its own. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had two words in the reader's downloaded deck, against twenty-five in the collection; two of its rows, 反而 and 反正, are the very next cards in this deck.",
+      "dropEx": [
+        "她很反感性爱"
+      ],
+      "ex": [
+        [
+          "这件衣服穿反了。",
+          "You've got this jacket on inside out."
+        ]
+      ],
+      "compounds": [
+        [
+          "反对",
+          "fǎnduì",
+          "to oppose; to object to"
+        ],
+        [
+          "相反",
+          "xiāngfǎn",
+          "opposite; contrary"
+        ],
+        [
+          "反而",
+          "fǎn'ér",
+          "on the contrary; instead"
+        ],
+        [
+          "反正",
+          "fǎnzhèng",
+          "anyway; in any case"
+        ]
+      ]
+    },
+    "hsk30l5/反映": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The one-word gloss `to mirror` is the literal half of the word and the rarest thing it is used for; all three of the card's sentences are `to reflect` in the figurative sense, and CC-CEDICT also carries the everyday administrative sense, /(fig.) to report/to make known/, which the card had nothing for.",
+      "gloss": "to reflect; to mirror; to report (to a higher authority)"
+    },
+    "hsk30l5/范围": {
+      "why": "A LIVE COLLISION NEITHER GLOSS EXPLAINED. 范围 and 区间 both read `range` and each carried a `not <other word>` block — which answers the reverse card honestly and tells the reader nothing about what separates the two words. The distinction is real and each card's own sentences show it: 范围 is an extent or scope (势力范围, 校园范围内, 能力范围之外) where 区间 is a DELIMITED interval — a numerical band, or a defined section of a route, which is what its own third sentence, 这是区间列车, is about and which its gloss did not carry at all. Both rewritten to say which they are, and both hints retired with the collision. This is 地面/地板 from batch 82 exactly, and the check is the same: re-run the coverage checker afterwards, because a rewrite can make a NEW collision as easily as it dissolves an old one.",
+      "gloss": "a range; scope; extent"
+    },
+    "hsk30l5/方": {
+      "why": "THE SAME BANK SENTENCE AGAIN, one batch after it was dropped elsewhere. 这个年级的法方代表是谁？ was dropped from 代表 in batch 82 as incoherent — a school year group and `the French side` in one clause, with an English rendering neither — and the copy on this card went on standing. **A sentence dropped from one card is not dropped from the others that carry it**, which is the harvesting rule's mirror image: the bank is shared and a record row is per note. Dropped here too, with an AUTHORED sentence using the character on its own, which none of the three did. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had four words in the reader's downloaded deck, against forty-one in the collection.",
+      "dropEx": [
+        "这个年级的法方代表是谁"
+      ],
+      "ex": [
+        [
+          "他买了一张方桌。",
+          "He bought a square table."
+        ]
+      ],
+      "compounds": [
+        [
+          "方面",
+          "fāngmiàn",
+          "an aspect; a respect"
+        ],
+        [
+          "方向",
+          "fāngxiàng",
+          "a direction"
+        ],
+        [
+          "方式",
+          "fāngshì",
+          "a way; a method"
+        ],
+        [
+          "对方",
+          "duìfāng",
+          "the other side; the other party"
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead. | Batch 83: SEVENTEEN DEAD ONE-SIDED HINTS RETIRED. A `not <other word>` block answers a COLLISION, and a collision is symmetric — so wherever one card of a pair carries the block and its named partner does not carry the reverse, the pair has already been separated and the survivor is disambiguating nothing. Found while repairing 动手, whose `not 上班` had outlived a rewrite of 上班's own gloss. Swept: 17 of 661 hinted cards were one-sided, and every one of the seventeen was dead — in each case the PARTNER's gloss had been sharpened by an earlier batch of this audit (书 `not 本子` against a 本子 rewritten to `a notebook; an exercise book`, 茶 `not 茶叶` against `tea leaves; tea`, 体力 `not 力气` against `muscle power, the strength to lift or push`). TWO of the seventeen were not in this record at all — 体力 and 顺利, shipped by the generator — which is the other half of the finding: THE APPLIER WRITES A HINT AND NEVER STRIPS ONE, so deleting a row here does not take a block off a deck. A dead hint is retired by rewriting the gloss, which rebuilds the English field. Re-run the one-sided sweep after any batch that rewrites a gloss.",
@@ -125300,7 +125564,6 @@
     "hsk30l5/缓慢": "慢",
     "hsk30l5/缩小": "降低",
     "hsk30l5/美术": "艺术",
-    "hsk30l5/范围": "区间",
     "hsk30l5/药品": "药物",
     "hsk30l5/药物": "药品",
     "hsk30l5/虫子": "昆虫",
@@ -125467,7 +125730,6 @@
     "hsk30l7/剔除": "去除",
     "hsk30l7/办事处": "办公室",
     "hsk30l7/勉励": "鼓励",
-    "hsk30l7/区间": "范围",
     "hsk30l7/协作": "协同",
     "hsk30l7/协同": "协作",
     "hsk30l7/即时": "马上",
