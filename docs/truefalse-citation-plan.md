@@ -1998,3 +1998,32 @@ inherit it.
 layer, 25,000 characters for this one, the preparer and date on the form itself (Marilyn Larew,
 Historic Sites Survey Division, February 1978). Reference numbers are guessable in blocks: 66000171
 is Tombstone and 66000172 answered too.
+
+### Probes that failed, recorded so they are not repeated (2026-09-17)
+
+Three statements had a source identified and unreadable, which is a different state from "no source
+exists" and is worth writing down separately.
+
+**#43 (chop suey and General Tso's).** Haiming Liu, "Chop Suey as Imagined Authentic Chinese Food:
+The Culinary Identity of Chinese Restaurants in the United States," *Journal of Transnational
+American Studies* 1, no. 1 (2009), doi 10.5070/T811006946, is open access and is exactly the source —
+**and `escholarship.org` answers 403 here, its DOI resolves to the same 403, the article is not in
+Europe PMC, and the Wayback capture of its landing page carries the site's chrome and none of the
+article.** DOAJ's API found it in one query (`doaj.org/api/search/articles/<q>?pageSize=6`), so
+**DOAJ is the right index for the food and culture statements even where the host is shut.**
+
+**#6 (foot-binding).** DOAJ's best hit, Brown and Satterthwaite-Phillips in *PLoS ONE* (2018), is
+open and full-text in Europe PMC and **is about the ECONOMICS of the practice, not its origin**: it
+gives regional variation and the mid-twentieth-century end, and says nothing about the tenth-century
+beginning, which is half of what the statement turns on. **An open paper on the right subject is not
+the same as an open paper on the right claim** — read the introduction before counting it.
+
+**#24 (the guillotine within living memory of the moon landings).** Persée returns nothing at all for
+the name of the man executed in 1977; DOAJ returns nothing for the death penalty in France. The
+statement wants a legal or governmental record rather than a journal, and `legifrance` and the
+parliamentary archives have not been probed yet.
+
+**AND THE PICTURE HELD-BACKS ARE STILL HELD BACK.** `upload.wikimedia.org` and
+`commons.wikimedia.org/wiki/Special:FilePath` both returned zero bytes on six attempts across forty
+minutes, for two files whose description pages read perfectly. This is the BUSY state, not a wall:
+the same host served seven other files an hour earlier in the same session.
