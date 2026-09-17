@@ -10377,6 +10377,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     coast_italy: { files: ["coast/italy.js"], after: hiresCoastIngest },
     coast_greece: { files: ["coast/greece.js"], after: hiresCoastIngest },
     coast_china: { files: ["coast/china.js"], after: hiresCoastIngest },
+    /* RUSSIA (Sep 2026, on request: Russia's borders at a higher resolution and its rivers drawn, "like in
+       the other country-specific geography collections"). There is no Russia GEOGRAPHY collection — the
+       geography section is the world, the United States and China — so what this serves is the Russia
+       HISTORY collection's locator windows, which is where Russia is actually drawn and which had neither
+       of the two things Rome, Greece and China have had since Sep 2026. The rivers needed nothing: a
+       locator has always drawn `rivers.js` (see `wantRivers`), and there is no `rivers/russia.js` because
+       the steppe frames are 15°–108° wide, where the world file's own chains are already sub-pixel.
+       ITS BOX IS THE COLLECTION'S FRAME AND NOT THE COUNTRY — the Arctic and Pacific shores are left out
+       for the arithmetic China's entry gives about Russia, whose mainland ring is the largest in world.js
+       — so 86 KB gzipped, between Greece's 50 and China's 63. See the builder for what is in it and for
+       why China is left out of it. */
+    coast_russia: { files: ["coast/russia.js"], after: hiresCoastIngest },
     /* The United States, for the Geography section's map cards rather than for a locator (Sep 2026, on
        request: "give the US a higher resolution"). It is the largest of the four by a distance — the
        frame has to hold Hawaii and Maine, and the Canadian shore that shares it is half the file even
@@ -32165,7 +32177,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* Which collections' locator windows warm a hi-res coast bundle, by collection root — see DATA_BUNDLES
      and .claude/build-hires-coasts.js. A window substitutes the bundle's rings for world.js's, ring by
      ring, the moment it lands; a collection with no row here draws world.js and nothing else. */
-  const CMAP_HIRES = { "col-40": "italy", "col-13": "greece", china: "china" };
+  const CMAP_HIRES = { "col-40": "italy", "col-13": "greece", china: "china", "col-42": "russia" };
   /* AND THE SAME FOR A MAP CARD, KEYED BY ITS LAYER (Sep 2026, on request: "ensure that in the China
      geography collection, rivers are visible in China, and China's borders are of a higher resolution,
      like in the China history collection. Do the same for the US states geography collection").
