@@ -1925,6 +1925,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   construction from the first**, or it teaches nothing the first did not; and **dedupe against the DECK
   rather than against the fixes record**, since eight authored sentences matched an already-harvested
   one and shipped twice before a duplicate sweep found them.
+- **📖 `docs/mandarin-audit-prompt.md` — READ BEFORE OPENING A BATCH OF THE MANDARIN CARD-BY-CARD
+  AUDIT.** The pass asked for in Sep 2026 — every card read one by one for the commonest English
+  definition, a definition that matches the sense its examples show, a reading the speech engine will
+  actually produce, three distinct example sentences, and a section on every single-character card
+  listing other words built on that character. It holds the paste-ready prompt, the batch unit and log
+  (11,532 notes is a grind of the three-example pass's shape and cannot be one sitting), and the
+  measured baseline its triage order rests on. Four things from it are worth having here.
+  **THE GLOSS REGISTER OF LEVELS 7–9 IS NOT THE COLLECTION'S**: of the 731 senses that are a single
+  capitalised English word **721 are in `hsk30l7`**, and of the 2,606 verb senses not beginning "to "
+  **1,844 are** — 爱慕 glossed *Love* where the dictionary has *to adore*, 骨骼 as *Bone* against
+  *bones; skeleton*. A capitalised abstract noun standing for a verb is a label rather than a
+  definition, and it is one deck's fault, so it can be worked deck-first.
+  **THE CHARACTER PANEL IS EMPTY FOR 42% OF THE CARDS IT EXISTS FOR**: `charNeighbours` is scoped to
+  the deck the reader downloaded, and **639 of the 1,503 single-character notes have no other word in
+  their own deck** containing the character (1,160 have fewer than three), against 8.7 more available
+  collection-wide — which is why an AUTHORED `Compounds` field is not a second copy of that panel.
+  **THE TWO DUPLICATE-EXAMPLE CHECKS ASK DIFFERENT QUESTIONS AND THE BULLET ABOVE QUOTES ONLY ONE**:
+  `check-mandarin-coverage.js` compares the CHINESE and reports 0, `check-senses.js` compares the
+  ENGLISH and reports **154** — two distinct sentences under one translation, which is what a reader
+  sees as the same example twice. **And three of the five requests carry a measured DO NOT SWEEP**
+  (the 3,608 semicolon glosses, the 1,487 two-part-of-speech notes, and a blanket pinyin-against-
+  bopomofo tone comparison, whose 231 disagreements are almost all sandhi and regional neutral tones).
+  Not part of the site.
 - **TAPPING A CHARACTER LISTS THE OTHER WORDS BUILT ON IT** (`openCharWin` / `charNeighbours` /
   `CHARWIN_MAX` / `.charwin`; Sep 2026). A Mandarin card already breaks its word into characters and
   glosses each one, and that block was read-only furniture: it told a learner that 蛋 is "egg" and left
