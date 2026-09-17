@@ -1526,3 +1526,70 @@ observational associations between sugar-sweetened beverages and ADHD symptoms, 
 says sugar does not make children hyperactive. The statement rests on double-blind *challenge* trials,
 which that review is not about. **A source on the topic is not a source for the claim**, and this pass
 has now made that mistake once and caught it twice.
+
+### T37 — the flat-Earth myth and the largest desert, both off open journals (2026-09-17)
+
+Two cited: #17 (educated people in Columbus's time believed the Earth was flat) and #118 (the Sahara is
+the largest desert). 175 → **177 of 220**.
+
+**A BOOK REVIEW IS A SOURCE, AND A DIAMOND-OPEN ONE IS REACHABLE WHERE THE BOOK IS NOT.** Jeffrey
+Burton Russell's *Inventing the Flat Earth* is the standard work on the myth and is a 1991 Praeger
+book with no open copy anywhere. Its 1993 review in *Teaching History: A Journal of Methods* is
+**diamond open access** at Ball State's own press, and it restates the book's findings in enough
+detail to carry the statement: that the misperception "is not true, but widely believed", that "the
+true shape of the world as well as its size were relatively well established by the third century
+B.C. by Hellenistic scientists and certainly known to the learned of the Middle Ages", and that
+"Columbus's measurement of the earth's circumference was actually less accurate than that of many of
+his contemporaries". **Look for a review when the monograph is closed** — and cite it as a review,
+reviewer first, which is also the shape `card-focus.js` parses.
+
+**THE `why` WAS NARROWED TO WHAT THE REVIEW SAYS.** It had read "he underestimated both" the size of
+the globe and the width of the ocean; the review says his measurement was *less accurate than many of
+his contemporaries'*, which is a different and weaker claim, so the sentence now says that. **A
+citation is not a licence to keep the stronger wording.**
+
+**AND THE `De sphaera` DETAIL EARNED ITS OWN SOURCE.** Oosterhoff's chapter in *De sphaera of Johannes
+de Sacrobosco in the Early Modern Period* (Springer, 2020, CC BY) says the treatise "was already
+established as a standard textbook in the late Middle Ages" and describes the diagrams that argue
+sphericity — the stick figures walking round the globe, the ship whose lower sailor's line of sight is
+"blocked by the earth's bulge". **Springer 403s a scripted agent and OAPEN 403s too**, but the whole
+book is on archive.org as `oapen-20.500.12657-22845` with a `_djvu.txt`, which is how it was read. The
+citation carries the chapter DOI, per T35's rule.
+
+**#118 WAS HALF-SOURCED FOR THREE BATCHES AND THE MISSING HALF WAS ONE SENTENCE IN A MICROBIOLOGY
+PAPER.** NSIDC gives the Antarctic ice sheet's area and no definition of a desert; the British
+Antarctic Survey's geography page does not use the word at all. Lambrechts, Willems and Tahon's
+*Frontiers in Microbiology* review of Antarctic soils opens on **both halves at once**: "Antarctica,
+the largest desert on Earth", and "Antarctica is therefore the largest, but also coldest desert on
+Earth, since desert climates are characterized by annual precipitation rates of less than 250 mm water
+equivalent." **A paper's INTRODUCTION is where a field states what everybody in it takes for granted**,
+which is exactly the kind of claim a statement like this needs and which no paper's title will ever
+advertise. Europe PMC's full-text search is the way in.
+
+**AND THE SAHARA'S OWN FIGURE CHANGED, WHICH IS THE POINT OF CITING IT.** The `why` had said 9.2
+million square kilometres from nowhere in particular; the source found for it — a *Frontiers in
+Nutrition* review of Algerian Saharan flora, which calls the Sahara "the largest hot desert in the
+world" — puts it at **about 8.5 million**. The figure written is now the figure cited.
+
+### T38 — ether before antisepsis, and a spelling the table cannot reach (2026-09-17)
+
+One cited: #77. 177 → **178 of 220**. Three sources, because the statement spans two events twenty
+years apart and a third fact about the gap between them: Makris et al. (*Annals of Surgery Open*,
+2022) for Ether Day, 16 October 1846; Michaleas et al. (*Cureus*, 2022) for Lister's first carbolic
+dressing of compound fractures in 1865 and his six *Lancet* papers of 1867; and Schlich and Strasser
+(*Medical History*, 2022) for what the twenty years in between were like — "By the mid-nineteenth
+century, operative surgery was in deep crisis … many patients eventually died from these septic
+complications."
+
+**TWO OF THE THREE 403 AT `doi.org` AND BOTH ARE GENUINELY OPEN** — Lippincott and Cureus — read in
+full through Europe PMC's REST full-text endpoint, which serves full text only for open-access
+records. T35's rule applied without change: cite the canonical DOI, establish openness by reading the
+text.
+
+**THE WORD `anaesthesia` IS NOT IN `SPELL_PAIRS`, AND THE CORPUS HAS ONE OF EACH.** Measured over the
+cards and this pool: `geo-033` writes the British form and this statement wrote the American one, and
+nothing anywhere could see it — `check-truefalse.js` rule 2 tests the families the TABLE names, so a
+family nobody has added is a family nobody can check. The statement is now British, which is the house
+form and what the one card already does; **a reader of either spelling still sees whichever is
+authored**, since with no row there is nothing for the transform to convert. It is the `per cent` gap
+CLAUDE.md records, one word over, and at this size it is a one-word fix rather than a pass.
