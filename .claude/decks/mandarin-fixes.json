@@ -11053,9 +11053,18 @@
       ]
     },
     "hsk30l3/夫妻": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | Found by READING the card (batch 28): the third sentence used the characters and not the word: 夫妻肺片 is a Sichuan DISH, husband-and-wife lung slices, and the card's own English said so — so a learner met 夫妻 on a menu rather than as a married couple. It is `check-example-fit.js`'s blind spot in the same shape as batch 27's: 夫妻肺片 is not a headword in these decks, so the segmenter lands squarely on 夫妻 and reports nothing. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement uses the classifier 对 the card carries.",
       "mw": [
         "对"
+      ],
+      "dropEx": [
+        "周末我们全家去吃四川菜"
+      ],
+      "ex": [
+        [
+          "那对夫妻结婚三十年了。",
+          "That couple have been married for thirty years."
+        ]
       ]
     },
     "hsk30l3/头发": {
@@ -11153,7 +11162,7 @@
       ]
     },
     "hsk30l3/干": {
-      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | Found by READING the card (batch 28): the gàn sense listed two NOUNS under a VERB label. 'trunk; main part; do; work' is CC-CEDICT's list run together — 幹 is a tree trunk and the main part of a thing as well as to do and to work — so the card named one part of speech for four glosses belonging to two. Split, with the VERB first: all three of the card's sentences are the verb, which is why there is no `exSense`. The polyphone split and the `Say` from the earlier batch are untouched. Its third English also supplied a subject the Chinese has not got: 活快干完了 says the work is nearly done, not who is doing it.",
       "Say": "干什么",
       "Pinyin": "gàn / gān",
       "Bopomofo": "ㄍㄢˋ / ㄍㄢ",
@@ -11161,12 +11170,23 @@
         [
           "gàn",
           "verb",
-          "trunk; main part; do; work"
+          "to do; to work"
+        ],
+        [
+          "gàn",
+          "noun",
+          "trunk; main part"
         ],
         [
           "gān",
           "adjective",
           "dry"
+        ]
+      ],
+      "exEn": [
+        [
+          "活快干完了",
+          "The work is almost finished."
         ]
       ]
     },
@@ -11360,7 +11380,7 @@
       ]
     },
     "hsk30l3/更": {
-      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | Found by READING the card (batch 28): 干's fault on the card beside it: the gēng sense read 'to change, to replace; night watch' under a VERB label, and a night watch is a noun — one of the five two-hour divisions the night was formerly kept in. Split on the same rule, with the primary reading and its adverb untouched. Its third English also dropped 比往常, which is the comparison the sentence is built on.",
       "Say": "更加",
       "Pinyin": "gèng / gēng",
       "Bopomofo": "ㄍㄥˋ / ㄍㄥ",
@@ -11373,7 +11393,18 @@
         [
           "gēng",
           "verb",
-          "to change, to replace; night watch"
+          "to change; to replace"
+        ],
+        [
+          "gēng",
+          "noun",
+          "a night watch"
+        ]
+      ],
+      "exEn": [
+        [
+          "太阳下山比往常更早",
+          "In winter the sun sets earlier than usual."
         ]
       ]
     },
@@ -71988,7 +72019,7 @@
       ]
     },
     "hsk30l3/封": {
-      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense.",
+      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | Found by READING the card (batch 28): the sentence was UNGRAMMATICAL. 它是封长信 puts a classifier straight after 是 with no numeral in front of it — Chinese needs 一封 or 这封 — and 它 for a letter is not what anybody writes. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement is the 把 construction, which neither other sentence uses.",
       "senses": [
         [
           "verb",
@@ -71997,6 +72028,15 @@
         [
           "measure word",
           "[for letters]"
+        ]
+      ],
+      "dropEx": [
+        "它是封长信。"
+      ],
+      "ex": [
+        [
+          "请把这封信寄出去。",
+          "Please post this letter."
         ]
       ]
     },
@@ -109352,6 +109392,194 @@
         [
           "我把方向搞错了",
           "Sorry, I got the direction wrong."
+        ]
+      ]
+    },
+    "hsk30l3/服务": {
+      "why": "Found by READING the card (batch 28): the same blind spot, and a missing sense behind it. The third sentence was 服务生，买单 — 服务生 is a WAITER, so the characters are there and the word is not; 服务生 is not a headword in these decks, so the segmenter lands on 服务 and `check-example-fit.js` sees nothing. Reading the card also showed the gloss was half of it: 服务 was labelled VERB and defined 'to serve' while the second sentence, 我们不需要你的服务, is the noun, and the card carries the classifier 项, which counts the noun. CC-CEDICT gives both. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement shows the noun, so the card's three sentences now divide 1/2/2 and carry an `exSense` that says so.",
+      "senses": [
+        [
+          "verb",
+          "to serve"
+        ],
+        [
+          "noun",
+          "service"
+        ]
+      ],
+      "dropEx": [
+        "服务生，买单。"
+      ],
+      "ex": [
+        [
+          "这家饭店的服务很好。",
+          "The service at this restaurant is very good."
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ]
+    },
+    "hsk30l3/感到": {
+      "why": "Found by READING the card (batch 28): the sentence read two ways and neither was good. 我为人生感到很开心 is meant as 为 + 人生, but 为人 wéirén is itself a word and the decks' own segmenter takes it that way — and even read as intended, 为…感到 wants a specific cause rather than life at large. Its English, 'I get a kick out of life', was slang for a sentence that carries none. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement gives 感到 the cause clause the construction actually takes.",
+      "dropEx": [
+        "我为人生感到很开心。"
+      ],
+      "ex": [
+        [
+          "听到这个消息，我感到很意外。",
+          "I was very surprised when I heard the news."
+        ]
+      ]
+    },
+    "hsk30l3/感兴趣": {
+      "why": "Found by READING the card (batch 28): the sentence was a 是…的 cleft carrying a plain English translation. 他是对我感兴趣的 singles out WHO he is interested in, where 'He was interested in me' singles out nothing — so the card taught an emphatic construction as if it were the ordinary one. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement is the ordinary statement, which the card did not have: its other two sentences are a negative and a question.",
+      "dropEx": [
+        "他是对我感兴趣的。"
+      ],
+      "ex": [
+        [
+          "他对历史很感兴趣。",
+          "He is very interested in history."
+        ]
+      ]
+    },
+    "hsk30l3/公斤": {
+      "why": "Found by READING the card (batch 28): the second and third sentences were one question asked twice — 一公斤香蕉多少钱 and 香蕉多少钱一公斤, the same words in two orders — and the third's English, 'How much is the kilo of bananas?', is not English anybody speaks. The replacement is AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it, in a construction the card's other two sentences do not already use. The replacement is the weight-of-a-thing construction rather than a third price.",
+      "dropEx": [
+        "香蕉多少钱一公斤？"
+      ],
+      "ex": [
+        [
+          "这个箱子有二十公斤重。",
+          "This box weighs twenty kilograms."
+        ]
+      ]
+    },
+    "hsk30l3/放": {
+      "why": "Found by READING the card (batch 28): the gloss changed grammar half way through: 'to put; set free' gives an infinitive and then a bare imperative, so the two halves read as different kinds of word. CC-CEDICT gives 'to put; to place; to release; to free; to let go'.",
+      "gloss": "to put; to place; to let go"
+    },
+    "hsk30l3/感冒": {
+      "why": "Found by READING the card (batch 28): the measure-word family again, and the same tell batch 26 found on 带: the card said 'noun / verb' and gave one VERB gloss while carrying the classifiers 场 and 次, which count the noun — a cold, a bout of one. Its own third sentence, 感冒真难受, is that noun. CC-CEDICT gives both halves. The three sentences divide 1/1/2, so this one earns an `exSense` where 带's did not. Its English also said 'It sucks having a cold', which is American slang for a sentence that is plain Chinese.",
+      "senses": [
+        [
+          "verb",
+          "to catch a cold"
+        ],
+        [
+          "noun",
+          "a cold"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "exEn": [
+        [
+          "感冒真难受",
+          "Having a cold is really miserable."
+        ]
+      ]
+    },
+    "hsk30l3/根据": {
+      "why": "Found by READING the card (batch 28): the card named THREE parts of speech against one gloss, and the gloss was the third of them: 'according to' is the preposition, while two of the card's three sentences are the NOUN — 有没有根据, 'have you any grounds', and 是根据什么, 'what is the basis'. The classifier 个 it carries counts that noun. CC-CEDICT gives 'according to; based on; basis; foundation'. The three sentences genuinely divide 1/3/1, so this one carries an `exSense`.",
+      "senses": [
+        [
+          "noun",
+          "basis; grounds"
+        ],
+        [
+          "verb",
+          "to be based on"
+        ],
+        [
+          "preposition",
+          "according to; on the basis of"
+        ]
+      ],
+      "exSense": [
+        1,
+        3,
+        1
+      ]
+    },
+    "hsk30l3/关": {
+      "why": "Found by READING the card (batch 28): the card said 'noun / verb' and gave one gloss, 'to close' — and its own third sentence, 不关你的事, is a DIFFERENT VERB, the 关 of concerning somebody, which the card never defined. So a reader met a use the card had not taught, on the card itself. CC-CEDICT gives the three: to close, to concern, and the noun — a mountain pass, which is what the 'noun' label had been promising with nothing behind it. `exSense` marks which sentence is which.",
+      "senses": [
+        [
+          "verb",
+          "to close; to shut; to turn off"
+        ],
+        [
+          "verb",
+          "to concern; to involve"
+        ],
+        [
+          "noun",
+          "a mountain pass"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l3/放心": {
+      "why": "Found by READING the card (batch 28): the English was not what the Chinese says. 放心 is being reassured, and the first sentence's English opened 'Come on', which is chivvying somebody along — the opposite thing to say. The third's 'You can rely upon his being punctual' is a construction no one writes.",
+      "exEn": [
+        [
+          "放心，没事的",
+          "Don't worry, it'll be all right."
+        ],
+        [
+          "你可以放心，他会准时的",
+          "You can rest assured — he'll be on time."
+        ]
+      ]
+    },
+    "hsk30l3/分开": {
+      "why": "Found by READING the card (batch 28): the English was not what the Chinese says. The Chinese says two questions must be discussed separately; the English turned it into one question discussed apart from another, which is a different arrangement of the same words.",
+      "exEn": [
+        [
+          "这两个问题必须分开讨论",
+          "These two questions must be discussed separately."
+        ]
+      ]
+    },
+    "hsk30l3/附近": {
+      "why": "Found by READING the card (batch 28): the English was not what the Chinese says. 'Near by' as two words is not the adverb; it is also the card's own gloss written wrong on the card's own first sentence.",
+      "exEn": [
+        [
+          "附近有个车站",
+          "There's a bus stop nearby."
+        ]
+      ]
+    },
+    "hsk30l3/刚才": {
+      "why": "Found by READING the card (batch 28): the English was not what the Chinese says. Both English lines dropped 刚才, which is the whole of what the card teaches — 'I was at home' and 'Who is the man that you were talking with' would translate the sentences with the headword taken out. The second also made 人 a man.",
+      "exEn": [
+        [
+          "我刚才在家",
+          "I was at home just now."
+        ],
+        [
+          "刚才和你说话的人是谁？",
+          "Who was that you were talking to just now?"
+        ]
+      ]
+    },
+    "hsk30l3/刮": {
+      "why": "Found by READING the card (batch 28): the English was not what the Chinese says. 刮起来 is being lifted into the air; 'The papers blew off' says they came off something, which the sentence does not.",
+      "exEn": [
+        [
+          "文件被风刮起来",
+          "The papers were sent flying by the wind."
         ]
       ]
     }

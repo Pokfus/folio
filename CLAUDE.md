@@ -1973,6 +1973,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     ON ONE CARD AND WRONG ON ANOTHER**: 我喜欢短发 also sits on 短, where 短发 is transparently
     "short" + "hair" and the example is sound. So this is found by reading a CARD, never by sweeping
     sentences.
+    **AND THE BLIND SPOT IS PERMANENT RATHER THAN CLOSING** (batch 28, two more): 夫妻's third sentence
+    was 夫妻肺片, a Sichuan DISH, and 服务's was 服务生, a WAITER. **The compound that swallows a headword
+    is usually one an exam syllabus has no reason to list** — a dish, an occupation, a place name — so it
+    will never enter this lexicon and the segmenter will go on landing squarely on the headword. Three
+    batches running have found this class by reading and by nothing else.
   · **AND THE HARVEST'S GUARD IS THE SAME FAULT ONE LAYER UP.** A sentence taken from the decks' own
     bank is refused where the target is SWALLOWED BY A LONGER headword, which says nothing about one
     spanning TWO SHORTER ones — 得分 harvested 我们在扔掉之前得分类, which is 得 (děi) plus 分类, the
@@ -2175,6 +2180,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   MEASURE WORD on the same card**, which counts one of the thing: 动物 glossed "animals" carried 只 and
   群, and 耳朵 glossed "ears" carried 只 and 个, so each promised a countable noun and defined a mass
   of them. Those two were repaired inside their own batch's range; **the rest are NOT swept**.
+  **THE GENUINE RESIDUE HAS TWO SHAPES AND BOTH ARE WORTH KNOWING** (batch 28, six more read one at a
+  time). **The single gloss belongs to only ONE of the parts of speech named**, and where the card
+  carries a MEASURE WORD that classifier says which is missing — 服务 "to serve" under VERB with the
+  classifier 项, which counts the noun; 感冒 under "noun / verb" with 场 and 次, which count a bout of a
+  cold; 根据 naming three parts of speech against "according to", which is the preposition, while two of
+  its sentences are the noun. **And the gloss LISTS NOUNS UNDER A VERB LABEL**, which is CC-CEDICT's
+  slash list run together — 干's gàn read "trunk; main part; do; work" and 更's gēng "to change, to
+  replace; night watch". **The card's own third sentence is often the tell**: 关 defined "to close" and
+  its 不关你的事 is a different verb the card never glossed.
 - **AN IDIOM CARD CARRIES A `Literally` LINE** (the Idioms deck's card type; Sep 2026). An idiom's gloss
   says what it MEANS and throws away what it SAYS, and the image is most of what makes a
   four-character idiom stick — 谢天谢地 is "thank goodness" and it says "thank heaven, thank earth".

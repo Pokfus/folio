@@ -563,6 +563,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | **the whitespace pass**, all nine decks, as a new `exSpace` note field | 30 | a card not one of whose three sentences used its own headword as a word |
 | 2026-09-17 | `hsk30l3` notes 61–90 (迟到 → 电), deck order | 12 | four cards teaching a word their own sentences do not contain, all invisible to `check-example-fit.js` |
 | 2026-09-17 | `hsk30l3` notes 91–120 (电梯 → 房子), deck order, plus the two -logue spellings | 20 + 1 | a card whose three sentences were three different words beginning with its character |
+| 2026-09-17 | `hsk30l3` notes 121–150 (放 → 关机), deck order | 17 | six glosses naming a part of speech the gloss did not belong to |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -3377,5 +3378,86 @@ judgement about English rather than about the card, and it is recorded rather th
   visible on every one**; sense tags past the sense list 0; stray spaces 0
 - every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token
 - `build-lang-decks.js`: re-run, and **exactly two rows changed** — Levels 3 and 6, the two decks touched
+- CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
+  `check-docs`, `check-questions`, `check-style`
+
+### 2026-09-17 — HSK 3 notes 121–150 (放 → 关机), deck order
+
+Thirty notes read card by card, **seventeen changed**, thirteen read and left alone.
+
+**THE BLIND SPOT AGAIN, AND THIS TIME THE SHAPE OF IT IS CLEAR.** Two more cards taught a word their own
+sentences do not contain, and both were invisible to `check-example-fit.js` for the same reason. 夫妻's
+third sentence was 周末我们全家去吃四川菜，点了麻婆豆腐和夫妻肺片 — **夫妻肺片 is a Sichuan dish**, husband-and-wife
+lung slices, and the card's own English said so. 服务's third was 服务生，买单 — **服务生 is a waiter**. In
+both the segmenter lands squarely on the headword and reports nothing, because the swallowing compound is
+not a headword in these decks. **That is not a gap that closes as the decks grow**: an exam syllabus has no
+reason to list a dish or an occupation, so the compounds that do this will keep on being ones the lexicon
+has not got. Batches 26, 27 and 28 have each found this class by reading and by nothing else.
+
+**Four sentences whose Chinese was wrong, or read two ways.**
+
+- **封**'s first was 它是封长信 — a classifier straight after 是 with no numeral in front of it, which
+  Chinese does not do (一封, 这封), and 它 for a letter besides.
+- **感到**'s first, 我为人生感到很开心, is meant as 为 + 人生 and the decks' own segmenter reads 为人 wéirén,
+  which is a word. Even read as intended, 为…感到 wants a specific cause rather than life at large; its
+  English, "I get a kick out of life", was slang for a sentence carrying none.
+- **感兴趣**'s third was 他是对我感兴趣的 — a 是…的 cleft, which singles out WHO he is interested in, under
+  the plain English "He was interested in me". The card taught an emphatic construction as the ordinary one.
+- **公斤**'s second and third were one question asked twice, 一公斤香蕉多少钱 and 香蕉多少钱一公斤, and the
+  third's English — "How much is the kilo of bananas?" — is not English anybody speaks.
+
+**SIX GLOSSES, AND FIVE OF THEM ARE ONE FAULT IN TWO SHAPES.** The do-not-sweep rule on the 1,510
+two-part-of-speech notes holds; these were read one at a time, and every one is the genuine residue.
+
+- **The gloss belongs to only one of the parts of speech named.** 服务 said VERB and defined "to serve"
+  while its second sentence is the noun and it carries the classifier 项, which counts the noun. 感冒 said
+  "noun / verb" with one verb gloss and carries 场 and 次, which count a bout of a cold — batch 26's 带
+  exactly. 根据 named THREE parts of speech against "according to", which is the third of them, while two
+  of its three sentences are the NOUN. 关 said "noun / verb", defined "to close", and its own third
+  sentence 不关你的事 is a different verb the card never glossed at all.
+- **The gloss lists NOUNS under a VERB label**, which is CC-CEDICT's slash list run together. 干's gàn
+  sense read "trunk; main part; do; work" — 幹 is a tree trunk and the main part of a thing as well as to
+  do and to work. 更's gēng sense read "to change, to replace; night watch", and a night watch is one of
+  the five divisions the night was formerly kept in. Both split, with the primary reading and the
+  polyphone `Say` from the earlier batch untouched.
+- **放** was the smallest of them: "to put; set free" changes grammar half way through, an infinitive and
+  then a bare imperative. CC-CEDICT gives "to put; to place; to release; to free; to let go".
+
+**Three cards earned an `exSense` and two deliberately did not**, which is 带's rule from batch 26 doing
+its work: 服务 divides 1/2/2, 感冒 1/1/2, 关 1/1/2 and 根据 1/3/1, so the tag says something; 干 and the
+rest are one sense three times over, where a tag repeating itself says nothing.
+
+**Six English lines that were not the sentence.** 放心's first opened "Come on", which is chivvying
+somebody where 放心 is reassuring them, and its third read "You can rely upon his being punctual". 分开's
+third turned two questions discussed separately into one question discussed apart from another. 附近's
+first wrote "near by" as two words, on the card whose gloss is that adverb. **刚才's first and second
+dropped 刚才 altogether** — "I was at home" and "Who is the man that you were talking with" translate the
+sentences with the headword taken out, which is the one word the card exists to teach — and the second
+made 人 a man. 更's third dropped 比往常, the comparison the sentence is built on. 刮's third said "The
+papers blew off" where 刮起来 is being lifted into the air. 干's third supplied a subject 活快干完了 has not
+got, and 感冒's third said "It sucks having a cold".
+
+**READ AND LEFT ALONE, with the reasons recorded.** 放's third, 但是他喜欢学校放长假, uses 放 in the
+granting-a-holiday sense the gloss covers and segments clean. 放心's second, "You can depend on it" for
+你可以尽管放心, is loose but not wrong. 刚刚's second is 刚刚发生了什么, the same sentence 发生 carries — two
+cards legitimately sharing one sentence for two different headwords, which `check-senses.js` does not count
+and should not. 风's first and 刮's first are that same arrangement. 公园's third is 动物园's second.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2**, unchanged — the six gloss rewrites were checked against every gloss in the nine
+  decks before they were written
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged**, and no finding names a card this batch touched
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0**; `check-say-reading.js` unchanged at 10 of 1,503 — the two polyphone cards
+  this batch reglossed keep their `Say`
+- `check-coarse.js`: identical to HEAD in all six columns
+- answer-leak set byte-identical to HEAD; 34,596 example blocks, **spoken == visible on every one**; sense
+  tags past the sense list 0; stray spaces 0
+- every authored sentence segmented against the 11,532-word deck lexicon: each headword its own token
+- `build-lang-decks.js`: re-run, and **exactly one row changed** — Level 3, the only deck touched
 - CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
   `check-docs`, `check-questions`, `check-style`
