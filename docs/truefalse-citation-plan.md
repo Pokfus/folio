@@ -72,7 +72,7 @@ card-side research is then shared.
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two and T22 one, all researched |
+| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one and T23 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151` |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one |
@@ -987,3 +987,22 @@ oxidase act alongside those. **THE EGYPTIAN TOMB JARS WENT** — a much-repeated
 does not make and that nothing openable from here establishes — and with it the statement's own
 "thousands of years". The answer now explains **why** honey keeps and leaves the reader's question
 answered by the mechanism rather than by an anecdote.
+
+### T23 — the appendix, with its hedge intact (2026-09-17)
+
+A 2026 *Frontiers in Cellular and Infection Microbiology* review states that the vermiform appendix
+"was long considered a vestigial organ, yet accumulating evidence now supports its role as a component
+of gut associated lymphoid tissue and as a niche involved in microbial homeostasis", and that it
+"harbors a distinct microbial composition rather than being a passive extension of fecal content". It
+also carries Bollinger's "safe house" concept — a protected reservoir of commensal biofilms that can
+help repopulate the colon after diarrheal or infectious disruption.
+
+**THE HEDGE TRAVELLED WITH THE CLAIM, WHICH IS THE POINT OF THIS ONE.** The paper calls the safe-house
+idea a *proposal* and its plausibility *biological*, where the statement asserted it flat ("is now
+thought to act as a reservoir"). Narrowing a `why` is usually about dropping a figure the source does
+not carry; here what the source carries is a hypothesis, and reporting it as a fact would have been a
+different kind of misquotation — the citation would have checked out and the sentence still been wrong.
+
+**AND THREE SEARCHES CAME BACK EMPTY**, so those statements stay uncited and should not be re-searched
+blind: sharks and cancer (nothing open on the cartilage myth), the optics of why veins look blue, and a
+phylogenomics paper stating the fungi–animal sister relationship plainly enough to cite for it.
