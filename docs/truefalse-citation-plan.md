@@ -1469,3 +1469,60 @@ is absent and `pdfminer.six` would not install, but `pypdf` does — it simply p
 the system `cryptography` rust binding does, and shadowing that module with one that raises
 `ImportError` makes `pypdf` fall back to its own crypt provider and work. That is what got Le Texier's
 44-page preprint open. **Reach for it before writing a source off as a PDF.**
+
+### T36 — three physics-and-mathematics statements, and a PDF that had to be de-spaced (2026-09-17)
+
+Three cited: the Cherenkov statement (#164), the birthday problem (#123) and absolute zero (#167).
+Coverage 172 → **175 of 220**. Run `node .claude/check-truefalse.js` for the standing rather than
+reading a figure back out of this line.
+
+**A NOBEL LECTURE IS A SOURCE, AND IT IS OPEN.** `nobelprize.org` serves every laureate's lecture as a
+PDF under a stable `uploads/<year>/<month>/` address, and Cherenkov's 1958 lecture carries the
+statement's whole claim in one sentence: *"the light described is produced by the electrons which move
+uniformly in the substance at a speed exceeding the phase velocity of light in this medium."* That is
+the primary account of the effect by the man who measured it, and it is reachable where every journal
+route to the same claim is not.
+
+**THE EXTRACTED TEXT HAD SPACES INSIDE ITS WORDS, AND THE FIX IS TO SEARCH THE FLATTENED STRING.**
+pypdf reads that scan as `R a di ati o n of p arti cl es m o vi n g`, so every keyword search over it
+returns nothing and the PDF looks unreadable. Stripping **all** whitespace and searching for the
+keyword with its own spaces stripped (`velocityexceeding`, `phasevelocity`) finds the passage at once,
+and the surrounding 300 characters are perfectly legible once you know to expect no spaces. **A PDF
+whose text extracts as gibberish is usually a PDF whose text extracts fine and whose word boundaries
+are lost** — check by flattening before writing it off.
+
+**AN OPEN TEXTBOOK CARRIES BOTH HALVES OF A MATHEMATICAL CLAIM, WHICH A PAPER USUALLY DOES NOT.**
+Grinstead and Snell's *Introduction to Probability* (AMS, freely distributed) states the birthday
+problem, says in terms that the no-duplication probability crosses one half between 22 and 23 people,
+and prints the tables the `why`'s two figures are read off — .4927 at 23, so a match at **50.7%**, and
+.00084 at 70, so a match at **99.9%**. Diaconis and Mosteller's JASA paper is the scholarly reference
+and is closed; the textbook is open, is a published work, and carries more of the statement than the
+paper does.
+
+**THE THIRD LAW HAS AN OPEN-ACCESS DERIVATION AND IT IS QUOTABLE.** Masanes and Oppenheim, *Nature
+Communications* 8 (2017), CC BY 4.0, opens on the unattainability principle in the exact words the
+statement needs — *"any process cannot reach absolute zero temperature in a finite number of steps and
+within a finite time"*. `nature.com` serves it to a scripted agent where `doi.org` and every
+publisher's own mirror in this batch did not.
+
+**WHAT THE MARKER MAY NOT VOUCH FOR.** #167's `why` had opened *"within a few hundred trillionths of a
+degree"*, which is Leanhardt et al., *Science* 301 (2003) — **closed**, with no repository copy
+OpenAlex can find and MIT's own group pages 404. The figure is not in doubt and the sentence was
+rewritten to *"billionths and even trillionths of a degree above zero, but never zero itself"*, so the
+marker at the end of it falls on the half the third-law paper does carry. **Where a sentence mixes a
+cited claim with an uncitable magnitude, put the cited claim last.**
+
+**FIVE MORE WERE RESEARCHED AND REFUSED, AND FOUR OF THEM FOR ONE REASON.** The canonical source is
+closed and nothing open carries the claim: Zanotto's *Do Cathedral Glasses Flow?* (#82), Shapiro's
+bath-tub vortex (#85), Wolraich's sugar meta-analysis (#156) and Manning, Levine and Collins on Kitty
+Genovese (#136) are all `closed` in OpenAlex with no OA location at all. The fifth, sharks (#106), has
+a perfect source — Ostrander et al., *Cancer Research* 64 (2004) — and **AACR 403s both the article and
+its DOI**.
+
+**AND ONE NEAR MISS IS WORTH RECORDING BECAUSE IT WOULD HAVE READ PERFECTLY.** The obvious open source
+for #156 is *Dietary Carbohydrates and ADHD Symptoms: A Systematic Review* (**Nutrients**, 2026,
+PMC13209895). It is open, current, on the subject and **argues the other way** — it reports positive
+observational associations between sugar-sweetened beverages and ADHD symptoms, where the statement
+says sugar does not make children hyperactive. The statement rests on double-blind *challenge* trials,
+which that review is not about. **A source on the topic is not a source for the claim**, and this pass
+has now made that mistake once and caught it twice.
