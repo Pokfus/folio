@@ -681,16 +681,16 @@ his own entry when `rm-377 Battle of Philippi` is written.
     rm-398  Discharge gratuity
     rm-399  Praetorian Guard
     rm-400  Aerarium militare
-    rm-401  The Augustan building programme
+    rm-401  Temple of Apollo Palatinus
     rm-402  Forum of Augustus
     rm-403  Ara Pacis
     rm-404  Mausoleum of Augustus
     rm-405  Augustus of Prima Porta
-    rm-406  The Secular Games of 17 BCE
-    rm-407  The Julian marriage laws
-    rm-408  The exile of Julia
-    rm-409  The cult of the emperor under Augustus
-    rm-410  The Augustan succession
+    rm-406  Ludi saeculares
+    rm-407  Ius trium liberorum
+    rm-408  Julia the Elder
+    rm-409  Lares Augusti
+    rm-410  Princeps iuventutis
     rm-411  Livia
     rm-412  The adoption of Tiberius
     rm-413  The German campaigns of Drusus and Tiberius
@@ -758,6 +758,41 @@ the power is abstract, nothing openable from here shows an Augustan inscription 
 imperial-cult altar, a 16th-century costume plate imagining a tribune. And **`rm-396`'s third citation
 is Shipley's own introduction rather than the text**: the claim it carries is that the fullest copy is
 the Monumentum Ancyranum, which the Res Gestae itself does not state and the Loeb's front matter does.
+
+**Six of the ten lines were retitled writing `rm-401`–`rm-410`, and four of the six for the reason
+this deck keeps giving: the obvious term is spent further down the running order.** **`rm-409 The cult
+of the emperor under Augustus`** is answered by **`Lares Augusti`**, because `rm-528 Imperial cult` and
+`rm-925 Roman imperial cult` both have lines of their own and a third card on the bare institution
+would re-card them; what this card has left to teach is the form the cult actually took at Rome, where
+Dio says no emperor dared accept divine honours in his lifetime and the wards were given the princeps's
+own household gods instead. **`rm-410 The Augustan succession`** is answered by **`princeps
+iuventutis`**, since `rm-493 Adoption and the imperial succession` and `rm-412 The adoption of Tiberius`
+between them own the adoption, and what is left is the honour the knights invented to name an heir in a
+state with no lawful word for one. **`rm-407 The Julian marriage laws`** takes **`ius trium
+liberorum`**: neither statute is a term a reader meets again, where the right of three children turns up
+in Pliny, in the jurists and on inscriptions for three centuries, and Dio's account of it being granted
+to the childless — and to gods, so that they could take legacies — is the whole argument in one
+sentence. **`rm-406`** and **`rm-408`** were only tightened onto the terms their sources carry,
+**`ludi saeculares`** and **`Julia the Elder`**.
+
+**`rm-401 The Augustan building programme` is the sixth and a different case: the line named a programme,
+and a programme has no answer term.** Suetonius' boast about brick and marble is a sentence rather than a
+word, `Campus_Martius` was already a cited glossary entry before this batch opened, and the Forum, the Ara
+Pacis and the Mausoleum are the next three lines. What was left unspent was the **Temple of Apollo
+Palatinus**, which is the programme's opening act, the building Augustus put against his own front door,
+and the place the Sibylline books were moved to from the Capitol — so the line now names it and the card
+still teaches the programme in its ten sentences. **Grep the running order for a candidate term before
+researching it**; this deck has now proved that rule five times.
+
+Three things the batch settled. **Five of the ten take a locator** — the four monuments, and `rm-408`,
+which is marked at Pandateria rather than at Rome because the island is what the card is half about; a
+law, a festival, a street cult and a title have no place a reader could stand. **`rm-406 ludi saeculares`
+ships without a picture**, recorded rather than skipped: Commons holds no photograph of the Acta of the
+games, and the one picture of the right subject, M. Sanquinius' denarius of 17 BCE, is 800 pixels on its
+long side against the 900 the pass requires. And **the Ara Pacis supplies two of the batch's nine
+pictures**, which is deliberate and not an oversight — `rm-403` takes the screen with its procession and
+scrollwork, and `rm-407` takes the children in that procession, who are the marriage legislation's own
+argument in marble and the only Augustan image of it there is.
 
 ### The Julio-Claudians — `rm-julio-claudians`
 
