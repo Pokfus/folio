@@ -73,7 +73,7 @@ card-side research is then shared.
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two and T7d one, all researched |
-| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor |
+| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md` |
 
@@ -759,3 +759,31 @@ Four astronomy and earth-science statements, each narrowed to what its own page 
   statement had 6,263 m and "about 2 kilometres". A citation is a claim about what the work says, so
   where the two disagree the prose moves, not the note. **AND MAUNA KEA'S "only the top 4,200 above
   water" WENT WITH THEM** — a true figure the page does not carry.
+
+### T12 — four mathematics statements off MacTutor and one chemistry statement off the RSC (2026-09-17)
+
+Five, and four of them corrected a date or a figure the statement had asserted without one.
+
+- **More reals than whole numbers.** MacTutor's Cantor biography puts the uncountability proof at
+  December 1873, published 1874, beside the countability of the rationals and the algebraic numbers.
+  **THE DIAGONAL ARGUMENT WAS DROPPED**: the statement credited the 1874 paper with it, and the page
+  says the idea of a one-one correspondence is only implicit in that work — the diagonal proof is a
+  later one, and attaching it to 1874 was a claim the source contradicts.
+- **Goldbach's conjecture.** MacTutor gives the 1742 letter to Euler and "still an open question",
+  and the computer check "up to at least 4 × 10^14". **THE STATEMENT HAD "about four quintillion"**,
+  which is 4 × 10^18 — ten thousand times the figure the cited page carries. It now says 400 trillion.
+  The looser figure may well be current; what it is not is what this source says.
+- **The Möbius strip.** MacTutor gives the construction and the one-sidedness outright, and adds that
+  Möbius came upon it in 1858 but that precedence belongs to Listing on either criterion — which is
+  worth more to a reader than the sentence it replaced. **THE "ONE EDGE" HALF OF THE STATEMENT IS NOT
+  EXPLAINED**, because the page does not carry it; the answer explains the side, and the statement
+  still stands on it.
+- **Zero.** MacTutor's history of zero has Brahmagupta's rules in the seventh century and Fibonacci
+  describing the nine Indian symbols and the sign 0 "for Europeans in around 1200 but it was not
+  widely used for a long time after that". **TWO FIGURES WENT**: the precise 628 CE, which the page
+  states only as the seventh century, and "still being resisted in some Italian cities in the
+  thirteenth century", which it does not state at all.
+- **Mendeleev's gaps.** The RSC's gallium and germanium pages carry the whole claim between them —
+  the 1869 arrangement, the prominent gaps, the eka- names, the forecast weights and densities, and
+  both discoveries with their dates. The germanium page also gives the ekasilicon weight of 72
+  against a real 72.6, which is a sharper illustration than "matched his predictions closely".
