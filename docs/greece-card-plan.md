@@ -1135,7 +1135,11 @@ the alias are the same string.
     gr-811  Theocritus
     gr-812  Bucolic poetry
     gr-813  Hellenistic epigram
-    gr-814  Alexandrian scholarship
+    gr-814  Pinakes  — retitled from "Alexandrian scholarship" when the card was written:
+             Zenodotus correcting Homer is already carded, and Aristarchus is the next line,
+             so the general subject was spread over three cards with no term of its own;
+             Callimachus's catalogue is the word a reader will meet again, and Athenaeus
+             quotes two of its entries in full
     gr-815  Aristarchus of Samothrace
     gr-816  The Septuagint
     gr-817  Euclid

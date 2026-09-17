@@ -397,6 +397,11 @@ const SAME_LANGUAGE_OK = new Map([
      WORK. The other is the WMO's Tegucigalpa record, whose author field is the Honduran meteorological
      agency's own Spanish name on a page published in English. Read Sep 2026. */
   ["gw-589|Spanish|2", "the WMO's own record, credited to the Honduran agency in Spanish, beside one genuinely Spanish paper on the Guacerique sub-basin"],
+  /* The Ecole francaise d'Athenes case a third time, in another discipline. The `revue` signal
+     names a French JOURNAL, not a French work: the Revue d'histoire des mathematiques is
+     bilingual, and both cited articles - Brentjes on the Arabic Elements and Netz on the
+     commentary tradition - are written in English, with only a resume in French. Read Sep 2026. */
+  ["gr-818|French|2", "Revue d'histoire des mathematiques: Brentjes and Netz, both English-language articles in a bilingual French journal"],
 ]);
 
 /* ---------- run ---------- */

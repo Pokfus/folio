@@ -282,6 +282,13 @@ const CROSSREF_WRONG = [
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */
 const CROSSREF_YEAR_WRONG = [
+  // Numdam registered DOIs for the Revue d'histoire des mathematiques back catalogue in 2018
+  // and deposited the REGISTRATION date as published-print, so the record carries no volume,
+  // no issue and no pages either. The articles print their own reference at the head of the
+  // first page: "Revue d'histoire des mathematiques, 4 (1998), p. 261-288" and "12 (2006),
+  // p. 169-197". Read Sep 2026 off the numdam PDFs.
+  ["10.24033/rhm.76", 1998, 2018],
+  ["10.24033/rhm.39", 2006, 2018],
   // OpenEdition deposits a DOI for an OLD article at the moment of registration, and the
   // "print" year Crossref carries is that registration rather than the article's own date.
   // Brussels Studies states its own: "Collection générale, document 78, mis en ligne le
