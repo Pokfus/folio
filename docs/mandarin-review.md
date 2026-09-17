@@ -539,6 +539,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `check-gloss-source.js`'s whole neighbour-gloss list (24) + its 4 reading findings | 24 | a gloss copied from the card sitting beside it in the exam list |
 | 2026-09-17 | `hsk30l1` notes 1–30 (爱 → 的), deck order | 24 | a gloss that names one use while the card's examples test another |
 | 2026-09-17 | `hsk30l1` notes 31–60 (第 → 个), deck order | 25 | a gloss that leaks its own answer onto the reverse card |
+| 2026-09-17 | `hsk30l1` notes 61–90 (给 → 饺子), deck order, plus a corpus-wide punctuation pass | 25 + 389 blocks | a Chinese sentence punctuated with ASCII marks |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -826,3 +827,82 @@ separate fault worth a pass of its own.
   modern learner: the card's own examples will say.
 - **`分析` (hsk30l5) is glossed "analysis" under a verb part of speech** — the noun-for-a-verb shape
   that dominates Levels 7–9, met here at Level 5.
+
+### 2026-09-17 — Level 1, notes 61–90, and the punctuation pass
+
+**The pass came first and took most of the batch's example work with it.** Sweeping the nine decks for
+punctuation found **551 example sentences carrying an ASCII mark after a Chinese character** — 我明年想学汉语.
+and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese was showing a beginner the
+wrong marks for it. 40 of them were in Level 1 and seven fell inside this batch's own thirty.
+
+**It is a deck-level pass, not an entry per note**, for the reason the Spanish record's `exBritish` is
+one: there is no judgement in it, and a mechanical substitution written out per card is one that gets
+applied to 116 cards and forgotten on the 117th. `decks.<id>.exPunct` turns it on, and it is on for all
+nine. **389 example blocks changed.**
+
+**IT CONVERTS A MARK AND NEVER ADDS ONE.** 150 sentences simply stop, with no terminal at all, and
+supplying one is a claim that the sentence is COMPLETE — which a machine cannot make: four of them end
+in 吗 or 呢 and want ？ rather than 。. Those stay hand work, batch by batch. **Level 1 has exactly
+two**, 那个包包看起来好贵 (fixed here) and 我们也不得不做 (note #253, a later batch).
+
+**And one survivor is deliberate**: `忍一时，风平浪静. 让一步，海阔天空。` in the Idioms deck has a full
+stop MID-sentence, and the rule only converts one at the end, where an abbreviation cannot be mistaken
+for a terminal. One sentence in 34,596; left for the batch that reaches it rather than widening a guard.
+
+### The bug the pass turned up, which nothing else could see
+
+**Eight cards were handing the speaker a fragment, or nothing at all.** A sentence is stored twice in
+its block — once as the visible text, once in a `data-say="…"` attribute the speech control is handed —
+and eight sentences contain an ASCII double quote, **which ends the attribute**. So 对话's speaker said
+`和一个只说` and stopped; 加上's, 恐怕's and 嗯's said **nothing**, their sentences opening on a quote.
+Every checker in the pipeline passed them: the card renders perfectly and the fault is inside an
+attribute.
+
+Two things came out of it. The quotes are now paired into “ ”, **and only where the count is even** —
+an odd one cannot be paired and a guess would leave a quote unclosed. And **the spoken copy is now
+DERIVED from the visible one** rather than repaired beside it, so the two agree by construction:
+**34,596 of 34,596 blocks**, where before the pass eight differed. That equality is a cheap and strong
+invariant and is worth asserting after any change to an example.
+
+**A second thing the pass had to learn.** Fourteen sentences kept their ASCII marks after the first
+run, and the reason is structural: this record **strips and rebuilds every `uc-exadd` block** from its
+own `ex` rows, so a sentence the record owns was put straight back with the fault the deck-level pass
+had just removed. The builder repunctuates its own rows now.
+
+### The thirty notes
+
+Nine glosses, three sense-tag sets, four examples and fifteen compound lists.
+
+- **会** is the batch's worst card: glossed "to know how to; can; meeting" — three things under one verb
+  part of speech, one of them a noun — while **not one of its three examples shows any of them**.
+  明天会下雨, 你不会来 and 她会没事的 are all the future-and-likelihood auxiliary, which the gloss did not
+  name at all. Split into the three senses CC-CEDICT lists, the missing one added, every example tagged.
+- **很** is the most interesting. Two of its three examples do not translate 很 at all — 这个很便宜 is
+  "This is cheap" — which reads as two careless translations and **is the most important thing about the
+  word**: CC-CEDICT records it in terms, "often used before an adjective without intensifying its
+  meaning". Added as a second sense and the examples tagged, so the two sentences that looked like
+  mistakes become the card's own teaching point.
+- **公司** was glossed "company; office" and *office is not a sense of 公司 at all* (that is 办公室).
+  **汉语** was "Standard Chinese language", which is 普通话. **见** was "to see, to perceive with the
+  eyes" while two examples are to MEET. **件** named clothing while both working examples are 事.
+  **好看** was "good-looking" while its first example is a film.
+- **汉字's second example was rendered "Can you read this kanji?"** — the Japanese word for these
+  characters, on the card teaching the Chinese one.
+- **件's third example was 今天我有一个备件** — 件 there is the second half of 备件, a spare part, so the
+  card's own word does not appear in it.
+
+**很 has no compound list, and that is the honest answer.** CC-CEDICT has no entry for 很多, 很少 or any
+other word built on it: 很 is almost purely a free adverb. **Not every single-character card can have a
+`Compounds` section**, and inventing rows for one that builds nothing would be worse than the gap.
+
+**Three rows take the DECK's reading rather than the dictionary's** — 好处 hǎo chù, 后面 hòu miàn,
+回来 huí lái against CC-CEDICT's neutral-tone forms — because the deck has a card for each and a reader
+should not meet two readings of one word. CC-CEDICT sanctions the first outright ("also pr. [hao3chu4]")
+and the rest are the mainland-against-Taiwan variance CLAUDE.md warns must not be swept.
+
+### Found while working, and left for the batch that reaches it
+
+- **`太` (hsk30l1, later in the deck) is glossed "very"**, which is 很's word: 太 is *too*, excessively.
+  太贵了 is "too expensive", not "very expensive". It keeps its `not 很` hint, which still points at a
+  genuine near-synonym.
+- **Spaces inside a Chinese sentence**: `学习 汉语 难 不 难？` (hsk30l3, 难). Worth a sweep of its own.

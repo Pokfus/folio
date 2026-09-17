@@ -115,6 +115,52 @@ const MW = (() => {
   return t;
 })();
 
+/* ---------- A CHINESE SENTENCE TAKES CHINESE PUNCTUATION (Sep 2026) ----------------------------
+   551 of the decks' 34,596 example sentences are punctuated with ASCII marks — 我明年想学汉语. and
+   你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese shows a beginner the
+   wrong marks for it. It is a DECK-LEVEL pass rather than an entry per note for the reason the Spanish
+   record's `exBritish` is one: there is no judgement in it, and a mechanical substitution written out
+   per card is one that gets applied to 116 cards and forgotten on the 117th.
+
+   IT CONVERTS A MARK AND NEVER ADDS ONE. 130 of those sentences simply stop, with no terminal at all,
+   and supplying one is a claim that the sentence is COMPLETE — which a machine cannot make: `和一个只说`
+   is a truncated fragment, and four of the 130 end in 吗 or 呢 and want ？ rather than 。. Those are
+   left to be read and repaired by hand, batch by batch, and are listed in docs/mandarin-review.md.
+
+   IT REWRITES BOTH COPIES. A sentence is stored twice in its block — once as the `data-say` the speaker
+   is handed, once as the visible text with the headword bolded — and an edit that moved one and not the
+   other is the fault this whole file exists to prevent. The visible copy needs the tags allowed for
+   between the character and the mark, since `说</b>,` is the shape a bolded headword leaves behind. */
+const HAN_RX = "[\\u4e00-\\u9fff\\u3400-\\u4dbf]";
+const FULLWIDTH = { ",": "，", ";": "；", ":": "：", "!": "！", "?": "？" };
+/* An ASCII double quote in Chinese prose is the wrong mark AND it breaks the card: the spoken copy is
+   stored in a `data-say="…"` attribute, so the first embedded quote ends the attribute and the speaker
+   is handed a fragment — or, where the sentence opens on one, nothing at all. Paired into “ ” only
+   where the count is EVEN, since an odd one cannot be paired and a guess would leave a quote unclosed. */
+const punctQuotes = (s) => {
+  const n = (String(s).match(/"/g) || []).length;
+  if (!n || n % 2) return String(s);
+  let i = 0;
+  return String(s).replace(/"/g, () => (i++ % 2 ? "\u201d" : "\u201c"));
+};
+const punctPlain = (s) => punctQuotes(String(s)
+  .replace(new RegExp("(" + HAN_RX + ")([,;:!?]) ?", "g"), (m, a, b) => a + FULLWIDTH[b])
+  .replace(new RegExp("(" + HAN_RX + ")\\.$"), "$1\u3002"));
+/* THE SPOKEN COPY IS DERIVED FROM THE VISIBLE ONE RATHER THAN REPAIRED BESIDE IT. A sentence is stored
+   twice in its block and an edit that moved one and not the other is the fault this file exists to
+   prevent — and the quote case above proves the two really can disagree, since eight blocks shipped
+   with a `data-say` cut short of the sentence beside it. Rebuilding it from the visible text makes the
+   two agree by construction. The leading spans (the sense tag, the speaker) are stepped over, and the
+   sentence itself carries nothing but the <b> round the headword. */
+const punctExamples = (html) => String(html).replace(
+  /(<div class="uc-exz">)([\s\S]*?)(<\/div>)/g, (m, open, inner, close) => {
+    const cut = inner.lastIndexOf("</span>");
+    const pre = cut < 0 ? "" : inner.slice(0, cut + 7), sent = cut < 0 ? inner : inner.slice(cut + 7);
+    const fixed = punctPlain(sent);
+    const plain = fixed.replace(/<[^>]*>/g, "");
+    return open + pre.replace(/data-say="[^"]*"/, 'data-say="' + plain + '"') + fixed + close;
+  });
+
 const fixes = JSON.parse(fs.readFileSync(FIXES, "utf8"));
 /* `decks` edits a deck's own METADATA rather than a note — currently only the subtitle, which is what
    the Collections page prints under a deck's title. It is here rather than hand-edited into the files
@@ -125,6 +171,7 @@ let metaHit = 0;
 const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
 let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [];
+let hitsPunct = 0;
 
 const hints = Object.entries(fixes.hints || {});
 const hintsByDeck = new Map();
@@ -172,6 +219,14 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
         if (f.css && String(t.css || "").indexOf(f.css.trim().split("\n")[0]) < 0) t.css = String(t.css || "") + f.css;
       }
     });
+    /* Applied to every card of the deck, not to a named list, which is the whole point of putting a
+       mechanical substitution in one place. Idempotent: a full-width mark is not matched again. */
+    if (dm.exPunct) for (const c of d.cards || []) {
+      const was = c.fields && c.fields.Examples;
+      if (!was) continue;
+      const now = punctExamples(was);
+      if (now !== was) { c.fields.Examples = now; hitsPunct++; }
+    }
     metaHit++;
   }
   const want = byDeck.get(d.meta && d.meta.id);
@@ -252,7 +307,12 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
         if (String(zh).indexOf(fl.Simplified) < 0) badEx.push(w.key + " → " + zh);
         else if (!en || !String(en).trim()) badEx.push(w.key + " → no translation");
       });
-      const add = (fix.ex || []).slice(0, room).map(([zh, en]) => {
+      const add = (fix.ex || []).slice(0, room).map(([zh0, en]) => {
+        /* THE RECORD'S OWN SENTENCES ARE REPUNCTUATED TOO, and they have to be: this file STRIPS and
+           rebuilds every `uc-exadd` block, so a row it rebuilds would keep the ASCII marks the
+           deck-level pass has just taken off every other card — which is how 14 of them survived the
+           first run of that pass. */
+        const zh = dm && dm.exPunct ? punctPlain(zh0) : zh0;
         const bold = zh.split(fl.Simplified).join("<b>" + fl.Simplified + "</b>");
         return '<div class="uc-exi uc-exadd"><div class="uc-exz">' +
           '<span class="uc-tts uc-exsay" data-say="' + esc(zh) + '"></span>' + bold + "</div>" +
@@ -378,6 +438,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
 for (const [key] of entries) if (!seen.has(key)) missing.push(key);
 for (const [key] of hints) if (!seenHint.has(key)) missing.push(key + " (hint)");
 
+if (hitsPunct) console.log("\n  " + hitsPunct + " example block set(s) repunctuated (ASCII marks after a Chinese character)");
 console.log("\n" + entries.length + " fixes, " + hints.length + " reverse-card hints and " +
   (Object.keys(deckMeta).length - (deckMeta.why ? 1 : 0)) + " deck-metadata edits in mandarin-fixes.json, " +
   (seen.size + seenHint.size) + " matched a note, " + metaHit + " matched a deck");

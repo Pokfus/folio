@@ -8328,7 +8328,7 @@
    ]
   },
   "hsk30l1/号": {
-   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
    "senses": [
     [
      "noun",
@@ -8337,6 +8337,28 @@
     [
      "measure word",
      "(for people, in a shop or a hospital)"
+    ]
+   ],
+   "compounds": [
+    [
+     "号码",
+     "hào mǎ",
+     "a number"
+    ],
+    [
+     "信号",
+     "xìn hào",
+     "a signal"
+    ],
+    [
+     "口号",
+     "kǒu hào",
+     "a slogan"
+    ],
+    [
+     "号召",
+     "hào zhào",
+     "to call on; an appeal"
     ]
    ]
   },
@@ -8430,7 +8452,7 @@
    ]
   },
   "hsk30l1/好": {
-   "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+   "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 5 other words. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. This character is POLYPHONIC and the list carries a row for the second reading, which is the clearest place on the card to show it. Three of this batch's rows take the DECK's own reading rather than CC-CEDICT's, because the deck has a card for that word and a reader should not meet two readings of it: 好处 hǎo chù, 后面 hòu miàn and 回来 huí lái against the dictionary's neutral-tone forms. CC-CEDICT sanctions the first outright (\"also pr. [hao3chu4]\") and the rest are the mainland-against-Taiwan variance CLAUDE.md warns must not be swept.",
    "Pinyin": "hǎo / hào",
    "Bopomofo": "ㄏㄠˇ / ㄏㄠˋ",
    "senses": [
@@ -8443,6 +8465,28 @@
      "hào",
      "verb",
      "to be fond of, to like"
+    ]
+   ],
+   "compounds": [
+    [
+     "好像",
+     "hǎo xiàng",
+     "to seem; as if"
+    ],
+    [
+     "好处",
+     "hǎo chù",
+     "a benefit; an advantage"
+    ],
+    [
+     "只好",
+     "zhǐ hǎo",
+     "to have no choice but to"
+    ],
+    [
+     "爱好",
+     "ài hào",
+     "a hobby; to be fond of"
     ]
    ]
   },
@@ -8460,7 +8504,7 @@
    ]
   },
   "hsk30l1/家": {
-   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 2 other words. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
    "senses": [
     [
      "noun",
@@ -8474,14 +8518,37 @@
      "suffix",
      "-ist, -ian (a specialist in something)"
     ]
+   ],
+   "compounds": [
+    [
+     "国家",
+     "guó jiā",
+     "a country; a state"
+    ],
+    [
+     "家庭",
+     "jiā tíng",
+     "a family; a household"
+    ],
+    [
+     "回家",
+     "huí jiā",
+     "to go home"
+    ],
+    [
+     "作家",
+     "zuò jiā",
+     "a writer"
+    ]
    ]
   },
   "hsk30l1/家人": {
-   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | Its gloss was \"family member\", the dictionary's own wording, but all three of the card's examples use it collectively — 这是你的家人吗 \"Is this your family?\", 两家人, 给家人打电话 \"call my family\" — and a singular gloss on a collective noun is what makes a learner write 家人们. Widened to carry both.",
    "mw": [
     "个",
     "位"
-   ]
+   ],
+   "gloss": "one's family; a family member"
   },
   "hsk30l1/对": {
    "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, which is the syllabus's own frequency ordering, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
@@ -8669,7 +8736,7 @@
    "gloss": "to talk, to speak (as an activity)"
   },
   "hsk30l1/还": {
-   "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+   "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | The note teaches both of the character's readings, and its third example 没有人生还 is the huán one while the first two are hái. Tagged, which on a polyphone is the clearest place to say which reading a sentence is showing. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. This character is POLYPHONIC and the list carries a row for the second reading, which is the clearest place on the card to show it.",
    "Say": "还是",
    "Pinyin": "hái / huán",
    "Bopomofo": "ㄏㄞˊ / ㄏㄨㄢˊ",
@@ -8683,6 +8750,33 @@
      "huán",
      "verb",
      "to return, to give back; to repay"
+    ]
+   ],
+   "exSense": [
+    1,
+    1,
+    2
+   ],
+   "compounds": [
+    [
+     "还是",
+     "hái shi",
+     "still; or"
+    ],
+    [
+     "归还",
+     "guī huán",
+     "to give back; to return"
+    ],
+    [
+     "退还",
+     "tuì huán",
+     "to refund; to return"
+    ],
+    [
+     "讨价还价",
+     "tǎo jià huán jià",
+     "to haggle over a price"
     ]
    ]
   },
@@ -70016,7 +70110,7 @@
    ]
   },
   "hsk30l1/回": {
-   "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information.",
+   "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information. | The note teaches the verb \"to return\" and the measure word \"time, occasion\", and its examples split two to one the other way round from the order they are glossed in: 有这回事吗 and 你去了几回 are the measure word, 我会给你回电话的 the verb. Tagged. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. Three of this batch's rows take the DECK's own reading rather than CC-CEDICT's, because the deck has a card for that word and a reader should not meet two readings of it: 好处 hǎo chù, 后面 hòu miàn and 回来 huí lái against the dictionary's neutral-tone forms. CC-CEDICT sanctions the first outright (\"also pr. [hao3chu4]\") and the rest are the mainland-against-Taiwan variance CLAUDE.md warns must not be swept.",
    "senses": [
     [
      "verb",
@@ -70031,10 +70125,32 @@
     2,
     2,
     1
+   ],
+   "compounds": [
+    [
+     "回来",
+     "huí lái",
+     "to come back"
+    ],
+    [
+     "回家",
+     "huí jiā",
+     "to go home"
+    ],
+    [
+     "回答",
+     "huí dá",
+     "to answer; a reply"
+    ],
+    [
+     "回复",
+     "huí fù",
+     "to reply"
+    ]
    ]
   },
   "hsk30l1/给": {
-   "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information.",
+   "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information. | The note already teaches two genuinely different things — the verb \"to give\" and the preposition \"for; to (someone)\" — and its third example, 你打电话给她了吗, is the preposition while the other two are the verb. Tagged; nothing else about the card is changed.",
    "senses": [
     [
      "verb",
@@ -99927,6 +100043,347 @@
      "poetry"
     ]
    ]
+  },
+  "hsk30l1/公司": {
+   "why": "Its gloss was \"company; office\", and \"office\" is not a sense of 公司 at all — that is 办公室. CC-CEDICT gives \"company; firm; corporation\", and all three of the card's examples are the company (那是公司的钱, 你们公司几点下班, 公司员工).",
+   "gloss": "a company; a firm"
+  },
+  "hsk30l1/汉语": {
+   "why": "Its gloss was \"Standard Chinese language\", which is 普通话 — 汉语 is the Chinese language as such, and CC-CEDICT gives exactly that. The card's own three examples all translate it as plain \"Chinese\".",
+   "gloss": "Chinese; the Chinese language"
+  },
+  "hsk30l1/好看": {
+   "why": "Its gloss was \"good-looking\" alone, and its first example is 电影好看吗？\"Was the movie good?\" — a film is not good-LOOKING, and CC-CEDICT lists the sense separately: \"(of a movie, book, TV show etc) good\". Widened. | Its third example was 你要穿那种衣服出门？不太好看耶。rendered \"Going out with those clothes? They look kinda bad.\" — \"kinda\" is not the register of a study card, and 耶 is a Taiwanese sentence particle taught in no HSK level. Replaced with an AUTHORED sentence in the film-and-book sense the gloss has just gained, which only one example showed.",
+   "gloss": "good-looking; nice; (of a film or book) good",
+   "dropEx": [
+    "你要穿那种衣服出门？不太好看耶。"
+   ],
+   "ex": [
+    [
+     "这本书很好看。",
+     "This book is a good read."
+    ]
+   ]
+  },
+  "hsk30l1/和": {
+   "why": "Its gloss was the single word \"and\", and two of the card's three examples are the PREPOSITION: 我能和老师说话吗 is \"with the teacher\" and 和你在一起 is \"together with you\". CC-CEDICT gives \"(joining two nouns) and; together with; with\", which is what the card's own part of speech (preposition / conjunction) already says and the gloss did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "gloss": "and; with; together with",
+   "compounds": [
+    [
+     "和平",
+     "hé píng",
+     "peace"
+    ],
+    [
+     "温和",
+     "wēn hé",
+     "mild; gentle"
+    ],
+    [
+     "和气",
+     "hé qi",
+     "amiable; good-natured"
+    ],
+    [
+     "和尚",
+     "hé shang",
+     "a Buddhist monk"
+    ]
+   ]
+  },
+  "hsk30l1/会": {
+   "why": "Its gloss was \"to know how to; can; meeting\" — three things under one verb part of speech, one of them a noun — and NOT ONE of the card's three examples shows any of them: 明天会下雨, 你不会来 and 她会没事的 are all the future-and-likelihood auxiliary, which the gloss did not name at all. CC-CEDICT lists the three separately (\"can; to know how to\" / \"to be likely to; to be sure to\" / \"meeting; gathering\"). Split, the missing sense added, and every example tagged with the one it actually shows. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "senses": [
+    [
+     "verb",
+     "to know how to; to be able to"
+    ],
+    [
+     "verb",
+     "will; to be likely to"
+    ],
+    [
+     "noun",
+     "a meeting; a gathering"
+    ]
+   ],
+   "exSense": [
+    2,
+    2,
+    2
+   ],
+   "compounds": [
+    [
+     "开会",
+     "kāi huì",
+     "to hold a meeting"
+    ],
+    [
+     "机会",
+     "jī huì",
+     "an opportunity"
+    ],
+    [
+     "社会",
+     "shè huì",
+     "society"
+    ],
+    [
+     "会议",
+     "huì yì",
+     "a meeting; a conference"
+    ]
+   ]
+  },
+  "hsk30l1/见": {
+   "why": "Its gloss was \"to see, to perceive with the eyes\", a definition rather than an equivalent, and it misses the sense two of the three examples use: 回来见我 and 见他们 are to MEET. CC-CEDICT lists \"to see\" and \"to meet\" as its first two senses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 3 other words. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "gloss": "to see; to meet",
+   "compounds": [
+    [
+     "见面",
+     "jiàn miàn",
+     "to meet; to see one another"
+    ],
+    [
+     "意见",
+     "yì jiàn",
+     "an opinion; a view"
+    ],
+    [
+     "常见",
+     "cháng jiàn",
+     "common; frequently seen"
+    ],
+    [
+     "见识",
+     "jiàn shi",
+     "experience; knowledge"
+    ]
+   ]
+  },
+  "hsk30l1/件": {
+   "why": "Its gloss named clothing only, while both of the examples that work are 事 — 这件事, 一件好事 — so the card taught one use and tested another. CC-CEDICT gives \"classifier for events, things, clothes etc\". | Its third example was 今天我有一个备件。\"I have a spare today\", where 件 is not the measure word at all but the second half of 备件, a spare part — the card's own word does not appear in it. Replaced with an AUTHORED sentence using the clothing measure word, which the gloss named and no example showed. |  | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "gloss": "[measure word for clothes, matters and things]; an item",
+   "dropEx": [
+    "今天我有一个备件。"
+   ],
+   "ex": [
+    [
+     "我买了两件衣服。",
+     "I bought two items of clothing."
+    ]
+   ],
+   "compounds": [
+    [
+     "文件",
+     "wén jiàn",
+     "a document; a file"
+    ],
+    [
+     "事件",
+     "shì jiàn",
+     "an event; an incident"
+    ],
+    [
+     "条件",
+     "tiáo jiàn",
+     "a condition; a requirement"
+    ],
+    [
+     "零件",
+     "líng jiàn",
+     "a spare part"
+    ]
+   ]
+  },
+  "hsk30l1/很": {
+   "why": "Two of the card's three examples do not translate 很 at all — 这个很便宜 is \"This is cheap\" and 很好不是吗 is \"Isn't that good?\" — which reads as two careless translations and is in fact the most important thing about the word: CC-CEDICT records it in terms, \"(also, often used before an adjective without intensifying its meaning, i.e. as a meaningless syntactic element)\". Added as a second sense and each example tagged, so the two sentences that looked like mistakes become the card's own teaching point. The `not 太` block goes with the reworded gloss; 太's own card keeps its hint, and its gloss (\"very\", where 太 is really \"too\") is recorded in docs/mandarin-review.md for the batch that reaches it.",
+   "senses": [
+    [
+     "adverb",
+     "very; quite"
+    ],
+    [
+     "adverb",
+     "(before an adjective, often just a link rather than an intensifier)"
+    ]
+   ],
+   "exSense": [
+    2,
+    2,
+    1
+   ]
+  },
+  "hsk30l1/贵": {
+   "why": "Its third example simply stopped, with no terminal punctuation at all — one of only two in this deck, and the deck-level repunctuation pass deliberately does not supply a terminal, since doing so is a claim that the sentence is complete. It also used 包包, a colloquial reduplication taught in no HSK level. Replaced with an AUTHORED sentence in a construction neither of the other two uses. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "dropEx": [
+    "那个包包看起来好贵"
+   ],
+   "ex": [
+    [
+     "这家饭店的菜很贵。",
+     "The food at this restaurant is expensive."
+    ]
+   ],
+   "compounds": [
+    [
+     "珍贵",
+     "zhēn guì",
+     "precious; valuable"
+    ],
+    [
+     "贵姓",
+     "guì xìng",
+     "(polite) your surname"
+    ],
+    [
+     "贵族",
+     "guì zú",
+     "the nobility; an aristocrat"
+    ],
+    [
+     "昂贵",
+     "áng guì",
+     "costly; expensive"
+    ]
+   ]
+  },
+  "hsk30l1/汉字": {
+   "why": "Its second example was rendered \"Can you read this kanji?\" — KANJI is the Japanese word for these characters, on a card teaching the Chinese one. Replaced with an AUTHORED question in a different frame; the third example's \"hanzi\" is left, being at least the right language and arguably worth teaching beside the card's own headword.",
+   "dropEx": [
+    "你会读这个汉字吗？"
+   ],
+   "ex": [
+    [
+     "这个汉字怎么写？",
+     "How is this Chinese character written?"
+    ]
+   ]
+  },
+  "hsk30l1/狗": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "compounds": [
+    [
+     "小狗",
+     "xiǎo gǒu",
+     "a puppy"
+    ],
+    [
+     "热狗",
+     "rè gǒu",
+     "a hot dog"
+    ],
+    [
+     "走狗",
+     "zǒu gǒu",
+     "a lackey; a running dog"
+    ],
+    [
+     "狗熊",
+     "gǒu xióng",
+     "a black bear"
+    ]
+   ]
+  },
+  "hsk30l1/国": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "compounds": [
+    [
+     "国家",
+     "guó jiā",
+     "a country; a state"
+    ],
+    [
+     "外国",
+     "wài guó",
+     "a foreign country"
+    ],
+    [
+     "出国",
+     "chū guó",
+     "to go abroad"
+    ],
+    [
+     "国际",
+     "guó jì",
+     "international"
+    ]
+   ]
+  },
+  "hsk30l1/喝": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. This character is POLYPHONIC and the list carries a row for the second reading, which is the clearest place on the card to show it.",
+   "compounds": [
+    [
+     "好喝",
+     "hǎo hē",
+     "nice to drink; tasty"
+    ],
+    [
+     "喝酒",
+     "hē jiǔ",
+     "to drink alcohol"
+    ],
+    [
+     "喝醉",
+     "hē zuì",
+     "to get drunk"
+    ],
+    [
+     "喝彩",
+     "hè cǎi",
+     "to cheer; to applaud"
+    ]
+   ]
+  },
+  "hsk30l1/后": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. Three of this batch's rows take the DECK's own reading rather than CC-CEDICT's, because the deck has a card for that word and a reader should not meet two readings of it: 好处 hǎo chù, 后面 hòu miàn and 回来 huí lái against the dictionary's neutral-tone forms. CC-CEDICT sanctions the first outright (\"also pr. [hao3chu4]\") and the rest are the mainland-against-Taiwan variance CLAUDE.md warns must not be swept.",
+   "compounds": [
+    [
+     "以后",
+     "yǐ hòu",
+     "afterwards; later"
+    ],
+    [
+     "然后",
+     "rán hòu",
+     "then; afterwards"
+    ],
+    [
+     "最后",
+     "zuì hòu",
+     "finally; last"
+    ],
+    [
+     "后面",
+     "hòu miàn",
+     "behind; at the back"
+    ]
+   ]
+  },
+  "hsk30l1/几": {
+   "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. The words are chosen to show the character doing DIFFERENT work rather than three near-synonyms, and ordered by the HSK level they are taught at, with the corpus's example sentences breaking ties. EVERY row's reading and gloss was checked against CC-CEDICT before it was written. This character is POLYPHONIC and the list carries a row for the second reading, which is the clearest place on the card to show it.",
+   "compounds": [
+    [
+     "几个",
+     "jǐ ge",
+     "a few; several"
+    ],
+    [
+     "几乎",
+     "jī hū",
+     "almost; nearly"
+    ],
+    [
+     "茶几",
+     "chá jī",
+     "a tea table"
+    ],
+    [
+     "十几",
+     "shí jǐ",
+     "ten-odd; a dozen or so"
+    ]
+   ]
   }
  },
  "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -100645,7 +101102,7 @@
   "hsk30l1": {
    "subtitle": "The first 300 words — start here if you are new to Chinese",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
-   "why": "A single-character card's Characters block glosses the character and stops there, and the tap panel that lists the other words built on it (openCharWin / charNeighbours in app.js) can only search the deck the reader has DOWNLOADED — measured on this deck, 71 of its 137 single-character cards have no other word in it at all, so for 52% of them the panel says \"No other word in this deck uses it\". `Compounds` is the authored answer, bounded by the language rather than by the deck. It is added to the type's field list, to the template on BOTH cards (after the Characters block, before the Examples fold) and to the type's own scoped CSS in one place, since a field added to only two of those three is stored and never shown. The rows are written compactly in each note's `compounds` and expanded by mandarin-fix.js.",
+   "why": "A single-character card's Characters block glosses the character and stops there, and the tap panel that lists the other words built on it (openCharWin / charNeighbours in app.js) can only search the deck the reader has DOWNLOADED — measured on this deck, 71 of its 137 single-character cards have no other word in it at all, so for 52% of them the panel says \"No other word in this deck uses it\". `Compounds` is the authored answer, bounded by the language rather than by the deck. It is added to the type's field list, to the template on BOTH cards (after the Characters block, before the Examples fold) and to the type's own scoped CSS in one place, since a field added to only two of those three is stored and never shown. The rows are written compactly in each note's `compounds` and expanded by mandarin-fix.js. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
    "addFields": [
     {
      "name": "Compounds",
@@ -100653,42 +101110,50 @@
      "html": "{{#Compounds}}<div class=\"uc-cmp\">{{Compounds}}</div>{{/Compounds}}",
      "css": "\n.uc-cmp {\n  display: block;\n  width: fit-content;\n  max-width: 100%;\n  margin: 14px auto 0;\n  padding-top: 10px;\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n  text-align: left;\n}\n.uc-cmplab {\n  display: block;\n  margin-bottom: 5px;\n  font-size: 9.5px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.5;\n}\n.uc-cmpi {\n  display: flex;\n  align-items: baseline;\n  gap: 10px;\n  padding: 3px 0;\n  font-size: 13.5px;\n}\n.uc-cmpi + .uc-cmpi {\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n}\n.uc-cmpw {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-weight: 400;\n  font-size: 17px;\n  line-height: 1.25;\n  min-width: 3.4em;\n}\n.uc-cmpw b {\n  font-weight: 600;\n}\n.uc-cmpp {\n  font-family: 'EB Garamond', var(--serif, Georgia, serif);\n  min-width: 6.2em;\n  opacity: 0.75;\n}\n.uc-cmpg {\n  flex: 1 1 auto;\n  opacity: 0.85;\n}\n"
     }
-   ]
+   ],
+   "exPunct": true
   },
   "hsk30l2": {
    "subtitle": "197 more words, taking you to about 500 — study after Level 1",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
-   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field."
+   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
+   "exPunct": true
   },
   "hsk30l3": {
    "subtitle": "491 more words, taking you to about 1,000 — the last beginner level",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
-   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field."
+   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
+   "exPunct": true
   },
   "hsk30l4": {
    "subtitle": "990 more words, taking you to about 2,000 — the intermediate band begins",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
-   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field."
+   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
+   "exPunct": true
   },
   "hsk30l5": {
    "subtitle": "1,579 more words, taking you to about 3,600",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
-   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field."
+   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
+   "exPunct": true
   },
   "hsk30l6": {
    "subtitle": "1,777 more words, taking you to about 5,400 — the last numbered level",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
-   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field."
+   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
+   "exPunct": true
   },
   "hsk30l7": {
    "subtitle": "5,562 words — the advanced band, larger than every level below it together",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
-   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field."
+   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
+   "exPunct": true
   },
   "hsk30phr": {
    "subtitle": "159 everyday expressions — usable alongside Level 1 onwards",
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
-   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field."
+   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
+   "exPunct": true
   },
   "hsk30idm": {
    "subtitle": "477 four-character idioms — worth starting once you are past Level 4",
@@ -100707,7 +101172,8 @@
     }
    ],
    "css": "\n.uc-exsn {\n  display: inline-block;\n  min-width: 1.05em;\n  margin-right: 6px;\n  padding: 0 0.28em;\n  border-radius: 4px;\n  background: var(--rule, rgba(0,0,0,0.10));\n  font-family: var(--mono, ui-monospace, monospace);\n  font-size: 0.62em;\n  line-height: 1.6;\n  vertical-align: 0.22em;\n  opacity: 0.75;\n}\n",
-   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field."
+   "why": "The sense tag an example carries needs a rule of its own, and it belongs to no single field — it is written into a block the Examples field already owns — so it is appended to each type's own scoped sheet rather than added with a field. | A Chinese sentence takes Chinese punctuation, and 551 of the decks own example sentences were punctuated with ASCII marks — 我明年想学汉语. and 你们公司几点下班? and 我们出去后, 再也没有回来。 — so a card teaching Chinese showed a beginner the wrong marks for it. Deck-level rather than an entry per note, for the reason the Spanish record’s `exBritish` is: there is no judgement in it, and a mechanical substitution written out per card is one that gets applied to 116 cards and forgotten on the 117th. It CONVERTS a mark and never ADDS one: 130 of those sentences simply stop, and supplying a terminal is a claim that the sentence is complete, which a machine cannot make — those are read and repaired by hand, batch by batch.",
+   "exPunct": true
   },
   "whyFields": "An idiom's gloss says what it MEANS and throws away what it SAYS, which is the picture that makes a four-character idiom memorable: 谢天谢地 is 'thank goodness' and it says 'thank heaven, thank earth'. The Literally line is added to the Chinese → English card, under the meaning.",
   "whyCredit": "The decks' example sentences come from Tatoeba and carried no attribution — 60% of the 20,010 shipped sentences are verbatim in Tatoeba's own Mandarin-English pairs, and Tatoeba is CC BY 2.0 FR, which requires credit. Added to every deck's description, which is what the Collections page and the Studio show."
