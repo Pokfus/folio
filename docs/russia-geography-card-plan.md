@@ -1033,3 +1033,47 @@ paired glossary terms. Seven findings.
   Commons file description, not just the file name**; and `Category:Quality images of <subject>` again
   supplied two of the ten (the chapel over the source of the Volga at Volgoverkhovye, and the Strelka
   at Yaroslavl, after the Yaroslavl article's own lead image turned out to be a banknote).
+
+### Batch 9 — the Sviyaga, the Sura, the Dvina, the Desna and the Vyatka (`gru-038`–`gru-042`)
+
+`gru-038` Ulyanovsk Oblast, `gru-039` Chuvashia, `gru-040` Vologda Oblast, `gru-041` Bryansk Oblast and
+`gru-042` Kirov Oblast, each with a paired glossary term at the bar and a picture of its own. Six
+findings, of which the first is the one to carry into batch 10.
+
+- **RECLUS VOLUME 5 CARRIES ALL FIVE, AND SO DOES RAMBAUD VOLUME 1.** Batch 8 established that the
+  *Universal Geography* has a topography section for every European Russian government; this batch found
+  that the *History of Russia* is its match on the other half of the card. Every one of the five took its
+  second paragraph from Rambaud vol. 1 — Razin beaten outside Simbirsk (pp. 388–89), Ivan planting
+  Sviyazhsk on the Sviyaga and founding Cheboksary among the posts that followed (253–54), the English
+  merchant venturers' letters patent for Kholmogory and Vologda and Osip Nepei's wreck off Inverness
+  (273–74), the Bryansk contingents and the monk Oslyabya at Kulikovo (201–02) with the Severian
+  principality at p. 98, and the Novgorodian republic on the Vyatka (141–42). **Two open volumes now carry
+  the whole card**, which is what makes five cards a session possible at all.
+- **CROSSREF REGISTERS THE ENGLISH TITLE FOR SOME RUSSIAN-LANGUAGE JOURNALS AND THE RUSSIAN FOR OTHERS,
+  AND ONLY A LOOKUP TELLS YOU WHICH.** Batch 8's rule — a bilingual Russian journal is cited in Russian —
+  is right about *Трансформация экосистем* and wrong about all four Russian-language papers here:
+  *Nauchnyy dialog*, *Povolzhskaya Arkheologiya*, *Radiatsionnaya Gygiena* and the *RUDN Journal of
+  Russian History* each register a Latin-script author list and an English title, so all four are cited in
+  English and `check-citations.js` reports zero mismatches. **The rule is to ask Crossref, not to guess
+  from the language of the article.**
+- **A TWENTY-FIVE-AUTHOR PAPER IS CITED `et al.` AND STILL CHECKS.** The Bryansk radiation survey carries
+  twenty-five names; the checker takes the author from the slot before the first comma, so
+  `I. K. Romanovich et al.` compares initials against initials and passes.
+- **ADDING BOTH A CARD AND ITS GLOSSARY TERM MEANS FINDING TWO DISTINCT PICTURES, AND THE SECOND IS THE
+  HARDER ONE.** The fetcher's `subject` branch missed three of five here (`Presidential Bridge
+  (Ulyanovsk)`, `Monument to Mother Patroness` and `Trifonov Monastery` are not article titles), so the
+  route that worked was `Category:<subject>` on Commons followed by `imageinfo` on the named file. **A
+  category whose files are numbered rather than named is useless** — `Category:Cheboksary` is 123 files
+  called `20220626 Cheboksary NNN.jpg` — where `Category:Bodies of water in Chuvashia` gave
+  `File:Sura near Alatyr.jpg` on sight.
+- **A LANDMARK'S LEAD IMAGE CAN BE WATER AND SKY.** The Kuybyshev Reservoir returned a picture that is
+  horizon, cloud and ripples and says nothing whatever about Ulyanovsk Oblast; it was dropped for a view
+  of the city across the Sviyaga, which is the river the card is about. The same happened to the Vyatka:
+  its category's obvious file is a railway bridge with a leafless bush filling a third of the frame, and
+  `File:Вид на Вятку с Сокольей горы.jpg` — the river from Sokolya Hill in Kotelnichsky District — is the
+  picture. **Look at the candidate before believing the caption.**
+- **AREAS AND OBLAST POPULATIONS: NONE OF FIVE.** Every one of the five research papers was grepped for a
+  km² figure and none states one, so all five Area cells and all five Population cells are `?`. What the
+  UN table did give is the batch's one grid surprise: **Vologda Oblast's largest city is Cherepovets at
+  315,000, against the capital Vologda's 305,000**, so the Largest city row names a town that is not the
+  seat of government — the first time in this deck that the two have differed.
