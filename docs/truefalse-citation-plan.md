@@ -2154,3 +2154,46 @@ no pasta, no comparison to anything Italian; the "as good as ours" line belongs 
 version. The decisive evidence is earlier than Polo and elsewhere (al-Idrisi on Sicilian *itriyya*,
 1154), and Amari's edition of it is not on archive.org under the titles searched. **A statement about
 what a traveller did NOT bring back is not answered by his own book.**
+
+### T57 — HAL answers where the French state's own sites do not (2026-09-17)
+
+One cited: #24 (the guillotine within living memory of the moon landings). 202 → **203 of 220 (92%)**.
+The previous entry left this one wanting "a legal or governmental record rather than a journal, and
+`legifrance` and the parliamentary archives have not been probed yet." **They have now and they are
+all shut**: `legifrance.gouv.fr` 403s, `archives.assemblee-nationale.fr` returns nothing at all, and
+`vie-publique.fr` answers 200 with a 279-byte JavaScript redirect whose target then 403s. `senat.fr`
+answers and has no page on it. Persée, which does answer, has nothing later than the Revolution.
+
+**`api.archives-ouvertes.fr` IS THE ROUTE, AND IT IS OPEN WHILE EVERY HAL WEB PAGE IS WALLED.**
+hal.science serves an Anubis proof-of-work challenge to `hal-XXXXX/document` AND to the landing page,
+so both come back as "Making sure you're not a bot!" — but the **API** answers plain JSON, and a HAL
+record carries the author, the journal, the volume, the pages, the DOI and **the abstract**. A full-text
+search (`text:Djandoubi`) found the one work in HAL that names the man. **Reach for the API rather than
+the page**, and note that a French scholar's work is usually deposited there even when the publisher is
+not reachable.
+
+**AND THE DEPOSIT IS NOT ALWAYS WHERE THE FULL TEXT IS.** The HAL record that named the last execution
+is a `NOTICE` — metadata only, no file — for an entry in the *Encyclopédie d'histoire numérique de
+l'Europe*, and **`ehne.fr` cannot be reached from here at all**: the host resolves (134.158.33.73) and
+the sandbox proxy answers 502 to CONNECT. So that work was NOT cited, because it was not read. What was
+cited is the one HAL record whose full text could be opened by another route entirely — Picard's Kobe
+lecture, deposited in HAL and published in 神戸法學雜誌, whose **JaLC DOI resolves to Kobe University's
+own repository**, which is open and served a 65-page PDF with a text layer. **A Japanese university
+repository was the open door to a French fact**; follow the DOI rather than the deposit.
+
+**THE ARTICLE CARRIES MORE THAN THE YEAR, WHICH IS WHY THE ANSWER COULD KEEP ITS DETAIL.** It states
+that the last execution was at Marseille in 1977, on a guillotine of a pattern already in use at the end
+of the nineteenth century, and that a 1970 proposal by several deputies to move to lethal injection on
+the American model went nowhere because the argument had already moved on to abolition. **The answer
+does NOT name Hamida Djandoubi or the date of 10 September**, which the uncited `why` had asserted:
+those are in the EHNE entry's abstract and the EHNE entry could not be opened. This is the Washington
+rule again — *rewrite the answer to what the record carries* — and here it cost only a name.
+
+**THE OTHER END OF THE COMPARISON WAS LIFTED, NOT RESEARCHED.** T30's rule is that a comparison
+statement wants one citation per end; the pool already cited NASA's Apollo 11 page for another
+statement, so it was taken out of `truefalse.js` **programmatically by search**, never retyped.
+
+**`[in Japanese]` IS A PERMITTED CHIP AND THAT WAS CHECKED RATHER THAN ASSUMED.** Main's language-chip
+work landed `.claude/src-langs.js`, which slices the permitted list out of app.js's `SRC_LANG_NAMES`;
+Japanese is the 27th of its 44. A language app.js cannot draw would have shipped as a citation with no
+chip, which is the quietest failure that feature has.
