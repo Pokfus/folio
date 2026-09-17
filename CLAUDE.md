@@ -4871,8 +4871,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     · **📖 `docs/truefalse-citation-plan.md` — READ BEFORE CITING A STATEMENT OR ADDING ONE.** The bar
       (one openable source per statement, against a card's five, and why it is lower), the recipe for
       lifting a citation out of a card that already makes the claim — **by marker and index,
-      programmatically, never retyped** — the ten batches, the standing to run rather than quote, and the
-      three statements known to need work, of which one asserts more than Folio's own cited prose does.
+      programmatically, never retyped** — the standing to run rather than quote, and the three statements
+      known to need work, of which one asserts more than Folio's own cited prose does. **RUN `node
+      .claude/check-truefalse.js` FOR THE COVERAGE AND THE BATCH LOG FOR THE COUNT RATHER THAN QUOTING
+      EITHER HERE**: this line said "the ten batches" while the file held thirty-two, which is the shape
+      `check-claims.js` cannot see — a figure in prose, about a document, measuring nothing in the code.
+      **The plan's most reusable half is its HOST MAP**, re-measured on every batch: which scholarly,
+      museum and government hosts answer from this sandbox, which are 403, and — the category that costs
+      the most time — which answer 200 and serve a JavaScript shell with no text in it.
     · Guarded by **`.claude/test-truefalse.js`**, which **serves a five-statement pool of its own** in
       place of `truefalse.js`: the day's five are drawn from 220 by `dayPick` and only some are cited, so
       a suite run against the real pool asserts nothing on most days, which is the shape of a test that
