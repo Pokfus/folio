@@ -1178,3 +1178,50 @@ to be trimmed to make room, and CLAUDE.md's own warning about shortening cited p
 `47.8k (2023)`, matching the Largest city cell the deck already used; area in the site's own unit form,
 `24,000 km² (9,270 sq mi)`, rounded to the same precision, so the reader's metric/imperial switch can
 still find it.
+
+### Batch 11 — the Oka, the spit, the Dvina, the Ingoda and the Selenga (`gru-048`–`gru-052`)
+
+Kaluga, Kaliningrad, Arkhangelsk, Zabaykalsky Krai and Buryatia — the first five written with the
+Population and Area cells filled from the start, and the first that CITE the Rosstat yearbook on the
+card. Seven findings.
+
+- **KALININGRAD IS THE ONE CARD IN THIS DECK WHOSE GROUND WAS NOT RUSSIAN BEFORE 1945, AND THE WHOLE
+  SPINE HAS TO BE REPLACED FOR IT.** Reclus wrote about *Russia in Europe* and this was East Prussia, so
+  the geography leg is an open Kaliningrad journal — Anokhin and others on the Curonian Spit, which gives
+  the Valdai moraine plain, the Baltic Ice Lake to Litorina Sea sequence and the spit thrown up six
+  thousand years ago. The history leg is still Rambaud, who has the Teutonic Order building Königsberg
+  about 1225 and Fermor taking it in January 1758 — and then **a primary document for the transfer**: the
+  Potsdam protocol's own section VI, at the State Department's *Foreign Relations of the United States*.
+  **A transfer of territory is cited from the instrument, not from a history of it.**
+- **THE TWO-SOURCES-PER-AUTHOR CAP DECIDED ARKHANGELSK, AND A PAGE RANGE IS THE ANSWER RATHER THAN A
+  DROPPED CLAIM.** Reclus has three passages the card wants — p. 341 for the size and the density, p. 347
+  for the Dvina's width, depth and delta, p. 356 for the port and Peter the Great's throttling of it —
+  and `check-cards.js` allows two citations by one author. Citing **“347, 356” as one note** keeps all
+  three claims and one citation.
+- **A READ-BACK CAUGHT TWO CLAIMS THE SOURCE DOES NOT MAKE, both of them plausible and both written
+  down before the page was re-read.** Reclus's “one-fourth of European Russia … one-sixtieth of the
+  empire's population” is about **Archangel AND Vologda together**, not Archangel alone; the sentence was
+  rewritten to say so. And the Selenga delta paper says the delta stores sediment and says nothing about
+  where that sediment comes from, so “coming down from Mongolia” came out. **Neither would have failed
+  any checker.**
+- **RAMBAUD HAS A THIRD VOLUME AND IT WAS NOT IN THE TOOLKIT.** *A Popular History of Russia, from the
+  Earliest Times to 1882*, vol. 3, trans. L. B. Lang, ed. Nathan Haskell Dole (Boston: Estes and Lauriat,
+  1882), `archive.org/details/historyofrussia03ramb`, carries the Nerchinsk treaty's date of 27 August
+  1689, the hundred and fifty years of exclusion from the Pacific, and the treaty of Burinsk of 1727 —
+  the spine of both Transbaikal cards. Volume 2 has the same treaty from the other side, at p. 22.
+- **A LEAD IMAGE OF THE CURONIAN SPIT IS AS LIKELY TO BE LITHUANIAN AS RUSSIAN.** `fetch-geo-images.js`
+  returned *Mirties slėnis nuo Parnidžio kopos* — the Valley of Death from the Parnidis dune, which is at
+  Nida, in Lithuania. It is a fine photograph of the wrong country for a card about Kaliningrad Oblast,
+  and nothing about the file says so. **Pin the replacement out of
+  `Category:Curonian Spit National Park (Russia)`**, and expect to read licences there: two of its best
+  aerial views are under the **Free Art License**, which the pipeline rightly refuses.
+- **COMMONS RATE-LIMITS THE GLOSSARY PICTURES HARDER THAN THE CARDS', AND THE ANSWER IS PACING PLUS
+  WRITING AFTER EVERY FILE.** `fetchmeta2.js` waits 45 seconds between files, backs off 75 on a 429 and
+  saves as it goes, so a run that is cut short still leaves what it managed. Three of the first five
+  candidates failed the bar and the reasons are worth knowing: one **FAL**, and two under 900 px —
+  **both of the undersized ones came from the English Wikipedia's own `pageimages` field, which is not
+  size-filtered**, so a lead image is a candidate and never a choice.
+- **THE ROSSTAT CITATION'S URL IS PERCENT-ENCODED AND RENDERS WHOLE.** `Yearbook%202023%281%29.pdf`
+  carries no bare `(` or `)`, so `SRC_URL_RX` matches the whole address and the reader gets a live link
+  to the archived yearbook; the raw form would truncate at the first bracket. Verified on the rendered
+  card rather than assumed.
