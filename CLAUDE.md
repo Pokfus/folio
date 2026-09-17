@@ -5956,6 +5956,14 @@ the end of a successful add and print the candidates, their licences, their size
   not host and which would forbid selling access to the site), an attributable author where the licence
   needs one, ~900px on the long side, no watermark. `suggest-image.js` applies it, so anything it offers
   could actually ship.
+· **📖 `docs/card-pictures-plan.md` — READ BEFORE OPENING A PICTURE BATCH ON THE CARD BACKLOG.** The
+  four-tool pipeline in order, which step is the slow one and what its cache costs to lose, and the
+  measured state of the cards that have no illustration — **run its commands rather than quoting its
+  figures.** Two findings from the Sep 2026 crawl are worth knowing before starting: the review step
+  cannot be skipped (`Abolition_of_the_fengjian_order` resolves to the article *Feudalism*, so its top
+  candidates are a Bayeux Tapestry knight and a Slovak castle), and **116 cards' answers name no
+  glossary term at all**, which is why they can have no picture — a PAIRING-RULE gap rather than a
+  picture one, and 99 of the 116 are in a single newly merged collection.
 · **A PICTURE THAT IS NOT FOUND IS RECORDED, not silently skipped.** Where nothing openable exists — 65
   glossary terms and one artefact today, most of them abstract concepts and living scholars — say so in the
   commit message rather than leaving the gap looking like an oversight. `--no-image` skips the lookup for a
