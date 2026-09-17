@@ -374,3 +374,55 @@ batches 3, 4 and 5.
 is how a working URL becomes a broken one the day the old host retires. What the split costs is a
 grep — **a sweep for `upload.wikimedia.org` now silently misses 65 cards**, and will miss more with
 every batch. Match on `wikimedia.org` or on `/wikipedia/commons/`, never on the host.
+
+## Batch 6 — the abstract end is genuinely exhausted, and this is the measurement
+
+Five cards and seven glossary terms: `rm-285` Gaius Gracchus, `bio-033` acid, `cnh-182` Bai Qi,
+`gr-524` Epidamnus, `gr-731` Philotas, plus the terms `Demosthenes_(orator)` and
+`Archaic_period_(North_America)`, whose paired cards already had one.
+
+**THE YIELD WAS 7 OF 304, AND THE 304 IS THE NUMBER THAT MATTERS.** Measured this batch: 434 cards
+carry no picture; **318 of them resolve to a glossary term** and **304 of those terms have a cached
+Wikipedia page and no picture of their own** — so the candidate pool is not the card count but that
+304, and the whole of it was put through the reviewer. Batch 3 took 52% of the concrete kinds and
+batch 5 took 22% of the abstract ones; **this batch took about 2%.** The remaining backlog is not
+work waiting to be done at a rate — it is mostly cards whose answer term nothing free depicts.
+
+**THE OTHER 116 ARE A PAIRING GAP AND NOT A PICTURE ONE**, which this batch measured again: 99 of
+them are `pea-` cards whose answers name no glossary term at all (*Roh Moo-hyun*, *Miracle on the Han
+River*, *Reds and experts*). No picture pass can reach them; they want the pairing rule applied to
+that collection first.
+
+**AN AUTOMATIC NAME MATCH FOUND 21 CANDIDATES IN 304 AND MOST OF THEM WERE STILL WRONG.** Ranking a
+candidate by how many of the term's own words appear in its file name is the cheapest filter there
+is, and it surfaced *Battle Harbour, Newfoundland* for the **Battle of the Great Harbour**,
+*Maharashtra State Board of Secondary and Higher Secondary Education* for **secondary state
+formation**, and an aerial view of *Olbia in Sardinia* for the Greek **Olbia** on the Black Sea.
+**A name match is a way of ordering the reading, never of skipping it.**
+
+**FOUR CANDIDATES WERE REFUSED BY `check-image-free.js` AND ALL FOUR WERE CROSS-COLLECTION.** The
+*Four Commanderies of Han* map is on `ko-071`, `jp-044` and the `Han_commanderies` term; the *King of
+Na* gold seal is on `jp-041`; the *Wei Zhi* page is on `ko-070`, `jp-043` and `Dongyi`. Korea, Japan
+and China share their early sources, so **expect the free-check to bite hardest where two collections
+cover the same centuries** — and running it before the contact sheet, as the plan says, saved
+fetching all four.
+
+**AND ONE FINDING IS NOT THIS BATCH'S TO FIX BUT IS WORTH RECORDING.** The free-check reports a file
+literally named `thumbnail.jpg` shared by **13 cards, 14 glossary terms and 10 artefacts** — which is
+not one picture on 37 surfaces but 37 different pictures whose `src` all end in the same generic
+name, so the check's file-name comparison cannot tell them apart. It is a false positive of the
+tool's own rule, it is pre-existing, and it will go on reporting until those `src` values are
+re-fetched with their real file names.
+
+**TWO CANDIDATES WERE HELD BACK BECAUSE THEY COULD NOT BE LOOKED AT.** `ww2-011` (Article 22 of the
+League Covenant) and `gr-566` (Lichas bringing the poisoned robe) are both free and both apt on
+their descriptions, and `upload.wikimedia.org` was in its BUSY state throughout — five retries, a
+`Special:FilePath` fallback and the `api.php` route all returned nothing or a rate-limit notice.
+**The standing rule is that a picture is looked at before it is applied, so they stay out**; they are
+named here so the next batch starts with them rather than re-deriving them.
+
+**`check-style.js` READS THESE CAPTIONS AND HAS A STANDING BACKLOG OF 23**, measured before and after
+this batch and unchanged by it: mostly "2nd century BC" inside a caption borrowed from Commons, plus
+two `title-AMBIGUOUS` findings on Laozi. **Run it before and after a picture batch and compare the
+COUNT** — the findings are in other people's prose, so a new one is easy to miss in a list that is
+never empty.
