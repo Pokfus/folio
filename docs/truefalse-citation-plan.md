@@ -74,7 +74,7 @@ card-side research is then shared.
 | T6 | Science & invention | the hardest; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, all researched |
 | T8 | Physics / Chemistry / Mathematics | little in the corpus; research |
-| T9 | Astronomy / Earth science | little in the corpus; research |
+| T9 | Astronomy / Earth science | part done; T9a took four off NASA, NOAA and NIST |
 | T10 | Psychology | `ps-` cards carry some |
 
 ## Open questions carried forward
@@ -296,6 +296,41 @@ the same run that served `vaccinus` 200, which is the split CLAUDE.md records of
 the paper's "70 kg reference man" with no bracket, so a reader who asks for pounds would have been shown
 kilograms; rewritten to "70-kilogram (150-pound)", and "0.2 kilograms (7 ounces)" with it. **A rule
 written in the morning finding a fault made in the afternoon is the argument for writing it.**
+
+### T9a — four astronomy, earth-science and physics statements off NASA, NOAA and NIST (2026-09-17)
+
+Lightning's temperature, the eight minutes of sunlight, the moon's recession and the Apollo 15
+hammer-and-feather drop. **THE GOVERNMENT FACT SHEET IS THIS HALF OF THE POOL'S EQUIVALENT OF THE MEDICAL
+REVIEW** in T7a — one openable page, stable for decades, carrying the figure rather than an argument
+about it. NSSDC's planetary fact sheets answered every time; so did the National Weather Service and the
+NIST constants pages.
+
+**NASA'S OWN SITE IS THE ONE THAT DID NOT.** `science.nasa.gov` and `www.nasa.gov` render their content
+in JavaScript and hand back 200 with nothing in it, or a 404 on a path that a search says exists — the
+Apollo 15 flight-journal page came back 299 KB with the word "hammer" nowhere in it. The pages that WORK
+are the old plain-HTML ones under `nssdc.gsfc.nasa.gov`, and the hammer-and-feather demonstration is on
+one of them, quoting the *Apollo 15 Preliminary Science Report* in full. **Reach for the fact sheet, not
+the feature article.** One statement was dropped for this: the ISS-has-no-gravity myth, for which every
+NASA microgravity page found either 404s or renders in script.
+
+**TWO FIGURES IN A CITED SOURCE ARE NOT A CITED FIGURE**, and the sunlight statement is the shape to
+watch. No openable page states "eight minutes"; what NASA states is the distance and what NIST states is
+the speed, and the answer is the division. That is honest — both inputs are cited and a reader can do the
+sum — and the explanation says so in as many words rather than presenting 499 seconds as something
+looked up. It gives the range too, because the orbit is eccentric enough to move the answer by sixteen
+seconds over the year.
+
+**AND THE NEW UNITS RULE CAUGHT THIS BATCH AS WELL.** "299,792,458 metres a second" is a metric figure
+the imperial pass cannot convert, and the honest bracket for it in feet is absurd. Rewritten to
+"299,792 kilometres (186,282 miles) a second, a speed fixed by definition rather than measured" — which
+says the same thing, converts, and is a better sentence. **Two batches, two catches: the rule is earning
+its place.**
+
+**AND A SOURCE WRITTEN IMPERIAL-FIRST HAS TO BE TURNED ROUND.** The National Weather Service gives
+lightning as "50,000 degrees Fahrenheit"; Folio writes "about 27,800 °C (50,000 °F)", rounded to the
+source's own two significant figures. The comparison the statement turns on is the NWS's own ("about 5
+times hotter than the surface of the sun"), and NASA's photosphere figure of 5,772 K is cited beside it
+so a reader can check the multiplication.
 
 ### T3a — three Chinese-history statements, and two more the corpus would not bear out (2026-09-17)
 
