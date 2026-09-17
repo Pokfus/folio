@@ -3842,7 +3842,9 @@ window.GLOSSARY = {
 "Tikal": "Tikal is an ancient Maya city in the rainforest of the Petén, in northern Guatemala, whose core of pyramids, plazas and causeways was built and rebuilt through the Classic period, roughly 250 to 900 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It has no river or lake near it and drew its water from reservoirs fed by runoff from its own paved plazas, one of them filtered through quartz sand and zeolite in the earliest known water purification system in the Americas.<sup class=\"fn\" data-fn=\"2\"></sup> Its inscriptions record an armed arrival from central Mexico in 378 CE, and the city was abandoned in the late 9th century after decades of drought.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Classic_Maya_collapse": "The Classic Maya collapse is the depopulation and political breakdown of the cities of the southern Maya lowlands over the Terminal Classic period, roughly 800 to 1000 CE, when dated royal monuments ceased and heartland population fell by nearly 90 per cent.<sup class=\"fn\" data-fn=\"1\"></sup> It coincided with a spike of aridity from about 750 to 1050 CE, in which eight severe droughts cut rainfall 36 to 52 per cent below average, though cities had survived dry spells before.<sup class=\"fn\" data-fn=\"1\"></sup> It was uneven: the southern lowlands dried hardest and declined earliest while northern cities carried on, and modelling treats climate, warfare and the economics of city life as interacting causes.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Chichen_Itza": "Chichen Itza is a ruined Maya city in the northern Yucatán peninsula of Mexico, among the largest and most influential settlements of the Late and Terminal Classic periods, roughly 600 to 1000 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Its centre holds the stepped pyramid the Spanish called El Castillo, whose north portico carried columns cut as the feathered serpent K'uk'ulkan, and beneath which a survey has detected a water-filled cavity in the limestone.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A chamber beside its Sacred Cenote held 64 children, all male and several closely related, whose genomes show continuity with Maya people living in the district today.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Toltec": "The Toltecs were the people of Tula in Hidalgo, Mexico, the largest city of the central highlands between the fall of Teotihuacan and the rise of the Aztecs, whose centre moved to the Tula Grande complex after about 950 CE and lay in ruins by 1200.<sup class=\"fn\" data-fn=\"1\"></sup> Its temple on Pyramid B stood on carved stone columns, among them the standing figures known as the atlantes, and four of its pillars show sixteen richly dressed men.<sup class=\"fn\" data-fn=\"2\"></sup> Much of what is said about them comes from Mexica accounts recorded centuries later, in which they are the first settlers of the land and craftsmen whose name became a word for skilled work.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Toltec": "The Toltecs were the people of Tula in Hidalgo, Mexico, the largest city of the central highlands between the fall of Teotihuacan and the rise of the Aztecs, whose centre moved to the Tula Grande complex after about 950 CE and lay in ruins by 1200.<sup class=\"fn\" data-fn=\"1\"></sup> Its temple on Pyramid B stood on carved stone columns, among them the standing figures known as the atlantes, and four of its pillars show sixteen richly dressed men.<sup class=\"fn\" data-fn=\"2\"></sup> Much of what is said about them comes from Mexica accounts recorded centuries later, in which they are the first settlers of the land and craftsmen whose name became a word for skilled work.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Aztec_Empire": "The Aztec Empire was the dominion of three allied cities of the Valley of Mexico — Mexico Tenochtitlan, Tacuba and Tezcuco — which consolidated around 1430 CE and each held provinces of its own.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It grew by conquest, recorded in 16th-century chronicles ruler by ruler, and took tribute in goods and land, part of which was shared among lords and part kept for the crown and worked by stewards.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its rule left the economies of subject towns largely alone, since their potters went on making their own wares, and it never took everything it attacked.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Tenochtitlan": "Tenochtitlan was the Mexica capital and the seat of the Aztec Empire, built on an island in the salt lake of the Valley of Mexico and reached from the mainland by four built causeways.<sup class=\"fn\" data-fn=\"1\"></sup> Its conqueror described it as the size of Seville or Cordoba, its main streets half land and half water, with a single market square holding more than sixty thousand buyers and sellers a day.<sup class=\"fn\" data-fn=\"1\"></sup> At its heart stood the Templo Mayor, rebuilt repeatedly between about 1375 and 1520 CE, where ritual objects were made of green obsidian from the Sierra de Pachuca while everyday blades came from many sources.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5816,7 +5818,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Tikal": "c. 250 – 900 CE",
 "Classic_Maya_collapse": "c. 800 – 1000 CE",
 "Chichen_Itza": "c. 600 – 1000 CE",
-"Toltec": "c. 950 – 1150 CE"
+"Toltec": "c. 950 – 1150 CE",
+"Aztec_Empire": "c. 1430 – 1521 CE",
+"Tenochtitlan": "c. 1375 – 1521 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8089,7 +8093,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chinggisids": ["Chinggisid","Genghisid","Chingissid"],
 "Classic_Maya_collapse": ["Maya collapse","collapse of the Classic Maya"],
 "Chichen_Itza": ["Chichén Itzá"],
-"Toltec": ["Toltecs","Toltec culture"]
+"Toltec": ["Toltecs","Toltec culture"],
+"Aztec_Empire": ["Triple Alliance"],
+"Tenochtitlan": ["Mexico Tenochtitlan","México-Tenochtitlan"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11973,7 +11979,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tikal": ["place","city","history","archaeology","americas","guatemala"],
 "Classic_Maya_collapse": ["event","history","archaeology","americas","climate"],
 "Chichen_Itza": ["place","city","history","archaeology","americas","mexico"],
-"Toltec": ["culture","people","history","archaeology","americas","mexico"]
+"Toltec": ["culture","people","history","archaeology","americas","mexico"],
+"Aztec_Empire": ["state","history","archaeology","americas","mexico","warfare"],
+"Tenochtitlan": ["place","city","history","archaeology","americas","mexico"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
