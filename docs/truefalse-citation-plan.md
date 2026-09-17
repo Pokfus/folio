@@ -71,9 +71,9 @@ card-side research is then shared.
 | T3 | Chinese history | part done; `cnh-` cards carry most of it; T19 two lifted out of `wh-399`, `wh-400` and `cnh-238` |
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes |
-| T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation; see the three below |
+| T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one and T23 one, all researched |
-| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier |
+| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151` |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one |
 
@@ -1028,3 +1028,68 @@ source for the number you wanted.** The crane's supposed origin in an 1843 *Punc
   wants; Europe PMC has the record but not the text (`fullTextXML` answers **500**), and
   `royalsocietypublishing.org` is already recorded shut. The Met's armour essay answers **429** —
   busy rather than shut, per `check-reach.js`'s own distinction — and is worth retrying when spaced.
+
+### T25 — an open textbook is a source (2026-09-17)
+
+**Five statements, 146 → 151 of 220 (69%).** The batch's finding is a HOST rather than a fact:
+**OpenStax's textbooks answer from this sandbox and are CC BY**, which gives the physics and
+chemistry categories — the two with the most uncited statements left and the fewest openable papers
+behind them — a real reference shelf. Three of the five came off it. Cite it and paraphrase; do not
+lift its prose, since its own notice asks that the text not be ingested wholesale.
+
+· **#82 pure water is a poor conductor (TRUE)** — *Chemistry 2e*, 11.2 Electrolytes, which gives the
+  mechanism and the figure in one sentence: a substance needs freely mobile charged species to
+  conduct, and in pure water "only about two out of every 1 billion molecules ionize at 25 °C". The
+  statement's old answer said pure water conducts "about a ten-millionth as well as seawater", which
+  nothing openable bore out, so the ratio went and the ionisation figure took its place.
+
+· **#83 the current is fast and the electrons are slow (TRUE)** — *University Physics Volume 2*, 9.2
+  Model of Conduction in Metals, which states both halves: signals travel "on the order of 10⁸ m/s, a
+  significant fraction of the speed of light" while the charges drift "on the order of 10⁻⁴ m/s",
+  and says why — "drift velocity is quite small, since there are so many free charges". A
+  ten-thousandth of a metre a second is a tenth of a millimetre, so the statement's "less than a
+  millimetre per second" is safe.
+  **THE EXPONENTS ARE SPELLED OUT IN THE ANSWER AND THAT IS DELIBERATE**: a `why` renders as HTML and
+  `<sup>` is in the sanitizer's allowlist, so `10<sup>8</sup>` would draw correctly — and would sit
+  three words from a footnote marker, which is the same glyph doing a different job. Words cost
+  nothing here.
+
+· **#150 water can be made to boil at room temperature (TRUE)** — *Chemistry 2e*, 10.4 Phase
+  Diagrams. The liquid–vapour curve "provides the boiling point for water at any pressure", 100 °C at
+  one atmosphere; and water sealed at 25 °C with the air removed settles at a vapour pressure of
+  0.03 atm. The old answer said "about a fortieth of an atmosphere" at 20 °C, neither figure from
+  anywhere; both now come off the same page.
+
+· **#31 Einstein failed mathematics (FALSE)** — MacTutor's Einstein biography, which carries both
+  halves of the refutation: he "studied mathematics, in particular the calculus, beginning around
+  1891", at twelve, and he graduated in 1900 as a teacher of mathematics and physics. **WHAT HE DID
+  FAIL IS IN THE SAME PAGE AND IS NOT THE SAME THING** — the ETH entrance examination, after which he
+  went to Aarau to sit it again. The old answer had Einstein himself debunking the story by saying he
+  had mastered the calculus before fifteen; that quotation is not in MacTutor and was not chased, so
+  it went.
+
+· **#165 the electron came before the nucleus (TRUE)** — two Nobel pages. Thomson's Facts page dates
+  the electron: "In 1897 he showed that cathode rays … consist of particles — electrons — that
+  conduct electricity." Rutherford's Biographical dates the other end: "In 1910, his investigations
+  into the scattering of alpha rays and the nature of the inner structure of the atom which caused
+  such scattering led to the postulation of his concept of the nucleus."
+  **THE ANSWER LOST ITS "FOURTEEN YEARS LATER" AND ITS GOLD FOIL.** The Nobel page says 1910 where
+  Rutherford's paper is 1911, and it does not mention alpha particles bouncing back at all — that is
+  Geiger and Marsden, a separate citation this batch did not have. "More than a decade later" is true
+  of either date and is what the sources carry.
+
+**Hosts measured this batch.** Open: `openstax.org`, `mathshistory.st-andrews.ac.uk`,
+`nobelprize.org`, `nist.gov`, `esa.int`, `british-history.ac.uk`, `science.nasa.gov`. Shut:
+**`ox.ac.uk` (403)** and **`jpl.nasa.gov` (403)**. Useless rather than shut:
+**`oldbaileyonline.org`**, which serves a 1 KB JavaScript shell, so the Chaloner trial cannot be read
+out of it — which is why **#32, Newton and the counterfeiters, was NOT taken**: MacTutor's Newton
+page reaches "Warden of the Royal Mint in 1696 and Master in 1699" and "particularly active in
+measures to prevent counterfeiting of the coinage", and stops there. **A source that says less than
+the statement is not a source for it**, and the statement says prosecuted and executed.
+
+**The astronomy trio was researched and not taken.** NASA's own Sun and asteroid FACTS pages do not
+state that the Sun is white above the atmosphere (#88), that the belt is empty enough to fly through
+unaimed (#95), or where Polaris ranks in brightness (#96) — the Sun page calls it a "yellow dwarf"
+and says nothing about colour as seen from space. All three want a different NASA page or a
+different host; they are the obvious next astronomy batch.
+
