@@ -2058,3 +2058,97 @@ sentence about fortune cookies and `check-truefalse.js` refused it over "realize
 paraphrased rather than the checker widened: **a quotation is exactly where an authored American
 spelling could hide**, and the whole point of rule 2 is that the one-way transform never corrects
 one. Paraphrase, or quote a passage that happens to be British.
+
+### T55 — one paper answering two statements, and the manual the myth came out of (2026-09-17)
+
+Two cited: #124 (most body heat lost through the head) and #155 (sugar and hyperactivity). 199 →
+**201 of 220 (91%)**. Both are in Vreeman and Carroll's "Festive Medical Myths," *BMJ* 337 (2008):
+a2769 — **look for the paper that answers several of the pool's statements at once**, the way Liu's
+article answered two in T54. That one paper covers six myths, two of them here and two more (holiday
+suicides, poinsettia toxicity) that the pool does not yet carry.
+
+**THE ABSTRACT CAPTURE IS NOT THE ARTICLE, AND THE `.full` URL IS A DIFFERENT PAGE IN THE CDX.**
+`web.archive.org/web/<ts>id_/http://www.bmj.com/content/337/bmj.a2769` returns 121 KB that is almost
+entirely `<meta>` — enough to see that the sugar section exists and nothing of the other five. The
+body is at `…/bmj.a2769.full`, which is its own urlkey with its own captures and had to be asked for
+separately. **Query the CDX for the `.full` and `.long` variants before concluding a paper's text is
+not archived.**
+
+**THIS IS THE POOL'S THIRD AND FOURTH `[Paywalled]` CITATION, DELIBERATELY.** Europe PMC reports the
+article "Subscription required" and carries no PMC copy; OpenAlex reports it not open; arXiv, DOAJ and
+an open-access-filtered Europe PMC search return nothing on either myth. The alternative was leaving two
+statements uncited, and the label tells the reader what they are getting. **Both underlying studies
+are shut too** — Pretorius et al. (*J Appl Physiol* 2006) 403s at journals.physiology.org, Wolraich's
+JAMA meta-analysis and White and Wolraich's AJCN review are both subscription, the latter now
+redirecting to an Elsevier JavaScript shell.
+
+**SO #124's FIRST SOURCE IS THE MYTH'S OWN, AND IT IS PUBLIC DOMAIN.** The BMJ paper quotes the US
+Army survival manual telling soldiers they can lose "40 to 45 percent of body heat from an
+unprotected head", and the manual is on archive.org with a text layer: FM 21-76/MCRP 3-02F,
+*Survival*, chapter 15, "Cold Weather Survival". **Where a debunk quotes the source of the myth,
+that source is usually openable even when the debunk is not** — and it is the better first marker,
+because it is what a reader has actually heard. Its date came out of the document's own authority
+block ("By Order of the Secretary of the Army: FM 21-76 5 JUNE 1992"), not from memory.
+
+**THE OTHER ARCHIVE COPY OF THE SAME MANUAL IS A CITIZEN REPRINT AND WAS REJECTED.** `USArmyFM2176`
+carries the same passage but its title page reads "Reprinted as NOT permitted by U.S. Department of
+the Army, but by we the citizenry who paid for it" and states no date anywhere. The joint
+Army/Marine Corps printing does. **Read the title page of a scanned government document before
+citing it**; two scans of "the same manual" are not the same edition.
+
+### T56 — a foreign-language work under its own title, and the phrase it ends on (2026-09-17)
+
+One cited: #21 (the right of the first night). 201 → **202 of 220 (92%)**. Karl Schmidt's *Jus primae
+noctis: Eine geschichtliche Untersuchung* (Freiburg im Breisgau: Herder, 1881) is the study that
+settled the question, it is public domain, and it is on archive.org with a usable OCR text layer.
+**CLAUDE.md's rule that a source in any language qualifies where it carries detail no English one
+does is the whole reason this statement could be cited at all** — nothing English and openable
+examines the evidence at this length.
+
+**THE CITABLE SENTENCE IS IN THE BOOK'S OWN CONCLUDING CHAPTER, AND CHAPTER 94 IS WHERE TO LOOK.**
+Searching the German for the obvious words (*niemals*, *Fabel*, *Erfindung*) returns the table of
+contents and the chapter on legends; what finds the conclusion is the heading *Ergebniss* late in the
+file. Schmidt dates the legend in its modern sense to the end of the fifteenth century or the
+beginning of the sixteenth, names the three things that fed it, and calls the belief that the right
+held across medieval Europe **"ein gelehrter Aberglaube"** — a learned superstition — held by
+scholars who had never seriously examined the evidence. **A quoted German phrase is safe under rule
+2 where a quoted English one is not**, the spelling table being a table of English words.
+
+**THE "NINE COUNTRIES" IN THE `why` IS READ OFF THE BOOK, NOT ESTIMATED.** Its Urkunden-Register at
+page 381 names the countries its charters come from — Belgien, Deutschland, England, Frankreich,
+Holland, Italien, Oesterreich, Schottland, Schweiz. **Count a register rather than characterising
+it**; "across Europe" would have been a claim the book does not make in those words.
+
+### Probes that failed in T55–T56 (2026-09-17)
+
+**THE PHYSICS MYTHS HAVE NO OPEN SCHOLARLY ROUTE FROM HERE, AND THE CANONICAL PAPERS ARE ALL SHUT.**
+#81 (glass flows) is Zanotto, "Do cathedral glasses flow?", *Am. J. Phys.* 66 (1998) — Crossref
+confirms it and its 1999 additional remarks and Pasachoff's comment, and AIP is closed; arXiv has
+nothing on cathedral glass or on microwave penetration depth. #84 (Coriolis in a bath) is Shapiro,
+"Bath-Tub Vortex", *Nature* 196 (1962), with Binnie 1964 and Harada 1967 beside it, all closed;
+arXiv's "bathtub vortex" papers are analogue-gravity black-hole work and are about something else
+entirely. **Crossref will confirm a paper exists and tell you nothing about whether you can read it**
+— check the openness in the same pass, or the citation is composed from a record rather than from
+the work.
+
+**#8 (the Great Pyramid's paid labourers) IS ALREADY HALF-SOURCED IN FOLIO'S OWN CORPUS AND THE PAGE
+IS WALLED TODAY.** `wh-212` cites UCL's Digital Egypt "The workmen at a pyramid", which is exactly
+the claim; `ucl.ac.uk` answers 403 behind a Cloudflare interactive challenge, and the Wayback
+captures of that page (2016, 2018, 2021 all 200 in the CDX) returned zero bytes on two attempts.
+**This one is a retry rather than a research problem** — the source is identified and Folio has
+already verified it once.
+
+**#64 (the Great Fire's official death toll) WANTS THE BILLS OF MORTALITY AND THEY ARE NOT WHERE THE
+SEARCHES LOOKED.** Welch's *History of The Monument* (1921) is open and full-text but is about the
+column, not the toll; *The City Remembrancer* (1769) is open in four volumes and neither of the two
+fetched carries the fire's mortality at all; Walter George Bell's *The Great Fire of London in 1666*
+is on archive.org only as lending items (`bwb_…`, 401). **The London Gazette's own issue 85 IS free
+at thegazette.co.uk and is a raster PDF with no text layer** — `pypdf` extracts zero characters from
+both its pages — so reading it means reading the image.
+
+**#175 (Marco Polo and pasta) DOES NOT COME OUT OF POLO.** Yule's translation, open and full-text on
+archive.org, has Polo eating *bread* made from the sago flour of Sumatra and finding it excellent —
+no pasta, no comparison to anything Italian; the "as good as ours" line belongs to Ramusio's later
+version. The decisive evidence is earlier than Polo and elsewhere (al-Idrisi on Sicilian *itriyya*,
+1154), and Amari's edition of it is not on archive.org under the titles searched. **A statement about
+what a traveller did NOT bring back is not answered by his own book.**
