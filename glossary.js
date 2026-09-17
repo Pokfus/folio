@@ -3854,7 +3854,16 @@ window.GLOSSARY = {
 "Cusco": "Cusco is a city in the southern Peruvian Andes, standing in a high valley among mountains, which was the capital of the Inca Empire until the Spanish took it in 1533 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Its central square was the point from which four royal roads ran out, one to each quarter of the empire, and its chief temple, the Coricancha, was more than four hundred paces round with a band of gold set half way up its wall.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A modern city stands over the Inca one, so archaeology there works largely by survey: ground-penetrating radar was used on the main square for the first time in a project published in 2020.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Machu_Picchu": "Machu Picchu is an Inca settlement on a ridge above the Urubamba valley in southern Peru, built as a palace within the estate of the emperor Pachacuti.<sup class=\"fn\" data-fn=\"1\"></sup> Radiocarbon dates on bone and teeth from cemeteries around it put the occupation between about 1420 and 1532 CE, which is roughly two decades earlier than the written sources allow.<sup class=\"fn\" data-fn=\"2\"></sup> Genome-wide data from 34 people buried there show that the retainers serving the royal family came from across the empire and from Amazonia, and survey beneath the main plaza indicates that a quarry was opened and the drainage laid before the square took shape.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Quipu": "A quipu is an Andean record made of knotted cords, on which the Inca state kept its accounts without the use of writing.<sup class=\"fn\" data-fn=\"1\"></sup> Pendant strings hang like a fringe from a thicker primary cord, knots along them carry numbers by position from units to thousands, and the colour of a string tells what it counts, yellow standing for gold and white for silver.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Officials called quipucamayocs kept them for each province, and cords of this kind were still being combined with alphabetic writing in Andean village ceremonies as late as the 1950s.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Inca_road_system": "The Inca road system, or Qhapaq Ñan, was the largest work of infrastructure built anywhere in the indigenous Americas, running at least 40,000 kilometres (25,000 miles) and joining the far edges of the empire to Cusco by a highland route and a coastal one.<sup class=\"fn\" data-fn=\"1\"></sup> More than two thousand provincial facilities stood along it, the coast road ran about 4.6 metres (15 feet) wide between walls, and the network was named a World Heritage Site in 2014.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Messages travelled it by relay, from small houses set about half a league apart where pairs of runners waited to carry news onward, which moved word across hundreds of leagues in a few days.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Inca_road_system": "The Inca road system, or Qhapaq Ñan, was the largest work of infrastructure built anywhere in the indigenous Americas, running at least 40,000 kilometres (25,000 miles) and joining the far edges of the empire to Cusco by a highland route and a coastal one.<sup class=\"fn\" data-fn=\"1\"></sup> More than two thousand provincial facilities stood along it, the coast road ran about 4.6 metres (15 feet) wide between walls, and the network was named a World Heritage Site in 2014.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Messages travelled it by relay, from small houses set about half a league apart where pairs of runners waited to carry news onward, which moved word across hundreds of leagues in a few days.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Renaissance": "The Renaissance is the name given to the period of European cultural change running from the 14th century to the early 16th, in which artists, scholars and their patrons turned deliberately back to the models of classical Greece and Rome.<sup class=\"fn\" data-fn=\"1\"></sup> It began in the Italian city-states, where trading and banking wealth paid for buildings, paintings and the recovery of classical manuscripts, and it reached northern Europe in the later 15th century, carried by printing and by students returning from Italy.<sup class=\"fn\" data-fn=\"1\"></sup> Its limits are disputed: the conventional dates of 1453 and 1527 mark events rather than causes, and much of the learning it revived had never wholly been lost.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Italian_city-states": "The Italian city-states were the self-governing cities of northern and central Italy, which from the 11th century onwards ran their own affairs and the countryside around them with little regard for the emperor or the pope.<sup class=\"fn\" data-fn=\"1\"></sup> Government passed from elected consuls to a hired outside magistrate called a podestà, and in most cities finally to a single family, while wealth came from cloth, long-distance trade and banking.<sup class=\"fn\" data-fn=\"1\"></sup> By the later 15th century Milan, Venice, Florence, the Papal States and Naples held an uneasy balance among themselves, which collapsed when French armies entered the peninsula in 1494.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"House_of_Medici": "The House of Medici was a Florentine family whose banking fortune made it the effective ruler of the city from 1434, at first through friends holding the republic's short-term offices rather than through any title of its own.<sup class=\"fn\" data-fn=\"1\"></sup> Its wealth rested on branches in most of the trading cities of Europe, on trade with Egypt, on Tuscan land and on a near-monopoly of Italian alum, and much of it was spent on building, manuscripts and artists.<sup class=\"fn\" data-fn=\"2\"></sup> The family produced two popes, was twice restored by foreign arms, in 1512 and after the siege of 1530, and thereafter held Florence as dukes.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Renaissance_humanism": "Renaissance humanism was a programme of study, begun in 14th-century Italy and spreading across Europe, which took the literature of ancient Greece and Rome as the best training for public and private life.<sup class=\"fn\" data-fn=\"1\"></sup> Its subjects were grammar, rhetoric, poetry, history and moral philosophy, taught in place of the logic and theology of the medieval universities, and those who practised it worked as secretaries, chancellors, tutors and public lecturers.<sup class=\"fn\" data-fn=\"1\"></sup> The close reading it required also produced textual criticism, and in 1440 one humanist used it to show that the grant on which the popes rested their temporal power was a forgery.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Petrarch": "Petrarch, in Italian Francesco Petrarca, was a poet and scholar of 14th-century Italy who is usually called the first humanist, and who was crowned with the laurel on the Capitol at Rome in 1341.<sup class=\"fn\" data-fn=\"1\"></sup> He was the first to collect Latin manuscripts, inscriptions and coins in earnest and the first to cultivate a Latin style modelled on the ancient writers rather than the medieval schools, though the Italian love poems of his <i>Canzoniere</i> won him his fame.<sup class=\"fn\" data-fn=\"1\"></sup> He read the ancients as men like himself rather than as authorities, and wrote letters to Cicero and Homer as though they were living friends.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Leonardo_da_Vinci": "Leonardo da Vinci was a Florentine painter, engineer and anatomist, born in 1452 and dead in 1519, whose finished paintings are very few while his private notebooks run to thousands of pages.<sup class=\"fn\" data-fn=\"1\"></sup> He worked for seventeen years at Milan, where he painted the <i>Last Supper</i>, and for the king of France at the end of his life; among his works are the <i>Virgin of the Rocks</i> and the portrait of Lisa Gherardini.<sup class=\"fn\" data-fn=\"2\"></sup> He dissected human bodies and drew the results, but almost none of that work was published in his lifetime, so its effect on later anatomy is uncertain.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Michelangelo": "Michelangelo was a Florentine sculptor, painter and architect, born near Arezzo in 1475 and dead at Rome in 1564, who regarded himself as a sculptor above everything else.<sup class=\"fn\" data-fn=\"3\"></sup> He carved the <i>David</i> from a block another sculptor had spoiled, painted the ceiling of the Sistine Chapel between 1508 and 1512 and its altar wall between 1536 and 1541, and from 1546 directed the rebuilding of St Peter's without pay.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His figures show a knowledge of muscle and joint got from dissection, and much of what he began was left unfinished.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Linear_perspective": "Linear perspective is a method of representing depth on a flat surface in which all the lines running away from the viewer converge on a single vanishing point, worked out in Florence in the early 15th century.<sup class=\"fn\" data-fn=\"1\"></sup> Its rules were first set down in a treatise of 1435 that explained sight as a pyramid of rays with its point in the eye and a picture as a section cut across that pyramid.<sup class=\"fn\" data-fn=\"2\"></sup> It assumes one unmoving eye at a fixed distance, so few paintings follow it strictly and its illusion works best from the spot a picture was built for.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Printing_press": "A printing press is a machine that presses inked movable type onto paper, worked out at Mainz in the 1440s and 1450s and the basis of European book production for the next four hundred years.<sup class=\"fn\" data-fn=\"1\"></sup> None of its parts was new, since paper, ink, the screw press and movable type all existed already, and the invention lay in casting type that could be multiplied exactly and held level under pressure.<sup class=\"fn\" data-fn=\"1\"></sup> Printing spread quickly once the Mainz workshops broke up in 1462, and by 1500 nearly five thousand books had been printed in Italy alone.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5840,7 +5849,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Cusco": "1438 – 1533 CE",
 "Machu_Picchu": "c. 1420 – 1532 CE",
 "Quipu": "c. 950 – 1950 CE",
-"Inca_road_system": "c. 1450 – 1533 CE"
+"Inca_road_system": "c. 1450 – 1533 CE",
+"Renaissance": "c. 1350 – c. 1550",
+"Italian_city-states": "c. 1100 – 1494",
+"House_of_Medici": "1434 – 1737",
+"Renaissance_humanism": "c. 1340 – c. 1600",
+"Petrarch": "1304 – 1374",
+"Leonardo_da_Vinci": "1452 – 1519",
+"Michelangelo": "1475 – 1564",
+"Linear_perspective": "from the 1420s",
+"Printing_press": "from c. 1440"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8122,7 +8140,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Inca_Empire": ["Tawantinsuyu"],
 "Cusco": ["Cuzco","Qosqo"],
 "Quipu": ["khipu","quipus","khipus"],
-"Inca_road_system": ["Qhapaq Ñan","Qhapaq Nan"]
+"Inca_road_system": ["Qhapaq Ñan","Qhapaq Nan"],
+"Renaissance": ["Italian Renaissance"],
+"Italian_city-states": ["Italian city-state","city-states of Italy"],
+"House_of_Medici": ["Medici","Medici family"],
+"Renaissance_humanism": ["Renaissance humanist"],
+"Petrarch": ["Francesco Petrarca","Petrarca"],
+"Leonardo_da_Vinci": ["da Vinci"],
+"Michelangelo": ["Michelangelo Buonarroti","Michelagnolo"],
+"Linear_perspective": ["one-point perspective","perspective construction"],
+"Printing_press": ["printing presses","letterpress printing"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12018,7 +12045,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cusco": ["place","city","history","archaeology","americas","peru"],
 "Machu_Picchu": ["place","history","archaeology","americas","peru"],
 "Quipu": ["object","technology","history","archaeology","americas","peru"],
-"Inca_road_system": ["building","technology","history","archaeology","americas","peru"]
+"Inca_road_system": ["building","technology","history","archaeology","americas","peru"],
+"Renaissance": ["era","history","art","literature","europe","italy"],
+"Italian_city-states": ["state","history","europe","italy","city"],
+"House_of_Medici": ["people","history","europe","italy","economy"],
+"Renaissance_humanism": ["concept","history","philosophy","literature","europe","italy"],
+"Petrarch": ["person","history","literature","europe","italy"],
+"Leonardo_da_Vinci": ["person","art","science","history","europe","italy"],
+"Michelangelo": ["person","art","history","europe","italy"],
+"Linear_perspective": ["concept","art","science","history","europe"],
+"Printing_press": ["object","technology","history","europe","writing"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
