@@ -2504,11 +2504,26 @@ that turned out not to carry the claim, which is the commoner kind of no.
 - **#38's uniqueness, before T63 closed it.** OAPEN's REST search answers 500; DOAB's answers 200 with
   three books that do not carry the claim.
 
-**THE LEAD: `british-history.ac.uk` ANSWERS.** A guessed path returned a 404 page of 10 KB, which is a
-fact about the path and not about the host — so the archive that holds Strype's *Survey of London*, the
-*Calendar of State Papers Domestic* and much else of the period is reachable from here and has never
-been searched. **That is the obvious next move on #64 and possibly on #20**, both of which the closing
-note says want "a museum, archive or government page that is not behind a challenge".
+**THE LEAD, AND WHAT IT TURNED OUT TO BE: `british-history.ac.uk` ANSWERS ITS CONTENT AND CHALLENGES
+ITS SEARCH.** A guessed path returned a 404 page of 10 KB, which is a fact about the path and not
+about the host — and following it up, `/cal-state-papers/domestic/chas2/1666-7` and
+`/no-series/survey-of-london-stow/1603` both serve in full while `/search/series?query=…` returns a
+CAPTCHA page. **So the archive is usable and is not searchable**, which means it is reached by
+knowing the volume you want. It holds Strype, Stow and the *Calendar of State Papers Domestic* for
+the year of the Fire, and it has never been read for #64 or #20.
+
+**AND THE *LONDON GAZETTE*'S OWN ARCHIVE IS OPEN BACK TO 1665 AND CANNOT BE GREPPED.**
+`thegazette.co.uk/London/issue/<n>/data.pdf` serves the scanned issue — 86 is the Fire number, of
+3–10 September 1666 — and the PDF is a pure image: `pypdf` extracts **one character** from two
+pages. It is a source that must be LOOKED AT rather than searched, which is the picture pass's rule
+arriving in the citation pass. Whether it carries a death count at all is unknown and is the thing
+to check before spending a reading on it.
+
+**THE OTHER LEAD IS NOT A HOST AT ALL.** #64 asks what the OFFICIAL RECORDS list, so what it
+actually wants is a work that went and counted them; the Bills of Mortality themselves are not on
+any host measured here, and a contemporary account that simply does not mention deaths proves
+nothing, which is what Welch's *Monument* turned out to be.
+
 
 ### Where the last seven stand (2026-09-17)
 
