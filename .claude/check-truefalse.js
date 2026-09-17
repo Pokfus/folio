@@ -114,6 +114,7 @@ const IMPERIAL_RX = new RegExp(
    a sentence, which is the one place a real spelling wears a capital. */
 const PROPER_NOUNS = [
   ["Elisha Gray", "the inventor who filed a caveat for the telephone on the same day as Bell"],
+  ["Registry of Tumors in Lower Animals", "the NCI-funded registry's own name — it is the institution that holds the shark tumour cases"],
 ];
 
 const seen = new Map();

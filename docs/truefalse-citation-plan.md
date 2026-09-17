@@ -2197,3 +2197,35 @@ statement, so it was taken out of `truefalse.js` **programmatically by search**,
 work landed `.claude/src-langs.js`, which slices the permitted list out of app.js's `SRC_LANG_NAMES`;
 Japanese is the 27th of its 44. A language app.js cannot draw would have shipped as a citation with no
 chip, which is the quietest failure that feature has.
+
+### T58 — a thread left unfinished, and the second `PROPER_NOUNS` row (2026-09-17)
+
+One cited: #105 (sharks do not get cancer). 203 → **204 of 220 (93%)**. The T55 entry recorded this
+one as blocked: Ostrander et al.'s *Cancer Research* paper is the canonical answer, `aacrjournals.org`
+403s, OpenAlex reports it closed and Europe PMC "Subscription required". **What that entry did not do
+was follow its own CDX result.** The same probe that established the 403 had already listed eight
+Wayback captures of the old `cancerres.aacrjournals.org` URL, and the T54 `id_` route serves them:
+52 KB, and the abstract entire. **A probe that finds captures and stops is half a probe** — fetch them
+in the same pass.
+
+**THE ABSTRACT IS THE WHOLE ANSWER, WHICH IS WORTH KNOWING BEFORE CHASING A FULL TEXT.** It states
+that the alleged lack of cancer in sharks is the key justification for selling crude cartilage
+extracts, that the paper describes both malignant and benign neoplasms in sharks and their relatives
+including previously unreported cases from the Registry of Tumors in Lower Animals and two sharks with
+two cancers each, and that the trade has cost shark populations and diverted patients from treatments
+that work. **For a myth-busting statement the abstract is usually enough**, because the claim being
+refuted is the paper's own framing.
+
+**THE AUTHORS CAME FROM CROSSREF, NOT FROM THE CAPTURE.** Europe PMC gives `Ostrander GK, Cheng KC,
+Wolf JC, Wolfe MJ` and a Chicago note wants given names; expanding initials by hand is the fault
+`check-citations.js` exists for. Crossref has them in full, with the page range 8485–8491 that the
+Wayback capture's own `citation_` metadata also carries.
+
+**`PROPER_NOUNS` GAINED ITS SECOND ROW, AND THE REGISTRY IS EXACTLY WHAT IT IS FOR.** The Registry of
+Tumors in Lower Animals is an institution's own name, spelled as it spells itself, and rule 2 reported
+`Tumors → Tumours`. **The spelling transform is one-way from authored British, so an American spelling
+inside a name is never corrected for anybody** — which is why the table masks names rather than the
+rule being relaxed. The row is the FULL name, never the bare word, on the rule the Elisha Gray row
+established; **proved by planting `tumors` elsewhere in the same answer and watching rule 2 fire on
+it.** Rewording round the registry was the alternative and was rejected: it is the institution that
+holds the cases, so naming it is what makes the claim checkable.
