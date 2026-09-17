@@ -14296,15 +14296,15 @@
       ]
     },
     "hsk30l5/成分": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The sentence this record added in the example top-up ran to thirty-three characters of abstract social commentary — that all social interaction necessarily involves a degree of insincerity — which is somebody's view of people rather than an example of a word. The same class as the gutter-press sentence on 报道. Deleted as a row rather than dropped, since it is this record's own. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
-        [
-          "所有的社交，自然而然地，都会掺入一些虚伪的成分，我想这是有其必要的。",
-          "All social interactions, naturally, will involve some degree of insincerity, which I believe is necessary."
-        ],
         [
           "请看包装上的成分表。",
           "Please look at the ingredient list on the package."
+        ],
+        [
+          "这种饮料的主要成分是水。",
+          "The main ingredient of this drink is water."
         ]
       ]
     },
@@ -123587,6 +123587,220 @@
         [
           "可恶",
           "Has there been an accident? Damn, now I will never get to work on time!"
+        ]
+      ]
+    },
+    "hsk30l5/车厢": {
+      "why": "`in the trunk of his car` for 车厢, on a card glossed `railway carriage; compartment` whose measure word is 节 and whose other two sentences are a train — the English describes the boot of a car, which is a different thing, and says it in American besides.",
+      "exEn": [
+        [
+          "汤姆在车厢里找到玛丽的雨伞",
+          "Tom found Mary's umbrella in the railway carriage."
+        ]
+      ]
+    },
+    "hsk30l5/彻底": {
+      "why": "政府应该彻底加强军队建设！is a political exhortation on a vocabulary card, and it is not a collocation the word takes: 彻底 goes with 解决, 改变 or 调查 — things that can be done completely — where 加强 is a matter of degree and cannot be. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "政府应该彻底加强军队建设"
+      ],
+      "ex": [
+        [
+          "这个问题必须彻底解决。",
+          "This problem must be solved once and for all."
+        ]
+      ]
+    },
+    "hsk30l5/沉": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against thirteen words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "沉重",
+          "chénzhòng",
+          "heavy; grave"
+        ],
+        [
+          "深沉",
+          "shēnchén",
+          "deep; reserved"
+        ],
+        [
+          "沉迷",
+          "chénmí",
+          "to be absorbed in; to be addicted to"
+        ],
+        [
+          "消沉",
+          "xiāochén",
+          "to sink into despondency"
+        ]
+      ]
+    },
+    "hsk30l5/沉默": {
+      "why": "Labelled `verb` over a gloss of three ADJECTIVES — `reticent; taciturn; uncommunicative` — while all three sentences are the NOUN: 保持了沉默, 保持沉默, 沉默就意味着同意. Three fields and three different answers. CC-CEDICT gives the noun and the adjective; both are now stated and every sentence tagged.",
+      "senses": [
+        [
+          "noun",
+          "silence"
+        ],
+        [
+          "adjective",
+          "taciturn; uncommunicative"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l5/称": {
+      "why": "Two faults in one field. The card listed **the same sense twice** — `verb: fit; match; to name` and then `verb: fit; match; to name` again — which is a duplicated entry rather than a second sense, the first of its kind in this audit. And that gloss puts TWO READINGS under one pinyin: `to name` is chēng, which is the card's own reading and what all three of its sentences show (又称普通话, 产品称它能, 称他胆小鬼), while `fit; match` is **chèn** (称心, 对称), a different word the card claimed without saying so. Both readings now carried in the pinyin and bopomofo fields with a sense each, and every sentence tagged with the reading it shows — the repair 转 and 数 already use. The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck, against seventeen words in the collection; two of its rows are the chèn reading, which is where a reader will actually meet it. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "Pinyin": "chēng / chèn",
+      "Bopomofo": "ㄔㄥ / ㄔㄣˋ",
+      "senses": [
+        [
+          "chēng",
+          "verb",
+          "to call; to name; to claim"
+        ],
+        [
+          "chèn",
+          "verb",
+          "to fit; to match; to suit"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "称呼",
+          "chēnghu",
+          "to address as; a form of address"
+        ],
+        [
+          "名称",
+          "míngchēng",
+          "a name; a title"
+        ],
+        [
+          "对称",
+          "duìchèn",
+          "symmetry; symmetrical"
+        ],
+        [
+          "称心",
+          "chènxīn",
+          "satisfactory; just as one wishes"
+        ]
+      ]
+    },
+    "hsk30l5/称赞": {
+      "why": "`admire` for 称赞, which is to say so out loud rather than to think it — and the sentence is an instruction to pay a compliment.",
+      "exEn": [
+        [
+          "记得称赞她的新洋装",
+          "Remember to compliment her on her new dress."
+        ]
+      ]
+    },
+    "hsk30l5/程度": {
+      "why": "要你在多大程度上同意或不同意这种说法 opens on 要你, which makes the sentence an order to somebody — `require you to agree` — where it is meant to be a question put to them. The 要 has nothing to attach to and the English does not translate it.",
+      "dropEx": [
+        "要你在多大程度上"
+      ],
+      "ex": [
+        [
+          "他的中文已经到了很高的程度。",
+          "His Chinese has reached a high level."
+        ]
+      ]
+    },
+    "hsk30l5/成人": {
+      "why": "我需要一些成人的东西 reads in Chinese as asking for adult MATERIAL — 成人的东西, 成人用品 — rather than for something suitable for a grown-up, which is what its English says. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我需要一些成人的东西"
+      ],
+      "ex": [
+        [
+          "这部电影只适合成人观看。",
+          "This film is suitable for adults only."
+        ]
+      ]
+    },
+    "hsk30l5/成熟": {
+      "why": "`medlars` for 枇杷, which is a LOQUAT — CC-CEDICT gives the botanical name, Eriobotrya japonica — where a medlar is 欧楂, an unrelated fruit of northern Europe.",
+      "exEn": [
+        [
+          "成熟的枇杷",
+          "Ripe loquats come away easily from the tree."
+        ]
+      ]
+    },
+    "hsk30l5/程序": {
+      "why": "她是程序员 and 她是个女程序员吗 are the same sentence twice — a woman who is a programmer, asked and stated — and both bury the headword in 程序员. That left the card's own leading gloss, `order; procedure; sequence`, with no sentence at all. The remaining one also had `This process has a lot of inconveniences` for 缺陷, which is a DEFECT: on a computer program those are bugs. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "她是个女程序员吗"
+      ],
+      "ex": [
+        [
+          "请按正确的程序操作。",
+          "Please follow the correct procedure."
+        ]
+      ],
+      "exEn": [
+        [
+          "这个程序缺陷满多",
+          "This program has a lot of bugs."
+        ]
+      ]
+    },
+    "hsk30l5/橙子": {
+      "why": "我能吃这只橙子吗 counts the orange with 只, which classifies animals and one of a pair — an orange takes 个. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我能吃这只橙子吗"
+      ],
+      "ex": [
+        [
+          "我每天吃一个橙子。",
+          "I eat an orange every day."
+        ]
+      ]
+    },
+    "hsk30l5/池": {
+      "why": "The third sentence wrote 池**溏**, which is not a word at all: the word is 池塘, a pond, and 溏 (táng) means semi-liquid, as in a soft-boiled egg. CC-CEDICT has no entry for 池溏. Repaired rather than replaced, the sentence being a good one otherwise. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The card glosses its character and stops, and the tap panel that lists the other words built on it had nothing at all in the reader's downloaded deck — and all three of the card's sentences bury the character in a compound, 泳池, 水池 and 池塘, which is where a bound character's words belong. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "池溏"
+      ],
+      "ex": [
+        [
+          "池塘的四周长满了树木。",
+          "The pond was ringed with trees."
+        ]
+      ],
+      "compounds": [
+        [
+          "电池",
+          "diànchí",
+          "a battery"
+        ],
+        [
+          "泳池",
+          "yǒngchí",
+          "a swimming pool"
+        ],
+        [
+          "水池",
+          "shuǐchí",
+          "a pond; a sink"
+        ],
+        [
+          "池塘",
+          "chítáng",
+          "a pond"
         ]
       ]
     }

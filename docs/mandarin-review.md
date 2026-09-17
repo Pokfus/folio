@@ -613,6 +613,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 31–60 (报道 → 表达), deck order, plus three cards outside it that share a sentence | 19 | **two of one card's three sentences were written with the wrong character of a homophone pair** |
 | 2026-09-17 | `hsk30l5` notes 61–90 (表面 → 册), deck order, plus three rows added to app.js's own `SPELL_PAIRS` | 29 | **a spelling family that IS in the table, with three of its members missing** |
 | 2026-09-17 | `hsk30l5` notes 91–120 (测 → 车祸), deck order, plus a corpus sweep for variant characters | 17 | **a Japanese character in a Chinese sentence, on three cards at once** |
+| 2026-09-17 | `hsk30l5` notes 121–150 (车库 → 持续), deck order | 13 | **a card that listed the same sense twice, and put two readings under one pinyin** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7113,3 +7114,65 @@ and 朝's three sentences themselves.
 still-ambiguous 1; shared-gloss groups 324 unchanged; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 627 → 633;
 `build-lang-decks.js` re-run.
+
+## Batch 78 — hsk30l5 notes 121–150 (车库 → 持续)
+
+Thirty consecutive notes; **thirteen cards changed**.
+
+**The leading card had two faults in one field, and the first is a new shape.** 称 listed **the same
+sense twice** — `verb: fit; match; to name`, and then `verb: fit; match; to name` again — which is a
+duplicated entry rather than a second sense, and the first of its kind in this audit. And that gloss put
+**two readings under one pinyin**: `to name` is chēng, the card's own reading and what all three of its
+sentences show (又称普通话, 产品称它能, 称他胆小鬼), while `fit; match` is **chèn** — 称心, 对称 — a
+different word the card was claiming without saying so. Both readings now carried with a sense each and
+every sentence tagged, which is the repair 转, 数 and 弹 already use.
+
+**Three fields, three different answers.** 沉默 was labelled `verb` over a gloss of three ADJECTIVES
+(`reticent; taciturn; uncommunicative`) while all three sentences are the NOUN — 保持了沉默, 保持沉默,
+沉默就意味着同意. The label said one thing, the gloss another and the card a third.
+
+**A character that is not a word.** 池's third sentence wrote **池溏**, which CC-CEDICT has no entry for
+at all: the word is 池塘, a pond, and 溏 (táng) means semi-liquid, as in a soft-boiled egg. One character
+wrong; repaired rather than replaced.
+
+**A fruit that is a different fruit.** 成熟's `Ripe medlars` renders 枇杷, which is a **loquat** —
+CC-CEDICT gives the botanical name, *Eriobotrya japonica* — where a medlar is 欧楂, an unrelated
+northern-European fruit.
+
+**A carriage that became a car boot.** 车厢's third sentence was translated `in the trunk of his car`, on
+a card glossed *railway carriage; compartment* whose measure word is 节 and whose other two sentences are
+plainly a train — wrong about the thing, and American about it besides.
+
+**Two sentences that read as something else in Chinese.** 我需要一些成人的东西 asks for adult MATERIAL
+(成人的东西, 成人用品) rather than for something suitable for a grown-up, which is what its English says.
+And 要你在多大程度上同意 opens on 要你, making an order out of a question, with the 要 translated by
+nothing.
+
+**A collocation the word does not take.** 彻底加强军队建设 — 彻底 goes with 解决, 改变 or 调查, things
+that can be done completely, where 加强 is a matter of degree. It was a political exhortation as well.
+
+**A duplicate that left the card's own leading gloss with no example.** 程序's 她是程序员 and
+她是个女程序员吗 are one sentence asked and stated, both burying the headword in 程序员 — so `order;
+procedure; sequence`, the gloss's first sense, had nothing behind it. Its remaining sentence also had
+`inconveniences` for 缺陷, which on a computer program are **bugs**.
+
+**The record's own top-up, again, as a paragraph of opinion.** 成分's added sentence ran to thirty-three
+characters arguing that all social interaction necessarily involves insincerity — somebody's view of
+people rather than an example of a word, and the same class as the gutter-press sentence on 报道. Deleted
+as a row rather than dropped, which is batch 77's lesson applied rather than re-learned.
+
+**A wrong classifier** (橙子's 这只橙子 — 只 classifies animals and one of a pair, and an orange takes
+个) **and one English line softened into the wrong verb** (`admire` for 称赞, which is to say so out loud).
+
+**Three `Compounds` blocks** — 沉, 称 and 池, each with nothing at all in the reader's downloaded deck.
+称's carries **对称** and **称心**, both the chèn reading, which is where a reader will actually meet it.
+
+**Read and left.** 车库, 车辆, 车主, 称为, 成本, 承担, 成果, 成就, 成立, 成年, 城区, 承认, 承受,
+乘务员, 成员, 成长, 持续 — and 称赞's own 洋装, which is the Taiwan word for a dress where the mainland
+says 连衣裙: it is real Chinese, the English is what was wrong, and the deck is not being normalised to
+one variety.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 324 unchanged; pinyin clean — **including the new two-reading
+field on 称**; example-fit 143 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible
+on every one; sense-tagged 633 → 639; `build-lang-decks.js` re-run.
