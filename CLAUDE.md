@@ -6899,6 +6899,16 @@ division-capital city tier are inert dead code.
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
+    **AND IT HOLDS `/rest/v1/**` OPEN, BECAUSE A SUITE THAT READS THE LIVE ACCOUNT DATABASE HAS A
+    DIFFERENT VERDICT ON EVERY MACHINE** (Sep 2026, after it ran green in the sandbox and red on CI
+    for weeks). Its Dashboard check asserts the People panel draws NO tiles signed out — and the
+    reasoning behind that was wrong: `user_decks`, `deck_installs`, `deck_ratings`, `feedback` and
+    `deck_reports` are PUBLICLY readable, so a machine that can reach Supabase gets seven real tiles,
+    which is the panel working. It passed here only because egress to supabase.co fails. Holding the
+    route open makes "before the database has answered" a state the fixture CREATES, and takes the
+    live `content_overrides` overlay — which rides the same path and can add, edit or retire cards —
+    out of a run that compares card counts. **Reach for the same route in any suite whose figures come
+    off the shipped files.**
   · `node .claude/test-publish.js` — 128 assertions across six browser sessions (an author, a reader, an
     admin, and three more DEVICES of that reader's) driving publish → browse → install → update → report
     → hide → rate → staff-pick → fork → export → delete → sync. **Re-run after touching the publishing
