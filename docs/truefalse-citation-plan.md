@@ -199,3 +199,31 @@ the offending suffix. **On the site it was inert** — the live direction is GB�
 written the non-words — so the only place it could bite was a checker, which is where it did. Fixed in
 `SPELL_PAIRS`, proved byte-for-byte inert over 175,126 renderings of the whole corpus in both directions
 (8 changed, all US→GB, all a non-word becoming the right word), and pinned in `test-spelling.js`.
+
+### T3a — three Chinese-history statements, and two more the corpus would not bear out (2026-09-17)
+
+The mercury round Qin Shi Huang's tomb (`cnh-208`, two sources), the magnetic compass (`wh-531`, two)
+and the imperial examination (`wh-525`, plus one page range of its own Martin). All three had to be
+re-worded, which by now is the pass's commonest outcome on a statement written before the apparatus
+existed.
+
+- **The mercury** said "soil tests"; the work `cnh-208` cites measures mercury in the AIR above the
+  mound by laser radar, so the statement now says what was measured. **A citation that is right about
+  the fact and wrong about the method is still a citation that does not bear the claim out.**
+- **The compass** had it used "for feng shui and divination for centuries" before anyone took it to
+  sea. `wh-531` shows **thirty years** between the first datable description (Shen Kuo, c. 1088) and
+  the first record at sea (Zhu Yu, 1119), and says nothing about divination at all. The statement now
+  asks the better question the card actually answers: the earliest datable account is a bench note, not
+  a sailing direction.
+- **The examination** claimed "roughly a thousand years before any comparable system in Europe", a
+  figure no source here gives. **What Martin gives is the comparison itself**, on the pages just before
+  the ones `wh-525` already cites — writing in 1901 he had to argue it the other way about, England,
+  France and Prussia having each begun using competitive examinations "of recent date and of limited
+  application". A second page range of a book the corpus already opened is the cheapest new citation
+  there is, and it is still a NEW one: read the pages before citing them.
+
+**THREE MORE WERE LOOKED FOR IN THE CORPUS AND ARE NOT THERE**, which is worth recording so the next
+batch does not look again. `wh-406` Terracotta Army says nothing about the farmers and the well of
+1974, so that statement stands where the plan's open questions left it; `wh-565` has Zheng He at
+Malacca in 1409 and nothing about the size of his fleet; and no card in the corpus has Wu Zetian,
+foot-binding, chop suey or the fortune cookie as its subject.
