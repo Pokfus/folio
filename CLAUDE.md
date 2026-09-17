@@ -822,7 +822,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Tyumen is drawn at its 160,185 km² proper rather than the 1,464,173 km² an official table quotes with
     Khanty-Mansi and Yamalo-Nenets in, and Arkhangelsk likewise against Nenets. **So four cards must state
     WHICH figure they give**, and no checker can see it — a with-okrugs area is a well-formed number
-    correctly cited to a real table. Not part of the site.
+    correctly cited to a real table.
+  · **A CAPITAL CARD'S GRID COMES FROM ROSSTAT'S TABLE 4.9 AND ITS ANSWER FROM A LADDER OF THREE.** Table
+    4.9, *Cities with Population of 100 000 and Over*, carries 172 cities, which is every administrative
+    centre but the eight genuinely smaller than that — so Population, Rank in Russia and the growth figure
+    all come out of the one table the card cites. **READ ITS FOOTNOTE**: 2002, 2010 and 2021 are CENSUS
+    counts and 2020 and 2022 are PRE-census estimates the census then corrected, so a row read straight
+    across looks like a city that lost and regained a seventh of its people twice. The *X is the
+    administrative centre of Y* sentence has no single source — Rosstat's own city column is ordered BY
+    SIZE and lists Krasnogorsk seventh — so it is the subject's own portal through the Wayback Machine,
+    else a UNESCO page, else an open-access abstract found through DOAJ. **📖 The plan's own "THE CAPITAL
+    HALF'S RECIPE" section has all of it, including which portals the archive refuses.** Not part of the
+    site.
 - `russia-subjects.js` + `.claude/build-russia-subjects.js` — the 83 federal subjects of the Russian
   Federation and the 80 administrative centres (`window.RUSSIA_SUBJECTS` / `window.RUSSIA_CENTRES`), the
   fourth shape layer a map card can be drawn on. **Lazy** (bundle `russubj`, with `lakes.js` and
@@ -5246,7 +5257,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 83 cards — **the 83 federal subjects are COMPLETE**; **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; the next card would be `gru-501`, but **the capital half is BLOCKED on a sourcing recipe — read the plan before writing one**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 84 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, `gru-508` Kazan being the first of the 80 centres; **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — the recipe was proved on an unambiguous centre first, so `gru-502`–`gru-507` are still to write**, see below |
 
 The next id for any of them (substitute the prefix):
 

@@ -590,9 +590,13 @@ still gives Moscow — a city that is a different federal subject. **Try an unam
 (`gru-503` Krasnodar, `gru-505` Yekaterinburg, `gru-508` Kazan), establish the recipe there, and come
 back to `gru-502` with it.
 
-**Until a recipe exists, a capital card cannot be written to the bar, and none should be written below
-it.** The subjects deck is unaffected and can be worked straight down the order — and as of batch 18 it
-is FINISHED, so the eighty centres are all that is left of this collection.
+**⚠ THIS SECTION IS NOW HISTORY: THE RECIPE EXISTS, AND IT SHIPPED WITH `gru-508` IN BATCH 19.** What
+follows is kept as the record of what was tried and why the obvious routes fail; the recipe itself is
+the section directly below. **Do not re-run the searches recorded here.**
+
+**Until a recipe existed, a capital card could not be written to the bar, and none was.** The subjects
+deck is unaffected and was worked straight down the order — and as of batch 18 it is FINISHED, so the
+eighty centres are all that is left of this collection.
 
 **Batch 18 took the question three steps further and did not close it.** Rosstat's own table 2.1 is
 titled *"Capitals, centers and largest cities of constituent entities of the Russian Federation"*, so the
@@ -604,6 +608,95 @@ centre — but the portal's `?q=` is inert, so no route to a particular charter 
 DOAJ and Crossref index metadata only, so the Study Area recipe costs one paper read per card rather than
 one query. **The charter route is the lead to try next**, on an unambiguous centre, per the paragraph
 above.
+
+## ✅ THE CAPITAL HALF'S RECIPE — found in batch 19, and the grid comes from ONE Rosstat table
+
+**The blocker above is cleared.** A capital card needs two things the subject cards did not: a citation
+for *X is the administrative centre of Y*, and a facts grid whose rows are the CITY's rather than the
+subject's. Both are now solved, and the second is solved for all eighty at once.
+
+### The grid: Rosstat's table 4.9, and it is the whole capital half in one table
+
+**`Russian Statistical Yearbook 2023`, table 4.9, *Cities with Population of 100 000 and Over*, in
+thousands, columns 2002 · 2010 · 2020 · 2021 · 2022 · 2023.** It lists **172 cities**, which is 65 of the
+80 administrative centres outright and, once the OCR's spellings are read through, all but the eight that
+are genuinely under 100,000 (Magas, Anadyr, Naryan-Mar, Salekhard, Gorno-Altaysk, Birobidzhan, Magadan,
+Gatchina — those need a figure of their own or a `?`).
+
+- **READ THE FOOTNOTE BEFORE READING THE COLUMNS, because three of the six are not comparable.** It says:
+  2002, 2010 and 2021 are **census** counts; the other years are **estimates as of 1 January**; and *"data
+  for 2020, 2022 are presented without using the All-Russian Population Census of 2020 results"*. So the
+  2020 and 2022 columns are PRE-census estimates that the census then corrected, sometimes by a seventh —
+  Astrakhan reads 530 (2020 estimate), 476 (2021 census), 519 (2022 estimate), 469 (2023). **A row read as
+  a time series looks like a city that lost and regained 50,000 people twice.** It is two series
+  interleaved.
+- **So the card takes the 2023 column for Population and the 2010 → 2021 CENSUS pair for growth**, which
+  is the same census-to-census comparison the China and world capital cards make.
+- **Rank in Russia is computed inside the table**, which is the United States cards' own discipline — the
+  rank is read out of the very table the card cites, never out of the grid's rounded figures.
+- **THE EXTRACTED FIGURES ARRIVE SPLIT AND MUST BE RE-JOINED BY ARITHMETIC, NOT BY EYE.** `pdf-text.js`
+  emits a thousands separator as a space AND breaks a three-digit number at a kerning stop, so a row comes
+  out as `165 165 18 7 185 187 185` — seven tokens for six values. A greedy merge is wrong on any row
+  crossing 1,000 (it made Krasnodar `646 745 9331 99 974 1121`). What works is a **dynamic-programming
+  split of the digit string into exactly six numbers, scored by closeness to the row's own median** — a
+  city's population is stable across twenty years, so the right split is the flat one. Verified against
+  Kazan, Yekaterinburg, Ufa, Tyumen, Volgograd, Perm, Voronezh, Belgorod, Astrakhan and Arkhangelsk.
+- **A ROW WITH `…` IN IT HAS FEWER THAN SIX VALUES** (a city under 100,000 in 2002), and a naive row regex
+  RESYNCS ON THE NEXT ROW AND EATS IT — which is how Yekaterinburg, Russia's fourth city, went missing from
+  the ranking entirely and shifted every rank below it by one. Count the rows against the cities.
+
+### The answer: a LADDER, because no single source names all 83 centres
+
+**There is no such source and the search for one is over.** Rosstat's own table 2.1 column is titled, in
+Rosstat's English, *"Capitals, centers and largest cities of constituent entities of the Russian
+Federation"* — so the centre is in there, and the list is **ordered by size**, so it cannot say which name
+is the centre: Moscow Region lists Krasnogorsk **seventh**, behind Balashikha, Podolsk, Khimki, Korolev,
+Mytishchi and Lyubertsy. Use the ladder instead, in this order:
+
+1. **The subject's own government portal, read through the Wayback Machine.** This is the best rung where
+   it works: `tatarstan.ru/eng/about.html` prints *"Capital : Kazan (797 km east of Moscow …)"* beside the
+   area and the administrative division, so one page carries the answer AND three background sentences.
+   **It works only where the host is not excluded from the archive**, and several are: `mosreg.ru`,
+   `admkrai.krasnodar.ru`, `donland.ru` and `samregion.ru` all answer **403 inside the Wayback Machine**,
+   while `midural.ru`, `bashkortostan.ru` and `admtyumen.ru` are archived and open.
+2. **An IGO page about the city.** UNESCO's Creative Cities Network entry for Kazan opens with *"The
+   capital of the Republic of Tatarstan"* and adds the city's cultural figures. `www.unesco.org` answers
+   200; **`whc.unesco.org` is 403 and the World Heritage route is shut.**
+3. **An open-access article whose abstract states it**, found through DOAJ's own API — `bibjson.abstract:("capital of the Republic of Bashkortostan" OR "administrative center of …")`.
+   **DOAJ DOES index abstracts, which this plan previously recorded the opposite of**, and the phrase is
+   in an abstract often enough to be worth one query. It is not universal: Tatarstan and Bashkortostan
+   return hits, Krasnodar Krai and Tyumen Region return none.
+
+### Two host findings that cost an afternoon each
+
+- **`pravo.gov.ru` AND `publication.pravo.gov.ru` ANSWER 200 — OVER `http://` AND WITH A BROWSER
+  USER-AGENT.** Over `https://` with curl's default agent both reset the connection, which is what an
+  earlier probe recorded as "shut". **The repo's own rule applies here: retest with `-L` and a browser
+  user-agent before trusting a refusal.** What they are still not good for is finding a particular
+  charter: the portal's `?q=` is inert, returning all 1,700,615 documents whatever is asked, and its
+  `/api/Documents` validates parameters this session did not work out.
+- **The regional portals themselves are shut over both schemes**: `http://` redirects to `https://`, where
+  the certificate chains to a Russian national CA nothing here carries (`admkrai.krasnodar.ru`,
+  `rosstat.gov.ru`), or a WAF answers 403 or 503 (`mosreg.ru`, `donland.ru`, `midural.ru`,
+  `bashkortostan.ru`). **The Wayback Machine is the only way in, and it is the rung-1 route above.**
+
+### The climate leg is solved for the whole deck
+
+**The WMO's World Weather Information Service lists 94 Russian cities**, which covers essentially every
+administrative centre — `Kazan'` 986, `Ekaterinburg` 916, `Ufa` 659, `Tjumen'` 1001, and so on down to
+`Anadyr'` 975 and `Nar'jan-Mar` 970. `https://worldweather.wmo.int/en/json/Country_en.xml` is the index.
+**Take a figure the subject card did not already use** — a capital card and its own subject card otherwise
+print the same January mean, because the subject card's climate sentence was read off the capital's
+station.
+
+### What a capital card looks like
+
+`map: { layer: "russia-subjects", key: "<subject>", dot: "<city>" }`, the question *"The dot on the map
+marks ___, the administrative centre of the federal subject shaded around it."*, and a grid of **Federal
+subject · Population · Rank in Russia · Population growth**. **The background MAY name its own federal
+subject**, unlike the world deck's rule about countries: a capital card's history is the history of the
+subject's capital, and forbidding the name would forbid the card. `facts-echo` reports a name and fails
+only on a figure, which is the right line here.
 
 ## Two sourcing findings that outlast this batch
 
@@ -1594,6 +1687,31 @@ they are still blocked — see the section above, which this batch's research ex
   returns three metadata hits and nothing usable. The recipe still works; it costs one paper read per card
   rather than one query, which is a different kind of cost and should be measured before eighty cards are
   planned around it.
+
+### Batch 19 — `gru-508` (Kazan), and the capital half is unblocked
+
+**The first administrative-centre card.** Written out of running order on this plan's own instruction —
+*try an unambiguous centre, establish the recipe there, and come back to `gru-502` with it* — so the
+capitals deck opens at 508 and the numbers below it are still to write. The recipe it proves is the
+section above; what follows is what the batch itself turned up.
+
+- **THE RECIPE IS A LADDER AND A TABLE, not a single source.** The grid comes from Rosstat's table 4.9 for
+  all eighty at once; the *X is the administrative centre of Y* sentence comes from whichever of three
+  rungs answers for that subject. Kazan happened to answer on two of them — the Tatarstan portal through
+  the Wayback Machine and UNESCO's Creative Cities entry — which is why it was the right card to prove it
+  on.
+- **A CAPITAL CARD AND ITS OWN SUBJECT CARD WILL PRINT THE SAME CLIMATE UNLESS YOU MAKE THEM NOT.**
+  `gru-008` Tatarstan reads its January and July means off the WMO station **in Kazan**, because that is
+  the republic's only station — so `gru-508` deliberately takes the precipitation seasonality and the
+  February-to-April thaw instead. **Read the subject card before writing its capital.**
+- **`upload.wikimedia.org` 429s FOR MINUTES AT A TIME, AND THAT IS WHEN A HAND-BUILT `src` SHIPS.** The
+  glossary picture's URL was composed as `…/commons/9/9c/…` from the shard pattern and would have been a
+  404: the real shard is `8/83`. The API's own string says so, and the API answers through
+  `suggest-image.js`'s pacing when a bare `curl` does not. **CLAUDE.md's rule — copy the `src` from the
+  API, never build it — is the one that saved this card**, and the check is to compare against the API
+  string when the file itself cannot be fetched to confirm it.
+- **A GLOSSARY TERM CANNOT GO THROUGH `fetch-geo-images.js`**, which refuses anything that is not a card
+  in `data.js`. `suggest-image.js` is the paced route for a term.
 
 ## The background against the grid — the facts-echo pass (Sep 2026)
 
