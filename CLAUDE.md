@@ -673,6 +673,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     dated, recurring job rather than a judgement. **Check Commons before researching a post-1900 line,
     not after**, and run `node .claude/check-image-free.js` before fetching a candidate.
   Not part of the site.
+- **📖 `docs/politics-east-asia-card-plan.md` — READ BEFORE WRITING A `pea-` CARD.** The running
+  order for the **Politics: East Asia** collection (`pea`), across 24 decks — Lectures 1–12 and Extra
+  1–12. The twentieth plan, and **the only one that is a COURSE rather than a subject shelf**: it is
+  a university syllabus, so it sits in a **Special** section of the Collections page rather than under
+  History or Science, and its running order **cannot be written ahead of the lectures**, whose slides
+  are supplied one at a time. Three things follow and the plan argues each. The numbering is
+  **sequential in the order the lectures are covered** rather than blocked out per deck (Lecture 1 took
+  `pea-001`–`pea-030`, Extra 1 `pea-091`–`pea-100`), so the registered numbering in
+  `test-card-plans.js` is **widened as a lecture lands** rather than declared at 480 and left full of
+  holes. **A deck heading with no lines under it is a deck waiting for its source material**, not a gap
+  to be filled from general reading — the point of the collection is that it covers the course as
+  taught. And **the answer terms come from the supplied material**, with the backgrounds researched out
+  and cited like any other card. The next card to write is the lowest `pea-NNN` not yet in `data.js`;
+  the index table under "THE TWENTY PLANNED COLLECTIONS" is the lookup. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -1264,7 +1278,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.35 MB and 48,982 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.35 MB and 49,000 lines is hard to find your way around, so this
   lists its 185 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6024,7 +6038,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE NINETEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE TWENTY PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -6052,6 +6066,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
+| Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
 The next id for any of them (substitute the prefix):
 
@@ -6064,7 +6079,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (280 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (295 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7006,7 +7021,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 280 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 295 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

@@ -24960,8 +24960,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        nothing else. The collection under it is called Visual Art rather than Art so that it does not
        read as the parent of the siblings that may join it. */
     { label: "The Arts", slot: "collection-list-arts" },
+    /* Special — NOT a subject, which is the whole reason it is its own heading (Sep 2026, on request:
+       "put it in a new section titled Special instead of a normal history or science collection"). What
+       goes here is a collection that is genuinely Folio-made content but is not one of the subjects the
+       shelf is organised by — the first is a university course rebuilt as a deck. Filing it under History
+       would be the claim the Philosophy comment above refuses to make: a heading is a statement about
+       what the thing IS, and "Politics: East Asia" under History is wrong about the subject rather than
+       merely untidy. It sits LAST of the subject sections and above the Planned fold, so the shelf still
+       reads subjects-first and the odd one out is where the eye reaches it last. */
+    { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -25009,7 +25018,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { id: "history", label: "History", sections: ["History"] },
     { id: "geography", label: "Geography", sections: ["Geography"] },
     { id: "language", label: "Language", sections: [] },       // the Languages shelf is its own builder
-    { id: "other", label: "Other", sections: ["Science", "Philosophy", "The Arts"] },
+    { id: "other", label: "Other", sections: ["Science", "Philosophy", "The Arts", "Special"] },
     { id: "community", label: "Community", sections: [] },     // your own decks, then everyone else's
     { id: "all", label: "All", sections: null },               // null = every section; the default
   ];
@@ -25700,6 +25709,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
     ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
     japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
+    /* muted periwinkle (Politics: East Asia, the Special section) — MEASURED, like every hue above it.
+       Swept in CIELAB against all 26 hues on the shelf: it stands 22.0 from its nearest neighbour
+       (Psychology plum) against a TIGHTEST EXISTING PAIR of 12.9 (China vermilion vs Russia lacquer).
+       The unconstrained peak is a hot magenta at 31.5 and chroma 61, rejected on the register the
+       Psychology and Philosophy notes below already state twice — this shelf reads muted, and chroma 34
+       sits below its own median of 44. L 53 and contrast 4.0:1 against white, inside the shelf's 3.7-10.4
+       range. It takes the one family absent here, the blue-violet between Greece's Aegean and Rome's
+       imperial purple, without being either. NOT looked at on a screen yet — see the note below. */
+    pea:      { bg: "#7A7AB5" },
     /* muted plum (Psychology) — MEASURED, like every hue above it. Swept in CIELAB against all eighteen
        hues on the shelf inside its own band (L 28-55, chroma 7-62), the freest region of the whole wheel
        is the mauve/plum quadrant; the peak candidate stands 30.1 from its nearest neighbour against a

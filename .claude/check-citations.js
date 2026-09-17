@@ -205,6 +205,14 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Springer's own article page for this paper prints the byline "Széll, György" in its
+  // citation metadata, but the deposit reached Crossref in ASCII, where ö became "oe" and
+  // é lost its accent, giving "Gyoergy Szell". The journal is the one that is right.
+  ["10.1186/s40856-017-0014-5", "György Széll", "Gyoergy Szell"],
+  // Routledge deposited this editor's name with the two halves swapped, so Crossref carries
+  // given "Westra" and family "Richard". Crossref's OWN record for a review of the same book
+  // (10.1111/j.1944-8287.2008.01011.x) prints "Richard Westra" in its title, which settles it.
+  ["10.4324/9781315249612", "Richard Westra", "Westra Richard"],
   // The USGS Publications Warehouse catalogue record for this open-file report misspells
   // its first author, and Crossref relays the deposit. The report itself prints "by D. G.
   // Jordan and O. J. Cosner" on its title page, and its own Selected References list a

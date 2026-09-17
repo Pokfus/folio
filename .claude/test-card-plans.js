@@ -72,6 +72,12 @@ const PLANS = {
   dino: ["dinosaurs", "dino-", 1000],
   korea: ["korea", "ko-", 1000],
   art: ["art", "art-", 1000],
+  /* Politics: East Asia is a COURSE rather than a subject shelf, so its running order cannot be
+     written ahead of the lectures it covers — the slides arrive one at a time. The numbering is what
+     has been supplied so far, sequential in the order the lectures were covered (30 cards a lecture,
+     10 for each set reading), and it is widened as a lecture lands rather than declared at 480 and
+     left full of holes. A hole inside the declared range still fails here, which is the point. */
+  pea: ["politics-east-asia", "pea-", [[1, 100]]],
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */
