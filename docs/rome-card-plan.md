@@ -954,6 +954,68 @@ their own account and which `buildGlossIndex`'s longest-surface-first rule makes
 by resolving the sentence against the real index: the Greek line links to `Athena` and the four Roman ones
 to `Marcus_Antonius_Pallas`.
 
+## `rm-441`–`rm-450`: the murder of Agrippina to Nero's Greek tour — what this batch found
+
+**FOUR LINES WERE RETITLED, AND EVERY ONE OF THE FOUR IS `ww2-133`'s RULE**: a line named after a person
+or a thing the glossary already holds has no term of its own left to teach, so it wants the MOMENT rather
+than the man. `Agrippina the Younger` shipped as a cited term with `rm-438` and `Nero` has been one since
+`wh-366`, which between them account for all four. **`rm-441 The murder of Agrippina`** takes **`Anicetus`**,
+the freedman who designed the collapsing ship, led the marines who killed her and was used again three
+years later to perjure himself against Octavia — a man Tacitus names three times and Suetonius never.
+**`rm-448 Nero and the Christians`** takes **`Neronian persecution`** and **`rm-450 Nero's Greek tour`**
+takes **`periodonikes`**, the victor of the four crown games, which is the thing the tour was FOR and which
+Dio's own text and the Loeb note on it supply. **`rm-445 The Armenian settlement of 63 CE`** is the other
+half of the rule — a description rather than a term — and takes **`Rhandeia`**, the camp on the Arsanias
+where the capitulation of 62 and the settlement of 63 both happened. **Tacitus describes that place and
+never names it; the name is Dio's** (62.21, where it is spelled Rhandea), which is worth knowing before
+searching the Annals for it.
+
+**`rm-442` AND `rm-443` WERE KEPT AS A PAIR AND THAT WAS A DECISION.** The revolt and the queen look like
+one card written twice, and the test that settles it is whether each has a term of its own: `Boudican
+revolt` and `Boudica` are both free, both are what the glossary would head, and the two cards were written
+to different questions — the revolt gets the causes, the three towns and the suppression, and Boudica gets
+the woman and the evidence problem (two Roman authors, two speeches neither could have heard, two
+incompatible deaths, and no grave, coin or likeness).
+
+**THE LOEB YEAR ON EVERY TACITUS CITATION IN THE COLLECTION WAS WRONG AND IS NOW FIXED.** Jackson's
+Annals is three Loeb volumes — III (books 1–3, **1931**), IV (books 4–6 and 11–12, **1937**) and V (books
+13–16, **1937**) — and the helper that writes these citations defaulted to 1931 for all of them, so **36
+citations across 14 cards** (`rm-423`–`rm-440`) named a volume that does not exist. **Nothing in the
+pipeline could see it**: `add-card.js` checks that a citation ends in a URL, `source-audit.js` counts them
+and `check-citations.js` needs a DOI, so a wrong publication year on an out-of-copyright translation passes
+every gate and the URL opens perfectly. **The LacusCurtius page for each book states its own volume and
+year in its header**, which is where the right answer came from and where the next one should.
+
+**THE HOSTS, MEASURED THIS BATCH.** `histos.org` carries the batch again (Rimell on Closs, *While Rome
+Burned*, and Bettenworth on Malik, *The Nero-Antichrist*), and `tidsskrift.dk`, `scriptaclassica.org`,
+`journal.fi` and the AOSIS journals all answer. **Three that did not**: `ejournals.eu` (Electrum, which
+carries Gregoratti's *Corbulo versus Vologases* and Kéfélian on Armenian numismatics) **fails TLS
+verification from here** — its chain is missing an intermediate — and TLS is never disabled, so both
+articles were dropped; `journals.openedition.org` (Pallas, which has Pailler's *Néron, l'incendie de Rome
+et les chrétiens*) returns **200 behind an Anubis bot wall**, the `WALL` outcome, so the article could not
+be read and was not cited; and `filolog.rs.ba` returns an **empty body** to curl. **A 200 is not a
+readable article**, and a source that cannot be opened is not cited however exactly it matches.
+
+**WIKIMEDIA'S ARBITRARY-WIDTH THUMBNAILS ARE GONE, which breaks the obvious way of writing a picture `src`.**
+`…/thumb/<shard>/<file>/1200px-<file>` now returns **400 with "Use thumbnail sizes listed on
+https://w.wiki/GHai"**; only the standard widths (320, 640, 800, 1024, **1280**, **1920**, 2560) are served.
+Two of this batch's pictures were written at 1200 and 1600 and had to be re-cut to 1280. **And
+`api.php` was rate-limited for the whole batch** while the file pages served perfectly, so the metadata was
+read from **`/wiki/File:<name>?action=raw`** (which gives `|Author=` and the licence template as wikitext)
+and the original URL off the rendered page — the route CLAUDE.md records, one endpoint further in.
+
+**THREE OF NINE CANDIDATE PICTURES WERE REJECTED ON THE CONTACT SHEET**, which is the rate the geography
+pass measured: a Baiae "seafront" that is a modern promenade with motor boats and a lamp post, a Domus Aurea
+"panorama" that is a warped 360° strip, and an Olympia view that is a gravel path full of tourists. **And
+one was rejected for saying the wrong thing rather than showing it**: the Hermitage bust catalogued as
+`Bust of a Roman Domitius Corbulo` carries a Russian description reading *портрет Домиция Корбулона,
+атрибуция отведена* — the museum has WITHDRAWN the identification — so **`rm-444` ships with no picture**,
+there being no securely identified likeness of Corbulo. The other near miss is the Rijksmuseum face-mask
+helmet whose file NAME places it in the Corbulo canal at Matilo while its own description places it in the
+Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot be written over a
+contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
+the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
+
 ### The Julio-Claudians — `rm-julio-claudians`
 
     rm-416  Julio-Claudian dynasty
@@ -981,16 +1043,16 @@ to `Marcus_Antonius_Pallas`.
     rm-438  Agrippina the Younger
     rm-439  Britannicus
     rm-440  Burrus
-    rm-441  The murder of Agrippina
+    rm-441  Anicetus
     rm-442  Boudican revolt
     rm-443  Boudica
     rm-444  Corbulo
-    rm-445  The Armenian settlement of 63 CE
+    rm-445  Rhandeia
     rm-446  Great Fire of Rome
     rm-447  Domus Aurea
-    rm-448  Nero and the Christians
+    rm-448  Neronian persecution
     rm-449  Pisonian conspiracy
-    rm-450  Nero's Greek tour
+    rm-450  Periodonikes
     rm-451  First Jewish–Roman War
     rm-452  The revolt of Vindex
     rm-453  The revolt of Galba
