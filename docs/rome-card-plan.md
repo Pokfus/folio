@@ -890,6 +890,70 @@ an enwiki article and no published primary coordinate, and *Anzio* redirects in 
 either; `Q241717` gives it. The route is already in `add-locators.js`'s header and is the first time this
 collection has needed it.
 
+**Six of the ten lines were retitled writing `rm-431`–`rm-440`, and the reasons are the four this deck
+keeps producing.**
+
+**An EVENT wants the thing it made.** **`rm-431 The accession of Claudius`** takes **`Donativum`**:
+`rm-430` is already `Claudius`, and what the January of 41 CE actually produced was a price on the
+guard's assent — 15,000 sesterces a man, which Suetonius calls the first purchase of a Roman army's
+loyalty, and which every later claimant had to promise. **`rm-432 The Claudian invasion of Britain`**
+takes **`Camulodunum`**, the town Claudius came in person to take and the colony planted on it, which is
+also the word a reader meets again at `rm-442` and `rm-443`.
+
+**A TERM THE GLOSSARY ALREADY HOLDS leaves the line nothing to teach**, which is `ww2-133`'s rule twice
+over. **`rm-434 The imperial freedmen`** could not be answered by `Freedmen`, which is `rm-808`, so it
+takes **`Pallas`**, Claudius's treasurer — and NOT `Narcissus`, who is the actor in `rm-437 Messalina`
+and would have done the same work twice. **`rm-435 Claudius and the citizenship`** could not be answered
+by `Roman_citizenship`, `Citizenship` or `Latin_rights`, all cited terms already, so it takes **`The Lyon
+Tablet`**, the bronze that carries the speech itself and lets Tacitus's version be set beside it.
+**`rm-439 Nero`** could not be answered by `Nero`, a cited term since `wh-366`; it takes
+**`Britannicus`**, who is what the succession actually turned on and whom the deck would otherwise never
+card.
+
+**A LINE NAMING TWO MEN is a line with no answer term.** **`rm-440 Seneca and Burrus`** takes
+**`Burrus`** alone, `Seneca the Younger` being `rm-959` and `Seneca` a Philosophy line besides.
+
+**The batch's modern leg is Histos plus the out-of-copyright commentaries, and the DOAJ route came up
+nearly empty this time.** DOAJ has almost nothing on Claudian Rome: searches on Claudius, Britannicus,
+Burrus, Caratacus, Camulodunum and the aqueducts returned Racine criticism, Sicilian pig breeds and
+cardiac defibrillator trials. What carried the batch instead was **Histos**, which is fully open and whose
+REVIEWS are on point — Letta on Malloch's critical edition of the Tabula Lugdunensis (`histos653`),
+Bartera on Malloch's *Annals* 11 (`histos353`), Millett on Braund's *Ruling Roman Britain* (`histos169`),
+Wardle on *Suetonius the Biographer* (`histos352`) — together with three public-domain works on
+archive.org and LacusCurtius: **Furneaux's second volume** (*Annals* 11–16, 1907), **Henderson's
+*Life and Principate of the Emperor Nero*** (1903) and **Platner and Ashby**. Two hosts were measured
+and refused: `revistas.usal.es` and `ras.jes.su` both fail TLS verification here, which is a refusal
+rather than a wall, and `revistas.uned.es` answered 503 on two attempts an hour apart.
+
+**A HISTOS PDF IS READABLE, and the trick is its own ToUnicode map.** The galleys are typeset with
+subsetted fonts whose glyph codes start at 1 in order of first appearance, so a naive stream extract
+returns line noise and no fixed offset decodes it — `.claude`-style offset hunting finds nothing. Every
+one of them carries a `/ToUnicode` CMap in a compressed object; merging the `beginbfchar` and
+`beginbfrange` blocks and mapping each byte through it gives clean text. `pdftxt2.py` in the scratchpad
+is that reader. **Do not conclude a Histos review is unreadable because the first extraction is garbage.**
+
+**Two cards ship WITHOUT a picture, recorded rather than skipped.** **`rm-434 Pallas`**: no portrait of
+him is identified, and a Commons search returns a Hungarian encyclopedia binding, a Rembrandt Athena and
+a baseball pitcher. **`rm-440 Burrus`**: likewise none, the only hit being a 19th-century Swedish drawing
+captioned *Burrhus, Nero's Tutor* — a scene that never happened and a role that was Seneca's. **The ten
+glossary terms ship without pictures too**, on the previous batches' rule: every free picture of these
+subjects is now on the paired card, and putting the same photograph on the term as well shows one reader
+the same image twice and makes `check-image-free.js` report a collision that is not one.
+
+**`rm-433 Caratacus` ships with no locator, which is a decision.** Tacitus names no identifiable site for
+the last battle and the Victorian identifications are conjecture; the places his story can be pinned to —
+the praetorian camp and Cartimandua's court — are `rm-431`'s dot and an unlocated one respectively.
+**`rm-434 Pallas` has none for the same kind of reason**: a freedman who ran the finances stood
+everywhere in Rome and nowhere in particular.
+
+**Claiming the bare surface `Pallas` cost one edit outside this batch, and it was worth making.** Five
+cards in the corpus carry the word; four are this freedman and the fifth is `gr-133`, which quotes
+*Pallas Athene* as a Homeric formula. Rather than deny the alias — the `Neville_Chamberlain` answer — the
+existing `Athena` term was given the aliases **Pallas Athene** and **Pallas Athena**, which are correct on
+their own account and which `buildGlossIndex`'s longest-surface-first rule makes win on that card. Verified
+by resolving the sentence against the real index: the Greek line links to `Athena` and the four Roman ones
+to `Marcus_Antonius_Pallas`.
+
 ### The Julio-Claudians — `rm-julio-claudians`
 
     rm-416  Julio-Claudian dynasty
@@ -907,16 +971,16 @@ collection has needed it.
     rm-428  Incitatus
     rm-429  Cassius Chaerea
     rm-430  Claudius
-    rm-431  The accession of Claudius
-    rm-432  The Claudian invasion of Britain
+    rm-431  Donativum
+    rm-432  Camulodunum
     rm-433  Caratacus
-    rm-434  The imperial freedmen
-    rm-435  Claudius and the citizenship
+    rm-434  Pallas
+    rm-435  The Lyon Tablet
     rm-436  Aqua Claudia
     rm-437  Messalina
     rm-438  Agrippina the Younger
-    rm-439  Nero
-    rm-440  Seneca and Burrus
+    rm-439  Britannicus
+    rm-440  Burrus
     rm-441  The murder of Agrippina
     rm-442  Boudican revolt
     rm-443  Boudica

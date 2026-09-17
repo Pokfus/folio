@@ -3868,7 +3868,17 @@ window.GLOSSARY = {
 "Incitatus": "Incitatus was a racehorse belonging to the Roman emperor Gaius, known as Caligula, and the subject of the most often repeated anecdote about that emperor's dealings with the Senate.<sup class=\"fn\" data-fn=\"1\"></sup> Suetonius reports that the horse was kept with a stall of marble, a manger of ivory, purple blankets and a collar of precious stones, and was given a house with slaves and furniture for guests invited in its name; Cassius Dio adds dinner invitations and golden barley.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Both writers mention a consulship and neither says it happened: Suetonius gives it as something the emperor was said to have planned, and Dio as a promise he thinks would have been kept.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Maiestas": "Maiestas was the Roman offence of diminishing the majesty of the Roman people.<sup class=\"fn\" data-fn=\"1\"></sup> Under the older statute it covered acts such as betraying an army, inciting sedition and gross maladministration, and words were not actionable; the emperor Augustus was the first to allow written libel to be prosecuted under it, and its scope widened under Tiberius until a treason count accompanied most other charges.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Conviction brought confiscation of property, with a share for the accuser, so the charge sustained a trade in professional informers and became a source of revenue for the imperial treasury.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Naevius_Sutorius_Macro": "Naevius Sutorius Macro was a Roman equestrian who succeeded Sejanus as prefect of the praetorian guard in 31 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Appointed in secret by Tiberius, he carried to the Senate the letter that brought Sejanus down, having first sent the praetorians on duty back to their camp and replaced them with the night watch.<sup class=\"fn\" data-fn=\"1\"></sup> He held the prefecture until the emperor's death in 37 CE, which Tacitus says he hastened by having the dying Tiberius smothered; he then helped Gaius to the throne, and Gaius appointed him to govern Egypt and afterwards forced him and his wife Ennia to take their own lives.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Sejanus": "Lucius Aelius Sejanus was a Roman equestrian who commanded the praetorian guard under the emperor Tiberius, holding sole command from about 15 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He gathered the guard's cohorts, until then billeted separately about Rome, into a single camp, chose their officers himself and used the posts in his gift to advance his supporters, and Tiberius called him the partner of his toils before the Senate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Ancient writers charge him with the poisoning of the emperor's son Drusus in 23 CE and with designs on the succession; he was denounced in a letter read to the Senate and executed in 31 CE.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Sejanus": "Lucius Aelius Sejanus was a Roman equestrian who commanded the praetorian guard under the emperor Tiberius, holding sole command from about 15 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He gathered the guard's cohorts, until then billeted separately about Rome, into a single camp, chose their officers himself and used the posts in his gift to advance his supporters, and Tiberius called him the partner of his toils before the Senate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Ancient writers charge him with the poisoning of the emperor's son Drusus in 23 CE and with designs on the succession; he was denounced in a letter read to the Senate and executed in 31 CE.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Agrippina_the_Younger": "Agrippina the Younger was a daughter of the Roman general Germanicus, a sister of the emperor Gaius, and by her first marriage the mother of the emperor Nero.<sup class=\"fn\" data-fn=\"1\"></sup> In 49 CE she became the fourth wife of her uncle Claudius, a match that required the Senate to set aside the rule forbidding marriage to a brother's daughter, and the next year she secured her son's adoption ahead of Claudius's own son.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Claudius died in 54 CE and was widely believed poisoned; her influence over her son lasted a few years before he stripped her of her honours and her guard, and had her killed in 59 CE.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Aqua_Claudia": "The Aqua Claudia was a Roman aqueduct that carried water to the city from two springs at the thirty-eighth milestone of the Sublacensian Way, called the Caeruleus and the Curtius.<sup class=\"fn\" data-fn=\"1\"></sup> Begun by the emperor Gaius in 38 CE and dedicated by Claudius, its channel ran 46,606 paces, most of it underground, and came into Rome on a long line of arches which crossed two roads by a monumental double archway later built into the city wall as the Porta Maggiore.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> The supply failed after about ten years in use and was interrupted for nine more, until Vespasian restored it in 71 CE and Titus repaired it again a decade later.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Britannicus": "Britannicus was the son of the Roman emperor Claudius and his wife Messalina, born soon after his father's accession and named from the invasion of Britain in 43 CE.<sup class=\"fn\" data-fn=\"1\"></sup> He was displaced in 50 CE, when Claudius adopted his stepson, three years the elder, and gave him precedence in the succession; that stepson became the emperor Nero in 54 CE.<sup class=\"fn\" data-fn=\"2\"></sup> Britannicus died at a family dinner early in 55 CE, shortly before his fourteenth birthday, and Tacitus, Suetonius and Dio all report the death as poisoning, Dio adding that rain washed away the powder used to hide the discoloured body.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Camulodunum": "Camulodunum was a settlement on the site of modern Colchester in eastern England, the seat of the British king Cunobelinus before the Roman invasion of 43 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Claudius took the place in person during that campaign, and in 49 CE a colony of discharged Roman veterans was settled there, with a temple raised to the emperor; a tombstone of a centurion of the Twentieth legion found nearby shows soldiers stationed there earlier still.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Tacitus says the settlers drove the surrounding Trinovantes from their homes and lands, and that the town had neither ditch nor rampart when it was destroyed in the rising led by Boudica about 60 CE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Caratacus": "Caratacus was a son of the British king Cunobelinus who led resistance to the Roman invasion of Britain for about eight years from 43 CE.<sup class=\"fn\" data-fn=\"1\"></sup> After defeats in the south he moved the war into the hills of what is now Wales, and when his last stand there failed he fled to Cartimandua, queen of the Brigantes, who arrested him and handed him over.<sup class=\"fn\" data-fn=\"2\"></sup> Displayed at Rome with his family in 51 CE, he was allowed to speak before the emperor and was pardoned, and Tacitus records the argument he is said to have used, that a spared enemy would be a lasting memorial of Roman clemency.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Donativum": "A donativum was a cash gift made by a Roman emperor to his soldiers, distinct both from their pay and from the largess handed to the civilian populace.<sup class=\"fn\" data-fn=\"1\"></sup> The will of Augustus left 1,000 sesterces to every praetorian, 500 to each of the urban troops and 300 to the legionaries, but the payment became a feature of accession in 41 CE, when Claudius promised the guardsmen who had proclaimed him 15,000 sesterces apiece; Suetonius calls him the first of the Caesars to secure the loyalty of his troops with money.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Dio adds that he repeated a much smaller payment to the guard on every anniversary of his acclamation.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Lyon_Tablet": "The Lyon Tablet is a bronze inscription found at Lyon in France carrying part of a speech the emperor Claudius made to the Roman Senate in 48 CE, arguing for the admission of leading men from Gallia Comata to office at Rome.<sup class=\"fn\" data-fn=\"1\"></sup> It is one of the longest surviving Latin inscriptions, and it was originally displayed in the sanctuary at Lugdunum, very probably at or near the place where its fragments came to light.<sup class=\"fn\" data-fn=\"1\"></sup> Tacitus wrote a shorter version of the same address, so the bronze allows a Roman historian's account of a speech to be set beside the words that were actually spoken.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Marcus_Antonius_Pallas": "Marcus Antonius Pallas was a freedman of the household of Antonia, mother of the emperor Claudius, and held charge of the imperial finances during Claudius's reign.<sup class=\"fn\" data-fn=\"1\"></sup> Dio names him with Callistus and Narcissus as the three freedmen who divided the running of the emperor's business between them, and Suetonius says the Senate honoured Claudius's secretary and his treasurer with great gifts and with the insignia of magistrates.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A decree praising his old-fashioned frugality was engraved on bronze in 52 CE, although Tacitus reports his fortune at 300 million sesterces, and Nero removed him from office three years later.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Messalina": "Valeria Messalina was the third wife of the Roman emperor Claudius and the mother of his children Britannicus and Octavia.<sup class=\"fn\" data-fn=\"1\"></sup> The surviving accounts of her are uniformly hostile: Tacitus describes her going through the full ceremony of marriage with the consul designate Gaius Silius while her husband was away at Ostia, and Dio accuses her of playing the harlot within the palace.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The emperor's freedmen, who stood to lose their own positions if the household changed hands, carried the news to Claudius, and she was killed by an officer in the gardens of Lucullus on the Pincian hill in 48 CE.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Sextus_Afranius_Burrus": "Sextus Afranius Burrus was a Roman officer from Vasio in southern Gaul who commanded the praetorian guard from 51 to 62 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> He owed the appointment to Agrippina the Younger, who had the guard's two existing prefects replaced by a single commander, and it was with Burrus beside him that her son Nero was taken to the praetorian camp and hailed as emperor in 54 CE.<sup class=\"fn\" data-fn=\"1\"></sup> With the writer Seneca he directed the government through the first years of that reign; Tacitus says he died of a swelling that closed the windpipe, but adds that poison on Nero's instructions was more generally suspected.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5865,11 +5875,22 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Gnaeus_Calpurnius_Piso_(consul_7_BC)": "died 20 CE",
 "Incitatus": "37 – 41 CE",
 "Naevius_Sutorius_Macro": "died 38 CE",
-"Sejanus": "died 31 CE"
+"Sejanus": "died 31 CE",
+"Agrippina_the_Younger": "15 - 59 CE",
+"Aqua_Claudia": "38 - 52 CE",
+"Britannicus": "41 - 55 CE",
+"Camulodunum": "Roman colony from 49 CE",
+"Caratacus": "fl. 43 - 51 CE",
+"Donativum": "from 41 CE",
+"Lyon_Tablet": "48 CE",
+"Marcus_Antonius_Pallas": "died 62 CE",
+"Messalina": "died 48 CE",
+"Sextus_Afranius_Burrus": "died 62 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
 window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
+"Athena": ["Pallas Athene","Pallas Athena"],
 "Tiber": ["Tevere"],
 "Ice_Age": ["glaciation","glacial period","ice age"],
 "Middle_Paleolithic": ["Middle Palaeolithic"],
@@ -8144,7 +8165,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Capri": ["Capreae"],
 "Gnaeus_Calpurnius_Piso_(consul_7_BC)": ["Gnaeus Calpurnius Piso","Gnaeus Piso"],
 "Maiestas": ["crimen maiestatis"],
-"Naevius_Sutorius_Macro": ["Macro"]
+"Naevius_Sutorius_Macro": ["Macro"],
+"Agrippina_the_Younger": ["Agrippina Minor","Julia Agrippina"],
+"Donativum": ["donative"],
+"Lyon_Tablet": ["Tabula Lugdunensis","Claudian Table"],
+"Marcus_Antonius_Pallas": ["Pallas","Antonius Pallas"],
+"Messalina": ["Valeria Messalina"],
+"Sextus_Afranius_Burrus": ["Burrus","Afranius Burrus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12054,7 +12081,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Incitatus": ["animal","politics","history","rome","classical"],
 "Maiestas": ["concept","law","politics","history","rome","classical"],
 "Naevius_Sutorius_Macro": ["person","politics","warfare","history","rome","classical"],
-"Sejanus": ["person","politics","warfare","history","rome","classical"]
+"Sejanus": ["person","politics","warfare","history","rome","classical"],
+"Agrippina_the_Younger": ["person","politics","history","rome","classical"],
+"Aqua_Claudia": ["building","technology","architecture","history","rome","italy","classical"],
+"Britannicus": ["person","politics","history","rome","classical"],
+"Camulodunum": ["place","city","britain","history","rome","classical"],
+"Caratacus": ["ruler","person","britain","warfare","history","classical"],
+"Donativum": ["concept","politics","military","history","rome","classical"],
+"Lyon_Tablet": ["text","politics","law","history","rome","gaul","classical"],
+"Marcus_Antonius_Pallas": ["person","politics","economy","history","rome","classical"],
+"Messalina": ["person","politics","history","rome","classical"],
+"Sextus_Afranius_Burrus": ["person","politics","military","history","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
