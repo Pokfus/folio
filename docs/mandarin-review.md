@@ -549,6 +549,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l1` notes 271–300 (在 → 做), deck order — **Level 1 complete** | 22 | a gloss naming one sense while the examples show another |
 | 2026-09-17 | `hsk30l2` notes 1–30 (啊 → 但), deck order | 18 | a gloss naming three senses the card shows none of |
 | 2026-09-17 | `hsk30l2` notes 31–60 (但是 → 机场), deck order | 20 | a polyphone's commonest reading glossed at its narrowest sense |
+| 2026-09-17 | `hsk30l2` notes 61–90 (机票 → 路上), deck order | 19 | a gloss that is an archaism the dictionary marks (old) |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1704,3 +1705,97 @@ batch running.
 但是, 地, 饭馆, 高, 高中, 告诉, 过来, 过年, 还是, 黑色, 红色, 后面, 回来 and 机场 are right as they
 stand. The two `check-example-fit.js` findings in this deck (一会儿 inside 等一会, 准备 inside 不准) are
 the greedy segmenter losing to a longer word and are not faults.
+
+### 2026-09-17 — Level 2, notes 61–90
+
+**What the batch was.** The thirty cards 机票 → 路上, read one at a time against CC-CEDICT and against
+their own three sentences. **Nineteen were changed**, eleven left alone. One card outside the range,
+`hsk30l7` 出台, was reglossed — see below.
+
+### Two glosses that are simply the wrong word
+
+**开学 was glossed "foundation of a University or College".** That is CC-CEDICT's fourth sense and the
+dictionary marks it **(old)**: 開學 once meant founding a school and has not meant that in living
+memory. What it means is that TERM HAS STARTED — which is what all three of the card's own sentences
+say (大学四月开学, 他们已经开学了). A Level 2 reader was being taught an archaism for one of the
+commonest words in a student's year.
+
+**酒店 was glossed "wine shop"**, the finding recorded in batch 5 and reached here in deck order. All
+three of its sentences are a HOTEL. It now says "a hotel; a restaurant" — both, because 酒店 really does
+cover the restaurant, and because that is also what keeps it distinct from 旅馆, glossed plainly "hotel"
+two levels up.
+
+### Two one-character errors, each of which renders perfectly
+
+- **近's 公交车站里我们很近。** — **里 where the sentence needs 离**. They are a tone apart and mean
+  opposite kinds of thing: 里 is INSIDE, 离 is the distance FROM, so the Chinese read "inside the bus
+  stop we are very close". 离 is a card in this same deck twenty-two notes later.
+- **间's 不知道是那间？** — **那 where it needs 哪**, the one-stroke pair that separates "that" from
+  "which"; the card's own English ("Don't you know what that is?") matched neither reading.
+
+**Nothing in the pipeline can see either.** Both sentences segment perfectly, both are real characters,
+and both read as ordinary Chinese until you parse them.
+
+### The punctuation pass's two standing exclusions, both met in one batch
+
+- **裤子's 这些裤子多少钱。** is a QUESTION ENDING IN A FULL STOP. The pass converts marks and never
+  replaces one with a different mark, since which mark a sentence wants is a judgement. (One more is on
+  record: `hsk30l4`'s 你想打排球吗。)
+- **路上's 路上没什么车 。** carried the stray space — **the first of the seventeen named as their own
+  batch last time to be reached in deck order.** Nineteen blocks are left; the list is in the previous
+  entry.
+
+### The 本子 lesson again, one deck apart
+
+**介绍 was glossed "introduce"** — no "to ", the register rule — **and carried a `not 出台` block**. That
+is exactly the shape 本子 showed two batches ago, except that this time the wrong gloss is on the OTHER
+card: **出台 was glossed "Introduce"**, capitalised (the auto-glossing artefact) and wrong. CC-CEDICT
+gives "to officially launch (a policy, program etc)", and all three of 出台's own sentences are a policy
+or a set of rules being issued — 新政策上个月出台了, 细则还没有出台.
+
+So both were fixed, sixty levels apart, and **the collision goes at the root**: neither card needs a
+block. **A `not X` hint on a pair where one gloss is simply wrong is a symptom, not a fix** — that is
+now twice, and it is worth checking the partner's gloss whenever a hint looks odd.
+
+**The two `hints` rows went with the blocks.** Leaving them would have the record claim a block on every
+run that the same run wipes, since a `gloss` replaces the whole English field after the hint is written
+— and `--check` cannot see that, the wiped block never having been carried.
+
+### The other glosses
+
+**开始 and 考试 have the same shape**: one gloss under a part of speech reading **noun / verb**, so one
+of the two categories the card claims had no English at all. 开始 was "to begin" with no noun; 考试 was
+"examination" with no verb.
+
+**考 was a run-on leading with the wrong direction** — "to examine, test, or investigate". For a student
+考 is what YOU do, which is what both of its usable sentences show. Split, with the reader's own side
+first.
+
+### The sentences
+
+Beside the four above: 教's 他们不教他们说英语 has the same pronoun as subject and object; 可能's
+他们可能有点什么 is not a phrase Chinese builds; 考's 我们今天早上有历史小考 puts the headword inside 小考;
+开学's 那是新学校什么时候开学 cannot take 那是 in front of it; 路上's 你死路上了？is not a sentence a
+Level 2 card should carry. Two Englishes were rewritten with the Chinese untouched — 机票's eleven words
+for four characters, and 经常's "all the time", which is 一直 and has a card of its own — and 裤子's two
+American "pants" were put into the British the decks are authored in.
+
+### On the compound lists
+
+**Eleven cards got one, and two of them carry a reading the card cannot show.**
+
+- **教's rows are ALL the jiào reading** — 教育, 教师, 教授, 宗教 — because all three of the card's
+  sentences are jiāo, to teach. After this batch's replacement the jiào sense still has no example of its
+  own, and the list is where a reader meets it.
+- **累's rows split between its two** — 劳累 on lèi against 积累 and 累计 on lěi — and again all three
+  sentences are the first, so the list is the only place the second appears.
+
+**楼上 and 楼下 are in none of the nine decks**, and they are the two words a reader needs first for that
+character; what the corpus offers instead is 阁楼 and 酒楼, a loft and a tavern.
+
+### Read and left alone
+
+记得, 教室, 进, 进来, 进去, 就, 咖啡, 快, 快乐, 快要, 篮球, 累, 离, 里面, 楼 and 路 are right as they
+stand. 离's second example is the same sentence as 近's second (电影院离电车站近吗？) — the fifth
+one-sentence-two-cards find, and the second where **both cards use it correctly**, so it is recorded
+rather than changed.
