@@ -3884,7 +3884,16 @@ window.GLOSSARY = {
 "Peace_of_Westphalia": "The Peace of Westphalia is the pair of treaties concluded in 1648 at Munster and Osnabruck that ended the Thirty Years' War in the Holy Roman Empire.<sup class=\"fn\" data-fn=\"1\"></sup> It confirmed the earlier German religious settlements as fundamental law, extended them to the Reformed churches, and fixed the year 1624 as the test of who lawfully held church property, while forbidding any other religion in the Empire.<sup class=\"fn\" data-fn=\"1\"></sup> It also confirmed the territorial rights of the imperial estates and allowed them to make alliances abroad, provided such alliances were not against the Emperor and the Empire.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Witch_trials_in_the_early_modern_period": "The early modern witch trials were the prosecutions for witchcraft carried on in Europe and its colonies from roughly the late 15th century to the early 18th, in which the accused were tried, tortured and often executed.<sup class=\"fn\" data-fn=\"1\"></sup> The offence as the courts defined it joined a pact with the Devil and attendance at his gatherings to harm done by magic, and was set out for judges in handbooks, of which the <i>Malleus Maleficarum</i> of 1486 is the best known.<sup class=\"fn\" data-fn=\"1\"></sup> Torture was used to obtain confessions and the names of further suspects, which is why single accusations grew into waves; most of those tried were women.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Nicolaus_Copernicus": "Nicolaus Copernicus was an astronomer and cathedral canon of the Polish province of Warmia who proposed that the earth rotates daily on its axis and travels once a year around a stationary sun.<sup class=\"fn\" data-fn=\"1\"></sup> Educated at Cracow and in Italy, he set the arrangement out first in a short manuscript sketch circulated from about 1510, and then in <i>De revolutionibus orbium coelestium</i>, printed at Nuremberg in 1543.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The scheme fixed the order of the planets and tied each one's period to its distance from the sun, but it kept uniform circular motion and epicycles and offered no proof.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Scientific_Revolution": "The Scientific Revolution is the name conventionally given to the transformation of European natural philosophy between roughly 1543 and 1700, when theories came to be tested against observation and experiment rather than against ancient texts.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In that period anatomy was rebuilt on dissection, the planets were given elliptical orbits and a physical cause, dynamics and the calculus were created, and the circulation of the blood was demonstrated.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Academies founded at Florence, London and Paris between 1657 and 1666 gave the work a meeting place, a way of repeating experiments before witnesses and a means of publication.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Scientific_Revolution": "The Scientific Revolution is the name conventionally given to the transformation of European natural philosophy between roughly 1543 and 1700, when theories came to be tested against observation and experiment rather than against ancient texts.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In that period anatomy was rebuilt on dissection, the planets were given elliptical orbits and a physical cause, dynamics and the calculus were created, and the circulation of the blood was demonstrated.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Academies founded at Florence, London and Paris between 1657 and 1666 gave the work a meeting place, a way of repeating experiments before witnesses and a means of publication.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Galileo_Galilei": "Galileo Galilei was an Italian mathematician and natural philosopher whose telescopic observations of the moon, the satellites of Jupiter and the phases of Venus, first published in 1610, supplied the earliest detailed evidence that the heavens are neither perfect nor unchanging.<sup class=\"fn\" data-fn=\"1\"></sup> In mechanics he established that a projectile travels in a parabola, that a pendulum swings in equal times whatever its arc, and that falling bodies gain speed at a rate independent of weight.<sup class=\"fn\" data-fn=\"2\"></sup> His defence of the Copernican system drew an admonition from the Roman Inquisition in 1616 and a conviction for vehement suspicion of heresy in 1633, after which he lived under house arrest until his death.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Johannes_Kepler": "Johannes Kepler was a German mathematician and astronomer who established that the planets travel in elliptical orbits about the sun rather than in combinations of circles.<sup class=\"fn\" data-fn=\"1\"></sup> His first two laws, published in 1609 from observations of Mars, state that a planet's orbit is an ellipse with the sun at one focus and that the line joining the two sweeps equal areas in equal times; a third, of 1619, makes the squares of the periods proportional to the cubes of the mean distances.<sup class=\"fn\" data-fn=\"2\"></sup> He served as Imperial Mathematician at Prague from 1601, worked also on optics and on the geometry of solids, and completed tables of planetary positions in 1627.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Isaac_Newton": "Isaac Newton was an English mathematician and natural philosopher whose <i>Philosophiae Naturalis Principia Mathematica</i> of 1687 set out three laws of motion and a law of universal gravitation acting as the inverse square of distance.<sup class=\"fn\" data-fn=\"1\"></sup> From these he derived the motions of the planets, the moon, the comets and the tides, showing that principles established by experiment on earth account for the movements of the heavens.<sup class=\"fn\" data-fn=\"2\"></sup> He also invented the calculus, made the first experimental analysis of white light into colours, built a reflecting telescope, and held the Lucasian chair at Cambridge before moving to the Royal Mint in 1696.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Royal_Society": "The Royal Society of London for Improving Natural Knowledge is a scientific academy founded in 1660 and incorporated by royal charter on 15 July 1662, a second charter following in 1663.<sup class=\"fn\" data-fn=\"1\"></sup> It grew out of meetings held from 1645 at Gresham College under the private name of the Invisible College, and gave the natural philosophers of the day a common meeting place and a way of collecting observations from correspondents at home and abroad.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> From March 1665 it published the <i>Philosophical Transactions</i>, carrying reports of experiments and observations; Robert Boyle was among its founders and Isaac Newton presided over it from 1703.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Age_of_Discovery": "The Age of Discovery is the name conventionally given to the period, roughly from the early 15th century to the early 17th, in which European voyages opened continuous sea routes to Africa, Asia and the Americas.<sup class=\"fn\" data-fn=\"1\"></sup> Portuguese ships worked down the west African coast from the 1430s, rounded its southern tip in the late 1480s and reached India in 1498, while voyages sponsored by Castile crossed the Atlantic from 1492 and completed the first circumnavigation in 1522.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its consequences included European settlement and conquest in the Americas, the Atlantic slave trade, and an exchange of crops, animals and diseases between the hemispheres.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Henry_the_Navigator": "Henry the Navigator, or Dom Henrique, was a Portuguese prince, third son of King John I, who from the 1420s until his death in 1460 licensed and financed the voyages that opened the Atlantic coast of Africa to European shipping.<sup class=\"fn\" data-fn=\"1\"></sup> As governor of the military Order of Christ he had revenues to spend on the enterprise, and his captains passed Cape Bojador in 1434, reached the Senegal river in 1445 and colonised Madeira and the Azores.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Those voyages began a Portuguese trade in gold, ivory and enslaved Africans; the by-name is a later coinage, and he is not known to have travelled further from Portugal than Ceuta.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Caravel": "A caravel was a small, swift Portuguese sailing ship, carrying two or three masts and rarely more than 300 tons, which was used above all for exploring the Atlantic coast of Africa in the 15th century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its triangular lateen sails allowed it to sail close to the wind and so to work back up a coast down which prevailing winds had carried it, which made returning from a voyage of discovery practicable.<sup class=\"fn\" data-fn=\"1\"></sup> A variant known as the <i>caravela redonda</i> set square sails on the fore and main masts and lateen sails on the mizzen and bowsprit, gaining speed before the wind at some cost in handiness.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Cape_Route": "The Cape Route is the sea road from western Europe to the Indian Ocean around the southern tip of Africa, first sailed end to end by a Portuguese fleet in 1497 and 1498.<sup class=\"fn\" data-fn=\"1\"></sup> It replaced a journey in which eastern spices went by ship to Arabia, overland to Cairo, down the Nile and by camel to Alexandria, paying duties at each stage that raised the price about fourfold.<sup class=\"fn\" data-fn=\"1\"></sup> Its outward passage ran from the Cape Verde islands on a wide westward curve through the South Atlantic before turning for the Cape, a leg that kept the first fleet 93 days out of sight of land.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Vasco_da_Gama": "Vasco da Gama was the Portuguese captain who commanded the first fleet to sail from Europe to India by sea, leaving Lisbon on 8 July 1497, anchoring off Calicut on 20 May 1498 and returning in September 1499.<sup class=\"fn\" data-fn=\"1\"></sup> The voyage opened a direct route to the spice markets of the Malabar coast, but cost the lives of about half his men, his brother Paulo among them.<sup class=\"fn\" data-fn=\"2\"></sup> He sailed again in 1502 with an armed fleet of twenty ships, and the Portuguese chronicles record a campaign of bombardment and seizure in which a ship from Mecca was plundered and burned with its people aboard.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5900,7 +5909,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Peace_of_Westphalia": "1648",
 "Witch_trials_in_the_early_modern_period": "c. 1450 – c. 1750",
 "Nicolaus_Copernicus": "1473–1543",
-"Scientific_Revolution": "c. 1543–1700"
+"Scientific_Revolution": "c. 1543–1700",
+"Galileo_Galilei": "1564–1642",
+"Johannes_Kepler": "1571–1630",
+"Isaac_Newton": "1642–1727",
+"Royal_Society": "est. 1660, chartered 1662",
+"Age_of_Discovery": "c. 1415 – 1600",
+"Henry_the_Navigator": "1394–1460",
+"Caravel": "13th – 16th centuries",
+"Cape_Route": "opened 1497–1499",
+"Vasco_da_Gama": "died 1524"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8205,11 +8223,22 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "European_wars_of_religion": ["wars of religion"],
 "St._Bartholomew's_Day_massacre": ["St Bartholomew's Day massacre","Massacre of St Bartholomew"],
 "Witch_trials_in_the_early_modern_period": ["witch trials","witch trial"],
-"Nicolaus_Copernicus": ["Copernicus"]
+"Nicolaus_Copernicus": ["Copernicus"],
+"Galileo_Galilei": ["Galileo"],
+"Johannes_Kepler": ["Kepler"],
+"Isaac_Newton": ["Newton"],
+"Royal_Society": ["Royal Society of London"],
+"Age_of_Discovery": ["Age of Exploration"],
+"Henry_the_Navigator": ["Prince Henry the Navigator","Dom Henrique"],
+"Caravel": ["caravela"],
+"Cape_Route": ["Cape route","Carreira da Índia"],
+"Vasco_da_Gama": ["da Gama"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Academy": true,
+"University_of_the_Witwatersrand": true,
 "Providence": true,
 "Pacific_Ocean": true,
 "Council_of_Five_Hundred": true,
@@ -12131,7 +12160,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Peace_of_Westphalia": ["event","history","politics","religion","europe"],
 "Witch_trials_in_the_early_modern_period": ["event","history","religion","law","society","europe"],
 "Nicolaus_Copernicus": ["person","astronomy","science","history","poland","renaissance"],
-"Scientific_Revolution": ["era","science","history","europe","astronomy","medicine"]
+"Scientific_Revolution": ["era","science","history","europe","astronomy","medicine"],
+"Galileo_Galilei": ["person","science","astronomy","physics","italy"],
+"Johannes_Kepler": ["person","science","astronomy","mathematics","germany"],
+"Isaac_Newton": ["person","science","physics","mathematics","astronomy","england"],
+"Royal_Society": ["institution","science","history","england"],
+"Age_of_Discovery": ["era","history","exploration","europe","trade"],
+"Henry_the_Navigator": ["person","history","exploration","portugal","africa"],
+"Caravel": ["object","technology","exploration","portugal","europe"],
+"Cape_Route": ["concept","geography","exploration","trade","africa"],
+"Vasco_da_Gama": ["person","history","exploration","portugal","india"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
