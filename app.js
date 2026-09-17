@@ -31696,6 +31696,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "Open access": { cls: "src-access-open", title: "Free to read" },
     Paywalled: { cls: "src-access-pay", title: "Behind a paywall" },
   };
+  /* THE LANGUAGE A SOURCE IS WRITTEN IN, where it is not English (Sep 2026, on request: "cited sources
+     in non-English languages should feature a chip saying the language they're in"). CLAUDE.md's rule is
+     that a source in any language qualifies — "an English card may cite a French or German work where
+     that work carries detail no English one does, common for European prehistory, where the excavation
+     reports are written where the site is" — so the corpus really does rest on works in a dozen
+     languages, and until now a reader met them with nothing to say so until they followed the link.
+
+     IT IS DECLARED IN THE CITATION, NEVER SNIFFED OUT OF IT, and that is the whole design. The obvious
+     alternative is to guess the language from the work's title, which is what `.claude/check-cards.js`
+     rule 6 does — and that tool's own header records what guessing costs: of its seventeen findings SIX
+     were wrong, because the École française d'Athènes publishes its site notices in English and the
+     Chronique des fouilles en ligne is bilingual. A checker may report a candidate for a human to read;
+     a CHIP is an assertion made to the reader, and an assertion that a paper is in French when it is in
+     English is exactly the kind of quiet wrongness this site must not manufacture. So the author writes
+     the marker and this only draws it.
+
+     The mechanism is the access chip's, one rule further along the same text-node walk: a bracketed word
+     in the stored plain text, lifted out into a chip. `[` cannot appear in a URL match, so the three
+     passes cannot collide, and a citation with no marker simply gets no chip — which is the honest state
+     for the 29,000 English ones and for any whose language nobody has yet declared. The alternation is
+     ENUMERATED rather than `[in (\w+)]` so that a typo is a missing chip rather than a chip reading
+     "Frenhc", and `.claude/src-langs.js` slices this list out of here by text so the content tools refuse
+     a language app.js cannot draw. */
+  const SRC_LANG_NAMES = [
+    "French", "German", "Italian", "Spanish", "Portuguese", "Dutch", "Danish", "Swedish", "Norwegian",
+    "Finnish", "Greek", "Latin", "Russian", "Ukrainian", "Polish", "Czech", "Hungarian", "Romanian",
+    "Serbian", "Croatian", "Bulgarian", "Turkish", "Arabic", "Hebrew", "Persian", "Chinese", "Japanese",
+    "Korean", "Hindi", "Sanskrit", "Thai", "Vietnamese", "Indonesian", "Catalan", "Basque", "Galician",
+    "Estonian", "Latvian", "Lithuanian", "Slovak", "Slovene", "Albanian", "Armenian", "Georgian",
+  ];
+  const SRC_LANG_RX = new RegExp("\\[in (" + SRC_LANG_NAMES.join("|") + ")\\]", "g");
   // one text-node walk, one replacement rule — used for the URLs and then for the access chips
   function replaceInSrcText(li, rx, make, skipInsideLink) {
     const walk = document.createTreeWalker(li, NodeFilter.SHOW_TEXT, null);
@@ -31733,6 +31764,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       el.className = "src-access " + meta.cls;
       el.textContent = t(m[1]);
       el.title = t(meta.title);
+      return el;
+    }, false);
+    /* …and the language chip, on the same walk. It is deliberately the LAST pass: the access marker and
+       the URL are both fixed shapes this one cannot contain, so running after them costs nothing and
+       keeps the two older rules exactly as they were. */
+    replaceInSrcText(li, SRC_LANG_RX, (m) => {
+      const el = document.createElement("span");
+      el.className = "src-access src-lang";
+      el.textContent = t(m[1]);
+      el.title = t("Written in") + " " + t(m[1]);
       return el;
     }, false);
   }

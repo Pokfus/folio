@@ -5535,6 +5535,15 @@ sup.fn.src-flash{padding:0 3px;}
   background:color-mix(in srgb, var(--ochre) 13%, transparent);
   border-color:color-mix(in srgb, var(--ochre) 34%, transparent);
 }
+/* The language chip (Sep 2026). It takes --geo rather than a colour of its own: green already means
+   "free to read" and amber "paywalled" on the very same line, so a third chip in either would be read as
+   a third verdict about access. --geo is one of the quiet tokens `body.hc` already re-tones, so the
+   high-contrast mode covers this with no rule of its own. */
+.src-lang{
+  color:var(--geo);
+  background:color-mix(in srgb, var(--geo) 12%, transparent);
+  border-color:color-mix(in srgb, var(--geo) 32%, transparent);
+}
 .src-compact .src-access, .cp-src .src-access{font-size:calc(8.5px * var(--fs)); padding:0 5px;}
 /* the in-prose marker: a real superscript, clickable, in the SAME VERMILION as the answer term
    (.answer .val). Deliberately not the ochre the blanks use: an unopened glossary link is gold
