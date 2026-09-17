@@ -73,7 +73,7 @@ card-side research is then shared.
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one, T26 one and T27 one, all researched |
-| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation, T27 one more off OpenStax |
+| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation, T27 one more and T28 one more off OpenStax |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151`, T26 three off OpenStax and NASA Space Place |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one; T27 two off OpenStax |
 
@@ -1183,4 +1183,45 @@ twice over, and it is about six per cent of the pool's whole apparatus — but t
 Dartmouth finding is what this looks like early. **Prefer another host where one answers**, and treat
 a statement that can ONLY be answered from a first-year textbook as a statement to re-research rather
 than to cite a seventh time.
+
+### T28 — one statement, and the four that were researched and refused (2026-09-17)
+
+**One statement, 159 → 160 of 220 (73%).** A short batch, recorded because what it did NOT take is
+the more useful half: four physics and chemistry statements were researched to the point of knowing
+exactly which sentence is missing, and that is worth having written down.
+
+· **#79 nothing with mass reaches the speed of light (TRUE)** — *University Physics Volume 3* 5.9,
+  which states it three ways: "An infinite amount of work … is required to accelerate a mass to the
+  speed of light", "No object with mass can attain the speed of light", and "its velocity can only
+  approach—not reach—the speed of light". **CHERENKOV CAME OUT OF THIS ANSWER**, and the argument for
+  cutting it is better than "unsourced": the statement is about a VACUUM, and the pool already carries
+  #163, whose whole subject is that light is slower in matter and particles can outrun it there. One
+  fact, one statement.
+
+**Researched and refused, with the missing sentence named in each case.**
+
+· **#163 nothing travels faster than light in any medium (FALSE)** — *University Physics Volume 3*
+  1.1 gives the first half exactly ("the speed of light in matter is always less than c", with
+  n = c/v worked for zircon). What is missing is Cherenkov radiation: `home.cern`'s own page for it
+  is a 404 and OpenStax does not cover it in any chapter reached here. **The statement needs one
+  sentence and it is a findable one** — the next attempt should try IceCube, Super-Kamiokande or a
+  reactor operator's own explanation rather than a textbook.
+
+· **#166 absolute zero has not been reached (FALSE)** — no source yet for either half. `nist.gov`
+  answers but `/topics/physics/laser-cooling` is a 404, and the third-law statement "unattainable in
+  a finite number of steps" was not found on the OpenStax entropy page read. The old answer's "within
+  a few hundred trillionths of a degree" is a record figure and needs whoever holds the record.
+
+· **#128 a microwave oven does not cook from the inside out (FALSE)** — *University Physics Volume 2*
+  16.5 describes the oven properly (a torque on the water molecules' dipoles, standing waves, hot
+  spots) and never mentions penetration depth, which is the whole of the refutation. **A page can be
+  about the right object and still not carry the claim.**
+
+· **#122 the birthday problem (TRUE)** — *Introductory Statistics 2e* 3.2 and the Contemporary
+  Mathematics probability chapter were tried; the classic worked example is in neither, and
+  Contemporary Mathematics's multiplication-rule page is a 404 at the obvious slug.
+
+**A workflow note, not a citation one.** The repository's `browser` CI job carries no
+`timeout-minutes`, so it inherits GitHub's six-hour default — on a single runner, one hung suite
+would block every later run. Worth a line in the workflow the next time it is touched.
 
