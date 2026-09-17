@@ -2620,12 +2620,17 @@ contemporary account that simply does not mention deaths proves nothing, which i
 
 ### Probes that failed in T66–T68, and one index nobody had asked (2026-09-17)
 
-- **#20, Columbus and the mainland.** Justin Winsor's *Christopher Columbus* (1891) is on archive.org
-  with a readable OCR layer and does not state the negative: grepping it for *never saw*, *never set
-  foot*, *never touched*, *continent of North America* and *North American continent* returns two hits
-  and both are about other people. DOAJ returns five results for *Ponce de León AND Florida* and not one
-  is about Ponce de León. **The negative wants an enumeration of all four voyages by somebody who says
-  it is complete**, and `british-history.ac.uk`-style archives are the untried shape.
+- **#20, Columbus and the mainland, and why the nineteenth century cannot answer it.** Two open,
+  greppable editions were read and neither states the negative: Justin Winsor's *Christopher Columbus*
+  (1891) gives two hits for *never saw / never set foot / never touched / continent of North America /
+  North American continent* and both are about other people, and Major's Hakluyt *Select Letters of
+  Christopher Columbus* (1847) gives none at all. DOAJ returns five results for *Ponce de León AND
+  Florida* and not one is about him. **THE SHAPE OF THE PROBLEM IS THAT A NEGATIVE ONLY GETS WRITTEN
+  DOWN ONCE SOMEBODY CLAIMS THE POSITIVE**: a Victorian editor of Columbus had no reason to deny a
+  landing in North America because nobody was asserting one, so the sentence this statement needs is a
+  MODERN one, written against the popular belief — which puts it in exactly the kind of museum,
+  archive or government page the closing note says is wanted, and not in the primary editions that
+  closed #64 and #175. **Do not spend another evening grepping period editions for it.**
 - **#80, the penny.** DOAJ returns **zero** for `"terminal velocity" AND (coin OR penny)`.
 - **#1, the terracotta farmers.** `whc.unesco.org` is **403**, so the World Heritage file for the
   Mausoleum of the First Qin Emperor — the obvious official account of the site's discovery — cannot be
