@@ -72,7 +72,7 @@ card-side research is then shared.
 | T4 | Modern history | part done; T4a took three of it |
 | T5 | Medieval & early modern | nothing in the corpus yet — research |
 | T6 | Science & invention | the hardest; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six, all researched |
+| T7 | Biology / Medicine | part done; T7a took six and T7b three, all researched |
 | T8 | Physics / Chemistry / Mathematics | little in the corpus; research |
 | T9 | Astronomy / Earth science | part done; T9a took four off NASA, NOAA and NIST |
 | T10 | Psychology | part done; T10a took four, all researched — the collection has only reached the 1800s, so nothing could be lifted |
@@ -400,3 +400,37 @@ work whose OWN abstract carries the claim.
 AUTHOR SHIPS.** Europe PMC gives "Aslaksen K"; the name that came to mind was Kjetil and the author is
 **Karoline**. All five citations' authors and article numbers were taken from Crossref before the batch
 was written, and all five URLs were curled afterwards — 200 to an open article page in every case.
+
+### T7b — three biology and medicine statements, and three the open literature would not carry (2026-09-17)
+
+- **Knuckle cracking.** Two sources, one per claim. Kawchuk et al. 2015 in *PLOS ONE* imaged ten finger
+  joints under traction in real time and found the sound accompanies a cavity FORMING rather than a
+  bubble collapsing — the statement said "a gas bubble forming", which is right about the direction and
+  is now said the paper's way. deWeber, Olszewski and Ortolano 2011 in the *Journal of the American Board
+  of Family Medicine* is the arthritis half: 215 people aged 50 to 89, 18.1 per cent against 21.5, no
+  association at any joint. **The `why`'s second sentence was Donald Unger's sixty-year one-hand
+  experiment, and it was dropped** — the letter is closed, and its DOI carries `<` and `>`, which a
+  citation in this pool cannot hold at all.
+- **Vitamin C and colds.** Hemilä and Chalker's Cochrane review, read in full on PMC. Every figure in the
+  rewritten `why` is the abstract's: 29 comparisons over 11,306 people, no reduction in incidence in the
+  general community, colds shortened 8 per cent in adults and 14 in children, and the 598 marathon
+  runners, skiers and soldiers on subarctic exercises whose risk was roughly halved. **The URL is the PMC
+  copy rather than the DOI**, which resolves to a Wiley abstract; a citation's address has to be one the
+  reader can actually open.
+- **Chameleons.** Stuart-Fox and Moussalli 2008 in *PLOS Biology* for what the colour change is FOR —
+  southern African dwarf chameleons, the most dramatic changers being those whose displays contrast most
+  with the background, and "no evidence for the crypsis hypothesis" — and Teyssier et al. 2015 in *Nature
+  Communications* for the mechanism and for the thermal clause the statement already carried, that being
+  the deeper iridophore layer reflecting in the near infrared.
+
+**Three were looked for and left uncited**, which is worth recording so the next batch does not repeat
+the search. **Sugar and hyperactivity**: the two works the claim rests on — Wolraich's 1995 *JAMA*
+meta-analysis and Hoover and Milich's parent-expectancy study — are both closed, and an open-access sweep
+returns ADHD epidemiology rather than the challenge trials. **Body heat through the head**: Vreeman and
+Carroll's *BMJ* festive-myths paper is closed. **The appendix**: Kooij et al. 2016 in *Clinical and
+Experimental Immunology* is the right review and is not open.
+
+**CROSSREF IS A RECORD AND THE ARTICLE'S OWN BYLINE IS THE AUTHORITY**, twice in this batch. Crossref
+gives the JABFM authors as "K. deWeber", where the article's own page prints Kevin deWeber, Mariusz
+Olszewski and Rebecca Ortolano; and it files the Cochrane review as 2013 issue 5, where the review's own
+citation line on PMC reads `2013;2013(1):CD000980`. Both were taken from the article.
