@@ -580,6 +580,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 31–60 (标准 → 材料), deck order | 14 | two cards whose gloss is a sense not one of their sentences uses, and three malformed glosses |
 | 2026-09-17 | `hsk30l4` notes 61–90 (参观 → 出行), deck order | 13 | a third truncated gloss, and a `not X` hint retired by glossing the distinction it was patching |
 | 2026-09-17 | `hsk30l4` notes 91–120 (出租 → 打折), deck order | 15 | a sentence about a TAXI on the card for *to rent*, which segments perfectly and no checker can see |
+| 2026-09-17 | `hsk30l4` notes 121–150 (打针 → 低于), deck order | 18 | a gloss that misspelt its own subject, and a card two of whose three sentences were not its word |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5082,4 +5083,54 @@ is written-register rather than wrong. 粗's own sentences include 粗话, which
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 383 unchanged;
+`build-lang-decks.js` re-run.
+
+## Batch 45 — hsk30l4 notes 121–150 (打针 → 低于)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order. Eighteen cards changed — the
+heaviest batch of the level so far, and the reason is that this stretch is full of glosses whose LABEL
+and whose WORDS are different parts of speech.
+
+**A GLOSS MISSPELT ITS OWN SUBJECT.** 导游 read *lead a site-seeing tour* — sightseeing — and it described
+only the verb, where all three of the card's own sentences are the noun: 不要怪导游 (the tour guide),
+这本导游册子 (a guidebook), 我为你充当导游 (to act as a guide). Nothing in the pipeline reads a gloss as
+English: `check-british.js` sweeps for American spellings and a misspelling is neither. Two more of the
+same family: **道歉 was labelled a VERB and glossed with the NOUN 'apology'**, and **等到 was labelled a
+PREPOSITION**, which it is not — CC-CEDICT reads *to wait until; by the time when*, and both of the card's
+first lines take a clause.
+
+**A CARD TWO OF WHOSE THREE SENTENCES WERE NOT ITS WORD.** 大大 is glossed as the adverb *greatly*.
+木星是太阳系里最大大行星 is 最大 + 大行星 — the word is not in the sentence at all, the characters being an
+accident of two others meeting; 她面带大大的笑容 is the reduplicated ADJECTIVE 大大的, *big*, a different
+word. Only the third line taught the adverb. Both replaced. **道's first line was 下水道堵了, a SEWER**,
+and there the checker is blind by design — single-character headwords are exempt, which is batch 27's 东
+and 发 finding again. **低价's second was the record's OWN**, 我觉得我们得调低价格, harvested from 低's
+card where it is correct and where here the headword straddles 调低|价格; a drop alone cannot reach a row
+the applier re-adds, so the array was replaced and the sentence named in `dropEx` — batch 42's rule doing
+its work a second time.
+
+**THREE MORE SENTENCES WENT.** 大厅's second was an English proverb translated into Chinese (*welcome both
+in bower and hall*), which teaches neither the word nor anything a learner will ever say; its third counted
+a telephone with 支, the measure word for pens and sticks. And 道路's first was 我爱的道路 — a noun phrase
+with no verb and no full stop, meaning *the road I love*, under an English line reading *I love roads*.
+
+**FIVE SINGLE-CHARACTER CARDS GAINED `Compounds`** — 待, 戴, 当, 倒, 刀 — **and four of the five panels are
+empty**, 待 against thirteen words in the collection and 倒 against fourteen. 当's and 倒's rows deliberately
+carry the reading no sentence on the card illustrates (上当 dàng, 倒车 dào).
+
+**FOUR DUAL-READING CARDS WERE TAGGED** — 待, 当 and 倒, the last two dǎo to one dào so a reader can see
+which line the `Say` field's 倒是 belongs to — and 道's three tags moved with its new sentence order.
+
+**FIVE ENGLISH LINES.** 单位's second used the gloss's own word as the translation (*appear in my unit*,
+for 工作单位, a workplace). 当时's third read *There was only three people*. 到来's first read *Thanks for
+arriving*. 低于's second called 光盘 *records*, a century out. And 得意's first was given the English
+proverb *Every dog has his day* — **a proverb may be rendered by its English equivalent where the
+equivalent shows the word, and this one mentions a dog.**
+
+**Read and left.** 戴's 你有戴手表吗 is southern usage rather than an error; 此's written-register siblings
+in the batch before are the same judgement. 大巴's 大巴车 is a real word containing the headword.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 383 → 392;
 `build-lang-decks.js` re-run.
