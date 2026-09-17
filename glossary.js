@@ -3848,7 +3848,11 @@ window.GLOSSARY = {
 "Aztec_religion": "Aztec religion was the public cult of the Mexica and their neighbours in central Mexico, ordered by a ritual year of eighteen months of twenty days, with five days at the end belonging to no month, and by a separate divinatory count of 260 days.<sup class=\"fn\" data-fn=\"1\"></sup> Its chief god at Tenochtitlan was the war god Huitzilopochtli, to whom captives and slaves were sacrificed, and its festivals were tied to the farming year through sunrise alignments along the mountains east of the Basin of Mexico.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Objects were buried as offerings in temple precincts, among them turquoise mosaics whose stone has been traced by isotopes to Mesoamerican rather than distant sources.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Aztec_society": "Aztec society was ordered as a nobility and a commonalty with slaves below both, a division the law itself recognised: one hall of the palace tried nobles, who could be executed, exiled or reduced to the rank of commoner, and another heard the suits of ordinary people.<sup class=\"fn\" data-fn=\"1\"></sup> Below rank, persons were described by their calling, and Nahua accounts set out the good and bad forms of the farmer, the merchant and the rich man.<sup class=\"fn\" data-fn=\"2\"></sup> The local grouping to which ordinary families belonged was the calpulli, read by some scholars as a kin group and by others as an administrative division.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Chinampa": "A chinampa is a strip of raised farmland built out into shallow fresh water from lake sediment, branches and decaying vegetation, staked in place and edged with ahuejote willows whose roots hold the soil.<sup class=\"fn\" data-fn=\"1\"></sup> Canals about 1.5 m (5 feet) deep and 4 to 6 m (13 to 20 feet) wide run between the beds, watering the crop by capillary rise and allowing cultivation through the year by rotation and mixed planting.<sup class=\"fn\" data-fn=\"2\"></sup> Fields of this kind were farmed in the Basin of Mexico from the Postclassic onward, and those surviving at Xochimilco were named a globally important agricultural heritage system in 2017.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Wari_Empire": "The Wari Empire was an expansionist Andean state of the Middle Horizon, about 600 to 1000 CE, which spread from its heartland in the Ayacucho valley of Peru into the highlands and down to the coast.<sup class=\"fn\" data-fn=\"1\"></sup> It planted colonies of rectilinear compounds where highland and coastal routes already met, held them by means ranging from garrison to intermarriage, and consolidated control of local resources such as the Alca obsidian sources of Arequipa.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its politics ran on feasting with beer made from molle fruit, and ancient DNA from the central coast shows its rule brought no wholesale replacement of the people already there.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Wari_Empire": "The Wari Empire was an expansionist Andean state of the Middle Horizon, about 600 to 1000 CE, which spread from its heartland in the Ayacucho valley of Peru into the highlands and down to the coast.<sup class=\"fn\" data-fn=\"1\"></sup> It planted colonies of rectilinear compounds where highland and coastal routes already met, held them by means ranging from garrison to intermarriage, and consolidated control of local resources such as the Alca obsidian sources of Arequipa.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its politics ran on feasting with beer made from molle fruit, and ancient DNA from the central coast shows its rule brought no wholesale replacement of the people already there.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Tiwanaku": "Tiwanaku was a city and ceremonial centre on the high plain south of Lake Titicaca, in what is now Bolivia, whose influence reached across the southern Andes between about 500 and 1000 CE.<sup class=\"fn\" data-fn=\"2\"></sup> Radiocarbon modelling places its founding around 180 CE, the end of monument building around 720 and the end of permanent residence around 1010, before the drought once blamed for its collapse.<sup class=\"fn\" data-fn=\"1\"></sup> Its ruined core holds the Akapana, a stepped platform 17 metres (56 feet) high with seven terraces, and the Pumapunku, a smaller platform renowned for oversized blocks and precisely cut ashlars that Spanish chroniclers already described as unfinished.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Inca_Empire": "The Inca Empire was the largest state of pre-Columbian America, whose rulers brought roughly 2 million square kilometres (770,000 square miles) of the Andes under one government in under a century, between 1438 and 1533 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It held that ground partly by systematic resettlement, moving conquered communities to provinces of a matching climate and sending long-settled subjects the other way, a policy the colonial record describes and archaeology tests by isotope, cranial shape, ceramic chemistry and genetics.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its works on the land included stone-faced terraces, managed woodland and llama herding, which a 4,200-year sediment record from a lake in its heartland shows held the soil and kept it fertile without large-scale burning.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Cusco": "Cusco is a city in the southern Peruvian Andes, standing in a high valley among mountains, which was the capital of the Inca Empire until the Spanish took it in 1533 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Its central square was the point from which four royal roads ran out, one to each quarter of the empire, and its chief temple, the Coricancha, was more than four hundred paces round with a band of gold set half way up its wall.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A modern city stands over the Inca one, so archaeology there works largely by survey: ground-penetrating radar was used on the main square for the first time in a project published in 2020.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Machu_Picchu": "Machu Picchu is an Inca settlement on a ridge above the Urubamba valley in southern Peru, built as a palace within the estate of the emperor Pachacuti.<sup class=\"fn\" data-fn=\"1\"></sup> Radiocarbon dates on bone and teeth from cemeteries around it put the occupation between about 1420 and 1532 CE, which is roughly two decades earlier than the written sources allow.<sup class=\"fn\" data-fn=\"2\"></sup> Genome-wide data from 34 people buried there show that the retainers serving the royal family came from across the empire and from Amazonia, and survey beneath the main plaza indicates that a quarry was opened and the drainage laid before the square took shape.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5828,7 +5832,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Aztec_religion": "c. 1375 – 1521 CE",
 "Aztec_society": "c. 1430 – 1521 CE",
 "Chinampa": "Postclassic – present",
-"Wari_Empire": "c. 600 – 1000 CE"
+"Wari_Empire": "c. 600 – 1000 CE",
+"Tiwanaku": "c. 180 – 1050 CE",
+"Inca_Empire": "1438 – 1533 CE",
+"Cusco": "1438 – 1533 CE",
+"Machu_Picchu": "c. 1420 – 1532 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8106,7 +8114,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tenochtitlan": ["Mexico Tenochtitlan","México-Tenochtitlan"],
 "Aztec_religion": ["Mexica religion"],
 "Chinampa": ["chinampas"],
-"Wari_Empire": ["Wari","Huari Empire"]
+"Wari_Empire": ["Wari","Huari Empire"],
+"Inca_Empire": ["Tawantinsuyu"],
+"Cusco": ["Cuzco","Qosqo"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -11996,7 +12006,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Aztec_religion": ["concept","religion","history","archaeology","americas","mexico"],
 "Aztec_society": ["concept","society","history","archaeology","americas","mexico"],
 "Chinampa": ["practice","object","agriculture","history","archaeology","americas","mexico"],
-"Wari_Empire": ["state","culture","history","archaeology","americas","peru"]
+"Wari_Empire": ["state","culture","history","archaeology","americas","peru"],
+"Tiwanaku": ["place","city","archaeology","history","americas","bolivia"],
+"Inca_Empire": ["state","history","archaeology","americas","peru"],
+"Cusco": ["place","city","history","archaeology","americas","peru"],
+"Machu_Picchu": ["place","history","archaeology","americas","peru"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
