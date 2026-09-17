@@ -3863,7 +3863,18 @@ window.GLOSSARY = {
 "Leonardo_da_Vinci": "Leonardo da Vinci was a Florentine painter, engineer and anatomist, born in 1452 and dead in 1519, whose finished paintings are very few while his private notebooks run to thousands of pages.<sup class=\"fn\" data-fn=\"1\"></sup> He worked for seventeen years at Milan, where he painted the <i>Last Supper</i>, and for the king of France at the end of his life; among his works are the <i>Virgin of the Rocks</i> and the portrait of Lisa Gherardini.<sup class=\"fn\" data-fn=\"2\"></sup> He dissected human bodies and drew the results, but almost none of that work was published in his lifetime, so its effect on later anatomy is uncertain.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Michelangelo": "Michelangelo was a Florentine sculptor, painter and architect, born near Arezzo in 1475 and dead at Rome in 1564, who regarded himself as a sculptor above everything else.<sup class=\"fn\" data-fn=\"3\"></sup> He carved the <i>David</i> from a block another sculptor had spoiled, painted the ceiling of the Sistine Chapel between 1508 and 1512 and its altar wall between 1536 and 1541, and from 1546 directed the rebuilding of St Peter's without pay.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His figures show a knowledge of muscle and joint got from dissection, and much of what he began was left unfinished.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Linear_perspective": "Linear perspective is a method of representing depth on a flat surface in which all the lines running away from the viewer converge on a single vanishing point, worked out in Florence in the early 15th century.<sup class=\"fn\" data-fn=\"1\"></sup> Its rules were first set down in a treatise of 1435 that explained sight as a pyramid of rays with its point in the eye and a picture as a section cut across that pyramid.<sup class=\"fn\" data-fn=\"2\"></sup> It assumes one unmoving eye at a fixed distance, so few paintings follow it strictly and its illusion works best from the spot a picture was built for.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Printing_press": "A printing press is a machine that presses inked movable type onto paper, worked out at Mainz in the 1440s and 1450s and the basis of European book production for the next four hundred years.<sup class=\"fn\" data-fn=\"1\"></sup> None of its parts was new, since paper, ink, the screw press and movable type all existed already, and the invention lay in casting type that could be multiplied exactly and held level under pressure.<sup class=\"fn\" data-fn=\"1\"></sup> Printing spread quickly once the Mainz workshops broke up in 1462, and by 1500 nearly five thousand books had been printed in Italy alone.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Printing_press": "A printing press is a machine that presses inked movable type onto paper, worked out at Mainz in the 1440s and 1450s and the basis of European book production for the next four hundred years.<sup class=\"fn\" data-fn=\"1\"></sup> None of its parts was new, since paper, ink, the screw press and movable type all existed already, and the invention lay in casting type that could be multiplied exactly and held level under pressure.<sup class=\"fn\" data-fn=\"1\"></sup> Printing spread quickly once the Mainz workshops broke up in 1462, and by 1500 nearly five thousand books had been printed in Italy alone.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Johannes_Gutenberg": "Johannes Gutenberg was a craftsman of Mainz who, between about 1440 and 1455, brought the punch, the hand mould, cast metal type, oil-based ink and the screw press together into the first European system for printing books in quantity.<sup class=\"fn\" data-fn=\"1\"></sup> His life is recorded almost entirely through litigation: a Strasbourg suit of 1439 preserves witnesses describing a press, and a notarial instrument of 6 November 1455 records the merchant Johann Fust recovering the loans that paid for the 42-line Bible.<sup class=\"fn\" data-fn=\"2\"></sup> No book credited to him carries his name; he entered the household of the archbishop of Mainz in 1465 and was dead by February 1468.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Northern_Renaissance": "The Northern Renaissance is the name given to the Renaissance as it developed north of the Alps, in Germany, France, the Low Countries, the Iberian kingdoms and England, from the later 15th century.<sup class=\"fn\" data-fn=\"1\"></sup> Its scholars applied the philological method of humanism to Scripture and the Church Fathers as much as to the pagan classics, so that the movement ran on in one direction into the Reformation and in another into writing in the vernacular languages.<sup class=\"fn\" data-fn=\"1\"></sup> Its painting had roots of its own, Netherlandish workshops having worked towards a new oil medium, varnishes included, before Italian ideas reached them;<sup class=\"fn\" data-fn=\"2\"></sup> the Ghent altarpiece was finished in 1432.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Erasmus": "Erasmus was a Dutch priest and scholar, born at Rotterdam in 1469, who turned the philological method of humanism on the Bible and the writings of the Church Fathers.<sup class=\"fn\" data-fn=\"1\"></sup> His Greek New Testament, printed by Froben at Basel in 1516, was the first to be published; he edited Jerome and other patristic authors, and wrote popular works — the <i>Adagia</i>, the <i>Colloquia</i>, the <i>Enchiridion</i> and <i>The Praise of Folly</i> — reprinted more often in his lifetime than almost any other writer's.<sup class=\"fn\" data-fn=\"2\"></sup> He attacked clerical abuses without leaving the Church, and his treatise on free will of 1524 marked his break with Luther.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Niccolò_Machiavelli": "Niccolò Machiavelli was a Florentine secretary and writer whose short treatise <i>The Prince</i>, written in 1513 and printed in 1532, examines how rulers actually keep power rather than how they ought to behave.<sup class=\"fn\" data-fn=\"1\"></sup> He served the Florentine republic from 1498 to 1512, wrote its diplomatic dispatches, took the lead in raising a citizen militia in 1506, and was dismissed, imprisoned and briefly tortured when the Medici returned.<sup class=\"fn\" data-fn=\"2\"></sup> His longer <i>Discourses on Livy</i> argue for republican government and treat the open conflict between nobles and people as the source of Rome's liberty; neither book was printed in his lifetime.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Reformation": "The Reformation was the religious movement of the 16th century that divided Latin Christendom, leaving churches independent of Rome across much of northern Europe and a reformed Catholicism beside them.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a campaign against abuses — worldly clergy, papal taxation and the selling of indulgences — on which almost everyone agreed, and turned into a dispute over doctrine that no agreement about abuses could settle.<sup class=\"fn\" data-fn=\"2\"></sup> In Germany it closed in a territorial settlement: the Peace of Augsburg of 1555 gave each secular prince the right to impose the Catholic or Lutheran faith on his subjects, who might otherwise only emigrate.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Martin_Luther": "Martin Luther was a German friar and professor of Bible at Wittenberg whose attack on indulgences in 1517 opened the Reformation.<sup class=\"fn\" data-fn=\"1\"></sup> He held that a person is made righteous by faith rather than by works of the law, refused to recant before the papal legate at Augsburg in 1518 and before the Diet of Worms in 1521, and was excommunicated and outlawed.<sup class=\"fn\" data-fn=\"1\"></sup> Sheltered at the Wartburg by the Elector of Saxony, he translated the New Testament into German, married a former nun in 1525, and wrote against the rebel peasants and, in his last years, violently against the Jews.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Ninety-five_Theses": "The Ninety-five Theses are the Latin propositions on the power of indulgences that Martin Luther sent to the Archbishop of Mainz on 31 October 1517 and offered for academic disputation at Wittenberg.<sup class=\"fn\" data-fn=\"1\"></sup> They attack the preaching of pardons rather than the theology behind it: the first holds that Christ meant the believer's whole life to be repentance, and the twenty-seventh denies that a soul leaves purgatory when the coin rattles in the box.<sup class=\"fn\" data-fn=\"1\"></sup> Printed versions spread them across Germany within weeks, and the quarrel they opened is conventionally taken as the start of the Reformation.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Protestantism": "Protestantism is the collective name for the Western Christian churches that separated from Rome in the 16th century.<sup class=\"fn\" data-fn=\"1\"></sup> The word comes from the formal Protest read at the Diet of Speyer on 19 April 1529, in which six German princes and fourteen cities denied that a decree they had not consented to could bind them, so that it names a refusal rather than a body of doctrine.<sup class=\"fn\" data-fn=\"1\"></sup> Its strands disagreed from the beginning, Luther and Zwingli breaking over the Eucharist at Marburg in the same year, and the word now covers communions that share no common government.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"John_Calvin": "John Calvin was a French theologian, trained as a lawyer, who organised the Reformed branch of Protestantism from the city of Geneva.<sup class=\"fn\" data-fn=\"1\"></sup> He left France after 1534 and brought out the first edition of the <i>Institutes of the Christian Religion</i> at Basel in 1536, enlarging it over the next twenty years into the most systematic theology the Reformation produced.<sup class=\"fn\" data-fn=\"1\"></sup> Recalled to Geneva in 1541, he wrote the Ecclesiastical Ordinances that gave the city a disciplined ministry and a Consistory with authority over its morals, a system under which heresy counted as a crime and Michael Servetus was burned in 1553.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"English_Reformation": "The English Reformation was the series of statutes and settlements by which the Church in England was separated from Rome and placed under the Crown.<sup class=\"fn\" data-fn=\"1\"></sup> It began as a question of jurisdiction rather than of doctrine: an Act of 1533 recited that the realm of England was an empire and forbade appeals to Rome, and the Supremacy Act of 1534 recognised the king as supreme head of the Church of England.<sup class=\"fn\" data-fn=\"1\"></sup> Doctrine changed later and by stages, through the Books of Common Prayer under Edward VI, the restoration of Rome under Mary, and the settlement of 1559 that made Elizabeth Supreme Governor.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Martin_Luther_King_Jr.": "Martin Luther King Jr. was an American Baptist minister who led the campaign against racial segregation in the United States by nonviolent mass protest.<sup class=\"fn\" data-fn=\"1\"></sup> Pastor at Montgomery from 1954, he was chosen to head the Montgomery Improvement Association when the city's black residents stopped riding its buses in December 1955, and the thirteen-month boycott ended with the Supreme Court holding bus segregation unconstitutional.<sup class=\"fn\" data-fn=\"2\"></sup> He was the first president of the Southern Christian Leadership Conference, gave the 'I Have a Dream' address at the march on Washington in 1963, received the Nobel Peace Prize in 1964, and was shot dead at Memphis on 4 April 1968.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5858,7 +5869,18 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Leonardo_da_Vinci": "1452 – 1519",
 "Michelangelo": "1475 – 1564",
 "Linear_perspective": "from the 1420s",
-"Printing_press": "from c. 1440"
+"Printing_press": "from c. 1440",
+"Johannes_Gutenberg": "c. 1398 – 1468",
+"Northern_Renaissance": "from the later 15th century",
+"Erasmus": "1469 – 1536",
+"Niccolò_Machiavelli": "1469 – 1527",
+"Reformation": "16th century",
+"Martin_Luther": "1483 – 1546",
+"Ninety-five_Theses": "31 October 1517",
+"Protestantism": "from 1529",
+"John_Calvin": "1509 – 1564",
+"English_Reformation": "1533 – 1559",
+"Martin_Luther_King_Jr.": "1929 – 1968"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8149,7 +8171,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Leonardo_da_Vinci": ["da Vinci"],
 "Michelangelo": ["Michelangelo Buonarroti","Michelagnolo"],
 "Linear_perspective": ["one-point perspective","perspective construction"],
-"Printing_press": ["printing presses","letterpress printing"]
+"Printing_press": ["printing presses","letterpress printing"],
+"Johannes_Gutenberg": ["Gutenberg","Johann Gutenberg"],
+"Erasmus": ["Desiderius Erasmus","Erasmus of Rotterdam"],
+"Niccolò_Machiavelli": ["Machiavelli"],
+"Reformation": ["Protestant Reformation"],
+"Ninety-five_Theses": ["95 Theses","Ninety-Five Theses"],
+"Protestantism": ["Protestant"],
+"John_Calvin": ["Calvin"],
+"Martin_Luther_King_Jr.": ["Martin Luther King","Martin Luther King, Jr."]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12054,7 +12084,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Leonardo_da_Vinci": ["person","art","science","history","europe","italy"],
 "Michelangelo": ["person","art","history","europe","italy"],
 "Linear_perspective": ["concept","art","science","history","europe"],
-"Printing_press": ["object","technology","history","europe","writing"]
+"Printing_press": ["object","technology","history","europe","writing"],
+"Johannes_Gutenberg": ["person","technology","history","europe","germany","writing"],
+"Northern_Renaissance": ["era","history","art","literature","europe","germany"],
+"Erasmus": ["person","literature","religion","history","europe","netherlands"],
+"Niccolò_Machiavelli": ["person","politics","history","literature","europe","italy"],
+"Reformation": ["era","religion","history","politics","europe"],
+"Martin_Luther": ["person","religion","history","politics","europe","germany"],
+"Ninety-five_Theses": ["text","religion","history","europe","germany"],
+"Protestantism": ["concept","religion","history","europe"],
+"John_Calvin": ["person","religion","history","politics","europe","france"],
+"English_Reformation": ["event","religion","history","politics","europe","england"],
+"Martin_Luther_King_Jr.": ["person","history","politics","religion","united states","north america"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

@@ -69,7 +69,11 @@ const TEENS = { ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fif
 const NUM_EXCLUDE = [/Twenty-Four Histories/gi, /Twenty-four Filial Exemplars/gi, /Twenty-One Demands/gi,
   // The standard English name of the 四十二章經, the first sutra rendered into Chinese. Without the mask
   // `--fix` renames it "Sutra of 42 Sections", which is the title of nothing.
-  /Sutra of Forty-two Sections/gi];
+  /Sutra of Forty-two Sections/gi,
+  // The standard English name of Luther's 1517 propositions, and a card's own answer term. Without the
+  // mask `--fix` renames the document "Ninety-5 Theses", which is the title of nothing. The `i` flag
+  // covers the alias the glossary carries, which capitalises the second word.
+  /Ninety-five Theses/gi];
 // PROPER NAMES that contain an ordinal + "century" — never converted. Rule 2 is the one rule with a
 // `--fix`, so without this it does to a period's NAME what the citation mask exists to stop it doing to a
 // published title: the Crisis of the Third Century is what the period is called, and "Crisis of the 3rd
