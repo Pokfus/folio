@@ -67,10 +67,10 @@ card-side research is then shared.
 | batch | category | note |
 |---|---|---|
 | T1 | Prehistory | **done** — written cited |
-| T2 | Ancient & classical | part done; T2a, T2b, T2c and T16 between them; T29 one off Pliny and Plutarch |
+| T2 | Ancient & classical | part done; T2a, T2b, T2c and T16 between them; T29 one off Pliny and Plutarch; T30 one lifted out of `wh-212` and `gr-767` |
 | T3 | Chinese history | part done; `cnh-` cards carry most of it; T19 two lifted out of `wh-399`, `wh-400` and `cnh-238` |
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
-| T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes |
+| T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes, T30 two lifted out of `us-041`, `wh-511` and `gw-511` |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one, T26 one, T27 one and T29 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation, T27 one more and T28 one more off OpenStax |
@@ -1256,4 +1256,50 @@ and are the right shelf for anything ancient. **`bmj.com` is SHUT (403)**, which
 Vreeman and Carroll's "Festive medical myths" — the one paper that would answer **#124** (body heat
 through the head) and **#155** (sugar and hyperactivity) together, and which Europe PMC indexes
 without holding the text. Those two remain open and now have a named target.
+
+### T30 — the corpus is the cheapest host there is (2026-09-17)
+
+**Three statements, 162 → 165 of 220 (75%).** Not one new source was researched: all six citations
+were LIFTED out of Folio's own cited cards, which after five batches of hunting for open hosts is
+plainly the seam to try FIRST rather than last. The recipe is `docs/truefalse-citation-plan.md`'s
+own — read the card with its markers visible, find the sentence that carries the claim, take the
+citation that sentence points at — and one command over `card-io.js` finds the candidates:
+
+    node -e 'global.window={};const{loadCards}=require("./.claude/card-io.js");const C=loadCards().cards;
+      const h=C.filter(x=>/Tenochtitlan/i.test((x.answerText||"")+" "+(x.abstract||"")));
+      h.forEach(x=>console.log(x.id,x.answerText))'
+
+· **#19 medieval Europeans did not cook with tomatoes and chillies (FALSE)** — out of `us-041`, the
+  Columbian exchange card. Its source 6 is the National Park Service's own page, which puts it
+  rhetorically and unambiguously: "no zucchini or tomatoes in Italy … no chile peppers in Thailand …
+  This was the world before Columbus' voyages to the Americas." Its source 2 (Myers et al.,
+  *Frontiers in Plant Science*) supplies the second half — American beans are not certainly shown in
+  European painting until the middle of the 16th century — so the answer can say that arrival was not
+  adoption without inventing the point.
+
+· **#62 Oxford was teaching before Tenochtitlan was founded (TRUE)** — out of TWO cards that have
+  never met. `wh-511` (the medieval university) cites Rashdall for the list of places answering to
+  the name in the second half of the 12th century: "Paris, Bologna, Salerno and Oxford were nearly
+  the whole of the list." `gw-511` (Mexico City) cites Matadamas-Gomora et al. for the other end:
+  "Tenochtitlan grew on an island in those lakes from about 1375." **A COMPARISON STATEMENT WANTS ONE
+  CITATION PER END**, and the two ends are usually in different collections.
+
+· **#11 Cleopatra lived nearer the Moon landing than the Great Pyramid (TRUE)** — three ends, so
+  three citations: Egypt's own Ministry of Tourism and Antiquities for Khufu at c. 2589–2566 BCE
+  (lifted from `wh-212`), Livius for the Roman annexation in 30 BCE (lifted from `gr-767`), and NASA
+  for 20 July 1969. **THE SUBTRACTION IS FOLIO'S AND THAT IS ALLOWED**: every figure is cited and the
+  arithmetic IS the statement. What is not allowed is a figure nobody sourced.
+
+**NOT TAKEN, and the reason is a host this file has already recorded.** #8 (the Great Pyramid was
+built by paid labourers, not Hebrew slaves) has its source sitting in `wh-212` — UCL's *Digital Egypt
+for Universities*, "The workmen at a pyramid" — and **`www.ucl.ac.uk` answers 403 behind a Cloudflare
+interstitial**, re-measured today. The bar is one OPENABLE source, so the lift was refused. Breasted
+(1905) is open on archive.org and is the wrong authority for this claim, being of the generation that
+accepted Herodotus's hundred thousand. **A card may cite a source this pass cannot use**, and the
+card is not wrong to: it was reachable when the card was written.
+
+#63 (the Mongol Empire was the largest contiguous land empire) is refused for the same shape of
+reason from the other side: `wh-594` carries the claim in its first sentence and points it at
+Morgan's chapter in *Beyond the Legacy of Genghis Khan*, which is marked **[Paywalled]**. The card's
+four open sources do not carry that claim.
 
