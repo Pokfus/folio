@@ -69,7 +69,7 @@ card-side research is then shared.
 | T1 | Prehistory | **done** — written cited |
 | T2 | Ancient & classical | part done; T2a, T2b, T2c and T16 between them; T29 one off Pliny and Plutarch; T30 one lifted out of `wh-212` and `gr-767` |
 | T3 | Chinese history | part done; `cnh-` cards carry most of it; T19 two lifted out of `wh-399`, `wh-400` and `cnh-238` |
-| T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
+| T4 | Modern history | part done; T4a took three and T4b two, T31 one off Norden's 1755 Egypt, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes, T30 two lifted out of `us-041`, `wh-511` and `gw-511` |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one, T26 one, T27 one and T29 one, all researched |
@@ -1302,4 +1302,36 @@ card is not wrong to: it was reachable when the card was written.
 reason from the other side: `wh-594` carries the claim in its first sentence and points it at
 Morgan's chapter in *Beyond the Legacy of Genghis Khan*, which is marked **[Paywalled]**. The card's
 four open sources do not carry that claim.
+
+### T31 — a witness who was dead before the question was asked (2026-09-17)
+
+**One statement, 165 → 166 of 220 (75%).** #66, Napoleon's gunners and the Sphinx's nose, and the
+citation is worth writing down because of HOW it was found.
+
+The answer already named the right witness — it said Norden's drawings, "made around 1737 and
+published in 1755", show the Sphinx noseless — and cited nothing. The obvious way to cite a drawing
+is to look at the plate, which cannot be verified from an OCR. **SO THE TEXT WAS SEARCHED INSTEAD, AND
+IT SAYS IT OUTRIGHT.** On page 85 of volume 1, describing the walk down from the second pyramid:
+"on arrive au Sphinx, dont on admire la grandeur énorme, en concevant une sorte d'indignation pour
+ceux, qui ont eu la brutalité de maltraiter étrangement son nez." Published posthumously in 1755 —
+the book itself calls it "l'Ouvrage de feu Mr. Norden" — which is more than forty years before the
+French landed.
+
+· **THE PAGE NUMBER CAME OUT OF THE RUNNING HEAD, NOT A PAGE MARKER.** `grep -noE "^[[:space:]]*[0-9]{2,3}[[:space:]]*$"`
+  found nothing near the passage; what did work was searching for the book's own running title, which
+  OCRs as `Nubie. 85` about forty lines above it. **A French 18th-century scan has no clean page
+  markers; it has running heads.**
+· **THE AUTHOR'S NAME IS THE TITLE PAGE'S, NOT THE CATALOGUE'S.** archive.org files him as "Norden,
+  Frederik Ludvig"; the book prints "MR. FREDERIC LOUIS NORDEN", and a citation names the work as the
+  work names itself.
+· **WHAT WENT** is the answer's second sentence — chisel marks on the face, and a 15th-century account
+  blaming a Sufi iconoclast. That is al-Maqrizi on Muhammad Sa'im al-Dahr, it is probably right, and
+  nothing openable was found for it today. The statement is refuted without it.
+
+**Two more were researched off the corpus and refused, both for the same reason.** **#119** (the Dead
+Sea shore is the lowest exposed land on Earth): `gw-084` gives the figure — "the Dead Sea at 417 m
+(1,368 feet) below" sea level — and **no card in the corpus claims it is the LOWEST**, which is the
+whole statement. A sweep for `lowest (point|land|exposed|elevation)` over every abstract returns two
+hits and neither is about the Dead Sea. **#177** (Leeuwenhoek ground his own lenses): `bio-011` is
+Folio's microscope card and does not mention him at all.
 
