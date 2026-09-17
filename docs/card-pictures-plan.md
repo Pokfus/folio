@@ -85,11 +85,54 @@ either rule. This is recorded rather than repaired: 99 glossary terms written an
 
 The other 17 are the ordinary long tail and are worth doing with the pictures.
 
+## The first batch: 25 candidates, 10 shipped
+
+The 25 whose term already carried a picture looked like the free ones — no research, no fetching, the
+illustration already chosen and credited. **Fifteen of the twenty-five were wrong**, for two separate
+reasons, and both are reasons to review this category as carefully as any other.
+
+**Ten were wrong about the SUBJECT**, because a term's picture illustrates a CONCEPT and a card asks
+about a particular thing:
+
+· **`gr-556` is the worst of them and the one to remember.** The card is the **Athenian** siege of
+  Syracuse, 415–413 BCE; the term's picture is *The Death of Archimedes*, which is the **Roman** siege
+  of 212. Same city, same word, wrong war by two centuries — and a reader would take the picture as
+  the card's subject.
+· **`gr-139` basileus** — the card's whole point is that the word means a minor figure in the Bronze
+  Age tablets and only *later* means king. The picture is a Byzantine icon of crowned emperors: it
+  illustrates the sense the card exists to say it did not have.
+· **`gr-225` Lydian electrum coinage** — the card says the commonest coins are "stamped with a lion's
+  head in profile"; the picture is two gold coins showing a head and a horse.
+· **`gr-035` Mesara tholos tombs** — the card is circular stone burial chambers 4 to 13 m across; the
+  picture is figurines found in one.
+· And `gr-096` (drawings of objects for a card about a LANGUAGE), `gr-158` (a 16th-century decorative
+  map for ancient city-kingdoms), `gr-244` (a modern infographic of Spartan society for the Great
+  Rhetra), `gr-267` (Hecataeus's world map for a card about Cleomenes), `gr-383` (a stele from a
+  century after the conquest it is meant to show), and `gr-311`, which is the SAME Attica map as
+  `gr-176` and would have been a within-collection duplicate.
+
+**Five more were right about the subject and already on ANOTHER CARD**, which `check-image-free.js`
+caught and nothing else would have: `gr-364`'s tyrannicides are on `gr-303` and `bio-091`'s dividing
+*E. coli* is on `bio-004` — both **within** their own collection, which is the duplicate fault the
+rule says to repair first rather than create. `gr-417`, `rm-328` and `rm-360` would each have made a
+new cross-collection pair.
+
+**READING THE CARD IS WHAT DECIDES IT, NOT THE SHEET ALONE.** Two of the ten I first rejected off the
+contact sheet turned out to be right once the card was read: `gr-486`'s jurors' tickets look like a
+card about democracy rather than empire, and the card's own abstract says the empire's "daily working
+was as much legal as military". **The sheet finds the wrong picture; the card decides the borderline
+one.**
+
+So: **10 shipped** — `gr-122`, `gr-138`, `gr-169`, `gr-176`, `gr-227`, `gr-486`, `ko-035`, `ko-079`,
+`rm-362`, `pea-075`. The 15 rejected keep their empty frame, which is the honest state.
+
 ## What to do next
 
-1. **The 25 whose term already has a picture.** No research, no review — the term's own illustration
-   is already chosen and credited. Check each against `check-image-free.js` first, since a term's
-   picture appearing on its card as well is a duplicate by the rule's own test.
+1. ~~The 25 whose term already has a picture.~~ **DONE — and it was not the free win it looked like;
+   see the batch above.** Note for anyone tempted to treat a term's picture as automatic: **933 of the
+   2,881 cards that have a picture already share it with their own glossary term**, so that pairing is
+   sanctioned practice and `check-image-free.js` will report it as TAKEN every time. The line that
+   matters in its output is a **card id**, not a glossary slug.
 2. **The 265 in batches of about fifty**, through the contact sheet. Rome and Greece are the biggest
    two and Rome's obvious pictures are already spent (see the duplicate-picture bullet in
    `CLAUDE.md`), so expect a lower hit rate there than the raw count suggests.
