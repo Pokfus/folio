@@ -571,6 +571,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 271–300 (难过 → 前天), deck order | 18 | the character panel searches the DOWNLOADED deck, so six characters taught here show a reader nothing |
 | 2026-09-17 | `hsk30l3` notes 301–330 (清楚 → 收), deck order, plus the whole MAD class | 22 | eight single-character cards in thirty, every one of their panels empty or all but empty |
 | 2026-09-17 | `hsk30l3` notes 331–360 (收到 → 外卖), deck order, plus the LEXIS table's missing plurals | 35 | every row of the word-choice table was blind to its own plural, and the obvious fix makes *mathss* |
+| 2026-09-17 | `hsk30l3` notes 361–390 (外语 → 相机), deck order, plus the whole `toward` class | 20 | a gloss cut off mid-list, and a card whose three English lines contradicted its own definition |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4465,5 +4466,122 @@ here*.
 - `build-lang-decks.js`: re-run, and **exactly six rows changed** — `hsk30l1`, `hsk30l3`, `hsk30l4`,
   `hsk30l5`, `hsk30l6` and `hsk30l7`, the six decks the two cross-deck classes touch — each by its
   `bytes` and `rev` alone
+- CI fast gate green: `node --check` over every root, `.claude` and `.claude/decks` script, the eight
+  no-browser suites, `check-docs`, `check-questions`, `check-style`
+
+## Batch 36 — hsk30l3 notes 361–390 (外语 → 相机), and the whole `toward` class
+
+Thirty notes read in deck order, **twenty cards changed** across 45 fields — seventeen in range and
+three in other decks, which are one measured class closed in a pass. One row added to
+`mandarin-fix.js`'s LEXIS table; no site change.
+
+**A GLOSS WAS CUT OFF MID-LIST, AND NOTHING ANYWHERE REPORTS THAT.** 西北 read
+*Northwest China (Shaanxi, Gansu, Qinghai, Ningxia,* — no Xinjiang, no closing bracket — and it was
+the wrong one of CC-CEDICT's **two** entries besides: the capitalised place name, where all three of
+the card's own sentences are the plain compass direction. Rewritten on the pattern its own siblings
+already carry: 东北 reads *northeast; Northeast China*, so 西北 now reads **northwest; Northwest
+China**. **The sibling sweep is what settled the wording** — the first draft was *north-west*, to match
+the card's own authored English lines, and 东北, 东南 and 西南 all gloss unhyphenated. A card is
+consistent with its neighbours or with itself; here the neighbours won, and the hyphens in the example
+lines stay, both forms being British.
+
+**A CARD CONTRADICTED ITS OWN GLOSS THREE TIMES OVER.** 屋子 is glossed *room (colloquial, chiefly
+northern)*, which an earlier batch authored deliberately, and **all three of its English lines said
+HOUSE**. That is not a two-way choice: this collection has already assigned the words — 房间 is
+*room (in a house or a hotel)*, 房子 is *house* and carries its own `not 房屋` disambiguator — so the
+three lines were contradicting 房子's gloss as well as their own card's. The Chinese is untouched and
+the three lines now say room.
+
+**TWO CARDS CARRIED A SENTENCE THAT IS NOT THEIR WORD AT ALL**, which is the batch's sharpest pair
+because the characters are right and no checker here can see it.
+
+- **晚会** had 我们晚会再谈这事。 — 晚会 there is 晚 + (一)会(儿), *in a little while*, which is why its
+  English read *We'll talk about this later* and mentioned no party.
+- **晚点**, two cards earlier, is the same collision surviving as a missing SENSE rather than a wrong
+  sentence: the card gave *(of trains etc) late* and only its first sentence is that word — the other
+  two are 晚(一)点, *a bit later*. **CC-CEDICT lists only the train sense**, because the other is
+  compositional rather than a word, so the dictionary cannot settle this one; two of three sentences
+  can, and do. Split, and the sentences tagged 1 / 2 / 2.
+
+**西 OPENED ON NANCY.** 我听说南西很漂亮。 — 南西 is a transliteration in which 西 is a sound and
+nothing else, the fault 市 carried in 好市多 two batches ago and 前年 in 大前年 three. Replaced with an
+authored 房子的窗户朝西, deliberately not another 向西, the card's second line already having that
+construction. Its third line, 忘东忘西, stays: the character genuinely means nothing there, and that is
+worth a learner's seeing once — it is why 东西 leads the card's new `Compounds` rows.
+
+**FIVE MORE GLOSSES WERE WRONG ABOUT THE CARD.**
+
+- **碗** is labelled a NOUN and read *a bowl of*, which is the measure-word phrasing: a reader shown
+  *a bowl of* on the reverse card has been handed a construction rather than a word.
+- **箱子** gave the narrowest of five senses, *suitcase*, while all three of its own lines call the
+  thing a box.
+- **习惯** was *noun / verb* over *be used to*, the verb alone, while 写日记是一个好习惯 is the noun —
+  and the noun is what its measure word 个 is there for.
+- **洗衣机** read *washing machine; washer*, CC-CEDICT's own wording copied whole, and *washer* is the
+  American short form. **No sweep here can see that**: it is a word choice rather than a spelling, and
+  it sits in a GLOSS rather than in a sentence, where even the hand sweeps of *mad*, *cab* and
+  *coworker* were looking.
+- **为 and 像 needed no new sense, only the tags** their earlier splits never wrote — 为's three
+  sentences are wèi, wèi and wéi, and 像's are all the verb, so its noun and adverb senses are stated
+  and not illustrated.
+
+**`toward` IS NOW A LEXIS ROW, AND THE MEASUREMENT IS WHY.** It was found on the 西 card's own second
+line. Swept over the nine decks: **4 `toward` against 33 `towards`** — so the house form was already
+settled and the four were simply out of step. It goes in the table rather than to four `exEn` rows
+because it is a variant FORM rather than a choice between two words, like `gotten` beside it: there is
+no British context that wants *toward*, so no judgement is needed per site. The word boundary is what
+keeps it off *untoward*, which the decks do not contain. Zero after, 37 `towards`.
+
+**SIX SINGLE-CHARACTER CARDS GAINED `Compounds`** — 碗, 为, 西, 先, 向, 像 — every reading and gloss
+checked against CC-CEDICT. **为 is the widest character the audit has met**: 48 words in the collection
+and three in its own deck, and its rows deliberately show both readings (因为 and 为什么 are wèi, 成为
+and 作为 wéi), which is what the card is for. **西's panel is the fullest of the batch** at four words,
+so its rows go elsewhere. **像's rows are all the noun sense the card states and does not illustrate**,
+and 想象 is deliberately not among them — it is written with 象, not this character, and the applier
+would have refused the row.
+
+**FIVE MORE ENGLISH LINES DID NOT RENDER THEIR CHINESE.** 文化's first read *Individuality is very
+important in the West*, which renders 文化 as nothing at all, and its third called 电脑 a *PC*. 洗澡's
+*I wash myself* is neither the progressive 正在 says nor anything an English speaker says. And **忘记
+and 相信 carry the same slip on the same verb** — 我只想忘记 and 我很想相信 were both put into the past
+(*I only wanted to*, *I so wanted to*), where 想 there is the present want.
+
+**WHAT WAS READ AND LEFT.**
+
+- **碗's two washing-up sentences became one.** 我正在洗碗 and 我为什么要洗碗呢 were *I'm washing the
+  dishes* and *Why must I wash the dishes?*, so the card showed the dishes twice and the bowl once; the
+  second is replaced with an authored 桌子上有三个碗 using 个, one of the card's own measure words.
+- **箱子's two opening sentences stay.** 请打开箱子 and 你知道如何打开这个箱子吗 are close, but one is
+  an imperative and the other a question about knowing how — further apart than 瓶子's pair in batch 33,
+  which was one English line twice.
+- **外语, 完成, 网球, 网站, 为了, 卫生间, 西方, 西瓜, 西南, 喜爱, 夏天, 香蕉, 先, 相机** and the rest
+  were read and are right as they stand. 完成's bare *complete* is the house form for a verb gloss
+  (measured in batch 26: 2,582 verb glosses without *to* against 1,164 with). 西南's gloss is
+  deliberately untouched, for the sibling reason above.
+- **`check-example-fit.js` reports one card in range and it is the same false positive as last batch**,
+  外语's 学会一门外语不容易, where the segmenter prefers 不容.
+- **Five cards in this range carry a `not X` disambiguator** — 网站, 忘记, 卫生间, 喜爱 and 向 — and all
+  five kept it, as they must: `compounds` and `exEn` do not rebuild `fl.English`, where `gloss` and
+  `senses` do. None of the six re-glossed cards had one, and no partner hint pointed at them.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2, unchanged**, and the shared-gloss groups **338 both before and after**, checked
+  group by group against HEAD — six re-glossings and a sense split made no new collision
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged**
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0**, and it reads 0 over *toward* and over *washer* too, neither being a spelling
+- `check-coarse.js`: **byte-identical to HEAD in all six columns**
+- `check-gloss-source.js`: **byte-identical to HEAD**, neighbour findings 3 and the overlap list 1,028 —
+  none of the six re-glossings moved it, each of them already sharing a content word with its entry
+- 34,596 example blocks, **spoken == visible on every one**; sense-tagged blocks 323 → 332, the nine
+  this batch wrote
+- every authored sentence segmented against the 11,532-word deck lexicon and checked for a duplicate
+  against every sentence and every English line in all nine decks
+- `build-lang-decks.js`: re-run, and **exactly three rows changed** — `hsk30l3`, `hsk30l5` and
+  `hsk30l7`, the three decks `toward` reaches — each by its `bytes` and `rev` alone
 - CI fast gate green: `node --check` over every root, `.claude` and `.claude/decks` script, the eight
   no-browser suites, `check-docs`, `check-questions`, `check-style`

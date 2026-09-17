@@ -311,7 +311,11 @@ function britExamples(html) {
    THE OBVIOUS GENERALISATION IS A TRAP AND THE TABLE ITSELF PROVES IT. Matching `key + s` automatically
    would fire `math` inside `maths` — the row's own TARGET, ten sites of it in these decks — and rewrite
    it to `mathss`; and an irregular plural (`truck` → `lorries`, not `lorrys`) cannot be derived from the
-   singular's replacement at all. A declared row can only do what it says. */
+   singular's replacement at all. A declared row can only do what it says.
+   AND `toward` IS THERE ON THE SAME REASONING AS `gotten` (batch 36): a variant FORM rather than a
+   choice between two words, unambiguous in British English, and already settled by the decks
+   themselves — measured, they write `towards` 33 times against 4 `toward`s. The word boundary is what
+   keeps it off `untoward`. */
 const LEXIS = (() => {
   const PAIRS = [
     ["driver's license", "driving licence"],
@@ -337,6 +341,7 @@ const LEXIS = (() => {
     ["soccer", "football"],
     ["faucet", "tap"],
     ["gotten", "got"],
+    ["toward", "towards"],
     ["trucks", "lorries"],
     ["truck", "lorry"],
     ["math", "maths"],

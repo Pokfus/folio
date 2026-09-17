@@ -10814,7 +10814,7 @@
       ]
     },
     "hsk30l3/为": {
-      "why": "One sense crammed both readings: 'for (someone; something)' is wèi and 'to do; to be' is wéi, which is also the majority reading of the character in this corpus by 44 to 5.",
+      "why": "One sense crammed both readings: 'for (someone; something)' is wèi and 'to do; to be' is wéi, which is also the majority reading of the character in this corpus by 44 to 5. | The card already gave both readings and said nothing about which sentence was which: 为我高兴 and 我能为您做些什么 are wèi, the preposition, and 不知道为好 is wéi. Tagged. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows three words — 认为, 为了 and 以为 — against 48 in the collection, the most of any character this batch. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. The rows are chosen to show BOTH readings, which is what this card is for: 因为 and 为什么 are wèi, 成为 and 作为 wéi.",
       "Pinyin": "wèi / wéi",
       "Bopomofo": "ㄨㄟˋ / ㄨㄟˊ",
       "senses": [
@@ -10828,6 +10828,33 @@
           "verb",
           "to be; to act as; to do"
         ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "因为",
+          "yīn wèi",
+          "because"
+        ],
+        [
+          "为什么",
+          "wèi shén me",
+          "why?"
+        ],
+        [
+          "成为",
+          "chéng wéi",
+          "to become"
+        ],
+        [
+          "作为",
+          "zuò wéi",
+          "to act as; in the capacity of"
+        ]
       ]
     },
     "hsk30l3/信用卡": {
@@ -10837,7 +10864,7 @@
       ]
     },
     "hsk30l3/像": {
-      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card already gave three senses and all three of its sentences are the first, so they are tagged as such — the noun and the adverb are stated and not illustrated, and that is now visible to the reader rather than left to be guessed. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 好像. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. The rows are all the NOUN sense — an image or a likeness — which the card states and does not illustrate. 想象 is deliberately not among them: it is written with 象, not this character.",
       "senses": [
         [
           "verb",
@@ -10850,6 +10877,28 @@
         [
           "adverb",
           "as if"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "图像",
+          "tú xiàng",
+          "an image; a picture"
+        ],
+        [
+          "画像",
+          "huà xiàng",
+          "a portrait"
+        ],
+        [
+          "录像",
+          "lù xiàng",
+          "a video recording; to videotape"
         ]
       ]
     },
@@ -11267,8 +11316,22 @@
       ]
     },
     "hsk30l3/屋子": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "room (colloquial, chiefly northern)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | THE CARD CONTRADICTED ITS OWN GLOSS THREE TIMES. An earlier batch glossed it 'room (colloquial, chiefly northern)' — which is right, and which is how this collection assigns the words: 房间 is 'room (in a house or a hotel)' and 房子 is 'house', with its own `not 房屋` disambiguator. All three of this card's English lines said HOUSE, so a reader met the card's translations contradicting its definition and 房子's gloss at once. The Chinese is untouched.",
+      "gloss": "room (colloquial, chiefly northern)",
+      "exEn": [
+        [
+          "你有屋子吗",
+          "Do you have a room?"
+        ],
+        [
+          "屋子里有很多人",
+          "There are a lot of people in the room."
+        ],
+        [
+          "我们把屋子漆成绿色",
+          "We painted the room green."
+        ]
+      ]
     },
     "hsk30l3/差": {
       "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | Its two glosses were comma run-ons, and the first was missing the sense its own first sentence shows: 他们差六岁 is *to differ BY six years*, which CC-CEDICT gives as \"difference; discrepancy\" on the chā reading and \"to fall short; to lack\" on chà. Rewritten and tagged. The `Say` field (还差) is right and is left alone — it is what stops a speech engine reading this lone polyphone as chā. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. The list is chosen to show the polyphony the card's own `Say` field exists for: 差不多 and 差点儿 are chà, 差别 is chā, and 出差 is chāi — three readings of one character in four rows.",
@@ -72970,7 +73033,7 @@
       ]
     },
     "hsk30l3/西北": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | THE GLOSS WAS CUT OFF MID-LIST: it read 'Northwest China (Shaanxi, Gansu, Qinghai, Ningxia,' — no Xinjiang and no closing bracket — and it was the wrong one of CC-CEDICT's two entries besides, the capitalised place name where all three of the card's own sentences are the plain compass direction. Rewritten on the pattern its own siblings already use: 东北 reads 'northeast; Northeast China'.",
       "ex": [
         [
           "他老家在西北。",
@@ -72980,7 +73043,8 @@
           "西北的冬天很干燥。",
           "Winters in the north-west are very dry."
         ]
-      ]
+      ],
+      "gloss": "northwest; Northwest China"
     },
     "hsk30l3/做客": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -74132,14 +74196,19 @@
       ]
     },
     "hsk30l3/晚会": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | '我们晚会再谈这事。' is not this word at all: 晚会 there is 晚 + (一)会(儿), 'in a little while', which is why its English reads 'We'll talk about this later' and mentions no party. The characters are the card's and the word is not — the same collision 晚点 carries two cards earlier, and one no checker here can see. Replaced with an AUTHORED sentence, which the record says so is.",
       "dropEx": [
-        "他们早晚会发现的。"
+        "他们早晚会发现的。",
+        "我们晚会再谈这事。"
       ],
       "ex": [
         [
           "学校晚上有一场晚会。",
           "There is an evening party at the school tonight."
+        ],
+        [
+          "公司每年都办新年晚会。",
+          "The company holds a New Year party every year."
         ]
       ]
     },
@@ -112459,6 +112528,190 @@
           "火腿",
           "huǒ tuǐ",
           "ham"
+        ]
+      ]
+    },
+    "hsk30l3/碗": {
+      "why": "The card is labelled a NOUN and its gloss was 'a bowl of', which is the measure-word phrasing — a reader shown 'a bowl of' on the reverse card has been given a construction rather than a word. CC-CEDICT reads 'bowl; cup', and two of the card's three sentences are about the object. | Two of its three sentences were 洗碗, washing up, under two near-identical English lines ('I'm washing the dishes' / 'Why must I wash the dishes?'), so the card showed the dishes twice and the bowl once. The second is replaced with an AUTHORED sentence using 个, one of the two measure words the card itself lists. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all — and the whole collection has one other word built on it, so three rows is what the language offers here. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "a bowl",
+      "dropEx": [
+        "我为什么要洗碗呢？"
+      ],
+      "ex": [
+        [
+          "桌子上有三个碗。",
+          "There are three bowls on the table."
+        ]
+      ],
+      "compounds": [
+        [
+          "洗碗",
+          "xǐ wǎn",
+          "to wash the dishes"
+        ],
+        [
+          "饭碗",
+          "fàn wǎn",
+          "a rice bowl; (fig.) a livelihood"
+        ],
+        [
+          "碗筷",
+          "wǎn kuài",
+          "bowl and chopsticks; tableware"
+        ]
+      ]
+    },
+    "hsk30l3/习惯": {
+      "why": "The card was labelled 'noun / verb' over 'be used to', which is the verb alone, while its second sentence 写日记是一个好习惯 is the noun — and the noun is the sense its measure word 个 is there for. CC-CEDICT: 'habit; custom; usual practice; to be used to'.",
+      "gloss": "a habit; to be used to"
+    },
+    "hsk30l3/洗衣机": {
+      "why": "The gloss was CC-CEDICT's own wording copied whole, 'washing machine; washer', and *washer* is the American short form — which no sweep here can see, being a word choice rather than a spelling AND sitting in a gloss rather than in a sentence. These decks are authored British, so the American half is dropped rather than left for the reader to choose between.",
+      "gloss": "a washing machine"
+    },
+    "hsk30l3/箱子": {
+      "why": "The gloss gave the narrowest of CC-CEDICT's five senses, 'suitcase', while all three of the card's own English lines call the thing a BOX. Widened to the senses the card actually uses.",
+      "gloss": "a suitcase; a box; a case"
+    },
+    "hsk30l3/晚点": {
+      "why": "The card gave one sense, '(of trains etc) late', and only its FIRST sentence is that word: 你可以晚点再打电话来吗 and 我晚点打给你 are 晚(一)点, 'a bit later', which is a different thing entirely. CC-CEDICT lists only the train sense, because the other is compositional rather than a word — but two of three sentences use it, so the card has to say so. Split, and the sentences tagged.",
+      "senses": [
+        [
+          "verb",
+          "(of trains etc) to be late; to be delayed"
+        ],
+        [
+          "adverb",
+          "a bit later; later on"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ]
+    },
+    "hsk30l3/文化": {
+      "why": "The English translation did not render the headword, so the card showed a sentence whose bolded word had no counterpart in the line under it. The Chinese is untouched. '西方文化很看重个人。' read 'Individuality is very important in the West', which renders 文化 as nothing at all; and '电脑文化是好是坏？' called 电脑 a PC, an abbreviation the card has no reason to teach.",
+      "exEn": [
+        [
+          "西方文化很看重个人",
+          "Individuality matters a great deal in Western culture."
+        ],
+        [
+          "电脑文化是好是坏",
+          "Is computer culture a good thing or a bad one?"
+        ]
+      ]
+    },
+    "hsk30l3/忘记": {
+      "why": "'我只想忘记。' read 'I only wanted to forget', a past tense the Chinese has not got — 想 here is the present want.",
+      "exEn": [
+        [
+          "我只想忘记",
+          "I just want to forget."
+        ]
+      ]
+    },
+    "hsk30l3/相信": {
+      "why": "'我很想相信。' read 'I so wanted to believe that', the same past-tense slip on the same verb 想.",
+      "exEn": [
+        [
+          "我很想相信",
+          "I really want to believe it."
+        ]
+      ]
+    },
+    "hsk30l3/洗澡": {
+      "why": "'我正在洗澡。' read 'I wash myself', which is neither the progressive 正在 says nor anything an English speaker says. The card is glossed 'have a shower; bath' and its other two lines use both.",
+      "exEn": [
+        [
+          "我正在洗澡",
+          "I'm having a shower."
+        ]
+      ]
+    },
+    "hsk30l3/西": {
+      "why": "'我听说南西很漂亮。' is about NANCY: 南西 is a transliteration in which 西 is a sound and nothing else, the same fault 市 carried in 好市多 two batches ago. Replaced with an AUTHORED sentence, which the record says so is, and deliberately not another 向西 — the card's second line already has that construction. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows four words — 西北, 西方, 西瓜 and 西南 — which is the fullest panel in this batch, so the rows deliberately go elsewhere. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. 东西 is there for the character doing no work at all: in dōngxi, 'thing', its tone is gone and so is its meaning.",
+      "dropEx": [
+        "我听说南西很漂亮。"
+      ],
+      "ex": [
+        [
+          "房子的窗户朝西。",
+          "The windows of the house face west."
+        ]
+      ],
+      "compounds": [
+        [
+          "东西",
+          "dōng xi",
+          "a thing (the character's sound only)"
+        ],
+        [
+          "西装",
+          "xī zhuāng",
+          "a suit"
+        ],
+        [
+          "西部",
+          "xī bù",
+          "the western part"
+        ],
+        [
+          "西餐",
+          "xī cān",
+          "Western food"
+        ]
+      ]
+    },
+    "hsk30l3/先": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all, against 19 words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "先生",
+          "xiān sheng",
+          "Mr; sir; gentleman"
+        ],
+        [
+          "首先",
+          "shǒu xiān",
+          "first of all"
+        ],
+        [
+          "先前",
+          "xiān qián",
+          "before; previously"
+        ],
+        [
+          "祖先",
+          "zǔ xiān",
+          "ancestors"
+        ]
+      ]
+    },
+    "hsk30l3/向": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 方向, against 26 in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "一向",
+          "yī xiàng",
+          "all along; the whole time"
+        ],
+        [
+          "向来",
+          "xiàng lái",
+          "always"
+        ],
+        [
+          "走向",
+          "zǒu xiàng",
+          "a direction; to head for"
+        ],
+        [
+          "倾向",
+          "qīng xiàng",
+          "a tendency"
         ]
       ]
     }
