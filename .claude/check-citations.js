@@ -198,6 +198,18 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Kavkazologiya deposits its bylines surname-first with no family/given split, so
+  // Crossref carries "Yakhutl Yuri A." The journal's own English article page
+  // (caucasology.ru/jour/article/view/588?locale=en_US) prints "Yuri A. Yakhutl".
+  ["10.31143/2542-212X-2025-2-52-62", "Yuri A. Yakhutl", "Yakhutl Yuri A."],
+  // The deposited given name has lost its first letter: Crossref carries "nga Alexandrovna
+  // Druzhinina". The journal's own article page (journals.urfu.ru, adsv/article/view/7325)
+  // prints the author block as "Victor Nikolaevich Chkhaidze, Inga Alexandrovna Druzhinina".
+  ["10.15826/adsv.2023.51.009", "Inga Alexandrovna Druzhinina", "nga Alexandrovna Druzhinina"],
+  // The New Research of Tuva publishes English titles and bylines and deposits the RUSSIAN
+  // ones: Crossref carries Иванна Витальевна Отрощенко for the author the journal's own
+  // English metadata (and DOAJ, which takes it from the journal) names Ivanna V. Otroshchenko.
+  ["10.25178/nit.2019.4.17", "Ivanna V. Otroshchenko", "\u0418\u0432\u0430\u043d\u043d\u0430 \u0412\u0438\u0442\u0430\u043b\u044c\u0435\u0432\u043d\u0430 \u041e\u0442\u0440\u043e\u0449\u0435\u043d\u043a\u043e"],
   // Kavkazologiya deposited this byline surname-first with no family/given split, so
   // Crossref carries "Dzarakhov Magomed M." The article's own PDF prints the full Russian
   // form, Магомед Макшарипович Дзарахов, above the abstract.

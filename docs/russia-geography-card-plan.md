@@ -1421,6 +1421,59 @@ this batch is about the SOURCE TABLE rather than about any card, and it is the o
   term describes — so the alias is claimed; *Kostroma* occurs in `gru-018` meaning the governorate and
   the city, so the term is keyed `Kostroma_Oblast` and claims no bare name.
 
+### Batch 16 — `gru-073` to `gru-077` (Adygea, Karachay-Cherkessia, Sakhalin Oblast, Tuva, Kamchatka Krai)
+
+- **A FIFTH WAY THE WMO LEG FAILS: THE STATION IS LISTED AND ITS NORMALS ARE EMPTY.** Cherkessk has a
+  World Weather Information Service page, it answers 200, and every monthly cell on it is blank — which
+  reads, on a quick look, exactly like a page that has not loaded. The four failures already recorded
+  are a missing city, a city under another spelling, a page that is a bot wall, and a station that is
+  not the capital; this one is none of them. **Read a normals table before citing it**, since a
+  citation to a page with no figures on it is a citation a reader cannot use and no checker can see.
+- **A DOI THAT RESOLVES TO `elibrary.ru` IS A LOGIN WALL, AND THAT IS A REAL ACCESS FAILURE RATHER
+  THAN A BOT ONE.** The obvious source for the Teberda fir forests, in *Lesnoy Zhurnal*, resolves
+  there and asks for an account, so it was dropped rather than cited — the bar is a URL a reader can
+  open, and a 200 carrying a sign-in form is not one. **It was replaced by a BETTER source**, Kerefov,
+  Kostin and Gubanov on the ichthyofauna of the Kuban basin in Karachay-Cherkessia, which is open at
+  `scienceit.elpub.ru`, counts the republic's 419 rivers and 130-odd lakes, and names the Kuban's own
+  first-order tributaries — so the geography half and the Zelenchuk church in the history half now
+  stand on the same river.
+- **THREE HOSTS MOVED AGAINST US SINCE THE LAST BATCH, AND ONE MOVED FOR US.** OpenEdition now serves
+  an Anubis proof-of-work wall; OpenAlex now answers `429 Insufficient budget` to an anonymous query;
+  `www.mdpi.com` 403s where `res.mdpi.com` serves the same PDF. Against that, **Commons' `api.php`
+  answered normally throughout this batch**, where batch 15 had to scrape category pages for every
+  candidate — so the reachability note above is a measurement of a day rather than a standing fact.
+  **Re-measure rather than reading either back.**
+- **`c. 900 – 1200` YIELDS ONLY ONE YEAR, AND THE CARD SORTS BY THE WRONG END.** `cardYears`'s plain-year
+  rule matches 1000–2099, so a date line whose earlier figure is three digits loses it silently and
+  `cardStartYear` takes the later one. Writing the era explicitly — `c. 900 – 1200 CE` — makes the era
+  marker carry leftwards and both years parse. `gru-074`'s Alanian capital line was written the first
+  way and sorted at 1200; **read the sort year back through `cardYears` after writing any date line
+  whose earliest figure is under 1000 CE.**
+- **ON THE KARACHAY DEPORTATION THE OPEN LITERATURE REACHABLE FROM HERE IS MEMORY STUDIES, NOT ARCHIVAL
+  HISTORY.** What answers is Aibazova on the Karachay-Balkar documentary and feature films about the
+  deportation, in *Gumanitarnye i Yuridicheskie Issledovaniya*. That is a source for what the exile
+  still means to the people it fell on, and it is cited for that; it is not a source for the operation
+  itself, and the card does not make it carry one. **Name what a source is evidence of.**
+- **THREE MORE CROSSREF ROWS, ALL THE SAME TWO FAULTS.** Kavkazologiya deposits surname-first
+  (`Yakhutl Yuri A.` against the journal's own English `Yuri A. Yakhutl`); *The New Research of Tuva*
+  publishes English bylines and deposits the Russian ones (`Иванна Витальевна Отрощенко`); and
+  `Antichnaya Drevnost i Srednie Veka` deposited a given name with its first letter missing
+  (`nga Alexandrovna Druzhinina`). Each was checked against the journal's own article page before the
+  row was declared.
+- **TWO PICTURES WERE REJECTED BY LOOKING AT THEM, AND NEITHER COULD BE TOLD FROM ITS FILE NAME.**
+  The lead image for Dombay-Ulgen is filed `2016 Dombay-Ulgen Mountain, Greater Caucasus, Abkhazia (7)`
+  — the peak straddles the frontier and the photograph is taken from the far side of it, so a card
+  about Karachay-Cherkessia would have carried a picture captioned as another country; it was replaced
+  by Mount Chotcha in the Teberda reserve, which is the reserve the card's own background now cites.
+  And the best wide view of Kyzyl carries **Фото Иргит В.** burnt into the corner — the fourth watermark
+  the pass has caught — so the Tuva term took the aerial view of the Biy-Khem and Kaa-Khem meeting
+  instead. **A landmark on a border is the shape to check for: the name is right and the country is
+  not.**
+- **AND ONE FILE WOULD NOT COME DOWN AT ALL WHILE ITS NEIGHBOURS DID.** `Fisht in Winter.jpg` answered
+  429 to five requests over four minutes, by direct upload URL, by thumb path and by `Special:FilePath`,
+  while every other candidate in the same run fetched first time. **A per-file throttle is not a reason
+  to install a picture unseen**; the Adygea term took the Belaya at Rufabgo, which fetched at once.
+
 ## The background against the grid — the facts-echo pass (Sep 2026)
 
 On request: *the background sections should never mention data that is already in the answer box data
