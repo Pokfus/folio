@@ -2333,3 +2333,45 @@ being a study of malaria. **The plank rule cuts the other way here**: an absence
 a source exhaustive on the question, and a bioarchaeology paper is not exhaustive about who was NOT at
 Giza. The clause was replaced with the positive finding, which refutes the legend by describing what
 was there instead.
+
+### Where the last twelve stand (2026-09-17)
+
+The pass closed this session at **208 of 220 (93→95%)**. Every remaining statement has been probed and
+the probe recorded; four families account for all twelve.
+
+**THE CANONICAL PAPER IS ON A JAVASCRIPT PLATFORM.** #135 (the Kitty Genovese reporting) is Manning,
+Levine and Collins in *American Psychologist*; APA is the publisher, `psycnet.apa.org` is a JavaScript
+shell, and **every Wayback capture of it — the DOI URL, the record URL and the buy-option URL, 2020 to
+2026 — is that same shell**. Semantic Scholar has the record and an empty abstract. #141 (the 1957
+subliminal popcorn study) is the same shape one publisher over: `journals.sagepub.com` is behind a
+Cloudflare interactive challenge and the *Journal of Marketing* article has no Wayback capture at all.
+**Mark Levine's own open 2025 paper in the BJSP was fetched whole and does not mention Genovese.**
+
+**THE CLAIM IS NOT A RESEARCH SUBJECT AND HAS NO PAPER.** #80 (a penny from a skyscraper) and #128 (a
+microwave cooking from the inside out) have no canonical work to find. OpenStax's physics texts are
+fully readable and **explain the microwave mechanism without ever addressing the direction of cooking**
+— College Physics even says microwaves "penetrate more than shorter wavelengths into tissue", which a
+careless reader could take the wrong way. DOAJ's microwave-heating papers sit on `sciencedirect.com`
+and `mdpi.com`, both 403 here.
+
+**THE DISCOVERY STORY IS NOT IN THE SCIENCE.** #1 (farmers and a well, 1974) survived every route: the
+two *Scientific Reports* papers Folio already cites were fetched in full from `nature.com` and neither
+recounts it, the Copernicus terracotta paper does not either, and DOAJ's other hits are conservation
+and photogrammetry. **A scientific paper cites the excavation reports and never tells the story.**
+
+**THE EVIDENCE IS OLDER OR ELSEWHERE THAN THE CLAIM.** #175 (Marco Polo and pasta) is settled by
+al-Idrisi on Sicilian *itriyya* in 1154 and a Genoese inventory of 1279, neither reachable; Yule's
+Polo, open and full-text, has him eating *bread*. #20 (Columbus and the mainland) — the Library of
+Congress's own exhibition says he "led three more expeditions to the Caribbean", which is suggestive
+and is not the negative stated; `loc.gov`'s classroom pages and every `nps.gov` path tried are 403 or
+404. #64 (the Great Fire's death toll) wants the Bills of Mortality. #70 (cocaine in Coca-Cola) has
+the 1916 Supreme Court opinion recording the extract used "with cocaine eliminated" — **evidence it
+was taken out, not of what was in the 1880s bottle**. #38, #44 and #47 are Chinese history whose
+standard works are modern monographs; HAL, DOAJ and the glossary's own 3,838 cited terms return
+nothing on any of the three.
+
+**WHAT WOULD MOVE THEM.** Not more probing of the same hosts. #135 and #141 want a repository copy or
+an interlibrary route; #1, #64 and #20 want a museum, archive or government page that is not behind a
+challenge; #38, #44 and #47 want a Chinese-language open journal, which `cnki` and the rest are not.
+**Each is a fact about reach, not about the pool**, which is why they are listed rather than cited to
+something that does not carry them.
