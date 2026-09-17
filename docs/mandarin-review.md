@@ -616,6 +616,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 121–150 (车库 → 持续), deck order | 13 | **a card that listed the same sense twice, and put two readings under one pinyin** |
 | 2026-09-17 | `hsk30l5` notes 151–180 (尺子 → 传说), deck order | 15 | **two more glosses cut off mid-phrase, and a second card with two readings under one pinyin** |
 | 2026-09-17 | `hsk30l5` notes 181–210 (传统 → 打破), deck order | 16 | **a gloss offering a word that does not exist, and one naming the wrong verb entirely** |
+| 2026-09-17 | `hsk30l5` notes 211–240 (打听 → 当年), deck order | 20 | **a third card with two readings under one pinyin, and a gloss rewrite that collided with its neighbour** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7307,4 +7308,104 @@ sense the card's next sentence already covers), and 词汇's third sentence, whi
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 1; shared-gloss groups 324 unchanged; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 651 → 654;
+`build-lang-decks.js` re-run.
+
+## Batch 81 — hsk30l5 notes 211–240 (打听 → 当年)
+
+Thirty consecutive notes; **twenty of them changed**, plus one card in Levels 7–9 that a
+rewrite here collided with. Four faults, of which two are new shapes and two are the batch's own
+mistakes caught in the read-back.
+
+**A THIRD CARD WITH TWO READINGS UNDER ONE PINYIN — and this one glossed the reading it does not
+carry.** 大爷's pinyin and bopomofo are **dà ye**, with a neutral 爷, which CC-CEDICT gives as
+*(coll.) father's older brother; uncle; term of respect for older man* — and which two of the card's
+three sentences show, 门口坐着一位大爷 and 门口的大爷很热心. Its gloss read **arrogant idler**, which
+is the dictionary's OTHER entry, **dà yé**, a different word. So the card said one thing in its
+pinyin field and the opposite in its gloss, and a reader meeting it had no way to know either was
+in question. Repaired the way 称 (batch 78) and 冲 (batch 79) are: both readings in the pinyin and
+bopomofo fields, a sense each, and every sentence tagged with the reading it shows, the card's own
+reading first. **One thing is recorded as a question rather than settled**, and the `why` says so on
+the card's own record: the third sentence, 他摆出一副大爷的架子, is unambiguously the arrogant sense
+in MEANING and is tagged sense 2 on CC-CEDICT's authority — but the tone the phrase is actually
+spoken with is not something the dictionary and the card's three sentences can settle between them,
+everyday speech using the neutral form for it too. Three cards in four batches have now carried two
+readings under one pinyin; on this evidence it is the commonest structural fault left in Level 5.
+
+**SHARPENING A GLOSS COLLIDED IT WITH ITS NEIGHBOUR, exactly as batch 30 warned.** 胆小 was glossed
+with the abstract noun **cowardice** on a card labelled *adjective*, which cannot be substituted into
+any of its three predicative sentences (是胆小的生物, 你不胆小, 一样胆小). Rewriting it to
+*timid; cowardly* landed it **verbatim on 胆怯's gloss** in Levels 7–9, and still-ambiguous reverse-card
+groups went 1 → 2 — the English → Chinese card's front being the gloss and nothing else, so two notes
+sharing one are a single question with two right answers. **And the collision was hiding a real
+distinction, which is what it usually does.** 胆小 is a standing DISPOSITION — a mouse is one, someone
+is timid *like a rabbit* — where 胆怯 is a state of nerve failing at a moment, which is precisely what
+its own three sentences show: 上台时他有点胆怯, 不要胆怯，大胆去做. Both are rewritten to say which
+they are — 胆小 *timid; easily frightened*, 胆怯 *timid; apprehensive; lacking nerve* — and the count
+went back to 1 (邻居/街坊, pre-existing). **The lesson is to re-run the coverage checker after a gloss
+rewrite, not just after a sentence change**; nothing on either card looks wrong.
+
+**THE SPLIT-HEADWORD CLASS AGAIN, AND `check-example-fit.js` STILL CANNOT SEE IT.** 大会's second
+sentence was 如果你是第一次到外国生活的话，**加拿大会**很适合你 — Canada (加拿大) followed by 会, with
+the characters 大会 an accident of the two meeting. The card bolded them and a reader was shown a word
+that is not in the sentence. This is the class batch 26 recorded: the segmenter lands squarely on a
+real word, so the checker reports nothing, and only reading finds it. Dropped, with an authored
+replacement.
+
+**FOUR SENTENCES THAT WERE TRANSLATION ARTEFACTS RATHER THAN CHINESE.** 大厦's third put daisies round
+a 钢铁大厦, a "steel building" nobody names; 大型's formed a superlative as 最大型的构造, which is not
+how that word takes one and not a noun that takes it; 代表'S 这个年级的法方代表是谁？ puts a school
+year group and "the French side" in one clause, and its English rendered neither; and 淡's 你有任何淡
+啤酒吗？ carries 任何 standing in for an English *any* that Chinese does not need. All four dropped,
+with authored sentences in their place — 代表's chosen to give the card the VERB sense its gloss names
+and neither surviving sentence showed.
+
+**SIX ENGLISH TRANSLATIONS THAT DID NOT RENDER THEIR CHINESE**, repaired through `exEn`, which leaves
+the Chinese, the structure line and the bolding untouched. 他的大脑仍然很活跃 was rendered *He still
+has springtime on the brain*; 大象鼻子长 called an elephant's trunk a nose; 我只是个大众脸 — an
+ordinary, forgettable face — was *I'm just another man*; 我需要和你单独待一会儿 was *I need some time
+with you*, dropping the headword altogether; 琳达是大会的参赛者之一 called a 大会 a *pageant*; and
+你们也太大胆了吧！was *You were also too brave!*
+
+**SIX GLOSSES THAT WERE NOT THE SENSE THE CARD TEACHES.** 大胆 read *brazen*, CC-CEDICT's first sense
+and a negative one, over three sentences rendered brave, audacity and boldly — the batch-31 rule that
+the dictionary's leading sense is not automatically the card's. 大妈 read *father's elder brother's
+wife*, the narrow kinship sense, over three sentences that every one of them use it as the ordinary
+polite term for an older woman. 代替, a verb, was glossed with the adverb *instead*, which cannot be
+substituted into any of its sentences. 待遇 read *treatment* alone while two of its three sentences are
+about pay. 单's gloss was *single, alone, simple* while its own first sentence is 买单, where 单 is a
+BILL — CC-CEDICT's leading sense and one the card did not carry at all. And 胆小, above.
+
+**THREE SINGLE-CHARACTER CARDS GAINED A `Compounds` SECTION.** 代 and 淡 had **nothing at all** in the
+reader's downloaded deck, against twenty-four and six words in the collection; 单 had one word against
+twenty-two. Two of 单's four rows are the *list, bill* sense, which is where a learner will actually
+meet it. Every row's reading and gloss checked against CC-CEDICT before it was written.
+
+**TWO SWALLOWED HEADWORDS ON THOSE SAME CARDS.** 代's second sentence was 很多小学生学不好**代数** —
+algebra, a word of its own, so the sentence used neither of the two senses the card glosses — and 淡's
+third was 他不久就把事情**淡忘**了, a compound rather than the character. Both replaced with authored
+sentences for senses the card names and had nothing for: the *generation* sense on 代 and the *light in
+colour* sense on 淡.
+
+**AND TWO REPEATS.** 大事 taught the word with two PROVERBS out of three (大事化小，小事化无 and
+小事聪明，大事糊涂), a register a learner will not use, so the second is replaced with a plain sentence.
+大于's first two sentences were both 弊大于利 — one word, one construction, twice — and its third was
+the idiom 哀莫大于心死 carried in with **no terminal mark** and an English rendering neither half of it;
+the record's own idiom row is deleted and the duplicate generator block dropped, with two authored
+sentences in their place, one arithmetical and one a plain comparison. 单元's first and third rows were
+**both this record's own** — 我住在三号楼二单元 and 我住在二单元, with an English differing by four
+words — so the card showed one fact twice; the duplicate is replaced in place.
+
+**TWO OF THE BATCH'S OWN MISTAKES, caught in the read-back rather than by any checker.** Dropping 代数
+from 代 left the two surviving generator blocks as 代我问候你妈妈 and 你可以代我去吗 — the same 代我 +
+verb frame twice, so the card taught one construction and called it two; and replacing 淡忘 left the
+calque 你有任何淡啤酒吗 standing beside it. Both fixed in a second pass. **Read the card back after a
+drop**: what a replacement leaves behind is not what the diff shows.
+
+**Ten cards were read and left untouched**: 大多, 大力, 大米, 大批, 带动, 担任, 单一, 当地, 当年, and
+打听, whose 我打听他是谁 is thin but not wrong.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous **back to 1** after the 胆小/胆怯 repair; shared-gloss groups 324 unchanged;
+pinyin clean — including the new two-reading field on 大爷; example-fit 143 → **142**; senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 654 → 657;
 `build-lang-decks.js` re-run.

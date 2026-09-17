@@ -14119,20 +14119,33 @@
       ]
     },
     "hsk30l5/大于": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | Two of the card's three sentences taught the same thing — the same construction, or the same English twice over — so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. Here the first two sentences were both 弊大于利 — one word, one construction, twice — and the third was the idiom 哀莫大于心死 carried in with NO terminal mark and an English (`Nothing is more sad than stupidity and apathy`) that renders neither half of it. The record's own idiom row is deleted and the duplicate generator block dropped; two AUTHORED sentences take their place, one arithmetical and one a plain comparison, which is what this word is actually for.",
       "ex": [
         [
-          "哀莫大于心死",
-          "Nothing is more sad than stupidity and apathy."
+          "五大于三。",
+          "Five is greater than three."
+        ],
+        [
+          "这个班的女生人数大于男生。",
+          "There are more girls than boys in this class."
         ]
+      ],
+      "dropEx": [
+        "这本书弊大于利"
       ]
     },
     "hsk30l5/大众": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line glossing every word's part of speech and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. 大众脸 is an ordinary, unmemorable face; the English read `I'm just another man`, which says nothing about the word.",
       "ex": [
         [
           "他太难为情，在大众人前一句话也说不出来。",
           "He was too embarrassed to utter a word in front of the crowd."
+        ]
+      ],
+      "exEn": [
+        [
+          "我只是个大众脸",
+          "I've just got an ordinary face."
         ]
       ]
     },
@@ -71545,7 +71558,7 @@
       ]
     },
     "hsk30l5/大爷": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card put TWO READINGS under one pinyin, and glossed the one it does not carry. Its pinyin and bopomofo are dà ye with a NEUTRAL 爷 — which CC-CEDICT gives as /(coll.) father's older brother; uncle; term of respect for older man/ and which two of the card's three sentences show — while the gloss read `arrogant idler`, which is dà yé, a second entry in the dictionary and a different word. The same fault as 称 and 冲: both readings are now carried in the pinyin and bopomofo fields with a sense each, and every sentence tagged with the reading it shows, the card's own reading first. ONE THING IS RECORDED AS A QUESTION RATHER THAN SETTLED: the third sentence, 他摆出一副大爷的架子, is unambiguously the arrogant sense in MEANING, and it is tagged sense 2 on CC-CEDICT's authority — but the tone this phrase is actually spoken with is not something the dictionary and the card's own sentences can settle between them, everyday speech using the neutral form for it too.",
       "ex": [
         [
           "门口坐着一位大爷。",
@@ -71559,6 +71572,25 @@
           "他摆出一副大爷的架子。",
           "He puts on airs like a lord."
         ]
+      ],
+      "Pinyin": "dà ye / dà yé",
+      "Bopomofo": "ㄉㄚˋ ㄧㄝ˙ / ㄉㄚˋ ㄧㄝˊ",
+      "senses": [
+        [
+          "dà ye",
+          "noun",
+          "uncle; a respectful term for an older man"
+        ],
+        [
+          "dà yé",
+          "noun",
+          "an arrogant idler; a self-centred show-off"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
       ]
     },
     "hsk30l5/带动": {
@@ -71579,7 +71611,7 @@
       ]
     },
     "hsk30l5/单元": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of the card's three sentences taught the same thing — the same construction, or the same English twice over — so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. Here two of the three rows THIS RECORD had written were the same sentence shortened — 我住在三号楼二单元 and 我住在二单元, with an English that differed by four words — so the card showed one fact twice. The duplicate row is replaced in place with a sentence showing the other sense the gloss names.",
       "ex": [
         [
           "我住在三号楼二单元。",
@@ -71590,8 +71622,8 @@
           "This book is divided into eight units."
         ],
         [
-          "我住在二单元。",
-          "I live in the second entrance."
+          "细胞是生命的基本单元。",
+          "The cell is the basic unit of life."
         ]
       ]
     },
@@ -77051,7 +77083,7 @@
       ]
     },
     "hsk30l5/大妈": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. Here the card read `father's elder brother's wife`, the narrow kinship sense, over three sentences that every one of them use the word as the ordinary polite term for an older woman — CC-CEDICT's second sense.",
       "ex": [
         [
           "楼下的大妈很热心。",
@@ -77061,7 +77093,8 @@
           "大妈们在广场上跳舞。",
           "The older women are dancing in the square."
         ]
-      ]
+      ],
+      "gloss": "aunt; a polite term for an older woman; father's elder brother's wife"
     },
     "hsk30l5/大米": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -78744,22 +78777,30 @@
       ]
     },
     "hsk30l5/大胆": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. Here the card read `brazen`, which is CC-CEDICT's first sense and a negative one, over three sentences rendered brave, audacity and boldly — the neutral sense. The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line glossing every word's part of speech and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched.",
       "ex": [
         [
           "她大胆地提出了自己的想法。",
           "She boldly put forward her own idea."
         ]
+      ],
+      "gloss": "bold; daring; audacious",
+      "exEn": [
+        [
+          "你们也太大胆了吧",
+          "You lot are far too bold!"
+        ]
       ]
     },
     "hsk30l5/待遇": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. Here the card read `treatment` alone, while two of its three sentences are about PAY — CC-CEDICT gives /treatment/pay/salary/status/rank/ — so the card defined a sense it mostly did not show.",
       "ex": [
         [
           "这家公司的待遇不错。",
           "The pay and conditions at this company are good."
         ]
-      ]
+      ],
+      "gloss": "treatment; pay and conditions"
     },
     "hsk30l5/导演": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -86734,7 +86775,7 @@
       ]
     },
     "hsk30l7/胆怯": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Sharpening the gloss of 胆小 collided it with its neighbour — the trap batch 30 recorded: dedupe or rewrite a gloss and it lands on the one a DIFFERENT card already carries, and the English → Chinese card, whose front is the gloss and nothing else, becomes one question with two right answers. `timid; cowardly` was 胆怯's gloss already, so still-ambiguous went 1 group to 2. And the collision was hiding a real distinction, which is what it usually does: 胆小 is a standing DISPOSITION — 老鼠是胆小的生物, 她像兔子一样胆小 — where 胆怯 is a state of nerve failing at a moment, which is exactly what its own three sentences show (上台时他有点胆怯, 不要胆怯，大胆去做). Both glosses are rewritten to say which they are.",
       "ex": [
         [
           "上台时他有点胆怯。",
@@ -86744,7 +86785,8 @@
           "不要胆怯，大胆去做。",
           "Don't be timid; go ahead boldly."
         ]
-      ]
+      ],
+      "gloss": "timid; apprehensive; lacking nerve"
     },
     "hsk30l7/淡季": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -110491,11 +110533,34 @@
       ]
     },
     "hsk30l5/单": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Waiter, check please.” — in a British restaurant you ask for the bill.",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Waiter, check please.” — in a British restaurant you ask for the bill. | The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. Here the gloss read `single, alone, simple` while the card's own first sentence is 买单, where 单 is a BILL — CC-CEDICT's leading sense and one the card did not carry at all. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had one word in the reader's downloaded deck, against twenty-two in the collection; two of the rows are the `list, bill` sense, which is where a learner will actually meet it.",
       "exEn": [
         [
           "服务员，买单",
           "Waiter, the bill please."
+        ]
+      ],
+      "gloss": "single; only; odd (number); a bill; a list",
+      "compounds": [
+        [
+          "简单",
+          "jiǎndān",
+          "simple; not complicated"
+        ],
+        [
+          "单位",
+          "dānwèi",
+          "a unit; a place of work"
+        ],
+        [
+          "名单",
+          "míngdān",
+          "a list of names"
+        ],
+        [
+          "菜单",
+          "càidān",
+          "a menu"
         ]
       ]
     },
@@ -111127,11 +111192,17 @@
       ]
     },
     "hsk30l5/大象": {
-      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once. ",
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. The space also hid the sentence from the deck-level punctuation pass, which matches a mark sitting IMMEDIATELY after a character — so the half-width mark beside it had never been converted either, and the row fixes both at once.  | The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line glossing every word's part of speech and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. An elephant's 鼻子 is its trunk, and the English called it a nose.",
       "exSpace": [
         [
           "大象比河马重，不是吗 ?",
           "大象比河马重，不是吗？"
+        ]
+      ],
+      "exEn": [
+        [
+          "大象鼻子长",
+          "An elephant has a long trunk."
         ]
       ]
     },
@@ -124268,6 +124339,176 @@
         1,
         1,
         2
+      ]
+    },
+    "hsk30l5/大会": {
+      "why": "An example sentence did not use the headword as a word: its characters were an accident of two OTHER words meeting, so the card bolded characters that mean nothing together. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. Here 加拿大会很适合你 is 加拿大 (Canada) followed by 会, and the characters 大会 in it are an accident of the two meeting — the class check-example-fit.js cannot see, the segmenter landing squarely on a word that is not there. The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line glossing every word's part of speech and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. And the third sentence's English called a 大会 a `pageant`, which is not what the word means.",
+      "dropEx": [
+        "加拿大会很适合你"
+      ],
+      "ex": [
+        [
+          "这次大会有五百人参加。",
+          "Five hundred people took part in this assembly."
+        ]
+      ],
+      "exEn": [
+        [
+          "琳达是大会的参赛者之一",
+          "Linda is one of the contestants at the assembly."
+        ]
+      ]
+    },
+    "hsk30l5/大脑": {
+      "why": "The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line glossing every word's part of speech and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. 他的大脑仍然很活跃 says his brain is still very active; the English on the card read `He still has springtime on the brain`, which is a different sentence altogether.",
+      "exEn": [
+        [
+          "他的大脑仍然很活跃",
+          "His brain is still very active."
+        ]
+      ]
+    },
+    "hsk30l5/大厦": {
+      "why": "An example sentence was a translation artefact rather than ordinary Chinese: 那里有许多雏菊围绕着钢铁大厦 puts daisies round a `steel building` that is not a building anyone names, and teaches a reader nothing about the word. It is dropped and an AUTHORED sentence of the plainest kind put in its place.",
+      "dropEx": [
+        "那里有许多雏菊围绕着钢铁大厦"
+      ],
+      "ex": [
+        [
+          "这座大厦有三十层。",
+          "This building has thirty storeys."
+        ]
+      ]
+    },
+    "hsk30l5/大事": {
+      "why": "Two of the card's three sentences taught the same thing — the same construction, or the same English twice over — so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. Here two of the three sentences were PROVERBS — 大事化小，小事化无 and 小事聪明，大事糊涂 — so a card on an ordinary noun taught it twice over in a register a learner will not use. The second proverb is dropped and a plain sentence put in its place.",
+      "dropEx": [
+        "小事聪明，大事糊涂"
+      ],
+      "ex": [
+        [
+          "结婚是人生的大事。",
+          "Marriage is one of life's great events."
+        ]
+      ]
+    },
+    "hsk30l5/大型": {
+      "why": "An example sentence was not ordinary Chinese: 最大型的构造 is not how the superlative of this word is formed, and 构造 is a technical noun that does not take it. It is dropped and an AUTHORED sentence put in its place.",
+      "dropEx": [
+        "最大型的构造"
+      ],
+      "ex": [
+        [
+          "这家工厂有几台大型机器。",
+          "This factory has several large machines."
+        ]
+      ]
+    },
+    "hsk30l5/代": {
+      "why": "An example sentence did not use the headword as a word: its characters were an accident of two OTHER words meeting, so the card bolded characters that mean nothing together. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. Here 代数 is algebra, a word of its own, so the card's second sentence used none of the two senses it glosses. An AUTHORED sentence showing the `generation` sense takes its place, the other two already showing the verb. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against twenty-four words in the collection. | Read back after the first pass: with 代数 gone the two surviving generator blocks were 代我问候你妈妈 and 你可以代我去吗 — the same 代我 + verb frame twice, so the card taught one construction and called it two. The second is dropped and an AUTHORED sentence in a different frame put in its place.",
+      "dropEx": [
+        "很多小学生学不好代数",
+        "你可以代我去吗"
+      ],
+      "ex": [
+        [
+          "这本书写了三代人的故事。",
+          "This book tells the story of three generations."
+        ],
+        [
+          "他生病了，由我代他上课。",
+          "He was ill, so I took his class for him."
+        ]
+      ],
+      "compounds": [
+        [
+          "现代",
+          "xiàndài",
+          "modern times; the modern age"
+        ],
+        [
+          "古代",
+          "gǔdài",
+          "ancient times"
+        ],
+        [
+          "时代",
+          "shídài",
+          "an age; an era"
+        ],
+        [
+          "后代",
+          "hòudài",
+          "descendants; later generations"
+        ]
+      ]
+    },
+    "hsk30l5/代表": {
+      "why": "An example sentence did not hold together: 这个年级的法方代表是谁？ puts a school YEAR GROUP (年级) and `the French side` (法方) in one clause, and its English (`Who is the current representative from France?`) renders neither. It is dropped and an AUTHORED sentence put in its place, which also gives the card the VERB sense its gloss names and neither surviving sentence showed.",
+      "dropEx": [
+        "这个年级的法方代表是谁"
+      ],
+      "ex": [
+        [
+          "他代表公司出席了会议。",
+          "He attended the meeting on behalf of the company."
+        ]
+      ]
+    },
+    "hsk30l5/代替": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. Here the card glossed a VERB with the adverb `instead`, which is not a definition of it and cannot be substituted into any of its three sentences.",
+      "gloss": "to replace; to take the place of"
+    },
+    "hsk30l5/单独": {
+      "why": "The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten, which is what exEn is for — a generator block carries a structure line glossing every word's part of speech and a bolding of the headword, neither of which can be re-derived, so the Chinese may not be touched. The English (`I need some time with you`) dropped the headword altogether: 单独 is the whole point of 我需要和你单独待一会儿.",
+      "exEn": [
+        [
+          "我需要和你单独待一会儿",
+          "I need to spend a little time alone with you."
+        ]
+      ]
+    },
+    "hsk30l5/胆小": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about; the gloss is rewritten to that sense. The dictionary's FIRST sense is not automatically the card's. Here an ADJECTIVE was glossed with the abstract noun `cowardice`, which cannot be substituted into any of the card's three sentences — all of them predicative (是胆小的生物, 你不胆小, 一样胆小). | Sharpening the gloss of 胆小 collided it with its neighbour — the trap batch 30 recorded: dedupe or rewrite a gloss and it lands on the one a DIFFERENT card already carries, and the English → Chinese card, whose front is the gloss and nothing else, becomes one question with two right answers. `timid; cowardly` was 胆怯's gloss already, so still-ambiguous went 1 group to 2. And the collision was hiding a real distinction, which is what it usually does: 胆小 is a standing DISPOSITION — 老鼠是胆小的生物, 她像兔子一样胆小 — where 胆怯 is a state of nerve failing at a moment, which is exactly what its own three sentences show (上台时他有点胆怯, 不要胆怯，大胆去做). Both glosses are rewritten to say which they are.",
+      "gloss": "timid; easily frightened"
+    },
+    "hsk30l5/淡": {
+      "why": "An example sentence did not use the headword as a word: its characters were an accident of two OTHER words meeting, so the card bolded characters that mean nothing together. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. Here 淡忘 is `to forget with time`, a word of its own, so the third sentence taught the compound rather than the character. An AUTHORED sentence showing the `bland` sense the gloss names takes its place. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against six words in the collection. | Read back after the first pass: 你有任何淡啤酒吗？ is a calque — 任何 is standing in for an English `any` that Chinese does not need — and the card had nothing at all for the `light in colour` sense its gloss names. The calque is dropped and an AUTHORED sentence for that sense put in its place.",
+      "dropEx": [
+        "他不久就把事情淡忘了",
+        "你有任何淡啤酒吗"
+      ],
+      "ex": [
+        [
+          "这道菜太淡了。",
+          "This dish is too bland."
+        ],
+        [
+          "天空是淡蓝色的。",
+          "The sky is pale blue."
+        ]
+      ],
+      "compounds": [
+        [
+          "淡水",
+          "dànshuǐ",
+          "fresh water"
+        ],
+        [
+          "冷淡",
+          "lěngdàn",
+          "cold; indifferent"
+        ],
+        [
+          "平淡",
+          "píngdàn",
+          "flat; dull; ordinary"
+        ],
+        [
+          "清淡",
+          "qīngdàn",
+          "light, not greasy (of food)"
+        ]
       ]
     }
   },
