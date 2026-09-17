@@ -692,10 +692,10 @@ his own entry when `rm-377 Battle of Philippi` is written.
     rm-409  Lares Augusti
     rm-410  Princeps iuventutis
     rm-411  Livia
-    rm-412  The adoption of Tiberius
-    rm-413  The German campaigns of Drusus and Tiberius
+    rm-412  Agrippa Postumus
+    rm-413  Nero Claudius Drusus
     rm-414  Battle of the Teutoburg Forest
-    rm-415  The death of Augustus
+    rm-415  Divus Augustus
 
 Three of the first ten lines named a subject rather than an answer term, and the cards were written to
 the term the sources will carry. **`rm-372 Octavian's inheritance`** is answered by the **will of Julius
@@ -794,13 +794,56 @@ pictures**, which is deliberate and not an oversight — `rm-403` takes the scre
 scrollwork, and `rm-407` takes the children in that procession, who are the marriage legislation's own
 argument in marble and the only Augustan image of it there is.
 
+**Five of the ten lines were retitled writing `rm-411`–`rm-420`, and the reason is the one the deck
+keeps giving with a new face: the line named an EVENT, and an event wants the thing it made or the
+person it turned on.** **`rm-412 The adoption of Tiberius`** is answered by **`Agrippa Postumus`** —
+Augustus adopted TWO men on 27 June 4 CE and the other one is the half of the act nobody remembers, the
+last of his own blood, disowned within three years and killed in the first days of the next reign, so the
+card teaches the adoption with the man it discarded as its term. **`rm-413 The German campaigns of Drusus
+and Tiberius`** names two commanders and a card has one answer, which is `rm-370`'s rule again: it takes
+**`Nero Claudius Drusus`**, who reached the Elbe, died on the way back and left the family the name
+Germanicus, with his brother's campaigns in the card's own sentences. **`rm-415 The death of Augustus`**
+takes **`Divus Augustus`**, the thing the death made; `rm-926 Apotheosis` and `rm-528 Imperial cult` own
+the general institutions, and what is left here is the first man Rome ever made a god of having ruled it.
+**`rm-420 The mutinies of 14 CE`** takes **`Percennius`**, the claque-leader turned private soldier whose
+speech Tacitus makes the manifesto of the rising — `rm-648 Sacramentum`, `rm-649 Legionary pay`,
+`rm-665 Vexillum` and `rm-685 Donative` between them own every term the grievances are made of, which is
+the grep-first rule paying for itself a sixth time.
+
+**`rm-418 The accession of Tiberius` is the fifth and the one worth reading before the next batch, because
+the obvious answer could not be SOURCED.** The term every account reaches for is *recusatio imperii*, and
+it is not in anything openable from here: Cambridge and Oxford serve a bot wall, OpenEdition serves
+Anubis, and Furneaux's commentary — the batch's own modern leg — uses only Tacitus's own `specie
+recusantis`. The line is answered by **`dies imperii`** instead, which Furneaux does use, in terms, for
+Octavian's receipt of the fasces on 7 January 43 BCE. It is also the better card: Tiberius gave the
+praetorians the watchword as Imperator on the day Augustus died and let the consuls move first for a
+month, so the gap between the two dates IS the accession, and the term names the gap. **An answer term
+has to be carried by a source you can open, and checking that is part of choosing it.**
+
+Four things this batch settled. **Seven of the ten take a locator**, which is high for this deck and is
+what a batch full of deaths does: Planasia, Mogontiacum, Kalkriese, Nola, Misenum, Antioch and the
+Porticus Liviae on the Oppian — and `rm-411`'s is the one to know about, since **the Porticus of Livia
+has a Wikipedia article and no published coordinate**, so the dot is fetched from `Oppian Hill` and
+labelled with the building that stood on it. A dynasty, a concept and a mutineer have no place a reader
+could stand. **`rm-420 Percennius` ships without a picture**, recorded rather than skipped: there is no
+portrait of a private soldier, and the honest alternatives — a reconstructed legionary, a battle
+painting — would be pictures of somebody's idea rather than of him. **The ten paired glossary terms ship
+without pictures too**, which is this deck's standing practice (the `rm-401`–`rm-410` terms did as well,
+and the glossary as a whole runs about two-thirds illustrated): the card beside each carries the picture,
+and a second photograph of the same bust is a duplicate the reader meets in one place. And **the modern
+leg of this batch is Furneaux's 1896 commentary on the Annals**, on archive.org with full OCR, which
+carries the technical vocabulary, the Amiternum calendar's date for the consecration of Augustus and the
+flat statement that the identification of the Teutoburg Forest is most uncertain — the sentence that lets
+`rm-414` set the Kalkriese excavation against the ancient name honestly, with an open German review of the
+Oberesch find distributions for what the ground does and does not show.
+
 ### The Julio-Claudians — `rm-julio-claudians`
 
     rm-416  Julio-Claudian dynasty
     rm-417  Tiberius
-    rm-418  The accession of Tiberius
+    rm-418  Dies imperii
     rm-419  Germanicus
-    rm-420  The mutinies of 14 CE
+    rm-420  Percennius
     rm-421  The German campaigns of Germanicus
     rm-422  The death of Germanicus
     rm-423  Sejanus
