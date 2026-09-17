@@ -588,6 +588,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 271–300 (光 → 怀疑), deck order, plus the whole `skeptical` class | 22 | a fourth family `SPELL_PAIRS` has never held, and a card that contradicted itself over it |
 | 2026-09-17 | `hsk30l4` notes 301–330 (坏处 → 记者), deck order, plus a hint pair retired across two decks | 21 | a card whose own first line was the one sense its gloss had not got, twice over |
 | 2026-09-17 | `hsk30l4` notes 331–360 (加班 → 降低), deck order, plus the whole `hometown` class | 32 | a gloss that was a calque, a card glossing a reading it did not give, and a correction to batch 50 |
+| 2026-09-17 | `hsk30l4` notes 361–390 (降价 → 进行), deck order | 19 | an obscene sentence a single-character card's own discriminator excuses, and a character error the English gave away |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5507,3 +5508,58 @@ scholarship*; and 健身房's *got so much slimmer lately*.
 still-ambiguous 2; shared-gloss groups 336 → 336; pinyin clean; example-fit 143 and senses 152 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 446 → 461;
 `build-lang-decks.js` re-run.
+
+## Batch 53 — hsk30l4 notes 361–390 (降价 → 进行)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order. Nineteen cards changed, plus two
+Levels 7–9 cards carrying sentences this batch corrected.
+
+**AN OBSCENE SENTENCE THAT check-coarse.js's OWN DISCRIMINATOR EXCUSES.** 交's third line was 她不喜欢口交
+— *She doesn't like oral sex* — on a card glossed *to hand over; to make friends*. **This is the hole batch
+30 measured and could not close**: `own()` drops a hit when the headword contains the matched term or the
+matched term contains the headword, and **at a one-character headword the second branch is always true**,
+every compound built on the character containing it. 交 is one character, so every term beginning or ending
+in it is permanently excused. The batch-30 fix required MORE than one character of headword, which is right
+and which leaves this case exactly where it was. **Its second line was the same fault without the offence** —
+公交, public transport — so two of three lines swallowed the character and one taught it. Both replaced.
+
+**A CHARACTER ERROR THE ENGLISH GAVE AWAY.** 仅仅's third line read 不能做仅仅是**接口**, an *interface*,
+for 借口, an excuse — **and the card's own English said "excuse" all along**, which is what settles it. The
+class batch 30 met on 电灯炮 and 别破妈妈发现: the sentence segments, speaks and translates perfectly, so
+nothing in the pipeline can see it. The replacement is the deck's own sentence with the one character
+corrected.
+
+**A GLOSS NAMING A SENSE BELONGING TO ANOTHER READING, for the second batch running.** 结果's gloss ended
+*fruit*, which is 结果 **jiē guǒ**, to bear fruit — a different word — while the card's Pinyin says jié guǒ
+and nothing else. Batch 52 fixed 将 by adding the reading; here the jiē guǒ word is not what a Level 4
+vocabulary card is for, so the sense is dropped and the conjunction the card genuinely lacked is named
+instead.
+
+**A SHARED-GLOSS GROUP DISSOLVED.** 街道 was glossed *road* — a group it shared with 道路 — where all three
+of its own translations say STREET, and a 街道 is the built-up kind with buildings either side, which is
+what its second line describes. Groups 336 → 335, the third such retirement after 茶/茶叶 and 基础/基地.
+
+**SEVEN MORE LABEL-AGAINST-GLOSS CARDS** — 交, 骄傲, 交流, 教练, 教育, 解释 and the 结果 above — which makes
+**forty-five over nine batches**. 交流 is the sharpest: labelled a VERB and glossed with two NOUNS. Three
+more glosses were simply the wrong word: 解释's *to justify* (which is 辩解, a claim about motives rather
+than facts), 仅仅's *barely* (which is 勉强) and 进行's *advance; progress*, none of which is what any of its
+three lines does.
+
+**AN ASCII ELLIPSIS.** 郊区's first line ended in six ASCII full stops where Chinese sets ……, two ellipsis
+characters. The corpus's only site, and one the deck-level punctuation pass cannot see, since that pass
+converts a mark standing immediately after a character rather than a run of them.
+
+**TWO CARDS THAT CONTRADICTED THEMSELVES, both on the same two classes.** `hsk30l7/客运` glossed itself
+*Passenger transportation* — American, and capitalised mid-gloss — over three sentences of its own already
+saying *passenger transport*. `hsk30l7/支票` glossed itself *cheque* over a first line saying *checks*. Both
+classes are two sites and went to per-note rows: **`check` is deliberately absent from `SPELL_PAIRS`**
+because 66 of its 73 corpus sites are the ordinary verb, so the banking sense can never be swept.
+
+**THREE MORE SENTENCES WENT.** 今后's first carried 会 TWICE, before the preposition and before the verb.
+节约's first repeated 我 either side of the verb where the relative clause wants 我所有的钱. 教育's third was
+a subjectless fragment whose 教育系 swallowed the headword into a department name.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 336 → 335**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 461 → 476;
+`build-lang-decks.js` re-run. Residuals for `transportation`, the ASCII ellipsis and 接口: zero.

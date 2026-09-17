@@ -48548,7 +48548,7 @@
       ]
     },
     "hsk30l7/客运": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | THE CARD CONTRADICTED ITSELF: its gloss read 'Passenger transportation' — American, and capitalised mid-gloss where every other gloss in the deck is lower case — while all three of its own sentences, which are the record's own, already say passenger transport. The second of the corpus's two `transportation` sites.",
       "ex": [
         [
           "这条铁路以客运为主。",
@@ -48562,7 +48562,8 @@
           "客运量比去年增加。",
           "Passenger volume rose over last year."
         ]
-      ]
+      ],
+      "gloss": "passenger transport"
     },
     "hsk30l7/克制": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -76298,12 +76299,19 @@
       "gloss": "a bonus; prize money"
     },
     "hsk30l4/今后": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '读这样的书会对今后的生活会有用。' CARRIES 会 TWICE, once before the preposition and once before the verb, which is ungrammatical; and its English was the archaic 'Read such books as will be useful in later life'. Replaced with an AUTHORED sentence, which the record says so is.",
       "ex": [
         [
           "今后我们要多联系。",
           "We should keep in touch more from now on."
+        ],
+        [
+          "今后这种事不会再发生。",
+          "Nothing like this will happen again from now on."
         ]
+      ],
+      "dropEx": [
+        "读这样的书会对今后的生活会有用。"
       ]
     },
     "hsk30l4/老年": {
@@ -109876,13 +109884,14 @@
       ]
     },
     "hsk30l4/街道": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Store” is the American word for a shop. It is not in the deck-level table because British English uses it too, in compounds a table cannot tell apart — a department store, a convenience store, a chain store, to set great store by something — so the fourteen sentences where it plainly means a shop are repaired one at a time here. ",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Store” is the American word for a shop. It is not in the deck-level table because British English uses it too, in compounds a table cannot tell apart — a department store, a convenience store, a chain store, to set great store by something — so the fourteen sentences where it plainly means a shop are repaired one at a time here.  | Glossed 'road', where all three of the card's own translations say STREET — and a 街道 is the built-up kind with buildings either side, which is exactly what its second line describes.",
       "exEn": [
         [
           "街道两边有许多商店",
           "There are many shops on either side of the street."
         ]
-      ]
+      ],
+      "gloss": "a street"
     },
     "hsk30l5/区域": {
       "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Store” is the American word for a shop. It is not in the deck-level table because British English uses it too, in compounds a table cannot tell apart — a department store, a convenience store, a chain store, to set great store by something — so the fourteen sentences where it plainly means a shop are repaired one at a time here. ",
@@ -109953,8 +109962,14 @@
       ]
     },
     "hsk30l7/支票": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). A bank draft is a “cheque” in British English. It is not in the deck-level table because “check” is an ordinary English verb — 68 of the sweep's 73 hits are it, and checking in at a hotel and checking out of one are British too. Its gloss read “check/cheque” — both spellings at once, with no space round the slash.",
-      "gloss": "cheque"
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). A bank draft is a “cheque” in British English. It is not in the deck-level table because “check” is an ordinary English verb — 68 of the sweep's 73 hits are it, and checking in at a hotel and checking out of one are British too. Its gloss read “check/cheque” — both spellings at once, with no space round the slash. | The second site of the `checks` sentence corrected on 接受's card, and THIS CARD CONTRADICTED ITSELF: its gloss reads cheque over a first line saying checks.",
+      "gloss": "cheque",
+      "exEn": [
+        [
+          "我们接受支票",
+          "We accept cheques."
+        ]
+      ]
     },
     "hsk30l5/单": {
       "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Waiter, check please.” — in a British restaurant you ask for the bill.",
@@ -112325,11 +112340,25 @@
       ]
     },
     "hsk30l4/教练": {
-      "why": "Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
+      "why": "Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them. | Labelled a NOUN and glossed 'train; drill; (sports) coach', of which the first two are verbs. Both are named properly now. | '这位女士是我的游泳教练吗？' read 'my swim TEACHER' — a 教练 is a coach, which is the card's own gloss.",
       "exEn": [
         [
           "这类运动可以单人练习，不需教练指导。",
           "This type of exercise can be practised alone and does not require a coach's guidance."
+        ],
+        [
+          "这位女士是我的游泳教练吗",
+          "Is this lady my swimming coach?"
+        ]
+      ],
+      "senses": [
+        [
+          "noun",
+          "a coach; an instructor"
+        ],
+        [
+          "verb",
+          "to coach; to train"
         ]
       ]
     },
@@ -116588,6 +116617,213 @@
         [
           "甚至在日落之后，气温也不见降低",
           "Even after sunset the temperature hardly dropped."
+        ]
+      ]
+    },
+    "hsk30l4/结果": {
+      "why": "THE GLOSS NAMED A SENSE BELONGING TO ANOTHER READING. 'result; outcome; fruit' — and the fruit is 结果 jiē guǒ, to bear fruit, which is a different word; the card's Pinyin says jié guǒ and nothing else, so a reader was shown a meaning they could not have pronounced. Batch 52 met this on 将 and fixed it by adding the reading; here the jiē guǒ word is not what a Level 4 vocabulary card is for, so the sense is dropped and the conjunction the card DOES lack is named instead.",
+      "senses": [
+        [
+          "noun",
+          "a result; an outcome"
+        ],
+        [
+          "conjunction",
+          "as a result; in the end"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/交": {
+      "why": "Labelled 'noun / verb' where 交 has no ordinary noun use at all — CC-CEDICT gives it as a verb throughout — so the label promised a sense that does not exist. | TWO OF ITS THREE LINES WERE COMPOUNDS THAT SWALLOW THE CHARACTER, and one of them had no business on a vocabulary card at all: 去医院要坐哪一路公交 is 公交, public transport, and 她不喜欢口交 is oral sex — a card glossed 'to hand over; to make friends' whose reader is shown that sentence has met the character in the one place it says nothing about the word. It is the class check-coarse.js exists for and one its own discriminator excuses, the headword being a single character contained in every compound built on it. Both replaced with AUTHORED sentences, which the record says so are. | '把钱交出来！' read 'Hand over the DOUGH!', which is a register nobody should be taught from a vocabulary card.",
+      "gloss": "to hand over; to pay; to make friends",
+      "dropEx": [
+        "去医院要坐哪一路公交？",
+        "她不喜欢口交。"
+      ],
+      "ex": [
+        [
+          "请把作业交给老师。",
+          "Please hand your homework in to the teacher."
+        ],
+        [
+          "他在大学交了很多朋友。",
+          "He made a lot of friends at university."
+        ]
+      ],
+      "exEn": [
+        [
+          "把钱交出来",
+          "Hand over the money!"
+        ]
+      ]
+    },
+    "hsk30l4/骄傲": {
+      "why": "Labelled 'noun / adjective' against a gloss that is only the adjective, and the card's own FIRST line is the noun: 骄傲使人落后 is pride making a person fall behind. | '骄傲使人落后。' was given the English proverb 'Pride goes before a fall', which says something else — the Chinese is half of 骄傲使人落后，虚心使人进步, pride making a person fall BEHIND others rather than come to grief — and it is also the card's only example of the noun.",
+      "senses": [
+        [
+          "adjective",
+          "proud; arrogant"
+        ],
+        [
+          "noun",
+          "pride"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ],
+      "exEn": [
+        [
+          "骄傲使人落后",
+          "Pride makes a person fall behind."
+        ]
+      ]
+    },
+    "hsk30l4/交流": {
+      "why": "Labelled a VERB and glossed with two NOUNS — 'exchange; communication'. Both are named properly now, and the tags say which of the card's lines is which.",
+      "senses": [
+        [
+          "verb",
+          "to communicate; to exchange"
+        ],
+        [
+          "noun",
+          "communication; an exchange"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/教育": {
+      "why": "Labelled 'noun / verb' against the single gloss 'education', so the verb had none. | '去历史系或者教育系。' is a fragment with no subject, and its 教育系 swallows the headword into a department name besides. Replaced with an AUTHORED sentence, which the record says so is.",
+      "senses": [
+        [
+          "noun",
+          "education"
+        ],
+        [
+          "verb",
+          "to educate; to teach"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "dropEx": [
+        "去历史系或者教育系。"
+      ],
+      "ex": [
+        [
+          "他受过很好的教育。",
+          "He has had a very good education."
+        ]
+      ]
+    },
+    "hsk30l4/解释": {
+      "why": "Glossed 'to justify; explanation' under a verb label — to justify is 辩解, which is a claim about motives rather than about facts, and 'explanation' is a noun. All three of the card's own lines are the verb to explain.",
+      "senses": [
+        [
+          "verb",
+          "to explain; to interpret"
+        ],
+        [
+          "noun",
+          "an explanation"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/仅仅": {
+      "why": "Glossed 'barely', which is 勉强 — 仅仅 is only or merely, and the card's own translations say 'just' and 'only'. | A CHARACTER ERROR: '不能做仅仅是接口' wrote 接口, an interface, for 借口, an excuse — and the card's own English said 'excuse' all along, which is what settles it. The class batch 30 met on 电灯炮 and 别破妈妈发现: the sentence segments, speaks and translates perfectly and nothing in the pipeline can see it. The replacement is the DECK'S OWN sentence with the one character corrected, which is why it is listed as an added row.",
+      "gloss": "only; merely",
+      "dropEx": [
+        "不想做是原因；不能做仅仅是接口。"
+      ],
+      "ex": [
+        [
+          "不想做是原因；不能做仅仅是借口。",
+          "Not wanting to is the reason; not being able to is just an excuse."
+        ]
+      ]
+    },
+    "hsk30l4/进行": {
+      "why": "Glossed 'advance; progress', neither of which is what any of the card's three lines does — 调查进行中 is an investigation under way, 按计划进行 is going to plan, 进行修改 is carrying a change out.",
+      "gloss": "to carry out; to be under way"
+    },
+    "hsk30l4/节约": {
+      "why": "'我节约我有的钱。' is clumsy in both languages — the Chinese repeats 我 either side of the verb where a relative clause wants 我所有的钱, and the English read 'I save what money I got'. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "我节约我有的钱。"
+      ],
+      "ex": [
+        [
+          "我们应该节约用电。",
+          "We should save electricity."
+        ]
+      ]
+    },
+    "hsk30l4/郊区": {
+      "why": "Its first line ended in SIX ASCII FULL STOPS where Chinese sets an ellipsis as ……, two ellipsis characters. The corpus's only site of it, and one the deck-level punctuation pass cannot see, since that pass converts a mark standing immediately after a character rather than a run of them.",
+      "exSpace": [
+        [
+          "郊区很安静......",
+          "郊区很安静……"
+        ]
+      ]
+    },
+    "hsk30l4/交通": {
+      "why": "'这地方交通不方便。' read 'isn't convenient TO public TRANSPORTATION' — which is not English, and which is American besides. The corpus's two sites of that word are this one and 客运's gloss; two sites is not a table row.",
+      "exEn": [
+        [
+          "这地方交通不方便",
+          "This place is not well served by public transport."
+        ]
+      ]
+    },
+    "hsk30l4/接受": {
+      "why": "'我们接受支票。' read 'We accept CHECKS', which is American — the decks write cheque thirteen times elsewhere, and `check` is deliberately absent from app.js's SPELL_PAIRS because 66 of its 73 sites are the ordinary verb. So the two sites of the banking sense are per-note rows. The same sentence is carried by hsk30l7/支票, whose own gloss already reads cheque.",
+      "exEn": [
+        [
+          "我们接受支票",
+          "We accept cheques."
+        ]
+      ]
+    },
+    "hsk30l4/仅": {
+      "why": "'嗯，仅此而已。' read 'YEA, that's all it is' — yea is an archaic word of assent and the sentence wants yeah.",
+      "exEn": [
+        [
+          "嗯，仅此而已",
+          "Yeah, that's all it is."
+        ]
+      ]
+    },
+    "hsk30l4/尽管": {
+      "why": "'你可以尽管放心。' read 'You can depend on it', which contains nothing a reader can match to 尽管; and 请尽管说 read 'please tell me' about helping 'your AREA' — 地方 there is a respect or a point, not a place.",
+      "exEn": [
+        [
+          "你可以尽管放心",
+          "You may rest assured."
+        ],
+        [
+          "如果有什么我可以帮到你的地方",
+          "If there is anything at all I can help you with, please just say."
         ]
       ]
     }
