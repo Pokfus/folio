@@ -837,6 +837,59 @@ flat statement that the identification of the Teutoburg Forest is most uncertain
 `rm-414` set the Kalkriese excavation against the ancient name honestly, with an open German review of the
 Oberesch find distributions for what the ground does and does not show.
 
+**Six of the ten lines were retitled writing `rm-421`–`rm-430`, and five of them for the reason this deck
+keeps giving: the line named an EVENT, and an event wants the thing it made or the person it turned on.**
+**`rm-421 The German campaigns of Germanicus`** takes **`Arminius`**, who is what those campaigns were
+about and who has no other line anywhere in the thousand — `rm-414 Battle of the Teutoburg Forest` gives
+him one sentence of its ten, so the card is his own and the campaigns of 14–16 CE are its middle five.
+**`rm-422 The death of Germanicus`** takes **`Gnaeus Calpurnius Piso`**: `rm-419 Germanicus` already ends
+on the poison and the condemnation, so what is left to teach is the man, the quarrel, the attempt to
+retake Syria by force and the bronze decree from Baetica that lets the Senate's own version be set beside
+Tacitus's. **`rm-424 The fall of Sejanus`** takes **`Macro`**, who did it and then stayed, so one card
+carries the letter, the camp and the smothering at Misenum. **`rm-428 Caligula and the Senate`** takes
+**`Incitatus`** — the anecdote is the relationship's emblem, and carding it properly is the point, since
+neither Suetonius nor Dio says the consulship happened and both are quoted here saying what they do say.
+**`rm-429 The assassination of Caligula`** takes **`Cassius Chaerea`**, who first appears in Tacitus as a
+young officer in the mutiny `rm-420` cards, so the deck's own ends meet.
+
+**The sixth is `rm-425 Tiberius on Capri`, and it is a SOURCING refusal of exactly `rm-418`'s kind.** The
+obvious answer is *Villa Jovis*, and it cannot be had from here: the name is a modern one for the ruin on
+the island's north-eastern point, the excavation literature is Krause's monograph and the Italian
+conference volume behind it, and the two open reviews of that work sit behind an Anubis challenge
+(Göttinger Forum für Altertumswissenschaft) and a publisher's catalogue page. The ancient sources give
+the ISLAND — Tacitus's twelve villas with twelve names, Suetonius's single small beach and sheer cliffs —
+and never the building's modern name, so the card is answered by **`Capreae`**, which they carry in every
+line. **An answer term has to be carried by a source you can open, and checking that is part of choosing
+it** — the rule `rm-418` produced, applied a second time and reaching the same way.
+
+**The batch's modern leg is DOAJ, and the search order that worked is the one the artefact plan records:
+DOAJ finds the article, Crossref confirms the byline and the year, the DOI is opened and read.** Seven
+journals carried it, all open and all reachable — *Histos* (Shannon on the Livian allusion in Tacitus's
+Angrivarian battle), *Eugesta* (Gladhill on how Suetonius assembles the Capri narrative out of ordinary
+Roman material), *Keria* (Lovenjak on the senatus consultum de Cn. Pisone patre against Tacitus's
+account), *Myrtia* (Rodriguez Horrillo on Dio's books LIX–LX being built round categories of the good
+emperor), *Salduie* (López Sánchez on the end of the western civic coinages under Gaius and Claudius),
+*Studia Ceranea* (Dyjakowska on confiscation under the treason charge as revenue) and *Vestnik NSU*
+(Guskov on the praetorian officers' political ties to senators). **Two were measured shut and are worth
+not re-trying**: `emerita.revistas.csic.es` fails TLS verification from this sandbox, and Heidelberg's
+`journals.ub.uni-heidelberg.de` serves Anubis. Perseus answered 503 throughout, so Josephus was done
+without and Suetonius plus Dio carried the assassination between them.
+
+**Two cards ship WITHOUT a picture, recorded rather than skipped.** **`rm-422 Gnaeus Calpurnius Piso`**:
+no portrait of him is known, Commons holds no photograph of the bronze decree, and the only pictures of
+Celenderis are Hellenistic coins and a sarcophagus lid from its necropolis, neither of which depicts
+anything the card is about. **`rm-424 Macro`**: likewise no portrait, and the one candidate a name search
+returns — the amphitheatre at Alba Fucens, which an inscription links to him — carries nothing on its own
+Commons page to say so, so captioning it would be asserting from memory. **Two more were fetched, looked
+at and rejected**, which is the contact-sheet rule doing its work without a sheet: the Castra Praetoria
+"round corner" is a car park with road signs, and the Alinari photograph of the Palatine is a scan of a
+mounted archival print with library stamps and handwriting across it.
+
+**`rm-427`'s locator could not be fetched from an article title and needed a Wikidata id.** *Antium* has
+an enwiki article and no published primary coordinate, and *Anzio* redirects in a way that yields none
+either; `Q241717` gives it. The route is already in `add-locators.js`'s header and is the first time this
+collection has needed it.
+
 ### The Julio-Claudians — `rm-julio-claudians`
 
     rm-416  Julio-Claudian dynasty
@@ -844,15 +897,15 @@ Oberesch find distributions for what the ground does and does not show.
     rm-418  Dies imperii
     rm-419  Germanicus
     rm-420  Percennius
-    rm-421  The German campaigns of Germanicus
-    rm-422  The death of Germanicus
+    rm-421  Arminius
+    rm-422  Gnaeus Calpurnius Piso
     rm-423  Sejanus
-    rm-424  The fall of Sejanus
-    rm-425  Tiberius on Capri
+    rm-424  Macro
+    rm-425  Capreae
     rm-426  Maiestas
     rm-427  Caligula
-    rm-428  Caligula and the Senate
-    rm-429  The assassination of Caligula
+    rm-428  Incitatus
+    rm-429  Cassius Chaerea
     rm-430  Claudius
     rm-431  The accession of Claudius
     rm-432  The Claudian invasion of Britain
