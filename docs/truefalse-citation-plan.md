@@ -74,7 +74,7 @@ card-side research is then shared.
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two and T7d one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor |
-| T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book |
+| T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md` |
 
 ## Open questions carried forward
@@ -735,3 +735,27 @@ Genghis Khan*, which this corpus labels **[Paywalled]**. The bar here is one OPE
 lift cannot be made; the statement needs an open work for that claim, or nothing. Its `why` also states
 "roughly 24 million square kilometres" with no imperial bracket beside it, which rule 5 would report the
 moment the statement is touched, so a future batch has two things to fix rather than one.
+
+### T11 — four out of two NASA pages and one NOAA fact page (2026-09-17)
+
+Four astronomy and earth-science statements, each narrowed to what its own page carries.
+
+- **Halley's Comet.** NASA's 1P/Halley page gives Halley's 1705 recognition that the comets of 1531,
+  1607 and 1682 were one object returning, his correct prediction of 1758, the Bayeux Tapestry and
+  "observations dating back more than 2,000 years". **THE 240 BCE CHINESE RECORD WAS DROPPED**, along
+  with the "European and Islamic records": the page states the span in round terms and names none of
+  the three traditions, and keeping a date the source does not give would be citing a work for a figure
+  it never prints.
+- **Earth's closest approach.** NASA Earth Observatory's Milankovitch article gives perihelion "on or
+  about January 3", aphelion "on or about July 4" and the 3 per cent difference outright, and its
+  obliquity section gives the 23.5-degree tilt and its control of seasonal contrast. The statement's
+  old wording asserted the seasons are caused by tilt *rather than* distance — a comparison the page
+  does not make — so it now says the seasons follow the tilt, which the page does make.
+- **The tallest mountain, and the summit furthest from the centre.** One NOAA National Ocean Service
+  fact page answers both, so both statements cite it. **ITS FIGURES REPLACED OURS RATHER THAN SITTING
+  BESIDE THEM**: NOAA gives Everest as 8,848 m (29,029 ft) where the statements had the 2020 revision's
+  8,849 m, Mauna Kea as "more than 10,210 metres from base to peak" where the statement had "about
+  10,200", and Chimborazo as a 6,268 m summit standing "over 2,072 meters" further out where the
+  statement had 6,263 m and "about 2 kilometres". A citation is a claim about what the work says, so
+  where the two disagree the prose moves, not the note. **AND MAUNA KEA'S "only the top 4,200 above
+  water" WENT WITH THEM** — a true figure the page does not carry.
