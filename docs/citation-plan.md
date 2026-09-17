@@ -2574,6 +2574,41 @@ record was not needed. If a future batch genuinely needs UNESCO, fetch it throug
 If a needed host turns out to be missing mid-batch, the cheaper fix is switching that environment to
 **Full** for the duration of the citation work rather than editing the list per site.
 
+## The access labels the C34–C37 capitals shipped without (2026-09-17)
+
+`source-audit.js` ends on a count of cards whose citation list is **not majority-open**, and for weeks
+that count read 26 while every one of the flagged cards was resting on government sites, constitutions,
+weather services and open journals. **The flag is a proxy and it was reporting an ABSENT LABEL, not a
+paywall**: 24 of the 26 read `o0/p0` — zero open AND zero paywalled — because the batches that wrote
+them (C34–C37 and C40's neighbours, the small-territory capital cards `gw-704`–`gw-728` and the
+second-seat cards `gw-751`–`gw-758`) omitted the `[Open access]` / `[Paywalled]` tail from all 120 of
+their citations. Nothing else in the pipeline can see this: `add-sources.js` checks the markers and the
+URL, `source-audit.js` counts the citations, `check-citations.js` checks the names, and a citation with
+no label passes all three.
+
+**EVERY ONE OF THE 120 WAS PROBED RATHER THAN ASSUMED**, which is the only way the label means anything.
+110 answered 200 on the first sweep and the residue broke down four ways:
+
+- **Six `000`s were transport, not refusal.** Four were Wayback captures and two were institutional
+  sites (`rmiembassyus.org`, `portabidjan.ci`); all six answered 200 on a second probe, and the
+  Greenland capture gave 200, 200 and then a connection reset over three probes four seconds apart —
+  which is the flapping CLAUDE.md already records of that host. **A single probe cannot tell a dead host
+  from a bad minute.**
+- **One `202` with an empty body** was EUR-Lex, which renders asynchronously.
+- **Three `403`s were bot walls at a publisher whose article is free.** Wiley (`disa.12537`), Royal
+  Society Open Science (`rsos.220275`) and MDPI (`rs12010154`) all refuse this datacentre; all three are
+  CC BY at the publisher's own site, and the first two were **opened at their PubMed Central copies from
+  here** to prove it. **The shipped URLs were left alone**, on T2b's rule: a 403 at a datacentre address
+  is not proof the link is dead for a reader at home, and rewriting a verified citation on that evidence
+  would be worse than recording it.
+- **OpenAlex was consulted and not believed on its own.** It reports three USGS Scientific Investigations
+  Reports as `closed`, which is a metadata judgement about a US government work that `pubs.usgs.gov`
+  serves free to anyone; the probe is what settled them.
+
+All 120 are labelled `[Open access]`. **The two cards left flagged are the real ones** — `wh-572`
+Songhai and `wh-578` Kilwa, both 2 open against 3 paywalled, and both with no open copy of any of their
+six paywalled works anywhere OpenAlex knows of. They are a research job rather than a labelling one.
+
 ## Working notes
 
 - **Keep a register.** `.claude/sources-register.md` (not shipped): every citation once verified, in final
