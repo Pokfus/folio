@@ -233,6 +233,60 @@ DESCRIBES it to someone who cannot. Twenty-two were rewritten from the picture a
 **Budget for this: on a batch of concrete subjects it is about half of them**, because a file named
 after its subject produces an alt that is the subject's name.
 
+## Batch 4 — the second-choice candidates, and the abstract end
+
+Two halves, both cheap, and the second is where the pass stops paying.
+
+**THE SECOND-CHOICE PASS: 7 of 52.** Candidate 0 having been rejected for 52 concrete terms, candidates
+1 and 2 were put on a sheet — and 52 terms yielded only 64 further candidates, most having just one
+usable file. Seven were right and are shipped: `gr-301` Hipparchus insulting Harmodius' sister,
+`gr-302` the Syriskos Painter's stamnos of Hipparchus' death, `gr-541` the silver ossuary and gold
+crown from Amphipolis identified as Brasidas', `gr-601` Mucha's *Médée* poster, `gr-620` the
+Oxyrhynchus papyrus of the *Hellenica* itself rather than a bust of its author, `bio-061` a ribbon
+diagram, and `rm-266` Scipio Aemilianus at the deathbed of Masinissa.
+**Where the ARTICLE is wrong, every candidate is wrong**, which is most of the failures here:
+`Archaic_period_(North_America)` offered a fir tree and a copper knife, `Memorabilia` a souvenir album,
+`Battle_Harbour` a clapboard church. **So a rejected candidate 0 is worth a second look only when the
+article was right and the file was not.**
+
+**THE `event` KINDS: 14 of 71, and one real distinction came out of it.** **A map made OF the event
+works; a map of the REGION does not.** Four shipped are purpose-drawn historical maps — the Rebellion
+of the Seven States with the rebel kingdoms marked, the First Mithridatic War's campaign routes, the
+Ephesian Vespers' cities, Sulla's march on Rome with its gates — and every generic relief map of
+Greece, France, China or the Aegean was rejected, because **the card already draws its own Atlas
+window** and a second map of the same ground says less than the one the reader has.
+The rest are pictures of the event: Jamin's Brennus for the Gallic sack, Sweerts' *Plague in an Ancient
+City*, the destruction of the Athenian army at Syracuse, Gérôme's *Death of Caesar*, the seventeen
+executed soldiers excavated at Valencia, the Warsaw crowds outside the British embassy on 3 September
+1939.
+**Two more wrong-sense catches**, which is now this pass's most reliable failure: `rm-315` **Marian
+terror** got a shrine of **Our Lady**, and `ww2-133` **Quarantine Speech** got a 1942 poster reading
+*Fool the Axis — Use Prophylaxis*.
+**And a portrait is not an event.** A bust of Caesar for the First Triumvirate and one of Marius for
+the Social War were refused; a bust of Cicero for *the consulship of Cicero* was kept, because there
+the card's subject is one man's year.
+
+**Two cards were added BY HAND rather than by loosening the rule that declined them.** `cnh-247`'s file
+is named in Chinese, so `mostlyNonLatin` correctly refused to let a caption be made from it — an alt
+written by eye answers that objection without weakening the rule for the next batch. `rm-335`'s term is
+keyed `Pompeys_settlement_of_the_East` while the card answers *Pompey's settlement of the East*, and
+the resolver folds spaces and underscores but not apostrophes.
+
+### A third pipeline fault: the resolver guessed between two terms of the same name
+
+`pick-images.js` lets a disambiguated key claim its bare name, which is right for `Lucy_(Australopithecus)`
+and wrong the moment TWO keys strip to the same thing — first come wins, and first come is glossary
+insertion order, so which of two terms a card resolves to was decided by which was typed first.
+**Measured: three bare names are contested — `georgia`, `demosthenes`, `social war` — six cards answer
+one of them, and THREE resolved to the wrong term**: `geo-027`, the United States card, to
+`Georgia_(country)`; `rm-305`, the Roman Social War of 91–87, to the Greek one of 357–355; `gr-692` to
+the general rather than the orator. The other three were right by accident.
+**The rule is app.js's own** — `bareTaken` in `buildGlossIndex`, which has refused a contested bare name
+for the auto-linker all along; this had simply never been carried across. **No picture had yet shipped
+through a wrong resolution**, so it is prophylactic, and the cost is honest: `gr-559` and `rm-305` now
+resolve to nothing at all and report so, which is the right answer for a card whose answer names two
+terms.
+
 ## What to do next
 
 1. ~~The 25 whose term already has a picture.~~ **DONE — and it was not the free win it looked like;
