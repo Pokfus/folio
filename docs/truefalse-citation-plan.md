@@ -71,7 +71,7 @@ card-side research is then shared.
 | T3 | Chinese history | part done; `cnh-` cards carry most of it |
 | T4 | Modern history | part done; T4a took three of it |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511` |
-| T6 | Science & invention | the hardest; see the three below |
+| T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six and T7b three, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables |
 | T9 | Astronomy / Earth science | part done; T9a took four, T9b three and T9c three, all off NASA |
@@ -492,6 +492,38 @@ date to cite them by, and answer from this sandbox.
 a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
 than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
 belt but does not carry the claim that every probe crossed it without dodging.
+
+### T6a — the first two of the hardest category, off a primary text and a government page (2026-09-17)
+
+T6 was set down as "the hardest" and it is, because its statements are about who invented what, which is
+exactly the claim a tertiary source states loosest. Two of the fifteen came out cleanly all the same, by
+opposite routes.
+
+- **Darwin and "survival of the fittest".** **THE PRIMARY TEXT IS THE SOURCE HERE, AND IT SETTLES THE
+  QUESTION IN THE AUTHOR'S OWN WORDS**: the sixth edition carries "the expression often used by Mr. Herbert
+  Spencer, of the Survival of the Fittest, is more accurate, and is sometimes equally convenient" — Darwin
+  attributing the phrase in the very book he is supposed to have coined it in. The first edition is cited
+  beside it for an ABSENCE, the phrase occurring nowhere in it, and **Project Gutenberg's own front matter
+  is what makes both editions citable**: eBook 1228 is labelled "1859, First Edition" and 2009 "1872, Sixth
+  Edition, considered the definitive edition", so the edition is stated by the source rather than assumed.
+  **The `why` lost two facts it could not open.** It said the phrase was coined by Spencer "in his 1864
+  *Principles of Biology*" and that Darwin adopted it "from the 5th edition (1869) onward"; both are true,
+  neither is in either text read here, and the fifth edition was not opened. What replaced them is
+  sharper anyway — the author's own attribution.
+- **Edison and the light bulb.** The U.S. Department of Energy's *The History of the Light Bulb* opens on
+  the point: "Like all great inventions, the light bulb can't be credited to one inventor." It dates the
+  first constant electric light to 1835, gives the forty years of incandescent-lamp work after it, Edison's
+  1879 and 1880 patents, Joseph Swan's English patent and the Sawyer-Man United States patent.
+  **The `why`'s list of predecessors went**: it named Humphry Davy and Warren de la Rue, and the page names
+  neither.
+
+**TWO HOSTS WERE MEASURED AND BOTH FAIL, which is why the rest of this category is still open.**
+`royalsocietypublishing.org` answers 403 here, so the *Philosophical Transactions* — which is where
+Leeuwenhoek's own letters are — cannot be reached. And **the Einstein Papers have gone behind a launch
+page**: `einsteinpapers.press.princeton.edu/vol1-doc/<n>` returns 200 carrying an announcement that the
+portal "launches" into a database for "institutional partners, libraries, scholars", with no document. That
+is the 200-status non-document this plan records five varieties of, in a sixth shape, so the Einstein
+schoolboy-maths statement has no source rather than a wrong one. Europe PMC was 503 throughout the batch.
 
 ### T8b — three chemistry statements off two open periodic tables (2026-09-17)
 
