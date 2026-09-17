@@ -1264,7 +1264,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.34 MB and 48,868 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.35 MB and 48,940 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -2892,6 +2892,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Scheduling, Skip today, Colour, Icon, Remove. **NEVER NAME A CLASS `ad-…`**: `.ad-body` and `.ad-title`
     are real ad class names, so EasyList hid the deck's NAME for every reader with an ad blocker; the prefix
     is `dk-` and `adBaitCheck()` in `test-layout.js` is a static guard against it.
+  · **A DECK FINISHED FOR THE DAY GOES GREEN, AND GOLD IF NOTHING WAS MISSED** (`adDay` /
+    `doneMarkHTML` / `--dk-accent` / `.dk-done` / `.dk-won`; Sep 2026, on request — "in the same way as a
+    completed minigame"). It is `.game-tile.done` / `.game-tile.won` transposed onto a row and every rule
+    that made that small applies here. **DONE IS THE ROW'S OWN THREE COUNTS AT ZERO**, taken from
+    `entryPiles`, which is what DRAWS those counts — so the mark and the numbers beside it cannot
+    disagree; a SKIPPED deck is deliberately not green (it has postponed the work, not finished it) and
+    nor is a row claiming no cards. **GOLD IS THE BANNER'S OWN READING OF "PERFECTLY"** — every card's
+    FIRST attempt today, new and review alike, exactly as `reviewDayRec()` counts for the banner directly
+    above these rows, measured per deck out of `S.revlog`; the two day Sets are built ONCE for the whole
+    list and built BACKWARDS so the walk stops at the first row that is not today's.
+    **`--dk-accent` IS `--gt-accent`'s LESSON WORD FOR WORD**: the row's hue arrives INLINE as
+    `--coll-bg`, and an inline declaration beats any selector without `!important`, so `.dk-done` sets a
+    second property that the wash, the left bar, the hover and the tick all read and which merely defaults
+    to the collection's hue. **ITS TWO DECLARATIONS CARRY AN ANCESTOR FOR SPECIFICITY** (`.active-decks
+    .active-deck.dk-done`), because a group header and a language header declare a `--dk-accent` of their
+    own at the same two classes further down the stylesheet and would otherwise win on source order —
+    which is a finished collection painting itself in its collection's colour under a green tick.
+    **THE BAR IS DELIBERATELY NOT TOUCHED**: `.prog-done` already turns a row's bar and its title gold and
+    means something else entirely — every card in the deck studied, ever, against this deck TODAY — so the
+    two live on different parts of the row. **THE SUBJECT ICON KEEPS THE COLLECTION'S HUE**, unlike the
+    tile's glyph, which is `display:none` when played: a row's mark names WHICH collection the deck is,
+    which is not a fact about the day. And **the corner mark is CLIPPED to 1px, never `display:none`** —
+    it is the only thing on the row that states the day in words. **A CONTAINER AND ITS CHILDREN CAN
+    DISAGREE AND THAT IS THE EXISTING DESIGN**, not a fault this introduced: every level has its own
+    allowance, so a collection whose day is spent reads 0/0/0 over a subdeck still offering its own share
+    — the counts have said so since the per-deck limits shipped and this only paints it.
   · **THE READER'S OWN CONTAINERS** (`S.deckGroups` / `S.deckNest`): a group holds decks dragged into it,
     folds, can be renamed and coloured, and studies everything under it. **A container counts what is drawn
     UNDER it**, so a collection that has lost two decks to a group stops claiming their cards. **⚠ No new
@@ -3093,6 +3119,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     it. `.ttip:visible` is the fix, on the COUNT as well as the click. **A section that starts collapsed
     changes what `.first()` means for every selector in it**, which is `PAGES.order`'s own lesson above
     wearing different clothes: when a feature gains a collapsed block, the fixtures are part of the change.
+    **AND IT KILLED A SECOND SUITE, WHICH SAT RED FOR DAYS BECAUSE ITS MESSAGE NAMED THE WRONG THING**
+    (Sep 2026). `test-a11y.js` reached for `document.querySelector(".ttip")` IN THE PAGE and reported
+    "cannot take focus" — which reads as the term having lost its `tabindex`, a real accessibility
+    regression, rather than as the fixture having found a term inside a closed fold. **`offsetParent` IS
+    NOT THE TEST**, and that was the first repair: a closed `<details>` hides its contents with
+    `content-visibility`, so the element keeps its layout box, `offsetParent` is non-null and
+    `getComputedStyle` reports `visibility:visible` — and it still cannot take focus. Ask the FOLD:
+    `!el.closest("details:not([open])")`.
   · **ELABORATED FEEDBACK, ON TWO SURFACES.** A MISSED study card gets `cardFirstSentence` — the
     background's own opening definition — inline under the answer, **with the footnote markers stripped**,
     since `sup.fn:empty::before` prints a marker's own digit and a lifted sentence would carry numerals
@@ -6930,7 +6964,8 @@ division-capital city tier are inert dead code.
     `clearStudySession` / `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` /
     `openDeckLimits` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` /
     `orderedIds` / `setupDeckDrag` / `deckEditOn` / `deckEditCheckpoint` / `deckEditBarHTML` /
-    `setEntryTitle` / `adOwnTitle` / `rowTitle` / `.rv-editing` / `.rv-topacts` / `.rv-foot` / `.dk-del` /
+    `setEntryTitle` / `adOwnTitle` / `rowTitle` / `adDay` / `doneMarkHTML` / `--dk-accent` /
+    `.dk-done` / `.dk-won` / `.rv-editing` / `.rv-topacts` / `.rv-foot` / `.dk-del` /
     `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` /
     `setNestParent` / `nestChildren` / `openDeckSched` / `setDeckSched` / `setDeckRetention` /
     `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`

@@ -5023,13 +5023,89 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      and 9% — the right HUE at half the strength, which read as a different, washed-out colour rather
      than as the same one. Keep these four figures in step with `body[data-theme="folio"]
      .collection-deco` and its `.night` pair; the two rules exist to say the same thing. */
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 30%, transparent), transparent 64%) var(--card);
-  border:1px solid var(--rule); border-top:0; border-left:4px solid var(--coll-bg, var(--tile, #9A6634));
+  --dk-accent:var(--coll-bg, var(--tile, #9A6634));
+  background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 30%, transparent), transparent 64%) var(--card);
+  border:1px solid var(--rule); border-top:0; border-left:4px solid var(--dk-accent);
   padding:10px 13px; animation:pageIn .3s var(--ease) both;
 }
 /* like the banner's own wash, weaker on dark themes — the hue sits on a dark card and reads twice as
    strongly there, which is why the banner's own night pair drops from 30% to 22% as well */
-body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--card);}
+body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 22%, transparent), transparent 64%) var(--card);}
+/* ---------- A DECK FINISHED FOR THE DAY (Sep 2026, on request) ----------
+   "When an active deck has been completed for the day … it should turn green and have a checkmark in
+   the right of the deck background, in the same way as a completed minigame, and gold if the review
+   cards were completed perfectly." So this is `.game-tile.done` / `.game-tile.won` transposed onto a
+   row, and everything that made that small makes this small too — read that block before changing it.
+
+   `--dk-accent` IS WHY THIS IS SMALL, and it is `--gt-accent`'s lesson word for word. The row's hue
+   arrives INLINE as `--coll-bg` (PAGES.home writes it per row from COLL_THEME), and an inline
+   declaration beats any selector without `!important` — so `.dk-done` cannot simply re-set `--coll-bg`.
+   It sets a second property that the wash and the left bar read instead, and which merely DEFAULTS to
+   the collection's hue. Two lines for the two states, and nothing derived from it had to be found.
+
+   THE BAR IS DELIBERATELY NOT TOUCHED, and that is the one thing to keep straight here: `.prog-done`
+   already turns a row's BAR and its TITLE gold, and it means something else entirely — every card in
+   this deck has been studied at some point, which is a fact about the deck's whole life. This is a fact
+   about TODAY. They are kept on different parts of the row (the wash, the left bar and the tick against
+   the progress bar and the name) precisely so a reader can hold both at once: a deck can be finished
+   today without being finished, and finished without being finished today.
+
+   THE TICK IS A MASK, NOT A GLYPH — the same 24-box polyline and the same technique as the tile's, so it
+   takes the accent colour with everything else. It sits at the RIGHT, as asked, at z-index 0 with the
+   row's own contents lifted over it: a watermark the row is read across, which is what lets it be this
+   large on a line only 41 to 47px tall. The lift is written out per child rather than as `> *` because
+   `.dk-grip` is `position:absolute` in the row's left padding and giving it `position:relative` would
+   drop it back into the flex line.
+
+   THE SUBJECT ICON KEEPS THE COLLECTION'S HUE, which is where this parts company with the tile. The
+   tile's corner glyph is `display:none` once played, because it names a game whose name is written
+   underneath it in words; a row's mark names WHICH collection the deck belongs to and is the reader's own
+   where they have set one, so re-tinting it green would spend the day's colour on the one thing in the
+   row that is not about the day. `.coll-ic.dk-ic` therefore goes on reading `--coll-bg` directly.
+
+   THE CORNER MARK IS CLIPPED, NEVER `display:none`, for the tile's reason: `.gt-check` / `.gt-seal` is
+   the only thing on the row that STATES the day in words (`role="img"` + aria-label), so it stays in the
+   accessibility tree at 1px. A row that has gone green and says nothing about it to a screen reader is
+   a row that has told half its readers nothing. */
+/* THE ANCESTOR IS SPECIFICITY, NOT DECORATION, and it is `.prog-done`'s own lesson: a group header and a
+   language header declare a `--dk-accent` of their own further down this file — their fallback hue is not
+   a deck row's — at the same two classes as these, so on source order alone the group's declaration wins
+   and a finished COLLECTION goes on painting itself in its collection's colour with a green tick over it.
+   Three selectors beats two wherever the rules happen to sit. `!important` is not used. */
+.active-decks .active-deck.dk-done{ --dk-accent:var(--good, #4F9D67); }
+.active-decks .active-deck.dk-won{ --dk-accent:var(--dk-gold); }
+/* the tile's own gold, which is scoped to `.game-tile` — the same pair rather than a second gold, since
+   the two marks can be on screen together and a banner's seal sits between them */
+.active-deck{ --dk-gold:#B8892A; }
+body.night .active-deck{ --dk-gold:#D8B355; }
+.active-deck.dk-done::after{
+  content:""; position:absolute; z-index:0; pointer-events:none;
+  /* Clear of the chevron's column (26px) and the row's own right padding, so the two marks do not sit on
+     top of each other. THE BOX IS TALLER THAN THE ROW ON PURPOSE and the figure is arithmetic rather than
+     taste: the polyline runs y 6→17 of a 24 viewBox, so its ink is the middle 46% of a square box — at
+     152% of the 41px group header that is a 29px tick on a 41px line, and what overflows into
+     `overflow:hidden` is empty space above and below it. Raising it much past this starts cutting the
+     top-right arm off on the SHORTEST row kind, which is that header — 7px padding against a deck
+     row's 10px. */
+  right:46px; top:50%; transform:translateY(-50%); height:152%; aspect-ratio:1;
+  background:var(--dk-accent); opacity:.18;
+  -webkit-mask:var(--dk-tick) no-repeat center/contain;
+  mask:var(--dk-tick) no-repeat center/contain;
+}
+.active-deck.dk-won::after{ opacity:.30; }
+.active-deck{ --dk-tick:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>"); }
+/* the row is read OVER the watermark — every child that can reach the right-hand end of the line, and
+   NOT `> *`, which would re-position the absolutely-placed grip */
+.active-deck.dk-done .dk-counts,
+.active-deck.dk-done .dk-body,
+.active-deck.dk-done .dk-chev,
+.active-deck.dk-done .dk-chev-gap,
+.active-deck.dk-done .coll-ic,
+.active-deck.dk-done .dk-dl{ position:relative; z-index:2; }
+.active-deck .gt-check, .active-deck .gt-seal{
+  width:1px; height:1px; padding:0; border:0; overflow:hidden;
+  clip-path:inset(50%); background:none; box-shadow:none; animation:none; filter:none; flex:none;
+}
 /* THE SUBDECK FOLD (Aug 2026, on request) — see adSyncFold in app.js.
    `.dk-shut` is a CLASS rather than the `hidden` attribute on purpose: `.active-deck` carries an author
    `display:flex`, which beats the UA `[hidden]` rule outright, so the attribute would have needed an
@@ -5134,23 +5210,26 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    decks inside legible.
    An added COLLECTION is drawn this way too: it holds no cards itself, only the decks inside it do. */
 .active-deck.deck-group, .active-deck.dk-langhead{
+  /* its own fallback hue, which is not the deck row's — set on `--dk-accent` rather than written into the
+     gradient, so `.dk-done` can still re-point it (see the dk-done block up by `.active-deck`) */
+  --dk-accent:var(--coll-bg, var(--tile, #5AA9DC));
   padding-top:7px; padding-bottom:7px;
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 38%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 12%, transparent) 78%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 38%, transparent), color-mix(in srgb, var(--dk-accent) 12%, transparent) 78%) var(--card);
 }
 /* …and its own night pair, for the reason `.active-deck.context` needs one: `body.night .active-deck`
    (0,2,1) outranks this (0,2,0) whatever the source order, so without it a group header on every dark
    theme silently lost the darkening that makes it a header at all. */
 body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 28%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 9%, transparent) 78%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 28%, transparent), color-mix(in srgb, var(--dk-accent) 9%, transparent) 78%) var(--card);
 }
-.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}
+.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 48%, transparent), color-mix(in srgb, var(--dk-accent) 16%, transparent) 78%) var(--card);}
 /* …and a LANGUAGE header hovers the same way, its press opening its options rather than a session (Aug
    2026). It must NOT be folded into `.active-deck[data-review]:hover` further down: that one deepens the
    DECK's resting wash, which is weaker than a header's, so hovering a header would LIGHTEN it. The
    attribute is carried only to make this four selectors deep — `body.night .active-deck.dk-langhead` is
    (0,3,1) and would otherwise outrank a plain `.active-deck.dk-langhead:hover` on every dark theme, which
    is the trap the night pair above this already records. */
-.active-deck.dk-langhead[data-langhead]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}
+.active-deck.dk-langhead[data-langhead]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 48%, transparent), color-mix(in srgb, var(--dk-accent) 16%, transparent) 78%) var(--card);}
 /* THE HEADER IS SET IN THE ROWS' OWN FACE (Aug 2026, on request). It used to take `--display` two sizes
    down, bolder, letterspaced and in capitals — which read as a different KIND of thing from the decks under
    it rather than as the heading of them — so the rule that did all that is gone and `.active-deck .dk-title`
@@ -5177,16 +5256,18 @@ body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
 .active-deck[data-review], .active-deck[data-langhead]{cursor:pointer;}
 /* hover deepens the same wash rather than introducing a colour of its own — it must stay ABOVE the resting
    mix in both layers, or hovering a row would lighten it */
-.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 38%, transparent), transparent 64%) color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 10%, var(--card));}
+/* the HOVER wash reads `--dk-accent` too, or a row that has gone green turns back to its collection's
+   hue under the pointer — which is the whole reason that property exists (see the dk-done block) */
+.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 38%, transparent), transparent 64%) color-mix(in srgb, var(--dk-accent) 10%, var(--card));}
 .active-deck[data-review]:focus-visible, .active-deck[data-langhead]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 /* An ancestor SIGNPOST row (not itself added) carries the same collection wash at the same strength — what
    marks it as context is the paper under it and the quieter title, not a different colour, since it names
    the very collection its children are washed in. */
-.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 30%, transparent), transparent 64%) var(--paper-2);}
+.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 30%, transparent), transparent 64%) var(--paper-2);}
 /* …and its own night pair. Without it `body.night .active-deck` (0,2,1) outranks `.active-deck.context`
    (0,2,0) whatever the source order, so on every dark theme a context row silently lost both its weaker
    wash and the --paper-2 under it and rendered identically to an added deck's row. */
-body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--paper-2);}
+body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 22%, transparent), transparent 64%) var(--paper-2);}
 .active-deck.context .dk-title{font-size:calc(14px * var(--fs)); color:var(--ink-faint); font-weight:600;}
 /* the ancestor rows' hollow marker went with the active rows' blue dot: it existed to line the two up, and
    left on its own it would have pushed every parent title 21px right of the deck sitting under it. The

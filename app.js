@@ -22700,6 +22700,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     }
   }
+  /* THE DAY'S COMPLETION MARK — two shapes in ONE PLACE (Aug 2026, on request).
+     Merely HAVING PLAYED is a small green circled check in the top-right. A PERFECT score is a shining
+     gold WAX SEAL with the same check impressed in it, in the SAME corner and at the same anchor — where
+     it used to be a diagonal ribbon reading "Perfect!" across the whole corner.
+     WHY THE SAME PLACE IS THE POINT: the two marks answer one question — how did today go — and while
+     one of them crossed the corner and the other sat inside it, a grid of nine tiles was two different
+     kinds of announcement in two different places, and the eye had to read the shape before it could
+     read the state. Same anchor, same size class, and the DIFFERENCE is the thing that differs: green
+     circle against gold wax. The seal is a fraction of the ribbon's surface and says more, because a
+     wax seal already means "sealed, finished, done properly" before a word is read.
+     Both still carry a NAME, which is what the ribbon was built for and is not weakened by the mark
+     getting smaller: each is `role="img"` with an aria-label, since a patch of colour says nothing to a
+     screen reader whatever shape it is. The check inside the seal is `aria-hidden` — the label on the
+     seal names it once, and reading a tick out twice says nothing the second time.
+
+     IT IS AT MODULE SCOPE, BESIDE ICON, AND THAT IS WHAT THE DECK ROWS NEEDED (Sep 2026, on request:
+     an active deck finished for the day "should turn green and have a checkmark … in the same way as a
+     completed minigame, and gold if the review cards were completed perfectly"). It was a `const` inside
+     PAGES.home declared some four hundred lines BELOW the IIFE that builds the deck list, so a row
+     calling it would have thrown on the temporal dead zone — which is the same reason `ICON` itself is
+     up here. Nothing about the two shapes changed; only where they are declared.
+
+     `labels` is how a row says what it means without a second copy of the markup: a game tile was PLAYED
+     and a deck was FINISHED, and a mark whose only job is to state the fact in words to a screen reader
+     has to state the right one. It defaults to the tile's pair, so no existing caller changes. */
+  const GT_CHECK_SVG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+  const doneMarkHTML = (done, won, labels) => {
+    const L = labels || {};
+    return won
+      ? '<span class="gt-seal" role="img" aria-label="' + esc(L.won || "Perfect today") + '"><span class="gt-seal-face">' + GT_CHECK_SVG + "</span></span>"
+      : done
+        ? '<span class="gt-check" role="img" aria-label="' + esc(L.done || "Played today") + '">' + GT_CHECK_SVG + "</span>"
+        : "";
+  };
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
@@ -22746,8 +22781,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        They are THIS DECK'S OWN piles (entryPiles), not its share of the pooled review: after the daily
        review has drawn its five at random from across the added decks, each row still shows whatever is
        left of that deck's own allowance, which is the "2 new / 3 new" a reader meets under a cleared banner. */
-    const adCounts = (entryId) => {
-      const c = entryPiles(entryId);
+    const adCounts = (c) => {
       // the title is built from the SAME three words the banner labels itself with, run through t() here —
       // a title attribute assembled from numbers is not a string the exact table could ever match
       const tip = c.skip
@@ -22759,6 +22793,62 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return `<div class="dk-counts" title="${esc(tip)}">
         <span class="dkc dkc-new${z(c.nw)}">${c.nw}</span><span class="dkc dkc-learn${z(c.lr)}">${c.lr}</span><span class="dkc dkc-rev${z(c.rv)}">${c.rv}</span>
       </div>`;
+    };
+    /* A DECK FINISHED FOR THE DAY GOES GREEN, AND GOLD IF NOTHING WAS MISSED (Sep 2026, on request:
+       "when an active deck has been completed for the day, (i.e. no new/review cards remaining), it
+       should turn green and have a checkmark in the right of the deck background, in the same way as a
+       completed minigame, and gold if the review cards were completed perfectly").
+
+       DONE IS THE ROW'S OWN THREE COUNTS AT ZERO, and nothing else. The reader's words define it — no
+       new or review cards remaining — and taking the test from `entryPiles`, which is what DRAWS those
+       three numbers, is what makes the mark and the numbers beside it arithmetically incapable of
+       disagreeing. So a deck whose day was spent goes green, and so does one that simply has nothing due
+       today; both are the row saying *there is nothing here for you now*, which is what a reader reads a
+       list of decks to find out. A SKIPPED deck is deliberately NOT green: `entryPiles` already returns
+       three zeroes for one sitting the day out, and green would tell a reader they had finished work they
+       have only postponed. A row claiming no cards at all is not green either, for the same reason a
+       chevron is not drawn on a leaf: nothing was completed.
+
+       GOLD IS THE BANNER'S OWN READING OF "PERFECTLY", not a narrower one. `reviewDayRec()` counts every
+       card's FIRST attempt today, new and review alike, and the banner directly above these rows turns
+       gold when none of them was missed — so a row using a different rule would be a second answer to the
+       same question on the same screen. It is measured per deck out of `S.revlog`, since that is the only
+       record that says WHICH cards were answered; the two Sets are built ONCE for the whole list rather
+       than per row, and built BACKWARDS so the walk can stop at the first row that is not today's.
+       KNOWN LIMIT, STATED RATHER THAN PAPERED OVER: `revlog` is not in the synced blob (it has a table of
+       its own), so a deck finished perfectly on the phone shows GREEN rather than gold on a laptop that
+       has not pulled the log. That is an understatement rather than a false claim, which is the right way
+       round for a flourish. */
+    const _today = todayStr();
+    const dayAnswered = new Set(), dayMissed = new Set();
+    (function () {
+      const log = S.revlog || [];
+      for (let i = log.length - 1; i >= 0; i--) {
+        const r = revRead(log[i]);
+        if (!r || !r.id) continue;
+        if (dayKey(r.t) !== _today) break;   // chronological, so everything before this is older still
+        /* walking backwards, the LAST thing written for a card is its EARLIEST row today — which is the
+           first attempt, the only one that can decide "right first try" (see logReviewDay) */
+        dayAnswered.add(r.id);
+        if (r.correct) dayMissed.delete(r.id); else dayMissed.add(r.id);
+      }
+    })();
+    const DK_DAY_LABELS = { done: "Finished for today", won: "Finished for today, nothing missed" };
+    /* ONE call to `entryPiles` per row rather than two: the counts and the day's state are the same
+       measurement read twice, and that function walks every card in the entry. */
+    const adDay = (entryId) => {
+      const c = entryPiles(entryId);
+      const counts = adCounts(c);
+      const ids = c.skip || c.nw + c.lr + c.rv > 0 ? null : entryCardIds(entryId);
+      if (!ids || !ids.length) return { counts: counts, cls: "", mark: "" };
+      let answered = 0, missed = 0;
+      ids.forEach((id) => { if (dayAnswered.has(id)) { answered++; if (dayMissed.has(id)) missed++; } });
+      const won = answered > 0 && missed === 0;
+      return {
+        counts: counts,
+        cls: won ? " dk-done dk-won" : " dk-done",
+        mark: doneMarkHTML(true, won, DK_DAY_LABELS),
+      };
     };
     /* Every row in the review list carries how far through it the reader is — the bar replaced a bare blue
        dot. The FIGURE beside it moved into the row's options sheet in Aug 2026, on request: a bar says
@@ -23134,6 +23224,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const chev = hasKids.has(r.drag) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
           const title = rowTitle(r);
           const nodeAttr = r.node ? ` data-node="${esc(r.node.id)}"` : "";
+          /* The row's three piles AND its day state, from ONE walk of the entry (see adDay). A `pending`
+             row has no cards on this device and a `context` row claims none, so neither asks. */
+          const day = r.pending || (!r.langhead && !r.group && !r.flat && !r.active)
+            ? { counts: "", cls: "", mark: "" }
+            : adDay(r.active ? r.node.id : r.drag);
           /* A LANGUAGE HEADER (Aug 2026, on a bug report: "the languages collection headers in the active
              decks section looks greyed out and lacks the colored numbers on the left"). It used to fall
              through to the quiet `context` template at the foot of this list, which paints `--paper-2`
@@ -23156,10 +23251,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              row would have opened the sheet twice. (The earlier fix that walk was written for still
              stands: holding it must do something, and now it does what holding every other row does.) */
           if (r.langhead) {
-            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} data-review="${esc(r.drag)}" role="button" tabindex="0" title="Study everything in ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
-              ${grip}
+            return `<div class="active-deck dk-langhead${shut}${day.cls}"${nodeAttr} data-review="${esc(r.drag)}" role="button" tabindex="0" title="Study everything in ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+              ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
-              ${adCounts(r.drag)}
+              ${day.counts}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
                 ${adProg(entryCardIds(r.drag))}
@@ -23177,10 +23272,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              answer the same question two different ways. What still marks it as a header is the wash and the
              deeper indent of the rows beneath it. */
           if (r.group) {
-            return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Study everything in ${esc(title)}">
-              ${grip}
+            return `<div class="active-deck deck-group${shut}${day.cls}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Study everything in ${esc(title)}">
+              ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
-              ${adCounts(r.drag)}
+              ${day.counts}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
                 ${adProg(entryCardIds(r.drag))}
@@ -23213,10 +23308,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                taking that away to advertise an update would be the worse trade. The button stops its own
                press, like Download's, or holding it would open the options sheet over the fetch. */
             const up = r.update ? `<button class="btn tiny dk-dl dk-up" type="button" data-langup="${esc(r.update)}" title="A newer copy of this deck has been published. Updating keeps your progress.">Update</button>` : "";
-            return `<div class="active-deck${shut}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
-              ${grip}
+            return `<div class="active-deck${shut}${day.cls}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
+              ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
-              ${adCounts(r.drag)}
+              ${day.counts}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
                 ${adProg(entryCardIds(r.drag))}
@@ -23226,10 +23321,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             </div>`;
           }
           if (r.active) {
-            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(r.node.title)}">
-              ${grip}
+            return `<div class="active-deck${shut}${day.cls}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(r.node.title)}">
+              ${grip}${day.mark}
               ${adIcon(r.node.id, r.parent)}
-              ${adCounts(r.node.id)}
+              ${day.counts}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
                 ${adProg(entryCardIds(r.node.id))}
@@ -23272,30 +23367,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const playedWhatYearToday = gamePlayedToday("whatyear");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
     const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear") };
-    /* The game tiles' and the banner's marks are at module scope now (see ICON, above PAGES.home) —
-       the daily "Played today" placard needs them too. */
-    /* THE DAY'S COMPLETION MARK — two shapes in ONE PLACE (Aug 2026, on request).
-       Merely HAVING PLAYED is a small green circled check in the top-right. A PERFECT score is a shining
-       gold WAX SEAL with the same check impressed in it, in the SAME corner and at the same anchor — where
-       it used to be a diagonal ribbon reading "Perfect!" across the whole corner.
-       WHY THE SAME PLACE IS THE POINT: the two marks answer one question — how did today go — and while
-       one of them crossed the corner and the other sat inside it, a grid of nine tiles was two different
-       kinds of announcement in two different places, and the eye had to read the shape before it could
-       read the state. Same anchor, same size class, and the DIFFERENCE is the thing that differs: green
-       circle against gold wax. The seal is a fraction of the ribbon's surface and says more, because a
-       wax seal already means "sealed, finished, done properly" before a word is read.
-       Both still carry a NAME, which is what the ribbon was built for and is not weakened by the mark
-       getting smaller: each is `role="img"` with an aria-label, since a patch of colour says nothing to a
-       screen reader whatever shape it is. The check inside the seal is `aria-hidden` — the label on the
-       seal names it once, and reading a tick out twice says nothing the second time. */
-    const GT_CHECK_SVG =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
-    const doneMarkHTML = (done, won) =>
-      won
-        ? '<span class="gt-seal" role="img" aria-label="Perfect today"><span class="gt-seal-face">' + GT_CHECK_SVG + "</span></span>"
-        : done
-          ? '<span class="gt-check" role="img" aria-label="Played today">' + GT_CHECK_SVG + "</span>"
-          : "";
+    /* The day's completion mark is at module scope, beside ICON — see `doneMarkHTML`. */
     /* A TILE FLIPS TO ITS RECORD (Aug 2026, on request: "when long-pressing a minigame tile on the home
        page, the tile should flip around and reveal the user's general stats and site-wide average
        statistics for that minigame that day").

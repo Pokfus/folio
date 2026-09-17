@@ -125,7 +125,7 @@ ordinary English word.**
 | Helladic chronology | ~14 | EH/MH/LH |
 | Troy levels | ~11 | Troy I–IX with VIIa / VIIb |
 | Hills of Rome | 7 | Palatine named separately in the request |
-| **Italian provinces** | **107** | Italy's provinces and metropolitan cities |
+| ~~**Italian provinces**~~ | ~~**107**~~ | Italy's provinces and metropolitan cities — **12 shipped in N24; the other ~95 WITHDRAWN on request 2026-09-17, see the batch log** |
 
 So 244 named terms plus ~163 = **about 400**.
 
@@ -147,7 +147,7 @@ Reachable, and what each is for:
 | `journals.openedition.org`, `persee.fr` | French archaeology of Greece, Italy and the Aegean |
 | `doi.org` | resolves; a paywalled landmark is still citable where it is the landmark |
 | `europepmc.org` | the genetics, the isotopes, the palaeoenvironment |
-| `istat.it` | **the Italian provinces** — the national statistical office, per province |
+| ~~`istat.it`~~ | **the Italian provinces** — planned as the per-province spine and it is not one: N25 measured it publishing no per-province page. The provinces are withdrawn (see N28–N35) |
 | `namuseum.gr` | the National Archaeological Museum's own object records |
 | `openarchaeologydata.metajnl.com` | open excavation datasets |
 
@@ -192,7 +192,21 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N25 | 12 | **The international order** — the institutions a country term names, and the principle they rest on — **shipped**, 11 of 12 pictured |
 | N26 | 12 | **The vocabulary of diplomacy** — the words on nearly every card of the World collection — **shipped**, 9 of 12 pictured |
 | N27 | 12 | **The forms of government** — the words every collection uses about who rules — **shipped**, 8 of 12 pictured |
-| N28–N35 | ~95 | the remaining Italian provinces — **classification leg open, World Heritage leg rate-limited; measured 2026-09-13, still not writable at the bar**; see N24's and N25's findings |
+
+**N28–N35 — THE REMAINING ~95 ITALIAN PROVINCES ARE OFF THE QUEUE, ON REQUEST (2026-09-17).**
+The reader's words: *remove the Italian provinces from the pending glossary list for now; if they come
+up in the future we'll add them then.* They are **withdrawn, not abandoned**: N24's twelve stay shipped
+and pictured, the findings below stay, and the batch is one row away from coming back if a card ever
+needs a province the glossary has not got. **What is recorded here rather than deleted is WHY it was
+cheap to withdraw** — the batch was blocked on its own sourcing and had been for a month. N24
+established that the ~95 cannot be written at the bar from here, N25 probed all three routes out of it
+and none opened (Eurostat's RAMON 404, ISTAT publishing no per-province page, the Getty TGN confirming
+the definition but carrying no sentence a marker could stand on), and **no card on the site is ANSWERED
+by one of them** — measured over 39 of the ~95 against every card's `answerText`, whose only two hits are
+substrings (Trento inside Trenton, Como inside Comoros). So the queue's last row was work that could not
+be done, for terms the pairing rule was not waiting on.
+**Do not re-open it speculatively**: the pairing rule is what should bring a province back — a card
+whose answer term IS one, written with its entry beside it, one term at a time.
 
 **N3 shipped eight terms rather than twelve, and the missing four are one deferral and one
 fold.** *Subminoan* is deferred: Rutter's Chronology Overview gives it a single sentence — "The
@@ -231,10 +245,12 @@ amphoriskos, the Troizen stemmed goblet, the Aegina storage jar), which is the w
 the phase unavailable at the bar; and `Late_Helladic`'s emblematic objects are all spoken for by its
 own subdivisions.
 
-**The provinces are their own phase and should be worked last**, for two reasons: they are a
+**The provinces were their own phase and were to be worked last**, for two reasons: they are a
 quarter of the whole pass, and they are the only part of it that is a table rather than a
 subject — one authoritative source per term, one shape of sentence, no argument to weigh. Doing
-them first would spend the pass's best attention on its least interesting terms.
+them first would spend the pass's best attention on its least interesting terms. **They were then
+WITHDRAWN on request (2026-09-17) with twelve of the 107 shipped** — see N28–N35 in the batch
+log for the decision and for why the remaining ~95 were blocked anyway.
 
 ### Batch log
 

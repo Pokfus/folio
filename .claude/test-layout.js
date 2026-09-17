@@ -1589,6 +1589,142 @@ function scrimCheck() {
       JSON.stringify(cleared));
     await page.close();
   }
+  /* ================= 7b-ii. A DECK FINISHED FOR THE DAY (Sep 2026, on request) =================
+     "When an active deck has been completed for the day, (i.e. no new/review cards remaining), it should
+     turn green and have a checkmark in the right of the deck background, in the same way as a completed
+     minigame, and gold if the review cards were completed perfectly."
+
+     EVERY PART OF THIS FAILS SILENTLY, which is why it is here and not read off a screenshot. A row that
+     never goes green looks exactly like a reader with work left. A row that goes green and then paints
+     itself in its collection's hue anyway is a specificity accident — the group and language headers
+     declare a `--dk-accent` of their own at the SAME two classes, which is the fault this caught while it
+     was being written. A tick with no mask is an invisible `::after`. And a mark that stops being in the
+     accessibility tree leaves a row that has changed colour and says nothing to a reader who cannot see
+     colour, which no rendering test would ever notice.
+
+     THE SETUP IS ONE NEW CARD A DAY, and it has to be written to `localStorage` and then RELOADED: a
+     `page.goto` to a URL differing only in the fragment is a SAME-DOCUMENT navigation, so the in-memory
+     state survives and the next `save()` writes the old figure back over the new one — which is exactly
+     what happened on the first attempt here, and it reads as the limit simply not working.
+
+     GREEN-BUT-NOT-GOLD IS REACHED BY MISSING THE CARD AND THEN GETTING IT RIGHT: Again puts the card on a
+     learning step (so the row is NOT finished), and Easy from that step graduates it to a multi-day
+     interval, which empties all three piles while leaving the day's FIRST attempt a miss. Nothing else in
+     a single session can produce that state. */
+  {
+    const page = await browser.newPage({ viewport: DESKTOP });
+    await watch(page);
+    const finishOne = async (grades) => {
+      await page.goto(base + "#decks", { waitUntil: "load" });
+      await page.waitForTimeout(900);
+      await page.evaluate(() => {
+        const b = document.querySelector("#collection-list-all .collection-add[data-id]");
+        if (b && !b.classList.contains("added")) b.click();
+      });
+      await page.waitForTimeout(400);
+      await page.evaluate(() => {
+        const st = JSON.parse(localStorage.getItem("folio_v1") || "null");
+        if (!st || !st.settings) throw new Error("no saved state to cap: the + was never pressed");
+        st.settings.newPerDay = 1;
+        localStorage.setItem("folio_v1", JSON.stringify(st));
+      });
+      await page.reload({ waitUntil: "load" });          // …or the in-memory S saves the old figure back
+      await page.waitForTimeout(800);
+      await page.goto(base + "#home", { waitUntil: "load" });
+      await page.reload({ waitUntil: "load" });
+      await page.waitForTimeout(1300);
+      await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+      await page.waitForTimeout(1500);
+      await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
+      await page.waitForTimeout(800);
+      for (const g of grades) {
+        await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+        await page.waitForTimeout(450);
+        await page.evaluate((cls) => { const b = document.querySelector(".grade." + cls); if (b) b.click(); }, g);
+        await page.waitForTimeout(700);
+      }
+      await page.goto(base + "#home", { waitUntil: "load" });
+      await page.reload({ waitUntil: "load" });
+      await page.waitForTimeout(1600);
+      /* …with the folds opened first. An added collection is drawn as a group header and its decks start
+         SHUT under it, so a selector reaching for the visible rows would find ONE row — the finished
+         header — and the assertion that a deck with work left is untouched would have nothing to look at.
+         That is not a false pass: it fails, loudly, on a claim that is true. */
+      for (let i = 0; i < 4; i++) {
+        const opened = await page.evaluate(() => {
+          const shut = [...document.querySelectorAll(".active-deck:not(.dk-shut) .dk-chev:not(.open)")];
+          shut.forEach((c) => c.click());
+          return shut.length;
+        });
+        await page.waitForTimeout(280);
+        if (!opened) break;
+      }
+      return page.evaluate(() => {
+        const rows = [...document.querySelectorAll(".active-deck:not(.dk-shut)")];
+        const read = (r) => {
+          const a = getComputedStyle(r, "::after"), m = r.querySelector(".gt-check, .gt-seal");
+          return {
+            title: (r.querySelector(".dk-title") || {}).textContent || "",
+            done: r.classList.contains("dk-done"), won: r.classList.contains("dk-won"),
+            piles: [...r.querySelectorAll(".dkc")].map((x) => +x.textContent.trim()),
+            border: getComputedStyle(r).borderLeftColor,
+            tickColour: a.backgroundColor,
+            tickMasked: (a.maskImage || a.webkitMaskImage || "none") !== "none",
+            // the ::after must actually be INSIDE the row: `overflow:hidden` clips it, so a box placed
+            // past the right edge is a tick nobody will ever see
+            tickRight: parseFloat(a.right) || 0,
+            markLabel: m ? m.getAttribute("aria-label") : null,
+            markRole: m ? m.getAttribute("role") : null,
+            markWidth: m ? Math.round(m.getBoundingClientRect().width) : null,
+            markInTree: m ? !m.hasAttribute("aria-hidden") : false,
+          };
+        };
+        return { rows: rows.map(read), any: rows.length };
+      });
+    };
+
+    const gold = await finishOne(["easy"]);
+    const g = gold.rows.find((r) => r.done) || {};
+    check("a deck with nothing left today goes green/gold", !!gold.rows.find((r) => r.done), JSON.stringify(gold.rows.map((r) => r.title + ":" + r.done)));
+    check("...and it is the row whose three piles are all zero",
+      !!g.piles && g.piles.length === 3 && g.piles.every((n) => n === 0), JSON.stringify(g.piles));
+    check("...a clean day is GOLD, not green", g.won === true, JSON.stringify({ won: g.won, border: g.border }));
+    /* The gold has to reach the row's own WASH, not just the class. The group and language headers declare
+       a `--dk-accent` of their own at the same specificity further down the stylesheet, so this is the
+       assertion that catches a finished row painting itself in its collection's hue. */
+    check("...with the row's left bar in that gold rather than the collection's hue",
+      /^rgb\(184, 137, 42\)$|^rgb\(216, 179, 85\)$/.test(g.border), g.border);
+    check("...and a tick masked into the background at the right of the row",
+      g.tickMasked === true && g.tickRight > 0 && g.tickRight < 200, JSON.stringify({ masked: g.tickMasked, right: g.tickRight }));
+    check("...in the same colour as the rest of the state", g.tickColour === g.border, g.tickColour + " / " + g.border);
+    /* THE MARK IS THE ONLY THING THAT SAYS IT IN WORDS, and it is clipped to 1px rather than removed —
+       the tile's own trade. A row that has changed colour and carries no name for the change has told
+       half its readers nothing. */
+    check("...and the state is NAMED for a reader who cannot see colour",
+      g.markRole === "img" && /nothing missed/i.test(g.markLabel || ""), JSON.stringify({ role: g.markRole, label: g.markLabel }));
+    check("...with that name clipped rather than drawn", g.markWidth === 1 && g.markInTree === true, JSON.stringify({ w: g.markWidth, inTree: g.markInTree }));
+    /* …and a row that still HAS work is left alone, which is the other half of the claim: a treatment that
+       fires on every row says nothing at all. */
+    check("...while a deck with cards still to study is untouched",
+      gold.rows.some((r) => !r.done && r.piles.some((n) => n > 0)),
+      JSON.stringify(gold.rows.map((r) => r.title + ":" + r.piles.join("/"))));
+
+    /* A SECOND READER, AND THE CLEAR HAS TO BE FOLLOWED BY A REAL RELOAD. `localStorage.clear()` empties
+       the store and leaves the app's in-memory state exactly as it was, so the Collections page still
+       draws the collection as added, the `+` is skipped, nothing calls `save()` — and the next read of
+       `folio_v1` is null. It threw there on the first run. */
+    await page.evaluate(() => localStorage.clear());
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(900);
+    const green = await finishOne(["again", "easy"]);
+    const n = green.rows.find((r) => r.done) || {};
+    check("a day with a miss in it finishes GREEN and not gold",
+      n.done === true && n.won === false, JSON.stringify({ done: n.done, won: n.won, border: n.border }));
+    check("...in the site's own green", /^rgb\(78, 155, 126\)$|^rgb\(79, 157, 103\)$/.test(n.border || ""), n.border);
+    check("...and says so rather than claiming a clean sheet",
+      /finished/i.test(n.markLabel || "") && !/nothing missed/i.test(n.markLabel || ""), n.markLabel);
+    await page.close();
+  }
   /* ================= 7c. the review list's SUBDECK FOLD =================
      Adding a collection brings its whole subtree in, so the list can run to forty rows; a row with children
      carries a chevron and starts shut (Aug 2026, on request). Every failure mode here is silent, and one of
