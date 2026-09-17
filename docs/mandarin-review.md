@@ -538,6 +538,7 @@ correct card, and re-deriving that costs a session.
 |---|---|---|---|
 | 2026-09-17 | `check-gloss-source.js`'s whole neighbour-gloss list (24) + its 4 reading findings | 24 | a gloss copied from the card sitting beside it in the exam list |
 | 2026-09-17 | `hsk30l1` notes 1–30 (爱 → 的), deck order | 24 | a gloss that names one use while the card's examples test another |
+| 2026-09-17 | `hsk30l1` notes 31–60 (第 → 个), deck order | 25 | a gloss that leaks its own answer onto the reverse card |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -751,3 +752,77 @@ would rewrite eight files and offer no reader an update.
 - **`不错` is glossed "correct" (hsk30l2)**, which reads wrong and **is not**: CC-CEDICT's own entry
   leads "correct; right; not bad". Checked and deliberately left. Recorded because the next reader of
   that card will have the same doubt.
+
+### 2026-09-17 — Level 1, notes 31–60
+
+**Twenty-five of the thirty.** Twelve are single-character cards and took a `Compounds` list; the
+rest are the same shape of fault as the previous batch — a gloss that names one use while the
+examples test another — plus one new class, below.
+
+**The new class: a gloss that leaks its own answer.** The English → Chinese card's front is
+`{{English}}` **and nothing else**, so a gloss carrying a character of its own headword hands the
+reader the answer. **The previous batch shipped one**: the adverb sense written onto 边 read
+"(一边…一边…) while doing two things at once". It is reworded to CC-CEDICT's own English word,
+*simultaneously*. **多 had the same fault already** — "how (in a question: 多大? how old?)". Measured
+over the nine decks the count was **15, and is now 13**; the survivors are listed at the foot of this
+entry. **This is worth a checker and does not have one**: it is two lines of arithmetic (does the
+gloss contain a Han character of the headword?) and nothing in the pipeline asks it.
+
+**The other glosses.** 读 was glossed "read aloud" **and that is CC-CEDICT's own leading sense**, so
+it is not wrong — but it was the only sense given and **not one of the card's three examples shows
+it**; widened rather than replaced, which is the right answer when the dictionary and the card are
+both defensible. 读书 is the same shape. 对不起 was the single word "sorry" while its first example
+is 你对不起我 "You do me wrong", which is not an apology but the transitive verb the dictionary lists
+separately — split, and each example tagged. 电话 missed the "phone number" sense its second example
+uses. 饭 missed "a meal". 个 is a measure-word card whose gloss led with "individual" — **the same
+fault as 本 in the previous batch**, and worth expecting on every classifier card. 第's gloss said
+"sequence prefix (ordinal number marker)", the same thing twice. 非常's read "very, extremely
+(everyday word)" — **the parenthetical is a note from the author to the author**, and on the reverse
+card it is part of the prompt.
+
+**Four examples replaced, and two of them were one fault.** 弟弟's and 哥哥's third examples carried
+**the identical English, word for word — "His brother studies hard"** — which drops the elder/younger
+distinction both cards exist to teach, so a reader comparing the pair learned nothing from either.
+They are now deliberate mirrors of each other, 我弟弟比我小三岁 against 我哥哥比我大两岁: the two words
+differ by exactly 小/大, and one frame shown twice with the opposite word is the clearest thing either
+card can say. 儿子's second example ended in a **half-width ASCII question mark** — the same fault as
+大学生's last batch, so expect more. 高兴's second was 怎么不高兴？rendered "What makes you sad?",
+which asserts a sadness the Chinese does not and does not contain the headword in the English at all.
+
+**A trap in the record worth knowing.** `dropEx` **also filters the record's own `ex` rows** — any row
+whose Chinese contains a dropped string is removed. So a sentence whose ENGLISH alone needs correcting
+cannot be fixed by dropping and re-adding the same Chinese; it has to be replaced with a different
+sentence. That is why 弟弟 and 哥哥 got new sentences rather than corrected translations.
+
+**The compound rows.** 48 rows over twelve characters, every reading and gloss checked against
+CC-CEDICT first. **Four of the twelve — 第, 都, 二, 歌 — show an HSK 1 reader nothing** in the tap
+panel. Two are polyphonic and carry a row per reading: **都** gets 全都 `dōu` against 首都, 都市 and
+成都 `dū`, and **分** gets 十分 `fēn`, 部分 `fen`, 分析 `fēn` and 充分 `fèn`. Where the panel is
+already full — **饭 has six words in the reader's own deck** — the rows deliberately go elsewhere
+(饭碗, "a rice bowl; one's livelihood", is the kind of row the panel can never produce).
+
+### Two measurements taken this batch, for the batches that come after
+
+**67 glosses carry an American spelling, and a gloss is never converted.** `applySpelling` sweeps
+`.uc-exe` — an example's English — and nothing else, so the gloss a reader sees is the gloss as
+authored, whichever spelling they asked for. The corpus's own glosses lean British (-ise 95 against
+-ize 72, -our 29 against -or 20) and the site is authored British. The count by word: practice 16,
+favor 9, color 8, honor 6, defense 4, theater 4, center 3, license 3, program 3, traveler 2, meter 2,
+tire 2, and one each of gray, plow, neighbor, analyze, aluminum. **It is a ceiling, not a work list**:
+*practice* is the correct British noun and only the verb is *practise*, *tire* is a correct British
+verb, and *program* is British for a computer program. 电影院's "movie theater" was fixed in this
+batch because it fell in range.
+
+**13 glosses still leak a character of their own answer.** 闭嘴, 过得, 个头, 什么事, 我靠, 是的,
+有本事 (all `hsk30phr`), 早晨 (l4), 便 (l5), 辞典 (l7), 要紧 (l7), 无时无刻 and 染指 (both `idm`).
+**Several are not really glosses at all** but CC-CEDICT's cross-reference boilerplate copied whole —
+"same as 闭上嘴巴", "variant of 似的", "see also 哇靠" — which tells a learner nothing and is a
+separate fault worth a pass of its own.
+
+### Found while working, and left for the batch that reaches it
+
+- **`酒店` (hsk30l2) is glossed "wine shop".** 酒店 is a hotel. CC-CEDICT lists "hotel; restaurant;
+  wine shop", so the gloss is inside the dictionary's range and is nonetheless the wrong sense for a
+  modern learner: the card's own examples will say.
+- **`分析` (hsk30l5) is glossed "analysis" under a verb part of speech** — the noun-for-a-verb shape
+  that dominates Levels 7–9, met here at Level 5.
