@@ -25,18 +25,21 @@
 
   4. THE BLANK IS MID-SENTENCE, never at the end: the clue must keep going after it.
 
-  MAP CARDS AND ARTWORK CARDS ARE EXEMPT FROM 3 AND 4, BY DESIGN.  A map card's clue is the SHAPE on
-  the globe rather than the sentence, so its question is deliberately short (5–20
-  words) and deliberately ends on the blank — "The state shaded on the map is ___."
-  See the map-card bullet in CLAUDE.md.  They are still held to rules 1 and 2.
+  A MAP CARD IS EXEMPT FROM 3 AND 4, BY DESIGN.  Its clue is the SHAPE on the globe rather than the
+  sentence, so its question is deliberately short (5–20 words) and deliberately ends on the blank —
+  "The state shaded on the map is ___."  See the map-card bullet in CLAUDE.md.  It is still held to
+  rules 1 and 2.
 
-  AN ARTWORK CARD IS THE SAME CASE WITH A PICTURE IN PLACE OF THE GLOBE (Sep 2026): `artwork: true`
-  says the picture on the front IS the question, so the prompt is short and says what to do with it.
-  IT IS ALSO EXEMPT FROM 2 for a reason the map card never needed: such a question opens "This ivory
-  animal ..." or "These lions ...", and the antecedent of that pronoun is the PICTURE ABOVE IT, which
-  the reader is looking at — not the hidden answer.  Rule 2 is about a clue that says nothing until
-  the blank is filled, and a card whose clue is an image is the one place a demonstrative is doing
-  its ordinary work.
+  AN ARTWORK CARD HAS NO QUESTION AT ALL AND IS SKIPPED OUTRIGHT (Sep 2026, on request: the question
+  side "should show no words but an image").  `artwork: true` says the picture IS the question, and
+  the reader answers in four typed fields whose labels are the whole of the words on that side — so
+  such a card stores `question: ""`, `add-card.js` REFUSES one that stores anything else, and there
+  is no prose here to hold to a length, a blank or a pronoun.  They are COUNTED and reported, so a
+  format that quietly starts carrying prose again shows up as a question this file has checked.
+
+  (It used to hold them to the map card's short range and exempt them from rule 2, the demonstrative
+  in "This ivory animal ..." pointing at the picture rather than at the hidden answer.  That whole
+  paragraph went with the prose it was about.)
 
   It does NOT check that a question describes its topic's most important aspect.
   That is a judgement no checker can make; it is stated in CLAUDE.md and read by eye.
@@ -95,7 +98,7 @@ for (const c of window.CARD_DATA) {
   const isMap = !!(c.map && c.map.key);
   const isArt = c.artwork === true;
   if (isMap) mapCards++;
-  if (isArt) artCards++;
+  if (isArt) { artCards++; continue; }   // no question prose on this format at all — see the header
   const all = [c.question, ...(c.questions || [])];
   all.forEach((q, i) => {
     if (typeof q !== "string" || !q.trim()) return;
@@ -109,11 +112,11 @@ for (const c of window.CARD_DATA) {
     if (stops > 1) fails.push([tag, "more than one sentence", p]);
     if (stops < 1) fails.push([tag, "no closing stop", p]);
 
-    if (CATAPHORA.test(p) && !DUMMY_IT.test(p) && !isArt)
+    if (CATAPHORA.test(p) && !DUMMY_IT.test(p))
       fails.push([tag, "opens on a pronoun that only the answer can resolve", p]);
 
     const w = words(q);
-    const short = isMap || isArt;
+    const short = isMap;
     const lo = short ? MAP_MIN : MIN, hi = short ? MAP_MAX : MAX;
     if (w < lo || w > hi)
       fails.push([tag, `${w} words (want ${lo}–${hi}${short ? ", picture card" : ""})`, p]);
@@ -123,7 +126,7 @@ for (const c of window.CARD_DATA) {
   });
 }
 
-console.log(`${checked} questions across ${window.CARD_DATA.length} cards (${mapCards} map cards, ${artCards} artwork cards).`);
+console.log(`${checked} questions across ${window.CARD_DATA.length} cards (${mapCards} map cards; ${artCards} artwork cards carry no question and are skipped).`);
 if (!fails.length) { console.log("All question rules pass."); process.exit(0); }
 
 console.log(`\n${fails.length} violation${fails.length === 1 ? "" : "s"}:`);

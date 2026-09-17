@@ -168,7 +168,14 @@ const unent = (s) => s.replace(/&(#x?[0-9a-f]+|[a-zA-Z]+);/gi, (m, k) =>
 /* Crossref writes a hyphenated surname with U+2010 (Marie‐Helene Moncel) where the
    citation has an ASCII hyphen, and both spellings are the same name.  Fold the
    dash family together, or three good citations are reported as three wrong ones. */
+/* AND THE SAME FAULT ONE LETTER OVER: a legacy record writes í as a DOTLESS ı
+   (U+0131) carrying a combining acute, so stripping the accent leaves "Jirı
+   Svoboda" against our "Jiri Svoboda" and a good citation is reported as a wrong
+   one.  Fold the dotless pair onto their dotted forms.  It cannot mask a real
+   difference, because the diacritic strip above has already merged every accented
+   i with a plain one — this only finishes the job on the base letter. */
 const fold = (s) => unent(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  .replace(/\u0131/g, "i").replace(/\u0237/g, "j")
   .replace(/[\u2010\u2011\u2012\u2013\u2014\u2212]/g, "-")
   .replace(/[.\u2019'\u2018]/g, "").replace(/\s+/g, " ").trim().toLowerCase();
 
@@ -266,6 +273,11 @@ const CROSSREF_WRONG = [
   // it carries on that byline (0000-0003-1420-2108) registers Steven Paul Ashby.
   // Crossref itself spells him Steven on 10.3176/arch.2020.1.01, under the same ORCID.
   ["10.11141/ia.30.3", "Steven P. Ashby", "Stephen P. Ashby"],
+  // Persee’s metadata for this article is OCR-derived and mangles the byline twice over:
+  // its reference block reads "Skydou Christian" and Crossref relays it. The article’s own
+  // first page prints "CHRISTIANE SEYDOU" above the title, and the Journal des africanistes
+  // published her under that name throughout.
+  ["10.3406/jafr.1988.2246", "Christiane Seydou", "Christian Skydou"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */

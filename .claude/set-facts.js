@@ -21,6 +21,12 @@
   `--check` reports every map card's grid and writes nothing — which is how a batch is reviewed by eye
   before it is applied, the grid being four short strings that no test can judge.
 
+  IT TAKES AN ARTWORK CARD TOO, AND THAT IS NOT A WIDENING SO MUCH AS CATCHING UP (Sep 2026). `facts`
+  was the map card's field alone when this was written; the artwork format added in the Visual Art
+  restart reads the SAME field for its Artist / Material / dimension / Location grid, drawn by the same
+  `cardFacts` two to a row and therefore an ORDER in exactly the same way. Refusing one sent the next
+  correction to `update-cards.js`, which is the unvalidated path this tool exists to replace.
+
   A CELL MAY BE "?" AND THAT IS DELIBERATE (Sep 2026, on request: "if you cannot find data for any
   particular one, just put a questionmark there"). It is not a placeholder to be filled in later by a
   guess — it is the card saying the figure was looked for and not found, which is the honest state and

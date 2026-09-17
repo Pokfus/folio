@@ -1,6 +1,31 @@
-<!-- Maskable variant: the seal sits inside the 40% safe zone, so Android can crop this to any
-     mask shape (circle, squircle, rounded square) without clipping the mark. Full-bleed paper. -->
+<!-- Maskable variant of icon.svg: the same folio, scaled to 80% about the centre so its furthest
+     point sits about 156px from the middle, well inside the maskable safe circle (radius 204.8, being
+     40% of 512), so a launcher can crop this to a circle, a squircle or a rounded square without
+     clipping the mark. Full-bleed ground and no corner radius: the mask supplies the shape.
+     The scale is a TRANSFORM rather than re-typed coordinates, so the two files cannot drift apart;
+     edit the paths in icon.svg and they carry here. 80% rather than the old variant's 64%, which was
+     over-cautious and left the mark adrift in a field of paper on every launcher. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Folio">
-  <rect width="512" height="512" fill="#F6F5F1"/>
-  <circle cx="256" cy="256" r="82" fill="#C8453C"/>
+  <defs>
+    <linearGradient id="opal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F4F0FB"/>
+      <stop offset=".22" stop-color="#EAF3FB"/>
+      <stop offset=".44" stop-color="#EFF8F2"/>
+      <stop offset=".68" stop-color="#FBF3F7"/>
+      <stop offset="1" stop-color="#F2EFFC"/>
+    </linearGradient>
+    <linearGradient id="leafL" x1="83" y1="0" x2="239" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#45549C"/>
+      <stop offset="1" stop-color="#1E7A85"/>
+    </linearGradient>
+    <linearGradient id="leafR" x1="273" y1="0" x2="429" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1E7A85"/>
+      <stop offset="1" stop-color="#AE3350"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#opal)"/>
+  <g transform="translate(256 256) scale(.8) translate(-256 -256)" stroke-width="22" stroke-linejoin="round">
+    <path d="M228 178 110 145Q78 256 110 335l118 33z" fill="url(#leafL)" stroke="url(#leafL)"/>
+    <path d="M284 178 402 145Q434 256 402 335l-118 33z" fill="url(#leafR)" stroke="url(#leafR)"/>
+  </g>
 </svg>
