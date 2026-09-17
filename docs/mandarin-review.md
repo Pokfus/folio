@@ -559,6 +559,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | **the coarse-content sweep**, all nine decks, profanity · sexual · body · adult · slur read in full | 37 | a card all three of whose sentences were about penises |
 | 2026-09-17 | **the violence half of that sweep, plus a public-figures sweep**, all nine decks | 29 | a living head of state accused of murder on a vocabulary card |
 | 2026-09-17 | **the American-spelling pass**, all nine decks, as a new `exBritish` deck field | 412 | 489 American spellings in decks the site's switch can never correct |
+| 2026-09-17 | **the American-word-choice pass**, all nine decks, as a new `exLexis` deck field plus 87 per-note rows | 189 | a word the spelling table cannot reach, because it is a different word |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -2961,3 +2962,99 @@ for 事情 (~40) and the whitespace batch (32 blocks).
 - `check-coarse.js`: unchanged in all six columns
 - `check-british.js`: **489 → 0**, and the applier's second run writes nothing
 - stray spaces: **32 blocks, 24 distinct** — unchanged, the last of the three named batches
+
+## Batch 24 — the American-word-choice pass, all nine decks
+
+The third and last of the three standalone batches named in batch 20, and the direct sequel to batch
+23. That one converted SPELLINGS, and it could take its table straight out of `app.js` because a
+spelling is a fact about a word: `color` and `colour` are one word written two ways, and
+`SPELL_PAIRS` already knew 147 of those pairs because the site's own reader-facing switch needs them.
+**A WORD CHOICE is not that.** `movie` and `film`, `vacation` and `holiday`, `elevator` and `lift`,
+`faucet` and `tap` are different words; no rule relates them, and app.js has no table of them because
+the site's own prose is authored British and has never needed one. So this table is **declared in
+`mandarin-fix.js` itself**, as a new `exLexis` deck field beside `exBritish`, and every row in it was
+arrived at by reading every occurrence the nine decks contain.
+
+**The measurement, and why the measurement is not the batch.** A sweep over every gloss and every
+`uc-exe` div, against a hand-written list of 46 American word choices, returned **463 raw hits over 38
+words**. Of those, **only 195 were converted**: 18 words through the table and the rest by hand. The
+gap is the whole finding and is worth having before anybody reaches for a bigger table.
+
+| word | raw hits | what they turned out to be |
+|---|---|---|
+| `fall` | 74 | **71 are the ordinary verb.** A table row would have made "Pride goes before an autumn", "Let's autumn in love" and "the rise and autumn of states". Three are the season and were fixed by hand. |
+| `check` | 73 | **66 are the ordinary verb**, and checking in at a hotel and checking out of one are British too. Seven are a bank draft and became cheques. |
+| `store` | 46 | **32 are right as they stand** — a department store, a convenience store, a chain store, to set great store by something, and the verb. Fourteen plainly mean a shop and were converted one at a time. |
+| `mail` | 20 | **all 20 are ordinary British English.** Air mail, registered mail, e-mail and voice mail are what a British reader says. Nothing was changed, and the finding was the sweep's. |
+| `grade` | 20 | **13 are a rank, a class of goods or an exam grade**, all British. Five are a year at school and one is the verb *to mark*. |
+| `stove` | 11 | **nothing changed.** A wood stove, a gas stove and a camping stove are all British; "cooker" is the more distinctly British word for the appliance but "stove" is not an error. |
+| `vest` | 3 | **nothing changed** — and this one runs the other way. A British *vest* is the sleeveless garment 背心 actually is; it is the AMERICAN sense (a waistcoat) that these cards do not mean. |
+
+**What went in the table, and the two things a word-for-word swap gets wrong.** Eighteen rows:
+`movie`/`movies`, `vacation`, `elevator`, `subway`, `cellphone`, `sidewalk`, `airplane`, `soccer`,
+`faucet`, `gotten`, `truck`, `math`, and four PHRASE rows that have to fire first. A compound whose
+British name is not built from the same parts — a *movie theatre* is a cinema, not a film theatre, and
+*to the movies* is *to the cinema* — and an **ARTICLE that changes with the word after it**: "Do you
+have an elevator?" is "Do you have **a** lift?", and "Could I have a subway map?" is "Could I have
+**an** underground map?". The table is applied longest-first, so the phrases win.
+
+**`subway` is the one row that is a judgement rather than a fact, and it is recorded as one.** All
+twelve of its hits are the railway, so the swap is mechanical; what is not mechanical is the choice of
+British word. *Subway* in British English means a pedestrian underpass, which makes it a genuine false
+friend on a card a learner is memorising, and "underground" is unambiguous. Against that: **Beijing's
+own English signage says Subway**, and Shanghai's says Metro. The deck's English is a gloss for a
+British reader rather than a sign to read in the street, so "underground" it is — but a later session
+that wants "metro" instead has a one-line change and a reason.
+
+**THE FAULT THIS BATCH MADE ITSELF, which is the part to read before the next gloss dedupe.** Eight
+glosses carried the American word BESIDE the British one — "film; movie", "lift; elevator", "stopcock;
+tap; faucet", "lorry; truck" — and the table left alone would have rendered each of them the same word
+twice. Those were deduped per note, before the pass. **What nobody predicted is that taking the
+American half off a gloss leaves the British half, and the British half is often what a NEIGHBOURING
+note already says.** `check-mandarin-coverage.js`'s still-ambiguous reverse-card count went from **2
+groups to 7** on the first run: 电影/片子 both "film", 假期/假日 both "holiday", 橡皮/橡胶 both
+"rubber", 雪糕/冰棍儿 both "ice lolly", 货车/卡车 both "lorry". A reverse card's front is the gloss and
+nothing else, so each of those is one question with two right answers.
+
+Four of the five were settled with a **sharper gloss rather than a hint**, because in every case the
+two words genuinely differ and the collision had been hiding it: 橡皮 is the eraser and 橡胶 the
+material; 货车 is the general goods vehicle (its own first sentence calls it a van) and 卡车
+specifically the lorry; 假期 is a stretch of holiday and 假日 a day off. **The fifth found a wrong
+gloss rather than a duplicate one** — CC-CEDICT gives 雪糕 as an ice cream bar and 冰棍儿 as an ice
+lolly, so "ice lolly" was the wrong word for that card and the right one for its neighbour.
+
+**And 电影/片子 could not take a hint at all, which is worth knowing about the applier.** A `not <other
+word>` block is prepended to `fl.English` early in the pass, and a `senses` or `gloss` fix later
+REPLACES `fl.English` wholesale — deliberately, and the comment beside it says so: a note given its own
+distinguishing gloss no longer needs a hint. So **a note carrying both a gloss fix and a hint keeps
+only the gloss**, and the hint is silently gone. The right answer was on the card the whole time: 片子's
+second sentence is 医生看了片子, "the doctor looked at the X-ray", which the one-sense gloss did not
+cover. It now carries two senses — *film* and *X-ray plate* — with `exSense` saying which sentence
+shows which, and the collision goes with them.
+
+**What the second reading found, and it is the reason to read a diff line by line rather than count
+what is left.** The residual measurement after the first apply was 234, all of it correctly left alone
+— and reading all 195 changed lines against their originals found six the swap had made ungrammatical
+or redundant, none of which any counter could see. 放假's gloss became "to have a holiday or holiday";
+度假 became "Where did you go **for** holiday?", where the British word takes *on*; and **British
+English takes the summer holidays in the plural and with the article** where American English says
+"on summer vacation" and "during summer vacation" bare, which caught four sentences across five cards.
+A seventh line had the fault both ways at once before the batch touched it: 落's second sentence read
+"The leaves fall off the trees in **the fall**."
+
+Two smaller things the reading turned up and fixed in passing, neither of them a dialect question:
+低价's sentence said "a VCR", an abbreviation a learner meeting it on a vocabulary card has no way to
+expand, and 食堂's said "the college dining hall" for 大学食堂, where a British *college* is a
+sixth-form or further-education college rather than a university.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean; a second run of the applier writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous reverse groups back to the pre-batch **2** (颜色/彩色 and 邻居/街坊, both standing findings)
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-british.js`: **0**, unchanged; the lexical sweep's own residual is **231, every one of it deliberate**
+- `check-example-fit.js`: **143, unchanged** — the pass touches no Chinese
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged** — the table collapsed no two sentences on one card into the same English
+- `check-coarse.js`: unchanged in all six columns; `check-say-reading.js` unchanged
+- answer-leak sets byte-identical to HEAD on all nine decks; 34,596 example blocks, spoken == visible on every one; sense tags past the sense list 0
+- stray spaces: **32 blocks, 24 distinct** — unchanged, and now the only named batch left

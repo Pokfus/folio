@@ -1799,6 +1799,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the corpus's 8 `harbor`, 11 `center`, 9 `labor`, 24 `organization` and 14 `theater` were all read
     and not one is a name. **Re-run `check-british.js --list` and read the capitalised hits before
     trusting that again.**
+  · **`exLexis` IS ITS SIBLING AND ITS TABLE IS DECLARED HERE, BECAUSE A WORD CHOICE IS NOT A
+    SPELLING.** `exBritish` can take app.js's table because `color`/`colour` is one word written two
+    ways; `movie`/`film`, `vacation`/`holiday` and `faucet`/`tap` are DIFFERENT WORDS, no rule relates
+    them, and the site has no such table because its own prose is authored British. It runs immediately
+    BEFORE the spelling pass, on the same three targets and by the same rules. **Every row was arrived
+    at by reading every occurrence the nine decks contain**, which is what makes a mechanical sweep safe
+    and is why the table is 18 rows against a raw measurement of 463 hits over 38 words.
+    **THE FIVE BIGGEST FINDINGS ARE DELIBERATELY NOT IN IT**: `fall` (74 hits, 71 of them the ordinary
+    verb — a row would have made *Pride goes before an autumn*), `check` (73, 66 the verb), `store`
+    (46, 32 of them a department store or *to set great store by*), `grade` (20, mostly a rank) and
+    `mail` (20, ALL of them ordinary British English). Those went to per-note `exEn` and `gloss` rows.
+    **`stove` and `vest` are in neither**: a wood stove is British, and a British *vest* is exactly the
+    sleeveless garment 背心 is — the finding there was the sweep's and not the deck's.
+    **THE PHRASE ROWS FIRE FIRST** (the table is longest-first) and exist for the two things a
+    word-for-word swap gets wrong: a compound whose British name is not built from the same parts (a
+    *movie theatre* is a cinema) and an **ARTICLE that changes with the word after it** (*an elevator*
+    is *a lift*, *a subway map* is *an underground map*).
+  · **DEDUPING A GLOSS COLLIDES IT WITH ITS NEIGHBOUR, and that is the trap to expect next time.**
+    Eight glosses carried the American word beside the British one ("film; movie", "lorry; truck"), so
+    each was deduped per note before the pass — and taking the American half off leaves the British
+    half, which is often what a NEIGHBOURING note already says.
+    `check-mandarin-coverage.js`'s still-ambiguous reverse-card count went **2 → 7** on the first
+    run (电影/片子, 假期/假日, 橡皮/橡胶, 雪糕/冰棍儿, 货车/卡车). **A `not <other word>` hint cannot
+    fix such a pair**: the hint is prepended to `fl.English` early and a `senses` or `gloss` fix
+    REPLACES that field later, by design, so a note carrying both keeps only the gloss. The answer is a
+    SHARPER gloss, and in four of the five cases the collision was hiding a real distinction the cards
+    had lost (橡皮 the eraser against 橡胶 the material; 货车 the goods vehicle against 卡车 the lorry) —
+    and in one case a WRONG gloss, 雪糕 being an ice cream bar and 冰棍儿 the ice lolly.
+  · **READ THE DIFF LINE BY LINE; COUNTING WHAT IS LEFT CANNOT SEE WHAT A SWAP BROKE.** The residual
+    measurement after the first apply was correct and the pass had still made six lines ungrammatical:
+    a gloss reading "to have a holiday or holiday", "Where did you go **for** holiday?" where the
+    British word takes *on*, and four sentences needing "during **the** summer **holidays**", which
+    British English takes in the plural and with the article where American English says "during summer
+    vacation" bare.
   · **THE FILE IS AUTHORITATIVE FOR TWO THINGS, AND BOTH ARE REGENERATED RATHER THAN ACCUMULATED.**
     `hints` is the complete list of `not <other word>` blocks (see the reverse-card note below), and
     every `uc-exadd` example block is STRIPPED from every note before the fixes are applied — without

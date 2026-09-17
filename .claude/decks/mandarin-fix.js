@@ -234,6 +234,61 @@ function britText(t) {
 function britExamples(html) {
   return String(html || "").replace(/(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g, (m, a, mid, b) => a + britText(mid) + b);
 }
+/* ---------- THE AMERICAN-WORD-CHOICE TABLE (batch 24) ----------
+   `exBritish` above converts SPELLINGS, and it can do that from app.js's own table because a spelling
+   is a fact about a word. A WORD CHOICE is not: `movie`, `vacation`, `elevator` and `faucet` are
+   different words from film, holiday, lift and tap, no rule relates them, and app.js has no table of
+   them because the site's own prose is authored British and never needed one. So the table is declared
+   here, and every row in it was arrived at by READING every occurrence the nine decks contain — which
+   is the only thing that makes a mechanical sweep safe, and which is why the list is so much shorter
+   than the raw measurement.
+   FIVE OF THE BIGGEST FINDINGS ARE NOT IN IT, and that is the useful half. `fall` (74 hits), `check`
+   (73), `store` (46), `grade` (20) and `mail` (20) are ordinary English words as well as American
+   ones — 71 of the 74 `fall`s are the verb, and a table row would have turned "Pride goes before a
+   fall" into "Pride goes before an autumn". Those went to per-note `exEn` and `gloss` rows, where a
+   human decided each one. `stove`, `vest` and `mail` are in neither: a wood stove, a sleeveless vest
+   and air mail are all ordinary British English, so the finding was the sweep's and not the deck's.
+   THE PHRASE ROWS COME FIRST because the table is applied longest-first, and they exist for the two
+   things a word-for-word swap gets wrong: a compound whose British name is not built from the same
+   parts (`movie theatre` is a cinema, not a film theatre), and an ARTICLE that has to change with the
+   word after it (`an elevator` is `a lift`). */
+const LEXIS = (() => {
+  const PAIRS = [
+    ["movie theatre", "cinema"],
+    ["movie theater", "cinema"],
+    ["to the movies", "to the cinema"],
+    ["a subway map", "an underground map"],
+    ["an elevator", "a lift"],
+    ["movies", "films"],
+    ["movie", "film"],
+    ["vacation", "holiday"],
+    ["elevator", "lift"],
+    ["subway", "underground"],
+    ["cellphone", "mobile phone"],
+    ["sidewalk", "pavement"],
+    ["airplane", "aeroplane"],
+    ["soccer", "football"],
+    ["faucet", "tap"],
+    ["gotten", "got"],
+    ["truck", "lorry"],
+    ["math", "maths"],
+  ];
+  const map = new Map();
+  for (const [us, gb] of PAIRS) map.set(us.toLowerCase(), gb);
+  const keys = [...map.keys()].sort((a, b) => b.length - a.length);
+  return { map, rx: new RegExp("(?<![\\p{L}\\p{N}_])(" + keys.join("|") + ")(?![\\p{L}\\p{N}_])", "giu") };
+})();
+function lexText(t) {
+  if (!t) return t;
+  LEXIS.rx.lastIndex = 0;
+  return String(t).replace(LEXIS.rx, (m) => {
+    const hit = LEXIS.map.get(m.toLowerCase());
+    return hit ? britCase(m, hit) : m;
+  });
+}
+function lexExamples(html) {
+  return String(html || "").replace(/(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g, (m, a, mid, b) => a + lexText(mid) + b);
+}
 const punctPlain = (s) => punctQuotes(String(s)
   .replace(new RegExp("(" + HAN_RX + ")([,;:!?]) ?", "g"), (m, a, b) => a + FULLWIDTH[b])
   .replace(new RegExp("(" + HAN_RX + ")\\.$"), "$1\u3002"));
@@ -262,6 +317,7 @@ let metaHit = 0;
 const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
 let hitsBrit = 0;
+let hitsLex = 0;
 let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [], badExStop = [];
 let hitsPunct = 0;
 
@@ -587,6 +643,18 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
      `c.answer` is "<pinyin> — <senses>"; converting `answer` directly would run an English word list
      over a romanisation for no reason, so the senses are swept once and the two mirrors rebuilt from
      the result, which is what the per-note branch above does. */
+  /* ---------- THE AMERICAN-WORD-CHOICE PASS ----------
+     Runs immediately BEFORE the spelling pass, on the same three targets and by the same rules, so a
+     British word this table introduces is still swept for spelling afterwards and the record's own
+     `ex`, `exEn` and `gloss` rows are swept by both. */
+  if (dm && dm.exLexis) for (const c of d.cards || []) {
+    const fl = c.fields; if (!fl) continue;
+    const en = lexText(fl.English), ex = lexExamples(fl.Examples), ans = lexText(c.answerText || "");
+    if (en === fl.English && ex === fl.Examples && ans === (c.answerText || "")) continue;
+    fl.English = en; fl.Examples = ex; c.answerText = ans;
+    c.answer = fl.Pinyin + " \u2014 " + ans;
+    hitsLex++;
+  }
   if (dm && dm.exBritish) for (const c of d.cards || []) {
     const fl = c.fields; if (!fl) continue;
     const en = britText(fl.English), ex = britExamples(fl.Examples), ans = britText(c.answerText || "");
@@ -606,6 +674,7 @@ for (const [key] of entries) if (!seen.has(key)) missing.push(key);
 for (const [key] of hints) if (!seenHint.has(key)) missing.push(key + " (hint)");
 
 if (hitsPunct) console.log("\n  " + hitsPunct + " example block set(s) repunctuated (ASCII marks after a Chinese character)");
+if (hitsLex) console.log("  " + hitsLex + " card(s) put into British word choices from the declared LEXIS table");
 if (hitsBrit) console.log("  " + hitsBrit + " card(s) put into British spelling from app.js's own SPELL_PAIRS");
 console.log("\n" + entries.length + " fixes, " + hints.length + " reverse-card hints and " +
   (Object.keys(deckMeta).length - (deckMeta.why ? 1 : 0)) + " deck-metadata edits in mandarin-fixes.json, " +
