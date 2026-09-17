@@ -581,6 +581,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 61–90 (参观 → 出行), deck order | 13 | a third truncated gloss, and a `not X` hint retired by glossing the distinction it was patching |
 | 2026-09-17 | `hsk30l4` notes 91–120 (出租 → 打折), deck order | 15 | a sentence about a TAXI on the card for *to rent*, which segments perfectly and no checker can see |
 | 2026-09-17 | `hsk30l4` notes 121–150 (打针 → 低于), deck order | 18 | a gloss that misspelt its own subject, and a card two of whose three sentences were not its word |
+| 2026-09-17 | `hsk30l4` notes 151–180 (底 → 多样), deck order | 21 | a fourth truncated gloss, and the label-against-gloss fault three more times in thirty cards |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5133,4 +5134,54 @@ in the batch before are the same judgement. 大巴's 大巴车 is a real word co
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 383 → 392;
+`build-lang-decks.js` re-run.
+
+## Batch 46 — hsk30l4 notes 151–180 (底 → 多样)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order. Twenty-one cards changed, and the
+batch is dominated by one fault: **the label and the gloss naming different parts of speech**, which
+batch 45 met three times and this one meets three more.
+
+**A FOURTH TRUNCATED GLOSS.** 掉 read *lose; [as a complement after some verbs to indicate* — no closing
+bracket, no end to the sentence — after 西北, 园 and 场. **All three of the card's own sentences are that
+complement** (脱掉, 跑不掉, 吃掉) and not one is *to lose*, so the split names both and the tags say which
+is illustrated. **Nothing in the pipeline reads a gloss as a piece of English**, which is why four of
+these have now been found by eye and none by a checker.
+
+**THE LABEL-AGAINST-GLOSS FAULT, THREE MORE TIMES.** 调查 was labelled a VERB over the noun *investigation*
+— and all three of its sentences are the noun. 堵车 was labelled a VERB over the noun *traffic jam*, where
+its own lines are both. And 顿's gloss read *measure word for meals or events; pause* UNDER a label reading
+*verb / measure word*, so the words "measure word" appeared twice on one card and the verb sense had no
+gloss of its own. Two more glosses were wrong as English rather than as grammar: **度假 read *to go on
+holidays***, which is the American *on vacation* wearing a British word, and **电动车 read *Electric
+vehicle***, capitalised mid-card and naming one of the two things the word is, where the card's own
+sentences are two electric bikes to one vehicle.
+
+**FIVE SENTENCES WENT.** 顿's second was 我刚到，让我安顿一下 — 安顿 swallows the character and means *to get
+settled*, which the English on the card did not say either. 多样's second was ungrammatical, ending on 的
+with no noun after it. 地球's first was the fragment *Earth appeared*. And **two cards said the same thing
+twice**: 肚子's first and third were both being hungry, 点名's first and third both somebody missing the
+register — the second of those being the record's OWN row, so the array was replaced and the sentence named
+in `dropEx`, batch 42's rule for the third time.
+
+**A STRAY SPACE.** 堵车's first line carried one after its comma, on the card and in the spoken field alike
+— the shape batch 32 measured across 32 blocks, and one the deck-level punctuation pass cannot see, since
+that pass matches a mark sitting IMMEDIATELY after a character.
+
+**FOUR SINGLE-CHARACTER CARDS GAINED `Compounds`** — 掉, 定, 订, 顿, three of the four panels empty. **定's
+is two words against fifty-two in the collection, the widest gap the level has shown.** 底 (three) and 队
+(four) were measured and left. 顿's rows name 安顿, the word that swallowed the character in the sentence
+this batch dropped.
+
+**SEVEN ENGLISH LINES.** 对面's first read *in front of* for a word glossed *opposite* — a garden in front
+of a house is on the same side of the road. 多数's read *many* for *most*; 读者's turned one book into
+*these books*; 订's invented *our seats on a plane* for 机票; 对于's dropped 对于这个 entirely; 多么's read
+*Life is so complicated* for an exclamative glossed *how ...*; and 地球's *Earth day* wanted its capital.
+
+**Read and left.** 队员's third line carries a curly apostrophe, one of the 69 measured in batch 38 and
+deliberately not swept as a class. 对于's 对于我 is written-register rather than wrong.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 392 → 398;
 `build-lang-decks.js` re-run.

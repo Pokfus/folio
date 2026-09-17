@@ -13201,11 +13201,17 @@
       ]
     },
     "hsk30l4/读者": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | '这本书不是给年轻读者看的。' read 'THESE BOOKS are not fit for young readers' — 这本书 is one book, and the measure word is the first thing the sentence says.",
       "ex": [
         [
           "不是因为读者对某本书不感兴趣，这本书就肯定是有问题的了。",
           "Just because a certain book does not interest readers does not mean that the fault lies in the book."
+        ]
+      ],
+      "exEn": [
+        [
+          "这本书不是给年轻读者看的",
+          "This book is not for young readers."
         ]
       ]
     },
@@ -70386,7 +70392,7 @@
       ]
     },
     "hsk30l4/电动车": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was 'Electric vehicle', capitalised mid-card where every other gloss in the deck is lower case, and naming only one of the two things the word is — the card's own sentences are two electric BIKES to one vehicle.",
       "ex": [
         [
           "他骑电动车上班。",
@@ -70400,7 +70406,8 @@
           "他的电动车没电了。",
           "His electric bike has run out of charge."
         ]
-      ]
+      ],
+      "gloss": "an electric vehicle; an electric bike"
     },
     "hsk30l4/动车": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -75767,16 +75774,19 @@
       ]
     },
     "hsk30l4/点名": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Its first and third lines were the same sentence twice — 他在点名时缺席 and 点名的时候他不在, both of them somebody missing the register — and the third was the record's OWN, so the array is replaced and the sentence named in dropEx. The replacement is AUTHORED and uses 点名批评, the other thing the word does.",
       "ex": [
         [
           "老师上课先点名。",
           "The teacher calls the register at the start of the lesson."
         ],
         [
-          "点名的时候他不在。",
-          "He was not there when the register was called."
+          "经理点名批评了两个人。",
+          "The manager named two people and criticised them."
         ]
+      ],
+      "dropEx": [
+        "点名的时候他不在。"
       ]
     },
     "hsk30l4/干杯": {
@@ -76082,12 +76092,19 @@
       ]
     },
     "hsk30l4/多样": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '实际上，网络的作用有着无数的多种多样的。' is ungrammatical — it ends on 的 with no noun after it, so the sentence simply stops. Replaced with an AUTHORED sentence, which the record says so is.",
       "ex": [
         [
           "这里的植物种类多样。",
           "The plants here are of many kinds."
+        ],
+        [
+          "这家书店的书很多样。",
+          "The books in this shop are very varied."
         ]
+      ],
+      "dropEx": [
+        "实际上，网络的作用有着无数的多种多样的。"
       ]
     },
     "hsk30l4/复印": {
@@ -110151,13 +110168,14 @@
       "gloss": "to break up for the holidays; to have time off"
     },
     "hsk30l4/度假": {
-      "why": "Found by READING the whole of what the LEXIS table changed, line against line, rather than by counting what it left behind (batch 24). “Where did you go for vacation?” takes “for”; “holiday” takes “on”.",
+      "why": "Found by READING the whole of what the LEXIS table changed, line against line, rather than by counting what it left behind (batch 24). “Where did you go for vacation?” takes “for”; “holiday” takes “on”. | 'to go on holidays' is not English — one goes on holiday. The plural is the American 'on vacation' wearing a British word.",
       "exEn": [
         [
           "你去哪里度假了",
           "Where did you go on holiday?"
         ]
-      ]
+      ],
+      "gloss": "to go on holiday"
     },
     "hsk30l4/暑假": {
       "why": "Found by READING the whole of what the LEXIS table changed, line against line, rather than by counting what it left behind (batch 24). British English takes the summer holidays in the plural and with the article, where American English says “on summer vacation” and “during summer vacation” bare. The second also said “Many people” for 许多年轻人, which is many YOUNG people.",
@@ -114686,6 +114704,215 @@
           "菜刀",
           "cài dāo",
           "a kitchen knife; a cleaver"
+        ]
+      ]
+    },
+    "hsk30l4/掉": {
+      "why": "THE GLOSS WAS CUT OFF MID-BRACKET: 'lose; [as a complement after some verbs to indicate' — no closing bracket, no end to the sentence. The fourth truncation the audit has met, after 西北, 园 and 场. All three of the card's own sentences are that complement use (脱掉, 跑不掉, 吃掉) and none of them is 'to lose', so the split names both and the tags say which is illustrated. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "verb",
+          "to drop; to fall; to lose"
+        ],
+        [
+          "particle",
+          "[after a verb: right off, completely]"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        2
+      ],
+      "compounds": [
+        [
+          "丢掉",
+          "diū diào",
+          "to throw away; to lose"
+        ],
+        [
+          "忘掉",
+          "wàng diào",
+          "to forget"
+        ]
+      ]
+    },
+    "hsk30l4/调查": {
+      "why": "The card labelled it a VERB and glossed it with the NOUN 'investigation' — the label and the gloss being different parts of speech, which this stretch of the deck carries four times over. CC-CEDICT reads 'to investigate; to look into', and all three of the card's own sentences are the noun (调查进行中, 已展开调查, 相关调查正在进行中), so the split names both and the tags say which is illustrated.",
+      "senses": [
+        [
+          "verb",
+          "to investigate; to look into"
+        ],
+        [
+          "noun",
+          "an investigation; a survey"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        2
+      ]
+    },
+    "hsk30l4/堵车": {
+      "why": "The same fault a third time: labelled a VERB and glossed with the noun 'traffic jam'. CC-CEDICT reads 'traffic jam; to be stuck in traffic', and the card's own lines are both — 因为堵车 the noun, 会堵车的 and 就要堵车了 the verb — so the gloss names both. | The first line carried a stray space after its comma, on the card and in the spoken field alike — the shape batch 32 measured across 32 blocks, and one the deck-level punctuation pass cannot see because it matches a mark sitting immediately after a character.",
+      "gloss": "to be stuck in traffic; a traffic jam",
+      "exSpace": [
+        [
+          "因为堵车， 我开会迟到了。",
+          "因为堵车，我开会迟到了。"
+        ]
+      ]
+    },
+    "hsk30l4/顿": {
+      "why": "The gloss said 'measure word for meals or events; pause' UNDER a label reading 'verb / measure word', so the words 'measure word' appeared twice on one card and the verb sense had no gloss of its own. Split, with the measure word leading, which is what the card's two remaining sentences are. | '我刚到，让我安顿一下。' is 安顿, to get oneself settled — a different word that swallows the character, and one whose English on the card ('let me rest a bit') is not what 安顿 means either. Replaced with an AUTHORED sentence using the measure word the card leads with. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. 安顿 is the word that swallowed the character in the sentence this batch dropped, so it is named here instead.",
+      "senses": [
+        [
+          "measure word",
+          "[for meals, beatings and bouts]"
+        ],
+        [
+          "verb",
+          "to pause"
+        ]
+      ],
+      "dropEx": [
+        "我刚到，让我安顿一下。"
+      ],
+      "ex": [
+        [
+          "他被老板骂了一顿。",
+          "He got a telling-off from his boss."
+        ]
+      ],
+      "compounds": [
+        [
+          "安顿",
+          "ān dùn",
+          "to get settled; to find a place for"
+        ],
+        [
+          "停顿",
+          "tíng dùn",
+          "to halt; a pause"
+        ],
+        [
+          "整顿",
+          "zhěng dùn",
+          "to tidy up; to reorganise"
+        ]
+      ]
+    },
+    "hsk30l4/地球": {
+      "why": "'地球出现了。' — 'Earth appeared' — is a fragment out of context that teaches a learner nothing about the word or about any sentence they will say. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "地球出现了。"
+      ],
+      "ex": [
+        [
+          "地球绕着太阳转。",
+          "The Earth goes round the Sun."
+        ]
+      ],
+      "exEn": [
+        [
+          "今天是地球日",
+          "Today is Earth Day."
+        ]
+      ]
+    },
+    "hsk30l4/肚子": {
+      "why": "Its first and third lines were the same sentence twice — 你肚子饿吗 and 我肚子非常饿, both of them being hungry — so two of three taught one construction. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "我肚子非常饿。"
+      ],
+      "ex": [
+        [
+          "他肚子疼，去了医院。",
+          "He had a stomach ache and went to the hospital."
+        ]
+      ]
+    },
+    "hsk30l4/对面": {
+      "why": "'花园在房子对面。' read 'The garden is IN FRONT OF the house' — 对面 is opposite, which is the card's own one-word gloss, and a garden in front of a house is on the same side of the road as it.",
+      "exEn": [
+        [
+          "花园在房子对面",
+          "The garden is opposite the house."
+        ]
+      ]
+    },
+    "hsk30l4/对于": {
+      "why": "'为什么你对于这个有这样的想法？' read 'Why should you think that?', which drops 对于这个 entirely — the reader is shown the construction the card teaches and an English line that does not contain it.",
+      "exEn": [
+        [
+          "为什么你对于这个有这样的想法",
+          "Why do you feel that way about this?"
+        ]
+      ]
+    },
+    "hsk30l4/多数": {
+      "why": "'多数人会犯相同的错误。' read 'MANY people' — 多数 is most, which is the card's own gloss, and many and most are different claims about the same group.",
+      "exEn": [
+        [
+          "多数人会犯相同的错误",
+          "Most people make the same mistakes."
+        ]
+      ]
+    },
+    "hsk30l4/多么": {
+      "why": "'生活多么复杂！' read 'Life is so complicated', which is 很 or 太 and not the exclamative the card is glossed as — 'how ...'.",
+      "exEn": [
+        [
+          "生活多么复杂",
+          "How complicated life is!"
+        ]
+      ]
+    },
+    "hsk30l4/订": {
+      "why": "'订机票了吗？' read 'Have you already booked OUR SEATS ON A PLANE?' — 机票 is a plane ticket, and neither 我们的 nor 座位 is in the sentence. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against nine words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "订机票了吗",
+          "Have you booked the plane tickets?"
+        ]
+      ],
+      "compounds": [
+        [
+          "预订",
+          "yù dìng",
+          "to book ahead; to reserve"
+        ],
+        [
+          "订购",
+          "dìng gòu",
+          "to place an order"
+        ],
+        [
+          "装订",
+          "zhuāng dìng",
+          "to bind (a book)"
+        ]
+      ]
+    },
+    "hsk30l4/定": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 规定 and 肯定, against fifty-two in the collection — the widest gap the level has shown. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "决定",
+          "jué dìng",
+          "to decide; a decision"
+        ],
+        [
+          "一定",
+          "yí dìng",
+          "certainly; fixed"
+        ],
+        [
+          "定期",
+          "dìng qī",
+          "at regular intervals; periodic"
         ]
       ]
     }
