@@ -1225,3 +1225,46 @@ card. Seven findings.
   carries no bare `(` or `)`, so `SRC_URL_RX` matches the whole address and the reader gets a live link
   to the archived yearbook; the raw form would truncate at the first bracket. Verified on the rendered
   card rather than assumed.
+
+### Batch 12 — the Tsna, the delta, the Shokhonka, Elbrus and the Okov forest (`gru-053`–`gru-057`)
+
+Tambov Oblast, Astrakhan Oblast, Ivanovo Oblast, Kabardino-Balkaria and Smolensk Oblast, each with a
+paired glossary term at the bar and a picture. Findings worth keeping.
+
+- **BADDELEY IS THE CAUCASUS SPINE AND IT WAS NOT IN THE TOOLKIT.** John F. Baddeley, *The Russian
+  Conquest of the Caucasus* (London: Longmans, Green, 1908),
+  `archive.org/details/cu31924028754616`, carries the Kabardan princes as Adyghe (p. 8), Tsar Feodor's
+  title of lord "of Kabarda, of the Tcherkess and Mountain princes" (p. 9), the Mozdok quarrel and the
+  open hostility of 1765–79 (pp. 33–34), and Shamil's April 1846 crossing with Nalchik as "the key of
+  the position" and the Balkar chiefs refusing to join him (pp. 422–23). **The two-sources-per-author
+  cap bites here**: four passages, two citations, so they are cited as "8–9, 33" and "422–23".
+- **RECLUS'S PAGE NUMBERS CANNOT BE READ OFF THE OCR HEADER AND MUST BE BRACKETED.** The running heads
+  come through as `898 RUSSIA IN EUROrE` for page 398 and `3G8` for 368, and the statistical appendix has
+  none at all. **Find the nearest CLEAN head either side and interpolate**: the appendix's towns table
+  sits between the "Principal Towns" caption and the `APPENDIX. 485` head, so it is p. 484 — which is
+  the page earlier batches had already cited. Pinned this batch: p. 273 (the Dnieper's source), 286
+  (Smolensk and the 1812 burning), 367–69 (the Volga delta, the bugry, the 98 days of ice), 398–99
+  (the Tsna, Morshansk and the Skoptsy; Ivanovo and Shuya; Suzdalia) and 484 (the town populations).
+- **A RUSSIAN JOURNAL'S ENGLISH TITLE IS THE ONE TO CITE, AND ONE PER CARD IS THE LIMIT.** The Antonov
+  aftermath (Nikolashin, *Herald of an Archivist*), the Ivanovo-Voznesensk strike (Platonov, *Proceedings
+  of the Komi Science Centre*) and the Tsna (Bukovskiy et al., *Bulletin of Irkutsk State University*)
+  all publish an English title and abstract over a Russian article. Each card takes **one** of them
+  beside the Rosstat yearbook, which keeps the majority English on every card.
+- **THE ANTONOV PAPER'S PDF IS CID-ENCODED AND ONLY ITS ENGLISH ABSTRACT COMES OUT.** `pdf-text.js`,
+  with `--literals` or without, returns the English half readable and the Russian half as letter soup —
+  so the card rests on what the abstract states and no more: the rising of 1920–21 in the Tambov
+  gubernia, and the socio-economic, ideological, cultural and educational campaign that followed it.
+- **A SATELLITE VIEW GETS THROUGH THE SKIP LIST WHEN ITS FILE NAME IS AN INSTRUMENT ACRONYM.**
+  `fetch-geo-images.js` offered `File:VolgaDelta AMO 2005jun11.jpg` for Astrakhan — an Aqua MODIS scene,
+  refused here on the standing rule that orbital imagery is a picture of a place and not a view of it —
+  and, on an earlier pass, a **1968 postage stamp** of a purple swamphen. Both were rejected by eye.
+  **The contact sheet is what catches this**, and it caught a third: the first Plyos candidate was a
+  moored pontoon under a birch rather than the town.
+- **THE CONTACT SHEET NEEDS THE FILES ON DISK.** Headless Chromium could not load
+  `upload.wikimedia.org` at all, so the sheet rendered five empty frames and read as five bad pictures.
+  Fetch each candidate through `commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=700` first —
+  **a `/NNNpx-` thumbnail URL rewritten by hand 400s**, since the width has to be one Commons actually
+  offers — then point the sheet at the local copies.
+- **A PINNED FILE CARRIES NO CAPTION, AND THE FETCHER WILL NOT INVENT ONE.** `subject` mode fills
+  `title`, `desc` and `alt` from the subject's own name; `file` mode leaves all three empty, and an
+  empty `desc` ships as a bare full stop. Write them by hand for every pinned picture.
