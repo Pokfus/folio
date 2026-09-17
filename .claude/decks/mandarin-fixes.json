@@ -75976,7 +75976,7 @@
       ]
     },
     "hsk30l4/咳": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Its third line read 'HE has been coughing ever since the cold' where the Chinese has no subject at all — 感冒以后总是咳 is a statement about what happens rather than about a person. It is the record's own row, so the English is corrected in the array.",
       "ex": [
         [
           "他咳了一整夜。",
@@ -75984,7 +75984,7 @@
         ],
         [
           "感冒以后总是咳。",
-          "He has been coughing ever since the cold."
+          "The coughing always lingers after a cold."
         ]
       ]
     },
@@ -110422,11 +110422,21 @@
       ]
     },
     "hsk30l4/来不及": {
-      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap. ",
+      "why": "Found by the WHITESPACE sweep (batch 25): a space standing between two Chinese characters, or between a character and the mark that ends the sentence. Chinese sets no space in either place, so the block reads as a typing accident and the spoken field carries the same gap.  | '…可恶，我现在绝对来不及准时上班了！' read 'CRAP', which is coarser than 可恶 and not a word a vocabulary card should teach; and 就来不及了 read 'it WOULD be too late' for a conditional about now.",
       "exSpace": [
         [
           "不，如果不从现在开始练习，就来不及了 。",
           "不，如果不从现在开始练习，就来不及了。"
+        ]
+      ],
+      "exEn": [
+        [
+          "那是出车祸了吗",
+          "Is that a car accident? Damn, now I'll never get to work on time!"
+        ],
+        [
+          "不，如果不从现在开始练习",
+          "No — if you do not start practising now, it will be too late."
         ]
       ]
     },
@@ -117079,6 +117089,282 @@
         [
           "我不同意你的看法",
           "I don't agree with your view."
+        ]
+      ]
+    },
+    "hsk30l4/棵": {
+      "why": "THE GLOSS WAS CUT OFF MID-BRACKET: 'individual [measure word for trees, cabbages, plants' — no closing bracket, and the words 'measure word' inside a gloss whose LABEL already says measure word. The sixth truncation the audit has met, after 西北, 园, 场, 掉 and 幅.",
+      "gloss": "[for trees, cabbages and other plants]"
+    },
+    "hsk30l4/拉": {
+      "why": "The gloss ran two senses together with NOTHING between them — 'to play (a bowed instrument) to pull' — and put the narrow sense first. CC-CEDICT leads with the pulling. | Two of its three lines were not the verb. 要就要，不要就拉倒 is the idiom 拉倒, forget it, which swallows the character into a fixed phrase; and 拉塔来了吗 is a TRANSLITERATION, 拉塔 for the name Lata, the character present for its sound alone. Both replaced with AUTHORED sentences, which the record says so are. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against four words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to pull; to play (a bowed instrument)",
+      "dropEx": [
+        "要就要，不要就拉倒。",
+        "拉塔来了吗？"
+      ],
+      "ex": [
+        [
+          "他用力拉开了门。",
+          "He pulled the door open hard."
+        ],
+        [
+          "请拉一下窗帘。",
+          "Please draw the curtain."
+        ]
+      ],
+      "compounds": [
+        [
+          "拉开",
+          "lā kāi",
+          "to pull open; to pull apart"
+        ],
+        [
+          "拉手",
+          "lā shǒu",
+          "to hold hands; a handle"
+        ],
+        [
+          "拉长",
+          "lā cháng",
+          "to lengthen; to draw out"
+        ]
+      ]
+    },
+    "hsk30l4/恐怕": {
+      "why": "Glossed 'afraid', which is an adjective, under a 'verb / adverb' label. 恐怕 is neither — it is the adverb that opens a sentence, and all three of the card's own translations already say 'I'm afraid'.",
+      "gloss": "I'm afraid; probably"
+    },
+    "hsk30l4/科学": {
+      "why": "Labelled 'noun / adjective' against the single gloss 'science', so the adjective had none — and the card's own third line, 科学的根据, is exactly that.",
+      "senses": [
+        [
+          "noun",
+          "science"
+        ],
+        [
+          "adjective",
+          "scientific"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/客气": {
+      "why": "Labelled 'verb / adjective' against the single gloss 'polite', which is only the adjective; the verb — standing on ceremony, which is what 别客气 tells somebody not to do — had none.",
+      "senses": [
+        [
+          "adjective",
+          "polite; courteous"
+        ],
+        [
+          "verb",
+          "to stand on ceremony"
+        ]
+      ]
+    },
+    "hsk30l4/肯定": {
+      "why": "Labelled 'verb / adjective / adverb' against 'certain; definite', which is only the adjective, so two of the three had no gloss — and the card's own third line, 肯定有误会, is the adverb.",
+      "senses": [
+        [
+          "adjective",
+          "certain; definite"
+        ],
+        [
+          "adverb",
+          "certainly; surely"
+        ],
+        [
+          "verb",
+          "to affirm; to acknowledge"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/困": {
+      "why": "Glossed 'sleepy; trapped; in difficulty' under a 'verb / adjective' label with nothing saying which is which — the first is the adjective and the rest the verb. Split and tagged: two of the card's lines are sleepy and one is trapped.",
+      "senses": [
+        [
+          "adjective",
+          "sleepy"
+        ],
+        [
+          "verb",
+          "to trap; to be stranded"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/空": {
+      "why": "The card gives both readings and its lines are two kōng to one kòng — 垃圾桶空了 and 盒子几乎是空的 are empty, 有没有空 is free time; tagged, so a reader can see which line is which reading. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 空气, against twenty-five in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exSense": [
+        1,
+        2,
+        1
+      ],
+      "compounds": [
+        [
+          "空间",
+          "kōng jiān",
+          "space; room"
+        ],
+        [
+          "天空",
+          "tiān kōng",
+          "the sky"
+        ],
+        [
+          "航空",
+          "háng kōng",
+          "aviation"
+        ]
+      ]
+    },
+    "hsk30l4/克": {
+      "why": "ALL THREE OF ITS SENTENCES WERE TRANSLITERATIONS. The card is the measure word 克, a GRAM, and its lines were 迈克 (Mike), 夹克 (a jacket) and 迈克 again — the character present for its SOUND alone, with nothing about weight anywhere on the card. It is the 法拉费 fault of batch 47 at three times the scale, and the worst single card the audit has met: a reader could study it to mastery and never learn what the word means. All three replaced with AUTHORED sentences, which the record says so are. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 千克 and 巧克力, of which the second is a LOANWORD using the character for its sound — so one word in the panel is about weight at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "迈克喜欢打篮球。",
+        "我不喜欢那件夹克。",
+        "你好吗，迈克？"
+      ],
+      "ex": [
+        [
+          "这袋糖有五百克。",
+          "This bag of sugar weighs five hundred grams."
+        ],
+        [
+          "请给我二百克牛肉。",
+          "Two hundred grams of beef, please."
+        ],
+        [
+          "一克黄金多少钱？",
+          "How much is a gram of gold?"
+        ]
+      ],
+      "compounds": [
+        [
+          "千克",
+          "qiān kè",
+          "a kilogram"
+        ],
+        [
+          "克服",
+          "kè fú",
+          "to overcome"
+        ]
+      ]
+    },
+    "hsk30l4/咳嗽": {
+      "why": "'咳嗽什么帮好起来？' is not a sentence — four words in an order Chinese does not allow, with 帮 taking a resultative it cannot take. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "咳嗽什么帮好起来？"
+      ],
+      "ex": [
+        [
+          "咳嗽的时候要多喝水。",
+          "Drink plenty of water when you have a cough."
+        ]
+      ]
+    },
+    "hsk30l4/课程": {
+      "why": "'我不能一小时内彻底的了解那堂课程。' carries TWO faults: 彻底的 wants the adverbial 地, and 一小时内 belongs after the negation rather than before the verb. Replaced with an AUTHORED sentence, which the record says so is. | '我觉得，有些课程一定有人学。' read 'some LESSONS have definitely been LEARNED', which is an English idiom about hindsight — the Chinese says there must be people studying some of these courses.",
+      "dropEx": [
+        "我不能一小时内彻底的了解那堂课程。"
+      ],
+      "ex": [
+        [
+          "这门课程一共十六周。",
+          "This course runs for sixteen weeks in all."
+        ]
+      ],
+      "exEn": [
+        [
+          "我觉得，有些课程一定有人学",
+          "I think there must be people studying some of these courses."
+        ]
+      ]
+    },
+    "hsk30l4/口语": {
+      "why": "'我对口语英语更感兴趣。' has its two halves the wrong way round — spoken English is 英语口语, the language first and the register second, which is how the card's own third line sets it. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "我对口语英语更感兴趣。"
+      ],
+      "ex": [
+        [
+          "他的汉语口语进步很快。",
+          "His spoken Chinese is improving fast."
+        ]
+      ]
+    },
+    "hsk30l4/浪漫": {
+      "why": "'如果一个浪漫关系需要保密，你不应该做了。' does not parse: 你不应该做了 is a negated modal with a completed-aspect particle and no object, which Chinese does not allow. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "如果一个浪漫关系需要保密，你不应该做了。"
+      ],
+      "ex": [
+        [
+          "他准备了一个浪漫的晚餐。",
+          "He had prepared a romantic dinner."
+        ]
+      ]
+    },
+    "hsk30l4/苦": {
+      "why": "'他一生为急性疼痛所苦。' read 'He's suffering from acute pain IN HIS LIFE' — 一生 is all his life, and the English put the words in an order that says nothing. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 辛苦, against eighteen in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "他一生为急性疼痛所苦",
+          "He suffered from acute pain all his life."
+        ]
+      ],
+      "compounds": [
+        [
+          "痛苦",
+          "tòng kǔ",
+          "pain; suffering"
+        ],
+        [
+          "苦难",
+          "kǔ nàn",
+          "suffering; hardship"
+        ],
+        [
+          "辛苦",
+          "xīn kǔ",
+          "hard; exhausting"
+        ]
+      ]
+    },
+    "hsk30l4/困难": {
+      "why": "'没有困难就没有成功。' was given the English proverb 'No cross, no crown', which carries not one word a reader can match to 困难.",
+      "exEn": [
+        [
+          "没有困难就没有成功",
+          "Without difficulty there is no success."
+        ]
+      ]
+    },
+    "hsk30l4/辣": {
+      "why": "Its second line had no full stop at all, on the card and in the spoken field alike; and 姜是老的辣 was given the bare English proverb 'The older, the wiser', which hides the ginger the Chinese is about and with it the headword.",
+      "exStop": [
+        [
+          "这儿连空气都有辣味儿"
+        ]
+      ],
+      "exEn": [
+        [
+          "姜是老的辣",
+          "Old ginger is the hottest: age brings wisdom."
         ]
       ]
     }

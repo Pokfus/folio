@@ -590,6 +590,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 331–360 (加班 → 降低), deck order, plus the whole `hometown` class | 32 | a gloss that was a calque, a card glossing a reading it did not give, and a correction to batch 50 |
 | 2026-09-17 | `hsk30l4` notes 361–390 (降价 → 进行), deck order | 19 | an obscene sentence a single-character card's own discriminator excuses, and a character error the English gave away |
 | 2026-09-17 | `hsk30l4` notes 391–420 (禁止 → 考生), deck order | 15 | the `compounds` guard refused a block, and a FAIL turns out to REPORT after the write rather than refuse |
+| 2026-09-17 | `hsk30l4` notes 421–450 (棵 → 浪漫), deck order | 18 | a card ALL THREE of whose sentences used its character for its sound alone, and a sixth truncated gloss |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5611,4 +5612,54 @@ first dropped the headword and disagreed with the person instead of the view.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; **shared-gloss groups 335 → 334**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 476 → 491;
+`build-lang-decks.js` re-run.
+
+## Batch 55 — hsk30l4 notes 421–450 (棵 → 浪漫)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order. Eighteen cards changed.
+
+**THE WORST SINGLE CARD THE AUDIT HAS MET.** 克 is the measure word for a GRAM, and **all three of its
+sentences used the character for its SOUND alone**: 迈克 (Mike), 夹克 (a jacket), 迈克 again. Nothing
+about weight appeared anywhere on the card, so a reader could study it to mastery and never learn what the
+word means. It is batch 47's 法拉费 falafel at three times the scale, and it is invisible to every checker
+here — the sentences segment, speak and translate perfectly, and `check-example-fit.js` skips
+single-character headwords by design. All three replaced. **Its own tap panel makes the same point**: of
+the two words the deck holds on the character, 巧克力 is a LOANWORD using it for its sound, so one word in
+the panel was about weight at all.
+
+**拉 IS THE SAME FAULT AT TWO OF THREE**: 拉倒 is the idiom *forget it*, which swallows the character into a
+fixed phrase, and 拉塔 is the name *Lata*. Both replaced.
+
+**A SIXTH TRUNCATED GLOSS.** 棵 read *individual [measure word for trees, cabbages, plants* — no closing
+bracket, and the words "measure word" inside a gloss whose LABEL already says measure word — after 西北, 园,
+场, 掉 and 幅. 拉's was the other malformation, two senses run together with nothing between them: *to play
+(a bowed instrument) to pull*.
+
+**FIVE MORE LABEL-AGAINST-GLOSS CARDS** — 科学, 客气, 肯定, 困 and 恐怕 — which makes **fifty-five over
+eleven batches**. 肯定 is the sharpest: three parts of speech named against a gloss that is only the
+adjective, so two of the three had none, and the card's own third line is the adverb. 恐怕 was glossed
+*afraid*, an adjective, where the word is the sentence-opening adverb its own three translations already
+render as *I'm afraid*.
+
+**FOUR MORE SENTENCES WENT, all of them ungrammatical.** 咳嗽's second is four words in an order Chinese
+does not allow. 课程's third wants the adverbial 地 for 彻底的 and puts 一小时内 before the verb rather
+than after the negation. 口语's first sets *spoken English* as 口语英语, the two halves the wrong way round
+— the card's own third line gets it right. And 浪漫's second ends 你不应该做了, a negated modal with a
+completed-aspect particle and no object.
+
+**FOUR SINGLE-CHARACTER CARDS GAINED `Compounds`** — 克, 拉, 空 and 苦, 拉's panel being empty and 空's one
+word against twenty-five in the collection. 空 was also tagged, its three lines being two kōng to one kòng.
+
+**SIX ENGLISH LINES.** 困难's third was given the proverb *No cross, no crown*, which carries not one word a
+reader can match to the headword, and 辣's third the bare *The older, the wiser*, which hides the ginger the
+Chinese is about. 课程's second read *some LESSONS have definitely been LEARNED*, an English idiom about
+hindsight. 苦's second put *in his life* where 一生 means all his life. 来不及's read *CRAP*, coarser than
+可恶. And 咳's third supplied a *He* the Chinese has not got — that one being the record's own row, so the
+English was corrected in the array.
+
+**A missing full stop** on 辣's second line, on the card and in the spoken field alike.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 334 → 334; pinyin clean; example-fit 143 and senses 152 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 491 → 503;
 `build-lang-decks.js` re-run.
