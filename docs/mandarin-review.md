@@ -608,6 +608,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 871–900 (永远 → 约会), deck order | 16 | two thirds of a card illustrated with a Japanese name spelled in its headword |
 | 2026-09-17 | `hsk30l4` notes 901–930 (月饼 → 之), deck order | 15 | three sentences whose Chinese says the opposite of their own English |
 | 2026-09-17 | `hsk30l4` notes 931–960 (支持 → 转), deck order, plus `major` and `gonna` sweeps | 22 | a split headword hidden by the fact that the pair IS a real word |
+| 2026-09-17 | `hsk30l4` notes 961–990 (转发 → 作者), deck order — **Level 4 complete** | 18 | a noun gloss on a card whose sentences are two different verbs |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6725,3 +6726,60 @@ the card teaches.
 still-ambiguous 2; shared-gloss groups 326 unchanged; pinyin clean — **including the new two-reading
 field on 转**; example-fit 143 and senses 152 unchanged; british 0; `gonna` now 0; 34,596 blocks with
 spoken == visible on every one; sense-tagged 587 → 593; `build-lang-decks.js` re-run.
+
+## Batch 73 — hsk30l4 notes 961–990 (转发 → 作者) — **Level 4 complete**
+
+The last thirty notes of the HSK 4 deck; **eighteen cards changed**. **Level 4 is finished**: 990 notes
+read one at a time over twenty-eight batches, from 阿姨 to 作者.
+
+**The leading fault is a gloss that describes the one sentence where the headword is swallowed.** 装 is
+glossed `dress; attire; clothing` — three NOUNS under a `verb` label — and the only sentence that fits
+it is 着装, where the character is buried in a compound. The other two are verbs in two quite different
+senses: 他装听不见 is to PRETEND and 这个瓶子装满了水 is to FILL. **The card glossed the sense it does
+not teach and taught two it does not gloss.**
+
+**Two more senses that no sentence showed.** 准's gloss names `standard, accurate, **to allow**` and the
+last is a verb (不准, 准许) with nothing behind it — while two of its three sentences were the same watch
+twice. 座's first sense is `seat` and **neither of its tagged sentences showed it**, both being the
+classifier, with the untagged third burying the character in 叫座. Both cards now show the missing sense
+and tag every sentence.
+
+**Four labels, and one of them was right.** 自信 named `noun / verb / adjective` with nothing verbal on
+the card; 最终 named `noun` over two adverbial sentences; 作用 named `noun / verb` where 起作用 is a verb
+phrase built ON the noun rather than a verb use of it. But **自然's three-part label was correct** and
+its sentences show all three — 功到自然成 the adverb, 自然中 the noun, 自然现象 the adjective — so there
+the GLOSS was doing a third of the work, and the fix was to split it rather than to cut the label.
+
+**Two sentences that are paragraphs.** 转机's first ran to fifty characters of philosophy with **a
+full-width IDEOGRAPHIC SPACE after every comma**, which nothing else in the decks uses, and taught a
+different sense of the word besides (得到转机, a turn for the better, on a card glossed *to transfer
+planes*). 总结's first ran to forty and wrote 三个的 where Chinese needs no classifier at all.
+
+**Two more sentences that are not Chinese**: 准确's 准确是多少钱 puts an adjective in front of 是, and
+尊重's 尊重地回应 uses 尊重 adverbially, which it does not do — its English calling it `reverence`, a good
+deal stronger than the word.
+
+**Three glosses**: 自 led on `self; oneself`, which nothing on the card shows (产自, 不请自来, 自此 are all
+*from, since*, and the self sense is a bound one that now lives in its `Compounds` block); 尊重 was `to
+honour` over three English lines saying *respect*; and two sentences ended bare.
+
+**Four `Compounds` blocks**: 装, 组, 座 and **赚, which has nothing built on it anywhere in the
+collection** — the seventh such character, after 扔, 帅, 躺, 趟, 咸 and 盐.
+
+**Read and left.** 转发, 准时, 资料, 仔细, 自习, 自学's other lines, 左右, 做法 (whose 灌肠的做法 is
+food in context, though the word also names a medical procedure), 作家, 做梦, 作品's other lines, 座位,
+作文, 作者.
+
+**Level 4 in summary.** Twenty-eight batches, 990 notes. What the deck turned out to contain, by the
+classes this audit has named: **six split headwords** whose two characters belong to different words
+(人生, 上门, 十分, 头痛, 线上/线下, 只好); **four characters used for their sound** in a transliterated
+name (鸟取, 由美 twice, 法拉费's siblings); **two dialect words** (树熊 for a koala, 外父 for a
+father-in-law); **three character errors** (大咸了, 应证, 电灯炮's kin); **eight truncated or simply wrong
+glosses**; **seven blind-spot spelling families** `check-british.js` cannot see; and **seven characters
+whose tap panel is empty across the whole collection**. Coverage ends at 11,532 notes with three
+sentences each and zero repeats.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 326 unchanged; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 593 → 609;
+`build-lang-decks.js` re-run.

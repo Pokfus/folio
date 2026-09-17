@@ -73326,7 +73326,7 @@
       ]
     },
     "hsk30l4/座": {
-      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information.",
+      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information. | The card's first sense is `seat` and **neither of its tagged sentences showed it** — 座教堂 and 座桥 are both the classifier — while the untagged third buried the character in 叫座, a box-office draw. Replaced with the seat the gloss leads on. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 座位. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "senses": [
         [
           "noun",
@@ -73339,8 +73339,39 @@
       ],
       "exSense": [
         2,
-        0,
-        2
+        2,
+        1
+      ],
+      "dropEx": [
+        "那部影片很叫座"
+      ],
+      "ex": [
+        [
+          "请找一个空座。",
+          "Please find an empty seat."
+        ]
+      ],
+      "compounds": [
+        [
+          "星座",
+          "xīng zuò",
+          "a constellation; a star sign"
+        ],
+        [
+          "讲座",
+          "jiǎng zuò",
+          "a lecture series"
+        ],
+        [
+          "座谈",
+          "zuò tán",
+          "an informal discussion"
+        ],
+        [
+          "让座",
+          "ràng zuò",
+          "to give up one's seat"
+        ]
       ]
     },
     "hsk30l4/道": {
@@ -76356,7 +76387,7 @@
       ]
     },
     "hsk30l4/转机": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The first sentence ran to fifty characters of philosophy — every comma followed by a full-width IDEOGRAPHIC SPACE, which nothing else in the decks uses — and its English to forty words. It is also a different SENSE from the one the card teaches: 得到转机 there is a turn for the better, where the card is glossed `to transfer planes`. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "我们在香港转机。",
@@ -76365,11 +76396,18 @@
         [
           "转机要等三个小时。",
           "There is a three-hour wait to change flights."
+        ],
+        [
+          "下一班转机在三号航站楼。",
+          "The connecting flight leaves from Terminal 3."
         ]
+      ],
+      "dropEx": [
+        "每件事情都有好的一面"
       ]
     },
     "hsk30l4/总结": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The first sentence ran to forty characters and wrote 三个的 where Chinese needs no classifier at all — 电脑，人造卫星和火箭三个的新成就. Replaced with a sentence a learner can hold in their head. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "请把这个月的工作总结一下。",
@@ -76378,7 +76416,14 @@
         [
           "会议最后做了总结。",
           "A summing-up was given at the end of the meeting."
+        ],
+        [
+          "他总结了失败的原因。",
+          "He summed up the reasons for the failure."
         ]
+      ],
+      "dropEx": [
+        "他的论文总结了电脑"
       ]
     },
     "hsk30l4/查找": {
@@ -110570,11 +110615,20 @@
       ]
     },
     "hsk30l4/租": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Apartment” is American; British English says flat. ",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Apartment” is American; British English says flat.  | The first and third sentences were both renting a car — 我想要租车 and 租车是必须的吗. One replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "exEn": [
         [
           "你租房子了吗",
           "Did you rent a flat?"
+        ]
+      ],
+      "dropEx": [
+        "租车是必须的吗"
+      ],
+      "ex": [
+        [
+          "这里可以租自行车。",
+          "You can hire a bicycle here."
         ]
       ]
     },
@@ -122200,6 +122254,249 @@
         [
           "我要让你下海喂鲨鱼",
           "I'm going to feed you to the sharks."
+        ]
+      ]
+    },
+    "hsk30l4/装": {
+      "why": "The gloss was `dress; attire; clothing` — three NOUNS under a `verb` label — and it describes the ONE sentence in which the headword is swallowed (着装). The other two are verbs in two quite different senses: 他装听不见 is to PRETEND and 这个瓶子装满了水 is to FILL. So the card glossed the sense it does not teach and taught two it does not gloss. All three senses given, and each sentence says which it shows. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "verb",
+          "to pretend; to feign"
+        ],
+        [
+          "verb",
+          "to fill, to load; to install"
+        ],
+        [
+          "noun",
+          "clothing; dress"
+        ]
+      ],
+      "exSense": [
+        1,
+        3,
+        2
+      ],
+      "compounds": [
+        [
+          "安装",
+          "ān zhuāng",
+          "to install; to fit"
+        ],
+        [
+          "服装",
+          "fú zhuāng",
+          "clothing; dress"
+        ],
+        [
+          "假装",
+          "jiǎ zhuāng",
+          "to pretend; to feign"
+        ],
+        [
+          "装修",
+          "zhuāng xiū",
+          "to fit out; to decorate"
+        ]
+      ]
+    },
+    "hsk30l4/准": {
+      "why": "The gloss names three things — `standard, accurate, to allow` — and the last of them is a VERB (不准, 准许) that nothing on the card showed, while two of the three sentences were the same watch twice (这块手表很准, 你的手表准不准). One replaced with the missing sense, and each sentence now says which it shows.",
+      "senses": [
+        [
+          "adjective",
+          "accurate; on time"
+        ],
+        [
+          "verb",
+          "to allow, to permit"
+        ]
+      ],
+      "dropEx": [
+        "你的手表准不准"
+      ],
+      "ex": [
+        [
+          "这里不准吸烟。",
+          "Smoking is not allowed here."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/自然": {
+      "why": "The card named three parts of speech over the single word `natural`, and — unusually — its three sentences show all three: 功到自然成 is the adverb, 自然中没有什么是无用的 the noun, 酸雨不是自然现象 the adjective. The label was right and the gloss was doing only a third of the work, so the senses are split and each sentence tagged.",
+      "senses": [
+        [
+          "noun",
+          "nature"
+        ],
+        [
+          "adjective",
+          "natural"
+        ],
+        [
+          "adverb",
+          "naturally; as a matter of course"
+        ]
+      ],
+      "exSense": [
+        3,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/自信": {
+      "why": "Labelled `noun / verb / adjective` over `self-confident; believe in oneself`, and its sentences are the adjective and the noun — nothing on the card is a verb.",
+      "senses": [
+        [
+          "noun",
+          "self-confidence"
+        ],
+        [
+          "adjective",
+          "self-confident"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/最终": {
+      "why": "Labelled `noun` over the adjectives `final; ultimate`, and two of its three sentences are neither — 最终，他来了 and 一切最终都会过去 are the ADVERB, in the end. Split, with each sentence tagged.",
+      "senses": [
+        [
+          "adjective",
+          "final; ultimate"
+        ],
+        [
+          "adverb",
+          "in the end; eventually"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/作用": {
+      "why": "Labelled `noun / verb` over the single noun `effect`, and all three sentences are the noun — 起作用 is a verb phrase built ON it rather than a verb use of it.",
+      "senses": [
+        [
+          "noun",
+          "an effect; a function"
+        ]
+      ]
+    },
+    "hsk30l4/自": {
+      "why": "The gloss led on `self; oneself`, which nothing on the card shows: 产自中国, 不请自来 and 自此 are all the `from, since` sense. The self sense is a bound one, and the new `Compounds` block is where it lives.",
+      "gloss": "from; since; (in compounds) self, oneself"
+    },
+    "hsk30l4/尊重": {
+      "why": "Glossed `to honour`, while all three of the card's English lines say **respect**, and the first sentence was not Chinese: 尊重地回应 uses 尊重 adverbially, which it does not do, and its English called it `reverence`, which is a great deal stronger than 尊重. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "to respect",
+      "dropEx": [
+        "尊重地回应"
+      ],
+      "ex": [
+        [
+          "我们要尊重别人的意见。",
+          "We should respect other people's opinions."
+        ]
+      ]
+    },
+    "hsk30l4/准确": {
+      "why": "The first sentence was ungrammatical: 准确是多少钱 puts the adjective 准确 in front of 是, which Chinese does not allow — it wants 准确的价格是多少 or simply 到底多少钱. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "准确是多少钱"
+      ],
+      "ex": [
+        [
+          "他的预测很准确。",
+          "His forecast was very accurate."
+        ]
+      ]
+    },
+    "hsk30l4/赚": {
+      "why": "The third sentence ended with no terminal mark at all. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all — and nor does the rest of the collection, which holds no other word built on this character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exStop": [
+        [
+          "赚再多的钱也不为过"
+        ]
+      ],
+      "compounds": [
+        [
+          "赚钱",
+          "zhuàn qián",
+          "to make money"
+        ],
+        [
+          "赚取",
+          "zhuàn qǔ",
+          "to earn; to make a profit"
+        ],
+        [
+          "赚大钱",
+          "zhuàn dà qián",
+          "to earn a fortune"
+        ]
+      ]
+    },
+    "hsk30l4/作为": {
+      "why": "The second sentence ended with no terminal mark at all.",
+      "exStop": [
+        [
+          "作为一个孩子，你的表现还说得过去"
+        ]
+      ]
+    },
+    "hsk30l4/作品": {
+      "why": "`My acquaintance with his works is slight` is a register no learner needs and nobody now writes; 我不很熟悉他的作品 is plain.",
+      "exEn": [
+        [
+          "我不很熟悉他的作品",
+          "I don't know his work very well."
+        ]
+      ]
+    },
+    "hsk30l4/自学": {
+      "why": "The 是…的 construction refers to something already done, so 我是自学这门语言的 is that the speaker LEARNT it by themselves rather than that they learn it.",
+      "exEn": [
+        [
+          "我是自学这门语言的",
+          "I learnt the language by myself."
+        ]
+      ]
+    },
+    "hsk30l4/组": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 小组. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "组织",
+          "zǔ zhī",
+          "to organise; an organisation"
+        ],
+        [
+          "组成",
+          "zǔ chéng",
+          "to form; to make up"
+        ],
+        [
+          "组合",
+          "zǔ hé",
+          "to combine; a combination"
+        ],
+        [
+          "词组",
+          "cí zǔ",
+          "a phrase"
         ]
       ]
     }
