@@ -3873,7 +3873,17 @@ window.GLOSSARY = {
 "Pereyaslavets": "Pereyaslavets is the name given in the Rus' chronicle tradition to a town on the lower Danube that a 10th-century ruler of Kyiv took from the Bulgarians and made his own seat for several years.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle has him explain the choice commercially, listing the silver, cloth, fruit and wine that reached it from the Byzantine empire, the silver and horses from central Europe, and the furs, wax, honey and slaves that came down from the north.<sup class=\"fn\" data-fn=\"2\"></sup> Its site has never been securely identified, and the Byzantine accounts of the war that ended the occupation use a different name for the city they stormed.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Rus'–Byzantine_Treaty": "A Rus'–Byzantine treaty is one of the 10th-century agreements between the rulers of Kyiv and the Byzantine emperors, three of which survive as Slavonic translations copied into the Rus' chronicle tradition.<sup class=\"fn\" data-fn=\"1\"></sup> Their business was chiefly commercial: lodging and provisions for visiting merchants outside Constantinople, exemption from trade duties, the treatment of shipwrecked crews and escaped slaves, limits on what might be bought, and an undertaking to supply the emperor with troops on request.<sup class=\"fn\" data-fn=\"2\"></sup> That they use the September year of the imperial chancery, unlike the chronicle around them, is one reason for thinking the texts genuinely translate Byzantine originals.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Sarkel": "Sarkel was a fortress on the lower reaches of the Don, built for the Khazar khaganate in the 830s by a military mission sent from Constantinople at the request of Khazar envoys.<sup class=\"fn\" data-fn=\"1\"></sup> A Byzantine imperial handbook records that the officer in charge found no building stone at the site, so he raised kilns, fired brick in them and burned lime from fine river gravel; the same text puts the place sixty days' travel from the Danube.<sup class=\"fn\" data-fn=\"1\"></sup> The name is usually understood to mean white house or white tower, which the Slavonic name used in the Rus' chronicle tradition translates exactly.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Sviatoslav_I": "Sviatoslav was the ruler of the Rus' polity centred on Kyiv from the end of his mother's regency until 972, and spent almost the whole of it campaigning between the middle Volga and the lower Danube.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle tradition describes him travelling without baggage, eating meat grilled on coals and sleeping under a cloak with a saddle for a pillow, and a Byzantine historian who wrote within living memory describes him meeting an emperor from the thwart of a small boat.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His campaign of 965 broke the power of the Khazar khaganate, and he was killed at the Dnieper rapids on his way home from the Danube.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Sviatoslav_I": "Sviatoslav was the ruler of the Rus' polity centred on Kyiv from the end of his mother's regency until 972, and spent almost the whole of it campaigning between the middle Volga and the lower Danube.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle tradition describes him travelling without baggage, eating meat grilled on coals and sleeping under a cloak with a saddle for a pillow, and a Byzantine historian who wrote within living memory describes him meeting an emperor from the thwart of a small boat.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His campaign of 965 broke the power of the Khazar khaganate, and he was killed at the Dnieper rapids on his way home from the Danube.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Anna_Porphyrogenita": "<b>Anna Porphyrogenita</b> was a purple-born sister of the Byzantine emperors Basil II and Constantine VIII, married to Vladimir of Kyiv about 988.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle has her brothers agree to the match only after Vladimir took Kherson and threatened their capital, and records that she said she was going into slavery and would rather die at home.<sup class=\"fn\" data-fn=\"1\"></sup> One Byzantine account of the same bargain has the emperor buy six thousand troops with her hand, at a time when an imperial handbook written a generation earlier forbade an emperor to marry into the northern nations at all.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Boris_and_Gleb": "<b>Boris and Gleb</b> were younger sons of Vladimir of Kyiv, killed in the fighting that followed his death in 1015 and afterwards venerated as saints.<sup class=\"fn\" data-fn=\"1\"></sup> Their relics were moved four times between the reign of Yaroslav and 1115, and the liturgy differed each time, the shape of the feast resting with the Greek metropolitan.<sup class=\"fn\" data-fn=\"2\"></sup> At the translation of 1072 the metropolitan doubted whether the princes were holy, consecrated the church at Vyshgorod with other relics, and only then moved them in, where under Yaroslav and again in 1115 the consecration was performed beside the relics themselves.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Christianization_of_Kievan_Rus'": "The <b>Christianisation of Kievan Rus'</b> is the adoption of Byzantine Christianity as the religion of the Kyivan state under prince Vladimir, conventionally dated to 988 or 989.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle presents it as a decision carried out at once, with the idols chopped or burnt, the chief idol dragged to the river and beaten, and a church raised where it had stood.<sup class=\"fn\" data-fn=\"2\"></sup> Old tradition did not count a single conversion, assembling instead a series of up to six separate stages spread over two centuries, and the old worship survived into the late eleventh century.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Church_of_the_Tithes": "The <b>Church of the Tithes</b> was the cathedral church Vladimir built at Kyiv with architects sent for from Greece, and it takes its name from its endowment.<sup class=\"fn\" data-fn=\"1\"></sup> Seeing it finished, he gave it the tenth part of his goods and towns, wrote out a curse against anyone who broke the oath and laid the document inside the building.<sup class=\"fn\" data-fn=\"1\"></sup> That vow is repeated in the document known as his Church Ordinance, which binds his successors to keep it, and whose oldest copy is bound beside the oldest copy of the Russkaya Pravda in a Novgorodian church collection of the late thirteenth century.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Dazhbog": "<b>Dazhbog</b> is a Slavic deity named in the list of six idols that the Rus' Primary Chronicle says were set up on the hill behind the prince's palace yard at Kyiv in 980.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle never explains any of the six, and after the idols were thrown down in 988 it mentions only Dazhbog again, in a retold Greek chronograph that gives him a smith-god father.<sup class=\"fn\" data-fn=\"1\"></sup> His name is usually read as a plea meaning God grant, though that spelling is rare in the manuscripts, and an alternative derives the stem from a word for day.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Metropolis_of_Kyiv": "The <b>Metropolis of Kyiv</b> was the church province the patriarchate of Constantinople created for Rus' after its conversion, covering the whole eastern Slavic lands as one missionary diocese.<sup class=\"fn\" data-fn=\"1\"></sup> Its metropolitans were sent from Byzantium and held authority over bishops and clergy who were chosen locally, an arrangement that lasted from the conversion to the schism of 1054.<sup class=\"fn\" data-fn=\"1\"></sup> Only two men of local birth are known to have held the office before the middle of the twelfth century, of whom the first, Ilarion, was enthroned at Saint Sophia in Kyiv in 1051.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Russkaya_Pravda": "The <b>Russkaya Pravda</b> is the earliest written law of Rus', attributed to Yaroslav the Wise and his sons and surviving in a short and a full version.<sup class=\"fn\" data-fn=\"1\"></sup> The short version opens with seventeen articles on killing, assault and offences against property, and its penalties pair a fine to the prince with compensation to the injured party.<sup class=\"fn\" data-fn=\"1\"></sup> The fine for killing rose with rank, at eighty grivnas for a boyar, forty for a freeman and twenty for a woman, and the oldest manuscript is a church collection of the late thirteenth century.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Saint_Sophia_Cathedral,_Kyiv": "<b>Saint Sophia Cathedral</b> at Kyiv is the metropolitan church of Kievan Rus', and it keeps the greater part of its eleventh-century mosaics along with at least half of its wall paintings.<sup class=\"fn\" data-fn=\"1\"></sup> The decoration is usually placed in the 1030s and 1040s, and more than eight hundred images of saints survive, most of them without the inscriptions that once named them.<sup class=\"fn\" data-fn=\"1\"></sup> Its foundation is dated 1037 by the Kyiv chronicle and 1017 by the Novgorod chronicle, and a German bishop writing at the time records a church of Sophia there burning down in 1017.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Vladimir_the_Great": "<b>Vladimir the Great</b> was prince of Kyiv from 980 to 1015, remembered chiefly for making Byzantine Christianity the religion of his state.<sup class=\"fn\" data-fn=\"1\"></sup> He came to power by killing his brother, raised a set of six idols on the hill behind his palace yard, and eight years later had them thrown down and beaten through the streets.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A German bishop writing within a few years of his death called him an immense and cruel fornicator who received the faith at his Greek wife's urging and adorned it with no just works.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Yaroslav_the_Wise": "<b>Yaroslav the Wise</b> was prince of Kyiv from 1016 and sole ruler of Rus' from 1036 until his death in 1054.<sup class=\"fn\" data-fn=\"1\"></sup> He took Kyiv with a Novgorodian army after a night crossing of the Dnieper, lost the city to a Polish invasion in 1018, and held it without a rival only from 1036.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The reign afterwards is remembered for gathering scribes to copy and translate books out of Greek, for founding the metropolitan cathedral of Saint Sophia and other churches at Kyiv, and for the earliest written law of Rus'.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5876,7 +5886,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Pereyaslavets": "967 – 971 CE",
 "Rus'–Byzantine_Treaty": "911 – 971 CE",
 "Sarkel": "c. 830s – 965 CE",
-"Sviatoslav_I": "c. 943 – 972 CE"
+"Sviatoslav_I": "c. 943 – 972 CE",
+"Anna_Porphyrogenita": "died between 1008 and 1011",
+"Boris_and_Gleb": "killed 1015",
+"Christianization_of_Kievan_Rus'": "988 or 989",
+"Church_of_the_Tithes": "989 – 996",
+"Metropolis_of_Kyiv": "from c. 988",
+"Russkaya_Pravda": "11th century",
+"Saint_Sophia_Cathedral,_Kyiv": "founded 1017 or 1037",
+"Vladimir_the_Great": "c. 958 – 1015",
+"Yaroslav_the_Wise": "c. 978 – 1054"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8180,7 +8199,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Pereyaslavets": ["Pereiaslavets"],
 "Rus'–Byzantine_Treaty": ["Rus'-Byzantine treaty","Rus'–Byzantine treaties","Russo-Byzantine treaties"],
 "Sarkel": ["Belaya Vezha"],
-"Sviatoslav_I": ["Sviatoslav","Svyatoslav","Sviatoslav Igorevich","Sphendosthlavos"]
+"Sviatoslav_I": ["Sviatoslav","Svyatoslav","Sviatoslav Igorevich","Sphendosthlavos"],
+"Anna_Porphyrogenita": ["Anna of Byzantium"],
+"Boris_and_Gleb": ["Saints Boris and Gleb"],
+"Christianization_of_Kievan_Rus'": ["Christianisation of Kievan Rus'","baptism of Rus'"],
+"Church_of_the_Tithes": ["Desyatinnaya Church","Tithe Church"],
+"Dazhbog": ["Dazhdbog","Dažbog"],
+"Metropolis_of_Kyiv": ["Metropolitanate of Kyiv","Metropolitanate of Kievan Rus'"],
+"Russkaya_Pravda": ["Russkaia Pravda","Pravda Russkaia"],
+"Saint_Sophia_Cathedral,_Kyiv": ["Saint Sophia Cathedral in Kyiv","Saint Sophia of Kyiv","Saint Sophia at Kyiv"],
+"Vladimir_the_Great": ["Vladimir I","Volodymyr the Great","Saint Vladimir"],
+"Yaroslav_the_Wise": ["Yaroslav","Yaroslav I"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12095,7 +12124,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pereyaslavets": ["place","city","history","kievan rus","trade","europe"],
 "Rus'–Byzantine_Treaty": ["document","treaty","history","kievan rus","byzantium","trade","diplomacy"],
 "Sarkel": ["place","building","history","archaeology","khazars","byzantium"],
-"Sviatoslav_I": ["person","ruler","warfare","history","kievan rus","europe"]
+"Sviatoslav_I": ["person","ruler","warfare","history","kievan rus","europe"],
+"Anna_Porphyrogenita": ["person","history","religion","byzantium","kievan rus"],
+"Boris_and_Gleb": ["people","religion","history","ruler","kievan rus"],
+"Christianization_of_Kievan_Rus'": ["event","religion","history","politics","kievan rus"],
+"Church_of_the_Tithes": ["building","religion","architecture","history","kievan rus"],
+"Dazhbog": ["deity","religion","mythology","history","kievan rus"],
+"Metropolis_of_Kyiv": ["institution","religion","history","politics","kievan rus"],
+"Russkaya_Pravda": ["text","history","politics","concept","kievan rus"],
+"Saint_Sophia_Cathedral,_Kyiv": ["building","religion","art","history","kievan rus"],
+"Vladimir_the_Great": ["person","ruler","religion","history","kievan rus"],
+"Yaroslav_the_Wise": ["person","ruler","history","politics","kievan rus"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

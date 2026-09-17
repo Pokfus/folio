@@ -20,7 +20,15 @@ const fs = require("fs"), path = require("path");
 const ROOT = path.join(__dirname, "..");
 
 function key(src) {
-  const f = decodeURIComponent(String(src || "").split("/").pop() || "");
+  /* THE SEGMENT BEFORE THE WIDTH IS THE REAL FILE NAME, which is `check-cards.js`'s rule and was NOT
+     this tool's (Sep 2026, on the ru-051–ru-060 batch). A thumb URL is …/thumb/<a>/<ab>/<FILE>/<W>px-<FILE>,
+     and Commons TRUNCATES a long <FILE> in the last segment to the literal "1920px-thumbnail.jpg" — so
+     keying on the last segment leaves every such picture called "thumbnail.jpg", and this tool reported
+     two newly chosen Radziwiłł miniatures as TAKEN by 39 unrelated items. Its own header says the
+     comparison is `check-cards.js`'s; it now is. */
+  const parts = String(src || "").split("/");
+  const wIdx = parts.findIndex((q) => /^\d+px-/.test(q));
+  const f = decodeURIComponent(wIdx > 0 ? parts[wIdx - 1] : (parts[parts.length - 1] || ""));
   /* SPACE AND UNDERSCORE ARE THE SAME CHARACTER ON COMMONS, and forgetting it makes this checker
      answer "free" about a file that is already on a card — which is the one answer it must never get
      wrong. A card's `src` carries underscores; a name typed from a search result carries spaces. */

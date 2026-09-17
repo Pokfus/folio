@@ -449,14 +449,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
   the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
-  under "Generating cards & glossary entries". **`ru-001` to `ru-050` have shipped** (Sep 2026) — the
+  under "Generating cards & glossary entries". **`ru-001` to `ru-060` have shipped** (Sep 2026) — the
   Scythian and Sarmatian steppe, then the Goths, Huns, Avars, Bulgars, Khazars, Magyars and Pechenegs, then
   the Slavs, the Vyatichi, Slavic paganism, Perun, the Merya, the Balts, the Varangians and the Rus', and
   then the Normanist controversy, Staraya Ladoga, Gnyozdovo and the two trade routes, which **FINISHES
   `ru-before` at its full 35 cards**; `ru-kievan` then opens with Kievan Rus', Rurik, the Primary Chronicle,
   the calling of the Varangians and Novgorod, and runs on through Oleg, the seizure of Kyiv, the
   Rus'–Byzantine treaties, the raids on Constantinople, Igor, Olga, her baptism, Sviatoslav, the end of
-  Khazaria and the Danube dominion — and the collection is live with its 27 empty decks
+  Khazaria, the Danube dominion, Vladimir, his pagan reform, the conversion, the Byzantine marriage, the
+  Tithe Church, Boris and Gleb, Yaroslav, the Russkaya Pravda, Saint Sophia and the metropolitanate — and
+  the collection is live with its 27 empty decks
   coming-soon automatically, `isComingSoon` being true for a node holding no card. **Ten lines are now
   answered by something other than their own words, and the reasons are four rules**: `ru-017` is answered by the **Khazar
   Correspondence** rather than by "the Khazar conversion to Judaism", `ww2-140`'s shape — a line naming a
@@ -474,6 +476,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `ww2-140`'s document shape, and there the document's SILENCE is the card; `ru-050` "Sviatoslav's Balkan
   campaigns" is **Pereyaslavets**, the town they were about; and `ru-044` "the Rus' raids on
   Constantinople" is **Greek fire**.
+  **The third ten add five more, and one of them was decided by what the SOURCES would carry rather than
+  by a rule**: `ru-052` "Vladimir's pagan reform" is **`Dazhbog`** — the reform has no article of its own,
+  `Perun` is `ru-026` and `Slavic_paganism` is `ru-025`, so the term had to be one of the other five
+  deities of the chronicle's list, and **`Mokosh` was the first choice and is unciteable**, the standard
+  open survey of Slavic mythology not mentioning her once while Dazhbog has a dedicated open article.
+  **ASK WHETHER A DEITY CAN BE CITED TO THE BAR BEFORE CHOOSING IT AS AN ANSWER TERM**: a name in a
+  chronicle list is not a literature. `ru-054` "the choice of faiths" is **`Anna Porphyrogenita`**, there
+  being no article for the chronicle's own story and the outside record being a marriage bargain rather
+  than a comparison of religions; `ru-055` "the baptism of Kyiv" is the **`Church of the Tithes`**, the
+  baptism itself being `ru-053`'s own answer; and `ru-059` and `ru-060` take the article titles
+  (*Saint Sophia Cathedral, Kyiv*; *Metropolis of Kyiv*, a redirect target) rather than the plan's wording.
+  **AND `ru-053`'s ANSWER TERM IS AUTHORED BRITISH, WHICH COST A `SPELL_PAIRS` ROW** — the `Sovietisation`
+  finding one word over. Folio's prose writes *Christianisation*, the -ise/-ize family is two-way, and the
+  table had **no `christianis` row at all**, so whichever spelling the card stored was the one BOTH readers
+  saw; `check-spelling-corpus.js` could not see it either, that tool measuring the corpus against
+  `SPELL_PAIRS` and a family absent from the table being one it never asks about. The glossary key stays
+  the real slug `Christianization_of_Kievan_Rus'` with the British form as an alias, `Paleolithic`'s own
+  arrangement.
   **AND `ru-036` AND `ru-044` NEEDED NO NEW GLOSSARY TERM, WHICH IS WORTH CHECKING FOR BEFORE THE RESEARCH
   RATHER THAN AFTER**: `Kievan_Rus'` has been a cited term since the citation pass and `Greek_fire` has
   been one, with a picture, for longer still, so the pairing rule was already satisfied and
@@ -484,12 +504,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's bolded answer term has to match its own `answer` field exactly, and `Kievan_Rus'` already claims
   the CURLY `Rus’` as an alias, so a curly one in prose auto-links to the state rather than the people.
   **📖 `docs/russia-card-plan.md` — READ BEFORE WRITING A
-  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-050`: the open sources
+  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-060`: the open sources
   that carry the collection and Léger's own pagination for the chronicle passages, the rule that a
   Russian-language journal is cited in Russian
   because that is the title Crossref holds, the `check-cards.js` rule 6 gap that no single Cyrillic row
   closes, the future `Avars` alias collision with the Caucasus, why four of the second ten cards carry no
-  locator at all, and the two pictures whose captions have to argue with them. It is the first plan that has to
+  locator at all, the two pictures whose captions have to argue with them, the four claims written and
+  then cut for want of a source that carried them, and the finding that **`add-card.js` and
+  `set-date-line.js` disagree about what a date line may contain** — the shared module's `isDateList`,
+  which is the half `add-card.js` calls, never checks the LABEL length, so `ru-056` shipped a 17-character
+  label the writer then refused; 154 shipped cards carry one, so closing it is a content pass of its own.
+  **AND IT CARRIES THE COLLECTION'S OWN DATE-LINE TRAP, WHICH IS WHY EVERY `ru-` DATE UNDER 1000 IS
+  WRITTEN `CE`**: `cardYears`' plain-number rule is `\b(1\d{3}|20\d{2})\b`, so a bare first-millennium
+  year reaches it only through the era rule — and a card whose date line mixes one with a LATER readable
+  row takes its sort year off that row in silence. Six of `ru-051`–`ru-060` shipped that way, Vladimir
+  sorting at his death and Dazhbog at a twelfth-century manuscript; only the three yielding NO year were
+  visible, `test-date-line.js` asking whether a card yields a year rather than whether it is the right
+  one. **Read the sort year back against `cardYears` after writing a date line here.**
+  It is the first plan that has to
   set **date, name and transliteration conventions** (the Julian/Gregorian gap, Kyiv against Kiev), and the
   first whose subject reaches the present day — read its "History, not archaeology" and "Sourcing" sections
   before writing anything after 1917. Not part of the site.
@@ -1323,7 +1355,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.35 MB and 48,958 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.35 MB and 48,964 lines is hard to find your way around, so this
   lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6018,7 +6050,7 @@ lookup.
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
-| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 50 cards, contiguous — next is `ru-051` |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 60 cards, contiguous — next is `ru-061` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |

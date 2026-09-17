@@ -15356,6 +15356,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["reorganis", "reorganiz", "e|es|ed|ing|ation|ations"],
     ["recognis", "recogniz", "e|es|ed|ing|able|ably|ance"],
     ["civilis", "civiliz", "e|es|ed|ing|ation|ations|ational"],
+    /* `Christianisation` is authored British, like every other -ise word in Folio's prose (the
+       corpus writes the s form on the World History cards), and the family had no row — so whichever
+       spelling a card stored was the one BOTH readers saw, and a reader typing the other one into the
+       cloze box was marked wrong.  `sovietis` was added for exactly this in Sep 2026; this is the same
+       hole one word over, found while writing ru-053. */
+    ["christianis", "christianiz", "e|es|ed|ing|ation|ations"],
     ["colonis", "coloniz", "e|es|ed|ing|ation|ations|er|ers"],
     ["decolonis", "decoloniz", "e|es|ed|ing|ation"],
     ["sovietis", "sovietiz", "e|es|ed|ing|ation|ations"],

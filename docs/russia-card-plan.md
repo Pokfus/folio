@@ -702,6 +702,134 @@ and could not see the same words in its ABSTRACT, because it reads `data.js` and
 four abstracts carried a hyphenated tens-and-units number and were fixed through `fix-field.js`.
 **Sweep your own abstracts for that rule by hand** — the checker cannot.
 
+**2026-09-17, `ru-051`–`ru-060` written** — Vladimir, his pagan reform, the conversion, the Byzantine
+marriage, the Tithe Church, Boris and Gleb, Yaroslav, the Russkaya Pravda, Saint Sophia and the
+metropolitanate. All ten sit in `ru-kievan`, which now holds 25 cards.
+
+**FIVE OF THE TEN LINES ARE ANSWERED BY SOMETHING OTHER THAN THEIR OWN WORDS, AND ONE OF THEM WAS
+DECIDED BY WHAT THE SOURCES WOULD CARRY RATHER THAN BY A RULE.** `ru-052` "Vladimir's pagan reform" has
+no article of its own (checked: *Pantheon of Vladimir* and *Vladimir's pagan reform* are both missing on
+English Wikipedia), and `Perun` is `ru-026` while `Slavic_paganism` is `ru-025`, so the reform's
+remaining teachable term had to be one of the other five deities of the chronicle's list. **The first
+choice was `Mokosh` and it was wrong, measurably.** She is the only female deity of the six and the most
+interesting on paper; what settled it is that **nothing openable carries her** — Máchal's *Slavic
+Mythology*, the standard older survey and the one open work with chapters on the Rus' deities, has
+chapters on Perun, Dazbog, Svarog, Chors, Veles and Stribog and **does not mention Mokosh once**, and a
+DOAJ and Crossref sweep returns only Russian linguistic-culture papers about the modern CONCEPT of
+Makosh. **`Dazhbog` has a dedicated open article** (Kutarev in *Studia mythologica Slavica* 24) and a
+Máchal chapter, so the card is his. **Check that a deity can be cited to the bar before choosing it as
+an answer term**: a name in a chronicle list is not a literature.
+
+`ru-054` "The choice of faiths" is **`Anna Porphyrogenita`**, for two reasons at once. There is no
+article for the chronicle's own story — *Choice of faith*, *Testing of the faiths* and *Philosopher's
+Speech* are all missing — and the outside record of the same events is a marriage bargain rather than a
+comparison of religions: Theotokis has Basil II, facing the Phokades and Skleroi, buy six thousand
+troops with the hand of a purple-born princess. **The card keeps the chronicle's four embassies as what
+the chronicle SAYS and sets the Greek record beside it**, which is a sharper card than either alone, and
+it is the plan's line honoured rather than dropped.
+
+`ru-055` "The baptism of Kyiv" is **`Church of the Tithes`**, because the baptism itself is
+`ru-053`'s answer under its own name and the line had no term left of its own — the `ww2-133` shape
+again. `ru-059` and `ru-060` take the article titles rather than the plan's wording (*Saint Sophia
+Cathedral, Kyiv* for "Saint Sophia Cathedral in Kyiv"; *Metropolis of Kyiv*, the redirect target of
+*Metropolitanate of Kiev*, for "The metropolitanate of Kyiv").
+
+**`ru-053`'s ANSWER TERM IS AUTHORED BRITISH AND THAT COST A `SPELL_PAIRS` ROW** — the `sovietis`
+finding one word over. Folio's prose writes *Christianisation* (four surfaces on the World History
+cards, none with a z), the -ise/-ize family is two-way, and the table had **no `christianis` row at
+all** — so whichever spelling the card stored was the one BOTH readers saw, and a reader typing the
+other into the cloze box would have been marked wrong. **`check-spelling-corpus.js` could not see it
+either**, since that tool measures the corpus against `SPELL_PAIRS` and a family absent from the table
+is a family it never asks about. One row added, the card converted to the s form, and the glossary key
+left on the real Wikipedia slug `Christianization_of_Kievan_Rus'` with the British form as an alias —
+`Paleolithic`'s own arrangement.
+
+**`add-card.js` AND `set-date-line.js` DISAGREE ABOUT WHAT A DATE LINE MAY CONTAIN, AND THE LOOSER ONE
+IS THE DOOR A NEW CARD GOES THROUGH.** `ru-056` shipped with the label *First translation*, 17
+characters, which `add-card.js` accepted and `set-date-line.js` then REFUSED on the same field: the
+shared module's `buildDateLine` checks `LABEL_MAX` and its `isDateList`, which is the half `add-card.js`
+calls, checks the row count and the value length and **never the label**. Measured over the corpus,
+**154 shipped cards carry a label over 16 characters** — so closing the gap in `isDateList` is a
+content pass of its own, because `test-date-line.js` runs that predicate over every card and would fail
+all 154. Recorded rather than fixed; `ru-056`'s line was rewritten as *Relics moved | 1072 and 1115*.
+
+**THE BATCH'S OPEN SOURCES, all fetched and read.** Léger's chronicle carries nearly all of it and the
+pages are worth having: **64–65** the six idols and Vladimir's household, **67** the 983 sacrifice,
+**69** the Muslim Bulgars, **89–90** the envoys' report and the boyars' argument from Olga,
+**91** the siege of Kherson and the demand for the emperors' sister, **96** the Kherson spoils and the
+bronze horses standing before the Mother of God, **100** the twelve sons and their towns, **101** the
+stone church and its Greek architects, **103** the tithe and the curse laid inside it, **108** Vladimir's
+death and Anna's, **121** Anastasius made the Polish king's treasurer, **128** Saint Sophia founded in
+1037 and Yaroslav's books, **132** Ilarion made metropolitan, **137** Yaroslav's death and marble
+coffin, **189** the church called Desyatinnaya, and **290** Léger's own note on Dajbog and the Igor Tale.
+Beside it: **Thietmar of Merseburg** (Kurze 1889, VIII.72–73 pp. 236–237 for Vladimir, Helena and
+Reinbern; IX.31–32 pp. 257–258 for Bolesław in Kyiv and the Sophia that burnt in 1017), **the
+Chronicle of Novgorod** in Michell and Forbes (pp. 1–2 — the whole 1016 campaign and, on p. 2, the
+notice that *St Sophia was founded at Kiev* in **1017**), **Kluchevsky**'s *History of Russia* vol. 1
+(pp. 145–166 and 171 — the Pravda's two versions, the vira tariff, Vladimir's Church Ordinance and
+Yaroslav's agreement with Ilarion), **Máchal**'s *Slavic Mythology* (pp. 293–302), **Kutarev** on
+Dazhbog, **Kroczak** in *Studia Ceranea* 6 on Ilarion and *On Law and Grace*, **Babie** in the
+*Ecclesiastical Law Journal* on the metropolitanate, **Vinogradov** in *Slovene* on the Boris and Gleb
+translations, **Joukovskaia** in *Quaestio Rossica* on Tolochko's Short Pravda thesis, **Zakharova** in
+ΔΧΑΕ on Saint Sophia's wall paintings, **Bulanin** in *Slovene* on the several baptisms of Rus', and
+**Theotokis** and the *De administrando imperio* carried over from the last batch.
+
+**THE NOVGOROD CHRONICLE'S PAGINATION IS NOT MACHINE-READABLE AND THE ANSWER IS THE FACING HEAD.** Its
+running heads are OCR'd as `.;2.'        THE  CHRONICLE  OF  NOVGOROD`, so a page map built on a digit
+finds nothing and one built on the readable heads extrapolates over the gaps — on Léger the same
+approach put the Desyatinnaya notice on p. 180 when the garbled head above it plainly reads 189.
+**Pin a page by reading the nearest printed head, not by interpolating**, which is two lines of Python
+and is the only thing that catches it.
+
+**TWO MEDIEVAL WITNESSES WENT INTO `check-cards.js`'s `ANCIENT`**, the same two shapes the last batch
+added: `thietmar of merseburg`, a contemporary of the events he reports, and `the chronicle of
+novgorod`, an anonymous work whose citations open on an italicised title that `authorOf` reads as an
+author called "The Chronicle of Novgorod 1016–1471". Rule 6 also fired once, on `ru-059` — two
+sources in Greek, both of them the SAME Zakharova article, whose journal title is Greek while the
+article carries an English title and abstract. **Merging the two page citations into one is the right
+answer rather than a `SAME_LANGUAGE_OK` row**: the card cites one work twice, which is what the merge
+says, and a declaration would have excused a second Greek work that is not there.
+
+**FOUR CLAIMS WERE WRITTEN AND THEN CUT FOR WANT OF A SOURCE THAT CARRIED THEM.** `ru-056`'s opening
+called Boris and Gleb "the first native saints of Rus'" and cited Kroczak, who **does not mention them
+at all** — the sentence now says they were venerated within a generation, which Vinogradov's account
+of the translations does carry. `ru-054`'s first sentence cited Babie for Anna's parentage, which Babie
+never gives, and her date line carried a birth date of 13 March 963 that no open source here states:
+both went, the line now reading *Died | between 1008 and 1011*, which is Léger p. 108. `ru-055`'s date
+line claimed the church was destroyed in 1240, which none of its sources covers, and its first sentence
+called it "the first stone church of Rus'", which is an inference rather than a quotation. **Audit the
+marker-to-source mapping sentence by sentence before committing**: `add-sources.js` checks that every
+source is referenced and every marker resolves, and passes a marker pointing at a source that says
+something else.
+
+**A BARE YEAR UNDER 1000 IS NOT A DATE `cardYears` CAN READ, AND SIX OF THIS BATCH'S TEN SHIPPED THAT
+WAY.** `cardYears`' plain-number rule is `\b(1\d{3}|20\d{2})\b`, so a first-millennium year reaches
+it only through the era rule — which needs `CE` beside the digits. Everything from `ru-030` to `ru-050`
+writes it (`839 CE`, `c. 879 – 912 CE`), and this batch stopped because most of its dates are in the
+second millennium and parse without one; the effect is that a card's sort year was silently taken from
+whichever LATER row happened to be readable. **`ru-051` Vladimir sorted at 1015, his DEATH**, the reign
+row `980 – 1015` yielding only its closing year and `988 or 989` yielding nothing at all; `ru-052`
+Dazhbog sorted at **1114** off the Hypatian Codex rather than at 980; `ru-060` at **1051** rather than
+988. **Three yielded no year at all** — `ru-053`, `ru-055` and `ru-058` — which is the only part
+`test-date-line.js` can see, since its assertion is that a card stating a date yields A year and not
+that the year is the right one. **So a date line whose rows are all pre-1000 FAILS LOUDLY and one with
+a later row beside them fails silently**, which is the worse half and the reason to read the sort year
+back after writing any date line on this collection: two lines of Node against `cardYears`, as
+CLAUDE.md's own date-line bullet says.
+· **The era marker reaches only the year it FOLLOWS**, so an alternative-year row is written
+  `988 CE or 989 CE`; with the era once, the earlier figure is simply dropped and the card sorts a year
+  late. The RANGE form is the exception and carries leftwards: `989 – 996 CE` gives both.
+· **`ru-058`'s rows were centuries only** — *Yaroslav and his sons, 11th century* over *late 13th
+  century* — and a century is unreadable in either direction, so the row now states the span the
+  century MEANS, `1000 – 1100`, per CLAUDE.md's rule. The card sorts at 1000, which is inside the
+  century its sources give and asserts no precision they have not got.
+· **AND REWRITING THROUGH `set-date-line.js` SHORTENED FOUR LABELS `add-card.js` HAD ACCEPTED.**
+  *Novgorod's idols cast down* (25), *Cult of Perun ended* (19), *First native head* (17) and *Second
+  native head* (18) are all over `LABEL_MAX`; `add-card.js` calls `isDateList`, which checks the VALUES
+  and never the label, where `buildDateLine` checks both. That divergence is the gap this plan recorded
+  last batch — 154 shipped cards carry an over-long label — and it is worth knowing that **any card
+  put back through `set-date-line.js` pays it off on the way past**.
+
 ---
 
 # The list
