@@ -1734,3 +1734,23 @@ category. **#75 was attempted and left**: the Smithsonian's record of the Mark I
 `history.navy.mil` fails TLS verification through this proxy, and the Edison Papers' digital edition
 (`edisondigital.rutgers.edu`) is a bot wall, though `edison.rutgers.edu` itself answers — so the 1878
 "bugs" letter wants a different route, most likely a Victorian electrical dictionary on archive.org.
+
+### T44 — "bug" in a dictionary fifty years before the moth (2026-09-17)
+
+One cited: #75. 186 → **187 of 220**. Sloane's *Standard Electrical Dictionary* of 1897 settles it in
+one line — "**Bug.** Any fault or trouble in the connections or working of electric apparatus" —
+with a second entry for the "bug trap" that cured one and the note that both terms "originated in
+quadruplex telegraphy". Hawkins' dictionary of 1910 carries the same sense. The moth of 1947 is real
+and is not in the citation at all, because it does not need to be: a word a reference work defined in
+1897 was not coined in 1947.
+
+**A DICTIONARY IS CITED BY HEADWORD, NOT BY PAGE**, which is Chicago's own rule for a reference work
+and is the right one here for a second reason: an OCR'd page number is a guess. Sloane's running
+heads number the versos and print a bare figure on the rectos, so the entry could be read as page 92
+or 93 by eye; `s.v. "Bug"` is exact, checkable and cannot be wrong.
+
+**AND THE ROUTE IS WORTH KEEPING: A PERIOD DICTIONARY IS THE CHEAPEST PROOF THAT A WORD IS OLDER THAN
+A STORY ABOUT IT.** The obvious sources were all shut — the Smithsonian's record of the logbook is
+403, `history.navy.mil` fails TLS verification through this proxy, and the Edison Papers' digital
+edition is a bot wall — and none of them would have been better than this, because each proves the
+moth rather than the word. **Ask what the statement actually turns on before choosing a host.**
