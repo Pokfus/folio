@@ -11022,8 +11022,8 @@
       ]
     },
     "hsk30l3/又": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "again (of something that has already happened again)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The gloss an earlier batch authored read 'again (of something that has already happened again)' — the word *again* twice, once in the gloss and once inside the note explaining it. A slip rather than a judgement, and it is the kind that survives every checker here.",
+      "gloss": "again (of something that has happened before)"
     },
     "hsk30l3/只是": {
       "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
@@ -11140,10 +11140,33 @@
       ]
     },
     "hsk30l3/园": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | THE GLOSS WAS CUT OFF MID-SENTENCE: it read 'garden, park, or enclosed area for cultivation or' and stopped on the word *or* — the second truncated gloss the audit has met, after 西北 last batch. Rewritten from CC-CEDICT's own wording, 'land used for growing plants; site used for public recreation'. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows four words — 动物园, 公园, 花园 and 校园 — so the rows go elsewhere, to the two this card's own sentences already use. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. 园丁 and 园艺 are exactly what its second and third sentences are about, and neither was anywhere a reader could look them up.",
       "mw": [
         "个",
         "座"
+      ],
+      "gloss": "a garden; a park; ground given over to growing or to public use",
+      "compounds": [
+        [
+          "园丁",
+          "yuán dīng",
+          "a gardener"
+        ],
+        [
+          "园艺",
+          "yuán yì",
+          "gardening"
+        ],
+        [
+          "果园",
+          "guǒ yuán",
+          "an orchard"
+        ],
+        [
+          "幼儿园",
+          "yòu ér yuán",
+          "a kindergarten"
+        ]
       ]
     },
     "hsk30l3/外卖": {
@@ -11443,7 +11466,7 @@
       ]
     },
     "hsk30l3/影响": {
-      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card already gave both senses and said nothing about which sentence was which: 那环境影响呢 and 这对他没有影响 are the noun, 会影响到城市的环境 the verb. Tagged.",
       "senses": [
         [
           "noun",
@@ -11453,6 +11476,11 @@
           "verb",
           "to affect, to influence"
         ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
       ]
     },
     "hsk30l3/得分": {
@@ -11870,10 +11898,16 @@
       ]
     },
     "hsk30l3/游客": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The gloss was 'traveller' and all three of the card's English lines say TOURIST — CC-CEDICT reads 'traveler; tourist'. This is another standing `check-gloss-source.js` finding (card: traveller / dict: traveler; tourist), reported for as long as this audit has been reading that list. Its third sentence also ended with no full stop.",
       "mw": [
         "个",
         "名"
+      ],
+      "gloss": "a tourist; a visitor",
+      "exStop": [
+        [
+          "这个沙滩挤满了游客"
+        ]
       ]
     },
     "hsk30l3/照相": {
@@ -12253,15 +12287,45 @@
       "gloss": "to meet by chance, to come across"
     },
     "hsk30l3/邮件": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The gloss was 'mail' while all three of the card's English lines say e-mail — CC-CEDICT reads 'mail; post; email'. Widened, and the three lines set in the modern unhyphenated spelling, which is what the rest of the collection uses.",
       "mw": [
         "封"
+      ],
+      "gloss": "mail; post; an email",
+      "exEn": [
+        [
+          "我给你发了封邮件",
+          "I sent you an email."
+        ],
+        [
+          "你有没有电子邮件地址",
+          "Do you have an email address?"
+        ],
+        [
+          "目前我的邮件有点问题",
+          "I'm having problems with email at the moment."
+        ]
       ]
     },
     "hsk30l3/邮箱": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The gloss was 'mailbox', which is American: British English says POSTBOX for the one in the street. Found by a hand sweep of the word — four sites in the nine decks, three of them this card and its own two sentences. CC-CEDICT gives the email sense too, which the card's second sentence uses, so both are now named.",
       "mw": [
         "个"
+      ],
+      "gloss": "a postbox; an email inbox",
+      "exEn": [
+        [
+          "邮箱在哪里",
+          "Where is the postbox?"
+        ],
+        [
+          "这是我的电子邮箱",
+          "This is my email address."
+        ],
+        [
+          "这里附近有没有邮箱",
+          "Is there a postbox near here?"
+        ]
       ]
     },
     "hsk30l3/重要": {
@@ -12269,7 +12333,7 @@
       "gloss": "important, significant"
     },
     "hsk30l3/银行卡": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | '我银行卡里没钱了' read 'my credit card has no money on it' — a 银行卡 is a BANK card, and 信用卡, the credit card, is its own card twenty notes earlier in this same deck.",
       "mw": [
         "张"
       ],
@@ -12277,6 +12341,12 @@
         [
           "请把银行卡插进去。",
           "Please insert your bank card."
+        ]
+      ],
+      "exEn": [
+        [
+          "今天是交学费的最后一天",
+          "Today is the last day to pay the tuition fees, and there's no money left on my bank card."
         ]
       ]
     },
@@ -12349,10 +12419,16 @@
       ]
     },
     "hsk30l3/饮料": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The card is glossed 'drink' and two of its lines say drink; the first called it a *beverage*, which is a register no learner needs and which the card had not chosen.",
       "mw": [
         "杯",
         "瓶"
+      ],
+      "exEn": [
+        [
+          "你最喜欢的饮料是什么",
+          "What's your favourite drink?"
+        ]
       ]
     },
     "hsk30l3/高铁": {
@@ -74646,14 +74722,19 @@
       "gloss": "afterwards; later"
     },
     "hsk30l3/有关": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | THE SAME FAULT TWICE ON ONE CARD, AND ONLY ONE OF THEM WAS EVER REPORTED. An earlier batch dropped 我没有关灯。 on check-example-fit.js's say-so, and 你有关门吗？ — 你 + 有 + 关门, 'did you shut the door' — was left standing beside it, because the segmenter lands squarely on 有关 there (你|有关|门|吗) and straddles it in the other (我|没有|关灯). The difference between a reported fault and an invisible one was which neighbouring words happen to be in the lexicon. Replaced with an AUTHORED sentence, which the record says so is.",
       "dropEx": [
-        "我没有关灯。"
+        "我没有关灯。",
+        "你有关门吗？"
       ],
       "ex": [
         [
           "这件事跟他有关。",
           "This has something to do with him."
+        ],
+        [
+          "这本书跟历史有关。",
+          "This book has something to do with history."
         ]
       ]
     },
@@ -113070,6 +113151,208 @@
           "收养",
           "shōu yǎng",
           "to adopt (a child)"
+        ]
+      ]
+    },
+    "hsk30l3/以为": {
+      "why": "THE ONE THING A LEARNER NEEDS ABOUT THIS WORD WAS MISSING. CC-CEDICT reads 'to think; to believe (often with the implication that the belief is MISTAKEN)', and the card gave 'think; feel; reckon' — which is 认为's own gloss on another card in this same deck ('to think that; consider'), so the two were glossed as synonyms when the whole of the difference is that 以为 says the speaker was wrong. Both of the card's own sentences carry it: 我以为你知道 and 他以为自己很了不起.",
+      "gloss": "to think (mistakenly); to assume"
+    },
+    "hsk30l3/一般": {
+      "why": "The card gave the adjective 'ordinary' and TWO of its three sentences are the adverb — 一般我步行去学校 and 你一般中午饭吃什么, both 'usually'. CC-CEDICT records both. Split, and the sentences tagged; the third line also rendered 不同一般 as 'The cake tastes divine!', which says nothing about the ordinary.",
+      "senses": [
+        [
+          "adjective",
+          "ordinary; common"
+        ],
+        [
+          "adverb",
+          "generally; usually"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        1
+      ],
+      "exEn": [
+        [
+          "这蛋糕吃起来不同一般",
+          "This cake tastes out of the ordinary."
+        ]
+      ]
+    },
+    "hsk30l3/一边": {
+      "why": "The gloss was 'on the one hand …', which is NOT WHAT ANY OF ITS THREE SENTENCES SHOW: two are 一边…一边…, doing two things at once, and the third is 这一边, a side. CC-CEDICT records all of them. Split to the two the card actually teaches, and the sentences tagged; the two English lines that lost the construction now carry it.",
+      "senses": [
+        [
+          "adverb",
+          "(一边…一边…) while doing sth else"
+        ],
+        [
+          "noun",
+          "one side"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ],
+      "exEn": [
+        [
+          "他们一边唱歌一边走路",
+          "They walked along singing."
+        ],
+        [
+          "他很喜欢一边洗澡一边唱歌",
+          "He loves singing while he has a bath."
+        ]
+      ]
+    },
+    "hsk30l3/一直": {
+      "why": "The card joined two different senses with a semicolon — 'straight on; always' — and its sentences split one to two: 一直向前走 is the line, 一直用的 and the third are the span of time. CC-CEDICT gives them as separate senses and so does the card now, tagged 1 / 2 / 2. | '我一直聪明。' is not a sentence a speaker writes — a stative predicate takes 很 or another degree word — and its English, 'I've always been smart', reached for the American sense of *smart*, which in British English is about dress. Replaced with an AUTHORED sentence, which the record says so is.",
+      "senses": [
+        [
+          "adverb",
+          "straight on; straight ahead"
+        ],
+        [
+          "adverb",
+          "all along; always"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ],
+      "dropEx": [
+        "我一直聪明。"
+      ],
+      "ex": [
+        [
+          "他一直住在北京。",
+          "He has always lived in Beijing."
+        ]
+      ]
+    },
+    "hsk30l3/邻居": {
+      "why": "Found by the same POSTBOX sweep: *mailbox* is American where British English says postbox.",
+      "exEn": [
+        [
+          "邻居看见信箱不是空的",
+          "The neighbours see that the postbox hasn't been emptied."
+        ]
+      ]
+    },
+    "hsk30l3/游戏": {
+      "why": "'我喜欢打游戏。' read 'I like to play board games' — 打游戏 is playing a video game (CC-CEDICT: 'to play a game'), and a board game is 棋类游戏. The card's other two lines are generic, so this was the only one saying what kind, and it said the wrong kind.",
+      "exEn": [
+        [
+          "我喜欢打游戏",
+          "I like playing video games."
+        ]
+      ]
+    },
+    "hsk30l3/羽毛球": {
+      "why": "Its third line carried *anymore*, which is American — British English writes it as two words — and a curly apostrophe where the rest of the card uses a straight one. Rewritten whole.",
+      "exEn": [
+        [
+          "我以前常去打羽毛球",
+          "I used to play badminton a lot, but I don't play any more."
+        ]
+      ]
+    },
+    "hsk30l4/发送": {
+      "why": "Set *e-mail* where the modern spelling, and the rest of the collection, writes email.",
+      "exEn": [
+        [
+          "电脑被用来通过电子邮件发送信息",
+          "Computers are used to send messages by email."
+        ]
+      ]
+    },
+    "hsk30l3/语言": {
+      "why": "'我爱语言学！' is about LINGUISTICS: 语言学 is its own word with its own CC-CEDICT entry, and the English says so. Replaced with an AUTHORED sentence, which the record says so is, and which uses 种, one of the two measure words the card itself lists.",
+      "dropEx": [
+        "我爱语言学！"
+      ],
+      "ex": [
+        [
+          "世界上有几千种语言。",
+          "There are several thousand languages in the world."
+        ]
+      ]
+    },
+    "hsk30l3/员": {
+      "why": "'直子是个游泳员。' TEACHES A WORD THAT DOES NOT EXIST: 游泳员 is in no dictionary — a swimmer is 游泳运动员 — so the card's first sentence was a learner's own mistake written out as an example. CC-CEDICT has no entry for it, and the collection's own 运动员 is what the suffix really makes here. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 运动员, against 22 in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. The card is a SUFFIX, so the rows are what it makes: four occupations and memberships, which is the whole of what a reader needs from it.",
+      "dropEx": [
+        "直子是个游泳员。"
+      ],
+      "ex": [
+        [
+          "他是这个队的队员。",
+          "He is a member of this team."
+        ]
+      ],
+      "compounds": [
+        [
+          "服务员",
+          "fú wù yuán",
+          "a waiter; an attendant"
+        ],
+        [
+          "演员",
+          "yǎn yuán",
+          "an actor"
+        ],
+        [
+          "队员",
+          "duì yuán",
+          "a team member"
+        ],
+        [
+          "人员",
+          "rén yuán",
+          "staff; personnel"
+        ]
+      ]
+    },
+    "hsk30l3/音乐": {
+      "why": "'我喜欢音乐。' and '音乐我喜欢。' are the same four words twice, and read as 'I love music' and 'I like music' — the second is the first topicalised, which is worth seeing once but not as one of only three examples. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "音乐我喜欢。"
+      ],
+      "ex": [
+        [
+          "她在学校学音乐。",
+          "She studies music at school."
+        ]
+      ]
+    },
+    "hsk30l3/用": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows four words — 不用, 常用, 信用卡 and 有用 — against 58 in the collection, so the rows go elsewhere. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "使用",
+          "shǐ yòng",
+          "to use; to employ"
+        ],
+        [
+          "作用",
+          "zuò yòng",
+          "an effect; a function"
+        ],
+        [
+          "用力",
+          "yòng lì",
+          "to exert oneself physically"
+        ],
+        [
+          "费用",
+          "fèi yòng",
+          "a cost; an expense"
         ]
       ]
     }

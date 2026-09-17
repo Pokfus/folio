@@ -315,7 +315,11 @@ function britExamples(html) {
    AND `toward` IS THERE ON THE SAME REASONING AS `gotten` (batch 36): a variant FORM rather than a
    choice between two words, unambiguous in British English, and already settled by the decks
    themselves — measured, they write `towards` 33 times against 4 `toward`s. The word boundary is what
-   keeps it off `untoward`. */
+   keeps it off `untoward`.
+   `anymore` IS THE SAME SHAPE AGAIN (batch 38), and the biggest of the three: British English writes
+   it as TWO WORDS in this sense, and the decks carried 20 sites of the American one-word form. It is a
+   spacing rather than a word choice, so no judgement is needed per site, and the replacement contains a
+   space, which means it can never match itself on a re-run. */
 const LEXIS = (() => {
   const PAIRS = [
     ["driver's license", "driving licence"],
@@ -342,6 +346,7 @@ const LEXIS = (() => {
     ["faucet", "tap"],
     ["gotten", "got"],
     ["toward", "towards"],
+    ["anymore", "any more"],
     ["trucks", "lorries"],
     ["truck", "lorry"],
     ["math", "maths"],

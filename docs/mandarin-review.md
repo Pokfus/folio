@@ -573,6 +573,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 331–360 (收到 → 外卖), deck order, plus the LEXIS table's missing plurals | 35 | every row of the word-choice table was blind to its own plural, and the obvious fix makes *mathss* |
 | 2026-09-17 | `hsk30l3` notes 361–390 (外语 → 相机), deck order, plus the whole `toward` class | 20 | a gloss cut off mid-list, and a card whose three English lines contradicted its own definition |
 | 2026-09-17 | `hsk30l3` notes 391–420 (小区 → 以后), deck order | 19 | a sentence whose headword the segmenter finds and which is still not that word |
+| 2026-09-17 | `hsk30l3` notes 421–450 (以前 → 员), deck order, plus the whole `anymore` class | 39 | the same fault twice on one card, one reported and one invisible, and a card teaching a non-word |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4685,5 +4686,133 @@ for exactly the few whose only fault that is, and this sentence is otherwise sou
   against every sentence and every English line in all nine decks
 - `build-lang-decks.js`: re-run, and **exactly one row changed**, `hsk30l3`, by its `bytes` and `rev`
   alone
+- CI fast gate green: `node --check` over every root, `.claude` and `.claude/decks` script, the eight
+  no-browser suites, `check-docs`, `check-questions`, `check-style`
+
+## Batch 38 — hsk30l3 notes 421–450 (以前 → 员), and the whole `anymore` class
+
+Thirty notes read in deck order, **thirty-nine cards changed** across 75 fields — twenty-two in range
+and seventeen in other decks, which are two measured classes closed in a pass. One row added to
+`mandarin-fix.js`'s LEXIS table; no site change.
+
+**THE SAME FAULT TWICE ON ONE CARD, AND ONLY ONE OF THEM WAS EVER REPORTED.** 有关's examples were
+我没有关灯。 and 你有关门吗？ — both 有 + a 关 verb, neither of them this word. An earlier batch dropped
+the first **on `check-example-fit.js`'s say-so**, and left the second standing beside it. The reason is
+arithmetic rather than judgement:
+
+- 我没有关灯 segments 我 | **没有** | 关灯, so 有关's characters straddle two words and the checker
+  reports it;
+- 你有关门吗 segments 你 | **有关** | 门 | 吗, because 有关 is itself in the lexicon and is longer than
+  有, so the segmenter lands squarely on the headword and the checker sees nothing.
+
+**The difference between a reported fault and an invisible one was which neighbouring words happen to
+exist in the deck's own word list.** This is the blind spot batch 26 named and batch 37 met on 牙刷,
+and it is the first time the audit has caught it leaving HALF a repair behind. **When a
+`check-example-fit.js` finding is repaired, read the card's other two sentences** — the checker cannot
+be relied on to have shown them.
+
+**A CARD TAUGHT A WORD THAT DOES NOT EXIST.** 员's first sentence was 直子是个游泳员。 — and 游泳员 is
+in no dictionary: CC-CEDICT has no entry, and a swimmer is 游泳运动员, which this collection's own
+运动员 is the tail of. The sentence is a learner's mistake written out as an example, and it was the
+card's first. Replaced with an authored 他是这个队的队员.
+
+**A SECOND TRUNCATED GLOSS, ONE BATCH AFTER THE FIRST.** 园 read *garden, park, or enclosed area for
+cultivation or* — and stopped, on the word *or*. 西北's was cut off mid-list last batch; these are the
+only two the audit has met, and both were in Level 3's own glosses rather than in anything generated.
+Rewritten from CC-CEDICT's own wording.
+
+**THE ONE DISTINCTION A LEARNER NEEDS FROM 以为 WAS MISSING.** The card read *think; feel; reckon* —
+which is 认为's gloss on another card in this same deck (*to think that; consider*) — so the two were
+glossed as synonyms when the whole of the difference is that **以为 says the speaker turned out to be
+wrong**. CC-CEDICT states it outright, and both of the card's own sentences carry it (我以为你知道,
+他以为自己很了不起). Now *to think (mistakenly); to assume*.
+
+**THREE MORE GLOSSES WERE A SENSE SHORT, AND ONE WAS A SENSE THE CARD NEVER SHOWS.**
+
+- **一边** read *on the one hand …*, which is **not what any of its three sentences is**: two are
+  一边…一边…, doing two things at once, and the third is 这一边, a side. Split to the two it teaches.
+- **一般** gave the adjective *ordinary* while two of three sentences are the adverb *usually*.
+- **一直** joined two senses with a semicolon (*straight on; always*) and its sentences split one to two.
+- **游客** read *traveller* while all three of its English lines say **tourist** — another standing
+  `check-gloss-source.js` finding, reported for as long as this audit has read that list, and off it
+  now. That is two batches running where the overlap list was right about a Level 3 card: 信 last
+  batch, 游客 this one.
+
+**`anymore` IS NOW A LEXIS ROW, AND IT IS THE BIGGEST OF THE THREE.** British English writes it as TWO
+WORDS in this sense, and the decks carried **20 sites** of the American one-word form against 12 of the
+British. It goes in the table rather than to twenty `exEn` rows because it is a SPACING rather than a
+word choice — no judgement per site — and because the replacement contains a space, so it can never
+match itself on a re-run. Zero after, 32 *any more*, across all seven HSK decks.
+
+**TWO SMALLER SWEEPS STAYED PER-NOTE.** *mailbox* is American where British English says **postbox**:
+four sites, three of them 邮箱 and its own two sentences, one on 邻居 — and it is not a table row
+because CC-CEDICT gives 邮箱 the email-inbox sense too, which that card's middle sentence uses, so a
+blanket swap would have made a *postbox* of an inbox. *e-mail* against *email* is four sites, three on
+邮件 and one on 发送 in Level 4; the modern unhyphenated spelling is what the rest of the collection
+uses.
+
+**FOUR MORE ENGLISH LINES DID NOT RENDER THEIR CHINESE.** 银行卡's second called a 银行卡 a **credit
+card** — 信用卡 is its own card twenty notes earlier in this same deck. 游戏's first read *I like to
+play board games* for 我喜欢打游戏, where 打游戏 is playing a video game and a board game is 棋类游戏.
+饮料's first called a drink a *beverage* on a card glossed *drink*. And 又's gloss, authored by the
+disambiguation batch, read *again (of something that has already happened again)* — the word twice,
+once in the gloss and once inside the note explaining it.
+
+**THREE SENTENCES WERE REPLACED BESIDES.** 语言 opened on 我爱语言学！, which is **linguistics**, a word
+of its own. 一直's 我一直聪明 is not a sentence a speaker writes — a stative predicate takes 很 or
+another degree word — and its English reached for the American sense of *smart*, which in British
+English is about dress. 音乐's first and third were the same four words twice, 我喜欢音乐 and
+音乐我喜欢, as *I love music* and *I like music*.
+
+**THREE SINGLE-CHARACTER CARDS GAINED `Compounds`** — 用, 园, 员. **又 DELIBERATELY DID NOT, AND IT IS
+THE FIRST CHARACTER THE AUDIT HAS DECLINED**: it is a grammatical adverb, the whole collection has one
+other word built on it, and CC-CEDICT offers nothing a Level 3 reader wants — 又及 is a postscript and
+一次又一次 is a phrase rather than a compound. **A section that has to invent its rows is worse than no
+section**, and the rule the other thirty-odd cards follow is that the rows are words a learner will
+meet. 园's rows go to 园丁 and 园艺, which are exactly what its own second and third sentences are about
+and which a reader had nowhere to look up; 员 is a SUFFIX, so its rows are four occupations and
+memberships, which is the whole of what it makes.
+
+**WHAT WAS READ AND LEFT — AND ONE MEASURED FINDING NOT ACTED ON.**
+
+- **The curly apostrophe: 69 lines against 5,196 straight ones**, measured over the nine decks. The
+  house form is plainly the straight one and the residue is 1.3%, but it is a CHARACTER substitution
+  rather than a word, so no existing pass can reach it — `exLexis` matches word keys — and acting on it
+  would mean a new deck-level pass for a difference no reader will notice, a curly apostrophe being
+  typographically the better of the two. **Recorded rather than swept**; 羽毛球's line was rewritten
+  whole for its *anymore*, so one of the 70 went with that.
+- **应该's third line renders 你 and 您 as *thou* and *ye***, which is archaic English and looks like a
+  fault. It is not: *ye* was the plural and formal second person in early modern English, so the mapping
+  is exact, and no modern English pair carries the distinction at all.
+- **以前, 以上, 以外, 以下, 银行, 有名, 有用, 雨衣, 遇到, 遇见, 应该** and the rest were read and are
+  right as they stand. 有关, 有用, 雨衣, 银行卡 and 影响 already carry earlier batches' authored examples
+  and senses.
+- **Two `exEn` rows in the first draft named a sentence that does not exist** — my transcription of
+  邻居's and 发送's Chinese — and the applier REFUSED the whole run rather than writing the rest. That is
+  the guard working as its header says it should: `exEn` fails where `dropEx` only warns, because a row
+  it re-asserts on every run can only ever be a typo.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2, unchanged**, and the shared-gloss groups **338 both before and after**
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged** — and it reports nothing on 有关, which is the batch's
+  point
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0**, and it reads 0 over *anymore*, *mailbox* and *e-mail* too, none of them
+  being a spelling
+- `check-coarse.js`: **one line's text changed and no count moved** — 忍耐's 妈的 finding now reads
+  *any more*
+- `check-gloss-source.js`: neighbour findings **3, unchanged**; the overlap list went 1,027 → 1,026,
+  exactly 游客 coming off
+- 34,596 example blocks, **spoken == visible on every one**; sense-tagged blocks 341 → 353, the twelve
+  this batch wrote
+- every authored sentence segmented against the 11,532-word deck lexicon and checked for a duplicate
+  against every sentence and every English line in all nine decks; 员's lands inside 队员, which is
+  correct for a bound suffix and is what 室 did in batch 34
+- `build-lang-decks.js`: re-run, and **all seven HSK rows changed**, which is the reach of the
+  `anymore` class — each by its `bytes` and `rev` alone
 - CI fast gate green: `node --check` over every root, `.claude` and `.claude/decks` script, the eight
   no-browser suites, `check-docs`, `check-questions`, `check-style`
