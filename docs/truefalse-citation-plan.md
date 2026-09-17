@@ -74,7 +74,7 @@ card-side research is then shared.
 | T6 | Science & invention | the hardest; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six and T7b three, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus |
-| T9 | Astronomy / Earth science | part done; T9a took four off NASA, NOAA and NIST |
+| T9 | Astronomy / Earth science | part done; T9a took four and T9b three, off NASA |
 | T10 | Psychology | part done; T10a took four, all researched — the collection has only reached the 1800s, so nothing could be lifted |
 
 ## Open questions carried forward
@@ -467,3 +467,28 @@ the record-cold experiment behind statement #166, `arxiv.org/abs/2007.04146` was
 a machine-learning paper on few-shot one-class classification. It is the DOI-from-the-shape-of-an-
 identifier fault in another namespace, and it is worse here because the page resolves: nothing about the
 fetch says the citation would have been wrong.
+
+### T9b — three astronomy statements off NASA's own planet pages (2026-09-17)
+
+The cheapest batch in the pass so far, and worth recording as a recipe: NASA's `science.nasa.gov`
+per-object pages state the facts these statements are about in their own prose, carry a "Last Updated"
+date to cite them by, and answer from this sandbox.
+
+- **A day on Venus outlasting its year.** *Venus: Facts* — "your 'day' would be 243 Earth days long —
+  longer even than a Venus year (one trip around the Sun), which takes only 225 Earth days" — which also
+  carries the second sentence's backwards spin and the Sun rising in the west.
+- **The Moon's near side.** *Moon Phases* — "tidally locked with Earth, which means that it spins on its
+  axis exactly once each time it orbits our planet … We call this motion synchronous rotation." The
+  `why`'s old second sentence about tidal friction slowing the rotation over billions of years was
+  replaced with the point the question actually turns on, which this page does carry: it is a match
+  between two motions rather than an absence of one.
+- **Jupiter's mass.** *Jupiter Facts* — "more than twice the combined material of the other bodies in
+  the solar system", and 11 times wider than Earth. **THE `why`'s FIGURES WERE NARROWED TO THE PAGE'S**:
+  it said "about 318 times the mass of the Earth, and roughly two and a half times the mass of the other
+  seven planets combined", and NASA's page states neither figure. Both are true and neither was in the
+  source, which is exactly the shape a citation is supposed to stop.
+
+**A PAGE THAT 404s HERE DOES SO HONESTLY, unlike NOAA's**: `nasa.gov/reference/what-is-microgravity/` is
+a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
+than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
+belt but does not carry the claim that every probe crossed it without dodging.
