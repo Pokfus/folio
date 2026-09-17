@@ -543,6 +543,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l1` notes 91–120 (叫 → 没关系), deck order | 27 | a particle card describing a different particle |
 | 2026-09-17 | `hsk30l1` notes 121–150 (没事 → 您), deck order | 21 | an example sentence that is not grammatical Chinese |
 | 2026-09-17 | `hsk30l1` notes 151–180 (牛奶 → 少), deck order | 22 | an example that models the mistake the card should prevent |
+| 2026-09-17 | `hsk30l1` notes 181–210 (谁 → 听见), deck order, plus a new `exEn` field | 19 | a gloss giving the dictionary's rarest sense as the card's only one |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1073,3 +1074,135 @@ off tonight?" — and the Chinese itself is awkward besides.
 - **Three compound rows take the DECK's reading over CC-CEDICT's** — 回去 huí qù, 别人 bié rén,
   价钱 jià qián. That is now the settled rule and it has come up in four batches running: **where the
   deck has a card for the word, the compound row matches the card.**
+
+### 2026-09-17 — Level 1, notes 181–210
+
+**What the batch was.** The thirty cards 谁 → 听见, read one at a time against CC-CEDICT and against
+their own three sentences. **Nineteen were changed**, eleven left alone. The batch also added a field
+to the applier, `exEn`, for a fault the record could not express (below).
+
+### The one fault a reader would notice first
+
+**岁 was glossed "year (of crop harvests)".** That is CC-CEDICT's THIRD and rarest sense of the
+character, and not one of the card's own three sentences shows it: 你十岁了吗, 他的儿子今年八岁 and
+明天是她五岁生日 are all AGE, which is the dictionary's first sense and the only one a beginner will
+ever meet. A learner working through Level 1 was being taught the harvest.
+
+### The mechanism this batch had to add, because it cost a round and reported nothing
+
+**`dropEx` plus a re-add of the SAME Chinese does not work, and fails silently.** The obvious way to
+correct a translation while keeping a good sentence is to name the sentence in `dropEx` and put it
+back through `ex` with a better English. It does not: the drop deliberately filters the record's own
+`ex` rows as well as the deck's blocks (so that a `dropEx` on a *harvested* sentence is not undone by
+the rebuild), so the re-add is thrown away. **手机 came back with one example instead of three, 事 and
+谁 with two, and nothing anywhere said so** — `--check` passed, because the record's claims were all
+carried.
+
+So the applier gained **`exEn`**, `[[chinese, english]]`, which rewrites one block's `uc-exe` div in
+place. It is the same class of edit as `dropEx` — a permanent mutation of a generator block, which
+this repo cannot undo — and it is **checkable where `dropEx` is not**: the new English is re-asserted
+on every run, so a row that matches nothing is always a typo rather than a repair already made, and it
+FAILS rather than being noted. Liveness-tested by pointing a row at a sentence the note has not got.
+
+### The glosses
+
+- **时候 had been given 时间's meaning.** Its gloss was "[duration of] time", which is verbatim one of
+  CC-CEDICT's senses for 时间 — the other card in the same deck — so the pair was told apart by
+  nothing, and the one that got the duration reading was the wrong one. 时候 is the moment something
+  happens; 时间 is the quantity of it.
+- **太 was glossed "very".** CC-CEDICT leads with "too (much)", and two of the card's three sentences
+  are the fault-finding sense (不要太晚去睡觉, 那个店的菜太贵). A learner taught "very" writes 太好 for
+  "very good", which says the opposite. Split into the two senses the examples show.
+- **什么 taught the interrogative and showed the indefinite twice.** 我们什么都做不了 and 什么也没少 are
+  not questions. Split, and each example tagged with the sense it shows — the second use of `exSense`
+  in Level 1.
+- **生病** was three adjectives ("ill; sick; unwell") under a verb, and **听** lost the "to " off the
+  second half of "to listen; hear". The register rule again, twice.
+- **天's first sense was a run-on**: "sky, heaven, or the celestial realm" — three renderings of one
+  meaning, the third of them a phrase no beginner needs and the dictionary does not use.
+
+### Two blocks floating above the senses, which the record did not own
+
+**他们 and 她们 each carried TWO blocks above their senses** — the deck's own `not X` hint, and under
+it a bare phrase, "of a mixed or male group" / "of a female group". Nothing else in the nine decks has
+that shape and the record had no entry for either. The restriction is real and CC-CEDICT states it the
+ordinary way (她们 is "they; them (females)"), so it is folded into the gloss, where it is part of the
+question the reverse card asks rather than an aside above it. 它们's "they (for inanimate objects)" —
+an instruction to the reader rather than an English equivalent — was reworded to match, and widened:
+the card's own first sentence, 它们吃这些东西, is about creatures that eat, and the dictionary gives 它
+as "it (pronoun for an animal)".
+
+**Three `not X` hints were removed from the record with those glosses** (他们, 她们, 太), which is the
+applier's own documented rule — a note given a distinguishing gloss no longer needs a hint, and a
+disambiguator disambiguating nothing is worse than none. **很's `not 太` was KEPT**: shown "very;
+quite", a beginner really may still reach for 太, so that one goes on telling the reader something
+true. The coverage checker reports **0 still-ambiguous groups** after the removals.
+
+### …and one leak the new gloss introduced, caught before it shipped
+
+The second sense of 太 was first written **"so; extremely (in 太…了)"** — which puts the card's own
+character on the front of the English → Chinese card and hands the reader the answer, the same fault
+found on 边 five batches ago. Rewritten as "(in an exclamation)". **The standing corpus count of
+glosses that leak their own answer is 13, and it is still 13**; all thirteen are outside Level 1.
+
+### The sentences
+
+- **谁's 谁不知道的？** is not grammatical: 的 cannot close a rhetorical question of that shape.
+- **说话's 你给谁说话？** teaches a preposition error in the one frame the word is most needed for —
+  说话 takes 跟 or 和 for the person spoken to, never 给.
+- **时候's 我小时候的时候还没有电脑。** says "when I was small" twice over; 小时候 already carries 时候.
+- **手机's 苹果是非凡的手机。** rendered 苹果 as "the iPhone" — it is the fruit, or at most the company,
+  never the handset — and put a Level 7 word (非凡) in a Level 1 sentence.
+- **它's 不，我不买它。** modelled an English speaker's Chinese: the pronoun object does not stand there
+  (我不买 is the sentence). Its "Nope" and 谁's "wanna" are two of the thirteen over-colloquial
+  translations measured in batch 5; **this is the first batch that could repair the English without
+  throwing the Chinese away**, which is what `exEn` is for.
+- **事's "Anybody knows it"** is not English for 人人都知道.
+
+### Two fixes that are not about meaning
+
+- **手机's measure words were 部 and 支.** 支 counts pens, sticks and cigarettes, not telephones;
+  CC-CEDICT gives 部 and 台, which is what a reader will hear in a shop.
+- **Its other two sentences said "cellphone" and "cell phone".** The decks are authored in British
+  English, because the site's spelling switch only ever converts British to American and never back, so
+  an American form inside deck content is what BOTH readers see. Rewritten with the Chinese untouched.
+
+### On the compound lists
+
+**Thirteen of the range's sixteen single-character cards got one; three did not, and that is the
+honest answer.** 谁 builds no multi-character word in any of the nine decks at all; 它 and 她 build
+exactly one each (它们, 她们), which is below the three-row floor and is a list the card sitting two
+rows away already is.
+
+**是's section is the argument for the feature in miniature.** Every row on it — 但是, 可是, 还是,
+总是, 要是 — is a conjunction or an adverb rather than the copula the card teaches, and 是 is far
+commoner inside those five than it is on its own. The card had said "to be" and stopped.
+
+**天's panel is the fullest in the deck**, six words, and five of the section's rows are among them:
+今天, 明天, 昨天, 天气, 天空. No authored row could be more useful to a beginner than 今天, so for once
+the section and the tap panel agree.
+
+**One row takes the DECK's reading over CC-CEDICT's** — 太阳 tài yáng against the dictionary's
+neutral-tone tài yang. Fifth batch running for that rule.
+
+### Read and left alone
+
+十, 时间, 是, 书, 书店, 水, 水果, 睡, 睡觉, 四, 他, 她, 天气, 听见 are all right as they stand.
+
+**说 and 说话 keep their parenthetical glosses**, "(the general verb)" and "(as an activity)", and that
+is a deliberate reversal of the reading this batch started with. They look like the author's-note class
+cut from 非常 and recorded on 早上 — but the record shows they were WRITTEN by the disambiguation pass,
+for a collision of three or more that cannot take a `not X` hint, and they carry a real semantic
+distinction rather than a remark about register. **The line drawn here: a note about the card's own
+register or usage is cut; a restriction on the meaning stays.** Rewording them was measured and
+rejected besides — 曰 already holds "to say; to speak" in Levels 7–9, so the obvious replacement
+gloss would have opened a new collision.
+
+**很's second sense is a parenthetical and nothing else** — "(before an adjective, often just a link
+rather than an intensifier)" — which is a note where a gloss should be. It is note #79 and was read in
+batch 4; it is recorded again here because this batch touched its pair. It wants a rewrite that says
+the same thing in answerable English, and that is a judgement rather than a substitution.
+
+**The five Level 1 `check-example-fit.js` findings are all the greedy segmenter losing to a longer
+word** (有时|间 in 你后天有时间吗, 不便|宜 in 这不便宜, 最好|听, 十分|钟, 看中|文). None is a real
+fault and none was introduced here.

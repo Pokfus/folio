@@ -45,6 +45,15 @@
   part-of-speech gloss of every word of the sentence with the target's own bolded, and it cannot be
   derived for a sentence written for a different card — a wrong one would be worse than none.
 
+  `exEn` REWRITES THE ENGLISH OF A SENTENCE THE DECK ALREADY SHIPS, matched on a substring of its
+  Chinese. It exists because the obvious way of doing that does not work and reports nothing: naming a
+  sentence in `dropEx` and re-adding the same Chinese with a better translation has the drop filter the
+  record's own `ex` rows too (deliberately — see the comment beside it), so the re-add is thrown away
+  and the card comes back an example short. 手机 went from three sentences to one that way. It is the
+  same class of edit as `dropEx`, a permanent mutation of a generator block, and it is CHECKABLE where
+  `dropEx` is not: the new English is re-asserted on every run, so a row matching nothing is always a
+  typo and fails rather than being noted.
+
   `mw` IS WRITTEN AS BARE CHARACTERS AND EXPANDED FROM THE CORPUS. A measure word renders as the
   character, its traditional form where that differs, and its pinyin — three facts the decks already
   state 1,148 times over, so `["个","位"]` is expanded from their own table rather than retyped. A
@@ -170,7 +179,7 @@ const deckMeta = fixes.decks || {};
 let metaHit = 0;
 const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
-let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [];
+let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [];
 let hitsPunct = 0;
 
 const hints = Object.entries(fixes.hints || {});
@@ -320,6 +329,34 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
       });
       fl.Examples = kept.join("") + add.join("");
     }
+    /* ---------- REWRITING THE ENGLISH OF A SENTENCE THE DECK ALREADY SHIPS ----------
+       `dropEx` plus a re-add of the SAME Chinese cannot do this, and fails silently: the drop filters
+       the record's own `ex` rows as well as the deck's blocks (see the comment above it, which is
+       right about why), so a row re-adding the sentence it has just dropped is thrown away and the
+       card comes back with one example fewer. 手机 went from three sentences to one that way, with
+       nothing reported. So the ordinary case — the Chinese is good and only its translation is wrong,
+       which is what the thirteen over-colloquial renderings measured in an earlier batch all are — has
+       a field of its own: `exEn` is `[[chinese, english]]`, matched on a SUBSTRING of the block's own
+       Chinese and replacing that block's `uc-exe` div outright.
+       IT IS THE SAME CLASS OF EDIT AS `dropEx` — a permanent mutation of a generator block that cannot
+       be undone without the generator, which this repo has not got — and it is checkable where `dropEx`
+       is not: the new English is re-asserted on every run, so a row matching nothing is always a typo
+       rather than a repair already made, and it FAILS rather than being noted. */
+    if (fix.exEn) {
+      let blocks = String(fl.Examples || "").split('<div class="uc-exi').filter(Boolean)
+        .map((x) => '<div class="uc-exi' + x);
+      fix.exEn.forEach(([zh, en]) => {
+        if (!en || !String(en).trim()) { badExEn.push(w.key + " → no translation for " + zh); return; }
+        let hit = 0;
+        blocks = blocks.map((b) => {
+          if (b.indexOf(zh) < 0) return b;
+          hit++;
+          return b.replace(/<div class="uc-exe">[\s\S]*?<\/div>/, '<div class="uc-exe">' + esc(en) + "</div>");
+        });
+        if (!hit) badExEn.push(w.key + " → " + zh);
+      });
+      fl.Examples = blocks.join("");
+    }
     if (fix.mw) {
       const bad = fix.mw.filter((ch) => !MW[ch]);
       if (bad.length) { badMW.push(w.key + " → " + bad.join(" ")); continue; }
@@ -462,6 +499,11 @@ if (badSense.length) {
 if (badCmp.length) {
   console.log("\n  FAIL  " + badCmp.length + " `compounds` row(s) that do not contain the headword, or repeat it:");
   badCmp.forEach((k) => console.log("        " + k));
+  process.exit(1);
+}
+if (badExEn.length) {
+  console.log("\n  FAIL  " + badExEn.length + " `exEn` row(s) naming a sentence the note has not got:");
+  badExEn.forEach((k) => console.log("        " + k));
   process.exit(1);
 }
 if (badEx.length) {
