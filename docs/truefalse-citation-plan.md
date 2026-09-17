@@ -75,7 +75,7 @@ card-side research is then shared.
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two and T7d one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book |
-| T10 | Psychology | part done; T10a took four, all researched — the collection has only reached the 1800s, so nothing could be lifted |
+| T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md` |
 
 ## Open questions carried forward
 
@@ -492,6 +492,28 @@ date to cite them by, and answer from this sandbox.
 a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
 than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
 belt but does not carry the claim that every probe crossed it without dodging.
+
+### T10b — two statements Folio's own learning-science doc already had a source for (2026-09-17)
+
+**THE LIFT THIS PLAN OPENS WITH WORKS OUT OF `docs/` AS WELL AS OUT OF THE CARDS, and nobody had looked.**
+Two of the Psychology statements — testing beating rereading, and spacing beating cramming — are the two
+findings Folio's whole scheduler is built on, and `docs/learning-science.md` has carried their sources since
+that batch shipped. Dunlosky's own summary of the ten-strategy review, *Strengthening the Student Toolbox*
+in *American Educator*, is **open on `aft.org` and answers from here**, where the underlying Psychological
+Science in the Public Interest article is behind a DOI.
+
+- **Testing beats rereading.** "In 1909, a doctoral student at the University of Illinois demonstrated that
+  practice tests improve student performance, and more than 100 years of research has revealed that taking
+  practice tests (versus merely rereading the material to be learned) can substantially boost student
+  learning." The article also rates practice testing and distributed practice the two most effective of the
+  ten, and rereading among the least while being what 84 per cent of students do.
+  **The `why`'s 2006 study went** — Roediger and Karpicke's read-four-times experiment is the standard
+  citation and is not in this article; the 1909 demonstration that is replaced it.
+- **Spacing beats cramming.** "Students will retain knowledge and skills for a longer period of time when
+  they distribute their practice than when they mass it, even if they use the same amount of time massing
+  and distributing their practice", with the misconception named directly after it.
+  **The `why` lost Ebbinghaus**, who is not in the article either; the same-total-time clause that replaced
+  him is what the statement actually turns on.
 
 ### T9d — two Earth-science statements out of one USGS book (2026-09-17)
 
