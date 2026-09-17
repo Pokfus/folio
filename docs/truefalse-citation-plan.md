@@ -1811,3 +1811,30 @@ searches there for Chang'an, Zheng He and shark neoplasia returned Chinese herba
 unrelated PLOS paper and koi carp. What is left in the pool leans historical, so the indexes that
 will carry it are DOAJ, OpenAIRE, Persée and the journals' own sites, with Europe PMC reserved for
 the medical and biological statements (#105, #124, #128, #155).
+
+### T47 — the tank named by its own committee's secretary (2026-09-17)
+
+One cited: #73. 190 → **191 of 220**, and this one CORRECTED the explanation rather than merely
+sourcing it. Albert Stern was secretary of the Landships Committee and published his log-book in
+1919, out of copyright and on archive.org with full text. His account of 20 October 1915 is that
+d'Eyncourt proposed referring to the machines as a "Water Carrier"; that Stern objected because "in
+Government offices, committees and departments are always known by their initials", which made that
+title "totally unsuitable"; and that "in our search for a synonymous term, we changed the word 'Water
+Carrier' to 'Tank', and became the 'Tank Supply', or 'T.S.' Committee. This is how these weapons came
+to be called 'Tanks'." The Committee of Imperial Defence recommended the name that December, again
+"for secrecy's sake".
+
+**THE `why` HAD THE FOLK VERSION** — that factory workers called them tanks because they resembled
+the steel water tanks they were told they were building. Stern's is a cover WORD chosen in a
+committee room, not a cover story believed on a shop floor, and it is the better story besides.
+**Where a participant published a log-book, the folk version is what the citation is FOR.**
+
+**AND STERN DECLINES TO SPELL THE JOKE OUT, SO NEITHER DOES THE `why`.** He writes only that
+committees are known by their initials and that the title was therefore unsuitable; the `why` quotes
+him and lets the reader arrive at W.C. **Do not write the inference into the explanation as though
+the source had made it.**
+
+**A 1919 MEMOIR BY A PARTICIPANT IS THE CHEAPEST SOURCE THERE IS FOR A FIRST WORLD WAR ORIGIN
+STORY** — out of copyright, full-text on archive.org, and written by somebody in the room. Stern's
+volume also has the naming on page 39 and the December decision on page 48, so one citation carries
+both halves.
