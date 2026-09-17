@@ -2146,14 +2146,16 @@ column, not the toll; *The City Remembrancer* (1769) is open in four volumes and
 fetched carries the fire's mortality at all; Walter George Bell's *The Great Fire of London in 1666*
 is on archive.org only as lending items (`bwb_…`, 401). **The London Gazette's own issue 85 IS free
 at thegazette.co.uk and is a raster PDF with no text layer** — `pypdf` extracts zero characters from
-both its pages — so reading it means reading the image.
+both its pages — so reading it means reading the image. **(#64 was closed without any of them: see
+T66, which went to the Bills themselves.)**
 
 **#175 (Marco Polo and pasta) DOES NOT COME OUT OF POLO.** Yule's translation, open and full-text on
 archive.org, has Polo eating *bread* made from the sago flour of Sumatra and finding it excellent —
 no pasta, no comparison to anything Italian; the "as good as ours" line belongs to Ramusio's later
 version. The decisive evidence is earlier than Polo and elsewhere (al-Idrisi on Sicilian *itriyya*,
-1154), and Amari's edition of it is not on archive.org under the titles searched. **A statement about
-what a traveller did NOT bring back is not answered by his own book.**
+1154), and Amari's edition of it is not on archive.org under the titles searched. **A statement
+about what a traveller did NOT bring back is not answered by his own book.** **(That last sentence
+is overturned by T67 — it is true of pasta's history and false of this statement.)**
 
 ### T57 — HAL answers where the French state's own sites do not (2026-09-17)
 
@@ -2514,6 +2516,37 @@ rather than of the host: `title:("bills of mortality") AND mediatype:texts` retu
 as its twentieth row. **Search archive.org for the DOCUMENT the statement is about, not for a book about
 the event.**
 
+### T67 — the book the story is told about, read instead of argued with (2026-09-17)
+
+One cited: #175 (Marco Polo and pasta). 214 → **215 of 220 (98%)**. The closing note said this one "is
+settled by al-Idrisi on Sicilian *itriyya* in 1154 and a Genoese inventory of 1279, neither reachable" —
+which is the standard way the myth is refuted and is a route through two documents that are not here.
+**T66's lesson applies exactly: go and read the document the statement is about.** Yule's two volumes
+are on archive.org with a usable OCR layer, and a grep for `lasagn|vermicell|macaroni|pasta|noodle`
+returns **two passages in 3.2 MB of text** — which is what lets the explanation say "the only two" and
+mean it.
+
+**AND WHAT THEY SAY IS NOT WHAT EITHER SIDE OF THE ARGUMENT EXPECTS.** The one place Marco brings a
+flour home is **Sumatra**, not China: sago, washed from palm pith, "made into pasta in strips and other
+forms", which he "often partook of, and brought some with him to Venice", and which "resembles barley
+bread and tastes much the same". The other names vermicelli to explain Chinese wheat to an Italian
+reader.
+
+**THE HONEST HALF IS THAT BOTH ARE RAMUSIO'S AND THE EXPLANATION SAYS SO.** The obvious reading of the
+vermicelli passage — a traveller explaining an unfamiliar food by a familiar one, therefore Italians
+already had it — **does not work**, because Yule labels the passage "Here Ramusio has this digression"
+and Ramusio printed in the sixteenth century, by which time nobody doubts Italy had pasta. The same note
+introduces the sago passage with "Ramusio is however here fuller and more accurate". **A quotation's
+force depends on who is speaking and when, and an edition that tells you is doing you a service** — this
+one is a translator's note naming its own source, which is the thing to look for before building an
+argument on a passage.
+
+**AND IT OVERTURNS THIS FILE'S OWN EARLIER RULING, WHICH IS WHY THAT RULING IS QUOTED HERE.** The T55–T56 probe note ends on **“A statement about what a traveller did NOT bring back is not answered by his own book”** — and that is too strong. It is right about pasta's HISTORY, which Polo cannot settle and which needs al-Idrisi. It is wrong about the STATEMENT, whose whole content is what Marco Polo did: a book that has him carrying home Sumatran sago is direct evidence about him, not an argument from silence about Italy. **Ask what the statement is about before deciding a source cannot answer it.**
+
+**SO THE CLAIM MADE IS THE NARROW ONE**: the book does not contain the story, in any of the versions
+this edition prints, and what it does contain is a Sumatran palm flour. That is enough for a statement
+whose whole content is what Marco Polo is supposed to have done.
+
 ### Probes that failed in T62–T65, and one lead worth keeping (2026-09-17)
 
 Recorded so the next session does not repeat them. **None of these is a wall**; they are simply sources
@@ -2553,10 +2586,10 @@ contemporary account that simply does not mention deaths proves nothing, which i
 *Monument* turned out to be. **T66 went and got the Bills.**
 
 
-### Where the last six stand (2026-09-17)
+### Where the last five stand (2026-09-17)
 
-The pass closed this session at **214 of 220 (93→97%)**. Every remaining statement has been probed
-and the probe recorded; three families account for all six. **#44, #38, #128, #135 and #141 were
+The pass closed this session at **215 of 220 (93→98%)**. Every remaining statement has been probed
+and the probe recorded; three families account for all five. **#44, #38, #128, #135 and #141 were
 in this list and are out of it** — see T62, which is the family below being asked the wrong
 question; T63, which is this note's own “do not re-probe” line being too blunt; T64, which is a
 walled result list that was not walled all the way down; and T65, which is a whole family named
@@ -2580,27 +2613,27 @@ two *Scientific Reports* papers Folio already cites were fetched in full from `n
 recounts it, the Copernicus terracotta paper does not either, and DOAJ's other hits are conservation
 and photogrammetry. **A scientific paper cites the excavation reports and never tells the story.**
 
-**THE EVIDENCE IS OLDER OR ELSEWHERE THAN THE CLAIM.** #175 (Marco Polo and pasta) is settled by
-al-Idrisi on Sicilian *itriyya* in 1154 and a Genoese inventory of 1279, neither reachable; Yule's
-Polo, open and full-text, has him eating *bread*. #20 (Columbus and the mainland) — the Library of
-Congress's own exhibition says he "led three more expeditions to the Caribbean", which is suggestive
-and is not the negative stated; `loc.gov`'s classroom pages and every `nps.gov` path tried are 403
-or 404. **#64 is out of this list: see T66**, which is this sentence being an instruction rather
-than a description. #70 (cocaine in Coca-Cola) has the 1916 Supreme Court opinion recording the
-extract used "with cocaine eliminated" — **evidence it was taken out, not of what was in the 1880s
-bottle**. #47 is Chinese history whose standard works are modern monographs; HAL, DOAJ and the
-glossary's own 3,838 cited terms return nothing on it, and what it wants is not a monograph but a
-**comparative city-size table** — the claim is that Chang'an was the largest city in the world,
-which no Chinese source can settle. Ian Morris's social-development tables are the obvious candidate
-and `ianmorris.org` now serves a placeholder page with no PDFs on it. **#38 was in this paragraph
-and is out of it: see T63, and with it the reason this note used to give for leaving it — a list of
-five hosts, one of which was not shut but down.**
+**THE EVIDENCE IS OLDER OR ELSEWHERE THAN THE CLAIM.** **#175 is out of this list: see T67**, which
+is this sentence's own “Yule's Polo, open and full-text” being the answer rather than a consolation.
+#20 (Columbus and the mainland) — the Library of Congress's own exhibition says he "led three more
+expeditions to the Caribbean", which is suggestive and is not the negative stated; `loc.gov`'s
+classroom pages and every `nps.gov` path tried are 403 or 404. **#64 is out of this list: see T66**,
+which is this sentence being an instruction rather than a description. #70 (cocaine in Coca-Cola)
+has the 1916 Supreme Court opinion recording the extract used "with cocaine eliminated" — **evidence
+it was taken out, not of what was in the 1880s bottle**. #47 is Chinese history whose standard works
+are modern monographs; HAL, DOAJ and the glossary's own 3,838 cited terms return nothing on it, and
+what it wants is not a monograph but a **comparative city-size table** — the claim is that Chang'an
+was the largest city in the world, which no Chinese source can settle. Ian Morris's
+social-development tables are the obvious candidate and `ianmorris.org` now serves a placeholder
+page with no PDFs on it. **#38 was in this paragraph and is out of it: see T63, and with it the
+reason this note used to give for leaving it — a list of five hosts, one of which was not shut but
+down.**
 
 **WHAT WOULD MOVE THEM.** Not more probing of the same hosts. **#1 and #20** want a museum, archive
 or government page that is not behind a challenge — and `british-history.ac.uk` is one, serving its
 content while challenging only its search, so it is reached by knowing which volume you want.
 **#47** wants a comparative city-size table. **#70** wants a period analysis rather than the 1916
-opinion. **#80** and **#175** want a source that exists. The hosts measured SHUT are `ctext.org`
+opinion. **#80** wants a source that exists. The hosts measured SHUT are `ctext.org`
 (Turnstile), `mdpi.com` (403), `psycnet.apa.org` and `journals.sagepub.com`, `sciencedirect.com`,
 and `jfafu.journals.ekb.eg` (TLS reset). **Those do not change; do not re-probe them.** What was
 merely DOWN and is worth another try on another day: `jurnal.uai.ac.id` (500), OpenAlex (429 on a
