@@ -524,3 +524,126 @@ count and its download size, and the subtitles now say who a deck is for. What n
 downloading 20 MB is whether the deck teaches both directions, whether it carries example sentences,
 whether it has audio. Those are facts the build script already reads off each file — `build-lang-decks.js`
 counts cards by walking the templates — so it is a catalogue field rather than research.
+
+---
+
+## The audit batch log
+
+One row per batch, so the next session can tell a card that was read and left alone from a card
+nobody has opened yet. **A batch that changed nothing still gets a row.** Read the row's own notes
+before re-opening the same finding list: about half of what the report-only checkers name is a
+correct card, and re-deriving that costs a session.
+
+| date | batch | notes changed | leading fault |
+|---|---|---|---|
+| 2026-09-17 | `check-gloss-source.js`'s whole neighbour-gloss list (24) + its 4 reading findings | 24 | a gloss copied from the card sitting beside it in the exam list |
+
+### 2026-09-17 — the neighbour-gloss list
+
+**What the batch was.** `check-gloss-source.js` reports two things: a gloss sharing no content word
+with its own CC-CEDICT entry (1,016 notes as this was written — the sludge its own header warns about), and the sharp
+version, a gloss that instead matches the dictionary entry of a card **within two either way in the
+file**. That second list was 24 and is the one this batch took, with the 4 reading findings beside
+it. It went to **3**, and all three of those are read-and-left, below.
+
+**The fault, in two layers.** The 24 turned out to be one mechanical fault wearing two coats. Nearly
+every one is a pair of near-synonyms that the exam list's alphabetical order happens to sit next to
+each other — 视力/视觉, 简练/简洁, 巡视/巡逻, 兴盛/兴隆, 追捧/追赶 — where the card had been given
+its neighbour's meaning. An earlier pass looked at this list and concluded, correctly, that the
+findings are near-synonym PAIRS; what it did not say is that a fair number of the cards are also
+simply wrong. 追捧 was glossed "chase / pursue", which is 追赶 and not this word at all; 巡视 was
+"patrol", which is 巡逻, while all three of its own examples translate it as *inspect*; 视力 was
+"vision; sight", which is 视觉, while its examples are all eye tests.
+
+The second coat is the register fault the audit request names: **a capitalised abstract noun standing
+in for a verb** — 爱慕 "Love", 发源 "Origin", 费力 "Strenuous", 骨骼 "Bone", 跨越 "Span", 逃生
+"Escape", 送别 "Send off", 赞许 "Approve", 过头 "Excessive". Ten of the 24 had it, and it is what
+made the transposition possible: a one-word gloss has nowhere to carry a distinction.
+
+**What was changed, and how.** 24 notes, all through `mandarin-fixes.json`: 22 `gloss`, 2 `senses`
+(协作 and 兴盛 needed their part of speech moved as well), 7 example repairs. The glosses are the
+dictionary's own words wherever the dictionary is usable, and the card's own three examples decide
+when it is not.
+
+Five of the 24 were half of a **hinted pair** — two cards whose glosses were byte-identical, each
+carrying the deck's `not <other word>` block: 感情/情感, 费力/费劲, 骨骼/骨头, 协作/协同, 养育/提高.
+The applier drops a note's hint when a `gloss` replaces its English wholesale, so a one-sided fix
+leaves the partner pointing at a word that no longer shares its meaning. The rule taken here, and
+worth keeping: **fix the partner too where the partner's own gloss is also wrong by the register
+rule; leave it, and leave its hint, where the partner's gloss is already right.** So 费劲
+("Strenuous"), 协同 ("Cooperate / collaborate") and 提高 (the bare "raise") were reglossed with their
+opposite numbers and both hints in each pair went; 情感 ("feeling") and 骨头 ("bone") are correct as
+they stand, keep their glosses and keep their hints, which still point at genuine near-synonyms.
+Ambiguous reverse cards went 354 groups → 349 and **STILL AMBIGUOUS stayed at 0**.
+
+**The mistake this batch made, because it is the one to avoid next time.** 兴盛 was first reglossed
+"flourishing; thriving", keeping the card's stated *adjective*. Re-running the checker put it
+straight back on the list: 兴隆's full CC-CEDICT entry is `prosperous/thriving/flourishing`, so
+**every** adjectival gloss of 兴盛 is 兴隆's. The dictionary splits that pair by part of speech —
+兴盛 verbal, 兴隆 adjectival — so the fix is a `senses` change to `verb / to flourish; to thrive`,
+which the card's three examples (曾经兴盛, 日益兴盛, 兴盛衰亡) support. **Re-run the checker after a
+regloss**: a new gloss can land on the neighbour's entry as easily as the old one did, and nothing
+else will say so.
+
+**The seven example repairs.** Two were duplicate English translations that `check-senses.js`
+reports (发源 had 这条河发源于山里 and 这条河发源于山中 under one translation; 简练 had 他的文章 and
+他的文字), and that count went 154 → 152. Five were found by reading rather than by a checker: 费力's only authored example was 你白费力气了,
+which contains 白费 + 力气 and not 费力 at all — the same sentence sits correctly on the 力气 card —
+and its English, "You're barking up the wrong tree", is a different idiom rather than a translation;
+过头's third example was 我回过头去 "I looked over my shoulder", where 回过头 is 回 + 过 + 头 and the
+word is not there; and 梦寐以求, 协同 and 巡视 each had two examples that were one frame with one
+word swapped. All seven replacements are AUTHORED and say so in the record. `check-example-fit.js` stayed at 144
+findings — none was introduced.
+
+**Read and left alone, with the reason.** Three of the checker's findings are false positives and
+will report for ever:
+
+- **回复** "to reply" — CC-CEDICT files 回复 as *to recover; to revert; variant of 回覆*, so the
+  checker matches the gloss against 回信's entry instead. The card is right: 回复 is the ordinary
+  mainland word for replying and all three examples are replies. **One real question was found here
+  and could not be fixed**: the card's Traditional field reads 回復, which is the *recover* word — the
+  reply sense is 回覆. `Traditional` is not in `mandarin-fix.js`'s field whitelist, so the record
+  cannot express that correction at all. Left for a session that is willing to widen the whitelist.
+- **界限** "dividing line; limits; bounds" — CC-CEDICT gives 界限 "boundary" and 界线 "limits;
+  bounds; dividing line", i.e. the dictionary has the pair the other way round from the cards. The
+  cards are the better of the two: 界限 is the abstract limit (划清界限, 界限分明) and 界线 the
+  concrete line, which is what each card's own examples show. Both left.
+- **知足常乐** "contentment is happiness" — the idiom IS 知足 plus 常乐, so its gloss will always echo
+  知足's entry. The card is right and it is a `phrase`, so the "to " rule does not apply.
+
+**All four reading findings were read and none is a fault.** 谁 `shéi/shuí` and 熟 `shú/shóu` teach
+both readings, which is correct. 藤蔓 `téng màn` and 泄露 `xiè lù` are the readings CC-CEDICT itself
+records as the alternates (`Taiwan pr. [teng2man4]`, `also pr. [xie4lu4]`). Changing either means
+moving the pinyin AND the bopomofo together, and the corpus carries roughly a hundred
+mainland-against-Taiwan variants that this file already says must not be swept; moving one of them
+alone makes the deck less consistent, not more. **Left, and recorded as a question rather than
+guessed at.**
+
+### What the next batch should know
+
+**The register fault is 2,334 senses, and 96% of it is in one deck.** Measured after this batch:
+glosses opening on a capitalised ordinary word run **hsk30l7 2,334, hsk30l5 15, hsk30l6 12, hsk30l1
+8, hsk30l4 7, hsk30idm 5, hsk30l3 3, hsk30l2 0**. The 60 in `hsk30phr` and the 5 in `hsk30idm` are
+**correct and must not be swept** — a phrase gloss is a sentence ("Hurry up!", "Good morning!",
+"Long live the king!"). Inside hsk30l7 the 2,334 break down by part of speech as verb 878, noun 830,
+adjective 270, and a sample reads: 变换 *Transformation*, 倒塌 *Collapse*, 分发 *Distribution*,
+侵权 *Infringement*, 受理 *Acceptance*, 荆棘 *Thorn*, 萝卜 *Radish*, 调侃 *Banter*. **The verb ones
+are the worse half and are a wrong part of speech rather than a wrong register**: a noun standing in
+for a verb. **A proper noun is not a finding** — 佛 *Buddha* is in the count and is right — so this
+number is a ceiling, not a work list.
+
+**1,781 senses in hsk30l7 sit under a part of speech of exactly `verb` and do not begin "to "**
+(3,081 across all nine decks). That figure is a looser proxy than the capitals: a note tagged
+`verb / adjective` glossed "busy" or "good" is a Chinese stative verb correctly glossed as an
+adjective, and 谢谢 "thank you" is right. Rank by the capitals and read the verb list beside it.
+
+**Two things this session could not do.** `docs/mandarin-audit-prompt.md`, which the audit request
+names as the baseline, **is not in the repository** — the baseline had to be rebuilt by running the
+checkers. And `.claude/decks/check-decks.js` requires Playwright, which is not installed here, so the
+card-level browser checks did not run; every other checker in the finishing list did.
+
+**Nothing was done about the `Compounds` field.** That request is about single-character cards and
+this batch, being a checker's finding list, contains none — every one of its 24 headwords is two
+characters or more. It is still open, and the measurement it rests on stands: 639 of the 1,503
+single-character notes have no other word built on their character anywhere in their own deck, so
+the tap panel tells 42% of them nothing.
