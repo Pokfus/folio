@@ -1861,3 +1861,33 @@ refusal.
 writing against Michelet, and says so; a partisan work is a poor source for a judgement and an
 excellent one for a COUNT, because the count is the thing his opponents would have contested if they
 could.
+
+### T49 — the turned thumb, and the translator who supplied the direction (2026-09-17)
+
+One cited: #51. 192 → **193 of 220**. Both ancient texts are on Project Gutenberg whole, and together
+they make a better case than either does alone. Juvenal's mob orders a killing "when the thumbs of
+the rabble are turned **up**" in Lewis Evans's translation — the Latin is only *verso pollice*, a
+turned thumb, so the direction there is the Victorian translator's. Pliny's one related remark points
+the other way again: "when we wish to signify applause, we have a proverb even which tells us we
+should **press** the thumbs", and it is Bostock and Riley's own FOOTNOTE, not Pliny, that adds "the
+thumb was turned upwards as a mark of favour, downwards, as a mark of disfavour".
+
+**THE APPARATUS IS THE EVIDENCE HERE, WHICH IS UNUSUAL AND WORTH KNOWING.** A statement about what
+the ancient sources do NOT say is normally hard to cite, because the citation has to prove an
+absence. These two prove it positively: two nineteenth-century editors, working independently, each
+supplied a direction the text they were printing does not contain, and one of them supplied the
+OPPOSITE one to the popular version. **Look at what an edition's translator and notes ADD when the
+claim under test is that a detail was invented later.**
+
+**AND A GUTENBERG FILE NAMES ITS OWN PRINTING, WHICH IS NOT ALWAYS THE ONE YOU EXPECT.** The Evans
+Juvenal there is the 1881 Harper's New Classical Library printing, not the Bohn edition it was
+drafted as; the file's own front matter says so. **Read the imprint out of the text rather than
+assuming the translator's usual publisher** — and a page number for a Gutenberg text is normally
+unknowable, so cite by book and chapter, as T44 cited a dictionary by headword.
+
+**PARKED: #38 (Wu Zetian).** Giles's *Chinese Biographical Dictionary* (1898) is on archive.org and
+its entry confirms that in 690 "she changed the dynastic title to Chou", but two things stop it being
+the citation: it nowhere claims she was the ONLY woman to rule as emperor, which is what the
+statement turns on, and **the OCR is wrecked by the interleaved Chinese characters** — "the Bnmpress
+Wu", "she echangeq the dynastie title" — so nothing in it can be quoted. **A bilingual scan is a bad
+bet for a quotation whatever its date.**
