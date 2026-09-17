@@ -1913,6 +1913,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     It also settled `嗯`, whose `ǹg` is not a pinyin syllable and which carries no bopomofo. **Fold erhua
     and split a two-reading card on the slash before comparing**, or every polyphone is a finding — 97
     before those two rules, 2 after.
+- **📖 `.claude/decks/check-coarse.js` — COARSE, OBSCENE AND PREJUDICIAL CONTENT IN THE MANDARIN
+  DECKS**, report only, exit 0: `node .claude/decks/check-coarse.js [profanity|sexual|body|adult|
+  violence|slur]`. The decks are harvested from a film-subtitle corpus, and a subtitle corpus contains
+  what films contain. **Two findings turned up by ORDINARY READING in four batches** — 阴, glossed
+  *cloudy*, whose third sentence was 你的阴茎很大, and 才, whose English was "I don't give a fuck about
+  what you say" — **and both were invisible to every other checker here**: the sentences are
+  grammatical, the translations accurate, they segment cleanly and they speak correctly. Two by chance
+  in four batches is a rate, so the corpus is swept rather than waited on.
+  · **THE DISCRIMINATOR IS WHETHER THE CARD *IS* THE COARSE WORD.** Everyday Phrases and Idioms teach
+    放屁, 该死, 滚蛋 and 一丝不挂 on purpose, so a hit is dropped where the matched term is the headword
+    either way round, or where the card's own gloss already carries the English word. What is left is
+    coarse content that arrived on a card about something else.
+  · **IT IS A REPORT AND CANNOT BE ANYTHING ELSE.** Every word in the six lists has innocent uses —
+    *naked eye*, an *ass* the animal, *aroused his curiosity*, a *period*, 上床睡觉, 妈的 inside 妈妈的,
+    小三 inside 比我小三岁 — and `violence` and `slur` are the noisiest, a corpus of films and idioms
+    being full of killing and of calling people fools. **Read every finding; nothing here may be swept.**
+  · **THE WIDEST REAL CLASS IS THAT THE ENGLISH IS COARSER THAN THE CHINESE**: 可恶 (*how annoying*)
+    rendered "Shit, where the **fuck** did I put my home keys?", 搞砸 (*to mess up*) as "Don't fuck it
+    up now", 他倒霉极了 as "He is shit out of luck". The card is not teaching an expletive and the
+    translator supplied one. Then an obscene word of its own swallowing the headword (阴茎 on 阴 and on
+    茎, 避孕套 on 避, 混蛋 on 混, 炮友 on 炮); a sentence that teaches nothing and offends anyway; and a
+    GENERALISATION ABOUT PEOPLE — "shorter people have more tricks up their sleeves" on 矮, a people
+    "on the same plane as savages" on 教养.
+  · **AND IT FOUND A FAULT CLASS NOBODY WAS LOOKING FOR: A CHARACTER ERROR THAT PUT THE HEADWORD
+    THERE.** 电灯**炮** for 电灯泡 on the 炮 card, and 别**破**妈妈发现 for 别被妈妈发现 on 破 — the
+    example is on that card ONLY because somebody typed the wrong character, and nothing in the pipeline
+    can see it, the sentence segmenting, speaking and translating perfectly. **📖
+    `docs/mandarin-review.md` carries the first full read.** Not part of the site.
 - `.claude/decks/check-british.js` — **American spellings in the decks' own English**:
   `node .claude/decks/check-british.js [--list]`, report only, exit 0. **The decks are authored British
   because the site's switch never runs in the direction that would rescue them** — `applySpelling`

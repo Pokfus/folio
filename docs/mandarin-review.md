@@ -556,6 +556,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l2` notes 181–197 (远 → 左边), deck order, plus a new `exStop` field — **Level 2 complete** | 17 | a noun gloss on a card two of whose sentences are the verb |
 | 2026-09-17 | `hsk30l3` notes 1–30 (阿姨 → 表演), deck order, plus a traditional-character sweep over all nine decks | 25 | a card whose gloss and all three of whose English lines disagreed |
 | 2026-09-17 | `hsk30l3` notes 31–60 (别的 → 城市), deck order, plus an American-spelling sweep over all nine decks | 29 | a card two of whose three sentences do not contain the headword at all |
+| 2026-09-17 | **the coarse-content sweep**, all nine decks, profanity · sexual · body · adult · slur read in full | 37 | a card all three of whose sentences were about penises |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -2535,3 +2536,177 @@ its English glosses loosely and correctly enough.
 - stray spaces: **32 blocks, 24 distinct** — unchanged
 - American spellings: **491 → 489**, the two in range; the rest is a named batch
 - clobber sweep over the record diff: **0**; 4 existing notes changed, 25 added, which is the 29 cards
+
+### 2026-09-17 — the coarse-content sweep
+
+**What the batch was.** Not a range of notes but a corpus-wide sweep, named after batch 17 and made
+overdue by batch 20: **two obscenities had turned up by ordinary reading in four batches**, which is a
+rate rather than an accident. 34,596 example blocks and every gloss, against six declared word lists in
+English and Chinese. **Thirty-seven cards across seven decks were changed.**
+
+The sweep is committed as `.claude/decks/check-coarse.js`; its header carries the reasoning and
+CLAUDE.md names it. **Profanity, sexual, body, adult and slur were read in full; `violence` was not**,
+and is left for a batch of its own.
+
+### The one to read first
+
+**茎 — glossed *stem; stalk* — had all three of its sentences about penises.**
+
+> 你的阴茎很大。 — "Your penis is big."
+> 别吸烟。吸烟可能缩短你的阴茎。 — "Don't smoke. Smoking can shorten your penis."
+> 你从来吮了阴茎吗？ — "Have you ever sucked a penis?"
+
+It is 阴's fault from Level 2 at three times the scale and from the same source: 阴茎 is a word of its
+own, so the headword stands alone in none of them, and 阴茎 is not in the decks' lexicon, so
+`check-example-fit.js` never looks at it. All three replaced.
+
+The second of those sentences was **also 缩短's first example** in Level 5, which is how a subtitle
+corpus spreads one line across every card whose character it happens to contain.
+
+### The discriminator that makes the sweep usable
+
+A first run reported 1,141 hits and most were the decks doing their job: Everyday Phrases and Idioms
+teach 放屁, 该死, 滚蛋 and 一丝不挂 **on purpose**, and a phrasebook that left them out would be the
+poorer for it. So a hit is dropped where the matched term IS the headword (either way round) or where
+the card's own gloss already carries the English word. That takes it to 812, and what is left is coarse
+content that arrived on a card about **something else** — which is the whole fault.
+
+It is still a report and can never be more. Every word in the six lists has innocent uses: *naked eye*,
+an *ass* the animal, *aroused his curiosity*, a *period*, 上床睡觉 (to go to bed), 妈的 matching inside
+妈妈的 and 妈的衣角, 小三 inside 比我小三岁, 高潮 of a performance, "Prick up your ears", and
+Shakespeare's "If you prick us, do we not bleed?".
+
+### The widest real class: the English is coarser than the Chinese
+
+**Nine cards**, and the shape is always the same — the card is not teaching an expletive and the
+translator supplied one:
+
+| card | Chinese | was | is |
+|---|---|---|---|
+| 可恶 | 可恶，家的钥匙到底放哪去了？ | "Shit, where the **fuck** did I put my home keys?" | "Damn it, where on earth did I put my house keys?" |
+| 心血 | …别这时候搞砸了。 | "Don't **fuck** it up now." | "Do not mess it up now." |
+| 倒霉 | 他倒霉极了。 | "He is **shit** out of luck." | "He is having a truly terrible run of luck." |
+| 胡说 | 她们只是胡说八道。 | "They're just talking **shit**." | "They are just talking nonsense." |
+| 简历 | 我根本不在乎我的简历。 | "I don't give a **damn** about my CV." | "I do not care in the least about my CV." |
+| 爆 | 讨厌！轮胎爆了！ | "**Shit!** I've got a flat." | "Oh no! The tyre has burst!" |
+| 厉害 | 我非常厉害。 | "I'm a **bad-ass**." | "I am really very good." |
+| 得分 | 坏了，她要得分了。 | "**Damn**, she's going to score." | "Oh no, she is going to score." |
+| 去你的 | 去你的破网站。 | "**Fuck** your websites." | "To hell with your rubbish website." |
+
+可恶 is the clearest: **one mild Chinese expletive rendered as two strong English ones**. 得分 had a
+second problem the rewrite fixes — *score* alone is sexual slang in English, which next to an expletive
+on a Level 3 card is a reading nobody intended. 去你的 keeps its sentence, the card genuinely teaching
+the expression; only the register comes down.
+
+**不管's is the shared-sentence problem, and it is the same sentence batch 20 fixed on 别人.** `exEn` is
+per note, so one copy was corrected and the other left — exactly what was flagged about 城市 and 图书馆
+in the same batch. Fixed here so the two agree.
+
+### A fault class nobody was looking for: a character error that put the headword there
+
+Two cards, and neither is coarse at all — they were caught because the sweep pulled the card up:
+
+- **炮's** first example was 爱迪生发明了电灯**炮**。 A light bulb is 电灯**泡**, with 泡. The sentence
+  contains this card's headword ONLY because somebody typed the wrong character.
+- **破's** third was 希望别**破**妈妈发现才好。 which is 别**被**妈妈发现 — "I hope Mum doesn't find
+  out", which is exactly what its own English says. 破 for 被 is a typo, and again the example is on
+  this card only because of it.
+
+**Nothing in the pipeline can see this.** The sentence segments, speaks and translates perfectly; the
+headword is present as a character; only the meaning is absent. It is worth a sweep of its own and one
+is not obvious — a homophone or near-homograph standing where another character belongs cannot be found
+by pattern, only by reading the sentence against its English.
+
+### Cards rebuilt entirely
+
+Three had nothing worth keeping:
+
+- **茎** — all three about penises (above).
+- **炮** (*cannon; firecracker*) — two sentences about 炮友, slang for a sexual partner, and the
+  character error above. Now firecrackers at New Year, a Qing-dynasty cannon and the sound of guns.
+- **吸** (*to inhale; to suck in*), a **Level 4** card — 吸一口气，妈的！, 你是不是吸毒吸傻了？ and
+  我不吸大麻。 All three are profanity or drugs, and two render 吸 only inside 吸毒. Now a baby, a
+  sponge and a doctor on smoking.
+
+### Coarse content on a card about something else
+
+- **硬** (*hard*), Level 5 — 马麻，我硬了。 "Mummy, I've got an erection." Its second sentence went with
+  it for a different reason: 那么硬卡怎么用呢？ was translated "So, how's the card used?", which drops
+  硬 entirely, so the one sentence left standing would have shown the headword doing nothing visible.
+- **姿势** (*posture*) — sixty characters of graphic obstetric emergency with the headword once at the
+  very end.
+- **引发** (*to lead to*) — 自慰引发疯狂。 "Masturbation leads to insanity." Coarse, and **false**,
+  which is the worse half on a card a reader is asked to memorise.
+- **障碍**, **监控**, **厌烦**, **动画**, **和谐**, **避**, **混**, **好笑**, **胸**, **棍**, **搭档**,
+  **淘** — an orgasm, a prostitute, 做爱, pornography, a sex life, a condom, 混蛋, 他妈, "big boobs",
+  "shove a stick up your ass", "Mr. Goat Butt", and lingerie from a shopping site.
+- **豁** and **切割** shared one sentence: fifty characters of contemporary American political argument
+  about bans on gender-affirming care and surgery on intersex infants. Whatever one thinks of the
+  claim, a vocabulary card is not where it belongs.
+
+**Several replacements do double duty**, because a card whose sentences were all wrong usually had a
+sense nothing showed: 淘's new 妈妈在淘米 is *to rinse in water*, which the gloss gives and both
+surviving sentences (淘金, twice) do not; 监控's is the verb where both others were the noun; 一口气's
+is the adverb *in one go* where both others were a literal breath; 混's is *to confuse* where both
+others were *to mix*; 好笑's is *ridiculous*; 避's has 避 as a free verb, 避雨 and 避而不谈 both being
+bound.
+
+### Generalisations about people
+
+Three, and the class was opened by 矮 in batch 19 ("shorter people have more tricks up their sleeves"):
+
+- **抵挡** — 没有男人能够抵挡女人的诱惑。 "No man can resist the lure of a woman."
+- **教养** — a people who "in their upbringing are on the same plane as **savages**", a colonial-era
+  value judgement about a group of human beings. The most serious of the three.
+- **中年** — 她是个中年胖女人。 "She's a middle-aged fat woman." The word being taught is *middle age*;
+  the rest of the sentence teaches nothing.
+
+**一丝不挂 is a judgement about REGISTER rather than subject**, and is recorded as such: the idiom means
+*stark naked*, so its examples must be about nakedness. What was cut is a piece of romantic-novel prose
+written from the man's side — "how much love it takes for a woman to be undressed by a man" — where the
+two that stay, a child out of the bath and a figure in a painting, are neutral.
+
+### Read and deliberately left
+
+- **避孕套可以预防性传播疾病** (传播, 预防) and **酗酒是导致阳痿的一个因素** (酗酒) are public-health
+  information on cards about spreading, preventing and alcohol abuse. They belong there.
+- **严禁卖淫嫖娼…** is a public notice on the card for *strictly forbid*, which is the register that
+  word lives in.
+- **狗改不了吃屎** is a genuine Chinese proverb and 屎 is a card of its own.
+- **守宫砂…验证女人贞操** (验证, 宫) is historical information about a real practice, not an obscenity.
+- **他们家小孩因为不听话，被打了屁股** (听话) records corporal punishment as a fact of family life.
+- **利马想要缩胸** (胸, 缩) is a medical fact; only 胸's *other* sentence was the problem.
+- **那个丑男人在节食** stays on 丑, whose headword IS *ugly*.
+- **高潮迭起** on 迭起 is an ordinary idiom about a performance.
+
+### A side-finding, named and not acted on
+
+The corpus's translator renders 事情 and 这件事 as **"affair"** about forty times — "This affair is
+baffling", "The affair sounded an alarm bell", "We must study the affair as a whole". It is not coarse,
+it is stilted, and it is the same shape as the American-spelling finding in batch 20: a corpus-wide
+register fault that wants one pass rather than thirty card edits.
+
+### What the sweep still holds
+
+| category | before | after | read? |
+|---|---|---|---|
+| profanity | 141 | 124 | yes |
+| sexual | 44 | 22 | yes |
+| body | 19 | 11 | yes |
+| adult | 106 | 99 | yes |
+| violence | 200 | 200 | **no — a batch of its own** |
+| slur | 195 | 192 | yes |
+
+The residue in the read categories is the innocent uses listed above plus the deliberate leaves. **The
+`violence` list was not opened**: a corpus of films and idioms is full of killing, and it needs the same
+card-by-card reading the others got rather than a skim.
+
+### Standing invariants at the end of the batch
+
+- example blocks: **34,596**; **spoken == visible on every one**
+- Chinese leaking into an English line: **all seven touched decks byte-identical to HEAD's**
+- example coverage: **11,532 of 11,532 notes at three sentences**, and none showing the same twice
+- `check-example-fit.js` over all nine decks: 143, and **not one names a card this batch touched**
+- sense tags past the list: **0**; pinyin against bopomofo: **clean**
+- stray spaces: **32 blocks, 24 distinct** — unchanged
+- clobber sweep over the record diff: **0**; 19 existing notes changed, 18 added, which is the 37 cards

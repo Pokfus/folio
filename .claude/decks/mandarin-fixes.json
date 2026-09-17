@@ -2,7 +2,7 @@
  "_": "mandarin-fixes.json — every hand edit made to the nine Mandarin decks, and the ONLY place one may be made. Applied by .claude/decks/mandarin-fix.js, which is idempotent and whose --check asserts the decks still carry these. The decks' generator inputs (w26-*.json) are not in this repo, so they cannot be rebuilt: this file is the whole record of how the shipped decks differ from what the generator produced. Keyed by <deck id>/<headword>. Every entry carries a `why`.",
  "notes": {
   "hsk30idm/一丝不挂": {
-   "why": "An idiom's gloss says what it MEANS and throws away what it SAYS, and the image is most of what makes a four-character idiom stick. Written from the characters, and only where the literal reading says something the meaning does not. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "An idiom's gloss says what it MEANS and throws away what it SAYS, and the image is most of what makes a four-character idiom stick. Written from the characters, and only where the literal reading says something the meaning does not. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. The idiom means *stark naked* and its examples must therefore be about nakedness, so this is a judgement about REGISTER rather than subject. The sentence removed is a piece of romantic-novel prose written from the man's side — \"how much love it takes for a woman to be undressed by a man\" — where the two that stay (a child out of the bath, a figure in a painting) are neutral. An AUTHORED historical sentence in their register.",
    "Literally": "not one thread hanging on",
    "ex": [
     [
@@ -12,7 +12,14 @@
     [
      "画中的人物一丝不挂。",
      "The figure in the painting is completely naked."
+    ],
+    [
+     "古希腊运动员比赛时一丝不挂。",
+     "Athletes in ancient Greece competed completely naked."
     ]
+   ],
+   "dropEx": [
+    "你可知道，当女人被男人脱去自己的衣服，一丝不挂的在他面前，需要多少的爱？"
    ]
   },
   "hsk30idm/一了百了": {
@@ -11112,7 +11119,7 @@
    ]
   },
   "hsk30l3/得分": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 坏了 is *oh no* and was rendered \"Damn\". The English also had a second problem this fixes: *score* on its own is sexual slang in English, which on a Level 3 card next to an expletive is a reading nobody intended.",
    "ex": [
     [
      "我们在扔掉之前得分类。",
@@ -11125,6 +11132,12 @@
    ],
    "dropEx": [
     "婴儿不懂得分是非黑白。"
+   ],
+   "exEn": [
+    [
+     "坏了，她要得分了。",
+     "Oh no, she is going to score."
+    ]
    ]
   },
   "hsk30l3/总是": {
@@ -12605,12 +12618,19 @@
    ]
   },
   "hsk30l5/动画": {
-   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its third sentence was 现在的日本动画片越来越色情了！ — an opinion about pornography in Japanese animation, which is neither what the card teaches nor a claim a flashcard should be making.",
    "ex": [
     [
      "现在的日本动画片越来越色情了！",
      "Japanese anime these days is becoming more and more like pornography."
+    ],
+    [
+     "这部动画是给孩子看的。",
+     "This animation is for children."
     ]
+   ],
+   "dropEx": [
+    "现在的日本动画片越来越色情了！"
    ]
   },
   "hsk30l5/单一": {
@@ -13374,7 +13394,7 @@
    ]
   },
   "hsk30l5/简历": {
-   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 根本不在乎 is *do not care at all* and was rendered \"I don't give a damn\".",
    "ex": [
     [
      "我还从来都没有写过简历呢！",
@@ -13383,6 +13403,12 @@
     [
      "请把简历发到这个邮箱。",
      "Please send your CV to this email address."
+    ]
+   ],
+   "exEn": [
+    [
+     "我根本不在乎我的简历。",
+     "I do not care in the least about my CV."
     ]
    ]
   },
@@ -18354,12 +18380,19 @@
    ]
   },
   "hsk30l6/棍": {
-   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its third sentence was 把一根棍子塞进你的屁股里。 — \"Shove a stick up your ass.\" Replaced with an AUTHORED sentence which is also the only one on the card where 棍 is a stick rather than half of 曲棍球, hockey.",
    "ex": [
     [
      "把一根棍子塞进你的屁股里。",
      "Shove a stick up your ass."
+    ],
+    [
+     "老人拄着一根棍子走路。",
+     "The old man walks with a stick."
     ]
+   ],
+   "dropEx": [
+    "把一根棍子塞进你的屁股里。"
    ]
   },
   "hsk30l6/楼道": {
@@ -22149,11 +22182,17 @@
    "gloss": "reputation and credit, good name"
   },
   "hsk30l7/倒霉": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 他倒霉极了 is *he is extremely unlucky* and was rendered \"He is shit out of luck\".",
    "ex": [
     [
      "别人倒霉，你不该幸灾乐祸。",
      "You should not gloat over other people's misfortune."
+    ]
+   ],
+   "exEn": [
+    [
+     "他倒霉极了。",
+     "He is having a truly terrible run of luck."
     ]
    ]
   },
@@ -23999,7 +24038,7 @@
    ]
   },
   "hsk30l7/心血": {
-   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 搞砸 is *to mess up* and was rendered \"Don't fuck it up now\".",
    "ex": [
     [
      "多年的心血毁于一旦。",
@@ -24008,6 +24047,12 @@
     [
      "这是他多年的心血。",
      "This is his years of painstaking effort."
+    ]
+   ],
+   "exEn": [
+    [
+     "我们已经花了五个月的心血在这上面了。别这时候搞砸了。",
+     "We have put five months of hard work into this. Do not mess it up now."
     ]
    ]
   },
@@ -25380,7 +25425,7 @@
    ]
   },
   "hsk30l7/淘": {
-   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its third sentence was about lingerie recommended by a shopping site, and 淘宝 is a brand name in which 淘 is not doing the card's work anyway. Replaced with 淘米 — which is the sense the gloss actually gives, *to wash or rinse in water*, and which NEITHER of the other two sentences shows, both being 淘金.",
    "ex": [
     [
      "1848年人们来加利福尼亚淘金。",
@@ -25389,7 +25434,14 @@
     [
      "淘宝给我推荐了性感又可爱的情趣内衣。",
      "Taobao suggested sexy and cute lingerie for me."
+    ],
+    [
+     "妈妈在淘米。",
+     "Mother is washing the rice."
     ]
+   ],
+   "dropEx": [
+    "淘宝给我推荐了性感又可爱的情趣内衣。"
    ]
   },
   "hsk30l7/港": {
@@ -72470,7 +72522,7 @@
    ]
   },
   "hsk30phr/去你的": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. This card DOES teach the expression, so the sentence stays — but 去你的 is *to hell with you*, not the obscenity its English supplied. The same sentence was 破's first example and is removed there.",
    "ex": [
     [
      "去你的，别开玩笑了。",
@@ -72479,6 +72531,12 @@
     [
      "去你的，我才不信呢。",
      "Get along with you, I don't believe a word of it."
+    ]
+   ],
+   "exEn": [
+    [
+     "去你的破网站。",
+     "To hell with your rubbish website."
     ]
    ]
   },
@@ -73543,14 +73601,19 @@
    ]
   },
   "hsk30l4/好笑": {
-   "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence carried 他妈 — a vulgar intensifier — on a Level 4 card glossed *laughable; funny; ridiculous*. Replaced with an AUTHORED sentence in the *ridiculous* sense, which the gloss claims and neither other sentence shows.",
    "dropEx": [
-    "这是我听过最好笑的笑话。"
+    "这是我听过最好笑的笑话。",
+    "什么他妈这么好笑？"
    ],
    "ex": [
     [
      "他讲的笑话一点儿也不好笑。",
      "The joke he told was not funny at all."
+    ],
+    [
+     "我觉得这个想法很好笑。",
+     "I find this idea ridiculous."
     ]
    ]
   },
@@ -74577,7 +74640,7 @@
    ]
   },
   "hsk30l4/中年": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was 她是个中年胖女人。 — \"She's a middle-aged fat woman.\" The word being taught is *middle age*; the rest of the sentence is doing no teaching at all.",
    "ex": [
     [
      "他已经人到中年。",
@@ -74586,7 +74649,14 @@
     [
      "中年人要注意身体。",
      "People in middle age should look after their health."
+    ],
+    [
+     "他中年才开始学画画。",
+     "He did not start learning to paint until middle age."
     ]
+   ],
+   "dropEx": [
+    "她是个中年胖女人。"
    ]
   },
   "hsk30l4/转机": {
@@ -76545,7 +76615,7 @@
    ]
   },
   "hsk30l5/姿势": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was sixty characters of graphic obstetric emergency — a gloved fist, a prolapsed uterus and a vagina — on a card glossed *posture; gesture*, where the headword appears once at the very end in 这个姿势. Replaced with an AUTHORED sentence.",
    "ex": [
     [
      "他的写字姿势不正确。",
@@ -76554,7 +76624,14 @@
     [
      "请保持这个姿势。",
      "Please hold this position."
+    ],
+    [
+     "她拍照时摆了一个姿势。",
+     "She struck a pose for the photograph."
     ]
+   ],
+   "dropEx": [
+    "知道吗？内科急救专家对于子宫下垂常用的应对方法是带上手套，把拳头深入阴道，然后用力将子宫向上推。但这个姿势在赶到医院前是改变不了了！"
    ]
   },
   "hsk30l5/总部": {
@@ -77110,12 +77187,19 @@
    ]
   },
   "hsk30l5/缩短": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was 别吸烟。吸烟可能缩短你的阴茎。 on a card glossed *to shorten*. It is the same sentence 茎 carried as its second, which is how a subtitle corpus spreads one line across every card whose character it happens to contain.",
    "ex": [
     [
      "新路把车程缩短了一半。",
      "The new road cut the journey time in half."
+    ],
+    [
+     "会议时间缩短到半小时。",
+     "The meeting was shortened to half an hour."
     ]
+   ],
+   "dropEx": [
+    "别吸烟。吸烟可能缩短你的阴茎。"
    ]
   },
   "hsk30l5/提倡": {
@@ -82193,7 +82277,7 @@
    ]
   },
   "hsk30l7/豁": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was fifty characters of contemporary American political argument about bans on gender-affirming care and genital surgery on intersex infants. Whatever one thinks of the claim, a vocabulary card is not where it belongs, and the card is glossed *to break open; to clear; to exempt*. The same sentence sat on 切割 and is replaced there too.",
    "ex": [
     [
      "他豁出去试了一次。",
@@ -82202,7 +82286,14 @@
     [
      "袋子豁了一个口子。",
      "The bag has split open."
+    ],
+    [
+     "政府豁免了小企业的税。",
+     "The government exempted small businesses from the tax."
     ]
+   ],
+   "dropEx": [
+    "大多数针对性别肯定照护的禁令都针对阴阳人婴儿明确规定了唯一豁免，允许他们接受真正的儿童生殖器切割。"
    ]
   },
   "hsk30l7/拣": {
@@ -84367,7 +84458,7 @@
    ]
   },
   "hsk30l7/搭档": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was 羊屁股先生可没告诉我还有搭档 — \"Mr. Goat Butt never told me there would be a partner\", a line of cartoon subtitle that teaches nothing. Replaced with an AUTHORED sentence in the VERB sense, which the gloss leads with and neither other sentence shows.",
    "ex": [
     [
      "他们是多年的搭档。",
@@ -84376,7 +84467,14 @@
     [
      "新搭档配合得很好。",
      "The new partner works well with him."
+    ],
+    [
+     "这次比赛我跟你搭档。",
+     "I will partner you in this match."
     ]
+   ],
+   "dropEx": [
+    "羊屁股先生可没告诉我还有搭档。"
    ]
   },
   "hsk30l7/搭建": {
@@ -84770,7 +84868,7 @@
    ]
   },
   "hsk30l7/抵挡": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence asserted that no man can resist the lure of a woman — a generalisation about half the species on a vocabulary card, and the second of that shape this pass has cut after 矮's *shorter people have more tricks up their sleeves*. Replaced with an AUTHORED sentence in the military sense, which the gloss's *ward off* names and neither other sentence shows.",
    "ex": [
     [
      "这件衣服抵挡不住寒风。",
@@ -84779,7 +84877,14 @@
     [
      "他抵挡住了诱惑。",
      "He resisted the temptation."
+    ],
+    [
+     "士兵们抵挡住了敌人的进攻。",
+     "The soldiers held off the enemy's attack."
     ]
+   ],
+   "dropEx": [
+    "没有男人能够抵挡女人的诱惑。"
    ]
   },
   "hsk30l7/抵御": {
@@ -90803,7 +90908,7 @@
    ]
   },
   "hsk30l7/切割": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. The second card carrying the gender-affirming-care sentence described on 豁. Replaced with an AUTHORED sentence in which the patient is the subject, neither of the card's other two being.",
    "ex": [
     [
      "工人在切割钢板。",
@@ -90812,7 +90917,14 @@
     [
      "切割要注意安全。",
      "Take care when cutting."
+    ],
+    [
+     "钻石很难切割。",
+     "Diamond is hard to cut."
     ]
+   ],
+   "dropEx": [
+    "大多数针对性别肯定照护的禁令都针对阴阳人婴儿明确规定了唯一豁免，允许他们接受真正的儿童生殖器切割。"
    ]
   },
   "hsk30l7/切换": {
@@ -98354,12 +98466,19 @@
    ]
   },
   "hsk30l7/监控": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its second sentence was about a man paying a prostitute while unaware of a surveillance camera. Replaced with an AUTHORED sentence which also fills the card's own gap: both of its other examples are the NOUN (a camera), and its gloss leads with the verb.",
    "ex": [
     [
      "门口装了监控。",
      "A camera is fitted at the door."
+    ],
+    [
+     "医生监控着病人的心跳。",
+     "The doctor is monitoring the patient's heartbeat."
     ]
+   ],
+   "dropEx": [
+    "他在不知有监控录像的情况下支付了妓女服务费用。"
    ]
   },
   "hsk30l7/坚韧": {
@@ -98651,11 +98770,17 @@
    ]
   },
   "hsk30l7/可恶": {
-   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+   "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 可恶 is *damn it* or *how annoying*; its English was \"Shit, where the **fuck** did I put my home keys?\" — one mild Chinese expletive rendered as two strong English ones. The Chinese is unchanged.",
    "ex": [
     [
      "这种行为真可恶。",
      "Such behaviour is detestable."
+    ]
+   ],
+   "exEn": [
+    [
+     "可恶，家的钥匙到底放哪去了？",
+     "Damn it, where on earth did I put my house keys?"
     ]
    ]
   },
@@ -107421,6 +107546,250 @@
   "hsk30l3/常见": {
    "why": "Its gloss was \"commonly seen\", a literal of the two characters, and all three of its English lines say plainly *common* — which CC-CEDICT also gives. Reordered rather than replaced, the literal being worth keeping for a reader who wants to see where the word comes from.",
    "gloss": "common; commonly seen"
+  },
+  "hsk30l7/茎": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **ALL THREE of its sentences were about penises** — 你的阴茎很大, 吸烟可能缩短你的阴茎 and 你从来吮了阴茎吗 (\"Have you ever sucked a penis?\") — on a card glossed *stem; stalk*. 阴茎 is a word of its own, so the headword does not stand alone in any of them, which makes this the same structural fault as 阴's in Level 2 at three times the scale and with the same source. Nothing in the pipeline could see it: every sentence is grammatical, every translation is accurate, and 阴茎 is not in the decks' lexicon so `check-example-fit.js` never looks. All three replaced with AUTHORED sentences about stems.",
+   "dropEx": [
+    "你的阴茎很大。",
+    "别吸烟。吸烟可能缩短你的阴茎。",
+    "你从来吮了阴茎吗？"
+   ],
+   "ex": [
+    [
+     "这种植物的茎很粗。",
+     "This plant has a thick stem."
+    ],
+    [
+     "荷花的茎是空心的。",
+     "The lotus stem is hollow."
+    ],
+    [
+     "他把花的茎剪短了。",
+     "He trimmed the flower's stem."
+    ]
+   ]
+  },
+  "hsk30l5/硬": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was **马麻，我硬了。 — \"Mummy, I've got an erection.\"** on a Level 5 card glossed *hard*. | Its second, 那么硬卡怎么用呢？, was read and replaced with it for a different reason: its English, \"So, how's the card used?\", drops 硬 entirely, so the one sentence left standing would have shown the headword doing nothing a reader could see.",
+   "dropEx": [
+    "马麻，我硬了。",
+    "那么硬卡怎么用呢？"
+   ],
+   "ex": [
+    [
+     "这张床太硬了。",
+     "This bed is too hard."
+    ],
+    [
+     "面包放久了会变硬。",
+     "Bread goes hard if you keep it too long."
+    ]
+   ]
+  },
+  "hsk30l6/引发": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its second sentence was 自慰引发疯狂。 — \"Masturbation leads to insanity.\" It is coarse for a vocabulary card and it is also **false**, which is the worse half: a study card is a thing a reader is asked to memorise.",
+   "dropEx": [
+    "自慰引发疯狂。"
+   ],
+   "ex": [
+    [
+     "这条新闻引发了广泛的讨论。",
+     "The news sparked a wide discussion."
+    ]
+   ]
+  },
+  "hsk30l6/障碍": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its third sentence asked what causes orgasm problems in men, on a card glossed *to hinder; to obstruct*. Replaced with the collocation a learner actually needs, 语言障碍.",
+   "dropEx": [
+    "哪些原因可能导致男性高潮障碍？"
+   ],
+   "ex": [
+    [
+     "语言障碍让他很难交朋友。",
+     "The language barrier made it hard for him to make friends."
+    ]
+   ]
+  },
+  "hsk30l7/厌烦": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its third sentence was 当我们在做爱的时候，她看起来很厌烦。 — \"She looked bored while we were making love.\"",
+   "dropEx": [
+    "当我们在做爱的时候，她看起来很厌烦。"
+   ],
+   "ex": [
+    [
+     "他问了太多次，我有点厌烦了。",
+     "He asked so many times that I got a bit fed up."
+    ]
+   ]
+  },
+  "hsk30l6/避": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its third sentence was 避孕套坏了。 — \"The condom broke.\" 避孕套 is also a word of its own, so the headword does not stand alone in it. Replaced with an AUTHORED sentence in which 避 is a free verb, which neither of the other two has (避雨 and 避而不谈 are both bound).",
+   "dropEx": [
+    "避孕套坏了。"
+   ],
+   "ex": [
+    [
+     "他侧身一避，躲开了球。",
+     "He stepped aside and dodged the ball."
+    ]
+   ]
+  },
+  "hsk30l6/和谐": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was about the speaker's sex life, on a card glossed *harmonious*.",
+   "dropEx": [
+    "我们的性生活不是十分和谐。"
+   ],
+   "ex": [
+    [
+     "他们一家人相处得很和谐。",
+     "The family live together in harmony."
+    ]
+   ]
+  },
+  "hsk30l7/炮": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **All three of its sentences were wrong, two of them obscene and the third a misspelling.** 我不是想要老婆，我想找个炮友而已 and 我们一直是很好的炮友 are both 炮友, which is slang for a sexual partner, on a card glossed *cannon, artillery; firecracker*. | And 爱迪生发明了电灯炮 is **a character error**: a light bulb is 电灯泡, with 泡, and the sentence contains the headword ONLY because somebody typed the wrong character. That is a fault class worth naming — an example harvested into a card BECAUSE of a typo — and it is invisible to every checker here, since the sentence segments, speaks and translates perfectly. 破 in Level 4 has the second instance. All three replaced.",
+   "dropEx": [
+    "爱迪生发明了电灯炮。",
+    "我不是想要老婆，我想找个炮友而已。",
+    "我们一直是很好的炮友。"
+   ],
+   "ex": [
+    [
+     "过年时人们喜欢放炮。",
+     "People like to let off firecrackers at New Year."
+    ],
+    [
+     "这门炮是清朝的。",
+     "This cannon dates from the Qing dynasty."
+    ],
+    [
+     "炮声把我吵醒了。",
+     "The sound of the guns woke me."
+    ]
+   ]
+  },
+  "hsk30l4/破": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence, 去你的破网站, was translated \"Fuck your websites\" — the Chinese is dismissive rather than obscene, and the card is glossed *break*. | Its third is the **second character error** this sweep found: 希望别破妈妈发现才好 is 别**被**妈妈发现, \"I hope Mum doesn't find out\", which is exactly what its own English says. 破 for 被 is a typo, and the sentence is on this card only because of it. See 炮 in Levels 7–9 for the first.",
+   "dropEx": [
+    "去你的破网站。",
+    "希望别破妈妈发现才好。"
+   ],
+   "ex": [
+    [
+     "我的鞋子破了。",
+     "My shoes have worn through."
+    ],
+    [
+     "他破了世界纪录。",
+     "He broke the world record."
+    ]
+   ]
+  },
+  "hsk30l4/吸": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **All three of its sentences were profanity or drugs** — 吸一口气，妈的！, 你是不是吸毒吸傻了？ and 我不吸大麻。 — on a Level 4 card glossed *to inhale; to suck in*. Two of the three also render 吸 only inside 吸毒. All three replaced with AUTHORED sentences covering the three things this verb ordinarily does.",
+   "dropEx": [
+    "吸一口气，妈的！",
+    "你是不是吸毒吸傻了？",
+    "我不吸大麻。"
+   ],
+   "ex": [
+    [
+     "婴儿在吸奶。",
+     "The baby is sucking milk."
+    ],
+    [
+     "这块海绵能吸很多水。",
+     "This sponge soaks up a lot of water."
+    ],
+    [
+     "医生说吸烟对身体不好。",
+     "The doctor says smoking is bad for you."
+    ]
+   ]
+  },
+  "hsk30l6/一口气": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. The second card carrying 吸一口气，妈的！, the sentence described on 吸. Replaced with an AUTHORED sentence in the ADVERB sense this card's gloss claims — *in one go* — which neither of its other two shows, both being a literal breath.",
+   "dropEx": [
+    "吸一口气，妈的！"
+   ],
+   "ex": [
+    [
+     "他一口气跑到了山顶。",
+     "He ran all the way to the top of the hill in one go."
+    ]
+   ]
+  },
+  "hsk30l6/混": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was 真是个混蛋！ — \"What a bastard!\" 混蛋 is a word of its own, so the headword does not stand alone in it either. Replaced with an AUTHORED sentence in the *to confuse* sense the gloss claims and neither other sentence shows, both being *to mix*.",
+   "dropEx": [
+    "真是个混蛋！"
+   ],
+   "ex": [
+    [
+     "他常常把这两个字混了。",
+     "He often confuses these two characters."
+    ]
+   ]
+  },
+  "hsk30l6/胸": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was 她的胸很大。 rendered \"She has big boobs\" — a remark about a woman's body in coarse English, and the card already carried a second sentence about breast size. Replaced.",
+   "dropEx": [
+    "她的胸很大。"
+   ],
+   "ex": [
+    [
+     "他胸前挂着一个相机。",
+     "He had a camera hanging on his chest."
+    ]
+   ]
+  },
+  "hsk30l7/教养": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its second sentence said that in their upbringing a people \"are on the same plane as savages\" — a colonial-era value judgement about a group of human beings, which is the 矮 fault in its most serious form. Replaced.",
+   "dropEx": [
+    "在教养上，他们可以说是和野蛮人差不多。"
+   ],
+   "ex": [
+    [
+     "父母的教养影响孩子一生。",
+     "A parent's upbringing shapes a child for life."
+    ]
+   ]
+  },
+  "hsk30l7/胡说": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 胡说八道 is *to talk nonsense* — which is what this card's own gloss says — and was rendered \"They're just talking shit\".",
+   "exEn": [
+    [
+     "她们只是胡说八道。",
+     "They are just talking nonsense."
+    ]
+   ]
+  },
+  "hsk30l6/爆": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 讨厌 is *how annoying* and was rendered \"Shit!\". The English also said \"flat\", which drops 爆 — the card's own headword — and wrote *tire*'s American cousin into a British-authored deck.",
+   "exEn": [
+    [
+     "讨厌！轮胎爆了！",
+     "Oh no! The tyre has burst!"
+    ]
+   ]
+  },
+  "hsk30l4/厉害": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 我非常厉害 is *I am really good* and was rendered \"I'm a bad-ass\".",
+   "exEn": [
+    [
+     "我非常厉害。",
+     "I am really very good."
+    ]
+   ]
+  },
+  "hsk30l4/不管": {
+   "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. \"I don't give a damn what people think about me\" for 我才不管. **This is the same sentence 别人 carries in Level 2, whose English was rewritten in batch 20** — `exEn` is per note, so one copy was corrected and the other left, which is the shared-sentence problem flagged on 城市 and 图书馆 in the same batch. Fixed here so the two agree.",
+   "exEn": [
+    [
+     "我才不管别人怎么想我。",
+     "I really do not care what other people think of me."
+    ]
+   ]
   }
  },
  "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
