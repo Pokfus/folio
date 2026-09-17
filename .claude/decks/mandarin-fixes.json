@@ -11200,9 +11200,46 @@
       "gloss": "season of the year"
     },
     "hsk30l3/室": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The English translation did not render the headword, so the card showed a sentence whose bolded word had no counterpart in the line under it. The Chinese is untouched. '室外的空调很便宜。' read 'External air conditioners are quite cheap', in which 室外 — the word the card is there to explain — appears as 'external'. | Its second sentence taught 课室, which is the southern and overseas word for a classroom; the standard Mandarin the rest of the collection uses, and the word HSK itself teaches, is 教室. Replaced with an AUTHORED sentence using it. A bound morpheme like 室 can only ever be shown inside a compound, so the point of the three is that each compound be one a learner will meet. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 办公室. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the rows go to words the panel cannot already reach.",
       "mw": [
         "间"
+      ],
+      "exEn": [
+        [
+          "室外的空调很便宜",
+          "Outdoor air-conditioning units are quite cheap."
+        ]
+      ],
+      "dropEx": [
+        "不要在课室里奔跑。"
+      ],
+      "ex": [
+        [
+          "我们的教室在三楼。",
+          "Our classroom is on the third floor."
+        ]
+      ],
+      "compounds": [
+        [
+          "教室",
+          "jiào shì",
+          "a classroom"
+        ],
+        [
+          "室内",
+          "shì nèi",
+          "indoor"
+        ],
+        [
+          "浴室",
+          "yù shì",
+          "a bathroom"
+        ],
+        [
+          "实验室",
+          "shí yàn shì",
+          "a laboratory"
+        ]
       ]
     },
     "hsk30l3/小区": {
@@ -11462,8 +11499,30 @@
       ]
     },
     "hsk30l3/收": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "to receive; to collect; to put away"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 收到, against 35 in the collection — the most of any character in this batch. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the rows go to words the panel cannot already reach.",
+      "gloss": "to receive; to collect; to put away",
+      "compounds": [
+        [
+          "收入",
+          "shōu rù",
+          "income"
+        ],
+        [
+          "收拾",
+          "shōu shi",
+          "to tidy up; to pack"
+        ],
+        [
+          "吸收",
+          "xī shōu",
+          "to absorb"
+        ],
+        [
+          "收音机",
+          "shōu yīn jī",
+          "a radio"
+        ]
+      ]
     },
     "hsk30l3/收到": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -72371,7 +72430,7 @@
       ]
     },
     "hsk30l3/声": {
-      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense.",
+      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 声音, which is the very next card in the deck — so the rows go elsewhere, to 28 words the panel cannot reach. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the rows go to words the panel cannot already reach.",
       "senses": [
         [
           "noun",
@@ -72380,6 +72439,28 @@
         [
           "measure word",
           "[for sounds and utterances]"
+        ]
+      ],
+      "compounds": [
+        [
+          "大声",
+          "dà shēng",
+          "loudly; in a loud voice"
+        ],
+        [
+          "声调",
+          "shēng diào",
+          "a tone (on a Chinese syllable)"
+        ],
+        [
+          "掌声",
+          "zhǎng shēng",
+          "applause"
+        ],
+        [
+          "名声",
+          "míng shēng",
+          "a reputation"
         ]
       ]
     },
@@ -109166,7 +109247,7 @@
       ]
     },
     "hsk30l3/市": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Downtown” is American and has no one-word British equivalent, which is why it is not in the table: each of its five sentences wants a different phrase. ",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Downtown” is American and has no one-word British equivalent, which is why it is not in the table: each of its five sentences wants a different phrase.  | The example did not contain the headword at all: its characters sat inside a LONGER word, which check-example-fit.js skips outright on a single-character card. Dropped and replaced with an AUTHORED sentence, which the record says so is. '这次我们不去好市多可以吗？' is about COSTCO: 好市多 is a transliteration in which 市 is a sound and nothing else, so the card's own character was doing no work at all in it. The replacement uses 市 as the administrative suffix, which is the sense the gloss names and a reader meets on every envelope. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 城市. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the rows go to words the panel cannot already reach.",
       "exEn": [
         [
           "我们正在去市里",
@@ -109175,6 +109256,37 @@
         [
           "市中心有很多旅馆",
           "There are many hotels in the town centre."
+        ]
+      ],
+      "dropEx": [
+        "这次我们不去好市多可以吗？"
+      ],
+      "ex": [
+        [
+          "北京市有很多博物馆。",
+          "The city of Beijing has many museums."
+        ]
+      ],
+      "compounds": [
+        [
+          "超市",
+          "chāo shì",
+          "a supermarket"
+        ],
+        [
+          "市场",
+          "shì chǎng",
+          "a market"
+        ],
+        [
+          "市长",
+          "shì zhǎng",
+          "a mayor"
+        ],
+        [
+          "上市",
+          "shàng shì",
+          "to come on the market"
         ]
       ]
     },
@@ -111696,6 +111808,237 @@
         [
           "路上停着很多汽车。",
           "There are a lot of cars parked along the road."
+        ]
+      ]
+    },
+    "hsk30l3/清楚": {
+      "why": "The card named two parts of speech against a single gloss that answers only one of them, so a reader was being taught one use and tested on two. This is the small genuine residue of the notes that name several parts of speech, almost all of which are Chinese doing what it does rather than a missing sense. CC-CEDICT gives 'clear; distinct; to understand thoroughly; to be clear about', and the card's 'verb / adjective' label stood over the adjective alone — while two of its three sentences are the verb (我不太清楚 'I don't really know', 我没有听清楚 'I didn't get your last name').",
+      "gloss": "clear; to be clear about"
+    },
+    "hsk30l3/请客": {
+      "why": "The dictionary's senses are commonest-first and the card had taken the first one, but its own sentences show a later one. Re-glossed from what the card actually teaches. CC-CEDICT reads 'to give a dinner party; to entertain guests; to invite to dinner' and the card had taken the first; two of its three sentences are 晚饭我请客 and 今天我来请客, which is picking up the bill rather than throwing a party.",
+      "gloss": "to treat sb to a meal; to give a dinner party"
+    },
+    "hsk30l3/球场": {
+      "why": "The dictionary's senses are commonest-first and the card had taken the first one, but its own sentences show a later one. Re-glossed from what the card actually teaches. CC-CEDICT reads 'stadium; sports ground; court; pitch; field; golf course'; the card had taken 'stadium', which is the one sense that needs a crowd — a 球场 is usually the pitch itself, and the word is what 篮球场 and 足球场 are built on. | The English translation did not render the headword, so the card showed a sentence whose bolded word had no counterpart in the line under it. The Chinese is untouched. Its first line also called the place a BALLPARK, which is American and names a baseball ground in particular; it is a single occurrence in the nine decks, so it is repaired here rather than in the LEXIS table.",
+      "gloss": "sports ground; court; stadium",
+      "exEn": [
+        [
+          "坐这个公车可以到球场",
+          "You can get to the sports ground on this bus."
+        ]
+      ]
+    },
+    "hsk30l3/认真": {
+      "why": "The dictionary's senses are commonest-first and the card had taken the first one, but its own sentences show a later one. Re-glossed from what the card actually teaches. CC-CEDICT reads 'conscientious; earnest; serious; to take seriously' and the card gave 'earnest', which is the one word none of its three English lines uses ('study hard', 'don't be so serious', 'studies hard').",
+      "gloss": "conscientious; serious; in earnest"
+    },
+    "hsk30l3/认得": {
+      "why": "The gloss named a narrower thing than the card's own English lines did, so the card's translations contradicted its definition. Widened to what CC-CEDICT records and the sentences use. CC-CEDICT reads 'to recognize; to remember sth (or sb) on seeing it; to know', and the card's third sentence 我们认得这首歌 is translated 'We know this song'.",
+      "gloss": "to recognise; to know (sb or sth by sight)"
+    },
+    "hsk30l3/上衣": {
+      "why": "The gloss named a narrower thing than the card's own English lines did, so the card's translations contradicted its definition. Widened to what CC-CEDICT records and the sentences use. CC-CEDICT reads 'jacket; upper outer garment' — a 上衣 is whatever is worn above the waist — and two of the card's three English lines call it a shirt, which is 衬衫. The gloss is widened and those two lines say 'top'.",
+      "gloss": "jacket; upper garment; top",
+      "exEn": [
+        [
+          "我喜欢那件紫色的上衣",
+          "I like that purple top."
+        ],
+        [
+          "穿白色上衣的那位",
+          "Who else has questions? Yes, how about you there in the white top?"
+        ]
+      ]
+    },
+    "hsk30l3/生活": {
+      "why": "The card named two parts of speech against a single gloss that answers only one of them, so a reader was being taught one use and tested on two. This is the small genuine residue of the notes that name several parts of speech, almost all of which are Chinese doing what it does rather than a missing sense. CC-CEDICT gives 'to live; life; livelihood'; the card's 'noun / verb' label stood over 'life' alone, while its second sentence 没有水你不能生活 is the verb. Its third line also read 'He lived a busy life' for 他生活很忙, which is a past tense the Chinese has not got and a noun where the Chinese has a verb.",
+      "gloss": "life; to live",
+      "exEn": [
+        [
+          "他生活很忙",
+          "His life is very busy."
+        ]
+      ]
+    },
+    "hsk30l3/热情": {
+      "why": "The card gave one adjective sense, 'enthusiastic', and its third sentence uses the word as a NOUN — 做事缺乏热情, 'doing something in a half-hearted manner'. CC-CEDICT records both ('cordial; enthusiastic; passion; passionate'). Split, and the three sentences tagged; the first two are the adjective, which on this word is warmth towards a person rather than eagerness about a task.",
+      "senses": [
+        [
+          "adjective",
+          "warm; cordial; enthusiastic"
+        ],
+        [
+          "noun",
+          "enthusiasm; passion"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l3/沙发": {
+      "why": "The card is glossed 'sofa' and its own first English line called the thing a COUCH, so one card gave a reader two words for one object with nothing to say which it was teaching. The other two lines say sofa. (Its measure words 条 and 张 were checked and are CC-CEDICT's own for this word.)",
+      "exEn": [
+        [
+          "这个沙发很舒服",
+          "This sofa is very comfortable."
+        ]
+      ]
+    },
+    "hsk30l3/生气": {
+      "why": "Found by a hand sweep of the word MAD, which is American for *angry* and ordinary British English for *insane*. It cannot be a LEXIS row for exactly that reason — measured over the nine decks, 12 sentences carry it and 8 of them are the British sense (疯, 疯狂, 疯子, 理智, 痴迷's *mad about music*), so a table would have made *My cat is angry* out of 我的猫疯了. The four that are the American sense sit on cards whose headword IS anger, and are repaired by hand.",
+      "exEn": [
+        [
+          "您生气了吗",
+          "Are you angry?"
+        ]
+      ]
+    },
+    "hsk30l3/身高": {
+      "why": "The English translation did not render the headword, so the card showed a sentence whose bolded word had no counterpart in the line under it. The Chinese is untouched. '我的身高比你高。' read 'My height surpasses yours', which is a register no learner needs and not what the Chinese says.",
+      "exEn": [
+        [
+          "我的身高比你高",
+          "I'm taller than you are."
+        ]
+      ]
+    },
+    "hsk30l3/山": {
+      "why": "The example did not contain the headword at all: its characters sat inside a LONGER word, which check-example-fit.js skips outright on a single-character card. Dropped and replaced with an AUTHORED sentence, which the record says so is. '那里人山人海。' is the idiom 人山人海, which is its own card among the idioms, and its English ('There's a huge number of people there') mentions neither a mountain nor a hill. The replacement uses 座, the measure word the card itself lists. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all, against 17 words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the rows go to words the panel cannot already reach.",
+      "dropEx": [
+        "那里人山人海。"
+      ],
+      "ex": [
+        [
+          "这座山很高。",
+          "This mountain is very high."
+        ]
+      ],
+      "compounds": [
+        [
+          "火山",
+          "huǒ shān",
+          "a volcano"
+        ],
+        [
+          "爬山",
+          "pá shān",
+          "to go hiking; to climb a hill"
+        ],
+        [
+          "山区",
+          "shān qū",
+          "a mountain area"
+        ],
+        [
+          "山水",
+          "shān shuǐ",
+          "mountains and rivers; landscape"
+        ]
+      ]
+    },
+    "hsk30l3/伞": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all — the whole collection has one other word built on it, 雨伞, and that is in another deck. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the rows go to words the panel cannot already reach.",
+      "compounds": [
+        [
+          "雨伞",
+          "yǔ sǎn",
+          "an umbrella"
+        ],
+        [
+          "降落伞",
+          "jiàng luò sǎn",
+          "a parachute"
+        ],
+        [
+          "跳伞",
+          "tiào sǎn",
+          "to parachute; to bail out"
+        ],
+        [
+          "伞兵",
+          "sǎn bīng",
+          "a paratrooper"
+        ]
+      ]
+    },
+    "hsk30l3/扫": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 打扫. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the rows go to words the panel cannot already reach.",
+      "compounds": [
+        [
+          "扫地",
+          "sǎo dì",
+          "to sweep the floor"
+        ],
+        [
+          "扫描",
+          "sǎo miáo",
+          "to scan"
+        ],
+        [
+          "扫除",
+          "sǎo chú",
+          "to clean up; to wipe out"
+        ],
+        [
+          "清扫",
+          "qīng sǎo",
+          "to tidy up; to mop up"
+        ]
+      ]
+    },
+    "hsk30l3/试": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all, against 15 words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written, and the rows go to words the panel cannot already reach.",
+      "compounds": [
+        [
+          "考试",
+          "kǎo shì",
+          "an exam; to sit an exam"
+        ],
+        [
+          "面试",
+          "miàn shì",
+          "an interview"
+        ],
+        [
+          "尝试",
+          "cháng shì",
+          "to try; to attempt"
+        ],
+        [
+          "试验",
+          "shì yàn",
+          "an experiment; a test"
+        ]
+      ]
+    },
+    "hsk30l4/气": {
+      "why": "Found by a hand sweep of the word MAD, which is American for *angry* and ordinary British English for *insane*. It cannot be a LEXIS row for exactly that reason — measured over the nine decks, 12 sentences carry it and 8 of them are the British sense (疯, 疯狂, 疯子, 理智, 痴迷's *mad about music*), so a table would have made *My cat is angry* out of 我的猫疯了. The four that are the American sense sit on cards whose headword IS anger, and are repaired by hand. This card's own third line already says 'Don't get angry at me', so it gave a reader both words for one sense.",
+      "exEn": [
+        [
+          "我还是很气",
+          "I'm still angry."
+        ]
+      ]
+    },
+    "hsk30l7/打赌": {
+      "why": "Found by a hand sweep of the word MAD, which is American for *angry* and ordinary British English for *insane*. It cannot be a LEXIS row for exactly that reason — measured over the nine decks, 12 sentences carry it and 8 of them are the British sense (疯, 疯狂, 疯子, 理智, 痴迷's *mad about music*), so a table would have made *My cat is angry* out of 我的猫疯了. The four that are the American sense sit on cards whose headword IS anger, and are repaired by hand.",
+      "exEn": [
+        [
+          "我打赌他会生气",
+          "I bet he'll get angry."
+        ]
+      ]
+    },
+    "hsk30l7/发火": {
+      "why": "Found by a hand sweep of the word MAD, which is American for *angry* and ordinary British English for *insane*. It cannot be a LEXIS row for exactly that reason — measured over the nine decks, 12 sentences carry it and 8 of them are the British sense (疯, 疯狂, 疯子, 理智, 痴迷's *mad about music*), so a table would have made *My cat is angry* out of 我的猫疯了. The four that are the American sense sit on cards whose headword IS anger, and are repaired by hand. This card is glossed 'Get angry / flare up', so the word was on the card twice over in two dialects.",
+      "exEn": [
+        [
+          "汤姆开始发火了",
+          "Tom started getting angry."
         ]
       ]
     }

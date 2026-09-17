@@ -569,6 +569,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 211–240 (经过 → 老人), deck order | 20 | four English lines that translated something other than their own Chinese |
 | 2026-09-17 | `hsk30l3` notes 241–270 (离开 → 南方), deck order, plus the whole ONE-WAY-ROW class | 40 | seven spelling families `check-british.js` reads 0 over by design, swept once and for all |
 | 2026-09-17 | `hsk30l3` notes 271–300 (难过 → 前天), deck order | 18 | the character panel searches the DOWNLOADED deck, so six characters taught here show a reader nothing |
+| 2026-09-17 | `hsk30l3` notes 301–330 (清楚 → 收), deck order, plus the whole MAD class | 22 | eight single-character cards in thirty, every one of their panels empty or all but empty |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4195,5 +4196,138 @@ because "got mad" left with it.
   and each checked for a duplicate against every sentence and every English line in all nine decks
 - `build-lang-decks.js`: re-run, and **exactly one row changed**, `hsk30l3`, by its `bytes` and `rev`
   alone — verified field by field against HEAD
+- CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
+  `check-docs`, `check-questions`, `check-style`
+
+## Batch 34 — hsk30l3 notes 301–330 (清楚 → 收), and the whole MAD class
+
+Thirty notes read in deck order, **twenty-two cards changed** across 44 fields — nineteen in range and
+three in other decks, which are one measured class closed in a single pass. No app change: the
+`Compounds` field has been on this deck's type since the batch that added it.
+
+**BATCH 33'S FINDING AT THREE TIMES THE SCALE.** Eight of these thirty notes are a single character —
+伞, 扫, 山, 声, 市, 试, 室, 收 — and the tap panel searches the deck the reader has **downloaded**, so
+what each shows a Level 3 reader is:
+
+| character | words in its own deck | words in the collection |
+|---|---|---|
+| 伞 | **0** | 1 |
+| 山 | **0** | 17 |
+| 试 | **0** | 15 |
+| 扫 | 1 (打扫) | 8 |
+| 声 | 1 (声音) | 28 |
+| 市 | 1 (城市) | 14 |
+| 室 | 1 (办公室) | 9 |
+| 收 | 1 (收到) | **35** |
+
+**收 is the sharpest case yet**: thirty-five words in the collection and one within reach. All eight
+gained four authored rows, every reading and gloss checked against CC-CEDICT, and each row deliberately
+goes to a word the panel cannot already reach — 声's rows skip 声音, which is the very next card in the
+deck, and 市's skip 城市. Twenty-seven of these thirty-two words are in other levels; five (雨伞, 跳伞,
+伞兵, 名声, 上市) the collection does not teach at all.
+
+**FOUR GLOSSES WERE THE DICTIONARY'S SENSES IN THE WRONG ORDER FOR THE CARD**, batch 31's 开机 finding
+again.
+
+- **请客** read *to give a dinner party*, CC-CEDICT's first of three, while two of its sentences are
+  晚饭我请客 and 今天我来请客 — picking up the bill rather than throwing a party. Now **to treat sb to
+  a meal; to give a dinner party**, which covers all three, the third being 革命不是请客吃饭.
+- **球场** read *stadium*, the one sense of six that needs a crowd; a 球场 is usually the pitch itself,
+  and the word is what 篮球场 and 足球场 are built on. Now **sports ground; court; stadium**.
+- **认真** read *earnest*, which is the one word none of its three English lines uses (*study hard*,
+  *don't be so serious*, *studies hard*). Now **conscientious; serious; in earnest**.
+- **上衣** read *jacket* while two of its three lines call the thing a *shirt*, which is 衬衫. A 上衣 is
+  whatever is worn above the waist; the gloss is widened and those two lines now say *top*.
+
+**TWO CARDS NAMED A PART OF SPEECH THEIR GLOSS DID NOT ANSWER** — batch 28's class, which is not to be
+swept and is real one card at a time. **清楚** was *verb / adjective* over *clear*, while two of its
+sentences are the verb (我不太清楚, 我没有听清楚); now *clear; to be clear about*. **生活** was
+*noun / verb* over *life*, while 没有水你不能生活 is the verb; now *life; to live*. **热情** is the
+third and took a real split: its third sentence uses the word as a noun (做事缺乏热情), so it is
+*adjective: warm; cordial; enthusiastic* and *noun: enthusiasm; passion*, with the three sentences
+tagged 1 / 1 / 2. **认得** was widened to *to recognise; to know (sb or sth by sight)* on the strength
+of its own third line, *We know this song*.
+
+**THE MAD CLASS, MEASURED AND CLOSED.** *Mad* is American for **angry** and ordinary British English
+for **insane**, and 生气's second line read *Are you mad?*. Swept by hand over the nine decks: **12
+sentences carry the word and 8 of them are the British sense** — 疯, 疯狂, 疯子, 理智 and 痴迷's *mad
+about music* — so **it cannot be a LEXIS row**, a table would have made *My cat is angry* out of
+我的猫疯了. The four that are the American sense all sit on cards whose headword *is* anger and are
+repaired one at a time: 生气 (L3), 气 (L4), 打赌 and 发火 (L7–9). **Two of the four contradicted
+themselves** — 气's own third line already says *Don't get angry at me*, and 发火 is glossed *Get angry
+/ flare up* — so those cards gave a reader both dialects' words for one sense. `check-coarse.js`'s slur
+column went **193 → 189** with them, the word having been on its list all along for the other reading.
+
+**TWO SENTENCES DID NOT CONTAIN THEIR HEADWORD, AND `check-example-fit.js` CANNOT SEE EITHER**, both
+cards being a single character, which that checker skips outright.
+
+- **山** opened on 那里人山人海。 — the idiom 人山人海, which is its own card among the idioms, and whose
+  English (*There's a huge number of people there*) mentions neither a mountain nor a hill. This is
+  batch 29's 海 finding on the other half of the same idiom. The replacement uses 座, the measure word
+  the card itself lists.
+- **市** ended on 这次我们不去好市多可以吗？ — which is about **Costco**. 好市多 is a transliteration in
+  which 市 is a sound and nothing else, so the card's own character was doing no work at all in it. The
+  replacement uses 市 as the administrative suffix (北京市), which is the sense the gloss names.
+
+**室 TAUGHT A REGIONAL WORD.** Its second sentence was 不要在课室里奔跑 — 课室 is the southern and
+overseas word for a classroom, where standard Mandarin, the rest of this collection and HSK itself use
+**教室**. Replaced with an authored 我们的教室在三楼. Its first line also rendered 室外 — the word the
+card is there to explain — as *external*, and now says *outdoor*. A bound morpheme like 室 can only ever
+be shown inside a compound, so what matters about its three sentences is that each compound be one a
+learner will actually meet.
+
+**FOUR MORE ENGLISH LINES DID NOT RENDER THEIR CHINESE.** 球场's first called the place a **ballpark**,
+which is American and names a baseball ground in particular — a single occurrence in the nine decks, so
+it is repaired here rather than in the LEXIS table, batch 32's rule. 沙发's first called the thing a
+**couch** while the card is glossed *sofa* and its other two lines say sofa, so one card gave two words
+for one object. 身高's *My height surpasses yours* is a register no learner needs. 生活's *He lived a
+busy life* put a past tense on a Chinese sentence that has none and a noun where the Chinese has a verb.
+All four fixed with `exEn`; every Chinese sentence untouched.
+
+**WHAT WAS READ AND LEFT.**
+
+- **沙发's measure words 条 and 张 were checked and are right** — CC-CEDICT gives both for this word.
+  They looked wrong (条 is for long thin things) and are not, which is why the dictionary was consulted
+  before the record was written.
+- **伞's 雨伞卖得好 and 扫's 我找不到扫把了 stay.** Both put the headword inside a longer word, but 雨伞
+  *is* an umbrella and 扫把 is the thing one sweeps with — transparent compounds, batch 27's 短发-on-短
+  case rather than its 东-as-东西 case. 市's Costco sentence is the other kind and went.
+- **请客's 革命不是请客吃饭 stays.** It is a famous quotation rather than an everyday sentence, and it
+  is the one of the three that shows the dinner-party sense the gloss still carries.
+- **清楚, 请假, 秋天, 裙子, 然后, 认为, 容易, 如果, 勺子, 身边, 声音, 世界, 收** were read and are
+  right as they stand. 秋天, 市, 如果 and 收 already carry earlier batches' authored glosses and English,
+  and 声 and 室 earlier batches' senses and measure word.
+- **`check-example-fit.js` reports one card in range and it is a false positive**: 容易's
+  学会一门外语不容易。 segments 不容|易 because greedy longest-match prefers 不容; 容易 is intact.
+- **`check-say-reading.js` names none of the eight single-character cards**, so each teaches the reading
+  a speech engine will give it and none needs a `Say`.
+- **认得 came off `check-gloss-source.js`'s overlap list as a side effect, and that finding was a
+  spelling artefact rather than a fault**: *to recognise* and the dictionary's *to recognize* share no
+  token, so the card was reported for being British. The list already holds 电梯/lift, 数学/maths and
+  邻居/neighbour for the same reason.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2, unchanged**, and the shared-gloss groups **338 both before and after**, checked
+  group by group against HEAD rather than by the totals — which is what says seven re-glossings and a
+  sense split made no new collision
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged**
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0** — and it reads 0 over *mad*, *ballpark* and *couch* too, none of them being
+  a spelling
+- `check-say-reading.js`: unchanged at 10 of 1,503
+- `check-coarse.js`: **identical to HEAD but for the four MAD lines**, slur 193 → 189; the other five
+  columns byte-identical
+- `check-gloss-source.js`: neighbour findings **3, unchanged**; the overlap list went 1,029 from 1,030,
+  exactly 认得 coming off and nothing going on
+- 34,596 example blocks, **spoken == visible on every one**; sense-tagged blocks 305 → 308, the three
+  this batch wrote
+- every authored sentence segmented against the 11,532-word deck lexicon and checked for a duplicate
+  against every sentence and every English line in all nine decks
+- `build-lang-decks.js`: re-run, and **exactly three rows changed** — `hsk30l3`, `hsk30l4` and
+  `hsk30l7`, the three decks touched — each by its `bytes` and `rev` alone
 - CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
   `check-docs`, `check-questions`, `check-style`
