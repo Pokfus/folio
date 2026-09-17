@@ -545,6 +545,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l1` notes 151–180 (牛奶 → 少), deck order | 22 | an example that models the mistake the card should prevent |
 | 2026-09-17 | `hsk30l1` notes 181–210 (谁 → 听见), deck order, plus a new `exEn` field | 19 | a gloss giving the dictionary's rarest sense as the card's only one |
 | 2026-09-17 | `hsk30l1` notes 211–240 (同学 → 写), deck order | 23 | a polyphone taught at the wrong reading of the two |
+| 2026-09-17 | `hsk30l1` notes 241–270 (谢谢 → 再), deck order | 20 | a gloss that stops dead in the middle of a phrase |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -1309,3 +1310,105 @@ feature exists for the characters the panel underserves.
 晚饭, 晚上, 问, 我们, 五 (the card itself), 下雨, 下课, 下午, 先生, 现在, 小时, 小学, 写 are right as
 they stand. 外's first example, 我们出外吃饭吧, keeps its bound use: 出外 is natural Chinese and one of
 the three sentences may fairly show the character inside a word once the other two show it free.
+
+### 2026-09-17 — Level 1, notes 241–270
+
+**What the batch was.** The thirty cards 谢谢 → 再, read one at a time against CC-CEDICT and against
+their own three sentences. **Twenty were changed**, ten left alone.
+
+### The one to read first
+
+**一's gloss stopped in the middle of a phrase.** "one; once; first; structural word between two of
+the" — between two of the *what*? That is the **third truncated gloss this pass has found** (们's
+"plural suffix for pronouns and nouns referring to" was the first, 呢's was the second) and it is on the
+commonest character in the language. Cut to CC-CEDICT's own "one; a; single", which is also what all
+three of the card's sentences show.
+
+### An example that was not the headword at all
+
+**有点儿's first sentence was 她有点儿面包。"She has a little bread".** That does not contain this
+card's word: it is 有 plus 一点儿, a verb and its object, where 有点儿 is the ADVERB the card glosses
+and stands in front of an adjective. **No checker here can see this** — `check-example-fit.js`
+segments against the decks' own lexicon and 有点儿 *is* in it, so the characters line up and the
+sentence looks perfect. Found by reading.
+
+**有的 was worse: two of its three sentences were not the word either.** 这是常有的事 is 常有 plus 的,
+a relative clause; 有的，先生你有几位？ is 有的 as the affirmative reply "yes, we do", followed by an
+unrelated restaurant greeting. Only the third showed the pronoun the card is for.
+
+### The glosses
+
+- **学 was "to study, to learn, or knowledge" under one `verb`** — a run-on with a noun tacked on by
+  "or", the same shape as 天's "or the celestial realm". CC-CEDICT gives five senses and two were
+  missing, **one of them the card's own first example**: 学学你姐姐 is "copy your sister", which nothing
+  on the card explained. Split three ways, with "-ology" marked (bound form).
+- **要 was "want; be going to; ask for; demand" under one `verb`** — four senses, no "to " on any of
+  them, and one of the four is not a verb. Split into the verb and the auxiliary, which is exactly how
+  the card's own sentences split.
+- **月's "month; moon" was one sense**, and only "month" is 月 standing alone — the moon is 月亮. Marked
+  (bound form), as 晚 was last batch.
+- **一些 showed a sense it did not have**: 你会好一些 is the comparative, "a little BETTER", which
+  CC-CEDICT states and the card's gloss "some" cannot reach.
+- **一下's gloss was a bracketed instruction**, "[used after a verb] give something a go", so the reverse
+  card's front was a note about grammar. Reworded so the meaning leads and the restriction follows.
+- **谢谢 was "thank you" under `verb`**, a phrase where a verb was claimed; both are wanted.
+- **有的's "(there are) some (who are...)"** is CC-CEDICT's own wording verbatim and is not wrong — it is
+  two bracketed asides round one word, and unanswerable as the front of a card. Said plainly.
+
+### The sentences
+
+- **新月出来了。was the same line on two cards**, 新's second example and 月's first, and on both of them
+  the headword sits inside 新月. That is the second one-sentence-two-cards find in two batches (她晚了起床
+  was the first); it is worth grepping the deck for a sentence before authoring its replacement.
+- **你是小雨吗？"Are you Xiao-yu?"** on 雨's card — 小雨 there is a person's NAME, so a beginner learns
+  that 雨 is something people are called.
+- **我们也不得不做** on 也's card had **no terminal punctuation at all**, and was built on a Level 4
+  construction. It is one of the 150 the corpus-wide punctuation pass deliberately left alone, that pass
+  converting marks and never adding one.
+- **Not grammatical:** 昨天没学生去那 (the negative needs 没有 before a noun, and the place word is 那儿),
+  and 我吃了一半三明治了 (two 了 in one clause and a missing 的).
+- **English that is not the sentence:** "They were students" for 他们是学生 (present tense in the
+  Chinese), "I owe him $100" for 我欠他一百元 — **on the card for the yuan**, which is the one
+  substitution it cannot afford — "The man is naked" for 那人没穿衣服, "Some people must be friendzoned"
+  for 有些人只能成为朋友, and "I will do it tomorrow" for 我明天再做, which drops 再 altogether.
+
+### A fault in the RECORD, not in a deck — and the sweep that finds it
+
+**有的's earlier `ex` and `dropEx` were clobbered rather than extended** when this batch's fields were
+merged onto the note, so the card came back with two sentences instead of three and the record stopped
+claiming a drop it had really made. **It is the second time** (包子 in batch 2 was the first), and
+`--check` passes either way, because the record's *current* claims are all carried.
+
+**So this is now a standing step at the end of a batch**, and it is one command:
+
+```
+node -e "const j=s=>JSON.parse(require('child_process').execSync('git show '+s+':.claude/decks/mandarin-fixes.json',{maxBuffer:1e9}));const o=j('HEAD').notes,c=JSON.parse(require('fs').readFileSync('.claude/decks/mandarin-fixes.json')).notes;for(const k in o)for(const f of ['ex','dropEx','exEn','compounds','reviewed'])(o[k][f]||[]).forEach(x=>{const n=JSON.stringify((c[k]||{})[f]||[]);if(n.indexOf(JSON.stringify(x))<0)console.log(k,f,JSON.stringify(x))})"
+```
+
+It prints every note that has LOST an array element since the last commit. A batch that adds `ex`,
+`dropEx` or `exEn` to a note that already has one must **append**; a gloss or a sense list is a
+replacement and is meant to be.
+
+### On the compound lists
+
+**学's panel is the fullest in the whole deck — eleven words — and every one of them is a school**
+(学校, 学生, 大学, 中学, 小学, 上学, 同学 and their compounds). So all four rows go where the panel
+cannot: 科学, 数学, 化学, 文学, which is the (bound form) sense this batch has just added to the gloss
+and the one a reader would otherwise never see an example of.
+
+**一's five rows each carry a DIFFERENT TONE on 一, and that is the point of the list.** 一 is written
+yì before a first, second or third tone and yí before a fourth, so 一起, 一样, 一定, 一直 and 一切 show
+the sandhi the card's own reading (a plain yī) cannot. All five take the deck's spelling — seventh batch
+running for that rule, with 不要 bú yào and 月饼 yuè bing beside them.
+
+**美元 leads 元's list deliberately:** a reader just told that 元 is the yuan needs to know the same
+character counts the dollar, which is the confusion the card's own second example had already made.
+**下雪 leads 雪's and is in none of the nine decks** — the corpus has 下雨 and not its counterpart, which
+is exactly the gap this section exists to fill.
+
+### Read and left alone
+
+星期, 星期日, 星期天, 休息, 学习, 学校, 雪 (the card), 医生, 医院, 椅子, 一点儿, 有 and 有些' first two
+sentences are all right as they stand. 再's gloss keeps its parenthetical, "(of something still to
+come)": unlike "(everyday word)" or "(the general verb)" that is a restriction on the MEANING — it is
+what separates 再 from 又 — and this pass cuts notes about a card, not restrictions on a word.
