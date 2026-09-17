@@ -433,4 +433,37 @@ address that had been failing. **The BUSY state clears; retry before re-deriving
 Looking at it also corrected the caption drafted from its file name: it is a sixteenth-century
 ENGRAVING signed HSB, not a painting, inscribed *Deianira Nessi vestem per Licham servum Herculi
 mittit* — which is a better caption than anything the metadata offered. `ww2-011` (Article 22 of the
-League Covenant) is still unfetched and still held back.
+League Covenant) stayed unfetched through that batch; batch 6b below says why, and it was not the
+BUSY state.
+
+**BATCH 6b — the second held-back picture came back, and the 429 was never about waiting.** `ww2-011`
+(Article 22 of the League Covenant) is in. It had been retried across two sessions on the reasoning
+that `upload.wikimedia.org` was in its BUSY state and that BUSY clears — which is what happened with
+`gr-566` in batch 6a, and which is why nobody read the error body. **Read it.** Wikimedia's 429 page
+says in terms: *"Too many requests — please contact noc@wikimedia.org to discuss a less disruptive
+approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai."*
+
+**THE LIMIT IS PER RENDER, NOT PER HOST, AND THE WIDTH IN THE URL IS WHAT TRIPS IT.** Every failed
+attempt had asked for `?width=900`, which is not a size that file already had a thumbnail for, so each
+request asked the thumbnailer to render a new one. Measured on this file in one run, seconds apart:
+**`width=900` 429, `width=800` 429, `width=640` 429, `width=1024` 200 and 821 KB of real JPEG.** It is
+not "standard sizes" in the abstract either — 640 and 800 are as standard as 1024 — it is **which
+renders already exist for that particular file**. So a 429 from `Special:FilePath` is a fact about the
+width you asked for, and the fix is to ask for a different one rather than to wait forty minutes.
+**Try two or three widths before recording a file as unfetchable**; `gr-566` very likely came back in
+batch 6a because the eighth attempt happened to name a width that was already cached, not because
+time had passed.
+
+**THE DESCRIPTION PAGE AND `api.php` FAIL SEPARATELY, AND THE PAGE IS THE ONE THAT ANSWERS.** In the
+same minutes, `api.php` returned 429 ("You are ma…") while
+`commons.wikimedia.org/wiki/File:<FILE>` served 99,865 bytes carrying the Author, the licence, the
+source and — the part that matters — **the canonical `upload.wikimedia.org` URL with its own two-character
+shard**, which is the one thing that must never be composed by hand. This is CLAUDE.md's own
+"reach for those two before concluding Commons is shut" with the api leg knocked out.
+
+**A PAGE OF TEXT IS USUALLY A REJECT AND HERE IT IS THE RIGHT ANSWER.** Batch 6 threw out two museum
+TEXT PANELS, and the rule behind that stands: a panel ABOUT an object is not a picture OF it. This
+file is different in kind — the card's answer term is a legal category that this text created, its
+question quotes the very paragraph ("a sacred trust of civilisation"), and the scan has the three
+classes boxed in red, blue and yellow, which is a thing the prose says and the reader cannot otherwise
+see. **Ask whether the text IS the subject before rejecting a picture for being text.**

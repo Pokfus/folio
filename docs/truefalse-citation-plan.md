@@ -2025,8 +2025,10 @@ parliamentary archives have not been probed yet.
 
 **AND THE PICTURE HELD-BACKS ARE STILL HELD BACK.** `upload.wikimedia.org` and
 `commons.wikimedia.org/wiki/Special:FilePath` both returned zero bytes on six attempts across forty
-minutes, for two files whose description pages read perfectly. This is the BUSY state, not a wall:
-the same host served seven other files an hour earlier in the same session.
+minutes, for two files whose description pages read perfectly. This was read at the time as the BUSY
+state, since the same host served seven other files an hour earlier in the same session. **That was
+wrong and `docs/card-pictures-plan.md` batch 6b has the answer**: the 429 is per RENDER, and every one
+of those attempts asked for a width that file had no cached thumbnail for. Both pictures are in.
 
 ### T54 — the Wayback Machine as a READING room for a host that is 403 here (2026-09-17)
 
