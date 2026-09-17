@@ -74448,9 +74448,10 @@
       ]
     },
     "hsk30l4/线下": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The headword was not in the sentence at all: its two characters stood next to each other across a word boundary. `check-example-fit.js` cannot see it — it reports an occurrence the segmenter SPLITS, and greedy longest-match lands squarely on the headword, which is the blind spot its own header names. 太阳落到地平线下了 is 地平线 + 下, `below the HORIZON` — the sibling card's fault exactly, on the sibling card, which is what says how the pair was assembled: **both were harvested on the character sequence rather than on the word**, so both picked up a sentence in which 线 belongs to the word before it. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "dropEx": [
-        "不要在太暗的光线下看书"
+        "不要在太暗的光线下看书",
+        "太阳落到地平线下了"
       ],
       "ex": [
         [
@@ -74460,6 +74461,10 @@
         [
           "这门课有线下的课堂。",
           "This course has in-person classes."
+        ],
+        [
+          "线下活动更有意思。",
+          "Offline events are more fun."
         ]
       ]
     },
@@ -120608,6 +120613,327 @@
           "美味",
           "měi wèi",
           "delicious; a delicacy"
+        ]
+      ]
+    },
+    "hsk30l4/线上": {
+      "why": "The headword was not in the sentence at all: its two characters stood next to each other across a word boundary. `check-example-fit.js` cannot see it — it reports an occurrence the segmenter SPLITS, and greedy longest-match lands squarely on the headword, which is the blind spot its own header names. 足球教练站在边线上对自己的队伍喊出指令 is 边线 + 上, `on the TOUCHLINE` — and its English says so. Its English also turned one 足球教练 into `The manager and coach`, two people. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "足球教练站在边线上"
+      ],
+      "ex": [
+        [
+          "我们线上开会。",
+          "We are holding the meeting online."
+        ]
+      ]
+    },
+    "hsk30l4/细": {
+      "why": "The gloss names four senses — thin, fine, slender; minute, detailed — and **not one sentence showed the first three**, which is where a learner meets the character. Two of the three were literary besides: 如果细究起来，实则不然 and the four-part maxim 愿要大、志要坚、气要柔、心要细, neither of which a learner can use or adapt. Replaced with the plain physical sense. The third's English also wrote `savored`, and **`savor` is not in app.js's `SPELL_PAIRS` at all** — the seventh family `check-british.js` reads 0 over, after -logue, -ward, programme, skeptic, kerb, globalis and yoghurt. Measured: one site against eleven `savour`. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "如果细究起来",
+        "愿要大、志要坚"
+      ],
+      "ex": [
+        [
+          "这根线太细了。",
+          "This thread is too thin."
+        ],
+        [
+          "请把菜切细一点。",
+          "Please cut the vegetables a little finer."
+        ]
+      ],
+      "exEn": [
+        [
+          "他细细地品了一口咖啡",
+          "He savoured a sip of coffee."
+        ]
+      ]
+    },
+    "hsk30l4/鲜": {
+      "why": "All three sentences were 鲜红 or 鲜肉 — the `bright` sense — while the gloss leads on `fresh` and `delicious`, which nothing on the card showed. The second was also a discussion of a social phenomenon (小鲜肉, the slang for a pretty-boy celebrity) rather than a sentence teaching a word, and the third's English wrote **`pant legs`**, where British English says trousers — measured over the nine decks, that is the only real site, the other `pants` hits being the VERB to pant and the set idiom `to piss one's pants`, so it is a per-note fix rather than a table. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 鲜花. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "现在很多年轻人追捧小鲜肉"
+      ],
+      "ex": [
+        [
+          "这个汤味道很鲜。",
+          "This soup is delicious."
+        ]
+      ],
+      "exEn": [
+        [
+          "汤姆卷起了他的裤腿",
+          "Tom rolled up his trouser legs so people could see his bright red socks."
+        ]
+      ],
+      "compounds": [
+        [
+          "新鲜",
+          "xīn xiān",
+          "fresh; novel"
+        ],
+        [
+          "海鲜",
+          "hǎi xiān",
+          "seafood"
+        ],
+        [
+          "鲜明",
+          "xiān míng",
+          "bright and clear; clear-cut"
+        ],
+        [
+          "鲜艳",
+          "xiān yàn",
+          "brightly coloured"
+        ]
+      ]
+    },
+    "hsk30l4/香": {
+      "why": "The first sentence buried the character in 百香果, passion fruit, where it teaches nothing about 香 at all. Replaced with the plain sense. The third's English also ran `five spice` together as a compound noun without its hyphen. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "我爱百香果汁"
+      ],
+      "ex": [
+        [
+          "这花很香。",
+          "This flower smells lovely."
+        ]
+      ],
+      "exEn": [
+        [
+          "你闻闻香味，五香茶叶蛋香不香",
+          "Smell that — do the five-spice tea eggs smell good?"
+        ]
+      ],
+      "compounds": [
+        [
+          "香水",
+          "xiāng shuǐ",
+          "perfume"
+        ],
+        [
+          "香味",
+          "xiāng wèi",
+          "a fragrance; a sweet smell"
+        ],
+        [
+          "香皂",
+          "xiāng zào",
+          "toilet soap"
+        ],
+        [
+          "香烟",
+          "xiāng yān",
+          "a cigarette"
+        ]
+      ]
+    },
+    "hsk30l4/咸": {
+      "why": "The third sentence was a film line: 做人如果没有梦想，那和咸鱼有什么区别？ buries the headword in 咸鱼, salted fish, and its English — `Without dreams, what different are we from animals?` — is neither grammatical nor a translation of it. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all — and nor does the rest of the collection, which holds no other word built on this character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "那和咸鱼有什么区别"
+      ],
+      "ex": [
+        [
+          "海水是咸的。",
+          "Sea water is salty."
+        ]
+      ],
+      "compounds": [
+        [
+          "咸鱼",
+          "xián yú",
+          "salted fish"
+        ],
+        [
+          "咸菜",
+          "xián cài",
+          "pickled vegetables"
+        ]
+      ]
+    },
+    "hsk30l4/项": {
+      "why": "The label and the gloss are different senses of the character: `measure word` over `nape (of the neck); sum (of money); term`, which are nouns, while two of the card's sentences are the classifier (我同意这项建议, 一项新的法律) and the third buries it in 项目. Both senses are now given with the classifier leading, and the 项目 sentence replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "measure word",
+          "for items, clauses, projects and the like"
+        ],
+        [
+          "noun",
+          "the nape of the neck"
+        ]
+      ],
+      "dropEx": [
+        "项目的进展如下"
+      ],
+      "ex": [
+        [
+          "这项工作很重要。",
+          "This piece of work is important."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "项目",
+          "xiàng mù",
+          "a project; an item; a sporting event"
+        ],
+        [
+          "事项",
+          "shì xiàng",
+          "a matter; an item"
+        ],
+        [
+          "项链",
+          "xiàng liàn",
+          "a necklace"
+        ],
+        [
+          "强项",
+          "qiáng xiàng",
+          "a strong point; a speciality"
+        ]
+      ]
+    },
+    "hsk30l4/笑话": {
+      "why": "The card named `noun / verb` over the single noun `joke`, and TWO of its three sentences are the verb — 你在笑话谁, 以前有人笑话我们, both laughing AT somebody. The verb is the half the label promised and the gloss withheld.",
+      "senses": [
+        [
+          "noun",
+          "a joke"
+        ],
+        [
+          "verb",
+          "to laugh at; to make fun of"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ]
+    },
+    "hsk30l4/效果": {
+      "why": "Two of the three sentences misuse the word. 这个药没有有害的副作用效果 tacks 效果 onto 副作用, which already means a side effect, so the Chinese is redundant; and 这些问题对我们毫无效果 wants 影响 — a question has an EFFECT ON you in English and 影响 in Chinese, where 效果 is the result something achieves. Both replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "副作用效果",
+        "这些问题对我们毫无效果"
+      ],
+      "ex": [
+        [
+          "这个办法效果很好。",
+          "This method works very well."
+        ],
+        [
+          "广告的效果超出预期。",
+          "The advertisement worked better than expected."
+        ]
+      ]
+    },
+    "hsk30l4/小组": {
+      "why": "The second sentence was wrong three times over: 嗯。。。我可以加入你的小组嘛 writes 。。。 where Chinese sets an ellipsis, 嘛 where the question particle is 吗, and its English says `can WE join` where the Chinese says 我. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "我可以加入你的小组"
+      ],
+      "ex": [
+        [
+          "我们分成四个小组。",
+          "We split into four groups."
+        ]
+      ]
+    },
+    "hsk30l4/响": {
+      "why": "Two of the three sentences were a telephone ringing — 电话正在响 and 几分钟后，电话响了 — and the card's gloss also names `loud`, which nothing showed. One replaced with that sense. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "几分钟后，电话响了"
+      ],
+      "ex": [
+        [
+          "电视声音太响了。",
+          "The television is too loud."
+        ]
+      ],
+      "compounds": [
+        [
+          "影响",
+          "yǐng xiǎng",
+          "to influence; an influence"
+        ],
+        [
+          "响声",
+          "xiǎng shēng",
+          "a noise"
+        ],
+        [
+          "音响",
+          "yīn xiǎng",
+          "sound; a stereo system"
+        ],
+        [
+          "响应",
+          "xiǎng yìng",
+          "to respond to"
+        ]
+      ]
+    },
+    "hsk30l4/相反": {
+      "why": "Its third sentence is the one batch 61 corrected on hsk30l4/然而 — 然而，相反的理论往往也是真的, whose English hardened 往往 into `always` and dropped the noun 理论 — and it sits on this note too, still carrying the old wording. **A per-note row reaches ONE note**; the rule batch 65 made explicit, met again.",
+      "exEn": [
+        [
+          "相反的理论往往也是真的",
+          "And yet, the opposite theory is often true as well."
+        ]
+      ]
+    },
+    "hsk30l4/消息": {
+      "why": "`This message doesn't make sense` calls 消息 a MESSAGE, which is 信息 or 短信; the card glosses it `news` and that is what the sentence is about.",
+      "exEn": [
+        [
+          "这个消息没有道理",
+          "This piece of news makes no sense."
+        ]
+      ]
+    },
+    "hsk30l4/小说": {
+      "why": "`Who is the author of this story?` calls a 小说 a story where the card glosses it `novel`, and 这本小说 with 本 is plainly a book.",
+      "exEn": [
+        [
+          "这本小说的作者是谁",
+          "Who is the author of this novel?"
+        ]
+      ]
+    },
+    "hsk30l4/小伙子": {
+      "why": "`She scorned the boy` is wrong twice: 看不起 is to look DOWN on somebody, which is not the same as scorning them to their face, and a 小伙子 is a young man rather than a boy — which the card's own other two sentences translate correctly.",
+      "exEn": [
+        [
+          "她看不起这个小伙子",
+          "She looked down on the young man."
+        ]
+      ]
+    },
+    "hsk30l4/下降": {
+      "why": "The third sentence ended with no terminal mark at all.",
+      "exStop": [
+        [
+          "昨天晚上气温突然下降"
+        ]
+      ]
+    },
+    "hsk30l4/鲜花": {
+      "why": "The third sentence ended with no terminal mark at all.",
+      "exStop": [
+        [
+          "鲜花因缺水而枯萎"
         ]
       ]
     }

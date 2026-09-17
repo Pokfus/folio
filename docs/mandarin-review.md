@@ -602,6 +602,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 691–720 (顺利 → 提), deck order | 23 | a card glossed `to calculate` not one of whose three sentences calculates anything, two of them unfit besides |
 | 2026-09-17 | `hsk30l4` notes 721–750 (提出 → 推迟), deck order, plus a new `parking lot` LEXIS row and a `fill out` sweep | 25 | six labels naming a part of speech the card's own gloss is not |
 | 2026-09-17 | `hsk30l4` notes 751–780 (推出 → 吸), deck order | 20 | a gloss that was simply the wrong word, papered over by a `not X` hint |
+| 2026-09-17 | `hsk30l4` notes 781–810 (西部 → 笑话), deck order | 17 | a SIBLING PAIR both illustrated with a sentence their headword is not in |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6368,4 +6369,67 @@ in a compound that transparently means what the character means.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; **shared-gloss groups 327 → 326**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 569 unchanged;
+`build-lang-decks.js` re-run.
+
+## Batch 67 — hsk30l4 notes 781–810 (西部 → 笑话)
+
+Thirty consecutive notes; **seventeen changed**.
+
+**The leading finding is a SIBLING PAIR both built on a split headword, which says how they were
+assembled.** 线上 was illustrated with 足球教练站在边线上对自己的队伍喊出指令 — 边线 + 上, *on the
+TOUCHLINE*, which its own English says — and 线下 with 太阳落到地平线下了 — 地平线 + 下, *below the
+HORIZON*. **The same fault, on the two cards sitting next to each other**, which is what tells you the
+harvest matched on the CHARACTER SEQUENCE rather than on the word: any sentence containing 线 followed
+by 上 or 下 qualified, however the words actually divide. Both are the blind spot
+`check-example-fit.js` names in its own header, and both were found by reading the English against the
+Chinese. (The 线上 line also turned one 足球教练 into *The manager and coach*, two people.)
+
+**Four cards whose sentences show none of the senses they gloss.** 细 names *thin, fine, slender;
+minute, detailed* and showed none of the first three — two of its sentences were literary besides
+(如果细究起来，实则不然 and the four-part maxim 愿要大、志要坚、气要柔、心要细), neither of which a
+learner can use. 鲜's three were all 鲜红 or 鲜肉, the *bright* sense, while the gloss leads on *fresh*
+and *delicious*. 香's first buried the character in 百香果, passion fruit. 咸's third was a film line
+whose English — *Without dreams, what different are we from animals?* — is neither grammatical nor a
+translation of 咸鱼, salted fish.
+
+**A seventh family `check-british.js` reads 0 over.** 细's third English line wrote **`savored`**, and
+`savor` is not in app.js's `SPELL_PAIRS` at all — after -logue, -ward, one-way `programme`, `skeptic`,
+`kerb`, `globalis` and `yog`. Measured over the nine decks: **one** site against eleven `savour`, so it
+is a per-note fix. **`pants` was measured in the same pass and is also per note**: of its nine hits,
+eight are the VERB *to pant* (喘, 喘息) or the set idiom *to piss one's pants*, and only 鲜's `pant
+legs` is the American word for trousers.
+
+**Two more labels that are a different sense from their own gloss.** 项 is `measure word` over *nape
+(of the neck); sum (of money); term* — three nouns — while two of its sentences are the classifier.
+笑话 is `noun / verb` over the single noun *joke* while TWO of its three sentences are the verb, to
+laugh AT somebody. Both split, with each sentence saying which sense it shows.
+
+**Three sentence sets that misuse the word or the punctuation.** 效果's second tacks 效果 onto 副作用,
+which already means a side effect, and its third wants 影响 — a question has an EFFECT ON you in
+English and 影响 in Chinese, where 效果 is the result something achieves. 小组's second was wrong three
+times over: 。。。 for an ellipsis, 嘛 for the question particle 吗, and an English *we* where the
+Chinese says 我. 响 rang a telephone twice and never showed the *loud* sense its gloss names.
+
+**And the per-note rule met for the third time.** 相反's third sentence is the one batch 61 corrected on
+hsk30l4/然而 — and it sits on this note too, still carrying the old English. **A sentence carried by
+several notes needs one row each**, and the only way to find the others is to grep the decks for the
+sentence.
+
+**Four more English lines**: *This message doesn't make sense* for 消息, which is news rather than a
+message; *the author of this story* for a 小说 glossed *novel*; *She scorned the boy* for 看不起 a
+小伙子, wrong on both the verb and the age; and *five spice* run together without its hyphen. Two
+sentences ended bare and were given their full stop.
+
+**Five `Compounds` blocks**: 咸, 香, 响 and 项 had nothing at all in the reader's downloaded deck, and
+**咸 has nothing anywhere in the collection** — the fifth such character, after 扔, 帅, 躺 and 趟. 鲜 had
+one word. 咸's block is two rows rather than three, which is CC-CEDICT's limit rather than a short
+measure.
+
+**Read and left.** 西部, 西红柿, 吸引, 细心, 下降's other lines, 鲜花, 现金, 羡慕, 现有, 相比 (whose
+third line calls a person 嘈杂, which is marginal but attested), 相互, 相同, 详细, 想法, 小吃, 小组's
+third line.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 326 unchanged; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 569 → 575;
 `build-lang-decks.js` re-run.
