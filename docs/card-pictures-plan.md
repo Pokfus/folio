@@ -303,3 +303,74 @@ terms.
    suggests. **Run `node .claude/check-image-free.js --batch=…` before the contact sheet, not after**:
    it is cheaper to drop a taken file than to review one.
 3. **Leave the 128 that have nothing**, and say so rather than letting the gap read as an oversight.
+
+## Batch 5 — the abstract end, 22 of 100, and the yield the Rome batch predicted
+
+The first batch to go at the kinds `tags[0]` says are hard: **110 terms of kind `concept` (73),
+`institution` (22), `practice` (7), `title` (5) and `theory` (3)**, of which 100 built a candidate.
+Four contact sheets, **26 judged usable, 4 of those already taken, 22 applied** — 22%, against 52% on
+the concrete kinds in batch 3. **The hypothesis holds at both ends**, and the figure is now measured
+rather than feared.
+
+Cards with no picture: 457 → **435**. `source-in-caption` still **0**; `duplicate-image` unchanged at
+**21**.
+
+### What the abstract end rejects, and it is one fault wearing five coats
+
+Nothing depicts an abstraction, so the scorer falls back on whatever the term's article happens to
+carry — and an article about an abstraction carries whatever anyone uploaded near it.
+
+- **A METAPHOR IS NOT A DEPICTION.** `ps-012` determinism got railway tracks running to the horizon
+  and `bio-081` activation energy a sparking flame. Both are stock photographs standing for an idea,
+  and a reader who cannot already see the point learns nothing from either. This is the commonest
+  shape at this end and none of it is catchable by rule.
+- **THE WRONG SENSE OF AN ENGLISH WORD**, again: `gr-081` damos got a black-and-white photograph of a
+  singer at a microphone, `gr-170` eighth-century revival an American street with a shopfront reading
+  CASKETS DIRECT, `bio-036` organic chemistry a child on a swimming float, `ps-018` hypothesis
+  Cellarius's *Hypothesis Ptolemaica* star chart.
+- **THE RIGHT CONCEPT IN THE WRONG CIVILISATION.** `ko-096` tributary system got the Apadana tribute
+  reliefs at Persepolis — a perfect picture of tribute and the wrong continent and millennium.
+- **A GENERIC MONUMENT FOR AN INSTITUTION.** The Parthenon was offered for `gr-080` qa-si-re-u (a
+  Linear B title eight centuries older), `gr-256` mora and `rm-271` Greek influence on Roman culture.
+- **AND COMMONS' OWN PLACEHOLDER.** `ko-080` prestige goods and `gr-642` Classical Greek sculpture
+  both resolved to the file that reads **"Please choose a more precise name for your image."** It is
+  a real, usably-licensed, high-resolution image of nothing at all, and it ranks because it sits in
+  articles. Worth knowing: it will come back.
+
+### What works at this end, and it is one shape
+
+**A NAMED DOCTRINE HAS A CANONICAL PERSON, AND A PERSON CAN BE PHOTOGRAPHED.** Nine of the 22 are
+psychology's philosophical background — empiricism → Bacon, rationalism → Leibniz, associationism →
+Locke, the blank slate → a wax tablet, reductionism → Vaucanson's duck, eugenics → a Eugenics Society
+stand — and Greece's are the same shape: atomism → Lucretius pointing at the *casus*, humoral theory →
+a Thurneisser woodcut quartered into the four humours. **The other thing that works is a purpose-made
+DIAGRAM** (the null hypothesis's shaded tail, DNA's bases labelled, an amide hydrolysis mechanism,
+denaturation by formamide), which is batch 4's "a map made OF the subject" one discipline over.
+
+**AND AN OBJECT THAT IS THE INSTITUTION.** `gr-471` dikasteria got the Athenian jurors' own bronze
+ballots and `rm-295` the Marian reforms a denarius struck in 101 BC showing Marius in his triumphal
+chariot. Where an institution left a THING behind, the thing is the picture; where it left only a
+procedure, there is nothing.
+
+### Four of the 26 were already in the corpus, and all four were adjacent cards
+
+`check-image-free.js` earned the batch: the Etruscan League map is on `rm-024` (and its own glossary
+term), Giordano's *Leucippus* on `gr-640`, Shepherd's *Growth of Roman Power in Italy* on `rm-170`,
+and the inscribed Pericles bust on `gr-534` and `glossary:Pericles`. **Every one is a neighbour of the
+card that wanted it** — `rm-024`/`rm-025`, `rm-170`/`rm-171`, `gr-531`/`gr-534` — which is the
+within-collection duplicate a reader working through a deck actually meets. **Run it before the
+contact sheet, not after.**
+
+### The picture host has changed under us, and nothing says so
+
+The Commons API's `thumburl` now answers **`thumb.wikimedia.org`** where it used to answer
+`upload.wikimedia.org`. Both resolve and serve byte-identical files, `img-src` in `_headers` is
+`https:` so the CSP does not care, and `fetch-images.js` copies whatever the API gives — which is the
+house rule and is right, the two-character path shard being unguessable. Measured over the corpus:
+**2,908 cards on `upload.wikimedia.org` and 65 on `thumb.wikimedia.org`**, the 65 being exactly
+batches 3, 4 and 5.
+
+**Nothing was rewritten**, deliberately: overriding the API's own answer on a consistency preference
+is how a working URL becomes a broken one the day the old host retires. What the split costs is a
+grep — **a sweep for `upload.wikimedia.org` now silently misses 65 cards**, and will miss more with
+every batch. Match on `wikimedia.org` or on `/wikipedia/commons/`, never on the host.

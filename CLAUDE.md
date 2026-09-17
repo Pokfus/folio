@@ -6000,6 +6000,13 @@ the end of a successful add and print the candidates, their licences, their size
   and CANNOT be guessed; a hand-typed one is a 404 on a card that otherwise looks finished. Ask
   `api.php` for `imageinfo` with `iiprop=url` and take `url` (or `thumburl`, minus its tracking query);
   where a `src` cannot be fetched to confirm it, compare it against the API's own string instead.
+  **AND THE HOST IT ANSWERS WITH HAS CHANGED, SO NEVER GREP FOR ONE** (Sep 2026). `thumburl` now
+  returns **`thumb.wikimedia.org`** where it used to return `upload.wikimedia.org`; both resolve, both
+  serve byte-identical files, and `img-src` is `https:` so the CSP does not care. Measured over the
+  corpus: **2,908 cards on the old host and 65 on the new one**, the 65 being the last three picture
+  batches. **Nothing is rewritten** — overriding the API's own answer on a consistency preference is
+  how a working URL becomes a broken one — so a sweep for `upload.wikimedia.org` silently misses those
+  65 and will miss more with every batch. **Match on `wikimedia.org` or on `/wikipedia/commons/`.**
   **📖 `docs/media.md` — READ BEFORE FETCHING A CANDIDATE PICTURE OR WRITING AN IMAGE `src` BY HAND.**
 · It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
   artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always
