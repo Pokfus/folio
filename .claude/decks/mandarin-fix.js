@@ -342,7 +342,16 @@ function britExamples(html) {
    mean PETROL are American, so that family went to per-note `exEn` rows, which is `fall` and `check`
    and `store` again.) Measured over the nine decks: NINE occurrences on nine cards, one sentence
    carried by four of them, every one read and every one 手机. The plural is declared beside it because
-   both forms occur, and the replacement contains a space, so it can never match itself on a re-run. */
+   both forms occur, and the replacement contains a space, so it can never match itself on a re-run.
+   `parking lot` IS THE SAME SHAPE AGAIN (batch 65) and was measured in the same pass as two families
+   that were REFUSED one. All SEVEN occurrences across the nine decks are the American compound for a
+   car park — four of them on hsk30l4/停车场, including its own gloss — and there is no second sense to
+   protect. What was refused beside it: `fill out`, because one of its nine sites is
+   `The sail on the boat filled out`, which is ordinary British English and which any row on the bare
+   phrase would wreck (the other eight are forms and went to per-note rows); and `dirt`, because five
+   of its six sites are grime, dust or the idiom `to eat dirt`, all of them British, and only one is
+   the American word for soil. Both are `gas` again: the right word depends on what the sentence is
+   about, which is a judgement per site. */
 const LEXIS = (() => {
   const PAIRS = [
     ["driver's license", "driving licence"],
@@ -373,6 +382,8 @@ const LEXIS = (() => {
     ["trucks", "lorries"],
     ["truck", "lorry"],
     ["math", "maths"],
+    ["parking lots", "car parks"],
+    ["parking lot", "car park"],
     ["cell phones", "mobile phones"],
     ["cell phone", "mobile phone"],
     ["hometowns", "home towns"],

@@ -12609,7 +12609,7 @@
       ]
     },
     "hsk30l4/体检": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Labelled `verb` over a noun gloss (`physical examination; health check`), and all three of its sentences use it as a noun — 组织一次体检, 体检结果, 做体检.",
       "ex": [
         [
           "老王身体检查的结果别的方面都挺正常，就是血压有点高。",
@@ -12631,6 +12631,12 @@
       "dropEx": [
         "我去做了个体检。",
         "老王身体检查的结果别的方面都挺正常"
+      ],
+      "senses": [
+        [
+          "noun",
+          "a medical examination; a health check"
+        ]
       ]
     },
     "hsk30l4/使馆": {
@@ -115656,7 +115662,7 @@
       ]
     },
     "hsk30l4/份": {
-      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 身份证 and 月份. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 身份证 and 月份. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. | `fill out` a form is American; British English fills a form IN, and the decks already say so 32 times against 9. It is NOT a LEXIS row, and the reason is one site: `The sail on the boat filled out` (hsk30l7/帆), which is ordinary British English in a quite different sense, so a row on the bare phrase would wreck it. `gas` again — the right word depends on what the sentence is about — so the eight form sites are fixed per note.",
       "compounds": [
         [
           "省份",
@@ -115672,6 +115678,12 @@
           "股份",
           "gǔ fèn",
           "a share in a company"
+        ]
+      ],
+      "exEn": [
+        [
+          "请填写这份表格",
+          "Please fill in this form."
         ]
       ]
     },
@@ -119992,6 +120004,347 @@
           "交谈",
           "jiāo tán",
           "to converse; to chat"
+        ]
+      ]
+    },
+    "hsk30l4/痛": {
+      "why": "The label and the gloss were different parts of speech: `adjective / adverb` over `pain, ache, sorrow`, which are three NOUNS. All three sentences are the verb or the adjective — 我觉得心痛, 咳嗽的时候会痛吗, 痛过 — so the gloss was the half that did not fit. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 头痛. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "verb / adjective",
+          "to hurt, to ache; painful"
+        ]
+      ],
+      "compounds": [
+        [
+          "痛苦",
+          "tòng kǔ",
+          "pain; suffering"
+        ],
+        [
+          "疼痛",
+          "téng tòng",
+          "pain; to be sore"
+        ],
+        [
+          "悲痛",
+          "bēi tòng",
+          "grieved; sorrowful"
+        ],
+        [
+          "痛快",
+          "tòng kuài",
+          "to one's heart's content; straightforward"
+        ]
+      ]
+    },
+    "hsk30l4/提前": {
+      "why": "Labelled `verb` over the adverbial gloss `in advance`, with all three sentences adverbial modifiers (提前付租金, 提前感谢, 提前吃了午饭). 提前 does take a verb use — to bring something forward — but nothing on the card shows it, so the label was naming the sense the card does not teach.",
+      "senses": [
+        [
+          "adverb",
+          "in advance, ahead of time"
+        ]
+      ]
+    },
+    "hsk30l4/通": {
+      "why": "The card named `verb / adjective / measure word` over three verbs, and all three of its sentences are the verb: 说得通, 通到哪里, 通电. 通 really is a classifier — for letters and telephone calls — but a label with nothing behind it is a promise the card does not keep.",
+      "senses": [
+        [
+          "verb",
+          "to pass through; to connect; to be open"
+        ]
+      ]
+    },
+    "hsk30l4/同时": {
+      "why": "The card named `noun / conjunction` over a gloss that is adverbial and three sentences that are adverbial (大家别同时说, 同时做多少个工作, 我们同时到的). 同时 does open a clause as a connective, but nothing on the card does so.",
+      "senses": [
+        [
+          "adverb",
+          "at the same time; simultaneously"
+        ]
+      ]
+    },
+    "hsk30l4/通知": {
+      "why": "The card named `noun / verb` over the single verb `notify`, and all three of its sentences are the verb. The noun — a notice, 一份通知 — is real and is the half the label was promising, but the card shows none of it.",
+      "senses": [
+        [
+          "verb",
+          "to notify, to inform; to let somebody know"
+        ]
+      ]
+    },
+    "hsk30l4/头痛": {
+      "why": "Labelled `adjective` over a noun and a verb (`headache; to have a headache`), which is the label naming neither half of its own gloss. Split into the two the word has. And the first sentence does not contain the headword: 他的头痛了 reads as 他的头 + 痛了, `his HEAD hurts`, with 头 belonging to 他的头 — the split class again, and again invisible to `check-example-fit.js`, which lands squarely on 头痛. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "senses": [
+        [
+          "noun",
+          "a headache"
+        ],
+        [
+          "verb",
+          "to have a headache"
+        ]
+      ],
+      "dropEx": [
+        "他的头痛了"
+      ],
+      "ex": [
+        [
+          "我头痛得厉害。",
+          "I have a splitting headache."
+        ]
+      ]
+    },
+    "hsk30l4/桶": {
+      "why": "Glossed `a cylindrical container or vessel`, a dictionary paraphrase, while all three of the card's English lines say `bucket`. A learner cannot produce the gloss and does not need it. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "a bucket, a barrel or a tub",
+      "compounds": [
+        [
+          "水桶",
+          "shuǐ tǒng",
+          "a bucket"
+        ],
+        [
+          "垃圾桶",
+          "lā jī tǒng",
+          "a rubbish bin"
+        ],
+        [
+          "木桶",
+          "mù tǒng",
+          "a wooden cask"
+        ]
+      ]
+    },
+    "hsk30l4/推": {
+      "why": "Glossed `to push; refuse`, where the second half is neither what 推 means on its own nor what the card's third sentence shows: 什么责任都往别人身上推 is shifting responsibility ONTO somebody, which is the 推卸 sense. | The first two sentences were both pushing a car — 我们推了车 and 我们到车子后面推车 — so one replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows two words, 推迟 and 推出. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to push; to shift (blame or responsibility) onto somebody",
+      "dropEx": [
+        "我们到车子后面推车"
+      ],
+      "ex": [
+        [
+          "别推我！",
+          "Don't push me!"
+        ]
+      ],
+      "compounds": [
+        [
+          "推动",
+          "tuī dòng",
+          "to promote; to give impetus to"
+        ],
+        [
+          "推荐",
+          "tuī jiàn",
+          "to recommend"
+        ],
+        [
+          "推车",
+          "tuī chē",
+          "a trolley; to push a cart"
+        ],
+        [
+          "推翻",
+          "tuī fān",
+          "to overthrow"
+        ]
+      ]
+    },
+    "hsk30l4/听力": {
+      "why": "Glossed `hearing` alone, which covers the card's own sentences about a grandfather who cannot hear well but not the sense every HSK learner meets first — the listening section of an exam. The second sentence is also the mock-archaic pastiche batch 63 corrected on hsk30l4/师傅 (`Good day, lords. In what way can I refine upon my adroitness in aural comprehension?`), which sits on this note too and needed the same fix here: **a per-note row reaches one note, and a sentence carried by several needs one row each**. The third had to go outright: 我外父太老了 uses 外父, which is Cantonese for a father-in-law where Mandarin says 岳父, and its English calls him a GRANDFATHER, so the sentence is wrong twice over. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "hearing; listening comprehension",
+      "exEn": [
+        [
+          "早安，师傅",
+          "Good morning, master. How can I improve my listening?"
+        ]
+      ],
+      "dropEx": [
+        "我外父太老了"
+      ],
+      "ex": [
+        [
+          "这次考试的听力部分很难。",
+          "The listening section of this exam was hard."
+        ]
+      ]
+    },
+    "hsk30l4/填写": {
+      "why": "All three sentences were the same instruction — 请填写这份表格, 确保亲自填写注册表格, 请先填写这张表格 — so a card about filling anything in showed one form three times. One replaced. `fill out` a form is American; British English fills a form IN, and the decks already say so 32 times against 9. It is NOT a LEXIS row, and the reason is one site: `The sail on the boat filled out` (hsk30l7/帆), which is ordinary British English in a quite different sense, so a row on the bare phrase would wreck it. `gas` again — the right word depends on what the sentence is about — so the eight form sites are fixed per note. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "请先填写这张表格"
+      ],
+      "ex": [
+        [
+          "名字填写在第一行。",
+          "Write your name on the first line."
+        ]
+      ],
+      "exEn": [
+        [
+          "请填写这份表格",
+          "Please fill in this form."
+        ],
+        [
+          "确保亲自填写注册表格",
+          "Be sure to fill in the registration form in person."
+        ]
+      ]
+    },
+    "hsk30l4/表格": {
+      "why": "`fill out` a form is American; British English fills a form IN, and the decks already say so 32 times against 9. It is NOT a LEXIS row, and the reason is one site: `The sail on the boat filled out` (hsk30l7/帆), which is ordinary British English in a quite different sense, so a row on the bare phrase would wreck it. `gas` again — the right word depends on what the sentence is about — so the eight form sites are fixed per note.",
+      "exEn": [
+        [
+          "请填写这份表格",
+          "Please fill in this form."
+        ],
+        [
+          "确保亲自填写注册表格",
+          "Be sure to fill in the registration form in person."
+        ]
+      ]
+    },
+    "hsk30l5/确保": {
+      "why": "`fill out` a form is American; British English fills a form IN, and the decks already say so 32 times against 9. It is NOT a LEXIS row, and the reason is one site: `The sail on the boat filled out` (hsk30l7/帆), which is ordinary British English in a quite different sense, so a row on the bare phrase would wreck it. `gas` again — the right word depends on what the sentence is about — so the eight form sites are fixed per note.",
+      "exEn": [
+        [
+          "确保亲自填写注册表格",
+          "Be sure to fill in the registration form in person."
+        ]
+      ]
+    },
+    "hsk30l5/填": {
+      "why": "`fill out` a form is American; British English fills a form IN, and the decks already say so 32 times against 9. It is NOT a LEXIS row, and the reason is one site: `The sail on the boat filled out` (hsk30l7/帆), which is ordinary British English in a quite different sense, so a row on the bare phrase would wreck it. `gas` again — the right word depends on what the sentence is about — so the eight form sites are fixed per note. The card also CONTRADICTED ITSELF, its second sentence already saying `fill in`.",
+      "exEn": [
+        [
+          "请填好这张表格",
+          "Fill in this form, please."
+        ],
+        [
+          "帮我填吗",
+          "This form looks rather complicated — can you help me fill it in?"
+        ]
+      ]
+    },
+    "hsk30l4/通过": {
+      "why": "The first sentence was a film line translated back into Chinese and then out again: 您不可通过 for `You shall not pass`, with the polite 您 addressed to a balrog. It is stilted Chinese and teaches the word in a register no learner needs. Replaced with the physical sense, which the card's other two do not show. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "您不可通过"
+      ],
+      "ex": [
+        [
+          "火车通过了隧道。",
+          "The train went through the tunnel."
+        ]
+      ]
+    },
+    "hsk30l4/图片": {
+      "why": "The third sentence, 图片在镜子中出现了 (`Images appeared in the mirror`), is an odd line that teaches nothing about the word. Replaced with the use a reader meets every day. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "图片在镜子中出现了"
+      ],
+      "ex": [
+        [
+          "请点击图片放大。",
+          "Click the picture to enlarge it."
+        ]
+      ]
+    },
+    "hsk30l4/土": {
+      "why": "Two English lines were wrong. `You can dig dirt from the ground` calls soil DIRT, which is the American word and the one site of six in these decks where `dirt` really is that — the other five are grime, dust or the idiom `to eat dirt`, all ordinary British English, which is why this was NOT made a LEXIS row. And 今天下这么大的雨，土松着呢 says the soil has gone SOFT, not that it `is being broken up`. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "你可以在地上挖土",
+          "You can dig earth out of the ground."
+        ],
+        [
+          "今天下这么大的雨，土松着呢",
+          "It's raining so hard today that the soil has gone soft."
+        ]
+      ],
+      "compounds": [
+        [
+          "土地",
+          "tǔ dì",
+          "land; soil"
+        ],
+        [
+          "泥土",
+          "ní tǔ",
+          "earth; soil"
+        ],
+        [
+          "领土",
+          "lǐng tǔ",
+          "territory"
+        ],
+        [
+          "土豆",
+          "tǔ dòu",
+          "a potato"
+        ]
+      ]
+    },
+    "hsk30l4/提出": {
+      "why": "`She made out the application for admission` is not English for 她提出了入学申请 — 提出申请 is to SUBMIT one.",
+      "exEn": [
+        [
+          "她提出了入学申请",
+          "She submitted her application for admission."
+        ]
+      ]
+    },
+    "hsk30l4/体温": {
+      "why": "The English put a habitual Chinese sentence into the past: 我每六小时量一次体温 is what the speaker DOES, not what they did once.",
+      "exEn": [
+        [
+          "我每六小时量一次体温",
+          "I take my temperature every six hours."
+        ]
+      ]
+    },
+    "hsk30l4/条件": {
+      "why": "`I don't know anyone who meets that description` drops the word the card is about — 符合条件 is meeting the REQUIREMENTS, which is 条件's commonest use.",
+      "exEn": [
+        [
+          "我不认识符合条件的人",
+          "I don't know anyone who meets the requirements."
+        ]
+      ]
+    },
+    "hsk30l4/同样": {
+      "why": "`Thank you all the same` means thanks DESPITE something, which is not what 同样感谢你 says — 同样 is `likewise`.",
+      "exEn": [
+        [
+          "同样感谢你",
+          "Thank you too."
+        ]
+      ]
+    },
+    "hsk30l4/图": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 图片. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "地图",
+          "dì tú",
+          "a map"
+        ],
+        [
+          "图书馆",
+          "tú shū guǎn",
+          "a library"
+        ],
+        [
+          "图案",
+          "tú àn",
+          "a design; a pattern"
+        ],
+        [
+          "意图",
+          "yì tú",
+          "an intention"
         ]
       ]
     }

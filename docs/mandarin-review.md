@@ -600,6 +600,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 631–660 (少量 → 使), deck order, plus a new `cell phone` LEXIS row and a petrol sweep | 33 | a card glossed `province` not one of whose three sentences is a province |
 | 2026-09-17 | `hsk30l4` notes 661–690 (使馆 → 顺便), deck order | 16 | a label and a gloss that were two different senses of the same character |
 | 2026-09-17 | `hsk30l4` notes 691–720 (顺利 → 提), deck order | 23 | a card glossed `to calculate` not one of whose three sentences calculates anything, two of them unfit besides |
+| 2026-09-17 | `hsk30l4` notes 721–750 (提出 → 推迟), deck order, plus a new `parking lot` LEXIS row and a `fill out` sweep | 25 | six labels naming a part of speech the card's own gloss is not |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6248,4 +6249,67 @@ English word for it.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 327 unchanged; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 563 → 569;
+`build-lang-decks.js` re-run.
+
+## Batch 65 — hsk30l4 notes 721–750 (提出 → 推迟)
+
+Thirty consecutive notes; **twenty-five changed** across three decks.
+
+**Six cards where the LABEL names a part of speech the card's own gloss is not.** This is one step past
+the phantom-label class — the label is not extra, it is WRONG — and the batch is the first to find it
+six times over. 痛 is labelled `adjective / adverb` over `pain, ache, sorrow`, which are three NOUNS,
+with all three sentences the verb. 提前 is `verb` over the adverbial `in advance`, with three adverbial
+sentences. 体检 is `verb` over a noun gloss, with three noun sentences. 同时 is `noun / conjunction`
+over an adverbial gloss and three adverbial sentences. 通 names `verb / adjective / measure word` over
+three verbs. And 头痛 is labelled `adjective` over a gloss that is a noun and a verb — **the label
+naming neither half of its own gloss**.
+
+**头痛 also carried a split headword, the fifth this audit has found.** 他的头痛了 reads as 他的头 +
+痛了, *his HEAD hurts*, with 头 belonging to 他的头 — and `check-example-fit.js` reports nothing,
+landing squarely on 头痛, which is the blind spot exactly as on 人生, 上门, 十分 and 数年.
+
+**A new LEXIS row, and two families measured in the same pass and REFUSED one.**
+· **`parking lot` is a row**, `railroad` and `cell phone`'s shape: **seven occurrences**, four of them
+  on hsk30l4/停车场 including its own gloss, every one the American compound for a car park, with no
+  second sense to protect.
+· **`fill out` is not**, and one site is the whole reason: `The sail on the boat filled out`
+  (hsk30l7/帆) is ordinary British English in a quite different sense, and any row on the bare phrase
+  would wreck it. The other **eight** are forms and went to per-note rows, across five notes in two
+  decks — and **hsk30l5/填 CONTRADICTED ITSELF**, its second sentence already saying `fill in` over a
+  first and third saying `fill out`. The decks were already 32 to 9 in favour of the British form.
+· **`dirt` is not either**: five of its six sites are grime, dust or the idiom *to eat dirt*, all
+  ordinary British English, and only hsk30l4/土's `dig dirt from the ground` is the American word for
+  soil. Both refusals are `gas` again — the right word depends on what the sentence is about.
+
+**A rule the batch made explicit: a per-note row reaches ONE note.** Batch 63 corrected the mock-archaic
+pastiche on hsk30l4/师傅 (*Good day, lords. In what way can I refine upon my adroitness in aural
+comprehension?*) — and the same sentence sits on hsk30l4/听力, which still carried the old English. **A
+sentence carried by several notes needs one row each**, and the only way to find the others is to grep
+the decks for the sentence rather than for the note.
+
+**Two sentences dropped for being wrong about the language they teach.** 听力's third, 我外父太老了，
+听力不好, uses **外父**, which is Cantonese for a father-in-law where Mandarin says 岳父 — and its
+English calls him a GRANDFATHER, so the sentence is wrong twice over. 通过's first was a film line
+translated into Chinese and back: 您不可通过 for *You shall not pass*, with the polite 您 addressed to a
+balrog.
+
+**Three more glosses and five English lines.** 桶 was `a cylindrical container or vessel`, a dictionary
+paraphrase, on a card whose three English lines all say *bucket*. 推 was `to push; refuse`, where the
+second half is neither the word alone nor what the card's third sentence shows. 听力 was `hearing`
+without the sense every HSK learner meets first. Among the English: `She made out the application for
+admission` (提出申请 is to SUBMIT one), a habitual Chinese sentence put into the past, `meets that
+description` for 符合条件, and `Thank you all the same` — which means thanks DESPITE something — for
+同样感谢你.
+
+**Five `Compounds` blocks**: 桶 and 土 had nothing at all in the reader's downloaded deck, 痛 and 图 one
+word each, 推 two.
+
+**Read and left.** 提到, 提供, 提醒, 体温 and 体重's sentences, 条件, 听众, 停, 停车, 停止, 童年, 同样's
+other lines, 图 (whose 有图有真相 is internet slang but accurately rendered *Pics or it didn't happen*),
+图片's other lines, 推迟 — and `closet`, whose single site is *coming out of the closet*, an idiom that
+is the same in British English.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 327 unchanged; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 569 unchanged;
 `build-lang-decks.js` re-run.
