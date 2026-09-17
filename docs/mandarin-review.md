@@ -599,6 +599,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 601–630 (却 → 少见), deck order | 15 | a headword that was not in its own sentence at all, twice, and invisible to the checker both times |
 | 2026-09-17 | `hsk30l4` notes 631–660 (少量 → 使), deck order, plus a new `cell phone` LEXIS row and a petrol sweep | 33 | a card glossed `province` not one of whose three sentences is a province |
 | 2026-09-17 | `hsk30l4` notes 661–690 (使馆 → 顺便), deck order | 16 | a label and a gloss that were two different senses of the same character |
+| 2026-09-17 | `hsk30l4` notes 691–720 (顺利 → 提), deck order | 23 | a card glossed `to calculate` not one of whose three sentences calculates anything, two of them unfit besides |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6177,4 +6178,74 @@ prefix rather than a swallow), 市场, 是否, 适合, 视频, 试题, 适应, �
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; **shared-gloss groups 328 → 327**; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 557 → 563;
+`build-lang-decks.js` re-run.
+
+## Batch 64 — hsk30l4 notes 691–720 (顺利 → 提)
+
+Thirty consecutive notes; **twenty-three changed**, and ten of them needed a `Compounds` block, which
+is the most of any batch so far.
+
+**The worst card in the batch is 算.** It is glossed `to calculate, compute, reckon` and **not one of
+its three sentences calculates anything**; two of the three had to go for reasons of their own.
+她的女朋友真算飞机场 is body-shaming slang — 飞机场, *airfield*, for a flat-chested woman — which has no
+business on a vocabulary card and which `check-coarse.js` cannot reach, 算 being a one-character
+headword and the `own()` exemption swallowing every compound built on it. 这还算什么！ was rendered *You
+ain't seen nothing yet*, neither the meaning nor English a learner should copy. Both replaced with the
+two senses the gloss names and the card showed neither of — working a sum out, and counting as.
+
+**An eighth truncated gloss, and beside it a sentence teaching the wrong reading.** 弹's gloss stopped
+mid-bracket: `to shoot; to spring; to flick; to play (a stringed`. And its second sentence,
+我没看见什么弹孔, is 弹 as **dàn**, a bullet, on a card whose pinyin field says tán and nothing else —
+so a reader met the character's other reading with nothing to say so. Replaced with the flick sense
+the gloss names; 子弹 goes into the card's new `Compounds` block instead, where the reading can be
+labelled.
+
+**A character error in the Chinese.** 汤's third sentence wrote **大咸了 for 太咸了**, so the sentence is
+ungrammatical on a Level 4 card. This is the class `check-coarse.js` has twice turned up by accident
+(电灯炮 for 电灯泡, 别破妈妈 for 别被妈妈) and which nothing in the pipeline can see: the sentence
+segments, speaks and translates perfectly. Its English was wrong too — soup is 喝 in Chinese — so the
+line was re-authored with the character corrected.
+
+**A sixth family `check-british.js` reads 0 over, and this one is not an Americanism.** 酸奶 spelled the
+word **two ways on ONE card**: `yoghurt` in the first sentence, `yogurt` in the second and third and in
+its own gloss. Both spellings are current in Britain and Folio's own prose uses neither, so the fault
+is the INCONSISTENCY rather than the dialect, and the card is standardised on the fuller form it
+already carried. Measured over the nine decks: seven sites, six to one. `yog` is not in app.js's
+`SPELL_PAIRS` at all, so the checker reads 0 whatever the decks contain — the same blind spot as
+-logue, -ward, skeptic, kerb and globalis.
+
+**Four labels naming parts of speech the card never shows**, including the batch's widest: 所有 named
+`noun / verb / adjective` over the single word `all` with three determiner sentences, and 随便 named
+`verb / adjective / conjunction` over `as one wishes` with three adverbial ones — **three labels,
+none of them the one the card teaches**. 说明 ran its noun and verb together in one gloss and 讨厌's
+second sentence is the adjective (`annoying`) its two-verb gloss does not reach; both were split, with
+each sentence saying which sense it shows.
+
+**Six glosses narrowed to one sense of several the card shows**: 酸 was `sour` over sentences that are
+sour, ACID rain and legs that ACHE; 提 was `to carry` while its first sentence is *to mention*; 态度 was
+`manner` over two plain `attitude`s; 塑料 was the plural `plastics` over three mass-noun sentences; and
+孙女 and 孙子 stated their kinship precision in a bracket (`son's daughter`, `grandson [father's
+family]`) rather than teaching it beside the everyday word.
+
+**Five more sentence sets fixed for repetition or for being wrong.** 顺序's **three** sentences were all
+字母顺序, alphabetical order, and the second was bad Chinese besides. 死's first two were insults
+(`Over my dead body`, `Why don't you go to hell?`) and its gloss's third sense, `extremely`, was shown
+by nothing — 我累死了 now shows it. 躺 taught lying down to rest twice and had a third line ambiguous
+between lying BESIDE you and lying ON your right side. 硕士 had one sentence twice and an English line
+that is not English. 抬's first sentence ended with no terminal mark.
+
+**Ten `Compounds` blocks** — 死, 酸, 算, 台, 抬, 弹, 谈, 汤, 躺, 趟 — every row checked against
+CC-CEDICT first. **躺 and 趟 have nothing built on them anywhere in the collection**, the third and
+fourth such characters after 扔 and 帅. Two blocks deliberately carry the character's OTHER reading,
+which is the one thing a single-reading card can never tell a reader: 子弹 **dàn** on 弹, and 趟浑水
+**tāng** on 趟.
+
+**Read and left.** 顺利, 说法, 速度, 随着 (whose first sentence uses 随着 verbally, which is marginal but
+attested), 孙子 and 孙女's sentences, 台 (whose 一台车 is Taiwanese usage now common on the mainland),
+抬头, 谈, 讨论, 特点 — and 趟's own sentences, whose English drops the classifier because there is no
+English word for it.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 327 unchanged; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 563 → 569;
 `build-lang-decks.js` re-run.

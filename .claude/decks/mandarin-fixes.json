@@ -73183,7 +73183,7 @@
       ]
     },
     "hsk30l4/台": {
-      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information.",
+      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "senses": [
         [
           "noun",
@@ -73198,6 +73198,28 @@
         2,
         2,
         1
+      ],
+      "compounds": [
+        [
+          "舞台",
+          "wǔ tái",
+          "a stage; an arena"
+        ],
+        [
+          "电台",
+          "diàn tái",
+          "a radio station"
+        ],
+        [
+          "柜台",
+          "guì tái",
+          "a counter; a front desk"
+        ],
+        [
+          "阳台",
+          "yáng tái",
+          "a balcony"
+        ]
       ]
     },
     "hsk30l4/座": {
@@ -76523,13 +76545,14 @@
       ]
     },
     "hsk30l4/孙女": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Glossed `son's daughter`, which is the precise kinship fact and is worth keeping — Chinese distinguishes 孙女 from 外孙女 — but is not a phrase a reader would ever produce. Widened to carry both the everyday word and the distinction.",
       "ex": [
         [
           "他带着孙女去公园。",
           "He took his granddaughter to the park."
         ]
-      ]
+      ],
+      "gloss": "a granddaughter, specifically a son's daughter"
     },
     "hsk30l4/以内": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -119530,6 +119553,445 @@
           "输血",
           "shū xuè",
           "to give a blood transfusion"
+        ]
+      ]
+    },
+    "hsk30l4/弹": {
+      "why": "The gloss stopped in the middle of a bracket: `to shoot; to spring; to flick; to play (a stringed` — the eighth truncated gloss this audit has found, and like the others it is invisible to every checker, a cut-off gloss being a well-formed string. And the second sentence taught the WRONG READING: 我没看见什么弹孔 is 弹 as **dàn**, a bullet, on a card whose pinyin field says tán and nothing else, so a reader met the character's other reading with nothing to say so. Replaced with the flick sense, which the gloss names and no sentence showed. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | `He plays the piano without mistakes` is not what 他钢琴弹得不错 says — 不错 is `quite well`, not `faultlessly`. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. 子弹 is included deliberately: it is the character's other reading, dàn, which the card's own second sentence used to teach by accident and with nothing to say so.",
+      "gloss": "to shoot; to spring; to flick; to play (a stringed instrument)",
+      "dropEx": [
+        "我没看见什么弹孔"
+      ],
+      "ex": [
+        [
+          "别用手指弹我。",
+          "Don't flick me with your finger."
+        ]
+      ],
+      "exEn": [
+        [
+          "他钢琴弹得不错",
+          "He plays the piano quite well."
+        ]
+      ],
+      "compounds": [
+        [
+          "弹琴",
+          "tán qín",
+          "to play a stringed instrument"
+        ],
+        [
+          "弹性",
+          "tán xìng",
+          "elasticity; flexibility"
+        ],
+        [
+          "子弹",
+          "zǐ dàn",
+          "a bullet — note the reading"
+        ],
+        [
+          "反弹",
+          "fǎn tán",
+          "to bounce back; to rebound"
+        ]
+      ]
+    },
+    "hsk30l4/汤": {
+      "why": "An example sentence had the wrong CHARACTER in it: 这碗汤大咸了 writes 大 for 太, so the sentence is not grammatical and the reader is shown a typo on a Level 4 card. This is the class `check-coarse.js` turned up twice by accident (电灯炮 for 电灯泡, 别破妈妈 for 别被妈妈) and which nothing in the pipeline can see — the sentence segments, speaks and translates perfectly. Its English was wrong too: soup is 喝 in Chinese, so `too salty to eat` should be about drinking or finishing it. Re-authored with the character corrected. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "这碗汤大咸了"
+      ],
+      "ex": [
+        [
+          "这碗汤太咸了，喝不下去。",
+          "This soup is too salty — I can't finish it."
+        ]
+      ],
+      "compounds": [
+        [
+          "汤匙",
+          "tāng chí",
+          "a soup spoon; a tablespoon"
+        ],
+        [
+          "鸡汤",
+          "jī tāng",
+          "chicken soup"
+        ],
+        [
+          "例汤",
+          "lì tāng",
+          "the soup of the day"
+        ],
+        [
+          "米汤",
+          "mǐ tāng",
+          "the water rice has been boiled in"
+        ]
+      ]
+    },
+    "hsk30l4/算": {
+      "why": "Two of the three sentences had to go and the third is the only one that teaches the word. 她的女朋友真算飞机场 is body-shaming slang — 飞机场, `airfield`, for a flat-chested woman — and has no business on a vocabulary card; 这还算什么！ was rendered `You ain't seen nothing yet`, which is neither the meaning nor English a learner should copy. Worse, the card is glossed `to calculate, compute, reckon` and **not one of its three sentences was calculating anything**. Replaced with the two senses the gloss names and the card showed neither of. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to calculate, to work out; to count as, to be regarded as",
+      "dropEx": [
+        "她的女朋友真算飞机场",
+        "这还算什么"
+      ],
+      "ex": [
+        [
+          "你算一下一共多少钱。",
+          "Work out how much it comes to altogether."
+        ],
+        [
+          "这不算贵。",
+          "That doesn't count as expensive."
+        ]
+      ],
+      "compounds": [
+        [
+          "打算",
+          "dǎ suàn",
+          "to plan; to intend"
+        ],
+        [
+          "计算",
+          "jì suàn",
+          "to calculate; to compute"
+        ],
+        [
+          "算了",
+          "suàn le",
+          "let it be; forget about it"
+        ],
+        [
+          "算术",
+          "suàn shù",
+          "arithmetic"
+        ]
+      ]
+    },
+    "hsk30l4/酸奶": {
+      "why": "The card spelled the word two ways on ONE card — `yoghurt` in the first sentence, `yogurt` in the second and third and in its own gloss. This is not an Americanism: both spellings are current in Britain and Folio's own prose uses neither, so the fault is the INCONSISTENCY rather than the dialect, and the card is standardised on the fuller British form it already carried. Measured over the nine decks: seven sites, six `yogurt` to one `yoghurt`. **`check-british.js` reads 0 over this family whatever the decks contain** — `yog` is not in app.js's `SPELL_PAIRS` at all — which is the same blind spot as -logue, -ward, skeptic, kerb and globalis, and the sixth family found this way.",
+      "gloss": "yoghurt",
+      "exEn": [
+        [
+          "你喜欢什么牌子的酸奶",
+          "What's your favourite brand of yoghurt?"
+        ],
+        [
+          "你最喜欢哪一种酸奶",
+          "What sort of yoghurt do you like best?"
+        ]
+      ]
+    },
+    "hsk30l4/态度": {
+      "why": "Glossed `manner` alone, which is the least of its senses; two of the card's three sentences are plainly `attitude` (我对他的态度变了, 服务态度不好) and the third's English drops the word altogether.",
+      "gloss": "an attitude; a manner",
+      "exEn": [
+        [
+          "有些乘客抱怨服务态度不好",
+          "Some passengers complained about the attitude of the staff."
+        ]
+      ]
+    },
+    "hsk30l4/提": {
+      "why": "Glossed `to carry` alone, while the card's first sentence — 她不想提了 — is `to mention, to bring up`, a sense the gloss does not reach and which is at least as common as the physical one.",
+      "gloss": "to carry (by the handle); to mention, to bring up"
+    },
+    "hsk30l4/酸": {
+      "why": "Glossed `sour` alone, while the card's second sentence is 酸雨, ACID rain, and its third is 腿很酸, legs that ACHE — three senses shown and one glossed. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 酸奶. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "sour; acid; (of muscles) aching, sore",
+      "compounds": [
+        [
+          "酸痛",
+          "suān tòng",
+          "to ache"
+        ],
+        [
+          "酸性",
+          "suān xìng",
+          "acidity"
+        ],
+        [
+          "硫酸",
+          "liú suān",
+          "sulphuric acid"
+        ],
+        [
+          "辛酸",
+          "xīn suān",
+          "bitter; sad"
+        ]
+      ]
+    },
+    "hsk30l4/塑料": {
+      "why": "Glossed `plastics`, the plural, on a card whose three sentences are all the mass noun — plastic chairs, plastic that does not burn, boxes made of plastic.",
+      "gloss": "plastic"
+    },
+    "hsk30l4/孙子": {
+      "why": "Its sibling, and the same fix: `grandson [father's family]` states the distinction in a bracket rather than teaching it.",
+      "gloss": "a grandson, specifically a son's son"
+    },
+    "hsk30l4/所有": {
+      "why": "The card named THREE parts of speech — `noun / verb / adjective` — over the single word `all`, and all three of its sentences are the determiner. 所有 does take a noun and a verb use (所有权, 为国家所有) but nothing on the card shows either.",
+      "senses": [
+        [
+          "adjective",
+          "all; every"
+        ]
+      ]
+    },
+    "hsk30l4/随便": {
+      "why": "The card named `verb / adjective / conjunction` over `as one wishes`, and all three of its sentences are the adverb — 不要随便开玩笑, 随便选三本书, 您可以随便去哪儿. Three labels, none of them the one the card teaches.",
+      "senses": [
+        [
+          "adverb",
+          "casually, at random; as one likes"
+        ]
+      ]
+    },
+    "hsk30l4/说明": {
+      "why": "The card named `noun / verb` with the gloss running the two together (`to explain; instruction`). Split, so the reader can see which is which, and each sentence says which it shows — all three are the verb.",
+      "senses": [
+        [
+          "verb",
+          "to explain; to make clear"
+        ],
+        [
+          "noun",
+          "an explanation; instructions"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/讨厌": {
+      "why": "The card named `verb / adjective` over two verbs (`dislike; loathe`), and its second sentence — 无论怎样，都很讨厌 — is the adjective, `annoying`, which the gloss does not reach.",
+      "senses": [
+        [
+          "verb",
+          "to dislike, to hate"
+        ],
+        [
+          "adjective",
+          "annoying, disagreeable"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ]
+    },
+    "hsk30l4/顺序": {
+      "why": "All THREE sentences were the same collocation — 字母顺序, alphabetical order — so a card about sequence in general showed one use of it three times, and the second was bad Chinese besides (跟着字母顺序来安排, where Chinese says 按照…排列). Two replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "跟着字母顺序来安排",
+        "你能把这清单按字母顺序排列吗"
+      ],
+      "ex": [
+        [
+          "请按顺序排队。",
+          "Please queue in order."
+        ],
+        [
+          "这些照片没有按时间顺序排列。",
+          "These photos are not in chronological order."
+        ]
+      ]
+    },
+    "hsk30l4/死": {
+      "why": "Two of the three sentences were insults — 除非我死了 (`Over my dead body`) and 你怎么不去死？ (`Why don't you go to hell?`, which is literally `why don't you go and die`) — and the card's own gloss names a third sense, `extremely`, that nothing on it showed. The second replaced with that sense, which is how a learner meets the character every day. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "你怎么不去死"
+      ],
+      "ex": [
+        [
+          "我累死了。",
+          "I'm dead tired."
+        ]
+      ],
+      "compounds": [
+        [
+          "死亡",
+          "sǐ wáng",
+          "death; to die"
+        ],
+        [
+          "该死",
+          "gāi sǐ",
+          "damn it; wretched"
+        ],
+        [
+          "死板",
+          "sǐ bǎn",
+          "rigid; inflexible"
+        ],
+        [
+          "生死",
+          "shēng sǐ",
+          "life or death"
+        ]
+      ]
+    },
+    "hsk30l4/躺": {
+      "why": "Two of the three sentences were the same instruction — 我躺了下来休息 and 躺下来休息一会儿, both lying down to rest — and the third, 躺在你右边, is ambiguous between lying BESIDE you and lying ON your right side, which is what its English claims. Both replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all — and nor does the rest of the collection, which holds no other word built on this character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "躺在你右边",
+        "躺下来休息一会儿"
+      ],
+      "ex": [
+        [
+          "他躺在床上看书。",
+          "He lay on the bed reading."
+        ],
+        [
+          "医生让他躺下。",
+          "The doctor told him to lie down."
+        ]
+      ],
+      "compounds": [
+        [
+          "躺下",
+          "tǎng xià",
+          "to lie down"
+        ],
+        [
+          "躺倒",
+          "tǎng dǎo",
+          "to lie down"
+        ],
+        [
+          "仰躺",
+          "yǎng tǎng",
+          "to lie on one's back"
+        ],
+        [
+          "侧躺",
+          "cè tǎng",
+          "to lie on one's side"
+        ]
+      ]
+    },
+    "hsk30l4/硕士": {
+      "why": "The first two sentences were one sentence twice — 他得到了法律硕士学位 and 他有一个数学硕士学位 — and the third's English was not English: `The defence of the master thesis is just happening next month`. The second replaced and the third's English rewritten. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "他有一个数学硕士学位"
+      ],
+      "ex": [
+        [
+          "她正在读硕士。",
+          "She is doing a master's."
+        ]
+      ],
+      "exEn": [
+        [
+          "下个月就要进行硕士论文答辩了",
+          "The master's thesis defence is next month."
+        ]
+      ]
+    },
+    "hsk30l4/说明书": {
+      "why": "Two English lines did not say what the Chinese says. 吃药之前一定要仔细看说明书 is `read the instructions carefully before taking medicine`; the card said `follow the directions on the bottle`, which adds a bottle and drops the reading. And `If only I read the user manual properly` wants the past perfect.",
+      "exEn": [
+        [
+          "吃药之前一定要仔细看说明书",
+          "Always read the instructions carefully before taking medicine."
+        ],
+        [
+          "要是当时有好好读说明书就好了",
+          "If only I had read the manual properly."
+        ]
+      ]
+    },
+    "hsk30l4/抬": {
+      "why": "`She was so tired that she couldn't walk` drops the word the card is about: 她累得连脚也抬不起来了 is that she could not LIFT her feet. And the first sentence ended with no terminal mark at all — the corpus-wide punctuation pass converts a half-width mark and never adds one. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 抬头. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "她累得连脚也抬不起来了",
+          "She was so tired that she couldn't even lift her feet."
+        ]
+      ],
+      "exStop": [
+        [
+          "把你的腿抬起来"
+        ]
+      ],
+      "compounds": [
+        [
+          "抬起",
+          "tái qǐ",
+          "to lift up"
+        ],
+        [
+          "抬高",
+          "tái gāo",
+          "to raise, of a price"
+        ],
+        [
+          "哄抬",
+          "hōng tái",
+          "to bid a price up artificially"
+        ],
+        [
+          "抬杠",
+          "tái gàng",
+          "to bicker; to argue for the sake of it"
+        ]
+      ]
+    },
+    "hsk30l4/趟": {
+      "why": "`Please come in to my office` is not English; 请来我办公室一趟 is `come to my office`, and the 一趟 that the card exists to teach asks for `pop` or `for a moment` rather than `in`. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all — and nor does the rest of the collection, which holds no other word built on this character. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. 趟浑水 is included deliberately: it is the character's other reading, tāng.",
+      "exEn": [
+        [
+          "请来我办公室一趟",
+          "Please pop along to my office."
+        ]
+      ],
+      "compounds": [
+        [
+          "单趟",
+          "dān tàng",
+          "a single trip"
+        ],
+        [
+          "白跑一趟",
+          "bái pǎo yī tàng",
+          "to make a journey for nothing"
+        ],
+        [
+          "趟浑水",
+          "tāng hún shuǐ",
+          "to get mixed up in something unsavoury — note the reading"
+        ]
+      ]
+    },
+    "hsk30l4/谈": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "谈话",
+          "tán huà",
+          "to talk; a conversation"
+        ],
+        [
+          "谈论",
+          "tán lùn",
+          "to discuss; to talk about"
+        ],
+        [
+          "会谈",
+          "huì tán",
+          "talks; discussions"
+        ],
+        [
+          "交谈",
+          "jiāo tán",
+          "to converse; to chat"
         ]
       ]
     }
