@@ -3900,7 +3900,14 @@ window.GLOSSARY = {
 "Monument_of_Aemilius_Paullus": "The monument of Aemilius Paullus is a tall pillar of white marble at Delphi, set up in 167 BCE to carry a statue of the Roman commander who had defeated Macedon at Pydna.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient accounts agree that the pillar had been prepared by Perseus, the last Antigonid king, to carry a statue of himself, and that the Roman took it over unfinished and completed it for his own likeness instead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Livy places the visit in the autumn of that year, on a progress through Greece during which the victor sacrificed to Apollo and destined the unfinished columns in the temple forecourt for statues of himself.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Polybius": "Polybius of Megalopolis was a Greek statesman and historian of the 2nd century BCE whose <i>Histories</i> set out to explain how Rome had brought almost the whole inhabited world under one city in not quite 53 years.<sup class=\"fn\" data-fn=\"1\"></sup> Detained in Italy after the Roman victory at Pydna, he spent sixteen years there and planned a work of thirty books, later extended to forty so that it could judge how the conquerors used their dominion.<sup class=\"fn\" data-fn=\"2\"></sup> On method he held that eyewitness inquiry is the corner-stone of history and that a writer who works only from documents cannot understand what he describes.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Siege_of_Athens_(87-86_BCE)": "The siege of Athens of 87 and 86 BCE was the Roman investment and capture of the city after it had joined the war of Mithridates VI of Pontus against Rome.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient accounts describe famine inside the walls, with grain at a thousand drachmas a bushel and the defenders boiling leather for food, while the Roman commander was told of an unguarded stretch of wall and broke in there.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The city was plundered and many of its people killed, the Piraeus was burnt, and Aristion, who had brought Athens into the war, was starved out of the acropolis and executed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Via_Egnatia": "The Via Egnatia is the Roman road that crossed the southern Balkans from the Adriatic coast to the Aegean and on towards the river Hebrus, laid out after Rome broke up the Macedonian kingdom in the 2nd century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius gives its length as 535 miles from the coast facing Italy, measured and marked throughout with milestones, and Strabo sets out its stages through Candavia, Lychnidus, Heraclea, Edessa and Pella to Thessalonica.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Milestones recovered along its line show that its measurements were kept up and revised under later Roman rule.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Via_Egnatia": "The Via Egnatia is the Roman road that crossed the southern Balkans from the Adriatic coast to the Aegean and on towards the river Hebrus, laid out after Rome broke up the Macedonian kingdom in the 2nd century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius gives its length as 535 miles from the coast facing Italy, measured and marked throughout with milestones, and Strabo sets out its stages through Candavia, Lychnidus, Heraclea, Edessa and Pella to Thessalonica.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Milestones recovered along its line show that its measurements were kept up and revised under later Roman rule.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Achaea_(Roman_province)": "The <b>province of Achaea</b> was the Roman province covering southern and central Greece, created in 27 BCE when Augustus divided the provinces and Greece with Epirus went to the senate and people rather than to the emperor.<sup class=\"fn\" data-fn=\"1\"></sup> It was governed by a proconsul and kept no legion, and its capital was the Roman colony at Corinth, refounded by Caesar on a site that had lain empty since 146 BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Nero declared the Greeks free, an act Pausanias records without admiration, and Vespasian made them tributary again, saying that they had forgotten how to be free.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Caesarion": "<b>Caesarion</b> was the son of Cleopatra VII, born during her alliance with Julius Caesar, who Suetonius says allowed the queen to give the boy his own name.<sup class=\"fn\" data-fn=\"1\"></sup> At Alexandria in 34 BCE Antony had him proclaimed King of Kings beside his mother and declared him the true son of the former Caesar, a claim aimed at Octavian, who was an adopted heir.<sup class=\"fn\" data-fn=\"2\"></sup> He was killed in 30 BCE, Plutarch reporting that he was put to death after his mother while Dio says he was overtaken and murdered as he fled towards Ethiopia.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Carneades": "<b>Carneades</b> of Cyrene was head of the Academy at Athens in the second century BCE, known for arguing against the Stoics and especially against Chrysippus, and said by Diogenes Laertius to have died at the age of 85.<sup class=\"fn\" data-fn=\"1\"></sup> In 155 BCE he went to Rome with Diogenes the Stoic and Critolaus the Peripatetic, to ask the senate to remit a fine of nearly 500 talents imposed on Athens.<sup class=\"fn\" data-fn=\"2\"></sup> Plutarch says the studious young of the city crowded to hear him and that the elder Cato had the envoys voted out of Rome, disliking philosophy and Greek training alike.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Manuel_Chrysoloras": "<b>Manuel Chrysoloras</b> was a Byzantine scholar and diplomat who taught Greek at Florence from 1397 to 1400, to pupils who included Leonardo Bruni, Roberto Rossi and Niccolò Niccoli.<sup class=\"fn\" data-fn=\"1\"></sup> He spent the greater part of his career in the West as an envoy of the emperor Manuel II, seeking military help against the Ottomans, and in 1411 sent that emperor a letter comparing old and new Rome.<sup class=\"fn\" data-fn=\"2\"></sup> His question-and-answer grammar, the Erotemata, was the only Greek grammar in general use in Italy until 1476 and was printed at Venice in 1484.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Philippi": "<b>Philippi</b> is the ancient city of eastern Macedonia founded as Krenides in 360 or 359 BCE by colonists from Thasos, and renamed by Philip II, who took it in 356 BCE, walled it and settled new people in it.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus says Philip improved the scanty gold mines of its territory until they yielded him more than a thousand talents a year, which paid for mercenaries and for the gold coins called philippeioi.<sup class=\"fn\" data-fn=\"2\"></sup> In 42 BCE the armies of the Roman civil war fought in its plain, after which Roman colonists were settled there, and Paul founded a Christian church in the city in 49 CE.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Second_Sophistic": "The <b>Second Sophistic</b> is the name Philostratus coined for the Greek rhetorical culture of the Roman empire, insisting in his Lives of the Sophists that the manner should be called not new but second, and naming Aeschines of Athens as its founder.<sup class=\"fn\" data-fn=\"1\"></sup> Unlike the older sophistic, which he treats as philosophic rhetoric, it took definite themes from history and sketched the types of rich men and poor men, of princes and tyrants.<sup class=\"fn\" data-fn=\"1\"></sup> Its speakers were public men who represented cities and could rise in imperial service, as Dionysius of Miletus did when Hadrian made him a knight and a procurator.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Thessaloniki": "<b>Thessaloniki</b> is the Greek city at the head of the Thermaic Gulf, founded about 316 BCE by Cassander, who gathered the people of 26 small towns on the site and named it after his wife, a sister of Alexander the Great.<sup class=\"fn\" data-fn=\"1\"></sup> It stood where the Aegean met the land route north through the Axios valley, became the capital of the Roman province of Macedonia in 146 BCE and was made a colonia under Decius.<sup class=\"fn\" data-fn=\"1\"></sup> Pliny lists it among the free cities of the province and reckons about 360 kilometres (245 Roman miles) from it to Dyrrhachium on the Adriatic.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5926,7 +5933,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Attalus_III": "died 133 BCE",
 "Diaeus": "died 146 BCE",
 "Monument_of_Aemilius_Paullus": "167 BCE",
-"Siege_of_Athens_(87-86_BCE)": "87–86 BCE"
+"Siege_of_Athens_(87-86_BCE)": "87–86 BCE",
+"Achaea_(Roman_province)": "created 27 BCE",
+"Caesarion": "died 30 BCE",
+"Carneades": "died 129 BCE",
+"Manuel_Chrysoloras": "1350s – 1415",
+"Philippi": "founded 360 – 359 BCE",
+"Second_Sophistic": "c. 60 – 230 CE",
+"Thessaloniki": "founded c. 316 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8219,7 +8233,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Attalus_III": ["Attalus III Philometor"],
 "Mixed_government": ["mixed constitution","mixed government"],
 "Monument_of_Aemilius_Paullus": ["monument of Aemilius Paullus","pillar of Aemilius Paullus"],
-"Via_Egnatia": ["Egnatian Way"]
+"Via_Egnatia": ["Egnatian Way"],
+"Achaea_(Roman_province)": ["province of Achaea","Roman Achaea"],
+"Manuel_Chrysoloras": ["Chrysoloras"],
+"Thessaloniki": ["Thessalonica","Thessalonike"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12161,7 +12178,14 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Monument_of_Aemilius_Paullus": ["object","monument","history","greece","rome"],
 "Polybius": ["person","text","history","greece","rome"],
 "Siege_of_Athens_(87-86_BCE)": ["event","warfare","history","greece","athens"],
-"Via_Egnatia": ["place","road","trade","history","rome","greece"]
+"Via_Egnatia": ["place","road","trade","history","rome","greece"],
+"Achaea_(Roman_province)": ["territory","government","greece","rome","history"],
+"Caesarion": ["person","ruler","egypt","history","hellenistic"],
+"Carneades": ["person","philosophy","greece","athens","history"],
+"Manuel_Chrysoloras": ["person","literature","education","greece","byzantine","history"],
+"Philippi": ["city","geography","greece","macedonia","history"],
+"Second_Sophistic": ["concept","literature","rhetoric","greece","rome","history"],
+"Thessaloniki": ["city","geography","greece","macedonia","history"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

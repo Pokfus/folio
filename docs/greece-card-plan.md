@@ -1290,16 +1290,49 @@ the alias are the same string.
              walls, the unguarded stretch at the Heptachalcum and the blood in the Cerameicus. The
              key is dated, `Siege_of_Athens_(87-86_BCE)`, and like `Siege_of_Athens_(404_BCE)` it
              claims no bare surface of its own
-    gr-871  Greece in the Roman civil wars
-    gr-872  Battle of Pharsalus
-    gr-873  Battle of Philippi
-    gr-874  Battle of Actium
-    gr-875  The end of Ptolemaic Egypt
-    gr-876  Cleopatra VII
-    gr-877  The province of Achaea
-    gr-878  Hellenisation at Rome
-    gr-879  The Second Sophistic
-    gr-880  The afterlife of Greek learning
+    gr-871  Greece in the Roman civil wars  — answered by "Thessalonica" when the card was written: the
+             line names a condition rather than a term, and the Greek city that WAS the war is Cassander's
+             foundation on the Thermaic Gulf, where Pompey and the consuls ordered the senate to assemble
+             and about two hundred of them sat for one winter. The key is `Thessaloniki`, the article
+             title, with "Thessalonica" and "Thessalonike" as aliases
+    gr-872  Battle of Pharsalus  — answered by "Thessaly" when the card was written: the battle is
+             rm-362's answer term AND `Battle_of_Pharsalus` already claims the bare "Pharsalus" surface as
+             an alias, so a card answered by the town's name would auto-link to the battle. What is left
+             is the plain itself — the corn near ripe that fed both armies, Gomphi stormed and Metropolis
+             spared — and `Thessaly` was ALREADY a cited glossary term, so the pairing rule needed nothing
+             new
+    gr-873  Battle of Philippi  — answered by "Philippi" when the card was written: the battle is
+             rm-377's answer term, and the plan had no card anywhere for the city, a Thasian colony of 360
+             BCE that Philip II took for its gold. The key is `Philippi` and claims the bare surface, the
+             corpus's eleven mentions all being this one place
+    gr-874  Battle of Actium  — written as a DELIBERATE PAIR with rm-387, which carries the same answer
+             term and the same glossary entry: Rome's card is the end of the civil wars and this one is the
+             end of the Hellenistic age — the last Hellenistic fleet, the Greek cities left stripped of
+             money, slaves and beasts of burden, and the victory kept as a Greek games at Nicopolis
+    gr-875  The end of Ptolemaic Egypt  — answered by "Caesarion" when the card was written:
+             `Ptolemaic_Egypt` is gr-767's answer term and the annexation is rm-388's, so what is left is
+             the boy the dynasty ended with, whom Antony proclaimed King of Kings and Octavian killed
+             because there were too many Caesars
+    gr-876  Cleopatra VII  — written as a DELIBERATE PAIR with rm-384, sharing the answer term and the
+             glossary entry: Rome's card is the annexation of Egypt and this one is the last of the
+             Ptolemies — the queen who spoke the languages her Macedonian family had not troubled to
+             learn, running a grain state through a decade of failed Nile floods
+    gr-877  The province of Achaea  — the only one of these ten to keep its own line as its answer term.
+             Rome plans `rm-775 Achaea` and has not written it, so the collision is the later card's to
+             resolve; the key is qualified, `Achaea_(Roman_province)`, and therefore claims no bare
+             "Achaea" surface, which the region and the League also use
+    gr-878  Hellenisation at Rome  — answered by "Carneades" when the card was written: `Hellenisation`
+             is gr-750's answer term and philhellenism is rm-272's, so what is left is the Greek who
+             carried it there — the head of the Academy who argued both sides of justice on successive
+             days in 155 BCE and whom Cato had voted out of the city
+    gr-879  The Second Sophistic  — answered by its own term, and the one card of these ten whose
+             question names an ancient author. Philostratus coined the phrase, so `card-focus.js` gained
+             `Philostratus` in its ANCIENT set: the diff over the whole corpus took rule 1 from one card
+             to none and corrected gr-402, which cites the Life of Apollonius as a witness
+    gr-880  The afterlife of Greek learning  — answered by "Manuel Chrysoloras" when the card was
+             written: the line is a process and the term is the man it turned on, the Byzantine envoy who
+             taught Greek at Florence from 1397 and whose Erotemata was the only Greek grammar in general
+             use in Italy until 1476
 
 ## Myth and Religion
 
