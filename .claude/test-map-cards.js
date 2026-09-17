@@ -552,6 +552,7 @@ async function browserChecks(page) {
       failed: map.classList.contains("mc-failed"),
       ready: !!(map._folioMap && map._folioMap.ready()),
       shades: shades, btns: l.querySelectorAll(".mc-btn").length,
+      mcKinds: [...l.querySelectorAll(".mc-btn")].map((b) => b.getAttribute("data-mc")).sort().join(","),
       said: cv.getAttribute("aria-label") || "",
       afterBg: !!(bg && (l.compareDocumentPosition(bg) & Node.DOCUMENT_POSITION_PRECEDING)),
       beforeSrc: !!(src && (l.compareDocumentPosition(src) & Node.DOCUMENT_POSITION_FOLLOWING)),
@@ -565,7 +566,11 @@ async function browserChecks(page) {
        alone reports every one of them as a window that never loaded. */
     ok(loc.ready, "…and the globe reports itself mounted");
     ok(loc.shades > 40, "…and really painted a globe rather than a blank rectangle", loc.shades);
-    ok(loc.btns === 3, "it carries the same three zoom controls a map card has", loc.btns);
+    /* A LOCATOR CARRIES ONE CONTROL A MAP CARD DOES NOT (Sep 2026): the way through to the reader's own
+       atlas. Pinned by NAME rather than by count, because the count was what this asserted and a count
+       cannot tell a button that was added from one that was renamed — and the window's own handler
+       dispatches on exactly these names, so a rename here is a control that silently does nothing. */
+    ok(loc.mcKinds === "go,home,in,out", "it carries the map card's three zoom controls plus the atlas button", loc.mcKinds);
     /* A locator is an ANNOTATION on a card whose answer is already showing, so unlike a map card's window
        it NAMES the place from the start — holding it back would be asking a question nobody was asked. */
     ok(/knossos/i.test(loc.said), "the canvas names the place, this being the back of the card", loc.said);

@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.796", released: "2026-09-17T18:38Z" };
+window.FOLIO_VERSION = { v: "1.797", released: "2026-09-17T20:14Z" };
 
 window.CHANGELOG = [
   {
@@ -70,6 +70,11 @@ window.CHANGELOG = [
       ,"<b>A single-character Mandarin card lists the other words built on that character</b>, with their readings and meanings, whatever else you have downloaded."
       ,"<b>Two card backgrounds are corrected</b> \u2014 one drops a population figure the card already shows and says when the city was founded instead, the other no longer names a modern scholar."
       ,"<b>Two cards no longer contradict themselves</b> \u2014 one\u2019s questions gained the article they were missing, and the other\u2019s map no longer carries a name the card says was never formed."
+      ,"<b>A source not written in English now says which language it is in</b> \u2014 a chip beside the open-access one, on 381 citations across nine languages."
+      ,"<b>A card whose place is new to your atlas says so when you turn it over</b> \u2014 a Discovered! chip on its globe, with the sound the Atlas already uses."
+      ,"<b>Every card globe has a button through to your own atlas</b>, and a Back button there returns you to the card you were studying."
+      ,"<b>You can now hide a collection\u2019s places on your own atlas</b> \u2014 a switch per collection, beside where the world atlas keeps its layers."
+      ,"<b>A Library book says how many people have read it</b> \u2014 counted once per reader, and only once they have really read it."
     ]
   },
   {
