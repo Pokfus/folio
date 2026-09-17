@@ -71,7 +71,7 @@ card-side research is then shared.
 | T3 | Chinese history | part done; `cnh-` cards carry most of it |
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
-| T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
+| T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three and T14 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA |
@@ -822,3 +822,26 @@ researched rather than lifted. Each lost a detail the paper carrying the claim d
   **NOT CITABLE HERE** — nature.com serves its abstract and paywalls the article, its Europe PMC record
   is not open access, and the fullTextXML endpoint answers 500. **The claim about attitude similarity
   predicting attraction went with it**, being that literature's rather than this paper's.
+
+### T15 — Ada Lovelace twice, and penicillin off the Nobel presentation speech (2026-09-17)
+
+- **Ada Lovelace (two statements).** MacTutor's Lovelace biography says she "described how the
+  Analytical Engine could be programmed and gave what many consider to be the first ever computer
+  program", and the 1843 notes themselves are openly readable in *Scientific Memoirs* vol. 3 on
+  archive.org (the Bombay Branch scan) — Note G ends by "following up in detail the steps through which
+  the engine could compute the Numbers of Bernoulli", with a diagram and table appended. **THE CREDIT
+  IS COMPLICATED BY BABBAGE'S OWN ACCOUNT, WHICH MACTUTOR QUOTES**, and the first statement now carries
+  it: he had offered to work the Bernoulli problem out "to save Lady Lovelace the trouble", and she sent
+  it back having detected a grave mistake in his process. That is a correction worth a reader's time and
+  it is in the source, so it went in rather than being smoothed over.
+  · **THE PRIMARY SOURCE IS CITED BY ITS NOTE, NOT BY A PAGE RANGE.** The running heads in the OCR give
+    690, 697, 724, 725 and 730, so Note G's own span could be inferred to within a page or two and
+    that is exactly the sort of figure this pass must not invent; "Note G" is a locator the reader can
+    actually find. **And a primary source cannot attest to a "first"** — the attribution is MacTutor's,
+    and that is why the second statement carries both works and marks them separately.
+- **Penicillin.** The 1945 Nobel presentation speech carries the whole arc: the 1928 contaminated
+  culture, the failure to purify a substance that "easily lost its antibacterial effect", Oxford taking
+  it up, Chain and Florey deciding in 1938 to look at it, the first published results in sick patients
+  in August 1941 with supplies so short that some treatments were stopped early, and Florey rousing the
+  interest of the United States. **THE WARTIME AMERICAN FERMENTATION AND "many WWII casualties" WENT**:
+  the speech has Florey interesting the Americans and stops there.
