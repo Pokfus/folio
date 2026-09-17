@@ -1491,7 +1491,70 @@ async function typeField(page, field, text) {
     [...document.querySelectorAll(".active-deck .dk-title")].map((e) => e.textContent.trim()));
   check("...AND IT IS IN THE DAILY STUDY THERE", inReview.some((t) => /Shared On One Device/.test(t)), JSON.stringify(inReview));
 
-  const errs = [...A.errs, ...B.errs, ...M.errs, ...B2.errs, ...gerrs, ...derrs, ...oneDevice.errs, ...otherDevice.errs];
+  /* ---- THE ROW IS THERE BEFORE THE FILE IS (Sep 2026, on request) ----
+     `S.active` arrives with the progress blob in a second; the deck itself is fetched at idle, one deck
+     at a time, and can be tens of megabytes. In between, the entry used to resolve to NOTHING — so the
+     device showed nothing at all for the whole of that download, and `addActive`/`removeActive`, which
+     rebuild `S.active` from the FILTERED list, wrote the entry away and pushed the loss back up, un-adding
+     the deck on the device it had just been added on. The window is real and a reader sits in it, so this
+     device is held in it: its card fetch answers 503, the install cannot complete, and what is asserted is
+     what the reader sees meanwhile. */
+  const slowDevice = await newSession(browser, db, BOB, base);
+  let cardsBlocked = true;
+  await slowDevice.ctx.route((u) => /\/rest\/v1\/user_cards/.test(String(u)), async (r) => {
+    // fulfilled rather than aborted: an aborted request is a console error, and this section also feeds
+    // the no-errors check at the end
+    if (cardsBlocked) return r.fulfill({ status: 503, contentType: "application/json", headers: { "access-control-allow-origin": "*" }, body: "{}" });
+    return r.fallback();
+  });
+  await slowDevice.page.goto(base + "#home", { waitUntil: "load" });
+  await slowDevice.page.waitForTimeout(3600);
+  const pendTitles = await slowDevice.page.evaluate(() =>
+    [...document.querySelectorAll(".active-deck.dk-pending .dk-title")].map((e) => e.textContent.trim()));
+  check("a shared deck still downloading draws a row of its own",
+    pendTitles.some((t) => /Shared On One Device/.test(t)), JSON.stringify(pendTitles));
+  check("...naming the deck rather than its id", !pendTitles.some((t) => /^[0-9a-f]{8}$/.test(t)), JSON.stringify(pendTitles));
+  check("...with a Download button on it",
+    await slowDevice.page.evaluate(() => !!document.querySelector(".active-deck.dk-pending [data-shareddl]")));
+  /* The assertion the whole thing is for, and it needs the list REWRITTEN to say anything: `addActive`
+     rebuilds `S.active` from `activeEntryIds()`, so pressing any + anywhere on the site is what used to
+     write a not-yet-downloaded deck's entry away — and `S.active` is the field that syncs, so the loss
+     travelled straight back to the device the deck had been added on. One press on the Collections page
+     is that rewrite. */
+  await slowDevice.page.goto(base + "#decks", { waitUntil: "load" });
+  await slowDevice.page.waitForTimeout(1400);
+  // dispatched rather than pressed: the button is a plain click listener, and which + happens to be
+  // scrolled into view on the Collections page is not what this is asserting
+  const pressed = await slowDevice.page.evaluate(() => {
+    const b = document.querySelector(".node-add");
+    if (b) b.click();
+    return !!b;
+  });
+  check("...a + to press on the Collections page", pressed);
+  await slowDevice.page.waitForTimeout(600);
+  const slowActive = await slowDevice.page.evaluate(() =>
+    (JSON.parse(localStorage.getItem("folio_v1") || "{}").active || []).filter((x) => String(x).startsWith("u:")));
+  check("...and the entry survives the list being rewritten around it",
+    JSON.stringify(slowActive) === JSON.stringify(phoneActive), "slow=" + JSON.stringify(slowActive) + " first=" + JSON.stringify(phoneActive));
+  await slowDevice.page.goto(base + "#home", { waitUntil: "load" });
+  await slowDevice.page.waitForTimeout(1200);
+  cardsBlocked = false;
+  // …the row for THIS deck, since every one of the account's decks is pending on a device with no cards
+  await slowDevice.page.evaluate(() => {
+    const row = [...document.querySelectorAll(".active-deck.dk-pending")]
+      .find((r) => /Shared On One Device/.test((r.querySelector(".dk-title") || {}).textContent || ""));
+    if (row) row.querySelector("[data-shareddl]").click();
+  });
+  await slowDevice.page.waitForTimeout(3000);
+  const slowNow = await slowDevice.page.evaluate(() => {
+    const row = [...document.querySelectorAll(".active-deck")]
+      .find((r) => /Shared On One Device/.test((r.querySelector(".dk-title") || {}).textContent || ""));
+    return { found: !!row, pending: !!(row && row.classList.contains("dk-pending")) };
+  });
+  check("...and pressing Download turns it into the deck itself",
+    slowNow.found && !slowNow.pending, JSON.stringify(slowNow));
+
+  const errs = [...A.errs, ...B.errs, ...M.errs, ...B2.errs, ...gerrs, ...derrs, ...oneDevice.errs, ...otherDevice.errs, ...slowDevice.errs];
   check("no console/page errors", errs.length === 0, [...new Set(errs)].join(" | "));
 
   await browser.close();
