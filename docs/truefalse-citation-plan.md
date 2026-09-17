@@ -72,7 +72,7 @@ card-side research is then shared.
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511` |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six and T7b three, all researched |
+| T7 | Biology / Medicine | part done; T7a took six, T7b three and T7c two, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables |
 | T9 | Astronomy / Earth science | part done; T9a took four, T9b three and T9c three, all off NASA |
 | T10 | Psychology | part done; T10a took four, all researched — the collection has only reached the 1800s, so nothing could be lifted |
@@ -492,6 +492,24 @@ date to cite them by, and answer from this sandbox.
 a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
 than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
 belt but does not carry the claim that every probe crossed it without dodging.
+
+### T7c — two biology statements off NIH and the Forest Service (2026-09-17)
+
+- **The tongue map.** The NIDCD's *Taste Disorders* names the myth in its own words — "A common
+  misconception is that taste cells that respond to different tastes are found in separate regions of the
+  tongue. In humans, the different types of taste cells are scattered throughout the tongue" — and carries
+  the five basic qualities and the taste buds on the palate and throat.
+  **THE `why` LOST ITS HISTORY AND THAT IS THE COST OF THE BATCH.** Its second sentence traced the map to a
+  mistranslated German paper of 1901 redrawn by an American textbook, which is the more interesting half and
+  is on none of the pages that open from here — the reviews that carry it are paywalled and Europe PMC was
+  503 all afternoon. What replaced it is the same page's own account of how taste actually works.
+- **The blue whale.** The Forest Service's *Pando* page states it outright: Pando "is believed to be the
+  largest organism ever found at nearly 13 million pounds", 40,000-odd trees on one root system over 106
+  acres, started at the end of the last ice age. **The `why`'s honey fungus went**: the Oregon *Armillaria*
+  is the largest by AREA and the claim about its mass is not on any page opened here, where Pando's is — so
+  the statement is refuted by one sourced organism rather than two half-sourced ones. The figures were
+  written metric-first (5,900 tonnes, 43 hectares) and **both directions of the units pass were run over the
+  new sentence** rather than assumed, since tonnes and hectares are the first of their kind in this pool.
 
 ### T4b — two American myths off the two federal hosts that answer (2026-09-17)
 
