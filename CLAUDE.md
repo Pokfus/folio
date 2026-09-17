@@ -1278,8 +1278,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.35 MB and 48,940 lines is hard to find your way around, so this
-  lists its 184 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.36 MB and 49,102 lines is hard to find your way around, so this
+  lists its 185 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -3050,6 +3050,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     deck that never entered it was invisible to the progress blob however many times it installed. Fixed
     at the PRESS rather than inside `uDeckInstall`, which the account sync also calls and which must
     therefore go on installing without deciding anything about the reader's study list.
+    **…AND THE ENTRY HAD TO BE ABLE TO SURVIVE ON A DEVICE THAT HAS NOT GOT THE FILE, which is the half
+    that was still missing** (Sep 2026, on the same request restated: `sharedPendingMap` /
+    `sharedPendingById` / `sharedPendingSet` / `sharedPendingForget` / `_sharedPend` / the `want` map in
+    `DECK_SYNC_KEY` / `[data-shareddl]`). `S.active` arrives with the progress blob in a second; the deck
+    is fetched at IDLE, one deck at a time, and can be tens of megabytes — and in between,
+    `activeEntryIds()` resolved a `u:<id>` entry against `NODE_BY_ID`, `UDECKS` and `entryPending`, which
+    knew only the LANGUAGE catalogue. So a shared deck's entry resolved to **nothing**: the second device
+    showed no row at all for the whole download, and — the real damage — **`addActive` and `removeActive`
+    rebuild `S.active` FROM that filtered list**, so one press of any `+` anywhere on the site wrote the
+    entry away and the progress blob carried the loss back, un-adding the deck on the device it had just
+    been added on. Measured in `test-publish.js`: before the fix that one press took the list to `[]`.
+    **THE ROW IS THE LANGUAGE DECK'S, NOT A NEW ONE** — same `entryPending`, same `.dk-pending` markup,
+    same hold menu — and what differs is where it reads its title and which fetch its button runs.
+    **A SHARED DECK HAS NO CATALOGUE**, `lang-decks.js` being eager and this being a stranger's row in a
+    database, so the sync records what it learns: ONE metadata request over the account's whole install
+    list, made BEFORE the per-deck fetches so the rows appear while the downloads are still running.
+    **The record is DEVICE-local** (`want`, beside `seen` / `pend` / `by`) for the reason the rest of it
+    is: it is a statement about what THIS device is missing.
+    **Two things are deliberately NOT claimed.** The button carries **no file size** — a shared deck is
+    published as rows rather than as a file and nothing states its weight, so a figure there would be
+    invented — and the repaint that follows the metadata request is **`renderInPlace` on the HOME page
+    only**: the daily-study list is the one page these rows appear on, and a repaint of `#decks` raced the
+    reports queue into failing a suite that had nothing to do with this.
   · **QUESTION VARIETY IS OFF BY DEFAULT** (`defaultState().settings.questionVariety`), with a back-fill
     beside `themeAuto`'s that pins an existing save to `false` as well. ⚠ **That back-fill has to go the
     day a control writes the key**, or it will overwrite the reader's own choice on every boot; it is
@@ -6247,7 +6270,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (280 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (295 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7101,10 +7124,15 @@ division-capital city tier are inert dead code.
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
-  · `node .claude/test-publish.js` — 128 assertions across six browser sessions (an author, a reader, an
-    admin, and three more DEVICES of that reader's) driving publish → browse → install → update → report
-    → hide → rate → staff-pick → fork → export → delete → sync. **Re-run after touching the publishing
+  · `node .claude/test-publish.js` — 145 assertions across seven browser sessions (an author, a reader, an
+    admin, and four more DEVICES of that reader's) driving publish → browse → install → update → report
+    → hide → rate → staff-pick → fork → export → delete → sync. **ITS LAST SESSION IS HELD IN THE WINDOW
+    THE FIX ABOVE IS ABOUT**: its card fetch answers 503, so the install cannot complete and the pending
+    row stays observable — and the assertion that matters presses a `+` on the Collections page and reads
+    `S.active` back, since the loss only happens when something REWRITES that list. **Re-run after
+    touching the publishing
     functions, `communitySyncInstalls` / `communitySyncSoon` / `communityFetchDeckById` /
+    `sharedPendingMap` / `sharedPendingSet` / `sharedPendingForget` / `entryPending` / `[data-shareddl]` /
     `localIdForRemote` / `uDeckInstall` / `uDeckUninstall`, `uDeckDelete` / `uDeckRemoteDelete` /
     `confirmDeleteDeck` / `myRemoteDecksLoad` / `orphanSectionHTML` / `uDeckSetColor` /
     `colorColumnMissing`, the shared-decks table on the Collections page (`COMMUNITY_COLS` /
@@ -7179,7 +7207,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 280 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 295 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
