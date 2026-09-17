@@ -1278,8 +1278,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.35 MB and 49,000 lines is hard to find your way around, so this
-  lists its 185 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.36 MB and 49,144 lines is hard to find your way around, so this
+  lists its 186 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -1665,7 +1665,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
   **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO** — no changelog line, no version bump.
   Currently **52 files across 7 languages** — French, German, Indonesian, Italian, Mandarin,
-  Portuguese, Spanish — **136,214 cards over 68,107 notes, 152 MB**. **Count them rather than quoting
+  Portuguese, Spanish — **136,214 cards over 68,107 notes, 153 MB**. **Count them rather than quoting
   that**: `node .claude/build-lang-decks.js` prints the tally on every run.
   · **A COMBINED FILE IS GITIGNORED**: it is an artefact of the levels it combines, every byte already
     in the repo, and its own `combine.py` regenerates it byte for byte. **Anything else in `decks/` is
@@ -1815,6 +1815,94 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the last being what an idiom has; `gloss` insists on a note with exactly one sense and `glossAll`
     replaces however many there are. `ex: [[chinese, english]]` builds an example block and marks it
     `uc-exadd`.
+  · **A GENERATOR'S OWN BLOCK IS EDITED IN PLACE BY `exEn` AND `exStop`, NEVER BY `dropEx` PLUS A
+    RE-ADD.** The drop filters the record's own `ex` rows as well as the deck's blocks — deliberately,
+    and see the comment beside it — so a row re-adding the sentence it has just dropped is thrown away
+    and the card comes back an example SHORT, silently; 手机 went from three sentences to one that way.
+    So the two edits that keep the Chinese get fields of their own. `exEn: [[chinese, english]]`
+    rewrites a block's translation, matched on a SUBSTRING of its Chinese. `exStop: [[chinese, mark?]]`
+    appends a terminal full stop and NOTHING else, matched on `data-say` EXACTLY and written to
+    `data-say` and the visible text together: the corpus-wide punctuation pass converts marks and never
+    adds one, so about 150 sentences still end bare, and most want replacing but a few are good
+    sentences whose whole fault is the missing stop. **Neither is a general Chinese rewrite and
+    `exStop` deliberately cannot be one**: a generator block carries a STRUCTURE LINE glossing every
+    word's part of speech and bolds the headword inside its visible text, neither of which can be
+    re-derived for different words — appending a mark at the end is the one edit that leaves both true.
+    Both FAIL rather than warn when a row matches nothing, since unlike `dropEx` they are re-asserted
+    on every run, so a row matching nothing is always a typo and never a repair already made.
+  · **`exSpace` IS THAT ARGUMENT ONE DEGREE WIDER, AND `zhSkeleton` IS WHAT BOUNDS IT.**
+    `exSpace: [[was, now]]` rewrites a generator block's CHINESE — which `exStop`'s own reasoning says
+    must not be possible — and is safe only because the two sides are compared with every space and
+    every punctuation mark stripped out: **a row that can only move whitespace and punctuation cannot
+    invalidate a structure line or a bolding**, and a row whose sides differ by one character is a hard
+    FAIL. It exists because 32 blocks carried a space where Chinese sets none, on the card and in
+    `data-say` both, and four of them needed a MARK supplied rather than the gap deleted, a deletion
+    running two clauses together.
+    **THE EDIT IS TAG-AWARE** (`rewriteZhVisible`): the visible text is walked into tag and character
+    tokens, the characters are checked to spell the old sentence exactly, and each tag is re-emitted at
+    the non-punctuation position it opened or closed at — so a `<b>` round the headword survives a comma
+    inserted in front of it, and anything that fails to line up reports rather than writing.
+    **AND THE VISIBLE TEXT IS REWRITTEN BEFORE `data-say`, WHICH IS LOAD-BEARING**: the block's
+    `data-say` also sits inside the visible div's own `uc-tts` span, so the visible div is matched
+    against the ORIGINAL text — doing the attribute first leaves that replace with nothing to find, and
+    it fails SILENTLY, the spoken field moving while the words on the card stand still.
+    **A STRAY SPACE IS ALSO A HOLE IN EVERY CHECK KEYED ON WHAT STANDS NEXT TO A CHARACTER**: the
+    deck-level punctuation pass matches a mark sitting IMMEDIATELY after one, so a half-width mark
+    behind a gap had never been converted either.
+    **AND A SWEEP OVER THE DECKS DOES NOT REACH A SENTENCE THIS RECORD SHIPS.** Where a note carries a
+    COPY of a deck sentence in its own `ex` row, the fix belongs in that row — repaired through the
+    decks it is put straight back by the next run of the applier. Ask which of the two is shipping a
+    sentence before writing a row about it; the same shape as `dropEx`'s own trap, from the other side.
+  · **`exBritish` IS A DECK-LEVEL PASS AND THE TABLE IS app.js's OWN**, sliced out by text with the run
+    STOPPING if the slice fails. The decks are authored British **because the site's switch never runs
+    in the direction that would rescue them** — `applySpelling` returns at once under `en-GB`, the
+    authored system, and converts to American only for a reader who asks — so an American spelling
+    written INTO deck content is what both readers see, for ever. It sweeps every gloss and every
+    example translation, never the Chinese and never a `data-say`, and **re-derives `answerText` and
+    `answer` rather than sweeping them**, an English word list over a romanisation being a risk for
+    nothing. **It runs LAST**, so the record's own `ex` and `exEn` rows are swept with everything else.
+    Three things bound it and none may be dropped: **the one-way rows are excluded** (app.js's own
+    `if (!oneWay)` — reversing them makes every narrative STORY a storey and the noun PRACTICE a verb);
+    **five forms are excluded by name** because the reverse mapping is not English (humorous →
+    humourous and its four siblings, a latent fault in app.js's table); and **`BRIT_KEEP` is the
+    declared proper-noun escape hatch**, which is **EMPTY as a MEASUREMENT rather than an omission** —
+    the corpus's 8 `harbor`, 11 `center`, 9 `labor`, 24 `organization` and 14 `theater` were all read
+    and not one is a name. **Re-run `check-british.js --list` and read the capitalised hits before
+    trusting that again.**
+  · **`exLexis` IS ITS SIBLING AND ITS TABLE IS DECLARED HERE, BECAUSE A WORD CHOICE IS NOT A
+    SPELLING.** `exBritish` can take app.js's table because `color`/`colour` is one word written two
+    ways; `movie`/`film`, `vacation`/`holiday` and `faucet`/`tap` are DIFFERENT WORDS, no rule relates
+    them, and the site has no such table because its own prose is authored British. It runs immediately
+    BEFORE the spelling pass, on the same three targets and by the same rules. **Every row was arrived
+    at by reading every occurrence the nine decks contain**, which is what makes a mechanical sweep safe
+    and is why the table is 18 rows against a raw measurement of 463 hits over 38 words.
+    **THE FIVE BIGGEST FINDINGS ARE DELIBERATELY NOT IN IT**: `fall` (74 hits, 71 of them the ordinary
+    verb — a row would have made *Pride goes before an autumn*), `check` (73, 66 the verb), `store`
+    (46, 32 of them a department store or *to set great store by*), `grade` (20, mostly a rank) and
+    `mail` (20, ALL of them ordinary British English). Those went to per-note `exEn` and `gloss` rows.
+    **`stove` and `vest` are in neither**: a wood stove is British, and a British *vest* is exactly the
+    sleeveless garment 背心 is — the finding there was the sweep's and not the deck's.
+    **THE PHRASE ROWS FIRE FIRST** (the table is longest-first) and exist for the two things a
+    word-for-word swap gets wrong: a compound whose British name is not built from the same parts (a
+    *movie theatre* is a cinema) and an **ARTICLE that changes with the word after it** (*an elevator*
+    is *a lift*, *a subway map* is *an underground map*).
+  · **DEDUPING A GLOSS COLLIDES IT WITH ITS NEIGHBOUR, and that is the trap to expect next time.**
+    Eight glosses carried the American word beside the British one ("film; movie", "lorry; truck"), so
+    each was deduped per note before the pass — and taking the American half off leaves the British
+    half, which is often what a NEIGHBOURING note already says.
+    `check-mandarin-coverage.js`'s still-ambiguous reverse-card count went **2 → 7** on the first
+    run (电影/片子, 假期/假日, 橡皮/橡胶, 雪糕/冰棍儿, 货车/卡车). **A `not <other word>` hint cannot
+    fix such a pair**: the hint is prepended to `fl.English` early and a `senses` or `gloss` fix
+    REPLACES that field later, by design, so a note carrying both keeps only the gloss. The answer is a
+    SHARPER gloss, and in four of the five cases the collision was hiding a real distinction the cards
+    had lost (橡皮 the eraser against 橡胶 the material; 货车 the goods vehicle against 卡车 the lorry) —
+    and in one case a WRONG gloss, 雪糕 being an ice cream bar and 冰棍儿 the ice lolly.
+  · **READ THE DIFF LINE BY LINE; COUNTING WHAT IS LEFT CANNOT SEE WHAT A SWAP BROKE.** The residual
+    measurement after the first apply was correct and the pass had still made six lines ungrammatical:
+    a gloss reading "to have a holiday or holiday", "Where did you go **for** holiday?" where the
+    British word takes *on*, and four sentences needing "during **the** summer **holidays**", which
+    British English takes in the plural and with the article where American English says "during summer
+    vacation" bare.
   · **THE FILE IS AUTHORITATIVE FOR TWO THINGS, AND BOTH ARE REGENERATED RATHER THAN ACCUMULATED.**
     `hints` is the complete list of `not <other word>` blocks (see the reverse-card note below), and
     every `uc-exadd` example block is STRIPPED from every note before the fixes are applied — without
@@ -1913,6 +2001,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     segmenter land on the headword?" — reports 514 sentences of which almost all are Chinese working
     normally (国 lives inside 国家, 点 inside 几点), which is reporting the language rather than a fault.
     A single-character headword is skipped, since one character cannot straddle anything.
+  · **IT ASKS ONE QUESTION AND THE OPPOSITE ARRANGEMENT IS BEYOND IT** (batch 26). A finding is an
+    occurrence the segmenter SPLITS; where the segmenter lands squarely ON the headword while the
+    sentence is using those characters as something else, it reports nothing — and four cards in one
+    thirty-card batch were in that state. **Its own lexicon is what fools it**: neither 加拿大 nor
+    加拿大人 is a headword here, so 他是加拿大人 reads 他|是|加|拿|大人 and 大人 looks clean. And where
+    the headword IS a word, longest-match prefers it: 做得到 and 办得到 are the potential complement
+    verb + 得 + 到 and segment as 做|得到, 的话 in 他的话 is the possessive 的 plus 话. **A
+    SINGLE-CHARACTER headword is skipped outright**, so 电 inside 电影院 and 电车站 is beyond it by
+    design. **This class is found by READING and by nothing else.**
+    **AND THE SINGLE-CHARACTER EXEMPTION IS WHERE THE WORST OF IT LIVES** (batch 27). 东 is glossed
+    "east" and **not one of its three sentences used the word** — 东西 dōngxi "thing", 广东 the
+    province, 东家 "landlord": three different words that merely begin with the character, on a card
+    whose whole job is that character. 发 carried 我喜欢短发, which is duǎnfà "short hair" and in
+    traditional script a DIFFERENT CHARACTER (短髮 against the card's own 發) — so the headword's shape
+    appeared with neither its sound nor its sense, and `check-say-reading.js` is right not to name the
+    card, the corpus's majority reading being the one it teaches. **AND THE SAME SENTENCE CAN BE RIGHT
+    ON ONE CARD AND WRONG ON ANOTHER**: 我喜欢短发 also sits on 短, where 短发 is transparently
+    "short" + "hair" and the example is sound. So this is found by reading a CARD, never by sweeping
+    sentences.
+    **AND THE BLIND SPOT IS PERMANENT RATHER THAN CLOSING** (batch 28, two more): 夫妻's third sentence
+    was 夫妻肺片, a Sichuan DISH, and 服务's was 服务生, a WAITER. **The compound that swallows a headword
+    is usually one an exam syllabus has no reason to list** — a dish, an occupation, a place name — so it
+    will never enter this lexicon and the segmenter will go on landing squarely on the headword. Three
+    batches running have found this class by reading and by nothing else.
+    **AND THE CARD'S OWN ENGLISH IS WHERE IT SHOWS** (batch 29, two more, both single-character): 海
+    is glossed "sea" and two of its three sentences were 人山人海, the idiom, and 海带, **kelp**; 河 is
+    glossed "river" and two of its three were 河马, a **hippopotamus**, and 先河, the idiom. A card
+    glossed "sea" whose own English line says *kelp* is visible at a glance, which is the cheapest way
+    to find this class: **read a single-character card's three English lines and ask whether each is
+    about the character.**
+  · **AND THE HARVEST'S GUARD IS THE SAME FAULT ONE LAYER UP.** A sentence taken from the decks' own
+    bank is refused where the target is SWALLOWED BY A LONGER headword, which says nothing about one
+    spanning TWO SHORTER ones — 得分 harvested 我们在扔掉之前得分类, which is 得 (děi) plus 分类, the
+    very fault the `dropEx` in that same record entry had been written for. **A guard against one
+    direction of a two-directional fault reads, in the record, exactly like a guard against both.**
   · **THE RANKING IS WHAT MAKES IT READABLE, and it is a frequency ranking.** Greedy segmentation cannot
     tell 如何|在 (a real fault) from 十分|钟 (not one) — they have the same SHAPE — so a finding is ranked
     by how much more the competing word is used, across every example sentence in all nine decks, than
@@ -1945,6 +2068,97 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     It also settled `嗯`, whose `ǹg` is not a pinyin syllable and which carries no bopomofo. **Fold erhua
     and split a two-reading card on the slash before comparing**, or every polyphone is a finding — 97
     before those two rules, 2 after.
+- **📖 `.claude/decks/check-coarse.js` — COARSE, OBSCENE AND PREJUDICIAL CONTENT IN THE MANDARIN
+  DECKS**, report only, exit 0: `node .claude/decks/check-coarse.js [profanity|sexual|body|adult|
+  violence|slur]`. The decks are harvested from a film-subtitle corpus, and a subtitle corpus contains
+  what films contain. **Two findings turned up by ORDINARY READING in four batches** — 阴, glossed
+  *cloudy*, whose third sentence was 你的阴茎很大, and 才, whose English was "I don't give a fuck about
+  what you say" — **and both were invisible to every other checker here**: the sentences are
+  grammatical, the translations accurate, they segment cleanly and they speak correctly. Two by chance
+  in four batches is a rate, so the corpus is swept rather than waited on.
+  · **THE DISCRIMINATOR IS WHETHER THE CARD *IS* THE COARSE WORD.** Everyday Phrases and Idioms teach
+    放屁, 该死, 滚蛋 and 一丝不挂 on purpose, so a hit is dropped where the matched term is the headword
+    either way round, or where the card's own gloss already carries the English word. What is left is
+    coarse content that arrived on a card about something else.
+  · **IT IS A REPORT AND CANNOT BE ANYTHING ELSE.** Every word in the six lists has innocent uses —
+    *naked eye*, an *ass* the animal, *aroused his curiosity*, a *period*, 上床睡觉, 妈的 inside 妈妈的,
+    小三 inside 比我小三岁 — and `violence` and `slur` are the noisiest, a corpus of films and idioms
+    being full of killing and of calling people fools. **Read every finding; nothing here may be swept.**
+  · **THE WIDEST REAL CLASS IS THAT THE ENGLISH IS COARSER THAN THE CHINESE**: 可恶 (*how annoying*)
+    rendered "Shit, where the **fuck** did I put my home keys?", 搞砸 (*to mess up*) as "Don't fuck it
+    up now", 他倒霉极了 as "He is shit out of luck". The card is not teaching an expletive and the
+    translator supplied one. Then an obscene word of its own swallowing the headword (阴茎 on 阴 and on
+    茎, 避孕套 on 避, 混蛋 on 混, 炮友 on 炮); a sentence that teaches nothing and offends anyway; and a
+    GENERALISATION ABOUT PEOPLE — "shorter people have more tricks up their sleeves" on 矮, a people
+    "on the same plane as savages" on 教养.
+  · **AND IT FOUND A FAULT CLASS NOBODY WAS LOOKING FOR: A CHARACTER ERROR THAT PUT THE HEADWORD
+    THERE.** 电灯**炮** for 电灯泡 on the 炮 card, and 别**破**妈妈发现 for 别被妈妈发现 on 破 — the
+    example is on that card ONLY because somebody typed the wrong character, and nothing in the pipeline
+    can see it, the sentence segmenting, speaking and translating perfectly.
+  · **THE DISCRIMINATOR HAD A HOLE AT A ONE-CHARACTER HEADWORD, AND IT WAS EXCUSING THE WORST SENTENCE
+    IN THE CORPUS** (batch 30). `own()` drops a hit when the matched term contains the headword **or**
+    the headword contains the matched term — the first branch being what stops Everyday Phrases
+    reporting 放屁 on the card that teaches 放屁 — and **at a one-character headword that branch is always
+    true**, every compound built on a character containing it. So 鸡, glossed *chicken*, was permanently
+    exempt from every term beginning 鸡, and its sentence 我喜欢鸡鸡 ("I like dicks", 鸡鸡 being the
+    child's word for the penis) would have gone on being excused even after the word was added to the
+    list. **Adding a missing word to a list is not the same as making the list reachable.** The branch
+    is now required of a headword of MORE THAN ONE character; the other direction is untouched.
+    **The price is measured rather than asserted — twelve rows over ten cards**, every one a
+    single-character card met through a compound it genuinely is about (死/去死, 裸/赤裸, 经/月经,
+    醉/喝醉, 淹/淹死, 绞/绞死, 粗/粗俗, 傻/傻子, 聋/聋子, 俗/粗俗), read and left. Twelve rows a
+    reader passes over is the right price on a report that is read by eye anyway. **📖
+    `docs/mandarin-review.md` carries the first full read.** Not part of the site.
+- `.claude/decks/check-british.js` — **American spellings in the decks' own English**:
+  `node .claude/decks/check-british.js [--list]`, report only, exit 0. **The decks are authored British
+  because the site's switch never runs in the direction that would rescue them** — `applySpelling`
+  returns at once under `en-GB`, the authored system, and converts to American only for a reader who
+  asks — so an American spelling written INTO deck content is what BOTH readers see. It slices
+  `SPELL_PAIRS` **out of `app.js` by text and STOPS if the slice fails**, the rule `spanish-fix.js`'s
+  `exBritish` already follows.
+  · **IT IS A REPORT AND NOT A `--fix`, for two reasons neither of which can be patterned away.** The
+    **one-way rows are excluded** and app.js already knows which (`if (!oneWay)`): reversing them turns
+    every narrative STORY into a storey, the noun PRACTICE into the verb, a LICENSE into a licence and a
+    computer PROGRAM into a programme — a first run that ignored the flag reported 713 against the real
+    489. And **a proper noun is not a spelling**: Pearl Harbor, the World Trade Center, an Australian
+    Labor Party and the Indian Reorganization Act are names, and the corpus carries 8 `harbor`, 11
+    `center` and 9 `labor`.
+  · **FIVE FORMS ARE EXCLUDED BY NAME BECAUSE THE REVERSE MAPPING IS NOT ENGLISH**, and that is a latent
+    fault in app.js's own table rather than in the decks: the `-our` rows list `ous` and `ary` in their
+    suffix strings where real English drops the u, so the American→British map holds `humorous →
+    humourous`, `laborious → labourious`, `honorary → honourary`, `clamorous → clamourous` and `odorous
+    → odourous`. **Its only consumer is `gradeCloze`** (`spellTree` only ever runs with
+    `us = spellSystem() === "en-US"`), and no shipped answer carries one of the five — so nothing is
+    mis-graded today and the first card whose answer term does would mark a reader wrong for typing the
+    correct English word. **📖 `docs/mandarin-review.md` carries the measurement.**
+  · **AND A ZERO FROM IT DOES NOT COVER THE FIVE FAMILIES `SPELL_PAIRS` LEAVES OUT** (batch 27). The
+    table deliberately omits the **-logue** family among others, because American English writes
+    *dialogue* and *analogue* the same way often enough that a two-way row would do more harm than good
+    — so an American *dialog* in deck content is invisible to this checker, which goes on reporting 0.
+    Measured over the nine decks: exactly TWO, 对话's own first example and 相声's GLOSS, which
+    contradicted both of its own example translations. Both are repaired in `mandarin-fixes.json` per
+    note. **A class of two is not a table**: `exLexis` is for a substitution worth applying in one place,
+    and a one-word table applied twice is a table nobody will read. **Grep the five omitted families by
+    hand after a content batch; this checker cannot.**
+  · **…AND THE -ward FAMILY IS A SECOND ONE, FOUND THE SAME WAY** (batch 29). `SPELL_PAIRS` has no
+    -ward row at all, so `afterward` against `afterwards` is invisible and the checker goes on
+    reporting 0. Measured over the nine decks: THREE occurrences over two sites — 后来's own gloss,
+    on a card whose third sentence ends *afterwards*, and one Levels 7–9 sentence that deck carries on
+    two notes. All three repaired per note.
+  · **…AND THE THIRD ONE IS INVISIBLE FOR A DIFFERENT REASON AGAIN: `program` / `programme`** (batch
+    30, the class the batch before predicted). That pair IS in `SPELL_PAIRS` — unlike -logue and -ward —
+    but as a **ONE-WAY** row, correctly, because British English writes *program* for a computer program
+    too and a two-way row would make *a television program* out of nothing; and this checker excludes the
+    one-way rows, also correctly, so it goes on reporting 0. **So a family can be missing from the table,
+    or present in it and one-way, and the checker is equally blind either way** — which means the
+    reading 0 says nothing about any word whose two spellings are not two-way. Measured over the nine
+    decks: TWELVE sites, eleven of them a broadcast or an event and repaired per note, and the twelfth,
+    `hsk30l5/下载`, LEFT — its Chinese is 程序, a computer program, where *program* is the British
+    spelling as well. **That twelfth is why this cannot become a table**: the correct spelling depends on
+    what the sentence is about, which is a judgement per site.
+  **RUN IT rather than quoting a figure here, and grep the -logue and -ward families AND the one-way rows
+  by hand after a content batch — three batches running have now found a family it cannot see.** Not part
+  of the site.
 - **A SHARED GLOSS IS DISAMBIGUATED BY THE DECK'S OWN `not <other word>` BLOCK.** The English → Chinese
   card's front is the gloss and nothing else, so two notes sharing one are a single question with
   several right answers — the reader types 再 for "again", is shown 又, and cannot tell a wrong answer
@@ -2025,7 +2239,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   on request). **204 notes carry 2+ senses AND 2+ examples, and that is NOT the size of the job**: most
   of those senses are a dictionary's near-synonym list (没错 has five, all "that's right"), and numbering
   a sentence as sense 3 of 5 synonyms is noise dressed as information — so the record names the notes
-  and the applier never sweeps them. Fourteen have it. **IT RUNS AFTER `senses`**, which is load-bearing:
+  and the applier never sweeps them. Seventy-seven have it. **IT RUNS AFTER `senses`**, which is load-bearing:
   the note worth tagging is often the one this same record SPLITS, and read before the split it counts
   the senses the deck shipped with — which is how `道`'s third sense tripped its own guard on the first
   run. A tag naming a sense the note has not got is a FAIL, that being the shape a later merge produces.
@@ -2040,6 +2254,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `给` "to give" and never the preposition, `比` "to compare" and never "than", `还是` the "or" of a
   question and never "still", `名` the noun and never the measure word for people. **Do not sweep this
   flag** — a rule that split on the slash would make two cards out of 半 "adverb / numeral".
+  **AND A VERB GLOSS THAT DOES NOT OPEN ON "to " IS NOT A FAULT EITHER** (batch 26, measured): the nine
+  decks carry **2,582 verb glosses without it against 1,164 with**, and much of the majority is
+  legitimately not an infinitive at all (对不起, 再见, 下雨, 没事). The house form is WITHOUT, so a sweep
+  would be inventing a rule rather than applying one.
+  **AND A PLURAL NOUN GLOSS IS USUALLY RIGHT** (batch 27, measured): single-word noun glosses run
+  **1,005 singular to 61 plural**, and most of that 61 is English that has no singular — trousers,
+  shorts, chopsticks, socks, jeans, news, maths, physics, headphones, noodles, clothes. **The tell is a
+  MEASURE WORD on the same card**, which counts one of the thing: 动物 glossed "animals" carried 只 and
+  群, and 耳朵 glossed "ears" carried 只 and 个, so each promised a countable noun and defined a mass
+  of them. Those two were repaired inside their own batch's range; **the rest are NOT swept**.
+  **THE GENUINE RESIDUE HAS TWO SHAPES AND BOTH ARE WORTH KNOWING** (batch 28, six more read one at a
+  time). **The single gloss belongs to only ONE of the parts of speech named**, and where the card
+  carries a MEASURE WORD that classifier says which is missing — 服务 "to serve" under VERB with the
+  classifier 项, which counts the noun; 感冒 under "noun / verb" with 场 and 次, which count a bout of a
+  cold; 根据 naming three parts of speech against "according to", which is the preposition, while two of
+  its sentences are the noun. **And the gloss LISTS NOUNS UNDER A VERB LABEL**, which is CC-CEDICT's
+  slash list run together — 干's gàn read "trunk; main part; do; work" and 更's gēng "to change, to
+  replace; night watch". **The card's own third sentence is often the tell**: 关 defined "to close" and
+  its 不关你的事 is a different verb the card never glossed.
+  **AND A THIRD SHAPE: THE LABEL AND THE GLOSS ARE DIFFERENT PARTS OF SPEECH** (batch 31, two in one
+  range of thirty). Here only ONE part of speech is named and the gloss simply is not it: 看来 was
+  labelled a VERB over "apparently", and CC-CEDICT gives it no verb sense at all; 久 was labelled an
+  ADJECTIVE over the NOUN PHRASE "long time", where the dictionary reads "(of a period of time) long".
+  **It is read off the card's own line and nothing else can see it** — the gloss is a well-formed
+  English gloss and the label is one the decks use everywhere — so **read the two halves of the line
+  against each other**, which is one glance per card.
+  **AND THE DICTIONARY'S FIRST SENSE IS NOT AUTOMATICALLY THIS CARD'S** (batch 31). 开机 was glossed
+  "to start an engine", which is CC-CEDICT's leading sense and is exactly what a gloss taken off the top
+  of the entry looks like — and not one of the card's three sentences is an engine, all three being the
+  dictionary's SECOND sense, "to boot up (a computer)". **The senses are commonest-first in the
+  dictionary and the card's own sentences decide which of them it teaches**, so a gloss that is right
+  about the word can still be wrong about the card, and it reads perfectly either way.
 - **AN IDIOM CARD CARRIES A `Literally` LINE** (the Idioms deck's card type; Sep 2026). An idiom's gloss
   says what it MEANS and throws away what it SAYS, and the image is most of what makes a
   four-character idiom stick — 谢天谢地 is "thank goodness" and it says "thank heaven, thank earth".
@@ -2831,6 +3077,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     deck that never entered it was invisible to the progress blob however many times it installed. Fixed
     at the PRESS rather than inside `uDeckInstall`, which the account sync also calls and which must
     therefore go on installing without deciding anything about the reader's study list.
+    **…AND THE ENTRY HAD TO BE ABLE TO SURVIVE ON A DEVICE THAT HAS NOT GOT THE FILE, which is the half
+    that was still missing** (Sep 2026, on the same request restated: `sharedPendingMap` /
+    `sharedPendingById` / `sharedPendingSet` / `sharedPendingForget` / `_sharedPend` / the `want` map in
+    `DECK_SYNC_KEY` / `[data-shareddl]`). `S.active` arrives with the progress blob in a second; the deck
+    is fetched at IDLE, one deck at a time, and can be tens of megabytes — and in between,
+    `activeEntryIds()` resolved a `u:<id>` entry against `NODE_BY_ID`, `UDECKS` and `entryPending`, which
+    knew only the LANGUAGE catalogue. So a shared deck's entry resolved to **nothing**: the second device
+    showed no row at all for the whole download, and — the real damage — **`addActive` and `removeActive`
+    rebuild `S.active` FROM that filtered list**, so one press of any `+` anywhere on the site wrote the
+    entry away and the progress blob carried the loss back, un-adding the deck on the device it had just
+    been added on. Measured in `test-publish.js`: before the fix that one press took the list to `[]`.
+    **THE ROW IS THE LANGUAGE DECK'S, NOT A NEW ONE** — same `entryPending`, same `.dk-pending` markup,
+    same hold menu — and what differs is where it reads its title and which fetch its button runs.
+    **A SHARED DECK HAS NO CATALOGUE**, `lang-decks.js` being eager and this being a stranger's row in a
+    database, so the sync records what it learns: ONE metadata request over the account's whole install
+    list, made BEFORE the per-deck fetches so the rows appear while the downloads are still running.
+    **The record is DEVICE-local** (`want`, beside `seen` / `pend` / `by`) for the reason the rest of it
+    is: it is a statement about what THIS device is missing.
+    **Two things are deliberately NOT claimed.** The button carries **no file size** — a shared deck is
+    published as rows rather than as a file and nothing states its weight, so a figure there would be
+    invented — and the repaint that follows the metadata request is **`renderInPlace` on the HOME page
+    only**: the daily-study list is the one page these rows appear on, and a repaint of `#decks` raced the
+    reports queue into failing a suite that had nothing to do with this.
   · **QUESTION VARIETY IS OFF BY DEFAULT** (`defaultState().settings.questionVariety`), with a back-fill
     beside `themeAuto`'s that pins an existing save to `false` as well. ⚠ **That back-fill has to go the
     day a control writes the key**, or it will overwrite the reader's own choice on every boot; it is
@@ -6978,10 +7247,15 @@ division-capital city tier are inert dead code.
     live `content_overrides` overlay — which rides the same path and can add, edit or retire cards —
     out of a run that compares card counts. **Reach for the same route in any suite whose figures come
     off the shipped files.**
-  · `node .claude/test-publish.js` — 128 assertions across six browser sessions (an author, a reader, an
-    admin, and three more DEVICES of that reader's) driving publish → browse → install → update → report
-    → hide → rate → staff-pick → fork → export → delete → sync. **Re-run after touching the publishing
+  · `node .claude/test-publish.js` — 145 assertions across seven browser sessions (an author, a reader, an
+    admin, and four more DEVICES of that reader's) driving publish → browse → install → update → report
+    → hide → rate → staff-pick → fork → export → delete → sync. **ITS LAST SESSION IS HELD IN THE WINDOW
+    THE FIX ABOVE IS ABOUT**: its card fetch answers 503, so the install cannot complete and the pending
+    row stays observable — and the assertion that matters presses a `+` on the Collections page and reads
+    `S.active` back, since the loss only happens when something REWRITES that list. **Re-run after
+    touching the publishing
     functions, `communitySyncInstalls` / `communitySyncSoon` / `communityFetchDeckById` /
+    `sharedPendingMap` / `sharedPendingSet` / `sharedPendingForget` / `entryPending` / `[data-shareddl]` /
     `localIdForRemote` / `uDeckInstall` / `uDeckUninstall`, `uDeckDelete` / `uDeckRemoteDelete` /
     `confirmDeleteDeck` / `myRemoteDecksLoad` / `orphanSectionHTML` / `uDeckSetColor` /
     `colorColumnMissing`, the shared-decks table on the Collections page (`COMMUNITY_COLS` /

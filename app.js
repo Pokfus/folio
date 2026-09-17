@@ -682,7 +682,12 @@
      declared here for the reason every cache above it is, and busted with them because a deck remounted
      or repaired is a deck whose sentences have moved. */
   let _wordFreq = new Map();
-  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; _atlasMineCache = null; _wordFreq = new Map(); _answerIdx = null; }
+  /* THE ACCOUNT'S SHARED DECKS THIS DEVICE HAS NOT GOT YET (`_sharedPend`; Sep 2026 — see
+     `sharedPendingMap`). Declared here for the reason every cache above it is, and busted with them
+     because mounting or deleting a community deck is exactly what takes one off the pending list. It is
+     also busted by `deckSyncWrite`, the sync record being the other half of the answer. */
+  let _sharedPend = null;
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; _atlasMineCache = null; _wordFreq = new Map(); _answerIdx = null; _sharedPend = null; }
   let _byteEnc = null;
   function cardBytes(id) {
     let n = _cardBytes.get(id);
@@ -6499,6 +6504,12 @@
        thing that changes on arrival is that the counts start being the reader's own. */
     if (entryPending(id)) {
       const row = langCatalogById(uDeckIdOf(id)), sub = uSubOf(id);
+      /* A SHARED deck has no catalogue at all: its subdeck tree is inside the file, so until that lands
+         the only honest answer is the deck's own name and the card count the account's list gave. */
+      if (!row) {
+        const p = sharedPendingById(uDeckIdOf(id));
+        return { title: p ? p.title : uDeckIdOf(id), parent: "Your decks", count: p ? p.cards : 0 };
+      }
       const node = sub ? langCatalogNode(row, sub) : null;
       return { title: sub ? uSubName(sub) : row.title,
                parent: sub ? (uSubName(uSubParent(sub)) || row.title) : "Your decks",
@@ -7526,10 +7537,12 @@
     }
     return _langById.get(deckId) || null;
   }
-  // the entry names a catalogue deck this device has not downloaded
+  /* The entry names a deck this device has not downloaded — one of the LANGUAGE catalogue's, or one the
+     signed-in account installed on another device (`sharedPendingMap`). Both draw the same row and neither
+     yields a card; what differs is where the row reads its title from and which fetch its button runs. */
   function entryPending(id) {
     const d = uDeckIdOf(id);
-    return !!(d && !UDECKS[d] && langCatalogById(d));
+    return !!(d && !UDECKS[d] && (langCatalogById(d) || sharedPendingById(d)));
   }
   // a node of the catalogue's own subdeck tree, by `::` path — how a pending SUBDECK row knows its size
   function langCatalogNode(row, sub) {
@@ -9821,6 +9834,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        another device, so a POST that failed would have this deck deleted off the device it was just added
        to. Unrecorded, the deck simply stays unannounced and the reader can try again. */
     if (ins.ok || ins.signedOut) deckSyncInstalled(row.id);
+    sharedPendingForget(row.id);   // the file is here, so the account's list no longer owes this device one
     if (!ins.ok && !ins.signedOut) return { ok: true, deck: d, adopted: adopt, unannounced: true };
     // every device files a shared deck under the same local id, which is what carries the reader's own
     // arrangement of it across — an adopted deck still wears the random id its import minted
@@ -9895,16 +9909,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `by`   — remote id → the account this device installed the deck under. NOT per account, and it is
                 what keeps the push honest on a shared device: community decks are device-local and every
                 account signing in here sees them, so without it account B would announce account A's decks
-                as its own — the very adoption `_supaOwner` exists to prevent one layer up. */
+                as its own — the very adoption `_supaOwner` exists to prevent one layer up.
+       `want` — account → remote id → `{t: title, n: cards}` for a deck the account lists that this device
+                has NOT installed. See `sharedPendingMap`: it is what lets the deck draw a row before its
+                file is here, and it is written from ONE metadata request at the head of the sync, before
+                the per-deck fetches, so the row appears while the download is still running. */
   const DECK_SYNC_KEY = "folio_deck_sync_v1";
   function deckSyncRead() {
     try {
       const r = JSON.parse(localStorage.getItem(DECK_SYNC_KEY) || "null");
-      if (r && typeof r === "object") return { seen: r.seen || {}, pend: r.pend || {}, by: r.by || {} };
+      if (r && typeof r === "object") return { seen: r.seen || {}, pend: r.pend || {}, by: r.by || {}, want: r.want || {} };
     } catch (e) {}
-    return { seen: {}, pend: {}, by: {} };
+    return { seen: {}, pend: {}, by: {}, want: {} };
   }
-  function deckSyncWrite(rec) { try { localStorage.setItem(DECK_SYNC_KEY, JSON.stringify(rec)); } catch (e) {} }
+  function deckSyncWrite(rec) {
+    _sharedPend = null;   // the pending map is derived from this record — see sharedPendingMap
+    try { localStorage.setItem(DECK_SYNC_KEY, JSON.stringify(rec)); } catch (e) {}
+  }
   function deckSyncList(rec, part, owner) { const a = rec[part][owner]; return Array.isArray(a) ? a : []; }
   /* DOES THE SIGNED-IN ACCOUNT LIST THIS DECK? — which is NOT the same question as "is this deck on this
      device", and mistaking one for the other is what stranded a reader's decks on the phone they were added
@@ -9920,6 +9941,54 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!supaLoggedIn()) return !!localDeckForRemote(remoteId);
     const rec = deckSyncRead(), me = SUPA.user.id;
     return rec.by[remoteId] === me || deckSyncList(rec, "seen", me).indexOf(remoteId) >= 0;
+  }
+  /* ---------- A SHARED DECK THE ACCOUNT HAS AND THIS DEVICE HAS NOT (Sep 2026, on request) ----------
+     "Adding a shared community collection on one device should also add it on every other device that
+     account is logged into." Both halves of that were already built — the install writes the deck into
+     `S.active`, which syncs, and `deck_installs` carries the file — and the join between them was missing
+     a step: `activeEntryIds()` keeps an entry only while something resolves it, and a `u:<id>` entry whose
+     file has not been fetched yet resolved to NOTHING. So on the second device the deck was invisible
+     until the idle sync finished downloading it, and worse, `addActive`/`removeActive` rebuild `S.active`
+     FROM that filtered list — so any deck the reader added in that window wrote the entry away and pushed
+     the loss back up, un-adding the deck on the device it was added on. The download can be tens of
+     megabytes, and the whole point of the request is the reader who is looking at the other device now.
+     A language deck has had this row since Aug 2026 (`entryPending`), reading its title and size off the
+     eager `lang-decks.js` catalogue. A shared deck has no such catalogue, so the sync records what it
+     learns instead — one metadata request for the whole account's list, ahead of the per-deck fetches.
+     It is DEVICE-local, like the rest of the sync record: it is a statement about what this device is
+     missing, and synced it would be every device's answer at once and true of none of them. */
+  function sharedPendingMap() {
+    if (_sharedPend) return _sharedPend;
+    const out = {};
+    if (supaLoggedIn()) {
+      const rec = deckSyncRead(), mine = rec.want[SUPA.user.id] || {};
+      Object.keys(mine).forEach((remoteId) => {
+        if (localDeckForRemote(remoteId)) return;          // already here under some local id
+        const localId = deckIdFromRemote(remoteId);
+        if (UDECKS[localId]) return;                       // …or that id is spoken for by another deck
+        const m = mine[remoteId] || {};
+        out[localId] = { remoteId: remoteId, title: m.t || "Shared deck", cards: m.n || 0 };
+      });
+    }
+    _sharedPend = out;
+    return out;
+  }
+  function sharedPendingById(localId) { return localId ? (sharedPendingMap()[localId] || null) : null; }
+  /* Record what the account lists, or take a deck off that list once its file has landed. Written through
+     the sync record so the row, the sheet and the sync cannot come to disagree about what is still coming. */
+  function sharedPendingSet(rows) {
+    if (!supaLoggedIn()) return;
+    const rec = deckSyncRead(), me = SUPA.user.id, want = {};
+    rows.forEach((r) => { if (r && r.id) want[r.id] = { t: r.title || "", n: r.card_count || 0 }; });
+    rec.want[me] = want;
+    deckSyncWrite(rec);
+  }
+  function sharedPendingForget(remoteId) {
+    if (!remoteId || !supaLoggedIn()) return;
+    const rec = deckSyncRead(), me = SUPA.user.id;
+    if (!rec.want[me] || !rec.want[me][remoteId]) { _sharedPend = null; return; }
+    delete rec.want[me][remoteId];
+    deckSyncWrite(rec);
   }
   /* Who installed a deck, recorded AT THE INSTALL rather than at the next sync — which is what makes the
      removal half safe. A sync interrupted by a navigation writes nothing, so a deck installed and then
@@ -9985,6 +10054,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       r.data.forEach((row) => { if (row && row.deck_id && server.indexOf(row.deck_id) < 0) server.push(row.deck_id); });
       const keep = new Set(server);   // what `seen` becomes: the server's list, plus anything still ours
       const seen = new Set(deckSyncList(rec, "seen", me));
+      /* WHAT THIS DEVICE IS ABOUT TO FETCH, RECORDED BEFORE IT FETCHES ANY OF IT (Sep 2026, on request).
+         The decks below are pulled one at a time and can be tens of megabytes each, and `S.active` has
+         already arrived with the progress blob — so without this the reader's other device shows nothing
+         at all for the whole of that download, and the entry is prunable meanwhile. One request for the
+         lot, ahead of the loop, gives every missing deck a row with its own title on it; `sharedPendingSet`
+         rewrites the list wholesale, so a deck deleted or hidden since simply stops being claimed. */
+      const missing = server.filter((id) => !localDeckForRemote(id));
+      if (!missing.length) sharedPendingSet([]);           // nothing owing: say so outright
+      else {
+        const meta = await supaFetch("/rest/v1/user_decks?id=in.(" + missing.join(",") +
+          ")&select=id,title,card_count&limit=" + DECK_SYNC_MAX);
+        // a metadata request that failed is NOT an empty list: leaving the previous answer standing keeps
+        // whatever rows are already drawn, and the loop below installs the decks either way
+        if (meta.ok && Array.isArray(meta.data) && meta.data.length) {
+          sharedPendingSet(meta.data);
+          /* HOME ONLY, and quietly: the daily-study list is the one page these rows appear on, and a
+             repaint of any other is a repaint that can only interrupt something. `renderInPlace` keeps
+             the scroll and the entrance animation off, since the reader did not navigate anywhere. */
+          if (current && current.name === "home") renderInPlace();
+        }
+      }
       /* A FULL PAGE MEANS THE LIST MAY BE TRUNCATED, and a truncated list read as the whole of it would
          delete the tail of somebody's shelf. Adding is safe either way; mirroring a removal is not, so it
          is the half that stands down. */
@@ -10033,6 +10123,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         }
       }
       rec.seen[me] = Array.from(keep);
+      /* `sharedPendingSet` above and `sharedPendingForget` inside every install wrote through this same
+         record, so the copy held here has a stale `want` on it — and writing it back would put the whole
+         download list straight back onto a device that has just finished downloading it. */
+      rec.want = deckSyncRead().want;
       deckSyncWrite(rec);
       // 3) and bring any deck installed before this existed onto the id every device agrees on, so the
       //    reader's own arrangement of it syncs with everything else
@@ -23047,9 +23141,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            pushes the whole-deck id once per pending deck. Nine "Level" rows each offering to download the
            same 21 MB file would be nine answers to one question, and the levels appear the moment it lands. */
         if (!ud && entryPending(id)) {
-          const cat = langCatalogById(uDeckIdOf(id));
-          rows.push({ pending: uDeckIdOf(id), id, depth, parent: parentKey, drag: id,
-                      title: adTitle(cat ? cat.title : uDeckIdOf(id), parentKey), bytes: cat ? cat.bytes : 0,
+          const dId = uDeckIdOf(id);
+          const cat = langCatalogById(dId), shared = cat ? null : sharedPendingById(dId);
+          rows.push({ pending: dId, id, depth, parent: parentKey, drag: id,
+                      shared: shared ? shared.remoteId : "",
+                      title: adTitle(cat ? cat.title : shared ? shared.title : dId, parentKey),
+                      bytes: cat ? cat.bytes : 0,
                       hue: groupColor(id) || hue, kids: [] });
           return;
         }
@@ -23162,6 +23259,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           if (pendingSeen.has(dId)) return;
           pendingSeen.add(dId);
           langCtxFor(cat.lang).push(uDeckEntry(dId));
+          return;
+        }
+        /* …and a SHARED deck the account holds and this device has not fetched yet. It collapses to one
+           row for the same reason, and it belongs to no language, so it sits at the top level exactly as
+           it will once its file lands. Without this it fell through the test below and was drawn nowhere
+           at all — an entry that syncs, resolves to nothing and is therefore pruned away by the next
+           `addActive`, which is how a deck added on one device came to be un-added on the other. */
+        if (dId && !UDECKS[dId] && sharedPendingById(dId)) {
+          if (pendingSeen.has(dId)) return;
+          pendingSeen.add(dId);
+          tops.push(uDeckEntry(dId));
           return;
         }
         if (!dId || !UDECKS[dId]) return;
@@ -23339,7 +23447,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span><span class="dk-sup">not on this device</span></div>
               </div>
-              <button class="btn tiny dk-dl" type="button" data-langdl="${esc(r.pending)}">Download ${esc(fmtDeckSize(r.bytes))}</button>
+              ${r.shared
+                /* A SHARED deck's button carries no size, deliberately: it is published as rows rather
+                   than as a file and nothing in `user_decks` states its weight, so a figure here would be
+                   one this device had made up. The language catalogue does state one, and says it. */
+                ? `<button class="btn tiny dk-dl" type="button" data-shareddl="${esc(r.shared)}">Download</button>`
+                : `<button class="btn tiny dk-dl" type="button" data-langdl="${esc(r.pending)}">Download ${esc(fmtDeckSize(r.bytes))}</button>`}
               ${chev}
             </div>`;
           }
@@ -24001,6 +24114,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            rather than the page scrolling to the top and animating itself back in. */
         if (r.error) { b.disabled = false; b.classList.remove("dk-dl-busy"); b.textContent = was; }
         await uImportDone(r, true);
+      });
+    });
+    /* THE SAME ROW'S BUTTON FOR A SHARED DECK (Sep 2026, on request) — the deck the account added on
+       another device, whose file this one has not fetched. The idle sync fetches it on its own
+       (`communitySyncInstalls`), so this is not the only way in; it is the way in for the reader who is
+       looking at the row NOW, and the only way in at all when that sync failed — offline at boot, or a
+       deck that was hidden and has since been restored.
+       It reports no percentage, unlike the language download beside it: a shared deck arrives as paged
+       rows of JSON rather than as one file, so there is no total to count against and a bar drawn over
+       an unknown length is a bar that says something untrue. The word is what is honest here. */
+    root.querySelectorAll("[data-shareddl]").forEach((b) => {
+      b.addEventListener("pointerdown", (e) => e.stopPropagation());
+      b.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        if (b.disabled) return;
+        b.disabled = true;
+        const was = b.textContent;
+        b.classList.add("dk-dl-busy");
+        b.innerHTML = '<span class="dkdl-t">Downloading…</span><i class="dkdl-fill" style="width:0%"></i>';
+        const back = () => { if (b.isConnected) { b.disabled = false; b.classList.remove("dk-dl-busy"); b.textContent = was; } };
+        const got = await communityFetchDeckById(b.dataset.shareddl);
+        if (got.error || !got.row) {
+          // gone or hidden since the account listed it: the next sync rewrites the account's list from the
+          // server, so the row retires itself rather than being taken away here on one failed fetch
+          toast(got.error === "notfound" ? "That deck is no longer available" : (got.error || "Couldn't load that deck."));
+          back(); return;
+        }
+        const ins = await uDeckInstall(got.row, got.cards, got.gloss);
+        if (ins.error) { toast(ins.error); back(); return; }
+        toast("Downloaded — " + got.row.title);   // toast sets textContent, so the title is not escaped here
+        renderInPlace();   // the reader is standing on this list: the row turns into the deck under them
       });
     });
     /* THE SAME BUTTON, FETCHING THE SAME FILE, FOR A DECK ALREADY HERE (Sep 2026, on the 蛋糕 report).

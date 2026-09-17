@@ -42,8 +42,8 @@ window.CHANGELOG = [
     d: "2026-09-17",
     t: "The Second World War map now shades the United States",
     items: [
-      "<b>Ninety-six more cards gained an illustration</b> \u2014 in Ancient Greece, Rome, China, Korea, Psychology, Biology and four other collections.",
-      "<b>A hundred and thirty-six more True or False answers now name their source</b> \u2014 five statements in six now carry one.",
+      "<b>A hundred and eight more cards gained an illustration</b> \u2014 in Ancient Greece, Rome, China, Korea, Psychology, Biology and two other collections.",
+      "<b>A hundred and thirty-six more True or False answers now name their source</b>, and six statements are rewritten to say what those sources actually show.",
       "<b>The text size setting now sizes the Atlas's own labels too</b> \u2014 country, sea, river and city names on the globe grow and shrink with the rest of the site.",
       "<b>A perfect day in every minigame now pays three artefact chests</b> rather than one.",
       "<b>A deck finished for the day keeps its progress bar along the bottom of its row</b>, where it was jumping up under the title.",
@@ -51,7 +51,6 @@ window.CHANGELOG = [
       "<b>Common Thread no longer files a Roman tribune under agriculture.</b>",
       "<b>Twenty-four capital cards now say which of their sources are free to open</b>, as every other card already did.",
       "<b>Numbers and centuries read the same way everywhere</b> \u2014 fifty-six places where a figure was spelled out in words now match the rest of the site.",
-      "<b>Three cards in the Biology deck gained an illustration.</b>",
       "<b>A world geography card no longer names the neighbour you can already see beside it</b> on its own map.",
       "<b>The Second World War card shades every major power that fought</b> \u2014 the United States was missing from it altogether, along with a dozen more.",
       "<b>Four more cards draw a globe of their own</b> \u2014 two marked with a single point and two shaded across the whole region they covered.",
@@ -69,15 +68,15 @@ window.CHANGELOG = [
       "<b>True or False explains itself properly</b> \u2014 its answers now link glossary terms, carry citations, and give feet and inches to readers who use them.",
       "<b>Your own atlas names every mark it draws</b> \u2014 a dot arrives with its label or not at all, and more of them appear as you zoom in.",
       "<b>Pinching the Atlas no longer zooms the page</b> on a tablet, which used to leave the site enlarged with no easy way back.",
-      "<b>Adding a shared deck now adds it to your daily study</b>, and it reaches your other devices as any added deck does.",
+      "<b>Adding a shared deck now adds it to your daily study</b>, and it appears on your other devices straight away — with a Download button while its cards are still arriving.",
       "<b>Four measurements now convert for imperial readers</b> \u2014 two cards, two glossary terms and the daily-game answers that state a speed.",
       "<b>Forty-two new True or False statements</b> \u2014 a new prehistory round and more in every other subject the game covers.",
       "<b>Five cards now rest on a wider range of scholarship</b> \u2014 each had leaned on one author for more than half of its citations.",
       "<b>Fourteen chapters across five Library books get back a lost full stop, a lost line or a misread word</b> \u2014 each had been reading as though it stopped in mid-sentence."
-      ,"<b>Fifteen more True or False answers now cite their sources</b>, and five statements are rewritten to say what those sources actually show."
       ,"<b>British readers now see British spelling throughout</b> — several dozen cards and glossary terms stored the American form, which the switch cannot correct."
       ,"<b>A deck you have finished for the day turns green with a tick</b>, and gold when you got everything right first time."
       ,"<b>A hundred cards on the politics of East Asia</b> — a course collection of 24 decks, in a new Special section of the Collections page."
+      ,"<b>A single-character Mandarin card lists the other words built on that character</b>, with their readings and meanings, whatever else you have downloaded."
     ]
   },
   {
