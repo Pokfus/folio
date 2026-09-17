@@ -12744,8 +12744,14 @@
       ]
     },
     "hsk30l4/力气": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "muscle power, the strength to lift or push"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | '你白费力气了。' was given the English idiom 'You're barking up the wrong tree', which means looking in the wrong place — 白费力气 is wasting effort, whether or not it was aimed right.",
+      "gloss": "muscle power, the strength to lift or push",
+      "exEn": [
+        [
+          "你白费力气了",
+          "You have wasted your energy."
+        ]
+      ]
     },
     "hsk30l4/千克": {
       "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -13322,7 +13328,7 @@
       "gloss": "anew, all over again (starting from the beginning)"
     },
     "hsk30l4/量": {
-      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | The card gives both readings and every one of its three lines was liàng, each inside a longer compound — 份量, 酒量, 饭量 — so the liáng the card leads with, to measure, was stated and never shown. One line is replaced with an AUTHORED sentence that is liáng, and the tags say which is which. | '这些份量太大了' had NO FULL STOP, its 份量 swallows the headword into a longer word, and its English read 'ginormous'. Replaced with an AUTHORED sentence in the reading the card had no example of.",
       "Say": "测量",
       "Pinyin": "liáng / liàng",
       "Bopomofo": "ㄌㄧㄤˊ / ㄌㄧㄤˋ",
@@ -13336,6 +13342,20 @@
           "liàng",
           "noun",
           "quantity, amount, capacity"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        1
+      ],
+      "dropEx": [
+        "这些份量太大了"
+      ],
+      "ex": [
+        [
+          "护士给他量了体温。",
+          "The nurse took his temperature."
         ]
       ]
     },
@@ -73080,7 +73100,7 @@
       ]
     },
     "hsk30l4/列": {
-      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information.",
+      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against nine words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "senses": [
         [
           "verb",
@@ -73095,6 +73115,23 @@
         1,
         2,
         1
+      ],
+      "compounds": [
+        [
+          "列车",
+          "liè chē",
+          "a train"
+        ],
+        [
+          "系列",
+          "xì liè",
+          "a series; a set"
+        ],
+        [
+          "排列",
+          "pái liè",
+          "to arrange; to line up"
+        ]
       ]
     },
     "hsk30l4/台": {
@@ -76315,13 +76352,14 @@
       ]
     },
     "hsk30l4/老年": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Glossed 'elderly', which is an adjective, where 老年 is the noun old age — the card's own third line, 他的老年过得很平静, is exactly that.",
       "ex": [
         [
           "他的老年过得很平静。",
           "His old age was quiet."
         ]
-      ]
+      ],
+      "gloss": "old age"
     },
     "hsk30l4/零下": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -109535,13 +109573,14 @@
       ]
     },
     "hsk30l4/厉害": {
-      "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 我非常厉害 is *I am really good* and was rendered \"I'm a bad-ass\".",
+      "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 我非常厉害 is *I am really good* and was rendered \"I'm a bad-ass\". | Glossed 'difficult to deal with', which fits none of the card's three lines: 我非常厉害 is being very good at something, 吸烟很厉害 is heavily, and 抖得太厉害 is too much. CC-CEDICT reads 'formidable; terrible; severe'.",
       "exEn": [
         [
           "我非常厉害。",
           "I am really very good."
         ]
-      ]
+      ],
+      "gloss": "formidable; severe; impressive"
     },
     "hsk30l4/不管": {
       "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. \"I don't give a damn what people think about me\" for 我才不管. **This is the same sentence 别人 carries in Level 2, whose English was rewritten in batch 20** — `exEn` is per note, so one copy was corrected and the other left, which is the shared-sentence problem flagged on 城市 and 图书馆 in the same batch. Fixed here so the two agree.",
@@ -117365,6 +117404,211 @@
         [
           "姜是老的辣",
           "Old ginger is the hottest: age brings wisdom."
+        ]
+      ]
+    },
+    "hsk30l4/连": {
+      "why": "Labelled 'verb / adverb / preposition' against the single gloss 'connect', so two of the three had none — and ALL THREE of the card's own lines are the adverb 连…都/也, 'even', which the gloss did not give at all. A reader met one use and was tested on three. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against sixteen words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "adverb",
+          "even (连…都 / 连…也)"
+        ],
+        [
+          "verb",
+          "to link; to connect"
+        ],
+        [
+          "preposition",
+          "including"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "连接",
+          "lián jiē",
+          "to link; to connect"
+        ],
+        [
+          "连续",
+          "lián xù",
+          "continuous; in a row"
+        ],
+        [
+          "连忙",
+          "lián máng",
+          "hurriedly; at once"
+        ]
+      ]
+    },
+    "hsk30l4/联系": {
+      "why": "Glossed 'to make contact' under a verb label, where the card's second line is the NOUN — 保持联系 is keeping in touch, a connection kept rather than made.",
+      "senses": [
+        [
+          "verb",
+          "to contact; to get in touch"
+        ],
+        [
+          "noun",
+          "contact; a connection"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ]
+    },
+    "hsk30l4/理解": {
+      "why": "Glossed 'comprehend; understanding' — a bare verb stem beside a noun, under a verb label. | '他不理解我。' read 'He DIDN'T understand me' for a sentence with no past marker in it.",
+      "senses": [
+        [
+          "verb",
+          "to understand; to comprehend"
+        ],
+        [
+          "noun",
+          "understanding"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "exEn": [
+        [
+          "他不理解我",
+          "He doesn't understand me."
+        ]
+      ]
+    },
+    "hsk30l4/理发": {
+      "why": "Glossed 'hair-dressing' under a verb label, and hyphenated at that. 理发 is a verb-object: to have one's hair cut, which all three of the card's own translations already say. | '我打算去理发店。' read 'the BARBERSHOP', which is American as one word — British English is the barber's.",
+      "gloss": "to have a haircut",
+      "exEn": [
+        [
+          "我打算去理发店",
+          "I intend to go to the barber's."
+        ]
+      ]
+    },
+    "hsk30l4/例如": {
+      "why": "Labelled a VERB, which 例如 is not — it opens a clause and introduces an instance, and all three of the card's own lines begin with it.",
+      "senses": [
+        [
+          "conjunction",
+          "for example; such as"
+        ]
+      ]
+    },
+    "hsk30l4/例子": {
+      "why": "Glossed 'case', where all three of the card's own translations say EXAMPLE.",
+      "gloss": "an example"
+    },
+    "hsk30l4/流": {
+      "why": "'我是个二流子。' is 二流子, a layabout — a fixed three-character word that swallows the headword, and a sentence that says nothing about flowing. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "我是个二流子。"
+      ],
+      "ex": [
+        [
+          "这条河向东流。",
+          "This river flows east."
+        ]
+      ]
+    },
+    "hsk30l4/零钱": {
+      "why": "'这是你零钱。' is missing its 的 — a possessive before an ordinary object cannot drop it, which is why 这是你的零钱 is what anybody says. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "这是你零钱。"
+      ],
+      "ex": [
+        [
+          "我没有零钱，只有一张一百的。",
+          "I have no change, only a hundred-yuan note."
+        ]
+      ]
+    },
+    "hsk30l4/理想": {
+      "why": "'你是我的理想情人。' read 'You're the GIRL of my dreams' — 情人 names no gender, and the card's own word is 理想, ideal.",
+      "exEn": [
+        [
+          "你是我的理想情人",
+          "You are my ideal partner."
+        ]
+      ]
+    },
+    "hsk30l4/俩": {
+      "why": "'我们俩都经历过不幸。' read 'WORSE THINGS have happened to both of us', a comparison the Chinese does not make. Batch 54 corrected the same sentence on 经历's card; it is carried by two cards and each keeps its own English. And 你们俩 read 'you GUYS', which is American and says nothing about the two the word counts.",
+      "exEn": [
+        [
+          "我们俩都经历过不幸",
+          "We have both been through misfortune."
+        ],
+        [
+          "你们俩在同一所学校",
+          "Are you two at the same school?"
+        ]
+      ]
+    },
+    "hsk30l4/另": {
+      "why": "'我另有计划。' read 'I MADE other plans' for 另有, which is having them now.",
+      "exEn": [
+        [
+          "我另有计划",
+          "I have other plans."
+        ]
+      ]
+    },
+    "hsk30l4/留": {
+      "why": "'一个都不留！' was given the English idiom 'We take no prisoners!', which is about how one competes — the Chinese is that not one is to be left. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows one word, 留下, against eighteen in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "一个都不留",
+          "Leave not a single one!"
+        ]
+      ],
+      "compounds": [
+        [
+          "保留",
+          "bǎo liú",
+          "to keep; to retain"
+        ],
+        [
+          "留学",
+          "liú xué",
+          "to study abroad"
+        ],
+        [
+          "遗留",
+          "yí liú",
+          "to leave behind; to hand down"
+        ]
+      ]
+    },
+    "hsk30l4/亮": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against eight words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "明亮",
+          "míng liàng",
+          "bright; well lit"
+        ],
+        [
+          "漂亮",
+          "piào liang",
+          "pretty; good-looking"
+        ],
+        [
+          "月亮",
+          "yuè liang",
+          "the moon"
         ]
       ]
     }

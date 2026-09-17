@@ -591,6 +591,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 361–390 (降价 → 进行), deck order | 19 | an obscene sentence a single-character card's own discriminator excuses, and a character error the English gave away |
 | 2026-09-17 | `hsk30l4` notes 391–420 (禁止 → 考生), deck order | 15 | the `compounds` guard refused a block, and a FAIL turns out to REPORT after the write rather than refuse |
 | 2026-09-17 | `hsk30l4` notes 421–450 (棵 → 浪漫), deck order | 18 | a card ALL THREE of whose sentences used its character for its sound alone, and a sixth truncated gloss |
+| 2026-09-17 | `hsk30l4` notes 451–480 (老虎 → 留下), deck order | 18 | a card whose gloss named one sense while all three of its lines used another the gloss never gave |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5662,4 +5663,49 @@ English was corrected in the array.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 334 → 334; pinyin clean; example-fit 143 and senses 152 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 491 → 503;
+`build-lang-decks.js` re-run.
+
+## Batch 56 — hsk30l4 notes 451–480 (老虎 → 留下)
+
+**What the batch was.** The next thirty notes of Level 4 in deck order. Eighteen cards changed.
+
+**A CARD WHOSE GLOSS NAMED ONE SENSE WHILE ALL THREE OF ITS LINES USED ANOTHER IT NEVER GAVE.** 连 was
+labelled *verb / adverb / preposition* against the single gloss **connect** — and every one of its three
+sentences is the adverb 连…都 / 连…也, *even*, which the gloss did not carry at all. A reader met one use
+and was tested on three, and the use they met was not on the card. 厉害 is the same fault differently: it
+was glossed *difficult to deal with*, which fits none of its three lines — being very good at something,
+smoking heavily, and shaking too much.
+
+**A SHARED-GLOSS GROUP DISSOLVED.** 例子 was glossed *case*, a group it shared with 个案, where all three of
+its own translations say EXAMPLE. Groups 334 → 333, the fifth such retirement.
+
+**ANOTHER DUAL-READING CARD ILLUSTRATING ONE READING ONLY, and this one needed a sentence rather than
+tags.** 量 gives liáng and liàng, and all three of its lines were liàng — each of them inside a longer
+compound besides (份量, 酒量, 饭量) — so the reading the card LEADS with, to measure, was stated and never
+shown. The first also had **no full stop** and read *ginormous* in English, so it was replaced with an
+authored liáng sentence and the three tagged 2, 2, 1.
+
+**SEVEN MORE LABEL-AGAINST-GLOSS CARDS** — 连, 联系, 理解, 厉害, 老年, 理发, 例如, 例子 — which makes
+**sixty-three over twelve batches**. 例如 was labelled a VERB, which it is not; 老年 was glossed *elderly*,
+an adjective, where the word is the noun *old age* and the card's own third line is exactly that.
+
+**THREE SENTENCES WENT.** 流's first was 我是个二流子, a layabout — a fixed three-character word swallowing
+the headword and saying nothing about flowing. 零钱's first, 这是你零钱, drops a 的 that a possessive before
+an ordinary object cannot drop. And 量's first, above.
+
+**FOUR SINGLE-CHARACTER CARDS GAINED `Compounds`** — 连, 亮, 列 and 留; the first three have empty panels,
+连's against sixteen words in the collection.
+
+**NINE ENGLISH LINES, and two of them were English idioms standing in for the Chinese.** 力气's third was
+given *You're barking up the wrong tree*, which is about looking in the wrong place where 白费力气 is
+wasting effort whether or not it was aimed right; and 留's second was given *We take no prisoners!*, which
+is about how one competes where the Chinese says not one is to be left. 俩's third read *Worse things have
+happened to both of us* — the same sentence batch 54 corrected on 经历's card, each card keeping its own
+English — and its second read *you GUYS*, which says nothing about the two the word counts. 理想's first
+read *the GIRL of my dreams* where 情人 names no gender. 理发's third read *barbershop*, American as one
+word. And 理解's and 另's each put a past tense on a sentence with no past marker in it.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; **shared-gloss groups 334 → 333**; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 503 → 515;
 `build-lang-decks.js` re-run.
