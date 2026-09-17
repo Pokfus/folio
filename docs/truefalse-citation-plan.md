@@ -73,7 +73,7 @@ card-side research is then shared.
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511` |
 | T6 | Science & invention | the hardest; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six and T7b three, all researched |
-| T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus |
+| T8 | Physics / Chemistry / Mathematics | part done; T8a took three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables |
 | T9 | Astronomy / Earth science | part done; T9a took four, T9b three and T9c three, all off NASA |
 | T10 | Psychology | part done; T10a took four, all researched — the collection has only reached the 1800s, so nothing could be lifted |
 
@@ -492,6 +492,34 @@ date to cite them by, and answer from this sandbox.
 a real 404 with a 404 status, so the astronaut-weightlessness statement simply has no source yet rather
 than a wrong one. The asteroid-belt statement was also left alone: NASA's *Asteroids* page describes the
 belt but does not carry the claim that every probe crossed it without dodging.
+
+### T8b — three chemistry statements off two open periodic tables (2026-09-17)
+
+**TWO HOSTS CARRY MOST OF WHAT THIS CATEGORY NEEDS AND BOTH ANSWER FROM HERE**, which is worth recording
+as a recipe beside T9b's NASA one: the Royal Society of Chemistry's Periodic Table
+(`periodic-table.rsc.org/element/<Z>/<name>`) and the Los Alamos National Laboratory's
+(`periodic.lanl.gov/<Z>.shtml`). They are complementary rather than redundant — the RSC page carries a
+narrative history and an allotrope list, Los Alamos opens its History section on the element's Latin name —
+and between them they settled all three of these.
+
+- **Diamond and graphite.** *Carbon* — the allotrope list, the glossary's own definition ("Some elements
+  exist in several different structural forms, called allotropes. Each allotrope has different physical
+  properties"), "Diamond is a colourless, transparent, crystalline solid and the hardest known material.
+  Graphite is black and shiny but soft", and the two densities, 3.513 against 2.2. **The `why`'s bonding
+  description went**: four neighbours in a rigid lattice against sliding sheets is correct and is not on
+  the page, so it was replaced by what is.
+- **Helium found on the Sun first.** *Helium* — Janssen's yellow line at the 1868 eclipse, Lockyer naming it
+  from *helios*, and 1895 for the terrestrial find. **The `why` said Ramsay "extracted it from a uranium
+  mineral"**; the page names uraninite in Hillebrand's 1889 work and does not say what Ramsay's own source
+  was, so the clause went and the independent Uppsala discovery, which the page does carry, took its place.
+- **Fe, Pb and Au from Latin.** Los Alamos's *Iron* opens "Latin *ferrum*"; the RSC's *Gold* says "the symbol
+  comes from the Latin 'aurum'"; the RSC's *Lead* carries *plumbum* in the Chemistry in its Element
+  transcript it hosts, which is where on that page the claim sits.
+  **AND THE SECOND SENTENCE LOST ITS FIRST EXAMPLE.** It read "Na for natrium, K for kalium, Ag for argentum
+  and Sn for stannum", and **Los Alamos's *Sodium* does not say natrium** — it gives "From the English word,
+  soda; Medieval Latin, sodanum: a headache remedy". Silver and tin are both stated outright there, so the
+  list was cut to the two that could be opened. A four-item list where two items are sourced is a citation
+  covering half a sentence.
 
 ### T9c — the microgravity page found under another path, and two more off NASA (2026-09-17)
 
