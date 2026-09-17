@@ -1891,3 +1891,30 @@ the citation: it nowhere claims she was the ONLY woman to rule as emperor, which
 statement turns on, and **the OCR is wrecked by the interleaved Chinese characters** — "the Bnmpress
 Wu", "she echangeq the dynastie title" — so nothing in it can be quoted. **A bilingual scan is a bad
 bet for a quotation whatever its date.**
+
+### T50 — the plank that is not in the book (2026-09-17)
+
+One cited: #61. 193 → **194 of 220**. Captain Charles Johnson's *A General History of the Pyrates*
+(London, 1724) is the source nearly everything known about the great age of piracy rests on, it is
+778 KB of plain text on Project Gutenberg, and **the word "plank" occurs in it zero times.**
+
+**AN ABSENCE IS CITABLE WHEN THE SOURCE IS EXHAUSTIVE AND UNSQUEAMISH, AND NOT OTHERWISE.** What
+makes the zero mean something is everything else the book does carry: marooning, "barbarous"
+twenty-three times, and a captured master "cruelly whipp'd naked about the Deck, making his Torture
+their Sport; after which they cut of his Ears, and last of all shot him through the Head". A book
+that flinched would prove nothing by omitting a plank. **State what the source DOES record, so the
+reader can see why the gap counts.**
+
+**AND THE FIRST DRAFT PUT A DIFFERENT LEGEND IN AS FACT.** It said the book has "torture with
+lighted matches" — it does not. Grepping `match` returns eight hits and every one is Blackbeard
+sticking lit matches under his hat, or a man posted in the powder room: the burning-match torture
+belongs to Exquemelin's buccaneers, a different book and a different sea. **A supporting clause is a
+claim too, and this one was caught only because the count was checked after it was written rather
+than before.** The corrected clause quotes the book instead.
+
+**ALSO PROBED AND LEFT: #64, the Great Fire's death toll.** `thegazette.co.uk` serves issue 85 as a
+scanned PDF with **no text layer at all** (one extracted character across two pages), and its
+`data.htm` is the site's own chrome rather than an OCR; a 1921 *History of the Monument* on
+archive.org turns out to be about the column, its keeper and a tame bird, not about the toll. The
+statement wants a modern authority on the fire — Bell's 1920 study is the obvious one and is not on
+archive.org under that search.
