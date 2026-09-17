@@ -26,6 +26,25 @@ on:
 permissions:
   contents: read
 
+# ONE RUN PER BRANCH, AND A NEW PUSH CANCELS THE ONE IT SUPERSEDES (Sep 2026).
+# Without this the runs QUEUE: the browser job takes about forty minutes on a GitHub
+# runner, the runner count is one, and a branch pushed to eight times in an hour has
+# eight of them stacked -- every one on a commit that no longer exists at the head. The
+# symptom is not a red build, it is an ANSWER THAT NEVER ARRIVES: this PR spent an hour
+# with its newest CI verdict six commits out of date, which is the same as having none,
+# and the drive-to-green rule cannot be followed against a queue like that.
+#
+# The group name uses `head_ref` on a pull_request and `ref_name` on a push, which are
+# both the branch's own name, so the two events a single push raises collapse into one
+# group instead of racing each other.
+#
+# MAIN IS EXEMPT, deliberately. Cancelling there would throw away the result for a commit
+# that is already merged and shipped -- and main's history of verdicts is the record of
+# what was green when, which is worth more than the minutes it costs.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: ${{ github.ref_name != 'main' }}
+
 jobs:
   fast:
     name: no-browser suites and checkers
