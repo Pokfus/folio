@@ -67,7 +67,7 @@ card-side research is then shared.
 | batch | category | note |
 |---|---|---|
 | T1 | Prehistory | **done** — written cited |
-| T2 | Ancient & classical | part done; T2a, T2b and T2c between them |
+| T2 | Ancient & classical | part done; T2a, T2b, T2c and T16 between them |
 | T3 | Chinese history | part done; `cnh-` cards carry most of it |
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
@@ -845,3 +845,26 @@ researched rather than lifted. Each lost a detail the paper carrying the claim d
   in August 1941 with supplies so short that some treatments were stopped early, and Florey rousing the
   interest of the United States. **THE WARTIME AMERICAN FERMENTATION AND "many WWII casualties" WENT**:
   the speech has Florey interesting the Americans and stops there.
+
+### T16 — two Roman statements out of Smith's dictionary on LacusCurtius (2026-09-17)
+
+`penelope.uchicago.edu` carries the whole of Smith's *Dictionary of Greek and Roman Antiquities* (1875),
+which the corpus already cites twice on `wh-362`, and two of the uncited Roman statements are answered in
+it outright.
+
+- **Vomitoria.** The *Amphitheatrum* article: "The doors which opened from the staircases and corridors
+  on to the interior of the amphitheatre were designated by the very appropriate name of *vomitoria*",
+  and it quotes Gibbon's sixty-four of them at the Colosseum. The statement needed no correction, only
+  a source.
+- **Gladiators and the loser.** The *Gladiatores* article carries the *missio* — the discharge for the
+  day a spared gladiator received — and the *sine missione* show in which the conquered were never
+  spared, forbidden by Augustus. **THE DEATH RATE WENT.** "Roughly 1 in 5 to 1 in 10 bouts" is a modern
+  estimate this article does not make, and so did the economic argument about the cost of training a
+  gladiator. What survives is stronger anyway: the Romans had a word for sparing him.
+
+**AND ONE WAS OPENED AND REFUSED, WHICH IS THE POINT OF READING THE SOURCE.** Statement #51 says the
+meaning of *pollice verso* is unknown and debated. Smith's *Gladiatores* states flatly that the people
+"pressed down their thumbs if they wished him to be killed", citing Horace and Juvenal — that is, the
+article takes the very position the statement calls unsupported. Citing it would have put a source under
+a sentence it contradicts. The statement stays uncited until a work that argues the modern view can be
+opened.
