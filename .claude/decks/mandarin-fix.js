@@ -301,7 +301,17 @@ function britExamples(html) {
    `license`, so a bare row would make `to licence a driver`; but `driver's license` and `license plate`
    are nouns wherever they occur, and the British forms are a different phrase besides — a `driver's
    license` is a `driving licence`, which no word-for-word swap reaches. The bare word is left to a
-   per-note `gloss` row, which is where the corpus's one remaining site went. */
+   per-note `gloss` row, which is where the corpus's one remaining site went.
+   AND A FOURTH (batch 35): A PLURAL IS A DIFFERENT KEY, AND THE TABLE HAD NONE. The regex is built
+   from the literal keys with word boundaries either side, so `elevator` does not match inside
+   `elevators` and the row simply never fires — measured over the nine decks, ten card-sites over six
+   distinct sentences escaped that way (elevators, subways, cellphones, airplanes, trucks), every one of
+   them a word the table already claims in the singular. That is a hole in the table rather than a new
+   class, so the plurals are DECLARED beside their singulars.
+   THE OBVIOUS GENERALISATION IS A TRAP AND THE TABLE ITSELF PROVES IT. Matching `key + s` automatically
+   would fire `math` inside `maths` — the row's own TARGET, ten sites of it in these decks — and rewrite
+   it to `mathss`; and an irregular plural (`truck` → `lorries`, not `lorrys`) cannot be derived from the
+   singular's replacement at all. A declared row can only do what it says. */
 const LEXIS = (() => {
   const PAIRS = [
     ["driver's license", "driving licence"],
@@ -315,14 +325,19 @@ const LEXIS = (() => {
     ["movies", "films"],
     ["movie", "film"],
     ["vacation", "holiday"],
+    ["elevators", "lifts"],
     ["elevator", "lift"],
+    ["subways", "underground trains"],
     ["subway", "underground"],
+    ["cellphones", "mobile phones"],
     ["cellphone", "mobile phone"],
     ["sidewalk", "pavement"],
+    ["airplanes", "aeroplanes"],
     ["airplane", "aeroplane"],
     ["soccer", "football"],
     ["faucet", "tap"],
     ["gotten", "got"],
+    ["trucks", "lorries"],
     ["truck", "lorry"],
     ["math", "maths"],
   ];

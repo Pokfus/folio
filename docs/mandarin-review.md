@@ -570,6 +570,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 241–270 (离开 → 南方), deck order, plus the whole ONE-WAY-ROW class | 40 | seven spelling families `check-british.js` reads 0 over by design, swept once and for all |
 | 2026-09-17 | `hsk30l3` notes 271–300 (难过 → 前天), deck order | 18 | the character panel searches the DOWNLOADED deck, so six characters taught here show a reader nothing |
 | 2026-09-17 | `hsk30l3` notes 301–330 (清楚 → 收), deck order, plus the whole MAD class | 22 | eight single-character cards in thirty, every one of their panels empty or all but empty |
+| 2026-09-17 | `hsk30l3` notes 331–360 (收到 → 外卖), deck order, plus the LEXIS table's missing plurals | 35 | every row of the word-choice table was blind to its own plural, and the obvious fix makes *mathss* |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4331,3 +4332,138 @@ All four fixed with `exEn`; every Chinese sentence untouched.
   `hsk30l7`, the three decks touched — each by its `bytes` and `rev` alone
 - CI fast gate green: `node --check` over every root and `.claude` script, the eight no-browser suites,
   `check-docs`, `check-questions`, `check-style`
+
+## Batch 35 — hsk30l3 notes 331–360 (收到 → 外卖), and the LEXIS table's missing plurals
+
+Thirty notes read in deck order, **thirty-five cards changed** across 75 fields — twenty-four in range
+and eleven in other decks, which are two measured classes closed in one pass. The only code change is
+five rows added to `mandarin-fix.js`'s own LEXIS table and the paragraph that explains why they had to
+be written by hand.
+
+**A LEXIS ROW IS BLIND TO ITS OWN PLURAL, AND THE TABLE HAD NONE.** `LEXIS.rx` is built from the
+literal keys with a word boundary either side, so `elevator` does not match inside `elevators` and the
+row simply never fires. Measured over the nine decks: **ten card-sites over six distinct sentences**
+escaped that way — *elevators* (2), *subways* (2), *cellphones* (1), *airplanes* (2), *trucks* (3) —
+every one of them a word the table already claims in the singular. Several are the same sentence
+shared by two or three cards, which is how one koala-and-lorries sentence about Australian bridges
+accounts for three of the ten.
+
+**This is a hole in the table rather than a new class**, which is what makes it a table fix where
+batch 32's *meter* and batch 34's *mad* were per-note judgements: the table has already decided that
+an elevator is a lift. So the five plurals are declared beside their singulars — `elevators → lifts`,
+`subways → underground trains`, `cellphones → mobile phones`, `airplanes → aeroplanes`,
+`trucks → lorries`.
+
+**THE OBVIOUS GENERALISATION IS A TRAP AND THE TABLE ITSELF PROVES IT.** Matching `key + s`
+automatically would fire `math` inside **`maths`** — the row's own TARGET, and ten sites of it in these
+decks — and rewrite it to *mathss*; and `truck → lorry` cannot yield *lorries* from the singular's
+replacement at all. A declared row can only ever do what it says, which is the same argument the
+`CROSSREF_WRONG` tables are built on. The applier went from 3 cards put into British word choices to
+**13**.
+
+**TWO SMALLER CLASSES WERE SWEPT BY HAND AND ARE NOT TABLE ROWS.** *Coworker* is American where British
+English says colleague — two sites (同事 L3, 确实 L4), and 同事 is glossed *colleague* and says
+*colleagues* in its other two lines, so it contradicted itself. *Cab* is three sites (出租车 and 坐 in
+Level 1, which share one sentence, and 司机 in Level 3), and it is **not an error in British English at
+all** — it is the wrong one of two words on cards that have already chosen *taxi* in their gloss or
+their neighbouring lines. *Dove* was swept too and stayed per-note: of its two sites one is the BIRD, on
+鸽子, where it is correct British English, and the other is 跳's *I dove into the river*, which is both
+American for *dived* and a mistranslation — 跳进 is jumping in.
+
+**TEN OF THESE THIRTY NOTES ARE A SINGLE CHARACTER** — 受, 瘦, 树, 刷, 双, 糖, 甜, 跳, 挺, 腿 — and
+their panels in `hsk30l3` show **nothing at all for eight of them**, 受到 for 受 and 牙刷 for 刷. All
+ten gained authored `Compounds`, every reading and gloss checked against CC-CEDICT. Three of them take
+only three rows because that is what the language offers: 瘦, 挺 and 腿 each have exactly one other word
+in the whole collection. **挺 is the batch's thin one and its `why` says so** — outside the colloquial
+*quite* the card teaches, its compounds are all the *straight, erect* sense and all of them literary.
+
+**树's LIST DELIBERATELY OMITS 树木**, which is the word its own `not X` disambiguator names: a row for
+it would have put the very word the card tells a reader it is **not** into the list of words built on
+it. 种树 took the fourth slot instead, and the card's own third sentence is 谁种了这棵树. **Watch for
+this on any single-character card carrying a hint** — the two blocks are written by different passes and
+neither knows about the other.
+
+**EIGHT GLOSSES WERE WRONG ABOUT THE CARD.**
+
+- **突然** was labelled *adjective* over *suddenly*, which is an adverb — batch 31's third shape, the
+  label and the gloss being different parts of speech. It is the one of the eight `check-gloss-source.js`
+  could see, and it saw it for the right reason: *suddenly* shares no token with *sudden; abrupt;
+  unexpected*. Split into adjective and adverb, and the three sentences tagged 2 / 2 / 1.
+- **双** was labelled *measure word* over *a pair of*, which is one of its three sentences; the other
+  two are 双人间 and 双眼, the adjective CC-CEDICT gives as *two; double; pair; both*. Split, tagged
+  1 / 2 / 2.
+- **瘦** gave the adjective alone while 我瘦了三公斤 is the verb *to lose weight*. Split, tagged 1 / 2 / 1.
+- **受到** read simply *receive*, which says nothing about the one thing that distinguishes it from
+  收到 — that what follows is done TO the subject. All three of its sentences are that shape
+  (受到欢迎, 受到邀请, 受到重视). Now *to receive (praise, criticism etc); to be subjected to*.
+- **刷** read *to brush, to scrub* while its second sentence is 我可以刷卡吗？, a sense CC-CEDICT records
+  and the gloss did not reach. Now *to brush; to scrub; to swipe (a card)*.
+- **糖** read *sugar* while its third line says *We want sweets*; **体育** read *physical education*
+  while two of its three say *sports*; **水平** read *level* while every one of its sentences is the
+  *standard, level of ability* sense, which left a reader no word for 我的法语水平不高.
+- **特别 and 挺 needed no new sense, only the tags** their earlier splits never wrote. 挺's three are all
+  the adverb, so its verb sense is stated and not illustrated — visible to the reader now rather than
+  left to be guessed.
+
+**FOUR SENTENCES WERE REPLACED.**
+
+- **树** opened on 看看那边的树熊。 — a **koala**. 树熊 is its own word and the English mentions no tree
+  at all; single-character cards are skipped by `check-example-fit.js` outright, which is how this and
+  the next one survived.
+- **甜** opened on 他真是甜心。 — 甜心, a calque of *sweetheart*, whose English says sweetheart and
+  nothing about sweetness. Of that card's three lines only one was about taste at all, the third being
+  甜点, dessert.
+- **收到** opened on 收到一个信号。 / *Catch a signal* — a subjectless fragment under an imperative the
+  Chinese has not got, so between them they taught neither the word nor a sentence.
+- **腿** carried 我有蜜大腿。 / *I have honey thighs*, which is not Chinese anybody writes and not
+  English anybody says. Whatever it began as, it taught neither language.
+
+**SEVEN MORE ENGLISH LINES DID NOT RENDER THEIR CHINESE**, all fixed with `exEn` and every Chinese
+sentence untouched. 受's *Hurt people hurt people* is an aphorism whose two identical words say nothing
+to a learner about which is the verb. 瘦's *It's more polite to say thin than skinny* glosses 苗条 as
+*thin* — the very word that card gives for 瘦 — where 苗条 is *slim*. 糖's *We didn't have sugar* is a
+past tense the Chinese has not got: 没有…了 is the state of having run out. 体育馆's first line called
+the place a stadium while the card is glossed *gym*. 同意's read *I* where the Chinese says 我们 — a
+mistranslation of the SUBJECT, invisible to every checker here. 头发's first and third both read as
+*long hair*, and the third rendered 留 as nothing. 外地's first and third were both *I'm a stranger
+here*.
+
+**WHAT WAS READ AND LEFT.**
+
+- **数学** is glossed *maths* and two of its lines say *mathematics*. Both are British English and
+  neither is wrong, so it stays — unlike *couch* beside *sofa* or *cab* beside *taxi*, where one of the
+  two is the American word.
+- **刷's 我们不刷盘子 stays**, although 盘子's card carries the same sentence: cross-card duplication is
+  how these decks' example bank works, and *We don't wash the dishes* is what 刷盘子 means.
+- **外地's gloss is CC-CEDICT's own wording** — *parts of the country other than where one is* — and
+  reads like a definition because the word has no one-word English equivalent.
+- **收到, 受, 瘦, 树, 甜, 腿, 叔叔, 四季, 太阳, 提高, 听说, 图书馆, 外卖** and the rest were read and are
+  right as they stand. 收到, 受到, 体育 and 外卖 already carry earlier batches' authored examples, and
+  司机, 头发 and 出租车 earlier batches' measure words.
+- **`check-example-fit.js` reports nothing in this range**, which is not a clean bill: eight of the ten
+  single-character cards here are outside what it can see, and two of the four replaced sentences were
+  exactly the fault it is for.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2, unchanged**, and the shared-gloss groups **338 both before and after**, checked
+  group by group against HEAD — eight re-glossings and four sense splits made no new collision
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged**
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0**, and it reads 0 over *elevators*, *trucks*, *coworker*, *cab* and *dove* too,
+  none of them being a spelling
+- `check-coarse.js`: **byte-identical to HEAD in all six columns**
+- `check-gloss-source.js`: neighbour findings **3, unchanged**; the overlap list went 1,029 → 1,028,
+  exactly 突然 coming off and nothing going on
+- 34,596 example blocks, **spoken == visible on every one**; sense-tagged blocks 308 → 323, the fifteen
+  this batch wrote
+- every authored sentence segmented against the 11,532-word deck lexicon and checked for a duplicate
+  against every sentence and every English line in all nine decks
+- `build-lang-decks.js`: re-run, and **exactly six rows changed** — `hsk30l1`, `hsk30l3`, `hsk30l4`,
+  `hsk30l5`, `hsk30l6` and `hsk30l7`, the six decks the two cross-deck classes touch — each by its
+  `bytes` and `rev` alone
+- CI fast gate green: `node --check` over every root, `.claude` and `.claude/decks` script, the eight
+  no-browser suites, `check-docs`, `check-questions`, `check-style`
