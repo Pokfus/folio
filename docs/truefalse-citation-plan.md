@@ -2486,6 +2486,34 @@ what is open is its abstract, which is what the citation is being made for. The 
 rather than at the Europe PMC copy, on this pass's standing rule — the article is alive and CC BY, and
 SAGE's challenge is this sandbox's egress rather than a fact about the source.
 
+### T66 — the source the note had already named, which nobody had gone and got (2026-09-17)
+
+One cited: #64 (the Great Fire's recorded death toll). 213 → **214 of 220 (97%)**. The closing note's
+entry for this statement was four words long — **"#64 wants the Bills of Mortality"** — and it had said
+so for a session and a half while the probing went at modern scholarship, at `loc.gov` and `nps.gov`, at
+a paper comparing the Fire with the Lisbon earthquake, and at a 1921 history of the Monument. **The note
+was right and was read as a description of a gap rather than as an instruction.** The Bills are on
+archive.org, collected and printed in 1759, with an OCR layer good enough to grep.
+
+**WHAT IT SAYS IS BETTER THAN THE FIGURE EVERYBODY QUOTES.** The bill for 19 December 1665 to 18
+December 1666 — "According to the Report made to the King's most excellent Majesty, By the Company of
+Parish Clerks of London" — gives, for the whole of London and the whole year, **11 under "Burnt and
+Scalded"**, on a sheet whose plague column still stands at 1,998. The old explanation said "about six
+victims" and "some 13,000 houses"; both are the standard modern retelling and neither is in this
+document, so both came out. **A primary record that contains the answer as a line in a table beats a
+secondary source that states it as a number.**
+
+**AND THE HEDGE IS NOW THE DOCUMENT'S OWN.** The previous wording hedged with "many historians suspect
+the true toll was higher, since the intense heat could have cremated bodies" — plausible, unsourced, and
+somebody else's argument. What replaced it is a fact about what a bill IS: it counts what the parish
+clerks were told of. That is the statement's own claim exactly — *the official records list* a handful —
+and it neither asserts nor denies what the real toll was.
+
+**THE ARCHIVE SEARCH THAT FOUND IT IS ONE LINE**, and the earlier failures were failures of the QUERY
+rather than of the host: `title:("bills of mortality") AND mediatype:texts` returns the 1759 collection
+as its twentieth row. **Search archive.org for the DOCUMENT the statement is about, not for a book about
+the event.**
+
 ### Probes that failed in T62–T65, and one lead worth keeping (2026-09-17)
 
 Recorded so the next session does not repeat them. **None of these is a wall**; they are simply sources
@@ -2510,7 +2538,7 @@ about the host — and following it up, `/cal-state-papers/domestic/chas2/1666-7
 `/no-series/survey-of-london-stow/1603` both serve in full while `/search/series?query=…` returns a
 CAPTCHA page. **So the archive is usable and is not searchable**, which means it is reached by
 knowing the volume you want. It holds Strype, Stow and the *Calendar of State Papers Domestic* for
-the year of the Fire, and it has never been read for #64 or #20.
+the year of the Fire, and it has never been read for #20. (#64 no longer needs it: see T66.)
 
 **AND THE *LONDON GAZETTE*'S OWN ARCHIVE IS OPEN BACK TO 1665 AND CANNOT BE GREPPED.**
 `thegazette.co.uk/London/issue/<n>/data.pdf` serves the scanned issue — 86 is the Fire number, of
@@ -2519,16 +2547,16 @@ pages. It is a source that must be LOOKED AT rather than searched, which is the 
 arriving in the citation pass. Whether it carries a death count at all is unknown and is the thing
 to check before spending a reading on it.
 
-**THE OTHER LEAD IS NOT A HOST AT ALL.** #64 asks what the OFFICIAL RECORDS list, so what it
-actually wants is a work that went and counted them; the Bills of Mortality themselves are not on
-any host measured here, and a contemporary account that simply does not mention deaths proves
-nothing, which is what Welch's *Monument* turned out to be.
+**THE OTHER LEAD IS NOT A HOST AT ALL, AND IT IS THE ONE THAT PAID.** #64 asks what the OFFICIAL
+RECORDS list, so what it wants is the record itself rather than a work about the event — and a
+contemporary account that simply does not mention deaths proves nothing, which is what Welch's
+*Monument* turned out to be. **T66 went and got the Bills.**
 
 
-### Where the last seven stand (2026-09-17)
+### Where the last six stand (2026-09-17)
 
-The pass closed this session at **213 of 220 (93→97%)**. Every remaining statement has been probed
-and the probe recorded; three families account for all seven. **#44, #38, #128, #135 and #141 were
+The pass closed this session at **214 of 220 (93→97%)**. Every remaining statement has been probed
+and the probe recorded; three families account for all six. **#44, #38, #128, #135 and #141 were
 in this list and are out of it** — see T62, which is the family below being asked the wrong
 question; T63, which is this note's own “do not re-probe” line being too blunt; T64, which is a
 walled result list that was not walled all the way down; and T65, which is a whole family named
@@ -2557,25 +2585,26 @@ al-Idrisi on Sicilian *itriyya* in 1154 and a Genoese inventory of 1279, neither
 Polo, open and full-text, has him eating *bread*. #20 (Columbus and the mainland) — the Library of
 Congress's own exhibition says he "led three more expeditions to the Caribbean", which is suggestive
 and is not the negative stated; `loc.gov`'s classroom pages and every `nps.gov` path tried are 403
-or 404. #64 (the Great Fire's death toll) wants the Bills of Mortality. #70 (cocaine in Coca-Cola)
-has the 1916 Supreme Court opinion recording the extract used "with cocaine eliminated" — **evidence
-it was taken out, not of what was in the 1880s bottle**. #47 is Chinese history whose standard works
-are modern monographs; HAL, DOAJ and the glossary's own 3,838 cited terms return nothing on it, and
-what it wants is not a monograph but a **comparative city-size table** — the claim is that Chang'an
-was the largest city in the world, which no Chinese source can settle. Ian Morris's
-social-development tables are the obvious candidate and `ianmorris.org` now serves a placeholder
-page with no PDFs on it. **#38 was in this paragraph and is out of it: see T63, and with it the
-reason this note used to give for leaving it — a list of five hosts, one of which was not shut but
-down.**
+or 404. **#64 is out of this list: see T66**, which is this sentence being an instruction rather
+than a description. #70 (cocaine in Coca-Cola) has the 1916 Supreme Court opinion recording the
+extract used "with cocaine eliminated" — **evidence it was taken out, not of what was in the 1880s
+bottle**. #47 is Chinese history whose standard works are modern monographs; HAL, DOAJ and the
+glossary's own 3,838 cited terms return nothing on it, and what it wants is not a monograph but a
+**comparative city-size table** — the claim is that Chang'an was the largest city in the world,
+which no Chinese source can settle. Ian Morris's social-development tables are the obvious candidate
+and `ianmorris.org` now serves a placeholder page with no PDFs on it. **#38 was in this paragraph
+and is out of it: see T63, and with it the reason this note used to give for leaving it — a list of
+five hosts, one of which was not shut but down.**
 
-**WHAT WOULD MOVE THEM.** Not more probing of the same hosts. #135 and #141 want a repository copy or
-an interlibrary route; #1, #64 and #20 want a museum, archive or government page that is not behind a
-challenge; #47 wants a comparative city-size table, and the hosts already measured SHUT are `ctext.org`
-(Turnstile), `mdpi.com` (403), `psycnet.apa.org` and `journals.sagepub.com` (JavaScript shell and
-Cloudflare), `sciencedirect.com`, and `jfafu.journals.ekb.eg` (TLS reset). **Those do not change; do
-not re-probe them.** What was merely DOWN and is worth another try on another day:
-`jurnal.uai.ac.id` (500), OpenAlex (429 on a daily budget that resets at midnight UTC), OAPEN's REST
-search (500) — and `web.archive.org`, which was dropping every connection when that sentence was
-written and answered twenty minutes later, which is how #38 closed.
-**Each is a fact about reach, not about the pool**, which is why they are listed rather than cited to
-something that does not carry them.
+**WHAT WOULD MOVE THEM.** Not more probing of the same hosts. **#1 and #20** want a museum, archive
+or government page that is not behind a challenge — and `british-history.ac.uk` is one, serving its
+content while challenging only its search, so it is reached by knowing which volume you want.
+**#47** wants a comparative city-size table. **#70** wants a period analysis rather than the 1916
+opinion. **#80** and **#175** want a source that exists. The hosts measured SHUT are `ctext.org`
+(Turnstile), `mdpi.com` (403), `psycnet.apa.org` and `journals.sagepub.com`, `sciencedirect.com`,
+and `jfafu.journals.ekb.eg` (TLS reset). **Those do not change; do not re-probe them.** What was
+merely DOWN and is worth another try on another day: `jurnal.uai.ac.id` (500), OpenAlex (429 on a
+daily budget that resets at midnight UTC), OAPEN's REST search (500) — and `web.archive.org`, which
+was dropping every connection when that sentence was written and answered twenty minutes later,
+which is how #38 closed. **Each of the six is a fact about reach or about what exists, not about the
+pool**, which is why they are listed rather than cited to something that does not carry them.
