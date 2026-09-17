@@ -37,6 +37,7 @@ const MARK = "window.TRUEFALSE = [";
 const i = src.indexOf(MARK);
 if (i < 0) die("could not find `window.TRUEFALSE = [` in truefalse.js");
 const end = src.lastIndexOf("];");
+if (end < 0 || end < i) die("could not find the end of the TRUEFALSE array — is the `];` still there?");
 const head = src.slice(0, i), foot = src.slice(end + 2);
 let pool;
 try { pool = JSON.parse("[" + src.slice(i + MARK.length, end) + "]"); }
@@ -89,7 +90,10 @@ Object.keys(cite).forEach((q) => {
 });
 (batch.add || []).forEach((n) => pool.push({ q: n.q, a: n.a, why: n.why, cat: n.cat, src: n.src }));
 
-const out = head + MARK + "\n" + pool.map((e) => JSON.stringify(e)).join(",\n") + "\n]" + foot;
+// …and the SEMICOLON comes back with the bracket. `foot` begins after `];`, so emitting a bare "]" drops
+// it: the file still parses (ASI), and the next run's `lastIndexOf("];")` then finds nothing and reads the
+// array as garbage. Found on the second run, which is the only thing that could find it.
+const out = head + MARK + "\n" + pool.map((e) => JSON.stringify(e)).join(",\n") + "\n];" + foot;
 if (DRY) { console.log("dry run: " + Object.keys(cite).length + " cited, " + (batch.add || []).length + " added"); process.exit(0); }
 fs.writeFileSync(FILE, out);
 try { const w = {}; new Function("window", fs.readFileSync(FILE, "utf8"))(w); if (!Array.isArray(w.TRUEFALSE)) throw new Error("no array"); }
