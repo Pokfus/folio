@@ -10354,7 +10354,7 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lex_Sempronia_agraria": ["concept","history","law","agriculture","rome"],
 "Lex_frumentaria": ["concept","history","law","politics","rome"],
 "Senatus_consultum_ultimum": ["concept","history","law","politics","rome"],
-"Tiberius_Gracchus": ["person","history","politics","agriculture","rome"],
+"Tiberius_Gracchus": ["person","history","politics","law","rome"],
 "Battle_of_Aquae_Sextiae": ["battle","event","history","warfare","rome"],
 "Battle_of_Arausio": ["battle","event","history","warfare","rome"],
 "Battle_of_Vercellae": ["battle","event","history","warfare","rome"],
