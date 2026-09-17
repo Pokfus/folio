@@ -540,6 +540,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l1` notes 1–30 (爱 → 的), deck order | 24 | a gloss that names one use while the card's examples test another |
 | 2026-09-17 | `hsk30l1` notes 31–60 (第 → 个), deck order | 25 | a gloss that leaks its own answer onto the reverse card |
 | 2026-09-17 | `hsk30l1` notes 61–90 (给 → 饺子), deck order, plus a corpus-wide punctuation pass | 25 + 389 blocks | a Chinese sentence punctuated with ASCII marks |
+| 2026-09-17 | `hsk30l1` notes 91–120 (叫 → 没关系), deck order | 27 | a particle card describing a different particle |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -906,3 +907,58 @@ and the rest are the mainland-against-Taiwan variance CLAUDE.md warns must not b
   太贵了 is "too expensive", not "very expensive". It keeps its `not 很` hint, which still points at a
   genuine near-synonym.
 - **Spaces inside a Chinese sentence**: `学习 汉语 难 不 难？` (hsk30l3, 难). Worth a sweep of its own.
+
+### 2026-09-17 — Level 1, notes 91–120
+
+**Twenty-seven of the thirty.** Nineteen are single-character cards, and **fifteen of those nineteen
+show an HSK 1 reader nothing** in the tap panel — the highest proportion of any batch so far. Level 1
+now has 64 of its 137 single-character cards carrying a `Compounds` list.
+
+**了 was describing a different particle.** Its gloss read **"[makes an exclamation]"**, which 了 does
+not do: it is the completed-action and change-of-state marker, and all three of the card's examples are
+one or the other (出租车到了, 吃饭了没有, 你回来了吗). CC-CEDICT gives "(completed action marker)" beside
+"(modal particle intensifying preceding clause)", and the old gloss looks like a garbling of the second.
+**This is the commonest particle in the language.** The two uses are given as ONE sense deliberately —
+that is the standard teaching formulation, and the card's own sentences do not split cleanly between them.
+
+**块 did not name the sense its first example uses.** 我给你五块钱吧 is 块 as the everyday word for a
+unit of money, which is how a beginner meets it on the first day; the gloss said "lump; piece". Split,
+with each example tagged.
+
+**开's three examples use three different senses and two were unglossed** — 她开出租车 is to drive,
+这门打不开 is to open, 火车几点钟开 is to depart, against a gloss of "to switch on; open". **看病** was
+glossed only from the patient's side while its second example is the doctor examining the patient.
+**课** was "lesson" while all three examples are a class. **里** was the single word "in", which is true
+and hides the one thing a beginner gets wrong — 里 FOLLOWS its noun where English "in" precedes it.
+
+**吗's gloss read "[makes a yes; no question]"** — and the semicolon is the corpus's own separator
+BETWEEN senses, so the card appeared to teach two of them, one of which was the word "yes".
+
+**Three more verbs glossed without their "to "** — 看见 "see", 买 "buy", 觉得 "to think; feel". 买 is
+the sharp case: its opposite number 卖, one card later, already read "to sell", so the pair disagreed
+with each other about the form.
+
+**姐姐 had the 哥哥 / 弟弟 fault.** Not one of its three examples translated 姐姐 as anything but
+"sister", so the word the card exists to teach — the ELDER one — appeared in none of its own English.
+Fixed the same way, with an authored sentence that states the relative age. **妹妹 is the other half
+and is later in this deck**; it says "little sister" in one of its three, so it is less bad and is
+recorded rather than reached for.
+
+**Three compound rows take the DECK's reading rather than CC-CEDICT's** — 看来 kàn lái, 一块儿 yí kuàir,
+起来 qǐ lái — because the deck has a card for each and a reader should not meet two readings of one
+word. 一块儿 is also the 一 tone sandhi CLAUDE.md says must not be normalised away.
+
+**吗's own compound list is the batch's best use of the section**: 不是吗 `ma`, 干吗 `má`, 吗啡 `mǎ` —
+three rows covering all three of the character's readings, none of which the card's particle gloss
+could show.
+
+### Found while working, and left for the batch that reaches it
+
+- **Thirteen example translations are in a markedly colloquial or nonstandard English**: "Don't matter"
+  (块), "Nope" (买, 它), "wanna" (谁, 玩, 回去), "ain't" (算), "gonna" (纸巾, 报警, 鲨鱼, 下线, and two
+  more in Levels 7–9). 买's was replaced, because its CHINESE was weak too — 我不买它 puts a pronoun
+  object where Chinese would drop it. **块's was NOT**: there the Chinese is sound and only the
+  contraction is off, which is not worth losing a good sentence over. That is the line this pass draws
+  between an English that is *wrong* (高兴's "What makes you sad?", two batches ago) and one that is
+  merely informal.
+- **妹妹** needs the mirror of 姐姐's third example.
