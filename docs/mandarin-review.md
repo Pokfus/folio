@@ -620,6 +620,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 241–270 (当前 → 电池), deck order | 19 | **a single-character card not one of whose three sentences used the sense it glosses, and a misspelling no checker can reach** |
 | 2026-09-17 | `hsk30l5` notes 271–300 (电动 → 队伍), deck order, plus a corpus sweep for one-sided hints | 15 + 17 | **seventeen disambiguators pointing at collisions that no longer exist, and a two-reading card with a sense filed under the wrong reading** |
 | 2026-09-17 | `hsk30l5` notes 301–330 (对象 → 方), deck order | 16 | **a split headword this audit itself introduced, a card that contradicts itself, and a sentence dropped from one card still standing on another** |
+| 2026-09-17 | `hsk30l5` notes 331–360 (方案 → 服装), deck order, plus a corpus sweep for the traditional 著 | 14 + 1 | **the traditional aspect particle 著 in a simplified deck — a fault a variant sweep cannot see, because 著 is also a simplified character** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7679,3 +7680,85 @@ gives the card the *to initiate, to sponsor* sense its gloss names and neither m
 still-ambiguous 1; shared-gloss groups **323 → 322**; one-sided hints still 0, cards carrying a hint
 644 → 642; pinyin clean; example-fit 142 and senses 151 unchanged; british 0; 34,596 blocks with
 spoken == visible on every one; sense-tagged 660 unchanged; `build-lang-decks.js` re-run.
+
+## Batch 85 — hsk30l5 notes 331–360 (方案 → 服装), plus a corpus sweep for the traditional 著
+
+Thirty consecutive notes; **fourteen of them changed**, plus one card in Level 6 that a sweep begun
+here could reach.
+
+### The sweep: the traditional 著 in a simplified deck
+
+**A FAULT A VARIANT SWEEP CANNOT SEE, BECAUSE THE CHARACTER IS ALSO A SIMPLIFIED ONE.** 防止's third
+sentence was 她穿**著**一件厚外套 — 穿着, the aspect particle *zhe*, written in its traditional form.
+Batch 77 built a sweep for exactly this shape and it found two sites in 11,532 notes, because its test
+was CC-CEDICT's own variant table: a character the dictionary knows only as a pointer at another
+character. **著 is not such a character.** It is a perfectly good simplified character in its own right
+— 著名, 显著, 著作, 名著, 著称, 专著 are all correct and all in these decks — and it is *also* the
+traditional form of 着. So the one test that would find it is a sweep for 著 followed by reading every
+hit, which is what was done here.
+
+**Fifteen sites carry the character — the one in range and fourteen more — and six of them are right.**
+The nine faulty sites are the aspect
+particle or the verb suffix: 她穿著一件厚外套 (Level 5, repaired in range), 他蹲著 (Level 6), 他默默地
+看著我 (Level 6), 她等著接外甥 (Level 6), 月光在照耀著 (Level 6 and Levels 7–9 — one sentence on two
+cards, the shared bank again), 他倚著我的肩膀睡著了 (Levels 7–9, twice in one sentence), 她的心流露著
+感激之情 (Levels 7–9) and 随著病情变化 (Levels 7–9).
+
+**ONE OF THE EIGHT WAS THIS RECORD'S OWN and is fixed; the other seven are not repairable through this
+record as it stands.** 他蹲著 carries `uc-exadd`, so an earlier batch of this audit typed the
+traditional form itself, and the row is corrected in place. The remaining seven are generator blocks,
+and **no field here may rewrite one**: `exSpace` compares the two sides with every space and every mark
+stripped out and therefore FAILS a character swap, correctly — that guard is what makes it safe — and
+`dropEx` would throw away seven sound sentences to fix one glyph each. **The honest repair is a new
+record field**, narrower than `exSpace`: a swap of ONE character for another, same length, differing at
+exactly one position, and only for a DECLARED variant pair (著→着, 鉄→铁). A one-for-one substitution is
+positionally identical, so `rewriteZhVisible` preserves the bolding and the `data-say` exactly — safer
+than the insertions `exSpace` already allows — and these seven blocks carry no structure line at all,
+which is the one thing such a swap could otherwise invalidate. Left for the next batch rather than
+bolted on at the end of this one.
+
+### The thirty notes
+
+**TWO MORE SINGLE-CHARACTER CARDS TEACHING A SENSE THEY NEVER SHOW** — the 登 fault of batch 82, twice.
+扶 is glossed *hold up; support with the hand; to help somebody up* over 扶梯在哪儿 (an escalator),
+我们买了张舒适的扶手椅 (an armchair) and the proverb 烂泥扶不上墙, whose English is an idiom swapped for
+an idiom (*You can't raise a cat to be a dog*) and says nothing about the word: two compounds and a
+proverb, and not one use of the verb. And 福's first sentence was 我好想吃**大福** — *daifuku*, a
+Japanese rice cake whose name is borrowed whole, so the card taught a loanword rather than its own
+character, with an English that is not English either. Both repaired with authored sentences, 福's
+being 门上贴着一个福字, which is where a reader will actually meet the character.
+
+**THREE SINGLE-CHARACTER CARDS GAINED A `Compounds` SECTION** — 防, 扶 and 福 — and 防's is the widest
+gap this audit has found: **nothing at all** in the reader's downloaded deck against fifteen words in
+the collection.
+
+**FIVE SENTENCES THAT WERE NOT CHINESE.** 马跟驴可分别 uses 分别 as a bare predicate after 可, which no
+reading of the word allows; 今天疯狂的热 puts an attributive 的 between an adverb and its adjective;
+在我们的城市那 carries a stray 那; 以防止冷 gives 防止 a bare adjective where it governs an event; and
+萨米为生活奋斗 came back as *Sami fought for his life*, which renders a different sentence. **One of
+them shows a trap worth naming**: 分类's broken Chinese had already had its ENGLISH rewritten by an
+earlier batch, so dropping the sentence orphaned that `exEn` row — a hard FAIL on the next run, the
+lesson of batch 75. The row and its `exEn` have to go together.
+
+**FIVE REPEATS.** 防's 这手表是防水的 and 防水功能可以加分 are both 防水; 访问's second and third
+sentences are both visiting countries, on a card whose gloss opens on *to interview* and which had no
+sentence for it; 非洲's 我来自非洲 and 你来自非洲吗 are one sentence said twice, once as a statement and
+once as a question; 奋斗's two 为 X 奋斗; and two more this record wrote itself — 分离's *parted for a
+span of years*, twice, and 丰富多彩's 学校的活动 beside 学校的生活, the same school and predicate one
+noun apart.
+
+**TWO GLOSSES THAT LEFT THEIR OWN LABEL UNDEFINED.** 分析 is labelled a VERB and was glossed with the
+noun *analysis*; 分别 is labelled *noun / verb / adverb* and was glossed with the verb alone, while its
+own first sentence is the adverb — *separately, respectively* — which CC-CEDICT carries and the card did
+not. And 风格's 你喜欢什么风格的音乐？came back as *What kind of music do you like?*, dropping the
+headword.
+
+**Sixteen cards were read and left untouched**: 方案, 房屋, 仿佛, 飞行, 飞行员, 分布, 纷纷, 分配,
+分手, 分享, 风俗, 风险, 否定, 否认, 夫妇 and 服装.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 322 unchanged; one-sided hints still 0; pinyin clean;
+example-fit 142 and senses 151 unchanged; british 0; 34,596 blocks with spoken == visible on every
+one; sense-tagged 660 unchanged; `build-lang-decks.js` re-run. **著 sites: 15, of which 6 are correct
+and 9 were faults over 8 distinct sentences — 2 repaired, 7 sites outstanding** (月光 and 照耀 carry the
+same sentence).
