@@ -71,7 +71,7 @@ card-side research is then shared.
 | T3 | Chinese history | part done; `cnh-` cards carry most of it; T19 two lifted out of `wh-399`, `wh-400` and `cnh-238` |
 | T4 | Modern history | part done; T4a took three and T4b two, T31 one off Norden's 1755 Egypt, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark, T24 one off ffoulkes, T30 two lifted out of `us-041`, `wh-511` and `gw-511` |
-| T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor; see the three below |
+| T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation, T25 one more off MacTutor, T32 one more off the DOE; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one, T21 two, T22 one, T23 one, T26 one, T27 one and T29 one, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier, T25 three off OpenStax and one off the Nobel Foundation, T27 one more and T28 one more off OpenStax |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151`, T26 three off OpenStax and NASA Space Place |
@@ -1334,4 +1334,41 @@ Sea shore is the lowest exposed land on Earth): `gw-084` gives the figure — "t
 whole statement. A sweep for `lowest (point|land|exposed|elevation)` over every abstract returns two
 hits and neither is about the Dead Sea. **#177** (Leeuwenhoek ground his own lenses): `bio-011` is
 Folio's microscope card and does not mention him at all.
+
+### T32 — a host map, and the one statement that came off it (2026-09-17)
+
+**One statement, 166 → 167 of 220 (76%).** The batch is mostly a REACHABILITY sweep, recorded because
+the pass keeps rediscovering the same hosts, and because the eight probes cost less than one bad
+guess.
+
+· **#34 alternating current won the War of the Currents (TRUE)** — the Department of Energy's own
+  article, which carries every part of the answer in order: direct current "is not easily converted
+  to higher or lower voltages" while alternating current can be "using a transformer"; Westinghouse,
+  holding Tesla's polyphase patents, undercut General Electric to electrify the 1893 Chicago World's
+  Fair; the Niagara Falls contract; Buffalo lit from the falls on 16 November 1896; General Electric
+  coming over; and "today our electricity is still predominantly powered by alternating current".
+  **ONE PAGE ANSWERED A STATEMENT FIVE OTHER BATCHES HAD LEFT ALONE**, which is worth remembering
+  about government explainer pages: they are written to narrate rather than to enumerate, and that is
+  the shape a True-or-False answer needs.
+
+**Hosts measured this batch (probe only, root or a known page).** **OPEN:** `uspto.gov`,
+`energy.gov`, `archives.gov`, `nationalarchives.gov.uk`, `rmg.co.uk` (Royal Museums Greenwich),
+`sciencemuseum.org.uk`, `bas.ac.uk`, `nsidc.org`, `nps.gov`, `british-history.ac.uk`,
+`penelope.uchicago.edu`, `perseus.tufts.edu`, `archive.org`, `gutenberg.org`, `openstax.org`,
+`nobelprize.org`, `mathshistory.st-andrews.ac.uk`, `egymonuments.gov.eg`, `spaceplace.nasa.gov`,
+`imagine.gsfc.nasa.gov`, `science.nasa.gov`, `www.nasa.gov`, `crossref.org`, Europe PMC.
+**SHUT:** `bmj.com` (403), `www.ucl.ac.uk` (403, Cloudflare interstitial), `ox.ac.uk` (403),
+`jpl.nasa.gov` (403), `collection.sciencemuseumgroup.org.uk` (403).
+**REACHABLE BUT USELESS** — answers 200 and serves a JavaScript shell with no text in it:
+`oldbaileyonline.org`, `sciencemuseum.org.uk/search`, `founders.archives.gov` (202 with an empty
+body). **A 200 IS NOT A SOURCE**; grep the fetched bytes for a word the page must contain before
+believing it.
+
+**#117 is half done and is left that way deliberately.** The Sahara is not the largest desert, and the
+British Antarctic Survey supplies one end — the ice sheet "covers nearly 14 million km²", with
+"only centimeters in the interior—classifying much of Antarctica as a desert". What is missing is a
+cited area for the SAHARA: the corpus has only the part of it inside one country (`gw-033`, "more
+than 2 million km² … some 87 per cent of the territory"), and a comparison with one end cited is not
+a cited comparison. The next attempt should look for a whole-Sahara figure rather than re-finding
+Antarctica's.
 
