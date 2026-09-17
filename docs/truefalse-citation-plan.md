@@ -72,7 +72,7 @@ card-side research is then shared.
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two and T7d one, all researched |
+| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one and T13 three, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md` |
@@ -787,3 +787,24 @@ Five, and four of them corrected a date or a figure the statement had asserted w
   the 1869 arrangement, the prominent gaps, the eka- names, the forecast weights and densities, and
   both discoveries with their dates. The germanium page also gives the ekasilicon weight of 72
   against a real 72.6, which is a sharper illustration than "matched his predictions closely".
+
+### T13 — three biology statements out of the open literature (2026-09-17)
+
+Europe PMC answered again this afternoon (it had been 503 all through T7), so three statements were
+researched rather than lifted. Each lost a detail the paper carrying the claim does not have.
+
+- **The giraffe's neck.** A 2023 *Proceedings of the Royal Society B* paper on sloth cervical counts
+  states the rule and both exceptions in its own abstract — seven is "highly conserved", manatees and
+  the two tree-sloth genera are the only mammals that deviate — and elsewhere says outright that
+  giraffes have "just seven cervical vertebrae but long, flexible necks". **THE SLOTH RANGES WERE
+  ADDED** because the paper gives them: *Choloepus* down to five, *Bradypus* up to ten.
+- **Tardigrades in space.** Cited to a 2026 *Molecular Ecology* review, which states the vacuum-of-space
+  tolerance and the tun, and names the two low-Earth-orbit papers behind it. **THE 2007 ESA EXPERIMENT,
+  THE TEN DAYS AND THE VIABLE EGGS ALL WENT.** The primary paper — Jönsson et al., *Current Biology*
+  2008 — is the right source for those and **CANNOT BE CITED HERE**: cell.com answers 403 and the DOI
+  resolves to a 3 KB JavaScript wall, so the bar of one openable source is not met. The review is CC BY
+  and readable in full on Europe PMC.
+- **The octopus.** A 2015 *Frontiers in Zoology* paper on Antarctic octopods carries the whole claim in
+  one clause — "three hearts and contractile veins that pump haemolymph, which is highly enriched with
+  the blue coloured oxygen transport protein haemocyanin". **THE COPPER WENT**: the paper never says
+  haemocyanin is copper-based, and the contrast with iron-based haemoglobin was the statement's own.
