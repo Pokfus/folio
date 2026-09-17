@@ -1743,3 +1743,60 @@ Geography section and is recorded here because Russia was the worst of it. Findi
   (589.9 / 1,005.7) while the card and the grid use the less-Nenets figures (413.0 / 964.3), so a
   density computed straight from the table would have been wrong by a third. **Compute a derived
   figure from the numbers the CARD uses, never from the source row.**
+
+### Batch 20 — `gru-505` (Yekaterinburg) and `gru-507` (Ufa), and a fourth rung for the ladder
+
+The recipe found in batch 19 held: the grid came straight out of Rosstat's table 4.9 for both cities,
+the climate leg out of the WMO's own station files, and both cards shipped with a paired glossary term,
+a picture looked at before installing, and every citation URL curled. **The batch's real finding is
+about the ANSWER rung, which is where every capital card's cost sits.**
+
+- **RUNG 3 (DOAJ) CARRIED UFA AND IS WORTH TRYING FIRST FOR A REPUBLIC.**
+  `bibjson.abstract:"capital of the Republic of Bashkortostan"` returns five papers, and the best of
+  them is an ARCHAEOZOOLOGY article whose first line locates its dig "in the historical center of the
+  capital of the Republic of Bashkortostan" — so one query bought the answer statement AND the card's
+  oldest fact, the early-medieval Ufa-II settlement under the modern centre. A toponymy paper in
+  *Voprosy Onomastiki* states it a second time and carries the post-Soviet street-naming policy with it.
+- **THERE IS A FOURTH RUNG AND IT IS THE ONE THAT CARRIED YEKATERINBURG: EUROPE PMC's FULL-TEXT PHRASE
+  SEARCH.** DOAJ indexes ABSTRACTS; Europe PMC indexes the full text of its open-access subset, so a
+  sentence buried in a Study Area or a Methods section is reachable there and nowhere else.
+  `"Yekaterinburg, the administrative center"` returns exactly one paper — a tuberculosis genotyping
+  study in *Frontiers in Tuberculosis* — whose Methods open "Yekaterinburg, the administrative center
+  of the Ural Federal District and Sverdlovsk Oblast." **Its coverage is biomedical-leaning, so it
+  answers for a city that has a hospital or a health survey and returns nothing for an urban-planning
+  subject.** Add it to the ladder between rungs 2 and 3.
+- **THREE CITIES WERE TRIED AND LEFT, AND THE REASON IS THE SAME FOR ALL THREE: NOTHING OPENABLE STATES
+  THE SENTENCE.** `gru-502` Krasnogorsk, `gru-503` Krasnodar and `gru-506` Rostov-on-Don each survived
+  every rung. Measured today, so that the next session does not re-run it: DOAJ returns 0 for every
+  phrasing of *administrative center/centre of the {Rostov,Krasnodar} {region,territory,krai,oblast}*
+  and for *capital of Krasnodar Krai*; Europe PMC returns 0 for the same set; the Wayback Machine has
+  no capture of `krd.ru/o-gorode*` and its `rostov-gorod.ru` and `krd.ru` home captures are news feeds;
+  `donland.ru` is behind DDoS-Guard inside the archive. **Krasnogorsk is the hardest of the three and
+  for a different reason**: the 2016 capture of `mosreg.ru` shows the oblast government giving its own
+  postal address in Krasnogorsk, which is evidence of where the government SITS and not a statement
+  that the city is the administrative centre — and much reference literature still gives Moscow.
+- **THE HOSTS MEASURED TODAY, none of which the earlier surveys covered.** `government.ru` answers
+  **200** over `http://` with a browser agent, and `mosreg.ru` IS archived (2016 captures, 200), both
+  contradicting notes made from later probes. Shut or useless: **`bigenc.ru` 401** (the Great Russian
+  Encyclopedia, at every path including `old.bigenc.ru`), **MDPI 403** on both its search and a DOI
+  resolution, **E3S Web of Conferences 403** on its PDFs and on `full_html`, **Semantic Scholar 429**
+  without a key, and **OpenAlex refuses outright with "Insufficient budget … Resets at midnight UTC"**,
+  which is a quota rather than a block and is worth retrying on another day. **The World Bank's document
+  API and OAPEN both answer 200 and both return zero hits** for these phrases — reachable, and not the
+  right instrument.
+- **THE INTERNET ARCHIVE FLAPS, AND A ONE-SHOT PROBE READS THAT AS A DEAD HOST.** Several CDX queries
+  came back as an HTML page titled *Internet Archive: Temporarily Offline* while archive.org's own item
+  pages answered 200 in the same minute, and the same query succeeded minutes later. **Retry with
+  backoff and test the response for that title rather than for a status code** — a 200 carrying it is
+  the `check-reach.js` wall case one host over. Rung 1 and the Rosstat citation both depend on the
+  archive, so a batch that reads it as shut stops for no reason.
+- **A CAPITAL CARD MUST NOT REPEAT ITS SUBJECT CARD'S CLIMATE FIGURES, and the check is to read the
+  subject card first.** `gru-005` had already spent Yekaterinburg's January maximum and minimum, its
+  July maximum and its annual total, and `gru-007` the same four for Ufa — because a subject card's
+  climate sentence is read off its capital's station. The capital cards took what was left: the first
+  month whose afternoons reach freezing, the wettest-against-driest pair and the rain-day counts.
+- **A PUBLISHER'S OWN LATIN CITATION CAN CARRY A CYRILLIC LETTER, AND `check-citations.js` IS WHAT
+  FINDS IT.** The Ufa archaeozoology paper's second author is printed **M. Р. Maslitsyna** — U+0420,
+  Cyrillic Er — in Crossref's record AND in the journal's own *For citation* line. The mismatch report
+  named it; the citation now reproduces the publisher's string exactly, which is what a citation is for.
+  **A name that looks right and compares wrong is this checker's whole reason to exist.**
