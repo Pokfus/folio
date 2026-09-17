@@ -35,13 +35,23 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.797", released: "2026-09-17T20:14Z" };
+window.FOLIO_VERSION = { v: "1.870", released: "2026-09-17T23:03Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-17",
     t: "The Second World War map now shades the United States",
     items: [
+      "<b>A hundred and nine more cards gained an illustration</b> \u2014 in Ancient Greece, Rome, China, Korea, Psychology, Biology and two other collections.",
+      "<b>Every True or False answer now names its source</b> — a hundred and fifty-three more were cited today, fourteen rewritten, and four that could not be sourced were retired.",
+      "<b>The text size setting now sizes the Atlas's own labels too</b> \u2014 country, sea, river and city names on the globe grow and shrink with the rest of the site.",
+      "<b>A perfect day in every minigame now pays three artefact chests</b> rather than one.",
+      "<b>A deck finished for the day keeps its progress bar along the bottom of its row</b>, where it was jumping up under the title.",
+      "<b>Russia's cards draw a sharper coastline</b> \u2014 the Black Sea, the Sea of Azov, the Caspian and the Baltic at the detail Italy, Greece and China already had.",
+      "<b>Common Thread no longer files a Roman tribune under agriculture.</b>",
+      "<b>Twenty-four capital cards now say which of their sources are free to open</b>, as every other card already did.",
+      "<b>Numbers, centuries and eras read the same way everywhere</b> \u2014 sixty-four places where a figure was spelled out or a date read BC now match the rest of the site.",
+      "<b>A world geography card no longer names the neighbour you can already see beside it</b> on its own map.",
       "<b>The Second World War card shades every major power that fought</b> \u2014 the United States was missing from it altogether, along with a dozen more.",
       "<b>Seven more cards draw a globe of their own</b> \u2014 four marked with a single point and three shaded across the whole region they covered.",
       "<b>Folio no longer calls itself a history site</b> \u2014 the walkthrough, the About page and the page description name every subject on the shelf.",
@@ -63,7 +73,6 @@ window.CHANGELOG = [
       "<b>Forty-two new True or False statements</b> \u2014 a new prehistory round and more in every other subject the game covers.",
       "<b>Five cards now rest on a wider range of scholarship</b> \u2014 each had leaned on one author for more than half of its citations.",
       "<b>Fourteen chapters across five Library books get back a lost full stop, a lost line or a misread word</b> \u2014 each had been reading as though it stopped in mid-sentence."
-      ,"<b>Fifteen more True or False answers now cite their sources</b>, and five statements are rewritten to say what those sources actually show."
       ,"<b>British readers now see British spelling throughout</b> — several dozen cards and glossary terms stored the American form, which the switch cannot correct."
       ,"<b>A deck you have finished for the day turns green with a tick</b>, and gold when you got everything right first time."
       ,"<b>A hundred cards on the politics of East Asia</b> — a course collection of 24 decks, in a new Special section of the Collections page."

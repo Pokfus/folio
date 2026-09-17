@@ -10534,6 +10534,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     coast_italy: { files: ["coast/italy.js"], after: hiresCoastIngest },
     coast_greece: { files: ["coast/greece.js"], after: hiresCoastIngest },
     coast_china: { files: ["coast/china.js"], after: hiresCoastIngest },
+    /* RUSSIA (Sep 2026, on request: Russia's borders at a higher resolution and its rivers drawn, "like in
+       the other country-specific geography collections"). There is no Russia GEOGRAPHY collection — the
+       geography section is the world, the United States and China — so what this serves is the Russia
+       HISTORY collection's locator windows, which is where Russia is actually drawn and which had neither
+       of the two things Rome, Greece and China have had since Sep 2026. The rivers needed nothing: a
+       locator has always drawn `rivers.js` (see `wantRivers`), and there is no `rivers/russia.js` because
+       the steppe frames are 15°–108° wide, where the world file's own chains are already sub-pixel.
+       ITS BOX IS THE COLLECTION'S FRAME AND NOT THE COUNTRY — the Arctic and Pacific shores are left out
+       for the arithmetic China's entry gives about Russia, whose mainland ring is the largest in world.js
+       — so 86 KB gzipped, between Greece's 50 and China's 63. See the builder for what is in it and for
+       why China is left out of it. */
+    coast_russia: { files: ["coast/russia.js"], after: hiresCoastIngest },
     /* The United States, for the Geography section's map cards rather than for a locator (Sep 2026, on
        request: "give the US a higher resolution"). It is the largest of the four by a distance — the
        frame has to hold Hawaii and Maine, and the Canadian shore that shares it is half the file even
@@ -15116,6 +15128,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const FONT_SIZES = ["tiny", "small", "medium", "large", "huge"];
   const FONT_SIZE_LABELS = { tiny: "Very small", small: "Small", medium: "Medium", large: "Large", huge: "Very large" };
   function fontSizeLabel(f) { return FONT_SIZE_LABELS[f] || f; }
+  /* ---------- …AND THE TEXT SIZE REACHES THE CANVAS TOO (Sep 2026, on request) ----------
+     `--fs` multiplies 519 px font-sizes in the stylesheet and could not reach a single label on the
+     Atlas or on a card's map window, those being PAINTED rather than laid out — so a reader who had
+     asked for Very large met a globe set in the same 10px it has always been, which is the one surface
+     where small type is hardest to read.
+     THE MULTIPLIER IS READ OFF THE STYLESHEET RATHER THAN RESTATED HERE, which is the site's own idiom
+     (`cpSheetMode` asks CSS where the sheet breakpoint is, `--crit-slot` asks it where the pips go): the
+     five steps are declared once, in `body[data-fs="…"]`, and a sixth added later needs no second table.
+     IT IS CACHED, NOT READ PER FRAME. `getComputedStyle` forces a style flush and the Atlas repaints on
+     every pointer move, so the value is taken in `applyTheme` — which runs at boot and on every render(),
+     and is where `data-fs` is written, so the read can never see the previous size.
+     WHAT SCALES WITH IT IS THE COLLISION ARITHMETIC AS WELL AS THE TYPE, and that is the whole care this
+     needs: every label layer de-collides by a box built from its own font size and a `measureText` taken
+     after `ctx.font` is set, so scaling the size scales the box — EXCEPT where a layer wrote its half
+     height as a literal (`y - 8 … 16`), which is why those move with it below. A label that grows while
+     its box does not is a map that overlaps its own names at Very large and says nothing about why. */
+  let MAP_FS = 1;
+  function readMapFs() {
+    const v = parseFloat(getComputedStyle(document.body).getPropertyValue("--fs"));
+    MAP_FS = v > 0 ? v : 1;
+    return MAP_FS;
+  }
+  function mapFs(px) { return px * MAP_FS; }
   /* Light or dark from the operating system. Read LIVE (not cached) for the same reason
      prefersReducedMotion is: the setting can change while the tab is open — a laptop crossing sunset does
      it without a reload — and the listener below repaints when it does. */
@@ -15132,6 +15167,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio";
     document.body.dataset.theme = theme;
     document.body.dataset.fs = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
+    readMapFs();   // the canvas maps have no stylesheet to inherit from — see mapFs above
     /* Two accessibility switches, written here for the same reason `data-fs` is: applyTheme runs on every
        render() and at boot, so neither needs a call site of its own and neither can be missed by a page.
        · no-anim — Settings → Appearance → Animations. The stylesheet's reduced-motion killswitch carries a
@@ -20929,12 +20965,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      clearing at midnight by something, and nothing runs at midnight.
      Note that a reader's FIRST sweep pays twice, and that is correct rather than a double-count: the
      Clean Sweep badge unlocks on the same day and badges earn chests too, so one chest is for the day's
-     games and one is for the badge, which can never be earned again. */
+     games and one is for the badge, which can never be earned again.
+     IT PAYS THREE (Sep 2026, on request). Finishing all nine whatever the score pays one; a PERFECT run
+     in all nine is a different order of work, and paying the two the same said so nowhere. The figure is
+     a named constant read by both the grant and the sentence beside it, so the chest count and the words
+     announcing it cannot come apart — which is `maybeStreakChest`'s own arrangement one channel over. */
+  const SWEEP_CHESTS = 3;
   function maybeSweepChest() {
     if (S.sweepChest === todayStr() || !allGamesWonToday(S)) return;
     S.sweepChest = todayStr();
-    grantChest();
-    toast("🎯 A perfect score in every game today — a chest is waiting in your account.");
+    grantChest(SWEEP_CHESTS);
+    toast("🎯 A perfect score in every game today — " +
+      (SWEEP_CHESTS === 1 ? "a chest is" : SWEEP_CHESTS + " chests are") + " waiting in your account.");
   }
   /* A FOURTH CHANNEL, AND THE ONLY ONE THE READER HAS TO CLAIM (Sep 2026, on request: "completing (not
      perfecting) all the minigames each day should give the user a free chest… a locked chest which
@@ -32425,7 +32467,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* Which collections' locator windows warm a hi-res coast bundle, by collection root — see DATA_BUNDLES
      and .claude/build-hires-coasts.js. A window substitutes the bundle's rings for world.js's, ring by
      ring, the moment it lands; a collection with no row here draws world.js and nothing else. */
-  const CMAP_HIRES = { "col-40": "italy", "col-13": "greece", china: "china" };
+  const CMAP_HIRES = { "col-40": "italy", "col-13": "greece", china: "china", "col-42": "russia" };
   /* AND THE SAME FOR A MAP CARD, KEYED BY ITS LAYER (Sep 2026, on request: "ensure that in the China
      geography collection, rivers are visible in China, and China's borders are of a higher resolution,
      like in the China history collection. Do the same for the US states geography collection").
@@ -39204,7 +39246,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // The map editor is exempt: its pins are what you are dragging, and hiding them mid-drag hides the work.
       if (moving && !editable) return;
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
-      const showLabels = zoom >= CAP_Z && !moving; const baseFs = clamp(10 + (zoom - 2) * 1.1, 10, 13.5); ctx.textAlign = "left"; ctx.textBaseline = "middle";   // same label sizing as the present-day map; labels (and their per-city measureText) wait for the settled frame
+      const showLabels = zoom >= CAP_Z && !moving; const baseFs = mapFs(clamp(10 + (zoom - 2) * 1.1, 10, 13.5)); ctx.textAlign = "left"; ctx.textBaseline = "middle";   // same label sizing as the present-day map; labels (and their per-city measureText) wait for the settled frame
       /* The same crowding rule the present-day layer runs (see CITY_SEP): a pin within `sep` px of one
          already drawn is dropped, and `sep` shrinks with zoom, so a dense region gives up its lesser names
          until you go in. An era's list is capitals-first, so the one that survives is the one that matters.
@@ -39222,7 +39264,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         else drawPin({ x: PX, y: PY, dot: dot, tier: tier });   // identical pin to the present-day map: vermilion CITY_DOT + white CITY_RING
         if (showLabels && c.n) {
           const fs = tier === 0 ? baseFs : baseFs - 1.5, g = dot + 4; ctx.font = (tier === 0 ? "600 " : "500 ") + fs + "px " + labelFont;
-          const tw = ctx.measureText(c.n).width, lr = [PX + g - 2, PY - 8, tw + 4, 16];   // yield to the era territory-name labels (countryLabelRects)
+          const tw = ctx.measureText(c.n).width, lh = mapFs(16), lr = [PX + g - 2, PY - lh / 2, tw + 4, lh];   // yield to the era territory-name labels (countryLabelRects)
           let lhit = false; for (let k = 0; k < countryLabelRects.length; k++) if (rectsHit(lr, countryLabelRects[k])) { lhit = true; break; }
           if (!lhit) { const cn = placeName(c.n); ctx.fillStyle = LBL_TEXT; ctx.strokeStyle = LBL_HALO; ctx.lineWidth = 3; ctx.strokeText(cn, PX + g, PY); ctx.fillText(cn, PX + g, PY); }
         }
@@ -40115,7 +40157,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const CITY_CAP = 260;                                   // a hard ceiling, so a pathological view can't melt a frame
     function computeCityLayout(showCap, showCities, showDiv) {
       ensureCityW();
-      const baseFs = clamp(10 + (zoom - 2) * 1.1, 10, 13.5);
+      const baseFs = mapFs(clamp(10 + (zoom - 2) * 1.1, 10, 13.5));
       const out = [], grid = new Map(), CELL = 22, gk = (gx, gy) => gx * 100000 + gy;   // numeric cell keys → no per-call allocation
       const free = (r) => { const x0 = Math.floor(r[0] / CELL), x1 = Math.floor((r[0] + r[2]) / CELL), y0 = Math.floor(r[1] / CELL), y1 = Math.floor((r[1] + r[3]) / CELL); for (let gx = x0; gx <= x1; gx++) for (let gy = y0; gy <= y1; gy++) { const arr = grid.get(gk(gx, gy)); if (arr) for (let j = 0; j < arr.length; j++) if (rectsHit(r, arr[j])) return false; } return true; };
       const put = (r) => { const x0 = Math.floor(r[0] / CELL), x1 = Math.floor((r[0] + r[2]) / CELL), y0 = Math.floor(r[1] / CELL), y1 = Math.floor((r[1] + r[3]) / CELL); for (let gx = x0; gx <= x1; gx++) for (let gy = y0; gy <= y1; gy++) { const key = gk(gx, gy); let arr = grid.get(key); if (!arr) grid.set(key, arr = []); arr.push(r); } };
@@ -40213,12 +40255,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // range names only from the capital-cities zoom level upward (peaks themselves show at any zoom)
       if (zoom >= CAP_Z) {
         ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        ctx.font = "italic 600 " + clamp(9 + zoom * 0.25, 9.5, 13) + "px " + labelFont;
+        ctx.font = "italic 600 " + mapFs(clamp(9 + zoom * 0.25, 9.5, 13)) + "px " + labelFont;
         const placed = [];
         for (let i = 0; i < RANGES.length; i++) {
           const m = RANGES[i]; proj(m.c[0], m.c[1]); if (PV < 0) continue;
           const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
-          const tw = ctx.measureText(m.n).width, r = [x - tw / 2 - 2, y - 8, tw + 4, 16];
+          const tw = ctx.measureText(m.n).width, lh = mapFs(16), r = [x - tw / 2 - 2, y - lh / 2, tw + 4, lh];
           let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
           if (hit) continue; placed.push(r);
           ctx.lineWidth = 2.6; ctx.strokeStyle = lblHaloSoft; ctx.strokeText(m.n, x, y);
@@ -40257,12 +40299,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ctx.globalAlpha = 1;
       if (zoom >= CAP_Z) {   // forest names from the capitals' zoom upward (trees show at any zoom), de-collided
         ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        ctx.font = "italic 600 " + clamp(9 + zoom * 0.25, 9.5, 13) + "px " + labelFont;
+        ctx.font = "italic 600 " + mapFs(clamp(9 + zoom * 0.25, 9.5, 13)) + "px " + labelFont;
         const placed = [];
         for (let i = 0; i < FORESTS.length; i++) {
           const f = FORESTS[i]; proj(f.c[0], f.c[1]); if (PV < 0) continue;
           const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
-          const tw = ctx.measureText(f.n).width, r = [x - tw / 2 - 2, y - 8, tw + 4, 16];
+          const tw = ctx.measureText(f.n).width, lh = mapFs(16), r = [x - tw / 2 - 2, y - lh / 2, tw + 4, lh];
           let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
           if (hit) continue; placed.push(r);
           ctx.lineWidth = 2.6; ctx.strokeStyle = lblHaloSoft; ctx.strokeText(f.n, x, y);
@@ -40274,14 +40316,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // persistent country-name layer (the "Country names" toggle): every front-facing country, de-collided
     function drawCountryNames() {
       ctx.save(); ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
-      ctx.font = "600 " + Math.round(clamp(10 + zoom * 0.6, 10.5, 16)) + "px " + labelFont;
+      ctx.font = "600 " + Math.round(mapFs(clamp(10 + zoom * 0.6, 10.5, 16))) + "px " + labelFont;
       countryLabelRects.length = 0; const placed = countryLabelRects;   // remember boxes so city labels can avoid them
       for (let p = 0; p < GEO.length; p++) {
         if (!VIS[p]) continue; const c = GEO[p];
         proj(c.c[0], c.c[1]); if (PV < 0) continue;
         const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
         const cn = placeName(c.n);
-        const tw = ctx.measureText(cn).width, r = [x - tw / 2 - 3, y - 8, tw + 6, 16];
+        const tw = ctx.measureText(cn).width, lh = mapFs(16), r = [x - tw / 2 - 3, y - lh / 2, tw + 6, lh];
         let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
         if (hit) continue; placed.push(r);
         ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(cn, x, y);
@@ -40348,7 +40390,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const an = anchors[i]; if (an.a < minA) continue;
         proj(an.lon, an.lat); if (PV < 0) continue;
         const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
-        const fs = Math.round(clamp(9.5 + zoom * 0.6 + Math.min(4.5, Math.sqrt(an.a) * 0.22), 10, 17));
+        const fs = Math.round(mapFs(clamp(9.5 + zoom * 0.6 + Math.min(4.5, Math.sqrt(an.a) * 0.22), 10, 17)));
         ctx.font = "600 " + fs + "px " + labelFont;
         // wrap long (often ethnographic) names onto two lines at the space nearest the middle
         const anN = placeName(an.n);   // localise before wrapping — the wrap measures the drawn string
@@ -40373,7 +40415,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function drawRiverLabels() {
       if (zoom < RIVER_LABEL_Z) return;
       ctx.save(); ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
-      ctx.font = "italic 500 " + clamp(8.5 + zoom * 0.22, 9, 12.5) + "px " + labelFont;
+      ctx.font = "italic 500 " + mapFs(clamp(8.5 + zoom * 0.22, 9, 12.5)) + "px " + labelFont;
       const placed = [];
       for (let i = 0; i < RIVERS.length; i++) {            // RIVERS are importance-ordered, so big rivers win the de-collision
         const segs = RIVERS[i].p; let best = null, bestLen = -1;
@@ -40389,7 +40431,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (ang > Math.PI / 2) ang -= Math.PI; else if (ang < -Math.PI / 2) ang += Math.PI;   // keep text upright
         const nm = RIVERS[i].n, tw = ctx.measureText(nm).width;
         // collision box = AABB of the ROTATED label (tw wide × ~14 tall), so a near-vertical name tests its true footprint
-        const ca = Math.abs(Math.cos(ang)), sa = Math.abs(Math.sin(ang)), hw = (tw / 2) * ca + 7 * sa, hh = (tw / 2) * sa + 7 * ca;
+        const ca = Math.abs(Math.cos(ang)), sa = Math.abs(Math.sin(ang)), lh = mapFs(7), hw = (tw / 2) * ca + lh * sa, hh = (tw / 2) * sa + lh * ca;
         const r = [x - hw - 2, y - hh - 1, hw * 2 + 4, hh * 2 + 2];
         let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
         if (hit) continue; placed.push(r);
@@ -40410,7 +40452,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const wt = WATER[i]; if (zoom < waterLabelZoom(wt.r)) continue;
         proj(wt.c[0], wt.c[1]); if (PV < 0) continue;
         const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
-        const isOcean = wt.r <= 0, fs = clamp((isOcean ? 13.5 : 11.5 - wt.r * 0.5) + zoom * 0.5, 9, isOcean ? 20 : 14.5);
+        const isOcean = wt.r <= 0, fs = mapFs(clamp((isOcean ? 13.5 : 11.5 - wt.r * 0.5) + zoom * 0.5, 9, isOcean ? 20 : 14.5));
         ctx.font = "italic " + (isOcean ? "600 " : "500 ") + fs + "px " + labelFont;
         const tw = ctx.measureText(wt.n).width, r = [x - tw / 2 - 3, y - fs / 2 - 1, tw + 6, fs + 2];
         let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
@@ -40930,7 +40972,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          is four pixels of red, so its name is the whole of what it says, and it keeps one. What a country
          is called is the popup's answer, one click away. */
       const dotFill = "rgba(200,69,60,0.95)", dotRing = CITY_RING;
-      const fs = clamp(11 + (zoom - 2) * 0.9, 11, 14);
+      const fs = mapFs(clamp(11 + (zoom - 2) * 0.9, 11, 14));
       const boxes = [];
       mineDotRects = [];
       ctx.save();
@@ -41464,7 +41506,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ctx.save();
           ctx.beginPath(); ctx.arc(x, y, 5.5, 0, TAU); ctx.fillStyle = "rgba(255,178,46,1)"; ctx.fill();
           ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke();
-          ctx.font = "600 " + clamp(11 + (zoom - 2) * 0.9, 11, 14) + "px " + labelFont;
+          ctx.font = "600 " + mapFs(clamp(11 + (zoom - 2) * 0.9, 11, 14)) + "px " + labelFont;
           ctx.textAlign = "left"; ctx.textBaseline = "middle";
           const nm = placeName(focusPoint.name);
           ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x + 10, y);
@@ -41495,7 +41537,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ctx.save();
           ctx.beginPath(); ctx.arc(x, y, 5.5, 0, TAU); ctx.fillStyle = gamePin.tint.line; ctx.fill();
           ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(30,20,0,.7)"; ctx.stroke();
-          ctx.font = "600 " + clamp(11 + (zoom - 2) * 0.9, 11, 14) + "px " + labelFont;
+          ctx.font = "600 " + mapFs(clamp(11 + (zoom - 2) * 0.9, 11, 14)) + "px " + labelFont;
           ctx.textAlign = "left"; ctx.textBaseline = "middle";
           ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(gamePin.name, x + 10, y);
           ctx.fillStyle = LBL_TEXT; ctx.fillText(gamePin.name, x + 10, y);
