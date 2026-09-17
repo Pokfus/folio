@@ -69,7 +69,7 @@ card-side research is then shared.
 | T1 | Prehistory | **done** — written cited |
 | T2 | Ancient & classical | part done; Greece and Rome cards carry most of it |
 | T3 | Chinese history | part done; `cnh-` cards carry most of it |
-| T4 | Modern history | part done |
+| T4 | Modern history | part done; T4a took three of it |
 | T5 | Medieval & early modern | nothing in the corpus yet — research |
 | T6 | Science & invention | the hardest; see the three below |
 | T7 | Biology / Medicine | `bio-` and `ps-` cards carry some |
@@ -79,7 +79,15 @@ card-side research is then shared.
 
 ## Open questions carried forward
 
-Three statements are known to need work and are recorded here rather than left to be rediscovered.
+Five statements are known to need work and are recorded here rather than left to be rediscovered.
+
+- **Claudette Colvin, arrested nine months before Rosa Parks.** Neither National Archives page on Parks
+  names her, `loc.gov` and `nmaahc.si.edu` are 403 from here, and the Library of Congress research guide
+  that does answer does not mention her. **Left uncited.**
+- **George Washington's blood loss, and Napoleon's height.** Both are the imperial-only figures rule 5
+  now reports, and neither can be rewritten metric-first without a citation, because `add-truefalse.js`
+  rightly refuses a `cite` with no `src`. Europe PMC indexes three papers on Washington's death and all
+  three are closed; `napoleon.org` renders its search in JavaScript and the BMJ note on his height is 403.
 
 - **The terracotta army's discovery (1974).** No source openable from this sandbox was found for the
   discovery itself; the statement is uncited.
@@ -199,6 +207,64 @@ the offending suffix. **On the site it was inert** — the live direction is GB�
 written the non-words — so the only place it could bite was a checker, which is where it did. Fixed in
 `SPELL_PAIRS`, proved byte-for-byte inert over 175,126 renderings of the whole corpus in both directions
 (8 changed, all US→GB, all a non-word becoming the right word), and pinned in `test-spelling.js`.
+
+### T4a — seven statements, of which three were rewritten and one contradicted its own source (2026-09-17)
+
+Two lifted out of the corpus by the T2a recipe and five researched. The batch: the 1918 armistice
+(`ww2-002` and `ww2-004`), Hitler's appointment (`ww2-054`, two of its three USHMM articles), the 1919
+eclipse, the Parthenon's paint, the Ephesus gladiators' diet, Marie Antoinette and the cake, and the
+Wright brothers' first flight.
+
+**THE SHARPEST FINDING IS A STATEMENT WHOSE OWN SOURCE SAYS THE OPPOSITE OF IT.** The eclipse statement
+read *"Einstein's theory of general relativity was FIRST confirmed by observations of a solar eclipse in
+1919"* — and Dyson, Eddington and Davidson's own paper says, in its fourth paragraph, that "As is
+well-known the theory is also confirmed by the motion of the perihelion of Mercury, which exceeds the
+Newtonian value by 43″ per century". The statement is now about what the expeditions MEASURED (1.98
+seconds of arc at the limb from Sobral, probable error about 0.12, against Einstein's 1.75), and the
+explanation carries the paper's own correction in its last sentence. **A source that carries the fact can
+still refute the framing around it**, which is one step past T2a's "the card carried a weaker claim".
+
+**THE WRIGHT STATEMENT WAS REWRITTEN BECAUSE HALF OF IT COULD NOT BE SOURCED AT ALL.** Its hook was that
+the first flight covered less ground than a jumbo jet's wingspan, and the Wright half is easy — the
+Smithsonian's own object record for the 1903 Flyer gives 36 m (120 ft) in twelve seconds, 255.6 m (852 ft)
+in 59 seconds for the day's best, and a 12.3 m (40 ft 4 in) wingspan, all metric-first. **The 747's
+wingspan defeated four routes**: Boeing's own airport-compatibility PDFs are typeset in a custom-encoded
+CID font that comes out of the stream as control characters; the FAA's Aircraft Characteristics Database
+page loads but renders its download link in JavaScript; ICAO is 403 from here; and the Wayback CDX API is
+blocked by egress policy on `http` and reset the connection on `https`. The statement now makes the
+contrast the source itself carries — twelve seconds against 59 on the same morning.
+
+**TWO EXPLANATIONS WERE REWRITTEN BECAUSE THEY OVERSTATED A REAL STUDY.** The Parthenon one said
+"ultraviolet and raking light" and "reds, blues, greens and gold"; Verri et al. used visible-induced
+luminescence and XRF and name Egyptian blue and a purple colourant. The gladiator one said the diet was
+"dominated by wheat, barley and beans with little meat", which reads as a fact about GLADIATORS — Lösch
+et al. found that staple in everyone buried at Ephesus, gladiators and ordinary Romans alike, and put the
+low nitrogen down to pulses; **what distinguished the gladiators was strontium**, which the authors read
+as the plant-ash drink the ancient texts describe. **An explanation may not promote a study's control
+group finding into its headline.**
+
+**A LIFT STILL HAS TO BE READ OFF THE SENTENCE.** `ww2-054`'s markers put the appointment by Hindenburg
+and the never-a-majority on source 2 and the legal-in-form steps on source 3, which is not what the order
+of the list would have suggested. `scratchpad/tf/dart.js` prints a card's sentences with the marker
+numbers standing on them, and it had to be rebuilt on `split-abstract.js`'s own `pieces()` — a naive
+sentence split does not fire, because the footnote marker sits BETWEEN the full stop and the space.
+
+**AND THE CHECKER GAINED THE MIRROR OF ITS UNITS RULE.** Rule 5 reported a METRIC figure the imperial pass
+cannot convert and was blind to an IMPERIAL one the metric pass cannot convert — which is the worse of the
+two, and for rule 2's own reason: the pool is authored metric-first, so a bare imperial figure is what
+EVERY reader sees. The Wright statement was written in feet throughout and showed feet to a reader who had
+asked for metres, and nothing reported it. Measured over the pool the new direction finds **three**,
+falls to two once this batch lands, and was proved live by planting the pre-fix wording back and watching
+it come third. Its unit list deliberately omits `foot` — "12 foot" is not a shape this pool writes and
+"on foot" is.
+
+**THREE MORE WERE LOOKED FOR AND ARE RECORDED RATHER THAN LEFT.** Claudette Colvin's arrest of 2 March
+1955 is in neither of the two National Archives Rosa Parks pages, `loc.gov` and `nmaahc.si.edu` are both
+**403** from here (`guides.loc.gov` answers and its Rosa Parks guide does not name her), so that
+statement waits. George Washington's blood loss has no open work behind it that Europe PMC indexes — the
+three papers on his death are all closed — and its "3.5 to 5 pints" is one of the two imperial-only
+figures the new rule reports. Napoleon's height is the other; `napoleon.org` answers but renders its
+search in JavaScript and the obvious BMJ note is 403.
 
 ### T3a — three Chinese-history statements, and two more the corpus would not bear out (2026-09-17)
 
