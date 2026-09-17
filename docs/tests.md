@@ -1574,7 +1574,8 @@ States" and a second, in the same spot, answers "California". **Label ink must n
 names this section asserted a day earlier being what the request removed. **Re-run after touching `atlasTab` /
 `MINE` / `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
 `drawMineMarks` / `drawMineAreas` / `MINE_POLITY` / `areaBBox` / `mineCoastSkip` / `landDim` /
-`mineFounded` / `mineDotsShown` / `MINE_SEP` / `MINE_LBL_Z` / `mineAreaFill` / `mineAreaLine` /
+`mineFounded` / `mineDotsShown` / `mineWaterShown` / `dotHalf` / `MINE_SEP` / `mineAreaFill` /
+`mineAreaLine` /
 `MINE_STARTS` / `mineStart` / `setMineRange` / `tickList` / `tickHTML` / `renderMapYearMarks` /
 `showMinePopup` / `eraIsModern` / `renderStatic`'s MINE branch / `updateHoverName` / `snapYear` /
 `stepYear` / `frac2year` / `year2frac` / `ZMAX` / `cpSection` / `mountCardBack`'s `shutSources` / the
@@ -1620,6 +1621,32 @@ against another day's geometry, and the suite asked the page for a square that g
 game. The squares are the right key because they are exactly what those checks go on to address, and
 because they survive what the clue TEXT does not: the page rewrites its own prose as it renders
 (spelling, units), so a text fingerprint would fail on a reader's setting rather than on a mismatch.
+
+· `node .claude/test-truefalse.js` — **True or False's explanations** (22 assertions, Sep 2026): the
+`why` rendered as HTML rather than escaped, its Sources fold present, collapsed and carrying
+`src-nopref`, its marker NUMBERED and a control, the citation's URL a link, a glossary term in the
+prose linked, the units and spelling passes reaching it in both directions, and the summary carrying the
+same apparatus numbered PER ROW rather than down the page.
+
+**IT SERVES A POOL OF ITS OWN, and that is the decision to keep.** The day's five statements are drawn
+from 220 by `dayPick` and only some carry a source, so a suite run against the real pool asserts nothing
+on most days and is a coin toss on the rest — the shape of a test that passes while the feature is
+broken. The server substitutes a five-statement pool, and **every fixture statement carries all three
+subjects at once**: a glossary term, an element an escaped `why` would print as tags, and a citation
+with a marker. The first cut gave them out one per statement, which failed on the first run for a reason
+worth remembering — `dayPick` decides which round is dealt FIRST, so an assertion reading only that
+round is a coin toss on the fixture's own order rather than on the product. Section 3 walks to the round
+that carries the measurement rather than assuming it; sections 2 and 4 no longer need to.
+
+The SHIPPED pool is still checked in Node for what a fixture cannot see: that it parses, that every
+citation carries a URL, that every marker points at a source that exists, and that
+`check-truefalse.js` passes over it — which is what holds the prose to British spelling and to
+metric-first, neither of which any assertion here could see.
+
+**Re-run after touching `tfWhyHTML` / `tfWireWhy` / `PAGES.truefalse`'s reveal and summary /
+`sourcesHTML`'s `shut` and `compact` options / `wireFootnotes` / `autoLinkGlossary` / `unitizeTree` /
+`spellTree`, `.claude/add-truefalse.js` or `.claude/check-truefalse.js`, or after a batch of
+statements.**
 
 · `node .claude/test-avatar.js` — **the profile photo's crop, and enlarging someone else's** (17
 assertions, Aug 2026), and all three of its subjects fail SILENTLY: a hole in the crop becomes a black

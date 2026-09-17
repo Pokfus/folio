@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.784", released: "2026-09-17T05:41Z" };
+window.FOLIO_VERSION = { v: "1.785", released: "2026-09-17T06:10Z" };
 
 window.CHANGELOG = [
   {
@@ -59,7 +59,8 @@ window.CHANGELOG = [
       "<b>Your own atlas names every mark it draws</b> \u2014 a dot arrives with its label or not at all, and more of them appear as you zoom in.",
       "<b>Pinching the Atlas no longer zooms the page</b> on a tablet, which used to leave the site enlarged with no easy way back.",
       "<b>Adding a shared deck now adds it to your daily study</b>, and it reaches your other devices as any added deck does.",
-      "<b>Four measurements now convert for imperial readers</b> \u2014 two cards, two glossary terms and the daily-game answers that state a speed."
+      "<b>Four measurements now convert for imperial readers</b> \u2014 two cards, two glossary terms and the daily-game answers that state a speed.",
+      "<b>Forty-two new True or False statements</b> \u2014 a new prehistory round and more in every other subject the game covers."
     ]
   },
   {

@@ -15334,6 +15334,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["litre", "liter", "|s"],
     ["millilitre", "milliliter", "|s"],
     ["theatre", "theater", "|s|goer|goers"],
+    /* …and the COMPOUND needs its own row, because the boundary is a lookaround: `theatre` cannot match
+       inside `amphitheatre`, so neither spelling of it converted for anybody. Measured over the corpus when
+       it was found: 18 British `amphitheatre` against one American, all eighteen shown as written to a
+       reader who had asked for American. */
+    ["amphitheatre", "amphitheater", "|s"],
     ["fibre", "fiber", "|s|glass"],
     ["sombre", "somber", ""],
     ["spectre", "specter", "|s"],

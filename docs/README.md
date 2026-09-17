@@ -111,6 +111,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 
 | file | what is left |
 |---|---|
+| `truefalse-citation-plan.md` | The daily True-or-False pool, at one openable source per statement. **Run `node .claude/check-truefalse.js` for the standing rather than quoting one.** T1 (Prehistory) is done and written cited; T2–T4 are part done off the corpus; T5–T10 need research. Three statements are carried as open, one of them asserting more than Folio's own cited prose does. |
 | `history-focus-plan.md` | 45 cards flagged on the question and historiography rules; batches F1–F5. |
 | `book-text-plan.md` | Correcting errors baked into the Library's source texts. |
 | `atlas-rewrite-plan.md` | Rewriting every place popup to a card's standard, with citations. |
