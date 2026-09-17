@@ -319,7 +319,16 @@ function britExamples(html) {
    `anymore` IS THE SAME SHAPE AGAIN (batch 38), and the biggest of the three: British English writes
    it as TWO WORDS in this sense, and the decks carried 20 sites of the American one-word form. It is a
    spacing rather than a word choice, so no judgement is needed per site, and the replacement contains a
-   space, which means it can never match itself on a re-run. */
+   space, which means it can never match itself on a re-run.
+   AND `railroad` IS THE FIRST NEW WORD-CHOICE ROW SINCE batch 24 (batch 49). It is a straight American
+   word for a British one with no second sense to protect: unlike `highway`, which batch 48 refused a row
+   for because 公路 alone really is a highway in British legal English while 高速公路 is a motorway, a
+   railroad is a railway wherever it occurs. Measured over the nine decks: SEVEN occurrences on four
+   cards, against 27 `railway`s, and every one was read — not one is a proper noun, which is the check
+   that matters here, an American railroad company's NAME being a name. The plural is declared beside it
+   on batch 35's rule. `mall` was measured in the same pass and DELIBERATELY LEFT: 商场's own gloss is
+   `shopping mall`, which is ordinary British English (Bluewater and Westfield are shopping malls), so
+   the finding there is the sweep's and not the deck's — `stove` and `vest` again. */
 const LEXIS = (() => {
   const PAIRS = [
     ["driver's license", "driving licence"],
@@ -350,6 +359,8 @@ const LEXIS = (() => {
     ["trucks", "lorries"],
     ["truck", "lorry"],
     ["math", "maths"],
+    ["railroads", "railways"],
+    ["railroad", "railway"],
   ];
   const map = new Map();
   for (const [us, gb] of PAIRS) map.set(us.toLowerCase(), gb);

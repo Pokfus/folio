@@ -584,6 +584,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 151–180 (底 → 多样), deck order | 21 | a fourth truncated gloss, and the label-against-gloss fault three more times in thirty cards |
 | 2026-09-17 | `hsk30l4` notes 181–210 (而 → 父亲), deck order | 22 | a fifth truncated gloss, a gloss that was not English, and a falafel on the card for *expense* |
 | 2026-09-17 | `hsk30l4` notes 211–240 (复印 → 歌手), deck order, plus the `highway` sites | 24 | six glosses whose label named a part of speech the gloss had not got, and an English line about the wrong people |
+| 2026-09-17 | `hsk30l4` notes 241–270 (各 → 管理), deck order, plus the whole `railroad` class | 27 | the first new LEXIS row since batch 24, and a card whose gloss its own two translations contradicted |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -5286,4 +5287,58 @@ character. 赶 (three) and 感 (six) were measured and left.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 407 → 413;
+`build-lang-decks.js` re-run.
+
+## Batch 49 — hsk30l4 notes 241–270 (各 → 管理), plus the `railroad` class
+
+**What the batch was.** The next thirty notes of Level 4 in deck order, plus one word-choice class swept
+across all nine decks. Twenty-seven cards changed.
+
+**THE FIRST NEW LEXIS ROW SINCE BATCH 24.** `railroad` → `railway`, with `railroads` → `railways` declared
+beside it on batch 35's plural rule. **It is the case batch 48 refused for `highway` and this one passes**:
+a railroad is a railway wherever it occurs, with no second sense to protect, where 公路 on its own really is
+a highway in British legal English while 高速公路 is a motorway. Measured over the nine decks: **seven
+occurrences on four cards against 27 `railway`s**, every one read, and **not one a proper noun** — which is
+the check that matters, an American railroad company's NAME being a name. **The row reaches a place a
+per-note fix would not have**: `hsk30l5/铁路`'s own GLOSS was *railroad*, and it is now *railway* without
+anybody writing a row about that card. Residual: zero.
+
+**`mall` WAS MEASURED IN THE SAME PASS AND DELIBERATELY LEFT.** Nine sites, and `hsk30l2/商场`'s own gloss
+is *shopping mall*, which is ordinary British English — Bluewater and Westfield are shopping malls. The
+finding there is the sweep's and not the deck's, which is what `stove` and `vest` were in batch 32.
+
+**A CARD WHOSE GLOSS ITS OWN TRANSLATIONS CONTRADICTED.** 公路 was glossed *highway* — the site batch 48
+named and could not reach, being outside that range — while its own two English lines already called it
+*the street* and *the road*. Both the gloss and the *street* are corrected here; a 公路 is an ordinary main
+road.
+
+**SIX MORE LABEL-AGAINST-GLOSS CARDS**, which makes twenty across five batches: 共同 *adjective* over the
+adverb *jointly*; 故意 *adverb* over the adjective *intentional*; 购物 *verb* over the noun *shopping*; 够
+*verb / adverb* over the bare *enough*, which is not a verb; 关键 *noun / adjective* over two senses run
+together inside a bracket; and 管理 glossed *to supervise*, narrower than any of its own three lines. 功夫's
+was wrong a different way — glossed *labour; ability; kung fu* where **all three of its sentences are time
+or effort and not one is a martial art**.
+
+**SIX SENTENCES WENT.** 各种's second was ungrammatical (各种 is a determiner and takes no 的). 工资's third
+counts wages with 很多 in a 有 clause, which Chinese does not do. 共's was the slogan 共产主义必胜, where
+共产主义 swallows the character whole. 购买's rested on 整修品, which is not a word. 管's was about a
+管风琴, an ORGAN. And **挂 had 挂科 — student slang for failing an exam — on two of its three lines**, saying
+the same thing twice and neither of them the hanging the card is glossed for.
+
+**THREE SINGLE-CHARACTER CARDS GAINED `Compounds`** — 共, 够 and 挂, the last against an empty panel. 够's
+single row is the one word of the four in the collection its own deck had not already met.
+
+**FOURTEEN ENGLISH LINES.** Three were American beyond the two tables' reach — *round-trip* on 各地,
+*paycheck* on 工资 (the corpus's only site) and *sassy* on 姑娘. Three named the wrong thing: 顾客's
+customers were an *audience* and then *visitors*, and 工厂's dismissed workers were *laid off*, which is a
+job going rather than a judgement on the worker. And 估计's first read *How large is the audience?*, which
+drops the card's whole subject and turns a guess into a fact.
+
+**Read and left.** 管理's own third line, 日本政府无法管理问题, takes 问题 as the object of 管理 where Chinese
+would use 处理; it is recorded rather than replaced, since the card is not about that verb. 工人's
+你真是个努力的工人 is redundant in both languages and is the corpus's, not the card's.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 337 → 337; pinyin clean; example-fit 143 and senses 152 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 413 unchanged;
 `build-lang-decks.js` re-run.

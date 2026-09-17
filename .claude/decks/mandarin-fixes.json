@@ -12704,11 +12704,18 @@
       ]
     },
     "hsk30l4/公路": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | Glossed 'highway', which batch 48 named and left because it sits outside that batch's range. The card's OWN two translations already call it 'the street' and 'the road', so the gloss contradicted the card; a 公路 is an ordinary main road, and it is 高速公路 that is a motorway. | '他穿过公路。' read 'He crossed the STREET' — a street is 街, and the card's own gloss is the road.",
       "ex": [
         [
           "我们家在公路边上。",
           "Our house stands by the road."
+        ]
+      ],
+      "gloss": "a road; a main road",
+      "exEn": [
+        [
+          "他穿过公路",
+          "He crossed the road."
         ]
       ]
     },
@@ -115423,6 +115430,302 @@
           "果敢",
           "guǒ gǎn",
           "resolute; courageous"
+        ]
+      ]
+    },
+    "hsk30l4/共同": {
+      "why": "Labelled an ADJECTIVE and glossed 'jointly', which is an adverb — and the card's own three lines are 共同话题, 共同点 and 人类共同的语言, every one of them attributive. CC-CEDICT reads 'common; joint; jointly; together'. | '我们之间应该有共同话题。' read 'There should be something for us to talk about', which contains nothing a reader can match to 共同.",
+      "gloss": "common; joint; together",
+      "exEn": [
+        [
+          "我们之间应该有共同话题",
+          "We ought to have something in common to talk about."
+        ]
+      ]
+    },
+    "hsk30l4/故意": {
+      "why": "Labelled an ADVERB and glossed 'intentional', which is an adjective. All three of the card's own English lines already say 'on purpose'.",
+      "gloss": "on purpose; deliberately"
+    },
+    "hsk30l4/购物": {
+      "why": "Labelled a VERB and glossed 'shopping', which is the noun. The card's own lines are 喜欢购物 and 去购物了, both of them the verb.",
+      "gloss": "to shop; shopping"
+    },
+    "hsk30l4/够": {
+      "why": "Labelled 'verb / adverb' against the single gloss 'enough', which is not a verb — 你的钱够吗 is 够 doing the work of a predicate, and 够大 is the adverb. Split. | '他们给我钱没给够。' read 'They DON'T pay me enough' for a sentence marked completed with 没. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 不够 and 能够. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. The collection holds only four, so 足够 is the one it has not already met.",
+      "senses": [
+        [
+          "verb",
+          "to be enough; to suffice"
+        ],
+        [
+          "adverb",
+          "enough; sufficiently"
+        ]
+      ],
+      "exEn": [
+        [
+          "他们给我钱没给够",
+          "They did not pay me enough."
+        ]
+      ],
+      "compounds": [
+        [
+          "足够",
+          "zú gòu",
+          "enough; sufficient"
+        ]
+      ]
+    },
+    "hsk30l4/关键": {
+      "why": "Labelled 'noun / adjective' against the single gloss 'crucial (point)', which is the two senses run together inside a bracket. The card's own lines are two nouns to one adjective, so both are named.",
+      "senses": [
+        [
+          "noun",
+          "the key; the crux"
+        ],
+        [
+          "adjective",
+          "crucial; key"
+        ]
+      ]
+    },
+    "hsk30l4/管理": {
+      "why": "Glossed 'to supervise', which is narrower than any of the card's own three lines — 管理者 is a manager, 负责管理 is to be in charge, and CC-CEDICT reads 'to manage; to administer'.",
+      "gloss": "to manage; to administer"
+    },
+    "hsk30l4/功夫": {
+      "why": "Glossed 'labour; ability; kung fu', where the card's own three sentences are all TIME or EFFORT — 没功夫吃饭, 白费功夫, 花点儿功夫 — and not one is a martial art. CC-CEDICT gives the time sense first. | '我没功夫吃饭。' read 'I HAD no time to eat' for a sentence with no past marker in it.",
+      "gloss": "time; effort; skill; kung fu",
+      "exEn": [
+        [
+          "我没功夫吃饭",
+          "I have no time to eat."
+        ]
+      ]
+    },
+    "hsk30l4/挂": {
+      "why": "Glossed 'hang up', which is only half of it — the bare verb is to hang, and 'hang up' in English is what one does to a telephone. | Two of its three lines were 挂科 — student slang for failing an exam — saying the same thing twice and neither of them the hanging the card is glossed for. One was dropped and replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows NOTHING AT ALL, against six words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to hang; to hang up",
+      "dropEx": [
+        "我要挂科了！"
+      ],
+      "ex": [
+        [
+          "墙上挂着一幅画。",
+          "A painting hangs on the wall."
+        ]
+      ],
+      "compounds": [
+        [
+          "挂号",
+          "guà hào",
+          "to register at a hospital; to send by registered post"
+        ],
+        [
+          "悬挂",
+          "xuán guà",
+          "to hang; to suspend"
+        ],
+        [
+          "挂念",
+          "guà niàn",
+          "to worry about; to have on one's mind"
+        ]
+      ]
+    },
+    "hsk30l4/各种": {
+      "why": "'我们种植各种的作物。' is ungrammatical: 各种 is a determiner and takes no 的, so the sentence reads 'all kinds of's crops'. Its English was also the same 'a variety of' the card's first line already had. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "我们种植各种的作物。"
+      ],
+      "ex": [
+        [
+          "商店里有各种水果。",
+          "The shop has all kinds of fruit."
+        ]
+      ]
+    },
+    "hsk30l4/工资": {
+      "why": "'这个月有很多工资。' is not how Chinese says it — 工资 is not counted with 很多 in a 有 clause — and its English, 'My salary was high this month', has neither 我的 nor 高 to stand on. Replaced with an AUTHORED sentence, which the record says so is. | '他从不把工资带回家。' read 'He never brings the PAYCHECK home' — the corpus's only site of that word, which is American in both its spelling and its choice; British English is wages or a wage packet.",
+      "dropEx": [
+        "这个月有很多工资。"
+      ],
+      "ex": [
+        [
+          "公司每月十号发工资。",
+          "The company pays wages on the tenth of each month."
+        ]
+      ],
+      "exEn": [
+        [
+          "他从不把工资带回家",
+          "He never brings his wages home."
+        ]
+      ]
+    },
+    "hsk30l4/共": {
+      "why": "'共产主义必胜！' is a political slogan, and 共产主义 swallows the character whole — communism is not the adverb 共 the card teaches, and no reader meets the word that way. Replaced with an AUTHORED sentence, which the record says so is. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l4 shows two words, 公共 and 共同. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "共产主义必胜！"
+      ],
+      "ex": [
+        [
+          "这些书共二十本。",
+          "There are twenty of these books in all."
+        ]
+      ],
+      "compounds": [
+        [
+          "一共",
+          "yí gòng",
+          "in total; altogether"
+        ],
+        [
+          "总共",
+          "zǒng gòng",
+          "altogether; in all"
+        ],
+        [
+          "共享",
+          "gòng xiǎng",
+          "to share"
+        ]
+      ]
+    },
+    "hsk30l4/购买": {
+      "why": "'我可能也会购买整修品。' rests on 整修品, which is not a word — a refurbished item is 翻新品 — and its English supplied a PHONE that is nowhere in the sentence. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "我可能也会购买整修品。"
+      ],
+      "ex": [
+        [
+          "很多人在网上购买机票。",
+          "Many people buy their plane tickets online."
+        ]
+      ]
+    },
+    "hsk30l4/管": {
+      "why": "'你会弹管风琴吗？' is about an ORGAN. 管风琴 is a fixed word that swallows the character, and the sentence is not about a pipe, managing or controlling — the three things the card names. Replaced with an AUTHORED sentence, which the record says so is.",
+      "dropEx": [
+        "你会弹管风琴吗？"
+      ],
+      "ex": [
+        [
+          "这家店归他管。",
+          "He is the one who runs this shop."
+        ]
+      ]
+    },
+    "hsk30l4/更加": {
+      "why": "'我必须更加努力。' read 'I need to go at it harder', which is not a register a learner should copy; and '…我更加地了解了中国。' read 'a better understanding of the Chinese NATION' — 中国 is the country.",
+      "exEn": [
+        [
+          "我必须更加努力",
+          "I must work even harder."
+        ],
+        [
+          "也就是说，我更加地了解了中国",
+          "That is to say, I have come to understand China better."
+        ]
+      ]
+    },
+    "hsk30l4/公共": {
+      "why": "'哪里坐公共汽车？' read 'Where can I take the PUBLIC BUS?' — 公共汽车 is simply a bus in English, and 'public bus' is the compound translated part by part.",
+      "exEn": [
+        [
+          "哪里坐公共汽车",
+          "Where do I catch the bus?"
+        ]
+      ]
+    },
+    "hsk30l4/公里": {
+      "why": "Its third line had no full stop at all, on the card and in the spoken field alike; and its English wrote the figure as a numeral where the card's other two lines spell it.",
+      "exStop": [
+        [
+          "我今天走了十公里"
+        ]
+      ],
+      "exEn": [
+        [
+          "我今天走了十公里",
+          "Today I walked ten kilometres."
+        ]
+      ]
+    },
+    "hsk30l4/工人": {
+      "why": "'铁路工人明天将继续进行罢工。' read 'are going on WALKOUT tomorrow', which is not English, and dropped 继续 — they are already out.",
+      "exEn": [
+        [
+          "铁路工人明天将继续进行罢工",
+          "The railway workers will continue their strike tomorrow."
+        ]
+      ]
+    },
+    "hsk30l4/各地": {
+      "why": "'往返各地的收费如下。' read 'ROUND-TRIP fares', which is American — British English is a return fare — and one of the corpus's two sites of it.",
+      "exEn": [
+        [
+          "往返各地的收费如下",
+          "Return fares to each destination are as follows."
+        ]
+      ]
+    },
+    "hsk30l4/功课": {
+      "why": "'他正在做功课。' read 'He is doing THE homework.'",
+      "exEn": [
+        [
+          "他正在做功课",
+          "He is doing his homework."
+        ]
+      ]
+    },
+    "hsk30l4/工厂": {
+      "why": "'那个工厂开除了很多工人。' read 'Many workers were LAID OFF' — to be laid off is to lose a job that has gone, where 开除 is to be dismissed, which is a judgement on the worker.",
+      "exEn": [
+        [
+          "那个工厂开除了很多工人",
+          "That factory dismissed a lot of workers."
+        ]
+      ]
+    },
+    "hsk30l4/估计": {
+      "why": "'你估计听众有多少？' read 'How large is the audience?', which drops 估计 — the card's whole subject — and turns a guess into a fact.",
+      "exEn": [
+        [
+          "你估计听众有多少",
+          "How large do you reckon the audience is?"
+        ]
+      ]
+    },
+    "hsk30l4/姑娘": {
+      "why": "'别对我放肆，小姑娘！' read 'Don't get SASSY with me young lady!' — sassy is American, and the vocative wanted its comma.",
+      "exEn": [
+        [
+          "别对我放肆，小姑娘",
+          "Don't be cheeky with me, young lady!"
+        ]
+      ]
+    },
+    "hsk30l4/鼓励": {
+      "why": "'我？鼓励你去工作？不可能！' read 'Blasphemy!' for 不可能, which is 'impossible' — and a card about encouragement is not the place to teach a reader that word.",
+      "exEn": [
+        [
+          "我？鼓励你去工作？不可能",
+          "Me? Encourage you to go to work? Not a chance!"
+        ]
+      ]
+    },
+    "hsk30l4/顾客": {
+      "why": "Two of its three lines called a 顾客 something else: 'His AUDIENCE is falling off these days' and 'You are our thousandth VISITOR'. The card's one-word gloss is customer.",
+      "exEn": [
+        [
+          "最近他的顾客减少了",
+          "His customers have fallen off lately."
+        ],
+        [
+          "恭喜成为本店第一千位顾客",
+          "Congratulations on being our thousandth customer!"
         ]
       ]
     }
