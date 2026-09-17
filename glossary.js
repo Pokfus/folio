@@ -3864,7 +3864,16 @@ window.GLOSSARY = {
 "Rurik": "Rurik is the Varangian prince whom a chronicle compiled at Kyiv makes the founder of the dynasty that ruled the Rus' and the states that grew out of it.<sup class=\"fn\" data-fn=\"1\"></sup> Its account has the peoples of the north send overseas in 862 for a prince to rule and judge them, three brothers answering the call and two of them dying within two years.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing outside the Slavonic chronicle tradition mentions him, and whole-genome work on a prince who died in 1294 has established a male line for the later house without recovering any material of the earliest generation.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Staraya_Ladoga": "Staraya Ladoga is a settlement on the lower Volkhov in north-western Russia, standing where shipping out of the Baltic had to transfer to the rivers of the interior.<sup class=\"fn\" data-fn=\"1\"></sup> It was in touch with the Islamic world from the 8th and 9th centuries, and excavation has recovered a series of large post-and-plank halls, the first raised after 880 and a later one of the 940s holding balances, weights and wooden figures.<sup class=\"fn\" data-fn=\"1\"></sup> Its Norse name Aldeigjuborg, first written down in a court poem of about 1010, is the only one in eastern Europe formed to the ordinary Scandinavian pattern.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Veliky_Novgorod": "Veliky Novgorod is a city in north-western Russia standing where the Volkhov leaves Lake Ilmen, and writers in Old Norse called it Hólmgarðr.<sup class=\"fn\" data-fn=\"1\"></sup> That name and its Slavonic original most likely belonged first to the large political centre of the 9th and 10th centuries now known as Rurik's Hillfort, whose fortified core measured six or seven hectares (15 to 17 acres) in the middle of the 9th century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A chronicle compiled at Kyiv has a Varangian prince fortify a small town on the river, call it Novgorod and share out lands and towns among his men.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Volga_trade_route": "The Volga trade route ran from the Baltic and the northern forests down the Volga to the market of the Volga Bulgars and on to the Caspian and the caliphate beyond it.<sup class=\"fn\" data-fn=\"1\"></sup> Silver coins struck in the caliphate, above all in Khurasan and Transoxiana, document how far the traffic reached, and hoards of them lie thickest on Gotland, which served as its financial centre.<sup class=\"fn\" data-fn=\"1\"></sup> An embassy sent from Baghdad to the Bulgar king in 921 left the fullest description of the traders, watching them disembark on the river and raise great wooden houses along its bank.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Volga_trade_route": "The Volga trade route ran from the Baltic and the northern forests down the Volga to the market of the Volga Bulgars and on to the Caspian and the caliphate beyond it.<sup class=\"fn\" data-fn=\"1\"></sup> Silver coins struck in the caliphate, above all in Khurasan and Transoxiana, document how far the traffic reached, and hoards of them lie thickest on Gotland, which served as its financial centre.<sup class=\"fn\" data-fn=\"1\"></sup> An embassy sent from Baghdad to the Bulgar king in 921 left the fullest description of the traders, watching them disembark on the river and raise great wooden houses along its bank.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Askold_and_Dir": "Askold and Dir are two figures named in the Rus' chronicle tradition as the rulers of Kyiv in the decades before the town passed to the dynasty descended from Rurik.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle presents them as followers of Rurik, unrelated to him by blood, who left the north for Constantinople, halted at a fortified hill above the Dnieper whose people were paying tribute to the Khazars, and stayed to govern it.<sup class=\"fn\" data-fn=\"1\"></sup> It reports that they were killed by a ruse in 882, and points out their burial places in the city, though no source outside that tradition mentions either man.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"De_Ceremoniis": "<i>De Ceremoniis</i> is a compilation of Byzantine court protocol assembled in the reign of Constantine VII Porphyrogennetos in the middle of the 10th century, describing processions, acclamations, banquets and the reception of foreign visitors.<sup class=\"fn\" data-fn=\"1\"></sup> Its value to historians lies in its exactness about matters other texts omit: where each participant stood, which hangings were drawn, what was sung, and what individual servants and interpreters were paid in silver.<sup class=\"fn\" data-fn=\"1\"></sup> Because its chapters were drafted as reusable protocols rather than as narrative, they frequently record the day and month of an occasion without naming the year, which leaves some of the events it preserves undated.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Igor_of_Kiev": "Igor was a ruler of the Rus' polity centred on Kyiv in the first half of the 10th century, and the earliest of its princes whose existence is attested by a contemporary source outside the Rus' chronicle tradition.<sup class=\"fn\" data-fn=\"1\"></sup> A Byzantine imperial handbook of the 950s names his son as the ruler seated at Novgorod, and a treaty preserved in the chronicle was concluded in his name after a naval expedition against Constantinople was destroyed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The chronicle reports that he was killed by the Drevlians, a tributary people, when he returned a second time in one season to take more tribute than had been agreed.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Oleg_the_Wise": "Oleg, called the Wise or the Seer, was the ruler whom the Rus' chronicle tradition credits with moving the centre of the Rus' polity from the north to Kyiv on the Dnieper, and with the first commercial treaty between the Rus' and the Byzantine empire.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle places his seizure of Kyiv in 882 and his death about three decades later, and closes the account with a folkloric episode in which a snake kills him from the skull of his own horse.<sup class=\"fn\" data-fn=\"1\"></sup> Because almost nothing about him is recorded outside that compilation, written some two centuries afterwards, his dates and even his relation to his successor remain disputed.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Olga_of_Kiev": "Olga governed the Rus' polity centred on Kyiv for some fifteen years from 945, as regent for her young son after her husband's death at the hands of a tributary people.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle tradition gives her a sequence of increasingly violent reprisals against those tributaries, ending in the burning of their chief town, and then a journey through their country and northwards fixing dues, laws and trading stations.<sup class=\"fn\" data-fn=\"1\"></sup> She was the first ruler of the Rus' to be baptised, at Constantinople, where she took the name Helena; the conversion was personal, and her son and her people remained pagan.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pereyaslavets": "Pereyaslavets is the name given in the Rus' chronicle tradition to a town on the lower Danube that a 10th-century ruler of Kyiv took from the Bulgarians and made his own seat for several years.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle has him explain the choice commercially, listing the silver, cloth, fruit and wine that reached it from the Byzantine empire, the silver and horses from central Europe, and the furs, wax, honey and slaves that came down from the north.<sup class=\"fn\" data-fn=\"2\"></sup> Its site has never been securely identified, and the Byzantine accounts of the war that ended the occupation use a different name for the city they stormed.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Rus'–Byzantine_Treaty": "A Rus'–Byzantine treaty is one of the 10th-century agreements between the rulers of Kyiv and the Byzantine emperors, three of which survive as Slavonic translations copied into the Rus' chronicle tradition.<sup class=\"fn\" data-fn=\"1\"></sup> Their business was chiefly commercial: lodging and provisions for visiting merchants outside Constantinople, exemption from trade duties, the treatment of shipwrecked crews and escaped slaves, limits on what might be bought, and an undertaking to supply the emperor with troops on request.<sup class=\"fn\" data-fn=\"2\"></sup> That they use the September year of the imperial chancery, unlike the chronicle around them, is one reason for thinking the texts genuinely translate Byzantine originals.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Sarkel": "Sarkel was a fortress on the lower reaches of the Don, built for the Khazar khaganate in the 830s by a military mission sent from Constantinople at the request of Khazar envoys.<sup class=\"fn\" data-fn=\"1\"></sup> A Byzantine imperial handbook records that the officer in charge found no building stone at the site, so he raised kilns, fired brick in them and burned lime from fine river gravel; the same text puts the place sixty days' travel from the Danube.<sup class=\"fn\" data-fn=\"1\"></sup> The name is usually understood to mean white house or white tower, which the Slavonic name used in the Rus' chronicle tradition translates exactly.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Sviatoslav_I": "Sviatoslav was the ruler of the Rus' polity centred on Kyiv from the end of his mother's regency until 972, and spent almost the whole of it campaigning between the middle Volga and the lower Danube.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicle tradition describes him travelling without baggage, eating meat grilled on coals and sleeping under a cloak with a saddle for a pillow, and a Byzantine historian who wrote within living memory describes him meeting an emperor from the thwart of a small boat.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His campaign of 965 broke the power of the Khazar khaganate, and he was killed at the Dnieper rapids on his way home from the Danube.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5858,7 +5867,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Rurik": "d. 879 CE, traditionally",
 "Staraya_Ladoga": "8th – 11th century CE",
 "Veliky_Novgorod": "9th century CE onwards",
-"Volga_trade_route": "9th – 10th century CE"
+"Volga_trade_route": "9th – 10th century CE",
+"Askold_and_Dir": "c. 862 – 882 CE",
+"De_Ceremoniis": "mid-10th century CE",
+"Igor_of_Kiev": "c. 913 – 945 CE",
+"Oleg_the_Wise": "c. 879 – 912 CE",
+"Olga_of_Kiev": "c. 890 – 969 CE",
+"Pereyaslavets": "967 – 971 CE",
+"Rus'–Byzantine_Treaty": "911 – 971 CE",
+"Sarkel": "c. 830s – 965 CE",
+"Sviatoslav_I": "c. 943 – 972 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8153,7 +8171,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Route_from_the_Varangians_to_the_Greeks": ["trade route from the Varangians to the Greeks","Varangian route to the Greeks"],
 "Staraya_Ladoga": ["Aldeigjuborg","Aldeigja","Old Ladoga"],
 "Veliky_Novgorod": ["Novgorod","Novgorod the Great","Hólmgarðr","Holmgard"],
-"Volga_trade_route": ["Volga route"]
+"Volga_trade_route": ["Volga route"],
+"Askold_and_Dir": ["Askold"],
+"De_Ceremoniis": ["De cerimoniis","Book of Ceremonies","De cerimoniis aulae Byzantinae"],
+"Igor_of_Kiev": ["Igor","Igor of Kyiv","Ingor"],
+"Oleg_the_Wise": ["Oleg","Oleg of Novgorod","Oleg the Seer"],
+"Olga_of_Kiev": ["Olga","Olga of Kyiv","Saint Olga","Princess Olga"],
+"Pereyaslavets": ["Pereiaslavets"],
+"Rus'–Byzantine_Treaty": ["Rus'-Byzantine treaty","Rus'–Byzantine treaties","Russo-Byzantine treaties"],
+"Sarkel": ["Belaya Vezha"],
+"Sviatoslav_I": ["Sviatoslav","Svyatoslav","Sviatoslav Igorevich","Sphendosthlavos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12059,7 +12086,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Rurik": ["person","ruler","history","politics","europe"],
 "Staraya_Ladoga": ["place","history","archaeology","trade","europe"],
 "Veliky_Novgorod": ["city","place","history","archaeology","europe"],
-"Volga_trade_route": ["concept","trade","history","geography","islam","europe"]
+"Volga_trade_route": ["concept","trade","history","geography","islam","europe"],
+"Askold_and_Dir": ["people","ruler","history","kievan rus","europe"],
+"De_Ceremoniis": ["text","history","byzantium","diplomacy","europe"],
+"Igor_of_Kiev": ["person","ruler","history","kievan rus","byzantium","europe"],
+"Oleg_the_Wise": ["person","ruler","history","kievan rus","europe"],
+"Olga_of_Kiev": ["person","ruler","history","kievan rus","christianity","europe"],
+"Pereyaslavets": ["place","city","history","kievan rus","trade","europe"],
+"Rus'–Byzantine_Treaty": ["document","treaty","history","kievan rus","byzantium","trade","diplomacy"],
+"Sarkel": ["place","building","history","archaeology","khazars","byzantium"],
+"Sviatoslav_I": ["person","ruler","warfare","history","kievan rus","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

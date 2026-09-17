@@ -601,6 +601,107 @@ literature calls it — Montgomery capitalises it. Its aliases carry *Normanist 
 *anti-Normanism* and *Norman theory*, so every surface reaches it. `Staraya_Ladoga` deliberately does
 NOT claim the bare "Ladoga", which is a lake.
 
+**2026-09-17, `ru-041`–`ru-050` written** — Oleg, the seizure of Kyiv, the treaties, the raids on
+Constantinople, Igor, Olga, her baptism, Sviatoslav, the end of Khazaria and the Danube dominion.
+**Five of the ten lines are answered by something other than their own words, and the reasons are
+four different rules.** `ru-041` is **Oleg the Wise**, which is what the encyclopedia heads the
+article — *Oleg of Novgorod*, the plan's own wording, is a redirect to it, which is `ru-039`'s
+finding from the other side. `ru-042` "The seizure of Kyiv" is **Askold and Dir**, the thing the
+event was about, because `Kyiv` has been a cited glossary term since the geography collection and
+the line therefore had no term of its own left to teach — the `ww2-133` shape, a line named after
+something the glossary already holds wanting the moment rather than the name. `ru-047` "The baptism
+of Olga" is **De Ceremoniis**, `ww2-140`'s shape: a line naming a process wants the document the
+process is known through, and here the document's SILENCE is the card, the one contemporary
+Byzantine record of the visit describing two receptions to the coin and never mentioning a baptism
+or a year. `ru-050` "Sviatoslav's Balkan campaigns" is **Pereyaslavets**, the town the campaigns
+were about and the one the prince said was the centre of his lands.
+
+**AND `ru-044` IS THE FIFTH FOR A DIFFERENT REASON: ITS ANSWER TERM ALREADY EXISTED, CITED AND
+ILLUSTRATED.** "The Rus' raids on Constantinople" is answered by **`Greek fire`**, which decided the
+largest of them, and `Greek_fire` has been a three-source glossary term with a picture since long
+before this collection — so the pairing rule was satisfied and `add-glossary.js` would have
+overwritten it in silence, exactly as it nearly did to `Kievan_Rus'` on the last batch. **It was
+found by accident**: a sweep measuring bare-alias surfaces printed `gloss:Greek_fire`, where the
+grep that should have caught it had searched the keys for `greek fire` with a SPACE and the keys use
+an UNDERSCORE. **Grep the glossary keys in their own slug form** — `answer.replace(/ /g, "_")` — or
+the check silently answers no for every multi-word term there is.
+
+**`ru-044` IS ALSO THE ONLY CARD IN THE BATCH MARKED `undatable`.** Its date line carries the years
+of the RAIDS, 860, 907 and 941, because that is what the card is about; Greek fire is conventionally
+dated to the 670s, so the sort year is one arbitrary moment inside the term rather than a date the
+term is given. It is rated 2, so it is the only card here the minigames can reach, which is the only
+place the flag bites.
+
+**RULE 1 REPORTED FIVE OF THE TEN AND FOUR OF THE FIVE WERE THE CHECKER MISREADING A MEDIEVAL
+WITNESS.** This stretch of the collection rests on four texts written between the 820s and the
+1110s, and three passages of any one of them tripped `check-cards.js`'s cap on an author cited in
+more than two of a card's sources. That list exists precisely to separate six passages of one
+witness from six pages of one scholar, so `leo the deacon`, `liudprand of cremona` and
+`constantine vii porphyrogenitus` were added to its `ANCIENT` alternation, on the Ibn Battuta
+precedent and with the same whole-name anchoring that makes such an addition safe. **The fourth is
+not a person at all and is the interesting one**: the Primary Chronicle is anonymous, so its
+citations open on the work's own title, and `authorOf` read *Chronique dite de Nestor* as an author —
+the fault the tool already guards against for a title in QUOTES and cannot see through an
+ITALICISED one. It joins the anonymous works the list already carries by title. **The fifth finding
+was real**: Howard-Johnston stood in three of `ru-049`'s six sources and two of his page references
+were merged into one citation. Rule 1 now reads zero over the whole corpus.
+
+**ONE SOURCE WAS OPENED, READ AND REFUSED, WHICH IS THE SECOND TIME IN THREE BATCHES.** Pivén's
+"The Anthroponym of Prince Oleg Veshchy as a Possible Legacy of the Venetians" (*Izvestiya of Altai
+State University* 2022, `10.14258/izvasu(2022)5-09`) is open, peer-reviewed and squarely on the
+subject, and it argues that Oleg's name is a Slavic demonym from Ologost — modern Wolgast — rather
+than a form of Old Norse *Helgi*. That is a heterodox etymology, and citing it for the name would
+put a card's weight on a marginal position when Howard-Johnston's Helgo/Oleg equation carries the
+same point from the mainstream. **An open source on the exact subject is not therefore a source for
+the claim you want.**
+
+**TWO SENTENCES WERE WRITTEN AND THEN UNWRITTEN BECAUSE THE SOURCE TO HAND DID NOT CARRY THEM, and
+the second repair made a better card.** `ru-049` closed on the Sarkel site being excavated before
+the Don was dammed — true as far as I know and carried by nothing I had read, so it was replaced by
+the Vyatichi's silver coin a plough, which Léger does carry. `ru-050` said Pereyaslavets is not
+Preslav and its site is argued over; neither Léger nor Theotokis says so. What they DO each say is
+the honest version: **the chronicle writes Pereyaslavets where Leo the Deacon's account of the same
+war calls the city Preslav**, so the card now describes what the two traditions NAME rather than
+adjudicating between them. **Where a claim needs a source you have not read, say what your sources
+say instead** — it is usually the sharper sentence.
+
+**THE OPEN SOURCES THAT CARRY THIS STRETCH.** Léger's chronicle remains the spine (Oleg at 17–18 and
+22–25, his death at 30, Igor at 32–34 and 42, Olga at 42–48, Sviatoslav at 49–50, 53–54 and 59–60).
+Beside it: **Constantine VII's *De administrando imperio*** in Bekker's Bonn edition, whose ninth
+chapter names Sviatoslav son of Ingor at Novgorod — the one contemporary trace of two of these
+princes — and whose forty-second tells how Sarkel was built, kilns and river-gravel lime and all;
+**his *De cerimoniis*** in Reiske's Bonn edition, pages 594–598, the two receptions of the
+archontissa of Rus'; **Leo the Deacon** in Hase's Bonn edition, for the portrait of Sviatoslav in the
+boat, the Dorostolon terms and the twenty-two thousand of sixty thousand; **Liudprand of Cremona**,
+Wright's 1930 translation, pages 184–186, whose stepfather was in Constantinople when the fleet of
+941 arrived; **Siwko** on the 944 treaty's preamble; **Fylypchuk** arguing that the Chronicon
+Bruxellense's precise 18 June 860 is a late compiler's work and not a contemporary note;
+**Floria** on how the sixteenth century rewrote Olga and the emperor; **Theotokis** for the
+mercenary clauses of 911 and 944 in translation; and **Howard-Johnston** throughout.
+
+**A BARE "Oleg" ALIAS COSTS ONE WRONG LINK AND IT IS MEASURED.** Thirteen surfaces in the corpus
+carry the bare name; twelve are this Oleg and the thirteenth is `gw-509`, the Moscow capital card,
+where Yuri Dolgoruki entertains "Sviatoslaf and Oleg" in 1147 — Oleg Sviatoslavich, two centuries
+later. The alias is claimed anyway, on `Cell_(biology)`'s trade, and **the later princes of that name
+in this plan's own running order will need their own terms or a hand-written `data-k`**.
+`Igor_of_Kiev`, `Olga_of_Kiev` and `Sviatoslav_I` claim their bare names with no cost at all, every
+surface measured being the right man; `Askold_and_Dir` deliberately does not claim the bare **Dir**,
+which is three characters and a word in several languages.
+
+**AND CROSSREF HOLDS A DIFFERENT ROMANISATION OF ONE BYLINE, WHICH IS NOT A DEPOSIT ERROR.**
+*Slovene* prints Floria's name as **Boris N. Florya** on its own first page and gives *Florya B. N.*
+as its own recommended citation; Crossref carries **Boris Floria**. Neither is a misspelling of
+Флоря, so the `CROSSREF_WRONG` row added for it says in terms that it is not a claim Crossref is
+wrong about the man — it records that Folio follows the spelling a reader meets at the top of the PDF
+the citation points at.
+
+**TWO WORD-COUNT TRAPS COST A ROUND EACH.** Nine of the ten cards were refused first time over the
+**60-word cap on a `why` answer**, which is easy to overrun when the answer has a measurement and a
+reason in it. And `check-style`'s number-word rule caught "twenty-five envoys" in `ru-045`'s QUESTION
+and could not see the same words in its ABSTRACT, because it reads `data.js` and not `data-extra/`:
+four abstracts carried a hyphenated tens-and-units number and were fixed through `fix-field.js`.
+**Sweep your own abstracts for that rule by hand** — the checker cannot.
+
 ---
 
 # The list

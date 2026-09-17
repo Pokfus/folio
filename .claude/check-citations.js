@@ -286,6 +286,13 @@ const CROSSREF_WRONG = [
   // first page prints "CHRISTIANE SEYDOU" above the title, and the Journal des africanistes
   // published her under that name throughout.
   ["10.3406/jafr.1988.2246", "Christiane Seydou", "Christian Skydou"],
+  // Slovene deposited this byline in a different romanisation of the Cyrillic surname
+  // Флоря than the journal itself prints: Crossref carries "Boris Floria", where the
+  // article's own first page heads it "Boris N. Florya" and its own recommended citation
+  // reads "Florya B. N. (2018)". Neither form is a misspelling, so this row is not a
+  // claim that Crossref is wrong about the man — it is a note that Folio follows the
+  // spelling a reader will meet at the top of the PDF the citation points at.
+  ["10.31168/2305-6754.2018.7.2.19", "Boris N. Florya", "Boris Floria"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */

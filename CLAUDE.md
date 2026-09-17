@@ -449,14 +449,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
   the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
-  under "Generating cards & glossary entries". **`ru-001` to `ru-040` have shipped** (Sep 2026) — the
+  under "Generating cards & glossary entries". **`ru-001` to `ru-050` have shipped** (Sep 2026) — the
   Scythian and Sarmatian steppe, then the Goths, Huns, Avars, Bulgars, Khazars, Magyars and Pechenegs, then
   the Slavs, the Vyatichi, Slavic paganism, Perun, the Merya, the Balts, the Varangians and the Rus', and
   then the Normanist controversy, Staraya Ladoga, Gnyozdovo and the two trade routes, which **FINISHES
-  `ru-before` at its full 35 cards** and opens `ru-kievan` with Kievan Rus', Rurik, the Primary Chronicle,
-  the calling of the Varangians and Novgorod — and the collection is live with its 27 empty decks
-  coming-soon automatically, `isComingSoon` being true for a node holding no card. **Five lines have been
-  renamed and one answer term is not the line's own words**: `ru-017` is answered by the **Khazar
+  `ru-before` at its full 35 cards**; `ru-kievan` then opens with Kievan Rus', Rurik, the Primary Chronicle,
+  the calling of the Varangians and Novgorod, and runs on through Oleg, the seizure of Kyiv, the
+  Rus'–Byzantine treaties, the raids on Constantinople, Igor, Olga, her baptism, Sviatoslav, the end of
+  Khazaria and the Danube dominion — and the collection is live with its 27 empty decks
+  coming-soon automatically, `isComingSoon` being true for a node holding no card. **Ten lines are now
+  answered by something other than their own words, and the reasons are four rules**: `ru-017` is answered by the **Khazar
   Correspondence** rather than by "the Khazar conversion to Judaism", `ww2-140`'s shape — a line naming a
   PROCESS usually wants the document the process is known through; `ru-024` is **Vyatichi** and `ru-027`
   **Merya**, because a card blanks one word and neither "the East Slavic tribes" nor "the Finno-Ugric
@@ -465,14 +467,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   ninth century" is answered by **`Novgorod`** alone, keyed on the article slug `Veliky_Novgorod` with the
   bare name as its first alias, because the ninth-century site is a hillfort two kilometres upstream and the
   card's business is that the city and the chronicle's date do not belong to each other.
-  **AND `ru-036` NEEDED NO NEW GLOSSARY TERM, WHICH IS WORTH CHECKING FOR BEFORE THE RESEARCH RATHER THAN
-  AFTER**: `Kievan_Rus'` has been a cited term since the citation pass, so the pairing rule was already
-  satisfied, and `add-glossary.js` would have overwritten it in silence. **THE COLLECTION WRITES THE
+  **The second ten add five more of the same four shapes**: `ru-041` is **Oleg the Wise**, which is what
+  the encyclopedia heads the article the plan called *Oleg of Novgorod* — a REDIRECT, which is `ru-039`'s
+  finding from the other side; `ru-042` "the seizure of Kyiv" is **Askold and Dir**, the thing the event
+  was about, `Kyiv` being a cited term already; `ru-047` "the baptism of Olga" is **De Ceremoniis**,
+  `ww2-140`'s document shape, and there the document's SILENCE is the card; `ru-050` "Sviatoslav's Balkan
+  campaigns" is **Pereyaslavets**, the town they were about; and `ru-044` "the Rus' raids on
+  Constantinople" is **Greek fire**.
+  **AND `ru-036` AND `ru-044` NEEDED NO NEW GLOSSARY TERM, WHICH IS WORTH CHECKING FOR BEFORE THE RESEARCH
+  RATHER THAN AFTER**: `Kievan_Rus'` has been a cited term since the citation pass and `Greek_fire` has
+  been one, with a picture, for longer still, so the pairing rule was already satisfied and
+  `add-glossary.js` would have overwritten either in silence. **GREP THE KEYS IN THEIR OWN SLUG FORM** —
+  `answer.replace(/ /g, "_")` — since a grep for `greek fire` with a SPACE answers no for every multi-word
+  term there is, which is how that one was missed and then found by accident. **THE COLLECTION WRITES THE
   ETHNONYM WITH A STRAIGHT APOSTROPHE** — `Rus'`, not `Rus’` — which is not a taste but a constraint: a
   card's bolded answer term has to match its own `answer` field exactly, and `Kievan_Rus'` already claims
   the CURLY `Rus’` as an alias, so a curly one in prose auto-links to the state rather than the people.
   **📖 `docs/russia-card-plan.md` — READ BEFORE WRITING A
-  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-040`: the open sources
+  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-050`: the open sources
   that carry the collection and Léger's own pagination for the chronicle passages, the rule that a
   Russian-language journal is cited in Russian
   because that is the title Crossref holds, the `check-cards.js` rule 6 gap that no single Cyrillic row
@@ -1025,7 +1037,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE COMMA ENDS AN AUTHOR FIELD, NOT THE FULL STOP.** A book's title is italicised rather than
     quoted, so a quoted-title pattern cannot see it and a full-stop fallback reads an INITIAL as the
     whole name — three citations of one book filed under a scholar named for a letter. **A citation
-    OPENING on its title has no author at all.**
+    OPENING on its title has no author at all — BUT ONLY WHERE THAT TITLE IS QUOTED** (Sep 2026, on the
+    Russia collection). The guard tests `^["“]`, and an ANONYMOUS BOOK opens on an ITALICISED title, so
+    three citations of the Primary Chronicle on one card were filed under an author called *Chronique
+    dite de Nestor*. The fix is the one the list already uses for such works — they go in `ANCIENT`
+    beside `the anglo-saxon chronicle` — rather than widening the guard to italics, which would change
+    what every card in the corpus counts as an author. **A medieval WITNESS belongs there too**: `leo
+    the deacon`, `liudprand of cremona` and `constantine vii porphyrogenitus` were added with it, on
+    Ibn Battuta's precedent, three passages of one witness being the shape the list exists to excuse.
   · **AND IT CHECKS A `card.quote` AGAINST THE BOOK IT NAMES, WORD FOR WORD.** `test-card-quote.js`
     asserts the placement and the address and neither of them the WORDS, so a quotation can be
     re-punctuated, re-worded or elided across a gap and still render perfectly under a link to the real
@@ -5999,7 +6018,7 @@ lookup.
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
-| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 40 cards, contiguous — next is `ru-041` |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 50 cards, contiguous — next is `ru-051` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
