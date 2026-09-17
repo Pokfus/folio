@@ -12884,11 +12884,18 @@
       ]
     },
     "hsk30l4/应聘": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The gloss was the wrong end of the transaction: 应聘 is to APPLY for an advertised job, and the card said `accept an offer of employment`. CC-CEDICT carries both readings of the word — /to accept a job offer/to apply for an advertised position/ — but the card's own sentences settle it, 应聘薪酬更高的工作 being applying and 应聘者 being an APPLICANT, which is what its third line already translates it as. The first sentence's English had followed the wrong gloss into `accept the offer from that company`.",
       "ex": [
         [
           "我们希望应聘者能有4年工作经验。",
           "Ideally, a candidate for this job should have four years' work experience."
+        ]
+      ],
+      "gloss": "to apply for a job; to answer a job advertisement",
+      "exEn": [
+        [
+          "我打算去应聘那个公司的营销部经理职位",
+          "I'm going to apply for the marketing manager's job at that company."
         ]
       ]
     },
@@ -12980,8 +12987,14 @@
       ]
     },
     "hsk30l4/意见": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "opinion, view; an objection"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | `If you have a thought, please raise your hand` misses the sense the card's own gloss names second: 有意见 is to have an OBJECTION or a complaint, not merely a thought.",
+      "gloss": "opinion, view; an objection",
+      "exEn": [
+        [
+          "如果你有意见请举手",
+          "If you have an objection, please raise your hand."
+        ]
+      ]
     },
     "hsk30l4/抬头": {
       "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
@@ -13147,16 +13160,29 @@
       ]
     },
     "hsk30l4/演唱": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | Labelled `verb` over the noun gloss `sung performance`, and two of its three sentences had to go. The first, 他们不是在演唱，他们在调情说爱, writes **调情说爱**, which is a blend of 调情 and 谈情说爱 and is not an expression; the third — a row this record itself added in an earlier batch — reads 她在演唱会的场地贩卖毒品, `She's selling drugs at concerts`, which has no business on a vocabulary card whatever its grammar. **A sentence this record ships is the record's to fix**, so the drugs row is replaced in its own `ex` rather than dropped. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "演唱会门票比电影票贵。",
           "The concert ticket costs more than the cinema ticket."
         ],
         [
-          "她在演唱会的场地贩卖毒品。",
-          "She's selling drugs at concerts."
+          "她演唱了一首民歌。",
+          "She sang a folk song."
+        ],
+        [
+          "演唱会开始前十分钟入场。",
+          "You may go in ten minutes before the concert starts."
         ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to sing, in performance"
+        ]
+      ],
+      "dropEx": [
+        "调情说爱"
       ]
     },
     "hsk30l4/父子": {
@@ -108630,7 +108656,7 @@
       "gloss": "auntie; a mother's sister; a woman of one's mother's generation"
     },
     "hsk30l3/表演": {
-      "why": "Its gloss was the single noun \"performance\" under a **verb** part of speech — the shape cut from 希望 and 姓 two batches ago — and its own sentences divide two to one: 这个表演 and 下一场表演 are the noun, 她表演得真好 is the verb. CC-CEDICT gives both. Split and tagged. The `not 演出` hint is right and is left alone. | And its third sentence's English, \"Her performance is really good\", is a NOUN rendering of the one sentence on the card that is the VERB — the same fault 最 had in the batch before this one, and here it directly contradicts the sense tag this batch has just put on it. Rewritten.",
+      "why": "Its gloss was the single noun \"performance\" under a **verb** part of speech — the shape cut from 希望 and 姓 two batches ago — and its own sentences divide two to one: 这个表演 and 下一场表演 are the noun, 她表演得真好 is the verb. CC-CEDICT gives both. Split and tagged. The `not 演出` hint is right and is left alone. | And its third sentence's English, \"Her performance is really good\", is a NOUN rendering of the one sentence on the card that is the VERB — the same fault 最 had in the batch before this one, and here it directly contradicts the sense tag this batch has just put on it. Rewritten. | Its `not 演出` block retired. The two shared the English word `performance`; hsk30l4/演出 is now the staged show and this card's noun sense is sharpened to the performing itself, which is the real difference between them.",
       "senses": [
         [
           "verb",
@@ -108638,7 +108664,7 @@
         ],
         [
           "noun",
-          "a performance; a show"
+          "the performing; an act, a turn"
         ]
       ],
       "exSense": [
@@ -121249,6 +121275,226 @@
           "to build; to construct"
         ]
       ]
+    },
+    "hsk30l4/演出": {
+      "why": "Labelled `verb` over the noun gloss `performance`, with all three sentences the noun (看演出, 演出什么时候开始, 演出的成功) — and sharing that one English word with hsk30l3/表演, which is why the two carried a `not 表演` / `not 演出` hint pair. The distinction is real: **演出 is the EVENT, a staged show, where 表演 is the ACTIVITY, the performing itself**, which is why 表演 takes a verb sense and 演出 in practice does not. Given those the two no longer ask the same question and the pair is retired — which it had to be in any case, a sense rewrite rebuilding the English field.",
+      "senses": [
+        [
+          "noun",
+          "a staged show; a public performance"
+        ]
+      ]
+    },
+    "hsk30l4/引起": {
+      "why": "The first sentence was 如何引起女人的渴望？ — `How to arouse a woman's desire?`, which is clickbait rather than a sentence teaching a word, and which the card's own third line (引起我的兴趣) already covers in a register a learner can use. Replaced with the commonest collocation the word has. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "如何引起女人的渴望"
+      ],
+      "ex": [
+        [
+          "这件事引起了很大的关注。",
+          "This has attracted a great deal of attention."
+        ]
+      ]
+    },
+    "hsk30l4/演": {
+      "why": "Not one of the three sentences used 演 as a free verb: 开演, 重演 and 讲演 all bury it in a compound, so a card glossed `to develop, to evolve, to perform` never showed the performing. One replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "她做了场好讲演"
+      ],
+      "ex": [
+        [
+          "他在这部电影里演一个警察。",
+          "He plays a policeman in this film."
+        ]
+      ]
+    },
+    "hsk30l4/一切": {
+      "why": "The first sentence was not a sentence: 美好的一切 is a NOUN PHRASE, `all that is good`, and its English — `Everything is good` — reads it as a clause it is not. Replaced. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "美好的一切"
+      ],
+      "ex": [
+        [
+          "一切都准备好了。",
+          "Everything is ready."
+        ]
+      ]
+    },
+    "hsk30l4/叶子": {
+      "why": "All THREE sentences were leaves falling — 秋天，叶子会落下, 叶子正在落下来, 树上的叶子随着冬天的到来而掉落 — so a card about leaves showed one event three times over. One replaced, and the gloss changed from `foliage`, which is a mass noun a learner will not use, to what the card's own English lines all say. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "a leaf; leaves",
+      "dropEx": [
+        "叶子正在落下来"
+      ],
+      "ex": [
+        [
+          "这种植物的叶子很大。",
+          "This plant has large leaves."
+        ]
+      ]
+    },
+    "hsk30l4/勇敢": {
+      "why": "The first two sentences were the same sentence twice — 您非常勇敢 and 你很勇敢，不是吗 — differing only in the politeness of the pronoun. One replaced with the adverbial use. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "你很勇敢，不是吗"
+      ],
+      "ex": [
+        [
+          "她勇敢地面对了困难。",
+          "She faced the difficulty bravely."
+        ]
+      ]
+    },
+    "hsk30l4/邀请": {
+      "why": "Labelled `verb` over the noun gloss `invitation`, and the card's three sentences are one noun and two verbs. Split, with each sentence saying which it shows.",
+      "senses": [
+        [
+          "verb",
+          "to invite"
+        ],
+        [
+          "noun",
+          "an invitation"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ]
+    },
+    "hsk30l4/阳光": {
+      "why": "The gloss led on the FIGURATIVE senses — `optimistic; cheerful; sunlight` — while all three sentences are literal sunshine. CC-CEDICT gives /sunshine/(of personality) upbeat; energetic/ in that order, which is also the order a learner meets them in.",
+      "gloss": "sunshine, sunlight; (of a person) sunny, upbeat"
+    },
+    "hsk30l4/演员": {
+      "why": "Glossed `actor/actress`, a slash form that is dated in English — `actor` covers both — and narrower than the word, 演员 being any performer, an acrobat or a singer as much as a film actor. CC-CEDICT gives /actor; actress; performer/.",
+      "gloss": "an actor; a performer"
+    },
+    "hsk30l4/要是": {
+      "why": "`If I was you, I'd study` wants the subjunctive — `if I were you` — which is the one place careful English still keeps it, and which a learner copying the line will need.",
+      "exEn": [
+        [
+          "我要是你，我会去学习",
+          "If I were you, I'd study."
+        ]
+      ]
+    },
+    "hsk30l4/已": {
+      "why": "The English dropped the word the card is about: 我已告诉她要做什么 is that the speaker has ALREADY told her, which is the whole of what 已 contributes. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows nothing at all. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "我已告诉她要做什么",
+          "I have already told her what to do."
+        ]
+      ],
+      "compounds": [
+        [
+          "已经",
+          "yǐ jīng",
+          "already"
+        ],
+        [
+          "而已",
+          "ér yǐ",
+          "that is all; nothing more"
+        ],
+        [
+          "不得已",
+          "bù dé yǐ",
+          "to have no alternative"
+        ],
+        [
+          "已往",
+          "yǐ wǎng",
+          "the past; formerly"
+        ]
+      ]
+    },
+    "hsk30l4/眼镜": {
+      "why": "`How much did the glasses cost?` puts a present-tense question into the past — 这副眼镜多少钱 is asking the price of the glasses in front of you.",
+      "exEn": [
+        [
+          "这副眼镜多少钱",
+          "How much are these glasses?"
+        ]
+      ]
+    },
+    "hsk30l4/赢得": {
+      "why": "`Does he have a chance in winning the election?` — a chance OF winning.",
+      "exEn": [
+        [
+          "他有机会赢得选举吗",
+          "Does he have a chance of winning the election?"
+        ]
+      ]
+    },
+    "hsk30l4/样子": {
+      "why": "`You want to leave it like that?` is not a translation of 你觉得那样子行吗, which asks whether the speaker thinks that will DO.",
+      "exEn": [
+        [
+          "你觉得那样子行吗",
+          "Do you think that will do?"
+        ]
+      ]
+    },
+    "hsk30l4/赢": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 赢得. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "输赢",
+          "shū yíng",
+          "win or loss; the outcome"
+        ],
+        [
+          "双赢",
+          "shuāng yíng",
+          "a win-win situation"
+        ],
+        [
+          "赢利",
+          "yíng lì",
+          "a profit; to make a profit"
+        ]
+      ]
+    },
+    "hsk30l4/夜": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which here shows one word, 夜晚. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "半夜",
+          "bàn yè",
+          "midnight; the middle of the night"
+        ],
+        [
+          "熬夜",
+          "áo yè",
+          "to stay up late"
+        ],
+        [
+          "深夜",
+          "shēn yè",
+          "very late at night"
+        ],
+        [
+          "夜间",
+          "yè jiān",
+          "at night; night-time"
+        ]
+      ]
+    },
+    "hsk30l6/场地": {
+      "why": "The third sentence was 她在演唱会的场地贩卖毒品, `She's selling drugs at concerts` — a line about dealing narcotics on a card whose headword is a VENUE, where the drugs are incidental to the word being taught. The sweep that found it also found the same sentence on hsk30l7/毒品 and hsk30l7/贩卖, and **those two are left**: their headwords ARE narcotics and trafficking, so a card for either must show a sentence about them, which is `check-coarse.js`'s own discriminator — a hit is dropped where the matched term IS the headword. Here the headword is 场地 and the sentence is about something else, so it goes. AUTHORED replacement, and the record says so.",
+      "dropEx": [
+        "贩卖毒品"
+      ],
+      "ex": [
+        [
+          "比赛场地已经准备好了。",
+          "The ground is ready for the match."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",
@@ -121357,7 +121603,6 @@
     "hsk30l3/节日": "佳节",
     "hsk30l3/草": "草丛",
     "hsk30l3/草地": "草坪",
-    "hsk30l3/表演": "演出",
     "hsk30l3/课本": "教科书",
     "hsk30l3/马上": "即时",
     "hsk30l3/马路": "街头",
@@ -121414,7 +121659,6 @@
     "hsk30l4/母亲": "妈妈",
     "hsk30l4/汗": "汗水",
     "hsk30l4/消息": "新闻",
-    "hsk30l4/演出": "表演",
     "hsk30l4/父亲": "爸爸",
     "hsk30l4/牌子": "苗头",
     "hsk30l4/皮肤": "肌肤",

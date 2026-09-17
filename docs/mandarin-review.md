@@ -604,6 +604,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 751–780 (推出 → 吸), deck order | 20 | a gloss that was simply the wrong word, papered over by a `not X` hint |
 | 2026-09-17 | `hsk30l4` notes 781–810 (西部 → 笑话), deck order | 17 | a SIBLING PAIR both illustrated with a sentence their headword is not in |
 | 2026-09-17 | `hsk30l4` notes 811–840 (血 → 研究生), deck order | 16 | a card teaching a Cantonese word for the animal its sentence is about |
+| 2026-09-17 | `hsk30l4` notes 841–870 (严重 → 勇敢), deck order | 21 | a gloss that was the wrong end of its own transaction |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6487,4 +6488,64 @@ would make this card disagree with its neighbours for no gain.
 **Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
 still-ambiguous 2; shared-gloss groups 326 unchanged; pinyin clean; example-fit 143 and senses 152
 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 575 unchanged;
+`build-lang-decks.js` re-run.
+
+## Batch 69 — hsk30l4 notes 841–870 (严重 → 勇敢)
+
+Thirty consecutive notes; **twenty-one cards changed** across three decks.
+
+**The leading finding is a gloss that was the wrong end of its own transaction.** 应聘 is to APPLY for
+an advertised job, and the card said **`accept an offer of employment`**. CC-CEDICT carries both
+readings — /to accept a job offer/to apply for an advertised position/ — but the card's own sentences
+settle it: 应聘薪酬更高的工作 is applying, and 应聘者 is an APPLICANT, which its third English line
+already says. The first sentence's English had followed the wrong gloss into *accept the offer from
+that company*, so the card was internally inconsistent and nothing reported it.
+
+**A seventh `not X` pair retired, and it took a real distinction to do it.** 演出 was labelled `verb`
+over the noun gloss `performance` — with three noun sentences — and shared that one English word with
+hsk30l3/表演, which is why the two carried a hint pair. **演出 is the EVENT, a staged show; 表演 is the
+ACTIVITY, the performing itself**, which is why 表演 takes a verb sense and 演出 in practice does not.
+Both sharpened, the pair retired.
+
+**A sentence about dealing drugs, on four cards, and only one of them was wrong.**
+她在演唱会的场地贩卖毒品 — *She's selling drugs at concerts* — sat on 演唱 (as a row **this record
+itself had added** in an earlier batch), on hsk30l6/场地, and on hsk30l7/毒品 and hsk30l7/贩卖. It was
+replaced on the first two and **left on the last two**, and the line between them is
+`check-coarse.js`'s own discriminator: a hit is dropped where the matched term IS the headword. 毒品 is
+narcotics and 贩卖 is trafficking, so a card for either must show a sentence about them; 演唱 is singing
+and 场地 is a venue, and there the drugs are incidental to the word being taught. **The same sentence
+can be right on one card and wrong on another** — the rule batch 27 found for 短发 on 短 and on 发,
+met here in the coarse-content register.
+
+**Two more sentences unfit or not Chinese.** 引起's first was 如何引起女人的渴望？, clickbait rather
+than teaching, in a sense the card's own third line already covers usably. 演唱's first wrote
+**调情说爱**, which is a blend of 调情 and 谈情说爱 and is not an expression.
+
+**Four cards showing one thing three times, or nothing at all.** 演's three sentences all bury the
+character in a compound (开演, 重演, 讲演), so a card glossed *to perform* never showed the performing.
+叶子's three were all leaves falling. 勇敢's first two were the same sentence twice, differing only in
+the politeness of the pronoun. And 一切's first was not a sentence at all — 美好的一切 is a NOUN PHRASE,
+*all that is good*, whose English read it as a clause.
+
+**Three more glosses.** 阳光 led on the FIGURATIVE senses while all three sentences are literal
+sunshine; 叶子 was `foliage`, a mass noun a learner will not use, over three English lines saying
+*leaves*; 演员 was `actor/actress`, a slash form that is dated and narrower than the word, 演员 being
+any performer. **One more label**: 邀请 was `verb` over the noun `invitation` with one noun and two verb
+sentences, now split and tagged.
+
+**Six English lines.** *If I was you* where careful English keeps the subjunctive — the one place a
+learner copying the line will need it; `a thought` for 有意见, which the card's own gloss already calls
+an objection; a dropped `already` on the card whose whole subject is 已; a present-tense price question
+put into the past; *a chance in winning*; and *You want to leave it like that?* for 那样子行吗, which
+asks whether that will DO.
+
+**Three `Compounds` blocks**: 已 had nothing at all, 赢 and 夜 one word each.
+
+**Read and left.** 严重, 眼镜's other lines, 眼前, 养成, 钥匙, 也许, 夜, 夜晚, 以内, 一生, 艺术, 因此,
+印象, 赢, 赢得's other lines, 勇敢's third line — and hsk30l7/毒品 and hsk30l7/贩卖, read deliberately
+and left for the reason above.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 326 unchanged; pinyin clean; example-fit 143 and senses 152
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 575 → 578;
 `build-lang-decks.js` re-run.
