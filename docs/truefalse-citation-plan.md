@@ -2229,3 +2229,33 @@ rule being relaxed. The row is the FULL name, never the bare word, on the rule t
 established; **proved by planting `tumors` elsewhere in the same answer and watching rule 2 fire on
 it.** Rewording round the registry was the alternative and was rejected: it is the institution that
 holds the cases, so naming it is what makes the claim checkable.
+
+### T59 — the same route again, and a clause that outran its source (2026-09-17)
+
+One cited: #81 (glass is a slow-moving liquid). 204 → **205 of 220 (93%)**. T55 recorded the physics
+myths as having "no open scholarly route at all" on the strength of Crossref confirming the papers and
+AIP being shut. **That was the T58 mistake one subject over**: the canonical paper is Zanotto, "Do
+Cathedral Glasses Flow?", *Am. J. Phys.* 66 (1998), the publisher 403s — and the Wayback Machine has
+five captures of `aapt.scitation.org/doi/10.1119/1.19026`, one of which serves the ABSTRACT in full.
+
+**THE PRE-2015 PUBLISHER PLATFORMS ARCHIVED THEIR ABSTRACTS, AND THAT IS THE PATTERN WORTH KNOWING.**
+Two of the three papers reached this way — the AACR one in T58 and this — were on HighWire-style
+article pages whose abstract sat in the HTML for any crawler. **What does NOT work is a modern
+JavaScript platform**: PsycNet has captures of both the DOI and the record URL for the Kitty Genovese
+paper (#135) going back to 2020, and every one of them is the site's own shell with no abstract in it.
+So the route is worth trying on any shut paper and is decided by what the PUBLISHER's page was made of
+at the time, not by whether captures exist. **Not every capture is a reading.**
+
+**AND A 1960s NATURE LETTER HAS NO ABSTRACT TO FIND.** Shapiro's "Bath-Tub Vortex" (1962) and
+Trefethen et al.'s southern-hemisphere reply (1965) both resolve in Crossref and Semantic Scholar and
+**both records carry an empty abstract field**, because letters of that date did not have one. #84
+therefore stays blocked for a reason that no amount of probing will change.
+
+**THE FIRST DRAFT OF THE ANSWER ASSERTED SOMETHING THE ABSTRACT DOES NOT SAY**, and it was caught by
+reading the draft back against the source rather than by any checker. It ended "the uneven panes are a
+fact about how the glass was made and fitted, not about it running" — which is true, is the standard
+explanation, and is **not in the abstract**, which says only what the myth rests on and how long flow
+would take. The paper's body discusses crown and cylinder glass; the body was not read. The clause was
+replaced with the entailment the two sourced facts actually support: *so whatever makes those panes
+uneven, it is not the glass running.* **A supporting clause is a claim too** — this pass's own T50
+finding, met again.
