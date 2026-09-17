@@ -13724,7 +13724,7 @@
       ]
     },
     "hsk30l5/便": {
-      "why": "Its one sense read 'adverb — convenience; excrement or urine; relieve oneself': three biàn senses jumbled under a part of speech that fits none of them, and no pián at all, which is the reading a learner meets first in 便宜. Rewritten outright. | Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Bathroom” in British English is the room with the bath in it. The headword here is the lavatory, so the British word is “toilet”. 浴室 — which really is the room with the bath — keeps “bathroom” on all three of its sentences and its gloss. ",
+      "why": "Its one sense read 'adverb — convenience; excrement or urine; relieve oneself': three biàn senses jumbled under a part of speech that fits none of them, and no pián at all, which is the reading a learner meets first in 便宜. Rewritten outright. | Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Bathroom” in British English is the room with the bath in it. The headword here is the lavatory, so the British word is “toilet”. 浴室 — which really is the room with the bath — keeps “bathroom” on all three of its sentences and its gloss.  | The card glosses biàn as `convenient, handy; then, in that case`, and two of its three sentences are the excretion sense CC-CEDICT lists and this card does not: 便后请洗手 and 我小便里有血. The third, 搭便车, is 便车 — a lift. So the sense a reader most needs from this character in written Chinese, the `then, in that case` that the card DOES gloss, had no sentence at all. Both replaced with it. This is also the blind spot batch 30 measured in `check-coarse.js`: its own() branch excuses every compound containing a ONE-character headword, so a card about 便 is permanently exempt from every term beginning 便, and nothing reported these. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The batch-24 `exEn` row that had turned that sentence's `bathroom` into `toilet` is removed with the sentence — an `exEn` naming a sentence the note no longer has is a hard FAIL, which is exactly what it is for.",
       "Pinyin": "biàn / pián",
       "Bopomofo": "ㄅㄧㄢˋ / ㄆㄧㄢˊ",
       "senses": [
@@ -13739,10 +13739,18 @@
           "cheap (in 便宜)"
         ]
       ],
-      "exEn": [
+      "dropEx": [
+        "便后请洗手",
+        "我小便里有血"
+      ],
+      "ex": [
         [
-          "便后请洗手",
-          "Please wash your hands after using the toilet."
+          "天一亮我们便出发。",
+          "We set off as soon as it was light."
+        ],
+        [
+          "若无异议，此事便这样定了。",
+          "If there is no objection, we will settle it like this, then."
         ]
       ]
     },
@@ -14322,17 +14330,11 @@
       ]
     },
     "hsk30l5/报道": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Garbage” and “trash” are both American; British English says rubbish, and the container is a dustbin rather than a garbage can. “Trash media” is the gutter press.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Garbage” and “trash” are both American; British English says rubbish, and the container is a dustbin rather than a garbage can. “Trash media” is the gutter press. | The sentence this record added in the example top-up called the press 垃圾媒体, the gutter press, and ran to thirty characters of somebody's opinion about media bias — which is not what a vocabulary card is for, whatever one thinks of the opinion. Replaced with an ordinary use of the word. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The batch-24 `exEn` row that had put that sentence's English into British word choices is removed with it, and so is the `ex` row itself: the sentence was this record's own, so there is nothing in the deck to drop.",
       "ex": [
         [
-          "关于这个问题，我觉得垃圾媒体只报道了很片面的信息。",
-          "Concerning this issue, I feel that the trash media only report biased information."
-        ]
-      ],
-      "exEn": [
-        [
-          "关于这个问题，我觉得垃圾媒体只报道了很片面的信息",
-          "On this question I think the gutter press has reported only very one-sided information."
+          "这条新闻各大媒体都报道了。",
+          "All the major media reported this story."
         ]
       ]
     },
@@ -14454,12 +14456,19 @@
       ]
     },
     "hsk30l5/标题": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The sentence this record added in the example top-up was software documentation — 这个函数有两个参数，第一个是窗体的标题，另一个是图标的标题 — thirty characters about function parameters, window titles and icon titles, which teaches the word in a register almost no reader of a Level 5 card will meet. Replaced with the ordinary sense. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
       "ex": [
         [
           "这个函数有两个参数，第一个是窗体的标题，另一个是图标的标题。",
           "This function takes two parameters, the first one is the title of the window, the second one will be the title of the icon."
+        ],
+        [
+          "这篇文章的标题很吸引人。",
+          "The title of this article is very catching."
         ]
+      ],
+      "dropEx": [
+        "这个函数有两个参数"
       ]
     },
     "hsk30l5/比分": {
@@ -76805,7 +76814,7 @@
       ]
     },
     "hsk30l5/本领": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The first example was not a sentence but a paragraph: 130 characters over three sentences, with a 90-word English translation about a teacher exploiting his pupils to price a holiday, buy a fruit bowl and dress dolls. The headword appears once, in the first clause, and everything after it is about something else entirely. The longest example in the deck by a wide margin, and the same class as 转机 and 总结 in batch 73. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. (The same paragraph also sits on hsk30l7/衣裳, whose own batch is a long way off; it is left there for now and recorded.)",
       "ex": [
         [
           "他有一身好本领。",
@@ -76814,7 +76823,14 @@
         [
           "这需要真本领。",
           "This calls for genuine skill."
+        ],
+        [
+          "他把一身本领都教给了徒弟。",
+          "He passed on all his skills to his apprentice."
         ]
+      ],
+      "dropEx": [
+        "若老师要筹划一趟假期旅行"
       ]
     },
     "hsk30l5/比喻": {
@@ -115987,7 +116003,7 @@
       ]
     },
     "hsk30l4/感": {
-      "why": "Labelled a SUFFIX and glossed only as one, where the card's own second and third sentences are the VERB — 感兴趣 split by 不, and 感受到. CC-CEDICT gives both.",
+      "why": "Labelled a SUFFIX and glossed only as one, where the card's own second and third sentences are the VERB — 感兴趣 split by 不, and 感受到. CC-CEDICT gives both. | The same subject-less sentence as hsk30l5/背后 — 背后感受到她的目光, repaired here too. This card's own batch is long past; the sentence was found from a Level 5 card that shares it. The first repair was written 我在背后感受到她的目光, which CONTAINS the dropEx string and was therefore thrown away by its own drop — the documented trap, and it costs the card an example in silence. Reworded so the replacement does not contain the sentence it replaces.",
       "senses": [
         [
           "noun / suffix",
@@ -115996,6 +116012,15 @@
         [
           "verb",
           "to feel; to be moved"
+        ]
+      ],
+      "dropEx": [
+        "背后感受到她的目光"
+      ],
+      "ex": [
+        [
+          "我感受到她在背后的目光。",
+          "I felt her gaze on my back."
         ]
       ]
     },
@@ -122268,13 +122293,14 @@
       ]
     },
     "hsk30l5/报警": {
-      "why": "`gonna` is a spoken contraction that no learner should be shown as written English, and the decks' English is standard everywhere else. Measured: four sites across three decks, all corrected in this batch.",
+      "why": "`gonna` is a spoken contraction that no learner should be shown as written English, and the decks' English is standard everywhere else. Measured: four sites across three decks, all corrected in this batch. | The gloss was `to give a warning`, while all three sentences are calling the POLICE — 我们该报警 / 想报警的是谁 / 我要报警了, every one of them rendered `call the police` in its own English. CC-CEDICT gives both senses; the card gave only the one it does not show.",
       "exEn": [
         [
           "我要报警了",
           "I'm going to call the police!"
         ]
-      ]
+      ],
+      "gloss": "to report something to the police; to call the police; to sound an alarm"
     },
     "hsk30l6/鲨鱼": {
       "why": "`gonna` is a spoken contraction that no learner should be shown as written English, and the decks' English is standard everywhere else. Measured: four sites across three decks, all corrected in this batch.",
@@ -122891,6 +122917,180 @@
     "hsk30l6/嘿": {
       "why": "The other half of the 哎 / 嘿 pair, both of which were glossed `hey` and carried a `not X` line at each other. They are not in fact the same word, and each card's own three sentences say which is which: all three of 嘿's call to somebody (嘿，你！请稍候 / 嘿，看我找到了什么 / 嘿，你的狗刚咬了我), where 哎's are surprise and dismay. Sharpening both dissolves the collision, so the hint pair is retired — a disambiguator that no longer disambiguates anything is worse than none, a reader taking it for a real distinction.",
       "gloss": "hey (calling to somebody)"
+    },
+    "hsk30l5/暴雨": {
+      "why": "`Yesterday it rained heavily` for 昨天下了一场大暴雨, which is a cloudburst rather than heavy rain — the card's own gloss is `torrential rain` and the sentence intensifies it further.",
+      "exEn": [
+        [
+          "昨天下了一场大暴雨",
+          "There was a huge downpour yesterday."
+        ]
+      ]
+    },
+    "hsk30l5/背后": {
+      "why": "背后感受到她的目光 has no subject at all: 感受到 needs somebody doing the feeling, and as written the sentence begins on a place word and then has a verb with nobody attached to it. Its own English supplies the `I` the Chinese has not got. Repaired rather than replaced, since the sentence is a good one otherwise — and repaired on all THREE cards that carry it, hsk30l5/背后, hsk30l5/目光 and hsk30l4/感, since a row reaches one note and this one sentence is on three. The first repair was written 我在背后感受到她的目光, which CONTAINS the dropEx string and was therefore thrown away by its own drop — the documented trap, and it costs the card an example in silence. Reworded so the replacement does not contain the sentence it replaces.",
+      "dropEx": [
+        "背后感受到她的目光"
+      ],
+      "ex": [
+        [
+          "我感受到她在背后的目光。",
+          "I felt her gaze on my back."
+        ]
+      ]
+    },
+    "hsk30l5/目光": {
+      "why": "The same subject-less sentence as hsk30l5/背后 — 背后感受到她的目光, repaired here too. Read ahead of its own batch because the fault was found on a card that shares the sentence; the rest of this card is not yet audited. The first repair was written 我在背后感受到她的目光, which CONTAINS the dropEx string and was therefore thrown away by its own drop — the documented trap, and it costs the card an example in silence. Reworded so the replacement does not contain the sentence it replaces.",
+      "dropEx": [
+        "背后感受到她的目光"
+      ],
+      "ex": [
+        [
+          "我感受到她在背后的目光。",
+          "I felt her gaze on my back."
+        ]
+      ]
+    },
+    "hsk30l5/被子": {
+      "why": "The second sentence counted the quilt with 张 — 还想要张被子吗 — where the card's own measure-word field says 床 and its first sentence uses 条. A card that states its classifier and then shows a different one teaches the reader to doubt the field. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "还想要张被子吗"
+      ],
+      "ex": [
+        [
+          "天冷了，再加一床被子吧。",
+          "It has turned cold — put another quilt on."
+        ]
+      ]
+    },
+    "hsk30l5/本地": {
+      "why": "`I am sorry. I am not from here.` drops the headword: 本地人 is a local, which is the whole of what the sentence was chosen to show, and the card's first sentence already renders it that way.",
+      "exEn": [
+        [
+          "抱歉，我不是本地人",
+          "Sorry, I'm not a local."
+        ]
+      ]
+    },
+    "hsk30l5/本人": {
+      "why": "`two passport-sized photos` for 两张本人的白底报名照, which is a registration photograph rather than a passport one, and the card's word 本人 is `of yourself` rather than the size of the print.",
+      "exEn": [
+        [
+          "白底报名照",
+          "You will need to bring two registration photographs of yourself against a white background."
+        ]
+      ]
+    },
+    "hsk30l5/本质": {
+      "why": "众人皆知月球之本质为芝士 is written in classical grammar — 之 for 的 and 为 for 是 — on a Level 5 card whose reader has met neither, and what it says is that the moon is made of cheese. Replaced with an ordinary modern sentence. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. (The third sentence, 自由的本质就是数学, is odd in content but sound in grammar and shows the 的本质就是 pattern, so it stands.)",
+      "dropEx": [
+        "众人皆知月球之本质为芝士"
+      ],
+      "ex": [
+        [
+          "我们要看清问题的本质。",
+          "We must see the essence of the problem clearly."
+        ]
+      ]
+    },
+    "hsk30l5/彼此": {
+      "why": "`Man is the only animal that talks` drops 彼此, which is the headword and the whole point of the sentence — animals make noise, and what the sentence claims is that only people talk TO EACH OTHER.",
+      "exEn": [
+        [
+          "唯一彼此交谈",
+          "Humans are the only animals that talk to each other."
+        ]
+      ]
+    },
+    "hsk30l5/必": {
+      "why": "The first sentence was 共产主义必胜！ — a political slogan, which is not what a vocabulary card is for whatever one thinks of it, and the same objection the public-figures sweep made earlier in this audit. Replaced with an ordinary written use of the adverb. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. The card also had almost nothing in its tap panel: one word, 不必, against thirteen in the collection.",
+      "dropEx": [
+        "共产主义必胜"
+      ],
+      "ex": [
+        [
+          "这件事我必亲自去办。",
+          "I must see to this myself."
+        ]
+      ],
+      "compounds": [
+        [
+          "不必",
+          "búbì",
+          "need not; not have to"
+        ],
+        [
+          "必定",
+          "bìdìng",
+          "to be bound to; certainly"
+        ],
+        [
+          "势必",
+          "shìbì",
+          "to be bound to; inevitably"
+        ],
+        [
+          "何必",
+          "hébì",
+          "why bother; there is no need to"
+        ]
+      ]
+    },
+    "hsk30l5/胜": {
+      "why": "The other card carrying 共产主义必胜！, dropped here for the same reason. Read ahead of its own batch because the slogan was found on hsk30l5/必, which shares the sentence; the rest of this card is not yet audited. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "dropEx": [
+        "共产主义必胜"
+      ],
+      "ex": [
+        [
+          "主队最终以二比一胜了对手。",
+          "The home team beat their opponents 2-1 in the end."
+        ]
+      ]
+    },
+    "hsk30l5/必需": {
+      "why": "Two of the three sentences are written with the wrong character. 必需 and 必须 are homophones, both bì xū, and they are different words: 必需 is `to require; essential` and 必须 is the adverb `must`, which has its own card at hsk30l3. 你必需马上去那儿 (`It is necessary for you to go there immediately`) and 我们必需克服我们所感到的无助 are both 必须 sentences, and only 汽车是必需的 is this card's word at all — so two of three taught the reader to write the wrong one of a pair that is already the hardest thing about these two words. Replaced with the verb and the attributive, which the card also lacked, leaving all three constructions distinct. The gloss `to need` is also widened to what CC-CEDICT gives. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "to require; to need; essential; indispensable",
+      "dropEx": [
+        "你必需马上去那儿",
+        "我们必需克服我们所感到的无助"
+      ],
+      "ex": [
+        [
+          "这项工程必需大量资金。",
+          "This project requires a great deal of capital."
+        ],
+        [
+          "请带上必需的证件。",
+          "Please bring the necessary documents."
+        ]
+      ]
+    },
+    "hsk30l5/便利店": {
+      "why": "Two English lines. `The convenience store ran out of business` is not English — 出兑 is a shop putting itself up for sale — and `to copy documents` for 打印文件, which is to PRINT them, on a sentence whose whole premise is that the office printer has broken.",
+      "exEn": [
+        [
+          "便利店出兑",
+          "The convenience store is up for sale."
+        ],
+        [
+          "打印机又坏了",
+          "The printer at my company has broken down again, so I am going to the convenience store to print some documents."
+        ]
+      ]
+    },
+    "hsk30l5/表达": {
+      "why": "我不能流利的用英文表达 writes 的 where an adverbial takes 地 — 流利地 — which is one of the two or three commonest written errors in Chinese and not something a card should model; and its English, `I can't speak English fluently`, drops 表达 altogether. The gloss `to voice (an opinion)` is also narrower than any of the card's own three sentences, none of which is about an opinion: CC-CEDICT gives `to express; to convey`. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "gloss": "to express; to convey",
+      "dropEx": [
+        "我不能流利的用英文表达"
+      ],
+      "ex": [
+        [
+          "他不善于表达自己的感情。",
+          "He is not good at expressing his feelings."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",

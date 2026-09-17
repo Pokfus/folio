@@ -610,6 +610,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l4` notes 931–960 (支持 → 转), deck order, plus `major` and `gonna` sweeps | 22 | a split headword hidden by the fact that the pair IS a real word |
 | 2026-09-17 | `hsk30l4` notes 961–990 (转发 → 作者), deck order — **Level 4 complete** | 18 | a noun gloss on a card whose sentences are two different verbs |
 | 2026-09-17 | `hsk30l5` notes 1–30 (哎 → 报到), deck order | 25 | **two of one card's three sentences used its character for its sound in a name** |
+| 2026-09-17 | `hsk30l5` notes 31–60 (报道 → 表达), deck order, plus three cards outside it that share a sentence | 19 | **two of one card's three sentences were written with the wrong character of a homophone pair** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -6864,3 +6865,88 @@ itself added as 唉唷喂啊, a fixed exclamation showing nothing of the bare wo
 still-ambiguous 2; shared-gloss groups **326 → 325**, no new collision; pinyin clean; example-fit 143
 and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged
 609 → 624; `build-lang-decks.js` re-run.
+
+## Batch 75 — hsk30l5 notes 31–60 (报道 → 表达)
+
+Thirty consecutive notes, **sixteen of them changed**, plus **three cards outside the range** that share
+a sentence with one inside it — nineteen cards in all, across two decks.
+
+**The leading fault is a homophone pair written the wrong way round, twice on one card.** 必需 and 必须
+are both **bì xū** and are different words: 必需 is *to require; essential*, 必须 is the adverb *must*,
+and 必须 has its own card at hsk30l3. Two of 必需's three sentences are 必须 sentences wearing the other
+character — 你必需马上去那儿 (*It is necessary for you to go there immediately*) and 我们必需克服我们所感到的无助
+— so **only 汽车是必需的 was this card's word at all**, and the card taught the reader to write the wrong
+one of the single hardest pair in the level. Replaced with the verb and the attributive, which the card
+also lacked, so its three sentences are now three constructions.
+
+**A card whose glossed sense is the one it does not show, for the fourth batch running.** 报警 was
+glossed `to give a warning` while all three sentences call the POLICE — 我们该报警 / 想报警的是谁 /
+我要报警了, every one of them rendered *call the police* in its own English.
+
+**And a card two of whose three sentences are a sense it does not gloss at all.** 便 glosses biàn as
+`convenient, handy; then, in that case`, and 便后请洗手 and 我小便里有血 are the excretion sense
+CC-CEDICT lists and this card does not; the third, 搭便车, is 便车, a lift. So **the `then, in that case`
+the card does gloss — the commonest bare use of the character in written Chinese — had no sentence at
+all.** This is also **batch 30's blind spot arriving on a new card**: `check-coarse.js`'s `own()` branch
+excuses every compound that contains a ONE-character headword, so a card about 便 is permanently exempt
+from every term beginning 便 and nothing reported these.
+
+**A 130-character paragraph as an example sentence.** 本领's first was three sentences and a 90-word
+English translation about a teacher exploiting his pupils to price a holiday, buy a fruit bowl and dress
+dolls; the headword appears once, in the opening clause, and everything after it is about something
+else. The longest example in the deck by a wide margin, and 转机 and 总结's fault from batch 73 at four
+times the size. (**The same paragraph also sits on hsk30l7/衣裳**, whose batch is a long way off; it is
+recorded and left there.)
+
+**A sentence with no subject, carried by three cards.** 背后感受到她的目光 begins on a place word and
+then has 感受到 with nobody attached to it, its English quietly supplying the *I* the Chinese has not
+got — and it is on **hsk30l5/背后, hsk30l5/目光 and hsk30l4/感**. Repaired rather than replaced, and
+repaired on all three: a row reaches one note, so one sentence on three cards is three rows.
+
+**A political slogan, on two cards.** 共产主义必胜！was the first sentence of 必 and of 胜. Replaced on
+both — the objection the public-figures sweep made earlier in this audit, and not a view about the
+slogan.
+
+**A classifier the card's own measure-word field contradicts.** 被子's second sentence counted the quilt
+with 张 where the field says 床 and the first sentence uses 条. A card that states its classifier and
+then shows a different one teaches a reader to distrust the field.
+
+**A 的 where the language wants 地.** 表达's 我不能流利的用英文表达 writes the attributive particle in an
+adverbial slot — one of the two or three commonest written errors in Chinese, and not something a card
+should model. Its gloss was `to voice (an opinion)`, narrower than any of its own three sentences, none
+of which is about an opinion.
+
+**Three sentences that are not what a vocabulary card is for.** 报道's was thirty characters calling the
+press 垃圾媒体, the gutter press, and stating an opinion about media bias. 标题's was software
+documentation — function parameters, window titles, icon titles. 本质's was 众人皆知月球之本质为芝士,
+which is classical grammar (之 for 的, 为 for 是) on a Level 5 card and says the moon is made of cheese.
+All three were sentences this record had itself added in earlier example top-ups.
+
+**Six English lines**, of which the two worth naming are `The convenience store ran out of business` for
+出兑, which is a shop putting itself up for sale, and `Man is the only animal that talks` for
+人类是唯一彼此交谈的动物, which drops 彼此 — the headword, and the whole claim, animals being noisy enough.
+
+**One `Compounds` block**, 必, which had one word in the reader's downloaded deck against thirteen in the
+collection.
+
+**Two faults of my own, both recorded because both are traps this file already names.**
+· **An orphaned `exEn`, twice in one batch.** Dropping a sentence from 报道 and from 便 left behind the
+  `exEn` rows batch 24 had written for those same sentences, and the applier FAILED on both — which is
+  exactly what that field is for, and is batch 70's *a drop orphans every other row naming the same
+  sentence* met again. Removed with the sentences.
+· **A replacement eaten by its own drop.** The first repair of 背后感受到她的目光 was written
+  我在背后感受到她的目光, which CONTAINS the dropEx string — so `dropEx`, which filters the record's own
+  `ex` rows too, threw the replacement away and left all three cards an example short **in silence**.
+  Caught only by the block count moving 34,596 → 34,593. Reworded to 我感受到她在背后的目光, which does
+  not contain the sentence it replaces. **Count the blocks after a drop-and-re-add.**
+
+**Read and left.** 报告, 抱怨, 背景, 比分, 比例, 比喻, 毕竟 (whose 毕竟，我应认真相信些什么 fronts a
+question a little oddly but is attested), 避免, 闭幕式, 必然, 必要, 变动, 便利 — whose third sentence
+writes 便利商店, the Taiwan form, where the very next card is 便利店; both are real and the pair is left
+as it stands — 标志, and 暴雨's 狂风暴雨, which swallows the headword in a set phrase the reader will
+meet whole.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 2; shared-gloss groups 325 unchanged, no new collision; pinyin clean; example-fit 143
+and senses 152 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged
+624 unchanged; `build-lang-decks.js` re-run.
