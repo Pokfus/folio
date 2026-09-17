@@ -4646,6 +4646,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     EMPTY span** that collapses to 0px wide under that class — so widening it would make the control
     vanish rather than explain itself. Guarded by `test-speak.js`'s last section, which asserts all three
     cases including that **an engine which really speaks is never nagged**.
+    **AND ITS PEN-DOWN SECTION HAS TO SEED THE MARKER'S OWN COACH CARD AWAY** (Sep 2026): opening the
+    marker panel calls `openMarkerHelp()` the first time, and `pageHelp`'s card lays a full-screen
+    overlay over the page — so the tap meant for `.uc-tts` landed on `.page-help`, nothing was spoken,
+    and the suite reported the read-aloud control as having stopped answering. `folio_marker_tour_v1` is
+    seeded in the fixture's `addInitScript`, which is what `test-layout.js` already does. **The
+    companion assertion was passing for the wrong reason** and now proves the ink: a drag that says
+    nothing is equally true of a drag that drew a line and of a gesture that never reached the canvas.
   **📖 `docs/reader-settings.md` — READ BEFORE CHANGING ANY OF IT.** Every measured contrast ratio, the
   spelling table's traps in full, the units sweep's awkward shapes, the i18n engine's `I18N_HTML` gating
   and its cap, the whole dormant narration system — the voice scoring, the chunking, the baked manifest's
@@ -7179,10 +7186,17 @@ division-capital city tier are inert dead code.
     `add-card-difficulty.js`, `mark-undatable.js`, or `whatyear.js` — and after any batch of ratings or
     flags.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
-    (Aug 2026), 70 assertions. **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` /
-    `closePageHelp` / `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `PAGES.home`'s `fresh` branch,
-    `tourOfferHTML`'s place on the home page, the Atlas / Library / book help cards, or `render()`'s
-    close list.**
+    (Aug 2026), 71 assertions. **A LABEL READ OUT OF `app.js` MAY BE AN EXPRESSION RATHER THAN A
+    LITERAL, AND THE SLICE HAS TO SAY SO** (Sep 2026): the reveal button's markup became
+    `>" + (recallOn ? "Reveal and compare" : "Reveal answer") + "<` when *Recall in full* shipped, so the
+    slice captured a fragment of JavaScript and the suite failed against it for weeks — the CHECK being
+    wrong rather than the tour. It reads every label the expression can produce now and asks the tour to
+    name one of them; **the capture opens and closes on the concatenation's own quote**, so the outer
+    pair is stripped before the quoted runs are taken, or the pairing lands on the glue and yields
+    nothing. An empty candidate list still fails loudly. **Re-run after touching the `THE GUIDED TOUR`
+    block, `pageHelp` / `closePageHelp` / `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `PAGES.home`'s `fresh`
+    branch, `tourOfferHTML`'s place on the home page, the Atlas / Library / book help cards, `render()`'s
+    close list, or the reveal button's own label.**
   · `node .claude/test-units.js` — the two Settings that REWRITE what is already on the page (Aug 2026):
     measurements, and light/dark from the device. **Re-run after touching `unitizeText` / `unitizeTree` /
     `applyUnits` / `applyTheme` / `setNight` / `setThemeAuto`, and after any units batch.**
