@@ -830,6 +830,75 @@ CLAUDE.md's own date-line bullet says.
   last batch — 154 shipped cards carry an over-long label — and it is worth knowing that **any card
   put back through `set-date-line.js` pays it off on the way past**.
 
+**2026-09-17, `ru-061`–`ru-070` written** — the Caves monastery, Ilarion's sermon, the two languages,
+the birch bark letters, the druzhina, the towns, the slave trade, the coinage and the rota system. All
+ten sit in `ru-kievan`, which now holds 35 cards.
+
+**TWO LINES WERE RETITLED AND BOTH FOR REASONS THE PLAN'S OWN RULE ASKS FOR.** `ru-062` was
+*Hilarion of Kyiv* and is now answered by the **`Sermon on Law and Grace`**, because `ru-060` The
+metropolitanate of Kyiv already spends much of its prose on Ilarion's elevation of 1051 and on the
+sermon itself — the `ww2-133` shape, a line named after a person an earlier card has already carded.
+`ru-068` was *The trade of Rus'* and is now **The slave trade of Rus'**, answered by **`Saqaliba`**:
+the two trade ROUTES are `ru-034` and `ru-035`, the silver is `ru-069`, and what was left of the line
+was the commodity nobody else cards. The plan's line is changed to match the card rather than the card
+left to contradict it.
+
+**THE SAQALIBA CARD IS THE `Mokosh` LESSON WITH A HAPPY ENDING, AND THE SEARCH THAT FOUND IT IS THE
+REUSABLE PART.** The first draft was written from the etymology — Greek *sklavos* to Arabic
+*ṣaqāliba* to the European word for a slave — and **not one source in hand carried it**:
+Kluchevsky has the commodities, Howard-Johnston the routes, Montgomery the Volga market, and none of
+them the word. Two searches settled it, and the order matters: DOAJ on the bare term returned seven
+records of which three are on point, and Crossref on `saqaliba Slavic slaves Islamic world trade`
+returned **Marek Jankowiak twice, both open**. The IJMES piece opens on Cambridge Core without a
+paywall and carries the definition, the palatial demand, Ibn Fadlan at Bulgar in 921, the Prague
+market forty years later, the 400,000 dirhams and the shift of the route from Iraq to the Samanids
+after about 900 — a whole card in four pages. **Ask the bare term of DOAJ before assuming a word has
+no literature**; the multi-word DOAJ queries that failed earlier in the batch returned zero every time.
+
+**AND `ru-063` IS THE OPPOSITE OUTCOME, WHICH IS WORTH RECORDING BECAUSE IT CHANGED THE CARD.** The
+obvious first sentence of an Old East Slavic card is its periodisation — seventh or eighth century to
+the thirteenth or fourteenth, then Russian and Ruthenian — and **nothing openable states it**. Four
+searches (DOAJ on *Old East Slavic*, on *Ruthenian language divergence* and on *Old Novgorod dialect*,
+Crossref on the periodisation and on diglossia in Kievan Rus') returned dialect dictionaries, a 1975
+*Russian Review* article behind a paywall and nothing else. So the card was rewritten to claim only
+what the sources carry: Keipert's East Slavonic recension of the eleventh to thirteenth centuries,
+Galinskaya's vьxe, Saltovskaia's suffixes, Temchin's Ruthenian, Nikolaev's Germanic names and
+Mikheev's Lucca graffiti — and the date line says *Written record, 11th – 13th century* rather than
+asserting a span. **A card can be at the bar and still not be able to say the one thing an encyclopedia
+opens with.**
+
+**THE HOSTS THIS BATCH MEASURED, since the last one's list is the kind that goes stale.** OPEN and
+carrying real text: `volsu.ru` (Vestnik VolGU ser. 4 and the Lower Volga Archaeological Bulletin, three
+articles), `czasopisma.uni.lodz.pl` (Studia Ceranea, PDF by `citation_pdf_url`), `slovene.ru`,
+`slavistica` at `zurnalai.vu.lt`, `voprosy-onomastiki` at `journals.urfu.ru`, `mics.org.ua`
+(City: History, Culture, Society), `arheologia.com.ua`, `fis.uni-bamberg.de`, `historickycasopis.sk`,
+`oajournals.fupress.net` (Studi Slavistici), `18384`-DOIs at `mgou`, and **`cambridge.org`, which
+serves Jankowiak's IJMES article in full**. SHUT or walled: `journal.fi` (an Anubis bot wall, so
+Yurayong's SUSA paper cannot be read at all), `link.springer.com` (a JavaScript client challenge),
+`doiserbia.nb.rs` (connection reset), `revistas.usal.es` (SSL certificate failure, twice), `mdpi.com`
+(403), and `septentrio.uit.no` at the DOI's own address (404).
+
+**AND `upload.wikimedia.org` IS BUSY RATHER THAN SHUT, WHICH COST THE PICTURE PASS ITS AFTERNOON.**
+`Special:FilePath` returned a *Wikimedia Error* page for four of five files fetched two seconds apart
+and every one of them on an eighteen-second gap; `api.php` returned an empty body for three searches in
+a row at three-second spacing and answered at twenty. **Space a Commons pass at twenty seconds a
+request and expect a batch of ten to take four minutes**, which is cheaper than concluding the host is
+closed.
+
+**A DATE LINE READ BACK, AS THIS COLLECTION'S OWN RULE NOW REQUIRES.** All ten sort years were checked
+against `cardYears` after writing, by slicing it out of app.js on the markers `test-date-line.js` uses,
+and all ten are the intended year: `ru-064` at 988 off *from 988 CE*, `ru-067` at 900 off
+*c. 900 – 950 CE*, `ru-068` at 921 off the Bulgar market, `ru-069` at 980 off Vladimir's coins.
+**The slice needs the whole `DEEP_MAG` block**, not `cardYears` alone: three separate attempts failed on
+`_SY_DASH`, `deepNum` and `ADMIN_EDITS` in turn, and `_SY_DASH` is indented, so a `^const` anchor misses
+it.
+
+**`check-questions.js` CAUGHT TWO BLANKS AT THE END OF A SENTENCE THAT `add-card.js` HAD TAKEN**, on
+`ru-061` and `ru-069`. Both were third phrasings whose final clause ended on the answer, which reads
+perfectly and is exactly what the mid-sentence rule exists to stop; `add-questions.js --partial`
+replaces a card's extras in place, so the repair is one batch rather than a rewrite. **Run
+`check-questions.js` after a batch even when every card was accepted.**
+
 ---
 
 # The list
@@ -908,7 +977,7 @@ CLAUDE.md's own date-line bullet says.
     ru-065  Birch bark letters
     ru-066  Druzhina
     ru-067  The towns of Rus'
-    ru-068  The trade of Rus'
+    ru-068  The slave trade of Rus'
     ru-069  The coinage of Rus'
     ru-070  The rota system of succession
     ru-071  The Council of Liubech

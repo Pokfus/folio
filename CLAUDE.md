@@ -449,7 +449,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
   the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
-  under "Generating cards & glossary entries". **`ru-001` to `ru-060` have shipped** (Sep 2026) — the
+  under "Generating cards & glossary entries". **`ru-001` to `ru-070` have shipped** (Sep 2026) — the
   Scythian and Sarmatian steppe, then the Goths, Huns, Avars, Bulgars, Khazars, Magyars and Pechenegs, then
   the Slavs, the Vyatichi, Slavic paganism, Perun, the Merya, the Balts, the Varangians and the Rus', and
   then the Normanist controversy, Staraya Ladoga, Gnyozdovo and the two trade routes, which **FINISHES
@@ -457,7 +457,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the calling of the Varangians and Novgorod, and runs on through Oleg, the seizure of Kyiv, the
   Rus'–Byzantine treaties, the raids on Constantinople, Igor, Olga, her baptism, Sviatoslav, the end of
   Khazaria, the Danube dominion, Vladimir, his pagan reform, the conversion, the Byzantine marriage, the
-  Tithe Church, Boris and Gleb, Yaroslav, the Russkaya Pravda, Saint Sophia and the metropolitanate — and
+  Tithe Church, Boris and Gleb, Yaroslav, the Russkaya Pravda, Saint Sophia and the metropolitanate, and
+  then the Caves monastery, Ilarion's sermon, Old East Slavic and Church Slavonic, the birch bark letters,
+  the druzhina, the towns, the slave trade, the coinage and the rota system — and
   the collection is live with its 27 empty decks
   coming-soon automatically, `isComingSoon` being true for a node holding no card. **Ten lines are now
   answered by something other than their own words, and the reasons are four rules**: `ru-017` is answered by the **Khazar
@@ -494,6 +496,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `SPELL_PAIRS` and a family absent from the table being one it never asks about. The glossary key stays
   the real slug `Christianization_of_Kievan_Rus'` with the British form as an alias, `Paleolithic`'s own
   arrangement.
+  **THE FOURTH TEN RETITLE TWO LINES AND BOTH ARE SHAPES ALREADY IN THIS LIST.** `ru-062` was *Hilarion
+  of Kyiv* and is answered by the **`Sermon on Law and Grace`**, `ww2-133`'s rule — `ru-060` had already
+  carded Ilarion's elevation and his sermon with its own sources, so the line had no term of its own left
+  to teach. And `ru-068` *The trade of Rus'* is now **The slave trade of Rus'**, answered by **`Saqaliba`**:
+  `ru-034` and `ru-035` are the two ROUTES and `ru-069` is the silver, so what the line had left was the
+  commodity, and **the plan's own line was changed to match the card** rather than left to contradict it.
+  **A CARD CAN BE AT THE BAR AND STILL UNABLE TO SAY WHAT AN ENCYCLOPEDIA OPENS WITH**, which is `ru-063`'s
+  finding: nothing openable from here states Old East Slavic's periodisation — four DOAJ and Crossref
+  sweeps returned dialect dictionaries and one paywalled 1975 article — so the card claims only the
+  eleventh-to-thirteenth-century written record its sources carry, and its date line says so.
   **AND `ru-036` AND `ru-044` NEEDED NO NEW GLOSSARY TERM, WHICH IS WORTH CHECKING FOR BEFORE THE RESEARCH
   RATHER THAN AFTER**: `Kievan_Rus'` has been a cited term since the citation pass and `Greek_fire` has
   been one, with a picture, for longer still, so the pairing rule was already satisfied and
@@ -6050,7 +6062,7 @@ lookup.
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
-| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 60 cards, contiguous — next is `ru-061` |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 70 cards, contiguous — next is `ru-071` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
