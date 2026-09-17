@@ -9433,15 +9433,37 @@
    ]
   },
   "hsk30l2/周": {
-   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | Its noun gloss joined two renderings with a COMMA where every other gloss in these decks uses a semicolon — \"a circuit, a circumference\" — which on the reverse card, whose front is the gloss and nothing else, reads as one thing rather than two. The senses are right and all three sentences are the week. | The measure-word sense has no example and is deliberately NOT tagged: unlike 着 below, a reader cannot HEAR the difference, and a lap is a marginal use for a Level 2 card. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. | All three of its sentences put the headword next to another character — 下周, 一周, 一周 — and NONE of them is the swallowed-headword fault that cost 左 two sentences in this same batch. The test is whether the headword is doing its own work, not whether its characters sit beside others: 周 IS the measure word for weeks, so 一周 is a numeral plus its measure and 下周 is “next” plus it, where 左手 is a lexicalised noun inside which 左 is a bound morpheme. Read and left.",
    "senses": [
     [
      "noun",
-     "a week; a circuit, a circumference"
+     "a week; a circuit; a circumference"
     ],
     [
      "measure word",
-     "a lap, a turn"
+     "a lap; a turn"
+    ]
+   ],
+   "compounds": [
+    [
+     "周末",
+     "zhōu mò",
+     "the weekend"
+    ],
+    [
+     "周围",
+     "zhōu wéi",
+     "the surroundings"
+    ],
+    [
+     "四周",
+     "sì zhōu",
+     "all around"
+    ],
+    [
+     "周年",
+     "zhōu nián",
+     "an anniversary"
     ]
    ]
   },
@@ -9933,7 +9955,7 @@
    ]
   },
   "hsk30l2/正": {
-   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+   "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | Its third example was 正有什么奇怪的事情发生着。 — 正 + 有 + 什么 + a verb + 着 is not a frame Chinese uses; the thought is 奇怪的事情正在发生 or 正有怪事发生. Replaced with an AUTHORED sentence which also fixes the card's other gap: the gloss claims an ADJECTIVE sense, straight or upright, and all three of its sentences were the adverb. Tagged, so the division is on the card rather than left to be worked out. | Its second sentence, 现在是十时正, was read and LEFT: 十时正 is written-register and Taiwan-flavoured where a mainland learner would say 十点整, but it is not wrong, the deck carries bopomofo throughout, and 正 is doing real work in it. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
    "senses": [
     [
      "adjective",
@@ -9942,6 +9964,42 @@
     [
      "adverb",
      "just, exactly; in the middle of (doing something)"
+    ]
+   ],
+   "dropEx": [
+    "正有什么奇怪的事情发生着。"
+   ],
+   "ex": [
+    [
+     "把画挂正。",
+     "Hang the picture straight."
+    ]
+   ],
+   "exSense": [
+    2,
+    2,
+    1
+   ],
+   "compounds": [
+    [
+     "正在",
+     "zhèng zài",
+     "in the middle of (doing)"
+    ],
+    [
+     "正常",
+     "zhèng cháng",
+     "normal"
+    ],
+    [
+     "正确",
+     "zhèng què",
+     "correct"
+    ],
+    [
+     "正好",
+     "zhèng hǎo",
+     "just right; as it happens"
     ]
    ]
   },
@@ -10070,7 +10128,7 @@
    ]
   },
   "hsk30l2/着": {
-   "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+   "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | Three readings and three examples, and ALL THREE examples are the first reading, the zhe particle — a reader meeting 他只能看着, 你是不是瞒着我什么 and 听着！孩子们 under a card headed zhe / zhuó / zháo would reasonably take one sentence per reading. Tagged, so the card says which. | They are not replaced, and that is the finding rather than an omission: outside the particle this character is BOUND — 着急 and 着火 are zháo, 穿着 and 着手 are zhuó — so there is no sentence in which bare 着 is read either of those ways. What teaches the other two readings is the compound list below, which is why this card's list is chosen to cover all three. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. The list is chosen to cover all three readings the card names and no sentence can: 接着 is zhe, 着急 and 着火 are zháo, 穿着 is zhuó.",
    "Say": "接着",
    "Pinyin": "zhe / zhuó / zháo",
    "Bopomofo": "ㄓㄜ˙ / ㄓㄨㄛˊ / ㄓㄠˊ",
@@ -10090,12 +10148,85 @@
      "verb",
      "to be affected by; to catch (fire, cold)"
     ]
+   ],
+   "exSense": [
+    1,
+    1,
+    1
+   ],
+   "compounds": [
+    [
+     "接着",
+     "jiē zhe",
+     "to carry on; next"
+    ],
+    [
+     "着急",
+     "zháo jí",
+     "anxious; worried"
+    ],
+    [
+     "着火",
+     "zháo huǒ",
+     "to catch fire"
+    ],
+    [
+     "穿着",
+     "chuān zhuó",
+     "dress; clothing"
+    ]
    ]
   },
   "hsk30l2/站": {
-   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+   "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | Its gloss was \"station; stop\" under a **noun** part of speech, and two of its three sentences — 站在那儿的女人是谁？ and 你能站起来吗？ — are the VERB, to stand. CC-CEDICT gives \"station / to stand / to halt / to stop\", so the missing sense is the dictionary's second. Split, and the three sentences tagged, since they now genuinely divide between the two. | Its first example, 还有两站下去。, is not idiomatic: 下去 does not carry \"to go\" in that frame. Replaced with an AUTHORED sentence in the ordinary one, 还有两站就到了. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
    "mw": [
     "个"
+   ],
+   "senses": [
+    [
+     "noun",
+     "a station; a stop"
+    ],
+    [
+     "verb",
+     "to stand"
+    ]
+   ],
+   "dropEx": [
+    "还有两站下去。"
+   ],
+   "ex": [
+    [
+     "还有两站就到了。",
+     "There are two more stops to go."
+    ]
+   ],
+   "exSense": [
+    2,
+    2,
+    1
+   ],
+   "compounds": [
+    [
+     "车站",
+     "chē zhàn",
+     "a station; a bus stop"
+    ],
+    [
+     "网站",
+     "wǎng zhàn",
+     "a website"
+    ],
+    [
+     "加油站",
+     "jiā yóu zhàn",
+     "a petrol station"
+    ],
+    [
+     "站台",
+     "zhàn tái",
+     "a platform (at a station)"
+    ]
    ]
   },
   "hsk30l2/笔": {
@@ -10342,11 +10473,38 @@
    ]
   },
   "hsk30l2/远": {
-   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+   "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Its first example ends with no terminal punctuation at all — 地铁站有点儿远 simply stops. It is one of the ~150 the corpus-wide punctuation pass deliberately left, that pass converting marks and never adding one; but unlike 游泳's dialogue two batches ago the sentence itself is good, and replacing a good sentence to work around a gap in the applier would put a worse one on the card. So the applier gained `exStop`, which appends the mark to `data-say` and to the visible text together and is a no-op once applied. A terminal-punctuation scan of the whole deck finds exactly one other candidate class — four quoted dialogues closing on ” — which are correct as they stand. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows nothing at all. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. Every word the nine decks hold for this character is Level 4 or above, so the panel could show a Level 2 reader nothing usable even with the whole corpus to search.",
    "ex": [
     [
      "南非很远。",
      "South Africa is far away."
+    ]
+   ],
+   "exStop": [
+    [
+     "地铁站有点儿远"
+    ]
+   ],
+   "compounds": [
+    [
+     "永远",
+     "yǒng yuǎn",
+     "forever"
+    ],
+    [
+     "远方",
+     "yuǎn fāng",
+     "a faraway place"
+    ],
+    [
+     "遥远",
+     "yáo yuǎn",
+     "distant; far off"
+    ],
+    [
+     "长远",
+     "cháng yuǎn",
+     "long-term"
     ]
    ]
   },
@@ -105974,7 +106132,7 @@
    ]
   },
   "hsk30l2/右边": {
-   "why": "Two of its three sentences. 躺在你右边 was rendered \"Lie on your right side\", which it does not say — it says lie to the right OF you — and 不要从右边咬。\"Don't bite on the right side\" is not a thing anybody says in either language. Both replaced with AUTHORED sentences in the frame this word is actually used in, X 的右边. The second replacement was rewritten on reading the finished card: 请走右边这条路 carried the SAME English as the surviving 走右边的道路, word for word, which is the duplicate-English fault `check-senses.js` exists for. An existential frame instead.",
+   "why": "Two of its three sentences. 躺在你右边 was rendered \"Lie on your right side\", which it does not say — it says lie to the right OF you — and 不要从右边咬。\"Don't bite on the right side\" is not a thing anybody says in either language. Both replaced with AUTHORED sentences in the frame this word is actually used in, X 的右边. The second replacement was rewritten on reading the finished card: 请走右边这条路 carried the SAME English as the surviving 走右边的道路, word for word, which is the duplicate-English fault `check-senses.js` exists for. An existential frame instead. | Read for consistency with 左边 above and changed with it: it carried the same \"on the right\" under a **noun** part of speech, and the pair must not disagree about what kind of word they are. Outside this batch's range and touched deliberately.",
    "dropEx": [
     "躺在你右边。",
     "不要从右边咬。"
@@ -105988,7 +106146,8 @@
      "右边有一家商店。",
      "There is a shop on the right."
     ]
-   ]
+   ],
+   "gloss": "the right side; on the right"
   },
   "hsk30l2/颜色": {
    "why": "Its second example's English wrote \"favorite color\" where the card's own gloss and its other two sentences write colour. The decks are authored in British English, because the site's spelling switch only ever converts British to American and never back — so an American form inside deck content is what BOTH readers see. (\"color\" is in `SPELL_PAIRS` and would have been converted for an American reader anyway; \"favorite\" is the half that was stuck.) The Chinese is unchanged.",
@@ -106048,6 +106207,213 @@
      "an octopus"
     ]
    ]
+  },
+  "hsk30l2/足球": {
+   "why": "Its gloss was \"soccer ball\" — CC-CEDICT's SECOND sense, where the first is \"soccer; football\" — and not one of its three sentences is about a ball: 我喜欢足球, 你踢足球吗 and 足球是我最喜欢的运动 are all the game. The commonest sense restored, with the ball kept and labelled. | Its English also said football once and soccer twice, for the same word on the same card. The decks are authored British, because the site's spelling switch only ever converts British to American and never back, so both readers see whatever is written here; and neither reader is served by one card calling the game two things. All three now say football, and \"favorite\" goes British with them.",
+   "gloss": "football (the game); a football (the ball)",
+   "exEn": [
+    [
+     "你踢足球吗？",
+     "Do you play football?"
+    ],
+    [
+     "足球是我最喜欢的运动。",
+     "Football is my favourite sport."
+    ]
+   ]
+  },
+  "hsk30l2/运动": {
+   "why": "Its gloss was the single word \"sport\" under **noun / verb** — one noun offered for both, and the third sentence, 我每天运动一小时, is plainly the verb. CC-CEDICT: \"to move / to exercise / sports\". Split, and the sentences tagged. (This is the per-card call, not the ban on splitting the 1,487 two-part-of-speech notes as a class: what settles it is that the card's own examples show both.) | Its second example, 我运动不好。, is not a sentence anybody says — the English \"I am not good at sports\" is 我不太会运动 or 我运动能力不好, and the bare adverbial is ungrammatical. Replaced. | Its third example's English wrote \"1 hour\" in digits mid-sentence.",
+   "senses": [
+    [
+     "noun",
+     "sport; exercise"
+    ],
+    [
+     "verb",
+     "to exercise; to work out"
+    ]
+   ],
+   "dropEx": [
+    "我运动不好。"
+   ],
+   "ex": [
+    [
+     "运动对身体很好。",
+     "Exercise is good for you."
+    ]
+   ],
+   "exSense": [
+    1,
+    2,
+    1
+   ],
+   "exEn": [
+    [
+     "我每天运动一小时。",
+     "I exercise for an hour every day."
+    ]
+   ]
+  },
+  "hsk30l2/准备": {
+   "why": "Its gloss was \"to prepare\" and two of its three sentences are not about preparing: 我们准备离开 and 你不准备去 are \"to be about to\" and \"to intend\". CC-CEDICT: \"preparation / to prepare / to intend / to be about to\". | The third of them was also the deck's only real `check-example-fit` finding in this range: 你不准备去，是吗？ segments as 不准 + 备, 不准 being a word of its own (to forbid). The segmenter is right that the sentence is ambiguous to a reader as well, and its English — \"You don't intend going there, do you?\" — is not idiomatic either. Replaced with an AUTHORED sentence in the intend sense.",
+   "gloss": "to prepare; to plan; to intend",
+   "dropEx": [
+    "你不准备去，是吗？"
+   ],
+   "ex": [
+    [
+     "他准备明年去中国。",
+     "He plans to go to China next year."
+    ]
+   ]
+  },
+  "hsk30l2/这么": {
+   "why": "Its gloss was \"so much\" — CC-CEDICT's first sense, and the sense NONE of its three examples shows: 这么漂亮啊, 我也这么想 and the broken second one are degree and manner. The dictionary's full entry is \"so much / this much / how much? / this way / like this\", and the card now carries the senses it teaches. | Its second example, 谁这么说说得不对。, is ungrammatical — 说说得 is a doubled verb with a complement marker stranded after it — and its English, \"Whoever said so, it is false\", is not English either. Replaced with an AUTHORED sentence which also gives the card the quantity sense its old gloss claimed.",
+   "gloss": "so; this much; this way; like this",
+   "dropEx": [
+    "谁这么说说得不对。"
+   ],
+   "ex": [
+    [
+     "这么多书，你看得完吗？",
+     "So many books — can you finish them all?"
+    ]
+   ]
+  },
+  "hsk30l2/这样": {
+   "why": "Its gloss was \"this kind of\" — CC-CEDICT's SECOND sense, the attributive one — and none of its three sentences was attributive. 别这样说话 and 怎么会这样 are manner, which is the dictionary's first sense: \"this way; like this; so\". | Its third example, 我们不做这样。, is ungrammatical: 这样 is adverbial here and cannot stand as the object of 做; it wants 我们不这样做. Replaced with an AUTHORED sentence which is attributive, so the sense the old gloss named is now the sense one of the sentences actually shows.",
+   "gloss": "this way; like this; such",
+   "dropEx": [
+    "我们不做这样。"
+   ],
+   "ex": [
+    [
+     "这样的机会不多。",
+     "Chances like this do not come often."
+    ]
+   ]
+  },
+  "hsk30l2/自己": {
+   "why": "Its gloss was \"self; oneself\". 自己 is not the English noun \"self\" — nobody translates it \"the self\" — and what the gloss was missing is the attributive use its own third sentence shows, 你有自己的房子吗. CC-CEDICT: \"oneself; (attributive) one's own\". Flagged by `check-gloss-source.js` and correct.",
+   "gloss": "oneself; one's own"
+  },
+  "hsk30l2/走": {
+   "why": "Its gloss was \"go; walk\" — a verb without its \"to \", the shape cut from 笑 and 跑步 before it — and it was also missing the sense two of its three sentences actually use: 你快要走了 and 你们为什么想今天走 are both \"to leave\", not \"to walk\". CC-CEDICT lists \"to walk / to go / to run / to move (of vehicle) / to visit / to leave\". | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written.",
+   "gloss": "to walk; to go; to leave",
+   "compounds": [
+    [
+     "走路",
+     "zǒu lù",
+     "to walk"
+    ],
+    [
+     "走开",
+     "zǒu kāi",
+     "to go away"
+    ],
+    [
+     "走进",
+     "zǒu jìn",
+     "to step into"
+    ],
+    [
+     "行走",
+     "xíng zǒu",
+     "to walk; to go on foot"
+    ]
+   ]
+  },
+  "hsk30l2/走路": {
+   "why": "Its third example was 我爸爸走路。 — \"My father walks.\" Two words and a verb, which is not a sentence in either language: Chinese wants a complement, a frequency or a destination after 走路, and the English says nothing about anybody. Replaced with an AUTHORED sentence — and the first draft of it, 他每天走路上班, was thrown away on reading the finished card: it is the same construction as the surviving 他走路回家, 走路 followed by where you are going. A duration frame instead, which is the other thing a beginner needs this word for. The gloss and the `not 行走` hint are right and are left alone.",
+   "dropEx": [
+    "我爸爸走路。"
+   ],
+   "ex": [
+    [
+     "从这儿走路只要十分钟。",
+     "It is only ten minutes on foot from here."
+    ]
+   ]
+  },
+  "hsk30l2/最": {
+   "why": "Two of its three English lines, for one reason and not two. “Who's your favorite?” and “Coffee is my favorite drink” are both NOUN renderings of sentences whose point is 最 standing as an ADVERB in front of a verb — which is what the card's own gloss says it is — so both hide the grammar the card is teaching. Rewritten faithfully. (They were also the American spelling, which the site's one-way switch never corrects, but that is the smaller half: fixing the spelling alone would have left the construction hidden on both.) The Chinese is unchanged.",
+   "exEn": [
+    [
+     "你最喜欢谁？",
+     "Who do you like best?"
+    ],
+    [
+     "我最爱喝咖啡。",
+     "I like drinking coffee best."
+    ]
+   ],
+   "compounds": [
+    [
+     "最好",
+     "zuì hǎo",
+     "best; had better"
+    ],
+    [
+     "最后",
+     "zuì hòu",
+     "last; in the end"
+    ],
+    [
+     "最近",
+     "zuì jìn",
+     "recently; lately"
+    ],
+    [
+     "最终",
+     "zuì zhōng",
+     "final; ultimate"
+    ]
+   ]
+  },
+  "hsk30l2/左": {
+   "why": "Its gloss was \"left (direction or side)\" — a parenthetical joining two renderings of one meaning with \"or\", the run-on shape cut from 右 in the batch before this one, which now reads \"the right; the right-hand side\". Mirrored. | TWO of its three sentences swallowed the headword: 她用左手写字 (左手, the left hand) and 我是左撇子 (左撇子, a left-hander). `check-example-fit.js` cannot see either, because it skips single-character headwords — one character cannot straddle a boundary — so this class has to be read for, exactly as 右手 was on 右. Both replaced with AUTHORED sentences, and the card's three now show 左转, 往左 and 靠左, which are deliberately NOT 右's three (右转, 往右拐, 向右看): a left/right pair taught in identical frames teaches the frame rather than the pair. 左手 and 左撇子 are on the compound list instead. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the reader has downloaded — which for this character shows 1 other word. AUTHORED, and the record says so. Candidates come from the corpus where it has them and from CC-CEDICT where its words are too few or too advanced for the level, and EVERY row's reading and gloss was checked against CC-CEDICT before it was written. 左手 and 左撇子 are on the list because they are the two words this batch had to take OUT of the card's own examples, where they were swallowing the headword — the same repair 右手 got on 右.",
+   "gloss": "the left; the left-hand side",
+   "dropEx": [
+    "她用左手写字。",
+    "我是左撇子。"
+   ],
+   "ex": [
+    [
+     "他往左看了一眼。",
+     "He glanced to the left."
+    ],
+    [
+     "请靠左走。",
+     "Please keep to the left."
+    ]
+   ],
+   "compounds": [
+    [
+     "左边",
+     "zuǒ bian",
+     "the left-hand side"
+    ],
+    [
+     "左手",
+     "zuǒ shǒu",
+     "the left hand"
+    ],
+    [
+     "左右",
+     "zuǒ yòu",
+     "left and right; approximately"
+    ],
+    [
+     "左撇子",
+     "zuǒ piě zi",
+     "a left-hander"
+    ]
+   ]
+  },
+  "hsk30l2/左边": {
+   "why": "Its gloss was \"on the left\" under a **noun** part of speech — a prepositional phrase where a noun was claimed, and the card's own second sentence, 我的学校在我家左边, needs the noun reading. CC-CEDICT: \"left; the left side; to the left of\".",
+   "gloss": "the left side; on the left"
   }
  },
  "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead.",

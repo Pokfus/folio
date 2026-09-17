@@ -553,6 +553,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l2` notes 91–120 (旅游 → 肉), deck order | 19 | a card missing the sense two of its three sentences show |
 | 2026-09-17 | `hsk30l2` notes 121–150 (商场 → 位), deck order | 21 | the dictionary's own editorial note pasted into a gloss |
 | 2026-09-17 | `hsk30l2` notes 151–180 (为什么 → 鱼), deck order | 16 | **an obscene example sentence on a Level 2 weather card** |
+| 2026-09-17 | `hsk30l2` notes 181–197 (远 → 左边), deck order, plus a new `exStop` field — **Level 2 complete** | 17 | a noun gloss on a card two of whose sentences are the verb |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -2089,3 +2090,140 @@ a finding anywhere.
 and 鱼 are right as they stand. 颜色's second English wrote "favorite color" and was put into British —
 "color" is in `SPELL_PAIRS` and would have been converted for an American reader anyway; "favorite" is
 the half that was stuck.
+
+### 2026-09-17 — Level 2, notes 181–197, and a new `exStop` field
+
+**What the batch was.** The last seventeen cards of HSK 2, 远 → 左边, read one at a time against
+CC-CEDICT and against their own three sentences. **Sixteen of the seventeen in range were changed**,
+and one card outside it — 右边, changed so that it and 左边 do not disagree about what kind of word they
+are. **Level 2 is complete.**
+
+### The one to read first
+
+**站 was glossed "station; stop" under a NOUN part of speech, and two of its three sentences are the
+verb.** 站在那儿的女人是谁？ and 你能站起来吗？ are *to stand*; only 还有两站 is a stop. CC-CEDICT gives
+"station / to stand / to halt / to stop", so the missing sense is the dictionary's second and the
+commonest verb in the entry. A reader working the reverse card is shown "a station; a stop" and has to
+produce 站 — which is fine — but a reader working the forward card meets two sentences the gloss cannot
+explain. Split, and the three sentences tagged.
+
+Three more cards had the same shape in weaker form: **运动** gave the single noun "sport" under
+**noun / verb**, with 我每天运动一小时 plainly the verb; **准备** gave "to prepare" where two of three
+sentences are *to intend* and *to be about to*; **走** gave "go; walk" where two of three are *to
+leave*. (走 was also a verb glossed without its "to ", the shape cut from 笑 and 跑步 in earlier
+batches.)
+
+### The new field, and why a good sentence was not thrown away
+
+**远's first example ended with no terminal punctuation at all** — 地铁站有点儿远, and then nothing. It
+is one of the ~150 sentences the corpus-wide punctuation pass deliberately left: that pass CONVERTS
+marks and never ADDS one, whether a fragment wants a stop being a judgement.
+
+The repair looks trivial and was not available. `dropEx` plus a re-add of the same Chinese **fails
+silently** — the drop filters the record's own `ex` rows as well as the deck's blocks, so a sentence
+re-added with its stop is thrown away and the card comes back an example short, which is how 手机 went
+from three sentences to one in batch 8. And the sentence is GOOD: replacing it to work around a gap in
+the applier would put a worse sentence on the card to fix a full stop.
+
+So the applier gained **`exStop`**, `[[chinese, mark?]]`, the third field of its kind after `exEn`:
+
+- It appends a terminal mark and **nothing else**, writing `data-say` and the visible text **together**,
+  so the spoken and the seen cannot come apart.
+- It matches `data-say` **exactly**, so it can never catch a longer sentence containing this one.
+- It is **idempotent by matching either form**: a block whose `data-say` is already the sentence plus
+  the mark is the repair applied and is a no-op.
+- It **FAILS** on a row matching neither form, and on a row naming a sentence that already ends in a
+  mark. Both were liveness-tested by planting them and watching the run exit 1.
+
+**It is deliberately not a general Chinese rewrite, and cannot become one.** A generator block carries
+a STRUCTURE LINE glossing every word's part of speech, and bolds the headword inside its visible text.
+Neither can be re-derived for different words. Appending a mark at the end is the one edit that leaves
+both true; anything else is `dropEx` + `ex`, which rebuilds the block and correctly drops the structure
+line with it.
+
+A terminal-punctuation scan of the whole of Level 2 finds exactly one other class — **four quoted
+dialogues closing on ”** (本子, 咖啡, 位, 因为) — which are correct as they stand.
+
+### The distinction that decides a swallowed headword, written down
+
+**左 lost two of its three sentences** to the fault 右 lost one to in the batch before: 她用左手写字 and
+我是左撇子 both put the headword inside a word of its own. `check-example-fit.js` can see neither,
+because it **skips single-character headwords** — one character cannot straddle a boundary — so this
+whole class has to be read for.
+
+**周's three sentences look identical in shape and are not the fault.** 学校下周开学, 雨下了一周,
+一周有几天 all put 周 next to another character. The test is **whether the headword is doing its own
+work**, not whether its characters sit beside others: 周 IS the measure word for weeks, so 一周 is a
+numeral plus its measure and 下周 is "next" plus it — where 左手 is a lexicalised noun inside which 左 is
+a bound morpheme with no work of its own. Read and left.
+
+### English that is not the sentence, and one card that said two things
+
+**足球's gloss was "soccer ball"** — CC-CEDICT's *second* sense, where the first is "soccer; football" —
+and not one of its three sentences is about a ball. Its English also said **football once and soccer
+twice, for the same word on the same card**. The decks are authored British, because the site's
+spelling switch only ever converts British to American and never back, so both readers see whatever is
+written here; and neither reader is served by one card calling the game two things.
+
+**最's two English lines were both NOUN renderings of adverb sentences.** "Who's your favorite?" and
+"Coffee is my favorite drink" are idiomatic English and they hide the grammar the card exists to teach —
+最 standing in front of a verb, which is what its own gloss says it is. Rewritten faithfully as "Who do
+you like best?" and "I like drinking coffee best." (They were the American spelling too, but that is the
+smaller half: fixing the spelling alone would have left the construction hidden on both.)
+
+### Sentences that are not sentences
+
+Three, and each was ungrammatical rather than merely awkward:
+
+- **这么's** 谁这么说说得不对。 — 说说得 is a doubled verb with a complement marker stranded after it, and
+  its English, "Whoever said so, it is false", is not English either.
+- **这样's** 我们不做这样。 — 这样 is adverbial here and cannot stand as the object of 做.
+- **正's** 正有什么奇怪的事情发生着。 — 正 + 有 + 什么 + verb + 着 is not a frame Chinese uses.
+
+Each replacement was chosen to give the card a sense it claimed and showed nowhere: 这么多书 for the
+quantity sense, 这样的机会不多 for the attributive one the old gloss named, 把画挂正 for the adjective.
+
+### Two more of my own replacements rewritten on reading the finished card
+
+**The fourth batch running.** Neither is visible to any checker:
+
+1. **走路's replacement, 他每天走路上班, is the same construction as the surviving 他走路回家** — 走路
+   followed by where you are going. Replaced with a duration frame, 从这儿走路只要十分钟.
+2. **左's two replacements were first drafted as 往左拐 and 向左看**, which are 右's own three frames with
+   the character swapped. A left/right pair taught in identical frames teaches the frame rather than the
+   pair, so 左 now shows 左转, 往左 and 靠左 against 右's 右转, 往右拐, 向右看.
+
+### On the compound lists
+
+**All eight single-character cards in the range got one** — 远, 站, 着, 正, 周, 走, 最, 左 — 32 rows,
+every reading and gloss checked against CC-CEDICT before it was written.
+
+- **着's list is chosen to cover all three readings the card names and no sentence can.** 接着 is *zhe*,
+  着急 and 着火 are *zháo*, 穿着 is *zhuó*. That is the finding on that card rather than an omission:
+  outside the particle this character is **bound**, so there is no sentence in which bare 着 is read
+  either of the other two ways, and the card's three examples are correctly all *zhe* — now tagged, so it
+  says so rather than letting a reader assume one sentence per reading.
+- **远's whole deck-side list is Level 4 and above**, so the tap panel could show a Level 2 reader
+  nothing usable even with the whole corpus to search.
+- **左手 and 左撇子 are on 左's list** because they are the two words this batch took OUT of that card's
+  examples — the same repair 右手 got on 右.
+
+### Read and left alone
+
+丈夫, 自己's sentences, 周's sentences, 最's Chinese and 左边's sentences are right as they stand. One
+thing was read and deliberately not changed: **正's 现在是十时正** is written-register and
+Taiwan-flavoured where a mainland learner would say 十点整, but it is not wrong, the deck carries
+bopomofo throughout, and 正 is doing real work in it.
+
+**The 一会儿 finding from `check-example-fit.js` is a false positive** and is the only one left in the
+deck: 就等一会儿。 segments as 等一会 + 儿 because 等一会 is itself a deck word, and the sentence does
+contain 一会儿.
+
+### Standing invariants at the end of the batch
+
+- example blocks: **34,596**; **spoken == visible on every one**
+- Chinese leaking into an English line: the Level 2 set is **byte-identical to HEAD's**, so the batch
+  introduced none
+- sense tags pointing past the sense list: **0**
+- stray spaces: **32 blocks, 24 distinct sentences** — unchanged, and still a batch of its own
+- clobber sweep over the record diff: **0**; 6 existing notes changed, 11 added, which is the 17 cards

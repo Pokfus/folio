@@ -54,6 +54,22 @@
   `dropEx` is not: the new English is re-asserted on every run, so a row matching nothing is always a
   typo and fails rather than being noted.
 
+  `exStop` ADDS A TERMINAL FULL STOP TO A SENTENCE THE DECK ALREADY SHIPS, and nothing else. The
+  corpus-wide punctuation pass CONVERTS marks and never adds one — whether a fragment wants a stop is
+  a judgement — so it deliberately left about 150 sentences with no terminal mark at all. Most of them
+  want replacing rather than punctuating, which `dropEx` + `ex` does; a few are perfectly good
+  sentences whose only fault is the missing stop, and throwing one of those away to work around a gap
+  in this file would put a worse sentence on the card. `exStop` is `[[chinese, mark?]]`, matched on the
+  block's `data-say` EXACTLY, and it rewrites both `data-say` and the visible text so the spoken and
+  the seen cannot come apart.
+  It is deliberately NOT a general Chinese rewrite. A generator block carries a STRUCTURE LINE — a
+  part-of-speech gloss of every word of the sentence — and its visible text is bolded around the
+  headword, neither of which can be re-derived for different words; appending a mark at the end is the
+  one edit that leaves both true. Anything else is `dropEx` + `ex`, which rebuilds the block.
+  It is IDEMPOTENT by matching either form: a block whose `data-say` is already the sentence PLUS the
+  mark is the repair already applied and is a no-op, where a row matching neither form is a typo and
+  FAILS.
+
   `mw` IS WRITTEN AS BARE CHARACTERS AND EXPANDED FROM THE CORPUS. A measure word renders as the
   character, its traditional form where that differs, and its pinyin — three facts the decks already
   state 1,148 times over, so `["个","位"]` is expanded from their own table rather than retyped. A
@@ -179,7 +195,7 @@ const deckMeta = fixes.decks || {};
 let metaHit = 0;
 const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
-let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [];
+let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [], badExStop = [];
 let hitsPunct = 0;
 
 const hints = Object.entries(fixes.hints || {});
@@ -357,6 +373,35 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
       });
       fl.Examples = blocks.join("");
     }
+    /* ---------- ADDING A TERMINAL STOP TO A SENTENCE THE DECK ALREADY SHIPS ----------
+       The deck-level punctuation pass converts marks and never adds one, so the sentences it left with
+       no terminal mark at all are still bare. Where the sentence itself is good — and most are not,
+       which is why this is a declared row per card rather than a sweep — the whole repair is the mark.
+       Matched on `data-say` EXACTLY, so it can never catch a longer sentence containing this one, and
+       written to `data-say` AND the visible text together: the spoken field carries its own copy of
+       the Chinese, and a card that says one thing and shows another is the fault `check-say.js` exists
+       for one directory over. Idempotent: a block already carrying the mark is a no-op. */
+    if (fix.exStop) {
+      let blocks = String(fl.Examples || "").split('<div class="uc-exi').filter(Boolean)
+        .map((x) => '<div class="uc-exi' + x);
+      fix.exStop.forEach((row) => {
+        const zh = Array.isArray(row) ? row[0] : row;
+        const mark = (Array.isArray(row) && row[1]) || "。";
+        if (/[。！？…”]$/.test(zh)) { badExStop.push(w.key + " → already ends in a mark: " + zh); return; }
+        let hit = 0, done = 0;
+        blocks = blocks.map((b) => {
+          const m = /data-say="([^"]*)"/.exec(b);
+          if (!m) return b;
+          if (m[1] === esc(zh + mark)) { done++; return b; }
+          if (m[1] !== esc(zh)) return b;
+          hit++;
+          return b.replace('data-say="' + m[1] + '"', 'data-say="' + esc(zh + mark) + '"')
+            .replace(/(<div class="uc-exz">[\s\S]*?)(<\/div>)/, "$1" + mark + "$2");
+        });
+        if (!hit && !done) badExStop.push(w.key + " → " + zh);
+      });
+      fl.Examples = blocks.join("");
+    }
     if (fix.mw) {
       const bad = fix.mw.filter((ch) => !MW[ch]);
       if (bad.length) { badMW.push(w.key + " → " + bad.join(" ")); continue; }
@@ -499,6 +544,12 @@ if (badSense.length) {
 if (badCmp.length) {
   console.log("\n  FAIL  " + badCmp.length + " `compounds` row(s) that do not contain the headword, or repeat it:");
   badCmp.forEach((k) => console.log("        " + k));
+  process.exit(1);
+}
+if (badExStop.length) {
+  console.log("\n  FAIL  " + badExStop.length + " `exStop` row(s) naming a sentence the note has not got," +
+    " or one that already ends in a mark:");
+  badExStop.forEach((k) => console.log("        " + k));
   process.exit(1);
 }
 if (badExEn.length) {

@@ -1768,6 +1768,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the last being what an idiom has; `gloss` insists on a note with exactly one sense and `glossAll`
     replaces however many there are. `ex: [[chinese, english]]` builds an example block and marks it
     `uc-exadd`.
+  · **A GENERATOR'S OWN BLOCK IS EDITED IN PLACE BY `exEn` AND `exStop`, NEVER BY `dropEx` PLUS A
+    RE-ADD.** The drop filters the record's own `ex` rows as well as the deck's blocks — deliberately,
+    and see the comment beside it — so a row re-adding the sentence it has just dropped is thrown away
+    and the card comes back an example SHORT, silently; 手机 went from three sentences to one that way.
+    So the two edits that keep the Chinese get fields of their own. `exEn: [[chinese, english]]`
+    rewrites a block's translation, matched on a SUBSTRING of its Chinese. `exStop: [[chinese, mark?]]`
+    appends a terminal full stop and NOTHING else, matched on `data-say` EXACTLY and written to
+    `data-say` and the visible text together: the corpus-wide punctuation pass converts marks and never
+    adds one, so about 150 sentences still end bare, and most want replacing but a few are good
+    sentences whose whole fault is the missing stop. **Neither is a general Chinese rewrite and
+    `exStop` deliberately cannot be one**: a generator block carries a STRUCTURE LINE glossing every
+    word's part of speech and bolds the headword inside its visible text, neither of which can be
+    re-derived for different words — appending a mark at the end is the one edit that leaves both true.
+    Both FAIL rather than warn when a row matches nothing, since unlike `dropEx` they are re-asserted
+    on every run, so a row matching nothing is always a typo and never a repair already made.
   · **THE FILE IS AUTHORITATIVE FOR TWO THINGS, AND BOTH ARE REGENERATED RATHER THAN ACCUMULATED.**
     `hints` is the complete list of `not <other word>` blocks (see the reverse-card note below), and
     every `uc-exadd` example block is STRIPPED from every note before the fixes are applied — without
