@@ -72,7 +72,7 @@ card-side research is then shared.
 | T4 | Modern history | part done; T4a took three and T4b two, the rest blocked by shut hosts |
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation; see the three below |
-| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three and T14 one, all researched |
+| T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three, T14 one and T21 two, all researched |
 | T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA, T18 one off the RSC and one off Lavoisier |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA, T20 one lifted out of `wh-151` |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one |
@@ -957,3 +957,23 @@ was matched against every card's answer term, and the match list is short on any
   host the corpus already rests on has closed since those cards were written.
 - **`wh-528` does not mention foot-binding**, and `wh-406`/`cnh-209` do not mention the 1974 well: the
   Terracotta Army cards are about the bronze weapons' chromium, not the discovery.
+
+### T21 — Semmelweis and willow bark, researched (2026-09-17)
+
+- **Semmelweis.** A 2025 *GMS Hygiene and Infection Control* review gives the ward figures year by
+  year: 459 of 4,010 women dead in 1846 (11.4%), about 5% in 1847 after chlorine washing came in
+  mid-May, and 1.3% in 1848. **THE STATEMENT'S "around 18 per cent to about 2" WENT** — the real
+  numbers are better and are the paper's own. It also carries his own words, that his teachings were
+  "either ignored or attacked", and that he was committed to an asylum in 1865 and died there of
+  sepsis at 47. **"Dismissed from his post" went**, the paper not saying it.
+- **Willow bark.** A 2023 *Life* meta-analysis opens on the history: willow bark used medicinally for
+  over 3,500 years, taken by the Sumerians and ancient Egyptians as painkiller and antipyretic,
+  Hippocrates giving it for inflammatory pain in the fourth century BCE, and salicin refined into
+  aspirin in 1897, the name joining acetyl to *Spirsäure*. **THE MECHANISM WENT** — salicin converted
+  in the body to salicylic acid is not in the paper, which says instead that salicylic acid was
+  isolated from the bark by Buchner in 1827.
+  · **AND A TYPO IN THE SOURCE WAS NOT COPIED.** The same paragraph reads "In 1987, the chemists of
+    Bayer synthesized a steady acetylated salicylate" — plainly 1897, two sentences after it has
+    already said 1897. The `why` takes the sentence that is right and leaves the one that is not.
+    **A citation is a claim about what a work says, which is not the same as a warrant to repeat
+    everything it says.**
