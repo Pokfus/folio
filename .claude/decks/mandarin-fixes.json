@@ -10768,7 +10768,7 @@
       ]
     },
     "hsk30l3/一块儿": {
-      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses.",
+      "why": "One `uc-sense` div carrying several senses joined by semicolons, under a part of speech naming several categories — so the card claimed more than it gave and nothing could be studied one sense at a time. Split into the senses the part-of-speech list already named. NOT done in bulk: 3,660 notes have a semicolon in their gloss and in most of them it separates SYNONYMS of one sense ('what kind?; what sort?'), where splitting would invent a distinction the word has not got. These 55 are the core-vocabulary notes where the parts really are different senses. | The card already gave two senses and all three of its sentences are the adverb; tagged. Its third line also rendered 咱一块儿来唱首歌 as 'Sing a song with me', which drops both the 咱 and the 一块儿.",
       "senses": [
         [
           "adverb",
@@ -10777,6 +10777,17 @@
         [
           "noun",
           "the same place"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "exEn": [
+        [
+          "咱一块儿来唱首歌",
+          "Let's sing a song together."
         ]
       ]
     },
@@ -10858,9 +10869,15 @@
       ]
     },
     "hsk30l3/信用卡": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | '您接受信用卡吗？' read 'Do you accept credit card?', which is missing its plural; the card's own second line has it right.",
       "mw": [
         "张"
+      ],
+      "exEn": [
+        [
+          "您接受信用卡吗",
+          "Do you accept credit cards?"
+        ]
       ]
     },
     "hsk30l3/像": {
@@ -11310,9 +11327,19 @@
       ]
     },
     "hsk30l3/小区": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The card contradicted itself: its gloss gave one English word for the thing and its own sentences gave another, with nothing to say which the card was teaching. It is glossed 'neighbourhood' and its three lines called the place a district, a neighbourhood and a community in turn — three words for one thing on one card. CC-CEDICT reads 'housing estate; community; neighborhood', so all three are defensible and only one can be what the card teaches.",
       "mw": [
         "个"
+      ],
+      "exEn": [
+        [
+          "这片小区的绿地面积有多少",
+          "How much green space is there in this neighbourhood?"
+        ],
+        [
+          "小区安全吗",
+          "Is the neighbourhood safe? Is there lighting at night?"
+        ]
       ]
     },
     "hsk30l3/屋子": {
@@ -11718,9 +11745,15 @@
       ]
     },
     "hsk30l3/校园": {
-      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none.",
+      "why": "A Chinese noun is counted with a classifier and the card type has a slot for it, which 1,148 notes fill and this one did not — so a learner could recognise the word and still not say 'two of them'. Only genuinely COUNTABLE nouns are given one: most of the 3,536 noun-tagged notes without a measure word are pronouns, directions, time words and abstractions that legitimately take none. | The English translation did not render the headword, so the card showed a sentence whose bolded word had no counterpart in the line under it. The Chinese is untouched. '他很享受他的校园生活。' read 'He is enjoying his school life', which renders 校园 — the word the card is for — as 'school'.",
       "mw": [
         "个"
+      ],
+      "exEn": [
+        [
+          "他很享受他的校园生活",
+          "He is really enjoying campus life."
+        ]
       ]
     },
     "hsk30l3/比赛": {
@@ -12078,7 +12111,7 @@
       ]
     },
     "hsk30l3/行": {
-      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | The card already gave both readings and all three of its sentences are xíng, the everyday 'all right'; they are tagged as such, so the háng sense — a row, a trade, a firm — is visibly stated and not illustrated rather than left to be guessed. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows five words — 不行, 行李, 银行, 银行卡 and 自行车 — which is the fullest panel the audit has met, against 69 in the collection, the most of any character so far. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. The rows go elsewhere and show both readings: 行为 and 旅行 are xíng, 行业 is háng, and 流行 is xíng in a sense neither of the card's senses states.",
       "Pinyin": "xíng / háng",
       "Bopomofo": "ㄒㄧㄥˊ / ㄏㄤˊ",
       "senses": [
@@ -12091,6 +12124,33 @@
           "háng",
           "noun / measure word",
           "row, line; trade, profession; firm"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "行为",
+          "xíng wéi",
+          "behaviour; conduct"
+        ],
+        [
+          "旅行",
+          "lǚ xíng",
+          "to travel; a trip"
+        ],
+        [
+          "行业",
+          "háng yè",
+          "a trade; an industry"
+        ],
+        [
+          "流行",
+          "liú xíng",
+          "popular; to spread"
         ]
       ]
     },
@@ -112712,6 +112772,304 @@
           "倾向",
           "qīng xiàng",
           "a tendency"
+        ]
+      ]
+    },
+    "hsk30l3/心里": {
+      "why": "THE GLOSS WAS 'chest', WHICH IS NOT WHAT ANY OF THE CARD'S SENTENCES MEAN. CC-CEDICT lists 'chest' first and 'heart; mind' second, and 你住在我心里, 你心里有鬼 and 你心里的声音 are all the second — the batch-31 fault, a gloss taken off the top of an entry that is right about the word and wrong about the card. 心里 is where a Chinese speaker puts a thought, not a rib cage.",
+      "gloss": "in one's heart; in one's mind",
+      "exEn": [
+        [
+          "我可以听见你心里的声音",
+          "I can hear the voice in your heart."
+        ]
+      ]
+    },
+    "hsk30l3/信": {
+      "why": "The gloss read 'trust, believe, sincerity' and said nothing about a LETTER — while two of the card's three sentences are letters (她正在写信, 信是写给谁的) and its measure word 封 counts nothing else. CC-CEDICT leads 'letter; mail; CL:封'. This is the one the gloss-source checker has been reporting all along, and it was right. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows two words, 相信 and 信用卡, against 30 in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. The rows are split deliberately between the card's two senses, the letter and the believing, which is the distinction its gloss had lost.",
+      "gloss": "a letter; to believe; to trust",
+      "compounds": [
+        [
+          "写信",
+          "xiě xìn",
+          "to write a letter"
+        ],
+        [
+          "短信",
+          "duǎn xìn",
+          "a text message"
+        ],
+        [
+          "信心",
+          "xìn xīn",
+          "confidence"
+        ],
+        [
+          "信息",
+          "xìn xī",
+          "information; a message"
+        ]
+      ]
+    },
+    "hsk30l3/选择": {
+      "why": "The label and the gloss were different parts of speech — 'verb' over 'choice' — which is batch 31's third shape, read off the card's own line. CC-CEDICT gives both ('to select; to pick' and 'choice; option; alternative') and so do the card's sentences: 请选择一个人 is the verb, 我没什么选择 and 还有其他选择吗 the noun. Split, and the sentences tagged.",
+      "senses": [
+        [
+          "verb",
+          "to choose; to select"
+        ],
+        [
+          "noun",
+          "a choice; an option"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ]
+    },
+    "hsk30l3/要求": {
+      "why": "The card was labelled 'noun / verb' over 'requirement', the noun alone, while two of its three sentences are the verb — 我们被要求不再这么做 and 我要求你们现在就走. The third line also softened 要求 to 'I want you to leave now', which is 想 rather than this word.",
+      "gloss": "a requirement; to ask; to demand",
+      "exEn": [
+        [
+          "我要求你们现在就走",
+          "I insist that you leave now."
+        ]
+      ]
+    },
+    "hsk30l3/校长": {
+      "why": "The card contradicted itself: its gloss gave one English word for the thing and its own sentences gave another, with nothing to say which the card was teaching. The gloss leads 'head teacher', which is the British word, and all three of its sentences said PRINCIPAL. Same shape as 沙发's couch beside sofa and 司机's cab beside taxi: the card had already chosen.",
+      "exEn": [
+        [
+          "他一定是校长",
+          "He must be the head teacher."
+        ],
+        [
+          "校长想跟你谈话",
+          "The head teacher wants to talk to you."
+        ],
+        [
+          "我校校长很老了",
+          "Our school's head teacher is very old."
+        ]
+      ]
+    },
+    "hsk30l3/行李": {
+      "why": "The card contradicted itself: its gloss gave one English word for the thing and its own sentences gave another, with nothing to say which the card was teaching. It is glossed 'luggage' and its first line says luggage, while its other two say baggage.",
+      "exEn": [
+        [
+          "旅行时不要带太多行李",
+          "Don't take too much luggage when you travel."
+        ],
+        [
+          "我的行李丢了",
+          "My luggage is missing."
+        ]
+      ]
+    },
+    "hsk30l3/牙": {
+      "why": "TWO OF ITS THREE SENTENCES MISTRANSLATED 洗牙, which CC-CEDICT gives as '(dentistry) to perform or undergo scaling' — having your teeth cleaned by a dentist, not brushing them. '你该去洗牙了' read 'You should go and brush your teeth' and '我最近想去洗个牙' read 'Recently, I want to go to brush my teeth', which is not English either. The card's middle sentence is the real 刷牙, so as it stood it gave a learner one word for two different things. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 牙刷, which is the very next card. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. 洗牙 is among the rows deliberately: two of this card's own sentences use it, and both had it wrong. 牙齿 is NOT, being this card's own `not X` disambiguator — the same trap 树 carried last batch.",
+      "exEn": [
+        [
+          "你该去洗牙了",
+          "You should go and have your teeth cleaned."
+        ],
+        [
+          "我最近想去洗个牙",
+          "I want to go and have my teeth cleaned soon."
+        ]
+      ],
+      "compounds": [
+        [
+          "刷牙",
+          "shuā yá",
+          "to brush one's teeth"
+        ],
+        [
+          "洗牙",
+          "xǐ yá",
+          "to have one's teeth cleaned (by a dentist)"
+        ],
+        [
+          "牙膏",
+          "yá gāo",
+          "toothpaste"
+        ],
+        [
+          "牙医",
+          "yá yī",
+          "a dentist"
+        ]
+      ]
+    },
+    "hsk30l3/牙刷": {
+      "why": "Its first two lines were 'This is my toothbrush' and 'That's my toothbrush', which reads as the card showing one sentence twice; the second is the 把 construction and now says so. | '把你的牙刷干净。' DOES NOT CONTAIN THIS WORD: it is 把你的牙 + 刷干净, 'brush your teeth clean', and the headword's two characters belong to different words in it. **check-example-fit.js cannot see this one**, and the reason is the blind spot its own header names: greedy longest-match lands squarely ON 牙刷, because 牙刷 is in the lexicon and is longer than 牙 — so the segmenter finds the headword and the sentence is still using the characters as something else. Found by reading. Replaced with an AUTHORED sentence, which the record says so is, and which uses 把, the measure word the card itself lists.",
+      "exEn": [
+        [
+          "这把牙刷是我的",
+          "This toothbrush is mine."
+        ]
+      ],
+      "dropEx": [
+        "把你的牙刷干净。"
+      ],
+      "ex": [
+        [
+          "我该换一把新牙刷了。",
+          "I should get a new toothbrush."
+        ]
+      ]
+    },
+    "hsk30l3/羊": {
+      "why": "'冬天穿羊毛衣。' is about WOOL: 羊毛 is its own word, its English says 'We wear wool in winter' and mentions no animal, and the card is a single character, which check-example-fit.js skips outright. Replaced with an AUTHORED sentence using 只, one of the two measure words the card itself lists. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all, and the collection has one other word built on it. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "冬天穿羊毛衣。"
+      ],
+      "ex": [
+        [
+          "这只羊还很小。",
+          "This sheep is still very young."
+        ]
+      ],
+      "compounds": [
+        [
+          "羊毛",
+          "yáng máo",
+          "wool"
+        ],
+        [
+          "山羊",
+          "shān yáng",
+          "a goat"
+        ],
+        [
+          "绵羊",
+          "mián yáng",
+          "a sheep"
+        ],
+        [
+          "羊肉",
+          "yáng ròu",
+          "mutton"
+        ]
+      ]
+    },
+    "hsk30l3/小心": {
+      "why": "Two of its three sentences were the same warning under two near-identical English lines — 小心着凉啊 / 'You'd better be careful not to catch cold' and 你应该小心不要着凉 / 'You should take care not to catch cold'. The second is replaced with an AUTHORED sentence, which the record says so is, and which gives the card a use outside illness.",
+      "dropEx": [
+        "你应该小心不要着凉。"
+      ],
+      "ex": [
+        [
+          "过马路要小心。",
+          "Be careful crossing the road."
+        ]
+      ]
+    },
+    "hsk30l3/页": {
+      "why": "'书页因年久而变黄' ended bare. The corpus-wide punctuation pass CONVERTS marks and never ADDS one, so about 150 sentences still end without a terminator; this is one of them, and the sentence is otherwise sound. | The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all, and the collection has two other words built on it. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exStop": [
+        [
+          "书页因年久而变黄"
+        ]
+      ],
+      "compounds": [
+        [
+          "书页",
+          "shū yè",
+          "a page of a book"
+        ],
+        [
+          "网页",
+          "wǎng yè",
+          "a web page"
+        ],
+        [
+          "页面",
+          "yè miàn",
+          "a page (on screen)"
+        ],
+        [
+          "首页",
+          "shǒu yè",
+          "a home page"
+        ]
+      ]
+    },
+    "hsk30l3/鞋": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all, and the collection has two other words built on it. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "皮鞋",
+          "pí xié",
+          "leather shoes"
+        ],
+        [
+          "球鞋",
+          "qiú xié",
+          "trainers"
+        ],
+        [
+          "拖鞋",
+          "tuō xié",
+          "slippers"
+        ],
+        [
+          "高跟鞋",
+          "gāo gēn xié",
+          "high-heeled shoes"
+        ]
+      ]
+    },
+    "hsk30l3/选": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows one word, 选择, which is the very next card — so the rows go elsewhere, to 17 words the panel cannot reach. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "选举",
+          "xuǎn jǔ",
+          "an election; to elect"
+        ],
+        [
+          "挑选",
+          "tiāo xuǎn",
+          "to pick out"
+        ],
+        [
+          "选手",
+          "xuǎn shǒu",
+          "a contestant; an athlete"
+        ],
+        [
+          "候选",
+          "hòu xuǎn",
+          "candidate (attributive)"
+        ]
+      ]
+    },
+    "hsk30l3/养": {
+      "why": "The card glosses its character and stops, and the tap panel that would list the other words built on it can only search the deck the READER has downloaded — which in hsk30l3 shows nothing at all, against 23 words in the collection. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "养成",
+          "yǎng chéng",
+          "to form (a habit)"
+        ],
+        [
+          "培养",
+          "péi yǎng",
+          "to cultivate; to train"
+        ],
+        [
+          "营养",
+          "yíng yǎng",
+          "nutrition"
+        ],
+        [
+          "收养",
+          "shōu yǎng",
+          "to adopt (a child)"
         ]
       ]
     }

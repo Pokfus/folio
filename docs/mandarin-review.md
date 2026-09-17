@@ -572,6 +572,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l3` notes 301–330 (清楚 → 收), deck order, plus the whole MAD class | 22 | eight single-character cards in thirty, every one of their panels empty or all but empty |
 | 2026-09-17 | `hsk30l3` notes 331–360 (收到 → 外卖), deck order, plus the LEXIS table's missing plurals | 35 | every row of the word-choice table was blind to its own plural, and the obvious fix makes *mathss* |
 | 2026-09-17 | `hsk30l3` notes 361–390 (外语 → 相机), deck order, plus the whole `toward` class | 20 | a gloss cut off mid-list, and a card whose three English lines contradicted its own definition |
+| 2026-09-17 | `hsk30l3` notes 391–420 (小区 → 以后), deck order | 19 | a sentence whose headword the segmenter finds and which is still not that word |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -4583,5 +4584,106 @@ and 相信 carry the same slip on the same verb** — 我只想忘记 and 我很
   against every sentence and every English line in all nine decks
 - `build-lang-decks.js`: re-run, and **exactly three rows changed** — `hsk30l3`, `hsk30l5` and
   `hsk30l7`, the three decks `toward` reaches — each by its `bytes` and `rev` alone
+- CI fast gate green: `node --check` over every root, `.claude` and `.claude/decks` script, the eight
+  no-browser suites, `check-docs`, `check-questions`, `check-style`
+
+## Batch 37 — hsk30l3 notes 391–420 (小区 → 以后)
+
+Thirty notes read in deck order, **nineteen cards changed** across 46 fields, all of them in
+`hsk30l3`. No code change and nothing outside this deck moved.
+
+**A SENTENCE THE SEGMENTER FINDS THE HEADWORD IN, AND WHICH IS STILL NOT THAT WORD.** 牙刷's third
+sentence was 把你的牙刷干净。 — which is 把你的**牙** + **刷**干净, *brush your teeth clean*: the
+headword's two characters belong to different words in it, and the card's own bolding says otherwise.
+**`check-example-fit.js` reports nothing here**, and the reason is the blind spot its own header names:
+greedy longest-match lands squarely ON 牙刷, 牙刷 being in the lexicon and longer than 牙, so the
+segmenter finds the headword and the sentence goes on using the characters as something else. Batch 26
+named this class and it is still found by reading and by nothing else. Replaced with an authored
+我该换一把新牙刷了, which uses 把, the measure word the card itself lists.
+
+**TWO SENTENCES ON ONE CARD MISTRANSLATED THE SAME WORD, AND THE DICTIONARY SETTLES IT.** 牙's first
+and third lines both rendered 洗牙 as *brush your teeth* — CC-CEDICT gives it as *(dentistry) to perform
+or undergo scaling*, which is having your teeth cleaned by a dentist. The card's middle sentence is the
+real 刷牙, so as it stood the card gave a learner one English phrase for two different things, and one
+of the two lines was not English either (*Recently, I want to go to brush my teeth*). Both fixed, and
+**洗牙 is now one of the card's `Compounds` rows** — the word its own sentences use twice.
+
+**A GLOSS THAT IS NOT WHAT ANY OF THE CARD'S SENTENCES MEAN.** 心里 read **chest**. CC-CEDICT lists
+*chest* first and *heart; mind* second, and 你住在我心里, 你心里有鬼 and 我可以听见你心里的声音 are
+all the second — the batch-31 fault at its plainest: 心里 is where a Chinese speaker puts a thought,
+not a rib cage.
+
+**AND THE ONE `check-gloss-source.js` HAS BEEN RIGHT ABOUT ALL ALONG.** 信 was glossed *trust, believe,
+sincerity* and said nothing about a **letter** — while two of its three sentences are letters and its
+measure word 封 counts nothing else. The checker has carried it in the overlap list for as long as this
+audit has been reading that list (*card: trust, believe, sincerity / dict: letter; mail; CL:封*), and it
+came off with this fix. **A standing finding on a list that is 9% noise is still a finding**; the
+reading that settles it is the card's own measure word.
+
+**THREE CARDS CONTRADICTED THEMSELVES, ALL IN THE SAME SHAPE** — a gloss that has already chosen a word
+and sentences that use the other one. 小区 is glossed *neighbourhood* and its three lines said district,
+neighbourhood and community in turn; CC-CEDICT gives all three, so only the card can decide, and it
+had. 校长's gloss leads *head teacher*, the British word, and all three of its sentences said
+*principal*. 行李 is glossed *luggage* and two of its three said *baggage*. Same shape as 沙发's couch
+beside sofa and 司机's cab beside taxi.
+
+**TWO MORE GLOSSES WERE A PART OF SPEECH SHORT.** 选择 was labelled *verb* over the noun *choice* —
+batch 31's third shape — while its sentences are one verb and two nouns; split and tagged 2 / 1 / 2.
+要求 was *noun / verb* over *requirement*, the noun alone, while two of its three are the verb; and its
+third line softened 要求 to *I want you to leave now*, which is 想 rather than this word. **行 and
+一块儿 needed only the tags** their earlier splits never wrote: all six of their sentences are the first
+sense, so 行's háng — a row, a trade, a firm — and 一块儿's noun are visibly stated and not illustrated.
+
+**EIGHT SINGLE-CHARACTER CARDS GAINED `Compounds`** — 鞋, 信, 行, 选, 牙, 羊, 养, 页 — every reading and
+gloss checked against CC-CEDICT. **行 is the widest character the audit has met**: **69 words in the
+collection** and five in its own deck, which is also the fullest panel so far, so its rows go elsewhere
+and show both readings. **牙's rows deliberately omit 牙齿**, which is that card's own `not X`
+disambiguator — the trap 树 carried last batch, met a second time and now expected. 信's rows are split
+between its two senses, the letter and the believing, which is the distinction its gloss had lost.
+
+**羊 OPENED ON WOOL.** 冬天穿羊毛衣。 is 羊毛, its own word, and its English (*We wear wool in winter*)
+mentions no animal; the card is a single character, so `check-example-fit.js` skips it outright.
+Replaced with an authored 这只羊还很小 using 只, one of the card's own measure words. **小心 showed one
+warning twice** — 小心着凉啊 and 你应该小心不要着凉, *be careful not to catch cold* under two wordings —
+so the second is replaced by 过马路要小心, which gives the card a use outside illness.
+
+**A SENTENCE WITH NO FULL STOP.** 页's 书页因年久而变黄 ended bare. The corpus-wide punctuation pass
+CONVERTS marks and never ADDS one, so about 150 sentences still end without a terminator; `exStop` is
+for exactly the few whose only fault that is, and this sentence is otherwise sound.
+
+**WHAT WAS READ AND LEFT.**
+
+- **鞋's two 鞋子 sentences stay.** The card is 鞋 and two of its three lines use 鞋子, but that is the
+  bare character plus a nominal suffix, transparent in the way 雨伞 and 扫把 were last batch — not the
+  way 羊毛 and 牙刷 are here.
+- **校园, 信用卡, 牙刷 and 一块儿 each took only an English fix**, their Chinese being sound: *school
+  life* for 校园生活, a missing plural in *Do you accept credit card?*, one toothbrush sentence said
+  twice, and *Sing a song with me* for 咱一块儿来唱首歌, which drops both the 咱 and the 一块儿.
+- **小心, 新年, 新闻, 新鲜, 兴趣, 休假, 需要, 选, 学期, 养, 一定, 一共, 一样, 以后** and the rest were
+  read and are right as they stand. 学期 already carries an earlier batch's authored gloss and English
+  (*term*, not *semester*), and 小区, 校园, 信用卡 and 行 earlier batches' measure words and senses.
+- **`check-example-fit.js` reports nothing at all in this range**, and that is worth stating plainly:
+  the batch's two headword faults were 牙刷's, which it cannot see because it finds the headword, and
+  羊's, which it cannot see because the card is one character. Both were found by reading.
+
+**Checks after the batch.**
+
+- `mandarin-fix.js --check`: clean, "ok every deck already carries its fixes"; a second run writes nothing
+- `check-mandarin-coverage.js`: 11,532 of 11,532 notes at three sentences, none repeated; still-ambiguous
+  reverse groups **2, unchanged**, and the shared-gloss groups **338 both before and after**, checked
+  group by group against HEAD
+- `check-pinyin.js`: clean — 11,468 readings cross-checked
+- `check-example-fit.js`: **143, unchanged**
+- `check-senses.js`: duplicate-English-on-one-card **152, unchanged**
+- `check-british.js`: **0**, and it reads 0 over *principal* and *baggage* too, neither being a spelling
+- `check-coarse.js`: **byte-identical to HEAD in all six columns**
+- `check-gloss-source.js`: neighbour findings **3, unchanged**; the overlap list went 1,028 → 1,027,
+  exactly 信 coming off — the finding this batch acted on
+- 34,596 example blocks, **spoken == visible on every one**; sense-tagged blocks 332 → 341, the nine
+  this batch wrote
+- every authored sentence segmented against the 11,532-word deck lexicon and checked for a duplicate
+  against every sentence and every English line in all nine decks
+- `build-lang-decks.js`: re-run, and **exactly one row changed**, `hsk30l3`, by its `bytes` and `rev`
+  alone
 - CI fast gate green: `node --check` over every root, `.claude` and `.claude/decks` script, the eight
   no-browser suites, `check-docs`, `check-questions`, `check-style`
