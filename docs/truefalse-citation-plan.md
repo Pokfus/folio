@@ -73,7 +73,7 @@ card-side research is then shared.
 | T5 | Medieval & early modern | part done; T2c took one out of `wh-511`, T5b one off the National Museum of Denmark |
 | T6 | Science & invention | the hardest; T6a took two of fifteen, off Gutenberg and the DOE, T15 three off MacTutor, archive.org and the Nobel Foundation; see the three below |
 | T7 | Biology / Medicine | part done; T7a took six, T7b three, T7c two, T7d one, T13 three and T14 one, all researched |
-| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC |
+| T8 | Physics / Chemistry / Mathematics | part done; T8a three off NIST, the NWS and Perseus, T8b three off the RSC and Los Alamos periodic tables, T8c three off MacTutor, T12 four more off MacTutor and one off the RSC, T17 one off NOAA |
 | T9 | Astronomy / Earth science | part done; T9a four, T9b three and T9c three off NASA, T9d two off a USGS book, T11 four off NASA and NOAA |
 | T10 | Psychology | part done; T10a took four, researched; T10b two lifted out of `docs/learning-science.md`; T14 one |
 
@@ -868,3 +868,25 @@ meaning of *pollice verso* is unknown and debated. Smith's *Gladiatores* states 
 article takes the very position the statement calls unsupported. Citing it would have put a source under
 a sentence it contradicts. The statement stays uncited until a work that argues the modern view can be
 opened.
+
+### T17 — sound in the sea, and two unit findings that could not be cleared (2026-09-17)
+
+- **Sound in water.** NOAA's National Ocean Service fact page states that "sound moves at a much faster
+  speed in the water than in air", and then explains the sound channel and the hydrophones that pick up
+  whale song from many kilometres away. **THE TWO SPEEDS WENT** — 1,480 m/s in seawater against 343 m/s
+  in air — because the page carries neither figure, and so did the explanation about denser, stiffer
+  media. The sound channel is a better answer than the numbers were.
+  · Two pages that WOULD carry the figures are shut from here: `dosits.org` (the Discovery of Sound in
+    the Sea, University of Rhode Island) answers **403**, and the obvious NOAA sibling pages
+    (`how-sound-travels.html`, `oceanexplorer.noaa.gov/facts/sound.html`) are 404.
+
+**AND THE TWO STANDING UNIT FINDINGS COULD NOT BE CLEARED IN THIS BATCH, WHICH IS A FACT ABOUT THE
+WRITER RATHER THAN THE PROSE.** `check-truefalse.js` has long reported #23 (Napoleon, "5 feet") and #71
+(Washington, "5 pints") as imperial figures with no metric bracket. Both rewrites were drafted —
+"roughly 1.68 to 1.70 metres (5 feet 6 to 7 inches)" and "an estimated 1.7 to 2.4 litres (3.5 to 5
+pints)" — and **`add-truefalse.js` REFUSED THEM, because its `cite` action requires a `src`**: a
+statement ships cited, and there is no way through that tool to touch a `why` without also citing it.
+That is the right rule and it is not worth weakening for two brackets. What both statements need is a
+source, and neither has one yet: `napoleon.org`'s height article is 404, Mount Vernon answers **403**,
+and the Permanente Journal paper on Washington's death is not open at Europe PMC (its `fullTextXML`
+answers 500). **Cite them and the units fix rides along.**
