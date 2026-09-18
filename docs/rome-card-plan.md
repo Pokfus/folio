@@ -1016,6 +1016,98 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-481`–`rm-490`: Domitian to the end of the Flavians — what this batch found
+
+All ten are in `rm-flavians`, and they carry the collection from Domitian's accession to the
+Senate's vote erasing his name. **Four lines were retitled**, every one of them for the reason
+`ww2-107` and `ww2-144` give: an earlier or later line had already spent the obvious answer, or
+the line was a description rather than a term.
+
+**`rm-482` *Domitian and the Senate* → `Delator`.** The obvious answers were all taken: `maiestas`
+is `rm-426`, `censorship` is `rm-117`, `Roman censor` is `rm-710`, `Roman Stoicism` is `rm-960`. The
+professional accuser is what the relationship actually ran on, is a word a reader meets again across
+the whole principate, and is anchored to this reign by Suetonius' own line that an emperor who does
+not punish informers eggs them on (*Domitian* 9.3) and by the *Agricola*'s roll of them. It also
+leaves *dominus et deus* free to be stated on `rm-481`, where it belongs.
+
+**`rm-483` *Domitian's Dacian wars* → `Domitian's Dacian War`**, singular, which is the Wikipedia
+article title and the form the literature uses.
+
+**`rm-486` *The Roman conquest of Britain* → `Inchtuthil`.** This is the spent-answer rule at its
+sharpest: `rm-432` already cards *The Claudian invasion of Britain* and `rm-757` is *Roman Britain*,
+so a third card on the conquest would have had nothing of its own to teach. Sitting between Mons
+Graupius and the Flavian palace, what the slot is really about is the conquest completed and given
+up, and the legionary fortress demolished by its own garrison is that in one object.
+
+**`rm-489` *The assassination of Domitian* → `Stephanus`, keyed `Stephanus_(freedman)` with no bare
+alias.** Measured first: the corpus's only two "Stephanus" surfaces are *Stephanus of Byzantium*
+(`gr-218`, `rm-040`), and Philosophy cites Plato by Stephanus pagination, so a bare key would have
+claimed the word wrongly twice and stood in the way of a third use. A parenthetical key claims no
+bare name, so the term is reached by the aliases *freedman Stephanus* and *Stephanus the freedman*,
+which is how the cards' own prose names him.
+
+**`Agricola` claims the bare word and pays for one wrong link, knowingly.** The glossary key is the
+article title `Gnaeus_Julius_Agricola`, with *Agricola* as an alias. Measured over the shipped corpus
+the bare word occurs exactly once outside this batch — `rm-443`, "In the <i>Agricola</i>", which is
+Tacitus' book rather than the man. That link is a near miss rather than a wrong one (the book is his
+biography and the entry says so), and it buys correct links on every card in this batch and every
+later one. This is the `Titus` trade of the previous batch at a hundredth of the cost.
+
+**Two lines that shipped without a locator or a picture, and the reasons.** `rm-485` Mons Graupius
+takes **no locator**: the site has never been agreed, and a dot would assert what the card's own
+last sentence says nobody can. `rm-482` *delator* and `rm-489` *Stephanus* take **no picture**:
+nothing openable depicts an informer or an imperial steward, and a generic courtroom or a Roman
+dagger would illustrate the idea while depicting neither. Five of the ten glossary terms likewise
+ship with no picture (`Delator`, `Domitian's_Dacian_War`, `Damnatio_memoriae`, `Stephanus_(freedman)`,
+`Flavian_dynasty`) — the last because `check-image-free.js` caught the obvious candidate, the Berlin
+case of Flavian coins, already sitting on `rm-467`.
+
+**The batch found two faults in the tooling, both of them real.** `card-focus.js` reported five of
+the ten for naming a researcher in a question, and every finding traced back to ONE malformed
+citation: the `histos()` helper interpolates its title raw, so a REVIEW passed through it read
+`Phoebe Garrett, Deconstructing Nero and Domitian? (on V. Schulz, ...)` with no quotation marks, and
+the name extraction took *Domitian* out of what looked like an author field. Rewritten as a proper
+review citation (`review of <i>Deconstructing Imperial Representation</i>, by Verena Schulz`) the
+finding vanished from four cards. The fifth was **`Statius`, genuinely missing from `check-cards.js`'s
+`ANCIENT` list** — he is an ancient author on any reading, the list already carries Martial, Horace,
+Ovid and Quintilian, and the corpus had simply never cited him before. Adding him was verified to
+have a drop set of exactly this batch: `Statius` occurs nowhere else in `data-extra/` or
+`glossary-extra.js`.
+
+**`rm-483` states no campaign years, and that is a decision rather than an omission.** The
+conventional dating (85–89) could not be tied to anything openable from this sandbox: neither Dio
+nor Suetonius nor Eutropius gives a year, the Perseus copy of Smith's *Dictionary* answered 503, and
+the one paper that would have carried it — **Soria Molina, "Quadi, Marcomanni and the Suebian
+Confederation in Domitian's and Trajan's Dacian Wars", *Studia Historica: Historia Antigua* 35
+(2017) — sits on `revistas.usal.es`, whose TLS chain will not verify from here**, so it could be
+neither read nor cited. The card says "the middle years of his reign" and its date line carries the
+reign, which is what the sources bear. **The same host blocks Escámez de Vera's two Flavian papers**;
+record it and do not re-derive it.
+
+**`rm-483` carries NO `war` block, and that is the war-card rule working rather than an oversight.**
+The block says who won, and this war ended in a negotiated peace in which Rome crowned Decebalus'
+brother and sent back money and craftsmen after being beaten in Pannonia. A war whose outcome the
+sources will not settle gets no block rather than a guess in two colours. `rm-485` Mons Graupius is a
+BATTLE and is excluded by the same rule's own terms.
+
+**Where the rest of the batch's sources came from.** The Scotland cards rest on the **Proceedings of
+the Society of Antiquaries of Scotland**, which is open end to end at `journals.socantscot.org` with
+DOIs and PDFs — Breeze 1988 and 1990, Jarrett 1985, Southern 1996, Hind 1983 and Burn 1953 between
+them carry the Agricola dating dispute, the Inchtuthil demolition coins, the Danube transfer and the
+battlefield hunt. **Hanson 1977–78 (PSAS 109) is image-only with no text layer** and was therefore
+not cited. The palace rests on **Platner & Ashby** and **Lanciani** (both open, both out of
+copyright), on **Statius' *Silvae* 4.2 in Slater's 1908 translation** on archive.org and on Martial
+7.56 and 8.36 in the Bohn prose version; **no open modern work on the Palatine palace could be found**
+— DOAJ, Crossref and the ISPRS archives all came back empty or paywalled, and Zanker's British
+Academy chapter is 403 at OUP. **GRBS** (`grbs.library.duke.edu`) and **Histos** and the **Journal of
+Ancient History and Archaeology** are all open and all answered.
+
+**Two Bohn cautions.** The 1897 Bohn Martial is badly OCR'd — *Rabirius* comes out as "Babirins" — so
+the citations point at the volume and the prose paraphrases rather than quotes. And Bohn renders
+*domini deique nostri* at *Epigrams* 5.8 as "our supreme lord and ruler", so **the title cannot be
+quoted from that translation**; `rm-481` takes it from Suetonius *Domitian* 13.2 and Dio 67.4.7 and
+67.13.4, which say it outright.
+
 ## `rm-471`–`rm-480`: Titus to Pliny the Elder — what this batch found
 
 All ten are in `rm-flavians`, and the batch carries the collection from the accession of Titus in June 79
@@ -1306,14 +1398,14 @@ and author the whole time.
     rm-479  Herculaneum
     rm-480  Pliny the Elder
     rm-481  Domitian
-    rm-482  Domitian and the Senate
-    rm-483  Domitian's Dacian wars
+    rm-482  Delator
+    rm-483  Domitian's Dacian War
     rm-484  Agricola
     rm-485  Battle of Mons Graupius
-    rm-486  The Roman conquest of Britain
+    rm-486  Inchtuthil
     rm-487  Flavian Palace
     rm-488  Damnatio memoriae
-    rm-489  The assassination of Domitian
+    rm-489  Stephanus
     rm-490  The Flavian dynasty
 
 ### The high empire — `rm-high-empire`
