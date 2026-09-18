@@ -33,10 +33,12 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**F0 to F4 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
-Geography, and `fl-001`–`fl-080` are live **less the deferred `fl-036`** — 79 cards, so the lowest unused
-number is not the next card. The next card is `fl-081`. **F1–F4 were the trim-and-copy range**; from
-`fl-117` on, every flag has to be fetched, looked at and described.
+**F0 to F6 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
+Geography, and `fl-001`–`fl-120` are live **less the deferred `fl-036`** — 119 cards, so the lowest
+unused number is not the next card. The next card is `fl-121`. **THE TRIM-AND-COPY RANGE IS FINISHED**:
+every flag already on a twin has been used, and from here every batch fetches. **114 twins still need a
+flag** (`gw-121`–`gw-233` plus the deferred `gw-036`), and each batch back-fills the ones it uses, which
+closes World Geography's own gap as a by-product.
 
 **NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate question
 and which nothing else in the pipeline can see: for a reader who cannot see the flags the alt IS the
@@ -594,6 +596,56 @@ is still owed is `fl-072` NETHERLANDS against LUXEMBOURG** (`fl-166`, in F9): re
 against red-white-light-blue, differing only in the blue — the Chad/Romania case exactly, one pair
 apart. **Measure Luxembourg's blue against `#21468B` when F9 reaches it** and give each alt its own,
 rather than discovering the collision when the sweep fires.
+
+## F5 — `fl-081` to `fl-100` (Sep 2026)
+
+Twenty cards, South Sudan to Switzerland. No flag had to be fetched and **all twenty alts derived
+cleanly** — the only batch so far that needed no authoring at all.
+
+**FOUR NEAR-PAIRS ARE OWED TO LATER BATCHES, and this is the list to read before writing them**, since
+in each case the clause that separates them has to be in BOTH alts:
+· `fl-084` **Jordan** is black-white-green with a red hoist triangle bearing a **seven-pointed star** —
+  `fl-124` **Palestine** (F7) is the same flag WITHOUT the star, so Palestine's alt must not invent one.
+· `fl-087` **Cuba** is five **blue** and white stripes with a **red** triangle — `fl-135` **Puerto Rico**
+  (F7) swaps the two colours, so both alts must state them.
+· `fl-098` **Austria** is red-white-red horizontal — `fl-152` **Latvia** (F8) is the same in a darker
+  carmine with a narrower white band, which is all the difference there is.
+· `fl-093` **Sweden** is a yellow Nordic cross on blue; `fl-119` Norway and `fl-115` Denmark shipped in
+  F6 and are distinguishable, but **`fl-177` Iceland** (F9) reverses Norway's colours and is owed the
+  same care.
+
+## F6 — `fl-101` to `fl-120` (Sep 2026)
+
+Twenty cards, Sierra Leone to Slovakia, and **the first batch to FETCH**: `fl-117` Finland, `fl-118`
+Liberia, `fl-119` Norway and `fl-120` Slovakia had no flag on their twins, so this batch built
+`.claude/add-flags.js` and used it. All four came back **public domain**, were looked at on a contact
+sheet, and their descriptions were written from the pictures and back-filled onto `gw-117`–`gw-120` in
+the house form.
+
+**THE FETCHER'S OWN TWO FINDINGS, both measured on its first run.**
+**A 429 IS A BUSY HOST AND NOT A SHUT ONE** — `check-reach.js`'s finding, met here: at 350ms between
+calls, two of four files returned `HTTP 429` and both resolved on a retry. The tool backs off and tries
+three times before calling it an error, and the gap between files is 1.2s. **A fetcher that treats a 429
+as a refusal reports a working Commons as blocked**, which is the worst answer this tool can give.
+**AND THE PROXY IS WHY IT WORKS AT ALL**: Node's built-in `fetch` does not honour `HTTPS_PROXY` where
+curl does, so the tool re-execs itself once with `NODE_USE_ENV_PROXY=1` — the same guard
+`check-reach.js` carries, for the same reason, and without it every request would go direct and the
+egress policy would answer for Commons.
+
+**`fl-109` NICARAGUA AND `fl-112` EL SALVADOR DERIVED IDENTICAL ALTS — the Chad and Romania case a second
+time, and the sweep this deck now carries is what caught it.** Both flags are blue-white-blue with a
+central coat of arms, so both derived exactly that sentence. **Looked at side by side** they are plainly
+different: Nicaragua bears a BARE gold-edged triangle — five volcanoes, a rainbow, a red cap — where El
+Salvador's triangle stands among **five flags on staves inside a green wreath**. The bands differ too,
+measured off the two files at **ΔE 14.9** (`#0067c6` at L 44 against `#004bb3` at L 35), the same
+magnitude as Chad against Romania. Each alt now names both differences. **Neither description quotes the
+gold lettering**, which on both flags names the country.
+
+**TWO PREDICTED PAIRS HELD.** F5 flagged `fl-111` Bulgaria against `fl-097` Hungary — white-green-red
+against red-white-green, separated by the order, as predicted — and Honduras against these two Central
+American flags, separated by its five stars. **The prediction is worth making**: it is cheaper to write
+the distinguishing clause into both alts than to find the collision afterwards, and twice now the sweep
+has fired on a pair nobody predicted rather than one that was.
 
 ---
 
