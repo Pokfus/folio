@@ -1281,7 +1281,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.4 MB and 49,690 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.40 MB and 49,693 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -1856,6 +1856,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     COPY of a deck sentence in its own `ex` row, the fix belongs in that row — repaired through the
     decks it is put straight back by the next run of the applier. Ask which of the two is shipping a
     sentence before writing a row about it; the same shape as `dropEx`'s own trap, from the other side.
+  · **`exVariant` IS THE NARROWEST OF THE THREE, AND IT IS BOUNDED BY A TABLE RATHER THAN BY A SHAPE.**
+    `exVariant: [[was, now]]` swaps ONE CHARACTER FOR ANOTHER inside a generator block — which
+    `exSpace`'s own guard refuses, and rightly, a character swap being what `zhSkeleton` exists to stop
+    — and it is safe because **every differing position must be a DECLARED pair in `VARIANT_PAIRS`**,
+    the two sides must be the same LENGTH, and nothing else may differ. A same-length substitution
+    changes NO POSITION, so `rewriteZhVisible` flushes every tag back exactly where it stood and the
+    bolding and `data-say` survive untouched: it is narrower than the insertions and deletions
+    `exSpace` already allows.
+    **IT EXISTS BECAUSE OF 著, AND 著 IS WHY IT CANNOT BE A RULE.** The decks carried the TRADITIONAL 著
+    where simplified writes 着 — the aspect particle — on eight sentences, and **batch 77's variant
+    sweep cannot see it**: that test asks whether CC-CEDICT knows a character ONLY as a pointer at
+    another, and 著 is a perfectly good simplified character in its own right (著名, 显著, 著作, 名著,
+    著称, 专著 all keep it). So the fault is found by grepping the character and READING every hit, and
+    the repair is a declared pair rather than a sweep. `鉄`→`铁` is declared beside it, the Japanese
+    form batch 77 repaired by hand.
+    **THE GUARD COUNTS PAIRS, NOT POSITIONS, AND THAT WAS A CORRECTION.** The first cut allowed exactly
+    ONE differing position, which forced a sentence carrying the character twice (他倚著我的肩膀睡著了)
+    to take two CHAINED rows — and **chained rows are not idempotent**: once both have run the first
+    names a sentence the deck no longer has, so `--check` fails for ever afterwards. Found by running
+    `--check` straight after the write, which is what that step is for.
   · **`exBritish` IS A DECK-LEVEL PASS AND THE TABLE IS app.js's OWN**, sliced out by text with the run
     STOPPING if the slice fails. The decks are authored British **because the site's switch never runs
     in the direction that would rescue them** — `applySpelling` returns at once under `en-GB`, the
@@ -2159,8 +2179,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `hsk30l5/下载`, LEFT — its Chinese is 程序, a computer program, where *program* is the British
     spelling as well. **That twelfth is why this cannot become a table**: the correct spelling depends on
     what the sentence is about, which is a judgement per site.
-  **RUN IT rather than quoting a figure here, and grep the -logue and -ward families AND the one-way rows
-  by hand after a content batch — three batches running have now found a family it cannot see.** Not part
+  · **…AND THE WHOLE ONE-WAY CLASS HAS NOW BEEN SWEPT, ONCE** (batch 32). The three findings above were
+    written up as three curiosities; they are one rule. `SPELL_PAIRS` carries **twelve one-way rows over
+    seven families** — `metre`, `mediaeval`, `licence`, `practis`, `storey`, `catalogue`, `programme` —
+    this checker excludes every one of them correctly, and therefore **reads 0 over all seven whatever the
+    decks contain**. All seven were read by hand over the nine decks: **33 sites on 22 cards, 32 repaired
+    and 1 left** — metre 12 (the one left being 收费's *parking meter*, the DEVICE, which is `meter` in
+    British English too, and which is exactly why the row is one-way), practise 10 (all the VERB; the
+    other 36 `practice` sites are the noun and are correct in both dialects), licence 9 (all the noun;
+    eight of them the phrases *driver's license* and *license plate*, which became three LEXIS rows),
+    storey 1, catalogue 0, mediaeval 0, programme already done in batch 30. **Three cards CONTRADICTED
+    THEMSELVES**, glossing *meter* over a sentence reading *metres*. **So the sweep is finished and the
+    rule is what to keep**: when a content batch adds English, check the seven families by hand, because
+    the checker cannot.
+  · **AND A FAMILY CAN BE IN THE TABLE WITH MEMBERS MISSING, WHICH READS AS 0 EXACTLY LIKE AN
+    ABSENT FAMILY** (batch 76). The `-ll-` doubling family has fourteen rows — `travell`, `modell`,
+    `labell`, `cancell`, `counsell`, `jewell` and the rest — and it was missing `diall`, `quarrell`
+    and `marvell`, so seven deck sites and one deck GLOSS carried `dialed`, `quarreled` and
+    `marvelous` while this checker read 0. **The fix is the TABLE, never the sites**: three rows added
+    to `SPELL_PAIRS` converted all nine mechanically, because the decks' own `exBritish` pass slices
+    that table out of app.js — and it also let `check-spelling-corpus.js` see the family in Folio's
+    own prose for the first time (24 `quarrelled`, 12 `quarrelling`, 10 `marvellous`, and one
+    `marvelous` which is inside a `card.quote` from Herodotus and stays). **So when a family reads 0,
+    ask whether every member of it is in the table**, not just whether the family is.
+  · **AND A FAMILY THE TABLE HAS NEVER HELD IS INVISIBLE TWICE OVER.** `kerb` is EXCLUDED FROM
+    `SPELL_PAIRS` BY NAME — `curb` is also an ordinary English verb — so neither the site's table nor this
+    checker can reach it, and `hsk30l3/路边` shipped glossed "**curb**; roadside; wayside", CC-CEDICT
+    verbatim, until batch 32 read it. **A reading of 0 says nothing about a word the table does not
+    hold.**
+  **RUN IT rather than quoting a figure here, and grep the -logue and -ward families, the one-way rows AND
+  the words the table excludes by name (kerb) by hand after a content batch.** Not part
   of the site.
 - **A SHARED GLOSS IS DISAMBIGUATED BY THE DECK'S OWN `not <other word>` BLOCK.** The English → Chinese
   card's front is the gloss and nothing else, so two notes sharing one are a single question with

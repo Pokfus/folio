@@ -87,7 +87,8 @@ window.CHANGELOG = [
       "<b>Forty-two new True or False statements</b> \u2014 a new prehistory round and more in every other subject the game covers.",
       "<b>Five cards now rest on a wider range of scholarship</b> \u2014 each had leaned on one author for more than half of its citations.",
       "<b>Fourteen chapters across five Library books get back a lost full stop, a lost line or a misread word</b> \u2014 each had been reading as though it stopped in mid-sentence."
-      ,"<b>British readers now see British spelling throughout</b> — several dozen cards and glossary terms stored the American form, which the switch cannot correct."
+      ,"<b>Fifteen more True or False answers now cite their sources</b>, and five statements are rewritten to say what those sources actually show."
+      ,"<b>British readers now see British spelling throughout</b> — several dozen cards and glossary terms stored the American form, and the switch now covers three more word families besides."
       ,"<b>A deck you have finished for the day turns green with a tick</b>, and gold when you got everything right first time."
       ,"<b>A hundred cards on the politics of East Asia</b> — a course collection of 24 decks, in a new Special section of the Collections page."
       ,"<b>A single-character Mandarin card lists the other words built on that character</b>, with their readings and meanings, whatever else you have downloaded."

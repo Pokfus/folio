@@ -118,6 +118,57 @@ const deesc = (s) => String(s).replace(/&lt;/g, "<").replace(/&gt;/g, ">").repla
    text is emitted with the tags flushed back at the same counts. An opening tag goes before its
    skeleton character and a closing tag immediately after the previous one, which is what keeps a
    trailing mark OUTSIDE the bold rather than inside it. */
+/* ---------- ONE CHARACTER FOR ANOTHER, AND ONLY A DECLARED PAIR ----------
+   `exVariant` is `exSpace` one notch wider and bounded by a TABLE rather than by a shape. It exists
+   because the decks carry the TRADITIONAL 著 where simplified writes 着 — the aspect particle — and
+   nothing else here can reach it: `exSpace` compares the two sides with every space and mark stripped
+   out and so REFUSES a character swap, correctly, that guard being what makes it safe; and `dropEx`
+   would throw away a sound sentence to fix one glyph.
+   EVERY DIFFERING POSITION MUST BE A DECLARED PAIR, AND THERE MAY BE MORE THAN ONE. The first cut
+   allowed exactly one, which forced a sentence carrying the character twice (他倚著我的肩膀睡著了) to
+   take two CHAINED rows — and chained rows are NOT IDEMPOTENT: once both have run, the first names a
+   sentence the deck no longer has, so `--check` fails for ever afterwards. The guard's job is that
+   every difference is a declared substitution, not that there is only one of them, so it counts PAIRS
+   rather than positions.
+   WHY A ONE-FOR-ONE SWAP IS SAFE WHERE A FREE REWRITE IS NOT: `exStop` and `exSpace` both argue from
+   the structure line and the bolding, neither of which can be re-derived for different words. A
+   substitution of the same length at a single position changes NO POSITION, so `rewriteZhVisible`
+   flushes every tag back exactly where it stood and the `<b>` round the headword and the `data-say`
+   both survive untouched. It is narrower than what `exSpace` already allows, which INSERTS and DELETES.
+   WHAT THE TABLE IS FOR: a variant sweep cannot find 著, because 著 is also a perfectly good simplified
+   character (著名, 显著, 著作, 名著, 著称, 专著) — so the repair cannot be a rule either. Every pair is
+   declared here with its reason, and a row whose two sides differ anywhere else, or by more than one
+   character, or by a pair not in this table, is REFUSED. Add a pair only after reading every site.
+   `鉄`→`铁` is the Japanese form batch 77 found and repaired by hand; it is declared so the same fault
+   found again has a mechanism. */
+const VARIANT_PAIRS = {
+  "著": "着", // the traditional aspect particle / verb suffix zhe, which simplified writes 着.
+                      // 著 is NOT wrong in itself (著名, 显著, 著作, 名著, 著称, 专著 all keep it) —
+                      // only where it stands for 着, which is why this is a declared swap and not a sweep.
+  "鉄": "铁", // the Japanese form of 铁 (batch 77, 钢鉄 on three cards).
+  "画": "划", // 计画 → 计划. The Taiwan spelling of the word: 画 is right in thousands of places
+                      // (画画, 画框, 刻画) and wrong only here. Measured: 计划 83 sites, 计画 7.
+  "帐": "账", // 帐户/帐单/帐号 → 账户/账单/账号. The older spelling; 帐 is a tent or a curtain.
+                      // Measured: 账户 8, 账号 8, 账单 3, against 5 of the 帐 form.
+  "爱": "艾", // 爱滋病 → 艾滋病. The Taiwan transliteration of AIDS. Measured: 艾滋病 4, 爱滋病 2.
+  "拉": "啦", // 拉拉队 → 啦啦队. Measured: 啦啦队 3, 拉拉队 1. NOTE the swap is ONE position:
+                      // 拉拉队 → 啦拉队 → 啦啦队 is two pairs in one row, which the guard allows.
+};
+function variantSwap(was, now) {
+  if (typeof was !== "string" || typeof now !== "string") return "not two strings";
+  if (was.length !== now.length) return "the two sides are different lengths";
+  let n = 0;
+  for (let i = 0; i < was.length; i++) {
+    if (was[i] === now[i]) continue;
+    n++;
+    if (VARIANT_PAIRS[was[i]] !== now[i]) {
+      return "‘" + was[i] + "’ → ‘" + now[i] + "’ is not a declared variant pair";
+    }
+  }
+  if (!n) return "the two sides are identical";
+  return null;
+}
+
 const ZH_PUNCT = /[\s　 ，。、；：？！“”‘’（）《》〈〉—…·,.;:?!"'()\[\]]/;
 const zhSkeleton = (t) => String(t).split("").filter((c) => !ZH_PUNCT.test(c)).join("");
 function rewriteZhVisible(html, oldPlain, newPlain) {
@@ -295,9 +346,68 @@ function britExamples(html) {
    THE PHRASE ROWS COME FIRST because the table is applied longest-first, and they exist for the two
    things a word-for-word swap gets wrong: a compound whose British name is not built from the same
    parts (`movie theatre` is a cinema, not a film theatre), and an ARTICLE that has to change with the
-   word after it (`an elevator` is `a lift`). */
+   word after it (`an elevator` is `a lift`).
+   THEY ALSO CARRY A THIRD CASE (batch 32): a ONE-WAY SPELL_PAIRS row whose American form is safe to
+   sweep only inside a phrase. `licence`/`license` is one-way because British English spells the VERB
+   `license`, so a bare row would make `to licence a driver`; but `driver's license` and `license plate`
+   are nouns wherever they occur, and the British forms are a different phrase besides — a `driver's
+   license` is a `driving licence`, which no word-for-word swap reaches. The bare word is left to a
+   per-note `gloss` row, which is where the corpus's one remaining site went.
+   AND A FOURTH (batch 35): A PLURAL IS A DIFFERENT KEY, AND THE TABLE HAD NONE. The regex is built
+   from the literal keys with word boundaries either side, so `elevator` does not match inside
+   `elevators` and the row simply never fires — measured over the nine decks, ten card-sites over six
+   distinct sentences escaped that way (elevators, subways, cellphones, airplanes, trucks), every one of
+   them a word the table already claims in the singular. That is a hole in the table rather than a new
+   class, so the plurals are DECLARED beside their singulars.
+   THE OBVIOUS GENERALISATION IS A TRAP AND THE TABLE ITSELF PROVES IT. Matching `key + s` automatically
+   would fire `math` inside `maths` — the row's own TARGET, ten sites of it in these decks — and rewrite
+   it to `mathss`; and an irregular plural (`truck` → `lorries`, not `lorrys`) cannot be derived from the
+   singular's replacement at all. A declared row can only do what it says.
+   AND `toward` IS THERE ON THE SAME REASONING AS `gotten` (batch 36): a variant FORM rather than a
+   choice between two words, unambiguous in British English, and already settled by the decks
+   themselves — measured, they write `towards` 33 times against 4 `toward`s. The word boundary is what
+   keeps it off `untoward`.
+   `anymore` IS THE SAME SHAPE AGAIN (batch 38), and the biggest of the three: British English writes
+   it as TWO WORDS in this sense, and the decks carried 20 sites of the American one-word form. It is a
+   spacing rather than a word choice, so no judgement is needed per site, and the replacement contains a
+   space, which means it can never match itself on a re-run.
+   AND `railroad` IS THE FIRST NEW WORD-CHOICE ROW SINCE batch 24 (batch 49). It is a straight American
+   word for a British one with no second sense to protect: unlike `highway`, which batch 48 refused a row
+   for because 公路 alone really is a highway in British legal English while 高速公路 is a motorway, a
+   railroad is a railway wherever it occurs. Measured over the nine decks: SEVEN occurrences on four
+   cards, against 27 `railway`s, and every one was read — not one is a proper noun, which is the check
+   that matters here, an American railroad company's NAME being a name. The plural is declared beside it
+   on batch 35's rule. `mall` was measured in the same pass and DELIBERATELY LEFT: 商场's own gloss is
+   `shopping mall`, which is ordinary British English (Bluewater and Westfield are shopping malls), so
+   the finding there is the sweep's and not the deck's — `stove` and `vest` again.
+   `hometown` IS `anymore`'S SHAPE (batch 52): a SPACING rather than a word choice, so no judgement is
+   needed per site, and the replacement contains a space, which means it can never match itself on a
+   re-run. British style sets it as two words; the decks were split 15 one word to 11 two, across eleven
+   cards, every site read and none a proper noun — and `hsk30l4/家乡` CONTRADICTED ITSELF, its gloss
+   already reading `home town` over two sentences saying `hometown`.
+   `cell phone` IS `railroad`'S SHAPE (batch 62): a straight American word for a British one with no
+   second sense to protect — a cell phone is a mobile phone wherever it occurs, and unlike `gas`, which
+   this batch measured in the same pass and REFUSED a row for, there is nothing to judge per site.
+   (`gas` runs to 56 occurrences across the nine decks and about fifty of them are the SUBSTANCE —
+   natural gas, coal gas, a gas leak, a gas bubble — which is British English too; only the six that
+   mean PETROL are American, so that family went to per-note `exEn` rows, which is `fall` and `check`
+   and `store` again.) Measured over the nine decks: NINE occurrences on nine cards, one sentence
+   carried by four of them, every one read and every one 手机. The plural is declared beside it because
+   both forms occur, and the replacement contains a space, so it can never match itself on a re-run.
+   `parking lot` IS THE SAME SHAPE AGAIN (batch 65) and was measured in the same pass as two families
+   that were REFUSED one. All SEVEN occurrences across the nine decks are the American compound for a
+   car park — four of them on hsk30l4/停车场, including its own gloss — and there is no second sense to
+   protect. What was refused beside it: `fill out`, because one of its nine sites is
+   `The sail on the boat filled out`, which is ordinary British English and which any row on the bare
+   phrase would wreck (the other eight are forms and went to per-note rows); and `dirt`, because five
+   of its six sites are grime, dust or the idiom `to eat dirt`, all of them British, and only one is
+   the American word for soil. Both are `gas` again: the right word depends on what the sentence is
+   about, which is a judgement per site. */
 const LEXIS = (() => {
   const PAIRS = [
+    ["driver's license", "driving licence"],
+    ["drivers license", "driving licence"],
+    ["license plate", "licence plate"],
     ["movie theatre", "cinema"],
     ["movie theater", "cinema"],
     ["to the movies", "to the cinema"],
@@ -306,16 +416,31 @@ const LEXIS = (() => {
     ["movies", "films"],
     ["movie", "film"],
     ["vacation", "holiday"],
+    ["elevators", "lifts"],
     ["elevator", "lift"],
+    ["subways", "underground trains"],
     ["subway", "underground"],
+    ["cellphones", "mobile phones"],
     ["cellphone", "mobile phone"],
     ["sidewalk", "pavement"],
+    ["airplanes", "aeroplanes"],
     ["airplane", "aeroplane"],
     ["soccer", "football"],
     ["faucet", "tap"],
     ["gotten", "got"],
+    ["toward", "towards"],
+    ["anymore", "any more"],
+    ["trucks", "lorries"],
     ["truck", "lorry"],
     ["math", "maths"],
+    ["parking lots", "car parks"],
+    ["parking lot", "car park"],
+    ["cell phones", "mobile phones"],
+    ["cell phone", "mobile phone"],
+    ["hometowns", "home towns"],
+    ["hometown", "home town"],
+    ["railroads", "railways"],
+    ["railroad", "railway"],
   ];
   const map = new Map();
   for (const [us, gb] of PAIRS) map.set(us.toLowerCase(), gb);
@@ -362,7 +487,7 @@ const entries = Object.entries(fixes.notes || {});
 const seen = new Set();
 let hitsBrit = 0;
 let hitsLex = 0;
-let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [], badExStop = [], badExSpace = [];
+let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [], badExStop = [], badExSpace = [], badExVar = [];
 let hitsPunct = 0;
 
 const hints = Object.entries(fixes.hints || {});
@@ -606,6 +731,36 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
       });
       fl.Examples = blocks.join("");
     }
+    /* ---------- AND ONE CHARACTER FOR ANOTHER, FROM THE DECLARED TABLE ----------
+       `exVariant` is `[[shipped, fixed]]`, matched on `data-say` EXACTLY as `exSpace` is, written to
+       the visible text and `data-say` together in that order, and idempotent. See `VARIANT_PAIRS`. */
+    if (fix.exVariant) {
+      let blocks = String(fl.Examples || "").split('<div class="uc-exi').filter(Boolean)
+        .map((x) => '<div class="uc-exi' + x);
+      fix.exVariant.forEach(([was, now]) => {
+        const why = variantSwap(was, now);
+        if (why) { badExVar.push(w.key + " → " + why + ": " + was); return; }
+        let hit = 0, done = 0;
+        blocks = blocks.map((b) => {
+          const m = /data-say="([^"]*)"/.exec(b);
+          if (!m) return b;
+          if (m[1] === esc(now)) { done++; return b; }
+          if (m[1] !== esc(was)) return b;
+          const zd = /(<div class="uc-exz">)([\s\S]*?)(<\/div>)/.exec(b);
+          if (!zd) { badExVar.push(w.key + " → no visible text: " + was); return b; }
+          const pre = /^(\s*<span class="uc-tts[^>]*><\/span>)?/.exec(zd[2])[0];
+          const vis = rewriteZhVisible(zd[2].slice(pre.length), was, now);
+          if (vis === null) { badExVar.push(w.key + " → visible text does not match `data-say`: " + was); return b; }
+          hit++;
+          /* The visible text first, for the reason `exSpace` states: `zd[0]` carries the old
+             `data-say` inside its own `uc-tts` span, so the attribute replace must come second. */
+          return b.replace(zd[0], () => zd[1] + pre + vis + zd[3])
+            .replace('data-say="' + m[1] + '"', () => 'data-say="' + esc(now) + '"');
+        });
+        if (!hit && !done) badExVar.push(w.key + " → " + was);
+      });
+      fl.Examples = blocks.join("");
+    }
     if (fix.mw) {
       const bad = fix.mw.filter((ch) => !MW[ch]);
       if (bad.length) { badMW.push(w.key + " → " + bad.join(" ")); continue; }
@@ -780,6 +935,12 @@ if (badSense.length) {
 if (badCmp.length) {
   console.log("\n  FAIL  " + badCmp.length + " `compounds` row(s) that do not contain the headword, or repeat it:");
   badCmp.forEach((k) => console.log("        " + k));
+  process.exit(1);
+}
+if (badExVar.length) {
+  console.log("\n  FAIL  " + badExVar.length + " `exVariant` row(s) naming a sentence the note has not got," +
+    " or a swap that is not one declared character for another:");
+  badExVar.forEach((k) => console.log("        " + k));
   process.exit(1);
 }
 if (badExSpace.length) {
