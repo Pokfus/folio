@@ -2091,6 +2091,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     It also settled `嗯`, whose `ǹg` is not a pinyin syllable and which carries no bopomofo. **Fold erhua
     and split a two-reading card on the slash before comparing**, or every polyphone is a finding — 97
     before those two rules, 2 after.
+- `.claude/decks/check-polyreading.js` — **a single-character card GLOSSED FROM A READING IT DOES NOT
+  TEACH**: `node .claude/decks/check-polyreading.js [--deck=] [--all]`. 哦 was glossed *softly chant*,
+  which is CC-CEDICT's sense for the **é** reading, where the card teaches **ò** and all three of its
+  sentences are *oh*. **NOTHING ELSE HERE CAN SEE IT**: `check-pinyin.js` compares pinyin against
+  bopomofo and both are right; `check-say-reading.js` asks what an engine will GUESS, which is a
+  question about the corpus; and `check-gloss-source.js` compares the gloss against the dictionary entry
+  for the WORD — and **a polyphone's entry holds every reading's senses at once, so it launders a gloss
+  taken from the wrong one**. Report-only, exit 0, and a PROXY: a correct gloss may paraphrase in words
+  the dictionary does not use. **Read the finding and then read the card's SENTENCES**, which decide
+  which half is wrong — on 搞 and 溜 every sentence used the reading the card names, so the GLOSS was
+  corrected; on 揣 and 豁 the sentences used both, so the card was given both, the shape 系, 划 and
+  精神 already use. **The part of speech is stripped before the compare**, or a card glossed
+  *interjection | hmm* matches any reading whose sense says *interjection*. Its first run found eight
+  and all eight were real; it now reads 0.
 - **📖 `.claude/decks/check-coarse.js` — COARSE, OBSCENE AND PREJUDICIAL CONTENT IN THE MANDARIN
   DECKS**, report only, exit 0: `node .claude/decks/check-coarse.js [profanity|sexual|body|adult|
   violence|slur]`. The decks are harvested from a film-subtitle corpus, and a subtitle corpus contains

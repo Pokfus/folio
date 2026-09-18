@@ -636,6 +636,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 721–750 (流感 → 迷), deck order, plus the applier's field whitelist | 28 | **a card's TRADITIONAL field carried the wrong character — and the record could not reach that field at all** |
 | 2026-09-18 | `hsk30l5` notes 751–780 (迷路 → 闹), deck order | 18 | **a third sentence whose characters straddle a word boundary — 很难|得到 on the 难得 card** |
 | 2026-09-18 | `hsk30l5` notes 781–810 (闹钟 → 碰), deck order | 17 | **a gloss belonging to a reading the card does not teach, and a card all three of whose sentences were loanwords** |
+| 2026-09-18 | `check-polyreading.js` — a NEW checker and its whole finding list, across four decks | 9 | **eight cards glossed from a reading they do not teach, and a polyphone's dictionary entry is what hid every one** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -9301,3 +9302,87 @@ still-ambiguous 1; shared-gloss groups 320 unchanged — so neither the 哦, 排
 new collision; one-sided hints still 0; pinyin clean; example-fit 140 and senses 151 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 726 unchanged;
 `build-lang-decks.js` re-run.
+
+## Batch 101 — `check-polyreading.js`, and its whole finding list
+
+Not a run of notes in deck order but **a new checker and everything it found** — which is the other shape
+a batch may take, and the right one here, because batch 100's 哦 turned out to be one of a class.
+**Nine cards changed**, across four decks.
+
+### What 哦 turned out to be
+
+哦 was glossed *softly chant*, which is CC-CEDICT's sense for the **é** reading, where the card teaches
+**ò** and all three of its sentences are *oh*. **The question that makes it a class is: how many other
+single-character cards gloss a reading they do not teach?**
+
+### Why nothing here could see it
+
+- **`check-pinyin.js`** compares a card's pinyin against its own bopomofo. On every one of these they
+  AGREE, and they are both right — the reading is not what is wrong.
+- **`check-say-reading.js`** asks which reading a speech engine will GUESS for the headword, measured
+  against how the corpus uses that character. That is a question about the corpus, not about the gloss.
+- **`check-gloss-source.js`** compares the gloss against CC-CEDICT's entry — for the WORD. **And a
+  polyphone's entry holds every reading's senses at once**, so *chant* is in 哦's entry, *filter* is in
+  淋's and *swift current* is in 溜's, and every one of these glosses MATCHES. **A polyphone's dictionary
+  entry launders a gloss taken from the wrong reading**, which is the sentence this batch is for.
+
+### The checker
+
+`node .claude/decks/check-polyreading.js [--deck=] [--all]`. For every single-character note whose pinyin
+names ONE reading, of a character the dictionary gives two or more: does the gloss share a content word
+with the senses of the reading the card TEACHES? A card that shares none, and shares one with another
+reading's, is reported. **Report-only, exit 0**, and a proxy — a correct gloss may paraphrase in words
+the dictionary does not use.
+
+**The part of speech is stripped before the compare, and that was not an optimisation.** Without it a
+card glossed *interjection | hmm* matches any reading whose dictionary sense contains the word
+*interjection*, which reported 嗯 and 唧 on the first run for nothing. With it the same run turned up
+子, which the first had missed.
+
+### The eight findings, and what each turned out to be
+
+**The card's own SENTENCES decide which half is wrong**, which is why this cannot be a `--fix`.
+
+**Five were the GLOSS, because every sentence used the reading the card names.** 子 is labelled a SUFFIX
+with the neutral reading and was glossed *child, offspring, seed, small thing* — the third-tone zǐ noun
+— over 车子, 鞋子 and 一大家子. **搞 was the cleanest**: glossed *bear; endure; stand*, which is gé,
+where the card is gē and all three sentences are 搞糖, 搞到下周日, 少搞点儿糖. **溜 was the worst**:
+glossed *swift current; turbulent flow; rainwater from the roof; plaster* — four liù senses, every one a
+NOUN — on a card labelled a VERB, read liū, whose sentences are 溜冰, 溜走 and 溜狗. So it named a part
+of speech it did not gloss and glossed a reading it did not teach, in one line. 淋 was glossed lìn's
+*filter; strain* over three lín sentences, and 熬 glossed āo's *boil* while two of its three sentences
+are áo's *endure* — 熬夜 twice — which the gloss never gave at all.
+
+**Two were the CARD, because the sentences used both readings.** 揣 glossed chuǎi's *to guess* with
+chuāi in the pinyin, and its sentences are two chuǎi and one chuāi; 豁 glossed *clear; exempt*, which
+is huò, with huō in the pinyin, and its sentences are two huō and one huò. Both are given **both
+readings** with each sentence tagged — the shape 系, 划 and 精神 already use.
+
+**And one was both, plus something else.** 勒 glossed lè's *to rein in; to force* where the card is lēi
+— and **two of its three sentences were TRANSLITERATED NAMES**, 法迪勒 for Fadil and 海伦凯勒 for Helen
+Keller, so the character stood twice for its sound alone. That is batch 96's 库 (Kurdish and Kumi) and
+batch 89's 哈 met a third time, and `check-example-fit.js` skips a one-character headword by design.
+Only 勒紧裤带 used the word.
+
+### One more found by reading rather than by the checker
+
+**唐！我的电脑又当机了 uses 当机**, the TAIWAN word for a computer crashing — the mainland writes 死机,
+and CC-CEDICT has no entry for 当机 at all, holding 宕机 and 死机. **The sixth regional-vocabulary
+finding in ten batches.** Its gloss was also *oh; ah; well*, which is the āi reading's grunt of
+agreement, where the card is ài and all three sentences are dismay. **`check-polyreading.js` does NOT
+report 唐**, its gloss sharing no word with either reading — which is the proxy's honest limit and is
+recorded rather than papered over.
+
+### What was NOT done
+
+**No `Compounds` panels.** This is a finding list rather than a run of notes in deck order, and the five
+single-character cards it touches sit in four different decks; giving them panels would be starting a
+different pass inside this one. Recorded so the next deck-order batch over Levels 6 and 7 knows to.
+
+**Checks after the batch.** `check-polyreading.js` 8 → 0; `--check` clean; coverage 11,532 at three
+sentences, repeats 0, still-ambiguous 1; shared-gloss groups 320 unchanged — so none of the six gloss
+rewrites made a new collision; one-sided hints still 0; pinyin clean; example-fit 140 and senses 151
+unchanged; british 0; 34,596 blocks with spoken == visible on every one; **sense-tagged 726 → 732**, the
+six being 揣's and 豁's; `build-lang-decks.js` re-run. **No changelog line and no version bump**: a new
+file in `.claude/decks/` is not part of the site, and the CLAUDE.md bullet added for it is a rule rather
+than a release.
