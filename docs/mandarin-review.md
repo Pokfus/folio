@@ -648,6 +648,16 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 1051–1080 (数据 → 缩短), deck order | 10 | three more straddles in one range — 水|分子, 四|周 as *four weeks*, and a **bare imperative fragment standing as a sentence** |
 | 2026-09-18 | `hsk30l5` notes 1081–1110 (缩小 → 填), deck order | 10 | **他人, 特有 and 天上 all three straddling** — 他|人很好, 特|有劲 and 每天|上教堂 |
 | 2026-09-18 | `hsk30l5` notes 1111–1140 (甜品 → 推动), deck order | 8 | **a CHARACTER ERROR that put the headword there at all — 挑 written for 跳, “this dog jumped”**, and 团对 for 团队 on the same batch |
+| 2026-09-18 | `hsk30l5` notes 1141–1170 (推广 → 围绕), deck order | 9 | **微笑 straddling its own sentence — 教授微微|笑了一下**, and 退 with two of its three examples inside longer words |
+| 2026-09-18 | `hsk30l5` notes 1171–1200 (维修 → 物质), deck order | 7 | **a CHARACTER ERROR under a perfect English — 请勿**望**您的物品 for 请勿忘** |
+| 2026-09-18 | `hsk30l5` notes 1201–1230 (西餐 → 现状), deck order | 8 | **戏, two of whose three sentences were 戏院 and 儿戏**, and a third English calling a play a film |
+| 2026-09-18 | `hsk30l5` notes 1231–1260 (相似 → 心态), deck order | 3 | a quiet range — two near-repeats and one `Compounds` panel |
+| 2026-09-18 | `hsk30l5` notes 1261–1290 (新型 → 学历), deck order | 9 | **性质, whose first two examples carried the SAME English over two Chinese sentences**, and 形容 glossed by its literary sense while all three sentences mean *to describe* |
+| 2026-09-18 | `hsk30l5` notes 1291–1320 (学年 → 药物), deck order | 7 | **腰, all three of whose sentences were 弯腰, 腰围 and 半山腰**, and a new school year that began in April twice |
+| 2026-09-18 | `hsk30l5` notes 1321–1350 (夜间 → 因而), deck order | 8 | **一路顺风 with THREE near-identical sentences — 祝您/祝你 and a full stop against an exclamation mark** |
+| 2026-09-18 | `hsk30l5` notes 1351–1380 (音量 → 优质), deck order | 5 | **用法 straddling 用 + 法文** — *because it is written in French*, on a card meaning *usage* |
+| 2026-09-18 | `hsk30l5` notes 1381–1410 (由此 → 元旦), deck order | 7 | **one sentence straddling on TWO different cards at once** — 连笑话也有限制 was claimed by 有限 and by 限制 and belongs to neither |
+| 2026-09-18 | `hsk30l5` notes 1411–1440 (员工 → 摘), deck order | 11 | **早期, two of whose examples were multi-sentence paragraphs about Bismarck and Mark Knopfler** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -9830,6 +9840,269 @@ while its new third sentence teaches `tiǎo`** — the card's other two sentence
 override is right for the majority and the minority reading is named in the senses; it is recorded here
 rather than changed. **And one fault was found outside the range and left there**: `hsk30l5/装修` is
 glossed *to decroate*, a plain typo, which belongs to the batch that reaches it.
+
+**No changelog line and no version bump** — a community deck is not a change to Folio, and nothing in
+the app changed.
+
+## Batch 113 — `hsk30l5` notes 1141–1170 (推广 → 围绕)
+
+**Nine of thirty changed; twenty-one read and left.**
+
+**微笑 straddled inside its own sentence**, which is the neatest example of that fault this audit has
+found: 教授**微微笑**了一下 / *The professor grinned* is 微微 + 笑了, an adverb and a verb, so the card
+bolded two characters that are one word in neither reading. `check-example-fit.js` asks only whether a
+headword is swallowed by a LONGER word and is blind to this direction. The English is wrong about the
+word as well — a grin is not a smile — so the sentence went whole for 她对我微笑了一下.
+
+**退 had two of its three sentences inside longer words**: 他被批准**早退** and 你**退烧**了吗, the
+second of which is also the third sentence of the 烧 card. That left one real example out of three, so
+two were authored for the two senses the card names — 大水慢慢退了 and 这件衣服可以退吗.
+
+**Three English translations said nothing about the headword.** 退出's 我不该退出的 was *I shouldn't
+have **logged off***, a computing sense the gloss does not carry; 违法's 您有违法行为吗 was *Are you
+in trouble with the law?*, which never says *illegal*; 外形's 这台机器外形很小 was *This machine is
+small in shape*, which is not English.
+
+**Two near-repeats and a swallow.** 推广's 这项技术已经推广开了 and 这项技术正在推广 are the same
+sentence in two aspects; 推荐's 你推荐什么 and 你有什么推荐 are the same question twice. 围's
+住宅**围栏**应该多高 is 围栏, a fence.
+
+**Two `Compounds` panels** — 弯, 围.
+
+## Batch 114 — `hsk30l5` notes 1171–1200 (维修 → 物质)
+
+**Seven of thirty changed; twenty-three read and left.**
+
+**物品 carried a character error under a perfect English.** 请勿**望**您的物品 / *Please mind your
+belongings* — the character wanted is 忘, and 望 means *to gaze*, so the Chinese reads *please do not
+gaze at your belongings*. It is the class batches 30 and 112 record: the wrong character is a real
+character, the sentence segments and speaks, and the English is a correct translation of what was
+meant, so nothing in the pipeline can see it.
+
+**雾's first sentence was 烟雾出现了 / *Smoke appeared*** — 烟雾 is smoke or smog, a compound that
+swallows the headword, and the English says *smoke* on a card glossed *fog*. The card's own English
+line is the tell, exactly as batch 29 recorded.
+
+**无数 and 无限 each lost something.** 无数's 这本小说使无数女孩流下了眼泪 was *The fiction reduced
+girls to tears* — no *countless* anywhere in it. 无限's 宇宙毫无疑问是无限的 and 但宇宙无限 are the
+same claim about the universe twice, so the second went for 他对孩子有无限的耐心.
+
+**武术** carried a near-repeat so close that the two differ by one character: 他从小**学习**武术 and
+他从小**练**武术.
+
+**Two `Compounds` panels** — 胃, 握. 握's obvious fourth row, 握紧, is not in CC-CEDICT; 握力 is.
+
+## Batch 115 — `hsk30l5` notes 1201–1230 (西餐 → 现状)
+
+**Eight of thirty changed; twenty-two read and left.**
+
+**戏 had one real sentence out of three, and its English was wrong about that one.** 让我们在**戏院**
+前面碰面 is 戏院 and 这可不是**儿戏** is 儿戏 — two compounds — while the survivor, 这星期有没有好戏看,
+was translated *Are there any good **films** being shown this week?* on a card glossed *play, drama,
+performance*. Two authored sentences replace the compounds and the English now says *plays*.
+
+**县's three sentences were all about Japan.** 日本有多少个县, 我住在兵库县 and
+我在兵库县立大学学习 — a Japanese prefecture is a reasonable rendering of 县 and the last two are the
+same place twice, so the near-repeat went for 这个县有三十万人, which is what the word means in China.
+
+**现实 and 限制 each lost a sentence the word is not in.** 现实's 我喜欢**超现实主义** is 超现实主义,
+surrealism, and ended with no terminal punctuation besides. 限制's 连笑话也有限制 is 有 + 限制 read by
+the segmenter as 有限 + 制 — see batch 121, where the same sentence turns up on the 有限 card and is
+wrong there too.
+
+**闲 and 乡 are the same shape.** 闲's 我跟他**闲逛**过 is 闲逛; 乡's 乡间有很多树 and 我喜欢在乡间散步
+are both 乡间 and are a near-repeat into the bargain.
+
+**Two English translations said nothing.** 显然's 他显然喜欢散步 was *There's no doubt that he likes
+taking walks*, which never says *obviously*; 显示's 昨夜温度计显示气温下降到零度 was *The thermometer
+fell to zero last night*, which drops the verb the card is for.
+
+**Four `Compounds` panels** — 戏, 闲, 县, 乡.
+
+## Batch 116 — `hsk30l5` notes 1231–1260 (相似 → 心态)
+
+**Three of thirty changed; twenty-seven read and left.** The quietest range in this sitting, and the
+three are small.
+
+**小于's first two sentences were 这个数小于十 and 这个数小于一百** — the same sentence with the number
+changed, which is what a near-repeat looks like at its most mechanical. **新娘's first and third were
+新娘看起来非常漂亮 and 新娘好像非常漂亮**, the same observation twice. One `Compounds` panel, 斜.
+
+**Read and left**: 新郎 and 新娘 share a sentence (新郎现在在一家公司工作，新娘是我们的老师) and 外形 and
+相似 share another (地球的外形和橙子相似). A sentence on two cards is not a near-repeat — a reader meets
+each card on its own — and in both pairs the sentence teaches both words.
+
+## Batch 117 — `hsk30l5` notes 1261–1290 (新型 → 学历)
+
+**Nine of thirty changed; twenty-one read and left.**
+
+**性质's first two examples carried the SAME English over two different Chinese sentences.**
+这两件事**的**性质不同 and 这两件事性质不同 both read *These two matters are different in nature* —
+which is `check-senses.js`'s own exact check rather than a proxy, and it had named this card
+(`u_hsk30l5_1278`) for some time. The Chinese sentences differ by one particle, so the honest repair is
+the English: the second now reads *The two cases are of a different character*.
+
+**形容 was glossed by its literary sense.** The card read `verb | appearance; countenance` — which is
+what 形容 means in classical Chinese — over three sentences that all mean *to describe*. CC-CEDICT
+leads with *to describe* and marks the other *(literary)*; the gloss now says both in that order. Its
+third sentence was 不够后面要再加个**形容词**, which is 形容词, an adjective, and ended with no
+terminal punctuation besides.
+
+**行人's first sentence was 我的母亲经常让行人吃耳光 / *My mother often slaps passers-by***, which is
+not a sentence a learner should meet on a card about pedestrians.
+
+**Three near-repeats.** 休闲's 周末他喜欢**在家**休闲 and 周末他喜欢休闲; 学分's 这门课有**三**个学分
+and 这门课有**两**个学分; 学科's 所有学科中，我比较喜欢英语 and 英语变成了我最喜欢的学科.
+
+**One `Compounds` panel** — 需.
+
+**And one authored replacement had to be replaced in turn**, which is worth recording. The sentence
+first written for 行人 was 这条街上行人很多 — and `check-example-fit.js` reported it straight back,
+because 街 + 上行 is how a greedy segmenter reads 街上行. The class this audit spends most of its time
+on can be introduced by the repair as easily as found in the original. It is now
+过马路时行人要小心. **Re-run the checker after authoring, not only before.**
+
+## Batch 118 — `hsk30l5` notes 1291–1320 (学年 → 药物)
+
+**Seven of thirty changed; twenty-three read and left.**
+
+**腰's three sentences were 弯腰, 腰围 and 半山腰** — a stoop, a waist measurement and the middle of a
+mountain, three compounds, none of them the character standing on its own. 弯腰 was kept, being the
+commonest thing anyone does with the word, and two authored sentences replace the others.
+
+**眼 was the same shape one card over**: 我**眼皮**发热 is 眼皮, an eyelid, and 什么都逃不过我的**法眼**
+is 法眼, a discerning eye. Both went; the survivor, 眼不见心不烦, is the character in an idiom, and the
+two replacements cover the measure-word sense (他回头看了我一眼) and the free noun (他红着眼说不出话).
+
+**摇's third was 他们把我们当成摇钱树** — 摇钱树, a money tree.
+
+**学年 carried a near-repeat differing by one character**: 日本的新学年**在**四月开始 and
+日本的新学年**从**四月开始.
+
+**要不's first English said nothing about the word.** 要不一起到车站去 was *Do you want to go to the
+station with me?*, which is a fine translation and never says *how about* or *otherwise*, the two
+things the card is for.
+
+**Four `Compounds` panels** — 沿, 眼, 腰, 摇, 咬 (five). 咬's obvious 反咬 is not in CC-CEDICT; 咬合 is.
+
+**One card deliberately gets NO `Compounds` panel and the reason is worth writing down.** 呀 is a
+sentence-final particle and an interjection, not a morpheme that builds words: what it appears in
+(哎呀, 啊呀) are interjections written with it rather than compounds of it. The rule that a
+single-character card gets a `Compounds` section is a rule about characters that BUILD, and a
+grammatical particle is the case where the honest answer is none.
+
+## Batch 119 — `hsk30l5` notes 1321–1350 (夜间 → 因而)
+
+**Eight of thirty changed; twenty-two read and left.**
+
+**一路顺风 had three near-identical sentences**, which is the worst repeat this audit has met:
+祝**您**一路顺风。 / 祝**你**一路顺风。 / 祝你一路顺风**！** — one formula, three times, differing by a
+pronoun and a punctuation mark. The coverage checker compares sentences exactly and reported nothing.
+One was kept and two authored.
+
+**一路 straddled on its second sentence**: 去医院要坐**哪一路**公交 is 哪一 + 路公交, where 路 is the
+measure word for a bus route and 一路 is not the word at all.
+
+**以's second sentence was 他以为什么都知道** — 以为, *to think (mistakenly)*, which swallows the
+headword and is a completely different word; 乙's second was 对**乙**酰氨基酚, paracetamol, where the
+character is inside a chemical transliteration and carries none of its meaning. That is batch 102's
+finding again, one degree further: not a foreign place name but a foreign compound.
+
+**Two more near-repeats**: 一旦's 坏习惯一旦被养成，便不能简单地改正 and 一旦养成了坏习惯，就很难改回来了;
+以来's 入冬以来一直没下**雨** and 入冬以来一直没下**雪**.
+
+**Three `Compounds` panels** — 移, 乙, 以, 亿 (four). 亿's panel is three rows rather than four, because
+百亿 and 亿元 are not in CC-CEDICT and 亿万富翁 is the only other entry the dictionary carries for it:
+**a character that occurs in few compounds gets a short panel rather than an invented one.**
+
+## Batch 120 — `hsk30l5` notes 1351–1380 (音量 → 优质)
+
+**Five of thirty changed; twenty-five read and left.**
+
+**用法 straddled 用 + 法文.** 因为是**用法**文写的，所以这本书很难读 / *This book is difficult to read
+as it is written in French* — the two characters are the preposition 用 and the first character of
+法文, and the card, which means *usage*, bolded them as its own. A perfectly good sentence about
+something else.
+
+**Two English translations that were not English or were not the sentence.** 优美's
+他虽然不是歌手，但他唱的非常优美 read *he has beautiful voice*, missing its article; 悠久's
+京都和奈良都是历史悠久的古城 read *Nara is as old as Kyoto*, which is a different claim from the one
+the Chinese makes and drops the word the card teaches.
+
+**Two `Compounds` panels** — 迎, 硬.
+
+## Batch 121 — `hsk30l5` notes 1381–1410 (由此 → 元旦)
+
+**Seven of thirty changed; twenty-three read and left.**
+
+**One sentence straddled on TWO different cards at once, and belongs to neither.** 连笑话也有限制 is
+连 + 笑话 + 也 + 有 + 限制 — so on the **限制** card (batch 115) the segmenter reads 有限 + 制 and the
+headword is split, and on the **有限** card the word genuinely is not there at all, 有 being the verb
+and 限制 the object. The same string was serving as an example for two cards that mean different
+things, and it is wrong for both. Dropped from each, with an authored sentence for each.
+
+**语文 straddled too**: 他在牛津大学修了英**语文**学 is 英语 + 文学, English literature, on a card
+whose own gloss is *Chinese as a school subject*.
+
+**原's first sentence was 他们知道如何制造原子弹** — 原子弹, an atomic bomb — and 圆's third was
+圆圈是红色的, where 圆圈 is a circle. Both swallow.
+
+**Two more English translations and a near-repeat.** 有害's 吸烟有害健康 was *Smoking **affects** your
+health*, which is neutral where the word is not. 有益's 体育有益健康 and 跑步对你的健康有益 are the
+same claim about exercise twice. 原有's 这里保留了原有的**建筑** and 这里保留了原有的**风格** likewise.
+
+**Two `Compounds` panels** — 原, 圆.
+
+## Batch 122 — `hsk30l5` notes 1411–1440 (员工 → 摘)
+
+**Eleven of thirty changed; nineteen read and left** — the busiest range in this sitting, almost
+entirely because of the `Compounds` backlog at the end of the alphabet.
+
+**早期's second and third examples were multi-sentence paragraphs.** One was 91 characters about
+Bismarck's opinion of his own public speaking; the other was about Mark Knopfler playing the opening
+bars of *Money for Nothing*. Both are real prose and neither is an example sentence; both went for two
+authored ones.
+
+**愿's third was 我有一个愿景** — 愿景, a vision or a goal — and its first, 愿你们平安, carried the
+English *And upon you be peace!*, which is the same formula batch 102 struck off the 平安 card and
+which says nothing about 愿. **运's first was 你们三个很走运**, 走运, *to be in luck*, a different sense
+inside a different word.
+
+**Two more near-repeats.** 增进's 交流可以增进了解 and 交流能增进理解 — the same sentence with two
+synonyms swapped. 在线's 他总是在线 and 他一直在线，随时可以问他.
+
+**早晚's third English said nothing about the word**: 这债她早晚要还的 read *She will pay for this*,
+which drops *sooner or later* entirely.
+
+**Seven `Compounds` panels** — 愿, 运, 造, 增, 赠, 炸, 摘.
+
+## Checks after batches 113–122
+
+`mandarin-fix.js --check` clean — every deck carries its fixes, and no `dropEx`, `exEn` or `exStop` row
+matched nothing. Coverage: **11,532 notes at three sentences across all nine decks, 0 showing the same
+sentence twice.** Shared-gloss groups **320** and still-ambiguous **1**, both unchanged, so the two
+gloss rewrites (形容, 显然) made no new reverse-card collision. `check-pinyin.js` clean over 11,459
+readings. `check-polyreading.js` 0. `check-coarse.js` names nothing on Level 5 on any of its six lists.
+`check-british.js` 0. `check-senses.js` names no duplicate English inside the range — the 性质 finding
+it had been carrying is cleared. `build-lang-decks.js` re-run.
+
+**Verified against the real diff**: 74 of the 300 notes in 1141–1440 changed and **nothing outside the
+range moved** — 9, 7, 8, 3, 9, 7, 8, 5, 7, 11 per batch, summing to 74.
+
+**`check-example-fit.js` found four in range that reading had missed, and one of them was mine.**
+信用's 他不是那种**不守信用**的人 is 守信 + 用 and 幸运's 他说他是**不幸运**的 is 不幸 + 运; both were
+dropped and replaced. The third was the sentence this sitting had just authored for 行人 (see batch
+117). **The fourth is a FALSE POSITIVE and stays**: 行走's 那是人类第一次在月球**上行走** is
+在月球上 + 行走, which is correct Chinese and correct segmentation; the greedy matcher prefers 上行,
+a real word meaning *to go up*, and loses. The checker's own header says it is a proxy, and this is
+what that means.
+
+**Read and left.** `check-gloss-source.js` reports six cards in the range and five are the proxy
+paraphrasing — 现代化, 协议, 形状, 呀 and 眼泪 all one sense written two ways. The sixth, 显然, was a
+real finding of a different kind: the gloss was right and the LABEL was not, the card saying
+`adjective` over two sentences that use the word adverbially, so the label is widened rather than the
+gloss changed. **And one card is deliberately given no `Compounds` panel** — 呀, a sentence particle,
+for the reason set out in batch 118.
 
 **No changelog line and no version bump** — a community deck is not a change to Folio, and nothing in
 the app changed.
