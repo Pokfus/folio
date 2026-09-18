@@ -324,6 +324,9 @@ const NOT_A_SCHOLAR = new Set([
   /* AN OFFICE IS NOT A PERSON, and a Chinese one is two capitalised words in front of a verb of agency
      exactly as a scholar is. These are titles the Politics collection narrates ("the General Secretary
      counted only as first among equals"), not people the prose credits. */
+  /* AN EARLY MODERN VICEROY IS AN ACTOR OF HIS CARD'S OWN PERIOD, and "Toledo" is a Spanish city
+     besides, so the match wears the shape of an attribution twice over and is neither. */
+  "Viceroy Toledo",     // wh-671: Francisco de Toledo, viceroy of Peru 1569-81, who imposed the mita
   "General Secretary",  // pea-003: the party office, which "counted" as first among equals
   "Standing Committee", // the Politburo body, which decides and meets
   "Central Committee",  // the party body, which elects and meets in plenum

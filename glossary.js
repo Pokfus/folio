@@ -3902,7 +3902,17 @@ window.GLOSSARY = {
 "Fall_of_Tenochtitlan": "The fall of Tenochtitlan was the capture of the Mexica capital on 13 August 1521 by Hernán Cortés and the far more numerous Indigenous allies who fought with him, after a siege of seventy-five days.<sup class=\"fn\" data-fn=\"1\"></sup> Thirteen brigantines built inland and carried to the lake gave the besiegers command of the water, and the aqueduct carrying fresh water into the city was broken at its spring.<sup class=\"fn\" data-fn=\"1\"></sup> Cortés wrote to Charles V that more than fifty thousand of the city's people had died of salt water, hunger and disease before it was taken, and that a further fifteen thousand were killed on the last day.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Francisco_Pizarro": "Francisco Pizarro was the Spanish commander who overthrew the Inca Empire, seizing its ruler Atahualpa at Cajamarca in November 1532 with a force of fewer than two hundred men, arriving just after a civil war for the Inca succession.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A capitulation granted by Queen Juana in 1529 had made him governor of whatever he conquered, and he sailed from Panama for the last time in 1531.<sup class=\"fn\" data-fn=\"1\"></sup> He founded Lima, fell out with his partner Almagro over the division of Peru, and was killed by Almagro's followers in his own house there on 26 June 1541.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Spanish_conquest_of_the_Inca_Empire": "The Spanish conquest of the Inca Empire ran from Francisco Pizarro's landing on the Peruvian coast in 1532 to the fall of the mountain refuge of Vilcabamba in 1572.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The seizure of Atahualpa at Cajamarca did not settle it: Manco Inca, whom the Spaniards had installed, rose in 1536 and besieged Cusco and Lima, and after the sieges failed four Incas ruled in succession from Vilcabamba for thirty-six years.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The conquerors meanwhile fought each other over the division of Peru, and Pizarro himself was killed by his partner's followers in 1541.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Cocoliztli": "Cocoliztli, Nahuatl for 'pest', is the name given to the epidemics that swept central Mexico in 1545-48 and 1576-78 and killed a large part of its native population.<sup class=\"fn\" data-fn=\"1\"></sup> The first is estimated to have killed five to fifteen million people, up to 80 per cent of the population of Mexico, and the second a further two to two and a half million.<sup class=\"fn\" data-fn=\"1\"></sup> Its cause is still disputed: candidates include an Indigenous haemorrhagic fever carried by rodents and aggravated by drought, enteric fever caused by <i>Salmonella enterica</i> Paratyphi C, and epidemic typhus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Cocoliztli": "Cocoliztli, Nahuatl for 'pest', is the name given to the epidemics that swept central Mexico in 1545-48 and 1576-78 and killed a large part of its native population.<sup class=\"fn\" data-fn=\"1\"></sup> The first is estimated to have killed five to fifteen million people, up to 80 per cent of the population of Mexico, and the second a further two to two and a half million.<sup class=\"fn\" data-fn=\"1\"></sup> Its cause is still disputed: candidates include an Indigenous haemorrhagic fever carried by rodents and aggravated by drought, enteric fever caused by <i>Salmonella enterica</i> Paratyphi C, and epidemic typhus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Potosí": "Potosí is a city in the highlands of southern Bolivia and the silver mountain above it, worked by Spaniards from 1545 and within a few years the richest silver deposit known to the Spanish crown.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its ore would not run in a bellows furnace and was first smelted in wind-driven clay pots called huayras, then from 1571 by amalgamation with quicksilver carried from Huancavelica, which made poor ore worth crushing.<sup class=\"fn\" data-fn=\"2\"></sup> Viceroy Francisco de Toledo regulated the mines in 1572 and imposed the mita, a rotating conscription of a seventh of the tributary men of the nearest highland provinces.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Spanish_dollar": "The Spanish dollar, or piece of eight, is a silver coin reckoned at eight reales and weighing about an ounce, struck in Spain and in the American mints from the bullion of Potosí and Mexico.<sup class=\"fn\" data-fn=\"3\"></sup> It travelled east because silver bought more in Asia than at home, ten or twelve ounces of it fetching an ounce of gold in China against fourteen or fifteen in Europe.<sup class=\"fn\" data-fn=\"1\"></sup> Chinese merchants at Manila took it for raw silk and would accept neither gold nor goods instead, and mints in the Low Countries were still melting American silver in the 18th century.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Encomienda": "An encomienda was a grant made in Spanish America by which a named group of Indians, with their chief, was given in trust to a Spaniard, who took their labour and tribute and was bound to protect them and have them taught the Catholic faith.<sup class=\"fn\" data-fn=\"1\"></sup> It began on Hispaniola with allotments made in 1497 and was regularised under Ovando from 1502, spreading with the conquests to Mexico, Peru and Chile.<sup class=\"fn\" data-fn=\"1\"></sup> The New Laws of 1542 forbade new grants and ended existing ones at the holder's death, but were abrogated in 1545, and later concessions let a grant run for four lives.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Spanish_Empire": "The Spanish Empire was the overseas dominion of the crown of Castile, which by the later 16th century reached from Mexico and the Caribbean to Chile and across the Pacific to the Philippines.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its traffic was controlled from Seville through the Casa de Contratación, founded in 1503 as a board of trade, commercial court and clearing house, while the Council of the Indies legislated and heard final appeals.<sup class=\"fn\" data-fn=\"1\"></sup> American lands were reckoned two kingdoms, New Spain and Peru, each governed by a viceroy standing as the king's person and divided into audiencias that served as both high courts and councils.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Portuguese_Empire": "The Portuguese Empire in the East was a chain of fortified ports and a claim to command the sea between them rather than a mass of settled territory, and took its shape under Afonso de Albuquerque, governor from 1509 to 1515.<sup class=\"fn\" data-fn=\"1\"></sup> Goa became the seat of government and Malacca the eastern emporium, while Muslim shipping was licensed by pass to trade in everything but spices.<sup class=\"fn\" data-fn=\"1\"></sup> By 1571 it ran from the African coast to China and was divided into three commands, and its monopoly was attacked in 1609 by Grotius, who denied Portugal any ownership of the ocean.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Dutch_East_India_Company": "The Dutch East India Company, the Verenigde Oostindische Compagnie or VOC, was formed in 1602 out of the rival Dutch ventures already trading east of the Cape of Good Hope, and grew into the first trading enterprise of its scale.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its seizure of a Portuguese galleon in the Straits of Malacca divided its own shareholders and led Grotius to argue in 1609 that no nation could own the sea.<sup class=\"fn\" data-fn=\"1\"></sup> It kept its yards at work through a European oak shortage by drawing timber from the Baltic, the Lübeck hinterland and Lower Saxony, and enforced a spice monopoly by destroying surplus trees.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"East_India_Company": "The East India Company was the London company chartered by Elizabeth the First on 31 December 1600 to trade east of the Cape of Good Hope, at first for a term of fifteen years.<sup class=\"fn\" data-fn=\"1\"></sup> It began with twelve separate voyages, each subscribed for on its own account, and won twelve further charters from James the First that made the monopoly perpetual and licensed the export of silver.<sup class=\"fn\" data-fn=\"1\"></sup> Trade in Mughal India depended on imperial warrants, which Thomas Roe was sent to obtain between 1615 and 1619, and the company later became a territorial power in India.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Manila_galleon": "The Manila galleon was the annual Spanish ship, or pair of ships, that crossed the Pacific between Manila and Acapulco from 1565 until 1815, carrying Chinese silk and porcelain east and American silver west.<sup class=\"fn\" data-fn=\"3\"></sup> It became possible only when a return route across the north Pacific was found in 1565, on the expedition Philip the Second had sent under Miguel López de Legazpi with Andrés de Urdaneta aboard.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The westward cargo was bullion because Chinese merchants at Manila would take neither gold nor goods for their silk, which Spanish officials complained of from the beginning.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Jamestown,_Virginia": "Jamestown was the first permanent English settlement in America, planted in May 1607 on an island in the James River in Virginia under a charter granted to the Virginia Company by James the First in April 1606.<sup class=\"fn\" data-fn=\"2\"></sup> Its site was chosen for deep water and for defence rather than for health, and the first summer killed a great part of the company by dysentery, fever, wounds and hunger.<sup class=\"fn\" data-fn=\"1\"></sup> It was abandoned altogether in 1610 and reoccupied when relief met the survivors downriver, was made to pay by tobacco, and saw the colony's first general assembly meet in 1619.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"New_England": "New England is the north-eastern region of what became the United States, where English colonies were planted from 1620 by settlers who came to live under their own churches rather than to seek treasure.<sup class=\"fn\" data-fn=\"1\"></sup> Plymouth was the first, founded by a company that landed outside its patent and answered the difficulty by combining itself into a civil body politic by covenant.<sup class=\"fn\" data-fn=\"1\"></sup> The larger settlement followed a royal charter of 1629 incorporating the Governor and Company of the Massachusetts Bay, whose members carried the patent and the government itself across the Atlantic in 1630.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5936,7 +5946,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Fall_of_Tenochtitlan": "13 August 1521",
 "Francisco_Pizarro": "died 1541",
 "Spanish_conquest_of_the_Inca_Empire": "1532 – 1572",
-"Cocoliztli": "1545 – 1548, 1576 – 1578"
+"Cocoliztli": "1545 – 1548, 1576 – 1578",
+"Potosí": "founded 1545",
+"Spanish_dollar": "16th - 19th centuries",
+"Encomienda": "1497 - 18th century",
+"Spanish_Empire": "1492 - 1898",
+"Portuguese_Empire": "1415 - 1999",
+"Dutch_East_India_Company": "1602 - 1799",
+"East_India_Company": "1600 - 1874",
+"Manila_galleon": "1565 - 1815",
+"Jamestown,_Virginia": "1607 - 1699",
+"New_England": "English settlement from 1620"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -7421,7 +7441,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "The_Valley,_Anguilla": ["The Valley"],
 "Mata-Utu": ["Mata'Utu"],
 "Saint-Pierre,_Saint_Pierre_and_Miquelon": ["Saint-Pierre"],
-"Jamestown,_Saint_Helena": ["Jamestown"],
+"Jamestown,_Saint_Helena": ["James Town"],
 "Stanley,_Falkland_Islands": ["Stanley"],
 "Adamstown,_Pitcairn_Islands": ["Adamstown"],
 "Mexico_City": ["Ciudad de México"],
@@ -8257,7 +8277,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Conquistador": ["conquistadores"],
 "Hernán_Cortés": ["Hernando Cortés","Fernando Cortés"],
 "Fall_of_Tenochtitlan": ["siege of Tenochtitlan"],
-"Spanish_conquest_of_the_Inca_Empire": ["conquest of Peru"]
+"Spanish_conquest_of_the_Inca_Empire": ["conquest of Peru"],
+"Potosí": ["Cerro Rico","Villa Imperial de Potosí"],
+"Spanish_dollar": ["piece of eight","pieces of eight","peso de ocho","real de a ocho","eight reales"],
+"Encomienda": ["encomiendas","encomendero","encomenderos"],
+"Spanish_Empire": ["Spanish empire","Hispanic Monarchy"],
+"Portuguese_Empire": ["Portuguese empire","Estado da India"],
+"Dutch_East_India_Company": ["VOC","Verenigde Oostindische Compagnie"],
+"East_India_Company": ["English East India Company","Honourable East India Company"],
+"Manila_galleon": ["Manila galleons","Acapulco galleon","Nao de China"],
+"Jamestown,_Virginia": ["Jamestown","James Fort","Jamestown settlement"],
+"New_England": ["New England colonies"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12203,7 +12233,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Fall_of_Tenochtitlan": ["event","history","warfare","mexico","americas"],
 "Francisco_Pizarro": ["person","history","warfare","spain","peru","americas"],
 "Spanish_conquest_of_the_Inca_Empire": ["event","history","warfare","spain","peru","americas"],
-"Cocoliztli": ["event","history","science","mexico","americas"]
+"Cocoliztli": ["event","history","science","mexico","americas"],
+"Potosí": ["city","place","history","mining","south america","bolivia"],
+"Spanish_dollar": ["object","history","economy","trade","spain"],
+"Encomienda": ["institution","history","law","economy","spain"],
+"Spanish_Empire": ["state","history","empire","spain"],
+"Portuguese_Empire": ["state","history","empire","portugal","asia"],
+"Dutch_East_India_Company": ["institution","history","trade","economy","netherlands"],
+"East_India_Company": ["institution","history","trade","economy","england","india"],
+"Manila_galleon": ["institution","history","trade","economy","spain","philippines"],
+"Jamestown,_Virginia": ["place","history","north america","england","colony"],
+"New_England": ["place","history","north america","england","colony"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

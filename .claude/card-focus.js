@@ -108,6 +108,11 @@ const NOT_A_RESEARCHER = {
   // letters to Charles V stand in the author slot of the card's own first source, so every sentence of
   // the siege narrative that attributes a figure to him read as historiography.
   "wh-666 Cortés": "Hernán Cortés, cited on his own card for his third letter's account of the siege he laid",
+  // AN EARLY MODERN WITNESS IS THE SAME CASE AGAIN. Each is cited on his own card for what he himself
+  // wrote about the events of his own lifetime, so the surname the question carries belongs to an actor
+  // or an eyewitness rather than to a modern arguer.
+  "wh-675 Grotius": "Hugo Grotius, cited on his own card for the tract he wrote in 1609 against the Portuguese claim of his own day",
+  "wh-679 Percy": "George Percy, cited on his own card for the observations he kept at Jamestown through the summer of 1607",
 };
 
 /* MEASURED, not chosen: over the 269 shipped cards the historiography count is 0 or 1 for 206 of them,

@@ -1037,15 +1037,15 @@ what went wrong in the Mongol period — under a term rather than under a headin
     wh-669  Columbian exchange
     wh-670  Cocoliztli
     wh-671  Potosí
-    wh-672  Global silver trade
+    wh-672  Piece of eight
     wh-673  Encomienda
     wh-674  Spanish Empire
     wh-675  Portuguese Empire
     wh-676  Dutch East India Company
-    wh-677  English East India Company
+    wh-677  East India Company
     wh-678  Manila galleon
     wh-679  Jamestown
-    wh-680  New England colonies
+    wh-680  New England
     wh-681  New France
     wh-682  Russian conquest of Siberia
     wh-683  Voyages of James Cook
