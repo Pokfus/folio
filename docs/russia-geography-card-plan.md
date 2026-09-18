@@ -2693,3 +2693,83 @@ with the third author's initials in **Cyrillic** beside a Latin surname while th
 citation writes all three in Latin and the row is declared in `CROSSREF_WRONG`: a Cyrillic homoglyph
 inside a Latin name breaks search and reads as corruption, which is the one thing a citation must not
 ship.
+
+### Batch 31 — two centres: `gru-562`, `gru-563`
+
+Oryol and Vladikavkaz. **Two, and the honest report is that the reachable shelf is now the binding
+constraint rather than the charter route.** Every one of the fifteen numbers left was read up; thirteen
+were put back with a reason, and the reasons are below so that nobody re-derives them.
+
+**TWO MORE CHARTER HITS, AND MOSCOW OBLAST'S IS A REAL ABSENCE.** The batch-29 method (index →
+administrative-territorial chapter → each article in turn) was run against the five subjects never
+tested:
+
+| subject | slug | result |
+|---|---|---|
+| North Ossetia–Alania | `cons_osetiya` | **art. 64 ¶4** — *Столицей … является город Владикавказ (Дзауджикау)*, which gives the **Ossetian form beside the Russian** and is worth quoting for it |
+| Moscow Oblast | `ustav_mosobl` | **none** in either the status chapter (arts. 22–26) or the administrative-territorial one (arts. 38–39); Krasnogorsk became the seat in 2007 and the charter does not name it |
+| Kalmykia | `cons_kalmik` | index carries 49 links and **no chapter heading matches the widened key** |
+| Mari El | `cons_mariy` | chapter VII states the placing of district and city centres, not the capital |
+| Krasnodar Krai | `ustav_krasnod` | the only matching heading is *Глава 2. Финансы* — the key's `устройств` catching *бюджетное устройство* |
+
+So the nine unspent charter hits are now seven: Cheboksary, Lipetsk, Syktyvkar, Magadan, Anadyr,
+Naryan-Mar and Yoshkar-Ola's absence. **The charter is no longer what is holding any card back.**
+
+**WHAT IS HOLDING THEM BACK, CITY BY CITY, MEASURED.**
+
+| candidate | the refusal |
+|---|---|
+| `gru-539` Cheboksary | **its geology is now solved and its history is not.** Murchison gives the town a full ascending section (p. 180) and puts the black earth's northern limit on the Volga's left bank west of it (p. 557) — but Reclus vol. 5 **never names the town** under any spelling, Rambaud's one mention is the 1551–52 founding `gru-039` has spent, and Morfill, Howorth, Kennan and Rambaud vol. 3 have nothing. DOAJ yields the toponymy and regiolect papers and the reservoir's invasive fish: two history sentences where five are wanted |
+| `gru-543` Lipetsk | the shelf has the p. 435 population appendix and **nothing else**; Morfill has no mention of Peter's ironworks here, and Europe PMC's four full-text hits are hantavirus and leafrollers |
+| `gru-561` Syktyvkar | Reclus's three Ust-Sisolsk pages are all spent by `gru-061`, Gagieva's 19th-century public charity is the only city paper, and **`journals.bsu.by` does not answer from here**, which killed Zherebtsov and Lejman on the 1921 Komi autonomy — the one source that would have carried the 20th century |
+| `gru-581` Magadan, `gru-582` Anadyr, `gru-583` Naryan-Mar | all three have a charter, a WMO station with real normals and a `?` grid, and **no city history reachable at all**. DOAJ returns nothing for *Магадан история*, *Анадырь город*, *Пустозерск* or *Нарьян-Мар* as a town; Europe PMC's *"city of Magadan"* hits are all trace-element and drinking-water studies; Grebenyuk's new paper is the oblast's agriculture. Reclus has the **Anadyr basin** in quantity (pp. 399–410: the fort of Anadirsk burnt by the Chukchis, the salmon driving the water before them like a moving wall, Mount Makachinga) but that is the river and not the town, and Anadyr was founded as Novo-Mariinsk in 1889, which nothing openable states |
+| `gru-560` Kurgan, `gru-546` Tomsk, `gru-549` Kaliningrad | no charter on Garant (batch 30) and no city history either |
+| `gru-503` Krasnodar, `gru-530` Grozny, `gru-564` Yoshkar-Ola, `gru-578` Elista | no charter sentence and the sibling has spent the reachable history |
+| `gru-502` Krasnogorsk, `gru-524` Gatchina | unchanged from batch 29, and Moscow Oblast's charter is now known not to help |
+
+**THE MUNICIPAL PORTALS ARE REACHABLE THROUGH THE WAYBACK MACHINE, AND THAT IS THE NEXT RUNG.** Tested:
+`web.archive.org/web/2023/http://www.anadyr.org/` answers 200 with 84 KB and `…/https://adm-nmar.ru/`
+with 114 KB, while `magadangorod.ru` fails even through the archive. **But `anadyr.org` is a news site
+rather than the city administration**, which is the trap to expect: the okrug and city administrations
+sit on other hosts, and finding the right one per town is a piece of work in itself. **That is what the
+last fifteen are waiting on, and it is a session of its own rather than a card-writing batch.**
+
+**MURCHISON IS THE GEOLOGY SOURCE THIS COLLECTION HAD BEEN MISSING FOR THE CENTRAL GOVERNMENTS.** The
+*Geology of Russia in Europe* was already in the deck for Orenburg's salt, and it carries Oryol at
+length: the **geological axis of European Russia**, a dome of Devonian rock about 800 feet above the
+sea "duly exposed in the gorges of the Oka above and below Orel" and running 200 miles in the parallel
+of Voronezh and Orel (p. 53), a plate of the **quarries of Devonian rocks at Orel on the banks of the
+Oka** (p. 56), and the high ground near Kursk and Orel that deflects the Oka north to the Volga and
+sets the Don running north before it escapes south (p. 20). **Search it by 19th-century spelling** —
+`Tcheboksar`, `Orel` — and note its 79 Orel hits are mostly the government rather than the town.
+
+**A SUBJECT CARD CITES ONE PAGE AND THE TOWN MAY BE ON FIVE — BUT THE CONVERSE ALSO BITES, AND
+VLADIKAVKAZ IS THE CASE.** `gru-063` cites Baddeley only at pp. 20–21, which sounds narrow; those two
+pages are **the whole founding of the city** — Potemkin's fort of 1783 where the Terek issues from the
+mountains, the road, the drive to Tiflis in October 1783, the destruction and the rebuilding of 1799,
+Tsitsianov's postal service. So the centre card takes the **1832–46 material instead**: Kazi Mulla
+threatening the town and besieging Nazran, Tornau's account of every ear in the place turned towards the
+beleaguered fort, Nicholas the First arriving by the Georgian road in October 1837 on the tour that cost
+Baron Rosen his post (Baddeley pp. 261, 311), and the railway question — the Vladikavkaz–Tiflis stretch
+as the one land gap between the Black Sea and the Caspian, and the tunnelling reckoned too dear
+(Reclus vol. 6 pp. 75–76 with Morfill p. 472, which is a second and independent witness to it).
+**And Reclus glosses the name in the VLADIVOSTOK entry** (p. 447), not in the Vladikavkaz one: *Ruler of
+the Caucasus*, named on the same principle at the other end of Asia. Grep the volume for the name
+rather than reading only the town's own pages.
+
+**THE COMMONS API RATE-LIMITS THIS SANDBOX HARD, AND `fetch-geo-images.js` REPORTS THAT AS A MISSING
+FILE.** Both of this batch's pinned files came back as `no file info for File:…` — which its own header
+warns "reads as a file that does not exist and is nothing of the kind" — while the same two files
+downloaded and displayed perfectly through `Special:FilePath`. **Poll rather than retry in a burst**:
+an `until … do sleep 25; done` loop round one search gets an answer where six searches in a minute get
+429 on all of them, and `upload.wikimedia.org` was still answering 503 on the finished `src` strings
+after the API had recovered. The strings are the API's own `thumburl`, cleaned the way the fetcher
+cleans them, so a 503 there is this sandbox's limit and not a dead link.
+· **FOUR OF FOUR NUMBERED-SET CANDIDATES WERE REJECTED**, which is worth knowing before spending
+  requests on one: `Vladikavkaz-007` is a gilded lion, `-020` a family of swans, `Oryol (36333216394)`
+  a flower bed and a car park, and `Oryol (32761130431)` **the inscription on a monument's plinth** —
+  the museum-text-panel family again. A file named `<City>-NN.jpg` carries no information about its
+  subject at all.
+· **COMMONS' ORYOL COVERAGE IS GENUINELY POOR**, and the card ships the honest best: a 2,592px view
+  across the Oka to the boat landing and the wooded right bank. The alternative found was a photograph
+  taken through a dirty window at dusk with the frame in shot.
