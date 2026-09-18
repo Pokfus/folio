@@ -198,6 +198,13 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Science & Technique (sat.bntu.by) deposits this byline exactly as it prints its own preferred
+  // citation line — "Grakhov V.P., Kislyakov M.A., Kislyakov \u0410.\u0410." — with the THIRD author's
+  // initials in CYRILLIC beside a Latin surname, where the first two authors carry Latin initials.
+  // That is a mixed-script artefact of the deposit rather than two different alphabets in one byline,
+  // and a Cyrillic homoglyph inside a Latin name is the one thing a citation must not ship: it breaks
+  // search and reads as corruption. The citation writes all three sets of initials in Latin.
+  ["10.21122/2227-1031-2025-24-4-307-316", "A. A. Kislyakov", "\u0410. \u0410. Kislyakov"],
   // The NArFU Vestnik deposit reverses the name fields — Crossref carries given "Ushakov",
   // family "M.V." — and files the institute as a first author beside it. The article's own
   // landing page for the DOI prints the byline "Ушаков, М.В." (Ushakov Mikhail Vilorevich),

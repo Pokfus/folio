@@ -2580,3 +2580,116 @@ have no wide viewpoint on Commons at all** — both ship their central pedestria
 that says so, which is the geography plan's own fallback. Omsk's card takes a 5.4:1 quay panorama;
 `.card-imgslot` sets `aspect-ratio:auto` with `max-height:280px`, so a panorama is shown whole
 rather than letterboxed there.
+
+### Batch 30 — four centres: `gru-529`, `gru-547`, `gru-559`, `gru-566`
+
+Izhevsk, Yakutsk, Blagoveshchensk and Pskov. **Four rather than ten, and this is the batch where the
+tail begins to bite**: the cheap centres are spent, and of the seventeen numbers left, six were read up
+and put back. What follows is what each of them needs, so the next batch does not re-derive it.
+
+**THE GARANT SWEEP'S REAL YIELD IS ELEVEN MORE ARTICLES, AND BATCH 29's WIDENING IS WHAT FOUND THEM.**
+Reading each subject's INDEX, taking the chapter whose heading matches the widened key
+(`центр|столиц|символ|территориальн|устройств|наименовани|статус|Общие положения|Основные положения`),
+then listing that chapter's own articles and fetching them one at a time turned up a stating article in
+eleven of the thirteen subjects tried:
+
+| subject | slug | article | wording |
+|---|---|---|---|
+| Udmurtia | `cons_udmurt` | 28 ¶2 | *Столицей Удмуртской Республики является город Ижевск.* |
+| Chuvashia | `cons_chuvash` | 67 ¶2 | *Столицей Чувашской Республики является город Чебоксары.* |
+| Sakha (Yakutia) | `cons_saha` | 48 | *Столицей Республики Саха (Якутия) является город Якутск.* |
+| Komi | `cons_komi` | 69 | *Столицей Республики Коми является город Сыктывкар.* |
+| Amur Oblast | `ustav_amur` | 118 | *Административно-политическим центром…* — political as well as administrative |
+| Lipetsk Oblast | `ustav_lipetsk` | 13 ¶3 | *Административным центром области является город Липецк.* |
+| Oryol Oblast | `ustav_orlov` | 14 ¶1 | *Областным центром области является город Орел* — the OBLAST centre, a third form |
+| Pskov Oblast | `ustav_pskov` | 14 | *Административный центр (столица) области - город Псков.* |
+| Magadan Oblast | `ustav_magadan` | 38 | *Административным центром Магаданской области является город Магадан.* |
+
+Chechnya's `cons_chech` art. 59 and Mari El's chapter VII state no city: the first delegates the status
+of the capital to republican law, the second the placing of district and city centres. **Four of the nine
+hits are unspent after this batch** — Cheboksary, Lipetsk, Oryol and Magadan — so the primary-source rung
+is NOT the thing holding those four back.
+
+**AND THREE CHARTERS ARE NOT ON GARANT AT ALL, WHICH IS A DIFFERENT FACT FROM A SILENT ONE.**
+`/region/ustav_tomsk/`, `/region/ustav_kurgan/` and `/region/ustav_kalin/` all answer 200 at about 11.5 KB
+— the Rostov shape, page furniture only. Tomsk lists **no** chapter links; Kurgan lists exactly one, a
+section marked *исключен*; and the Kaliningrad slug serves not the charter but the 1996 **law bringing it
+into force**, whose two articles are about commencement. So Tomsk, Kurgan and Kaliningrad need another
+rung for their first sentence, and that is settled rather than untried.
+
+**A 300-CHARACTER PREVIEW OF AN ARTICLE IS NOT THE ARTICLE.** The scanner reported Udmurtia art. 28 as a
+hit and the verification print showed only the flag-and-arms paragraph, which read as a false positive;
+the centre is in **¶2**, past the cut. Lipetsk (¶3) and Oryol (¶1 of two) are the same shape. **Print the
+whole article body when verifying a hit**, and expect the sentence to be a numbered part rather than the
+article's opening.
+
+**WHAT FELL OUT, AND WHY — the sibling rule and the shelf, measured rather than guessed.**
+
+| candidate | why not |
+|---|---|
+| `gru-539` Cheboksary | **Reclus vol. 5 never names the town** (checked under Cheboksar/Tcheboksar/Cheboksari), Rambaud's one mention is the 1551–52 founding, which `gru-039` has already spent, and DOAJ yields only the toponymy and regiolect papers — two history sentences where five are needed |
+| `gru-543` Lipetsk | the shelf has the p. 435 population appendix and nothing else; **Rambaud's "Battle of Lipetsk (1216)" is a DIFFERENT Lipetsk**, near Pereyaslavl-Zalessky, and must not be used; DOAJ returns beetles and rolling mills |
+| `gru-562` Oryol | `gru-062` has spent Reclus's whole Orol town entry (founded 1564, the fire of 1679, the four railways, the corn and hemp, the 44,280); what is left is province-level — Rostopchin born in the government, Yermolov retiring there, the nobles' 1858 committee, the guberniya's church revolution of 1917 — so three of five history sentences would be about the oblast, which is `gru-062`'s own card |
+| `gru-561` Syktyvkar | Reclus's three Ust-Sisolsk pages are all spent by `gru-061`, and the only city-specific paper reachable is Gagieva on 19th-century public charity; **`journals.bsu.by` does not answer from here**, which killed Zherebtsov and Lejman on the 1921 Komi autonomy, the one source that would have carried the 20th century |
+| `gru-560` Kurgan, `gru-549` Kaliningrad | no charter (above), and their first sentence is the cheapest part of the card |
+
+**Two new sources, both of which will serve more than one card.**
+· **`Науковый диалог`'s 1844 senatorial revision of Yakutsk Region** (Arkhipova and Petrov, no. 4 (2020):
+  271–90) — the only senatorial revision the region ever received, auditing the regional administration
+  AND the town's own **ratusha**, its findings read as the groundwork for prising the region loose from
+  Irkutsk province. Russian abstract only, and the abstract carries the claims.
+· **Bogatova's work on the capitals of the ethnic republics** (`Историческая этнология` 9, no. 3 (2024):
+  397–412, on Izhevsk and Saransk; and `Финно-угорский мир` 17, no. 2 (2025), on the same pair) — the
+  "centres for the implementation of other people's initiatives" framing, the capital measured against
+  other regions' industrial cities, and the turn from locomotive of modernisation into donor of people.
+  **It will serve Saransk, and any republic capital after it.**
+
+**RECLUS VOL. 6 HAS FOUR UNSPENT YAKUTSK PASSAGES AND `gru-047` TOOK ONLY p. 398.** p. 308 is the boring
+driven 385 feet through the sandstone that could not pass the frozen strata; pp. 394–97 the Yakut
+artisans — every carpenter, joiner, painter and carver in the town — making samovars and rifles with
+primitive tools, and Yakut spoken in Russian officials' drawing rooms; pp. 442–44 the thirteen thousand
+horses a year carrying the Pacific fleet's supplies over the Aldan before 1807. **Check the volume's own
+index before writing a centre off as spent**: a subject card cites one page and the town may be on five.
+
+**THE SIBERIAN GUIDE'S BLAGOVESHCHENSK ENTRY IS pp. 408–10 AND `gru-059` TOOK 379–80.** It gives the
+Ust-Zeysk post of 1856, the village of 1857 and the township of 1858, Muravyov-Amursky reporting the
+treaty of Aigun from it on 21 May 1858 with Archbishop Innocent laying the Annunciation church's first
+stone the same day and the renaming *in commemoration of the good news*, the growth from 1880 on gold and
+emigration, and the 1862 printing office fitted with Russian **and Manchu** type. The Amur coal is p. 384
+and Poyarkov's 1643 expedition out of Yakutsk p. 391.
+
+**`gru-547` SHIPS WITH AN EMPTY DATE LINE, AND THE REASON IS THE CONSTITUTION.** Garant states **no
+adoption date** for the Sakha constitution — the document's own title page carries none — so the card
+cites it undated, and nothing else in its sources dates the city itself. An empty line is the honest
+answer; a `Constitution` row with a date composed from elsewhere is not.
+
+**PICTURES: three of seven candidates were rejected after being looked at, including the one whose file
+name was the most promising in the batch.** `Blagoveshchensk, Russia, and Heihe, China (12757409723).jpg`
+is a hazy shot of a river cargo wharf with three tower cranes and no city in it; the "Панорама (дорога от
+Моховой Пади)" series is a green hillside with Blagoveshchensk an invisible smudge on the horizon, which
+is the Stavropol *Krepostnaya mountain* failure exactly; and `Aerial photographs of Izhevsk-10.jpg`,
+which the fetcher's own `SKYLINE_RX` returned as the city's wide view, is a close drone shot of a single
+monument. **PIL is not installed in this sandbox, so `contact-sheet.py` will not run** — at four cards the
+answer is to fetch each candidate through `Special:FilePath?width=1100` and read it one at a time, and
+that is what was done.
+· **A COMMONS "PANORAMA" IS A CLAIM ABOUT THE LENS, NOT ABOUT THE SUBJECT.** Both rejected panoramas are
+  genuinely panoramic and neither is a view of its city.
+· The four installed are a ferris-wheel view over the Izhevsk Pond, a 3.5:1 winter panorama of Yakutsk
+  from Chochur Muran, the Amur embankment at Blagoveshchensk in January with Heihe across the ice, and
+  the Pskov kreml from the Velikaya. The glossary's four are deliberately a second view of each: the
+  derelict works on the Izhevsk Pond, the Tuymaada valley in summer, the Blagoveshchensk waterfront at
+  night from a boat, and a 5.4:1 panorama taken **inside** the Pskov kreml.
+
+**`check-style.js` CANNOT SEE A CARD'S BACKGROUND, AND THIS BATCH IS WHERE THAT SHOWED.** Rule 3 (a
+century or millennium is numbered) fired on the two century-words in the new **Pskov glossary entry** and
+was silent about the two in the **Pskov card**, because the checker reads `data.js` and the abstract now
+lives in `data-extra/`. Measured while fixing it: the collection's lazy half carries **37 century-words**
+against 25 numbered forms, a standing backlog nothing reports. **Write the numbered form by hand in a
+card abstract; the checker will not catch you.**
+
+**AND ONE MORE CROSSREF ROW, of the kind that is a fact about the publisher.** Science & Technique
+deposits — and prints in its own preferred citation line — *Grakhov V.P., Kislyakov M.A., Kislyakov А.А.*,
+with the third author's initials in **Cyrillic** beside a Latin surname while the first two are Latin. The
+citation writes all three in Latin and the row is declared in `CROSSREF_WRONG`: a Cyrillic homoglyph
+inside a Latin name breaks search and reads as corruption, which is the one thing a citation must not
+ship.
