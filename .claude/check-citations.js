@@ -219,6 +219,10 @@ const CROSSREF_WRONG = [
   // Crossref carries "Dzarakhov Magomed M." The article's own PDF prints the full Russian
   // form, Магомед Макшарипович Дзарахов, above the abstract.
   ["10.31143/2542-212X-2024-3-432-446", "Magomed M. Dzarakhov", "Dzarakhov Magomed M."],
+  // Kavkazologiya again, the same surname-first deposit with no family/given split, so
+  // Crossref carries "Zhansitov Osman A." The journal's own English article page
+  // (caucasology.ru/jour/article/view/91?locale=en_US) prints "Osman A. Zhansitov".
+  ["10.31143/2542-212X-2024-3-133-142", "Osman A. Zhansitov", "Zhansitov Osman A."],
   // Kemerovo deposited this byline with a CYRILLIC Е (U+0415) as the middle initial, which
   // defeats the initials comparison, so the record reads as a differing given name rather
   // than as an abbreviation. The journal's own author page prints Гульнара Е. Мамаева.

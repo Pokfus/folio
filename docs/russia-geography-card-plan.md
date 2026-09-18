@@ -2256,3 +2256,87 @@ own `thumburl` at every width asked for, so there is no `/thumb/` form to take �
 Each of the five was fetched successfully through `thumb.php` or a smaller API thumb before it was
 installed, so the files are real and the URLs are the API's own. **A 429 on an original is this
 sandbox's limit, not a dead link; confirm the file another way rather than composing a URL.**
+
+### Batch 27 — ten centres: `gru-552`–`gru-558`, `gru-565`, `gru-567`, `gru-568`
+
+Ulan-Ude, Tambov, Astrakhan, Ivanovo, Nalchik, Smolensk, Saransk, Murmansk, Veliky Novgorod and
+Kostroma. Ten cards, ten paired glossary terms, twenty pictures.
+
+**THE BATCH OPENED BY DISPROVING ITS OWN PREDECESSOR'S CLOSING CLAIM.** Batch 26's report said that
+none of the remaining centres had a charter stating its own seat, and that the next batch would have
+to fall to the Wayback Machine, UNESCO and Europe PMC. That was wrong: the 85-charter sweep's own
+file carries **54 `HIT` lines**, and cross-referencing them against the 33 centres already written
+and the three numbers that are never written left **22 charter hits unspent**. Ten of them are this
+batch. **Count the sweep against what is written before believing a claim about what is left**; the
+check is one `grep -c HIT` and a set difference, and it was never done.
+
+**THE CHARTER ARTICLE IS NOT ALWAYS AN "ADMINISTRATIVE CENTRE" ARTICLE.** Five of the ten are
+REPUBLICS, whose basic law is a constitution and whose wording is *Столицей … является город X* —
+capital, not administrative centre — at articles 108 (Buryatia), 136 (Kabardino-Balkaria) and 109
+(Mordovia). The card's first sentence says "is the capital of the republic around it" for those and
+"is the administrative centre of the oblast around it" for the five oblasts, which is the subject's
+own term for itself rather than a house formula applied to all ten.
+
+**AND THE CHAPTER URL FORM IS `/region/<slug>/chapter/<hash>/`, NOT `/region/<slug>/<hash>/`.** The
+short form returns a stub page with the site chrome and no article text, which reads as a dead
+charter rather than as a wrong address; the titles for Buryatia, Tambov, Mordovia, Murmansk and
+Kabardino-Balkaria were all read off the long form after the short one had appeared to fail.
+
+**THE SIBLING-CARD CONSTRAINT DECIDED EVERY CARD IN THIS BATCH, AND ON THREE OF THEM IT TOOK THE
+OBVIOUS ANSWER AWAY.** `gru-057` Smolensk Oblast had already spent 1514, 1611, 1654, the Krivichi
+capital and the burning of 1812 — which is most of what an English shelf says about Smolensk — so
+the centre card took the 10th-century burial ground downstream of the city and the 15th-century
+Lithuanian land grants instead, the gap the subject card jumps straight over. `gru-068` Kostroma
+Oblast had spent the Merya, the Finnic god, the 1613 election and the Ipatiev Monastery, so the
+centre card took the dynastic war of the 1430s, when the town was handed to Vasili II as an appanage
+and the Muscovites abandoned their own city and crowded into it. `gru-067` Novgorod Oblast had spent
+the veche, Yaroslav's charter and the Muscovite conquest, so the centre card took the two banks, the
+bridge, Gilbert de Lannoy's description of about 1413, and Lukin's account of where the epithet
+*the Great* actually comes from.
+
+**FOUR SOURCES WERE CHOSEN, VERIFIED AND THEN THROWN AWAY BECAUSE THEIR DOI DID NOT RESOLVE TO
+ANYTHING A READER COULD OPEN.** `vestnik.mstu.edu.ru` does not answer at all from here, which killed
+Tolstobrov's Holocene shorelines of the Kola Bay and Chechurina's paper on the port of Murmansk;
+`journals.krc.karelia.ru` returns 503, which killed Leostrin's protected plants of the Kostroma
+region; and EDP Sciences (`e3s-conferences.org`, and `doi.org` redirecting to it) returns 403, which
+killed Kantarzhi's Kola Bay wave model after it had been picked as the replacement for the first.
+Mizis's Tambov paper resolves to `elibrary.ru`, which 403s, so it is cited at its own journal's open
+address instead of by DOI. **A DOI that Crossref answers for is not a source a reader can read**, and
+the curl pass over every URL is what separates the two — it is worth running BEFORE the prose is
+written, not after, since each swap cost a rewrite of two sentences.
+
+**AND A CYRILLIC-ONLY CROSSREF RECORD IS A MISMATCH WAITING TO HAPPEN.** Pigarev's Astrakhan
+fortifications paper, Vikhlyaev's Trans-Kama and Penza lines and Suprun's Murmansk uprising were all
+dropped at selection time because their Crossref deposits carry the authors' names in Cyrillic only,
+which the checker reads as a differing surname rather than as the same person in another script.
+**Ask Crossref for the byline before writing the citation**, not after: the three replacements
+(Reclus and Morfill for Astrakhan, Rabinovich and Rambaud for Saransk, Gerasimov for Murmansk) were
+free to find at that point and would have been a third rewrite later.
+
+**ONE FINDING SURVIVED TO THE CHECKER AND IS NOW DECLARED.** Kavkazologiya deposits its bylines
+surname-first with no family/given split, so Crossref carries "Zhansitov Osman A." where the
+journal's own English article page prints "Osman A. Zhansitov". That is the third row of its kind in
+`CROSSREF_WRONG` (after Yakhutl and Dzarakhov) and the pattern is now the journal's rather than the
+article's — **expect every Kavkazologiya citation to need one.**
+
+**THE PICTURE PASS REJECTED SEVEN OF SEVENTEEN FIRST CHOICES**, and the rejects are the same
+families batch 26 recorded: a hot-air balloon photographed against empty sky filed under a city's
+category; a night view that is a field of street lights; woodland with the city out of frame; a
+rusty standpipe filed under a city district; a park of frosted trees; an aerial of one suburban
+microdistrict; and a wide panorama at 10.6:1, which is a legitimate photograph and unusable in a
+16:9 frame. **Aspect ratio is a rejection criterion and is visible in the metadata**, so it costs
+nothing to apply before downloading.
+
+**`check-image-free.js` CAUGHT TWO CLASHES THAT THE EYE WOULD NOT HAVE.** The aerial of the
+Astrakhan kremlin — the best picture found for `gru-554` — is already the `Astrakhan_Oblast`
+glossary term's, and `Saint Sophia Cathedral in Novgorod.jpg` is already `Novgorod_Oblast`'s. Both
+are pictures of the city rather than of the region, so the clash is with the SUBJECT card's term
+rather than with another centre, which is the shape to expect for the rest of this half: **run the
+check against the whole corpus before fetching, not against the pair in hand.**
+
+**NALCHIK AND IVANOVO HAVE NO WIDE CITY VIEW ON COMMONS**, which is batch 26's Kirov finding twice
+over. Nalchik was answered in the end by a dusk aerial down Lenin Prospect towards the Caucasus
+foothills, which is a wide view of the city even though nothing is catalogued as one; Ivanovo had no
+such file at any search, so its card carries Revolution Square — the central square, captioned as
+that rather than as a distant view — and its glossary term carries the Ship House of 1930, the
+constructivist block built for the mill workers, which is the thing the term is about.
