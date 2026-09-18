@@ -632,6 +632,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 601–630 (紧密 → 巨大), deck order | 21 | **a fourth card with two readings under one pinyin, and two example sentences of 55 and 90 characters** |
 | 2026-09-18 | `hsk30l5` notes 631–660 (据说 → 空间), deck order, plus the applier's hint strip | 20 + 1 | **`hints` is called authoritative and was not: a retired disambiguator stayed on its card for ever and `--check` went on passing** |
 | 2026-09-18 | `hsk30l5` notes 661–690 (空中 → 理论), deck order | 17 | **a sentence standing on TWO cards took last batch's English fix on only one of them — a fault this audit made** |
+| 2026-09-18 | `hsk30l5` notes 691–720 (里头 → 流传), deck order | 18 + 1 | **three cards glossing the one sense none of their sentences shows, and a second dead disambiguator retired** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -8888,3 +8889,101 @@ still-ambiguous 1; shared-gloss groups 321 unchanged — so none of the four glo
 collision; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged; british 0;
 34,596 blocks with spoken == visible on every one; **sense-tagged 708 → 714**, the six being 宽's and
 亏's; `build-lang-decks.js` re-run.
+
+## Batch 97 — hsk30l5 notes 691–720 (里头 → 流传)
+
+Thirty consecutive notes of HSK Level 5 in deck order. **Eighteen cards changed** in Level 5 and **one in
+Levels 7–9**, the second dead disambiguator this audit has retired since the applier learned to strip a
+hint block.
+
+### Three cards glossing the one sense none of their sentences shows
+
+**令 is glossed *to command, to order* and not one of its sentences is an order**: 令人难过, 令您快乐 and
+你会令她害羞 are all 令 meaning *to cause* or *to make somebody feel*, which CC-CEDICT gives and the
+card did not. **脸色 is glossed *complexion* alone** and its first sentence is 他看到我脸色变了 — an
+EXPRESSION changing, which a complexion does not do. **连续 is labelled a VERB and glossed *continuous*,
+an adjective**, over two sentences that are adverbial.
+
+**And 力 is the same shape with the card half right.** Its gloss leads on the NOUN and its label reads
+*noun / suffix*; 强力推荐 and 他很有说服力 are the suffix, so those two are sound, and the third was
+亲力亲为, a set phrase whose English (*She wants to do it on her own*) says nothing about force. So the
+card claimed two things and showed one of them twice.
+
+### A second dead disambiguator, and the applier now takes it off
+
+**连续 and 连绵 each carried a `not` hint** because both glossed the bare word *continuous* — 连绵's with
+a capital C, which is why the shared-gloss count never saw them as one group. Splitting 连续's senses
+retires the pair, and this time **removing both from `hints` actually removed both blocks**, because
+batch 95 taught the applier to strip one. Hint blocks 640 → 638; the record and the decks agree, with
+nothing left carrying a hint the record does not name.
+
+### A fourth card whose pinyin disagreed with its own bopomofo
+
+**力量 read lì liàng** against its own ㄌㄧˋ ㄌㄧㄤ˙ and CC-CEDICT's li4 liang5. The third such
+correction in two batches, on the same narrow ground as 口袋 and 老婆: **two witnesses against the
+pinyin, its own bopomofo and the dictionary**, never the blanket tone sweep this audit measured and
+refused.
+
+### Regional vocabulary, a political slogan, and a claim the deck has no business making
+
+**领先's 这款笔记型电脑 uses the Taiwan word for a laptop** — the mainland writes 笔记本电脑 — which is
+the fifth regional-vocabulary finding in seven batches. Its third sentence was 台湾是高科技领先国, which
+turns on 领先国, not a word, over a claim about a place a vocabulary card has no reason to be making.
+**联合's third was 全世界无产者，联合起来！** — the Manifesto, and a repeat of 联合起来 from the card's own
+first sentence, so one collocation twice and one of the two a slogan.
+
+### Four sentences with errors in them, and one that only wanted a full stop
+
+**流传's 玲奶奶死的不瞑目。流传说那栋房子至今未人敢入住。 carries four errors in two clauses** — 死的 for
+死得, 流传说 for a word that does not exist, 未人敢 for 没人敢, and two sentences in one example block —
+and was added by an earlier batch of this audit. **利益's 商人们只看中利益 writes 看中**, *to take a fancy
+to*, where 看重, *to value*, is meant; the two are homophones with separate CC-CEDICT entries, which is
+what makes the slip invisible to every check here.
+
+**连接's 海洋不是将世界分隔开来，而是将世界连接起来 carried no terminal punctuation** and is otherwise a
+good sentence, so it took a full stop through `exStop` rather than a replacement — which is exactly the
+case that field exists for. Its third sentence, two questions in one block with 相连接 doubling the verb,
+**was a reported `check-example-fit.js` finding** (split between 相连 and 接) and is the one the count
+141 → 140 records.
+
+### A card whose three sentences all opened on the same word
+
+**利益's three all began 只** — 他只顾自己的利益, 国家之间没有朋友，只有利益, 商人们只看中利益 — so the
+card taught one rhetorical shape three times and 利益 as something only ever grabbed. The third is
+replaced by a sentence in which it is served.
+
+### Five English translations that dropped the word the card is about
+
+立即's two, which turned *at once* into *quickly* and into *soon*; 了不起's *He is very much a scholar*,
+which contains nothing of *remarkable*; 里头's *None of this makes any sense*, which leaves out the one
+word the sentence is on the card for; and 利用's *long weekend*, which is 长周末 — 大周末 means in the
+middle of the weekend.
+
+### Two single-character cards gained a `Compounds` section, and two more besides
+
+力, 铃, 领 and 令 took one, every row checked against CC-CEDICT first. **铃's own three sentences were
+read and are sound** — 铃响, 按铃 and the proverb 解铃还须系铃人 — so that card needed nothing but its
+panel. **领's COLLAR sense is glossed and deliberately not illustrated**, the same call 架 took in batch
+92: 领 alone as a collar is written Chinese, and every everyday sentence for it is 领子 or 衣领, which
+would swallow the headword again.
+
+### What was read and left
+
+**Twelve cards were read and left untouched**: 理由, 立刻, 连忙, 恋爱, 良好, 粮食, 列车, 临时, 领带,
+领导, 领取 and 领域.
+
+**临时 was the close call.** Its first sentence is the chengyu 临时抱佛脚 with an English — *I'm making a
+last minute effort* — that supplies a first-person subject the Chinese has not got. It is left: the idiom
+is one a Level 5 reader meets, 临时 in it means exactly what the card glosses, and an English that
+paraphrases an idiom is not the same fault as one that drops the headword.
+
+**良好's 现在正缺良好的建筑木材 is also 建筑's third sentence**, 137 cards earlier, and is left on both: it
+is a good sentence for each headword and the two are far enough apart that no reader meets them
+together. Recorded so it is not re-found as a fault.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; **shared-gloss groups 321 → 320 and hint blocks 640 → 638**, which is the 连续/连绵
+pair separating; one-sided hints still 0 and no card carries a hint the record does not name; pinyin
+clean; **example-fit 141 → 140**, the one cleared being 连接's 相连接; senses 151 unchanged; british 0;
+34,596 blocks with spoken == visible on every one; sense-tagged 714 unchanged; `build-lang-decks.js`
+re-run.

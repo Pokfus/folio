@@ -13901,15 +13901,15 @@
       ]
     },
     "hsk30l5/利润": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 这不过是他在谈判最后时刻尽可能最大化利润的尝试 is 35 characters of nested modifier for one noun, and its English reads as three clauses fighting each other. Replaced with an AUTHORED sentence in which the profits are DONE something with, the card's other two both being about profit going up. AUTHORED, and the record says so.",
       "ex": [
-        [
-          "这不过是他在谈判最后时刻尽可能最大化利润的尝试。",
-          "It's just an attempt on his part to maximize profits, as much as possible, in the last moments of negotiations."
-        ],
         [
           "今年的利润比去年高。",
           "This year's profit is higher than last year's."
+        ],
+        [
+          "我们把利润分给了员工。",
+          "We shared the profits out among the staff."
         ]
       ]
     },
@@ -14689,15 +14689,15 @@
       ]
     },
     "hsk30l5/流传": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 玲奶奶死的不瞑目。流传说那栋房子至今未人敢入住。 carries four errors in two clauses: 死的 for 死得, 流传说 for a word that does not exist (传说 or 据说 is meant), 未人敢 for 没人敢, and two sentences in one example block. It was added by an earlier batch of this audit. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
       "ex": [
-        [
-          "玲奶奶死的不瞑目。流传说那栋房子至今未人敢入住。",
-          "Grandma Ling died with unfinished business. It is said that to this day no one has dared to live in that house."
-        ],
         [
           "这个故事流传了几百年。",
           "This story has been passed down for hundreds of years."
+        ],
+        [
+          "这首民歌在南方广泛流传。",
+          "This folk song is widely sung in the south."
         ]
       ]
     },
@@ -15212,11 +15212,16 @@
       ]
     },
     "hsk30l5/连接": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | 海洋不是将世界分隔开来，而是将世界连接起来 carries no terminal punctuation at all; it is otherwise a good sentence, so it takes a full stop rather than a replacement — which is what `exStop` is for. 实验构造是怎样的？它们是如何相连接的？ is two questions in one block with 相连接 doubling the verb, and was added by an earlier batch of this audit; it is replaced by an AUTHORED sentence. AUTHORED, and the record says so.",
       "ex": [
         [
-          "实验构造是怎样的？它们是如何相连接的？",
-          "What did the experimental set-up look like? What was connected to what and how?"
+          "我们用一根电线把两台机器连接起来。",
+          "We connected the two machines with a wire."
+        ]
+      ],
+      "exStop": [
+        [
+          "海洋不是将世界分隔开来，而是将世界连接起来"
         ]
       ]
     },
@@ -15234,12 +15239,18 @@
       ]
     },
     "hsk30l5/里头": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | *None of this makes any sense* drops 里头 — 这里头 is *in this*, and the word the card teaches is the only part of the sentence the translation left out.",
       "gloss": "inside (colloquial)",
       "ex": [
         [
           "盒子里头还有一张纸条。",
           "There is still a note inside the box."
+        ]
+      ],
+      "exEn": [
+        [
+          "这里头没有一件事说得通",
+          "Nothing in this makes any sense."
         ]
       ]
     },
@@ -129081,6 +129092,239 @@
           "Autumn is the season for pears."
         ]
       ]
+    },
+    "hsk30l5/力": {
+      "why": "NOT ONE of the card's three sentences used 力 as the NOUN its gloss leads on: 强力推荐 and 他很有说服力 are the SUFFIX — which the card's own *noun / suffix* label does claim, so those two are right — and 她想亲力亲为 is a set phrase whose English (*She wants to do it on her own*) says nothing about force at all. The chengyu is replaced by an AUTHORED sentence using 力 as a bare noun, which is the half the label claims and the card never showed. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "她想亲力亲为"
+      ],
+      "ex": [
+        [
+          "物体受到两个力的作用。",
+          "The object is acted on by two forces."
+        ]
+      ],
+      "compounds": [
+        [
+          "力量",
+          "lìliang",
+          "power; force; strength"
+        ],
+        [
+          "努力",
+          "nǔlì",
+          "to make an effort; to try hard"
+        ],
+        [
+          "能力",
+          "nénglì",
+          "ability; capability"
+        ],
+        [
+          "压力",
+          "yālì",
+          "pressure"
+        ]
+      ]
+    },
+    "hsk30l5/立即": {
+      "why": "Both English translations weakened the adverb the card exists for: 我立即否认了 became *I quickly denied it* and 我们立即开始施工 became *We'll begin work soon*. 立即 is *at once*, and *quickly* and *soon* are two other words.",
+      "exEn": [
+        [
+          "我立即否认了",
+          "I denied it at once."
+        ],
+        [
+          "我们立即开始施工",
+          "We began work immediately."
+        ]
+      ]
+    },
+    "hsk30l5/力量": {
+      "why": "The pinyin read lì liàng, a fourth tone, where the card's OWN bopomofo reads ㄌㄧˋ ㄌㄧㄤ˙ and CC-CEDICT gives li4 liang5. The third card in two batches with this shape, and corrected on the same narrow ground as 口袋 and 老婆: two witnesses against the pinyin, its own bopomofo and the dictionary, never a blanket tone sweep.",
+      "Pinyin": "lì liang"
+    },
+    "hsk30l5/利益": {
+      "why": "ALL THREE sentences opened on 只 — 他只顾自己的利益, 国家之间没有朋友，只有利益, 商人们只看中利益 — so the card taught one rhetorical shape three times. The third also writes 看中, *to take a fancy to*, where 看重, *to value*, is plainly what is meant; the two are homophones and CC-CEDICT gives them separate entries. Replaced with an AUTHORED sentence in which 利益 is something served rather than something grabbed. AUTHORED, and the record says so.",
+      "dropEx": [
+        "商人们只看中利益"
+      ],
+      "ex": [
+        [
+          "这项政策符合大家的利益。",
+          "This policy is in everyone's interest."
+        ]
+      ]
+    },
+    "hsk30l5/利用": {
+      "why": "大周末 is not *a long weekend* — that is 长周末; 大周末 means in the middle of the weekend, and the English put a word into the Chinese that is not there.",
+      "exEn": [
+        [
+          "来好好利用大周末吧",
+          "Let's make the most of the weekend."
+        ]
+      ]
+    },
+    "hsk30l5/联合": {
+      "why": "全世界无产者，联合起来！ is a political slogan, and it repeats 联合起来 from the card's own first sentence besides — so the card taught one collocation twice and one of the two was the Manifesto. Replaced with an AUTHORED sentence using the word as the *joint* modifier its label also claims. AUTHORED, and the record says so.",
+      "dropEx": [
+        "全世界无产者"
+      ],
+      "ex": [
+        [
+          "两家公司联合开发了这项技术。",
+          "The two companies developed the technology jointly."
+        ]
+      ]
+    },
+    "hsk30l5/连续": {
+      "why": "The card is labelled a VERB and glossed *continuous*, an adjective, and its own sentences are adverbial — 雨连续下了五天, 比尔连续哭了几个小时. The senses are split into what the card actually shows. **That also retires a disambiguator**: 连续 and 连绵 each carried a `not` hint because both glossed the bare word *continuous*, and with these senses the collision is gone, so both hints come out. It is the second such pair this audit has retired since the applier learned to strip a hint block.",
+      "senses": [
+        [
+          "adverb",
+          "continuously; in a row"
+        ],
+        [
+          "adjective",
+          "continuous; consecutive"
+        ]
+      ]
+    },
+    "hsk30l5/脸色": {
+      "why": "The gloss was *complexion* alone and the card's first sentence is 他看到我脸色变了 — an EXPRESSION changing, which a complexion does not do. CC-CEDICT gives *complexion; look*. 你脸色看起来好苍白 and 你脸色苍白 are also the same observation twice, one of them with a follow-up question; the bare one is replaced by an AUTHORED sentence. AUTHORED, and the record says so.",
+      "gloss": "complexion; look; expression",
+      "dropEx": [
+        "你脸色苍白。"
+      ],
+      "ex": [
+        [
+          "他脸色一下子沉了下来。",
+          "His face darkened all at once."
+        ]
+      ]
+    },
+    "hsk30l5/了不起": {
+      "why": "*He is very much a scholar* contains nothing of 了不起 — the sentence says he is a REMARKABLE one, which is the whole reason it is on this card.",
+      "exEn": [
+        [
+          "他是一位非常了不起的学者",
+          "He is a most remarkable scholar."
+        ]
+      ]
+    },
+    "hsk30l5/铃": {
+      "why": "The card's three sentences were read and are sound — 铃响, 解铃还须系铃人 and 按铃 all use the character for what it means, the middle one being a proverb a reader meets. What it had none of was a Compounds panel. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "铃声",
+          "língshēng",
+          "a ring; a ringtone"
+        ],
+        [
+          "门铃",
+          "ménlíng",
+          "doorbell"
+        ],
+        [
+          "电铃",
+          "diànlíng",
+          "electric bell"
+        ],
+        [
+          "哑铃",
+          "yǎlíng",
+          "dumbbell"
+        ]
+      ]
+    },
+    "hsk30l5/灵活": {
+      "why": "汤姆缺乏灵活性 turns on 灵活性, a derived noun that swallows the headword, and names a person the deck otherwise has no use for. Replaced with an AUTHORED sentence using the adjective the card glosses. AUTHORED, and the record says so.",
+      "dropEx": [
+        "汤姆缺乏灵活性"
+      ],
+      "ex": [
+        [
+          "他做事很灵活。",
+          "He is very flexible in the way he works."
+        ]
+      ]
+    },
+    "hsk30l5/领": {
+      "why": "离这里最近的失物招领处在哪里？ turns on 招领, a word of its own inside 失物招领处, so the one-character headword was swallowed — which check-example-fit.js skips by design. Replaced with an AUTHORED sentence using 领 as the plain verb *to lead*. **The COLLAR sense the gloss opens on is glossed and deliberately not illustrated**: 领 standing alone as a collar is written rather than spoken Chinese, every everyday sentence for it being 领子 or 衣领, which would swallow the headword again — the same call 架 took in batch 92. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "离这里最近的失物招领处在哪里"
+      ],
+      "ex": [
+        [
+          "他领着孩子过马路。",
+          "He led the child across the road."
+        ]
+      ],
+      "compounds": [
+        [
+          "领导",
+          "lǐngdǎo",
+          "to lead; a leader"
+        ],
+        [
+          "领域",
+          "lǐngyù",
+          "field; domain; sphere"
+        ],
+        [
+          "衣领",
+          "yīlǐng",
+          "collar"
+        ],
+        [
+          "带领",
+          "dàilǐng",
+          "to lead; to guide"
+        ]
+      ]
+    },
+    "hsk30l5/领先": {
+      "why": "这款笔记型电脑 uses the TAIWAN word for a laptop — the mainland writes 笔记本电脑 — and 台湾是高科技领先国 turns on 领先国, which is not a word, over a claim about a place the deck has no reason to be making. The fifth regional-vocabulary finding in seven batches. Both replaced by AUTHORED sentences on the word's own sense, being ahead. AUTHORED, and the record says so.",
+      "dropEx": [
+        "这款笔记型电脑",
+        "台湾是高科技领先国"
+      ],
+      "ex": [
+        [
+          "他在比赛中一直领先。",
+          "He led all the way through the race."
+        ],
+        [
+          "这家公司的技术领先同行。",
+          "This company's technology leads the field."
+        ]
+      ]
+    },
+    "hsk30l5/令": {
+      "why": "The gloss is *to command, to order* and NOT ONE of the card's three sentences is an order: 令人难过, 令您快乐 and 令她害羞 are all 令 meaning *to cause* or *to make somebody feel*, which CC-CEDICT gives and the card did not. The gloss is re-ordered to lead on what the card shows; the command sense is kept behind it, being what the character means in 命令 and 法令. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to cause; to make (somebody feel); to order, to command",
+      "compounds": [
+        [
+          "命令",
+          "mìnglìng",
+          "an order; to command"
+        ],
+        [
+          "口令",
+          "kǒulìng",
+          "a word of command; a password"
+        ],
+        [
+          "法令",
+          "fǎlìng",
+          "a decree; an ordinance"
+        ],
+        [
+          "指令",
+          "zhǐlìng",
+          "an instruction; to order"
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead. | Batch 83: SEVENTEEN DEAD ONE-SIDED HINTS RETIRED. A `not <other word>` block answers a COLLISION, and a collision is symmetric — so wherever one card of a pair carries the block and its named partner does not carry the reverse, the pair has already been separated and the survivor is disambiguating nothing. Found while repairing 动手, whose `not 上班` had outlived a rewrite of 上班's own gloss. Swept: 17 of 661 hinted cards were one-sided, and every one of the seventeen was dead — in each case the PARTNER's gloss had been sharpened by an earlier batch of this audit (书 `not 本子` against a 本子 rewritten to `a notebook; an exercise book`, 茶 `not 茶叶` against `tea leaves; tea`, 体力 `not 力气` against `muscle power, the strength to lift or push`). TWO of the seventeen were not in this record at all — 体力 and 顺利, shipped by the generator — which is the other half of the finding: THE APPLIER WRITES A HINT AND NEVER STRIPS ONE, so deleting a row here does not take a block off a deck. A dead hint is retired by rewriting the gloss, which rebuilds the English field. Re-run the one-sided sweep after any batch that rewrites a gloss.",
@@ -129343,7 +129587,6 @@
     "hsk30l5/计算机": "电脑",
     "hsk30l5/调皮": "淘气",
     "hsk30l5/软": "柔软",
-    "hsk30l5/连续": "连绵",
     "hsk30l5/追": "追赶",
     "hsk30l5/逐渐": "渐渐",
     "hsk30l5/长度": "长短",
@@ -129708,7 +129951,6 @@
     "hsk30l7/运作": "运转",
     "hsk30l7/运转": "运作",
     "hsk30l7/返还": "退回",
-    "hsk30l7/连绵": "连续",
     "hsk30l7/连连": "屡屡",
     "hsk30l7/追赶": "追",
     "hsk30l7/追随": "遵照",
