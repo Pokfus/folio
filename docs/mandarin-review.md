@@ -628,6 +628,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 481–510 (胡同 → 机构), deck order | 18 | **a card that SPOKE one reading of its character and ILLUSTRATED the other twice over, which no checker here can see** |
 | 2026-09-18 | `hsk30l5` notes 511–540 (激烈 → 记载), deck order | 26 | **seven near-repeats in thirty cards — one of them two sentences this audit itself added, differing only in their subject** |
 | 2026-09-18 | `hsk30l5` notes 541–570 (嘉宾 → 将近), deck order | 20 | **the same string reported as a fault on two OTHER cards and invisible on the card where it IS the fault** |
+| 2026-09-18 | `hsk30l5` notes 571–600 (讲话 → 尽量), deck order | 26 | **two CANTONESE sentences in a Mandarin deck, six cards apart — 结他 for a guitar and 系 for 是** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -8481,3 +8482,100 @@ still-ambiguous 1; shared-gloss groups 322 unchanged — so neither the 家务 n
 a new collision; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; **sense-tagged 693 → 696**, the three being
 架's; `build-lang-decks.js` re-run.
+
+## Batch 93 — hsk30l5 notes 571–600 (讲话 → 尽量)
+
+Thirty consecutive notes of HSK Level 5 in deck order. **Twenty-six cards changed**, four read and left.
+**Not one of the findings below was reported by any checker in `.claude/decks/`** — all eight were run
+over this range first and every one came back with nothing.
+
+### Cantonese in a Mandarin deck, twice, six cards apart
+
+**结's third sentence asked to borrow somebody's 结他.** That is the CANTONESE loan for *guitar*; the
+Mandarin word is 吉他, and **CC-CEDICT has no entry for 结他 at all**. So the card's character stood inside
+a word Mandarin does not have — and because the characters are ordinary simplified ones, nothing in the
+pipeline can see it.
+
+**今日's second sentence was 话事话，今日系六月八号，我老婆生日** — 系 for 是 and 话事话 for 话说回来, which
+is Cantonese written out in simplified characters, on a card whose whole job is to distinguish a written
+Mandarin word from its spoken neighbour.
+
+**This is batch 90's 硬体/软体 finding in a second language.** A regional WORD is not a regional spelling,
+so `check-pinyin.js` is clean on it (the readings are right for what is written), the variant sweep
+cannot match it (CC-CEDICT files no variant relation), and `check-example-fit.js` skips 结 outright for
+being one character. **Read the sentences.**
+
+### A gloss that was the one thing its card never showed, five times
+
+**讲话 is glossed *a speech*, a noun, and all three of its sentences are the verb.** **降水 is LABELLED a
+verb** and glossed two nouns, which is what it is. **接收 is labelled a verb and glossed *reception (of
+transmitted signal)***, a noun phrase, which is CC-CEDICT's leading sense and is one of the three things
+its own sentences do. **届 is labelled a MEASURE WORD and its gloss opened on *fall due*,** a verb sense
+of the character that no classifier use touches. And **紧 is labelled *verb / adjective* and its gloss
+leads on *tight*** — while 紧闭, 咬紧 and 紧握 are all 紧 doing adverbial work on another verb, so the
+adjective the gloss leads on was shown nowhere.
+
+**讲座 is the same shape with the dictionary on the other side.** Its gloss was *series of lectures*,
+which is CC-CEDICT's own wording, and all three sentences are a SINGLE lecture — 讲座八点钟开始. Modern
+usage has both; *lecture* goes in front and the dictionary's sense stays behind it. **That is a change
+made against the dictionary's wording and it is recorded as such**, on the rule that the card's own
+sentences decide.
+
+### Six sentences that are not sentences
+
+奖励's 秘密的礼物公开的奖励 is two noun phrases side by side with no verb between them, read by its
+English as a passive. 尽快's 他们会尽快。 stops where its English has a complement — 尽快 is an adverb and
+cannot be a predicate. 脚步's 他停下脚步看起海报 has no grammatical reading of 看起. 交易's
+这笔交易是我的，所以你需要去冷静并且同意我 is a word-for-word calque **carrying no terminal punctuation at
+all**, and 角度's 我们应该用各种不同的角度看待此问题 carries none either. 尽量's 请尽量批评 is the tail of
+a set formula standing alone, where it reads as an instruction to criticise as much as possible.
+
+### A generalisation about a nationality whose English softened it
+
+**讲究's 人们都以为日本人是讲究礼貌的** was translated *Japanese people are considered to be polite*
+— and 以为 in Chinese carries the sense that the belief is mistaken, which the English drops. So the
+sentence says something sharper than its own translation admits, about a people, on a vocabulary card.
+`check-coarse.js` has no word in it to match. Replaced.
+
+### Six English translations that dropped the word the card is about
+
+接触's *It's a whole new ball game for me*; 接近's *Keep away from me*, which **reverses the verb** — a
+reader meeting it maps 接近 onto the opposite of what it means; 脚步's *my feet stopped*, which is 脚 and
+not 脚步; 教材's *buy a book* for 买本教材; 结论's *this is a true story* for 那个传言是真的, a rumour; and
+交换's *I'd like to teach you Chinese in exchange for your teaching me another language*, which is a whole
+clause the Chinese has not got.
+
+### Nine near-repeats, one of them three sentences deep
+
+**浇 watered a plant three times over** — 浇植物, 浇花, 浇水 — which is the deepest one of these the audit
+has met. 讲话 had 跟 somebody 讲话 twice; 讲究 had one person's dress affirmed and another's negated;
+降水 compared rainfall with last year twice; 交往 had *We've been going out three months* and *I've been
+going out with her for months*; 节省 saved the same time twice; and 角度's three sentences were all the
+*point of view* sense, so the geometric sense its gloss gives first was shown nowhere.
+
+### Four headwords swallowed by a longer word
+
+阶段性 on 阶段, 非结构性 on 结构, 完结 on 结, and 比较 on 较 — the last skipped by
+`check-example-fit.js` for being one character, the first two invisible because the derived form is a
+word in its own right.
+
+### Four single-character cards gained a `Compounds` section
+
+浇, 较, 结 and 紧, every row's reading and gloss checked against CC-CEDICT first; 浇 took three rows
+and the rest four.
+
+### What was read and left
+
+**Four cards were read and left untouched**: 讲述, 接待, 结合 and 紧急.
+
+**接待 was the close call.** Its second sentence — 这次，虽然我的阅历更多但是没有人等着接待我 — is long and
+reads like half of a paragraph, but it is grammatical, it uses the word in the sense the gloss gives,
+and its English is accurate. Left. **结论's 得出这个结论 and 我们的结论就是 are close** and were left too:
+one is a question about how a conclusion was reached and the other states one, which is two things a
+reader needs.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 322 unchanged — so none of the five gloss rewrites made a new
+collision; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged; british 0;
+34,596 blocks with spoken == visible on every one; **sense-tagged 696 → 699**, the three being 讲话's;
+`build-lang-decks.js` re-run.

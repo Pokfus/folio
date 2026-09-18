@@ -72094,20 +72094,29 @@
       ]
     },
     "hsk30l5/降水": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card is labelled a VERB and glossed two nouns; 降水 is a meteorologist's noun and nothing else, which is what all three sentences show. The label is corrected. 这个月降水偏少 and 今年的降水比去年多 are also the same comparison twice, so one is replaced by an AUTHORED forecast sentence. AUTHORED, and the record says so.",
       "ex": [
         [
           "这个月降水偏少。",
           "Rainfall this month is below normal."
         ],
         [
-          "今年的降水比去年多。",
-          "There has been more rain this year than last."
-        ],
-        [
           "降水集中在夏季。",
           "The rainfall is concentrated in summer."
+        ],
+        [
+          "天气预报说明天有降水。",
+          "The forecast says there will be rain tomorrow."
         ]
+      ],
+      "senses": [
+        [
+          "noun",
+          "precipitation; rainfall"
+        ]
+      ],
+      "dropEx": [
+        "今年的降水比去年多"
       ]
     },
     "hsk30l5/近代": {
@@ -77761,7 +77770,7 @@
       ]
     },
     "hsk30l5/教材": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The English said *buy a book for this class* where the Chinese says 买本教材, a textbook — the word the card is about.",
       "ex": [
         [
           "这套教材很受欢迎。",
@@ -77771,10 +77780,16 @@
           "老师自己编了教材。",
           "The teacher wrote the teaching material herself."
         ]
+      ],
+      "exEn": [
+        [
+          "我们有必要为上这门课买本教材吗",
+          "Will it be necessary for us to buy a textbook for this class?"
+        ]
       ]
     },
     "hsk30l5/接收": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it. | The card is labelled a VERB and glossed *reception (of transmitted signal)*, a noun phrase, which is CC-CEDICT's leading sense and is only one of the three things its own sentences do: receiving email, a signal that does not arrive, and a school taking in students. The gloss is put into the part of speech the card teaches and given the senses it shows.",
       "ex": [
         [
           "这里接收不到信号。",
@@ -77790,7 +77805,8 @@
           "如果有帐户，你就能通过一个系统发送和接收邮件了。",
           "如果有账户，你就能通过一个系统发送和接收邮件了。"
         ]
-      ]
+      ],
+      "gloss": "to receive; to accept; to take in"
     },
     "hsk30l5/结合": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -77806,7 +77822,7 @@
       ]
     },
     "hsk30l5/届": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card is labelled a MEASURE WORD and its gloss opened with *fall due*, a verb sense of the character that no classifier use has anything to do with and that none of its sentences shows. The gloss is cut to what the label claims and widened to the events the classifier actually counts.",
       "ex": [
         [
           "这是第十届运动会。",
@@ -77816,7 +77832,8 @@
           "他是上一届的学生。",
           "He was a student of the previous year."
         ]
-      ]
+      ],
+      "gloss": "for meetings, sessions, sporting fixtures and years of graduation"
     },
     "hsk30l5/紧密": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -127807,6 +127824,390 @@
         [
           "会场里来了将近两百人。",
           "Nearly two hundred people came to the hall."
+        ]
+      ]
+    },
+    "hsk30l5/讲话": {
+      "why": "The card is glossed *a speech*, a NOUN, and all three of its sentences are the VERB — 讲话很慢, 跟别人讲话, 跟谁讲话. CC-CEDICT gives both, the verb senses second; the card showed only what it did not gloss. Two of the sentences were also the same frame, 跟 someone 讲话, so one is replaced by an AUTHORED sentence on the noun, and each sentence tagged with the sense it uses. AUTHORED, and the record says so.",
+      "senses": [
+        [
+          "verb",
+          "to speak; to talk; to address"
+        ],
+        [
+          "noun",
+          "a speech"
+        ]
+      ],
+      "dropEx": [
+        "你建议我们跟谁讲话"
+      ],
+      "ex": [
+        [
+          "他的讲话很短。",
+          "His speech was short."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l5/讲究": {
+      "why": "人们都以为日本人是讲究礼貌的 is a generalisation about a nationality, and its English (*Japanese people are considered to be polite*) also loses 以为, which in Chinese carries the sense that the belief is mistaken — so the sentence says something sharper than its translation admits. 她穿衣服很讲究 and 他穿着上很不讲究 are the same subject twice besides, affirmed and negated. Both replaced by AUTHORED sentences about things rather than peoples. AUTHORED, and the record says so.",
+      "dropEx": [
+        "人们都以为日本人是讲究礼貌的",
+        "他穿着上很不讲究"
+      ],
+      "ex": [
+        [
+          "这道菜的做法很讲究。",
+          "A lot of care goes into the way this dish is made."
+        ],
+        [
+          "他做事讲究效率。",
+          "He sets great store by efficiency in his work."
+        ]
+      ]
+    },
+    "hsk30l5/奖励": {
+      "why": "秘密的礼物公开的奖励 is not a sentence — it is two noun phrases side by side, and its English (*Secret gifts are openly rewarded*) is reading a grammar into it that is not there. Replaced with an AUTHORED sentence. The English on 他被奖励了一块金表 also said *a golden watch*, where the English for a watch made of gold is a gold watch. AUTHORED, and the record says so.",
+      "dropEx": [
+        "秘密的礼物公开的奖励"
+      ],
+      "ex": [
+        [
+          "公司奖励了表现最好的员工。",
+          "The company rewarded its best-performing staff."
+        ]
+      ],
+      "exEn": [
+        [
+          "他被奖励了一块金表",
+          "He was awarded a gold watch."
+        ]
+      ]
+    },
+    "hsk30l5/讲座": {
+      "why": "The gloss was *series of lectures*, which is CC-CEDICT's own wording, and all three of the card's sentences are a SINGLE lecture — 讲座八点钟开始, 听讲座时. Modern usage has both and the card showed only the one the gloss did not give, so *lecture* is put in front of it and the dictionary's sense kept behind. 做一次文学讲座 is also an imperative fragment with the wrong verb: a lecture is 举办 or 做, and *Give a lecture on literature* is an instruction rather than a sentence. Replaced. AUTHORED, and the record says so.",
+      "gloss": "lecture; course of lectures",
+      "dropEx": [
+        "做一次文学讲座"
+      ],
+      "ex": [
+        [
+          "学校下周举办一场讲座。",
+          "The school is holding a lecture next week."
+        ]
+      ]
+    },
+    "hsk30l5/浇": {
+      "why": "All THREE of the card's sentences watered a plant — 浇植物, 浇花, 浇水 — which is one collocation three times over and is invisible to the coverage checker, comparing sentences exactly. Two are replaced by AUTHORED sentences on the senses CC-CEDICT gives first, *to pour liquid* and being drenched by it. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "别忘记浇植物",
+        "花园里的花需要浇水"
+      ],
+      "ex": [
+        [
+          "他往面条上浇了些酱汁。",
+          "He poured some sauce over the noodles."
+        ],
+        [
+          "大雨浇透了他的衣服。",
+          "The heavy rain soaked his clothes through."
+        ]
+      ],
+      "compounds": [
+        [
+          "浇水",
+          "jiāoshuǐ",
+          "to water (plants)"
+        ],
+        [
+          "浇灌",
+          "jiāoguàn",
+          "to water; to irrigate"
+        ],
+        [
+          "浇筑",
+          "jiāozhù",
+          "to pour (concrete)"
+        ]
+      ]
+    },
+    "hsk30l5/交换": {
+      "why": "The English on 我想用汉语交换另一种语言 was *I'd like to teach you Chinese in exchange for your teaching me another language*, which is a whole clause the Chinese has not got — nothing in it says teach, or you, or me.",
+      "exEn": [
+        [
+          "我想用汉语交换另一种语言",
+          "I'd like to swap Chinese for another language."
+        ]
+      ]
+    },
+    "hsk30l5/交往": {
+      "why": "我们交往了三个月 and 我和她交往几个月了 are the same sentence with a name put in — *We've been going out three months* and *I've been going out with her for months* — which the coverage checker cannot see. One is replaced by an AUTHORED sentence on the word's wider sense, ordinary dealings rather than courtship, which the gloss gives first and no sentence showed. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我和她交往几个月了"
+      ],
+      "ex": [
+        [
+          "他和邻居交往不多。",
+          "He does not have much to do with his neighbours."
+        ]
+      ]
+    },
+    "hsk30l5/交易": {
+      "why": "这笔交易是我的，所以你需要去冷静并且同意我 carries no terminal punctuation at all, and is a word-for-word calque of its English (*you need to just settle down and agree with me*) rather than Chinese. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "dropEx": [
+        "这笔交易是我的"
+      ],
+      "ex": [
+        [
+          "他们在市场上进行交易。",
+          "They do their trading at the market."
+        ]
+      ]
+    },
+    "hsk30l5/脚步": {
+      "why": "突然，我停下脚步 was translated *Suddenly, my feet stopped*, which is 脚 and not 脚步 — the word is the pace or the tread, not the feet. 他停下脚步看起海报 repeats 停下脚步 besides, and 看起海报 is not a grammatical verb phrase. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "exEn": [
+        [
+          "突然，我停下脚步",
+          "Suddenly I stopped in my tracks."
+        ]
+      ],
+      "dropEx": [
+        "他停下脚步看起海报"
+      ],
+      "ex": [
+        [
+          "他加快了脚步。",
+          "He quickened his pace."
+        ]
+      ]
+    },
+    "hsk30l5/角度": {
+      "why": "我们应该用各种不同的角度看待此问题 carries no terminal punctuation, and it is the third of three sentences all on the *point of view* sense — the GEOMETRIC sense the gloss gives first was shown nowhere. Replaced with an AUTHORED sentence that gives it. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我们应该用各种不同的角度看待此问题"
+      ],
+      "ex": [
+        [
+          "这两条线的角度是九十度。",
+          "The angle between these two lines is ninety degrees."
+        ]
+      ]
+    },
+    "hsk30l5/较": {
+      "why": "两相比较，他那边的形势更不利一些 turns on 比较, a word of its own, so the one-character headword was swallowed — which check-example-fit.js skips by design. Replaced with an AUTHORED sentence using 较 as the comparative preposition it is. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "两相比较"
+      ],
+      "ex": [
+        [
+          "南方的气候较北方温暖。",
+          "The climate in the south is warmer than in the north."
+        ]
+      ],
+      "compounds": [
+        [
+          "比较",
+          "bǐjiào",
+          "to compare; comparatively; rather"
+        ],
+        [
+          "较量",
+          "jiàoliàng",
+          "to pit oneself against somebody; a contest"
+        ],
+        [
+          "计较",
+          "jìjiào",
+          "to haggle over; to fuss about"
+        ]
+      ]
+    },
+    "hsk30l5/接触": {
+      "why": "The English was the idiom *It's a whole new ball game for me*, which contains nothing of 接触 and is not what 我没接触过 says.",
+      "exEn": [
+        [
+          "我没接触过这个球类游戏",
+          "I have never come across this ball game before."
+        ]
+      ]
+    },
+    "hsk30l5/阶段": {
+      "why": "今天咱们团队还有一个阶段性任务没有完成 turns on 阶段性, a derived adjective that swallows the headword, and its English (*a short-term task*) does not contain the word either. Replaced with an AUTHORED sentence using 阶段 as the noun it is. AUTHORED, and the record says so.",
+      "dropEx": [
+        "今天咱们团队还有一个阶段性任务没有完成"
+      ],
+      "ex": [
+        [
+          "这项工作分三个阶段完成。",
+          "The work is done in three stages."
+        ]
+      ]
+    },
+    "hsk30l5/接近": {
+      "why": "*Keep away from me* reverses the verb the card teaches — 不要接近我 is *do not approach*, and a reader meeting that English maps 接近 onto the opposite of what it means.",
+      "exEn": [
+        [
+          "不要接近我",
+          "Don't come near me."
+        ]
+      ]
+    },
+    "hsk30l5/结": {
+      "why": "不知道他放假的时候可不可以把结他借给我呢 turns on 结他, which is the CANTONESE loan for *guitar* — the Mandarin word is 吉他, and CC-CEDICT has no entry for 结他 at all. So the card's character appeared inside a word Mandarin does not have, which is batch 90's 硬体/软体 finding in another language: a regional word rather than a regional spelling, so no variant sweep can see it. 没有人知道战争何时会完结 has the headword swallowed by 完结 besides. Both replaced by AUTHORED sentences, one the noun and one the verb, both on the jié reading the card teaches. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "把结他借给我",
+        "没有人知道战争何时会完结"
+      ],
+      "ex": [
+        [
+          "他在绳子上打了一个结。",
+          "He tied a knot in the rope."
+        ],
+        [
+          "他们结为夫妻。",
+          "They became husband and wife."
+        ]
+      ],
+      "compounds": [
+        [
+          "结果",
+          "jiéguǒ",
+          "result; outcome"
+        ],
+        [
+          "结束",
+          "jiéshù",
+          "to end; to finish"
+        ],
+        [
+          "结婚",
+          "jiéhūn",
+          "to marry"
+        ],
+        [
+          "团结",
+          "tuánjié",
+          "to unite; unity"
+        ]
+      ]
+    },
+    "hsk30l5/结构": {
+      "why": "它好像是非结构性的 turns on 非结构性, which swallows the headword twice over, and *It seems to be unstructured* is not a sentence a card about 结构 teaches anything with. Replaced with an AUTHORED sentence. The English on 经理打算改良公司的结构 also read *the company's structuring*, which is not the noun the Chinese has. AUTHORED, and the record says so.",
+      "dropEx": [
+        "它好像是非结构性的"
+      ],
+      "ex": [
+        [
+          "这座桥的结构非常牢固。",
+          "The structure of this bridge is very solid."
+        ]
+      ],
+      "exEn": [
+        [
+          "经理打算改良公司的结构",
+          "The manager plans to improve the company's structure."
+        ]
+      ]
+    },
+    "hsk30l5/结论": {
+      "why": "那个传言是真的 is a RUMOUR being true; its English said *this is a true story*, which is a different claim and drops the word 传言 entirely.",
+      "exEn": [
+        [
+          "我们的结论就是，那个传言是真的",
+          "We have come to the conclusion that the rumour is true."
+        ]
+      ]
+    },
+    "hsk30l5/节省": {
+      "why": "电脑可以节省您的时间 and 那条桥为我们节省了不少时间 both save the same time — a NEAR-repeat the coverage checker cannot see — and the first's English put a gerund in front of it (*Using a computer*) that the Chinese has not got. One is replaced by an AUTHORED sentence on the word as a personal quality, which is how it is most often heard. AUTHORED, and the record says so.",
+      "dropEx": [
+        "电脑可以节省您的时间"
+      ],
+      "ex": [
+        [
+          "他很节省，从不浪费钱。",
+          "He is thrifty and never wastes money."
+        ]
+      ]
+    },
+    "hsk30l5/今日": {
+      "why": "话事话，今日系六月八号，我老婆生日 is not Mandarin: 系 for 是 and 话事话 for 话说回来 are CANTONESE, written in simplified characters so that nothing in the pipeline can see it — the same class as 结他 two cards later, a regional WORD rather than a regional spelling. 今日够了 is not a frame Mandarin has either. Both replaced by AUTHORED sentences in the written register 今日 belongs to, which is what distinguishes it from 今天 and is the whole point of the card's own `not 今天` disambiguator. AUTHORED, and the record says so.",
+      "dropEx": [
+        "话事话",
+        "今日够了"
+      ],
+      "ex": [
+        [
+          "今日的报纸头条是什么？",
+          "What is the headline in today's paper?"
+        ],
+        [
+          "本店今日休息。",
+          "This shop is closed today."
+        ]
+      ]
+    },
+    "hsk30l5/紧": {
+      "why": "The card is labelled *verb / adjective* and its gloss leads on *tight*, which is CC-CEDICT's first sense — and NOT ONE of its three sentences is the adjective: 紧闭, 咬紧 and 紧握 are all 紧 doing adverbial work on another verb. One is replaced by an AUTHORED sentence giving the plain adjective. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "她双眼紧闭"
+      ],
+      "ex": [
+        [
+          "这双鞋太紧了。",
+          "These shoes are too tight."
+        ]
+      ],
+      "compounds": [
+        [
+          "紧张",
+          "jǐnzhāng",
+          "nervous; tense; in short supply"
+        ],
+        [
+          "紧急",
+          "jǐnjí",
+          "urgent; emergency"
+        ],
+        [
+          "要紧",
+          "yàojǐn",
+          "important; urgent"
+        ],
+        [
+          "紧密",
+          "jǐnmì",
+          "close; inseparable"
+        ]
+      ]
+    },
+    "hsk30l5/尽快": {
+      "why": "他们会尽快。 is not a grammatical sentence — 尽快 is an adverb and cannot stand as a predicate, so the Chinese stops where its English (*They'll be quick*) has a complement. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "dropEx": [
+        "他们会尽快"
+      ],
+      "ex": [
+        [
+          "我们会尽快回复您。",
+          "We will reply to you as soon as we can."
+        ]
+      ]
+    },
+    "hsk30l5/尽量": {
+      "why": "请尽量批评 is the tail of a set formula (请尽量批评指正) standing on its own, where it reads as an instruction to criticise as much as possible — which is what its English says and is not something anyone means. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "dropEx": [
+        "请尽量批评"
+      ],
+      "ex": [
+        [
+          "请尽量早点到。",
+          "Please come as early as you can."
         ]
       ]
     }
