@@ -1041,6 +1041,101 @@ and two in `glossary-extra.js`, all of rule 1 and rule 2 — *eleventh century* 
 `add-card-links.js` for a why-question. `ru.js` is back to the ten findings it carried before, which are
 the 228 pre-existing ones and not this batch's.
 
+### What carried this batch — `ru-081` to `ru-090`
+
+**Three lines are answered by a TERM rather than by their own wording, which is the rule the earlier
+batches established rather than anything new.** `ru-087` *The architecture of Rus'* is answered by
+**`cross-in-square`**: the collection had already carded Saint Sophia (`ru-059`), the Church of the
+Tithes (`ru-055`) and, in this batch, the Nerl church, so what the line had left to teach was the PLAN
+all three were built on — a word a reader meets again in every Orthodox country. `ru-089` *Rus' and
+Byzantium* is answered by **`Varangian Guard`**, the treaties being `ru-043`, the raids `ru-044` and
+the metropolitanate `ru-060`: what was left of the relationship was the men who went south and stayed.
+And `ru-090` *The inheritance of Rus'* is answered by **`All-Russian nation`**, which is that claim
+under the name the literature gives it; the plan's own scope decision asks for the modern claim to be
+carded rather than assumed, and a claim with a name can be described impartially where "the
+inheritance" can only be argued about.
+
+**THE SOURCES THAT CARRY THE BATCH, and the two archive.org editions that carry most of it.** Magnus's
+1915 Oxford edition of the Tale of Igor's Campaign is the find: its Introduction is a 60-page survey of
+Rus' history to the Mongols with the printed page numbers listed in its own Contents (§10 *The four
+great princes* at xx, §13 *The fall of Kiev and rise of Suzdal & Moscow* at xxiv), so it cites like a
+monograph, and the poem itself sits at pp. 1–48 with running heads that give the page. **Cite the
+Introduction AUTHOR-FIRST and the poem TITLE-FIRST** — the Introduction is Magnus's own scholarship and
+its locators are lower-case roman, which is exactly the front-matter shape `fix-citation-form.js`
+tests for. Léger's Primary Chronicle carried Polotsk end to end (Rogvolod and Rogneda at 61, Izyaslav
+seated at 100, the Nemiga and the Kyiv rising at 141–2 and 147, Vseslav's death at 215, Monomakh's
+campaigns against the town at 251) and Yaroslav's testament at 137; the Michell and Forbes Novgorod
+chronicle carried the march on Kyiv and the siege of Novgorod at 26–7, Vsevolod's princes at 30–1 and
+Galich at 18. The modern half is Kuznetsov twice (ISTORIYA on Vsevolod 1169–1183, DGVE on the fifty
+years against Chernigov), Noha twice (the Kyivan chronicle's wars for the capital, and its image of
+Andrey), Kezha on the bells, Uzhankov and Leonova on the Tale, Theotokis on mercenaries in imperial
+service, Vinogradov on the middle Byzantine church type, Skvortsov and Sedov on white stone, Solntsev
+on the Nerl church's date, and Radzik, Moysiyenko and Fylypchuk on the inheritance.
+
+**A DATE THAT IS DISPUTED IS A DATE LINE THAT SAYS SO, AND IT STILL HAS TO YIELD A SORT YEAR.**
+`ru-088`'s own build year is argued over — Solntsev's paper is about exactly that — so its date line
+reads *Andrey's reign | 1157 – 1177 CE* and *Begun | 12th century, year disputed*: the first row gives
+`cardYears` something to sort on and the second says in the card's own voice that the year is open. A
+line of nothing but the second row would have shipped a card that STATES a date and cannot be ordered
+by it, which is what `test-date-line.js` exists to catch.
+
+**AND ONE CARD SHIPS WITH AN EMPTY DATE LINE AND `undatable: true`, WHICH IS THE HONEST ANSWER RATHER
+THAN A GAP.** `ru-090`'s subject is a present-day argument: Radzik's own finding is that the idea
+"developed through multiple historical phases rather than originating from a single formulation point",
+so there is no year to print. The cost is stated rather than hidden — `cardStartYear` returns 0, so in
+a date sort the card files as timeless — and `undatable` keeps Timeline from asking a reader to place
+it, which is exactly the flag's own case (*a term not located in time at all*).
+
+**`Anna Comnena` IS NOW IN `check-cards.js`'s `ANCIENT` LIST, AND THE REASON IS WORTH KNOWING BECAUSE
+IT IS A DIFFERENT RULE FROM THE SIX NAMES ABOVE HER.** The six medieval witnesses added by the
+`ru-041`–`ru-060` batches were added for rule 1, the citation-count rule: three passages of Leo the
+Deacon are three passages of one witness. Anna Comnena tripped **rule 2** instead — a modern scholar
+named in a question — because `ru-089` asks about the axe-bearing barbarians of the Alexiad and names
+her. The same list answers both rules, so one row fixed it; the whole-name anchoring is what makes it
+safe, the corpus citing several living scholars called Anna and none of them Comnena.
+
+**TWO CROSSREF ROWS WERE DECLARED, ONE PER TABLE, AND BOTH ARE PRECEDENTS THE FILE ALREADY HELD.**
+Quaestio Rossica deposited Uzhankov's byline with a **Cyrillic А** in place of the Latin A and spelled
+the given name *Aleksandr* where the journal's own page prints *Aleksander*, which is the Kharlamov row
+one journal over — so `CROSSREF_WRONG` carries it, read off the article's own Authors line. And
+*Studia Białorutenistyczne* numbers volume 10 as its 2016 volume, in its own metadata and in the DOI
+it minted (`sb.2016.10.55`), while Crossref holds a published-print date of **11 January 2017**: the
+Vestnik VolSU rows are the same fault, a January deposit of the previous year's volume, so it goes in
+`CROSSREF_YEAR_WRONG`. **Neither was added before reading the article's own byline and volume page.**
+
+**A ONE-WITNESS NOTE IS WORTH FIXING WHEN IT IS THIS BATCH'S OWN.** `ru-084` first shipped with four of
+its six sources being Léger, which `check-cards.js` reports as a note rather than a violation — and
+rightly, since four passages of one chronicle is not four scholars' opinions. It was still the worst
+concentration in the collection, so the Léger citations were consolidated into two and Magnus's
+Introduction and Leonova's article brought in, which took it to two of six. **The fix is to find
+another source, never to drop a claim the chronicle is the only witness for.**
+
+**AND THE BATCH'S OWN `check-style` FINDINGS WERE ALL ONE RULE.** Nineteen century-words across six
+cards — *twelfth century* for *12th*, *fourteenth, fifteenth or sixteenth* for *14th, 15th or 16th* —
+repaired through four writers, since the prose lives in three different places: `add-sources.js` for the
+abstracts, `add-card-links.js` for the why-answers, `add-questions.js` for an extra phrasing (NOT
+`fix-field.js`, which wants a STRING field and refuses the `questions` array), and `fix-field.js` for
+`ru-090`'s own question. The corpus-wide count fell from 336 findings to 322, which is the batch's
+nineteen minus the ones that were double-counted per ordinal in one context.
+
+**`check-gloss-links.js --card=ru-089` REPORTS ONE LINK AND IT IS THE RIGHT ONE.** "Varangian" resolves
+to the `Varangians` term, tagged `europe` against a card tagged `byzantium` — which is `ru-079`'s
+`Vyatichi` finding exactly, the proxy working as designed. The one REAL finding it turned up was worth
+having: the Alexiad's **Immortals** are a Byzantine palace regiment named after the Achaemenid ones, and
+the word was auto-linking to the Persian term, tagged `iran`. There is no Folio term for the Byzantine
+regiment, so neither a hand-written link nor a narrower alias was available and the sentence was
+reworded — which is the third of the tool's three fixes and the right one when the phrase really does
+belong to somebody else.
+
+**TEN CARDS SHIP WITHOUT A PICTURE, AND SO DO `ru-071`–`ru-080`.** Twenty of the collection's ninety are
+now uncaptioned; `add-card.js`'s own candidate lists show why the pass has to be its own batch rather
+than a by-product. For an abstraction the search returns furniture — "cross-in-square" offered a magic
+square, a Ljubljana postcard and a Cornish pub — and for a principality it offers 19th-century
+provincial maps of the wrong governorate. Two candidates are worth going back for: the 1899 photograph
+of the Nerl church for `ru-088`, and the *Prince Dmitry (Vsevolod Yurievich)* portrait for `ru-082`,
+both public domain and both plainly of their subject. **Look at each before installing it.**
+
+
 ---
 
 # The list

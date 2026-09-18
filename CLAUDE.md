@@ -449,7 +449,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
   the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
-  under "Generating cards & glossary entries". **`ru-001` to `ru-080` have shipped** (Sep 2026) — the
+  under "Generating cards & glossary entries". **`ru-001` to `ru-090` have shipped** (Sep 2026) — the
   Scythian and Sarmatian steppe, then the Goths, Huns, Avars, Bulgars, Khazars, Magyars and Pechenegs, then
   the Slavs, the Vyatichi, Slavic paganism, Perun, the Merya, the Balts, the Varangians and the Rus', and
   then the Normanist controversy, Staraya Ladoga, Gnyozdovo and the two trade routes, which **FINISHES
@@ -461,7 +461,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   then the Caves monastery, Ilarion's sermon, Old East Slavic and Church Slavonic, the birch bark letters,
   the druzhina, the towns, the slave trade, the coinage and the rota system, and then the council at
   Liubech, Vladimir Monomakh, his Instruction, the Cumans, Mstislav the Great, the Novgorod Republic, the
-  veche, Yugra, Vladimir-Suzdal and Andrey Bogolyubsky — and
+  veche, Yugra, Vladimir-Suzdal and Andrey Bogolyubsky, and then the sack of Kyiv, Vsevolod the Big
+  Nest, Galicia–Volhynia, Polotsk, Chernigov, the Tale of Igor's Campaign, the architecture of Rus', the
+  Nerl church, Rus' in Byzantine service and the modern claim on the Kievan inheritance — and
   the collection is live with its 27 empty decks
   coming-soon automatically, `isComingSoon` being true for a node holding no card. **Ten lines are now
   answered by something other than their own words, and the reasons are four rules**: `ru-017` is answered by the **Khazar
@@ -544,10 +546,44 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   is in the Novgorod chronicle, so the alias would be right today and wrong within twenty cards
   (`Neville_Chamberlain`'s precedent). `Liubech` and `Suzdal` are the TOWN rather than the council or the
   principality and were refused for that.
+  **THE SIXTH TEN ANSWER THREE LINES WITH A TERM THE LINE DOES NOT CONTAIN, WHICH IS THE `ru-052` SHAPE
+  RATHER THAN A RETITLE.** `ru-087` *The architecture of Rus'* is answered by **`cross-in-square`** —
+  Saint Sophia is `ru-059`, the Tithe Church `ru-055` and the Nerl church `ru-088`, so what the line had
+  left to teach was the PLAN all three were built on; `ru-089` *Rus' and Byzantium* is **`Varangian
+  Guard`**, the treaties, the raids and the metropolitanate being `ru-043`, `ru-044` and `ru-060`; and
+  `ru-090` *The inheritance of Rus'* is **`All-Russian nation`**, which is that claim under the name the
+  literature gives it and can therefore be described impartially where "the inheritance" can only be
+  argued about. **THE PLAN'S OWN LINES ARE UNCHANGED** — a line is a subject to research, and only a line
+  whose own wording has become wrong needs retitling.
+  **AND ONE CARD SHIPS WITH AN EMPTY DATE LINE AND `undatable: true`, WHICH IS THE COLLECTION'S FIRST.**
+  `ru-090`'s subject is a present-day argument whose sources say in terms that it formed over several
+  phases rather than at one moment, so there is no year to print and none is invented. The cost is
+  stated rather than hidden: `cardStartYear` returns 0, so the card files as timeless in a date sort.
+  **A card whose date line is non-empty and yields NO year is the fault `test-date-line.js` catches; an
+  empty one is the honest alternative**, and `ru-088` is the other half of the same lesson — its build
+  year is genuinely disputed, so its line reads *Andrey's reign | 1157 – 1177 CE* over *Begun | 12th
+  century, year disputed*, the first row giving `cardYears` something to sort on and the second saying
+  in the card's own voice that the year is open.
+  **`Anna Comnena` IS NOW IN `check-cards.js`'s `ANCIENT` LIST, AND SHE TRIPPED A DIFFERENT RULE FROM THE
+  SIX MEDIEVAL WITNESSES ABOVE HER.** Those were added for rule 1, the citation count; she was reported
+  by **rule 2**, a modern scholar named in a question, because `ru-089` asks about the axe-bearing
+  barbarians of the Alexiad and names her. One list answers both rules, so one row fixed it — and the
+  whole-name anchoring is what makes it safe, the corpus citing several living scholars called Anna and
+  none of them Comnena.
+  **AND `add-questions.js` IS THE WRITER FOR AN EXTRA PHRASING, NOT `fix-field.js`.** That tool does
+  find-and-replace inside one NAMED STRING field, so it refuses `questions`, which is an array — the
+  error reads "field `questions` is missing or not a string" and is easy to mistake for a missing field.
+  A batch repairing prose across a card therefore needs up to four writers: `add-sources.js` for the
+  abstract, `add-card-links.js` for the why-answers, `add-questions.js` for the extra phrasings and
+  `fix-field.js` for `question` itself.
+  **A SENTENCE MAY NOT END ON A DOUBLE SPACE, AND `add-card.js` REPORTS IT AS THE WRONG FAULT.**
+  `split-abstract.js` splits on a SINGLE space after the stop, so a stray trailing space inside an
+  abstract's sentence merges it with the next one — and the error names the `V. Gordon Childe` initials
+  guard, which sends you looking for a lone capital that is not there. **Look for a double space first.**
   **AND `check-gloss-links.js` NO LONGER FINISHES OVER THE WHOLE CORPUS** — 3,903 terms and 13,237
   surfaces, still running at twenty minutes — so **run it `--card=<id>`**, which answers in a second.
   **📖 `docs/russia-card-plan.md` — READ BEFORE WRITING A
-  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-080`: the open sources
+  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-090`: the open sources
   that carry the collection and Léger's own pagination for the chronicle passages, the rule that a
   Russian-language journal is cited in Russian
   because that is the title Crossref holds, the `check-cards.js` rule 6 gap that no single Cyrillic row
@@ -6118,7 +6154,7 @@ lookup.
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
-| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 80 cards, contiguous — next is `ru-081` |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 90 cards, contiguous — next is `ru-091` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |

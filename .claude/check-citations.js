@@ -205,6 +205,11 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Quaestio Rossica deposited this byline with a CYRILLIC А (U+0410) in place of the Latin A,
+  // and spelled the given name "Aleksandr" where the journal prints "Aleksander", so Crossref
+  // carries "Аleksandr Uzhankov". The article's own page at qr.urfu.ru prints "Aleksander
+  // Uzhankov" under Authors, in Latin script; the deposit is the one that is wrong, on both counts.
+  ["10.15826/qr.2019.4.425", "Aleksander Uzhankov", "Аleksandr Uzhankov"],
   // Springer's own article page for this paper prints the byline "Széll, György" in its
   // citation metadata, but the deposit reached Crossref in ASCII, where ö became "oe" and
   // é lost its accent, giving "Gyoergy Szell". The journal is the one that is right.
@@ -297,6 +302,11 @@ const CROSSREF_WRONG = [
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */
 const CROSSREF_YEAR_WRONG = [
+  // Studia Białorutenistyczne numbers volume 10 as its 2016 volume — the journal's own article
+  // page gives 2016 and the DOI itself is minted `sb.2016.10.55` — while Crossref carries a
+  // published-print date of 11 January 2017, the day the volume was deposited. The Vestnik VolSU
+  // rows below are the same fault: a January deposit of the previous year's volume.
+  ["10.17951/sb.2016.10.55", 2016, 2017],
   // OpenEdition deposits a DOI for an OLD article at the moment of registration, and the
   // "print" year Crossref carries is that registration rather than the article's own date.
   // Brussels Studies states its own: "Collection générale, document 78, mis en ligne le
