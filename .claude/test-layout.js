@@ -1677,6 +1677,12 @@ function scrimCheck() {
             markRole: m ? m.getAttribute("role") : null,
             markWidth: m ? Math.round(m.getBoundingClientRect().width) : null,
             markInTree: m ? !m.hasAttribute("aria-hidden") : false,
+            // the progress bar's own bottom edge against the ROW's — see the assertion below
+            barGap: (() => {
+              const t = r.querySelector(".dk-prog .track");
+              if (!t) return null;
+              return Math.round(r.getBoundingClientRect().bottom - t.getBoundingClientRect().bottom);
+            })(),
           };
         };
         return { rows: rows.map(read), any: rows.length };
@@ -1703,6 +1709,23 @@ function scrimCheck() {
     check("...and the state is NAMED for a reader who cannot see colour",
       g.markRole === "img" && /nothing missed/i.test(g.markLabel || ""), JSON.stringify({ role: g.markRole, label: g.markLabel }));
     check("...with that name clipped rather than drawn", g.markWidth === 1 && g.markInTree === true, JSON.stringify({ w: g.markWidth, inTree: g.markInTree }));
+    /* THE BAR STAYS ON THE ROW'S OWN BOTTOM EDGE (Sep 2026, on a bug report: finishing a deck for the day
+       moved its progress bar up to a line under the title). `.dk-prog .track` is `position:absolute;
+       bottom:0`, so it anchors to the nearest POSITIONED ancestor — and it lives inside `.dk-body`, which
+       the `.dk-done` treatment was giving `position:relative` in order to lift it over the tick watermark.
+       That re-pointed the bar at the body's bottom instead of the row's. It is asserted as a MEASUREMENT
+       against the unfinished rows beside it rather than as a style, because the fault is entirely a matter
+       of which box the same declaration resolves against: nothing about the rule, the class or the markup
+       changes, and a screenshot of one state cannot show it.
+       THE FIGURE IS NOT ZERO AND MUST NOT BE ASSERTED AS ZERO: an absolutely-positioned `bottom:0` resolves
+       against its containing block's PADDING box, and `.active-deck` carries a 1px bottom border outside
+       that — so a correctly-placed bar sits one pixel above the row's border-box bottom. What says the bar
+       is where it belongs is that it sits exactly where the UNFINISHED rows' bars sit, which is also the
+       one form of this check that cannot go stale if that border ever changes. */
+    const barOthers = gold.rows.filter((r) => !r.done && r.barGap != null).map((r) => r.barGap);
+    check("...with its progress bar still on the row's own bottom edge",
+      g.barGap != null && barOthers.length > 0 && barOthers.every((n) => n === g.barGap),
+      JSON.stringify({ done: g.barGap, others: barOthers }));
     /* …and a row that still HAS work is left alone, which is the other half of the claim: a treatment that
        fires on every row says nothing at all. */
     check("...while a deck with cards still to study is untouched",

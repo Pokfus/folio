@@ -5140,11 +5140,20 @@ body.night .active-deck{ --dk-gold:#D8B355; }
 /* the row is read OVER the watermark — every child that can reach the right-hand end of the line, and
    NOT `> *`, which would re-position the absolutely-placed grip */
 .active-deck.dk-done .dk-counts,
-.active-deck.dk-done .dk-body,
 .active-deck.dk-done .dk-chev,
 .active-deck.dk-done .dk-chev-gap,
 .active-deck.dk-done .coll-ic,
 .active-deck.dk-done .dk-dl{ position:relative; z-index:2; }
+/* …and `.dk-body` IS RAISED WITHOUT BEING POSITIONED, which is the whole of this rule (Sep 2026, on a bug
+   report: a deck finished for the day had its progress bar jump from the row's bottom edge to a line under
+   the title). `.dk-prog .track` is `position:absolute; bottom:0` and takes its containing block from the
+   nearest POSITIONED ancestor, which is `.active-deck` — the row, whose `overflow:hidden` clips the track
+   to the last row's rounded corners. It lives inside `.dk-body`, so the moment that gets `position:relative`
+   the bar re-anchors to the body's own bottom and the row's underline is gone.
+   `z-index` alone is enough here because `.dk-body` is a FLEX ITEM of `.active-deck`: flexbox applies
+   z-index to items as though they were positioned, so this still lifts the whole body over the `::after`
+   watermark and still carries its descendants with it, while leaving the row as the track's anchor. */
+.active-deck.dk-done .dk-body{ z-index:2; }
 .active-deck .gt-check, .active-deck .gt-seal{
   width:1px; height:1px; padding:0; border:0; overflow:hidden;
   clip-path:inset(50%); background:none; box-shadow:none; animation:none; filter:none; flex:none;
