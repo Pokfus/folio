@@ -13672,7 +13672,7 @@
       ]
     },
     "hsk30l5/人工": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | An example's occurrence of the headword STRADDLED two shorter words — the first character ending one word and the second opening the next — so the card bolded characters that never formed the word at all. check-example-fit.js asks only whether the headword is swallowed by a LONGER word and is blind to this direction. Dropped, with an authored replacement.",
       "ex": [
         [
           "我能跟任何人工作。",
@@ -13681,7 +13681,19 @@
         [
           "这个地区的人工作很勤奋。",
           "Everyone around the area works hard."
+        ],
+        [
+          "这个湖是人工挖出来的。",
+          "This lake was dug out by hand."
+        ],
+        [
+          "这部分还是靠人工完成。",
+          "This part is still done by hand."
         ]
+      ],
+      "dropEx": [
+        "我能跟任何人工作",
+        "这个地区的人工作很勤奋"
       ]
     },
     "hsk30l5/从而": {
@@ -13845,7 +13857,7 @@
       ]
     },
     "hsk30l5/切": {
-      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
       "Say": "切割",
       "Pinyin": "qiē / qiè",
       "Bopomofo": "ㄑㄧㄝ / ㄑㄧㄝˋ",
@@ -13859,6 +13871,28 @@
           "qiè",
           "adjective",
           "close, intimate; eager, urgent"
+        ]
+      ],
+      "compounds": [
+        [
+          "切断",
+          "qiē duàn",
+          "to cut off; to sever"
+        ],
+        [
+          "一切",
+          "yī qiè",
+          "everything; all"
+        ],
+        [
+          "亲切",
+          "qīn qiè",
+          "amiable; cordial"
+        ],
+        [
+          "密切",
+          "mì qiè",
+          "close; intimate; closely"
         ]
       ]
     },
@@ -14466,7 +14500,7 @@
       ]
     },
     "hsk30l5/挑": {
-      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | The example carried a CHARACTER ERROR — a wrong character that happens to exist, so the sentence segments, speaks and translates without complaint and nothing in the pipeline can see it. Dropped, with an authored replacement. | Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
       "Say": "挑选",
       "Pinyin": "tiāo / tiǎo",
       "Bopomofo": "ㄊㄧㄠ / ㄊㄧㄠˇ",
@@ -14481,15 +14515,63 @@
           "verb",
           "to raise, to poke up; to stir up, to provoke"
         ]
+      ],
+      "dropEx": [
+        "这只狗挑了",
+        "他总是挑别人的毛病"
+      ],
+      "ex": [
+        [
+          "他挑了一件蓝色的衬衫。",
+          "He picked out a blue shirt."
+        ],
+        [
+          "他挑起了两家的矛盾。",
+          "He stirred up trouble between the two families."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "挑选",
+          "tiāo xuǎn",
+          "to choose; to select"
+        ],
+        [
+          "挑战",
+          "tiǎo zhàn",
+          "to challenge; a challenge"
+        ],
+        [
+          "挑剔",
+          "tiāo ti",
+          "picky; fussy"
+        ],
+        [
+          "挑拨",
+          "tiǎo bō",
+          "to incite discord; to instigate"
+        ]
       ]
     },
     "hsk30l5/挑选": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The example was off the card altogether — a machine-translated fragment, an advertisement, or a passage lifted out of the middle of a news story — and taught nothing about the headword. Dropped, with an authored replacement.",
       "ex": [
         [
           "这将会是巨大的，如果你可以挑选一些面包，然后再回家。",
           "It'd be great if you could pick up some bread before you come home."
+        ],
+        [
+          "回家前请挑选一些面包。",
+          "Please pick out some bread before you come home."
         ]
+      ],
+      "dropEx": [
+        "这将会是巨大的"
       ]
     },
     "hsk30l5/接待": {
@@ -14743,7 +14825,7 @@
       ]
     },
     "hsk30l5/特有": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note. | An example's occurrence of the headword STRADDLED two shorter words — the first character ending one word and the second opening the next — so the card bolded characters that never formed the word at all. check-example-fit.js asks only whether the headword is swallowed by a LONGER word and is blind to this direction. Dropped, with an authored replacement.",
       "ex": [
         [
           "笑是人类特有的吗？",
@@ -14756,7 +14838,14 @@
         [
           "语言是人类特有的。",
           "Language is peculiar to man."
+        ],
+        [
+          "这种植物是这个岛特有的。",
+          "This plant is peculiar to the island."
         ]
+      ],
+      "dropEx": [
+        "去上海新建的绿地玩"
       ]
     },
     "hsk30l5/特色": {
@@ -72568,7 +72657,7 @@
       ]
     },
     "hsk30l5/热量": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was not the sense the card's own three sentences teach, so the reader met a definition the examples do not illustrate. Corrected against CC-CEDICT and against what the sentences show.",
       "ex": [
         [
           "这种食物热量很高。",
@@ -72582,7 +72671,8 @@
           "这种食物热量低。",
           "This food is low in calories."
         ]
-      ]
+      ],
+      "gloss": "heat; calorie content (of food)"
     },
     "hsk30l5/日用品": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -72602,7 +72692,7 @@
       ]
     },
     "hsk30l5/赛场": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was not the sense the card's own three sentences teach, so the reader met a definition the examples do not illustrate. Corrected against CC-CEDICT and against what the sentences show.",
       "ex": [
         [
           "赛场上气氛紧张。",
@@ -72616,7 +72706,8 @@
           "他第一次走进赛场。",
           "He walked onto the field for the first time."
         ]
-      ]
+      ],
+      "gloss": "the ground; the arena; the field of play"
     },
     "hsk30l5/商家": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -72704,7 +72795,7 @@
       ]
     },
     "hsk30l5/酸甜苦辣": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
       "ex": [
         [
           "他尝尽了生活的酸甜苦辣。",
@@ -72717,6 +72808,12 @@
         [
           "这本书写尽了酸甜苦辣。",
           "This book covers every joy and sorrow."
+        ]
+      ],
+      "exEn": [
+        [
+          "人生的酸甜苦辣他都尝过",
+          "He has known every sweetness and every bitterness life has."
         ]
       ]
     },
@@ -75532,14 +75629,19 @@
       ]
     },
     "hsk30l5/他人": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An example's occurrence of the headword STRADDLED two shorter words — the first character ending one word and the second opening the next — so the card bolded characters that never formed the word at all. check-example-fit.js asks only whether the headword is swallowed by a LONGER word and is blind to this direction. Dropped, with an authored replacement.",
       "dropEx": [
-        "有没有其他人可以回答？"
+        "有没有其他人可以回答？",
+        "他人很好，和你一样"
       ],
       "ex": [
         [
           "不要随便动他人的东西。",
           "Don't touch other people's things without asking."
+        ],
+        [
+          "不要把责任推给他人。",
+          "Don't push the responsibility onto other people."
         ]
       ]
     },
@@ -75944,7 +76046,7 @@
       ]
     },
     "hsk30l5/人才": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
       "dropEx": [
         "这家里应该没有男人才对。"
       ],
@@ -75952,6 +76054,12 @@
         [
           "公司很需要这方面的人才。",
           "The company badly needs talent in this area."
+        ]
+      ],
+      "exEn": [
+        [
+          "逆境出人才",
+          "Hard times bring talent out."
         ]
       ]
     },
@@ -78412,7 +78520,7 @@
       ]
     },
     "hsk30l5/设立": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The example was off the card altogether — a machine-translated fragment, an advertisement, or a passage lifted out of the middle of a news story — and taught nothing about the headword. Dropped, with an authored replacement.",
       "ex": [
         [
           "学校设立了奖学金。",
@@ -78421,7 +78529,14 @@
         [
           "公司在这里设立了分部。",
           "The company has set up a branch here."
+        ],
+        [
+          "政府设立了一个新部门。",
+          "The government has set up a new department."
         ]
+      ],
+      "dropEx": [
+        "在科隆一家疗养院"
       ]
     },
     "hsk30l5/深入": {
@@ -79691,11 +79806,16 @@
       ]
     },
     "hsk30l5/其余": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The sentence ended with no terminal punctuation. The corpus-wide punctuation pass converts marks and never adds one, so about 150 sentences still end bare; a full stop is appended to the visible text and to `data-say` together, and nothing else is touched.",
       "ex": [
         [
           "我拿一半，其余的给你。",
           "I'll take half and the rest is yours."
+        ]
+      ],
+      "exStop": [
+        [
+          "你留在这儿，其余的人去外面"
         ]
       ]
     },
@@ -79736,12 +79856,19 @@
       ]
     },
     "hsk30l5/群体": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The example was off the card altogether — a machine-translated fragment, an advertisement, or a passage lifted out of the middle of a news story — and taught nothing about the headword. Dropped, with an authored replacement.",
       "ex": [
         [
           "这个群体的需求常被忽视。",
           "The needs of this group are often overlooked."
+        ],
+        [
+          "这个群体的声音应该被听到。",
+          "This group's voice ought to be heard."
         ]
+      ],
+      "dropEx": [
+        "但我敢说解决这些少数群体"
       ]
     },
     "hsk30l5/燃烧": {
@@ -79772,13 +79899,14 @@
       ]
     },
     "hsk30l5/使得": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was not the sense the card's own three sentences teach, so the reader met a definition the examples do not illustrate. Corrected against CC-CEDICT and against what the sentences show.",
       "ex": [
         [
           "大雨使得比赛推迟了。",
           "The heavy rain caused the match to be postponed."
         ]
-      ]
+      ],
+      "gloss": "to make; to cause; to bring about"
     },
     "hsk30l5/售价": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -79808,20 +79936,56 @@
       ]
     },
     "hsk30l5/水分": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An example's occurrence of the headword STRADDLED two shorter words — the first character ending one word and the second opening the next — so the card bolded characters that never formed the word at all. check-example-fit.js asks only whether the headword is swallowed by a LONGER word and is blind to this direction. Dropped, with an authored replacement.",
       "ex": [
         [
           "这种水果的水分很多。",
           "This kind of fruit has a lot of moisture."
+        ],
+        [
+          "这块蛋糕水分不够。",
+          "This cake has too little moisture in it."
         ]
+      ],
+      "dropEx": [
+        "一个水分子"
       ]
     },
     "hsk30l5/搜": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
       "ex": [
         [
           "他在抽屉里搜了半天。",
           "He rummaged in the drawer for ages."
+        ],
+        [
+          "警察搜遍了整栋房子。",
+          "The police searched the whole house."
+        ]
+      ],
+      "dropEx": [
+        "当我们过安检的时候"
+      ],
+      "compounds": [
+        [
+          "搜索",
+          "sōu suǒ",
+          "to search; to search for"
+        ],
+        [
+          "搜集",
+          "sōu jí",
+          "to gather; to collect"
+        ],
+        [
+          "搜查",
+          "sōu chá",
+          "to search (premises)"
+        ],
+        [
+          "搜寻",
+          "sōu xún",
+          "to search; to look for"
         ]
       ]
     },
@@ -119721,11 +119885,33 @@
       ]
     },
     "hsk30l5/洒": {
-      "why": "The second site of the `soda` class corrected on 汽水's card: in British English a bare soda is soda water.",
+      "why": "The second site of the `soda` class corrected on 汽水's card: in British English a bare soda is soda water. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
       "exEn": [
         [
           "谁把汽水洒了",
           "Who spilled the fizzy drink?"
+        ]
+      ],
+      "compounds": [
+        [
+          "洒水",
+          "sǎ shuǐ",
+          "to sprinkle water"
+        ],
+        [
+          "洒落",
+          "sǎ luò",
+          "to fall scattered; to sprinkle down"
+        ],
+        [
+          "潇洒",
+          "xiāo sǎ",
+          "free and easy; confident and at ease"
+        ],
+        [
+          "洒脱",
+          "sǎ tuō",
+          "natural and unconstrained"
         ]
       ]
     },
@@ -121508,7 +121694,7 @@
       ]
     },
     "hsk30l5/填": {
-      "why": "`fill out` a form is American; British English fills a form IN, and the decks already say so 32 times against 9. It is NOT a LEXIS row, and the reason is one site: `The sail on the boat filled out` (hsk30l7/帆), which is ordinary British English in a quite different sense, so a row on the bare phrase would wreck it. `gas` again — the right word depends on what the sentence is about — so the eight form sites are fixed per note. The card also CONTRADICTED ITSELF, its second sentence already saying `fill in`.",
+      "why": "`fill out` a form is American; British English fills a form IN, and the decks already say so 32 times against 9. It is NOT a LEXIS row, and the reason is one site: `The sail on the boat filled out` (hsk30l7/帆), which is ordinary British English in a quite different sense, so a row on the bare phrase would wreck it. `gas` again — the right word depends on what the sentence is about — so the eight form sites are fixed per note. The card also CONTRADICTED ITSELF, its second sentence already saying `fill in`. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
       "exEn": [
         [
           "请填好这张表格",
@@ -121517,6 +121703,28 @@
         [
           "帮我填吗",
           "This form looks rather complicated — can you help me fill it in?"
+        ]
+      ],
+      "compounds": [
+        [
+          "填空",
+          "tián kòng",
+          "to fill in a blank"
+        ],
+        [
+          "填写",
+          "tián xiě",
+          "to fill in (a form)"
+        ],
+        [
+          "填满",
+          "tián mǎn",
+          "to fill up; to cram"
+        ],
+        [
+          "填补",
+          "tián bǔ",
+          "to fill a gap; to make up a shortfall"
         ]
       ]
     },
@@ -124032,7 +124240,7 @@
       ]
     },
     "hsk30l5/胜": {
-      "why": "The other card carrying 共产主义必胜！, dropped here for the same reason. Read ahead of its own batch because the slogan was found on hsk30l5/必, which shares the sentence; the rest of this card is not yet audited. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The other card carrying 共产主义必胜！, dropped here for the same reason. Read ahead of its own batch because the slogan was found on hsk30l5/必, which shares the sentence; the rest of this card is not yet audited. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentences already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
       "dropEx": [
         "共产主义必胜"
       ],
@@ -124040,6 +124248,28 @@
         [
           "主队最终以二比一胜了对手。",
           "The home team beat their opponents 2-1 in the end."
+        ]
+      ],
+      "compounds": [
+        [
+          "胜利",
+          "shèng lì",
+          "victory"
+        ],
+        [
+          "战胜",
+          "zhàn shèng",
+          "to defeat; to prevail over"
+        ],
+        [
+          "优胜",
+          "yōu shèng",
+          "winning; superior"
+        ],
+        [
+          "名胜",
+          "míng shèng",
+          "a famous scenic spot"
         ]
       ]
     },
@@ -130784,6 +131014,1767 @@
         [
           "每个人都能成为奇迹",
           "Everyone can become a miracle."
+        ]
+      ]
+    },
+    "hsk30l5/签": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "书签"
+      ],
+      "ex": [
+        [
+          "请在这里签个字。",
+          "Please sign here."
+        ]
+      ],
+      "compounds": [
+        [
+          "签名",
+          "qiān míng",
+          "to sign one's name; signature"
+        ],
+        [
+          "签订",
+          "qiān dìng",
+          "to agree to and sign (a treaty etc)"
+        ],
+        [
+          "签证",
+          "qiān zhèng",
+          "visa"
+        ],
+        [
+          "书签",
+          "shū qiān",
+          "bookmark"
+        ]
+      ]
+    },
+    "hsk30l5/浅": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "浅色",
+          "qiǎn sè",
+          "light colour"
+        ],
+        [
+          "深浅",
+          "shēn qiǎn",
+          "depth; how deep or shallow"
+        ],
+        [
+          "肤浅",
+          "fū qiǎn",
+          "superficial; shallow"
+        ],
+        [
+          "浅薄",
+          "qiǎn bó",
+          "superficial"
+        ]
+      ]
+    },
+    "hsk30l5/欠": {
+      "why": "The gloss was not the sense the card's own three sentences teach, so the reader met a definition the examples do not illustrate. Corrected against CC-CEDICT and against what the sentences show. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "gloss": "to owe; to lack; (bound form) to yawn",
+      "compounds": [
+        [
+          "欠款",
+          "qiàn kuǎn",
+          "to owe money; the sum owed"
+        ],
+        [
+          "亏欠",
+          "kuī qiàn",
+          "to owe; to be in the red"
+        ],
+        [
+          "欠债",
+          "qiàn zhài",
+          "to owe a debt"
+        ],
+        [
+          "哈欠",
+          "hā qian",
+          "a yawn"
+        ]
+      ]
+    },
+    "hsk30l5/墙": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "墙壁",
+          "qiáng bì",
+          "wall"
+        ],
+        [
+          "城墙",
+          "chéng qiáng",
+          "city wall"
+        ],
+        [
+          "围墙",
+          "wéi qiáng",
+          "perimeter wall; fence"
+        ],
+        [
+          "墙角",
+          "qiáng jiǎo",
+          "corner (where two walls meet)"
+        ]
+      ]
+    },
+    "hsk30l5/强大": {
+      "why": "The gloss was not the sense the card's own three sentences teach, so the reader met a definition the examples do not illustrate. Corrected against CC-CEDICT and against what the sentences show.",
+      "gloss": "big and strong; formidable; powerful"
+    },
+    "hsk30l5/抢": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "我的钱包被抢了",
+          "My purse was snatched."
+        ],
+        [
+          "这名男子抢走了她的包包",
+          "The man snatched her bag."
+        ]
+      ],
+      "compounds": [
+        [
+          "抢劫",
+          "qiǎng jié",
+          "to rob; robbery"
+        ],
+        [
+          "抢救",
+          "qiǎng jiù",
+          "to rescue; to save"
+        ],
+        [
+          "抢购",
+          "qiǎng gòu",
+          "to snap up; to buy in a rush"
+        ],
+        [
+          "争抢",
+          "zhēng qiǎng",
+          "to fight over; to scramble for"
+        ]
+      ]
+    },
+    "hsk30l5/悄悄": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches.",
+      "dropEx": [
+        "静悄悄"
+      ],
+      "ex": [
+        [
+          "他悄悄地走出了教室。",
+          "He slipped quietly out of the classroom."
+        ]
+      ]
+    },
+    "hsk30l5/亲": {
+      "why": "One `uc-sense` div carrying several senses under a part of speech naming several categories, with the card's own examples spread across them. Split into the senses the examples actually show, each example tagged with the one it illustrates. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written. | An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches.",
+      "senses": [
+        [
+          "adjective",
+          "related by blood; close; intimate"
+        ],
+        [
+          "verb",
+          "to kiss"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "亲人",
+          "qīn rén",
+          "one's close relatives"
+        ],
+        [
+          "亲自",
+          "qīn zì",
+          "personally; in person"
+        ],
+        [
+          "母亲",
+          "mǔ qīn",
+          "mother"
+        ],
+        [
+          "亲密",
+          "qīn mì",
+          "intimate; close"
+        ]
+      ],
+      "dropEx": [
+        "父母亲",
+        "亲力亲为"
+      ],
+      "ex": [
+        [
+          "我们两家关系很亲。",
+          "The two families are very close."
+        ],
+        [
+          "孩子跟妈妈最亲。",
+          "The child is closest to its mother."
+        ]
+      ]
+    },
+    "hsk30l5/亲爱": {
+      "why": "The sentence ended with no terminal punctuation. The corpus-wide punctuation pass converts marks and never adds one, so about 150 sentences still end bare; a full stop is appended to the visible text and to `data-say` together, and nothing else is touched.",
+      "exStop": [
+        [
+          "我亲爱的妈妈"
+        ]
+      ]
+    },
+    "hsk30l5/亲切": {
+      "why": "The sentence ended with no terminal punctuation. The corpus-wide punctuation pass converts marks and never adds one, so about 150 sentences still end bare; a full stop is appended to the visible text and to `data-say` together, and nothing else is touched.",
+      "exStop": [
+        [
+          "美国人是亲切的人"
+        ]
+      ]
+    },
+    "hsk30l5/青": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "刺青",
+        "青光眼",
+        "青菜"
+      ],
+      "ex": [
+        [
+          "远处的山是青的。",
+          "The hills in the distance are green."
+        ],
+        [
+          "他穿了一件青色的长袍。",
+          "He wore a blue-green robe."
+        ],
+        [
+          "青山绿水就在眼前。",
+          "Green hills and clear water lay before us."
+        ]
+      ],
+      "compounds": [
+        [
+          "青年",
+          "qīng nián",
+          "youth; a young person"
+        ],
+        [
+          "青春",
+          "qīng chūn",
+          "youth; youthfulness"
+        ],
+        [
+          "青菜",
+          "qīng cài",
+          "green vegetables"
+        ],
+        [
+          "青山",
+          "qīng shān",
+          "green hills"
+        ]
+      ]
+    },
+    "hsk30l5/情景": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | The example was off the card altogether — a machine-translated fragment, an advertisement, or a passage lifted out of the middle of a news story — and taught nothing about the headword. Dropped, with an authored replacement.",
+      "dropEx": [
+        "情景喜剧"
+      ],
+      "ex": [
+        [
+          "当时的情景我还记得很清楚。",
+          "I still remember the scene clearly."
+        ]
+      ]
+    },
+    "hsk30l5/情绪": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
+      "exEn": [
+        [
+          "你应该学习控制自己的情绪",
+          "You should learn to control your emotions."
+        ]
+      ]
+    },
+    "hsk30l5/请教": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
+      "dropEx": [
+        "您最好请教一下医生"
+      ],
+      "ex": [
+        [
+          "这个问题我想请教您。",
+          "There is a question I should like to ask your advice on."
+        ]
+      ]
+    },
+    "hsk30l5/穷": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "他们都不穷",
+          "None of them is poor."
+        ]
+      ],
+      "compounds": [
+        [
+          "穷人",
+          "qióng rén",
+          "poor people; the poor"
+        ],
+        [
+          "贫穷",
+          "pín qióng",
+          "poor; impoverished"
+        ],
+        [
+          "穷困",
+          "qióng kùn",
+          "destitute; wretchedly poor"
+        ],
+        [
+          "无穷",
+          "wú qióng",
+          "endless; inexhaustible"
+        ]
+      ]
+    },
+    "hsk30l5/权": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "权力",
+          "quán lì",
+          "power; authority"
+        ],
+        [
+          "权利",
+          "quán lì",
+          "a right (an entitlement)"
+        ],
+        [
+          "政权",
+          "zhèng quán",
+          "political power; regime"
+        ],
+        [
+          "版权",
+          "bǎn quán",
+          "copyright"
+        ]
+      ]
+    },
+    "hsk30l5/全体": {
+      "why": "The example carried a CHARACTER ERROR — a wrong character that happens to exist, so the sentence segments, speaks and translates without complaint and nothing in the pipeline can see it. Dropped, with an authored replacement.",
+      "dropEx": [
+        "火事"
+      ],
+      "ex": [
+        [
+          "全体同学都到齐了。",
+          "The whole class is here."
+        ]
+      ]
+    },
+    "hsk30l5/全新": {
+      "why": "The example was off the card altogether — a machine-translated fragment, an advertisement, or a passage lifted out of the middle of a news story — and taught nothing about the headword. Dropped, with an authored replacement.",
+      "dropEx": [
+        "蕾哈娜"
+      ],
+      "ex": [
+        [
+          "这是一个全新的开始。",
+          "This is a completely fresh start."
+        ]
+      ]
+    },
+    "hsk30l5/劝": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "她劝我别相信她的话",
+          "She advised me not to believe what she says."
+        ]
+      ],
+      "compounds": [
+        [
+          "劝告",
+          "quàn gào",
+          "to advise; to urge; advice"
+        ],
+        [
+          "劝说",
+          "quàn shuō",
+          "to persuade"
+        ],
+        [
+          "劝阻",
+          "quàn zǔ",
+          "to advise against; to dissuade"
+        ],
+        [
+          "相劝",
+          "xiāng quàn",
+          "to persuade; to exhort"
+        ]
+      ]
+    },
+    "hsk30l5/群": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "合群"
+      ],
+      "ex": [
+        [
+          "一群羊在山上吃草。",
+          "A flock of sheep is grazing on the hill."
+        ]
+      ],
+      "compounds": [
+        [
+          "群众",
+          "qún zhòng",
+          "the masses; the public"
+        ],
+        [
+          "人群",
+          "rén qún",
+          "a crowd"
+        ],
+        [
+          "群体",
+          "qún tǐ",
+          "a group; a community"
+        ],
+        [
+          "成群",
+          "chéng qún",
+          "in groups; in large numbers"
+        ]
+      ]
+    },
+    "hsk30l5/绕": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "绕口令"
+      ],
+      "ex": [
+        [
+          "前面在修路，我们得绕过去。",
+          "The road ahead is being repaired, so we have to go round."
+        ]
+      ],
+      "compounds": [
+        [
+          "绕道",
+          "rào dào",
+          "to make a detour; to go round"
+        ],
+        [
+          "围绕",
+          "wéi rào",
+          "to revolve around; to centre on"
+        ],
+        [
+          "缠绕",
+          "chán rào",
+          "to wind round; to twine"
+        ],
+        [
+          "绕口令",
+          "rào kǒu lìng",
+          "a tongue-twister"
+        ]
+      ]
+    },
+    "hsk30l5/热心": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
+      "dropEx": [
+        "他把情感藏进了心底"
+      ],
+      "ex": [
+        [
+          "他对公益事业很热心。",
+          "He is keen on charitable work."
+        ]
+      ]
+    },
+    "hsk30l5/认": {
+      "why": "The example's Chinese was not a sentence — the words were in an order Chinese does not allow — while its English read perfectly, so nothing downstream could see it. Dropped and replaced with an authored sentence saying what the English says. | An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "我认我会留下",
+        "认真"
+      ],
+      "ex": [
+        [
+          "我认得出他的字。",
+          "I can recognise his handwriting."
+        ],
+        [
+          "他不认这笔账。",
+          "He refuses to acknowledge the debt."
+        ]
+      ],
+      "compounds": [
+        [
+          "认识",
+          "rèn shi",
+          "to know; to be acquainted with"
+        ],
+        [
+          "认为",
+          "rèn wéi",
+          "to believe; to consider"
+        ],
+        [
+          "认真",
+          "rèn zhēn",
+          "conscientious; to take seriously"
+        ],
+        [
+          "承认",
+          "chéng rèn",
+          "to admit; to acknowledge"
+        ]
+      ]
+    },
+    "hsk30l5/忍": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "忍受",
+          "rěn shòu",
+          "to bear; to endure"
+        ],
+        [
+          "忍耐",
+          "rěn nài",
+          "to endure; to be patient"
+        ],
+        [
+          "容忍",
+          "róng rěn",
+          "to tolerate; to put up with"
+        ],
+        [
+          "残忍",
+          "cán rěn",
+          "cruel; merciless"
+        ]
+      ]
+    },
+    "hsk30l5/如": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "如果",
+          "rú guǒ",
+          "if; in case"
+        ],
+        [
+          "如今",
+          "rú jīn",
+          "nowadays; now"
+        ],
+        [
+          "例如",
+          "lì rú",
+          "for example; such as"
+        ],
+        [
+          "不如",
+          "bù rú",
+          "not as good as; it would be better to"
+        ]
+      ]
+    },
+    "hsk30l5/如同": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
+      "exEn": [
+        [
+          "胃里如同千军万马开过",
+          "My stomach felt as though an army had marched through it."
+        ]
+      ]
+    },
+    "hsk30l5/软": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "软蛋"
+      ],
+      "ex": [
+        [
+          "这张床太软了。",
+          "This bed is too soft."
+        ]
+      ],
+      "compounds": [
+        [
+          "软件",
+          "ruǎn jiàn",
+          "software"
+        ],
+        [
+          "柔软",
+          "róu ruǎn",
+          "soft; supple"
+        ],
+        [
+          "软弱",
+          "ruǎn ruò",
+          "weak; feeble"
+        ],
+        [
+          "松软",
+          "sōng ruǎn",
+          "loose and soft; spongy"
+        ]
+      ]
+    },
+    "hsk30l5/弱": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "弱点",
+          "ruò diǎn",
+          "a weak point; a failing"
+        ],
+        [
+          "软弱",
+          "ruǎn ruò",
+          "weak; feeble"
+        ],
+        [
+          "减弱",
+          "jiǎn ruò",
+          "to weaken; to diminish"
+        ],
+        [
+          "弱小",
+          "ruò xiǎo",
+          "small and weak"
+        ]
+      ]
+    },
+    "hsk30l5/傻": {
+      "why": "The example was off the card altogether — a machine-translated fragment, an advertisement, or a passage lifted out of the middle of a news story — and taught nothing about the headword. Dropped, with an authored replacement. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "吸毒"
+      ],
+      "ex": [
+        [
+          "别做傻事。",
+          "Don't do anything silly."
+        ]
+      ],
+      "compounds": [
+        [
+          "傻瓜",
+          "shǎ guā",
+          "a fool; an idiot"
+        ],
+        [
+          "傻子",
+          "shǎ zi",
+          "a fool"
+        ],
+        [
+          "装傻",
+          "zhuāng shǎ",
+          "to play dumb; to feign ignorance"
+        ],
+        [
+          "傻笑",
+          "shǎ xiào",
+          "to giggle; to grin foolishly"
+        ]
+      ]
+    },
+    "hsk30l5/晒": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "晒太阳",
+          "shài tài yáng",
+          "to sit in the sun; to sunbathe"
+        ],
+        [
+          "晾晒",
+          "liàng shài",
+          "to dry in the sun"
+        ],
+        [
+          "曝晒",
+          "pù shài",
+          "to expose to strong sunlight"
+        ],
+        [
+          "防晒",
+          "fáng shài",
+          "protection against the sun"
+        ]
+      ]
+    },
+    "hsk30l5/删": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "删除",
+          "shān chú",
+          "to delete; to cancel"
+        ],
+        [
+          "删改",
+          "shān gǎi",
+          "to edit; to alter (a text)"
+        ],
+        [
+          "增删",
+          "zēng shān",
+          "to add and to delete; to revise"
+        ],
+        [
+          "删节",
+          "shān jié",
+          "to abridge; to cut a text down"
+        ]
+      ]
+    },
+    "hsk30l5/扇": {
+      "why": "One `uc-sense` div carrying several senses under a part of speech naming several categories, with the card's own examples spread across them. Split into the senses the examples actually show, each example tagged with the one it illustrates. | An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "Pinyin": "shān / shàn",
+      "Bopomofo": "ㄕㄢ / ㄕㄢˋ",
+      "senses": [
+        [
+          "shān",
+          "verb",
+          "to fan; to slap (someone's face)"
+        ],
+        [
+          "shàn",
+          "noun / measure word",
+          "a fan; measure word for doors and windows"
+        ]
+      ],
+      "dropEx": [
+        "风扇"
+      ],
+      "ex": [
+        [
+          "她拿着报纸扇了扇。",
+          "She fanned herself with a newspaper."
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        1
+      ],
+      "compounds": [
+        [
+          "扇子",
+          "shàn zi",
+          "a fan"
+        ],
+        [
+          "电扇",
+          "diàn shàn",
+          "electric fan"
+        ],
+        [
+          "风扇",
+          "fēng shàn",
+          "electric fan"
+        ],
+        [
+          "扇动",
+          "shān dòng",
+          "to fan; to flap; to incite"
+        ]
+      ]
+    },
+    "hsk30l5/伤": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "伤心",
+          "shāng xīn",
+          "to grieve; broken-hearted"
+        ],
+        [
+          "受伤",
+          "shòu shāng",
+          "to be injured; wounded"
+        ],
+        [
+          "伤害",
+          "shāng hài",
+          "to injure; to harm"
+        ],
+        [
+          "伤口",
+          "shāng kǒu",
+          "a wound; a cut"
+        ]
+      ]
+    },
+    "hsk30l5/伤害": {
+      "why": "The example was off the card altogether — a machine-translated fragment, an advertisement, or a passage lifted out of the middle of a news story — and taught nothing about the headword. Dropped, with an authored replacement.",
+      "dropEx": [
+        "魔法伤害"
+      ],
+      "ex": [
+        [
+          "吸烟伤害健康。",
+          "Smoking harms your health."
+        ]
+      ]
+    },
+    "hsk30l5/赏": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place. | An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "悬赏",
+        "在江户时代赏月"
+      ],
+      "ex": [
+        [
+          "老板赏了他一千块。",
+          "The boss gave him a thousand yuan as a reward."
+        ],
+        [
+          "这幅画很值得一赏。",
+          "This painting is well worth looking at."
+        ]
+      ],
+      "compounds": [
+        [
+          "欣赏",
+          "xīn shǎng",
+          "to appreciate; to enjoy"
+        ],
+        [
+          "观赏",
+          "guān shǎng",
+          "to look at with pleasure; ornamental"
+        ],
+        [
+          "赏识",
+          "shǎng shí",
+          "to appreciate; to recognise the worth of"
+        ],
+        [
+          "奖赏",
+          "jiǎng shǎng",
+          "a reward; a prize"
+        ]
+      ]
+    },
+    "hsk30l5/烧": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "烧酒"
+      ],
+      "ex": [
+        [
+          "房子烧了一整夜。",
+          "The house burned all night."
+        ]
+      ],
+      "compounds": [
+        [
+          "发烧",
+          "fā shāo",
+          "to have a fever"
+        ],
+        [
+          "燃烧",
+          "rán shāo",
+          "to burn; combustion"
+        ],
+        [
+          "烧烤",
+          "shāo kǎo",
+          "barbecue; to roast"
+        ],
+        [
+          "烧水",
+          "shāo shuǐ",
+          "to boil water"
+        ]
+      ]
+    },
+    "hsk30l5/蛇": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "蛇皮",
+          "shé pí",
+          "snakeskin"
+        ],
+        [
+          "毒蛇",
+          "dú shé",
+          "a venomous snake"
+        ],
+        [
+          "蟒蛇",
+          "mǎng shé",
+          "a python; a boa"
+        ],
+        [
+          "蛇年",
+          "shé nián",
+          "the Year of the Snake"
+        ]
+      ]
+    },
+    "hsk30l5/摄影": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | The example was off the card altogether — a machine-translated fragment, an advertisement, or a passage lifted out of the middle of a news story — and taught nothing about the headword. Dropped, with an authored replacement.",
+      "dropEx": [
+        "摄影家"
+      ],
+      "ex": [
+        [
+          "他在婚礼上负责摄影。",
+          "He was in charge of the photography at the wedding."
+        ]
+      ]
+    },
+    "hsk30l5/伸": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "伸手",
+          "shēn shǒu",
+          "to reach out one's hand"
+        ],
+        [
+          "延伸",
+          "yán shēn",
+          "to extend; to stretch out"
+        ],
+        [
+          "伸展",
+          "shēn zhǎn",
+          "to stretch; to extend"
+        ],
+        [
+          "伸长",
+          "shēn cháng",
+          "to stretch out; to lengthen"
+        ]
+      ]
+    },
+    "hsk30l5/深刻": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
+      "exEn": [
+        [
+          "您使我印象深刻",
+          "You made a deep impression on me."
+        ]
+      ]
+    },
+    "hsk30l5/神秘": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
+      "dropEx": [
+        "这个地方的气氛很神秘"
+      ],
+      "ex": [
+        [
+          "他的身世一直很神秘。",
+          "His origins have always been a mystery."
+        ]
+      ]
+    },
+    "hsk30l5/升": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written. | The part-of-speech label named a category the word does not belong to, so the card taught the reader to file it wrongly. Corrected against CC-CEDICT and the card own examples.",
+      "dropEx": [
+        "太阳总是从东方升起"
+      ],
+      "ex": [
+        [
+          "他去年升了经理。",
+          "He was promoted to manager last year."
+        ]
+      ],
+      "compounds": [
+        [
+          "升级",
+          "shēng jí",
+          "to go up a grade; to upgrade"
+        ],
+        [
+          "上升",
+          "shàng shēng",
+          "to rise; to ascend"
+        ],
+        [
+          "提升",
+          "tí shēng",
+          "to promote; to raise"
+        ],
+        [
+          "升高",
+          "shēng gāo",
+          "to rise; to go up"
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to rise; to go up"
+        ],
+        [
+          "verb",
+          "to promote; to be promoted"
+        ],
+        [
+          "measure word",
+          "litre"
+        ]
+      ],
+      "exSense": [
+        1,
+        3,
+        2
+      ]
+    },
+    "hsk30l5/诗": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "诗人",
+          "shī rén",
+          "a poet"
+        ],
+        [
+          "诗歌",
+          "shī gē",
+          "poetry; a poem"
+        ],
+        [
+          "古诗",
+          "gǔ shī",
+          "classical Chinese verse"
+        ],
+        [
+          "唐诗",
+          "Táng shī",
+          "Tang poetry; a Tang poem"
+        ]
+      ]
+    },
+    "hsk30l5/湿": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "湿度",
+          "shī dù",
+          "humidity"
+        ],
+        [
+          "潮湿",
+          "cháo shī",
+          "damp; moist"
+        ],
+        [
+          "湿润",
+          "shī rùn",
+          "moist"
+        ],
+        [
+          "湿地",
+          "shī dì",
+          "wetland"
+        ]
+      ]
+    },
+    "hsk30l5/时差": {
+      "why": "An example's occurrence of the headword STRADDLED two shorter words — the first character ending one word and the second opening the next — so the card bolded characters that never formed the word at all. check-example-fit.js asks only whether the headword is swallowed by a LONGER word and is blind to this direction. Dropped, with an authored replacement.",
+      "dropEx": [
+        "他过马路时差点被车撞"
+      ],
+      "ex": [
+        [
+          "北京和伦敦的时差是七个小时。",
+          "The time difference between Beijing and London is seven hours."
+        ]
+      ]
+    },
+    "hsk30l5/时常": {
+      "why": "An example's occurrence of the headword STRADDLED two shorter words — the first character ending one word and the second opening the next — so the card bolded characters that never formed the word at all. check-example-fit.js asks only whether the headword is swallowed by a LONGER word and is blind to this direction. Dropped, with an authored replacement.",
+      "dropEx": [
+        "我还是个小男孩时常去池塘游泳"
+      ],
+      "ex": [
+        [
+          "他时常来看我们。",
+          "He comes to see us often."
+        ]
+      ]
+    },
+    "hsk30l5/时刻": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches.",
+      "dropEx": [
+        "时时刻刻"
+      ],
+      "ex": [
+        [
+          "那是我一生中最难忘的时刻。",
+          "That was the most unforgettable moment of my life."
+        ]
+      ]
+    },
+    "hsk30l5/式": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "方式",
+          "fāng shì",
+          "way; method; manner"
+        ],
+        [
+          "形式",
+          "xíng shì",
+          "form; shape; outward appearance"
+        ],
+        [
+          "正式",
+          "zhèng shì",
+          "formal; official"
+        ],
+        [
+          "式样",
+          "shì yàng",
+          "style; pattern"
+        ]
+      ]
+    },
+    "hsk30l5/视为": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
+      "dropEx": [
+        "他们把他视为城里最好的医生"
+      ],
+      "ex": [
+        [
+          "失败可以视为一种学习。",
+          "Failure can be seen as a kind of learning."
+        ]
+      ]
+    },
+    "hsk30l5/试验": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
+      "dropEx": [
+        "这个国家成功进行了一次核试验"
+      ],
+      "ex": [
+        [
+          "新药还在试验阶段。",
+          "The new drug is still at the trial stage."
+        ]
+      ]
+    },
+    "hsk30l5/守": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "守卫",
+          "shǒu wèi",
+          "to guard; to defend"
+        ],
+        [
+          "遵守",
+          "zūn shǒu",
+          "to abide by; to comply with"
+        ],
+        [
+          "看守",
+          "kān shǒu",
+          "to guard; to watch over"
+        ],
+        [
+          "保守",
+          "bǎo shǒu",
+          "conservative; to keep (a secret)"
+        ]
+      ]
+    },
+    "hsk30l5/鼠标": {
+      "why": "The example's Chinese was not a sentence — the words were in an order Chinese does not allow — while its English read perfectly, so nothing downstream could see it. Dropped and replaced with an authored sentence saying what the English says.",
+      "dropEx": [
+        "这个鼠标突然毛病了"
+      ],
+      "ex": [
+        [
+          "这个鼠标突然不动了。",
+          "Suddenly this mouse stopped working."
+        ]
+      ]
+    },
+    "hsk30l5/束": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | One `uc-sense` div carrying several senses under a part of speech naming several categories, with the card's own examples spread across them. Split into the senses the examples actually show, each example tagged with the one it illustrates. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "束腹",
+        "管束",
+        "装束"
+      ],
+      "senses": [
+        [
+          "measure word",
+          "measure word for bunches, bundles and beams of light"
+        ],
+        [
+          "verb",
+          "to bind; to tie up"
+        ]
+      ],
+      "ex": [
+        [
+          "他送了她一束花。",
+          "He gave her a bunch of flowers."
+        ],
+        [
+          "一束阳光照进了房间。",
+          "A shaft of sunlight came into the room."
+        ],
+        [
+          "请把这些报纸束起来。",
+          "Please tie these newspapers into a bundle."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "束缚",
+          "shù fù",
+          "to bind; to fetter"
+        ],
+        [
+          "结束",
+          "jié shù",
+          "to end; to conclude"
+        ],
+        [
+          "约束",
+          "yuē shù",
+          "to restrain; to bind"
+        ],
+        [
+          "花束",
+          "huā shù",
+          "a bouquet"
+        ]
+      ]
+    },
+    "hsk30l5/摔": {
+      "why": "The example's Chinese was not a sentence — the words were in an order Chinese does not allow — while its English read perfectly, so nothing downstream could see it. Dropped and replaced with an authored sentence saying what the English says. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "摔坏别人的手机"
+      ],
+      "ex": [
+        [
+          "他在雪地上摔了一跤。",
+          "He had a fall on the snow."
+        ]
+      ],
+      "compounds": [
+        [
+          "摔倒",
+          "shuāi dǎo",
+          "to fall down; to throw someone to the ground"
+        ],
+        [
+          "摔跤",
+          "shuāi jiāo",
+          "to trip and fall; wrestling"
+        ],
+        [
+          "摔断",
+          "shuāi duàn",
+          "to break (a bone) in a fall"
+        ],
+        [
+          "摔伤",
+          "shuāi shāng",
+          "to injure oneself in a fall"
+        ]
+      ]
+    },
+    "hsk30l5/税": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "税收",
+          "shuì shōu",
+          "taxation"
+        ],
+        [
+          "纳税",
+          "nà shuì",
+          "to pay tax"
+        ],
+        [
+          "关税",
+          "guān shuì",
+          "customs duty; tariff"
+        ],
+        [
+          "免税",
+          "miǎn shuì",
+          "duty-free; tax-exempt"
+        ]
+      ]
+    },
+    "hsk30l5/顺": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "顺道一提"
+      ],
+      "ex": [
+        [
+          "这件事办得很顺。",
+          "The matter went off smoothly."
+        ]
+      ],
+      "compounds": [
+        [
+          "顺利",
+          "shùn lì",
+          "smoothly; without a hitch"
+        ],
+        [
+          "顺序",
+          "shùn xù",
+          "sequence; order"
+        ],
+        [
+          "顺便",
+          "shùn biàn",
+          "in passing; while one is at it"
+        ],
+        [
+          "通顺",
+          "tōng shùn",
+          "smooth and coherent (of writing)"
+        ]
+      ]
+    },
+    "hsk30l5/四处": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
+      "exEn": [
+        [
+          "四处都在下雨",
+          "It is raining everywhere."
+        ]
+      ]
+    },
+    "hsk30l5/四周": {
+      "why": "An example's occurrence of the headword STRADDLED two shorter words — the first character ending one word and the second opening the next — so the card bolded characters that never formed the word at all. check-example-fit.js asks only whether the headword is swallowed by a LONGER word and is blind to this direction. Dropped, with an authored replacement.",
+      "dropEx": [
+        "三或四周"
+      ],
+      "ex": [
+        [
+          "房子四周种满了树。",
+          "Trees are planted all around the house."
+        ]
+      ]
+    },
+    "hsk30l5/随": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "随时",
+          "suí shí",
+          "at any time; whenever necessary"
+        ],
+        [
+          "随便",
+          "suí biàn",
+          "as one pleases; casual"
+        ],
+        [
+          "随后",
+          "suí hòu",
+          "afterwards; subsequently"
+        ],
+        [
+          "跟随",
+          "gēn suí",
+          "to follow"
+        ]
+      ]
+    },
+    "hsk30l5/碎": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "杂碎"
+      ],
+      "ex": [
+        [
+          "杯子掉到地上碎了。",
+          "The cup fell on the floor and broke."
+        ]
+      ],
+      "compounds": [
+        [
+          "碎片",
+          "suì piàn",
+          "a fragment; a splinter"
+        ],
+        [
+          "打碎",
+          "dǎ suì",
+          "to smash; to break into pieces"
+        ],
+        [
+          "破碎",
+          "pò suì",
+          "to shatter; broken"
+        ],
+        [
+          "粉碎",
+          "fěn suì",
+          "to crush; to smash"
+        ]
+      ]
+    },
+    "hsk30l5/所": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "所有的电话都不通"
+      ],
+      "ex": [
+        [
+          "这所房子是新盖的。",
+          "This house is newly built."
+        ]
+      ],
+      "compounds": [
+        [
+          "所以",
+          "suǒ yǐ",
+          "therefore; so"
+        ],
+        [
+          "场所",
+          "chǎng suǒ",
+          "a place; a venue"
+        ],
+        [
+          "派出所",
+          "pài chū suǒ",
+          "a local police station"
+        ],
+        [
+          "所谓",
+          "suǒ wèi",
+          "so-called; what is meant by"
+        ]
+      ]
+    },
+    "hsk30l5/锁": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "锁门",
+          "suǒ mén",
+          "to lock the door"
+        ],
+        [
+          "门锁",
+          "mén suǒ",
+          "a door lock"
+        ],
+        [
+          "连锁",
+          "lián suǒ",
+          "to interlock; chain (of shops)"
+        ],
+        [
+          "封锁",
+          "fēng suǒ",
+          "to blockade; to seal off"
+        ]
+      ]
+    },
+    "hsk30l5/桃": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "桃花",
+          "táo huā",
+          "peach blossom"
+        ],
+        [
+          "桃树",
+          "táo shù",
+          "a peach tree"
+        ],
+        [
+          "樱桃",
+          "yīng táo",
+          "a cherry"
+        ],
+        [
+          "核桃",
+          "hé tao",
+          "a walnut"
+        ]
+      ]
+    },
+    "hsk30l5/套": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "套装",
+          "tào zhuāng",
+          "a suit; a matching set of clothes"
+        ],
+        [
+          "手套",
+          "shǒu tào",
+          "gloves"
+        ],
+        [
+          "外套",
+          "wài tào",
+          "a coat; an outer garment"
+        ],
+        [
+          "配套",
+          "pèi tào",
+          "to form a matching set; complementary"
+        ]
+      ]
+    },
+    "hsk30l5/提升": {
+      "why": "The example's Chinese was not a sentence — the words were in an order Chinese does not allow — while its English read perfectly, so nothing downstream could see it. Dropped and replaced with an authored sentence saying what the English says.",
+      "dropEx": [
+        "创新创新本身"
+      ],
+      "ex": [
+        [
+          "这次训练提升了他的水平。",
+          "The training raised his level."
+        ]
+      ]
+    },
+    "hsk30l5/替": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "替代",
+          "tì dài",
+          "to substitute for; to replace"
+        ],
+        [
+          "代替",
+          "dài tì",
+          "to replace; to take the place of"
+        ],
+        [
+          "交替",
+          "jiāo tì",
+          "to alternate; in turn"
+        ],
+        [
+          "顶替",
+          "dǐng tì",
+          "to take someone's place"
+        ]
+      ]
+    },
+    "hsk30l5/天上": {
+      "why": "An example's occurrence of the headword STRADDLED two shorter words — the first character ending one word and the second opening the next — so the card bolded characters that never formed the word at all. check-example-fit.js asks only whether the headword is swallowed by a LONGER word and is blind to this direction. Dropped, with an authored replacement. | The gloss was not the sense the card own three sentences teach, so the reader met a definition the examples do not illustrate. Corrected against CC-CEDICT and against what the sentences show.",
+      "dropEx": [
+        "我每天上教堂"
+      ],
+      "ex": [
+        [
+          "天上飞过一群大雁。",
+          "A flock of wild geese flew across the sky."
+        ]
+      ],
+      "gloss": "the sky; the heavens"
+    },
+    "hsk30l5/贴": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "贴纸",
+          "tiē zhǐ",
+          "a sticker"
+        ],
+        [
+          "张贴",
+          "zhāng tiē",
+          "to post (a notice)"
+        ],
+        [
+          "补贴",
+          "bǔ tiē",
+          "a subsidy; an allowance"
+        ],
+        [
+          "贴近",
+          "tiē jìn",
+          "to press close to"
+        ]
+      ]
+    },
+    "hsk30l5/通常": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
+      "exEn": [
+        [
+          "孩子通常没有耐心",
+          "Children usually lack patience."
+        ]
+      ]
+    },
+    "hsk30l5/同": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "同意",
+          "tóng yì",
+          "to agree; to consent"
+        ],
+        [
+          "相同",
+          "xiāng tóng",
+          "identical; the same"
+        ],
+        [
+          "同时",
+          "tóng shí",
+          "at the same time; simultaneously"
+        ],
+        [
+          "共同",
+          "gòng tóng",
+          "common; joint; together"
+        ]
+      ]
+    },
+    "hsk30l5/投": {
+      "why": "One `uc-sense` div carrying several senses under a part of speech naming several categories, with the card's own examples spread across them. Split into the senses the examples actually show, each example tagged with the one it illustrates. | Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "verb",
+          "to cast (a ballot); to vote"
+        ],
+        [
+          "verb",
+          "to throw; to cast; to put in"
+        ]
+      ],
+      "dropEx": [
+        "没有人投反对票"
+      ],
+      "ex": [
+        [
+          "他把硬币投进了箱子。",
+          "He put the coin into the box."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "投票",
+          "tóu piào",
+          "to vote; to cast a vote"
+        ],
+        [
+          "投入",
+          "tóu rù",
+          "to put into; to throw oneself into"
+        ],
+        [
+          "投资",
+          "tóu zī",
+          "to invest; investment"
+        ],
+        [
+          "投降",
+          "tóu xiáng",
+          "to surrender"
+        ]
+      ]
+    },
+    "hsk30l5/兔子": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
+      "dropEx": [
+        "我喜欢兔子"
+      ],
+      "ex": [
+        [
+          "兔子在草地上跑得很快。",
+          "The rabbit runs fast on the grass."
+        ]
+      ]
+    },
+    "hsk30l5/团": {
+      "why": "The example carried a CHARACTER ERROR — a wrong character that happens to exist, so the sentence segments, speaks and translates without complaint and nothing in the pipeline can see it. Dropped, with an authored replacement. | The example was off the card altogether — a machine-translated fragment, an advertisement, or a passage lifted out of the middle of a news story — and taught nothing about the headword. Dropped, with an authored replacement. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "团子",
+        "团对"
+      ],
+      "ex": [
+        [
+          "他把纸揉成一团。",
+          "He rolled the paper into a ball."
+        ],
+        [
+          "全家团在一起过年。",
+          "The whole family gathered together for the New Year."
+        ]
+      ],
+      "compounds": [
+        [
+          "团结",
+          "tuán jié",
+          "to unite; unity"
+        ],
+        [
+          "团队",
+          "tuán duì",
+          "a team"
+        ],
+        [
+          "集团",
+          "jí tuán",
+          "a group; a conglomerate"
+        ],
+        [
+          "社团",
+          "shè tuán",
+          "an association; a society"
         ]
       ]
     }

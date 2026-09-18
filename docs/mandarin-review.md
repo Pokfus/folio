@@ -638,6 +638,16 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 781–810 (闹钟 → 碰), deck order | 17 | **a gloss belonging to a reading the card does not teach, and a card all three of whose sentences were loanwords** |
 | 2026-09-18 | `check-polyreading.js` — a NEW checker and its whole finding list, across four decks | 9 | **eight cards glossed from a reading they do not teach, and a polyphone's dictionary entry is what hid every one** |
 | 2026-09-18 | `hsk30l5` notes 811–840 (碰见 → 奇迹), deck order | 17 | **three cards whose only occurrence of the headword was inside a PHONETIC TRANSLITERATION — pizza, aspirin and a pint** |
+| 2026-09-18 | `hsk30l5` notes 841–870 (其余 → 亲自), deck order | 12 | a gloss that was simply the wrong word — **强大 defined as “large”**, where the dictionary and all three of its own sentences say *formidable, powerful* |
+| 2026-09-18 | `hsk30l5` notes 871–900 (勤奋 → 热量), deck order | 13 | **青, whose three sentences were 刺青, 青光眼 and 青菜 — not one of them the character on its own**, and a card teaching calories under the gloss “heat” |
+| 2026-09-18 | `hsk30l5` notes 901–930 (热烈 → 沙漠), deck order | 11 | **人工 with TWO of its three sentences straddling a word boundary — 人|工作 both times** |
+| 2026-09-18 | `hsk30l5` notes 931–960 (沙子 → 社区), deck order | 10 | **扇 — a card whose pinyin named one reading while every sentence on it used the other** |
+| 2026-09-18 | `hsk30l5` notes 961–990 (社区 → 失恋), deck order | 8 | **升, whose three sentences were sunrise, sunrise and a litre — the “to promote” its gloss leads with was nowhere on the card** |
+| 2026-09-18 | `hsk30l5` notes 991–1020 (失眠 → 事实), deck order | 5 | **使得 glossed “usable”** — CC-CEDICT's leading sense, and not the sense any of its three sentences uses |
+| 2026-09-18 | `hsk30l5` notes 1021–1050 (视为 → 束), deck order | 5 | **束, all three of whose sentences were 束腹, 管束 and 装束** — neither the measure word nor the verb the card is for |
+| 2026-09-18 | `hsk30l5` notes 1051–1080 (数据 → 缩短), deck order | 10 | three more straddles in one range — 水|分子, 四|周 as *four weeks*, and a **bare imperative fragment standing as a sentence** |
+| 2026-09-18 | `hsk30l5` notes 1081–1110 (缩小 → 填), deck order | 10 | **他人, 特有 and 天上 all three straddling** — 他|人很好, 特|有劲 and 每天|上教堂 |
+| 2026-09-18 | `hsk30l5` notes 1111–1140 (甜品 → 推动), deck order | 8 | **a CHARACTER ERROR that put the headword there at all — 挑 written for 跳, “this dog jumped”**, and 团对 for 团队 on the same batch |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -9484,3 +9494,342 @@ and is recorded here for the batch that reaches it. pinyin clean; example-fit 0 
 `check-polyreading.js` 0; `check-say-reading.js` names nothing in the range; coarse 0 on all six lists;
 british 0; `build-lang-decks.js` re-run. **No changelog line and no version bump** — a community deck
 is not a change to Folio, and nothing in the app changed.
+
+## Batch 103 — `hsk30l5` notes 841–870 (其余 → 亲自)
+
+**Twelve of thirty changed; eighteen read and left.**
+
+**The leading finding is a gloss that is simply the wrong word.** 强大 was defined `adjective | large`,
+and it is not: CC-CEDICT gives *big and strong; formidable; powerful*, and all three of the card's own
+sentences say so — 这使我们更强大 (*makes us stronger*), 强大的对手 (*a tough competitor*), 强大的措施
+(*strong measures*). Nothing in the pipeline can see this. The gloss is well-formed English, the
+sentences are real and their English is right, `check-gloss-source.js` reports it under the
+overlap rule along with a hundred legitimate paraphrases, and a reader simply learns the wrong word.
+It is the same shape as 炒作 glossed *Nest* in the batch that built that checker, one degree less
+obvious.
+
+**欠 led its gloss with a sense none of its sentences shows.** The card read `yawn; owe; be behind
+with` over three sentences that are all *to owe*. The dictionary's own order is *to owe / to lack /
+(bound form) yawn*, and the bound form is exactly that — 欠 only means a yawn inside 哈欠 — so the
+gloss now reads *to owe; to lack; (bound form) to yawn*. The card keeps the sense; it stops leading
+with it.
+
+**亲 was worse than it looked and cost two sentences rather than one.** The card was glossed
+`verb / adjective | parent, relative, intimate, close` while its second sentence, 他说永远都不亲她, is
+*to kiss* — a sense the gloss does not carry at all. Splitting it into the two senses the sentences
+show then exposed the other two: 你父母亲在家吗 bolds 亲 inside **父母亲**, and 她想亲力亲为 is a
+four-character idiom in which 亲 means *personally*, a third sense again. Both were dropped for
+authored sentences using the character as the card teaches it — 我们两家关系很亲 and 孩子跟妈妈最亲 —
+and the kiss sentence is tagged sense 2.
+
+**Two more swallowed headwords and two bare sentence ends.** 签's 将此网站存入书签 is 书签, a bookmark;
+悄悄's 房间里静悄悄的 is 静悄悄, a different word. Both replaced. 其余's 你留在这儿，其余的人去外面,
+亲爱's 我亲爱的妈妈 and 亲切's 美国人是亲切的人 all ended with no terminal punctuation and took an
+`exStop`, which appends a full stop to the visible text and to `data-say` together and touches nothing
+else.
+
+**And two English translations said nothing about the word.** 抢 is *to snatch, to rob*, and its first
+sentence read 我的钱包被抢了 → *My purse was **stolen***, which is 偷; its third read 这名男子抢走了她的包包
+→ *The man **robbed** her bag*, which is not English — you rob a person, not a bag. Both now say
+*snatched*. Only the English was rewritten; the Chinese is the deck's own.
+
+**Seven `Compounds` panels** — 签, 浅, 欠, 墙, 抢, 切, 亲 — every reading and gloss checked against
+CC-CEDICT before it was written. 切's obvious fourth row, 切开, is not in the dictionary at all and was
+replaced by 密切.
+
+## Batch 104 — `hsk30l5` notes 871–900 (勤奋 → 热量)
+
+**Thirteen of thirty changed; seventeen read and left.**
+
+**青 had no sentence on it at all.** Its three examples were 刺青 (a tattoo), 青光眼 (glaucoma) and
+青菜 (green vegetables) — three different words, each swallowing the character whole, on a card whose
+whole job is that character and whose gloss is *blue or green*. This is the class
+`check-example-fit.js` is blind to by design: it skips single-character headwords outright, since one
+character cannot straddle anything. It is found by reading the card, and the tell here was the same one
+batch 29 recorded — **the card's own English lines**: a card glossed *blue or green* whose three
+translations say *tattoos*, *glaucoma* and *vegetables*. All three replaced.
+
+**热量 taught calories under the gloss "heat".** Its three sentences are 热量很高 / 消耗热量 / 热量低,
+every one of them a calorie count; the gloss said `noun | heat`. CC-CEDICT gives *heat / quantity of
+heat / calorific value*, so the gloss now reads *heat; calorie content (of food)* — the general sense
+kept, the card's own sense named.
+
+**A character error, an advertisement and a pronoun that did not match its English.** 全体's third
+sentence read 在全体职员回家后，**火事**爆发了 — 火事 is Japanese; Chinese writes 火灾 — and the
+sentence segments, speaks and translates perfectly, which is why nothing reported it. 全新's third was
+*收录蕾哈娜及更多艺人全新歌曲 / Featuring new music by Rihanna and more*, a piece of advertising copy
+naming a celebrity. And 劝's second read 她劝我别相信她的话 against an English beginning ***He** advised
+me* — the Chinese says 她. Only the English was rewritten there.
+
+**Three swallowed headwords and a news extract.** 群's 他太不合群 is 合群; 绕's 你最喜欢哪一个绕口令 is
+绕口令, which is now a `Compounds` row instead; 情景's 咖啡师们该创造一个情景喜剧 is 情景喜剧 *and* its
+English (*Baristas need to make a sitcom*) teaches nothing. 群体's first sentence was a 43-character
+clause lifted out of the middle of a news story, subordinate clause and dash and all.
+
+**穷 and 情绪 lost an English that said nothing.** 他们都不穷 was *All of them are not poor*, which in
+English means the opposite of what the Chinese says; it now reads *None of them is poor*.
+你应该学习控制自己的情绪 was *You should learn to restrain yourself* — a good translation that never
+mentions emotion, which is the one thing the card is teaching.
+
+**请教** carried a near-repeat: 你最好请教你的医生 and 您最好请教一下医生 are one sentence in two frames.
+
+**Four `Compounds` panels** — 青, 穷, 权, 劝, 群, 绕 (six).
+
+## Batch 105 — `hsk30l5` notes 901–930 (热烈 → 沙漠)
+
+**Eleven of thirty changed; nineteen read and left.**
+
+**人工 straddled twice on one card**, which is the first time this audit has seen that. Its second
+sentence is 我能跟任何**人工**作 and its third 这个地区的**人工**作很勤奋 — both are 人 + 工作, the
+first character ending one word and the second opening the next, so the card bolded two characters that
+never formed the word at all. `check-example-fit.js` asks only whether a headword is swallowed by a
+LONGER word and is blind to this direction; the harvest's own guard is the same test, so a sentence
+spanning two shorter words walks straight through it. Two authored replacements, 这个湖是人工挖出来的
+and 这部分还是靠人工完成.
+
+**认 had one sentence that is not Chinese and one that swallows the word.** 我认我会留下 (*I think I'll
+stay*) is not a construction 认 takes on its own; 你是认真的吗 is 认真. Replaced with 我认得出他的字 and
+他不认这笔账.
+
+**软's first sentence was 他是个软蛋** — literally *soft egg*, an opaque and mildly insulting word for
+a coward, on a card whose gloss is simply *soft* and whose English says *He's a coward*. It teaches
+nothing about 软 and it is the kind of sentence a learner repeats without knowing what they have said.
+Replaced with 这张床太软了.
+
+**赛场 was glossed "racetrack"** while all three of its sentences are about a sports ground —
+赛场上气氛紧张, 赛场上很安静, 他第一次走进赛场, whose own English says *ground* and *field*.
+CC-CEDICT's entry is *racetrack / field (for athletics competition)*, the leading sense again, and the
+card had taken the head of the entry rather than the sense it teaches. Now *the ground; the arena; the
+field of play*.
+
+**Two more English translations that said nothing.** 人才's 逆境出人才 was rendered by the proverb
+*Adversity makes a man wise, not rich*, which is a real English saying about something else and never
+mentions talent; it now reads *Hard times bring talent out*. 如同's 胃里如同千军万马开过 was given
+*An army marches on its stomach* — again a real proverb, again about something else entirely; the
+Chinese says *my stomach felt as though an army had marched through it*.
+
+**热心 carried a near-repeat** (both sentences *pretends to be enthusiastic*), and the duplicate is
+also the third sentence of the 情感 card, so it went.
+
+**Six `Compounds` panels** — 忍, 认, 如, 软, 弱, 洒. 洒's fourth candidate, 泼洒, is not in CC-CEDICT
+and was replaced by 洒脱.
+
+## Batch 106 — `hsk30l5` notes 931–960 (沙子 → 社区)
+
+**Ten of thirty changed; twenty read and left.**
+
+**扇 is the batch's finding and it is two faults at once.** The card was glossed `verb | to fan; to
+slap (someone's face)` with its pinyin as `shān` — and two of its three sentences are 这**扇**门 and
+六**扇**窗, which are the measure word for doors and windows and are read `shàn`. So the card named a
+reading its own examples do not use, and gave no gloss at all for the sense they do. The third
+sentence, 我想买风扇, is 风扇 and swallows the character besides. `check-pinyin.js` cannot see it — it
+compares a card's pinyin against its own bopomofo for syllable BOUNDARIES, and both said `shān`
+together. `check-say-reading.js` cannot see it either: that asks what a speech engine will guess from
+the corpus's own distribution, and the corpus is right about the character. It is found by reading the
+sentences against the reading. The card now carries both readings in pinyin and bopomofo, two senses,
+an authored `shān` sentence (她拿着报纸扇了扇), and its examples tagged 2, 2, 1.
+
+**赏 had a near-repeat and a swallow together.** 在中秋节…赏月 and 在江户时代赏月的宴会 are both
+moon-viewing; 黑帮悬赏捉拿汤姆 is 悬赏. Two authored replacements for the two senses the gloss names —
+老板赏了他一千块 (*to reward*) and 这幅画很值得一赏 (*to appreciate*).
+
+**烧's second sentence translated 烧酒 as "sake".** 我爸爸不喝多少烧酒 — 烧酒 is Chinese grain spirit,
+not Japanese rice wine, and the word swallows the headword besides. Replaced with 房子烧了一整夜.
+
+**Three sentences that were off the card altogether.** 傻's 你是不是吸毒吸傻了 is a drug reference whose
+English (*Do you have a drug problem?*) does not translate it and which taught nothing about *silly*.
+伤害's 这个怪物只吃魔法伤害 is video-game jargon and is not idiomatic Chinese besides — 受伤害, not
+吃伤害. 设立's first sentence was a three-sentence paragraph about a bus stop outside a Cologne nursing
+home; it is a good joke and it is not an example sentence.
+
+**Five `Compounds` panels** — 傻, 晒, 删, 扇, 伤, 赏, 烧, 蛇 (eight). 烧's obvious 烧饭 is not in
+CC-CEDICT; 烧水 is, and took its place.
+
+## Batch 107 — `hsk30l5` notes 961–990 (社区 → 失恋)
+
+**Eight of thirty changed; twenty-two read and left.**
+
+**升's three sentences were sunrise, a litre and sunrise again.** 太阳升起来了 and 太阳总是从东方升起
+are the same sentence in a frame — a near-repeat the coverage checker cannot see — and between them
+they left the card's gloss leading with *to promote*, a sense no sentence on the card illustrated.
+Replaced with 他去年升了经理.
+
+**And that exposed the card's part-of-speech label.** The gloss read `verb | litre; to promote; to
+rise` — *litre* is not a verb, and 升 is a measure word in that sense. The card now carries three
+senses, each with its own label, and its examples are tagged 1, 3, 2. This is the same class as 拼音
+labelled a verb in batch 102: the label is one the decks use everywhere and the gloss is well-formed,
+so it is read off the card's own line and nothing else can see it.
+
+**摄影's third sentence carried the coarse word and swallowed the headword together.**
+每个有照相机的傻瓜都觉得自己是**摄影家** — 摄影家 is a photographer, a different word, and the English
+read *Every dumbass with a camera*. The coarse checker's `slur` list would have named it; the swallow
+would not have been named by anything.
+
+**深刻's first English was not English.** 您使我印象深刻 was *You have left a heavy impression on me* —
+a calque of 印象深刻 word for word. It now reads *You made a deep impression on me*.
+
+**神秘 carried a near-repeat** so close that the two English lines differ by two words: *This place has
+a mysterious atmosphere* and *This place has a mysterious atmosphere to it*. The coverage checker
+compares sentences exactly, so it sees nothing.
+
+**Four `Compounds` panels** — 伸, 胜, 诗, 湿.
+
+## Batch 108 — `hsk30l5` notes 991–1020 (失眠 → 事实)
+
+**Five of thirty changed; twenty-five read and left.** A quiet range, and the five are worth having.
+
+**使得 was glossed "usable".** That is CC-CEDICT's leading sense (*usable; serviceable / feasible;
+workable / to make; to cause; to bring about*), and it is not this card's: all three sentences are
+暴风雪使得我们难以返回营地, 这使得他上学迟到了 and 大雨使得比赛推迟了 — every one of them *to cause*.
+This is batch 31's finding exactly — **the dictionary's first sense is not automatically this card's**
+— and a gloss taken off the top of an entry reads perfectly either way.
+
+**Two straddles and a swallow, all three invisible to every checker.** 时差's first sentence is
+他过马路**时差**点被车撞 — 时 + 差点, *while crossing the road he nearly*, which has nothing to do with
+a time difference. 时常's third is 我还是个小男孩**时常**去池塘游泳 — 时 + 常去. 时刻's second is
+地震**时时刻刻**都有可能发生, which is 时时刻刻, a four-character adverb. All three sentences are real,
+grammatical, correctly translated Chinese; what is wrong is that the word the card teaches is not in
+any of them.
+
+**One `Compounds` panel** — 式.
+
+## Batch 109 — `hsk30l5` notes 1021–1050 (视为 → 束)
+
+**Five of thirty changed; twenty-five read and left.**
+
+**束 is the batch's finding and it is the 青 shape again.** All three of its sentences were 束腹 (a
+corset), 管束 (to control) and 装束 (dress, attire) — three different words, none of them the measure
+word the card's gloss names and none of them the verb. The character is a measure word for bunches,
+bundles and beams of light, and for tying things up, and the card showed neither. Three authored
+sentences replace all three, tagged to two senses the gloss now splits: 他送了她一束花,
+一束阳光照进了房间 and 请把这些报纸束起来.
+
+**鼠标's first sentence was not Chinese.** 这个鼠标突然**毛病**了 — 毛病 is a noun and takes 出; the
+English (*Suddenly, this mouse stopped working*) reads perfectly, which is why nothing downstream could
+see it. Replaced with 这个鼠标突然不动了, which says what the English says.
+
+**Two near-repeats.** 视为's 他被视为村里最好的医生 and 他们把他视为城里最好的医生 — the same sentence
+with the village changed to a town. 试验's 这次核试验成功了 and 这个国家成功进行了一次核试验 — the same
+nuclear test twice.
+
+**One `Compounds` panel** — 守, plus 束's.
+
+## Batch 110 — `hsk30l5` notes 1051–1080 (数据 → 缩短)
+
+**Ten of thirty changed; twenty read and left.**
+
+**Two more straddles, and the second one is the one to remember.** 水分's second sentence is
+一个**水分**子是由两个氢原子…— 水 + 分子, a water MOLECULE, on a card whose gloss is *moisture content*.
+四周's third is 你在三或**四周**内就会习惯 — 四 + 周, **four weeks**, on a card meaning *all around*.
+Both sentences are perfectly good Chinese about something else, and both bold two characters that never
+formed the word.
+
+**摔's first "sentence" was a bare imperative fragment.** 摔坏别人的手机 / *Smash someone else's phone*
+— a verb phrase with no subject and no context, which is not a sentence and teaches nothing about how
+the word is used. Replaced with 他在雪地上摔了一跤.
+
+**碎's second was 他叫了一盘杂碎** — 杂碎 is chop suey, a compound that swallows the headword, and a
+dish most learners will never meet; the English is *He ordered a chop suey*.
+
+**顺 and 搜 each carried a near-repeat.** 顺's two 顺道 sentences (*by the way* and *dropped in at*),
+and 搜's two 搜身 sentences (*frisk searches* and *a pat-down*) — which between them meant 搜 appeared
+in only one word on the whole card.
+
+**酸甜苦辣's first two English lines were IDENTICAL**: *He has tasted all the ups and downs of life*,
+twice, over two different Chinese sentences. The coverage checker reports repeated SENTENCES and
+`check-senses.js` reports a repeated English; this pair is two distinct Chinese sentences sharing an
+English, so the second was rewritten rather than dropped — the Chinese is a real second construction
+worth having.
+
+**四处's third English was not English.** 四处都在下雨 → *The rain is raining all around*.
+
+**Six `Compounds` panels** — 摔, 税, 顺, 搜, 随, 碎.
+
+## Batch 111 — `hsk30l5` notes 1081–1110 (缩小 → 填)
+
+**Ten of thirty changed; twenty read and left.**
+
+**Three straddles in one range of thirty**, which is the highest this audit has seen. 他人's second is
+**他人**很好，和你一样 — 他 + 人很好, *he is very kind*, and the English says so. 特有's second is
+去上海新建的绿地玩也**特有**劲 — 特 + 有劲, *really fun*. 天上's third is 我每**天上**教堂 — 每天 +
+上教堂, *I go to church every day*. Each renders, segments, speaks and translates perfectly; in each
+the word the card teaches is simply not in the sentence.
+
+**所's third sentence is 所有的电话都不通** — 所有 is a determiner meaning *all*, a completely different
+function word from the measure word and the noun this card is for. Replaced with 这所房子是新盖的.
+
+**提升's first sentence is not Chinese at all**: 创新创新本身就提升了创新 — *creating creativity itself
+is improving creativity* — with 创新 doubled at the head and a meaning that does not survive being read
+twice. Replaced with 这次训练提升了他的水平.
+
+**天上 was also glossed "celestial"**, an adjective, on a card labelled `noun`, against three sentences
+that all say *in the sky*. `check-gloss-source.js` named it and the dictionary agrees: *the sky; the
+heavens*. This is the third shape batch 31 recorded — **the label and the gloss are different parts of
+speech** — and it is read off the card's own line and nothing else.
+
+**Five `Compounds` panels** — 所, 锁, 桃, 套, 替, 填 (six).
+
+## Batch 112 — `hsk30l5` notes 1111–1140 (甜品 → 推动)
+
+**Eight of thirty changed; twenty-two read and left.**
+
+**挑's first sentence was a CHARACTER ERROR that put the headword there at all.** 这只狗**挑**了 /
+*This dog jumped* — the character wanted is 跳, and 挑 is on that card only because somebody typed the
+wrong one. This is the class batch 30 found on 炮 and 破: nothing in the pipeline can see it, because
+挑 is a real character, the sentence segments and speaks, and the English is a correct translation of
+what was meant. The card's other two sentences were both 挑…的毛病 (*to find fault*), a near-repeat,
+which between them left the card with one real sentence out of three; two authored replacements cover
+the two readings the card teaches.
+
+**团 carried the same fault one word over.** 我想加入你们的**团对** — a typo for 团队, which is the
+neighbouring card (1139) and whose own first sentence is the corrected form of the same sentence. Its
+first example, 你有团子吗 / *Do you have some dango?*, is a Japanese confection written in Chinese
+characters and teaches nothing about 团. Both replaced.
+
+**挑选's third sentence was machine-translated.** 这将会是巨大的，如果你可以挑选一些面包，然后再回家 —
+a word-for-word rendering of *It'd be great if you could pick up some bread before you come home*, with
+*great* read as *巨大* and the clause order left in English. Replaced with 回家前请挑选一些面包.
+
+**投's gloss named the wrong sense and its three sentences were one sense three times.** The card read
+`verb | to throw, cast, or fling` over 我投肯一票, 您已经投了票了吗 and 没有人投反对票 — every one of
+them voting, which the gloss never mentions. The gloss now leads with *to cast (a ballot); to vote*,
+the throwing sense is a second sense, and 他把硬币投进了箱子 was authored for it. A three-way near-repeat
+and a sense gap on one card.
+
+**通常's first English said "sometimes".** 孩子通常没有耐心 / *Children **sometimes** lack patience* —
+on a card whose whole content is that 通常 means *usually*. The card's other two sentences both say
+*usually*, so the reader met the word defined one way and translated another.
+
+**兔子's first two sentences were a near-repeat with the animal changed**: 我喜欢兔子 / *I like hares*
+and 你喜欢兔子吗 / *Do you like rabbits?* — the same word in the Chinese, two different animals in the
+English.
+
+**Five `Compounds` panels** — 挑, 贴, 同, 投, 团. 挑's obvious fourth row, 挑水, is not in CC-CEDICT and
+was replaced by 挑拨.
+
+## Checks after batches 103–112
+
+`mandarin-fix.js --check` clean — every deck carries its fixes, and no `dropEx`, `exEn` or `exStop` row
+matched nothing. Coverage: **11,532 notes at three sentences across all nine decks, 0 showing the same
+sentence twice**, so no `ex` array was overwritten by the ten batches sharing one writer. Shared-gloss
+groups **320** and still-ambiguous **1**, both unchanged, so none of the seven gloss rewrites made a new
+reverse-card collision. `check-pinyin.js` clean over 11,459 readings. `check-example-fit.js` on Level 5
+reports 25 findings, none of them in 841–1140. `check-polyreading.js` 0. `check-coarse.js` names nothing
+on Level 5 on any of its six lists — the 傻 and 摄影 repairs cleared the two it had. `check-british.js`
+0. `check-senses.js` names no duplicate English inside the range. `build-lang-decks.js` re-run, so the
+catalogue's revision moves and every reader who already holds the deck is offered the update.
+
+**Verified against the real diff**: 92 of the 300 notes in 841–1140 changed and **nothing outside the
+range moved** — 12, 13, 11, 10, 8, 5, 5, 10, 10, 8 per batch, summing to 92.
+
+**Read and left, with the question recorded.** `check-gloss-source.js` reports ten cards in the range
+and eight are the proxy paraphrasing: 汽油 *petrol* against the dictionary's *gasoline* (the decks are
+authored British and the card is right), 轻易, 傻, 诗, 手套, 手续, 书架, 税 and 随后 all one sense
+written two ways. The ninth was 天上 and was fixed. **`挑` keeps a `Say` of 挑选, which pins `tiāo`
+while its new third sentence teaches `tiǎo`** — the card's other two sentences are both `tiāo`, so the
+override is right for the majority and the minority reading is named in the senses; it is recorded here
+rather than changed. **And one fault was found outside the range and left there**: `hsk30l5/装修` is
+glossed *to decroate*, a plain typo, which belongs to the batch that reaches it.
+
+**No changelog line and no version bump** — a community deck is not a change to Folio, and nothing in
+the app changed.
