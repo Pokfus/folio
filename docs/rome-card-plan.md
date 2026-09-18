@@ -1016,6 +1016,83 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-471`–`rm-480`: Titus to Pliny the Elder — what this batch found
+
+All ten are in `rm-flavians`, and the batch carries the collection from the accession of Titus in June 79
+to the man who died watching the mountain that ends it.
+
+**TWO LINES WERE RETITLED, BOTH BY `ww2-133`'s RULE.** `rm-476` was *The inaugural games of the Colosseum*,
+which is an event rather than a term, and every term the games might have taught is already spoken for two
+hundred cards later — `rm-871 Munus`, `rm-873 Venatio`, `rm-875 Naumachia`. What the hundred days actually
+left behind is a BOOK, so the line is **`Liber Spectaculorum`**, Martial's epigrams on the amphitheatre;
+the card's ten sentences are still the games. `rm-477` was *Eruption of Mount Vesuvius in 79*, and the
+eruption's own name is a date rather than a word a reader meets again: it is **`Plinian eruption`**, the
+class of eruption the letters founded the study of, with 79 CE as its type example. **GREP THE WHOLE
+RUNNING ORDER FOR A CANDIDATE TERM BEFORE RETITLING**, which is the lesson the `rm-746` collision left in
+the note below, and which is what found the three spectacle lines here.
+
+**`Colosseum` AND `Pompeii` WERE ALREADY CITED GLOSSARY TERMS, AND THAT IS THE PAIRING RULE WORKING RATHER
+THAN A GAP.** A term is deck-agnostic by house rule, so `rm-475` and `rm-478` reuse what the glossary
+already holds and the batch ships EIGHT new terms rather than ten. Neither line was retitled for it: the
+Colosseum and Pompeii have to be carded under their own names in a Rome collection, and `ww2-133`'s rule
+asks for the moment instead of the man only where the line has no term of its own left to teach.
+
+**`Titus` CLAIMS THE BARE WORD AND PAYS FOR SEVEN WRONG LINKS, WHICH IS THE `Cell_(biology)` TRADE AND IS
+RECORDED HERE RATHER THAN DISCOVERED LATER.** Measured over the corpus, "Titus" occurs 50 times; the longer
+surfaces `Titus Tatius`, `Titus Flavius Sabinus`, `Titus Quinctius Flamininus`, `Titus Livius` and
+`Titus Annius Milo` are all glossary terms already and win, being sorted longest-first. What is left is
+**seven occurrences on six cards** — `rm-097` and `rm-099` (Titus Herminius), `rm-099` (Titus Aebutius),
+`rm-109` (Titus Lartius), `rm-367` (Titus Ampius), `rm-453` and `rm-457` (Titus Vinius) — where the
+praenomen now links to the emperor. None of those five men has a term of its own, so the three usual fixes
+all come to nothing; the ratio is 34 bare uses right against 7 wrong and it improves with every Flavian
+card written. **A praenomen is an ordinary English word one language over: ask the corpus before keying
+one.**
+
+**THE PICTURE PASS REJECTED FOUR CANDIDATES AND EACH IS A DIFFERENT FAULT.** The Athens head NAMA 348 is
+labelled Titus in German and "probably Caligula, reworked" in Italian on the same file page — a contested
+identification, which is the right-name-wrong-person trap with the evidence sitting in a language nobody
+reads first. `Arch of Titus Menorah 22.jpg` is a modern CAST at Beth Hatefutsoth rather than the arch. The
+1938 aerial of Masada is **printed left to right reversed**, which its own file page says and which nothing
+in the image would tell you. And the Thevet engraving captioned "Pline Second" is Pliny the YOUNGER, as its
+own text says. **Read the file page, not only the file name**; two of the four were only visible there.
+
+**A PICTURE UNDER 900 PIXELS PASSES EVERY CHECK AND IS STILL TOO SMALL.** `Ausbruch des Pinatubo 1991.jpg`
+is 665 by 790, and `thumb.php?width=900` hands back the original at its own size, so the contact copy
+looked full-sized. **Ask the API for the dimensions, not the thumbnail for its bytes.** It was replaced,
+after installation, by the Mount St Helens column of 22 July 1980.
+
+**`add-images.js` REFUSES MARKUP IN A TEXT FIELD, INCLUDING `<i>`.** A caption naming the *Natural History*
+in italics was turned away; the picture's `desc` is plain text where a card's prose is not.
+
+**TWO CARDS SHIP WITH NO LOCATOR AND ONE WITH NO PICTURE.** `rm-473` *fiscus Iudaicus* is a tax and has
+nowhere a reader could stand, and nothing openable on Commons depicts it — there is no Nerva
+`FISCI IVDAICI CALVMNIA SVBLATA` coin there, which was checked twice under two search interfaces, and the
+Judaea Capta sestertius is about the conquest rather than the levy. `rm-476` *Liber Spectaculorum* is a
+book; the amphitheatre it is about is `rm-475`'s dot, and a second dot on the same pixel would be the
+duplicate `locatorSiblings` groups away.
+
+**WHERE THE SOURCES CAME FROM.** Suetonius' *Titus* and *Domitian* and Dio LXV, LXVI and LXVIII on
+LacusCurtius; Josephus *BJ* 7.5, 7.6, 7.8 and 7.9 on Perseus; Pliny the Younger's *Epistulae* 3.5, 6.16 and
+6.20 in the Latin on Perseus, because the Melmoth English is renumbered and cannot carry a book-and-letter
+reference; the Bostock and Riley *Natural History* for the dedication and for Campania; Platner and Ashby
+for the Amphitheatrum Flavium and the Arcus Titi; Dessau's *ILS* nos. 264 and 265 for the two arches'
+inscriptions; and Bohn's 1897 prose Martial, whose heading is **"Martial on the public shows of
+Domitian"** — the older attribution, which is itself the evidence that the book names no emperor.
+
+**FIVE MODERN WORKS CARRIED THE REST AND ALL FIVE ARE OPEN.** Krausz in *HiMA* 14 (2026) for the Masada
+siegeworks, which measures the wall, the camps and the ramp in weeks of labour rather than years; Petrone
+and others in *PLOS ONE* 13 (2018) for the Herculaneum waterfront victims and the surge temperatures;
+Alapont and others in *PLOS ONE* 18 (2023) for the Pompeii casts and asphyxia; Paone in IntechOpen's
+*Forecasting Volcanic Eruptions* (2020) for the eruption's phases and the autumn date; Fowler in
+*Manuscript and Text Cultures* 3 (2025) for the Villa dei Papiri. **Yarden's 1983 piece on the spoils
+relief is behind an Anubis proof-of-work wall at doi.org AND at `journal.fi` and was dropped**; Canciani
+and others, ISPRS Annals II-5/W1 (2013), carries the Circus Maximus arch instead and is open.
+
+**THE DPLA MANUSCRIPT PAGE IS THE ONE PICTURE WORTH KNOWING ABOUT.** Boston Public Library's Martial,
+written in Lombardy in 1453, opens at `Marci Valerii Martialis Epigrammaton liber primus` with *Barbara
+pyramidum sileant miracula Memphis* and the two poems after it — so the card on the *Liber Spectaculorum*
+is illustrated with the text it quotes rather than with the building.
+
 ## `rm-461`–`rm-470`: Cremona to the Second Temple — what this batch found
 
 All ten are in `rm-flavians`, and the batch carries the collection from the night battle outside Cremona
@@ -1223,8 +1300,8 @@ and author the whole time.
     rm-473  Fiscus Iudaicus
     rm-474  Arch of Titus
     rm-475  Colosseum
-    rm-476  The inaugural games of the Colosseum
-    rm-477  Eruption of Mount Vesuvius in 79
+    rm-476  Liber Spectaculorum
+    rm-477  Plinian eruption
     rm-478  Pompeii
     rm-479  Herculaneum
     rm-480  Pliny the Elder
