@@ -955,6 +955,92 @@ perfectly and is exactly what the mid-sentence rule exists to stop; `add-questio
 replaces a card's extras in place, so the repair is one batch rather than a rewrite. **Run
 `check-questions.js` after a batch even when every card was accepted.**
 
+### What carried this batch — `ru-071` to `ru-080`
+
+**Two lines were answered by something other than their own words, on rules this file already holds.**
+`ru-075` *The fragmentation of Rus'* is a PROCESS line, and `ww2-129`'s rule is that such a line wants
+the moment the process became visible rather than a paraphrase of it: the card is answered by
+**`Mstislav I of Kiev`**, whose death in 1132 is the conventional end of a Rus' held together from one
+seat, and **the running order above was retitled to match the card** rather than left to contradict it.
+`ru-078` *Novgorod's northern empire* is `ru-042`'s shape — a line naming a thing wants the thing it was
+about — and is answered by **`Yugra`**, the land on both flanks of the northern Urals that was the
+furthest place the republic drew tribute from.
+
+**AND `ru-073` HAS NO ENGLISH WIKIPEDIA ARTICLE AT ALL**, which decides its glossary key rather than its
+answer term: *Instruction of Vladimir Monomakh* and *Testament of Vladimir Monomakh* are both missing,
+and a Wikipedia search for the Pouchenie returns the article on the man. So the key is the slug form of
+the answer term, `Instruction_of_Vladimir_Monomakh`, which is `Sermon_on_Law_and_Grace`'s own
+arrangement one batch earlier. **Check whether a work has an article before assuming the key is a real
+slug.**
+
+**THE DATE-LINE READ-BACK EARNED ITS PLACE THIS BATCH AND CAUGHT THREE SORT YEARS.** The loudest was
+`ru-076` **Novgorod Republic**, which sorted at **862** — its first row read *Princely town |
+862 – 1136 CE*, Burov's own framing, and `cardYears` takes the minimum, so a card about a republic
+founded in 1136 filed itself two centuries before `ru-036 Kievan Rus'`. **A row stating a date about the
+PRECEDING state takes the card's sort year with it**, and the fix is in the DATE LINE rather than in the
+parser: 862 moved into the prose, where it already was. `ru-075` sorted at 1088 off an uncited *At
+Novgorod* row and `ru-077` carried an uncited 1478; both were cut back to what the sources say, which is
+1125 and 1136. All ten were then read back against `cardYears` and all ten are the intended year.
+
+**THE BARE ALIASES WERE MEASURED AND THREE OF FOUR WERE REFUSED.** `Monomakh` was claimed: all 21
+surfaces in the corpus are Vladimir Monomakh, read one at a time. `Mstislav` was **not**, although all
+seven present surfaces are his — Mstislav of Tmutarakan is already in the collection's own period and
+Mstislav Davidovich is in the Novgorod chronicle, so the alias would be right today and wrong within
+twenty cards; `Neville_Chamberlain`'s precedent. `Liubech` and `Suzdal` were refused for the other
+reason: both are the TOWN rather than the council or the principality, and `ru-057`'s locator is already
+Liubech.
+
+**A LOOP THAT GREPS A TOOL'S OUTPUT CAN HIDE A CRASH, AND THIS ONE DID.** The ten glossary terms were
+first added with a wrong path — `add-glossary.js` had been pointed at `b8/gout/` where the generator
+writes `b8/cards/gout/` — and every run died with an ENOENT stack trace that the loop's
+`grep -E "^(added|ERROR|…)"` swallowed whole. The output was ten term names and nothing else, which
+reads exactly like ten silent successes. **Check the DIFF, not the loop**: `git diff --stat glossary.js`
+showed nothing, which is what caught it.
+
+**`check-gloss-links.js` NO LONGER FINISHES OVER THE WHOLE CORPUS** — 3,903 terms and 13,237 surfaces,
+still running at twenty minutes — so run it `--card=<id>`, which answers in a second or two. Its one
+finding here is the proxy working as designed and is the RIGHT link: `ru-079` auto-links *Vyatichi* to
+the `Vyatichi` term, which is tagged `europe` against a card tagged `russia`.
+
+**A `region` LOCATOR'S `at` IS COMPUTED, NOT FETCHED**, there being no article to read a region's centre
+off, so the rule that a coordinate is never typed binds on the RING instead: both authored rings were
+checked by point-in-polygon against coordinates fetched from Wikipedia — Salekhard and Khanty-Mansiysk
+inside `Yugra`, Sarkel and Crimea inside `Desht-i Qipchaq`, and Kyiv, Moscow and Novgorod outside it.
+The Cuman ring deliberately overlaps `ru-020`'s Patzinakia, which is what displacing a people looks
+like; overlap is a fault in a WAR block and a fact in a locator.
+
+**AND `ru-073` CARRIES NO LOCATOR, WHICH IS A DECISION.** A book of precepts whose author says he wrote
+it sitting in his sledge has nowhere a reader could stand, so it takes `ru-063`'s and `ru-066`'s answer
+rather than `ru-038`'s — the Primary Chronicle gets Kyiv because it was compiled there, and this does
+not.
+
+**A GARBLED CROSSREF TITLE IS A BILINGUAL RECORD, NOT A WRONG DOI.** Osypenko's Cuman article is
+registered in English as *"Four reminiscences of ancient Rus' chronicles about first Rus' and Cumans
+contacts in the of the century"* — words simply missing — and DOAJ holds the same broken string, so
+**completing it would have been composing a title**. The citation gives the Ukrainian title the journal
+prints, under the English journal name Crossref registers; `check-citations.js` reports it as a title
+differing while the author matches and sends it to the eye, which is the documented right answer.
+
+**THE HOSTS THIS BATCH MEASURED.** OPEN and serving real text: `lsej.org.ua` (a PDF at the DOI itself),
+`nauka-dialog.ru`, `slavica-petropolitana.spbu.ru`, `journals.rudn.ru` (PDF by `viewFile`),
+`goldhorde.ru`, `slovene.ru` (four papers), `zenodo.org`, `vestnik-pses.kemsu.ru`,
+`periodicals.karazin.ua`, `history.jes.su`, `slavras.ru`, `scrisla.gpntbsib.ru`, `humanities.fa.ru`,
+`journals.ed.ac.uk`, `journals.rcsi.science`, `oriental-world.org.ua`, `qr.urfu.ru`, `journalec.com` and
+`historickycasopis.sk` again. SHUT or walled: `nbpublish.com` (a CAPTCHA page), `akjournals.com` (403),
+`brill.com` (403), `elibrary.ru` (403), `old-rus-imli.ru` (401), `degruyterbrill.com` (**202 with an
+empty body**, which is a wall wearing a success code), `digilib.phil.muni.cz` (a challenge page) and
+`journals.openedition.org` (404 at the DOI's own address). **And `russian-history.ru` resets the
+connection while `history.jes.su` and `slavras.ru`, the same academy's other journals, answer 200** —
+so a refusal from one Russian Academy host says nothing about its siblings.
+
+**THE CHECKERS' OWN COUNT, since `check-style.js` can now see the heavy halves.** This batch introduced
+**ten** findings and every one was repaired the same day: seven in `data-extra/ru.js`, one in `data.js`
+and two in `glossary-extra.js`, all of rule 1 and rule 2 — *eleventh century* for *11th*,
+*eighty-three journeys* for *83*. Four writers were needed, which is the split doing its work:
+`add-sources.js` for the abstracts and the two glossary descriptions, `fix-field.js` for the question,
+`add-card-links.js` for a why-question. `ru.js` is back to the ten findings it carried before, which are
+the 228 pre-existing ones and not this batch's.
+
 ---
 
 # The list
@@ -1040,7 +1126,7 @@ replaces a card's extras in place, so the repair is one batch rather than a rewr
     ru-072  Vladimir Monomakh
     ru-073  The Instruction of Vladimir Monomakh
     ru-074  The Cumans
-    ru-075  The fragmentation of Rus'
+    ru-075  Mstislav the Great and the fragmentation of Rus'
     ru-076  Novgorod Republic
     ru-077  The Novgorod veche
     ru-078  Novgorod's northern empire

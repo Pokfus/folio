@@ -449,7 +449,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
   the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
-  under "Generating cards & glossary entries". **`ru-001` to `ru-070` have shipped** (Sep 2026) — the
+  under "Generating cards & glossary entries". **`ru-001` to `ru-080` have shipped** (Sep 2026) — the
   Scythian and Sarmatian steppe, then the Goths, Huns, Avars, Bulgars, Khazars, Magyars and Pechenegs, then
   the Slavs, the Vyatichi, Slavic paganism, Perun, the Merya, the Balts, the Varangians and the Rus', and
   then the Normanist controversy, Staraya Ladoga, Gnyozdovo and the two trade routes, which **FINISHES
@@ -459,7 +459,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Khazaria, the Danube dominion, Vladimir, his pagan reform, the conversion, the Byzantine marriage, the
   Tithe Church, Boris and Gleb, Yaroslav, the Russkaya Pravda, Saint Sophia and the metropolitanate, and
   then the Caves monastery, Ilarion's sermon, Old East Slavic and Church Slavonic, the birch bark letters,
-  the druzhina, the towns, the slave trade, the coinage and the rota system — and
+  the druzhina, the towns, the slave trade, the coinage and the rota system, and then the council at
+  Liubech, Vladimir Monomakh, his Instruction, the Cumans, Mstislav the Great, the Novgorod Republic, the
+  veche, Yugra, Vladimir-Suzdal and Andrey Bogolyubsky — and
   the collection is live with its 27 empty decks
   coming-soon automatically, `isComingSoon` being true for a node holding no card. **Ten lines are now
   answered by something other than their own words, and the reasons are four rules**: `ru-017` is answered by the **Khazar
@@ -522,8 +524,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   ETHNONYM WITH A STRAIGHT APOSTROPHE** — `Rus'`, not `Rus’` — which is not a taste but a constraint: a
   card's bolded answer term has to match its own `answer` field exactly, and `Kievan_Rus'` already claims
   the CURLY `Rus’` as an alias, so a curly one in prose auto-links to the state rather than the people.
+  **THE FIFTH TEN RETITLE ONE LINE AND ADD A NEW SHAPE OF KEY.** `ru-075` *The fragmentation of Rus'* is a
+  PROCESS line, so `ww2-129`'s rule applies — it wants the MOMENT the process became visible — and it is
+  answered by **`Mstislav I of Kiev`**, whose death in 1132 ends a Rus' held from one seat, with the plan's
+  own line retitled to match; `ru-078` *Novgorod's northern empire* is answered by **`Yugra`**, the tribute
+  land the empire was about, which is `ru-042`'s shape. **AND `ru-073` HAS NO ENGLISH WIKIPEDIA ARTICLE AT
+  ALL**, so its key is the slug form of the answer term, `Instruction_of_Vladimir_Monomakh` —
+  `Sermon_on_Law_and_Grace`'s arrangement one batch on. **Ask whether a work HAS an article before
+  assuming the key is a real slug.**
+  **AND THE DATE-LINE READ-BACK ABOVE EARNED ITSELF AGAIN, ON A ROW THAT WAS NOT ABOUT THE CARD'S
+  SUBJECT.** `ru-076` **Novgorod Republic** sorted at **862**, off a first row reading *Princely town |
+  862 – 1136 CE* — a true fact about what the town was BEFORE the republic — so a card about a state
+  founded in 1136 filed itself two centuries ahead of `ru-036 Kievan Rus'`. **A DATE LINE ROW ABOUT THE
+  PRECEDING STATE TAKES THE CARD'S SORT YEAR WITH IT**, and the fix belongs in the date line, not the
+  parser: the figure moved into the prose, where it already was.
+  **A BARE ALIAS IS MEASURED AND USUALLY REFUSED.** `Monomakh` was claimed — all 21 surfaces in the corpus
+  are Vladimir Monomakh, read one at a time — while `Mstislav` was NOT, although all seven present
+  surfaces are his: Mstislav of Tmutarakan is already in this collection's period and Mstislav Davidovich
+  is in the Novgorod chronicle, so the alias would be right today and wrong within twenty cards
+  (`Neville_Chamberlain`'s precedent). `Liubech` and `Suzdal` are the TOWN rather than the council or the
+  principality and were refused for that.
+  **AND `check-gloss-links.js` NO LONGER FINISHES OVER THE WHOLE CORPUS** — 3,903 terms and 13,237
+  surfaces, still running at twenty minutes — so **run it `--card=<id>`**, which answers in a second.
   **📖 `docs/russia-card-plan.md` — READ BEFORE WRITING A
-  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-060`: the open sources
+  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-080`: the open sources
   that carry the collection and Léger's own pagination for the chronicle passages, the rule that a
   Russian-language journal is cited in Russian
   because that is the title Crossref holds, the `check-cards.js` rule 6 gap that no single Cyrillic row
@@ -6094,7 +6118,7 @@ lookup.
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
-| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 70 cards, contiguous — next is `ru-071` |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 80 cards, contiguous — next is `ru-081` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
