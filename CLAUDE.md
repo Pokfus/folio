@@ -415,7 +415,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     over-cited across the whole corpus. **The remaining concentration is a judgement rather than a
     violation, so MEASURE it rather than quoting a figure**: the audit's "237 citations, 8.7% of the
     collection's whole apparatus" was true of `gr-001`–`gr-500` and is now wrong twice over, the
-    collection having grown to 800 cards while sixty-odd of those citations were replaced —
+    collection having grown well past 800 cards while sixty-odd of those citations were replaced —
 
         node -e "global.window={};const{loadCards}=require('./.claude/card-io.js');const c=loadCards().cards.filter(x=>x.id.startsWith('gr-'));let t=0,d=0,n3=0;c.forEach(x=>{const s=x.sources||[];t+=s.length;const k=s.filter(y=>y.indexOf('aegean-prehistory')>=0).length;d+=k;if(k>2)n3++});console.log(d+' of '+t+' = '+(100*d/t).toFixed(1)+'%, '+n3+' cards over the rule')"
 
@@ -5965,7 +5965,7 @@ lookup.
 | collection | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 600 cards, contiguous — next is `wh-601` |
-| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 890 cards, contiguous — next is `gr-891` |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 900 cards, contiguous — next is `gr-901` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |

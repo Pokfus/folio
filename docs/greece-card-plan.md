@@ -1370,16 +1370,28 @@ the alias are the same string.
              the division of labour the two are meant to have. None of the other nine lines needed a
              retitle either, allowing for the article: "The Titans" is answered by *Titans* and "The
              Titanomachy" by *Titanomachy*
-    gr-891  Hera
+    gr-891  Hera  — **five of these ten needed no new glossary term**: `Hera`, `Poseidon`, `Athena`,
+             `Apollo` and `Artemis` have been cited terms since the citation pass, so the pairing rule
+             was already satisfied and `add-glossary.js` was deliberately not run on any of them. Check
+             the keys before reaching for that helper on an Olympian; it overwrites in silence
     gr-892  Poseidon
     gr-893  Demeter
-    gr-894  Hestia
-    gr-895  Hades
+    gr-894  Hestia  — **carries no locator, deliberately**. A locator names somewhere a reader could
+             stand, and the hearth is in every Greek house rather than in one place; the public hearth
+             of a particular city would be a claim the card does not make
+    gr-895  Hades  — **carries no locator either**, for the same reason one step further: the kingdom
+             he drew by lot is not a place with a coordinate, and the one site that advertises itself
+             as an entrance to it is disputed
     gr-896  Athena
     gr-897  Apollo
     gr-898  Artemis
-    gr-899  Ares
-    gr-900  Aphrodite
+    gr-899  Ares  — answered by *Ares*, and its apparatus is three Homeric passages of six sources,
+             which `check-cards.js` reports under the ancient-witness carve-out rather than as an
+             over-cited author: the god's whole literary character is Homer's, so the passages are the
+             evidence and not one scholar's repeated opinion
+    gr-900  Aphrodite  — the one card of the ten with a live disagreement to state: Pironti reads her
+             province as *mixis* and so as covering war, where Budin holds she was a war goddess at
+             Sparta and nowhere else before the Roman period, and the card gives both
     gr-901  Hephaestus
     gr-902  Hermes
     gr-903  Dionysus
