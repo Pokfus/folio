@@ -36885,17 +36885,102 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // inside a period. Everything else (a kind, a discipline, a practice) sits beside its neighbours rather
   // than inside them, so two of those in one puzzle stay distinguishable.
   const THREAD_FAMILY = {};
+  /* The list is every PLACE and every PERIOD tag a group can be seated on, not a sample of them — a tag
+     left out is a hole, and the holes were real (Sep 2026): `rome` nests inside `italy`, `athens` inside
+     `greece`, `iran` `iraq` `korea` inside `asia`, `mexico` inside `americas` inside `north america`,
+     `england` inside `britain`, and `archaic` `classical` and `20th century` are periods exactly as the
+     ages are. The seating's own overlap guard hides most of that most of the time — an Athens term
+     almost always carries `greece` too — which is precisely why it was never noticed, and "almost
+     always" is not the guarantee this rule exists to give. */
   ("greece,united states,south africa,africa,tanzania,kenya,ethiopia,france,spain,germany,china,india,japan," +
-   "italy,russia,egypt,europe,asia,north america,south america,oceania,middle east,britain,mediterranean,denmark")
+   "italy,russia,egypt,europe,asia,north america,south america,oceania,middle east,britain,mediterranean,denmark," +
+   "rome,athens,archaic greece,iran,iraq,korea,mexico,americas,england")
     .split(",").forEach((x) => { THREAD_FAMILY[x] = "where"; });
   ("bronze age,iron age,stone age,neolithic,paleolithic,mesolithic,holocene,pleistocene,classical antiquity," +
-   "middle ages,modern").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
+   "middle ages,modern,archaic,classical,20th century").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
   /* A tag with fewer clean terms than this makes the same row too often — it was 6 while the pool was the
      whole glossary, and came down to 5 when the pool became the well-known terms alone (Aug 2026). The
      number is a trade between two kinds of sameness and both were MEASURED over 730 days rather than
      argued about: at 6 only five tags are ever seatable, so every grid is four of the same five categories;
      at 4 the categories open up to ten but a tag with exactly four clean terms deals the identical four
      tiles every time it appears. At 5: seven categories, 726 of 730 grids distinct, none blank. */
+  /* ---------- A TERM MAY ONLY STAND FOR A GROUP IT WOULD BE FILED UNDER ----------
+     (Sep 2026, on request: "genealogy should not be in the 'asia' category, and 'water' should not be in
+     biology. Scan all possible minigame items for other unusual categorisations that a user would not
+     realistically confine the term to".)
+
+     `THREAD_BROAD` above throws out a TAG that is not a category. This is the other half of the same
+     argument one level down: a tag can be a perfectly good category and still be the wrong thing to file
+     a PARTICULAR term under. Genealogy is tagged `asia` because the card that teaches it is Korean, and
+     Water is tagged `biology` because the card that teaches it is in the Biology collection — both tags
+     are right about the CARD and neither is something a solver could confine the term to. A grid with
+     Water in the Biology four is not a hard puzzle, it is an unfair one.
+
+     THE FIRST RULE IS MECHANICAL, because the glossary's own convention makes it so: tag 1 is the KIND
+     and the rest are subject areas and specifics (see "Add a glossary term" in CLAUDE.md). So a term may
+     stand for a KIND group only where that kind is its OWN — the first two tags, since the convention
+     writes a broad kind and then a narrower one (`person, ruler`; `place, city`; `event, battle`).
+     MEASURED over the shipped pool, that keeps every legitimate member and drops exactly the
+     associative ones: Ramesses II out of Buildings (he is a ruler), Spartacus out of Practices (a
+     person), California out of States (a place — the pun this game could not otherwise see), Maya
+     civilisation and the Kingdom of Benin out of Cities, Genghis Khan and Timur out of States, Biology
+     and the Domesday Book out of Institutions, a cowrie shell out of Animals. The price is a handful of
+     real members filed under a broader kind — Stonehenge and Karnak leave Buildings — which is a group
+     of 24 losing two rather than a category losing its meaning.
+
+     THE SECOND RULE CANNOT BE MECHANICAL AND IS DECLARED, which is this repo's answer wherever a rule
+     needs reading rather than matching (`NOT_A_SCHOLAR`, `CROSSREF_WRONG`, `FINDIT_NAMES`). The obvious
+     pattern — the tag sits LAST in the term's list, as `asia` does on Genealogy and `biology` on Water —
+     was built and MEASURED and is wrong: by the same convention the last tag is usually the most
+     SPECIFIC and most correct one, so it drops Cicero from Rome, Babylon from Iraq (leaving none at
+     all), Persepolis from Iran and the scientific method from Research methods. There is no signal.
+     What is left is a judgement per term, made by reading the group, and recorded with its reason.
+
+     A TERM EXCLUDED HERE IS STILL IN THE POOL. It loses one group, not the grid: Water still answers for
+     Chemistry, Vikings for Europe, Attila for Warfare. */
+  const THREAD_KINDS = new Set([
+    "person", "ruler", "deity", "creature", "place", "mountain", "river", "city", "state", "dynasty",
+    "era", "event", "battle", "text", "festival", "food", "plant", "animal", "object", "concept",
+    "practice", "title", "institution", "school of thought", "symbol", "culture", "building", "people",
+    "hominin", "fossil", "industry", "artwork", "artefact",
+  ]);
+  const THREAD_NOT = {
+    asia: ["Genealogy",            // a universal practice; tagged asia for the Korean card that teaches it
+           "Shamanism"],           // practised in Siberia, the Americas and Africa alike
+    biology: ["Water", "Ice", "Molecule", "Chemical_bond", "Covalent_bond", "Ionic_bonding",
+              "Hydrogen_bond", "Electrolyte", "Solvent", "Specific_heat_capacity", "Thermodynamics",
+              "Activation_energy", "Microscope", "Electron_microscope", "Chromatography"],
+                                   // general chemistry and physics, tagged for the Biology collection
+    // (chemistry needs no row: the seating already keeps a term out of a second group it is tagged for,
+    //  so Water and Protein cannot be dealt under Biology and Chemistry in the same grid)
+    agriculture: ["Tiberius_Gracchus",   // a Roman politician, tagged for his land law
+                  "Zoonotic_disease"],   // a disease, not a crop
+    genetics: ["Anglo-Saxon_England", "Black_Death", "Vikings", "Huns", "Neolithic_Europe", "Horse",
+               "Ötzi"],            // tagged for the ancient-DNA evidence about them, not their subject
+    psychology: ["Charles_Darwin", "Immanuel_Kant"],   // a naturalist and a philosopher
+    philosophy: ["Eastern_Orthodox_Church"],           // a church
+    literature: ["Genealogy", "Latin", "Sanskrit", "Lesbos", "Vedic_period"],  // two languages, an island, a period
+    language: ["Koreans", "Ancient_Italy"],            // a people and a place
+    art: ["Nazi_book_burnings", "Scythians", "Olmecs", "Kingdom_of_Benin"],    // an event, two peoples, a state
+    china: ["Kanji"],              // the Japanese writing system, tagged for the characters' origin
+    germany: ["Bombing_of_Guernica"],                  // in Spain, by German aircraft
+    rome: ["Attila"],              // a Hun, tagged for invading it
+    religion: ["Goths", "Mongol_conquests", "Capitoline_geese"],
+    migration: ["Silk_Road", "Syracuse"],              // a trade route and a city
+    trade: ["Golden_Horde", "Mongol_Empire", "Mali_Empire", "Songhai_Empire"],  // states, tagged for their trade
+    law: ["Cato_the_Elder", "Gaius_Gracchus", "League_of_Nations"],
+    warfare: ["Comanche"],         // a people
+    africa: ["War_elephant"],      // Indian as much as Carthaginian
+    "20th century": ["Gold_standard"],                 // a 19th-century arrangement
+    "research methods": ["Francis_Galton"],            // a person
+    ideology: ["Adolf_Hitler", "Benito_Mussolini", "March_on_Rome"],  // two men and an event
+  };
+  // may this term stand FOR this group? — the two rules above, asked in one place
+  function threadFits(it, tag) {
+    if (THREAD_KINDS.has(tag) && it.tags.indexOf(tag) > 1) return false;
+    const no = THREAD_NOT[tag];
+    return !(no && no.indexOf(it.key) >= 0);
+  }
   const THREAD_GROUP_MIN = 5;
   const THREAD_TRIES = 40;       // reshuffles of the candidate order before the day is given up on (see below)
   const THREAD_TITLE_MAX = 24;   // a tile is a quarter of a phone's width — a longer name cannot be read on the grid
@@ -36946,7 +37031,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // The day's four groups, or null if the glossary cannot currently make one (which is what the placard is for).
   function dailyThreadPuzzle() {
     const pool = threadPool(), byTag = {};
-    for (const it of pool) for (const g of it.tags) (byTag[g] = byTag[g] || []).push(it);
+    /* …through `threadFits`, so a term only ever enters a group it would be FILED under — which is both
+       what makes a group seatable at all (a tag needs THREAD_GROUP_MIN members it can honestly claim)
+       and what decides the four tiles. Filtering here rather than at the pick is what keeps the two in
+       step: a tag left seatable on members it cannot use deals a group short. */
+    for (const it of pool) for (const g of it.tags) if (threadFits(it, g)) (byTag[g] = byTag[g] || []).push(it);
     const cand = Object.keys(byTag).filter((g) => !THREAD_BROAD.has(g) && byTag[g].length >= THREAD_GROUP_MIN);
     /* The seating is GREEDY and therefore order-dependent: a tag taken early can rule out the two that
        would have completed the grid, and the run simply ends three groups short. That was survivable while

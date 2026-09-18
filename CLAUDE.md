@@ -1281,8 +1281,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.39 MB and 49,556 lines is hard to find your way around, so this
-  lists its 190 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.4 MB and 49,645 lines is hard to find your way around, so this
+  lists its 191 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -5263,6 +5263,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`event` IS TOO BROAD TO BE A COMMON THREAD CATEGORY** — it is the site's kind tag for anything that
     HAPPENED and held 51 terms, which is not a group a solver can see. In `THREAD_BROAD` with the other
     sixteen.
+  · **…AND A GOOD CATEGORY CAN STILL BE THE WRONG PLACE TO FILE ONE TERM** (`THREAD_KINDS` / `THREAD_NOT` /
+    `threadFits`; Sep 2026, on request: "genealogy should not be in the 'asia' category, and 'water' should
+    not be in biology. Scan all possible minigame items for other unusual categorisations that a user would
+    not realistically confine the term to"). `THREAD_BROAD` throws out a TAG that is not a category; this is
+    the same argument one level down. Genealogy carries `asia` because the card that teaches it is Korean
+    and Water carries `biology` because its card is in the Biology collection — both tags are right about
+    the CARD, and neither is something a solver could confine the term to. **A grid with Water in the
+    Biology four is not a hard puzzle, it is an unfair one.**
+    **THE FIRST RULE IS MECHANICAL, because the glossary's own convention makes it so**: tag 1 is the KIND
+    and the rest are subject areas and specifics, so a term may stand for a KIND group only where that kind
+    is its own — **the first TWO tags**, since the convention writes a broad kind and then a narrower one
+    (`person, ruler`; `place, city`; `event, battle`). **MEASURED over the shipped pool**, that drops
+    exactly the associative memberships and no real ones: Ramesses II out of Buildings (a ruler), Spartacus
+    out of Practices (a person), **California out of States** (a place — the pun nothing else could see),
+    the Kingdom of Benin out of Cities, Genghis Khan and Timur out of States, Biology and the Domesday Book
+    out of Institutions. The price is a few real members filed under a broader kind (Stonehenge and Karnak
+    leave Buildings), which is a group of 24 losing two rather than a category losing its meaning.
+    **THE SECOND RULE CANNOT BE MECHANICAL AND IS DECLARED**, which is this repo's answer wherever a rule
+    needs reading rather than matching. **The obvious pattern was built, MEASURED and thrown away**: the
+    bad tag sits LAST in the term's list on both reported terms — and by the same convention the last tag
+    is usually the most SPECIFIC and most correct one, so that rule drops Cicero from Rome, **Babylon from
+    Iraq leaving none at all**, Persepolis from Iran and the scientific method from Research methods. There
+    is no signal; what is left is a judgement per term, read out of the group and recorded with its reason.
+    **A term excluded loses one group, not the grid** — Water still answers for Chemistry, Vikings for
+    Europe, Attila for Warfare. **Re-measured after: 730 days, 0 blank, 730 distinct grids, 61 categories
+    in rotation** (the baseline was 726 of 730).
+  · **`THREAD_FAMILY` HAD HOLES AND THEY WERE REAL** (same batch). It is the list of tags that NEST, at most
+    one per puzzle — and it named `italy` without `rome`, `greece` without `athens`, `asia` without `iran`,
+    `iraq` or `korea`, `north america` without `mexico` or `americas`, `britain` without `england`, and the
+    ages without `archaic`, `classical` or `20th century`. **The seating's own overlap guard hides that most
+    of the time** — an Athens term almost always carries `greece` too — which is exactly why it was never
+    noticed, and "almost always" is not the guarantee the rule exists to give. The list is now every place
+    and every period tag a group can be seated on.
   · **A DAILY POOL IS SEEDED AND ITS ANSWER MUST BE REACHABLE** — the crossword's letters must fit its own
     squares, What year?'s answer must sit on a tick of its own rail, and Common Thread's four groups must be
     provably disjoint. Each generator retries rather than giving up, and a starved pool is the failure mode
@@ -7490,7 +7523,8 @@ division-capital city tier are inert dead code.
     `xwMarkGaveUp`, `chronoPool` / `cardYearBasis` / `dateLineRows` / `CHRONO_WORKS` / `chronoNameHTML`, `picturePool` /
     `dailyPictureRounds` / `tagKinship`, `dayPick` / `buildChallengeQuestions` / `buildWhoSaidRounds` /
     `PAGES.truefalse`'s draw, `threadEasyKeys` / `dailyThreadPuzzle` /
-    `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
+    `THREAD_GROUP_MIN` / `THREAD_TRIES` / `THREAD_KINDS` / `THREAD_NOT` / `threadFits` / `THREAD_FAMILY`,
+    `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
     `PAGE_META` / the `valid` route list, `gameCardIdSet` / `GAME_MAX_DIFFICULTY`, `whatyear.js` /
     `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
     `markGamePlayed`, `gameAnswerNote` / `gameGlossKey`, `gameTap` / `gameCommit` / `gameClearPick` /
