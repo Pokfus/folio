@@ -8050,7 +8050,16 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
    closed blanks all print twice, one under the other. A template that does NOT ask for the front is
    untouched: its question stays above the answer, as a Basic card's does, which is what keeps a reader's
    graded cloze guess on the page beside what it should have been. */
-.study-card:has(.uc-back.uc-hasfront) > .label,
+/* THE "QUESTION" HEADING GOES WITH THE QUESTION IT HEADS, and this half of the rule had stopped
+   matching (Sep 2026, on a bug report that a Chinese card's question "turns invisible" once the marker
+   is down). It was written `> .label`, which was right when the label was a direct child of the card;
+   the q-head restructure moved it to `.q-head > .q-lead > .label`, so the selector silently addressed
+   nothing. Nothing looked wrong while it was broken, because the heading landed directly above the
+   front the back redraws — until the WRITING BAND opened between the two, at which point the card read
+   as "Question" over nine centimetres of nothing, with the question itself pushed below the band. The
+   band is right to stay where it is (a reader's working is on it, and the ink is in page coordinates,
+   so moving the band would orphan it); the heading is what had to go. */
+.study-card:has(.uc-back.uc-hasfront) > .q-head .label,
 .study-card:has(.uc-back.uc-hasfront) > .question{display:none;}
 /* ---------- the two behaviours Folio lends a card type ----------
    A type's own CSS is scoped to its own cards, so anything a type needs to LOOK like it must style itself.
