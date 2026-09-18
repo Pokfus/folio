@@ -108,6 +108,22 @@ const server = http.createServer((req, res) => {
     ok(c.id + ": …and a `flag` tag to group on", (c.tags || []).includes("flag"), c.tags);
   });
 
+  /* NO TWO CARDS MAY CARRY THE SAME DESCRIPTION, which is this deck's own version of a duplicate
+     question and which nothing else in the pipeline can see. For a reader who cannot see the flags, the
+     alt IS the question — so two cards sharing one are two identical questions with different answers,
+     and both cards render perfectly. Found in F4: `fl-065` Chad and `fl-067` Romania derived
+     byte-identical alts, their flags differing only in the shade of blue (measured off the two SVGs at
+     ΔE 14.1, against 4.2 for the yellows and 8.4 for the reds), so each now names its own blue.
+     Folded on case and punctuation, since that is all the difference a reader would not hear. */
+  const byAlt = new Map();
+  flags.forEach((c) => {
+    const k = String((c.answerFlag || {}).alt || "").toLowerCase().replace(/[^a-z ]/g, "").replace(/\s+/g, " ").trim();
+    if (!byAlt.has(k)) byAlt.set(k, []);
+    byAlt.get(k).push(c.id + " " + c.answerText);
+  });
+  const sameAlt = [...byAlt.values()].filter((v) => v.length > 1);
+  ok("no two flag cards share one description", !sameAlt.length, sameAlt.map((v) => v.join(" == ")));
+
   const src = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
   const slice = (name) => { const i = src.indexOf("function " + name + "("); return i < 0 ? "" : src.slice(i, i + 2600); };
   ok("cardFlagSpec is a separate name from the reader's own cardFlag",

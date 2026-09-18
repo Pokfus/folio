@@ -33,9 +33,16 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**F0 to F3 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
-Geography, and `fl-001`–`fl-060` are live **less the deferred `fl-036`** — 59 cards, so the lowest unused
-number is not the next card. The next card is `fl-061`.
+**F0 to F4 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
+Geography, and `fl-001`–`fl-080` are live **less the deferred `fl-036`** — 79 cards, so the lowest unused
+number is not the next card. The next card is `fl-081`. **F1–F4 were the trim-and-copy range**; from
+`fl-117` on, every flag has to be fetched, looked at and described.
+
+**NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate question
+and which nothing else in the pipeline can see: for a reader who cannot see the flags the alt IS the
+question, so two cards sharing one are two identical questions with different answers, and both cards
+render perfectly. `test-flag-cards.js` sweeps it, folded on case and punctuation. It has fired once — see
+F4's Chad and Romania below.
 
 ---
 
@@ -557,6 +564,36 @@ Commons redirects `Flag_of_Syria.svg` to a dated filename whose own description 
 Syria, so the file is the country's flag and the card carries it — where Afghanistan's redirect lands on
 a file named for a faction and `fl-036` is deferred. The card carries the three-starred flag adopted in
 December 2024.
+
+## F4 — `fl-061` to `fl-080` (Sep 2026)
+
+Twenty cards, Sri Lanka to Tunisia, and the last of the range where the flags are already on their
+twins. No flag had to be fetched. **Seventeen alts derived cleanly and three were authored**, and the
+three are three different reasons.
+
+**`fl-074` ZIMBABWE IS THE CASE THE PLAN NAMED IN ADVANCE, and the tool refused it rather than shipping
+it.** The emblem the flag bears is called the **Zimbabwe Bird**, so the country's name sits in the middle
+of the sentence where the trim only cuts a prefix — `add-flag-cards.js` stopped the batch and printed the
+derived text. It is described by what it IS instead: *a soapstone bird*, which is the carving from Great
+Zimbabwe and names nothing. **One case in 115, as measured when the pass opened**, and the refusal is
+what makes the other 114 safe to derive.
+
+**`fl-065` CHAD AND `fl-067` ROMANIA DERIVED BYTE-IDENTICAL ALTS, WHICH IS A FAULT NO CHECKER HAD.** Both
+are "three vertical bands, blue, yellow and red", because that is what both flags are — and for a reader
+who cannot see them that is two identical questions with different answers. **Measured off the two SVGs
+rather than asserted**: the blues differ by ΔE 14.1 (Chad `#002664` at L 17 and chroma 43, Romania
+`#002B7F` at L 21 and chroma 56), where the yellows differ by 4.2 and the reds by 8.4. So the BLUE is the
+one describable difference and each alt names its own — *dark indigo* against *cobalt blue*, which are
+also the conventional names for these two flags' blues. **A duplicate-description sweep is now in the
+suite**, which is the general answer; this pair is the particular one.
+
+**THREE MORE NEAR-PAIRS HELD, and one is still owed.** F3 predicted `fl-069` Senegal against `fl-058`
+Mali and `fl-075` Guinea — all three shipped in this range or the last, and the star and the order
+separate them, as predicted. `fl-079` Bolivia against `fl-047` Ghana is the same shape (the star). **What
+is still owed is `fl-072` NETHERLANDS against LUXEMBOURG** (`fl-166`, in F9): red-white-blue horizontal
+against red-white-light-blue, differing only in the blue — the Chad/Romania case exactly, one pair
+apart. **Measure Luxembourg's blue against `#21468B` when F9 reaches it** and give each alt its own,
+rather than discovering the collision when the sweep fires.
 
 ---
 

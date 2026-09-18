@@ -923,6 +923,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is copied from the API rather than composed, so the answer is in the URL on all 233 — measured, 20
     of 20 here against 0 of 10 artwork cards. No reader is SHOWN a src, and the suite asserts the
     country appears there AND NOWHERE ELSE on the front, so it cannot widen into a title or a credit.
+  · **NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate
+    question and which nothing else in the pipeline can see: for a reader who cannot see the flags the
+    alt IS the question, so two cards sharing one are two identical questions with different answers,
+    and both render perfectly. It has fired once — Chad and Romania, whose flags differ only in the
+    shade of blue (measured off the two SVGs at ΔE 14.1, against 4.2 for the yellows and 8.4 for the
+    reds), so each alt names its own blue. **Measure the colour rather than asserting it**, and expect
+    the Netherlands against Luxembourg to be the same case in F9.
   · **A CARD IS BUILT BY `.claude/add-flag-cards.js`, WHICH HANDS EACH ONE TO `add-card.js`** rather
     than writing `data.js` itself — so every guard that tool carries runs on every card, and the
     builder is not a second weaker copy of them. It DERIVES the alt from the twin's by cutting the
@@ -6627,7 +6634,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 3 / 3 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
-| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 59 cards — `fl-001`–`fl-060` less the DEFERRED `fl-036`, so the lowest unused number is not the next card; next is `fl-061`, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
+| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 79 cards — `fl-001`–`fl-080` less the DEFERRED `fl-036`, so the lowest unused number is not the next card; next is `fl-081`, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
