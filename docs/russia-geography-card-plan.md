@@ -2436,3 +2436,54 @@ no row: a journal's deposit habit changes from year to year.**
 article text and reads exactly like a charter that does not state its centre. `constitution.garant.ru`
 also refuses about one request in ten with a connection error, which a single-shot probe reads as a
 dead page — Karachay-Cherkessia's constitution failed once and answered on the retry.
+
+### The charter sweep was a SAMPLE, not a reading — batch 29's opening finding
+
+Batch 27 established that the 85-charter sweep's own file carries 54 `HIT` lines and that they must
+be counted against what is written rather than assumed spent. **Batch 29 found the other half of
+that lesson: the sweep never read most of any charter.** `garsweep2.js` fetches only the articles
+whose own title matches its `KEY` regex, plus those inside a chapter whose heading does, plus
+everything numbered **≤ 12** — so its own report lines read `tried 12/157` for Moscow Oblast,
+`tried 12/187` for Krasnoyarsk Krai and `tried 0/1` for Kurgan. **`none` in that file means "not in
+the dozen articles we looked at", not "not in the charter".**
+
+The `KEY` regex is the reason: `центр|столиц|символ|Основные положения|Общие положения`. It does
+not contain **территориальн** or **устройств**, and the commonest place a Russian charter names its
+centre is an article called *Административно-территориальное устройство* — which is exactly how
+Kamchatka Krai's hit was found, and only because that article happens to be numbered 12.
+
+Widening the key to `центр|столиц|символ|территориальн|устройств|наименовани|статус|Общие
+положения|Основные положения`, reading each subject's INDEX and then fetching the articles inside
+the administrative-territorial chapter turned up two hits in the first five subjects tried:
+
+  · **Chelyabinsk Oblast**, article 18 — *Административным центром области является город Челябинск.*
+    (`ustav_chelyab`, chapter `a573badcfa856325a7f6c5597efaaedf`, inside *Глава III.
+    Административно-территориальное устройство области (ст.ст. 18-20)*.)
+  · **Omsk Oblast**, article 22 — *Административным центром Омской области является город Омск.*
+    (`ustav_omsk`, chapter `74d7c78a3a1e33cef2750a2b7b35d2ed`, the article of that very name.)
+
+**Read the INDEX first and fetch by chapter heading**; it costs one request per subject and it is
+what the sweep should have done. The remaining non-HIT subjects have not all been re-tested this
+way, so the primary-source rung is **not** spent for them either.
+
+**AND A CHARTER ON GARANT IS NOT ALWAYS CURRENT, WHICH IS WORSE THAN ITS BEING SILENT.** Leningrad
+Oblast's administrative centre moved to Gatchina in 2021; the charter's article 12
+(*Административно-территориальное устройство*) names no city at all, and its article 13 (*Место
+нахождения высших органов государственной власти*) still reads *…является город Санкт-Петербург*.
+A sweep keyed on "which city does the charter name" would have returned **Saint Petersburg** for
+`gru-524`, which renders perfectly and is wrong. **Where the charter and `RUSSIA_CENTRES` disagree,
+the charter is the thing to doubt.**
+
+**TWO OF THE RUNNING ORDER ARE NOT WRITEABLE FROM HERE YET**, and they are recorded so the next
+batch does not re-derive it: **`gru-502` Krasnogorsk** and **`gru-524` Gatchina**. Neither appears
+anywhere on the archive.org shelf (Reclus, Rambaud, Morfill, Kennan, the Siberian railway guide,
+Baddeley), neither has a WMO station with published normals, Gatchina is below Rosstat's table 4.9
+threshold, and DOAJ and Europe PMC return nothing about either city — the Europe PMC hits for
+"Gatchina" are all CERN author lists carrying the Petersburg Nuclear Physics Institute's address.
+They wait on the Wayback/portal rung.
+
+**AND A SUBJECT CARD CAN SPEND ITS CENTRE'S MATERIAL.** `gru-047` Sakha already quotes Reclus on
+Yakutsk being, after Verkhoyansk, the coldest town in the world, and on its fair; `gru-063` North
+Ossetia already carries the Vladikavkaz WMO normals. Both centres are therefore **more expensive**
+to write than their place in the running order suggests, not less. **Read the sibling before
+choosing a batch, not before writing the card.**
