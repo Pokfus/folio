@@ -626,6 +626,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 421–450 (挂号 → 过于), deck order | 20 | **a sentence built to be meaningless, standing first on its card — Chomsky's colourless green ideas** |
 | 2026-09-18 | `hsk30l5` notes 451–480 (哈 → 蝴蝶), deck order | 20 | **a card not one of whose three sentences used its character as a word — two transliterated place names and a compound** |
 | 2026-09-18 | `hsk30l5` notes 481–510 (胡同 → 机构), deck order | 18 | **a card that SPOKE one reading of its character and ILLUSTRATED the other twice over, which no checker here can see** |
+| 2026-09-18 | `hsk30l5` notes 511–540 (激烈 → 记载), deck order | 26 | **seven near-repeats in thirty cards — one of them two sentences this audit itself added, differing only in their subject** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -8260,3 +8261,116 @@ still-ambiguous 1; shared-gloss groups 322 unchanged — so none of the four glo
 collision; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged; british 0;
 34,596 blocks with spoken == visible on every one; **sense-tagged 672 → 675**, the three being 划's;
 `build-lang-decks.js` re-run.
+
+## Batch 91 — hsk30l5 notes 511–540 (激烈 → 记载)
+
+Thirty consecutive notes of HSK Level 5 in deck order, the 激烈-to-记载 run. **Twenty-six cards changed**,
+four read and left. The batch's shape is unusual: no single card carried a spectacular fault, and instead
+**seven of the thirty showed the same sentence twice in a form no checker can see**.
+
+### Seven near-repeats, and what each one hid behind
+
+The coverage checker's repeat test compares sentences EXACTLY and its duplicate-English test compares
+translations exactly, so a card can show one thing twice and pass both. Seven did here, and they are worth
+listing because each wears a different disguise.
+
+**急诊 is the plainest and is this audit's own work.** Two of the three sentences an earlier batch added
+were 孩子半夜去看了急诊 and 他半夜去看急诊 — the same sentence with a different subject, whose English
+differs only in *The child* against *He*. **纪录 is the same shape on generator sentences**: 她打破了世界纪录
+and 他破了世界纪录, *She broke the world record* and *He broke the world record*.
+
+**机器 is one statement affirmed and negated** — 机器正常运作 against 这些机器目前不运转. **集合 is one
+question asked twice**, 集合地点是哪儿？ and 我们在哪里集合？, once as a noun modifier and once as the verb.
+**及格 had two people passing an examination**, **季度 two sets of first-quarter results**, and **纪念日 two
+wedding anniversaries** — the second of each pair added by an earlier batch of this audit, which is the
+half worth noticing: **a harvest filtered on a translation not already on the card cannot see a translation
+that merely says the same thing.**
+
+**挤 and 系 are the two where the repeat was hiding a second fault.** 挤's pair was 火车挤满了人 and
+列车在晚上很挤, two crowded trains — and 挤满 is a word of its own, so the first had the one-character
+headword swallowed, which `check-example-fit.js` skips by design. 系's was 系上安全带 and 没人系安全带,
+two seat belts — and both are the **jì** reading, so a card carrying two readings illustrated one of them
+twice and the other once with nothing saying which was which.
+
+### Four glosses answering a different question from their own card
+
+**纪录片 was glossed *newsreel*, and not one of its three sentences is a newsreel.** CC-CEDICT gives
+*newsreel* first and *documentary (film or TV program)* second, so the card took the dictionary's leading
+sense and the dictionary's leading sense is not automatically the card's — which is the rule this audit
+states and this is the cleanest example of it yet.
+
+**集 was glossed *collection; set; volume* while two of its three sentences are an EPISODE** (第一集, and
+一集《海绵宝宝》), a sense the gloss did not name at all; reported by `check-gloss-source.js`. **技能 was
+glossed *technical ability* alone** over three sentences about skills in the ordinary sense. And **记忆's
+gloss carried *storage***, a computing sense CC-CEDICT does not give and no sentence shows.
+
+### Five cards labelled with a part of speech no gloss illustrated
+
+**记录 is labelled *noun / verb* and glossed only the verb** — *take notes; keep the minutes* — while two of
+its three sentences are the noun. **挤 is labelled *verb / adjective* and glossed only the verb**, with two
+adjective sentences. **纪念 is labelled *noun / verb* and glossed only the verb**, and NOT ONE of its three
+sentences used that verb: two were 纪念品, a souvenir, with the headword swallowed, and the third the noun
+周年纪念. **及 was labelled a CONJUNCTION** over one conjunction sentence, one 遍及 (swallowed again) and one
+深及膝盖, which is the verb *to reach* the gloss never gave. **And 系's xì NOUN sense read *tie; fasten;
+system; department*, repeating the jì verb gloss word for word.**
+
+All five now carry the senses their own labels claim, and every one of them carries `exSense` tags so
+each sentence says which sense it shows — as does 记忆 above, six cards and eighteen new tagged blocks,
+675 → 693.
+
+**记录's noun is glossed *written record; minutes* rather than bare *record*, deliberately.** 纪录 is the
+very next card in the deck and CC-CEDICT files it as a variant of the same word; the two are now told
+apart on the front of the reverse card — 记录 the written account, 纪录 the achievement — instead of
+competing there. The shared-gloss count is unchanged at 322 groups, so the rewrite made no new collision.
+
+### Two grammar errors a learner copies, and one calque
+
+**我们激烈的讨论了这个问题 and 她说的极其快 write 的 where the grammar takes 地 and 得.** Both are generator
+sentences, both are the commonest mistake a learner makes with these three particles, and a deck that
+prints one teaches it. Re-set with the right particle. **我现在非常集中的学习 is the same error over a frame
+集中 does not take in the first place** — its own English, *I'm studying very hard*, does not contain the
+word — and was dropped rather than repunctuated.
+
+**控制一个班级需要你做老师的所有技能 is a word-for-word calque of its English** and is not a sentence anyone
+writes; so is 我们急忙跑向火, where *We raced towards the fire* is translating a 火场 the Chinese has not
+got, and 计算机使表单的处理容易了, whose English — *The computer means making the form is easy* — is not a
+sentence either. All three replaced.
+
+### Six English translations that dropped the word the card is about
+
+In order: 肌肉's *He's ripped* over a Chinese saying he has visible muscle definition; 机器's *It's working just
+fine*, which names no machine; 即将's *The library is closing* over a Chinese whose whole point is *is about
+to*; 计算's *arithmetic*, which is 算术 and a different word; 疾病's *a serious disease* over a Chinese
+carrying no adjective; and 及格's *I don't want to fail my exams* over a Chinese that says only 不及格.
+
+### Five single-character cards gained a `Compounds` section
+
+及, 级, 集, 挤 and 系, none of them with anything in the reader's downloaded deck. Every row's reading and
+gloss was checked against CC-CEDICT before it was written; 级 took five rows and the rest four.
+
+### What was read and left, and one checker finding that is not one
+
+**Four cards were read and left untouched**: 机器人, 集体, 急需 and 记载. 机器人's second sentence is a
+subtitle exchange rather than a statement — *How could I be a robot? Robots don't dream.* — and uses the
+word twice, which is fine.
+
+**急需 was the closest call and was left.** 急需医疗用品 and 灾区急需食物和药品 are both emergency supplies,
+which is one subject twice; but the first is a subjectless news headline and the second a full clause with
+a different object, so they are two constructions rather than one sentence written twice. Recorded rather
+than acted on.
+
+**`check-example-fit.js` reports 及格's 我不想不及格 as split between 不及 and 格, and that is a false
+positive** — 不及 is a headword in the corpus, so the greedy segmenter prefers it, and the sentence is the
+perfectly ordinary negation 不 + 及格. It is left standing. **急忙's `check-gloss-source.js` finding is a
+false positive too**: the card says *in a hurry; in haste* and the dictionary says *hastily*, which is the
+same thing in different words — the shape that checker's own header warns is a quarter of its output.
+
+**级's three sentences were read and left.** 高一级 is the classifier, 拾级而上 the noun *step of stairs*
+and 大师级 the suffix, which between them are all three of the senses the gloss gives — so the card needed
+only its Compounds panel.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 322 unchanged — so none of the six gloss rewrites made a new
+collision; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged; british 0;
+34,596 blocks with spoken == visible on every one; **sense-tagged 675 → 693**, the eighteen being 及's,
+挤's, 系's, 记录's, 纪念's and 记忆's three apiece; `build-lang-decks.js` re-run.

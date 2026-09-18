@@ -14568,8 +14568,23 @@
       ]
     },
     "hsk30l5/极其": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "extremely, exceedingly (written)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | 她说的极其快 writes 的 where a manner complement takes 得, which is a grammar error a learner copies; it is re-set with 得 and its English, *She spoke rapidly*, given the *extremely* the word actually means. The second sentence's English was the idiom *He is a lump of selfishness*, which says nothing about the adverb the card teaches.",
+      "gloss": "extremely, exceedingly (written)",
+      "dropEx": [
+        "她说的极其快"
+      ],
+      "ex": [
+        [
+          "她说得极其快。",
+          "She speaks extremely fast."
+        ]
+      ],
+      "exEn": [
+        [
+          "他是个极其自私自利的人",
+          "He is an extremely selfish man."
+        ]
+      ]
     },
     "hsk30l5/果然": {
       "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
@@ -15262,8 +15277,17 @@
       ]
     },
     "hsk30l5/集合": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "to assemble, to gather (of people)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | Two of three sentences asked the same question — 集合地点是哪儿？ and 我们在哪里集合？, both *where do we meet* — a NEAR-repeat the coverage checker cannot see, one of them the noun modifier and one the verb. The verb one is replaced by an AUTHORED sentence that actually gives an instruction, which is what the word is for. AUTHORED, and the record says so.",
+      "gloss": "to assemble, to gather (of people)",
+      "dropEx": [
+        "我们在哪里集合"
+      ],
+      "ex": [
+        [
+          "请大家八点在校门口集合。",
+          "Everyone gather at the school gate at eight."
+        ]
+      ]
     },
     "hsk30l5/预防": {
       "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
@@ -72000,21 +72024,22 @@
       ]
     },
     "hsk30l5/急诊": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | TWO of the three sentences this audit itself added are the same sentence with a different subject — 孩子半夜去看了急诊 and 他半夜去看急诊, whose English differs only in *The child* against *He*. The coverage checker compares sentences EXACTLY and its duplicate-English test compares translations exactly, so a near-repeat this close passes both. One is replaced. The gloss was *emergency call*, which is CC-CEDICT's older wording and is not what any of the card's sentences show — 看急诊 is receiving treatment and 急诊室 is the department — so it takes the dictionary's own fuller sense instead. AUTHORED, and the record says so.",
       "ex": [
         [
           "孩子半夜去看了急诊。",
           "The child went to casualty in the middle of the night."
         ],
         [
-          "他半夜去看急诊。",
-          "He went to casualty in the middle of the night."
-        ],
-        [
           "急诊室在一楼。",
           "The emergency room is on the ground floor."
+        ],
+        [
+          "这种情况必须马上看急诊。",
+          "A case like this has to go to casualty at once."
         ]
-      ]
+      ],
+      "gloss": "emergency (medical) treatment"
     },
     "hsk30l5/嘉宾": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -77629,16 +77654,23 @@
       ]
     },
     "hsk30l5/激烈": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card showed the same thing twice: 我们激烈的讨论了这个问题 and 双方展开了激烈的讨论 are both a heated discussion, and the second was added by an earlier batch of this audit — a NEAR-repeat, which the coverage checker cannot see, comparing sentences exactly. It is dropped. The generator sentence it repeated writes 的 where an adverbial modifier takes 地, so it is re-set with 地 and an AUTHORED sentence put in for the other construction the word takes, 激烈地反对. AUTHORED, and the record says so.",
       "ex": [
         [
           "比赛非常激烈。",
           "The match was very fierce."
         ],
         [
-          "双方展开了激烈的讨论。",
-          "The two sides had a heated discussion."
+          "我们激烈地讨论了这个问题。",
+          "We had a heated discussion about it."
+        ],
+        [
+          "他激烈地反对这个计划。",
+          "He objected fiercely to the plan."
         ]
+      ],
+      "dropEx": [
+        "我们激烈的讨论了这个问题"
       ]
     },
     "hsk30l5/急需": {
@@ -77655,11 +77687,11 @@
       ]
     },
     "hsk30l5/季度": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of three were the same quarter's business results — 企业第一季度收益大幅增长 and 第一季度的销量不错, the second added by an earlier batch of this audit — a NEAR-repeat the coverage checker cannot see. Replaced by an AUTHORED sentence about a quarter still to come. AUTHORED, and the record says so.",
       "ex": [
         [
-          "第一季度的销量不错。",
-          "Sales in the first quarter were good."
+          "我们下个季度推出新产品。",
+          "We are launching the new product next quarter."
         ],
         [
           "公司每季度开一次会。",
@@ -77668,11 +77700,11 @@
       ]
     },
     "hsk30l5/纪念日": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of three were the same wedding anniversary — 汤姆……婚礼周年纪念日 and 今天是他们的结婚纪念日, the second added by an earlier batch of this audit — a NEAR-repeat the coverage checker cannot see. Replaced by an AUTHORED sentence in which the day is a setting rather than the predicate. AUTHORED, and the record says so.",
       "ex": [
         [
-          "今天是他们的结婚纪念日。",
-          "Today is their wedding anniversary."
+          "他们在纪念日那天回到了老家。",
+          "On the anniversary they went back to their home town."
         ],
         [
           "这一天成了纪念日。",
@@ -79175,12 +79207,20 @@
       ]
     },
     "hsk30l5/纪录片": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was *newsreel*, which is CC-CEDICT's first sense and is not what ANY of the card's three sentences shows — all three are a documentary, which the dictionary gives second. The dictionary's leading sense is not automatically the card's. The first sentence also counted the film with 个 where the card's own measure-word field says 部, and 录 a documentary is not what one does with one; it is replaced by an AUTHORED sentence using 拍 and 部. AUTHORED, and the record says so.",
       "ex": [
         [
           "昨晚我看了一部纪录片。",
           "Last night I watched a documentary."
+        ],
+        [
+          "他拍了一部关于海洋的纪录片。",
+          "He made a documentary about the ocean."
         ]
+      ],
+      "gloss": "documentary (film)",
+      "dropEx": [
+        "他录了一个纪录片给我"
       ]
     },
     "hsk30l5/久远": {
@@ -126988,6 +127028,431 @@
           "我参加了他们的婚礼。",
           "I went to their wedding."
         ]
+      ]
+    },
+    "hsk30l5/机器": {
+      "why": "Two of the card's three sentences were the same statement affirmed and negated — 机器正常运作 and 这些机器目前不运转, a machine working and machines not working — which is a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence using the measure word 台 the card itself teaches. The English on the one kept said *It's working just fine*, which does not contain the word the card is about. AUTHORED, and the record says so.",
+      "dropEx": [
+        "这些机器目前不运转"
+      ],
+      "ex": [
+        [
+          "工人正在修理这台机器。",
+          "The workers are repairing the machine."
+        ]
+      ],
+      "exEn": [
+        [
+          "机器正常运作",
+          "The machine is working normally."
+        ]
+      ]
+    },
+    "hsk30l5/肌肉": {
+      "why": "The English was the slang *He's ripped* over a Chinese that says he has visible muscle definition — a translation carrying neither the headword nor its register.",
+      "exEn": [
+        [
+          "他有明显的肌肉线条",
+          "He has well-defined muscles."
+        ]
+      ]
+    },
+    "hsk30l5/及": {
+      "why": "A single-character card glossed as a CONJUNCTION whose sentences were one conjunction, one 遍及 — the character swallowed by a longer word, which check-example-fit.js skips a one-character headword outright — and one 深及膝盖, the VERB *to reach*, a sense the gloss did not give at all. CC-CEDICT gives *and / to reach / up to*, so the verb is added as a second sense and each sentence tagged with the one it uses; the 遍及 sentence is replaced by an AUTHORED list sentence, which is the register the conjunction actually belongs to. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded; every Compounds row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "senses": [
+        [
+          "conjunction",
+          "and; as well as"
+        ],
+        [
+          "verb",
+          "to reach; to come up to"
+        ]
+      ],
+      "dropEx": [
+        "他的影响遍及全国"
+      ],
+      "ex": [
+        [
+          "这里出售书籍、杂志及报纸。",
+          "Books, magazines and newspapers are sold here."
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ],
+      "compounds": [
+        [
+          "以及",
+          "yǐjí",
+          "and; as well as"
+        ],
+        [
+          "及时",
+          "jíshí",
+          "timely; at the right time; promptly"
+        ],
+        [
+          "涉及",
+          "shèjí",
+          "to involve; to relate to; to touch upon"
+        ],
+        [
+          "来不及",
+          "láibùjí",
+          "there is not enough time; it is too late"
+        ]
+      ]
+    },
+    "hsk30l5/级": {
+      "why": "The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded — this character had nothing in the downloaded deck. Every row's reading and gloss was checked against CC-CEDICT before it was written. Its three sentences were read and left: 高一级 is the classifier, 拾级而上 is the noun *step of stairs* and 大师级 the suffix, which is all three of the senses the gloss gives.",
+      "compounds": [
+        [
+          "年级",
+          "niánjí",
+          "grade; year (in school)"
+        ],
+        [
+          "高级",
+          "gāojí",
+          "high-level; advanced; senior"
+        ],
+        [
+          "等级",
+          "děngjí",
+          "grade; rank; status"
+        ],
+        [
+          "升级",
+          "shēngjí",
+          "to be promoted; to escalate; to upgrade"
+        ],
+        [
+          "级别",
+          "jíbié",
+          "rank; level; grade"
+        ]
+      ]
+    },
+    "hsk30l5/集": {
+      "why": "The gloss read *collection; set; volume* and TWO of the card's three sentences are an EPISODE of a television series — 第一集 and 一集《海绵宝宝》 — which the gloss did not name at all. CC-CEDICT gives it as the character's classifier sense outright. Reported by check-gloss-source.js. The Compounds section is added for the reason the other single-character cards take one, every row checked against CC-CEDICT first.",
+      "gloss": "collection; set; episode (of a TV series)",
+      "compounds": [
+        [
+          "收集",
+          "shōují",
+          "to gather; to collect"
+        ],
+        [
+          "集合",
+          "jíhé",
+          "to gather; to assemble; (maths) a set"
+        ],
+        [
+          "集中",
+          "jízhōng",
+          "to concentrate; to centralize"
+        ],
+        [
+          "全集",
+          "quánjí",
+          "complete works (of a writer or artist)"
+        ]
+      ]
+    },
+    "hsk30l5/疾病": {
+      "why": "The English said *a serious disease* over a Chinese that says only 疾病 — an adjective the sentence does not carry.",
+      "exEn": [
+        [
+          "你也许会染上疾病",
+          "You might catch a disease."
+        ]
+      ]
+    },
+    "hsk30l5/及格": {
+      "why": "Two of three sentences were the same thing — 我考试都及格 and 他为考试及格感到高兴, both somebody passing an examination — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence giving the word's other use, the pass MARK, which is the second sense CC-CEDICT gives (*to meet a minimum standard*). The English on the first added *my exams* to a Chinese that says only 不及格. AUTHORED, and the record says so.",
+      "exEn": [
+        [
+          "我不想不及格",
+          "I don't want to fail."
+        ]
+      ],
+      "dropEx": [
+        "他为考试及格感到高兴"
+      ],
+      "ex": [
+        [
+          "这门课六十分及格。",
+          "Sixty is the pass mark for this course."
+        ]
+      ]
+    },
+    "hsk30l5/即将": {
+      "why": "The English was *The library is closing* over a Chinese whose whole point is 即将 — *is about to*. The translation dropped the word the card teaches.",
+      "exEn": [
+        [
+          "图书馆即将关闭",
+          "The library is about to close."
+        ]
+      ]
+    },
+    "hsk30l5/急忙": {
+      "why": "我们急忙跑向火 is not Chinese anyone writes — 火 is not a place you run towards, and the English *We raced towards the fire* is translating a 火场 or a 着火的地方 that the Chinese does not have. Replaced with an AUTHORED sentence using the commonest frame the word takes, 急忙 + a verb of going. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我们急忙跑向火"
+      ],
+      "ex": [
+        [
+          "听到消息，他急忙赶回家。",
+          "When he heard the news he hurried home."
+        ]
+      ]
+    },
+    "hsk30l5/集中": {
+      "why": "我现在非常集中的学习 writes 的 for 地 and is not a frame 集中 takes in the first place — its English, *I'm studying very hard*, does not contain the word — and the other two sentences were 集中注意力 and 集中精力, one collocation twice over. Both are replaced by AUTHORED sentences giving the two senses CC-CEDICT names that the card showed nowhere: concentrated IN A PLACE, which is the adjective the card's own label claims, and 集中起来, to gather together. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我现在非常集中的学习",
+        "让我们集中注意力"
+      ],
+      "ex": [
+        [
+          "这些工厂集中在城市的东部。",
+          "These factories are concentrated in the east of the city."
+        ],
+        [
+          "请把材料集中起来交给我。",
+          "Please gather the materials together and give them to me."
+        ]
+      ]
+    },
+    "hsk30l5/挤": {
+      "why": "The card is labelled *verb / adjective* and glossed only the verb, while TWO of its three sentences are the adjective — 火车挤满了人 and 列车在晚上很挤, both a crowded train, which is a NEAR-repeat besides. 挤满 is a word of its own, so that sentence had the one-character headword swallowed, which check-example-fit.js skips by design; it is dropped and an AUTHORED sentence put in using 挤 as the bare verb. The adjective sense is added, and each sentence tagged with the one it uses. Compounds added for the reason the other single-character cards take them, every row checked against CC-CEDICT. AUTHORED, and the record says so.",
+      "senses": [
+        [
+          "verb",
+          "to squeeze; to press; to push"
+        ],
+        [
+          "adjective",
+          "crowded; packed"
+        ]
+      ],
+      "dropEx": [
+        "火车挤满了人"
+      ],
+      "ex": [
+        [
+          "别挤，慢慢来。",
+          "Don't push, take your time."
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "拥挤",
+          "yōngjǐ",
+          "crowded; congested"
+        ],
+        [
+          "挤满",
+          "jǐmǎn",
+          "crowded to bursting; filled to overflowing"
+        ],
+        [
+          "挤压",
+          "jǐyā",
+          "to squeeze; to compress"
+        ],
+        [
+          "排挤",
+          "páijǐ",
+          "to crowd out; to push aside"
+        ]
+      ]
+    },
+    "hsk30l5/系": {
+      "why": "Two of the three sentences were the same seat belt — 系上安全带 and 没人系安全带 — a NEAR-repeat the coverage checker cannot see, and both the jì reading, so the card gave that reading twice and xì once with nothing saying which was which. One is replaced by an AUTHORED jì sentence and every sentence tagged with its reading. The xì sense also read *tie; fasten; system; department*, repeating the jì gloss word for word under a NOUN label; CC-CEDICT gives xì the noun as *system; department; faculty*, which is what both the card's own xì sentence and its compounds show. AUTHORED, and the record says so.",
+      "senses": [
+        [
+          "jì",
+          "verb",
+          "to tie; to fasten"
+        ],
+        [
+          "xì",
+          "noun",
+          "system; department; faculty"
+        ]
+      ],
+      "dropEx": [
+        "没人系安全带"
+      ],
+      "ex": [
+        [
+          "他系好鞋带就出门了。",
+          "He tied his shoelaces and went out."
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ],
+      "compounds": [
+        [
+          "关系",
+          "guānxi",
+          "relation; relationship; connection"
+        ],
+        [
+          "系统",
+          "xìtǒng",
+          "system"
+        ],
+        [
+          "联系",
+          "liánxì",
+          "connection; contact; to get in touch with"
+        ],
+        [
+          "体系",
+          "tǐxì",
+          "system; setup"
+        ]
+      ]
+    },
+    "hsk30l5/记录": {
+      "why": "The card is labelled *noun / verb* and glossed only the verb, and not the commonest verb sense either: *take notes; keep the minutes*, while two of its three sentences are the NOUN (这些记录, 犯规记录) and the third is 记录下来, to write down. Reported by check-gloss-source.js. The senses are split into the two the label already claims, and each sentence tagged with the one it uses. The noun is glossed *written record* rather than bare *record* deliberately: 纪录 is the very next card in the deck and is the achievement sense, so the two are now told apart on the front of the reverse card instead of competing there.",
+      "senses": [
+        [
+          "noun",
+          "written record; minutes"
+        ],
+        [
+          "verb",
+          "to record; to write down"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l5/纪录": {
+      "why": "Two of three sentences were the same sentence with a different subject — 她打破了世界纪录 and 他破了世界纪录, *She broke the world record* and *He broke the world record* — which the coverage checker cannot see, comparing sentences and translations exactly. The third, 她允许了我对她的访问纪录, is not Chinese that means what its English says (*She gave me access to her records*) and is not repairable by translation. Both replaced by AUTHORED sentences on the achievement sense this card carries, each in a different construction. AUTHORED, and the record says so.",
+      "dropEx": [
+        "他破了世界纪录",
+        "她允许了我对她的访问纪录"
+      ],
+      "ex": [
+        [
+          "这项纪录保持了十年。",
+          "This record stood for ten years."
+        ],
+        [
+          "他刷新了自己的纪录。",
+          "He broke his own record."
+        ]
+      ]
+    },
+    "hsk30l5/技能": {
+      "why": "The gloss was *technical ability* alone, and all three sentences are SKILLS in the ordinary sense; CC-CEDICT gives both and the card showed only the narrower one. The third sentence, 控制一个班级需要你做老师的所有技能, is a word-for-word calque of its English and not a sentence anyone writes; replaced by an AUTHORED one saying the same thing in Chinese. AUTHORED, and the record says so.",
+      "gloss": "skill; technical ability",
+      "dropEx": [
+        "控制一个班级需要你做老师的所有技能"
+      ],
+      "ex": [
+        [
+          "管理一个班级需要老师的全部技能。",
+          "Managing a class calls for all a teacher's skills."
+        ]
+      ]
+    },
+    "hsk30l5/纪念": {
+      "why": "NOT ONE of the card's three sentences used 纪念 as the verb its gloss gives: two were 纪念品, a souvenir, with the headword swallowed by a longer word, and the third is the noun 周年纪念. The card is labelled *noun / verb* and glossed the verb alone, so the senses are split into the two the label claims and each sentence tagged. Both 纪念品 sentences are replaced by AUTHORED ones, one for each sense. AUTHORED, and the record says so.",
+      "senses": [
+        [
+          "verb",
+          "to commemorate; to honour the memory of"
+        ],
+        [
+          "noun",
+          "commemoration; memento"
+        ]
+      ],
+      "dropEx": [
+        "旅馆里面有纪念品商店吗",
+        "他带回了一些纪念品"
+      ],
+      "ex": [
+        [
+          "人们举行仪式纪念这位科学家。",
+          "A ceremony was held to commemorate the scientist."
+        ],
+        [
+          "他送给我一本书作为纪念。",
+          "He gave me a book as a memento."
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ]
+    },
+    "hsk30l5/计算": {
+      "why": "The English said *arithmetic*, which is 算术 and a different word from the one the card teaches.",
+      "exEn": [
+        [
+          "准确性在计算中很重要",
+          "Accuracy is important in calculation."
+        ]
+      ]
+    },
+    "hsk30l5/计算机": {
+      "why": "计算机使表单的处理容易了 is stilted Chinese and its English, *The computer means making the form is easy*, is not a sentence. Replaced by an AUTHORED one using the measure word 台 the card itself teaches. AUTHORED, and the record says so.",
+      "dropEx": [
+        "计算机使表单的处理容易了"
+      ],
+      "ex": [
+        [
+          "这台计算机的速度很快。",
+          "This computer is very fast."
+        ]
+      ]
+    },
+    "hsk30l5/记忆": {
+      "why": "The gloss read *recall; memory; storage* — *storage* is a computing sense CC-CEDICT does not give and no sentence shows — and the third sentence, 你的记忆力很好, is 记忆力, a longer word that swallows the headword. The senses are split into the two the *noun / verb* label already claims, each sentence tagged, and an AUTHORED sentence put in for the verb, which no sentence showed. AUTHORED, and the record says so.",
+      "senses": [
+        [
+          "noun",
+          "memory; recollection"
+        ],
+        [
+          "verb",
+          "to remember; to recall"
+        ]
+      ],
+      "dropEx": [
+        "你的记忆力很好"
+      ],
+      "ex": [
+        [
+          "这些单词很难记忆。",
+          "These words are hard to memorise."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
       ]
     }
   },
