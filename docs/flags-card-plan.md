@@ -33,11 +33,12 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**F0 to F8 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
-Geography, and `fl-001`–`fl-160` are live **less the deferred `fl-036`** — 159 cards, so the lowest
-unused number is not the next card. The next card is `fl-161`. **THE TRIM-AND-COPY RANGE IS FINISHED**:
-every flag already on a twin has been used, and from here every batch fetches. **74 twins still need a
-flag** (`gw-161`–`gw-233` plus the deferred `gw-036`), and each batch back-fills the ones it uses, which
+**F0 to F9 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
+Geography, and `fl-001`–`fl-180` are live **less the deferred `fl-036`, `fl-171` and `fl-180`** — 177
+cards, so the lowest unused number is not the next card. The next card is `fl-181`. **THE TRIM-AND-COPY
+RANGE IS FINISHED**: every flag already on a twin has been used, and from here every batch fetches.
+**53 twins still need a flag** (`gw-181`–`gw-233` plus the three deferrals), and each batch back-fills
+the ones it uses, which
 closes World Geography's own gap as a by-product.
 
 **NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate question
@@ -163,7 +164,9 @@ deck is called *The countries and territories* and every question asks for "the 
 which is true of all 233 and asserts nothing about the sovereignty of any.
 
 **A FOURTH RULE IS THIS DECK'S OWN: Commons must host a free file that is simply that entity's flag.**
-It has exactly one failure and it is already recorded in the World Geography plan:
+It has three failures. The first was known in advance and is recorded in the World Geography plan; the
+other two were found by reading a redirect in batch F9, and **the three refuse for three different
+reasons, which is why none of them generalises into a rule about disputed places**:
 
 **`fl-036` AFGHANISTAN IS DEFERRED, and it is the Afghanistan decision one collection over.** Commons
 redirects `Flag_of_Afghanistan.svg` to `Flag_of_the_Taliban.svg`, whose own file page calls it the flag
@@ -174,6 +177,34 @@ question**, so there is no card to write and the number is reserved and left unu
 `gw-596` Jerusalem, `gw-624` Palestine's seat and `gw-695` Saint Helier are. **The deck is therefore 232
 of 233 writable, with one deferral and no gaps.** If it is ever revisited, the two candidate files are
 named in the World Geography plan and either is one line of JSON.
+
+**`fl-171` WESTERN SAHARA IS DEFERRED, AND IT IS AFGHANISTAN'S REASON WITH THE CLAIMANTS BOTH STILL
+STANDING** (Sep 2026, F9). Commons has no file called `Flag_of_Western_Sahara.svg` at all: the name
+redirects to **`Flag_of_the_Sahrawi_Arab_Democratic_Republic.svg`**, credited to *El Uali Mustafá Sayed
+from Polisario Front*, and Morocco administers most of the territory and flies its own flag there. So
+labelling either shape "the flag of Western Sahara" answers the sovereignty question, and there is no
+third flag to show. **`gw-171` ships and this cannot**, on the same asymmetry: the World Geography plan's
+membership rules deliberately keep Folio out of every sovereignty argument by asking for "the country or
+territory shaded on the map", which is true of the shape whoever governs it — where a flag card's whole
+question is the flag.
+
+**`fl-180` NEW CALEDONIA IS DEFERRED FOR A REASON THAT IS NOT ABOUT DISPUTED SOVEREIGNTY AT ALL, AND IS
+THE CLEANEST OF THE THREE.** The territory flies **two co-official flags**, which is what the Nouméa
+Accord left open and what a 2010 vote settled by flying both: the French tricolour and the Kanak flag of
+the FLNKS. Commons reflects it — `Flag_of_New_Caledonia.svg` redirects to **`Flags_of_New_Caledonia.svg`**,
+PLURAL, which is a composite image of the two side by side. Three things follow and each alone is
+disqualifying. **A composite of two flags is not a flag**, so it cannot be the question side of a format
+whose question is one flag. **One of the two is already another card's answer** — the tricolour is
+`fl-023` France's — so showing it would put one picture on two cards with different answers, and a
+reader who answered "France" would be marked wrong for being right. And **choosing the Kanak flag alone
+asserts that it is *the* flag**, which is the thing the Accord declined to decide. **The number is
+reserved and left unused.**
+
+**SO THE DECK IS 230 OF 233 WRITABLE, WITH THREE DEFERRALS AND NO GAPS.** **The test to apply to a
+candidate is not "is this place disputed?"** — plenty of disputed places have one undisputed flag, and
+`fl-104` Hong Kong, `fl-167` Macau and `fl-153` Kosovo all ship. It is **"is there exactly one flag that
+this territory's own institutions fly, and does Commons name it?"** Where the answer is no, the number is
+reserved. **Ask it of a redirect rather than of a map.**
 
 **And the Syrian flag is the same test with the opposite answer** — `Flag_of_Syria.svg` redirects to a
 dated filename whose own description says it is the flag of Syria, so the file is the country's flag and
@@ -753,8 +784,54 @@ recomputed by hand and is right (`f/f3`), so neither the address nor a rate limi
 explains it. What does is that this is a rarely-requested file and therefore a CDN cache MISS, and
 Wikimedia throttles misses hardest. **It served earlier in the same session** through
 `Special:FilePath?width=600`, which is how the picture was looked at in the first place, so the file is
-there. **A 429 on one object beside 200s on twenty is the busy state at its narrowest** — worth knowing
-before re-deriving it, and worth expecting again on any flag whose file is not the canonical one.
+there. **AND THE READING WAS CONFIRMED MINUTES LATER WHEN `api.php` ITSELF WENT 429** on three unrelated
+lookups: the throttle is the whole host against this container, and the reason it lands on this one
+object while twenty others serve is that the twenty are CDN HITS served from an edge cache and this is a
+MISS that has to reach origin. **So a 429 on an unpopular file beside 200s on popular ones is the busy
+state rather than a fact about the file**, and the `src` is kept. Worth expecting again on any flag whose
+file is not the canonical `Flag_of_<Country>.svg`.
+
+
+## F9 — `fl-161` to `fl-180` (Sep 2026)
+
+**Eighteen cards, not twenty**, Djibouti to Vanuatu, all eighteen flags fetched and every one public
+domain. **`fl-171` Western Sahara and `fl-180` New Caledonia are DEFERRED**, and their reasoning is in
+the format section above rather than here because it is a rule about the format and not a note about a
+batch. Their twins are deliberately left with **no flag at all**, as `gw-036` is: fetching one would put
+a picture on a `gw-` card that makes the very claim the `fl-` card is being withheld over.
+
+**THE BATCH'S REAL WORK WAS READING SEVEN REDIRECTS, AND FIVE OF THE SEVEN WERE THE DEFINITE ARTICLE.**
+`the Comoros`, `the Solomon Islands`, `the Bahamas` and `the Central African Republic` in F7 are the
+country's own formal name; `Cabo Verde` resolves to **`Flag of Cape Verde (3-2).svg`**, which is the
+other English name plus a ratio suffix, and that file's own description explains itself — the flag has no
+officially defined aspect ratio and this is the standard 2:3 rendering. All five are benign and all five
+are now pinned so the warning does not fire again. **The other two are the deferrals**, and they are the
+answer to why that warning is worth having: **five noisy redirects and two real ones is the right ratio
+for a check that cannot be automated**, because the two cannot be told from the five by their shape.
+
+**AND THE F5 PREDICTION ABOUT LUXEMBOURG WAS WRONG, WHICH IS WORTH RECORDING AS A CORRECTION.** It was
+carried for four batches that `fl-168` Luxembourg against `fl-072` the Netherlands would be "the Chad and
+Romania case again" — two near-identical blues needing a measured hue clause. Measured, they are the
+**furthest-apart pair in the deck**: the blues are **ΔE 41.5** (`#00a3e0` at L 63 against `#21468b` at
+L 31 — a sky blue against a navy) and even the reds are **ΔE 21.2** (`#ef3340` against `#ae1c28`), where
+Chad and Romania were 14.1 and Latvia and Austria 22.9. So the alts need no clause at all beyond the
+ordinary words: "red, white and light blue" against "red, white and blue" is already two different
+sentences. **A predicted pair is still worth measuring rather than writing the clause on the
+prediction** — half the effort here would have gone into distinguishing two flags nobody confuses.
+
+**`fl-178` ICELAND AGAINST `fl-119` NORWAY IS AN INVERSION, WHICH IS THE CHEAPEST PAIR THERE IS.** Both
+are a Nordic cross edged in white, and the alts say which colour is the field and which the cross —
+Iceland a red cross on blue, Norway a blue cross on red — so the distinction falls out of naming the
+parts in order and needs no extra clause. **The four Nordic crosses now shipped are separated four
+different ways**: Sweden by its colours (`fl-093`), Denmark by having no second colour and an offset
+upright (`fl-115`), Finland by the same offset on white (`fl-117`), and these two by inversion.
+
+**`fl-170` MONTENEGRO JOINS `fl-146` ALBANIA ON THE DOUBLE-HEADED EAGLE**, separated by the eagle's
+colour and by Montenegro's broad gold border — both named in its alt. **`fl-162` FIJI JOINS `fl-054`
+AUSTRALIA AND `fl-123` NEW ZEALAND** on the Union Flag in the canton, separated by the field's shade and
+by what stands at the fly: Fiji light blue with a shield, Australia dark blue with the Commonwealth Star
+and the Southern Cross, New Zealand dark blue with four red stars. **Expect a fourth in F10** — Tuvalu is
+the same family.
 
 
 ---
@@ -957,26 +1034,26 @@ geography plans it could not until eight capitals had already drifted.
 
 ### Batch F9 — fl-161 to fl-180 — 20 cards, 20 flags to fetch
 
-  fl-161  Djibouti  [fetch]
-  fl-162  Fiji  [fetch]
-  fl-163  Comoros  [fetch]
-  fl-164  Guyana  [fetch]
-  fl-165  Solomon Islands  [fetch]
-  fl-166  Bhutan  [fetch]
-  fl-167  Macau  [fetch]
-  fl-168  Luxembourg  [fetch]
-  fl-169  Suriname  [fetch]
-  fl-170  Montenegro  [fetch]
-  fl-171  Western Sahara  [fetch]
-  fl-172  Malta  [fetch]
-  fl-173  Maldives  [fetch]
-  fl-174  Cabo Verde  [fetch]
-  fl-175  Brunei  [fetch]
-  fl-176  Belize  [fetch]
-  fl-177  Bahamas  [fetch]
-  fl-178  Iceland  [fetch]
-  fl-179  Vanuatu  [fetch]
-  fl-180  New Caledonia  [fetch]
+  fl-161  Djibouti  [on gw-161]
+  fl-162  Fiji  [on gw-162]
+  fl-163  Comoros  [on gw-163]
+  fl-164  Guyana  [on gw-164]
+  fl-165  Solomon Islands  [on gw-165]
+  fl-166  Bhutan  [on gw-166]
+  fl-167  Macau  [on gw-167]
+  fl-168  Luxembourg  [on gw-168]
+  fl-169  Suriname  [on gw-169]
+  fl-170  Montenegro  [on gw-170]
+  fl-171  DEFERRED  [Western Sahara — Commons resolves the flag to the SADR’s; see above]
+  fl-172  Malta  [on gw-172]
+  fl-173  Maldives  [on gw-173]
+  fl-174  Cabo Verde  [on gw-174]
+  fl-175  Brunei  [on gw-175]
+  fl-176  Belize  [on gw-176]
+  fl-177  Bahamas  [on gw-177]
+  fl-178  Iceland  [on gw-178]
+  fl-179  Vanuatu  [on gw-179]
+  fl-180  DEFERRED  [New Caledonia — two co-official flags, one of them France’s; see above]
 
 ### Batch F10 — fl-181 to fl-200 — 20 cards, 20 flags to fetch
 
