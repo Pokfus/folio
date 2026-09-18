@@ -634,6 +634,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 661–690 (空中 → 理论), deck order | 17 | **a sentence standing on TWO cards took last batch's English fix on only one of them — a fault this audit made** |
 | 2026-09-18 | `hsk30l5` notes 691–720 (里头 → 流传), deck order | 18 + 1 | **three cards glossing the one sense none of their sentences shows, and a second dead disambiguator retired** |
 | 2026-09-18 | `hsk30l5` notes 721–750 (流感 → 迷), deck order, plus the applier's field whitelist | 28 | **a card's TRADITIONAL field carried the wrong character — and the record could not reach that field at all** |
+| 2026-09-18 | `hsk30l5` notes 751–780 (迷路 → 闹), deck order | 18 | **a third sentence whose characters straddle a word boundary — 很难|得到 on the 难得 card** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -9104,3 +9105,97 @@ collision; one-sided hints still 0; pinyin clean; example-fit 140 and senses 151
 34,596 blocks with spoken == visible on every one; **sense-tagged 714 → 723**, the nine being 满足's,
 美味's and 迷's; `build-lang-decks.js` re-run. **No changelog line and no version bump for the applier
 change**: `.claude/decks/mandarin-fix.js` is not part of the site.
+
+## Batch 99 — hsk30l5 notes 751–780 (迷路 → 闹)
+
+Thirty consecutive notes of HSK Level 5 in deck order. **Eighteen cards changed**, twelve read and left.
+
+### A third sentence whose characters straddle a word boundary
+
+**难得's third sentence was 如果你不会说英语，你就很难得到一个好的职位**, which does not contain the
+word at all: it is 很难 + 得到, and the card's two characters straddle the boundary between them.
+
+**The third instance of this class**, after 家电's 一家|电影院 and 加工's 加|工资 in batch 92, and
+invisible for the same reason each time: the segmenter's lexicon holds 难得, so it lands squarely on the
+headword when the headword is the card's own, and `check-example-fit.js` reports nothing. It was added by
+an earlier batch of this audit — as both of the others were. **The harvest filter refuses a target
+SWALLOWED by a longer headword and says nothing about one FORMED ACROSS two shorter ones**, which is now
+three cards' worth of evidence that the guard is written one direction short.
+
+### The second wrong traditional character, and this one was already on the list
+
+**面向's Traditional field read 面單.** 向 does not change in traditional script at all — CC-CEDICT gives
+面向 面向 as its own pair — so 單 is an over-conversion rather than a typo, 單 being a variant of 向 in
+other senses.
+
+It is one of the three the corpus sweep at the end of batch 98 turned up, and **the only one that fell
+inside a batch range**, so it is fixed here on the schedule rather than out of turn. The other two are
+still open and still recorded: `hsk30l2/裤子` carries 裤子 where the traditional is 褲子, and `hsk30l6/野`
+carries 壄, an ancient variant, where 野 is its own traditional. The sweep now reads five outliers of
+6,691, three of them legitimate.
+
+### Four glosses and labels answering a different question
+
+**敏感's gloss carried *tactful***, which the word does not mean — a tactful person is 得体 or 圆滑, and
+CC-CEDICT gives only *sensitive; susceptible*. **名牌 was glossed *famous brand* alone**, where the
+dictionary gives *nameplate; name tag* beside it and the card's own third sentence, 这是名牌大学, is
+neither. **描述 is labelled a VERB** and its own first sentence is the noun. And 敏感 showed the physical
+sense twice — heat and a tooth — and never the one a Level 5 reader most needs, a sensitive SUBJECT.
+
+### Five mistranslations, two of them reversing the sentence
+
+**闹's 他们一直闹笑话 was *They were always making jokes*** — and 闹笑话 is CC-CEDICT's *to make a fool
+of oneself*, which is the opposite of telling a joke on purpose. **摸's 谁也不要摸这个 was *Nobody wants
+to touch this***, where the Chinese is an INSTRUCTION — nobody is to touch it. **陌生's *I saw a strange
+woman there*** reads in English as a woman who was odd, where 陌生 is unfamiliar and the card's own gloss
+says so. **命's 恭敬不如从命 carried a literal gloss of an idiom** that means *then I shall take you up on
+it*, over a sentence whose 从命 swallows the headword anyway.
+
+### Five sentences that are not Chinese, and one that only wanted a full stop
+
+**难以's 这件事很难以相信的 puts 很 in front of 难以**, which does not take a degree adverb, and closes on
+a 的 the sentence has no use for. **模糊's 这句句子意思模糊 says *sentence* twice** — 这句 already counts
+one. **明显's 事情如此明显所以我们不需要证明 is its English word for word** with no comma before 所以.
+**木头's 一个木头碗 is a noun phrase with no predicate.** And **面积's 求三角形的面积 carried no terminal
+punctuation** — it is otherwise a good example, a maths exercise being exactly where this word lives, so
+it took a full stop through `exStop` rather than a replacement.
+
+### An internet joke and a game, one replaced and one kept
+
+**模式's 您现已切换至手动呼吸模式** — *you are now breathing manually* — is grammatical, teaches the
+word, and spends a card's one clear slot on a gag a learner cannot place. Replaced.
+
+**木头's 一二三，木头人 was KEPT.** It is a children's game; 木头人 does swallow the headword, and *Red
+light, green light* is the right English for it rather than a translation — a reader who meets the game
+will meet it in exactly those words. The distinction is worth stating: a swallowed headword is a fault
+when the compound teaches nothing about the card, and not when the compound is the thing a reader will
+actually hear.
+
+### Five near-repeats
+
+迷路 got lost three times over with nothing around it, twice in the second person; 密切 had a close
+RELATIONSHIP twice, the second running to 28 characters; 面向 had the same room facing two ways; 名牌 had
+the same sentiment in two persons; 敏感 was sensitive to temperature twice.
+
+### Three single-character cards gained a `Compounds` section
+
+命, 摸, 某 and 闹 took one. **某's has three rows rather than four** — it is a bound form and the
+dictionary holds few words on it — and **its own three sentences were read and are sound**, 某个地方,
+某些地方 and 某处 being the pronoun in the three shapes it takes.
+
+### What was read and left
+
+**Twelve cards were read and left untouched**: 秘密, 秘书, 面临, 名称, 名片, 明确, 明星, 命运, 目光,
+哪怕, 难度 and 男子.
+
+**难以's 你会发现难以满足她 is also 满足's own first sentence**, forty cards earlier and edited in batch 98
+— checked here, and left on both, the sentence being right for each headword and its English identical on
+the two. **Recorded because batches 96 and 98 both found the other outcome**, where a fix reached one card
+of a pair and not the other: the rule is to grep before editing, and grepping also finds the pairs that
+are fine.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 320 unchanged — so neither the 敏感 nor the 名牌 gloss rewrite made
+a new collision; one-sided hints still 0; pinyin clean; example-fit 140 and senses 151 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; **sense-tagged 723 → 726**, the three being
+描述's; **Traditional outliers 6 → 5**; `build-lang-decks.js` re-run.

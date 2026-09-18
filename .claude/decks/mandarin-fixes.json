@@ -15323,15 +15323,15 @@
       ]
     },
     "hsk30l5/难得": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from, and were found on a re-run once other notes' additions had freed the guards: the target must not be swallowed by a longer headword in the same place, the sentence must be simplified and under 36 characters, and its translation must be new to the note. | 如果你不会说英语，你就很难得到一个好的职位 does not contain this word at all: it is 很难 + 得到, and the card's two characters straddle the boundary between them. **The third instance of this class**, after 家电's 一家|电影院 and 加工's 加|工资 in batch 92, and invisible for the same reason — the segmenter's lexicon holds 难得, so it lands on the headword when the headword is the card's own. It was added by an earlier batch of this audit. The card's other added sentence runs to 33 characters. Both replaced with AUTHORED ones. AUTHORED, and the record says so.",
       "ex": [
         [
-          "能向别人自顾自地单向倾诉、想说什么就说什么，这比什么都难得。",
-          "To have someone you can vent to nonstop, saying absolutely anything on your mind, this is rarer than anything else."
+          "这样的机会很难得。",
+          "An opportunity like this is rare."
         ],
         [
-          "如果你不会说英语，你就很难得到一个好的职位。",
-          "You're much less likely to get a good position if you don't speak English."
+          "难得见你一面。",
+          "It is not often one gets to see you."
         ]
       ]
     },
@@ -72375,21 +72375,22 @@
       ]
     },
     "hsk30l5/名牌": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 她并不在意名牌 and 他不追求名牌 are the same sentiment in two persons, both added by an earlier batch of this audit — a NEAR-repeat the coverage checker cannot see. The gloss was also *famous brand* alone, where CC-CEDICT gives *nameplate; name tag* beside it and the card's third sentence, 这是名牌大学, is neither: it is the word used attributively for anything of the first rank. One sentence is replaced by an AUTHORED one giving the nameplate. AUTHORED, and the record says so.",
       "ex": [
         [
           "她并不在意名牌。",
           "She does not care about famous brands."
         ],
         [
-          "他不追求名牌。",
-          "He does not chase famous brands."
+          "这是名牌大学。",
+          "This is a top university."
         ],
         [
-          "这是名牌大学。",
-          "This is a famous university."
+          "门上挂着一块名牌。",
+          "There is a nameplate hanging on the door."
         ]
-      ]
+      ],
+      "gloss": "famous brand; nameplate; name tag"
     },
     "hsk30l5/年初": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -129705,6 +129706,267 @@
           "着迷",
           "zháomí",
           "to be fascinated"
+        ]
+      ]
+    },
+    "hsk30l5/迷路": {
+      "why": "All three sentences were somebody getting lost with nothing around it — 她总是迷路, 您迷路了吗？, 你会迷路的 — two of them in the second person. One is replaced by an AUTHORED sentence that says WHERE, which is the only thing this word can teach beyond itself. AUTHORED, and the record says so.",
+      "dropEx": [
+        "你会迷路的"
+      ],
+      "ex": [
+        [
+          "他在陌生的城市里迷路了。",
+          "He got lost in a city he did not know."
+        ]
+      ]
+    },
+    "hsk30l5/密切": {
+      "why": "供应和需求之间的关系十分密切 and 他主张的是出生的先后次序和个性有很密切的关系 are both a close RELATIONSHIP — a NEAR-repeat the coverage checker cannot see — and the second runs to 28 characters to say it. Replaced with an AUTHORED sentence on the adverbial use, 密切注意 being already on the card and 密切合作 not. AUTHORED, and the record says so.",
+      "dropEx": [
+        "他主张的是出生的先后次序和个性有很密切的关系"
+      ],
+      "ex": [
+        [
+          "两国密切合作多年。",
+          "The two countries have worked closely together for years."
+        ]
+      ]
+    },
+    "hsk30l5/面积": {
+      "why": "求三角形的面积 carries no terminal punctuation. It is otherwise a good example — a maths exercise is exactly where this word lives — so it takes a full stop through `exStop` rather than a replacement.",
+      "exStop": [
+        [
+          "求三角形的面积"
+        ]
+      ]
+    },
+    "hsk30l5/面向": {
+      "why": "**THE TRADITIONAL FIELD CARRIED THE WRONG CHARACTER.** It read 面嚮; 向 does not change in traditional script at all, and CC-CEDICT gives 面向 面向 as its own pair. 嚮 is a variant of 向 in other senses, so this is an over-conversion rather than a typo. It is one of the three the corpus sweep in batch 98 turned up, and the only one inside a batch range — the other two, `hsk30l2/裤子` and `hsk30l6/野`, are still open. | 我的房间面向花园 and 我的房间面向东边 are also the same room facing two ways — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence on the *geared towards* sense the dictionary gives and no sentence showed. AUTHORED, and the record says so.",
+      "Traditional": "面向",
+      "dropEx": [
+        "我的房间面向东边"
+      ],
+      "ex": [
+        [
+          "这门课程面向初学者。",
+          "This course is aimed at beginners."
+        ]
+      ]
+    },
+    "hsk30l5/描述": {
+      "why": "The card is labelled a VERB and its own first sentence, 这个描述太抽象了, is the NOUN — a description — which the gloss never gave. CC-CEDICT holds both. The senses are split and each sentence tagged.",
+      "senses": [
+        [
+          "verb",
+          "to describe"
+        ],
+        [
+          "noun",
+          "a description"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ]
+    },
+    "hsk30l5/敏感": {
+      "why": "The gloss carried *tactful*, which 敏感 does not mean — a tactful person is 得体 or 圆滑, and CC-CEDICT gives only *sensitive; susceptible*. The card also showed the physical sense twice, heat and a tooth, and never the one a Level 5 reader most needs: a sensitive SUBJECT. One is replaced by an AUTHORED sentence giving it. AUTHORED, and the record says so.",
+      "gloss": "sensitive; susceptible",
+      "dropEx": [
+        "这颗牙对冷的食物敏感吗"
+      ],
+      "ex": [
+        [
+          "这是一个敏感的话题。",
+          "This is a sensitive subject."
+        ]
+      ]
+    },
+    "hsk30l5/明显": {
+      "why": "事情如此明显所以我们不需要证明 is *It's so obvious we don't need proof* put through word for word — Chinese needs a comma before 所以 and does not build the clause that way. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "dropEx": [
+        "事情如此明显所以我们不需要证明"
+      ],
+      "ex": [
+        [
+          "他的进步很明显。",
+          "His progress is obvious."
+        ]
+      ]
+    },
+    "hsk30l5/命": {
+      "why": "那我就恭敬不如从命啦 turns on 从命, a word of its own, inside a set phrase whose English — *deference is no substitute for obedience* — is a literal gloss of an idiom that means *then I shall take you up on it*. So the sentence teaches neither the character nor the phrase. Replaced with an AUTHORED sentence using 命 as the plain noun. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "那我就恭敬不如从命啦"
+      ],
+      "ex": [
+        [
+          "这场地震夺去了很多人的命。",
+          "The earthquake took many lives."
+        ]
+      ],
+      "compounds": [
+        [
+          "生命",
+          "shēngmìng",
+          "life (of a living being)"
+        ],
+        [
+          "命运",
+          "mìngyùn",
+          "fate; destiny"
+        ],
+        [
+          "命令",
+          "mìnglìng",
+          "an order; to command"
+        ],
+        [
+          "拼命",
+          "pīnmìng",
+          "to do one's utmost; for all one is worth"
+        ]
+      ]
+    },
+    "hsk30l5/摸": {
+      "why": "谁也不要摸这个 is an INSTRUCTION — *nobody is to touch this* — and its English made it a statement of preference, *Nobody wants to touch this*, which is a different sentence and a different grammar. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "谁也不要摸这个",
+          "Nobody is to touch this."
+        ]
+      ],
+      "compounds": [
+        [
+          "摸索",
+          "mōsuǒ",
+          "to grope about; to feel one's way"
+        ],
+        [
+          "触摸",
+          "chùmō",
+          "to touch"
+        ],
+        [
+          "摸黑",
+          "mōhēi",
+          "to grope about in the dark"
+        ],
+        [
+          "抚摸",
+          "fǔmō",
+          "to stroke; to caress"
+        ]
+      ]
+    },
+    "hsk30l5/模糊": {
+      "why": "这句句子意思模糊 says *sentence* twice — 这句 already counts one, so 这句句子 is 这句话 or 这个句子 and not both. Replaced with an AUTHORED sentence on the visual sense, which the card's third shows only inside 视力模糊. AUTHORED, and the record says so.",
+      "dropEx": [
+        "这句句子意思模糊"
+      ],
+      "ex": [
+        [
+          "照片有点模糊。",
+          "The photograph is a little blurred."
+        ]
+      ]
+    },
+    "hsk30l5/模式": {
+      "why": "您现已切换至手动呼吸模式 is an internet joke — *you are now breathing manually* — which is grammatical, teaches the word, and spends a card's one clear slot on a gag a learner cannot place. Replaced with an AUTHORED sentence on the ordinary machine sense. AUTHORED, and the record says so.",
+      "dropEx": [
+        "您现已切换至手动呼吸模式"
+      ],
+      "ex": [
+        [
+          "这台机器有三种工作模式。",
+          "This machine has three operating modes."
+        ]
+      ]
+    },
+    "hsk30l5/陌生": {
+      "why": "*I saw a strange woman there* reads in English as a woman who was ODD; 陌生 is unfamiliar, and the card's own gloss says so — this is the one sentence of three where the English word carries the wrong one of its two senses.",
+      "exEn": [
+        [
+          "我看见一位陌生女人在那儿",
+          "I saw a woman there I did not know."
+        ]
+      ]
+    },
+    "hsk30l5/某": {
+      "why": "The card's three sentences were read and are sound — 某个地方, 某些地方, 某处 are the pronoun the gloss gives, in the three shapes it takes. What it had none of was a Compounds panel; 某 is a bound form and the dictionary holds few words on it, so this one takes three rows rather than four. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "某人",
+          "mǒurén",
+          "someone; a certain person"
+        ],
+        [
+          "某些",
+          "mǒuxiē",
+          "some; certain (things)"
+        ],
+        [
+          "某种",
+          "mǒuzhǒng",
+          "some kind of"
+        ]
+      ]
+    },
+    "hsk30l5/木头": {
+      "why": "一个木头碗 is a noun phrase with no predicate — *A wooden bowl* — so the card spent a slot on something that is not a sentence. Replaced with an AUTHORED one. **一二三，木头人 is KEPT**: it is a children's game, 木头人 does swallow the headword, and *Red light, green light* is the right English for it rather than a translation — a reader who meets the game will meet it in exactly those words. AUTHORED, and the record says so.",
+      "dropEx": [
+        "一个木头碗"
+      ],
+      "ex": [
+        [
+          "这张桌子是木头做的。",
+          "This table is made of wood."
+        ]
+      ]
+    },
+    "hsk30l5/难以": {
+      "why": "这件事很难以相信的 puts 很 in front of 难以, which does not take a degree adverb — 难以 is already *hard to* — and closes on a 的 the sentence has no use for. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "dropEx": [
+        "这件事很难以相信的"
+      ],
+      "ex": [
+        [
+          "他的成功难以复制。",
+          "His success is hard to repeat."
+        ]
+      ]
+    },
+    "hsk30l5/闹": {
+      "why": "他们一直闹笑话 was translated *They were always making jokes*, and 闹笑话 is CC-CEDICT's *to make a fool of oneself* — the opposite of telling a joke on purpose. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "exEn": [
+        [
+          "他们一直闹笑话",
+          "They were always making fools of themselves."
+        ]
+      ],
+      "compounds": [
+        [
+          "热闹",
+          "rènao",
+          "lively; bustling"
+        ],
+        [
+          "吵闹",
+          "chǎonào",
+          "noisy; to make a racket"
+        ],
+        [
+          "闹钟",
+          "nàozhōng",
+          "alarm clock"
+        ],
+        [
+          "胡闹",
+          "húnào",
+          "to make trouble; to play up"
         ]
       ]
     }
