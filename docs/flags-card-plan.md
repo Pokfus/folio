@@ -33,13 +33,14 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**F0 to F10 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
-Geography, and `fl-001`–`fl-200` are live **less the deferred `fl-036`, `fl-171` and `fl-180`** — 197
-cards, so the lowest unused number is not the next card. The next card is `fl-201`. **THE TRIM-AND-COPY
-RANGE IS FINISHED**: every flag already on a twin has been used, and from here every batch fetches.
-**33 twins still need a flag** (`gw-201`–`gw-233` plus the three deferrals, whose twins are deliberately
-left with no flag at all), and each batch back-fills the ones it uses, which
-closes World Geography's own gap as a by-product.
+**F0 to F11 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
+Geography, and `fl-001`–`fl-220` are live **less the deferred `fl-036`, `fl-171`, `fl-180` and
+`fl-218`** — 216 cards, so the lowest unused number is not the next card. The next card is `fl-221`,
+which opens **F12, the last batch**. **THE TRIM-AND-COPY RANGE IS FINISHED**: every flag already on a
+twin has been used, and from here every batch fetches. **RUN `node .claude/check-flag-twins.js` FOR THE
+TWIN COUNT RATHER THAN QUOTING IT** — it stood here as a figure and went stale within two batches — and
+note that a DEFERRED card's twin is deliberately left with no flag at all. Each batch back-fills the
+ones it uses, which closes World Geography's own gap as a by-product.
 
 **NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate question
 and which nothing else in the pipeline can see: for a reader who cannot see the flags the alt IS the
@@ -200,7 +201,9 @@ reader who answered "France" would be marked wrong for being right. And **choosi
 asserts that it is *the* flag**, which is the thing the Accord declined to decide. **The number is
 reserved and left unused.**
 
-**SO THE DECK IS 230 OF 233 WRITABLE, WITH THREE DEFERRALS AND NO GAPS.** **The test to apply to a
+**SO THE DECK IS 229 OF 233 WRITABLE, WITH FOUR DEFERRALS AND NO GAPS** — `fl-218` Saint Martin joined
+them in F11, for a third reason again: see its own entry in that batch's log.
+**SO THE TEST IS THE THING TO CARRY RATHER THAN THE COUNT.** **The test to apply to a
 candidate is not "is this place disputed?"** — plenty of disputed places have one undisputed flag, and
 `fl-104` Hong Kong, `fl-167` Macau and `fl-153` Kosovo all ship. It is **"is there exactly one flag that
 this territory's own institutions fly, and does Commons name it?"** Where the answer is no, the number is
@@ -900,6 +903,99 @@ carries no credit, and the only console error anywhere in the run is the sandbox
 certificate.
 
 
+## F11 — `fl-201` to `fl-220` (Sep 2026)
+
+Guernsey to Palau: **19 cards of the batch's 20**, `fl-218` Saint Martin deferred. Eighteen are public
+domain and Guernsey's is CC0. The 429s came again and came to nothing, but harder than before — see the
+backoff finding below.
+
+**`fl-218` SAINT MARTIN IS THE FOURTH DEFERRAL AND ITS REASON IS A THIRD ONE.** `fl-036` Afghanistan and
+`fl-171` Western Sahara are deferred because Commons resolves the name to ONE claimant's flag, and
+`fl-180` New Caledonia because the territory flies TWO co-official flags. This is neither: **Commons has
+no flag of Saint Martin at all, and says so in its own words.** `File:Flag of Saint Martin.svg` does not
+exist and neither does any of the obvious variants; a namespace search returns exactly one candidate,
+`File:Local flag of the Collectivity of Saint Martin.svg`, whose caption reads *"Fictional flag of the
+Collectivity of Saint Martin with the official emblem from Flags of the World"* under Commons' own
+standing banner: *"This flag is fictitious, proposed, or unofficial."* What the collectivity's
+institutions actually fly is the French tricolour — which is `fl-023` France's answer, so showing it
+would mark a reader wrong for being right, exactly as New Caledonia would. **The deferral test asked of
+a redirect answered it in one request**: there is not exactly one flag this territory's own institutions
+fly that Commons names, so the number is reserved and left unused. **The deck is now 229 of 233
+writable, with four deferrals and no gaps.**
+
+**`gw-210` SINT MAARTEN IS THE OTHER HALF OF THAT ISLAND AND SHIPS WITHOUT A MURMUR**, which is worth
+stating beside it: the Dutch constituent country has a flag of its own that Commons names, so one island
+supplies a shipped card and a deferred one for reasons that have nothing to do with each other.
+
+**THE BUSY HOST IS NOW THE BATCH'S MAIN COST, AND RETRYING FAST MAKES IT WORSE.** Four dry runs refused
+1, 3, 3 and then **18 of 19** — the refusal set moving between runs, which is what says it is the host
+and not the files. A retry loop at 40-second spacing is what produced that 18, so **space a re-run in
+minutes rather than seconds, and check what already landed before retrying at all**: `add-flags.js`
+writes the flags it DID resolve, so the nineteen arrived across two attempts with nothing lost and a
+third attempt would have been asking Commons for work already done. **Read `data.js` before deciding a
+run failed.**
+
+**A FLAG CARD INHERITS ITS TWIN'S TAGS, WHICH MADE IT THE FIRST THING EVER TO ASK WHETHER A SHIPPED TAG
+IS A LEGAL TAG — AND TWO OF THEM ARE NOT.** `add-flag-cards.js` hands each card to `add-card.js`, which
+refused `fl-217` outright: `"åland" is not a tag`. The tag rule is `TAG_RX` in `add-card-tags.js`, sliced
+out by text by `add-card.js` so the two cannot disagree, and it was `/^[a-z0-9][a-z0-9 '–-]{1,28}$/` —
+**an ASCII class, which cannot say that `åland` is a lowercase word**, the `\b` trap this repo records in
+three other places. Measured over the cards and the glossary together: **499 distinct tags, exactly one
+non-ASCII, and exactly two over the 29-character cap** — `saint vincent and the grenadines` and
+`democratic republic of the congo`, both 32 characters, which are the longest entities the geography
+decks name. So the rule refused two kinds of tag the corpus has carried all along. It is now
+`/^[\p{Ll}0-9][\p{Ll}0-9 '–-]{1,39}$/u`, and **`\p{Ll}` states the "lowercase" rule BETTER than `a-z`
+did**, which said nothing about `É`: measured, not one tag anywhere carries an uppercase letter, so the
+widening admits what ships and the class still refuses `Åland`, `PLACE` and `ÉLAN`. The cap is set from
+the measurement plus headroom rather than chosen. **`add-glossary.js` CHECKS NO TAG PATTERN AT ALL**,
+which is how all three got in, and is left as it stands and recorded here.
+
+**THE REFUSAL STOPPED THE BATCH RATHER THAN SKIPPING A CARD, which is the right behaviour and looks like
+three faults.** `fl-217` refused and `fl-219` and `fl-220` were never attempted, so the count came back
+three short of nineteen for one cause. **Count what is missing before diagnosing what failed.**
+
+**THIS IS THE BLUE-ENSIGN BATCH THE PLAN PREDICTED, AND THE FAMILY IS NOW NINE.** `fl-203` Bermuda,
+`fl-208` the Turks and Caicos Islands, `fl-212` the British Virgin Islands and `fl-219` Anguilla join
+`fl-054` Australia, `fl-123` New Zealand, `fl-162` Fiji, `fl-184` Samoa and `fl-200` the Cayman Islands.
+**The colour is no discriminator at all here** — four of them are the same dark blue with the Union Flag
+in the same canton — so this is Andorra's rule from F10 at four cards at once: **the badge is the whole
+of it**, and each alt names its own. A gold lion over wavy bars with a turtle and a pineapple (Cayman); a
+conch shell, a spiny lobster and a red-topped cactus on yellow (Turks and Caicos); a woman in white with
+an oil lamp among eleven more on green (BVI); three orange dolphins circling above a pale blue band on
+white (Anguilla). **`fl-203` Bermuda needs none of that, because it is a RED ensign** — the field
+separates it outright, and it is the only one in the deck. **BVI's scroll reads VIGILATE, which is a
+MOTTO and names nothing**, so F10's lettering rule applies unchanged.
+
+**THE ONE REAL COLLISION IS MONACO AGAINST `fl-004` INDONESIA, AND IT IS THE HARDEST PAIR THE DECK HAS
+HAD.** They are the same design — two equal horizontal bands, red above white — and Chad-and-Romania's
+answer does not obviously apply, there being no charge and no third colour. Both discriminators were
+MEASURED rather than asserted, which is F9's rule. **The red: Indonesia's SVG fills with the keyword
+`red`, i.e. `#FF0000`, and Monaco's with `#CE1126` — ΔE 30.0**, more than twice the 14.1 that was
+judged nameable for Chad and Romania, so "deep carmine red" is an honest clause rather than a hedge.
+**And the RATIO is the stronger half**: Monaco is 5:4 against Indonesia's 3:2, and since the frame never
+crops, a sighted reader sees it — Monaco fills the box where Indonesia leaves the ruled ground showing
+above and below. The alt leads on the shape and then names the shade. **Poland is not in this pair**:
+`fl-042` is white above red, the other way up, and its `#DC143C` is ΔE 9.8 from Monaco's, which is why
+the order matters more than the colour there.
+
+**ÅLAND AND GUERNSEY ARE THE SAME DESIGN IDEA TWICE AND NEITHER COLLIDES.** Both are a cross with a
+narrower cross of a second colour laid inside its arms — Guernsey gold inside red on white, Åland red
+inside yellow on blue. Against `fl-093` Sweden, whose alt is "A yellow Nordic cross on a blue field",
+Åland's blue measures ΔE 8.3 and its yellow 3.9, so **the colour would NOT have separated them** and the
+red inset is what does; against `fl-131` Georgia, a white field with a large red cross and four smaller
+ones, Guernsey is separated by the gold. **Ask what the second cross is before reaching for the shade.**
+
+**`fl-206` SAINT KITTS AND NEVIS SITS CLOSEST TO `fl-022` TANZANIA IN WORDING** — a field divided by a
+broad black diagonal band edged in yellow — and is separated twice over, by the lower half's colour (red
+against blue) and by the two white stars the band carries. It is the one pair in this batch where the
+alts had to be read against each other rather than merely measured.
+
+Cards were looked at in a browser: Bermuda for the red ensign, Monaco for the ratio, Åland for the
+diacritic in its own answer term and San Marino for a detailed charge at card size. The answer box draws
+no flag, the front carries no credit, and the only console error anywhere in the run is the sandbox's own
+Supabase certificate.
+
+
 ---
 
 # The list
@@ -1146,26 +1242,26 @@ geography plans it could not until eight capitals had already drifted.
 
 ### Batch F11 — fl-201 to fl-220 — 20 cards, 20 flags to fetch
 
-  fl-201  Guernsey  [fetch]
-  fl-202  Dominica  [fetch]
-  fl-203  Bermuda  [fetch]
-  fl-204  Greenland  [fetch]
-  fl-205  Faroe Islands  [fetch]
-  fl-206  Saint Kitts and Nevis  [fetch]
-  fl-207  American Samoa  [fetch]
-  fl-208  Turks and Caicos Islands  [fetch]
-  fl-209  Northern Mariana Islands  [fetch]
-  fl-210  Sint Maarten  [fetch]
-  fl-211  Liechtenstein  [fetch]
-  fl-212  British Virgin Islands  [fetch]
-  fl-213  Gibraltar  [fetch]
-  fl-214  Monaco  [fetch]
-  fl-215  Marshall Islands  [fetch]
-  fl-216  San Marino  [fetch]
-  fl-217  Åland  [fetch]
-  fl-218  Saint Martin  [fetch]
-  fl-219  Anguilla  [fetch]
-  fl-220  Palau  [fetch]
+  fl-201  Guernsey  [on gw-201]
+  fl-202  Dominica  [on gw-202]
+  fl-203  Bermuda  [on gw-203]
+  fl-204  Greenland  [on gw-204]
+  fl-205  Faroe Islands  [on gw-205]
+  fl-206  Saint Kitts and Nevis  [on gw-206]
+  fl-207  American Samoa  [on gw-207]
+  fl-208  Turks and Caicos Islands  [on gw-208]
+  fl-209  Northern Mariana Islands  [on gw-209]
+  fl-210  Sint Maarten  [on gw-210]
+  fl-211  Liechtenstein  [on gw-211]
+  fl-212  British Virgin Islands  [on gw-212]
+  fl-213  Gibraltar  [on gw-213]
+  fl-214  Monaco  [on gw-214]
+  fl-215  Marshall Islands  [on gw-215]
+  fl-216  San Marino  [on gw-216]
+  fl-217  Åland  [on gw-217]
+  fl-218  DEFERRED  [Saint Martin — Commons names no flag of it; the one candidate is marked fictional; see above]
+  fl-219  Anguilla  [on gw-219]
+  fl-220  Palau  [on gw-220]
 
 ### Batch F12 — fl-221 to fl-233 — 13 cards, 13 flags to fetch
 

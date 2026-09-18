@@ -884,8 +884,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Nepal's is not a rectangle) **on a ruled ground**, since Japan, Qatar's hoist and every white-bordered
   flag vanish into a light card — those two are the whole test. **THE ALT DESCRIBES AND MAY NOT NAME**,
   which makes this format MORE accessible than the map card rather than less: a shape on a globe cannot
-  be described without answering the question and a flag can. **THREE CARDS ARE DEFERRED AND EACH FOR A DIFFERENT
-  REASON**, so the deck is 230 of 233 writable with the numbers reserved. `fl-036` **Afghanistan** is the
+  be described without answering the question and a flag can. **FOUR CARDS ARE DEFERRED AND EACH FOR A DIFFERENT
+  REASON**, so the deck is 229 of 233 writable with the numbers reserved. `fl-036` **Afghanistan** is the
   Afghanistan decision one collection over, where `gw-036` can ship with no flag because its question is
   the shape and this card cannot, the flag BEING the question. `fl-171` **Western Sahara** is that with
   both claimants standing: Commons has no such file and the name redirects to the SADR's flag, credited
@@ -893,6 +893,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   contested sovereignty at all — the territory flies TWO co-official flags, Commons files them as one
   composite image (`Flags_of_New_Caledonia.svg`, plural), a composite is not a flag, and one of the two
   is already `fl-023` France's answer, so showing it would mark a reader wrong for being right.
+  And `fl-218` **Saint Martin** (Sep 2026, F11) is the fourth reason: **Commons names no flag of it at
+  all and SAYS SO** — no `File:Flag of Saint Martin.svg` nor any variant, and the one candidate a
+  namespace search returns carries Commons' own banner *"This flag is fictitious, proposed, or
+  unofficial"* — while what the collectivity's institutions fly is the tricolour, which is New
+  Caledonia's objection again. **The other half of that island, `fl-210` Sint Maarten, ships without a
+  murmur**, which is what says this is a fact about the flag rather than about the island.
   **THE TEST IS NOT "IS THIS PLACE DISPUTED?"** — Hong Kong, Macau and Kosovo all ship — but **"is there
   exactly one flag this territory's own institutions fly, and does Commons name it?", asked of a REDIRECT
   rather than of a map.** A deferred twin is left with no flag at all, since fetching one would put the
@@ -6705,7 +6711,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 3 / 3 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
-| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 197 cards — `fl-001`–`fl-200` less the DEFERRED `fl-036`, `fl-171` and `fl-180`, so the lowest unused number is not the next card; next is `fl-201`, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
+| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 216 cards — `fl-001`–`fl-220` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, so the lowest unused number is not the next card; next is `fl-221`, which opens the LAST batch, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
@@ -6980,6 +6986,21 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   which is why `add-card.js` REFUSES a card with none rather than defaulting, exactly as it refuses one with
   no `difficulty`. The bounds and the tag pattern are sliced out of `.claude/add-card-tags.js`, which is the
   batch tool for cards already shipped. See the card-tags bullet under "How the app is wired".
+  **A TAG IS MATCHED WITH `\p{Ll}` AND NOT `a-z`, AND THE CAP IS 40 CHARACTERS, BECAUSE THE SHIPPED
+  CORPUS CARRIED TAGS `TAG_RX` REFUSED** (Sep 2026, found writing `fl-217`). It was
+  `/^[a-z0-9][a-z0-9 '–-]{1,28}$/`: an ASCII class **cannot say that `åland` is a lowercase word** — the
+  `\b` trap this file records in three other places — and 29 characters is shorter than
+  `saint vincent and the grenadines` and `democratic republic of the congo`, which are 32 and are the
+  longest entities the geography decks name. **Nothing had ever asked the question**, because a tag is
+  written once with its card and never re-validated; **a FLAG card inherits its twin's tags**, so the
+  first thing to ask was a new card reusing a shipped one's. Measured over the cards and the glossary
+  together: **499 distinct tags, exactly one non-ASCII, exactly two over the cap, and NOT ONE carrying an
+  uppercase letter** — so `\p{Ll}` states the "lowercase" rule BETTER than `a-z` did, which said nothing
+  about `É`, and the cap is set from that measurement plus headroom rather than chosen. **`add-glossary.js`
+  CHECKS NO TAG PATTERN AT ALL**, which is how all three got in and is why a glossary tag can be illegal
+  as a card tag. **And a refusal STOPS the batch**: `fl-217` refused and the two cards after it were never
+  attempted, so one cause read as three missing cards — **count what is missing before diagnosing what
+  failed.**
 - `difficulty` — **REQUIRED for every new card: an integer 1–5 rating how well known the ANSWER TERM is to
   the general population.** **1** household name (Stone Age, Homer, Sparta, Neanderthal); **2** generally
   familiar, an ordinary secondary education reaches it (Neolithic, Knossos, phalanx, Lascaux); **3** known

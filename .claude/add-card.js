@@ -509,7 +509,7 @@ if (card.tags.length < TAG_RULES.min || card.tags.length > TAG_RULES.max) {
 }
 for (const t of card.tags) {
   if (typeof t !== "string" || !TAG_RULES.rx.test(t)) {
-    console.error("ERROR: " + JSON.stringify(t) + " is not a tag — lowercase words, 2–29 characters, as the glossary's are.\n" + TAG_HELP);
+    console.error("ERROR: " + JSON.stringify(t) + " is not a tag — lowercase words, 2–40 characters, as the glossary's are.\n" + TAG_HELP);
     process.exit(1);
   }
 }
