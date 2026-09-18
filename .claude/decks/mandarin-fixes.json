@@ -13914,16 +13914,19 @@
       ]
     },
     "hsk30l5/加工": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | 我无法相信他有种向老板要求加工资 does not contain this word either: it is 加 + 工资, to raise wages, and the headword's characters straddle the two — the same fault as 家电 above and invisible for the same reason, the segmenter landing on 加工 because 加工 is what it is looking for. Harvested by an earlier batch of this audit. Its English also rendered 有种 as *had the balls*, which is a register the card has no reason to teach. Replaced with an AUTHORED sentence on the word's own industrial sense. AUTHORED, and the record says so.",
       "ex": [
         [
-          "我无法相信他有种向老板要求加工资。",
-          "I can't believe he had the balls to ask the boss for a raise."
+          "这家工厂加工木材。",
+          "This factory processes timber."
         ],
         [
           "奶酪是由母牛、山羊、绵羊或其它哺乳动物的奶加工制成的固体食物。",
           "Cheese is a solid food made from the milk of cows, goats, sheep, and other mammals."
         ]
+      ],
+      "dropEx": [
+        "我无法相信他有种向老板要求加工资"
       ]
     },
     "hsk30l5/动人": {
@@ -14258,20 +14261,23 @@
       ]
     },
     "hsk30l5/家电": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 广场东边有一家电影院 does not contain this word at all: it is 一家 + 电影院, and the card's own characters straddle the boundary between them. `check-example-fit.js` reports EXACTLY this string as a fault on two OTHER cards in this same deck — 电视台's 她在一家电视台工作 and 电商's 他在一家电商公司上班 — and cannot see it here, because its lexicon holds 家电 and the greedy segmenter therefore LANDS on the headword when the headword is the card's own. That is the blind spot batch 26 measured, met from the far side. The sentence was harvested by an earlier batch of this audit and its English is truncated besides (从这儿到大概要走十分钟 has lost whatever 到 was going to). Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
       "ex": [
         [
-          "广场东边有一家电影院，从这儿到大概要走十分钟。",
-          "There's a movie theatre on the east side of the plaza, about ten minutes walk from here."
-        ],
-        [
-          "他家的家电都是新的。",
-          "All the appliances in his home are new."
+          "我家的家电都是新的。",
+          "All the appliances in my home are new."
         ],
         [
           "这家店卖各种家电。",
           "This shop sells all kinds of household appliances."
+        ],
+        [
+          "冰箱是最常用的家电。",
+          "A refrigerator is the most-used household appliance."
         ]
+      ],
+      "dropEx": [
+        "广场东边有一家电影院"
       ]
     },
     "hsk30l5/对比": {
@@ -14878,7 +14884,7 @@
       ]
     },
     "hsk30l5/简历": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 根本不在乎 is *do not care at all* and was rendered \"I don't give a damn\".",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. **The English is coarser than the Chinese it translates**, which is the single widest finding of this sweep: the card is not teaching an expletive and the translator supplied one anyway. 根本不在乎 is *do not care at all* and was rendered \"I don't give a damn\". | The English spelled it *resumé*, with the accent on the wrong vowel — it is *résumé* or nothing. The card's other two sentences say CV, which is the British word and the one the gloss leads on, so the sentence is put into that rather than given a second accent.",
       "ex": [
         [
           "我还从来都没有写过简历呢！",
@@ -14891,8 +14897,8 @@
       ],
       "exEn": [
         [
-          "我根本不在乎我的简历。",
-          "I do not care in the least about my CV."
+          "我还从来都没有写过简历呢",
+          "I still haven't ever written a CV!"
         ]
       ]
     },
@@ -15220,7 +15226,7 @@
       "gloss": "major, momentous (of events and decisions)"
     },
     "hsk30l5/键": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 我在一队本地乐队中担任键琴手 turns on a word that does not exist: a player of keyboards is a 键盘手, not a 键琴手, so the card's one generator sentence used its character inside a non-word — and 一队本地乐队 says *band* twice besides. Replaced with an AUTHORED sentence. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded, which holds none of these. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
       "ex": [
         [
           "按任何键。",
@@ -15229,6 +15235,35 @@
         [
           "这个键坏了，按不下去。",
           "This key is broken and won't press down."
+        ],
+        [
+          "他用力敲下回车键。",
+          "He struck the return key hard."
+        ]
+      ],
+      "dropEx": [
+        "我在一队本地乐队中担任键琴手"
+      ],
+      "compounds": [
+        [
+          "键盘",
+          "jiànpán",
+          "keyboard"
+        ],
+        [
+          "关键",
+          "guānjiàn",
+          "crux; key; crucial"
+        ],
+        [
+          "按键",
+          "ànjiàn",
+          "button or key (on a device)"
+        ],
+        [
+          "快捷键",
+          "kuàijiéjiàn",
+          "shortcut key"
         ]
       ]
     },
@@ -127453,6 +127488,326 @@
         1,
         1,
         2
+      ]
+    },
+    "hsk30l5/加热": {
+      "why": "Two of three sentences heated the same water — 当水被加热时，水汽蒸发 and 把水加热不改变它的化学成分 — a NEAR-repeat the coverage checker cannot see. The first also says 水汽蒸发, water VAPOUR evaporating, where its English says the water does. Replaced with an AUTHORED everyday sentence, the other two being a physics lesson. AUTHORED, and the record says so.",
+      "dropEx": [
+        "当水被加热时"
+      ],
+      "ex": [
+        [
+          "请把牛奶加热一下。",
+          "Please heat the milk up."
+        ]
+      ]
+    },
+    "hsk30l5/加速": {
+      "why": "火车加速了 and 车子继续加速 are the same sentence with a different vehicle — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence on the transitive use, which no sentence showed. AUTHORED, and the record says so.",
+      "dropEx": [
+        "车子继续加速"
+      ],
+      "ex": [
+        [
+          "政府希望加速经济发展。",
+          "The government hopes to speed up economic growth."
+        ]
+      ]
+    },
+    "hsk30l5/家务": {
+      "why": "The gloss was *house work* as two words, which is not how the compound is spelled in either British or American English. Reported by check-gloss-source.js. CC-CEDICT gives *household duties; housework*.",
+      "gloss": "housework; household chores"
+    },
+    "hsk30l5/甲": {
+      "why": "NOT ONE of the card's three sentences used 甲 as a word: 洗甲水 is nail polish remover, 甲虫 is a beetle, and 手甲 and 脚甲 are not standard Mandarin at all — the words are 指甲 and 脚趾甲, and 手甲 is a southern form. A one-character headword is skipped by check-example-fit.js by design, so nothing reported any of it. All three are replaced by AUTHORED sentences on the sense the character actually carries free, which is the letter A of an enumeration — 甲、乙、丙 — with its grade sense beside it. The gloss is re-ordered to lead on that sense rather than on the two bound ones; nothing is taken out of it. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded, which holds none of these. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "gloss": "first in a list, A; shell, carapace; (finger)nail; the first of the ten Heavenly Stems",
+      "dropEx": [
+        "洗甲水的味道很难闻",
+        "我喜欢甲虫",
+        "手甲的生长速度比脚甲快四倍"
+      ],
+      "ex": [
+        [
+          "甲、乙两队明天比赛。",
+          "Teams A and B play tomorrow."
+        ],
+        [
+          "假设甲比乙大三岁。",
+          "Suppose A is three years older than B."
+        ],
+        [
+          "他这次考试得了甲等。",
+          "He got a grade A in this examination."
+        ]
+      ],
+      "compounds": [
+        [
+          "指甲",
+          "zhǐjia",
+          "fingernail"
+        ],
+        [
+          "甲骨文",
+          "jiǎgǔwén",
+          "oracle bone script"
+        ],
+        [
+          "甲虫",
+          "jiǎchóng",
+          "beetle"
+        ],
+        [
+          "装甲",
+          "zhuāngjiǎ",
+          "vehicle armour"
+        ]
+      ]
+    },
+    "hsk30l5/架": {
+      "why": "The card is labelled *noun / verb / measure word* and glossed the noun alone, and two of its three sentences show neither: 她们在干架 is 干架, a colloquial word for scrapping, and 上高架走 is 高架, an elevated road — the one-character headword swallowed twice, which check-example-fit.js skips by design. The three senses the label claims are written out and each sentence tagged. The verb and one more classifier use are AUTHORED. The NOUN sense is glossed and deliberately not illustrated: 架 standing alone as a noun is written rather than spoken Chinese, and every everyday sentence for it is really 架子 or a compound, which would swallow the headword again. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded, which holds none of these. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "senses": [
+        [
+          "noun",
+          "frame; rack; stand"
+        ],
+        [
+          "verb",
+          "to put up; to erect; to support"
+        ],
+        [
+          "measure word",
+          "(for aircraft, pianos and machines)"
+        ]
+      ],
+      "dropEx": [
+        "她们在干架",
+        "要不要上高架走"
+      ],
+      "ex": [
+        [
+          "他们在河上架了一座桥。",
+          "They put a bridge across the river."
+        ],
+        [
+          "这架钢琴是我爷爷的。",
+          "This piano was my grandfather's."
+        ]
+      ],
+      "exSense": [
+        3,
+        2,
+        3
+      ],
+      "compounds": [
+        [
+          "书架",
+          "shūjià",
+          "bookshelf"
+        ],
+        [
+          "框架",
+          "kuàngjià",
+          "frame; framework"
+        ],
+        [
+          "支架",
+          "zhījià",
+          "support; stand; trestle"
+        ],
+        [
+          "打架",
+          "dǎjià",
+          "to fight; to come to blows"
+        ]
+      ]
+    },
+    "hsk30l5/驾驶": {
+      "why": "安全地驾驶 and 小心点驾驶，不然你就麻烦了 are the same instruction twice — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence on *to pilot*, which the gloss gives and no sentence showed. AUTHORED, and the record says so.",
+      "dropEx": [
+        "安全地驾驶"
+      ],
+      "ex": [
+        [
+          "他驾驶一架小飞机。",
+          "He flies a small plane."
+        ]
+      ]
+    },
+    "hsk30l5/驾照": {
+      "why": "他二十八岁才拿到驾照 and 她没到拿驾照的年龄 are the same fact about age and a licence twice over — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence putting the licence in somebody else's hands. AUTHORED, and the record says so.",
+      "dropEx": [
+        "她没到拿驾照的年龄"
+      ],
+      "ex": [
+        [
+          "警察要求他出示驾照。",
+          "The police asked him to show his driving licence."
+        ]
+      ]
+    },
+    "hsk30l5/艰苦": {
+      "why": "他们不怕艰苦的工作 and 这是一项艰苦的工作 are the same collocation twice — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence with a different noun, so the card teaches more than 艰苦的工作. AUTHORED, and the record says so.",
+      "dropEx": [
+        "他们不怕艰苦的工作"
+      ],
+      "ex": [
+        [
+          "他们经过艰苦的努力才成功。",
+          "They succeeded only after an arduous effort."
+        ]
+      ]
+    },
+    "hsk30l5/捡": {
+      "why": "你不介意的路上捡东西回来？ is not a grammatical sentence — 你不介意的路上 is not a phrase Chinese has, and its English (*Would you mind picking up something on the way back?*) is translating a 在回来的路上 the Chinese never got. Replaced with an AUTHORED sentence. NO Compounds section is written for this character, deliberately: CC-CEDICT holds only 捡拾, 捡漏 and two idioms for it, so there is no set of three ordinary words to give, and a row glossed from inference is the one thing the record forbids. AUTHORED, and the record says so.",
+      "dropEx": [
+        "你不介意的路上捡东西回来"
+      ],
+      "ex": [
+        [
+          "他弯腰捡起地上的钥匙。",
+          "He bent down and picked the keys up off the ground."
+        ]
+      ]
+    },
+    "hsk30l5/剪": {
+      "why": "Two faults at once. 你想将头发剪成怎样 and 我没剪过他们的头发 are the same haircut twice — a NEAR-repeat the coverage checker cannot see — and 用剪刀剪图片 is word for word the third sentence of 剪刀, the very next card in the deck, so a reader working through the deck in order meets it twice within two cards. Both are dropped and AUTHORED sentences put in, the shared one left standing on 剪刀 where the scissors are the subject. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded, which holds none of these. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "用剪刀剪图片",
+        "我没剪过他们的头发"
+      ],
+      "ex": [
+        [
+          "他剪断了绳子。",
+          "He cut the rope."
+        ],
+        [
+          "她把照片剪成了心形。",
+          "She cut the photograph into a heart shape."
+        ]
+      ],
+      "compounds": [
+        [
+          "剪刀",
+          "jiǎndāo",
+          "scissors"
+        ],
+        [
+          "剪纸",
+          "jiǎnzhǐ",
+          "papercutting (Chinese folk art)"
+        ],
+        [
+          "修剪",
+          "xiūjiǎn",
+          "to prune; to trim"
+        ],
+        [
+          "剪辑",
+          "jiǎnjí",
+          "to edit (film, video or audio)"
+        ]
+      ]
+    },
+    "hsk30l5/简直": {
+      "why": "Both English translations dropped the adverb the card teaches: *You'll find it impossible to live there* and *Some people think of reading as a waste of time* say nothing about 简直, *simply*, which is the only word either sentence is on the card for.",
+      "exEn": [
+        [
+          "那里简直不是人住的",
+          "That place is simply not fit to live in."
+        ],
+        [
+          "有些人认为阅读简直浪费时间",
+          "Some people think reading is simply a waste of time."
+        ]
+      ]
+    },
+    "hsk30l5/建": {
+      "why": "我建石头房子 is not a sentence anyone writes — its English, *I build houses out of stone*, is translating a 用石头建房子 the Chinese has not got. Replaced with an AUTHORED sentence. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded, which holds none of these. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我建石头房子"
+      ],
+      "ex": [
+        [
+          "他们在这里建了一所学校。",
+          "They built a school here."
+        ]
+      ],
+      "compounds": [
+        [
+          "建立",
+          "jiànlì",
+          "to establish; to set up; to found"
+        ],
+        [
+          "建设",
+          "jiànshè",
+          "to build; to construct; to develop"
+        ],
+        [
+          "建筑",
+          "jiànzhù",
+          "building; to construct"
+        ],
+        [
+          "建议",
+          "jiànyì",
+          "to propose; a suggestion"
+        ]
+      ]
+    },
+    "hsk30l5/键盘": {
+      "why": "手指在键盘上快速的移动 writes 的 where an adverbial modifier takes 地 — the commonest particle mistake a learner makes, and one a deck that prints it teaches. Re-set with 地.",
+      "dropEx": [
+        "手指在键盘上快速的移动"
+      ],
+      "ex": [
+        [
+          "手指在键盘上快速地移动。",
+          "The fingers move quickly over the keyboard."
+        ]
+      ]
+    },
+    "hsk30l5/建设": {
+      "why": "政府应该彻底加强军队建设 is a slogan rather than a sentence, and its English (*strengthen their army once and for all*) does not contain the word the card teaches; 你的想法很有建设性 is 建设性, a derived adjective that swallows the headword. Both replaced by AUTHORED sentences, one the verb and one the NOUN use, which is common and which no sentence showed. AUTHORED, and the record says so.",
+      "dropEx": [
+        "政府应该彻底加强军队建设",
+        "你的想法很有建设性"
+      ],
+      "ex": [
+        [
+          "国家正在建设新的铁路。",
+          "The country is building a new railway."
+        ],
+        [
+          "经济建设取得了很大成就。",
+          "A great deal has been achieved in economic development."
+        ]
+      ]
+    },
+    "hsk30l5/建筑": {
+      "why": "The card is labelled *noun / verb* and glossed the verb alone — *build; construct; erect* — while ALL THREE of its sentences are the noun: 新建筑 a building, 讨论建筑 architecture, 建筑木材 building timber. The senses are split into the two the label claims, with the noun first, which is what the card actually teaches. The verb is glossed and not illustrated, deliberately: modern usage gives the verb to 建造 and 建设, which are the two cards either side of this one.",
+      "senses": [
+        [
+          "noun",
+          "building; architecture"
+        ],
+        [
+          "verb",
+          "to construct; to build"
+        ]
+      ]
+    },
+    "hsk30l5/将近": {
+      "why": "The gloss carried *nearby*, which is 附近 and a different word — 将近 is only ever *almost* or *nearly*, and none of the card's sentences is spatial. 青春的诀别是否意味着年迈的将近 also makes a noun of it, which an adverb cannot be; replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "gloss": "almost; nearly; close to",
+      "dropEx": [
+        "很多人问我，青春的诀别是否意味着年迈的将近"
+      ],
+      "ex": [
+        [
+          "会场里来了将近两百人。",
+          "Nearly two hundred people came to the hall."
+        ]
       ]
     }
   },

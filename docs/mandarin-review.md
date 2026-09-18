@@ -627,6 +627,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 451–480 (哈 → 蝴蝶), deck order | 20 | **a card not one of whose three sentences used its character as a word — two transliterated place names and a compound** |
 | 2026-09-18 | `hsk30l5` notes 481–510 (胡同 → 机构), deck order | 18 | **a card that SPOKE one reading of its character and ILLUSTRATED the other twice over, which no checker here can see** |
 | 2026-09-18 | `hsk30l5` notes 511–540 (激烈 → 记载), deck order | 26 | **seven near-repeats in thirty cards — one of them two sentences this audit itself added, differing only in their subject** |
+| 2026-09-18 | `hsk30l5` notes 541–570 (嘉宾 → 将近), deck order | 20 | **the same string reported as a fault on two OTHER cards and invisible on the card where it IS the fault** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -8374,3 +8375,109 @@ still-ambiguous 1; shared-gloss groups 322 unchanged — so none of the six glos
 collision; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged; british 0;
 34,596 blocks with spoken == visible on every one; **sense-tagged 675 → 693**, the eighteen being 及's,
 挤's, 系's, 记录's, 纪念's and 记忆's three apiece; `build-lang-decks.js` re-run.
+
+## Batch 92 — hsk30l5 notes 541–570 (嘉宾 → 将近)
+
+Thirty consecutive notes of HSK Level 5 in deck order. **Twenty cards changed**, ten read and left. Its
+best finding is a checker being right about a string on two cards and blind to it on the third, which is
+the card the string is actually wrong on.
+
+### 一家电影院 — reported twice, invisible where it matters
+
+**家电's first sentence was 广场东边有一家电影院, which does not contain the word at all**: it is 一家 +
+电影院, and the card's own two characters straddle the boundary between them.
+
+**`check-example-fit.js` reports exactly this string — twice — on other cards in this same deck.** 电视台's
+她在一家电视台工作 is listed as *split between 家电 and 视 and 台*, and 电商's 他在一家电商公司上班 as *split
+between 家电 and 商*. Both findings exist because the segmenter's lexicon holds 家电 and greedily prefers
+it. **And that is precisely why it cannot see the fault on 家电 itself**: there the segmenter lands
+squarely on the headword, which is all the check asks. It is batch 26's measured blind spot met from the
+far side — the checker's own lexicon supplying the wrong answer on the one card that matters.
+
+**加工 is the same fault one card later**: 我无法相信他有种向老板要求加工资 is 加 + 工资, to raise wages,
+and reports nothing for the same reason. **Both sentences were harvested by earlier batches of this
+audit**, and the harvest's guard is written in terms of the opposite arrangement: it refuses a target
+SWALLOWED by a longer headword, and says nothing about one FORMED ACROSS two shorter ones. Both are
+replaced with authored sentences.
+
+### A card whose three sentences used its character in three other words
+
+**甲's sentences were 洗甲水 (nail polish remover), 甲虫 (a beetle) and 手甲的生长速度比脚甲快四倍.**
+Not one uses 甲 as a word, and the third is not standard Mandarin at all — the words are 指甲 and 足趾甲,
+where 手甲 is a southern form. A one-character headword is skipped by `check-example-fit.js` by design,
+so nothing reported any of it.
+
+All three are replaced with the sense the character actually carries free, which is the **letter A of an
+enumeration** — 甲、乙、丙 — and the gloss is re-ordered to lead on it. **Nothing was taken OUT of the
+gloss**: *shell*, *nail* and the Heavenly Stem are all real senses of the character, and a character card
+should say what its character means; what was wrong was leading on senses the card could not show.
+
+### Three more cards labelled with a part of speech no gloss illustrated
+
+**架 is labelled *noun / verb / measure word* and glossed the noun alone**, and two of its three sentences
+showed neither — 她们在干架 is 干架, scrapping, and 上高架走 is 高架, an elevated road: the one-character
+headword swallowed twice. All three senses are now written out and each sentence tagged.
+
+**建筑 is labelled *noun / verb* and glossed the verb alone**, while all three of its sentences are the
+noun. **建设's gloss is the verb and its first sentence was the noun** (军队建设) inside a slogan whose
+English does not contain the word at all, and its second was 建设性, a derived adjective.
+
+**Two senses are now glossed and deliberately NOT illustrated, and both are recorded rather than papered
+over.** 架 as a bare noun is written rather than spoken Chinese — every everyday sentence for it is
+really 架子 or a compound, which would swallow the headword again. And 建筑 as a verb has been given over
+to 建造 and 建设, which are the two cards either side of it in this very deck.
+
+### Seven near-repeats, one of them across two cards
+
+加热 heated the same water twice; 加速 accelerated a train and then a car; 驾驶 said *drive carefully*
+twice; 驾照 asked twice about the age you get a licence; 艰苦 had 艰苦的工作 twice over; 剪 cut the same
+head of hair twice.
+
+**And 剪's 用剪刀剪图片 is word for word the third sentence of 剪刀, the very next card in the deck** — so
+a reader working through in order met it twice within two cards. It is left standing on 剪刀, where the
+scissors are the subject, and dropped from 剪.
+
+### Three sentences that are not Chinese, and one word that does not exist
+
+**键's one generator sentence turned on 键琴手**, which is not a word: a player of keyboards is a 键盘手.
+So the card's character appeared inside a non-word, and 一队本地乐队 says *band* twice besides.
+**捡's 你不介意的路上捡东西回来？** has no grammatical reading — 你不介意的路上 is not a phrase Chinese
+has. **建's 我建石头房子** is its English (*I build houses out of stone*) with the 用 taken out.
+
+### Two particle errors and four English translations that dropped the word
+
+键盘's 手指在键盘上快速的移动 writes 的 where an adverbial takes 地 — the third such sentence in two
+batches, and the commonest particle mistake a learner makes. 简历's English spelled it *resumé*, with the
+accent on the wrong vowel; it is put into *CV*, which is the word the card's gloss and its other two
+sentences already use. **简直's two translations both dropped the adverb the card exists for**: *You'll
+find it impossible to live there* and *Some people think of reading as a waste of time* say nothing about
+*simply*.
+
+**家务's gloss was *house work* as two words**, which is not how the compound is spelled in either
+English; reported by `check-gloss-source.js`. **将近's gloss carried *nearby***, which is 附近 and a
+different word, and one of its sentences made a noun of an adverb (年迈的将近).
+
+### Five single-character cards gained a `Compounds` section — and one deliberately did not
+
+甲, 架, 剪, 建 and 键 took one, every row's reading and gloss checked against CC-CEDICT first. **捡 did
+not, and the reason is worth recording**: the dictionary holds only 捡拾, 捡漏 and two idioms for that
+character, so there is no set of three ordinary words to give — and a row glossed from inference is the
+one thing this record forbids. An absent panel is the honest answer; batch 90's 灰 made the same call
+about one row and this makes it about a whole card.
+
+### What was read and left
+
+**Ten cards were read and left untouched**: 嘉宾, 加深, 假如, 价值, 坚强, 剪刀, 减肥, 渐渐, 建立 and 建造.
+
+**坚强 and 建造 were the close calls and both were left.** 坚强 has 我不够坚强 and 他很坚强, one
+predicate in two persons — but the second carries a consequence clause the first has not, so they are
+two sentences rather than one written twice. 建造 has 大楼正在建造 and 到处都是新建造的楼房, both
+buildings — but one is progressive and one attributive, which is the distinction the word's grammar
+turns on. **减肥's three sentences are all about losing weight and that is not a repeat**: it is what
+the word means.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 322 unchanged — so neither the 家务 nor the 将近 gloss rewrite made
+a new collision; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; **sense-tagged 693 → 696**, the three being
+架's; `build-lang-decks.js` re-run.
