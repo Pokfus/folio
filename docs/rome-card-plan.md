@@ -766,10 +766,11 @@ of the emperor under Augustus`** is answered by **`Lares Augusti`**, because `rm
 would re-card them; what this card has left to teach is the form the cult actually took at Rome, where
 Dio says no emperor dared accept divine honours in his lifetime and the wards were given the princeps's
 own household gods instead. **`rm-410 The Augustan succession`** is answered by **`princeps
-iuventutis`**, since `rm-493 Adoption and the imperial succession` and `rm-412 The adoption of Tiberius`
+iuventutis`**, since `rm-798 Adoption in ancient Rome` and `rm-412 The adoption of Tiberius`
 between them own the adoption, and what is left is the honour the knights invented to name an heir in a
-state with no lawful word for one. **`rm-407 The Julian marriage laws`** takes **`ius trium
-liberorum`**: neither statute is a term a reader meets again, where the right of three children turns up
+state with no lawful word for one. (`rm-493` was the third line in that group until it was retitled
+`Plotina`; the `rm-491`-`rm-500` batch note below says why.) **`rm-407 The Julian marriage laws`**
+takes **`ius trium liberorum`**: neither statute is a term a reader meets again, where the right of three children turns up
 in Pliny, in the jurists and on inscriptions for three centuries, and Dio's account of it being granted
 to the childless — and to gods, so that they could take legacies — is the whole argument in one
 sentence. **`rm-406`** and **`rm-408`** were only tightened onto the terms their sources carry,
@@ -1015,6 +1016,81 @@ helmet whose file NAME places it in the Corbulo canal at Matilo while its own de
 Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot be written over a
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
+
+## `rm-491`-`rm-500`: Nerva to the alimenta — what this batch found
+
+All ten are in `rm-high-empire`, and they carry the collection from the murder of Domitian to Trajan's
+maintenance grants for the children of Italy. **Two lines were retitled and a third answer was ruled
+out by the glossary rather than by the plan.**
+
+**`rm-494 Trajan` is answered by `optimus princeps`**, on `ww2-133`'s rule: a line named after a person
+the glossary already holds wants the moment, not the man. `Trajan` has been a cited glossary term for
+months, so the pairing rule was already satisfied and the line had no term of its own left to teach.
+What it has instead is the honorific Dio says he prized above Dacicus and Parthicus because it spoke of
+his character rather than his arms - and which the alimentary tablets of 101 and 103 CE were already
+using thirteen years before the Senate voted it.
+
+**`rm-493 Adoption and the imperial succession` is answered by `Plotina`, and the route there is worth
+recording because three obvious terms were each closed off in a different way.** Adoption itself is
+`rm-798 Adoption in ancient Rome` and `rm-412 The adoption of Tiberius`. `tribunicia potestas`, the
+constitutional grant that actually made an heir a colleague, is `rm-393`. And **`Caesar` could not be the
+answer at all, for a reason no plan line can show: `Julius_Caesar` claims the bare surface `Caesar`
+across the whole corpus**, so every occurrence of the title in this card's own prose would auto-link to
+the dictator - a wrong link on the card's own answer term, which a parenthetical key (`Caesar_(title)`)
+does not fix, since such a key claims no bare name and the dictator's alias still does. **Check who owns
+a one-word answer term's surface before researching it**, which is one query against
+`GLOSSARY_ALIASES`. What is left to teach about the imperial succession is the one adoption the sources
+say was manufactured and the woman they say manufactured it: Dio, whose father governed the province
+where Trajan died, writes that Hadrian was never adopted at all and that the last dispatches to the
+Senate went out over Plotina's signature. The key is **`Pompeia_Plotina` with `Plotina` as an alias**,
+the article being under the full name.
+
+**`eutropius` was missing from `check-cards.js`'s `ANCIENT` list**, exactly as `statius` was last batch,
+so three citations of a fourth-century breviarist on `rm-491` reported as a modern scholar over-cited.
+**The drop set was measured and is one card - this batch's own**: the whole-corpus `--report` is
+otherwise byte-identical, no new ancient over-citation note appears, and the `one-witness` heading still
+fires on 464 cards, so the ancient branch is alive rather than merely quiet.
+
+**AND A JOURNAL CAN PRINT A DOI IT HAS NEVER REGISTERED.** `10.14795/jaha.12.1.2025.1225` is what the
+JAHA article page's own `citation_doi` meta tag carries for the 2025 paper on the terraces at
+Sarmizegetusa Regia, and it resolves **404**; the journal's older `10.14795/j.vNiN.NNN` identifiers all
+resolve. `check-citations.js` caught it - Crossref has no record - and the citation now points at the
+article's landing page instead. **Take a DOI off the page and then RESOLVE it**; the metadata tag is not
+evidence that anything was deposited.
+
+**Two hosts were found and not used, and both are 200-status walls.** The *RIHA Journal* article on the
+sixteenth-century drawings of the Column sits behind an Anubis proof-of-work challenge, so it was
+located, could not be read, and was therefore not cited - a citation composed from a search result's
+title is the fabrication the rules forbid. `revistas.uexternado.edu.co` refuses the same way, which
+closed off the open-access paper on the Ligures Baebiani tablet. **And Pliny's *Panegyricus* has no
+public-domain English translation this sandbox can reach at all**: archive.org's copies are Latin
+editions or the in-copyright Loeb, and attalus.org carries the letters and not the speech. So `rm-500`
+rests on Dio, on Pliny's own letters about his private foundation at Comum, and on Caroline Barron's two
+commentaries in the ERC *Judaism and Rome* database, rather than on the one contemporary source that
+describes the scheme at length.
+
+Three smaller things. **`rm-491` carries no modern scholarship and that is the honest answer**: the
+dynasty as a unit is a modern label, and what can be cited for it is the ancient sequence - Dio for the
+accession, Eutropius for the reigns, the *Historia Augusta* for the adoptions, and Ammianus for the line
+still being used as a standard of praise two centuries later. **`rm-499` is the one card here whose
+subject is an argument about the evidence**, and both halves of it come from the same institution: the
+Sovraintendenza Capitolina's own pages say that the clearance of 1926-34 read every room as a shop and
+that the complex is better understood as offices and record stores serving the forum. Two museum pages
+out of six sources keeps it inside `check-cards.js`'s one-institution note. And **`rm-500`'s locator is
+`Veleia (Italy)`**, because the bare `Veleia` article is a disambiguation page with no coordinate and
+`Velleia` is a genus of Australian herbs; `rm-495` takes **Trajan's Bridge**, `Tapae` being `rm-483`'s.
+
+**The answer term of `rm-491` carries an EN DASH**, matching the Wikipedia slug and the glossary key
+`Nerva–Antonine_dynasty`. A later card writing the hyphen will not auto-link to it.
+
+**AN ELEVENTH GLOSSARY TERM WAS ADDED BECAUSE THE BROWSER SHOWED A WRONG LINK.** Reading the rendered
+`rm-496` it turned out that "Sarmizegetusa Regia" was auto-linking its second word to **`Regia`**, the
+priest's house in the Roman Forum - a whole-word match the index is right to make and a wrong link
+nobody would report. The fix was neither a reword nor an alias but **a new term, `Sarmizegetusa_Regia`**,
+because `buildGlossIndex` sorts surfaces longest-first, so the two-word key wins wherever the phrase
+appears and the place gets an entry it deserved anyway. **A card is not verified until it has been
+looked at in a browser**; `check-gloss-links.js` reports the cross-REGION shape and had nothing to say
+about this one, both terms being tagged `rome`.
 
 ## `rm-481`–`rm-490`: Domitian to the end of the Flavians — what this batch found
 
@@ -1412,8 +1488,8 @@ and author the whole time.
 
     rm-491  Nerva–Antonine dynasty
     rm-492  Nerva
-    rm-493  Adoption and the imperial succession
-    rm-494  Trajan
+    rm-493  Plotina
+    rm-494  Optimus princeps
     rm-495  Trajan's Dacian Wars
     rm-496  Decebalus
     rm-497  Trajan's Column
