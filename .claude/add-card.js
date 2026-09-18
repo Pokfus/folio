@@ -164,6 +164,7 @@ if (!card.id) { console.error("ERROR: card.id is empty"); process.exit(1); }
 
 const isMap = !!card.map;
 const isArt = card.artwork === true;   // an ARTWORK card: the picture is its own subject (see the block below)
+const isFlag = card.flagCard === true; // a FLAG card: the flag is its whole question (see the block below)
 if (isMap) {
   const m = card.map;
   if (typeof m !== "object" || Array.isArray(m)) { console.error("ERROR: card.map must be an object: { \"layer\": \"us-states\", \"key\": \"California\" }"); process.exit(1); }
@@ -229,9 +230,11 @@ if (isMap) {
     console.error("ERROR: a map card carries " + MAP_FACTS_MIN + "–" + MAP_FACTS_MAX + " `facts` rows — the figures box beside its answer (capital, population, area …). This one has " + facts.length + ".");
     process.exit(1);
   }
-} else if (!isArt && Array.isArray(card.facts) && card.facts.length) {
+} else if (!isArt && !isFlag && Array.isArray(card.facts) && card.facts.length) {
   // not refused — the box is general, and an ARTWORK card's facts are its own furniture (the artist, the
-  // date, the medium) — but worth saying on anything else, since the box arrived with map cards
+  // date, the medium) — but worth saying on anything else, since the box arrived with map cards.
+  // A FLAG card's grid is its map-card twin's, copied whole, so it is meant on every one of the 233 and
+  // the warning would be 233 lines of noise about the format working.
   console.warn("WARNING: card." + card.id + " has a `facts` box but no `map`. That is allowed; just check it was meant.");
 }
 
@@ -334,8 +337,52 @@ if (isArt) {
   }
 }
 
-const QMIN = isMap || isArt ? MAPQ_MIN : Q_MIN, QMAX = isMap || isArt ? MAPQ_MAX : Q_MAX;
-if (!isMap && !isArt && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
+/* ---------- A FLAG CARD (Sep 2026, on request) ----------
+   `flagCard: true` says the card's FLAG is its whole question: the front draws it and the reader names
+   the country or territory it belongs to. See docs/flags-card-plan.md and the FLAG CARDS block in
+   app.js. The picture is the existing `answerFlag` field rather than a new one — it already refuses an
+   uncredited `src` and already rides the serializer and the overlay — so what is checked here is the
+   three things the FORMAT adds, every one of which renders perfectly when it is wrong.
+
+   · IT NEEDS THE FLAG. `cardFlagSpec` returns null without one, and a flag card with no flag draws a
+     bare prompt naming nothing — a question with no question in it.
+   · IT NEEDS AN `alt` THAT DOES NOT NAME THE ANSWER. This is the artwork card's own guard, and it is
+     the one rule that makes this format accessible rather than merely drawn: a flag CAN be described
+     without answering ("three horizontal bands of saffron, white and green"), where a shape on a globe
+     cannot. `answerFlagHTML` falls back to the CREDIT where a card has no alt, which is right beside an
+     answer already on screen and would hand the answer over on a front — and a Commons credit for a
+     national flag reads "Government of India, public domain".
+   · IT IS ONE FORMAT AT A TIME. A map card's window and an artwork card's picture both occupy the
+     front, so a card carrying two of the three is two questions in one slot. */
+if ("flagCard" in card && typeof card.flagCard !== "boolean") {
+  console.error("ERROR: card.flagCard is true or absent — it says the card's flag IS its whole question."); process.exit(1);
+}
+if (isFlag) {
+  if (isMap || isArt) { console.error("ERROR: a card is a flag card, a map card or an artwork card, not two of them — each is a different question in the same slot."); process.exit(1); }
+  const fl = card.answerFlag;
+  if (!fl || !String(fl.src || "").trim()) {
+    console.error("ERROR: a flag card needs `answerFlag.src` — the flag IS the question. An entity whose flag cannot be shown is NOT carded here (see `fl-036` Afghanistan in docs/flags-card-plan.md).");
+    process.exit(1);
+  }
+  if (!String(fl.alt || "").trim()) {
+    console.error("ERROR: a flag card needs `answerFlag.alt` — on this format the alt text is the question for a reader who cannot see the flag. Describe the field, the colours and the charge; never name the country.");
+    process.exit(1);
+  }
+  const alt = String(fl.alt).toLowerCase();
+  const ansT = String(card.answerText || "").trim().toLowerCase();
+  if (ansT && alt.indexOf(ansT) >= 0) {
+    console.error("ERROR: answerFlag.alt contains the answer (" + JSON.stringify(card.answerText) + ") — it must DESCRIBE the flag, not name whose it is. The 115 descriptions already on `gw-` cards open \"The flag of X: \"; cut that prefix.");
+    process.exit(1);
+  }
+  if (Array.isArray(card.questions) && card.questions.length) {
+    console.error("ERROR: a flag card carries no extra question phrasings — the flag is the clue, and three ways of saying \"name this flag\" are three ways of saying nothing. Give it `\"questions\": []`.");
+    process.exit(1);
+  }
+  card.questions = [];
+}
+
+const QMIN = isMap || isArt || isFlag ? MAPQ_MIN : Q_MIN, QMAX = isMap || isArt || isFlag ? MAPQ_MAX : Q_MAX;
+if (!isMap && !isArt && !isFlag && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
   console.error("ERROR: card needs a `questions` array of exactly " + N_EXTRA + " EXTRA phrasings (3 questions in all — see CLAUDE.md). Each is a full standalone clue with its own mid-sentence blank.");
   process.exit(1);
 }
@@ -345,7 +392,7 @@ for (const [qi, q] of (isArt ? [] : [card.question, ...card.questions]).entries(
   const qn = qWords(q);
   if (qn < QMIN || qn > QMAX) {
     console.error("ERROR: question " + (qi + 1) + " is " + qn + " words — it must be " + QMIN + "–" + QMAX +
-      (isMap || isArt ? " (the picture or the map is the clue, so the prompt is short)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
+      (isMap || isArt || isFlag ? " (the picture, the flag or the map is the clue, so the prompt is short)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
     process.exit(1);
   }
   if (!/class="blank"/.test(q)) {
@@ -706,7 +753,8 @@ if (card.answerFlag && String(card.answerFlag.src || "").trim() && !String(card.
 
    IT IS REQUIRED HERE AND OPTIONAL THERE (Sep 2026, on request), which is the whole point of the flag:
    a card written from today ships with its Think-it-through set, and `add-card-links.js` stays the tool
-   for the cards written before the rule. A MAP CARD is the one exemption — see `whyExempt`. */
+   for the cards written before the rule. A MAP CARD and a FLAG CARD are the exemptions, for two
+   different reasons — see `whyExempt`. */
 { const e = checkWhy(card, { required: true }); if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); } }
 if (REQUIRE_TRANSLATIONS && !card.skipTranslations) {   // a new card ships in all 9 site languages (i18n block)
   const missing = [];
@@ -794,7 +842,8 @@ console.log("added card " + card.id + " -> deck " + deck.id + " | total cards: "
    already written the card, so a failure prints a line and changes no exit status. */
 // …except a MAP card, whose illustration is its map. A second picture there would sit under the globe
 // answering the same question, and the suggestion is a network round trip nobody is going to act on.
-if (!isMap && !isArt && !(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
+// A FLAG card is the same case: its illustration is the flag on its front.
+if (!isMap && !isArt && !isFlag && !(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
   require("./suggest-image.js").report("cards", card.id, card.answerText || card.answer || card.id)
     .catch((e) => console.log("  (no picture looked for: " + e.message + ")"));
 }

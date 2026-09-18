@@ -973,6 +973,7 @@
     CARD_BY_ID[id].undatable = p.undatable;   // and whether that term happens at a time at all (see cardUndatable)
     CARD_BY_ID[id].map = p.map;               // and the place its question shades on the globe (see cardMapSpec)
     CARD_BY_ID[id].artwork = p.artwork;       // and whether its picture IS its subject (see cardArtSpec)
+    CARD_BY_ID[id].flagCard = p.flagCard;     // and whether that picture is a FLAG on its front (see cardFlagSpec)
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
@@ -6155,8 +6156,12 @@
     /* A MAP CARD AND AN ARTWORK CARD ARE BOTH OUT BY CONSTRUCTION, and for one reason: these games deal a
        question COLD, with no globe and no picture beside it, and both of those cards ask about something
        the game cannot show. Neither needs an editorial judgement per card, so neither needs a field.
-       The picture ROUND is the exception and asks for the artworks by name — see picturePool. */
-    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c)) s.add(id); });
+       The picture ROUND is the exception and asks for the artworks by name — see picturePool.
+       A FLAG CARD IS OUT ON THE SAME RULE and needs no field either: its whole question is the flag. It
+       is deliberately NOT added to the picture round in this pass — a flag round wants its own decoy
+       ranking (four flags of similar design rather than four tag-near countries) and is a change to a
+       GAME rather than to a collection; see docs/flags-card-plan.md. */
+    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c) && !cardFlagSpec(c)) s.add(id); });
     return s;
   }
   /* WHICH PLACE NAMES THE CARDS ACTUALLY TEACH — Find it's own filter, built here beside the door every
@@ -20546,6 +20551,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { k: "wall", n: "Great Wall", d: '<path d="M2 20.4h20"/><path d="M2 20.4v-6.2h7"/><path d="M22 20.4v-4.6h-7"/>' +
       '<path d="M9 20.4v-9.6h6v9.6"/><path d="M8.6 10.8h6.8"/><path d="M10.1 10.8V8.9M12 10.8V8.9M13.9 10.8V8.9"/>' +
       '<path d="M3.9 14.2v-1.7M6.4 14.2v-1.7M17.6 15.8v-1.7M20.1 15.8v-1.7"/>' },
+    /* a flag flying from its staff (Sep 2026, with the Flags collection) — DRAWN AND LOOKED AT at 28px
+       and 34px, which is the one thing the laurel-wreath note above says cannot be skipped. Four
+       candidates were rendered and read at both sizes: a plain rectangle is legible but reads as a
+       bookmark, a SWALLOWTAIL's notch closes up into a filled wedge at 28px, and a triangular pennant is
+       clean and is not what a national flag is. The WAVE survives 28px — the shallow curve on both edges
+       is still visible — and is the one that says "flag" at a glance. */
+    { k: "flag", n: "Flag", d: '<path d="M7 3v18"/><path d="M7 5.2c3.7-1.6 7.4 1.6 11 0v8c-3.6 1.6-7.3-1.6-11 0z"/>' },
     { k: "compass", n: "Compass rose", d: '<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4 13.6 10.4 20.6 12 13.6 13.6 12 20.6 10.4 13.6 3.4 12 10.4 10.4Z"/>' },
     /* speech bubble — ALL SEVEN language collections share it, which is the one place on this shelf two
        collections wear one mark, and it is a decision rather than an omission. Every icon above says what
@@ -20621,6 +20633,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": "compass",
     "geo-world": "map",
     "geo-china": "wall",
+    flags: "flag",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -25193,7 +25206,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", flags: "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -25273,7 +25286,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
     china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
     dino: 1000, korea: 1000, art: 1000,
-    "geo-us": 100, "geo-china": 58, "geo-world": 471,
+    "geo-us": 100, "geo-china": 58, "geo-world": 471, flags: 233,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -26049,6 +26062,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        split in two. Blue-and-white porcelain is the colour's own argument for the subject, and it is a
        China register the vermilion had not taken. 7.7:1 against white. */
     "geo-china": { bg: "#1A4FA8" },
+    /* sage grey (Flags) — MEASURED like every hue above it, and it is the first row on this shelf where
+       APTNESS COULD NOT DECIDE AT ALL. Every other collection has a colour of its own to argue from — a
+       malachite, an Aegean blue, a Morrison sandstone — and a flag collection has 233 palettes and no
+       hue that is its subject's rather than one member's. So separation decides, and what separation
+       returns is what the `dino` standing note predicted: the whole wheel's best-scoring regions are the
+       magenta (#BA4BA5, 28.3 — rejected for the EIGHTH time, and at chroma 62 it is still the loudest
+       thing that could go on a muted shelf) and the olive-brass (#5D5700, 22.0 — rejected for the fifth
+       time as a further member of the crowded yellow-green-brown quarter). Outside those two the best
+       region left is this one, and it is better than either rejection's runner-up: #6F7866 stands 23.6
+       from the Second World War's dark iron, 23.6 from Egypt's malachite and 24.0 from the Italian deck's
+       green, against a tightest EXISTING pair of 12.9 and a median nearest-neighbour distance of 20.1
+       over all twenty-seven hues. THE THREE NEAREST BEING THREE DIFFERENT FAMILIES IS THE POINT: at
+       chroma 11 this is not a fourth green, and it joins no family on the page. L 49 and chroma 11 —
+       lightness mid-band, chroma low, which is the shelf's own register rather than a compromise, and
+       the same corner ww2's dark iron occupies. 4.6:1 against white. */
+    flags: { bg: "#6F7866" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -33984,7 +34013,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        it are the answer box (see the ARTWORK CARDS block). `q` is empty on every such card and is not
        drawn either way, so a hand-authored one that carries a sentence cannot leak it onto the front. */
     const art = cardArtSpec(c);
-    return art ? cardArtHTML(art, c) : q;
+    if (art) return cardArtHTML(art, c);
+    /* a flag card: the flag ABOVE the prompt, which is the map card's arrangement rather than the artwork
+       card's. The picture is the clue and the one short line only says what to do with it — where an
+       artwork card draws no prose at all, because there its answer box's own three labels are the form.
+       See the FLAG CARDS block. */
+    const flg = cardFlagSpec(c);
+    return flg ? cardFlagHTML(flg) + q : q;
   }
 
   /* ---------- the figures box (Aug 2026, with map cards) ----------
@@ -34361,6 +34396,75 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!f) return "";
     return '<img class="av-flag" role="button" tabindex="0" src="' + esc(f.src) + '" alt="' + esc(f.alt || f.credit) + '" title="' + esc(f.credit) + '" loading="lazy"' +
       ' data-img-src="' + esc(f.src) + '" data-img-title="' + esc(f.alt || "") + '" data-img-desc="" data-img-credit="' + esc(f.credit) + '">';
+  }
+
+  /* ---------- FLAG CARDS: the flag is the whole question (Sep 2026, on request) ----------
+     "The question side of a card should depict a flag and the user must guess what the flag is from. The
+     answer side of the card can be directly the same as the ones in the World geography collection." A
+     built-in format, like the map card and the artwork card and for their reason: a community card type
+     is templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front of
+     the card with its metadata held back. See docs/flags-card-plan.md, which specifies it in full.
+
+     IT REUSES `answerFlag` RATHER THAN ADDING A FIELD, and that is the decision the format turns on.
+     That field already refuses a `src` with no `credit`, already rides `serializeCardData`, the cloud
+     overlay and `revertCard`, already enlarges into the site's own viewer and is already a `TIP_SEL`
+     target so the tap lands with the marker down. A second field for the same picture would be a second
+     copy of all four, and the copy that goes stale is the one nobody editing a flag has reason to open.
+     So a flag card is `answerFlag` plus one boolean.
+
+     THE BOOLEAN IS `flagCard`, NOT `flag`, AND THE NAMES MUST STAY APART — the same rule `answerFlag`'s
+     own block above states, for the same reason: `cardFlag(id)` is the READER's own 1-7 marker, and a
+     second module-scope `cardFlag` shipped for an hour once and made every reader flag read as unflagged
+     for the whole file, with nothing thrown. The accessor here is `cardFlagSpec`, beside `cardMapSpec`
+     and `cardArtSpec`.
+
+     THE FRONT DRAWS THE FLAG AND NO METADATA AT ALL, which is the artwork card's own first rule and bites
+     harder here: a Commons credit line for a national flag reads "Government of India, public domain",
+     so the title, the description and the credit each hand over the answer. The front therefore carries
+     the picture, the authored `alt` and nothing else — no caption, no `data-img-*` and no way to enlarge
+     it, since the viewer's own caption bar would print the credit. The CREDITED, enlargeable copy is the
+     small one inside the answer box, which `buildBack` draws exactly as it does on a `gw-` map card: the
+     licence's attribution is on the same card, one press away, rather than before the picture has done
+     its job. **Anything that leaks the credit onto the front has broken the collection and will look
+     perfectly fine doing it** — which is what `test-flag-cards.js` asserts first.
+
+     ONE LEAK IS ACCEPTED AND IS STATED RATHER THAN PAPERED OVER: Commons names every national flag
+     `Flag_of_<Country>.svg`, and a picture's `src` is copied from the API and never composed or
+     rewritten, so THE ANSWER IS IN THE URL on all 233 cards. Measured: 20 of 20 flag cards have it,
+     against 0 of 10 artwork cards, whose Commons file names happen not to match their titles — so it is
+     this format's property rather than the site's. What follows is narrow: no reader is SHOWN a src (it
+     is not rendered as text, and a screen reader reads the authored `alt`), so the answer is reachable
+     only by opening devtools, viewing source, or long-pressing the picture on a phone to read its file
+     name — all of which are going looking for the answer, which a reader could do on any card here. The
+     suite therefore asserts the country appears in the `src` AND NOWHERE ELSE on the front, so the
+     accepted leak cannot quietly widen into a title, a credit or a caption.
+
+     THE FLAG IS CONTAINED AND NEVER CROPPED. Flags run from 1:1 (Switzerland, Vatican City) through 2:3
+     and 1:2 to Qatar's 11:28, and Nepal's is not a rectangle at all — so `.card-img`'s fixed 16:9 box and
+     `height:100%` are exactly wrong here, as they are for `.av-flag`, and the frame is a MAXIMUM with
+     `object-fit:contain` inside it. It is also drawn on a RULED GROUND: Japan, Qatar's hoist, the Nordic
+     crosses and every white-bordered flag lose their own edge against a light card and are cut in half by
+     a dark one, so the frame carries a hairline and the card's own paper behind it.
+
+     THE ALT TEXT DESCRIBES AND MAY NOT NAME, which makes this format MORE accessible than the map card
+     rather than less: a shape on a globe cannot be described without answering the question and a flag
+     can — "three horizontal bands of saffron, white and green, with a navy-blue wheel of 24 spokes" is a
+     real question. `add-card.js` refuses a flag card whose alt carries its own answer term.
+
+     A flag card keeps the ORDINARY cloze blank in its prompt, so `setupCloze` and `gradeCloze` answer it
+     with no branch of their own — it is the artwork card that needed its own grading, having four fields
+     rather than one answer. */
+  function cardFlagSpec(c) {
+    if (!c || c.flagCard !== true) return null;
+    const f = answerFlag(c);          // the same field, the same refusal of an uncredited src
+    return f ? f : null;
+  }
+  /* The alt is the author's description of what is on the flag. Where a card has none the label says what
+     the picture is FOR and nothing about what is on it — `answerFlagHTML` falls back to the CREDIT, which
+     is right beside an answer already on screen and would hand the answer over here. */
+  function cardFlagHTML(spec) {
+    return '<figure class="flag-shot"><img src="' + esc(spec.src) + '" alt="' + esc(spec.alt || "The flag to be identified.") +
+      '" loading="lazy" draggable="false"></figure>';
   }
 
   /* ---------- the locator map (Aug 2026, on request) ----------
@@ -46399,7 +46503,7 @@ let prev = null;
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -49558,8 +49662,10 @@ let prev = null;
     /* `.art-shot` is here as well as `.card-img`, and on that format a dead file is the worse failure:
        an artwork card's picture IS its question, so a file that never arrives leaves four empty fields
        and nothing to answer — and the alt text, which DESCRIBES the work, is painted at full size in
-       the frame instead, which reads as a broken page. It says so instead; see `.art-shot.media-dead`. */
-    const fig = el.closest && el.closest(".card-img, .art-shot"); if (!fig) return;
+       the frame instead, which reads as a broken page. It says so instead; see `.art-shot.media-dead`.
+       `.flag-shot` is here for exactly that reason one format over: a flag card's picture is its whole
+       question too. */
+    const fig = el.closest && el.closest(".card-img, .art-shot, .flag-shot"); if (!fig) return;
     fig.classList.remove("ar-loading");   // a file that will never arrive must not go on spinning
     fig.classList.add("media-dead");
     // a floated slot would otherwise keep its margin — and the space the prose wraps around — about nothing

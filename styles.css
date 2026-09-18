@@ -2009,6 +2009,41 @@ body.no-tts .ans-cn .ac-say{display:none;}
 }
 .art-shot.revealed{cursor:zoom-in;}
 .art-shot.revealed:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+
+/* THE FLAG ON A FLAG CARD'S FRONT (Sep 2026, with the Flags collection; see the FLAG CARDS block in
+   app.js). `.art-shot`'s sibling and NOT a reuse of it, because the two frames differ in the two things
+   that matter here.
+
+   THE FLAG IS CONTAINED AND NEVER CROPPED, like a painting — flags run from 1:1 (Switzerland, Vatican
+   City) through 2:3 and 1:2 to Qatar's 11:28 — so the height is a MAXIMUM and `object-fit:contain` does
+   the rest. It is shorter than the artwork frame: a flag is a wide shallow thing and a 46vh box would
+   letterbox most of them into a band of paper.
+
+   IT IS DRAWN ON A RULED GROUND, which the artwork frame gets for free and this one genuinely needs.
+   Japan, Qatar's hoist, the Nordic crosses and every white-bordered flag have WHITE at the edge, so
+   against the card they lose their own outline and against a dark card they are cut in half. The border
+   and the paper behind it are what keep the edge visible in both, and Japan and Switzerland at both
+   light and dark are the whole test of this rule.
+
+   IT NEVER GAINS CHROME, unlike `.art-shot.revealed`: there is no zoom glyph and no caption in ANY
+   state, because a national flag's credit line reads "Government of India, public domain" and the
+   viewer's own caption bar would print it. The credited, enlargeable copy is the small `.av-flag` inside
+   the answer box, which `buildBack` draws on the reveal. */
+.flag-shot{
+  margin:2px 0 16px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+  background:var(--paper-2); box-shadow:var(--shadow-sm);
+}
+.flag-shot img{
+  display:block; width:100%; height:clamp(150px, 30vh, 280px);
+  object-fit:contain; background:var(--paper-2);
+}
+/* A dead file here is the whole question gone, exactly as on an artwork card, and for the same reason it
+   says so rather than letting the browser paint the alt text at full size in the frame. */
+.flag-shot.media-dead img{display:none;}
+.flag-shot.media-dead::after{
+  content:"This flag could not be loaded."; display:block; padding:34px 16px; text-align:center;
+  font:400 calc(13px * var(--fs))/1.5 var(--sans); color:var(--ink-faint);
+}
 .art-cap{
   display:block; padding:9px 12px 11px; border-top:1px solid var(--rule); background:var(--card);
   font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-soft); text-align:left;

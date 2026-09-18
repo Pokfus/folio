@@ -23,8 +23,8 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Nothing has shipped yet.** The collection node, its tree, its hue, its icon and the card format are
-batch F0 below; `fl-001` is the first card.
+**F0 and F1 have shipped** (Sep 2026): the format is built, the collection is on the shelf under
+Geography, and `fl-001`–`fl-020` are live. The next card is `fl-021`.
 
 ---
 
@@ -95,6 +95,15 @@ Seven things about the format are decisions rather than plumbing.
   already.
 - **IT IS NOT A COMMUNITY-DECK FIELD.** `CARD_FIELDS` does not carry `answerFlag` and must not learn to,
   so a stranger's deck cannot ship a flag card and nothing has to sanitize one.
+- **ONE LEAK IS ACCEPTED, AND IT IS STATED RATHER THAN PAPERED OVER.** Commons names every national flag
+  `Flag_of_<Country>.svg`, and a `src` is copied from the API and never composed or rewritten, so **the
+  answer is in the URL on all 233 cards.** Measured: 20 of 20 flag cards have it against 0 of 10 artwork
+  cards, whose file names happen not to match their titles, so it is this format's property rather than
+  the site's. What follows is narrow — no reader is SHOWN a src: it is not rendered as text and a screen
+  reader reads the authored `alt`, so the answer is reachable only by opening devtools, viewing source,
+  or long-pressing the picture on a phone to read its file name, all of which are going looking for the
+  answer. **`test-flag-cards.js` asserts the country appears in the `src` AND NOWHERE ELSE on the
+  front**, so the accepted leak cannot quietly widen into a title, a credit or a caption.
 
 ### The one open option: the country's shape on the answer side
 
@@ -376,302 +385,363 @@ table, the count in that table's heading and the `PLANS` entry in `test-card-pla
 assert that the collection exists in `data.js`, so all three go in with the tree node and not before.
 `node .claude/check-docs.js` and `node .claude/test-card-plans.js` check both directions.
 
-### F1 — `fl-001`–`fl-020` — 20 cards, 0 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-001` | India | on `gw-001` |
-| `fl-002` | China | on `gw-002` |
-| `fl-003` | United States | on `gw-003` |
-| `fl-004` | Indonesia | on `gw-004` |
-| `fl-005` | Pakistan | on `gw-005` |
-| `fl-006` | Nigeria | on `gw-006` |
-| `fl-007` | Brazil | on `gw-007` |
-| `fl-008` | Bangladesh | on `gw-008` |
-| `fl-009` | Russia | on `gw-009` |
-| `fl-010` | Ethiopia | on `gw-010` |
-| `fl-011` | Mexico | on `gw-011` |
-| `fl-012` | Japan | on `gw-012` |
-| `fl-013` | Egypt | on `gw-013` |
-| `fl-014` | Philippines | on `gw-014` |
-| `fl-015` | Democratic Republic of the Congo | on `gw-015` |
-| `fl-016` | Vietnam | on `gw-016` |
-| `fl-017` | Iran | on `gw-017` |
-| `fl-018` | Turkey | on `gw-018` |
-| `fl-019` | Germany | on `gw-019` |
-| `fl-020` | Thailand | on `gw-020` |
-
-### F2 — `fl-021`–`fl-040` — 20 cards, 1 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-021` | United Kingdom | on `gw-021` |
-| `fl-022` | Tanzania | on `gw-022` |
-| `fl-023` | France | on `gw-023` |
-| `fl-024` | South Africa | on `gw-024` |
-| `fl-025` | Italy | on `gw-025` |
-| `fl-026` | Kenya | on `gw-026` |
-| `fl-027` | Myanmar | on `gw-027` |
-| `fl-028` | Colombia | on `gw-028` |
-| `fl-029` | South Korea | on `gw-029` |
-| `fl-030` | Sudan | on `gw-030` |
-| `fl-031` | Uganda | on `gw-031` |
-| `fl-032` | Spain | on `gw-032` |
-| `fl-033` | Algeria | on `gw-033` |
-| `fl-034` | Iraq | on `gw-034` |
-| `fl-035` | Argentina | on `gw-035` |
-| `fl-036` | Afghanistan | **fetch** |
-| `fl-037` | Canada | on `gw-037` |
-| `fl-038` | Yemen | on `gw-038` |
-| `fl-039` | Morocco | on `gw-039` |
-| `fl-040` | Angola | on `gw-040` |
-
-### F3 — `fl-041`–`fl-060` — 20 cards, 0 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-041` | Ukraine | on `gw-041` |
-| `fl-042` | Poland | on `gw-042` |
-| `fl-043` | Uzbekistan | on `gw-043` |
-| `fl-044` | Malaysia | on `gw-044` |
-| `fl-045` | Saudi Arabia | on `gw-045` |
-| `fl-046` | Mozambique | on `gw-046` |
-| `fl-047` | Ghana | on `gw-047` |
-| `fl-048` | Peru | on `gw-048` |
-| `fl-049` | Madagascar | on `gw-049` |
-| `fl-050` | Côte d'Ivoire | on `gw-050` |
-| `fl-051` | Nepal | on `gw-051` |
-| `fl-052` | Cameroon | on `gw-052` |
-| `fl-053` | Venezuela | on `gw-053` |
-| `fl-054` | Australia | on `gw-054` |
-| `fl-055` | Niger | on `gw-055` |
-| `fl-056` | North Korea | on `gw-056` |
-| `fl-057` | Syria | on `gw-057` |
-| `fl-058` | Mali | on `gw-058` |
-| `fl-059` | Burkina Faso | on `gw-059` |
-| `fl-060` | Taiwan | on `gw-060` |
-
-### F4 — `fl-061`–`fl-080` — 20 cards, 0 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-061` | Sri Lanka | on `gw-061` |
-| `fl-062` | Malawi | on `gw-062` |
-| `fl-063` | Zambia | on `gw-063` |
-| `fl-064` | Kazakhstan | on `gw-064` |
-| `fl-065` | Chad | on `gw-065` |
-| `fl-066` | Chile | on `gw-066` |
-| `fl-067` | Romania | on `gw-067` |
-| `fl-068` | Somalia | on `gw-068` |
-| `fl-069` | Senegal | on `gw-069` |
-| `fl-070` | Guatemala | on `gw-070` |
-| `fl-071` | Ecuador | on `gw-071` |
-| `fl-072` | Netherlands | on `gw-072` |
-| `fl-073` | Cambodia | on `gw-073` |
-| `fl-074` | Zimbabwe | on `gw-074` |
-| `fl-075` | Guinea | on `gw-075` |
-| `fl-076` | Benin | on `gw-076` |
-| `fl-077` | Rwanda | on `gw-077` |
-| `fl-078` | Burundi | on `gw-078` |
-| `fl-079` | Bolivia | on `gw-079` |
-| `fl-080` | Tunisia | on `gw-080` |
-
-### F5 — `fl-081`–`fl-100` — 20 cards, 0 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-081` | South Sudan | on `gw-081` |
-| `fl-082` | Belgium | on `gw-082` |
-| `fl-083` | Haiti | on `gw-083` |
-| `fl-084` | Jordan | on `gw-084` |
-| `fl-085` | Dominican Republic | on `gw-085` |
-| `fl-086` | United Arab Emirates | on `gw-086` |
-| `fl-087` | Cuba | on `gw-087` |
-| `fl-088` | Czechia | on `gw-088` |
-| `fl-089` | Honduras | on `gw-089` |
-| `fl-090` | Portugal | on `gw-090` |
-| `fl-091` | Tajikistan | on `gw-091` |
-| `fl-092` | Papua New Guinea | on `gw-092` |
-| `fl-093` | Sweden | on `gw-093` |
-| `fl-094` | Greece | on `gw-094` |
-| `fl-095` | Azerbaijan | on `gw-095` |
-| `fl-096` | Israel | on `gw-096` |
-| `fl-097` | Hungary | on `gw-097` |
-| `fl-098` | Austria | on `gw-098` |
-| `fl-099` | Belarus | on `gw-099` |
-| `fl-100` | Switzerland | on `gw-100` |
-
-### F6 — `fl-101`–`fl-120` — 20 cards, 4 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-101` | Sierra Leone | on `gw-101` |
-| `fl-102` | Togo | on `gw-102` |
-| `fl-103` | Laos | on `gw-103` |
-| `fl-104` | Hong Kong | on `gw-104` |
-| `fl-105` | Turkmenistan | on `gw-105` |
-| `fl-106` | Libya | on `gw-106` |
-| `fl-107` | Kyrgyzstan | on `gw-107` |
-| `fl-108` | Paraguay | on `gw-108` |
-| `fl-109` | Nicaragua | on `gw-109` |
-| `fl-110` | Serbia | on `gw-110` |
-| `fl-111` | Bulgaria | on `gw-111` |
-| `fl-112` | El Salvador | on `gw-112` |
-| `fl-113` | Republic of the Congo | on `gw-113` |
-| `fl-114` | Singapore | on `gw-114` |
-| `fl-115` | Denmark | on `gw-115` |
-| `fl-116` | Lebanon | on `gw-116` |
-| `fl-117` | Finland | **fetch** |
-| `fl-118` | Liberia | **fetch** |
-| `fl-119` | Norway | **fetch** |
-| `fl-120` | Slovakia | **fetch** |
-
-### F7 — `fl-121`–`fl-140` — 20 cards, 20 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-121` | Ireland | **fetch** |
-| `fl-122` | Central African Republic | **fetch** |
-| `fl-123` | New Zealand | **fetch** |
-| `fl-124` | Palestine | **fetch** |
-| `fl-125` | Oman | **fetch** |
-| `fl-126` | Mauritania | **fetch** |
-| `fl-127` | Costa Rica | **fetch** |
-| `fl-128` | Kuwait | **fetch** |
-| `fl-129` | Panama | **fetch** |
-| `fl-130` | Croatia | **fetch** |
-| `fl-131` | Georgia | **fetch** |
-| `fl-132` | Eritrea | **fetch** |
-| `fl-133` | Mongolia | **fetch** |
-| `fl-134` | Uruguay | **fetch** |
-| `fl-135` | Puerto Rico | **fetch** |
-| `fl-136` | Bosnia and Herzegovina | **fetch** |
-| `fl-137` | Armenia | **fetch** |
-| `fl-138` | Namibia | **fetch** |
-| `fl-139` | Lithuania | **fetch** |
-| `fl-140` | Qatar | **fetch** |
-
-### F8 — `fl-141`–`fl-160` — 20 cards, 20 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-141` | Jamaica | **fetch** |
-| `fl-142` | Gambia | **fetch** |
-| `fl-143` | Gabon | **fetch** |
-| `fl-144` | Botswana | **fetch** |
-| `fl-145` | Moldova | **fetch** |
-| `fl-146` | Albania | **fetch** |
-| `fl-147` | Lesotho | **fetch** |
-| `fl-148` | Guinea-Bissau | **fetch** |
-| `fl-149` | Slovenia | **fetch** |
-| `fl-150` | Equatorial Guinea | **fetch** |
-| `fl-151` | Latvia | **fetch** |
-| `fl-152` | North Macedonia | **fetch** |
-| `fl-153` | Kosovo | **fetch** |
-| `fl-154` | Bahrain | **fetch** |
-| `fl-155` | Timor-Leste | **fetch** |
-| `fl-156` | Estonia | **fetch** |
-| `fl-157` | Trinidad and Tobago | **fetch** |
-| `fl-158` | Cyprus | **fetch** |
-| `fl-159` | Mauritius | **fetch** |
-| `fl-160` | Eswatini | **fetch** |
-
-### F9 — `fl-161`–`fl-180` — 20 cards, 20 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-161` | Djibouti | **fetch** |
-| `fl-162` | Fiji | **fetch** |
-| `fl-163` | Comoros | **fetch** |
-| `fl-164` | Guyana | **fetch** |
-| `fl-165` | Solomon Islands | **fetch** |
-| `fl-166` | Bhutan | **fetch** |
-| `fl-167` | Macau | **fetch** |
-| `fl-168` | Luxembourg | **fetch** |
-| `fl-169` | Suriname | **fetch** |
-| `fl-170` | Montenegro | **fetch** |
-| `fl-171` | Western Sahara | **fetch** |
-| `fl-172` | Malta | **fetch** |
-| `fl-173` | Maldives | **fetch** |
-| `fl-174` | Cabo Verde | **fetch** |
-| `fl-175` | Brunei | **fetch** |
-| `fl-176` | Belize | **fetch** |
-| `fl-177` | Bahamas | **fetch** |
-| `fl-178` | Iceland | **fetch** |
-| `fl-179` | Vanuatu | **fetch** |
-| `fl-180` | New Caledonia | **fetch** |
-
-### F10 — `fl-181`–`fl-200` — 20 cards, 20 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-181` | Barbados | **fetch** |
-| `fl-182` | French Polynesia | **fetch** |
-| `fl-183` | São Tomé and Príncipe | **fetch** |
-| `fl-184` | Samoa | **fetch** |
-| `fl-185` | Saint Lucia | **fetch** |
-| `fl-186` | Guam | **fetch** |
-| `fl-187` | Curaçao | **fetch** |
-| `fl-188` | Kiribati | **fetch** |
-| `fl-189` | Seychelles | **fetch** |
-| `fl-190` | Grenada | **fetch** |
-| `fl-191` | Micronesia | **fetch** |
-| `fl-192` | Aruba | **fetch** |
-| `fl-193` | United States Virgin Islands | **fetch** |
-| `fl-194` | Tonga | **fetch** |
-| `fl-195` | Jersey | **fetch** |
-| `fl-196` | Saint Vincent and the Grenadines | **fetch** |
-| `fl-197` | Antigua and Barbuda | **fetch** |
-| `fl-198` | Isle of Man | **fetch** |
-| `fl-199` | Andorra | **fetch** |
-| `fl-200` | Cayman Islands | **fetch** |
-
-### F11 — `fl-201`–`fl-220` — 20 cards, 20 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-201` | Guernsey | **fetch** |
-| `fl-202` | Dominica | **fetch** |
-| `fl-203` | Bermuda | **fetch** |
-| `fl-204` | Greenland | **fetch** |
-| `fl-205` | Faroe Islands | **fetch** |
-| `fl-206` | Saint Kitts and Nevis | **fetch** |
-| `fl-207` | American Samoa | **fetch** |
-| `fl-208` | Turks and Caicos Islands | **fetch** |
-| `fl-209` | Northern Mariana Islands | **fetch** |
-| `fl-210` | Sint Maarten | **fetch** |
-| `fl-211` | Liechtenstein | **fetch** |
-| `fl-212` | British Virgin Islands | **fetch** |
-| `fl-213` | Gibraltar | **fetch** |
-| `fl-214` | Monaco | **fetch** |
-| `fl-215` | Marshall Islands | **fetch** |
-| `fl-216` | San Marino | **fetch** |
-| `fl-217` | Åland | **fetch** |
-| `fl-218` | Saint Martin | **fetch** |
-| `fl-219` | Anguilla | **fetch** |
-| `fl-220` | Palau | **fetch** |
-
-### F12 — `fl-221`–`fl-233` — 13 cards, 13 flags to fetch
-
-| card | country or territory | flag file |
-|---|---|---|
-| `fl-221` | Cook Islands | **fetch** |
-| `fl-222` | Nauru | **fetch** |
-| `fl-223` | Wallis and Futuna | **fetch** |
-| `fl-224` | Saint Barthélemy | **fetch** |
-| `fl-225` | Tuvalu | **fetch** |
-| `fl-226` | Saint Pierre and Miquelon | **fetch** |
-| `fl-227` | Saint Helena | **fetch** |
-| `fl-228` | Montserrat | **fetch** |
-| `fl-229` | Falkland Islands | **fetch** |
-| `fl-230` | Norfolk Island | **fetch** |
-| `fl-231` | Niue | **fetch** |
-| `fl-232` | Vatican City | **fetch** |
-| `fl-233` | Pitcairn Islands | **fetch** |
 ---
 
-## The batch log
+# The batch log
 
-Nothing has shipped. Each batch appends its own entry here: which flags had to be rejected and why, which
-redirects were read and which way they were decided, which alts needed a hand edit, and which hosts
-answered.
+Each batch appends its own entry here: which flags had to be rejected and why, which redirects were read
+and which way they were decided, which alts needed a hand edit, and which hosts answered.
+
+## F0 — the format, the collection and the tooling (Sep 2026)
+
+Built as specified above, with four things worth recording because the plan did not predict them.
+
+**THE `why` REQUIREMENT HAD TO BE EXEMPTED AND THE PLAN HAD ONLY SAID SO IN PROSE.** `add-card.js`
+refuses a card with no Think-it-through set and exempted only `card.map`, so the very first card was
+turned away. The plan's "Why-questions — out, for geography's reason" was a decision that had never been
+translated into a guard, which is the shape to watch for when a plan says a rule does not apply: **the
+tools do not read the plan.** `whyExempt` in `.claude/card-links.js` now covers `flagCard` — with its own
+argument beside the map card's rather than folded into it, because the reasons genuinely differ: a map
+card's back is a figures grid with no prose to draw an answer from, and a flag card's back is its twin's
+background, from which a set COULD be written and which is out because both twins would want the same
+three questions written once and copied.
+
+**AND `add-card.js` WARNED ABOUT THE FIGURES GRID ON EVERY CARD.** `facts` without `map` draws a
+"check it was meant" warning, which is right on an ordinary card and would have been 233 lines of noise
+about the format working. Exempted beside the artwork card, which was already exempt for its own reason.
+
+**THE HUE IS THE FIRST ON THIS SHELF WHERE APTNESS COULD NOT DECIDE AT ALL**, and that is worth stating
+because the next collection may be in the same position. Every other hue has a colour to argue from — a
+malachite, an Aegean blue, a Morrison sandstone; a flag collection has 233 palettes and no hue that is
+its subject's rather than one member's. So separation decided: the whole wheel's best regions are the
+magenta (#BA4BA5, ΔE 28.3 — **rejected for the eighth time**, still the loudest thing that could go on a
+muted shelf) and the olive-brass (#5D5700, 22.0 — **rejected for the fifth time** as another member of
+the crowded yellow-green-brown quarter). Outside those the best region left is the sage grey **#6F7866**,
+23.6 from the Second World War's dark iron, 23.6 from Egypt's malachite and 24.0 from the Italian deck's
+green — three different families, which is what keeps it from being a fourth green. At chroma 11 the
+banner wash is very quiet; that is the shelf's own register and the trade is stated rather than hidden.
+
+**THE ICON WAS DRAWN AND LOOKED AT**, which the laurel-wreath note in app.js says cannot be skipped and
+which a session with no browser cannot do. Four candidates were rendered at 28px and 34px: a plain
+rectangle is legible but reads as a bookmark, a **swallowtail's notch closes into a filled wedge** at
+28px, a triangular pennant is clean and is not what a national flag is, and the **wave** survives — the
+shallow curve on both edges is still visible — and is the one that says "flag" at a glance.
+
+## F1 — `fl-001` to `fl-020` (Sep 2026)
+
+Twenty cards, India to Thailand. **No flag had to be fetched**: all twenty twins already carried one, so
+the batch was the alt trim, the copy and the read-through, which is what the first six batches are.
+
+**ALL TWENTY ALTS DERIVED CLEANLY** — the prefix cut and the first letter capitalised — and all twenty
+were read. Nothing needed a hand edit, which is the expected result in this range and not a reason to
+stop reading: `gw-074` Zimbabwe, in F4, is the one case in 115 that the trim cannot fix.
+
+**ONE REAL LIMITATION FOUND BY READING, AND IT IS A FACT ABOUT THE FLAGS RATHER THAN THE CARDS.**
+`fl-004` Indonesia's description is "Two equal horizontal bands, red above white", which is **also
+Monaco's flag** (`fl-215`) — the two differ only in proportion, 2:3 against 4:5. A reader who cannot see
+the picture therefore cannot separate those two cards, and neither can a reader who can: it is a real
+property of the two flags. It is left as it stands rather than padded with a ratio, and recorded here so
+that **F11 reads `fl-215` against this entry** rather than discovering it a second time. Poland's is the
+same pair the other way up (white above red) and is distinguishable by the description.
+
+**WHAT A FLAG CARD COSTS THE EAGER PATH, MEASURED: 3,321 bytes gzipped for twenty, or 166 bytes a
+card** — so the finished 233 will be about 38 KB. The light half of a flag card is the prompt, the
+`answerFlag` (a URL, a credit and a description) and the copied `facts`, date line and tags; the
+background and the citations are in `data-extra/fl.js` and are fetched when a reader reveals a card.
+**MEASURE IT BY GZIPPING `data.js` BEFORE AND AFTER, NOT OFF `check-sizes.js`**, whose display is
+rounded to hundredths of a megabyte — the war-card bullet's own lesson, where a 2 KB change showed as
+0.01 MB and was written up as a figure five times too big.
+
+**THE CARDS WERE LOOKED AT**, front and back, light and dark, at phone width — Japan, Thailand and
+Germany. Japan is the ruled-ground test and it passes in both directions: the white field is bounded by
+the frame's paper letterbox by day and by the dark card at night, so the flag keeps its own edge either
+way. The flag being on screen twice after the reveal — large on the front as the question, small and
+credited beside the name — reads as confirmation rather than duplication, which settles a question the
+plan had left open in favour of keeping both.
+
+**Two notes for whoever screenshots the next batch.** Chromium under Playwright does NOT honour
+`HTTPS_PROXY`, so the Commons flags do not load and the card's own dead-file path fires, which reads as
+the format being broken; passing `proxy: { server: process.env.HTTPS_PROXY }` did not fix it either.
+What works is downloading the SVGs with curl and fulfilling the route from disk — which is also what
+`test-flag-cards.js` does, and for the reason its header gives.
+
+---
+
+# The list
+
+**The bracket on each line says where its flag stands today** — `[on gw-NNN]` for the 115 already
+fetched, licensed and described on their twins, `[fetch]` for the 118 that are not. It is also what
+makes `test-card-plans.js` check the NAME as well as the number: this plan names the ANSWER rather than
+a subject to research, so a card shipping at the wrong id is a fault that suite can see, which on the
+geography plans it could not until eight capitals had already drifted.
+
+## The countries and territories — `flags-world`
+
+### Batch F1 — fl-001 to fl-020 — 20 cards, 0 flags to fetch
+
+  fl-001  India  [on gw-001]
+  fl-002  China  [on gw-002]
+  fl-003  United States  [on gw-003]
+  fl-004  Indonesia  [on gw-004]
+  fl-005  Pakistan  [on gw-005]
+  fl-006  Nigeria  [on gw-006]
+  fl-007  Brazil  [on gw-007]
+  fl-008  Bangladesh  [on gw-008]
+  fl-009  Russia  [on gw-009]
+  fl-010  Ethiopia  [on gw-010]
+  fl-011  Mexico  [on gw-011]
+  fl-012  Japan  [on gw-012]
+  fl-013  Egypt  [on gw-013]
+  fl-014  Philippines  [on gw-014]
+  fl-015  Democratic Republic of the Congo  [on gw-015]
+  fl-016  Vietnam  [on gw-016]
+  fl-017  Iran  [on gw-017]
+  fl-018  Turkey  [on gw-018]
+  fl-019  Germany  [on gw-019]
+  fl-020  Thailand  [on gw-020]
+
+### Batch F2 — fl-021 to fl-040 — 20 cards, 1 flags to fetch
+
+  fl-021  United Kingdom  [on gw-021]
+  fl-022  Tanzania  [on gw-022]
+  fl-023  France  [on gw-023]
+  fl-024  South Africa  [on gw-024]
+  fl-025  Italy  [on gw-025]
+  fl-026  Kenya  [on gw-026]
+  fl-027  Myanmar  [on gw-027]
+  fl-028  Colombia  [on gw-028]
+  fl-029  South Korea  [on gw-029]
+  fl-030  Sudan  [on gw-030]
+  fl-031  Uganda  [on gw-031]
+  fl-032  Spain  [on gw-032]
+  fl-033  Algeria  [on gw-033]
+  fl-034  Iraq  [on gw-034]
+  fl-035  Argentina  [on gw-035]
+  fl-036  DEFERRED  [Afghanistan — Commons resolves the flag to the Taliban’s; see above]
+  fl-037  Canada  [on gw-037]
+  fl-038  Yemen  [on gw-038]
+  fl-039  Morocco  [on gw-039]
+  fl-040  Angola  [on gw-040]
+
+### Batch F3 — fl-041 to fl-060 — 20 cards, 0 flags to fetch
+
+  fl-041  Ukraine  [on gw-041]
+  fl-042  Poland  [on gw-042]
+  fl-043  Uzbekistan  [on gw-043]
+  fl-044  Malaysia  [on gw-044]
+  fl-045  Saudi Arabia  [on gw-045]
+  fl-046  Mozambique  [on gw-046]
+  fl-047  Ghana  [on gw-047]
+  fl-048  Peru  [on gw-048]
+  fl-049  Madagascar  [on gw-049]
+  fl-050  Côte d'Ivoire  [on gw-050]
+  fl-051  Nepal  [on gw-051]
+  fl-052  Cameroon  [on gw-052]
+  fl-053  Venezuela  [on gw-053]
+  fl-054  Australia  [on gw-054]
+  fl-055  Niger  [on gw-055]
+  fl-056  North Korea  [on gw-056]
+  fl-057  Syria  [on gw-057]
+  fl-058  Mali  [on gw-058]
+  fl-059  Burkina Faso  [on gw-059]
+  fl-060  Taiwan  [on gw-060]
+
+### Batch F4 — fl-061 to fl-080 — 20 cards, 0 flags to fetch
+
+  fl-061  Sri Lanka  [on gw-061]
+  fl-062  Malawi  [on gw-062]
+  fl-063  Zambia  [on gw-063]
+  fl-064  Kazakhstan  [on gw-064]
+  fl-065  Chad  [on gw-065]
+  fl-066  Chile  [on gw-066]
+  fl-067  Romania  [on gw-067]
+  fl-068  Somalia  [on gw-068]
+  fl-069  Senegal  [on gw-069]
+  fl-070  Guatemala  [on gw-070]
+  fl-071  Ecuador  [on gw-071]
+  fl-072  Netherlands  [on gw-072]
+  fl-073  Cambodia  [on gw-073]
+  fl-074  Zimbabwe  [on gw-074]
+  fl-075  Guinea  [on gw-075]
+  fl-076  Benin  [on gw-076]
+  fl-077  Rwanda  [on gw-077]
+  fl-078  Burundi  [on gw-078]
+  fl-079  Bolivia  [on gw-079]
+  fl-080  Tunisia  [on gw-080]
+
+### Batch F5 — fl-081 to fl-100 — 20 cards, 0 flags to fetch
+
+  fl-081  South Sudan  [on gw-081]
+  fl-082  Belgium  [on gw-082]
+  fl-083  Haiti  [on gw-083]
+  fl-084  Jordan  [on gw-084]
+  fl-085  Dominican Republic  [on gw-085]
+  fl-086  United Arab Emirates  [on gw-086]
+  fl-087  Cuba  [on gw-087]
+  fl-088  Czechia  [on gw-088]
+  fl-089  Honduras  [on gw-089]
+  fl-090  Portugal  [on gw-090]
+  fl-091  Tajikistan  [on gw-091]
+  fl-092  Papua New Guinea  [on gw-092]
+  fl-093  Sweden  [on gw-093]
+  fl-094  Greece  [on gw-094]
+  fl-095  Azerbaijan  [on gw-095]
+  fl-096  Israel  [on gw-096]
+  fl-097  Hungary  [on gw-097]
+  fl-098  Austria  [on gw-098]
+  fl-099  Belarus  [on gw-099]
+  fl-100  Switzerland  [on gw-100]
+
+### Batch F6 — fl-101 to fl-120 — 20 cards, 4 flags to fetch
+
+  fl-101  Sierra Leone  [on gw-101]
+  fl-102  Togo  [on gw-102]
+  fl-103  Laos  [on gw-103]
+  fl-104  Hong Kong  [on gw-104]
+  fl-105  Turkmenistan  [on gw-105]
+  fl-106  Libya  [on gw-106]
+  fl-107  Kyrgyzstan  [on gw-107]
+  fl-108  Paraguay  [on gw-108]
+  fl-109  Nicaragua  [on gw-109]
+  fl-110  Serbia  [on gw-110]
+  fl-111  Bulgaria  [on gw-111]
+  fl-112  El Salvador  [on gw-112]
+  fl-113  Republic of the Congo  [on gw-113]
+  fl-114  Singapore  [on gw-114]
+  fl-115  Denmark  [on gw-115]
+  fl-116  Lebanon  [on gw-116]
+  fl-117  Finland  [fetch]
+  fl-118  Liberia  [fetch]
+  fl-119  Norway  [fetch]
+  fl-120  Slovakia  [fetch]
+
+### Batch F7 — fl-121 to fl-140 — 20 cards, 20 flags to fetch
+
+  fl-121  Ireland  [fetch]
+  fl-122  Central African Republic  [fetch]
+  fl-123  New Zealand  [fetch]
+  fl-124  Palestine  [fetch]
+  fl-125  Oman  [fetch]
+  fl-126  Mauritania  [fetch]
+  fl-127  Costa Rica  [fetch]
+  fl-128  Kuwait  [fetch]
+  fl-129  Panama  [fetch]
+  fl-130  Croatia  [fetch]
+  fl-131  Georgia  [fetch]
+  fl-132  Eritrea  [fetch]
+  fl-133  Mongolia  [fetch]
+  fl-134  Uruguay  [fetch]
+  fl-135  Puerto Rico  [fetch]
+  fl-136  Bosnia and Herzegovina  [fetch]
+  fl-137  Armenia  [fetch]
+  fl-138  Namibia  [fetch]
+  fl-139  Lithuania  [fetch]
+  fl-140  Qatar  [fetch]
+
+### Batch F8 — fl-141 to fl-160 — 20 cards, 20 flags to fetch
+
+  fl-141  Jamaica  [fetch]
+  fl-142  Gambia  [fetch]
+  fl-143  Gabon  [fetch]
+  fl-144  Botswana  [fetch]
+  fl-145  Moldova  [fetch]
+  fl-146  Albania  [fetch]
+  fl-147  Lesotho  [fetch]
+  fl-148  Guinea-Bissau  [fetch]
+  fl-149  Slovenia  [fetch]
+  fl-150  Equatorial Guinea  [fetch]
+  fl-151  Latvia  [fetch]
+  fl-152  North Macedonia  [fetch]
+  fl-153  Kosovo  [fetch]
+  fl-154  Bahrain  [fetch]
+  fl-155  Timor-Leste  [fetch]
+  fl-156  Estonia  [fetch]
+  fl-157  Trinidad and Tobago  [fetch]
+  fl-158  Cyprus  [fetch]
+  fl-159  Mauritius  [fetch]
+  fl-160  Eswatini  [fetch]
+
+### Batch F9 — fl-161 to fl-180 — 20 cards, 20 flags to fetch
+
+  fl-161  Djibouti  [fetch]
+  fl-162  Fiji  [fetch]
+  fl-163  Comoros  [fetch]
+  fl-164  Guyana  [fetch]
+  fl-165  Solomon Islands  [fetch]
+  fl-166  Bhutan  [fetch]
+  fl-167  Macau  [fetch]
+  fl-168  Luxembourg  [fetch]
+  fl-169  Suriname  [fetch]
+  fl-170  Montenegro  [fetch]
+  fl-171  Western Sahara  [fetch]
+  fl-172  Malta  [fetch]
+  fl-173  Maldives  [fetch]
+  fl-174  Cabo Verde  [fetch]
+  fl-175  Brunei  [fetch]
+  fl-176  Belize  [fetch]
+  fl-177  Bahamas  [fetch]
+  fl-178  Iceland  [fetch]
+  fl-179  Vanuatu  [fetch]
+  fl-180  New Caledonia  [fetch]
+
+### Batch F10 — fl-181 to fl-200 — 20 cards, 20 flags to fetch
+
+  fl-181  Barbados  [fetch]
+  fl-182  French Polynesia  [fetch]
+  fl-183  São Tomé and Príncipe  [fetch]
+  fl-184  Samoa  [fetch]
+  fl-185  Saint Lucia  [fetch]
+  fl-186  Guam  [fetch]
+  fl-187  Curaçao  [fetch]
+  fl-188  Kiribati  [fetch]
+  fl-189  Seychelles  [fetch]
+  fl-190  Grenada  [fetch]
+  fl-191  Micronesia  [fetch]
+  fl-192  Aruba  [fetch]
+  fl-193  United States Virgin Islands  [fetch]
+  fl-194  Tonga  [fetch]
+  fl-195  Jersey  [fetch]
+  fl-196  Saint Vincent and the Grenadines  [fetch]
+  fl-197  Antigua and Barbuda  [fetch]
+  fl-198  Isle of Man  [fetch]
+  fl-199  Andorra  [fetch]
+  fl-200  Cayman Islands  [fetch]
+
+### Batch F11 — fl-201 to fl-220 — 20 cards, 20 flags to fetch
+
+  fl-201  Guernsey  [fetch]
+  fl-202  Dominica  [fetch]
+  fl-203  Bermuda  [fetch]
+  fl-204  Greenland  [fetch]
+  fl-205  Faroe Islands  [fetch]
+  fl-206  Saint Kitts and Nevis  [fetch]
+  fl-207  American Samoa  [fetch]
+  fl-208  Turks and Caicos Islands  [fetch]
+  fl-209  Northern Mariana Islands  [fetch]
+  fl-210  Sint Maarten  [fetch]
+  fl-211  Liechtenstein  [fetch]
+  fl-212  British Virgin Islands  [fetch]
+  fl-213  Gibraltar  [fetch]
+  fl-214  Monaco  [fetch]
+  fl-215  Marshall Islands  [fetch]
+  fl-216  San Marino  [fetch]
+  fl-217  Åland  [fetch]
+  fl-218  Saint Martin  [fetch]
+  fl-219  Anguilla  [fetch]
+  fl-220  Palau  [fetch]
+
+### Batch F12 — fl-221 to fl-233 — 13 cards, 13 flags to fetch
+
+  fl-221  Cook Islands  [fetch]
+  fl-222  Nauru  [fetch]
+  fl-223  Wallis and Futuna  [fetch]
+  fl-224  Saint Barthélemy  [fetch]
+  fl-225  Tuvalu  [fetch]
+  fl-226  Saint Pierre and Miquelon  [fetch]
+  fl-227  Saint Helena  [fetch]
+  fl-228  Montserrat  [fetch]
+  fl-229  Falkland Islands  [fetch]
+  fl-230  Norfolk Island  [fetch]
+  fl-231  Niue  [fetch]
+  fl-232  Vatican City  [fetch]
+  fl-233  Pitcairn Islands  [fetch]

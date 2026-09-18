@@ -887,9 +887,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   twin as a by-product** and closes a real gap in World Geography. Its one standing cost is stated and
   has a checker: **a correction to a `gw-` background must be carried to its `fl-` twin in the same
   commit**, since both cards render perfectly while saying different things, and `check-flag-twins.js`
-  is what says so. **IT HAS NO ROW IN THE INDEX TABLE BELOW YET, AND THAT IS `test-card-plans.js`'s
-  RULE RATHER THAN AN OMISSION**: that table has a row per collection that EXISTS IN `data.js`, so the
-  row, the heading's count and the `PLANS` entry all go in with the tree node, in F0. Not part of the site.
+  is what says so.
+  · **THE FORMAT IS BUILT** — see the FLAG CARDS block in app.js for `cardFlagSpec` / `cardFlagHTML` /
+    the `.flag-shot` frame, and `.claude/test-flag-cards.js` for what it asserts. Guarded there, and by
+    `check-flag-twins.js` (report-only) for the drift above. **Re-run both after touching
+    `cardFlagSpec` / `cardFlagHTML` / `cardFrontHTML`'s flag branch / `gameCardIdSet` /
+    `serializeCardData` / `revertCard` / `whyExempt` / `IMG_OPEN_SEL` / the delegated media `error`
+    listener / the `.flag-shot` styles / `add-card.js`'s `flagCard` guards /
+    `check-questions.js`'s exemptions, or after a batch of flag cards.**
+  · **ONE LEAK IS ACCEPTED AND STATED: Commons names every flag `Flag_of_<Country>.svg`**, and a `src`
+    is copied from the API rather than composed, so the answer is in the URL on all 233 — measured, 20
+    of 20 here against 0 of 10 artwork cards. No reader is SHOWN a src, and the suite asserts the
+    country appears there AND NOWHERE ELSE on the front, so it cannot widen into a title or a credit.
+  · **A CARD IS BUILT BY `.claude/add-flag-cards.js`, WHICH HANDS EACH ONE TO `add-card.js`** rather
+    than writing `data.js` itself — so every guard that tool carries runs on every card, and the
+    builder is not a second weaker copy of them. It DERIVES the alt from the twin's by cutting the
+    "The flag of X: " prefix and prints it for reading, and refuses where the cut leaves the answer
+    standing. **THE PLAN SAID THE `why` PASS DID NOT APPLY AND NO GUARD KNEW IT**, which turned the
+    first card away: the tools do not read the plan, so a rule a plan exempts needs the exemption
+    written into the tool in the same commit. Not part of the site.
 - `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
   mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
   the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` and `rivers.js` beside
@@ -1309,8 +1325,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.40 MB and 49,693 lines is hard to find your way around, so this
-  lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.41 MB and 49,799 lines is hard to find your way around, so this
+  lists its 193 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -6555,7 +6571,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE TWENTY PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE TWENTY-ONE PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -6584,6 +6600,7 @@ lookup.
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
+| Flags | `flags` | `fl-` | `docs/flags-card-plan.md` | 1 / 1 | 20 cards, contiguous — next is `fl-021`; 233 planned, one per World Geography COUNTRY card and numbered to match it; the answer side is its twin's, `fl-036` is deferred, see below |
 
 The next id for any of them (substitute the prefix):
 
@@ -6596,7 +6613,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (295 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (310 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7423,7 +7440,7 @@ division-capital city tier are inert dead code.
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **56 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **57 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-panels.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
@@ -7557,7 +7574,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 295 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 310 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

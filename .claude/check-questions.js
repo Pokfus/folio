@@ -92,12 +92,17 @@ const words = s =>
    .replace(/\s+/g, " ").trim().split(" ").filter(w => COUNTS_AS_WORD.test(w)).length;
 
 const fails = [];
-let checked = 0, mapCards = 0, artCards = 0;
+let checked = 0, mapCards = 0, artCards = 0, flagCards = 0;
 
 for (const c of window.CARD_DATA) {
   const isMap = !!(c.map && c.map.key);
   const isArt = c.artwork === true;
+  /* A FLAG CARD takes the map card's two exemptions and not the artwork card's skip: its flag is the
+     clue and its prompt is deliberately short and deliberately ends on the blank, but it DOES carry a
+     prompt, where an artwork card carries none at all. See docs/flags-card-plan.md. */
+  const isFlag = c.flagCard === true;
   if (isMap) mapCards++;
+  if (isFlag) flagCards++;
   if (isArt) { artCards++; continue; }   // no question prose on this format at all — see the header
   const all = [c.question, ...(c.questions || [])];
   all.forEach((q, i) => {
@@ -116,7 +121,7 @@ for (const c of window.CARD_DATA) {
       fails.push([tag, "opens on a pronoun that only the answer can resolve", p]);
 
     const w = words(q);
-    const short = isMap;
+    const short = isMap || isFlag;
     const lo = short ? MAP_MIN : MIN, hi = short ? MAP_MAX : MAX;
     if (w < lo || w > hi)
       fails.push([tag, `${w} words (want ${lo}–${hi}${short ? ", picture card" : ""})`, p]);
@@ -126,7 +131,7 @@ for (const c of window.CARD_DATA) {
   });
 }
 
-console.log(`${checked} questions across ${window.CARD_DATA.length} cards (${mapCards} map cards; ${artCards} artwork cards carry no question and are skipped).`);
+console.log(`${checked} questions across ${window.CARD_DATA.length} cards (${mapCards} map cards and ${flagCards} flag cards take the short range; ${artCards} artwork cards carry no question and are skipped).`);
 if (!fails.length) { console.log("All question rules pass."); process.exit(0); }
 
 console.log(`\n${fails.length} violation${fails.length === 1 ? "" : "s"}:`);

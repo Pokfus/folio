@@ -127,8 +127,15 @@ const server = http.createServer((req, res) => {
 
   const src = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
   const slice = (name) => { const i = src.indexOf("function " + name + "("); return i < 0 ? "" : src.slice(i, i + 2600); };
+  /* THE RULE IS THAT THE ARTWORK BRANCH RETURNS THE PICTURE AND NEVER `q`. It was pinned as the exact
+     expression `return art ? cardArtHTML(art, c) : q;`, which stopped matching the moment a THIRD
+     format was added below it (the flag card, Sep 2026) and the branch became an early return — a stale
+     copy of the code reporting a rule that was still being kept. What is asserted now is the branch's
+     own return, and separately that it carries no `q`. */
+  const frontSrc = slice("cardFrontHTML");
+  const artBranch = (frontSrc.match(/const art = cardArtSpec\(c\);[\s\S]{0,200}?cardArtHTML\(art, c\)[^\n]*/) || [""])[0];
   ok("cardFrontHTML draws the picture and NOT the question",
-     /const art = cardArtSpec\(c\);[\s\S]{0,120}return art \? cardArtHTML\(art, c\) : q;/.test(slice("cardFrontHTML")));
+     /cardArtHTML\(art, c\)/.test(artBranch) && !/\+\s*q\b/.test(artBranch), artBranch.slice(-90));
   ok("…and the fields are built from the card's own answers", /cardArtAnswers\(c\)/.test(slice("cardArtHTML")));
   /* THE ASKED SET IS THREE. Read off the declaration rather than the rendered page as well as from it,
      so a fourth field added back is caught whichever end it is added at. */

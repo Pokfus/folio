@@ -97,6 +97,13 @@ const PLANS = {
      cities that are themselves divisions, so a capital card there would shade its own answer. Written
      out as ranges so that a number quietly going missing still fails here. */
   "geo-china": ["china-geography", "gc-", [[1, 31], [501, 518], [520, 522], [524, 525], [528, 531]]],
+  /* Flags: 233 cards, one per World Geography COUNTRY card and numbered to match it, so `fl-NNN` is the
+     same entity as `gw-NNN`. The range is unbroken even though `fl-036` Afghanistan is deferred — a
+     deferred card is one the plan LISTS and has not shipped, exactly as `gw-596` Jerusalem is, and
+     leaving the number out of the range here would stop this suite ever noticing if it did ship. The
+     natural extension (subnational flags at `fl-501`+) is deliberately NOT declared until it lands: the
+     Politics rule is to widen a numbering as work arrives rather than to declare it full of holes. */
+  flags: ["flags", "fl-", [[1, 233]]],
 };
 // a numbering as a flat list of the numbers it expects, in order
 const expand = (num) => {
