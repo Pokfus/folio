@@ -11849,6 +11849,310 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "arch",
+      "title": "Architecture",
+      "total": 0,
+      "children": [
+        {
+          "id": "arch-basics",
+          "title": "How a building stands up",
+          "total": 115,
+          "children": [
+            {
+              "id": "arch-forces",
+              "title": "Forces, spans and structure",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "arch-materials",
+              "title": "Materials",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "arch-climate",
+              "title": "Light, heat, water and sound",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "arch-drawing",
+              "title": "Drawing, model and plan",
+              "total": 23,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-first",
+          "title": "The first builders",
+          "total": 80,
+          "children": [
+            {
+              "id": "arch-shelter",
+              "title": "Shelter before architecture",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "arch-village",
+              "title": "The Neolithic house and village",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "arch-megalith",
+              "title": "Megaliths and mounds",
+              "total": 28,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-ancient",
+          "title": "The ancient world",
+          "total": 120,
+          "children": [
+            {
+              "id": "arch-mesopotamia",
+              "title": "Mesopotamia and Persia",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "arch-egypt",
+              "title": "Egypt",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "arch-greece",
+              "title": "Greece and the Aegean",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "arch-rome",
+              "title": "Rome",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "arch-americas",
+              "title": "The early Americas",
+              "total": 12,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-asia",
+          "title": "Asia",
+          "total": 120,
+          "children": [
+            {
+              "id": "arch-india",
+              "title": "South Asia",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "arch-china",
+              "title": "China",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "arch-japan",
+              "title": "Japan and Korea",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "arch-seasia",
+              "title": "Southeast Asia",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "arch-steppe",
+              "title": "Central Asia and the mountains",
+              "total": 18,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-medieval",
+          "title": "The Islamic world and medieval Europe",
+          "total": 115,
+          "children": [
+            {
+              "id": "arch-islamic",
+              "title": "The Islamic world",
+              "total": 34,
+              "cardIds": []
+            },
+            {
+              "id": "arch-byz",
+              "title": "Byzantium and the Orthodox world",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "arch-romanesque",
+              "title": "Romanesque",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "arch-gothic",
+              "title": "Gothic",
+              "total": 33,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-early-modern",
+          "title": "Renaissance to Enlightenment",
+          "total": 110,
+          "children": [
+            {
+              "id": "arch-renaissance",
+              "title": "The Renaissance",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "arch-baroque",
+              "title": "Baroque and Rococo",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "arch-neoclass",
+              "title": "Neoclassicism and the Enlightenment",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "arch-colonial",
+              "title": "Empire and the colonial building",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-industrial",
+          "title": "The industrial century",
+          "total": 110,
+          "children": [
+            {
+              "id": "arch-iron",
+              "title": "Iron, glass and the engineer",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "arch-city19",
+              "title": "The industrial city",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "arch-revival",
+              "title": "The revivals and the battle of the styles",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "arch-chicago",
+              "title": "The tall building",
+              "total": 27,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-modernism",
+          "title": "The modern movement",
+          "total": 115,
+          "children": [
+            {
+              "id": "arch-early20",
+              "title": "Before the modern movement",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "arch-modern",
+              "title": "The modern movement",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "arch-housing",
+              "title": "Mass housing",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "arch-intl",
+              "title": "The International Style and after",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "arch-region",
+              "title": "Other modernisms",
+              "total": 17,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-now",
+          "title": "Now",
+          "total": 115,
+          "children": [
+            {
+              "id": "arch-late20",
+              "title": "Brutalism, postmodernism and after",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "arch-hightech",
+              "title": "High-tech and the engineered envelope",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "arch-green",
+              "title": "Building and the climate",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "arch-conserve",
+              "title": "Conservation, repair and loss",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "arch-profession",
+              "title": "The profession and its questions",
+              "total": 24,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-world",
       "title": "World Geography",
       "total": 468,

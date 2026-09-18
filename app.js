@@ -20612,6 +20612,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        and below the line, and there are two of them rather than a row. Keep it to two, keep the strand
        straight, and do not add a second strand. */
     { k: "wire", n: "Barbed wire", d: '<path d="M2 12h20"/><path d="M6.6 8 9.4 16M9.4 8 6.6 16"/><path d="M14.6 8 17.4 16M17.4 8 14.6 16"/>' },
+    /* arch (Architecture) — the sharpest icon collision on the shelf, because EIGHT of the marks above
+       and below are already buildings: pagoda, column, dome, pyramid, torii, castle, wall and eiffel. An
+       architecture collection may have none of them, so what it wears is a piece of CONSTRUCTION rather
+       than a building — the round arch, which belongs to no one tradition (Mesopotamian, Roman, Sasanian,
+       Islamic, Gothic and Chinese building all turn on it).
+       THE RING IS WHAT MAKES IT LEGIBLE AND IT WAS SETTLED BY RENDERING. A single-line arch — one curve
+       on two legs — reads at 24px as a doorway, a tombstone or a shed; drawing an extrados AND an
+       intrados with the opening inside them says MASONRY and is what separates it from the onion `dome`
+       two rows up. A keystone was tried twice and refused twice: as a wedge projecting above the crown it
+       reads at 24px as a chimney on a hut, and as two radial joint lines it crowds the ring into a smear.
+       Keep the ring and keep the ground line — without the line the shape floats and reads as a
+       horseshoe, without the ring it is a door. */
+    { k: "arch", n: "Arch", d: '<path d="M4 20V11a8 8 0 0 1 16 0v9"/><path d="M7 20v-9a5 5 0 0 1 10 0v9"/><path d="M2 20h20"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20688,6 +20701,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     egypt: "pyramid",
     ww2: "plane",
     ww1: "wire",
+    arch: "arch",
     japan: "torii",
     psych: "head",
     phil: "owl",
@@ -25280,7 +25294,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -26188,6 +26202,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        means nothing is worse than a crowded one that means something. Looked at as a banner and as its
        20% wash beside its neighbours. */
     ww1:      { bg: "#686E52" },
+    /* cyanotype blue (Architecture) — MEASURED against the 32 hues then on the shelf, and the collection
+       whose two OBVIOUS colours were both refused on the numbers. STONE first: a warm limestone or
+       travertine is what a reader would expect an architecture banner to wear, and the best mid-toned
+       one stands 16.1 with TEN hues inside dE 30, the best light one 15.0 — against a shelf that already
+       carries France's roof slate, the Second World War's dark iron and the First World War's field grey,
+       so a fourth grey would be pressed against all three. BRICK second, and worse: terracotta is the
+       most crowded corner there is, 16.3 with nine neighbours (China, Russia, Korea, Visual Art and four
+       language decks). Both refusals carry the same editorial point, which is the one to remember here:
+       A MATERIAL NAMES A REGION — limestone says the classical Mediterranean, brick says Mesopotamia and
+       the Low Countries, timber says Japan — and this collection gives 120 cards to Asia in chronological
+       position precisely to say that no one tradition is its subject.
+       WHAT IS TAKEN IS THE DRAWING RATHER THAN THE BUILDING: the blue of a cyanotype, which names no
+       country, no century and no material, and names the act the collection is about. It stands 18.7
+       from Greece's Aegean, 19.7 from the French deck's blue, 26.0 from Politics: East Asia's periwinkle
+       and 29.2 from Economics' teal — BELOW the shelf's median of 20.3, and stated rather than hidden:
+       it is the seventh-closest hue of the thirty-three, ahead of Rome and Geography-China at 18.2, the
+       Mandarin deck at 17.5, the Indonesian at 17.4 and the China-Russia pair at 12.9, so comfortably
+       inside what this shelf has accepted. The figure in its favour is DENSITY 4 against a median of 6.
+       L 55, chroma 40, and 3.7:1 against white — the light end of the shelf's own 3.7-10.4 band, exactly
+       level with India's ochre, which is the lightest hue already on it.
+       IT IS A FIFTH BLUE and needs Astronomy's fourth-purple argument: Greece sits at almost the same hue
+       angle eleven points darker and fifteen less saturated, the United States' navy is at L 29,
+       Geography-China's at L 35, and the French deck's blue is twenty degrees further round toward
+       violet. Looked at as a banner and as its 20% wash beside all five, it is plainly a different
+       colour from each. The magenta and the olive-brass were NOT re-measured, on the standing note above
+       — the magenta topped the unconstrained sweep for the EIGHTH time and the olive-brass scored 21.5,
+       the best non-magenta figure on the wheel, and would be the sixth thing in the yellow-green-brown
+       quarter. If this ever needs moving, go DARKER rather than greener: the true Prussian blue of the
+       print itself was swept across the whole lightness band and tops out at 16.9, sitting on the United
+       States' navy, which is why the light end was taken. */
+    arch:     { bg: "#008DC6" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median

@@ -994,6 +994,63 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   it to grow faster here than anywhere since Korea. The next card to write is the lowest `ww1-NNN` not
   yet in `data.js`; the index table under "THE PLANNED COLLECTIONS" is the lookup. **No card has been
   written yet.** Not part of the site.
+- **📖 `docs/architecture-card-plan.md` — READ BEFORE WRITING AN `arch-` CARD.** The **1000-card
+  running order for the Architecture collection** (`arch`): every card's number, topic and deck, fixed in
+  advance across 9 decks and 39 leaf subdecks. The twenty-sixth of the planned collections and the eighth
+  that is not history; the node, its tree, its `COLL_THEME` hue, a new `ICON_SYMBOLS` mark (`arch`) and a
+  `COLLECTION_SECTION` row ship with the plan.
+  · **IT IS THE SECOND COLLECTION IN "The Arts", AND THAT ROW IS THE ONE PIECE OF REGISTRATION THE LAST
+    TWO COLLECTIONS DID NOT NEED.** `sectionOf` returns History for anything `COLLECTION_SECTION` does
+    not name, which is right for the First World War and for Mesopotamia and wrong here — and it is not a
+    judgement: **the Visual Art plan created that heading for exactly this**, saying in terms that music,
+    architecture, theatre and literature "are the siblings a heading is for" and that a second one "costs
+    a row in COLLECTION_SECTION and nothing else". This is that second one.
+  · **THE SUBJECT IS HOW BUILDINGS ARE DESIGNED AND BUILT, AND DECK 1 IS WHAT SAYS SO.** 115 cards on
+    load and span, materials, light and heat and water, and the drawing come FIRST, before any period at
+    all — Mesopotamia's evidence-deck shape, and for its reason: **every later card inherits them.** A
+    reader who has met the arch, thrust and the buttress can be told in ten sentences why Beauvais fell;
+    writing the Gothic deck first would mean re-explaining the same mechanics twenty times over. **Only
+    about a fifth of the thousand names one building**, and a monument earns its slot the way a genus does
+    in the Dinosaurs plan — the Parthenon is here for entasis and the optical refinements, Beauvais
+    because it fell down.
+  · **IT DOES NOT COMPETE WITH VISUAL ART FOR A SINGLE LINE, WHICH IS WORTH KNOWING BEFORE ASSUMING IT
+    DOES.** `art`'s own plan rules out a movement, a technique, a school, a material, a site, a patron and
+    a museum: an `art` card is one identifiable, showable, portable WORK. So the Dome of the Rock mosaics
+    are `art-191` and the Dome of the Rock is `arch-444`; the Villa of the Mysteries frieze is `art-140`
+    and the Roman villa is `arch-296`. **Where a building holds a famous work, `art` cards the work and
+    this collection cards the building.**
+  · **THE OVERLAP WITH THE NATIONAL COLLECTIONS WAS MEASURED, NOT GUESSED — roughly a hundred lines
+    elsewhere already name a building**, led by Egypt (24), India (22), Rome (17), World History (15) and
+    Russia (14). **The division of labour is one sentence: a national collection cards a building as an
+    episode in that country's history; this collection cards how it was built and why it looks like
+    that** — `ru-206` is Ivan IV's monument to the taking of Kazan and `arch-490` is nine chapels on one
+    podium. **AND A NATIONAL COLLECTION'S SINGLE SURVEY LINE IS THIS COLLECTION'S SUBDECK**: `jp-990
+    Japanese architecture`, `cnh-962`, `ko-943`, `ru-849` and `fr-128` are one card each where they stand
+    and a whole run of cards here, so write the pair deliberately.
+  · **VERNACULAR BUILDING IS CARDED, NOT JUST MONUMENTS.** Almost every building ever made was put up
+    without an architect; a collection that cards only the designed exceptions teaches that architecture
+    is what rich institutions commission. The yurt, the pit house, the crannog, the tulou, the Loess cave
+    dwelling, the minka, the stilt house, the bahay kubo, the shophouse, the log cabin, the shotgun house
+    and the bye-law terrace are all in the order.
+  · **THE MODERN DECKS CARD WHAT FAILED AS WELL AS WHAT WAS BUILT** — Pruitt-Igoe, Ronan Point, the flat
+    roof, facadism, urban renewal — because the modern movement is where a survey most easily becomes a
+    catalogue of manifestos, and **an architect's own manifesto is a source for what he CLAIMED and not
+    for what he built**: *Vers une architecture* is evidence about Le Corbusier's programme and not about
+    whether Villa Savoye leaked.
+  · **THE GLOSSARY TRAP IS ECONOMICS'S AT A LARGER SCALE: the vocabulary is ordinary English words used
+    technically** — plan, section, elevation, order, bay, arch, column, wall, frame, core, shell, load,
+    span, site, scale. **Almost none may claim its bare surface**, on `Life_(biology)`'s rule; `Arch` is
+    the sharpest, being a prefix (archbishop, archive, archaeology, archon, archipelago) as well as a
+    word. **And EIGHTEEN of its terms already exist** — `Doric_order`, `Ionic_order`, `Corinthian_order`,
+    `Architrave`, `Pediment`, `Cyclopean_masonry`, `Ziggurat`, `Stupa`, `Gothic_architecture`,
+    `Parthenon`, `Colosseum`, `Hagia_Sophia` and the rest — so **WIDEN rather than re-key**, since
+    `add-glossary.js` overwrites in silence.
+  · **A MODERN BUILDING'S PICTURE IS NOT AUTOMATICALLY FREE**, unlike a medieval one: freedom of panorama
+    covers exterior photographs in Britain, Germany and much of the Commonwealth and does NOT in France,
+    Italy, Greece, Belgium or the United States for buildings after 1990. **Check Commons before promising
+    a picture for a twentieth-century card.**
+  The next card to write is the lowest `arch-NNN` not yet in `data.js`; the index table under "THE PLANNED
+  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
   only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
@@ -1512,7 +1569,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.42 MB and 49,892 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.43 MB and 49,937 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6777,6 +6834,7 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 160 cards, contiguous — next is `ww2-161` |
 | The First World War | `ww1` | `ww1-` | `docs/ww1-card-plan.md` | 9 / 37 | empty |
+| Architecture | `arch` | `arch-` | `docs/architecture-card-plan.md` | 9 / 39 | empty — not a history collection |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
@@ -6804,7 +6862,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (355 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (367 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7765,7 +7823,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 355 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 367 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
