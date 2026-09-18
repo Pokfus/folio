@@ -104,6 +104,10 @@ const NOT_A_RESEARCHER = {
   "wh-593 Polo": "Marco Polo, cited for his own account of the election of Chinghis Kaan",
   "wh-597 Polo": "the same, cited for his own account of the fall of Baghdad and the death of the caliph",
   "wh-598 Battuta": "Ibn Battuta, cited for his own account of crossing the Kipchak steppe in the 1330s",
+  // A CONQUISTADOR IS AN ACTOR OF HIS OWN CARD'S PERIOD, cited for what he himself did and wrote. The
+  // letters to Charles V stand in the author slot of the card's own first source, so every sentence of
+  // the siege narrative that attributes a figure to him read as historiography.
+  "wh-666 Cortés": "Hernán Cortés, cited on his own card for his third letter's account of the siege he laid",
 };
 
 /* MEASURED, not chosen: over the 269 shipped cards the historiography count is 0 or 1 for 206 of them,

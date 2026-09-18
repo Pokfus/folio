@@ -3893,7 +3893,16 @@ window.GLOSSARY = {
 "Henry_the_Navigator": "Henry the Navigator, or Dom Henrique, was a Portuguese prince, third son of King John I, who from the 1420s until his death in 1460 licensed and financed the voyages that opened the Atlantic coast of Africa to European shipping.<sup class=\"fn\" data-fn=\"1\"></sup> As governor of the military Order of Christ he had revenues to spend on the enterprise, and his captains passed Cape Bojador in 1434, reached the Senegal river in 1445 and colonised Madeira and the Azores.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Those voyages began a Portuguese trade in gold, ivory and enslaved Africans; the by-name is a later coinage, and he is not known to have travelled further from Portugal than Ceuta.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Caravel": "A caravel was a small, swift Portuguese sailing ship, carrying two or three masts and rarely more than 300 tons, which was used above all for exploring the Atlantic coast of Africa in the 15th century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its triangular lateen sails allowed it to sail close to the wind and so to work back up a coast down which prevailing winds had carried it, which made returning from a voyage of discovery practicable.<sup class=\"fn\" data-fn=\"1\"></sup> A variant known as the <i>caravela redonda</i> set square sails on the fore and main masts and lateen sails on the mizzen and bowsprit, gaining speed before the wind at some cost in handiness.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Cape_Route": "The Cape Route is the sea road from western Europe to the Indian Ocean around the southern tip of Africa, first sailed end to end by a Portuguese fleet in 1497 and 1498.<sup class=\"fn\" data-fn=\"1\"></sup> It replaced a journey in which eastern spices went by ship to Arabia, overland to Cairo, down the Nile and by camel to Alexandria, paying duties at each stage that raised the price about fourfold.<sup class=\"fn\" data-fn=\"1\"></sup> Its outward passage ran from the Cape Verde islands on a wide westward curve through the South Atlantic before turning for the Cape, a leg that kept the first fleet 93 days out of sight of land.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Vasco_da_Gama": "Vasco da Gama was the Portuguese captain who commanded the first fleet to sail from Europe to India by sea, leaving Lisbon on 8 July 1497, anchoring off Calicut on 20 May 1498 and returning in September 1499.<sup class=\"fn\" data-fn=\"1\"></sup> The voyage opened a direct route to the spice markets of the Malabar coast, but cost the lives of about half his men, his brother Paulo among them.<sup class=\"fn\" data-fn=\"2\"></sup> He sailed again in 1502 with an armed fleet of twenty ships, and the Portuguese chronicles record a campaign of bombardment and seizure in which a ship from Mecca was plundered and burned with its people aboard.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Vasco_da_Gama": "Vasco da Gama was the Portuguese captain who commanded the first fleet to sail from Europe to India by sea, leaving Lisbon on 8 July 1497, anchoring off Calicut on 20 May 1498 and returning in September 1499.<sup class=\"fn\" data-fn=\"1\"></sup> The voyage opened a direct route to the spice markets of the Malabar coast, but cost the lives of about half his men, his brother Paulo among them.<sup class=\"fn\" data-fn=\"2\"></sup> He sailed again in 1502 with an armed fleet of twenty ships, and the Portuguese chronicles record a campaign of bombardment and seizure in which a ship from Mecca was plundered and burned with its people aboard.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Christopher_Columbus": "Christopher Columbus was a Genoese mariner in Castilian service whose four Atlantic crossings between 1492 and 1504 opened sustained contact between Europe and the Americas, and who never abandoned the belief that he had reached Asia.<sup class=\"fn\" data-fn=\"1\"></sup> The contract his sovereigns signed in April 1492 promised him a knighthood, the title Admiral of the Ocean Sea, the viceroyalty of any lands he found and a tenth of any new wealth.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His printed letter of 1493 made him famous throughout Europe, while charges of maladministration in the Indies and his own administrative failings brought him to political obscurity, and assessments of him still range from visionary genius to ruthless imperialist.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Treaty_of_Tordesillas": "The Treaty of Tordesillas was the agreement of 7 June 1494 by which Castile and Portugal divided the unexplored world along a meridian drawn 370 leagues west of the Cape Verde Islands, everything east of it found by Portugal falling to Portugal and everything west of it found by Castile to Castile.<sup class=\"fn\" data-fn=\"1\"></sup> It replaced a papal line drawn only a hundred leagues out, which Portugal thought too narrow.<sup class=\"fn\" data-fn=\"2\"></sup> Because nobody could establish where the meridian actually ran at sea, and because the two crowns assumed it continued round the far side of the globe, it produced disputes that ran on into the 16th century.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Magellan_expedition": "The Magellan expedition was the Castilian fleet of five ships that sailed from Seville in 1519 to reach the Spice Islands by a westward route, and whose one surviving vessel completed the first circumnavigation of the earth.<sup class=\"fn\" data-fn=\"1\"></sup> Its commander was killed in the Philippines in April 1521, and the <i>Victoria</i> came home under Sebastián de Elcano on 6 September 1522 with eighteen of the sixty men who had left the Moluccas.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Reckoning more than 14,460 leagues run, the crew also discovered on the way home that sailing west with the sun had cost them a day.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Conquistador": "A conquistador was one of the Spanish soldier-adventurers who conquered large parts of the Americas in the 16th century, serving under a royal licence at their own expense rather than as paid troops of the crown.<sup class=\"fn\" data-fn=\"1\"></sup> An expedition was financed by its leader and its members, who found their own arms and horses and were repaid out of what was taken, after a fifth had been set aside for the king.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The usual reward for a successful conqueror was an encomienda, a grant of the labour and tribute of a district's people, which in Peru was held for the lives of the conqueror and his son.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Hernán_Cortés": "Hernán Cortés was the Spanish commander whose expedition overthrew the Aztec Empire between 1519 and 1521, born in 1485 at Medellín in Extremadura and settled in Cuba before he sailed for the Mexican coast.<sup class=\"fn\" data-fn=\"1\"></sup> Sent to trade, he founded a town at Vera Cruz and had its municipality appoint him the king's captain and chief justice, which put his venture beyond the governor of Cuba's reach.<sup class=\"fn\" data-fn=\"2\"></sup> The letters he wrote to Charles V date the siege of Tenochtitlan from 30 May 1521 to its fall on 13 August, and are the conqueror's own account of what he did.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Fall_of_Tenochtitlan": "The fall of Tenochtitlan was the capture of the Mexica capital on 13 August 1521 by Hernán Cortés and the far more numerous Indigenous allies who fought with him, after a siege of seventy-five days.<sup class=\"fn\" data-fn=\"1\"></sup> Thirteen brigantines built inland and carried to the lake gave the besiegers command of the water, and the aqueduct carrying fresh water into the city was broken at its spring.<sup class=\"fn\" data-fn=\"1\"></sup> Cortés wrote to Charles V that more than fifty thousand of the city's people had died of salt water, hunger and disease before it was taken, and that a further fifteen thousand were killed on the last day.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Francisco_Pizarro": "Francisco Pizarro was the Spanish commander who overthrew the Inca Empire, seizing its ruler Atahualpa at Cajamarca in November 1532 with a force of fewer than two hundred men, arriving just after a civil war for the Inca succession.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A capitulation granted by Queen Juana in 1529 had made him governor of whatever he conquered, and he sailed from Panama for the last time in 1531.<sup class=\"fn\" data-fn=\"1\"></sup> He founded Lima, fell out with his partner Almagro over the division of Peru, and was killed by Almagro's followers in his own house there on 26 June 1541.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Spanish_conquest_of_the_Inca_Empire": "The Spanish conquest of the Inca Empire ran from Francisco Pizarro's landing on the Peruvian coast in 1532 to the fall of the mountain refuge of Vilcabamba in 1572.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The seizure of Atahualpa at Cajamarca did not settle it: Manco Inca, whom the Spaniards had installed, rose in 1536 and besieged Cusco and Lima, and after the sieges failed four Incas ruled in succession from Vilcabamba for thirty-six years.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The conquerors meanwhile fought each other over the division of Peru, and Pizarro himself was killed by his partner's followers in 1541.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Cocoliztli": "Cocoliztli, Nahuatl for 'pest', is the name given to the epidemics that swept central Mexico in 1545-48 and 1576-78 and killed a large part of its native population.<sup class=\"fn\" data-fn=\"1\"></sup> The first is estimated to have killed five to fifteen million people, up to 80 per cent of the population of Mexico, and the second a further two to two and a half million.<sup class=\"fn\" data-fn=\"1\"></sup> Its cause is still disputed: candidates include an Indigenous haemorrhagic fever carried by rodents and aggravated by drought, enteric fever caused by <i>Salmonella enterica</i> Paratyphi C, and epidemic typhus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5918,7 +5927,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Henry_the_Navigator": "1394–1460",
 "Caravel": "13th – 16th centuries",
 "Cape_Route": "opened 1497–1499",
-"Vasco_da_Gama": "died 1524"
+"Vasco_da_Gama": "died 1524",
+"Christopher_Columbus": "died 1506",
+"Treaty_of_Tordesillas": "7 June 1494",
+"Magellan_expedition": "1519 – 1522",
+"Conquistador": "16th century",
+"Hernán_Cortés": "1485 – 1547",
+"Fall_of_Tenochtitlan": "13 August 1521",
+"Francisco_Pizarro": "died 1541",
+"Spanish_conquest_of_the_Inca_Empire": "1532 – 1572",
+"Cocoliztli": "1545 – 1548, 1576 – 1578"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8232,7 +8250,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Henry_the_Navigator": ["Prince Henry the Navigator","Dom Henrique"],
 "Caravel": ["caravela"],
 "Cape_Route": ["Cape route","Carreira da Índia"],
-"Vasco_da_Gama": ["da Gama"]
+"Vasco_da_Gama": ["da Gama"],
+"Christopher_Columbus": ["Cristoforo Colombo","Cristóbal Colón"],
+"Treaty_of_Tordesillas": ["Tordesillas"],
+"Magellan_expedition": ["Magellan's expedition","Magellan-Elcano expedition"],
+"Conquistador": ["conquistadores"],
+"Hernán_Cortés": ["Hernando Cortés","Fernando Cortés"],
+"Fall_of_Tenochtitlan": ["siege of Tenochtitlan"],
+"Spanish_conquest_of_the_Inca_Empire": ["conquest of Peru"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12169,7 +12194,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Henry_the_Navigator": ["person","history","exploration","portugal","africa"],
 "Caravel": ["object","technology","exploration","portugal","europe"],
 "Cape_Route": ["concept","geography","exploration","trade","africa"],
-"Vasco_da_Gama": ["person","history","exploration","portugal","india"]
+"Vasco_da_Gama": ["person","history","exploration","portugal","india"],
+"Christopher_Columbus": ["person","history","exploration","spain","americas"],
+"Treaty_of_Tordesillas": ["event","history","politics","exploration","spain","portugal"],
+"Magellan_expedition": ["event","history","exploration","spain","geography"],
+"Conquistador": ["concept","history","warfare","spain","americas"],
+"Hernán_Cortés": ["person","history","warfare","spain","mexico","americas"],
+"Fall_of_Tenochtitlan": ["event","history","warfare","mexico","americas"],
+"Francisco_Pizarro": ["person","history","warfare","spain","peru","americas"],
+"Spanish_conquest_of_the_Inca_Empire": ["event","history","warfare","spain","peru","americas"],
+"Cocoliztli": ["event","history","science","mexico","americas"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

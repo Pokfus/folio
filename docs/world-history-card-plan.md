@@ -1035,7 +1035,7 @@ what went wrong in the Mongol period — under a term rather than under a headin
     wh-667  Francisco Pizarro
     wh-668  Spanish conquest of the Inca Empire
     wh-669  Columbian exchange
-    wh-670  Epidemics in the early Americas
+    wh-670  Cocoliztli
     wh-671  Potosí
     wh-672  Global silver trade
     wh-673  Encomienda
