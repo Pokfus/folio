@@ -31,9 +31,18 @@
 
   …and REPORTED rather than refused, because each needs a judgement:
 
-    5. UNITS          — a metric figure the imperial pass cannot convert, i.e. one with no bracket beside
-                        it. The pass is `unitizeText(txt, true)`, again sliced out of app.js, and what is
-                        reported is a metric unit still standing after it.
+    5. UNITS          — a figure NEITHER pass can convert, i.e. one with no bracket beside it, asked in
+                        BOTH directions. The passes are `unitizeText(txt, true)` and `unitizeText(txt,
+                        false)`, again sliced out of app.js, and what is reported is a unit still standing
+                        after the pass that should have replaced it.
+                        THE IMPERIAL DIRECTION IS THE ONE THAT MATTERS MORE, and it was missing until Sep
+                        2026. The pool is authored METRIC-first, exactly as the spelling is authored
+                        British, so a bare metric figure is at worst shown unconverted to a reader who
+                        asked for feet — while a bare IMPERIAL figure is what EVERY reader sees, the
+                        metric reader included, since there is nothing beside it to swap in. That is the
+                        one-way trap rule 2 already states about spelling, one rule down. Its first
+                        finding was real: a statement comparing the Wright brothers' first flight to a
+                        jumbo jet's wingspan was written in feet throughout and showed feet to everybody.
     6. CITATIONS      — how many entries carry a source. A `why` is one to three sentences, so the bar is
                         ONE work a reader can open, and it is stated here rather than enforced while the
                         pool still carries entries written before the field existed.
@@ -76,6 +85,15 @@ const METRIC_RX = new RegExp(
   "hectare|hectares|°C" +
   ")(?![A-Za-z])", "i");
 
+/* …AND AN IMPERIAL UNIT STILL STANDING AFTER THE METRIC PASS, which is the same question asked the other
+   way about. Written out for METRIC_RX's own reason, and `foot` is deliberately absent: "12 foot" is not a
+   shape this pool writes, while "on foot" and "at the foot of" are, and the digit guard in front does not
+   save a rule that would then report "Round 1 / 5 … foot". */
+const IMPERIAL_RX = new RegExp(
+  "(?<![A-Za-z])\\d[\\d,.]*\\s?(?:" +
+  "miles?|feet|inch|inches|yards?|acres?|pounds?|ounces?|tons?|gallons?|pints?|quarts?|°F" +
+  ")(?![A-Za-z])", "i");
+
 /* A NAME IS NOT A SPELLING, AND THE AMERICAN FORM OF ONE IS THE SAFE FORM (Sep 2026). `spellText` is a
    word list, so it cannot tell Elisha Gray the inventor from the colour, and rule 2 reported his surname
    as an American spelling. Correcting it would have been the fault rather than the fix — and which way
@@ -94,8 +112,28 @@ const METRIC_RX = new RegExp(
 
    THE MASK IS EXACT STRINGS, never a pattern: "anything capitalised" would excuse `Colour` at the head of
    a sentence, which is the one place a real spelling wears a capital. */
+/* A QUOTATION IS NOT AUTHORED TEXT, SO RULE 2 DOES NOT READ INSIDE ONE (Sep 2026). A statement may
+   quote a source verbatim — the pool already quotes Plutarch, a 1692 death warrant and Burckhardt — and
+   the moment one of those sources writes an American spelling, rule 2 refuses the statement and the only
+   ways out are to misquote or to reword. That happened on #70, where the Supreme Court's own record of
+   the Coca-Cola seizure says the extracts were used "for the purpose of obtaining a flavor".
+
+   IT IS SAFE FOR THE SAME REASON THE PROPER-NOUN MASK IS: the site's transform is ONE-WAY. `spellText`
+   returns at once under en-GB, the authored system, and converts only towards American — so a quotation
+   carrying an American spelling reaches every reader exactly as its source wrote it, and a quotation
+   carrying a British one is the only thing at risk, which is the direction a quotation should be in
+   anyway.
+
+   THE MASK IS THE CURLY PAIR AND NOTHING ELSE. That is the house form for a quotation throughout the
+   pool; a straight double quote cannot appear in this prose at all. An unbalanced opening quote matches
+   nothing, deliberately — the pattern requires its closer, so a typo leaves the text checked rather than
+   silently excused. What it does excuse is an authoring error inside quotation marks, which is the right
+   trade: text inside a quotation is not authored. */
+const QUOTED_RX = /\u201c[^\u201d]*\u201d/g;
+
 const PROPER_NOUNS = [
   ["Elisha Gray", "the inventor who filed a caveat for the telephone on the same day as Bell"],
+  ["Registry of Tumors in Lower Animals", "the NCI-funded registry's own name — it is the institution that holds the shark tumour cases"],
 ];
 
 const seen = new Map();
@@ -114,6 +152,8 @@ POOL.forEach((it, i) => {
   // 2. spelling — the US→GB pass must be a no-op on authored text
   ["q", "why"].forEach((f) => {
     let txt = String(it[f] || "");
+    const quotes = [];
+    txt = txt.replace(QUOTED_RX, (m) => { quotes.push(m); return "\u0000QUOTE" + (quotes.length - 1) + "\u0000"; });
     PROPER_NOUNS.forEach((n, k) => { txt = txt.split(n[0]).join("\u0000NAME" + k + "\u0000"); });
     const gb = SP.spellText(txt, false);
     if (gb !== txt) {
@@ -134,11 +174,12 @@ POOL.forEach((it, i) => {
   const tags = [...String(it.why || "").matchAll(/<\/?([a-z][a-z0-9]*)/gi)].map((m) => m[1].toLowerCase());
   tags.forEach((t) => { if (["i", "b", "sup"].indexOf(t) < 0) say(id, "`<" + t + ">` in the explanation — sanitizeHTML will drop it"); });
 
-  // 5. units — reported
+  // 5. units — reported, in both directions
   const both = strip(it.q) + " " + strip(it.why);
-  const imp = UN.unitizeText(both, true);
-  const m = imp.match(METRIC_RX);
-  if (m) notes.push("  units   " + id + "  → " + m[0]);
+  const m = UN.unitizeText(both, true).match(METRIC_RX);
+  if (m) notes.push("  metric only    " + id + "  → " + m[0]);
+  const mi = UN.unitizeText(both, false).match(IMPERIAL_RX);
+  if (mi) notes.push("  IMPERIAL only  " + id + "  → " + mi[0]);
 });
 
 const cited = POOL.filter((x) => Array.isArray(x.src) && x.src.length).length;
@@ -150,7 +191,7 @@ POOL.forEach((x) => { cats[x.cat] = (cats[x.cat] || 0) + 1; });
 if (VERBOSE) Object.keys(cats).sort().forEach((k) => console.log("  " + String(cats[k]).padStart(4) + "  " + k));
 
 if (notes.length) {
-  console.log("\n" + notes.length + " metric figure" + (notes.length === 1 ? "" : "s") + " the imperial pass cannot convert — no bracket beside it:");
+  console.log("\n" + notes.length + " figure" + (notes.length === 1 ? "" : "s") + " neither pass can convert — no bracket beside them:");
   notes.forEach((n) => console.log(n));
 }
 if (errs.length) {

@@ -1043,3 +1043,60 @@ end $$;
 
 revoke all on function public.bump_game_score(text, int, int, boolean) from public;
 grant execute on function public.bump_game_score(text, int, int, boolean) to anon, authenticated;
+
+-- ============================================================================================
+-- 16) HOW MANY TIMES A LIBRARY BOOK HAS BEEN READ  (run once)
+-- ============================================================================================
+-- Sep 2026, on request: "in the library, books should show how many times they've been read by users."
+-- The reader's own place in a book is in their progress and needs nothing; a figure ACROSS readers has
+-- nowhere to live, for the reason sections 13 and 15 exist: `progress` is readable only by its owner and
+-- their accepted friends, so nothing can count across it — not even an admin.  So this is that same
+-- shape a third time: one counter per book, pooled, joined to nobody.
+--
+-- A READ IS A READER, NOT AN OPENING.  The client calls this ONCE per book per reader, the first time
+-- they have spent BOOK_READ_MIN actually reading it (see `bookReadCount` in app.js), and records that it
+-- has done so in the reader's own synced progress — so the same person on a second device does not count
+-- twice, and somebody who opens a book, glances at it and leaves does not count at all.  Counting every
+-- open would make the number a measure of browsing rather than of reading, and the word on the page says
+-- "read".
+--
+-- THERE IS NO PER-READER ROW, so nothing here can say who read what — which for a library is the whole
+-- point.  The table is read-only to every client and the one way in is the function below, which adds
+-- exactly one to one counter and can do nothing else.  A hostile caller can inflate a count; it cannot
+-- read anything it could not already read, and it cannot attribute a reading to anybody.
+--
+-- UNTIL THIS BLOCK IS RUN the site is unaffected: the fetch 404s, `bookStatsMissing` latches, and no
+-- shelf tile shows a figure at all — which is the honest state, rather than every book claiming zero.
+
+create table if not exists public.book_stats (
+  book text primary key,
+  reads int not null default 0,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.book_stats enable row level security;
+
+drop policy if exists "book stats are public" on public.book_stats;
+create policy "book stats are public" on public.book_stats for select using (true);
+-- and no write policy: RLS denies by default, so the table is read-only to every client
+
+-- One call the first time a reader really reads a book.  The id is checked against the shape Folio's own
+-- book ids take, so nothing else can be counted, and the function adds one — there is no argument by
+-- which a caller could add more.
+create or replace function public.bump_book_read(b text)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if coalesce(b, '') !~ '^[a-z0-9][a-z0-9-]{1,48}$' then return; end if;
+  insert into public.book_stats as t (book, reads, updated_at)
+  values (b, 1, now())
+  on conflict (book) do update
+    set reads = t.reads + 1,
+        updated_at = now();
+end $$;
+
+revoke all on function public.bump_book_read(text) from public;
+grant execute on function public.bump_book_read(text) to anon, authenticated;

@@ -64,6 +64,19 @@ const UNITS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, ei
 const NUM_RE = new RegExp("\\b(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")\\b", "gi");
 // "one hundred and forty-eight" / "two hundred and six" → 148 / 206 (whole phrase, or the tens part alone would corrupt it)
 const HUNDRED_RE = new RegExp("\\b(" + Object.keys(UNITS).join("|") + ")\\s+hundred\\s+and\\s+(?:(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")|(" + Object.keys(TENS).join("|") + ")|(eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|ten)|(" + Object.keys(UNITS).join("|") + "))\\b", "gi");
+/* …AND A COMPOUND STANDING IN FRONT OF `thousand` IS A DIFFERENT NUMBER FROM THE PAIR ITSELF (Sep 2026).
+   `NUM_RE` converts the tens-and-unit pair and stops, which for "thirty-two thousand" emits **"32
+   thousand"** — a form English does not use and which `--fix` therefore wrote into a card question and a
+   glossary description on its first run over them. The convention is "37 million" and "32,000": the scale
+   word SURVIVES for million and billion and does NOT for thousand, so only the thousand case needs its own
+   rule and it has to be applied BEFORE `NUM_RE` gets there. Measured over the seven files at the time of
+   writing: two `thousand` sites in data.js, two in glossary.js (one of them a million, correctly left to
+   NUM_RE) and one in countries.js, which rule 1 does not run over.
+   WHAT IT DELIBERATELY DOES NOT TOUCH is the SIBLING figure in the same sentence — "four thousand five
+   hundred horse" beside it — which rule 1 calls round and leaves in words. A sentence reading "32,000 foot
+   and four thousand five hundred horse" is half numerals and half words, and which way to take it is an
+   editorial judgement about the sentence rather than a substitution, so it stays a job for the eye. */
+const THOUSAND_RE = new RegExp("\\b(" + Object.keys(TENS).join("|") + ")-(" + Object.keys(UNITS).join("|") + ")\\s+thousand\\b", "gi");
 const TEENS = { ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19 };
 // PROPER NAMES that contain number words — never converted
 const NUM_EXCLUDE = [/Twenty-Four Histories/gi, /Twenty-four Filial Exemplars/gi, /Twenty-One Demands/gi,
@@ -95,7 +108,21 @@ function fieldAt(text, idx) {   // the JSON field a data.js match sits in (neare
   while ((m = re.exec(back))) last = m[1];
   return last;
 }
-// Person-or-book names: report only, never auto-fix
+/* Person-or-book names: report only, never auto-fix. THIS IS A REVIEW LIST AND NOT A COUNT THAT REACHES
+   ZERO, which is worth saying because the next reader of a standing figure will otherwise read all of them
+   again. All fifteen live findings were read on 2026-09-17 and every one is the right answer as it stands:
+     · THIRTEEN are the MAN. "Mencius rejected the first of those accounts", "a doctrine Xunzi rejected",
+       "ascribed to Laozi", "as Mencius held, or bad, as Xunzi held" — and a `dt-k` label reading
+       "Laozi born", which is a date for a person and could not be one for a book.
+     · TWO are a PHOTOGRAPH OF A STATUE — a picture's own title and description, "The stone Laozi at
+       Quanzhou" — so the subject is the man carved in the rock.
+     · ONE IS THE TEXT AND STILL CANNOT BE ITALICISED, which is the finding worth keeping. `cnh-175`'s
+       date line reads "4th century BCE, in Mencius", meaning the book, and a DATE LINE CARRIES NO MARKUP
+       BY DESIGN: `date-line.js` refuses a value containing `<` or `>` outright, `buildDateLine` escapes
+       what it is given, and `isDateList`'s shape regex matches `[^<]*` inside each span. So the house
+       rule about italicised titles simply does not reach that field, and the finding is structural rather
+       than editorial. Reword the value if it ever has to go.
+   Re-read the list when it grows, not when it stands still. */
 const TITLES_AMBIGUOUS = ["Zhuangzi", "Mencius", "Laozi", "Xunzi", "Han Feizi", "Liezi", "Guanzi", "Mozi", "Shiji"];
 
 /* --- rule 4: BCE / CE, never BC / AD ---
@@ -249,8 +276,9 @@ for (const file of FILES) {
       else if (unitOnly) n += UNITS[unitOnly.toLowerCase()];
       return String(n);
     });
+    text = text.replace(THOUSAND_RE, (m0, t, u) => { totalFixed++; return String((TENS[t.toLowerCase()] + UNITS[u.toLowerCase()]) * 1000).replace(/\B(?=(\d{3})+(?!\d))/g, ","); });
     text = text.replace(NUM_RE, (m0, t, u) => { totalFixed++; return String(TENS[t.toLowerCase()] + UNITS[u.toLowerCase()]); });
-  } else { findAll(text, HUNDRED_RE, "number-word", report, name); findAll(text, NUM_RE, "number-word", report, name); }
+  } else { findAll(text, HUNDRED_RE, "number-word", report, name); findAll(text, THOUSAND_RE, "number-word", report, name); findAll(text, NUM_RE, "number-word", report, name); }
   text = text.replace(/MASK(\d+)/g, (m0, i) => masks[Number(i)]);
 
   // rule 3 — titles. Scope: in data.js only rich-HTML fields (never answerText etc.); in glossary.js only the

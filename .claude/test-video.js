@@ -73,13 +73,19 @@ async function openStudyCard(page) {
   await page.evaluate(() => { const b = document.querySelector("#b-review"); if (b) b.click(); });
   await page.waitForTimeout(1000);
 }
+/* `:visible`, for the reason `test-sources.js` sets out at length and `test-gloss-image.js` repeats:
+   `elabPromptHTML` puts "Think it through" ABOVE the Background and each of its three answers is a
+   <details> that starts closed, so the FIRST `.ttip` on a revealed card is one no reader can press.
+   `.first()` resolved to it and this whole file died on a 30-second actionability timeout. Both the
+   count and the click take the filter, or a page whose only terms are inside closed disclosures
+   reports terms it cannot open. */
 async function openAnyGloss(page) {
   await closeGloss(page);
-  if (!(await page.locator(".ttip").count())) {
+  if (!(await page.locator(".ttip:visible").count())) {
     await openStudyCard(page);
     if (await page.locator("#reveal-btn").count()) { await page.click("#reveal-btn"); await page.waitForTimeout(500); }
   }
-  await page.locator(".ttip").first().click();
+  await page.locator(".ttip:visible").first().click();
   await page.waitForTimeout(450);
 }
 // Nothing is stored uncredited (wireMediaSource in app.js): typing a URL with an empty source box stages
