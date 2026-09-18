@@ -1444,16 +1444,52 @@ the alias are the same string.
 
 ### Heroes and the epic cycle — `gr-heroes`
 
-    gr-921  The Greek hero
-    gr-922  Heracles
-    gr-923  The Labours of Heracles
-    gr-924  The Nemean Lion
-    gr-925  The Lernaean Hydra
-    gr-926  Perseus
-    gr-927  Medusa
-    gr-928  Theseus
-    gr-929  The Minotaur
-    gr-930  Ariadne
+    gr-921  The Greek hero  — answered by `hero`, keyed `Hero_(Greek_mythology)` and DELIBERATELY
+             WITHOUT the bare surface `hero`: a parenthetical key claims no bare name, and measured over
+             the corpus the word appears 19 times outside Greece, of which the Chinese culture heroes, a
+             Korean mine, a novel's protagonist and two Second World War uses are the wrong sense. It is
+             reached by the aliases `Greek hero` / `Greek heroes` instead. No locator: the class happens
+             nowhere
+    gr-922  Heracles  — the ONE card of this batch whose glossary term ALREADY EXISTED, written as a
+             supporting term for an earlier card, so the pairing rule was satisfied and `add-glossary.js`
+             was NOT run on it: that helper overwrites in silence, and the shipped entry is at the bar.
+             No locator either: Thebes is `gr-069`'s, `gr-705`'s and `gr-903`'s dot and Tiryns is
+             `gr-067`'s, so a fourth Theban dot would say nothing this collection's map does not
+    gr-923  The Labours of Heracles  — the one card here that `check-cards.js` leaves a NOTE on,
+             Apollodorus carrying 4 of its 8 sources, which is the documented ancient-witness carve-out:
+             four separate books of the Library are four passages of one witness rather than four pages of
+             one scholar. Its date line rests on the ONE dated fact the labours have — the lost poem of
+             Peisander of Camirus, which the Loeb note to Pausanias 2.37.4 puts at about 645 BCE — since
+             the temple at Olympia's own date is stated by nothing the card cites. No locator: a set of
+             twelve tasks is not a place
+    gr-924  The Nemean Lion  — answered by `Nemean lion`, the lower-case form both the translations and
+             Wikipedia use. Its dot is NEMEA, which no other card had taken
+    gr-925  The Lernaean Hydra  — its term CLAIMS the bare alias `hydra`, which is measured rather than
+             assumed: the word appears on three cards (`rm-167`, and this batch's two) and every one of
+             them means this creature, `Carbohydrate`'s alias being unreachable under the index's own
+             word boundaries. Its dot is LERNA
+    gr-926  Perseus  — keyed `Perseus_(mythology)` and NOT `Perseus`, which is the Wikipedia slug: the
+             bare surface is claimed by nobody today, and of the 48 occurrences in the corpus the
+             majority are the Macedonian king `Perseus_of_Macedon` already holds (`rm-176`, `rm-249`–
+             `rm-251`, `gr-860`, `gr-861`). A parenthetical key claims no bare name, so the hero's entry
+             is reachable by hand-written link and by its own title and mislinks nothing. Its dot is
+             SERIPHOS, where the chest came ashore — Mycenae is `gr-058`'s, `gr-060`'s and `gr-061`'s and
+             Argos is `gr-195`'s. `check-gloss-links.js` reports one link by eye on this card, "the
+             Egyptian Thebaid" resolving to `Ancient_Egypt`, which is the right term for the word
+    gr-927  Medusa  — no locator: Hesiod puts the Gorgons beyond Ocean in the frontier land towards
+             Night, so there is nowhere on any map Folio draws to mark. Its term claims no `Gorgon`
+             alias, the Gorgons being three and the word standing for all of them on seven other cards
+    gr-928  Theseus  — its dot is TROEZEN rather than Athens: the anchor city is drawn on every map in
+             the collection already, and Troezen is the origin one strand of the argument gives him,
+             which the card states. Its date line's second row rests on Plutarch's "after the Median
+             wars" rather than on a year he does not give
+    gr-929  The Minotaur  — the plan's cross-listing line above would also file this in `gr-crete`; it
+             is NOT applied, ONE DECK PER CARD having been the rule since Aug 2026. Its dot is Knossos,
+             which `gr-008`, `gr-010` and `gr-051` also carry and which is still the honest place
+    gr-930  Ariadne  — its dot is NAXOS, the island Apollodorus and Plutarch put her on, rather than
+             Homer's Dia: the card gives both and the dot follows the version with a place a reader can
+             find. No `Labyrinth` term was coined, the word standing for the Egyptian labyrinth on
+             `wh-267` and for Potnia's title at Knossos on `gr-086`
     gr-931  Daedalus and Icarus
     gr-932  Jason
     gr-933  The Argonauts
