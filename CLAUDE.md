@@ -862,6 +862,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Chinese government host outside `stats.gov.cn` refuses the connection here, `whc.unesco.org` and
   `britannica.com` are 403, and `chinadaily.com.cn` answers and is a state newspaper, citable for what
   it is and never as an independent source. Not part of the site.
+- **📖 `docs/flags-card-plan.md` — READ BEFORE WRITING AN `fl-` CARD, OR BEFORE TOUCHING THE FLAG-CARD
+  FORMAT.** The running order for **Flags** (`flags`, the fourth collection of the Geography SECTION):
+  **233 cards in one deck**, the flag of every country and territory, and the reader names it. The
+  twenty-first plan, and **the only one whose answer side is another collection's** — `fl-NNN` is the
+  same entity as `gw-NNN`, in the same population order, and copies its twin's term, date line, facts
+  grid, background and citations verbatim, on request ("the answer side of the card can be directly the
+  same as the ones in the World geography collection"). So a card costs a flag file, a licence, an
+  authored description and a copy, and **no research and no glossary work at all**. Five things in it are
+  decisions rather than lists. **THE FORMAT REUSES `answerFlag` PLUS ONE BOOLEAN, `flagCard`** — the
+  field already refuses an uncredited `src`, already rides the serializer and `revertCard`, and already
+  enlarges — and **the boolean may not be called `flag`**, `cardFlag(id)` being the READER's 1–7 marker
+  and app.js's own comment recording the hour a second module-scope `cardFlag` made every reader flag
+  read as unflagged. **THE FRONT CONTAINS THE FLAG AND NEVER CROPS IT** (ratios run 1:1 to 11:28 and
+  Nepal's is not a rectangle) **on a ruled ground**, since Japan, Qatar's hoist and every white-bordered
+  flag vanish into a light card — those two are the whole test. **THE ALT DESCRIBES AND MAY NOT NAME**,
+  which makes this format MORE accessible than the map card rather than less: a shape on a globe cannot
+  be described without answering the question and a flag can. **`fl-036` AFGHANISTAN IS DEFERRED** — the
+  Afghanistan decision one collection over, where `gw-036` can ship with no flag because its question is
+  the shape and this card cannot, the flag BEING the question — so the deck is 232 of 233 writable with
+  the number reserved. And **115 of the 233 flags are already fetched, licensed and described on their
+  twins**, all 115 opening "The flag of ⟨country⟩: ", so the work on the first six batches is a trim
+  rather than a write; the other 118 are `gw-117`–`gw-233` contiguous, where the fetch **back-fills the
+  twin as a by-product** and closes a real gap in World Geography. Its one standing cost is stated and
+  has a checker: **a correction to a `gw-` background must be carried to its `fl-` twin in the same
+  commit**, since both cards render perfectly while saying different things, and `check-flag-twins.js`
+  is what says so. **IT HAS NO ROW IN THE INDEX TABLE BELOW YET, AND THAT IS `test-card-plans.js`'s
+  RULE RATHER THAN AN OMISSION**: that table has a row per collection that EXISTS IN `data.js`, so the
+  row, the heading's count and the `PLANS` entry all go in with the tree node, in F0. Not part of the site.
 - `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
   mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
   the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` and `rivers.js` beside
