@@ -72120,36 +72120,59 @@
       ]
     },
     "hsk30l5/近代": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 他研究近代历史 and 近代史是他的专业 are the same subject twice over, both added by an earlier batch of this audit — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence outside the study of history. AUTHORED, and the record says so.",
       "ex": [
         [
           "他研究近代历史。",
           "He studies modern history."
         ],
         [
-          "近代史是他的专业。",
-          "Modern history is his subject."
-        ],
-        [
           "这是一件近代作品。",
           "This is a modern work."
+        ],
+        [
+          "近代以来中国发生了很大变化。",
+          "China has changed greatly since the modern era began."
         ]
       ]
     },
     "hsk30l5/距": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card is labelled a VERB and glossed two nouns, *distance, interval*; 距 is the verb *to be so far from*, which is what all three of its sentences are. And 学校距我家只有两公里 and 车站距这里两公里 are the same sentence with the buildings changed — the same distance, even — both added by an earlier batch of this audit. One is replaced by an AUTHORED sentence with a distance that is not two kilometres. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
       "ex": [
         [
           "学校距我家只有两公里。",
           "The school is only two kilometres from my home."
         ],
         [
-          "车站距这里两公里。",
-          "The station is two kilometres from here."
-        ],
-        [
           "距开学还有一周。",
           "There is a week to go before term starts."
+        ],
+        [
+          "这座山距海边大约五十公里。",
+          "The mountain is about fifty kilometres from the coast."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to be at a distance from; to be apart from"
+        ]
+      ],
+      "compounds": [
+        [
+          "距离",
+          "jùlí",
+          "distance; to be apart from"
+        ],
+        [
+          "差距",
+          "chājù",
+          "gap; disparity"
+        ],
+        [
+          "相距",
+          "xiāngjù",
+          "to be a given distance apart"
         ]
       ]
     },
@@ -75138,7 +75161,7 @@
       ]
     },
     "hsk30l5/近日": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 近日天气转凉 and 近日气温下降 are the same weather twice — the temperature falling, stated two ways, both added by an earlier batch of this audit. A NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence away from the weather. AUTHORED, and the record says so.",
       "dropEx": [
         "台风正接近日本。"
       ],
@@ -75148,12 +75171,12 @@
           "The weather has turned cooler these last few days."
         ],
         [
-          "近日气温下降。",
-          "The temperature has dropped these last few days."
-        ],
-        [
           "近日他一直在忙。",
           "He has been busy these last few days."
+        ],
+        [
+          "这本书近日出版。",
+          "The book is coming out in the next few days."
         ]
       ]
     },
@@ -77836,7 +77859,7 @@
       "gloss": "for meetings, sessions, sporting fixtures and years of graduation"
     },
     "hsk30l5/紧密": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card's first sentence ran to 55 characters — a whole paragraph about which animals people first worshipped, with the headword buried in the middle of it. A card shows three examples in a box a few lines deep, and at that length the reader is doing reading comprehension rather than meeting a word. Replaced with an AUTHORED sentence of ordinary length. AUTHORED, and the record says so.",
       "ex": [
         [
           "两国关系十分紧密。",
@@ -77845,11 +77868,18 @@
         [
           "各部门要紧密配合。",
           "The departments must work closely together."
+        ],
+        [
+          "他们紧密地团结在一起。",
+          "They are closely united."
         ]
+      ],
+      "dropEx": [
+        "毫无疑问，人们最初崇拜的都是那些最常见"
       ]
     },
     "hsk30l5/近年来": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card's first sentence ran to about 90 characters of newspaper prose — three sentences about an affable man visiting friends at a seaside resort *associated with gay chic* — with the headword at the very end of it. Like 紧密 twelve cards earlier this is a length fault before it is anything else: at that size a card stops being a flashcard. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
       "ex": [
         [
           "近年来这里变化很大。",
@@ -77858,11 +77888,18 @@
         [
           "近年来他很少回国。",
           "He has seldom come home in recent years."
+        ],
+        [
+          "近年来出国留学的人越来越多。",
+          "More and more people have gone abroad to study in recent years."
         ]
+      ],
+      "dropEx": [
+        "他和蔼可亲，面带微笑"
       ]
     },
     "hsk30l5/近期": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was *near in time*, which is CC-CEDICT's opening phrase and is not an English word anyone uses on its own — and the card's three sentences span the near future, *soon* and *lately*, none of which it named. Widened to what the sentences show.",
       "ex": [
         [
           "近期他会来一趟。",
@@ -77872,7 +77909,8 @@
           "近期天气不太稳定。",
           "The weather has been unsettled lately."
         ]
-      ]
+      ],
+      "gloss": "in the near future; soon; recently"
     },
     "hsk30l5/经典": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -128208,6 +128246,288 @@
         [
           "请尽量早点到。",
           "Please come as early as you can."
+        ]
+      ]
+    },
+    "hsk30l5/谨慎": {
+      "why": "这些问题必须谨慎处理 and 应该更谨慎地处理它 are the same verb, 处理, handled carefully twice — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence on the word as a personal quality. AUTHORED, and the record says so.",
+      "dropEx": [
+        "应该更谨慎地处理它"
+      ],
+      "ex": [
+        [
+          "他说话一向很谨慎。",
+          "He is always careful about what he says."
+        ]
+      ]
+    },
+    "hsk30l5/进步": {
+      "why": "The card is labelled *verb / adjective* and glossed the bare word *progress*, and two of its three sentences are the NOUN — 取得进步, 进步的迹象. The adjective the label claims is 进步 in its ideological sense (进步青年), which the card neither glosses nor shows anywhere, so the label was claiming a part of speech with nothing behind it. The senses are split into the two the card actually teaches.",
+      "senses": [
+        [
+          "verb",
+          "to make progress; to improve"
+        ],
+        [
+          "noun",
+          "progress; improvement"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ]
+    },
+    "hsk30l5/进口": {
+      "why": "The card is labelled a VERB and its gloss carries two nouns, *entrance* and *sail into a port* — and all three of its sentences are the verb, to import. The senses are split so the label and the gloss agree. The noun *entrance* is glossed and deliberately not illustrated: it is a real and common sense of the word, on every shop sign, and a card about a character should say what the word means.",
+      "senses": [
+        [
+          "verb",
+          "to import"
+        ],
+        [
+          "noun",
+          "entrance; inlet"
+        ]
+      ]
+    },
+    "hsk30l5/进一步": {
+      "why": "你会发现它用几页纸进一步作了说明 is not a construction Chinese has — 用几页纸 as an instrument of 说明 — and its English (*You will find it stated a few pages further on*) is translating something else entirely. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "dropEx": [
+        "你会发现它用几页纸进一步作了说明"
+      ],
+      "ex": [
+        [
+          "我们需要进一步讨论这个问题。",
+          "We need to discuss this question further."
+        ]
+      ]
+    },
+    "hsk30l5/精神": {
+      "why": "A card with TWO READINGS under one pinyin, which the audit has met three times before and which no checker here can see — check-pinyin.js compares pinyin against bopomofo and both said ㄕㄣ˙, so both agreed on the wrong answer. CC-CEDICT gives jīngshén *spirit; mind; ethos* and jīngshen *vigour; vitality* as separate entries, and the card's own sentences use BOTH: 他精神很好 and 今天我没有精神 are the neutral-tone vigour, 体育精神 is the second-tone ethos. The readings are written out, the senses split, and each sentence tagged with the one it uses.",
+      "Pinyin": "jīng shén / jīng shen",
+      "Bopomofo": "ㄐㄧㄥ ㄕㄣˊ / ㄐㄧㄥ ㄕㄣ˙",
+      "senses": [
+        [
+          "jīngshén",
+          "noun",
+          "spirit; mind; ethos"
+        ],
+        [
+          "jīngshen",
+          "noun",
+          "vigour; vitality"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        1
+      ]
+    },
+    "hsk30l5/惊喜": {
+      "why": "真是个惊喜！ and 这不是个好惊喜吗？ are the same exclamation, once as a statement and once as a question — a NEAR-repeat the coverage checker cannot see. 为什么任何人应该感到惊喜？ is a calque besides (任何人 as the subject of a rhetorical question is not Chinese), and its English says *surprised*, where 惊喜 is a PLEASANT surprise and nothing else. Both replaced by AUTHORED sentences. The label is also corrected: the card said *adjective* and its own first sentence is the noun, which is how the word is most often used. AUTHORED, and the record says so.",
+      "senses": [
+        [
+          "noun",
+          "a nice surprise"
+        ],
+        [
+          "adjective",
+          "pleasantly surprised"
+        ]
+      ],
+      "dropEx": [
+        "这不是个好惊喜吗",
+        "为什么任何人应该感到惊喜"
+      ],
+      "ex": [
+        [
+          "他给了我一个惊喜。",
+          "He gave me a lovely surprise."
+        ],
+        [
+          "听到这个消息，她又惊喜又激动。",
+          "She was delighted and excited to hear the news."
+        ]
+      ]
+    },
+    "hsk30l5/静": {
+      "why": "The card's three sentences were read and are sound — 很静, 静静的 and the 静不静 question are the adjective the gloss leads on. What it had none of was a Compounds panel. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "安静",
+          "ānjìng",
+          "quiet; peaceful"
+        ],
+        [
+          "平静",
+          "píngjìng",
+          "calm; tranquil"
+        ],
+        [
+          "冷静",
+          "lěngjìng",
+          "calm; cool-headed"
+        ],
+        [
+          "静止",
+          "jìngzhǐ",
+          "still; motionless"
+        ]
+      ]
+    },
+    "hsk30l5/酒吧": {
+      "why": "这个酒吧的女服务员很漂亮 is a remark about how the waitresses look, on a vocabulary card, and its English also says *pub* where the card's other two sentences and its gloss say *bar* — so the card gave two English words for one Chinese one. `check-coarse.js` has no word in it to match. Replaced with an AUTHORED sentence using the measure word 家 the card itself teaches. AUTHORED, and the record says so.",
+      "dropEx": [
+        "这个酒吧的女服务员很漂亮"
+      ],
+      "ex": [
+        [
+          "这家酒吧十点开门。",
+          "This bar opens at ten."
+        ]
+      ]
+    },
+    "hsk30l5/救": {
+      "why": "Two of the card's three sentences had the one-character headword swallowed — 得救 and 获救 are both words of their own — which check-example-fit.js skips by design, so the card showed 救 as a bare verb once in three. 愿我们早日得救 is a liturgical register besides. Both replaced by AUTHORED sentences. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "愿我们早日得救",
+        "他会获救的"
+      ],
+      "ex": [
+        [
+          "他救了一个落水的孩子。",
+          "He saved a child who had fallen into the water."
+        ],
+        [
+          "医生救了他的命。",
+          "The doctor saved his life."
+        ]
+      ],
+      "compounds": [
+        [
+          "救命",
+          "jiùmìng",
+          "to save somebody's life; Help!"
+        ],
+        [
+          "急救",
+          "jíjiù",
+          "first aid; emergency treatment"
+        ],
+        [
+          "救火",
+          "jiùhuǒ",
+          "to fight a fire"
+        ],
+        [
+          "拯救",
+          "zhěngjiù",
+          "to save; to rescue"
+        ]
+      ]
+    },
+    "hsk30l5/救护车": {
+      "why": "你需要救护车吗？ and 我们需要一辆救护车。 are the same sentence in two persons — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence in which the ambulance does something. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我们需要一辆救护车"
+      ],
+      "ex": [
+        [
+          "救护车把伤者送到了医院。",
+          "The ambulance took the injured man to hospital."
+        ]
+      ]
+    },
+    "hsk30l5/就业": {
+      "why": "他们对他们的员工保证就业 says 他们 twice in seven characters and is the card's ONLY sentence using 就业 as a bare verb — the other two are 就业压力 and 就业岗位, both compounds. Replaced with an AUTHORED sentence so the card shows the verb it glosses. AUTHORED, and the record says so.",
+      "dropEx": [
+        "他们对他们的员工保证就业"
+      ],
+      "ex": [
+        [
+          "大学毕业后他很快就业了。",
+          "He found work soon after graduating."
+        ]
+      ]
+    },
+    "hsk30l5/居然": {
+      "why": "The English on 他没带钥匙，用铁丝拨动了两下，门居然开了 dropped the adverb the whole card is about: *he was able to open the door* says nothing of 居然, which is what makes the sentence worth telling.",
+      "exEn": [
+        [
+          "他没带钥匙，用铁丝拨动了两下，门居然开了",
+          "He had forgotten his key, but after two twists of a piece of wire the door opened after all."
+        ]
+      ]
+    },
+    "hsk30l5/橘子": {
+      "why": "The card contradicts itself: its gloss is *tangerine* and all three of its English translations say *oranges*. So the reverse card asks for a word the card's own sentences never use. CC-CEDICT gives *tangerine*; the gloss keeps it and gains the name the fruit is also sold under, and the three translations are put into the word the card teaches.",
+      "gloss": "tangerine; mandarin orange",
+      "exEn": [
+        [
+          "这些橘子很酸",
+          "These tangerines are very sour."
+        ],
+        [
+          "橘子在温暖的地方生长",
+          "Tangerines grow in warm places."
+        ],
+        [
+          "给我一打橘子",
+          "Give me a dozen tangerines."
+        ]
+      ]
+    },
+    "hsk30l5/据": {
+      "why": "这是个据药 turns on a word that does not exist — there is no 据药 in Chinese, and its English (*This medicine has a strong effect*) belongs to some other sentence altogether, so the card taught a non-word in its first slot. And 手头十分拮据 is worse than a swallowed headword: 拮据 is read jié JŪ, so that sentence shows the card's character in a reading the card does not teach. Only 据广播里讲 used 据 as the preposition the card is about. Both replaced by AUTHORED sentences. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "这是个据药",
+        "他的书销路不好，所以现在手头十分拮据"
+      ],
+      "ex": [
+        [
+          "据说他已经回国了。",
+          "They say he has already gone home."
+        ],
+        [
+          "据统计，去年有一百万人来这里旅游。",
+          "According to the figures, a million people came here as tourists last year."
+        ]
+      ],
+      "compounds": [
+        [
+          "根据",
+          "gēnjù",
+          "according to; basis"
+        ],
+        [
+          "占据",
+          "zhànjù",
+          "to occupy; to hold"
+        ],
+        [
+          "依据",
+          "yījù",
+          "according to; basis"
+        ],
+        [
+          "证据",
+          "zhèngjù",
+          "evidence; proof"
+        ]
+      ]
+    },
+    "hsk30l5/剧场": {
+      "why": "昨晚他希望他去了剧场 is a word-for-word calque of *He wishes he had gone to the theatre last night* — Chinese has no counterfactual of that shape, and 他希望他 repeats the subject besides. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "dropEx": [
+        "昨晚他希望他去了剧场"
+      ],
+      "ex": [
+        [
+          "这座剧场能坐一千人。",
+          "This theatre seats a thousand people."
         ]
       ]
     }

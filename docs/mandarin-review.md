@@ -629,6 +629,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 511–540 (激烈 → 记载), deck order | 26 | **seven near-repeats in thirty cards — one of them two sentences this audit itself added, differing only in their subject** |
 | 2026-09-18 | `hsk30l5` notes 541–570 (嘉宾 → 将近), deck order | 20 | **the same string reported as a fault on two OTHER cards and invisible on the card where it IS the fault** |
 | 2026-09-18 | `hsk30l5` notes 571–600 (讲话 → 尽量), deck order | 26 | **two CANTONESE sentences in a Mandarin deck, six cards apart — 结他 for a guitar and 系 for 是** |
+| 2026-09-18 | `hsk30l5` notes 601–630 (紧密 → 巨大), deck order | 21 | **a fourth card with two readings under one pinyin, and two example sentences of 55 and 90 characters** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -8579,3 +8580,96 @@ still-ambiguous 1; shared-gloss groups 322 unchanged — so none of the five glo
 collision; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged; british 0;
 34,596 blocks with spoken == visible on every one; **sense-tagged 696 → 699**, the three being 讲话's;
 `build-lang-decks.js` re-run.
+
+## Batch 94 — hsk30l5 notes 601–630 (紧密 → 巨大)
+
+Thirty consecutive notes of HSK Level 5 in deck order. **Twenty-one cards changed**, nine read and left.
+
+### A fourth card with two readings under one pinyin
+
+**精神 was written jīng shen throughout — ㄥㄧㄥ ㄕㄣ˙ — and its own three sentences use both readings.**
+CC-CEDICT files two entries: **jīngshén** *spirit; mind; ethos* and **jīngshen** *vigour; vitality*. 他精神很好
+and 今天我没有精神 are the neutral tone; 体育精神 is the second. So a reader pressing the speaker heard one
+reading and then read a sentence using the other, with nothing on the card saying so.
+
+**No checker here can see it, and it is worth being exact about why.** `check-pinyin.js` compares a
+card's pinyin against its own bopomofo — and both fields said ㄕㄣ˙, so the two agreed on the same wrong
+answer and the check passed. `check-say-reading.js` asks only about SINGLE-character cards. This is the
+fourth such card the audit has found (after 重, 花 and the batch-31 pair) and the same repair: both
+readings written out, the senses split under them, each sentence tagged. The card now joins the 70
+readings `check-pinyin.js` skips for having two.
+
+### Two example sentences that are not examples
+
+**紧密's first sentence ran to 55 characters** — a paragraph about which animals people first worshipped,
+with the headword in the middle of it. **近年来's ran to about 90**, three sentences of newspaper prose
+about an affable man visiting friends at a seaside resort *associated with gay chic*, with the headword
+at the very end.
+
+**This is a length fault before it is anything else, and the audit has not had a rule for it.** A card
+shows three examples in a box a few lines deep; at fifty characters and more the reader is doing reading
+comprehension rather than meeting a word, and at ninety the word is furniture in somebody else's
+paragraph. The harvest this audit runs caps a sentence at 36 characters. **Generator sentences were never
+capped at all**, and these are the two worst in the range. Both replaced.
+
+### A card teaching a non-word, and a card teaching the wrong reading of its own character
+
+**据's first sentence was 这是个据药。** There is no such word as 据药, and its English — *This medicine has
+a strong effect* — belongs to some other sentence altogether. **And its third was 手头十分拮据**, which is
+worse than a swallowed headword: 拮据 is read **jié JŪ**, so the card showed its character in a reading it
+does not teach. Only one of the three used 据 as the preposition the card is about.
+
+### Six glosses and labels that answered a different question
+
+**进步 is labelled *verb / adjective*** and two of its sentences are the noun; the adjective the label
+claims is the ideological sense (进步青年), which the card neither glosses nor shows, so the label was
+claiming a part of speech with nothing behind it at all. **进口 is labelled a verb and glossed two nouns.**
+**距 is labelled a verb and glossed two nouns** — it is the verb *to be so far from*, which is what all
+three of its sentences are. **惊喜 is labelled an adjective** and its own first sentence is the noun.
+**近期 was glossed *near in time***, CC-CEDICT's opening phrase and not an English anyone uses alone,
+over sentences spanning the near future, *soon* and *lately*.
+
+**And 橘子 contradicts itself**: the gloss is *tangerine* and all three English translations say
+*oranges*, so the reverse card asks for a word the card's own sentences never use.
+
+### Eight near-repeats
+
+谨慎 handled two things carefully with the same verb; 近代 studied modern history twice; 近日 had the
+temperature falling twice; 救护车 asked for an ambulance in two persons; 惊喜 exclaimed *what a nice
+surprise* as a statement and then as a question; and **距's two were the same sentence with the buildings
+changed and the same distance in both** — 学校距我家只有两公里 and 车站距这里两公里. Four of the eight were
+added by earlier batches of this audit.
+
+### A remark about how the waitresses look, and a calque
+
+**酒吧's 这个酒吧的女服务员很漂亮** is a comment on the appearance of the women working there, and its
+English says *pub* where the card's gloss and its other two sentences say *bar* — two English words for
+one Chinese one. `check-coarse.js` has no word in it to match. **剧场's 昨晚他希望他去了剧场** is
+*He wishes he had gone to the theatre last night* put through word by word; Chinese has no counterfactual
+of that shape, and 他希望他 repeats the subject besides. **进一步's 你会发现它用几页纸进一步作了说明**
+uses 用几页纸 as an instrument of 说明, which is not a construction Chinese has.
+
+### Four single-character cards gained a `Compounds` section
+
+静, 救, 据 and 距, every row checked against CC-CEDICT first. **静's three sentences were read and are
+sound** — all three are the adjective the gloss leads on — so that card needed nothing but its panel,
+which is worth recording: a single-character card is not automatically a card with something wrong on it.
+
+### What was read and left, and two checker findings that are not findings
+
+**Nine cards were read and left untouched**: 尽力, 经典, 精力, 经营, 久远, 居民, 居住, 具备 and 巨大.
+具备's three are a question about prerequisites, an aphorism and a line from a spy drama, which is an odd
+set and a correct one — all three use the word in the sense the gloss gives.
+
+**`check-example-fit.js` reports 紧密's 各部门要紧密配合 as split between 要紧 and 密, and that is a
+false positive**: the sentence is 要 + 紧密配合, and the greedy segmenter prefers 要紧 because 要紧 is a
+headword in the corpus. **`check-gloss-source.js` reports 剧场 for sharing no content word with the
+dictionary, which is *theatre* against *theater*** — the checker has no spelling table, and the deck is
+authored British.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 322 unchanged — so none of the six gloss rewrites made a new
+collision; one-sided hints still 0; pinyin clean, with the cross-checked count 11,463 → 11,462 and the
+skipped 69 → 70, which is 精神 joining the two-reading cards; example-fit 141 and senses 151 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; **sense-tagged 699 → 705**, the six being
+进步's and 精神's; `build-lang-decks.js` re-run.
