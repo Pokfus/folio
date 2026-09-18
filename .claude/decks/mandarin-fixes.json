@@ -14046,11 +14046,17 @@
       ]
     },
     "hsk30l5/含量": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The English called 淡啤酒 *pale ale*, which is 淡色艾尔 and is not a low-alcohol beer at all — 淡啤酒 is light beer, and light beer is defined by exactly the low alcohol content the sentence goes on to state, so the translation contradicted its own second half. Corrected rather than dropped, the Chinese being sound. Its third sentence, a harvested one about beer duty, is replaced as well: with the first also about beer, two of the card's three examples measured the contents of a drink brewed from barley. AUTHORED, and the record says so.",
       "ex": [
         [
-          "因为啤酒会根据麦芽含量去征税，所以发泡酒会比较便宜。",
-          "Beer is taxed according to its malt content, so low-malt beer is cheaper."
+          "这种饮料的糖含量很高。",
+          "The sugar content of this drink is very high."
+        ]
+      ],
+      "exEn": [
+        [
+          "淡啤酒是一种酒精含量低的啤酒。",
+          "Light beer is beer with a low alcohol content."
         ]
       ]
     },
@@ -14588,8 +14594,17 @@
       ]
     },
     "hsk30l5/河流": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "rivers, river systems (collective)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | 密西西比河流经哪个城市 does not contain 河流 at all: it is 密西西比河 + 流经, the 河 belonging to the river's name and the 流 to the verb. Two of the card's three sentences were also a single watercourse, where its gloss — set by an earlier batch to break a three-way collision with 河 and 江 — says *collective*; the replacement is AUTHORED and plural, which is the sense the gloss actually defines. AUTHORED, and the record says so.",
+      "gloss": "rivers, river systems (collective)",
+      "dropEx": [
+        "密西西比河流经哪个城市"
+      ],
+      "ex": [
+        [
+          "这个地区的河流大多流向东方。",
+          "Most of the rivers in this region flow east."
+        ]
+      ]
     },
     "hsk30l5/沿": {
       "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
@@ -77475,7 +77490,7 @@
       ]
     },
     "hsk30l5/合影": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card labelled itself *noun / verb* and glossed *group photo*, which is the noun alone — and two of its three sentences are the VERB, 新郎新娘合影的照片 and 我们一起合影吧, so the label the gloss did not define was the one the card mostly showed. CC-CEDICT gives both. Split into the two senses, each sentence tagged with its own.",
       "ex": [
         [
           "我们一起合影吧。",
@@ -77485,10 +77500,25 @@
           "墙上挂着毕业合影。",
           "The graduation group photograph hangs on the wall."
         ]
+      ],
+      "senses": [
+        [
+          "noun",
+          "a group photograph"
+        ],
+        [
+          "verb",
+          "to be photographed together"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        1
       ]
     },
     "hsk30l5/厚度": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card opened on the first paragraph of *The Time Machine* — 正如我们的数学家所言，这个空间有三个维度…… — sixty-eight characters of nested subordination in which 厚度 appears once, as the third item of a list, inside an argument about the dimensionality of space. It is the longest example sentence this audit has met on any card. Replaced with an AUTHORED sentence in a frame the card's other two, both bare measurements, do not use. AUTHORED, and the record says so.",
       "ex": [
         [
           "这块板的厚度是两厘米。",
@@ -77497,7 +77527,14 @@
         [
           "冰的厚度不够。",
           "The ice is not thick enough."
+        ],
+        [
+          "他用尺子量了量纸的厚度。",
+          "He measured the thickness of the paper with a ruler."
         ]
+      ],
+      "dropEx": [
+        "正如我们的数学家所言"
       ]
     },
     "hsk30l5/互动": {
@@ -79067,12 +79104,19 @@
       ]
     },
     "hsk30l5/好评": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 她的新小说广受好评 also stands, correctly, on 广 twenty-nine cards earlier in this same deck, where 广受 is the adverbial use the gloss there teaches — so a reader working through Level 5 in order met one sentence twice within a fortnight. The bank is shared and that is normally fine; it stops being fine when the two cards are in one deck and near each other. Replaced with an AUTHORED sentence using a different verb from either of the two already here. AUTHORED, and the record says so.",
       "ex": [
         [
           "这家餐厅得到了不少好评。",
           "This restaurant has received a lot of good reviews."
+        ],
+        [
+          "他的表演赢得了一片好评。",
+          "His performance won widespread praise."
         ]
+      ],
+      "dropEx": [
+        "她的新小说广受好评"
       ]
     },
     "hsk30l5/缓慢": {
@@ -126378,6 +126422,295 @@
         [
           "这盒牛奶已经过期了。",
           "This carton of milk is past its date."
+        ]
+      ]
+    },
+    "hsk30l5/哈": {
+      "why": "NOT ONE of the card's three sentences used 哈 as the interjection the gloss names: 在哈尔滨 is Harbin, 哈拉和林 is Karakorum, and 打哈欠 is the bound 哈 of *a yawn* — two transliterated place names and a compound. This is the single-character blind spot at its widest, `check-example-fit.js` skipping a one-character headword outright, and it is worse than 东 in batch 27, where one of three survived. Two AUTHORED sentences put in for the laugh the gloss leads with; the yawn is KEPT as the third, because 打哈欠 is where a learner really meets the character, and the Compounds row beside it is what makes that legible rather than confusing. The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING in the reader's downloaded deck AND nothing in the whole collection — the only card of the nine decks on which that is true.",
+      "dropEx": [
+        "在哈尔滨",
+        "哈拉和林",
+        "我们缺氧时就会打哈欠"
+      ],
+      "ex": [
+        [
+          "他哈哈大笑起来。",
+          "He burst out laughing."
+        ],
+        [
+          "哈，原来是你！",
+          "Ha, so it was you!"
+        ],
+        [
+          "他困得直打哈欠。",
+          "He was so sleepy he kept yawning."
+        ]
+      ],
+      "compounds": [
+        [
+          "哈哈",
+          "hāhā",
+          "the sound of laughter"
+        ],
+        [
+          "哈欠",
+          "hāqian",
+          "a yawn"
+        ],
+        [
+          "哈腰",
+          "hāyāo",
+          "to bend at the waist; to bow"
+        ],
+        [
+          "哈密瓜",
+          "hāmìguā",
+          "a Hami melon; a honeydew melon"
+        ]
+      ]
+    },
+    "hsk30l5/海外": {
+      "why": "日本和好几个海外国家做贸易 is English word order: 海外国家 for *overseas countries* is not a Chinese collocation — 海外 is where something is or goes, not an attributive of 国家 — and the English on the card said *foreign*, which is 外国 and a different word. Replaced with an AUTHORED sentence in the locative frame the word actually takes. AUTHORED, and the record says so.",
+      "dropEx": [
+        "日本和好几个海外国家做贸易"
+      ],
+      "ex": [
+        [
+          "他的作品在海外也很受欢迎。",
+          "His work is popular overseas too."
+        ]
+      ]
+    },
+    "hsk30l5/海鲜": {
+      "why": "她喜欢海鲜 and 我很喜欢吃海鲜 are one sentence in two persons, and their English — *She likes seafood* and *I really like seafood* — differs by no more. Two of three examples taught the same thing, which the coverage checker cannot see, comparing sentences exactly. Replaced with an AUTHORED sentence about the food rather than about liking it. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我很喜欢吃海鲜"
+      ],
+      "ex": [
+        [
+          "这家店的海鲜很新鲜。",
+          "The seafood at this shop is very fresh."
+        ]
+      ]
+    },
+    "hsk30l5/含": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING in the reader's downloaded deck against nine words in the collection; two of the rows, 含量 and 含有, are the very next two cards of this deck, so the panel points a reader at what they are about to study.",
+      "compounds": [
+        [
+          "含量",
+          "hánliàng",
+          "the content (of a substance)"
+        ],
+        [
+          "含有",
+          "hányǒu",
+          "to contain"
+        ],
+        [
+          "包含",
+          "bāohán",
+          "to contain; to include"
+        ],
+        [
+          "含义",
+          "hányì",
+          "the implied meaning; a connotation"
+        ]
+      ]
+    },
+    "hsk30l5/好运": {
+      "why": "All three sentences were the same set phrase: 再见，祝好运 / 祝考试好运！ / 当然。祝你好运！ — 祝(你)好运 with conversational filler in front of it, twice with the same two characters. A card's three examples are meant to show different constructions, and this one showed a farewell three times. Replaced with an AUTHORED sentence in which 好运 is the thing something depended on rather than the thing wished. AUTHORED, and the record says so.",
+      "dropEx": [
+        "当然。祝你好运"
+      ],
+      "ex": [
+        [
+          "他能赢全靠好运。",
+          "He only won by luck."
+        ]
+      ]
+    },
+    "hsk30l5/好转": {
+      "why": "它会好转的 was translated *It's got better* — a past perfect over a Chinese sentence that is plainly future (会……的) — and the 它 is itself a calque: Chinese does not use the bare pronoun for a situation, which is what 情况 or 形势 is for. With it gone the other two are both a person recovering, so the replacement is AUTHORED about an economy instead. AUTHORED, and the record says so.",
+      "dropEx": [
+        "它会好转的"
+      ],
+      "ex": [
+        [
+          "经济形势正在好转。",
+          "The economic situation is improving."
+        ]
+      ]
+    },
+    "hsk30l5/合": {
+      "why": "The gloss read *to close, to join, to combine* and NOT ONE of the card's three sentences showed any of the three: 不合情理, 合得来 and 合拍 are all the *to suit, to accord with* sense CC-CEDICT gives third, and the last two are compounds besides, so the card defined one thing and illustrated another. 我们很合拍 is dropped — it means what 合得来 above it means — and an AUTHORED sentence put in for the concrete *to close* the gloss led with; the senses are split so each sentence is tagged with the one it shows. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我们很合拍"
+      ],
+      "ex": [
+        [
+          "他把书合上了。",
+          "He closed the book."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to close; to shut"
+        ],
+        [
+          "verb",
+          "to suit; to accord with; to get along"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        1
+      ]
+    },
+    "hsk30l5/合法": {
+      "why": "税收就是合法的抢劫 — *taxes are just legal robbery* — is a libertarian slogan, and a flashcard a learner drills to automaticity is the wrong place for the deck's only political assertion. It was also the card's only attributive use, so the replacement is AUTHORED and attributive too, which is what the other two sentences, both predicative, do not show. AUTHORED, and the record says so.",
+      "dropEx": [
+        "税收就是合法的抢劫"
+      ],
+      "ex": [
+        [
+          "他有合法的居留证件。",
+          "He has legal residence papers."
+        ]
+      ]
+    },
+    "hsk30l5/黑": {
+      "why": "他为什么看上去很黑？ was translated *Why does he look black?*, which in English is a question about a person's race where the Chinese 很黑 of a person is *tanned* or *dark-skinned* — and the card had no way to be read otherwise, its third sentence being 我不想晒黑. It was also the case that NOT ONE of the three sentences showed the plain colour the gloss names: 越来越黑了 is the failing light, the other two are skin. Replaced with an AUTHORED sentence that is simply the colour. The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had nothing in the reader's downloaded deck against eight words in the collection.",
+      "dropEx": [
+        "他为什么看上去很黑"
+      ],
+      "ex": [
+        [
+          "他有一头黑头发。",
+          "He has black hair."
+        ]
+      ],
+      "compounds": [
+        [
+          "黑色",
+          "hēisè",
+          "black; the colour black"
+        ],
+        [
+          "黑板",
+          "hēibǎn",
+          "a blackboard"
+        ],
+        [
+          "黑暗",
+          "hēi'àn",
+          "dark; darkness"
+        ],
+        [
+          "黑白",
+          "hēibái",
+          "black and white; right and wrong"
+        ]
+      ]
+    },
+    "hsk30l5/红": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had two words in the reader's downloaded deck against fifteen in the collection; the rows carry the two senses CC-CEDICT gives beside the colour, the *popular* of 走红 being met first in 脸红's ordinary blush.",
+      "compounds": [
+        [
+          "红色",
+          "hóngsè",
+          "red; the colour red"
+        ],
+        [
+          "红茶",
+          "hóngchá",
+          "black tea"
+        ],
+        [
+          "脸红",
+          "liǎnhóng",
+          "to blush"
+        ],
+        [
+          "红绿灯",
+          "hónglǜdēng",
+          "a traffic light"
+        ]
+      ]
+    },
+    "hsk30l5/猴子": {
+      "why": "*Monkeys are fond of banana* wants the plural, and *Not a few monkeys were found in the mountain* is neither idiomatic nor grammatical — 不少 is *quite a few* and 山上 is *in the mountains*. Both corrected rather than dropped: the Chinese on each is sound, and what was wrong was the side a reader is graded against on the reverse card.",
+      "exEn": [
+        [
+          "猴子喜欢香蕉。",
+          "Monkeys are fond of bananas."
+        ],
+        [
+          "山上发现了不少猴子。",
+          "Quite a few monkeys were found in the mountains."
+        ]
+      ]
+    },
+    "hsk30l5/后果": {
+      "why": "在理想的战争里，后果是人会死 was set against the English *In a war of ideas it is people who get killed* — but 理想的战争 is *an ideal war*, not a war of ideas, which is 思想之争; so the Chinese asserts something else entirely and something rather strange. The fault is on the Chinese side and no rewording of the English fixes it. Replaced with an AUTHORED sentence in the ordinary everyday frame. AUTHORED, and the record says so.",
+      "dropEx": [
+        "在理想的战争里"
+      ],
+      "ex": [
+        [
+          "酒后开车的后果很严重。",
+          "The consequences of drink-driving are serious."
+        ]
+      ]
+    },
+    "hsk30l5/忽视": {
+      "why": "警告被忽视 and 她忽视了我所有的警告 are the same event in two voices, so two of three examples were a warning going unheeded — and the first is a bare fragment besides, with no agent and no 了, which is a headline rather than a sentence. Replaced with an AUTHORED sentence about a problem rather than a warning. AUTHORED, and the record says so.",
+      "dropEx": [
+        "警告被忽视"
+      ],
+      "ex": [
+        [
+          "我们不能忽视这个问题。",
+          "We cannot ignore this problem."
+        ]
+      ]
+    },
+    "hsk30l5/呼吸": {
+      "why": "我的鼻子没办法呼吸了 says *my nose cannot breathe*, which is not what Chinese says any more than English does — the person breathes, through the nose, 用鼻子呼吸, and the card's own English had already silently corrected it to *I can't breathe through my nose*. Replaced with an AUTHORED sentence in the medical frame, which is where the word is most often met. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我的鼻子没办法呼吸了"
+      ],
+      "ex": [
+        [
+          "他呼吸困难，被送去了医院。",
+          "He had difficulty breathing and was taken to hospital."
+        ]
+      ]
+    },
+    "hsk30l5/湖": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had nothing in the reader's downloaded deck against two words in the collection. 湖泊 is deliberately NOT one of the rows: the card already carries a `not 湖泊` disambiguator, the two sharing the gloss *lake*, and a Compounds row defining the very word the front of the card tells the reader not to answer would undo it.",
+      "compounds": [
+        [
+          "湖边",
+          "húbiān",
+          "the lakeside"
+        ],
+        [
+          "盐湖",
+          "yánhú",
+          "a salt lake"
+        ],
+        [
+          "人工湖",
+          "réngōnghú",
+          "an artificial lake"
+        ],
+        [
+          "西湖",
+          "Xī Hú",
+          "West Lake, at Hangzhou"
         ]
       ]
     }

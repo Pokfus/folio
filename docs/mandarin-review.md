@@ -624,6 +624,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 361–390 (副 → 个别), deck order, plus the seven outstanding 著 sites and the `exVariant` field they needed | 18 + 7 | **a record field for a one-character swap, and the chained rows that proved its guard was counting the wrong thing** |
 | 2026-09-18 | `hsk30l5` notes 391–420 (各行各业 → 故乡), deck order, plus a WORD-level variant sweep of the whole corpus | 14 + 15 | **CC-CEDICT marks whole WORDS as variants, and batch 77's character sweep is blind to every one of them** |
 | 2026-09-18 | `hsk30l5` notes 421–450 (挂号 → 过于), deck order | 20 | **a sentence built to be meaningless, standing first on its card — Chomsky's colourless green ideas** |
+| 2026-09-18 | `hsk30l5` notes 451–480 (哈 → 蝴蝶), deck order | 20 | **a card not one of whose three sentences used its character as a word — two transliterated place names and a compound** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -8038,3 +8039,127 @@ still-ambiguous 1; shared-gloss groups 322 unchanged — so neither gloss rewrit
 one-sided hints still 0; pinyin clean; example-fit 142 and senses 151 unchanged; british 0; 34,596
 blocks with spoken == visible on every one; **sense-tagged 660 → 666**, the six being 怪's three and
 滚's three; `build-lang-decks.js` re-run.
+
+## Batch 89 — hsk30l5 notes 451–480 (哈 → 蝴蝶)
+
+Thirty consecutive notes of HSK Level 5 in deck order, the 哈-to-蝴蝶 run. **Twenty cards changed**,
+the same count as the batch before it, and the run's own character is that six of the twenty were
+wrong on the ENGLISH rather than on the Chinese — a translation that renamed the drink it described, a
+tense that disagreed with its own sentence, two that were not grammatical English at all, and one that
+turned a remark about a suntan into a question about race.
+
+### The single-character blind spot at its widest
+
+**哈's three sentences were 哈尔滨, 哈拉和林 and 哈欠 — Harbin, Karakorum, and the bound 哈 of *a yawn*.**
+The card glosses the character as the interjection and the sound of laughter, and NOT ONE of its three
+examples used it that way: two are transliterated place names, where the character is a syllable chosen
+for its sound and carries no meaning at all, and the third is a compound. `check-example-fit.js` skips
+a one-character headword outright, by design, so nothing reported it — and this is worse than 东 in
+batch 27, where one sentence of three survived the same test.
+
+Two authored sentences were put in for the laugh. **The yawn was kept**, deliberately: 打哈欠 is where a
+learner actually meets the character, and the new Compounds row naming 哈欠 is what makes the third
+sentence legible rather than puzzling. **哈 is also the only card in all nine decks with nothing built
+on it anywhere** — zero words in the reader's downloaded deck and zero in the whole collection — so its
+panel could only ever have been authored.
+
+### Three glosses that defined something their card did not show
+
+**合 is the clearest case the audit has met.** The gloss read *to close, to join, to combine*, and its
+three sentences were 不合情理, 合得来 and 合拍 — every one of them the *to suit, to accord with* sense
+CC-CEDICT gives third, and two of them compounds besides. A card defining one thing and illustrating
+another. 我们很合拍 was dropped for meaning what 合得来 above it means, an authored sentence put in for
+the concrete *to close*, and the senses split so each sentence carries a tag.
+
+**合影 named a part of speech its gloss did not define** — *noun / verb* over *group photo* — and the
+label left undefined was the one the card mostly showed, two of three sentences being the verb. This is
+batch 88's 怪 and 规则 from the other side: there the unillustrated label was dropped, here the missing
+gloss is supplied, and which repair is right depends on whether the card's own sentences show the sense.
+
+**黑 showed the colour in none of its three.** 越来越黑了 is the failing light, 我不想晒黑 is a suntan, and
+the third was about a person's skin; so the card glossed *black* and illustrated dark, tanned and
+darker. An authored sentence supplies the plain colour.
+
+### Six faults on the English side
+
+**A translation that renamed its own subject.** 含量's 淡啤酒是一种酒精含量低的啤酒 was rendered *Pale ale
+is a low-alcohol beer*: 淡啤酒 is **light beer**, 淡色艾尔 is pale ale, and pale ale is not low in alcohol
+— so the English contradicted the second half of its own sentence. Corrected rather than dropped, the
+Chinese being sound.
+
+**A tense that disagreed with its Chinese.** 好转's 它会好转的 — plainly future, 会……的 — was translated
+*It's got better*. The 它 is a calque too: Chinese does not use a bare pronoun for a situation.
+
+**Two that are not English.** 猴子 had *Monkeys are fond of banana* and *Not a few monkeys were found in
+the mountain*. 不少 is *quite a few* and 山上 is *in the mountains*. Both are the side a reader is graded
+against on the reverse card.
+
+**And one that changes what a sentence says about people.** 黑's 他为什么看上去很黑？ was translated *Why
+does he look black?*, which in English is a question about race where the Chinese 很黑 of a person is
+*tanned* or *dark-skinned* — and with 我不想晒黑 two lines below it, the card gave a reader no way to read
+it otherwise.
+
+### A mistranslation on the Chinese side, which is the one that cannot be fixed by rewording
+
+后果's 在理想的战争里，后果是人会死 was set against *In a war of ideas it is people who get killed* — but
+**理想的战争 is *an ideal war***, not a war of ideas, which is 思想之争. The Chinese therefore asserts
+something else, and something rather strange, and no rewriting of the English repairs it: the sentence
+itself has to go. This is the mirror of the six above and the reason each was judged separately.
+
+### The long sentence, the political slogan and the sentence from another card
+
+**厚度 opened on sixty-eight characters of H. G. Wells** — the first paragraph of *The Time Machine*,
+正如我们的数学家所言，这个空间有三个维度……, in which 厚度 appears once, as the third item of a list, inside
+an argument about the dimensionality of space. It is the longest example sentence this audit has met.
+
+**合法's third sentence was 税收就是合法的抢劫** — *taxes are just legal robbery*, a libertarian slogan and
+the deck's only political assertion, on a card a learner drills to automaticity. It was also the card's
+only attributive use, so the replacement is attributive too.
+
+**好评's first sentence also stands on 广, twenty-nine cards earlier in the same deck.** 她的新小说广受好评
+is correct on both — 广受 is the adverbial 广 that card teaches — and the shared bank normally makes that
+fine. It stops being fine when the two cards are in one deck and a fortnight apart.
+
+### Four more repeats, two calques and a split headword
+
+**河流's 密西西比河流经哪个城市 does not contain the headword at all**: it is 密西西比河 + 流经, the 河 belonging
+to the river's name and the 流 to the verb. It was one of `check-example-fit.js`'s own 142 findings, and
+clearing it took that count to 141.
+
+**海鲜 had 她喜欢海鲜 and 我很喜欢吃海鲜** — one sentence in two persons. **好运 had the same farewell three
+times**, 祝(你)好运 with conversational filler in front of it. **过期's successor 忽视 had two sentences
+about the same ignored warnings**, the first a bare fragment with no agent and no 了. **The calques**:
+海外's 海外国家, English word order for *overseas countries*, with the card's English saying *foreign*,
+which is 外国 and a different word; and 呼吸's 我的鼻子没办法呼吸了, *my nose cannot breathe*, which the
+card's own English had already silently corrected to *I can't breathe through my nose*.
+
+### Five cards gained a `Compounds` section
+
+哈, 含, 黑, 红 and 湖 — the first four with nothing at all in the reader's downloaded deck against nine,
+eight and fifteen words in the collection. **湖's panel deliberately omits 湖泊**: that card already
+carries a `not 湖泊` disambiguator, the two sharing the gloss *lake*, and a Compounds row defining the
+very word the front of the card tells the reader not to answer would undo it. **湖水 was wanted and is
+not there**: CC-CEDICT has no entry for it, and a row's reading and gloss are verified against the
+dictionary before it is written, so it was left out rather than glossed from inference.
+
+### What was read and left, and one thing left on purpose
+
+**Ten cards were read and left untouched**: 海关, 含有, 汗水, 行业, 好奇, 盒饭, 合理, 合同, 合作 and 蝴蝶.
+含有's 可能含有坚果 looks like a fragment and is not — it is what is printed on the packet. **好奇 was left
+although its first sentence reads oddly**, because an earlier batch has already read and judged it: the
+record carries an `exEn` row correcting its English away from *Curiosity killed the cat*, which is not
+what 好奇会吃苦头的 says.
+
+**And 河流's gloss was left alone although one of its own sentences contradicts it.** It reads *rivers,
+river systems (collective)* while 那条河流很长 is a single watercourse measured with 条, which CC-CEDICT
+gives as the word's classifier. The gloss is narrow because an earlier batch narrowed it deliberately, to
+break a three-way collision with 河 (*river, the general word*) and 江 (*large river*) on the English →
+Chinese card — so **the disambiguation rule and the definition rule pull against each other here**, and
+widening the gloss would put the collision back. The replacement sentence is plural instead, which is
+the sense the gloss does define.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 322 unchanged — so neither the 合 nor the 合影 rewrite made a new
+collision; one-sided hints still 0; pinyin clean; **example-fit 142 → 141**, the one cleared being
+河流's split headword; senses 151 unchanged; british 0; 34,596 blocks with spoken == visible on every
+one; **sense-tagged 666 → 672**, the six being 合's three and 合影's three; `build-lang-decks.js` re-run.
