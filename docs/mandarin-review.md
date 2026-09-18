@@ -631,6 +631,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 571–600 (讲话 → 尽量), deck order | 26 | **two CANTONESE sentences in a Mandarin deck, six cards apart — 结他 for a guitar and 系 for 是** |
 | 2026-09-18 | `hsk30l5` notes 601–630 (紧密 → 巨大), deck order | 21 | **a fourth card with two readings under one pinyin, and two example sentences of 55 and 90 characters** |
 | 2026-09-18 | `hsk30l5` notes 631–660 (据说 → 空间), deck order, plus the applier's hint strip | 20 + 1 | **`hints` is called authoritative and was not: a retired disambiguator stayed on its card for ever and `--check` went on passing** |
+| 2026-09-18 | `hsk30l5` notes 661–690 (空中 → 理论), deck order | 17 | **a sentence standing on TWO cards took last batch's English fix on only one of them — a fault this audit made** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -8778,3 +8779,112 @@ still-ambiguous 1; **shared-gloss groups 322 → 321 and hint-carrying groups 32
 british 0; 34,596 blocks with spoken == visible on every one; **sense-tagged 705 → 708**, the three being
 可见's; hints 663 → 661; `build-lang-decks.js` re-run. **No changelog line and no version bump for the
 applier change**: `.claude/decks/mandarin-fix.js` is not part of the site.
+
+## Batch 96 — hsk30l5 notes 661–690 (空中 → 理论)
+
+Thirty consecutive notes of HSK Level 5 in deck order. **Seventeen cards changed**, thirteen read and
+left.
+
+### A fix this audit applied to one card and not to the other card carrying the same sentence
+
+**类's third sentence was 我没接触过这个球类游戏, which is 接触's own first sentence**, ninety-seven cards
+earlier in this same deck. Batch 93 rewrote the English on 接触 — *It's a whole new ball game for me*
+became *I have never come across this ball game before* — **and left this card's copy saying the old
+thing**, so the two now carried one Chinese sentence under two different translations.
+
+**An `exEn` row is keyed to one note, and a sentence standing on two notes takes the fix on one of
+them.** Nothing reports it: the coverage checker's duplicate test is per CARD, `--check` compares the
+deck against the record and both cards match their own entries, and the two sentences are on cards a
+hundred apart so no reader meets them together. The rule to carry forward is **grep the corpus for a
+sentence before writing an `exEn` for it**. Replaced here with an authored sentence, which settles it
+for good.
+
+### Two cards whose pinyin disagreed with their own bopomofo
+
+**口袋 read kǒu dai** and its own bopomofo reads ㄈㄞˇ ㄉㄞˋ; **老婆 read lǎo po** against ㄌㄠˇ ㄆㄛˊ.
+CC-CEDICT gives kou3 **dai4** and lao3 **po2**.
+
+**This is deliberately NOT the blanket tone sweep this audit has refused.** That sweep returns 231
+disagreements over the corpus of which almost none are errors — about 123 are 不/一 sandhi and about 100
+are mainland-against-Taiwan neutral-tone variance — and `check-pinyin.js` is right to compare syllable
+BOUNDARIES and nothing else. What these two are is **one card each with two witnesses against the
+pinyin**: its own bopomofo and the dictionary, agreeing with each other. Corrected on that ground and on
+no wider one; the other twelve cards in this range whose readings carry a neutral tone were checked
+against both witnesses and agree.
+
+### A card whose character appeared three times and was a word none of them
+
+**库's sentences were 军火库, 库德语 and 库米.** The first is a compound; the second is a
+TRANSLITERATION of *Kurdish*, and the Taiwan form of it besides (the mainland writes 库尔德语); the third
+is a woman called Kumi. So two of the three used the character for its SOUND alone — **batch 89's 哈
+finding exactly**, where the three sentences were Harbin, Karakorum and a yawn — and
+`check-example-fit.js` skips a one-character headword by design.
+
+### Taiwan vocabulary again, and this time the dictionary says so
+
+**梨's third sentence was 我喜欢吃加酰梨的素食汉堡**, and 酰梨 is an AVOCADO — **CC-CEDICT marks it
+`(Tw)`**, the mainland word being 牛油果. So the card's character stood inside a Taiwan word for a
+different fruit. It is the fourth regional-vocabulary finding in six batches, after 硬体/软体, 结他 and
+简报档, and **the first one the dictionary itself flags**, which is worth knowing: the `(Tw)` marker is
+greppable, where the other three were not.
+
+### An explicit sentence and a demeaning one, on one card, invisible to every list
+
+**老公's second and third sentences were 老公性无能，我该怎么办？ and 我老公没用。** — *What should I do
+if my husband is impotent?* and *My husband is useless*. **`check-coarse.js` reports neither**, asked on
+all six of its lists: 性无能 is in none of them and *useless* is not a coarse word. This is the class its
+own header names and batch 90's 黄瓜 met from another direction — content that a word list cannot reach
+because nothing in it is a word.
+
+### Four glosses and labels answering a different question
+
+**离职 was glossed *to leave one's job temporarily (e.g. for study)*** — CC-CEDICT's first sense — and
+all three of its sentences are leaving for good, which the dictionary gives second. **亏 is labelled a
+VERB and its gloss opens on two nouns**, and its three sentences are three different senses of which the
+gloss named one. **宽 glosses one word, *wide*, under a *noun / verb / adjective* label**, and its second
+sentence is 宽 meaning LENIENT. **口味's English was *My taste has got heavier***, the Chinese put through
+word by word.
+
+### Eight near-repeats
+
+宽度 asked the width of a road and then answered it; 老板 had two people looking for the boss; 类似 had
+*yours is similar to mine* and *mine is similar to yours*; 泪水 had tears in two people's eyes, with a
+third pair of eyes on 泪, the card immediately before it; 厘米 had the same THREE CENTIMETRES once
+shorter and once taller; and 离职 had two people leaving a job in the same month. Four of the eight were
+added by earlier batches of this audit.
+
+### A mistake this batch made, and the report line that caught it
+
+**A `dropEx` row was written through a wrong Unicode escape** — `\u9170` is 酰 and 酰梨's first character
+is 酪 — so the row named 酰梨, which is in no sentence, and the avocado stayed on the card while the
+replacement was pushed past the three-example cap. **The applier's own `badDrop` line reported it**
+(`hsk30l5/梨 → 酰梨`), which is what that line is for: a drop the record claims and never made. It is
+recorded because the shape will recur — **write the Chinese literally rather than as escapes**, and read
+the drop report after a run.
+
+### Three single-character cards gained a `Compounds` section — and one deliberately did not
+
+库, 宽, 亏, 泪 and 类 took one (five, not three), every row checked against CC-CEDICT first. **梨 did
+not**, for 捡's reason two batches back: the dictionary's 梨 words are 梨子, 鸭梨 and a run of botanical
+and loanword entries — 士多啡梨 is a Hong Kong strawberry — so there is no set of three ordinary words
+to give. **泪's own three sentences were read and are sound**, so that card needed nothing but its panel.
+
+### What was read and left, and two checker findings that are not findings
+
+**Thirteen cards were read and left untouched**: 空中, 控制, 昆虫, 来源, 劳动, 老百姓, 姥姥, 姥爷, 乐观,
+乐趣, 类型, 离婚 and 理论.
+
+**老百姓 was the judgement call.** Its second sentence is 自古至今，容忍的总是老百姓，被容忍的总是统治者
+— an epigram about rulers and the ruled. It is left: it is a general historical observation rather than a
+slogan for any state, which is the distinction batch 90 drew, and the word it teaches is exactly the one
+such a sentence is about.
+
+**`check-example-fit.js` reports two sentences in this range and both are false positives**: 口袋's
+他把手插进口袋里 is 插进 + 口袋 and the greedy segmenter prefers 进口, and 类型's 你想看哪种类型的电影？
+is 哪种 + 类型 where it prefers 种类. Both sentences are sound.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 321 unchanged — so none of the four gloss rewrites made a new
+collision; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged; british 0;
+34,596 blocks with spoken == visible on every one; **sense-tagged 708 → 714**, the six being 宽's and
+亏's; `build-lang-decks.js` re-run.

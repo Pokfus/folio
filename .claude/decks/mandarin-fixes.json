@@ -14918,12 +14918,19 @@
       ]
     },
     "hsk30l5/类似": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | 你的问题类似于我的 and 我的观点和你的类似 are the same sentence with *mine* and *yours* swapped — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence in which the two things compared are not the speakers. AUTHORED, and the record says so.",
       "ex": [
         [
           "我也听过一个类似的故事。",
-          "I also heard a similar story."
+          "I have heard a similar story."
+        ],
+        [
+          "这两种植物的叶子很类似。",
+          "The leaves of these two plants are very similar."
         ]
+      ],
+      "dropEx": [
+        "我的观点和你的类似"
       ]
     },
     "hsk30l5/繁荣": {
@@ -77967,7 +77974,7 @@
       ]
     },
     "hsk30l5/宽度": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 这条路的宽度是多少？ and 这条路的宽度是十米。 are the same road asked about and then answered — one sentence in two moods, which the coverage checker cannot see. The question is dropped and an AUTHORED sentence put in measuring something else. AUTHORED, and the record says so.",
       "ex": [
         [
           "这条路的宽度是十米。",
@@ -77976,19 +77983,70 @@
         [
           "请量一下宽度。",
           "Please measure the width."
+        ],
+        [
+          "门的宽度不够。",
+          "The door is not wide enough."
         ]
+      ],
+      "dropEx": [
+        "这条路的宽度是多少"
       ]
     },
     "hsk30l5/亏": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card is labelled a VERB and its gloss opens on two nouns, *deficiency, loss*; and its three sentences are THREE different senses, only one of which the gloss names. 亏你想到这种馔主意 is the ironic adverb CC-CEDICT gives last (*fancy that you thought of this*), 这笔生意亏了 is losing money, and 他从不亏待朋友 turns on 亏待, a word of its own that swallows the headword. The three senses are written out, each sentence tagged, and the swallowed one replaced with an AUTHORED sentence using 亏 as the bare verb. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
       "ex": [
         [
           "这笔生意亏了。",
           "This deal lost money."
         ],
         [
-          "他从不亏待朋友。",
-          "He never treats his friends unfairly."
+          "他从不亏自己的员工。",
+          "He never short-changes his own staff."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to lose (money); to be short of"
+        ],
+        [
+          "verb",
+          "to treat unfairly; to short-change"
+        ],
+        [
+          "adverb",
+          "luckily; (ironically) fancy that…"
+        ]
+      ],
+      "dropEx": [
+        "他从不亏待朋友"
+      ],
+      "exSense": [
+        3,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "亏损",
+          "kuīsǔn",
+          "deficit; financial loss"
+        ],
+        [
+          "吃亏",
+          "chīkuī",
+          "to suffer losses; to lose out"
+        ],
+        [
+          "多亏",
+          "duōkuī",
+          "thanks to; luckily"
+        ],
+        [
+          "亏待",
+          "kuīdài",
+          "to treat somebody unfairly"
         ]
       ]
     },
@@ -78006,30 +78064,31 @@
       ]
     },
     "hsk30l5/厘米": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 他却比我矮三厘米 and 他比我高三厘米 are the same comparison with the SAME three centimetres, once shorter and once taller — a NEAR-repeat the coverage checker cannot see, and the second was added by an earlier batch of this audit. Replaced by an AUTHORED sentence measuring a thing rather than a person. AUTHORED, and the record says so.",
       "ex": [
         [
           "这块布长五十厘米。",
           "This cloth is fifty centimetres long."
         ],
         [
-          "他比我高三厘米。",
-          "He is three centimetres taller than me."
+          "雪下了大约十厘米厚。",
+          "About ten centimetres of snow fell."
         ]
       ]
     },
     "hsk30l5/离职": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was *to leave one's job temporarily (e.g. for study)* — CC-CEDICT's first sense — and all three of the card's sentences are leaving for good: left the company, left his job, give a month's notice. The dictionary gives the permanent sense second and the card showed only that one. 我上个月从公司离职了 and 他上个月离职了 are also the same month in two persons, the second added by an earlier batch of this audit; it is replaced. AUTHORED, and the record says so.",
       "ex": [
-        [
-          "他上个月离职了。",
-          "He left his job last month."
-        ],
         [
           "离职要提前一个月说。",
           "You must give a month's notice before leaving."
+        ],
+        [
+          "他离职后开了一家小店。",
+          "After leaving his job he opened a small shop."
         ]
-      ]
+      ],
+      "gloss": "to leave one's job; to resign"
     },
     "hsk30l5/陆续": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -128769,6 +128828,257 @@
         [
           "这位客户下了一个大订单。",
           "This client has placed a large order."
+        ]
+      ]
+    },
+    "hsk30l5/口袋": {
+      "why": "The pinyin read kǒu dai, a neutral tone, where the card's OWN bopomofo reads ㄈㄞˇ ㄉㄞˋ and CC-CEDICT gives kou3 dai4. `check-pinyin.js` cannot see this — it compares syllable BOUNDARIES, which agree — and a blanket tone comparison is exactly what this audit has refused, 231 disagreements over the corpus being almost all sandhi and mainland-against-Taiwan neutral-tone variance. This is not that: it is one card with TWO witnesses against it, its own bopomofo and the dictionary, and it is corrected on that ground alone.",
+      "Pinyin": "kǒu dài"
+    },
+    "hsk30l5/口味": {
+      "why": "*My taste has got heavier* is the Chinese put through word by word; 口味重 is liking strong or salty flavours, which is what the sentence says and what an English reader cannot get from *heavier*.",
+      "exEn": [
+        [
+          "我的口味变重了",
+          "I have come to like stronger flavours."
+        ]
+      ]
+    },
+    "hsk30l5/库": {
+      "why": "NOT ONE of the card's three sentences used 库 as a word. 军火库 is a compound; 库德语 is a TRANSLITERATION of *Kurdish* — and the Taiwan form of it besides, the mainland writing 库尔德语 — and 库米 is a person called Kumi. So two of the three used the character for its SOUND alone, which is batch 89's 哈 finding exactly (Harbin, Karakorum and a yawn), and `check-example-fit.js` skips a one-character headword by design. Both transliterations are replaced with AUTHORED sentences using 库 as the bare noun. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "你会说库德语吗",
+        "库米是父亲喜欢狗的那个女孩"
+      ],
+      "ex": [
+        [
+          "库里还有多少货？",
+          "How much stock is left in the warehouse?"
+        ],
+        [
+          "这个库存放旧设备。",
+          "This store holds old equipment."
+        ]
+      ],
+      "compounds": [
+        [
+          "仓库",
+          "cāngkù",
+          "warehouse; storehouse"
+        ],
+        [
+          "车库",
+          "chēkù",
+          "garage"
+        ],
+        [
+          "水库",
+          "shuǐkù",
+          "reservoir"
+        ],
+        [
+          "库存",
+          "kùcún",
+          "stock; inventory"
+        ]
+      ]
+    },
+    "hsk30l5/宽": {
+      "why": "The card glosses one word, *wide*, under a *noun / verb / adjective* label — and its second sentence, 严以律己，宽以待人, is 宽 meaning LENIENT, which CC-CEDICT gives and the gloss did not, with an English (*Pardon all but thyself*) that is an archaic idiom saying nothing about either half of the Chinese. The two senses are split and each sentence tagged. Its other two sentences go: 生命不长，它是宽的！ is a translated aphorism in which 它是宽的 is not Chinese anyone writes, and 走廊要够轮椅宽 inverts the comparison it means. Both replaced with AUTHORED sentences. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "senses": [
+        [
+          "adjective",
+          "wide; broad"
+        ],
+        [
+          "adjective",
+          "lenient; tolerant"
+        ]
+      ],
+      "dropEx": [
+        "生命不长",
+        "走廊要够轮椅宽"
+      ],
+      "exEn": [
+        [
+          "严以律己，宽以待人",
+          "Be strict with yourself and lenient with others."
+        ]
+      ],
+      "ex": [
+        [
+          "这条河很宽。",
+          "This river is very wide."
+        ],
+        [
+          "走廊宽得能让轮椅通过。",
+          "The corridor is wide enough for a wheelchair to pass."
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "宽度",
+          "kuāndù",
+          "width"
+        ],
+        [
+          "放宽",
+          "fàngkuān",
+          "to relax (a rule); to ease (restrictions)"
+        ],
+        [
+          "宽敞",
+          "kuānchang",
+          "spacious"
+        ],
+        [
+          "宽容",
+          "kuānróng",
+          "tolerant; forgiving"
+        ]
+      ]
+    },
+    "hsk30l5/扩大": {
+      "why": "他真的很需要扩大自己的柏柏语词汇量 is grammatical and correct and is about BERBER, which a Level 5 reader will meet nowhere else; the sentence teaches the word inside a context that costs more attention than the word does. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "dropEx": [
+        "柏柏语词汇量"
+      ],
+      "ex": [
+        [
+          "学校决定扩大招生规模。",
+          "The school has decided to take in more students."
+        ]
+      ]
+    },
+    "hsk30l5/老板": {
+      "why": "我找你老板 and 老板在哪里？ are both somebody looking for the boss — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence on the *proprietor* sense the gloss gives and no sentence showed. AUTHORED, and the record says so.",
+      "dropEx": [
+        "老板在哪里"
+      ],
+      "ex": [
+        [
+          "这家店的老板很热情。",
+          "The owner of this shop is very friendly."
+        ]
+      ]
+    },
+    "hsk30l5/老公": {
+      "why": "TWO of the card's three sentences are about a husband being useless or impotent: 老公性无能，我该怎么办？ and 我老公没用。 The first is explicit and the second demeaning, and **`check-coarse.js` reports NEITHER** — asked on all six of its lists it returns nothing, because 性无能 is not a word any of them holds and *useless* is not coarse. This is the class its own header names: content no coarse-word list can reach. Both replaced with AUTHORED sentences. AUTHORED, and the record says so.",
+      "dropEx": [
+        "老公性无能",
+        "我老公没用"
+      ],
+      "ex": [
+        [
+          "我老公是老师。",
+          "My husband is a teacher."
+        ],
+        [
+          "她和老公一起去旅游了。",
+          "She and her husband have gone travelling."
+        ]
+      ]
+    },
+    "hsk30l5/老婆": {
+      "why": "The pinyin read lǎo po, a neutral tone, where the card's OWN bopomofo reads ㄌㄠˇ ㄆㄛˊ and CC-CEDICT gives lao3 po2. The same shape as 口袋 fourteen cards earlier and corrected on the same narrow ground: two witnesses against the pinyin, its own bopomofo and the dictionary. It is NOT a blanket tone sweep, which this audit has measured and refused.",
+      "Pinyin": "lǎo pó"
+    },
+    "hsk30l5/泪": {
+      "why": "The card's three sentences were read and are sound — 眼含着泪, 落泪 and 泪花 all use the character for what it means. What it had none of was a Compounds panel. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "眼泪",
+          "yǎnlèi",
+          "tears; a teardrop"
+        ],
+        [
+          "泪水",
+          "lèishuǐ",
+          "tears"
+        ],
+        [
+          "流泪",
+          "liúlèi",
+          "to shed tears"
+        ],
+        [
+          "催泪",
+          "cuīlèi",
+          "tear-provoking; tear (gas)"
+        ]
+      ]
+    },
+    "hsk30l5/类": {
+      "why": "我没接触过这个球类游戏 is 接触's own first sentence, ninety-seven cards earlier in this deck — and batch 93 rewrote the English on THAT card and not on this one, so the two now carried the same Chinese under two different translations. **That is a fault this audit made**, and it is the shape to watch for: an `exEn` row is keyed to one note, and a sentence standing on two notes takes the fix on one of them. Replaced here with an AUTHORED sentence, which settles it. The English on 你最喜欢哪类的衣服？ also said *item of clothing* where 哪类 is which KIND, which is the whole of what the card is about. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我没接触过这个球类游戏"
+      ],
+      "exEn": [
+        [
+          "你最喜欢哪类的衣服",
+          "What kind of clothes do you like best?"
+        ]
+      ],
+      "ex": [
+        [
+          "这类问题很常见。",
+          "Problems of this kind are common."
+        ]
+      ],
+      "compounds": [
+        [
+          "人类",
+          "rénlèi",
+          "humankind; the human race"
+        ],
+        [
+          "种类",
+          "zhǒnglèi",
+          "kind; type; category"
+        ],
+        [
+          "分类",
+          "fēnlèi",
+          "to classify"
+        ],
+        [
+          "类似",
+          "lèisì",
+          "similar; analogous"
+        ]
+      ]
+    },
+    "hsk30l5/泪水": {
+      "why": "他的眼里流出了泪水 and 我在她的眼睛里看到泪水 are both tears in somebody's eyes — a NEAR-repeat the coverage checker cannot see, and the card BEFORE this one, 泪, has a third of them (他的眼里涌动着泪花). One is replaced by an AUTHORED sentence in which the tears do something. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我在她的眼睛里看到泪水"
+      ],
+      "ex": [
+        [
+          "她的泪水打湿了信纸。",
+          "Her tears soaked the writing paper."
+        ]
+      ]
+    },
+    "hsk30l5/梨": {
+      "why": "我喜欢吃加酪梨的素食汉堡 turns on 酪梨, which is an AVOCADO and not a pear at all — CC-CEDICT marks it **(Tw)**, the mainland word being 牛油果 — so the card's character stood inside a Taiwan word for a different fruit. The fourth regional-vocabulary finding in six batches, and the first the dictionary itself flags. 这只梨 also counts a pear with 只 where the card's OWN measure-word field says 个. Both replaced with AUTHORED sentences. **No Compounds panel is written**, for 捡's reason: CC-CEDICT's 梨 words are 梨子, 鸭梨 and a string of botanical and loanword entries (士多啡梨 is a Hong Kong strawberry), so there is no set of three ordinary words to give. AUTHORED, and the record says so.",
+      "dropEx": [
+        "这只梨闻上去很香",
+        "素食汉堡"
+      ],
+      "ex": [
+        [
+          "这个梨很甜。",
+          "This pear is very sweet."
+        ],
+        [
+          "秋天是吃梨的季节。",
+          "Autumn is the season for pears."
         ]
       ]
     }
