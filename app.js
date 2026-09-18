@@ -20562,6 +20562,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        marks inside 17px is a blob, and the arch plus one platform says the same thing. Looked at at 20,
        24, 28, 40 and 64px on dark ground and on light, beside `pyramid`, `mountain` and `crown`. */
     { k: "eiffel", n: "Eiffel Tower", d: '<path d="M5 21h14"/><path d="M6.8 21C9.9 19 11.5 12.5 12 2.5"/><path d="M17.2 21C14.1 19 12.5 12.5 12 2.5"/><path d="M8.2 19.6Q12 17 15.8 19.6"/><path d="M9.8 16.3h4.4"/>' },
+    /* supply-and-demand cross — Economics. The Marshallian cross, which is the one image the subject
+       has made entirely its own: nothing else on this shelf is a CHART, and a reader who has had one
+       economics lesson recognises it. `coin` already exists and is claimed by no collection, so reuse
+       was available and was refused — a coin says MONEY, and money is one deck of nine here; the mark
+       should say what the collection is about, which is choice under scarcity.
+       THE COLLISION IS READING AS A BARE X, AND THE AXIS IS THE WHOLE OF WHAT PREVENTS IT — measured,
+       not assumed: rendered without the L the two curves are simply a saltire at every size. KEEP THE
+       AXIS. The CURVATURE is a weaker claim than it looks and the render said so: a straight-line
+       variant reads almost identically below about 28px, and the curve only becomes visible at 40px
+       and up. It is kept because it is what makes the mark a supply-and-demand diagram rather than a
+       generic X-in-axes where it CAN be seen, not because it rescues the small sizes. Looked at at 20,
+       24, 28, 40 and 64px, on dark ground and on light, beside `coin` and `atom`. */
+    { k: "cross", n: "Supply and demand", d: '<path d="M4.5 3.5V19.5H20"/><path d="M7.5 17.5C10.5 16 13 12.5 17.5 6.5"/><path d="M7.5 6.5C10.5 8 13 11.5 17.5 17.5"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20644,6 +20657,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     dino: "sauropod",
     astro: "ringed",
     france: "eiffel",
+    econ: "cross",
     korea: "taegeuk",
     /* Visual Art takes the EXISTING `brush`, which is the one collection mark on this shelf that was
        reused rather than drawn. Every other was checked by eye at the 24-28px a deck row draws it at,
@@ -25227,7 +25241,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -26064,6 +26078,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        is. The magenta and the olive-brass were NOT re-measured, on the standing note above. Looked at as
        a banner and as its 20% wash beside its four nearest neighbours. */
     france:   { bg: "#6A7D81" },
+    /* deep cyan-teal (Economics) — MEASURED, and the first hue here CHOSEN ON DENSITY AS WELL AS
+       DISTANCE. Economics has no canonical colour, and the two reached for are the two most crowded
+       quarters on this shelf: the green family's best free candidate scores 20.1 with three neighbours
+       inside 20.3, and the brass-gold band tops out at 19.7 against Dinosaurs' ochre and World
+       History's sepia. THE ONE SPECIFIC ASSOCIATION FAILS ON KOREA'S OWN RULE — the Financial Times
+       salmon is very pale (about #FFF1E5), far above a banner's contrast floor, so what would ship is a
+       DEEPENED salmon that is not FT pink at all ("the versions that DO score are not the colour they
+       are named after"); measured anyway it scores 20.3 with plum, kuwazome and the Mandarin deck all
+       inside 0.4 of each other.
+       So this is chosen on separation and named for what it is: 21.1 from Egypt's malachite, 22.0 from
+       Greece's Aegean, 23.6 from Philosophy's petrol, against a median of 20.7 over the 29 hues here.
+       L 53, chroma 31 (below the shelf's median of 44), 4.0:1 against white — the same as Politics:
+       East Asia's.
+       DENSITY IS THE NEW MEASURE AND IS WORTH KEEPING: a nearest-neighbour figure says nothing about
+       how many hues sit just beyond it, and this shelf is now full enough that it matters. Counting
+       hues within 30, this one has 4 — against Philosophy's 5, Astronomy's 6 and France's 7.
+       IT SHARES A HUE ANGLE WITH PHILOSOPHY'S PETROL (both 208) AND IS 23.6 AWAY, WHICH IS THE POINT:
+       petrol is L 32 / chroma 20 and this is L 53 / chroma 31, so the separation is bought by
+       LIGHTNESS — Biology's fifth-green argument in another family, and the shelf gains the light end
+       of a band it had only the dark end of. The magenta came top of the unconstrained sweep AGAIN at
+       26.5 and is rejected for the SIXTH time; the olive-brass for the fifth. Neither should be
+       measured again. Looked at as a banner and as its 20% wash beside its neighbours. */
+    econ:     { bg: "#008C96" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median

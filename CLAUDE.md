@@ -643,6 +643,54 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     version there may predate refereeing. Cite the journal version where one exists.
   The next card to write is the lowest `astro-NNN` not yet in `data.js`; the index table under "THE
   PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/economics-card-plan.md` — READ BEFORE WRITING AN `ec-` CARD.** The **1000-card running
+  order for the Economics collection** (`econ`): every card's number, topic and deck, fixed in advance
+  across 9 decks and 40 leaf decks. The twenty-third of the planned collections, the seventh that is not
+  history, and the eighth to **create its own collection** — node, tree, `COLL_THEME` hue, a new
+  `ICON_SYMBOLS` mark (`cross`) and a `COLLECTION_SECTION` row ship with the plan. **It joins the
+  `Science` section on the PSYCHOLOGY precedent** — a social science is already filed there — and the
+  alternative, a new *Social Sciences* section, was refused because it would be incoherent while
+  Psychology stayed under Science, and moving Psychology is a change nobody asked for. **If a third
+  social science ever lands, the right move is a Social Sciences section taking both**, which is a
+  stated future rather than a silent oddity.
+  · **THE FIRST SCOPE DECISION IS THAT ECONOMICS IS CONTESTED AND THE COLLECTION CARDS THE CONTEST.**
+    Unlike Biology or Astronomy there are live schools with incompatible frameworks, and most
+    accessible writing presents one as simply the truth. `ec-017` *Why economists disagree* opens the
+    collection and `ec-303`–`ec-307` card **four accounts of the business cycle side by side**. A card
+    may say the question is open; it may not settle one the literature has not. **"Economists agree
+    that…" is almost always trivial or false** — where a consensus exists it is survey-measurable and is
+    cited as a survey.
+  · **NOTHING IN THIS COLLECTION IS INVESTMENT ADVICE, and that is a rule rather than a disposition.**
+    Four subdecks describe assets, prices, bubbles and returns and are one careless sentence from
+    reading as a recommendation. **No card says what will happen to a price, what to buy or hold, or
+    that any asset class is a good investment.** `ec-438`/`ec-439` card the efficient market hypothesis
+    with the evidence both ways and `ec-445` says plainly that bubbles are hard to identify in advance.
+    **This risk exists in no other collection on the shelf.**
+  · **A MODEL IS CARDED WITH WHAT IT ASSUMES**, and **positive and normative are distinguished
+    repeatedly** — `ec-040` *Why efficiency is not the same as good* and `ec-073` *What Pareto
+    efficiency ignores*. A card that uses "efficient" as praise has made an argument it did not make.
+  · **A CURRENCY FIGURE IS NOT CONVERTED AND MUST CARRY A YEAR.** The house units rule knows nothing
+    about money and should not — an exchange rate is not a unit conversion and a 1930 dollar is not a
+    2020 dollar. **A bare currency figure with no year is the commonest way a card here will be quietly
+    wrong**; likewise a statistic with no series and no vintage. **Most cards in decks 1–7 take an EMPTY
+    date line**, a concept having no date.
+  · **THE OVERLAPS WERE MEASURED AND THE FIRST IS THE SHARPEST ON THE SHELF.** **Psychology already
+    holds behavioural economics' MECHANISMS — twelve cards** (`ps-106`, `ps-541`–`ps-555`, `ps-531`) —
+    so **Psychology cards them as findings about how minds decide and Economics cards what they do to
+    the model of choice**; the individual heuristics are **not re-carded at all**. Philosophy holds the
+    MORAL arguments (about twenty cards) and World History the ECONOMIC HISTORY (about twenty-four):
+    `wh-908` is what the Great Depression was, `ec-312`–`ec-314` are what caused it and why the
+    explanations differ.
+  · **THE GLOSSARY TRAP IS THE OPPOSITE OF KOREA'S**: the vocabulary is not proper nouns but **ordinary
+    English words used as technical terms** — demand, supply, capital, rent, interest, market, growth,
+    equity, value. **Almost none may claim its bare surface**, on `Life_(biology)`'s rule; key them
+    `Demand_(economics)` and reach them by a narrower alias and a hand-written `data-k`.
+  · **MOST ACCESSIBLE ECONOMIC WRITING COMES FROM ORGANISATIONS WITH POSITIONS** — think tanks, bank
+    research arms, advocacy groups, party-aligned institutes. Not a reason never to cite them, since a
+    body's own argument is a source for that argument; a reason to **name what the body is** and never
+    to use one as independent evidence for a contested empirical claim.
+  The next card to write is the lowest `ec-NNN` not yet in `data.js`; the index table under "THE PLANNED
+  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/korea-card-plan.md` — the **1000-card running order for the Korea collection** (`korea`): every
   card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The sixteenth of the
   planned collections, the eleventh history one, and the fifth to **create its own collection** — node,
@@ -1373,7 +1421,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.41 MB and 49,768 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.41 MB and 49,805 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6643,6 +6691,7 @@ lookup.
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | empty — not a history collection |
+| Economics | `econ` | `ec-` | `docs/economics-card-plan.md` | 9 / 40 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
 | France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
@@ -6662,7 +6711,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (319 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (331 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7623,7 +7672,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 319 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 331 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

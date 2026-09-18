@@ -10176,6 +10176,316 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "econ",
+      "title": "Economics",
+      "total": 0,
+      "children": [
+        {
+          "id": "ec-what",
+          "title": "What Economics Is",
+          "total": 90,
+          "children": [
+            {
+              "id": "ec-subject",
+              "title": "The subject and its questions",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ec-scarcity",
+              "title": "Scarcity, choice and cost",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ec-models",
+              "title": "Models, assumptions and evidence",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-limits",
+              "title": "What economics can and cannot say",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-micro",
+          "title": "Microeconomics",
+          "total": 130,
+          "children": [
+            {
+              "id": "ec-demand",
+              "title": "Demand, supply and price",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-consumer",
+              "title": "Choice and the consumer",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-firm",
+              "title": "Firms, costs and production",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-competition",
+              "title": "Market structure",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-failure",
+              "title": "When markets fail",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-macro",
+          "title": "Macroeconomics",
+          "total": 130,
+          "children": [
+            {
+              "id": "ec-measure",
+              "title": "Measuring an economy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-output",
+              "title": "Output, employment and the short run",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-inflation",
+              "title": "Inflation and prices",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-cycles",
+              "title": "Business cycles and crises",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-policy",
+              "title": "Macroeconomic policy",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-money",
+          "title": "Money, Banking and Finance",
+          "total": 110,
+          "children": [
+            {
+              "id": "ec-monetary",
+              "title": "Money and what it does",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-banks",
+              "title": "Banks and credit",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-central",
+              "title": "Central banking",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-markets",
+              "title": "Financial markets",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ec-crises",
+              "title": "Financial crises",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-state",
+          "title": "Government and the Economy",
+          "total": 100,
+          "children": [
+            {
+              "id": "ec-public",
+              "title": "Public goods and public finance",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-tax",
+              "title": "Taxation",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-regulation",
+              "title": "Regulation and competition policy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-welfare",
+              "title": "The welfare state",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-world",
+          "title": "Trade and the World Economy",
+          "total": 100,
+          "children": [
+            {
+              "id": "ec-trade",
+              "title": "Why countries trade",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-tradepolicy",
+              "title": "Trade policy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-exchange",
+              "title": "Exchange rates and the balance of payments",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-global",
+              "title": "Globalisation and its institutions",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-growth",
+          "title": "Growth, Development and Inequality",
+          "total": 110,
+          "children": [
+            {
+              "id": "ec-growth-theory",
+              "title": "Economic growth",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-development",
+              "title": "Development economics",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-inequality",
+              "title": "Inequality and poverty",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-labour",
+              "title": "Work, wages and labour markets",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-thought",
+          "title": "The History of Economic Thought",
+          "total": 120,
+          "children": [
+            {
+              "id": "ec-before",
+              "title": "Economic thought before economics",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ec-classical",
+              "title": "The classical economists",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-marginal",
+              "title": "The marginal revolution",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-keynes",
+              "title": "Keynes and the interwar break",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-postwar",
+              "title": "Economics since 1945",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-applied",
+          "title": "Economics in the World",
+          "total": 110,
+          "children": [
+            {
+              "id": "ec-behavioural",
+              "title": "Behaviour, information and games",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-environment",
+              "title": "The environment and the long run",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-methods",
+              "title": "How economists find things out",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-discipline",
+              "title": "The discipline and its critics",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "korea",
       "title": "Korea",
       "total": 100,
