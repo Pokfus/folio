@@ -490,6 +490,14 @@ let hitsLex = 0;
 let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [], badExStop = [], badExSpace = [], badExVar = [];
 let hitsPunct = 0;
 
+/* THE FIELDS A RECORD ENTRY MAY WRITE STRAIGHT THROUGH, and every other key it may legitimately carry.
+   `Traditional` joined the first list in Sep 2026 (batch 98): it was missing, so a correction to it was
+   applied, written nowhere and passed by `--check`. `Simplified` is deliberately NOT here — it is the
+   KEY an entry is looked up by, and writing it would rename the note out from under its own record. */
+const DIRECT_FIELDS = ["Pinyin", "Bopomofo", "Traditional", "Say", "Measure word", "Literally", "Origin", "Examples", "Compounds"];
+const KNOWN_KEYS = new Set(DIRECT_FIELDS.concat(
+  ["why", "senses", "gloss", "glossAll", "mw", "ex", "dropEx", "exEn", "exStop", "exSense", "exSpace", "exVariant"]));
+const badKey = [];
 const hints = Object.entries(fixes.hints || {});
 const hintsByDeck = new Map();
 const seenHint = new Set();
@@ -604,8 +612,19 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
        record also carries `why`, `senses`, `mw`, `ex` and the rest, which are compact forms this file
        EXPANDS rather than values to be written through. A field added to the deck's type (see
        `decks.addFields`) has to be named here too, or the column is created and never filled. */
-    for (const k of ["Pinyin", "Bopomofo", "Say", "Measure word", "Literally", "Origin", "Examples", "Compounds"]) {
+    for (const k of DIRECT_FIELDS) {
       if (fix[k] !== undefined) fl[k] = fix[k];
+    }
+    /* A KEY THIS FILE DOES NOT HANDLE IS REPORTED, because until Sep 2026 it was silently dropped
+       (batch 98). `Traditional` was not in the list above and is a field every deck carries, so a record
+       entry correcting one — 录 carried 彔, which CC-CEDICT glosses "to carve wood", where the traditional
+       of 录 in this card's sense is 錄 — applied cleanly, wrote nothing, and `--check` passed. The record
+       is the ONE way these decks may be edited, so a field it cannot reach is a field that can never be
+       corrected at all; and a key it drops without a word is worse, because the record then claims an
+       edit the deck has not got. This is a REPORT rather than a failure: the list below is a whitelist of
+       what may be written through, and a typo in a key name is what it is really for. */
+    for (const k of Object.keys(fix)) {
+      if (!KNOWN_KEYS.has(k)) badKey.push(w.key + " → " + k);
     }
     if (fix.ex || fix.dropEx) {
       let kept = String(fl.Examples || "").split('<div class="uc-exi').filter(Boolean)
@@ -923,6 +942,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
 }
 for (const [key] of entries) if (!seen.has(key)) missing.push(key);
 for (const [key] of hints) if (!seenHint.has(key)) missing.push(key + " (hint)");
+if (badKey.length) console.log("\n  note  " + badKey.length + " record key(s) this file does not handle:\n        " + badKey.join("\n        "));
 
 if (hitsPunct) console.log("\n  " + hitsPunct + " example block set(s) repunctuated (ASCII marks after a Chinese character)");
 if (hitsLex) console.log("  " + hitsLex + " card(s) put into British word choices from the declared LEXIS table");

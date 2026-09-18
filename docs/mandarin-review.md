@@ -633,6 +633,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 631–660 (据说 → 空间), deck order, plus the applier's hint strip | 20 + 1 | **`hints` is called authoritative and was not: a retired disambiguator stayed on its card for ever and `--check` went on passing** |
 | 2026-09-18 | `hsk30l5` notes 661–690 (空中 → 理论), deck order | 17 | **a sentence standing on TWO cards took last batch's English fix on only one of them — a fault this audit made** |
 | 2026-09-18 | `hsk30l5` notes 691–720 (里头 → 流传), deck order | 18 + 1 | **three cards glossing the one sense none of their sentences shows, and a second dead disambiguator retired** |
+| 2026-09-18 | `hsk30l5` notes 721–750 (流感 → 迷), deck order, plus the applier's field whitelist | 28 | **a card's TRADITIONAL field carried the wrong character — and the record could not reach that field at all** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -8987,3 +8988,119 @@ pair separating; one-sided hints still 0 and no card carries a hint the record d
 clean; **example-fit 141 → 140**, the one cleared being 连接's 相连接; senses 151 unchanged; british 0;
 34,596 blocks with spoken == visible on every one; sense-tagged 714 unchanged; `build-lang-decks.js`
 re-run.
+
+## Batch 98 — hsk30l5 notes 721–750 (流感 → 迷)
+
+Thirty consecutive notes of HSK Level 5 in deck order. **Twenty-eight cards changed**, two read and left
+— the highest count of the audit, and the batch also found a field the record had no way to write.
+
+### A wrong traditional character, in a field the record could not reach
+
+**录's Traditional field read 彔.** CC-CEDICT glosses 彔 *to carve wood*; the traditional form of 录 in the
+sense this card teaches — to record — is **錄**, a separate dictionary entry. So the card offered a
+traditional-script reader a different word.
+
+**Correcting it did nothing, silently.** The applier writes a record entry's fields through a WHITELIST,
+and `Traditional` was not on it: the entry applied cleanly, wrote nothing, and `--check` passed, because
+`--check` re-applies and compares and the field was never touched on either run. **The record is the one
+way these decks may be edited, so a field it cannot reach is a field that can never be corrected at
+all** — and a key it drops without a word is worse, because the record then claims an edit the deck has
+not got.
+
+**Two changes to `mandarin-fix.js`, both small.** `Traditional` joins the whitelist — `Simplified`
+deliberately does not, being the key an entry is looked up by, so writing it would rename a note out from
+under its own record — and **an unhandled key is now REPORTED**, which is what would have caught this in
+the first second rather than the tenth minute. The change is proved inert: re-running writes exactly the
+one changed note and the other eight decks come back byte-identical.
+
+**And the class was then measured over the whole corpus.** Of **6,691 notes carrying a Traditional field
+that differs from the simplified**, only **six** are not a CC-CEDICT traditional/simplified pair, and
+three of those are right: 系 and 蒙 carry two readings and therefore two traditionals separated by a
+slash, and 事迹's 事跡 uses 跡, which the dictionary holds as a bound form of 迹. **Three are open work
+and all sit outside this batch's range**: `hsk30l2/裤子` carries 裤子 where the traditional is 褲子,
+`hsk30l5/面向` carries 面單 where 向 does not change in traditional script at all, and `hsk30l6/野`
+carries 壄, an ancient variant, where 野 is its own traditional. Recorded rather than swept, this batch
+being full.
+
+### A sentence dropped from one card and left standing on another — the mirror of last batch
+
+**录's second sentence was 他录了一个纪录片给我**, which is **the sentence batch 91 dropped from 纪录片**
+— dropped there for counting a film with 个 against that card's own measure word 部, and because one does
+not 录 a documentary. It was left standing here.
+
+Batch 96 found this from the other side: an `exEn` row fixed 接触 and left 类 saying the old thing. **Both
+are one rule: `dropEx` and `exEn` are keyed to ONE note, and a sentence living on two notes takes the
+edit on one of them.** Grep the corpus for a sentence before dropping or re-translating it.
+
+### The applier refusing a separable verb, and being right to
+
+The first replacement written for 录音 was 讲座全程都录了音 — the separable form — and **the applier
+refused the batch**: an example must contain its headword as a contiguous string, because the block bolds
+the headword and a split verb cannot be bolded. The guard is right; the sentence was rewritten to
+我们给这首歌录音 rather than the guard widened.
+
+### A fifth card whose pinyin disagreed with its own bopomofo — and a sixth going the other way
+
+**逻辑 read luó jí** against its own ㄌㄨㄛˊ ㄐㄧ˙ and CC-CEDICT's luo2 ji5: the pinyin is the outlier,
+as on 口袋, 老婆 and 力量.
+
+**买卖 is the same shape reversed and is the interesting one.** CC-CEDICT holds TWO entries — mǎi mài *to
+buy and sell* and mǎi mai *a transaction; a shop* — and the card's pinyin read the neutral tone while its
+bopomofo read ㄇㄞˋ. Its own three sentences settle it: 做买卖, 小买卖 and 这笔买卖 are all the NOUN, so
+the neutral reading is the card's and **the BOPOMOFO is what is corrected**. Which is the point of reading
+the sentences rather than trusting whichever field one happens to look at first.
+
+### Eight glosses and labels answering a different question
+
+**陆地 was glossed *dry land; terrace***, and a 陆地 is not a terrace and never was. **玫瑰 was glossed
+*rugosa rose (shrub) (Rosa rugosa)***, CC-CEDICT's botanical first sense, over three sentences that are
+simply roses. **魅力 was glossed *enchantment***, a word about spells, over three that are charm and
+charisma. **没法儿 was glossed the single capitalised word *Can't***, which is neither a definition nor a
+part of speech. **路线 was glossed *itinerary*** over three route maps. **满足 is labelled a VERB and
+glossed two adjectives**; **美味 is labelled a NOUN and glossed an adjective**; **门诊 is labelled a VERB
+and glossed a noun phrase**. And **迷 is labelled a verb** while its own second sentence is the noun, a
+fan.
+
+### Nine near-repeats, one of them three sentences deep
+
+**美味's three were all about CAKE.** 流感 had the same speaker with the same flu twice; 漏 had the same
+roof leaking twice; 路人 had one person asking the way and another showing it; 路线 asked twice for a
+route map; 录音 had the same tape recorder twice; 忙碌 had the same predicate in two persons; 玫瑰 had two
+blue roses; 美术 went to the gallery twice. Four were added by earlier batches of this audit.
+
+### A 41-character sentence, and four that are not Chinese
+
+**陆续's first ran to 41 characters of games journalism** — the third length fault after 紧密 and 近年来
+in batch 94. **毛病's 这个鼠标突然毛病了 makes a verb of a noun** and so has no predicate at all.
+**录取's 我希望考试能录取 puts the candidate in the subject slot** of a verb that takes him as its object.
+**矛盾's 他们有时候有矛盾冲突 carries no terminal punctuation** and says the same thing twice in 矛盾冲突.
+**忙碌's 我有一个忙碌的生活 是 *I have a busy life* word for word.**
+
+### Five English translations that dropped or replaced the word
+
+媒体's *The media stuck a shiv into his reputation*, an American prison idiom for 抹黑; 论文's *essay*
+where the card's own gloss and its other two sentences say *thesis*; 浏览's *visit art galleries* for a
+word the card glosses as *browse*; 留言's *Leave a comment, OK?* for a sentence that ASKS — 可以留言吗？;
+and 录取's *I hope to graduate at the exams*.
+
+### Two single-character cards gained a `Compounds` section — and 人龙 was checked and kept
+
+龙, 漏, 录, 骂 and 迷 took one. **骂's own three sentences were read and are sound**, the first being
+妈妈骂马吗？, a deliberate tone drill. **龙's 买票的人龙竟然那么长 looked like a Hong Kong usage and
+was kept**: CC-CEDICT gives 人龙 plainly as *a queue of people*, with no regional marker, so the sentence
+stands. Its 龙猫说 did not — CC-CEDICT gives 龙猫 as *chinchilla* and *Totoro*, so the character stood
+inside a cartoon name.
+
+### What was read and left
+
+**Two cards were read and left untouched**: 旅行社 and 毛笔. **旅行社's 旅行社的利润猛涨 is also 利润's
+own first sentence**, thirty-six cards earlier — the closest such pair the audit has met, and left on
+both: it is a good sentence for each headword, and re-writing one of them would be inventing a fault. It
+is recorded so the next reader knows it was seen.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 320 unchanged — so none of the six gloss rewrites made a new
+collision; one-sided hints still 0; pinyin clean; example-fit 140 and senses 151 unchanged; british 0;
+34,596 blocks with spoken == visible on every one; **sense-tagged 714 → 723**, the nine being 满足's,
+美味's and 迷's; `build-lang-decks.js` re-run. **No changelog line and no version bump for the applier
+change**: `.claude/decks/mandarin-fix.js` is not part of the site.
