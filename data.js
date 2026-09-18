@@ -9836,6 +9836,346 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "astro",
+      "title": "Astronomy",
+      "total": 0,
+      "children": [
+        {
+          "id": "astro-sky",
+          "title": "Looking Up",
+          "total": 90,
+          "children": [
+            {
+              "id": "astro-what",
+              "title": "What astronomy is",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "astro-sphere",
+              "title": "The celestial sphere",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-motion",
+              "title": "The moving sky",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-constellations",
+              "title": "Constellations and star names",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-calendar",
+              "title": "Eclipses, tides and calendars",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-solar",
+          "title": "The Solar System",
+          "total": 150,
+          "children": [
+            {
+              "id": "astro-formation",
+              "title": "How the Solar System formed",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-inner",
+              "title": "The rocky planets",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "astro-giants",
+              "title": "The giant planets",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-moons",
+              "title": "Moons",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-small",
+              "title": "Asteroids, comets and meteorites",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "astro-outer",
+              "title": "The outer Solar System",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-stars",
+          "title": "The Sun and the Stars",
+          "total": 130,
+          "children": [
+            {
+              "id": "astro-sun",
+              "title": "The Sun",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "astro-starbasics",
+              "title": "What a star is",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-measuring",
+              "title": "Measuring the stars",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-hr",
+              "title": "The H–R diagram",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-multiples",
+              "title": "Binaries, clusters and variables",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-lives",
+          "title": "Lives and Deaths of Stars",
+          "total": 120,
+          "children": [
+            {
+              "id": "astro-birth",
+              "title": "Star formation",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-ism",
+              "title": "The interstellar medium",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-fusion",
+              "title": "Nuclear burning and the elements",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-late",
+              "title": "Old age and mass loss",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-remnants",
+              "title": "Supernovae and remnants",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-exo",
+          "title": "Planets Beyond the Sun",
+          "total": 80,
+          "children": [
+            {
+              "id": "astro-detect",
+              "title": "Finding exoplanets",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-worlds",
+              "title": "What exoplanets are like",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-habit",
+              "title": "Habitability",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "astro-life",
+              "title": "Life in the universe",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-galaxies",
+          "title": "Galaxies",
+          "total": 110,
+          "children": [
+            {
+              "id": "astro-milkyway",
+              "title": "The Milky Way",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "astro-kinds",
+              "title": "Kinds of galaxy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-agn",
+              "title": "Active galaxies and black holes",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-clusters",
+              "title": "Clusters and large-scale structure",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-evolution",
+              "title": "How galaxies change",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-cosmology",
+          "title": "Cosmology",
+          "total": 110,
+          "children": [
+            {
+              "id": "astro-expansion",
+              "title": "The expanding universe",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-bigbang",
+              "title": "The hot Big Bang",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-darkmatter",
+              "title": "Dark matter",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-darkenergy",
+              "title": "Dark energy and the fate of everything",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-open",
+              "title": "What cosmology does not know",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-observing",
+          "title": "Observing the Universe",
+          "total": 130,
+          "children": [
+            {
+              "id": "astro-light",
+              "title": "What light carries",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-gravity",
+              "title": "Gravity and orbits",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-telescopes",
+              "title": "Telescopes",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-spectrum",
+              "title": "Across the spectrum",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-missions",
+              "title": "Observatories and space missions",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-messengers",
+              "title": "Beyond light",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-history",
+          "title": "The History of Astronomy",
+          "total": 80,
+          "children": [
+            {
+              "id": "astro-ancient",
+              "title": "Ancient and medieval astronomy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-revolution",
+              "title": "The Copernican revolution",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-modern",
+              "title": "The making of modern astrophysics",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-today",
+              "title": "Astronomy now",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "korea",
       "title": "Korea",
       "total": 100,

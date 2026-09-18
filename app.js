@@ -20530,6 +20530,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        bought at a small cost in legibility. A hanok roof was rejected for being China's pagoda at 28px
        and a moon jar for being a circle. The two arcs are exact semicircles (r 4.3 across a chord of 8.6)
        with opposite sweep flags, which is what makes the S symmetrical about the centre. */
+    /* ringed planet — Astronomy. The one mark that says this subject and nothing else at the 24-28px a
+       deck row draws it at. THE COLLISION TO AVOID IS `atom`, NOT `star`: this shelf already carries
+       sun, moon, star and atom, and the first three are each one shape, but the atom is a small disc
+       crossed by an ellipse — the same construction. What separates them is PROPORTION. The atom's
+       nucleus is r 1.9 inside THREE ellipses of rx 9; this is a disc of r 5 inside ONE ring of rx 10.5.
+       A single ring around a large disc is Saturn; three rings around a dot is an atom. If it is ever
+       redrawn, keep the disc large and the ring single, and do not add a second ring. `star` was
+       considered and refused for a different reason — the United States collection already wears it, and
+       two collections sharing a mark is what these exist to prevent (Visual Art's reuse of `brush` is a
+       stated cost, not a precedent). LOOKED AT at 24, 28 and 40px, on dark ground and on light, beside
+       `atom` and `star`: the failure this had to clear is the ring reading as a strike-through, and it
+       does not — the -18 degree tilt and the ring's overhang (x 1.96-22.04 against the disc's 7-17) read
+       as a ring at every size. */
+    { k: "ringed", n: "Ringed planet", d: '<circle cx="12" cy="12" r="5"/><ellipse cx="12" cy="12" rx="10.5" ry="3.4" transform="rotate(-18 12 12)"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20610,6 +20624,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     phil: "owl",
     bio: "helix",
     dino: "sauropod",
+    astro: "ringed",
     korea: "taegeuk",
     /* Visual Art takes the EXISTING `brush`, which is the one collection mark on this shelf that was
        reused rather than drawn. Every other was checked by eye at the 24-28px a deck row draws it at,
@@ -25193,7 +25208,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -25989,6 +26004,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        yellow-green-brown quarter. What remains genuinely open is narrow, and the next collection may have
        to accept a distance nearer the median than the maximum, as Philosophy's petrol did at 19.8. */
     dino:     { bg: "#967B00" },
+    /* deep violet (Astronomy) — MEASURED, like every hue above it, and the one where the OBVIOUS colour
+       was measured and REFUSED. An astronomy collection wants a midnight blue and cannot have one: swept
+       in CIELAB against all 27 hues on the shelf, the best night-sky candidate stands 12.6 from the
+       United States' navy and one a little bluer stands 4.2, against a TIGHTEST EXISTING PAIR of 12.9
+       (China's vermilion vs Russia's lacquer) — so it would ship at or below the worst separation this
+       shelf has ever accepted, which is a floor rather than a target. The blue quarter already carries
+       Greece's Aegean, Geography-China's blue, the French deck's blue and Politics: East Asia's
+       periwinkle. DO NOT RE-RUN THAT SWEEP; it does not come out differently.
+       What is taken instead is the DARK END OF THE VIOLET BAND — the twilight rather than the night, and
+       the one region near the wheel's optimum an astronomy collection can honestly claim. It stands 21.0
+       from Psychology's plum, 21.3 from Rome's imperial purple and 21.5 from Japan's kuwazome, very
+       nearly equidistant from all three, against a median nearest-neighbour distance of 20.1. L 28,
+       chroma 35 (below the shelf's median of 44, so inside the muted register), 10.0:1 against white.
+       IT IS A FOURTH PURPLE and needs the argument Biology's fifth green needed: the other three sit at
+       L 38, L 45 and L 53, and this is at L 28 — far darker than any of them, which is why the
+       measurement puts it a clear 21 from each rather than inside the family. The magenta and the
+       olive-brass were NOT re-measured, on the standing note above. IT WAS LOOKED AT, unlike the last
+       four hues here: rendered as a banner and as its 20% wash beside plum, imperial purple, kuwazome
+       and navy, it is plainly a different colour from all four. If it ever needs moving, go darker and
+       less red, not brighter. */
+    astro:    { bg: "#5E3262" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median

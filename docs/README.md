@@ -80,6 +80,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `philosophy-card-plan.md` | Philosophy (`phil`) | `ph-` |
 | `biology-card-plan.md` | Biology (`bio`) | `bio-` |
 | `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
+| `astronomy-card-plan.md` | Astronomy (`astro`) | `astro-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |
 | `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; the artwork card format is built | `art-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |

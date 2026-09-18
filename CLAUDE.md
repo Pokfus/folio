@@ -443,7 +443,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   used exactly like the other two — the next card to write is the lowest `rm-NNN` not yet in `data.js` —
   see the "ANCIENT ROME" bullet under "Generating cards & glossary entries". The plan and the tree
   shipped together on 2026-08-06; the collection is **live and well under way**, and the index table
-  under "THE NINETEEN PLANNED COLLECTIONS" carries the count rather than this bullet — it read "No card
+  under "THE PLANNED COLLECTIONS" carries the count rather than this bullet — it read "No card
   has been written yet" for the month in which the first three hundred shipped. Not part of the site.
 - `docs/russia-card-plan.md` — the **1000-card running order for the Russia collection** (`col-42`): every
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
@@ -519,7 +519,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   themselves against — and that **a finding is described with the people it was found in**, which is
   the psychology form of the history plans' rule about a state's account of itself and the easiest one
   here to break by accident. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the
-  index table under "THE NINETEEN PLANNED COLLECTIONS" is the lookup, and carries the count. **Its first
+  index table under "THE PLANNED COLLECTIONS" is the lookup, and carries the count. **Its first
   cards have shipped**, so the collection is live — `isComingSoon` is false for a node holding a card — and its 37 empty decks are
   coming-soon automatically, on the same rule. That first card is also what **woke the `Science` row in
   `COLLECTION_SECTIONS`**, which shipped inert with the plan: `sectionOf` returns History for anything
@@ -541,7 +541,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   are already in Folio's Library**, eleven with their original-language column, so `card.quote` is worth
   more here than anywhere on the site; and **a work is cited by its standard divisions** (Stephanus,
   Bekker, A/B) rather than by the page of one translation. The next card to write is the lowest `ph-NNN`
-  not yet in `data.js`; the index table under "THE NINETEEN PLANNED COLLECTIONS" is the lookup. **No card
+  not yet in `data.js`; the index table under "THE PLANNED COLLECTIONS" is the lookup. **No card
   has been written yet.** It ships an inert **`Philosophy` row in `COLLECTION_SECTIONS`**, on the same
   reasoning as Psychology's `Science` row. Not part of the site.
 - `docs/biology-card-plan.md` — the **1000-card running order for the Biology collection** (`bio`):
@@ -579,7 +579,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   link, narrow the other term's alias, reword — all come to nothing here, and the word is the right
   one in all five. **A term that claims an ordinary English word buys its dominant sense and pays for
   the rest**, which is the trade `Life_(biology)` was written to refuse and this one to accept. The next card to write
-  is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED
+  is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE PLANNED
   COLLECTIONS" is the lookup. **Its first cards have shipped**, so the collection is live — `isComingSoon`
   is false for a node holding a card — and its 45 empty decks are coming-soon automatically, on the same
   rule. Not part of the site.
@@ -600,6 +600,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   rule's own terms. Its `COLL_THEME` comment carries a **standing note about the magenta band** — the
   wheel's best-scoring region, now measured and rejected four times; do not re-run that sweep. The next
   card to write is the lowest `dino-NNN` not yet in `data.js`; the index table under "THE SIXTEEN
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/astronomy-card-plan.md` — READ BEFORE WRITING AN `astro-` CARD.** The **1000-card running
+  order for the Astronomy collection** (`astro`): every card's number, topic and deck, fixed in advance
+  across 9 decks and 45 leaf decks. The twenty-first of the planned collections, the sixth that is not
+  history, and the sixth to **create its own collection** — node, tree, `COLL_THEME` hue and a new
+  `ICON_SYMBOLS` mark (`ringed`) ship with the plan. It joins Psychology, Biology and Dinosaurs in the
+  **`Science` section**, so `COLLECTION_SECTIONS` is unchanged and `COLLECTION_SECTION` gains one row.
+  **Read "Is there a thousand cards in this?" before writing anything** — astronomy is four subjects
+  wearing one name (the sky as seen, the Solar System, astrophysics and cosmology), they are checked in
+  different ways, and the plan gives each a stated share so the collection cannot drift into whichever
+  has the most popular writing behind it. **Only about sixty of the thousand name one body**; a named
+  object earns its slot the way a genus does in the Dinosaurs plan.
+  · **THE OBVIOUS HUE WAS MEASURED AND REFUSED, AND THAT SWEEP MUST NOT BE RE-RUN.** An astronomy
+    collection wants a midnight blue and cannot have one: the best night-sky candidate stands **12.6**
+    from the United States' navy and a bluer one **4.2**, against a tightest existing pair of 12.9 — at
+    or below the worst separation this shelf has ever accepted. The blue quarter already carries
+    Greece's Aegean, Geography-China's blue, the French deck's blue and Politics: East Asia's
+    periwinkle. What ships is **`#5E3262`, the dark end of the violet band** — the twilight rather than
+    the night — at 21.0 / 21.3 / 21.5 from Psychology's plum, Rome's purple and Japan's kuwazome
+    against a median nearest-neighbour distance of 20.1. **It is a FOURTH purple and the argument is
+    Biology's fifth green's**: the other three sit at L 38, 45 and 53 and this is at L 28.
+  · **ITS ICON'S COLLISION IS `atom`, NOT `star`.** A ringed planet and an atom are the same
+    construction — a disc crossed by an ellipse — and what separates them is proportion: r 5 inside ONE
+    ring of rx 10.5, against a nucleus of r 1.9 inside three ellipses of rx 9. **Keep the disc large and
+    the ring single.** `star` was refused because the United States collection already wears it.
+  · **THREE RULES CARRY THE MOST WEIGHT.** **Nothing in this subject was ever touched**, so every figure
+    is an inference and usually a chain of them — the distance ladder, selection effects and Malmquist
+    bias are carded as the spine and **every card quoting a distance, mass or age inherits them**.
+    **The open disagreements are carded as disagreements** (the Hubble tension, modified gravity, the
+    cosmological constant problem, where supermassive black holes came from): a card may say the
+    question is open and may not pick a winner the literature has not. And **dark matter and dark energy
+    are names for MEASUREMENTS, not substances** — `astro-750` is titled *Why dark matter is still
+    called dark* for exactly that reason.
+  · **THE NUMBERS IN THIS SUBJECT MOVE, WHICH THE OTHER SCIENCE PLANS DO NOT HAVE TO SAY.** The Hubble
+    constant, the age of the universe, the exoplanet count, the number of known moons and the mass of
+    the Milky Way have all moved inside fifteen years, so **a figure from a source older than about 2015
+    needs re-checking even when the source was excellent**, and a COUNT is a fact about a database on a
+    date and is cited with the date.
+  · **SOURCING IS THE EASIEST ON THE SHELF AND HAS ONE TRAP**: astronomy has published to **arXiv** since
+    1991, so nearly every paper is free — but **an arXiv preprint is not a published paper**, and the
+    version there may predate refereeing. Cite the journal version where one exists.
+  The next card to write is the lowest `astro-NNN` not yet in `data.js`; the index table under "THE
   PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/korea-card-plan.md` — the **1000-card running order for the Korea collection** (`korea`): every
   card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The sixteenth of the
@@ -686,7 +728,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   to be filled from general reading — the point of the collection is that it covers the course as
   taught. And **the answer terms come from the supplied material**, with the backgrounds researched out
   and cited like any other card. The next card to write is the lowest `pea-NNN` not yet in `data.js`;
-  the index table under "THE TWENTY PLANNED COLLECTIONS" is the lookup. Not part of the site.
+  the index table under "THE PLANNED COLLECTIONS" is the lookup. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -1281,7 +1323,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.40 MB and 49,693 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.41 MB and 49,729 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6527,7 +6569,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE TWENTY PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -6550,6 +6592,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
+| Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
@@ -6568,7 +6611,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (295 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (307 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7529,7 +7572,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 295 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 307 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
