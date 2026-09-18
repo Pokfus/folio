@@ -1048,13 +1048,13 @@ what went wrong in the Mongol period — under a term rather than under a headin
     wh-680  New England
     wh-681  New France
     wh-682  Russian conquest of Siberia
-    wh-683  Voyages of James Cook
+    wh-683  James Cook
     wh-684  Mercantilism
-    wh-685  Early modern cartography
+    wh-685  Mercator projection
 
 ### The gunpowder empires — `wh-gunpowder`
 
-    wh-686  Gunpowder empires
+    wh-686  Bombard
     wh-687  Ottoman Empire
     wh-688  Mehmed II
     wh-689  Janissary
