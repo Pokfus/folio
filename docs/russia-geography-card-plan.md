@@ -2340,3 +2340,99 @@ foothills, which is a wide view of the city even though nothing is catalogued as
 such file at any search, so its card carries Revolution Square — the central square, captioned as
 that rather than as a distant view — and its glossary term carries the Ship House of 1930, the
 constructivist block built for the mill workers, which is the thing the term is about.
+
+### Batch 28 — ten centres: `gru-569`, `gru-571`–`gru-577`, `gru-579`, `gru-580`
+
+Magas, Petrozavodsk, Salekhard, Maykop, Cherkessk, Yuzhno-Sakhalinsk, Kyzyl,
+Petropavlovsk-Kamchatsky, Gorno-Altaysk and Birobidzhan. Ten cards, ten paired glossary terms,
+twenty pictures. Ten of the twelve charter hits batch 27 left unspent; the two still unused are
+`gru-582` Anadyr (`ustav_chukot`) and `gru-583` Naryan-Mar (`ustav_nenetsk`).
+
+**FOUR OF THE TEN ARE SMALLER THAN A HUNDRED THOUSAND PEOPLE, AND THAT IS WHERE THE GRID STOPS.**
+Rosstat's table 4.9 is *Cities with Population of 100 000 and Over*, so Magas, Salekhard,
+Gorno-Altaysk and Birobidzhan are not in it, and **nothing else reachable from this sandbox states
+their populations**: the Yearbook's own territory table (2.1) counts settlements rather than
+sizing them, the UN Demographic Yearbook's table 8 carries the same 100,000 threshold, the Wayback
+CDX endpoint is refused by the egress policy over both schemes, and Europe PMC's full-text search
+returns nothing for any of the four. So their Population, Rank in Russia and Population growth rows
+are all `?`, which is what the reader asked for where a figure cannot be found — **and the card's
+fifth sentence says WHY**, naming the table's own threshold and, where the subject has one, the
+largest town of theirs that the table does carry (Nazran at 124,000 and 140th; Novy Urengoy at
+107,000 and Noyabrsk at 101,000). Two of the four subjects have no city in the table at all, and
+those cards say so and add that the table runs to 172 entries, so the capital is smaller than any
+of them. **A grid of three question marks is honest and nearly empty; the sentence is what makes it
+informative.** Before the next sub-100,000 centre (`gru-582` Anadyr, `gru-583` Naryan-Mar and the
+two others still to come), re-test the four routes above rather than assuming this finding still
+holds — it is a fact about reachability, which is the shape of claim that goes stale silently.
+
+**THREE OF THE TEN HAVE NO PUBLISHED CLIMATE NORMALS, AND THE WMO STATION EXISTS.** `wmo.txt` lists
+Nazran' (1109), Cherkessk (1111) and Gorno-Altaisk (1112) among the 94 Russian cities, and all
+three return a `climateMonth` array of twelve empty rows — no temperature, no rainfall, no
+raindays. **A station in the list is not a station with normals**, so check the array before
+building a sentence around it. Those three cards take a fourth physical sentence instead, which is
+what the subject cards `gru-069`, `gru-074` and `gru-079` had already done for the same reason.
+Magas would in any case have had to borrow Nazran's readings, which are another town's.
+
+**SEVEN OF THE TEN NEEDED THEIR PICTURE PINNED BY HAND.** `fetch-geo-images.js` found a wide view
+for two — Petrozavodsk and Petropavlovsk-Kamchatsky — and missed the other eight, which is the
+`SKYLINE_RX` test doing its job on cities whose Commons holdings are streets, monuments and
+airports. Of the candidates then read by eye, six were rejected: Maykop's "OVERVIEW AT MORNING" is
+cloud over treetops, its "VIEW" is power lines, the Cherkessk panoramio series is shot through a
+car windscreen, two Salekhard streets are dominated by a traffic light and by the sun, and the Kyzyl
+files a name search returns are museum exhibits of Scythian gold. **Commons' holdings for a small
+Russian capital are one photographer's afternoon**: Maykop's category is 200-odd sky studies by a
+single panoramio user, and Cherkessk's is one visitor's drive through town.
+· **SALEKHARD AND CHERKESSK HAVE NO WIDE VIEW AT ALL**, so they take the honest alternative the
+  United States pass settled on — a civic space rather than a skyline: the Centre of National
+  Cultures and the government block across a snowbound square, and the avenue through Victory Park
+  with the war memorial and a church dome beyond. Both `desc` lines say that is what they are.
+· **BIROBIDZHAN'S BEST-KNOWN PICTURE IS ITS ENTRANCE SIGN**, which names the town in Cyrillic and
+  in Yiddish and is the one image that says what the place is. It is a monument, so it goes to the
+  GLOSSARY TERM, and the card takes the Bira embankment, which shows the town along its river.
+· **`Биробиджан-набережная-река-Бира-2024.jpg` WAS ALREADY ON `gru-080`**, the subject card, which
+  `check-image-free.js` caught before the fetch. Run it on the whole shortlist, not on the card in
+  hand.
+· **KYZYL'S ONLY WIDE VIEW CARRIES THE PHOTOGRAPHER'S SIGNATURE** in the corner. It is taken
+  anyway: it is the city from the hill at the confluence of the two head-streams of the Yenisei —
+  the exact geography the card's second sentence describes — and the alternative is a bronze
+  monument, which the city-card rule refuses. A small credit in the corner is not a stock watermark,
+  and the credit line names the photographer in any case.
+· **ONE LICENCE WAS REFUSED**: the best Petrozavodsk embankment photograph is under the **Free Art
+  License**, which is not PD, CC0, CC BY or CC BY-SA and so is outside the pipeline's bar. The term
+  takes a CC BY-SA 2.0 view of the same quay instead. **Read the licence field even on Commons.**
+
+**FOUR SOURCES WERE DROPPED FOR BEING UNREACHABLE AND ONE FOR ITS DOI.** MDPI is walled from here —
+`10.3390/land11071102` (Salekhard's frozen-soil modelling) and `10.3390/atmos11040404` (growing
+degree days in the Russian Far East) both 403 — as are EDP Sciences (`10.1051/e3sconf/202016302006`,
+the Susuya debris flows) and `kigiran.elpub.ru` (503, the cultural life of Kyzyl under the
+autonomous oblast). `10.17853/1994-5639-2021-2-170-198`, on Soviet schooling among the peoples of
+southern Siberia, resolves to nothing at all. Each had a live substitute: the same Salekhard team's
+2021 paper in *Geography, Environment, Sustainability*, the InterCarto fire-danger system for the
+Middle Amur, and Tadina on the Altai's memorial stones.
+
+**THE MAGAS CARD IS THE COLLECTION'S FIRST PURPOSE-BUILT CAPITAL, AND ONE ARTICLE CARRIES IT.**
+Akopyan's study of Mikoyan-Shakhar — the town raised from nothing in 1926 for the Karachay
+Autonomous Region, which had no settlement fit to be a centre — closes on exactly this case: "at
+the present stage, the same situation has developed with the Ingush Republic. Thanks to the support
+of the federal center, the construction of a new capital, the city of Magas, has begun." That
+sentence is why the article sits on the Magas card rather than on Cherkessk's, where its subject
+lives. The medieval half of the card is Latham-Sprinkle in *BSOAS*, who reviews Mas'udi, Juvayni,
+Rashid al-Din and the Yuan Shi and sets four tests for the site of the Alan capital the modern town
+is named after. **The card does not date the modern town's founding**, because nothing openable
+from here does.
+
+**THREE MORE `CROSSREF_WRONG` ROWS, IN TWO SHAPES BOTH ALREADY IN THE TABLE.** Kavkazologiya
+deposits surname-first (Akopyan), and *The New Research of Tuva* and *Vestnik KRAUNC* publish Latin
+bylines and deposit the Russian ones (Samdan; Shitov, Dolgov and Barsukov, who need a row each
+because the check compares author by author). All three were verified against the journals' own
+pages: caucasology.ru prints "Zaven V. Akopyan" twice over, the KRAUNC PDF prints "A.V. Shitov D.P.
+Dolgov A. A. Barsukov" above the abstract and again in its "For citation" line, and Samdan's Latin
+form is what DOAJ takes from the journal — and is already what `gru-076` cites her under. **Note
+that `10.25178/nit.2019.1.10`, the same journal two years later, deposits the LATIN name and needs
+no row: a journal's deposit habit changes from year to year.**
+
+**GARANT'S CHAPTER URL FORM BIT AGAIN AND THE FIX IS THE SAME ONE.** The address is
+`/region/<slug>/chapter/<hash>/`; the short `/region/<slug>/<hash>/` returns site chrome with no
+article text and reads exactly like a charter that does not state its centre. `constitution.garant.ru`
+also refuses about one request in ten with a connection error, which a single-shot probe reads as a
+dead page — Karachay-Cherkessia's constitution failed once and answered on the retry.

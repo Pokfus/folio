@@ -223,6 +223,24 @@ const CROSSREF_WRONG = [
   // Crossref carries "Zhansitov Osman A." The journal's own English article page
   // (caucasology.ru/jour/article/view/91?locale=en_US) prints "Osman A. Zhansitov".
   ["10.31143/2542-212X-2024-3-133-142", "Osman A. Zhansitov", "Zhansitov Osman A."],
+  // Kavkazologiya a fourth time, the same surname-first deposit, so Crossref carries
+  // "Akopyan Zaven V." The journal's own English article page
+  // (caucasology.ru/jour/article/view/325?locale=en_US) prints "Zaven V. Akopyan" twice over,
+  // in its author block and again in its citation line.
+  ["10.31143/2542-212X-2023-1-108-123", "Zaven V. Akopyan", "Akopyan Zaven V."],
+  // The New Research of Tuva again, the same split as the Otroshchenko row above: the journal
+  // publishes English titles and bylines and deposits the RUSSIAN ones, so Crossref carries
+  // \u0410\u044f\u043d\u0430 \u0410\u043d\u0430\u0439-\u043e\u043e\u043b\u043e\u0432\u043d\u0430 \u0421\u0430\u043c\u0434\u0430\u043d for the author its own English metadata (and DOAJ, which takes it
+  // from the journal) names Ayana A. Samdan \u2014 the form gru-076 already cites her under for a
+  // different article in a different journal.
+  ["10.25178/nit.2017.4.9", "Ayana A. Samdan", "\u0410\u044f\u043d\u0430 \u0410\u043d\u0430\u0439-\u043e\u043e\u043b\u043e\u0432\u043d\u0430 \u0421\u0430\u043c\u0434\u0430\u043d"],
+  // Vestnik KRAUNC deposits the RUSSIAN byline where the article itself is set in Latin script:
+  // Crossref carries \u0410.\u0412. \u0428\u0438\u0442\u043e\u0432, and the paper's own first page prints "A.V. Shitov D.P. Dolgov
+  // A. A. Barsukov" above the abstract, with the same Latin form in its copyright line and in
+  // the "For citation" line at its foot.
+  ["10.26117/2079-6641-2019-29-4-223-231", "A. V. Shitov", "\u0410.\u0412. \u0428\u0438\u0442\u043e\u0432"],
+  ["10.26117/2079-6641-2019-29-4-223-231", "D. P. Dolgov", "\u0414.\u041f. \u0414\u043e\u043b\u0433\u043e\u0432"],
+  ["10.26117/2079-6641-2019-29-4-223-231", "A. A. Barsukov", "\u0410.\u0410. \u0411\u0430\u0440\u0441\u0443\u043a\u043e\u0432"],
   // Kemerovo deposited this byline with a CYRILLIC Е (U+0415) as the middle initial, which
   // defeats the initials comparison, so the record reads as a differing given name rather
   // than as an abbreviation. The journal's own author page prints Гульнара Е. Мамаева.

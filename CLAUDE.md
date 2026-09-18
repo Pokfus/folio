@@ -851,7 +851,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     intermittent *Temporarily Offline* page, which a one-shot probe reads as a dead host. **Batch 27's
     own lesson is the cheapest of all of them: COUNT THE CHARTER SWEEP AGAINST WHAT IS WRITTEN before
     concluding that the primary-source rung is spent — batch 26's closing report said it was, and
-    twenty-two of the 54 `HIT` lines were still unused.** Not part of
+    twenty-two of the 54 `HIT` lines were still unused.** **AND BATCH 28 ADDS THE TWO THAT BITE ON A
+    SMALL CENTRE.** Table 4.9 is *Cities with Population of 100 000 and Over*, so the eight centres
+    under that take **`?` in the Population, Rank and growth rows** — measured, not assumed: nothing
+    else reachable sizes them, the Wayback CDX endpoint being refused by the egress policy over both
+    schemes and Europe PMC's full text holding none of the four — **and the card's fifth sentence
+    says WHY**, naming the threshold and whichever of the subject's towns the table does carry. And
+    **A WMO STATION IN THE LIST IS NOT A STATION WITH NORMALS**: Nazran' (1109), Cherkessk (1111) and
+    Gorno-Altaisk (1112) are all in `wmo.txt` and all return twelve EMPTY months, so read the
+    `climateMonth` array before building a sentence on it; those cards take a fourth physical sentence
+    instead, exactly as their subject cards already did. Not part of
     the site.
 - `russia-subjects.js` + `.claude/build-russia-subjects.js` — the 83 federal subjects of the Russian
   Federation and the 80 administrative centres (`window.RUSSIA_SUBJECTS` / `window.RUSSIA_CENTRES`), the
@@ -5276,7 +5285,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 126 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, forty-three of the 80 centres being written (`gru-505`, `gru-507`–`gru-509`, `gru-511`–`gru-513`, `gru-516`–`gru-523`, `gru-527`, `gru-528`, `gru-531`–`gru-538`, `gru-540`–`gru-542`, `gru-544`, `gru-545`, `gru-548`, `gru-550`–`gru-558`, `gru-565`, `gru-567` and `gru-568`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`, `gru-503`, `gru-506`, `gru-510`, `gru-514`, `gru-515`, `gru-524`–`gru-526`, `gru-529`, `gru-530`, `gru-539`, `gru-543`, `gru-546`, `gru-547`, `gru-549`, `gru-559`–`gru-564`, `gru-566` and `gru-569`–`gru-583` less `gru-570` are still to write**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 136 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, fifty-three of the 80 centres being written (`gru-505`, `gru-507`–`gru-509`, `gru-511`–`gru-513`, `gru-516`–`gru-523`, `gru-527`, `gru-528`, `gru-531`–`gru-538`, `gru-540`–`gru-542`, `gru-544`, `gru-545`, `gru-548`, `gru-550`–`gru-558`, `gru-565`, `gru-567`–`gru-569`, `gru-571`–`gru-577`, `gru-579` and `gru-580`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`, `gru-503`, `gru-506`, `gru-510`, `gru-514`, `gru-515`, `gru-524`–`gru-526`, `gru-529`, `gru-530`, `gru-539`, `gru-543`, `gru-546`, `gru-547`, `gru-549`, `gru-559`–`gru-564`, `gru-566`, `gru-578` and `gru-581`–`gru-583` are still to write**, see below |
 
 The next id for any of them (substitute the prefix):
 
