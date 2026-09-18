@@ -939,9 +939,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and REPORTS it** (the Afghanistan case), and **will not invent an `alt`** — Commons' own description
     names the country in its first three words. **A 429 IS A BUSY HOST AND NOT A SHUT ONE**: measured on
     its first run, two of four files returned 429 at 350ms apart and both resolved on a retry, so it
-    backs off three times and waits 1.2s between files. And it **re-execs itself with
+    backs off three times and waits 1.2s between files — and **at twenty files a batch that is not
+    always enough**, four of F7's twenty being refused and all four resolving on a re-run, so re-run the
+    refusals rather than reading one as a missing file. And it **re-execs itself with
     `NODE_USE_ENV_PROXY=1`**, `check-reach.js`'s own guard — Node's `fetch` does not honour
     `HTTPS_PROXY` where curl does, and without it the egress policy answers for Commons.
+    **AND IT STRIPS THE API's TRACKING QUERY, WHICH IT DID NOT FOR TWO BATCHES** (Sep 2026, F7).
+    `imageinfo` returns `url` carrying
+    `?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original`, which CLAUDE.md's
+    own picture rule says to drop — and **nothing in the pipeline could see the breach**, the address
+    resolving either way and `check-flag-twins.js` comparing the twins' srcs only against each other.
+    Measured when found: **48 of 371 flag srcs carried it, exactly the ones this tool had written**,
+    against 323 clean ones written before it existed; all 48 were repaired in place. Only the QUERY is
+    stripped — the path carries the two-character MD5 shard and may never be composed or edited.
+    **AND THE FIRST FLAG THE LICENCE BAR REFUSED WAS OMAN'S**, whose canonical Commons file is under the
+    Sultanate's own **OGL-om 1.0**. The answer was another file rather than a wider bar: the CC0
+    alternative omits the khanjar and crossed swords, which is a false claim about the flag that passes
+    every check, so the card takes the CC BY-SA file that carries them. **A file named "(variation)" is
+    the uploader's naming and not a claim about the design** — what decides a picture is whether it
+    depicts its subject.
   · **A CARD IS BUILT BY `.claude/add-flag-cards.js`, WHICH HANDS EACH ONE TO `add-card.js`** rather
     than writing `data.js` itself — so every guard that tool carries runs on every card, and the
     builder is not a second weaker copy of them. It DERIVES the alt from the twin's by cutting the
@@ -2563,6 +2579,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **satellite imagery and USGS survey photographs are refused**, both being legitimate pictures of a
   place and neither being a view of it. The sheet tiles a fetched batch into one image so every candidate
   can be LOOKED AT, which is the standing rule and does not otherwise scale past a handful.
+  · **A BYTE FLOOR IS NOT A DOWNLOAD TEST, AND AT 800 BYTES THE SHEET DROPPED THE SIMPLEST PICTURES**
+    (Sep 2026, found on a flags batch). The floor was there to reject a 200-status error document, which
+    is the right thing to reject — but a plain tricolour rendered at sheet width is 640–750 bytes of PNG,
+    so four flags came back complete and were thrown away, and **a missing cell reads as a failed fetch
+    rather than as a file that is perfectly fine**. It asks what the bytes ARE now: an image's magic
+    number is four bytes and an HTML page has none, so a recognisable picture is accepted at any size and
+    anything else still has to clear the floor. **A tool that fails on the easy half of its input is
+    worse than one that fails loudly**, since the answer looks like a sourcing problem.
   · **A PINNED `file` IS WHAT A REVIEW PRODUCES.** The searches find a subject's pictures and cannot
     judge one, and no scoring rule turns a landmark's visitor centre into a photograph of the landmark.
     A pinned file still goes through `fileInfo` and `licenceOK`, so it can never smuggle in a non-free or
@@ -6646,7 +6670,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 3 / 3 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
-| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 119 cards — `fl-001`–`fl-120` less the DEFERRED `fl-036`, so the lowest unused number is not the next card; next is `fl-121`, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
+| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 139 cards — `fl-001`–`fl-140` less the DEFERRED `fl-036`, so the lowest unused number is not the next card; next is `fl-141`, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 

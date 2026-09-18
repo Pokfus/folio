@@ -138,11 +138,24 @@ async function lookOne(cardId, spec, card) {
     .filter(Boolean).join(", ") + " (" + pageURL(page.title) + ")";
 
   return {
-    title: page.title, src: info.url, w: info.width, h: info.height,
+    title: page.title, src: cleanSrc(info.url), w: info.width, h: info.height,
     licence: shortName || licence || "(none stated)", free: free, author: author,
     desc: val("ImageDescription").slice(0, 160), credit: credit,
     redirect: redirect ? redirect.to : "",
   };
+}
+
+/* THE TRACKING QUERY IS STRIPPED, AND THE REST OF THE URL IS NOT (Sep 2026, batch F7). `imageinfo`
+   returns `url` with a `?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&…` campaign tag on the
+   end, which CLAUDE.md's own rule says to drop — "take `url` (or `thumburl`, minus its tracking query)".
+   It resolves either way, so nothing on the page reports it; what it costs is that every reader of the
+   card sends Wikimedia a campaign parameter naming an API call they never made, and that these srcs then
+   differ for no reason from the 323 written before this tool existed. Measured when it was found: 48 of
+   371, exactly the ones this tool had written. Only the QUERY goes — the path carries the two-character
+   MD5 shard and cannot be composed or edited, which is the rule the line below exists to honour. */
+function cleanSrc(u) {
+  const i = String(u || "").indexOf("?");
+  return i < 0 ? String(u || "") : String(u).slice(0, i);
 }
 
 (async () => {

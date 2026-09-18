@@ -33,11 +33,11 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**F0 to F6 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
-Geography, and `fl-001`–`fl-120` are live **less the deferred `fl-036`** — 119 cards, so the lowest
-unused number is not the next card. The next card is `fl-121`. **THE TRIM-AND-COPY RANGE IS FINISHED**:
-every flag already on a twin has been used, and from here every batch fetches. **114 twins still need a
-flag** (`gw-121`–`gw-233` plus the deferred `gw-036`), and each batch back-fills the ones it uses, which
+**F0 to F7 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
+Geography, and `fl-001`–`fl-140` are live **less the deferred `fl-036`** — 139 cards, so the lowest
+unused number is not the next card. The next card is `fl-141`. **THE TRIM-AND-COPY RANGE IS FINISHED**:
+every flag already on a twin has been used, and from here every batch fetches. **94 twins still need a
+flag** (`gw-141`–`gw-233` plus the deferred `gw-036`), and each batch back-fills the ones it uses, which
 closes World Geography's own gap as a by-product.
 
 **NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate question
@@ -647,12 +647,77 @@ American flags, separated by its five stars. **The prediction is worth making**:
 the distinguishing clause into both alts than to find the collision afterwards, and twice now the sweep
 has fired on a pair nobody predicted rather than one that was.
 
+## F7 — `fl-121` to `fl-140` (Sep 2026)
+
+Twenty cards, Ireland to Qatar, and **the first batch to fetch all twenty**: from here to the end of the
+deck every flag has to be found on Commons, its licence read, its picture looked at and its description
+written, so the back-fill onto the `gw-` twins closes World Geography's own gap twenty at a time. All
+twenty twins now carry a flag; `gw-121`–`gw-140` were empty before this batch.
+
+**`fl-125` OMAN IS THE FIRST FLAG THE LICENCE BAR REFUSED, AND THE ANSWER WAS ANOTHER FILE RATHER THAN A
+WIDER BAR.** `File:Flag of Oman.svg` — the file Commons treats as *the* flag of Oman — is released under
+**OGL-om 1.0**, the Sultanate's own Open Government Licence, which is not PD, CC0, CC BY or CC BY-SA and
+so is outside the pipeline's bar everywhere. Widening the bar for one card is a decision about every
+picture on the site and was not taken. Two other candidates were read:
+`File:Flag of Oman (without national emblem).svg` is **CC0** and is unusable for a different and worse
+reason — it omits the khanjar and crossed swords, which are the flag's defining charge, so a card drawn
+from it would make a false claim about the flag while passing every check; and
+`File:Flag of Oman (variation).svg` is **CC BY-SA 4.0**, carries the emblem and the correct white, red
+and green bands, and is described on its own page as "Flag of Oman (official)". The two were rendered and
+**looked at side by side**: they are the same flag, differing only in the hoist band's width and in the
+ratio — and the "variation" is at 2:1, which is Oman's own official proportion, where the OGL file is at
+about 1.75:1. So the card takes the CC BY-SA file. **The word "variation" in a file name is the
+uploader's naming and not a claim about the design**; what decides a picture here is whether it depicts
+its subject, which this plainly does.
+
+**THE TRACKING QUERY WAS THE BATCH'S REAL FINDING, AND IT WAS FOUND BY LOOKING AT A CARD.**
+`imageinfo` returns `url` with a campaign tag on the end —
+`?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original` — and `add-flags.js` was
+storing it whole. CLAUDE.md's own rule says to take the url "minus its tracking query", and nothing in
+the pipeline could see the breach: the address resolves either way, `check-flag-twins.js` compares the
+twins' srcs against each other and they agreed, and every suite was green. Measured when it was found:
+**48 of 371 flag srcs carried it, exactly the ones this tool had written** (F6's four twins and their
+four cards, F7's twenty and their twenty), against 323 written before the tool existed that were clean.
+What it cost was that every reader of those cards sent Wikimedia a campaign parameter naming an API call
+they never made. The tool now strips **only the query** — the path carries the two-character MD5 shard
+and may never be composed or edited — and the 48 shipped srcs were repaired in place and re-probed.
+
+**AND THE CONTACT SHEET WAS SILENTLY DROPPING THE SIMPLEST FLAGS.** `contact-sheet.py` treated a
+download under **800 bytes** as a failure, which is right about a 200-status error document and wrong
+about a plain tricolour: Ireland, Costa Rica, Armenia and Lithuania render at 640–750 bytes of PNG at
+sheet width, so all four came back complete and were thrown away, and **a missing cell reads as a failed
+fetch rather than as a file that is perfectly fine** — on a deck where a third of the remaining flags are
+plain bicolours and tricolours, that is the tool failing on exactly the easy half. It asks what the bytes
+ARE now: an image's magic number is four bytes and an HTML page has none, so a recognisable picture is
+accepted at any size and anything else still has to clear the floor, which is what the floor was for.
+
+**THE PREDICTED PAIR HELD AND THE SWEEP FIRED ON NOTHING.** `fl-121` Ireland against `fl-050` Côte
+d'Ivoire is the same three colours in the opposite order, and both alts name the order from the hoist
+("green, white and orange" against "orange, white and green"), which is the whole distinction and needs
+no measurement. `fl-135` Puerto Rico against `fl-087` Cuba is the colours swapped — five red and white
+stripes with a blue triangle against five blue and white stripes with a red triangle — and both alts
+state their own. `fl-124` Palestine was written carefully against `fl-084` Jordan: the two flags are the
+same three bands and the same red chevron, and **Jordan's alt names its white seven-pointed star while
+Palestine's says "a plain red triangle"**, which is the fact that separates them. `fl-127` Costa Rica
+against `fl-020` Thailand is five bands either way and different colours in a different order.
+
+**AND THE HOST WAS BUSY THROUGHOUT, WHICH IS WORTH EXPECTING NOW RATHER THAN DIAGNOSING AGAIN.** Four of
+the twenty came back `HTTP 429` after the fetcher's own three retries and all four resolved on a re-run
+forty seconds later; the same happened to two of twenty downloads for the contact sheet, and to five of
+twenty when the repaired srcs were re-probed. **A 429 at this rate is the busy state
+`check-reach.js` records and not a wall** — every file in this batch is reachable — but at twenty files a
+batch the tool's 1.5s/3s/4.5s backoff is not always enough, so **expect to re-run the refused ones rather
+than treating a refusal as a missing file.**
+
+
 ---
 
 # The list
 
-**The bracket on each line says where its flag stands today** — `[on gw-NNN]` for the 115 already
-fetched, licensed and described on their twins, `[fetch]` for the 118 that are not. It is also what
+**The bracket on each line says where its flag stands today** — `[on gw-NNN]` for the flags already
+fetched, licensed and described on their twins, `[fetch]` for the ones that are not. **RUN `node
+.claude/check-flag-twins.js` FOR THE TWO COUNTS RATHER THAN QUOTING THEM**: this paragraph stated them
+and both were wrong within two batches. It is also what
 makes `test-card-plans.js` check the NAME as well as the number: this plan names the ANSWER rather than
 a subject to research, so a card shipping at the wrong id is a fault that suite can see, which on the
 geography plans it could not until eight capitals had already drifted.
@@ -792,33 +857,33 @@ geography plans it could not until eight capitals had already drifted.
   fl-114  Singapore  [on gw-114]
   fl-115  Denmark  [on gw-115]
   fl-116  Lebanon  [on gw-116]
-  fl-117  Finland  [fetch]
-  fl-118  Liberia  [fetch]
-  fl-119  Norway  [fetch]
-  fl-120  Slovakia  [fetch]
+  fl-117  Finland  [on gw-117]
+  fl-118  Liberia  [on gw-118]
+  fl-119  Norway  [on gw-119]
+  fl-120  Slovakia  [on gw-120]
 
 ### Batch F7 — fl-121 to fl-140 — 20 cards, 20 flags to fetch
 
-  fl-121  Ireland  [fetch]
-  fl-122  Central African Republic  [fetch]
-  fl-123  New Zealand  [fetch]
-  fl-124  Palestine  [fetch]
-  fl-125  Oman  [fetch]
-  fl-126  Mauritania  [fetch]
-  fl-127  Costa Rica  [fetch]
-  fl-128  Kuwait  [fetch]
-  fl-129  Panama  [fetch]
-  fl-130  Croatia  [fetch]
-  fl-131  Georgia  [fetch]
-  fl-132  Eritrea  [fetch]
-  fl-133  Mongolia  [fetch]
-  fl-134  Uruguay  [fetch]
-  fl-135  Puerto Rico  [fetch]
-  fl-136  Bosnia and Herzegovina  [fetch]
-  fl-137  Armenia  [fetch]
-  fl-138  Namibia  [fetch]
-  fl-139  Lithuania  [fetch]
-  fl-140  Qatar  [fetch]
+  fl-121  Ireland  [on gw-121]
+  fl-122  Central African Republic  [on gw-122]
+  fl-123  New Zealand  [on gw-123]
+  fl-124  Palestine  [on gw-124]
+  fl-125  Oman  [on gw-125]
+  fl-126  Mauritania  [on gw-126]
+  fl-127  Costa Rica  [on gw-127]
+  fl-128  Kuwait  [on gw-128]
+  fl-129  Panama  [on gw-129]
+  fl-130  Croatia  [on gw-130]
+  fl-131  Georgia  [on gw-131]
+  fl-132  Eritrea  [on gw-132]
+  fl-133  Mongolia  [on gw-133]
+  fl-134  Uruguay  [on gw-134]
+  fl-135  Puerto Rico  [on gw-135]
+  fl-136  Bosnia and Herzegovina  [on gw-136]
+  fl-137  Armenia  [on gw-137]
+  fl-138  Namibia  [on gw-138]
+  fl-139  Lithuania  [on gw-139]
+  fl-140  Qatar  [on gw-140]
 
 ### Batch F8 — fl-141 to fl-160 — 20 cards, 20 flags to fetch
 
