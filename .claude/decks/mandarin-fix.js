@@ -146,6 +146,13 @@ const VARIANT_PAIRS = {
                       // 著 is NOT wrong in itself (著名, 显著, 著作, 名著, 著称, 专著 all keep it) —
                       // only where it stands for 着, which is why this is a declared swap and not a sweep.
   "鉄": "铁", // the Japanese form of 铁 (batch 77, 钢鉄 on three cards).
+  "画": "划", // 计画 → 计划. The Taiwan spelling of the word: 画 is right in thousands of places
+                      // (画画, 画框, 刻画) and wrong only here. Measured: 计划 83 sites, 计画 7.
+  "帐": "账", // 帐户/帐单/帐号 → 账户/账单/账号. The older spelling; 帐 is a tent or a curtain.
+                      // Measured: 账户 8, 账号 8, 账单 3, against 5 of the 帐 form.
+  "爱": "艾", // 爱滋病 → 艾滋病. The Taiwan transliteration of AIDS. Measured: 艾滋病 4, 爱滋病 2.
+  "拉": "啦", // 拉拉队 → 啦啦队. Measured: 啦啦队 3, 拉拉队 1. NOTE the swap is ONE position:
+                      // 拉拉队 → 啦拉队 → 啦啦队 is two pairs in one row, which the guard allows.
 };
 function variantSwap(was, now) {
   if (typeof was !== "string" || typeof now !== "string") return "not two strings";

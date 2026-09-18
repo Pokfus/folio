@@ -14974,10 +14974,10 @@
       ]
     },
     "hsk30l5/药品": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it. This row is THIS RECORD's own, so it is corrected in place rather than through `exVariant`.",
       "ex": [
         [
-          "在贫穷国家，最常见的仿冒药品是用来治疗疟疾、结核病和爱滋病等危及生命的疾病的药品。",
+          "在贫穷国家，最常见的仿冒药品是用来治疗疟疾、结核病和艾滋病等危及生命的疾病的药品。",
           "The most commonly counterfeited medicines in poor countries are used to treat life-threatening conditions such as malaria, tuberculosis and HIV/AIDS."
         ]
       ]
@@ -22524,10 +22524,10 @@
       ]
     },
     "hsk30l6/金额": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it. This row is THIS RECORD's own, so it is corrected in place rather than through `exVariant`.",
       "ex": [
         [
-          "帐单金额高达100美元。",
+          "账单金额高达100美元。",
           "The bill amounted to 100 dollars."
         ],
         [
@@ -25287,11 +25287,17 @@
       ]
     },
     "hsk30l7/差错": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
       "ex": [
         [
           "我以一分之差错过了那趟火车。",
           "I missed the train by a hair's breadth."
+        ]
+      ],
+      "exVariant": [
+        [
+          "据我所知，他的计画没有出差错。",
+          "据我所知，他的计划没有出差错。"
         ]
       ]
     },
@@ -75684,14 +75690,24 @@
       ]
     },
     "hsk30l5/个人": {
-      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | TWO MORE SPLIT HEADWORDS ON ONE CARD, and this record had already caught a third. 门口有**个人** is 有 + 个 + 人 (*there is a person*) and 四**个人**用餐 is 四 + 个 + 人 (*four people*) — the measure word 个 followed by 人, not the word 个人 at all — so two of this card's three sentences did not contain the headword, while an earlier batch's `dropEx` shows a fourth of the same shape (你没看见那个人吗？) was dropped and these two left. **个人 is the worst case of the class this audit has met**: the characters occur together constantly in ordinary Chinese and mean something else every time, so a card on this word needs its sentences read one at a time and nothing in the pipeline will help. Both dropped, with AUTHORED replacements.",
       "dropEx": [
-        "你没看见那个人吗？"
+        "你没看见那个人吗？",
+        "门口有个人",
+        "四个人用餐"
       ],
       "ex": [
         [
           "这只是我个人的看法。",
           "This is just my personal view."
+        ],
+        [
+          "个人的力量是有限的。",
+          "What one person can do is limited."
+        ],
+        [
+          "请填写个人信息。",
+          "Please fill in your personal details."
         ]
       ]
     },
@@ -77374,7 +77390,7 @@
       ]
     },
     "hsk30l5/公布": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
       "ex": [
         [
           "成绩下周公布。",
@@ -77383,6 +77399,12 @@
         [
           "政府公布了新的规定。",
           "The government has published new rules."
+        ]
+      ],
+      "exVariant": [
+        [
+          "阿尔及利亚公布了新的经济计画。",
+          "阿尔及利亚公布了新的经济计划。"
         ]
       ]
     },
@@ -77595,7 +77617,7 @@
       ]
     },
     "hsk30l5/接收": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
       "ex": [
         [
           "这里接收不到信号。",
@@ -77604,6 +77626,12 @@
         [
           "学校接收了三十名新生。",
           "The school took in thirty new students."
+        ]
+      ],
+      "exVariant": [
+        [
+          "如果有帐户，你就能通过一个系统发送和接收邮件了。",
+          "如果有账户，你就能通过一个系统发送和接收邮件了。"
         ]
       ]
     },
@@ -81117,7 +81145,7 @@
       ]
     },
     "hsk30l6/论坛": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
       "ex": [
         [
           "他在论坛上发了帖子。",
@@ -81126,6 +81154,12 @@
         [
           "经济论坛下周举行。",
           "The economic forum takes place next week."
+        ]
+      ],
+      "exVariant": [
+        [
+          "我在这些论坛上没有帐号。",
+          "我在这些论坛上没有账号。"
         ]
       ]
     },
@@ -82372,7 +82406,7 @@
       ]
     },
     "hsk30l6/选拔": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
       "ex": [
         [
           "学校选拔了几名代表。",
@@ -82381,6 +82415,12 @@
         [
           "选拔标准很严格。",
           "The selection criteria are strict."
+        ]
+      ],
+      "exVariant": [
+        [
+          "拉拉队的选拔在明天。",
+          "啦啦队的选拔在明天。"
         ]
       ]
     },
@@ -95676,7 +95716,7 @@
       ]
     },
     "hsk30l7/危及": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
       "ex": [
         [
           "污染危及健康。",
@@ -95685,6 +95725,12 @@
         [
           "这危及了整个工程。",
           "This imperilled the whole project."
+        ]
+      ],
+      "exVariant": [
+        [
+          "在贫穷国家，最常见的仿冒药品是用来治疗疟疾、结核病和爱滋病等危及生命的疾病的药品。",
+          "在贫穷国家，最常见的仿冒药品是用来治疗疟疾、结核病和艾滋病等危及生命的疾病的药品。"
         ]
       ]
     },
@@ -114689,11 +114735,17 @@
       ]
     },
     "hsk30l4/发送": {
-      "why": "Set *e-mail* where the modern spelling, and the rest of the collection, writes email.",
+      "why": "Set *e-mail* where the modern spelling, and the rest of the collection, writes email. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
       "exEn": [
         [
           "电脑被用来通过电子邮件发送信息",
           "Computers are used to send messages by email."
+        ]
+      ],
+      "exVariant": [
+        [
+          "如果有帐户，你就能通过一个系统发送和接收邮件了。",
+          "如果有账户，你就能通过一个系统发送和接收邮件了。"
         ]
       ]
     },
@@ -125778,6 +125830,239 @@
           "分隔",
           "fēngé",
           "to divide; to partition"
+        ]
+      ]
+    },
+    "hsk30l5/实行": {
+      "why": "A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
+      "exVariant": [
+        [
+          "我们必须马上实行这个计画。",
+          "我们必须马上实行这个计划。"
+        ]
+      ]
+    },
+    "hsk30l5/夜市": {
+      "why": "A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
+      "exVariant": [
+        [
+          "他计画周末去新竹小旅行，顺便逛城隍庙夜市。",
+          "他计划周末去新竹小旅行，顺便逛城隍庙夜市。"
+        ]
+      ]
+    },
+    "hsk30l5/执行": {
+      "why": "A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
+      "exVariant": [
+        [
+          "计画正常执行。",
+          "计划正常执行。"
+        ]
+      ]
+    },
+    "hsk30l7/计": {
+      "why": "A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it. | A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
+      "exVariant": [
+        [
+          "计画正常执行。",
+          "计划正常执行。"
+        ],
+        [
+          "你觉得这个计画如何？",
+          "你觉得这个计划如何？"
+        ]
+      ]
+    },
+    "hsk30l6/储蓄": {
+      "why": "A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
+      "exVariant": [
+        [
+          "我想开个储蓄帐户。",
+          "我想开个储蓄账户。"
+        ]
+      ]
+    },
+    "hsk30l5/根": {
+      "why": "A GLOSS CUT OFF MID-PHRASE — `root; descendants; completely; [measure word for` — which is the truncated-gloss class this audit has now met five times in Level 5 alone, and the tell is always the same: a bracket that opens and never closes. It also carried two senses CC-CEDICT does not give the character (/root/basis/classifier for long slender objects/), and the CLASSIFIER it was cut off in the middle of is what all three of the card's sentences show. Rewritten. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against eight words in the collection.",
+      "gloss": "a root; a basis; a measure word for long thin things",
+      "compounds": [
+        [
+          "根本",
+          "gēnběn",
+          "fundamental; basic"
+        ],
+        [
+          "根据",
+          "gēnjù",
+          "according to; a basis"
+        ],
+        [
+          "树根",
+          "shùgēn",
+          "a tree root"
+        ],
+        [
+          "根源",
+          "gēnyuán",
+          "the root cause; the origin"
+        ]
+      ]
+    },
+    "hsk30l5/更新": {
+      "why": "An example sentence was a two-word stub: 我等待更新 has no object anyone would put after that verb, and it is the SAME sentence batch 85 dropped from 等待 in this deck — **a sentence condemned on one card goes on standing on every other card that carries it**, the rule batch 84 met on 方. Dropped here too, with an AUTHORED replacement.",
+      "dropEx": [
+        "我等待更新"
+      ],
+      "ex": [
+        [
+          "软件每周更新一次。",
+          "The software is updated once a week."
+        ]
+      ]
+    },
+    "hsk30l5/工程": {
+      "why": "An example sentence was not Chinese: 爱丁堡的**水边地**工程 renders *waterfront* character by character, and 水边地 is not a word (滨水区 is). Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "爱丁堡的水边地工程"
+      ],
+      "ex": [
+        [
+          "这项工程需要三年完成。",
+          "This project will take three years to finish."
+        ]
+      ]
+    },
+    "hsk30l5/功能": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. 这手表有防震功能 and 防水功能可以加分 are the same watch twice — and the second is the sentence batch 85 dropped from 防 for being 防水 a second time on THAT card. It is the headword's own word here, so it is not wrong, but it is still the same example twice. Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "防水功能可以加分"
+      ],
+      "ex": [
+        [
+          "这个手机有很多实用的功能。",
+          "This phone has a lot of useful functions."
+        ]
+      ]
+    },
+    "hsk30l5/公平": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. 你被不公平地对待 and 这样对待他似乎不太公平 are both about treating somebody unfairly — and the first is 对待's own opening sentence, borrowed from the shared bank. Dropped, with an AUTHORED sentence that uses the word of a thing rather than of a person.",
+      "dropEx": [
+        "你被不公平地对待"
+      ],
+      "ex": [
+        [
+          "比赛的规则必须公平。",
+          "The rules of the contest must be fair."
+        ]
+      ]
+    },
+    "hsk30l5/恭喜": {
+      "why": "AN EXAMPLE SENTENCE THAT MEANS NOTHING. 恭喜你的脸 — *congratulations on your face* — is not a sentence in either language, and it stood first on the card. Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "恭喜你的脸"
+      ],
+      "ex": [
+        [
+          "恭喜你通过了考试。",
+          "Congratulations on passing the exam."
+        ]
+      ]
+    },
+    "hsk30l5/贡献": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. 我将会努力作贡献的 and 每个人都有能力作贡献 are both 作贡献. The first is dropped and an AUTHORED sentence put in its place. | The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten. And the survivor's English opened on `And`, a conjunction carried over from whatever longer passage the sentence was cut out of.",
+      "dropEx": [
+        "我将会努力作贡献的"
+      ],
+      "ex": [
+        [
+          "他为这项研究作出了很大贡献。",
+          "He made a great contribution to this research."
+        ]
+      ],
+      "exEn": [
+        [
+          "每个人都有能力作贡献",
+          "Everyone has the ability to contribute."
+        ]
+      ]
+    },
+    "hsk30l5/古": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against twelve words in the collection; two of its rows, 古代 and 古老, are cards two and three places further on in this deck.",
+      "compounds": [
+        [
+          "古代",
+          "gǔdài",
+          "ancient times"
+        ],
+        [
+          "古老",
+          "gǔlǎo",
+          "ancient; age-old"
+        ],
+        [
+          "考古",
+          "kǎogǔ",
+          "archaeology"
+        ],
+        [
+          "复古",
+          "fùgǔ",
+          "retro; to turn back the clock"
+        ]
+      ]
+    },
+    "hsk30l5/鼓": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had one word in the reader's downloaded deck, against five in the collection.",
+      "compounds": [
+        [
+          "鼓励",
+          "gǔlì",
+          "to encourage"
+        ],
+        [
+          "鼓掌",
+          "gǔzhǎng",
+          "to applaud"
+        ],
+        [
+          "打鼓",
+          "dǎgǔ",
+          "to beat a drum"
+        ],
+        [
+          "鼓声",
+          "gǔshēng",
+          "the sound of a drum"
+        ]
+      ]
+    },
+    "hsk30l5/古老": {
+      "why": "An example sentence used the word of something that cannot be it: 城里有一家**古老的**电影院 — 古老 is *ancient, age-old*, which a town cinema is not, and the card's own English said merely *old*. Dropped, with an AUTHORED sentence about something the word really fits.",
+      "dropEx": [
+        "城里有一家古老的电影院"
+      ],
+      "ex": [
+        [
+          "长城是一座古老的建筑。",
+          "The Great Wall is an ancient structure."
+        ]
+      ]
+    },
+    "hsk30l5/固定": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about. The card is labelled a VERB and glossed `fixed; fasten` — an adjective and a verb under one label — while all three of its sentences are the ADJECTIVE (固定的男朋友, 固定工作, 固定的收入) and none is the verb. Both halves corrected in one senses row, from CC-CEDICT's /to fix/to fasten/to set rigidly in place/fixed/set/regular/.",
+      "senses": [
+        [
+          "verb / adjective",
+          "fixed; regular; to fasten; to fix in place"
+        ]
+      ]
+    },
+    "hsk30l5/故乡": {
+      "why": "The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten. 不由得想起了故乡 is *I could not help thinking of my home town*; the English said *I can never forget* it, which is a different sentence.",
+      "exEn": [
+        [
+          "不由得想起了故乡",
+          "I could not help thinking of my home town."
         ]
       ]
     }

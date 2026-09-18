@@ -622,6 +622,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 301–330 (对象 → 方), deck order | 16 | **a split headword this audit itself introduced, a card that contradicts itself, and a sentence dropped from one card still standing on another** |
 | 2026-09-17 | `hsk30l5` notes 331–360 (方案 → 服装), deck order, plus a corpus sweep for the traditional 著 | 14 + 1 | **the traditional aspect particle 著 in a simplified deck — a fault a variant sweep cannot see, because 著 is also a simplified character** |
 | 2026-09-18 | `hsk30l5` notes 361–390 (副 → 个别), deck order, plus the seven outstanding 著 sites and the `exVariant` field they needed | 18 + 7 | **a record field for a one-character swap, and the chained rows that proved its guard was counting the wrong thing** |
+| 2026-09-18 | `hsk30l5` notes 391–420 (各行各业 → 故乡), deck order, plus a WORD-level variant sweep of the whole corpus | 14 + 15 | **CC-CEDICT marks whole WORDS as variants, and batch 77's character sweep is blind to every one of them** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7844,3 +7845,94 @@ sentences, repeats 0, still-ambiguous 1; shared-gloss groups 322 unchanged; one-
 pinyin clean; example-fit 142 and senses 151 unchanged; british 0; 34,596 blocks with spoken == visible
 on every one; sense-tagged 660 unchanged; **著 faults 7 → 0**; `check-claims.js` 0 drifted and
 `check-docs.js` 8 passed after the CLAUDE.md edit; `build-lang-decks.js` re-run.
+
+## Batch 87 — hsk30l5 notes 391–420 (各行各业 → 故乡), plus the word-level variant sweep
+
+Thirty consecutive notes, **fourteen of them changed** (one of those by the sweep), and a corpus sweep that `exVariant` made
+repairable the day after it was built: **fifteen sites across four decks carrying a non-standard
+spelling of a word**.
+
+### The sweep: CC-CEDICT marks WORDS as variants, not only characters
+
+Batch 77 built a variant sweep and it has been the audit's standing test ever since: a character the
+dictionary knows ONLY as a pointer at another character. It returns two hits over 11,532 notes, and
+batch 85 found the first thing it cannot see (著, which is a real character in its own right). **This is
+the second, and it is structural: CC-CEDICT gives whole WORDS entries reading `variant of X` too, and a
+character-level test is blind to every one of them.** 計畫|计画 is one — the dictionary says in terms
+that it is a variant of 計劃|计划 — and it was sitting on seven cards while the character sweep read
+clean.
+
+**The raw word-level sweep is unusable and the filter is the whole finding.** Asking it directly
+returns 1,198 candidate words and 29 pages of hits, because CC-CEDICT's "variant" target is written in
+TRADITIONAL characters: 这里 is duly reported as a variant of 這裡, 怎么 of 怎麼, 关系 of 關係 — which is
+just the simplified spelling, 343 and 206 and 92 times over. **The filter is to resolve the target to
+its OWN simplified form and keep the pair only if it still differs**: 计画 → 計劃 → 计划 survives, 这里
+→ 這裡 → 这里 does not. That takes it from 29 words to a readable list, and everything below is a
+judgement made on that list one word at a time.
+
+**Fifteen sites were repaired, over four declared pairs**, each added to `VARIANT_PAIRS` with the
+measurement that settled it: **画→划** (计画 7 sites, against 计划 83 — the Taiwan spelling of the word,
+where 画 is right in 画画, 画框 and 刻画 and wrong only here), **帐→账** (帐户, 帐单, 帐号, 5 sites,
+against 8 + 3 + 8 of the 账 form), **爱→艾** (爱滋病, one sentence sitting on two cards, against 4 sites
+of 艾滋病) and **拉→啦** (拉拉队, 1 site, against 3 of 啦啦队). Two of the fifteen were this record's own
+authored rows and are corrected in place rather than through the field. **拉拉队 also exercised the
+guard batch 86 had just widened** — it is two differing positions in one row, which the one-position
+first cut would have refused.
+
+**WHAT WAS READ AND LEFT IS THE LONGER HALF, and the reasons are worth keeping.** *Substring accidents*
+— 利是 inside 胜利是 and 意大利是, 文词 inside 英文词, 格格 inside 格格不入, 子实 inside 句子实际,
+家俱 inside 这家俱乐部, 用钱 inside 不能用钱, 要功 inside 需要功力, 比画 inside 画框比画: nine words,
+none of them a fault. *Words the dictionary calls variants that mainland usage does not* — 辞典, 标识,
+做主, 下功夫, 磨炼, 纯朴, 得意扬扬, 赠与, 畜牲 are all current, and 纪录 is not a variant of 记录 at all
+but a distinct word (世界纪录 is a record, 记录 is a written note), so the 14 sites of it are right.
+*And three real faults that `exVariant` must NOT be used for*: 当机 (Taiwan for a computer crash, where
+three of the four sites are 当机立断 and correct), 哄动 for 轰动 (a different word, not a spelling), and
+这个人真利害 — which wants 厉害, **on a card whose own headword is 利害**, so the repair is a dropped
+sentence and not a swap. Recorded here rather than done, because each needs a sentence read rather than
+a pair declared.
+
+**AND ONE PAIR WAS DELIBERATELY NOT DECLARED.** 做证 → 作证 is three sites and looks exactly like 帐→账
+— until 小题大作 → 小题大做 turns up in the same list needing 作→做, the other way round. **A pair that
+needs both directions is not an orthographic standard but a lexical choice**, and putting 做/作 in the
+table would have made it a claim about nothing. Both left, with this as the rule that decides what may
+ever go in: the table holds pairs where one spelling of the SAME word is the mainland standard, never
+pairs where the right character depends on the word.
+
+### The thirty notes
+
+**TWO SPLIT HEADWORDS ON ONE CARD, and a third already dropped from it.** 个人's 门口有**个人** is 有 +
+个 + 人 and 四**个人**用餐 is 四 + 个 + 人 — the measure word followed by 人, not the word 个人 at all —
+so two of three sentences did not contain the headword, and the record shows an earlier batch dropped a
+fourth of the same shape (你没看见那个人吗？) and left these two. **个人 is the worst case of this class
+the audit has met**: the characters occur together constantly in ordinary Chinese and mean something
+else nearly every time, so the card needs its sentences read one at a time and no checker will help.
+
+**A FIFTH TRUNCATED GLOSS IN THIS DECK.** 根 read `root; descendants; completely; [measure word for` —
+cut off mid-phrase, with the bracket that opens and never closes which is this class's reliable tell. It
+also named two senses CC-CEDICT does not give the character, and the CLASSIFIER it was cut off in the
+middle of is what all three of its sentences show.
+
+**A SENTENCE THAT MEANS NOTHING**, standing first on its card: 恭喜's 恭喜你的脸 — *congratulations on
+your face*.
+
+**TWO MORE SENTENCES CONDEMNED ELSEWHERE AND STILL STANDING HERE**: 我等待更新, dropped from 等待 in
+batch 85, and 防水功能可以加分, dropped from 防 in the same batch. Neither is wrong for the card it
+survived on — 更新 and 功能 are the headwords here — but both were still the weakest of three, and this
+is the rule batch 84 met on 方 arriving twice in one batch.
+
+**FOUR MORE REPEATS** (贡献's two 作贡献, 公平's two unfair treatments, 功能's two watch features,
+古老's), **a broken calque** (工程's 水边地 for *waterfront*), **a word used of something it cannot
+describe** (古老 of a town cinema), **two glosses that left their own label undefined** (固定 labelled a
+verb over three adjectival sentences, 根 above), **two English translations that rendered a different
+sentence** (故乡's 不由得想起了故乡, and 贡献's, which opened on a stray *And* carried over from whatever
+longer passage it was cut from), and **three single-character cards that gained a `Compounds` section**
+(根, 古, 鼓 — two of them with nothing at all in the reader's downloaded deck).
+
+**Sixteen cards were read and left untouched**: 各行各业, 个性, 各自, 根本, 更换, 工程师, 工具,
+公务员, 工业, 工艺, 公寓, 共享, 沟通, 构成, 古代 and 鼓掌.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 322 unchanged; one-sided hints still 0; pinyin clean; example-fit
+142 and senses 151 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged
+660 unchanged; **non-standard spellings of the four declared pairs 15 → 0**; `build-lang-decks.js`
+re-run.
