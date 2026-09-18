@@ -965,11 +965,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     measurement rather than a dead check. Not part of the site.
 - `.claude/check-cards.js` — **the card-level faults nothing else in the pipeline can see**:
   `node .claude/check-cards.js [--prefix=gr-] [--verbose] [--report]`, exit 1 on a violation and never
-  on `--report`. Six checks, each written after a real fault shipped unreported — **an author cited in
+  on `--report`. Seven checks, each written after a real fault shipped unreported — **an author cited in
   more than two of one card's sources** (ancient authors are counted separately, six passages of one
   witness being a different fault from six pages of one scholar), **a modern scholar named in a
   question**, **one picture on two cards**, **a picture description that names its own source**, **a card
-  with no picture** (reported, never failed) and **two sources in the same non-English language**.
+  with no picture** (reported, never failed), **two sources in the same non-English language** and — since
+  Sep 2026, on request — **a modern scholar named in a `leadsTo` line**, which is the second rule's
+  machinery over a wider verb list that MUST NOT be folded back into it (see the `leadsTo` bullet under
+  "Generating cards" for the measurement that says so).
   `add-card.js` checks a citation ends in a URL, `source-audit.js` counts them and `check-citations.js`
   checks the names against Crossref, and **all three pass a card whose whole apparatus is one website**.
   The duplicate-picture check compares on the file name **with the `\d+px-` prefix stripped**, because the
@@ -1278,8 +1281,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.39 MB and 49,522 lines is hard to find your way around, so this
-  lists its 190 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.4 MB and 49,690 lines is hard to find your way around, so this
+  lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -3489,7 +3492,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     rather than routing — a click meant as a glance must not end the session and spend that card's
     schedule. **Four rules, enforced in `.claude/card-links.js` rather than trusted**: the target exists, is
     in the same collection, is LATER by `cardStartYear` (which catches an edge written the wrong way round),
-    and **`how` is a historical claim and needs the card cited like any other**.
+    and **`how` is a historical claim and needs the card cited like any other**. A fifth rule lives in
+    `check-cards.js` rather than here, because it needs the ancient-author list: **a `how` may never name a
+    modern scholar** — see the `leadsTo` bullet under "Generating cards".
   · **`forgettingCurveHTML` / `seenOnceHTML` — THE LOG READ A THIRD WAY.** The curve buckets `S.revlog` rows
     by `prevMin` — the interval the card was actually on — and **prints nothing for a bucket under
     `CURVE_MIN_ROWS`**, a percentage drawn from four answers being exactly the sort of number people act on.
@@ -5185,6 +5190,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     come back empty, which is the whole of its honesty** — a row is the basis only when that row's own
     earliest year equals the card's sort year, and printing a label over a year that did not come from it
     would be worse than printing nothing. `chronoPool` reads it ONCE when the pool is built.
+  · **AND TIMELINE SETS A LITERARY WORK IN ITALIC, WITH ITS AUTHOR AFTER IT** (`CHRONO_WORKS` /
+    `chronoNameHTML` / `.ci-by`; Sep 2026, on request: "literary works should be italicised and mention the
+    author its by to make it clear that its a literary work"). A row is a bare term in a list of five, so
+    *Histories*, *Birds* and *Frogs* read as an event, a bird and an animal until the year is revealed — by
+    which time the puzzle is answered. **IT IS A DECLARED TABLE, NEVER A TAG TEST**, `FINDIT_NAMES`'s own
+    rule: 108 cards lead with the kind `text` and they are the Code of Hammurabi, the Amarna letters and
+    the Knossos Linear B archive as much as the Odyssey, so a rule keyed on the tag would italicise four
+    wrong things to get one right — and adding `literature` does not save it, `Solon's poems` being a body
+    of verse rather than a title and `Old Oligarch` the AUTHOR rather than the work. **AN EMPTY AUTHOR IS
+    AN ANSWER**: the Rigveda and the Classic of Poetry have none and *Prometheus Bound*'s attribution is
+    disputed on the card's own prose, so those take the italic and no by-line rather than an invented one.
+    **The scriptures are out of the table altogether**, being set in roman by every style this site
+    follows. **The key is the CARD ID**, so a retitled card keeps its entry and a second work of the same
+    name cannot inherit one.
   · **THE PICTURE ROUND IS THE ARTEFACTS AND THE ARTWORK CARDS, AND NOTHING ELSE.** A card's or a term's
     picture ILLUSTRATES its subject, which is a different thing from depicting it; an artefact is a
     photograph of ONE object and an ARTWORK card is the one card whose picture IS its answer
@@ -5338,6 +5357,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`event` IS TOO BROAD TO BE A COMMON THREAD CATEGORY** — it is the site's kind tag for anything that
     HAPPENED and held 51 terms, which is not a group a solver can see. In `THREAD_BROAD` with the other
     sixteen.
+  · **…AND A GOOD CATEGORY CAN STILL BE THE WRONG PLACE TO FILE ONE TERM** (`THREAD_KINDS` / `THREAD_NOT` /
+    `threadFits`; Sep 2026, on request: "genealogy should not be in the 'asia' category, and 'water' should
+    not be in biology. Scan all possible minigame items for other unusual categorisations that a user would
+    not realistically confine the term to"). `THREAD_BROAD` throws out a TAG that is not a category; this is
+    the same argument one level down. Genealogy carries `asia` because the card that teaches it is Korean
+    and Water carries `biology` because its card is in the Biology collection — both tags are right about
+    the CARD, and neither is something a solver could confine the term to. **A grid with Water in the
+    Biology four is not a hard puzzle, it is an unfair one.**
+    **THE FIRST RULE IS MECHANICAL, because the glossary's own convention makes it so**: tag 1 is the KIND
+    and the rest are subject areas and specifics, so a term may stand for a KIND group only where that kind
+    is its own — **the first TWO tags**, since the convention writes a broad kind and then a narrower one
+    (`person, ruler`; `place, city`; `event, battle`). **MEASURED over the shipped pool**, that drops
+    exactly the associative memberships and no real ones: Ramesses II out of Buildings (a ruler), Spartacus
+    out of Practices (a person), **California out of States** (a place — the pun nothing else could see),
+    the Kingdom of Benin out of Cities, Genghis Khan and Timur out of States, Biology and the Domesday Book
+    out of Institutions. The price is a few real members filed under a broader kind (Stonehenge and Karnak
+    leave Buildings), which is a group of 24 losing two rather than a category losing its meaning.
+    **THE SECOND RULE CANNOT BE MECHANICAL AND IS DECLARED**, which is this repo's answer wherever a rule
+    needs reading rather than matching. **The obvious pattern was built, MEASURED and thrown away**: the
+    bad tag sits LAST in the term's list on both reported terms — and by the same convention the last tag
+    is usually the most SPECIFIC and most correct one, so that rule drops Cicero from Rome, **Babylon from
+    Iraq leaving none at all**, Persepolis from Iran and the scientific method from Research methods. There
+    is no signal; what is left is a judgement per term, read out of the group and recorded with its reason.
+    **A term excluded loses one group, not the grid** — Water still answers for Chemistry, Vikings for
+    Europe, Attila for Warfare. **Re-measured after: 730 days, 0 blank, 730 distinct grids, 61 categories
+    in rotation** (the baseline was 726 of 730).
+  · **`THREAD_FAMILY` HAD HOLES AND THEY WERE REAL** (same batch). It is the list of tags that NEST, at most
+    one per puzzle — and it named `italy` without `rome`, `greece` without `athens`, `asia` without `iran`,
+    `iraq` or `korea`, `north america` without `mexico` or `americas`, `britain` without `england`, and the
+    ages without `archaic`, `classical` or `20th century`. **The seating's own overlap guard hides that most
+    of the time** — an Athens term almost always carries `greece` too — which is exactly why it was never
+    noticed, and "almost always" is not the guarantee the rule exists to give. The list is now every place
+    and every period tag a group can be seated on.
   · **A DAILY POOL IS SEEDED AND ITS ANSWER MUST BE REACHABLE** — the crossword's letters must fit its own
     squares, What year?'s answer must sit on a tick of its own rail, and Common Thread's four groups must be
     provably disjoint. Each generator retries rather than giving up, and a starved pool is the failure mode
@@ -5585,6 +5637,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     put the pen DOWN. The guard in `setupWhiteboard` sits AFTER that function's own teardown, or a
     listener from the previous page would outlive it; the switch calls `hideWBTools()` when thrown OFF.
     Ink already drawn is kept — this decides whether the marker APPEARS.
+  · **A STUDY CARD OPENS A BLANK BAND TO WRITE ON WHILE THE PEN IS DOWN** (`body.wb-down`, set by
+    `applyWBState`; `.study-card .scratch`; Sep 2026, on request: "if the marker is turned on, the bottom
+    of the card below the question should expand to create an empty space to write on. When the answer is
+    revealed it should remain as an empty space between the question and the answer box"). A card is a
+    page or two of prose with nowhere on it to work an answer out.
+    **IT IS KEYED ON `WB.enabled`, NOT ON `markerOn()`** — the SETTING is on by default for everybody, so
+    reading it would put nine empty centimetres on every card on the site; the PEN being down is the
+    reader asking for somewhere to write.
+    **IT IS ONE BODY CLASS RATHER THAN A BRANCH IN `renderCard`**, which is what lets the band appear and
+    go on the card already on screen, with no re-render to take a revealed answer away. The class is set
+    BEFORE `applyWBState`'s `wbToolsRef` guard, or a page whose panel has not been built would keep the
+    class from the page before it, and `hideWBTools` clears it.
+    **IT SITS BETWEEN `.question` AND `.reveal` IN THE MARKUP**, which is the whole of the request's second
+    half: revealing the answer opens the answer box UNDER the band, so the working stays where it was
+    rather than being pushed away or written over. It is `aria-hidden` and takes no focus — there is
+    nothing in it to read, and what goes on it is ink on the marker's own canvas rather than text.
   · **`WB.enabled` (the pen is down) and `WB.panelOpen` (the tools are showing) are TWO states.** The
     marker button only opens and closes the panel; what puts the pen down is **choosing a tool inside
     it**. **Opening the tools selects NOTHING** — `enabled` lays a canvas over the whole visible page, so
@@ -6755,6 +6823,20 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   written the wrong way round — it renders perfectly while asserting that the later thing caused the
   earlier), and **`how` is a historical claim and needs the card cited like any other**, in 4–28 words.
   Write it deliberately and sparingly: a list of every consequence is a list nobody reads.
+  **AND A `how` MAY NEVER NAME A MODERN SCHOLAR** (Sep 2026, on request: "the 'what came of this' section
+  should never name modern scholars"). It is the no-researchers-in-a-question rule one field over, and for
+  the same reason: the strip says what came of the thing, and a line reading "Childe made the farming
+  surplus the engine of the first cities" teaches a reader the state of a literature instead. **Name the
+  ARGUMENT, not the arguer** — `wh-112`'s now reads "The farming surplus was proposed as the engine of the
+  first cities", which costs the sentence nothing. An ANCIENT witness is welcome here exactly as in a
+  question: Livy dating the Republic and Plutarch presenting the Rhetra are sources FOR the past.
+  **Enforced by rule 8 of `.claude/check-cards.js`**, which is rule 2's machinery over a WIDER verb list —
+  `made`, `credits`, `presents`, `attributes`, `treats` — and **that list may not be folded back into rule
+  2**: measured, adding those verbs to the question sweep reports 107 findings, nearly all of them false
+  ("Copper made an inland member of the ___ worth taking"). A question is 20–34 words of narrative where
+  the shape is common; the whole corpus carries 22 `how` lines, so the wider net can be afforded here and
+  nowhere else. **The two collection-wide exclusions do NOT apply**: `ps-` and `ph-` are exempt from the
+  QUESTION rule because their literature is their subject matter, and a causal strip is still narrative.
 - `locator` — **OPTIONAL, and ASK FOR IT ON EVERY NEW HISTORY OR SCIENCE CARD** (Sep 2026, on request:
   "henceforth all new history and science cards should check whether there's an appropriate Atlas location
   to include"). `{ name, at: [lon, lat], kind?, area?, spine?, within? }` draws the card's own Atlas window
@@ -7573,10 +7655,11 @@ division-capital city tier are inert dead code.
     every check after it with it — and the clue TEXT cannot be the key either, the page rewriting its own
     prose for spelling and units. **Re-run after touching `PAGES.crossword` / `PAGES.picture` /
     `PAGES.whatyear`, `xwNorm` / `xwPool` / `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` /
-    `xwMarkGaveUp`, `chronoPool` / `cardYearBasis` / `dateLineRows`, `picturePool` /
+    `xwMarkGaveUp`, `chronoPool` / `cardYearBasis` / `dateLineRows` / `CHRONO_WORKS` / `chronoNameHTML`, `picturePool` /
     `dailyPictureRounds` / `tagKinship`, `dayPick` / `buildChallengeQuestions` / `buildWhoSaidRounds` /
     `PAGES.truefalse`'s draw, `threadEasyKeys` / `dailyThreadPuzzle` /
-    `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
+    `THREAD_GROUP_MIN` / `THREAD_TRIES` / `THREAD_KINDS` / `THREAD_NOT` / `threadFits` / `THREAD_FAMILY`,
+    `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
     `PAGE_META` / the `valid` route list, `gameCardIdSet` / `GAME_MAX_DIFFICULTY`, `whatyear.js` /
     `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
     `markGamePlayed`, `gameAnswerNote` / `gameGlossKey`, `gameTap` / `gameCommit` / `gameClearPick` /
@@ -7628,7 +7711,8 @@ division-capital city tier are inert dead code.
     line sewn to a second contact marks rows where that contact is. **Re-run after touching
     `setupWhiteboard`'s pointer handlers, `gid` / `gpen` / `dropGesture` / `beginStroke` / `end` /
     `passScroll` / `passCtl` / `pendTip` / `passMap` / `CTL_SEL` / `TIP_SEL` / `wbPenOnly` /
-    `wbNoteStylus`, or `wbResize`.**
+    `wbNoteStylus`, `applyWBState`'s `body.wb-down` class, the `.scratch` band in `PAGES.study` and its
+    stylesheet rules, or `wbResize`.**
   · `node .claude/test-artefacts.js` — **THE RELIQUARY, the collection banners, and the two colour swaps
     that went with them** (Aug 2026). **Re-run after touching the `THE RELIQUARY` block,
     `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`, `rollChestItem` / `spendChest` /

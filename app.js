@@ -18985,6 +18985,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return el;
   }
   function applyWBState() {
+    /* THE PEN BEING DOWN IS A FACT ABOUT THE PAGE, not only about the panel (Sep 2026, on request: "if
+       the marker is turned on, the bottom of the card below the question should expand to create an
+       empty space to write on"). A study card is a page or two of prose with nowhere on it to work an
+       answer out, so the card opens a blank band under the question while the pen is down. It is one
+       body class read by the stylesheet rather than a branch in `renderCard`, which is what lets the
+       band appear and go the moment the pen is picked up or put down, on the card already on screen,
+       with no re-render to take a revealed answer away. It rides HERE because this is the one place
+       `WB.enabled` is applied — and it is set before the `wbToolsRef` guard, or a page whose panel has
+       not been built yet would leave the class behind from the page before it. */
+    document.body.classList.toggle("wb-down", !!WB.enabled);
     if (!wbToolsRef) return;
     wbToolsRef.classList.toggle("active", WB.panelOpen);          // the tools are showing
     wbToolsRef.querySelector(".wb-toggle").classList.toggle("on", WB.enabled);   // the pen is down — visible with the panel shut
@@ -19030,6 +19040,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const el = ensureWBTools(); el.classList.add("show"); wbApplyPos(el); applyWBState(); wbUpdateHistBtns();
   }
   function hideWBTools() {
+    document.body.classList.remove("wb-down");   // no marker on this page: no writing band either
     if (wbToolsRef) { wbToolsRef.classList.remove("show"); wbToolsRef.classList.remove("on-atlas"); }
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
@@ -30898,6 +30909,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${cardStarsHTML(c)}
               </div>
               <div class="question">${cardFrontHTML(c)}</div>
+              ${/* THE WRITING BAND (Sep 2026, on request). Empty, ruled and drawn only while the pen is
+                    down (`body.wb-down`, set by applyWBState) — so a reader who never picks the marker up
+                    sees exactly the card they saw before. It sits BETWEEN the question and the reveal
+                    rather than under the card, which is what keeps the request's second half: revealing
+                    the answer leaves the band where it is, with the working still on it, between the
+                    question and the answer box. It is `aria-hidden` and takes no focus: there is nothing
+                    in it to read, and what a reader writes on it is ink on a canvas rather than text. */""}
+              <div class="scratch" id="scratch" aria-hidden="true"></div>
               <div class="reveal" id="reveal"><div class="reveal-inner" id="revealInner"></div></div>
             </div>
             <div class="actions" id="actions"></div>
@@ -36536,6 +36555,63 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      out the ones that did not happen at a time — see the comment on that predicate for why `human
      evolution` must not be ordered at the ape split. Both are facts about the ANSWER TERM, so both are
      read off the card rather than derived from its date line, which cannot tell an onset from a span. */
+  /* ---------- A LITERARY WORK IS SET IN ITALIC AND SAYS WHOSE IT IS ----------
+     (Sep 2026, on request: "literary works should be italicised and mention the author its by to make
+     it clear that its a literary work".) A Timeline row is a bare term in a list of five, so `Histories`,
+     `Birds` and `Frogs` read as an event, a bird and an animal until the reader has the year in front of
+     them — and by then the puzzle is answered. Italic plus a by-line says what kind of thing it is at
+     the moment it is being ordered.
+
+     IT IS A DECLARED TABLE, NEVER A TAG TEST, and `FINDIT_NAMES` is the precedent: a map label is not a
+     question, and here a kind tag is not a genre. Measured over the corpus, 108 cards lead with the kind
+     `text` and they are the Code of Hammurabi, the Amarna letters, the Dipylon inscription and the
+     Knossos Linear B archive as much as they are the Odyssey — a law code and a clay archive are neither
+     italicised nor by anybody, so a rule keyed on the tag would set four wrong things in italic to get
+     one right. Adding `literature` to the test does not save it: `Solon's poems` is a body of verse
+     rather than a title, and `Old Oligarch` is the AUTHOR rather than the work.
+
+     AN EMPTY AUTHOR IS AN ANSWER, not a gap. The Epic of Gilgamesh, the Rigveda and the Classic of
+     Poetry have none; `Prometheus Bound` is transmitted under Aeschylus and its attribution is disputed
+     on the card's own prose. Those get the italic, which already says "this is a work", and no by-line —
+     inventing one would be exactly the fabrication the citation apparatus exists to prevent. The
+     scriptures are out of the table altogether: the Hebrew Bible and the Quran are not set in italic by
+     any style this site follows.
+
+     THE KEY IS THE CARD ID, never the answer term, so a retitled card keeps its entry and a second work
+     of the same name cannot inherit one. */
+  const CHRONO_WORKS = {
+    // Greece
+    "gr-130": "Homer",        "gr-131": "Homer",
+    "gr-141": "Hesiod",       "gr-142": "Hesiod",
+    "gr-439": "Herodotus",    "gr-441": "Aeschylus",
+    "gr-592": "Aeschylus",    "gr-593": "",              // Prometheus Bound — transmitted under Aeschylus, attribution long questioned
+    "gr-594": "Aeschylus",
+    "gr-596": "Sophocles",    "gr-597": "Sophocles",     "gr-598": "Sophocles",   "gr-599": "Sophocles",
+    "gr-601": "Euripides",    "gr-602": "Euripides",     "gr-603": "Euripides",   "gr-604": "Euripides",
+    "gr-608": "Aristophanes", "gr-609": "Aristophanes",  "gr-610": "Aristophanes", "gr-611": "Aristophanes",
+    "gr-620": "Xenophon",     "gr-621": "Xenophon",      "gr-631": "Xenophon",
+    "gr-630": "Plato",        "gr-693": "Demosthenes",
+    "gr-633": "",             // the Hippocratic Corpus — many authors, transmitted under one name
+    // Rome
+    "rm-351": "Julius Caesar",
+    // China and Korea
+    "cnh-067": "Sima Qian",   "cnh-241": "Sima Qian",    "ko-049": "Sima Qian",
+    "cnh-260": "Ban Gu",      "cnh-187": "Qu Yuan",
+    "ko-087": "Kim Busik",    "ko-089": "Chen Shou",
+    "cnh-028": "", "cnh-029": "", "cnh-056": "", "cnh-059": "", "cnh-060": "",
+    "cnh-126": "", "cnh-127": "", "cnh-143": "", "cnh-144": "", "cnh-185": "",
+    // Japan
+    "jp-098": "", "jp-099": "", "wh-543": "Murasaki Shikibu",
+    // the ancient Near East and India
+    "wh-183": "", "wh-193": "", "wh-215": "", "wh-241": "",
+  };
+  // the row's own name, italic where the card is a work and with its author after it where it has one
+  function chronoNameHTML(x) {
+    const name = esc(gameCapFirst(x.name));
+    if (!(x.id in CHRONO_WORKS)) return name;
+    const by = CHRONO_WORKS[x.id];
+    return "<i>" + name + "</i>" + (by ? '<span class="ci-by"> · ' + esc(by) + "</span>" : "");
+  }
   function chronoPool() {
     const avail = gameCardIdSet();
     /* `basis` is the date line's own label for the row the sort year came from — "Founded", "Reigned",
@@ -36697,7 +36773,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               the same reason: a row of a list is a heading naming the thing, not a word inside a sentence,
               and half the deck's answers are common nouns stored lower-case. Display only — the row is
               tracked by its card id, so nothing downstream sees the capital. */""}
-        <span class="ci-name">${esc(gameCapFirst(x.name))}</span>
+        <span class="ci-name">${chronoNameHTML(x)}</span>
         <span class="ci-year"></span>
         <div class="ci-arrows">
           <button class="ci-up" aria-label="Move earlier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
@@ -36851,17 +36927,105 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // inside a period. Everything else (a kind, a discipline, a practice) sits beside its neighbours rather
   // than inside them, so two of those in one puzzle stay distinguishable.
   const THREAD_FAMILY = {};
+  /* The list is every PLACE and every PERIOD tag a group can be seated on, not a sample of them — a tag
+     left out is a hole, and the holes were real (Sep 2026): `rome` nests inside `italy`, `athens` inside
+     `greece`, `iran` `iraq` `korea` inside `asia`, `mexico` inside `americas` inside `north america`,
+     `england` inside `britain`, and `archaic` `classical` and `20th century` are periods exactly as the
+     ages are. The seating's own overlap guard hides most of that most of the time — an Athens term
+     almost always carries `greece` too — which is precisely why it was never noticed, and "almost
+     always" is not the guarantee this rule exists to give. */
   ("greece,united states,south africa,africa,tanzania,kenya,ethiopia,france,spain,germany,china,india,japan," +
-   "italy,russia,egypt,europe,asia,north america,south america,oceania,middle east,britain,mediterranean,denmark")
+   "italy,russia,egypt,europe,asia,north america,south america,oceania,middle east,britain,mediterranean,denmark," +
+   "rome,athens,archaic greece,iran,iraq,korea,mexico,americas,england")
     .split(",").forEach((x) => { THREAD_FAMILY[x] = "where"; });
   ("bronze age,iron age,stone age,neolithic,paleolithic,mesolithic,holocene,pleistocene,classical antiquity," +
-   "middle ages,modern").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
+   "middle ages,modern,archaic,classical,20th century").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
   /* A tag with fewer clean terms than this makes the same row too often — it was 6 while the pool was the
      whole glossary, and came down to 5 when the pool became the well-known terms alone (Aug 2026). The
      number is a trade between two kinds of sameness and both were MEASURED over 730 days rather than
      argued about: at 6 only five tags are ever seatable, so every grid is four of the same five categories;
      at 4 the categories open up to ten but a tag with exactly four clean terms deals the identical four
      tiles every time it appears. At 5: seven categories, 726 of 730 grids distinct, none blank. */
+  /* ---------- A TERM MAY ONLY STAND FOR A GROUP IT WOULD BE FILED UNDER ----------
+     (Sep 2026, on request: "genealogy should not be in the 'asia' category, and 'water' should not be in
+     biology. Scan all possible minigame items for other unusual categorisations that a user would not
+     realistically confine the term to".)
+
+     `THREAD_BROAD` above throws out a TAG that is not a category. This is the other half of the same
+     argument one level down: a tag can be a perfectly good category and still be the wrong thing to file
+     a PARTICULAR term under. Genealogy is tagged `asia` because the card that teaches it is Korean, and
+     Water is tagged `biology` because the card that teaches it is in the Biology collection — both tags
+     are right about the CARD and neither is something a solver could confine the term to. A grid with
+     Water in the Biology four is not a hard puzzle, it is an unfair one.
+
+     THE FIRST RULE IS MECHANICAL, because the glossary's own convention makes it so: tag 1 is the KIND
+     and the rest are subject areas and specifics (see "Add a glossary term" in CLAUDE.md). So a term may
+     stand for a KIND group only where that kind is its OWN — the first two tags, since the convention
+     writes a broad kind and then a narrower one (`person, ruler`; `place, city`; `event, battle`).
+     MEASURED over the shipped pool, that keeps every legitimate member and drops exactly the
+     associative ones: Ramesses II out of Buildings (he is a ruler), Spartacus out of Practices (a
+     person), California out of States (a place — the pun this game could not otherwise see), Maya
+     civilisation and the Kingdom of Benin out of Cities, Genghis Khan and Timur out of States, Biology
+     and the Domesday Book out of Institutions, a cowrie shell out of Animals. The price is a handful of
+     real members filed under a broader kind — Stonehenge and Karnak leave Buildings — which is a group
+     of 24 losing two rather than a category losing its meaning.
+
+     THE SECOND RULE CANNOT BE MECHANICAL AND IS DECLARED, which is this repo's answer wherever a rule
+     needs reading rather than matching (`NOT_A_SCHOLAR`, `CROSSREF_WRONG`, `FINDIT_NAMES`). The obvious
+     pattern — the tag sits LAST in the term's list, as `asia` does on Genealogy and `biology` on Water —
+     was built and MEASURED and is wrong: by the same convention the last tag is usually the most
+     SPECIFIC and most correct one, so it drops Cicero from Rome, Babylon from Iraq (leaving none at
+     all), Persepolis from Iran and the scientific method from Research methods. There is no signal.
+     What is left is a judgement per term, made by reading the group, and recorded with its reason.
+
+     A TERM EXCLUDED HERE IS STILL IN THE POOL. It loses one group, not the grid: Water still answers for
+     Chemistry, Vikings for Europe, Attila for Warfare. */
+  const THREAD_KINDS = new Set([
+    "person", "ruler", "deity", "creature", "place", "mountain", "river", "city", "state", "dynasty",
+    "era", "event", "battle", "text", "festival", "food", "plant", "animal", "object", "concept",
+    "practice", "title", "institution", "school of thought", "symbol", "culture", "building", "people",
+    "hominin", "fossil", "industry", "artwork", "artefact",
+  ]);
+  const THREAD_NOT = {
+    asia: ["Genealogy",            // a universal practice; tagged asia for the Korean card that teaches it
+           "Shamanism"],           // practised in Siberia, the Americas and Africa alike
+    biology: ["Water", "Ice", "Molecule", "Chemical_bond", "Covalent_bond", "Ionic_bonding",
+              "Hydrogen_bond", "Electrolyte", "Solvent", "Specific_heat_capacity", "Thermodynamics",
+              "Activation_energy", "Microscope", "Electron_microscope", "Chromatography"],
+                                   // general chemistry and physics, tagged for the Biology collection
+    // (chemistry needs no row: the seating already keeps a term out of a second group it is tagged for,
+    //  so Water and Protein cannot be dealt under Biology and Chemistry in the same grid)
+    // (agriculture needs no row for Tiberius Gracchus any more: the tag came off the term itself on main,
+    //  which is the better fix wherever the tag is simply wrong about the term rather than merely
+    //  unconfinable — this table is for the ones that are RIGHT about the card and wrong for a solver)
+    agriculture: ["Zoonotic_disease"],   // a disease, not a crop
+    genetics: ["Anglo-Saxon_England", "Black_Death", "Vikings", "Huns", "Neolithic_Europe", "Horse",
+               "Ötzi"],            // tagged for the ancient-DNA evidence about them, not their subject
+    psychology: ["Charles_Darwin", "Immanuel_Kant"],   // a naturalist and a philosopher
+    philosophy: ["Eastern_Orthodox_Church"],           // a church
+    literature: ["Genealogy", "Latin", "Sanskrit", "Lesbos", "Vedic_period"],  // two languages, an island, a period
+    language: ["Koreans", "Ancient_Italy"],            // a people and a place
+    art: ["Nazi_book_burnings", "Scythians", "Olmecs", "Kingdom_of_Benin"],    // an event, two peoples, a state
+    china: ["Kanji"],              // the Japanese writing system, tagged for the characters' origin
+    germany: ["Bombing_of_Guernica"],                  // in Spain, by German aircraft
+    rome: ["Attila"],              // a Hun, tagged for invading it
+    religion: ["Goths", "Mongol_conquests", "Capitoline_geese"],
+    migration: ["Silk_Road", "Syracuse"],              // a trade route and a city
+    trade: ["Golden_Horde", "Mongol_Empire", "Mali_Empire", "Songhai_Empire"],  // states, tagged for their trade
+    law: ["Cato_the_Elder", "Gaius_Gracchus", "Tiberius_Gracchus", "League_of_Nations"],
+                                   // three Roman politicians, tagged for the laws they carried
+    warfare: ["Comanche"],         // a people
+    africa: ["War_elephant"],      // Indian as much as Carthaginian
+    "20th century": ["Gold_standard"],                 // a 19th-century arrangement
+    "research methods": ["Francis_Galton"],            // a person
+    ideology: ["Adolf_Hitler", "Benito_Mussolini", "March_on_Rome"],  // two men and an event
+  };
+  // may this term stand FOR this group? — the two rules above, asked in one place
+  function threadFits(it, tag) {
+    if (THREAD_KINDS.has(tag) && it.tags.indexOf(tag) > 1) return false;
+    const no = THREAD_NOT[tag];
+    return !(no && no.indexOf(it.key) >= 0);
+  }
   const THREAD_GROUP_MIN = 5;
   const THREAD_TRIES = 40;       // reshuffles of the candidate order before the day is given up on (see below)
   const THREAD_TITLE_MAX = 24;   // a tile is a quarter of a phone's width — a longer name cannot be read on the grid
@@ -36912,7 +37076,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // The day's four groups, or null if the glossary cannot currently make one (which is what the placard is for).
   function dailyThreadPuzzle() {
     const pool = threadPool(), byTag = {};
-    for (const it of pool) for (const g of it.tags) (byTag[g] = byTag[g] || []).push(it);
+    /* …through `threadFits`, so a term only ever enters a group it would be FILED under — which is both
+       what makes a group seatable at all (a tag needs THREAD_GROUP_MIN members it can honestly claim)
+       and what decides the four tiles. Filtering here rather than at the pick is what keeps the two in
+       step: a tag left seatable on members it cannot use deals a group short. */
+    for (const it of pool) for (const g of it.tags) if (threadFits(it, g)) (byTag[g] = byTag[g] || []).push(it);
     const cand = Object.keys(byTag).filter((g) => !THREAD_BROAD.has(g) && byTag[g].length >= THREAD_GROUP_MIN);
     /* The seating is GREEDY and therefore order-dependent: a tag taken early can rule out the two that
        would have completed the grid, and the run simply ends three groups short. That was survivable while
