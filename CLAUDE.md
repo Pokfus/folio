@@ -681,6 +681,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     MORAL arguments (about twenty cards) and World History the ECONOMIC HISTORY (about twenty-four):
     `wh-908` is what the Great Depression was, `ec-312`–`ec-314` are what caused it and why the
     explanations differ.
+  · **A FORMULA MAY BE AN ANSWER TERM, and this is the first collection where that is worth saying** —
+    `MV = PQ` beats "the quantity theory of money", which is the card's own title read back. **Six
+    constraints, measured against `app.js` rather than reasoned about**: the answer carries NO MARKUP
+    (`gradeCloze` grades `c.answer`, not `answerText`, character by character — 0 of 3,415 shipped
+    answers carry a tag); **ASCII only**, since the reader types it and `×`, `−`, `≥` and superscripts
+    are marked wrong for everyone; **`normAnswer` strips every symbol**, so `MV = PQ` becomes `mv pq`
+    and near-miss tolerance needs 6 normalised characters, which most formulae do not have; **the
+    `nocap` escape hatch WILL NOT FIRE on a formula** — it tests `/^[a-z][A-Z]/`, so `r > g` renders
+    **"R > g"**, a different statement, and the rule is not to lead with a bare lower-case variable; the
+    paired glossary term is the **named concept**, a formula being unusable as a key; and if the
+    question can only be written "the equation for X is ___", the answer should be the name.
   · **THE GLOSSARY TRAP IS THE OPPOSITE OF KOREA'S**: the vocabulary is not proper nouns but **ordinary
     English words used as technical terms** — demand, supply, capital, rent, interest, market, growth,
     equity, value. **Almost none may claim its bare surface**, on `Life_(biology)`'s rule; key them
@@ -690,6 +701,52 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     body's own argument is a source for that argument; a reason to **name what the body is** and never
     to use one as independent evidence for a contested empirical claim.
   The next card to write is the lowest `ec-NNN` not yet in `data.js`; the index table under "THE PLANNED
+  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/mesopotamia-card-plan.md` — READ BEFORE WRITING A `me-` CARD.** The **1000-card running
+  order for the Ancient Mesopotamia collection** (`mesopotamia`): every card's number, topic and deck,
+  fixed in advance across 9 decks and 40 leaf decks. The twenty-fourth of the planned collections, the
+  thirteenth history one, and the ninth to **create its own collection** — node, tree, `COLL_THEME` hue
+  and a new `ICON_SYMBOLS` mark (`tablet`) ship with the plan. **No `COLLECTION_SECTION` row**, History
+  being `sectionOf`'s default.
+  · **THE EVIDENCE IS THE SPINE AND IT IS UNLIKE ANY OTHER COLLECTION'S**, which is why deck 1 gives
+    **110 cards to the land and the evidence** and puts it FIRST. Almost everything known about three
+    thousand years comes from excavated clay tablets: overwhelmingly **administrative** rather than
+    narrative, clustered at the few sites that have been dug, and **a large share of what has been
+    excavated has never been read**. `me-064` *The bias of the evidence* and `me-089` *The backlog of
+    unread tablets* are the cards, and **every other card inherits them** — where a claim rests on one
+    archive or one site, the card says which.
+  · **THE FIRST-CLAIMS ARE THIS SUBJECT'S BIGGEST PULL.** First writing, first cities, first laws,
+    first literature, first wheel — nearly every one needs a qualification popular writing drops.
+    **No card may assert a first without saying first of what, on what evidence, and against what rival
+    claim.**
+  · **HAMMURABI'S LAWS ARE NOT A LAW CODE, and that is the collection's most important correction** —
+    no evidence the provisions were cited in court, earlier collections exist, and the monument presents
+    itself as a royal display of justice. `me-470`–`me-472` carry it, and the card is **not a
+    debunking**: a reader needs why the other reading was believed.
+  · **THE BIBLICAL RELATIONSHIP IS A LITERARY AND HISTORICAL QUESTION AND NOTHING ELSE.** The flood, the
+    tower, the captivity and the Assyrian sieges are in both records; the cards say what each source
+    says, when each was written and what the arguments are, and **take no position on any theological
+    question**.
+  · **THE CHRONOLOGY IS GENUINELY UNCERTAIN BEFORE ABOUT 1500 BCE** — long, middle and short
+    chronologies differ by up to 150 years. Use the middle chronology, say once that you are, and **do
+    not silently mix them between cards**. Transliterate to the form a general reader meets (`sh` for
+    š, no macrons), since **`answerText` is what a reader TYPES**.
+  · **THE OVERLAPS WERE MEASURED AND THIS COLLECTION HAS THE LARGEST PRE-EXISTING FOOTPRINT OF ANY
+    PLANNED SO FAR.** World History holds **26** Mesopotamian cards (the headline set, `wh-171`–`wh-191`
+    and more) — one card there, a subdeck here, as with Greece and France. **Visual Art holds 24
+    Mesopotamian OBJECTS** (`art-035` the Uruk Vase, `art-043` the Standard of Ur, `art-056` the Stele
+    of Hammurabi, `art-077` the Black Obelisk…), so **`art` cards the object and this collection cards
+    what it is EVIDENCE FOR** — four lines are titled that way on purpose. **Astronomy holds
+    `astro-922`/`astro-923`**, which is why `me-871` is *Astronomy in Mesopotamia* and `me-875` *The
+    invention of the zodiac* rather than repeating those strings.
+  · **TWENTY-NINE GLOSSARY TERMS ALREADY EXIST — THE MOST OF ANY NEW COLLECTION — AND
+    `add-glossary.js` WOULD OVERWRITE EVERY ONE IN SILENCE.** `Mesopotamia`, `Sumer`, `Uruk`,
+    `Cuneiform`, `Ziggurat`, `Gilgamesh`, `Hammurabi`, `Code_of_Hammurabi`, `Babylon`, `Nineveh` and
+    nineteen more, written for World History's 26 cards. **The pairing rule is already satisfied for
+    about thirty answer terms and the correct action on each is to WIDEN the description** — the Korea
+    `Seoul` scar at thirty times the scale. **`Ur` is two characters, so `buildGlossIndex` skips it**
+    and it must be aliased deliberately; **`Ashur` is a city, a god and a country.**
+  The next card to write is the lowest `me-NNN` not yet in `data.js`; the index table under "THE PLANNED
   COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/korea-card-plan.md` — the **1000-card running order for the Korea collection** (`korea`): every
   card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The sixteenth of the
@@ -1421,7 +1478,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.41 MB and 49,805 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.42 MB and 49,848 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6694,6 +6751,7 @@ lookup.
 | Economics | `econ` | `ec-` | `docs/economics-card-plan.md` | 9 / 40 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
 | France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
+| Ancient Mesopotamia | `mesopotamia` | `me-` | `docs/mesopotamia-card-plan.md` | 9 / 40 | empty |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
@@ -6711,7 +6769,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (331 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (343 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7672,7 +7730,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 331 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 343 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

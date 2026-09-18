@@ -20575,6 +20575,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        generic X-in-axes where it CAN be seen, not because it rescues the small sizes. Looked at at 20,
        24, 28, 40 and 64px, on dark ground and on light, beside `coin` and `atom`. */
     { k: "cross", n: "Supply and demand", d: '<path d="M4.5 3.5V19.5H20"/><path d="M7.5 17.5C10.5 16 13 12.5 17.5 6.5"/><path d="M7.5 6.5C10.5 8 13 11.5 17.5 17.5"/>' },
+    /* clay tablet — Ancient Mesopotamia. The object the whole collection is made of. `scroll`, `book`
+       and `letter` exist below and are claimed by no collection, so reuse was available and is wrong:
+       a scroll is papyrus, a book is a codex and an envelope is neither, and none of them is what
+       Mesopotamia wrote on.
+       TWO THINGS WERE LEARNED BY DRAWING IT, and both are why the paths look as they do.
+       FIRST, `stroke-linecap="butt"` ON THE INNER MARKS IS LOAD-BEARING. The svg sets round caps, which
+       add half the stroke width at each end — so the first draft's 1.7-unit marks rendered ~3.2 wide
+       against 1.3-unit gaps and MERGED INTO TWO SOLID BARS at 24px, turning the mark into a generic
+       document icon. Butt caps and three ragged rows keep six separate marks legible down to 20px.
+       SECOND, A CUNEIFORM WEDGE CANNOT BE DRAWN AT THIS SIZE. A small arrowhead was tried and at 40px
+       and up it reads unmistakably as a FAST-FORWARD control; the shape is too fine to survive. What
+       identifies the mark is therefore the SLAB, not the script: the outline is a pillow — bowed on all
+       four sides, wider than tall, no spine and no fold — which is what separates it from `book` and
+       `letter`. KEEP THE BOW.
+       THE HONEST LIMIT, since no redraw fixes it: at 20px this is a rounded slab with texture on it, and
+       a reader who does not already know the collection could read it as a document. Every tablet mark
+       has that problem. Looked at at 20, 24, 28, 40 and 64px on dark ground and on light, beside `book`
+       and `letter`, across nine variants. */
+    { k: "tablet", n: "Clay tablet", d: '<path d="M6 5.4Q12 4.4 18 5.4Q19.2 11 18 18.6Q12 19.6 6 18.6Q4.8 11 6 5.4Z"/><path stroke-linecap="butt" d="M8.2 9h2.4M12.4 9h3.4"/><path stroke-linecap="butt" d="M8.2 12h3.4M13.2 12h2.4"/><path stroke-linecap="butt" d="M8.2 15h2.4M12 15h2.6"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20658,6 +20677,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     astro: "ringed",
     france: "eiffel",
     econ: "cross",
+    mesopotamia: "tablet",
     korea: "taegeuk",
     /* Visual Art takes the EXISTING `brush`, which is the one collection mark on this shelf that was
        reused rather than drawn. Every other was checked by eye at the 24-28px a deck row draws it at,
@@ -26101,6 +26121,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        26.5 and is rejected for the SIXTH time; the olive-brass for the fifth. Neither should be
        measured again. Looked at as a banner and as its 20% wash beside its neighbours. */
     econ:     { bg: "#008C96" },
+    /* clay brown (Ancient Mesopotamia) — MEASURED, and the sixth member of the yellow-brown quarter,
+       which needs the argument the note below gives.
+       LAPIS LAZULI IS THE OBVIOUS CHOICE AND IS REFUSED ON THE NUMBERS. It is the Mesopotamian luxury
+       material — the Standard of Ur, the royal graves, the Ishtar Gate's glaze — and swept against the
+       30 hues then here its best candidate stands 19.2, below the median of 20.8, WITH NINE HUES WITHIN
+       30 OF IT (US navy, Psychology plum, Greece Aegean, WW2 dark iron, Philosophy petrol). That
+       density figure is the verdict; the blue-violet quarter is the most crowded region left.
+       CLAY IS THE OTHER CLAIM AND IS STRONGER ANYWAY — the cities, the ziggurats and the entire
+       evidence base are baked mud. 21.3 from World History's sepia, 21.4 from the German deck, 21.9
+       from the Spanish deck, above the median, with 5 within 30 — the same density as Philosophy's
+       petrol and four fewer than lapis. L 36, contrast 7.6:1.
+       WHY A SIXTH IN THIS FAMILY IS ALLOWED WHERE FOUR EARLIER CANDIDATES WERE NOT: the standing note
+       above records the OLIVE-BRASS being rejected four times at hue 90-100, on the grounds that a good
+       number is not a look. THIS IS A DIFFERENT SUB-BAND — hue 72, a red-brown — and it is apt in the
+       way none of those were. It is separated from its neighbours by lightness AND chroma together:
+       sepia is L 48 / C 30 and the German deck L 27 / C 32, where this is L 36 / C 47, between them in
+       lightness and above both in saturation.
+       ONE FIGURE IS AGAINST IT AND IS STATED RATHER THAN HIDDEN: chroma 47 sits above the shelf's own
+       median, which has fallen to 35 as the shelf has grown — RE-MEASURE THAT rather than quoting it.
+       It is below India's 61, Dinosaurs' 58 and the Spanish deck's 49, so it is not the loudest thing
+       here, but it is not in the quiet half either. The magenta was NOT re-measured; it has been
+       rejected six times. Looked at as a banner and as its 20% wash beside its neighbours. */
+    mesopotamia: { bg: "#784A00" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median

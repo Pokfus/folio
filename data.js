@@ -11247,6 +11247,316 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "mesopotamia",
+      "title": "Ancient Mesopotamia",
+      "total": 0,
+      "children": [
+        {
+          "id": "me-land",
+          "title": "The Land and the Evidence",
+          "total": 110,
+          "children": [
+            {
+              "id": "me-what",
+              "title": "What Mesopotamia is",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-geography",
+              "title": "The land between the rivers",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-cuneiform-ev",
+              "title": "The tablets and what survives",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-decipher",
+              "title": "Decipherment and Assyriology",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-digging",
+              "title": "Excavating Mesopotamia",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-before",
+          "title": "Before Cities",
+          "total": 100,
+          "children": [
+            {
+              "id": "me-neolithic",
+              "title": "The Neolithic of the north",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-ubaid",
+              "title": "The Ubaid",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-uruk",
+              "title": "The Uruk period",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-urban",
+              "title": "The first cities",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-sumer",
+          "title": "Sumer",
+          "total": 120,
+          "children": [
+            {
+              "id": "me-sumerians",
+              "title": "The Sumerians",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-earlydyn",
+              "title": "The Early Dynastic period",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-citystates",
+              "title": "City and king",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-sumercities",
+              "title": "The cities of Sumer",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-akkad",
+          "title": "Akkad and Ur",
+          "total": 100,
+          "children": [
+            {
+              "id": "me-sargon",
+              "title": "Sargon and the Akkadian empire",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-akkadfall",
+              "title": "The fall of Akkad",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-ur3",
+              "title": "The Third Dynasty of Ur",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-amorites",
+              "title": "The Amorites and the coming of Babylon",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-babylon",
+          "title": "Babylon",
+          "total": 120,
+          "children": [
+            {
+              "id": "me-oldbab",
+              "title": "The Old Babylonian period",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-hammurabi",
+              "title": "Hammurabi and his laws",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-kassite",
+              "title": "The Kassites and the late Bronze Age",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-neobab",
+              "title": "The Neo-Babylonian empire",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-babcity",
+              "title": "The city of Babylon",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-assyria",
+          "title": "Assyria",
+          "total": 120,
+          "children": [
+            {
+              "id": "me-earlyassyria",
+              "title": "Ashur and early Assyria",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-middleassyria",
+              "title": "The Middle Assyrian kingdom",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-neoassyria",
+              "title": "The Neo-Assyrian empire",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "me-assyrianstate",
+              "title": "How Assyria ruled",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-assyriafall",
+              "title": "The fall of Assyria",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-religion",
+          "title": "Gods, Temples and the Afterlife",
+          "total": 100,
+          "children": [
+            {
+              "id": "me-gods",
+              "title": "The gods",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-temple",
+              "title": "Temple and cult",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-myth",
+              "title": "Myth and cosmology",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-death",
+              "title": "Death, demons and divination",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-writing",
+          "title": "Writing, Science and Literature",
+          "total": 120,
+          "children": [
+            {
+              "id": "me-script",
+              "title": "Cuneiform as a system",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-scribes",
+              "title": "Scribes and schools",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-lit",
+              "title": "Literature",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-maths",
+              "title": "Mathematics",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-sciences",
+              "title": "Astronomy, medicine and technology",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-life",
+          "title": "Daily Life, Law and Legacy",
+          "total": 110,
+          "children": [
+            {
+              "id": "me-society",
+              "title": "Society and daily life",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-economy",
+              "title": "Work, land and trade",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-law",
+              "title": "Law and justice",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-legacy",
+              "title": "The end and the afterlife of Mesopotamia",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-world",
       "title": "World Geography",
       "total": 468,

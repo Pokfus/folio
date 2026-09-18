@@ -380,6 +380,63 @@ conflates them constantly.
 does — a barrel of oil, an acre of land — the imperial conversion in brackets does not count against
 the word limits.
 
+## Formulae may be answer terms — and six things decide whether one works
+
+**A card's answer term may be a FORMULA rather than a name.** Economics is the first collection on the
+shelf where that is worth saying: `ec-275` the quantity theory, `ec-247` the components of aggregate
+demand, `ec-264` Okun's law, `ec-435` present value, `ec-101` price elasticity, `ec-156` and `ec-159`
+the profit-maximising condition, `ec-616` interest parity and `ec-736` are all lines whose real content
+is a relation between quantities, and on several of them the relation is the thing a reader should be
+able to produce. **`MV = PQ` is a better answer to a card about the quantity theory than "the quantity
+theory of money", because the second is the card's own title read back.**
+
+**The six constraints below were MEASURED against the real `app.js`, not reasoned about**, and three of
+them are traps.
+
+**1. The plain form is what is graded, so the answer carries NO MARKUP.** `gradeCloze` is called with
+`c.answer` — not `answerText` — and compares it to what was typed **character by character**, so a tag
+in that field is graded as characters. Measured over the shipped corpus: **0 of 3,415 answers carry
+markup**, so this is the existing convention rather than a new rule, and a formula simply has to obey
+it. Put the set typography in the abstract, where `<i>` and `<sup>` work.
+
+**2. ASCII ONLY, because the reader has to TYPE it.** `=`, `+`, `-`, `*`, `/`, `(`, `)` and letters are
+typable; `×`, `−` (U+2212), `÷`, `≥`, `Δ`, `π` and any superscript are not, and every one of them is
+marked wrong for every reader on a keyboard that cannot produce it. **Spaces are graded too**, so
+`MV = PQ` and `MV=PQ` are different answers — pick the spaced form, which is how the relation is
+written, and keep it across the collection.
+
+**3. `normAnswer` STRIPS EVERY SYMBOL, which costs a formula its typing tolerance.** It keeps only
+`[a-z0-9 ]`, so `MV = PQ` normalises to `mv pq` (5 characters) and `r > g` to `r g` (3). `answerNear`
+allows a one-slip near miss only at **6 normalised characters or more**, so **most formulae must be
+matched exactly** — in the deck pretest and in the confusion register, which are the two places that
+function is used. A formula of symbols alone normalises to the **empty string** and can never match
+there at all. This is a reason to prefer a formula with several letters in it (`Y = C + I + G`
+normalises to 7 and keeps the tolerance) over a two-term one.
+
+**4. THE ANSWER IS CAPITALISED BY CSS AND THE ESCAPE HATCH WILL NOT FIRE ON A FORMULA.** `.answer
+.val::first-letter` uppercases the first letter, and the `nocap` class that suppresses it is set by
+`/^[a-z][A-Z]/` — a lower-case letter followed **immediately** by a capital, which is the `pH` and
+`mRNA` case it was written for. **`r > g` does not match it**, so the card would render **"R > g"** —
+and in that formula `r` and `g` are distinct variables, so the capital is not a style choice but a
+different statement. **Verified in the page, not inferred.** Two ways out, and the first is the
+default: **do not lead a formula with a bare lower-case variable** — `ec-736` is already titled *The
+argument that returns outpace growth* for exactly this reason, and its answer should be the named
+relation rather than the symbols. If a card genuinely needs one, the `noCap` test has to be widened
+first, and that is a change to `app.js` rather than something a card can declare.
+
+**5. The paired glossary term is the NAMED CONCEPT, not the formula.** The pairing rule gives every
+card's answer its own entry, and a formula cannot be one: a key is a Wikipedia-style slug, and
+`buildGlossIndex` skips any surface under three characters. So a formula card pairs with
+`Quantity_theory_of_money` or `Okun's_law`, with the formula given inside the description and, where it
+is typable and distinctive, added as an **alias** so the prose links.
+
+**6. The question still has to clue the formula, and that is the real test of whether the line should
+take one.** A question is 20–34 words with the blank mid-sentence, and it must make the relation
+recoverable from what it says — naming the quantities and what they do to each other — rather than
+asking the reader to recall a string. **If the question can only be written as "the equation for X
+is ___", the answer should be the name and the formula belongs in the abstract.** That is the honest
+default, and most of the lines listed above will end up taking it.
+
 ## Sourcing
 
 **Very well served, and the hazard is unusually specific to this subject.**

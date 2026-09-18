@@ -84,6 +84,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `economics-card-plan.md` | Economics (`econ`) | `ec-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |
 | `france-card-plan.md` | France (`france`) | `fr-` |
+| `mesopotamia-card-plan.md` | Ancient Mesopotamia (`mesopotamia`) | `me-` |
 | `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; the artwork card format is built | `art-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
 | `world-geography-card-plan.md` | World Geography (`geo-world`) — 471 cards, sorted by population | `gw-` |
