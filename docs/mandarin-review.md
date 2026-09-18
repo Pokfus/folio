@@ -668,6 +668,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l6` notes 61–90 (病毒 → 不止) | 5 | **不时 swallowed by 时不时**, a different word built on the same two characters |
 | 2026-09-18 | `hsk30l6` notes 91–120 (步骤 → 查询) | 9 | **千层面 — LASAGNA — as both of one card's examples**, and 才能 straddling 才 + 能 on two of three |
 | 2026-09-18 | `hsk30l6` notes 121–150 (拆除 → 沉重) | 7 | **早产出生 — 早产 + 出生 — on the 产出 card**, a premature birth standing in for industrial output |
+| 2026-09-18 | `hsk30l6` notes 151–180 (趁 → 愁), deck order | 11 | **a `dropEx` that ORPHANED an earlier batch's `exEn` row — and the applier FAILED on it rather than warning** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10214,3 +10215,66 @@ checker after authoring, not only before.** All three are fixed and the range no
 
 **No changelog line and no version bump** — a community deck is not a change to Folio, and nothing in
 the app changed.
+
+## Batch 133 — `hsk30l6` notes 151–180 (趁 → 愁)
+
+**Eleven of thirty changed; nineteen read and left.**
+
+**THE BATCH'S FINDING IS ABOUT THE RECORD RATHER THAN THE DECK, and it is worth having.** 尺's three
+sentences were 尺码, 公尺 and 公尺 — all three swallowing the headword, and the last two a near-repeat
+of each other besides — so all three were dropped. The applier then **FAILED**:
+
+```
+FAIL  2 `exEn` row(s) naming a sentence the note has not got:
+      hsk30l6/尺 → 该建筑高一百公尺。
+      hsk30l6/尺 → 这块木板大约两公尺长。
+```
+
+Those two rows were written by the **ONE-WAY-ROW sweep of batch 32**, which found 33 sites across 22
+cards where an American spelling sat in a family `SPELL_PAIRS` marks one-way — and rewrote these two
+sentences' *meter* to *metre*. Dropping the sentences orphaned the repairs. **`exEn` FAILS rather than
+warns where `dropEx` merely reports**, and that asymmetry is exactly right here: a `dropEx` matching
+nothing is usually a repair already made, where an `exEn` matching nothing is always either a typo or
+this — a later batch quietly undoing an earlier one. Both rows are removed with the sentences they
+named, and the record says so. **Nothing is lost**: the English repair went with the sentence, and 公尺
+is now one of the card's `Compounds` rows instead. **When a batch drops a sentence, check the record
+for earlier rows that name it** — the applier will catch it, but it catches it as a hard failure in
+the middle of a ten-card write.
+
+**成 was glossed as a measure word and all three of its sentences are the verb.** The card read
+`measure word | one tenth; proportion` over 您想成为什么, 功到自然成 and 也许他不会成名 — *to become*,
+*to succeed* and *to become famous*. CC-CEDICT leads with *to succeed / to finish / to complete / to
+become* and puts *one tenth* last; the card had taken the tail of the entry and shown none of the head.
+Two of the three sentences swallow the character besides (成为, 成名), so it is now three senses with
+an authored sentence for each of the two the deck had lost: 他后来成了一名医生 and
+今年的产量增加了两成.
+
+**诚信 was a noun glossed as an adjective, twice over.** The card read `adjective | genuine` over three
+sentences that are all the noun — *honesty is a virtue*, *in business one must have* 诚信, *integrity
+is the best signboard*. And fixing the gloss alone left `adjective | honesty; trustworthiness`,
+because **`gloss` replaces the gloss TEXT and leaves the part-of-speech label standing**; `senses`
+writes both. That is the third card this audit has had to set through `senses` for that reason (显然,
+升, now 诚信), and it is worth stating as a rule: **when the label is wrong too, the row is `senses`,
+never `gloss`.**
+
+**Three more swallowed headwords.** 盛's 全盛时期 is 全盛; 愁's 乡愁 and 愁闷 are both compounds, which
+left one real sentence on that card out of three. 尺 is above.
+
+**撑 and 抽奖 each carried a repeat.** 撑's second and third are both a rope holding a weight;
+抽奖's first two are 活动结束后**还**有抽奖 and 活动结束后有抽奖 under the *same English*, which is
+`check-senses.js`'s exact check and which it had been reporting as `u_hsk30l6_178`.
+
+**Two sentences ended bare** — 城镇's 我不想在城镇的那个地方买房 and 冲突's 他们有时候有矛盾冲突 —
+and took an `exStop`. **And 成语's first English was a calque of a joke**: 我把成语全部还给老师了 means
+*I have forgotten every idiom I was taught*, and the card read *I gave all of the Chinese proverbs back
+to the teacher*, which is the words without the sense.
+
+**Four `Compounds` panels** — 趁, 撑, 成, 盛, 尺, 愁 (six). 趁着 and 撑住 are not in CC-CEDICT, so those
+two take three-row panels.
+
+**Checks after.** `--check` clean. Coverage 11,532 notes at three sentences with 0 repeats;
+shared-gloss groups 320 and still-ambiguous 1, both unchanged. `check-pinyin.js` clean;
+`check-polyreading.js` 0; `check-british.js` 0; `check-example-fit.js`, `check-coarse.js`,
+`check-senses.js` and `check-gloss-source.js` all name nothing in 151–180. **Verified against the real
+diff: 11 of 30 changed and nothing outside the range moved.** `build-lang-decks.js` re-run. No
+changelog line and no version bump.
