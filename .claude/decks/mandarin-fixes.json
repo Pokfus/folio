@@ -14182,8 +14182,17 @@
       "gloss": "woman, female (formal; used in the names of sporting events)"
     },
     "hsk30l5/妇女": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "women (adult women collectively; official usage)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | AN EXAMPLE SENTENCE ASSERTED SOMETHING FALSE IN THE PRESENT TENSE. 美国妇女没有选举权 says American women HAVE no vote; its English said they *didn't* have one, which is the historical claim the sentence was meant to make and which Chinese would need 曾经 or a date to carry. The English cannot be repaired around it — `exEn` leaves the Chinese standing, and the Chinese is the part that is wrong — so it is dropped and an AUTHORED sentence that dates the fact put in its place.",
+      "gloss": "women (adult women collectively; official usage)",
+      "dropEx": [
+        "美国妇女没有选举权"
+      ],
+      "ex": [
+        [
+          "美国妇女1920年才获得选举权。",
+          "American women did not get the vote until 1920."
+        ]
+      ]
     },
     "hsk30l5/学历": {
       "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -26908,11 +26917,17 @@
       ]
     },
     "hsk30l7/流露": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | THE TRADITIONAL 著 STANDING WHERE SIMPLIFIED WRITES 着 — the aspect particle or verb suffix zhe, in a deck that is simplified throughout. Found by sweeping the decks for the character in batch 85 and reading every hit: fifteen sites carry it, six are right (著名, 显著, 著作, 名著, 著称, 专著 all keep 著) and nine are this fault. **A VARIANT SWEEP CANNOT FIND IT**, because 著 is not a variant — it is a perfectly good simplified character in its own right — so batch 77's CC-CEDICT test, which asks whether the dictionary knows a character only as a pointer at another, reports nothing here. Repaired through `exVariant`, a record field written for this: one character for another, same length, differing at exactly ONE position, and only for a pair DECLARED in `VARIANT_PAIRS`. A one-for-one swap changes no position, so `rewriteZhVisible` flushes every tag back where it stood and the bolding and `data-say` survive untouched — narrower than the insertions `exSpace` already allows, where a free rewrite would be wider than either.",
       "ex": [
         [
           "任何情绪，只要它是真诚的，就说明它是发自内心的自然流露。",
           "Any emotion, if it is sincere, is involuntary."
+        ]
+      ],
+      "exVariant": [
+        [
+          "她的心流露著感激之情。",
+          "她的心流露着感激之情。"
         ]
       ]
     },
@@ -71839,7 +71854,7 @@
       ]
     },
     "hsk30l5/复制": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. Here two of the three rows THIS RECORD had written were 请把这份文件复制一份 and 请复制一份给我 — the same request twice. The duplicate is replaced in place.",
       "ex": [
         [
           "请把这份文件复制一份。",
@@ -71850,8 +71865,8 @@
           "This painting is a copy."
         ],
         [
-          "请复制一份给我。",
-          "Please make me a copy."
+          "网上的内容不能随便复制。",
+          "You may not simply copy content from the internet."
         ]
       ]
     },
@@ -77280,11 +77295,11 @@
       ]
     },
     "hsk30l5/高档": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | AN ENGLISH ROW OF THIS RECORD'S OWN THAT MISSED THE WORD. 高档 is HIGH-END — CC-CEDICT gives /superior quality/high grade/top grade/ — and the translation said *expensive*, which is a consequence of the word rather than the word. Corrected in place.",
       "ex": [
         [
           "这是一家高档餐厅。",
-          "This is an expensive restaurant."
+          "This is an upmarket restaurant."
         ],
         [
           "高档商品卖得不快。",
@@ -77293,7 +77308,7 @@
       ]
     },
     "hsk30l5/高级": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten. 很高级的相机 is a high-END camera; the English said *a very good camera*, which drops the headword and says something weaker.",
       "ex": [
         [
           "他是高级工程师。",
@@ -77303,10 +77318,16 @@
           "这是高级班的课本。",
           "This is the advanced class's textbook."
         ]
+      ],
+      "exEn": [
+        [
+          "汤姆买了台很高级的相机",
+          "Tom bought a very high-end camera."
+        ]
       ]
     },
     "hsk30l5/高效": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An example sentence was broken: 我认为电脑会帮助学生以高效方式**使**学得更好 carries a stray 使 between the adverbial and the verb, which no reading allows. Dropped, with an AUTHORED replacement.",
       "ex": [
         [
           "这台机器很高效。",
@@ -77315,11 +77336,18 @@
         [
           "高效的做法能省时间。",
           "An efficient method saves time."
+        ],
+        [
+          "他的工作方法很高效。",
+          "His way of working is very efficient."
         ]
+      ],
+      "dropEx": [
+        "我认为电脑会帮助学生以高效方式使学得更好"
       ]
     },
     "hsk30l5/个别": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about. The card read `individually; separately`, the adverb alone, while two of its three sentences are the ADJECTIVE — 个别人, 个别同学, *just one or two* — which CC-CEDICT carries as its own sense and the card did not.",
       "ex": [
         [
           "个别同学还没交作业。",
@@ -77329,7 +77357,8 @@
           "老师个别辅导了他。",
           "The teacher coached him individually."
         ]
-      ]
+      ],
+      "gloss": "individual; just one or two; individually"
     },
     "hsk30l5/更换": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -78924,11 +78953,11 @@
       ]
     },
     "hsk30l5/改天": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. 我下班了，改天聊 and 今天太忙了，改天再聊 both end on 改天(再)聊 — one excuse and one conversation postponed, twice. The row THIS RECORD wrote is replaced in place with a different verb, since 改天 attaches to any of them.",
       "ex": [
         [
-          "今天太忙了，改天再聊。",
-          "I'm too busy today; let's talk another day."
+          "这件事改天再决定。",
+          "Let's decide this another day."
         ]
       ]
     },
@@ -83846,11 +83875,17 @@
       ]
     },
     "hsk30l6/外甥": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | THE TRADITIONAL 著 STANDING WHERE SIMPLIFIED WRITES 着 — the aspect particle or verb suffix zhe, in a deck that is simplified throughout. Found by sweeping the decks for the character in batch 85 and reading every hit: fifteen sites carry it, six are right (著名, 显著, 著作, 名著, 著称, 专著 all keep 著) and nine are this fault. **A VARIANT SWEEP CANNOT FIND IT**, because 著 is not a variant — it is a perfectly good simplified character in its own right — so batch 77's CC-CEDICT test, which asks whether the dictionary knows a character only as a pointer at another, reports nothing here. Repaired through `exVariant`, a record field written for this: one character for another, same length, differing at exactly ONE position, and only for a pair DECLARED in `VARIANT_PAIRS`. A one-for-one swap changes no position, so `rewriteZhVisible` flushes every tag back where it stood and the bolding and `data-say` survive untouched — narrower than the insertions `exSpace` already allows, where a free rewrite would be wider than either.",
       "ex": [
         [
           "他外甥今年七岁。",
           "His nephew is seven this year."
+        ]
+      ],
+      "exVariant": [
+        [
+          "她等著接外甥。",
+          "她等着接外甥。"
         ]
       ]
     },
@@ -84793,7 +84828,7 @@
       ]
     },
     "hsk30l7/倚": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | THE TRADITIONAL 著 STANDING WHERE SIMPLIFIED WRITES 着 — the aspect particle or verb suffix zhe, in a deck that is simplified throughout. Found by sweeping the decks for the character in batch 85 and reading every hit: fifteen sites carry it, six are right (著名, 显著, 著作, 名著, 著称, 专著 all keep 著) and nine are this fault. **A VARIANT SWEEP CANNOT FIND IT**, because 著 is not a variant — it is a perfectly good simplified character in its own right — so batch 77's CC-CEDICT test, which asks whether the dictionary knows a character only as a pointer at another, reports nothing here. Repaired through `exVariant`, a record field written for this: one character for another, same length, differing at exactly ONE position, and only for a pair DECLARED in `VARIANT_PAIRS`. A one-for-one swap changes no position, so `rewriteZhVisible` flushes every tag back where it stood and the bolding and `data-say` survive untouched — narrower than the insertions `exSpace` already allows, where a free rewrite would be wider than either. This sentence carries the character TWICE — 他倚**著**我的肩膀睡**著**了 — and it is what settled the field's guard. The first cut allowed exactly ONE differing position, which forced this row to be split in two, each naming the sentence as the previous one leaves it; chained rows are NOT IDEMPOTENT, so once both had run the first named a sentence the deck no longer had and `--check` failed for ever afterwards. The guard's job is that every difference is a DECLARED substitution, not that there is only one of them, so it counts pairs rather than positions and this is one row.",
       "ex": [
         [
           "他倚着门站着。",
@@ -84802,6 +84837,12 @@
         [
           "别倚在栏杆上。",
           "Don't lean on the railing."
+        ]
+      ],
+      "exVariant": [
+        [
+          "他倚著我的肩膀睡著了。",
+          "他倚着我的肩膀睡着了。"
         ]
       ]
     },
@@ -94602,7 +94643,7 @@
       ]
     },
     "hsk30l7/衰弱": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | THE TRADITIONAL 著 STANDING WHERE SIMPLIFIED WRITES 着 — the aspect particle or verb suffix zhe, in a deck that is simplified throughout. Found by sweeping the decks for the character in batch 85 and reading every hit: fifteen sites carry it, six are right (著名, 显著, 著作, 名著, 著称, 专著 all keep 著) and nine are this fault. **A VARIANT SWEEP CANNOT FIND IT**, because 著 is not a variant — it is a perfectly good simplified character in its own right — so batch 77's CC-CEDICT test, which asks whether the dictionary knows a character only as a pointer at another, reports nothing here. Repaired through `exVariant`, a record field written for this: one character for another, same length, differing at exactly ONE position, and only for a pair DECLARED in `VARIANT_PAIRS`. A one-for-one swap changes no position, so `rewriteZhVisible` flushes every tag back where it stood and the bolding and `data-say` survive untouched — narrower than the insertions `exSpace` already allows, where a free rewrite would be wider than either.",
       "ex": [
         [
           "他身体很衰弱。",
@@ -94611,6 +94652,12 @@
         [
           "老人的听力衰弱了。",
           "The old man's hearing has weakened."
+        ]
+      ],
+      "exVariant": [
+        [
+          "他们观察到她随著病情变化身体也渐渐衰弱下去。",
+          "他们观察到她随着病情变化身体也渐渐衰弱下去。"
         ]
       ]
     },
@@ -102949,11 +102996,17 @@
       ]
     },
     "hsk30l7/照耀": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | THE TRADITIONAL 著 STANDING WHERE SIMPLIFIED WRITES 着 — the aspect particle or verb suffix zhe, in a deck that is simplified throughout. Found by sweeping the decks for the character in batch 85 and reading every hit: fifteen sites carry it, six are right (著名, 显著, 著作, 名著, 著称, 专著 all keep 著) and nine are this fault. **A VARIANT SWEEP CANNOT FIND IT**, because 著 is not a variant — it is a perfectly good simplified character in its own right — so batch 77's CC-CEDICT test, which asks whether the dictionary knows a character only as a pointer at another, reports nothing here. Repaired through `exVariant`, a record field written for this: one character for another, same length, differing at exactly ONE position, and only for a pair DECLARED in `VARIANT_PAIRS`. A one-for-one swap changes no position, so `rewriteZhVisible` flushes every tag back where it stood and the bolding and `data-say` survive untouched — narrower than the insertions `exSpace` already allows, where a free rewrite would be wider than either. The same sentence as 月光's in Level 6, repaired on both cards.",
       "ex": [
         [
           "阳光照耀着大地。",
           "The sun shines on the earth."
+        ]
+      ],
+      "exVariant": [
+        [
+          "月光在照耀著。",
+          "月光在照耀着。"
         ]
       ]
     },
@@ -111122,11 +111175,20 @@
       ]
     },
     "hsk30l5/高科技": {
-      "why": "Found by READING the whole of what the LEXIS table changed, line against line, rather than by counting what it left behind (batch 24). Same plural-and-article point: “during summer vacation” is bare in American English and “during the summer holidays” in British. ",
+      "why": "Found by READING the whole of what the LEXIS table changed, line against line, rather than by counting what it left behind (batch 24). Same plural-and-article point: “during summer vacation” is bare in American English and “during the summer holidays” in British.  | An example sentence was not Chinese: 台湾是高科技领先国 — 领先国 is not a word, and the noun the sentence wants (领先者, or 在…领先) cannot be recovered from it. Dropped, with an AUTHORED replacement.",
       "exEn": [
         [
           "我暑假去了新竹科技园区",
           "I went to the Hsinchu Science Park during the summer holidays and saw many high-tech companies."
+        ]
+      ],
+      "dropEx": [
+        "台湾是高科技领先国"
+      ],
+      "ex": [
+        [
+          "这家公司专门做高科技产品。",
+          "This company specialises in high-tech products."
         ]
       ]
     },
@@ -125499,6 +125561,223 @@
           "造福",
           "zàofú",
           "to bring benefit to"
+        ]
+      ]
+    },
+    "hsk30l6/默默": {
+      "why": "THE TRADITIONAL 著 STANDING WHERE SIMPLIFIED WRITES 着 — the aspect particle or verb suffix zhe, in a deck that is simplified throughout. Found by sweeping the decks for the character in batch 85 and reading every hit: fifteen sites carry it, six are right (著名, 显著, 著作, 名著, 著称, 专著 all keep 著) and nine are this fault. **A VARIANT SWEEP CANNOT FIND IT**, because 著 is not a variant — it is a perfectly good simplified character in its own right — so batch 77's CC-CEDICT test, which asks whether the dictionary knows a character only as a pointer at another, reports nothing here. Repaired through `exVariant`, a record field written for this: one character for another, same length, differing at exactly ONE position, and only for a pair DECLARED in `VARIANT_PAIRS`. A one-for-one swap changes no position, so `rewriteZhVisible` flushes every tag back where it stood and the bolding and `data-say` survive untouched — narrower than the insertions `exSpace` already allows, where a free rewrite would be wider than either.",
+      "exVariant": [
+        [
+          "他默默地看著我。",
+          "他默默地看着我。"
+        ]
+      ]
+    },
+    "hsk30l6/月光": {
+      "why": "THE TRADITIONAL 著 STANDING WHERE SIMPLIFIED WRITES 着 — the aspect particle or verb suffix zhe, in a deck that is simplified throughout. Found by sweeping the decks for the character in batch 85 and reading every hit: fifteen sites carry it, six are right (著名, 显著, 著作, 名著, 著称, 专著 all keep 著) and nine are this fault. **A VARIANT SWEEP CANNOT FIND IT**, because 著 is not a variant — it is a perfectly good simplified character in its own right — so batch 77's CC-CEDICT test, which asks whether the dictionary knows a character only as a pointer at another, reports nothing here. Repaired through `exVariant`, a record field written for this: one character for another, same length, differing at exactly ONE position, and only for a pair DECLARED in `VARIANT_PAIRS`. A one-for-one swap changes no position, so `rewriteZhVisible` flushes every tag back where it stood and the bolding and `data-say` survive untouched — narrower than the insertions `exSpace` already allows, where a free rewrite would be wider than either. This sentence sits on TWO cards — here and on 照耀 in Levels 7–9 — so it takes a row on each: the bank is shared and a record row is per note, which is the rule batches 83 and 84 each met from a different side.",
+      "exVariant": [
+        [
+          "月光在照耀著。",
+          "月光在照耀着。"
+        ]
+      ]
+    },
+    "hsk30l5/副": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about. The card is labelled a MEASURE WORD and glossed `deputy; vice-; auxiliary`, which is the prefix and not the classifier — so the sense its own label names, and which two of its three sentences show (这副眼镜, 一副太阳眼镜), had no definition behind it. CC-CEDICT gives /classifier for pairs, sets of things & facial expressions/ outright. | An example sentence was the headword swallowed: 这是个副词 is 副词, an adverb, a word of its own. Dropped, with an AUTHORED replacement. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against three words in the collection.",
+      "gloss": "deputy; vice-; secondary; a measure word for pairs and sets",
+      "dropEx": [
+        "这是个副词"
+      ],
+      "ex": [
+        [
+          "他戴着一副手套。",
+          "He is wearing a pair of gloves."
+        ]
+      ],
+      "compounds": [
+        [
+          "副作用",
+          "fùzuòyòng",
+          "a side effect"
+        ],
+        [
+          "副总统",
+          "fùzǒngtǒng",
+          "a vice-president"
+        ],
+        [
+          "副词",
+          "fùcí",
+          "an adverb"
+        ]
+      ]
+    },
+    "hsk30l5/富": {
+      "why": "An example sentence was not about this character at all: 富子 is **Tomiko**, a Japanese given name, so the card's first sentence carried the character only inside a transliteration — the 大福 fault of batch 85 in another guise, a single-character card met through something borrowed whole from Japanese. Dropped, with an AUTHORED sentence using the character as the adjective it glosses, which neither of the other two did (富有 and 首富 are both compounds). | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had one word in the reader's downloaded deck, against eleven in the collection.",
+      "dropEx": [
+        "富子猜中了我的体重"
+      ],
+      "ex": [
+        [
+          "他家越来越富了。",
+          "His family is getting richer and richer."
+        ]
+      ],
+      "compounds": [
+        [
+          "丰富",
+          "fēngfù",
+          "rich; abundant"
+        ],
+        [
+          "富有",
+          "fùyǒu",
+          "rich; wealthy"
+        ],
+        [
+          "财富",
+          "cáifù",
+          "wealth; riches"
+        ]
+      ]
+    },
+    "hsk30l5/付出": {
+      "why": "An example sentence used the wrong word: 将其**付出**实践 is 付诸实践 — *to put into practice* takes 付诸, not 付出 — so the sentence is not Chinese and its English renders the idiom the sentence does not contain. Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "我们怎样才能将其付出实践"
+      ],
+      "ex": [
+        [
+          "他为这个项目付出了很多时间。",
+          "He put a great deal of time into this project."
+        ]
+      ]
+    },
+    "hsk30l5/改革": {
+      "why": "An example sentence used the wrong word: 我们**算计着**改革生产流程 — 算计 is to scheme or to reckon up, where the sentence means 打算 (to plan), which is what its own English says. Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "我们算计着改革生产流程"
+      ],
+      "ex": [
+        [
+          "这项改革从去年开始。",
+          "This reform began last year."
+        ]
+      ]
+    },
+    "hsk30l5/改善": {
+      "why": "An example sentence was not Chinese: 它有改善了 puts 有 in front of a verb where Mandarin takes neither — 有所改善 or 改善了, not both halves at once. Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "它有改善了"
+      ],
+      "ex": [
+        [
+          "这几年环境改善了不少。",
+          "The environment has improved a good deal in recent years."
+        ]
+      ]
+    },
+    "hsk30l5/改正": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. 请改正以下句子 and 请改正错误 are both 请改正 — the same imperative twice, one object apart. The second is dropped and an AUTHORED sentence in the past put in its place.",
+      "dropEx": [
+        "请改正错误"
+      ],
+      "ex": [
+        [
+          "他很快就改正了发音。",
+          "He soon corrected his pronunciation."
+        ]
+      ]
+    },
+    "hsk30l5/盖": {
+      "why": "The gloss was not the sense this card teaches. CC-CEDICT was read for the word and the card's own three sentences decided which of its senses the card is about. The card read `cover; lid` while its own second sentence, 这家旅馆是去年盖的, is TO BUILD — a sense CC-CEDICT carries (/to cover/to conceal/to build/) and the card did not, so a reader met a use the gloss could not account for. | Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. And its first and third sentences are both a quilt. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against five words in the collection.",
+      "gloss": "a lid; a cover; to cover; to build",
+      "dropEx": [
+        "新买的被子盖起来非常暖和"
+      ],
+      "ex": [
+        [
+          "他在城里盖了一栋房子。",
+          "He built a house in town."
+        ]
+      ],
+      "compounds": [
+        [
+          "盖子",
+          "gàizi",
+          "a lid; a cover"
+        ],
+        [
+          "覆盖",
+          "fùgài",
+          "to cover"
+        ],
+        [
+          "膝盖",
+          "xīgài",
+          "a knee"
+        ],
+        [
+          "盖章",
+          "gàizhāng",
+          "to affix a seal"
+        ]
+      ]
+    },
+    "hsk30l5/高大": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. One is dropped and an AUTHORED sentence of a different construction put in its place. 昨天他遇到了高大的男人 and 她昨天看见一个高大的男人 are one sentence twice over — the same tall man, met and then seen, with the subject changed. The first is dropped and an AUTHORED sentence about a building put in its place, 高大 being as much about things as people.",
+      "dropEx": [
+        "昨天他遇到了高大的男人"
+      ],
+      "ex": [
+        [
+          "那座高大的建筑是市政厅。",
+          "That tall building is the town hall."
+        ]
+      ]
+    },
+    "hsk30l5/搞": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against two words in the collection.",
+      "compounds": [
+        [
+          "搞定",
+          "gǎodìng",
+          "to sort out; to settle"
+        ],
+        [
+          "搞笑",
+          "gǎoxiào",
+          "funny; to make people laugh"
+        ],
+        [
+          "搞错",
+          "gǎocuò",
+          "to get something wrong"
+        ]
+      ]
+    },
+    "hsk30l5/隔": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against five words in the collection.",
+      "compounds": [
+        [
+          "隔壁",
+          "gébì",
+          "next door"
+        ],
+        [
+          "间隔",
+          "jiàngé",
+          "an interval; a gap"
+        ],
+        [
+          "隔离",
+          "gélí",
+          "to isolate; to quarantine"
+        ],
+        [
+          "分隔",
+          "fēngé",
+          "to divide; to partition"
         ]
       ]
     }

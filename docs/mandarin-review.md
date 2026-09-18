@@ -621,6 +621,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 271–300 (电动 → 队伍), deck order, plus a corpus sweep for one-sided hints | 15 + 17 | **seventeen disambiguators pointing at collisions that no longer exist, and a two-reading card with a sense filed under the wrong reading** |
 | 2026-09-17 | `hsk30l5` notes 301–330 (对象 → 方), deck order | 16 | **a split headword this audit itself introduced, a card that contradicts itself, and a sentence dropped from one card still standing on another** |
 | 2026-09-17 | `hsk30l5` notes 331–360 (方案 → 服装), deck order, plus a corpus sweep for the traditional 著 | 14 + 1 | **the traditional aspect particle 著 in a simplified deck — a fault a variant sweep cannot see, because 著 is also a simplified character** |
+| 2026-09-18 | `hsk30l5` notes 361–390 (副 → 个别), deck order, plus the seven outstanding 著 sites and the `exVariant` field they needed | 18 + 7 | **a record field for a one-character swap, and the chained rows that proved its guard was counting the wrong thing** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7762,3 +7763,84 @@ example-fit 142 and senses 151 unchanged; british 0; 34,596 blocks with spoken =
 one; sense-tagged 660 unchanged; `build-lang-decks.js` re-run. **著 sites: 15, of which 6 are correct
 and 9 were faults over 8 distinct sentences — 2 repaired, 7 sites outstanding** (月光 and 照耀 carry the
 same sentence).
+
+## Batch 86 — hsk30l5 notes 361–390 (副 → 个别), and `exVariant`
+
+Thirty consecutive notes, **eighteen of them changed**, and the seven 著 sites batch 85 measured and
+could not repair — which took a new field in the record, and the field took two goes.
+
+### `exVariant` — one character for another, from a declared table
+
+Batch 85 found the traditional 著 standing for 着 on eight sentences and repaired two of them: one in
+range, and one that happened to be this record's own authored row. **The other seven were generator
+blocks and no field here could reach them.** `exSpace` compares the two sides with every space and
+every mark stripped out and so REFUSES a character swap — that guard is the whole reason it is safe to
+rewrite a generator's Chinese at all — and `dropEx` would have thrown away seven sound sentences to fix
+one glyph each.
+
+**The new field is narrower than the one that refused the job, not wider.** `exVariant: [[was, now]]`
+requires the two sides to be the same LENGTH and every differing position to be a pair DECLARED in
+`VARIANT_PAIRS`. A same-length substitution changes no position, so `rewriteZhVisible` flushes every tag
+back exactly where it stood and the `<b>` round the headword and the `data-say` survive untouched —
+where `exSpace` already permits insertions and deletions, which move every tag after them. The table
+holds two rows: **著→着**, with a comment saying in terms that 著 is *not* wrong in itself (著名, 显著,
+著作, 名著, 著称, 专著 all keep it, and six of the fifteen sites in the decks are exactly those), and
+**鉄→铁**, the Japanese form batch 77 repaired by hand, declared so that the same fault found again has
+a mechanism.
+
+**THE GUARD WAS COUNTING THE WRONG THING, AND ONE SENTENCE PROVED IT.** The first cut allowed exactly
+ONE differing position — which sounds like the strictest possible rule and is not, because
+他倚**著**我的肩膀睡**著**了 carries the character twice and had to be split into two CHAINED rows, each
+naming the sentence as the previous one leaves it. **Chained rows are not idempotent**: once both have
+run, the first names a sentence the deck no longer has, and `--check` fails for ever afterwards. It did,
+immediately, which is exactly what that step is for. The guard's job is that every difference is a
+declared substitution, not that there is only one of them, so it counts PAIRS rather than positions and
+倚 is one row. Proved against a liveness table afterwards: the swap is allowed, `著`→`了` is refused as
+undeclared, a punctuation change is refused for the same reason, different lengths are refused, and an
+identical pair is refused. **All seven sites repaired, the sweep reads 0, and the applier is idempotent
+over two consecutive runs.**
+
+### The thirty notes
+
+**TWO MORE CARDS MET ONLY THROUGH SOMETHING BORROWED WHOLE.** 富's first sentence was 富子猜中了我的体重
+— **富子 is Tomiko**, a Japanese given name, so a card about the character *rich* carried it only inside
+a transliteration. That is batch 85's 大福 exactly, one card later and from the other direction: a
+single-character card whose sentence is about a Japanese word that happens to contain the character.
+Neither of its other two sentences used it freely either (富有 and 首富 are both compounds), so the
+replacement is 他家越来越富了.
+
+**A SENTENCE THAT ASSERTED SOMETHING FALSE IN THE PRESENT TENSE.** 妇女's 美国妇女没有选举权 says American
+women HAVE no vote; its English said they *didn't*, which is the historical claim the sentence was meant
+to make and which Chinese needs 曾经 or a date to carry. **`exEn` cannot repair this** — it leaves the
+Chinese standing, and the Chinese is the part that is wrong — so the row was dropped for an authored
+sentence that dates the fact. Worth keeping in mind when a translation looks like the only thing amiss:
+**ask whether the English is wrong or whether it is silently correcting the Chinese.**
+
+**FOUR SENTENCES USING THE WRONG WORD OR A BROKEN ONE.** 付出's 将其**付出**实践 wants 付诸, which is the
+idiom, so the sentence is not Chinese and its English renders one the sentence does not contain; 改革's
+我们**算计着**改革生产流程 uses *to scheme* where it means *to plan*, which is what its own English says;
+改善's 它**有**改善了 puts 有 in front of a verb where Mandarin takes 有所改善 or 改善了 and not both;
+高效's sentence carries a stray 使 between the adverbial and the verb. And 高科技's 台湾是高科技**领先国**
+ends on a noun that is not a word.
+
+**SIX REPEATS**, two of them rows this record wrote itself: 高大's *tall man* met and then seen with the
+subject changed, 改正's two 请改正 imperatives, 盖's two quilts, 副's two pairs of spectacles, 复制's two
+requests for a copy and 改天's two conversations postponed.
+
+**THREE GLOSSES THAT LEFT THEIR OWN LABEL UNDEFINED**, which is now the commonest single fault in this
+deck. 副 is labelled a MEASURE WORD and was glossed *deputy; vice-; auxiliary* — the prefix, not the
+classifier, though two of its three sentences are 这副眼镜 and 一副太阳眼镜. 个别 is labelled *adjective /
+adverb* and was glossed with the adverb alone while two of its sentences are the adjective. And 盖 was
+*cover; lid* on a card whose own second sentence, 这家旅馆是去年盖的, is TO BUILD.
+
+**FIVE SINGLE-CHARACTER CARDS GAINED A `Compounds` SECTION** — 副, 富, 盖, 搞, 隔 — and four of the five
+had **nothing at all** in the reader's downloaded deck.
+
+**Twelve cards were read and left untouched**: 负担, 富有, 改进, 概括, 概念, 敢于, 刚好, 高度, 告别,
+歌词, 歌曲 and 格外.
+
+**Checks after the batch.** `--check` clean and idempotent over two runs; coverage 11,532 at three
+sentences, repeats 0, still-ambiguous 1; shared-gloss groups 322 unchanged; one-sided hints still 0;
+pinyin clean; example-fit 142 and senses 151 unchanged; british 0; 34,596 blocks with spoken == visible
+on every one; sense-tagged 660 unchanged; **著 faults 7 → 0**; `check-claims.js` 0 drifted and
+`check-docs.js` 8 passed after the CLAUDE.md edit; `build-lang-decks.js` re-run.

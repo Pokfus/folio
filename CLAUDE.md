@@ -1833,6 +1833,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     COPY of a deck sentence in its own `ex` row, the fix belongs in that row — repaired through the
     decks it is put straight back by the next run of the applier. Ask which of the two is shipping a
     sentence before writing a row about it; the same shape as `dropEx`'s own trap, from the other side.
+  · **`exVariant` IS THE NARROWEST OF THE THREE, AND IT IS BOUNDED BY A TABLE RATHER THAN BY A SHAPE.**
+    `exVariant: [[was, now]]` swaps ONE CHARACTER FOR ANOTHER inside a generator block — which
+    `exSpace`'s own guard refuses, and rightly, a character swap being what `zhSkeleton` exists to stop
+    — and it is safe because **every differing position must be a DECLARED pair in `VARIANT_PAIRS`**,
+    the two sides must be the same LENGTH, and nothing else may differ. A same-length substitution
+    changes NO POSITION, so `rewriteZhVisible` flushes every tag back exactly where it stood and the
+    bolding and `data-say` survive untouched: it is narrower than the insertions and deletions
+    `exSpace` already allows.
+    **IT EXISTS BECAUSE OF 著, AND 著 IS WHY IT CANNOT BE A RULE.** The decks carried the TRADITIONAL 著
+    where simplified writes 着 — the aspect particle — on eight sentences, and **batch 77's variant
+    sweep cannot see it**: that test asks whether CC-CEDICT knows a character ONLY as a pointer at
+    another, and 著 is a perfectly good simplified character in its own right (著名, 显著, 著作, 名著,
+    著称, 专著 all keep it). So the fault is found by grepping the character and READING every hit, and
+    the repair is a declared pair rather than a sweep. `鉄`→`铁` is declared beside it, the Japanese
+    form batch 77 repaired by hand.
+    **THE GUARD COUNTS PAIRS, NOT POSITIONS, AND THAT WAS A CORRECTION.** The first cut allowed exactly
+    ONE differing position, which forced a sentence carrying the character twice (他倚著我的肩膀睡著了)
+    to take two CHAINED rows — and **chained rows are not idempotent**: once both have run the first
+    names a sentence the deck no longer has, so `--check` fails for ever afterwards. Found by running
+    `--check` straight after the write, which is what that step is for.
   · **`exBritish` IS A DECK-LEVEL PASS AND THE TABLE IS app.js's OWN**, sliced out by text with the run
     STOPPING if the slice fails. The decks are authored British **because the site's switch never runs
     in the direction that would rescue them** — `applySpelling` returns at once under `en-GB`, the
