@@ -623,6 +623,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-17 | `hsk30l5` notes 331–360 (方案 → 服装), deck order, plus a corpus sweep for the traditional 著 | 14 + 1 | **the traditional aspect particle 著 in a simplified deck — a fault a variant sweep cannot see, because 著 is also a simplified character** |
 | 2026-09-18 | `hsk30l5` notes 361–390 (副 → 个别), deck order, plus the seven outstanding 著 sites and the `exVariant` field they needed | 18 + 7 | **a record field for a one-character swap, and the chained rows that proved its guard was counting the wrong thing** |
 | 2026-09-18 | `hsk30l5` notes 391–420 (各行各业 → 故乡), deck order, plus a WORD-level variant sweep of the whole corpus | 14 + 15 | **CC-CEDICT marks whole WORDS as variants, and batch 77's character sweep is blind to every one of them** |
+| 2026-09-18 | `hsk30l5` notes 421–450 (挂号 → 过于), deck order | 20 | **a sentence built to be meaningless, standing first on its card — Chomsky's colourless green ideas** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -7936,3 +7937,104 @@ still-ambiguous 1; shared-gloss groups 322 unchanged; one-sided hints still 0; p
 142 and senses 151 unchanged; british 0; 34,596 blocks with spoken == visible on every one; sense-tagged
 660 unchanged; **non-standard spellings of the four declared pairs 15 → 0**; `build-lang-decks.js`
 re-run.
+
+## Batch 88 — hsk30l5 notes 421–450 (挂号 → 过于)
+
+Thirty consecutive notes of HSK Level 5 in deck order, the 挂号-to-过于 run. **Twenty cards changed**,
+which is the highest count this deck has given, and the reason is not one fault repeated: it is the
+three commonest ones — a place name standing in for the word, a gloss narrower or wider than its own
+sentences, and a near-repeat the checkers cannot see — all arriving together.
+
+### A sentence written to have no meaning
+
+**观念's first example was Chomsky's *colourless green ideas sleep furiously*.** 无色的绿色的观念疯狂地睡觉
+is the Chinese of the most famous sentence in twentieth-century linguistics, and its whole point is that
+it is **grammatical and means nothing** — Chomsky wrote it in 1957 to separate the two. It is in the
+sentence bank because it is in every parallel corpus there is, and it teaches a learner of 观念 nothing
+whatever: the word is being used as a grammatical placeholder in a sentence chosen for being about
+nothing. It also carries a doubled 的 construction (无色的绿色的) that no ordinary Chinese sentence has.
+Replaced with 他的教育观念比较传统, an authored sentence in the frame the word is actually met in.
+
+**Nothing in the pipeline can see this class, and there is nothing to build that would.** The sentence
+contains the headword as a word, segments cleanly, speaks correctly, and its English translation is
+exact. It is a perfectly formed card whose content is a joke about form.
+
+### The place name again
+
+**广 was illustrated twice out of three with 广东.** 来广东玩吗 and 广东的夏天很长 use the character only
+inside the province's name, where it is a syllable of a proper noun and not the adjective *wide* the
+card glosses — and the first of the two had no terminal mark either. This is the single-character
+blind spot `check-example-fit.js` states in its own header: a one-character headword is skipped
+outright, so 广 inside 广东 is beyond it by design, exactly as 东 inside 广东 was in batch 27. Both
+replaced with authored sentences in the two frames the adjective takes, 这本书流传很广 and 他的知识面很广.
+
+### Four glosses that did not fit their own sentences
+
+**Two labels with nothing under them.** 怪 named *verb / adjective / adverb* over *strange, unusual, to
+blame*, which is two senses under three labels: the adverbial 怪 — CC-CEDICT's colloquial *rather*, as
+in 怪好的 — is a real sense of the character that neither half of the gloss defines and no sentence
+shows. 规则 named *noun / adjective* over *rule; regulation*, which is the noun written twice, the
+adjectival sense (*regular in shape or arrangement*, 规则的图形) being likewise unglossed and
+unillustrated. Both labels are dropped rather than a sense invented to fill them; 怪 is split into the
+two senses it does teach, with each of its three sentences tagged.
+
+**One gloss narrower than its card.** 光线 read *light ray*, and not one of its three sentences is a
+ray — 我能看到光线, 拍照片光线不够亮 and 有足够的光线读书 are all ambient light. CC-CEDICT gives *light
+ray* first and *light* second, so this is batch 31's finding again: **the dictionary's leading sense is
+not automatically this card's**, and a gloss taken off the top of an entry can be right about the word
+while being wrong about the card.
+
+**One gloss wider than it looked.** 滚 was glossed *to roll; trundle*, and with this batch's boiling
+sentence added the card taught three distinct senses — 滚出我的房子 the rude *clear off*, 孩子从山上滚了下来
+*to roll*, 锅里的水滚了 *to boil*, which is the sense CC-CEDICT gives first. Split into three, each
+sentence tagged. *Trundle* went with it: it is a word a learner is less likely to know than the one it
+was glossing.
+
+### Two repeats no checker reports
+
+**贵姓 carried 请问你贵姓？ and 请问您贵姓 — one sentence, one character apart** (你 against 您), with a
+different English on each so that even the translations did not look alike. **过分 carried 你太过分了 and
+我觉得你太过分了** — the same sentence with a frame in front of it. The coverage checker's repeat test
+compares sentences **exactly**, so a near-duplicate is invisible to it, and both cards were showing a
+reader two examples where they had one. **过期 is the same fault a step wider**: all three sentences were
+a document expiring in the same frame, 护照, 签证 and 身份证, the first and third differing only in which
+document.
+
+### Five sentences that are not Chinese, or not about the word
+
+**A collocation that does not exist**: 广场's 鲜明的灯火 — 鲜明 is *vivid* or *clear-cut*, of a colour or
+a contrast, and light that illuminates a square is 明亮. **A calque**: 广泛's 广泛的安全措施实施了, English
+word order with the patient in front of 实施了 and no 被. **A headword swallowed by a term of art**:
+规模's only occurrence was inside 规模经济, *economies of scale*, in a sentence (预料到了……的实行) that
+Chinese does not say — and with it gone the card's other two were both 大规模, so a bare-规模 sentence was
+put first. **A missing 对**: 过敏's 我玉米过敏, where the word takes 对 before its allergen. **A word
+missing from its own sentence's grammar**: 过于's 过于上网不是跟医学或精神病有关的事情, which fronts an
+adverb as a noun phrase.
+
+### A generalisation about people, and two more sentences replaced
+
+观察 opened on **女人观察，男人思考** — *the woman observes and the man thinks* — which is the class
+`check-coarse.js` names and which this audit has already removed from 矮 and 教养. 广大 opened on a
+sentence whose whole content is a joke about Bombay and Mumbai being the same city, and 规律 on 现在我规律服药,
+which uses the noun adverbially where Chinese wants 有规律地. 柜子 had 每个学生都有一柜子 — a locker,
+missing its measure word — and an English translation calling a 柜子 a *shelf* two sentences after the
+gloss called it a cupboard.
+
+### Four single-character cards gained a `Compounds` section
+
+怪, 广, 滚 and 锅. Two of them — 怪 and 滚 — had **nothing at all** in the reader's downloaded deck
+against nine and one words respectively in the collection, which is the tap panel's own limit: it can
+only search what has been downloaded. Every row's reading and gloss was checked against CC-CEDICT first.
+
+### What was read and left
+
+**Ten cards were read and left untouched**: 挂号, 观点, 冠军, 光临, 光明, 国画, 国庆, 果然, 果实 and
+过度. 光明's *openhearted* looks like an unillustrated sense and is not: CC-CEDICT gives it, and the
+card's three sentences cover the two senses the gloss leads with. 关闭 needed only a terminal full stop
+on its first sentence, supplied through `exStop`.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 322 unchanged — so neither gloss rewrite made a new collision;
+one-sided hints still 0; pinyin clean; example-fit 142 and senses 151 unchanged; british 0; 34,596
+blocks with spoken == visible on every one; **sense-tagged 660 → 666**, the six being 怪's three and
+滚's three; `build-lang-decks.js` re-run.

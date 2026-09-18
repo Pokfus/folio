@@ -14996,8 +14996,12 @@
       "gloss": "itinerary, the route and schedule of a trip"
     },
     "hsk30l5/规模": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | 跨国公司预料到了规模经济的实行 uses 规模 only inside 规模经济, *economies of scale*, which is a term of art rather than the headword, and 预料到了……的实行 is not a thing Chinese says. With it gone the card's other two sentences are both 大规模, so an AUTHORED sentence using 规模 bare was put FIRST, which is the form the gloss defines.",
       "ex": [
+        [
+          "这家工厂的规模很大。",
+          "This factory is on a large scale."
+        ],
         [
           "农村好像要大规模发展了。",
           "It seems the rural area will be developed on a large scale."
@@ -15006,6 +15010,9 @@
           "他们小型的示威引发了一场大规模的游行。",
           "Their small protest triggered a mass demonstration."
         ]
+      ],
+      "dropEx": [
+        "跨国公司预料到了规模经济的实行"
       ]
     },
     "hsk30l5/记载": {
@@ -77422,7 +77429,7 @@
       ]
     },
     "hsk30l5/广大": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | AN EXAMPLE SENTENCE THAT IS A JOKE AT THE READER'S EXPENSE. 你的智慧广大的有如**孟买和孟买**之间的距离 measures somebody's intelligence by the distance between Bombay and Mumbai — which are the same city, so the sentence is an insult meaning *zero* — and its Chinese is broken as well, 广大的有如 putting an attributive 的 where the comparison needs none. Dropped, with an AUTHORED replacement.",
       "ex": [
         [
           "这项政策受到广大群众欢迎。",
@@ -77431,7 +77438,14 @@
         [
           "广大农村地区正在变化。",
           "The vast rural areas are changing."
+        ],
+        [
+          "这个国家有广大的森林。",
+          "This country has vast forests."
         ]
+      ],
+      "dropEx": [
+        "你的智慧广大的有如孟买和孟买之间的距离"
       ]
     },
     "hsk30l5/国庆": {
@@ -111121,11 +111135,24 @@
       ]
     },
     "hsk30l5/柜子": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Closet” is American. 柜子 is a cupboard and 衣柜 a wardrobe — two different pieces of furniture, which is why the word is not in the table. Coming out of the closet is the same idiom in British English and 莫大's sentence is left alone. ",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Closet” is American. 柜子 is a cupboard and 衣柜 a wardrobe — two different pieces of furniture, which is why the word is not in the table. Coming out of the closet is the same idiom in British English and 莫大's sentence is left alone.  | An example sentence was not Chinese: 每个学生都有一柜子 drops the measure word between 一 and the noun, which Mandarin does not allow. Dropped, with an AUTHORED replacement. | The English did not render the Chinese on the card. The Chinese is left exactly as it stands and only the translation is rewritten. And 柜子上有几本书 was rendered *on the shelf*: a 柜子 is a cupboard, which the card's own gloss says.",
       "exEn": [
         [
           "你藏进柜子里去",
           "Hide in the cupboard."
+        ],
+        [
+          "柜子上有几本书",
+          "How many books are on top of the cupboard?"
+        ]
+      ],
+      "dropEx": [
+        "每个学生都有一柜子"
+      ],
+      "ex": [
+        [
+          "柜子里放着冬天的衣服。",
+          "The winter clothes are kept in the cupboard."
         ]
       ]
     },
@@ -126063,6 +126090,294 @@
         [
           "不由得想起了故乡",
           "I could not help thinking of my home town."
+        ]
+      ]
+    },
+    "hsk30l5/关闭": {
+      "why": "A SENTENCE CARRIED IN WITH NO TERMINAL MARK AT ALL. Repaired through `exStop`, which appends the mark and nothing else, matched on `data-say` exactly and written to the visible text and the spoken field together. 关闭电视机 stood first on the card and ended bare.",
+      "exStop": [
+        [
+          "关闭电视机"
+        ]
+      ]
+    },
+    "hsk30l5/怪": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against nine words in the collection; the rows carry both the senses its own gloss names, the *strange* of 奇怪 and the *to blame* of 责怪. | The card named three parts of speech over two senses: CC-CEDICT's adverbial 怪 — the colloquial *rather*, 怪好的 — is a real sense of the character and not one of the card's three sentences shows it, so the label stood over a gloss that does not define it. Split into the two senses the card actually teaches, and each sentence tagged with the one it shows: 不要怪导游 and 你真能怪他吗 are *to blame*, 这里有些事真怪 is *strange*.",
+      "compounds": [
+        [
+          "奇怪",
+          "qíguài",
+          "strange; odd"
+        ],
+        [
+          "责怪",
+          "zéguài",
+          "to blame; to rebuke"
+        ],
+        [
+          "难怪",
+          "nánguài",
+          "no wonder"
+        ],
+        [
+          "怪物",
+          "guàiwu",
+          "a monster; a freak"
+        ]
+      ],
+      "senses": [
+        [
+          "adjective",
+          "strange; odd"
+        ],
+        [
+          "verb",
+          "to blame"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ]
+    },
+    "hsk30l5/观念": {
+      "why": "AN EXAMPLE SENTENCE THAT IS FAMOUSLY MEANINGLESS ON PURPOSE. 无色的绿色的观念疯狂地睡觉 is *Colourless green ideas sleep furiously* — Chomsky's 1957 example of a sentence that is grammatical and says nothing — standing first on a vocabulary card, where it teaches a learner the word in a context designed to have none. Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "无色的绿色的观念疯狂地睡觉"
+      ],
+      "ex": [
+        [
+          "他的教育观念比较传统。",
+          "His ideas about education are fairly traditional."
+        ]
+      ]
+    },
+    "hsk30l5/广": {
+      "why": "TWO OF THREE SENTENCES WERE A PLACE NAME. 来广东玩吗 and 广东的夏天很长 are both **广东**, Guangdong — the character swallowed by a proper noun, which teaches nothing about the adjective the card glosses — and the first ended with NO terminal mark besides. Only 她的新小说广受好评 uses 广 as *widely*. Both dropped, with AUTHORED replacements. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had two words in the reader's downloaded deck, against eleven in the collection.",
+      "dropEx": [
+        "来广东玩吗",
+        "广东的夏天很长"
+      ],
+      "ex": [
+        [
+          "这本书流传很广。",
+          "This book has circulated very widely."
+        ],
+        [
+          "他的知识面很广。",
+          "His knowledge covers a wide field."
+        ]
+      ],
+      "compounds": [
+        [
+          "广告",
+          "guǎnggào",
+          "an advertisement"
+        ],
+        [
+          "广泛",
+          "guǎngfàn",
+          "wide; extensive"
+        ],
+        [
+          "推广",
+          "tuīguǎng",
+          "to spread; to promote"
+        ],
+        [
+          "广大",
+          "guǎngdà",
+          "vast; extensive"
+        ]
+      ]
+    },
+    "hsk30l5/规律": {
+      "why": "An example sentence was not Chinese: 现在我规律服药 puts 规律 straight in front of a verb, where it is a NOUN and the adverbial takes 有规律地 — which is what its own English (*regularly*) says. Dropped, with an AUTHORED sentence for the noun the card glosses.",
+      "dropEx": [
+        "现在我规律服药"
+      ],
+      "ex": [
+        [
+          "科学家发现了这种现象的规律。",
+          "Scientists have found the pattern behind this phenomenon."
+        ]
+      ]
+    },
+    "hsk30l5/贵姓": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. 请问你贵姓？ and 请问您贵姓 are the same four words twice, 你 against 您 — and the second ended with NO terminal mark. Dropped, with an AUTHORED sentence that answers the question rather than asking it a third time.",
+      "dropEx": [
+        "请问您贵姓"
+      ],
+      "ex": [
+        [
+          "他没告诉我他贵姓。",
+          "He did not tell me his surname."
+        ]
+      ]
+    },
+    "hsk30l5/滚": {
+      "why": "Two of the card's three sentences taught the same thing, so the third example taught a reader nothing the first had not. 滚出我的房子 and 给我滚出去 are both *get out*. The second is dropped and an AUTHORED sentence put in its place for the sense CC-CEDICT gives first and the card had nothing for — **to boil**. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against one word in the whole collection. | With the boiling sentence added the card taught three distinct senses under a gloss naming one: 滚出我的房子 is the rude *clear off*, 孩子从山上滚了下来 is *to roll*, 锅里的水滚了 is *to boil* — which is the sense CC-CEDICT gives FIRST. Split into the three the card shows, each sentence tagged with its own; *trundle* is dropped, being a word a learner is less likely to know than the one it glosses.",
+      "dropEx": [
+        "给我滚出去"
+      ],
+      "ex": [
+        [
+          "锅里的水滚了。",
+          "The water in the pot is boiling."
+        ]
+      ],
+      "compounds": [
+        [
+          "滚动",
+          "gǔndòng",
+          "to roll; to scroll"
+        ],
+        [
+          "翻滚",
+          "fāngǔn",
+          "to roll about; to boil"
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to roll"
+        ],
+        [
+          "verb",
+          "to boil"
+        ],
+        [
+          "verb",
+          "(rudely) clear off; get lost"
+        ]
+      ],
+      "exSense": [
+        3,
+        1,
+        2
+      ]
+    },
+    "hsk30l5/锅": {
+      "why": "The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had NOTHING at all in the reader's downloaded deck, against two words in the collection.",
+      "compounds": [
+        [
+          "火锅",
+          "huǒguō",
+          "hotpot"
+        ],
+        [
+          "平底锅",
+          "píngdǐguō",
+          "a frying pan"
+        ],
+        [
+          "高压锅",
+          "gāoyāguō",
+          "a pressure cooker"
+        ],
+        [
+          "砂锅",
+          "shāguō",
+          "an earthenware pot"
+        ]
+      ]
+    },
+    "hsk30l5/过敏": {
+      "why": "An example sentence dropped the preposition the word requires: 我玉米过敏 needs 我**对**玉米过敏, which is the construction the card's own second sentence uses (你对任何药物过敏吗). Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "我玉米过敏"
+      ],
+      "ex": [
+        [
+          "他对花粉过敏。",
+          "He is allergic to pollen."
+        ]
+      ]
+    },
+    "hsk30l5/过于": {
+      "why": "An example sentence used the word where it cannot stand: 过于上网 puts 过于 in front of a VERB PHRASE as though it were a quantifier, where it modifies an adjective or a stative verb (过于急切, 过于依赖) — which both of the card's other sentences do correctly. Dropped, with an AUTHORED replacement.",
+      "dropEx": [
+        "过于上网不是跟医学或精神病有关的事情"
+      ],
+      "ex": [
+        [
+          "他过于谦虚了。",
+          "He is being excessively modest."
+        ]
+      ]
+    },
+    "hsk30l5/观察": {
+      "why": "The card opened on 女人观察，男人思考 — *the woman observes and the man thinks* — a generalisation about people by sex, which is the class check-coarse.js names and which this audit removed from 矮 and 教养. It teaches the word no better than an ordinary sentence does. Replaced with an AUTHORED sentence in the plain transitive frame the other two do not use.",
+      "dropEx": [
+        "女人观察，男人思考"
+      ],
+      "ex": [
+        [
+          "他仔细观察了这些昆虫。",
+          "He observed these insects carefully."
+        ]
+      ]
+    },
+    "hsk30l5/光线": {
+      "why": "The gloss read *light ray* and not one of the card's three sentences is a ray: 我能看到光线, 拍照片光线不够亮 and 有足够的光线读书 are all ambient light, where *light ray* is a physics term. CC-CEDICT gives both, *light ray* first, which is how a gloss taken off the top of an entry can be right about the word and wrong about the card.",
+      "gloss": "light; a ray of light"
+    },
+    "hsk30l5/广场": {
+      "why": "鲜明的灯火 is not Chinese: 鲜明 is *vivid* or *clear-cut*, of a colour or a contrast, and the light that illuminates a square is 明亮. The sentence reads as a word-for-word rendering of *bright lights*. Replaced with an AUTHORED sentence in a frame the card's other two, both bare locatives, do not use.",
+      "dropEx": [
+        "广场被鲜明的灯火照亮"
+      ],
+      "ex": [
+        [
+          "广场上有很多人在跳舞。",
+          "Many people are dancing in the square."
+        ]
+      ]
+    },
+    "hsk30l5/广泛": {
+      "why": "广泛的安全措施实施了 is a calque of *broad safety measures were put into effect*: with the patient in front of 实施了 and no 被 the Chinese needs 实施了广泛的安全措施, and 广泛的安全措施 is itself English word order. Replaced with an AUTHORED sentence in the adverbial frame, which is where a learner will actually meet the word.",
+      "dropEx": [
+        "广泛的安全措施实施了"
+      ],
+      "ex": [
+        [
+          "这种方法已经得到广泛应用。",
+          "This method has already been widely applied."
+        ]
+      ]
+    },
+    "hsk30l5/规则": {
+      "why": "The card labelled itself *noun / adjective* and glossed *rule; regulation*, which is the noun twice over: the adjectival 规则 — CC-CEDICT's *regular (in shape or arrangement)*, 规则的图形 — is defined by neither half of the gloss and shown by none of the three sentences, all of which are rules. The label is dropped rather than a sense invented for it.",
+      "senses": [
+        [
+          "noun",
+          "rule; regulation"
+        ]
+      ]
+    },
+    "hsk30l5/过分": {
+      "why": "你太过分了 and 我觉得你太过分了 are one sentence with a frame in front of it, so two of the card's three examples showed the same thing — a repeat the coverage checker cannot see, comparing sentences exactly. Replaced with an AUTHORED sentence using 过分 attributively rather than as a whole predicate.",
+      "dropEx": [
+        "我觉得你太过分了"
+      ],
+      "ex": [
+        [
+          "他对孩子的要求过分严格。",
+          "He is excessively strict with his children."
+        ]
+      ]
+    },
+    "hsk30l5/过期": {
+      "why": "All three sentences were a document expiring in the same frame — 我的护照过期了, 如果签证过期, 我的身份证过期了 — with the first and third differing only in which document. A card's three examples are meant to show different constructions, so the third is replaced with an AUTHORED sentence about food, which is where a learner meets the word oftenest and which the gloss's *be overdue* half covers.",
+      "dropEx": [
+        "我的身份证过期了，我该怎么办？"
+      ],
+      "ex": [
+        [
+          "这盒牛奶已经过期了。",
+          "This carton of milk is past its date."
         ]
       ]
     }
