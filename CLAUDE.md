@@ -481,8 +481,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the planned collections and **the only one that created its own collection** — Rome, Russia and India were
   empty nodes waiting for a tree and China had one already, where Egypt had nothing, so the collection node,
   its tree and its `COLL_THEME` hue ship with the plan. The next card to write is the lowest `eg-NNN` not
-  yet in `data.js`; see the "ANCIENT EGYPT" bullet under "Generating cards & glossary entries". **No card
-  has been written yet.** Not part of the site.
+  yet in `data.js`; see the "ANCIENT EGYPT" bullet under "Generating cards & glossary entries". **`eg-001`
+  to `eg-010` have shipped** (Sep 2026) — the opening of `eg-prehistory` — so the collection is live and
+  its 25 empty decks are coming-soon automatically, `isComingSoon` being true for a node holding no card.
+  **Three of its first ten lines were retitled while writing**, which is what the plan's own rule asks for,
+  and the plan's "Retitled while writing" section gives each reason: `eg-001` is answered by **`Kemet`**
+  because `Ancient_Egypt` is already a cited glossary term that `wh-201` cards, `eg-007` by **`Western
+  Desert`** because `Deshret` is Wikipedia's article on the Red Crown rather than on the desert, and
+  `eg-009` by **`Kharga Oasis`** because "the oases" is a description rather than a term. Not part of the
+  site.
 - `docs/japan-card-plan.md` — the **1000-card running order for the Japan collection** (`japan`): every
   card's number, topic and deck, fixed in advance across 9 decks and 34 leaf decks. The tenth of the
   planned collections and the third (after Egypt and the Second World War) to **create its own
@@ -6556,7 +6563,7 @@ lookup.
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
-| Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
+| Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | 10 cards, contiguous — next is `eg-011` |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 160 cards, contiguous — next is `ww2-161` |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
@@ -6581,7 +6588,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (295 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (298 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7542,7 +7549,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 295 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 298 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

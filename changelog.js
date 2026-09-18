@@ -35,13 +35,15 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.872", released: "2026-09-18T02:15Z" };
+window.FOLIO_VERSION = { v: "1.873", released: "2026-09-18T03:22Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-18",
-    t: "Common Thread no longer files a term under a category it does not fit",
+    t: "The Ancient Egypt collection opens with its first ten cards",
     items: [
+      "<b>Ten new cards in the Ancient Egypt collection</b>, which opens with them, each with a picture, and eight new glossary terms beside them.",
+      "<b>The word \u201cmedian\u201d no longer links to the Medes</b> on cards that use it as a statistic rather than as a people.",
       "<b>Common Thread only groups a term under a category it genuinely belongs to</b> \u2014 genealogy has left Asia and water has left biology.",
       "<b>Beringia draws the same globe in both collections</b>, the United States card having shown no map at all.",
       "<b>The Paris Peace Conference card no longer says the conference outlasted the war</b> \u2014 it ran a year and three days.",
