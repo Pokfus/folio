@@ -9,10 +9,12 @@
 // `shut` and `compact` options / wireFootnotes / autoLinkGlossary / unitizeTree / spellTree, or
 // .claude/add-truefalse.js and .claude/check-truefalse.js.
 //
-// WHY IT SERVES A POOL OF ITS OWN. The day's five statements are drawn from 220 by `dayPick`, and only
-// some of them carry a source — so a suite run against the real pool would assert nothing on most days
-// and would be a coin toss on the rest, which is the shape of a test that passes while the feature is
-// broken. The server substitutes a five-statement pool in which every statement is cited, one carries a
+// WHY IT SERVES A POOL OF ITS OWN. The day's five statements are drawn from 216 by `dayPick`, so a
+// suite run against the real pool would assert whatever that day's draw happened to carry and would be
+// a coin toss on the rest, which is the shape of a test that passes while the feature is broken.
+// THE SHIPPED POOL IS NOW CITED END TO END AND THAT DOES NOT RETIRE THIS FIXTURE: what the suite checks
+// is the APPARATUS — a glossary term, an element an escaped `why` would print as tags, a marker, a
+// measurement, an American-convertible spelling — and no draw of five can be relied on to carry them. The server substitutes a five-statement pool in which every statement is cited, one carries a
 // measurement and one an American-convertible spelling, so the draw cannot avoid them. The SHIPPED pool
 // is still checked, in Node, for the things a fixture cannot see: that it parses, that its citations
 // carry URLs, and that its own checker passes.

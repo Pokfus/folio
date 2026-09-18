@@ -118,6 +118,7 @@ const SRC_TARGET = (() => { const m = /const SRC_TARGET = (\d+);/.exec(fs.readFi
 // Every citation carries a link, so a reader can check the claim and follow it further — which also means
 // only publicly reachable scholarship is citable here, and that a page number can always be verified.
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
+const { checkCitationLang } = require("./src-langs.js");
 
 /* ---------- MAP CARDS (Aug 2026, on request) ----------
    A card carrying `map: { layer, key }` asks its question as a WINDOW onto the globe with one place
@@ -539,6 +540,10 @@ if (!card.skipSources) {
   if (src.length < SRC_TARGET) { console.error("ERROR: card has " + src.length + " source(s) — a new card carries at least " + SRC_TARGET + " (see docs/citation-plan.md, \"How many\"). Ten sentences making ten claims are not honestly covered by fewer."); process.exit(1); }
   const openN = src.filter(s => /\[Open access\]/.test(s)).length;
   if (openN <= src.length / 2) console.warn("WARNING: only " + openN + " of this card's " + src.length + " sources are labelled [Open access]. The majority of any card's list must be open — a paywalled work earns its place only as the landmark a claim is actually built on.");
+  /* A LANGUAGE MARKER MUST BE ONE app.js CAN DRAW (Sep 2026). A non-English citation ends in `[in
+     French]`, lifted into a chip beside the access one; a typo is not an error anywhere, it is a chip
+     that never appears, which nothing on the page can report. The list is SLICED out of app.js. */
+  src.forEach((s) => { const bad = checkCitationLang(s); if (bad) { console.error("ERROR: a citation " + bad); process.exit(1); } });
   const unlinked = src.filter(s => !SRC_URL.test(s));
   if (unlinked.length) {
     console.error("ERROR: every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none.\n" +

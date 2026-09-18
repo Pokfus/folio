@@ -289,6 +289,33 @@ const ATTRIB = new RegExp(
   "identifies|identified|maintains?|denies|denied|concludes?|concluded|counted|thought|calls|called|" +
   "puts?|sets? out|takes? it|took it|finds?|found))\\b", "g");
 
+/* ---------- 8. a modern scholar named in a "what came of this" line ----------
+
+   `card.leadsTo[].how` is the causal strip at the foot of the answer, headed "What
+   came of this" — one sentence saying how this card's subject led to another's. It is
+   held to rule 2's house rule, on request (Sep 2026: "the 'what came of this' section
+   should never name modern scholars"), and for rule 2's reason one field over: a line
+   reading "Childe made the farming surplus the engine of the first cities" teaches a
+   reader the state of a literature where the strip exists to teach them what happened.
+
+   IT IS A WIDER PATTERN THAN RULE 2's AND MUST NOT BECOME RULE 2's. `ATTRIB` names the
+   verbs an attribution is written with; `made`, `makes`, `credits`, `presents`,
+   `attributes`, `treats` and `dates the` are attribution verbs too, and adding them to
+   the shared regex was built and thrown away — MEASURED, it adds 107 findings over the
+   corpus's questions, almost all of them false ("Copper made an inland member of the
+   ___ worth taking", "Athens made", "Psychology treats"). A question is 20-34 words of
+   narrative prose where the shape is common; a `how` is one short caption and there are
+   22 of them in the whole corpus, so the wider net can be afforded here and nowhere else.
+
+   THE ANCIENT WITNESS IS WELCOME, exactly as in a question. Measured over the corpus the
+   wide pattern fires five times: Pausanias, Plutarch, Xenophon and Livy, every one an
+   ancient author `ANCIENT` already excuses, and Childe — which was the one real finding
+   and is now repaired. */
+const ATTRIB_HOW = new RegExp(
+  "\\b([A-Z][a-zA-Z\\u00C0-\\u024F.'-]+(?:\\s+[A-Z][a-zA-Z\\u00C0-\\u024F.'-]+){0,2})" +
+  "\\s+(?:made|makes?|credits?|credited|presents?|presented|attributes?|attributed|" +
+  "treats?|treated|dates? the|has it)\\b", "g");
+
 /* Words that open a sentence and are not names.  A capitalised place or period followed
    by "puts"/"shows" is the prose doing its job, not an attribution. */
 /* A DECLARED LIST BEATS A LOOSER PATTERN, and it is kept short with a reason beside each entry.
@@ -457,6 +484,21 @@ for (const c of cards) {
       if (/^(Archaic|Classical|Hellenistic|Athenian|Spartan|Persian|Greek|Roman|Minoan|Mycenaean|Cretan|Ionian|Dorian|Aeolian|Corinthian|Lydian|Egyptian|Phoenician)\b/.test(nm)) continue;
       if (NOT_A_SCHOLAR.has(nm)) continue;
       fails.push(["scholar-in-question", `${id} Q${qi + 1}: “${nm}”`, t]);
+    }
+  }
+
+  // 8 — the same house rule over the "What came of this" strip. The exemptions are rule 2's, and so is
+  // the reasoning; only the verb list is wider. See the note beside ATTRIB_HOW for why it may be.
+  for (const e of c.leadsTo || []) {
+    const t = plain(e && e.how);
+    if (!t) continue;
+    for (const m of t.matchAll(ATTRIB_HOW)) {
+      const nm = m[1].trim();
+      if (ANCIENT.test(nm) || NOT_A_NAME.test(nm)) continue;
+      if (/^(While|When|Where|After|Before|Since|Though|Although|Because|If|It|The|His|Her|Their)\b/.test(nm)) continue;
+      if (GL.has(nm.toLowerCase())) continue;                 // a glossary surface: a work, a place, a people
+      if (NOT_A_SCHOLAR.has(nm)) continue;
+      fails.push(["scholar-in-leadsto", `${id} → ${e.id}: “${nm}”`, t]);
     }
   }
 
