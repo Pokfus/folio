@@ -2487,3 +2487,96 @@ Yakutsk being, after Verkhoyansk, the coldest town in the world, and on its fair
 Ossetia already carries the Vladikavkaz WMO normals. Both centres are therefore **more expensive**
 to write than their place in the running order suggests, not less. **Read the sibling before
 choosing a batch, not before writing the card.**
+
+### Batch 29 — six centres: `gru-506`, `gru-510`, `gru-514`, `gru-515`, `gru-525`, `gru-526`
+
+**It is six rather than ten, and the reason is worth keeping.** The finding above unlocked two
+charters, so Chelyabinsk and Omsk became writeable; the rest of the batch was assembled by reading
+each candidate's SIBLING SUBJECT CARD first, which is what the last section's closing rule asks for,
+and four candidates fell out on that reading rather than on sourcing:
+
+| candidate | why not |
+|---|---|
+| `gru-507` Izhevsk | the only Reclus material is the p. 484 population appendix, and `gru-029` Udmurtia has already spent it |
+| `gru-509` Yakutsk | `gru-047` Sakha quotes Reclus on the town's cold and its fair — the centre's whole Reclus entry |
+| `gru-512` Vladikavkaz | `gru-063` North Ossetia already carries its WMO normals and its Terek situation |
+| `gru-513` Krasnodar | the history block cannot reach five sentences inside the two-citations-per-author cap: Reclus gives Yekaterinodar two sentences and nothing else openable adds a third source |
+
+**A centre is cheap or dear according to what its SUBJECT card has already said**, and the running
+order cannot see that. `gru-511` Tomsk failed a different way — the Siberian railway guide's Tomsk
+material is about the government rather than the town.
+
+**Two sources carried the batch and both are new to the deck.**
+· **`Scientific Reports` 10:1668 (2020), Seleznev, Yarmoshenko and Malinovsky** — urban surface
+  sediment in **seven Russian cities**, of which **Rostov-on-Don and Chelyabinsk are two**. Its
+  Table 1 is the useful half and is not in the article HTML: fetch
+  `https://www.nature.com/articles/s41598-020-58434-4/tables/1` and read the `<table>`. It gives each
+  city's geographic and climate zone, its **geological setting by name** (the Rostov ledge; the East
+  Urals uplift against the West Siberian plate), its industries and its **cars per thousand
+  residents** — that last figure being the one that is safely quotable, since the table's population
+  column would echo the facts grid.
+· **Rambaud volume 3** (`historyofrussia03ramb`, *A Popular History of Russia, from the Earliest
+  Times to 1882*, ed. Nathan Haskell Dole, Estes and Lauriat, 1882). The deck had only volumes 1 and
+  2. Volume 3 carries Perovski's Khiva expedition out of Orenburg (pp. 44–45) and much else on the
+  Asian frontier.
+
+**THE CHARTER ARTICLE HASH IS A HASH OF THE ARTICLE'S HEADING, NOT OF THE DOCUMENT** — so an
+untitled `Статья 18` has the SAME hash in every charter that numbers an article that way, and the
+region slug in the path is the only thing that decides which document you get. That is convenient
+(a known article-number hash can be tried under another slug) and it is also why **a chapter
+listing scraped with a loose regex is not a number-to-hash table**: an `<a href>` must be paired
+with ITS OWN text, or the listing reports article 23's hash under article 22's label. **Verify a
+citation by fetching it and reading the `<title>`, never by composing it.**
+
+**AND A GARANT ARTICLE PAGE PUTS THE NAVIGATION BEFORE THE TEXT.** The article's own words sit
+between the FIRST `(с изменениями и дополнениями)` and the following `Содержание`; a scanner that
+cuts at `Конституция РФ` or takes the last `Статья N` reads chrome and reports *no hit* for every
+subject. The first form of batch 29's scanner did exactly that and was only caught by running it
+against Chelyabinsk's article 18, a hit already in hand. **Prove any Garant scanner fires on a hit
+you already hold.**
+
+**Three further reachability findings.**
+· **Rostov Oblast's charter cannot be read from Garant at all**: `/region/ustav_rostov/` answers 200
+  with the document's title and **no table of contents and no chapter links** — page furniture only,
+  on repeated tries. It is not the one-in-ten refusal.
+· **Garant's Stavropol charter is the repealed 1994 law**, marked *документ утратил силу*. A hit
+  there could not be cited as current law, so `gru-514` rests on Reclus and Baddeley instead. **Read
+  the page for that marker before citing any charter.**
+· **Orenburg's charter names no centre** — articles 2–11 of *Глава II. Статус Оренбургской области*
+  were fetched one at a time and none of them does. Krasnoyarsk's *Раздел III. Территориальное
+  устройство края* articles 29–31 likewise: article 31 speaks of establishing the administrative
+  centre of a *municipal* formation, which is not the krai's own.
+
+**What each card rests on.** `gru-506` Rostov-on-Don: Reclus vol. 5 pp. 438–39 (Nakhichevan and the
+fortress of St Dimitry, the mixed population, the £5,000,000 export trade, the harvest men and the
+typhoid), Morfill p. 227 (Azov reduced to insignificance by its neighbour) and the railway guide
+p. 112 (its firms buying Chelyabinsk wheat). `gru-510` Chelyabinsk: the charter, and the guide
+pp. 110–12 and 136–37 — the town's fortress origin and the Bashkir Cheliaba, the corn trade, the
+Nikolsk settlement of 1896, and the emigration station's barracks for fifteen hundred. `gru-514`
+Stavropol: Reclus vol. 6 pp. 39 and 64 (Elbrus visible a hundred and twenty miles off; the fort of
+1776; the Yegorlik selos) and Baddeley pp. 75, 201 and 459 (the raids reaching the town; Paskievich
+on the month's march to Tiflis; the left flank commanded from it until Bariatinsky). `gru-515`
+Krasnoyarsk: Reclus vol. 6 pp. 362–63 and the guide pp. 278–80 (the Afontova the town is named
+from, Dubensky's fort, Stepanov the first governor, the station's fifteen hundred workmen).
+`gru-525` Orenburg: Reclus vol. 5 pp. 378 and 420–21 (the unnavigable Ural; 1742 and the 1735 fort;
+the citadel moved twice), Rambaud vol. 3 pp. 44–45 and the guide p. 60 (the Orenburg route rejected
+for the Siberian railway). `gru-526` Omsk: the charter, Reclus vol. 6 p. 350 (capital of West
+Siberia, the military gymnasium, the Geographical Society branch of 1877) and the guide pp. 33 and
+194–95 (the fortress line; the penal prison and Dostoevsky's four years).
+
+**`gru-506` ships with an EMPTY date line, and that is the right answer.** Nothing in its six
+sources dates the city itself — Reclus dates its export figure to 1877 and Morfill the cession of
+Azov to 1774, neither of which is a date of Rostov-on-Don — so a labelled row would have to be
+invented. `test-date-line.js` is what makes an empty line safe: a non-empty line yielding no sort
+year is the fault, an absent one is not.
+
+**Pictures: six of thirteen candidates were rejected after being looked at**, which is the pass's
+usual rate. The Rostov panorama was a hazy wash with power lines across it; the Stavropol
+`Krepostnaya mountain — north view` is an empty paved square over treetops with the city a smudge on
+the horizon; `Kazan's stairs — south view` is a fir avenue with no city in it; **the best Orenburg
+aerial carries a 500px WATERMARK**, which the pipeline's bar excludes and which no metadata field
+reports; and two Omsk streets were power lines and a drab suburban road. **Stavropol and Orenburg
+have no wide viewpoint on Commons at all** — both ship their central pedestrian street with a `desc`
+that says so, which is the geography plan's own fallback. Omsk's card takes a 5.4:1 quay panorama;
+`.card-imgslot` sets `aspect-ratio:auto` with `max-height:280px`, so a panorama is shown whole
+rather than letterboxed there.

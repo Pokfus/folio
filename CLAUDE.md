@@ -860,7 +860,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **A WMO STATION IN THE LIST IS NOT A STATION WITH NORMALS**: Nazran' (1109), Cherkessk (1111) and
     Gorno-Altaisk (1112) are all in `wmo.txt` and all return twelve EMPTY months, so read the
     `climateMonth` array before building a sentence on it; those cards take a fourth physical sentence
-    instead, exactly as their subject cards already did. Not part of
+    instead, exactly as their subject cards already did.
+    **AND A GARANT ARTICLE PAGE PUTS ITS NAVIGATION BEFORE ITS TEXT — the article's own words sit
+    between the FIRST `(с изменениями и дополнениями)` and the following `Содержание`**, so a scanner that
+    cuts at the page's first heading reads chrome and reports *no hit* for every subject (batch 29,
+    caught only by running it against a hit already in hand). **The article HASH is a hash of the
+    article's HEADING rather than of the document**, so an untitled `Статья 18` has the same hash in
+    every charter and only the region slug decides which document is served — **verify a charter
+    citation by fetching it and reading the `<title>`, never by composing it**, and a chapter listing
+    scraped with a loose regex is not a number-to-hash table. **A CHARTER ON GARANT IS ALSO NOT ALWAYS
+    CURRENT**: the Stavropol one is the repealed 1994 law, marked *документ утратил силу*, and Rostov
+    Oblast's serves its title with no table of contents at all. **AND READ THE SIBLING SUBJECT CARD
+    BEFORE CHOOSING A BATCH, NOT BEFORE WRITING THE CARD** — a centre whose subject card has already
+    spent its Reclus entry or its WMO normals is dearer than its place in the running order suggests,
+    and four of batch 29's ten candidates fell out that way. Not part of
     the site.
 - `russia-subjects.js` + `.claude/build-russia-subjects.js` — the 83 federal subjects of the Russian
   Federation and the 80 administrative centres (`window.RUSSIA_SUBJECTS` / `window.RUSSIA_CENTRES`), the
@@ -5285,7 +5298,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 136 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, fifty-three of the 80 centres being written (`gru-505`, `gru-507`–`gru-509`, `gru-511`–`gru-513`, `gru-516`–`gru-523`, `gru-527`, `gru-528`, `gru-531`–`gru-538`, `gru-540`–`gru-542`, `gru-544`, `gru-545`, `gru-548`, `gru-550`–`gru-558`, `gru-565`, `gru-567`–`gru-569`, `gru-571`–`gru-577`, `gru-579` and `gru-580`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`, `gru-503`, `gru-506`, `gru-510`, `gru-514`, `gru-515`, `gru-524`–`gru-526`, `gru-529`, `gru-530`, `gru-539`, `gru-543`, `gru-546`, `gru-547`, `gru-549`, `gru-559`–`gru-564`, `gru-566`, `gru-578` and `gru-581`–`gru-583` are still to write**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 142 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, fifty-nine of the 80 centres being written (`gru-505`–`gru-523`, `gru-525`–`gru-528`, `gru-531`–`gru-538`, `gru-540`–`gru-542`, `gru-544`, `gru-545`, `gru-548`, `gru-550`–`gru-558`, `gru-565`, `gru-567`–`gru-569`, `gru-571`–`gru-577`, `gru-579` and `gru-580`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`, `gru-503`, `gru-524`, `gru-529`, `gru-530`, `gru-539`, `gru-543`, `gru-546`, `gru-547`, `gru-549`, `gru-559`–`gru-564`, `gru-566`, `gru-578` and `gru-581`–`gru-583` are still to write**, see below |
 
 The next id for any of them (substitute the prefix):
 
