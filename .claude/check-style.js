@@ -35,7 +35,17 @@ const FIX = process.argv.includes("--fix");
    PICTURE carries as well as the prose, and the artefact split moved BOTH out of artefacts.js — which
    would have left every artefact description and every picture caption outside this checker's reach
    while it went on reporting a clean pass over an index of names and dates. */
-const FILES = ["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "artefacts-extra.js", "countries.js", "crossword.js"].map((f) => path.join(__dirname, "..", f));
+/* `data-extra/<collection>.js` is here for exactly that reason one file over, and it was MISSED for as
+   long as the card split existed: `abstract`, `why` and a card's `image` moved off the eager path into
+   those sixteen files, so from the split until Sep 2026 this checker swept `data.js` — a card's
+   question, answer and date line — and reported a clean pass over prose it could no longer see.  That
+   is the MAJORITY of the site's text: 261 findings were standing in the heavy halves the day it was
+   added, across every collection that has shipped a card.  The directory is READ rather than listed,
+   so a collection added later is swept with nobody having to remember this. */
+const DATA_EXTRA = fs.existsSync(path.join(__dirname, "..", "data-extra"))
+  ? fs.readdirSync(path.join(__dirname, "..", "data-extra")).filter((f) => f.endsWith(".js")).sort().map((f) => "data-extra/" + f)
+  : [];
+const FILES = ["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "artefacts-extra.js", "countries.js", "crossword.js"].concat(DATA_EXTRA).map((f) => path.join(__dirname, "..", f));
 const ERA_ONLY = new Set(["artefacts.js", "artefacts-extra.js", "countries.js", "crossword.js"]);
 
 /* --- rule 2: ordinal words before century/millennium --- */
