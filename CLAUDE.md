@@ -932,13 +932,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is copied from the API rather than composed, so the answer is in the URL on all 233 — measured, 20
     of 20 here against 0 of 10 artwork cards. No reader is SHOWN a src, and the suite asserts the
     country appears there AND NOWHERE ELSE on the front, so it cannot widen into a title or a credit.
+  · **AND A SECOND LEAK IS ACCEPTED FOR A DIFFERENT REASON: THE FLAG ITSELF CAN CARRY THE ANSWER** (Sep
+    2026, F10). `fl-186` Guam prints **GUAM** across its seal and `fl-193` the United States Virgin
+    Islands carries the territory's initials either side of the eagle. **There is no remedy and none
+    should be looked for**: the flag IS the question, so the alternatives are altering the picture,
+    which Folio never does, or deferring a card whose flag is uncontested and which Commons names —
+    which would be refusing a card for what its flag says. The alt describes the letters without
+    spelling the name, so a reader who cannot see the flag still gets a real question. **A MOTTO IS NOT
+    THIS AND IS COMMON** (Andorra's VIRTVS VNITA FORTIOR, the Cayman Islands' HE HATH FOUNDED IT UPON
+    THE SEAS): it names nothing. Ask whether the lettering is a NAME.
   · **NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate
     question and which nothing else in the pipeline can see: for a reader who cannot see the flags the
     alt IS the question, so two cards sharing one are two identical questions with different answers,
     and both render perfectly. It has fired once — Chad and Romania, whose flags differ only in the
     shade of blue (measured off the two SVGs at ΔE 14.1, against 4.2 for the yellows and 8.4 for the
-    reds), so each alt names its own blue. **Measure the colour rather than asserting it**, and expect
-    the Netherlands against Luxembourg to be the same case in F9.
+    reds), so each alt names its own blue. **Measure the colour rather than asserting it** — and
+    measure a PREDICTED pair too rather than writing the clause on the prediction, which is what the
+    Netherlands against Luxembourg settled in F9: carried for four batches as the next Chad-and-Romania,
+    they measured ΔE **41.5** on the blues, the furthest-apart pair in the deck, and needed no clause at
+    all.
+  · **AND WHERE A TRIBAND CARRIES ARMS, THE CHARGE IS THE DISCRIMINATOR AND THE COLOUR IS NOT** (F10,
+    the same rule from the other side). `fl-199` Andorra is the third blue-yellow-red vertical triband
+    after `fl-067` Romania and `fl-145` Moldova, and its blue measures ΔE 35.4 and 38.3 from theirs — so
+    the colour separates them outright and is worth a word, but what answers the card is that the arms
+    are unrelated. **The colour clause is for the pairs that carry nothing** (Chad and Romania, Latvia
+    and Austria).
+  · **A WHOLE-DECK SIMILARITY SWEEP RANKS AND ADJUDICATES NOTHING, for `check-twins.js`'s own reason.**
+    A token-overlap measure over the shipped alts reports **551 pairs above 0.42 of 197 cards** — not
+    551 faults but the vocabulary of vexillology, every description saying field, band, star, cross and
+    hoist. Worse, the pairs it scores at **1.00** are alts whose token SETS are identical and whose whole
+    difference is WORD ORDER, which is exactly the distinction that matters: Indonesia is red over white
+    and Poland is white over red, and both cards are right. **Read the top of the list by eye; the one
+    mechanical rule that means anything here is the EXACT-duplicate check**, which `test-flag-cards.js`
+    already carries.
   · **A FLAG IS FETCHED BY `.claude/add-flags.js`, WHICH WRITES `answerFlag` ONTO A CARD THAT ALREADY
     EXISTS** — there was no batch writer for that field at all, the 115 shipped ones having been written
     inline by `add-card.js` at card creation. The same fetch serves both decks, so a batch back-fills
@@ -6679,7 +6705,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 3 / 3 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
-| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 177 cards — `fl-001`–`fl-180` less the DEFERRED `fl-036`, `fl-171` and `fl-180`, so the lowest unused number is not the next card; next is `fl-181`, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
+| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 197 cards — `fl-001`–`fl-200` less the DEFERRED `fl-036`, `fl-171` and `fl-180`, so the lowest unused number is not the next card; next is `fl-201`, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 

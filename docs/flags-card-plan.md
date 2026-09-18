@@ -33,12 +33,12 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**F0 to F9 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
-Geography, and `fl-001`–`fl-180` are live **less the deferred `fl-036`, `fl-171` and `fl-180`** — 177
-cards, so the lowest unused number is not the next card. The next card is `fl-181`. **THE TRIM-AND-COPY
+**F0 to F10 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
+Geography, and `fl-001`–`fl-200` are live **less the deferred `fl-036`, `fl-171` and `fl-180`** — 197
+cards, so the lowest unused number is not the next card. The next card is `fl-201`. **THE TRIM-AND-COPY
 RANGE IS FINISHED**: every flag already on a twin has been used, and from here every batch fetches.
-**53 twins still need a flag** (`gw-181`–`gw-233` plus the three deferrals), and each batch back-fills
-the ones it uses, which
+**33 twins still need a flag** (`gw-201`–`gw-233` plus the three deferrals, whose twins are deliberately
+left with no flag at all), and each batch back-fills the ones it uses, which
 closes World Geography's own gap as a by-product.
 
 **NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate question
@@ -830,8 +830,74 @@ upright (`fl-115`), Finland by the same offset on white (`fl-117`), and these tw
 colour and by Montenegro's broad gold border — both named in its alt. **`fl-162` FIJI JOINS `fl-054`
 AUSTRALIA AND `fl-123` NEW ZEALAND** on the Union Flag in the canton, separated by the field's shade and
 by what stands at the fly: Fiji light blue with a shield, Australia dark blue with the Commonwealth Star
-and the Southern Cross, New Zealand dark blue with four red stars. **Expect a fourth in F10** — Tuvalu is
-the same family.
+and the Southern Cross, New Zealand dark blue with four red stars. **THE FOURTH ARRIVED IN F10 AND IS
+NOT THE ONE THIS LINE PREDICTED**: it said Tuvalu and Tuvalu is `fl-225`, in F12, while `fl-200` the
+Cayman Islands is the one that actually turned up — dark blue, Union Flag in the canton, and a shield at
+the fly, which is Fiji's own sentence with a different field shade and different charges. The
+prediction was right about the FAMILY and wrong about the batch, which is the useful half of it:
+**predict the family and look up the number**, since the plan holds it and a remembered number is a
+guess. **A fifth is still coming** — Tuvalu in F12, with the Turks and Caicos, Bermuda, the British
+Virgin Islands, Montserrat and Anguilla all in F11 and F12 besides, so by the end of the deck this is
+the largest family in it and each new one has to name its field shade AND its charges.
+
+
+## F10 — `fl-181` to `fl-200` (Sep 2026)
+
+Barbados to the Cayman Islands: 20 cards, 20 flags fetched, **none deferred and no redirect refused** —
+the first batch since F6 with nothing held back. Eighteen are public domain, the Isle of Man's and French
+Polynesia's are CC0. The 429s came again and came to nothing: `gw-195` Jersey refused on one dry run and
+resolved on the next, which is the busy state this file has now recorded on four consecutive batches.
+**Re-run a refusal before reading it as a missing file.**
+
+**A FLAG CAN CARRY ITS OWN NAME, AND THAT IS THE FLAG RATHER THAN A FAULT IN THE CARD.** `fl-186` Guam
+prints **GUAM** in red letters across its seal, and it is the first in the deck to do so — `fl-193` the
+United States Virgin Islands is the weaker version, a blue **V** and a blue **I** either side of the
+eagle, which are the territory's initials. There is no remedy and none was looked for: the flag IS the
+question here, so the only alternatives are to alter the picture, which Folio never does, or to defer a
+card whose flag is uncontested and which Commons names — which would be refusing a card for what its
+flag says. **So it is an accepted and stated cost, exactly like the `src` leak**: the alt describes the
+letters without spelling the name ("the territory's own name in red letters"), so a reader who cannot
+see the flag still gets a real question, and a reader who can read the letters has the answer. Expect
+more of it — a motto is common and harmless (Andorra's VIRTVS VNITA FORTIOR, the Cayman Islands' HE HATH
+FOUNDED IT UPON THE SEAS, both of which name nothing), and a NAME is rare.
+
+**`fl-199` ANDORRA IS THE THIRD BLUE-YELLOW-RED VERTICAL TRIBAND, AND HERE THE COLOUR IS NOT THE
+DISCRIMINATOR — THE CHARGE IS.** It joins `fl-067` Romania and `fl-145` Moldova, and the measurement
+runs the opposite way from Latvia against Austria in F8. Read off the SVGs, Andorra's band is `#10069f`,
+a vivid ultramarine at L19 against Moldova's `#0046ae` at L33 and Romania's `#002B7F` at L21 — **ΔE 35.4
+and 38.3**, further apart than any pair this deck has had to measure, and Chad's `#002664` is 51.5 away
+again. So the blue separates them outright and the alt says "deep indigo" for it; but what actually
+answers the card is that the three charges are unrelated — Romania carries none, Moldova an eagle above
+a shield with an ox's head, Andorra a quartered shield of a mitre and crozier, red pales and two red
+cows in a scrolled gold frame. **Where a triband carries arms, name the arms; the colour clause is for
+the pairs that carry nothing** (Chad and Romania, Latvia and Austria), which is the whole of what those
+two batches learned put the other way round.
+
+**THE WHOLE-DECK SIMILARITY SWEEP IS THE WRONG INSTRUMENT AT THIS SIZE, AND ITS REASON IS
+`check-twins.js`'s OWN.** A token-overlap measure over all 197 alts reports **551 pairs above 0.42**,
+which is not 551 faults but the vocabulary of vexillology: every description says field, band, star,
+cross and hoist, so a bag of words scores every pair high, exactly as a bag of words over two chapters
+of one author finds nothing. Worse, its ties are misleading in a specific way — the pairs it scores at
+**1.00** are alts whose token SETS are identical and whose whole difference is WORD ORDER, which is
+precisely the distinction that matters: `fl-004` Indonesia is red over white and `fl-042` Poland is white
+over red, and both cards are correct. **So it ranks and it adjudicates nothing.** What is worth keeping
+is the top of its list, read by eye, and the **exact-duplicate check**, which is the one mechanical rule
+here that means something and which `test-flag-cards.js` already carries. F10's nearest neighbours were
+read that way and all are separable: Sudan against São Tomé (0.54, different colours entirely), Taiwan
+against Samoa (0.45, a twelve-pointed sun against five stars), Switzerland against Tonga (0.43, a square
+field and a bold cross against a red field with a white canton), Comoros against Seychelles (0.44, four
+horizontal bands against five radiating ones).
+
+**THE CONTACT SHEET EARNED ITS KEEP AGAIN AND REJECTED NOTHING.** All 20 flags rendered, all 20 were the
+right flag, and the four crops taken afterwards were for the CHARGES rather than for the subject — the
+Cayman arms' turtle and pineapple, Andorra's quartered shield, Guam's seal, the USVI eagle's sprig and
+arrows, all of which an alt has to name and none of which is legible at sheet width. **A sheet decides
+whether the picture is right; a crop is what lets the description be written.**
+
+Cards were looked at in a browser: Guam and the USVI for the white and near-white grounds, the Cayman
+Islands for the blue-ensign pair, Andorra for its 10:7 ratio. The answer box draws no flag, the front
+carries no credit, and the only console error anywhere in the run is the sandbox's own Supabase
+certificate.
 
 
 ---
@@ -1057,26 +1123,26 @@ geography plans it could not until eight capitals had already drifted.
 
 ### Batch F10 — fl-181 to fl-200 — 20 cards, 20 flags to fetch
 
-  fl-181  Barbados  [fetch]
-  fl-182  French Polynesia  [fetch]
-  fl-183  São Tomé and Príncipe  [fetch]
-  fl-184  Samoa  [fetch]
-  fl-185  Saint Lucia  [fetch]
-  fl-186  Guam  [fetch]
-  fl-187  Curaçao  [fetch]
-  fl-188  Kiribati  [fetch]
-  fl-189  Seychelles  [fetch]
-  fl-190  Grenada  [fetch]
-  fl-191  Micronesia  [fetch]
-  fl-192  Aruba  [fetch]
-  fl-193  United States Virgin Islands  [fetch]
-  fl-194  Tonga  [fetch]
-  fl-195  Jersey  [fetch]
-  fl-196  Saint Vincent and the Grenadines  [fetch]
-  fl-197  Antigua and Barbuda  [fetch]
-  fl-198  Isle of Man  [fetch]
-  fl-199  Andorra  [fetch]
-  fl-200  Cayman Islands  [fetch]
+  fl-181  Barbados  [on gw-181]
+  fl-182  French Polynesia  [on gw-182]
+  fl-183  São Tomé and Príncipe  [on gw-183]
+  fl-184  Samoa  [on gw-184]
+  fl-185  Saint Lucia  [on gw-185]
+  fl-186  Guam  [on gw-186]
+  fl-187  Curaçao  [on gw-187]
+  fl-188  Kiribati  [on gw-188]
+  fl-189  Seychelles  [on gw-189]
+  fl-190  Grenada  [on gw-190]
+  fl-191  Micronesia  [on gw-191]
+  fl-192  Aruba  [on gw-192]
+  fl-193  United States Virgin Islands  [on gw-193]
+  fl-194  Tonga  [on gw-194]
+  fl-195  Jersey  [on gw-195]
+  fl-196  Saint Vincent and the Grenadines  [on gw-196]
+  fl-197  Antigua and Barbuda  [on gw-197]
+  fl-198  Isle of Man  [on gw-198]
+  fl-199  Andorra  [on gw-199]
+  fl-200  Cayman Islands  [on gw-200]
 
 ### Batch F11 — fl-201 to fl-220 — 20 cards, 20 flags to fetch
 
