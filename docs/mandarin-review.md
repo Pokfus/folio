@@ -658,6 +658,16 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 1351–1380 (音量 → 优质), deck order | 5 | **用法 straddling 用 + 法文** — *because it is written in French*, on a card meaning *usage* |
 | 2026-09-18 | `hsk30l5` notes 1381–1410 (由此 → 元旦), deck order | 7 | **one sentence straddling on TWO different cards at once** — 连笑话也有限制 was claimed by 有限 and by 限制 and belongs to neither |
 | 2026-09-18 | `hsk30l5` notes 1411–1440 (员工 → 摘), deck order | 11 | **早期, two of whose examples were multi-sentence paragraphs about Bismarck and Mark Knopfler** |
+| 2026-09-18 | `hsk30l5` notes 1441–1470 (窄 → 整体) | 11 | **阵 and 争, each with two of its three sentences inside longer words**, and a sentence whose Chinese was not Chinese |
+| 2026-09-18 | `hsk30l5` notes 1471–1500 (整整 → 中华民族) | 11 | **三文治 — the headword inside a TRANSLITERATION of *sandwich***, and three sentences whose Chinese was ungrammatical under a perfect English |
+| 2026-09-18 | `hsk30l5` notes 1501–1530 (中级 → 住宿) | 8 | **派对主席 — a *party host* written with the word for a CHAIRMAN**, which is not Chinese |
+| 2026-09-18 | `hsk30l5` notes 1531–1560 (住址 → 总部) | 6 | **素抓饭 — the headword inside *pilaf***, and the `装修` gloss typo this audit had been carrying as an open item |
+| 2026-09-18 | `hsk30l5` notes 1561–1579 (总共 → 作出) — **Level 5 FINISHED** | 4 | **美国组成五十州 — a sentence that reverses the relation it is translating**, and a slap in the face of a *vile woman* |
+| 2026-09-18 | `hsk30l6` notes 1–30 (岸 → 暴力), deck order — **Level 6 BEGINS** | 6 | **败, all three of whose sentences were 胜败, 惨败 and 衰败** |
+| 2026-09-18 | `hsk30l6` notes 31–60 (暴露 → 兵) | 10 | **倍增 straddling 成倍|增加 and 遍地 straddling 一遍|又一遍地**, and a singlet called a *wife-beater* |
+| 2026-09-18 | `hsk30l6` notes 61–90 (病毒 → 不止) | 5 | **不时 swallowed by 时不时**, a different word built on the same two characters |
+| 2026-09-18 | `hsk30l6` notes 91–120 (步骤 → 查询) | 9 | **千层面 — LASAGNA — as both of one card's examples**, and 才能 straddling 才 + 能 on two of three |
+| 2026-09-18 | `hsk30l6` notes 121–150 (拆除 → 沉重) | 7 | **早产出生 — 早产 + 出生 — on the 产出 card**, a premature birth standing in for industrial output |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10103,6 +10113,104 @@ real finding of a different kind: the gloss was right and the LABEL was not, the
 `adjective` over two sentences that use the word adverbially, so the label is widened rather than the
 gloss changed. **And one card is deliberately given no `Compounds` panel** — 呀, a sentence particle,
 for the reason set out in batch 118.
+
+**No changelog line and no version bump** — a community deck is not a change to Folio, and nothing in
+the app changed.
+
+## Batches 123–127 — `hsk30l5` notes 1441–1579: the end of Level 5
+
+**Forty of the last 139 notes changed** — 11, 11, 8, 6, 4 — and **Level 5 is finished**: 1,579 notes
+read card by card over batches 63–127.
+
+**The transliteration class turned up twice more, and both are food.** 治's second sentence was
+汤姆说他看到玛丽在公园吃**三文治** — 三文治 is *sandwich* written for its sound, and 治, whose card
+means *to govern, to cure*, carries none of its meaning there. 抓's second was 你们有没有**素抓饭** —
+抓饭 is *pilaf*, borrowed from Uyghur *palaw*, and the same thing happens. Both segment, speak and
+translate perfectly; nothing in the pipeline can see either. That is the class batch 102 opened with
+pizza, aspirin and a pint, and it is now seven cards across the level.
+
+**Six sentences were not Chinese**, which is the level's other recurring fault and the one whose
+English always reads well. 挣's 挣的越多钱，就花得越多钱 puts the measure phrase in a position Chinese
+does not allow (it is 挣的钱越多); 智慧's 衰老不得，智慧不得不得 is not a sentence at all under
+*Don't get older, get wiser*; 治疗's 医生治疗了他们的降低体温 treats a verb as a noun; 哲学's
+他不仅社会学毕业，还有哲学 drops the verb from its second clause; 自由's 我不是个意愿自由主义**着**
+writes 着 for 者 and adds a spurious 意愿; and 醉's 他非常醉了 takes a degree adverb 醉 cannot take.
+**And 主席's third sentence is the same thing with a word rather than a grammar**: 派对主席 for a
+*party host*, where 主席 is a chairman of a committee or a state.
+
+**组成's third sentence reversed the relation it was translating.** 美国组成五十州 says *America
+composes fifty states*; the second sentence on the same card, 美国由五十个州组成, says it correctly.
+The two were a near-repeat as well, so the wrong one went.
+
+**Four cards had almost no sentence on them**: 阵 (阵痛 / 对阵), 争 (争斗), 败 — whose three were
+胜败, 惨败 and 衰败 — and 兵 (兵家 / 阅兵式). And 嘴巴's third example was
+来人，给我掌这贱女人嘴巴 / *Guards! Slap that vile woman's face!*, which the coarse checker's lists do
+not reach and which no learner should meet.
+
+**装修's gloss typo is cleared.** The card read `verb | to **decroate**` — reported by
+`check-gloss-source.js` two sittings ago, recorded then as an open item because it was outside the
+range, and fixed here now that the range reached it. **An open item recorded with its note number is
+one the next batch can close;** this one waited exactly ten batches.
+
+**Nineteen `Compounds` panels** — 窄, 占, 涨, 阵, 争, 挣, 支, 直, 止, 至, 治, 猪, 煮, 抓, 撞, 追, 紫,
+族, 醉. 窄路, 母猪, 熬煮, 水煮 and 深紫 are not in CC-CEDICT and were replaced or dropped; 窄, 煮 and
+紫 take three-row panels rather than invented fourth rows.
+
+## Batches 128–132 — `hsk30l6` notes 1–150: Level 6 begins
+
+**Thirty-seven of 150 changed** — 6, 10, 5, 9, 7.
+
+**Six straddles in the first 150 notes**, which is a higher rate than Level 5 ever ran at, and two of
+them are the best examples of the class this audit has found.
+
+**层面's first two sentences were both 千层面 — LASAGNA.** 我爱千层面 and 汤姆吃了纯素食千层面 are
+千层 + 面, a thousand layers of pasta, on a card that means *aspect, facet, level*. It is a straddle and
+a near-repeat at once, so two of three sentences went together.
+
+**才能's first and third were 才 + 能**, the adverb and the modal: 我怎么才能发胖 is *how do I manage to
+put on weight* and 只有学习才能获得知识 is *only through study can one gain knowledge*. Neither is the
+noun *talent* the card is for, which left one real sentence out of three.
+
+**倍增's first was 成倍增加** (成倍 + 增加), **遍地's was 一遍又一遍地** (一遍 + 又 + 一遍 + 地),
+**产出's was 早产出生** — a premature birth standing in for industrial output — and **不时's third was
+时不时**, which is a different word built on the same two characters in the other order.
+
+**Two cards carried the SAME English on two sentences**, which is `check-senses.js`'s exact check
+rather than a proxy: 步骤's 请按照步骤操作 and 请按步骤操作 both read *Please follow the steps*, and
+层次's 这篇文章层次分明 and 文章的层次很清楚 both read *The article is clearly structured*. Both had
+been on that checker's list; in each the Chinese sentences are genuinely different and the English was
+rewritten rather than a sentence dropped.
+
+**背心's first English called a singlet a "wife-beater".** 他脱了背心 — the garment is a vest, and the
+slang name for it is a term of abuse for the man supposed to wear it. `check-coarse.js` has no English
+word list, only Chinese, so this is found by reading.
+
+**Two examples were off the card altogether.** 财物's first was four clauses of Genesis 13 in a
+nineteenth-century English translation; 场景's was a paragraph of marketing copy for a football video
+game, graphics engine and all.
+
+**Nineteen `Compounds` panels** — 岸, 摆, 败, 版, 爆, 逼, 闭, 避, 编, 兵, 播, 补, 捕, 布, 踩, 侧, 叉,
+肠, 抄. 踩油门 and 乱踩 are not in CC-CEDICT; 踩刹车 and 踩雷 are.
+
+## Checks after batches 123–132
+
+`mandarin-fix.js --check` clean — every deck carries its fixes, and no `dropEx`, `exEn` or `exStop` row
+matched nothing. Coverage: **11,532 notes at three sentences across all nine decks, 0 showing the same
+sentence twice.** Shared-gloss groups **320** and still-ambiguous **1**, both unchanged.
+`check-pinyin.js` clean over 11,459 readings. `check-polyreading.js` 0. `check-coarse.js` names nothing
+in either range on any of its six lists. `check-british.js` 0. `check-senses.js` names no duplicate
+English left in either range. `build-lang-decks.js` re-run.
+
+**Verified against the real diff**: 40 of the 139 Level 5 notes in 1441–1579 changed and 37 of the 150
+Level 6 notes in 1–150, and **nothing outside either range moved**.
+
+**`check-example-fit.js` found three more after the repair, and one was mine again.** 种子's
+春天要播种子 is 播种 + 子 — the verb *to sow* plus a stray character — and 整齐's 收拾得整整齐齐 is the
+reduplicated form, which the card was bolding through the middle of. The third was the sentence this
+sitting had just authored for 嘴巴: 他捂住嘴巴笑了 reads 捂 + **住嘴** + 巴, 住嘴 being *shut up*.
+**That is the second sitting running in which an authored replacement introduced the very fault it was
+repairing** — batch 117 did it to 行人 — so the rule stands and is worth repeating: **re-run the
+checker after authoring, not only before.** All three are fixed and the range now reads zero.
 
 **No changelog line and no version bump** — a community deck is not a change to Folio, and nothing in
 the app changed.
