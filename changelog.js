@@ -35,15 +35,15 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.881", released: "2026-09-18T05:30Z" };
+window.FOLIO_VERSION = { v: "1.882", released: "2026-09-18T05:41Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-18",
-    t: "A new collection: the flags of the world\u2019s countries and territories",
+    t: "A new deck: the flags of the world\u2019s countries and territories",
     items: [
       "<b>Flags is a new deck of World Geography</b> \u2014 the card shows a flag and nothing else, and you name the country or territory it belongs to.",
-      "<b>Two hundred and sixteen new cards in the Flags deck</b>, from India to Palau.",
+      "<b>The Flags deck is complete</b> — two hundred and twenty-nine new cards, a flag for every country and territory Folio can show.",
       "<b>A flag card no longer shows the flag twice, nor its source on the card</b> \u2014 the credit is there when you tap the flag to enlarge it.",
       "<b>Common Thread only groups a term under a category it genuinely belongs to</b> \u2014 genealogy has left Asia and water has left biology.",
       "<b>Beringia draws the same globe in both collections</b>, the United States card having shown no map at all.",

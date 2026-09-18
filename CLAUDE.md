@@ -884,8 +884,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Nepal's is not a rectangle) **on a ruled ground**, since Japan, Qatar's hoist and every white-bordered
   flag vanish into a light card — those two are the whole test. **THE ALT DESCRIBES AND MAY NOT NAME**,
   which makes this format MORE accessible than the map card rather than less: a shape on a globe cannot
-  be described without answering the question and a flag can. **FOUR CARDS ARE DEFERRED AND EACH FOR A DIFFERENT
-  REASON**, so the deck is 229 of 233 writable with the numbers reserved. `fl-036` **Afghanistan** is the
+  be described without answering the question and a flag can. **THE DECK IS COMPLETE — 229 OF 229 WRITABLE**
+  (Sep 2026), across 233 numbers. **FOUR CARDS ARE DEFERRED AND EACH FOR A DIFFERENT REASON**, and their
+  numbers stay reserved. `fl-036` **Afghanistan** is the
   Afghanistan decision one collection over, where `gw-036` can ship with no flag because its question is
   the shape and this card cannot, the flag BEING the question. `fl-171` **Western Sahara** is that with
   both claimants standing: Commons has no such file and the name redirects to the SADR's flag, credited
@@ -899,6 +900,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   unofficial"* — while what the collectivity's institutions fly is the tricolour, which is New
   Caledonia's objection again. **The other half of that island, `fl-210` Sint Maarten, ships without a
   murmur**, which is what says this is a fact about the flag rather than about the island.
+  **AND THE TEST IS THE FORMAL BANNER, NEVER THE WORD "UNOFFICIAL"** (Sep 2026, F12, where it nearly
+  cost two cards). Commons captions a French collectivity's local banner "unofficial" as a matter of
+  course — Saint Pierre and Miquelon's says so in four languages, and so does `fl-223` Wallis and
+  Futuna's and `fl-182` French Polynesia's, **both of which ship** — so a rule keyed on the adjective
+  would defer cards the deck already carries. What separates Saint Martin is Commons' own TEMPLATE
+  ("This flag is fictitious, proposed, or unofficial. Such flags should usually not be used in
+  articles"), which is one grep and which five pages measured cleanly apart. **Ask a candidate's test of
+  the shipped corpus too: a test that would defer something already live is wrong.**
   **THE TEST IS NOT "IS THIS PLACE DISPUTED?"** — Hong Kong, Macau and Kosovo all ship — but **"is there
   exactly one flag this territory's own institutions fly, and does Commons name it?", asked of a REDIRECT
   rather than of a map.** A deferred twin is left with no flag at all, since fetching one would put the
@@ -6711,7 +6720,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 3 / 3 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
-| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 216 cards — `fl-001`–`fl-220` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, so the lowest unused number is not the next card; next is `fl-221`, which opens the LAST batch, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
+| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** (Sep 2026) across 233 numbers — `fl-001`–`fl-233` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, whose numbers stay reserved, so the next-card command prints a deferral rather than work, one per `gw-` COUNTRY card and numbered to match it, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 

@@ -33,14 +33,20 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**F0 to F11 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
-Geography, and `fl-001`–`fl-220` are live **less the deferred `fl-036`, `fl-171`, `fl-180` and
-`fl-218`** — 216 cards, so the lowest unused number is not the next card. The next card is `fl-221`,
-which opens **F12, the last batch**. **THE TRIM-AND-COPY RANGE IS FINISHED**: every flag already on a
-twin has been used, and from here every batch fetches. **RUN `node .claude/check-flag-twins.js` FOR THE
-TWIN COUNT RATHER THAN QUOTING IT** — it stood here as a figure and went stale within two batches — and
-note that a DEFERRED card's twin is deliberately left with no flag at all. Each batch back-fills the
-ones it uses, which closes World Geography's own gap as a by-product.
+**THE DECK IS COMPLETE** (Sep 2026, F0 to F12): the format is built, the deck is on the shelf under
+World Geography, and **every writable card is written — 229 of 229, across 233 numbers**, the four
+missing being the deferred `fl-036` Afghanistan, `fl-171` Western Sahara, `fl-180` New Caledonia and
+`fl-218` Saint Martin, whose numbers stay reserved and whose twins are deliberately left with no flag
+at all. **So this file is now a record of what was decided rather than a queue of work**, and the
+command above prints one of those four rather than the next card to write. **RUN `node
+.claude/check-flag-twins.js` RATHER THAN TRUSTING THAT SENTENCE** — the count stood here as a figure
+twice and went stale within two batches both times, and it is the one thing that can tell a finished
+deck from a deck that has silently lost a card.
+
+**WHAT REMAINS IS A STANDING COST RATHER THAN A BATCH.** A correction to a `gw-` background must be
+carried to its `fl-` twin in the same commit, since both cards render perfectly while saying different
+things; `check-flag-twins.js` is what says so. And each deferral is a judgement about what Commons
+answers today, so if that answer changes, its own entry below says what would have to change with it.
 
 **NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate question
 and which nothing else in the pipeline can see: for a reader who cannot see the flags the alt IS the
@@ -996,6 +1002,73 @@ no flag, the front carries no credit, and the only console error anywhere in the
 Supabase certificate.
 
 
+## F12 — `fl-221` to `fl-233` (Sep 2026) — THE DECK IS COMPLETE
+
+The Cook Islands to the Pitcairn Islands: **13 cards, all thirteen written**, and with them **the deck
+stands at 229 of 229 writable, 233 numbered, with four deferrals and no gaps.** Eleven are public domain,
+Norfolk Island's is CC0 and Saint Barthélemy's CC BY 2.5 — **the deck's first CC BY file**, dual-licensed
+GFDL and CC BY 2.5 on Commons, which the bar admits and the credit names. All thirteen resolved on the
+first probe; only `gw-231` Niue refused on the write, and re-running it alone on a minute's spacing
+resolved it, which is F11's own finding applied rather than re-derived.
+
+**THE WORD "UNOFFICIAL" IS NOT THE DEFERRAL TEST, AND TWO CARDS WERE NEARLY DEFERRED ON IT.** Both
+`gw-224` Saint Barthélemy and `gw-226` Saint Pierre and Miquelon resolve to files Commons labels in
+prose: *"Local flag of Saint-Barthélemy, adopted 2007"*, and *"Unofficial flag of Saint-Pierre and
+Miquelon"* — the latter saying it in **four languages** (English, French, Breton, Spanish) with a caption
+hedging to "Semi-official". Read as a disclaimer that is a deferral: no institution flies it, so what
+flies there is the tricolour, which is New Caledonia's objection. **The measurement refused that
+reading.** `fl-223` Wallis and Futuna's own page, in the same batch, captions it *"Unofficial flag of
+Wallis and Futuna"* and *"inoffizielle Flagge"* — and so, checked as a control, does nothing about
+`fl-182` French Polynesia, **which shipped in F10**. So the adjective is the ordinary state of a French
+collectivity's banner, and a rule keyed on it would have deferred a card the deck already ships beside.
+**What actually separates Saint Martin is Commons' FORMAL BANNER** — the template reading *"This flag is
+fictitious, proposed, or unofficial. Such flags should usually not be used in articles"* — and it is one
+grep: measured over five pages, **Saint Martin's carries it and Saint Barthélemy's, Saint Pierre's,
+Wallis and Futuna's and French Polynesia's do not**, nor does Norfolk Island's as a second control.
+**Ask for the banner, not for the word**, and ask it of the shipped corpus as well as of the candidate:
+a test that would defer something already live is a test that is wrong.
+
+**THE BLUE-ENSIGN FAMILY CLOSES AT FIFTEEN, AND THE LAST SIX SPLIT THREE WAYS.** `fl-227` Saint Helena,
+`fl-228` Montserrat, `fl-229` the Falkland Islands and `fl-233` the Pitcairn Islands are the badge case
+again — a wirebird over a ship beneath cliffs; a woman in green with a harp embracing a cross; a white
+ram over a sailing ship; an anchor and a book in gold mantling under a wheelbarrow. **`fl-221` the Cook
+Islands and `fl-225` Tuvalu are a different case and the easier one: they carry NO badge at all**, a ring
+of fifteen white stars and nine yellow stars respectively, so what separates them is the stars and the
+field's shade (dark against light). **And `fl-231` Niue is the family's one outlier — a YELLOW field**,
+the only one in the deck, which separates it from all fourteen at a glance. The Falklands' DESIRE THE
+RIGHT is a motto and names nothing, so F10's lettering rule applies unchanged.
+
+**`fl-224` SAINT BARTHÉLEMY IS THE THIRD LETTERED FLAG AND THE FIRST WHOSE LETTERING IS A NAME THE PLACE
+NO LONGER GOES BY.** Its scroll reads **OUANALAO**, the island's Arawak name, legible at card size. It is
+neither Guam's case (which prints the answer term) nor a motto (which names nothing): it names the place
+under a name a reader is unlikely to know, so the leak is real and very narrow. **It is handled by Guam's
+rule rather than by a new one** — the alt says "over a lettered scroll" and does not spell it — which
+keeps a reader who cannot see the flag on the same footing as one who can.
+
+**`fl-232` VATICAN CITY IS THE DECK'S SECOND SQUARE FLAG**, after `fl-100` Switzerland, and its own alt
+says so; against `fl-172` Malta, which is also halved white and coloured, the square field and the
+hoist's yellow separate it. Commons redirects `Flag of Vatican City.svg` to
+**`Flag of Vatican City (2023–present).svg`**, and the tool reported the redirect: that is a VERSION
+rather than a claimant, and the file Commons points at is the better one, its description citing the 2023
+Fundamental Law's own Annex A. **A reported redirect is a thing to read, not a thing to refuse** — F6's
+Afghanistan case is what a redirect that matters looks like.
+
+`fl-226` Saint Pierre and Miquelon is the batch's most detailed charge and the alt names the three
+quarters of its hoist strip rather than the traditions they stand for, since a description must say what
+a reader would SEE. `fl-230` Norfolk Island sits closest to `fl-006` Nigeria in wording — three vertical
+bands, green and white — and is separated by the white band's greater width and the pine tree it carries.
+
+Cards were looked at in a browser: the Vatican for the square field against the ruled ground, Saint
+Barthélemy for a white field and its lettering at card size, and Niue for the yellow one. The answer box
+draws no flag, the front carries no credit, and the only console error anywhere in the run is the
+sandbox's own Supabase certificate.
+
+**WHAT IS LEFT IS THE STANDING COST RATHER THAN A BATCH**: a correction to a `gw-` background must be
+carried to its `fl-` twin in the same commit, and `check-flag-twins.js` is what says so. The four
+deferred numbers stay reserved; each is a judgement that could be revisited if Commons' own answer
+changes, and each says in its own entry above what would have to change.
+
+
 ---
 
 # The list
@@ -1265,16 +1338,16 @@ geography plans it could not until eight capitals had already drifted.
 
 ### Batch F12 — fl-221 to fl-233 — 13 cards, 13 flags to fetch
 
-  fl-221  Cook Islands  [fetch]
-  fl-222  Nauru  [fetch]
-  fl-223  Wallis and Futuna  [fetch]
-  fl-224  Saint Barthélemy  [fetch]
-  fl-225  Tuvalu  [fetch]
-  fl-226  Saint Pierre and Miquelon  [fetch]
-  fl-227  Saint Helena  [fetch]
-  fl-228  Montserrat  [fetch]
-  fl-229  Falkland Islands  [fetch]
-  fl-230  Norfolk Island  [fetch]
-  fl-231  Niue  [fetch]
-  fl-232  Vatican City  [fetch]
-  fl-233  Pitcairn Islands  [fetch]
+  fl-221  Cook Islands  [on gw-221]
+  fl-222  Nauru  [on gw-222]
+  fl-223  Wallis and Futuna  [on gw-223]
+  fl-224  Saint Barthélemy  [on gw-224]
+  fl-225  Tuvalu  [on gw-225]
+  fl-226  Saint Pierre and Miquelon  [on gw-226]
+  fl-227  Saint Helena  [on gw-227]
+  fl-228  Montserrat  [on gw-228]
+  fl-229  Falkland Islands  [on gw-229]
+  fl-230  Norfolk Island  [on gw-230]
+  fl-231  Niue  [on gw-231]
+  fl-232  Vatican City  [on gw-232]
+  fl-233  Pitcairn Islands  [on gw-233]
