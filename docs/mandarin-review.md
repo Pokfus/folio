@@ -635,6 +635,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 691–720 (里头 → 流传), deck order | 18 + 1 | **three cards glossing the one sense none of their sentences shows, and a second dead disambiguator retired** |
 | 2026-09-18 | `hsk30l5` notes 721–750 (流感 → 迷), deck order, plus the applier's field whitelist | 28 | **a card's TRADITIONAL field carried the wrong character — and the record could not reach that field at all** |
 | 2026-09-18 | `hsk30l5` notes 751–780 (迷路 → 闹), deck order | 18 | **a third sentence whose characters straddle a word boundary — 很难|得到 on the 难得 card** |
+| 2026-09-18 | `hsk30l5` notes 781–810 (闹钟 → 碰), deck order | 17 | **a gloss belonging to a reading the card does not teach, and a card all three of whose sentences were loanwords** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -9199,3 +9200,104 @@ still-ambiguous 1; shared-gloss groups 320 unchanged — so neither the 敏感 n
 a new collision; one-sided hints still 0; pinyin clean; example-fit 140 and senses 151 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; **sense-tagged 723 → 726**, the three being
 描述's; **Traditional outliers 6 → 5**; `build-lang-decks.js` re-run.
+
+## Batch 100 — hsk30l5 notes 781–810 (闹钟 → 碰)
+
+Thirty consecutive notes of HSK Level 5 in deck order. **Seventeen cards changed**, thirteen read and
+left. The hundredth batch, and two of its findings are shapes the audit has not met before.
+
+### A gloss that belongs to a reading the card does not teach
+
+**哦 was glossed *softly chant*.** CC-CEDICT holds three readings of the character: **é** *to chant*,
+**ó** *oh (doubt or surprise)* and **ò** *oh (on learning something)*. The card's pinyin is **ò** and all
+three of its sentences are that or the softening sentence-final particle — so a reader met the right
+character, the right reading, and a definition from a reading the card never mentions.
+
+**No checker here can see it, and the reason is worth stating.** `check-pinyin.js` compares pinyin
+against bopomofo and both say ㄛˋ, so they agree. `check-gloss-source.js` compares the card's gloss
+against the dictionary entry for the WORD — and the dictionary entry holds all three readings' senses at
+once, so *chant* is in it and the gloss matches. **A polyphone's dictionary entry launders a gloss taken
+from the wrong reading.** This is the first time the audit has found one, and the shape to watch for is a
+single-character card with several readings where only one is taught.
+
+### A card all three of whose sentences were loanwords
+
+**派 is glossed *to send; to dispatch; faction*, and its three sentences were 在派对上见, 谁想来一块派 and
+母亲经常为我们做苹果派.** 派对 is a transliteration of *party*; the other two are 派 borrowed for *pie*,
+which CC-CEDICT does list and which has nothing to do with any sense the gloss gives. So the card glossed
+three senses and illustrated a fourth, three times over — the 库 finding of batch 96 (Kurdish and Kumi)
+with the character used for its sound in a different direction, for a borrowing rather than a name. All
+three replaced, one sentence for each sense the gloss names.
+
+### A fourth straddled word boundary — and the first that is the generator's own
+
+**能干's 我们谁也能干 does not contain the word**: it is 谁也能 + 干, *anyone can DO it*, and the card's
+two characters straddle the boundary between them. After 家电's 一家|电影院, 加工's 加|工资 and 难得's
+很难|得到 this is the fourth — and **the first that is the GENERATOR's own rather than a harvest of this
+audit's**, which is worth recording: the class is not something this audit introduced, only something it
+has added to three times.
+
+### Four glosses answering a different question
+
+**碰 was glossed *to meet with* alone** and two of its three sentences are *to touch*, with only 碰头 the
+meeting — so the gloss named the sense shown once and left out the one shown twice. **排列 was glossed the
+single word *array***, a noun and a computing term, where the word is a verb and CC-CEDICT gives *to
+arrange in order*. **女子's gloss names the SPORTING sense in its own parenthesis** and no sentence
+showed it. And **女子's first English said *girl*** where the gloss itself says the word is the formal one
+for a grown woman.
+
+### Eight near-repeats
+
+浓 had strong coffee twice; 女子 the same girls' school twice; 排列 alphabetical order twice; 盆 the same
+flowerpot twice — and with 锅碗瓢盆 in the third slot never showed 盆 standing alone at all; 配合 had
+配合得很好 twice with the subject changed; 派出所 had the same man walking into the same station on two
+errands; 年夜饭 had dumplings at the New Year table twice; 闹钟 had the two halves of one transaction.
+Three of the eight were added by earlier batches of this audit.
+
+### A 45-character sentence, and three that are not sentences
+
+**培训's first ran to 45 characters** about Algeria's public-sector employees, with the headword
+three-quarters of the way through — the fourth length fault after 紧密, 近年来 and 陆续. **培养's
+子女培养全社会都很关心，教育要进行改革 is two unrelated sentences joined by a comma**, which its own
+English admits by giving them as two. **年夜饭's 说明年夜饭的饺子… opens on 说明**, a clause lifted out of a
+longer text. **闹钟's 第一项东西 counts a thing with 项**, which counts items on an agenda, where 件 is the
+word.
+
+### The overwrite mistake again, five batches after it was written up as one that would recur
+
+**排列's `ex` array was overwritten rather than appended to**, exactly as 开幕's and 开业's were in batch
+95 and for exactly the reason recorded there: the helper that merges a new entry into an existing one
+assigns whole keys. **`check-mandarin-coverage.js` caught it in its first line again** — 11,531 notes at
+three sentences against 11,532. Restored. Batch 95 wrote *the shape will recur*; it recurred, and the
+count is what said so both times.
+
+### One thing recorded rather than changed
+
+**念's Measure word field says 顿**, which counts meals and scoldings and is not a classifier 念 takes.
+It is LEFT ALONE, because the class is corpus-wide and mostly right: **63 verb-only notes carry a measure
+word**, and 复习一次, 咳嗽一阵 and 旅行一趟 are all correct verbal classifiers. So this is one doubtful row
+inside a real convention rather than a fault to pick off, and settling it needs a source this audit has
+not got. The question is recorded so the next reader does not have to re-find it.
+
+### Six single-character cards gained a `Compounds` section
+
+念, 浓, 派, 赔, 配, 盆 and 碰 took one, every row checked against CC-CEDICT first. **念, 赔 and 配
+needed nothing else** — their sentences were read and are sound, which is worth saying as often as the
+faults are: a single-character card is not automatically a card with something wrong on it.
+
+### What was read and left
+
+**Thirteen cards were read and left untouched**: 内部, 年初, 年代, 年纪, 牛仔裤, 农民, 农业, 欧洲, 偶然,
+拍摄, 跑道, 陪伴 and 配送.
+
+**年代's 这些废墟年代久远 is also 久远's own first sentence**, 167 cards earlier — checked and left on
+both, the sentence being right for each headword and far enough apart that no reader meets them
+together. **年初 was the close call**: 这项工作年初就开始了 and 计划是年初定的 are both something set going
+at the start of the year, but the verbs and the subjects differ and the middle sentence is a job change,
+so the card teaches three things rather than one.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 320 unchanged — so neither the 哦, 排列 nor 碰 gloss rewrite made a
+new collision; one-sided hints still 0; pinyin clean; example-fit 140 and senses 151 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; sense-tagged 726 unchanged;
+`build-lang-decks.js` re-run.

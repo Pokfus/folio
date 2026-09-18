@@ -14228,8 +14228,23 @@
       ]
     },
     "hsk30l5/女子": {
-      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it.",
-      "gloss": "woman, female (formal; used in the names of sporting events)"
+      "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | 她上女子高中 and 他在一间女子中学教书 are the same girls' school twice — a NEAR-repeat the coverage checker cannot see. The gloss names the SPORTING sense in its own parenthesis and no sentence showed it, so the replacement is an AUTHORED sentence that does. The English on 多么可爱的女子 also said *girl*, where 女子 is the formal word for a grown woman and the gloss says so. AUTHORED, and the record says so.",
+      "gloss": "woman, female (formal; used in the names of sporting events)",
+      "dropEx": [
+        "他在一间女子中学教书"
+      ],
+      "exEn": [
+        [
+          "多么可爱的女子",
+          "What a lovely woman!"
+        ]
+      ],
+      "ex": [
+        [
+          "她获得了女子一百米冠军。",
+          "She won the women's hundred metres."
+        ]
+      ]
     },
     "hsk30l5/妇女": {
       "why": "Shared one gloss with two or more other notes, so the English → Chinese card asked a question with several right answers and the reader had no way to tell a wrong answer from a collision. A group of three or more cannot take the deck's `not X` hint — naming four of five answers on the front is worse than the ambiguity — so each member is given the gloss that actually distinguishes it. | AN EXAMPLE SENTENCE ASSERTED SOMETHING FALSE IN THE PRESENT TENSE. 美国妇女没有选举权 says American women HAVE no vote; its English said they *didn't* have one, which is the historical claim the sentence was meant to make and which Chinese would need 曾经 or a date to carry. The English cannot be repaired around it — `exEn` leaves the Chinese standing, and the Chinese is the part that is wrong — so it is dropped and an AUTHORED sentence that dates the fact put in its place.",
@@ -72410,12 +72425,8 @@
       ]
     },
     "hsk30l5/派出所": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 他去派出所办了身份证 and 他去派出所报案 are the same man walking into the same station on two errands — a NEAR-repeat the coverage checker cannot see, and both were added by an earlier batch of this audit. One is replaced by an AUTHORED sentence in which the station does something. AUTHORED, and the record says so.",
       "ex": [
-        [
-          "他去派出所办了身份证。",
-          "He went to the police station for his identity card."
-        ],
         [
           "派出所就在街对面。",
           "The police station is just across the street."
@@ -72423,6 +72434,10 @@
         [
           "他去派出所报案。",
           "He went to the police station to report it."
+        ],
+        [
+          "派出所的民警帮他找回了钱包。",
+          "An officer at the police station got his wallet back for him."
         ]
       ]
     },
@@ -72444,7 +72459,7 @@
       ]
     },
     "hsk30l5/配合": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 大家配合得很好 and 两个部门配合得很好 are the same predicate with the subject changed — 配合得很好 twice — and both were added by an earlier batch of this audit. A NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence in which 配合 takes an object. AUTHORED, and the record says so.",
       "ex": [
         [
           "大家配合得很好。",
@@ -72455,8 +72470,8 @@
           "Would everyone please cooperate."
         ],
         [
-          "两个部门配合得很好。",
-          "The two departments work well together."
+          "这个动作要配合呼吸。",
+          "This movement has to be coordinated with your breathing."
         ]
       ]
     },
@@ -78228,20 +78243,24 @@
       ]
     },
     "hsk30l5/排列": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 你能把这清单按字母顺序排列吗？ and 请把名字按字母排列 are both alphabetical order — a NEAR-repeat the coverage checker cannot see. The gloss was also the single word *array*, which is a noun and a computing term where 排列 is a verb; CC-CEDICT gives *to arrange in order*. One sentence is replaced by an AUTHORED one. AUTHORED, and the record says so. | **This entry's  array was OVERWRITTEN rather than appended to on the first attempt**, which is the mistake batch 95 made on 开幕 and 开业 and recorded as one that would recur. It did, five batches later, in the same shape and for the same reason: the helper that merges a new entry into an existing one assigns whole keys.  caught it in its first line again, 11,531 at three sentences against 11,532.",
       "ex": [
         [
           "书按大小排列。",
           "The books are arranged by size."
         ],
         [
-          "请把名字按字母排列。",
-          "Please arrange the names alphabetically."
+          "士兵们排列成两行。",
+          "The soldiers lined up in two rows."
         ]
+      ],
+      "gloss": "to arrange in order; to line up",
+      "dropEx": [
+        "请把名字按字母排列"
       ]
     },
     "hsk30l5/赔": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card's three sentences were read and are sound — 玩股票赔了, 打碎了要赔 and 赔了他一笔钱 are losing money, paying for damage and paying compensation, which is the whole of what the word does. What it had none of was a Compounds panel. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "ex": [
         [
           "打碎了要赔。",
@@ -78251,10 +78270,27 @@
           "公司赔了他一笔钱。",
           "The company paid him compensation."
         ]
+      ],
+      "compounds": [
+        [
+          "赔偿",
+          "péicháng",
+          "to compensate; compensation"
+        ],
+        [
+          "赔钱",
+          "péiqián",
+          "to lose money; to pay damages"
+        ],
+        [
+          "赔礼",
+          "péilǐ",
+          "to offer an apology"
+        ]
       ]
     },
     "hsk30l5/培训": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The card's first sentence ran to 45 characters about Algeria's public-sector employees, with the headword three-quarters of the way through. The fourth length fault the audit has found, after 紧密, 近年来 and 陆续. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
       "ex": [
         [
           "新员工要参加培训。",
@@ -78263,7 +78299,14 @@
         [
           "公司办了一次培训。",
           "The company ran a training course."
+        ],
+        [
+          "他在接受驾驶培训。",
+          "He is doing driving training."
         ]
+      ],
+      "dropEx": [
+        "阿尔及利亚需要对其公共部门员工进行新技术"
       ]
     },
     "hsk30l5/聘请": {
@@ -79543,12 +79586,19 @@
       ]
     },
     "hsk30l5/年夜饭": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 说明年夜饭的饺子是亲人团聚的象征 opens on 说明, *this shows that* — it is a clause lifted out of a longer text rather than a sentence — and it repeats the card's own first sentence, dumplings at the New Year table. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
       "ex": [
         [
           "一家人围在一起吃年夜饭。",
           "The whole family sat together for the New Year's Eve dinner."
+        ],
+        [
+          "年夜饭是一年中最重要的一顿饭。",
+          "The New Year's Eve dinner is the most important meal of the year."
         ]
+      ],
+      "dropEx": [
+        "说明年夜饭的饺子是亲人团聚的象征"
       ]
     },
     "hsk30l5/拼音": {
@@ -111050,11 +111100,33 @@
       ]
     },
     "hsk30l5/念": {
-      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Grade” for a year at school is American; British English says “year”. It is not in the deck-level table because the word's other senses — a rank, a class of goods, an exam grade — are ordinary British English and account for most of its twenty hits. ",
+      "why": "Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Grade” for a year at school is American; British English says “year”. It is not in the deck-level table because the word's other senses — a rank, a class of goods, an exam grade — are ordinary British English and account for most of its twenty hits.  | The card's three sentences were read and are sound — 怎么念, 念几年级 and 不会念 are the three senses the gloss gives. What it had none of was a Compounds panel. **One thing is recorded rather than changed**: its Measure word field says 顿, which counts meals and scoldings and is not a classifier 念 takes. It is left alone because the class is corpus-wide and mostly right — 63 verb-only notes carry a measure word, and 复习一次, 咳嗽一阵 and 旅行一趟 are all correct verbal classifiers — so this is one doubtful row inside a convention, not a fault to pick off, and settling it needs a source this audit has not got. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
       "exEn": [
         [
           "你的妹妹念几年级",
           "What year is your sister in?"
+        ]
+      ],
+      "compounds": [
+        [
+          "念书",
+          "niànshū",
+          "to read; to study; to attend school"
+        ],
+        [
+          "想念",
+          "xiǎngniàn",
+          "to miss; to long to see again"
+        ],
+        [
+          "观念",
+          "guānniàn",
+          "a notion; a concept"
+        ],
+        [
+          "纪念",
+          "jìniàn",
+          "to commemorate; a memento"
         ]
       ]
     },
@@ -129967,6 +130039,210 @@
           "胡闹",
           "húnào",
           "to make trouble; to play up"
+        ]
+      ]
+    },
+    "hsk30l5/闹钟": {
+      "why": "他买的第一项东西是一个闹钟 counts a thing with 项, which counts items on an agenda or a list of tasks, not objects — 件 is the word. It also repeats 您卖闹钟吗？, the card's own first sentence, as the other half of the same transaction. Replaced with an AUTHORED sentence in which the clock does what a clock does. AUTHORED, and the record says so.",
+      "dropEx": [
+        "他买的第一项东西是一个闹钟"
+      ],
+      "ex": [
+        [
+          "闹钟每天早上七点响。",
+          "The alarm clock goes off at seven every morning."
+        ]
+      ]
+    },
+    "hsk30l5/能干": {
+      "why": "我们谁也能干 does not contain this word: it is 谁也能 + 干, *anyone can DO it*, and the card's two characters straddle the boundary between 能 and 干. **The fourth sentence of this shape the audit has found** — after 家电's 一家|电影院, 加工's 加|工资 and 难得's 很难|得到 — and the FIRST that is the generator's own rather than a harvest of this audit's, which is worth recording: the class is not something this audit introduced, only something it has added to. `check-example-fit.js` cannot see it, its lexicon holding 能干 so the segmenter lands on the headword. The English on 你太能干了 also said *You're really something*, which names no ability at all. AUTHORED, and the record says so.",
+      "dropEx": [
+        "我们谁也能干"
+      ],
+      "exEn": [
+        [
+          "你太能干了",
+          "You are so capable."
+        ]
+      ],
+      "ex": [
+        [
+          "她是个很能干的领导。",
+          "She is a very capable leader."
+        ]
+      ]
+    },
+    "hsk30l5/浓": {
+      "why": "我父亲喜欢浓咖啡 and 为什么喜欢喝浓咖啡？ are the same strong coffee twice — a NEAR-repeat the coverage checker cannot see. One is replaced by an AUTHORED sentence on a different substance, the card's one other sentence being fog. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "为什么喜欢喝浓咖啡"
+      ],
+      "ex": [
+        [
+          "这种汤味道很浓。",
+          "This soup has a very strong flavour."
+        ]
+      ],
+      "compounds": [
+        [
+          "浓厚",
+          "nónghòu",
+          "dense; thick (of fog or cloud)"
+        ],
+        [
+          "浓度",
+          "nóngdù",
+          "concentration; density"
+        ],
+        [
+          "浓缩",
+          "nóngsuō",
+          "to concentrate; to condense"
+        ],
+        [
+          "浓密",
+          "nóngmì",
+          "thick; dense"
+        ]
+      ]
+    },
+    "hsk30l5/哦": {
+      "why": "**THE GLOSS BELONGS TO A READING THE CARD DOES NOT TEACH.** It read *softly chant*, which is CC-CEDICT's sense for 哦 pronounced **é**; the card's pinyin is **ò**, whose sense is *oh — indicating that one has just learned something*, and its three sentences are all that or the softening sentence-final particle. So a reader met the right character, the right reading and a definition from somewhere else entirely. No checker here can see it: `check-pinyin.js` compares pinyin against bopomofo and both say ㄛˋ, and `check-gloss-source.js` compares the gloss against the dictionary entry for the WORD, which holds all three readings' senses at once.",
+      "gloss": "oh (on learning or realising something); (sentence-final particle softening a remark)"
+    },
+    "hsk30l5/派": {
+      "why": "ALL THREE of the card's sentences were LOANWORDS, and the gloss names none of them: 在派对上见 is 派对, a transliteration of *party*; 一块派 and 苹果派 are 派 borrowed for *pie*, which CC-CEDICT does list and which has nothing to do with *to send; to dispatch; faction*. So the card glossed three senses and illustrated a fourth, three times. All three replaced with AUTHORED sentences, one for each sense the gloss gives. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "在派对上见",
+        "谁想来一块派",
+        "母亲经常为我们做苹果派"
+      ],
+      "ex": [
+        [
+          "公司派他去北京开会。",
+          "The company sent him to Beijing for a meeting."
+        ],
+        [
+          "学校派了两位老师带队。",
+          "The school sent two teachers to lead the group."
+        ],
+        [
+          "他属于保守派。",
+          "He belongs to the conservative faction."
+        ]
+      ],
+      "compounds": [
+        [
+          "学派",
+          "xuépài",
+          "a school of thought"
+        ],
+        [
+          "派遣",
+          "pàiqiǎn",
+          "to dispatch; to send on a mission"
+        ],
+        [
+          "党派",
+          "dǎngpài",
+          "a political party; a faction"
+        ],
+        [
+          "气派",
+          "qìpài",
+          "imposing; stylish"
+        ]
+      ]
+    },
+    "hsk30l5/培养": {
+      "why": "子女培养全社会都很关心，教育要进行改革 is two unrelated sentences joined by a comma — its own English admits it, giving them as two — and the first half inverts the topic so that 子女培养 hangs without a verb. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
+      "dropEx": [
+        "子女培养全社会都很关心"
+      ],
+      "ex": [
+        [
+          "学校培养了很多优秀的学生。",
+          "The school has produced a great many fine students."
+        ]
+      ]
+    },
+    "hsk30l5/配": {
+      "why": "The card's three sentences were read and are sound — 配不上, 领带和西装很配 and 面包配汤 are the three things the gloss names. What it had none of was a Compounds panel. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "配合",
+          "pèihé",
+          "to cooperate; to coordinate"
+        ],
+        [
+          "分配",
+          "fēnpèi",
+          "to distribute; to allocate"
+        ],
+        [
+          "搭配",
+          "dāpèi",
+          "to pair up; to match"
+        ],
+        [
+          "配件",
+          "pèijiàn",
+          "a component; a spare part"
+        ]
+      ]
+    },
+    "hsk30l5/盆": {
+      "why": "她更新了花盆里的土 and 花盆里有一朵红玫瑰 are the same flowerpot twice — a NEAR-repeat the coverage checker cannot see — and both turn on 花盆, a word of its own, so with 锅碗瓢盆 in the third slot the card never showed 盆 standing alone at all. One is replaced by an AUTHORED sentence that does. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "dropEx": [
+        "她更新了花盆里的土"
+      ],
+      "ex": [
+        [
+          "他端来一盆水。",
+          "He brought a basin of water."
+        ]
+      ],
+      "compounds": [
+        [
+          "花盆",
+          "huāpén",
+          "a flowerpot"
+        ],
+        [
+          "脸盆",
+          "liǎnpén",
+          "a washbasin"
+        ],
+        [
+          "盆地",
+          "péndì",
+          "(geography) a basin"
+        ],
+        [
+          "盆栽",
+          "pénzāi",
+          "a potted plant"
+        ]
+      ]
+    },
+    "hsk30l5/碰": {
+      "why": "The gloss was *to meet with* alone, and TWO of the card's three sentences are *to touch* — 不要碰伤口, 别碰我的相机 — with only 碰头 being the meeting. CC-CEDICT gives *to touch; to meet with; to bump*, so the gloss named the sense shown once and left out the one shown twice. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written.",
+      "gloss": "to touch; to bump; to meet with",
+      "compounds": [
+        [
+          "碰见",
+          "pèngjiàn",
+          "to run into; to meet unexpectedly"
+        ],
+        [
+          "碰巧",
+          "pèngqiǎo",
+          "by chance; as it happens"
+        ],
+        [
+          "碰撞",
+          "pèngzhuàng",
+          "to collide; a collision"
         ]
       ]
     }
