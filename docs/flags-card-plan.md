@@ -33,11 +33,11 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**F0 to F7 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
-Geography, and `fl-001`–`fl-140` are live **less the deferred `fl-036`** — 139 cards, so the lowest
-unused number is not the next card. The next card is `fl-141`. **THE TRIM-AND-COPY RANGE IS FINISHED**:
-every flag already on a twin has been used, and from here every batch fetches. **94 twins still need a
-flag** (`gw-141`–`gw-233` plus the deferred `gw-036`), and each batch back-fills the ones it uses, which
+**F0 to F8 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
+Geography, and `fl-001`–`fl-160` are live **less the deferred `fl-036`** — 159 cards, so the lowest
+unused number is not the next card. The next card is `fl-161`. **THE TRIM-AND-COPY RANGE IS FINISHED**:
+every flag already on a twin has been used, and from here every batch fetches. **74 twins still need a
+flag** (`gw-161`–`gw-233` plus the deferred `gw-036`), and each batch back-fills the ones it uses, which
 closes World Geography's own gap as a by-product.
 
 **NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate question
@@ -710,6 +710,53 @@ batch the tool's 1.5s/3s/4.5s backoff is not always enough, so **expect to re-ru
 than treating a refusal as a missing file.**
 
 
+## F8 — `fl-141` to `fl-160` (Sep 2026)
+
+Twenty cards, Jamaica to Eswatini, all twenty flags fetched and **every one public domain** — the first
+batch since the fetcher was built in which the licence bar refused nothing. Back-filled onto
+`gw-141`–`gw-160`, which were all empty.
+
+**TWO REDIRECTS, BOTH BENIGN, AND BOTH PINNED SO THE NEXT RUN DOES NOT ASK AGAIN.**
+`Flag of Gambia.svg` resolves to **`Flag of The Gambia.svg`** — the country's definite article, which is
+part of its formal name — and `Flag of Timor-Leste.svg` to **`Flag of East Timor.svg`**, which is the
+same state under its other English name. Both target pages were read: neither is a faction's flag or a
+historical one, which is the Afghanistan case the redirect warning exists for. The batch names the
+resolved file, so the warning does not fire again.
+
+**THE BATCH'S TWO LOOK-ALIKE PAIRS, AND BOTH WERE PREDICTED RATHER THAN CAUGHT.**
+**`fl-154` BAHRAIN AGAINST `fl-140` QATAR** is the closest pair in the deck so far and is the one shape
+that cannot be told apart by a colour name alone: both are a white hoist band and a coloured field
+divided by a serrated line, and the difference is the COLOUR and the NUMBER OF POINTS — Bahrain red with
+**five**, Qatar maroon with **nine**. Both alts state both, and the two were looked at side by side to
+confirm the counts. **A serration is countable, so it is a fact rather than an impression**, which makes
+this pair easier to separate in words than Chad against Romania was.
+**`fl-151` LATVIA AGAINST `fl-098` AUSTRIA** was the pair F7 predicted, and it is separable two ways
+over, both measured off the two SVGs rather than judged. The carmine is **ΔE 22.9** from Austria's red
+(`#9D2235` at L 35 against `#c8102e` at L 43) — half again as far apart as Chad and Romania at 14.1 —
+and the white band is **a fifth of the height against Austria's a third** (120 of 600 against 200 of
+600). The alt names both. **Where a pair differs in geometry as well as in hue, say the geometry**: a
+band width is a fact a reader can check on the flag in front of them where a colour name is a judgement.
+
+**`fl-145` MOLDOVA AND `fl-149` SLOVENIA ARE EACH A THIRD MEMBER OF A PAIR THAT WAS ALREADY TWO.**
+Moldova is the same three vertical bands as `fl-067` Romania and `fl-065` Chad, so its alt leads on the
+coat of arms — the eagle over an ox's head — which neither of those has. Slovenia joins `fl-120` Slovakia
+and `fl-009` Russia on white-blue-red: Russia's is plain, Slovakia's shield bears a double cross on three
+hills, and Slovenia's a mountain over wavy lines under three stars, so all three alts name what is on the
+field or that nothing is. **Check a candidate against the whole shipped deck rather than against the
+obvious twin**, which is what the duplicate sweep is for and what it is not: the sweep catches an
+IDENTICAL description and says nothing about two that merely fail to distinguish.
+
+**AND ONE `src` WILL NOT SERVE FROM THIS SANDBOX, WHICH IS A FACT ABOUT THE FILE RATHER THAN THE URL.**
+`fl-125` Oman's CC BY-SA file returns **429 persistently** — nineteen other srcs returned 200 in the same
+minutes, both the percent-encoded and the raw-parenthesis forms are refused, and the MD5 shard was
+recomputed by hand and is right (`f/f3`), so neither the address nor a rate limit on the container
+explains it. What does is that this is a rarely-requested file and therefore a CDN cache MISS, and
+Wikimedia throttles misses hardest. **It served earlier in the same session** through
+`Special:FilePath?width=600`, which is how the picture was looked at in the first place, so the file is
+there. **A 429 on one object beside 200s on twenty is the busy state at its narrowest** — worth knowing
+before re-deriving it, and worth expecting again on any flag whose file is not the canonical one.
+
+
 ---
 
 # The list
@@ -887,26 +934,26 @@ geography plans it could not until eight capitals had already drifted.
 
 ### Batch F8 — fl-141 to fl-160 — 20 cards, 20 flags to fetch
 
-  fl-141  Jamaica  [fetch]
-  fl-142  Gambia  [fetch]
-  fl-143  Gabon  [fetch]
-  fl-144  Botswana  [fetch]
-  fl-145  Moldova  [fetch]
-  fl-146  Albania  [fetch]
-  fl-147  Lesotho  [fetch]
-  fl-148  Guinea-Bissau  [fetch]
-  fl-149  Slovenia  [fetch]
-  fl-150  Equatorial Guinea  [fetch]
-  fl-151  Latvia  [fetch]
-  fl-152  North Macedonia  [fetch]
-  fl-153  Kosovo  [fetch]
-  fl-154  Bahrain  [fetch]
-  fl-155  Timor-Leste  [fetch]
-  fl-156  Estonia  [fetch]
-  fl-157  Trinidad and Tobago  [fetch]
-  fl-158  Cyprus  [fetch]
-  fl-159  Mauritius  [fetch]
-  fl-160  Eswatini  [fetch]
+  fl-141  Jamaica  [on gw-141]
+  fl-142  Gambia  [on gw-142]
+  fl-143  Gabon  [on gw-143]
+  fl-144  Botswana  [on gw-144]
+  fl-145  Moldova  [on gw-145]
+  fl-146  Albania  [on gw-146]
+  fl-147  Lesotho  [on gw-147]
+  fl-148  Guinea-Bissau  [on gw-148]
+  fl-149  Slovenia  [on gw-149]
+  fl-150  Equatorial Guinea  [on gw-150]
+  fl-151  Latvia  [on gw-151]
+  fl-152  North Macedonia  [on gw-152]
+  fl-153  Kosovo  [on gw-153]
+  fl-154  Bahrain  [on gw-154]
+  fl-155  Timor-Leste  [on gw-155]
+  fl-156  Estonia  [on gw-156]
+  fl-157  Trinidad and Tobago  [on gw-157]
+  fl-158  Cyprus  [on gw-158]
+  fl-159  Mauritius  [on gw-159]
+  fl-160  Eswatini  [on gw-160]
 
 ### Batch F9 — fl-161 to fl-180 — 20 cards, 20 flags to fetch
 
