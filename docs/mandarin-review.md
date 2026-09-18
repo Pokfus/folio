@@ -637,6 +637,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 751–780 (迷路 → 闹), deck order | 18 | **a third sentence whose characters straddle a word boundary — 很难|得到 on the 难得 card** |
 | 2026-09-18 | `hsk30l5` notes 781–810 (闹钟 → 碰), deck order | 17 | **a gloss belonging to a reading the card does not teach, and a card all three of whose sentences were loanwords** |
 | 2026-09-18 | `check-polyreading.js` — a NEW checker and its whole finding list, across four decks | 9 | **eight cards glossed from a reading they do not teach, and a polyphone's dictionary entry is what hid every one** |
+| 2026-09-18 | `hsk30l5` notes 811–840 (碰见 → 奇迹), deck order | 17 | **three cards whose only occurrence of the headword was inside a PHONETIC TRANSLITERATION — pizza, aspirin and a pint** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -9386,3 +9387,100 @@ unchanged; british 0; 34,596 blocks with spoken == visible on every one; **sense
 six being 揣's and 豁's; `build-lang-decks.js` re-run. **No changelog line and no version bump**: a new
 file in `.claude/decks/` is not part of the site, and the CLAUDE.md bullet added for it is a rule rather
 than a release.
+
+## Batch 102 — `hsk30l5` notes 811–840 (碰见 → 奇迹)
+
+**What the batch was.** Thirty consecutive notes of HSK 3.0 Level 5 in deck order, 碰见 through 奇迹.
+**Seventeen changed, thirteen were read and left**, verified against the real diff rather than counted
+from the record: 批准, 品牌, 品质, 聘请, 评价, 凭借, 平静, 平均, 屏幕, 平台, 破坏, 普及 and 期间 need
+nothing — three sentences each, in three different constructions, under a gloss CC-CEDICT agrees with.
+
+### The leading fault: the headword standing for its SOUND
+
+**Three cards' only occurrence of the headword was inside a phonetic transliteration**, where the
+character carries its sound and none of its meaning. 批's second sentence was **批萨**, a spelling of
+*pizza*; 匹's third was **阿司匹林**, *aspirin*; 品's second was **一品脱啤酒**, a **pint** of beer.
+In all three the sentence segments, speaks and translates perfectly, the card bolds the character,
+and what the reader is shown is a fragment of a foreign word.
+
+**Nothing in the pipeline can see this.** `check-example-fit.js` skips a one-character headword
+outright, by design, and all three of these are one character. It is the class batch 96 met as 库
+(Kurdish, Kumi), batch 89 as 哈 and batch 101 as 勒 (Fadil, Helen Keller) — **the fifth batch running
+to find it, and it is found by reading and by nothing else.** The three are dropped and replaced with
+authored sentences using the word in the sense the card teaches: 第一批学生已经到了 and 经理批了这份申请
+for 批, 她买了一匹布 for 匹's second classifier sense (a bolt of cloth, which the card's own gloss names
+and none of its sentences showed), and 他慢慢品着这杯茶 for 品.
+
+**A fourth is the same fault with a proper name in it.** 齐's first sentence was **齐里独自跳舞** —
+*Ziri dances alone* — the character standing for the first syllable of a personal name. Replaced with
+东西都齐了.
+
+### Two cards whose gloss named one sense and whose sentences showed three
+
+**拼** was glossed *to join together; to piece together* and two of its three sentences were about
+**spelling** (我的名字不是那样拼的, 两个拼法都对) while the third was the idiom 爱拼才会赢, which is the
+*go all out* sense again. CC-CEDICT gives all four: to piece together, to pool, to risk all, to spell.
+Split into three senses with each sentence tagged; 两个拼法都对 went, 拼法 being a compound that
+swallows the headword, and 他把碎片拼成一个杯子 was authored so that the piece-together sense the card
+leads with actually has an example.
+
+**平** was glossed *flat; level; even; peaceful* over 他们打平了 (*to tie*, a sense the gloss did not
+name), 书架和桌子齐平 and 这个平底锅没有把手 — the last two both swallowing the character inside 齐平
+and 平底锅. Two senses now, **flat; level; even** and **to tie; to draw (a game)**, with 这条路很平 and
+把桌子放平 authored. **"Peaceful" was dropped from the card deliberately**: CC-CEDICT marks it
+`(bound form)`, 平 alone is not used that way in modern Chinese, and the new `Compounds` panel teaches
+it as 和平.
+
+### Ten `Compounds` panels
+
+Every single-character card in the range had none: 批, 匹, 骗, 拼, 品, 平, 评, 凭, 齐, 其. Three to
+five rows each, **every reading and gloss looked up in CC-CEDICT before it was written** — 批评, 批发,
+批改; 匹配, 匹敌, 马匹; 骗子, 欺骗, 骗局, 拐骗; 拼命, 拼写, 拼图; 产品, 作品, 品德, 品尝; 和平, 水平,
+公平, 平方; 评论, 评估, 评分; 凭证, 文凭, 任凭; 整齐, 齐全, 一齐, 看齐; 其他, 其中, 其实, 尤其.
+一齐 is written **yì qí**, the sandhi the deck writes elsewhere, not the citation tone.
+
+### One card contradicting a rule this audit itself recorded
+
+**评** already carried a finding from batch 24 that *"to grade" a test is American and the British verb
+is "to mark"* — and the third sentence **authored in the batch that recorded it** read "The teacher
+**graded** our compositions", directly under that sentence in its own `why`. `exBritish` cannot see it:
+*grade* and *mark* are two different words, not two spellings, so `SPELL_PAIRS` has no row for them and
+`check-british.js` reads 0 whatever the card says. Corrected to *marked*. **A rule written into a
+record is not a rule the tools enforce**, and the place it is most likely to be broken is the same
+batch that wrote it down.
+
+### One sentence that was not Chinese
+
+**期待's second example was 他到我期待** — the words in an order Chinese does not allow — under a
+perfectly good English, *I've been anticipating his arrival*. Nothing downstream can see this: it
+speaks, it segments after a fashion, and the pair reads correctly to anyone reading only the English.
+Replaced with 我一直期待他的到来. Its third sentence, 我不期待去上班, ended bare and took an `exStop`.
+
+### The smaller repairs
+
+A **near-repeat** on 碰见 — 我碰见了一个老朋友 and 我在银行附近碰见老朋友 are the same sentence in a
+frame, which the coverage checker cannot see because it compares sentences exactly; the second went for
+a conditional, 如果你碰见他，请告诉他一声. **拼音 was labelled a verb** and is a noun. And four English
+translations said nothing about the headword they were teaching: 品种's *species* for a **variety**
+(the word means breed or strain, not species), 平安's *And upon you be peace!*, 平衡's *make both ends
+meet* for 收支平衡, and 奇迹's *Anyone can be a legend* over 每个人都能成为奇迹. Only the English was
+rewritten in each; the Chinese is the deck's own.
+
+### Three findings read and left
+
+`check-gloss-source.js` reports **批**, **匹** and **其** in this range and all three are the proxy
+working as its header says it will. 批's *to comment on; to approve (in writing)* is the dictionary's
+*to criticize* and *to act on* in other words; 匹's card gives the classifier sense, which is what all
+three of its sentences show, against a dictionary head that leads with two bound forms; 其's *he, she,
+it* against *his; her; its* is one sense written two ways. None is a fault.
+
+### Checks after the batch
+
+`--check` clean; coverage **11,532 notes at three sentences, repeats 0**, so no `ex` array was
+overwritten this time; shared-gloss groups 320 and still-ambiguous 1 — unchanged, so none of the five
+gloss rewrites made a new collision. The one that remains, *noun neighbour* → 邻居 / 街坊, is across
+Level-3 and Levels-7–9 and outside this range; it is a pair, so it can take the deck's `not X` hint,
+and is recorded here for the batch that reaches it. pinyin clean; example-fit 0 on Level 5;
+`check-polyreading.js` 0; `check-say-reading.js` names nothing in the range; coarse 0 on all six lists;
+british 0; `build-lang-decks.js` re-run. **No changelog line and no version bump** — a community deck
+is not a change to Folio, and nothing in the app changed.

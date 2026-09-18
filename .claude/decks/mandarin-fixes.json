@@ -79626,16 +79626,22 @@
       ]
     },
     "hsk30l5/拼音": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The part-of-speech label named a category the word does not belong to, so the card taught the reader to file it wrongly. Corrected against CC-CEDICT and the card's own examples.",
       "ex": [
         [
           "这本课本上标着拼音。",
           "This textbook is marked with pinyin."
         ]
+      ],
+      "senses": [
+        [
+          "noun",
+          "pinyin (the Chinese romanisation system)"
+        ]
       ]
     },
     "hsk30l5/评": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Grade” for a year at school is American; British English says “year”. It is not in the deck-level table because the word's other senses — a rank, a class of goods, an exam grade — are ordinary British English and account for most of its twenty hits. “To grade” a test is American; the British verb is “to mark”.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the AMERICAN-WORD-CHOICE sweep (batch 24). “Grade” for a year at school is American; British English says “year”. It is not in the deck-level table because the word's other senses — a rank, a class of goods, an exam grade — are ordinary British English and account for most of its twenty hits. “To grade” a test is American; the British verb is “to mark”. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written. | The card already carried a recorded finding that “to grade” a test is American and the British verb is “to mark” — and the authored third sentence written in the batch that recorded it said “graded”, so the card contradicted its own rule. `exBritish` cannot see it: these are two different words, not two spellings, so `SPELL_PAIRS` has no row for them.",
       "ex": [
         [
           "老师评了我们的作文。",
@@ -79646,6 +79652,32 @@
         [
           "你给测验评分了吗",
           "Did you mark the tests?"
+        ],
+        [
+          "老师评了我们的作文",
+          "The teacher marked our compositions."
+        ]
+      ],
+      "compounds": [
+        [
+          "批评",
+          "pī píng",
+          "to criticise; criticism"
+        ],
+        [
+          "评论",
+          "píng lùn",
+          "to comment on; commentary"
+        ],
+        [
+          "评估",
+          "píng gū",
+          "to assess; assessment"
+        ],
+        [
+          "评分",
+          "píng fēn",
+          "to mark (work); a score"
         ]
       ]
     },
@@ -130329,6 +130361,431 @@
     "hsk30l7/溜": {
       "why": "Found by `check-polyreading.js`, written in this batch: a single-character card glossed from a reading it does not teach. No other checker here can see it — pinyin and bopomofo agree, and a polyphone's dictionary entry holds every reading's senses at once, so the gloss matches the WORD. The card's own sentences decide which half is wrong. **The most clear-cut of the eight.** The gloss was *swift current; turbulent flow; rainwater from the roof; plaster* — four of CC-CEDICT's liù senses, every one a NOUN — where the card is labelled a VERB, its pinyin is liū, and all three of its sentences are liū: 溜冰, 溜走, 溜狗. So the card named a part of speech it did not gloss and glossed a reading it did not teach, in one line.",
       "gloss": "to slip away; to sneak off; to skate; to walk (a dog)"
+    },
+    "hsk30l5/碰见": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
+      "dropEx": [
+        "银行附近"
+      ],
+      "ex": [
+        [
+          "如果你碰见他，请告诉他一声。",
+          "If you run into him, please let him know."
+        ]
+      ]
+    },
+    "hsk30l5/批": {
+      "why": "An example's only occurrence of the headword was inside a PHONETIC TRANSLITERATION, where the character carries its sound and none of its meaning. Nothing in the pipeline can see this — the sentence segments, speaks and translates perfectly. Dropped, with an authored replacement. | An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | One `uc-sense` div carrying several senses under a part of speech naming several categories, with the card's own examples spread across them. Split into the senses the examples actually show, each example tagged with the one it illustrates. | The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "批萨",
+        "批改"
+      ],
+      "exEn": [
+        [
+          "这批货物",
+          "This batch of goods was transported by ship."
+        ]
+      ],
+      "ex": [
+        [
+          "第一批学生已经到了。",
+          "The first group of students has already arrived."
+        ],
+        [
+          "经理批了这份申请。",
+          "The manager approved the application."
+        ]
+      ],
+      "senses": [
+        [
+          "measure word",
+          "batch; lot; group"
+        ],
+        [
+          "verb",
+          "to comment on; to approve (in writing)"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "批评",
+          "pī píng",
+          "to criticise; criticism"
+        ],
+        [
+          "批准",
+          "pī zhǔn",
+          "to approve; to ratify"
+        ],
+        [
+          "批发",
+          "pī fā",
+          "wholesale"
+        ],
+        [
+          "批改",
+          "pī gǎi",
+          "to mark (homework); to correct"
+        ]
+      ]
+    },
+    "hsk30l5/匹": {
+      "why": "An example's only occurrence of the headword was inside a PHONETIC TRANSLITERATION, where the character carries its sound and none of its meaning. Nothing in the pipeline can see this — the sentence segments, speaks and translates perfectly. Dropped, with an authored replacement. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "阿司匹林"
+      ],
+      "ex": [
+        [
+          "她买了一匹布。",
+          "She bought a bolt of cloth."
+        ]
+      ],
+      "compounds": [
+        [
+          "匹配",
+          "pǐ pèi",
+          "to match; to be compatible"
+        ],
+        [
+          "匹敌",
+          "pǐ dí",
+          "to be a match for; to rival"
+        ],
+        [
+          "马匹",
+          "mǎ pǐ",
+          "horses"
+        ]
+      ]
+    },
+    "hsk30l5/骗": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "骗子",
+          "piàn zi",
+          "swindler; cheat"
+        ],
+        [
+          "欺骗",
+          "qī piàn",
+          "to deceive; to cheat"
+        ],
+        [
+          "骗局",
+          "piàn jú",
+          "a swindle; a scam"
+        ],
+        [
+          "拐骗",
+          "guǎi piàn",
+          "to abduct; to swindle"
+        ]
+      ]
+    },
+    "hsk30l5/拼": {
+      "why": "One `uc-sense` div carrying several senses under a part of speech naming several categories, with the card's own examples spread across them. Split into the senses the examples actually show, each example tagged with the one it illustrates. | The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own. | An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "拼法"
+      ],
+      "exEn": [
+        [
+          "爱拼才会赢",
+          "Only those willing to give their all will win."
+        ]
+      ],
+      "ex": [
+        [
+          "他把碎片拼成一个杯子。",
+          "He pieced the fragments together into a cup."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to piece together; to put together"
+        ],
+        [
+          "verb",
+          "to spell (a word)"
+        ],
+        [
+          "verb",
+          "to go all out; to give one's all"
+        ]
+      ],
+      "exSense": [
+        3,
+        2,
+        1
+      ],
+      "compounds": [
+        [
+          "拼音",
+          "pīn yīn",
+          "pinyin (Chinese romanisation)"
+        ],
+        [
+          "拼命",
+          "pīn mìng",
+          "to do one's utmost; at all costs"
+        ],
+        [
+          "拼写",
+          "pīn xiě",
+          "to spell"
+        ],
+        [
+          "拼图",
+          "pīn tú",
+          "jigsaw puzzle"
+        ]
+      ]
+    },
+    "hsk30l5/品": {
+      "why": "An example's only occurrence of the headword was inside a PHONETIC TRANSLITERATION, where the character carries its sound and none of its meaning. Nothing in the pipeline can see this — the sentence segments, speaks and translates perfectly. Dropped, with an authored replacement. | One `uc-sense` div carrying several senses under a part of speech naming several categories, with the card's own examples spread across them. Split into the senses the examples actually show, each example tagged with the one it illustrates. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "品脱"
+      ],
+      "ex": [
+        [
+          "他慢慢品着这杯茶。",
+          "He slowly savoured the cup of tea."
+        ]
+      ],
+      "senses": [
+        [
+          "suffix",
+          "article; product; goods"
+        ],
+        [
+          "verb",
+          "to taste; to sample"
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "产品",
+          "chǎn pǐn",
+          "product; goods"
+        ],
+        [
+          "作品",
+          "zuò pǐn",
+          "work (of art)"
+        ],
+        [
+          "品德",
+          "pǐn dé",
+          "moral character"
+        ],
+        [
+          "品尝",
+          "pǐn cháng",
+          "to taste; to sample"
+        ]
+      ]
+    },
+    "hsk30l5/品种": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
+      "exEn": [
+        [
+          "这品种的蝴蝶",
+          "Butterflies of this variety are now extinct."
+        ]
+      ]
+    },
+    "hsk30l5/平": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | One `uc-sense` div carrying several senses under a part of speech naming several categories, with the card's own examples spread across them. Split into the senses the examples actually show, each example tagged with the one it illustrates. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "齐平",
+        "平底锅"
+      ],
+      "ex": [
+        [
+          "这条路很平。",
+          "This road is very flat."
+        ],
+        [
+          "把桌子放平。",
+          "Set the table level."
+        ]
+      ],
+      "senses": [
+        [
+          "adjective",
+          "flat; level; even"
+        ],
+        [
+          "verb",
+          "to tie; to draw (a game)"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "和平",
+          "hé píng",
+          "peace; peaceful"
+        ],
+        [
+          "水平",
+          "shuǐ píng",
+          "level; standard"
+        ],
+        [
+          "公平",
+          "gōng píng",
+          "fair; impartial"
+        ],
+        [
+          "平方",
+          "píng fāng",
+          "square (as in square metre)"
+        ]
+      ]
+    },
+    "hsk30l5/凭": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "凭证",
+          "píng zhèng",
+          "proof; voucher"
+        ],
+        [
+          "文凭",
+          "wén píng",
+          "diploma"
+        ],
+        [
+          "任凭",
+          "rèn píng",
+          "no matter what; despite"
+        ],
+        [
+          "凭借",
+          "píng jiè",
+          "to rely on; by means of"
+        ]
+      ]
+    },
+    "hsk30l5/平安": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
+      "exEn": [
+        [
+          "愿你们平安",
+          "Peace be with you!"
+        ]
+      ]
+    },
+    "hsk30l5/平衡": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
+      "exEn": [
+        [
+          "他设法使收支平衡",
+          "He managed to balance income and expenditure."
+        ]
+      ]
+    },
+    "hsk30l5/期待": {
+      "why": "The example's Chinese was not a sentence — the words were in an order Chinese does not allow — while its English read perfectly, so nothing downstream could see it. Dropped and replaced with an authored sentence saying what the English says. | The sentence ended with no terminal punctuation. The corpus-wide punctuation pass converts marks and never adds one, so about 150 sentences still end bare; a full stop is appended to the visible text and to `data-say` together, and nothing else is touched.",
+      "dropEx": [
+        "他到我期待"
+      ],
+      "ex": [
+        [
+          "我一直期待他的到来。",
+          "I've been anticipating his arrival."
+        ]
+      ],
+      "exStop": [
+        [
+          "我不期待去上班"
+        ]
+      ]
+    },
+    "hsk30l5/齐": {
+      "why": "An example's only occurrence of the headword was inside a PHONETIC TRANSLITERATION, where the character carries its sound and none of its meaning. Nothing in the pipeline can see this — the sentence segments, speaks and translates perfectly. Dropped, with an authored replacement. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "齐里"
+      ],
+      "ex": [
+        [
+          "东西都齐了。",
+          "Everything is here."
+        ]
+      ],
+      "compounds": [
+        [
+          "整齐",
+          "zhěng qí",
+          "orderly; neat"
+        ],
+        [
+          "齐全",
+          "qí quán",
+          "complete; comprehensive"
+        ],
+        [
+          "一齐",
+          "yì qí",
+          "at the same time; simultaneously"
+        ],
+        [
+          "看齐",
+          "kàn qí",
+          "to follow someone's example; to align"
+        ]
+      ]
+    },
+    "hsk30l5/其": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "其他",
+          "qí tā",
+          "other; the rest"
+        ],
+        [
+          "其中",
+          "qí zhōng",
+          "among them; included in this"
+        ],
+        [
+          "其实",
+          "qí shí",
+          "actually; in fact"
+        ],
+        [
+          "尤其",
+          "yóu qí",
+          "especially; particularly"
+        ]
+      ]
+    },
+    "hsk30l5/奇迹": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
+      "exEn": [
+        [
+          "每个人都能成为奇迹",
+          "Everyone can become a miracle."
+        ]
+      ]
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead. | Batch 83: SEVENTEEN DEAD ONE-SIDED HINTS RETIRED. A `not <other word>` block answers a COLLISION, and a collision is symmetric — so wherever one card of a pair carries the block and its named partner does not carry the reverse, the pair has already been separated and the survivor is disambiguating nothing. Found while repairing 动手, whose `not 上班` had outlived a rewrite of 上班's own gloss. Swept: 17 of 661 hinted cards were one-sided, and every one of the seventeen was dead — in each case the PARTNER's gloss had been sharpened by an earlier batch of this audit (书 `not 本子` against a 本子 rewritten to `a notebook; an exercise book`, 茶 `not 茶叶` against `tea leaves; tea`, 体力 `not 力气` against `muscle power, the strength to lift or push`). TWO of the seventeen were not in this record at all — 体力 and 顺利, shipped by the generator — which is the other half of the finding: THE APPLIER WRITES A HINT AND NEVER STRIPS ONE, so deleting a row here does not take a block off a deck. A dead hint is retired by rewriting the gloss, which rebuilds the English field. Re-run the one-sided sweep after any batch that rewrites a gloss.",
