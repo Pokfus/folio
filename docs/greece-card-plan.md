@@ -1395,12 +1395,26 @@ the alias are the same string.
     gr-901  Hephaestus
     gr-902  Hermes
     gr-903  Dionysus
-    gr-904  The Twelve Olympians
-    gr-905  Mount Olympus
-    gr-906  Persephone
-    gr-907  The abduction of Persephone
+    gr-904  The Twelve Olympians  — the one card of the ten with NO locator, deliberately: the set is a
+             concept, and an altar in the Athenian Agora would have drawn a second mark on the collection’s
+             own anchor city. Nothing openable states which twelve, so the card gives the NUMBER as cult
+             attests it — Thucydides’ altar, Plato’s twelve tribal feasts — and does not assert a membership
+    gr-905  Mount Olympus  — the summit height and its distance from the sea come from an open GREEK
+             GEOLOGICAL journal (Styllas and Kaskaoutis, *Bull. Geol. Soc. Greece* 52), which was the only
+             openable source found for either figure: UNESCO’s biosphere pages serve a bot wall, Britannica
+             is 403 and the ministry’s own site has no page for the mountain. Reach for an open science
+             journal for a physical figure before reaching for a reference work
+    gr-906  Persephone  — written WITHOUT the `Kore` alias, as the warning under “Glossary” above requires;
+             the term carries no alias at all rather than a near-miss one
+    gr-907  The abduction of Persephone  — RETITLED in the writing: answered by `Homeric Hymn to Demeter`,
+             the poem the abduction is known from, because the line names an EVENT and gr-906 had already
+             taken the goddess with the abduction in her own prose. The card is about the poem — its
+             Eleusinian aetiology, its concentration on female experience, the Megaron B question
     gr-908  Prometheus
-    gr-909  The theft of fire
+    gr-909  The theft of fire  — RETITLED in the writing: answered by `narthex`, the giant fennel stalk the
+             fire is carried in, which Hesiod, Aeschylus and Pliny all name, because gr-908 had already
+             carded the theft and its punishment. Keyed `Ferula_communis`, the real article slug, with
+             `narthex` as an alias — the bare word occurs nowhere else in the corpus, so it is safe to claim
     gr-910  Pandora
     gr-911  The Ages of Man
     gr-912  Deucalion's flood
