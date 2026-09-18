@@ -960,6 +960,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   bare alias **Chamberlain**, because the corpus's eleven surfaces include Austen twice and Joseph once,
   and an alias right six times and wrong three is worse than none. Not part of the
   site.
+- **📖 `docs/ww1-card-plan.md` — READ BEFORE WRITING A `ww1-` CARD.** The **1000-card running order for
+  the First World War collection** (`ww1`): every card's number, topic and deck, fixed in advance across
+  9 decks and 37 leaf subdecks. The twenty-fifth of the planned collections and the fourteenth history
+  one; the node, its tree, its `COLL_THEME` hue and a new `ICON_SYMBOLS` mark (`wire`) ship with the
+  plan. **It is the most OVERLAPPED collection on the shelf and the overlap was measured rather than
+  guessed** — roughly a hundred lines elsewhere already touch the war: `fr-670`–`fr-700` (31, an entire
+  France subdeck), `wh-871`–`wh-895` (25), `us-761`–`us-781` (21), `ru-531`–`ru-550` (20), twelve
+  scattered `ww2-` lines carding the peace as the SECOND war's origin, and one card each in China,
+  India, Japan and Korea. **The division of labour is one sentence: a national collection cards what the
+  war did to that country; this collection cards the war** — so `ru-533` is the Romanovs' first
+  disaster and `ww1-168` is the encirclement at Tannenberg. **The peace is the one place the rule runs
+  the other way**, `ww2-004` carding Versailles as the thing the 1930s reacted against; write that pair
+  deliberately. The World History plan is the authority that this collection was anticipated: it says
+  outright that *"a reader who wants the Somme in depth is served by a war collection rather than by a
+  world survey"*.
+  **Read its six scope decisions before writing anything**, of which three carry the weight. **It is
+  not a Western Front collection** — deck 3 gets 130 cards and deck 4, everywhere else, gets 130 too,
+  deliberately equal, since more than half the war's soldiers died outside France and Belgium. **The
+  war does not end on 11 November 1918**: fighting ran on in Russia, the Baltic, Poland, Anatolia and
+  Ireland into 1923, deck 9 carries a 25-card subdeck on it, and `ww1-950` cards the question. And
+  **the Armenian genocide is carded as a genocide, at length, in a 20-card subdeck of its own** rather
+  than as a footnote to Gallipoli, with `ww1-779 Denial of the Armenian genocide` carding the Turkish
+  state's position AS AN ACCOUNT — the house rule about a state's account of its own actions, applied
+  to the hardest case this subject offers.
+  **Only ONE modern scholar is named in the whole thousand lines** (Fritz Fischer, `ww1-997`, because
+  the Fischer controversy was an event in West German public life), so the two-scholar cap has a slot
+  to spare and should keep it. **Twelve lines are written as QUESTIONS and that is a ceiling rather
+  than a licence** — each is a place where the answer term is an argument or a document rather than an
+  event, the shape `ww2-140` already uses. **The glossary starts almost from nothing**: measured
+  against the shipped corpus the war's own vocabulary yields SIX existing terms, with no
+  `Trench_warfare`, no `Western_Front`, no `Battle_of_the_Somme` and no `Armenian_genocide`, so expect
+  it to grow faster here than anywhere since Korea. The next card to write is the lowest `ww1-NNN` not
+  yet in `data.js`; the index table under "THE PLANNED COLLECTIONS" is the lookup. **No card has been
+  written yet.** Not part of the site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
   only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
@@ -1478,7 +1512,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.42 MB and 49,848 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.42 MB and 49,892 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6742,6 +6776,7 @@ lookup.
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 160 cards, contiguous — next is `ww2-161` |
+| The First World War | `ww1` | `ww1-` | `docs/ww1-card-plan.md` | 9 / 37 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
@@ -6769,7 +6804,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (343 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (355 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7730,7 +7765,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 343 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 355 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

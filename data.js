@@ -11557,6 +11557,298 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "ww1",
+      "title": "The First World War",
+      "total": 0,
+      "children": [
+        {
+          "id": "ww1-origins",
+          "title": "Origins",
+          "total": 110,
+          "children": [
+            {
+              "id": "ww1-europe1900",
+              "title": "Europe before the war",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-arms",
+              "title": "Armies, navies and plans",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-crises",
+              "title": "Crises and the road to war",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-july",
+              "title": "July 1914",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-1914",
+          "title": "1914",
+          "total": 100,
+          "children": [
+            {
+              "id": "ww1-mob",
+              "title": "Mobilisation",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-1914west",
+              "title": "The invasion of the west",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-1914east",
+              "title": "The East in 1914",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-siege",
+              "title": "The war becomes a siege",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-west",
+          "title": "The Western Front",
+          "total": 130,
+          "children": [
+            {
+              "id": "ww1-trench",
+              "title": "Trench warfare",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-1915west",
+              "title": "1915 in the west",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-verdun",
+              "title": "Verdun",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-somme",
+              "title": "The Somme",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-1917west",
+              "title": "1917 in the west",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-fronts",
+          "title": "The Other Fronts",
+          "total": 130,
+          "children": [
+            {
+              "id": "ww1-east",
+              "title": "The Eastern Front",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-italy",
+              "title": "Italy and the Alps",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-ottoman",
+              "title": "The Ottoman fronts",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-balkans",
+              "title": "The Balkans and Salonika",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-africa",
+              "title": "Africa",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-seaair",
+          "title": "The War at Sea and in the Air",
+          "total": 90,
+          "children": [
+            {
+              "id": "ww1-sea",
+              "title": "The surface war at sea",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-uboat",
+              "title": "The submarine war and the blockade",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-air",
+              "title": "The air war",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-home",
+          "title": "Home Fronts and Total War",
+          "total": 120,
+          "children": [
+            {
+              "id": "ww1-econ",
+              "title": "The war economy",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-state",
+              "title": "The state at war",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-women",
+              "title": "Women and the war",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-society",
+              "title": "Society under strain",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-world",
+          "title": "The Wider World",
+          "total": 100,
+          "children": [
+            {
+              "id": "ww1-empires",
+              "title": "Empires at war",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-asia",
+              "title": "Asia, the Pacific and the labour corps",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-neutrals",
+              "title": "The Americas and the neutrals",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-genocide",
+              "title": "The Armenian genocide and mass violence",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-endgame",
+          "title": "1917 and 1918",
+          "total": 110,
+          "children": [
+            {
+              "id": "ww1-1917",
+              "title": "The year of crisis",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-kaiserschlacht",
+              "title": "The German offensives",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-100days",
+              "title": "The Hundred Days",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-armistice",
+              "title": "The armistices",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-after",
+          "title": "Aftermath, Memory and Meaning",
+          "total": 110,
+          "children": [
+            {
+              "id": "ww1-peace",
+              "title": "The peace settlements",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-wars",
+              "title": "Wars after the war",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-cost",
+              "title": "Counting the cost",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-memory",
+              "title": "Memory and meaning",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-world",
       "title": "World Geography",
       "total": 468,

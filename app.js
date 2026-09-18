@@ -20594,6 +20594,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        has that problem. Looked at at 20, 24, 28, 40 and 64px on dark ground and on light, beside `book`
        and `letter`, across nine variants. */
     { k: "tablet", n: "Clay tablet", d: '<path d="M6 5.4Q12 4.4 18 5.4Q19.2 11 18 18.6Q12 19.6 6 18.6Q4.8 11 6 5.4Z"/><path stroke-linecap="butt" d="M8.2 9h2.4M12.4 9h3.4"/><path stroke-linecap="butt" d="M8.2 12h3.4M13.2 12h2.4"/><path stroke-linecap="butt" d="M8.2 15h2.4M12 15h2.6"/>' },
+    /* barbed wire — The First World War. The object this war found a use for, belonging to every army
+       and to no nation, and the one piece of its furniture that is a SHAPE rather than a silhouette
+       somebody has to recognise. Three obvious marks were rejected before it and each rejection is the
+       same argument: a steel helmet is national in every version (Brodie, Adrian, Stahlhelm), a poppy is
+       one nation-group's emblem of mourning AND a blob at 24px, and a biplane collides outright with
+       `plane`, which the Second World War already wears. The collision to avoid here is `sword` and
+       `shield`, the shelf's two martial marks, and the separation is easy: both are VERTICAL objects,
+       where this is a horizontal band across the full width. RENDERED AND LOOKED AT at 24, 26, 28, 34
+       and 48px, on the collection's own ground and on white, beside sword, shield, plane and cards —
+       fifteen variants over three rounds. What the rendering settled, and none of it was predictable:
+       a WAVY strand scribbles at 24px; THREE barbs merge into a hatched bar; a TWISTED pair of strands
+       reads as a chain of beads; a six-point barb (an X plus a vertical) reads as an asterisk; and a
+       SAGGING strand — which is what real wire does — reads as a bird with wings. A straight strand
+       with TWO four-point barbs is the one that survives, and the failure it had to clear is reading as
+       a strike-through, which it does not: the barbs run y 8-16 on a 24 grid, a third of the box above
+       and below the line, and there are two of them rather than a row. Keep it to two, keep the strand
+       straight, and do not add a second strand. */
+    { k: "wire", n: "Barbed wire", d: '<path d="M2 12h20"/><path d="M6.6 8 9.4 16M9.4 8 6.6 16"/><path d="M14.6 8 17.4 16M17.4 8 14.6 16"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20669,6 +20687,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-43": "lotus",
     egypt: "pyramid",
     ww2: "plane",
+    ww1: "wire",
     japan: "torii",
     psych: "head",
     phil: "owl",
@@ -26144,6 +26163,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        here, but it is not in the quiet half either. The magenta was NOT re-measured; it has been
        rejected six times. Looked at as a banner and as its 20% wash beside its neighbours. */
     mesopotamia: { bg: "#784A00" },
+    /* field grey (The First World War) — MEASURED against the 31 hues now on the shelf, and the entry
+       where EVERY apt family came back crowded. That is what a shelf of thirty-one looks like: median
+       nearest-neighbour 20.8, tightest existing pair 12.9, density (hues within dE 30) median 5, max 9.
+       THE POPPY WAS REFUSED TWICE OVER. A scarlet at a shelf-like chroma is the most crowded corner
+       there is - best candidate 17.1 with TEN hues inside 30 (China, Russia, Korea, Visual Art and four
+       language decks all live there) - and a SATURATED poppy measures beautifully (43.2, density 0) at
+       chroma 104 against a shelf median of 35, which is a banner that shouts where every other murmurs.
+       The editorial argument agrees: the remembrance poppy is a British and Commonwealth emblem adopted
+       in 1921, and this collection covers thirty belligerents and spends a subdeck arguing that each
+       remembers the war differently. Horizon blue (16.4, hard against France's slate) and khaki drab
+       (17.7, hard against World History's sepia) are refused on the same two grounds - crowded, and
+       national.
+       WHAT IS TAKEN IS GREY-GREEN, and the argument is the collection's own subject rather than any
+       army's uniform: this is the war in which armies STOPPED WEARING COLOURS, and it is the one of the
+       four candidate families that names no single belligerent. It stands 20.1 from World History's
+       sepia, 20.3 from Biology's forest, 20.3 from France's slate, 21.4 from the Italian deck and 21.9
+       from the Second World War's dark iron - five neighbours inside a band of two units, the
+       nearly-equidistant shape Astronomy's twilight has. L 45, chroma 17 (well inside the quiet half,
+       against a median of 35), 5.3:1 against white.
+       THE FIGURE AGAINST IT IS DENSITY 8, against a median of 5 and a max of 9, and it is accepted
+       KNOWINGLY: the only genuinely open ground left at a shelf-like chroma is the magenta band, which
+       has now been rejected SEVEN times and which must not be measured again. An uncrowded hue that
+       means nothing is worse than a crowded one that means something. Looked at as a banner and as its
+       20% wash beside its neighbours. */
+    ww1:      { bg: "#686E52" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median
