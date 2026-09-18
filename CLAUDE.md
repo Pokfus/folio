@@ -5701,6 +5701,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     half: revealing the answer opens the answer box UNDER the band, so the working stays where it was
     rather than being pushed away or written over. It is `aria-hidden` and takes no focus — there is
     nothing in it to read, and what goes on it is ink on the marker's own canvas rather than text.
+    **AND ON A CARD TYPE WHOSE BACK DRAWS ITS OWN FRONT, THE BAND IS WHAT MADE A DEAD SELECTOR VISIBLE**
+    (Sep 2026, on a bug report that "the question side of chinese vocabulary cards turns invisible" once
+    the marker is on). A `{{FrontSide}}` back redraws the question itself, so
+    `.study-card:has(.uc-back.uc-hasfront) > .label, … > .question` hides the shell's copy of both — and
+    the `.label` half had addressed NOTHING since the `q-head` restructure moved the label to
+    `.q-head > .q-lead > .label`. **A selector written against a DOM shape goes stale in silence when the
+    shape moves**, and this one stayed invisible because the orphaned "Question" heading still landed
+    directly above the front the back redraws. The band opening between the two is what exposed it: the
+    card then read as *Question* over nine centimetres of nothing, with the question below the band.
+    **THE BAND IS RIGHT TO STAY WHERE IT IS AND MUST NOT BE MOVED OR HIDDEN AT REVEAL** — the reader's
+    working is on it, and the ink is in PAGE coordinates on a canvas over the whole page, so a band that
+    moved or vanished would orphan the very strokes it is holding. The HEADING is what had to go. The
+    curated path is untouched, a curated card having no `.uc-back` at all.
   · **`WB.enabled` (the pen is down) and `WB.panelOpen` (the tools are showing) are TWO states.** The
     marker button only opens and closes the panel; what puts the pen down is **choosing a tool inside
     it**. **Opening the tools selects NOTHING** — `enabled` lays a canvas over the whole visible page, so
@@ -7849,7 +7862,7 @@ division-capital city tier are inert dead code.
     figures (Aug 2026). **Re-run after touching `acctSelfView` / `showcaseHTML` / `openCollectionWin` /
     `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,
-    **bury siblings** and **one card per cloze**, 228 assertions in five parts. **Re-run after touching
+    **bury siblings** and **one card per cloze**, 229 assertions in five parts. **Re-run after touching
     the CARD TYPES block, `cardTypeSideHTML` / `ensureCardTypeStyle` / `cardTypeFieldGetter` /
     `.uc-hasfront` / `uCardSanitize` / `uDeckSanitizeMeta` / `typeCards` / `uCardIdFor` / `uDeckStudyIds`
     / `clozeMark` / `clozeOrds` / `clozeOrd` / `CLOZE_RX` / `type.cloze` / `isBuried` / `buryCard` /
