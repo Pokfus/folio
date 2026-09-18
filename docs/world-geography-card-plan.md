@@ -7,6 +7,16 @@ territories** (`geo-world-countries`, `gw-001`–`gw-233`) and **The capitals**
 for the second and third seats of the ten countries that have more than one). Its cards use the
 **map card** format — a shape on a globe, and the question is what it is.
 
+**THE COLLECTION HAS A THIRD DECK AND A SECOND PLAN, AND THIS FILE IS NOT IT.** `flags-world` asks the
+same 233 entities a second way — the card shows a flag and the reader names whose it is — and its whole
+answer side is the `gw-NNN` twin's, copied verbatim. It shipped as a collection of its own and was moved
+under `geo-world` on request (Sep 2026). Two consequences for anyone working here:
+**a correction to a `gw-001`–`gw-233` background, date line, facts grid or citation list must be carried
+to its `fl-` twin in the same commit** — nothing on the page can see the drift, both cards rendering
+perfectly while saying different things about one country — and `node .claude/check-flag-twins.js` is
+what reports it. **📖 `docs/flags-card-plan.md` — READ BEFORE TOUCHING A `gw-` COUNTRY CARD**, since
+every one of them now has a twin.
+
 📖 **`docs/geography-card-plan.md` describes the map card itself** — `map`, `facts`, `answerFlag`, the
 globe, the fit, the accessibility limitation — and everything it says applies here unchanged. **Read it
 before writing a card.** This file is the running order and the decisions that are particular to the

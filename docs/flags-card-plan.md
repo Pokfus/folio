@@ -1,10 +1,20 @@
 # Flags — the card plan
 
-The collection is **Flags** (`flags`), the fourth of the **Geography** SECTION on the Collections page,
-beside United States (`geo-us`), World Geography (`geo-world`) and China (`geo-china`). It is **233 cards
-in one deck** — **The countries and territories** (`flags-world`, `fl-001`–`fl-233`) — and it asks one
+**Flags is a DECK of World Geography** (`flags-world`, titled *The flags*, the third deck of
+`geo-world` beside *The countries and territories* and *The capitals*). It is **233 cards**, `fl-001`–`fl-233`, and it asks one
 question: the card shows a flag and nothing else, and the reader names the country or territory it
 belongs to.
+
+**IT SHIPPED AS A COLLECTION OF ITS OWN AND WAS MOVED ON REQUEST** (Sep 2026: "Flags should be a subdeck
+of the World geography collection"), which is the right place for it and is worth recording as a shape
+rather than as a correction: the cards ARE World Geography's cards asked a second way, so a sibling deck
+says what a sibling collection did not. What the move cost, all of it mechanical: the `flags` rows in
+`COLLECTION_SECTION`, `COLLECTION_ICON`, `COLLECTION_TARGET` and `COLL_THEME`, which a deck does not have
+— it inherits `geo-world`'s deep green, and a deck inside a collection carries no icon (`adIconKey`) —
+`geo-world`'s target grown from 471 to 704, and **`test-card-plans.js` rekeyed by PLAN SLUG rather than
+by collection id**, since a collection may now carry two plans and keyed the old way the two could not
+both be declared. **The measured sage grey `#6F7866` went with the collection**; the measurement is kept
+in the batch log below, because the next collection that needs a hue will want it.
 
 **It is the twin of the World Geography countries deck, id for id.** `fl-NNN` is the same entity as
 `gw-NNN`, in the same running order, and **its whole answer side is `gw-NNN`'s** — the term, the date
@@ -23,8 +33,9 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**F0 and F1 have shipped** (Sep 2026): the format is built, the collection is on the shelf under
-Geography, and `fl-001`–`fl-020` are live. The next card is `fl-021`.
+**F0, F1 and F2 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
+Geography, and `fl-001`–`fl-040` are live **less the deferred `fl-036`** — 39 cards, so the lowest unused
+number is not the next card. The next card is `fl-041`.
 
 ---
 
@@ -170,12 +181,12 @@ order the population sort gives. A reader who wants one continent reaches it thr
 for that reason**: every card copies its twin's continent and country tags, so `tag:africa` and
 `tag:asia` work on the day the collection ships.
 
-**One deck now, and the tree has room for two more.** `flags-world` is the only deck this plan numbers.
-The natural extension is subnational flags — the fifty state flags of the United States and the thirty-one
-of mainland China, pairing with `geo-001`–`geo-050` and `gc-001`–`gc-031` — and if that is ever wanted it
-takes `fl-501`–`fl-550` and a second leaf beside this one, on the numbering convention the geography
-collections already use. **It is deliberately NOT declared now**: the Politics plan's rule is to widen a
-registered numbering as work lands rather than to declare a range and leave it full of holes.
+**One deck, and the section has room for more of them.** `flags-world` is the only deck this plan
+numbers. The natural extension is subnational flags — the fifty state flags of the United States and the
+thirty-one of mainland China — and those belong in `geo-us` and `geo-china` beside the shapes they go
+with rather than here, each as a third deck of its own collection on the pattern this one now follows.
+**Nothing is declared now**: the Politics plan's rule is to widen a registered numbering as work lands
+rather than to declare a range and leave it full of holes.
 
 ## What a card copies, and what it does not
 
@@ -335,17 +346,23 @@ described — and where each batch also back-fills its twin, closing World Geogr
 
 Everything below ships together, because none of it is testable alone.
 
-**In `data.js`** — the `flags` collection node with one leaf, `flags-world` ("The countries and
-territories", `total: 233`). **Edit the tree as TEXT**: `writeCards` splices the collection tree back
-verbatim and ignores the `tree` it was handed, so a helper that mutates the tree reports success and
-writes none of it. Afterwards sweep for a registered id with no card behind it.
+**In `data.js`** — `flags-world` ("The flags") as a third child of the `geo-world` collection node.
+**ITS TITLE MAY NOT BE "The countries and territories"**, which is what it shipped as while it was a
+collection of its own and which is its new SIBLING's title — two decks of one collection under one name.
+Found by reading a card's own breadcrumb, which no checker looks at. **Edit the tree as TEXT**: `writeCards` splices the collection tree back verbatim and
+ignores the `tree` it was handed, so a helper that mutates the tree reports success and writes none of
+it. Afterwards sweep for a registered id with no card behind it, and for an `fl-` card that is not
+placed in the tree at all.
 
 **In `app.js`** — `cardFlagSpec(c)` beside `cardMapSpec`; the front-side renderer and its frame in
-`styles.css`; `cardFlagSpec` in `gameCardIdSet`; `flagCard` through `serializeCardData` and `revertCard`;
-a `COLL_THEME` row for `flags`; a `COLLECTION_SECTION` row (`flags: "Geography"`); and a
-`COLLECTION_ICON` row.
+`styles.css`; `cardFlagReveal`, which credits the front's flag once the answer is out; `cardFlagSpec` in
+`gameCardIdSet`; `flagCard` through `serializeCardData` and `revertCard`; the answer-box drop in
+`showAnswer`; `.flag-shot.revealed` in `IMG_OPEN_SEL`; and `COLLECTION_TARGET["geo-world"]` raised by
+this deck's 233. **A DECK NEEDS NO HUE, NO SECTION ROW AND NO ICON** — it inherits its collection's.
 
-⚠ **The icon has to be DRAWN and LOOKED AT.** `ICON_SYMBOLS` has no flag mark — the 44 keys are pagoda,
+⚠ **The icon is the READER'S PICKER MARK AND NO COLLECTION'S, now that Flags is a deck** — a deck
+inside a collection draws no icon — so what follows is the record of drawing one rather than a step.
+**A mark has to be DRAWN and LOOKED AT.** `ICON_SYMBOLS` has no flag mark — the 44 keys are pagoda,
 globe, column, wreath, star, dome, lotus, pyramid, plane, torii, head, owl, helix, sauropod, taegeuk,
 wall, compass and the rest — so this collection needs a new one (a pennant on a staff: a vertical stroke
 and a triangle, which is the kind of mark that survives 28px on a deck row). **A collection with no
@@ -465,6 +482,39 @@ the format being broken; passing `proxy: { server: process.env.HTTPS_PROXY }` di
 What works is downloading the SVGs with curl and fulfilling the route from disk — which is also what
 `test-flag-cards.js` does, and for the reason its header gives.
 
+## F2 — `fl-021` to `fl-040` (Sep 2026)
+
+Nineteen cards, the United Kingdom to Angola. **`fl-036` Afghanistan is the deck's one deferral** and was
+simply left out of the batch; the number stays reserved and the plan's running order carries it as
+`DEFERRED`, so `test-card-plans.js` fails if a card ever ships there. **The deck is therefore 39 cards
+over a range of 40, and the lowest unused number is not the next card** — the shape `cnh-070` already has
+one collection over.
+
+**No flag had to be fetched and all nineteen alts derived cleanly.** All nineteen were read. Two findings,
+both about the FLAGS rather than the cards:
+
+**A DESCRIPTION MAY NAME AN EMBLEM, and three of these do** — South Korea's *taegeuk*, Kenya's *Maasai
+shield*, Uganda's *crested crane*, beside F1's *eagle of Saladin*. None names its country, so
+`add-card.js`'s guard passes them and they are right: the alt's job is to describe what is ON the flag,
+and the emblem's own name is the accurate description. A reader who knows the word has the answer —
+and so does a reader who can SEE the emblem, which is the trade this format makes everywhere.
+
+**THE PLAIN MEMBER OF A FAMILY IS THE EASIEST ONE TO DESCRIBE, which is worth knowing because it reads
+like a fault.** `fl-038` Yemen is "three equal horizontal bands of red, white and black" and nothing
+else — the same field as Egypt's (`fl-013`, plus an eagle), Iraq's (`fl-034`, plus script) and Syria's
+(plus stars). The bare description is therefore UNIQUELY Yemen among them, and the family is
+distinguishable to a reader who cannot see any of them. The same holds for `fl-025` Italy against
+`fl-011` Mexico, whose alt carries the coat of arms.
+
+**THREE FAULTS WERE FOUND BY LOOKING AT A CARD, AND NOT ONE OF THEM BY A CHECKER.** The deck had kept
+the title it shipped with as a collection, *The countries and territories*, which is its new SIBLING's
+title — so a card's breadcrumb read "WORLD GEOGRAPHY · THE COUNTRIES AND TERRITORI…" and named the wrong
+deck; it is *The flags* now. The revealed flag's credit ends in its Commons URL, which contains no break
+opportunity, so the address ran out past the frame's rounded edge — `.flag-cap` takes
+`overflow-wrap:anywhere`, and only a long file name shows it (`fl-029`'s did; the shorter credits hid
+it). And the answer box's flag had to go with the credit moved to the front, which is the request this
+batch shipped under and is described in the format section above.
+
 ---
 
 # The list
@@ -475,7 +525,7 @@ makes `test-card-plans.js` check the NAME as well as the number: this plan names
 a subject to research, so a card shipping at the wrong id is a fault that suite can see, which on the
 geography plans it could not until eight capitals had already drifted.
 
-## The countries and territories — `flags-world`
+## The flags — `flags-world`
 
 ### Batch F1 — fl-001 to fl-020 — 20 cards, 0 flags to fetch
 

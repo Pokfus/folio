@@ -116,14 +116,26 @@ const server = http.createServer((req, res) => {
      /const flg = cardFlagSpec\(c\);[\s\S]{0,80}return flg \? cardFlagHTML\(flg\) \+ q : q;/.test(slice("cardFrontHTML")));
   /* THE FRONT IS BARE, AS A STRING. The browser half below reads the rendered card and this reads the
      builder, so a leak added at either end is caught by the other. */
-  const built = slice("cardFlagHTML");
+  /* THE BUILDER'S OWN BODY, cut at its closing brace. Splitting on the next function name was tried and
+     is not enough: `cardFlagReveal` sits directly below and its COMMENT — which explains where the
+     credit went — lands inside the slice, so the leak check reported a leak that was a sentence about
+     not leaking. A fixed byte window has the same fault one step further out. */
+  const built = slice("cardFlagHTML").split("\n  }")[0];
   ok("…and the front markup carries no credit", !/credit/.test(built), built.slice(0, 200));
   ok("…and no data-img-* attribute to open the viewer with", !/data-img-/.test(built));
   ok("…and does not fall back to the credit for its alt", !/f\.credit/.test(built));
   ok("gameCardIdSet keeps flag cards out of the text-only games",
      /difficultyOK\(c\) && !cardMapSpec\(c\) && !cardArtSpec\(c\) && !cardFlagSpec\(c\)/.test(src));
-  ok("…and the front's flag is deliberately NOT what the viewer opens", !/flag-shot/.test((src.match(/const IMG_OPEN_SEL = [^\n]+/) || [""])[0]));
-  ok("…while the answer box's small flag still is", /\.av-flag/.test((src.match(/const IMG_OPEN_SEL = [^\n]+/) || [""])[0]));
+  /* THE FRONT MAY BE ENLARGED ONLY AFTER THE REVEAL, since the viewer's caption bar prints the credit
+     and a flag's credit names the country. `.revealed` is `cardFlagReveal`'s, so the selector naming it
+     is what says the unrevealed front cannot be opened. */
+  const openSel = (src.match(/const IMG_OPEN_SEL = [^\n]+/) || [""])[0];
+  ok("…and the front's flag opens the viewer only once revealed", /\.flag-shot\.revealed/.test(openSel) && !/[^.]\.flag-shot[,"]/.test(openSel), openSel.slice(24));
+  ok("cardFlagReveal is what credits it", /fig\.classList\.add\("revealed"\)/.test(slice("cardFlagReveal")) && /data-img-credit/.test(slice("cardFlagReveal")));
+  /* THE ANSWER BOX DRAWS NO FLAG ON THE STUDY PAGE (Sep 2026, on request) — and `buildBack` still emits
+     it, for every surface that draws a back with no front. */
+  ok("…and the study page drops the answer box's copy", /if \(cardFlagSpec\(c\)\) \{ const dup = inner\.querySelector\("\.answer \.av-flag"\); if \(dup\) dup\.remove\(\); \}/.test(src));
+  ok("…while buildBack still emits one for the surfaces with no front", /answerFlagHTML\(c\)/.test(slice("buildBack")));
   ok("a dead flag file says so rather than painting the alt in the frame",
      /closest\("\.card-img, \.art-shot, \.flag-shot"\)/.test(src));
   ok("serializeCardData carries `flagCard` through", /o\.flagCard = true/.test(slice("serializeCardData")));
@@ -242,9 +254,10 @@ const server = http.createServer((req, res) => {
       facts: [...document.querySelectorAll(".card-facts .cf-k")].map((k) => k.textContent.trim()),
       dates: [...document.querySelectorAll(".answer .dt .dt-k")].map((k) => k.textContent.trim()),
       avFlag: !!av,
-      avTitle: av ? av.getAttribute("title") || "" : "",
-      avOpens: !!(av && av.closest(".card-img, .av-flag, .art-shot.revealed")),
       frontStill: !!document.querySelector(".flag-shot img"),
+      frontCredited: !!document.querySelector(".flag-shot.revealed .flag-cap"),
+      frontCap: (document.querySelector(".flag-shot .flag-cap") || {}).textContent || "",
+      frontOpens: !!document.querySelector(".flag-shot.revealed[data-img-credit]"),
       frontHTML: (document.querySelector(".flag-shot") || {}).outerHTML || "",
       sources: document.querySelectorAll(".src-item").length,
       why: !!document.querySelector(".elab-box, .elab-tab"),
@@ -255,11 +268,12 @@ const server = http.createServer((req, res) => {
   ok("…with the twin's figures grid beside it", back.facts.join("|") === (twin.facts || []).map((r) => r[0]).join("|"), back.facts);
   ok("…and its date line", back.dates.length > 0, back.dates);
   ok("…and its citations", back.sources === (card.sources || []).length, [back.sources, (card.sources || []).length]);
-  /* THE CREDITED, ENLARGEABLE COPY IS THE SMALL ONE IN THE ANSWER BOX. That is where the licence's
-     attribution is given — on the same card, one press away — which is what lets the front carry none. */
-  ok("the flag is credited in the answer box", back.avFlag && back.avTitle === card.answerFlag.credit, back.avTitle.slice(0, 70));
-  ok("…and that copy is what the viewer opens", back.avOpens);
-  ok("…while the front's copy still carries no credit", back.frontStill && back.frontHTML.indexOf(card.answerFlag.credit) < 0);
+  /* THE ANSWER BOX DRAWS NO FLAG (Sep 2026, on request): the front's own flag is two inches above it. */
+  ok("the answer box draws no flag of its own", !back.avFlag);
+  /* …SO THE CREDIT MOVED TO THE FRONT, and this is the assertion that matters: without it the drop
+     above takes the licence's attribution off the card altogether. */
+  ok("…so the front's flag now carries the credit", back.frontCredited && back.frontHTML.indexOf(card.answerFlag.credit) >= 0, back.frontCap.slice(0, 70));
+  ok("…and is what the viewer opens, now that there is nothing left to give away", back.frontOpens);
   /* Geography is out of the Think-it-through pass, and a flag card is out with it — see whyExempt. */
   ok("no Think-it-through section is manufactured", !back.why);
 
@@ -275,29 +289,48 @@ const server = http.createServer((req, res) => {
   ok("…and does not paint the alt text at full size in it", dead.imgShown === "none", dead.imgShown);
   flagBlocked = false;
 
-  /* ---------- 5. the collection is on the shelf, under Geography --------------------------- */
-  sect("5. the collection is on the shelf, under Geography");
+  /* ---------- 5. it is a DECK of World Geography, not a collection ------------------------- */
+  sect("5. it is a third deck of World Geography");
+  /* IT SHIPPED AS A COLLECTION AND WAS MOVED ON REQUEST (Sep 2026: "Flags should be a subdeck of the
+     World geography collection"). Asserted BOTH WAYS: a deck row under `geo-world`, and no collection
+     of its own — a leftover `flags` collection node would draw a second, empty shelf row and nothing
+     would throw. */
   await page.goto("http://localhost:" + PORT + "/?c=" + (++visit) + "#decks");
   await page.waitForSelector(".collection", { timeout: 20000 });
   await page.waitForTimeout(300);
-  const shelf = await page.evaluate(() => {
-    const row = [...document.querySelectorAll('[data-libitem="flags"]')][0];
+  const shelf = await page.evaluate(async () => {
+    /* THE CHEVRON, NOT THE ROW. Clicking a collection's body STUDIES its whole subtree (see
+       `wireExpander`'s `rowClick`), so a click on the row navigates away and the deck is never found —
+       which reads as the deck being absent. */
+    const gw = [...document.querySelectorAll('[data-libitem="geo-world"]')][0];
+    const chev = gw && gw.querySelector(".collection-actions > .chev");
+    if (chev) chev.click();
+    await new Promise((r) => setTimeout(r, 500));
+    const deck = [...document.querySelectorAll('[data-libitem="flags-world"]')][0];
     const geo = document.getElementById("collection-list-geo");
     return {
-      there: !!row,
-      inGeo: !!(row && geo && geo.contains(row)),
-      title: row ? (row.querySelector(".collection-title") || {}).textContent : "",
-      icon: !!(row && row.querySelector(".coll-ic svg")),
-      planned: !!(row && row.querySelector(".pill.soon")),
-      hue: row ? getComputedStyle(row.closest(".collection") || row).getPropertyValue("--coll-bg").trim() : "",
+      noCollection: !document.querySelector('[data-libitem="flags"]'),
+      deckThere: !!deck,
+      title: deck ? (deck.querySelector(".node-title") || deck.querySelector(".collection-title") || {}).textContent || "" : "",
+      gwInGeo: !!(gw && geo && geo.contains(gw)),
+      deckUnderGW: !!(deck && gw && gw.closest(".collection") && gw.closest(".collection").contains(deck)),
+      hue: deck ? getComputedStyle(deck).getPropertyValue("--coll-bg").trim() : "",
+      siblings: [...document.querySelectorAll('[data-libitem^="geo-world"], [data-libitem="flags-world"]')]
+        .filter((n) => n.dataset.libitem !== "geo-world")
+        .map((n) => ((n.querySelector(".node-title") || {}).textContent || "").trim()),
     };
   });
-  ok("the Flags collection is on the Collections page", shelf.there);
-  ok("…in the Geography section", shelf.inGeo);
-  ok("…under its own name", shelf.title === "Flags", shelf.title);
-  ok("…wearing a mark of its own", shelf.icon);
-  ok("…and no longer marked Planned, now that it holds cards", !shelf.planned);
-  ok("…with a hue of its own", /#|rgb/.test(shelf.hue), shelf.hue);
+  ok("there is no Flags COLLECTION on the shelf", shelf.noCollection);
+  ok("…World Geography is still in the Geography section", shelf.gwInGeo);
+  ok("…and Flags is a deck inside it", shelf.deckThere && shelf.deckUnderGW, [shelf.deckThere, shelf.deckUnderGW]);
+  /* AND UNDER A NAME OF ITS OWN. It shipped as "The countries and territories", which is its new
+     SIBLING's title — two decks of one collection under one name, which reaches a reader as a card
+     breadcrumb naming the wrong deck and which no checker looks at. */
+  ok("…under a name that is not its sibling's", /^\s*the flags\s*$/i.test(shelf.title), shelf.title.trim().slice(0, 50));
+  ok("…and its siblings keep theirs", shelf.siblings.join(" | ") === "The countries and territories | The capitals | The flags", shelf.siblings);
+  /* A DECK HAS NO HUE OF ITS OWN and inherits its collection's, which is what made four app.js rows
+     unnecessary when it moved. */
+  ok("…taking World Geography's hue rather than one of its own", shelf.hue === "#106834", shelf.hue);
 
   ok("no console errors anywhere in the run", errs.length === 0, errs.slice(0, 3));
   await browser.close();

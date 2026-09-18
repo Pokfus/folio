@@ -863,14 +863,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `britannica.com` are 403, and `chinadaily.com.cn` answers and is a state newspaper, citable for what
   it is and never as an independent source. Not part of the site.
 - **📖 `docs/flags-card-plan.md` — READ BEFORE WRITING AN `fl-` CARD, OR BEFORE TOUCHING THE FLAG-CARD
-  FORMAT.** The running order for **Flags** (`flags`, the fourth collection of the Geography SECTION):
-  **233 cards in one deck**, the flag of every country and territory, and the reader names it. The
-  twenty-first plan, and **the only one whose answer side is another collection's** — `fl-NNN` is the
-  same entity as `gw-NNN`, in the same population order, and copies its twin's term, date line, facts
-  grid, background and citations verbatim, on request ("the answer side of the card can be directly the
-  same as the ones in the World geography collection"). So a card costs a flag file, a licence, an
-  authored description and a copy, and **no research and no glossary work at all**. Five things in it are
-  decisions rather than lists. **THE FORMAT REUSES `answerFlag` PLUS ONE BOOLEAN, `flagCard`** — the
+  FORMAT.** The running order for **Flags** (`flags-world`), **a third DECK of World Geography** — it
+  shipped as a collection of its own and was moved under `geo-world` on request (Sep 2026). **233 cards**,
+  the flag of every country and territory, and the reader names it. The twenty-first plan, **the first
+  that is a DECK's rather than a collection's**, and **the only one whose answer side is another deck's**
+  — `fl-NNN` is the same entity as `gw-NNN`, in the same population order, and copies its twin's term,
+  date line, facts grid, background and citations verbatim, on request ("the answer side of the card can
+  be directly the same as the ones in the World geography collection"). So a card costs a flag file, a
+  licence, an authored description and a copy, and **no research and no glossary work at all**.
+  **BEING A DECK RATHER THAN A COLLECTION COST FOUR ROWS AND BOUGHT A RULE**: `COLLECTION_SECTION`,
+  `COLLECTION_ICON`, `COLLECTION_TARGET` and `COLL_THEME` each lost their `flags` entry (the deck
+  inherits `geo-world`'s deep green, and a deck inside a collection carries no icon — see `adIconKey`),
+  `geo-world`'s target went 471 → 704, and **`test-card-plans.js` is now keyed by PLAN SLUG rather than
+  by collection id**, because a collection can carry two plans and keyed the old way the two could not
+  both be declared. Five things in it are decisions rather than lists. **THE FORMAT REUSES `answerFlag` PLUS ONE BOOLEAN, `flagCard`** — the
   field already refuses an uncredited `src`, already rides the serializer and `revertCard`, and already
   enlarges — and **the boolean may not be called `flag`**, `cardFlag(id)` being the READER's 1–7 marker
   and app.js's own comment recording the hour a second module-scope `cardFlag` made every reader flag
@@ -889,12 +895,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   commit**, since both cards render perfectly while saying different things, and `check-flag-twins.js`
   is what says so.
   · **THE FORMAT IS BUILT** — see the FLAG CARDS block in app.js for `cardFlagSpec` / `cardFlagHTML` /
-    the `.flag-shot` frame, and `.claude/test-flag-cards.js` for what it asserts. Guarded there, and by
-    `check-flag-twins.js` (report-only) for the drift above. **Re-run both after touching
-    `cardFlagSpec` / `cardFlagHTML` / `cardFrontHTML`'s flag branch / `gameCardIdSet` /
-    `serializeCardData` / `revertCard` / `whyExempt` / `IMG_OPEN_SEL` / the delegated media `error`
-    listener / the `.flag-shot` styles / `add-card.js`'s `flagCard` guards /
+    `cardFlagReveal` / the `.flag-shot` frame, and `.claude/test-flag-cards.js` for what it asserts.
+    Guarded there, and by `check-flag-twins.js` (report-only) for the drift above. **Re-run both after
+    touching `cardFlagSpec` / `cardFlagHTML` / `cardFlagReveal` / `cardFrontHTML`'s flag branch /
+    `showAnswer`'s reveal and its answer-box drop / `gameCardIdSet` / `serializeCardData` /
+    `revertCard` / `whyExempt` / `IMG_OPEN_SEL` / the delegated media `error` listener / the
+    `.flag-shot` and `.flag-cap` styles / `add-card.js`'s `flagCard` guards /
     `check-questions.js`'s exemptions, or after a batch of flag cards.**
+  · **THE ANSWER BOX DRAWS NO FLAG, AND THE CREDIT MOVED TO THE FRONT** (Sep 2026, on request: "on the
+    answer side of the cards, the flag in the answer box should not be shown"). `buildBack` still emits
+    the small `.av-flag` — the card browser, `openCardPeek`, Multiple Choice's `mountCardBack` and the
+    editor preview all draw a back with NO front and would otherwise show no flag at all — so what goes
+    is the copy on the STUDY page, where the front's own flag is two inches above it. That is the
+    artwork card's duplicate-slot rule exactly. **It could not be done without `cardFlagReveal`**: the
+    answer box's flag was where the licence's attribution lived, which is what let the front carry
+    none, so the reveal now captions and credits the FRONT's figure and makes it enlargeable — which
+    it may not be before, a flag's credit naming the country.
   · **ONE LEAK IS ACCEPTED AND STATED: Commons names every flag `Flag_of_<Country>.svg`**, and a `src`
     is copied from the API rather than composed, so the answer is in the URL on all 233 — measured, 20
     of 20 here against 0 of 10 artwork cards. No reader is SHOWN a src, and the suite asserts the
@@ -1325,7 +1341,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.41 MB and 49,799 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.41 MB and 49,832 lines is hard to find your way around, so this
   lists its 193 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6571,14 +6587,19 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE TWENTY-ONE PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE TWENTY PLANNED COLLECTIONS, IN TWENTY-ONE PLANS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
 which is `cn-myth`, in China. The bullets below each collection give the reasoning; this table is the
 lookup.
 
-| collection | id | prefix | plan | decks / leaves | state |
+**ONE ROW PER PLAN, AND A COLLECTION MAY HAVE TWO** — World Geography does, its Flags deck having a
+running order, a numbering and a card format of its own — so the `id` and the deck counts repeat on both
+of its rows, which is the truth about that collection rather than a duplicate. `test-card-plans.js` is
+keyed by PLAN SLUG for the same reason; keyed by collection the two could not both be declared.
+
+| collection or deck | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 600 cards, contiguous — next is `wh-601` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
@@ -6597,10 +6618,10 @@ lookup.
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
-| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
+| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 3 / 3 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
+| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 39 cards — `fl-001`–`fl-040` less the DEFERRED `fl-036`, so the lowest unused number is not the next card; next is `fl-041`, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
-| Flags | `flags` | `fl-` | `docs/flags-card-plan.md` | 1 / 1 | 20 cards, contiguous — next is `fl-021`; 233 planned, one per World Geography COUNTRY card and numbered to match it; the answer side is its twin's, `fl-036` is deferred, see below |
 
 The next id for any of them (substitute the prefix):
 

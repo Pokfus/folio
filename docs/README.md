@@ -85,7 +85,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
 | `world-geography-card-plan.md` | World Geography (`geo-world`) — 471 cards, sorted by population | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
-| `flags-card-plan.md` | Flags (`flags`) — 233 cards; the answer side is World Geography's, id for id | `fl-` |
+| `flags-card-plan.md` | The flags (`flags-world`) — a DECK of `geo-world`; 233 cards, the answer side is its twin's | `fl-` |
 | `politics-east-asia-card-plan.md` | Politics: East Asia (`pea`) — a COURSE, planned a lecture at a time | `pea-` |
 
 `china-card-findings.md` is China's per-card research log; the other twenty keep theirs in their own plan

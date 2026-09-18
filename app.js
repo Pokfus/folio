@@ -20551,7 +20551,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { k: "wall", n: "Great Wall", d: '<path d="M2 20.4h20"/><path d="M2 20.4v-6.2h7"/><path d="M22 20.4v-4.6h-7"/>' +
       '<path d="M9 20.4v-9.6h6v9.6"/><path d="M8.6 10.8h6.8"/><path d="M10.1 10.8V8.9M12 10.8V8.9M13.9 10.8V8.9"/>' +
       '<path d="M3.9 14.2v-1.7M6.4 14.2v-1.7M17.6 15.8v-1.7M20.1 15.8v-1.7"/>' },
-    /* a flag flying from its staff (Sep 2026, with the Flags collection) — DRAWN AND LOOKED AT at 28px
+    /* a flag flying from its staff (Sep 2026, with the Flags deck). IT IS THE READER'S PICKER MARK AND
+       NO COLLECTION'S: Flags began as a collection of its own and is a third DECK of World Geography on
+       request, and a deck inside a collection carries no icon (see `adIconKey`) — so this has no
+       `COLLECTION_ICON` row and is here for somebody to put on a deck of their own. Kept rather than
+       deleted because it is a good generic mark and the picker had none.
+       DRAWN AND LOOKED AT at 28px
        and 34px, which is the one thing the laurel-wreath note above says cannot be skipped. Four
        candidates were rendered and read at both sizes: a plain rectangle is legible but reads as a
        bookmark, a SWALLOWTAIL's notch closes up into a filled wedge at 28px, and a triangular pennant is
@@ -20633,7 +20638,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": "compass",
     "geo-world": "map",
     "geo-china": "wall",
-    flags: "flag",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -25206,7 +25210,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", flags: "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -25286,7 +25290,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
     china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
     dino: 1000, korea: 1000, art: 1000,
-    "geo-us": 100, "geo-china": 58, "geo-world": 471, flags: 233,
+    /* World Geography's 704 is 233 countries + 238 capitals + the 233 FLAGS, which are a third deck of
+       this collection rather than one of their own (Sep 2026, on request). One collection, three plans:
+       see docs/world-geography-card-plan.md and docs/flags-card-plan.md. */
+    "geo-us": 100, "geo-china": 58, "geo-world": 704,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -26062,22 +26069,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        split in two. Blue-and-white porcelain is the colour's own argument for the subject, and it is a
        China register the vermilion had not taken. 7.7:1 against white. */
     "geo-china": { bg: "#1A4FA8" },
-    /* sage grey (Flags) — MEASURED like every hue above it, and it is the first row on this shelf where
-       APTNESS COULD NOT DECIDE AT ALL. Every other collection has a colour of its own to argue from — a
-       malachite, an Aegean blue, a Morrison sandstone — and a flag collection has 233 palettes and no
-       hue that is its subject's rather than one member's. So separation decides, and what separation
-       returns is what the `dino` standing note predicted: the whole wheel's best-scoring regions are the
-       magenta (#BA4BA5, 28.3 — rejected for the EIGHTH time, and at chroma 62 it is still the loudest
-       thing that could go on a muted shelf) and the olive-brass (#5D5700, 22.0 — rejected for the fifth
-       time as a further member of the crowded yellow-green-brown quarter). Outside those two the best
-       region left is this one, and it is better than either rejection's runner-up: #6F7866 stands 23.6
-       from the Second World War's dark iron, 23.6 from Egypt's malachite and 24.0 from the Italian deck's
-       green, against a tightest EXISTING pair of 12.9 and a median nearest-neighbour distance of 20.1
-       over all twenty-seven hues. THE THREE NEAREST BEING THREE DIFFERENT FAMILIES IS THE POINT: at
-       chroma 11 this is not a fourth green, and it joins no family on the page. L 49 and chroma 11 —
-       lightness mid-band, chroma low, which is the shelf's own register rather than a compromise, and
-       the same corner ww2's dark iron occupies. 4.6:1 against white. */
-    flags: { bg: "#6F7866" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -31158,6 +31149,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (typedVals.length) noteConfusion(id, typedVals);
         cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
         cardArtReveal(cardRoot, c);   // …and an artwork may now be titled, credited and enlarged
+        cardFlagReveal(cardRoot, c);  // …and a flag may now be credited and enlarged (see cardFlagReveal)
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
         /* WHAT THEY WROTE, PUT BESIDE THE ANSWER (see deckRecall). It goes at the TOP of the reveal, above
@@ -31183,6 +31175,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            carrying the same file, so the BACK's copy goes rather than the front's — dropping the front's
            would move a picture the reader is looking at by its own height. */
         if (cardArtSpec(c)) { const dup = inner.querySelector(".card-imgslot"); if (dup) dup.remove(); }
+        /* A FLAG CARD IS THE SAME RULE ONE FIELD OVER (Sep 2026, on request: "on the answer side of the
+           cards, the flag in the answer box should not be shown"). `buildBack` still emits the small
+           `.av-flag` — the card browser, `openCardPeek`, Multiple Choice's `mountCardBack` and the editor
+           preview all draw a back with NO front, and without it they would show no flag at all — so what
+           goes is the copy on the STUDY page, where the front's own flag is still on screen two inches
+           above it. The credit it was carrying moves to the front's figure; see cardFlagReveal, without
+           which this drop would take the attribution off the card. */
+        if (cardFlagSpec(c)) { const dup = inner.querySelector(".answer .av-flag"); if (dup) dup.remove(); }
         /* the "nearby in this collection" rail — a PEEK, never a route: a click meant as a glance must
            not end the session the reader is part way through, which is exactly the rule the causal
            strip above it already follows. */
@@ -34465,6 +34465,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function cardFlagHTML(spec) {
     return '<figure class="flag-shot"><img src="' + esc(spec.src) + '" alt="' + esc(spec.alt || "The flag to be identified.") +
       '" loading="lazy" draggable="false"></figure>';
+  }
+  /* AND ON THE REVEAL IT GAINS ITS CREDIT AND ITS ZOOM — `cardArtReveal`'s shape, and here it is REQUIRED
+     rather than a nicety (Sep 2026, on request: "on the answer side of the cards, the flag in the answer
+     box should not be shown").
+
+     The answer box's small `.av-flag` was where the licence's attribution lived, which is what let the
+     front carry none; the study page now drops that copy, so without this the credit would be nowhere on
+     the card at all. A national flag on Commons is nearly always public domain, but not every one of the
+     233 is, and CC BY wants the creator named on the same card.
+
+     IT CANNOT HAPPEN BEFORE THE REVEAL, which is the whole reason it is a separate pass: a flag's credit
+     reads "Government of India, public domain, via Wikimedia Commons" and would hand over the answer.
+     Afterwards there is nothing left to give away, so the figure becomes what every other picture on the
+     site is from the first frame — captioned, credited and enlargeable. */
+  function cardFlagReveal(root, c) {
+    const spec = cardFlagSpec(c);
+    if (!root || !spec) return;
+    const fig = root.querySelector(".flag-shot");
+    if (!fig || fig.classList.contains("revealed")) return;
+    fig.classList.add("revealed");
+    fig.setAttribute("role", "button");
+    fig.setAttribute("tabindex", "0");
+    fig.setAttribute("title", "Click to enlarge");
+    fig.setAttribute("data-img-src", spec.src);
+    fig.setAttribute("data-img-title", spec.alt || "");
+    fig.setAttribute("data-img-desc", "");
+    fig.setAttribute("data-img-credit", spec.credit);
+    const cap = document.createElement("figcaption");
+    cap.className = "flag-cap";
+    cap.innerHTML = mediaCreditHTML(spec.credit);
+    fig.appendChild(cap);
   }
 
   /* ---------- the locator map (Aug 2026, on request) ----------
@@ -49623,8 +49654,10 @@ let prev = null;
 
   /* Everything the fullscreen viewer opens from. `.card-img` is the framed figure a card, a glossary
      popup, an artefact plate and the editor previews all emit; `.av-flag` is the small flag inside a
-     geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML. */
-  const IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed";
+     geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML;
+     `.flag-shot.revealed` is a FLAG card's own front, which carries no credit and cannot be enlarged
+     until the answer is out, since the caption bar would print the country's name — see cardFlagReveal. */
+  const IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed, .flag-shot.revealed";
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
   // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
   // every other click inside it belongs to the player.

@@ -2037,6 +2037,20 @@ body.no-tts .ans-cn .ac-say{display:none;}
   display:block; width:100%; height:clamp(150px, 30vh, 280px);
   object-fit:contain; background:var(--paper-2);
 }
+/* AND ON THE REVEAL IT GAINS ITS CREDIT AND ITS ZOOM (Sep 2026, on request: the answer box no longer
+   draws the small flag, so this is where the licence's attribution lives). `.revealed` is added by
+   `cardFlagReveal` and never before: a flag's credit names the country. */
+.flag-shot.revealed{cursor:zoom-in;}
+.flag-shot.revealed:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+/* `overflow-wrap:anywhere` is REQUIRED, not tidiness: a media credit's visible text ENDS IN ITS URL
+   (`mediaCreditHTML`), and a Commons file URL contains no break opportunity — so without it the address
+   runs out past the frame's own rounded edge. Seen on `fl-029`, whose file name is long enough to show
+   it; the shorter credits hid it. */
+.flag-cap{
+  display:block; padding:8px 12px 10px; border-top:1px solid var(--rule); background:var(--card);
+  font:400 calc(11.5px * var(--fs))/1.5 var(--sans); color:var(--ink-faint); text-align:left;
+  overflow-wrap:anywhere;
+}
 /* A dead file here is the whole question gone, exactly as on an artwork card, and for the same reason it
    says so rather than letting the browser paint the alt text at full size in the frame. */
 .flag-shot.media-dead img{display:none;}

@@ -152,7 +152,15 @@ const server = http.createServer((req, res) => {
   ok("…and the front markup carries no title, credit or desc", !/spec\.title|spec\.credit|spec\.desc/.test(built.split("cardArtReveal")[0]));
   ok("…and no data-img-* attribute", !/data-img-/.test(built.split("function cardArtReveal")[0]));
   ok("cardArtReveal is what adds them", /fig\.classList\.add\("revealed"\)/.test(slice("cardArtReveal")) && /data-img-credit/.test(slice("cardArtReveal")));
-  ok("the revealed picture is what the viewer opens", /IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed"/.test(src));
+  /* THE RULE IS THAT `.art-shot.revealed` IS IN THAT SELECTOR, not that the selector is exactly what it
+     was the day this was written. It was pinned as the whole literal and stopped matching when the FLAG
+     card added `.flag-shot.revealed` to it (Sep 2026) — a stale copy of the code reporting a rule that
+     was still being kept, which is the third assertion in this repo to fail that way. */
+  const openSel = (src.match(/const IMG_OPEN_SEL = [^\n]+/) || [""])[0];
+  ok("the revealed picture is what the viewer opens", /\.art-shot\.revealed/.test(openSel), openSel.slice(24));
+  /* …and the UNrevealed one is not, which is the half that matters: the viewer's caption bar carries the
+     title and the credit, and on this format both are the answer. */
+  ok("…and the unrevealed one is not", !/[^.]\.art-shot[,"]/.test(openSel), openSel.slice(24));
   ok("gameCardIdSet keeps artworks out of the text-only games", /difficultyOK\(c\) && !cardMapSpec\(c\) && !cardArtSpec\(c\)/.test(src));
   ok("picturePool takes them in", /const c = cardById\(id\), spec = cardArtSpec\(c\);/.test(src) && /const artIds = availableCardIdSet\(\);/.test(src));
   ok("serializeCardData carries `artwork` through", /o\.artwork = true/.test(slice("serializeCardData")));
