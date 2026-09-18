@@ -3922,7 +3922,17 @@ window.GLOSSARY = {
 "Ottoman_Empire": "The Ottoman Empire was the state founded in Anatolia under Osman, whose rule is reckoned from 1299, and governed from Constantinople after its conquest in 1453.<sup class=\"fn\" data-fn=\"1\"></sup> Its government has been described as two institutions: a ruling one of the sultan, his household and his standing army, staffed almost entirely by men born of Christian parents and held as the sultan's slaves, and a Muslim one of free-born teachers, jurists and judges.<sup class=\"fn\" data-fn=\"1\"></sup> At its height the central treasury took some 11.5 million gold ducats a year and the field army could reach 160,000 men, most of them cavalry paid with grants of land.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Mehmed_II": "Mehmed II, called the Conqueror, was the Ottoman sultan who took Constantinople in 1453, in a reign the dynasty's own chronology reckons at thirty years, and who made the city his capital.<sup class=\"fn\" data-fn=\"1\"></sup> For the siege he commissioned a gun of unprecedented size, cast in two parts and assembled in the field, which threw a granite ball of 600 kilograms (1,300 pounds) at the Theodosian Walls.<sup class=\"fn\" data-fn=\"2\"></sup> After the conquest he organised his non-Muslim subjects into communities under their own clergy, the Greek Orthodox under their patriarch in 1453 and an Armenian body in 1461.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Janissary": "A janissary was a soldier of the Ottoman sultan's household infantry, taken as a boy from Christian families of the empire and brought up as the sultan's slave.<sup class=\"fn\" data-fn=\"1\"></sup> Recruits were first scattered across Anatolia into the service of country gentlemen, set to hard farm work to strengthen them and expected to learn Turkish and the faith before they were examined and passed on.<sup class=\"fn\" data-fn=\"1\"></sup> The corps was never more than about a quarter of the sultan's slave household, but it was concentrated in the capital, often idle, and capable of acting as a dangerous mob, and it was broken together with the Bektashi order in 1826.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Suleiman_the_Magnificent": "Suleiman the Magnificent was the Ottoman sultan who came to the throne in 1520, on the death of his father Selim, and is known in Turkish tradition as the Legislator.<sup class=\"fn\" data-fn=\"1\"></sup> The codes that carry that title rearranged and regulated far more than they created, since the institutions his predecessors had built were too useful and too well established to be undone.<sup class=\"fn\" data-fn=\"1\"></sup> Under him the central treasury took almost 11.5 million gold ducats a year in the first decade, and he routinely mobilised sixty to seventy thousand troops for a campaign, out of a force that could reach 160,000 with its auxiliaries.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Suleiman_the_Magnificent": "Suleiman the Magnificent was the Ottoman sultan who came to the throne in 1520, on the death of his father Selim, and is known in Turkish tradition as the Legislator.<sup class=\"fn\" data-fn=\"1\"></sup> The codes that carry that title rearranged and regulated far more than they created, since the institutions his predecessors had built were too useful and too well established to be undone.<sup class=\"fn\" data-fn=\"1\"></sup> Under him the central treasury took almost 11.5 million gold ducats a year in the first decade, and he routinely mobilised sixty to seventy thousand troops for a campaign, out of a force that could reach 160,000 with its auxiliaries.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Siege_of_Vienna": "The Siege of Vienna was the Ottoman attempt on the Austrian capital in the autumn of 1529, and the deepest penetration into central Europe that any sultan's army achieved.<sup class=\"fn\" data-fn=\"1\"></sup> Suleiman I arrived before the city on 27 September having left his heaviest artillery behind in Hungary, where rain had ruined the roads, so the walls had to be opened by mining instead of by bombardment.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A garrison of about sixteen thousand held a wall without bastions through four assaults, and the army withdrew on 14 October after burning what it could not carry away.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Lepanto": "The Battle of Lepanto was fought on 7 October 1571 at the mouth of the Gulf of Patras between the fleet of a Holy League of Spain, Venice and the papacy and the fleet of the Ottoman Empire.<sup class=\"fn\" data-fn=\"1\"></sup> The league slightly outnumbered its opponent in men and held a heavy advantage in artillery, with 1,334 guns against 741, and six large Venetian galleasses placed ahead of its line broke up the Ottoman advance before the two fleets closed.<sup class=\"fn\" data-fn=\"2\"></sup> The Ottoman fleet was destroyed and its commander killed, yet a rebuilt fleet was at sea within a year.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Millet_(Ottoman_Empire)": "A millet was a religious community of non-Muslim subjects of the Ottoman Empire, governed in its internal affairs through its own clergy rather than directly by the state.<sup class=\"fn\" data-fn=\"1\"></sup> Each community kept its worship, its law of marriage and inheritance and its property in return for accepting a subordinate legal standing and paying its taxes, and its head was appointed and invested by the sultan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Whether a coherent millet system existed before the reforms of the 19th century is disputed, some historians treating the orderly scheme as a late construction read backwards into earlier centuries.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Vienna": "The Battle of Vienna was fought on 12 September 1683, when an army of Poles, Austrians and German contingents came down from the hills north-west of the city and destroyed the Ottoman camp that had besieged it since July.<sup class=\"fn\" data-fn=\"1\"></sup> The grand vizier Kara Mustafa had held his troops back from a general assault in the hope of a capitulation whose wealth would fall to him, and had left the Danube crossings unguarded while the relief force gathered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His army was routed and its guns and stores taken, and he was executed at Belgrade a few weeks afterwards.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Safavid_Empire": "The Safavid Empire ruled Iran between 1501 and 1722 and made Twelver Shia Islam the religion of the state.<sup class=\"fn\" data-fn=\"1\"></sup> Its founders were the hereditary heads of a Sufi order at Ardabil whose Turkmen disciples, the Qizilbash, treated their master as saint and king alike, and it was with them that Ismail took Tabriz and was crowned there in 1501.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Hemmed in by Sunni powers on both flanks, it lost its cavalry to Ottoman artillery and musketry at Chaldiran in 1514, and matched its neighbours only once Abbas I had raised paid regiments.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Abbas_the_Great": "Abbas the Great was the Safavid ruler of Iran from 1587 to 1629, and it was under him that the empire reached its greatest extent and strength.<sup class=\"fn\" data-fn=\"1\"></sup> He bought peace with the Ottomans in 1590 by ceding Tabriz, Shirvan, Georgia and Luristan so as to deal with the Uzbeks first, then halved the tribal contingents and raised ten thousand cavalry and twelve thousand infantry paid and officered by the crown, with artillery cast by European help.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> From 1602 he recovered by war what he had given up, and he made Isfahan his capital and rebuilt it on a new plan.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Isfahan": "Isfahan is a city on the Zayandeh River in central Iran, and was the Safavid capital from the reign of Abbas the Great until 1722.<sup class=\"fn\" data-fn=\"1\"></sup> Its centre is the Maydan-i Shah, a rectangle of about 510 by 160 metres (560 by 174 yards) enclosed by two storeys of arcaded shops, with the Royal Mosque opening off one end and the raised audience hall of the Ali Qapu on the eastern side.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Across the river stands the suburb built by Armenian merchants brought from Julfa, and the population at its height is put near three hundred thousand.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Twelver_Shi'ism": "Twelver Shia Islam is the branch of Islam that recognises a line of twelve divinely guided Imams beginning with Ali, the cousin and son-in-law of the Prophet.<sup class=\"fn\" data-fn=\"1\"></sup> It is named for the twelfth of that line, held to have passed into concealment in 874: first in a lesser occultation of 69 years during which four intermediaries carried messages, and afterwards in a greater occultation in which nobody has direct access to him.<sup class=\"fn\" data-fn=\"1\"></sup> It became the religion of the Iranian state in 1501, when Shah Ismail made it the only creed tolerated in his new kingdom.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Mughal_Empire": "The Mughal Empire ruled most of the Indian subcontinent from 1526, when Babur destroyed the army of the Delhi sultanate at Panipat, and kept its throne at Delhi until 1857.<sup class=\"fn\" data-fn=\"1\"></sup> Under Akbar it was divided in 1580 into twelve provinces, later fifteen as the Deccan was annexed, each with its own finance, pay, police and record establishments and containing more than a hundred districts; the land revenue reported in 1605 came to 174,500,000 rupees.<sup class=\"fn\" data-fn=\"2\"></sup> Its officers held graded ranks counted in horsemen and drew the taxes of assigned districts in return for bringing troops.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Babur": "Babur was the founder of the Mughal Empire in India, a Timurid prince on his father's side and a descendant of Genghis Khan on his mother's.<sup class=\"fn\" data-fn=\"1\"></sup> His own memoir opens by recording that he became king of Ferghana in his twelfth year; he lost Samarkand more than once to the Uzbeks, took Kabul in 1504, and defeated Sultan Ibrahim Lodi at Panipat in April 1526 behind chained gun carriages, with Mongol horsemen wheeling into the enemy rear.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He died at Agra on 26 December 1530, aged 48, and was buried at Kabul.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5973,7 +5983,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Mercator_projection": "1569",
 "Ottoman_Empire": "1299-1922",
 "Mehmed_II": "d. 1481",
-"Suleiman_the_Magnificent": "r. 1520-1566"
+"Suleiman_the_Magnificent": "r. 1520-1566",
+"Siege_of_Vienna": "27 September – 14 October 1529",
+"Battle_of_Lepanto": "7 October 1571",
+"Battle_of_Vienna": "12 September 1683",
+"Safavid_Empire": "1501-1722",
+"Abbas_the_Great": "r. 1587-1629",
+"Mughal_Empire": "1526-1857",
+"Babur": "1483-1530"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8304,7 +8321,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "East_India_Company": ["English East India Company","Honourable East India Company"],
 "Manila_galleon": ["Manila galleons","Acapulco galleon","Nao de China"],
 "Jamestown,_Virginia": ["Jamestown","James Fort","Jamestown settlement"],
-"New_England": ["New England colonies"]
+"New_England": ["New England colonies"],
+"Siege_of_Vienna": ["siege of Vienna","1529 siege of Vienna"],
+"Battle_of_Lepanto": ["Lepanto","battle of Lepanto"],
+"Millet_(Ottoman_Empire)": ["millet system","millets"],
+"Battle_of_Vienna": ["battle of Vienna","1683 siege of Vienna"],
+"Safavid_Empire": ["Safavid dynasty","Safavids","Safavid"],
+"Abbas_the_Great": ["Shah Abbas","Abbas I"],
+"Isfahan": ["Ispahan","Esfahan"],
+"Twelver_Shi'ism": ["Twelver Shia Islam","Twelver Shiism","Twelver Shia","Twelvers"],
+"Mughal_Empire": ["Mughals","Mughal","Moghul Empire"],
+"Babur": ["Babar","Baber"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12270,7 +12297,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ottoman_Empire": ["state","history","empire","turkey","asia","europe"],
 "Mehmed_II": ["person","history","empire","turkey","warfare","europe"],
 "Janissary": ["institution","history","warfare","turkey","asia","europe"],
-"Suleiman_the_Magnificent": ["person","history","empire","turkey","warfare","europe"]
+"Suleiman_the_Magnificent": ["person","history","empire","turkey","warfare","europe"],
+"Siege_of_Vienna": ["event","history","warfare","europe","turkey","austria"],
+"Battle_of_Lepanto": ["event","history","warfare","mediterranean","turkey","spain"],
+"Millet_(Ottoman_Empire)": ["concept","history","religion","turkey","law","europe"],
+"Battle_of_Vienna": ["event","history","warfare","europe","turkey","austria"],
+"Safavid_Empire": ["state","history","empire","iran","religion","warfare"],
+"Abbas_the_Great": ["person","history","iran","ruler","warfare","empire"],
+"Isfahan": ["city","place","history","iran","architecture","geography"],
+"Twelver_Shi'ism": ["concept","religion","history","iran","islam","middle east"],
+"Mughal_Empire": ["state","history","empire","india","warfare","asia"],
+"Babur": ["person","history","india","ruler","warfare","asia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

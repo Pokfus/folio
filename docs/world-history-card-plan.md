@@ -1066,7 +1066,7 @@ what went wrong in the Mongol period — under a term rather than under a headin
     wh-695  Safavid Empire
     wh-696  Abbas the Great
     wh-697  Isfahan
-    wh-698  Shia Islam in Iran
+    wh-698  Twelver Shia Islam
     wh-699  Mughal Empire
     wh-700  Babur
     wh-701  Akbar
