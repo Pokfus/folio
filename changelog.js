@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.873", released: "2026-09-18T03:22Z" };
+window.FOLIO_VERSION = { v: "1.874", released: "2026-09-18T03:41Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-18",
     t: "The Ancient Egypt collection opens with its first ten cards",
     items: [
-      "<b>Ten new cards in the Ancient Egypt collection</b>, which opens with them, each with a picture, and eight new glossary terms beside them.",
+      "<b>Forty new cards and thirty-six glossary terms</b> \u2014 the Ancient Egypt collection opens with ten, and thirty carry Rome from Titus to Trajan's forum and column.",
       "<b>The word \u201cmedian\u201d no longer links to the Medes</b> on cards that use it as a statistic rather than as a people.",
       "<b>Common Thread only groups a term under a category it genuinely belongs to</b> \u2014 genealogy has left Asia and water has left biology.",
       "<b>Beringia draws the same globe in both collections</b>, the United States card having shown no map at all.",
@@ -94,7 +94,8 @@ window.CHANGELOG = [
       ,"<b>Fifteen more True or False answers now cite their sources</b>, and five statements are rewritten to say what those sources actually show."
       ,"<b>British readers now see British spelling throughout</b> — several dozen cards and glossary terms stored the American form, and the switch now covers three more word families besides."
       ,"<b>A deck you have finished for the day turns green with a tick</b>, and gold when you got everything right first time."
-      ,"<b>A hundred cards on the politics of East Asia</b> — a course collection of 24 decks, in a new Special section of the Collections page."
+      ,"<b>A hundred and seventy new cards and seventy glossary terms</b> \u2014 a hundred on East Asian politics, a course collection of its own, and seventy carrying Rome from Augustus to Jerusalem."
+      ,"<b>Eighty-eight citations now give the right publication year</b> \u2014 long runs of references to Tacitus and to Cassius Dio named the wrong volume of the same edition."
       ,"<b>A single-character Mandarin card lists the other words built on that character</b>, with their readings and meanings, whatever else you have downloaded."
       ,"<b>Two card backgrounds are corrected</b> \u2014 one drops a population figure the card already shows and says when the city was founded instead, the other no longer names a modern scholar."
       ,"<b>Two cards no longer contradict themselves</b> \u2014 one\u2019s questions gained the article they were missing, and the other\u2019s map no longer carries a name the card says was never formed."
