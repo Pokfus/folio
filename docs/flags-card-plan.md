@@ -33,9 +33,9 @@ The next card to write is the lowest `fl-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='fl-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**F0, F1 and F2 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
-Geography, and `fl-001`–`fl-040` are live **less the deferred `fl-036`** — 39 cards, so the lowest unused
-number is not the next card. The next card is `fl-041`.
+**F0 to F3 have shipped** (Sep 2026): the format is built, the deck is on the shelf under World
+Geography, and `fl-001`–`fl-060` are live **less the deferred `fl-036`** — 59 cards, so the lowest unused
+number is not the next card. The next card is `fl-061`.
 
 ---
 
@@ -106,6 +106,17 @@ Seven things about the format are decisions rather than plumbing.
   already.
 - **IT IS NOT A COMMUNITY-DECK FIELD.** `CARD_FIELDS` does not carry `answerFlag` and must not learn to,
   so a stranger's deck cannot ship a flag card and nothing has to sanitize one.
+- **THE CREDIT IS IN THE VIEWER AND NOT ON THE CARD** (Sep 2026, on request: "the image box should not
+  show the image source or link on the card, only when it is clicked to enlarge should it say the source
+  info"). `cardFlagReveal` wrote a `figcaption` under the frame for a day, which put two lines of Commons
+  URL under every flag — on a card whose whole front is one picture. The figure carries the `data-img-*`
+  attributes and no caption instead, and `openMediaViewer` draws the credit under the ENLARGED picture.
+  **It is the picture round's own trade**: the attribution the licence asks for is one press away rather
+  than in front of the reader before the picture has done its job, and the press is real —
+  `.flag-shot.revealed` is in `IMG_OPEN_SEL`. **The enlargement and the credit are gated TOGETHER, on
+  the reveal**, because the viewer is what says the source: opened from the question side it would print
+  the country's name. `test-flag-cards.js` opens the viewer and reads the credit out of it rather than
+  trusting the attribute, and asserts the same press does nothing on an unrevealed card.
 - **ONE LEAK IS ACCEPTED, AND IT IS STATED RATHER THAN PAPERED OVER.** Commons names every national flag
   `Flag_of_<Country>.svg`, and a `src` is copied from the API and never composed or rewritten, so **the
   answer is in the URL on all 233 cards.** Measured: 20 of 20 flag cards have it against 0 of 10 artwork
@@ -514,6 +525,38 @@ opportunity, so the address ran out past the frame's rounded edge — `.flag-cap
 `overflow-wrap:anywhere`, and only a long file name shows it (`fl-029`'s did; the shorter credits hid
 it). And the answer box's flag had to go with the credit moved to the front, which is the request this
 batch shipped under and is described in the format section above.
+
+## F3 — `fl-041` to `fl-060` (Sep 2026)
+
+Twenty cards, Ukraine to Taiwan. No flag had to be fetched. **Eighteen alts derived cleanly; two were
+authored**, and both for the same reason:
+
+**A DERIVED ALT CAN CARRY A WORD FROM INSIDE THE FIELD, AND AN ALT CANNOT GLOSS IT.** CLAUDE.md holds
+every card field to an upper-secondary vocabulary, where genuinely specialist vocabulary earns a brief
+gloss on first use — and an alt has nowhere to put one. `fl-043` Uzbekistan derived "separated by thin
+red **fimbriations**", which is the correct vexillological word and is not English a general reader
+meets; it says "separated by narrow red stripes" instead. `fl-045` Saudi Arabia derived "the **shahada**
+in white **Thuluth** script above a white sword" and says "a white Arabic inscription above a white
+sword" — what a viewer actually sees, and one specialist term fewer than the emblem names F2 kept
+(a *taegeuk* and a *Maasai shield* are the NAMES of things on the flag; a *fimbriation* is a word for a
+stripe). **Their `gw-` twins carry the same words**, where the alt is a caption beside an answer rather
+than the question itself; those are left alone, and are recorded here rather than swept.
+
+**FOUR NEAR-PAIRS IN THIS RANGE, EACH DISTINGUISHED BY ONE CLAUSE, which is the thing to preserve when a
+later batch reaches the other half.** `fl-042` Poland (white above red) against F1's `fl-004` Indonesia
+and `fl-215` Monaco (red above white) — the same family the other way up. `fl-050` Côte d'Ivoire
+(orange, white, green) against `fl-121` Ireland (green, white, orange) — **the same three colours in the
+opposite order, which is the only difference there is**, so both alts must state the order hoist to fly.
+`fl-058` Mali (green, yellow, red) against `fl-068` Senegal, which adds a green star, and `fl-075`
+Guinea, which reverses it. And `fl-048` Peru (red, white, red vertical) against `fl-037` Canada, which
+adds the maple leaf. **In every case the plain member is the one that describes most easily**, which is
+F2's Yemen finding again.
+
+**`fl-057` SYRIA IS THE AFGHANISTAN TEST WITH THE OPPOSITE ANSWER**, as the World Geography plan records:
+Commons redirects `Flag_of_Syria.svg` to a dated filename whose own description calls it the flag of
+Syria, so the file is the country's flag and the card carries it — where Afghanistan's redirect lands on
+a file named for a faction and `fl-036` is deferred. The card carries the three-starred flag adopted in
+December 2024.
 
 ---
 

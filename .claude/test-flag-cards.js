@@ -243,7 +243,7 @@ const server = http.createServer((req, res) => {
   ok("…with a blank to type the answer into", front.blanks >= 1, front.blanks);
 
   /* ---------- 3. the reveal is the World Geography answer side ----------------------------- */
-  sect("3. the reveal is its twin's answer side, and credits the flag");
+  sect("3. the reveal is its twin's answer side, and the credit is one press away");
   await page.fill(".blank-input", card.answerText);
   await page.evaluate(() => document.querySelector("#reveal-btn").click());
   await page.waitForTimeout(400);
@@ -255,8 +255,8 @@ const server = http.createServer((req, res) => {
       dates: [...document.querySelectorAll(".answer .dt .dt-k")].map((k) => k.textContent.trim()),
       avFlag: !!av,
       frontStill: !!document.querySelector(".flag-shot img"),
-      frontCredited: !!document.querySelector(".flag-shot.revealed .flag-cap"),
-      frontCap: (document.querySelector(".flag-shot .flag-cap") || {}).textContent || "",
+      frontCaption: !!document.querySelector(".flag-shot figcaption"),
+      frontText: (document.querySelector(".flag-shot") || {}).textContent || "",
       frontOpens: !!document.querySelector(".flag-shot.revealed[data-img-credit]"),
       frontHTML: (document.querySelector(".flag-shot") || {}).outerHTML || "",
       sources: document.querySelectorAll(".src-item").length,
@@ -270,12 +270,45 @@ const server = http.createServer((req, res) => {
   ok("…and its citations", back.sources === (card.sources || []).length, [back.sources, (card.sources || []).length]);
   /* THE ANSWER BOX DRAWS NO FLAG (Sep 2026, on request): the front's own flag is two inches above it. */
   ok("the answer box draws no flag of its own", !back.avFlag);
-  /* …SO THE CREDIT MOVED TO THE FRONT, and this is the assertion that matters: without it the drop
-     above takes the licence's attribution off the card altogether. */
-  ok("…so the front's flag now carries the credit", back.frontCredited && back.frontHTML.indexOf(card.answerFlag.credit) >= 0, back.frontCap.slice(0, 70));
-  ok("…and is what the viewer opens, now that there is nothing left to give away", back.frontOpens);
+  /* …AND THE CREDIT IS NOT PRINTED ON THE CARD EITHER (Sep 2026, on request: "the image box should not
+     show the image source or link on the card, only when it is clicked to enlarge should it say the
+     source info"). A `figcaption` here put two lines of Commons URL under every flag. */
+  ok("…and no source or link is printed under the flag", !back.frontCaption && !/wikimedia|https?:/i.test(back.frontText), back.frontText.replace(/\s+/g, " ").trim().slice(0, 70));
+  ok("…while the figure still carries the credit for the viewer to draw", back.frontOpens && back.frontHTML.indexOf(card.answerFlag.credit) >= 0);
   /* Geography is out of the Think-it-through pass, and a flag card is out with it — see whyExempt. */
   ok("no Think-it-through section is manufactured", !back.why);
+
+  /* THE PRESS IS REAL, AND THIS IS THE HALF THE REQUEST TURNS ON: the attribution the licence asks for
+     has to be REACHABLE, so the suite opens the viewer rather than trusting the attribute. Before the
+     reveal the same press must do NOTHING — a viewer opened from the question side would print the
+     country's name in its caption — which is checked first, on a fresh card. */
+  const viewer = await page.evaluate(() => {
+    const fig = document.querySelector(".flag-shot");
+    fig.click();
+    const ov = document.querySelector(".img-viewer");
+    const credit = ov ? (ov.querySelector(".iv-credit") || {}).textContent || "" : "";
+    const link = ov ? !!(ov.querySelector(".iv-credit a")) : false;
+    const shot = ov ? !!ov.querySelector("img") : false;
+    if (ov) { const x = ov.querySelector(".iv-close, [data-ivclose]"); if (x) x.click(); else ov.remove(); }
+    return { opened: !!ov, credit: credit.replace(/\s+/g, " ").trim(), link: link, shot: shot };
+  });
+  ok("clicking the revealed flag enlarges it", viewer.opened && viewer.shot, viewer.opened);
+  ok("…and THERE it says the source", viewer.credit.length > 10 && /wikimedia|public domain|CC BY/i.test(viewer.credit), viewer.credit.slice(0, 80));
+  ok("…with the address as a link rather than as dead text", viewer.link);
+
+  sect("3b. …and the question side cannot be enlarged at all");
+  /* The gate is `.revealed`, which `cardFlagReveal` adds — so on an unrevealed card the press must be
+     inert. If it ever opens, the viewer's own caption bar prints the credit, which names the country. */
+  await study(flags[1].id);
+  const early = await page.evaluate(() => {
+    const fig = document.querySelector(".flag-shot");
+    fig.click();
+    const ov = document.querySelector(".img-viewer");
+    if (ov) ov.remove();
+    return { opened: !!ov, revealed: fig.classList.contains("revealed"), attrs: [...fig.attributes].map((a) => a.name) };
+  });
+  ok("the unrevealed flag does not enlarge", !early.opened);
+  ok("…and carries no credit to print", !early.revealed && !early.attrs.some((a) => a.indexOf("data-img") === 0), early.attrs);
 
   /* ---------- 4. a dead flag file is the whole question gone ------------------------------- */
   sect("4. a dead flag file says so");

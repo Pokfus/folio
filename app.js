@@ -34466,19 +34466,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return '<figure class="flag-shot"><img src="' + esc(spec.src) + '" alt="' + esc(spec.alt || "The flag to be identified.") +
       '" loading="lazy" draggable="false"></figure>';
   }
-  /* AND ON THE REVEAL IT GAINS ITS CREDIT AND ITS ZOOM — `cardArtReveal`'s shape, and here it is REQUIRED
-     rather than a nicety (Sep 2026, on request: "on the answer side of the cards, the flag in the answer
-     box should not be shown").
+  /* AND ON THE REVEAL IT BECOMES ENLARGEABLE, WHICH IS WHERE ITS CREDIT LIVES — `cardArtReveal`'s shape,
+     and here it is REQUIRED rather than a nicety (Sep 2026, on request: "on the answer side of the cards,
+     the flag in the answer box should not be shown").
 
      The answer box's small `.av-flag` was where the licence's attribution lived, which is what let the
-     front carry none; the study page now drops that copy, so without this the credit would be nowhere on
-     the card at all. A national flag on Commons is nearly always public domain, but not every one of the
-     233 is, and CC BY wants the creator named on the same card.
+     front carry none; the study page now drops that copy, so without this the credit would be nowhere the
+     reader could reach at all. A national flag on Commons is nearly always public domain, but not every
+     one of the 233 is, and CC BY wants the creator named.
 
-     IT CANNOT HAPPEN BEFORE THE REVEAL, which is the whole reason it is a separate pass: a flag's credit
-     reads "Government of India, public domain, via Wikimedia Commons" and would hand over the answer.
-     Afterwards there is nothing left to give away, so the figure becomes what every other picture on the
-     site is from the first frame — captioned, credited and enlargeable. */
+     THE CREDIT IS IN THE VIEWER AND NOT ON THE CARD (Sep 2026, on request: "the image box should not
+     show the image source or link on the card, only when it is clicked to enlarge should it say the
+     source info"). This wrote a `figcaption` under the frame for a day, which put a Commons URL under
+     every flag — two lines of address on a card whose whole front is one picture. So the figure carries
+     the `data-img-*` attributes and NO caption, and `openMediaViewer` draws the credit under the enlarged
+     picture as `.iv-credit`. **It is the picture round's own trade** — the attribution the licence asks
+     for is one press away rather than in front of the reader before the picture has done its job — and
+     the press is real: `.flag-shot.revealed` is in `IMG_OPEN_SEL`.
+
+     NONE OF IT CAN HAPPEN BEFORE THE REVEAL, which is the whole reason this is a separate pass: a flag's
+     credit reads "Government of India, public domain, via Wikimedia Commons", so a viewer opened from the
+     question side would print the answer. That is also why the ENLARGEMENT is gated here rather than in
+     the frame: the two go together, since the viewer is what says the source. */
   function cardFlagReveal(root, c) {
     const spec = cardFlagSpec(c);
     if (!root || !spec) return;
@@ -34492,10 +34501,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     fig.setAttribute("data-img-title", spec.alt || "");
     fig.setAttribute("data-img-desc", "");
     fig.setAttribute("data-img-credit", spec.credit);
-    const cap = document.createElement("figcaption");
-    cap.className = "flag-cap";
-    cap.innerHTML = mediaCreditHTML(spec.credit);
-    fig.appendChild(cap);
   }
 
   /* ---------- the locator map (Aug 2026, on request) ----------

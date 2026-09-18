@@ -911,6 +911,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     answer box's flag was where the licence's attribution lived, which is what let the front carry
     none, so the reveal now captions and credits the FRONT's figure and makes it enlargeable — which
     it may not be before, a flag's credit naming the country.
+  · **AND THE CREDIT IS IN THE VIEWER, NOT ON THE CARD** (Sep 2026, on request: "the image box should
+    not show the image source or link on the card, only when it is clicked to enlarge should it say the
+    source info"). `cardFlagReveal` wrote a `figcaption` for a day, which put two lines of Commons URL
+    under every flag; it carries the `data-img-*` attributes and no caption now, and `openMediaViewer`
+    draws the credit under the enlarged picture. **The picture round's own trade** — the attribution one
+    press away rather than in front of the reader — and **the enlargement and the credit are gated
+    TOGETHER on the reveal**, the viewer being what says the source. The suite OPENS the viewer and
+    reads the credit out of it rather than trusting the attribute.
   · **ONE LEAK IS ACCEPTED AND STATED: Commons names every flag `Flag_of_<Country>.svg`**, and a `src`
     is copied from the API rather than composed, so the answer is in the URL on all 233 — measured, 20
     of 20 here against 0 of 10 artwork cards. No reader is SHOWN a src, and the suite asserts the
@@ -1341,7 +1349,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.41 MB and 49,832 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.41 MB and 49,837 lines is hard to find your way around, so this
   lists its 193 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6619,7 +6627,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 3 / 3 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
-| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 39 cards — `fl-001`–`fl-040` less the DEFERRED `fl-036`, so the lowest unused number is not the next card; next is `fl-041`, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
+| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; 59 cards — `fl-001`–`fl-060` less the DEFERRED `fl-036`, so the lowest unused number is not the next card; next is `fl-061`, of 233 planned, one per `gw-` COUNTRY card and numbered to match it, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
