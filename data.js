@@ -10609,6 +10609,334 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "france",
+      "title": "France",
+      "total": 0,
+      "children": [
+        {
+          "id": "fr-gaul",
+          "title": "Gaul and the Franks",
+          "total": 100,
+          "children": [
+            {
+              "id": "fr-prehistory",
+              "title": "Before Gaul",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "fr-celts",
+              "title": "Celtic Gaul",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-roman",
+              "title": "Gallo-Roman Gaul",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-merovingian",
+              "title": "The Franks and the Merovingians",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-carolingian",
+              "title": "The Carolingians",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-medieval",
+          "title": "The Medieval Kingdom",
+          "total": 110,
+          "children": [
+            {
+              "id": "fr-capetians",
+              "title": "The early Capetians",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-church",
+              "title": "Church, monastery and cathedral",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-society",
+              "title": "Medieval society and the land",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-crown",
+              "title": "The making of the royal state",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-hundredyears",
+              "title": "The Hundred Years' War",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-renaissance",
+          "title": "Renaissance and the Wars of Religion",
+          "total": 90,
+          "children": [
+            {
+              "id": "fr-italianwars",
+              "title": "The Italian Wars and the new monarchy",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-humanism",
+              "title": "Renaissance and humanism in France",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-reformation",
+              "title": "Reformation and the Huguenots",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-religionwars",
+              "title": "The Wars of Religion",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-ancien",
+          "title": "The Ancien Régime",
+          "total": 120,
+          "children": [
+            {
+              "id": "fr-bourbons",
+              "title": "The Bourbon state",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-louis14",
+              "title": "Louis XIV",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-society18",
+              "title": "Society under the Ancien Régime",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-enlightenment",
+              "title": "The Enlightenment in France",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-crisis",
+              "title": "The crisis of the monarchy",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-revolution",
+          "title": "Revolution and Empire",
+          "total": 140,
+          "children": [
+            {
+              "id": "fr-1789",
+              "title": "1789",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-radical",
+              "title": "The Republic and the Terror",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-directory",
+              "title": "Thermidor and the Directory",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-napoleon",
+              "title": "Napoleon",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "fr-revmeaning",
+              "title": "What the Revolution changed",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-19c",
+          "title": "The Long Nineteenth Century",
+          "total": 110,
+          "children": [
+            {
+              "id": "fr-restoration",
+              "title": "Restoration and July Monarchy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-1848",
+              "title": "1848 and the Second Republic",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-secondempire",
+              "title": "The Second Empire",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-commune",
+              "title": "Defeat and the Commune",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-thirdrepublic",
+              "title": "The Third Republic to 1914",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-wars",
+          "title": "War and Occupation",
+          "total": 120,
+          "children": [
+            {
+              "id": "fr-ww1",
+              "title": "The First World War",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-interwar",
+              "title": "The interwar republic",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-1940",
+              "title": "The defeat of 1940",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "fr-vichy",
+              "title": "Vichy and the Occupation",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-resistance",
+              "title": "Resistance, liberation and reckoning",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-since1945",
+          "title": "France Since 1945",
+          "total": 120,
+          "children": [
+            {
+              "id": "fr-fourth",
+              "title": "The Fourth Republic",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-decolonisation",
+              "title": "Decolonisation and the Algerian War",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-fifth",
+              "title": "The Fifth Republic",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-1968",
+              "title": "1968 and the long aftermath",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-contemporary",
+              "title": "France now",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-making",
+          "title": "The Making of France",
+          "total": 90,
+          "children": [
+            {
+              "id": "fr-language",
+              "title": "The French language",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-regions",
+              "title": "The regions and the provinces",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-empire",
+              "title": "The empire and the overseas",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-institutions",
+              "title": "Institutions, ideas and everyday life",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-world",
       "title": "World Geography",
       "total": 468,

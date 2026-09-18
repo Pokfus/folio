@@ -668,6 +668,56 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   ones that are shut, the four distinct routes to a wrong sort year, and the content decisions — the
   two-scholar cap deciding a card, a disputed island keyed under the neutral name, a general glossary
   term rewritten when a second continent linked to it. Not part of the site.
+- **📖 `docs/france-card-plan.md` — READ BEFORE WRITING AN `fr-` CARD.** The **1000-card running order
+  for the France collection** (`france`): every card's number, topic and deck, fixed in advance across 9
+  decks and 43 leaf decks. The twenty-second of the planned collections, the twelfth history one, and the
+  seventh to **create its own collection** — node, tree, `COLL_THEME` hue and a new `ICON_SYMBOLS` mark
+  (`eiffel`) ship with the plan. **It needs NO `COLLECTION_SECTION` row and that is the point**: `sectionOf`
+  returns History for anything the table does not name, so the correct action for a history collection is
+  to add nothing — a row reading `france: "History"` would be inert and would invite the next reader to
+  take that table for a list of every collection.
+  **Read "Is there a thousand cards in this?" before writing anything** — here the question is the
+  opposite of every other plan's: there is a defensible three thousand cards in French history, so the
+  plan's work is SUBTRACTION, and it makes three cuts explicitly (the Revolution takes 140 and not 300;
+  culture is carded as institutions rather than as a canon; the wars are carded from inside France).
+  · **THE OBVIOUS HUE IS REFUSED FOR A REASON WORSE THAN CROWDING.** The best *bleu de France* candidate
+    stands **19.8** from its nearest neighbour — below the median of 20.8 — and **that neighbour is the
+    FRENCH LANGUAGE DECK**, on the same Collections page one section down. Bordeaux tops out at 16.2 and
+    lavender at 16.1. What ships is **`#6A7D81`, the slate of the ardoise roofs**, at 20.7 / 22.3 / 25.9
+    from Greece's Aegean, Philosophy's petrol and Egypt's malachite. **It sits AT the median, which is a
+    stated trade on Philosophy's precedent, and what buys it is that it adds a FAMILY — there is no grey
+    on this shelf at all.** One step toward the optimum was given up FOR HUE, the opposite of Korea's
+    trade.
+  · **THE ICON IS AN EIFFEL TOWER, ON THE SHELF'S OWN CONVENTION** (pagoda, torii, pyramid, dome, column,
+    wall). A fleur-de-lis was refused twice over — it says *monarchy* on a collection whose largest deck
+    is the Revolution, and at 24px it is a blob near the existing `crown`. **Its collision is `pyramid`
+    and `mountain`; keep the concave curve and the arch, or it becomes one.**
+  · **THE REPUBLICAN CALENDAR IS THIS COLLECTION'S JULIAN/GREGORIAN PROBLEM AND IT IS CHECKABLE.**
+    `cardYears` cannot parse *9 Thermidor Year II* at all, so a date line written that way yields **no
+    sort year**, the card falls to 0 and sorts as timeless — at the wrong end of a deck running 1789 to
+    1815, with nothing on the page to say so. A card may NAME the republican date and must give the
+    Gregorian one beside it; **the DATE LINE takes the Gregorian only**, and the sort year is read back
+    after writing one in deck 5.
+  · **ACCENTS ARE EVERYWHERE HERE AND `\b` IS ASCII.** Étienne, Pétain, Élysée, Déclaration. CLAUDE.md
+    records that trap twice (`spellTree`, `buildGlossIndex`); both already use `\p{L}` lookarounds, but
+    **any new sweep written while working on this collection must use the lookaround form**, and an
+    accented glossary alias needs testing rather than assuming.
+  · **THE OVERLAPS WERE MEASURED, NOT ASSUMED, AND FIVE COLLECTIONS TOUCH THIS ONE.** The Second World
+    War holds about **twenty-five** French cards — the division of labour is that **WW2 cards the WAR and
+    this collection cards FRANCE**, and three pairs are deliberately close and must be written together
+    (`ww2-191`/`fr-730`, `ww2-193`/`fr-741`, `ww2-200`/`fr-738`). World History holds **seven**, all
+    headline-level. Rome holds **five on Gaul**. **Visual Art holds the WORKS and this collection must not
+    re-card them** — `art` cards the object, `france` cards the institution, the patron and the argument.
+    **Philosophy holds the ARGUMENTS** — this collection cards the philosophes as a public force and never
+    their arguments.
+  · **`France` AND `Paris` ALREADY EXIST IN THE GLOSSARY** (written for `gw-023` and `gw-523`), so the
+    pairing rule is already satisfied for both and **`add-glossary.js` would overwrite them in silence** —
+    the Korea `Seoul` scar. **Widen, do not re-key.** Measured: of 3,838 terms only six are ones this
+    collection reaches for, so expect the glossary to grow faster here than anywhere since Korea. **Do not
+    let `Revolution`, `Republic` or `Empire` claim their bare surfaces** — all three are ordinary English
+    words and the corpus is full of other ones.
+  The next card to write is the lowest `fr-NNN` not yet in `data.js`; the index table under "THE PLANNED
+  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - **📖 `docs/art-card-plan.md` — READ BEFORE WRITING AN `art-` CARD.** The **1000-card running order
   for the Visual Art collection** (`art`): every card's number, topic and deck, fixed in advance across
   9 decks and 39 leaf decks. The seventeenth thousand-card plan, the fifth that is not history, and one
@@ -1323,7 +1373,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.41 MB and 49,729 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.41 MB and 49,768 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6594,6 +6644,7 @@ lookup.
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
+| France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
@@ -6611,7 +6662,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (307 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (319 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7572,7 +7623,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 307 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 319 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

@@ -20544,6 +20544,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        does not — the -18 degree tilt and the ring's overhang (x 1.96-22.04 against the disc's 7-17) read
        as a ring at every size. */
     { k: "ringed", n: "Ringed planet", d: '<circle cx="12" cy="12" r="5"/><ellipse cx="12" cy="12" rx="10.5" ry="3.4" transform="rotate(-18 12 12)"/>' },
+    /* Eiffel Tower — France. On THIS SHELF'S OWN CONVENTION: a pagoda stands for China, a torii for
+       Japan, a pyramid for Egypt, an onion dome for Russia, a Doric column for Greece and a wall for
+       Chinese geography, so a monument standing for a nation is what these marks already are — and the
+       anachronism (an 1889 structure over a collection that opens in the Palaeolithic) is the pagoda's
+       and the torii's, not a new cost. A FLEUR-DE-LIS was the other candidate and was refused twice
+       over: it says MONARCHY on a collection whose largest deck is the Revolution, and at 24px it is a
+       blob close to the existing `crown`. A Gallic rooster would be a second bird beside the owl.
+       THE COLLISION IS `pyramid` AND `mountain`, both triangles — and THE FIRST DRAFT LOST TO IT. Drawn
+       with the flare spread evenly over the whole height it read as a TRAFFIC CONE at 24px, which four
+       variants of the same construction all did: a shallow curve plus a ground line plus stripes is a
+       cone, whatever the intent. WHAT FIXES IT IS WHERE THE FLARE IS. The real silhouette is a NEEDLE
+       that splays only in its bottom third, so the control points hold x near 12 from y 12 upward and do
+       all the spreading below y 15 — at y 9.5 the shaft is 2.3 wide and at the base it is 10.4. Keep
+       that, and keep the arch; a straight-sided or evenly-tapered tower is a pyramid with a mast on it.
+       A SECOND PLATFORM WAS DRAWN AND DROPPED, on the laurel wreath's precedent above: four horizontal
+       marks inside 17px is a blob, and the arch plus one platform says the same thing. Looked at at 20,
+       24, 28, 40 and 64px on dark ground and on light, beside `pyramid`, `mountain` and `crown`. */
+    { k: "eiffel", n: "Eiffel Tower", d: '<path d="M5 21h14"/><path d="M6.8 21C9.9 19 11.5 12.5 12 2.5"/><path d="M17.2 21C14.1 19 12.5 12.5 12 2.5"/><path d="M8.2 19.6Q12 17 15.8 19.6"/><path d="M9.8 16.3h4.4"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20625,6 +20643,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     bio: "helix",
     dino: "sauropod",
     astro: "ringed",
+    france: "eiffel",
     korea: "taegeuk",
     /* Visual Art takes the EXISTING `brush`, which is the one collection mark on this shelf that was
        reused rather than drawn. Every other was checked by eye at the 24-28px a deck row draws it at,
@@ -26025,6 +26044,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        and navy, it is plainly a different colour from all four. If it ever needs moving, go darker and
        less red, not brighter. */
     astro:    { bg: "#5E3262" },
+    /* slate blue-grey (France) — MEASURED, and THE FIRST GREY ON THIS SHELF. The obvious colour is the
+       blue of the flag and it cannot be had, for a reason worse than crowding: swept in CIELAB against
+       all 28 hues here, the best bleu de France candidate stands 19.8 from its nearest neighbour — below
+       the median of 20.8 — and THAT NEIGHBOUR IS THE FRENCH LANGUAGE DECK (#107CD0), on the same
+       Collections page one section down. Two things called French, 19.8 apart, is the one collision this
+       shelf must not ship; it is chroma 54 besides, on a shelf whose median is 44. The two other apt
+       families are worse: BORDEAUX tops out at 16.2 against Visual Art's oxblood and the Indonesian
+       deck, LAVENDER at 16.1 against Psychology's plum.
+       What ships is the slate of the ardoise roofs — the Loire, Anjou, Brittany, Normandy — which is
+       national rather than Parisian, and that matters on a collection whose ninth deck opens at "France
+       is not Paris". 20.7 from Greece's Aegean, 22.3 from Philosophy's petrol, 25.9 from Egypt's
+       malachite; L 51, chroma 8, 4.3:1 against white.
+       20.7 IS AT THE MEDIAN AND THAT IS A STATED TRADE, on Philosophy's precedent (petrol shipped at
+       19.8). What buys it is that it adds a FAMILY: there is no grey here at all — WW2's dark iron is a
+       warm brown-grey at L 27 and is the nearest thing to one. AND ONE STEP TOWARD THE OPTIMUM WAS GIVEN
+       UP FOR HUE, which is the opposite of Korea's trade: the best candidate in the band is #6C7F80 at
+       22.4 and sits at hue 203, a neutral grey with a green cast rather than the blue-grey the material
+       is. The magenta and the olive-brass were NOT re-measured, on the standing note above. Looked at as
+       a banner and as its 20% wash beside its four nearest neighbours. */
+    france:   { bg: "#6A7D81" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median

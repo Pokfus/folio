@@ -82,6 +82,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
 | `astronomy-card-plan.md` | Astronomy (`astro`) | `astro-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |
+| `france-card-plan.md` | France (`france`) | `fr-` |
 | `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; the artwork card format is built | `art-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
 | `world-geography-card-plan.md` | World Geography (`geo-world`) — 471 cards, sorted by population | `gw-` |
