@@ -13699,19 +13699,25 @@
       "gloss": "thus; thereby; thereupon"
     },
     "hsk30l5/伙": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | ALL THREE of the harvested sentences were 小伙子, *a young man* — a compound in which 伙 is neither the classifier the card labels it nor any of the senses it glosses — and 小伙子 is itself a headword in this same deck, which is exactly the case the harvest's own filter is written to refuse (*the target must not be swallowed by a longer headword in the same place*). The guard did not fire, and no checker could see it afterwards, `check-example-fit.js` skipping a one-character headword outright. The first sentence's English was wrong besides: *She scorned the boy* over a Chinese whose subject is 他. All three replaced with AUTHORED sentences using 伙 as what the card says it is, the classifier for a band of people; the noun senses are dropped from the gloss and live next door on 伙伴. AUTHORED, and the record says so.",
       "ex": [
         [
-          "他鄙视那个小伙子。",
-          "She scorned the boy."
+          "那伙人看起来很可疑。",
+          "That band of people looked suspicious."
         ],
         [
-          "你去过哪里，小伙子？",
-          "Where have you been, young man?"
+          "一伙年轻人在广场上唱歌。",
+          "A group of young people were singing in the square."
         ],
         [
-          "小伙子，在这儿干嘛呢？",
-          "What are you doing here, young man?"
+          "他们是一伙的。",
+          "They are all in it together."
+        ]
+      ],
+      "senses": [
+        [
+          "measure word",
+          "(for a group or band of people)"
         ]
       ]
     },
@@ -13857,7 +13863,7 @@
       ]
     },
     "hsk30l5/划": {
-      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading.",
+      "why": "A single polyphonic character gives a speech engine no reading to pick, so it falls back to the character's commonest — which is not this card's. check-say-reading.js ranked it; the Say is the shortest ordinary word that pins the reading, as 了 uses 好了 and 差 uses 还差.  ALSO: Taught one reading of a character the corpus uses in two, so the card gave a partial account of its own headword and a reader never met the other reading at all. The second sense is added in the shape 过, 花, 空 and 重 already use — the reading named in front of its own gloss — with the primary reading kept first and unchanged. Every bopomofo syllable is the corpus's own for that reading. | The card carries two readings and a `Say` of 划算, which pins huá — and TWO of its three sentences were the other reading: 划线 and 划掉 are both huà in CC-CEDICT, only 划破 being huá. So the card spoke one reading and illustrated the other twice over. **No checker can see this**: `check-say-reading.js` compares a card's reading against the corpus's distribution for the CHARACTER, and `check-pinyin.js` compares pinyin against bopomofo — neither asks which reading each SENTENCE uses. 划掉 is dropped, being 划线's own sense on paper a second time, and an AUTHORED sentence put in for huá's leading gloss, *to row*; each remaining sentence is tagged with the reading it actually uses. The English on 划破 said *a sharp crack of thunder* over a Chinese that says 闪电, lightning. AUTHORED, and the record says so.",
       "Say": "划算",
       "Pinyin": "huá / huà",
       "Bopomofo": "ㄏㄨㄚˊ / ㄏㄨㄚˋ",
@@ -13872,6 +13878,26 @@
           "verb",
           "to mark off, to delimit; to plan; to transfer"
         ]
+      ],
+      "dropEx": [
+        "划掉错误的单词"
+      ],
+      "ex": [
+        [
+          "他们划船过河。",
+          "They rowed across the river."
+        ]
+      ],
+      "exEn": [
+        [
+          "一道闪电划破天空。",
+          "A flash of lightning split the sky."
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
       ]
     },
     "hsk30l5/利润": {
@@ -14526,12 +14552,19 @@
       ]
     },
     "hsk30l5/机构": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | Two of the card's three sentences were somebody donating money to a 慈善机构 — a charity, and a compound — so the card showed one collocation twice and the headword bare not at all. The third, harvested, is 每年，这个机构组织很多会议的志工挨家挨户地卖弗里斯兰语书, in which 机构组织 runs two words together at the point a reader is looking for the headword and the subject is the sale of Frisian books door to door. One charity sentence is kept and the other two replaced with AUTHORED ones using 机构 on its own. AUTHORED, and the record says so.",
       "ex": [
         [
-          "每年，这个机构组织很多会议的志工挨家挨户地卖弗里斯兰语书。",
-          "Every year, the organisation organises a number of meetings of volunteers who go door-to-door to sell Frisian books."
+          "政府机构下午五点下班。",
+          "Government offices close at five in the afternoon."
+        ],
+        [
+          "这所研究机构成立于1980年。",
+          "This research institute was founded in 1980."
         ]
+      ],
+      "dropEx": [
+        "汤姆捐一半他的薪水给他最喜欢的慈善机构"
       ]
     },
     "hsk30l5/极其": {
@@ -77538,7 +77571,7 @@
       ]
     },
     "hsk30l5/互动": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The English read *He doesn't usually get involved with his fan* — a singular where the Chinese 粉丝 is plural, and *get involved with* where the word is *interact*, which is what the card glosses. Corrected rather than dropped: the fault is on the side a reader is graded against on the reverse card.",
       "ex": [
         [
           "课堂上师生互动很多。",
@@ -77547,6 +77580,12 @@
         [
           "这个展览可以互动。",
           "This exhibition is interactive."
+        ]
+      ],
+      "exEn": [
+        [
+          "他通常不会和粉丝互动。",
+          "He doesn't usually interact with his fans."
         ]
       ]
     },
@@ -79120,12 +79159,19 @@
       ]
     },
     "hsk30l5/缓慢": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 由硬体到软体的转变是缓慢的 uses 硬体 and 软体, which are the TAIWAN words for hardware and software; the mainland, whose script these decks are written in, says 硬件 and 软件. **This is not a character variant and batch 87's word-level sweep cannot see it**: that test asks CC-CEDICT whether a word is marked a variant of another, and 硬体 and 硬件 are two different words rather than two spellings of one. The English disagreed with it as well, *happened gradually* over a Chinese that says *was slow*. Replaced with an AUTHORED sentence. AUTHORED, and the record says so.",
       "ex": [
         [
           "车队在雾中缓慢地前进。",
           "The convoy moved forward slowly in the fog."
+        ],
+        [
+          "经济增长十分缓慢。",
+          "Economic growth is very slow."
         ]
+      ],
+      "dropEx": [
+        "由硬体到软体的转变是缓慢的"
       ]
     },
     "hsk30l5/纪录片": {
@@ -119540,11 +119586,33 @@
       ]
     },
     "hsk30l5/化": {
-      "why": "`globalization` is an American spelling and the decks are authored British, because the site's own switch is one-way: `applySpelling` returns at once under en-GB, so an American spelling written into deck content is what BOTH readers see. `check-british.js` reads 0 over this family whatever the decks contain, `globalis`/`globaliz` not being in app.js's `SPELL_PAIRS` at all — the same blind spot as -logue, -ward and skeptic, and found the same way, by hand. Measured over the nine decks: three sites on three cards, two of them the same sentence carried by two notes.",
+      "why": "`globalization` is an American spelling and the decks are authored British, because the site's own switch is one-way: `applySpelling` returns at once under en-GB, so an American spelling written into deck content is what BOTH readers see. `check-british.js` reads 0 over this family whatever the decks contain, `globalis`/`globaliz` not being in app.js's `SPELL_PAIRS` at all — the same blind spot as -logue, -ward and skeptic, and found the same way, by hand. Measured over the nine decks: three sites on three cards, two of them the same sentence carried by two notes. | The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had nothing in the reader's downloaded deck against thirty-seven words in the collection — the widest gap of any single-character card met so far — because 化 is the deck's commonest suffix.",
       "exEn": [
         [
           "我们反对全球化",
           "We are against globalisation."
+        ]
+      ],
+      "compounds": [
+        [
+          "化学",
+          "huàxué",
+          "chemistry"
+        ],
+        [
+          "文化",
+          "wénhuà",
+          "culture; civilisation"
+        ],
+        [
+          "变化",
+          "biànhuà",
+          "to change; a change"
+        ],
+        [
+          "化妆",
+          "huàzhuāng",
+          "to put on make-up"
         ]
       ]
     },
@@ -126711,6 +126779,214 @@
           "西湖",
           "Xī Hú",
           "West Lake, at Hangzhou"
+        ]
+      ]
+    },
+    "hsk30l5/户外": {
+      "why": "她没有常到户外 is not Chinese: 没有 does not negate a habitual 常, which takes 不 — 她不常到户外去 — so the sentence reads as a word-for-word rendering of *She doesn't get outdoors much*. The gloss was English-adjectival too, *outdoor* over a Chinese NOUN meaning *the outdoors*, which is what all three sentences use it as. AUTHORED, and the record says so.",
+      "gloss": "the outdoors; outdoor",
+      "dropEx": [
+        "她没有常到户外"
+      ],
+      "ex": [
+        [
+          "天气好的时候他们在户外吃饭。",
+          "When the weather is good they eat outdoors."
+        ]
+      ]
+    },
+    "hsk30l5/花费": {
+      "why": "The card was labelled a VERB and glossed a NOUN: *expense*. All three of its sentences are the verb — 他一个月花费多少, 要花费时间, 会花费我们很多钱 — so the label was right and the gloss was answering a different question. CC-CEDICT gives both; the gloss is put into the part of speech the card actually teaches.",
+      "gloss": "to spend; to cost"
+    },
+    "hsk30l5/滑": {
+      "why": "The card was labelled *verb / adjective* and glossed the adjective alone, *slippery* — and its verb, *to slip, to slide*, is the sense CC-CEDICT gives first. 你玩滑板吗 is 滑板 besides, a skateboard, so the character sat inside a compound; it is replaced by an AUTHORED sentence in which somebody slips. The English on 地面仍然湿滑 had dropped the word entirely, reading *The ground is still wet* over a Chinese that says wet AND slippery. The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had nothing in the reader's downloaded deck against seven words in the collection.",
+      "gloss": "slippery; to slip; to slide",
+      "exEn": [
+        [
+          "地面仍然湿滑。",
+          "The ground is still wet and slippery."
+        ]
+      ],
+      "dropEx": [
+        "你玩滑板吗"
+      ],
+      "ex": [
+        [
+          "他在冰上滑了一跤。",
+          "He slipped over on the ice."
+        ]
+      ],
+      "compounds": [
+        [
+          "滑冰",
+          "huábīng",
+          "to skate; skating"
+        ],
+        [
+          "滑雪",
+          "huáxuě",
+          "to ski; skiing"
+        ],
+        [
+          "光滑",
+          "guānghuá",
+          "smooth; glossy"
+        ],
+        [
+          "滑板",
+          "huábǎn",
+          "a skateboard"
+        ]
+      ]
+    },
+    "hsk30l5/话题": {
+      "why": "他转变了话题 and 我试图改变话题 are the same act twice, and their English said so — *He changed the topic of conversation* and *I tried to change the subject*. The first is dropped rather than the second, 转变话题 being the weaker collocation of the two: Chinese changes a topic with 改变 or 转换, where 转变 is a change of nature rather than of subject. AUTHORED, and the record says so.",
+      "dropEx": [
+        "他转变了话题"
+      ],
+      "ex": [
+        [
+          "这个话题很敏感。",
+          "This is a sensitive topic."
+        ]
+      ]
+    },
+    "hsk30l5/缓解": {
+      "why": "药物缓解了他的痛苦 and 你吃了这药，胃痛就会缓解很多 are both a medicine easing a pain, so two of three examples were one situation. The longer is dropped and an AUTHORED sentence put in for the word's other everyday use, easing a pressure rather than a pain. AUTHORED, and the record says so.",
+      "dropEx": [
+        "你吃了这药，胃痛就会缓解很多"
+      ],
+      "ex": [
+        [
+          "政府采取措施缓解交通压力。",
+          "The government took steps to ease traffic pressure."
+        ]
+      ]
+    },
+    "hsk30l5/黄瓜": {
+      "why": "她床头有一根黄瓜 — *she has a cucumber at her bedside* — is a sex joke, which is what a subtitle corpus contains and what `check-coarse.js` cannot see, no word in it being coarse. Replaced with an AUTHORED sentence about the vegetable. AUTHORED, and the record says so.",
+      "dropEx": [
+        "她床头有一根黄瓜"
+      ],
+      "ex": [
+        [
+          "黄瓜可以做沙拉。",
+          "Cucumber can be used in a salad."
+        ]
+      ]
+    },
+    "hsk30l5/黄金": {
+      "why": "黄金比铁重 and 哪个比较重，铅还是黄金？ are the same question twice — the density of gold against another metal — so two of three examples taught a reader the same thing about the same property. Replaced with an AUTHORED sentence about the material rather than about its weight. AUTHORED, and the record says so.",
+      "dropEx": [
+        "哪个比较重，铅还是黄金"
+      ],
+      "ex": [
+        [
+          "这条项链是黄金做的。",
+          "This necklace is made of gold."
+        ]
+      ]
+    },
+    "hsk30l5/灰": {
+      "why": "The gloss leads on *grey* and NOT ONE of the card's three sentences was a colour: 吃灰 is dust and slang for being left behind, 积了灰 is dust, 火山灰 is ash. 他会让你吃灰的 is dropped — it is the weakest of the three and its English, *He will make you eat dirt*, is a different idiom again — and an AUTHORED sentence put in for the colour the gloss names first. The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had nothing in the reader's downloaded deck against three words in the collection.",
+      "dropEx": [
+        "他会让你吃灰的"
+      ],
+      "ex": [
+        [
+          "天空是灰的。",
+          "The sky is grey."
+        ]
+      ],
+      "compounds": [
+        [
+          "灰色",
+          "huīsè",
+          "grey; the colour grey"
+        ],
+        [
+          "灰尘",
+          "huīchén",
+          "dust"
+        ],
+        [
+          "烟灰",
+          "yānhuī",
+          "cigarette ash"
+        ],
+        [
+          "灰心",
+          "huīxīn",
+          "to lose heart; to be discouraged"
+        ]
+      ]
+    },
+    "hsk30l5/挥": {
+      "why": "她挥了挥手 was translated *She waved her arms*, where 手 is the hand. Two of the card's three sentences were four-character set phrases besides — 挥金如土 and 挥之不去 — and the first of them sat awkwardly as a noun behind 自己的; it is dropped for an AUTHORED sentence showing the *to wield* the gloss names and none of the three did. The card glosses its character and stops, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. AUTHORED, and the record says so; every row's reading and gloss was checked against CC-CEDICT before it was written. This character had nothing in the reader's downloaded deck against four words in the collection.",
+      "exEn": [
+        [
+          "她挥了挥手。",
+          "She waved her hand."
+        ]
+      ],
+      "dropEx": [
+        "他后悔自己的挥金如土"
+      ],
+      "ex": [
+        [
+          "他挥起球拍打了一球。",
+          "He swung his racket and hit the ball."
+        ]
+      ],
+      "compounds": [
+        [
+          "挥手",
+          "huīshǒu",
+          "to wave one's hand"
+        ],
+        [
+          "指挥",
+          "zhǐhuī",
+          "to command; to conduct (an orchestra)"
+        ],
+        [
+          "发挥",
+          "fāhuī",
+          "to bring into play; to give full scope to"
+        ],
+        [
+          "挥霍",
+          "huīhuò",
+          "to squander money"
+        ]
+      ]
+    },
+    "hsk30l5/回收": {
+      "why": "The gloss read *retrieve; recover; reclaim* and all three of the card's sentences are RECYCLING — 她回收电池, 几乎都可以回收, 我们必须开始考虑回收 — which is the sense CC-CEDICT gives first and the gloss did not name at all. The card defined the three senses it does not show and omitted the one it does.",
+      "gloss": "to recycle; to reclaim; to recover"
+    },
+    "hsk30l5/汇率": {
+      "why": "汇率是多少？ and 今天的汇率是多少？ are one sentence with two characters in front of it, and their English differed by the word *today*. Replaced with an AUTHORED sentence about what the rate does rather than what it is. AUTHORED, and the record says so.",
+      "dropEx": [
+        "今天的汇率是多少"
+      ],
+      "ex": [
+        [
+          "汇率的变化影响出口。",
+          "Changes in the exchange rate affect exports."
+        ]
+      ]
+    },
+    "hsk30l5/婚礼": {
+      "why": "他们明天举行婚礼 and 他们的婚礼将在明天举行 are the same sentence in the active and the passive, with the same three people getting married on the same day; their English — *Their wedding is tomorrow* and *Their wedding will be tomorrow* — differs by a tense. Two of three examples. AUTHORED, and the record says so.",
+      "dropEx": [
+        "他们的婚礼将在明天举行"
+      ],
+      "ex": [
+        [
+          "我参加了他们的婚礼。",
+          "I went to their wedding."
         ]
       ]
     }

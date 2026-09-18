@@ -625,6 +625,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 391–420 (各行各业 → 故乡), deck order, plus a WORD-level variant sweep of the whole corpus | 14 + 15 | **CC-CEDICT marks whole WORDS as variants, and batch 77's character sweep is blind to every one of them** |
 | 2026-09-18 | `hsk30l5` notes 421–450 (挂号 → 过于), deck order | 20 | **a sentence built to be meaningless, standing first on its card — Chomsky's colourless green ideas** |
 | 2026-09-18 | `hsk30l5` notes 451–480 (哈 → 蝴蝶), deck order | 20 | **a card not one of whose three sentences used its character as a word — two transliterated place names and a compound** |
+| 2026-09-18 | `hsk30l5` notes 481–510 (胡同 → 机构), deck order | 18 | **a card that SPOKE one reading of its character and ILLUSTRATED the other twice over, which no checker here can see** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -8163,3 +8164,99 @@ still-ambiguous 1; shared-gloss groups 322 unchanged — so neither the 合 nor 
 collision; one-sided hints still 0; pinyin clean; **example-fit 142 → 141**, the one cleared being
 河流's split headword; senses 151 unchanged; british 0; 34,596 blocks with spoken == visible on every
 one; **sense-tagged 666 → 672**, the six being 合's three and 合影's three; `build-lang-decks.js` re-run.
+
+## Batch 90 — hsk30l5 notes 481–510 (胡同 → 机构)
+
+Thirty consecutive notes of HSK Level 5 in deck order, the 胡同-to-机构 run. **Eighteen cards changed.**
+Two of them are findings of a kind this audit has not met before, and both are invisible to every
+checker in `.claude/decks/`.
+
+### A card that spoke one reading and illustrated the other
+
+**划 carries two readings, a `Say` of 划算 that pins huá — and two of its three sentences were huà.**
+划线 and 划掉 are both **huà** in CC-CEDICT, only 划破 being huá; so a reader pressing the speaker heard
+one reading of the character and then read two sentences using the other, with nothing on the card
+saying which was which.
+
+**No checker here can see this, and it is worth being precise about why.** `check-say-reading.js` asks
+what reading a speech engine will guess for a card's own headword, measured against how the corpus uses
+that CHARACTER — a question about the card, not about its sentences. `check-pinyin.js` compares the
+card's pinyin against its bopomofo, which is a question about one field against another. **Neither asks
+which reading each EXAMPLE uses**, and there is no field in which that could be stated except the
+`exSense` tags, which is what this card now carries: 划线 tagged huà, and 划破 and a new rowing sentence
+tagged huá. 划掉 was dropped for being 划线's own sense on paper a second time, and the English on 划破
+said *a sharp crack of thunder* over a Chinese that says 闪电 — lightning.
+
+### The harvest's own guard failing, three times on one card
+
+**伙's three sentences were all 小伙子** — *a young man*, a compound in which 伙 is neither the classifier
+the card labels it nor any of the senses it glossed. All three were **added by an earlier batch of this
+audit**, harvested from Tatoeba, and the harvest's own filter is written in terms that would have caught
+them: *the target must not be swallowed by a longer headword in the same place*. **小伙子 is itself a
+headword in this same deck.** The guard did not fire, nothing reported it afterwards
+(`check-example-fit.js` skips a one-character headword outright), and the first sentence's English was
+wrong besides — *She scorned the boy* over a Chinese whose subject is 他.
+
+All three replaced with sentences using 伙 as what the card says it is. **The noun glosses were dropped
+rather than illustrated**: 伙 standing alone is the classifier, and *companion, partner* lives next door
+on 伙伴, which is the very next card.
+
+### Four glosses answering a different question from their own card
+
+**花费 was labelled a VERB and glossed a NOUN** — *expense* — while all three of its sentences are the
+verb. **回收 glossed *retrieve; recover; reclaim* and every one of its sentences is RECYCLING**, which is
+the sense CC-CEDICT gives first and the gloss did not name at all: the card defined the three senses it
+does not show and omitted the one it does. **滑** was labelled *verb / adjective* and glossed the
+adjective alone. **户外** was glossed *outdoor*, an English adjective, over a Chinese noun meaning *the
+outdoors*, which is what all three sentences use it as.
+
+### Taiwan vocabulary in a simplified deck
+
+**缓慢's first sentence used 硬体 and 软体** — the Taiwan words for hardware and software, where the
+mainland says 硬件 and 软件. **Batch 87's word-level variant sweep cannot see this**: that test asks
+CC-CEDICT whether a word is marked a variant of another, and 硬体 and 硬件 are two different words rather
+than two spellings of one. This is the same shape as batch 86's 著 one level up — a regional difference
+the dictionary does not file as a variant at all.
+
+### Five near-repeats, and the tell each time
+
+**婚礼 had one sentence in the active and the passive** — 他们明天举行婚礼 and 他们的婚礼将在明天举行, the same
+three people marrying on the same day. **汇率 had 汇率是多少？ and 今天的汇率是多少？**, one sentence with two
+characters in front of it. **话题 had 他转变了话题 and 我试图改变话题**, and their own English said so:
+*He changed the topic of conversation* and *I tried to change the subject*. **缓解 had two medicines
+easing two pains.** **黄金 had two questions about the density of gold against another metal.** Every one
+is invisible to the coverage checker's repeat test, which compares sentences exactly.
+
+**机构 is the same fault with a compound in it**: two of three sentences were somebody donating money to
+a 慈善机构, so the card showed one collocation twice and the headword bare not at all. Its third was
+harvested and garbled — 这个机构组织很多会议的志工…… runs 机构 and 组织 together at the point a reader is
+looking for the headword, and its subject is the door-to-door sale of Frisian books.
+
+### A sex joke, and four more faults on the English
+
+**黄瓜's third sentence was 她床头有一根黄瓜** — *she has a cucumber at her bedside* — which is what a
+subtitle corpus contains and what `check-coarse.js` cannot see, no word in it being coarse.
+
+On the English side: 互动's *He doesn't usually get involved with his fan*, a singular over a plural and
+a paraphrase over the word the card glosses; 挥's *She waved her arms* over 手, the hand; 滑's *The
+ground is still wet* over a Chinese saying wet AND slippery, which drops the headword from the
+translation entirely; and 缓慢's *happened gradually* over a Chinese that says *was slow*.
+
+### Four single-character cards gained a `Compounds` section
+
+滑, 化, 灰 and 挥, none of them with anything in the reader's downloaded deck. **化's gap is the widest
+any single-character card has shown** — nothing downloaded against thirty-seven words in the collection
+— because 化 is the deck's commonest suffix. **灰 also needed a sentence**: its gloss leads on *grey* and
+not one of its three examples was a colour, 吃灰 and 积了灰 being dust and 火山灰 ash.
+
+### What was read and left
+
+**Twelve cards were read and left untouched**: 胡同, 话费, 画面, 化学, 环节, 恢复, 灰色, 伙伴, 火锅,
+或是, 货物 and 或许. 胡同's third sentence defines the word rather than using it, which is unusual and is
+right here — a 胡同 is a Beijing thing and a reader outside China has no picture of one.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; shared-gloss groups 322 unchanged — so none of the four gloss rewrites made a new
+collision; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged; british 0;
+34,596 blocks with spoken == visible on every one; **sense-tagged 672 → 675**, the three being 划's;
+`build-lang-decks.js` re-run.
