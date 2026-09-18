@@ -1136,6 +1136,119 @@ of the Nerl church for `ru-088`, and the *Prince Dmitry (Vsevolod Yurievich)* po
 both public domain and both plainly of their subject. **Look at each before installing it.**
 
 
+### What carried this batch — `ru-091` to `ru-100`
+
+The first ten of `ru-horde`, and the first batch in the collection whose subjects were **already
+carded in World History**. `wh-593 Genghis Khan`, `wh-594 Mongol Empire` and `wh-598 Golden Horde`
+exist, with the glossary terms they pair with; so do `ru-012 Huns` / `wh-589` and `ru-016 Khazars` /
+`wh-592`, which is the precedent. **A SHARED ANSWER TERM IS WRITTEN AS A DELIBERATE PAIR, NOT
+AVOIDED** — the Biology plan's rule for its eighteen shared titles, applied here: World History tells
+the empire through Marco Polo and the relay posts, and these three tell it as the power that arrived
+in Rus', so `ru-091` turns on the chronicler who did not know who the attackers were and `ru-092` on
+the two commanders sent round the Caspian. **AND THE TERM IS WRITTEN ONCE**: `Mongol_Empire`,
+`Genghis_Khan` and `Golden_Horde` were reused untouched, which is `ru-036`'s rule (`add-glossary.js`
+overwrites in silence, so the keys were grepped in their own slug form first). `Mongol_conquests`,
+`Chinggisids` and `Pax_Mongolica` exist too and were left alone.
+
+**THREE LINES ARE ANSWERED BY `siege of X` WHERE THE PLAN WROTE `sack of X`, AND ONE OF THE THREE HAD
+NO CHOICE.** *The sack of Kyiv in 1240* cannot be answered by **sack of Kyiv**: that surface is
+already claimed, as an alias, by `Sack_of_Kiev_(1169)` — `ru-081`, nine batches back — so the answer
+is **siege of Kyiv** keyed on the article slug `Siege_of_Kiev_(1240)`, with `siege of Kyiv` and `siege
+of Kiev` as its aliases (`ru-018`'s `Atil`/`Itil` arrangement). Ryazan and Vladimir took the same form
+for consistency and because *Siege of Ryazan* and *Siege of Vladimir* are what the encyclopedia heads
+them, with `sack of Ryazan` carried as an alias. **The plan's own lines are unchanged**: a line is a
+subject to research, and these three subjects have not moved.
+
+**THE TWO PRIMARY SOURCES CARRY THE WHOLE BATCH AND BOTH ARE PAGE-MAPPED.** The **Novgorod First
+Chronicle** in Michell and Forbes (1914), the edition `ru-071`–`ru-090` already use: the Kalka is
+pp. 64–66 and the invasion of 1237–38 pp. 81–84, read off the running heads, with the chronicle's own
+index confirming both. What it gives is exact where the modern literature is general — the demand for
+*one-tenth of everything: of men and Knyazes and horses*, the princes' answer that *only when none of
+us remain then all will be yours*, **Ryazan invested on 16 December and taken on the 21st**, the
+tonsure inside the Church of the Holy Mother of God, the grand prince run down on the Sit with *God
+knows how he died*, and the turn for home *within 100 versts of Novgorod*. **The second is
+`journeyofwilliam00ruys` on archive.org**, Rockhill's Hakluyt volume of 1900, which despite its title
+prints **Carpini's own narrative** (pp. 1–32) and **Benedict the Pole's** (pp. 33–39) as well as
+Rubruck's. Carpini pp. 3–4 is the ride to Kyiv and the sentence the invasion cards need — the greater
+part of the men of Rus' killed or taken, so that nobody could resist Lithuanian raiders; p. 12 is the
+skulls and bones lying *like cattle-dung*; pp. 8 and 10–11 are Batu, more powerful than any prince but
+the emperor, the two fires, and **the linen tents that had belonged to the king of Hungary**, which
+ties `ru-094` to `ru-099` in one line of eyewitness prose. **Both are cited author-first or
+title-first and never by their translator**, and `the chronicle of novgorod` was already in
+`check-cards.js`'s `ANCIENT`. **CARPINI AND BENEDICT ARE NOT, AND THAT IS WORTH KNOWING BEFORE THE NEXT
+BATCH**: `John of Pian de Carpine` yields the surname *Carpine* to rule 1's last-token mechanism, so a
+card citing him in **three** of its sources would be reported as resting on one modern scholar, and a
+question naming him would trip rule 2. No card here does either — `ru-094` is the heaviest at two — so
+nothing was added to the list; a card that wants a third passage of him needs the row first.
+
+**THE MODERN HALF IS ONE JOURNAL, AND IT IS THE JOURNAL OF RECORD.** *Golden Horde Review*
+(`goldhorde.ru`, ISSN 2313-6197) is open access throughout, Crossref-registered with full given names,
+and publishes exactly this subject: Astaykin on the Kalka's geography, Pow on Jebe's last campaign,
+Stavitsky on the Volga Bulgar battle, Vorotyntsev twice on Ryazan, Fomina on the dioceses, Galimov on
+the hierarchy, Gorsky on the summonses of 1242–43, Halperin on the state of the English-language
+field, Ivanov on the archaeology of the Jochid steppe, Drobyshev on Mongol imperial ideas in Russian
+sources, Pochekaev on the Yasa, Luniak on the western imagination of Batu, and Somer, Kurstjens and
+Szabó on 1241. **Search it by ISSN rather than by free text**: `api.crossref.org/journals/2313-6197/works`
+with `query.bibliographic` answers in one request where a corpus-wide search returns Ryazan medical
+journals. Two things about its records. **Every one carries a PHANTOM AUTHOR ENTRY** — an element with
+an empty name — which is the journal's registration quirk and not a fault; the shipped `ru-074`
+citation of Seleznev has it too and passes `check-citations.js`. And **an English abstract is not
+guaranteed**: Narozhnyi's 2017 piece on the limits of the 13th-century catastrophe has none on the
+journal's site, so it was dropped rather than cited for what its title implies.
+
+**FOUR FINDINGS ABOUT GETTING AT SOURCES, MEASURED HERE.** `akjournals.com` answers **403**, so
+Hautala's *Acta Orientalia* article on the beginning of the western campaign — the obvious source for
+the 1235 council that voted it — is shut, and the council is therefore not claimed on any card in this
+batch. `czasopisma.uni.lodz.pl` (Sebők, *Faces of War*) and `archeologickerozhledy.cz` (Dobai on the
+Mohi encampments) are both open with a PDF and a Creative Commons line. **`en.wikipedia.org/w/api.php`
+RETURNS 429 ON A FAST SWEEP** — the BUSY state `check-reach.js` records — and since a foreground
+`sleep` is blocked in this sandbox the answer is `curl --retry 4 --retry-delay 6 --retry-all-errors`,
+which waits inside curl. And **`api.crossref.org/works/<doi>` is what turns a page byline of initials
+into a Chicago given name**: the journal prints *A.A. Astaykin* and Crossref holds *Andrey A.
+Astaykin*, while for Pochekaev and Galimov it holds initials too, so those are cited as initials
+rather than expanded — the one place a fabricated given name hides.
+
+**TWO CARDS SHIP WITH NO LOCATOR AND THE REASON IS A DISPUTE, NOT A GAP.** `ru-094` Batu Khan and
+`ru-100` Golden Horde both want **Sarai**, and Sarai has no published coordinate to fetch: the English
+article carries none, its Wikidata item (Q477152) has no `P625`, and Selitrennoye — the village at the
+site usually identified with Sarai-Batu — has none either. That is not an accident of the data.
+Folio's own `Golden_Horde` term says the written sources use the name for more than one place and that
+the excavated sites have not settled which was meant, so **a gold dot labelled *Sarai* would assert an
+identification the card itself declines to make**. The other eight carry one, all fetched: Karakorum,
+Burkhan Khaldun, the Kalka, Torzhok, Old Ryazan (Wikidata Q4439776, the historic site rather than the
+modern city 50 km away), Vladimir, Kyiv and Mohi.
+
+**`ru-098` STATES THE YEAR AND NOT THE DAY, WHICH IS THE HONEST FORM.** The chronicles give different
+days for the fall of Kyiv and nothing openable from here adjudicates between them, so the date line
+reads *Taken | 1240 CE* over *Papal mission | February 1246 CE* — the second row being a date the
+sources do fix, and the card's real evidence. `cardYears` reads 1240 and 1246 and the card sorts at
+1240. **Every sort year in the batch was read back against `cardYears`** and the run is 1206, 1162,
+1223, 1237, 1237, 1237, 1238, 1240, 1241, 1242; `ru-092` sorts at his birth, which is right for a
+person, and the collection's `CE`-on-every-date rule was followed throughout even though every year
+here is over 1000 and parses as a plain number.
+
+**`check-questions.js` CAUGHT A PHRASING NOTHING ELSE WOULD HAVE.** `ru-091`'s first extra opened
+*Its soldiers counted in tens and ten thousands, the ___ …* — a possessive pronoun whose only
+antecedent is the hidden answer, which is three words saying nothing until the reader has read past
+the blank. It was rewritten to open on *An army counted in tens and ten thousands*, through
+**`add-questions.js`**, which is the writer for an extra phrasing where `fix-field.js` refuses an
+array.
+
+**AND ONE AUTO-LINK WAS JUDGED AND KEPT.** `check-gloss-links.js --card=ru-092` reports *coin* →
+`Coinage`, a term tagged `greece` and `anatolia` on a card tagged `asia`. Read, the link is right: the
+term's own first sentence is a general definition of what coinage is, and its Greek and Anatolian tags
+describe where the western series began rather than what the word means. A reader who taps it from a
+sentence about who could strike coin in his own name gets the definition they wanted.
+
+**TEN MORE CARDS AND SEVEN MORE TERMS SHIP WITHOUT A PICTURE, and this batch has an unusually strong
+lead for the pass that fixes it.** The **Illustrated Chronicle of Ivan the Terrible** (the *Litsevoy
+letopisny svod*, 1560s–70s) illustrates the invasion episode by episode — Ryazan, Vladimir, the Sit,
+Kyiv — in miniatures that are public domain by age and are on Commons; so does the western manuscript
+tradition for Legnica and Mohi. Each is a picture OF the card's own subject rather than furniture, so
+the fetch is worth making, but it is a fetch-and-look pass on thirty or forty candidates and belongs
+in its own batch. Thirty of the collection's hundred cards are now uncaptioned.
+
+
 ---
 
 # The list

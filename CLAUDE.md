@@ -449,7 +449,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
   the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
-  under "Generating cards & glossary entries". **`ru-001` to `ru-090` have shipped** (Sep 2026) — the
+  under "Generating cards & glossary entries". **`ru-001` to `ru-100` have shipped** (Sep 2026) — the
   Scythian and Sarmatian steppe, then the Goths, Huns, Avars, Bulgars, Khazars, Magyars and Pechenegs, then
   the Slavs, the Vyatichi, Slavic paganism, Perun, the Merya, the Balts, the Varangians and the Rus', and
   then the Normanist controversy, Staraya Ladoga, Gnyozdovo and the two trade routes, which **FINISHES
@@ -463,8 +463,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Liubech, Vladimir Monomakh, his Instruction, the Cumans, Mstislav the Great, the Novgorod Republic, the
   veche, Yugra, Vladimir-Suzdal and Andrey Bogolyubsky, and then the sack of Kyiv, Vsevolod the Big
   Nest, Galicia–Volhynia, Polotsk, Chernigov, the Tale of Igor's Campaign, the architecture of Rus', the
-  Nerl church, Rus' in Byzantine service and the modern claim on the Kievan inheritance — and
-  the collection is live with its 27 empty decks
+  Nerl church, Rus' in Byzantine service and the modern claim on the Kievan inheritance, which
+  **FINISHES `ru-kievan` at its full 55 cards**; `ru-horde` then opens with the Mongol Empire, Genghis
+  Khan, the Kalka, Batu, the invasion of Rus', Ryazan, Vladimir, Kyiv in 1240, the invasion of central
+  Europe and the Golden Horde — and
+  the collection is live with its 26 empty decks
   coming-soon automatically, `isComingSoon` being true for a node holding no card. **Ten lines are now
   answered by something other than their own words, and the reasons are four rules**: `ru-017` is answered by the **Khazar
   Correspondence** rather than by "the Khazar conversion to Judaism", `ww2-140`'s shape — a line naming a
@@ -580,10 +583,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `split-abstract.js` splits on a SINGLE space after the stop, so a stray trailing space inside an
   abstract's sentence merges it with the next one — and the error names the `V. Gordon Childe` initials
   guard, which sends you looking for a lone capital that is not there. **Look for a double space first.**
+  **THE SEVENTH TEN OPEN `ru-horde`, AND THREE OF THEM ARE SUBJECTS WORLD HISTORY HAS ALREADY CARDED.**
+  `ru-091 Mongol Empire`, `ru-092 Genghis Khan` and `ru-100 Golden Horde` share their answer terms with
+  `wh-594`, `wh-593` and `wh-598`, as `ru-012 Huns` and `ru-016 Khazars` already do with `wh-589` and
+  `wh-592`. **A SHARED ANSWER TERM IS WRITTEN AS A DELIBERATE PAIR RATHER THAN AVOIDED** — Biology's rule
+  for its eighteen shared titles — so World History tells the empire through Marco Polo and the relay
+  posts while these tell it as the power that arrived in Rus', **and the glossary term is written ONCE**:
+  all three existed, cited, and were reused untouched. **GREP THE KEYS BEFORE THE RESEARCH**, which is
+  `ru-036`'s rule, since `add-glossary.js` overwrites in silence.
+  **AND GREP THE ALIASES TOO, BECAUSE AN ANSWER TERM'S SURFACE CAN ALREADY BE SPOKEN FOR.** `ru-098`
+  *The sack of Kyiv in 1240* cannot be answered by **sack of Kyiv**: `Sack_of_Kiev_(1169)` — `ru-081`,
+  one batch back — claims that surface as an alias, so the card is answered by **siege of Kyiv** keyed on
+  the real slug `Siege_of_Kiev_(1240)`, `ru-018`'s `Atil`/`Itil` arrangement. Ryazan and Vladimir took
+  the same `siege of X` form, which is what the encyclopedia heads them; **the plan's own lines are
+  unchanged**, the subject not having moved.
+  **A LOCATOR IS REFUSED WHERE THE IDENTIFICATION IS ITSELF DISPUTED, WHICH IS A DIFFERENT REASON FROM
+  A MISSING COORDINATE.** `ru-094` Batu Khan and `ru-100` Golden Horde both want **Sarai**, and no
+  published coordinate exists to fetch — not on the English article, not on its Wikidata item, not on
+  Selitrennoye. That is not an accident: Folio's own `Golden_Horde` term says the sources use the name
+  for more than one place and the excavated sites have not settled which, so **a gold dot labelled
+  *Sarai* would assert an identification the card declines to make.** The other eight carry one.
+  **AND `ru-098` STATES THE YEAR AND NOT THE DAY.** The chronicles give different days for the fall of
+  Kyiv and nothing openable adjudicates, so the line reads *Taken | 1240 CE* over *Papal mission |
+  February 1246 CE* — a date the sources do fix, and the card's real evidence.
+  **THE JOURNAL OF RECORD FOR THIS DECK IS ONE JOURNAL, AND IT IS SEARCHED BY ISSN.** *Golden Horde
+  Review* (`goldhorde.ru`, ISSN 2313-6197) is open access throughout and publishes exactly this subject;
+  `api.crossref.org/journals/2313-6197/works` with `query.bibliographic` answers in one request where a
+  corpus-wide search returns Ryazan medical journals. Two things about its records: **every one carries a
+  PHANTOM AUTHOR ENTRY** with an empty name, which is a registration quirk and not a fault (the shipped
+  `ru-074` citation of Seleznev has it and passes `check-citations.js`); and **an English abstract is not
+  guaranteed**, so a piece whose content cannot be read is dropped rather than cited for what its title
+  implies. `akjournals.com` answers **403**, which is why the 1235 council that voted the western
+  campaign is claimed on no card here.
+  **AND A WIKIPEDIA-API SWEEP RETURNS 429, WHICH IS `curl --retry`'s JOB RATHER THAN A WALL.** A dozen
+  title lookups in a few seconds rate-limits the host — the BUSY state `check-reach.js` records — and a
+  foreground `sleep` is blocked in this sandbox, so `curl --retry 4 --retry-delay 6 --retry-all-errors`
+  is what waits. **Crossref is also what turns a page byline of initials into a Chicago given name**:
+  the journal prints *A.A. Astaykin* and Crossref holds *Andrey A. Astaykin*, while for Pochekaev and
+  Galimov it holds initials too, so those are cited as initials rather than expanded.
   **AND `check-gloss-links.js` NO LONGER FINISHES OVER THE WHOLE CORPUS** — 3,903 terms and 13,237
   surfaces, still running at twenty minutes — so **run it `--card=<id>`**, which answers in a second.
   **📖 `docs/russia-card-plan.md` — READ BEFORE WRITING A
-  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-090`: the open sources
+  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-100`: the open sources
   that carry the collection and Léger's own pagination for the chronicle passages, the rule that a
   Russian-language journal is cited in Russian
   because that is the title Crossref holds, the `check-cards.js` rule 6 gap that no single Cyrillic row
@@ -6154,7 +6195,7 @@ lookup.
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
-| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 90 cards, contiguous — next is `ru-091` |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 100 cards, contiguous — next is `ru-101` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
