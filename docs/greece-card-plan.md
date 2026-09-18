@@ -1417,15 +1417,30 @@ the alias are the same string.
              `narthex` as an alias — the bare word occurs nowhere else in the corpus, so it is safe to claim
     gr-910  Pandora
     gr-911  The Ages of Man
-    gr-912  Deucalion's flood
+    gr-912  Deucalion's flood  — RETITLED in the writing: answered by `Deucalion` rather than by the event,
+             on the rule a line naming an event wants the thing the event is about; the card's own last two
+             sentences state that the flood story is unknown to Hesiod and reaches Greece perhaps only in the
+             sixth century BCE, which is the one thing about it worth a reader's memory
     gr-913  The Gigantomachy
     gr-914  Typhon
-    gr-915  The Muses
-    gr-916  The Moirai
-    gr-917  The Erinyes
-    gr-918  Nymphs
-    gr-919  Satyrs and centaurs
-    gr-920  The Greek underworld
+    gr-915  The Muses  — the count of nine is stated as CONTESTED, not as the fact: Pausanias' three
+             (Melete, Mneme, Aoede) and the measured rarity of nine in Archaic and Classical evidence are
+             both on the card, which is what the sources carry
+    gr-916  The Moirai  — no locator: the Fates happen nowhere, and the two genealogies inside one poem of
+             Hesiod are the card's subject
+    gr-917  The Erinyes  — no locator either, and NOT because the card has no place: the Areopagus is
+             `gr-899`'s dot and Delphi is `gr-897`'s, so a third card on the same two pixels would only
+             crowd the collection's own map
+    gr-918  Nymphs  — answered by `nymph`, the singular, as `gr-909` is by `narthex`; its dot is ITHACA
+             rather than the Polis cave above Stavros, which has no article of its own to read a published
+             coordinate off, and a hand-typed pair is the one error nothing downstream can see
+    gr-919  Satyrs and centaurs  — a card has ONE answer term, so the line was resolved to `centaur`, which
+             the corpus had nothing on; the satyr is on the card as the OTHER man-horse, contrasted rather
+             than grouped with it, and the satyr play already has `gr-605` and its own glossary term
+    gr-920  The Greek underworld  — keyed `Greek_underworld` and DELIBERATELY WITHOUT the bare alias
+             `underworld`: measured over the corpus, the word appears on a Chinese and a Maya card
+             (`cnh-031`, `cnh-032`, `wh-426`), so claiming it would auto-link two other continents' lands
+             of the dead to the Greek one. No locator: the place is nowhere on any map Folio draws
 
 ### Heroes and the epic cycle — `gr-heroes`
 
