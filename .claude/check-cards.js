@@ -219,7 +219,7 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    citation-count rule the six names beside her were added for, and the same list answers both: rule 2
    skips a name `ANCIENT` matches.  Anchored on the whole name, as the seven full forms above are, so
    it cannot excuse a living scholar called Anna: the corpus cites several, none of them Comnena. */
-const ANCIENT = /^(anna comnena|leo the deacon|liudprand of cremona|constantine vii porphyrogenitus|chronique dite de nestor|thietmar of merseburg|the chronicle of novgorod|ibn fadl allah al-[\u02bf\u2018\u2019']?umari|ibn battuta|ibn khaldun|marco polo|diodorus siculus|lucius ampelius|velleius paterculus|pliny the elder|pliny the younger|ammianus marcellinus|eusebius of caesarea|memnon of heracleia|suda on line|herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|antiphon|lucian|pomponius|sun tz[uŭ]|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|augustus|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ampelius|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)(?![A-Za-z])/i;
+const ANCIENT = /^(anna comnena|leo the deacon|liudprand of cremona|constantine vii porphyrogenitus|chronique dite de nestor|thietmar of merseburg|the chronicle of novgorod|ibn fadl allah al-[\u02bf\u2018\u2019']?umari|ibn battuta|ibn khaldun|marco polo|diodorus siculus|lucius ampelius|velleius paterculus|pliny the elder|pliny the younger|ammianus marcellinus|eusebius of caesarea|memnon of heracleia|suda on line|herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|antiphon|lucian|pomponius|sun tz[uŭ]|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|augustus|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|eutropius|quintilian|frontinus|statius|procopius|varro|memnon|ampelius|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)(?![A-Za-z])/i;
 
 /* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
    the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,
@@ -317,6 +317,33 @@ const ATTRIB = new RegExp(
   "|\\s+(?:argues?|argued|reads?|has read|holds?|held|proposes?|proposed|showed|shows?|suggests?|suggested|" +
   "identifies|identified|maintains?|denies|denied|concludes?|concluded|counted|thought|calls|called|" +
   "puts?|sets? out|takes? it|took it|finds?|found))\\b", "g");
+
+/* ---------- 8. a modern scholar named in a "what came of this" line ----------
+
+   `card.leadsTo[].how` is the causal strip at the foot of the answer, headed "What
+   came of this" — one sentence saying how this card's subject led to another's. It is
+   held to rule 2's house rule, on request (Sep 2026: "the 'what came of this' section
+   should never name modern scholars"), and for rule 2's reason one field over: a line
+   reading "Childe made the farming surplus the engine of the first cities" teaches a
+   reader the state of a literature where the strip exists to teach them what happened.
+
+   IT IS A WIDER PATTERN THAN RULE 2's AND MUST NOT BECOME RULE 2's. `ATTRIB` names the
+   verbs an attribution is written with; `made`, `makes`, `credits`, `presents`,
+   `attributes`, `treats` and `dates the` are attribution verbs too, and adding them to
+   the shared regex was built and thrown away — MEASURED, it adds 107 findings over the
+   corpus's questions, almost all of them false ("Copper made an inland member of the
+   ___ worth taking", "Athens made", "Psychology treats"). A question is 20-34 words of
+   narrative prose where the shape is common; a `how` is one short caption and there are
+   22 of them in the whole corpus, so the wider net can be afforded here and nowhere else.
+
+   THE ANCIENT WITNESS IS WELCOME, exactly as in a question. Measured over the corpus the
+   wide pattern fires five times: Pausanias, Plutarch, Xenophon and Livy, every one an
+   ancient author `ANCIENT` already excuses, and Childe — which was the one real finding
+   and is now repaired. */
+const ATTRIB_HOW = new RegExp(
+  "\\b([A-Z][a-zA-Z\\u00C0-\\u024F.'-]+(?:\\s+[A-Z][a-zA-Z\\u00C0-\\u024F.'-]+){0,2})" +
+  "\\s+(?:made|makes?|credits?|credited|presents?|presented|attributes?|attributed|" +
+  "treats?|treated|dates? the|has it)\\b", "g");
 
 /* Words that open a sentence and are not names.  A capitalised place or period followed
    by "puts"/"shows" is the prose doing its job, not an attribution. */
@@ -486,6 +513,21 @@ for (const c of cards) {
       if (/^(Archaic|Classical|Hellenistic|Athenian|Spartan|Persian|Greek|Roman|Minoan|Mycenaean|Cretan|Ionian|Dorian|Aeolian|Corinthian|Lydian|Egyptian|Phoenician)\b/.test(nm)) continue;
       if (NOT_A_SCHOLAR.has(nm)) continue;
       fails.push(["scholar-in-question", `${id} Q${qi + 1}: “${nm}”`, t]);
+    }
+  }
+
+  // 8 — the same house rule over the "What came of this" strip. The exemptions are rule 2's, and so is
+  // the reasoning; only the verb list is wider. See the note beside ATTRIB_HOW for why it may be.
+  for (const e of c.leadsTo || []) {
+    const t = plain(e && e.how);
+    if (!t) continue;
+    for (const m of t.matchAll(ATTRIB_HOW)) {
+      const nm = m[1].trim();
+      if (ANCIENT.test(nm) || NOT_A_NAME.test(nm)) continue;
+      if (/^(While|When|Where|After|Before|Since|Though|Although|Because|If|It|The|His|Her|Their)\b/.test(nm)) continue;
+      if (GL.has(nm.toLowerCase())) continue;                 // a glossary surface: a work, a place, a people
+      if (NOT_A_SCHOLAR.has(nm)) continue;
+      fails.push(["scholar-in-leadsto", `${id} → ${e.id}: “${nm}”`, t]);
     }
   }
 

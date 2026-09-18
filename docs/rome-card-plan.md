@@ -681,21 +681,21 @@ his own entry when `rm-377 Battle of Philippi` is written.
     rm-398  Discharge gratuity
     rm-399  Praetorian Guard
     rm-400  Aerarium militare
-    rm-401  The Augustan building programme
+    rm-401  Temple of Apollo Palatinus
     rm-402  Forum of Augustus
     rm-403  Ara Pacis
     rm-404  Mausoleum of Augustus
     rm-405  Augustus of Prima Porta
-    rm-406  The Secular Games of 17 BCE
-    rm-407  The Julian marriage laws
-    rm-408  The exile of Julia
-    rm-409  The cult of the emperor under Augustus
-    rm-410  The Augustan succession
+    rm-406  Ludi saeculares
+    rm-407  Ius trium liberorum
+    rm-408  Julia the Elder
+    rm-409  Lares Augusti
+    rm-410  Princeps iuventutis
     rm-411  Livia
-    rm-412  The adoption of Tiberius
-    rm-413  The German campaigns of Drusus and Tiberius
+    rm-412  Agrippa Postumus
+    rm-413  Nero Claudius Drusus
     rm-414  Battle of the Teutoburg Forest
-    rm-415  The death of Augustus
+    rm-415  Divus Augustus
 
 Three of the first ten lines named a subject rather than an answer term, and the cards were written to
 the term the sources will carry. **`rm-372 Octavian's inheritance`** is answered by the **will of Julius
@@ -759,48 +759,692 @@ imperial-cult altar, a 16th-century costume plate imagining a tribune. And **`rm
 is Shipley's own introduction rather than the text**: the claim it carries is that the fullest copy is
 the Monumentum Ancyranum, which the Res Gestae itself does not state and the Loeb's front matter does.
 
+**Six of the ten lines were retitled writing `rm-401`–`rm-410`, and four of the six for the reason
+this deck keeps giving: the obvious term is spent further down the running order.** **`rm-409 The cult
+of the emperor under Augustus`** is answered by **`Lares Augusti`**, because `rm-528 Imperial cult` and
+`rm-925 Roman imperial cult` both have lines of their own and a third card on the bare institution
+would re-card them; what this card has left to teach is the form the cult actually took at Rome, where
+Dio says no emperor dared accept divine honours in his lifetime and the wards were given the princeps's
+own household gods instead. **`rm-410 The Augustan succession`** is answered by **`princeps
+iuventutis`**, since `rm-798 Adoption in ancient Rome` and `rm-412 The adoption of Tiberius`
+between them own the adoption, and what is left is the honour the knights invented to name an heir in a
+state with no lawful word for one. (`rm-493` was the third line in that group until it was retitled
+`Plotina`; the `rm-491`-`rm-500` batch note below says why.) **`rm-407 The Julian marriage laws`**
+takes **`ius trium liberorum`**: neither statute is a term a reader meets again, where the right of three children turns up
+in Pliny, in the jurists and on inscriptions for three centuries, and Dio's account of it being granted
+to the childless — and to gods, so that they could take legacies — is the whole argument in one
+sentence. **`rm-406`** and **`rm-408`** were only tightened onto the terms their sources carry,
+**`ludi saeculares`** and **`Julia the Elder`**.
+
+**`rm-401 The Augustan building programme` is the sixth and a different case: the line named a programme,
+and a programme has no answer term.** Suetonius' boast about brick and marble is a sentence rather than a
+word, `Campus_Martius` was already a cited glossary entry before this batch opened, and the Forum, the Ara
+Pacis and the Mausoleum are the next three lines. What was left unspent was the **Temple of Apollo
+Palatinus**, which is the programme's opening act, the building Augustus put against his own front door,
+and the place the Sibylline books were moved to from the Capitol — so the line now names it and the card
+still teaches the programme in its ten sentences. **Grep the running order for a candidate term before
+researching it**; this deck has now proved that rule five times.
+
+Three things the batch settled. **Five of the ten take a locator** — the four monuments, and `rm-408`,
+which is marked at Pandateria rather than at Rome because the island is what the card is half about; a
+law, a festival, a street cult and a title have no place a reader could stand. **`rm-406 ludi saeculares`
+ships without a picture**, recorded rather than skipped: Commons holds no photograph of the Acta of the
+games, and the one picture of the right subject, M. Sanquinius' denarius of 17 BCE, is 800 pixels on its
+long side against the 900 the pass requires. And **the Ara Pacis supplies two of the batch's nine
+pictures**, which is deliberate and not an oversight — `rm-403` takes the screen with its procession and
+scrollwork, and `rm-407` takes the children in that procession, who are the marriage legislation's own
+argument in marble and the only Augustan image of it there is.
+
+**Five of the ten lines were retitled writing `rm-411`–`rm-420`, and the reason is the one the deck
+keeps giving with a new face: the line named an EVENT, and an event wants the thing it made or the
+person it turned on.** **`rm-412 The adoption of Tiberius`** is answered by **`Agrippa Postumus`** —
+Augustus adopted TWO men on 27 June 4 CE and the other one is the half of the act nobody remembers, the
+last of his own blood, disowned within three years and killed in the first days of the next reign, so the
+card teaches the adoption with the man it discarded as its term. **`rm-413 The German campaigns of Drusus
+and Tiberius`** names two commanders and a card has one answer, which is `rm-370`'s rule again: it takes
+**`Nero Claudius Drusus`**, who reached the Elbe, died on the way back and left the family the name
+Germanicus, with his brother's campaigns in the card's own sentences. **`rm-415 The death of Augustus`**
+takes **`Divus Augustus`**, the thing the death made; `rm-926 Apotheosis` and `rm-528 Imperial cult` own
+the general institutions, and what is left here is the first man Rome ever made a god of having ruled it.
+**`rm-420 The mutinies of 14 CE`** takes **`Percennius`**, the claque-leader turned private soldier whose
+speech Tacitus makes the manifesto of the rising — `rm-648 Sacramentum`, `rm-649 Legionary pay`,
+`rm-665 Vexillum` and `rm-685 Donative` between them own every term the grievances are made of, which is
+the grep-first rule paying for itself a sixth time.
+
+**`rm-418 The accession of Tiberius` is the fifth and the one worth reading before the next batch, because
+the obvious answer could not be SOURCED.** The term every account reaches for is *recusatio imperii*, and
+it is not in anything openable from here: Cambridge and Oxford serve a bot wall, OpenEdition serves
+Anubis, and Furneaux's commentary — the batch's own modern leg — uses only Tacitus's own `specie
+recusantis`. The line is answered by **`dies imperii`** instead, which Furneaux does use, in terms, for
+Octavian's receipt of the fasces on 7 January 43 BCE. It is also the better card: Tiberius gave the
+praetorians the watchword as Imperator on the day Augustus died and let the consuls move first for a
+month, so the gap between the two dates IS the accession, and the term names the gap. **An answer term
+has to be carried by a source you can open, and checking that is part of choosing it.**
+
+Four things this batch settled. **Seven of the ten take a locator**, which is high for this deck and is
+what a batch full of deaths does: Planasia, Mogontiacum, Kalkriese, Nola, Misenum, Antioch and the
+Porticus Liviae on the Oppian — and `rm-411`'s is the one to know about, since **the Porticus of Livia
+has a Wikipedia article and no published coordinate**, so the dot is fetched from `Oppian Hill` and
+labelled with the building that stood on it. A dynasty, a concept and a mutineer have no place a reader
+could stand. **`rm-420 Percennius` ships without a picture**, recorded rather than skipped: there is no
+portrait of a private soldier, and the honest alternatives — a reconstructed legionary, a battle
+painting — would be pictures of somebody's idea rather than of him. **The ten paired glossary terms ship
+without pictures too**, which is this deck's standing practice (the `rm-401`–`rm-410` terms did as well,
+and the glossary as a whole runs about two-thirds illustrated): the card beside each carries the picture,
+and a second photograph of the same bust is a duplicate the reader meets in one place. And **the modern
+leg of this batch is Furneaux's 1896 commentary on the Annals**, on archive.org with full OCR, which
+carries the technical vocabulary, the Amiternum calendar's date for the consecration of Augustus and the
+flat statement that the identification of the Teutoburg Forest is most uncertain — the sentence that lets
+`rm-414` set the Kalkriese excavation against the ancient name honestly, with an open German review of the
+Oberesch find distributions for what the ground does and does not show.
+
+**Six of the ten lines were retitled writing `rm-421`–`rm-430`, and five of them for the reason this deck
+keeps giving: the line named an EVENT, and an event wants the thing it made or the person it turned on.**
+**`rm-421 The German campaigns of Germanicus`** takes **`Arminius`**, who is what those campaigns were
+about and who has no other line anywhere in the thousand — `rm-414 Battle of the Teutoburg Forest` gives
+him one sentence of its ten, so the card is his own and the campaigns of 14–16 CE are its middle five.
+**`rm-422 The death of Germanicus`** takes **`Gnaeus Calpurnius Piso`**: `rm-419 Germanicus` already ends
+on the poison and the condemnation, so what is left to teach is the man, the quarrel, the attempt to
+retake Syria by force and the bronze decree from Baetica that lets the Senate's own version be set beside
+Tacitus's. **`rm-424 The fall of Sejanus`** takes **`Macro`**, who did it and then stayed, so one card
+carries the letter, the camp and the smothering at Misenum. **`rm-428 Caligula and the Senate`** takes
+**`Incitatus`** — the anecdote is the relationship's emblem, and carding it properly is the point, since
+neither Suetonius nor Dio says the consulship happened and both are quoted here saying what they do say.
+**`rm-429 The assassination of Caligula`** takes **`Cassius Chaerea`**, who first appears in Tacitus as a
+young officer in the mutiny `rm-420` cards, so the deck's own ends meet.
+
+**The sixth is `rm-425 Tiberius on Capri`, and it is a SOURCING refusal of exactly `rm-418`'s kind.** The
+obvious answer is *Villa Jovis*, and it cannot be had from here: the name is a modern one for the ruin on
+the island's north-eastern point, the excavation literature is Krause's monograph and the Italian
+conference volume behind it, and the two open reviews of that work sit behind an Anubis challenge
+(Göttinger Forum für Altertumswissenschaft) and a publisher's catalogue page. The ancient sources give
+the ISLAND — Tacitus's twelve villas with twelve names, Suetonius's single small beach and sheer cliffs —
+and never the building's modern name, so the card is answered by **`Capreae`**, which they carry in every
+line. **An answer term has to be carried by a source you can open, and checking that is part of choosing
+it** — the rule `rm-418` produced, applied a second time and reaching the same way.
+
+**The batch's modern leg is DOAJ, and the search order that worked is the one the artefact plan records:
+DOAJ finds the article, Crossref confirms the byline and the year, the DOI is opened and read.** Seven
+journals carried it, all open and all reachable — *Histos* (Shannon on the Livian allusion in Tacitus's
+Angrivarian battle), *Eugesta* (Gladhill on how Suetonius assembles the Capri narrative out of ordinary
+Roman material), *Keria* (Lovenjak on the senatus consultum de Cn. Pisone patre against Tacitus's
+account), *Myrtia* (Rodriguez Horrillo on Dio's books LIX–LX being built round categories of the good
+emperor), *Salduie* (López Sánchez on the end of the western civic coinages under Gaius and Claudius),
+*Studia Ceranea* (Dyjakowska on confiscation under the treason charge as revenue) and *Vestnik NSU*
+(Guskov on the praetorian officers' political ties to senators). **Two were measured shut and are worth
+not re-trying**: `emerita.revistas.csic.es` fails TLS verification from this sandbox, and Heidelberg's
+`journals.ub.uni-heidelberg.de` serves Anubis. Perseus answered 503 throughout, so Josephus was done
+without and Suetonius plus Dio carried the assassination between them.
+
+**Two cards ship WITHOUT a picture, recorded rather than skipped.** **`rm-422 Gnaeus Calpurnius Piso`**:
+no portrait of him is known, Commons holds no photograph of the bronze decree, and the only pictures of
+Celenderis are Hellenistic coins and a sarcophagus lid from its necropolis, neither of which depicts
+anything the card is about. **`rm-424 Macro`**: likewise no portrait, and the one candidate a name search
+returns — the amphitheatre at Alba Fucens, which an inscription links to him — carries nothing on its own
+Commons page to say so, so captioning it would be asserting from memory. **Two more were fetched, looked
+at and rejected**, which is the contact-sheet rule doing its work without a sheet: the Castra Praetoria
+"round corner" is a car park with road signs, and the Alinari photograph of the Palatine is a scan of a
+mounted archival print with library stamps and handwriting across it.
+
+**`rm-427`'s locator could not be fetched from an article title and needed a Wikidata id.** *Antium* has
+an enwiki article and no published primary coordinate, and *Anzio* redirects in a way that yields none
+either; `Q241717` gives it. The route is already in `add-locators.js`'s header and is the first time this
+collection has needed it.
+
+**Six of the ten lines were retitled writing `rm-431`–`rm-440`, and the reasons are the four this deck
+keeps producing.**
+
+**An EVENT wants the thing it made.** **`rm-431 The accession of Claudius`** takes **`Donativum`**:
+`rm-430` is already `Claudius`, and what the January of 41 CE actually produced was a price on the
+guard's assent — 15,000 sesterces a man, which Suetonius calls the first purchase of a Roman army's
+loyalty, and which every later claimant had to promise. **`rm-432 The Claudian invasion of Britain`**
+takes **`Camulodunum`**, the town Claudius came in person to take and the colony planted on it, which is
+also the word a reader meets again at `rm-442` and `rm-443`.
+
+**A TERM THE GLOSSARY ALREADY HOLDS leaves the line nothing to teach**, which is `ww2-133`'s rule twice
+over. **`rm-434 The imperial freedmen`** could not be answered by `Freedmen`, which is `rm-808`, so it
+takes **`Pallas`**, Claudius's treasurer — and NOT `Narcissus`, who is the actor in `rm-437 Messalina`
+and would have done the same work twice. **`rm-435 Claudius and the citizenship`** could not be answered
+by `Roman_citizenship`, `Citizenship` or `Latin_rights`, all cited terms already, so it takes **`The Lyon
+Tablet`**, the bronze that carries the speech itself and lets Tacitus's version be set beside it.
+**`rm-439 Nero`** could not be answered by `Nero`, a cited term since `wh-366`; it takes
+**`Britannicus`**, who is what the succession actually turned on and whom the deck would otherwise never
+card.
+
+**A LINE NAMING TWO MEN is a line with no answer term.** **`rm-440 Seneca and Burrus`** takes
+**`Burrus`** alone, `Seneca the Younger` being `rm-959` and `Seneca` a Philosophy line besides.
+
+**The batch's modern leg is Histos plus the out-of-copyright commentaries, and the DOAJ route came up
+nearly empty this time.** DOAJ has almost nothing on Claudian Rome: searches on Claudius, Britannicus,
+Burrus, Caratacus, Camulodunum and the aqueducts returned Racine criticism, Sicilian pig breeds and
+cardiac defibrillator trials. What carried the batch instead was **Histos**, which is fully open and whose
+REVIEWS are on point — Letta on Malloch's critical edition of the Tabula Lugdunensis (`histos653`),
+Bartera on Malloch's *Annals* 11 (`histos353`), Millett on Braund's *Ruling Roman Britain* (`histos169`),
+Wardle on *Suetonius the Biographer* (`histos352`) — together with three public-domain works on
+archive.org and LacusCurtius: **Furneaux's second volume** (*Annals* 11–16, 1907), **Henderson's
+*Life and Principate of the Emperor Nero*** (1903) and **Platner and Ashby**. Two hosts were measured
+and refused: `revistas.usal.es` and `ras.jes.su` both fail TLS verification here, which is a refusal
+rather than a wall, and `revistas.uned.es` answered 503 on two attempts an hour apart.
+
+**A HISTOS PDF IS READABLE, and the trick is its own ToUnicode map.** The galleys are typeset with
+subsetted fonts whose glyph codes start at 1 in order of first appearance, so a naive stream extract
+returns line noise and no fixed offset decodes it — `.claude`-style offset hunting finds nothing. Every
+one of them carries a `/ToUnicode` CMap in a compressed object; merging the `beginbfchar` and
+`beginbfrange` blocks and mapping each byte through it gives clean text. `pdftxt2.py` in the scratchpad
+is that reader. **Do not conclude a Histos review is unreadable because the first extraction is garbage.**
+
+**Two cards ship WITHOUT a picture, recorded rather than skipped.** **`rm-434 Pallas`**: no portrait of
+him is identified, and a Commons search returns a Hungarian encyclopedia binding, a Rembrandt Athena and
+a baseball pitcher. **`rm-440 Burrus`**: likewise none, the only hit being a 19th-century Swedish drawing
+captioned *Burrhus, Nero's Tutor* — a scene that never happened and a role that was Seneca's. **The ten
+glossary terms ship without pictures too**, on the previous batches' rule: every free picture of these
+subjects is now on the paired card, and putting the same photograph on the term as well shows one reader
+the same image twice and makes `check-image-free.js` report a collision that is not one.
+
+**`rm-433 Caratacus` ships with no locator, which is a decision.** Tacitus names no identifiable site for
+the last battle and the Victorian identifications are conjecture; the places his story can be pinned to —
+the praetorian camp and Cartimandua's court — are `rm-431`'s dot and an unlocated one respectively.
+**`rm-434 Pallas` has none for the same kind of reason**: a freedman who ran the finances stood
+everywhere in Rome and nowhere in particular.
+
+**Claiming the bare surface `Pallas` cost one edit outside this batch, and it was worth making.** Five
+cards in the corpus carry the word; four are this freedman and the fifth is `gr-133`, which quotes
+*Pallas Athene* as a Homeric formula. Rather than deny the alias — the `Neville_Chamberlain` answer — the
+existing `Athena` term was given the aliases **Pallas Athene** and **Pallas Athena**, which are correct on
+their own account and which `buildGlossIndex`'s longest-surface-first rule makes win on that card. Verified
+by resolving the sentence against the real index: the Greek line links to `Athena` and the four Roman ones
+to `Marcus_Antonius_Pallas`.
+
+## `rm-441`–`rm-450`: the murder of Agrippina to Nero's Greek tour — what this batch found
+
+**FOUR LINES WERE RETITLED, AND EVERY ONE OF THE FOUR IS `ww2-133`'s RULE**: a line named after a person
+or a thing the glossary already holds has no term of its own left to teach, so it wants the MOMENT rather
+than the man. `Agrippina the Younger` shipped as a cited term with `rm-438` and `Nero` has been one since
+`wh-366`, which between them account for all four. **`rm-441 The murder of Agrippina`** takes **`Anicetus`**,
+the freedman who designed the collapsing ship, led the marines who killed her and was used again three
+years later to perjure himself against Octavia — a man Tacitus names three times and Suetonius never.
+**`rm-448 Nero and the Christians`** takes **`Neronian persecution`** and **`rm-450 Nero's Greek tour`**
+takes **`periodonikes`**, the victor of the four crown games, which is the thing the tour was FOR and which
+Dio's own text and the Loeb note on it supply. **`rm-445 The Armenian settlement of 63 CE`** is the other
+half of the rule — a description rather than a term — and takes **`Rhandeia`**, the camp on the Arsanias
+where the capitulation of 62 and the settlement of 63 both happened. **Tacitus describes that place and
+never names it; the name is Dio's** (62.21, where it is spelled Rhandea), which is worth knowing before
+searching the Annals for it.
+
+**`rm-442` AND `rm-443` WERE KEPT AS A PAIR AND THAT WAS A DECISION.** The revolt and the queen look like
+one card written twice, and the test that settles it is whether each has a term of its own: `Boudican
+revolt` and `Boudica` are both free, both are what the glossary would head, and the two cards were written
+to different questions — the revolt gets the causes, the three towns and the suppression, and Boudica gets
+the woman and the evidence problem (two Roman authors, two speeches neither could have heard, two
+incompatible deaths, and no grave, coin or likeness).
+
+**THE LOEB YEAR ON EVERY TACITUS CITATION IN THE COLLECTION WAS WRONG AND IS NOW FIXED.** Jackson's
+Annals is three Loeb volumes — III (books 1–3, **1931**), IV (books 4–6 and 11–12, **1937**) and V (books
+13–16, **1937**) — and the helper that writes these citations defaulted to 1931 for all of them, so **36
+citations across 14 cards** (`rm-423`–`rm-440`) named a volume that does not exist. **Nothing in the
+pipeline could see it**: `add-card.js` checks that a citation ends in a URL, `source-audit.js` counts them
+and `check-citations.js` needs a DOI, so a wrong publication year on an out-of-copyright translation passes
+every gate and the URL opens perfectly. **The LacusCurtius page for each book states its own volume and
+year in its header**, which is where the right answer came from and where the next one should.
+
+**THE HOSTS, MEASURED THIS BATCH.** `histos.org` carries the batch again (Rimell on Closs, *While Rome
+Burned*, and Bettenworth on Malik, *The Nero-Antichrist*), and `tidsskrift.dk`, `scriptaclassica.org`,
+`journal.fi` and the AOSIS journals all answer. **Three that did not**: `ejournals.eu` (Electrum, which
+carries Gregoratti's *Corbulo versus Vologases* and Kéfélian on Armenian numismatics) **fails TLS
+verification from here** — its chain is missing an intermediate — and TLS is never disabled, so both
+articles were dropped; `journals.openedition.org` (Pallas, which has Pailler's *Néron, l'incendie de Rome
+et les chrétiens*) returns **200 behind an Anubis bot wall**, the `WALL` outcome, so the article could not
+be read and was not cited; and `filolog.rs.ba` returns an **empty body** to curl. **A 200 is not a
+readable article**, and a source that cannot be opened is not cited however exactly it matches.
+
+**WIKIMEDIA'S ARBITRARY-WIDTH THUMBNAILS ARE GONE, which breaks the obvious way of writing a picture `src`.**
+`…/thumb/<shard>/<file>/1200px-<file>` now returns **400 with "Use thumbnail sizes listed on
+https://w.wiki/GHai"**; only the standard widths (320, 640, 800, 1024, **1280**, **1920**, 2560) are served.
+Two of this batch's pictures were written at 1200 and 1600 and had to be re-cut to 1280. **And
+`api.php` was rate-limited for the whole batch** while the file pages served perfectly, so the metadata was
+read from **`/wiki/File:<name>?action=raw`** (which gives `|Author=` and the licence template as wikitext)
+and the original URL off the rendered page — the route CLAUDE.md records, one endpoint further in.
+
+**THREE OF NINE CANDIDATE PICTURES WERE REJECTED ON THE CONTACT SHEET**, which is the rate the geography
+pass measured: a Baiae "seafront" that is a modern promenade with motor boats and a lamp post, a Domus Aurea
+"panorama" that is a warped 360° strip, and an Olympia view that is a gravel path full of tourists. **And
+one was rejected for saying the wrong thing rather than showing it**: the Hermitage bust catalogued as
+`Bust of a Roman Domitius Corbulo` carries a Russian description reading *портрет Домиция Корбулона,
+атрибуция отведена* — the museum has WITHDRAWN the identification — so **`rm-444` ships with no picture**,
+there being no securely identified likeness of Corbulo. The other near miss is the Rijksmuseum face-mask
+helmet whose file NAME places it in the Corbulo canal at Matilo while its own description places it in the
+Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot be written over a
+contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
+the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
+
+## `rm-491`-`rm-500`: Nerva to the alimenta — what this batch found
+
+All ten are in `rm-high-empire`, and they carry the collection from the murder of Domitian to Trajan's
+maintenance grants for the children of Italy. **Two lines were retitled and a third answer was ruled
+out by the glossary rather than by the plan.**
+
+**`rm-494 Trajan` is answered by `optimus princeps`**, on `ww2-133`'s rule: a line named after a person
+the glossary already holds wants the moment, not the man. `Trajan` has been a cited glossary term for
+months, so the pairing rule was already satisfied and the line had no term of its own left to teach.
+What it has instead is the honorific Dio says he prized above Dacicus and Parthicus because it spoke of
+his character rather than his arms - and which the alimentary tablets of 101 and 103 CE were already
+using thirteen years before the Senate voted it.
+
+**`rm-493 Adoption and the imperial succession` is answered by `Plotina`, and the route there is worth
+recording because three obvious terms were each closed off in a different way.** Adoption itself is
+`rm-798 Adoption in ancient Rome` and `rm-412 The adoption of Tiberius`. `tribunicia potestas`, the
+constitutional grant that actually made an heir a colleague, is `rm-393`. And **`Caesar` could not be the
+answer at all, for a reason no plan line can show: `Julius_Caesar` claims the bare surface `Caesar`
+across the whole corpus**, so every occurrence of the title in this card's own prose would auto-link to
+the dictator - a wrong link on the card's own answer term, which a parenthetical key (`Caesar_(title)`)
+does not fix, since such a key claims no bare name and the dictator's alias still does. **Check who owns
+a one-word answer term's surface before researching it**, which is one query against
+`GLOSSARY_ALIASES`. What is left to teach about the imperial succession is the one adoption the sources
+say was manufactured and the woman they say manufactured it: Dio, whose father governed the province
+where Trajan died, writes that Hadrian was never adopted at all and that the last dispatches to the
+Senate went out over Plotina's signature. The key is **`Pompeia_Plotina` with `Plotina` as an alias**,
+the article being under the full name.
+
+**`eutropius` was missing from `check-cards.js`'s `ANCIENT` list**, exactly as `statius` was last batch,
+so three citations of a fourth-century breviarist on `rm-491` reported as a modern scholar over-cited.
+**The drop set was measured and is one card - this batch's own**: the whole-corpus `--report` is
+otherwise byte-identical, no new ancient over-citation note appears, and the `one-witness` heading still
+fires on 464 cards, so the ancient branch is alive rather than merely quiet.
+
+**AND A JOURNAL CAN PRINT A DOI IT HAS NEVER REGISTERED.** `10.14795/jaha.12.1.2025.1225` is what the
+JAHA article page's own `citation_doi` meta tag carries for the 2025 paper on the terraces at
+Sarmizegetusa Regia, and it resolves **404**; the journal's older `10.14795/j.vNiN.NNN` identifiers all
+resolve. `check-citations.js` caught it - Crossref has no record - and the citation now points at the
+article's landing page instead. **Take a DOI off the page and then RESOLVE it**; the metadata tag is not
+evidence that anything was deposited.
+
+**Two hosts were found and not used, and both are 200-status walls.** The *RIHA Journal* article on the
+sixteenth-century drawings of the Column sits behind an Anubis proof-of-work challenge, so it was
+located, could not be read, and was therefore not cited - a citation composed from a search result's
+title is the fabrication the rules forbid. `revistas.uexternado.edu.co` refuses the same way, which
+closed off the open-access paper on the Ligures Baebiani tablet. **And Pliny's *Panegyricus* has no
+public-domain English translation this sandbox can reach at all**: archive.org's copies are Latin
+editions or the in-copyright Loeb, and attalus.org carries the letters and not the speech. So `rm-500`
+rests on Dio, on Pliny's own letters about his private foundation at Comum, and on Caroline Barron's two
+commentaries in the ERC *Judaism and Rome* database, rather than on the one contemporary source that
+describes the scheme at length.
+
+Three smaller things. **`rm-491` carries no modern scholarship and that is the honest answer**: the
+dynasty as a unit is a modern label, and what can be cited for it is the ancient sequence - Dio for the
+accession, Eutropius for the reigns, the *Historia Augusta* for the adoptions, and Ammianus for the line
+still being used as a standard of praise two centuries later. **`rm-499` is the one card here whose
+subject is an argument about the evidence**, and both halves of it come from the same institution: the
+Sovraintendenza Capitolina's own pages say that the clearance of 1926-34 read every room as a shop and
+that the complex is better understood as offices and record stores serving the forum. Two museum pages
+out of six sources keeps it inside `check-cards.js`'s one-institution note. And **`rm-500`'s locator is
+`Veleia (Italy)`**, because the bare `Veleia` article is a disambiguation page with no coordinate and
+`Velleia` is a genus of Australian herbs; `rm-495` takes **Trajan's Bridge**, `Tapae` being `rm-483`'s.
+
+**The answer term of `rm-491` carries an EN DASH**, matching the Wikipedia slug and the glossary key
+`Nerva–Antonine_dynasty`. A later card writing the hyphen will not auto-link to it.
+
+**AN ELEVENTH GLOSSARY TERM WAS ADDED BECAUSE THE BROWSER SHOWED A WRONG LINK.** Reading the rendered
+`rm-496` it turned out that "Sarmizegetusa Regia" was auto-linking its second word to **`Regia`**, the
+priest's house in the Roman Forum - a whole-word match the index is right to make and a wrong link
+nobody would report. The fix was neither a reword nor an alias but **a new term, `Sarmizegetusa_Regia`**,
+because `buildGlossIndex` sorts surfaces longest-first, so the two-word key wins wherever the phrase
+appears and the place gets an entry it deserved anyway. **A card is not verified until it has been
+looked at in a browser**; `check-gloss-links.js` reports the cross-REGION shape and had nothing to say
+about this one, both terms being tagged `rome`.
+
+## `rm-481`–`rm-490`: Domitian to the end of the Flavians — what this batch found
+
+All ten are in `rm-flavians`, and they carry the collection from Domitian's accession to the
+Senate's vote erasing his name. **Four lines were retitled**, every one of them for the reason
+`ww2-107` and `ww2-144` give: an earlier or later line had already spent the obvious answer, or
+the line was a description rather than a term.
+
+**`rm-482` *Domitian and the Senate* → `Delator`.** The obvious answers were all taken: `maiestas`
+is `rm-426`, `censorship` is `rm-117`, `Roman censor` is `rm-710`, `Roman Stoicism` is `rm-960`. The
+professional accuser is what the relationship actually ran on, is a word a reader meets again across
+the whole principate, and is anchored to this reign by Suetonius' own line that an emperor who does
+not punish informers eggs them on (*Domitian* 9.3) and by the *Agricola*'s roll of them. It also
+leaves *dominus et deus* free to be stated on `rm-481`, where it belongs.
+
+**`rm-483` *Domitian's Dacian wars* → `Domitian's Dacian War`**, singular, which is the Wikipedia
+article title and the form the literature uses.
+
+**`rm-486` *The Roman conquest of Britain* → `Inchtuthil`.** This is the spent-answer rule at its
+sharpest: `rm-432` already cards *The Claudian invasion of Britain* and `rm-757` is *Roman Britain*,
+so a third card on the conquest would have had nothing of its own to teach. Sitting between Mons
+Graupius and the Flavian palace, what the slot is really about is the conquest completed and given
+up, and the legionary fortress demolished by its own garrison is that in one object.
+
+**`rm-489` *The assassination of Domitian* → `Stephanus`, keyed `Stephanus_(freedman)` with no bare
+alias.** Measured first: the corpus's only two "Stephanus" surfaces are *Stephanus of Byzantium*
+(`gr-218`, `rm-040`), and Philosophy cites Plato by Stephanus pagination, so a bare key would have
+claimed the word wrongly twice and stood in the way of a third use. A parenthetical key claims no
+bare name, so the term is reached by the aliases *freedman Stephanus* and *Stephanus the freedman*,
+which is how the cards' own prose names him.
+
+**`Agricola` claims the bare word and pays for one wrong link, knowingly.** The glossary key is the
+article title `Gnaeus_Julius_Agricola`, with *Agricola* as an alias. Measured over the shipped corpus
+the bare word occurs exactly once outside this batch — `rm-443`, "In the <i>Agricola</i>", which is
+Tacitus' book rather than the man. That link is a near miss rather than a wrong one (the book is his
+biography and the entry says so), and it buys correct links on every card in this batch and every
+later one. This is the `Titus` trade of the previous batch at a hundredth of the cost.
+
+**Two lines that shipped without a locator or a picture, and the reasons.** `rm-485` Mons Graupius
+takes **no locator**: the site has never been agreed, and a dot would assert what the card's own
+last sentence says nobody can. `rm-482` *delator* and `rm-489` *Stephanus* take **no picture**:
+nothing openable depicts an informer or an imperial steward, and a generic courtroom or a Roman
+dagger would illustrate the idea while depicting neither. Five of the ten glossary terms likewise
+ship with no picture (`Delator`, `Domitian's_Dacian_War`, `Damnatio_memoriae`, `Stephanus_(freedman)`,
+`Flavian_dynasty`) — the last because `check-image-free.js` caught the obvious candidate, the Berlin
+case of Flavian coins, already sitting on `rm-467`.
+
+**The batch found two faults in the tooling, both of them real.** `card-focus.js` reported five of
+the ten for naming a researcher in a question, and every finding traced back to ONE malformed
+citation: the `histos()` helper interpolates its title raw, so a REVIEW passed through it read
+`Phoebe Garrett, Deconstructing Nero and Domitian? (on V. Schulz, ...)` with no quotation marks, and
+the name extraction took *Domitian* out of what looked like an author field. Rewritten as a proper
+review citation (`review of <i>Deconstructing Imperial Representation</i>, by Verena Schulz`) the
+finding vanished from four cards. The fifth was **`Statius`, genuinely missing from `check-cards.js`'s
+`ANCIENT` list** — he is an ancient author on any reading, the list already carries Martial, Horace,
+Ovid and Quintilian, and the corpus had simply never cited him before. Adding him was verified to
+have a drop set of exactly this batch: `Statius` occurs nowhere else in `data-extra/` or
+`glossary-extra.js`.
+
+**`rm-483` states no campaign years, and that is a decision rather than an omission.** The
+conventional dating (85–89) could not be tied to anything openable from this sandbox: neither Dio
+nor Suetonius nor Eutropius gives a year, the Perseus copy of Smith's *Dictionary* answered 503, and
+the one paper that would have carried it — **Soria Molina, "Quadi, Marcomanni and the Suebian
+Confederation in Domitian's and Trajan's Dacian Wars", *Studia Historica: Historia Antigua* 35
+(2017) — sits on `revistas.usal.es`, whose TLS chain will not verify from here**, so it could be
+neither read nor cited. The card says "the middle years of his reign" and its date line carries the
+reign, which is what the sources bear. **The same host blocks Escámez de Vera's two Flavian papers**;
+record it and do not re-derive it.
+
+**`rm-483` carries NO `war` block, and that is the war-card rule working rather than an oversight.**
+The block says who won, and this war ended in a negotiated peace in which Rome crowned Decebalus'
+brother and sent back money and craftsmen after being beaten in Pannonia. A war whose outcome the
+sources will not settle gets no block rather than a guess in two colours. `rm-485` Mons Graupius is a
+BATTLE and is excluded by the same rule's own terms.
+
+**Where the rest of the batch's sources came from.** The Scotland cards rest on the **Proceedings of
+the Society of Antiquaries of Scotland**, which is open end to end at `journals.socantscot.org` with
+DOIs and PDFs — Breeze 1988 and 1990, Jarrett 1985, Southern 1996, Hind 1983 and Burn 1953 between
+them carry the Agricola dating dispute, the Inchtuthil demolition coins, the Danube transfer and the
+battlefield hunt. **Hanson 1977–78 (PSAS 109) is image-only with no text layer** and was therefore
+not cited. The palace rests on **Platner & Ashby** and **Lanciani** (both open, both out of
+copyright), on **Statius' *Silvae* 4.2 in Slater's 1908 translation** on archive.org and on Martial
+7.56 and 8.36 in the Bohn prose version; **no open modern work on the Palatine palace could be found**
+— DOAJ, Crossref and the ISPRS archives all came back empty or paywalled, and Zanker's British
+Academy chapter is 403 at OUP. **GRBS** (`grbs.library.duke.edu`) and **Histos** and the **Journal of
+Ancient History and Archaeology** are all open and all answered.
+
+**Two Bohn cautions.** The 1897 Bohn Martial is badly OCR'd — *Rabirius* comes out as "Babirins" — so
+the citations point at the volume and the prose paraphrases rather than quotes. And Bohn renders
+*domini deique nostri* at *Epigrams* 5.8 as "our supreme lord and ruler", so **the title cannot be
+quoted from that translation**; `rm-481` takes it from Suetonius *Domitian* 13.2 and Dio 67.4.7 and
+67.13.4, which say it outright.
+
+## `rm-471`–`rm-480`: Titus to Pliny the Elder — what this batch found
+
+All ten are in `rm-flavians`, and the batch carries the collection from the accession of Titus in June 79
+to the man who died watching the mountain that ends it.
+
+**TWO LINES WERE RETITLED, BOTH BY `ww2-133`'s RULE.** `rm-476` was *The inaugural games of the Colosseum*,
+which is an event rather than a term, and every term the games might have taught is already spoken for two
+hundred cards later — `rm-871 Munus`, `rm-873 Venatio`, `rm-875 Naumachia`. What the hundred days actually
+left behind is a BOOK, so the line is **`Liber Spectaculorum`**, Martial's epigrams on the amphitheatre;
+the card's ten sentences are still the games. `rm-477` was *Eruption of Mount Vesuvius in 79*, and the
+eruption's own name is a date rather than a word a reader meets again: it is **`Plinian eruption`**, the
+class of eruption the letters founded the study of, with 79 CE as its type example. **GREP THE WHOLE
+RUNNING ORDER FOR A CANDIDATE TERM BEFORE RETITLING**, which is the lesson the `rm-746` collision left in
+the note below, and which is what found the three spectacle lines here.
+
+**`Colosseum` AND `Pompeii` WERE ALREADY CITED GLOSSARY TERMS, AND THAT IS THE PAIRING RULE WORKING RATHER
+THAN A GAP.** A term is deck-agnostic by house rule, so `rm-475` and `rm-478` reuse what the glossary
+already holds and the batch ships EIGHT new terms rather than ten. Neither line was retitled for it: the
+Colosseum and Pompeii have to be carded under their own names in a Rome collection, and `ww2-133`'s rule
+asks for the moment instead of the man only where the line has no term of its own left to teach.
+
+**`Titus` CLAIMS THE BARE WORD AND PAYS FOR SEVEN WRONG LINKS, WHICH IS THE `Cell_(biology)` TRADE AND IS
+RECORDED HERE RATHER THAN DISCOVERED LATER.** Measured over the corpus, "Titus" occurs 50 times; the longer
+surfaces `Titus Tatius`, `Titus Flavius Sabinus`, `Titus Quinctius Flamininus`, `Titus Livius` and
+`Titus Annius Milo` are all glossary terms already and win, being sorted longest-first. What is left is
+**seven occurrences on six cards** — `rm-097` and `rm-099` (Titus Herminius), `rm-099` (Titus Aebutius),
+`rm-109` (Titus Lartius), `rm-367` (Titus Ampius), `rm-453` and `rm-457` (Titus Vinius) — where the
+praenomen now links to the emperor. None of those five men has a term of its own, so the three usual fixes
+all come to nothing; the ratio is 34 bare uses right against 7 wrong and it improves with every Flavian
+card written. **A praenomen is an ordinary English word one language over: ask the corpus before keying
+one.**
+
+**THE PICTURE PASS REJECTED FOUR CANDIDATES AND EACH IS A DIFFERENT FAULT.** The Athens head NAMA 348 is
+labelled Titus in German and "probably Caligula, reworked" in Italian on the same file page — a contested
+identification, which is the right-name-wrong-person trap with the evidence sitting in a language nobody
+reads first. `Arch of Titus Menorah 22.jpg` is a modern CAST at Beth Hatefutsoth rather than the arch. The
+1938 aerial of Masada is **printed left to right reversed**, which its own file page says and which nothing
+in the image would tell you. And the Thevet engraving captioned "Pline Second" is Pliny the YOUNGER, as its
+own text says. **Read the file page, not only the file name**; two of the four were only visible there.
+
+**A PICTURE UNDER 900 PIXELS PASSES EVERY CHECK AND IS STILL TOO SMALL.** `Ausbruch des Pinatubo 1991.jpg`
+is 665 by 790, and `thumb.php?width=900` hands back the original at its own size, so the contact copy
+looked full-sized. **Ask the API for the dimensions, not the thumbnail for its bytes.** It was replaced,
+after installation, by the Mount St Helens column of 22 July 1980.
+
+**`add-images.js` REFUSES MARKUP IN A TEXT FIELD, INCLUDING `<i>`.** A caption naming the *Natural History*
+in italics was turned away; the picture's `desc` is plain text where a card's prose is not.
+
+**TWO CARDS SHIP WITH NO LOCATOR AND ONE WITH NO PICTURE.** `rm-473` *fiscus Iudaicus* is a tax and has
+nowhere a reader could stand, and nothing openable on Commons depicts it — there is no Nerva
+`FISCI IVDAICI CALVMNIA SVBLATA` coin there, which was checked twice under two search interfaces, and the
+Judaea Capta sestertius is about the conquest rather than the levy. `rm-476` *Liber Spectaculorum* is a
+book; the amphitheatre it is about is `rm-475`'s dot, and a second dot on the same pixel would be the
+duplicate `locatorSiblings` groups away.
+
+**WHERE THE SOURCES CAME FROM.** Suetonius' *Titus* and *Domitian* and Dio LXV, LXVI and LXVIII on
+LacusCurtius; Josephus *BJ* 7.5, 7.6, 7.8 and 7.9 on Perseus; Pliny the Younger's *Epistulae* 3.5, 6.16 and
+6.20 in the Latin on Perseus, because the Melmoth English is renumbered and cannot carry a book-and-letter
+reference; the Bostock and Riley *Natural History* for the dedication and for Campania; Platner and Ashby
+for the Amphitheatrum Flavium and the Arcus Titi; Dessau's *ILS* nos. 264 and 265 for the two arches'
+inscriptions; and Bohn's 1897 prose Martial, whose heading is **"Martial on the public shows of
+Domitian"** — the older attribution, which is itself the evidence that the book names no emperor.
+
+**FIVE MODERN WORKS CARRIED THE REST AND ALL FIVE ARE OPEN.** Krausz in *HiMA* 14 (2026) for the Masada
+siegeworks, which measures the wall, the camps and the ramp in weeks of labour rather than years; Petrone
+and others in *PLOS ONE* 13 (2018) for the Herculaneum waterfront victims and the surge temperatures;
+Alapont and others in *PLOS ONE* 18 (2023) for the Pompeii casts and asphyxia; Paone in IntechOpen's
+*Forecasting Volcanic Eruptions* (2020) for the eruption's phases and the autumn date; Fowler in
+*Manuscript and Text Cultures* 3 (2025) for the Villa dei Papiri. **Yarden's 1983 piece on the spoils
+relief is behind an Anubis proof-of-work wall at doi.org AND at `journal.fi` and was dropped**; Canciani
+and others, ISPRS Annals II-5/W1 (2013), carries the Circus Maximus arch instead and is open.
+
+**THE DPLA MANUSCRIPT PAGE IS THE ONE PICTURE WORTH KNOWING ABOUT.** Boston Public Library's Martial,
+written in Lombardy in 1453, opens at `Marci Valerii Martialis Epigrammaton liber primus` with *Barbara
+pyramidum sileant miracula Memphis* and the two poems after it — so the card on the *Liber Spectaculorum*
+is illustrated with the text it quotes rather than with the building.
+
+## `rm-461`–`rm-470`: Cremona to the Second Temple — what this batch found
+
+All ten are in `rm-flavians`, and the batch carries the collection from the night battle outside Cremona
+to the burning of the temple at Jerusalem.
+
+**…AND A FOURTH LINE MOVED BECAUSE THE RETITLE COLLIDED WITH ONE 280 CARDS AWAY.** `rm-746` was already
+*Fiscus*, in the administration deck between *Aerarium* and *Roman currency*, and `test-card-plans.js`
+caught the duplicate topic the moment `rm-467` took the word. The card that was written wins, so `rm-746`
+is now **`Patrimonium`** — the emperor's inherited private property, the third Roman treasury and a real
+gap in that run rather than a substitute found in a hurry. **Grep the whole running order for a candidate
+term before retitling a line**, which costs one command and would have saved a round here.
+
+**THREE LINES WERE RETITLED, ALL BY `ww2-133`'s RULE — A LINE NAMED AFTER A THING THE GLOSSARY ALREADY
+HOLDS WANTS SOMETHING ELSE.** `rm-462` was *The burning of the Capitol*, and both `Capitoline_Hill` and
+`Temple_of_Jupiter_Optimus_Maximus` have been cited glossary terms since `rm-050` and `rm-075`, so the
+pairing rule was already satisfied and the line had no term of its own left to teach. It is answered by
+**`Titus Flavius Sabinus`** instead — Vespasian's elder brother, twelve years prefect of the city, the man
+who held the Capitol and was butchered on the palace steps — which keeps the card about the burning while
+giving the reader a name they meet again. `rm-467` was *Flavian finance*, a topic rather than a term, and is
+answered by **`fiscus`**: the emperor's own treasury is the word a reader meets again, `rm-473` builds the
+*fiscus Iudaicus* straight onto it, and Vespasian's reign is simply where the institution becomes visible.
+`rm-468` was *The Flavian censorship*, and `censorship` is `rm-117`'s answer term; the thing the Flavian
+censorship actually DID is **`adlectio`**, the enrolment of a man into the senate at a rank he never stood
+for, which is both narrower and more useful.
+
+**AN ANCIENT WITNESS UNDER 50% IS THE BAR, AND IT IS EASY TO MISCOUNT BY ONE.** `rm-461` and `rm-462` both
+shipped a first draft with FOUR Tacitus citations in eight, which is exactly 50% and raises
+`check-cards.js`'s one-witness note. The fix in both cases was to MERGE two adjacent Tacitus references
+rather than to add a source — `3.15-18` and `3.8-9` became `3.8-18`, `3.69` and `3.70` became `3.69-70` —
+which is the right answer when the two ranges are a continuous passage anyway. **Count the citations before
+writing the markers**, since renumbering them afterwards is the fiddly part.
+
+**THE LOEB VOLUME YEAR HAS TO BE READ OFF THE PAGE FOR EVERY AUTHOR, NOT JUST DIO.** Last batch's repair
+taught this for Cassius Dio; this one needed it again for Frontinus's *Stratagems* and for Tacitus's
+*Histories*, both of which are 1925. The LacusCurtius header states the volume and year on every page, so
+the rule is one curl per new work rather than a guess carried across from a neighbour.
+
+**THE `Histories` PAGE NAMES ARE `1A`…`5B` AND BOOK IV IS FOUR PAGES.** A first attempt used Thayer's
+letter-only scheme (`D*`, `E*`) and 404ed on all three; the real shape is `4A*` (chapters 1-37), `4B*`
+(38-53), `4C*` (54-79) and `4D*` (80-86), with book V split `5A*` (1-13) and `5B*` (14-26). Worth recording
+because the 404 looks exactly like the text not being there.
+
+**WHERE THE LATIN TEXT OF AN INSCRIPTION COMES FROM.** `rm-466` rests on the tablet itself, and the openable
+editions are **Bruns, *Fontes iuris Romani antiqui*, 7th ed. 1909, no. 56** and **Dessau, *ILS* 244**, both
+on archive.org with usable OCR. The two are worth having together: Bruns prints Mommsen's discussion of
+whether the thing is a law or a senatorial decree, and Dessau heads it *Fragmentum legis quae dicitur de
+imperio Vespasiani* — "the law which is SAID to be" — which is the same doubt in three words. `db.edcs.eu`
+answers 200 but serves a search form rather than a record, and `droitromain.univ-grenoble-alpes.fr` is 403
+from this sandbox.
+
+**GREENIDGE'S `Roman Public Life` CARRIED FOUR OF THESE CARDS AND IS WORTH INDEXING.** Pages 342-48 are the
+powers of the princeps, including the lex de imperio and the imperial censorship; 365 and 373 define
+*adlectio* and its grades; 395 defines the *fiscus* against the *aerarium*; 368 has Nerva's fiscal praetor.
+It is 1901 and says so, but on Roman constitutional machinery it states what the inscriptions state.
+
+**TWO CARDS SHIP WITH NO PICTURE AND TWO WITH NO LOCATOR, AND EACH ABSENCE IS A DECISION.** `rm-463`
+*arcanum imperii*, `rm-467` *fiscus* and `rm-468` *adlectio* are concepts and institutions with no place a
+reader could stand, so `rm-463` and `rm-467` take no locator at all rather than a dot on the Forum that
+would assert something the card does not. `rm-468` has no picture either: nothing openable on Commons
+depicts an adlection, and the inscriptions that record one are catalogue text rather than photographs.
+
+**A LOCATOR CAN BE FETCHED THROUGH THE MODERN TOWN WHEN THE ROMAN NAME HAS NO ARTICLE.** `Vetera` carries no
+primary coordinate on Wikipedia and `add-locators.js` correctly refused it; the fortress stood at Birten
+beside **Xanten**, whose article does carry one, so the batch names Xanten and labels the dot *Vetera*. The
+coordinate is still fetched and never typed, which is the rule the script exists for.
+
+## `rm-451`–`rm-460`: the Jewish revolt to the death of Vitellius — what this batch found
+
+**THIS BATCH CROSSES FROM ONE DECK TO ANOTHER**: `rm-451`–`rm-455` close `rm-julio-claudians` and
+`rm-456`–`rm-460` are the first cards ever written into `rm-flavians`, so the second half sets that deck's
+`category` string, which is its own title.
+
+**THREE LINES WERE RETITLED AND ALL THREE ARE `ww2-133`'s RULE** — a line named after a person or a thing
+the glossary already holds has no term of its own left to teach. `Nero` and `Julio-Claudian_dynasty` were
+already cited terms, and `Galba` was about to be spent by `rm-457`, so: **`rm-453 The revolt of Galba`**
+takes **`Nymphidius Sabinus`**, the praetorian prefect who bought the guard for Galba with a largess that
+was never paid and then tried to take the throne himself; **`rm-454 The death of Nero`** takes **`hostis`**,
+the senate's declaration of a public enemy, which is the thing that actually reached Nero at Phaon's villa
+and the thing that made his death a legal event rather than a mood; and **`rm-455 The end of the
+Julio-Claudians`** takes **`Verginius Rufus`**, who beat Vindex, refused the empire three times and had it
+put on his own tomb that he claimed the imperial power *non sibi sed patriae*.
+
+**`rm-452` KEEPS ITS PLAN LINE AND NOT ITS WORDING**: the line reads *The revolt of Vindex* and the card is
+answered by **`Vindex`**, which is the term rather than the description. It needed no retitle, the
+strict answer-must-match check being the geography plans' rule alone, but it is recorded here because the
+glossary key is `Gaius_Julius_Vindex` with `Vindex` as an alias, on the pattern `Gnaeus_Domitius_Corbulo`
+set in the batch before.
+
+**A LOEB YEAR FAULT OF THE SAME CLASS AS THE TACITUS ONE WAS FOUND AND FIXED, AND IT WAS BIGGER.** Last
+batch corrected 36 citations that named the wrong volume of Jackson's Annals. The `dio()` helper had the
+same shape of bug and had been carrying it far longer: it defaulted to **1917**, which is right for Loeb
+volumes V and VI (books 46–55) and wrong for VII (56–60, **1924**) and VIII (61–70, **1925**). **52
+citations across 30 cards** named a volume that does not exist — every citation of books 56 to 63 in the
+Rome corpus. Nothing in the pipeline can see it: `add-card.js` checks a citation ends in a URL,
+`source-audit.js` counts them, `check-citations.js` needs a DOI, and the LacusCurtius page opens either way.
+**The page header states its own volume and year**, which is the same method that settled the Tacitus
+fault; all 22 cited books were read rather than inferred, and the helper now DERIVES the year from the book
+number instead of taking a default. Re-measured afterwards: 137 Dio citations, 0 wrong.
+
+**A `#` FRAGMENT MAY NOT CONTAIN A SPACE, WHICH IS A CITATION FAULT AND NOT A TIDINESS ONE.** `suet()`
+appends the section to the URL as an anchor, so `suet("Galba","20, 23")` produced `…Galba*.html#20, 23` —
+and `SRC_URL_RX` stops at whitespace, so the visible link text would have been truncated at `#20,` and the
+address dead. A RANGE is safe (`20-23` yields `#20`); a comma-separated list is not. Caught by curling
+every citation URL in the batch, which is what that rule is for.
+
+**THE PLINY CITATIONS ARE THE LATIN TEXT ON PERSEUS, DELIBERATELY.** The obvious English — Melmoth revised
+by Bosanquet, on Project Gutenberg — **renumbers the letters**, so its "XVII to Voconius Romanus" is what
+everyone else calls 2.1 and a citation reading `Letters 2.1` pointed at that page would send a reader to a
+different letter. Attalus carries Firth's 1900 translation in the standard numbering but says on its own
+banner that words and phrases have been modified. Perseus's `1999.02.0139` is structured `book:letter` and
+is the text the epitaph was read off, so `plinl()` cites `<i>Epistulae</i> 6.10` and points there.
+
+**AN ITALIAN ARTICLE WAS CITED FROM ITS PUBLISHED ABSTRACT AND THE REASON IS WORTH RECORDING.** Bellomo's
+*L'Italia settentrionale e le guerre civili del 68-69 d.C.* is open access and exactly on this subject, but
+**its PDF is glyph-ciphered**: the subset fonts carry per-font ToUnicode maps that the local extractor
+merges into one, so the body comes out as private-use punctuation. The journal's own article page carries
+the full Italian abstract, which states the findings cited here — Verginius Rufus of Milanese origin, twice
+refusing the purple; the two decisive battles at Bedriacum; Cremona destroyed for its disputed loyalty —
+and nothing beyond it was claimed. **A per-font CMap extractor would unlock the whole article** and is the
+thing to build before the next batch that wants an OJS PDF.
+
+**TWO CARDS SHIP WITH NO PICTURE AND ONE MORE NEARLY DID.** **`rm-455`** has none because no likeness of
+Verginius Rufus survives and the single Commons candidate, `Tomb of Lucius Verginius Rufus.png`, carries no
+source, no description and no authority beyond its uploader's file name — a concrete drum behind a modern
+railing, which the card would have to assert is his tomb. **`rm-459`** has none because the battlefield is
+unlocated farmland and the only candidate is a user-drawn map in German that carries a typo (*Mondena*) and
+dates the battle 14 April where the card follows Henderson's 15th; the card already has a locator globe at
+Bedriacum doing the map's work. **`rm-460` nearly took the Grimani bust**, which Commons itself files as
+*Pseudo-Vitellius*, and **`rm-458` nearly took a Rijksmuseum "Otho"** that is a lead GARDEN STATUE cast
+after Bartholomeus Eggers some time after 1674. The coins were the right answer for all three emperors:
+a legend round a portrait is the one identification that cannot be argued with.
+
+**AND THE MONTAGE ON `rm-456` IS BUILT FROM THE SAME CNG PHOTOGRAPHS**, one of which is the Galba aureus a
+first draft gave `rm-457`. `check-cards.js` compares file NAMES and would not have reported it, so the
+Galba card took the American Numismatic Society's own CC0 close-up instead — a different file, a better
+picture, and no coin met twice in one deck.
+
+**`upload.wikimedia.org` WAS 429 THROUGHOUT AND `commons.wikimedia.org/w/thumb.php` WAS NOT**, which is the
+BUSY state CLAUDE.md records rather than a wall: `Special:FilePath` and the plain upload path both refused
+while `thumb.php?f=<FILE>&width=N` served every file, and `?action=raw` on the file page gave the licence
+and author the whole time.
+
 ### The Julio-Claudians — `rm-julio-claudians`
 
     rm-416  Julio-Claudian dynasty
     rm-417  Tiberius
-    rm-418  The accession of Tiberius
+    rm-418  Dies imperii
     rm-419  Germanicus
-    rm-420  The mutinies of 14 CE
-    rm-421  The German campaigns of Germanicus
-    rm-422  The death of Germanicus
+    rm-420  Percennius
+    rm-421  Arminius
+    rm-422  Gnaeus Calpurnius Piso
     rm-423  Sejanus
-    rm-424  The fall of Sejanus
-    rm-425  Tiberius on Capri
+    rm-424  Macro
+    rm-425  Capreae
     rm-426  Maiestas
     rm-427  Caligula
-    rm-428  Caligula and the Senate
-    rm-429  The assassination of Caligula
+    rm-428  Incitatus
+    rm-429  Cassius Chaerea
     rm-430  Claudius
-    rm-431  The accession of Claudius
-    rm-432  The Claudian invasion of Britain
+    rm-431  Donativum
+    rm-432  Camulodunum
     rm-433  Caratacus
-    rm-434  The imperial freedmen
-    rm-435  Claudius and the citizenship
+    rm-434  Pallas
+    rm-435  The Lyon Tablet
     rm-436  Aqua Claudia
     rm-437  Messalina
     rm-438  Agrippina the Younger
-    rm-439  Nero
-    rm-440  Seneca and Burrus
-    rm-441  The murder of Agrippina
+    rm-439  Britannicus
+    rm-440  Burrus
+    rm-441  Anicetus
     rm-442  Boudican revolt
     rm-443  Boudica
     rm-444  Corbulo
-    rm-445  The Armenian settlement of 63 CE
+    rm-445  Rhandeia
     rm-446  Great Fire of Rome
     rm-447  Domus Aurea
-    rm-448  Nero and the Christians
+    rm-448  Neronian persecution
     rm-449  Pisonian conspiracy
-    rm-450  Nero's Greek tour
+    rm-450  Periodonikes
     rm-451  First Jewish–Roman War
     rm-452  The revolt of Vindex
-    rm-453  The revolt of Galba
-    rm-454  The death of Nero
-    rm-455  The end of the Julio-Claudians
+    rm-453  Nymphidius Sabinus
+    rm-454  Hostis
+    rm-455  Verginius Rufus
 
 ### Civil war and the Flavians — `rm-flavians`
 
@@ -810,13 +1454,13 @@ the Monumentum Ancyranum, which the Res Gestae itself does not state and the Loe
     rm-459  First Battle of Bedriacum
     rm-460  Vitellius
     rm-461  Second Battle of Bedriacum
-    rm-462  The burning of the Capitol
+    rm-462  Flavius Sabinus
     rm-463  Arcanum imperii
     rm-464  Revolt of the Batavi
     rm-465  Vespasian
     rm-466  Lex de imperio Vespasiani
-    rm-467  Flavian finance
-    rm-468  The Flavian censorship
+    rm-467  Fiscus
+    rm-468  Adlectio
     rm-469  Siege of Jerusalem
     rm-470  The destruction of the Second Temple
     rm-471  Titus
@@ -824,28 +1468,28 @@ the Monumentum Ancyranum, which the Res Gestae itself does not state and the Loe
     rm-473  Fiscus Iudaicus
     rm-474  Arch of Titus
     rm-475  Colosseum
-    rm-476  The inaugural games of the Colosseum
-    rm-477  Eruption of Mount Vesuvius in 79
+    rm-476  Liber Spectaculorum
+    rm-477  Plinian eruption
     rm-478  Pompeii
     rm-479  Herculaneum
     rm-480  Pliny the Elder
     rm-481  Domitian
-    rm-482  Domitian and the Senate
-    rm-483  Domitian's Dacian wars
+    rm-482  Delator
+    rm-483  Domitian's Dacian War
     rm-484  Agricola
     rm-485  Battle of Mons Graupius
-    rm-486  The Roman conquest of Britain
+    rm-486  Inchtuthil
     rm-487  Flavian Palace
     rm-488  Damnatio memoriae
-    rm-489  The assassination of Domitian
+    rm-489  Stephanus
     rm-490  The Flavian dynasty
 
 ### The high empire — `rm-high-empire`
 
     rm-491  Nerva–Antonine dynasty
     rm-492  Nerva
-    rm-493  Adoption and the imperial succession
-    rm-494  Trajan
+    rm-493  Plotina
+    rm-494  Optimus princeps
     rm-495  Trajan's Dacian Wars
     rm-496  Decebalus
     rm-497  Trajan's Column
@@ -1119,7 +1763,7 @@ the Monumentum Ancyranum, which the Res Gestae itself does not state and the Loe
     rm-743  Tributum
     rm-744  The provincial census
     rm-745  Aerarium
-    rm-746  Fiscus
+    rm-746  Patrimonium
     rm-747  Roman currency
     rm-748  Denarius
     rm-749  Roman public finance

@@ -1722,6 +1722,19 @@ body[data-theme="folio"].night .collection-deco{
    and "2 / 3" then breaks across two lines — which makes the whole header two lines tall. */
 .study-card .qc-n{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; min-width:30px; text-align:center; white-space:nowrap;}
 .study-card .question{font-size:calc(18px * var(--fs)); line-height:1.62; margin:0 0 20px; color:var(--ink);}
+/* THE WRITING BAND — empty space under the question to work an answer out on, drawn only while the
+   marker's pen is down (Sep 2026, on request). Three things decide its shape.
+   IT IS NOT DRAWN AT ALL BY DEFAULT: `body.wb-down` is set by applyWBState the moment the pen goes down
+   and cleared when it comes up, so a reader who never picks the marker up sees the card they always saw.
+   IT STAYS WHEN THE ANSWER IS REVEALED, which is the second half of the request — it sits between the
+   question and `.reveal` in the markup, so the answer box opens UNDER it and the working stays on the
+   page beside what it was working out.
+   ITS HEIGHT IS IN `em`, so it scales with the reader's own text size as every other band on the card
+   does; the rule is a hairline at the foot rather than a box, because a boxed area over a canvas the
+   reader can draw straight past would promise a boundary the ink does not keep. */
+.study-card .scratch{display:none;}
+body.wb-down .study-card .scratch{display:block; height:9em; margin:0 0 20px; border-bottom:1px dashed var(--rule);}
+@media (max-width:640px){ body.wb-down .study-card .scratch{height:7em;} }
 .study-card .blank{display:inline-block; box-sizing:border-box; width:2.7em; color:transparent; overflow:hidden; white-space:nowrap; vertical-align:baseline; border-bottom:2px solid var(--ochre); margin:0 3px; line-height:1;}
 /* the golden blank becomes a typing field; on reveal it is replaced by the typed letters, coloured
    green where they directly matched the answer (case-insensitive) and red where they didn't */
@@ -1937,6 +1950,20 @@ body.no-tts .ans-cn .ac-say{display:none;}
 }
 .mc-btn:hover{background:var(--card); color:var(--ink);}
 .mc-btn svg{width:14px; height:14px;}
+/* "Discovered!" — top LEFT, opposite the control stack, on a card whose reveal has just earned the
+   reader somewhere new (Sep 2026, on request). It takes --newterm, which is the ink the site already
+   uses for a term met for the first time, so a discovery looks the same wherever it happens. */
+.mc-new{
+  position:absolute; left:9px; top:9px; z-index:2; pointer-events:none;
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); font-weight:600; letter-spacing:.08em;
+  text-transform:uppercase; line-height:1.7; padding:0 8px; border-radius:999px; white-space:nowrap;
+  color:var(--newterm);
+  background:color-mix(in srgb, var(--newterm) 13%, var(--card));
+  border:1px solid color-mix(in srgb, var(--newterm) 38%, transparent);
+  animation:mcNewIn .34s var(--ease) both;
+}
+.mc-new[hidden]{display:none;}   /* the author `display` would beat the UA rule and pin it open */
+@keyframes mcNewIn{from{opacity:0; transform:translateY(-4px) scale(.96);} to{opacity:1; transform:none;}}
 /* The "Drag to turn · zoom to look closer" chip that sat bottom-left is gone (Sep 2026, on request); the
    canvas's aria-label still says what to do, which is the one reader the words were for. */
 /* the two lazy bundles behind it. A window that says nothing while it waits reads as one that failed. */
@@ -4441,6 +4468,14 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .at-tab:hover{color:var(--ink);}
 .at-tab.on{background:var(--indigo); color:#fff;}
 .at-tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* The way back to the card the reader came from (Sep 2026). It is a tab in shape so it belongs to the
+   row, and OUTLINED rather than filled: `.on` means "the atlas you are looking at", and a solid third
+   button would read as a third atlas. */
+.at-back{
+  border:1px solid var(--rule); background:color-mix(in srgb, var(--card) 88%, transparent);
+  color:var(--ink-soft); margin-inline-start:6px;
+}
+.at-back:hover{background:var(--card); color:var(--ink);}
 @media (max-width:640px){
   .atlas-tabs{top:10px; left:12px; transform:none;}   /* the search chip owns the right corner at this width */
   .at-tab{padding:5px 10px; font-size:calc(11px * var(--fs));}
@@ -4782,6 +4817,14 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .globe-legend .legend-collapse{border:none; background:transparent; color:var(--ink-faint); font-size:calc(15px * var(--fs)); line-height:1; width:18px; height:18px; padding:0; margin:-2px -4px -2px 0; cursor:pointer; border-radius:5px; display:flex; align-items:center; justify-content:center;}
 .globe-legend .legend-collapse:hover{background:color-mix(in srgb, var(--ink) 9%, transparent); color:var(--ink);}
 .lc-layers{display:none; width:16px; height:16px;}   /* shown only on the phone's collapsed chip, where a bare dash reads as nothing */
+/* The personal atlas's collection switches (Sep 2026). They take the legend's own corner and shape —
+   the world atlas's legend is hidden on that tab, so the two are never on screen together and a reader
+   who knows where the layer switches live finds these in the same place. The count beside each name is
+   how many places that collection has put on the globe, quiet and monospaced like every other figure. */
+.atlas-colls{max-width:min(240px, 46vw);}
+.atlas-colls .legend-row{justify-content:flex-start; gap:8px;}
+.atlas-colls .legend-row span:not(.lr-n){overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.lr-n{margin-inline-start:auto; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); color:var(--ink-faint);}
 .globe-legend.collapsed .legend-body{display:none;}
 .globe-legend .legend-row{display:flex; align-items:center; gap:8px; font-size:calc(12.5px * var(--fs)); color:var(--ink); cursor:pointer; line-height:1;}
 .globe-legend .legend-row + .legend-row{margin-top:6px;}
@@ -5097,11 +5140,20 @@ body.night .active-deck{ --dk-gold:#D8B355; }
 /* the row is read OVER the watermark — every child that can reach the right-hand end of the line, and
    NOT `> *`, which would re-position the absolutely-placed grip */
 .active-deck.dk-done .dk-counts,
-.active-deck.dk-done .dk-body,
 .active-deck.dk-done .dk-chev,
 .active-deck.dk-done .dk-chev-gap,
 .active-deck.dk-done .coll-ic,
 .active-deck.dk-done .dk-dl{ position:relative; z-index:2; }
+/* …and `.dk-body` IS RAISED WITHOUT BEING POSITIONED, which is the whole of this rule (Sep 2026, on a bug
+   report: a deck finished for the day had its progress bar jump from the row's bottom edge to a line under
+   the title). `.dk-prog .track` is `position:absolute; bottom:0` and takes its containing block from the
+   nearest POSITIONED ancestor, which is `.active-deck` — the row, whose `overflow:hidden` clips the track
+   to the last row's rounded corners. It lives inside `.dk-body`, so the moment that gets `position:relative`
+   the bar re-anchors to the body's own bottom and the row's underline is gone.
+   `z-index` alone is enough here because `.dk-body` is a FLEX ITEM of `.active-deck`: flexbox applies
+   z-index to items as though they were positioned, so this still lifts the whole body over the `::after`
+   watermark and still carries its descendants with it, while leaving the row as the track's anchor. */
+.active-deck.dk-done .dk-body{ z-index:2; }
 .active-deck .gt-check, .active-deck .gt-seal{
   width:1px; height:1px; padding:0; border:0; overflow:hidden;
   clip-path:inset(50%); background:none; box-shadow:none; animation:none; filter:none; flex:none;
@@ -5535,6 +5587,15 @@ sup.fn.src-flash{padding:0 3px;}
   background:color-mix(in srgb, var(--ochre) 13%, transparent);
   border-color:color-mix(in srgb, var(--ochre) 34%, transparent);
 }
+/* The language chip (Sep 2026). It takes --geo rather than a colour of its own: green already means
+   "free to read" and amber "paywalled" on the very same line, so a third chip in either would be read as
+   a third verdict about access. --geo is one of the quiet tokens `body.hc` already re-tones, so the
+   high-contrast mode covers this with no rule of its own. */
+.src-lang{
+  color:var(--geo);
+  background:color-mix(in srgb, var(--geo) 12%, transparent);
+  border-color:color-mix(in srgb, var(--geo) 32%, transparent);
+}
 .src-compact .src-access, .cp-src .src-access{font-size:calc(8.5px * var(--fs)); padding:0 5px;}
 /* the in-prose marker: a real superscript, clickable, in the SAME VERMILION as the answer term
    (.answer .val). Deliberately not the ochre the blanks use: an unopened glossary link is gold
@@ -5925,6 +5986,10 @@ button.game-tile .gt-glyph{opacity:.14;}
 .ci-grip:active{cursor:grabbing;}
 .ci-grip svg{width:18px; height:18px;}
 .ci-name{flex:1; min-width:0; font-family:var(--serif); font-size:calc(16px * var(--fs)); color:var(--ink); line-height:1.3;}
+/* A LITERARY WORK'S AUTHOR, after the italic title (Sep 2026, on request) — see CHRONO_WORKS in app.js.
+   It is quieter than the title and never a second line of its own: the row is a thing to be ordered, and
+   the by-line is there to say what kind of thing it is rather than to be read. */
+.ci-name .ci-by{color:var(--ink-faint); font-style:normal; font-size:calc(14px * var(--fs)); white-space:nowrap;}
 /* THE REVEALED DATE IS TWO LINES SINCE SEP 2026 (on request: each year "should also say what that
    starting date is based on") — the year, and under it the date line's own label for the row it came
    from. Ranged RIGHT, because the row's left is the term and the two numbers should line up down the
@@ -7985,7 +8050,16 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
    closed blanks all print twice, one under the other. A template that does NOT ask for the front is
    untouched: its question stays above the answer, as a Basic card's does, which is what keeps a reader's
    graded cloze guess on the page beside what it should have been. */
-.study-card:has(.uc-back.uc-hasfront) > .label,
+/* THE "QUESTION" HEADING GOES WITH THE QUESTION IT HEADS, and this half of the rule had stopped
+   matching (Sep 2026, on a bug report that a Chinese card's question "turns invisible" once the marker
+   is down). It was written `> .label`, which was right when the label was a direct child of the card;
+   the q-head restructure moved it to `.q-head > .q-lead > .label`, so the selector silently addressed
+   nothing. Nothing looked wrong while it was broken, because the heading landed directly above the
+   front the back redraws — until the WRITING BAND opened between the two, at which point the card read
+   as "Question" over nine centimetres of nothing, with the question itself pushed below the band. The
+   band is right to stay where it is (a reader's working is on it, and the ink is in page coordinates,
+   so moving the band would orphan it); the heading is what had to go. */
+.study-card:has(.uc-back.uc-hasfront) > .q-head .label,
 .study-card:has(.uc-back.uc-hasfront) > .question{display:none;}
 /* ---------- the two behaviours Folio lends a card type ----------
    A type's own CSS is scoped to its own cards, so anything a type needs to LOOK like it must style itself.
@@ -8261,6 +8335,14 @@ body.night .book-tile, body.night .gloss-book{
   color:var(--bk-accent);
   border:1px solid color-mix(in srgb, var(--bk-accent) 42%, transparent);
   background:color-mix(in srgb, var(--bk-accent) 9%, transparent);
+}
+
+/* How many people have read the book (Sep 2026). Quiet and monospaced like every other figure on the
+   site — it is a footnote on the banner, not a badge: the tile's own chips say what the book IS, and a
+   readership count competing with them would read as a claim about the work. */
+.bk-tile-reads{
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.04em;
+  line-height:1; flex:none; white-space:nowrap; color:var(--ink-faint);
 }
 .bk-tile-new{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
 /* where the reader left off — the tile's one changing fact, so it takes the accent colour */

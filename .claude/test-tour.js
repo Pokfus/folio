@@ -171,10 +171,25 @@ const CARD = () => {
        place. A tutorial naming a control by a label the page has not got is the exact failure this file
        exists to catch, so the expectation now comes from the same source the button does and drifts with
        it. If the id ever changes, the check below fails loudly rather than quietly matching nothing. */
-    const revealLabel = (/id="reveal-btn"[^>]*>([^<]+)</.exec(APP_SRC) || [])[1];
-    check("the reveal control's label was found in app.js", !!revealLabel, revealLabel || "(none)");
+    /* …AND THE LABEL IS NOT ALWAYS A LITERAL (Sep 2026). The button gained a second wording when
+       "Recall in full" shipped — the markup now reads `>" + (recallOn ? "Reveal and compare" : "Reveal
+       answer") + "<` — so the slice captured a fragment of JavaScript and this check failed against it,
+       which is the check being wrong rather than the tour. What is read off app.js is therefore every
+       LABEL the expression can produce, and the tour has to name one of them: a literal capture yields a
+       single candidate and behaves exactly as before. The glue between the strings is dropped by asking
+       for a candidate that carries a letter, no operator and no outer spaces — and an EMPTY candidate
+       list still fails loudly, which is the property the paragraph above promises. */
+    const revealRaw = (/id="reveal-btn"[^>]*>([^<]+)</.exec(APP_SRC) || [])[1] || "";
+    /* The capture OPENS AND CLOSES on the string-concatenation's own quote when the label is an
+       expression, so the quoted runs inside it are the JavaScript glue and not the words — strip that
+       outer pair first and the pairing lands on the labels. */
+    const inner = revealRaw.replace(/^"/, "").replace(/"$/, "");
+    const quoted = inner.match(/"[^"]*"/g);
+    const revealLabels = (quoted ? quoted.map((t) => t.slice(1, -1)) : [inner])
+      .filter((t) => /[A-Za-z]/.test(t) && t.trim() === t);
+    check("the reveal control's label was found in app.js", revealLabels.length > 0, revealLabels.join(" | ") || "(none)");
     check("...it teaches revealing a card, by the button's real name",
-      !!revealLabel && prose.toLowerCase().includes(revealLabel.toLowerCase()), JSON.stringify(revealLabel || ""));
+      revealLabels.some((l) => prose.toLowerCase().includes(l.toLowerCase())), JSON.stringify(revealLabels));
     const grades = (seen.find((s) => s.grades.length) || {}).grades || [];
     check("...and grading it, all four buttons named",
       grades.map((g) => g.split(":")[0]).join(",") === "Again,Hard,Good,Easy", grades.join(" "));

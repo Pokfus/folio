@@ -271,6 +271,42 @@ assertions can be made in COLOUR — a red band down the far left, green through
 wired to nothing still opens a dialog, still shows the photograph and still saves; what it saves is the
 centre crop, and reaching the left edge is the whole of what was asked for.
 
+## Filling a card's empty frame, one card at a time (2026-09-17)
+
+`check-cards.js` reports a **no-picture** note over the whole corpus, and it is a note rather than a
+violation because most of what it names cannot have a picture: 436 cards carried no illustration, no map
+and no clip, and the list is led by Ancient Greece (204) and Ancient Rome (101) — collections whose gaps
+are `sacrosanctity`, `evocatio`, `formula togatorum`, `philhellenism`. **The cheapest cards to fill are
+the ones whose subject is an OBJECT or a PROCEDURE**, which is why this first batch is Biology.
+
+Three shipped: `bio-093` Micrographia, `bio-075` chromatography and `bio-098` light microscope. Each went
+through the standing sequence — `suggest-image.js` for candidates, `check-image-free.js` BEFORE fetching,
+the picture itself fetched and LOOKED AT, then `add-images.js`.
+
+**THE NAME-MATCH FAILURE IS STILL THE COMMONEST OUTCOME AND IT LOOKS PLAUSIBLE.** A search for
+**Samguk sagi**, Korea's twelfth-century annals, returns two Japanese woodblock prints of the Chinese
+*Three Kingdoms* and two fleurons from an English life of Archbishop Laud — four public-domain files, all
+of them confidently wrong, and a batch that installed the top hit would have put a samurai print on a
+card about Kim Busik. **Korean stone cist** returns nothing at all, which is the honest answer and the
+one the tool is built to give.
+
+**A QUERY HAS TO NAME WHAT THE CARD IS ABOUT, NOT WHAT IT IS CALLED.** "Micrographia" alone returns silk,
+a bookworm, blue mould and two gnats — every one a real Hooke plate and none of them the card's subject,
+which is the word *cell* entering biology off a slice of cork. "Micrographia cork" returns plate XI on the
+second row. **The card's own abstract is the query.**
+
+**AND ONE WAS REJECTED ON LOOKING AT IT**, which is the whole reason for the rule. `bio-092` cell theory
+wanted Schwann's own plate of animal and plant cells drawn side by side — the right subject exactly — and
+the only scan on Commons is a faint grey exposure with the book's gutter and half the facing page in
+frame. At the size a card draws it, it is a pale rectangle. **A poor picture is worse than an empty
+frame**, so that card still has none, and a better scan of that plate is the thing to look for.
+
+**`upload.wikimedia.org` RATE-LIMITED THE SESSION AT ABOUT A DOZEN PICTURES**, exactly as the section
+above records, and it did not clear on a spaced retry. The three `src` strings shipped are the API's own
+`url`/`thumburl` with the tracking query cut, which is the rule that makes them safe to write without a
+final fetch; one of the three served 200 from that host while the other two were still 429, so the
+shapes are confirmed.
+
 ## Sourcing a picture from Commons — the rate limit and the URL shard
 
 **Read this before fetching a candidate picture, or before writing an image `src` by hand.**
