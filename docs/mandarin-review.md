@@ -630,6 +630,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l5` notes 541–570 (嘉宾 → 将近), deck order | 20 | **the same string reported as a fault on two OTHER cards and invisible on the card where it IS the fault** |
 | 2026-09-18 | `hsk30l5` notes 571–600 (讲话 → 尽量), deck order | 26 | **two CANTONESE sentences in a Mandarin deck, six cards apart — 结他 for a guitar and 系 for 是** |
 | 2026-09-18 | `hsk30l5` notes 601–630 (紧密 → 巨大), deck order | 21 | **a fourth card with two readings under one pinyin, and two example sentences of 55 and 90 characters** |
+| 2026-09-18 | `hsk30l5` notes 631–660 (据说 → 空间), deck order, plus the applier's hint strip | 20 + 1 | **`hints` is called authoritative and was not: a retired disambiguator stayed on its card for ever and `--check` went on passing** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -8673,3 +8674,107 @@ collision; one-sided hints still 0; pinyin clean, with the cross-checked count 1
 skipped 69 → 70, which is 精神 joining the two-reading cards; example-fit 141 and senses 151 unchanged;
 british 0; 34,596 blocks with spoken == visible on every one; **sense-tagged 699 → 705**, the six being
 进步's and 精神's; `build-lang-decks.js` re-run.
+
+## Batch 95 — hsk30l5 notes 631–660 (据说 → 空间)
+
+Thirty consecutive notes of HSK Level 5 in deck order. **Twenty cards changed** in Level 5 and **one in
+Levels 7–9**, which is the batch's real finding: a retired disambiguator that the applier could not take
+off its card.
+
+### `hints` is called authoritative and was not
+
+**靠's gloss was *lean on* and NOT ONE of its three sentences is leaning** — 全都靠它了, 靠什么维持生活
+and 靠不住 are all *to rely on*, which CC-CEDICT gives and the card did not. Rewriting the gloss retires
+a disambiguator: 靠 and 拄 each carried a `not` hint because both glossed *lean on*, and with the new
+gloss the collision is gone.
+
+**Taking the pair out of `hints` removed 靠's block and left 拄's standing.** The record was then
+claiming a hint the deck no longer had — and `--check` passed, because the applier REPLACED a leading
+`not X` block rather than removing one, so a note dropped from the map simply kept what it had. **That is
+the exact drift the file exists to prevent**, in the one field its own header calls the complete list,
+and it sat one function away from the two strips written for added examples and sense tags and justified
+in those same words.
+
+**It went unnoticed because of how the seventeen dead hints of batch 27 were retired.** Every one of them
+was retired by a note that ALSO took a new gloss in the same batch — and a `senses` rewrite replaces
+`English` whole, which takes the block with it as a side effect. 拄 is the first note in this whole audit
+to lose its PARTNER's gloss without changing its own, so it is the first case the side effect could not
+cover.
+
+**The fix is a blanket strip before the re-add, and it is safe because the map is the complete list —
+measured rather than assumed.** Of the 641 hint blocks the nine decks carried, 640 were named by `hints`
+and the one that was not is 拄: the generator's own pairs sit in the map beside the ones this record
+added. **The change was proved inert on the other eight decks byte for byte** — re-running writes exactly
+one changed note outside Level 5, 拄's.
+
+### Four near-identical pairs, two of them this audit's own
+
+**科研's 他在大学从事科研工作 and 他从事科研工作 are the same sentence with the location taken off** — the
+plainest near-repeat the audit has met, and both were added by an earlier batch of it. **开展's
+学校开展了一次活动 and 学校开展了读书活动 differ by one word**, also both added here. 可靠 had the same
+people unreliable twice; 克服 had 克服困难 twice in three slots; 捐 donated blood twice; 开幕 opened the
+same Olympics twice; 开幕式 held the same ceremony twice, once by 举办 and once by 举行.
+
+**And 看望 was three deep**: all three sentences were somebody going to see somebody.
+
+### Taiwan Mandarin, in a sentence about slides
+
+**客户's 慧如那个简报档还没传喔？客户在催。** is Taiwan usage through and through: 简报 for a slide
+deck (the mainland sense of 简报 is a bulletin or a brief report), 档 for a computer file where the
+mainland writes 文件, and the sentence-final 喔. **The third regional-vocabulary finding in five
+batches** — after 硬体/软体 and 结他 — and invisible for the same reason each time: these are different
+WORDS, so no variant sweep and no pinyin check can reach them.
+
+### A truncated gloss, and three more labels that named the wrong part of speech
+
+**开放's gloss read *lift a restriction; open up (to the outside world/*** — the bracket never closes and
+the phrase stops mid-word. It is the sixth truncated gloss this audit has found. **科研 is labelled a
+VERB** and is a noun. **客服 is labelled an ADJECTIVE** and is a noun. **可见 put a CONJUNCTION label over
+*it is thus clear that; visible; visual*** — two words' worth of sense under one part of speech, with the
+card's own sentences using both.
+
+### A measure word counting the wrong thing
+
+**颗's first sentence was 你有两颗球。** 颗 does not count balls — 个 does — and the English it carried,
+*You have two balls*, is not a sentence to put in front of a reader. `check-coarse.js` has no word in it
+to match. Replaced with stars, which is one of the things CC-CEDICT says 颗 counts.
+
+### Two more sentences that are not sentences
+
+**看作's third ran to 50 characters and has no grammatical reading** —
+他的教导都包含在道教者看作关于宗教最后的权威的道德经那本深刻的书 piles modifier inside modifier and
+never resolves. It was added by an earlier batch of this audit. **靠近's 无法靠近敌人 carries no terminal
+punctuation**, repeats the card's own first sentence, and is 接近's 我们无法接近敌人 with one character
+changed, forty cards earlier in this same deck. **开业's 开业庆典酬宾 is shop signage**, four characters with
+no predicate.
+
+### A mistake this batch made, and the check that caught it
+
+**Two `ex` arrays were OVERWRITTEN rather than appended to**, because the helper that merges a new entry
+into an existing one assigns whole keys — so 开幕 and 开业 lost rows added by earlier batches and came out
+at two examples and one. **`check-mandarin-coverage.js` caught it in its first line**: 11,530 notes at
+three sentences against 11,532, and the block count 34,596 → 34,593. Both restored, and the count is back
+at 11,532. **It is recorded because the shape will recur**: a record entry that already exists has to be
+read before it is merged into, and the count is what says whether it was.
+
+### What was read and left
+
+**Ten cards were read and left untouched**: 具有, 绝对, 决赛, 角色, 开发, 开水, 开通, 可怕, 客观 and
+空间.
+
+**角色 was the judgement call.** Its third sentence is 女性永远只能扮演次要角色吗？ — *Must the woman
+always play the secondary role?* — which is a sentence about women on a vocabulary card. It is left,
+because it is INTERROGATIVE and challenges the assumption rather than asserting it, which is the
+opposite of batch 90's 矮 and 教养. Recorded so the next reader knows it was read rather than missed.
+
+**空间's 空间科学还在起步阶段 is also 阶段's second sentence**, seventy-three cards earlier, and is left
+on both: it is a good sentence for each headword and the two are far enough apart that no reader meets
+them together. **决赛's 四分之一决赛 and 半决赛 look like swallowed headwords and are not** — they are the
+quarter-final and the semi-final, which is a reader's next question about the word.
+
+**Checks after the batch.** `--check` clean; coverage 11,532 at three sentences, repeats 0,
+still-ambiguous 1; **shared-gloss groups 322 → 321 and hint-carrying groups 321 → 320**, which is the
+靠/拄 pair separating; one-sided hints still 0; pinyin clean; example-fit 141 and senses 151 unchanged;
+british 0; 34,596 blocks with spoken == visible on every one; **sense-tagged 705 → 708**, the three being
+可见's; hints 663 → 661; `build-lang-decks.js` re-run. **No changelog line and no version bump for the
+applier change**: `.claude/decks/mandarin-fix.js` is not part of the site.

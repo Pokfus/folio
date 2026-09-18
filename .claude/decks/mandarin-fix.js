@@ -570,6 +570,21 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
         .map((x) => '<div class="uc-exi' + x).filter((x) => x.indexOf("uc-exadd") < 0).join("");
       hits++;
     }
+    /* AND SO IS EVERY `not X` HINT BLOCK, for the same reason and after one got away (Sep 2026, batch
+       95). The hint below REPLACED a leading block rather than removing one, so a pair retired from
+       `hints` stayed on the card for ever and `--check` went on passing — the exact drift the two
+       strips above exist to prevent, in the one field the header calls authoritative. It went unnoticed
+       because the only pairs ever retired were retired by a note ALSO taking a new gloss in the same
+       batch, and a `senses` rewrite replaces `English` whole and takes the block with it; 拄 was the
+       first note to lose its partner's gloss without changing its own.
+       A BLANKET STRIP IS SAFE HERE BECAUSE THE MAP IS THE COMPLETE LIST, which is measured rather than
+       assumed: of the 640 hint blocks the nine decks carried, 639 were named by `hints` and the one that
+       was not is 拄. The generator's own pairs are in the map beside the ones this record added. If that
+       ever stops being true, this strip deletes a block nothing puts back. */
+    if (/^<div class="uc-pos">not /.test(String(fl.English || ""))) {
+      fl.English = String(fl.English).replace(/^<div class="uc-pos">not [^<]*<\/div>/, "");
+      hits++;
+    }
     /* THE HINT IS APPLIED FIRST AND INDEPENDENTLY, so a note may take a hint and a sense rewrite in one
        pass. It is written as the card type's own `not X` block above the senses — the shape the 104
        pairs the decks already carry use — and is REPLACED rather than appended, so re-running cannot
