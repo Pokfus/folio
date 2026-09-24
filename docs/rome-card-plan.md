@@ -500,7 +500,7 @@ sites than by scholarship and the cited source has to be chosen with care.
 
 ### Rome and the Mediterranean — `rm-mediterranean`
 
-    rm-236  Rome and the Hellenistic world
+    rm-236  Conference of Naupactus
     rm-237  Illyrian Wars
     rm-238  First Macedonian War
     rm-239  Philip V of Macedon

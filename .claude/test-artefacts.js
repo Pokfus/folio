@@ -209,6 +209,10 @@ function syntheticPool() {
     await page.waitForTimeout(600);
 
     const badgesBefore = await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem("folio_v1")).achievements || {}).length);
+    /* READ THE BALANCE AFTER BOOT rather than assuming the seeded 40: the boot backfill unlocks any badge
+       the seeded state already earns, and each pays a chest — owning every theme earns "Dressed for the
+       Occasion" (Sep 2026), so the sweep starts on 41. */
+    const chestsBefore = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).chests | 0);
     const seen = [], rarSeen = {};
     let exhausted = null;
     for (let i = 0; i < 34; i++) {
@@ -243,7 +247,7 @@ function syntheticPool() {
        assumed — an assertion of 8 would fail the day another collector badge is added. */
     const badgesAfter = Object.keys(st.achievements || {}).length;
     check("…and the balance is what the badges earned along the way leave",
-      st.chests === 40 - 32 + (badgesAfter - badgesBefore),
+      st.chests === chestsBefore - 32 + (badgesAfter - badgesBefore),
       st.chests + " left, " + (badgesAfter - badgesBefore) + " badges earned");
     check("…and the inventory holds all 32", Object.keys(st.artefacts).length === 32);
   }

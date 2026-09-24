@@ -973,14 +973,14 @@ function crosswordForPage(cells) {
       pool: (window.QUOTEGAME || []).length,
       era: (window.QUOTEGAME || []).filter((x) => x.era).length,
     }));
-    check("[ws] the game deals five rounds", /\/ 5\b/.test(head.h1) && head.pips === 5, JSON.stringify(head));
+    check("[ws] the game deals three rounds", /\/ 3\b/.test(head.h1) && head.pips === 3, JSON.stringify(head));   // five until Sep 2026, cut to three on request
     check("[ws] …with four options on the round", head.opts === 4, String(head.opts));
     check("[ws] …and every quotation in the pool carries a period", head.pool > 90 && head.era === head.pool, JSON.stringify(head));
 
-    /* Walk all five rounds, answering each so the page moves on. The tier check is made per round from
+    /* Walk all three rounds, answering each so the page moves on. The tier check is made per round from
        the quote's own entry — the pool is keyed on the English `q`, and the site is English-only. */
     const rows = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
       const row = await page.evaluate(() => {
         const q = (document.querySelector(".ws-quote") || {}).textContent.trim();
         const opts = [...document.querySelectorAll("#opts .opt")].map((b) => b.textContent.replace(/^[ABCD]/, "").trim());
@@ -1019,10 +1019,10 @@ function crosswordForPage(cells) {
       tomorrow: (document.querySelector(".tf-tomorrow") || {}).textContent || "",
       again: /play again/i.test((document.querySelector("#view") || {}).textContent),
     }));
-    check("[ws] …five rounds end on a score out of five and no second go",
-      /\/ 5\b/.test(end.h1) && !end.again, JSON.stringify(end));
-    check("[ws] …and the closing line counts the same five",
-      /^Five fresh voices/.test(end.tomorrow.trim()), end.tomorrow);
+    check("[ws] …three rounds end on a score out of three and no second go",
+      /\/ 3\b/.test(end.h1) && !end.again, JSON.stringify(end));
+    check("[ws] …and the closing line counts the same three",
+      /^Three fresh voices/.test(end.tomorrow.trim()), end.tomorrow);
     await ctx.close();
   }
 

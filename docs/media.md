@@ -329,6 +329,40 @@ and CANNOT be guessed; a hand-typed one is a 404 on a card that otherwise looks 
 It cost a broken picture once, caught only because the rate limit above forced a re-check — so when
 a `src` cannot be fetched to confirm it, compare it against the API's own string instead.
 
+· **AND WHEN `api.php` ITSELF IS RATE-LIMITED, THE METADATA IS STILL READABLE — FROM TWO OTHER
+ENDPOINTS** (Sep 2026, writing `gr-901`–`gr-910`). `api.php` answered *"You are making too many
+requests"* for over half an hour and did not clear with a 20/40/60/80/100-second backoff, which stalled
+a run of nineteen files at the sixth. Two routes replace it and neither is rate-limited in the same way.
+**`https://api.wikimedia.org/core/v1/commons/file/File:<NAME>`** gives the original's width, height and
+URL as JSON (strip its `?utm_…` query). And the ordinary **File: page carries the same
+machine-readable fields `api.php`'s `extmetadata` is derived from** — `class="licensetpl_short"` for
+each licence template and `id="fileinfotpl_aut"` for the Author cell. **The page's class and id
+attributes arrive HTML-ESCAPED** (`licensetpl&#95;short`), so a pattern matched against the raw bytes
+finds nothing at all and reports every file as unlicensed: unescape the whole page first. The span also
+carries attributes after its class, so the pattern is `class="licensetpl_short"[^>]*>`, not
+`class="licensetpl_short">`. And **`Special:Redirect/file/<NAME>` returns the upload URL, with its
+shard, even while answering 429** — which is how the five files whose REST call was throttled got their
+`src`.
+· **A FILE'S `Artist` IS NOT ALWAYS WHO THE LICENCE ASKS TO BE CREDITED, AND ON AN ANCIENT OBJECT IT
+USUALLY IS NOT** (same batch). Commons' `Artist` field is the AUTHOR OF THE WORK, so on a photograph of
+a Greek statue it holds the sculptor — `Dionysos_Louvre_Ma87_n2.jpg` gives **"anonymous"** there while
+the photograph is **CC BY 2.5** and its `Credit` line reads **"© Marie-Lan Nguyen / Wikimedia
+Commons"**. Crediting the Artist field would have shipped a CC BY picture with no attribution at all,
+which is a licence breach the page looks perfectly fine committing. **Read `fileinfotpl_credit` and
+`fileinfotpl_src` as well**: `Own work` plus the uploader's name is the photographer (the Pergamon
+Prometheus group is CC BY 4.0, Artist "Unknown artist", uploader **Choliamb**).
+· **AND A PAGE MAY LIST SEVERAL LICENCE TEMPLATES, SO THE LICENCE IS A JUDGEMENT AND NOT A FIELD**
+(same batch). The object's own public domain sits beside the photographer's CC, or a file is
+multi-licensed GFDL/CC BY-SA/CC BY. Taking the LAST template printed gave GFDL — which is outside
+Folio's bar — for a file that is also CC BY-SA 3.0, and PDM for one `api.php` calls plainly public
+domain. **Declare the licence per file after reading its page**, and where several apply choose the one
+inside the bar (public domain, CC0, CC BY, CC BY-SA).
+· **AND THE NAME IS STILL NOT THE THING.** `Hermes_Ingenui_Pio-Clementino_Inv544.jpg` is filed under a
+name that reads as a herm and is a full-length STATUE of Hermes in a petasos with a caduceus; a caption
+describing a squared pillar was written, and only looking at the picture caught it. The batch's Commons
+searches also offered **Hephaestus Fossae** (a channel system on Mars), **NASA's Pandora spacecraft**
+and a **church narthex** among their first four hits.
+
 ## The card image bullet as it stood in CLAUDE.md (2026-09-12)
 
 **Read this before changing the image viewer's gestures or a picture's `alt`.** CLAUDE.md keeps the

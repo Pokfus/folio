@@ -37,6 +37,7 @@
 //                          "alt": "The flag of Texas: a blue band at the hoist bearing a white star, …" }
 const fs = require("fs"), path = require("path");
 const { isDateList } = require("./date-line.js");
+const { figureEchoes: factsEchoes } = require("./facts-echo.js");
 const { checkWhy, checkLeadsTo, loadCardYears, collectionIndex } = require("./card-links.js");
 const { checkWar } = require("./card-war.js");
 const dataPath = path.join(__dirname, "..", "data.js");
@@ -151,6 +152,17 @@ const MAP_LAYERS = {
      Shanghai, Tianjin and Chongqing are cities that are themselves divisions, so a dot card there would
      shade the answer. The refusal a missing point produces is the intended one. */
   "china-provinces": { file: "china-provinces.js", global: "CHINA_PROVINCES", what: "province", points: "CHINA_CAPITALS", dotWhat: "provincial capital" },
+  /* Russia's federal subjects, shaped like China's above — the centres in the SAME file as the shapes,
+     for app.js's own `russubj` bundle reason. `what` is "federal subject" rather than a kind because the
+     83 are six different kinds of thing (46 oblasts, 21 republics, 9 krais, 4 autonomous okrugs, 2 cities
+     of federal significance, 1 autonomous oblast), so "province" would be false of 37 of them and
+     "region" would give the answer away on the 46 oblasts. THREE subjects are deliberately absent from
+     the point table and they are not the same refusal: Moscow and Saint Petersburg are cities that are
+     themselves federal subjects, so a dot card there would shade its own answer; Khakassia is a DATA
+     refusal, this layer drawing Abakan outside the republic (see docs/russia-geography-card-plan.md and
+     the builder's DEFERRED table). The refusal a missing point produces is the intended one in all
+     three. */
+  "russia-subjects": { file: "russia-subjects.js", global: "RUSSIA_SUBJECTS", what: "federal subject", points: "RUSSIA_CENTRES", dotWhat: "administrative centre" },
 };
 const MAPQ_MIN = 5, MAPQ_MAX = 20;
 const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;
@@ -229,6 +241,19 @@ if (isMap) {
   if (bad) { console.error("ERROR: every `facts` row is a [label, value] pair of non-empty PLAIN TEXT (no markup — the writer builds the tags): " + JSON.stringify(bad)); process.exit(1); }
   if (facts.length < MAP_FACTS_MIN || facts.length > MAP_FACTS_MAX) {
     console.error("ERROR: a map card carries " + MAP_FACTS_MIN + "–" + MAP_FACTS_MAX + " `facts` rows — the figures box beside its answer (capital, population, area …). This one has " + facts.length + ".");
+    process.exit(1);
+  }
+
+  /* THE BACKGROUND MAY NOT RESTATE THE GRID (on request, Sep 2026).  The answer box prints these
+     figures two inches above the prose, so giving them again asks the reader to read the same number
+     twice.  The rule and its two tiers live in `.claude/facts-echo.js`; this is that test applied to
+     ONE card before it ships, so the corpus cannot quietly regrow a fault a whole pass has cleared.
+     A NAME is not refused here, only a FIGURE -- see that file for why. */
+  const echoes = factsEchoes(card);
+  if (echoes.length) {
+    console.error("ERROR: the background states a figure the facts grid already prints, so the reader reads the same number twice: " + echoes.join(", "));
+    console.error("       Drop it from the prose and keep the grid. A RANK, a DENSITY or a SHARE derived from it is not an echo, and is usually the better sentence.");
+    console.error("       Then: node .claude/facts-echo.js --card=" + card.id);
     process.exit(1);
   }
 } else if (!isArt && !isFlag && Array.isArray(card.facts) && card.facts.length) {

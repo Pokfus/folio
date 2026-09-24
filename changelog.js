@@ -35,13 +35,28 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.883", released: "2026-09-24T14:01Z" };
+window.FOLIO_VERSION = { v: "1.886", released: "2026-09-24T17:46Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-24",
-    t: "Two new decks: name the world\u2019s flags, and draw them from memory",
+    t: "The Ancient Greece collection is finished at a thousand cards",
     items: [
+      "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
+      "<b>Seventy new cards in the Ancient Greece collection</b>, on Greek myth, the journey home from Troy and Greek worship from sacrifice to the mysteries, with sixty-three new glossary terms.",
+      "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
+      "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",
+      "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades.",
+      "<b>Who said it? deals three quotations a day</b>, each explanation cites its sources, and editors can take a quotation out of the game.",
+      "<b>The Think it through questions show on every card</b>, not only the first time you meet one.",
+      "<b>The home page says plainly when you are not signed in</b>, so progress kept only on this device does not come as a surprise.",
+      "<b>Seven new badges</b>, among them one for studying late at night and one for studying early in the morning.",
+      "<b>Timeline places a US state at the year it joined the Union</b>, and your own atlas marks a battle with crossed swords.",
+      "On a Mandarin card the writing space opens below the question, the Picture round's descriptions link their glossary terms, and Find it no longer flashes on a tap.",
+      "An artefact's picture sits beside its description on wider screens, and the German decks list the cases Nominativ, Genitiv, Dativ, Akkusativ.",
+      "One Ancient Rome card is replaced by a card on the Conference of Naupactus, and twelve cards across eight collections have their dates or wording corrected.",
+      "Fifty-three Politics: East Asia cards gain a picture, and a Second World War card gets a better portrait.",
+      "Twenty cards gain or redraw their atlas window \u2014 mountain chains as ranges, and empires and cultures as the ground they held.",
       "<b>The Collections page is redesigned like a magazine</b> \u2014 each collection is a cover, the one you are reading leads the page, and Compact brings the list back.",
       "<b>Flags is a new deck of World Geography</b> \u2014 two hundred and twenty-nine cards, each showing a flag for you to name.",
       "<b>Draw the flags is a second new deck</b> \u2014 it names a country and you draw its flag on a canvas of its own, with pens, a fill and any colour you like.",
@@ -51,13 +66,16 @@ window.CHANGELOG = [
       "<b>Westeros joins the planned collections</b> \u2014 a thousand cards on A Song of Ice and Fire, the history behind it, and the television, games and fandom around it.",
       "<b>Middle-earth joins the planned collections</b> \u2014 a thousand cards on Tolkien's world, the books behind it, and the films, games and fandom that grew from them.",
       "<b>Forty-eight more families of word follow your spelling setting</b> \u2014 <i>sympathise</i>, <i>fertiliser</i>, <i>paediatrics</i> and the rest now change with it.",
+      "Fourteen new cards in the Russia geography collection, each with a paired glossary term.",
+      "<b>The Russia geography collection is finished</b> \u2014 all 83 federal subjects and 79 of the 80 administrative centres; Moscow Oblast\u2019s is left out because no source says which city it is.",
+      "A cited book\u2019s title is corrected in the sources of thirteen Russia geography cards.",
     ],
   },
   {
     d: "2026-09-18",
     t: "The Ancient Egypt collection opens with its first ten cards",
     items: [
-      "<b>Seventy new cards and sixty-three glossary terms</b> \u2014 the Ancient Egypt collection opens with ten, thirty carry Rome to Trajan's column, and thirty take Russia to the Mongol conquest.",
+      "<b>One hundred and ten new cards and ninety-seven glossary terms</b> \u2014 forty on Greek myth, ten opening the Ancient Egypt collection, thirty carrying Rome to Trajan's column and thirty taking Russia to the Mongol conquest.",
       "<b>The word \u201cmedian\u201d no longer links to the Medes</b> on cards that use it as a statistic rather than as a people.",
       "<b>Architecture joins the planned collections</b> \u2014 a thousand cards on how buildings are designed and built, from the arch to the carbon in the concrete.",
       "<b>The First World War joins the planned collections</b> \u2014 a thousand cards on the whole war, from the alliance system to how it is remembered.",
@@ -72,6 +90,7 @@ window.CHANGELOG = [
       "<b>Three cards' atlas maps are put right</b> \u2014 the Battle of Alalia and the Phaistos Disc now show where they happened, and municipium no longer marks a town.",
       "<b>A Chinese vocabulary card's question no longer looks as though it has vanished</b> when the answer is shown with the marker down.",
       "<b>Three cards' source lists are improved</b> \u2014 two in World History now cite mostly works you can open, and one in Ancient Rome leans less on one scholar.",
+      "Thirty-two new cards in the Russia geography collection, each with a paired glossary term and a picture.",
     ],
   },
   {
@@ -126,6 +145,7 @@ window.CHANGELOG = [
       ,"<b>Every card globe has a button through to your own atlas</b>, and a Back button there returns you to the card you were studying."
       ,"<b>You can now hide a collection\u2019s places on your own atlas</b> \u2014 a switch per collection, beside where the world atlas keeps its layers."
       ,"<b>A Library book says how many people have read it</b> \u2014 counted once per reader, and only once they have really read it."
+      ,"<b>Seventy new cards in the Ancient Greece collection</b>, on Greek science, the philosophical schools, Greece under Rome and the opening of the myth decks, with fifty-nine new glossary terms."
     ]
   },
   {
@@ -139,7 +159,7 @@ window.CHANGELOG = [
       "<b>Two war maps no longer contradict a neighbouring card</b> \u2014 the same ground was shaded green on one card and red on another in the same year.",
       "<b>An artwork card no longer asks where the work is today</b> \u2014 it is named for you on the answer side instead, in the box under the picture.",
       "<b>Ten new Ancient Rome cards</b> — the settlement of 23 BCE and the powers, provinces and pay that made the Principate work, with ten new glossary terms.",
-      "<b>Ten new cards in the Ancient Greece collection</b>, on the Syrian Wars, the Aetolian and Achaean leagues and the Spartan reform kings, with eight new glossary terms.",
+      "<b>Thirty new cards in the Ancient Greece collection</b>, on the Hellenistic leagues, Sparta\u2019s reform kings and Alexandrian poetry and science, with twenty-seven new glossary terms.",
       "<b>Seven new cards in the Visual Art collection</b>, carrying the Ice Age deck on from the Swabian caves into Lower Austria and Moravia.",
       "<b>The stray lines are gone from your own atlas</b> — the ruler-straight marks across Egypt, Arabia, Tanzania and the Gulf of California were borders drawn twice.",
       "<b>A place on your atlas opens from its name as well as its dot</b>, which is by far the larger thing to aim at.",
@@ -168,6 +188,11 @@ window.CHANGELOG = [
       "<b>The card on Minoan trade with Egypt now rests on the excavators\u2019 own reports</b> \u2014 not on one teaching website, and three of its sentences are rewritten to match.",
       "<b>The card on the Cypriot syllabary now says why the script died out</b> \u2014 the alphabet replaced it only after the Ptolemies took the island, and four of its six sources were one reviewer.",
       "<b>The horns of consecration card now says the symbol outlived the palaces</b> \u2014 it and the card on Minoan religion leaned on one excavator, and each now carries an independent voice.",
+      "Seventy-nine new cards in the Russia geography collection, each with a paired glossary term and a picture.",
+      "Every card in the Russia geography collection now gives its subject's population and area.",
+      "Geography card backgrounds no longer repeat the figures already shown in the answer box.",
+      "<b>Try ten cards now draws the map</b> \u2014 sampling a geography collection showed an empty grey box where the shape you are asked to name should be.",
+      "Thirty-five more cards in the Russia geography collection.",
     ],
   },
   {
@@ -189,6 +214,7 @@ window.CHANGELOG = [
       "<b>Ten cards now rest on several writers rather than on one old handbook</b> \u2014 in China, World History and Ancient Greece, and nine sentences were corrected to what their new source says.",
       "<b>Four glossary terms now cite a second work a reader can open</b> \u2014 each had one free source and one behind a paywall, which is half its apparatus out of reach.",
       "<b>Hundreds of sources on the country cards no longer lead to a dead page</b> \u2014 the UN rebuilt its statistics site, so each now opens an archived copy of the profile it cites.",
+      "<b>Russia joins the Geography section</b> \u2014 a new collection drawing all 83 of its federal subjects on the globe, with its first cards in.",
     ],
   },
   {

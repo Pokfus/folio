@@ -636,8 +636,14 @@ def conjugation_html(rec, reflexive):
 # the table instead would offer `die Häuser` four times over.  So the table is
 # read by its own function rather than by loosening that filter, which would
 # quietly change every plural, feminine and comparative on every card.
-CASES = [('Nominativ', 'nominative'), ('Akkusativ', 'accusative'),
-         ('Dativ', 'dative'), ('Genitiv', 'genitive')]
+#
+# THE ROWS RUN NOMINATIV, GENITIV, DATIV, AKKUSATIV, which is the order a German
+# school grammar teaches them in (Sep 2026, on request) -- NOT the Nom/Akk/Dat/Gen
+# order some English-language grammars use.  It is the one order every case table
+# on the German shelf follows, the composed pronoun tables below included, so a
+# reader who has learnt where the dative sits finds it there on every card.
+CASES = [('Nominativ', 'nominative'), ('Genitiv', 'genitive'),
+         ('Dativ', 'dative'), ('Akkusativ', 'accusative')]
 
 # A cell holds ONE form, so where a table offers two the rare one must not be the
 # one that lands: `wer` sets `wessen` and the archaic `wes` under the same tags,
@@ -845,17 +851,20 @@ def case_decl_html(rec):
 # in the German these candidates are examined on, and setting one beside `mich`
 # and `mir` would offer it as the third of a set.  The table names the three cases
 # it carries, so it claims nothing it has not got.
-PERSONAL_PRON = [('1. Sg.', 'ich', 'mich', 'mir'),
-                 ('2. Sg.', 'du', 'dich', 'dir'),
-                 ('3. Sg. m', 'er', 'ihn', 'ihm'),
-                 ('3. Sg. f', 'sie', 'sie', 'ihr'),
-                 ('3. Sg. n', 'es', 'es', 'ihm'),
+#
+# ITS COLUMNS FOLLOW `CASES` WITH THE GENITIVE TAKEN OUT -- Nominativ, Dativ,
+# Akkusativ -- so the three it carries sit in the same order as on every noun's.
+PERSONAL_PRON = [('1. Sg.', 'ich', 'mir', 'mich'),
+                 ('2. Sg.', 'du', 'dir', 'dich'),
+                 ('3. Sg. m', 'er', 'ihm', 'ihn'),
+                 ('3. Sg. f', 'sie', 'ihr', 'sie'),
+                 ('3. Sg. n', 'es', 'ihm', 'es'),
                  ('1. Pl.', 'wir', 'uns', 'uns'),
                  ('2. Pl.', 'ihr', 'euch', 'euch'),
-                 ('3. Pl.', 'sie', 'sie', 'ihnen'),
-                 ('höflich', 'Sie', 'Sie', 'Ihnen')]
+                 ('3. Pl.', 'sie', 'ihnen', 'sie'),
+                 ('höflich', 'Sie', 'Ihnen', 'Sie')]
 
-REFLEXIVE_PRON = [('1. Sg.', 'mich', 'mir'), ('2. Sg.', 'dich', 'dir'),
+REFLEXIVE_PRON = [('1. Sg.', 'mir', 'mich'), ('2. Sg.', 'dir', 'dich'),
                   ('3. Sg.', 'sich', 'sich'), ('1. Pl.', 'uns', 'uns'),
                   ('2. Pl.', 'euch', 'euch'), ('3. Pl.', 'sich', 'sich'),
                   ('höflich', 'sich', 'sich')]
@@ -871,11 +880,11 @@ PRON_TABLE['sich'] = 'reflexive'
 
 # a one-row paradigm is still a paradigm, and these are the words whose oblique
 # forms nobody guesses from the nominative
-PRON_ONE = {'man': ('man', 'einen', 'einem'),
-            'jemand': ('jemand', 'jemanden', 'jemandem'),
-            'niemand': ('niemand', 'niemanden', 'niemandem')}
+PRON_ONE = {'man': ('man', 'einem', 'einen'),
+            'jemand': ('jemand', 'jemandem', 'jemanden'),
+            'niemand': ('niemand', 'niemandem', 'niemanden')}
 
-PRON_CASES = ['Nominativ', 'Akkusativ', 'Dativ']
+PRON_CASES = [name for name, _ in CASES if name != 'Genitiv']
 
 # THE DEFINITE ARTICLE IS COMPOSED FROM THE TABLE THE NOUNS ALREADY USE, and this
 # is the one place a source reading would have been worse than a composed one:

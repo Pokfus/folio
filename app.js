@@ -406,7 +406,8 @@
     const words = d.community
       ? "How hard readers find this card: " + d.pct + " out of 100, from " + d.total + " answers"
       : "How well known this card's answer is: " + (CARD_DIFFICULTY_LABELS[d.rank] || "");
-    let out = '<span class="card-stars' + (d.community ? " cs-community" : "") + '" title="' + esc(words) +
+    // a control since Sep 2026: pressing it opens a bubble saying what the rating means (see infoBubble)
+    let out = '<span class="card-stars' + (d.community ? " cs-community" : "") + '" role="button" tabindex="0" data-info="stars" data-cid="' + esc(c.id || "") + '" title="' + esc(words) +
       '" aria-label="' + esc("Difficulty " + d.rank + " of " + CARD_DIFFICULTY_MAX + ". " + words) + '">' +
       '<span class="cs-lbl" aria-hidden="true">Difficulty</span>';
     for (let i = 1; i <= CARD_DIFFICULTY_MAX; i++) out += '<span class="cs-star' + (i <= d.rank ? " on" : "") + '">' + star + "</span>";
@@ -531,6 +532,9 @@
       // the home page's daily-quote pool, keyed by each quote's SHIPPED English text (see quotesMerged):
       // a whole replacement object, or null to retire the quote. A key matching nothing shipped is a new one.
       quotes: o.quotes && typeof o.quotes === "object" ? o.quotes : {},
+      // the "Who said it?" pool's REMOVALS, keyed by each entry's English `q` → true (see whoSaidPool).
+      // Removal only: the pool is quotes.js, and an entry comes back by deleting its key.
+      whosaidOff: o.whosaidOff && typeof o.whosaidOff === "object" ? o.whosaidOff : {},
       // the artefact pool, keyed by artefact ID (see artefactsMerged): a whole replacement object, or
       // null to retire a shipped artefact. A key matching nothing in artefacts.js is one the admin added.
       artefacts: o.artefacts && typeof o.artefacts === "object" ? o.artefacts : {},
@@ -5494,11 +5498,91 @@
       ? "Recalled on " + CRIT_DAYS + " separate days — the point at which the evidence says the gains flatten."
       : "Recalled on " + n + " of " + CRIT_DAYS + " separate days. Recalling a card on separate days is what makes it stick; recalling it twice in one session is not.";
     const lbl = done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days";
-    return '<div class="crit-row' + (done ? " done" : "") + '" role="img" title="' + esc(words) +
+    return '<div class="crit-row' + (done ? " done" : "") + '" role="button" tabindex="0" data-info="crit" data-cid="' + esc(id) + '" title="' + esc(words) +
       '" aria-label="' + esc(words) + '">' +
       '<span class="crit-pips" aria-hidden="true">' + pips + "</span>" +
       '<span class="crit-lbl" aria-hidden="true">' + lbl + "</span></div>";
   }
+
+  /* ---------- A SPEECH BUBBLE SAYING WHAT A MARK MEANS (Sep 2026, on request) ----------
+     "Clicking the difficulty rating in the top right should make a speech bubble appear above it
+     explaining what it means/how it is calculated. Clicking the 3 day dots in the middle should do the
+     same." Both marks were `role="img"` with the explanation in a tooltip, and a tooltip is the one
+     thing a phone cannot show — so a press now opens a small dark bubble above the mark, in the grade
+     bar's own `?` bubble colours, and a second press, Escape, a press anywhere else or a navigation
+     closes it.
+     It is ONE element on `document.body`, positioned in viewport coordinates from the mark's rect and
+     clamped to the screen, because the marks sit in the card's header at the top of the page, inside
+     boxes that clip, and a bubble drawn inside one of those would be cut off at the card's own edge.
+     The words are BUILT FROM THE SAME FIGURES the mark is drawn from (`cardDifficultyShown`,
+     `critCount`), so the bubble can never describe a different rating from the stars under it. */
+  let _infoBub = null, _infoAnchor = null;
+  function closeInfoBubble() {
+    if (_infoBub) { _infoBub.remove(); _infoBub = null; }
+    if (_infoAnchor) { _infoAnchor.setAttribute("aria-expanded", "false"); _infoAnchor = null; }
+  }
+  function infoBubbleHTML(kind, id) {
+    const c = cardById(id);
+    if (kind === "stars") {
+      const d = c ? cardDifficultyShown(c) : null;
+      if (!d) return "";
+      if (d.community) {
+        return '<span class="ib-title">Difficulty · ' + d.rank + " of " + CARD_DIFFICULTY_MAX + "</span>" +
+          "<span class=\"ib-row\">How hard readers actually find this card: <b>" + d.pct + " out of 100</b>, from " + d.total.toLocaleString() + " answers.</span>" +
+          '<span class="ib-row">It is measured from every reader\'s first ' + CARD_STATS_SIGHTINGS + " answers to the card — the more often those are Again or Hard, the more stars — so it rates how hard the card is to learn, not how long anyone has been studying it.</span>" +
+          '<span class="ib-row ib-quiet">Before ' + CARD_STATS_MIN + " answers exist, the stars show an editor's rating of how well known the answer is.</span>";
+      }
+      return '<span class="ib-title">Difficulty · ' + d.rank + " of " + CARD_DIFFICULTY_MAX + "</span>" +
+        '<span class="ib-row">How well known this card\'s answer is to the general public: <b>' + esc(CARD_DIFFICULTY_LABELS[d.rank] || "") + "</b>.</span>" +
+        '<span class="ib-row">One star is a household name and five is a term met almost only in the scholarship. It is an editor\'s rating of the word, not of how hard the card is written.</span>' +
+        '<span class="ib-row ib-quiet">Once ' + CARD_STATS_MIN + " readers' answers are in, it switches to how hard readers actually find the card.</span>";
+    }
+    if (kind === "crit") {
+      const n = critCount(id), done = n >= CRIT_DAYS;
+      return '<span class="ib-title">' + (done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days") + "</span>" +
+        '<span class="ib-row">Each dot is a <b>separate day</b> on which you answered this card correctly. Two right answers on the same day fill one dot, not two.</span>' +
+        '<span class="ib-row">After ' + CRIT_DAYS + " separate days the card counts as learned: recalling something on different days is what makes it last, and the evidence says the gains level off at about three.</span>" +
+        '<span class="ib-row ib-quiet">The dots do not change when the card is next due — the schedule decides that on its own.</span>';
+    }
+    return "";
+  }
+  function openInfoBubble(anchor) {
+    const same = _infoAnchor === anchor;
+    closeInfoBubble();
+    if (same) return;
+    const html = infoBubbleHTML(anchor.dataset.info, anchor.dataset.cid);
+    if (!html) return;
+    const b = document.createElement("div");
+    b.className = "info-bubble";
+    b.setAttribute("role", "tooltip");
+    b.innerHTML = html;
+    document.body.appendChild(b);
+    const r = anchor.getBoundingClientRect(), vw = document.documentElement.clientWidth;
+    const w = b.offsetWidth, h = b.offsetHeight;
+    const cx = r.left + r.width / 2;
+    const left = Math.max(8, Math.min(vw - w - 8, cx - w / 2));
+    let top = r.top - h - 12, below = false;
+    // ABOVE, as asked, even where that covers the top bar for a moment — the bubble is on top of it and
+    // closes on the next press; only a mark with no room at all above it opens its bubble underneath
+    if (top < 4) { top = r.bottom + 12; below = true; }
+    b.style.left = left + "px"; b.style.top = top + "px";
+    b.style.setProperty("--ib-arrow", Math.max(14, Math.min(w - 14, cx - left)) + "px");
+    if (below) b.classList.add("ib-below");
+    _infoBub = b; _infoAnchor = anchor;
+    anchor.setAttribute("aria-expanded", "true");
+  }
+  document.addEventListener("click", (e) => {
+    const a = e.target && e.target.closest ? e.target.closest("[data-info]") : null;
+    if (a) { e.preventDefault(); openInfoBubble(a); return; }
+    if (_infoBub && !(e.target.closest && e.target.closest(".info-bubble"))) closeInfoBubble();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && _infoBub) { closeInfoBubble(); return; }
+    const a = (e.key === "Enter" || e.key === " ") && e.target && e.target.closest ? e.target.closest("[data-info]") : null;
+    if (a) { e.preventDefault(); e.stopPropagation(); openInfoBubble(a); }
+  }, true);
+  window.addEventListener("scroll", () => { if (_infoBub) closeInfoBubble(); }, { passive: true, capture: true });
+  window.addEventListener("resize", () => { if (_infoBub) closeInfoBubble(); });
 
   /* ---------- review history ----------
      S.reviewLog is the only record of what happened on a PAST day: a card keeps just its latest
@@ -10524,6 +10608,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        NOT clipped (measured; see .claude/build-china-provinces.js). Without it Qinghai Lake and Poyang
        are grey fields under a province. Arriving twice is free: lakes.js ASSIGNS window.LAKES. */
     chinaprov: { files: ["china-provinces.js", "lakes.js", "rivers.js"] },
+    /* The 83 federal subjects of the Russian Federation and their 80 administrative centres, for the
+       Geography section's Russia collection. Its own bundle for the reason `chinaprov` is not part of
+       `usstates`: a reader studying the states must not fetch the subjects to be asked which state is
+       shaded, and the reverse. It is the largest of the three national layers by some way — 404 KB
+       gzipped against China's 157 and the states' 181 — which is Russia's Arctic coastline and its
+       thousands of islands rather than a looser tolerance; all three are traced at the same 0.002°/3dp,
+       so the card map cannot tell which it is holding. Measured by `node .claude/check-sizes.js`; it is
+       LAZY, so no reader who never opens the deck pays any of it.
+         `lakes.js` rides here as it does in the other two, and this is the one layer where it is
+       LOAD-BEARING rather than merely harmless. Natural Earth clips a lake lying BETWEEN divisions out of
+       both of them: China has none such, and the China builder measured that the file changed nothing
+       there — but Baikal sits between Irkutsk Oblast and Buryatia and Ladoga between Karelia and
+       Leningrad Oblast, so both are holes in this layer. Under a hole is world.js, which has no lake
+       holes at all, so without lakes.js the two largest lakes in Europe and Asia would draw as grey land
+       inside a shaded subject. Arriving twice is free: lakes.js ASSIGNS window.LAKES. */
+    russubj: { files: ["russia-subjects.js", "lakes.js", "rivers.js"] },
     /* The capital of every country and territory as a POINTS TABLE, for the gold dot on a world capital
        card (see CARD_MAP_LAYERS). Its own bundle rather than a file inside `world`, and fetched only by a
        card that actually asks for a dot: `world` is what every map window loads for the coastline under
@@ -14877,6 +14977,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     closeReliquaryPage(); // …and the Reliquary page's repaint hook goes with the page it belonged to
     closeDeckMenu();      // …nor an added deck's options sheet, which also lives on document.body
     closePageHelp();      // …nor a page's first-visit card, which is on the body for the same reason (pageHelp)
+    closeInfoBubble();    // …nor the stars' or the dots' explanation bubble (openInfoBubble)
     closeKeySheet();      // …nor the keyboard sheet: it names the CURRENT page's keys, so it cannot outlive it
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
     closeGlossPicker();
@@ -20494,8 +20595,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function animateProgs(root) {
     root.querySelectorAll(".prog[data-pct]").forEach((p) => {
-      const f = p.querySelector(".fill");
-      requestAnimationFrame(() => { f.style.width = p.dataset.pct + "%"; });
+      const f = p.querySelector(".fill"), fl = p.querySelector(".fill-l");
+      requestAnimationFrame(() => {
+        f.style.width = p.dataset.pct + "%";
+        if (fl) fl.style.width = (p.dataset.pctl || 0) + "%";   // the learned half of a two-part bar (see adProg)
+      });
     });
     root.querySelectorAll(".xp[data-pct]").forEach((p) => {
       const f = p.querySelector(".xp-fill");
@@ -20875,6 +20979,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": "compass",
     "geo-world": "map",
     "geo-china": "wall",
+    /* Russia, in the Geography section, takes the EXISTING `mountain` — the second collection mark on
+       this shelf reused rather than drawn, and the cost is stated rather than hidden exactly as Visual
+       Art's is. The Urals are the reason: the conventional Europe-Asia divide, the one feature of
+       Russian geography a reader is most likely to already carry, and a shape that survives the 24-28px
+       a deck row draws it at, which a more distinctly Russian mark does not obviously do. A matryoshka
+       (nested outlines that fill in at small sizes) and a birch were both considered and neither is
+       worth shipping unlooked at. `dome` is the HISTORY collection's onion dome and is deliberately not
+       reused here, on the rule the two Chinas follow: a pagoda for the history collection and a wall for
+       the geography one, so the two never read as one row split in two. If it is to change, draw it and
+       look at it. */
+    "geo-russia": "mountain",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -21443,6 +21558,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="ho-sub">' + esc(String(h.queue.length)) + " card" + (h.queue.length === 1 ? "" : "s") +
       " left in " + esc(where) + ", started on another device.</span></button>";
   }
+  /* ---------- NOT SIGNED IN — SAID ON THE HOME PAGE, NOT ONLY ON THE ACCOUNT PAGE (Sep 2026, on request) ----------
+     "The home page should make it clearer when a user is not logged in — I just studied for an hour
+     without realising i wasnt logged in, and lost all my progress." Nothing on the page said so: the
+     greeting reads the same name either way, and the one place the state was stated was the account page,
+     which a reader who believes they are signed in has no reason to open. So a signed-out reader meets a
+     notice at the head of the day's work, above the review, every visit — in the high-contrast amber the
+     site uses for a caution rather than the red it uses for an error, since nothing is wrong yet — saying
+     what it costs and with the button that fixes it. It cannot be dismissed, deliberately: a notice the
+     reader closed once is the state that produced the report.
+     IT ASKS THE STORED SESSION AS WELL AS THE LIVE ONE, because `supaBoot` is asynchronous and the home
+     page can paint before it has read the token back — without the stored half, every signed-in reader
+     would see the warning flash on each load, which is the fastest way to teach a reader to ignore it. */
+  function guestNow() {
+    if (supaLoggedIn()) return false;
+    try { const st = JSON.parse(localStorage.getItem(SUPA_SESS_KEY) || "null"); if (st && st.user && st.user.id) return false; } catch (e) {}
+    return true;
+  }
+  function guestNoticeHTML() {
+    if (!guestNow()) return "";
+    const n = Object.keys(S.cards || {}).length;
+    const what = n
+      ? (n === 1 ? "The one card you have studied is" : "The " + n.toLocaleString() + " cards you have studied are") + " saved only in this browser."
+      : "Anything you study will be saved only in this browser.";
+    return '<div class="guest-notice" role="status">' +
+      '<span class="gn-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg></span>' +
+      '<span class="gn-body"><b>You are not signed in.</b> ' + what + " Clearing it, or opening Folio on another device, starts you again from nothing.</span>" +
+      '<button type="button" class="btn gn-go" data-guestgo>Sign in or create an account</button></div>';
+  }
+  document.addEventListener("click", (e) => { if (e.target && e.target.closest && e.target.closest("[data-guestgo]")) route("account"); });
   function chestBannerHTML() {
     const n = chestCount();
     if (!n) return "";
@@ -23302,17 +23446,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (r.correct) dayMissed.delete(r.id); else dayMissed.add(r.id);
       }
     })();
-    const DK_DAY_LABELS = { done: "Finished for today", won: "Finished for today, nothing missed" };
+    /* …AND GOLD NOW MEANS THE WHOLE DECK IS LEARNED, NOT A PERFECT DAY (Sep 2026, on request: "decks
+       should not turn gold when all review cards in a day were correctly answered, but only when the whole
+       deck has been completed, i.e. every card in it studied 3 days with the dots"). A perfect day is a
+       small thing that happens most days on a short deck, and spending the site's achievement gold on it
+       left nothing to say when a deck was genuinely finished. The test is `atCriterion` over every card
+       the row claims — the same three separate days the dots on each card count — so the row goes gold on
+       exactly the day the last card's third dot fills, and it stays gold whatever the day's piles say. The
+       green mark for a day's work finished is unchanged. `dayAnswered` / `dayMissed` above are no longer
+       read by the row and are kept for nothing else; they are left because the walk is cheap and the
+       banner's own reading of "perfectly" is the same rule, stated in one place. */
+    const DK_DAY_LABELS = { done: "Finished for today", won: "Every card learned" };
     /* ONE call to `entryPiles` per row rather than two: the counts and the day's state are the same
        measurement read twice, and that function walks every card in the entry. */
     const adDay = (entryId) => {
       const c = entryPiles(entryId);
       const counts = adCounts(c);
-      const ids = c.skip || c.nw + c.lr + c.rv > 0 ? null : entryCardIds(entryId);
+      const all = entryCardIds(entryId) || [];
+      const won = all.length > 0 && all.every(atCriterion);
+      const ids = won ? all : (c.skip || c.nw + c.lr + c.rv > 0 ? null : all);
       if (!ids || !ids.length) return { counts: counts, cls: "", mark: "" };
-      let answered = 0, missed = 0;
-      ids.forEach((id) => { if (dayAnswered.has(id)) { answered++; if (dayMissed.has(id)) missed++; } });
-      const won = answered > 0 && missed === 0;
       return {
         counts: counts,
         cls: won ? " dk-done dk-won" : " dk-done",
@@ -23367,16 +23520,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        and leaving one row's mark standing would read as a switch that half worked. */
     const adIcon = (entryId, parentKey) =>
       S.settings.deckIcons === false ? "" : entryIconMarkup(entryId, adIconKey(entryId, parentKey), "dk-ic");
+    /* TWO PROGRESSES ON ONE BAR (Sep 2026, on request: "the first general bar should be light
+       blue/teal (same color as undiscovered gloss) and show progress for cards studied once, the darker
+       blue progress bar on top of it should show how many cards have been studied 3 days"). The light
+       fill is `--newterm`, the undiscovered glossary term's own teal, and the dark one is laid over it
+       from the same left edge, so the gap between the two ends is the cards met but not yet learned. The
+       bar goes GOLD when every card is learned, which is the row's gold above — not when every card has
+       merely been seen once. */
     const adProg = (ids) => {
-      const total = ids.length, studied = ids.filter(isSeen).length;
+      const total = ids.length, studied = ids.filter(isSeen).length, learned = ids.filter(atCriterion).length;
       /* `data-total` / `data-studied` are the two numbers the bar is DRAWN from, written down beside the
          percentage. Nothing renders them — the figure itself lives in the row's options sheet — but a
          percentage alone cannot say how many cards a row is counting, and that is exactly what has to be
          readable when a deck is dragged from one container into another (see test-review-decks). */
       // …and the same gold on the review list's own rows — see deckProgMarkup for why it rides on the bar
-      const done = total > 0 && studied >= total;
-      return `<div class="prog dk-prog${done ? " prog-done" : ""}" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}">
-        <div class="track"><div class="fill"></div></div>
+      const done = total > 0 && learned >= total;
+      return `<div class="prog dk-prog${done ? " prog-done" : ""}" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-pctl="${total ? ((learned / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}" data-learned="${learned}">
+        <div class="track"><div class="fill"></div><div class="fill-l"></div></div>
       </div>`;
     };
     /* Each added deck's row wears its COLLECTION's identity hue rather than the review's own (Aug 2026, on
@@ -24281,6 +24441,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               sits above the review with the first-run hero, which is first-run-only for the same reason,
               and either answer retires it. Settings → Study brings it back. It is what the three-beat
               how-it-works strip under the review used to say, said properly and only where asked for. */""}
+        ${guestNoticeHTML()}
         ${tourOfferHTML()}
         ${/* WAITING CHESTS, DIRECTLY ABOVE THE DAILY-STUDY BANNER (Aug 2026, on request). It was on the
               account page, two taps away from where a chest is actually earned, while the banner carried a
@@ -25211,11 +25372,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <button type="button" class="btn ghost" id="smpPrev"${i === 0 ? " disabled" : ""}>Previous</button>
           <button type="button" class="btn ghost" id="smpNext">${i + 1 === ids.length ? "Finish" : "Next card"}</button>
         </div>`;
+      /* AND THE QUESTION'S OWN GLOBE, for `PAGES.card`'s reason one page over: a map card's map is the
+         QUESTION, so it is emitted by `cardFrontHTML` OUTSIDE `#smpBack` and `mountCardBack` cannot reach
+         it — this page drew every geography card as a dead grey box until Sep 2026. Unlike that page it
+         is NOT revealed here: the answer is behind a button, and the map naming what it shades would give
+         it away, so `cardMapReveal` waits for `show()` exactly as the study page's does. */
+      mountCardMaps(root);
       const show = () => {
         const inner = root.querySelector("#smpBack");
         if (!inner || inner.innerHTML) return;
         inner.innerHTML = buildBack(c);
         mountCardBack(inner, c, { expand: true });
+        cardMapReveal(root);   // the map may now name what it was shading — the shape and its name together
         root.querySelector("#smpReveal").classList.add("show");
         const sb = root.querySelector("#smpShow");
         if (sb) sb.remove();
@@ -25447,7 +25615,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -25527,10 +25695,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
     china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
     dino: 1000, korea: 1000, art: 1000,
-    /* World Geography's 704 is 233 countries + 238 capitals + the 233 FLAGS, which are a third deck of
-       this collection rather than one of their own (Sep 2026, on request). One collection, three plans:
-       see docs/world-geography-card-plan.md and docs/flags-card-plan.md. */
-    "geo-us": 100, "geo-china": 58, "geo-world": 937,
+    /* World Geography's 937 is 233 countries + 238 capitals + the 233 FLAGS and the 233 DRAW cards,
+       which are further decks of this collection rather than ones of their own (Sep 2026, on request).
+       One collection, several plans: see docs/world-geography-card-plan.md and docs/flags-card-plan.md. */
+    "geo-us": 100, "geo-china": 58, "geo-world": 937, "geo-russia": 163,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -26625,6 +26793,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        split in two. Blue-and-white porcelain is the colour's own argument for the subject, and it is a
        China register the vermilion had not taken. 7.7:1 against white. */
     "geo-china": { bg: "#1A4FA8" },
+    /* burnt amber (Russia, in the Geography section) — MEASURED like every hue above it, and the sweep
+       ruled out the two colours the subject actually suggests. A Russia collection wants a winter blue or
+       a frost teal, and both bands are gone: swept in CIELAB inside the shelf's own band (L 28-55, chroma
+       25-62, 4.5:1 against white), a deep steel blue lands 7.3 of Greece's Aegean and a deep teal 4.5 of
+       Egypt's malachite, against a tightest EXISTING pair of 12.9 (China's vermilion against Russia's own
+       lacquer). The wheel's best-scoring free region is the rose-crimson quadrant at ΔE 24.6, which is the
+       magenta band under another name and is the standing rejection recorded below — now measured and
+       turned down a sixth time; do not re-run that sweep.
+       Outside it the sweep's arithmetic winner is a dark gold-olive (#5D5700, ΔE 22.0), and it was
+       REFUSED on a figure the minimum does not show: it stands only 22 from `geo-us`'s olive, which would
+       make three of the four Geography collections a green. This is 21.4 from its nearest neighbour
+       (Spanish's sienna) and 44, 58 and 100 from its own siblings — a section that reads as four
+       different places rather than a family — at L 39 and chroma 50, both mid-band. 6.8:1 against white.
+       It stands 36 from `col-42`, the Russia HISTORY collection's lacquer, which is deliberate and is the
+       rule the two Chinas already follow: far enough that "Russia" under History and "Russia" under
+       Geography cannot read as one row split in two. Amber is the subject's own argument for the colour —
+       the Baltic amber coast is Kaliningrad Oblast, one of the 83 — and it takes none of the flag's
+       colours, which on this shelf would be a claim rather than a decoration. */
+    "geo-russia": { bg: "#815100" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -30991,11 +31178,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   };
 
   PAGES.study = function (root, params) {
-    /* AT MOST ONE ELABORATION PROMPT PER SESSION — see elabPromptHTML. The budget is shared between the
-       "why" and "connect" prompts and is scoped to this function's closure, so it resets when a session
-       does and never persists: a reader who studies twice in a day is asked twice, which is right, and a
-       reader who studies one long session is asked once, which is the point. */
-    let elabShown = false;
+    /* THE THINK-IT-THROUGH SECTION IS ON EVERY CARD (Sep 2026, on request: the three questions and answers
+       should be "always visible on the card, not just when first seen"). There was a budget here of ONE
+       elaboration prompt per session, on the argument that the prompt was an interruption to be rationed —
+       which it stopped being when it became three authored questions folded shut behind chevrons: a
+       closed fold asks nothing of a reader who does not open it, and a section that appears on one card
+       and is missing from the next reads as content that has gone astray. */
     if (!params.scope) { route("home"); return; }   // #study reached with nothing to study (a pasted address, a lost session)
     const sess = buildSession(params.scope);
     // a session picked back up after a reload — see the STUDY_KEY block for what the record holds and why
@@ -31777,10 +31965,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         // the causal strip's links (see cardLeadsToHTML) — a glance at the next card, not a jump to it
         inner.querySelectorAll(".lt-go").forEach((b) =>
           b.addEventListener("click", () => openCardPeek(b.dataset.lt)));
-        if (!elabShown) {
+        {
           const eh = elabPromptHTML(c);
           const head = inner.querySelector(".bg-head");
-          if (eh && head) { head.insertAdjacentHTML("beforebegin", eh); elabShown = true; wireElabPrompt(inner); }
+          if (eh && head) { head.insertAdjacentHTML("beforebegin", eh); wireElabPrompt(inner); }
         }
         openLinks(inner);
         processAbstract(inner, c);
@@ -32843,7 +33031,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function cardTypeFieldGetter(c, frontHTML, seen) {
     const f = (c && c.fields) || {};
     return function (name) {
-      if (/^frontside$/i.test(name)) { if (seen) seen.front = true; return frontHTML == null ? "" : frontHTML; }
+      /* WRAPPED, so the study page can tell the redrawn front from the rest of the back (Sep 2026, on a
+         bug report: with the marker down, a Mandarin card's writing band ended up ABOVE the question once
+         the answer was revealed). The band sits between the shell's question and the reveal, and a back
+         that redraws its front puts the question back BELOW the band — so while the pen is down the
+         stylesheet keeps the shell's copy and hides this one instead. `uc-*` is the class family the
+         sanitizer keeps on community markup. */
+      if (/^frontside$/i.test(name)) { if (seen) seen.front = true; return frontHTML == null ? "" : '<div class="uc-frontside">' + frontHTML + "</div>"; }
       if (Object.prototype.hasOwnProperty.call(f, name)) return f[name];
       // a template and its field list can differ in case; matching loosely beats rendering a silent blank
       const k = Object.keys(f).find((x) => x.toLowerCase() === String(name).toLowerCase());
@@ -33072,6 +33266,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        to point at a valley — where this layer is loaded by nothing but a China map card, and every
        reader of it is studying one of the two decks. One fetch, 13 KB of capitals inside it. */
     "china-provinces": { bundle: "chinaprov", global: "CHINA_PROVINCES", what: "province", plural: "provinces", cell: 0.05, points: "CHINA_CAPITALS", dotWhat: "city" },
+    /* Russia's own federal subjects, and the 80 administrative centres beside them in the SAME bundle,
+       on `china-provinces`'s reasoning exactly: nothing but a Russia map card loads this layer, and
+       every reader of it is studying one of the two decks, so one fetch carries both.
+         `what` is "federal subject" rather than a kind, and that is the deck's whole question shape: the
+       83 are six different kinds of thing — 46 oblasts, 21 republics, 9 krais, 4 autonomous okrugs, 2
+       cities of federal significance and 1 autonomous oblast — so "the province shaded on the map" would
+       be false of 37 of them. Every question asks for the FEDERAL SUBJECT, which is what the constitution
+       calls all six alike and what is true of every card in the deck. */
+    "russia-subjects": { bundle: "russubj", global: "RUSSIA_SUBJECTS", what: "federal subject", plural: "federal subjects", cell: 0.05, points: "RUSSIA_CENTRES", dotWhat: "city" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -33383,6 +33586,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     atlasFocus = id ? { id: id } : null;
     route("map");
   }, true);
+  /* THE CROSSED SWORDS, lifted to module scope (Sep 2026) so the personal atlas can draw a battle the
+     way the card's own window does — see drawSwords inside startCardGlobe, which now delegates here, and
+     drawMineMarks, where a battle is swords rather than a dot. */
+  function paintSwords(ctx, x, y, sz) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    ctx.shadowColor = "rgba(0,0,0,.5)"; ctx.shadowBlur = 2.5; ctx.shadowOffsetY = 0.7;
+    for (const a of [Math.PI / 4, -Math.PI / 4]) {
+      ctx.save();
+      ctx.rotate(a);
+      ctx.strokeStyle = "rgba(200,205,213,1)"; ctx.lineWidth = sz * 0.34;
+      ctx.beginPath(); ctx.moveTo(0, -sz); ctx.lineTo(0, sz); ctx.stroke();
+      ctx.restore();
+    }
+    ctx.shadowColor = "transparent";
+    for (const a of [Math.PI / 4, -Math.PI / 4]) {
+      ctx.save();
+      ctx.rotate(a);
+      // the fuller
+      ctx.strokeStyle = "rgba(112,118,128,.9)"; ctx.lineWidth = sz * 0.09;
+      ctx.beginPath(); ctx.moveTo(0, -sz * 0.9); ctx.lineTo(0, sz * 0.3); ctx.stroke();
+      // the guard, a short bar across the hilt end
+      ctx.strokeStyle = "rgba(128,134,144,1)"; ctx.lineWidth = sz * 0.2;
+      ctx.beginPath(); ctx.moveTo(-sz * 0.38, sz * 0.52); ctx.lineTo(sz * 0.38, sz * 0.52); ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
   function startCardGlobe(host) {
     const cv = host.querySelector(".mc-canvas");
     if (!cv) return;
@@ -33693,32 +33925,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        a battle is a battle whoever's card it is. What separates a flat grey bar from the land it lies on
        is not an outline but a soft shadow under the mark and the FULLER, the darker line down the middle
        of a blade, which is what makes it read as a sword rather than a cross. */
-    function drawSwords(x, y, sz) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.lineCap = "round"; ctx.lineJoin = "round";
-      ctx.shadowColor = "rgba(0,0,0,.5)"; ctx.shadowBlur = 2.5; ctx.shadowOffsetY = 0.7;
-      for (const a of [Math.PI / 4, -Math.PI / 4]) {
-        ctx.save();
-        ctx.rotate(a);
-        ctx.strokeStyle = "rgba(200,205,213,1)"; ctx.lineWidth = sz * 0.34;
-        ctx.beginPath(); ctx.moveTo(0, -sz); ctx.lineTo(0, sz); ctx.stroke();
-        ctx.restore();
-      }
-      ctx.shadowColor = "transparent";
-      for (const a of [Math.PI / 4, -Math.PI / 4]) {
-        ctx.save();
-        ctx.rotate(a);
-        // the fuller
-        ctx.strokeStyle = "rgba(112,118,128,.9)"; ctx.lineWidth = sz * 0.09;
-        ctx.beginPath(); ctx.moveTo(0, -sz * 0.9); ctx.lineTo(0, sz * 0.3); ctx.stroke();
-        // the guard, a short bar across the hilt end
-        ctx.strokeStyle = "rgba(128,134,144,1)"; ctx.lineWidth = sz * 0.2;
-        ctx.beginPath(); ctx.moveTo(-sz * 0.38, sz * 0.52); ctx.lineTo(sz * 0.38, sz * 0.52); ctx.stroke();
-        ctx.restore();
-      }
-      ctx.restore();
-    }
+    function drawSwords(x, y, sz) { paintSwords(ctx, x, y, sz); }
     function draw() {
       if (stopped || !W) return;
       /* Set by the river pass when the card's OWN river was actually traced. The gold dot then stands
@@ -35893,7 +36100,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         return;
       }
       if (loc.kind === "range") return;
-      out.marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, y0: y0 , coll: coll });
+      /* A BATTLE IS SWORDS HERE TOO (Sep 2026, on request: "on the personal atlas, 'Lake Regillus' is a
+         battle, not a location, like its atlas window"). It is still a `dot` — a point with a name beside
+         it, placed and thinned and clicked exactly as a place is — and `battle` only changes what is
+         painted at the point (see drawMineMarks). */
+      out.marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, battle: loc.kind === "battle", y0: y0 , coll: coll });
   }
   /* THE WHOLE REGISTER — every place the reader has earned, whatever they have chosen to look at. It is
      what `atlasPlaceIsNew` asks (a place hidden behind a collection toggle is still one you have) and
@@ -37523,16 +37734,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      — so a thin cell degrades one rung at a time instead of refusing to deal. It cannot fail closed:
      `rest` is every remaining name in the pool, so the fourth rung always fills the round.
 
-     AND THE ROUND COUNT IS FIVE AGAIN (Aug 2026, on request), having been cut to three earlier in the
-     month on the argument that three tightly-matched rounds ask more than five loose ones. The matching
-     above is what made that argument, and it is unchanged — so the five rounds this deals are the tight
-     kind, which is the case for having them: at 102 quotations the pool was never the constraint, and a
-     daily game over in three questions is over before it has asked anything. It is a named constant read
-     by the page and by nothing else, so the results screen, the score and the tile all follow the one
-     figure. */
-  const WS_ROUNDS = 5;
+     AND THE ROUND COUNT IS THREE (Sep 2026, on request), having gone 5 → 3 → 5 in August. It is a named
+     constant read by the page and by nothing else, so the results screen, the score and the tile all
+     follow the one figure.
+
+     AN ADMIN CAN TAKE A QUOTATION OUT OF THE POOL (Sep 2026, on request: "on the Admin page should be a
+     list of the quotes in it, so i can remove some manually"). `whoSaidPool` is the one door, and it reads
+     `ADMIN_EDITS.whosaidOff` — an overlay keyed by the entry's English `q`, so the removal travels to
+     every reader through `content_overrides` like any other admin edit and needs no deploy. A removed
+     quotation's SPEAKER stays available as a decoy only if another of their lines is still in the pool,
+     the decoys being drawn from this same filtered list. */
+  const WS_ROUNDS = 3;
+  function whoSaidPool() {
+    const off = (ADMIN_EDITS && ADMIN_EDITS.whosaidOff) || {};
+    return (window.QUOTEGAME || []).filter((x) => x && !off[x.q]);
+  }
   function buildWhoSaidRounds() {
-    const RAW = window.QUOTEGAME || [];
+    const RAW = whoSaidPool();
     const POOL = RAW.map((x) => quoteLocalized(x));
     const catOf = new Map();   // localised speaker name -> the family it is filed under
     const eraOf = new Map();   // localised speaker name -> the period they lived in
@@ -37565,7 +37783,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     detachKeys();
     if (gameLockedToday(root, "whosaid")) return;
     if (gamesI18nPending(root)) return;
-    const POOL = (window.QUOTEGAME || []).map((x) => quoteLocalized(x));
+    const POOL = whoSaidPool().map((x) => quoteLocalized(x));
     if (POOL.length < 4) { root.innerHTML = emptyPlacard("Coming soon", "言", "Not enough quotes to play yet.", () => route("home"), "Back home"); return; }
     const rounds = buildWhoSaidRounds(), ROUNDS = rounds.length;
     let r = 0, score = 0; const results = [];
@@ -37620,8 +37838,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const rev = root.querySelector("#reveal"); rev.hidden = false;
       rev.innerHTML =
         '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — <b>" + esc(it.who) + "</b></div>" +
-        '<p class="tf-why">' + esc(it.context) + "</p>" +
+        /* THE EXPLANATION IS CITED (Sep 2026, on request), exactly as True or False's is: `context` is
+           rendered through the sanitizer so its footnote marker is a marker rather than printed tags, and
+           `src` draws the same shut Sources fold under it (see tfWhyHTML / tfWireWhy). */
+        '<p class="tf-why">' + sanitizeHTML(String(it.context || "")) + "</p>" +
+        sourcesHTML(it.src, { shut: true }) +
         '<button class="btn" id="ws-next">' + (r + 1 < ROUNDS ? "Next round" : "See results") + "</button>";
+      tfWireWhy(rev);
       rev.querySelector("#ws-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : renderEnd(); });
     }
     function renderEnd() {
@@ -37635,11 +37858,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="tf-summary">${rounds.map((rd, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${esc(rd.it.context)}</p></div>
+              <div><p class="tf-sum-q">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${sanitizeHTML(String(rd.it.context || ""))}</p>${sourcesHTML(rd.it.src, { compact: true })}</div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">${["No", "One", "Two", "Three", "Four", "Five"][ROUNDS] || ROUNDS} fresh voices arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="ws-home">Home</button></div>
         </div>`;
+      tfWireWhy(root.querySelector(".tf-summary"));
       root.querySelector("#ws-home").addEventListener("click", () => route("home"));
     }
   };
@@ -37713,13 +37937,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const by = CHRONO_WORKS[x.id];
     return "<i>" + name + "</i>" + (by ? '<span class="ci-by"> · ' + esc(by) + "</span>" : "");
   }
+  /* A US STATE IS PLACED AT ITS STATEHOOD (Sep 2026, on request: "in the Timeline minigame, US states
+     should use the dates of when they became states"). A card whose answer is a state — `us-033`
+     California, answered by a card about its first peoples and its first European landfall — sorts at
+     the earliest thing its own date line names, which is right for that card's deck and wrong for a
+     game that deals the bare word "California" and asks the reader to put it in order: nobody placing a
+     state places it thirteen thousand years ago. The statehood date is READ OFF the Geography
+     collection's own card for that state (its `Statehood` / `Admitted` / `Ratified` row), which is
+     already cited and already carries the day, so no second table of fifty dates exists to drift. A state
+     whose card states no such row keeps its own card's year. */
+  let _stateYears = null;
+  function stateStatehood() {
+    if (_stateYears) return _stateYears;
+    const m = new Map();
+    CARDS.forEach((c) => {
+      if (!c || !/^geo-0\d\d$/.test(c.id) || !cardMapSpec(c)) return;
+      const row = dateLineRows(c).find((r) => /^(statehood|admitted|ratified)$/i.test((r.label || "").trim()));
+      if (!row) return;
+      const ys = cardYears({ answerDate: row.value });
+      if (ys.length) m.set(String(c.answerText || "").trim().toLowerCase(), { year: Math.min.apply(null, ys), basis: row.label.trim() });
+    });
+    return (_stateYears = m);
+  }
   function chronoPool() {
     const avail = gameCardIdSet();
+    const states = stateStatehood();
     /* `basis` is the date line's own label for the row the sort year came from — "Founded", "Reigned",
        "In use" — carried through so the reveal can say what each date IS (Sep 2026, on request). It is
        read once here rather than at reveal time because the pool is built once and the reveal is a loop
        over five rows; a card whose basis cannot be established honestly carries "" (see cardYearBasis). */
-    return CARDS.filter((c) => avail.has(c.id) && !cardUndatable(c)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c), basis: cardYearBasis(c) })).filter(
+    return CARDS.filter((c) => avail.has(c.id) && !cardUndatable(c)).map((c) => {
+      const st = states.get(String(c.answerText || "").trim().toLowerCase());
+      if (st) return { id: c.id, name: cardLocalized(c).answerText, year: st.year, basis: st.basis };
+      return { id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c), basis: cardYearBasis(c) };
+    }).filter(
       (x) => x.year != null && x.name
     );
   }
@@ -38120,6 +38371,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "20th century": ["Gold_standard"],                 // a 19th-century arrangement
     "research methods": ["Francis_Galton"],            // a person
     ideology: ["Adolf_Hitler", "Benito_Mussolini", "March_on_Rome"],  // two men and an event
+    architecture: ["Great_Fire_of_Rome",   // a fire (Sep 2026, on request), tagged for the buildings it destroyed
+                   "Zagwe_dynasty"],        // a dynasty, tagged for the churches built under it
   };
   // may this term stand FOR this group? — the two rules above, asked in one place
   function threadFits(it, tag) {
@@ -39166,6 +39419,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         (picCaption(it) ? '<p class="pic-shows">' + esc(picCaption(it)) + "</p>" : "") +
         '<button class="btn" id="pic-next">' + (r + 1 < ROUNDS ? "Next round" : "See results") + "</button>";
       wireFootnotes(rev);
+      /* …AND THE DESCRIPTION LINKS ITS GLOSSARY TERMS (Sep 2026, on request), as every other stretch of
+         cited prose on the site does. English only, like the daily quote's, the index being built on English
+         surfaces. The caption is linked too: it names what the photograph shows, which is often a place or a
+         material the glossary carries. */
+      if (uiLang() === "en") {
+        rev.querySelectorAll(".pic-note, .pic-shows").forEach((el) => { try { autoLinkGlossary(el, "", null, "site"); } catch (e) {} });
+        try { setupTooltips(rev); } catch (e) {}
+      }
       /* The answered round is written before the reader can leave it — the point of the record is the
          reader who does not press Next at all. */
       setGameProgress("picture", results.slice(0, r + 1));
@@ -39217,6 +39478,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <p class="tf-tomorrow">Five fresh pictures arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="pic-home">Home</button></div>
         </div>`;
+      tfWireWhy(root.querySelector(".tf-summary"));   // the same glossary links on the summary's paragraphs
       root.querySelector("#pic-home").addEventListener("click", () => route("home"));
     }
   };
@@ -42251,7 +42513,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // off a neighbour's dot as well as off a neighbour's name. Measured over ALL the candidates rather
       // than only the ones already drawn: a rule that depended on how far the loop had got would place a
       // word differently depending on nothing a reader can see.
-      const dotHalf = (m) => (m.cap ? 6.2 : m.subcap ? 5.2 : 4.1);
+      const dotHalf = (m) => (m.battle ? 6.6 : m.cap ? 6.2 : m.subcap ? 5.2 : 4.1);
       const dotBoxes = dots.map((d) => { const h = dotHalf(d.m); return [d.x - h, d.y - h, h * 2, h * 2]; });
       for (let i = 0; i < dots.length; i++) {
         const m = dots[i].m, x = dots[i].x, y = dots[i].y;
@@ -42287,11 +42549,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         boxes.push(box);
         mineDotRects.push({ m: m, box: box, x: x, y: y });
         // …and NOW the mark, once its name has somewhere to go
-        ctx.beginPath();
-        if (m.cap) ctx.rect(x - 5.4, y - 5.4, 10.8, 10.8);
-        else ctx.arc(x, y, m.subcap ? 4.4 : 3.3, 0, TAU);
-        ctx.fillStyle = dotFill; ctx.fill();
-        ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
+        if (m.battle) paintSwords(ctx, x, y, 6.2);   // a battle is crossed swords, as on its own card's window
+        else {
+          ctx.beginPath();
+          if (m.cap) ctx.rect(x - 5.4, y - 5.4, 10.8, 10.8);
+          else ctx.arc(x, y, m.subcap ? 4.4 : 3.3, 0, TAU);
+          ctx.fillStyle = dotFill; ctx.fill();
+          ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
+        }
         const tx = box === rBox ? x + 9 : x - 9;
         ctx.textAlign = box === rBox ? "left" : "right";
         ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, tx, y);
@@ -44953,6 +45218,19 @@ let prev = null;
     { id: "read1", icon: "🕮", name: "An Hour in a Book", desc: "Spend an hour reading one book", test: (s) => s.readBookMs >= 3600e3, prog: (s) => [Math.round(s.readBookMs / 60000), 60] },
     { id: "read5", icon: "🪶", name: "Five Hours in One Book", desc: "Spend five hours reading one book", test: (s) => s.readBookMs >= 5 * 3600e3, prog: (s) => [Math.round(s.readBookMs / 3600e3), 5] },
     { id: "read25", icon: "🗝️", name: "Twenty-five Hours in the Library", desc: "Spend twenty-five hours reading, across every book", test: (s) => s.readMs >= 25 * 3600e3, prog: (s) => [Math.round(s.readMs / 3600e3), 25] },
+    /* SEVEN FOR THE WAY A READER STUDIES RATHER THAN HOW MUCH (Sep 2026, on request: "add 7 more unlockable
+       badges for various creative achievements"). Every one is DERIVED from a field the progress blob
+       already carries — nothing new is counted, so nothing new can drift — and none needs a network.
+       The two clock badges read the per-review log, which is this device's own record (it has a table of
+       its own and is not in the synced blob), so on a friend's profile they read as not yet earned rather
+       than as a guess; a badge is only ever added, so a reader who earns one keeps it everywhere. */
+    { id: "owl", icon: "🦉", name: "Night Owl", desc: "Answer a card between midnight and four in the morning", test: (s) => s.nightOwl },
+    { id: "lark", icon: "🐓", name: "Early Bird", desc: "Answer a card between five and seven in the morning", test: (s) => s.earlyBird },
+    { id: "heart25", icon: "❤️", name: "By Heart", desc: "Learn 25 cards — each recalled on three separate days", test: (s) => s.learned >= 25, prog: (s) => [s.learned, 25] },
+    { id: "ages5", icon: "🧳", name: "Across the Ages", desc: "Study cards in five different collections", test: (s) => s.collections >= 5, prog: (s) => [s.collections, 5] },
+    { id: "notes5", icon: "✏️", name: "Marginalia", desc: "Write your own note on five cards", test: (s) => s.notes >= 5, prog: (s) => [s.notes, 5] },
+    { id: "show4", icon: "🪟", name: "On Display", desc: "Fill all four slots of your profile showcase", test: (s) => s.showcase >= 4, prog: (s) => [s.showcase, 4] },
+    { id: "themes3", icon: "🎨", name: "Dressed for the Occasion", desc: "Collect three themes from chests", test: (s) => s.themes >= 3, prog: (s) => [s.themes, 3] },
   ];
   /* `friendsCount` IS AN OVERRIDE, AND THE FALLBACK IS THE FIELD (Aug 2026, on a bug report that the
      First Friend and Well Connected badges "do not work"). They never could: `checkAchievements` passed
@@ -44965,6 +45243,18 @@ let prev = null;
      for their badge grid, is a blob that cannot be joined against a table only they may read. So
      `setFriendCount` writes it into the progress blob whenever the friends list is drawn, and every
      reader's own count travels with their own progress. */
+  // has this reader answered a card with the local clock in [h0, h1)? — off the per-review log (see the
+  // clock badges in ACHIEVEMENTS); walked newest-first and stopped at the first hit
+  function revHourSeen(prog, h0, h1) {
+    const log = Array.isArray(prog && prog.revlog) ? prog.revlog : [];
+    for (let i = log.length - 1; i >= 0; i--) {
+      const r = revRead(log[i]);
+      if (!r || !r.t) continue;
+      const h = new Date(r.t).getHours();
+      if (h >= h0 && h < h1) return true;
+    }
+    return false;
+  }
   function progStats(prog, friendsCount) {
     const cards = prog.cards || {};
     const seen = Object.keys(cards).length;
@@ -44996,6 +45286,13 @@ let prev = null;
          the back-fill beside `studyTotalMs` says about it. */
       studyTotalMs: (prog === S ? studyTotalMs() : (prog.studyTotal | 0)),
       readMs: readTimeAll(prog),
+      // the seven "how you study" badges (see the end of ACHIEVEMENTS)
+      learned: Object.keys(cards).filter((id) => critDays(cards[id]).length >= CRIT_DAYS).length,
+      collections: (function () { const r = new Set(); Object.keys(cards).forEach((id) => { const n = cardCollectionRoot(id); if (n) r.add(n.id); }); return r.size; })(),
+      notes: (prog.notes && typeof prog.notes === "object") ? Object.keys(prog.notes).filter((k) => prog.notes[k]).length : 0,
+      showcase: Array.isArray(prog.showcase) ? prog.showcase.filter((id) => ARTEFACT_BY_ID[id]).length : 0,
+      themes: (prog.themes && typeof prog.themes === "object") ? Object.keys(prog.themes).filter((k) => k !== "folio").length : 0,
+      nightOwl: revHourSeen(prog, 0, 4), earlyBird: revHourSeen(prog, 5, 7),
       readBookMs: (function () {
         const R = prog.reading;
         if (!R || typeof R !== "object") return 0;
@@ -46066,6 +46363,9 @@ let prev = null;
 '  the sentence must keep going after it, never stop on it. The rest of the\n' +
 '  sentence should be enough to work the answer out without giving it away.\n' +
 '- answer - the answer term alone, with no "the" and no "a" in front of it.\n' +
+'  So read each question back with the answer put in the blank, and write\n' +
+'  "the" before the blank wherever the term needs one ("the first of the\n' +
+'  _____"), since the answer itself never carries it.\n' +
 '- answerText - the same term again, as plain text.\n' +
 '- answerDate - the dates worth remembering beside the term, as a two-column\n' +
 '  list, or "" if the term has no date. Write it exactly like this, with at\n' +
@@ -46117,7 +46417,9 @@ let prev = null;
 '- Question - ONE sentence of 20 to 34 words with the answer replaced by\n' +
 '  _____ in the MIDDLE of it, so the sentence keeps going afterwards. Enough\n' +
 '  to work the answer out; never enough to be a giveaway.\n' +
-'- Answer - the term alone, with no "the" or "a".\n' +
+'- Answer - the term alone, with no "the" or "a". Read each question back\n' +
+'  with the answer in the blank, and write "the" before the _____ wherever\n' +
+'  the term needs one, since the answer itself never carries it.\n' +
 '- Date line - at most four label-and-date rows (Born, Died, Built, In use,\n' +
 '  Reigned), or nothing at all if the term has no date.\n' +
 '- Background - exactly ten sentences, about 300 words, in two paragraphs of\n' +
@@ -49384,7 +49686,7 @@ let prev = null;
         gloss: gKeys.length, gAtBar, gSrcTotal, gMedia, gTagged, gDated,
         eras: (window.TIMELINE || []).length,
         places: Object.keys(window.COUNTRY_INFO || {}).length,
-        tfPool: (window.TRUEFALSE || []).length, quotePool: (window.QUOTEGAME || []).length,
+        tfPool: (window.TRUEFALSE || []).length, quotePool: whoSaidPool().length,
         localDecks: Object.keys(UDECKS || {}).length,
         overlay: adminEditCount(),
         langs,
@@ -49741,6 +50043,23 @@ let prev = null;
        A quote is identified by its SHIPPED text throughout (`data-qk`), never by its position — see
        quotesMerged for why. */
     let _qEditing = null;   // the shipped key of the quote whose form is open, or "" for a new one
+    function whoSaidAdminHTML() {
+      const all = window.QUOTEGAME || [], off = (ADMIN_EDITS && ADMIN_EDITS.whosaidOff) || {};
+      const live = all.filter((x) => !off[x.q]).length;
+      return '<div class="ws-admin">' +
+        '<div class="ws-admin-head"><b>Who said it?</b> <span class="ws-admin-count">' + live + " of " + all.length + " in play</span></div>" +
+        '<div class="tl-intro">The minigame\'s own pool, from <code>quotes.js</code>. Remove a quotation to take it out of every reader\'s game from the next draw; it stays in the file and comes back with Restore. The game needs at least four in play.</div>' +
+        '<div class="q-list">' + all.map((x) => {
+          const isOff = !!off[x.q];
+          return '<div class="q-row ws-row' + (isOff ? " ws-off" : "") + '">' +
+            '<div class="q-main"><span class="q-text">' + esc(x.q) + "</span>" +
+              '<span class="q-meta"><b>' + esc(x.who || "—") + "</b>" +
+                (Array.isArray(x.src) && x.src.length ? '<span class="q-pill q-orig">cited</span>' : '<span class="q-pill q-noorig">uncited</span>') +
+                (isOff ? '<span class="q-pill q-edited">removed</span>' : "") + "</span></div>" +
+            '<button type="button" class="mini-btn' + (isOff ? "" : " danger") + '" data-wsoff="' + esc(x.q) + '">' + (isOff ? "Restore" : "Remove") + "</button>" +
+          "</div>";
+        }).join("") + "</div></div>";
+    }
     function adminRenderQuotes() {
       const items = root.querySelector("#adminListItems");
       const countEl = root.querySelector("#adminListCount");
@@ -49826,11 +50145,22 @@ let prev = null;
           "</div>" +
           formHTML() +
           '<div class="q-list">' + (rows.length ? rows.map(row).join("") : '<div class="tl-empty">No quotes in the pool.</div>') + "</div>" +
+          whoSaidAdminHTML() +
         "</div>";
 
       items.querySelectorAll("[data-qopen]").forEach((b) => b.addEventListener("click", () => {
         _qEditing = _qEditing === b.dataset.qopen ? null : b.dataset.qopen;
         adminRenderQuotes();
+      }));
+      /* The "Who said it?" pool — a second list under the daily quotes, since both are quotation pools and
+         a tab of its own would be one more colour pair and `*-mode` class for a list of switches. Removing
+         is a toggle and writes the overlay at once (see whoSaidPool). */
+      items.querySelectorAll("[data-wsoff]").forEach((b) => b.addEventListener("click", () => {
+        const q = b.dataset.wsoff, off = ADMIN_EDITS.whosaidOff || (ADMIN_EDITS.whosaidOff = {});
+        if (off[q]) delete off[q]; else off[q] = true;
+        saveAdminEdits();
+        adminRenderQuotes();
+        toast(off[q] ? "Removed from Who said it?" : "Restored to Who said it?");
       }));
       const nb = items.querySelector("#qNew");
       if (nb) nb.addEventListener("click", () => { _qEditing = ""; adminRenderQuotes(); });
