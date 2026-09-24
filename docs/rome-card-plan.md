@@ -1017,6 +1017,37 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-521`–`rm-530`: the Aurelian Column to the emperor's council — what this batch found
+
+All ten are in `rm-high-empire`. **Six lines are answered by a term they do not contain**, and the reason
+is that four later lines already hold the obvious answer: `rm-650` is the military diploma, `rm-738` the
+imperial rescripts, `rm-764` Leptis Magna and `rm-545` the Antonine Constitution. So `rm-523` *Commodus in
+the arena* is answered by **`secutor`**, the gladiator type he fought as; `rm-524` *The assassination of
+Commodus* by **`Marcia`**, who organised it (keyed `Marcia_(mistress_of_Commodus)`, with the narrow alias
+*concubine Marcia* only — a bare alias would have linked World History's sentence on the Aqua Marcia and
+three citations of a living scholar); `rm-526` *The prosperity of the second century* by **`Herodes
+Atticus`**; `rm-527` *The cities of the high empire* by **`Timgad`**; `rm-529` *Roman citizenship in the
+second century* by **`honestiores`** (key `Honestiores_and_humiliores`), the legal line that came to
+matter more than citizenship; and `rm-530` *Imperial administration under the Antonines* by **`consilium
+principis`**. **The plan's own lines are unchanged.**
+
+**`rm-525 Pax Romana` is a deliberate pair with `wh-359`** and reuses `Pax_Romana`; it shares no citation
+with the World History card, taking the Janus gate from Suetonius, Calgacus from a different translation,
+and building the rest on Pliny's phrase and Aelius Aristides' *To Rome*.
+
+**A SECOND WRONG LINK OF THE `Historia Augusta` KIND WAS CAUGHT BEFORE IT SHIPPED**: "Aelius Aristides"
+would have linked its second word to **Aristides the Just**, the fifth-century Athenian. The fix was again a
+term, `Aelius_Aristides`, whose longer surface wins. **Ask of every two-word name whether its last word is
+already somebody else's glossary term.** `Philostratus`, `Herodian` and `Aelius Aristides` also joined
+`check-cards.js`'s `ANCIENT` list, the drop set being this batch's four cards and nothing else.
+
+**Two pictures were declined.** `rm-524`'s draft carried Pelez's *La Mort de Commode* of 1879 — an
+imagining that does not depict its subject, refused on the Antonine Plague's reasoning — and no reliable
+portrait of Marcia exists. `rm-527` first carried Cagnat in three of five sources, over the two-per-author
+cap; one citation was merged and a milestone of 100 CE naming Trajan's legate (Dessau, *ILS* 284) added.
+Several dates rest on Magie's Loeb notes rather than the ancient text (Cleander's fall, Lucilla's plot), and
+Commodus's birth year of 161 CE is derived from the consular date and Dio's length of life.
+
 ## `rm-512`–`rm-520`: Aelia Capitolina to the *Meditations* — what this batch found
 
 All nine are in `rm-high-empire`, each with a new glossary term. **One line is answered by a term it does
