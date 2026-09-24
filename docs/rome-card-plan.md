@@ -1017,6 +1017,42 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-512`–`rm-520`: Aelia Capitolina to the *Meditations* — what this batch found
+
+All nine are in `rm-high-empire`, each with a new glossary term. **One line is answered by a term it does
+not contain**: `rm-515` *Marcus Aurelius* is answered by **`Avidius Cassius`**, on `ww2-133`'s rule —
+`Marcus_Aurelius` has been a cited term, with its own World History card `wh-369`, since long before this
+batch, so the line had no term of its own left to teach. The usurpation of 175 CE is the moment the reign
+is remembered by. `rm-517`'s answer carries **en dashes** (`Roman–Parthian War of 161–166`), matching the
+slug; the hyphenated spelling is an alias, and `normAnswer` strips both when grading.
+
+**TWO ANCIENT WRITERS WERE MISSING FROM `check-cards.js`'s `ANCIENT` LIST, and the drop set was measured.**
+`rm-520` cites the *Meditations* by its author three times and was reported OVER-CITED as a modern scholar;
+`rm-512` quotes Justin Martyr in a question and `card-focus.js` reported **Martyr** as a researcher, the
+list's bare `justin` covering only part of the name. `marcus aurelius` and `justin martyr` now lead the
+alternation. Measured over the whole corpus, the change moves exactly these two findings and `wh-369`
+(whose Marcus quotation had been read as a scholar's), and rule 1 still fires on three other cards.
+
+**Two cards carry no picture, each for a stated reason.** Commons holds no portrait, coin or inscription of
+**Avidius Cassius**, whose category is a single map; and nothing from the period shows the **Antonine
+Plague**, the one ready candidate being a painting of about 1871 and the other a plaque whose link to the
+plague is only an uploader's caption. A 19th-century imagining was judged worse than no picture.
+
+**`rm-520` carries the collection's first `card.quote` from the Library** — *Meditations* 1.7, Rusticus and
+the *Memoirs of Epictetus* — checked word for word against `books/marcus-aurelius-meditations.js`. 2.1 was
+not used, `wh-369` already quoting it. **`Meditations` is `caseSensitive`**, the ordinary word occurring in
+the corpus in a Buddhist sense, and the Philosophy collection's later Descartes card must take its own
+full-title key.
+
+Four wrong links were found by reading the rendered cards and reworded away: "Lucius Aelius **Caesar**"
+linked the dictator, "the **German** provinces" linked the modern country, "all **Asia**" the continent and
+the bare legion name "Second **Augusta**" the capital of Maine. **Two sources were cited from their abstract
+alone** (Mittag's *Electrum* article on the 900th anniversary, and the Starinar paper on the cult of
+Antinous in the previous batch) and each carries one sentence paraphrasing what that abstract says. Most
+dates for the Parthian war and Verus's career come from Magie's Loeb notes rather than the ancient text, and
+a Serbian paper of 2023 (Vukadinović and Tošović) is the only modern source for both the war and Avidius
+Cassius — no open English work on either was found.
+
 ## `rm-502`–`rm-511`: the empire at its widest to the Bar Kokhba revolt — what this batch found
 
 All ten are in `rm-high-empire` and carry Hadrian's reign. **Four lines are answered by a term the line

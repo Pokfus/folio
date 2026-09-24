@@ -4374,7 +4374,16 @@ window.GLOSSARY = {
 "Hadrian's_Villa": "Hadrian's Villa is the residence the Roman emperor Hadrian built from about 118 CE below Tibur, the modern Tivoli, a complex of palaces, baths, libraries, theatres, pools and gardens covering at least 120 hectares (300 acres).<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its buildings went up in stages until late in his reign, and his ancient biography records that he named parts of it after celebrated places such as the Lyceum, the Academy, Canopus and Tempe.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Searched for statues from the 16th century and bought by the Italian state in 1871, the site was inscribed on the UNESCO World Heritage List in 1999.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Antinous": "Antinous was a young man from Bithynium in Bithynia who became the favourite of the Roman emperor Hadrian and drowned in the Nile in 130 CE, in circumstances already disputed in antiquity between accident, sacrifice and a death accepted willingly for the emperor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Hadrian founded the city of Antinoöpolis where he died, and a cult of Antinous spread quickly from Egypt, where he was identified with Osiris, to Greece and as far as the Balkan provinces.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> At Mantinea he received yearly mysteries and games every four years, and his portraits survive in large numbers as busts and statues.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Bar_Kokhba_revolt": "The Bar Kokhba revolt was a Jewish rising against Roman rule in Judaea from 132 to 135 CE, led by Simon bar Kosiba, whose name was probably turned into Bar Kokhba, 'son of the star', by the messianic hopes the rising stirred.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Ancient writers disagree about its cause, one blaming the Roman colony founded on the ruins of Jerusalem and another a ban on circumcision, and the rebels held fortified positions until they were besieged in the fortress of Betar.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> The war was costly for both sides, and afterwards the province of Judaea was renamed Syria Palaestina.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
-"Historia_Augusta": "The <i>Historia Augusta</i> is a Latin collection of biographies of Roman emperors and usurpers from Hadrian to Carinus, from which the lives from Philip to part of the reign of Valerian are lost.<sup class=\"fn\" data-fn=\"1\"></sup> Its manuscripts name six authors, some writing to Diocletian and others to Constantine, but many of the documents it quotes have been shown to be forgeries, and since the 1890s some scholars have argued that the whole work is a forgery.<sup class=\"fn\" data-fn=\"1\"></sup> The text rests chiefly on one 9th-century manuscript copied at Fulda, the Codex Palatinus now in the Vatican Library, recognised as its only early source.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Historia_Augusta": "The <i>Historia Augusta</i> is a Latin collection of biographies of Roman emperors and usurpers from Hadrian to Carinus, from which the lives from Philip to part of the reign of Valerian are lost.<sup class=\"fn\" data-fn=\"1\"></sup> Its manuscripts name six authors, some writing to Diocletian and others to Constantine, but many of the documents it quotes have been shown to be forgeries, and since the 1890s some scholars have argued that the whole work is a forgery.<sup class=\"fn\" data-fn=\"1\"></sup> The text rests chiefly on one 9th-century manuscript copied at Fulda, the Codex Palatinus now in the Vatican Library, recognised as its only early source.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Aelia_Capitolina": "Aelia Capitolina was the Roman colony founded by the emperor Hadrian on the site of Jerusalem, its name joining his family name Aelius to Capitolinus, a title of Jupiter, Rome's chief god.<sup class=\"fn\" data-fn=\"1\"></sup> Coins struck there in 130 CE show the ritual ploughing of its boundary, and while the historian Cassius Dio makes its foundation, with a new temple of Jupiter, the cause of the Bar Kokhba revolt, the church historian Eusebius places the renaming after the Jewish defeat.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> After the revolt Jews were barred from the city and its district, which was resettled by other peoples and still called Aelia when the Council of Nicaea met in 325 CE.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Antoninus_Pius": "Antoninus Pius was a Roman emperor who reigned from 138 CE until his death in 161 CE, having been adopted by Hadrian on condition that he in turn adopt Marcus Aurelius and Lucius Verus as his own heirs.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Ancient writers gave several reasons for the surname Pius, among them his devotion to his adoptive father, whose deification he secured from a reluctant senate, and his clemency.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He fought his wars only through his generals, one of whom built a turf wall in Britain, and his long and largely peaceful reign ended with his death at his estate at Lorium and his deification by the senate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Antonine_Wall": "The Antonine Wall was a Roman frontier built across central Scotland from about 142 CE under Antoninus Pius, a turf rampart on a stone base running some 60 kilometres (37 miles) across the Forth–Clyde isthmus.<sup class=\"fn\" data-fn=\"1\"></sup> It was fronted by a ditch, served by a road to its south and guarded by forts, and was built by men of the three legions then in Britain, who marked the stretches they finished with inscribed and carved distance slabs.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> It was held for only about 20 years before the army withdrew to Hadrian's Wall, and since 2008 it has formed part of the Frontiers of the Roman Empire World Heritage Site.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Avidius_Cassius": "Avidius Cassius was a Roman general from Cyrrhus in Syria who commanded the armies in the Parthian war of the 160s CE, when Seleucia was burned and the royal palace at Ctesiphon razed, and who was later given charge of the eastern provinces.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In the spring of 175 CE, on a false report that the emperor Marcus Aurelius had died, he claimed the throne and won over Syria, Egypt and the neighbouring provinces.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He was killed by his own officers about three months later, and Marcus responded with notable clemency towards the regions and men who had supported him.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Lucius_Verus": "Lucius Verus was a Roman emperor who reigned jointly with Marcus Aurelius from 161 CE until his death in 169 CE, the first time the empire was ruled by two emperors of equal rank.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Adopted by Antoninus Pius at Hadrian's wish in 138 CE and later married to Lucilla, the daughter of Marcus, he was sent east to direct a war against Parthia that his generals fought while he stayed largely at Antioch.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He died near Altinum in northern Italy on the way back from the northern frontier, and ancient writers, above all the <i>Historia Augusta</i>, portrayed him as idle and pleasure-loving, a picture some modern historians consider exaggerated.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Roman–Parthian_War_of_161–166": "The Roman–Parthian War of 161–166 was a conflict between the Roman Empire and Parthia, begun when the Parthian king Vologases placed his own candidate on the throne of Armenia and destroyed a Roman legion at Elegeia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> With the co-emperor Lucius Verus directing it from Antioch, Roman armies recovered Armenia in 163 CE and in 165 CE reached the Tigris, where they burned Seleucia and razed the royal palace at Ctesiphon.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The returning troops lost many men to famine and disease, and ancient writers linked the war to the plague that then spread through the Roman world.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Antonine_Plague": "The Antonine Plague was an epidemic that spread through the Roman Empire from about 165 CE, first reported in Mesopotamia during a Roman war against Parthia and reaching Rome by 166 CE.<sup class=\"fn\" data-fn=\"1\"></sup> The physician Galen described fever, a sore throat and dry or pus-filled skin eruptions, which many modern scholars take to indicate smallpox, although measles and other diseases have also been proposed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Outbreaks appear to have recurred for more than twenty years, and modern estimates of the deaths vary from 1 or 2 per cent of the empire's population to about a quarter.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Marcomannic_Wars": "The Marcomannic Wars were a series of Roman wars fought by the emperor Marcus Aurelius against the Marcomanni, the Quadi, the Sarmatian Iazyges and other peoples beyond the Danube, usually dated from 166 or 167 to 180 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Invaders reached northern Italy in 170 CE, besieging Aquileia and destroying Opitergium, before Roman counter-offensives launched from bases such as Carnuntum carried the fighting into the lands of the Marcomanni north of the river.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Marcus died in 180 CE with the war unfinished, and his son Commodus made peace with the Marcomanni and brought the fighting to an end.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Meditations": "The Meditations is a collection of notes in twelve books that the emperor Marcus Aurelius, who reigned from 161 to 180 CE, wrote to himself in Greek, apparently for his own moral improvement rather than for publication.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Apart from a first book recording what he owed to relatives and teachers, it consists of loosely ordered entries restating Stoic principles, and notes in one manuscript place parts of it among the Quadi and at Carnuntum.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The title is not his, the English name coming from a translation of 1634 and a 10th-century reader calling it 'to himself', and the work was first printed in 1558 from a manuscript since lost.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6604,7 +6613,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Pantheon,_Rome": "27 BCE – 609 CE",
 "Hadrian's_Villa": "c. 118 – 138 CE",
 "Antinous": "d. 130 CE",
-"Bar_Kokhba_revolt": "132 – 135 CE"
+"Bar_Kokhba_revolt": "132 – 135 CE",
+"Aelia_Capitolina": "c. 130 CE",
+"Antoninus_Pius": "138 – 161 CE",
+"Antonine_Wall": "c. 142 – 164 CE",
+"Avidius_Cassius": "died 175 CE",
+"Lucius_Verus": "161 – 169 CE",
+"Roman–Parthian_War_of_161–166": "161 – 166 CE",
+"Antonine_Plague": "c. 165 – 189 CE",
+"Marcomannic_Wars": "166 – 180 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -9103,7 +9120,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Pantheon,_Rome": ["Pantheon","Santa Maria ad Martyres"],
 "Hadrian's_Villa": ["Hadrian’s Villa","Villa Adriana"],
 "Bar_Kokhba_revolt": ["Bar Kochba revolt","Bar Kokhba War","Bar Kochba War","Bar Kokhba rebellion"],
-"Historia_Augusta": ["Augustan History"]
+"Historia_Augusta": ["Augustan History"],
+"Lucius_Verus": ["Lucius Aurelius Verus"],
+"Roman–Parthian_War_of_161–166": ["Roman-Parthian War of 161-166","Parthian war of Lucius Verus"],
+"Antonine_Plague": ["Plague of Galen"],
+"Marcomannic_Wars": ["Marcomannic War","Marcomannic-Sarmatian Wars"],
+"Meditations": ["Meditations of Marcus Aurelius","Ta eis heauton"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -9146,7 +9168,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Eastern_Desert": true,
 "Medes": true,
 "Chaos_(cosmogony)": true,
-"Pantheon,_Rome": true
+"Pantheon,_Rome": true,
+"Meditations": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -13524,7 +13547,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hadrian's_Villa": ["building","architecture","history","rome","classical","italy"],
 "Antinous": ["person","religion","history","rome","egypt","greece","classical"],
 "Bar_Kokhba_revolt": ["event","warfare","history","rome","judaea","religion","classical"],
-"Historia_Augusta": ["text","history","literature","rome","classical"]
+"Historia_Augusta": ["text","history","literature","rome","classical"],
+"Aelia_Capitolina": ["city","history","religion","rome","judaea","classical"],
+"Antoninus_Pius": ["person","ruler","history","politics","rome","classical"],
+"Antonine_Wall": ["building","history","warfare","rome","britain","classical"],
+"Avidius_Cassius": ["person","history","warfare","rome","syria","classical"],
+"Lucius_Verus": ["person","ruler","history","rome","classical"],
+"Roman–Parthian_War_of_161–166": ["event","warfare","history","rome","parthia","classical","armenia","mesopotamia"],
+"Antonine_Plague": ["event","history","medicine","rome","classical"],
+"Marcomannic_Wars": ["event","warfare","history","rome","classical","europe","austria"],
+"Meditations": ["text","literature","philosophy","history","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
