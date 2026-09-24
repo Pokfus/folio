@@ -35,13 +35,15 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.884", released: "2026-09-24T15:54Z" };
+window.FOLIO_VERSION = { v: "1.885", released: "2026-09-24T17:30Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-24",
-    t: "Two new decks: name the world\u2019s flags, and draw them from memory",
+    t: "The Ancient Greece collection is finished at a thousand cards",
     items: [
+      "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
+      "<b>Seventy new cards in the Ancient Greece collection</b>, on Greek myth, the journey home from Troy and Greek worship from sacrifice to the mysteries, with sixty-three new glossary terms.",
       "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
       "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",
       "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades.",
@@ -72,7 +74,7 @@ window.CHANGELOG = [
     d: "2026-09-18",
     t: "The Ancient Egypt collection opens with its first ten cards",
     items: [
-      "<b>Seventy new cards and sixty-three glossary terms</b> \u2014 the Ancient Egypt collection opens with ten, thirty carry Rome to Trajan's column, and thirty take Russia to the Mongol conquest.",
+      "<b>One hundred and ten new cards and ninety-seven glossary terms</b> \u2014 forty on Greek myth, ten opening the Ancient Egypt collection, thirty carrying Rome to Trajan's column and thirty taking Russia to the Mongol conquest.",
       "<b>The word \u201cmedian\u201d no longer links to the Medes</b> on cards that use it as a statistic rather than as a people.",
       "<b>Architecture joins the planned collections</b> \u2014 a thousand cards on how buildings are designed and built, from the arch to the carbon in the concrete.",
       "<b>The First World War joins the planned collections</b> \u2014 a thousand cards on the whole war, from the alliance system to how it is remembered.",
@@ -142,6 +144,7 @@ window.CHANGELOG = [
       ,"<b>Every card globe has a button through to your own atlas</b>, and a Back button there returns you to the card you were studying."
       ,"<b>You can now hide a collection\u2019s places on your own atlas</b> \u2014 a switch per collection, beside where the world atlas keeps its layers."
       ,"<b>A Library book says how many people have read it</b> \u2014 counted once per reader, and only once they have really read it."
+      ,"<b>Seventy new cards in the Ancient Greece collection</b>, on Greek science, the philosophical schools, Greece under Rome and the opening of the myth decks, with fifty-nine new glossary terms."
     ]
   },
   {
@@ -155,7 +158,7 @@ window.CHANGELOG = [
       "<b>Two war maps no longer contradict a neighbouring card</b> \u2014 the same ground was shaded green on one card and red on another in the same year.",
       "<b>An artwork card no longer asks where the work is today</b> \u2014 it is named for you on the answer side instead, in the box under the picture.",
       "<b>Ten new Ancient Rome cards</b> — the settlement of 23 BCE and the powers, provinces and pay that made the Principate work, with ten new glossary terms.",
-      "<b>Ten new cards in the Ancient Greece collection</b>, on the Syrian Wars, the Aetolian and Achaean leagues and the Spartan reform kings, with eight new glossary terms.",
+      "<b>Thirty new cards in the Ancient Greece collection</b>, on the Hellenistic leagues, Sparta\u2019s reform kings and Alexandrian poetry and science, with twenty-seven new glossary terms.",
       "<b>Seven new cards in the Visual Art collection</b>, carrying the Ice Age deck on from the Swabian caves into Lower Austria and Moravia.",
       "<b>The stray lines are gone from your own atlas</b> — the ruler-straight marks across Egypt, Arabia, Tanzania and the Gulf of California were borders drawn twice.",
       "<b>A place on your atlas opens from its name as well as its dot</b>, which is by far the larger thing to aim at.",

@@ -415,7 +415,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     over-cited across the whole corpus. **The remaining concentration is a judgement rather than a
     violation, so MEASURE it rather than quoting a figure**: the audit's "237 citations, 8.7% of the
     collection's whole apparatus" was true of `gr-001`–`gr-500` and is now wrong twice over, the
-    collection having grown to 800 cards while sixty-odd of those citations were replaced —
+    collection having grown well past 800 cards while sixty-odd of those citations were replaced —
 
         node -e "global.window={};const{loadCards}=require('./.claude/card-io.js');const c=loadCards().cards.filter(x=>x.id.startsWith('gr-'));let t=0,d=0,n3=0;c.forEach(x=>{const s=x.sources||[];t+=s.length;const k=s.filter(y=>y.indexOf('aegean-prehistory')>=0).length;d+=k;if(k>2)n3++});console.log(d+' of '+t+' = '+(100*d/t).toFixed(1)+'%, '+n3+' cards over the rule')"
 
@@ -2159,6 +2159,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     have excused all six where the anchored `marco polo` excuses none. Rule 1 goes 7 → 0 and
     `check-cards.js`'s own findings are byte-for-byte unchanged, with the drop set read card by card and
     the rule proved still to fire on a planted *Demichelis*.
+  · **AND TWO HELLENISTIC POETS WERE THE SAME FAULT AGAIN** (Sep 2026, writing `gr-801`–`gr-810`).
+    `check-cards.js` reported `gr-810` OVER-CITED on *apollonius rhodius in 3 of 5 sources* — three
+    passages of the poem the card is about, which is the ancient-witness case the carve-out exists for —
+    and this tool reported `gr-809` under BOTH rules on *Callimachus*, cited there as the author of the
+    *Aetia*. `apollonius of rhodes|apollonius rhodius` went into `check-cards.js`'s regex and
+    `Callimachus` into this file's surname Set. **Both are narrow and both were diffed over the whole
+    corpus**: the first moved exactly one finding and excuses neither bare *Apollonius* nor *Apollonius
+    of Perga*, the second moved four findings and all four were the batch's own, and rule 1 was proved
+    still to fire on a planted *Seaton*.
   · **AN INSTITUTION AT THE HEAD OF A SEGMENT OWNS THE WHOLE OF IT**, which is the other half of
     `CORPORATE`'s per-name rule: a museum's object record is a catalogue entry, not a byline, so the Met's
     gave **Attic**, **Ergotimos** and **Kleitias** off the description of the very pot `gr-327` is about.
@@ -7928,7 +7937,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | collection or deck | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 600 cards, contiguous — next is `wh-601` |
-| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | **COMPLETE, 1000 of 1000** — `gr-001` to `gr-1000`, the first of the thousand-card plans to close |
 | Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 500 cards, contiguous — next is `rm-501` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 100 cards, contiguous — next is `ru-101` |
