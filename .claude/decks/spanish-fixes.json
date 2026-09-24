@@ -24543,6 +24543,619 @@
      "My mouth is dry."
     ]
    ]
+  },
+  "delea2/la corbata": {
+   "why": "The gloss said 'tie' twice. The first example, 'hace buen par con tu traje', is not how Spanish says it (hace juego), and the third wrote 'le queda bien a tu camisa', which is for clothes suiting a person.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "tie"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "hace buen par con tu traje",
+    "La corbata le queda bien a tu camisa."
+   ],
+   "ex": [
+    [
+     "Mi padre lleva corbata todos los días.",
+     "My father wears a tie every day."
+    ],
+    [
+     "¿Tengo que llevar corbata a la boda?",
+     "Do I have to wear a tie to the wedding?"
+    ]
+   ]
+  },
+  "delea2/la lata": {
+   "why": "The gloss ran six items together, 'tin-plate' among them, and missed ¡qué lata!, 'what a pain!', which is how a reader in Spain hears the word most often after the can. The third example's English said 'in opening'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "can, tin"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡qué lata! — what a pain!",
+      "dar la lata — to pester"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Se cortó un dedo al abrir una lata",
+     "He cut his finger opening a tin."
+    ]
+   ]
+  },
+  "delea2/típico, típica": {
+   "why": "The gloss broke off mid-parenthesis. It did not say that típico is also 'traditional, local' — la comida típica — which is how a visitor meets it. The examples are right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "typical",
+      "traditional, local (la comida típica)"
+     ]
+    ]
+   ]
+  },
+  "delea2/cuyo": {
+   "why": "The examples are right. The gloss did not say the one thing that makes the word hard: it agrees with what is owned, not with the owner, which the three examples show without saying.",
+   "senses": [
+    [
+     "relative determiner",
+     [
+      "whose (agrees with what is owned: cuya hija, cuyos libros)"
+     ]
+    ]
+   ]
+  },
+  "delea2/la cafetería": {
+   "why": "The examples were an American school canteen — a food fight, dirty public-school cafeterias — while in Spain una cafetería is a café, the gloss's own first sense.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "café, coffee shop",
+      "cafeteria (in a school, an office)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Hubo una pelea de comida",
+    "cafeterías en las escuelas públicas"
+   ],
+   "ex": [
+    [
+     "Te espero en la cafetería de la esquina.",
+     "I'll wait for you in the café on the corner."
+    ],
+    [
+     "Desayuno en una cafetería cerca del trabajo.",
+     "I have breakfast at a café near work."
+    ]
+   ]
+  },
+  "delea2/la receta": {
+   "why": "The gloss is right. The third example's English added an exclamation mark the Spanish does not have.",
+   "exEn": [
+    [
+     "Ve al doctor para que te dé una receta",
+     "Go to the doctor to get a prescription."
+    ]
+   ]
+  },
+  "delea2/plano, plana": {
+   "spanish": "el plano",
+   "word": "plano",
+   "why": "THE CARD TAUGHT THE WRONG WORD. It was headed as the adjective, 'plane, level, flat', while the A2 word is el plano, a street map or plan (¿tiene un plano de la ciudad?), which the second example is. The first, 'debiste haber rechazado su solicitud de plano', is not Spanish; the third was the adjective. el mapa, a map of a country, is A1's card.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "(street) map, plan (un plano de la ciudad)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los planos"
+    ],
+    [
+     "also",
+     "plano, plana (adjective) — flat; el mapa — map (of a country, A1)"
+    ]
+   ],
+   "dropEx": [
+    "rechazado su solicitud de plano",
+    "cree que la Tierra es plana"
+   ],
+   "ex": [
+    [
+     "¿Tiene un plano del metro?",
+     "Have you got a metro map?"
+    ],
+    [
+     "Mira en el plano dónde está el museo.",
+     "Look on the map to see where the museum is."
+    ]
+   ],
+   "exEn": [
+    [
+     "¿Vende planos de la ciudad",
+     "Do you sell street maps of the town, please?"
+    ]
+   ]
+  },
+  "delea2/escoger": {
+   "why": "The gloss is right. The third example, living on a star, is a fantasy rather than a sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to choose, to pick"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "vivir en una estrella"
+   ],
+   "ex": [
+    [
+     "Escoge el color que más te guste.",
+     "Choose the colour you like best."
+    ]
+   ]
+  },
+  "delea2/propietario, propietaria": {
+   "spanish": "el propietario, la propietaria",
+   "word": "propietario",
+   "why": "THE CARD TAUGHT THE WRONG WORD. It was headed as the adjective, 'proprietary, owning', while every example was the noun, the owner. The headword becomes the pair; the adjective goes in Forms.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "owner"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los propietarios, las propietarias"
+    ],
+    [
+     "also",
+     "propietario, propietaria (adjective) — proprietary"
+    ]
+   ]
+  },
+  "delea2/generoso, generosa": {
+   "why": "The gloss is right. The first example, 'Él es generoso, así que vayamos con él', is not a sentence anyone says.",
+   "dropEx": [
+    "así que vayamos con él"
+   ],
+   "ex": [
+    [
+     "Gracias, eres muy generoso.",
+     "Thank you, you're very generous."
+    ]
+   ]
+  },
+  "delea2/actualmente": {
+   "why": "The gloss is right and the card owed its reader a warning: actualmente is a false friend of 'actually', which is en realidad. The first example used the Latin American auto.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "currently, at present, nowadays"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "not",
+     "actually — en realidad"
+    ]
+   ],
+   "dropEx": [
+    "su padre va a trabajar en auto"
+   ],
+   "ex": [
+    [
+     "Actualmente vivo en Barcelona.",
+     "I currently live in Barcelona."
+    ]
+   ]
+  },
+  "delea2/la exposición": {
+   "why": "THE GLOSS MISSED THE WORD'S COMMONEST SENSE: every example was an exhibition, and the gloss gave only 'exposition, exposure'. The third example, applying to be an attendant at an exhibition, is stilted.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "exhibition",
+      "exposure (to the sun)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Eché una solicitud como empleado"
+   ],
+   "exEn": [
+    [
+     "las exposiciones en Rumanía",
+     "Did you enjoy going to the exhibitions in Romania?"
+    ]
+   ],
+   "ex": [
+    [
+     "Fuimos a ver una exposición de Picasso.",
+     "We went to see a Picasso exhibition."
+    ]
+   ]
+  },
+  "delea2/la región": {
+   "why": "The gloss is right. The third example wrote video, where Spain says vídeo, and is a message on a screen rather than a sentence.",
+   "dropEx": [
+    "Este video no está disponible"
+   ],
+   "ex": [
+    [
+     "Galicia es una región muy verde.",
+     "Galicia is a very green region."
+    ]
+   ]
+  },
+  "delea2/el dibujo": {
+   "why": "'tread' is a tyre's, and not A2. The first example, 'Ana tiene muchos dibujos que hacer', is stilted, and the second is shared with el/la artista earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "drawing"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dibujos animados — cartoons"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ana tiene muchos dibujos que hacer.",
+    "El dibujo del artista fue hecho en carbón."
+   ],
+   "ex": [
+    [
+     "Mi hijo hace dibujos de animales.",
+     "My son draws animals."
+    ],
+    [
+     "Me encanta este dibujo.",
+     "I love this drawing."
+    ]
+   ]
+  },
+  "delea2/apagar": {
+   "why": "THE GLOSS MISSED THE SENSE EVERY EXAMPLE USED: 'to extinguish, to douse, to slake (thirst' broke off mid-parenthesis and never said 'to turn off', which is all three examples. The first two were one sentence, turning off a light.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to turn off, to switch off",
+      "to put out (a fire, a cigarette)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Que no se te olvide apagar la luz."
+   ],
+   "ex": [
+    [
+     "Apagaron el fuego en una hora.",
+     "They put the fire out in an hour."
+    ]
+   ]
+  },
+  "delea2/pintar": {
+   "why": "The gloss said 'to paint' twice. The third example, 'Las mujeres a menudo se pintan las uñas', is a generalisation.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to paint"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "pintarse — to put on make-up"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las mujeres a menudo se pintan las uñas."
+   ],
+   "ex": [
+    [
+     "Mi hija pinta muy bien.",
+     "My daughter paints very well."
+    ]
+   ]
+  },
+  "delea2/la eléctrica": {
+   "why": "EVERY EXAMPLE WAS ANOTHER WORD: the adjective eléctrico, which is B2's card, three times — two electric guitars and some power tools. la eléctrica is the electricity company, as the gloss says, and now has examples that are it. The first example was also an A1 sentence and the third is shared with musical earlier in A2. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "electricity company"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las eléctricas"
+    ],
+    [
+     "also",
+     "eléctrico, eléctrica (adjective) — electric (B2)"
+    ]
+   ],
+   "dropEx": [
+    "Mi hermano se ha comprado una guitarra eléctrica.",
+    "herramientas eléctricas",
+    "Mi instrumento musical favorito"
+   ],
+   "ex": [
+    [
+     "La eléctrica me ha subido la factura.",
+     "The electricity company has put my bill up."
+    ],
+    [
+     "Llamé a la eléctrica porque no había luz.",
+     "I rang the electricity company because there was no power."
+    ],
+    [
+     "Las eléctricas han ganado mucho dinero este año.",
+     "The electricity companies have made a lot of money this year."
+    ]
+   ]
+  },
+  "delea2/pasear": {
+   "why": "The gloss ran five English verbs together ('to saunter, to promenade') and did not name dar un paseo. The second example is the noun el paseo and is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to go for a walk, to walk",
+      "to walk (a dog)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dar un paseo — to go for a walk"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mi papá da un paseo todos los días."
+   ],
+   "ex": [
+    [
+     "Los domingos paseamos por el parque.",
+     "On Sundays we go for a walk in the park."
+    ]
+   ]
+  },
+  "delea2/generalmente": {
+   "why": "All three examples were also A1 sentences. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "generally, usually"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las mujeres generalmente viven más",
+    "Generalmente me voy a casa a las cuatro.",
+    "tomo un baño en la noche"
+   ],
+   "ex": [
+    [
+     "Generalmente voy al trabajo en autobús.",
+     "I generally go to work by bus."
+    ],
+    [
+     "En agosto hace generalmente mucho calor.",
+     "It's generally very hot in August."
+    ],
+    [
+     "Los niños generalmente se acuestan pronto.",
+     "Children generally go to bed early."
+    ]
+   ]
+  },
+  "delea2/la poesía": {
+   "why": "Two of the three examples were aphorisms ('la poesía inmortal del corazón', 'el amor es la poesía de los sentidos'); the second's English said 'poetry' for poesías, poems.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "poetry",
+      "poem"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la poesía inmortal del corazón",
+    "El amor es la poesía de los sentidos."
+   ],
+   "exEn": [
+    [
+     "En mi tiempo libre escribo poesías",
+     "In my free time I write poems."
+    ]
+   ],
+   "ex": [
+    [
+     "En el colegio aprendimos una poesía de memoria.",
+     "At school we learnt a poem by heart."
+    ],
+    [
+     "A mi abuelo le gusta mucho la poesía.",
+     "My grandfather really likes poetry."
+    ]
+   ]
+  },
+  "delea2/encender": {
+   "why": "The gloss ran 'power up' in with 'ignite'. The third example is shared with la luz earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to turn on, to switch on",
+      "to light (a fire, a candle)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Enciende las luces, si no, no puedo trabajar."
+   ],
+   "ex": [
+    [
+     "¿Puedes encender la calefacción?",
+     "Can you turn the heating on?"
+    ]
+   ]
+  },
+  "delea2/la colonia": {
+   "why": "The gloss missed cologne, which is the third example and the sense a reader in a Spanish shop meets. The second example's English said 'the English people'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "colony",
+      "cologne (agua de colonia)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Los ingleses establecieron colonias",
+     "The English established colonies in America."
+    ]
+   ]
+  },
+  "delea2/la nube": {
+   "why": "'multitude, or crowd (of people)' is a figurative sense, and the third example, 'Eres una nube que cubre tu propio sol', is an aphorism.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "cloud"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Eres una nube que cubre tu propio sol."
+   ],
+   "ex": [
+    [
+     "Hoy hay muchas nubes.",
+     "It's very cloudy today."
+    ]
+   ]
+  },
+  "delea2/la toalla": {
+   "why": "The gloss is right. The second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "No hay toallas en la habitación número quince."
+   ],
+   "ex": [
+    [
+     "No te olvides la toalla de playa.",
+     "Don't forget your beach towel."
+    ]
+   ]
+  },
+  "delea2/reunirse": {
+   "why": "The gerund read reuníendose, S3's fault; it is reuniéndose. Its imperatives, reúnete and reúnase, are right. The third example met Ben, which is not a Spanish name.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to meet, to get together"
+     ]
+    ]
+   ],
+   "conjSub": [
+    [
+     "reun<span class=\"uc-cj-e\">íendose</span>",
+     "reun<span class=\"uc-cj-e\">iéndose</span>"
+    ]
+   ],
+   "dropEx": [
+    "Me reuní con Ben ayer"
+   ],
+   "ex": [
+    [
+     "Nos reunimos todos los viernes para cenar.",
+     "We get together every Friday for dinner."
+    ]
+   ]
+  },
+  "delea2/la pensión": {
+   "why": "The gloss is right. The second example, a government turning a blind eye to pensions, is political; the third's English said 'hostel' where the word is a guesthouse.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "pension",
+      "guesthouse (a small, cheap hotel)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "haciendo la vista gorda"
+   ],
+   "exEn": [
+    [
+     "Hay una pensión a dos kilómetros",
+     "There's a guesthouse two kilometres from the station."
+    ]
+   ],
+   "ex": [
+    [
+     "Mi abuela cobra una pensión pequeña.",
+     "My grandmother gets a small pension."
+    ]
+   ]
+  },
+  "delea2/la estatua": {
+   "why": "The first and third examples were both the Statue of Liberty.",
+   "dropEx": [
+    "Esta es la Estatua de la Libertad."
+   ],
+   "ex": [
+    [
+     "En la plaza hay una estatua de Cervantes.",
+     "There's a statue of Cervantes in the square."
+    ]
+   ]
   }
  },
  "insert": {

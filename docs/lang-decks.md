@@ -3468,6 +3468,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S11 | A2 | #277 `la salsa` – #303 `enfrente` | 26 | 1 (`quitarse`) | 0 | — | — |
 | S12 | A2 | #304 `el cuadro` – #330 `egoísta` | 25 | 2 (`el/la periodista`, `el gimnasio`) | 0 | — | — |
 | S13 | A2 | #331 `el carácter` – #357 `seco, seca` | 27 | 0 | 0 | — | — |
+| S14 | A2 | #358 `la corbata` – #384 `la estatua` | 27 | 0 | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4069,6 +4070,45 @@ examples "teenager"), `adulto` and `político`. Each now carries the noun as its
 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0; 491 of 495 cards now carry three examples.
 `check-senses --deck=DELE-A2` 30 → 24, with no card of this batch left on it.
+
+### S14 — DELE A2, notes #358–#384 (Sep 2026)
+
+Measured against the S13 commit by card id: **27 changed, 468 untouched**, all 27 of them this batch's
+record entries. Three cards were already right in their examples (`cuyo`, `típico`, `la receta`) and
+changed only in the gloss or one line of English.
+
+**THE WRONG MEMBER OF THE FAMILY, THREE WAYS.**
+- `propietario` was headed as the adjective ("proprietary, owning") while every example was the owner,
+  and is now `el propietario, la propietaria`.
+- `plano, plana` was headed as the adjective while the A2 word is `el plano`, a street map, which is its
+  second example. It is now that, pointed at A1's `el mapa`.
+- **`la eléctrica` is the reverse case**: the headword was right, the electricity company, and every
+  example was the ADJECTIVE *eléctrica* (two electric guitars, some power tools). The adjective is
+  `eléctrico, eléctrica` in B2, so the examples went rather than the headword.
+
+**A GLOSS THAT NEVER REACHED ITS SENSE.** `apagar` was glossed "to extinguish, to douse, to slake
+(thirst", cut off mid-parenthesis, and never said "to turn off", which all three examples were.
+`la exposición` gave "exposition, exposure" while every example was an exhibition. `la cafetería`'s
+examples were an American school canteen, a food fight and dirty cafeterias, where in Spain the word is
+a café. And `actualmente` owed its reader the warning that it is not "actually".
+
+**A GENERATOR FAULT, THE FIFTH INSTANCE REPAIRED.** `reunirse`'s gerund read *reuníendose* (S3's fault),
+and is now *reuniéndose*. Its imperatives, *reúnete* and *reúnase*, are right, and are the case the S6
+accent rule had to be written to leave alone.
+
+**AND THE REST.**
+- `generalmente` could keep none of its three examples; all were A1 sentences.
+- Five more A1-shared sentences were replaced, plus three shared with earlier A2 cards.
+- Aphorisms are gone from `la poesía` and `la nube`.
+- `la estatua` carried the Statue of Liberty twice.
+- Generalisations about women are gone from `pintar` and `generalmente`.
+- `la colonia` now glosses cologne, its third example.
+- `la lata` now names *¡qué lata!*.
+- `cuyo` now says it agrees with what is owned.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 24 → 23. The one
+card of this batch left on it is `cuyo`, a FALSE POSITIVE: a function-word gloss whose only content word,
+"whose", is on the checker's stop list.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
