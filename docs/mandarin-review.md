@@ -710,6 +710,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1261–1290 | 21 changed, 9 read and left: 20 example sentences replaced (a restaurant name on 添, a Japanese surname and a playground insult on 田, a sentence that was not Chinese, Classical Chinese, near-repeats), 3 translations fixed, two Compounds panels, 16 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1291–1320 | 25 changed, 5 read and left: 27 example sentences replaced (同行 taught one reading and shown the other, a sexual sentence on 透明, a children's-book title, a political aside, fragments, calques, near-repeats), 2 translations fixed, four Compounds panels, 17 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1321–1350 | 25 changed, 5 read and left: 31 example sentences replaced (推销 and 吞 never used the word itself, 往后 glossed with a sense no sentence showed, an out-of-date fact about Prince Charles, a Taiwan slogan, calqued proverbs, near-repeats), 1 translation fixed, six Compounds panels, 18 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1351–1380 | 24 changed, 6 read and left: 22 example sentences replaced (two 为-straddles, 温和 glossed from its other reading, slogans, opinions, a calqued proverb, near-repeats), 1 translation fixed, two Compounds panels, 16 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12480,4 +12481,35 @@ and no version bump.
   - The rest gained their "to" or had commas turned into semicolons.
   
   吞, 拖, 挖, 歪, 网 and 望 gained Compounds panels; 哇 gets none, since an interjection builds no words.
+
+### Batch 175 — `hsk30l6` notes 1351–1380 (为难 → 误)
+
+24 notes changed and 6 read and left (为止, 味觉, 文具, 文物, 乌龟, 武器), counted against the real diff.
+
+- **为 + a following word.** 为难民们 is 为 "for" + 难民 "refugees", and this record's own 为期末考试 is 为 + 期末. In both the headword straddles two words. Both were replaced.
+- **A gloss from the other reading.** 温和 was glossed "lukewarm", which is the sense of wēnhuo. All three of its sentences were about a mild climate. The gloss is now CC-CEDICT's "mild; gentle", and two sentences show "gentle".
+- **Headword inside a longer word:**
+  - 委托 inside 委托人
+  - 未 inside 未成年 (its gloss also claimed "future", which belongs to 未来)
+  - 文艺 inside 文艺青年
+  - 误 inside 笔误
+- **Slogans, opinions and calques.**
+  - 文明 had two slogans.
+  - 无疑 had an ungrammatical opinion about Esperanto and a tourist slogan about Algeria.
+  - 理科比文科难 is an opinion.
+  - 为何男女有别呢 is a question the card does not need.
+  - 发光的未必都是金子 is an English proverb calqued.
+  - 温柔's 口头上的温柔 was translationese.
+- **Near-repeats replaced:**
+  - 维生素: fruit rich in vitamins, twice.
+  - 未成年人: the same sentence twice, which `check-senses.js` now drops.
+  - 围棋: a 30-character sentence whose English said chess.
+  - 文档: the undocumented-feature joke, which also stands on 特性.
+- **Glosses.**
+  - 委托 had "bail".
+  - 胃口 had "belly".
+  - 闻名 was an adjective under a verb label.
+  - 为期 led with the rarer sense.
+  - 文献 gained "reference material".
+  - Others gained a sense their sentences show.
 
