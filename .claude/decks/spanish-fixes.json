@@ -32318,6 +32318,531 @@
      "I like British humour."
     ]
    ]
+  },
+  "deleb1/el peso": {
+   "why": "The gloss said 'weight' twice. The first and third examples were one construction, losing weight, and the third is shared with perder in A2; the second was the peso, a currency Spain does not use. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "weight"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "quitarse un peso de encima — to take a weight off one's mind"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "costará, por lo menos, cien pesos",
+    "Ella está en una dieta para perder peso."
+   ],
+   "ex": [
+    [
+     "¿Cuánto peso puede llevar este ascensor?",
+     "How much weight can this lift carry?"
+    ],
+    [
+     "Me quitas un peso de encima.",
+     "That's a weight off my mind."
+    ]
+   ]
+  },
+  "deleb1/privado, privada": {
+   "why": "The gloss had come apart ('private, privy (e.g. a privy council) • deprived, deprived of, denied, bereft'). The second example is shared with la educación in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "private"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "privado de — deprived of"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el privilegio de una educación privada"
+   ],
+   "ex": [
+    [
+     "Es una conversación privada.",
+     "It's a private conversation."
+    ]
+   ]
+  },
+  "deleb1/de hecho": {
+   "why": "The gloss was a thesaurus line. The examples are right.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "in fact, actually"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la mirada": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY. The first is shared with la habitación in A1; the second, '¡Papá, juega conmigo a las miradas!', has English that is not a translation of it; the third, 'me pidió que le eche una mirada', breaks the sequence of tenses (echara). SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "look, glance",
+      "gaze, expression (in someone's eyes)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "echar una mirada — to have a look"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "echó una mirada alrededor de la habitación",
+    "juega conmigo a las miradas",
+    "Él me pidió que le eche una mirada."
+   ],
+   "ex": [
+    [
+     "Me dirigió una mirada extraña.",
+     "He gave me a strange look."
+    ],
+    [
+     "Tiene una mirada muy dulce.",
+     "She has a very gentle gaze."
+    ],
+    [
+     "Echa una mirada a esto.",
+     "Have a look at this."
+    ]
+   ]
+  },
+  "deleb1/romperse": {
+   "why": "The gerund read rompíendose, S3's fault, and is now rompiéndose. The first example is shared with romper in A2, and the second's andando en una bicicleta is Latin American (Spain: montando en bici). SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "conjSub": [
+    [
+     "<span class=\"uc-cj-e\">íendose</span>",
+     "<span class=\"uc-cj-e\">iéndose</span>"
+    ]
+   ],
+   "dropEx": [
+    "Se me rompió la bolsa de la compra.",
+    "andando en una bicicleta"
+   ],
+   "ex": [
+    [
+     "Se me ha roto el móvil.",
+     "My mobile's broken."
+    ],
+    [
+     "Se rompió el brazo esquiando.",
+     "He broke his arm skiing."
+    ]
+   ]
+  },
+  "deleb1/natural": {
+   "why": "'native, indigenous' are not B1's. The second example's English said 'mineral resources'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "natural"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "rico en recursos naturales",
+     "That country is rich in natural resources."
+    ]
+   ]
+  },
+  "deleb1/comenzar": {
+   "why": "The gloss did not give comenzar a. The second example is shared with el verano in A1 and the third with ella in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to begin, to start (comenzar a + infinitive — to start doing)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las vacaciones de verano comienzan",
+    "A ella le comenzó a gustar"
+   ],
+   "ex": [
+    [
+     "La película comienza a las nueve.",
+     "The film starts at nine."
+    ],
+    [
+     "De repente comenzó a llover.",
+     "Suddenly it started to rain."
+    ]
+   ]
+  },
+  "deleb1/la necesidad": {
+   "why": "The gloss is right. The third example is shared with el piloto in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "necesidad urgente de pilotos"
+   ],
+   "ex": [
+    [
+     "Lo hago por necesidad, no por gusto.",
+     "I do it out of necessity, not for pleasure."
+    ]
+   ]
+  },
+  "deleb1/el dueño, la dueña": {
+   "why": "The gloss put 'master' among the senses. The third example, 'Ni que fueras tú la dueña', is a retort with no context.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "owner",
+      "landlord, landlady (of a flat)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ni que fueras tú la dueña."
+   ],
+   "ex": [
+    [
+     "El dueño del bar es muy simpático.",
+     "The owner of the bar is very friendly."
+    ]
+   ]
+  },
+  "deleb1/el resultado": {
+   "why": "The gloss was a thesaurus line. The first and third examples were the same sentence, a father satisfied with the result.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "result"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mi padre se siente satisfecho con este resultado."
+   ],
+   "ex": [
+    [
+     "Todavía no sé los resultados del examen.",
+     "I still don't know my exam results."
+    ]
+   ]
+  },
+  "deleb1/la lástima": {
+   "why": "The gloss did not give ¡qué lástima! or dar lástima. The first and third examples were one construction, sentir lástima, and the third is shared with sentir in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "pity, shame (¡qué lástima! — what a shame!)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dar lástima — to make (someone) feel sorry"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No puedo evitar sentir lástima por esa chica."
+   ],
+   "ex": [
+    [
+     "¡Qué lástima que no puedas venir!",
+     "What a shame you can't come!"
+    ]
+   ]
+  },
+  "deleb1/el interés": {
+   "why": "The gloss gave only the financial sense, 'a fraction of the amount of what was borrowed', while every example was interest in something. The first is shared with perder in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "interest (in something)",
+      "interest (on money)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Pablo perdió su interés"
+   ],
+   "ex": [
+    [
+     "El banco cobra un interés del cinco por ciento.",
+     "The bank charges five per cent interest."
+    ]
+   ]
+  },
+  "deleb1/militar": {
+   "why": "THE CARD WAS TWO WORDS. It was glossed as the adjective 'military' but carried the full conjugation of the verb militar, 'to be a member of a party', and the third example was that verb ('Todo militaba en contra'). The conjugation is taken off and the noun, a member of the armed forces, is added.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "military"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el / la militar — soldier, member of the armed forces"
+     ]
+    ]
+   ],
+   "conj": [],
+   "dropEx": [
+    "Todo militaba en contra"
+   ],
+   "ex": [
+    [
+     "Hizo el servicio militar en los años ochenta.",
+     "He did his military service in the eighties."
+    ]
+   ]
+  },
+  "deleb1/el escenario": {
+   "why": "The gloss missed the stage, which is the word's first sense. The third example is shared with delante in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "stage",
+      "scene, setting",
+      "scenario"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El escenario delante de mí era muy bonito."
+   ],
+   "ex": [
+    [
+     "Los actores salieron al escenario.",
+     "The actors came out on stage."
+    ]
+   ]
+  },
+  "deleb1/ya que": {
+   "why": "The gloss gave 'now that' and 'because', and not 'since', which every example is. The third example, 'Ya que él era un gran músico', is a fragment.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "since, as"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ya que él era un gran músico."
+   ],
+   "ex": [
+    [
+     "Ya que estás aquí, ayúdame con esto.",
+     "Since you're here, help me with this."
+    ]
+   ],
+   "bold": [
+    "ya que"
+   ]
+  },
+  "deleb1/el diario": {
+   "why": "The gloss put 'diary' first; in Spain the word is most often a newspaper. The second example said diaries are for girls, and the third was the adjective diaria, 'daily'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "newspaper",
+      "diary"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "los diarios eran cosas de niñas",
+    "su vida diaria"
+   ],
+   "ex": [
+    [
+     "Escribo un diario desde los doce años.",
+     "I've kept a diary since I was twelve."
+    ],
+    [
+     "Es el diario más leído del país.",
+     "It's the most widely read newspaper in the country."
+    ]
+   ]
+  },
+  "deleb1/el agujero": {
+   "why": "'pincushion' is not this word. The second example, black holes being 'the ultimate hard drive', is shared with negro in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "hole"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los agujeros negros son el disco duro supremo."
+   ],
+   "ex": [
+    [
+     "Tengo un agujero en el calcetín.",
+     "I've got a hole in my sock."
+    ]
+   ]
+  },
+  "deleb1/el alcalde, la alcaldesa": {
+   "why": "The gloss is right. The first example is shared with el ayuntamiento in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "mayor"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La oficina del alcalde está en el ayuntamiento."
+   ],
+   "ex": [
+    [
+     "El alcalde inauguró el nuevo parque.",
+     "The mayor opened the new park."
+    ]
+   ]
+  },
+  "deleb1/el pecho": {
+   "why": "'thorax' is a doctor's word, and breast was missing, which the first example is. The third's English put 'his hand on his heart' for 'ella puso la mano sobre su pecho'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "chest",
+      "breast (dar el pecho — to breastfeed)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Ella puso la mano sobre su pecho",
+     "She put her hand on her chest."
+    ]
+   ]
+  },
+  "deleb1/crear": {
+   "why": "ALL THREE EXAMPLES COULD NOT STAY. The first is shared with propio in A2 and the second with nuevo in A1; the third, 'Creo que ésta es la moto de Carlos', was creer, 'to think', and not crear, and is shared with la moto in A2 (S22 found it and left it for this batch). SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to create"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "crear mis propias páginas web",
+    "creó cuarenta nuevos puestos",
+    "Creo que ésta es la moto de Carlos."
+   ],
+   "ex": [
+    [
+     "Queremos crear un ambiente agradable.",
+     "We want to create a pleasant atmosphere."
+    ],
+    [
+     "Picasso creó un nuevo estilo de pintura.",
+     "Picasso created a new style of painting."
+    ],
+    [
+     "La empresa va a crear cien puestos de trabajo.",
+     "The company is going to create a hundred jobs."
+    ]
+   ]
+  },
+  "deleb1/resolver": {
+   "why": "The gloss was a thesaurus line. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to solve, to resolve, to sort out"
+     ]
+    ]
+   ]
+  },
+  "deleb1/continuar": {
+   "why": "The gloss included 'to go off on' and 'to go off of', which are not English senses of this verb, and did not say it takes a gerund.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to continue, to carry on (continuar + gerund — to keep doing)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el premio": {
+   "why": "The gloss said 'prize' twice. The first example is shared with obtener earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "prize, award"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el premio gordo — the jackpot"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Carlos obtuvo el primer premio"
+   ],
+   "ex": [
+    [
+     "Le tocó el premio gordo de la lotería.",
+     "She won the lottery jackpot."
+    ]
+   ]
+  },
+  "deleb1/el genio": {
+   "why": "The gloss gave 'temper', but all three examples were 'genius', and the third, 'Creo que Carlos puede que sea un genio', is not natural Spanish.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "genius",
+      "temper (tener mal genio — to be bad-tempered)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Creo que Carlos puede que sea un genio."
+   ],
+   "ex": [
+    [
+     "Tiene muy mal genio por las mañanas.",
+     "He's very bad-tempered in the mornings."
+    ]
+   ]
   }
  },
  "insert": {
@@ -32612,7 +33137,11 @@
    "llorar",
    "la velocidad",
    "el universo",
-   "proteger"
+   "proteger",
+   "actuar",
+   "débil",
+   "funcionar",
+   "asustado, asustada"
   ]
  }
 }

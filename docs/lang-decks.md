@@ -3480,6 +3480,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S23 | B1 | #112 `lleno` – #138 `el pedido` | 27 | 0 | 1 (`el repente`) | B1 now 998 words; description recounted | `bold` needs `rebold` on a generator sentence |
 | S24 | B1 | #139 `fantástico` – #166 `el desastre` | 26 | 2 (`el/la soldado`, `llorar`) | 0 | — | — |
 | S25 | B1 | #167 `el/la colega` – #194 `el humor` | 25 | 3 (`la velocidad`, `el universo`, `proteger`) | 0 | — | — |
+| S26 | B1 | #195 `el peso` – #222 `el genio` | 24 | 4 (`actuar`, `débil`, `funcionar`, `asustado`) | 0 | — | `conj: []` clears a table |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4591,6 +4592,38 @@ contains four headwords, and it is not Spanish. A sweep of every deck after this
 **CHECKERS.** `--check` passes, `check-say` reports 0, and the batch has no unbolded example.
 `check-senses --deck=DELE-B1` went from 97 to 95. Its one flag from this batch, `robar`, is the irregular
 past again: *stole* does not stem to *steal*.
+
+### S26 — DELE B1, notes #195–#222 (Sep 2026)
+
+Measured against the S25 commit by card id: **24 changed, 974 untouched**, all 24 of them record entries.
+**`actuar`, `débil`, `funcionar` and `asustado` were read and left.**
+
+**A CARD THAT WAS TWO WORDS.**
+- `militar` was glossed as the adjective "military" but carried the full conjugation of the verb *militar* ("to be a member of a party"). Its third example was that verb.
+- The record now sets `conj: []`, which renders an empty Conjugation field. The note is the first to lose a table rather than correct one.
+- The description's "287 verbs" still counts it. That is the generator's figure and is deliberately not recomputed, on A1's reasoning.
+
+**`crear`'s *Creo que…* WAS `creer`.** S22 found it and left it for this batch. All three of `crear`'s examples went: the other two are shared with A1 and A2.
+
+**GLOSSES THAT MISSED THE FIRST SENSE.**
+- `el escenario` had no "stage".
+- `el diario` put "diary" before "newspaper".
+- `el interés` gave only interest on money, while every example was interest in something.
+- `ya que` gave "because" and "now that", but not "since".
+- `el genio` gave "temper" while all three examples were "genius"; one now shows the temper.
+- `continuar` offered "to go off on" and "to go off of".
+- `el agujero` offered "pincushion".
+
+**THE REST.**
+- `romperse`'s gerund (*rompíendose*) is now *rompiéndose*: the fourteenth fix of this fault.
+- `la mirada` could keep none of its three examples. One was also a sequence-of-tenses fault: *me pidió que le eche*.
+- `el diario` lost a line saying diaries are for girls.
+- `el pecho`'s English had put "his hand on his heart" for a woman's hand on her chest.
+- `ya que`'s added sentence needed `bold`, as every phrase headword has.
+- Seventeen sentences shared with A1, A2 or an earlier B1 card were replaced.
+
+**CHECKERS.** `--check` passes; `check-say` reports 0; the batch has no unbolded example. `check-senses
+--deck=DELE-B1` went from 95 to 93, with no card of this batch on it.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
