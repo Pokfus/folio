@@ -414,9 +414,9 @@ def conjugation_html(word, rec, reflexive, show_refl_nonfinite=None):
                     elif label == 'vosotros' and s.endswith('d'):
                         s = s[:-1] + 'os'          # levantad + os -> levantaos
                     elif label == 'nosotros' and s.endswith('s') and cl == 'nos':
-                        s = add_stress(s[:-1] + 'nos')
+                        s = add_stress(s[:-1], 'nos')
                     else:
-                        s = add_stress(s + cl)
+                        s = add_stress(s, cl)
             if neg:
                 s = 'no ' + s
             rows.append((label, s))
@@ -440,21 +440,50 @@ def conjugation_html(word, rec, reflexive, show_refl_nonfinite=None):
 
 STRESS_OK = re.compile(r'[áéíóú]')
 
-def add_stress(s):
+def nuclei(s):
+    """The syllable nuclei of a word, as lists of indexes.  A weak vowel (i, u)
+    beside another vowel forms a DIPHTHONG with it and the two are one nucleus;
+    two strong vowels (a, e, o) are two.  A written accent is not a boundary
+    here, since only the words it is asked about below reach it unaccented."""
+    v = [i for i, c in enumerate(s)
+         if c in 'aeiouáéíóú'
+         and not (c == 'u' and i > 0 and s[i - 1] in 'qg'
+                  and i + 1 < len(s) and s[i + 1] in 'eiéí')]
+    groups = []
+    for i in v:
+        if groups and groups[-1][-1] == i - 1 and (s[i - 1] in 'iu' or s[i] in 'iu'):
+            groups[-1].append(i)
+        else:
+            groups.append([i])
+    return groups
+
+def add_stress(base, clitic):
     """levanta + te -> levántate.  Attaching a pronoun adds a syllable without
     moving the stress, so the vowel that was stressed now needs a written
-    accent.  Only applied where the word has none already."""
-    if STRESS_OK.search(s):
+    accent.
+
+    THE STRESS IS COUNTED IN SYLLABLES, NOT VOWELS (DELE A2 audit, batch S6).
+    Counting vowels put the accent on the i of a diphthong -- `caígase`,
+    `cambíate`, `peínate`, `afeítate` -- and on the u of `endeúdate`, where
+    Spanish writes cáigase, cámbiate, péinate, aféitate, endéudate.  In a
+    diphthong the accent goes on the strong vowel, or on the second of two weak
+    ones (cuídate).  AND A WRITTEN ACCENT ON THE BARE FORM'S LAST SYLLABLE
+    GOES: mantén + te is mantente and dé + se is dese, the word now ending in a
+    vowel with the stress on its second-last syllable.  58 cells on 23 cards
+    across the six decks shipped with one fault or the other."""
+    marked = [i for i, c in enumerate(base) if c in 'áéíóú']
+    if marked:
+        g = nuclei(base)
+        if g and marked[0] in g[-1]:
+            return base.translate(str.maketrans('áéíóú', 'aeiou')) + clitic
+        return base + clitic
+    s = base + clitic
+    g = nuclei(s)
+    if len(g) < 3:
         return s
-    # the u of `que/qui` and `gue/gui` is silent and is not a vowel to count:
-    # counting it accented `dedique + se` as `dediquese` rather than `dediquese`
-    vowels = [i for i, c in enumerate(s)
-              if c in 'aeiou'
-              and not (c == 'u' and i > 0 and s[i - 1] in 'qg'
-                       and i + 1 < len(s) and s[i + 1] in 'ei')]
-    if len(vowels) < 3:
-        return s
-    i = vowels[-3]                      # the stressed vowel of the bare verb form
+    grp = g[-3]                           # the stressed syllable of the bare verb form
+    strong = [i for i in grp if s[i] in 'aeo']
+    i = strong[0] if strong else grp[-1]
     return s[:i] + VOWEL_ACCENT[s[i]] + s[i + 1:]
 
 

@@ -14045,7 +14045,7 @@
    "rebold": true
   },
   "delea1/despertarse": {
-   "why": "Right as far as it goes, and silent on the pair: despertar without the pronoun is waking somebody ELSE up, which is a different verb on the same card. AND ITS CONJUGATION TABLE WAS WRONG: the generator wrote a fully regular paradigm - me desperto, te despertas, se desperta - where the verb is stem-changing, so the whole present indicative, the whole present subjunctive and the imperative were not Spanish. It is the only stem-changing reflexive in the deck; every other stem-changer is right and every other reflexive is a regular verb, so the fault needs both at once.",
+   "why": "Right as far as it goes, and silent on the pair: despertar without the pronoun is waking somebody ELSE up, which is a different verb on the same card. AND ITS CONJUGATION TABLE WAS WRONG: the generator wrote a fully regular paradigm - me desperto, te despertas, se desperta - where the verb is stem-changing, so the whole present indicative, the whole present subjunctive and the imperative were not Spanish. It is the only stem-changing reflexive in the deck; every other stem-changer is right and every other reflexive is a regular verb, so the fault needs both at once. THE FIRST CORRECTION MISSED THE AFFIRMATIVE IMPERATIVE, found in batch S6: the rows carrying an attached pronoun still read despértate, despértese, despértense, which the per-ending rows above could not reach because the accent sits on the stem.",
    "senses": [
     [
      "verb, reflexive",
@@ -14105,6 +14105,18 @@
     [
      "desperte<span class=\"uc-cj-e\">n</span>",
      "despierte<span class=\"uc-cj-e\">n</span>"
+    ],
+    [
+     "despért<span class=\"uc-cj-e\">ate</span>",
+     "despiért<span class=\"uc-cj-e\">ate</span>"
+    ],
+    [
+     "despért<span class=\"uc-cj-e\">ese</span>",
+     "despiért<span class=\"uc-cj-e\">ese</span>"
+    ],
+    [
+     "despért<span class=\"uc-cj-e\">ense</span>",
+     "despiért<span class=\"uc-cj-e\">ense</span>"
     ]
    ],
    "bold": [
@@ -15828,11 +15840,15 @@
    ]
   },
   "delea2/irse": {
-   "why": "THE AFFIRMATIVE vosotros IMPERATIVE WAS WRONG. The generator builds a reflexive imperative by dropping the -d of the plain one and adding -os, which is right for levantad → levantaos and wrong twice for irse: ir is the one verb that keeps its d (idos), and every other -ir verb's i takes a written accent once the d goes (sentíos). The rule that the nosotros and vosotros forms must not change in a conjSub was written for the stem-changing corrections, where those two forms are the regular ones; here the vosotros form is itself the fault. 39 cards across the six decks carry an unaccented -ios and the generator is corrected in build_deck.py; the others are repaired as their batches reach them.",
+   "why": "THE AFFIRMATIVE vosotros IMPERATIVE WAS WRONG. The generator builds a reflexive imperative by dropping the -d of the plain one and adding -os, which is right for levantad → levantaos and wrong twice for irse: ir is the one verb that keeps its d (idos), and every other -ir verb's i takes a written accent once the d goes (sentíos). The rule that the nosotros and vosotros forms must not change in a conjSub was written for the stem-changing corrections, where those two forms are the regular ones; here the vosotros form is itself the fault. 39 cards across the six decks carry an unaccented -ios and the generator is corrected in build_deck.py; the others are repaired as their batches reach them. AND ITS GERUND, found in batch S6: yendose, S3's -yendo fault, is yéndose.",
    "conjSub": [
     [
      "<span class=\"uc-cj-p\">vosotros</span><span class=\"uc-cj-f\"><span class=\"uc-cj-e\">ios</span></span>",
      "<span class=\"uc-cj-p\">vosotros</span><span class=\"uc-cj-f\"><span class=\"uc-cj-e\">idos</span></span>"
+    ],
+    [
+     "<b><span class=\"uc-cj-e\">yendose</span></b>",
+     "<b><span class=\"uc-cj-e\">yéndose</span></b>"
     ]
    ]
   },
@@ -17739,7 +17755,7 @@
    ]
   },
   "delea2/cambiarse": {
-   "why": "The first example is the plain verb cambiar — '¿Cuándo cambiaste la foto de tu perfil?' — and 'to move house' is mudarse in Spain, cambiarse de casa being mainly Latin American.",
+   "why": "The first example is the plain verb cambiar — '¿Cuándo cambiaste la foto de tu perfil?' — and 'to move house' is mudarse in Spain, cambiarse de casa being mainly Latin American. AND ITS AFFIRMATIVE IMPERATIVE WAS WRONG, found in batch S6: cambíate, cambíese, cambíense put the accent on the i of the diphthong, where Spanish writes cámbiate, cámbiese, cámbiense (cambio, not cambío).",
    "senses": [
     [
      "verb",
@@ -17762,6 +17778,20 @@
     [
      "Me cambio de ropa y salimos.",
      "I'll get changed and we'll go out."
+    ]
+   ],
+   "conjSub": [
+    [
+     "cambí<span class=\"uc-cj-e\">ate</span>",
+     "cámbi<span class=\"uc-cj-e\">ate</span>"
+    ],
+    [
+     "cambí<span class=\"uc-cj-e\">ese</span>",
+     "cámbi<span class=\"uc-cj-e\">ese</span>"
+    ],
+    [
+     "cambí<span class=\"uc-cj-e\">ense</span>",
+     "cámbi<span class=\"uc-cj-e\">ense</span>"
     ]
    ]
   },
@@ -19268,6 +19298,727 @@
      "las artes (feminine in the plural: las bellas artes)"
     ]
    ]
+  },
+  "delea2/la obra": {
+   "why": "The gloss put 'work' first and every example was a play; two of the three were also A1 sentences. en obras — 'closed for works', which is how a reader in Spain meets the word most often — had no line. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "work (of art, of literature)",
+      "play (una obra de teatro)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en obras — under construction, closed for works"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Suele usted ir a ver obras de teatro?",
+    "¿A quién vas a traer a la obra?"
+   ],
+   "ex": [
+    [
+     "El Guernica es una obra de Picasso.",
+     "Guernica is a work by Picasso."
+    ],
+    [
+     "La calle está cortada por obras.",
+     "The street is closed for roadworks."
+    ]
+   ]
+  },
+  "delea2/tocar": {
+   "why": "The second example is el toque, a noun, matched on shared letters: 'el toque de queda' is a curfew. The first is also an A1 sentence. me toca a mí, 'it's my turn', which a reader needs at every table game and every queue, had no line. The piano sentence is shared with el piano later in A2 and stays here. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to touch",
+      "to play (an instrument, a piece of music)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "me toca a mí — it's my turn",
+      "le tocó la lotería — he won the lottery"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A los niños pequeños les gusta tocar todo.",
+    "toque de queda"
+   ],
+   "ex": [
+    [
+     "No toques eso, está caliente.",
+     "Don't touch that, it's hot."
+    ],
+    [
+     "¿A quién le toca ahora? Te toca a ti.",
+     "Whose turn is it now? It's yours."
+    ]
+   ]
+  },
+  "delea2/contar": {
+   "why": "NONE OF THE THREE EXAMPLES TAUGHT THE WORD. Two were la cuenta — 'a fin de cuentas' and 'se dio cuenta', which is darse cuenta — and the third, contar con, was also an A1 sentence. The card now shows the verb counting, telling and counted on. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to count",
+      "to tell (a story, what happened)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "contar con — to count on, to rely on"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No deberías contar con la ayuda de otros.",
+    "A fin de cuentas",
+    "Por fin se dio cuenta"
+   ],
+   "ex": [
+    [
+     "Mi hijo ya sabe contar hasta cien.",
+     "My son can already count to a hundred."
+    ],
+    [
+     "¿Me cuentas qué pasó ayer?",
+     "Will you tell me what happened yesterday?"
+    ],
+    [
+     "Puedes contar conmigo para la mudanza.",
+     "You can count on me for the move."
+    ]
+   ]
+  },
+  "delea2/quedar": {
+   "why": "THE CARD TAUGHT THE OTHER VERB. All three examples were quedarse, which is the next card and shares two of them, and the first was also an A1 sentence. The gloss missed the senses quedar itself carries at A2 — to arrange to meet, to be left, to suit — and 'to be located' is ¿dónde queda?, which is a phrase. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to arrange to meet (quedar con alguien)",
+      "to be left, to remain (queda poco tiempo)",
+      "to suit, to fit (te queda bien)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¿dónde queda…? — where is…?"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Cuánto tiempo se va a quedar en Japón?",
+    "Quedarse en casa no tiene nada de divertido.",
+    "Él se quedó en casa de su tía."
+   ],
+   "ex": [
+    [
+     "¿Quedamos a las ocho en la plaza?",
+     "Shall we meet at eight in the square?"
+    ],
+    [
+     "No queda leche en la nevera.",
+     "There's no milk left in the fridge."
+    ],
+    [
+     "Esa camisa te queda muy bien.",
+     "That shirt really suits you."
+    ]
+   ]
+  },
+  "delea2/quedarse": {
+   "why": "Two of the three examples were also A1 sentences (la casa, el tío), and the same two sat on quedar. quedarse con, 'to keep, to take', and quedarse dormido had no line. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to stay, to remain"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "quedarse con algo — to keep something, to take it (me quedo con este)",
+      "quedarse dormido — to fall asleep"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Quedarse en casa no tiene nada de divertido.",
+    "Él se quedó en casa de su tía."
+   ],
+   "ex": [
+    [
+     "Me quedo con la camisa azul.",
+     "I'll take the blue shirt."
+    ],
+    [
+     "Se quedó dormido en el sofá.",
+     "He fell asleep on the sofa."
+    ]
+   ]
+  },
+  "delea2/probarse": {
+   "why": "The gloss is right. 'suéter' is the Latin American word where Spain says jersey, and the third example's Dima is not a name a Spanish sentence reaches for.",
+   "dropEx": [
+    "¿Por qué no te pruebas este suéter amarillo?",
+    "a Dima le pareció"
+   ],
+   "ex": [
+    [
+     "¿Por qué no te pruebas este jersey amarillo?",
+     "Why don't you try on this yellow jumper?"
+    ],
+    [
+     "Me pruebo los zapatos y nos vamos.",
+     "I'll try the shoes on and we'll go."
+    ]
+   ]
+  },
+  "delea2/el vuelo": {
+   "why": "The gloss gave 'flight' twice over. The first example, 'Un ave levantó el vuelo en lo alto', is literary, and 'soared above' does not translate it.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "flight"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Un ave levantó el vuelo"
+   ],
+   "ex": [
+    [
+     "El vuelo a Londres se ha retrasado.",
+     "The flight to London has been delayed."
+    ]
+   ]
+  },
+  "delea2/la nota": {
+   "why": "The gloss missed the school mark, which is the second example and a sense every A2 reader needs; 'grades' is American. The third example is the verb notar, matched on shared letters, and the second is shared with encima earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "note (written)",
+      "mark (at school: sacar buena nota)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tomar nota — to write down, to note"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mis notas están por encima de la media.",
+    "se le nota en la cara"
+   ],
+   "ex": [
+    [
+     "He sacado buena nota en el examen.",
+     "I got a good mark in the exam."
+    ],
+    [
+     "Te he dejado una nota en la nevera.",
+     "I've left you a note on the fridge."
+    ]
+   ]
+  },
+  "delea2/el cuello": {
+   "why": "The gloss's anatomical definition is a note, and the collar of a shirt, which is how a reader buying clothes meets the word, had no line. Two of the three examples were violence: a man shot in the neck, and a robber seized by the neck in the same shape as a sentence on el brazo.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "neck",
+      "collar (of a shirt)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "fue herido de bala",
+    "agarró al ladrón por el cuello"
+   ],
+   "exEn": [
+    [
+     "cadena de oro al cuello",
+     "He put a gold chain round his neck."
+    ]
+   ],
+   "ex": [
+    [
+     "Me duele el cuello.",
+     "My neck hurts."
+    ],
+    [
+     "Esta camisa me aprieta el cuello.",
+     "This shirt is tight round my neck."
+    ]
+   ]
+  },
+  "delea2/acaso": {
+   "why": "'perhaps' is literary; acaso is met in questions that expect the answer no, and in por si acaso, 'just in case', which had no line. The second example's English dropped the word, and the third used the Latin American auto.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "by any chance (in a question expecting 'no': ¿acaso…?)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "por si acaso — just in case"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "le preguntó a Ana si acaso",
+    "¿Acaso Carlos dejó a Ana"
+   ],
+   "ex": [
+    [
+     "Llévate el paraguas por si acaso.",
+     "Take the umbrella just in case."
+    ],
+    [
+     "¿Acaso no lo sabías?",
+     "Didn't you know, then?"
+    ]
+   ]
+  },
+  "delea2/intentar": {
+   "why": "The gloss is right. The third example is shared with adelante earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to try (intentar + infinitive: to try to do)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "De ahora en adelante intenta llegar a tiempo."
+   ],
+   "ex": [
+    [
+     "Intentamos llamarte, pero no contestabas.",
+     "We tried to ring you, but you weren't answering."
+    ]
+   ]
+  },
+  "delea2/la isla": {
+   "why": "'block (group of urban lots)' is a Latin American sense and not A2. The first and third examples were the same sentence with a different determiner. The first example's English said this for esa.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "island"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La isla es un paraíso para los niños."
+   ],
+   "ex": [
+    [
+     "Mallorca es la isla más grande de las Baleares.",
+     "Majorca is the largest of the Balearic Islands."
+    ]
+   ],
+   "exEn": [
+    [
+     "Esa isla es un paraíso",
+     "That island is a paradise for children."
+    ]
+   ]
+  },
+  "delea2/la piel": {
+   "why": "'pelt' is rare, and leather — un bolso de piel — is the sense a reader in a Spanish shop meets. The third example is also an A1 sentence. The wolf in sheep's clothing is shared with el cordero later in A2 and stays here. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "skin",
+      "leather (un bolso de piel)",
+      "fur"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Su piel es tan blanca como la nieve."
+   ],
+   "ex": [
+    [
+     "Tengo la piel muy seca.",
+     "My skin is very dry."
+    ]
+   ]
+  },
+  "delea2/el brazo": {
+   "why": "'branch' and 'limb (of a tree)' are rare senses. The examples are right; the first is shared with caerse later in this batch and stays here.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "arm"
+     ]
+    ]
+   ]
+  },
+  "delea2/recordar": {
+   "why": "'recollect' and 'recall' are registers above the word, and 'remind of' did not say how the construction goes. Two of the three examples were also A1 sentences (viejo, la carta). SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to remember"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "recordar algo a alguien — to remind someone of something (recuérdame que… — remind me to…)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A ellos les gusta recordar los viejos tiempos.",
+    "Por favor recuerda echar al correo"
+   ],
+   "ex": [
+    [
+     "No recuerdo su nombre.",
+     "I can't remember his name."
+    ],
+    [
+     "¿Me recuerdas que compre pan?",
+     "Will you remind me to buy bread?"
+    ]
+   ]
+  },
+  "delea2/la visita": {
+   "why": "'dar una visita al museo' is not how Spanish says it — hacer una visita — and the third example is also an A1 sentence. tener visita, 'to have visitors', had no line. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "visit",
+      "visitors, company (tener visita)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Vale la pena dar una visita al museo.",
+    "Un circo está de visita en el pueblo."
+   ],
+   "ex": [
+    [
+     "La visita al museo dura una hora.",
+     "The visit to the museum lasts an hour."
+    ],
+    [
+     "Mañana tenemos visita.",
+     "We've got visitors tomorrow."
+    ]
+   ]
+  },
+  "delea2/rico, rica": {
+   "why": "The gloss missed 'tasty', which is how a reader in Spain hears the word most — ¡qué rico! — and 'luxurious' is rare. The second and third examples were one construction.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "rich, wealthy",
+      "tasty, delicious (estar rico: ¡qué rico está!)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Quién es la persona más rica de Australia?"
+   ],
+   "ex": [
+    [
+     "¡Qué rica está la paella!",
+     "The paella's delicious!"
+    ]
+   ],
+   "exEn": [
+    [
+     "seguro de que Carlos es",
+     "I'm pretty sure Carlos is rich."
+    ]
+   ]
+  },
+  "delea2/pesar": {
+   "why": "NONE OF THE THREE EXAMPLES WAS RIGHT. The first is a pesar de, a phrase built on the noun el pesar; the second is the adjective pesado, which is its own card in B1; the third weighs a brain in pounds, which a Spanish sentence does not do. The phrase stays on the card as a line.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to weigh"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a pesar de — in spite of, despite"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A pesar de ser anciano",
+    "El oro es más pesado",
+    "El cerebro humano pesa"
+   ],
+   "ex": [
+    [
+     "¿Cuánto pesas?",
+     "How much do you weigh?"
+    ],
+    [
+     "La maleta pesa veinte kilos.",
+     "The suitcase weighs twenty kilos."
+    ],
+    [
+     "Tengo que pesar la harina.",
+     "I have to weigh the flour."
+    ]
+   ]
+  },
+  "delea2/especialmente": {
+   "why": "The first and third examples were one sentence, 'Me gusta la música, especialmente…', twice.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "especially, particularly",
+      "specially (escrito especialmente para ellos)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "especialmente el rock"
+   ],
+   "ex": [
+    [
+     "Este año ha sido especialmente difícil.",
+     "This year has been especially difficult."
+    ]
+   ]
+  },
+  "delea2/acabar": {
+   "why": "acabar de, 'to have just (done)', is the second example and the construction a reader meets most, and the gloss did not name it; that example's English, 'came home just now', missed it too.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to finish, to end"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "acabar de + infinitive — to have just (done)",
+      "acabar + gerund — to end up (doing)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "acaba de llegar a casa",
+     "Carlos has just got home."
+    ]
+   ]
+  },
+  "delea2/la santa": {
+   "spanish": "el santo, la santa",
+   "word": "santo",
+   "why": "THE CARD TAUGHT HALF A WORD. It was headed la santa, glossed 'saintess', and two of its examples were Semana Santa, the adjective; the first said Holy Week was Easter and began on a Wednesday. The headword becomes the pair el santo, la santa, with el santo, 'saint's day', which Spain celebrates; the adjective santo is its own card in B1.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "saint"
+     ]
+    ],
+    [
+     "noun, masculine",
+     [
+      "saint's day (hoy es mi santo)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "Semana Santa — Holy Week, Easter"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los santos, las santas"
+    ]
+   ],
+   "dropEx": [
+    "empieza la Semana Santa"
+   ],
+   "exEn": [
+    [
+     "las vacaciones de Semana Santa",
+     "Where did you go for the Easter holidays?"
+    ]
+   ],
+   "ex": [
+    [
+     "Hoy es mi santo y me han llamado mis abuelos.",
+     "Today is my saint's day and my grandparents have rung me."
+    ]
+   ]
+  },
+  "delea2/la copa": {
+   "why": "The gloss listed five things, two of them rare (crown, treetop); the World Cup, la Copa del Mundo, had no line. The first and second examples were one construction. The first is shared with servir later in A2 and stays here.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "(stemmed) glass, wine glass",
+      "drink (tomar una copa — to have a drink)",
+      "cup (a trophy: la Copa del Mundo)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Carlos se tomó tres copas de vino."
+   ],
+   "ex": [
+    [
+     "España ganó la Copa del Mundo en 2010.",
+     "Spain won the World Cup in 2010."
+    ]
+   ]
+  },
+  "delea2/cansado, cansada": {
+   "why": "'wearied' is not English a reader would use, and 'boring' is not what the word means: ser cansado is 'tiring'. The first and third examples were one construction.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "tired (estar cansado)",
+      "tiring (ser cansado)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Estamos tan cansados que no somos capaces"
+   ],
+   "ex": [
+    [
+     "El viaje fue muy cansado.",
+     "The journey was very tiring."
+    ]
+   ]
+  },
+  "delea2/subir": {
+   "why": "The gloss missed getting on a bus or a train, and turning something up; the examples are right, and the third is shared with la bicicleta later in A2 and stays here.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to go up, to come up (subir la escalera)",
+      "to get on (a bus, a train: subir al autobús)",
+      "to rise, to go up (prices)",
+      "to raise, to turn up (subir el volumen)"
+     ]
+    ]
+   ]
+  },
+  "delea2/preocupado, preocupada": {
+   "why": "'De eso es de lo que estoy preocupado' is not Spanish — worry about something is preocupado por — and the second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "worried (preocupado por)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "De eso es de lo que estoy preocupado.",
+    "Ella estaba preocupada por la salud de él."
+   ],
+   "ex": [
+    [
+     "Estoy preocupado por el examen.",
+     "I'm worried about the exam."
+    ],
+    [
+     "¿Por qué estás tan preocupada?",
+     "Why are you so worried?"
+    ]
+   ]
+  },
+  "delea2/caerse": {
+   "why": "THE CONJUGATION TABLE CARRIED TWO GENERATOR FAULTS. The gerund read cayendose (S3's fault: -yendo was missed, cayéndose), and the affirmative usted and ustedes imperatives read caígase and caíganse, the accent on the i of a diphthong where Spanish writes cáigase and cáiganse — a new fault, corrected in build_deck.py, which counted the stress in vowels rather than syllables. Of the examples, the first is shared with el brazo earlier in this batch, and the third, 'La lluvia no se cae del suelo', is nonsense. se me ha caído, 'I've dropped it', had no line.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to fall (down, over)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "se me ha caído — I've dropped it"
+     ]
+    ]
+   ],
+   "conjSub": [
+    [
+     "<span class=\"uc-cj-e\">yendose</span>",
+     "<span class=\"uc-cj-e\">yéndose</span>"
+    ],
+    [
+     "ca<span class=\"uc-cj-e\">ígase</span>",
+     "cá<span class=\"uc-cj-e\">igase</span>"
+    ],
+    [
+     "ca<span class=\"uc-cj-e\">íganse</span>",
+     "cá<span class=\"uc-cj-e\">iganse</span>"
+    ]
+   ],
+   "dropEx": [
+    "Carlos se cayó y se rompió el brazo.",
+    "La lluvia no se cae del suelo."
+   ],
+   "ex": [
+    [
+     "Se me ha caído el móvil.",
+     "I've dropped my phone."
+    ],
+    [
+     "Cuidado, que te caes.",
+     "Careful, you'll fall."
+    ]
+   ]
   }
  },
  "insert": {
@@ -19530,7 +20281,8 @@
    "la llamada",
    "el negocio",
    "la respuesta",
-   "el ejército"
+   "el ejército",
+   "el bosque"
   ]
  }
 }

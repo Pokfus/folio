@@ -3460,6 +3460,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S3 | A2 | #58 `la luz` – #85 `el sueño` | 25 | 3 (`anoche`, `increíble`, `la llamada`) | 0 | — | `build_deck.py`'s enclitic gerund |
 | S4 | A2 | #86 `ambos` – #113 `el regalo` | 26 | 2 (`el negocio`, `la respuesta`) | 0 | Michael, Linda, Jenny, Bill added to the name table (1 card outside the batch) | — |
 | S5 | A2 | #114 `amable` – #141 `el arte` | 27 | 1 (`el ejército`) | 0 | Cathy added to the name table; `salvo` ↔ `excepto` hint pair | a hint can name a renamed card |
+| S6 | A2 | #142 `la obra` – #168 `caerse` | 26 | 1 (`el bosque`) | 0 | back-corrections outside the batch: A2 `cambiarse` and `irse`, A1 `despertarse` | `build_deck.py`'s `add_stress` counts syllables, not vowels |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -3699,6 +3700,55 @@ despite its -a; `pedir` never said "to order" (in a restaurant) or what separate
 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 61 → 54, with no card of
 this batch left on it.
+
+### S6 — DELE A2, notes #142–#168 (Sep 2026)
+
+Measured against the S5 commit by card id: **28 changed in A2, 467 untouched; 1 changed in A1, 491
+untouched** — 26 record entries in the batch (`el bosque` read and left, recorded in `reviewed`), and three
+back-corrections to cards earlier batches had passed: `cambiarse` and `irse` in A2, `despertarse` in A1.
+
+**A NEW GENERATOR FAULT: THE ACCENT ON A DIPHTHONG'S WEAK VOWEL.** `caerse`'s affirmative imperative read
+*caígase*, *caíganse*, where Spanish writes *cáigase*. `add_stress` found the stressed vowel by counting
+VOWELS three from the end, so a diphthong counted twice and the accent landed on its i or u. The same fault
+gave *cambíate* (for *cámbiate*), *peínate*, *afeítate*, *endeúdate* and every unaccented -iar verb's
+imperative. A second, related fault: a bare form already carrying an accent on its last syllable kept it
+once a pronoun was attached, giving *manténte*, *compónte*, *dése*, where the word is *mantente*,
+*componte*, *dese*. **Measured against each card's OWN present and subjunctive tables**, over 1,384
+imperative cells on reflexive cards across the six decks: **58 cells on 23 cards were wrong.** `add_stress`
+now counts syllable nuclei, takes the strong vowel of a diphthong (or the second of two weak ones:
+*cuídate*), and drops a final-syllable accent. Its twenty test forms are in the batch notes, including the
+ones the old rule got right by accident (*siéntese*, *despiértate*). Six cells are corrected here
+(`caerse`, and `cambiarse` back in S3's range); **52 cells on 20 cards remain**, in A2's `afeitarse`,
+`divorciarse` and `peinarse` and across B1–C2, to be repaired as their batches reach them.
+
+**AND TWO FAULTS THE EARLIER BATCHES PASSED OVER.** A1 `despertarse`'s record corrected the stem change
+row by row, and its rows cannot reach the affirmative imperative, where the accent sits on the STEM: the
+card still read *despértate*, *despértese*, *despértense*, now *despiértate*. And `irse`'s gerund still read
+*yendose*, the S3 fault; S1 fixed only its imperative. **A search for imperatives that disagree with their
+own subjunctive** found `despertarse` and nothing else, bar `darse por vencido`, whose *dese* is right.
+
+**THE CARD TAUGHT THE OTHER VERB, OR ANOTHER WORD.** Every example of `quedar` was `quedarse`, the next
+card, which shared two of them. `contar` had not one example of the verb: *a fin de cuentas* and *se dio
+cuenta* are `la cuenta`, and *contar con* was an A1 sentence. `pesar` had none either: *a pesar de*, the
+adjective *pesado*, and a brain weighed in pounds. `tocar` was illustrated by *el toque de queda*, and
+`la nota` by the verb *notar* (*se le nota en la cara*). `la santa` was headed as "saintess" while two
+examples were the adjective in *Semana Santa*, one of them saying Holy Week was Easter and began on a
+Wednesday. The card is now `el santo, la santa`, with the saint's day; the adjective is B1's.
+
+**A MISSING SENSE THE READER MEETS FIRST.** `rico` had no "tasty" (*¡qué rica está la paella!*),
+`la nota` no school mark, `la piel` no leather, `el cuello` no collar, `tocar` no "it's your turn",
+`quedar` no "to arrange to meet" and `cansado` no "tiring". `cansado`'s "boring" was simply wrong.
+`acaso`'s "perhaps" is literary; the word lives in *por si acaso* and in questions expecting "no".
+
+**AND THE REST.** Nine A1-shared sentences were given fresh ones, and three shared later in A2 stayed
+(`la piel`/`el cordero`, `la copa`/`servir`, `subir`/`la bicicleta`). `probarse`'s *suéter* and `acaso`'s
+*auto* are Latin American. `la isla` carried the same sentence twice and a Latin American "block".
+`preocupado` had *de eso es de lo que estoy preocupado*, which is not Spanish. `el cuello` had two violent
+sentences, one the same shape as `el brazo`'s.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 54 → 49. The
+one card of this batch left on it is `intentar`, a FALSE POSITIVE: its gloss says "to try" and its
+examples say "tried" and "trying", which the proxy does not stem.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
