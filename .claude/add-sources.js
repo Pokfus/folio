@@ -9,7 +9,9 @@
 //   "cards": { "<cardId>": {
 //       "sources":  ["<Chicago note-form citation>", …],       // REPLACES the card's list
 //       "abstract": "<the abstract with <sup class=\"fn\" data-fn=\"N\"></sup> markers inserted>",
-//       "i18n": { "es": "<that language's abstract, same markers>", … }   // optional but expected
+//       "i18n": { "es": "<that language's abstract, same markers>", … },  // optional
+//       "why": [ { "q": "Why …?", "a": "… <sup class=\"fn\" data-fn=\"7\"></sup>" }, … ]  // optional: the
+//              Think-it-through set, written WITH the list its markers point into (explicit numbers only)
 //   }, … },
 //   "glossary": { "<slug>": {
 //       "sources":     ["…"],                                  // REPLACES the term's list
@@ -31,13 +33,15 @@ const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
 const SRC_MAX = 24;   // mirrors SRC_MAX in app.js
 // the editorial bar, read out of app.js so the two can never disagree about what it is
 const APP_SRC = fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8");
-const SRC_TARGET = (() => { const m = /const SRC_TARGET = (\d+);/.exec(APP_SRC); return m ? +m[1] : 5; })();
+// PER CARD since Sep 2026: tiered by difficulty (1 → 9 … 5 → 5), SRC_TARGET the floor — see src-target.js
+const { SRC_TARGET, srcTargetFor } = require("./src-target.js");
 // the same, for a glossary term — a lower bar, for the reason given beside the constant in app.js
 const GLOSS_TARGET = (() => { const m = /const GLOSS_SRC_TARGET = (\d+);/.exec(APP_SRC); return m ? +m[1] : 2; })();
 // Every citation carries a link, so a reader can check the claim and follow it further — which also means
 // only publicly reachable scholarship is citable, and that a cited page number can always be verified.
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
 const { checkCitationLang } = require("./src-langs.js");
+const { checkWhy } = require("./card-links.js");
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 /* data.js keeps a card's abstract, sources, why, quote and image in data-extra/<prefix>.js and merges
@@ -86,15 +90,31 @@ if (batch.cards && Object.keys(batch.cards).length) {
     if (!marks.length) die("card " + id + " has no footnote marker in its abstract. Point its claims at the sources with <sup class=\"fn\" data-fn=\"1\"></sup> (written empty — the digit is drawn from the list at render time).");
     const bad = marks.filter((n) => n < 1 || n > src.length);
     if (bad.length) die("card " + id + " points at source " + bad[0] + ", but lists " + src.length + ". A marker with no entry behind it is dropped at render time.");
-    const unused = src.map((_, i) => i + 1).filter((n) => marks.indexOf(n) < 0);
-    if (unused.length) die("card " + id + ": source " + unused.join(", ") + " is never referenced from the abstract. Every citation is a footnote to a specific claim — add a marker, or drop the source.");
+    /* THE THINK-IT-THROUGH ANSWERS ARE REFERENCES TOO (Sep 2026, out of the Greece refinement audit). An
+       answer may go beyond the background, and every factual claim in it carries a marker into THIS list —
+       so a source added for an answer alone is referenced, and must not be refused as unused. The batch may
+       carry the card's new `why` beside its sources, so the two land together; it is validated by
+       card-links.js (the same module add-card.js and add-card-links.js call), which also refuses a bare
+       marker there and one pointing past the end of the list. */
+    const why = "why" in u ? u.why : card.why;
+    if ("why" in u) {
+      const e = checkWhy(Object.assign({}, card, { why: u.why, sources: src }));
+      if (e) die("card " + id + ": " + e);
+    }
+    const whyMarks = Array.isArray(why) ? why.flatMap((w) => markersIn(w && w.a)) : [];
+    const wbad = whyMarks.filter((n) => n < 1 || n > src.length);
+    if (wbad.length) die("card " + id + ": a Think-it-through answer points at source " + wbad[0] + ", but the card lists " + src.length + " — the marker would be removed at render time.");
+    const allMarks = marks.concat(whyMarks);
+    const unused = src.map((_, i) => i + 1).filter((n) => allMarks.indexOf(n) < 0);
+    if (unused.length) die("card " + id + ": source " + unused.join(", ") + " is never referenced from the abstract or a Think-it-through answer. Every citation is a footnote to a specific claim — add a marker, or drop the source.");
     card.sources = src;
     // the editorial bar (SRC_TARGET in app.js): under it the Edit page paints the card's chip amber. Not
     // fatal — a maintenance edit is allowed to leave a card short — but it must not pass unremarked.
-    if (src.length < SRC_TARGET) console.warn("WARNING: card " + id + " ends with " + src.length + " source(s), under the bar of " + SRC_TARGET + ". It stays flagged in the Edit page's list until it reaches it.");
+    if (src.length < srcTargetFor(card)) console.warn("WARNING: card " + id + " ends with " + src.length + " source(s), under its difficulty's bar of " + srcTargetFor(card) + ". It stays flagged in the Edit page's list until it reaches it.");
     // reaching the bar retires a "researched and blocked" flag: the count is the truth, the flag a note
     else if (card.sourcesBlocked) { delete card.sourcesBlocked; console.log("card " + id + " reached the bar — its `sourcesBlocked` flag is retired."); }
     if (typeof u.abstract === "string") card.abstract = u.abstract;
+    if ("why" in u) { if (u.why === null) delete card.why; else card.why = u.why; }
     // each translated abstract must carry the same markers, or that language quietly loses the apparatus
     const tr = u.i18n || {};
     for (const l of I18N_LANGS) {
@@ -193,12 +213,12 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
    a fact under a batch that had just succeeded. */
 const allCards = require("./card-io").loadCards().cards;
 const citedCards = allCards.filter((c) => Array.isArray(c.sources) && c.sources.length).length;
-const atBar = allCards.filter((c) => (Array.isArray(c.sources) ? c.sources.length : 0) >= SRC_TARGET).length;
+const atBar = allCards.filter((c) => (Array.isArray(c.sources) ? c.sources.length : 0) >= srcTargetFor(c)).length;
 const g = require("./gloss-io.js").loadGlossary();
 const gs = g.GLOSSARY_SOURCES || {};
 const citedTerms = Object.keys(gs).length, allTerms = Object.keys(g.GLOSSARY || {}).length;
 const termsAtBar = Object.keys(gs).filter((k) => (Array.isArray(gs[k]) ? gs[k].length : 0) >= GLOSS_TARGET).length;
 if (cardIds.length) console.log("cited " + cardIds.length + " card(s): " + cardIds.join(", "));
 if (slugs.length) console.log("cited " + slugs.length + " term(s): " + slugs.join(", "));
-console.log("coverage: cards cited " + citedCards + "/" + allCards.length + " · at the " + SRC_TARGET + "-source bar " + atBar + "/" + allCards.length +
+console.log("coverage: cards cited " + citedCards + "/" + allCards.length +  " · at their difficulty's bar " + atBar + "/" + allCards.length +
   " | glossary cited " + citedTerms + "/" + allTerms + " · at the " + GLOSS_TARGET + "-source bar " + termsAtBar + "/" + allTerms);

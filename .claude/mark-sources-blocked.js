@@ -25,8 +25,8 @@ const io = require("./card-io");
 function die(msg) { console.error("ERROR: " + msg); process.exit(1); }
 
 const appSrc = fs.readFileSync(path.join(root, "app.js"), "utf8");
-const tm = /const SRC_TARGET = (\d+);/.exec(appSrc);
-const TARGET = tm ? +tm[1] : 5;
+// the bar is PER CARD (tiered by difficulty) since Sep 2026 — src-target.js slices it out of app.js
+const { srcTargetFor } = require("./src-target.js");
 
 const batchFile = process.argv[2];
 if (!batchFile) die("usage: node .claude/mark-sources-blocked.js <batch.json>");
@@ -48,9 +48,9 @@ for (const id of Object.keys(batch.blocked || {})) {
   const why = String(batch.blocked[id] || "").replace(/\s+/g, " ").trim();
   if (why.length < 30) die("card " + id + " needs a real reason — what was searched, and what turned out to be closed or absent. A bare flag tells the next pass nothing and invites it to re-do the same search.");
   const n = Array.isArray(card.sources) ? card.sources.length : 0;
-  if (n >= TARGET) die("card " + id + " already carries " + n + " sources, which meets the bar of " + TARGET + " — it is not blocked.");
+  if (n >= srcTargetFor(card)) die("card " + id + " already carries " + n + " sources, which meets its bar of " + srcTargetFor(card) + " — it is not blocked.");
   card.sourcesBlocked = why;
-  marked.push(id + " (" + n + "/" + TARGET + ")");
+  marked.push(id + " (" + n + "/" + srcTargetFor(card) + ")");
 }
 for (const id of batch.clear || []) {
   const card = byId.get(id);
@@ -63,6 +63,6 @@ io.writeCards(cards, tree);
 if (marked.length) console.log("marked blocked: " + marked.join(", "));
 if (cleared.length) console.log("unblocked: " + cleared.join(", "));
 const all = io.loadCards().cards;   // re-read, which also confirms the write parses
-const short = all.filter((c) => (Array.isArray(c.sources) ? c.sources.length : 0) < TARGET);
-console.log("coverage: cards at the " + TARGET + "-source bar " + (all.length - short.length) + "/" + all.length +
+const short = all.filter((c) => (Array.isArray(c.sources) ? c.sources.length : 0) < srcTargetFor(c));
+console.log("coverage: cards at their difficulty's bar " + (all.length - short.length) + "/" + all.length +
   " | below it " + short.length + " (" + short.filter((c) => c.sourcesBlocked).length + " blocked)");

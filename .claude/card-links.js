@@ -103,6 +103,41 @@ function checkWhy(card, opts) {
              WHY_ANS_MAX_WORDS + "; it is the brief answer behind a button, not a second abstract";
     if (/\?\s*$/.test(e.a.trim()))
       return at + ".a ends in a question mark — it is the answer, not another question";
+    const em = checkWhyMarkers(e.a, card.sources);
+    if (em) return at + ".a " + em;
+  }
+  return null;
+}
+
+/* A THINK-IT-THROUGH ANSWER MAY CARRY FOOTNOTE MARKERS INTO THE CARD'S OWN SOURCE LIST (Sep 2026, on
+ * request, out of the Greece refinement audit: "every factual claim carries a citation marker into the
+ * card's own source list"). Two rules, both for faults that render perfectly.
+ *
+ * THE NUMBER MUST BE WRITTEN. `wireFootnotes` numbers a BARE marker by reading order across the whole
+ * card back, and this block is injected ABOVE the Background — so a bare marker here would take number 1
+ * and push every marker in the abstract one along, silently pointing the whole prose at the wrong works.
+ * An explicit `data-fn="N"` is left alone by that pass.
+ *
+ * AND THE NUMBER MUST HAVE AN ENTRY BEHIND IT. A marker past the end of the list is REMOVED at render
+ * time, so the claim quietly loses its citation. Checked only when the caller has the list — a card with
+ * no `sources` at all fails elsewhere. */
+function whyMarkers(html) {
+  return [...String(html || "").matchAll(/<sup\b[^>]*class="[^"]*\bfn\b[^"]*"[^>]*>/gi)].map((m) => {
+    const d = /data-fn="(\d+)"/i.exec(m[0]);
+    return d ? +d[1] : 0;
+  });
+}
+function checkWhyMarkers(html, sources) {
+  const marks = whyMarkers(html);
+  if (marks.some((n) => !(n > 0)))
+    return 'carries a footnote marker with no number. Write it <sup class="fn" data-fn="N"></sup> with N set: ' +
+           "this block sits above the Background, so a bare marker would be numbered first and shift every " +
+           "marker in the abstract onto the wrong source";
+  if (Array.isArray(sources)) {
+    const bad = marks.filter((n) => n > sources.length);
+    if (bad.length)
+      return "points at source " + bad[0] + ", but the card lists " + sources.length +
+             " — a marker with no entry behind it is removed at render time and the claim loses its citation";
   }
   return null;
 }
@@ -173,6 +208,6 @@ function collectionIndex(tree) {
   return out;
 }
 
-module.exports = { checkWhy, whyExempt, checkLeadsTo, loadCardYears, collectionIndex,
+module.exports = { checkWhy, whyExempt, whyMarkers, checkWhyMarkers, checkLeadsTo, loadCardYears, collectionIndex,
                    WHY_COUNT, WHY_MIN_WORDS, WHY_MAX_WORDS, WHY_ANS_MIN_WORDS, WHY_ANS_MAX_WORDS,
                    LEADS_MAX, HOW_MIN_WORDS, HOW_MAX_WORDS };

@@ -32399,6 +32399,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      qualifying sources" the pass started with; docs/citation-plan.md is the work of bringing the deck up
      to it. */
   const SRC_TARGET = 5;
+  /* THE BAR IS TIERED BY DIFFICULTY (Sep 2026, on request, out of the Greece refinement audit). A card
+     about a household name — Homer, Sparta, the Parthenon — is the card a reader is likeliest to meet
+     first and to check against what they already believe, and its subject has the widest scholarship, so
+     it carries MORE sources, not the same five as a card about a Linear B word. Difficulty 1 → 9, 2 → 8,
+     3 → 7, 4 → 6, 5 → 5. SRC_TARGET above stays the FLOOR (and what an unrated card, a place panel or a
+     community deck is measured against), and `.claude/src-target.js` slices BOTH out of this file by text,
+     so add-card.js, add-sources.js, source-audit.js and drop-candidates.js cannot disagree with the Edit
+     page about what a given card's bar is. */
+  const SRC_TARGET_BY_DIFFICULTY = { 1: 9, 2: 8, 3: 7, 4: 6, 5: 5 };
+  function srcTargetFor(c) {
+    const n = c && typeof c.difficulty === "number" ? c.difficulty : 0;
+    return SRC_TARGET_BY_DIFFICULTY[n] || SRC_TARGET;
+  }
   /* The same bar for a curated GLOSSARY term, and lower for a reason: a description is three sentences
      where a card's abstract is ten, so two works behind it is a full apparatus rather than a token one.
      Read out of here by .claude/gloss-source-audit.js and .claude/add-sources.js, exactly as SRC_TARGET
@@ -47243,14 +47256,14 @@ let prev = null;
      A flagged card that later reaches the bar reads as met — the count is the truth, the flag is a note. */
   function cardSourceState(id) {
     const c = CARD_BY_ID[id]; if (!c) return null;
-    const n = cardSources(c).length;
-    if (n >= SRC_TARGET) return { n, cls: "ok", why: "" };
-    return { n, cls: typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim() ? "blocked" : "short", why: String(c.sourcesBlocked || "").trim() };
+    const n = cardSources(c).length, bar = srcTargetFor(c);
+    if (n >= bar) return { n, bar, cls: "ok", why: "" };
+    return { n, bar, cls: typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim() ? "blocked" : "short", why: String(c.sourcesBlocked || "").trim() };
   }
   function srcChipTitle(s) {
     return s.cls === "blocked"
-      ? "Sources: " + s.n + " of " + SRC_TARGET + " — researched, no further qualifying source found. " + s.why
-      : "Sources: " + s.n + " of " + SRC_TARGET + " — needs " + (SRC_TARGET - s.n) + " more.";
+      ? "Sources: " + s.n + " of " + s.bar + " — researched, no further qualifying source found. " + s.why
+      : "Sources: " + s.n + " of " + s.bar + " — needs " + (s.bar - s.n) + " more.";
   }
   /* The same chip on a curated glossary term, against the lower GLOSS_SRC_TARGET bar. Two states, not the
      cards' three: there is no `sourcesBlocked` on a term, because five qualifying works for one card is a
@@ -48205,7 +48218,7 @@ let prev = null;
       const ss = cardSourceState(id);
       // the source chip rides on the id line, which is short and has room — never at the row's right edge,
       // where the "edited" dot and the drag grip already sit (and move about between row states)
-      const srcChip = ss && ss.cls !== "ok" ? '<span class="acr-src ' + ss.cls + '" title="' + esc(srcChipTitle(ss)) + '">' + ss.n + "/" + SRC_TARGET + '</span>' : "";
+      const srcChip = ss && ss.cls !== "ok" ? '<span class="acr-src ' + ss.cls + '" title="' + esc(srcChipTitle(ss)) + '">' + ss.n + "/" + ss.bar + '</span>' : "";
       return '<div class="admin-card-row' + (adminState.card === id ? " active" : "") + (cardIsEdited(id) ? " edited" : "") + (sel ? " selected" : "") + (reorderable ? " reorderable" : "") + (colHex ? " colored" : "") + '" data-card="' + esc(id) + '"' + (colHex ? ' style="--acr-col:' + colHex + '"' : '') + '>' +
         (colHex ? '<span class="acr-colortag" title="' + esc(colorCount[col] + "/" + ids.length + " cards marked " + col) + '"></span>' : '') +
         '<label class="acr-check" title="Select card"><input type="checkbox" data-check="' + esc(id) + '"' + (sel ? " checked" : "") + ' /><span class="acr-box"></span></label>' +
@@ -48287,7 +48300,7 @@ let prev = null;
     const under = ids.filter((id) => { const s = cardSourceState(id); return s && s.cls !== "ok"; }).length;
     const blocked = ids.filter((id) => { const s = cardSourceState(id); return s && s.cls === "blocked"; }).length;
     const cntEl = document.getElementById("adminListCount");
-    if (cntEl && under) cntEl.innerHTML = esc(cntEl.textContent) + ' <span class="alc-src" title="' + esc(under + " of these " + ids.length + " cards carry fewer than " + SRC_TARGET + " sources" + (blocked ? "; " + blocked + " of them have been researched and could not be brought to the bar" : "")) + '">· ' + under + " under-cited" + (blocked ? ", " + blocked + " blocked" : "") + "</span>";
+    if (cntEl && under) cntEl.innerHTML = esc(cntEl.textContent) + ' <span class="alc-src" title="' + esc(under + " of these " + ids.length + " cards carry fewer sources than their difficulty's bar" + (blocked ? "; " + blocked + " of them have been researched and could not be brought to the bar" : "")) + '">· ' + under + " under-cited" + (blocked ? ", " + blocked + " blocked" : "") + "</span>";
     adminRenderSelectionBar();
   }
 
@@ -49558,7 +49571,7 @@ let prev = null;
         const n = (c.sources || []).length;
         srcTotal += n;
         if (n) srcCards++;
-        if (n >= SRC_TARGET) srcAtBar++;
+        if (n >= srcTargetFor(c)) srcAtBar++;
         if (c.sourcesBlocked) srcBlocked++;
         if ((c.image && c.image.src) || (c.video && c.video.src)) media++;
         phrasings += cardQuestions(c).length;
@@ -49746,7 +49759,7 @@ let prev = null;
               "</div>" +
               bar(s.gAtBar, s.gloss, "Terms at the " + GLOSS_SRC_TARGET + "-source bar", s.gSrcTotal + " citations in all")) +
             card("Citations", s.srcTotal + " on cards, " + s.gSrcTotal + " on terms",
-              bar(s.srcAtBar, s.cards, "Cards at the " + SRC_TARGET + "-source bar",
+              bar(s.srcAtBar, s.cards, "Cards at their source bar (5–9, by difficulty)",
                 s.srcCards + " cards carry at least one source" + (s.srcBlocked ? " · " + s.srcBlocked + " marked blocked" : "")) +
               bar(s.tagged, s.cards, "Cards with categorising tags", "Tags are what Multiple Choice draws its wrong answers from")) +
             card("Atlas & games", s.eras + " historical eras",

@@ -134,6 +134,8 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `refinements-plan.md` | ~60 items from one request, batched. |
 | `refinements-2026-08-27.md` | Thirty-five items from one request: what shipped, the four faults the fixes uncovered at scale, the four answers to "suggest a way", and a plan for the nine not built. |
 | `mandarin-review.md` | The Mandarin collection measured end to end and then repaired: why a downloaded deck never saw a fix, the cards a speech engine misreads, the polyphones teaching one of two readings, the unanswerable reverse cards, the Idioms deck — and, for the three of twelve items that could not be finished, exactly where they stop and why. |
+| `greece-refinement-audit.md` | The Sep 2026 refinement of all 1,000 Ancient Greece cards: the settled rules, the 105 batches and their state, and the ledger of what each batch changed, refused and read by eye. **Open.** |
+| `greece-chronology.md` | The dates and spellings the Ancient Greece collection commits to, with the pins `greece-audit.js` checks. |
 | `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and what is still open — the Athens deck's register and the coverage gaps. **The Rutter concentration, its loudest finding, is CLEARED**: no `gr-` card cites that course website in more than two of its sources. |
 | `learning-science.md` | What the learning-science literature says works and does not, and twenty proposals for Folio. **Thirteen shipped Sep 2026; seven still proposals.** |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |

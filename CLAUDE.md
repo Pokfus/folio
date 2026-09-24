@@ -342,8 +342,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Content-Security-Policy-Report-Only` — violations keep showing in devtools without blocking anything.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the batches with their source spines).
-  Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
-  2–4 on 2026-07-31) — **all 109 were there, with nothing blocked and nothing left to find**; batches 0–26 are complete.
+  Not part of the site. **The bar was at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
+  2–4 on 2026-07-31) **and is TIERED BY DIFFICULTY since Sep 2026, on request: 1 → 9, 2 → 8, 3 → 7, 4 → 6,
+  5 → 5** (`SRC_TARGET_BY_DIFFICULTY` / `srcTargetFor`, sliced for every helper by `.claude/src-target.js`;
+  `SRC_TARGET` stays the floor for an unrated card). A new card is refused under its bar. When this was a flat 5, **all 109 were there, with nothing blocked and nothing left to find**; batches 0–26 are complete.
   **That deck no longer exists**: World History was replanned on 2026-08-04 and 89 of those 109 were renumbered
   while 20 were retired, so the live figure is 89 cards all at the bar (plus Greece), and this file's `wh-NNN`
   references are the old numbering — read them through the table in `docs/world-history-card-plan.md`.
@@ -405,6 +407,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   can be grown one card at a time over many sessions. See the "ANCIENT GREECE" bullet under "Generating
   cards & glossary entries" for the workflow — the short version is that the next card to write is the
   lowest `gr-NNN` not yet in `data.js`. Not part of the site.
+  · **📖 `docs/greece-refinement-audit.md` — READ BEFORE TOUCHING ANY `gr-` CARD.** The Sep 2026 pass
+    that refines all 1,000 cards in batches of ten, deck by deck, to one set of settled rules — a
+    15-year-old's register, a source bar tiered by difficulty, an author cap, no dates in a question,
+    three FAQ-style Think-it-through answers carrying EXPLICIT markers into the card's own list. It holds
+    the rules, the 105 batches with their state, and the LEDGER, which records what each batch changed,
+    refused, and read by eye. `node .claude/greece-audit.js [--range=] [--card=] [--summary]` measures
+    every mechanical rule; `node .claude/add-card.js <patch.json> --replace` is the one writer for a card
+    refined end to end, holding the merged card to every rule a new card meets.
+  · **📖 `docs/greece-chronology.md` — READ BEFORE WRITING A DATE ON A `gr-` CARD.** The dates and name
+    spellings the collection commits to (period brackets, destructions, reigns, battles, the Thera
+    eruption), with a `chronology-pins` block `greece-audit.js` checks date lines against.
   · **📖 `docs/greece-audit-2026-09.md` — READ BEFORE WRITING A `gr-` CARD, and before opening
     any repair batch on the first 500.** The audit of `gr-001`–`gr-500`: the eight dimensions that
     passed, measured rather than assumed; the five that were fixed (276 picture captions carrying
@@ -2528,7 +2541,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.51 MB and 51,029 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.51 MB and 51,042 lines is hard to find your way around, so this
   lists its 197 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -5465,7 +5478,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **foreign script must CARRY a title rather than appear in it** ("Divided Power and Εὐνομία" is
     English). The chip takes `--geo`: green already means open access and amber paywalled on the same
     line, so a third chip in either would read as a third verdict about access.
-  · **BARS AND STORAGE**: `SRC_TARGET` 5 per card, `GLOSS_SRC_TARGET` 2 per term, `ARTEFACT_SRC_TARGET` 3.
+  · **BARS AND STORAGE**: a card's bar is tiered by difficulty (`srcTargetFor`: 1 → 9 … 5 → 5, `SRC_TARGET` 5 the floor), `GLOSS_SRC_TARGET` 2 per term, `ARTEFACT_SRC_TARGET` 3.
     Deltas are `sources` / `ADMIN_EDITS.glossarySources`; community decks get `uCardSetSources` /
     `uGlossSet`, sanitized on ingest. `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists.
   · **Guarded by `test-sources.js`** (81 assertions, including a deliberately UNWIRED surface).
@@ -8831,7 +8844,7 @@ division-capital city tier are inert dead code.
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **58 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **59 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-panels.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
@@ -8848,6 +8861,11 @@ division-capital city tier are inert dead code.
   **And close any IndexedDB connection the test itself opens** — an idle one blocks the app's own open after a
   reload, which silently pushes it onto the localStorage fallback, and the test then goes looking for a deck in
   the store the app has just stopped using (`test-card-types.js` learned this the hard way).
+  · `node .claude/test-why-markers.js` — **Think-it-through markers survive `wireFootnotes`** (5
+    assertions, Sep 2026): an answer's EXPLICIT marker keeps its number, the abstract's below are not
+    shifted, one past the list is removed, and — the liveness half — a BARE marker there IS numbered by
+    reading order, which is why `card-links.js` refuses one. Slices the real functions out of app.js.
+    **Re-run after touching `wireFootnotes` / `elabPromptHTML` / `cardWhy` / `checkWhyMarkers`.**
   · `node .claude/test-deck-trust.js` — **the sanitizer revision stamp** (9 assertions), which is what
     lets boot skip re-cleaning a deck it has already cleaned. **Re-run after touching `SANITIZE_REV` /
     `uDeckNormalize` / `uDeckIndexRecord` / `communityBoot`, or any `sanitize*` function.**
