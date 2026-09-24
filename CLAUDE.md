@@ -6273,9 +6273,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     routes to the **collections** rather than choosing a subject for them.
   · **THE BANNER COUNTS ANKI'S THREE PILES** — New (blue), Learning (red), Review (green), from `pileCounts`,
     repeated unlabelled in the same colours on every added deck's row from the SAME function, so a row can
-    never claim work the banner does not. Its ground is **the opal** (`.banner.rv-opal`, `OPAL_TILE`,
-    `reviewOpal`; Sep 2026, on request — it changed hue every day until then, and that rotation is deleted)
-    unless the reader has chosen a colour, which removes the class. A finished day offers
+    never claim work the banner does not. Its hue **changes every day** (`DAY_HUES` / `dayHue`, set inline,
+    turning over at the reader's own day boundary) unless the reader has chosen one. (An opal gradient
+    replaced it for an hour in Sep 2026 and was reverted on request — do not bring it back.) A finished day offers
     **no button at all**, and completion is a small green check or a gold **Perfect!** ribbon.
   · **EVERY SESSION ENDS AT THE HOME PAGE**, whatever its scope — one answer rather than a rule per surface.
   · **THE COLLECTIONS BUTTON IS THE ONLY ROUTE TO `#decks` ANYWHERE ON THE SITE**, and the About line the only

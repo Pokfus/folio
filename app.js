@@ -16224,24 +16224,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      different problem from a label on a list. They are spread round the wheel and share the collections'
      own depth, so a group sits beside a collection without shouting over it. */
   const GROUP_COLORS = ["#2E6E8E", "#1F6F5C", "#7A8A2E", "#C2701E", "#9E2B25", "#8A2E5C", "#664C9A", "#4A4038"];
-  /* ---------- THE DAILY-STUDY BANNER WEARS THE OPAL (Sep 2026, on request) ----------
-     "The Daily Study banner at the top should, instead of changing color every day, have a vivid
-     colorful background gradient in the colors of the Opal theme." It changed hue every day from Aug
-     2026 — twelve colours round the wheel, one per day — and that rotation is GONE, its table and its
-     function with it: the banner now carries the default theme's own play of colour, the rose, lilac,
-     sky, mint and peach an opal flashes, as a gradient set in the stylesheet (`.banner.rv-opal`).
-     `OPAL_TILE` is the one hue the banner still needs as a single value — its left bar, its hover border
-     and whatever reads `--tile` — and it is the gradient's own lilac, so nothing on the banner is a
-     colour the gradient does not contain. */
-  const OPAL_TILE = "#9A86E0";
-  function reviewOpal() { return !groupColor(REVIEW_ENTRY); }
-  /* …AND THE BANNER'S OWN COLOUR MAY BE CHOSEN (Aug 2026, on request). The opal above is the DEFAULT,
+  /* ---------- THE DAILY-STUDY BANNER CHANGES COLOUR EVERY DAY (Aug 2026, on request) ----------
+     Twelve hues round the wheel, one per day, taken in order rather than at random: a random pick repeats,
+     and two days the same colour reads as the feature having stopped rather than as chance. The day index
+     comes from `dayKey`, so it turns over at the reader's OWN day boundary — the same moment the quote, the
+     card of the day and the day's allowance turn over, rather than at some hour of its own.
+     They are LIGHTER and brighter than the collection hues on purpose: a collection's colour identifies a
+     subject and has to stay legible under 30% of it behind body text, where this one is a wash across a
+     whole banner and a 4px bar, and the banner it replaced was a single light blue (#5AA9DC, which is
+     Tuesday's). `--tile` is set inline on the banner element, so it beats the stylesheet's own value
+     without either of them having to know about the other; the deck rows below keep `.review-group`'s
+     static fallback, or the whole list would change colour with it every morning. */
+  const DAY_HUES = [
+    "#5AA9DC", "#4FA3A0", "#63A85C", "#9DA83F", "#D3A03C", "#D98A4E",
+    "#D2705F", "#C86D8E", "#A876C4", "#7B85D6", "#4E93C9", "#6FAF8A",
+  ];
+  function dayHue(ts) {
+    const k = dayKey(ts);   // the reader's own day, so it turns with everything else dated on this page
+    const d = Date.parse(k + "T00:00:00Z");
+    if (!Number.isFinite(d)) return DAY_HUES[0];
+    return DAY_HUES[(Math.floor(d / DAY) % DAY_HUES.length + DAY_HUES.length) % DAY_HUES.length];
+  }
+  /* …AND THE BANNER'S OWN COLOUR MAY BE CHOSEN (Aug 2026, on request). The rotation above is the DEFAULT,
      not the rule: a reader who picks a colour from the banner's own options sheet gets that colour every
-     day, and clearing it hands the banner back to the opal. It rides in `S.deckGroups` under
+     day, and clearing it hands the banner back to the rotation. It rides in `S.deckGroups` under
      REVIEW_ENTRY, exactly as a deck row's does — that register is keyed by ENTRY ID rather than by group,
      so the review needed no store of its own. Everything that paints the banner reads this rather than
-     `OPAL_TILE` directly, or the two would disagree the moment one of them was touched. */
-  function reviewHue() { return groupColor(REVIEW_ENTRY) || OPAL_TILE; }
+     `dayHue` directly, or the two would disagree the moment one of them was touched. */
+  function reviewHue() { return groupColor(REVIEW_ENTRY) || dayHue(); }
   /* WHICH ROWS MAY BE GIVEN A COLOUR: every one of them, since Aug 2026 on request ("users should be able
      to change the color of both decks and subdecks individually, both curated and imported — and also of
      the daily study banner").
@@ -22886,7 +22896,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `--tile` rather than `--coll-bg`, that being the property its own markup sets. Clearing the choice
        hands it back to the daily rotation, which is what `reviewHue` resolves. */
     const banner = document.querySelector("#b-review");
-    if (banner) { banner.style.setProperty("--tile", reviewHue()); banner.classList.toggle("rv-opal", reviewOpal()); }
+    if (banner) banner.style.setProperty("--tile", reviewHue());
   }
   function adSyncFold(listEl) {
     if (!listEl) return;
@@ -24218,7 +24228,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const reviewWon = reviewDone && rday.miss === 0;
     // first-run hero: one sentence of purpose and a single way in — the normal banner takes over after the first card
     const bannerHTML = fresh
-      ? `<button class="banner hero${reviewOpal() ? " rv-opal" : ""}" id="b-review" style="--tile:${esc(reviewHue())}">
+      ? `<button class="banner hero" id="b-review" style="--tile:${esc(reviewHue())}">
           <div class="body">
             <span class="hero-eyebrow">Start here</span>
             ${/* The break is written in the markup rather than left to the wrap (Aug 2026, on request):
@@ -24237,7 +24247,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
-      : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}${reviewOpal() ? " rv-opal" : ""}" id="b-review" style="--tile:${esc(reviewHue())}">
+      : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" style="--tile:${esc(reviewHue())}">
           ${doneMarkHTML(reviewDone, reviewWon)}
           ${/* The big gold numeral is GONE (Aug 2026, on request), and `pileBadgeMarkup` with it. It
                 carried the day's whole pile and nothing on the banner said so — the three counts below it

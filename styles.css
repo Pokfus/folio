@@ -789,19 +789,6 @@ body.night .banner .xp-lvl{color:#E6C765;}
   transition:transform .2s var(--ease), box-shadow .25s var(--ease), border-color .2s;
   display:flex; align-items:center; gap:24px;
 }
-/* THE OPAL (Sep 2026, on request — see OPAL_TILE in app.js): the review banner's own ground is the
-   default theme's play of colour — rose, lilac, sky, mint and a warm peach flash — vivid rather than a
-   whisper, and the same in every theme, since it is the banner's identity rather than the theme's. The
-   stops are light enough that the banner's dark ink keeps its contrast; the night set is the same five
-   stones at depth, under light ink. A colour chosen from the banner's own sheet removes the class. The
-   selector carries `#b-review` so it outranks a theme's own `.banner` surface wherever that sits. */
-#b-review.banner.rv-opal{
-  background:linear-gradient(118deg, #F8C9DD 0%, #DCC8FF 24%, #C4DAFF 46%, #BDEEDD 70%, #FFE1BF 100%);
-  border-color:color-mix(in srgb, #9A86E0 30%, var(--rule));
-}
-body.night #b-review.banner.rv-opal{
-  background:linear-gradient(118deg, #4A2340 0%, #33275E 26%, #1D3460 48%, #17463C 72%, #4A3520 100%);
-}
 /* the wash is a whisper on dark themes, as on the game tiles — a daylight-strength mix glares over dark card stock */
 body.night .banner{
   background:linear-gradient(105deg, color-mix(in srgb, var(--tile) 11%, transparent), transparent 64%),
