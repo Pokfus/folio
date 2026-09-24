@@ -3485,6 +3485,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S28 | B1 | #251 `imaginar` – #278 `suave` | 26 | 2 (`imaginar`, `la aventura`) | 0 | B1 description: 950 with three | S9's `la pelota` entry extended |
 | S29 | B1 | #279 `la arena` – #306 `la nación` | 28 | 0 | 0 | B1 description: 952 with three | name table reaches `Virgen María` — B2 warning |
 | S30 | B1 | #307 `la explicación` – #334 `quitar` | 24 | 4 (`la explicación`, `el ganador, la ganadora`, `el océano`, `la despedida`) | 0 | B1 description: 954 with three | `ordenador` glossed "ordinator" |
+| S31 | B1 | #335 `utilizar` – #362 `comprobar` | 28 | 0 | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4782,6 +4783,46 @@ also on A1's `alquilar`.
 
 **CHECKERS.** `--check` passes, and `check-say` reads 0. `check-senses --deck=DELE-B1` went from 87 to
 86. `lograr` is still on it: its examples say "reached" and "get him to", which is a correct paraphrase.
+
+### S31 — DELE B1, notes #335–#362 (Sep 2026)
+
+Measured against the S30 commit by card id: **all 28 changed, 970 untouched**, each a record entry.
+
+**THE GLOSS WAS A FALSE FRIEND OR A WRONG SENSE, FOUR TIMES.**
+- `el concurso` was glossed "concourse", which is a hall or a crowd, not a competition.
+- `el cinturón` was glossed "cincture", a vestment. All three of its examples were *cinturón de
+  seguridad*, a seat belt, and the gloss did not give that either.
+- `la biblia` was glossed only as "a comprehensive manual". All three examples were the Bible.
+- `espacial` said "spatial" twice, and none of its examples used that sense; each was *nave espacial* or
+  space travel.
+
+`importar` did not give "to import" or "to mind". `levantar` did not give *levantarse*.
+
+**THE SAME SENTENCE TWICE ON ONE CARD, IN TWO WORDINGS.**
+- `la vía` said *Él fue a Londres vía París* and then *Fui a Londres vía París*.
+- `la unión` gave one proverb, "in unity is strength", in its two Spanish forms.
+
+**NON-STANDARD SPANISH AND ANOTHER WORD.**
+- `poco a poco` twice read *de poco a poco*.
+- `el/la sacerdote`'s third example was *sacerdotisa*, a different word.
+- `la cultura` rendered the calque *evidencias* as "These are evidence".
+
+**WHAT A LEARNER DOES NOT NEED.** Several examples were dropped because they are not ordinary sentences:
+- two aphorisms on `la imaginación`, one of them Einstein's;
+- galaxies in "delicious flavours" on `el sabor`;
+- a racist joke on `el chiste`;
+- a generalisation about which men women dislike on `pesado`;
+- a firm's brochure line about architectural competitions on `el concurso`.
+
+**NAMES OUTSIDE THE NAME TABLE.** Three examples carried non-Spanish names, which were not in the name
+table: Carlos's surname Jackson on `posiblemente`, a Dr White on `la comunicación`, and Santa on
+`el/la ayudante`, whom a Spanish speaker calls Papá Noel. All three sentences were replaced.
+
+**AND THE REST.** Eleven sentences shared with A1 or with an earlier B1 card were replaced. Every card in
+the batch keeps three examples, so B1 still has 954 cards with three.
+
+**CHECKERS.** `--check` passes, and `check-say` reads 0. The batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 86 to 83: `el cinturón`, `pesado` and `de modo que` dropped off.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

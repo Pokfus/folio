@@ -35134,6 +35134,586 @@
      "I took my shoes off as I came in."
     ]
    ]
+  },
+  "deleb1/utilizar": {
+   "why": "'to utilize' was American. The third example is shared with el barco in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to use"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El hierro se utiliza en la construcción de barcos."
+   ],
+   "ex": [
+    [
+     "Utilizamos el ordenador para todo.",
+     "We use the computer for everything."
+    ]
+   ]
+  },
+  "deleb1/el collar": {
+   "why": "The gloss read 'an animal's collar'. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "necklace",
+      "collar (for an animal)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el golf": {
+   "why": "The gloss is right. The third example is shared with el campo in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "un campo de golf cerca de aquí"
+   ],
+   "ex": [
+    [
+     "El golf es un deporte muy caro.",
+     "Golf is a very expensive sport."
+    ]
+   ]
+  },
+  "deleb1/el/la ayudante": {
+   "why": "The gloss is right. The second example's Santa is not what a Spanish speaker calls him (Papá Noel).",
+   "dropEx": [
+    "pequeños ayudantes de Santa"
+   ],
+   "ex": [
+    [
+     "La ayudante del dentista me dio cita.",
+     "The dentist's assistant gave me an appointment."
+    ]
+   ]
+  },
+  "deleb1/la cultura": {
+   "why": "The gloss's 'knowledge' is cultura general, which it did not name. The first example's evidencias is a calque, and its English read 'These are evidence'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "culture"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cultura general — general knowledge"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Estas son evidencias de una antigua"
+   ],
+   "ex": [
+    [
+     "Tiene mucha cultura general.",
+     "She has a lot of general knowledge."
+    ]
+   ]
+  },
+  "deleb1/de modo que": {
+   "why": "The gloss was a list of six. The examples are right.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "so",
+      "so that"
+     ]
+    ]
+   ]
+  },
+  "deleb1/poco a poco": {
+   "why": "The first two examples read de poco a poco, which is not standard, and the first is shared with empezar in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "little by little, gradually"
+     ]
+    ]
+   ],
+   "bold": [
+    "poco a poco"
+   ],
+   "dropEx": [
+    "Ella empezó de poco a poco",
+    "va mejorando de poco a poco"
+   ],
+   "ex": [
+    [
+     "Poco a poco fue aprendiendo el idioma.",
+     "Little by little she learnt the language."
+    ],
+    [
+     "Hay que ir poco a poco.",
+     "You have to take it step by step."
+    ]
+   ]
+  },
+  "deleb1/la biblia": {
+   "why": "The gloss gave only 'a comprehensive manual that describes something' while every example was the Bible. The second example's English said 'give bibles for free'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "la Biblia — the Bible",
+      "bible (a standard reference book)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Ellos reparten",
+     "They hand out free Bibles."
+    ]
+   ]
+  },
+  "deleb1/la serpiente": {
+   "why": "The gloss was a list. The first example, 'Día Mundial de la Serpiente', capitalised the word, and the second is shared with dar in A1. The third's English said 'drew back', where dio media vuelta is turned round. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "snake"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Día Mundial de la",
+    "no le dan miedo las serpientes"
+   ],
+   "exEn": [
+    [
+     "dio media vuelta cuando vio",
+     "She turned round when she saw the snake."
+    ]
+   ],
+   "ex": [
+    [
+     "Una serpiente se escondía entre las rocas.",
+     "A snake was hiding among the rocks."
+    ],
+    [
+     "Algunas serpientes son venenosas.",
+     "Some snakes are venomous."
+    ]
+   ]
+  },
+  "deleb1/posiblemente": {
+   "why": "The gloss is right. The first example gave Carlos the surname Jackson, and the third, 'Posiblemente pueda haber habido', is stacked hedging no one says.",
+   "dropEx": [
+    "es posiblemente Jackson",
+    "pueda haber habido un malentendido"
+   ],
+   "ex": [
+    [
+     "Posiblemente llegue tarde.",
+     "I'll possibly be late."
+    ],
+    [
+     "Es posiblemente la mejor película del año.",
+     "It's possibly the best film of the year."
+    ]
+   ]
+  },
+  "deleb1/pesado, pesada": {
+   "why": "The gloss was a list. The first example is shared with el oro earlier in B1, and the third, about which men women dislike, is a generalisation rather than a sentence a learner needs. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "heavy",
+      "(colloquial) annoying, tiresome"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El oro es más pesado que el hierro.",
+    "no les caen bien los pesados"
+   ],
+   "ex": [
+    [
+     "¡Qué pesado eres!",
+     "You're such a pain!"
+    ],
+    [
+     "La maleta es demasiado pesada.",
+     "The suitcase is too heavy."
+    ]
+   ]
+  },
+  "deleb1/espacial": {
+   "why": "The gloss said 'spatial' twice and not 'space', which every example was. The second example is shared with imposible earlier in B1, and the first and third were both nave espacial. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "space (nave espacial — spaceship)",
+      "spatial"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "viajes espaciales eran imposibles",
+    "no volvería nunca a la Tierra"
+   ],
+   "ex": [
+    [
+     "La estación espacial está en órbita.",
+     "The space station is in orbit."
+    ],
+    [
+     "La carrera espacial empezó en los años cincuenta.",
+     "The space race began in the 1950s."
+    ]
+   ]
+  },
+  "deleb1/el concurso": {
+   "why": "'concourse' is not a sense of concurso, and the quiz show was missing. The second example, architectural competitions, is a firm's brochure.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "competition, contest",
+      "quiz show"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "concursos de arquitectura"
+   ],
+   "exEn": [
+    [
+     "fue juez en un",
+     "Carlos was a judge in an art competition."
+    ],
+    [
+     "el primer premio en el",
+     "He won first prize in the competition."
+    ]
+   ],
+   "ex": [
+    [
+     "Mi abuela ve concursos en la tele.",
+     "My grandmother watches quiz shows on TV."
+    ]
+   ]
+  },
+  "deleb1/sincero, sincera": {
+   "why": "The gloss is right. The second example, 'Todo depende de vuestra relación, que es sincera', was rendered 'your true relationship'.",
+   "dropEx": [
+    "vuestra relación, que es sincera"
+   ],
+   "ex": [
+    [
+     "Te voy a ser sincero: no me gusta.",
+     "I'll be honest with you: I don't like it."
+    ]
+   ]
+  },
+  "deleb1/la imaginación": {
+   "why": "The gloss is right. The first and third examples were aphorisms.",
+   "dropEx": [
+    "más importante que el conocimiento",
+    "el sol del alma humana"
+   ],
+   "ex": [
+    [
+     "Tiene mucha imaginación.",
+     "He's got a lot of imagination."
+    ],
+    [
+     "Son imaginaciones tuyas.",
+     "You're imagining things."
+    ]
+   ]
+  },
+  "deleb1/el sabor": {
+   "why": "The gloss was American. The second example, galaxies coming in delicious flavours, is not a sentence a learner needs.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "taste, flavour"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las galaxias vienen"
+   ],
+   "ex": [
+    [
+     "Este helado tiene sabor a fresa.",
+     "This ice cream tastes of strawberry."
+    ]
+   ]
+  },
+  "deleb1/la unión": {
+   "why": "The first and third examples were the same proverb in two wordings, and the second wrote the European Union in lower case.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "union",
+      "unity"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "En la unión está la fuerza.",
+    "no forma parte de la unión europea"
+   ],
+   "ex": [
+    [
+     "España es miembro de la Unión Europea.",
+     "Spain is a member of the European Union."
+    ],
+    [
+     "Celebraron su unión en una pequeña iglesia.",
+     "They celebrated their union in a small church."
+    ]
+   ]
+  },
+  "deleb1/el cinturón": {
+   "why": "'cincture' is a vestment, and cinturón de seguridad, which all three examples were, was missing.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "belt"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cinturón de seguridad — seat belt"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Abróchense sus cinturones"
+   ],
+   "ex": [
+    [
+     "Este cinturón me queda grande.",
+     "This belt is too big for me."
+    ]
+   ]
+  },
+  "deleb1/el chiste": {
+   "why": "'essence, importance' are not senses a learner needs. The first example is shared with entender in A1, and the third was a racist joke. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "joke"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no pudo entender el chiste de Ana",
+    "un chiste racista"
+   ],
+   "ex": [
+    [
+     "Me contó un chiste muy gracioso.",
+     "He told me a very funny joke."
+    ],
+    [
+     "Sus chistes no hacen gracia a nadie.",
+     "Nobody finds his jokes funny."
+    ]
+   ]
+  },
+  "deleb1/investigar": {
+   "why": "The gloss is right. The first two examples were both the police, and the third, the possibility of a cooperation, is a report's sentence; research was not shown.",
+   "dropEx": [
+    "la posibilidad de una cooperación"
+   ],
+   "ex": [
+    [
+     "Investiga el cáncer en un laboratorio.",
+     "She researches cancer in a laboratory."
+    ]
+   ]
+  },
+  "deleb1/el instante": {
+   "why": "The gloss did not give al instante. The second example's English said 'before long'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "moment, instant"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "al instante — at once"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "aterrizar dentro de",
+     "The plane will land in a few moments."
+    ]
+   ]
+  },
+  "deleb1/la frase": {
+   "why": "The gloss put 'phrase' before 'sentence', which two of the examples were.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "sentence",
+      "phrase"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la comunicación": {
+   "why": "The gloss did not give medios de comunicación. The first example is shared with el servicio earlier in B1, and the third called on a Dr White. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "communication"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "medios de comunicación — the media"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "están fuera de servicio",
+    "con el Dr."
+   ],
+   "ex": [
+    [
+     "La comunicación es clave en una pareja.",
+     "Communication is key in a relationship."
+    ],
+    [
+     "Los medios de comunicación hablan del tema.",
+     "The media are talking about the issue."
+    ]
+   ]
+  },
+  "deleb1/la vía": {
+   "why": "The second and third examples were the same sentence, London via Paris. The gloss did not give the railway track or the preposition.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "(railway) track",
+      "way, route"
+     ]
+    ],
+    [
+     "preposition",
+     [
+      "vía — via"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Fui a Londres vía París."
+   ],
+   "ex": [
+    [
+     "El tren sale de la vía cuatro.",
+     "The train leaves from platform four."
+    ]
+   ]
+  },
+  "deleb1/el/la sacerdote": {
+   "why": "The gloss is right. The third example was sacerdotisa, a different word.",
+   "dropEx": [
+    "la sacerdotisa vudú"
+   ],
+   "ex": [
+    [
+     "La sacerdote anglicana celebró la boda.",
+     "The Anglican priest conducted the wedding."
+    ]
+   ]
+  },
+  "deleb1/levantar": {
+   "why": "The gloss did not give levantarse. The second example was levantarse and is shared with temprano in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to lift, to raise",
+      "to put up (a building)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "levantarse — to get up"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Fue por eso que él se levantó temprano."
+   ],
+   "ex": [
+    [
+     "Levantaron un muro alrededor del jardín.",
+     "They put up a wall round the garden."
+    ]
+   ]
+  },
+  "deleb1/importar": {
+   "why": "The gloss did not give 'to mind' or 'to import'. The second example is shared with nadie in A1 and the third with próximo earlier in B1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to matter",
+      "to mind (¿te importa…?)",
+      "to import"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A nadie le importa lo que tú pienses.",
+    "venir más temprano para la próxima"
+   ],
+   "ex": [
+    [
+     "No me importa esperar.",
+     "I don't mind waiting."
+    ],
+    [
+     "España importa mucho petróleo.",
+     "Spain imports a lot of oil."
+    ]
+   ]
+  },
+  "deleb1/comprobar": {
+   "why": "The gloss was a list of five, four of them 'check'. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to check",
+      "to prove, to verify"
+     ]
+    ]
+   ]
   }
  },
  "insert": {
