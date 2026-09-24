@@ -35,13 +35,26 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.883", released: "2026-09-24T13:56Z" };
+window.FOLIO_VERSION = { v: "1.884", released: "2026-09-24T15:54Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-24",
     t: "Two new decks: name the world\u2019s flags, and draw them from memory",
     items: [
+      "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
+      "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",
+      "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades.",
+      "<b>Who said it? deals three quotations a day</b>, each explanation cites its sources, and editors can take a quotation out of the game.",
+      "<b>The Think it through questions show on every card</b>, not only the first time you meet one.",
+      "<b>The home page says plainly when you are not signed in</b>, so progress kept only on this device does not come as a surprise.",
+      "<b>Seven new badges</b>, among them one for studying late at night and one for studying early in the morning.",
+      "<b>Timeline places a US state at the year it joined the Union</b>, and your own atlas marks a battle with crossed swords.",
+      "On a Mandarin card the writing space opens below the question, the Picture round's descriptions link their glossary terms, and Find it no longer flashes on a tap.",
+      "An artefact's picture sits beside its description on wider screens, and the German decks list the cases Nominativ, Genitiv, Dativ, Akkusativ.",
+      "One Ancient Rome card is replaced by a card on the Conference of Naupactus, and twelve cards across eight collections have their dates or wording corrected.",
+      "Fifty-three Politics: East Asia cards gain a picture, and a Second World War card gets a better portrait.",
+      "Twenty cards gain or redraw their atlas window \u2014 mountain chains as ranges, and empires and cultures as the ground they held.",
       "<b>Flags is a new deck of World Geography</b> \u2014 two hundred and twenty-nine cards, each showing a flag for you to name.",
       "<b>Draw the flags is a second new deck</b> \u2014 it names a country and you draw its flag on a canvas of its own, with pens, a fill and any colour you like.",
       "<b>A flag card shows the flag once and keeps its source off the card</b> \u2014 the credit is there when you tap the flag to enlarge it.",
