@@ -1014,7 +1014,7 @@ function aeneidChecks() {
       rows: document.querySelectorAll(".collection-row, .collection").length,
     }));
     check("the old #decks address still resolves", d.rows > 0 || /Collection/i.test(d.h1), JSON.stringify({ rows: d.rows, h1: d.h1 }));
-    check("...titled Collections", /^(The )?Collections$/i.test(d.h1.trim()), d.h1);
+    check("...titled Collections", /^Collections$/i.test(d.h1.trim()), d.h1);
     check("...and its eyebrow no longer says Library", !/library/i.test(d.eyebrow), d.eyebrow);
     check("...with a Collections <title>", /Collections/i.test(d.title), d.title);
     const libTabs = d.tabs.filter((t) => /^library$/i.test(t.l));

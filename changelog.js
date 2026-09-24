@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.886", released: "2026-09-24T17:46Z" };
+window.FOLIO_VERSION = { v: "1.887", released: "2026-09-24T18:15Z" };
 
 window.CHANGELOG = [
   {
@@ -57,7 +57,7 @@ window.CHANGELOG = [
       "One Ancient Rome card is replaced by a card on the Conference of Naupactus, and twelve cards across eight collections have their dates or wording corrected.",
       "Fifty-three Politics: East Asia cards gain a picture, and a Second World War card gets a better portrait.",
       "Twenty cards gain or redraw their atlas window \u2014 mountain chains as ranges, and empires and cultures as the ground they held.",
-      "<b>The Collections page is redesigned like a magazine</b> \u2014 each collection is a cover, the one you are reading leads the page, and Compact brings the list back.",
+      "<b>The Collections page is back to its list layout</b> \u2014 the magazine-style redesign is withdrawn for now.",
       "<b>Flags is a new deck of World Geography</b> \u2014 two hundred and twenty-nine cards, each showing a flag for you to name.",
       "<b>Draw the flags is a second new deck</b> \u2014 it names a country and you draw its flag on a canvas of its own, with pens, a fill and any colour you like.",
       "<b>A flag card shows the flag once and keeps its source off the card</b> \u2014 the credit is there when you tap the flag to enlarge it.",
