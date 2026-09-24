@@ -26308,6 +26308,529 @@
      "Use a brush to clean your shoes."
     ]
    ]
+  },
+  "delea2/vestirse": {
+   "why": "The gloss is right. The gerund read vistíendose, S3's reflexive-gerund fault, and is now vistiéndose; the vosotros imperative read vestios and is now vestíos (S2's -ir imperative finding). The second example was the noun el vestido, 'dress', not the verb.",
+   "conjSub": [
+    [
+     "<span class=\"uc-cj-e\">vistíendose</span>",
+     "<span class=\"uc-cj-e\">vistiéndose</span>"
+    ],
+    [
+     "v<span class=\"uc-cj-e\">estios</span>",
+     "v<span class=\"uc-cj-e\">estíos</span>"
+    ]
+   ],
+   "dropEx": [
+    "le gustan los vestidos azules"
+   ],
+   "exEn": [
+    [
+     "cuando se viste de blanco",
+     "She looks attractive when she dresses in white."
+    ]
+   ],
+   "ex": [
+    [
+     "Me visto y bajo a desayunar.",
+     "I get dressed and go down for breakfast."
+    ]
+   ]
+  },
+  "delea2/el pintor, la pintora": {
+   "why": "The gloss is right, though 'housepainter' is 'decorator' in British English. The first example, 'the photographer is a kind of painter', is an aphorism.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "painter (artist)",
+      "painter and decorator"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El fotógrafo es una especie de pintor."
+   ],
+   "ex": [
+    [
+     "Picasso fue un pintor español.",
+     "Picasso was a Spanish painter."
+    ]
+   ]
+  },
+  "delea2/automático, automática": {
+   "why": "The gloss is right. The first and third examples were one construction, the cash machine, and cajero automático had no line.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "automatic"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cajero automático — cash machine"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mucha gente usa cajeros automáticos"
+   ],
+   "ex": [
+    [
+     "La puerta se abre de forma automática.",
+     "The door opens automatically."
+    ]
+   ]
+  },
+  "delea2/el carnicero, la carnicera": {
+   "why": "'carnivoran' is a zoologist's word. The first and third examples were one construction, 'Carlos es carnicero', and the first used the article a profession does not take after ser.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "butcher"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Yo sé que Carlos es un carnicero."
+   ],
+   "ex": [
+    [
+     "La carnicera del mercado es muy simpática.",
+     "The butcher at the market is very friendly."
+    ]
+   ]
+  },
+  "delea2/doler": {
+   "why": "The gloss did not say that doler is built like gustar, which is how every A2 learner meets it. The second example is also an A1 sentence, and the third was the noun el duelo, 'grief', not the verb. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to hurt, to ache (me duele la espalda — my back hurts; built like gustar)",
+      "to hurt, to upset (emotionally)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Me duele el estómago después de las comidas.",
+    "No existe una forma correcta de vivir el duelo."
+   ],
+   "ex": [
+    [
+     "Me duele mucho la espalda.",
+     "My back really hurts."
+    ],
+    [
+     "¿Te duelen los pies?",
+     "Do your feet hurt?"
+    ]
+   ]
+  },
+  "delea2/separarse": {
+   "why": "The gloss missed the everyday sense, a couple splitting up. The first example, 'Irlanda e Inglaterra son separados por el mar', is not reflexive and gets the agreement wrong; the third's 'se separan en dos escuelas' is not natural Spanish. The second's English said 'didn't like'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to separate (from), to leave (separarse de)",
+      "to split up (of a couple)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Irlanda e Inglaterra son separados",
+    "Los científicos se separan en dos escuelas."
+   ],
+   "exEn": [
+    [
+     "no quería separarse de su familia",
+     "He didn't want to be separated from his family."
+    ]
+   ],
+   "ex": [
+    [
+     "Mis padres se separaron cuando yo tenía diez años.",
+     "My parents split up when I was ten."
+    ],
+    [
+     "No te separes del grupo.",
+     "Don't get separated from the group."
+    ]
+   ]
+  },
+  "delea2/prestar": {
+   "why": "The gloss had fallen apart ('pay (e.g. • attention)'), and did not give pedir prestado, 'to borrow', which the third example is. The first example, prestar declaración, is legal language.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to lend"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "prestar atención — to pay attention",
+      "pedir / tomar prestado — to borrow"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "se niega a prestar declaración"
+   ],
+   "ex": [
+    [
+     "¿Me prestas tu bolígrafo?",
+     "Can you lend me your pen?"
+    ]
+   ]
+  },
+  "delea2/la margarita": {
+   "why": "'pearl' is an obsolete sense. The third example, plucking a daisy for someone, is not a sentence anyone needs.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "daisy"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Yo deshojé una margarita para ella."
+   ],
+   "ex": [
+    [
+     "En primavera el campo se llena de margaritas.",
+     "In spring the fields fill with daisies."
+    ]
+   ]
+  },
+  "delea2/el violín": {
+   "why": "The gloss is right. The third example is also an A1 sentence, and its English said 'would have to practice'. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Deberías practicar con el violín todos los días."
+   ],
+   "ex": [
+    [
+     "Mi hermana toca el violín en una orquesta.",
+     "My sister plays the violin in an orchestra."
+    ]
+   ]
+  },
+  "delea2/navegar": {
+   "why": "The gloss missed surfing the internet, which is the second example and what most people now mean by it.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to sail, to navigate",
+      "to surf, to browse (navegar por internet)"
+     ]
+    ]
+   ]
+  },
+  "delea2/zoológico, zoológica": {
+   "why": "The gloss gave only the adjective, while two of the examples were the noun, el zoológico, the zoo. The second, animals from Earth in the zoos of Mars, is not a sentence anyone needs.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "zoological"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el zoológico (el zoo) — zoo"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "En los jardines zoológicos de Marte"
+   ],
+   "ex": [
+    [
+     "En el zoológico hay dos elefantes.",
+     "There are two elephants at the zoo."
+    ]
+   ]
+  },
+  "delea2/el alumno, la alumna": {
+   "why": "The gloss is right. The first example is also an A1 sentence, and the third's English said 'disrespected'. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "En nuestra clase hay cuarenta y un alumnos."
+   ],
+   "exEn": [
+    [
+     "La alumna fue irrespetuosa",
+     "The pupil was rude to the teacher."
+    ]
+   ],
+   "ex": [
+    [
+     "Los alumnos tienen un examen mañana.",
+     "The pupils have an exam tomorrow."
+    ]
+   ]
+  },
+  "delea2/el zumo": {
+   "why": "'extract' and 'herbal tincture' are not this word. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "juice (jugo in Latin America)"
+     ]
+    ]
+   ]
+  },
+  "delea2/industrial": {
+   "why": "The gloss is right. The first and third examples were one construction, the Industrial Revolution.",
+   "dropEx": [
+    "La Revolución Industrial cambió dónde y cómo vivía la gente."
+   ],
+   "ex": [
+    [
+     "Mi padre trabaja en un polígono industrial.",
+     "My father works on an industrial estate."
+    ]
+   ]
+  },
+  "delea2/odiar": {
+   "why": "The gloss is right. The first example is shared with propio earlier in A2, and the second was the noun el odio, 'hatred', not the verb. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "dropEx": [
+    "Él odiaba a los de su propia especie.",
+    "Dile no al odio"
+   ],
+   "ex": [
+    [
+     "Odio levantarme temprano.",
+     "I hate getting up early."
+    ],
+    [
+     "Mis hermanos se odiaban de pequeños.",
+     "My brothers hated each other when they were little."
+    ]
+   ]
+  },
+  "delea2/el arquitecto, la arquitecta": {
+   "why": "The gloss is right. The first example, 'Es un arquitecto el que ocupa esa oficina', is not natural Spanish, and the second mixed tenses, decía que quiere.",
+   "dropEx": [
+    "Es un arquitecto el que ocupa esa oficina.",
+    "Ana decía que quiere ser arquitecta."
+   ],
+   "ex": [
+    [
+     "El arquitecto diseñó un edificio muy moderno.",
+     "The architect designed a very modern building."
+    ],
+    [
+     "Ana dice que quiere ser arquitecta.",
+     "Ana says she wants to be an architect."
+    ]
+   ]
+  },
+  "delea2/la excursión": {
+   "why": "The gloss did not give ir de excursión, which the first example is. That example's English said 'we will go' for vayamos, 'let's go'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "trip, outing, excursion"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ir de excursión — to go on a trip, to go on an outing"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "vayamos de excursión",
+     "If the weather's good tomorrow, let's go on a trip."
+    ]
+   ]
+  },
+  "delea2/el filete": {
+   "why": "'thread of a screw' is an engineer's word. The third example's 'para la cena' is a calque of 'for dinner'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "steak",
+      "fillet (of fish)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "comiste filete para la cena"
+   ],
+   "ex": [
+    [
+     "Pedí un filete con patatas.",
+     "I ordered a steak and chips."
+    ]
+   ]
+  },
+  "delea2/la gimnasia": {
+   "why": "The card had only two examples, and the gloss missed PE at school, which is where most learners meet the word.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "gymnastics",
+      "exercises, PE (at school)"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "En el colegio tenemos gimnasia dos veces por semana.",
+     "At school we have PE twice a week."
+    ]
+   ]
+  },
+  "delea2/dibujar": {
+   "why": "'to describe vividly' and 'to detail' are not A2. The second example, 'Dejad que el té dibuje durante diez minutos', is a machine translation of English 'let the tea draw' and is not Spanish.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to draw, to sketch"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Dejad que el té dibuje"
+   ],
+   "ex": [
+    [
+     "Mi hijo dibuja muy bien.",
+     "My son draws very well."
+    ]
+   ]
+  },
+  "delea2/calvo, calva": {
+   "why": "'bare (lacking vegetation)' is not A2. The second example was the noun la calva, 'bald patch', not the adjective.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "bald"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La calva de Carlos es brillante."
+   ],
+   "ex": [
+    [
+     "Un hombre calvo me preguntó la hora.",
+     "A bald man asked me the time."
+    ]
+   ]
+  },
+  "delea2/el paraguas": {
+   "why": "The card had only one example. The gloss is right.",
+   "ex": [
+    [
+     "No olvides el paraguas, que va a llover.",
+     "Don't forget your umbrella, it's going to rain."
+    ],
+    [
+     "Me he dejado el paraguas en el autobús.",
+     "I've left my umbrella on the bus."
+    ]
+   ]
+  },
+  "delea2/el kilo": {
+   "why": "'the letter K in the Spanish spelling alphabet' is a radio operator's word. The third example spelt it quilo, a variant, and wrote '3€'. The second's English said 'a quarter kilogram'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "kilo"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los kiwis salen a 3 euros"
+   ],
+   "exEn": [
+    [
+     "Dame un cuarto de kilo de costillas",
+     "Give me a quarter of a kilo of ribs."
+    ]
+   ],
+   "ex": [
+    [
+     "Un kilo de naranjas, por favor.",
+     "A kilo of oranges, please."
+    ]
+   ]
+  },
+  "delea2/optimista": {
+   "why": "'bullish' is a trader's word, and the gloss missed the noun, an optimist. The first example's 'como Ana es' is a calque, and the second wrote aun for aún.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "optimistic"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el / la optimista — optimist"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no es tan optimista como Ana es",
+    "aun son optimistas"
+   ],
+   "ex": [
+    [
+     "Carlos no es tan optimista como Ana.",
+     "Carlos isn't as optimistic as Ana."
+    ],
+    [
+     "Mis padres son muy optimistas.",
+     "My parents are very optimistic."
+    ]
+   ]
+  },
+  "delea2/mexicano, mexicana": {
+   "why": "'Mexican (pertaining to the Mexican language, i.e. Nahuatl)' is not this word at A2, and the gloss missed the noun. The second example spelt it mejicano, a variant, and its English dropped the word altogether ('a sombrero').",
+   "senses": [
+    [
+     "adjective",
+     [
+      "Mexican"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el mexicano, la mexicana — Mexican (person)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "lleva puesto un sombrero mejicano"
+   ],
+   "ex": [
+    [
+     "Mi mejor amiga es mexicana.",
+     "My best friend is Mexican."
+    ]
+   ]
   }
  },
  "insert": {
@@ -26586,7 +27109,10 @@
    "mediante",
    "el fotógrafo, la fotógrafa",
    "el ballet",
-   "la propina"
+   "la propina",
+   "el cuaderno",
+   "el medicamento",
+   "la cebolla"
   ]
  }
 }

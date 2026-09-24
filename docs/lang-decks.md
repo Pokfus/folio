@@ -3471,6 +3471,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S14 | A2 | #358 `la corbata` – #384 `la estatua` | 27 | 0 | 0 | — | — |
 | S15 | A2 | #385 `el maletín` – #411 `sentarse` | 25 | 2 (`la araña`, `sentarse`) | 0 | — | — |
 | S16 | A2 | #412 `la factura` – #438 `la propina` | 22 | 5 (`la fórmula`, `mediante`, `el fotógrafo`, `el ballet`, `la propina`) | 0 | — | — |
+| S17 | A2 | #439 `vestirse` – #466 `mexicano` | 25 | 3 (`el cuaderno`, `el medicamento`, `la cebolla`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4196,6 +4197,60 @@ and for these words that record is the adjective.
 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 22 → 18, with no
 card of this batch left on it.
+
+### S17 — DELE A2, notes #439–#466 (Sep 2026)
+
+Measured against the S16 commit by card id: **25 changed, 470 untouched**. All 25 are this batch's record
+entries, and nothing outside #439–#466 moved. **Three cards were read and left**: `el cuaderno`,
+`el medicamento`, `la cebolla`.
+
+**THE LOOK-ALIKE, FIVE TIMES. It is now the commonest example fault in A2.** Each of these was illustrated
+by a different word that shares its spelling or its stem:
+- `doler` by the noun *el duelo*, grief.
+- `odiar` by the noun *el odio*, hatred.
+- `vestirse` by the noun *el vestido*, a dress.
+- `calvo` by the noun *la calva*, a bald patch.
+- `zoológico` by *el zoológico*, the zoo. That card's gloss gave only the adjective, so it now carries
+  the noun as well, as S16's four did.
+
+Each of these examples bolds a form of the headword's spelling, so none of them trips the "an example must
+contain its headword" guard. Only reading finds this class.
+
+**A MACHINE TRANSLATION, AND A SENTENCE THAT IS NOT REFLEXIVE.**
+- `dibujar` carried *Dejad que el té dibuje durante diez minutos*. That is English "let the tea draw"
+  (infuse) put word for word into Spanish, and it means nothing.
+- `separarse` carried *Irlanda e Inglaterra son separados por el mar*. It is not reflexive and gets the
+  agreement wrong.
+
+**THE CONJUGATION TABLE.** `vestirse` had both known generator faults:
+- The gerund read *vistíendose* (S3's fault). It is now *vistiéndose*, the ninth repaired.
+- The vosotros imperative read *vestios* (S2's -ir imperative finding). It is now *vestíos*, the second of
+  the 39 counted there.
+
+The last A2 card with each fault is still to come: `afeitarse`, `divorciarse` and `peinarse` carry
+`add_stress` cells.
+
+**AND THE REST.**
+- `el kilo` lost the variant spelling *quilo* and "the letter K in the spelling alphabet".
+- `mexicano` lost the variant *mejicano*, whose English had dropped the word ("a sombrero"). It also lost
+  the Nahuatl sense.
+- `el paraguas` had one example and `la gimnasia` had two; both now have three.
+- `prestar`'s gloss had fallen apart ("pay (e.g. • attention)"). It now names *pedir prestado*, "to
+  borrow", which its own third example is.
+- `navegar` now glosses surfing the internet.
+- `optimista`: *aun* is now *aún*.
+- `el arquitecto`: *decía que quiere* is now *dice que quiere*.
+- Three sentences shared with A1 (`doler`, `el alumno`, `el violín`) and one shared with `propio` were
+  replaced.
+
+**CHECKERS.**
+- `--check` passes; `check-say` reports 0; there are no unbolded examples. 493 of 495 A2 cards now carry
+  three examples.
+- `check-senses --deck=DELE-A2` went from 18 to 16. The one card from this batch still on the list,
+  `navegar`, is a false positive: its 5-character stemmer reduces *sailing* and *surfing* to `saili` and
+  `surfi`, which never meet the 4-letter gloss words `sail` and `surf`.
+- The replacement sentence first written for `doler`, *Me duele la cabeza*, was caught by `share.js` as
+  `la cabeza`'s own example. It is now *Me duele mucho la espalda*.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
