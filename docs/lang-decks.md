@@ -3502,6 +3502,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S45 | B1 | #727 `casero, casera` – #754 `la oposición` | 26 | 2 (`el bailarín, la bailarina`, `la hipoteca`) | 0 | B1 description: 974 with three | paired feminine that is another noun (`la cartera`) |
 | S46 | B1 | #755 `pretender` – #782 `el cocodrilo, la cocodrila` | 25 | 3 (`sugerir`, `la biología`, `la humedad`) | 0 | B1 description: 997 with examples, 978 with three, one with none | `el pintado` renamed `pintado, pintada` |
 | S47 | B1 | #783 `el pescador, la pescadora` – #810 `solicitar` | 26 | 2 (`el monumento`, `la colaboración`) | 0 | B1 description: 980 with three | — |
+| S48 | B1 | #811 `la barca` – #838 `la pila` | 23 | 5 (`visible`, `corregir`, `atlántico, atlántica`, `oral`, `el recado`) | 0 | B1 description: 982 with three | `pilas` renamed `la pila`; `tercio, tercia` renamed `el tercio` |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5368,6 +5369,36 @@ calques *audiencia* and *ingresaron al*. Five sentences shared with A1, A2 or an
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 46 → 42.
+
+### S48 — DELE B1, notes #811–#838 (Sep 2026)
+
+Measured against the S47 commit by card id: **23 changed, 975 untouched**, each a record entry. The other five
+were read and left alone: `visible`, `corregir`, `atlántico, atlántica`, `oral`, `el recado`.
+
+**TWO MORE HEADWORDS THAT WERE THE WRONG WORD.** `pilas` was glossed "be careful! watch out!" — the Latin
+American slang interjection *¡pilas!* — over three examples that were all *las pilas*, batteries, which is the
+B1 word. Renamed `la pila`. `tercio, tercia` was headed as an adjective with a feminine that is not in current
+use, and its one example of *tercia* ("Una tercia es menos que una mitad") is not Spanish; every sound example
+was the noun. Renamed `el tercio`. With S42's `el delta`, S46's `pintado` and S37's `el ave`, that is five
+renamed headwords in B1, and each passed every check the pipeline has — the generator's word is always a real
+word, just not the one on the syllabus.
+
+**THE OTHER WORD.** `calentar`'s *caliente* twice (one shared with A1's `caliente`, one with *demasiadas
+calientes*); `descargar`'s noun *descarga*; `señalar`'s noun *señales*; `abrazarse`'s *abrazaste*, which is
+*abrazar*.
+
+**THE SENSE THE EXAMPLES WERE.** `descargar` was glossed "to unload" over two download examples; `la
+alimentación` "feeding" over a diet and a power supply; `el ramo` "bough"; `amargo` "sour", which is *agrio*.
+
+**REGIONAL FORMS.** Rioplatense *querés, accedé* (`el reportaje`); Chilean *ramos* for school subjects
+(`el ramo`); *autos* (`estrecho`); American "shopping cart", "flashlight", "dialog".
+
+**AND THE REST.** `descargarse` had one example, Firefox's download figures; it has three. `de manera que` comes
+up to three. B1 moves to **982** with three examples.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+42 → 40. Two stay on it and are named: `abrazarse` ("to hug" over *hugged*, *hugging*) and `de manera que`
+("so", a word of two letters the checker ignores).
 
 ## The language-deck catalogue — the Update press and the frequency order
 
