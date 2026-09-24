@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,35 +877,39 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 956 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 957 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
     ]
    ]
   }
@@ -39404,6 +39408,573 @@
      "The workers are asking for better conditions."
     ]
    ]
+  },
+  "deleb1/la misa": {
+   "why": "The gloss is right. The first two examples were one sentence, and the second's English said 'They worship'.",
+   "dropEx": [
+    "Ellos van a misa todos los domingos"
+   ],
+   "ex": [
+    [
+     "La misa empieza a las doce.",
+     "Mass starts at twelve."
+    ]
+   ]
+  },
+  "deleb1/la riqueza": {
+   "why": "The gloss was a list. The first example is shared with encima and the third with pobre, both in A2, and both were aphorisms. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "wealth, riches"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La salud está por encima de la riqueza.",
+    "Los niños son la riqueza de los pobres."
+   ],
+   "ex": [
+    [
+     "El petróleo es la principal riqueza del país.",
+     "Oil is the country's main source of wealth."
+    ],
+    [
+     "La riqueza está mal repartida.",
+     "Wealth is unevenly distributed."
+    ]
+   ]
+  },
+  "deleb1/separado, separada": {
+   "why": "The first example was the verb separarse in the perfect, and the second's son separados should be están separadas, the countries being feminine and the state a result.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "separated",
+      "separate"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Se han separado ustedes",
+    "Irlanda e Inglaterra son separados"
+   ],
+   "ex": [
+    [
+     "Mis padres están separados.",
+     "My parents are separated."
+    ],
+    [
+     "Guarda los papeles separados de las fotos.",
+     "Keep the papers separate from the photos."
+    ]
+   ]
+  },
+  "deleb1/ligero, ligera": {
+   "why": "The gloss said 'not heavy' beside 'light'. The first example is shared with el aire in A1, and the third, 'con los corazones ligeros, Carolina', is a line of dialogue from a novel. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "light"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a la ligera — lightly, without thinking"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El aire es más ligero que el agua.",
+    "con los corazones ligeros"
+   ],
+   "ex": [
+    [
+     "Esta maleta es muy ligera.",
+     "This suitcase is very light."
+    ],
+    [
+     "Prefiero una cena ligera.",
+     "I prefer a light dinner."
+    ]
+   ]
+  },
+  "deleb1/añadir": {
+   "why": "The gloss put 'to augment' first. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to add"
+     ]
+    ]
+   ]
+  },
+  "deleb1/perdonar": {
+   "why": "The gloss did not give perdona / perdone, 'excuse me', which two examples were. The second example, a kiss and some keys, does not make sense.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to forgive"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "perdona / perdone — excuse me, sorry"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "te olvidas tu beso"
+   ],
+   "ex": [
+    [
+     "¿Me perdonas?",
+     "Will you forgive me?"
+    ]
+   ]
+  },
+  "deleb1/la lesbiana": {
+   "why": "The gloss is right. The second example, wondering why girls are not all lesbians, is not a sentence a learner needs.",
+   "dropEx": [
+    "las chicas no son todas"
+   ],
+   "ex": [
+    [
+     "Es una asociación de gays y lesbianas.",
+     "It's a gay and lesbian association."
+    ]
+   ]
+  },
+  "deleb1/acceder": {
+   "why": "The gloss was a list, 'to accede' and 'to concur' among it. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to access, to get into",
+      "to agree (acceder a)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/sentar": {
+   "why": "ALL THREE EXAMPLES WENT. The first is shared with la rodilla earlier in B1 and the third with sentado in A2; the second, 'corazón que no siente', was sentir, not sentar, and is shared with sentir in A1. The gloss did not give sentarse or sentar bien. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to sit (someone), to seat"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "sentarse — to sit down",
+      "sentar bien / mal — to suit, to agree with (someone)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No te vas a sentar en mis rodillas",
+    "corazón que no siente",
+    "estaba sentada junto a mí"
+   ],
+   "ex": [
+    [
+     "Sentamos a los niños en la primera fila.",
+     "We sat the children in the front row."
+    ],
+    [
+     "Ese vestido te sienta muy bien.",
+     "That dress really suits you."
+    ],
+    [
+     "La cena me sentó mal.",
+     "The dinner disagreed with me."
+    ]
+   ]
+  },
+  "deleb1/pacífico, pacífica": {
+   "why": "The first example was the Pacific Ocean and is shared with el océano earlier in B1; the second is not natural Spanish; and the third said 'we don't want a peaceful solution'. The gloss did not give el Pacífico. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "peaceful"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el Pacífico — the Pacific"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "atravesar el océano Pacífico",
+    "no eran personas pacíficas",
+    "No queremos una solución pacífica"
+   ],
+   "ex": [
+    [
+     "Fue una manifestación pacífica.",
+     "It was a peaceful demonstration."
+    ],
+    [
+     "Es un hombre muy pacífico.",
+     "He's a very peaceful man."
+    ],
+    [
+     "Buscamos una solución pacífica al conflicto.",
+     "We're looking for a peaceful solution to the conflict."
+    ]
+   ]
+  },
+  "deleb1/comunista": {
+   "why": "The gloss said 'communist' three times, 'communistic' among them. The third example, '¿o si?, sí', is garbled.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "communist"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el/la comunista — communist"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No eres comunista, ¿o si?"
+   ],
+   "ex": [
+    [
+     "El Partido Comunista ganó las elecciones.",
+     "The Communist Party won the election."
+    ]
+   ]
+  },
+  "deleb1/la contraseña": {
+   "why": "'countersign' is not a sense a learner needs. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "password"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el jabón": {
+   "why": "The gloss is right. The first example is shared with caer earlier in B1 and the third with el ojo in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "soap"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "se te caiga el jabón",
+    "El jabón me hizo daño en los ojos"
+   ],
+   "ex": [
+    [
+     "Lávate las manos con agua y jabón.",
+     "Wash your hands with soap and water."
+    ],
+    [
+     "Se ha acabado el jabón.",
+     "The soap has run out."
+    ]
+   ]
+  },
+  "deleb1/cristiano, cristiana": {
+   "why": "The gloss gave the adjective only while every example was the noun.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "Christian"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el cristiano, la cristiana — Christian"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el oriente": {
+   "why": "The gloss gave 'east' and not the East. The second example is a line of the Philippine national anthem, and the third's English said 'from Arabia' for desde Oriente Medio, and wrote medio in lower case.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "east"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "Oriente Medio / Próximo — the Middle East",
+      "el Lejano Oriente — the Far East"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "perla del Mar de",
+    "introducido a Europa desde"
+   ],
+   "ex": [
+    [
+     "El sol sale por el oriente.",
+     "The sun rises in the east."
+    ],
+    [
+     "Viajó por el Lejano Oriente.",
+     "He travelled around the Far East."
+    ]
+   ]
+  },
+  "deleb1/atravesar": {
+   "why": "The gloss put 'to traverse' in a list. The first example's 'Después de once segundos' is not a sentence anyone says.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cross",
+      "to go through"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "atravesar un mal momento — to go through a bad patch"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Después de once segundos"
+   ],
+   "ex": [
+    [
+     "Atravesamos el desierto en coche.",
+     "We crossed the desert by car."
+    ]
+   ]
+  },
+  "deleb1/el oficio": {
+   "why": "The gloss gave 'profession' and 'office' and not 'trade', which the examples are. The third's English said 'work experience'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "trade, craft",
+      "job, occupation"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "experiencia en el",
+     "He still has no experience in the trade."
+    ]
+   ]
+  },
+  "deleb1/marinero, marinera": {
+   "why": "The gloss put the adjective first while every example was the noun.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "sailor"
+     ]
+    ],
+    [
+     "adjective",
+     [
+      "seafaring, sea (un pueblo marinero)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/despedir": {
+   "why": "The gloss did not give 'to see off' or despedirse, 'to say goodbye', which is how the verb is most often met. The three examples were all a sacking.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to dismiss, to sack",
+      "to see off"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "despedirse — to say goodbye"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Dani despidió a Lucía"
+   ],
+   "ex": [
+    [
+     "Fuimos al aeropuerto a despedir a mi hermano.",
+     "We went to the airport to see my brother off."
+    ]
+   ]
+  },
+  "deleb1/el polo": {
+   "why": "The gloss did not give a polo shirt or, in Spain, an ice lolly. The first and third examples were one sentence about Santa at the North Pole.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "pole",
+      "polo shirt",
+      "(Spain) ice lolly"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Santa Claus vive en el Polo Norte."
+   ],
+   "ex": [
+    [
+     "Llevaba un polo azul.",
+     "He was wearing a blue polo shirt."
+    ]
+   ]
+  },
+  "deleb1/reducir": {
+   "why": "The gloss was a list. The first example is the costo sentence S30 dropped from por lo tanto, costo being Latin American for coste, and the third, 'un avión a escala reducida', is S35's dropped model-plane sentence reworded.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to reduce, to cut"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "reducir el costo",
+    "un avión a escala"
+   ],
+   "ex": [
+    [
+     "Hay que reducir el consumo de agua.",
+     "We need to reduce water consumption."
+    ],
+    [
+     "Redujeron el precio a la mitad.",
+     "They cut the price by half."
+    ]
+   ]
+  },
+  "deleb1/el elemento": {
+   "why": "The gloss gave Wiktionary's two definitions. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "element"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la orilla": {
+   "why": "The gloss was a list. The third example, 'Fui a la orilla cerca de aquí', was rendered 'I went to the store near by'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "shore, bank"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a orillas de — on the banks of, on the shores of"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Fui a la orilla cerca de aquí"
+   ],
+   "ex": [
+    [
+     "Paseamos por la orilla del mar.",
+     "We walked along the seashore."
+    ]
+   ]
+  },
+  "deleb1/reparar": {
+   "why": "The gloss put 'to notice' first, which is reparar en, and carried a stray 'N' line. The second example used auto, Latin American for coche.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to repair, to mend"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "reparar en — to notice"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "me reparen el auto"
+   ],
+   "ex": [
+    [
+     "Nadie reparó en su ausencia.",
+     "Nobody noticed his absence."
+    ]
+   ]
+  },
+  "deleb1/el flash": {
+   "why": "The card had two examples and both were Adobe Flash on an iPad. The gloss gave 'freezie, freeze pop'. A camera flash is what the word is.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "(camera) flash"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "iPad sería un mejor producto",
+    "Quiere un dispositivo portátil que soporte"
+   ],
+   "ex": [
+    [
+     "No uses el flash en el museo.",
+     "Don't use the flash in the museum."
+    ],
+    [
+     "La foto salió mal por el flash.",
+     "The photo came out badly because of the flash."
+    ],
+    [
+     "Esta cámara tiene flash automático.",
+     "This camera has an automatic flash."
+    ]
+   ]
   }
  },
  "insert": {
@@ -39728,7 +40299,10 @@
    "el comentario",
    "necesariamente",
    "el mensajero, la mensajera",
-   "la cortesía"
+   "la cortesía",
+   "el voluntario, la voluntaria",
+   "arrogante",
+   "entrenar"
   ]
  }
 }

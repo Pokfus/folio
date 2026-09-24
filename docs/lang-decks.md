@@ -3493,6 +3493,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S36 | B1 | #475 `el cirujano, la cirujana` – #502 `evidente` | 26 | 2 (`el método`, `la asociación`) | 0 | B1 description: 958 with three | — |
 | S37 | B1 | #503 `la atmósfera` – #530 `curar` | 26 | 2 (`grabar`, `el comentario`) | 0 | — | `la ave` renamed `el ave`; six more `la` + stressed a- headwords found in B2–C2 |
 | S38 | B1 | #531 `el elefante, la elefanta` – #558 `trabajador, trabajadora` | 25 | 3 (`necesariamente`, `el mensajero, la mensajera`, `la cortesía`) | 0 | — | — |
+| S39 | B1 | #559 `la misa` – #586 `el flash` | 25 | 3 (`el voluntario, la voluntaria`, `arrogante`, `entrenar`) | 0 | B1 description: 959 with three | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5061,6 +5062,57 @@ examples.
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 69 → 67. `levantado` stays on it under its new gloss "up, out of bed": its examples read "was up", "stayed up"
 and "had her hand up", and the checker ignores words under three letters — named here as a false positive.
+
+### S39 — DELE B1, notes #559–#586 (Sep 2026)
+
+Measured against the S38 commit by card id: **25 changed, 973 untouched**. The 25 are each a record
+entry. Three cards were read and left alone: `el voluntario, la voluntaria`, `arrogante` and `entrenar`.
+
+**A CARD WHOSE SUBJECT WAS SOMETHING ELSE ENTIRELY.** `el flash` had two examples, and both were about
+Adobe Flash on an iPad. Its gloss read "flash • freezie • freeze pop". The word means a camera flash.
+The card now has three new examples on that sense.
+
+**THREE CARDS THAT LOST EVERY EXAMPLE.**
+- `sentar`:
+  - its first example was shared with `la rodilla` earlier in B1;
+  - its second, *corazón que no siente*, was *sentir*, not *sentar*, and is shared with A1's `sentir`;
+  - its third was shared with A2's `sentado`.
+
+  The gloss now gives *sentarse* and *sentar bien*.
+- `pacífico`: its first example was the Pacific Ocean, a sentence shared with `el océano` earlier in
+  B1. Its third said "We don't want a peaceful solution".
+- `el flash`, above.
+
+**THE OTHER WORD.** `separado`'s first example was the verb *separarse* in the perfect. `el oriente`'s
+second was a line from the Philippine national anthem. Its third rendered *Oriente Medio* as
+"Arabia".
+
+**SENSES THE GLOSS DID NOT HAVE.** Several glosses left out the sense a learner meets most:
+
+| card | sense added |
+|---|---|
+| `despedir` | "to see off" and *despedirse* ("to say goodbye"); all three examples had been a sacking |
+| `el polo` | a polo shirt, and in Spain an ice lolly |
+| `reparar` | "to repair" first; its gloss had led with "to notice", which is *reparar en* |
+| `perdonar` | *perdona* / *perdone*, "excuse me" |
+| `cristiano`, `marinero` | the noun, which was every example |
+
+**SENTENCES DROPPED ELSEWHERE, BACK AGAIN.** `reducir`'s first example was *Por lo tanto es necesario
+reducir el costo*. S30 dropped that same sentence from `por lo tanto`, because *costo* is Latin
+American. Its third example was a model plane *a escala*, the shape of the sentence S35 dropped from
+`la escala`.
+
+**AND THE REST.**
+- `la orilla` translated *Fui a la orilla cerca de aquí* as "I went to the store near by".
+- `la lesbiana` asked why girls are not all lesbians.
+- `comunista` carried the garbled line *¿o si?, sí*.
+- Nine sentences shared with A1, A2 or an earlier B1 card were replaced.
+- `el flash` now has three examples, which brings B1 to 959 cards with three out of 998.
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and the batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 67 to 65. `sentar` stays on that list under its new gloss.
+Its examples read "sat", "suits" and "disagreed with", and the checker does not match the irregular
+past "sat" to "sit", so this is a false positive.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
