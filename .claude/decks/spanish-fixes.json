@@ -318,7 +318,7 @@
    ]
   },
   "delea2": {
-   "why": "The A2 read began in Sep 2026, in batches of twenty to thirty cards in deck order. The deck-level passes A1 already carries are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast (Tom alone appears 186 times in A2's English), its American spellings and its American usage. Ann is added to the name table, the A2 sentences carrying her where A1's did not. dropDup removes four cards A1 now teaches — como, cuando and donde were INSERTED by the A1 review after A2 had been built, and la vez was in both levels already — which is exactly what a rebuild of A2 against today's A1 would do, since the generator excludes every word the shipped lower decks hold. The counts of nouns (256), feminine pairs (70), verbs (111) and reflexives (31) are the GENERATOR's and are deliberately not recomputed, on A1's reasoning; the word count and the example-sentence claim are corrected, and the sentence adding the two levels together is taken out, a combined figure being one that goes wrong whenever either deck moves. The example claim was already wrong when the deck shipped: it said three sentences for 496 of 499 words where the file had 487, and now reads 484 of 495, with cabeza brought up to three and the four dropped cards having had three each. The same widening of the name table as A1's (batch S2): five A2 sentences said María in the Spanish and Ana in the English. Batch S2 brought abajo up to three examples: 485 of 495. Batch S3 brought el sexo up to three: 486 of 495.",
+   "why": "The A2 read began in Sep 2026, in batches of twenty to thirty cards in deck order. The deck-level passes A1 already carries are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast (Tom alone appears 186 times in A2's English), its American spellings and its American usage. Ann is added to the name table, the A2 sentences carrying her where A1's did not. dropDup removes four cards A1 now teaches — como, cuando and donde were INSERTED by the A1 review after A2 had been built, and la vez was in both levels already — which is exactly what a rebuild of A2 against today's A1 would do, since the generator excludes every word the shipped lower decks hold. The counts of nouns (256), feminine pairs (70), verbs (111) and reflexives (31) are the GENERATOR's and are deliberately not recomputed, on A1's reasoning; the word count and the example-sentence claim are corrected, and the sentence adding the two levels together is taken out, a combined figure being one that goes wrong whenever either deck moves. The example claim was already wrong when the deck shipped: it said three sentences for 496 of 499 words where the file had 487, and now reads 484 of 495, with cabeza brought up to three and the four dropped cards having had three each. The same widening of the name table as A1's (batch S2): five A2 sentences said María in the Spanish and Ana in the English. Batch S2 brought abajo up to three examples: 485 of 495. Batch S3 brought el sexo up to three: 486 of 495. Batch S4 added Michael, Linda, Jenny and Bill to the name table, the A2 sentences carrying them where A1's did not. Batch S4 brought el dolor up to three: 487 of 495.",
    "subtitle": "495 more words, none of them in A1 · both directions, as two cards per word",
    "dropDup": {
     "como": "delea1",
@@ -341,7 +341,7 @@
     ],
     [
      "Every word also carries real example sentences, three of them for 496 of the 499 and one or two where the corpus had no more,",
-     "Every word also carries example sentences, three of them for 486 of the 495 and one or two where the corpus had no more,"
+     "Every word also carries example sentences, three of them for 487 of the 495 and one or two where the corpus had no more,"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -353,11 +353,15 @@
     ],
     [
      "three of them for 484 of the 495",
-     "three of them for 486 of the 495"
+     "three of them for 487 of the 495"
     ],
     [
      "three of them for 485 of the 495",
-     "three of them for 486 of the 495"
+     "three of them for 487 of the 495"
+    ],
+    [
+     "three of them for 486 of the 495",
+     "three of them for 487 of the 495"
     ]
    ],
    "exNames": [
@@ -444,6 +448,22 @@
     [
      "Juan",
      "Javier"
+    ],
+    [
+     "Michael",
+     "Miguel"
+    ],
+    [
+     "Linda",
+     "Lucía"
+    ],
+    [
+     "Jenny",
+     "Julia"
+    ],
+    [
+     "Bill",
+     "Jorge"
     ]
    ],
    "exBritish": true,
@@ -17852,6 +17872,730 @@
      "I need eight hours' sleep."
     ]
    ]
+  },
+  "delea2/ambos": {
+   "why": "'Carlos no puede darse el lujo de ambos' is a calque of 'can't afford both' that no Spanish speaker would say, and the card did not show ambos before a noun, which is its commonest position. Its feminine was in no Forms row.",
+   "senses": [
+    [
+     "determiner, pronoun",
+     [
+      "both (ambos libros, ambas cosas)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "feminine",
+     "ambas"
+    ]
+   ],
+   "dropEx": [
+    "darse el lujo de ambos"
+   ],
+   "ex": [
+    [
+     "Ambos hermanos viven en Madrid.",
+     "Both brothers live in Madrid."
+    ]
+   ]
+  },
+  "delea2/el dolor": {
+   "why": "The gloss ran seven words of one sense together — 'pain, ache, aching soreness, tenderness (physical)' — and only two examples, one of them an A1 sentence. dolor de + body part is the construction an A2 reader needs, and grief has an example now. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "pain, ache (dolor de cabeza — headache)",
+      "grief, sorrow"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Se me ha ido el dolor de cabeza."
+   ],
+   "ex": [
+    [
+     "Tengo dolor de espalda.",
+     "I've got backache."
+    ],
+    [
+     "Sintió un gran dolor cuando murió su padre.",
+     "He felt great grief when his father died."
+    ]
+   ]
+  },
+  "delea2/ganar": {
+   "why": "NONE OF THE THREE EXAMPLES TAUGHT THE CARD, AND THE GLOSS LEFT OUT 'TO WIN'. Two were the noun las ganas ('me da la gana', 'no tengo ganas de'), matched on shared letters; the third is seguro's sentence, kept there. 'to win' is the commonest sense there is. The noun goes in Forms, and the three senses get an example each. SHARED WITH AN EARLIER A2 CARD, which keeps it.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to win",
+      "to earn",
+      "to gain, to put on (weight: he ganado dos kilos)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "also",
+     "las ganas — wish, desire (tener ganas de — to feel like)"
+    ]
+   ],
+   "dropEx": [
+    "Estoy seguro de que ellos van a ganar.",
+    "lo que me da la gana",
+    "no tengo ganas de beber alcohol"
+   ],
+   "ex": [
+    [
+     "España ganó el partido.",
+     "Spain won the match."
+    ],
+    [
+     "Mi hermana gana mucho dinero.",
+     "My sister earns a lot of money."
+    ],
+    [
+     "He ganado dos kilos.",
+     "I've put on two kilos."
+    ]
+   ]
+  },
+  "delea2/la cita": {
+   "why": "The first and third examples were the same sentence twice — an appointment at half past two — and the romantic date, the gloss's first sense, had none.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "appointment",
+      "date (romantic)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "pedir cita — to make an appointment"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Tengo una cita a las dos y media."
+   ],
+   "ex": [
+    [
+     "Esta noche tengo una cita con Ana.",
+     "Tonight I have a date with Ana."
+    ]
+   ]
+  },
+  "delea2/pobre": {
+   "why": "The gloss had been split into bullets inside its brackets ('lacking money', 'resources', 'etc.)'), and it did not say what decides the sense: pobre after the noun is poor, before it is pitiable. The examples show both and are kept.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "poor (without money: un hombre pobre)",
+      "poor, unfortunate (before the noun: ¡pobre chico!)"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "los pobres — the poor"
+     ]
+    ]
+   ]
+  },
+  "delea2/tras": {
+   "why": "A dictionary's list of five, where the card needs to say that tras is the formal 'after' beside después de. 'cierre la puerta tras de usted' is not current Spanish (tras usted), and it and 'tras tres años' are both A1 sentences. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "preposition",
+     [
+      "after (more formal than después de: tras la cena)",
+      "behind"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "día tras día — day after day"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "cierre la puerta tras de usted",
+    "tras tres años de ausencia"
+   ],
+   "ex": [
+    [
+     "Tras la cena, salimos a pasear.",
+     "After dinner, we went out for a walk."
+    ],
+    [
+     "Día tras día, espera su carta.",
+     "Day after day, she waits for his letter."
+    ]
+   ]
+  },
+  "delea2/propio, propia": {
+   "why": "'El pone las plumas para su propio nido' is an English idiom translated word for word into nonsense, with the pronoun él missing its accent. 'proper' is not what propio means; 'typical of' (propio de) is.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "own (mi propio coche)",
+      "typical, characteristic (propio de)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "las plumas para su propio nido"
+   ],
+   "ex": [
+    [
+     "Tengo mi propio coche.",
+     "I have my own car."
+    ]
+   ]
+  },
+  "delea2/el alrededor": {
+   "spanish": "alrededor",
+   "word": "alrededor",
+   "why": "THE HEADWORD WAS A NOUN NOBODY USES IN THE SINGULAR. el alrededor does not stand on its own; the word is the adverb alrededor and alrededor de, 'around', which two of the three examples are, and the plural noun los alrededores, 'surroundings', which the third is. The headword becomes alrededor, with the plural noun beneath it, and 'about' for a time or a number is added. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "around (alrededor de la mesa)",
+      "about, around (a time or number: alrededor de las ocho)"
+     ]
+    ],
+    [
+     "noun, masculine plural",
+     [
+      "los alrededores — the surroundings, the outskirts"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "echó una mirada alrededor de la habitación"
+   ],
+   "ex": [
+    [
+     "Llegaremos alrededor de las ocho.",
+     "We'll arrive at around eight."
+    ]
+   ]
+  },
+  "delea2/sentirse": {
+   "why": "The examples and the gloss are right; the conjugation table carried both of the generator's faults. The gerund read sintíendose (S3's -iendo fault: the accent belongs on the e) and the affirmative vosotros imperative sentios (S1's: an -ir verb's i takes its accent once the d goes, sentíos).",
+   "conjSub": [
+    [
+     "<span class=\"uc-cj-e\">sintíendose</span>",
+     "<span class=\"uc-cj-e\">sintiéndose</span>"
+    ],
+    [
+     "s<span class=\"uc-cj-e\">entios</span>",
+     "s<span class=\"uc-cj-e\">entíos</span>"
+    ]
+   ]
+  },
+  "delea2/la caja": {
+   "why": "'bank' is la caja de ahorros and not the word; the sense a reader needs in a shop — la caja, the checkout — was missing. '¿Que es lo que está en la caja?' drops the accent of the question word, and the second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "box",
+      "checkout, till (pague en la caja — pay at the checkout)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Que es lo que está en la caja?",
+    "Estas cajas tienen mucho espacio"
+   ],
+   "ex": [
+    [
+     "¿Qué hay en la caja?",
+     "What's in the box?"
+    ],
+    [
+     "Pague en la caja, por favor.",
+     "Please pay at the checkout."
+    ]
+   ]
+  },
+  "delea2/tranquilo, tranquila": {
+   "why": "'somewhere private' is not what 'algún sitio tranquilo' says, and ¡tranquilo! — 'calm down', 'don't worry' — the everyday use, was not on the card.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "calm, quiet, peaceful"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡tranquilo! — calm down!, don't worry!",
+      "dejar tranquilo — to leave alone"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Vayamos a algún sitio tranquilo",
+     "Let's go somewhere quiet where we can talk."
+    ]
+   ]
+  },
+  "delea2/salvo, salva": {
+   "spanish": "salvo",
+   "word": "salvo",
+   "boldAlso": [
+    "salvos"
+   ],
+   "why": "THE CARD TAUGHT THE WRONG WORD. salvo as an adjective meaning 'safe' survives only in a salvo and sano y salvo; the A2 word is the preposition salvo, 'except' (todos salvo tú), which the card never mentioned. Its examples were a salvo in an A1 sentence, the verb salvar ('quien salva una vida'), and 'los niños están salvos', which is not how Spanish says it. The headword becomes salvo, its feminine and plurals go, and the two phrases stay. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "preposition",
+     [
+      "except (todos salvo tú)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a salvo — safe",
+      "sano y salvo — safe and sound"
+     ]
+    ]
+   ],
+   "forms": [],
+   "dropEx": [
+    "Este país está a salvo de un ataque.",
+    "Quien salva una vida",
+    "Los niños están salvos."
+   ],
+   "ex": [
+    [
+     "Abrimos todos los días salvo los lunes.",
+     "We're open every day except Mondays."
+    ],
+    [
+     "Todos vinieron salvo Carlos.",
+     "Everyone came except Carlos."
+    ],
+    [
+     "Los niños llegaron sanos y salvos.",
+     "The children arrived safe and sound."
+    ]
+   ]
+  },
+  "delea2/el hambre": {
+   "why": "Every example was tener hambre, one construction three times, and the card did not say what it shares with el agua: a feminine noun beginning with a stressed a- takes el in the singular — el hambre, but mucha hambre. 'las hambres' is not a plural anyone uses.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "hunger"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tener hambre — to be hungry",
+      "morirse de hambre — to be starving"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "gender",
+     "feminine, but takes el in the singular: el hambre, mucha hambre"
+    ]
+   ],
+   "dropEx": [
+    "No me puedo creer que todavía tengas hambre.",
+    "No he comido desde el desayuno"
+   ],
+   "ex": [
+    [
+     "El hambre es un problema en muchos países.",
+     "Hunger is a problem in many countries."
+    ],
+    [
+     "Me muero de hambre.",
+     "I'm starving."
+    ]
+   ]
+  },
+  "delea2/normal": {
+   "why": "'perpendicular' is a geometric sense no A2 reader needs; 'ordinary' and de lo normal, 'than usual', which the first example is, were not named. The Yanni example is a stranger's name in a stilted sentence, and the third is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "normal, ordinary, usual"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de lo normal — than usual (más tarde de lo normal)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los pensamientos de Yanni",
+    "Su nariz es más grande de lo normal."
+   ],
+   "ex": [
+    [
+     "Es normal estar nervioso antes de un examen.",
+     "It's normal to be nervous before an exam."
+    ],
+    [
+     "Es un día normal.",
+     "It's an ordinary day."
+    ]
+   ]
+  },
+  "delea2/el traje": {
+   "why": "'Tu corbata hace buen par con tu traje' is not idiomatic (combina bien con), and traje de baño, 'swimsuit', which an A2 reader needs, was not named. The costume sense is already the third example.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "suit",
+      "costume (un traje de pirata)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "traje de baño — swimsuit"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Tu corbata hace buen par"
+   ],
+   "ex": [
+    [
+     "Mi padre va a trabajar en traje.",
+     "My father goes to work in a suit."
+    ]
+   ]
+  },
+  "delea2/la reunión": {
+   "why": "'powwow' is not a translation and 'appointment' is la cita. 'El presidente hizo la apertura a la reunión' is stilted for abrió la reunión; the get-together sense takes its place.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "meeting",
+      "get-together, gathering"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "hizo la apertura a la reunión"
+   ],
+   "ex": [
+    [
+     "Tenemos una reunión familiar el domingo.",
+     "We have a family get-together on Sunday."
+    ]
+   ]
+  },
+  "delea2/el programa": {
+   "why": "'programme' and 'program' stood as two senses when they are one word spelt two ways; the computer program, which is 'program' in British English too, had no line of its own. The second example's English said 'programs' for television programmes, and the third is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "programme (TV, radio), show",
+      "program (computer)",
+      "programme, plan (of events or studies)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La tercera temporada del programa"
+   ],
+   "exEn": [
+    [
+     "en los próximos programas",
+     "There'll be quite a lot of scenes like this in the next few programmes."
+    ]
+   ],
+   "ex": [
+    [
+     "Este programa de ordenador no funciona.",
+     "This computer program doesn't work."
+    ]
+   ]
+  },
+  "delea2/el cumpleaños": {
+   "why": "Two of the three examples were sentences other cards keep — la fiesta's in A1 and tal's in A2 — and ¡feliz cumpleaños!, which a reader will say first, was missing. The plural looks like the singular, which the card now says. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITH AN EARLIER A2 CARD, which keeps it.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "birthday"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡feliz cumpleaños! — happy birthday!"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los cumpleaños (the same form)"
+    ]
+   ],
+   "dropEx": [
+    "Por favor, ven a mi fiesta de cumpleaños.",
+    "Tal vez ella se olvidó de mi cumpleaños."
+   ],
+   "ex": [
+    [
+     "¡Feliz cumpleaños!",
+     "Happy birthday!"
+    ],
+    [
+     "¿Cuándo es tu cumpleaños?",
+     "When is your birthday?"
+    ]
+   ]
+  },
+  "delea2/cualquiera": {
+   "boldAlso": [
+    "cualquier"
+   ],
+   "why": "The card never said that before a noun the word is cualquier — any day is cualquier día — which is the form a reader meets most. 'whomever' is an archaism. The second example is the rare plural cualesquiera with an English that does not match it, and the third is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "pronoun",
+     [
+      "anyone, any (one)",
+      "cualquiera de los dos — either (of the two)"
+     ]
+    ],
+    [
+     "determiner",
+     [
+      "cualquier — any (before a noun: cualquier día)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "before a noun",
+     "cualquier"
+    ],
+    [
+     "plural",
+     "cualesquiera (rare)"
+    ]
+   ],
+   "dropEx": [
+    "Eso me libera de cualesquiera",
+    "ayuda a cualquiera que se lo pida"
+   ],
+   "ex": [
+    [
+     "Puedes venir cualquier día.",
+     "You can come any day."
+    ],
+    [
+     "Eso lo sabe cualquiera.",
+     "Anyone knows that."
+    ]
+   ]
+  },
+  "delea2/necesario, necesaria": {
+   "why": "'requisite' is not a translation an A2 reader needs, and 'Favor de entregar…' is Latin American (Spain says Por favor, entreguen…). es necesario + infinitive, the construction the word lives in, had no example.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "necessary"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "es necesario + infinitive — you need to, it's necessary to"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Favor de entregar"
+   ],
+   "ex": [
+    [
+     "Es necesario llevar el pasaporte.",
+     "You need to bring your passport."
+    ]
+   ]
+  },
+  "delea2/la sal": {
+   "why": "'¿Por qué no te sales de la casa?' is the verb salir, matched on shared letters; that coincidence, and the imperative sal that looks exactly like the noun, go in Forms. 'table salt' was the gloss said twice.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "salt"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las sales"
+    ],
+    [
+     "also",
+     "sal — tú imperative of salir: ¡sal de aquí!"
+    ]
+   ],
+   "dropEx": [
+    "¿Por qué no te sales de la casa?"
+   ],
+   "ex": [
+    [
+     "¿Me pasas la sal?",
+     "Could you pass me the salt?"
+    ]
+   ]
+  },
+  "delea2/el suelo": {
+   "why": "The gloss ran 'dirt, earth, ground, soil' together and gave 'ground' twice; all three examples were the floor of a house, two of them in the plural. The ground and the soil get an example each.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "floor",
+      "ground",
+      "soil"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Todos los suelos de su casa",
+    "Tengo que fregar los suelos."
+   ],
+   "ex": [
+    [
+     "Se me cayó el móvil al suelo.",
+     "I dropped my phone on the ground."
+    ],
+    [
+     "El suelo de esta zona es muy fértil.",
+     "The soil in this area is very fertile."
+    ]
+   ]
+  },
+  "delea2/el gobierno": {
+   "why": "Right as a card; the second translation said 'various' twice.",
+   "exEn": [
+    [
+     "publica documentos secretos",
+     "This website publishes secret documents from several governments."
+    ]
+   ]
+  },
+  "delea2/la cámara": {
+   "why": "'room' is an archaic sense (a chamber); what the card needed was cámara de fotos, the everyday name for a camera, and the parliamentary chamber. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "camera (la cámara de fotos)",
+      "chamber (la Cámara de Diputados)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ella le compró una cámara a su hijo."
+   ],
+   "ex": [
+    [
+     "Siempre llevo la cámara de fotos en la mochila.",
+     "I always carry my camera in my rucksack."
+    ]
+   ]
+  },
+  "delea2/la media": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY, AND THE GLOSS WAS TWO OTHER WORDS. 'half' is the feminine of medio (las tres y media), which has its own card; 'stocking' is las medias, which has its own card too and whose sentence this was. The first example is encima's, kept there, and the third — 'Ella gana de media 10 libras a la semana' over 'She gains on average 10 pounds a week' — is garbled beyond repair. What la media means on its own is the average. SHARED WITH AN EARLIER A2 CARD, which keeps it.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "average (la media — the average)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "see also",
+     "medio, media — half; las medias — tights, stockings"
+    ]
+   ],
+   "dropEx": [
+    "Mis notas están por encima de la media.",
+    "Se quitó los zapatos y las medias.",
+    "gana de media 10 libras"
+   ],
+   "ex": [
+    [
+     "La media de edad es de 30 años.",
+     "The average age is 30."
+    ],
+    [
+     "Duermo una media de siete horas.",
+     "I sleep an average of seven hours."
+    ],
+    [
+     "¿Cuál es la media de la clase?",
+     "What's the class average?"
+    ]
+   ]
+  },
+  "delea2/el regalo": {
+   "why": "The third example is also an A1 sentence. The other two now have Spanish names (the table gained Michael, Linda and Jenny), and the phrase for giving one had no line. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "present, gift"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hacer un regalo — to give a present"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "trae regalos cada vez que nos visita"
+   ],
+   "ex": [
+    [
+     "Te he comprado un regalo.",
+     "I've bought you a present."
+    ]
+   ]
   }
  },
  "insert": {
@@ -18111,7 +18855,9 @@
    "quizás",
    "anoche",
    "increíble",
-   "la llamada"
+   "la llamada",
+   "el negocio",
+   "la respuesta"
   ]
  }
 }

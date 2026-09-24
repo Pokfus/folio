@@ -3458,6 +3458,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S1 | A2 | #0 `como` – #29 `la persona` | 25 | 1 (`realmente`) | 4 (`como`, `cuando`, `la vez`, `donde`) | names, British, usage switched on for A2 (189 further cards touched by them alone) | `exEn`, `dropDup`; `build_deck.py`'s -ír imperative |
 | S2 | A2 | #30 `dentro` – #57 `el oído` | 27 | 1 (`quizás`) | 0 | name table widened on A1 and A2 (6 A1 cards, 6 A2 cards outside the batch) | `el/la` headword bold fix |
 | S3 | A2 | #58 `la luz` – #85 `el sueño` | 25 | 3 (`anoche`, `increíble`, `la llamada`) | 0 | — | `build_deck.py`'s enclitic gerund |
+| S4 | A2 | #86 `ambos` – #113 `el regalo` | 26 | 2 (`el negocio`, `la respuesta`) | 0 | Michael, Linda, Jenny, Bill added to the name table (1 card outside the batch) | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -3627,6 +3628,41 @@ hablar`. Senses dumped from a dictionary on `conseguir` (five near-synonyms of "
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 71 → 65; the one card
 of this batch left on it, `sino`, is a false positive for the reason `tan` was — "but" is a function word to
 the checker.
+
+### S4 — DELE A2, notes #86–#113 (Sep 2026)
+
+Measured against the S3 commit by card id: **27 changed, 468 untouched** — 26 record entries and `suspender`,
+touched only by the name table — plus the description's three-example count, 486 → 487.
+
+**THREE MORE HEADWORDS WERE THE WRONG WORD.** `salvo, salva` taught an adjective "safe" that survives only in
+*a salvo* and *sano y salvo*, where the A2 word is the preposition *salvo*, "except"; its examples were an A1
+sentence, the verb *salvar* and a sentence no Spanish speaker would say. `el alrededor` is a singular noun
+that does not stand on its own — the word is the adverb *alrededor (de)* and the plural *los alrededores*.
+`la media` was glossed with two OTHER cards' words — "half" is the feminine of `medio` and "stocking" is
+`las medias`, whose own sentence it was carrying — and what it does mean, "the average", had no line; none of
+its three examples could stay. **Three batches running have turned up a card whose headword is a rare
+member of a family whose common member the examples show** (`el vale`, `el sino`, now `salvo`); it is the
+generator choosing the Wiktionary record for the headword's exact spelling rather than for the sense its
+corpus actually uses, and it is worth asking of every noun or adjective whose examples look like another
+part of speech.
+
+**AND THE LOOK-ALIKE WORD, AGAIN**: `ganar`'s three examples were none of them the card — two were the noun
+*las ganas* (*me da la gana*, *no tengo ganas*) and the third was `seguro`'s sentence — and its gloss did not
+say "to win". `la sal` had the verb *salir* (*¿Por qué no te sales…?*), which with the imperative *sal* now
+sits in Forms.
+
+**THE CONJUGATION FAULTS ARE WHERE S1 AND S3 SAID THEY WOULD BE**: `sentirse` carried both — *sintíendose*
+and *sentios* — and both are corrected here. 117 of the 119 remain, in their own batches.
+
+**THE REST**: the deck's Spanish (*¿Que es…?* without its accent, *tras de usted*, *Favor de entregar*
+[Latin American], *hace buen par con*, *hizo la apertura a la reunión*, a word-for-word English idiom on
+`propio`); dictionary junk (`normal` "perpendicular", `la reunión` "powwow", `necesario` "requisite", `la
+caja` "bank", `la cámara` "room"); `el hambre` given the same *el*-before-stressed-*a* note as A1's `el agua`
+and its non-existent plural removed; `cualquiera` finally saying *cualquier* before a noun; two near-identical
+examples on `la cita`; and `el cumpleaños` losing two sentences other cards keep.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 65 → 61; the two batch
+cards left on it, `ambos` ("both") and `propio` ("own"), are false positives of the function-word kind.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
