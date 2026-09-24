@@ -1570,16 +1570,63 @@ the alias are the same string.
              `Ajax_the_Great` takes the alias `Ajax` and the two cannot collide. A first draft said he
              was “never helped by a god”, which nothing openable bears out; it was replaced by the
              *Iliad*'s own “bulwark of the Achaeans”. Dot: Salamis
-    gr-951  Odysseus
-    gr-952  The Trojan Horse
-    gr-953  The Epic Cycle
-    gr-954  The Nostoi
-    gr-955  The return of Agamemnon
-    gr-956  Orestes
-    gr-957  The wanderings of Odysseus
-    gr-958  Polyphemus
-    gr-959  Circe
-    gr-960  The Sirens
+    gr-951  Odysseus — written. The glossary already held `Odysseus`, cited and at the bar, so the
+             pairing rule was satisfied and `add-glossary.js` was NOT run on it; the term was given a
+             picture instead. Its locator cost a round: the Wikipedia article *Ithaca* carries no
+             primary coordinate, so `add-locators.js` refused it, and a hand-typed pair written while
+             drafting had to be removed rather than kept. `Ithaki`, which redirects to *Ithaca
+             (island)*, resolves and yields the island's own coordinate — **when an article has no
+             coordinate, try its redirects before typing one**
+    gr-952  The Trojan Horse — written, answered by `Trojan Horse`. Homer's account of it is a SONG
+             INSIDE the poem, sung by Demodocus at Odysseus' own request, which is the shape the card
+             takes; the three courses the Trojans debate (cut it open, throw it from the rocks, leave
+             it as an offering) are the *Odyssey*'s own. Dot: Troy
+    gr-953  The Epic Cycle — written. Answered by `Epic Cycle`, whose bare surface was measured over
+             the shipped corpus at three card abstracts, all three correct. Aristotle is cited for the
+             contrast between Homer's unity and a poem that strings a period together, and the
+             card states that whether the lost poems drew on Homer or on the same older tradition is
+             still argued. No locator: a group of poems stands nowhere
+    gr-954  The Nostoi — written, answered by `Nostoi`. **It is the batch's one card with no picture,
+             recorded rather than skipped**: the subject is a poem that does not survive, and every
+             free picture of what it narrated is already carried by a card on that episode — five
+             searches (the returns, a bard singing, Diomedes, the wreck off Euboea, a Cycle papyrus)
+             returned nothing whose subject is this poem. The `Nostoi` term has none for the same
+             reason. Its own theme is carded from the *Odyssey*'s own performance of it, Phemius
+             singing the returns until Penelope asks for something else
+    gr-955  Clytemnestra — retitled from *The return of Agamemnon*, which is an event where the card
+             wants a term, and the term is the one a reader meets again. Homer tells the murder TWICE
+             and not alike — Nestor makes Aegisthus the mover and says she at first put the deed from
+             her, Agamemnon's own ghost puts her hand on Cassandra — so both passages are cited rather
+             than one harmonised account. Dot: Mycenae
+    gr-956  Orestes — written. **The key is the bare `Orestes` and the cost is recorded here rather
+             than hidden**: the surface matches nine shipped abstracts, of which three are a different
+             man — `wh-375` Orestes the patrician, father of Romulus Augustulus, and `rm-255` and
+             `gr-863` the Roman commissioner Lucius Aurelius Orestes. The `Neville_Chamberlain`
+             refusal (six right, three wrong) says no; `Cell_(biology)`'s dominant-sense rule says
+             yes, and on a Greek-myth site the myth is the dominant sense and `Orestes` is the
+             Wikipedia slug. Taken deliberately, with those three cards named. Dot: Tegea, where
+             Delphi told Sparta the bones lay
+    gr-957  The wanderings of Odysseus — retitled to `Apologoi`, the scholarly name for the four
+             books in which Odysseus narrates his own adventures. The term was VERIFIED LIVE before
+             being adopted, appearing in BMCR 2026.08.28 (Grethlein) and 1996.04.27 (Cook/Ford)
+             rather than being coined here. Difficulty 5. No locator: the section is a stretch of
+             text, not a place
+    gr-958  Polyphemus — written. The card rests on the Cyclops book's finding that the Greeks knew
+             THREE kinds of Cyclops — this pastoral ogre, the smiths at the forge, and the builders
+             credited with the Cyclopean walls — so the term is not a single creature. No locator:
+             Homer does not say where the Cyclopes' land is, and a dot would assert what the poem
+             declines to
+    gr-959  Circe — written. The card says she is never actually called a magician and that “magic” is
+             an anachronism applied to Homer, which is Franco's argument in the Mythologica volume and
+             is cited to Edmunds' English review of it rather than asserted. The Italian TITLE is
+             the only non-English thing in the apparatus, and it is one source, so `check-cards.js`
+             rule 6 does not bind. No locator: Aeaea is not a place on any map
+    gr-960  The Sirens — retitled to the singular `Siren`, on the `nymph` precedent at gr-918. Two
+             findings shape it: what they sing is KNOWLEDGE, since they claim to know everything
+             suffered at Troy and promise the listener goes away wiser, and Homer uses the DUAL of
+             them, which is why the names, the parents, the instruments and even the number are all
+             later. `Siren` auto-pluralises, so no alias was needed; its bare surface matches three
+             abstracts, all of them siren protomai on orientalising cauldrons and all correct
     gr-961  Scylla and Charybdis
     gr-962  Calypso
     gr-963  Penelope
