@@ -15746,19 +15746,19 @@
       "gloss": "the first ten days of a month"
     },
     "hsk30l6/下功夫": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. This record's 学好一门语言要下功夫 and 想学好就得下功夫 were one sentence twice. The second is replaced by an AUTHORED sentence.",
       "ex": [
         [
           "学好一门语言要下功夫。",
           "Learning a language well takes real effort."
         ],
         [
-          "想学好就得下功夫。",
-          "If you want to master it you must put in the work."
-        ],
-        [
           "写字要下功夫练习。",
           "Writing well needs painstaking practice."
+        ],
+        [
+          "为了这次比赛，他下功夫练了半年。",
+          "He put in six months of hard practice for this competition."
         ]
       ]
     },
@@ -15780,34 +15780,37 @@
       ]
     },
     "hsk30l6/下旬": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. This record's 项目将在本月下旬完成 and 活动定在本月下旬 were one phrase twice. The second is replaced by an AUTHORED sentence; the gloss is the English idiom.",
       "ex": [
         [
           "项目将在本月下旬完成。",
           "The project will be finished in the last third of this month."
         ],
         [
-          "活动定在本月下旬。",
-          "The event is set for late this month."
-        ],
-        [
           "下旬他要出差。",
           "He is going on a trip late in the month."
-        ]
-      ]
-    },
-    "hsk30l6/下线": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | `gonna` is a spoken contraction that no learner should be shown as written English, and the decks' English is standard everywhere else. Measured: four sites across three decks, all corrected in this batch.",
-      "ex": [
+        ],
         [
-          "暂时下线洗澡吃饭，过40分左右回来!",
-          "Break for bath & food, back in about 40 minutes!"
+          "三月下旬天气开始变暖。",
+          "The weather starts to warm up in late March."
         ]
       ],
-      "exEn": [
+      "gloss": "the last ten days of a month; late in the month"
+    },
+    "hsk30l6/下线": {
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | `gonna` is a spoken contraction that no learner should be shown as written English, and the decks' English is standard everywhere else. Measured: four sites across three decks, all corrected in this batch. | Batch 176. 下线去洗澡 had no full stop and this record's own 暂时下线洗澡吃饭… was a chat message with a half-width '!' and a literal &amp;. Both replaced by AUTHORED sentences, the second showing CC-CEDICT's 'to roll off the production line'.",
+      "gloss": "to go offline; to log off; to roll off the production line",
+      "dropEx": [
+        "下线去洗澡"
+      ],
+      "ex": [
         [
-          "下线去洗澡",
-          "Signing off — going to take a shower."
+          "我先下线了，明天再聊。",
+          "I'm logging off now — let's chat tomorrow."
+        ],
+        [
+          "第一辆新车今天正式下线。",
+          "The first new car officially rolled off the production line today."
         ]
       ]
     },
@@ -18192,21 +18195,22 @@
       ]
     },
     "hsk30l6/喜事": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. This record's 他家最近有喜事 and 家里最近有喜事 were one sentence twice. The second is replaced by an AUTHORED sentence showing 'wedding', which CC-CEDICT gives.",
       "ex": [
         [
           "他家最近有喜事。",
           "There has been a happy event in his family lately."
         ],
         [
-          "家里最近有喜事。",
-          "There has been a happy event in the family."
-        ],
-        [
           "这是一件大喜事。",
           "This is a great occasion for joy."
+        ],
+        [
+          "为了办喜事，他们准备了好几个月。",
+          "They spent months preparing for the wedding."
         ]
-      ]
+      ],
+      "gloss": "happy occasion; wedding"
     },
     "hsk30l6/团圆": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 173. This record's 中秋节是团圆的日子 and 春节全家团圆 were both a festival. The second is replaced by an AUTHORED sentence; the gloss adds the noun the first shows.",
@@ -18526,19 +18530,19 @@
       ]
     },
     "hsk30l6/夏令营": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. This record's 孩子们参加了夏令营 and 他参加了英语夏令营 were one construction twice. The second is replaced by an AUTHORED sentence.",
       "ex": [
         [
           "孩子们参加了夏令营。",
           "The children went to summer camp."
         ],
         [
-          "他参加了英语夏令营。",
-          "He joined an English summer camp."
-        ],
-        [
           "夏令营的活动很丰富。",
           "The summer camp has plenty of activities."
+        ],
+        [
+          "夏令营结束后，孩子们都晒黑了。",
+          "By the end of summer camp the children were all suntanned."
         ]
       ]
     },
@@ -19992,19 +19996,19 @@
       ]
     },
     "hsk30l6/戏曲": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. This record's 奶奶爱听戏曲 and 爷爷喜欢听戏曲 were one sentence twice. The second is replaced by an AUTHORED sentence.",
       "ex": [
         [
           "奶奶爱听戏曲。",
           "Grandmother loves listening to Chinese opera."
         ],
         [
-          "爷爷喜欢听戏曲。",
-          "Grandpa likes listening to Chinese opera."
-        ],
-        [
           "戏曲有很多流派。",
           "Chinese opera has many schools."
+        ],
+        [
+          "京剧是中国戏曲的一种。",
+          "Peking opera is one form of Chinese opera."
         ]
       ]
     },
@@ -24502,15 +24506,15 @@
       ]
     },
     "hsk30l6/鲜明": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. This record's 30-character qipao sentence and 两者对比鲜明 were both 对比鲜明. The first is replaced by an AUTHORED sentence showing 'bright'.",
       "ex": [
-        [
-          "新的旗袍又修长又紧身，也有短裙摆，与传统式样构成了鲜明的对比。",
-          "Slender and form-fitting with a high cut, the new qipao contrasted sharply with the traditional one."
-        ],
         [
           "两者对比鲜明。",
           "The contrast between the two is sharp."
+        ],
+        [
+          "这幅画的色彩很鲜明。",
+          "The colours in this painting are bright."
         ]
       ]
     },
@@ -85188,7 +85192,7 @@
       ]
     },
     "hsk30l6/洗漱": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. 我的洗漱包落在饭店房间里了 had the headword inside 洗漱包. Replaced by an AUTHORED sentence; the gloss says what the washing is.",
       "ex": [
         [
           "他起床后先洗漱。",
@@ -85197,11 +85201,19 @@
         [
           "洗漱用品放在包里。",
           "The toiletries are in the bag."
+        ],
+        [
+          "洗漱完了就下楼吃早饭吧。",
+          "Once you've washed, come down to breakfast."
         ]
+      ],
+      "gloss": "to wash and brush one's teeth; to freshen up",
+      "dropEx": [
+        "我的洗漱包落在饭店房间里了"
       ]
     },
     "hsk30l6/系列": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. 路卡利欧是《神奇宝贝》系列中的一种生物 was two transliterated names. Replaced by an AUTHORED sentence.",
       "ex": [
         [
           "这是一个系列节目。",
@@ -85210,11 +85222,19 @@
         [
           "他写了一系列文章。",
           "He wrote a series of articles."
+        ],
+        [
+          "这套系列丛书一共有十本。",
+          "This book series has ten volumes."
         ]
+      ],
+      "gloss": "series; set",
+      "dropEx": [
+        "路卡利欧是"
       ]
     },
     "hsk30l6/现存": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. Labelled a verb and glossed with adjectives; CC-CEDICT's 'in stock' is added.",
       "ex": [
         [
           "这是现存最早的版本。",
@@ -85224,7 +85244,8 @@
           "现存的资料很少。",
           "Very little material survives."
         ]
-      ]
+      ],
+      "gloss": "extant; existing; surviving; in stock"
     },
     "hsk30l6/现货": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -87496,12 +87517,19 @@
       ]
     },
     "hsk30l6/媳妇": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. 婆婆和媳妇就像是暴风雨和冰雹 is a stereotype about mothers- and daughters-in-law. Replaced by an AUTHORED sentence showing 'daughter-in-law'.",
       "ex": [
         [
           "他媳妇是位老师。",
           "His wife is a teacher."
+        ],
+        [
+          "他们家的媳妇对老人很孝顺。",
+          "Their daughter-in-law is very devoted to the old couple."
         ]
+      ],
+      "dropEx": [
+        "婆婆和媳妇就像是暴风雨和冰雹"
       ]
     },
     "hsk30l6/细菌": {
@@ -87514,29 +87542,73 @@
       ]
     },
     "hsk30l6/细致": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. 细致地选择一本书 is an odd instruction. Replaced by an AUTHORED sentence; the gloss gains 'fine', which the second sentence shows.",
       "ex": [
         [
           "她做事很细致。",
           "She works meticulously."
+        ],
+        [
+          "医生给病人做了细致的检查。",
+          "The doctor gave the patient a thorough examination."
         ]
+      ],
+      "gloss": "careful; meticulous; fine",
+      "dropEx": [
+        "细致地选择一本书"
       ]
     },
     "hsk30l6/先前": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. 我先前在中国住了六个月's English dropped 'previously'.",
       "ex": [
         [
           "先前的说法不准确。",
           "The earlier statement was inaccurate."
         ]
+      ],
+      "exEn": [
+        [
+          "我先前在中国住了六个月",
+          "I previously lived in China for six months."
+        ]
       ]
     },
     "hsk30l6/嫌": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 176. 多听不多言，里外人不嫌 and 挑三拣四，嫌东嫌西的 were proverbs rendered as English proverbs. Both replaced by AUTHORED sentences; the gloss led with nouns under a verb label. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
       "ex": [
         [
           "他嫌房间太小。",
           "He complains the room is too small."
+        ],
+        [
+          "你别嫌我啰嗦。",
+          "Don't think I'm going on at you."
+        ],
+        [
+          "他嫌麻烦，就没去。",
+          "He couldn't be bothered, so he didn't go."
+        ]
+      ],
+      "gloss": "to dislike; to mind; suspicion; resentment",
+      "dropEx": [
+        "多听不多言",
+        "不要对人家送的礼物挑三拣四"
+      ],
+      "compounds": [
+        [
+          "嫌疑",
+          "xiányí",
+          "suspicion"
+        ],
+        [
+          "嫌弃",
+          "xiánqì",
+          "to shun; to look down on"
+        ],
+        [
+          "嫌犯",
+          "xiánfàn",
+          "criminal suspect"
         ]
       ]
     },
@@ -147344,6 +147416,294 @@
           "lapse; to make a mistake"
         ]
       ]
+    },
+    "hsk30l6/误解": {
+      "why": "Batch 176. The gloss's three verbs lacked 'to' and it named no noun, which the second sentence is.",
+      "gloss": "to misunderstand; misunderstanding"
+    },
+    "hsk30l6/吸取": {
+      "why": "Batch 176. All three sentences were 吸取教训 'to learn a lesson'. Two replaced by AUTHORED sentences showing 'to absorb' and 'to draw on'; the gloss is CC-CEDICT's.",
+      "gloss": "to absorb; to draw (a lesson); to assimilate",
+      "dropEx": [
+        "我希望汤姆已经吸取教训了",
+        "不要沉迷于过去"
+      ],
+      "ex": [
+        [
+          "植物从土壤中吸取养分。",
+          "Plants absorb nutrients from the soil."
+        ],
+        [
+          "我们要多吸取别人的经验。",
+          "We should draw more on other people's experience."
+        ]
+      ]
+    },
+    "hsk30l6/习俗": {
+      "why": "Batch 176. 不同的国家有不同的习俗 and 这些习俗和我们国家不同 were one comparison twice. The second is replaced by an AUTHORED sentence; the first's English used 'desuetude'.",
+      "dropEx": [
+        "这些习俗和我们国家不同"
+      ],
+      "exEn": [
+        [
+          "那习俗已经不再盛行了",
+          "That custom is no longer common."
+        ]
+      ],
+      "ex": [
+        [
+          "春节有很多传统习俗。",
+          "The Spring Festival has many traditional customs."
+        ]
+      ]
+    },
+    "hsk30l6/喜剧": {
+      "why": "Batch 176. All three sentences had the headword inside a longer word: 喜剧演员, 情景喜剧 and 悲喜剧. Two replaced by AUTHORED sentences showing the word itself.",
+      "dropEx": [
+        "咖啡师们该创造一个情景喜剧",
+        "谁能告诉我什么是悲喜剧吗"
+      ],
+      "ex": [
+        [
+          "我喜欢看喜剧。",
+          "I like watching comedies."
+        ],
+        [
+          "这部喜剧让观众笑个不停。",
+          "This comedy kept the audience laughing."
+        ]
+      ]
+    },
+    "hsk30l6/细胞": {
+      "why": "Batch 176. 癌细胞已经扩散到她的胃 had the headword inside 癌细胞, and its English dropped the cells. Replaced by an AUTHORED sentence.",
+      "gloss": "cell (biology)",
+      "dropEx": [
+        "癌细胞已经扩散到她的胃"
+      ],
+      "ex": [
+        [
+          "细胞是生命的基本单位。",
+          "The cell is the basic unit of life."
+        ]
+      ]
+    },
+    "hsk30l6/吓": {
+      "why": "Batch 176. The gloss led with 'threaten', CC-CEDICT's sense for the hè reading, where all three sentences are xià 'to frighten'. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "gloss": "to frighten; to scare",
+      "compounds": [
+        [
+          "吓人",
+          "xiàrén",
+          "scary; to frighten"
+        ],
+        [
+          "惊吓",
+          "jīngxià",
+          "to frighten; to terrify"
+        ],
+        [
+          "吓唬",
+          "xiàhu",
+          "to scare; to frighten"
+        ],
+        [
+          "恐吓",
+          "kǒnghè",
+          "to threaten; to menace"
+        ]
+      ]
+    },
+    "hsk30l6/鲜艳": {
+      "why": "Batch 176. 和这幅比起上来，那幅画的色彩鲜艳多了 is garbled. Replaced by an AUTHORED sentence.",
+      "dropEx": [
+        "和这幅比起上来"
+      ],
+      "ex": [
+        [
+          "她穿了一条鲜艳的红裙子。",
+          "She wore a bright red dress."
+        ]
+      ]
+    },
+    "hsk30l6/显": {
+      "why": "Batch 176. 我觉得，她想向我们显摆她的新裙子 and 那房子…被突显出来 had the character inside 显摆 and 突显. Both replaced by AUTHORED sentences; the first's English said the opposite of 他看上去显老. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "gloss": "to show; to appear; to look; obvious",
+      "dropEx": [
+        "她想向我们显摆她的新裙子",
+        "那房子因为其少有的形状被突显出来"
+      ],
+      "exEn": [
+        [
+          "他看上去显老",
+          "He looks old for his age."
+        ]
+      ],
+      "ex": [
+        [
+          "白衬衫容易显脏。",
+          "A white shirt shows the dirt easily."
+        ],
+        [
+          "穿深色衣服显瘦。",
+          "Dark clothes make you look slimmer."
+        ]
+      ],
+      "compounds": [
+        [
+          "明显",
+          "míngxiǎn",
+          "obvious; distinct"
+        ],
+        [
+          "显示",
+          "xiǎnshì",
+          "to show; to display"
+        ],
+        [
+          "显得",
+          "xiǎnde",
+          "to seem; to look"
+        ],
+        [
+          "显然",
+          "xiǎnrán",
+          "clearly; obviously"
+        ]
+      ]
+    },
+    "hsk30l6/险": {
+      "why": "Batch 176. 他险些被杀害 and 这条路挺险恶 had the character inside 险些 and 险恶. Both replaced by AUTHORED sentences; the gloss's commas are semicolons and it gains 'danger'. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "gloss": "danger; dangerous; rugged; nearly",
+      "dropEx": [
+        "他险些被杀害",
+        "这条路挺险恶"
+      ],
+      "ex": [
+        [
+          "山路很险，开车要小心。",
+          "The mountain road is dangerous, so drive carefully."
+        ],
+        [
+          "好险！差点儿就撞上了。",
+          "That was close! We nearly crashed."
+        ]
+      ],
+      "compounds": [
+        [
+          "危险",
+          "wēixiǎn",
+          "danger; dangerous"
+        ],
+        [
+          "冒险",
+          "màoxiǎn",
+          "to take risks; adventure"
+        ],
+        [
+          "风险",
+          "fēngxiǎn",
+          "risk"
+        ],
+        [
+          "保险",
+          "bǎoxiǎn",
+          "insurance; safe"
+        ]
+      ]
+    },
+    "hsk30l6/限": {
+      "why": "Batch 176. All three sentences were unsuitable or had the character inside another word: 限你三分钟内投降 had no full stop, 限量版内衣 was underwear inside 限量, and 限额 is a word of its own. All three replaced by AUTHORED sentences; the gloss led with nouns under a verb label. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "gloss": "to limit; to restrict; limit",
+      "dropEx": [
+        "限你三分钟内投降",
+        "最近这个品牌推出了一系列限量版内衣",
+        "他们提高了我的限额"
+      ],
+      "ex": [
+        [
+          "每人限买两张票。",
+          "Tickets are limited to two per person."
+        ],
+        [
+          "字数限在五百字以内。",
+          "The word count is limited to five hundred characters."
+        ],
+        [
+          "这次活动人数限五十人。",
+          "This event is limited to fifty people."
+        ]
+      ],
+      "compounds": [
+        [
+          "限制",
+          "xiànzhì",
+          "to restrict; restriction"
+        ],
+        [
+          "期限",
+          "qīxiàn",
+          "time limit; deadline"
+        ],
+        [
+          "有限",
+          "yǒuxiàn",
+          "limited"
+        ],
+        [
+          "无限",
+          "wúxiàn",
+          "unlimited"
+        ]
+      ]
+    },
+    "hsk30l6/线": {
+      "why": "Batch 176. 系统是线性的吗 and 翻译划线部分 had the character inside 线性 and 划线. Both replaced by AUTHORED sentences; the gloss's commas are semicolons. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "gloss": "thread; line; wire; route",
+      "dropEx": [
+        "系统是线性的吗",
+        "翻译划线部分"
+      ],
+      "ex": [
+        [
+          "针上穿着一根红线。",
+          "The needle is threaded with red thread."
+        ],
+        [
+          "请站在黄线以外等候。",
+          "Please wait behind the yellow line."
+        ]
+      ],
+      "compounds": [
+        [
+          "路线",
+          "lùxiàn",
+          "route"
+        ],
+        [
+          "电线",
+          "diànxiàn",
+          "wire; power cord"
+        ],
+        [
+          "在线",
+          "zàixiàn",
+          "online"
+        ],
+        [
+          "线索",
+          "xiànsuǒ",
+          "clue"
+        ],
+        [
+          "毛线",
+          "máoxiàn",
+          "knitting wool"
+        ]
+      ]
+    },
+    "hsk30l6/限度": {
+      "why": "Batch 176. The gloss 'limitation' named the abstract; all three sentences are 'limit'.",
+      "gloss": "limit; limitation"
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead. | Batch 83: SEVENTEEN DEAD ONE-SIDED HINTS RETIRED. A `not <other word>` block answers a COLLISION, and a collision is symmetric — so wherever one card of a pair carries the block and its named partner does not carry the reverse, the pair has already been separated and the survivor is disambiguating nothing. Found while repairing 动手, whose `not 上班` had outlived a rewrite of 上班's own gloss. Swept: 17 of 661 hinted cards were one-sided, and every one of the seventeen was dead — in each case the PARTNER's gloss had been sharpened by an earlier batch of this audit (书 `not 本子` against a 本子 rewritten to `a notebook; an exercise book`, 茶 `not 茶叶` against `tea leaves; tea`, 体力 `not 力气` against `muscle power, the strength to lift or push`). TWO of the seventeen were not in this record at all — 体力 and 顺利, shipped by the generator — which is the other half of the finding: THE APPLIER WRITES A HINT AND NEVER STRIPS ONE, so deleting a row here does not take a block off a deck. A dead hint is retired by rewriting the gloss, which rebuilds the English field. Re-run the one-sided sweep after any batch that rewrites a gloss.",

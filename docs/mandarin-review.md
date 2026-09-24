@@ -711,6 +711,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1291–1320 | 25 changed, 5 read and left: 27 example sentences replaced (同行 taught one reading and shown the other, a sexual sentence on 透明, a children's-book title, a political aside, fragments, calques, near-repeats), 2 translations fixed, four Compounds panels, 17 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1321–1350 | 25 changed, 5 read and left: 31 example sentences replaced (推销 and 吞 never used the word itself, 往后 glossed with a sense no sentence showed, an out-of-date fact about Prince Charles, a Taiwan slogan, calqued proverbs, near-repeats), 1 translation fixed, six Compounds panels, 18 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1351–1380 | 24 changed, 6 read and left: 22 example sentences replaced (two 为-straddles, 温和 glossed from its other reading, slogans, opinions, a calqued proverb, near-repeats), 1 translation fixed, two Compounds panels, 16 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1381–1410 | 26 changed, 4 read and left: 30 example sentences replaced (six single characters used only inside other words, a mother-in-law stereotype, transliterated names, proverbs rendered as English proverbs, chat messages, near-repeats), 3 translations fixed, six Compounds panels, 17 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12512,4 +12513,35 @@ and no version bump.
   - 为期 led with the rarer sense.
   - 文献 gained "reference material".
   - Others gained a sense their sentences show.
+
+### Batch 176 — `hsk30l6` notes 1381–1410 (误解 → 限度)
+
+26 notes changed and 4 read and left (物体, 细菌, 下单, 显著), counted against the real diff.
+
+- **Single characters inside other words.**
+  - 限 had 限量, 限额, and a line with no full stop.
+  - 显 had 显摆 and 突显. My own first replacement used 显得 and was caught on read-back.
+  - 险 had 险些 and 险恶.
+  - 线 had 线性 and 划线.
+  - 嫌 had two proverbs rendered as English proverbs.
+  - 吓 was glossed "threaten", the hè reading's sense, over three sentences using xià.
+  
+  All six gained Compounds panels.
+- **Words inside other words.**
+  - 喜剧 appeared in 喜剧演员, 情景喜剧 and 悲喜剧.
+  - 洗漱 appeared in 洗漱包.
+  - 细胞 appeared in 癌细胞, whose English also dropped the cells.
+  - 吸取 had 吸取教训 three times. Two sentences were replaced, one showing "to absorb" and one "to draw on".
+- **Unsuitable or not usable.**
+  - 婆婆和媳妇就像是暴风雨和冰雹 is a stereotype.
+  - 系列 had Lucario and Pokémon, both transliterated names.
+  - 下线 had two chat messages, one with a literal &amp;. They were replaced, one of them with CC-CEDICT's "to roll off the production line".
+  - 细致 had an odd instruction.
+  - 鲜艳 had a garbled 比起上来.
+- **Near-repeats replaced:** 喜事, 戏曲, 下功夫, 夏令营, 下旬, 鲜明, 习俗.
+- **Translations.**
+  - 习俗: "desuetude" became plain English.
+  - 先前: "previously" had been dropped and was restored.
+  - 显: 他看上去显老 had been rendered as its opposite.
+- **Glosses.** Most of the rest were semicolon or "to" fixes, or a sense the sentences show: 误解 lacked the noun, 下旬 is now "late in the month", and 现存 gained "in stock".
 
