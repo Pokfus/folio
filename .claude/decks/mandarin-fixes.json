@@ -22733,19 +22733,19 @@
       ]
     },
     "hsk30l6/祖先": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 189. This record's 我们的祖先住在这里 and 我们的祖先住在山里 were one sentence twice. The second is replaced by an AUTHORED sentence showing the biological sense.",
       "ex": [
         [
           "我们的祖先住在这里。",
           "Our ancestors lived here."
         ],
         [
-          "我们的祖先住在山里。",
-          "Our ancestors lived in the mountains."
-        ],
-        [
           "祖先留下了很多故事。",
           "Our forefathers left many stories."
+        ],
+        [
+          "人类和猿有共同的祖先。",
+          "Humans and apes share a common ancestor."
         ]
       ]
     },
@@ -88484,12 +88484,20 @@
       ]
     },
     "hsk30l6/阻挡": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 189. 没有什么可以阻挡，我对自由的向往 is a song lyric with its line break set as a comma. Replaced by an AUTHORED sentence; the gloss adds CC-CEDICT's 'to block; to resist'.",
       "ex": [
         [
           "没有什么能阻挡他。",
           "Nothing can stop him."
+        ],
+        [
+          "那座大楼阻挡了我们的视线。",
+          "That building blocks our view."
         ]
+      ],
+      "gloss": "to stop; to block; to resist",
+      "dropEx": [
+        "没有什么可以阻挡，我对自由的向往"
       ]
     },
     "hsk30l7/熬": {
@@ -151159,6 +151167,116 @@
           "手足",
           "shǒuzú",
           "hands and feet; brothers"
+        ]
+      ]
+    },
+    "hsk30l6/足以": {
+      "why": "Batch 189. 天冷得足以让湖结冰 and 冰厚得足以让我在上面走路 were one construction twice. The second is replaced by an AUTHORED sentence; the first two English lines are retranslated, the second having said 'didn't do enough'.",
+      "dropEx": [
+        "冰厚得足以让我在上面走路"
+      ],
+      "ex": [
+        [
+          "这些证据足以证明他是无辜的。",
+          "This evidence is enough to prove his innocence."
+        ]
+      ],
+      "exEn": [
+        [
+          "天冷得足以让湖结冰",
+          "It was cold enough to freeze the lake."
+        ],
+        [
+          "我们软弱的反对派不足以阻止他",
+          "Our weak opposition is not strong enough to stop him."
+        ]
+      ]
+    },
+    "hsk30l6/阻碍": {
+      "why": "Batch 189. 电影中的怪兽会践踏阻碍它的一切事物 ran past the card's length. Replaced by an AUTHORED sentence; the gloss adds the noun.",
+      "gloss": "to hinder; to obstruct; obstruction",
+      "dropEx": [
+        "电影中的怪兽会践踏阻碍它的一切事物"
+      ],
+      "ex": [
+        [
+          "交通不便阻碍了当地经济的发展。",
+          "Poor transport has held back the local economy."
+        ]
+      ]
+    },
+    "hsk30l6/钻": {
+      "why": "Batch 189. 好大一颗钻 is zuàn 'diamond', the other reading, and its English said 'The demand is huge'. Replaced by an AUTHORED sentence in the card's own reading; the gloss's commas are semicolons. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "gloss": "to drill; to bore; to get into",
+      "dropEx": [
+        "好大一颗钻"
+      ],
+      "ex": [
+        [
+          "工人在墙上钻了一个洞。",
+          "The worker drilled a hole in the wall."
+        ]
+      ],
+      "compounds": [
+        [
+          "钻研",
+          "zuānyán",
+          "to study meticulously"
+        ],
+        [
+          "钻石",
+          "zuànshí",
+          "diamond"
+        ],
+        [
+          "电钻",
+          "diànzuàn",
+          "electric drill"
+        ],
+        [
+          "钻头",
+          "zuàntóu",
+          "drill bit"
+        ]
+      ]
+    },
+    "hsk30l6/罪": {
+      "why": "Batch 189. 她认罪不认罪都没关系 had the character only inside 认罪 in both clauses. Replaced by an AUTHORED sentence; the gloss's commas are semicolons. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "gloss": "crime; sin; guilt",
+      "dropEx": [
+        "她认罪不认罪都没关系"
+      ],
+      "ex": [
+        [
+          "他犯了什么罪？",
+          "What crime did he commit?"
+        ]
+      ],
+      "compounds": [
+        [
+          "犯罪",
+          "fànzuì",
+          "to commit a crime; crime"
+        ],
+        [
+          "罪犯",
+          "zuìfàn",
+          "criminal"
+        ],
+        [
+          "有罪",
+          "yǒuzuì",
+          "guilty"
+        ],
+        [
+          "受罪",
+          "shòuzuì",
+          "to suffer; a hard time"
+        ],
+        [
+          "得罪",
+          "dézuì",
+          "to offend"
         ]
       ]
     }

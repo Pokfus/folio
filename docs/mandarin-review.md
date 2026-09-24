@@ -724,6 +724,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1681–1710 | 24 changed, 6 read and left: 21 example sentences replaced (种地's two straddles, the headword swallowed by 指挥所, 指示灯, 制胜, 终点线 and 鼻青脸肿, a 法序 typo, near-repeats), 4 translations fixed, two senses splits, two Compounds panels, 14 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1711–1740 | 24 changed, 6 read and left: 24 example sentences replaced (every sentence on 砖 and 州 a longer word or a place name, the headword swallowed by 周期表, 女主角, 著作等身, 专利权 and 助理裁判, near-repeats), 1 translation fixed, five senses splits, three Compounds panels, 11 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1741–1770 | 20 changed, 10 read and left: 23 example sentences replaced (two ungrammatical, 转移 used for 'migrate', the headword swallowed by 捉弄, 资本家, 自来水管, 自助餐厅, 足球 and 远足, a Party oath, near-repeats), 3 translations fixed, three senses splits, two Compounds panels, 14 glosses corrected (粽子's stopped mid-sentence) |
+| 2026-09-24 | `hsk30l6` notes 1771–1777 | 6 changed, 1 read and left: 6 example sentences replaced (钻's other reading, 罪 only inside 认罪, a song lyric, near-repeats), 2 translations fixed, two Compounds panels, 4 glosses corrected — **Level 6 complete** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12897,4 +12898,16 @@ and no version bump.
 - **Political text on a vocabulary card.** 自愿's 我自愿加入中国共产党 is the Party's oath of admission. It is replaced, as 主张's sovereignty claim was in batch 187.
 - **Out of date.** 总理's Berlusconi sentence called him the "current" prime minister.
 - **Translations.** 自我's 你永远都不能太自我 was translated as its opposite, 专注 said "involved in", and 追究 said "looked into" for "held to account".
+
+### Batch 189 — `hsk30l6` notes 1771–1777 (足以 → 罪), and Level 6 complete
+
+The last seven notes of the deck. 6 changed and 1 read and left (祖国), counted against the real diff.
+
+- **The other reading.** 钻's 好大一颗钻 is zuàn "diamond" where the card teaches zuān "to drill", and its English said "The demand is huge". It is replaced by a sentence in the card's own reading. The Compounds panel shows both readings, each marked with its own tone.
+- **Only inside another word.** 罪's 她认罪不认罪都没关系 had the character only inside 认罪, in both clauses. 罪 also gained a Compounds panel.
+- **A song lyric.** 阻挡's 没有什么可以阻挡，我对自由的向往 is a lyric with its line break set as a comma.
+- **Near-repeats.** 足以 had one construction twice, and so did 祖先. The second 足以 English line said "didn't do enough", which is not what the Chinese says.
+- **Too long.** 阻碍's monster-film sentence ran past the card's length.
+
+**That completes `hsk30l6`: all 1,777 notes read, across batches 128–189.** The next note in deck order is `hsk30l7` (Levels 7–9), note 1.
 
