@@ -1762,16 +1762,40 @@ neighbouring card whose prose they belong in at all, and stay omitted outright.
              <i>Charmides</i> has "give a pledge and ruin is at hand" standing beside the two famous
              ones, and argues that "know thyself" was never advice but the god's greeting to those
              coming in
-    gr-981  The omphalos
-    gr-982  The oracle at Dodona
-    gr-983  The Delphic amphictyony and the First Sacred War
-    gr-984  Divination
-    gr-985  The crown games: Pythian, Isthmian and Nemean
-    gr-986  The Panathenaia
-    gr-987  The Greek festival calendar
-    gr-988  The Thesmophoria
-    gr-989  The Anthesteria
-    gr-990  The Eleusinian Mysteries
+    gr-981  The omphalos — written. Pausanias and Strabo BOTH report the claim and Strabo also
+             reports the doubt, that geographers denied Delphi is the centre of the earth, so the
+             card can state the belief and its ancient critics out of two open sources
+    gr-982  The oracle at Dodona — written, and it is the counterweight to the Delphi run above:
+             the lead strips make it the fullest record there is of what ordinary people asked an
+             oracle, where Delphi's fame rests on literary reports of grand enquiries
+    gr-983  The Delphic amphictyony and the First Sacred War — RETITLED to the amphictyony alone,
+             gr-977's own reason: a line naming an EVENT usually wants the THING the event made or
+             was about, and the war is carded in the prose. Aeschines' speech of 330 carries the
+             oath and the curse, and the card says plainly that he is a prosecutor using them
+    gr-984  Divination — written. Its picture is the seer of the Olympia east pediment, whose
+             identification is disputed, and the caption says so rather than naming him
+    gr-985  The crown games: Pythian, Isthmian and Nemean — written, answered by `crown games`, an
+             alias that had to be TAKEN OFF `Panhellenic_sanctuary` and given to the new
+             `Panhellenic_Games`: the sanctuaries are the places, the games are what this card is
+             about, and one surface can only point at one of them. Pausanias carries 3 of its 5
+             sources, which `check-cards.js` reports as the ancient-witness note
+    gr-986  The Panathenaia — written, on Thucydides' account of the killing of Hipparchus during
+             the procession, which is the one classical narrative of the festival in action
+    gr-987  The Greek festival calendar — written, keyed `Ancient_Greek_calendars` (there is no
+             article under the card's own words) with `Greek festival calendar` as an alias. The
+             Thorikos stone is its picture, which shows the claim rather than asserting it: a
+             calendar is a schedule of public spending
+    gr-988  The Thesmophoria — written. Herodotus declines to describe the rite, and the card says
+             that the difficulty of knowing what happened at a women's festival is a standing
+             problem rather than filling the gap
+    gr-989  The Anthesteria — written, and REWRITTEN once in draft: the first version rested a day
+             count, the dead, pitch and buckthorn on EVANS (BMCR 2010.11.04), which carries none of
+             it. The claims were DROPPED rather than re-sourced, and the card was rebuilt on
+             Thucydides 2.15.4 and on the Choes jugs, which are the best evidence Greece has for
+             childhood
+    gr-990  The Eleusinian Mysteries — written, on the <i>Homeric Hymn to Demeter</i>'s own promise
+             and Herodotus' story of the Iacchus cry before Salamis, with the profanation of 415 for
+             what the secret was worth to Athens
     gr-991  Demeter at Eleusis
     gr-992  Mystery cult
     gr-993  Orphism
