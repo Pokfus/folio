@@ -712,6 +712,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1321–1350 | 25 changed, 5 read and left: 31 example sentences replaced (推销 and 吞 never used the word itself, 往后 glossed with a sense no sentence showed, an out-of-date fact about Prince Charles, a Taiwan slogan, calqued proverbs, near-repeats), 1 translation fixed, six Compounds panels, 18 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1351–1380 | 24 changed, 6 read and left: 22 example sentences replaced (two 为-straddles, 温和 glossed from its other reading, slogans, opinions, a calqued proverb, near-repeats), 1 translation fixed, two Compounds panels, 16 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1381–1410 | 26 changed, 4 read and left: 30 example sentences replaced (six single characters used only inside other words, a mother-in-law stereotype, transliterated names, proverbs rendered as English proverbs, chat messages, near-repeats), 3 translations fixed, six Compounds panels, 17 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1411–1440 | 25 changed, 5 read and left: 22 example sentences replaced (消除's three unsuitable sentences, climate denial on 效应, a generalisation about the Swiss, 国际象棋 on Chinese chess, headwords inside longer words, near-repeats), 3 translations fixed, one Compounds panel, 19 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12544,4 +12545,39 @@ and no version bump.
   - 先前: "previously" had been dropped and was restored.
   - 显: 他看上去显老 had been rendered as its opposite.
 - **Glosses.** Most of the rest were semicolon or "to" fixes, or a sense the sentences show: 误解 lacked the noun, 下旬 is now "late in the month", and 现存 gained "in stock".
+
+### Batch 177 — `hsk30l6` notes 1411–1440 (现货 → 协助)
+
+25 notes changed and 5 read and left (限于, 项链, 相声, 笑容, 协会), counted against the real diff.
+
+- **Unsuitable.**
+  - All three of 消除's sentences were unusable: a slogan, "America's mission is to eliminate communism", and a 30-character line about a royal marriage. All three were replaced.
+  - 有的科学家认为温室效应是虚构的 is climate denial.
+  - 瑞士人消耗不少啤酒 is a generalisation about a people.
+  - 你知道男孩子送女孩子香水代表什么吗 is about courtship conventions.
+- **Headword inside a longer word.**
+  - 象棋 teaches Chinese chess but had 国际象棋, which is chess. Its other two English lines now say "Chinese chess".
+  - 相连 appeared only inside 相连接.
+  - 歇 appeared only inside 歇息. It gained a Compounds panel.
+  - 消防 appeared only in 消防员 and 消防局, and was glossed "extinguish and protect" under a verb label.
+- **Other replacements:**
+  - 相等: a grammar note with brackets and a non-word, 相等语.
+  - 协调: a 30-character academic sentence with a transliterated name.
+  - 向往: a lyric punctuated as a sentence.
+  - 消毒: a milking bucket belonging to "Yanni".
+  - 陷入: an unnatural sentence.
+  - 相差: a 30-character sentence.
+  - 香肠: a sentence with no full stop.
+  - 小气: an odd sentence.
+- **Near-repeats replaced:**
+  - 线索: the police twice. The replacement shows "thread of a story".
+  - 小麦: made from wheat, twice.
+  - 携带: the weapons sentence, which also stands on 武器.
+- **Translation.** 相应 had dropped "relevant".
+- **Glosses.**
+  - 消灭 led with the intransitive "perish".
+  - 现货 had "cash commodity".
+  - 小偷儿 was capitalised.
+  - 相连 had to take CC-CEDICT's "to link; to join", or `check-gloss-source.js` reported it.
+  - The rest gained a "to" or a sense.
 
