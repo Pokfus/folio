@@ -684,6 +684,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 481–510 (拐弯 → 过时), deck order | 20 (+1) | **three translations that render a different sentence**, two headwords straddling two shorter words, and a `not X` pair retired because the collision was a gloss error |
 | 2026-09-24 | `hsk30l6` notes 511–540 (海内外 → 狠), deck order | 16 | **a card whose pinyin and bopomofo both say one reading while its gloss is the other reading's**, which `check-polyreading.js` cannot see because it only reads single-character cards |
 | 2026-09-24 | `hsk30l6` notes 541–570 (恨 → 还原), deck order | 14 | **a character error that put the headword on the card** — 怀 for 坏, which speaks and segments perfectly — and six single-character cards given `Compounds` panels |
+| 2026-09-24 | `hsk30l6` notes 571–600 (患 → 激发), deck order | 15 (+1) | **two of 会见's three sentences were 会 + 见**, their own translations saying so; a gloss fix retired a third `not X` pair |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11406,3 +11407,73 @@ one would cost more than it buys.
 Coverage unchanged: 11,532 notes at three sentences, 0 repeats, 317 shared-gloss groups with
 still-ambiguous 1. `check-british` reads 0. **Verified against the real diff: 14 of 30 changed and
 nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 149 — `hsk30l6` notes 571–600 (患 → 激发), 2026-09-24
+
+Fifteen of the thirty changed, plus one note outside the range — `hsk30l7/绘制`, the other half of a
+retired pair.
+
+**会见 is the batch's finding.** Two of its three sentences were not the word: 我再也不会见她了 is
+不会 + 见 and 可能不久会见你 is 会 + 见, both "will see" rather than "to meet with". **Their own
+English says so** — "I'll never see her again", "Maybe I'll see you later" — which is the cheapest way
+this class is ever caught, and `check-example-fit.js` cannot report it: 会 and 见 are both headwords
+its lexicon knows, so a greedy longest-match lands squarely on 会见 and sees nothing split. Both are
+replaced by authored sentences in the formal sense the gloss names.
+
+**A gloss fix retired a third `not X` pair, and the mechanism is worth writing down.** 绘画 was glossed
+*drawing* — a noun under a verb label — where CC-CEDICT gives *to draw; to paint*, which is also what
+all three of its sentences are about. Correcting it had a consequence the applier's own documented
+behaviour makes invisible: **a `gloss` fix replaces `fl.English` whole and therefore DROPS the `not X`
+block**, so 绘画's disambiguator vanished with the correction while `hsk30l7/绘制` went on saying
+*not 绘画*. The two no longer share a gloss at all, so the surviving hint pointed at a collision that
+does not exist — which the record's own rule says is worse than none, a reader taking it for a real
+distinction. Both hint entries are deleted and **绘制 is given its own sense instead**, the
+dictionary's *to draft (a map, blueprint, diagram)*, which is the actual difference between the two
+words. Its 他绘制了一张地图 turned out to be 他绘制了一张详细的地图 with one word taken out, so that
+was replaced in the same edit. Shared-gloss groups 317 → 316, hints 653 → 651.
+**When a `gloss` or `senses` fix lands on a hinted note, check the other half of the pair.**
+
+**Four label-against-gloss mismatches.** 患 gave only nouns under a *verb* label where CC-CEDICT leads
+with *to suffer (from illness); to contract (a disease)* — which is what its one plain sentence,
+他患了重感冒, actually shows; split, with `exSense [2,1,2]`. 混乱 was *confusion*, a noun, under an
+*adjective* label. 饥饿 was nouns under an *adjective* label, and here the correction went the other
+way: CC-CEDICT gives only nouns, so the LABEL was changed to match rather than an adjective sense
+invented for it. 绘画 as above.
+
+**回报 is the dictionary's-wrong-word trap for the fourth batch running**, and a new shape of it: the
+gloss was *bring back a report*, which is CC-CEDICT's *to report back* — a real sense, sitting fifth in
+its list, and the one none of the three sentences carries, all three being repayment or a smile
+returned. **汇** is the same fault costing a neighbouring card: glossed *to converge, to gather
+together* with no mention of **remit**, which the dictionary opens on and which 汇款 — a card fourteen
+notes further down the same deck — is built on.
+
+**Four single-character cards were given `Compounds` panels**: 患, 黄, 汇, 混. Sixteen rows, every
+reading checked first — 混淆 is `hùnxiáo`, not `hùnxiāo`, which is the sort of thing a panel gets wrong
+while looking perfectly authoritative.
+
+**Three cards taught one English three times, and one taught one construction three times.** 活力's
+three sentences were all 充满活力 AND all translated "full of energy" — both repeats at once; two
+replaced. 灰尘 had "was covered with dust" over two of three. 活跃 had 我母亲很活跃 and 玛丽她很活跃,
+one frame twice and the second doubling its subject besides. **This is the third batch running in
+which a repeat sat on the English side**, where no checker here compares.
+
+**Three English translations rendered something else.** 皇帝's 皇帝也得讲道理 was translated "Caesar is
+not above grammarians", a Latin proverb with no part of the Chinese in it — the sentence says an
+emperor too must be reasonable. 活跃's 他的大脑仍然很活跃 was "He still has springtime on the brain".
+幻想's 太空旅行已不再是幻想 rendered 幻想 as *a dream*, which is 梦想 — a different word the decks
+teach, and the opposite in tone, 幻想 being the thing that is not real.
+
+**回头** lost a sentence that was two proverbs joined: the headword swallowed by 浪子回头 in the first,
+and the second ending on a coarse line about a dog, which `check-coarse.js` does not carry. **皇帝**'s
+long sentence had a space after a full-width comma, repaired with `exSpace`.
+
+**Fourteen cards were read and left**: 患者, 灰心, 回顾, 汇报, 汇款, 婚姻, 混合, 火柴, 火灾, 货币,
+击败, 基地, 机动车, 激发. One question is recorded rather than answered: **货车** translates its own
+word three different ways across its three sentences — *van*, *lorry*, *lorry* — and its gloss sanctions
+both, so the inconsistency is the gloss's rather than any sentence's, and narrowing it would reopen the
+货车/卡车 collision batch 146 settled.
+
+Coverage: 11,532 notes at three sentences, 0 repeats, **316 shared-gloss groups** (317 before the pair
+was retired) with still-ambiguous 1. `check-british` reads 0. **Verified against the real diff: 15 of
+30 changed and exactly one note outside the range, `hsk30l7/绘制`.** `build-lang-decks.js` re-run. No
+changelog line and no version bump.

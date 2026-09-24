@@ -45569,21 +45569,22 @@
       ]
     },
     "hsk30l7/绘制": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 149: the `not 绘画` pair is retired. 绘画 had been glossed 'drawing' — a noun under a verb label — and correcting it to CC-CEDICT's 'to draw; to paint' left the two no longer sharing a gloss, so both disambiguators pointed at a collision that no longer exists, which reads to a reader as a distinction the cards are making. 绘制 states its own instead: the dictionary's 'to draft (a map, blueprint, diagram)'. Its 他绘制了一张地图 was also 他绘制了一张详细的地图 with one word taken out.",
       "ex": [
         [
           "他绘制了一张详细的地图。",
           "He drew a detailed map."
         ],
         [
-          "他绘制了一张地图。",
-          "He drew a map."
-        ],
-        [
           "工程师绘制了图纸。",
           "The engineer drew up the plans."
+        ],
+        [
+          "她绘制了一幅插图。",
+          "She drew an illustration."
         ]
-      ]
+      ],
+      "gloss": "to draw; to draft (a map, plan or diagram)"
     },
     "hsk30l7/混浊": {
       "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -112082,7 +112083,7 @@
       ]
     },
     "hsk30l6/混": {
-      "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was 真是个混蛋！ — \"What a bastard!\" 混蛋 is a word of its own, so the headword does not stand alone in it either. Replaced with an AUTHORED sentence in the *to confuse* sense the gloss claims and neither other sentence shows, both being *to mix*.",
+      "why": "Found by the corpus-wide coarse-content sweep — 34,596 example blocks and every gloss, against six declared word lists in English and Chinese, with a hit dropped where the matched term IS the headword (either way round) or the card's own gloss already carries it, since the Everyday Phrases and Idioms decks teach 放屁, 该死 and 滚蛋 on purpose. Its first sentence was 真是个混蛋！ — \"What a bastard!\" 混蛋 is a word of its own, so the headword does not stand alone in it either. Replaced with an AUTHORED sentence in the *to confuse* sense the gloss claims and neither other sentence shows, both being *to mix*. | Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written.",
       "dropEx": [
         "真是个混蛋！"
       ],
@@ -112090,6 +112091,28 @@
         [
           "他常常把这两个字混了。",
           "He often confuses these two characters."
+        ]
+      ],
+      "compounds": [
+        [
+          "混合",
+          "hùnhé",
+          "to mix; to blend"
+        ],
+        [
+          "混乱",
+          "hùnluàn",
+          "chaotic; disorderly"
+        ],
+        [
+          "混淆",
+          "hùnxiáo",
+          "to confuse; to mix up"
+        ],
+        [
+          "混凝土",
+          "hùnníngtǔ",
+          "concrete"
         ]
       ]
     },
@@ -138735,6 +138758,230 @@
         ]
       ],
       "why": "Two of the three sentences had the headword only inside 环顾 and 环游; one is replaced by a sentence using the bare noun in its 'link' sense, which the gloss names and nothing showed. | Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/患": {
+      "senses": [
+        [
+          "verb",
+          "to suffer from; to contract (an illness)"
+        ],
+        [
+          "noun",
+          "trouble; calamity; misfortune"
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ],
+      "exEn": [
+        [
+          "他患了重感冒",
+          "He came down with a bad cold."
+        ]
+      ],
+      "compounds": [
+        [
+          "患者",
+          "huànzhě",
+          "patient; sufferer"
+        ],
+        [
+          "患病",
+          "huànbìng",
+          "to fall ill"
+        ],
+        [
+          "忧患",
+          "yōuhuàn",
+          "suffering; hardship"
+        ],
+        [
+          "后患",
+          "hòuhuàn",
+          "future trouble"
+        ]
+      ],
+      "why": "The gloss was a different part of speech from the label above it. The glosses were all nouns under a 'verb' label, and CC-CEDICT leads with 'to suffer (from illness); to contract (a disease)' — which is what the card's one plain sentence, 他患了重感冒, actually shows. Its English also read 'a bad cold in the nose'. | Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/幻想": {
+      "exEn": [
+        [
+          "太空旅行已不再是幻想",
+          "Space travel is no longer a fantasy."
+        ]
+      ],
+      "why": "The English rendered 幻想 as 'a dream', which is 梦想 — a different word the decks teach, and the opposite in tone, 幻想 being the thing that is not real."
+    },
+    "hsk30l6/黄": {
+      "compounds": [
+        [
+          "黄色",
+          "huángsè",
+          "yellow"
+        ],
+        [
+          "黄金",
+          "huángjīn",
+          "gold"
+        ],
+        [
+          "蛋黄",
+          "dànhuáng",
+          "egg yolk"
+        ],
+        [
+          "黄河",
+          "Huáng Hé",
+          "the Yellow River"
+        ]
+      ],
+      "why": "Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/皇帝": {
+      "exEn": [
+        [
+          "皇帝也得讲道理",
+          "Even an emperor has to listen to reason."
+        ]
+      ],
+      "exSpace": [
+        [
+          "从来就没有什么救世主， 也不靠神仙皇帝！",
+          "从来就没有什么救世主，也不靠神仙皇帝！"
+        ]
+      ],
+      "why": "皇帝也得讲道理 was translated 'Caesar is not above grammarians', a Latin proverb that renders no part of the Chinese — the sentence says an emperor too must be reasonable. The long sentence beside it carried a space after a full-width comma, where Chinese sets none."
+    },
+    "hsk30l6/灰尘": {
+      "exEn": [
+        [
+          "他的房间布满了灰尘",
+          "His room was thick with dust."
+        ]
+      ],
+      "why": "The card's three sentences were translated with one English frame, so it taught the same phrase three times; the Chinese is untouched. Here 'was covered with dust' stood over two of the three."
+    },
+    "hsk30l6/回报": {
+      "gloss": "to repay; to reciprocate; (in) return",
+      "why": "The gloss was 'bring back a report', which is CC-CEDICT's 'to report back' — a real sense and the one none of the three sentences carries; all three are repayment or a smile returned. The dictionary opens on '(in) return; reciprocation'."
+    },
+    "hsk30l6/回头": {
+      "dropEx": [
+        "俗话说：浪子回头"
+      ],
+      "ex": [
+        [
+          "他回头看了一眼。",
+          "He turned his head and glanced back."
+        ]
+      ],
+      "why": "The sentence was two proverbs joined, the headword swallowed by 浪子回头 in the first, and the second ended on a coarse line about a dog that teaches nothing about the word. `check-coarse.js` does not carry the phrase."
+    },
+    "hsk30l6/汇": {
+      "gloss": "to remit; to converge; to gather together",
+      "dropEx": [
+        "该法案的说客"
+      ],
+      "ex": [
+        [
+          "他每月往家里汇钱。",
+          "He remits money home every month."
+        ]
+      ],
+      "compounds": [
+        [
+          "汇款",
+          "huìkuǎn",
+          "to remit money; remittance"
+        ],
+        [
+          "汇率",
+          "huìlǜ",
+          "exchange rate"
+        ],
+        [
+          "汇合",
+          "huìhé",
+          "to converge; to join"
+        ],
+        [
+          "词汇",
+          "cíhuì",
+          "vocabulary"
+        ]
+      ],
+      "why": "The gloss gave only 'to converge, to gather together' where CC-CEDICT opens on 'to remit' — the sense 汇款, a card fourteen notes further down the same deck, is built on. The dropped sentence used 汇入 a second time, on a lobbyist funnelling bribes. | Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/绘画": {
+      "gloss": "to draw; to paint",
+      "why": "The gloss was a different part of speech from the label above it. 'Drawing' is a noun under a verb label; CC-CEDICT gives 'to draw; to paint', and all three sentences are about painting, which the gloss did not name at all."
+    },
+    "hsk30l6/会见": {
+      "dropEx": [
+        "我再也不会见她了",
+        "可能不久会见你"
+      ],
+      "ex": [
+        [
+          "总统会见了来访的代表团。",
+          "The president met the visiting delegation."
+        ],
+        [
+          "他明天会见几位客户。",
+          "He is meeting several clients tomorrow."
+        ]
+      ],
+      "why": "Two of the three sentences were not this word: 我再也不会见她了 is 不会 + 见 and 可能不久会见你 is 会 + 见, both 'will see' rather than 'to meet with'. Their own translations say so — 'I'll never see her again', 'Maybe I'll see you later'. Replaced by authored sentences in the formal sense the gloss names."
+    },
+    "hsk30l6/混乱": {
+      "gloss": "chaotic; disorderly; confused",
+      "why": "The gloss was a different part of speech from the label above it. 'Confusion' is a noun under an adjective label; CC-CEDICT gives 'confused; chaotic; disorderly' and all three sentences are the adjective."
+    },
+    "hsk30l6/活力": {
+      "dropEx": [
+        "年轻人通常都是充满活力的",
+        "孩子们都充满了活力"
+      ],
+      "ex": [
+        [
+          "运动能增强活力。",
+          "Exercise builds vitality."
+        ],
+        [
+          "他年纪虽大，活力不减。",
+          "Old as he is, his vigour is undiminished."
+        ]
+      ],
+      "why": "All three sentences were 充满活力 and all three were translated 'full of energy', so the card taught one collocation and one English phrase three times over. Two are replaced by authored sentences that put the noun in other constructions."
+    },
+    "hsk30l6/活跃": {
+      "dropEx": [
+        "玛丽她很活跃"
+      ],
+      "ex": [
+        [
+          "他在讨论中很活跃。",
+          "He was very active in the discussion."
+        ]
+      ],
+      "exEn": [
+        [
+          "他的大脑仍然很活跃",
+          "His mind is still very active."
+        ]
+      ],
+      "why": "我母亲很活跃 and 玛丽她很活跃 are one frame twice, and the second is awkward besides, doubling the subject. 他的大脑仍然很活跃 was translated 'He still has springtime on the brain', which renders none of it."
+    },
+    "hsk30l6/饥饿": {
+      "senses": [
+        [
+          "noun",
+          "hunger; starvation; famine"
+        ]
+      ],
+      "why": "The gloss was a different part of speech from the label above it. The glosses were nouns under an adjective label. CC-CEDICT gives only nouns, so the label is corrected to match rather than an adjective sense being invented for it."
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead. | Batch 83: SEVENTEEN DEAD ONE-SIDED HINTS RETIRED. A `not <other word>` block answers a COLLISION, and a collision is symmetric — so wherever one card of a pair carries the block and its named partner does not carry the reverse, the pair has already been separated and the survivor is disambiguating nothing. Found while repairing 动手, whose `not 上班` had outlived a rewrite of 上班's own gloss. Swept: 17 of 661 hinted cards were one-sided, and every one of the seventeen was dead — in each case the PARTNER's gloss had been sharpened by an earlier batch of this audit (书 `not 本子` against a 本子 rewritten to `a notebook; an exercise book`, 茶 `not 茶叶` against `tea leaves; tea`, 体力 `not 力气` against `muscle power, the strength to lift or push`). TWO of the seventeen were not in this record at all — 体力 and 顺利, shipped by the generator — which is the other half of the finding: THE APPLIER WRITES A HINT AND NEVER STRIPS ONE, so deleting a row here does not take a block off a deck. A dead hint is retired by rewriting the gloss, which rebuilds the English field. Re-run the one-sided sweep after any batch that rewrites a gloss.",
@@ -139058,7 +139305,6 @@
     "hsk30l6/皇帝": "皇上",
     "hsk30l6/穿过": "透过",
     "hsk30l6/素质": "质量",
-    "hsk30l6/绘画": "绘制",
     "hsk30l6/脑子": "头脑",
     "hsk30l6/脚印": "足迹",
     "hsk30l6/自来水": "流水",
@@ -139276,7 +139522,6 @@
     "hsk30l7/稳妥": "安稳",
     "hsk30l7/繁多": "众多",
     "hsk30l7/繁杂": "复杂",
-    "hsk30l7/绘制": "绘画",
     "hsk30l7/继而": "进而",
     "hsk30l7/绩效": "业绩",
     "hsk30l7/绯闻": "丑闻",
