@@ -691,7 +691,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 691–720 (金额 → 镜头), deck order | 26 | **净 and 井 had no sentence using the character on its own**, 尽's three were one idea, and five Englishes rendered a different sentence from the Chinese above them |
 | 2026-09-24 | `hsk30l6` notes 721–750 (纠纷 → 开创), deck order | 26 | **局's traditional field was 侷**, a different character; 就读 and 决策 each had a sentence that straddled; and batch 153's dropped 'Well of Despair' was found standing on a second card |
 | 2026-09-24 | `hsk30l6` notes 751–780 (开关 → 空地), deck order | 21 (+1) | **two cards glossed from the OTHER reading** (看好, 空地 'air-to-surface missile'), 肯's three sentences all about a man called Ken, and an English typo that named a sex toy |
-| 2026-09-24 | `hsk30l6` notes 781–810 (空闲 → 牢), deck order | 24 | **nine single-character cards in one range, and the transliteration class three more times** — broccoli on 兰花, Greifswald on 赖, a quart on 夸 |
+| 2026-09-24 | `hsk30l6` notes 781–810 (空闲 → 牢), deck order | 24 | **ten single-character cards in one range, and the transliteration class three more times** — broccoli on 兰花, Greifswald on 赖, a quart on 夸 |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11800,12 +11800,12 @@ note outside it, `hsk30l7/筒`.** `build-lang-decks.js` re-run. No changelog lin
 
 ### Batch 156 — `hsk30l6` notes 781–810 (空闲 → 牢), 2026-09-24
 
-Twenty-four of the thirty changed, nothing outside the range. **Nine of the thirty were single-character
-cards** — 扣, 酷, 夸, 款, 啦, 赖, 栏, 烂, 狼, 牢 counting 啦, which is a particle — the densest run of them
+Twenty-four of the thirty changed, nothing outside the range. **Ten of the thirty were single-character
+cards** — 扣, 酷, 夸, 款, 啦, 赖, 栏, 烂, 狼, 牢, counting the particle 啦 — the densest run of them
 this audit has met, and **only 啦 was not reached by the swallowed-headword fault.** Every other one had
 at least one sentence where the character lived inside a longer word: 扣子, 酷爱, 借款, 仰赖, 烂泥, 丛林狼,
 监牢, and **栏 had all three** (围栏, 侧边栏, 意见栏 — the last one ending on a comma). All were rebuilt
-with authored sentences and given `Compounds` panels, and six (扣, 夸, 款, 赖, 栏, 烂, 牢) were split into
+with authored sentences and given `Compounds` panels, and seven (扣, 夸, 款, 赖, 栏, 烂, 牢) were split into
 the senses the sentences actually show and tagged.
 
 **The transliteration class, three more times, and once on a two-character card.** **兰花 had two of its
