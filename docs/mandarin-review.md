@@ -722,6 +722,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1621–1650 | 20 changed, 10 read and left: 16 example sentences replaced (招 used only inside other words, 扎 shown in its other reading and in the name Gaddafi, 则 split into its two senses, a straddle on 再生, near-repeats), 1 translation fixed, five Compounds panels, 19 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1651–1680 | 23 changed, 7 read and left: 17 example sentences replaced (three ungrammatical sentences, the headword swallowed by 针线活, 指南针, 镇痛 and 花枝, near-repeats), 2 translations fixed, five senses splits, five Compounds panels, 8 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1681–1710 | 24 changed, 6 read and left: 21 example sentences replaced (种地's two straddles, the headword swallowed by 指挥所, 指示灯, 制胜, 终点线 and 鼻青脸肿, a 法序 typo, near-repeats), 4 translations fixed, two senses splits, two Compounds panels, 14 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1711–1740 | 24 changed, 6 read and left: 24 example sentences replaced (every sentence on 砖 and 州 a longer word or a place name, the headword swallowed by 周期表, 女主角, 著作等身, 专利权 and 助理裁判, near-repeats), 1 translation fixed, five senses splits, three Compounds panels, 11 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12856,4 +12857,27 @@ and no version bump.
 - **Near-repeats in the record.** 职务, 只得, 治理, 制品, 中断 and 中旬 each carried one sentence twice with a word changed. 众人 had one construction twice.
 - **Too long.** 指定, 只顾 and 智力 each had sentences far past the card's length.
 - **Translations.** 指责 said "accuse" for "criticise". 指示 said "I will obey". 终点 said "The bicycle is racing to finish".
+
+### Batch 187 — `hsk30l6` notes 1711–1740 (中暑 → 专用)
+
+24 notes changed and 6 read and left (中暑, 周到, 诸多, 助手, 祝愿, 专题), counted against the real diff.
+
+- **Single characters with no sentence about themselves.**
+  - 砖: its three sentences were 砖头, 磁砖 and 砖块.
+  - 州: its sentences were the ungrammatical 美国组成五十州 and the place names 九州 and 潮州.
+  
+  All six are replaced. 州, 粥, 株 and 砖 gained Compounds panels.
+- **The headword swallowed by a longer word:**
+  - 周期表 on 周期
+  - 女主角, twice, on 主角
+  - the idiom 著作等身 on 著作
+  - 专利权 on 专利, in a sentence with no full stop
+  - 助理裁判 on 助理
+- **One sentence twice in this record.** 主播's two added sentences differed only in 名 against 位. 株, 主办 and 主导 each carried one construction twice.
+- **A sentence that did not say what its English said.** 主张's 中国主张钓鱼岛的主权 was translated "an advocate for the sovereignty". It was a political sovereignty claim on a vocabulary card, and is replaced by a sentence showing the verb. The same card's gloss read "assertionl".
+- **Glosses naming CC-CEDICT's first word only:**
+  - 珠宝 "pearls" over three sentences about jewellery.
+  - 重心 "heart; core" with no "centre of gravity".
+  - 周边 "perimeter" over a sentence about film merchandise.
+- **Senses split.** 主管, 主演, 主张 and 祝福 were split into their two senses, and 主播 and 专用 lost the wrong part-of-speech label.
 
