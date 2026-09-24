@@ -74,6 +74,13 @@ already cites, taking the earlier of each of its paired figures where it gives t
 | Cretan hieroglyphic in use | c. 1900 – 1700 BCE | MM IB – MM III (Meissner and Salgarella 2024); MM III ends 1700/1675 (Graziadio 2025) |
 | Linear A in use | c. 1800 – 1450 BCE | SigLA |
 | LM IB destructions | mid-15th century BCE | Manning 2022; the collection's figure stays `c. 1470 BCE`, and a card may say "the mid-15th century" |
+| Kamares ware | c. 1900 – 1750 BCE | MM IB – MM IIB on Rutter's chronology page; his Lesson 10 still dates MM IB 2000/1950 – 1900/1850, the older scheme, and the collection follows the chronology page |
+| Phaistos Disc made | c. 1700 BCE | MM IIIA as the likeliest date (Meissner and Salgarella 2024); the Heraklion museum says the 17th century; the find context gives only a latest date |
+| Temple Repositories filled | c. 1700 BCE | MM III (Rutter); the museum dates the smaller snake goddess to about 1600 BCE, and `gr-024` gives both |
+| Bull-leaping (Taureador) fresco | soon after 1550 BCE | the Heraklion museum's date; inside the Neopalatial figured-fresco horizon, which is c. 1750 – 1470 |
+| Marine Style | c. 1500 BCE, ending c. 1470 BCE | LM IB; the museum dates the Phaistos and Zakros rhyta to about 1500 |
+| Peak sanctuaries | worship from c. 1900 BCE; buildings c. 1750 BCE; decline after c. 1470 BCE | Rutter, Lesson 15 |
+| Cult caves | worship from c. 1900 BCE; still visited to c. 1075 BCE | Rutter, Lesson 15, with the chronology page for the end of LM IIIC |
 | Shaft graves at Mycenae | c. 1650 – 1500 BCE | |
 
 **Three standing notes.** (1) "Neopalatial" and "Postpalatial" do not describe KNOSSOS, which went on
@@ -166,4 +173,13 @@ gr-017: 1900; 1470
 gr-018: 1900
 gr-019: 1900; 1700
 gr-020: 1800; 1450
+gr-021: 1700
+gr-022: 1750; 1470
+gr-023: 1550
+gr-024: 1700; 1600
+gr-025: 1900; 1750
+gr-026: 1500; 1470
+gr-027: 1900; 1750
+gr-028: 1900; 1750; 1470
+gr-029: 1900; 1075
 ```

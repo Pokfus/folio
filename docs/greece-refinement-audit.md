@@ -172,7 +172,7 @@ one changelog line and a version bump; commit and push.
 |---|---|---|---|---|
 | B1 | Crete and the Cyclades (`gr-crete`) | `gr-001`–`gr-010` | 10 | **done 2026-09-24** |
 | B2 | Crete and the Cyclades (`gr-crete`) | `gr-011`–`gr-020` | 10 | **done 2026-09-24** |
-| B3 | Crete and the Cyclades (`gr-crete`) | `gr-021`–`gr-030` | 10 | open |
+| B3 | Crete and the Cyclades (`gr-crete`) | `gr-021`–`gr-030` | 10 | **done 2026-09-24** |
 | B4 | Crete and the Cyclades (`gr-crete`) | `gr-031`–`gr-040` | 10 | open |
 | B5 | Crete and the Cyclades (`gr-crete`) | `gr-041`–`gr-050` | 10 | open |
 | B6 | Crete and the Cyclades (`gr-crete`) | `gr-051`–`gr-055` | 5 | open |
@@ -425,4 +425,53 @@ answer, each with explicit markers.
 - `gr-019` and `gr-020` take none: a script is not a place.
 
 **Chronology.** Rows added for Malia, Phaistos, Zakros, Gournia, the two scripts and the LM IB horizon. Pins added for all ten cards. Malia is the one site whose own excavators break the Old and New Palace ages at 1700 rather than 1750; the card follows them and says so.
+
+### B3 — `gr-021`–`gr-030`, Crete and the Cyclades (2026-09-24)
+
+All ten were rewritten in the rule order and applied with `add-card.js --replace`.
+
+Checks, all passing:
+- `greece-audit.js --range=gr-021:gr-030` reads **10 of 10 clean**, and `gr-001`–`gr-030` read 30 of 30.
+- `check-questions` passes.
+- `check-citations --card` reports 0 mismatched on every card.
+- All 38 citation URLs answer 200.
+- `check-gloss-links --card` reports no cross-region link on any card.
+- `check-cards --prefix=gr-` reports nothing new.
+
+The ten abstracts run 276–285 words. Every sort year was read back. `gr-030` now has an empty date line: a symbol used from the palaces into the Iron Age has no single date worth memorising, and the old line gave the date of one fresco and of one house.
+
+**What changed, card by card.** Each "sources" figure below is the count before the batch → after.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `gr-021` Phaistos Disc | 7 | 5 → 7 | The Cambridge chapter by Meissner and Salgarella (pp. 142–44) now carries the date (MM IIIA), the signs shared with the Arkalochori axe and the refuted forgery claim. Pernier and Evans stand for the first argument, Cretan work against Anatolian import. The Catania site page was dropped: a second Italian source would break the one-per-language rule. A question carrying the sign count "241" was rewritten. |
+| `gr-022` Minoan frescoes | 7 | 5 → 7 | Rebuilt around what the paintings show and how they were painted, not around the Cup-bearer's find-spot. Chapin's review adds the Ayia Triada workshop that kept painting after Knossos fell. **The Akrotiri antelopes picture was Theran**, and Rutter counts Thera as its own island school, so the card and its glossary term now show the Knossos monkey fresco. |
+| `gr-023` Bull-leaping fresco | 7 | 5 → 7 | The museum's date (soon after 1550) replaces a bare "Neopalatial". The ivory leaper, and Crowley's stock moments of the sport on seals (from Weingarten's review), were added. |
+| `gr-024` Snake Goddess figurines | 7 | 5 → 7 | **The picture was the Walters statuette, which is not from Knossos**; the card and its glossary term now show the Heraklion figure. Boze 2016 carries how much of both figures is restoration: the smaller was found headless. Karatzoglou's review of Lapatin carries the Boston forgery. A question carrying "1700" was rewritten. |
+| `gr-025` Kamares ware | 5 | 5 → 5 | The date moved from 2000 to 1900 BCE (see "the chronology" below). The Heraklion bowl from Phaistos and the vases found at Kahun were added. Evans's Knossos jar, a find-spot detail, was dropped. |
+| `gr-026` Marine Style pottery | 5 | 5 → 6 | The two museum rhyta, from Phaistos and Zakros, were added. The Phaistos rhyton is the one Mosso watched being dug (pp. 260–61, **not 261–63 as the old citation said**). Manning's gap between the eruption and the fires now qualifies the refugee-artist idea. |
+| `gr-027` Minoan sealstones | 5 | 5 → 7 | Rebuilt on the Heidelberg page's three uses of a seal. Weingarten's review of Crowley, the Archanes fourteen-sided seal and the tree-worship ring were added. **The old picture showed a lentoid bead edge-on**, with no engraving visible; the card and its glossary term now show seals beside casts of their impressions. |
+| `gr-028` Peak sanctuaries | 5 | 5 → 6 | The date line's 1750 and 1470 are now in the prose. Added: the Zakros sanctuary rhyton; Déderix and colleagues on shared tombs giving way to regional sanctuaries; the later Cretan tradition that Juktas held the tomb of Zeus. |
+| `gr-029` Cretan cult caves | 5 | 5 → 5 | Rutter's chronology page replaces his Lesson 10, so a Rutter page can carry the 1075 end date. The inscribed offering table and the Zeus legend (*Scripta Minoa* 14–15) were added. |
+| `gr-030` Horns of consecration | 6 | 6 → 7 | Rutter's Lesson 12 adds the West Court horns at Knossos, and the École française page adds Malia's Sanctuary of the Horns. Evans 1903 is now read for what it says: the limestone pair from the South-East House had no socket. Chapin's review moved to `gr-022`, which it actually concerns. |
+
+The Think-it-through sets were written from scratch to the B1 rule.
+
+**Corrected, refused and not usable.**
+- **Mosso's pages.** Read off the scan, the Kamares passages are pp. 41–42 and 54, not 44 and 54, and the argonaut rhyton is pp. 260–61. Both citations are corrected.
+- **Baldacci's chapter on the disc** (Oxford, 2024, open access) answers 403 at OUP and sits behind the Anubis wall at OAPEN. It is not cited unseen; Meissner and Salgarella cover the same ground and could be read.
+- **Banou 2008 on horns of consecration** (*Mediterranean Archaeology and Archaeometry*): the journal site answers 403. OpenAlex's anonymous daily budget ran out mid-batch; that is a quota, not a refusal.
+- **Picture credits.** Four of the old credits were bare Commons URLs naming no author, among them a CC BY and a CC BY-SA picture. All ten now name the author and the licence.
+- **`glossary-extra.js`.** The serializer dropped two duplicate keys, `Huns` and `Attila`. The two copies were identical, and the effective table was compared before and after: only the three intended images changed.
+
+**Read by eye.**
+- *Article:* the Phaistos Disc, the bull-leaping fresco, the Snake Goddess figurines, the peak sanctuaries and the cult caves take "the". Kamares ware, Marine Style pottery and the frescoes are bare where the grammar allows. The sealstones read "one of the".
+- *Confusability:* the three picture-subject cards (`gr-022`, `gr-023`, `gr-024`) each lean on a clue only they have, the skin colours having moved off `gr-023`'s questions. `gr-028` and `gr-029` are told apart by the bones.
+- *Image depicts the whole term:* for a class of object, a set of examples: cups, seals. For a single object, the object. For a class of place, one real example: Petsofa, Psychro.
+- *Coverage:* `gr-021` was missing the parallels and the forgery question; `gr-024` was missing the restoration problem and the Boston fake.
+
+**Locators.**
+- `gr-021` points at Phaistos. `add-locators.js` named it "Phaistos Disc" when no `name` was given, **so pass `name` for any object card**.
+- `gr-023` and `gr-024` point at Knossos.
+- The seven class cards take B1's Crete-only ring.
 

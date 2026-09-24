@@ -482,6 +482,20 @@ Mesara were checked and already have keys or aliases.
 | 2 | Tylissos · eggshell ware | Tylissos is the villa pictured on `gr-016`; eggshell ware is the Protopalatial fine ware |
 | 1 | roundel · libation formula | the Linear A receipt and the set phrase on offering tables |
 
+**Added by the refinement's B3 (2026-09-24)**, counted the same way after `gr-021`–`gr-030` were
+rewritten. Rhyton, stirrup jar, Palaikastro, Psychro Cave, Mount Juktas and faience already have keys.
+**`argonaut` was an alias of `Argonauts`, the heroes of the Argo**, so the sea creature on the Marine
+Style card linked to Jason's crew. Every mythic use in the corpus is capitalised, so the term is now
+case-sensitive rather than losing the alias; a term for the mollusc would want a key such as
+`Argonaut_(animal)`.
+
+| cards | term | note |
+|---|---|---|
+| 6 | offering table | also written "libation table" and "table of offerings"; one key, the other two as aliases |
+| 3 | Cup-bearer · Shrine of the Double Axes | |
+| 2 | Temple Repositories · Petsofa · Kahun | Kahun is the Egyptian town, also spelt Lahun |
+| 1 | Arkalochori · Lily Prince · murex · bench sanctuary | `Arkalochori` names both a cave and a village; key the cave |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and

@@ -9088,6 +9088,7 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Poland": true,
 "Laos": true,
 "Boreal": true,
+"Argonauts": true,
 "Mode_1": true,
 "Theogony": true,
 "Works_and_Days": true,
