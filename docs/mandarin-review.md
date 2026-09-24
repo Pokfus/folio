@@ -677,6 +677,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | **the British pass's own blind spot** — one finding list, all nine decks | 479 | the pass and its checker both read three fields and the card type has six; **547 American spellings sat in `Characters` alone** |
 | 2026-09-24 | **the `-is/-iz` table gap** — 45 rows into `SPELL_PAIRS`, an APP change | 70 (+2 cards, 1 term) | the raw grep's “~45 sites in Folio's own prose” was wrong: **they were CITATIONS**, and the real figure is ONE |
 | 2026-09-24 | `hsk30l6` notes 331–360 (顿时 → 凡是), deck order | 23 (+3 in 7–9) | **ten near-repeats again**, a card glossed as its own neighbour — and `check-gloss-source.js` crying wolf on 68 correct glosses |
+| 2026-09-24 | `hsk30l6` notes 361–390 (繁殖 → 丰收), deck order | 23 | **fourteen near-repeats, four of them ALL THREE sentences** — the fill pass at its weakest, and five glosses that were the wrong part of speech |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10902,3 +10903,78 @@ rows reached.** `build-lang-decks.js` re-run.
 **This one carries a changelog line and a version bump — 1.872 → 1.873** — because three rows went into
 `SPELL_PAIRS`, which is the app's. Per the one-line-per-kind-of-change-per-day rule the day's existing
 spelling line was **raised from forty-five families to forty-eight** rather than joined by a second.
+
+## Batch 142 — `hsk30l6` notes 361–390 (繁殖 → 丰收)
+
+**Twenty-three of thirty changed — and this is the weakest range the fill pass has left behind.**
+
+### Fourteen near-repeats, and four cards where ALL THREE sentences were one sentence
+
+Not two of three but **three of three** on 防治, 飞速, 肥胖 and 肥沃. 肥沃 read *the soil here is
+fertile*, *the land on his farm is very fertile* and *this land is fertile*; 飞速 read 技术在飞速发展,
+城市在飞速发展 and 技术飞速进步 — two of those differ by **a single character**. 防治 said *disease
+prevention matters* three ways, and one of the three, 预防和防治要同时进行, is a redundancy besides:
+防治 already IS prevention and treatment, so the sentence reads *prevention and prevention-and-treatment*.
+
+Ten more cards carried the ordinary two-of-three kind — 方位, 房价, 放飞, 肺炎, 分期, 氛围, 风光, 丰收,
+反思 and 384 氛围, whose two carried **the same English word for word** (*The atmosphere … is relaxed*),
+the shape `check-mandarin-coverage.js` cannot see because it compares the Chinese. **Most were this
+record's own fill-pass rows, but 丰收's two were the DECK's** — worth recording, because it says the fill
+pass is not the only source of these.
+
+### Five glosses were the wrong part of speech, three of them found by a checker
+
+访谈 was *to visit and discuss* under a `verb` label while all three sentences are the NOUN — a reporter
+conducted one, a paper carried one, he gave a television one. 飞速 was the adjective *swift* under
+`adverb`. 反思 was three NOUNS — *self-examination; introspection; profound consideration* — under
+`verb`, over three sentences that are all the verb. 愤怒 was three nouns under `adjective`, on a card
+whose sentences use both, so the label now names both. **`check-gloss-source.js` reported the last three
+of those, on its first run since yesterday's fix to it** — which is the argument for that fix: they were
+sitting under 65 spelling-only false findings before.
+
+### Four swallows, all on single-character cards
+
+犯's 犯人 is *a convict*; 肺's **水肺 is an AQUALUNG** — 水肺潜水 is scuba diving, so the English never
+mentioned a lung at all; 粉's three sentences were 花粉, 粉刷 and 粉红色, so a card glossed *powder* never
+showed the bare noun once. All are skipped by `check-example-fit.js` by design. **Four `Compounds`
+panels** — 犯, 肺, 粉, 肥.
+
+### 肥 was a word for livestock used of a person
+
+觉得汤姆肥的人不止我一个 calls a named person 肥, which in Chinese is what one says of animals and of
+meat; the neutral word for a person is 胖, and the deck has 肥胖 two cards later. Its sibling 这猫是很肥
+is ungrammatical besides — 是 cannot stand before 很肥. Both replaced, and the replacements give the two
+senses nothing on the card showed: rich soil, and the loose-fitting sense CC-CEDICT lists third.
+**肥胖's first sentence was a generalisation about a nationality** (*Many Americans are obese*), which
+teaches nothing about the word, and went with the two near-repeats beside it.
+
+### And the rest
+
+反馈's first sentence **ended with no full stop at all** — the corpus punctuation pass converts a mark
+and never supplies a missing one, so about 150 sentences still end bare. 肺炎 wrote 的 where the
+adverbial marker is 地 (不停地咳嗽), a character error that renders and speaks perfectly. 分散 carried a
+passage of **wuxia fiction with four proper names** in it, and beside it thirty-five characters of
+self-help whose English is not a translation of the Chinese in front of it. 封闭's third was forty
+characters of free-software argument. 方言's 他嘴里一口方言 has no verb. 反思's 反思并回应。 was four
+characters with no subject, object or context.
+
+### AND FOR THE SIXTH BATCH RUNNING, THREE REPLACEMENTS OF MY OWN ECHOED THE ROW BESIDE THEM
+
+反思's first replacement had a team reflecting on a DEFEAT over a row reading *one should reflect after
+failure*; 封闭's closed a TUNNEL over a row closing a ROAD. Both caught by reading the finished card, and
+replaced again — the tunnel by the figurative *shut off from the world*, which neither of the other two
+sentences covered. **Six batches running is not a run of bad luck, it is the method**: authoring a
+replacement from the card's own subject naturally lands on the card's own construction, and the only
+guard is reading the finished card rather than the diff.
+
+**Read and left.** 繁殖, 方方面面, 妨碍, 放大, 分工, 分级, 风力, 愤怒's sentences and 肺's two surviving
+compounds are sound. `check-gloss-source.js` also names 飞速, which is the proxy paraphrasing — *swiftly;
+at great speed* against *swift; rapidly*.
+
+### Checks after
+
+`--check` clean. `check-pinyin.js`, `check-polyreading.js`, `check-british.js`, `check-say-reading.js`
+and `check-example-fit.js` all name nothing in 361–390; `check-senses.js` and `check-coarse.js` likewise.
+Coverage 11,532 notes at three sentences with 0 repeats; shared-gloss groups 318 and still-ambiguous 1,
+both unchanged. **Verified against the real diff: 23 of 30 changed, nothing outside the range.**
+`build-lang-decks.js` re-run. No changelog line and no version bump.
