@@ -1017,6 +1017,32 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-501`: Trajan's Parthian campaign — what this card found
+
+One card, in `rm-high-empire`, answered by the plan's own words, with a new glossary term
+`Trajan's_Parthian_campaign`. `Crassus_Parthian_campaign` already claims the bare alias
+`Parthian campaign`; the new key's longer surface wins wherever the full phrase appears, so the
+two do not collide.
+
+**It carries NO war block, deliberately.** The block says who won, and this war's outcome is the
+card's own subject: Ctesiphon fell and three provinces were made, then the conquests revolted,
+Hatra held out and Hadrian gave everything beyond the Euphrates back. A green Rome over
+Mesopotamia would state a victory the card spends five sentences taking apart.
+
+**The two ancient accounts disagree about Parthamasiris and the card says so**: Dio 68.20 has
+him sent away under escort, Eutropius 8.3 has him put to death. Neither is preferred.
+
+**The modern source is in Russian** — V. N. Parfyonov's 2025 article in the *RUDN Journal of World
+History*, open access and read whole — and is cited under the English title the journal itself
+publishes and Crossref holds, with a `[in Russian]` chip, so `check-citations.js` can match it.
+It carries the Armenian background since the settlement of 63 CE, the Parthian civil war, the
+surrender of Ctesiphon in 116 CE and the reading of Eutropius's "Red Sea" as the Persian Gulf.
+**Two hosts refused**: `iranicaonline.org` answers 403 on every article, and the Aristonothos
+paper on the Antioch earthquake of 115 CE (`riviste.unimi.it`) reset the connection.
+
+The card's picture is the REX PARTHIS DATVS sestertius of 116–117 CE and the term's the REGNA
+ADSIGNATA aureus, both CNG photographs on Commons; the locator is Ctesiphon.
+
 ## `rm-491`-`rm-500`: Nerva to the alimenta — what this batch found
 
 All ten are in `rm-high-empire`, and they carry the collection from the murder of Domitian to Trajan's

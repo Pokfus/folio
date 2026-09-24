@@ -4363,7 +4363,8 @@ window.GLOSSARY = {
 "Epidaurus": "Epidaurus was a small city on the east coast of the Argolid whose sanctuary of Asclepius, a few kilometres inland, became the most famous healing shrine in Greece.<sup class=\"fn\" data-fn=\"2\"></sup> Pausanias says the sacred grove was bounded by markers within which nobody might be born or die, and describes a gold and ivory cult statue, a round house, a celebrated theatre and slabs inscribed with the cures the god had worked.<sup class=\"fn\" data-fn=\"1\"></sup> Those inscribed cures are the fullest record of what the sanctuary did, though rites described by later authors may have been introduced only in Roman times.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Incubation_(ritual)": "Incubation was the practice of sleeping within a sanctuary in order to be visited in a dream by its god, most often to be healed but sometimes to be given an oracle.<sup class=\"fn\" data-fn=\"2\"></sup> Aristophanes gives the fullest account of the procedure, with the patient bathed in the sea, offerings burnt, the sick laid on couches, the lamps put out and silence ordered for the night.<sup class=\"fn\" data-fn=\"1\"></sup> The rites surrounding the sleep were essentially those of ordinary Greek sacrifice, local requirements varied widely, and the dormitories are hard to identify because no building type was reserved for them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ancient_Greek_funeral_and_burial_practices": "Greek funerary practice ran in three stages, the washed body laid out at home, the carrying of it to the grave before dawn, and the burial with its offerings and later visits.<sup class=\"fn\" data-fn=\"2\"></sup> Much of the work was women’s and the ritual lament is its best attested element, but Athenian law restricted the display early on, Solon forbidding the laceration of flesh, hired lamentations, the sacrifice of an ox at the grave and the burial of more than three garments.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Burials lined the roads out of the city rather than being set apart from it, so the dead remained close to the living.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Curse_tablet": "A curse tablet was a thin sheet of lead inscribed with a malediction, spell or prayer against a rival, a lover, a wrongdoer or any other person felt to be a threat.<sup class=\"fn\" data-fn=\"2\"></sup> Known in Latin as <i>defixiones</i>, they are attested in Greek from about 500 BCE, were rolled or folded and deposited where the powers addressed could reach them, and at Athens were most often dropped down wells.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Because they record private quarrels rather than public events, they are among the best evidence surviving for lives below the level of political history.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Curse_tablet": "A curse tablet was a thin sheet of lead inscribed with a malediction, spell or prayer against a rival, a lover, a wrongdoer or any other person felt to be a threat.<sup class=\"fn\" data-fn=\"2\"></sup> Known in Latin as <i>defixiones</i>, they are attested in Greek from about 500 BCE, were rolled or folded and deposited where the powers addressed could reach them, and at Athens were most often dropped down wells.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Because they record private quarrels rather than public events, they are among the best evidence surviving for lives below the level of political history.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Trajan's_Parthian_campaign": "Trajan's Parthian campaign was the war the emperor Trajan waged against the Parthian empire from 114 to 117 CE, beginning with the annexation of Armenia after a Parthian prince had been given its crown without Rome's consent.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Helped by a civil war among rival claimants to the Parthian throne, Roman armies overran Mesopotamia, entered the capital Ctesiphon in 116 CE and reached the Persian Gulf, where Trajan considered a naval expedition towards India.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Revolts broke out behind the advance and the desert city of Hatra held out, and after Trajan's death in 117 CE his successor Hadrian gave up the new provinces and made the Euphrates the frontier again.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6584,7 +6585,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Siren": "c. 750 – 700 BCE",
 "Eleusis": "c. 15th century BCE – 4th century CE",
 "Epidaurus": "c. 6th century BCE – 4th century CE",
-"Curse_tablet": "c. 500 BCE – 4th century CE"
+"Curse_tablet": "c. 500 BCE – 4th century CE",
+"Trajan's_Parthian_campaign": "114 – 117 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -9074,7 +9076,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Dionysian_Mysteries": ["Dionysiac mysteries","Bacchic mysteries"],
 "Incubation_(ritual)": ["ritual incubation","temple sleep"],
 "Ancient_Greek_funeral_and_burial_practices": ["Greek funerary practice","Greek funeral","Greek funerals","Greek burial practice"],
-"Curse_tablet": ["curse tablets","defixio","defixiones"]
+"Curse_tablet": ["curse tablets","defixio","defixiones"],
+"Trajan's_Parthian_campaign": ["Trajan's Parthian War","Parthian war of Trajan"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -13483,7 +13486,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Epidaurus": ["place","religion","archaeology","history","greece","medicine"],
 "Incubation_(ritual)": ["practice","religion","history","greece","medicine"],
 "Ancient_Greek_funeral_and_burial_practices": ["practice","religion","history","greece","attica"],
-"Curse_tablet": ["object","religion","history","greece","archaeology"]
+"Curse_tablet": ["object","religion","history","greece","archaeology"],
+"Trajan's_Parthian_campaign": ["event","warfare","history","rome","parthia","classical","mesopotamia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
