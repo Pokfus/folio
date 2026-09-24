@@ -682,6 +682,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 421–450 (钢笔 → 供给), deck order | 20 | **个体: NOT ONE of its three sentences contained the word**, and its gloss was wrong as well — the worst single card this audit has met |
 | 2026-09-24 | `hsk30l6` notes 451–480 (攻击 → 拐), deck order | 12 | **顾, glossed from a sense CC-CEDICT does not carry, whose every sentence was 环顾**; and 费用共计一千元 beside 费用共计三千元 |
 | 2026-09-24 | `hsk30l6` notes 481–510 (拐弯 → 过时), deck order | 20 (+1) | **three translations that render a different sentence**, two headwords straddling two shorter words, and a `not X` pair retired because the collision was a gloss error |
+| 2026-09-24 | `hsk30l6` notes 511–540 (海内外 → 狠), deck order | 16 | **a card whose pinyin and bopomofo both say one reading while its gloss is the other reading's**, which `check-polyreading.js` cannot see because it only reads single-character cards |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11275,3 +11276,72 @@ own header says it is.
 still-ambiguous 1, unchanged. **Verified against the real diff: 20 of 30 changed, and exactly one note
 outside the range — hsk30l7/过境, the retired pair's other half.** `build-lang-decks.js` re-run. No
 changelog line and no version bump.
+
+### Batch 147 — `hsk30l6` notes 511–540 (海内外 → 狠), 2026-09-24
+
+Sixteen of the thirty changed. The finding worth keeping is **好学**, and it is a hole in a checker
+rather than a slip in a card. The word has two readings and CC-CEDICT carries them as two entries:
+`hǎo xué` *easy to learn*, and `hào xué` *eager to study; studious*. The card's **pinyin AND its
+bopomofo both say hào** (ㄏㄠˋ ㄒㄩㄝˊ) — they agree, so `check-pinyin.js` has nothing to report —
+while its gloss read *easy to learn*, which is the other reading's sense. Two of its three sentences
+went with the gloss rather than the reading: 法语好学吗 is plainly `hǎo xué`, and 只要你好好学中文 is
+not the word at all, being 好好 + 学. Only 她勤而好学 taught what the card says it teaches.
+**`check-polyreading.js` exists for exactly this fault and could not see it**: it reads only
+SINGLE-CHARACTER cards, on the reasoning that a lone polyphone is where a gloss taken from the wrong
+reading hides. 好学 is two characters, and two-character words have readings too. The gloss is
+corrected to the reading the card names, the two sentences are replaced, and the question of widening
+that checker to two-character cards is recorded rather than answered — the measurement it would need
+is how many two-character words the decks carry with two CC-CEDICT entries at all, which is a batch of
+its own.
+
+**Three more glosses were a different word's.** **海面** was glossed *sea level*, which is 海平面 —
+a separate word with its own CC-CEDICT entry — where 海面 is *the surface of the sea*; the sentence
+resting on the wrong sense (海面随着全球变暖的加剧而越来越高, "sea levels get higher and higher")
+went with it, replaced by 潜艇浮出了海面. **和平** was glossed *peace; mild*; CC-CEDICT gives
+*peace; peaceful* and all three sentences are the noun, so *mild* — a literary use of the word —
+stated a sense the card never shows. And **合成**'s gloss ended in *synthetise*, which is not an
+English word in either dialect, so `check-british.js` could not have reported it either.
+
+**Three label-against-gloss mismatches**, the shape these batches keep turning up. **海岸** carried
+CC-CEDICT's first word alone, the adjective *coastal*, under a NOUN label and over three sentences
+that all use the noun. **航空** was labelled a verb over *aviation*. **害** gave only the noun senses
+(*harm, damage, injury*) under a "noun / verb" label, where CC-CEDICT leads with the verb — split into
+`[verb, noun]` with `exSense [1,1,2]`.
+
+**毫不** is the dictionary's-first-word trap from batch 31 again: glossed *hardly*, CC-CEDICT's leading
+word and the one none of its sentences shows, all three being *not in the least*. Widened — and then
+the plain widening sat beside **毫无**'s *none; not in the least*, a **near-collision the coverage
+checker cannot see**, comparing exactly. The two are genuinely different words and the difference is
+grammatical, so 毫不 takes a parenthetical saying so: *(before a verb or adjective)*, where 毫无 takes
+a noun. Shared-gloss groups held at 317.
+
+**好不** had two of three sentences that were not the word. 很好不是吗 is 好 + 不是 and 好不好 is
+好 + 不 + 好 — the headword STRADDLING a boundary, which `check-example-fit.js` reports only when the
+headword is split between two words its own lexicon knows, and 不是 sits the other side of that test.
+Both replaced by authored 好不 + adjective sentences. **狠**'s 今天热得狠 is the same class from
+another direction: CC-CEDICT records 狠 as an **old variant of 很**, so the sentence is not a typo but
+the intensifier, a different word wearing this card's character — and it taught none of *ruthless,
+cruel, severe*. **害** had two swallows beside its label fault, 公害 and 遇害.
+
+**Four near-repeats**, each one frame written twice: 海内外 (这本书在海内外都很有名 / 这本书在海内外都很受欢迎),
+号召 (政府 / 学校号召大家节约用水), 毫升 (请加五十 / 请倒二百毫升水), and 毫米, whose dropped sentence
+was a local weather bulletin — 过去6小时，我县牙城镇降雨达到122.4毫米 — carrying a place name and a
+decimal figure that teach nothing about a millimetre.
+
+**Two English translations were wrong about their own Chinese.** **好客** rendered 大多数中国人是非常好客的
+as "Many Chinese people make good guests", which is its opposite: a 好客 person is the one who
+entertains. Fixed with `exEn`. And **海拔**'s Alps sentence wrote Italy 义大利, the Taiwan form against
+the mainland 意大利, while its English stated no elevation at all; dropped rather than respelled, since
+义 and 意 are not orthographic variants and `exVariant` may not be used to swap them.
+
+**Fourteen cards were read and left**: 海域, 寒冬, 含义, 罕见, 旱灾, 毫无, 好感, 好容易, 合并, 和谐,
+核心, 嘿, 黑暗, 痕迹. **Two questions are recorded rather than answered.** 号召's third sentence,
+他响应了这个号召, is the NOUN under a verb label, and CC-CEDICT gives only verb senses — splitting it
+would be going beyond the dictionary on one sentence's evidence. And 航空's 航天航空工程师 writes the
+pair in the order the mainland usually reverses (航空航天); the form is attested, the record has no
+instrument that can reorder Chinese characters in a deck sentence anyway, and dropping a third
+sentence to fix a word order would cost more than it buys.
+
+Coverage unchanged: 11,532 notes at three sentences, 0 repeats, 317 shared-gloss groups with
+still-ambiguous 1. `check-british` reads 0. **Verified against the real diff: 16 of 30 changed and
+nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
