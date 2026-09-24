@@ -16241,21 +16241,22 @@
       ]
     },
     "hsk30l6/争夺": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 185. This record's 两队在争夺冠军 and 两队争夺冠军 were one sentence twice. The second is replaced by an AUTHORED sentence; the gloss takes CC-CEDICT's wording.",
       "ex": [
         [
           "两队在争夺冠军。",
           "The two teams are contending for the title."
         ],
         [
-          "两队争夺冠军。",
-          "The two teams are fighting for the title."
-        ],
-        [
           "他们争夺这块市场。",
           "They are competing for this market."
+        ],
+        [
+          "几家公司正在争夺这个项目。",
+          "Several companies are competing for this project."
         ]
-      ]
+      ],
+      "gloss": "to fight over; to contest; to vie for"
     },
     "hsk30l6/事后": {
       "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | An example sentence did not contain this word at all: its characters were an accident of two OTHER words meeting — 生动 highlighted inside 野生动物, 后期 inside 最后期限, 上火 inside 赶上火车. The sentence was real and its translation right, and the card bolded characters that mean nothing together, so a reader was being shown a word that was not there. Found by check-example-fit.js. The bad sentence is dropped and an AUTHORED one that really uses the word put in its place. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 169. 但是，当然啦，事后诸葛亮总是好当 had the headword only inside the idiom 事后诸葛亮 'wise after the event', which CC-CEDICT lists. Replaced by an AUTHORED sentence.",
@@ -20296,19 +20297,19 @@
       ]
     },
     "hsk30l6/招生": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 185. This record's 学校明年开始招生 and 学校今年开始招生 were one sentence with a year changed. The second is replaced by an AUTHORED sentence.",
       "ex": [
         [
           "学校明年开始招生。",
           "The school starts taking students next year."
         ],
         [
-          "学校今年开始招生。",
-          "The school begins enrolling this year."
-        ],
-        [
           "招生工作已经结束。",
           "Admissions work has ended."
+        ],
+        [
+          "这所大学每年秋天招生。",
+          "This university takes in new students every autumn."
         ]
       ]
     },
@@ -86315,7 +86316,7 @@
       "gloss": "to occupy; to take up; to hold"
     },
     "hsk30l6/招收": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 185. 大学被招收了三个中国学生 misuses 被 and is not Chinese. Replaced by an AUTHORED sentence; the gloss gains its 'to' and 'to admit'.",
       "ex": [
         [
           "公司招收了十名新人。",
@@ -86324,11 +86325,19 @@
         [
           "他们招收有经验的工人。",
           "They recruit experienced workers."
+        ],
+        [
+          "这所学校今年招收了五百名新生。",
+          "This school admitted five hundred new students this year."
         ]
+      ],
+      "gloss": "to recruit; to take in; to admit",
+      "dropEx": [
+        "大学被招收了三个中国学生"
       ]
     },
     "hsk30l6/照明": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 185. Labelled a verb over the noun 'lighting', which all three sentences are.",
       "ex": [
         [
           "房间的照明不太好。",
@@ -86338,10 +86347,16 @@
           "路灯提供照明。",
           "The street lamps provide lighting."
         ]
+      ],
+      "senses": [
+        [
+          "noun",
+          "lighting; illumination"
+        ]
       ]
     },
     "hsk30l6/正规": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 185. 'Normal' is not a sense; the sentences are proper and formal.",
       "ex": [
         [
           "请到正规医院就诊。",
@@ -86351,7 +86366,8 @@
           "他受过正规训练。",
           "He has had formal training."
         ]
-      ]
+      ],
+      "gloss": "regular; formal; according to standards"
     },
     "hsk30l6/脂肪": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -88214,31 +88230,45 @@
       "gloss": "one's elders; senior generation"
     },
     "hsk30l6/征求": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 185. The second sentence's English said 'wouldn't ask him anything'; the Chinese says she never asked his opinion.",
       "ex": [
         [
           "我们征求了大家的意见。",
           "We sought everyone's opinion."
         ]
+      ],
+      "exEn": [
+        [
+          "汤姆很不高兴，因为她从来不征求他的意见",
+          "Tom was unhappy because she never asked his opinion."
+        ]
       ]
     },
     "hsk30l6/支撑": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 185. 政府官员表示，没有证据支撑… ran past the card's length. Replaced by an AUTHORED sentence showing the figurative sense.",
       "ex": [
         [
           "几根柱子支撑着屋顶。",
           "Several pillars support the roof."
+        ],
+        [
+          "是信念支撑他度过了那段困难的日子。",
+          "It was his faith that carried him through those hard days."
         ]
+      ],
+      "dropEx": [
+        "政府官员表示，没有证据支撑"
       ]
     },
     "hsk30l6/支出": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 185. The gloss led with the bare verbs 'pay; disburse' over three sentences that are the noun.",
       "ex": [
         [
           "这个月的支出太多。",
           "This month's expenditure is too high."
         ]
-      ]
+      ],
+      "gloss": "expenditure; expenses; to pay out"
     },
     "hsk30l6/职责": {
       "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
@@ -149924,6 +149954,390 @@
         [
           "朋友来了，我们泡茶招待他们。",
           "When our friends came, we made them tea."
+        ]
+      ]
+    },
+    "hsk30l6/招手": {
+      "why": "Batch 185. The gloss named only 'to wave'; CC-CEDICT adds 'to beckon'.",
+      "gloss": "to wave; to beckon"
+    },
+    "hsk30l6/折": {
+      "why": "Batch 185. Glossed 'break; snap; lose money' over a paper plane and two discounts; not one sentence broke anything. Split into its two senses; 如果小姐要的话，可以打八折, the second 打折 sentence, is replaced by an AUTHORED sentence showing 'to snap', and each sentence is tagged. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "verb",
+          "to break; to snap; to fold"
+        ],
+        [
+          "noun",
+          "discount (打八折: 20% off)"
+        ]
+      ],
+      "dropEx": [
+        "如果小姐要的话，可以打八折"
+      ],
+      "ex": [
+        [
+          "他不小心把树枝折断了。",
+          "He accidentally snapped the branch."
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        1
+      ],
+      "compounds": [
+        [
+          "打折",
+          "dǎzhé",
+          "to give a discount"
+        ],
+        [
+          "折断",
+          "zhéduàn",
+          "to snap off"
+        ],
+        [
+          "骨折",
+          "gǔzhé",
+          "fracture"
+        ],
+        [
+          "折叠",
+          "zhédié",
+          "to fold; folding"
+        ],
+        [
+          "转折",
+          "zhuǎnzhé",
+          "turning point"
+        ]
+      ]
+    },
+    "hsk30l6/针": {
+      "why": "Batch 185. 她擅长针线活 had the headword inside 针线活 'needlework', and 指南针的指针指向北边 had it inside 指南针 and 指针. Both replaced by AUTHORED sentences; the card is split into 'needle' and 'injection', which 我得给你打一针 is, and each sentence is tagged. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "noun",
+          "needle; pin"
+        ],
+        [
+          "noun",
+          "injection"
+        ]
+      ],
+      "dropEx": [
+        "她擅长针线活",
+        "指南针的指针指向北边"
+      ],
+      "ex": [
+        [
+          "你有针和线吗？我的扣子掉了。",
+          "Do you have a needle and thread? My button has come off."
+        ],
+        [
+          "这根针太细了，很难穿线。",
+          "This needle is so fine that it is hard to thread."
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        1
+      ],
+      "compounds": [
+        [
+          "打针",
+          "dǎzhēn",
+          "to give or get an injection"
+        ],
+        [
+          "针灸",
+          "zhēnjiǔ",
+          "acupuncture"
+        ],
+        [
+          "指南针",
+          "zhǐnánzhēn",
+          "compass"
+        ],
+        [
+          "别针",
+          "biézhēn",
+          "pin; safety pin"
+        ],
+        [
+          "针对",
+          "zhēnduì",
+          "to target; to be aimed at"
+        ]
+      ]
+    },
+    "hsk30l6/镇": {
+      "why": "Batch 185. The gloss named only the verb while two of the three sentences are 'town', and 我需要用药来镇痛 had the character inside 镇痛. That sentence is replaced by an AUTHORED one showing the verb; the card is split into its two senses and each sentence is tagged. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "noun",
+          "town; small town"
+        ],
+        [
+          "verb",
+          "to press down; to calm; to suppress"
+        ]
+      ],
+      "dropEx": [
+        "我需要用药来镇痛"
+      ],
+      "ex": [
+        [
+          "警察很快镇住了局面。",
+          "The police quickly brought the situation under control."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "城镇",
+          "chéngzhèn",
+          "town; cities and towns"
+        ],
+        [
+          "乡镇",
+          "xiāngzhèn",
+          "townships and towns"
+        ],
+        [
+          "镇定",
+          "zhèndìng",
+          "calm; composed"
+        ],
+        [
+          "镇压",
+          "zhènyā",
+          "to suppress; to put down"
+        ],
+        [
+          "冰镇",
+          "bīngzhèn",
+          "iced"
+        ]
+      ]
+    },
+    "hsk30l6/阵雨": {
+      "why": "Batch 185. 我遇上了阵雨被淋得全身湿透 and 詹姆士遇上了阵雨 were one construction twice. The second is replaced by an AUTHORED sentence.",
+      "dropEx": [
+        "詹姆士遇上了阵雨"
+      ],
+      "ex": [
+        [
+          "下午可能有阵雨，记得带伞。",
+          "There may be showers this afternoon, so remember your umbrella."
+        ]
+      ]
+    },
+    "hsk30l6/睁": {
+      "why": "Batch 185. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "睁开",
+          "zhēngkāi",
+          "to open (one's eyes)"
+        ],
+        [
+          "睁眼",
+          "zhēngyǎn",
+          "to open one's eyes"
+        ],
+        [
+          "眼睁睁",
+          "yǎnzhēngzhēng",
+          "to look on helplessly"
+        ]
+      ]
+    },
+    "hsk30l6/争论": {
+      "why": "Batch 185. 争论是它是没有用的 is not Chinese. Replaced by an AUTHORED sentence.",
+      "dropEx": [
+        "争论是它是没有用的"
+      ],
+      "ex": [
+        [
+          "他们为这个问题争论了一个小时。",
+          "They argued about the question for an hour."
+        ]
+      ]
+    },
+    "hsk30l6/争议": {
+      "why": "Batch 185. Labelled a verb over the noun 'controversy', which all three sentences are.",
+      "senses": [
+        [
+          "noun",
+          "controversy; dispute"
+        ]
+      ]
+    },
+    "hsk30l6/政策": {
+      "why": "Batch 185. 你不能回避官方政策 had no full stop and its English said 'office politics', and 工作政策是个失败 is not natural Chinese. Both replaced by AUTHORED sentences.",
+      "dropEx": [
+        "你不能回避官方政策",
+        "工作政策是个失败"
+      ],
+      "ex": [
+        [
+          "政府出台了新的住房政策。",
+          "The government has brought in a new housing policy."
+        ],
+        [
+          "这项政策得到了很多人的支持。",
+          "This policy has won a lot of support."
+        ]
+      ]
+    },
+    "hsk30l6/正面": {
+      "why": "Batch 185. Glossed 'front' over two sentences where it means 'positive'. Split into its two senses and each sentence is tagged.",
+      "senses": [
+        [
+          "noun",
+          "front; right side"
+        ],
+        [
+          "adjective",
+          "positive"
+        ]
+      ],
+      "exSense": [
+        2,
+        2,
+        1
+      ]
+    },
+    "hsk30l6/证实": {
+      "why": "Batch 185. 证实她顺利地过渡入皇室组织，有帮于消除这些焦虑 was a long sentence with a wrong character (帮 for 助). Replaced by an AUTHORED sentence; the gloss takes CC-CEDICT's 'to confirm'.",
+      "gloss": "to confirm; to verify; to corroborate",
+      "dropEx": [
+        "证实她顺利地过渡入皇室组织"
+      ],
+      "ex": [
+        [
+          "警方已经证实了这个消息。",
+          "The police have confirmed the report."
+        ]
+      ]
+    },
+    "hsk30l6/正义": {
+      "why": "Batch 185. Glossed as an adjective over three sentences where it is the noun 'justice'. Split into its two senses; 他想要正义, the shortest, is replaced by an AUTHORED sentence showing the adjective, and each sentence is tagged.",
+      "senses": [
+        [
+          "noun",
+          "justice; righteousness"
+        ],
+        [
+          "adjective",
+          "just; righteous"
+        ]
+      ],
+      "dropEx": [
+        "他想要正义"
+      ],
+      "ex": [
+        [
+          "他们为了正义的事业而奋斗。",
+          "They fought for a just cause."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l6/枝": {
+      "why": "Batch 185. 我今天晚上想吃花枝 had the character inside 花枝 'squid', and 这枝笔不好写 and 这几枝笔是谁的 were one measure-word use twice. Both replaced by AUTHORED sentences; the card is split into the noun and the measure word, and each sentence is tagged. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "noun",
+          "branch; twig"
+        ],
+        [
+          "measure word",
+          "(for sticks, pens, flowers etc)"
+        ]
+      ],
+      "dropEx": [
+        "我今天晚上想吃花枝",
+        "这几枝笔是谁的"
+      ],
+      "ex": [
+        [
+          "枝上开满了白色的小花。",
+          "The branches are covered in small white flowers."
+        ],
+        [
+          "他送给我一枝玫瑰。",
+          "He gave me a single rose."
+        ]
+      ],
+      "exSense": [
+        2,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "树枝",
+          "shùzhī",
+          "branch; twig"
+        ],
+        [
+          "枝条",
+          "zhītiáo",
+          "branch; stem"
+        ],
+        [
+          "枝叶",
+          "zhīyè",
+          "branches and leaves"
+        ],
+        [
+          "荔枝",
+          "lìzhī",
+          "lychee"
+        ]
+      ]
+    },
+    "hsk30l6/之所以": {
+      "why": "Batch 185. 我们罢工之所以是因为公司没有涨我们的工资 puts 之所以 after the verb, which is ungrammatical, and the next sentence is the corrected form of it. Replaced by an AUTHORED sentence; the gloss says what the construction is.",
+      "gloss": "the reason why … (followed by 是因为)",
+      "dropEx": [
+        "我们罢工之所以是因为"
+      ],
+      "ex": [
+        [
+          "我之所以学中文，是因为我对中国文化感兴趣。",
+          "The reason I study Chinese is that I am interested in Chinese culture."
+        ]
+      ]
+    },
+    "hsk30l6/职位": {
+      "why": "Batch 185. 我希望我没有得到职位 made no sense in either language, and the third sentence's English said 'accept the offer' where the Chinese is 'apply for'. The first is replaced by an AUTHORED sentence and the second retranslated.",
+      "dropEx": [
+        "我希望我没有得到职位"
+      ],
+      "ex": [
+        [
+          "他上个月辞去了经理的职位。",
+          "Last month he resigned his post as manager."
+        ]
+      ],
+      "exEn": [
+        [
+          "我打算去应聘那个公司的营销部经理职位",
+          "I plan to apply for the post of marketing manager at that company."
         ]
       ]
     }

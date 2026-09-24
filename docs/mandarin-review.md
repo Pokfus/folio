@@ -720,6 +720,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1561–1590 | 27 changed, 3 read and left: 32 example sentences replaced (four straddles on 有机 and 用人, 与其 shown as a different word, 用人 and 用心 split into their two senses, a political aside, jokes, near-repeats), 2 translations fixed, two Compounds panels, 20 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1591–1620 | 22 changed, 8 read and left: 22 example sentences replaced (杂 and 灾 used only inside other words, straddles on 源于 and 乐器, a generalisation about Latin Americans, the Analects, Taiwan's 程式, near-repeats), 5 translations fixed, three Compounds panels, 20 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1621–1650 | 20 changed, 10 read and left: 16 example sentences replaced (招 used only inside other words, 扎 shown in its other reading and in the name Gaddafi, 则 split into its two senses, a straddle on 再生, near-repeats), 1 translation fixed, five Compounds panels, 19 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1651–1680 | 23 changed, 7 read and left: 17 example sentences replaced (three ungrammatical sentences, the headword swallowed by 针线活, 指南针, 镇痛 and 花枝, near-repeats), 2 translations fixed, five senses splits, five Compounds panels, 8 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12807,4 +12808,30 @@ and no version bump.
   - 障碍 was verbs over nouns.
   - 长辈 named the family only.
 - **A collision caught by the coverage checker.** The corrected 灾害 gloss matched the new 灾 gloss word for word. It now leads with CC-CEDICT's own "calamity".
+
+### Batch 185 — `hsk30l6` notes 1651–1680 (招生 → 职位)
+
+23 notes changed and 7 read and left (真相, 珍珠, 枕头, 争吵, 症状, 脂肪, 值班), counted against the real diff.
+
+- **Three sentences that are not Chinese:**
+  - 招收's 大学被招收了三个中国学生 misuses 被.
+  - 争论's 争论是它是没有用的 is not a sentence.
+  - 之所以's 我们罢工之所以是因为… puts 之所以 after the verb. The card's own next sentence was the corrected form of it.
+  
+  A fourth, 证实's 42-character royal-family sentence, carried 帮 for 助.
+- **Single characters glossed from one sense their sentences did not show:**
+  - 折 was glossed "break; snap" over a paper plane and two discounts.
+  - 镇 was glossed as the verb over two sentences meaning "town".
+  - 针 had the character inside 针线活 and in both 指南针 and 指针.
+  - 枝 had it inside 花枝, "squid".
+  
+  Each is split into its senses, with every sentence tagged, and all four gained Compounds panels. 睁 gained one too.
+- **Part of speech against the sentences:**
+  - 照明 and 争议 were labelled verbs over nouns.
+  - 正面 read "front" over two sentences meaning "positive".
+  - 正义 was labelled an adjective over the noun "justice".
+- **Caught on read-back.** The first replacement for 正义 used 正义感, which swallows the headword and is not the adjective either. It was replaced before the batch closed.
+- **Near-repeats:** 招生, 争夺, 阵雨, and 枝's two pen sentences.
+- **Office politics.** 政策's 你不能回避官方政策 was translated "office politics".
+- **Translations:** 征求 and 职位 were each mistranslated.
 
