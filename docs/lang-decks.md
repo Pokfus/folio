@@ -3464,6 +3464,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S7 | A2 | #169 `la red` – #195 `cerdo, cerda` | 25 | 2 (`la princesa`, `el ministro, la ministra`) | 0 | — | — |
 | S8 | A2 | #196 `contento` – #222 `la tormenta` | 26 | 1 (`el chocolate`) | 0 | — | — |
 | S9 | A2 | #223 `la ciencia` – #249 `andar` | 27 | 0 | 0 | five coarse or explicit examples removed ahead of their audits: B1 `la pelota`, `el huevo`; B2 `la patada`; C1 `el forro`; C2 `la paja` | — |
+| S10 | A2 | #250 `el abrigo` – #276 `el pájaro` | 25 | 2 (`la fábrica`, `el virus`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -3888,6 +3889,53 @@ adjective in Forms.
 - `responder` now points to A1's `contestar`, which is the verb for "talk back".
 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 41 → 39, with no
+card of this batch left on it.
+
+### S10 — DELE A2, notes #250–#276 (Sep 2026)
+
+Measured against the S9 commit by card id: **25 changed, 470 untouched**, all 25 of them this batch's
+record entries; `la fábrica` and `el virus` were read and left, and are in `reviewed`.
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, EIGHTH BATCH RUNNING.** `uniforme` was headed as the adjective
+("uniform, even") while every example was the noun `el uniforme`, and is now that noun. **Across A2 that
+is now eight cards**: `vale` (S4), `partido`, `la santa`, `cerdo`, `la pasada`, `la china`, `helado` and
+`uniforme`. Every one of them is a headword where the generator taught the wrong member of a family: the
+adjective where the list meant the noun, the pebble where it meant the country. `build_deck.py`'s
+`pick_primary` takes the first Wiktionary record that has a real sense, unless the word is named in
+`FORCE_POS`. That table exists for exactly this, and already names `hecho`, `vestido` and thirty others.
+**The durable fix is to add these words to it, but not from this audit**: a rebuild would then rename those
+cards, and the record's entries are keyed by the generator's current headword, so they would stop matching
+and `spanish-fix.js` would fail. The two have to be changed together, on the day the decks are rebuilt.
+
+**A FALSE FRIEND THE CARD TRANSLATED AS ITSELF.** `el vaso`'s third example was translated "Put some water
+into the vase": the false friend a learner most needs warning about, stated the wrong way round. A vase is
+*un jarrón*, and the card now says so, and that a stemmed glass is *una copa*.
+
+**THE LOOK-ALIKE, ONE MORE TIME.** `meter` was illustrated by *la meta*; `la compra` by the verb
+(*los compra en el extranjero*); `la cruz` by *el cruce*, a crossroads (*los cruces*).
+
+**GLOSSES THAT MISSED THE EVERYDAY SENSE.**
+- `la educación` had no "manners" (*es de mala educación*).
+- `la compra` had no *hacer la compra*.
+- `servir` had no "to be for" (*¿para qué sirve esto?*), though two of its examples used it.
+- `el despacho` put "dispatch" first.
+- `la regla` showed no ruler.
+- `el pez` did not say that fish to eat is *el pescado*.
+- `enfadado` did not note Latin America's *enojado*.
+
+**THE CONJUGATION.** `moverse`'s gerund (*movíendose*), S3's fault, is now *moviéndose*. Its imperatives
+are right.
+
+**AND THE REST.**
+- Six A1-shared sentences were replaced, plus six shared with earlier A2 cards.
+- `el cheque`'s three examples all spelt it "check".
+- Latin American forms are gone: *jugo*, *celular*, *bienes raíces*, *mañana a la noche*, and *usar* for
+  wearing.
+- `la ambulancia` was missing a personal *a*.
+- `el palacio` dated the first Chinese palaces, which a vocabulary card cannot stand behind.
+- `el pájaro` lost a false generalisation and a shooting.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 39 → 36, with no
 card of this batch left on it.
 
 ## The language-deck catalogue — the Update press and the frequency order

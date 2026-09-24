@@ -21872,6 +21872,645 @@
    "dropEx": [
     "se está haciendo una paja"
    ]
+  },
+  "delea2/el abrigo": {
+   "why": "'warm clothes' is ropa de abrigo, a phrase, not the noun. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "coat, overcoat"
+     ]
+    ]
+   ]
+  },
+  "delea2/el palacio": {
+   "why": "'mansion' is rare. The second example, dating the earliest Chinese palaces to 1200 BCE, is a claim a vocabulary card cannot stand behind, and not A2.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "palace"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "palacios chinos datan"
+   ],
+   "ex": [
+    [
+     "El Palacio Real de Madrid está abierto al público.",
+     "The Royal Palace in Madrid is open to the public."
+    ]
+   ]
+  },
+  "delea2/el despacho": {
+   "why": "'dispatch' put a commercial sense first; at A2 the word is an office, or a study at home. The second example was the dispatch of goods.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "office (a room: el despacho del director)",
+      "study (at home)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el despacho de esa mercancía"
+   ],
+   "ex": [
+    [
+     "Trabajo desde el despacho que tengo en casa.",
+     "I work from the study I have at home."
+    ]
+   ]
+  },
+  "delea2/el vaso": {
+   "why": "THE THIRD EXAMPLE'S ENGLISH SAID 'VASE', which is un jarrón, and is the false friend a learner most needs warning about. The first example is also an A1 sentence, and the second's jugo is Latin American, where Spain says zumo. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "glass (for drinking)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los vasos"
+    ],
+    [
+     "not",
+     "a vase is un jarrón; a stemmed glass is una copa"
+    ]
+   ],
+   "dropEx": [
+    "Un vaso de agua con gas, por favor.",
+    "Dos vasos de jugo de naranja"
+   ],
+   "exEn": [
+    [
+     "Pon un poco de agua en el vaso",
+     "Put some water in the glass."
+    ]
+   ],
+   "ex": [
+    [
+     "¿Me das un vaso de agua?",
+     "Could you give me a glass of water?"
+    ],
+    [
+     "Se me ha roto un vaso.",
+     "I've broken a glass."
+    ]
+   ]
+  },
+  "delea2/la regla": {
+   "why": "The gloss is right, and none of the examples showed the ruler. The first, 'Como regla', is a calque of 'as a rule', where Spanish says por regla general.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "rule",
+      "ruler (for measuring)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "por regla general — as a rule"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Como regla, los gemelos",
+    "Al demonio con las reglas"
+   ],
+   "ex": [
+    [
+     "Por regla general, cenamos a las nueve.",
+     "As a rule, we have dinner at nine."
+    ],
+    [
+     "¿Me dejas tu regla?",
+     "Can I borrow your ruler?"
+    ]
+   ]
+  },
+  "delea2/meter": {
+   "why": "The third example is la meta, 'goal, aim', a noun, matched on shared letters; it is also an A1 sentence. The first's English turned el niño into 'the baby'. meter un gol had no line. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to put (in), to put into"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "meter un gol — to score a goal",
+      "meterse en — to get into"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Diego no tiene ninguna meta"
+   ],
+   "exEn": [
+    [
+     "meter al niño en la cama",
+     "I have to put the child to bed."
+    ]
+   ],
+   "ex": [
+    [
+     "Mete la ropa en la maleta.",
+     "Put the clothes in the suitcase."
+    ]
+   ]
+  },
+  "delea2/la educación": {
+   "why": "The gloss missed manners — tener educación, ser de mala educación — which is how a reader in Spain hears the word most. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "education",
+      "manners, upbringing (tener educación)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "es de mala educación… — it's bad manners to…"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Él dio una buena educación a sus hijos."
+   ],
+   "ex": [
+    [
+     "Es de mala educación hablar con la boca llena.",
+     "It's bad manners to talk with your mouth full."
+    ]
+   ]
+  },
+  "delea2/la madera": {
+   "why": "'wooden plank' and 'board' are not the word, and the woodwind section of an orchestra is not A2. The first and third examples are shared with el cepillo and el metal later in A2 and stay here.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "wood (the material)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de madera — wooden"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "sección de maderas de la orquesta"
+   ],
+   "ex": [
+    [
+     "Tenemos una mesa de madera en la cocina.",
+     "We've got a wooden table in the kitchen."
+    ]
+   ]
+  },
+  "delea2/decidir": {
+   "why": "The gloss ran five English verbs together. The first example's 'mañana a la noche' is Rioplatense for mañana por la noche; the third's English said 'I've decided' for decidí.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to decide"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "decidirse — to make up one's mind"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "hasta mañana a la noche para decidir"
+   ],
+   "exEn": [
+    [
+     "Decidí responder a todas las preguntas",
+     "I decided to answer all the questions in public."
+    ]
+   ],
+   "ex": [
+    [
+     "Todavía no he decidido qué voy a estudiar.",
+     "I still haven't decided what I'm going to study."
+    ]
+   ]
+  },
+  "delea2/la agencia": {
+   "why": "The gloss said 'agency' twice. The first example is shared with el viaje earlier in A2, and the second's 'agencias de bienes raíces' is Latin American, where Spain says inmobiliaria. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "agency (agencia de viajes — travel agency)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Dónde queda la agencia de viajes más cercana?",
+    "agencias de bienes raíces"
+   ],
+   "ex": [
+    [
+     "Mi hermana trabaja en una agencia de publicidad.",
+     "My sister works at an advertising agency."
+    ],
+    [
+     "Reservamos el viaje en una agencia.",
+     "We booked the trip through an agency."
+    ]
+   ]
+  },
+  "delea2/la ambulancia": {
+   "why": "The gloss is right. The first example wrote 'llamar una ambulancia' without the personal a Spanish needs there, and the third, '¡Yo estoy en la otra ambulancia!', is a line out of context.",
+   "dropEx": [
+    "para llamar una ambulancia",
+    "Yo estoy en la otra ambulancia"
+   ],
+   "ex": [
+    [
+     "¡Llamen a una ambulancia!",
+     "Call an ambulance!"
+    ],
+    [
+     "La ambulancia llegó en diez minutos.",
+     "The ambulance arrived in ten minutes."
+    ]
+   ]
+  },
+  "delea2/la compra": {
+   "why": "The gloss missed hacer la compra, 'to do the shopping', the sense a reader uses every week. The third example is the verb comprar ('los compra en el extranjero'), matched on shared letters, and the first is shared with romper earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "purchase, buy",
+      "shopping (hacer la compra — to do the food shopping)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ir de compras — to go shopping"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Se me rompió la bolsa de la compra.",
+    "los compra en el extranjero"
+   ],
+   "ex": [
+    [
+     "Hago la compra los sábados.",
+     "I do the shopping on Saturdays."
+    ],
+    [
+     "Este coche ha sido una buena compra.",
+     "This car was a good buy."
+    ]
+   ]
+  },
+  "delea2/uniforme": {
+   "spanish": "el uniforme",
+   "word": "uniforme",
+   "why": "THE CARD TAUGHT THE WRONG WORD. It was headed as the adjective, 'uniform, even', while every example was the noun, el uniforme. The headword becomes the noun and the adjective goes in Forms. Two examples wore a uniform with usar, which is Latin American where Spain says llevar, and the third asked 'Crees que sea inteligente', a calque.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "uniform"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los uniformes"
+    ],
+    [
+     "also",
+     "uniforme (adjective) — uniform, even"
+    ]
+   ],
+   "dropEx": [
+    "no estás usando tu uniforme",
+    "Crees que sea inteligente"
+   ],
+   "ex": [
+    [
+     "En mi colegio llevamos uniforme.",
+     "We wear a uniform at my school."
+    ],
+    [
+     "El uniforme del equipo es rojo y blanco.",
+     "The team's kit is red and white."
+    ]
+   ]
+  },
+  "delea2/moverse": {
+   "why": "The gloss is right; the gerund read movíendose, S3's fault (moviéndose). The second example, 'Una gran máquina se mueve en el cielo', is not a sentence a reader will need.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to move (oneself), to move about"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡no te muevas! — keep still!"
+     ]
+    ]
+   ],
+   "conjSub": [
+    [
+     "mov<span class=\"uc-cj-e\">íendose</span>",
+     "mov<span class=\"uc-cj-e\">iéndose</span>"
+    ]
+   ],
+   "dropEx": [
+    "Una gran máquina se mueve"
+   ],
+   "ex": [
+    [
+     "No te muevas, que te hago una foto.",
+     "Keep still, I'm taking your photo."
+    ]
+   ]
+  },
+  "delea2/el azúcar": {
+   "why": "The gloss is right. The first example is also an A1 sentence; the third is shared with la mantequilla later in A2 and stays here. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "A él le gusta el café sin azúcar."
+   ],
+   "ex": [
+    [
+     "¿Cuántas cucharadas de azúcar quieres?",
+     "How many spoonfuls of sugar do you want?"
+    ]
+   ]
+  },
+  "delea2/casarse": {
+   "why": "The gloss did not name casarse con, 'to marry someone', which the second example is. The third is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to get married"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "casarse con alguien — to marry someone"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A quién le importa cuándo ella se case"
+   ],
+   "ex": [
+    [
+     "Nos casamos el año pasado.",
+     "We got married last year."
+    ]
+   ]
+  },
+  "delea2/el cheque": {
+   "why": "All three examples' English spelt it 'check', the American form; 'checkmark' is not this word.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "cheque"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "pagar el libro con un cheque",
+     "Can I pay for the book by cheque?"
+    ],
+    [
+     "mis cheques de viaje",
+     "I've lost my traveller's cheques."
+    ],
+    [
+     "un cheque por la cantidad exacta",
+     "The bank needs a cheque for the exact amount."
+    ]
+   ]
+  },
+  "delea2/la piscina": {
+   "why": "'fishpond' is not this word. The first example is shared with alrededor earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "swimming pool"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ellas están tomando sol alrededor de la piscina."
+   ],
+   "ex": [
+    [
+     "¿Hay piscina en el hotel?",
+     "Is there a pool at the hotel?"
+    ]
+   ]
+  },
+  "delea2/desierto, desierta": {
+   "why": "The gloss put 'desert' first as though it were the adjective; the noun, el desierto, is the first example. The second and third examples were one sentence, a street deserted after a given hour.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "deserted, empty (of people)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el desierto — the desert"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Aquí las calles están desiertas"
+   ],
+   "ex": [
+    [
+     "La playa estaba casi desierta.",
+     "The beach was almost deserted."
+    ]
+   ]
+  },
+  "delea2/el pez": {
+   "why": "The gloss is a definition; the distinction a reader needs is that fish on a plate is el pescado. The first example is shared with el color earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "fish (alive)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los peces"
+    ],
+    [
+     "not",
+     "el pescado — fish (as food)"
+    ]
+   ],
+   "dropEx": [
+    "Tengo la memoria de un pez de colores."
+   ],
+   "ex": [
+    [
+     "Hay muchos peces en este río.",
+     "There are a lot of fish in this river."
+    ]
+   ]
+  },
+  "delea2/el pasillo": {
+   "why": "The gloss is right. The first example's English left 'one' unexplained, and the second's said 'halls'.",
+   "exEn": [
+    [
+     "Me gustaría uno por el pasillo",
+     "I'd like an aisle seat, please."
+    ],
+    [
+     "Él caminó por los pasillos",
+     "He walked along the corridors."
+    ]
+   ]
+  },
+  "delea2/servir": {
+   "why": "The gloss missed 'to be useful, to be for' — ¿para qué sirve esto? — which is the second and third examples. The first is shared with la copa earlier in A2, and the second's celular is Latin American. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to serve (food, drink)",
+      "to be useful, to be for (servir para)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "no sirve para nada — it's no use"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Me podría servir una copa de vino blanco?",
+    "Mi celular viejo"
+   ],
+   "ex": [
+    [
+     "¿Para qué sirve esto?",
+     "What's this for?"
+    ],
+    [
+     "La cena se sirve a las nueve.",
+     "Dinner is served at nine."
+    ]
+   ]
+  },
+  "delea2/enfadado, enfadada": {
+   "why": "'irate' is a register above the word, and the card did not say that Latin America says enojado. The second example's English said 'mad at', which is American.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "angry (estar enfadado con alguien)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "enfadados, enfadadas"
+    ],
+    [
+     "also",
+     "enojado — the usual word in Latin America"
+    ]
+   ],
+   "exEn": [
+    [
+     "Ana está enfadada con Carlos",
+     "Because of you, Ana is angry with Carlos."
+    ]
+   ]
+  },
+  "delea2/la cruz": {
+   "why": "The second example is el cruce, a crossroads — 'los cruces' — matched on shared letters, and the first, 'Detrás de la cruz está el diablo', is a proverb nobody at A2 will meet. Neither example showed ¿cara o cruz?, the gloss's second sense.",
+   "dropEx": [
+    "Detrás de la cruz está el diablo.",
+    "Los cruces más importantes"
+   ],
+   "ex": [
+    [
+     "Marca la respuesta correcta con una cruz.",
+     "Mark the correct answer with a cross."
+    ],
+    [
+     "¿Cara o cruz?",
+     "Heads or tails?"
+    ]
+   ]
+  },
+  "delea2/el pájaro": {
+   "why": "The gloss is a definition. The second example, 'A las personas no les gustan los pájaros', is a false generalisation shared with la persona earlier in A2, and the third was a man shooting at a bird. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "bird"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A las personas no les gustan los pájaros.",
+    "le disparó al pájaro"
+   ],
+   "ex": [
+    [
+     "Por la mañana se oyen los pájaros.",
+     "You can hear the birds in the morning."
+    ],
+    [
+     "Mi abuelo tiene dos pájaros en una jaula.",
+     "My grandfather has two birds in a cage."
+    ]
+   ]
   }
  },
  "insert": {
@@ -22138,7 +22777,9 @@
    "el bosque",
    "la princesa",
    "el ministro, la ministra",
-   "el chocolate"
+   "el chocolate",
+   "la fábrica",
+   "el virus"
   ]
  }
 }
