@@ -716,6 +716,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1441–1470 | 23 changed, 7 read and left: 19 example sentences replaced (学会 glossed with a sense no sentence showed, a Churchill quotation, a breast reduction, Taiwan's 网路, slogans, fragments, near-repeats), 1 translation fixed, one Compounds panel, 17 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1471–1500 | 21 changed, 9 read and left: 20 example sentences replaced (a police notice listing prostitution and drugs, a virginity test, a judgement of a man's taste in women, a straddle on 眼看, 淹 and 严 used only inside other words, near-repeats), 4 translations fixed, two Compounds panels, 16 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1501–1530 | 27 changed, 3 read and left: 34 example sentences replaced (一道 shown only as 一 + a measure word, five straddles, 野 and 仰 used only inside other words, slang for menstruation, a threat, Classical Chinese, near-repeats), 3 translations fixed, six Compounds panels, 19 glosses corrected; 野's archaic traditional form 壄 cleared |
+| 2026-09-24 | `hsk30l6` notes 1531–1560 | 26 changed, 4 read and left: 24 example sentences replaced (a slur on 议论, a straddle on 一时, headwords inside idioms and longer words, an advertising line, near-repeats), 2 translations fixed, three Compounds panels, 20 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12676,4 +12677,42 @@ and no version bump.
   - 衣食住行 had lost its "(idiom)" label and trailing semicolon.
   - 野外 now differs from 田园, so its hint is gone.
   - The rest were semicolon or "to" fixes.
+
+### Batch 181 — `hsk30l6` notes 1531–1560 (一律 → 隐藏)
+
+26 notes changed and 4 read and left (仪器, 仪式, 一再, 以便), counted against the real diff.
+
+- **Unsuitable.**
+  - 看起来不男不女的人常常受到议论和歧视 uses the slur 不男不女.
+  - 婚姻是造成离婚的主因 is a joke.
+  - 汉语是单音节语言 is a contested claim about the language.
+  - 移民川流不息地进入这个国家 describes immigrants as an unceasing stream.
+  - 收录蕾哈娜及更多艺人全新歌曲 is an advertising line.
+  
+  All replaced.
+- **Headword inside a longer word or straddled:**
+  - 一律: the idiom 千篇一律. The record's own translation of that sentence was removed with it.
+  - 一时: 轰动一时, and 十一时了 (十一 + 时).
+  - 一阵: 一阵子, twice.
+  - 因: 主因.
+  - 引: 引力.
+- **Near-repeats replaced:**
+  - 遗址: the same sentence twice, which `check-senses.js` now drops.
+  - 一同: a near-duplicate in the record.
+  - 一模一样: a brother, twice.
+  - 银牌: the Olympic sentences, which also stand on 铜牌.
+  - 银: 铜和银都是金属, which also stands on 铜.
+  - 异常: the weather three times.
+  - 一身: a 35-character goatherd sentence.
+  - Two over-long sentences each on 一系列 and 益处.
+- **Read-back caught two of my own replacements.**
+  - 大有益处 reads as 有益 + 处 to `check-example-fit.js`. It was replaced; the remaining flag on 读书对人有益处 is 有 + 益处 and is that checker's known false positive.
+  - The replacement on 隐藏 used both 藏 and 隐藏 in one sentence. It was rewritten.
+- **Translations.** 以往 dropped "from before"; 银 said "how do you buy".
+- **Glosses.**
+  - 一律 named the rarer sense.
+  - 一帆风顺 was cut off mid-phrase.
+  - 一模一样 carried its own "(idiom)" label.
+  - 因 named nouns under a preposition label.
+  - The rest gained a CC-CEDICT sense or a "to".
 
