@@ -743,15 +743,15 @@ can auto-link to them. `art-009` and `art-010` shipped with theirs; the five are
     art-008  The Brno II figurine — Moravia, c. 28,000 years ago
     art-009  The Venus of Předmostí — Moravia, c. 26,000 BCE
     art-010  The Venus of Dolní Věstonice — Moravia, c. 26,000 BCE
-    art-011  The Apollo 11 Cave painted plaques — Namibia, c. 25,500 BCE
-    art-012  The Venus of Willendorf — Austria, c. 25,000 BCE
-    art-013  The Venus of Lespugue — France, c. 24,000 BCE
-    art-014  The Venus of Brassempouy — France, c. 23,000 BCE
-    art-015  The Venus of Laussel — France, c. 23,000 BCE
-    art-016  The Pech Merle spotted horse panel — France, c. 23,000 BCE
-    art-017  The Hall of the Bulls, Lascaux — France, c. 17,000 BCE
-    art-018  The Altamira polychrome ceiling — Spain, c. 15,000 BCE
-    art-019  Bison Licking an Insect Bite — La Madeleine, c. 15,000 BCE
+    art-011  The Venus of Willendorf — Austria, c. 25,000 BCE
+    art-012  The Venus of Lespugue — France, c. 24,000 BCE
+    art-013  The Venus of Brassempouy — France, c. 23,000 BCE
+    art-014  The Venus of Laussel — France, c. 23,000 BCE
+    art-015  The Pech Merle spotted horse panel — France, c. 23,000 BCE
+    art-016  The Hall of the Bulls, Lascaux — France, c. 17,000 BCE
+    art-017  The Altamira polychrome ceiling — Spain, c. 15,000 BCE
+    art-018  Bison Licking an Insect Bite — La Madeleine, c. 15,000 BCE
+    art-019  The Fawn with Birds spear-thrower — Le Mas-d'Azil, c. 14,000 BCE
     art-020  The Swimming Reindeer — Montastruc, c. 13,000 BCE
 
 ### The first villages, 10,000–3000 BCE — `art-neolithic`
