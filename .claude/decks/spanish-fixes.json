@@ -318,7 +318,7 @@
    ]
   },
   "delea2": {
-   "why": "The A2 read began in Sep 2026, in batches of twenty to thirty cards in deck order. The deck-level passes A1 already carries are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast (Tom alone appears 186 times in A2's English), its American spellings and its American usage. Ann is added to the name table, the A2 sentences carrying her where A1's did not. dropDup removes four cards A1 now teaches — como, cuando and donde were INSERTED by the A1 review after A2 had been built, and la vez was in both levels already — which is exactly what a rebuild of A2 against today's A1 would do, since the generator excludes every word the shipped lower decks hold. The counts of nouns (256), feminine pairs (70), verbs (111) and reflexives (31) are the GENERATOR's and are deliberately not recomputed, on A1's reasoning; the word count and the example-sentence claim are corrected, and the sentence adding the two levels together is taken out, a combined figure being one that goes wrong whenever either deck moves. The example claim was already wrong when the deck shipped: it said three sentences for 496 of 499 words where the file had 487, and now reads 484 of 495, with cabeza brought up to three and the four dropped cards having had three each. The same widening of the name table as A1's (batch S2): five A2 sentences said María in the Spanish and Ana in the English. Batch S2 brought abajo up to three examples: 485 of 495.",
+   "why": "The A2 read began in Sep 2026, in batches of twenty to thirty cards in deck order. The deck-level passes A1 already carries are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast (Tom alone appears 186 times in A2's English), its American spellings and its American usage. Ann is added to the name table, the A2 sentences carrying her where A1's did not. dropDup removes four cards A1 now teaches — como, cuando and donde were INSERTED by the A1 review after A2 had been built, and la vez was in both levels already — which is exactly what a rebuild of A2 against today's A1 would do, since the generator excludes every word the shipped lower decks hold. The counts of nouns (256), feminine pairs (70), verbs (111) and reflexives (31) are the GENERATOR's and are deliberately not recomputed, on A1's reasoning; the word count and the example-sentence claim are corrected, and the sentence adding the two levels together is taken out, a combined figure being one that goes wrong whenever either deck moves. The example claim was already wrong when the deck shipped: it said three sentences for 496 of 499 words where the file had 487, and now reads 484 of 495, with cabeza brought up to three and the four dropped cards having had three each. The same widening of the name table as A1's (batch S2): five A2 sentences said María in the Spanish and Ana in the English. Batch S2 brought abajo up to three examples: 485 of 495. Batch S3 brought el sexo up to three: 486 of 495.",
    "subtitle": "495 more words, none of them in A1 · both directions, as two cards per word",
    "dropDup": {
     "como": "delea1",
@@ -341,7 +341,7 @@
     ],
     [
      "Every word also carries real example sentences, three of them for 496 of the 499 and one or two where the corpus had no more,",
-     "Every word also carries example sentences, three of them for 485 of the 495 and one or two where the corpus had no more,"
+     "Every word also carries example sentences, three of them for 486 of the 495 and one or two where the corpus had no more,"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -353,7 +353,11 @@
     ],
     [
      "three of them for 484 of the 495",
-     "three of them for 485 of the 495"
+     "three of them for 486 of the 495"
+    ],
+    [
+     "three of them for 485 of the 495",
+     "three of them for 486 of the 495"
     ]
    ],
    "exNames": [
@@ -17187,6 +17191,667 @@
      "She has a very good ear for music."
     ]
    ]
+  },
+  "delea2/la luz": {
+   "why": "'lumen' is a unit of measurement, not a translation, and the card never gave la luz for the electricity supply — the bill every flat in Spain pays. Two of the three examples were also A1 sentences, one of them using pieza for 'room', which is Latin American. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "light",
+      "electricity, power (la factura de la luz — the electricity bill)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A esta pieza le llega luz del sol.",
+    "Había luz de luna ayer por la noche."
+   ],
+   "ex": [
+    [
+     "Me gusta la luz de esta habitación.",
+     "I like the light in this room."
+    ],
+    [
+     "Este mes la factura de la luz es muy alta.",
+     "The electricity bill is very high this month."
+    ]
+   ]
+  },
+  "delea2/conseguir": {
+   "why": "The gloss was one line of five near-synonyms for 'achieve' and never said 'to get' — the commonest sense, and the one its own first example shows — nor conseguir + infinitive, 'to manage to'. The third example is consigo, the pronoun 'with him', matched on shared letters; that coincidence goes in Forms. The second is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to get, to obtain",
+      "to achieve, to manage (conseguir + infinitive — to manage to)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "also",
+     "consigo — with him, with her, with oneself (con + sí)"
+    ]
+   ],
+   "dropEx": [
+    "Eso es lo que consigues por no escuchar.",
+    "no llevaba la dirección"
+   ],
+   "ex": [
+    [
+     "¿Dónde conseguiste esas entradas?",
+     "Where did you get those tickets?"
+    ],
+    [
+     "Por fin conseguí aprobar el examen.",
+     "I finally managed to pass the exam."
+    ]
+   ]
+  },
+  "delea2/la paz": {
+   "why": "The gloss was two dictionary definitions in brackets. The examples are good — three different uses — but two of them are phrases the gloss never named: dejar en paz and hacer las paces.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "peace"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dejar en paz — to leave alone",
+      "hacer las paces — to make up (after a quarrel)"
+     ]
+    ]
+   ]
+  },
+  "delea2/peor": {
+   "why": "'Está es la peor pesadilla' writes the demonstrative esta with the accent of the verb está. The adverb — me encuentro peor — had no example and no line.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "worse",
+      "el peor, la peor — the worst"
+     ]
+    ],
+    [
+     "adverb",
+     [
+      "worse (the comparative of mal)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la peor pesadilla de todo piloto"
+   ],
+   "ex": [
+    [
+     "Hoy me encuentro peor.",
+     "I feel worse today."
+    ]
+   ]
+  },
+  "delea2/llamar": {
+   "why": "'to summon' led the gloss, and 'to refer to' stood for llamar in the naming sense; llamar a la puerta, 'to knock', was missing. The second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to call, to phone",
+      "to call (by a name: lo llaman Pepe)",
+      "to knock, to ring (llamar a la puerta)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Seguramente él me llamará por teléfono esta noche."
+   ],
+   "ex": [
+    [
+     "Alguien está llamando a la puerta.",
+     "Someone is knocking at the door."
+    ]
+   ]
+  },
+  "delea2/ponerse": {
+   "why": "THE GERUND WAS SPELT WRONG: 'poníendose' accents the i of -iendo, where the stress, and so the written accent, falls on the e (poniéndose). The generator's enclitic_gerund matched `ie` and accented its first letter, and missed -yendo altogether; measured over the six decks, 82 reflexive gerunds carry the fault — every -er and -ir one — and it is fixed in build_deck.py. Two examples were also A1 sentences, and ponerse a + infinitive, 'to start', was not named. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to put on (clothes)",
+      "to become, to get (ponerse nervioso — to get nervous)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ponerse a + infinitive — to start (doing)"
+     ]
+    ]
+   ],
+   "conjSub": [
+    [
+     "<span class=\"uc-cj-e\">íendose</span>",
+     "<span class=\"uc-cj-e\">iéndose</span>"
+    ]
+   ],
+   "dropEx": [
+    "El cielo se puso cada vez más oscuro.",
+    "rara vez se pone su camisa negra"
+   ],
+   "ex": [
+    [
+     "Me pongo nervioso antes de los exámenes.",
+     "I get nervous before exams."
+    ],
+    [
+     "De repente se puso a llover.",
+     "Suddenly it started to rain."
+    ]
+   ]
+  },
+  "delea2/el perro, la perra": {
+   "why": "'lazy person' is a regional slang sense and not A2; what la perra does mean is a female dog. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "dog",
+      "la perra — female dog, bitch"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El perro es el mejor amigo del hombre."
+   ],
+   "ex": [
+    [
+     "Saco al perro todas las mañanas.",
+     "I take the dog out every morning."
+    ]
+   ]
+  },
+  "delea2/el cielo": {
+   "why": "Two of the three examples were heaven, one of them an archaism ('la venganza de los cielos'), and the everyday sky — el cielo está despejado — had none. The helicopter's 'circling above' drops what the Spanish says.",
+   "dropEx": [
+    "La venganza de los cielos"
+   ],
+   "exEn": [
+    [
+     "El helicóptero está dando vueltas",
+     "The helicopter is circling in the sky."
+    ]
+   ],
+   "ex": [
+    [
+     "Hoy el cielo está despejado.",
+     "The sky is clear today."
+    ]
+   ]
+  },
+  "delea2/el viaje": {
+   "why": "'voyage' led the gloss; the word is 'trip'. The third example, 'Él piensa en el próximo viaje de ella', is a stilted construction, and ¡buen viaje! was not on the card.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "trip, journey"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡buen viaje! — have a good trip!",
+      "hacer un viaje — to go on a trip"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Él piensa en el próximo viaje de ella."
+   ],
+   "ex": [
+    [
+     "¡Buen viaje!",
+     "Have a good trip!"
+    ]
+   ]
+  },
+  "delea2/detrás": {
+   "why": "'after' is not a sense of detrás, and the adverb on its own — nos sentamos detrás — had no example, all three being detrás de. The second is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "behind, at the back"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "detrás de — behind"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "cierra la puerta detrás de ti"
+   ],
+   "ex": [
+    [
+     "Nosotros nos sentamos detrás.",
+     "We sat at the back."
+    ]
+   ]
+  },
+  "delea2/libre": {
+   "why": "Two definitions in brackets, neither the sense a reader needs first — free as in not busy or not taken (¿está libre este asiento?) — and nothing on the false friend: free of charge is gratis, never libre. 'He has no leisure for sport' is an archaism, and 'compras libres de impuestos acá' is awkward Spanish with a Latin American acá.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "free (not busy, not taken: tiempo libre, un asiento libre)",
+      "free (at liberty)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "libres"
+    ],
+    [
+     "not",
+     "free of charge — that is gratis"
+    ]
+   ],
+   "dropEx": [
+    "compras libres de impuestos"
+   ],
+   "exEn": [
+    [
+     "no tiene tiempo libre para hacer deportes",
+     "He has no free time for sport."
+    ]
+   ],
+   "ex": [
+    [
+     "¿Está libre este asiento?",
+     "Is this seat free?"
+    ]
+   ]
+  },
+  "delea2/cual": {
+   "why": "The gloss was cual as an archaic adverb, 'like, in the manner of', which is literary; the word an A2 reader meets is the relative el cual, la cual, lo cual, and ¿cuál?, with its accent, in questions. 'Ellos no tienen ni idea de cuales son nuestros problemas' is that interrogative and is spelt wrong — an indirect question keeps the accent (cuáles) — and 'algo de lo cual podamos hablar' is stilted.",
+   "senses": [
+    [
+     "pronoun",
+     [
+      "el cual, la cual, lo cual — which, who (after a preposition or a comma)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cada cual — each one, everyone"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "cuales"
+    ],
+    [
+     "question word",
+     "¿cuál? — which?, what?"
+    ]
+   ],
+   "dropEx": [
+    "de cuales son nuestros problemas",
+    "algo de lo cual podamos hablar"
+   ],
+   "ex": [
+    [
+     "Perdí las llaves, lo cual fue un problema.",
+     "I lost my keys, which was a problem."
+    ],
+    [
+     "La casa en la cual nací ya no existe.",
+     "The house in which I was born no longer exists."
+    ]
+   ]
+  },
+  "delea2/el cambio": {
+   "why": "'shift' is not an A2 sense; the change a shop hands back was only in the gloss and the phrases en cambio and a cambio de were missing. The exchange-rate example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "change",
+      "change (money given back), small change",
+      "exchange (el tipo de cambio — the exchange rate)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en cambio — on the other hand",
+      "a cambio de — in exchange for"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Cuál es el tipo de cambio de hoy?"
+   ],
+   "ex": [
+    [
+     "Aquí tiene el cambio.",
+     "Here's your change."
+    ]
+   ]
+  },
+  "delea2/la ropa": {
+   "why": "'robes' is not a translation, and the card did not say the one thing that trips English speakers: la ropa is singular where English says 'clothes'. Its second example used the rare plural as if it were ordinary; the third is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "clothes, clothing"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ropa interior — underwear",
+      "lavar la ropa — to do the washing"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "number",
+     "singular in Spanish where English says 'clothes': toda mi ropa"
+    ]
+   ],
+   "dropEx": [
+    "Sus ropas siempre tienen mal olor.",
+    "caminando por ahí en ropa interior"
+   ],
+   "ex": [
+    [
+     "Voy a lavar la ropa.",
+     "I'm going to do the washing."
+    ],
+    [
+     "Esta tienda vende ropa interior.",
+     "This shop sells underwear."
+    ]
+   ]
+  },
+  "delea2/perder": {
+   "why": "'to get lost' is perderse, a different card's business; what perder itself lacked was 'to miss' (perder el tren) and 'to waste' (perder el tiempo). All three examples were 'lose', so one gives way to the train.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to lose",
+      "to miss (perder el tren — to miss the train)",
+      "to waste (perder el tiempo — to waste time)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El otro día perdí mi cámara de fotos."
+   ],
+   "ex": [
+    [
+     "Si no te das prisa, vamos a perder el tren.",
+     "If you don't hurry, we'll miss the train."
+    ]
+   ]
+  },
+  "delea2/perfecto, perfecta": {
+   "why": "Right as a card; one translation had the tense wrong, me queda being present.",
+   "exEn": [
+    [
+     "me queda perfecta",
+     "The shirt you gave me fits me perfectly."
+    ]
+   ]
+  },
+  "delea2/derecho, derecha": {
+   "why": "THE GLOSS NAMED NEITHER SENSE THE EXAMPLES SHOWED. It gave 'straight, upright', while the first example is 'right' as against left (el guante derecho) and the second is the noun los derechos, 'rights'. The third is la derecha, an A1 card and an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "right (not left: la mano derecha)",
+      "straight, upright"
+     ]
+    ],
+    [
+     "noun, masculine",
+     [
+      "el derecho — a right; law"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Miró hacia la izquierda y hacia la derecha."
+   ],
+   "ex": [
+    [
+     "Ponte derecho.",
+     "Stand up straight."
+    ]
+   ]
+  },
+  "delea2/el sexo": {
+   "why": "One example, and a gloss saying the same thing twice in two definitions. The word is on every form an A2 candidate fills in.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "sex (male or female — sexo: hombre / mujer, on a form)"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Escriba su nombre, su edad y su sexo.",
+     "Write your name, age and sex."
+    ],
+    [
+     "Los dos sexos tienen los mismos derechos.",
+     "Both sexes have the same rights."
+    ]
+   ]
+  },
+  "delea2/encima": {
+   "why": "All three examples were por encima de, and two of them were 'above average', one construction and one meaning twice. encima de, 'on top of', and encima meaning 'what's more' were not shown.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "on top, above",
+      "on you (¿llevas dinero encima? — have you got any money on you?)",
+      "what's more, on top of that (y encima llegó tarde)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "encima de — on, on top of",
+      "por encima de — above, over"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "por encima de la altura media"
+   ],
+   "ex": [
+    [
+     "Deja el libro encima de la mesa.",
+     "Leave the book on the table."
+    ]
+   ]
+  },
+  "delea2/diferente": {
+   "why": "The first example is also an A1 sentence, and the one S1 took off la vida for the same reason. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Ahora veo la vida de un modo diferente."
+   ],
+   "ex": [
+    [
+     "Somos muy diferentes.",
+     "We're very different."
+    ]
+   ]
+  },
+  "delea2/cambiarse": {
+   "why": "The first example is the plain verb cambiar — '¿Cuándo cambiaste la foto de tu perfil?' — and 'to move house' is mudarse in Spain, cambiarse de casa being mainly Latin American.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to change (clothes: cambiarse de ropa), to get changed",
+      "to change one's (name, hair…)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cambiarse de casa — to move house (Spain usually says mudarse)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Cuándo cambiaste la foto de tu perfil?"
+   ],
+   "ex": [
+    [
+     "Me cambio de ropa y salimos.",
+     "I'll get changed and we'll go out."
+    ]
+   ]
+  },
+  "delea2/el sino": {
+   "spanish": "sino",
+   "word": "sino",
+   "why": "THE CARD HAD THE WRONG WORD AT ITS HEAD. el sino, 'fate', is literary; every example is the conjunction sino, 'but (rather)', after a negative — which is the A2 word, the one that has to be told apart from pero. The headword becomes sino, the conjunction first and the literary noun kept beneath it; its plural goes. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "but, but rather (after a negative: no es rojo sino azul)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "no solo … sino también — not only … but also"
+     ]
+    ],
+    [
+     "noun, masculine, literary (el sino)",
+     [
+      "fate, destiny"
+     ]
+    ]
+   ],
+   "forms": [],
+   "dropEx": [
+    "Él no hace otra cosa sino leer manga."
+   ],
+   "ex": [
+    [
+     "No solo habla inglés, sino también francés.",
+     "She speaks not only English but also French."
+    ]
+   ]
+  },
+  "delea2/la boca": {
+   "why": "'oral cavity' is a definition and 'opening' a gloss of the entrance sense, which had no example — la boca del metro is how a reader meets it. The first example was an idiom glossed with a different idiom.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "mouth",
+      "entrance (la boca del metro — the metro entrance)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Se me sale el corazón por la boca."
+   ],
+   "ex": [
+    [
+     "Nos vemos en la boca del metro.",
+     "See you at the metro entrance."
+    ]
+   ]
+  },
+  "delea2/el error": {
+   "why": "'error' alone, where the everyday English is 'mistake', and cometer un error, the verb it takes, was not named. The second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "mistake, error"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cometer un error — to make a mistake"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No voy a permitir tus errores nunca más."
+   ],
+   "ex": [
+    [
+     "Perdona, ha sido un error.",
+     "Sorry, it was a mistake."
+    ]
+   ]
+  },
+  "delea2/el sueño": {
+   "why": "THE GLOSS AND THE EXAMPLES DISAGREED ENTIRELY: 'sleep, slumber, sleepiness' over three sentences all saying a dream had come true, one construction three times. Both senses belong on the card, and tener sueño — 'to be sleepy' — which is the use an A2 reader needs.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "dream",
+      "sleep"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tener sueño — to be sleepy"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Espero que todos tus sueños",
+    "Su sueño se ha convertido"
+   ],
+   "ex": [
+    [
+     "Tengo mucho sueño.",
+     "I'm very sleepy."
+    ],
+    [
+     "Necesito ocho horas de sueño.",
+     "I need eight hours' sleep."
+    ]
+   ]
   }
  },
  "insert": {
@@ -17443,7 +18108,10 @@
   ],
   "delea2": [
    "realmente",
-   "quizás"
+   "quizás",
+   "anoche",
+   "increíble",
+   "la llamada"
   ]
  }
 }

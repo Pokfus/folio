@@ -339,10 +339,14 @@ def pick(forms, tags_ok, extra=None):
 def enclitic_gerund(ger, clitic):
     """hablando + se -> hablándose : the stress stays where it was, so the
     vowel of -ando/-iendo takes a written accent once a syllable is added."""
-    m = re.search(r'(a|ie)ndo$', ger)
+    # THE ACCENT GOES ON THE a OR THE e, never the i of -iendo: the old pattern
+    # matched `ie` and accented its first letter, giving `poníendose`, and it
+    # missed `-yendo` altogether (`yendose`) -- 82 reflexive gerunds across the
+    # six decks, every -er and -ir one (DELE A2 audit, batch S3).
+    m = re.search(r'([ae])ndo$', ger)
     if not m:
         return ger + clitic
-    i = m.start()
+    i = m.start(1)
     v = ger[i]
     return ger[:i] + VOWEL_ACCENT.get(v, v) + ger[i + 1:] + clitic
 

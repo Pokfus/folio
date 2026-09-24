@@ -3457,6 +3457,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 |---|---|---|---|---|---|---|---|
 | S1 | A2 | #0 `como` – #29 `la persona` | 25 | 1 (`realmente`) | 4 (`como`, `cuando`, `la vez`, `donde`) | names, British, usage switched on for A2 (189 further cards touched by them alone) | `exEn`, `dropDup`; `build_deck.py`'s -ír imperative |
 | S2 | A2 | #30 `dentro` – #57 `el oído` | 27 | 1 (`quizás`) | 0 | name table widened on A1 and A2 (6 A1 cards, 6 A2 cards outside the batch) | `el/la` headword bold fix |
+| S3 | A2 | #58 `la luz` – #85 `el sueño` | 25 | 3 (`anoche`, `increíble`, `la llamada`) | 0 | — | `build_deck.py`'s enclitic gerund |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -3593,6 +3594,39 @@ read after every apply, not just counted.
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded examples 0 in A1 (1,478) and A2 (1,473).
 `check-senses --deck=DELE-A2` falls from 80 to 71; the one card of this batch still on it, `encontrarse`, is a
 false positive — "met" against the gloss's "meet", the checker not stemming.
+
+### S3 — DELE A2, notes #58–#85 (Sep 2026)
+
+Measured against the S2 commit by card id: **25 changed, 470 untouched, 0 gone**, plus the description (the
+three-example count, 485 → 486). The three cards read and left are unchanged.
+
+**A SECOND CONJUGATION FAULT, AND IT IS WIDER THAN THE FIRST.** `ponerse`'s gerund read `poníendose`. The
+generator's `enclitic_gerund` matched `(a|ie)ndo` and accented the first letter of the match, so every
+`-iendo` gerund took its accent on the `i`; and `-yendo` did not match at all, so `yendose` and `cayendose` got
+none. **Measured over the six decks: 82 reflexive gerunds, every -er and -ir one** (A2 11, B1 7, B2 17, C1 29,
+C2 18); the `-ar` ones (`hablándose`) were right, which is why A1 never showed it. `build_deck.py` now accents
+the `a` or `e` before `-ndo` (checked on `poniendo`, `yendo`, `tiñendo`, `cayendo`, `riendo`), `ponerse` is
+corrected here by `conjSub`, and the other 81 wait for their batches — alongside S1's 38 `-ios` imperatives.
+**Together that is 119 conjugation cells wrong in the same two places, the forms a pronoun is attached to**,
+and a checker over those two cells is cheap and would have caught both on the first day.
+
+**TWO CARDS HAD THE WRONG WORD AT THE HEAD.** `el sino` — "fate", a literary noun — was illustrated three
+times by the conjunction `sino`, "but (rather)", which is the A2 word and the one that has to be told apart
+from `pero`; the headword is now `sino`. And `el sueño` was glossed "sleep, slumber, sleepiness" over three
+sentences that were all a dream coming true — the gloss and every example disagreeing, which is the pattern
+`check-senses.js` exists for and the reason it had the card near the top of its list.
+
+**THE LOOK-ALIKE-WORD CLASS AGAIN**: `conseguir`'s third example was `consigo`, the pronoun "with him";
+`cambiarse`'s first was the plain verb `cambiar`; `derecho` was glossed "straight" over the right glove and
+the noun `derechos`, "rights". **A FALSE FRIEND THE CARD NEVER NAMED**: `libre` is never "free of charge"
+(`gratis`), now in its Forms. The deck's Spanish: `Está es` for `Esta es`, `cuales` unaccented in an indirect
+question, `pieza` for "room" (Latin American), `la venganza de los cielos` and a stilted `lo cual podamos
+hablar`. Senses dumped from a dictionary on `conseguir` (five near-synonyms of "achieve" and not "get"),
+`la luz` ("lumen"), `la boca` ("oral cavity"), `la ropa` ("robes"), `el perro` ("lazy person").
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 71 → 65; the one card
+of this batch left on it, `sino`, is a false positive for the reason `tan` was — "but" is a function word to
+the checker.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
