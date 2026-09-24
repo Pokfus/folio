@@ -671,6 +671,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l6` notes 151–180 (趁 → 愁), deck order | 11 | **a `dropEx` that ORPHANED an earlier batch's `exEn` row — and the applier FAILED on it rather than warning** |
 | 2026-09-24 | `hsk30l6` notes 181–210 (筹备 → 创办), deck order | 15 | **six of the batch's findings are the RECORD'S own sentences, not the deck's** — near-repeats the earlier fill pass wrote two at a time |
 | 2026-09-24 | `hsk30l6` notes 211–240 (创建 → 打造), deck order | 13 | **one sentence on TWO cards, repaired on one of them and not the other** — an `exEn` row is per NOTE and nothing reports the twin |
+| 2026-09-24 | `hsk30l6` notes 241–270 (打仗 → 当选), deck order | 11 | **大都 glossed as a YUAN-DYNASTY CAPITAL** — a proper noun under an adverb label, over three sentences that are all the adverb |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10404,4 +10405,69 @@ the word whatever *straight* suggests. 从未's 他从未看不起穷人 is stil
 shared-gloss groups 320 and still-ambiguous 1, both unchanged. `check-pinyin.js` clean;
 `check-polyreading.js` 0; `check-british.js` 0; `check-example-fit.js`, `check-coarse.js` and
 `check-senses.js` all name nothing in 211–240. **Verified against the real diff: 13 of 30 changed and
+nothing outside the range moved.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+## Batch 136 — `hsk30l6` notes 241–270 (打仗 → 当选)
+
+**Eleven of thirty changed; nineteen read and left.**
+
+**大都 was glossed as a city that has not existed since 1368.** The card read
+`adverb | Dadu, capital of China during the Yuan Dynasty` — which is CC-CEDICT's **first** entry for
+the string, a proper noun, sitting under an adverb label — while all three of its sentences are the
+adverb *for the most part*: 汤姆的朋友大都没你高, 来的人大都是学生. The sense the card actually teaches
+was not glossed at all. It is the leading-sense trap at its widest: the dictionary's head entry was not
+merely a different sense of the same word but a different word, a place name, and the card took it.
+
+**Its reading is left alone, and the reason is worth recording.** CC-CEDICT gives the adverb as
+`da4 dou1` with `da4 du1` marked *also pronounced*, and the proper noun as `da4 du1`. The card says
+`dà dū`, which is therefore the rarer but accepted reading of the adverb — not wrong, and changing it
+would be this audit choosing between two attested pronunciations on no evidence. Recorded rather than
+changed.
+
+**Its second example was a straddle besides**, and one of the record's own: 许多欧洲的**大都**市 is
+大 + 都市, a metropolis.
+
+**当今 was the same fault in miniature** — `noun | current`, an adjective glossing a noun, over three
+sentences that all say *today's world*. That is batch 31's third shape (the label and the gloss are
+different parts of speech), and **the fourth card this audit has had to set through `senses` for it**,
+after 显然, 升 and 诚信. Reported by `check-gloss-source.js`, which is the only thing here that can see
+it.
+
+**带领's first example carried a character error.** 老师正在带领小朋友们**嘻戏** — the word is 嬉戏,
+*to play*; 嘻 is the laughter character and 嘻戏 is not a word. The sentence speaks and segments without
+complaint, and its English (*The teachers are playing games with students in the kindergarten*) never
+mentions leading, which is the word the card is for.
+
+**Three more of the record's own rows went.** 代理's was 47 characters of marketing copy about an
+on-line customer service desk and *trained support agents*; 大洋洲's second was
+*Australia is in Oceania* beside the deck's own *Australia is the largest country in Oceania*; 大都's
+is above. All three repaired through `swapOwn`.
+
+**Two English translations were a different sentence from the Chinese.** 担忧's 担忧只是想象力的误用
+says *worry is only a misuse of the imagination* and was translated *Most of the things you worry about
+never happen!*, which is a different aphorism. 耽误's 可以耽误你一点时间吗 was *Do you have a minute?*,
+which is what one would say in English and never mentions the word. 大吃一惊's third was *I think
+you're really amazing*, a compliment where the idiom means *taken aback*.
+
+**And the smaller ones.** 呆's first example was 书呆子, a bookworm, swallowing the character. 大幅's
+first and third were both *X increased greatly*. 当今's second had awkward Chinese
+(拥有双语种) and no terminal stop. 当下's third opened on 为何如何？, which is not Chinese.
+
+**One `Compounds` panel** — 呆.
+
+**AND THE SITTING NEARLY INTRODUCED A NEAR-REPEAT OF ITS OWN, WHICH IS THE THIRD TIME.** The sentence
+first authored for 带领 was 导游带领我们参观了故宫 — 带领 X 参观 Y, which is the construction of the row
+already on that card. Caught by reading the card back after applying, and replaced with
+在他的带领下，球队赢了比赛. Batches 117 and 123 were the checker catching a straddle; this is the same
+lesson where **no checker can help**, a near-repeat being invisible to every tool here. **Read the
+finished card, not just the diff.**
+
+**Read and left.** 大吃一惊's gloss prints *(idiom)* twice — cosmetic, the deck's own formatting, and
+not worth a row. 当选's first two are both about a chairman but in different constructions. 大师's
+大师级作品 has the word in it.
+
+**Checks after.** `--check` clean. Coverage 11,532 notes at three sentences with 0 repeats;
+shared-gloss groups 320 and still-ambiguous 1, both unchanged. `check-pinyin.js` clean;
+`check-polyreading.js` 0; `check-british.js` 0; `check-example-fit.js`, `check-coarse.js` and
+`check-senses.js` all name nothing in 241–270. **Verified against the real diff: 11 of 30 changed and
 nothing outside the range moved.** `build-lang-decks.js` re-run. No changelog line and no version bump.
