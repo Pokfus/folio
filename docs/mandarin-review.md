@@ -692,6 +692,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 721–750 (纠纷 → 开创), deck order | 26 | **局's traditional field was 侷**, a different character; 就读 and 决策 each had a sentence that straddled; and batch 153's dropped 'Well of Despair' was found standing on a second card |
 | 2026-09-24 | `hsk30l6` notes 751–780 (开关 → 空地), deck order | 21 (+1) | **two cards glossed from the OTHER reading** (看好, 空地 'air-to-surface missile'), 肯's three sentences all about a man called Ken, and an English typo that named a sex toy |
 | 2026-09-24 | `hsk30l6` notes 781–810 (空闲 → 牢), deck order | 24 | **ten single-character cards in one range, and the transliteration class three more times** — broccoli on 兰花, Greifswald on 赖, a quart on 夸 |
+| 2026-09-24 | `hsk30l6` notes 811–840 (劳动力 → 凌晨), deck order | 20 (+1 out of range) | **three single-character cards with no sentence using the character on its own** — 立, 料, and 雷 after its third went; and a `not X` hint pair that was hiding a wrong gloss |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11843,3 +11844,45 @@ killed?" is the ordinary sense of the phrase. And `check-gloss-source.js` still 
 Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1.
 `check-british` reads 0. **Verified against the real diff: 24 of 30 changed and nothing outside the
 range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 157 — `hsk30l6` notes 811–840 (劳动力 → 凌晨)
+
+**Three single-character cards had nothing left once the swallows were taken out.** 立's three were 立马
+*at once*, 立山 (Mount Tate, a place name) and the idiom 坐立不安; 料's were 配料, 酱料 and 馅料, all
+*ingredients* words and none of them the verb *to expect* its gloss promised; 雷's were 鱼雷 *torpedo*, 雷雨
+*thunderstorm* — whose English, "Lightning-prone area: please do not climb", said something else again — and,
+read a second time, 雷声 *thunder*, which is a word of its own too. All nine are AUTHORED, one per sense, and
+立 and 料 are split and tagged. 理 lost two swallows (至理, 理所应当) and kept 谁理他！我理也不要理他！ — which is
+理 *to pay attention to*, a sense the gloss did not name, and whose English, **"I care about him, and then I
+don't!"**, said the opposite of the Chinese. It is split into three senses and tagged. 粒 lost 微粒, 淋 lost
+淋浴, and seven Compounds panels were written, **淋's the one owed since batch 150**.
+
+**A hint pair that was hiding a wrong gloss.** 利息 was glossed "interest rate" with a `not 利率` block, and
+hsk30l7/利率 carried `not 利息` back — but "interest rate" is 利率's meaning, and 利息 is the money itself, as
+CC-CEDICT and all three of its sentences have it. With the gloss right the two no longer collide, so **the hint
+pair is removed from both**, which is the one change outside the range; the shared-gloss count goes 316 → 315.
+A `not X` block is a statement that two words mean the same thing, and here it was the fault's alibi.
+
+**A wrong traditional form.** 历年 was written 曆年, which CC-CEDICT gives as *calendar year*; *over the years*,
+the card's gloss and every sentence, is 歷年.
+
+**Glosses.** 两岸 was "bilateral" over two sentences about the banks of a river and one about the Taiwan
+Strait — split and tagged. 链接 was labelled a verb over three nouns; it now shows both. 类别 leads with
+*category*, which all three sentences are; 理性 gains *rational*, which two of its sentences are; 理财's gloss
+ended on a bare "money"; 晾 gained its "to".
+
+**Englishes.** 理科比文科难 said "natural sciences … social sciences" — 文科 is the arts. 我感情上支持，但是理性上
+反对 said "on the pragmatic level". 衣服被晾出去了 said the clothes *are drying*. 这件事靠个人的立场来解释 was
+rendered "It is subject to interpretation", and the Chinese is not natural either; replaced. 理念's two
+fragments ("Adopt his concepts.") replaced.
+
+**Near-repeats, all five this record's own**: 劳动力 (充足 twice), 历经 (the bridge twice), 历年 (the data twice),
+凌晨 (X点 twice), 链接 (点击 twice).
+
+**Ten cards were read and left**: 老实, 老鼠, 老太太, 乐于, 力度, 例外, 联合国, 联网, 联想, 两极. 例外 names
+"noun / verb" over sentences that are mostly the noun; 不许例外 will bear the verb reading and it was left.
+
+Coverage: 11,532 notes at three sentences, 0 repeats, 315 shared-gloss groups with still-ambiguous 1
+(邻居/街坊, unchanged). `check-british` reads 0. **Verified against the real diff: 20 of 30 changed in range,
+and one out of range — hsk30l7/利率, its hint removed.** `build-lang-decks.js` re-run. No changelog line and no
+version bump.
