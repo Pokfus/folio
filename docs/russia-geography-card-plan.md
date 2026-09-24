@@ -3102,3 +3102,74 @@ Kurgan, `gru-578` Elista. Gatchina stays refused on the charter's stale seat (ba
 own subject card `gru-003` has already spent Ekaterinodar's founding, the WMO temperature normals and
 the UN population, so the centre card needs the city's 19th and 20th centuries and the WMO
 wettest/driest leg.
+
+## Batch 37 — Krasnodar and Elista, and two centres refused on the seat sentence (2026-09-24)
+
+Two cards, and two of the three remaining centres established as sourcing refusals rather than left
+looking like oversights.
+
+**THE CHARTER SLUG IS READ OFF `/region/`'s OWN INDEX, AND `ustav_mosobl` IS WHY.** A grep of that
+index for `mosk` returns `ustav_moskv`, which is the charter of the CITY of Moscow; Moscow Oblast's is
+filed under `mosobl` and was missed at the first pass. Listing all 86 slugs and reading them found it —
+the same rule batch 21 wrote for `ustav_krasnodar` being a guess that 404s, one step earlier in the
+process.
+
+**AND GARANT'S MOSCOW OBLAST CHARTER IS REPEALED.** Its chapter on administrative-territorial structure
+carries *(документ утратил силу)* in the header and refers the reader to a separate 2001 law; all 127
+of its articles were scanned and **none names an administrative centre at all**. That is the Stavropol
+shape of batch 29 met a second time, and it is the reason `gru-502` Krasnogorsk is not written: the
+Wayback Machine's *content* endpoint is refused by this sandbox's egress policy for both `mosreg.ru`
+and `kurganobl.ru` — its availability API answers and reports snapshots for both, so the refusal is the
+proxy's rather than the archive's — and Europe PMC has no phrase for it.
+
+**`gru-560` KURGAN IS THE SAME REFUSAL FROM A DIFFERENT DIRECTION.** `ustav_kurgan` is one of the three
+charters batch 30 established are not on Garant at all, `city of Kurgan` returns a single Europe PMC
+hit about diatom imaging, and DOAJ's 22 Kurgan Oblast papers are weevils, bark beetles, bird migration
+and radiation epidemiology. **Its material is otherwise ready**: the Ilizarov apparatus was devised
+there in June 1952 and the outcomes in 43 patients treated between 1951 and 1953 were published in the
+collected works of the Kurgan regional scientific medical society in 1954, all of it in Sutyagin and
+Malkova's open review. **The blocker is one sentence, not the history** — which is the opposite of what
+the plan's refusal table assumed for most of this half, and the same correction batch 32 made.
+**And its own subject card `gru-060` has already spent Tsaryovo Gorodishche, the fortress, the Pugachov
+revolt, the district town of 1782, the Decembrists and the railway of 1894**, so the centre card was
+always going to rest on the 20th century.
+
+**EUROPE PMC'S PHRASE SEARCH IS DOUBLE-QUOTED BY THE HELPER.** `epmc.js` wraps its argument in quotes,
+so `'"administrative centre of the Kurgan"'` was sent as a doubled string and returned 48 hits of
+ancient DNA and plant datasets — which reads exactly like a phrase that is merely common. Re-running
+`city of Tomsk` bare returned 54, the figure batch 32 recorded, and the doubled form returned 1,330.
+**Prove the quoting on a phrase whose true count is already written down before believing any zero or
+any flood.**
+
+**WHAT THE TWO CARDS REST ON.**
+· **`gru-503` Krasnodar.** Charter article 13 for the seat, which leaves the standing of the centre to
+  a law of the krai. Litvinskaya and six co-authors for the Krasnodarsky Forest Park — natural and
+  planted woodland raised in the Kuban valley inside the city in the 1970s and 1980s, willow and poplar
+  over about a fifth of it on alluvial soils, more than thirty invasive species among the planted
+  Canadian poplar, black locust and black walnut. Baranov and Kasyanov for four history sentences on
+  1921–1941: the overcrowding under the New Economic Policy and then industrialisation, the sound plans
+  that went unbuilt for want of resources, the qualified schemes of Mironov, Junger and Kalitaev, and
+  the replanning that was carried through putting industry first. Chen and others for the city as it is
+  now. **Its date line is empty**: nothing in these sources dates the city itself, and the sibling
+  `gru-003` holds Ekaterinodar's founding.
+· **`gru-578` Elista.** The Steppe Code's article 19 for the seat, which settles the flag, the arms,
+  the anthem and the capital in one article. Belousov for the construction of the town as the capital
+  of the Kalmyk autonomy between 1927 and 1932, the Soviet state moving the agencies in and paying for
+  most of the building, and the finding that the make-up of its people was settled by unorganised
+  migration off the steppe rather than by those transfers. Lidzhieva for the Druzhba park. Muzafarova
+  and Mushaev for the Buddhist street furniture — khuruls, stupas, gates and fountains — catalogued one
+  by one.
+
+**A BILINGUAL JOURNAL THAT DEPOSITS ITS RUSSIAN BYLINE NEEDS SEVEN DECLARED ROWS, NOT A REWRITTEN
+CITATION.** *Ecosystem Transformation* prints `S.A. Litvinskaya, S.N. Gorbov, S.S. Tagiverdiev…` on the
+article's own first page and again beside each ORCID, and deposits `С.А. Литвинская` and the rest to
+Crossref. That is the New Research of Tuva and Arkheologiya Evraziyskikh Stepey shape already in
+`CROSSREF_WRONG`, so it took a row per author with the article's own byline as the evidence — **read
+the PDF's first page rather than DOAJ alone**, which is what the rule about reading the byline means.
+
+**`Kurgan` IS STILL THE BARROW.** Before `gru-560` is written the city needs a key of its own;
+`add-glossary.js` would overwrite the existing term in silence.
+
+**THREE CENTRES LEFT**: `gru-502` Krasnogorsk and `gru-560` Kurgan, both waiting on a seat sentence
+alone, and `gru-524` Gatchina, refused since batch 34 on its charter's stale seat. All three are
+one openable document away from being written.

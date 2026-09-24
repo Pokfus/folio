@@ -198,6 +198,17 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Ecosystem Transformation publishes its bylines in LATIN and deposits the RUSSIAN ones:
+  // Crossref carries \u0421.\u0410. \u041b\u0438\u0442\u0432\u0438\u043d\u0441\u043a\u0430\u044f and her six co-authors in Cyrillic, where the article's own
+  // first page prints "S.A. Litvinskaya, S.N. Gorbov, S.S. Tagiverdiev, N.V. Salnik, D.A. Kozyrev,
+  // P.N. Skripnikov, A.Yu. Matetskaya" above the abstract and repeats each beside an ORCID.
+  ["10.23859/estr-240206", "S. A. Litvinskaya", "\u0421.\u0410. \u041b\u0438\u0442\u0432\u0438\u043d\u0441\u043a\u0430\u044f"],
+  ["10.23859/estr-240206", "S. N. Gorbov", "\u0421.\u041d. \u0413\u043e\u0440\u0431\u043e\u0432"],
+  ["10.23859/estr-240206", "S. S. Tagiverdiev", "\u0421.\u0421. \u0422\u0430\u0433\u0438\u0432\u0435\u0440\u0434\u0438\u0435\u0432"],
+  ["10.23859/estr-240206", "N. V. Salnik", "\u041d.\u0412. \u0421\u0430\u043b\u044c\u043d\u0438\u043a"],
+  ["10.23859/estr-240206", "D. A. Kozyrev", "\u0414.\u0410. \u041a\u043e\u0437\u044b\u0440\u0435\u0432"],
+  ["10.23859/estr-240206", "P. N. Skripnikov", "\u041f.\u041d. \u0421\u043a\u0440\u0438\u043f\u043d\u0438\u043a\u043e\u0432"],
+  ["10.23859/estr-240206", "A. Yu. Matetskaya", "\u0410.\u042e. \u041c\u0430\u0442\u0435\u0446\u043a\u0430\u044f"],
   // Science & Technique (sat.bntu.by) deposits this byline exactly as it prints its own preferred
   // citation line — "Grakhov V.P., Kislyakov M.A., Kislyakov \u0410.\u0410." — with the THIRD author's
   // initials in CYRILLIC beside a Latin surname, where the first two authors carry Latin initials.
