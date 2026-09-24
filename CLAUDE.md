@@ -1567,6 +1567,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     after reading the card, and record why in the plan**. **Run `node .claude/gw-audit.js` rather than
     quoting a figure here**; the plan holds every batch's findings, among them the eleven things a
     constitution does instead of naming the capital and the four ways the WMO leg fails.
+  · **AND THE BACKGROUND MAY NOT RESTATE THE FACTS GRID EITHER** (Sep 2026, on request). The grid
+    prints Capital / Population / Largest city / Area two inches above the prose, so a background
+    giving those figures again makes the reader read the same number twice. **264 echoes across 124
+    cards were cleared in one pass** — the whole Geography section but China, which was already
+    clean. **📖 `.claude/facts-echo.js` — READ ITS HEADER BEFORE WRITING A MAP CARD**, for the two
+    tiers (a figure is refused, a name is a judgement), for why a RANK, a DENSITY or a SHARE is the
+    right replacement rather than a deletion, and for the three declared findings that are numbers
+    measuring something else.
   · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request). The population
     is already in the facts grid two inches above. **A card with nothing else datable gets an EMPTY date
     line rather than a filler row**, which `test-date-line.js` is what caught — a non-empty line yielding
@@ -1596,6 +1604,241 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Chinese government host outside `stats.gov.cn` refuses the connection here, `whc.unesco.org` and
   `britannica.com` are 403, and `chinadaily.com.cn` answers and is a state newspaper, citable for what
   it is and never as an independent source. Not part of the site.
+- **📖 `docs/russia-geography-card-plan.md` — READ BEFORE WRITING A `gru-` CARD, AND BEFORE ASSUMING
+  ANYTHING ABOUT WHICH TERRITORY IS IN THE DECK.** The running order for **Russia** (`geo-russia`, the
+  fourth collection of the Geography SECTION), and the fourth plan that is not a thousand cards: it is
+  **163 cards** — the 83 federal subjects (`gru-001`–`gru-083`) and 80 administrative centres
+  (`gru-501`–`gru-583`, three numbers deliberately unused) — on the same **map card** format, so it points
+  at `docs/geography-card-plan.md` rather than restating it. **Sorted by population, largest first, and
+  fixed at planning time**, on the same reasoning *The world* gives. Four things in it are decisions
+  rather than lists.
+  · **WHICH SUBJECTS ARE IN IT IS ONE CHECKABLE RULE — an ISO 3166-2:RU code of its own** — which is *The
+    world*'s own first rule one level down, and it keeps Folio out of an argument it would otherwise be
+    making 83 times. **Two independent sources answer 83 and they are the same 83**: Natural Earth files
+    86 features under Russia, of which it codes two under UKRAINIAN codes (Crimea UA-43, Sevastopol UA-40)
+    and one is an unnamed sliver; Wikidata returns 89, of which six carry no RU code. **Russia's own
+    constitution as amended lists 89**, which is the Russian Federation's account of its own territory and
+    is not repeated as established fact — the plan states the position, cites General Assembly resolutions
+    68/262 and ES-11/4, and applies a rule set by neither party.
+  · **THE QUESTION SAYS "FEDERAL SUBJECT" AND MAY NEVER SAY "PROVINCE" OR "REGION"**: the 83 are six
+    different kinds of thing — 46 oblasts, 21 republics, 9 krais, 4 autonomous okrugs, 2 cities of federal
+    significance and 1 autonomous oblast — so "province" is false of 37 of them and "region" gives the
+    answer away on the 46 oblasts, *oblast* being conventionally translated that way.
+  · **FOUR CAPITAL NUMBERS ARE NEVER WRITTEN AND THEY ARE NOT THE SAME REFUSAL.** `gru-501` Moscow and
+    `gru-504` Saint Petersburg are cities that are themselves federal subjects, so the shape IS the
+    answer — China's four municipalities exactly. **`gru-570` Khakassia is a DATA refusal**: Natural Earth
+    draws Abakan, the capital, four to five kilometres OUTSIDE Khakassia, and all three published
+    coordinates tested fall in Krasnoyarsk Krai, so the fault is the polygon and no coordinate reaches it.
+    **The dot is not moved and is not snapped.** All three are enforced by `window.RUSSIA_CENTRES` holding
+    80 rows rather than by the plan saying so, so `add-card.js` refuses such a card.
+    **AND `gru-502` KRASNOGORSK IS A FACT REFUSAL, WHICH IS THE THIRD KIND** (Sep 2026, batch 39). The
+    deck's question asks for *the administrative centre of the federal subject shaded around it*, and for
+    Moscow Oblast **no source of the kind this site cites says which city that is**: its own charter — the
+    CURRENT one, Law 197/2022-ОЗ of 23 November 2022, all 61 pages of it — names no centre, no capital and
+    no seat of government; the state publication portal returns 0 laws on the subject; and Europe PMC and
+    CyberLeninka carry the town only as a study site. The oblast is governed from Krasnogorsk and much of
+    the reference literature still prints Moscow, a city that is a DIFFERENT federal subject. So the card
+    is left unwritten with its number reserved and its reason recorded, `gw-596` Jerusalem's shape one
+    level down. **A card that cannot ask its own question honestly is deferred, never softened.**
+    **AND THE SOFTEST SOURCE DENIES IT TOO, WHICH IS WHY NO FURTHER HUNT SHOULD BE RUN** (asked Sep
+    2026, whether a less official source or Wikipedia could carry it). **Russian Wikipedia's own first
+    sentence says the administrative centre is NOT DETERMINED** — de facto Moscow, which is a different
+    federal subject, with most of the executive bodies in Krasnogorsk — and its infobox reads *не
+    определён законом*; the ENGLISH article does not make the claim at all, calling the town the centre
+    of Krasnogorsky DISTRICT and citing two district-level acts for it. **A fallback source that
+    contradicts the card is not a weaker source, it is an answer**: the card is closed rather than
+    pending, and only a Moscow Oblast law designating a centre reopens it.
+  · **THE FACTS GRID IS FILLED FROM ONE BILINGUAL ROSSTAT TABLE, AND ROSSTAT'S OWN HOSTS CANNOT BE
+    REACHED FROM HERE.** `rosstat.gov.ru`, `eng.rosstat.gov.ru` and `gks.ru` fail TLS verification —
+    their certificates chain to a Russian national CA nothing here carries — and `fedstat.ru` 403s;
+    **the Wayback Machine serves them over its own certificate**, which is the route. The table is the
+    *Russian Statistical Yearbook 2023*'s territory-and-population page, Rosreestr for the area and the
+    2021 census for the population, with an English column beside the Russian one, so it spends no part
+    of a card's majority-English allowance. **Reading it needed two fixes in `.claude/pdf-text.js`** —
+    the whole file is object streams, and its FIGURES are set in a simple font on pages whose prose is
+    CID — both of them opt-in, because neither is inert on a hybrid PDF.
+  · **THE OKRUGS DO NOT NEST ON THE MAP AND THE OFFICIAL FIGURES DO.** Natural Earth's polygons tile, so
+    Tyumen is drawn at its 160,185 km² proper rather than the 1,464,173 km² an official table quotes with
+    Khanty-Mansi and Yamalo-Nenets in, and Arkhangelsk likewise against Nenets. **So four cards must state
+    WHICH figure they give**, and no checker can see it — a with-okrugs area is a well-formed number
+    correctly cited to a real table.
+  · **A CAPITAL CARD'S GRID COMES FROM ROSSTAT'S TABLE 4.9 AND ITS ANSWER FROM A LADDER OF THREE.** Table
+    4.9, *Cities with Population of 100 000 and Over*, carries 172 cities, which is every administrative
+    centre but the eight genuinely smaller than that — so Population, Rank in Russia and the growth figure
+    all come out of the one table the card cites. **READ ITS FOOTNOTE**: 2002, 2010 and 2021 are CENSUS
+    counts and 2020 and 2022 are PRE-census estimates the census then corrected, so a row read straight
+    across looks like a city that lost and regained a seventh of its people twice. The *X is the
+    administrative centre of Y* sentence has no single source — Rosstat's own city column is ordered BY
+    SIZE and lists Krasnogorsk seventh — so it is **the subject's own CONSTITUTION or CHARTER on
+    `constitution.garant.ru`** (added Sep 2026, batch 21: it answers 200, is free, holds every federal
+    subject's, and is the PRIMARY source the other rungs were proxies for — Tyumen Oblast's charter
+    gives article 11 to it and Dagestan's constitution article 101, in the chapter on the state
+    symbols; **it serves windows-1251, so decode it**, and **the slug is read off `/region/`'s own index
+    and never composed**, `ustav_krasnodar` being a guess that 404s.
+    **AND WHERE GARANT SERVES A REPEALED CHARTER, THE STATE'S OWN PUBLICATION PORTAL SERVES THE CURRENT
+    ONE** (Sep 2026, batch 39): `http://publication.pravo.gov.ru/api/Documents?Name=<query>&PageSize=10&Index=1`
+    is a JSON search needing no scraping, and the PDF is at `…/file/pdf?eoNumber=<n>` — **not** the
+    `/api/File/GetFile/` path, which 404s with an HTML error document, so `file` the download rather than
+    trusting the status. **`PageSize` accepts only certain values — 10 works and 3 and 20 are rejected**
+    with a validation error that reads like an outage unless the body is printed. Garant's *документ
+    утратил силу* on Moscow Oblast was read twice as "this subject has no charter"; the successor was on
+    the portal all along. **Re-ask the charter question there for every subject Garant marked repealed or
+    served as a stub.** Its PDFs are CID-encoded and **`.claude/pdf-text.js` returns 146 KB of mojibake
+    that looks like a successful extraction**, with or without `--literals`; `pypdf` decodes them, and the
+    result is checked by grepping for a word the document must contain. **ALL 85 CHARTERS HAVE NOW BEEN
+    SWEPT AND 54 OF THEM STATE THEIR OWN CENTRE**, which is the largest unlock the capital half has
+    had; the plan's batch 22 lists both sets by slug. **The sweep that said otherwise was a DEAD REGEX
+    — JS's `\w` is ASCII-only and never matches Cyrillic, so `административн\w+` reported "none" for
+    all 85 including the two already read by hand. Prove any scanner over Russian text fires on a hit
+    you already hold**), else the subject's own portal through the Wayback Machine,
+    else a UNESCO page, else **Europe PMC's FULL-TEXT phrase search — ASKED AS A BARE QUOTED STRING,
+    NEVER WITH THE `FULL_TEXT:` FIELD PREFIX, WHICH IS DEAD AND ANSWERS 0 FOR EVERY PHRASE** (batch 32:
+    `FULL_TEXT:"city of Tomsk"` returns 0 where `"city of Tomsk"` returns 54, and a zero-hit response is
+    well formed and reads exactly like a phrase no paper contains — so the rung was being tested and
+    reported shut on every city it was tried on, for ten batches. **Prove a search engine's field syntax
+    on a phrase you already know is in it before believing a zero.** Fixing it found the seat sentence
+    for FIVE cities at once, three of which shipped in that batch; so **the binding constraint on most of
+    the outstanding centres was the SEAT SENTENCE rather than the history**, which is the opposite of
+    what the plan's own refusal table assumed — re-ask the seat question on a candidate written off
+    before concluding its history is what is wanting. **AND SEARCH A RUSSIAN TOWN UNDER ITS
+    PRE-REVOLUTIONARY NAME**, in DOAJ as well as in the out-of-copyright shelf (batch 33): searching
+    `Tsarevokokshaysk` returns four papers on Yoshkar-Ola's own history in one open journal where
+    searching `Yoshkar-Ola` returns eight papers that are nearly all linguistics and ecology, and three
+    of the five are invisible under the modern name. That journal, `Поволжская археология`, was already
+    in the deck for a different card, and its English abstracts are detailed enough to write from. It
+    was added Sep 2026, batch 20: DOAJ
+    indexes abstracts, Europe PMC indexes the full text of its open-access subset, so a sentence sitting
+    in a Study Area or a Methods section is reachable there and nowhere else — it is what carried
+    Yekaterinburg), else an open-access abstract found through DOAJ. **A CENTRE WHOSE SENTENCE NO RUNG
+    ANSWERS IS LEFT UNWRITTEN RATHER THAN ASSERTED**, which is why the capital numbers are not
+    contiguous. **📖 The plan's own "THE CAPITAL HALF'S RECIPE" section and its batches 20–26 have all of it,
+    including which portals the archive refuses, the hosts measured shut, and the Internet Archive's own
+    intermittent *Temporarily Offline* page, which a one-shot probe reads as a dead host. **Batch 27's
+    own lesson is the cheapest of all of them: COUNT THE CHARTER SWEEP AGAINST WHAT IS WRITTEN before
+    concluding that the primary-source rung is spent — batch 26's closing report said it was, and
+    twenty-two of the 54 `HIT` lines were still unused.** **AND BATCH 28 ADDS THE TWO THAT BITE ON A
+    SMALL CENTRE.** Table 4.9 is *Cities with Population of 100 000 and Over*, so the eight centres
+    under that take **`?` in the Population, Rank and growth rows** — measured, not assumed: nothing
+    else reachable sizes them, the Wayback CDX endpoint being refused by the egress policy over both
+    schemes and Europe PMC's full text holding none of the four — **and the card's fifth sentence
+    says WHY**, naming the threshold and whichever of the subject's towns the table does carry. And
+    **A WMO STATION IN THE LIST IS NOT A STATION WITH NORMALS**: Nazran' (1109), Cherkessk (1111) and
+    Gorno-Altaisk (1112) are all in `wmo.txt` and all return twelve EMPTY months, so read the
+    `climateMonth` array before building a sentence on it; those cards take a fourth physical sentence
+    instead, exactly as their subject cards already did.
+    **AND A GARANT ARTICLE PAGE PUTS ITS NAVIGATION BEFORE ITS TEXT — the article's own words sit
+    between the FIRST `(с изменениями и дополнениями)` and the following `Содержание`**, so a scanner that
+    cuts at the page's first heading reads chrome and reports *no hit* for every subject (batch 29,
+    caught only by running it against a hit already in hand). **The article HASH is a hash of the
+    article's HEADING rather than of the document**, so an untitled `Статья 18` has the same hash in
+    every charter and only the region slug decides which document is served — **verify a charter
+    citation by fetching it and reading the `<title>`, never by composing it**, and a chapter listing
+    scraped with a loose regex is not a number-to-hash table. **A CHARTER ON GARANT IS ALSO NOT ALWAYS
+    CURRENT**: the Stavropol one is the repealed 1994 law, marked *документ утратил силу*, and Rostov
+    Oblast's serves its title with no table of contents at all. **AND READ THE SIBLING SUBJECT CARD
+    BEFORE CHOOSING A BATCH, NOT BEFORE WRITING THE CARD** — a centre whose subject card has already
+    spent its Reclus entry or its WMO normals is dearer than its place in the running order suggests,
+    and four of batch 29's ten candidates fell out that way.
+    **AND THREE CHARTERS ARE NOT ON GARANT AT ALL, WHICH IS SETTLED RATHER THAN UNTRIED** (batch 30):
+    `ustav_tomsk`, `ustav_kurgan` and `ustav_kalin` all answer 200 at about 11.5 KB — the Rostov shape,
+    page furniture only — with no chapter links, one *исключен* section, and the 1996 law bringing the
+    charter into force rather than the charter. **AND A 300-CHARACTER PREVIEW OF AN ARTICLE IS NOT THE
+    ARTICLE**: the stating sentence is routinely a numbered PART — Udmurtia's is ¶2 of article 28, behind
+    the flag-and-arms paragraph, and Lipetsk's ¶3 — so a verification print that cuts short reads as a
+    false positive on a real hit. Print the whole article body.
+    **AND `cyberleninka.ru` ANSWERS FROM HERE, WHICH IS THE WIDEST RUNG THIS LADDER HAS** (batch 35).
+    Russia's big open-access aggregator holds the regional-history journals this collection needs, and
+    its full-text search is one POST to `https://cyberleninka.ru/api/search` with
+    `{"mode":"articles","q":"<Russian query>","size":8,"from":0}`, returning title, annotation, authors,
+    journal, link and OCR snippets. **Its `/search?q=` PAGE returns only help text** (results are drawn
+    by JavaScript) **and its ARTICLE pages are captcha-walled**, so it is a FINDING tool: identify the
+    paper there, then **resolve its DOI and read the full text at the publisher**. Query in Russian and
+    under the pre-revolutionary name. `elibrary.ru` is 403; `naukaru.ru` answers.
+    **AND ITS `/pdf` ADDRESS IS NOT CAPTCHA-WALLED, WHICH MAKES IT A READING TOOL AS WELL** (batch 36).
+    `https://cyberleninka.ru/article/n/<slug>/pdf` hands back the publisher's own PDF for an article
+    whose journal deposited one — which is how Belova's Lipetsk paper was read whole where its
+    publisher is behind DDoS-Guard. **It answers 200 either way, so `file` the download**: where no PDF
+    was deposited the same address serves the captcha page under a `.pdf` name, at about 5.8 KB, and a
+    text extractor run over it reports nothing rather than failing. Two of batch 36's five attempts
+    were real PDFs.
+    **AND `marhi.ru/AMIT/` PUBLISHES EVERY ARTICLE AS ITS OWN FREE PDF** (batch 36), which is the route
+    to *Architecture and Modern Information Technologies* — a journal Crossref does not index at all,
+    and the one carrying Magadan's general plans and Chukotka's settlement history. The per-issue index
+    links `/<slug>/abstract.php`, whose page links `/<slug>/<slug>.pdf`; older issues file articles as
+    `PDF/NN_<author>.pdf` and the index page is windows-1251. **The printed running head carries the
+    journal's own preferred citation, pages and all** — as Belova's does, and as the *Izvestiya* of the
+    Volga region does — so **read the pagination off the first page rather than guessing it**: a guess
+    of 16–25 was really 18–25.
+    **AND A DATE LINE MAY NOT SAY `1930s`**: `cardYears` yields no sort year from a decade, so
+    `test-date-line.js` fails the card outright while the page renders perfectly. Where the sources
+    date a thing only to a decade, **leave the date line EMPTY** and let the prose say the decade —
+    which is what `gru-583` does.
+    **AND THE CHARTER SLUG IS READ OFF `/region/`'s OWN INDEX, WHICH IS WHERE `ustav_mosobl` HID**
+    (batch 37). A grep of that index for the obvious stem misses it — Moscow Oblast's charter is filed
+    under `mosobl` while `ustav_moskv` is the CITY's — so list the index and match on the region, never
+    on the name. **And read the document's own header before trusting what it says**: Garant's Moscow
+    Oblast charter is the 1996 one and is marked *документ утратил силу*, the Stavropol shape again,
+    and none of its 127 articles names a centre either way.
+    **AND EUROPE PMC'S PHRASE SEARCH IS DOUBLE-QUOTED BY THE HELPER, SO PASS THE PHRASE BARE.**
+    `.claude`'s own `epmc.js` wraps its argument in quotes; passing `'"city of Tomsk"'` sends
+    `""city of Tomsk""` and returns 1,330 OR-matched hits where the phrase itself returns 54. **A
+    quoted search that comes back with hundreds of unrelated papers is the quoting, not the corpus** —
+    the check is to re-run a phrase whose true count is already recorded.
+    **AND THE WAYBACK MACHINE'S *CONTENT* ENDPOINT WORKS FROM HERE; ONLY ITS CDX INDEX IS BLOCKED**
+    (batch 38, correcting batch 37). `web.archive.org/web/<stamp>/<url>` fetched the Rosstat yearbook,
+    three regional portals and an archived charter PDF; `web.archive.org/cdx/search/cdx` answers a flat
+    `403 Blocked by egress policy` over both schemes. What batch 37 read as a policy block on two hosts
+    was the proxy dropping tunnels under load — `ws_closed_mid_exchange`, three or four tries in a row,
+    then a clean 200. **Retry an archive fetch four or five times with a pause before recording a host
+    as shut**, which is `check-reach.js`'s own BUSY-is-not-SHUT rule one layer down.
+    **SO THE SECOND RUNG OF THE LADDER IS A REAL RUNG, AND IT IS THE SUBJECT'S OWN «О РЕГИОНЕ» PAGE.**
+    Gatchina's seat sentence is on `lenobl.ru/ru/o-regione/` — *Столицей Ленинградской области является
+    город Гатчина* — where the Leningrad Oblast charter on Garant names no centre in any of its 59
+    articles. **Kurgan's is in its charter after all, as a PDF on the oblast's own site**
+    (`kurganobl.ru/sites/default/files/…/Ustav_Kurganskoy_oblasti_2023.pdf`, article 13), which is the
+    document Garant does not carry. **A charter absent from Garant is not a charter that cannot be
+    read.**
+    **AND A RUSSIAN JOURNAL'S PDF MAY BE ENCIPHERED PER FONT RUN, WHICH IS SOLVABLE AND NOT A DEAD END**
+    (batch 34). In the `Уфимский археологический вестник` family a Latin run is `\x00`-separated with each
+    glyph its character MINUS 29, and a Cyrillic run is **`\x02`-separated with `\x03` for a space and a
+    straight alphabet, `0x3A`–`0x59` = А–Я and `0x5A`–`0x79` = а–я** — no substitution table and no
+    frequency analysis. **`repr()` a line before reasoning about it**: a terminal prints those separators
+    as spaces, which makes the runs look like UTF-16 spacing and sends you after the wrong structure. **The
+    crib that pins a block is a word already visible in it.**
+    **AND `check-style.js` CANNOT SEE A CARD'S BACKGROUND**, the abstract having moved to `data-extra/`:
+    rule 3 fired on two century-words in a new glossary entry and was silent about two in the card beside
+    it. **Write `13th century` by hand in an abstract**; measured Sep 2026, the Russia geography lazy half
+    carries 37 century-words against 25 numbered forms and nothing reports them. Not part of
+    the site.
+- `russia-subjects.js` + `.claude/build-russia-subjects.js` — the 83 federal subjects of the Russian
+  Federation and the 80 administrative centres (`window.RUSSIA_SUBJECTS` / `window.RUSSIA_CENTRES`), the
+  fourth shape layer a map card can be drawn on. **Lazy** (bundle `russubj`, with `lakes.js` and
+  `rivers.js` beside it), **generated — never hand-edited**. Its shape is `china-provinces.js`'s exactly,
+  down to the tolerance, so one renderer draws a federal subject, a province and a state alike.
+  **📖 Read the script's header before touching it**, for three findings.
+  · **NATURAL EARTH HAS THE TWO MOSCOW CODES THE WRONG WAY ROUND** — it gives `RU-MOS` to the city and
+    `RU-MOW` to the oblast where ISO 3166-2:RU (and Wikidata's P300) assign them the other way. The
+    geometry is right and the CODE is wrong, which is the worst shape a fault can have: every card renders
+    perfectly. The builder swaps them and **ASSERTS THE SWAP FROM THE GEOMETRY**, refusing to write unless
+    the shape it labels `RU-MOW` is the smaller and lies inside the other's bounding box (2,833 km² inside
+    43,855) — a hand-written correction goes stale when the source is fixed; a measurement cannot.
+  · **THE NAME, THE KIND AND THE CODE ARE ALL DECLARED — only the geometry and the label point are read**,
+    which is where this parts company with the China builder. `name` is stale or garbled on a dozen rows
+    (*Maga Buryatdan*, *Chita* for Zabaykalsky Krai), `name_en` gives "Moscow" for both Moscows, `type_en`
+    is wrong on seventeen, and `region` files Chechnya and Krasnodar under "Volga".
+  · **`lakes.js` IS LOAD-BEARING HERE WHERE IT IS MERELY HARMLESS FOR CHINA.** Natural Earth clips a lake
+    lying BETWEEN divisions out of both; China has none such and its builder measured that the file
+    changed nothing, but **Baikal sits between Irkutsk and Buryatia and Ladoga between Karelia and
+    Leningrad Oblast**, so both are holes in this layer — and under a hole is `world.js`, which has no lake
+    holes, so without it the two largest lakes in Europe and Asia draw as grey land inside a shaded
+    subject.
+  · **A PUBLISHED COORDINATE ROUNDED TO THE ARCMINUTE IS 1.4 km WIDE, AND THAT CROSSES BORDERS.** The
+    English Wikipedia article's coordinate for Magas falls on the wrong side of the Ingushetia–North
+    Ossetia boundary and the inside-test REFUSED it; Wikidata's Q5222 falls inside. The builder also
+    reports every centre **within 3 km of its own boundary** (nine of them, Anadyr at 0.26 km) on the
+    principle that the near miss is the signal. **And a Wikidata id is looked up, never composed** — two
+    were guessed while writing its table and both were wrong, one an asteroid and one a village in
+    Botswana.
 - **📖 `docs/flags-card-plan.md` — READ BEFORE WRITING AN `fl-` CARD, OR BEFORE TOUCHING THE FLAG-CARD
   FORMAT.** The running order for **Flags** (`flags-world`), **a third DECK of World Geography** — it
   shipped as a collection of its own and was moved under `geo-world` on request (Sep 2026). **233 cards**,
@@ -2276,7 +2519,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.48 MB and 50,699 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.49 MB and 50,761 lines is hard to find your way around, so this
   lists its 195 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -2456,6 +2699,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the licence and the source book's own caption. **Reach for those two before concluding Commons is
     shut.**
   Not part of the site.
+- `.claude/facts-echo.js` — **A MAP CARD’S BACKGROUND MAY NOT RESTATE ITS OWN FACTS GRID**:
+  `node .claude/facts-echo.js [--prefix=] [--card=] [--names]`, exit 1 on a figure echo. The answer
+  box prints Capital / Population / Largest city / Area two inches above the background, so a
+  background that gives those figures again asks the reader to read the same number twice (on
+  request, Sep 2026). **Nothing else in the pipeline could see it** — every figure was correctly
+  cited, every word count in range, and every card rendered perfectly.
+  · **TWO TIERS, AND THE SECOND IS A JUDGEMENT.** A **FIGURE** — the subject’s population, its area
+    or the capital’s/largest city’s population — is an ERROR, and `add-card.js` refuses a new card
+    that carries one, **through this module rather than a copy of the rule**. A **NAME** is REPORTED
+    with `--names` and never failed: a name is often doing narrative work a number never does, and a
+    card about Astrakhan Oblast cannot tell the story of the khanate without writing *Astrakhan*.
+  · **A RANK, A DENSITY OR A SHARE IS NOT AN ECHO, AND IS USUALLY THE BETTER SENTENCE.** None of the
+    three is in the grid, each varies in a way the grid cannot show, and each keeps the citation that
+    the deleted figure was carrying — which is what stops the repair from stripping the apparatus.
+    The Russia cards took Rosstat’s own density column and the capital’s share of the subject; the
+    United States cards took the Census Bureau’s own population rank, **read out of the very CSV the
+    cards cite** rather than computed from the grid’s rounded figures, which had left four states
+    tied and unrankable.
+  · **THE COMPARISON IS AGAINST THE GRID’S OWN VALUE, EXPANDED INTO EVERY SHAPE PROSE COULD TAKE.**
+    A loose "any N million" rule matched a CITY’s figure on two state cards — the very fault this
+    pass is about, one level down. And **the rounding forms are the gap to watch**: the first cut
+    generated `5.96 million` and `6 million` but not `6.0 million`, and two cards walked through.
+  · **A HISTORICAL figure for the same quantity is not an echo** — "Reclus counted 26,403 people here
+    in the eighteen-seventies" is a different fact about a different century — and three findings are
+    DECLARED in `ADJUDICATED` (rainfall in inches, cubic feet of debris) where a number happens to
+    equal a grid value while measuring something else. A row is keyed by the card AND the matched
+    text, so a new echo on an excused card still reports.
+  · **Run it after any batch of map cards. It is in the CI fast gate.** Not part of the site.
 - `.claude/check-claims.js` — **CLAUDE.md's own figures, measured**: `node .claude/check-claims.js
   [--all]`. This file is the ONLY operational memory a cloud session has, it is written in the present
   tense as the state of the repository, and it is full of hand-written counts. **Its first run found
@@ -7687,6 +7958,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 4 / 4 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** (Sep 2026) across 233 numbers — `fl-001`–`fl-233` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, whose numbers stay reserved, so the next-card command prints a deferral rather than work, one per `gw-` COUNTRY card and numbered to match it, see below |
 | Draw the flags | `geo-world` | `fd-` | `docs/flags-draw-card-plan.md` | 4 / 4 | **THE FLAGS DECK RUN BACKWARDS** (Sep 2026, on request) — the reader is given a canvas with its own pens, colours and a fill, and draws the flag from memory, then reveals it and judges themselves. A FOURTH deck of World Geography, so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** across 233 numbers — `fd-001`–`fd-233` less the DEFERRED `fd-036`, `fd-171`, `fd-180` and `fd-218`, which are the Flags deck's own four and are deferred here for the same reason one step on: a card that asks for a flag to be drawn and then shows it has nothing to show. `fd-NNN` is the same entity as `fl-NNN` and `gw-NNN` — in this collection the NUMBER is the entity and the PREFIX is the question asked about it, which is why it is NOT numbered +500 like the capitals, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | **COMPLETE, 162 of 162 writable** across 163 numbers — the 83 federal subjects and 79 of the 80 centres; **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION. **`gru-502` Krasnogorsk is DEFERRED, and its number stays reserved**: the deck's question asks for *the administrative centre of the federal subject shaded around it*, and no source of the kind this site cites says which city that is for Moscow Oblast — its own charter of 2022 names none, nor does any law on the state portal. A FACT refusal, `gw-596` Jerusalem's shape one level down, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
 The next id for any of them (substitute the prefix):
@@ -7700,7 +7972,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (448 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (463 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -8684,7 +8956,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 448 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 463 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -8817,7 +9089,7 @@ division-capital city tier are inert dead code.
     touching `glossPlace` / `focusPlace` /
     `CITY_SEP` / `computeCityLayout` / `gsIndex` / `hmOpacity` / `MAP_FS` / `readMapFs` / `mapFs`, or
     after re-running `.claude/fetch-place-coords.js`.**
-  · `node .claude/test-map-cards.js` — **the geography map-card format** (76 assertions, Aug 2026), half
+  · `node .claude/test-map-cards.js` — **the geography map-card format** (Aug 2026; its count scales with the corpus, since it walks every map card — run it rather than quoting one), half
     of it with no browser. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
     `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `serializeCardData` /
     `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map card.**

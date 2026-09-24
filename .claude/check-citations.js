@@ -205,6 +205,76 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Ecosystem Transformation publishes its bylines in LATIN and deposits the RUSSIAN ones:
+  // Crossref carries \u0421.\u0410. \u041b\u0438\u0442\u0432\u0438\u043d\u0441\u043a\u0430\u044f and her six co-authors in Cyrillic, where the article's own
+  // first page prints "S.A. Litvinskaya, S.N. Gorbov, S.S. Tagiverdiev, N.V. Salnik, D.A. Kozyrev,
+  // P.N. Skripnikov, A.Yu. Matetskaya" above the abstract and repeats each beside an ORCID.
+  ["10.23859/estr-240206", "S. A. Litvinskaya", "\u0421.\u0410. \u041b\u0438\u0442\u0432\u0438\u043d\u0441\u043a\u0430\u044f"],
+  ["10.23859/estr-240206", "S. N. Gorbov", "\u0421.\u041d. \u0413\u043e\u0440\u0431\u043e\u0432"],
+  ["10.23859/estr-240206", "S. S. Tagiverdiev", "\u0421.\u0421. \u0422\u0430\u0433\u0438\u0432\u0435\u0440\u0434\u0438\u0435\u0432"],
+  ["10.23859/estr-240206", "N. V. Salnik", "\u041d.\u0412. \u0421\u0430\u043b\u044c\u043d\u0438\u043a"],
+  ["10.23859/estr-240206", "D. A. Kozyrev", "\u0414.\u0410. \u041a\u043e\u0437\u044b\u0440\u0435\u0432"],
+  ["10.23859/estr-240206", "P. N. Skripnikov", "\u041f.\u041d. \u0421\u043a\u0440\u0438\u043f\u043d\u0438\u043a\u043e\u0432"],
+  ["10.23859/estr-240206", "A. Yu. Matetskaya", "\u0410.\u042e. \u041c\u0430\u0442\u0435\u0446\u043a\u0430\u044f"],
+  // Science & Technique (sat.bntu.by) deposits this byline exactly as it prints its own preferred
+  // citation line — "Grakhov V.P., Kislyakov M.A., Kislyakov \u0410.\u0410." — with the THIRD author's
+  // initials in CYRILLIC beside a Latin surname, where the first two authors carry Latin initials.
+  // That is a mixed-script artefact of the deposit rather than two different alphabets in one byline,
+  // and a Cyrillic homoglyph inside a Latin name is the one thing a citation must not ship: it breaks
+  // search and reads as corruption. The citation writes all three sets of initials in Latin.
+  ["10.21122/2227-1031-2025-24-4-307-316", "A. A. Kislyakov", "\u0410. \u0410. Kislyakov"],
+  // The NArFU Vestnik deposit reverses the name fields — Crossref carries given "Ushakov",
+  // family "M.V." — and files the institute as a first author beside it. The article's own
+  // landing page for the DOI prints the byline "Ушаков, М.В." (Ushakov Mikhail Vilorevich),
+  // so the Chicago form "M. V. Ushakov" is right and the record is the thing that is wrong.
+  ["10.17238/issn2227-6572.2016.2.24", "M. V. Ushakov", "Ushakov M.V."],
+  // Kavkazologiya deposits its bylines surname-first with no family/given split, so
+  // Crossref carries "Yakhutl Yuri A." The journal's own English article page
+  // (caucasology.ru/jour/article/view/588?locale=en_US) prints "Yuri A. Yakhutl".
+  ["10.31143/2542-212X-2025-2-52-62", "Yuri A. Yakhutl", "Yakhutl Yuri A."],
+  // The deposited given name has lost its first letter: Crossref carries "nga Alexandrovna
+  // Druzhinina". The journal's own article page (journals.urfu.ru, adsv/article/view/7325)
+  // prints the author block as "Victor Nikolaevich Chkhaidze, Inga Alexandrovna Druzhinina".
+  ["10.15826/adsv.2023.51.009", "Inga Alexandrovna Druzhinina", "nga Alexandrovna Druzhinina"],
+  // The New Research of Tuva publishes English titles and bylines and deposits the RUSSIAN
+  // ones: Crossref carries Иванна Витальевна Отрощенко for the author the journal's own
+  // English metadata (and DOAJ, which takes it from the journal) names Ivanna V. Otroshchenko.
+  ["10.25178/nit.2019.4.17", "Ivanna V. Otroshchenko", "\u0418\u0432\u0430\u043d\u043d\u0430 \u0412\u0438\u0442\u0430\u043b\u044c\u0435\u0432\u043d\u0430 \u041e\u0442\u0440\u043e\u0449\u0435\u043d\u043a\u043e"],
+  // Kavkazologiya deposited this byline surname-first with no family/given split, so
+  // Crossref carries "Dzarakhov Magomed M." The article's own PDF prints the full Russian
+  // form, Магомед Макшарипович Дзарахов, above the abstract.
+  ["10.31143/2542-212X-2024-3-432-446", "Magomed M. Dzarakhov", "Dzarakhov Magomed M."],
+  // Kavkazologiya again, the same surname-first deposit with no family/given split, so
+  // Crossref carries "Zhansitov Osman A." The journal's own English article page
+  // (caucasology.ru/jour/article/view/91?locale=en_US) prints "Osman A. Zhansitov".
+  ["10.31143/2542-212X-2024-3-133-142", "Osman A. Zhansitov", "Zhansitov Osman A."],
+  // Kavkazologiya a fourth time, the same surname-first deposit, so Crossref carries
+  // "Akopyan Zaven V." The journal's own English article page
+  // (caucasology.ru/jour/article/view/325?locale=en_US) prints "Zaven V. Akopyan" twice over,
+  // in its author block and again in its citation line.
+  ["10.31143/2542-212X-2023-1-108-123", "Zaven V. Akopyan", "Akopyan Zaven V."],
+  // The New Research of Tuva again, the same split as the Otroshchenko row above: the journal
+  // publishes English titles and bylines and deposits the RUSSIAN ones, so Crossref carries
+  // \u0410\u044f\u043d\u0430 \u0410\u043d\u0430\u0439-\u043e\u043e\u043b\u043e\u0432\u043d\u0430 \u0421\u0430\u043c\u0434\u0430\u043d for the author its own English metadata (and DOAJ, which takes it
+  // from the journal) names Ayana A. Samdan \u2014 the form gru-076 already cites her under for a
+  // different article in a different journal.
+  ["10.25178/nit.2017.4.9", "Ayana A. Samdan", "\u0410\u044f\u043d\u0430 \u0410\u043d\u0430\u0439-\u043e\u043e\u043b\u043e\u0432\u043d\u0430 \u0421\u0430\u043c\u0434\u0430\u043d"],
+  // Vestnik KRAUNC deposits the RUSSIAN byline where the article itself is set in Latin script:
+  // Crossref carries \u0410.\u0412. \u0428\u0438\u0442\u043e\u0432, and the paper's own first page prints "A.V. Shitov D.P. Dolgov
+  // A. A. Barsukov" above the abstract, with the same Latin form in its copyright line and in
+  // the "For citation" line at its foot.
+  ["10.26117/2079-6641-2019-29-4-223-231", "A. V. Shitov", "\u0410.\u0412. \u0428\u0438\u0442\u043e\u0432"],
+  ["10.26117/2079-6641-2019-29-4-223-231", "D. P. Dolgov", "\u0414.\u041f. \u0414\u043e\u043b\u0433\u043e\u0432"],
+  ["10.26117/2079-6641-2019-29-4-223-231", "A. A. Barsukov", "\u0410.\u0410. \u0411\u0430\u0440\u0441\u0443\u043a\u043e\u0432"],
+  // Kemerovo deposited this byline with a CYRILLIC Е (U+0415) as the middle initial, which
+  // defeats the initials comparison, so the record reads as a differing given name rather
+  // than as an abbreviation. The journal's own author page prints Гульнара Е. Мамаева.
+  ["10.21603/2078-8975-2017-4-63-69", "Gulnara E. Mamaeva", "G. \u0415. Mamaeva"],
+  // Arkheologiya Evraziyskikh Stepey publishes English titles and bylines and deposits the
+  // RUSSIAN ones: Crossref carries Анна Алексеевна Пайзерова and Ольга Львовна Швец for the
+  // authors the journal's own English metadata names Anna A. Paizerova and Olga L. Shvets.
+  ["10.24852/2587-6112.2023.4.124.128", "Anna A. Paizerova", "\u0410\u043d\u043d\u0430 \u0410\u043b\u0435\u043a\u0441\u0435\u0435\u0432\u043d\u0430 \u041f\u0430\u0439\u0437\u0435\u0440\u043e\u0432\u0430"],
+  ["10.24852/2587-6112.2023.4.124.128", "Olga L. Shvets", "\u041e\u043b\u044c\u0433\u0430 \u041b\u044c\u0432\u043e\u0432\u043d\u0430 \u0428\u0432\u0435\u0446"],
   // Quaestio Rossica deposited this byline with a CYRILLIC А (U+0410) in place of the Latin A,
   // and spelled the given name "Aleksandr" where the journal prints "Aleksander", so Crossref
   // carries "Аleksandr Uzhankov". The article's own page at qr.urfu.ru prints "Aleksander

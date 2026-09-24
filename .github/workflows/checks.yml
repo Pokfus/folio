@@ -115,6 +115,11 @@ jobs:
       - name: check-style
         run: node .claude/check-style.js
 
+      # A map card's background may not restate its own facts grid. Cheap, no network, and the
+      # fault it guards renders perfectly: every figure is correctly cited and simply printed twice.
+      - name: facts-echo
+        run: node .claude/facts-echo.js
+
       # THE SIZE GOES IN THE JOB SUMMARY, NOT ONLY IN THE LOG (Sep 2026). It ran here with
       # continue-on-error from the start, which is right -- a size is not a failure -- and
       # NOBODY READS A GREEN JOB'S LOG. The eager path grew 2.6x past the largest figure

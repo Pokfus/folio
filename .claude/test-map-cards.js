@@ -123,10 +123,28 @@ function staticChecks() {
   const cpOrphan = Object.keys(CPCAP).filter((n) => !cpNames.has(CPCAP[n].s));
   ok(!cpOrphan.length, "every China capital names a division the layer actually has", cpOrphan.slice(0, 5).join(", "));
 
+  /* the fourth layer: Russia's federal subjects, built exactly as China's is (see
+     .claude/build-russia-subjects.js). Its point table is DELIBERATELY short of three subjects — Moscow
+     and Saint Petersburg are cities that are themselves subjects, and Abakan is refused because Natural
+     Earth draws it outside its own republic — which is asserted below rather than left to read as a gap. */
+  const rwin = {};
+  new Function("window", fs.readFileSync(path.join(ROOT, "russia-subjects.js"), "utf8"))(rwin);
+  const RS = rwin.RUSSIA_SUBJECTS || [], RCEN = rwin.RUSSIA_CENTRES || {};
+  const rsNames = new Set(RS.map((s) => s.n));
+  ok(RS.length === 83, "russia-subjects.js carries the 83 subjects with an ISO 3166-2:RU code", RS.length);
+  ok(Object.keys(RCEN).length === 80, "russia-subjects.js carries 80 administrative centres, not 83", Object.keys(RCEN).length);
+  ok(["Moscow", "Saint Petersburg"].every((m) => rsNames.has(m) && !Object.values(RCEN).some((v) => v.s === m)),
+     "...two of the three missing are the cities of federal significance, whose shape would be their own answer");
+  ok(rsNames.has("Khakassia") && !Object.values(RCEN).some((v) => v.s === "Khakassia"),
+     "...and the third is Khakassia, whose published capital falls outside the source's own polygon");
+  const rOrphan = Object.keys(RCEN).filter((n) => !rsNames.has(RCEN[n].s));
+  ok(!rOrphan.length, "every Russian centre names a subject the layer actually has", rOrphan.slice(0, 5).join(", "));
+
   const LAYERS = {
     "us-states": { shapes: new Set(ST.map((s) => s.n)), points: CAP, what: "state" },
     world: { shapes: wgNames, points: WCAP, what: "country" },
     "china-provinces": { shapes: cpNames, points: CPCAP, what: "province" },
+    "russia-subjects": { shapes: rsNames, points: RCEN, what: "federal subject" },
   };
 
   const dwin = {};
