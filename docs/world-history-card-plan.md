@@ -1100,11 +1100,18 @@ what went wrong in the Mongol period — under a term rather than under a headin
 
 ### Slavery and the Atlantic world — `wh-slavery`
 
+*Retitled while writing (Sep 2026): `wh-730` was *Sugar and the Caribbean*, which is a subject and
+not a term — there is no article of that name to key a glossary entry on, and a card cannot be
+answered by a conjunction. The line is now **Sugar plantations in the Caribbean**, which is the
+thing the subject is about, has an article of its own, and is what a reader meets again: the estate
+that combined field and mill under one management and consumed more enslaved labour than anywhere
+else in the Americas.*
+
     wh-726  Atlantic slave trade
     wh-727  Middle Passage
     wh-728  Triangular trade
     wh-729  Plantation economy
-    wh-730  Sugar and the Caribbean
+    wh-730  Sugar plantations in the Caribbean
     wh-731  Chattel slavery
     wh-732  Slave codes
     wh-733  Slave rebellion
