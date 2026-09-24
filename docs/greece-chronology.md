@@ -67,6 +67,13 @@ already cites, taking the earlier of each of its paired figures where it gives t
 | Keros and Dhaskalio in use | c. 2750 – 2250 BCE | the British School gives 2750 – 2240; Carter et al. 2025 end Phase C at 2250 |
 | Knossos first settled | c. 6900 – 6600 BCE | Douka et al. 2017, modelled radiocarbon |
 | Mycenaean palaces | c. 1400 – 1200 BCE | |
+| Malia: Old / New palace; reoccupied | c. 1900 – 1700 / 1700 – 1450; c. 1375 – 1200 BCE | the École française d'Athènes' own periodisation, which puts Malia's break at 1700 rather than 1750 |
+| Phaistos: Old / New palace | c. 1900 – 1750 / 1750 – 1470 BCE | Rutter's pair; the Hellenistic town was razed by Gortyn in the mid-2nd century BCE (Strabo 10.4.14) |
+| Zakros: older building; palace | c. 1900 BCE; c. 1750 – 1470 BCE | Odysseus (Greek ministry) for the older building; the palace is MM IIIA – LM IB |
+| Gournia town | c. 1750 – 1490 BCE | Gournia Excavation Project |
+| Cretan hieroglyphic in use | c. 1900 – 1700 BCE | MM IB – MM III (Meissner and Salgarella 2024); MM III ends 1700/1675 (Graziadio 2025) |
+| Linear A in use | c. 1800 – 1450 BCE | SigLA |
+| LM IB destructions | mid-15th century BCE | Manning 2022; the collection's figure stays `c. 1470 BCE`, and a card may say "the mid-15th century" |
 | Shaft graves at Mycenae | c. 1650 – 1500 BCE | |
 
 **Three standing notes.** (1) "Neopalatial" and "Postpalatial" do not describe KNOSSOS, which went on
@@ -149,4 +156,14 @@ gr-007: 8 July 1851; 11 July 1941
 gr-008: 1900; 1375
 gr-009: 1900; 1750; 1470
 gr-010: 1470; 1375
+gr-011: 1900; 1750; 1470
+gr-012: 1900; 1700; 1450; 1375; 1200
+gr-013: 1900; 1750; 1470
+gr-014: 1750; 1490
+gr-015: 1900; 1750; 1925; 1700
+gr-016: 1750; 1470; 1720; 1490
+gr-017: 1900; 1470
+gr-018: 1900
+gr-019: 1900; 1700
+gr-020: 1800; 1450
 ```

@@ -171,7 +171,7 @@ one changelog line and a version bump; commit and push.
 | batch | deck | cards | n | state |
 |---|---|---|---|---|
 | B1 | Crete and the Cyclades (`gr-crete`) | `gr-001`–`gr-010` | 10 | **done 2026-09-24** |
-| B2 | Crete and the Cyclades (`gr-crete`) | `gr-011`–`gr-020` | 10 | open |
+| B2 | Crete and the Cyclades (`gr-crete`) | `gr-011`–`gr-020` | 10 | **done 2026-09-24** |
 | B3 | Crete and the Cyclades (`gr-crete`) | `gr-021`–`gr-030` | 10 | open |
 | B4 | Crete and the Cyclades (`gr-crete`) | `gr-031`–`gr-040` | 10 | open |
 | B5 | Crete and the Cyclades (`gr-crete`) | `gr-041`–`gr-050` | 10 | open |
@@ -358,3 +358,71 @@ article as a checklist — `gr-008` was the one real gap (nothing after the pala
 **Locators.** `gr-005`, `gr-006` and `gr-009` were labelled "Minoan civilisation" / "Minoan Crete",
 which are not places; all three now read **Crete**, on one Crete-only ring (the old `gr-005`/`gr-006`
 ring ran north to Thera). `gr-004`, `gr-008` and `gr-010` were re-fetched through `add-locators.js`.
+
+### B2 — `gr-011`–`gr-020`, Crete and the Cyclades (2026-09-24)
+
+All ten were rewritten in the rule order and applied with `add-card.js --replace`. The ten abstracts run
+272–284 words.
+
+Checks, all passing:
+- `greece-audit.js --range=gr-011:gr-020` reads **10 of 10 clean**.
+- `check-questions` and `card-length` pass.
+- `check-citations --card` reports 0 mismatched on every card.
+- Every citation URL was curled and answers 200. Graziadio's DOI 302s to the publisher.
+- `check-gloss-links --card` reports one proxy finding, on `gr-015`: "Egyptian" links to `Ancient_Egypt`. That is the right term.
+- `check-cards --prefix=gr-` reports nothing new.
+
+Sort years were read back and each is the card's own start: −1900 for the palaces and the scripts' sites, −1925 for `gr-015` (Rutter's earlier figure), −1750 for `gr-014` and `gr-016`, and −1800 for Linear A.
+
+**What changed, card by card.** Each "sources" figure below is the count before the batch → after.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `gr-011` Phaistos | 6 | 7 → 7 | Question no longer echoes `gr-008`: it now asks about the Hellenistic town that Gortyn razed (Strabo). La Rosa's earthquake argument added. "Pillars" corrected to the one pillar. The picture is now a wide view of the palace. |
+| `gr-012` Malia | 5 | 6 → 5 | The dates are now the École française d'Athènes' own (Old Palace to 1700, reoccupied 1375–1200). Lespez 2021 added for the tsunami deposit. The question echoed `gr-041` and was replaced by the Cyprus and Anatolia metal clue. The locator moved from the modern town to the palace, 2.5 km east. |
+| `gr-013` Zakros | 5 | 6 → 5 | Rebuilt from the Greek ministry's description (the unrobbed treasury, the archive, the cistern hall) instead of Hogarth's dig. Hogarth is kept for the sealings. The house is now "home of a local chief or governor". The old picture was also on the glossary term `Late_Minoan_I`, so the card has a new one. |
+| `gr-014` Gournia | 5 | 5 → 5 | Rebuilt from the Gournia Excavation Project's own pages. The date line now reads 1750–1490 (the project's figures). "A dam at the river mouth" corrected to "a dam by the river". |
+| `gr-015` Protopalatial period | 5 | 5 → 7 | Both dating schemes shown, with a date line of two rows. Eggshell ware, the two scripts, peak sanctuaries and Quartier Mu each now cited. The picture is Quartier Mu, not a single cup. |
+| `gr-016` Neopalatial period | 5 | 5 → 7 | Question no longer echoes `gr-006`: it now asks about the villas; Kastri and Trianda moved to an extra phrasing. Adlung 2020 (in German, carrying the language chip) added for the villas; Manning 2022 for the gap after the Thera eruption. A fresco picture replaced by the villa at Tylissos. |
+| `gr-017` storerooms and pithoi | 5 | 6 → 6 | Evans's 1900 report, read in full, now carries the stone chests lined with lead and the corridor's length. Christakis 2011 carries the argument over who benefited. A Louvre pithos, which is not a storeroom, replaced by the Knossos magazines. |
+| `gr-018` palace economy | 6 | 6 → 8 | **The ingot claim was wrong** (see below). Linear A accounts, roundels and the Quartier Mu craftsmen added. The picture is now Malia's granaries, not the Pillar Crypt. |
+| `gr-019` Cretan hieroglyphic | 6 | 5 → 6 | Rebuilt on the 2024 Cambridge volume: the share of inscribed seals, the count of sound signs, and why it cannot be read. "Clay bars" corrected to tablets, medallions and cones. A 1921 plate replaced by a photograph of real inscriptions. |
+| `gr-020` Linear A | 7 | 6 → 7 | SigLA carries the sign counts and the 168 tablets from Ayia Triada. Manning carries the mid-15th-century end. A PNG drawing replaced by a photograph of a tablet from Ayia Triada. |
+
+The Think-it-through sets were written from scratch to the B1 rule: three questions the card does not
+answer, each with explicit markers.
+
+**Corrected, refused and not usable.**
+- **`gr-018`: "the copper came from Cyprus" was wrong for Crete.** Rutter's Lesson 22 says most oxhide
+  ingots around the eastern Mediterranean are of Cypriot copper, but the LM I ingots tested from Ayia
+  Triada are incompatible with that and may be Anatolian. The card now says both.
+- **Steele 2024 (OAPEN) and Pomadère 2021 (OpenEdition)** both sit behind the Anubis bot wall from this
+  sandbox and were dropped rather than cited unseen. The Nepal 2024 MDPI paper answers "Access Denied" and
+  was not used.
+- **La Rosa 1995 is a scanned PDF with no text layer.** It is cited only for what its abstract states: the
+  earthquake hypothesis and its political reading.
+- **The Watrous excerpt still closes the connection** (`ws_closed`). No B2 card cites it; B1's four stand
+  as they were.
+- **The Rutter cap bound on six cards.** It was met by choosing which two of his pages each card needs.
+  The chronology page stands in wherever a card needs only the 1900 or 1470 figure.
+- **Three questions were confusable with siblings** and were rewritten after `Q.sibling` fired:
+  - `gr-011` against `gr-008`
+  - `gr-012` against `gr-041`
+  - `gr-016` against `gr-006`
+
+  `gr-011`'s first redraft opened on "Its", which `check-questions` refuses, and was recast.
+
+**Read by eye.**
+- *Article:* "the Protopalatial period", "the Neopalatial period", "the Minoan palace economy" and "the Cretan hieroglyphic script" take "the" before the blank. The site names and Linear A are bare. `gr-017`'s term carries no article and its questions supply "for" and "among the".
+- *Confusability:* checked against `gr-001`–`gr-069`, with the three fixes above. `gr-019` and `gr-020` share a subject but each question names what only its own script has: the seals for the hieroglyphic script, and the cuttlefish-ink cup and the offering tables for Linear A.
+- *Image depicts the whole term:* for a site, a wide view of the ruins. For a period, a building typical of it. `gr-018` shows the granaries, since storage is the one part of the economy a photograph can show. For each script, a real inscribed object.
+- *Coverage:* against each Wikipedia article as a checklist. `gr-013` was the real gap (all about the dig, nothing about the palace); `gr-014` lacked the town's plan and the recent excavations.
+
+**Locators.**
+- `gr-011`, `gr-013`, `gr-014` and `gr-017` were fetched through `add-locators.js`. `gr-017` now points at Knossos, where its storerooms are.
+- `gr-012` now points at the palace (Wikipedia's *Malia (archaeological site)*), not the modern town.
+- `gr-015`, `gr-016` and `gr-018` take B1's Crete-only ring. `gr-018`'s old locator was named "Minoan civilisation", which is not a place, and its ring reached Thera.
+- `gr-019` and `gr-020` take none: a script is not a place.
+
+**Chronology.** Rows added for Malia, Phaistos, Zakros, Gournia, the two scripts and the LM IB horizon. Pins added for all ten cards. Malia is the one site whose own excavators break the Old and New Palace ages at 1700 rather than 1750; the card follows them and says so.
+

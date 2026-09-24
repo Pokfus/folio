@@ -470,6 +470,18 @@ and then counted across the whole collection's prose, questions and Think-it-thr
 | 2 | lustral basin · Kephala · Postpalatial | `Postpalatial` has a card (`gr-053`, "Postpalatial Crete") whose term does not claim the bare word |
 | 1 | Prepalatial · Keros-Syros culture · Kavos · Minos Kalokairinos · Mount Juktas · Galatas · Sissi · Duncan Mackenzie · British School at Athens | `Prepalatial` pairs with the two above; spell the mountain as the chosen source does before adding it |
 
+**Added by the refinement's B2 (2026-09-24)**, counted the same way over the whole collection after
+`gr-011`–`gr-020` were rewritten. Quartier Mu, kouloura, oxhide ingot, Ayia Triada, Archanes, Kommos and
+Mesara were checked and already have keys or aliases.
+
+| cards | term | note |
+|---|---|---|
+| 7 | syllabary | general, not Greek; `gr-019` and `gr-020` both rest on it |
+| 5 | silo | Malia's round granaries; check against `kouloura` before keying, which already claims the stone-lined pits |
+| 4 | Trianda · sealing | Trianda on Rhodes; `sealing` is an ordinary English word, so it wants a narrower key such as `Clay_sealing` |
+| 2 | Tylissos · eggshell ware | Tylissos is the villa pictured on `gr-016`; eggshell ware is the Protopalatial fine ware |
+| 1 | roundel · libation formula | the Linear A receipt and the set phrase on offering tables |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
