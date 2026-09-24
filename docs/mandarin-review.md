@@ -676,6 +676,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 301–330 (调动 → 蹲), deck order | 21 | **TEN cards carried a near-repeat**, most of them this record's own fill-pass rows — and a spelling that is neither British nor American, which `check-british.js` can never see |
 | 2026-09-24 | **the British pass's own blind spot** — one finding list, all nine decks | 479 | the pass and its checker both read three fields and the card type has six; **547 American spellings sat in `Characters` alone** |
 | 2026-09-24 | **the `-is/-iz` table gap** — 45 rows into `SPELL_PAIRS`, an APP change | 70 (+2 cards, 1 term) | the raw grep's “~45 sites in Folio's own prose” was wrong: **they were CITATIONS**, and the real figure is ONE |
+| 2026-09-24 | `hsk30l6` notes 331–360 (顿时 → 凡是), deck order | 23 (+3 in 7–9) | **ten near-repeats again**, a card glossed as its own neighbour — and `check-gloss-source.js` crying wolf on 68 correct glosses |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10815,3 +10816,89 @@ two declared rows, `app.js`, `changelog.js` and CLAUDE.md. `build-lang-decks.js`
 clock — because the table is the app's and the change is reader-facing: an American reader now gets
 American spellings on 45 more families of word. The deck files that moved with it are deck content and
 get no line of their own.
+
+## Batch 141 — `hsk30l6` notes 331–360 (顿时 → 凡是)
+
+**Twenty-three of thirty changed, plus three cards in Levels 7–9 that a table row reached.** Back to the
+running order, and the range found one fault that is about a checker rather than a card.
+
+### `check-gloss-source.js` was crying wolf on 68 correct glosses
+
+儿科 was glossed **`pediatrics`** over an example saying **`pediatrician`** — while two of its own
+sentences said *paediatric*. **The card contradicted itself and `check-british.js` read 0**, the `-ae-`
+family having no `paediatric` row: batch 138's `manoeuver` and batch 140's `-is/-iz` gap for the third
+time, and this one found by reading a card rather than by any sweep. Three rows added — `paediatric`,
+`anaesthe`, `haemorrhag` — measured first at **5 deck sites** (儿科, 知觉, 麻醉, 膜) **and none in
+Folio's own prose**, which already writes `oestrogens`.
+
+**Then the fix made a second fault visible.** With the gloss in British, `check-gloss-source.js` reported
+儿科 as sharing no content word with CC-CEDICT — because **CC-CEDICT is an American dictionary and these
+decks are authored British**, so the two can never agree on those words. Measured: **68 of its 993
+findings** were exactly that, `colour` against *color*, `neighbour` against *neighbor*, `kilometre`
+against *kilometer*, `theatre`, `programme`, `criticise`, `to apologise` — **and the class grows every
+time a row is added to `SPELL_PAIRS`**, as 48 were in the two days before this. The checker's own header
+says a list a quarter of which is right teaches the next person to ignore it; this was 7% and rising.
+The card's gloss is now put into American through **app.js's own table, sliced out by text with the run
+stopping if the slice fails**, before the compare — it changes what is COMPARED and not what is
+reported, so a finding still prints the card's own British wording. **993 → 928, and the drop set was
+read in full: 68 dropped, 0 added, and every one of the 68 is a spelling-only difference** — which is
+the standing rule that a tightening is judged by its drop set and never by its count.
+
+### The cards
+
+**Ten near-repeats again**, and this range's are the plainest yet. 发票 carried **the same English word
+for word** — *Please give me a receipt* — on two different Chinese sentences, which **nothing here can
+see**: `check-mandarin-coverage.js` reports a note showing the same SENTENCE twice and compares the
+Chinese, so two Chinese sentences sharing one English are invisible to it. 法定 had *a statutory
+holiday* beside *a statutory rest day*; 发育 the same child developing twice; 二氧化碳 plants absorbing
+it twice; 多才多艺 the same predicate with the subject changed; 耳环 the same pair of earrings; 348 发动
+the same car that would not start; 343, 332 and 354 likewise — **seven of the ten this record's own rows
+from the fill pass**.
+
+**Three glosses were the wrong sense or the wrong part of speech.** 多元's entire gloss was **`poly-`**,
+a bound prefix rather than a word, taken off the head of CC-CEDICT's entry — a reverse card asking for
+*poly-* is one nobody can answer. 发行 was **`sell wholesale`**, which is not in the dictionary's entry
+at all and is not what any of its three sentences does. 发炎 was **`inflame`**, a transitive English
+verb meaning to rouse, where 发炎 is intransitive — *to become inflamed*, which is what all three of its
+sentences are.
+
+**躲避 was glossed as its own neighbour.** *To hide* is 隐藏's whole gloss, so the two cards were one
+English prompt with two right answers and **both carried a `not <other word>` hint** to be answerable.
+All three of 躲避's sentences are avoiding — the questions, the storm, the plague. The sharper gloss
+*to avoid; to dodge; to take shelter from* is the distinction the hint was papering over, so **both
+hints go with it**: shared-gloss groups 319 → 318, disambiguators 318 → 317, still ambiguous unchanged
+at 1. **The second time this audit has been able to REMOVE a disambiguator rather than add one**, after
+地域 / 面积.
+
+**A straddle and two swallows.** 顿时's 当我第一次回波士顿时 is **波士顿 — BOSTON — plus 时**, so the
+card's own word was not in the sentence at all. 番's 吐鲁番 is **TURPAN**, the character standing inside
+a place name; 发电's 发电报 is *to send a telegram*. 夺's three sentences were all compounds, two of
+them the same one, so a card glossed *to seize* never showed the bare verb.
+
+**番 also had a label naming one sense over a gloss naming another** — `measure word` above *foreign*,
+which are two different entries — so both are glossed now and the `Compounds` panel shows the bound
+*foreign* sense where a learner meets it, in 番茄. **Two `Compounds` panels**, 夺 and 番.
+
+**AND FOR THE FIFTH BATCH RUNNING THE SITTING INTRODUCED ITS OWN FAULT — but this time a CHECKER caught
+it.** The sentence authored for 发票 opened **开发票**, which segments 开发 + 票, 开发 being *to
+develop*: the very straddle this batch was repairing three cards earlier.
+`check-example-fit.js` named it. The other two were the familiar kind and were caught by reading the
+finished card — 多才多艺's replacement was a third *X 多才多艺* predicate, and 耳环's read 耳朵上的耳环,
+*the earrings on her ears*, which is redundant in Chinese.
+
+**Read and left.** 多媒体, 发病, 发愁, 发放, 发光, 法官, 繁忙, 凡是, 恶心's two survivors and 多亏 are
+sound. 凡是's second sentence is a Mao slogan, which is a real and well-known line that teaches the word
+and stays.
+
+### Checks after
+
+`--check` clean. `check-pinyin.js`, `check-polyreading.js`, `check-british.js` and
+`check-say-reading.js` all 0; `check-example-fit.js` names nothing in 331–360; coverage 11,532 notes at
+three sentences with 0 repeats. `check-spelling-corpus.js` 0 in Folio's own prose and `check-claims.js`
+0 drifted after CLAUDE.md was brought into step. **Verified against the real diff: 23 of 30 in the range
+plus 隐藏, whose hint this batch retired, and three cards in Levels 7–9 the `anaesthe` and `haemorrhag`
+rows reached.** `build-lang-decks.js` re-run.
+
+**This one carries a changelog line and a version bump — 1.872 → 1.873** — because three rows went into
+`SPELL_PAIRS`, which is the app's. Per the one-line-per-kind-of-change-per-day rule the day's existing
+spelling line was **raised from forty-five families to forty-eight** rather than joined by a second.

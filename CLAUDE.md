@@ -1281,7 +1281,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.41 MB and 49,751 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.41 MB and 49,759 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -1989,7 +1989,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cards and forgotten on the 117th. `exNames` recasts the example sentences **and rewrites the SPOKEN
     field with the visible ones**, since `data-say` carries its own copy and a rename that missed it would
     show one name and say another. `exBritish` converts the examples' English and **SLICES `SPELL_PAIRS`
-    OUT OF app.js RATHER THAN COPYING IT** — a second copy of a 196-row word list goes stale on a change
+    OUT OF app.js RATHER THAN COPYING IT** — a second copy of a 199-row word list goes stale on a change
     made in a file nobody here has reason to open. `exUsage` is the short DECLARED list of words that are
     not spellings at all. `gloss` + `glossMode` give the deck a glossary of its own. And `conjSub`
     corrects a wrong paradigm, which nothing else can reach.
@@ -2223,7 +2223,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     prose still reads ZERO**, the ~45 sites a raw grep predicted having turned out to be CITATIONS —
     published titles, which are borrowed text and never a fault. **The trap that says why this family can
     never be a rule rather than a table**: the same suffix also catches **`prize` 42, `seize` 40, `size`
-    29 and `maize` 2**, where -ize is the only English spelling there is). The `-ll-` doubling family has fourteen rows — `travell`, `modell`,
+    29 and `maize` 2**, where -ize is the only English spelling there is). **AND THE FAMILY AFTER IT WAS
+    THE `-ae-` ONE, FOUND BY READING A CARD RATHER THAN BY ANY SWEEP**: 儿科 was glossed `pediatrics`
+    over an example saying `pediatrician` while two of its own sentences said *paediatric* — a card
+    contradicting itself while `check-british.js` read 0 — so `paediatric`, `anaesthe` and `haemorrhag`
+    joined it, 5 deck sites and none in Folio's own prose. The `-ll-` doubling family has fourteen rows — `travell`, `modell`,
     `labell`, `cancell`, `counsell`, `jewell` and the rest — and it was missing `diall`, `quarrell`
     and `marvell`, so seven deck sites and one deck GLOSS carried `dialed`, `quarreled` and
     `marvelous` while this checker read 0. **The fix is the TABLE, never the sites**: three rows added

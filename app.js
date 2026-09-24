@@ -15662,6 +15662,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["foetal", "fetal", ""],
     ["foetus", "fetus", "|es"],
     ["anaemia", "anemia", ""],
+    /* THREE MORE OF THIS FAMILY (Sep 2026), found by READING a card rather than by any sweep: 儿科 was
+       glossed `pediatrics` over an example saying `pediatrician`, while two of its own sentences said
+       paediatric — the card contradicted itself and `check-british.js` read 0, the family having no row.
+       Measured over both corpora before they were added: 5 sites in the decks (儿科, 知觉, 麻醉, 膜) and
+       NONE in Folio's own prose, which already writes `oestrogens`. */
+    ["paediatric", "pediatric", "|s|ian|ians"],
+    ["anaesthe", "anesthe", "sia|sias|tic|tics|tist|tists"],
+    ["haemorrhag", "hemorrhag", "e|es|ed|ing|ic"],
     ["anaemic", "anemic", ""],
     ["diarrhoea", "diarrhea", ""],
     ["oedema", "edema", ""],
