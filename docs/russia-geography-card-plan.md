@@ -2855,3 +2855,61 @@ picture of somewhere else.
 **TWELVE CENTRES LEFT** — `gru-502`, `503`, `524`, `539`, `543`, `560`, `561`, `564`, `578`, `581`,
 `582`, `583` — of which **`gru-539` Cheboksary and `gru-564` Yoshkar-Ola now have their seat sentence**
 and want only history, and the other ten stand as batch 31's table records them.
+
+## Batch 33 — `gru-564` Yoshkar-Ola
+
+**ONE CARD, AND THE REASON IS WORTH MORE THAN THE CARD.** Batch 32's corrected Europe PMC search had found
+the seat sentence for five cities; this batch went after the two it carried forward, Cheboksary and
+Yoshkar-Ola, and only one of them could be written. What made the difference was not the seat sentence
+but **a single open journal**.
+
+**`Поволжская археология` HAS FIVE PAPERS ON TSAREVOKOKSHAYSK, AND THAT IS THE WHOLE OF WHY YOSHKAR-OLA
+SHIPS.** Searching DOAJ on the town's OLD name rather than its modern one — `bibjson.title:"Tsarevokokshaysk"`
+— returns four papers where `bibjson.title:"Yoshkar-Ola"` returns eight, nearly all of them linguistics
+and ecology. Between them the four carry a whole city history: the four excavated necropolises and the
+span they cover (Danilov and Zeleneev 2021), the town as a typical Russian fortress settlement and what
+the fall in its military importance did to its plan (Vysotskaya and Eparova 2025), the 1795 town plan and
+the written descriptions of 1728, 1795 and 1837 with the kremlin, the prison and the Zaostrozhnaya quarter
+(Danilov 2023), and the Entry into Jerusalem church of 1759 with the sloboda and monastery around it
+(Vysotskaya, Danilov and Sokolov 2021). **The journal was already in the deck** — `gru-039` cites its
+Chuvash Sura Region paper — so the one thing needed was to search it under the right name.
+**SEARCH A RUSSIAN TOWN UNDER ITS PRE-REVOLUTIONARY NAME**; three of these five are invisible under the
+modern one. Its ENGLISH abstracts are on `archaeologie.pro` and are detailed enough to write from, and
+Crossref carries full given names for every author, so the citations check clean without opening a PDF.
+
+**THE AUTHOR CAP DECIDES WHICH FOUR OF THE FIVE ARE CITED.** Danilov leads three of them and Vysotskaya
+two, so the fifth (the Cathedral of the Resurrection paper, `10.24852/pa2022.4.42.230.239`) is left out
+rather than putting a third Danilov-led citation on one card. It is the obvious source for a future
+revision.
+
+**CHEBOKSARY IS DEFERRED AGAIN, AND THE REFUSAL HAS MOVED.** Batch 31 recorded it as having no seat
+sentence and no history; the seat sentence is now found (Baranova, *Journal of Eurasian Studies* 2023,
+`10.1177/18793665231185792`, which collected signs in "Yadrinskiy district and Cheboksary, the capital"),
+and **a paper that is exactly the card's history exists and is open**: Nikolay S. Myasnikov, "Archeology
+of Cheboksary: Problems of Study, Protection and Museumification," *Ufa Archaeological Herald* 24, no. 3
+(2024): 461–78, `10.31833/uav/2024.24.3.029`. **What blocks it is the PDF.** Its text is stored with NUL
+separators and a **fixed +29 offset** on the Latin block — which decodes cleanly, and gives the English
+abstract, the author's affiliations and the whole reference list — while the **Cyrillic body is a second,
+non-uniform substitution** that does not fall to a constant shift. The Latin fragments alone are readable
+enough to tempt (`1555±1704`, `1469`), and **that is exactly the shape of thing not to write a card from**:
+a half-decoded cipher yields sentences that look researched. So the paper is recorded here with its full
+citation, for a batch that solves the substitution or finds another route to the same facts.
+· **HOW TO DECODE THAT FAMILY, since half an hour went on it.** The separator is `\x00`, which a terminal
+  renders as a space and which therefore looks like UTF-16 spacing — `repr()` the line rather than reading
+  it. Strip the NULs, then add 29 to every byte. **The crib that pins the offset is a word you can already
+  see**: `& K H E R N V D U \` is *Cheboksary* at +29 on every letter.
+· **Murchison's geology is ready for that card** — the ascending section at Tcheboksar (p. 180), the
+  cavernous limestones in the ravines west of it, the black earth's northern limit on the Volga's left
+  bank west of the town (p. 557), and the speculation that the Aralo-Caspian ramified in a bay north of
+  it, which he hedges himself. **Search him as `Tcheboksar`**; there are nine hits.
+
+**THE OTHER TEN WERE RE-TESTED AND STAND.** Krasnodar has no seat sentence anywhere in Europe PMC (the
+one hit for `"capital of Krasnodar Krai"` is an indexing artefact — Nefedova, Treivish and Sheludkov 2022
+never says it), and **`journals.bsu.by` still resets the connection**, which is what killed Syktyvkar's
+20th century in batch 31 and kills it again. Measured, not read back.
+
+**AND ONE DEFECT FROM BATCH 32, FOUND BY RUNNING THE RIGHT COMMAND.** `Tomsk` shipped at **115 words**,
+over the 110 ceiling. The closing check had read `gloss-length.js | tail -3`, which prints the **per-kind
+summary** and happened to end on a kind with nothing outside the bar — a line that reads exactly like a
+verdict and is not one. **Run `gloss-length.js --over` and `--under`; the tail is not the answer.** Trimmed
+to 110 in this batch.
