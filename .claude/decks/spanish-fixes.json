@@ -583,7 +583,7 @@
    ]
   },
   "deleb1": {
-   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's. Batch S20 gave asesino, which had none, three: 995 of 999 with examples and 947 with three. Batch S23 folded away el repente, a card the generator made out of the second word of de repente (998 words), and its three examples went with it: 994 of 998 with examples, 948 with three. Batch S28 brought la presencia and la pelota up to three: 950 with three.",
+   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's. Batch S20 gave asesino, which had none, three: 995 of 999 with examples and 947 with three. Batch S23 folded away el repente, a card the generator made out of the second word of de repente (998 words), and its three examples went with it: 994 of 998 with examples, 948 with three. Batch S28 brought la presencia and la pelota up to three: 950 with three. Batch S29 brought el personaje and súper up to three: 952 with three.",
    "exNames": [
     [
      "Tom",
@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 950 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 952 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 950 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 952 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,11 +877,15 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 950 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 952 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 950 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 952 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 952 of them"
     ]
    ]
   }
@@ -34017,6 +34021,622 @@
     [
      "Ese otro ascensor va más suave",
      "That other lift is smoother than this one."
+    ]
+   ]
+  },
+  "deleb1/la arena": {
+   "why": "The gloss listed gravel, a bullring and a boxing ring beside sand. The second example, sand cats being adorable, is not a sentence a learner needs.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "sand"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los gatos de las arenas son adorables."
+   ],
+   "ex": [
+    [
+     "Los niños juegan en la arena de la playa.",
+     "The children play in the sand on the beach."
+    ]
+   ]
+  },
+  "deleb1/el espejo": {
+   "why": "The gloss is right. The second example's English turned una cabina into 'a cabinet', and the third was an aphorism.",
+   "dropEx": [
+    "Esta cabina está cubierta de espejos",
+    "El rostro es el espejo"
+   ],
+   "ex": [
+    [
+     "Se miró en el espejo.",
+     "She looked at herself in the mirror."
+    ],
+    [
+     "El espejo del baño está roto.",
+     "The bathroom mirror is broken."
+    ]
+   ]
+  },
+  "deleb1/mover": {
+   "why": "'to shake' is not a sense. The third example is shared with el oeste in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to move"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "moverse — to move (oneself)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La Tierra se mueve de oeste a este."
+   ],
+   "ex": [
+    [
+     "No muevas la mesa, por favor.",
+     "Please don't move the table."
+    ]
+   ]
+  },
+  "deleb1/el análisis": {
+   "why": "The gloss said 'analysis' twice and missed a medical test, which the third example is. The second, an exam in real analysis, is a mathematician's sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "analysis",
+      "(medical) test"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un examen en análisis real"
+   ],
+   "exEn": [
+    [
+     "Hagamos un análisis de orina",
+     "Let's do a urine test."
+    ]
+   ],
+   "ex": [
+    [
+     "El médico me pidió unos análisis.",
+     "The doctor asked me to have some tests done."
+    ]
+   ]
+  },
+  "deleb1/suceder": {
+   "why": "The gloss was a list of synonyms. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to happen",
+      "to succeed, to follow (in a post)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/saltar": {
+   "why": "The gloss did not give saltarse, 'to skip'. The first example is shared with la marcha earlier in B1, and the second was the noun salto and is shared with la cama in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to jump"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "saltarse — to skip (a meal, a class)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Es peligroso saltar de un tren en marcha.",
+    "salió de un salto de la cama"
+   ],
+   "ex": [
+    [
+     "Saltar a la comba es un buen ejercicio.",
+     "Skipping is good exercise."
+    ],
+    [
+     "No te saltes el desayuno.",
+     "Don't skip breakfast."
+    ]
+   ]
+  },
+  "deleb1/el divorcio": {
+   "why": "The gloss said 'divorce' twice. The first and third examples were one construction, asking for a divorce.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "divorce"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Carlos le pidió el divorcio a Ana."
+   ],
+   "ex": [
+    [
+     "El divorcio fue muy difícil para los niños.",
+     "The divorce was very hard on the children."
+    ]
+   ]
+  },
+  "deleb1/la miel": {
+   "why": "The gloss did not give luna de miel, which two examples were. The first example is shared with dulce earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "honey"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "luna de miel — honeymoon"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Tu beso es más dulce que la miel.",
+    "Carlos fue arrestado en su luna de miel."
+   ],
+   "ex": [
+    [
+     "Me gusta el té con miel.",
+     "I like tea with honey."
+    ],
+    [
+     "Compramos miel en el mercado.",
+     "We bought honey at the market."
+    ]
+   ]
+  },
+  "deleb1/el canal": {
+   "why": "The gloss listed canals and straits but not a television channel, which all three examples were.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "(television) channel",
+      "canal",
+      "channel (a strait)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "poner el canal de las películas"
+   ],
+   "ex": [
+    [
+     "El canal de Panamá une dos océanos.",
+     "The Panama Canal joins two oceans."
+    ]
+   ]
+  },
+  "deleb1/la paciencia": {
+   "why": "The gloss is right. The first example, a proverb, is shared with la ciencia in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "La paciencia es la madre de la ciencia."
+   ],
+   "ex": [
+    [
+     "Hay que tener paciencia con los niños.",
+     "You have to be patient with children."
+    ]
+   ]
+  },
+  "deleb1/la crisis": {
+   "why": "The gloss did not give crisis nerviosa, which the second example is. The third's English, 'No one survived the crisis', is not what 'no se salva nadie' means.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "crisis"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "crisis nerviosa — nervous breakdown"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "De la crisis no se salva nadie",
+     "No one escapes the crisis."
+    ]
+   ]
+  },
+  "deleb1/sencillo, sencilla": {
+   "why": "The gloss put 'plain' first and did not say it is used of an unpretentious person. The first example is shared with probar earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "simple, easy",
+      "plain, unpretentious"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Vamos a probar algo un poco más sencillo."
+   ],
+   "ex": [
+    [
+     "Es una persona muy sencilla.",
+     "She's a very down-to-earth person."
+    ]
+   ]
+  },
+  "deleb1/el archivo": {
+   "why": "The gloss put 'archive' before 'file', which every example was. The first used computadora, Latin American for a computer (Spain: ordenador).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "file",
+      "archive"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "muchos archivos de mi computadora"
+   ],
+   "ex": [
+    [
+     "Los documentos están en el archivo municipal.",
+     "The documents are in the municipal archive."
+    ]
+   ]
+  },
+  "deleb1/el saco": {
+   "why": "The third example was the verb sacar ('Le saco tres años a mi hermano'), not the noun, and the second used saco for a plastic bag, which in Spain is una bolsa. The gloss missed the sleeping bag and did not warn that saco is a jacket in Latin America.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "sack"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "saco de dormir — sleeping bag"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los sacos"
+    ],
+    [
+     "note",
+     "a jacket, in Latin America"
+    ]
+   ],
+   "dropEx": [
+    "No necesito un saco de plástico.",
+    "Le saco tres años a mi hermano."
+   ],
+   "ex": [
+    [
+     "Llevaban sacos de patatas.",
+     "They were carrying sacks of potatoes."
+    ],
+    [
+     "Dormí en un saco de dormir.",
+     "I slept in a sleeping bag."
+    ]
+   ]
+  },
+  "deleb1/a menos que": {
+   "why": "The gloss did not say that a menos que takes the subjunctive. The third example, 'Un ciclo lunar dura menos que un mes', does not contain the phrase at all; the generator matched menos que.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "unless (+ subjunctive)"
+     ]
+    ]
+   ],
+   "bold": [
+    "a menos que"
+   ],
+   "dropEx": [
+    "Un ciclo lunar dura menos que un mes."
+   ],
+   "ex": [
+    [
+     "No iré a menos que me invites.",
+     "I won't go unless you invite me."
+    ]
+   ]
+  },
+  "deleb1/más bien": {
+   "why": "The gloss gave 'slightly', which is not what más bien means. The second example, '¿Qué más bien tomaría usted?', is not Spanish.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "rather, more like",
+      "fairly, rather (más bien caro — rather expensive)"
+     ]
+    ]
+   ],
+   "bold": [
+    "más bien"
+   ],
+   "dropEx": [
+    "Qué más bien tomaría usted"
+   ],
+   "ex": [
+    [
+     "No es tímido, más bien reservado.",
+     "He isn't shy, more reserved."
+    ]
+   ]
+  },
+  "deleb1/la versión": {
+   "why": "The gloss did not give versión original. The third example's a como dé lugar is Latin American.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "version"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "versión original — original-language version (of a film)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "a como dé lugar"
+   ],
+   "ex": [
+    [
+     "Prefiero ver películas en versión original.",
+     "I prefer watching films in the original language."
+    ]
+   ]
+  },
+  "deleb1/gritar": {
+   "why": "The gloss was a list of synonyms. The first example's gritar por ayuda is a calque of 'cry for help', and the second was an aphorism.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to shout, to scream"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "oí a la chica gritar por ayuda",
+    "El silencio grita más fuerte"
+   ],
+   "ex": [
+    [
+     "No me grites, por favor.",
+     "Please don't shout at me."
+    ],
+    [
+     "Los niños gritaban en el patio.",
+     "The children were shouting in the playground."
+    ]
+   ]
+  },
+  "deleb1/la muñeca": {
+   "why": "The gloss gave only 'wrist', while every example was a doll. Both senses are kept, and a wrist is added.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "wrist",
+      "doll"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La niña tiene una muñeca en sus manos."
+   ],
+   "ex": [
+    [
+     "Me he torcido la muñeca.",
+     "I've sprained my wrist."
+    ]
+   ]
+  },
+  "deleb1/la actitud": {
+   "why": "The gloss was a list, 'posture, pose, stance' among it. The second example's English said 'oftentimes'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "attitude"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "sociales muchas veces toman generaciones",
+     "Social attitudes often take generations to change."
+    ]
+   ]
+  },
+  "deleb1/el personaje": {
+   "why": "The gloss gave 'personage, personality' and not 'character', which both examples were. The card had two examples.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "character (in a story)",
+      "figure, public personality"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Es un personaje muy conocido en la ciudad.",
+     "He's a well-known figure in the city."
+    ]
+   ]
+  },
+  "deleb1/el episodio": {
+   "why": "'attack' is not a sense a learner needs. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "episode"
+     ]
+    ]
+   ]
+  },
+  "deleb1/súper": {
+   "why": "The card had one example, and it was the noun el súper, the supermarket, which the gloss did not give; nor did it give súper before an adjective, which is how the word is mostly used.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "(colloquial) great, super"
+     ]
+    ],
+    [
+     "adverb",
+     [
+      "really, super (súper divertido)"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el súper — the supermarket"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "La película es súper divertida.",
+     "The film is really funny."
+    ],
+    [
+     "Ha sido un día súper.",
+     "It's been a super day."
+    ]
+   ]
+  },
+  "deleb1/virgen": {
+   "why": "THE NAME TABLE HAD REACHED THE VIRGIN MARY. The first example read 'La Virgen Ana es la madre de Jesús', which is the María → Ana row, the sibling of S22's San Javier. The second was offensive. The gloss missed the Virgin and extra virgin oil.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "virgin",
+      "blank (un CD virgen)"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "la Virgen — the Virgin Mary"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "es la madre de Jesús",
+    "Todas las Rameras"
+   ],
+   "ex": [
+    [
+     "Compra aceite de oliva virgen extra.",
+     "Buy extra virgin olive oil."
+    ],
+    [
+     "La Virgen del Pilar es la patrona de Zaragoza.",
+     "Our Lady of the Pillar is the patron saint of Zaragoza."
+    ]
+   ]
+  },
+  "deleb1/el distrito": {
+   "why": "The gloss is right. The first and second examples were the same sentence, a district of the city, and the first's English said 'part of town'.",
+   "dropEx": [
+    "Él vive en el distrito sur de la ciudad."
+   ],
+   "ex": [
+    [
+     "Madrid tiene veintiún distritos.",
+     "Madrid has twenty-one districts."
+    ]
+   ]
+  },
+  "deleb1/el jugador, la jugadora": {
+   "why": "The gloss is right. The first example is shared with mismo in A1 and wrote si without its accent. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Cada jugador dio lo mejor de si mismo."
+   ],
+   "ex": [
+    [
+     "El jugador marcó dos goles.",
+     "The player scored two goals."
+    ]
+   ]
+  },
+  "deleb1/popular": {
+   "why": "The gloss's 'Pertaining to PP, a Spanish political party' is not a sense of the adjective, and folk music was missing. The first example is shared with entre in A1 and was the same construction as the third. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "popular",
+      "folk (música popular — folk music)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Este libro es muy popular entre los estudiantes."
+   ],
+   "ex": [
+    [
+     "El flamenco es música popular andaluza.",
+     "Flamenco is Andalusian folk music."
+    ]
+   ]
+  },
+  "deleb1/la nación": {
+   "why": "The gloss is right. The first example, a nation fond of baseball, is not a sentence a learner needs, and the third, 'La literatura es el futuro de una nación', is the aphorism S16 dropped from literatura in A2.",
+   "dropEx": [
+    "le gusta mucho el béisbol",
+    "La literatura es el futuro de una nación."
+   ],
+   "ex": [
+    [
+     "Representantes de muchas naciones asistieron a la cumbre.",
+     "Representatives of many nations attended the summit."
+    ],
+    [
+     "La nación entera lloró su muerte.",
+     "The whole nation mourned her death."
     ]
    ]
   }

@@ -3483,6 +3483,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S26 | B1 | #195 `el peso` – #222 `el genio` | 24 | 4 (`actuar`, `débil`, `funcionar`, `asustado`) | 0 | — | `conj: []` clears a table |
 | S27 | B1 | #223 `el ladrón` – #250 `cortarse` | 26 | 2 (`deprisa`, `destruir`) | 0 | — | — |
 | S28 | B1 | #251 `imaginar` – #278 `suave` | 26 | 2 (`imaginar`, `la aventura`) | 0 | B1 description: 950 with three | S9's `la pelota` entry extended |
+| S29 | B1 | #279 `la arena` – #306 `la nación` | 28 | 0 | 0 | B1 description: 952 with three | name table reaches `Virgen María` — B2 warning |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4702,6 +4703,42 @@ have three examples.
 
 **CHECKERS.** `--check` passes, `check-say` reports 0, and the batch has no unbolded example.
 `check-senses --deck=DELE-B1` goes from 92 to 89, with no card of this batch on it.
+
+### S29 — DELE B1, notes #279–#306 (Sep 2026)
+
+Measured against the S28 commit by card id: **all 28 changed, 970 untouched**, each a record entry.
+
+**THE NAME TABLE HAD REACHED THE VIRGIN MARY.** `virgen`'s first example read *La Virgen Ana es la madre
+de Jesús*: the `María` → `Ana` row, and a sibling of S22's *San Javier*. A sweep of every deck for a
+renamed name standing after *Virgen*, *Santa*, *San*, *Jesús* or *Dios* finds nothing else in A1–B1.
+**B2's `la maría` carries *La Virgen María* and will meet the same row the day B2's passes are switched
+on**, so that batch must drop or protect the sentence before the rename runs. The same card also carried
+an offensive second example.
+
+**THE GLOSS DID NOT SAY WHAT THE EXAMPLES WERE, FIVE TIMES.**
+- `la muñeca` was glossed "wrist" while all three examples were a doll.
+- `el canal` listed canals and straits while all three examples were television channels.
+- `el personaje` gave "personage" and not "character".
+- `el archivo` put "archive" before "file".
+- `súper` had one example, the noun *el súper*, which the gloss did not give.
+
+Each now carries both senses.
+
+**THE SAME-SPELT WORD, AND A PHRASE THAT WAS NOT THERE.** `el saco` had the verb *sacar*; `saltar` had the
+noun *salto*. `a menos que`'s third example, *dura menos que un mes*, did not contain the phrase at all. It
+is S19's class — a phrase matched inside a longer string — and the second of that batch's twelve unbolded
+examples to be closed.
+
+**LATIN AMERICAN USAGE.** *Computadora*, *saco* for a bag (in Latin America it is also a jacket, now
+noted), *a como dé lugar* and the calque *gritar por ayuda*.
+
+**AND THE REST.** `la nación` carried *La literatura es el futuro de una nación*, the aphorism S16 dropped
+from A2's `literatura`. `popular` had been glossed as the Partido Popular. Ten sentences shared with a
+lower deck or an earlier B1 card were replaced. `el personaje` and `súper` come up to three examples: 952
+of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example.
+`check-senses --deck=DELE-B1` 89 → 87, with no card of this batch on it.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
