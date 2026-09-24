@@ -3941,7 +3941,17 @@ window.GLOSSARY = {
 "Sikhism": "Sikhism is a religion founded in the Punjab by Guru Nanak, who was born in 1469, and developed by a line of nine further Gurus ending with Gobind Singh in 1708.<sup class=\"fn\" data-fn=\"1\"></sup> Its scripture, the Adi Granth, was compiled by the fifth Guru, Arjan, who made Amritsar the holy city of the Sikhs and died a prisoner of the Mughal state in 1606.<sup class=\"fn\" data-fn=\"2\"></sup> In 1699 Gobind Singh initiated five volunteers of different castes as the Khalsa and took initiation from them in turn, leaving authority after his death with the scripture and the community rather than with a successor.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Maratha_Empire": "The Maratha Empire was the Hindu power that rose in the western Deccan under Shivaji, who was crowned at the hill fort of Raigarh in June 1674.<sup class=\"fn\" data-fn=\"1\"></sup> Its revenue rested on chauth, a quarter of the land tax taken from districts the Mughal emperor still claimed, and after 1713 real authority passed to the Peshwas, hereditary ministers at Poona, over a confederacy of great houses.<sup class=\"fn\" data-fn=\"2\"></sup> A Maratha army was destroyed by an Afghan invasion at Panipat in 1761, and the confederacy lost the last of its three wars with the British in 1818.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Military_revolution": "The military revolution is the name given to changes in European warfare between roughly 1500 and 1700, among them new infantry tactics, bastioned fortresses, larger armies and heavier taxation, and to the long debate over whether they amount to a revolution.<sup class=\"fn\" data-fn=\"1\"></sup> The term comes from a 1956 essay on the century after 1560, whose author offered his case as one military revolution among several rather than as the decisive break that later writers made of it.<sup class=\"fn\" data-fn=\"1\"></sup> Whether the model describes a general process or one region's history is tested on the Ottoman and Mughal empires, which took up firearms early without developing along the European pattern.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Crimean_Khanate": "The Crimean Khanate was the Tatar state that ruled the Crimean peninsula and the steppe beyond it from the 15th century until Russia annexed it in 1783.<sup class=\"fn\" data-fn=\"1\"></sup> Its rulers all bore the dynastic name Girai and governed from Bakhchisarai, becoming vassals of the Ottoman sultan in 1475, when a Crimean faction invited him in and his fleet also took the Genoese ports on the coast.<sup class=\"fn\" data-fn=\"1\"></sup> Its raids on Muscovy and Poland were almost annual, and in 1571 a Crimean army fired the suburbs of Moscow, a contemporary English account claiming the wooden city burned in about four hours.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Crimean_Khanate": "The Crimean Khanate was the Tatar state that ruled the Crimean peninsula and the steppe beyond it from the 15th century until Russia annexed it in 1783.<sup class=\"fn\" data-fn=\"1\"></sup> Its rulers all bore the dynastic name Girai and governed from Bakhchisarai, becoming vassals of the Ottoman sultan in 1475, when a Crimean faction invited him in and his fleet also took the Genoese ports on the coast.<sup class=\"fn\" data-fn=\"1\"></sup> Its raids on Muscovy and Poland were almost annual, and in 1571 a Crimean army fired the suburbs of Moscow, a contemporary English account claiming the wooden city burned in about four hours.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Ming_dynasty": "The Ming dynasty was the Chinese imperial dynasty founded in 1368 by a rebel commander who had begun life as a poor boy in Anhui and entered a monastery when famine killed his family.<sup class=\"fn\" data-fn=\"1\"></sup> Its first emperor organised the examination system, published a penal code, abolished mutilating punishments, fixed the coinage and barred eunuchs from official posts, while Japanese raiding on the eastern seaboard forced him to build a special system of coast defence.<sup class=\"fn\" data-fn=\"1\"></sup> The dynasty ended in 1644, when a rebel army entered the capital and the last emperor to rule there hanged himself after his ministers failed to answer his summons.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Zheng_He": "Zheng He was the eunuch commander whom the Ming court sent out with imperial fleets to the countries of what Chinese sources call the Western Ocean, the first order being issued in 1405.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He was sent as an envoy seven times, served three emperors and reached more than thirty countries, among them Champa, Siam, Malacca, Calicut, Hormuz, Bengal, Arabia and the Somali coast, taking captive on the way a pirate chief at Palembang and a king of Ceylon.<sup class=\"fn\" data-fn=\"1\"></sup> His own reports to the throne were never published and are lost, so the voyages are known chiefly through two interpreters who sailed with him and each wrote an account.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Forbidden_City": "The Forbidden City is the walled palace complex at the centre of Beijing, the largest surviving group of ancient buildings of its kind, from which two Chinese dynasties governed.<sup class=\"fn\" data-fn=\"1\"></sup> It belongs to a northward shift of the court: the emperor who had ruled from the old Mongol capital built the city up, moved the capital there, and rebuilt the imperial palace with its halls and libraries in 1421.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Eight later emperors lived and ruled from a single modest hall west of the main axis, and the complex is now a museum whose fabric is studied as heritage.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Haijin": "Haijin was the maritime prohibition under which the Chinese state kept private shipping off the sea for long stretches of the Ming period and the early years of the dynasty that followed.<sup class=\"fn\" data-fn=\"1\"></sup> It arose from persistent raiding on the eastern coast, answered on land by a network of walled garrison towns laid out across seven coastal zones, and at its harshest the seaboard population was ordered to retire three leagues inland.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The policy broke the line of shipbuilding that the state's earlier ocean fleets had run, and was lifted when an imperial decree of 1685 opened all ports to foreign trade.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Fall_of_the_Ming_dynasty": "The fall of the Ming dynasty was the collapse of that Chinese imperial house in 1644, when a rebel army from the north-west entered the capital and the last emperor to rule there hanged himself.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The rebel leader reached the outskirts on 19 April, surrounded the city on the 23rd and entered it on the 25th, whereupon the general holding the north-eastern frontier pass surrendered to the Manchu regent rather than submit to him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Their combined armies broke the rebel force, which abandoned the capital on 4 June, and a Manchu army took possession two days afterwards.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Qing_dynasty": "The Qing dynasty was the last imperial dynasty of China, a Manchu house that ruled the empire from 1644 until 1912.<sup class=\"fn\" data-fn=\"1\"></sup> Its ruler proclaimed himself emperor and gave the dynasty its name in 1636, having already decreed that his people be called Manchu rather than by the older names under which Chinese records had known them as frontier subjects.<sup class=\"fn\" data-fn=\"2\"></sup> Its armies entered the capital in 1644 after a peasant rebellion had ended the previous house, and the consolidation that followed took decades of campaigning in the south, on the northern frontier and at sea.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Kangxi_Emperor": "The Kangxi Emperor, whose personal name was Xuanye, was the second ruler of the Qing dynasty in China and held the throne from 1661 until his death in 1722, a reign of 61 years.<sup class=\"fn\" data-fn=\"1\"></sup> He was designated heir at eight on the reasoning that, having survived smallpox, he would be immune to the disease that was then killing his father, and he took power from his four regents at fourteen.<sup class=\"fn\" data-fn=\"1\"></sup> He subdued a rebellion of three southern feudatories after eight years of fighting, took Taiwan in 1683, and in 1689 concluded at Nerchinsk the first treaty between China and a Western power.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Qianlong_Emperor": "The Qianlong Emperor, whose personal name was Hongli, was the fourth ruler of the Qing dynasty in China and reigned from 1735 to 1796, abdicating rather than exceed his grandfather's 61 years on the throne.<sup class=\"fn\" data-fn=\"1\"></sup> He enumerated ten great victories of his reign, of which the conquests of Ili and Turkestan were the substantial gains, and paid for them and for six southern tours out of reserves his successors could not rebuild.<sup class=\"fn\" data-fn=\"1\"></sup> He had scholars compile an imperial library of more than 36,000 volumes, housed in seven buildings raised for it, while the same commissions ordered hundreds of works destroyed or banned.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Canton_System": "The Canton System was the arrangement under which Western trade with China was confined to one southern port and conducted through a licensed guild of Chinese merchants known as the Cohong.<sup class=\"fn\" data-fn=\"1\"></sup> It was assembled step by step, with a sole broker appointed in 1702, a merchant guild formed in 1720 and security merchants instituted in 1754, and was completed by an imperial edict of 1757 that made Canton the sole staple for foreign trade.<sup class=\"fn\" data-fn=\"1\"></sup> Foreigners there lived under regulations read aloud to them at intervals, and could petition the authorities only through the very merchants who supervised them.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Macartney_Embassy": "The Macartney Embassy was the mission sent by the British king to the Chinese emperor in 1793, asking for a permanent representative at the capital and for trade at ports other than the single one then open.<sup class=\"fn\" data-fn=\"1\"></sup> Its ambassador declined the prostration made by tributary envoys and knelt instead on one knee, the form he used before his own sovereign, presenting the king's letter at the throne in a jewelled gold box held above his head.<sup class=\"fn\" data-fn=\"2\"></sup> The requests were refused, and the reply told the king that the empire possessed all things and set no value on objects strange or ingenious.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6008,7 +6018,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sikhism": "Founded 15th century",
 "Maratha_Empire": "1674–1818",
 "Military_revolution": "Debated period 1500–1700",
-"Crimean_Khanate": "15th century–1783"
+"Crimean_Khanate": "15th century–1783",
+"Ming_dynasty": "1368–1644",
+"Zheng_He": "Voyages 1405–1430s",
+"Forbidden_City": "Rebuilt from 1421",
+"Haijin": "Ming and early Qing",
+"Fall_of_the_Ming_dynasty": "1644",
+"Qing_dynasty": "1644–1912",
+"Kangxi_Emperor": "1654–1722",
+"Qianlong_Emperor": "1711–1799",
+"Canton_System": "1757–1842",
+"Macartney_Embassy": "1793"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8351,7 +8371,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mughal_Empire": ["Mughals","Mughal","Moghul Empire"],
 "Babur": ["Babar","Baber"],
 "Sikhism": ["Sikh","Sikhs"],
-"Crimean_Khanate": ["Crim Tatar"]
+"Crimean_Khanate": ["Crim Tatar"],
+"Ming_dynasty": ["Ming China"],
+"Haijin": ["sea ban","maritime prohibition"],
+"Fall_of_the_Ming_dynasty": ["fall of the Ming"],
+"Qing_dynasty": ["Qing China"],
+"Kangxi_Emperor": ["Kangxi"],
+"Qianlong_Emperor": ["Qianlong"],
+"Canton_System": ["Canton system","Cohong"],
+"Macartney_Embassy": ["Macartney embassy","Macartney mission"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12336,7 +12364,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sikhism": ["concept","religion","history","india","practice"],
 "Maratha_Empire": ["state","empire","history","india","warfare"],
 "Military_revolution": ["theory","history","warfare","technology","science"],
-"Crimean_Khanate": ["state","history","europe","warfare","asia"]
+"Crimean_Khanate": ["state","history","europe","warfare","asia"],
+"Ming_dynasty": ["dynasty","history","china","asia"],
+"Zheng_He": ["person","history","china","asia","exploration"],
+"Forbidden_City": ["building","history","china","asia","architecture"],
+"Haijin": ["policy","history","china","asia","trade"],
+"Fall_of_the_Ming_dynasty": ["event","history","china","asia","warfare"],
+"Qing_dynasty": ["dynasty","history","china","asia"],
+"Kangxi_Emperor": ["ruler","person","history","china","asia"],
+"Qianlong_Emperor": ["ruler","person","history","china","asia"],
+"Canton_System": ["institution","history","china","asia","trade"],
+"Macartney_Embassy": ["event","history","china","asia","diplomacy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
