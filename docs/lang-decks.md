@@ -3467,6 +3467,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S10 | A2 | #250 `el abrigo` – #276 `el pájaro` | 25 | 2 (`la fábrica`, `el virus`) | 0 | — | — |
 | S11 | A2 | #277 `la salsa` – #303 `enfrente` | 26 | 1 (`quitarse`) | 0 | — | — |
 | S12 | A2 | #304 `el cuadro` – #330 `egoísta` | 25 | 2 (`el/la periodista`, `el gimnasio`) | 0 | — | — |
+| S13 | A2 | #331 `el carácter` – #357 `seco, seca` | 27 | 0 | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4021,6 +4022,53 @@ the adjective while two of its examples were the noun, a scientist.
 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 33 → 30, with no
 card of this batch left on it.
+
+### S13 — DELE A2, notes #331–#357 (Sep 2026)
+
+Measured against the S12 commit by card id: **27 changed, 468 untouched**, all 27 of them this batch's
+record entries; no card in the range was right as it stood.
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, NINTH BATCH RUNNING, AND ITS MILDER COUSIN.** `empleado,
+empleada` was headed as the adjective, "employed", while every example was the noun, an employee, and is
+now `el empleado, la empleada`. **Three more cards were glossed as adjectives while their examples used
+the noun**, and a rename would have been wrong for them, since both uses are A2: `adolescente` (both
+examples "teenager"), `adulto` and `político`. Each now carries the noun as its own gloss line. The
+`FORCE_POS` list the S10 log proposes should take `empleado`; the other three should not.
+
+**A GLOSS AND ITS EXAMPLES THAT DISAGREED OUTRIGHT.**
+- `el billete` was glossed "banknote, bill, billet" while every example was a ticket. Its third example
+  was a concert ticket, which is *una entrada* (A1), so the card was teaching the wrong word for its own
+  English.
+- `la cabina` named a plane's and a ship's cabin while every example was a telephone box.
+- `la agenda` put "agenda" first, where the word in Spain is a diary.
+
+**SENSES NOBODY NEEDS, AND ONE NOBODY SHOULD BE TAUGHT.**
+- `naranja` carried "Pertaining to Ciudadanos", a Spanish political party's colour.
+- `las medias` carried "three of a kind (in the game mus)" and the American "pantyhose". The card now
+  says what the word is in Spain, tights, and warns that it means socks in much of Latin America rather
+  than teaching that.
+- `la guitarra` carried "guitarfish" and `el champán` read "champan".
+- `musical`'s part-of-speech label, *[adjective, not músico, música]*, was a note to the generator that
+  reached the card.
+
+**ONE SENTENCE, SEVERAL TIMES.**
+- All three of `la docena`'s examples were a dozen eggs.
+- `las matemáticas` had "the essence of mathematics is liberty" and its reverse.
+- `devolver` returned a book twice.
+- `mandar` could keep none of its three examples: *computadora*, an A1 sentence, and *mandado a volar
+  por un camión*.
+
+**AND THE REST.**
+- Twelve A1-shared sentences were replaced, plus six shared with earlier A2 cards.
+- Two stereotypes are gone, about Italian men and about what adults like.
+- *El agua es mojado* is gone.
+- `la academia` now says it is a private school in Spain, *una academia de idiomas*.
+- `la tarta` now puts cake first.
+- The English idiom *más americano que la tarta de manzana*, dropped from `la manzana` in S12, is dropped
+  from `la tarta` too.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0; 491 of 495 cards now carry three examples.
+`check-senses --deck=DELE-A2` 30 → 24, with no card of this batch left on it.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

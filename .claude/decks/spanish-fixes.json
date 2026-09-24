@@ -23815,6 +23815,734 @@
      "It's a shame she's so selfish."
     ]
    ]
+  },
+  "delea2/el carácter": {
+   "why": "The gloss gave 'character' twice. tener mal carácter, 'to be bad-tempered', which is how the word is used about people every day, had no line, and the third example is an abstract claim about the environment.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "character, nature, personality"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tener mal carácter — to be bad-tempered"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Nuestro carácter se ve afectado por el entorno."
+   ],
+   "ex": [
+    [
+     "Mi hermano tiene muy mal carácter.",
+     "My brother has a very bad temper."
+    ]
+   ]
+  },
+  "delea2/la guitarra": {
+   "why": "'guitarfish' is not this word. The first example, 'El toque de guitarra de Carlos', is not how Spanish says it, and the third is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "guitar"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El toque de guitarra de Carlos",
+    "Mi hermano se ha comprado una guitarra eléctrica."
+   ],
+   "ex": [
+    [
+     "Toco la guitarra desde los doce años.",
+     "I've played the guitar since I was twelve."
+    ],
+    [
+     "¿Me enseñas a tocar la guitarra?",
+     "Will you teach me to play the guitar?"
+    ]
+   ]
+  },
+  "delea2/empleado, empleada": {
+   "spanish": "el empleado, la empleada",
+   "word": "empleado",
+   "why": "THE CARD TAUGHT THE WRONG WORD. It was headed as the adjective, 'employed', while every example was the noun, an employee. The headword becomes the pair; the adjective goes in Forms. The third example, 'Ella es una empleada en el supermercado', puts an article where Spanish does not.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "employee, member of staff",
+      "clerk, assistant (in a shop, an office)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los empleados, las empleadas"
+    ],
+    [
+     "also",
+     "empleado, empleada (adjective) — employed"
+    ]
+   ],
+   "dropEx": [
+    "Ella es una empleada en el supermercado."
+   ],
+   "exEn": [
+    [
+     "el mejor empleado de nuestra compañía",
+     "Carlos is the best employee in our company."
+    ]
+   ],
+   "ex": [
+    [
+     "Los empleados comen a las dos.",
+     "The staff have lunch at two."
+    ]
+   ]
+  },
+  "delea2/adulto, adulta": {
+   "why": "The gloss did not say that the word is also the noun, 'an adult', which two of the examples were. The second, 'A los adultos les gustan mucho los números', is also an A1 sentence; the third's famous pianist is a fantasy rather than a sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "adult, grown-up"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el adulto, la adulta — adult"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A los adultos les gustan mucho los números.",
+    "será una famosa pianista"
+   ],
+   "ex": [
+    [
+     "La entrada cuesta diez euros para adultos.",
+     "Entry costs ten euros for adults."
+    ],
+    [
+     "Ya eres adulto, puedes decidir tú.",
+     "You're an adult now, you can decide for yourself."
+    ]
+   ]
+  },
+  "delea2/mandar": {
+   "why": "The gloss did not name the order: mandar a alguien a hacer algo, or aquí mando yo. None of the three examples could stay: the first used the Latin American computadora, the second is also an A1 sentence, and the third, 'fue mandado a volar por un camión', is not Spanish for being knocked down. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to send",
+      "to order, to tell (someone to do something)",
+      "to be in charge (aquí mando yo)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "desde mi computadora",
+    "¿Por qué él no me mandó un mensaje?",
+    "fue mandado a volar por un camión"
+   ],
+   "ex": [
+    [
+     "Le mandé una carta a mi abuela.",
+     "I sent my grandmother a letter."
+    ],
+    [
+     "Mi madre me mandó a comprar pan.",
+     "My mother sent me to buy bread."
+    ],
+    [
+     "Aquí mando yo.",
+     "I'm the one in charge here."
+    ]
+   ]
+  },
+  "delea2/la tarta": {
+   "why": "The gloss put 'pie' first; in Spain una tarta is above all a cake, a birthday cake included. The third example, 'Es más americano que la tarta de manzana', is an English idiom translated word for word, and la manzana let it go in S12 on that ground; it goes here too. The first's English said 'cooked'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "cake (tarta de cumpleaños)",
+      "tart, pie (tarta de manzana)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Es más americano que la tarta de manzana."
+   ],
+   "exEn": [
+    [
+     "He probado la tarta que ha hecho ella",
+     "I've tried the cake she made."
+    ]
+   ],
+   "ex": [
+    [
+     "¿Quién ha hecho la tarta de cumpleaños?",
+     "Who made the birthday cake?"
+    ]
+   ]
+  },
+  "delea2/político, política": {
+   "why": "The gloss gave 'in-law' without the construction (hermano político) and missed the noun, a politician, which the second example is. The first example is shared with la naturaleza earlier in A2. The second is shared with el cordero later in A2 and stays here. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "political"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el político, la política — politician"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hermano político — brother-in-law"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El hombre es un animal político por naturaleza."
+   ],
+   "ex": [
+    [
+     "Es un partido político nuevo.",
+     "It's a new political party."
+    ]
+   ]
+  },
+  "delea2/italiano, italiana": {
+   "why": "The gloss said 'Italian' twice and missed the language, which the first example is. The second, 'Los hombres italianos nunca ayudan en la casa', is a stereotype about a nation.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "Italian"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el italiano — Italian (the language)",
+      "an Italian"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los hombres italianos nunca ayudan"
+   ],
+   "ex": [
+    [
+     "Mi novia es italiana, de Roma.",
+     "My girlfriend is Italian, from Rome."
+    ]
+   ]
+  },
+  "delea2/adolescente": {
+   "why": "The gloss gave only the adjective, 'adolescent', while both examples were the noun, a teenager, which is the A2 word. The card carried two examples where the type shows three. The first is shared with picante in B1 and stays here.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "teenager"
+     ]
+    ],
+    [
+     "adjective",
+     [
+      "teenage, adolescent"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Tengo dos hijos adolescentes.",
+     "I have two teenage children."
+    ]
+   ]
+  },
+  "delea2/devolver": {
+   "why": "The gloss ran nine English verbs and an 'etc.' together, and missed taking something back to a shop. The first and third examples both returned a book.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to give back, to return",
+      "to pay back",
+      "to take back (to a shop)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Devuelve el libro para mañana"
+   ],
+   "exEn": [
+    [
+     "Tengo que devolver el libro antes del sábado",
+     "I have to give the book back before Saturday."
+    ]
+   ],
+   "ex": [
+    [
+     "¿Puedo devolver estos zapatos?",
+     "Can I take these shoes back?"
+    ]
+   ]
+  },
+  "delea2/el billete": {
+   "why": "THE GLOSS AND THE EXAMPLES DISAGREED: the gloss gave 'banknote, bill, billet' and every example was a ticket, the sense a reader needs at any station. A concert ticket is una entrada (A1), so the third example was the wrong word for its own English; the second is shared with sacar earlier in A2, and the first's English said 'round-trip'. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "ticket (for a train, a bus, a plane)",
+      "(bank)note"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los billetes"
+    ],
+    [
+     "not",
+     "la entrada — ticket (for a concert, the cinema)"
+    ]
+   ],
+   "dropEx": [
+    "Esta es la cola para sacar los billetes.",
+    "un billete para el concierto"
+   ],
+   "exEn": [
+    [
+     "un billete de ida y vuelta",
+     "Did you buy a return ticket?"
+    ]
+   ],
+   "ex": [
+    [
+     "Solo tengo un billete de cincuenta euros.",
+     "I've only got a fifty-euro note."
+    ],
+    [
+     "Compré el billete de tren por internet.",
+     "I bought the train ticket online."
+    ]
+   ]
+  },
+  "delea2/musical": {
+   "why": "The part-of-speech label read '[adjective, not músico, música]', a note to the generator that reached the card. The examples are right; the third is shared with la eléctrica later in A2 and stays here.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "musical"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el musical — musical (a show)"
+     ]
+    ]
+   ]
+  },
+  "delea2/naranja": {
+   "why": "'Pertaining to Ciudadanos' is a Spanish political party's colour and not a sense a vocabulary card should teach. The card did not say that the colour is invariable (unos zapatos naranja) or that the fruit is la naranja, which the second example is. Two examples were also A1 sentences, one with the American 'pants'. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "orange (the colour; invariable: unos zapatos naranja)"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "la naranja — orange (the fruit)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La corona del rey es de color naranja.",
+    "pantalones de algodón de color naranja"
+   ],
+   "ex": [
+    [
+     "Me he comprado una camiseta naranja.",
+     "I've bought an orange T-shirt."
+    ],
+    [
+     "Un zumo de naranja, por favor.",
+     "An orange juice, please."
+    ]
+   ]
+  },
+  "delea2/plástico, plástica": {
+   "why": "The second example is la plástica, art as a school subject, and not the material. The card did not say that el plástico is also a noun, which the first and third examples are.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "plastic"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el plástico — plastic"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El profesor de plástica pinta por la noche."
+   ],
+   "ex": [
+    [
+     "Hay que reciclar las botellas de plástico.",
+     "Plastic bottles need recycling."
+    ]
+   ]
+  },
+  "delea2/la mantequilla": {
+   "why": "The gloss is right. The first example is also an A1 sentence, and the third is shared with el azúcar earlier in A2. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "A él le gusta el pan con mantequilla.",
+    "El azúcar es dulce, la mantequilla es grasa."
+   ],
+   "ex": [
+    [
+     "¿Me pasas la mantequilla?",
+     "Could you pass the butter?"
+    ],
+    [
+     "Esta tarta lleva mucha mantequilla.",
+     "This cake has a lot of butter in it."
+    ]
+   ]
+  },
+  "delea2/la hoja": {
+   "why": "'petal' is not this word, and the gloss missed a sheet of paper, which two of the three examples were. The second is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "leaf",
+      "sheet (of paper), page"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "En otoño, las hojas caen de los árboles.",
+    "Esta hoja explica la filosofía"
+   ],
+   "ex": [
+    [
+     "Escribe tu nombre en la hoja.",
+     "Write your name on the sheet."
+    ],
+    [
+     "Los árboles ya tienen hojas nuevas.",
+     "The trees already have new leaves."
+    ]
+   ]
+  },
+  "delea2/cometer": {
+   "why": "The gloss is right. The first example is shared with el error earlier in A2, the second's 'en igual cantidad de líneas' is stilted, and the third's English said 'I'm prisoner'. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "dropEx": [
+    "Ella ha vuelto a cometer el mismo error.",
+    "en igual cantidad de líneas"
+   ],
+   "exEn": [
+    [
+     "Estoy preso por un crimen",
+     "I'm in prison for a crime I didn't commit."
+    ]
+   ],
+   "ex": [
+    [
+     "Todos cometemos errores.",
+     "We all make mistakes."
+    ],
+    [
+     "La policía no sabe quién cometió el robo.",
+     "The police don't know who committed the robbery."
+    ]
+   ]
+  },
+  "delea2/la docena": {
+   "why": "All three examples were one sentence: a dozen eggs, bought, bought twice over, and needed.",
+   "dropEx": [
+    "Ella compró dos docenas de huevos.",
+    "Ana necesita una docena de huevos."
+   ],
+   "ex": [
+    [
+     "Había una docena de personas en la sala.",
+     "There were a dozen people in the room."
+    ],
+    [
+     "Te lo he dicho docenas de veces.",
+     "I've told you dozens of times."
+    ]
+   ]
+  },
+  "delea2/las medias": {
+   "why": "'pantyhose' is American and 'three of a kind in mus' is a card game; in Spain las medias are tights. The first example's English said 'socks', which is the Latin American sense and is what the card should warn about rather than teach; the third's said 'a run', where British English says a ladder.",
+   "senses": [
+    [
+     "noun, feminine plural",
+     [
+      "tights",
+      "stockings"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "not",
+     "in much of Latin America las medias are socks (Spain: los calcetines)"
+    ]
+   ],
+   "dropEx": [
+    "Se quitó los zapatos y las medias."
+   ],
+   "exEn": [
+    [
+     "Tienes una carrera en las medias",
+     "You've got a ladder in your tights."
+    ]
+   ],
+   "ex": [
+    [
+     "Hace frío, ponte medias.",
+     "It's cold, put some tights on."
+    ]
+   ]
+  },
+  "delea2/la novela": {
+   "why": "'soap opera' is la telenovela, and is Latin American shorthand. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "novel"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las novelas"
+    ],
+    [
+     "also",
+     "la telenovela — soap opera"
+    ]
+   ],
+   "dropEx": [
+    "Esta novela de ciencia ficción es muy interesante."
+   ],
+   "ex": [
+    [
+     "Estoy leyendo una novela de misterio.",
+     "I'm reading a mystery novel."
+    ]
+   ]
+  },
+  "delea2/la academia": {
+   "why": "The card did not say that in Spain una academia is above all a private school — una academia de idiomas — which is the sense a learner uses. The first example, a Kabyle academy, is not a sentence anyone needs, and the second's 'le ameritó' is Latin American.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "academy",
+      "(private) school (una academia de idiomas — a language school)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "crear una academia de cabilio",
+    "le ameritó un Premio"
+   ],
+   "ex": [
+    [
+     "Estudio inglés en una academia.",
+     "I study English at a language school."
+    ],
+    [
+     "La Real Academia Española publica el diccionario.",
+     "The Royal Spanish Academy publishes the dictionary."
+    ]
+   ]
+  },
+  "delea2/las matemáticas": {
+   "why": "The gloss is right. The second and third examples were one sentence reversed ('the essence of mathematics is liberty', 'the essence of liberty is mathematics'), the second also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "La esencia de las matemáticas es la libertad.",
+    "La esencia de la libertad son las matemáticas."
+   ],
+   "ex": [
+    [
+     "Mañana tengo examen de matemáticas.",
+     "I've got a maths exam tomorrow."
+    ],
+    [
+     "Las matemáticas no se me dan bien.",
+     "I'm not good at maths."
+    ]
+   ]
+  },
+  "delea2/la cabina": {
+   "why": "The gloss named a plane's and a ship's cabin while every example was a telephone box, and the first and third were one question.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "(telephone) box",
+      "cabin (on a ship)",
+      "cockpit (la cabina del piloto)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿En dónde puedo encontrar una cabina telefónica?"
+   ],
+   "ex": [
+    [
+     "El piloto está en la cabina.",
+     "The pilot is in the cockpit."
+    ]
+   ]
+  },
+  "delea2/el deporte": {
+   "why": "The gloss did not name hacer deporte, 'to do sport'. The first example is shared with el hielo earlier in A2, and the second with libre. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "sport"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hacer deporte — to do sport"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El hockey sobre hielo es un deporte emocionante.",
+    "Él no tiene tiempo libre para hacer deportes."
+   ],
+   "ex": [
+    [
+     "¿Qué deporte practicas?",
+     "What sport do you do?"
+    ],
+    [
+     "Hago deporte tres veces por semana.",
+     "I do sport three times a week."
+    ]
+   ]
+  },
+  "delea2/el champán": {
+   "why": "The gloss read 'champan', which is not English. The card carried two examples where the type shows three, and did not say that the second's la champaña is the form used in much of Latin America.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "champagne"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los champanes"
+    ],
+    [
+     "also",
+     "la champaña — the form in much of Latin America"
+    ]
+   ],
+   "ex": [
+    [
+     "Brindamos con champán.",
+     "We toasted with champagne."
+    ]
+   ]
+  },
+  "delea2/la agenda": {
+   "why": "The gloss put 'agenda' first; in Spain una agenda is above all a diary or planner, and a person's schedule. The second example, 'Siento haberte llamado fuera de tu complicada agenda', is a calque.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "diary, planner",
+      "schedule (what someone has on)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "fuera de tu complicada agenda"
+   ],
+   "ex": [
+    [
+     "Lo apunto en mi agenda.",
+     "I'll write it in my diary."
+    ]
+   ]
+  },
+  "delea2/seco, seca": {
+   "why": "The gloss is right. The first example, 'El agua es mojado', gives water the wrong gender and is a riddle rather than a sentence; the third's English said 'fall'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "dry"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "frutos secos — nuts"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El agua es mojado"
+   ],
+   "exEn": [
+    [
+     "La calle está cubierta de hojas secas",
+     "It's autumn. The street is covered in dry leaves."
+    ]
+   ],
+   "ex": [
+    [
+     "Tengo la boca seca.",
+     "My mouth is dry."
+    ]
+   ]
   }
  },
  "insert": {
