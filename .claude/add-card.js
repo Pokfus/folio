@@ -165,6 +165,7 @@ if (!card.id) { console.error("ERROR: card.id is empty"); process.exit(1); }
 const isMap = !!card.map;
 const isArt = card.artwork === true;   // an ARTWORK card: the picture is its own subject (see the block below)
 const isFlag = card.flagCard === true; // a FLAG card: the flag is its whole question (see the block below)
+const isDraw = card.drawCard === true; // a DRAW card: the flag is its ANSWER and the reader draws it
 if (isMap) {
   const m = card.map;
   if (typeof m !== "object" || Array.isArray(m)) { console.error("ERROR: card.map must be an object: { \"layer\": \"us-states\", \"key\": \"California\" }"); process.exit(1); }
@@ -381,8 +382,50 @@ if (isFlag) {
   card.questions = [];
 }
 
-const QMIN = isMap || isArt || isFlag ? MAPQ_MIN : Q_MIN, QMAX = isMap || isArt || isFlag ? MAPQ_MAX : Q_MAX;
-if (!isMap && !isArt && !isFlag && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
+/* ---------- DRAW CARDS (Sep 2026, on request) ----------
+   `drawCard: true` says the card's flag is its ANSWER: the prompt names the country and the reader draws
+   the flag from memory on the pad, then reveals it and grades themselves. It is `fl-NNN` run backwards
+   and is numbered +500 from its twin. See docs/flags-card-plan.md and the DRAW CARDS block in app.js.
+   Four things are checked, and every one of them renders perfectly when it is wrong.
+   · IT NEEDS THE FLAG, for the flag card's reason one step later: without one the reveal shows an empty
+     frame and the card simply has no answer in it.
+   · IT IS NOT ALSO A FLAG CARD. The two booleans say OPPOSITE things about the same picture — one puts it
+     on the front and one holds it back — so a card carrying both shows the answer on the question side
+     and looks entirely normal doing it.
+   · ITS PROMPT CARRIES NO CLOZE BLANK, which is the one place this format departs from every other card
+     here. There is nothing to type: the answer is a drawing. A blank would put an ungradeable input on
+     the card and, under the "Answer before revealing" policy, a gate the reader could never pass.
+   · AND ITS PROMPT MUST NAME THE COUNTRY. The whole question is "draw THIS flag", so a prompt that does
+     not say whose is a card asking for nothing — and it is exactly the shape a copy-and-paste from the
+     card above would produce. */
+if ("drawCard" in card && typeof card.drawCard !== "boolean") {
+  console.error("ERROR: card.drawCard is true or absent — it says the card's flag is its ANSWER and the reader draws it."); process.exit(1);
+}
+if (isDraw) {
+  if (isMap || isArt || isFlag) { console.error("ERROR: a card is a draw card, a flag card, a map card or an artwork card, not two of them. A draw card and a flag card in particular are OPPOSITES — `flagCard` puts the flag on the question side and `drawCard` holds it back until the reveal, so a card carrying both shows the reader the answer."); process.exit(1); }
+  const fl = card.answerFlag;
+  if (!fl || !String(fl.src || "").trim()) {
+    console.error("ERROR: a draw card needs `answerFlag.src` — the flag IS the answer, and without one the reveal is an empty frame. An entity whose flag cannot be shown is NOT carded here (see the deferrals in docs/flags-card-plan.md).");
+    process.exit(1);
+  }
+  if (Array.isArray(card.questions) && card.questions.length) {
+    console.error("ERROR: a draw card carries no extra question phrasings — there is one thing to ask and three ways of saying \"draw it\" are three ways of saying nothing. Give it `\"questions\": []`.");
+    process.exit(1);
+  }
+  card.questions = [];
+  if (/class="blank"/.test(String(card.question || ""))) {
+    console.error("ERROR: a draw card's prompt carries NO cloze blank — the answer is a drawing, so there is nothing to type. A blank here also arms the \"Answer before revealing\" policy against a field the reader can never fill.");
+    process.exit(1);
+  }
+  const ansT = String(card.answerText || "").trim();
+  if (ansT && String(card.question || "").toLowerCase().indexOf(ansT.toLowerCase()) < 0) {
+    console.error("ERROR: a draw card's prompt does not name " + JSON.stringify(ansT) + " — the whole question is \"draw THIS flag\", so the prompt has to say whose.");
+    process.exit(1);
+  }
+}
+
+const QMIN = isMap || isArt || isFlag || isDraw ? MAPQ_MIN : Q_MIN, QMAX = isMap || isArt || isFlag || isDraw ? MAPQ_MAX : Q_MAX;
+if (!isMap && !isArt && !isFlag && !isDraw && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
   console.error("ERROR: card needs a `questions` array of exactly " + N_EXTRA + " EXTRA phrasings (3 questions in all — see CLAUDE.md). Each is a full standalone clue with its own mid-sentence blank.");
   process.exit(1);
 }
@@ -392,10 +435,10 @@ for (const [qi, q] of (isArt ? [] : [card.question, ...card.questions]).entries(
   const qn = qWords(q);
   if (qn < QMIN || qn > QMAX) {
     console.error("ERROR: question " + (qi + 1) + " is " + qn + " words — it must be " + QMIN + "–" + QMAX +
-      (isMap || isArt || isFlag ? " (the picture, the flag or the map is the clue, so the prompt is short)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
+      (isMap || isArt || isFlag || isDraw ? " (the picture, the flag or the map is the clue, so the prompt is short)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
     process.exit(1);
   }
-  if (!/class="blank"/.test(q)) {
+  if (!isDraw && !/class="blank"/.test(q)) {
     console.error("ERROR: question " + (qi + 1) + " has no <span class=\"blank\">_____</span> — every phrasing blanks the answer mid-sentence.");
     process.exit(1);
   }

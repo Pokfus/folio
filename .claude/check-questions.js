@@ -92,7 +92,7 @@ const words = s =>
    .replace(/\s+/g, " ").trim().split(" ").filter(w => COUNTS_AS_WORD.test(w)).length;
 
 const fails = [];
-let checked = 0, mapCards = 0, artCards = 0, flagCards = 0;
+let checked = 0, mapCards = 0, artCards = 0, flagCards = 0, drawCards = 0;
 
 for (const c of window.CARD_DATA) {
   const isMap = !!(c.map && c.map.key);
@@ -101,8 +101,14 @@ for (const c of window.CARD_DATA) {
      clue and its prompt is deliberately short and deliberately ends on the blank, but it DOES carry a
      prompt, where an artwork card carries none at all. See docs/flags-card-plan.md. */
   const isFlag = c.flagCard === true;
+  /* A DRAW CARD is the flag card run backwards: the flag is its ANSWER, so its prompt names the country
+     and carries NO BLANK at all — there is nothing to type, the answer being a drawing the reader grades
+     themselves. It takes the short range with the others and is exempt from rules 1 and 4, which are both
+     about a blank it does not have. Rules 2 and 3 (one sentence, self-contained) still bind. */
+  const isDraw = c.drawCard === true;
   if (isMap) mapCards++;
   if (isFlag) flagCards++;
+  if (isDraw) drawCards++;
   if (isArt) { artCards++; continue; }   // no question prose on this format at all — see the header
   const all = [c.question, ...(c.questions || [])];
   all.forEach((q, i) => {
@@ -111,7 +117,8 @@ for (const c of window.CARD_DATA) {
     const tag = `${c.id} q${i}`;
     const p = plain(q);
 
-    if (!BLANK_RX.test(q)) fails.push([tag, "no blank", p]);
+    if (!isDraw && !BLANK_RX.test(q)) fails.push([tag, "no blank", p]);
+    if (isDraw && BLANK_RX.test(q)) fails.push([tag, "a draw card's prompt carries no blank", p]);
 
     const stops = (p.match(/[.!?](?:\s|$)/g) || []).length;
     if (stops > 1) fails.push([tag, "more than one sentence", p]);
@@ -121,7 +128,7 @@ for (const c of window.CARD_DATA) {
       fails.push([tag, "opens on a pronoun that only the answer can resolve", p]);
 
     const w = words(q);
-    const short = isMap || isFlag;
+    const short = isMap || isFlag || isDraw;
     const lo = short ? MAP_MIN : MIN, hi = short ? MAP_MAX : MAX;
     if (w < lo || w > hi)
       fails.push([tag, `${w} words (want ${lo}–${hi}${short ? ", picture card" : ""})`, p]);
@@ -131,7 +138,7 @@ for (const c of window.CARD_DATA) {
   });
 }
 
-console.log(`${checked} questions across ${window.CARD_DATA.length} cards (${mapCards} map cards and ${flagCards} flag cards take the short range; ${artCards} artwork cards carry no question and are skipped).`);
+console.log(`${checked} questions across ${window.CARD_DATA.length} cards (${mapCards} map, ${flagCards} flag and ${drawCards} draw cards take the short range, and a draw card's prompt carries no blank; ${artCards} artwork cards carry no question and are skipped).`);
 if (!fails.length) { console.log("All question rules pass."); process.exit(0); }
 
 console.log(`\n${fails.length} violation${fails.length === 1 ? "" : "s"}:`);

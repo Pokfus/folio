@@ -2052,6 +2052,60 @@ body.no-tts .ans-cn .ac-say{display:none;}
   content:"This flag could not be loaded."; display:block; padding:34px 16px; text-align:center;
   font:400 calc(13px * var(--fs))/1.5 var(--sans); color:var(--ink-faint);
 }
+
+/* ---- DRAW CARDS: the pad the reader draws a flag in (Sep 2026, on request) ----
+   The frame is empty and ruled, and the ink that lands in it belongs to the page-wide whiteboard canvas
+   rather than to this box — see the DRAW CARDS block in app.js for why it is not a second canvas. Two
+   things here are load-bearing rather than taste.
+   · THE TOP MARGIN IS WHERE THE MARKER GOES. `wbPinApply` parks the 46px marker button immediately above
+     the pad's top-right corner, so the pad reserves that strip; without it the marker lies over the last
+     line of the prompt, which is the sentence naming what to draw.
+   · THE FRAME IS A FLAG'S OWN PROPORTIONS, near enough — 3:2 is the commonest ratio in the deck — and it
+     is a MINIMUM height rather than a fixed one, so a narrow phone still gets something to draw in. It is
+     deliberately not `aspect-ratio` alone: a reader drawing Nepal's pennant or Qatar's 11:28 needs the
+     room more than they need the box to be the right shape. */
+/* THE WIDTH IS CAPPED ON THE PAD AND NOT THE FRAME, and that is the second correction rather than a
+   preference. Capping the FRAME's height instead (`max-height`) does shrink it back to 3:2 — but only the
+   frame, so on a desktop it ended 114px short of `.draw-pad`'s own right edge while `.dp-answer` below it
+   stayed full width: the marker pinned to a corner the reader could see was not the canvas's, and the
+   drawing and the flag it is compared against were two different widths. One cap on the parent keeps all
+   three edges together at every width. */
+.draw-pad{margin:56px auto 18px; max-width:560px;}
+/* `aspect-ratio` ALONE, with no `min-height` beside it: the two together inflated the USED WIDTH past the
+   card — 34vh of a tall phone is 300px, which at 3:2 asked for a 450px-wide box inside a 366px card, and
+   the pad ran off the right edge taking the card's own border with it. The height is capped instead, which
+   leaves the width where the card put it and lets the box go wide and short on a desktop. */
+.dp-frame{
+  position:relative; aspect-ratio:3 / 2;
+  border:1px dashed var(--rule); border-radius:10px; background:var(--paper-2);
+  display:flex; align-items:flex-end; justify-content:center;
+}
+/* …and the hint sits at the FOOT of the frame rather than its middle: centred, it is under the reader's
+   own drawing, which is both something to draw over and something that makes the drawing harder to read. */
+.dp-hint{
+  font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-faint);
+  letter-spacing:.04em; text-transform:uppercase; pointer-events:none; padding:0 14px 10px; text-align:center;
+}
+.dp-off{text-transform:none; letter-spacing:0; max-width:34ch;}
+/* The answer lands UNDER the pad and never inside it: the drawing is ink in page coordinates, so anything
+   that resized or moved the frame would slide it out from under the lines it was drawn with. */
+.dp-answer{
+  margin:14px 0 0; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+  background:var(--paper-2); box-shadow:var(--shadow-sm);
+}
+.dp-answer[hidden]{display:none;}   /* the author `display:block` would beat the UA rule, as .af-src does */
+.dp-answer img{
+  display:block; width:100%; height:clamp(150px, 30vh, 280px);
+  object-fit:contain; background:var(--paper-2);
+}
+.dp-answer.revealed{cursor:zoom-in;}
+.dp-answer.revealed:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+/* A draw card has a pad to work in, so the writing band under the question would be a SECOND blank area
+   on one card — and the reader would have no way of telling which of the two the answer belongs in. */
+body.wb-down .study-card.draw-card .scratch{display:none;}
+/* Pinned, the marker is positioned against the pad rather than a screen corner, so the transition that
+   eases it towards the grade bar would make it lag the page on every scroll frame. */
+.wb-tools.wb-pinned{transition:none;}
 .art-cap{
   display:block; padding:9px 12px 11px; border-top:1px solid var(--rule); background:var(--card);
   font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-soft); text-align:left;

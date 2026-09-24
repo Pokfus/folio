@@ -86,6 +86,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `world-geography-card-plan.md` | World Geography (`geo-world`) — 471 cards, sorted by population | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
 | `flags-card-plan.md` | The flags (`flags-world`) — a DECK of `geo-world`; 233 cards, the answer side is its twin's | `fl-` |
+| `flags-draw-card-plan.md` | Draw the flags (`flags-draw`) — the Flags deck run backwards; the reader draws the flag and judges themselves | `fd-` |
 | `politics-east-asia-card-plan.md` | Politics: East Asia (`pea`) — a COURSE, planned a lecture at a time | `pea-` |
 
 `china-card-findings.md` is China's per-card research log; the other twenty keep theirs in their own plan

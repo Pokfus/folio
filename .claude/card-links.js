@@ -55,8 +55,13 @@ const LEADS_MAX = 3, HOW_MIN_WORDS = 4, HOW_MAX_WORDS = 28;
  * want the same three questions written once and copied — which is a pass of its own over 233 cards
  * rather than something a card ships with. A manufactured question is worse than an absent section,
  * which is why the self-explanation fallback was removed in the first place.
+ *
+ * A DRAW CARD (`card.drawCard`) is the flag card's reason with a THIRD back wearing the same prose. It
+ * is `fl-NNN` run backwards and carries `gw-NNN`'s background too, so the pair above is now a trio: a
+ * set written here would appear on one of three identical backs. Nothing about a draw card's own
+ * question — "draw this flag" — offers a why to ask, either.
  */
-const whyExempt = (card) => !!(card && (card.map || card.flagCard === true));
+const whyExempt = (card) => !!(card && (card.map || card.flagCard === true || card.drawCard === true));
 
 function checkWhy(card, opts) {
   const w = card && card.why;

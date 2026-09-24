@@ -113,6 +113,13 @@ const PLANS = {
      extension (subnational flags at `fl-501`+) is deliberately NOT declared until it lands, on the
      Politics rule — widen a numbering as work arrives rather than declaring it full of holes. */
   flags: ["geo-world", "fl-", [[1, 233]]],
+  /* Draw the flags: the Flags deck run backwards, and the FOURTH deck of `geo-world` — so this is the
+     collection's third plan, which is the arrangement the keying note above exists for. `fd-NNN` is the
+     same entity as `fl-NNN` and as `gw-NNN`: in this collection the NUMBER is the entity and the PREFIX
+     is the question asked about it, which is why it is not numbered +500 like the capitals (there the
+     number means a DIFFERENT entity). The range is unbroken even though the same four deferrals apply
+     — 036, 171, 180 and 218, each of which has no flag Folio can show and so nothing to draw. */
+  "flags-draw": ["geo-world", "fd-", [[1, 233]]],
 };
 // a numbering as a flat list of the numbers it expects, in order
 const expand = (num) => {

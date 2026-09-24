@@ -128,8 +128,11 @@ const server = http.createServer((req, res) => {
   const slice = (name) => { const i = src.indexOf("function " + name + "("); return i < 0 ? "" : src.slice(i, i + 2600); };
   ok("cardFlagSpec is a separate name from the reader's own cardFlag",
      /function cardFlagSpec\(c\)/.test(src) && (src.match(/^\s*function cardFlag\(/gm) || []).length === 1);
+  /* The branch became an `if` when the DRAW card was added below it — the flag card and the draw card are
+     opposite readings of one field, so `cardFrontHTML` now tests both. What is asserted is unchanged: the
+     flag is emitted BEFORE the prompt. */
   ok("cardFrontHTML draws the flag ABOVE the prompt",
-     /const flg = cardFlagSpec\(c\);[\s\S]{0,80}return flg \? cardFlagHTML\(flg\) \+ q : q;/.test(slice("cardFrontHTML")));
+     /const flg = cardFlagSpec\(c\);[\s\S]{0,80}if \(flg\) return cardFlagHTML\(flg\) \+ q;/.test(slice("cardFrontHTML")));
   /* THE FRONT IS BARE, AS A STRING. The browser half below reads the rendered card and this reads the
      builder, so a leak added at either end is caught by the other. */
   /* THE BUILDER'S OWN BODY, cut at its closing brace. Splitting on the next function name was tried and
@@ -141,7 +144,7 @@ const server = http.createServer((req, res) => {
   ok("…and no data-img-* attribute to open the viewer with", !/data-img-/.test(built));
   ok("…and does not fall back to the credit for its alt", !/f\.credit/.test(built));
   ok("gameCardIdSet keeps flag cards out of the text-only games",
-     /difficultyOK\(c\) && !cardMapSpec\(c\) && !cardArtSpec\(c\) && !cardFlagSpec\(c\)/.test(src));
+     /difficultyOK\(c\) && !cardMapSpec\(c\) && !cardArtSpec\(c\) && !cardFlagSpec\(c\) && !cardDrawSpec\(c\)/.test(src));
   /* THE FRONT MAY BE ENLARGED ONLY AFTER THE REVEAL, since the viewer's caption bar prints the credit
      and a flag's credit names the country. `.revealed` is `cardFlagReveal`'s, so the selector naming it
      is what says the unrevealed front cannot be opened. */
@@ -159,7 +162,7 @@ const server = http.createServer((req, res) => {
   const links = fs.readFileSync(path.join(__dirname, "card-links.js"), "utf8");
   ok("whyExempt covers a flag card", /card\.flagCard === true/.test(links));
   const cq = fs.readFileSync(path.join(__dirname, "check-questions.js"), "utf8");
-  ok("check-questions gives it the map card's short range", /const short = isMap \|\| isFlag;/.test(cq));
+  ok("check-questions gives it the map card's short range", /const short = isMap \|\| isFlag \|\| isDraw;/.test(cq));
   const cc = fs.readFileSync(path.join(__dirname, "check-cards.js"), "utf8");
   ok("check-cards knows its picture is its flag", /c\.flagCard === true && c\.answerFlag && c\.answerFlag\.src/.test(cc));
 

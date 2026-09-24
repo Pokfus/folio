@@ -1069,6 +1069,21 @@ deferred numbers stay reserved; each is a judgement that could be revisited if C
 changes, and each says in its own entry above what would have to change.
 
 
+## And a second deck run the other way (Sep 2026)
+
+**Draw the flags** (`flags-draw`, prefix `fd-`) is this deck backwards: it names the country and asks the
+reader to draw the flag from memory on a pad, with the marker pinned to its corner, then reveal it and
+judge themselves. It copies `fl-NNN`'s whole answer side exactly as `fl-NNN` copies `gw-NNN`'s, so **the
+twinning chain is now three cards long and `check-flag-twins.js` checks both links**: a correction to a
+`gw-` background has to travel to TWO twins in the same commit.
+
+It takes a **prefix of its own rather than the `fl-501`+ band** this plan reserves for subnational flags,
+and the reason is arithmetic rather than tidiness: `check-flag-twins.js` pairs `fl-NNN` with `gw-NNN` by
+number, so an `fl-507` meaning Brazil would have been compared against `gw-507`, which is Brasília. The
+band is therefore still free for what it was reserved for. Its four deferrals are this deck's four, and
+they travel by arithmetic rather than by a second judgement: a card that asks for a flag to be drawn and
+then shows it has nothing to show. **📖 `docs/flags-draw-card-plan.md`.**
+
 ---
 
 # The list

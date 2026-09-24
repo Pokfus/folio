@@ -1113,8 +1113,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   rather than a write; the other 118 are `gw-117`–`gw-233` contiguous, where the fetch **back-fills the
   twin as a by-product** and closes a real gap in World Geography. Its one standing cost is stated and
   has a checker: **a correction to a `gw-` background must be carried to its `fl-` twin in the same
-  commit**, since both cards render perfectly while saying different things, and `check-flag-twins.js`
-  is what says so.
+  commit** — and since Sep 2026 to its `fd-` twin as well, the chain being three cards long — since all
+  of them render perfectly while saying different things, and `check-flag-twins.js` is what says so.
   · **THE FORMAT IS BUILT** — see the FLAG CARDS block in app.js for `cardFlagSpec` / `cardFlagHTML` /
     `cardFlagReveal` / the `.flag-shot` frame, and `.claude/test-flag-cards.js` for what it asserts.
     Guarded there, and by `check-flag-twins.js` (report-only) for the drift above. **Re-run both after
@@ -1205,6 +1205,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     every check, so the card takes the CC BY-SA file that carries them. **A file named "(variation)" is
     the uploader's naming and not a claim about the design** — what decides a picture is whether it
     depicts its subject.
+  · **AND THERE IS NOW A SECOND DECK RUN THE OTHER WAY** — **Draw the flags** (`fd-`), which copies
+    `fl-NNN`'s whole answer side as this deck copies `gw-NNN`'s, so **the twinning chain is three cards
+    long and `check-flag-twins.js` checks both links**. See the `docs/flags-draw-card-plan.md` bullet
+    below. `fl-501`+ is still free for the subnational flags this plan reserves it for.
   · **A CARD IS BUILT BY `.claude/add-flag-cards.js`, WHICH HANDS EACH ONE TO `add-card.js`** rather
     than writing `data.js` itself — so every guard that tool carries runs on every card, and the
     builder is not a second weaker copy of them. It DERIVES the alt from the twin's by cutting the
@@ -1212,6 +1216,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     standing. **THE PLAN SAID THE `why` PASS DID NOT APPLY AND NO GUARD KNEW IT**, which turned the
     first card away: the tools do not read the plan, so a rule a plan exempts needs the exemption
     written into the tool in the same commit. Not part of the site.
+- **📖 `docs/flags-draw-card-plan.md` — READ BEFORE WRITING AN `fd-` CARD, OR BEFORE TOUCHING THE
+  DRAW-CARD FORMAT.** The running order for **Draw the flags** (`flags-draw`), the **fourth deck of World
+  Geography** and the Flags deck run backwards: `fl-007` shows Brazil's flag and asks whose it is, `fd-007`
+  names Brazil and asks the reader to draw the flag from memory on a pad, with the marker already at its
+  corner, and then to reveal it and judge how close they came. The twenty-second plan, and the second that
+  is a DECK's rather than a collection's. Shipped Sep 2026 on request ("Make a reverse version of each card
+  (similar to language vocabulary cards) where the user is given a small canvas and the floating whiteboard
+  marker is pinned to the top right of the canvas"). **233 numbers, 229 writable, COMPLETE** — the four
+  deferrals are the Flags deck's own (`fd-036`, `fd-171`, `fd-180`, `fd-218`) and travel by arithmetic
+  rather than by a second judgement: a card that asks for a flag to be drawn and then shows it has nothing
+  to show. So a card here costs **no research, no glossary work and no picture** — it is a copy.
+  · **THE NUMBER IS THE ENTITY AND THE PREFIX IS THE QUESTION.** `gw-007`, `fl-007` and `fd-007` are all
+    Brazil. **IT IS DELIBERATELY NOT NUMBERED +500** like the capitals, which is the geography section's
+    own convention everywhere else: there the number means a DIFFERENT entity (`gw-507` is Brasília), so
+    reusing it here would have made `fl-507` Brazil while `gw-507` was Brasília — and
+    `check-flag-twins.js`, which pairs `fl-NNN` with `gw-NNN` by arithmetic, would have compared a drawing
+    card against a capital. A prefix of its own costs one row in `test-card-plans.js` and leaves `fl-501`+
+    free for the subnational flags the Flags plan reserves it for.
+  · **IT IS A SEPARATE DECK RATHER THAN AN OPTION ON THE FIRST ONE.** A language deck gets both
+    directions out of one note through its templates and `deckPairNew` lets a reader turn one off; curated
+    cards have no note layer, so the reverse has to be a card of its own — and once it is a card, a deck
+    is what gives the reader that same choice. `geo-world`'s `COLLECTION_TARGET` went 704 → 937 with it.
+  · **THE FORMAT IS BUILT** — see the DRAW CARDS block in app.js for `cardDrawSpec` / `cardDrawHTML` /
+    `cardDrawReveal` / `mountDrawCard` / the pad's styles, and the marker's `wbPinTo` / `wbPinApply` /
+    `wbPinFrame` / `wbUnpin` / `wbDrawForget` beside `wbApplyPos`. Guarded by
+    `.claude/test-draw-cards.js`.
+  · **AND IT PUTS THE PEN BACK THE WAY IT FOUND IT** (`wbDrawPrev` / `wbDrawForget`). `WB.enabled`
+    persists from card to card WITHIN a session, so without this the pen the reader never asked for stays
+    down on the ordinary card after a draw card — the page under an ink canvas and a writing band opened
+    under the question, neither of which they chose. **`hideWBTools` does not cover this**, which is why
+    the suite grades through a queue of two rather than navigating away and back: leaving the study page
+    puts the pen up for its own reasons and would pass whether or not the restore works.
+  · **A CARD IS BUILT BY `.claude/add-draw-cards.js`, WHICH HANDS EACH ONE TO `add-card.js`**, for
+    `add-flag-cards.js`'s stated reason. **AND THE `why` EXEMPTION WAS THE SAME LESSON A SECOND TIME**: the
+    first card was refused for carrying no Think-it-through set, because `whyExempt` knew about a flag card
+    and could not know about a format that did not exist when it was written. **A new format that reuses
+    another's answer side inherits its exemptions and nothing applies them for you.** Not part of the site.
 - `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
   mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
   the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` and `rivers.js` beside
@@ -1638,8 +1679,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.41 MB and 49,843 lines is hard to find your way around, so this
-  lists its 193 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.43 MB and 50,053 lines is hard to find your way around, so this
+  lists its 194 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -6120,6 +6161,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the END of the toggle's open branch, after `applyWBState()`, or the card would be laid over a panel
     that has not finished drawing. The one thing a reader cannot discover by pressing things is that
     **choosing a tool is what puts the pen down**, the panel opening with nothing selected on purpose.
+  · **…AND ON A DRAW CARD IT IS PINNED TO THE PAD** (`wbPinTo` / `wbPinApply` / `wbPinFrame` / `wbUnpin` /
+    `WB_PIN_GAP` / `.wb-pinned`; Sep 2026, on request: "the floating whiteboard marker is pinned to the
+    top right of the canvas"). A draw card gives the reader a box to draw a flag in and the marker is the
+    only way to draw in it, so leaving it in whichever corner it was last thrown to would put the format's
+    one tool somewhere else on the screen. Pinned it follows the pad, it does not drag, and it REMEMBERS
+    NOTHING — the pin is a fact about the CARD, and the reader's own stored position is untouched
+    underneath it and comes straight back on the next card. Four things.
+    **IT SITS JUST ABOVE THE PAD'S TOP-RIGHT CORNER, NOT INSIDE IT**: inside, a 46px button covers the
+    corner of the very area it is there to draw in, and `.draw-pad`'s top margin reserves the strip for
+    exactly this.
+    **THE FOLLOW IS A FRAME LOOP AND THE THREE LISTENERS IT REPLACES WERE NOT ENOUGH**, which is the fault
+    that shipped for an hour: scroll and resize are only two of the reasons a pad moves, and **the page's
+    own ENTRANCE ANIMATION is a third**. Pinned at mount, the marker anchored to a rect 32px below where
+    the pad settled a third of a second later and nothing fired afterwards to correct it — so it sat
+    inside the pad's corner, on every card, permanently. Fonts landing and a text-size change are the same
+    shape. A frame loop needs no list of the reasons at all; it writes only when the numbers move, and it
+    stops dead the moment the pin is dropped, which is every card that is not a draw card.
+    **IT IS ALSO THE ONE PLACE `WB.enabled` IS SET WITHOUT THE READER ASKING.** The marker's standing rule
+    is that opening the panel selects nothing, because on an ordinary card that takes the whole page over
+    for somebody who only wanted Undo; here drawing IS the card, so a format that does not work until it
+    is configured is one that looks broken. With the marker switched off in Settings the pad says so in
+    words rather than sitting inert.
+    **AND THE PIN IS DROPPED IN `setupWhiteboard`'S TEARDOWN AS WELL AS IN `hideWBTools`** — a pad
+    belonging to the previous card is a rect that no longer describes anything on screen.
   **📖 `docs/whiteboard.md` — READ BEFORE CHANGING ANY OF IT.** The fling's sample-window arithmetic, the
   snap-home probe and the transition that must be turned off to take it, the inline colour picker and why
   an `<input type="color">` was refused, the pass-through's `preventDefault` consequence, the hand-rolled
@@ -6956,8 +7021,9 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
-| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 3 / 3 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
-| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 3 / 3 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** (Sep 2026) across 233 numbers — `fl-001`–`fl-233` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, whose numbers stay reserved, so the next-card command prints a deferral rather than work, one per `gw-` COUNTRY card and numbered to match it, see below |
+| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 4 / 4 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
+| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 4 / 4 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** (Sep 2026) across 233 numbers — `fl-001`–`fl-233` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, whose numbers stay reserved, so the next-card command prints a deferral rather than work, one per `gw-` COUNTRY card and numbered to match it, see below |
+| Draw the flags | `geo-world` | `fd-` | `docs/flags-draw-card-plan.md` | 4 / 4 | **THE FLAGS DECK RUN BACKWARDS** (Sep 2026, on request) — the reader is given a pad, the marker is pinned to its corner, and they draw the flag from memory and judge themselves. A FOURTH deck of World Geography, so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** across 233 numbers — `fd-001`–`fd-233` less the DEFERRED `fd-036`, `fd-171`, `fd-180` and `fd-218`, which are the Flags deck's own four and are deferred here for the same reason one step on: a card that asks for a flag to be drawn and then shows it has nothing to show. `fd-NNN` is the same entity as `fl-NNN` and `gw-NNN` — in this collection the NUMBER is the entity and the PREFIX is the question asked about it, which is why it is NOT numbered +500 like the capitals, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
@@ -6972,7 +7038,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (313 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (328 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7814,7 +7880,7 @@ division-capital city tier are inert dead code.
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **57 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **58 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-panels.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
@@ -7948,7 +8014,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 313 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 328 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -8111,6 +8177,23 @@ division-capital city tier are inert dead code.
     reads as the format being broken. A real 2×2 PNG is fulfilled so the `load` event fires and the LIVE
     path is what gets tested; the dead path is then exercised deliberately by aborting the same route.
     **Re-run after touching anything in the ARTWORK CARDS bullet's own list.**
+  · `node .claude/test-draw-cards.js` — **the draw card format** (3,700-odd assertions, per-card checks
+    growing it with the deck; sections 1 and 2 need no browser, `--data-only`), and every fault it guards
+    LOOKS FINE ON THE PAGE. **The one it was written for is the PIN:** a draw card whose marker sat in its
+    usual screen corner still works — you can draw — and is simply missing the whole of what was asked
+    for; and the pin is applied at MOUNT, while the page's entrance animation still has a third of a
+    second to run, so a pin computed once anchors 32px from where the pad settles. That shipped for an
+    hour and the only symptom was the marker sitting inside the pad rather than above it, which is why
+    the browser half **waits past the entrance and then measures the marker against the pad's own rect**
+    rather than trusting a class. It also **draws a real stroke and counts the ink** — "it did not draw"
+    is the one failure that makes this format useless and says nothing on the page — and asserts that
+    **the pad does not move at the reveal**, the ink being in page coordinates and not owned by the pad,
+    so a shift would slide the drawing out from under the frame it was drawn in. It serves the flag
+    locally for `test-artwork-cards.js`'s reason, and **waits for the picture rather than sleeping at
+    it**: the image is created at the reveal, so a fixed pause races the decode and reports
+    `naturalWidth: 0`, which reads exactly like the dead file the same section is there to tell apart.
+    **Re-run after touching anything in the `docs/flags-draw-card-plan.md` bullet's own list, or the
+    marker's pin.**
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
     restricted pool** (114 assertions), and every one of its checks is for something that fails SILENTLY.
     **AN ASSERTION CAN COME TO GUARD THE OPPOSITE OF THE RULE** — the picture round's reveal check
