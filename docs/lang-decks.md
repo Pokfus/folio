@@ -3466,6 +3466,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S9 | A2 | #223 `la ciencia` – #249 `andar` | 27 | 0 | 0 | five coarse or explicit examples removed ahead of their audits: B1 `la pelota`, `el huevo`; B2 `la patada`; C1 `el forro`; C2 `la paja` | — |
 | S10 | A2 | #250 `el abrigo` – #276 `el pájaro` | 25 | 2 (`la fábrica`, `el virus`) | 0 | — | — |
 | S11 | A2 | #277 `la salsa` – #303 `enfrente` | 26 | 1 (`quitarse`) | 0 | — | — |
+| S12 | A2 | #304 `el cuadro` – #330 `egoísta` | 25 | 2 (`el/la periodista`, `el gimnasio`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -3980,6 +3981,46 @@ record entries; `quitarse` was read and left, and is in `reviewed`.
 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 36 → 33. The one
 card of this batch left on it is `crecer`, a FALSE POSITIVE: "grow" against "growing" and "grown".
+
+### S12 — DELE A2, notes #304–#330 (Sep 2026)
+
+Measured against the S11 commit by card id: **25 changed, 470 untouched**, all 25 of them this batch's
+record entries; `el/la periodista` and `el gimnasio` were read and left, and are in `reviewed`.
+
+**GLOSSES THAT MISSED THE SENSE THE EXAMPLES USED, AGAIN THE LARGEST CLASS.**
+- `el cuadro` gave "square, rectangle", while every example was a picture.
+- `la letra` had no lyrics, though two of its examples were lyrics.
+- `la barra` had neither the loaf, which is its first example, nor the bar counter.
+- `la rueda` had no tyre.
+- `la plaza` had no parking space, which is its second example.
+- `la publicidad` put "advertisement" (*un anuncio*) where the word is advertising.
+- `ocurrir` offered "to come up with", which is *ocurrirse*, without saying so.
+- `el ejercicio` carried "role", which is not the word.
+- `egoísta` carried "egotistic".
+- `la bicicleta`'s gloss included "step over" and "pedalada", which are not English.
+
+**THE LOOK-ALIKE.** `mejorar` was illustrated by the noun *la mejora*. And `científico`'s gloss gave only
+the adjective while two of its examples were the noun, a scientist.
+
+**SPANISH THAT IS NOT SPANISH.**
+- *de poco a poco*, where the phrase is *poco a poco*.
+- *Lava tus manos*, where Spanish says *lávate las manos*.
+- *¿Cuál es tu letra de una canción favorita?*
+- *Sed es la sensación…*, which is missing its article.
+- *escribiendo los ejercicios*, where the verb is *hacer*.
+- *la sección sin reservas*.
+- *Es más americano que la tarta de manzana*, an English idiom translated word for word.
+
+**AND THE REST.**
+- Eleven A1-shared sentences were replaced, plus five shared with earlier A2 cards. `el dormitorio`
+  lost all three of its examples, two to A1 and one to *departamento*.
+- Latin American forms are gone: *jugo*, *departamento*, *ayer a la noche*.
+- Non-Spanish names and dated scenes are gone: Scott, and Lincoln in the present perfect.
+- Sentences with nothing to teach are gone: *Nada es real*, and all scientists being like children.
+- `las gafas`' English said "sunglasses" for plain *gafas*.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 33 → 30, with no
+card of this batch left on it.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

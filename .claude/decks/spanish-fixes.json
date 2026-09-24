@@ -23168,6 +23168,653 @@
      "She sat opposite me."
     ]
    ]
+  },
+  "delea2/el cuadro": {
+   "why": "THE GLOSS MISSED THE WORD'S COMMONEST SENSE: every example was a picture or a painting, and the gloss gave only 'square, rectangle'. The first example is shared with la pared earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "picture, painting",
+      "square"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de cuadros — checked (una camisa de cuadros)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El cuadro está ahora colgado en la pared."
+   ],
+   "ex": [
+    [
+     "Mi camisa favorita es de cuadros.",
+     "My favourite shirt is checked."
+    ]
+   ]
+  },
+  "delea2/la bicicleta": {
+   "why": "The gloss ran five items together, two of them not English ('step over', 'pedalada'). The first example is shared with subir earlier in A2; the third's English said 'I bicycled'. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "bicycle, bike"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las bicicletas"
+    ],
+    [
+     "also",
+     "la bici — bike (informal)"
+    ]
+   ],
+   "dropEx": [
+    "¿Alguna vez te has subido a una bicicleta?"
+   ],
+   "exEn": [
+    [
+     "he ido al trabajo en bicicleta",
+     "This morning I cycled to work."
+    ]
+   ],
+   "ex": [
+    [
+     "Me han robado la bicicleta.",
+     "My bike's been stolen."
+    ]
+   ]
+  },
+  "delea2/mejorar": {
+   "why": "The second example is la mejora, a noun, matched on shared letters, and the third wrote 'de poco a poco', where Spanish says poco a poco. ¡que te mejores!, 'get well soon', had no line.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to improve, to get better"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡que te mejores! — get well soon!"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "mostró signos de mejora",
+    "va mejorando de poco a poco"
+   ],
+   "ex": [
+    [
+     "El tiempo mejorará mañana.",
+     "The weather will improve tomorrow."
+    ],
+    [
+     "¡Que te mejores!",
+     "Get well soon!"
+    ]
+   ]
+  },
+  "delea2/la comisaría": {
+   "why": "The gloss is right. The second example, a man whose picture hangs in every police station in the country, is a line out of a film.",
+   "dropEx": [
+    "Mi retrato está en todas las comisarías"
+   ],
+   "ex": [
+    [
+     "Tuve que ir a la comisaría a poner una denuncia.",
+     "I had to go to the police station to report it."
+    ]
+   ]
+  },
+  "delea2/ocurrir": {
+   "why": "'to come up with' is ocurrirse (se me ocurre), which the card did not say. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to happen, to occur"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "se me ocurre… — it occurs to me…, I've had an idea"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No podemos saber lo que va a ocurrir."
+   ],
+   "ex": [
+    [
+     "¿Qué ha ocurrido aquí?",
+     "What's happened here?"
+    ],
+    [
+     "Se me ha ocurrido una idea.",
+     "I've had an idea."
+    ]
+   ]
+  },
+  "delea2/la reserva": {
+   "why": "The gloss ran a booking and a nature reserve together. The first example is also an A1 sentence, and the second, three seats 'en la sección sin reservas', is not how Spanish says unreserved. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "booking, reservation",
+      "reserve (una reserva natural)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Tenemos una reserva para las seis y media.",
+    "en la sección sin reservas"
+   ],
+   "ex": [
+    [
+     "¿A nombre de quién está la reserva?",
+     "Whose name is the booking in?"
+    ],
+    [
+     "Hemos cancelado la reserva del hotel.",
+     "We've cancelled the hotel booking."
+    ]
+   ]
+  },
+  "delea2/el aceite": {
+   "why": "'olive oil' is aceite de oliva, a phrase. The first and third examples were one sentence reversed, the first also an A1 sentence; the second is a stilted passive. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "oil"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "aceite de oliva — olive oil"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El aceite no se mezcla con el agua.",
+    "diferentes tipos de aceites vegetales"
+   ],
+   "ex": [
+    [
+     "Fríe las patatas en aceite de oliva.",
+     "Fry the potatoes in olive oil."
+    ],
+    [
+     "Hay que cambiar el aceite del coche.",
+     "The car needs an oil change."
+    ]
+   ]
+  },
+  "delea2/la vaca": {
+   "why": "The gloss named the species in Latin and gave 'beef', which is carne de vaca. The first example is shared with el cerdo earlier in A2, and the second is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "cow"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "carne de vaca — beef"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Quieren ustedes carne de vaca o de cerdo?",
+    "Él miró a las vacas en los campos."
+   ],
+   "ex": [
+    [
+     "En esta granja hay veinte vacas.",
+     "There are twenty cows on this farm."
+    ],
+    [
+     "La carne de vaca es más cara que la de pollo.",
+     "Beef is dearer than chicken."
+    ]
+   ]
+  },
+  "delea2/el dormitorio": {
+   "why": "The gloss is right. The first and third examples were also A1 sentences, and the second's departamento is Latin American, where Spain says piso. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "La puerta del dormitorio de Carlos estaba cerrada.",
+    "El departamento de Carlos",
+    "El dormitorio más grande mira hacia el sur."
+   ],
+   "ex": [
+    [
+     "Mi piso tiene dos dormitorios.",
+     "My flat has two bedrooms."
+    ],
+    [
+     "Los niños duermen en el mismo dormitorio.",
+     "The children sleep in the same bedroom."
+    ],
+    [
+     "El dormitorio da a un patio.",
+     "The bedroom looks onto a courtyard."
+    ]
+   ]
+  },
+  "delea2/la manzana": {
+   "why": "The gloss is right, and a block of houses is a manzana in Spain — a sense none of the examples showed. The first used the Latin American jugo, and the third, 'Es más americano que la tarta de manzana', is an English idiom translated word for word; it is shared with la tarta later in A2, which keeps it.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "apple",
+      "block (of houses: a dos manzanas de aquí)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "jugo de manzana",
+    "Es más americano que la tarta de manzana."
+   ],
+   "ex": [
+    [
+     "Me como una manzana todos los días.",
+     "I eat an apple every day."
+    ],
+    [
+     "Nuestra casa está a dos manzanas de aquí.",
+     "Our house is two blocks from here."
+    ]
+   ]
+  },
+  "delea2/la sed": {
+   "why": "The gloss did not name tener sed, 'to be thirsty', which is how the word is used. The first example, 'Sed es la sensación de necesitar beber algo', is a definition with its article missing.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "thirst"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tener sed — to be thirsty"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Sed es la sensación"
+   ],
+   "ex": [
+    [
+     "¿Tienes sed? Hay agua en la nevera.",
+     "Are you thirsty? There's water in the fridge."
+    ]
+   ]
+  },
+  "delea2/la letra": {
+   "why": "The gloss missed lyrics, which two of the examples were. The first, '¿Cuál es tu letra de una canción favorita?', is not Spanish and is also an A1 sentence; the second, 'Si buscas las letras', uses buscar for 'look at'. Neither showed a letter of the alphabet or handwriting, the two senses the gloss did give. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "letter (of the alphabet)",
+      "handwriting",
+      "lyrics (la letra de una canción)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Cuál es tu letra de una canción favorita?",
+    "Si buscas las letras"
+   ],
+   "ex": [
+    [
+     "Tu letra es muy difícil de leer.",
+     "Your handwriting is very hard to read."
+    ],
+    [
+     "La ñ es una letra del alfabeto español.",
+     "Ñ is a letter of the Spanish alphabet."
+    ]
+   ]
+  },
+  "delea2/el arroz": {
+   "why": "The gloss said 'rice' twice. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "rice"
+     ]
+    ]
+   ]
+  },
+  "delea2/la plaza": {
+   "why": "The gloss missed a place or space — una plaza de garaje, which is the second example — and 'fortified town' is archaic. The first example's 'ayer a la noche' is Rioplatense; the English said 'automobiles' and 'subway'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "square (in a town)",
+      "place, seat, space (una plaza de garaje)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Fui a la plaza ayer a la noche."
+   ],
+   "exEn": [
+    [
+     "tiene plazas para dos coches",
+     "That garage has space for two cars."
+    ],
+    [
+     "La estación de metro está en la plaza",
+     "The metro station is in the square."
+    ]
+   ],
+   "ex": [
+    [
+     "Nos vemos en la Plaza Mayor.",
+     "See you in the Plaza Mayor."
+    ]
+   ]
+  },
+  "delea2/el ejercicio": {
+   "why": "'role' is not this word, and the gloss did not separate exercise for the body from an exercise in a book. The first example's English wrote 'workout' as a verb, and the second, 'escribiendo los ejercicios', wants hacer.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "exercise (hacer ejercicio — to exercise)",
+      "exercise (at school, in a book)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no estabas escribiendo los ejercicios"
+   ],
+   "exEn": [
+    [
+     "canción favorita para hacer ejercicio",
+     "What's your favourite song to work out to?"
+    ]
+   ],
+   "ex": [
+    [
+     "Haz los ejercicios de la página diez.",
+     "Do the exercises on page ten."
+    ]
+   ]
+  },
+  "delea2/la invitación": {
+   "why": "The gloss is right. The third example, 'El presidente Lincoln ha aceptado la invitación', puts Lincoln in the present perfect.",
+   "dropEx": [
+    "El presidente Lincoln"
+   ],
+   "ex": [
+    [
+     "Gracias por la invitación.",
+     "Thanks for the invitation."
+    ]
+   ]
+  },
+  "delea2/científico, científica": {
+   "why": "The gloss gave only the adjective, while two of the examples were the noun, a scientist. The second, 'Todos los científicos son un poco como niños', is a generalisation. The first is shared with músico later in A2 and stays here.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "scientific"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el científico, la científica — scientist"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Todos los científicos son un poco como niños."
+   ],
+   "exEn": [
+    [
+     "Él es científico a la vez que músico",
+     "He is both a scientist and a musician."
+    ]
+   ],
+   "ex": [
+    [
+     "Mi tía es científica y trabaja en un laboratorio.",
+     "My aunt is a scientist and works in a laboratory."
+    ]
+   ]
+  },
+  "delea2/el escritor, la escritora": {
+   "why": "The gloss is right. The second and third examples — knowing a writer 'as well as the book', and writers knowing a lot of songs — are not sentences anyone needs.",
+   "dropEx": [
+    "Conocí tanto a la escritora como al libro.",
+    "Los escritores se saben muchas canciones."
+   ],
+   "ex": [
+    [
+     "Cervantes es un escritor español muy famoso.",
+     "Cervantes is a very famous Spanish writer."
+    ],
+    [
+     "Mi abuela quería ser escritora.",
+     "My grandmother wanted to be a writer."
+    ]
+   ]
+  },
+  "delea2/la publicidad": {
+   "why": "The gloss put 'advertisement' first, which is un anuncio; la publicidad is advertising. The first example is addressed to Scott, and the second is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "advertising",
+      "publicity"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¡Scott, prepara el presupuesto",
+    "Muchas empresas hacen publicidad"
+   ],
+   "exEn": [
+    [
+     "La publicidad nos engañó por completo",
+     "We were completely taken in by the advertising."
+    ]
+   ],
+   "ex": [
+    [
+     "Hay demasiada publicidad en la tele.",
+     "There's too much advertising on TV."
+    ],
+    [
+     "Trabaja en publicidad.",
+     "She works in advertising."
+    ]
+   ]
+  },
+  "delea2/la barra": {
+   "why": "The gloss missed the two senses a reader in Spain meets daily: a loaf, una barra de pan, which is the first example, and the bar counter. The third, 'Lava tus manos', is a calque of the English possessive (lávate las manos).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "bar, rod",
+      "loaf (una barra de pan)",
+      "bar, counter (in a bar: tomar algo en la barra)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Lava tus manos con una barra de jabón."
+   ],
+   "ex": [
+    [
+     "Nos sentamos en la barra del bar.",
+     "We sat at the bar."
+    ]
+   ]
+  },
+  "delea2/el producto": {
+   "why": "The gloss ran four near-synonyms. The second example is also an A1 sentence, and the third, 'Este producto no es real. Nada es real.', is not a sentence anyone needs. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "product"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Cuáles son los productos principales de este país?",
+    "Nada es real."
+   ],
+   "ex": [
+    [
+     "Compramos productos frescos en el mercado.",
+     "We buy fresh produce at the market."
+    ],
+    [
+     "Este producto está de oferta.",
+     "This product is on offer."
+    ]
+   ]
+  },
+  "delea2/las gafas": {
+   "why": "The third example's English said 'sunglasses' for gafas. The first is also an A1 sentence, and the second is shared with la seguridad earlier in A2. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine plural",
+     [
+      "glasses, spectacles"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "gafas de sol — sunglasses"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Necesito un buen par de gafas de sol.",
+    "nunca usa gafas de seguridad"
+   ],
+   "exEn": [
+    [
+     "no se acuerda dónde puso sus gafas",
+     "Carlos can't remember where he put his glasses."
+    ]
+   ],
+   "ex": [
+    [
+     "Llevo gafas desde los diez años.",
+     "I've worn glasses since I was ten."
+    ],
+    [
+     "¿Has visto mis gafas de sol?",
+     "Have you seen my sunglasses?"
+    ]
+   ]
+  },
+  "delea2/la rueda": {
+   "why": "The gloss missed a tyre (se nos pinchó una rueda). Two of the three examples were also A1 sentences, and the first's English said 'tire'. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "wheel",
+      "tyre (pinchar una rueda — to get a puncture)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "rueda de prensa — press conference"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No toques la silla de ruedas de Carlos.",
+    "No quiero ser la quinta rueda del coche."
+   ],
+   "exEn": [
+    [
+     "Hay que ponerle más presión a esa rueda",
+     "That tyre needs more air."
+    ]
+   ],
+   "ex": [
+    [
+     "Se nos pinchó una rueda en la autopista.",
+     "We got a puncture on the motorway."
+    ],
+    [
+     "Esta maleta tiene ruedas.",
+     "This suitcase has wheels."
+    ]
+   ]
+  },
+  "delea2/la moneda": {
+   "why": "The gloss is right. The first example, working at the mint, teaches la casa de la moneda rather than the coin.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "coin",
+      "currency"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "trabaja en la casa de la moneda"
+   ],
+   "ex": [
+    [
+     "¿Tienes una moneda de un euro?",
+     "Have you got a one-euro coin?"
+    ]
+   ]
+  },
+  "delea2/egoísta": {
+   "why": "'egotistic' is not this word, which is 'selfish'. The first example's English said 'deplorable', a register above the Spanish.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "selfish"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Es una lástima que ella sea tan egoísta",
+     "It's a shame she's so selfish."
+    ]
+   ]
   }
  },
  "insert": {
@@ -23437,7 +24084,9 @@
    "el chocolate",
    "la fábrica",
    "el virus",
-   "quitarse"
+   "quitarse",
+   "el/la periodista",
+   "el gimnasio"
   ]
  }
 }
