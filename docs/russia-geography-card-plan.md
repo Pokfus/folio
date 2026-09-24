@@ -3245,3 +3245,58 @@ byline — **the difference is evidence, not style.**
 and names no centre; `mosreg.ru`'s own about-the-region pages returned 403 from the archive across
 several attempts, and the Duma's site is a stub in the capture available. It is the same shape as the
 two solved here and should be retried when the proxy is quieter.
+
+## Batch 39 — `gru-502` Krasnogorsk, and why it is deferred rather than unwritten
+
+**THE LAST CENTRE IS NOW A REFUSAL, NOT A QUEUE.** Batch 38 left `gru-502` Krasnogorsk as the one
+number still to write and read it as a reachability problem — a card waiting for a quieter proxy.
+It is not. It is a card whose stating sentence **does not exist in any source of the kind this deck
+cites**, and the evidence for that is a rung the deck did not have before.
+
+**A NEW AND BETTER RUNG: `publication.pravo.gov.ru`, THE STATE'S OWN PUBLICATION PORTAL.** It answers
+from here, it is free, and it has a JSON API that needs no scraping:
+
+    http://publication.pravo.gov.ru/api/Documents?Name=<query>&PageSize=10&Index=1
+
+`PageSize` takes only certain values — **10 works and 3 and 20 are rejected with a validation error**,
+which reads like an outage if the body is not printed. Each hit carries its `eoNumber`, and the PDF is
+at `http://publication.pravo.gov.ru/file/pdf?eoNumber=<n>` — **not** the `/api/File/GetFile/` path,
+which 404s with an HTML error document, so `file` the download rather than trusting the status.
+
+**IT IS STRICTLY BETTER THAN GARANT FOR A CHARTER, AND GARANT'S "REPEALED" MARK IS WHY.** Garant serves
+Moscow Oblast's charter of **11 December 1996 № 55/96-ОЗ**, marked *документ утратил силу*, which
+batches 29 and 38 read as "this subject has no charter to consult". It has one: the portal carries
+**Law of Moscow Oblast of 23 November 2022 № 197/2022-ОЗ, *Устав Московской области***, 61 pages,
+published 28 November 2022. **A charter Garant marks repealed is a reason to look for the successor on
+the state portal, never a reason to stop** — and the same question is worth re-asking of the other
+subjects whose Garant charter came back repealed or stubbed (Stavropol, Rostov Oblast, and the three
+batch 30 recorded as absent: Tomsk, Kurgan, Kaliningrad).
+
+**AND THE CHARTER, READ IN FULL, NAMES NO ADMINISTRATIVE CENTRE AT ALL.** Not a mention of Krasnogorsk,
+not of Moscow, no *столица*, no *местонахождение* of the government, in 61 pages. Nor does any law on
+the portal: `Name=административном центре Московской области` and `Name=О столице Московской области`
+each return **0**, and `Name=Красногорск` returns 28 documents, all of them heritage-zone and
+environmental orders that merely happen in the town. Europe PMC's full text has `"city of Krasnogorsk"`
+in two papers, neither of which says what the city is; CyberLeninka's full-text search returns the town
+only as a study site. **So the fact the question asserts — that Krasnogorsk is the administrative
+centre of Moscow Oblast — is not a fact any citable source states.** It is an administrative
+arrangement: the House of Government has stood there since 2007, and much of the reference literature
+still prints Moscow, a city that is a different federal subject.
+
+**THE PDF IS CID-ENCODED AND `.claude/pdf-text.js` CANNOT READ IT, WITH OR WITHOUT `--literals`.** Both
+runs return 146 KB of mojibake that looks like a successful extraction. `pypdf` decodes it correctly
+(`pip install pypdf`, plus `pip install --upgrade cffi` or its crypt provider panics on this image), so
+**a portal PDF is read with pypdf and the result is checked by grepping for a word the document must
+contain** — here *Московской области*, which appears on nearly every page.
+
+**SO `gru-502` JOINS THE DEFERRED NUMBERS, AND IT IS THE FOURTH KIND OF REFUSAL IN THIS DECK.** `gru-501`
+Moscow and `gru-504` Saint Petersburg are cities that are themselves federal subjects, so the shape IS
+the answer; `gru-570` Khakassia is a DATA refusal, the polygon not containing Abakan. **`gru-502` is a
+FACT refusal**: the deck's question says *the administrative centre of the federal subject shaded around
+it*, and for this one subject no source of the kind this site cites says which city that is. It is
+`gw-596` Jerusalem's shape one level down — a card that cannot ask its own question honestly — and it is
+left unwritten and recorded rather than asserted. **The number stays reserved**: if a Moscow Oblast law
+ever designates the centre, the card is a morning's work and its dot is already placed.
+
+**THE CENTRE HALF IS THEREFORE FINISHED: 79 of the 80 writable centres, with `gru-502` deferred**, and
+the collection stands at 162 of 163 numbers.

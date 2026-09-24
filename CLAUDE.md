@@ -1624,13 +1624,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     different kinds of thing — 46 oblasts, 21 republics, 9 krais, 4 autonomous okrugs, 2 cities of federal
     significance and 1 autonomous oblast — so "province" is false of 37 of them and "region" gives the
     answer away on the 46 oblasts, *oblast* being conventionally translated that way.
-  · **THREE CAPITAL NUMBERS ARE NEVER WRITTEN AND THEY ARE NOT THE SAME REFUSAL.** `gru-501` Moscow and
+  · **FOUR CAPITAL NUMBERS ARE NEVER WRITTEN AND THEY ARE NOT THE SAME REFUSAL.** `gru-501` Moscow and
     `gru-504` Saint Petersburg are cities that are themselves federal subjects, so the shape IS the
     answer — China's four municipalities exactly. **`gru-570` Khakassia is a DATA refusal**: Natural Earth
     draws Abakan, the capital, four to five kilometres OUTSIDE Khakassia, and all three published
     coordinates tested fall in Krasnoyarsk Krai, so the fault is the polygon and no coordinate reaches it.
     **The dot is not moved and is not snapped.** All three are enforced by `window.RUSSIA_CENTRES` holding
     80 rows rather than by the plan saying so, so `add-card.js` refuses such a card.
+    **AND `gru-502` KRASNOGORSK IS A FACT REFUSAL, WHICH IS THE THIRD KIND** (Sep 2026, batch 39). The
+    deck's question asks for *the administrative centre of the federal subject shaded around it*, and for
+    Moscow Oblast **no source of the kind this site cites says which city that is**: its own charter — the
+    CURRENT one, Law 197/2022-ОЗ of 23 November 2022, all 61 pages of it — names no centre, no capital and
+    no seat of government; the state publication portal returns 0 laws on the subject; and Europe PMC and
+    CyberLeninka carry the town only as a study site. The oblast is governed from Krasnogorsk and much of
+    the reference literature still prints Moscow, a city that is a DIFFERENT federal subject. So the card
+    is left unwritten with its number reserved and its reason recorded, `gw-596` Jerusalem's shape one
+    level down. **A card that cannot ask its own question honestly is deferred, never softened.**
   · **THE FACTS GRID IS FILLED FROM ONE BILINGUAL ROSSTAT TABLE, AND ROSSTAT'S OWN HOSTS CANNOT BE
     REACHED FROM HERE.** `rosstat.gov.ru`, `eng.rosstat.gov.ru` and `gks.ru` fail TLS verification —
     their certificates chain to a Russian national CA nothing here carries — and `fedstat.ru` 403s;
@@ -1657,7 +1666,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     subject's, and is the PRIMARY source the other rungs were proxies for — Tyumen Oblast's charter
     gives article 11 to it and Dagestan's constitution article 101, in the chapter on the state
     symbols; **it serves windows-1251, so decode it**, and **the slug is read off `/region/`'s own index
-    and never composed**, `ustav_krasnodar` being a guess that 404s. **ALL 85 CHARTERS HAVE NOW BEEN
+    and never composed**, `ustav_krasnodar` being a guess that 404s.
+    **AND WHERE GARANT SERVES A REPEALED CHARTER, THE STATE'S OWN PUBLICATION PORTAL SERVES THE CURRENT
+    ONE** (Sep 2026, batch 39): `http://publication.pravo.gov.ru/api/Documents?Name=<query>&PageSize=10&Index=1`
+    is a JSON search needing no scraping, and the PDF is at `…/file/pdf?eoNumber=<n>` — **not** the
+    `/api/File/GetFile/` path, which 404s with an HTML error document, so `file` the download rather than
+    trusting the status. **`PageSize` accepts only certain values — 10 works and 3 and 20 are rejected**
+    with a validation error that reads like an outage unless the body is printed. Garant's *документ
+    утратил силу* on Moscow Oblast was read twice as "this subject has no charter"; the successor was on
+    the portal all along. **Re-ask the charter question there for every subject Garant marked repealed or
+    served as a stub.** Its PDFs are CID-encoded and **`.claude/pdf-text.js` returns 146 KB of mojibake
+    that looks like a successful extraction**, with or without `--literals`; `pypdf` decodes them, and the
+    result is checked by grepping for a word the document must contain. **ALL 85 CHARTERS HAVE NOW BEEN
     SWEPT AND 54 OF THEM STATE THEIR OWN CENTRE**, which is the largest unlock the capital half has
     had; the plan's batch 22 lists both sets by slug. **The sweep that said otherwise was a DEAD REGEX
     — JS's `\w` is ASCII-only and never matches Cyrillic, so `административн\w+` reported "none" for
@@ -2491,7 +2511,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.48 MB and 50,699 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.49 MB and 50,761 lines is hard to find your way around, so this
   lists its 195 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -7896,7 +7916,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 4 / 4 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** (Sep 2026) across 233 numbers — `fl-001`–`fl-233` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, whose numbers stay reserved, so the next-card command prints a deferral rather than work, one per `gw-` COUNTRY card and numbered to match it, see below |
 | Draw the flags | `geo-world` | `fd-` | `docs/flags-draw-card-plan.md` | 4 / 4 | **THE FLAGS DECK RUN BACKWARDS** (Sep 2026, on request) — the reader is given a canvas with its own pens, colours and a fill, and draws the flag from memory, then reveals it and judges themselves. A FOURTH deck of World Geography, so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** across 233 numbers — `fd-001`–`fd-233` less the DEFERRED `fd-036`, `fd-171`, `fd-180` and `fd-218`, which are the Flags deck's own four and are deferred here for the same reason one step on: a card that asks for a flag to be drawn and then shows it has nothing to show. `fd-NNN` is the same entity as `fl-NNN` and `gw-NNN` — in this collection the NUMBER is the entity and the PREFIX is the question asked about it, which is why it is NOT numbered +500 like the capitals, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 162 cards — **the 83 federal subjects are COMPLETE** and the capital half is ALL BUT DONE, seventy-nine of the 80 centres being written (`gru-503`, `gru-505`–`gru-569` and `gru-571`–`gru-583`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502` Krasnogorsk is the last one still to write**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | **COMPLETE, 162 of 162 writable** across 163 numbers — the 83 federal subjects and 79 of the 80 centres; **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION. **`gru-502` Krasnogorsk is DEFERRED, and its number stays reserved**: the deck's question asks for *the administrative centre of the federal subject shaded around it*, and no source of the kind this site cites says which city that is for Moscow Oblast — its own charter of 2022 names none, nor does any law on the state portal. A FACT refusal, `gw-596` Jerusalem's shape one level down, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
 The next id for any of them (substitute the prefix):
@@ -7910,7 +7930,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (448 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (463 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -8886,7 +8906,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 448 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 463 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
