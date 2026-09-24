@@ -1017,6 +1017,36 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-531`–`rm-540`: the equestrian career to the Battle of Lugdunum — what this batch found
+
+`rm-531`–`rm-535` close `rm-high-empire` and `rm-536`–`rm-540` open `rm-third-century`, with eleven new
+glossary terms. **Six lines are answered by a term they do not contain**: `rm-531` *The equestrian career*
+by **`procurator`** (`Equestrian_order` being `rm-287`'s), `rm-532` *The emperor and the cities* by
+**`curator rei publicae`** (no English Wikipedia article exists, so the key is the slug form of the term),
+`rm-533` *Panegyric and the ideal emperor* by **`Dio Chrysostom`** (Pliny's *Panegyricus* still has no
+public-domain English translation reachable from here, where Cohoon's Loeb Dio is on Thayer), `rm-534` *The
+economy of the high empire* by **`Monte Testaccio`**, `rm-535` *Rome at its height* by **`Forma Urbis
+Romae`**, and `rm-540` *The civil wars of 193–197* by **`Battle of Lugdunum`**. `Lugdunum` the city stays
+`rm-760`'s and no city term was made.
+
+**THE PESCENNIUS NIGER TRAP, AND A TERM TO CLOSE IT.** `Niger` is the glossary key of the modern country,
+so "Pescennius Niger" linked its second word there; a `Pescennius_Niger` term now wins on the full name.
+**Never write him bare.** The same batch found **"Year of the Five Emperors" linking to the Chinese
+`Three_Sovereigns_and_Five_Emperors`** until its own term existed, **"Claudius Pompeianus" linking the
+emperor Claudius**, and **the Roman provinces of Germany linking the modern country** — written now as
+*Germania* and *Germania Inferior*, which claim no surface.
+
+**`dio chrysostom` joined `check-cards.js`'s `ANCIENT` list**, the drop set being this batch's two cards;
+the agent had held him to two citations of his own speeches to stay under the modern-author cap. `rm-534`
+carries two Spanish sources, the Barcelona team that excavates the hill publishing in Spanish, and rule 6 did
+not fire on it, so no `SAME_LANGUAGE_OK` row was needed.
+
+**No figure for the total number of amphorae in Monte Testaccio could be sourced** — the popular "53
+million" appears in nothing openable from here, the CEIPAC site answering 404 — so the card gives none.
+Several of the 193 dates come from Magie's Loeb notes, Herodian is cited by Hart's 1749 page numbers where
+that edition prints no chapters, and the Commons upload host returned 429 for the Albinus denarius on
+`rm-540` throughout the final check (its address was read from the API).
+
 ## `rm-521`–`rm-530`: the Aurelian Column to the emperor's council — what this batch found
 
 All ten are in `rm-high-empire`. **Six lines are answered by a term they do not contain**, and the reason
