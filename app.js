@@ -17860,10 +17860,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const st = TOUR_STEPS[tourAt];
     // routing repaints the page under the tour; the overlay is on document.body and survives it, and
     // render() calls tourAfterRender() so nothing here has to wait on the paint
-    if (st.route && current && current.name !== st.route) route(st.route);
-    tourPaint(first);
+    const routed = !!(st.route && current && current.name !== st.route);
+    if (routed) route(st.route);
+    tourPaint(first, routed);
   }
-  function tourPaint(first) {
+  function tourPaint(first, routed) {
     const ov = tourEl; if (!ov) return;
     const st = TOUR_STEPS[tourAt], last = tourAt === TOUR_STEPS.length - 1;
     ov.querySelector(".tour-count").textContent = "Step " + (tourAt + 1) + " of " + TOUR_STEPS.length;
@@ -17878,7 +17879,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ov.querySelector(".tour-next").textContent = last ? "Done" : "Next";
     ov.querySelector(".tour-skip").textContent = last ? "Close" : "Skip";
     // a target the reader cannot see is a target the arrow cannot usefully point at
-    tourReveal(tourTarget());
+    tourReveal(tourTarget(), routed);
     tourPlace();
     requestAnimationFrame(() => { tourPlace(); if (first) ov.querySelector(".tour-card").focus(); });
     // …and again once a smooth scroll has settled, since the arrow is drawn at the target's painted position
@@ -17892,9 +17893,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      screen with its target still underneath it is the fault it was meant to fix.
      A target too tall for the band is left with its top in view: the ring is dropped for it anyway (see
      tourPlace), and the alternative is scrolling to the middle of something the reader cannot take in. */
-  function tourReveal(t) {
+  /* A STEP THAT HAS JUST ROUTED STARTS FROM THE TOP OF THE NEW PAGE, INSTANTLY. render() has issued a
+     SMOOTH scroll to the top a moment earlier, and it has barely begun when this runs — so the target was
+     measured at the OLD page's scroll depth, judged already in the clear, and then carried down behind the
+     docked card as that scroll finished. Measured on a phone: the Collections step's first + read 253px
+     from the top at the old depth and ended at 490, under a card whose top was at 467. It only showed once
+     the Collections page's head grew. Jumping to the top first cancels the animation and puts the page
+     where render() was taking it anyway, so the measurement is of the page the reader will actually see;
+     nothing is lost by skipping the animation, the page under the card having just been replaced. */
+  function tourReveal(t, instant) {
     if (!t || !tourEl) return;
-    const smooth = prefersReducedMotion() ? "auto" : "smooth";
+    if (instant) window.scrollTo({ top: 0, behavior: "auto" });
+    const smooth = instant || prefersReducedMotion() ? "auto" : "smooth";
     const ov = tourEl, cardEl = ov.querySelector(".tour-card"), ovCS = getComputedStyle(ov);
     const r = t.getBoundingClientRect();
     if (ovCS.alignItems !== "flex-end") {
