@@ -3630,6 +3630,105 @@ The Commons API answered in fits during this batch: `list=search` and `list=cate
 empty bodies for minutes at a time while `en.wikipedia.org`'s `pageimages` answered at once. That is the
 route that found the scroll portraits.
 
+## cnh-281 – cnh-290, Zhuge Liang, Wu and the institutions of Wei (Sep 2026)
+
+Ten more cards in `col-16`. No plan line was renamed. The plan's line for `cnh-283` reads *Zhuge
+Liang's Northern Expeditions*, and the card is answered by **Northern Expeditions**. Its glossary key is
+the real slug `Zhuge_Liang's_Northern_Expeditions`, with the answer as an alias.
+
+**NO ALIAS CLAIMS THE SINGULAR *Northern Expedition*, AND THAT IS DELIBERATE.** The Eastern Jin's
+expeditions north (Zu Ti, Huan Wen, Liu Yu) lie ahead in this collection's own plan, and the Guomindang's
+Northern Expedition of 1926 is the best-known use of the phrase in English. A bare alias would be right
+today and wrong within a few batches, which is `Neville_Chamberlain`'s precedent.
+
+**`cnh-286` Guan Yu is a DELIBERATE PAIR with `cnh-039` Guandi, and the two glossary terms were
+separated.** `Guandi`, written for `cnh-039`, claimed *Guan Yu* as its first alias, so every sentence
+naming the general opened a definition of the god. That alias is now removed and *Guan Yu* is a term of
+its own. The man is `Guan_Yu`; the deity is `Guandi`, reached by *Guan Gong*, *Kuan Ti* and *Lord Guan*.
+`cnh-039`'s own prose names the historical general, so its link now opens the man, which is the right
+reading there too.
+
+**`Sanguozhi` WAS WIDENED, NOT RE-KEYED.** It was written for `ko-089` and described the history only
+through its chapter on the eastern peoples. `add-sources.js` rewrote the description to open on the book
+as a whole (Chen Shou, Pei Songzhi, the three states). All three Korean citations were kept, still
+pointing at the Korean claims, and two sources were added. It already carried the alias *Records of the
+Three Kingdoms*, so `cnh-290` needed no new term. That is why this batch adds nine terms, not ten.
+
+**SOURCES.** The spine is the batch-before's:
+- de Crespigny's 1991 *East Asian History* survey (printed page = PDF page − 4) and *Generals of the
+  South*, whose pages 415–23 are the fullest open account of Chen Shou and Pei Songzhi.
+- *To Establish Peace*, the Zizhi tongjian for 189–220 (pages 363–66 for the Longzhong Plan).
+- Theobald's ChinaKnowledge pages, dated individually. The *menfa* page, of 16 September 2017, is the
+  open statement that the nine ranks were abolished under the Sui and Tang.
+- Giles, Cordier and Wylie's *Notes on Chinese Literature* (pages 14–15 for the Sanguozhi).
+
+**THE NINE-RANK SYSTEM HAD ONE OPEN SOURCE OUTSIDE THOSE FAMILIES.** DOAJ, OpenAlex and Crossref were
+searched under *nine-rank system*, *jiupin zhongzheng* and *nine ranks impartial and just*. Holzman's
+1957 study, the standard work, is not open. The one hit was a 2025 paper by Tao Jia and Yan Zhang in the
+*Academic Journal of Management and Social Sciences*, a management journal whose argument is about
+modern institutional reform. `cnh-288` cites it only for the Jin memorials it quotes, and it is marked
+on exactly one sentence of the card.
+
+**THE SOURCES DISAGREE IN NINE PLACES, AND NO CARD TAKES A SIDE.**
+- *Sun Quan's birth.* Giles says 181 and de Crespigny 182, reckoned from his age of seventy-one sui at
+  death in 252. The card follows *Generals of the South*.
+- *Sima Yi's birth.* Giles says 178 and Theobald 179, so the card gives no birth year.
+- *When Sima Yi joined Cao Cao.* Theobald says 201, the 1991 survey 208 and Giles 211. The card
+  gives no year.
+- *When Sun Quan took the imperial title.* Theobald's Sun Quan page says 222 at Wuchang; his own Wu
+  page, Giles, Cordier and the 1991 survey (23 June 229) all say 229. The cards say 229 and cite the
+  majority.
+- *When Sun Quan was made King of Wu.* It was 221 or 222, so it is left undated.
+- *When Cao Rui died.* The 1991 survey says 238 and Cordier 239, so it is left undated.
+- *Guan Yu's home.* Giles puts it in Shandong and Theobald at Xie in Shanxi. The card follows Theobald.
+- *The oath in the peach garden.* Giles reports it as fact, but it is the novel's. The card calls it
+  "later tradition".
+- *Guan Yu's death.* *To Establish Peace* puts it in the twelfth month of the Chinese year 219, which
+  runs into 220 by the Western calendar. The prose says "the twelfth month of the Chinese year", and
+  the date line keeps the conventional 219.
+
+**TWO ORIGINS ARE GIVEN AS TRADITION, NOT FACT.**
+- The 1991 survey's main text says Cao Cao instituted the nine ranks. Its note 84 records that the full
+  form "is said" to be Chen Qun's work under Cao Pi and that the system was developing before that.
+  `cnh-288` gives the tradition and the hedge together.
+- Giles calls Zhao Chongguo the originator of the *tuntian*, where Theobald dates the first colonies to
+  Emperor Wu. `cnh-287` cites Giles only for Zhao's settlements.
+
+**CHEN SHOU'S DEATH IS "c. 300".** The *Jin shu* puts it about 297, and Giles follows it. The *Huayang
+guo zhi*, as *Generals of the South* reads it, has him dismissed after Zhang Hua's fall in 300.
+
+**A QUOTATION FROM THE NOVEL ON A HISTORY CARD.** `cnh-282` quotes chapter 38 of *Romance of the Three
+Kingdoms* in Brewitt-Taylor's translation: the speech itself, which the novel takes closely from Zhuge
+Liang's biography. That is `cnh-280`'s arrangement, and the card's own prose says where the historical
+record of the conversation lies.
+
+**LOCATORS: EIGHT OF TEN.**
+- Chengdu for Zhuge Liang and Luoyang for Sima Yi's coup.
+- Crossed swords at the Wuzhang Plains for the Northern Expeditions.
+- Nanjing for Eastern Wu and Sun Quan.
+- Dangyang for Guan Yu's death and Xuchang for the first *tuntian*.
+- **The Longzhong Plan is on Xiangyang, labelled Xiangyang.** Wikipedia has no *Gulongzhong* article to
+  read a coordinate from, and a dot labelled Longzhong on the city centre would be about thirteen
+  kilometres out.
+
+The nine-rank system and the Records have no single place.
+
+**PICTURES: FOUR OF TEN.**
+- Zhuge Liang: a Ming portrait on silk in the National Museum of China.
+- Sun Quan: Yan Liben's *Thirteen Emperors Scroll*, the source of the Cao Pi and Liu Bei pictures before
+  it.
+- Guan Yu: Shang Xi's *Guan Yu Captures Pang De* of about 1430, in the Palace Museum.
+- Sima Yi: a Ming woodblock portrait.
+
+Each card's paired glossary term takes the same file. Three candidates were refused:
+- *The Eastern Jin manuscript fragment of the Sanguozhi.* It is already on `wh-414`, `ko-089` and the
+  `Sanguozhi` term, as `check-image-free.js` reported.
+- *The CC BY-SA map of the Longzhong Plan.* It is only 436 × 556 pixels.
+- *A Qing illustration of the Wei River battle.* It is only 500 pixels wide.
+
+**THUMBNAIL WIDTHS.** A 1280-pixel thumbnail was taken where the original is wider. Sun Quan's and Sima
+Yi's files are narrower than 1280, so their original URLs are used.
+
 ## Re-sourcing the mythology cards (batch C7, Sep 2026)
 
 Five China cards were reported by `check-cards.js` rule 1 for resting three deep on one author —
