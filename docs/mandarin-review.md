@@ -688,6 +688,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 601–630 (基金 → 加重), deck order | 18 | **夹: not one of its three sentences used the verb the card teaches**, one of them a loanword in which the character means nothing — and two replacements drafted here carried back the very fault they replaced |
 | 2026-09-24 | `hsk30l6` notes 631–660 (假设 → 奖品), deck order | 26 | **eight cards whose headword sat only inside a longer word** (尖叫 twice, 利剑, 箭头, 一箭双雕, 四体健全者) or in a sentence that was not Chinese, and seven near-repeats, three of them this record's own |
 | 2026-09-24 | `hsk30l6` notes 661–690 (酱 → 借助), deck order | 27 | **酱 and 解: not one of either card's three sentences used the character on its own**, and three glosses were cut off mid-phrase or were not the word's meaning at all |
+| 2026-09-24 | `hsk30l6` notes 691–720 (金额 → 镜头), deck order | 26 | **净 and 井 had no sentence using the character on its own**, 尽's three were one idea, and five Englishes rendered a different sentence from the Chinese above them |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11654,4 +11655,44 @@ syllable; both readings are current and this audit does not settle tone disagree
 Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1.
 The three hint pairs in range (焦虑/着急, 脚印/足迹, 街头/马路) are untouched, their glosses unchanged.
 `check-british` reads 0. **Verified against the real diff: 27 of 30 changed and nothing outside the
+range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 153 — `hsk30l6` notes 691–720 (金额 → 镜头), 2026-09-24
+
+Twenty-six of the thirty changed. **The single-character class again, for the fourth batch running.**
+**净**'s three sentences were 纯净 twice and the saying 不干不净 — the character never on its own.
+**井** had a fantasy place name, 绝望之井 "the Well of Despair", and 水井, a word of its own. **尽** had
+one sentence swallowed (用尽 is in CC-CEDICT) and all three said the same thing — do your utmost —
+while the card claims two readings; the jǐn reading turns out to live almost entirely in compounds
+(尽快, 尽量, 尽管), so the `Compounds` panel carries it and the two new sentences show the jìn reading's
+other uses, *to use up* (花尽) and *to fulfil a duty* (尽了…责任). All three cards got panels, every
+row read off CC-CEDICT; 净 is split into *clean*, *net* and the adverb *nothing but; all the time*,
+one sentence each. Two more swallowed headwords on two-character cards: 进化论 on 进化 and 精确性 on
+精确.
+
+**Five Englishes translated a different sentence from the Chinese above them.** 惊人's 真是惊人至极
+read **"It was all more and more surprising"** — a line from *Alice*, not a translation of this.
+镜头's English dropped the headword and turned *he thinks the scenes are bloody* into *American dramas
+are bloody*. 金额's said "over 20,000 yen" for 达到了两万; 精通's "very sharp at physics" lost the
+mastery; 金属's 酸性 means *acidity* and its English silently corrected it to *acid* — that one was
+dropped rather than corrected, the Chinese being the fault. 经商's own authored "Trade requires a good
+head" was not English.
+
+**Eight glosses changed.** 进展 led with **"evolve"**, which it does not mean; 精美 was "delicate", which
+CC-CEDICT does not give and which reads *fragile*; 进化 put a noun under a verb label; 精心 put two
+adverbs under an adjective label; 竞赛 put three nouns under a verb label with no verb sentence (the
+label is corrected rather than a verb sentence invented); 近视 was unhyphenated against its own three
+Englishes; 颈椎 carried a bracketed gloss of its own gloss; 进度 lacked the plain "progress". 警告 and
+镜头 were split and tagged — the noun *warning* and the film *shot*, each shown by the card's own
+sentences.
+
+**Seven near-repeats, five of them this record's own**: 精致 (three × 很/十分精致), 精准, 经商, 景观
+and 进而 (先 X，进而 Y twice); from the deck, 金牌 (three wins) and 景象 (那景象 twice). Plus a
+job title twice on 金融, and 竞赛's 料理竞赛, the Japanese and Taiwan word for cooking.
+
+**Four cards were read and left**: 金钱, 金子, 近来, 惊讶. The four hint pairs in range (金钱/钱,
+金子/黄金, 进而/继而, and 景象/画面) are untouched, their glosses unchanged.
+
+Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1.
+`check-british` reads 0. **Verified against the real diff: 26 of 30 changed and nothing outside the
 range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
