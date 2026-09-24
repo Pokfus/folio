@@ -3474,6 +3474,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S17 | A2 | #439 `vestirse` – #466 `mexicano` | 25 | 3 (`el cuaderno`, `el medicamento`, `la cebolla`) | 0 | — | — |
 | S18 | A2 | #467 `valer` – #498 `apellidarse` | 30 | 2 (`acostarse`, `amueblar`) | 0 | A2 complete | — |
 | S19 | B1 | #0 `hacerse` – #27 `último` | 26 | 2 (`el capitán`, `último`) | 0 | names, British, usage switched on for B1 (356 further cards touched by them alone); B1 description corrected (999 words, 946 with three examples) and A2's (all 495) | `bold` needed for a phrase headword |
+| S20 | B1 | #28 `correcto` – #55 `siguiente` | 26 | 2 (`correcto`, `el plan`) | 0 | B1 description: 995 words with examples, 947 with three | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4352,6 +4353,47 @@ These are left for their own batches.
 **CHECKERS.**
 - `--check` passes and `check-say` reports 0.
 - `check-senses --deck=DELE-B1` flags 115 cards. That figure is a baseline for the read, not a result. From this batch it flags only `matar`, which is a stemming false positive: its "kille" does not match "kill".
+
+### S20 — DELE B1, notes #28–#55 (Sep 2026)
+
+Measured against the S19 commit by card id: **26 changed, 973 untouched**, all 26 of them this batch's
+record entries. **`correcto` and `el plan` were read and left.**
+
+**THE SAME-SPELT WORD, SEVEN MORE TIMES.** S19 found the look-alike class at the head of B1; it is just
+as dense in this batch:
+- `la frente`, the forehead, was never the forehead. Two examples were *en frente de* ("opposite"), and
+  one was *hacer frente*, which is *el frente*.
+- `el puesto` had the participle *puesta*.
+- `la orden` had *el orden*, the other gender and another word.
+- `el paso` had the verb *pasar* twice.
+- `la falta` had *faltar*.
+- `duro` had *durar*.
+- `perdido` had *perder* in a perfect tense.
+
+Two cards whose own FORMS row now says *not el orden* and *not el frente* follow S12's `la gorra`.
+
+**A PHRASE CARD ILLUSTRATED BY A DIFFERENT PHRASE.**
+- `en realidad` ("actually") had *convertirse en realidad* ("to come true").
+- `al menos` had *al menos que le hablen*, which is a mistake for *a menos que*, a later B1 card.
+
+**`asesino` HAD NO EXAMPLES AT ALL** and glossed only the adjective, "murderous", where the word is
+overwhelmingly the noun. It now carries three. The description is brought up to 995 of 999 words with
+examples, and 947 with three.
+
+**AND THE REST.**
+- `la orden`: *órden*, accented in the singular, is gone.
+- `el grupo` lost a generalisation about the Japanese and the Latin American *se robó*.
+- `el dado`: the same Einstein line twice is now one.
+- `otra vez`'s gloss had opened on Wiktionary's own note ("Used other than figuratively…").
+- `extraño`'s gloss was a list of eleven synonyms.
+
+**Nine more sentences shared with A1 or A2 were replaced**, and one of the replacements — *Da un paso
+adelante* — was itself A2's `adelante` sentence and was changed again.
+
+**CHECKERS.** `--check` passes; `check-say` 0. `check-senses --deck=DELE-B1` 115 → 110. Its two flags
+from this batch are false positives:
+- `llevarse`: the English irregular *took* does not stem to *take*.
+- `así que`: its gloss *so* is shorter than the checker's three-letter minimum.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

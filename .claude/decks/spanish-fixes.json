@@ -583,7 +583,7 @@
    ]
   },
   "deleb1": {
-   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's.",
+   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's. Batch S20 gave asesino, which had none, three: 995 of 999 with examples and 947 with three.",
    "exNames": [
     [
      "Tom",
@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 999 words, three apiece for 946 of them"
+     "Example sentences come with 995 of the 999 words, three apiece for 947 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -862,6 +862,14 @@
     [
      "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR.",
      "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR, except those written for this deck."
+    ],
+    [
+     "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
+     "Example sentences come with 995 of the 999 words, three apiece for 947 of them"
+    ],
+    [
+     "the sentence corpus has nothing at all for the remaining 5,",
+     "there are none at all for the remaining 4,"
     ]
    ]
   }
@@ -28372,6 +28380,675 @@
      "The accident killed two people."
     ]
    ]
+  },
+  "deleb1/el sitio": {
+   "why": "The gloss missed room, space, which is what ¿hay sitio? asks. The first example is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "place",
+      "room, space (¿hay sitio? — is there room?)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "sitio web — website"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ella se fue a comprar a otro sitio."
+   ],
+   "ex": [
+    [
+     "¿Hay sitio para uno más?",
+     "Is there room for one more?"
+    ]
+   ]
+  },
+  "deleb1/así que": {
+   "why": "The gloss is right. The first example is shared with así in A2, and the third with el hambre in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "bold": [
+    "así que"
+   ],
+   "dropEx": [
+    "no irás a ninguna parte mañana",
+    "Acabo de comer, así que no tengo hambre."
+   ],
+   "ex": [
+    [
+     "Llovía, así que nos quedamos en casa.",
+     "It was raining, so we stayed at home."
+    ],
+    [
+     "Es tarde, así que me voy a dormir.",
+     "It's late, so I'm going to bed."
+    ]
+   ]
+  },
+  "deleb1/el dado": {
+   "why": "The first and third examples were one sentence, Einstein's line about God and dice, twice.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "die (los dados — dice)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¡Dios no juega a los dados!"
+   ],
+   "ex": [
+    [
+     "Te toca tirar los dados.",
+     "It's your turn to throw the dice."
+    ]
+   ]
+  },
+  "deleb1/el paso": {
+   "why": "The second and third examples were the verb pasar ('Pasa por mí', 'si pasas por la tienda'), not the noun, and the third is also an A1 sentence. The gloss missed the zebra crossing.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "step, footstep",
+      "pace",
+      "crossing (paso de cebra — zebra crossing)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Pasa por mí a las dos y media.",
+    "si pasas por la tienda"
+   ],
+   "ex": [
+    [
+     "Dio un paso hacia la puerta.",
+     "He took a step towards the door."
+    ],
+    [
+     "Oí pasos en la escalera.",
+     "I heard footsteps on the stairs."
+    ]
+   ]
+  },
+  "deleb1/la falta": {
+   "why": "The gloss missed hacer falta, 'to be needed', and a foul in sport. The first example is also an A1 sentence, and the third was the verb faltar ('le falta confianza') and is an A1 sentence too. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "lack, shortage",
+      "absence",
+      "mistake (falta de ortografía — spelling mistake)",
+      "foul (in sport)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hacer falta — to be needed (no hace falta — there's no need)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las flores mueren con la falta de agua.",
+    "A Carlos le falta confianza"
+   ],
+   "exEn": [
+    [
+     "tus faltas de asistencia",
+     "You must account for your absences."
+    ]
+   ],
+   "ex": [
+    [
+     "No hace falta que vengas.",
+     "You don't need to come."
+    ],
+    [
+     "El árbitro pitó falta.",
+     "The referee blew for a foul."
+    ]
+   ]
+  },
+  "deleb1/otra vez": {
+   "why": "The gloss opened on Wiktionary's own note ('Used other than figuratively or idiomatically: see otra, vez'). The first example is shared with junto in A2, and the second with la respuesta in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "again"
+     ]
+    ]
+   ],
+   "bold": [
+    "otra vez"
+   ],
+   "dropEx": [
+    "volver a cantar juntos alguna otra vez",
+    "Inténtalo otra vez"
+   ],
+   "ex": [
+    [
+     "¿Otra vez llegas tarde?",
+     "Are you late again?"
+    ],
+    [
+     "Lo intentaré otra vez mañana.",
+     "I'll try again tomorrow."
+    ]
+   ]
+  },
+  "deleb1/perdido, perdida": {
+   "why": "The gloss is right. The first example was the verb perder in a perfect tense ('hemos perdido un tiempo'), not the adjective, and the third's English said 'lost and found'.",
+   "dropEx": [
+    "Ya hemos perdido un tiempo más que suficiente."
+   ],
+   "exEn": [
+    [
+     "objetos perdidos más cercana",
+     "Where is the nearest lost property office?"
+    ]
+   ],
+   "ex": [
+    [
+     "Estoy perdido, ¿me puedes ayudar?",
+     "I'm lost, can you help me?"
+    ]
+   ]
+  },
+  "deleb1/llevarse": {
+   "why": "The gloss put the phrase llevarse bien without its adverb. The second example is also an A1 sentence, and the first and third were one construction, getting on with someone; the first's English said 'get along'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to take (away), to take with you"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "llevarse bien / mal con — to get on well / badly with"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "se llevó algo de comida a casa",
+    "no se lleva bien con sus vecinos"
+   ],
+   "exEn": [
+    [
+     "no puede llevarse bien con Ana",
+     "Carlos just can't get on with Ana."
+    ]
+   ],
+   "ex": [
+    [
+     "¿Te llevas el paraguas?",
+     "Are you taking your umbrella?"
+    ],
+    [
+     "Los ladrones se llevaron el coche.",
+     "The thieves took the car."
+    ]
+   ]
+  },
+  "deleb1/real": {
+   "why": "The gloss missed 'royal', which the third example is.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "real",
+      "royal"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la orden": {
+   "why": "The first example was el orden, 'order, sequence', a different word of the other gender, and the third spelt the plural's accent onto the singular, órden. The gloss's 'order (request, purchase, or food)' is Latin American; Spain says pedido.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "order, command",
+      "warrant (orden judicial)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las órdenes"
+    ],
+    [
+     "not",
+     "el orden — order, sequence"
+    ]
+   ],
+   "dropEx": [
+    "Esta lista no tiene ningún orden en particular.",
+    "la órden del comandante"
+   ],
+   "ex": [
+    [
+     "El capitán dio la orden de atacar.",
+     "The captain gave the order to attack."
+    ],
+    [
+     "La policía tenía una orden de registro.",
+     "The police had a search warrant."
+    ]
+   ]
+  },
+  "deleb1/especial": {
+   "why": "The gloss said 'special' twice, and missed 'particular, fussy', which the first example is. The third is shared with la educación in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "special",
+      "particular, fussy (about something)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "una clase de educación especial"
+   ],
+   "ex": [
+    [
+     "Hoy es un día muy especial.",
+     "Today is a very special day."
+    ]
+   ]
+  },
+  "deleb1/duro, dura": {
+   "why": "The gloss missed hard as difficult. The second example was the verb durar, A2's card ('nada dura para siempre'), not the adjective.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "hard, tough",
+      "hard, difficult (un día duro)",
+      "harsh, strict"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A fin de cuentas, nada dura para siempre."
+   ],
+   "ex": [
+    [
+     "Ha sido un día muy duro.",
+     "It's been a very hard day."
+    ]
+   ]
+  },
+  "deleb1/el puesto": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY. The first is shared with junto in A2, the second with nuevo in A1, and the third was the participle puesta of poner ('llevas puesta la chaqueta'), not the noun. The gloss missed the market stall. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "position, post, job",
+      "stall (at a market)",
+      "place (in a ranking)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Un puesto junto a la ventana",
+    "cuarenta nuevos puestos de trabajo",
+    "llevas puesta la chaqueta"
+   ],
+   "ex": [
+    [
+     "Ha conseguido un puesto de profesora.",
+     "She has got a job as a teacher."
+    ],
+    [
+     "Compramos fruta en un puesto del mercado.",
+     "We bought fruit at a market stall."
+    ],
+    [
+     "El equipo terminó en tercer puesto.",
+     "The team finished in third place."
+    ]
+   ]
+  },
+  "deleb1/al menos": {
+   "why": "The gloss is right. The first example, 'al menos que le hablen', is a mistake for a menos que, 'unless', which is its own card later in B1; it and the third are also A1 sentences. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "at least"
+     ]
+    ]
+   ],
+   "bold": [
+    "al menos"
+   ],
+   "dropEx": [
+    "Él nunca habla al menos que le hablen.",
+    "vi al menos cincuenta películas"
+   ],
+   "ex": [
+    [
+     "Llámame al menos una vez a la semana.",
+     "Call me at least once a week."
+    ],
+    [
+     "Al menos no llueve.",
+     "At least it isn't raining."
+    ]
+   ]
+  },
+  "deleb1/extraño, extraña": {
+   "why": "The gloss was a list of eleven synonyms and missed the noun, a stranger, which the second example is.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "strange, odd"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el extraño, la extraña — stranger"
+     ]
+    ]
+   ]
+  },
+  "deleb1/raro, rara": {
+   "why": "The gloss put 'rare' first; at B1 raro is strange or weird, which two examples are. The third is shared with sacar in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "strange, odd, weird",
+      "rare"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "has sacado esos zapatos"
+   ],
+   "ex": [
+    [
+     "Es raro que no haya llamado.",
+     "It's odd that she hasn't called."
+    ]
+   ]
+  },
+  "deleb1/general": {
+   "why": "The gloss did not give por lo general, which the first and third examples both were, or the noun, a general. The third also carried a Freddy the name table does not reach.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "general, overall"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "por lo general — usually"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el general — general (army)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "mis amigos me llaman Freddy"
+   ],
+   "ex": [
+    [
+     "El director general llega mañana.",
+     "The managing director arrives tomorrow."
+    ]
+   ]
+  },
+  "deleb1/el modo": {
+   "why": "The gloss put 'mood' beside 'way' without saying it is the grammar term, and missed de todos modos. The third example is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "way, manner",
+      "mood (in grammar)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de todos modos — anyway"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ahora veo la vida de un modo diferente."
+   ],
+   "ex": [
+    [
+     "No hay modo de convencerlo.",
+     "There's no way to convince him."
+    ]
+   ]
+  },
+  "deleb1/asesino, asesina": {
+   "why": "THE CARD HAD NO EXAMPLES, and glossed only the adjective, 'murderous', where the word is overwhelmingly the noun, a murderer.",
+   "senses": [
+    [
+     "noun",
+     [
+      "el asesino, la asesina — murderer, killer"
+     ]
+    ],
+    [
+     "adjective",
+     [
+      "murderous"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "La policía detuvo al asesino.",
+     "The police arrested the murderer."
+    ],
+    [
+     "El asesino huyó por la ventana.",
+     "The killer escaped through the window."
+    ],
+    [
+     "Es una novela sobre una asesina.",
+     "It's a novel about a woman who kills."
+    ]
+   ]
+  },
+  "deleb1/encontrado, encontrada": {
+   "why": "'facing, opposite' is not what the adjective means now; it is sentimientos encontrados, 'mixed feelings'. The three examples were one construction, something being found.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "found",
+      "conflicting (sentimientos encontrados — mixed feelings)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La piedra Rosetta fue encontrada en 1799."
+   ],
+   "ex": [
+    [
+     "Tengo sentimientos encontrados sobre este viaje.",
+     "I have mixed feelings about this trip."
+    ]
+   ]
+  },
+  "deleb1/el control": {
+   "why": "The gloss was a definition. The first example is also an A1 sentence, and the third, 'se fue fuera de su control', is not natural Spanish. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "control",
+      "check, checkpoint (control de seguridad — security check)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "está más allá de mi control",
+    "se fue fuera de su control"
+   ],
+   "ex": [
+    [
+     "Perdió el control del coche.",
+     "He lost control of the car."
+    ],
+    [
+     "Pasamos el control de seguridad del aeropuerto.",
+     "We went through airport security."
+    ]
+   ]
+  },
+  "deleb1/en realidad": {
+   "why": "The first example was not en realidad, 'actually', but convertirse en realidad, 'to come true', and is shared with finalmente in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "actually, in fact"
+     ]
+    ]
+   ],
+   "bold": [
+    "en realidad"
+   ],
+   "dropEx": [
+    "Su sueño se ha convertido finalmente en realidad."
+   ],
+   "ex": [
+    [
+     "Parece caro, pero en realidad es barato.",
+     "It looks expensive, but actually it's cheap."
+    ]
+   ]
+  },
+  "deleb1/a pesar de": {
+   "why": "The gloss is right. The first example, 'El signo tenía significado a pesar de ello', is not a sentence anyone needs, and the second and third were one construction, a pesar de ser.",
+   "bold": [
+    "a pesar de"
+   ],
+   "dropEx": [
+    "El signo tenía significado",
+    "A pesar de ser anciano"
+   ],
+   "ex": [
+    [
+     "Salimos a pesar de la lluvia.",
+     "We went out in spite of the rain."
+    ],
+    [
+     "A pesar de todo, fue un buen año.",
+     "Despite everything, it was a good year."
+    ]
+   ]
+  },
+  "deleb1/la frente": {
+   "why": "NONE OF THE THREE EXAMPLES WAS THE FOREHEAD. Two were en frente de, 'opposite' (enfrente is A2's card), and the third hacer frente, 'to face up to', which is el frente.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "forehead"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las frentes"
+    ],
+    [
+     "not",
+     "el frente — front (hacer frente a — to face up to)"
+    ]
+   ],
+   "dropEx": [
+    "Su casa está en frente de la mía.",
+    "hacer frente a la ansiedad",
+    "El bus para en frente de mi casa."
+   ],
+   "ex": [
+    [
+     "Tiene fiebre, tócale la frente.",
+     "He's got a temperature — feel his forehead."
+    ],
+    [
+     "Se secó el sudor de la frente.",
+     "He wiped the sweat from his forehead."
+    ],
+    [
+     "Me di un golpe en la frente con la puerta.",
+     "I hit my forehead on the door."
+    ]
+   ]
+  },
+  "deleb1/el grupo": {
+   "why": "The gloss missed a band, grupo de música. The first example was a generalisation about the Japanese, the second the same construction, travelling in groups, and the third used the Latin American se robó.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "group",
+      "band (grupo de música)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A los japoneses les gusta viajar en grupo.",
+    "No me gusta viajar con grupos grandes.",
+    "se robó el dinero"
+   ],
+   "ex": [
+    [
+     "Mi grupo favorito es de Madrid.",
+     "My favourite band is from Madrid."
+    ],
+    [
+     "Los alumnos trabajan en grupos de cuatro.",
+     "The pupils work in groups of four."
+    ],
+    [
+     "Un grupo de turistas entró en el museo.",
+     "A group of tourists came into the museum."
+    ]
+   ]
+  },
+  "deleb1/siguiente": {
+   "why": "The gloss is right. The first example is shared with girar in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "En la siguiente esquina"
+   ],
+   "ex": [
+    [
+     "¡El siguiente, por favor!",
+     "Next, please!"
+    ]
+   ]
   }
  },
  "insert": {
@@ -28659,7 +29336,9 @@
   ],
   "deleb1": [
    "el capitán, la capitana",
-   "último, última"
+   "último, última",
+   "correcto, correcta",
+   "el plan"
   ]
  }
 }
