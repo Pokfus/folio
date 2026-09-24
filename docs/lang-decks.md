@@ -3487,6 +3487,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S30 | B1 | #307 `la explicación` – #334 `quitar` | 24 | 4 (`la explicación`, `el ganador, la ganadora`, `el océano`, `la despedida`) | 0 | B1 description: 954 with three | `ordenador` glossed "ordinator" |
 | S31 | B1 | #335 `utilizar` – #362 `comprobar` | 28 | 0 | 0 | — | — |
 | S32 | B1 | #363 `el círculo` – #390 `mencionar` | 24 | 4 (`el abrazo`, `el trozo`, `la expresión`, `la religión`) | 0 | B1 description: 955 with three | — |
+| S33 | B1 | #391 `la producción` – #418 `el sueldo` | 24 | 4 (`la llegada`, `el capítulo`, `soltero, soltera`, `el sueldo`) | 0 | B1 description: 956 with three | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4868,6 +4869,32 @@ both cards rather than kept on the earlier one.
 
 **CHECKERS.** `--check` passes, and `check-say` reads 0. The batch has no unbolded example.
 `check-senses --deck=DELE-B1` went from 83 to 80: `aguantar`, `el león` and `la demanda` dropped off.
+
+### S33 — DELE B1, notes #391–#418 (Sep 2026)
+
+Measured against the S32 commit by card id: **24 changed, 974 untouched**, each a record entry. The other
+four were read and left alone: `la llegada`, `el capítulo`, `soltero, soltera`, `el sueldo`.
+
+**A WORD TAUGHT IN THE WRONG SENSE FOR SPAIN, ON EVERY EXAMPLE.** All three of `el clima`'s examples used
+*clima* for the day's weather — "this cold weather isn't usual for June". In Spain that is *el tiempo*; *clima*
+is the climate. All three were replaced and the gloss now says so. `fatal`'s *víctimas fatales* is the Latin
+American form of *víctimas mortales*, and its English read "lethal victims".
+
+**THE GLOSS WAS WRONG OR MISSING THE SENSE.** `la figura` was glossed "charge" and its third example was the
+verb *figurar*. `el túnel` gave "nutmeg", football slang. `la producción` gave "product". `terrorista` was
+glossed as an adjective while every example was the noun. `el terror` and `la continuación` had three examples
+of one phrase each — *películas de terror*, *a continuación* — which the gloss did not give.
+
+**THE SAME-SPELT NOUN.** `alcanzar`'s second example was the noun *alcance*.
+
+**LATIN AMERICAN USAGE.** *Luego de* (`la electricidad`), *bus* (`terrorista`), *auto* (`la batería`), and the
+spelling *beisbol* (`el béisbol`). `la risa`'s *audiencia* is a calque of "audience".
+
+**AND THE REST.** `superar`'s gloss carried a stray line reading "N". Thirteen sentences shared with A1, A2 or
+an earlier B1 card were replaced. `el acero` comes up to three examples: 956 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+80 → 77.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

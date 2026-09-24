@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,23 +877,27 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
     ]
    ]
   }
@@ -36181,6 +36185,579 @@
      "Don't mention it in front of her."
     ]
    ]
+  },
+  "deleb1/la producción": {
+   "why": "The gloss gave 'product', which is producto. The second example, 'Esto es una necesidad para producción', is not a natural sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "production",
+      "output"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "una necesidad para producción"
+   ],
+   "ex": [
+    [
+     "La producción de coches ha bajado este año.",
+     "Car production has fallen this year."
+    ]
+   ]
+  },
+  "deleb1/el clima": {
+   "why": "All three examples used clima for the day's weather, which in Spain is el tiempo; clima is the climate. The first is also shared with junio in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "climate (the day's weather is el tiempo)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Este clima helado",
+    "permanece bien en climas fríos",
+    "El clima frío es terrible"
+   ],
+   "ex": [
+    [
+     "España tiene un clima mediterráneo.",
+     "Spain has a Mediterranean climate."
+    ],
+    [
+     "Me gusta el clima de esta ciudad.",
+     "I like this city's climate."
+    ],
+    [
+     "El clima del norte es más húmedo.",
+     "The climate in the north is wetter."
+    ]
+   ]
+  },
+  "deleb1/el túnel": {
+   "why": "'nutmeg' is football slang a learner does not need. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "tunnel"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la industria": {
+   "why": "The gloss gave Wiktionary's two definitions. The first example is shared with musical in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "industry"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "famosa por su industria musical"
+   ],
+   "ex": [
+    [
+     "La industria del automóvil da mucho empleo.",
+     "The car industry provides a lot of jobs."
+    ]
+   ]
+  },
+  "deleb1/fatal": {
+   "why": "The gloss did not say that fatal is, colloquially, simply 'awful'. The second example's víctimas fatales is Latin American (Spain: víctimas mortales), rendered 'lethal victims', and the third is shared with la conversación earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "(colloquial) awful, terrible",
+      "fatal"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "víctimas fatales",
+    "fatal empezar conversaciones"
+   ],
+   "ex": [
+    [
+     "El examen me salió fatal.",
+     "The exam went terribly."
+    ],
+    [
+     "Me encuentro fatal.",
+     "I feel awful."
+    ]
+   ]
+  },
+  "deleb1/la presentación": {
+   "why": "'submission' is not a sense a learner needs. The first and third examples were both a business card, and the first is shared with la tarjeta in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "presentation",
+      "introduction (hacer las presentaciones)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "aquí está mi tarjeta de presentación"
+   ],
+   "ex": [
+    [
+     "Hizo una presentación muy buena en clase.",
+     "She gave a very good presentation in class."
+    ]
+   ]
+  },
+  "deleb1/el acero": {
+   "why": "'arms' is not a sense a learner needs. The card had two examples, and the first's English said 'rock-hard'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "steel"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "duros como el",
+     "His muscles were as hard as steel."
+    ]
+   ],
+   "ex": [
+    [
+     "El puente es de acero.",
+     "The bridge is made of steel."
+    ]
+   ]
+  },
+  "deleb1/el equipaje": {
+   "why": "The gloss said 'traveling', American. The second example's English said 'baggage room'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "luggage"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "equipaje de mano — hand luggage"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "en la sala de",
+     "I left my suitcase at left luggage yesterday, but now it seems to have gone missing."
+    ]
+   ]
+  },
+  "deleb1/el experimento": {
+   "why": "The gloss is right. The first example is shared with la física, and the second with el laboratorio, both earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "realizar un experimento de física",
+    "experimentos en su laboratorio"
+   ],
+   "ex": [
+    [
+     "Hicimos un experimento en clase de química.",
+     "We did an experiment in chemistry class."
+    ],
+    [
+     "Fue solo un experimento.",
+     "It was only an experiment."
+    ]
+   ]
+  },
+  "deleb1/el béisbol": {
+   "why": "The gloss is right. The second example spelt the word beisbol, the Latin American form.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "baseball"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "repleto de fans de"
+   ],
+   "ex": [
+    [
+     "En Cuba el béisbol es muy popular.",
+     "Baseball is very popular in Cuba."
+    ]
+   ]
+  },
+  "deleb1/el conejo, la coneja": {
+   "why": "The gloss gave 'cony, coney'. The second and third examples were the same question about long ears.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "rabbit (buck, doe)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "son largas las orejas del"
+   ],
+   "ex": [
+    [
+     "Mi hermano tiene un conejo blanco.",
+     "My brother has a white rabbit."
+    ]
+   ]
+  },
+  "deleb1/la web": {
+   "why": "The first and third examples are shared with la página in A1, where the gloss was a list. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "website",
+      "the web"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "página web — web page"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "páginas web de redes sociales",
+    "una página web para su negocio"
+   ],
+   "ex": [
+    [
+     "He visto la noticia en la web del periódico.",
+     "I saw the news on the newspaper's website."
+    ],
+    [
+     "Busca la información en la web.",
+     "Look it up on the web."
+    ]
+   ]
+  },
+  "deleb1/alcanzar": {
+   "why": "The gloss ran two senses together ('to get to to catch up'). The second example was the noun alcance, and the third is shared with por fin earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to reach",
+      "to catch up with",
+      "(colloquial) to be enough (no me alcanza el dinero)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "más allá de mi alcance",
+    "nos alcanza para comprar una casa"
+   ],
+   "ex": [
+    [
+     "Corrió y alcanzó a sus amigos.",
+     "He ran and caught up with his friends."
+    ],
+    [
+     "El agua alcanzó un metro de altura.",
+     "The water reached a height of one metre."
+    ]
+   ]
+  },
+  "deleb1/la continuación": {
+   "why": "All three examples were a continuación, which the gloss did not give, and none was the noun's own sense.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "continuation",
+      "sequel"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a continuación — next"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "qué hará Carlos a continuación",
+    "Dinos qué hacer a continuación"
+   ],
+   "ex": [
+    [
+     "Esta película es la continuación de la primera.",
+     "This film is the sequel to the first one."
+    ],
+    [
+     "Votaron a favor de la continuación del proyecto.",
+     "They voted for the project to continue."
+    ]
+   ]
+  },
+  "deleb1/la tradición": {
+   "why": "'lore' is not a sense a learner needs. The third example, 'La tradición no es algo mío', is not natural Spanish.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "tradition"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La tradición no es algo mío"
+   ],
+   "ex": [
+    [
+     "Es tradición comer uvas en Nochevieja.",
+     "It's traditional to eat grapes on New Year's Eve."
+    ]
+   ]
+  },
+  "deleb1/la electricidad": {
+   "why": "The second example used luego de, Latin American for después de, and misspelt pocos.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "electricity"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "luego de unos poco minutos"
+   ],
+   "ex": [
+    [
+     "La factura de la electricidad ha subido.",
+     "The electricity bill has gone up."
+    ]
+   ]
+  },
+  "deleb1/la risa": {
+   "why": "The gloss gave Wiktionary's two definitions and not morirse de risa. The first example is shared with morir in A2, and the third's audiencia is a calque of 'audience' (el público). SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "laugh, laughter"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "morirse de risa — to die laughing"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Me he partido de risa",
+    "la audiencia explotó de risa"
+   ],
+   "ex": [
+    [
+     "No pude contener la risa.",
+     "I couldn't help laughing."
+    ],
+    [
+     "Nos moríamos de risa.",
+     "We were dying of laughter."
+    ]
+   ]
+  },
+  "deleb1/terrorista": {
+   "why": "The gloss did not say terrorista is also the noun, which every example was. The first example is not a natural sentence and the second used bus, Latin American for autobús.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "terrorist"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el/la terrorista — terrorist"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "acabó con el mayor",
+    "hicieron estallar un bus"
+   ],
+   "ex": [
+    [
+     "Hubo un atentado terrorista en la capital.",
+     "There was a terrorist attack in the capital."
+    ],
+    [
+     "La policía detuvo a un grupo terrorista.",
+     "The police arrested a terrorist group."
+    ]
+   ]
+  },
+  "deleb1/el terror": {
+   "why": "All three examples were películas de terror, which the gloss did not give.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "terror"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de terror — horror (una película de terror)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Me dan miedo las películas de",
+    "A Carlos no le gustan las películas de"
+   ],
+   "ex": [
+    [
+     "Temblaba de terror.",
+     "He was trembling with terror."
+    ],
+    [
+     "Los perros le dan terror.",
+     "She's terrified of dogs."
+    ]
+   ]
+  },
+  "deleb1/el texto": {
+   "why": "The gloss is right. The third example is shared with el mensaje in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "a mis mensajes de texto"
+   ],
+   "ex": [
+    [
+     "Lee el texto y contesta las preguntas.",
+     "Read the text and answer the questions."
+    ]
+   ]
+  },
+  "deleb1/sano, sana": {
+   "why": "'earnest' is not a sense of sano, and sano y salvo was missing. The third example is not natural in either language.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "healthy"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "sano y salvo — safe and sound"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Estemos bien y sanos"
+   ],
+   "ex": [
+    [
+     "Volvieron sanos y salvos.",
+     "They came back safe and sound."
+    ]
+   ]
+  },
+  "deleb1/la batería": {
+   "why": "The gloss was a list. The first example is not a natural sentence and the second used auto, Latin American for coche; a toy runs on pilas.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "battery (of a car, a phone)",
+      "drum kit (tocar la batería — to play the drums)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un coche con batería solar",
+    "funciona a baterías"
+   ],
+   "ex": [
+    [
+     "El móvil se ha quedado sin batería.",
+     "My phone's battery has run out."
+    ],
+    [
+     "El coche no arranca porque la batería está descargada.",
+     "The car won't start because the battery is flat."
+    ]
+   ]
+  },
+  "deleb1/la figura": {
+   "why": "'charge' is not a sense of figura, and neither a public figure nor a figurine was given. The first example is shared with ver in A1, and the third was the verb figurar. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "figure, shape",
+      "figure, personality",
+      "figurine"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la figura de algún policía",
+    "Mi nombre no figura en la lista"
+   ],
+   "ex": [
+    [
+     "Picasso es una gran figura del arte moderno.",
+     "Picasso is a great figure of modern art."
+    ],
+    [
+     "Tiene una figura de porcelana en la mesa.",
+     "She has a porcelain figurine on the table."
+    ]
+   ]
+  },
+  "deleb1/superar": {
+   "why": "The gloss carried a stray 'N' line. The second example is shared with la crisis earlier in B1, and the third wrote tú without its accent. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to overcome, to get over",
+      "to exceed, to beat"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no habría superado aquella crisis",
+    "Yo lo superé"
+   ],
+   "ex": [
+    [
+     "Las ventas superaron las expectativas.",
+     "Sales exceeded expectations."
+    ],
+    [
+     "Ha superado el miedo a volar.",
+     "He's got over his fear of flying."
+    ]
+   ]
   }
  },
  "insert": {
@@ -36491,7 +37068,11 @@
    "el abrazo",
    "el trozo",
    "la expresión",
-   "la religión"
+   "la religión",
+   "la llegada",
+   "el capítulo",
+   "soltero, soltera",
+   "el sueldo"
   ]
  }
 }
