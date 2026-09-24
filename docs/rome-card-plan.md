@@ -1017,6 +1017,38 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-541`–`rm-550`: the Severan army to the crisis of the third century — what this batch found
+
+All ten are in `rm-third-century`, with nine new glossary terms. **Three lines are answered by a term they
+do not contain**: `rm-541` *Severan military reform* by **`Legio II Parthica`**, the legion quartered on the
+Alban Mount being the one reform Dio describes in concrete terms, not a paraphrase of the policy; `rm-543` *Severus in Britain* by
+**`Eboracum`**, where the court sat from 208 and Severus died in 211; and `rm-549` *The end of the Severan
+dynasty* by **`Julia Mamaea`**, whose murder with her son in 235 is the end. `rm-550` *Crisis of the Third
+Century* needed **no new term**: `Crisis_of_the_Third_Century` was already `wh-370`'s, cited, and was reused
+untouched.
+
+**Neither Dio nor Herodian names Eboracum.** The Severan court's residence there rests on the *Historia
+Augusta*, Eutropius, the rescript of 5 May 210 and the RCHME and VCH surveys, and the card says which. The
+two surveys disagree on Constantius's death, 305 against 306, and the card follows RCHME's 306.
+
+**Two locators were refused.** `rm-549` would have put Mamaea's death at Mogontiacum, which rests on an
+editor's footnote rather than on any ancient source the card cites. `rm-545` carries no locator either,
+the grant applying across the empire and its papyrus being of unknown provenance. The papyrus's
+publication year was also dropped from `rm-545`'s date line, a modern event on a card about 212.
+
+**The wrong-link traps met this time**, each avoided in the prose rather than keyed: *Marcus Aurelius
+Antoninus*, Caracalla's official name, links the earlier emperor, so the card says *Antoninus*; bare
+*Carrhae* links the battle of 53 BCE; the legate *Claudius Hieronymianus* would link the emperor Claudius;
+*Julia Augusta*, Dio's name for Julia Domna, is already an alias of Livia's term; and *sophists* links the
+Greek term, so the card says "men of learning". The **Syria** and **Greece** country terms still take the
+adjectives *Syrian* and *Greek*, which is how 174 shipped Rome cards already link.
+
+Several dates rest on Magie's Loeb notes to the *Historia Augusta*, and Herodian is cited by the page
+numbers of Hart's 1749 translation, read off the scans. **No figure for the Alexandrian massacre of 215–216
+is given**, Dio giving none. **Legio II Parthica's founding is dated "c. 197" and hedged as "probably"**,
+the year resting on one paper. Commons rate-limited the picture fetches heavily throughout, and two glossary
+pictures are the 960px thumbnail for that reason.
+
 ## `rm-531`–`rm-540`: the equestrian career to the Battle of Lugdunum — what this batch found
 
 `rm-531`–`rm-535` close `rm-high-empire` and `rm-536`–`rm-540` open `rm-third-century`, with eleven new
