@@ -10524,6 +10524,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        NOT clipped (measured; see .claude/build-china-provinces.js). Without it Qinghai Lake and Poyang
        are grey fields under a province. Arriving twice is free: lakes.js ASSIGNS window.LAKES. */
     chinaprov: { files: ["china-provinces.js", "lakes.js", "rivers.js"] },
+    /* The 83 federal subjects of the Russian Federation and their 80 administrative centres, for the
+       Geography section's Russia collection. Its own bundle for the reason `chinaprov` is not part of
+       `usstates`: a reader studying the states must not fetch the subjects to be asked which state is
+       shaded, and the reverse. It is the largest of the three national layers by some way — 404 KB
+       gzipped against China's 157 and the states' 181 — which is Russia's Arctic coastline and its
+       thousands of islands rather than a looser tolerance; all three are traced at the same 0.002°/3dp,
+       so the card map cannot tell which it is holding. Measured by `node .claude/check-sizes.js`; it is
+       LAZY, so no reader who never opens the deck pays any of it.
+         `lakes.js` rides here as it does in the other two, and this is the one layer where it is
+       LOAD-BEARING rather than merely harmless. Natural Earth clips a lake lying BETWEEN divisions out of
+       both of them: China has none such, and the China builder measured that the file changed nothing
+       there — but Baikal sits between Irkutsk Oblast and Buryatia and Ladoga between Karelia and
+       Leningrad Oblast, so both are holes in this layer. Under a hole is world.js, which has no lake
+       holes at all, so without lakes.js the two largest lakes in Europe and Asia would draw as grey land
+       inside a shaded subject. Arriving twice is free: lakes.js ASSIGNS window.LAKES. */
+    russubj: { files: ["russia-subjects.js", "lakes.js", "rivers.js"] },
     /* The capital of every country and territory as a POINTS TABLE, for the gold dot on a world capital
        card (see CARD_MAP_LAYERS). Its own bundle rather than a file inside `world`, and fetched only by a
        card that actually asks for a dot: `world` is what every map window loads for the coastline under
@@ -20865,6 +20881,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": "compass",
     "geo-world": "map",
     "geo-china": "wall",
+    /* Russia, in the Geography section, takes the EXISTING `mountain` — the second collection mark on
+       this shelf reused rather than drawn, and the cost is stated rather than hidden exactly as Visual
+       Art's is. The Urals are the reason: the conventional Europe-Asia divide, the one feature of
+       Russian geography a reader is most likely to already carry, and a shape that survives the 24-28px
+       a deck row draws it at, which a more distinctly Russian mark does not obviously do. A matryoshka
+       (nested outlines that fill in at small sizes) and a birch were both considered and neither is
+       worth shipping unlooked at. `dome` is the HISTORY collection's onion dome and is deliberately not
+       reused here, on the rule the two Chinas follow: a pagoda for the history collection and a wall for
+       the geography one, so the two never read as one row split in two. If it is to change, draw it and
+       look at it. */
+    "geo-russia": "mountain",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -25201,11 +25228,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <button type="button" class="btn ghost" id="smpPrev"${i === 0 ? " disabled" : ""}>Previous</button>
           <button type="button" class="btn ghost" id="smpNext">${i + 1 === ids.length ? "Finish" : "Next card"}</button>
         </div>`;
+      /* AND THE QUESTION'S OWN GLOBE, for `PAGES.card`'s reason one page over: a map card's map is the
+         QUESTION, so it is emitted by `cardFrontHTML` OUTSIDE `#smpBack` and `mountCardBack` cannot reach
+         it — this page drew every geography card as a dead grey box until Sep 2026. Unlike that page it
+         is NOT revealed here: the answer is behind a button, and the map naming what it shades would give
+         it away, so `cardMapReveal` waits for `show()` exactly as the study page's does. */
+      mountCardMaps(root);
       const show = () => {
         const inner = root.querySelector("#smpBack");
         if (!inner || inner.innerHTML) return;
         inner.innerHTML = buildBack(c);
         mountCardBack(inner, c, { expand: true });
+        cardMapReveal(root);   // the map may now name what it was shading — the shape and its name together
         root.querySelector("#smpReveal").classList.add("show");
         const sb = root.querySelector("#smpShow");
         if (sb) sb.remove();
@@ -25437,7 +25471,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -25517,10 +25551,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
     china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
     dino: 1000, korea: 1000, art: 1000,
-    /* World Geography's 704 is 233 countries + 238 capitals + the 233 FLAGS, which are a third deck of
-       this collection rather than one of their own (Sep 2026, on request). One collection, three plans:
-       see docs/world-geography-card-plan.md and docs/flags-card-plan.md. */
-    "geo-us": 100, "geo-china": 58, "geo-world": 937,
+    /* World Geography's 937 is 233 countries + 238 capitals + the 233 FLAGS and the 233 DRAW cards,
+       which are further decks of this collection rather than ones of their own (Sep 2026, on request).
+       One collection, several plans: see docs/world-geography-card-plan.md and docs/flags-card-plan.md. */
+    "geo-us": 100, "geo-china": 58, "geo-world": 937, "geo-russia": 163,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -26536,6 +26570,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        split in two. Blue-and-white porcelain is the colour's own argument for the subject, and it is a
        China register the vermilion had not taken. 7.7:1 against white. */
     "geo-china": { bg: "#1A4FA8" },
+    /* burnt amber (Russia, in the Geography section) — MEASURED like every hue above it, and the sweep
+       ruled out the two colours the subject actually suggests. A Russia collection wants a winter blue or
+       a frost teal, and both bands are gone: swept in CIELAB inside the shelf's own band (L 28-55, chroma
+       25-62, 4.5:1 against white), a deep steel blue lands 7.3 of Greece's Aegean and a deep teal 4.5 of
+       Egypt's malachite, against a tightest EXISTING pair of 12.9 (China's vermilion against Russia's own
+       lacquer). The wheel's best-scoring free region is the rose-crimson quadrant at ΔE 24.6, which is the
+       magenta band under another name and is the standing rejection recorded below — now measured and
+       turned down a sixth time; do not re-run that sweep.
+       Outside it the sweep's arithmetic winner is a dark gold-olive (#5D5700, ΔE 22.0), and it was
+       REFUSED on a figure the minimum does not show: it stands only 22 from `geo-us`'s olive, which would
+       make three of the four Geography collections a green. This is 21.4 from its nearest neighbour
+       (Spanish's sienna) and 44, 58 and 100 from its own siblings — a section that reads as four
+       different places rather than a family — at L 39 and chroma 50, both mid-band. 6.8:1 against white.
+       It stands 36 from `col-42`, the Russia HISTORY collection's lacquer, which is deliberate and is the
+       rule the two Chinas already follow: far enough that "Russia" under History and "Russia" under
+       Geography cannot read as one row split in two. Amber is the subject's own argument for the colour —
+       the Baltic amber coast is Kaliningrad Oblast, one of the 83 — and it takes none of the flag's
+       colours, which on this shelf would be a claim rather than a decoration. */
+    "geo-russia": { bg: "#815100" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -32976,6 +33029,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        to point at a valley — where this layer is loaded by nothing but a China map card, and every
        reader of it is studying one of the two decks. One fetch, 13 KB of capitals inside it. */
     "china-provinces": { bundle: "chinaprov", global: "CHINA_PROVINCES", what: "province", plural: "provinces", cell: 0.05, points: "CHINA_CAPITALS", dotWhat: "city" },
+    /* Russia's own federal subjects, and the 80 administrative centres beside them in the SAME bundle,
+       on `china-provinces`'s reasoning exactly: nothing but a Russia map card loads this layer, and
+       every reader of it is studying one of the two decks, so one fetch carries both.
+         `what` is "federal subject" rather than a kind, and that is the deck's whole question shape: the
+       83 are six different kinds of thing — 46 oblasts, 21 republics, 9 krais, 4 autonomous okrugs, 2
+       cities of federal significance and 1 autonomous oblast — so "the province shaded on the map" would
+       be false of 37 of them. Every question asks for the FEDERAL SUBJECT, which is what the constitution
+       calls all six alike and what is true of every card in the deck. */
+    "russia-subjects": { bundle: "russubj", global: "RUSSIA_SUBJECTS", what: "federal subject", plural: "federal subjects", cell: 0.05, points: "RUSSIA_CENTRES", dotWhat: "city" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z

@@ -108,6 +108,17 @@ const PLANS = {
      eleven countries have more than one seat and each seat is its own card, so the first keeps the paired
      number (country + 500) and the extras take the next free band rather than renumbering the deck.
      762 Bujumbura joined it in Sep 2026, when UNdata was found to name Gitega as Burundi's capital. */
+  /* Russia: 83 federal subjects, and 80 centres rather than 83. The three missing numbers are not gaps
+     to be filled and are not the same refusal — 501 Moscow and 504 Saint Petersburg are cities that are
+     themselves federal subjects, so the shape IS the answer (China's four municipalities exactly), while
+     570 Khakassia is a DATA refusal: Natural Earth draws Abakan four to five kilometres outside the
+     republic and all three published coordinates fall in Krasnoyarsk Krai, so no coordinate reaches a
+     shape containing the city and the dot is not snapped. 502 Krasnogorsk is a FACT refusal, deferred in
+     Sep 2026 with its number RESERVED: Moscow Oblast's own charter names no administrative centre, and
+     nothing else citable says which city it is, so the question cannot be asked honestly. The number
+     stays in the running order because the plan still covers it. Written out as ranges so that a number
+     quietly going missing still fails here. */
+  "russia-geography": ["geo-russia", "gru-", [[1, 83], [502, 503], [505, 569], [571, 583]]],
   "world-geography": ["geo-world", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 762]]],
   /* China: 31 provincial-level divisions and 27 capitals rather than 31. The four missing numbers are
      not gaps to be filled — 519 Chongqing, 523 Shanghai, 526 Beijing and 527 Tianjin are municipalities,

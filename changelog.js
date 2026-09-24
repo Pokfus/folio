@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.882", released: "2026-09-24T12:57Z" };
+window.FOLIO_VERSION = { v: "1.883", released: "2026-09-24T13:56Z" };
 
 window.CHANGELOG = [
   {
@@ -50,6 +50,9 @@ window.CHANGELOG = [
       "<b>Westeros joins the planned collections</b> \u2014 a thousand cards on A Song of Ice and Fire, the history behind it, and the television, games and fandom around it.",
       "<b>Middle-earth joins the planned collections</b> \u2014 a thousand cards on Tolkien's world, the books behind it, and the films, games and fandom that grew from them.",
       "<b>Forty-eight more families of word follow your spelling setting</b> \u2014 <i>sympathise</i>, <i>fertiliser</i>, <i>paediatrics</i> and the rest now change with it.",
+      "Fourteen new cards in the Russia geography collection, each with a paired glossary term.",
+      "<b>The Russia geography collection is finished</b> \u2014 all 83 federal subjects and 79 of the 80 administrative centres; Moscow Oblast\u2019s is left out because no source says which city it is.",
+      "A cited book\u2019s title is corrected in the sources of thirteen Russia geography cards.",
     ],
   },
   {
@@ -71,6 +74,7 @@ window.CHANGELOG = [
       "<b>Three cards' atlas maps are put right</b> \u2014 the Battle of Alalia and the Phaistos Disc now show where they happened, and municipium no longer marks a town.",
       "<b>A Chinese vocabulary card's question no longer looks as though it has vanished</b> when the answer is shown with the marker down.",
       "<b>Three cards' source lists are improved</b> \u2014 two in World History now cite mostly works you can open, and one in Ancient Rome leans less on one scholar.",
+      "Thirty-two new cards in the Russia geography collection, each with a paired glossary term and a picture.",
     ],
   },
   {
@@ -167,6 +171,11 @@ window.CHANGELOG = [
       "<b>The card on Minoan trade with Egypt now rests on the excavators\u2019 own reports</b> \u2014 not on one teaching website, and three of its sentences are rewritten to match.",
       "<b>The card on the Cypriot syllabary now says why the script died out</b> \u2014 the alphabet replaced it only after the Ptolemies took the island, and four of its six sources were one reviewer.",
       "<b>The horns of consecration card now says the symbol outlived the palaces</b> \u2014 it and the card on Minoan religion leaned on one excavator, and each now carries an independent voice.",
+      "Seventy-nine new cards in the Russia geography collection, each with a paired glossary term and a picture.",
+      "Every card in the Russia geography collection now gives its subject's population and area.",
+      "Geography card backgrounds no longer repeat the figures already shown in the answer box.",
+      "<b>Try ten cards now draws the map</b> \u2014 sampling a geography collection showed an empty grey box where the shape you are asked to name should be.",
+      "Thirty-five more cards in the Russia geography collection.",
     ],
   },
   {
@@ -188,6 +197,7 @@ window.CHANGELOG = [
       "<b>Ten cards now rest on several writers rather than on one old handbook</b> \u2014 in China, World History and Ancient Greece, and nine sentences were corrected to what their new source says.",
       "<b>Four glossary terms now cite a second work a reader can open</b> \u2014 each had one free source and one behind a paywall, which is half its apparatus out of reach.",
       "<b>Hundreds of sources on the country cards no longer lead to a dead page</b> \u2014 the UN rebuilt its statistics site, so each now opens an archived copy of the profile it cites.",
+      "<b>Russia joins the Geography section</b> \u2014 a new collection drawing all 83 of its federal subjects on the globe, with its first cards in.",
     ],
   },
   {
