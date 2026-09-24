@@ -1187,7 +1187,7 @@ else in the Americas.*
     wh-784  Bessemer process
     wh-785  Rail transport
     wh-786  Stephenson's Rocket
-    wh-787  Canals of the United Kingdom
+    wh-787  Bridgewater Canal
     wh-788  Urbanisation
     wh-789  Child labour
     wh-790  Factory Acts

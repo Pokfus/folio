@@ -119,6 +119,10 @@ const NOT_A_RESEARCHER = {
   // sources, so the surname the question carries is the ruler's and not a modern arguer's.
   "wh-752 Frederick": "Frederick II of Prussia, cited on his own card for his Essay on Forms of Government",
   "wh-752 Catherine": "Catherine II of Russia, cited on the same card for her own Grand Instructions of 1767",
+  // AN INVENTOR WHOSE NAME IS THE CARD'S OWN ANSWER TERM. Every sentence saying "the Bessemer process"
+  // carries the surname, and his autobiography stands in the author slot of the card's own first source,
+  // so the measure read the subject of the card as a modern arguer about it.
+  "wh-784 Bessemer": "Henry Bessemer, cited on his own card for the autobiography in which he describes making the process work \u2014 and the name is half the answer term",
 };
 
 /* MEASURED, not chosen: over the 269 shipped cards the historiography count is 0 or 1 for 206 of them,
