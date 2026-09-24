@@ -714,6 +714,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1381–1410 | 26 changed, 4 read and left: 30 example sentences replaced (six single characters used only inside other words, a mother-in-law stereotype, transliterated names, proverbs rendered as English proverbs, chat messages, near-repeats), 3 translations fixed, six Compounds panels, 17 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1411–1440 | 25 changed, 5 read and left: 22 example sentences replaced (消除's three unsuitable sentences, climate denial on 效应, a generalisation about the Swiss, 国际象棋 on Chinese chess, headwords inside longer words, near-repeats), 3 translations fixed, one Compounds panel, 19 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1441–1470 | 23 changed, 7 read and left: 19 example sentences replaced (学会 glossed with a sense no sentence showed, a Churchill quotation, a breast reduction, Taiwan's 网路, slogans, fragments, near-repeats), 1 translation fixed, one Compounds panel, 17 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1471–1500 | 21 changed, 9 read and left: 20 example sentences replaced (a police notice listing prostitution and drugs, a virginity test, a judgement of a man's taste in women, a straddle on 眼看, 淹 and 严 used only inside other words, near-repeats), 4 translations fixed, two Compounds panels, 16 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12608,4 +12609,33 @@ and no version bump.
   - 兴起: online shopping twice.
 - **Translation.** 许可's "I'm not allowed to drink" had dropped "without permission".
 - **Glosses.** 心目 now says "in someone's eyes", which frees it from 脑海. 性价比 is now "value for money", and 性能 is now "performance".
+
+### Batch 179 — `hsk30l6` notes 1471–1500 (学位 → 验证)
+
+21 notes changed and 9 read and left (学员, 血型, 血液, 寻求, 亚军, 炎热, 延伸, 炎症, 宴会), counted against the real diff.
+
+- **Unsuitable.** These were flagged by `check-coarse.js`, and all were replaced:
+  - 严禁卖淫嫖娼，赌博，吸毒… is a police notice listing prostitution and drugs.
+  - 守宫砂… describes a traditional test of women's virginity.
+  - 他对女人没有眼光 judges a man's taste in women.
+- **Straddles and swallowed characters.**
+  - 这个老人一只眼看不见了 is 一只眼 + 看不见, so the characters of 眼看 straddle two words.
+  - 淹's sentences were both 淹死, and the second's English said "swamp".
+  - 严's were both 严酷.
+  
+  Replaced. 淹 and 严 gained Compounds panels.
+- **Other replacements.**
+  - 沿海: three sentences of Chinese geography, one a generalisation about coastal and inland cities and one a list of seas.
+  - 验证: a garbled philosophical line.
+  - 压缩: a technical sentence about compression algorithms.
+  - 研讨: 研讨会 with a stray reply in front of it.
+  - 言语: an English proverb calqued.
+  - 严厉: a fragment.
+- **Near-repeats replaced:** 学位 (two master's degrees), 血压 (two requests), 循环 (恶性循环 twice), 淹没 (two predictions of cities under water), 学问 (a sentence also standing on 书面).
+- **Translations.**
+  - 严寒 said "heavy frost".
+  - 严禁 dropped "strictly".
+  - 严厉 said "accuses".
+  - 延续 said "for a while" for 数里.
+- **Glosses.** 血管 is now "blood vessel", which frees it from 脉络. 言语 is now CC-CEDICT's, which frees it from 话语. 眼看 gained "to look on as". The rest gained a "to".
 
