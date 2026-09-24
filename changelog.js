@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.880", released: "2026-09-24T11:45Z" };
+window.FOLIO_VERSION = { v: "1.881", released: "2026-09-24T12:51Z" };
 
 window.CHANGELOG = [
   {
@@ -45,6 +45,10 @@ window.CHANGELOG = [
       "<b>Flags is a new deck of World Geography</b> \u2014 two hundred and twenty-nine cards, each showing a flag for you to name.",
       "<b>Draw the flags is a second new deck</b> \u2014 it names a country and you draw its flag on a canvas of its own, with pens, a fill and any colour you like.",
       "<b>A flag card shows the flag once and keeps its source off the card</b> \u2014 the credit is there when you tap the flag to enlarge it.",
+      "<b>The Viking Age joins the planned collections</b> \u2014 a thousand cards on Scandinavia and its diaspora, most of them on farming, law, craft, belief and the ships rather than the raids.",
+      "<b>The Cold War joins the planned collections</b> \u2014 a thousand cards from the breakdown of the wartime alliance to the end of the Soviet Union, half of them outside Europe and North America.",
+      "<b>Westeros joins the planned collections</b> \u2014 a thousand cards on A Song of Ice and Fire, the history behind it, and the television, games and fandom around it.",
+      "<b>Middle-earth joins the planned collections</b> \u2014 a thousand cards on Tolkien's world, the books behind it, and the films, games and fandom that grew from them.",
     ],
   },
   {
@@ -53,6 +57,12 @@ window.CHANGELOG = [
     items: [
       "<b>Seventy new cards and sixty-three glossary terms</b> \u2014 the Ancient Egypt collection opens with ten, thirty carry Rome to Trajan's column, and thirty take Russia to the Mongol conquest.",
       "<b>The word \u201cmedian\u201d no longer links to the Medes</b> on cards that use it as a statistic rather than as a people.",
+      "<b>Architecture joins the planned collections</b> \u2014 a thousand cards on how buildings are designed and built, from the arch to the carbon in the concrete.",
+      "<b>The First World War joins the planned collections</b> \u2014 a thousand cards on the whole war, from the alliance system to how it is remembered.",
+      "<b>Ancient Mesopotamia joins the planned collections</b> \u2014 a thousand cards from the first cities to the last cuneiform tablet.",
+      "<b>Economics joins the planned collections</b> \u2014 a thousand cards from scarcity to the arguments economists are still having.",
+      "<b>France joins the planned collections</b> \u2014 a thousand cards from Gaul to the present, with its first cards still to come.",
+      "<b>Astronomy joins the planned collections</b> \u2014 a thousand cards from the naked-eye sky to cosmology, with its first cards still to come.",
       "<b>Common Thread only groups a term under a category it genuinely belongs to</b> \u2014 genealogy has left Asia and water has left biology.",
       "<b>Beringia draws the same globe in both collections</b>, the United States card having shown no map at all.",
       "<b>The Paris Peace Conference card no longer says the conference outlasted the war</b> \u2014 it ran a year and three days.",

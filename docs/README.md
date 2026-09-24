@@ -75,12 +75,22 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `china-card-plan.md` | China (`china`) | `cnh-` |
 | `egypt-card-plan.md` | Ancient Egypt (`egypt`) | `eg-` |
 | `ww2-card-plan.md` | The Second World War (`ww2`) | `ww2-` |
+| `ww1-card-plan.md` | The First World War (`ww1`) | `ww1-` |
+| `architecture-card-plan.md` | Architecture (`arch`) | `arch-` |
+| `middleearth-card-plan.md` | Middle-earth (`middleearth`) — the first whose subject is fiction | `mid-` |
+| `westeros-card-plan.md` | Westeros (`westeros`) — the second whose subject is fiction | `wes-` |
+| `coldwar-card-plan.md` | The Cold War (`coldwar`) | `cw-` |
+| `vikingage-card-plan.md` | The Viking Age (`vikingage`) | `vk-` |
 | `japan-card-plan.md` | Japan (`japan`) | `jp-` |
 | `psychology-card-plan.md` | Psychology (`psych`) — the first that is not history | `ps-` |
 | `philosophy-card-plan.md` | Philosophy (`phil`) | `ph-` |
 | `biology-card-plan.md` | Biology (`bio`) | `bio-` |
 | `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
+| `astronomy-card-plan.md` | Astronomy (`astro`) | `astro-` |
+| `economics-card-plan.md` | Economics (`econ`) | `ec-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |
+| `france-card-plan.md` | France (`france`) | `fr-` |
+| `mesopotamia-card-plan.md` | Ancient Mesopotamia (`mesopotamia`) | `me-` |
 | `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; the artwork card format is built | `art-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
 | `world-geography-card-plan.md` | World Geography (`geo-world`) — 471 cards, sorted by population | `gw-` |
@@ -89,7 +99,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `flags-draw-card-plan.md` | Draw the flags (`flags-draw`) — the Flags deck run backwards; the reader draws the flag and judges themselves | `fd-` |
 | `politics-east-asia-card-plan.md` | Politics: East Asia (`pea`) — a COURSE, planned a lecture at a time | `pea-` |
 
-`china-card-findings.md` is China's per-card research log; the other twenty keep theirs in their own plan
+`china-card-findings.md` is China's per-card research log; the other thirty-one keep theirs in their own plan
 or in the citation plans. `node .claude/test-card-plans.js` checks every plan against `data.js`.
 
 ## Content passes — the finished ones

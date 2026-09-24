@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Card plans ↔ data.js — the check that keeps "generate the next <collection> card" working.
  *
- * Nineteen collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
+ * Thirty collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
  * lowest id not yet in data.js, and its deck comes from the plan. That workflow rests on agreements
  * nothing else verifies, and every one of them fails SILENTLY:
  *
@@ -72,12 +72,22 @@ const PLANS = {
   china: ["china", "cnh-", 1000],
   egypt: ["egypt", "eg-", 1000],
   ww2: ["ww2", "ww2-", 1000],
+  ww1: ["ww1", "ww1-", 1000],
+  architecture: ["arch", "arch-", 1000],
+  middleearth: ["middleearth", "mid-", 1000],
+  westeros: ["westeros", "wes-", 1000],
+  coldwar: ["coldwar", "cw-", 1000],
+  vikingage: ["vikingage", "vk-", 1000],
   japan: ["japan", "jp-", 1000],
   psychology: ["psych", "ps-", 1000],
   philosophy: ["phil", "ph-", 1000],
   biology: ["bio", "bio-", 1000],
   dinosaurs: ["dino", "dino-", 1000],
+  astronomy: ["astro", "astro-", 1000],
+  economics: ["econ", "ec-", 1000],
+  mesopotamia: ["mesopotamia", "me-", 1000],
   korea: ["korea", "ko-", 1000],
+  france: ["france", "fr-", 1000],
   art: ["art", "art-", 1000],
   /* Politics: East Asia is a COURSE rather than a subject shelf, so its running order cannot be
      written ahead of the lectures it covers — the slides arrive one at a time. The numbering is what

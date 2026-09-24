@@ -10700,6 +10700,656 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "astro",
+      "title": "Astronomy",
+      "total": 0,
+      "children": [
+        {
+          "id": "astro-sky",
+          "title": "Looking Up",
+          "total": 90,
+          "children": [
+            {
+              "id": "astro-what",
+              "title": "What astronomy is",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "astro-sphere",
+              "title": "The celestial sphere",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-motion",
+              "title": "The moving sky",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-constellations",
+              "title": "Constellations and star names",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-calendar",
+              "title": "Eclipses, tides and calendars",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-solar",
+          "title": "The Solar System",
+          "total": 150,
+          "children": [
+            {
+              "id": "astro-formation",
+              "title": "How the Solar System formed",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-inner",
+              "title": "The rocky planets",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "astro-giants",
+              "title": "The giant planets",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-moons",
+              "title": "Moons",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-small",
+              "title": "Asteroids, comets and meteorites",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "astro-outer",
+              "title": "The outer Solar System",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-stars",
+          "title": "The Sun and the Stars",
+          "total": 130,
+          "children": [
+            {
+              "id": "astro-sun",
+              "title": "The Sun",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "astro-starbasics",
+              "title": "What a star is",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-measuring",
+              "title": "Measuring the stars",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-hr",
+              "title": "The H–R diagram",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-multiples",
+              "title": "Binaries, clusters and variables",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-lives",
+          "title": "Lives and Deaths of Stars",
+          "total": 120,
+          "children": [
+            {
+              "id": "astro-birth",
+              "title": "Star formation",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-ism",
+              "title": "The interstellar medium",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-fusion",
+              "title": "Nuclear burning and the elements",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-late",
+              "title": "Old age and mass loss",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-remnants",
+              "title": "Supernovae and remnants",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-exo",
+          "title": "Planets Beyond the Sun",
+          "total": 80,
+          "children": [
+            {
+              "id": "astro-detect",
+              "title": "Finding exoplanets",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-worlds",
+              "title": "What exoplanets are like",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-habit",
+              "title": "Habitability",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "astro-life",
+              "title": "Life in the universe",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-galaxies",
+          "title": "Galaxies",
+          "total": 110,
+          "children": [
+            {
+              "id": "astro-milkyway",
+              "title": "The Milky Way",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "astro-kinds",
+              "title": "Kinds of galaxy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-agn",
+              "title": "Active galaxies and black holes",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-clusters",
+              "title": "Clusters and large-scale structure",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-evolution",
+              "title": "How galaxies change",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-cosmology",
+          "title": "Cosmology",
+          "total": 110,
+          "children": [
+            {
+              "id": "astro-expansion",
+              "title": "The expanding universe",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-bigbang",
+              "title": "The hot Big Bang",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-darkmatter",
+              "title": "Dark matter",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-darkenergy",
+              "title": "Dark energy and the fate of everything",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-open",
+              "title": "What cosmology does not know",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-observing",
+          "title": "Observing the Universe",
+          "total": 130,
+          "children": [
+            {
+              "id": "astro-light",
+              "title": "What light carries",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-gravity",
+              "title": "Gravity and orbits",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-telescopes",
+              "title": "Telescopes",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-spectrum",
+              "title": "Across the spectrum",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-missions",
+              "title": "Observatories and space missions",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-messengers",
+              "title": "Beyond light",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "astro-history",
+          "title": "The History of Astronomy",
+          "total": 80,
+          "children": [
+            {
+              "id": "astro-ancient",
+              "title": "Ancient and medieval astronomy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "astro-revolution",
+              "title": "The Copernican revolution",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-modern",
+              "title": "The making of modern astrophysics",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "astro-today",
+              "title": "Astronomy now",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "econ",
+      "title": "Economics",
+      "total": 0,
+      "children": [
+        {
+          "id": "ec-what",
+          "title": "What Economics Is",
+          "total": 90,
+          "children": [
+            {
+              "id": "ec-subject",
+              "title": "The subject and its questions",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ec-scarcity",
+              "title": "Scarcity, choice and cost",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ec-models",
+              "title": "Models, assumptions and evidence",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-limits",
+              "title": "What economics can and cannot say",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-micro",
+          "title": "Microeconomics",
+          "total": 130,
+          "children": [
+            {
+              "id": "ec-demand",
+              "title": "Demand, supply and price",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-consumer",
+              "title": "Choice and the consumer",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-firm",
+              "title": "Firms, costs and production",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-competition",
+              "title": "Market structure",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-failure",
+              "title": "When markets fail",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-macro",
+          "title": "Macroeconomics",
+          "total": 130,
+          "children": [
+            {
+              "id": "ec-measure",
+              "title": "Measuring an economy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-output",
+              "title": "Output, employment and the short run",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-inflation",
+              "title": "Inflation and prices",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-cycles",
+              "title": "Business cycles and crises",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-policy",
+              "title": "Macroeconomic policy",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-money",
+          "title": "Money, Banking and Finance",
+          "total": 110,
+          "children": [
+            {
+              "id": "ec-monetary",
+              "title": "Money and what it does",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-banks",
+              "title": "Banks and credit",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-central",
+              "title": "Central banking",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-markets",
+              "title": "Financial markets",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ec-crises",
+              "title": "Financial crises",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-state",
+          "title": "Government and the Economy",
+          "total": 100,
+          "children": [
+            {
+              "id": "ec-public",
+              "title": "Public goods and public finance",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-tax",
+              "title": "Taxation",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-regulation",
+              "title": "Regulation and competition policy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-welfare",
+              "title": "The welfare state",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-world",
+          "title": "Trade and the World Economy",
+          "total": 100,
+          "children": [
+            {
+              "id": "ec-trade",
+              "title": "Why countries trade",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-tradepolicy",
+              "title": "Trade policy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-exchange",
+              "title": "Exchange rates and the balance of payments",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-global",
+              "title": "Globalisation and its institutions",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-growth",
+          "title": "Growth, Development and Inequality",
+          "total": 110,
+          "children": [
+            {
+              "id": "ec-growth-theory",
+              "title": "Economic growth",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-development",
+              "title": "Development economics",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-inequality",
+              "title": "Inequality and poverty",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-labour",
+              "title": "Work, wages and labour markets",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-thought",
+          "title": "The History of Economic Thought",
+          "total": 120,
+          "children": [
+            {
+              "id": "ec-before",
+              "title": "Economic thought before economics",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ec-classical",
+              "title": "The classical economists",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-marginal",
+              "title": "The marginal revolution",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-keynes",
+              "title": "Keynes and the interwar break",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-postwar",
+              "title": "Economics since 1945",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ec-applied",
+          "title": "Economics in the World",
+          "total": 110,
+          "children": [
+            {
+              "id": "ec-behavioural",
+              "title": "Behaviour, information and games",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-environment",
+              "title": "The environment and the long run",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ec-methods",
+              "title": "How economists find things out",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ec-discipline",
+              "title": "The discipline and its critics",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "korea",
       "title": "Korea",
       "total": 100,
@@ -11126,6 +11776,2456 @@ window.COLLECTION_TREE = {
               "id": "ko-daily",
               "title": "Food, family and daily life",
               "total": 25,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "france",
+      "title": "France",
+      "total": 0,
+      "children": [
+        {
+          "id": "fr-gaul",
+          "title": "Gaul and the Franks",
+          "total": 100,
+          "children": [
+            {
+              "id": "fr-prehistory",
+              "title": "Before Gaul",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "fr-celts",
+              "title": "Celtic Gaul",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-roman",
+              "title": "Gallo-Roman Gaul",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-merovingian",
+              "title": "The Franks and the Merovingians",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-carolingian",
+              "title": "The Carolingians",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-medieval",
+          "title": "The Medieval Kingdom",
+          "total": 110,
+          "children": [
+            {
+              "id": "fr-capetians",
+              "title": "The early Capetians",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-church",
+              "title": "Church, monastery and cathedral",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-society",
+              "title": "Medieval society and the land",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-crown",
+              "title": "The making of the royal state",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-hundredyears",
+              "title": "The Hundred Years' War",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-renaissance",
+          "title": "Renaissance and the Wars of Religion",
+          "total": 90,
+          "children": [
+            {
+              "id": "fr-italianwars",
+              "title": "The Italian Wars and the new monarchy",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-humanism",
+              "title": "Renaissance and humanism in France",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-reformation",
+              "title": "Reformation and the Huguenots",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-religionwars",
+              "title": "The Wars of Religion",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-ancien",
+          "title": "The Ancien Régime",
+          "total": 120,
+          "children": [
+            {
+              "id": "fr-bourbons",
+              "title": "The Bourbon state",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-louis14",
+              "title": "Louis XIV",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-society18",
+              "title": "Society under the Ancien Régime",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-enlightenment",
+              "title": "The Enlightenment in France",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-crisis",
+              "title": "The crisis of the monarchy",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-revolution",
+          "title": "Revolution and Empire",
+          "total": 140,
+          "children": [
+            {
+              "id": "fr-1789",
+              "title": "1789",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-radical",
+              "title": "The Republic and the Terror",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-directory",
+              "title": "Thermidor and the Directory",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-napoleon",
+              "title": "Napoleon",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "fr-revmeaning",
+              "title": "What the Revolution changed",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-19c",
+          "title": "The Long Nineteenth Century",
+          "total": 110,
+          "children": [
+            {
+              "id": "fr-restoration",
+              "title": "Restoration and July Monarchy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-1848",
+              "title": "1848 and the Second Republic",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-secondempire",
+              "title": "The Second Empire",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-commune",
+              "title": "Defeat and the Commune",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-thirdrepublic",
+              "title": "The Third Republic to 1914",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-wars",
+          "title": "War and Occupation",
+          "total": 120,
+          "children": [
+            {
+              "id": "fr-ww1",
+              "title": "The First World War",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-interwar",
+              "title": "The interwar republic",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-1940",
+              "title": "The defeat of 1940",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "fr-vichy",
+              "title": "Vichy and the Occupation",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-resistance",
+              "title": "Resistance, liberation and reckoning",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-since1945",
+          "title": "France Since 1945",
+          "total": 120,
+          "children": [
+            {
+              "id": "fr-fourth",
+              "title": "The Fourth Republic",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-decolonisation",
+              "title": "Decolonisation and the Algerian War",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "fr-fifth",
+              "title": "The Fifth Republic",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-1968",
+              "title": "1968 and the long aftermath",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-contemporary",
+              "title": "France now",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "fr-making",
+          "title": "The Making of France",
+          "total": 90,
+          "children": [
+            {
+              "id": "fr-language",
+              "title": "The French language",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "fr-regions",
+              "title": "The regions and the provinces",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-empire",
+              "title": "The empire and the overseas",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "fr-institutions",
+              "title": "Institutions, ideas and everyday life",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mesopotamia",
+      "title": "Ancient Mesopotamia",
+      "total": 0,
+      "children": [
+        {
+          "id": "me-land",
+          "title": "The Land and the Evidence",
+          "total": 110,
+          "children": [
+            {
+              "id": "me-what",
+              "title": "What Mesopotamia is",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-geography",
+              "title": "The land between the rivers",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-cuneiform-ev",
+              "title": "The tablets and what survives",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-decipher",
+              "title": "Decipherment and Assyriology",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-digging",
+              "title": "Excavating Mesopotamia",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-before",
+          "title": "Before Cities",
+          "total": 100,
+          "children": [
+            {
+              "id": "me-neolithic",
+              "title": "The Neolithic of the north",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-ubaid",
+              "title": "The Ubaid",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-uruk",
+              "title": "The Uruk period",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-urban",
+              "title": "The first cities",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-sumer",
+          "title": "Sumer",
+          "total": 120,
+          "children": [
+            {
+              "id": "me-sumerians",
+              "title": "The Sumerians",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-earlydyn",
+              "title": "The Early Dynastic period",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-citystates",
+              "title": "City and king",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-sumercities",
+              "title": "The cities of Sumer",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-akkad",
+          "title": "Akkad and Ur",
+          "total": 100,
+          "children": [
+            {
+              "id": "me-sargon",
+              "title": "Sargon and the Akkadian empire",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-akkadfall",
+              "title": "The fall of Akkad",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-ur3",
+              "title": "The Third Dynasty of Ur",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-amorites",
+              "title": "The Amorites and the coming of Babylon",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-babylon",
+          "title": "Babylon",
+          "total": 120,
+          "children": [
+            {
+              "id": "me-oldbab",
+              "title": "The Old Babylonian period",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-hammurabi",
+              "title": "Hammurabi and his laws",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-kassite",
+              "title": "The Kassites and the late Bronze Age",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-neobab",
+              "title": "The Neo-Babylonian empire",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-babcity",
+              "title": "The city of Babylon",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-assyria",
+          "title": "Assyria",
+          "total": 120,
+          "children": [
+            {
+              "id": "me-earlyassyria",
+              "title": "Ashur and early Assyria",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-middleassyria",
+              "title": "The Middle Assyrian kingdom",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-neoassyria",
+              "title": "The Neo-Assyrian empire",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "me-assyrianstate",
+              "title": "How Assyria ruled",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-assyriafall",
+              "title": "The fall of Assyria",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-religion",
+          "title": "Gods, Temples and the Afterlife",
+          "total": 100,
+          "children": [
+            {
+              "id": "me-gods",
+              "title": "The gods",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-temple",
+              "title": "Temple and cult",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-myth",
+              "title": "Myth and cosmology",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-death",
+              "title": "Death, demons and divination",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-writing",
+          "title": "Writing, Science and Literature",
+          "total": 120,
+          "children": [
+            {
+              "id": "me-script",
+              "title": "Cuneiform as a system",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-scribes",
+              "title": "Scribes and schools",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "me-lit",
+              "title": "Literature",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-maths",
+              "title": "Mathematics",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-sciences",
+              "title": "Astronomy, medicine and technology",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "me-life",
+          "title": "Daily Life, Law and Legacy",
+          "total": 110,
+          "children": [
+            {
+              "id": "me-society",
+              "title": "Society and daily life",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "me-economy",
+              "title": "Work, land and trade",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-law",
+              "title": "Law and justice",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "me-legacy",
+              "title": "The end and the afterlife of Mesopotamia",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ww1",
+      "title": "The First World War",
+      "total": 0,
+      "children": [
+        {
+          "id": "ww1-origins",
+          "title": "Origins",
+          "total": 110,
+          "children": [
+            {
+              "id": "ww1-europe1900",
+              "title": "Europe before the war",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-arms",
+              "title": "Armies, navies and plans",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-crises",
+              "title": "Crises and the road to war",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-july",
+              "title": "July 1914",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-1914",
+          "title": "1914",
+          "total": 100,
+          "children": [
+            {
+              "id": "ww1-mob",
+              "title": "Mobilisation",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-1914west",
+              "title": "The invasion of the west",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-1914east",
+              "title": "The East in 1914",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-siege",
+              "title": "The war becomes a siege",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-west",
+          "title": "The Western Front",
+          "total": 130,
+          "children": [
+            {
+              "id": "ww1-trench",
+              "title": "Trench warfare",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-1915west",
+              "title": "1915 in the west",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-verdun",
+              "title": "Verdun",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-somme",
+              "title": "The Somme",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-1917west",
+              "title": "1917 in the west",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-fronts",
+          "title": "The Other Fronts",
+          "total": 130,
+          "children": [
+            {
+              "id": "ww1-east",
+              "title": "The Eastern Front",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-italy",
+              "title": "Italy and the Alps",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-ottoman",
+              "title": "The Ottoman fronts",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-balkans",
+              "title": "The Balkans and Salonika",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-africa",
+              "title": "Africa",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-seaair",
+          "title": "The War at Sea and in the Air",
+          "total": 90,
+          "children": [
+            {
+              "id": "ww1-sea",
+              "title": "The surface war at sea",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-uboat",
+              "title": "The submarine war and the blockade",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-air",
+              "title": "The air war",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-home",
+          "title": "Home Fronts and Total War",
+          "total": 120,
+          "children": [
+            {
+              "id": "ww1-econ",
+              "title": "The war economy",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-state",
+              "title": "The state at war",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-women",
+              "title": "Women and the war",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-society",
+              "title": "Society under strain",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-world",
+          "title": "The Wider World",
+          "total": 100,
+          "children": [
+            {
+              "id": "ww1-empires",
+              "title": "Empires at war",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-asia",
+              "title": "Asia, the Pacific and the labour corps",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-neutrals",
+              "title": "The Americas and the neutrals",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-genocide",
+              "title": "The Armenian genocide and mass violence",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-endgame",
+          "title": "1917 and 1918",
+          "total": 110,
+          "children": [
+            {
+              "id": "ww1-1917",
+              "title": "The year of crisis",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-kaiserschlacht",
+              "title": "The German offensives",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-100days",
+              "title": "The Hundred Days",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-armistice",
+              "title": "The armistices",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww1-after",
+          "title": "Aftermath, Memory and Meaning",
+          "total": 110,
+          "children": [
+            {
+              "id": "ww1-peace",
+              "title": "The peace settlements",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-wars",
+              "title": "Wars after the war",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-cost",
+              "title": "Counting the cost",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ww1-memory",
+              "title": "Memory and meaning",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arch",
+      "title": "Architecture",
+      "total": 0,
+      "children": [
+        {
+          "id": "arch-basics",
+          "title": "How a building stands up",
+          "total": 115,
+          "children": [
+            {
+              "id": "arch-forces",
+              "title": "Forces, spans and structure",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "arch-materials",
+              "title": "Materials",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "arch-climate",
+              "title": "Light, heat, water and sound",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "arch-drawing",
+              "title": "Drawing, model and plan",
+              "total": 23,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-first",
+          "title": "The first builders",
+          "total": 80,
+          "children": [
+            {
+              "id": "arch-shelter",
+              "title": "Shelter before architecture",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "arch-village",
+              "title": "The Neolithic house and village",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "arch-megalith",
+              "title": "Megaliths and mounds",
+              "total": 28,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-ancient",
+          "title": "The ancient world",
+          "total": 120,
+          "children": [
+            {
+              "id": "arch-mesopotamia",
+              "title": "Mesopotamia and Persia",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "arch-egypt",
+              "title": "Egypt",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "arch-greece",
+              "title": "Greece and the Aegean",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "arch-rome",
+              "title": "Rome",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "arch-americas",
+              "title": "The early Americas",
+              "total": 12,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-asia",
+          "title": "Asia",
+          "total": 120,
+          "children": [
+            {
+              "id": "arch-india",
+              "title": "South Asia",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "arch-china",
+              "title": "China",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "arch-japan",
+              "title": "Japan and Korea",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "arch-seasia",
+              "title": "Southeast Asia",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "arch-steppe",
+              "title": "Central Asia and the mountains",
+              "total": 18,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-medieval",
+          "title": "The Islamic world and medieval Europe",
+          "total": 115,
+          "children": [
+            {
+              "id": "arch-islamic",
+              "title": "The Islamic world",
+              "total": 34,
+              "cardIds": []
+            },
+            {
+              "id": "arch-byz",
+              "title": "Byzantium and the Orthodox world",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "arch-romanesque",
+              "title": "Romanesque",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "arch-gothic",
+              "title": "Gothic",
+              "total": 33,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-early-modern",
+          "title": "Renaissance to Enlightenment",
+          "total": 110,
+          "children": [
+            {
+              "id": "arch-renaissance",
+              "title": "The Renaissance",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "arch-baroque",
+              "title": "Baroque and Rococo",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "arch-neoclass",
+              "title": "Neoclassicism and the Enlightenment",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "arch-colonial",
+              "title": "Empire and the colonial building",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-industrial",
+          "title": "The industrial century",
+          "total": 110,
+          "children": [
+            {
+              "id": "arch-iron",
+              "title": "Iron, glass and the engineer",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "arch-city19",
+              "title": "The industrial city",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "arch-revival",
+              "title": "The revivals and the battle of the styles",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "arch-chicago",
+              "title": "The tall building",
+              "total": 27,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-modernism",
+          "title": "The modern movement",
+          "total": 115,
+          "children": [
+            {
+              "id": "arch-early20",
+              "title": "Before the modern movement",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "arch-modern",
+              "title": "The modern movement",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "arch-housing",
+              "title": "Mass housing",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "arch-intl",
+              "title": "The International Style and after",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "arch-region",
+              "title": "Other modernisms",
+              "total": 17,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "arch-now",
+          "title": "Now",
+          "total": 115,
+          "children": [
+            {
+              "id": "arch-late20",
+              "title": "Brutalism, postmodernism and after",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "arch-hightech",
+              "title": "High-tech and the engineered envelope",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "arch-green",
+              "title": "Building and the climate",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "arch-conserve",
+              "title": "Conservation, repair and loss",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "arch-profession",
+              "title": "The profession and its questions",
+              "total": 24,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "middleearth",
+      "title": "Middle-earth",
+      "total": 0,
+      "children": [
+        {
+          "id": "mid-making",
+          "title": "The man and the making",
+          "total": 110,
+          "children": [
+            {
+              "id": "mid-life",
+              "title": "Tolkien's life",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "mid-philology",
+              "title": "Philology and the day job",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-sources",
+              "title": "What he read",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "mid-writing",
+              "title": "Writing and publishing",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-books",
+          "title": "The books",
+          "total": 110,
+          "children": [
+            {
+              "id": "mid-hobbit",
+              "title": "The Hobbit",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-lotr",
+              "title": "The Lord of the Rings",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "mid-silm",
+              "title": "The Silmarillion",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "mid-posthumous",
+              "title": "The posthumous volumes",
+              "total": 22,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-world",
+          "title": "The world",
+          "total": 115,
+          "children": [
+            {
+              "id": "mid-cosmology",
+              "title": "Creation and the Valar",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-ages",
+              "title": "The shape of Arda and its Ages",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-beleriand",
+              "title": "Beleriand and the drowned West",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "mid-lands",
+              "title": "The lands of the Third Age",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "mid-reckoning",
+              "title": "Maps, calendars and measure",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-peoples",
+          "title": "The peoples",
+          "total": 115,
+          "children": [
+            {
+              "id": "mid-elves",
+              "title": "Elves",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "mid-men",
+              "title": "Men",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "mid-dwarves",
+              "title": "Dwarves",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "mid-hobbits",
+              "title": "Hobbits",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "mid-kindreds",
+              "title": "Ents, Orcs and the other kindreds",
+              "total": 21,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-histories",
+          "title": "The histories",
+          "total": 120,
+          "children": [
+            {
+              "id": "mid-firstage",
+              "title": "The First Age",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "mid-secondage",
+              "title": "The Second Age",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-thirdage",
+              "title": "The Third Age",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-warofring",
+              "title": "The War of the Ring",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-languages",
+          "title": "The languages",
+          "total": 95,
+          "children": [
+            {
+              "id": "mid-glossopoeia",
+              "title": "Inventing a language",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "mid-elvish",
+              "title": "Quenya and Sindarin",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "mid-tongues",
+              "title": "The other tongues",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "mid-scripts",
+              "title": "Scripts, names and inscriptions",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-reading",
+          "title": "Reading Tolkien",
+          "total": 105,
+          "children": [
+            {
+              "id": "mid-themes",
+              "title": "The themes",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "mid-criticism",
+              "title": "The arguments about the books",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "mid-century",
+              "title": "Tolkien and his century",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-scholarship",
+              "title": "Tolkien studies",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-screen",
+          "title": "The adaptations",
+          "total": 120,
+          "children": [
+            {
+              "id": "mid-early",
+              "title": "Before Jackson",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "mid-jackson",
+              "title": "The Jackson trilogy",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "mid-hobbitfilms",
+              "title": "The Hobbit films",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "mid-rop",
+              "title": "The Rings of Power",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "mid-stage",
+              "title": "Radio, stage and music",
+              "total": 19,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-franchise",
+          "title": "The franchise",
+          "total": 110,
+          "children": [
+            {
+              "id": "mid-tabletop",
+              "title": "Games on the table",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "mid-videogames",
+              "title": "Video games",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-estate",
+              "title": "Publishing, the Estate and the law",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-fandom",
+              "title": "Fandom",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "mid-legacy",
+              "title": "What came after",
+              "total": 18,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "westeros",
+      "title": "Westeros",
+      "total": 0,
+      "children": [
+        {
+          "id": "wes-author",
+          "title": "The author and the making",
+          "total": 105,
+          "children": [
+            {
+              "id": "wes-martin",
+              "title": "George R. R. Martin",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "wes-history",
+              "title": "The history behind it",
+              "total": 32,
+              "cardIds": []
+            },
+            {
+              "id": "wes-writing",
+              "title": "Writing the books",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "wes-publish",
+              "title": "Publishing and the wait",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-books",
+          "title": "The books",
+          "total": 110,
+          "children": [
+            {
+              "id": "wes-agot",
+              "title": "A Game of Thrones",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-middle",
+              "title": "A Clash of Kings and A Storm of Swords",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "wes-later",
+              "title": "A Feast for Crows and A Dance with Dragons",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "wes-craft",
+              "title": "How the books are built",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-world",
+          "title": "The world",
+          "total": 115,
+          "children": [
+            {
+              "id": "wes-westeros",
+              "title": "Westeros",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "wes-essos",
+              "title": "Essos and beyond",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "wes-wall",
+              "title": "The North and the Wall",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-magic",
+              "title": "Seasons, magic and prophecy",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-maps",
+              "title": "Maps, measure and reckoning",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-houses",
+          "title": "Houses and peoples",
+          "total": 115,
+          "children": [
+            {
+              "id": "wes-great",
+              "title": "The great houses",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "wes-lesser",
+              "title": "Lesser houses and the regions",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-orders",
+              "title": "Orders, institutions and the faith",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "wes-beyond",
+              "title": "Peoples beyond the Seven Kingdoms",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-smallfolk",
+              "title": "Smallfolk, war and daily life",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-past",
+          "title": "The history of Westeros",
+          "total": 125,
+          "children": [
+            {
+              "id": "wes-dawn",
+              "title": "The Dawn Age to the Andals",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "wes-conquest",
+              "title": "Aegon's Conquest and the Targaryen kings",
+              "total": 32,
+              "cardIds": []
+            },
+            {
+              "id": "wes-dance",
+              "title": "The Dance of the Dragons",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "wes-blackfyre",
+              "title": "Blackfyre, Dunk and Egg",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "wes-rebellion",
+              "title": "Robert's Rebellion",
+              "total": 23,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-fivekings",
+          "title": "The War of the Five Kings",
+          "total": 90,
+          "children": [
+            {
+              "id": "wes-war1",
+              "title": "From the Hand's death to the Green Fork",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "wes-war2",
+              "title": "The riverlands and the Blackwater",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-war3",
+              "title": "The Red Wedding and after",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-war4",
+              "title": "Where the published books leave it",
+              "total": 22,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-reading",
+          "title": "Reading the books",
+          "total": 105,
+          "children": [
+            {
+              "id": "wes-themes",
+              "title": "The themes",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "wes-arguments",
+              "title": "The arguments",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "wes-violence",
+              "title": "Violence, sex and what the books are doing",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "wes-genre",
+              "title": "Fantasy after Martin",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-screen",
+          "title": "The screen",
+          "total": 125,
+          "children": [
+            {
+              "id": "wes-got",
+              "title": "Game of Thrones",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "wes-diverge",
+              "title": "Where the show left the books",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "wes-ending",
+              "title": "The ending and the reaction",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "wes-hotd",
+              "title": "House of the Dragon and after",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-making",
+              "title": "Making the show",
+              "total": 18,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-franchise",
+          "title": "The franchise",
+          "total": 110,
+          "children": [
+            {
+              "id": "wes-games",
+              "title": "Games",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "wes-companion",
+              "title": "Companion books and the world guides",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "wes-fandom",
+              "title": "Fandom and theory",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "wes-business",
+              "title": "The business and the law",
+              "total": 18,
+              "cardIds": []
+            },
+            {
+              "id": "wes-legacy",
+              "title": "What came after",
+              "total": 17,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coldwar",
+      "title": "The Cold War",
+      "total": 0,
+      "children": [
+        {
+          "id": "cw-start",
+          "title": "Origins and the shape of the conflict",
+          "total": 105,
+          "children": [
+            {
+              "id": "cw-origins",
+              "title": "Where it came from",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-1945",
+              "title": "1945 to 1949",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-shape",
+              "title": "What kind of conflict it was",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "cw-blocs",
+              "title": "The two blocs and the rest",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-europe",
+          "title": "Europe divided",
+          "total": 110,
+          "children": [
+            {
+              "id": "cw-germany",
+              "title": "Germany and Berlin",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-east",
+              "title": "The Eastern bloc",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-west",
+              "title": "Western Europe",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-1989",
+              "title": "Nineteen eighty-nine",
+              "total": 22,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-nuclear",
+          "title": "The bomb",
+          "total": 110,
+          "children": [
+            {
+              "id": "cw-bomb",
+              "title": "Building the bomb",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-strategy",
+              "title": "Strategy and deterrence",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-arms",
+              "title": "Arms control",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "cw-risk",
+              "title": "Near misses and the risk",
+              "total": 26,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-home",
+          "title": "The superpowers at home",
+          "total": 110,
+          "children": [
+            {
+              "id": "cw-usa",
+              "title": "The United States",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-ussr",
+              "title": "The Soviet Union",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-fear",
+              "title": "Fear, loyalty and repression",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-money",
+              "title": "The two economies",
+              "total": 22,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-asia",
+          "title": "Asia",
+          "total": 120,
+          "children": [
+            {
+              "id": "cw-china",
+              "title": "China",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-korea",
+              "title": "The Korean War",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "cw-vietnam",
+              "title": "Vietnam and Indochina",
+              "total": 34,
+              "cardIds": []
+            },
+            {
+              "id": "cw-asiarest",
+              "title": "The rest of Asia",
+              "total": 34,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-global",
+          "title": "The global Cold War",
+          "total": 120,
+          "children": [
+            {
+              "id": "cw-decol",
+              "title": "Decolonisation and non-alignment",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-mideast",
+              "title": "The Middle East",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "cw-africa",
+              "title": "Africa",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-latam",
+              "title": "Latin America",
+              "total": 36,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-secret",
+          "title": "Spies, propaganda and culture",
+          "total": 105,
+          "children": [
+            {
+              "id": "cw-intel",
+              "title": "Intelligence",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-words",
+              "title": "Propaganda and the war of words",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "cw-culture",
+              "title": "Culture and sport",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-space",
+              "title": "The space race",
+              "total": 22,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-endgame",
+          "title": "Détente, the second Cold War and the end",
+          "total": 115,
+          "children": [
+            {
+              "id": "cw-detente",
+              "title": "Détente",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-second",
+              "title": "The second Cold War",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-gorbachev",
+              "title": "Gorbachev",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-collapse",
+              "title": "The collapse of the Soviet Union",
+              "total": 31,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-after",
+          "title": "Aftermath and argument",
+          "total": 105,
+          "children": [
+            {
+              "id": "cw-aftermath",
+              "title": "The aftermath",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-legacy",
+              "title": "Nuclear legacies",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "cw-history",
+              "title": "How the Cold War is written",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-memory",
+              "title": "Memory and the present",
+              "total": 27,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vikingage",
+      "title": "The Viking Age",
+      "total": 0,
+      "children": [
+        {
+          "id": "vk-before",
+          "title": "The north before the raids, and how we know",
+          "total": 110,
+          "children": [
+            {
+              "id": "vk-ev",
+              "title": "The evidence and its limits",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-lands",
+              "title": "The northern lands",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-ironage",
+              "title": "Scandinavia in the Iron Age",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-vendel",
+              "title": "The Vendel and Merovingian centuries",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-sea",
+          "title": "Ships, seafaring and the sea road",
+          "total": 100,
+          "children": [
+            {
+              "id": "vk-shipbuild",
+              "title": "Building a ship",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-shiptypes",
+              "title": "Ships and their kinds",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-nav",
+              "title": "Navigation and the sea road",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-shipfinds",
+              "title": "The ship finds",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-west",
+          "title": "Raiding and settlement in Britain and Ireland",
+          "total": 120,
+          "children": [
+            {
+              "id": "vk-first",
+              "title": "The first raids",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-england",
+              "title": "England and the great army",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "vk-danelaw",
+              "title": "The Danelaw and Scandinavian England",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-ireland",
+              "title": "Ireland and the Irish Sea",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-scotland",
+              "title": "Scotland, the isles and the far north",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-south",
+          "title": "Francia, Iberia and the south",
+          "total": 100,
+          "children": [
+            {
+              "id": "vk-francia",
+              "title": "Raids on Francia",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-normandy",
+              "title": "The making of Normandy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-iberia",
+              "title": "Iberia and al-Andalus",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-med",
+              "title": "The Mediterranean and the far south",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-east",
+          "title": "The eastern road: the Baltic, the rivers and the Rus'",
+          "total": 110,
+          "children": [
+            {
+              "id": "vk-baltic",
+              "title": "The Baltic and its shores",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-rivers",
+              "title": "The river roads",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-rus",
+              "title": "The Rus'",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "vk-varangian",
+              "title": "Constantinople and the Varangians",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-atlantic",
+          "title": "The North Atlantic",
+          "total": 110,
+          "children": [
+            {
+              "id": "vk-faroe",
+              "title": "The Northern Isles, the Faroes and the empty lands",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-iceland",
+              "title": "Iceland",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "vk-greenland",
+              "title": "Greenland",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-vinland",
+              "title": "Vinland and North America",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-home",
+          "title": "Life at home: farm, hall, craft and trade",
+          "total": 120,
+          "children": [
+            {
+              "id": "vk-farm",
+              "title": "Farm, field and food",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-house",
+              "title": "House, hall and household",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-craft",
+              "title": "Craft and material",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-trade",
+              "title": "Trade, towns and silver",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-law",
+              "title": "Law, assembly and violence",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-belief",
+          "title": "Belief, the dead, and the coming of Christianity",
+          "total": 120,
+          "children": [
+            {
+              "id": "vk-gods",
+              "title": "The gods and the myths",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "vk-ritual",
+              "title": "Ritual, burial and the dead",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-runes",
+              "title": "Runes, poetry and memory",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-christ",
+              "title": "The coming of Christianity",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-after",
+          "title": "Kingdoms, endings and afterlives",
+          "total": 110,
+          "children": [
+            {
+              "id": "vk-kings",
+              "title": "The making of the three kingdoms",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-empire",
+              "title": "Cnut's North Sea empire",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-end",
+              "title": "1066 and the end of the Viking Age",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-legacy",
+              "title": "Afterlives, romanticism and misuse",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-hist",
+              "title": "The historiography",
+              "total": 15,
               "cardIds": []
             }
           ]

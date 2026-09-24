@@ -20547,6 +20547,145 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        bought at a small cost in legibility. A hanok roof was rejected for being China's pagoda at 28px
        and a moon jar for being a circle. The two arcs are exact semicircles (r 4.3 across a chord of 8.6)
        with opposite sweep flags, which is what makes the S symmetrical about the centre. */
+    /* ringed planet — Astronomy. The one mark that says this subject and nothing else at the 24-28px a
+       deck row draws it at. THE COLLISION TO AVOID IS `atom`, NOT `star`: this shelf already carries
+       sun, moon, star and atom, and the first three are each one shape, but the atom is a small disc
+       crossed by an ellipse — the same construction. What separates them is PROPORTION. The atom's
+       nucleus is r 1.9 inside THREE ellipses of rx 9; this is a disc of r 5 inside ONE ring of rx 10.5.
+       A single ring around a large disc is Saturn; three rings around a dot is an atom. If it is ever
+       redrawn, keep the disc large and the ring single, and do not add a second ring. `star` was
+       considered and refused for a different reason — the United States collection already wears it, and
+       two collections sharing a mark is what these exist to prevent (Visual Art's reuse of `brush` is a
+       stated cost, not a precedent). LOOKED AT at 24, 28 and 40px, on dark ground and on light, beside
+       `atom` and `star`: the failure this had to clear is the ring reading as a strike-through, and it
+       does not — the -18 degree tilt and the ring's overhang (x 1.96-22.04 against the disc's 7-17) read
+       as a ring at every size. */
+    { k: "ringed", n: "Ringed planet", d: '<circle cx="12" cy="12" r="5"/><ellipse cx="12" cy="12" rx="10.5" ry="3.4" transform="rotate(-18 12 12)"/>' },
+    /* Eiffel Tower — France. On THIS SHELF'S OWN CONVENTION: a pagoda stands for China, a torii for
+       Japan, a pyramid for Egypt, an onion dome for Russia, a Doric column for Greece and a wall for
+       Chinese geography, so a monument standing for a nation is what these marks already are — and the
+       anachronism (an 1889 structure over a collection that opens in the Palaeolithic) is the pagoda's
+       and the torii's, not a new cost. A FLEUR-DE-LIS was the other candidate and was refused twice
+       over: it says MONARCHY on a collection whose largest deck is the Revolution, and at 24px it is a
+       blob close to the existing `crown`. A Gallic rooster would be a second bird beside the owl.
+       THE COLLISION IS `pyramid` AND `mountain`, both triangles — and THE FIRST DRAFT LOST TO IT. Drawn
+       with the flare spread evenly over the whole height it read as a TRAFFIC CONE at 24px, which four
+       variants of the same construction all did: a shallow curve plus a ground line plus stripes is a
+       cone, whatever the intent. WHAT FIXES IT IS WHERE THE FLARE IS. The real silhouette is a NEEDLE
+       that splays only in its bottom third, so the control points hold x near 12 from y 12 upward and do
+       all the spreading below y 15 — at y 9.5 the shaft is 2.3 wide and at the base it is 10.4. Keep
+       that, and keep the arch; a straight-sided or evenly-tapered tower is a pyramid with a mast on it.
+       A SECOND PLATFORM WAS DRAWN AND DROPPED, on the laurel wreath's precedent above: four horizontal
+       marks inside 17px is a blob, and the arch plus one platform says the same thing. Looked at at 20,
+       24, 28, 40 and 64px on dark ground and on light, beside `pyramid`, `mountain` and `crown`. */
+    { k: "eiffel", n: "Eiffel Tower", d: '<path d="M5 21h14"/><path d="M6.8 21C9.9 19 11.5 12.5 12 2.5"/><path d="M17.2 21C14.1 19 12.5 12.5 12 2.5"/><path d="M8.2 19.6Q12 17 15.8 19.6"/><path d="M9.8 16.3h4.4"/>' },
+    /* supply-and-demand cross — Economics. The Marshallian cross, which is the one image the subject
+       has made entirely its own: nothing else on this shelf is a CHART, and a reader who has had one
+       economics lesson recognises it. `coin` already exists and is claimed by no collection, so reuse
+       was available and was refused — a coin says MONEY, and money is one deck of nine here; the mark
+       should say what the collection is about, which is choice under scarcity.
+       THE COLLISION IS READING AS A BARE X, AND THE AXIS IS THE WHOLE OF WHAT PREVENTS IT — measured,
+       not assumed: rendered without the L the two curves are simply a saltire at every size. KEEP THE
+       AXIS. The CURVATURE is a weaker claim than it looks and the render said so: a straight-line
+       variant reads almost identically below about 28px, and the curve only becomes visible at 40px
+       and up. It is kept because it is what makes the mark a supply-and-demand diagram rather than a
+       generic X-in-axes where it CAN be seen, not because it rescues the small sizes. Looked at at 20,
+       24, 28, 40 and 64px, on dark ground and on light, beside `coin` and `atom`. */
+    { k: "cross", n: "Supply and demand", d: '<path d="M4.5 3.5V19.5H20"/><path d="M7.5 17.5C10.5 16 13 12.5 17.5 6.5"/><path d="M7.5 6.5C10.5 8 13 11.5 17.5 17.5"/>' },
+    /* clay tablet — Ancient Mesopotamia. The object the whole collection is made of. `scroll`, `book`
+       and `letter` exist below and are claimed by no collection, so reuse was available and is wrong:
+       a scroll is papyrus, a book is a codex and an envelope is neither, and none of them is what
+       Mesopotamia wrote on.
+       TWO THINGS WERE LEARNED BY DRAWING IT, and both are why the paths look as they do.
+       FIRST, `stroke-linecap="butt"` ON THE INNER MARKS IS LOAD-BEARING. The svg sets round caps, which
+       add half the stroke width at each end — so the first draft's 1.7-unit marks rendered ~3.2 wide
+       against 1.3-unit gaps and MERGED INTO TWO SOLID BARS at 24px, turning the mark into a generic
+       document icon. Butt caps and three ragged rows keep six separate marks legible down to 20px.
+       SECOND, A CUNEIFORM WEDGE CANNOT BE DRAWN AT THIS SIZE. A small arrowhead was tried and at 40px
+       and up it reads unmistakably as a FAST-FORWARD control; the shape is too fine to survive. What
+       identifies the mark is therefore the SLAB, not the script: the outline is a pillow — bowed on all
+       four sides, wider than tall, no spine and no fold — which is what separates it from `book` and
+       `letter`. KEEP THE BOW.
+       THE HONEST LIMIT, since no redraw fixes it: at 20px this is a rounded slab with texture on it, and
+       a reader who does not already know the collection could read it as a document. Every tablet mark
+       has that problem. Looked at at 20, 24, 28, 40 and 64px on dark ground and on light, beside `book`
+       and `letter`, across nine variants. */
+    { k: "tablet", n: "Clay tablet", d: '<path d="M6 5.4Q12 4.4 18 5.4Q19.2 11 18 18.6Q12 19.6 6 18.6Q4.8 11 6 5.4Z"/><path stroke-linecap="butt" d="M8.2 9h2.4M12.4 9h3.4"/><path stroke-linecap="butt" d="M8.2 12h3.4M13.2 12h2.4"/><path stroke-linecap="butt" d="M8.2 15h2.4M12 15h2.6"/>' },
+    /* barbed wire — The First World War. The object this war found a use for, belonging to every army
+       and to no nation, and the one piece of its furniture that is a SHAPE rather than a silhouette
+       somebody has to recognise. Three obvious marks were rejected before it and each rejection is the
+       same argument: a steel helmet is national in every version (Brodie, Adrian, Stahlhelm), a poppy is
+       one nation-group's emblem of mourning AND a blob at 24px, and a biplane collides outright with
+       `plane`, which the Second World War already wears. The collision to avoid here is `sword` and
+       `shield`, the shelf's two martial marks, and the separation is easy: both are VERTICAL objects,
+       where this is a horizontal band across the full width. RENDERED AND LOOKED AT at 24, 26, 28, 34
+       and 48px, on the collection's own ground and on white, beside sword, shield, plane and cards —
+       fifteen variants over three rounds. What the rendering settled, and none of it was predictable:
+       a WAVY strand scribbles at 24px; THREE barbs merge into a hatched bar; a TWISTED pair of strands
+       reads as a chain of beads; a six-point barb (an X plus a vertical) reads as an asterisk; and a
+       SAGGING strand — which is what real wire does — reads as a bird with wings. A straight strand
+       with TWO four-point barbs is the one that survives, and the failure it had to clear is reading as
+       a strike-through, which it does not: the barbs run y 8-16 on a 24 grid, a third of the box above
+       and below the line, and there are two of them rather than a row. Keep it to two, keep the strand
+       straight, and do not add a second strand. */
+    { k: "wire", n: "Barbed wire", d: '<path d="M2 12h20"/><path d="M6.6 8 9.4 16M9.4 8 6.6 16"/><path d="M14.6 8 17.4 16M17.4 8 14.6 16"/>' },
+    /* arch (Architecture) — the sharpest icon collision on the shelf, because EIGHT of the marks above
+       and below are already buildings: pagoda, column, dome, pyramid, torii, castle, wall and eiffel. An
+       architecture collection may have none of them, so what it wears is a piece of CONSTRUCTION rather
+       than a building — the round arch, which belongs to no one tradition (Mesopotamian, Roman, Sasanian,
+       Islamic, Gothic and Chinese building all turn on it).
+       THE RING IS WHAT MAKES IT LEGIBLE AND IT WAS SETTLED BY RENDERING. A single-line arch — one curve
+       on two legs — reads at 24px as a doorway, a tombstone or a shed; drawing an extrados AND an
+       intrados with the opening inside them says MASONRY and is what separates it from the onion `dome`
+       two rows up. A keystone was tried twice and refused twice: as a wedge projecting above the crown it
+       reads at 24px as a chimney on a hut, and as two radial joint lines it crowds the ring into a smear.
+       Keep the ring and keep the ground line — without the line the shape floats and reads as a
+       horseshoe, without the ring it is a door. */
+    { k: "arch", n: "Arch", d: '<path d="M4 20V11a8 8 0 0 1 16 0v9"/><path d="M7 20v-9a5 5 0 0 1 10 0v9"/><path d="M2 20h20"/>' },
+    /* A PLAIN UNADORNED CIRCLE (Middle-earth) — and it is the plainest mark here on purpose. Fifty
+       marks were already in this list and NOT ONE of them is a bare circle: `coin` is two concentric
+       circles, `globe` a circle with three meridians, `sun` a small disc with rays, `ringed` a disc
+       inside one ellipse, `atom` a nucleus inside three, `moon` a crescent. Rendered at 24, 28 and
+       34px beside all six, the empty ring is unmistakable against every one of them. A ROUND HOBBIT
+       DOOR WAS TRIED AND REFUSED — a circle with a centred knob on a ground line reads at 24px as
+       `coin`'s inner circle with the ground line gone, so the more elaborate mark is the more
+       confusable one. Keep the circle empty. It is also the one emblem of this franchise that is a
+       geometric form rather than somebody's design. */
+    { k: "ring", n: "Ring", d: '<circle cx="12" cy="12" r="8.2"/>' },
+    /* A BIRD IN FLIGHT (Westeros) — fifty-one marks were in this list and NOT ONE was a bird in
+       flight: `owl` is front-facing, round, with two large eyes and ear tufts, and nothing else comes
+       near. Rendered at 24, 28, 34 and 44px beside `owl`, `plane`, `leaf` and `ship` it is
+       unmistakable at every size. It is the franchise's own messenger — every letter in the series
+       travels by raven, the maesters keep them, and "dark wings, dark words" is a saying a reader
+       meets a dozen times — and, like the hue beside it, it belongs to NO HOUSE, which a direwolf, a
+       lion or a stag would not. THREE OTHER MARKS WERE DRAWN AND REFUSED: a DIREWOLF head is House
+       Stark's sigil and at 24px is `owl` with pointed ears, i.e. a cat; an IRON THRONE drawn as a
+       seat under a row of blades reads at 24px as `castle`, whose whole identity is crenellations;
+       and a DRAGON cannot be drawn at 24px without becoming a bird anyway. Keep the tail and the
+       wing's sweep — the first raven drawn without them read as a snail. */
+    { k: "raven", n: "Raven", d: '<path d="M2.4 8.6 7.8 12.8c1.7-2.4 4.1-3.7 7-3.7l2.6-2.5v2.9l4.2 1.3-3.8 1.7c-.4 4.3-3.7 7.1-7.9 7.1-2.4 0-4.4-.7-5.9-2"/><path d="M9.6 19.5 8 21.6"/><circle cx="14.4" cy="10.9" r=".8"/>' },
+    /* THE RADIATION TREFOIL (The Cold War) — fifty-two marks were in this list and nothing resembles
+       it: `atom` is a nucleus inside three ellipses, `ringed` a disc inside one, `sun` a small disc
+       with straight rays, `ring` a bare circle. Rendered at 24, 28, 34 and 44px beside all four it is
+       unmistakable, which is what a three-wedge rotational form buys — a silhouette nothing else here
+       has. IT BELONGS TO NEITHER SIDE, which is the test the hue below had to pass too, and it names
+       the one thing that makes this a subject rather than a chapter of great-power rivalry.
+       A MUSHROOM CLOUD WAS REFUSED and NOT on legibility: it is an image of a hundred thousand deaths
+       used as a decorative mark, and a collection that cards Hiroshima properly should not wear it.
+       A ROCKET was drawn and refused on legibility — at 24px it is a fussy `plane`, and a third
+       vehicle besides. A HALF-FILLED CIRCLE for the divided world reads as `moon`. */
+    { k: "trefoil", n: "Radiation trefoil", d: '<circle cx="12" cy="12" r="2.6"/><path d="M9.8 7.9 L7.1 2.8 A10.4 10.4 0 0 1 16.9 2.8 L14.2 7.9 A4.6 4.6 0 0 0 9.8 7.9 Z"/><path d="M16.6 12.2 L22.4 12.4 A10.4 10.4 0 0 1 17.5 20.8 L14.4 15.9 A4.6 4.6 0 0 0 16.6 12.2 Z"/><path d="M9.6 15.9 L6.5 20.8 A10.4 10.4 0 0 1 1.6 12.4 L7.4 12.2 A4.6 4.6 0 0 0 9.6 15.9 Z"/>' },
+    /* A DANE AXE, and the hammer that was drawn first would not render — see docs/vikingage-card-plan.md
+       for the fifteen proportions. Two rules came out of it and both are general. A SYMMETRIC OBJECT ON A
+       STEM CANNOT CARRY THIS SLOT: head-down a Mjolnir reads as a plant pot, head-up a bar across a vertical
+       stroke is the letter T, and every legible hammer glyph escapes that by being asymmetric, which a
+       Mjolnir by definition is not. And A BLADE BESIDE THE TOP OF AN UPRIGHT HAFT READS AS THE LETTER P —
+       drawn six times — so THE HAFT IS DIAGONAL and CROSSES the blade. The diagonal is also what separates
+       it from everything else here before a reader has resolved the blade: no other mark on this shelf is
+       drawn on an axis. A prow spiral reads as a shepherd's crook, a square sail as a CJK
+       character (bad on a shelf carrying China), a drinking horn collides with moon, a round shield with coin and
+       compass, a runestone with arch, a triquetra with atom and ringed. */
+    { k: "axe", n: "Dane axe", d: '<path d="M3.4 21.4 13.8 8.6"/><path d="M10.6 3.2c5 1 9 4.8 10 9.6-4.8 1.6-10.2 0-13.6-3.6z"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20634,11 +20773,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-43": "lotus",
     egypt: "pyramid",
     ww2: "plane",
+    ww1: "wire",
+    arch: "arch",
+    middleearth: "ring",
+    westeros: "raven",
+    coldwar: "trefoil",
+    vikingage: "axe",
     japan: "torii",
     psych: "head",
     phil: "owl",
     bio: "helix",
     dino: "sauropod",
+    astro: "ringed",
+    france: "eiffel",
+    econ: "cross",
+    mesopotamia: "tablet",
     korea: "taegeuk",
     /* Visual Art takes the EXISTING `brush`, which is the one collection mark on this shelf that was
        reused rather than drawn. Every other was checked by eye at the 24-28px a deck row draws it at,
@@ -25222,7 +25371,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -26021,6 +26170,246 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        yellow-green-brown quarter. What remains genuinely open is narrow, and the next collection may have
        to accept a distance nearer the median than the maximum, as Philosophy's petrol did at 19.8. */
     dino:     { bg: "#967B00" },
+    /* deep violet (Astronomy) — MEASURED, like every hue above it, and the one where the OBVIOUS colour
+       was measured and REFUSED. An astronomy collection wants a midnight blue and cannot have one: swept
+       in CIELAB against all 27 hues on the shelf, the best night-sky candidate stands 12.6 from the
+       United States' navy and one a little bluer stands 4.2, against a TIGHTEST EXISTING PAIR of 12.9
+       (China's vermilion vs Russia's lacquer) — so it would ship at or below the worst separation this
+       shelf has ever accepted, which is a floor rather than a target. The blue quarter already carries
+       Greece's Aegean, Geography-China's blue, the French deck's blue and Politics: East Asia's
+       periwinkle. DO NOT RE-RUN THAT SWEEP; it does not come out differently.
+       What is taken instead is the DARK END OF THE VIOLET BAND — the twilight rather than the night, and
+       the one region near the wheel's optimum an astronomy collection can honestly claim. It stands 21.0
+       from Psychology's plum, 21.3 from Rome's imperial purple and 21.5 from Japan's kuwazome, very
+       nearly equidistant from all three, against a median nearest-neighbour distance of 20.1. L 28,
+       chroma 35 (below the shelf's median of 44, so inside the muted register), 10.0:1 against white.
+       IT IS A FOURTH PURPLE and needs the argument Biology's fifth green needed: the other three sit at
+       L 38, L 45 and L 53, and this is at L 28 — far darker than any of them, which is why the
+       measurement puts it a clear 21 from each rather than inside the family. The magenta and the
+       olive-brass were NOT re-measured, on the standing note above. IT WAS LOOKED AT, unlike the last
+       four hues here: rendered as a banner and as its 20% wash beside plum, imperial purple, kuwazome
+       and navy, it is plainly a different colour from all four. If it ever needs moving, go darker and
+       less red, not brighter. */
+    astro:    { bg: "#5E3262" },
+    /* slate blue-grey (France) — MEASURED, and THE FIRST GREY ON THIS SHELF. The obvious colour is the
+       blue of the flag and it cannot be had, for a reason worse than crowding: swept in CIELAB against
+       all 28 hues here, the best bleu de France candidate stands 19.8 from its nearest neighbour — below
+       the median of 20.8 — and THAT NEIGHBOUR IS THE FRENCH LANGUAGE DECK (#107CD0), on the same
+       Collections page one section down. Two things called French, 19.8 apart, is the one collision this
+       shelf must not ship; it is chroma 54 besides, on a shelf whose median is 44. The two other apt
+       families are worse: BORDEAUX tops out at 16.2 against Visual Art's oxblood and the Indonesian
+       deck, LAVENDER at 16.1 against Psychology's plum.
+       What ships is the slate of the ardoise roofs — the Loire, Anjou, Brittany, Normandy — which is
+       national rather than Parisian, and that matters on a collection whose ninth deck opens at "France
+       is not Paris". 20.7 from Greece's Aegean, 22.3 from Philosophy's petrol, 25.9 from Egypt's
+       malachite; L 51, chroma 8, 4.3:1 against white.
+       20.7 IS AT THE MEDIAN AND THAT IS A STATED TRADE, on Philosophy's precedent (petrol shipped at
+       19.8). What buys it is that it adds a FAMILY: there is no grey here at all — WW2's dark iron is a
+       warm brown-grey at L 27 and is the nearest thing to one. AND ONE STEP TOWARD THE OPTIMUM WAS GIVEN
+       UP FOR HUE, which is the opposite of Korea's trade: the best candidate in the band is #6C7F80 at
+       22.4 and sits at hue 203, a neutral grey with a green cast rather than the blue-grey the material
+       is. The magenta and the olive-brass were NOT re-measured, on the standing note above. Looked at as
+       a banner and as its 20% wash beside its four nearest neighbours. */
+    france:   { bg: "#6A7D81" },
+    /* deep cyan-teal (Economics) — MEASURED, and the first hue here CHOSEN ON DENSITY AS WELL AS
+       DISTANCE. Economics has no canonical colour, and the two reached for are the two most crowded
+       quarters on this shelf: the green family's best free candidate scores 20.1 with three neighbours
+       inside 20.3, and the brass-gold band tops out at 19.7 against Dinosaurs' ochre and World
+       History's sepia. THE ONE SPECIFIC ASSOCIATION FAILS ON KOREA'S OWN RULE — the Financial Times
+       salmon is very pale (about #FFF1E5), far above a banner's contrast floor, so what would ship is a
+       DEEPENED salmon that is not FT pink at all ("the versions that DO score are not the colour they
+       are named after"); measured anyway it scores 20.3 with plum, kuwazome and the Mandarin deck all
+       inside 0.4 of each other.
+       So this is chosen on separation and named for what it is: 21.1 from Egypt's malachite, 22.0 from
+       Greece's Aegean, 23.6 from Philosophy's petrol, against a median of 20.7 over the 29 hues here.
+       L 53, chroma 31 (below the shelf's median of 44), 4.0:1 against white — the same as Politics:
+       East Asia's.
+       DENSITY IS THE NEW MEASURE AND IS WORTH KEEPING: a nearest-neighbour figure says nothing about
+       how many hues sit just beyond it, and this shelf is now full enough that it matters. Counting
+       hues within 30, this one has 4 — against Philosophy's 5, Astronomy's 6 and France's 7.
+       IT SHARES A HUE ANGLE WITH PHILOSOPHY'S PETROL (both 208) AND IS 23.6 AWAY, WHICH IS THE POINT:
+       petrol is L 32 / chroma 20 and this is L 53 / chroma 31, so the separation is bought by
+       LIGHTNESS — Biology's fifth-green argument in another family, and the shelf gains the light end
+       of a band it had only the dark end of. The magenta came top of the unconstrained sweep AGAIN at
+       26.5 and is rejected for the SIXTH time; the olive-brass for the fifth. Neither should be
+       measured again. Looked at as a banner and as its 20% wash beside its neighbours. */
+    econ:     { bg: "#008C96" },
+    /* clay brown (Ancient Mesopotamia) — MEASURED, and the sixth member of the yellow-brown quarter,
+       which needs the argument the note below gives.
+       LAPIS LAZULI IS THE OBVIOUS CHOICE AND IS REFUSED ON THE NUMBERS. It is the Mesopotamian luxury
+       material — the Standard of Ur, the royal graves, the Ishtar Gate's glaze — and swept against the
+       30 hues then here its best candidate stands 19.2, below the median of 20.8, WITH NINE HUES WITHIN
+       30 OF IT (US navy, Psychology plum, Greece Aegean, WW2 dark iron, Philosophy petrol). That
+       density figure is the verdict; the blue-violet quarter is the most crowded region left.
+       CLAY IS THE OTHER CLAIM AND IS STRONGER ANYWAY — the cities, the ziggurats and the entire
+       evidence base are baked mud. 21.3 from World History's sepia, 21.4 from the German deck, 21.9
+       from the Spanish deck, above the median, with 5 within 30 — the same density as Philosophy's
+       petrol and four fewer than lapis. L 36, contrast 7.6:1.
+       WHY A SIXTH IN THIS FAMILY IS ALLOWED WHERE FOUR EARLIER CANDIDATES WERE NOT: the standing note
+       above records the OLIVE-BRASS being rejected four times at hue 90-100, on the grounds that a good
+       number is not a look. THIS IS A DIFFERENT SUB-BAND — hue 72, a red-brown — and it is apt in the
+       way none of those were. It is separated from its neighbours by lightness AND chroma together:
+       sepia is L 48 / C 30 and the German deck L 27 / C 32, where this is L 36 / C 47, between them in
+       lightness and above both in saturation.
+       ONE FIGURE IS AGAINST IT AND IS STATED RATHER THAN HIDDEN: chroma 47 sits above the shelf's own
+       median, which has fallen to 35 as the shelf has grown — RE-MEASURE THAT rather than quoting it.
+       It is below India's 61, Dinosaurs' 58 and the Spanish deck's 49, so it is not the loudest thing
+       here, but it is not in the quiet half either. The magenta was NOT re-measured; it has been
+       rejected six times. Looked at as a banner and as its 20% wash beside its neighbours. */
+    mesopotamia: { bg: "#784A00" },
+    /* field grey (The First World War) — MEASURED against the 31 hues now on the shelf, and the entry
+       where EVERY apt family came back crowded. That is what a shelf of thirty-one looks like: median
+       nearest-neighbour 20.8, tightest existing pair 12.9, density (hues within dE 30) median 5, max 9.
+       THE POPPY WAS REFUSED TWICE OVER. A scarlet at a shelf-like chroma is the most crowded corner
+       there is - best candidate 17.1 with TEN hues inside 30 (China, Russia, Korea, Visual Art and four
+       language decks all live there) - and a SATURATED poppy measures beautifully (43.2, density 0) at
+       chroma 104 against a shelf median of 35, which is a banner that shouts where every other murmurs.
+       The editorial argument agrees: the remembrance poppy is a British and Commonwealth emblem adopted
+       in 1921, and this collection covers thirty belligerents and spends a subdeck arguing that each
+       remembers the war differently. Horizon blue (16.4, hard against France's slate) and khaki drab
+       (17.7, hard against World History's sepia) are refused on the same two grounds - crowded, and
+       national.
+       WHAT IS TAKEN IS GREY-GREEN, and the argument is the collection's own subject rather than any
+       army's uniform: this is the war in which armies STOPPED WEARING COLOURS, and it is the one of the
+       four candidate families that names no single belligerent. It stands 20.1 from World History's
+       sepia, 20.3 from Biology's forest, 20.3 from France's slate, 21.4 from the Italian deck and 21.9
+       from the Second World War's dark iron - five neighbours inside a band of two units, the
+       nearly-equidistant shape Astronomy's twilight has. L 45, chroma 17 (well inside the quiet half,
+       against a median of 35), 5.3:1 against white.
+       THE FIGURE AGAINST IT IS DENSITY 8, against a median of 5 and a max of 9, and it is accepted
+       KNOWINGLY: the only genuinely open ground left at a shelf-like chroma is the magenta band, which
+       has now been rejected SEVEN times and which must not be measured again. An uncrowded hue that
+       means nothing is worse than a crowded one that means something. Looked at as a banner and as its
+       20% wash beside its neighbours. */
+    ww1:      { bg: "#686E52" },
+    /* cyanotype blue (Architecture) — MEASURED against the 32 hues then on the shelf, and the collection
+       whose two OBVIOUS colours were both refused on the numbers. STONE first: a warm limestone or
+       travertine is what a reader would expect an architecture banner to wear, and the best mid-toned
+       one stands 16.1 with TEN hues inside dE 30, the best light one 15.0 — against a shelf that already
+       carries France's roof slate, the Second World War's dark iron and the First World War's field grey,
+       so a fourth grey would be pressed against all three. BRICK second, and worse: terracotta is the
+       most crowded corner there is, 16.3 with nine neighbours (China, Russia, Korea, Visual Art and four
+       language decks). Both refusals carry the same editorial point, which is the one to remember here:
+       A MATERIAL NAMES A REGION — limestone says the classical Mediterranean, brick says Mesopotamia and
+       the Low Countries, timber says Japan — and this collection gives 120 cards to Asia in chronological
+       position precisely to say that no one tradition is its subject.
+       WHAT IS TAKEN IS THE DRAWING RATHER THAN THE BUILDING: the blue of a cyanotype, which names no
+       country, no century and no material, and names the act the collection is about. It stands 18.7
+       from Greece's Aegean, 19.7 from the French deck's blue, 26.0 from Politics: East Asia's periwinkle
+       and 29.2 from Economics' teal — BELOW the shelf's median of 20.3, and stated rather than hidden:
+       it is the seventh-closest hue of the thirty-three, ahead of Rome and Geography-China at 18.2, the
+       Mandarin deck at 17.5, the Indonesian at 17.4 and the China-Russia pair at 12.9, so comfortably
+       inside what this shelf has accepted. The figure in its favour is DENSITY 4 against a median of 6.
+       L 55, chroma 40, and 3.7:1 against white — the light end of the shelf's own 3.7-10.4 band, exactly
+       level with India's ochre, which is the lightest hue already on it.
+       IT IS A FIFTH BLUE and needs Astronomy's fourth-purple argument: Greece sits at almost the same hue
+       angle eleven points darker and fifteen less saturated, the United States' navy is at L 29,
+       Geography-China's at L 35, and the French deck's blue is twenty degrees further round toward
+       violet. Looked at as a banner and as its 20% wash beside all five, it is plainly a different
+       colour from each. The magenta and the olive-brass were NOT re-measured, on the standing note above
+       — the magenta topped the unconstrained sweep for the EIGHTH time and the olive-brass scored 21.5,
+       the best non-magenta figure on the wheel, and would be the sixth thing in the yellow-green-brown
+       quarter. If this ever needs moving, go DARKER rather than greener: the true Prussian blue of the
+       print itself was swept across the whole lightness band and tops out at 16.9, sitting on the United
+       States' navy, which is why the light end was taken. */
+    arch:     { bg: "#008DC6" },
+    /* the green of a leaf (Middle-earth) — MEASURED against the 33 hues then on the shelf, and the
+       collection whose obvious colour is refused by a standing note written two collections ago.
+       GOLD FIRST, because a reader asked to name this franchise's colour would say gold and nothing
+       else: the Ring, the mallorn leaves, "all that is gold does not glitter". It is refused twice
+       over. On the numbers the best metallic gold inside the contrast band stands 17.7 with FIVE hues
+       inside dE 30, wedged between India's saffron and Dinosaurs' dark gold, and the best dark gold
+       19.9 with six. And on the note above: the olive-brass beside it scored 21.5 for Architecture and
+       was refused there as the sixth thing in the yellow-green-brown quarter, with an instruction not
+       to measure it again. Gold IS that quarter. DO NOT RE-RUN THE GOLD SWEEP.
+       WHAT IS TAKEN IS THE OTHER EMBLEM: the leaf — the Shire's green, the leaf-brooches of Lorien,
+       the round door. It scores 21.5, ABOVE the shelf's median of 20.1 and the best figure anywhere on
+       the wheel outside the two banded regions, with DENSITY 3 against a median of 6. 21.5 from
+       Geography: United States' olive, 21.8 from Dinosaurs' dark gold, 27.6 from the Italian deck's
+       sage. L 55, chroma 56, 3.7:1 against white — the light end of the shelf's own 3.7-10.4 band,
+       level with India's ochre and Architecture's cyanotype.
+       IT IS A SEVENTH GREEN and needs Biology's fifth-green argument: Biology's forest is at L 27,
+       Geography: United States at L 40, World Geography's emerald at L 38, the Portuguese deck's green
+       is a true green twenty degrees further round, the Italian deck's sage is at chroma 30 and the
+       First World War's field grey at chroma 13. This is the BRIGHT, HIGH-CHROMA, YELLOW-LEANING end
+       of the band and nothing else is within twenty points of it there. Looked at as a banner and as
+       its 20% wash beside all six. The magenta topped the unconstrained sweep for the NINTH time and
+       was not re-measured; the only region that outscores this one and carries no note is a bright
+       rose at 20.5, which means nothing here. */
+    middleearth: { bg: "#7B8C1F" },
+    /* crimson (Westeros) — MEASURED against the 34 hues then on the shelf, and the one case where the
+       sweep turned up a genuine GAP rather than a trade-off. THE FINDING: the shelf's six reds all
+       lean ORANGE — China's vermilion, Russia's lacquer, the Indonesian deck's maroon, the Mandarin
+       decks' red, Korea's clay and Visual Art's oxblood all sit between hue 25 and 40, and Japan's
+       kuwazome is a red-purple at 345 — so between them, at hue 0-8, the carmine/crimson corner is
+       EMPTY. #B32057 stands 21.3, ABOVE the shelf's median of 20.1, density 5: 21.3 from Japan, 21.4
+       from the Indonesian deck, 23.6 from the Mandarin decks, 28.8 from Russia, 30.0 from China. L 40,
+       chroma 60, and 6.4:1 against white — worth noting on its own account, the last three
+       collections having all landed at the 3.7 floor of the shelf's 3.7-10.4 band.
+       THE STORY IS NOT A HOUSE, which is what the collection needed: crimson is Lannister, but it is
+       also the Red Keep, the Red Wedding, the red comet, the red priests, the red leaves of every
+       heart tree, the Red Viper and the Red Waste — this series' own signal for violence and prophecy
+       at once, belonging to no faction as the Lannister gold and Stark grey do.
+       THREE FAMILIES REFUSED: blood-ORANGE red, the corner a reader reaches for first, is the most
+       crowded on the shelf at 17.1 with TEN neighbours, which is Architecture's brick refusal at a
+       worse number; COLD SLATE-BLUE — winter, the Wall, the show's own palette, the "ice" of the
+       title — tops out at 18.7 with EIGHT, pressed against the Second World War's iron, Philosophy's
+       petrol and the United States' navy; DARK SEA TEAL is 13.3. The magenta was not re-measured (the
+       tenth refusal) and nor was the olive-brass.
+       DO NOT DRIFT IT LIGHTER. The same family at L 43-48 scores 22.2-22.9, which is better, and
+       rendered beside the shelf's reds it is a raspberry PINK rather than a crimson. The two points
+       are given up for the colour, which is Korea's trade exactly. */
+    westeros: { bg: "#B32057" },
+    /* cold concrete grey (The Cold War) — MEASURED against the 35 hues then on the shelf, and the one
+       collection where the EDITORIAL CONSTRAINT CAME FIRST: the colour may not be either side's. This
+       collection's central scope decision is that the Cold War was a global system rather than a duel,
+       and that almost everyone who died in it was neither American nor Russian — so a banner in Soviet
+       red or American navy would contradict the plan in a swatch, and both are on the shelf anyway
+       (Russia's lacquer, the United States' navy). The sweep was therefore run over everything EXCEPT
+       red and blue, and what survives is the colour a reader would name regardless: concrete, the
+       Wall, the bunker, the silo, the housing block both blocs built.
+       THE NUMBERS ARE BAD AND ARE STATED IN FULL. 19.2 from its nearest neighbour, BELOW the median of
+       20.1, with DENSITY 9 — equal to the highest on the shelf, the worst either figure has been for a
+       new collection. Psychology's plum 19, the United States' navy 19, the Second World War's iron 20,
+       Greece's Aegean 20, France's slate 21, Philosophy's petrol 21. L 34, chroma 13, and 7.96:1
+       against white, which is the figure in its favour: mid-band, where the last three collections all
+       landed on the 3.7 floor.
+       IT IS A FOURTH GREY AND THE FOUR ARE GENUINELY FOUR COLOURS, which is the argument carrying it:
+       the Second World War's iron is a warm brown-grey at L 27, this a cool blue-grey at L 34, the
+       First World War's field grey an olive at L 45, France's slate a blue-green at L 51 — the spread
+       is in lightness AND hue. Look at that comparison again before moving it.
+       WHAT SCORES BETTER MEANS NOTHING HERE: a bright periwinkle at 20.6 and a light purple at 18.8
+       (density 2) are the best unbanded figures on the wheel, and a Cold War banner in lavender is
+       worse than a crowded grey. The magenta topped the unconstrained sweep for the ELEVENTH time and
+       the olive-brass was not re-measured. IF IT EVER NEEDS MOVING the alternative is #4A3C52 at 19.3
+       and density 8 — marginally better on both — refused because at banner size it reads plum rather
+       than concrete and sits 19 from Psychology's plum for that reason. CHECK THE SWATCH, NOT THE
+       NUMBER. */
+    coldwar:  { bg: "#4C5064" },
+    /* rust, bog iron (The Viking Age) — MEASURED against all 36 hues then on the shelf, and the WORST
+       SEPARATED HUE THIS SHELF HAS ACCEPTED, and it is not one neighbour but FOUR: the German deck's
+       brown 18.8, Mesopotamia's ochre 18.9, the Spanish deck's burnt orange 19.0 and Russia's red 19.2,
+       against a shelf median of 20.0 and below even the Cold War's 19.2. SAY THAT PLAINLY rather than
+       quoting the single nearest. What buys it is the other column and the swatch: the four were rendered
+       side by side as banners before this was accepted, and the rust is plainly a different object from
+       all of them. Density 6 shelf hues within 30 is BETTER than the median
+       7 and much better than the Cold War's 9; and at L 29 chroma 51, 9.7:1 against white, it reads as a
+       deep burnt sienna — plainly a different object from the German deck's flat mid-brown (chroma 32
+       against 51), from Russia's brighter red and from the Spanish deck's lighter burnt orange. It adds an
+       OXIDE family to a shelf whose seven reds are all brighter than it, which is the fifth green's and the
+       fourth grey's argument in another quarter of the wheel.
+       EVERY COLOUR THE SUBJECT ACTUALLY MEANS WAS MEASURED AND REFUSED, and the list is worth having so
+       nobody re-runs it: iron grey #4E4842 stands 4.0 from the Second World War's own hue — not a separate
+       colour at all; North Sea grey-blue #4A6572 11.6 with TEN neighbours; fjord blue-green 8.8; woad and
+       moss 6.9; Baltic amber 7.8; oxblood 13.5 with nine.
+       AND THE ONE CANDIDATE THAT SURVIVED ON NUMBERS WAS REFUSED FOR A BETTER REASON THAN ITS NUMBER: a
+       cold Atlantic blue at #4C6B8A scores 16.1, and ANCIENT GREECE'S HUE IS THE AEGEAN — so it would put
+       two collections one section apart both meaning THE SEA. That is France's own refusal (its bleu de
+       France candidate's nearest neighbour was the French language deck) met from the other side.
+       EVERY SOFTENING COSTS SEPARATION FAST AND WAS MEASURED: #7A3008 16.7, #80340C 15.8, #853610 14.5,
+       #72300A 12.5. This is the local optimum, so DO NOT DRIFT IT LIGHTER. The magenta band topped the
+       unconstrained sweep for the twelfth time and the olive-brass was not re-measured. */
+    vikingage: { bg: "#782C00" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median

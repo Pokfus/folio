@@ -443,7 +443,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   used exactly like the other two — the next card to write is the lowest `rm-NNN` not yet in `data.js` —
   see the "ANCIENT ROME" bullet under "Generating cards & glossary entries". The plan and the tree
   shipped together on 2026-08-06; the collection is **live and well under way**, and the index table
-  under "THE NINETEEN PLANNED COLLECTIONS" carries the count rather than this bullet — it read "No card
+  under "THE PLANNED COLLECTIONS" carries the count rather than this bullet — it read "No card
   has been written yet" for the month in which the first three hundred shipped. Not part of the site.
 - `docs/russia-card-plan.md` — the **1000-card running order for the Russia collection** (`col-42`): every
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
@@ -716,7 +716,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   themselves against — and that **a finding is described with the people it was found in**, which is
   the psychology form of the history plans' rule about a state's account of itself and the easiest one
   here to break by accident. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the
-  index table under "THE NINETEEN PLANNED COLLECTIONS" is the lookup, and carries the count. **Its first
+  index table under "THE PLANNED COLLECTIONS" is the lookup, and carries the count. **Its first
   cards have shipped**, so the collection is live — `isComingSoon` is false for a node holding a card — and its 37 empty decks are
   coming-soon automatically, on the same rule. That first card is also what **woke the `Science` row in
   `COLLECTION_SECTIONS`**, which shipped inert with the plan: `sectionOf` returns History for anything
@@ -738,7 +738,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   are already in Folio's Library**, eleven with their original-language column, so `card.quote` is worth
   more here than anywhere on the site; and **a work is cited by its standard divisions** (Stephanus,
   Bekker, A/B) rather than by the page of one translation. The next card to write is the lowest `ph-NNN`
-  not yet in `data.js`; the index table under "THE NINETEEN PLANNED COLLECTIONS" is the lookup. **No card
+  not yet in `data.js`; the index table under "THE PLANNED COLLECTIONS" is the lookup. **No card
   has been written yet.** It ships an inert **`Philosophy` row in `COLLECTION_SECTIONS`**, on the same
   reasoning as Psychology's `Science` row. Not part of the site.
 - `docs/biology-card-plan.md` — the **1000-card running order for the Biology collection** (`bio`):
@@ -776,7 +776,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   link, narrow the other term's alias, reword — all come to nothing here, and the word is the right
   one in all five. **A term that claims an ordinary English word buys its dominant sense and pays for
   the rest**, which is the trade `Life_(biology)` was written to refuse and this one to accept. The next card to write
-  is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED
+  is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE PLANNED
   COLLECTIONS" is the lookup. **Its first cards have shipped**, so the collection is live — `isComingSoon`
   is false for a node holding a card — and its 45 empty decks are coming-soon automatically, on the same
   rule. Not part of the site.
@@ -798,6 +798,153 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   wheel's best-scoring region, now measured and rejected four times; do not re-run that sweep. The next
   card to write is the lowest `dino-NNN` not yet in `data.js`; the index table under "THE SIXTEEN
   PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/astronomy-card-plan.md` — READ BEFORE WRITING AN `astro-` CARD.** The **1000-card running
+  order for the Astronomy collection** (`astro`): every card's number, topic and deck, fixed in advance
+  across 9 decks and 45 leaf decks. The twenty-first of the planned collections, the sixth that is not
+  history, and the sixth to **create its own collection** — node, tree, `COLL_THEME` hue and a new
+  `ICON_SYMBOLS` mark (`ringed`) ship with the plan. It joins Psychology, Biology and Dinosaurs in the
+  **`Science` section**, so `COLLECTION_SECTIONS` is unchanged and `COLLECTION_SECTION` gains one row.
+  **Read "Is there a thousand cards in this?" before writing anything** — astronomy is four subjects
+  wearing one name (the sky as seen, the Solar System, astrophysics and cosmology), they are checked in
+  different ways, and the plan gives each a stated share so the collection cannot drift into whichever
+  has the most popular writing behind it. **Only about sixty of the thousand name one body**; a named
+  object earns its slot the way a genus does in the Dinosaurs plan.
+  · **THE OBVIOUS HUE WAS MEASURED AND REFUSED, AND THAT SWEEP MUST NOT BE RE-RUN.** An astronomy
+    collection wants a midnight blue and cannot have one: the best night-sky candidate stands **12.6**
+    from the United States' navy and a bluer one **4.2**, against a tightest existing pair of 12.9 — at
+    or below the worst separation this shelf has ever accepted. The blue quarter already carries
+    Greece's Aegean, Geography-China's blue, the French deck's blue and Politics: East Asia's
+    periwinkle. What ships is **`#5E3262`, the dark end of the violet band** — the twilight rather than
+    the night — at 21.0 / 21.3 / 21.5 from Psychology's plum, Rome's purple and Japan's kuwazome
+    against a median nearest-neighbour distance of 20.1. **It is a FOURTH purple and the argument is
+    Biology's fifth green's**: the other three sit at L 38, 45 and 53 and this is at L 28.
+  · **ITS ICON'S COLLISION IS `atom`, NOT `star`.** A ringed planet and an atom are the same
+    construction — a disc crossed by an ellipse — and what separates them is proportion: r 5 inside ONE
+    ring of rx 10.5, against a nucleus of r 1.9 inside three ellipses of rx 9. **Keep the disc large and
+    the ring single.** `star` was refused because the United States collection already wears it.
+  · **THREE RULES CARRY THE MOST WEIGHT.** **Nothing in this subject was ever touched**, so every figure
+    is an inference and usually a chain of them — the distance ladder, selection effects and Malmquist
+    bias are carded as the spine and **every card quoting a distance, mass or age inherits them**.
+    **The open disagreements are carded as disagreements** (the Hubble tension, modified gravity, the
+    cosmological constant problem, where supermassive black holes came from): a card may say the
+    question is open and may not pick a winner the literature has not. And **dark matter and dark energy
+    are names for MEASUREMENTS, not substances** — `astro-750` is titled *Why dark matter is still
+    called dark* for exactly that reason.
+  · **THE NUMBERS IN THIS SUBJECT MOVE, WHICH THE OTHER SCIENCE PLANS DO NOT HAVE TO SAY.** The Hubble
+    constant, the age of the universe, the exoplanet count, the number of known moons and the mass of
+    the Milky Way have all moved inside fifteen years, so **a figure from a source older than about 2015
+    needs re-checking even when the source was excellent**, and a COUNT is a fact about a database on a
+    date and is cited with the date.
+  · **SOURCING IS THE EASIEST ON THE SHELF AND HAS ONE TRAP**: astronomy has published to **arXiv** since
+    1991, so nearly every paper is free — but **an arXiv preprint is not a published paper**, and the
+    version there may predate refereeing. Cite the journal version where one exists.
+  The next card to write is the lowest `astro-NNN` not yet in `data.js`; the index table under "THE
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/economics-card-plan.md` — READ BEFORE WRITING AN `ec-` CARD.** The **1000-card running
+  order for the Economics collection** (`econ`): every card's number, topic and deck, fixed in advance
+  across 9 decks and 40 leaf decks. The twenty-third of the planned collections, the seventh that is not
+  history, and the eighth to **create its own collection** — node, tree, `COLL_THEME` hue, a new
+  `ICON_SYMBOLS` mark (`cross`) and a `COLLECTION_SECTION` row ship with the plan. **It joins the
+  `Science` section on the PSYCHOLOGY precedent** — a social science is already filed there — and the
+  alternative, a new *Social Sciences* section, was refused because it would be incoherent while
+  Psychology stayed under Science, and moving Psychology is a change nobody asked for. **If a third
+  social science ever lands, the right move is a Social Sciences section taking both**, which is a
+  stated future rather than a silent oddity.
+  · **THE FIRST SCOPE DECISION IS THAT ECONOMICS IS CONTESTED AND THE COLLECTION CARDS THE CONTEST.**
+    Unlike Biology or Astronomy there are live schools with incompatible frameworks, and most
+    accessible writing presents one as simply the truth. `ec-017` *Why economists disagree* opens the
+    collection and `ec-303`–`ec-307` card **four accounts of the business cycle side by side**. A card
+    may say the question is open; it may not settle one the literature has not. **"Economists agree
+    that…" is almost always trivial or false** — where a consensus exists it is survey-measurable and is
+    cited as a survey.
+  · **NOTHING IN THIS COLLECTION IS INVESTMENT ADVICE, and that is a rule rather than a disposition.**
+    Four subdecks describe assets, prices, bubbles and returns and are one careless sentence from
+    reading as a recommendation. **No card says what will happen to a price, what to buy or hold, or
+    that any asset class is a good investment.** `ec-438`/`ec-439` card the efficient market hypothesis
+    with the evidence both ways and `ec-445` says plainly that bubbles are hard to identify in advance.
+    **This risk exists in no other collection on the shelf.**
+  · **A MODEL IS CARDED WITH WHAT IT ASSUMES**, and **positive and normative are distinguished
+    repeatedly** — `ec-040` *Why efficiency is not the same as good* and `ec-073` *What Pareto
+    efficiency ignores*. A card that uses "efficient" as praise has made an argument it did not make.
+  · **A CURRENCY FIGURE IS NOT CONVERTED AND MUST CARRY A YEAR.** The house units rule knows nothing
+    about money and should not — an exchange rate is not a unit conversion and a 1930 dollar is not a
+    2020 dollar. **A bare currency figure with no year is the commonest way a card here will be quietly
+    wrong**; likewise a statistic with no series and no vintage. **Most cards in decks 1–7 take an EMPTY
+    date line**, a concept having no date.
+  · **THE OVERLAPS WERE MEASURED AND THE FIRST IS THE SHARPEST ON THE SHELF.** **Psychology already
+    holds behavioural economics' MECHANISMS — twelve cards** (`ps-106`, `ps-541`–`ps-555`, `ps-531`) —
+    so **Psychology cards them as findings about how minds decide and Economics cards what they do to
+    the model of choice**; the individual heuristics are **not re-carded at all**. Philosophy holds the
+    MORAL arguments (about twenty cards) and World History the ECONOMIC HISTORY (about twenty-four):
+    `wh-908` is what the Great Depression was, `ec-312`–`ec-314` are what caused it and why the
+    explanations differ.
+  · **A FORMULA MAY BE AN ANSWER TERM, and this is the first collection where that is worth saying** —
+    `MV = PQ` beats "the quantity theory of money", which is the card's own title read back. **Six
+    constraints, measured against `app.js` rather than reasoned about**: the answer carries NO MARKUP
+    (`gradeCloze` grades `c.answer`, not `answerText`, character by character — 0 of 3,415 shipped
+    answers carry a tag); **ASCII only**, since the reader types it and `×`, `−`, `≥` and superscripts
+    are marked wrong for everyone; **`normAnswer` strips every symbol**, so `MV = PQ` becomes `mv pq`
+    and near-miss tolerance needs 6 normalised characters, which most formulae do not have; **the
+    `nocap` escape hatch WILL NOT FIRE on a formula** — it tests `/^[a-z][A-Z]/`, so `r > g` renders
+    **"R > g"**, a different statement, and the rule is not to lead with a bare lower-case variable; the
+    paired glossary term is the **named concept**, a formula being unusable as a key; and if the
+    question can only be written "the equation for X is ___", the answer should be the name.
+  · **THE GLOSSARY TRAP IS THE OPPOSITE OF KOREA'S**: the vocabulary is not proper nouns but **ordinary
+    English words used as technical terms** — demand, supply, capital, rent, interest, market, growth,
+    equity, value. **Almost none may claim its bare surface**, on `Life_(biology)`'s rule; key them
+    `Demand_(economics)` and reach them by a narrower alias and a hand-written `data-k`.
+  · **MOST ACCESSIBLE ECONOMIC WRITING COMES FROM ORGANISATIONS WITH POSITIONS** — think tanks, bank
+    research arms, advocacy groups, party-aligned institutes. Not a reason never to cite them, since a
+    body's own argument is a source for that argument; a reason to **name what the body is** and never
+    to use one as independent evidence for a contested empirical claim.
+  The next card to write is the lowest `ec-NNN` not yet in `data.js`; the index table under "THE PLANNED
+  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/mesopotamia-card-plan.md` — READ BEFORE WRITING A `me-` CARD.** The **1000-card running
+  order for the Ancient Mesopotamia collection** (`mesopotamia`): every card's number, topic and deck,
+  fixed in advance across 9 decks and 40 leaf decks. The twenty-fourth of the planned collections, the
+  thirteenth history one, and the ninth to **create its own collection** — node, tree, `COLL_THEME` hue
+  and a new `ICON_SYMBOLS` mark (`tablet`) ship with the plan. **No `COLLECTION_SECTION` row**, History
+  being `sectionOf`'s default.
+  · **THE EVIDENCE IS THE SPINE AND IT IS UNLIKE ANY OTHER COLLECTION'S**, which is why deck 1 gives
+    **110 cards to the land and the evidence** and puts it FIRST. Almost everything known about three
+    thousand years comes from excavated clay tablets: overwhelmingly **administrative** rather than
+    narrative, clustered at the few sites that have been dug, and **a large share of what has been
+    excavated has never been read**. `me-064` *The bias of the evidence* and `me-089` *The backlog of
+    unread tablets* are the cards, and **every other card inherits them** — where a claim rests on one
+    archive or one site, the card says which.
+  · **THE FIRST-CLAIMS ARE THIS SUBJECT'S BIGGEST PULL.** First writing, first cities, first laws,
+    first literature, first wheel — nearly every one needs a qualification popular writing drops.
+    **No card may assert a first without saying first of what, on what evidence, and against what rival
+    claim.**
+  · **HAMMURABI'S LAWS ARE NOT A LAW CODE, and that is the collection's most important correction** —
+    no evidence the provisions were cited in court, earlier collections exist, and the monument presents
+    itself as a royal display of justice. `me-470`–`me-472` carry it, and the card is **not a
+    debunking**: a reader needs why the other reading was believed.
+  · **THE BIBLICAL RELATIONSHIP IS A LITERARY AND HISTORICAL QUESTION AND NOTHING ELSE.** The flood, the
+    tower, the captivity and the Assyrian sieges are in both records; the cards say what each source
+    says, when each was written and what the arguments are, and **take no position on any theological
+    question**.
+  · **THE CHRONOLOGY IS GENUINELY UNCERTAIN BEFORE ABOUT 1500 BCE** — long, middle and short
+    chronologies differ by up to 150 years. Use the middle chronology, say once that you are, and **do
+    not silently mix them between cards**. Transliterate to the form a general reader meets (`sh` for
+    š, no macrons), since **`answerText` is what a reader TYPES**.
+  · **THE OVERLAPS WERE MEASURED AND THIS COLLECTION HAS THE LARGEST PRE-EXISTING FOOTPRINT OF ANY
+    PLANNED SO FAR.** World History holds **26** Mesopotamian cards (the headline set, `wh-171`–`wh-191`
+    and more) — one card there, a subdeck here, as with Greece and France. **Visual Art holds 24
+    Mesopotamian OBJECTS** (`art-035` the Uruk Vase, `art-043` the Standard of Ur, `art-056` the Stele
+    of Hammurabi, `art-077` the Black Obelisk…), so **`art` cards the object and this collection cards
+    what it is EVIDENCE FOR** — four lines are titled that way on purpose. **Astronomy holds
+    `astro-922`/`astro-923`**, which is why `me-871` is *Astronomy in Mesopotamia* and `me-875` *The
+    invention of the zodiac* rather than repeating those strings.
+  · **TWENTY-NINE GLOSSARY TERMS ALREADY EXIST — THE MOST OF ANY NEW COLLECTION — AND
+    `add-glossary.js` WOULD OVERWRITE EVERY ONE IN SILENCE.** `Mesopotamia`, `Sumer`, `Uruk`,
+    `Cuneiform`, `Ziggurat`, `Gilgamesh`, `Hammurabi`, `Code_of_Hammurabi`, `Babylon`, `Nineveh` and
+    nineteen more, written for World History's 26 cards. **The pairing rule is already satisfied for
+    about thirty answer terms and the correct action on each is to WIDEN the description** — the Korea
+    `Seoul` scar at thirty times the scale. **`Ur` is two characters, so `buildGlossIndex` skips it**
+    and it must be aliased deliberately; **`Ashur` is a city, a god and a country.**
+  The next card to write is the lowest `me-NNN` not yet in `data.js`; the index table under "THE PLANNED
+  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/korea-card-plan.md` — the **1000-card running order for the Korea collection** (`korea`): every
   card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The sixteenth of the
   planned collections, the eleventh history one, and the fifth to **create its own collection** — node,
@@ -823,6 +970,56 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   ones that are shut, the four distinct routes to a wrong sort year, and the content decisions — the
   two-scholar cap deciding a card, a disputed island keyed under the neutral name, a general glossary
   term rewritten when a second continent linked to it. Not part of the site.
+- **📖 `docs/france-card-plan.md` — READ BEFORE WRITING AN `fr-` CARD.** The **1000-card running order
+  for the France collection** (`france`): every card's number, topic and deck, fixed in advance across 9
+  decks and 43 leaf decks. The twenty-second of the planned collections, the twelfth history one, and the
+  seventh to **create its own collection** — node, tree, `COLL_THEME` hue and a new `ICON_SYMBOLS` mark
+  (`eiffel`) ship with the plan. **It needs NO `COLLECTION_SECTION` row and that is the point**: `sectionOf`
+  returns History for anything the table does not name, so the correct action for a history collection is
+  to add nothing — a row reading `france: "History"` would be inert and would invite the next reader to
+  take that table for a list of every collection.
+  **Read "Is there a thousand cards in this?" before writing anything** — here the question is the
+  opposite of every other plan's: there is a defensible three thousand cards in French history, so the
+  plan's work is SUBTRACTION, and it makes three cuts explicitly (the Revolution takes 140 and not 300;
+  culture is carded as institutions rather than as a canon; the wars are carded from inside France).
+  · **THE OBVIOUS HUE IS REFUSED FOR A REASON WORSE THAN CROWDING.** The best *bleu de France* candidate
+    stands **19.8** from its nearest neighbour — below the median of 20.8 — and **that neighbour is the
+    FRENCH LANGUAGE DECK**, on the same Collections page one section down. Bordeaux tops out at 16.2 and
+    lavender at 16.1. What ships is **`#6A7D81`, the slate of the ardoise roofs**, at 20.7 / 22.3 / 25.9
+    from Greece's Aegean, Philosophy's petrol and Egypt's malachite. **It sits AT the median, which is a
+    stated trade on Philosophy's precedent, and what buys it is that it adds a FAMILY — there is no grey
+    on this shelf at all.** One step toward the optimum was given up FOR HUE, the opposite of Korea's
+    trade.
+  · **THE ICON IS AN EIFFEL TOWER, ON THE SHELF'S OWN CONVENTION** (pagoda, torii, pyramid, dome, column,
+    wall). A fleur-de-lis was refused twice over — it says *monarchy* on a collection whose largest deck
+    is the Revolution, and at 24px it is a blob near the existing `crown`. **Its collision is `pyramid`
+    and `mountain`; keep the concave curve and the arch, or it becomes one.**
+  · **THE REPUBLICAN CALENDAR IS THIS COLLECTION'S JULIAN/GREGORIAN PROBLEM AND IT IS CHECKABLE.**
+    `cardYears` cannot parse *9 Thermidor Year II* at all, so a date line written that way yields **no
+    sort year**, the card falls to 0 and sorts as timeless — at the wrong end of a deck running 1789 to
+    1815, with nothing on the page to say so. A card may NAME the republican date and must give the
+    Gregorian one beside it; **the DATE LINE takes the Gregorian only**, and the sort year is read back
+    after writing one in deck 5.
+  · **ACCENTS ARE EVERYWHERE HERE AND `\b` IS ASCII.** Étienne, Pétain, Élysée, Déclaration. CLAUDE.md
+    records that trap twice (`spellTree`, `buildGlossIndex`); both already use `\p{L}` lookarounds, but
+    **any new sweep written while working on this collection must use the lookaround form**, and an
+    accented glossary alias needs testing rather than assuming.
+  · **THE OVERLAPS WERE MEASURED, NOT ASSUMED, AND FIVE COLLECTIONS TOUCH THIS ONE.** The Second World
+    War holds about **twenty-five** French cards — the division of labour is that **WW2 cards the WAR and
+    this collection cards FRANCE**, and three pairs are deliberately close and must be written together
+    (`ww2-191`/`fr-730`, `ww2-193`/`fr-741`, `ww2-200`/`fr-738`). World History holds **seven**, all
+    headline-level. Rome holds **five on Gaul**. **Visual Art holds the WORKS and this collection must not
+    re-card them** — `art` cards the object, `france` cards the institution, the patron and the argument.
+    **Philosophy holds the ARGUMENTS** — this collection cards the philosophes as a public force and never
+    their arguments.
+  · **`France` AND `Paris` ALREADY EXIST IN THE GLOSSARY** (written for `gw-023` and `gw-523`), so the
+    pairing rule is already satisfied for both and **`add-glossary.js` would overwrite them in silence** —
+    the Korea `Seoul` scar. **Widen, do not re-key.** Measured: of 3,838 terms only six are ones this
+    collection reaches for, so expect the glossary to grow faster here than anywhere since Korea. **Do not
+    let `Revolution`, `Republic` or `Empire` claim their bare surfaces** — all three are ordinary English
+    words and the corpus is full of other ones.
+  The next card to write is the lowest `fr-NNN` not yet in `data.js`; the index table under "THE PLANNED
+  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - **📖 `docs/art-card-plan.md` — READ BEFORE WRITING AN `art-` CARD.** The **1000-card running order
   for the Visual Art collection** (`art`): every card's number, topic and deck, fixed in advance across
   9 decks and 39 leaf decks. The seventeenth thousand-card plan, the fifth that is not history, and one
@@ -883,7 +1080,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   to be filled from general reading — the point of the collection is that it covers the course as
   taught. And **the answer terms come from the supplied material**, with the backgrounds researched out
   and cited like any other card. The next card to write is the lowest `pea-NNN` not yet in `data.js`;
-  the index table under "THE TWENTY PLANNED COLLECTIONS" is the lookup. Not part of the site.
+  the index table under "THE PLANNED COLLECTIONS" is the lookup. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -960,6 +1157,346 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   bare alias **Chamberlain**, because the corpus's eleven surfaces include Austen twice and Joseph once,
   and an alias right six times and wrong three is worse than none. Not part of the
   site.
+- **📖 `docs/ww1-card-plan.md` — READ BEFORE WRITING A `ww1-` CARD.** The **1000-card running order for
+  the First World War collection** (`ww1`): every card's number, topic and deck, fixed in advance across
+  9 decks and 37 leaf subdecks. The twenty-fifth of the planned collections and the fourteenth history
+  one; the node, its tree, its `COLL_THEME` hue and a new `ICON_SYMBOLS` mark (`wire`) ship with the
+  plan. **It is the most OVERLAPPED collection on the shelf and the overlap was measured rather than
+  guessed** — roughly a hundred lines elsewhere already touch the war: `fr-670`–`fr-700` (31, an entire
+  France subdeck), `wh-871`–`wh-895` (25), `us-761`–`us-781` (21), `ru-531`–`ru-550` (20), twelve
+  scattered `ww2-` lines carding the peace as the SECOND war's origin, and one card each in China,
+  India, Japan and Korea. **The division of labour is one sentence: a national collection cards what the
+  war did to that country; this collection cards the war** — so `ru-533` is the Romanovs' first
+  disaster and `ww1-168` is the encirclement at Tannenberg. **The peace is the one place the rule runs
+  the other way**, `ww2-004` carding Versailles as the thing the 1930s reacted against; write that pair
+  deliberately. The World History plan is the authority that this collection was anticipated: it says
+  outright that *"a reader who wants the Somme in depth is served by a war collection rather than by a
+  world survey"*.
+  **Read its six scope decisions before writing anything**, of which three carry the weight. **It is
+  not a Western Front collection** — deck 3 gets 130 cards and deck 4, everywhere else, gets 130 too,
+  deliberately equal, since more than half the war's soldiers died outside France and Belgium. **The
+  war does not end on 11 November 1918**: fighting ran on in Russia, the Baltic, Poland, Anatolia and
+  Ireland into 1923, deck 9 carries a 25-card subdeck on it, and `ww1-950` cards the question. And
+  **the Armenian genocide is carded as a genocide, at length, in a 20-card subdeck of its own** rather
+  than as a footnote to Gallipoli, with `ww1-779 Denial of the Armenian genocide` carding the Turkish
+  state's position AS AN ACCOUNT — the house rule about a state's account of its own actions, applied
+  to the hardest case this subject offers.
+  **Only ONE modern scholar is named in the whole thousand lines** (Fritz Fischer, `ww1-997`, because
+  the Fischer controversy was an event in West German public life), so the two-scholar cap has a slot
+  to spare and should keep it. **Twelve lines are written as QUESTIONS and that is a ceiling rather
+  than a licence** — each is a place where the answer term is an argument or a document rather than an
+  event, the shape `ww2-140` already uses. **The glossary starts almost from nothing**: measured
+  against the shipped corpus the war's own vocabulary yields SIX existing terms, with no
+  `Trench_warfare`, no `Western_Front`, no `Battle_of_the_Somme` and no `Armenian_genocide`, so expect
+  it to grow faster here than anywhere since Korea. The next card to write is the lowest `ww1-NNN` not
+  yet in `data.js`; the index table under "THE PLANNED COLLECTIONS" is the lookup. **No card has been
+  written yet.** Not part of the site.
+- **📖 `docs/architecture-card-plan.md` — READ BEFORE WRITING AN `arch-` CARD.** The **1000-card
+  running order for the Architecture collection** (`arch`): every card's number, topic and deck, fixed in
+  advance across 9 decks and 39 leaf subdecks. The twenty-sixth of the planned collections and the eighth
+  that is not history; the node, its tree, its `COLL_THEME` hue, a new `ICON_SYMBOLS` mark (`arch`) and a
+  `COLLECTION_SECTION` row ship with the plan.
+  · **IT IS THE SECOND COLLECTION IN "The Arts", AND THAT ROW IS THE ONE PIECE OF REGISTRATION THE LAST
+    TWO COLLECTIONS DID NOT NEED.** `sectionOf` returns History for anything `COLLECTION_SECTION` does
+    not name, which is right for the First World War and for Mesopotamia and wrong here — and it is not a
+    judgement: **the Visual Art plan created that heading for exactly this**, saying in terms that music,
+    architecture, theatre and literature "are the siblings a heading is for" and that a second one "costs
+    a row in COLLECTION_SECTION and nothing else". This is that second one.
+  · **THE SUBJECT IS HOW BUILDINGS ARE DESIGNED AND BUILT, AND DECK 1 IS WHAT SAYS SO.** 115 cards on
+    load and span, materials, light and heat and water, and the drawing come FIRST, before any period at
+    all — Mesopotamia's evidence-deck shape, and for its reason: **every later card inherits them.** A
+    reader who has met the arch, thrust and the buttress can be told in ten sentences why Beauvais fell;
+    writing the Gothic deck first would mean re-explaining the same mechanics twenty times over. **Only
+    about a fifth of the thousand names one building**, and a monument earns its slot the way a genus does
+    in the Dinosaurs plan — the Parthenon is here for entasis and the optical refinements, Beauvais
+    because it fell down.
+  · **IT DOES NOT COMPETE WITH VISUAL ART FOR A SINGLE LINE, WHICH IS WORTH KNOWING BEFORE ASSUMING IT
+    DOES.** `art`'s own plan rules out a movement, a technique, a school, a material, a site, a patron and
+    a museum: an `art` card is one identifiable, showable, portable WORK. So the Dome of the Rock mosaics
+    are `art-191` and the Dome of the Rock is `arch-444`; the Villa of the Mysteries frieze is `art-140`
+    and the Roman villa is `arch-296`. **Where a building holds a famous work, `art` cards the work and
+    this collection cards the building.**
+  · **THE OVERLAP WITH THE NATIONAL COLLECTIONS WAS MEASURED, NOT GUESSED — roughly a hundred lines
+    elsewhere already name a building**, led by Egypt (24), India (22), Rome (17), World History (15) and
+    Russia (14). **The division of labour is one sentence: a national collection cards a building as an
+    episode in that country's history; this collection cards how it was built and why it looks like
+    that** — `ru-206` is Ivan IV's monument to the taking of Kazan and `arch-490` is nine chapels on one
+    podium. **AND A NATIONAL COLLECTION'S SINGLE SURVEY LINE IS THIS COLLECTION'S SUBDECK**: `jp-990
+    Japanese architecture`, `cnh-962`, `ko-943`, `ru-849` and `fr-128` are one card each where they stand
+    and a whole run of cards here, so write the pair deliberately.
+  · **VERNACULAR BUILDING IS CARDED, NOT JUST MONUMENTS.** Almost every building ever made was put up
+    without an architect; a collection that cards only the designed exceptions teaches that architecture
+    is what rich institutions commission. The yurt, the pit house, the crannog, the tulou, the Loess cave
+    dwelling, the minka, the stilt house, the bahay kubo, the shophouse, the log cabin, the shotgun house
+    and the bye-law terrace are all in the order.
+  · **THE MODERN DECKS CARD WHAT FAILED AS WELL AS WHAT WAS BUILT** — Pruitt-Igoe, Ronan Point, the flat
+    roof, facadism, urban renewal — because the modern movement is where a survey most easily becomes a
+    catalogue of manifestos, and **an architect's own manifesto is a source for what he CLAIMED and not
+    for what he built**: *Vers une architecture* is evidence about Le Corbusier's programme and not about
+    whether Villa Savoye leaked.
+  · **THE GLOSSARY TRAP IS ECONOMICS'S AT A LARGER SCALE: the vocabulary is ordinary English words used
+    technically** — plan, section, elevation, order, bay, arch, column, wall, frame, core, shell, load,
+    span, site, scale. **Almost none may claim its bare surface**, on `Life_(biology)`'s rule; `Arch` is
+    the sharpest, being a prefix (archbishop, archive, archaeology, archon, archipelago) as well as a
+    word. **And EIGHTEEN of its terms already exist** — `Doric_order`, `Ionic_order`, `Corinthian_order`,
+    `Architrave`, `Pediment`, `Cyclopean_masonry`, `Ziggurat`, `Stupa`, `Gothic_architecture`,
+    `Parthenon`, `Colosseum`, `Hagia_Sophia` and the rest — so **WIDEN rather than re-key**, since
+    `add-glossary.js` overwrites in silence.
+  · **A MODERN BUILDING'S PICTURE IS NOT AUTOMATICALLY FREE**, unlike a medieval one: freedom of panorama
+    covers exterior photographs in Britain, Germany and much of the Commonwealth and does NOT in France,
+    Italy, Greece, Belgium or the United States for buildings after 1990. **Check Commons before promising
+    a picture for a twentieth-century card.**
+  The next card to write is the lowest `arch-NNN` not yet in `data.js`; the index table under "THE PLANNED
+  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/middleearth-card-plan.md` — READ BEFORE WRITING A `mid-` CARD.** The **1000-card running
+  order for the Middle-earth collection** (`middleearth`): every card's number, topic and deck, fixed
+  in advance across 9 decks and 40 leaf subdecks. The twenty-seventh of the planned collections and
+  **the first whose subject is a work of fiction**; the node, its tree, its `COLL_THEME` hue, a new
+  `ICON_SYMBOLS` mark (`ring`) and a `COLLECTION_SECTION` row (`The Arts`, the third under that
+  heading) ship with the plan. The card prefix is `mid-` because **`me-` is Ancient Mesopotamia's**,
+  which is exactly the collision `test-card-plans.js` checks for.
+  · **FOLIO'S CONTENT RULES WERE WRITTEN FOR HISTORY AND SCIENCE AND THIS COLLECTION IS NEITHER, SO
+    READ "The one thing to read before writing anything" FIRST.** **What changes is that a card is
+    about a TEXT and never about a world**: "Beren cut a Silmaril from Morgoth's crown" is not a fact
+    and "the *Quenta Silmarillion* as published in 1977 says he did" is one. **What does not change is
+    anything else** — five sources with markers, the pairing rule, ten sentences in two blocks of five
+    at 270–330 words, and `add-card.js` refusing a card that breaks any of it.
+  · **THE CANON PROBLEM IS THE SPINE AND IT HAS FOUR RULES.** Tolkien published four books of the
+    legendarium and left sixty years of contradictory drafts; *The Silmarillion* is an edited
+    construction its editor documented across twelve further volumes. So **a card names the text it is
+    following** wherever the texts differ; **a late draft is dated, not ranked**, the latest material
+    being often the least settled; **a genuinely open question is carded as open** (Orc origins, what
+    Bombadil is, whether the flat world survives) on Astronomy's Hubble-tension rule; and **an
+    adaptation's invention is never the book's** — Arwen at the Ford, Faramir at Osgiliath, Tauriel,
+    the Dead at the Pelennor. Decks 2–5 card the books and say nothing about the films; deck 8 cards
+    the changes as changes.
+  · **MOST CARDS CANNOT CARRY A PICTURE, AND THAT IS COPYRIGHT RATHER THAN EFFORT.** Tolkien died in
+    1973, so his prose, paintings, maps and calligraphy are in copyright until 2044 in
+    life-plus-seventy countries, and film stills, production art, covers and game screenshots are in
+    copyright too — against a bar of PD / CC BY / CC BY-SA. **This is the collection's stated
+    reason-why-not, given once for the whole thousand**, so do not go looking: a Tolkien illustration
+    that appears to be on Commons is very likely a mis-licensed upload. **What IS free is deck 1** —
+    Sarehole, Perrott's Folly, Exeter and Merton, the Wolvercote grave, the Somme — **and the sources
+    subdeck** (the *Beowulf* manuscript, the Exeter Book, the Codex Regius, the Franks Casket, Sutton
+    Hoo, Gallen-Kallela) **and deck 8's filming country**, New Zealand having freedom of panorama.
+    Expect 80–120 of the thousand to carry one. **The adaptation decks have the one thing the rest do
+    not, `card.video`**: a rights-holder's own official trailer is a legitimate link and the CSP
+    already allows `youtube-nocookie.com`.
+  · **FIVE OF TOLKIEN'S OWN SOURCES ARE ALREADY IN FOLIO'S LIBRARY AND ONE HAS ITS ORIGINAL COLUMN** —
+    `beowulf` ships with `beowulf.ang`, and `poetic-edda`, `prose-edda`, `morte-darthur`,
+    `song-of-roland` and `virgil-aeneid` are all there — so **`mid-sources` can carry `card.quote` and
+    no other subdeck can**, the Library taking only work whose copyright has expired. **Do not write a
+    `quote` block naming a Tolkien text.**
+  · **AN IN-WORLD DATE IS NOT A DATE `cardYears` MAY SORT ON.** "T.A. 3019" parses as nothing, and
+    teaching it to parse would put the War of the Ring in the third millennium — so **an in-world card
+    is dated by its TEXT** (the Pelennor card is dated 1955, by *The Return of the King*) and the
+    in-world date goes in the prose. **Read the sort year back after any date line in decks 3–5.**
+    For the same reason **`undatable: true` will be set on most game-reachable cards in those decks**,
+    while a card about a book, a film or a person takes none.
+  · **THE OVERLAPS WERE MEASURED AND THERE ARE NONE — the first collection on the shelf of which that
+    is true.** No plan names Tolkien, no shipped card's answer term touches the subject, and **not one
+    of the 3,838 glossary terms is a Middle-earth term**, so expect the glossary to grow faster here
+    than anywhere since Korea. **The trap is the OPPOSITE of Economics'**: most of the vocabulary is
+    invented proper nouns claiming no English surface, and the danger is the handful of general fantasy
+    words — `Elf`, `Dwarf`, `Orc`, `Troll`, `Wizard`, `Dragon`, `Ring`, `Shire`, `Mark`. **`Dwarf` is
+    the sharpest**, Astronomy holding white dwarfs and dwarf planets; key them `Elf_(Middle-earth)` on
+    `Life_(biology)`'s rule and key the Ring `One_Ring`.
+  · **TWO OF THE THREE MAIN JOURNALS ARE OPEN ACCESS** — *Mythlore* and the *Journal of Tolkien
+    Research* — with *Tolkien Studies* refereed and paywalled, and Hammond and Scull, Shippey, Flieger,
+    Garth and Carpenter as the standard works. **A FAN WIKI IS NOT A SOURCE**: Tolkien Gateway and the
+    One Wiki are the first results for nearly every line here, are largely uncited and routinely
+    present film material as Tolkien's. **A maker's commentary is a source for what the maker says, not
+    for what the work does** — the Architecture plan's manifesto rule in another medium — and the
+    business cards rest on the public docket (the 2008 Tolkien Trust suit, the 2012 suit settled in
+    2017) rather than on the trade press's summary of it.
+  The next card to write is the lowest `mid-NNN` not yet in `data.js`; the index table under "THE
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/westeros-card-plan.md` — READ BEFORE WRITING A `wes-` CARD.** The **1000-card running
+  order for the Westeros collection** (`westeros`): every card's number, topic and deck, fixed in
+  advance across 9 decks and 41 leaf subdecks. The twenty-eighth of the planned collections and the
+  **second whose subject is fiction**; the node, its tree, its `COLL_THEME` hue, a new `ICON_SYMBOLS`
+  mark (`raven`) and a `COLLECTION_SECTION` row (`The Arts`, the fourth under that heading) ship with
+  the plan. **Read the Middle-earth plan's "one thing to read before writing anything" first** — its
+  argument that a card is about a TEXT and never about a world is this collection's too, and is not
+  repeated there at length. **The collection is called Westeros because the world has no name**: the
+  books say "the known world", the series is named after a song, and the two alternatives each
+  exclude half the franchise.
+  · **THREE THINGS DIFFER FROM MIDDLE-EARTH AND EACH DECIDES A DECK.** **The series is unfinished** —
+    *A Dance with Dragons* was published in 2011 — so a card describing the story describes **where
+    the last published book left it**, in those words, and never depends on an ending nobody has read.
+    **The television series finished first, in 2019, with a different ending**, so decks 2–6 card the
+    books and say nothing about the show, and deck 8 cards the show's departures AS departures. And
+    **one primary source is an avowed liar**: *Fire & Blood* and *The World of Ice & Fire* are written
+    by in-world maesters who give one event three incompatible accounts and decline to choose, so
+    where they disagree **the card gives the disagreement**, as a Mesopotamia card gives a range.
+  · **📖 THE "DIFFICULT MATERIAL" SECTION IS THE ONE TO READ BEFORE ANY CARD, NOT JUST THE OBVIOUS
+    ONES.** This franchise contains sustained sexual violence, torture and the killing of children,
+    and Folio is written for an upper-secondary reader. **A card names what happens and never renders
+    it** — the Psychology plan's describe-never-diagnose rule against a different danger. **Where a
+    sexual assault must be named the card gives three things and stops**: what happened, to whom, and
+    what the argument about it is, which is the Korea plan's rule for the hardest colonial subjects.
+    **No card is written from the position of enjoying cruelty**; a violent set piece is carded for
+    what it does to the story, which is also the only interesting question. **Child characters are
+    stricter still**: `wes-733` and `wes-734` are about the ADAPTATION's ageing-up decision and the
+    criticism of it, and no other card pairs a child character with sexual content. The material that
+    must be carded lives in the criticism decks, where the scholarship actually discusses it.
+  · **THE HUE FOUND A REAL GAP, WHICH IS RARE THIS LATE.** The shelf's six reds all lean ORANGE
+    (China, Russia, the Indonesian and Mandarin decks, Korea, Visual Art, all between hue 25 and 40)
+    and Japan's kuwazome is a red-purple at 345 — so the carmine corner at hue 0–8 is empty.
+    `#B32057` stands **21.3, above the median of 20.1**, density 5, at 6.4:1 against white, and
+    **crimson belongs to no house**: the Red Keep, the Red Wedding, the red comet, the red priests and
+    every heart tree's leaves. **DO NOT DRIFT IT LIGHTER** — the same family at L 43–48 scores better
+    and renders as raspberry pink. Blood-orange red (17.1, ten neighbours) and cold slate-blue (18.7,
+    eight) were measured and refused.
+  · **NOTHING HERE CAN CARRY A PICTURE FROM THE BOOKS OR THE SHOW AND THE AUTHOR IS ALIVE**, so the
+    copyright wall is total against a bar of PD / CC BY / CC BY-SA. That is the stated
+    reason-why-not, given once for the thousand. **What IS free is the history deck** (Towton,
+    Bosworth, Hadrian's Wall, siege engines, manuscript illumination) **and the filming locations** —
+    Northern Ireland, Croatia, Iceland, Spain and Malta all have freedom of panorama. Expect 60–90 of
+    the thousand to carry one. **`card.quote` is unavailable with no exception**, the Library holding
+    none of this collection's sources; the screen decks have `card.video` for a rights-holder's own
+    upload.
+  · **THE OVERLAPS ARE SMALL AND ALL IN DECK 1.** No plan names Martin or the series. France holds the
+    Hundred Years' War (30 cards), `wh-368 Hadrian's Wall` is shipped, Rome holds Hadrian and
+    Architecture his villa — and **the Wars of the Roses appear in no plan on the shelf**, which is a
+    gap in World History rather than an overlap. **The division of labour is that a history collection
+    cards the event and `wes-history` cards what a novelist made of it**; do not let that deck become
+    a second history collection.
+  · **THE GLOSSARY TRAP IS THE OPPOSITE OF MIDDLE-EARTH'S AND SHARPER.** Tolkien's vocabulary is
+    invented proper nouns claiming no English surface; **Martin's is ordinary English words used as
+    names** — Stark, Wall, Hand, Watch, North, Reach, Vale, Mountain, Hound, Crown, Throne, Winter,
+    Faith, Citadel, Storm. **`Stark` is the sharpest, being an ordinary English adjective the corpus
+    uses in its ordinary sense.** Key them `House_Stark`, `Hand_of_the_King`, `Night's_Watch` on
+    `Life_(biology)`'s rule. Not one of the 3,838 shipped terms is a Westeros term, but **`Citadel`,
+    `Crown_Dependency`, `Winter_War`, `Middle_Ages` and `Lion_Gate` all exist and mean something
+    else** — do not re-key any of them.
+  · **SOURCING IS THINNER AND YOUNGER THAN TOLKIEN'S AND MOSTLY PAYWALLED** — there is no *Mythlore*
+    here. The medievalists are the people to prefer on the realism question (*The Public Medievalist*
+    is free and is written by them), and DOAJ and OpenAIRE are worth searching before assuming a paper
+    is shut. Cite the novels by **chapter**, which is stable where pagination is not. **Martin's blog
+    and the *So Spake Martin* archive are evidence of intention and not of text** — the Architecture
+    plan's manifesto rule in a third medium — and **he has contradicted himself, so date the
+    statement**. A fan wiki is not a source.
+  · **AN IN-WORLD DATE IS WORSE THAN USELESS HERE**: "283 AC" parses as the year 283 and would file
+    Robert's Rebellion in the Roman empire. A card is dated by its TEXT, and **`undatable: true`
+    belongs on nearly every game-reachable card in decks 3–6**.
+  The next card to write is the lowest `wes-NNN` not yet in `data.js`; the index table under "THE
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/coldwar-card-plan.md` — READ BEFORE WRITING A `cw-` CARD.** The **1000-card running order
+  for the Cold War collection** (`coldwar`): every card's number, topic and deck, fixed in advance
+  across 9 decks and 36 leaf subdecks. The twenty-ninth of the planned collections and the fifteenth
+  history one; the node, its tree, its `COLL_THEME` hue and a new `ICON_SYMBOLS` mark (`trefoil`) ship
+  with the plan. **It needs NO `COLLECTION_SECTION` row** — `sectionOf` returns History for anything
+  the table does not name, so the correct action for a history collection is to add nothing, which is
+  the France plan's rule and this is the second collection it applies to.
+  · **IT IS A GLOBAL HISTORY, NOT A DUEL, AND THE ARITHMETIC IS THE ARGUMENT.** Deck 5 gives **120
+    cards to Asia** and deck 6 **120 to the rest of the world** against 110 for divided Europe and 110
+    for the two superpowers at home — **240 of the thousand outside Europe and North America**, which
+    for a subject written overwhelmingly from Washington and Moscow is a deliberate correction, and is
+    also where the dying happened. **Both superpowers' accounts of their own actions are carded as
+    accounts**, symmetrically and hard, and so are the client states' — the DPRK on Korea, the junta
+    on Chile, the normalisation histories on 1968.
+  · **THE ASYMMETRY OF THE EVIDENCE IS THE METHODOLOGICAL FACT AND `cw-955` IS THE CARD.** Western
+    archives have opened on a statutory timetable for fifty years; the Soviet ones opened suddenly in
+    the 1990s and **the Russian ones have substantially re-closed**. The effect is systematic — it is
+    easier to write a well-evidenced account of American deliberation than of Soviet, which makes
+    American decisions look explicable and Soviet ones opaque — and **every card inherits it**. **A
+    DECLASSIFIED DOCUMENT IS EVIDENCE OF WHAT AN AGENCY WROTE, NOT OF WHAT HAPPENED**: an estimate is a
+    guess with a letterhead, and **a card citing NSC-68 for what the Soviet Union was doing has cited
+    an American argument about the Soviet Union.** Memoirs are the weakest source here and there are
+    hundreds.
+  · **THE SOURCES ARE THE BEST ON THE SHELF AND MOSTLY FREE** — the Wilson Center Digital Archive, the
+    National Security Archive, the full-text *Foreign Relations of the United States*, and the CIA
+    reading room. The journals are paywalled; search DOAJ and OpenAIRE first.
+  · **INTELLIGENCE IS CARDED FOR WHAT IT DID TO POLICY, NOT AS A GENRE** — the popular literature is
+    the largest part of this subject and much of it is unverifiable, so a card needs a document or a
+    scholarly reconstruction rather than a good story, and says so where the claim rests on one
+    defector's word. **THE NUCLEAR CARDS GIVE THE NUMBERS AND NEITHER MINIMISE NOR PREACH**, and the
+    near-miss subdeck's argument (`cw-324`) is about systems rather than luck.
+  · **THE TWO-SCHOLAR CAP IS SPENT IN `cw-history` AND DELIBERATELY** — **William Appleman Williams
+    and John Lewis Gaddis**, because the revisionist turn and the post-revisionist synthesis were
+    events in American public argument. **Every other historian is carded as an argument rather than a
+    name.** And **nothing is written as though the outcome was obvious**: `cw-195 Why 1989 surprised
+    everybody` and `cw-892 Was the collapse inevitable?` exist so that teleology is a subject rather
+    than a habit.
+  · **THE OVERLAP IS REAL AND WAS MEASURED: 66 card lines across 13 plans** — World History 17 (the
+    headline set, one card each), the United States 15, Russia 12, Korea 10. **The division of labour
+    is that a national collection cards what the Cold War did to that country and this collection
+    cards the Cold War**, so `ru-706` is the missile crisis as Soviet history and `cw-301`–`cw-309` are
+    nine cards on the crisis. **KOREA IS THE SHARPEST PAIR**: `ko-751`–`ko-785` is the war from inside
+    Korea and `cw-464`–`cw-487` is the same war from outside — read the `ko-` card before writing its
+    twin.
+  · **THE HUE'S EDITORIAL CONSTRAINT CAME FIRST, WHICH IS UNUSUAL: it may not be either side's**, so
+    the sweep excluded red and blue and what survives is concrete grey. **`#4C5064`'s numbers are the
+    worst yet accepted — 19.2, below the median of 20.1, and DENSITY 9, equal to the shelf maximum** —
+    and the argument carrying it is that the four greys are genuinely four colours (iron L 27 warm,
+    this L 34 cool, field grey L 45 olive, slate L 51 blue-green). What scores better is a periwinkle
+    at 20.6 that means nothing. **Check the swatch, not the number, before moving it.** The icon is the
+    radiation trefoil, which belongs to neither side; **a mushroom cloud was refused, and not on
+    legibility.**
+  · **`undatable` IS RARELY RIGHT HERE**, unlike the two fiction collections: almost everything
+    happened at a datable moment, which makes this unusually good Timeline material. The exceptions are
+    the doctrines — containment, deterrence, bipolarity, the proxy war. **The glossary trap is the
+    ordinary-word one**: `stability`, `escalation`, `linkage` and `containment` must not claim their
+    bare surfaces, `The_Wall` is Westeros's problem too, and **`SALT` must not claim `salt`.**
+  The next card to write is the lowest `cw-NNN` not yet in `data.js`; the index table under "THE
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/vikingage-card-plan.md` — READ BEFORE WRITING A `vk-` CARD.** The **1000-card running
+  order for the Viking Age collection** (`vikingage`): every card's number, topic and deck, fixed in
+  advance across 9 decks and 39 leaf subdecks. The thirtieth of the planned collections and the
+  sixteenth history one; the node, its tree, its `COLL_THEME` hue and a new `ICON_SYMBOLS` mark (`axe`)
+  ship with the plan. **It needs NO `COLLECTION_SECTION` row**, the France rule, and this is the fourth
+  collection it applies to.
+  · **THE CENTRAL CORRECTION IS THAT `víkingr` IS A JOB, NOT A PEOPLE** — a man on a raiding voyage —
+    and the overwhelming majority of the people in this collection never went on one. So the shares
+    are stated rather than left to drift: **120 cards on farming, law, craft and trade, 120 on belief
+    and 100 on the ships**, against 220 for the raids and settlements west and south. `vk-235` *The
+    word Viking and what it meant* sits early in deck 3 so a reader meets the correction before the
+    raids. **No card may use "the Vikings" as the subject of a sentence about ordinary Scandinavian
+    life.**
+  · **THE EVIDENCE IS THE SPINE AND DECK 1 IS WHAT SAYS SO** — 30 cards on the sources, before any
+    raid, because this subject's evidence is lopsided in a way that shapes every conclusion drawn from
+    it. **Nearly all the contemporary writing is by the victims**, the Scandinavian accounts are
+    **sagas written two to three centuries later** by Christians about pagans, and the eyewitness
+    descriptions of Scandinavians in their own element are **Arabic**. `vk-004`, `vk-012` and `vk-016`
+    carry it and **every other card inherits them**.
+  · **A SAGA DATE IS NOT A DATE.** A saga written in 1250 giving a year for an event in 980 is evidence
+    of thirteenth-century tradition, so where the only date is a saga's the date line **says so in
+    words or is left empty** — `test-date-line.js` catches the alternative, a non-empty line yielding
+    no sort year. Two dates are carded as genuinely contested: Iceland's conversion (`vk-596`) and the
+    start of the Viking Age (`vk-110`).
+  · **THE PERIOD IS ABOUT 750 TO 1100, NOT 793 TO 1066** — the familiar dates are an English artefact
+    (a raid on an English monastery and an English battle), and `vk-965`'s honest answer is that the
+    period is a convenience.
+  · **THE SLAVE TRADE IS CARDED PLAINLY** across ten lines rather than as a footnote to the trade
+    cards, with **`vk-029` *The silence of the enslaved in the record*** stating the evidential problem.
+    And **the horned helmet, the nineteenth-century romanticism and the modern extremist appropriation
+    are carded in deck 9** (`vk-973`, `vk-976`, `vk-978`, `vk-979`) — which is also why the collection
+    does not wear a valknut.
+  · **`Vikings` IS ALREADY A GLOSSARY TERM AND IT ALREADY CLAIMS THE BARE ALIASES *Viking* AND *Viking
+    Age*.** Twenty-four of this collection's terms exist already, so **`add-glossary.js` would
+    overwrite them in silence** — the Korea `Seoul` scar, and here it would land on the collection's own
+    name. **Widen, do not re-key.** **The ordinary-word trap is the worst on the shelf**: measured over
+    the corpus, **`thing` occurs in 209 abstracts**, `ship` 80, `hall` 79, `shield` 70 — key them
+    `Thing_(assembly)` and the rest on `Life_(biology)`'s rule. Eight of the collection's own words
+    measure ZERO in the corpus and may claim their bare surfaces: `rune`, `longship`, `thrall`,
+    `skald`, `jarl`, `berserk`, `fjord`, `saga`.
+  · **THE HUE IS THE WORST-SEPARATED ON THE SHELF AND FOUR HUES ARE PACKED INTO HALF A UNIT OF IT** —
+    `#782C00` stands 18.8 from the German deck's brown, 18.9 from Mesopotamia's ochre, 19.0 from the
+    Spanish deck's burnt orange and 19.2 from Russia's red, against a median of 20.0. Density 6 is
+    better than the median 7. **Every colour the subject actually means was measured and refused** —
+    iron grey is **4.0** from the Second World War's own hue — and the one candidate that survived on
+    numbers, a cold Atlantic blue, was refused because **Greece's hue IS the Aegean**. Do not re-sweep,
+    and **do not drift it lighter**: every softening was measured and costs separation fast.
+  · **THE ICON IS AN AXE BECAUSE A THOR'S HAMMER WILL NOT RENDER**, and the plan records fifteen
+    proportions of it. Two general rules came out of that: **a symmetric object on a stem cannot carry
+    this slot** (head-down it is a plant pot, head-up it is the letter T, and every legible hammer glyph
+    escapes that by being asymmetric, which a Mjölnir is not), and **a blade beside the top of an
+    upright haft reads as the letter P**, so the haft is DIAGONAL and CROSSES the blade. **What the axe
+    costs is stated rather than hidden**: it leans on the warrior image deck 9 spends 25 cards unpicking,
+    and if a legible non-martial construction is ever found it should replace this.
+  The next card to write is the lowest `vk-NNN` not yet in `data.js`; the index table under "THE
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
   only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
@@ -1739,7 +2276,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.44 MB and 50,244 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.48 MB and 50,633 lines is hard to find your way around, so this
   lists its 195 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -7037,7 +7574,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE TWENTY PLANNED COLLECTIONS, IN TWENTY-ONE PLANS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE PLANNED COLLECTIONS, IN THIRTY-TWO PLANS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -7060,12 +7597,22 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | 10 cards, contiguous — next is `eg-011` |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 160 cards, contiguous — next is `ww2-161` |
+| The First World War | `ww1` | `ww1-` | `docs/ww1-card-plan.md` | 9 / 37 | empty |
+| Architecture | `arch` | `arch-` | `docs/architecture-card-plan.md` | 9 / 39 | empty — not a history collection |
+| Middle-earth | `middleearth` | `mid-` | `docs/middleearth-card-plan.md` | 9 / 40 | empty — fiction, not a history collection |
+| Westeros | `westeros` | `wes-` | `docs/westeros-card-plan.md` | 9 / 41 | empty — fiction, not a history collection |
+| The Cold War | `coldwar` | `cw-` | `docs/coldwar-card-plan.md` | 9 / 36 | empty |
+| The Viking Age | `vikingage` | `vk-` | `docs/vikingage-card-plan.md` | 9 / 39 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
+| Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | empty — not a history collection |
+| Economics | `econ` | `ec-` | `docs/economics-card-plan.md` | 9 / 40 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
+| France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
+| Ancient Mesopotamia | `mesopotamia` | `me-` | `docs/mesopotamia-card-plan.md` | 9 / 40 | empty |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 4 / 4 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
@@ -7085,7 +7632,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (328 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (448 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -8061,7 +8608,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 328 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 448 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
