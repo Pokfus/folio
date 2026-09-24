@@ -717,6 +717,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1471–1500 | 21 changed, 9 read and left: 20 example sentences replaced (a police notice listing prostitution and drugs, a virginity test, a judgement of a man's taste in women, a straddle on 眼看, 淹 and 严 used only inside other words, near-repeats), 4 translations fixed, two Compounds panels, 16 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1501–1530 | 27 changed, 3 read and left: 34 example sentences replaced (一道 shown only as 一 + a measure word, five straddles, 野 and 仰 used only inside other words, slang for menstruation, a threat, Classical Chinese, near-repeats), 3 translations fixed, six Compounds panels, 19 glosses corrected; 野's archaic traditional form 壄 cleared |
 | 2026-09-24 | `hsk30l6` notes 1531–1560 | 26 changed, 4 read and left: 24 example sentences replaced (a slur on 议论, a straddle on 一时, headwords inside idioms and longer words, an advertising line, near-repeats), 2 translations fixed, three Compounds panels, 20 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1561–1590 | 27 changed, 3 read and left: 32 example sentences replaced (four straddles on 有机 and 用人, 与其 shown as a different word, 用人 and 用心 split into their two senses, a political aside, jokes, near-repeats), 2 translations fixed, two Compounds panels, 20 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12715,4 +12716,38 @@ and no version bump.
   - 一模一样 carried its own "(idiom)" label.
   - 因 named nouns under a preposition label.
   - The rest gained a CC-CEDICT sense or a "to".
+
+### Batch 182 — `hsk30l6` notes 1561–1590 (引导 → 羽绒服)
+
+27 notes changed and 3 read and left (用餐, 用处, 由来), counted against the real diff.
+
+- **Straddles.** In each of these the headword's characters fall across two different words:
+  - 有机: this record's two sentences were 有 + 机会.
+  - 用人: 雇用 + 人, and 用 + 人造黄油.
+  - 与其: 你是想将我与其联系起来吗 is 与 "with" + 其 "it", a different word.
+  
+  All were replaced.
+- **Two cards split into their senses.**
+  - 用人 was glossed "servant" under a verb label, over a sentence about hiring.
+  - 用心 was glossed "motive" under an adjective label. Its political aside, 别有用心, had the headword inside the idiom.
+  
+  Both are now two senses, with each sentence tagged.
+- **Single characters.**
+  - 印 appeared only inside 印台, 印出 (written 在 for 再) and 印迹.
+  - 于 appeared only inside 胜于 and 不同于.
+  
+  The replacements show 于's commonest use, a time or a place. Both gained Compounds panels.
+- **Other replacements.**
+  - 优化: a joke about convex lives.
+  - 饮用水: acid rain in drinking water.
+  - 隐私: a cynical line, and a near-duplicate. Its gloss named three verbs under a noun label.
+  - 犹如: a 25-character aphorism.
+  - 引入: a 40-character sentence.
+  - 引导: 引导性, and a 30-character sentence.
+  - 有劲: an advertising line.
+  - 与其: a sentence about betraying an organisation.
+  - 英雄: the bare slogan 我们是英雄.
+- **Near-repeats replaced:** 婴儿 (crying twice), 影子 (afraid of a shadow twice, the replacement showing "reflection"), 涌现, 用功, 有序, 余额, 羽绒服.
+- **Translations.** 用心 said "by heart", and 优异 said "good marks".
+- **Glosses.** 拥挤 had "push and squeeze", 游人 carried an article, and the rest gained a "to" or a sense.
 
