@@ -1627,11 +1627,38 @@ the alias are the same string.
              them, which is why the names, the parents, the instruments and even the number are all
              later. `Siren` auto-pluralises, so no alias was needed; its bare surface matches three
              abstracts, all of them siren protomai on orientalising cauldrons and all correct
-    gr-961  Scylla and Charybdis
-    gr-962  Calypso
-    gr-963  Penelope
-    gr-964  Telemachus
-    gr-965  Aeneas in Greek myth
+    gr-961  Scylla and Charybdis — written, and answered by `Scylla` alone. Two monsters cannot be
+             one answer term, and the Odyssey's own weight is on the one Circe tells Odysseus to
+             steer TOWARDS; Charybdis is carried in the prose and as an alias on the glossary key,
+             so the plan's own phrase still resolves. The card's third rule-shaping finding is
+             Hopman's, read in review: the vase painters' pretty Scylla and Homer's horror are one
+             figure because a mythical name is a composite of ideas — dog, sea, woman — rather than
+             a body, which is how the card can show a 4th-century krater beside a Homeric question
+             without contradicting itself
+    gr-962  Calypso — written. The offer refused is the card: `check-cards.js` reports Homer at 4 of
+             6 sources, which is the ancient-witness carve-out working as intended. Ogygia is on no
+             map and gets no locator
+    gr-963  Penelope — written. The bed test is the card's spine, and the review used is a HOSTILE
+             one (Olson on Katz), cited for the single point the reviewer himself endorses, that the
+             murder of Agamemnon stands in the poem as the homecoming this one might have been. Read
+             a review before citing it, and cite it for what it says rather than for what it reviews
+    gr-964  Telemachus — written. Its picture is the OTHER SIDE of the same Chiusi skyphos that
+             illustrates gr-963, which is not a duplicate by `check-cards.js`'s file-name rule and is
+             deliberate: the Penelope Painter's cup is the canonical image of both of them, and the
+             obvious alternative was REJECTED — Meynier's *Telemachus, Urged by Mentor, Leaving the
+             Island of Calypso* is Fénelon's *Télémaque*, not Homer's, and Telemachus never goes to
+             Ogygia in the Odyssey at all. **A beautiful picture of the wrong story is still the
+             wrong picture.** Locator at Pylos rather than Ithaca, which gr-951 and gr-963 already
+             carry
+    gr-965  Aeneas in Greek myth — written, and **the pairing rule was ALREADY SATISFIED**: `Aeneas`
+             has been a cited glossary term since the Rome collection reached him, at the bar and
+             with a picture. Running `add-glossary.js` blind would have overwritten it in silence.
+             What was done instead is a deliberate REWRITE of the existing term, because its three
+             sentences were wholly Roman and a Greek card's answer would have auto-linked to a
+             definition that never mentions the Iliad: sentence 1 now carries Poseidon's prophecy
+             with two Greek sources added beside the four Roman ones, and the cost is stated rather
+             than hidden — the Alba Longa king list and Caesar's funeral speech came out to make
+             room, the term being held to three sentences and 110 words
 
 ## Known omissions of this plan, and why they stay omitted (Sep 2026 audit)
 
@@ -1674,11 +1701,29 @@ neighbouring card whose prose they belong in at all, and stay omitted outright.
 
 ### Cult, oracles and festivals — `gr-cult`
 
-    gr-966  Greek religion
-    gr-967  Civic cult
-    gr-968  What a Greek temple was for
-    gr-969  The cult statue
-    gr-970  The Greek altar
+    gr-966  Greek religion — written, and the deck's opening card. Answered by `Greek religion`,
+             keyed `Ancient_Greek_religion` (the Wikipedia slug) with the short form as an alias
+    gr-967  Civic cult — retitled, and answered by **`polis religion`**, which is the term the
+             literature actually uses and the one a reader meets again; "civic cult" defines nothing
+             a reader could look up. The card's answer term IS a modern model, so the
+             no-researchers exemption would have covered it — it is deliberately NOT used: the card
+             is written about the THING (the calendar, the public funds, the metics admitted to some
+             cults) with the model and its critics held to three sentences, so `card-focus.js` rule
+             2 is satisfied on its own terms and no `EXEMPT` row was needed
+    gr-968  What a Greek temple was for — answered by `Greek temple`. The question the plan's line
+             asks is the card's argument: the altar is outside, so the building is the god's house
+             and the city's treasury, and many sanctuaries never had one. Thucydides 2.13 carries
+             both this card and gr-969 — the forty talents of removable gold on the Parthenos is a
+             fact about a temple's wealth and a fact about what a cult image was made of
+    gr-969  The cult statue — answered by **`cult image`**, which is the scholarly term and is
+             honest about the thing: the Mylonopoulos volume's own point, read in review, is that
+             Greek had NO single word for one and that votive and cult image are often the same
+             object. A card answered by "cult statue" would assert the distinction the sources deny;
+             the phrase survives as the glossary alias
+    gr-970  The Greek altar — written. Pausanias on the ash altar at Olympia is what makes the card
+             concrete, and the dimensions are his own. The picture is an altar standing in the open
+             in FRONT of its temple at Delos, which is the card's claim in one photograph; the
+             museum candidates were rejected as mostly modern plaster
     gr-971  Animal sacrifice
     gr-972  Hecatomb
     gr-973  Libation
