@@ -20625,6 +20625,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Keep the ring and keep the ground line — without the line the shape floats and reads as a
        horseshoe, without the ring it is a door. */
     { k: "arch", n: "Arch", d: '<path d="M4 20V11a8 8 0 0 1 16 0v9"/><path d="M7 20v-9a5 5 0 0 1 10 0v9"/><path d="M2 20h20"/>' },
+    /* A PLAIN UNADORNED CIRCLE (Middle-earth) — and it is the plainest mark here on purpose. Fifty
+       marks were already in this list and NOT ONE of them is a bare circle: `coin` is two concentric
+       circles, `globe` a circle with three meridians, `sun` a small disc with rays, `ringed` a disc
+       inside one ellipse, `atom` a nucleus inside three, `moon` a crescent. Rendered at 24, 28 and
+       34px beside all six, the empty ring is unmistakable against every one of them. A ROUND HOBBIT
+       DOOR WAS TRIED AND REFUSED — a circle with a centred knob on a ground line reads at 24px as
+       `coin`'s inner circle with the ground line gone, so the more elaborate mark is the more
+       confusable one. Keep the circle empty. It is also the one emblem of this franchise that is a
+       geometric form rather than somebody's design. */
+    { k: "ring", n: "Ring", d: '<circle cx="12" cy="12" r="8.2"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20702,6 +20712,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ww2: "plane",
     ww1: "wire",
     arch: "arch",
+    middleearth: "ring",
     japan: "torii",
     psych: "head",
     phil: "owl",
@@ -25294,7 +25305,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -26233,6 +26244,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        print itself was swept across the whole lightness band and tops out at 16.9, sitting on the United
        States' navy, which is why the light end was taken. */
     arch:     { bg: "#008DC6" },
+    /* the green of a leaf (Middle-earth) — MEASURED against the 33 hues then on the shelf, and the
+       collection whose obvious colour is refused by a standing note written two collections ago.
+       GOLD FIRST, because a reader asked to name this franchise's colour would say gold and nothing
+       else: the Ring, the mallorn leaves, "all that is gold does not glitter". It is refused twice
+       over. On the numbers the best metallic gold inside the contrast band stands 17.7 with FIVE hues
+       inside dE 30, wedged between India's saffron and Dinosaurs' dark gold, and the best dark gold
+       19.9 with six. And on the note above: the olive-brass beside it scored 21.5 for Architecture and
+       was refused there as the sixth thing in the yellow-green-brown quarter, with an instruction not
+       to measure it again. Gold IS that quarter. DO NOT RE-RUN THE GOLD SWEEP.
+       WHAT IS TAKEN IS THE OTHER EMBLEM: the leaf — the Shire's green, the leaf-brooches of Lorien,
+       the round door. It scores 21.5, ABOVE the shelf's median of 20.1 and the best figure anywhere on
+       the wheel outside the two banded regions, with DENSITY 3 against a median of 6. 21.5 from
+       Geography: United States' olive, 21.8 from Dinosaurs' dark gold, 27.6 from the Italian deck's
+       sage. L 55, chroma 56, 3.7:1 against white — the light end of the shelf's own 3.7-10.4 band,
+       level with India's ochre and Architecture's cyanotype.
+       IT IS A SEVENTH GREEN and needs Biology's fifth-green argument: Biology's forest is at L 27,
+       Geography: United States at L 40, World Geography's emerald at L 38, the Portuguese deck's green
+       is a true green twenty degrees further round, the Italian deck's sage is at chroma 30 and the
+       First World War's field grey at chroma 13. This is the BRIGHT, HIGH-CHROMA, YELLOW-LEANING end
+       of the band and nothing else is within twenty points of it there. Looked at as a banner and as
+       its 20% wash beside all six. The magenta topped the unconstrained sweep for the NINTH time and
+       was not re-measured; the only region that outscores this one and carries no note is a bright
+       rose at 20.5, which means nothing here. */
+    middleearth: { bg: "#7B8C1F" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median

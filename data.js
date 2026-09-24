@@ -12153,6 +12153,316 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "middleearth",
+      "title": "Middle-earth",
+      "total": 0,
+      "children": [
+        {
+          "id": "mid-making",
+          "title": "The man and the making",
+          "total": 110,
+          "children": [
+            {
+              "id": "mid-life",
+              "title": "Tolkien's life",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "mid-philology",
+              "title": "Philology and the day job",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-sources",
+              "title": "What he read",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "mid-writing",
+              "title": "Writing and publishing",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-books",
+          "title": "The books",
+          "total": 110,
+          "children": [
+            {
+              "id": "mid-hobbit",
+              "title": "The Hobbit",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-lotr",
+              "title": "The Lord of the Rings",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "mid-silm",
+              "title": "The Silmarillion",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "mid-posthumous",
+              "title": "The posthumous volumes",
+              "total": 22,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-world",
+          "title": "The world",
+          "total": 115,
+          "children": [
+            {
+              "id": "mid-cosmology",
+              "title": "Creation and the Valar",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-ages",
+              "title": "The shape of Arda and its Ages",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-beleriand",
+              "title": "Beleriand and the drowned West",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "mid-lands",
+              "title": "The lands of the Third Age",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "mid-reckoning",
+              "title": "Maps, calendars and measure",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-peoples",
+          "title": "The peoples",
+          "total": 115,
+          "children": [
+            {
+              "id": "mid-elves",
+              "title": "Elves",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "mid-men",
+              "title": "Men",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "mid-dwarves",
+              "title": "Dwarves",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "mid-hobbits",
+              "title": "Hobbits",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "mid-kindreds",
+              "title": "Ents, Orcs and the other kindreds",
+              "total": 21,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-histories",
+          "title": "The histories",
+          "total": 120,
+          "children": [
+            {
+              "id": "mid-firstage",
+              "title": "The First Age",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "mid-secondage",
+              "title": "The Second Age",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-thirdage",
+              "title": "The Third Age",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-warofring",
+              "title": "The War of the Ring",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-languages",
+          "title": "The languages",
+          "total": 95,
+          "children": [
+            {
+              "id": "mid-glossopoeia",
+              "title": "Inventing a language",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "mid-elvish",
+              "title": "Quenya and Sindarin",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "mid-tongues",
+              "title": "The other tongues",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "mid-scripts",
+              "title": "Scripts, names and inscriptions",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-reading",
+          "title": "Reading Tolkien",
+          "total": 105,
+          "children": [
+            {
+              "id": "mid-themes",
+              "title": "The themes",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "mid-criticism",
+              "title": "The arguments about the books",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "mid-century",
+              "title": "Tolkien and his century",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-scholarship",
+              "title": "Tolkien studies",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-screen",
+          "title": "The adaptations",
+          "total": 120,
+          "children": [
+            {
+              "id": "mid-early",
+              "title": "Before Jackson",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "mid-jackson",
+              "title": "The Jackson trilogy",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "mid-hobbitfilms",
+              "title": "The Hobbit films",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "mid-rop",
+              "title": "The Rings of Power",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "mid-stage",
+              "title": "Radio, stage and music",
+              "total": 19,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "mid-franchise",
+          "title": "The franchise",
+          "total": 110,
+          "children": [
+            {
+              "id": "mid-tabletop",
+              "title": "Games on the table",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "mid-videogames",
+              "title": "Video games",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-estate",
+              "title": "Publishing, the Estate and the law",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "mid-fandom",
+              "title": "Fandom",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "mid-legacy",
+              "title": "What came after",
+              "total": 18,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-world",
       "title": "World Geography",
       "total": 468,

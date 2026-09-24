@@ -1051,6 +1051,69 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a picture for a twentieth-century card.**
   The next card to write is the lowest `arch-NNN` not yet in `data.js`; the index table under "THE PLANNED
   COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/middleearth-card-plan.md` — READ BEFORE WRITING A `mid-` CARD.** The **1000-card running
+  order for the Middle-earth collection** (`middleearth`): every card's number, topic and deck, fixed
+  in advance across 9 decks and 40 leaf subdecks. The twenty-seventh of the planned collections and
+  **the first whose subject is a work of fiction**; the node, its tree, its `COLL_THEME` hue, a new
+  `ICON_SYMBOLS` mark (`ring`) and a `COLLECTION_SECTION` row (`The Arts`, the third under that
+  heading) ship with the plan. The card prefix is `mid-` because **`me-` is Ancient Mesopotamia's**,
+  which is exactly the collision `test-card-plans.js` checks for.
+  · **FOLIO'S CONTENT RULES WERE WRITTEN FOR HISTORY AND SCIENCE AND THIS COLLECTION IS NEITHER, SO
+    READ "The one thing to read before writing anything" FIRST.** **What changes is that a card is
+    about a TEXT and never about a world**: "Beren cut a Silmaril from Morgoth's crown" is not a fact
+    and "the *Quenta Silmarillion* as published in 1977 says he did" is one. **What does not change is
+    anything else** — five sources with markers, the pairing rule, ten sentences in two blocks of five
+    at 270–330 words, and `add-card.js` refusing a card that breaks any of it.
+  · **THE CANON PROBLEM IS THE SPINE AND IT HAS FOUR RULES.** Tolkien published four books of the
+    legendarium and left sixty years of contradictory drafts; *The Silmarillion* is an edited
+    construction its editor documented across twelve further volumes. So **a card names the text it is
+    following** wherever the texts differ; **a late draft is dated, not ranked**, the latest material
+    being often the least settled; **a genuinely open question is carded as open** (Orc origins, what
+    Bombadil is, whether the flat world survives) on Astronomy's Hubble-tension rule; and **an
+    adaptation's invention is never the book's** — Arwen at the Ford, Faramir at Osgiliath, Tauriel,
+    the Dead at the Pelennor. Decks 2–5 card the books and say nothing about the films; deck 8 cards
+    the changes as changes.
+  · **MOST CARDS CANNOT CARRY A PICTURE, AND THAT IS COPYRIGHT RATHER THAN EFFORT.** Tolkien died in
+    1973, so his prose, paintings, maps and calligraphy are in copyright until 2044 in
+    life-plus-seventy countries, and film stills, production art, covers and game screenshots are in
+    copyright too — against a bar of PD / CC BY / CC BY-SA. **This is the collection's stated
+    reason-why-not, given once for the whole thousand**, so do not go looking: a Tolkien illustration
+    that appears to be on Commons is very likely a mis-licensed upload. **What IS free is deck 1** —
+    Sarehole, Perrott's Folly, Exeter and Merton, the Wolvercote grave, the Somme — **and the sources
+    subdeck** (the *Beowulf* manuscript, the Exeter Book, the Codex Regius, the Franks Casket, Sutton
+    Hoo, Gallen-Kallela) **and deck 8's filming country**, New Zealand having freedom of panorama.
+    Expect 80–120 of the thousand to carry one. **The adaptation decks have the one thing the rest do
+    not, `card.video`**: a rights-holder's own official trailer is a legitimate link and the CSP
+    already allows `youtube-nocookie.com`.
+  · **FIVE OF TOLKIEN'S OWN SOURCES ARE ALREADY IN FOLIO'S LIBRARY AND ONE HAS ITS ORIGINAL COLUMN** —
+    `beowulf` ships with `beowulf.ang`, and `poetic-edda`, `prose-edda`, `morte-darthur`,
+    `song-of-roland` and `virgil-aeneid` are all there — so **`mid-sources` can carry `card.quote` and
+    no other subdeck can**, the Library taking only work whose copyright has expired. **Do not write a
+    `quote` block naming a Tolkien text.**
+  · **AN IN-WORLD DATE IS NOT A DATE `cardYears` MAY SORT ON.** "T.A. 3019" parses as nothing, and
+    teaching it to parse would put the War of the Ring in the third millennium — so **an in-world card
+    is dated by its TEXT** (the Pelennor card is dated 1955, by *The Return of the King*) and the
+    in-world date goes in the prose. **Read the sort year back after any date line in decks 3–5.**
+    For the same reason **`undatable: true` will be set on most game-reachable cards in those decks**,
+    while a card about a book, a film or a person takes none.
+  · **THE OVERLAPS WERE MEASURED AND THERE ARE NONE — the first collection on the shelf of which that
+    is true.** No plan names Tolkien, no shipped card's answer term touches the subject, and **not one
+    of the 3,838 glossary terms is a Middle-earth term**, so expect the glossary to grow faster here
+    than anywhere since Korea. **The trap is the OPPOSITE of Economics'**: most of the vocabulary is
+    invented proper nouns claiming no English surface, and the danger is the handful of general fantasy
+    words — `Elf`, `Dwarf`, `Orc`, `Troll`, `Wizard`, `Dragon`, `Ring`, `Shire`, `Mark`. **`Dwarf` is
+    the sharpest**, Astronomy holding white dwarfs and dwarf planets; key them `Elf_(Middle-earth)` on
+    `Life_(biology)`'s rule and key the Ring `One_Ring`.
+  · **TWO OF THE THREE MAIN JOURNALS ARE OPEN ACCESS** — *Mythlore* and the *Journal of Tolkien
+    Research* — with *Tolkien Studies* refereed and paywalled, and Hammond and Scull, Shippey, Flieger,
+    Garth and Carpenter as the standard works. **A FAN WIKI IS NOT A SOURCE**: Tolkien Gateway and the
+    One Wiki are the first results for nearly every line here, are largely uncited and routinely
+    present film material as Tolkien's. **A maker's commentary is a source for what the maker says, not
+    for what the work does** — the Architecture plan's manifesto rule in another medium — and the
+    business cards rest on the public docket (the 2008 Tolkien Trust suit, the 2012 suit settled in
+    2017) rather than on the trade press's summary of it.
+  The next card to write is the lowest `mid-NNN` not yet in `data.js`; the index table under "THE
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
   only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
@@ -1569,7 +1632,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.43 MB and 49,937 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.43 MB and 49,972 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6835,6 +6898,7 @@ lookup.
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 160 cards, contiguous — next is `ww2-161` |
 | The First World War | `ww1` | `ww1-` | `docs/ww1-card-plan.md` | 9 / 37 | empty |
 | Architecture | `arch` | `arch-` | `docs/architecture-card-plan.md` | 9 / 39 | empty — not a history collection |
+| Middle-earth | `middleearth` | `mid-` | `docs/middleearth-card-plan.md` | 9 / 40 | empty — fiction, not a history collection |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
@@ -6862,7 +6926,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (367 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (379 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7823,7 +7887,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 367 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 379 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
