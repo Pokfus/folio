@@ -1100,6 +1100,12 @@ what went wrong in the Mongol period — under a term rather than under a headin
 
 ### Slavery and the Atlantic world — `wh-slavery`
 
+*Retitled while writing (Sep 2026): `wh-745` was *Legacy of Atlantic slavery*, which is a subject and
+not a term — there is no article of that name to key a glossary entry on, and a card cannot be answered
+by the word "legacy". The line is now **African diaspora**, which is the thing the legacy IS: the
+population the three trades made, the term a reader meets again, and the one card able to gather the
+Atlantic, Indian Ocean and Saharan traffics this deck has just carded into a single answer.*
+
 *Retitled while writing (Sep 2026): `wh-734` was *Maroon communities*, which is a description rather
 than a term. The people are called **Maroons**, that is the word a reader meets again and the word
 the eighteenth-century treaties and statutes use, and "communities" only says that they lived
@@ -1131,7 +1137,7 @@ else in the Americas.*
     wh-742  Olaudah Equiano
     wh-743  Slave Trade Act 1807
     wh-744  Creolisation
-    wh-745  Legacy of Atlantic slavery
+    wh-745  African diaspora
 
 ## Revolutions and Empire — `wh-revolutions`
 
