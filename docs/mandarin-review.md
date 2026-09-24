@@ -715,6 +715,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1411–1440 | 25 changed, 5 read and left: 22 example sentences replaced (消除's three unsuitable sentences, climate denial on 效应, a generalisation about the Swiss, 国际象棋 on Chinese chess, headwords inside longer words, near-repeats), 3 translations fixed, one Compounds panel, 19 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1441–1470 | 23 changed, 7 read and left: 19 example sentences replaced (学会 glossed with a sense no sentence showed, a Churchill quotation, a breast reduction, Taiwan's 网路, slogans, fragments, near-repeats), 1 translation fixed, one Compounds panel, 17 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1471–1500 | 21 changed, 9 read and left: 20 example sentences replaced (a police notice listing prostitution and drugs, a virginity test, a judgement of a man's taste in women, a straddle on 眼看, 淹 and 严 used only inside other words, near-repeats), 4 translations fixed, two Compounds panels, 16 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1501–1530 | 27 changed, 3 read and left: 34 example sentences replaced (一道 shown only as 一 + a measure word, five straddles, 野 and 仰 used only inside other words, slang for menstruation, a threat, Classical Chinese, near-repeats), 3 translations fixed, six Compounds panels, 19 glosses corrected; 野's archaic traditional form 壄 cleared |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12638,4 +12639,41 @@ and no version bump.
   - 严厉 said "accuses".
   - 延续 said "for a while" for 数里.
 - **Glosses.** 血管 is now "blood vessel", which frees it from 脉络. 言语 is now CC-CEDICT's, which frees it from 话语. 眼看 gained "to look on as". The rest gained a "to".
+
+### Batch 180 — `hsk30l6` notes 1501–1530 (仰 → 疑惑)
+
+27 notes changed and 3 read and left (养老院, 一流, 一辈子), counted against the real diff.
+
+- **A card shown in a different word altogether.** 一道 teaches "together". All three of its sentences were 一 + the measure word 道: a flash of lightning, a maths problem and a human wall. All three were replaced with sentences showing "together".
+- **Straddles.**
+  - 要点菜 and 要点钱: 要 + 点菜 and 要 + 点.
+  - 生意也好了 and 我也好想: 也 + 好.
+  - 二零一一年: the digits of a year.
+  
+  All five were replaced.
+- **Single characters used only inside other words.**
+  - 野: 野狗, 野牛 and 野鸡.
+  - 仰: 仰赖, 敬仰, and this record's unnatural 他仰躺.
+  - 样: 原样 and 咋样.
+  - 业: 执业, and Classical Chinese in brackets.
+  - 痒: a threat, 皮发痒…找抽.
+  - 姨: 大姨妈, which is slang for menstruation.
+  
+  All six gained Compounds panels.
+- **The open 野 traditional-form item is closed.** Its Traditional field held 壄, which CC-CEDICT lists only as an old variant. The field is cleared, as on every card whose two forms agree.
+- **Other replacements.**
+  - 氧气 had a slogan.
+  - 遥远 had 回去 where the sentence needs 回到.
+  - 要素 had two translated fragments of an argument.
+  - 遗传 had a calque of "genetic modification" and 遗传基因.
+  - 野外 and 液体 each had a 25–35-character sentence.
+  - 一带's English did not match.
+  - 医药 had 医药费 twice. My own first replacement, the idiom 缺医少药, does not contain 医药 and was refused by the applier.
+- **Near-repeats replaced:** 一一, 遗产, 一贯, and 野生 (a sentence also standing on 严禁).
+- **Translations.** 氧气 said "this guy", 要点 said "the key", and 依旧 said "alive".
+- **Glosses.**
+  - 样 gained "kind; type", which its measure-word label names.
+  - 衣食住行 had lost its "(idiom)" label and trailing semicolon.
+  - 野外 now differs from 田园, so its hint is gone.
+  - The rest were semicolon or "to" fixes.
 
