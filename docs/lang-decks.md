@@ -3490,6 +3490,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S33 | B1 | #391 `la producción` – #418 `el sueldo` | 24 | 4 (`la llegada`, `el capítulo`, `soltero, soltera`, `el sueldo`) | 0 | B1 description: 956 with three | — |
 | S34 | B1 | #419 `la infancia` – #446 `el anciano, la anciana` | 28 | 0 | 0 | B1 description: 957 with three | — |
 | S35 | B1 | #447 `el cartel` – #474 `el grito` | 25 | 3 (`clásico, clásica`, `el documento`, `marcharse`) | 0 | — | — |
+| S36 | B1 | #475 `el cirujano, la cirujana` – #502 `evidente` | 26 | 2 (`el método`, `la asociación`) | 0 | B1 description: 958 with three | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4965,6 +4966,36 @@ All three were replaced with a stopover, a scale drawing and a musical scale.
 - `check-senses --deck=DELE-B1` went from 73 to 71.
 - `besar` and `besarse` stay on that list with their new glosses, "to kiss" and "to kiss (each other)". Their
   examples read "kissed" and "kissing", so these are false positives, not wrong glosses.
+
+### S36 — DELE B1, notes #475–#502 (Sep 2026)
+
+Measured against the S35 commit by card id: **26 changed, 972 untouched**, each a record entry. The other
+two were read and left alone: `el método`, `la asociación`.
+
+**ONE SENTENCE ON TWO NEIGHBOURING CARDS, AND BELONGING TO NEITHER BY RULE.** *Mercedes se quemó la lengua con
+la sopa* was on both `quemar` and `quemarse`, and on A1's `la sopa` as well. It is dropped from both: A1 keeps
+it. `quemar`'s other example rendered *el cielo* as "Heaven". `la economía` and `la huelga` likewise shared *La
+huelga ha afectado a la economía nacional* with each other and with the earlier `nacional`.
+
+**AMERICAN INSTITUTIONS FOR SPANISH ONES.** `el ministerio`'s English gave "the Department of Labour" and "the
+Treasury Department" for the Spanish ministries; `la autopista` said freeway, expressways and highway;
+`la administración` was an American county.
+
+**MEANINGS MISSED OR MISTRANSLATED.** `suelto`'s *dólares sueltos* is loose change, rendered "I have just three
+dollars left", and its third example was the verb *soltar*. `rezar` gave "to read, say" first. `informar`'s "to
+find out" is *informarse*. `la selva` gave "forest", which is *bosque*. `por cierto`'s third example had its
+English drop the phrase ("I happen to agree"), and its first, *oír de ella*, is a calque.
+
+**LATIN AMERICAN USAGE.** *Le tomó ocho horas* (`el cirujano`), *el cuero del pollo* (`el cuero`).
+
+**A NEW SENTENCE THE GUARD REFUSED.** *Te vas a quemar* on `quemarse`: the table lists *te quemas*, and the
+pronoun standing apart from an infinitive is not a form it carries. Rewritten as *te quemas*.
+
+**AND THE REST.** Fifteen sentences shared with A1, A2 or an earlier B1 card were replaced. `la administración`
+comes up to three examples: 958 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+71 → 69.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

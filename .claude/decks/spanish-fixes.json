@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,31 +877,35 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 956 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 957 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 958 of them"
     ]
    ]
   }
@@ -37812,6 +37816,600 @@
      ]
     ]
    ]
+  },
+  "deleb1/el cirujano, la cirujana": {
+   "why": "The gloss is right. The third example's le tomó ocho horas is Latin American (Spain: tardó).",
+   "dropEx": [
+    "le tomó ocho horas"
+   ],
+   "ex": [
+    [
+     "El cirujano operó a mi padre ayer.",
+     "The surgeon operated on my father yesterday."
+    ]
+   ]
+  },
+  "deleb1/el retraso": {
+   "why": "The gloss is right. The first example is shared with diez in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "un retraso de diez minutos"
+   ],
+   "ex": [
+    [
+     "Perdona el retraso.",
+     "Sorry I'm late."
+    ]
+   ]
+  },
+  "deleb1/gastar": {
+   "why": "The gloss is right in substance but ran as a list. All three examples were one construction, spending money; wearing something out was not shown.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to spend (money, time)",
+      "to wear out, to use up"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "gastar una broma — to play a joke"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Gastamos más dinero de lo que"
+   ],
+   "ex": [
+    [
+     "He gastado las suelas de los zapatos.",
+     "I've worn out the soles of my shoes."
+    ]
+   ]
+  },
+  "deleb1/informar": {
+   "why": "The gloss's 'to find out' is informarse. The first example's English said 'report to the police', and the second and third were one construction.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to inform",
+      "to report"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "informarse — to find out"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "informó a sus padres de su éxito"
+   ],
+   "exEn": [
+    [
+     "a la policía de inmediato",
+     "You have to inform the police at once."
+    ]
+   ],
+   "ex": [
+    [
+     "Los periódicos informaron del accidente.",
+     "The papers reported the accident."
+    ]
+   ]
+  },
+  "deleb1/la economía": {
+   "why": "The gloss is right. The first example is shared with nacional earlier in B1, and the third, 'la economía en depresión', is not natural Spanish. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "La huelga ha afectado a la economía nacional.",
+    "La economía en depresión"
+   ],
+   "ex": [
+    [
+     "Estudia Economía en la universidad.",
+     "She's studying economics at university."
+    ],
+    [
+     "La economía española ha crecido este año.",
+     "The Spanish economy has grown this year."
+    ]
+   ]
+  },
+  "deleb1/el ministerio": {
+   "why": "The gloss is right. The English gave American departments — 'the Department of Labour', 'the Treasury Department' — for Spanish ministries, and two examples were the same ministry.",
+   "dropEx": [
+    "un alto empleado del"
+   ],
+   "exEn": [
+    [
+     "este el Ministerio de Trabajo",
+     "Is this the Ministry of Labour?"
+    ],
+    [
+     "Tiene un destino en el",
+     "He has a post at the Ministry of Finance."
+    ]
+   ],
+   "ex": [
+    [
+     "El Ministerio de Sanidad dio los datos.",
+     "The Ministry of Health released the figures."
+    ]
+   ]
+  },
+  "deleb1/pintarse": {
+   "why": "The gloss did not give pintarse los labios, which all three examples were a form of. The first example is shared with pintar in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to put on make-up"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "pintarse los labios / las uñas — to put on lipstick / to paint one's nails"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "nunca se pinta los labios de rojo"
+   ],
+   "ex": [
+    [
+     "Se pinta un poco antes de salir.",
+     "She puts on a bit of make-up before going out."
+    ]
+   ]
+  },
+  "deleb1/el ratón, la ratona": {
+   "why": "The gloss is right. The third example, 'Soy una ratona', is not a sentence a learner needs, and the computer mouse was not shown.",
+   "dropEx": [
+    "Soy una ratona."
+   ],
+   "ex": [
+    [
+     "El ratón del ordenador no funciona.",
+     "The computer mouse isn't working."
+    ]
+   ]
+  },
+  "deleb1/quemar": {
+   "why": "The gloss was a list. The first example's English, 'Heaven is going to burn your eyes', is nonsense, and the second, se quemó la lengua, is quemarse, the next card, and is shared with la sopa in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to burn"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "estar quemado — to be burnt out (colloquial)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El cielo te va a quemar",
+    "se quemó la lengua con la sopa"
+   ],
+   "ex": [
+    [
+     "Quemaron la basura en el jardín.",
+     "They burnt the rubbish in the garden."
+    ],
+    [
+     "El sol quema mucho a mediodía.",
+     "The sun is very strong at midday."
+    ]
+   ]
+  },
+  "deleb1/quemarse": {
+   "why": "The gloss is right. The second example is shared with la sopa in A1 and the third with seco in A2; the first's English, 'The curtain can burn', misses what puede quemarse means here. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "se quemó la lengua con la sopa",
+    "La madera seca se quema bien."
+   ],
+   "exEn": [
+    [
+     "La cortina puede",
+     "The curtain could catch fire."
+    ]
+   ],
+   "ex": [
+    [
+     "Me quemé con el horno.",
+     "I burnt myself on the oven."
+    ],
+    [
+     "Si no te pones crema, te quemas.",
+     "If you don't put sun cream on, you'll get sunburnt."
+    ]
+   ]
+  },
+  "deleb1/contratar": {
+   "why": "The gloss gave 'to contract' and not taking out insurance. The first example is shared with el abogado in A1 and the second with pintar in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to hire, to take on",
+      "to take out (insurance, a service)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "contratado a un abogado mejor",
+    "contrató a Carlos para pintar su casa"
+   ],
+   "ex": [
+    [
+     "Van a contratar a más camareros en verano.",
+     "They're going to take on more waiters in the summer."
+    ],
+    [
+     "Contratamos un seguro de viaje.",
+     "We took out travel insurance."
+    ]
+   ]
+  },
+  "deleb1/la administración": {
+   "why": "The gloss said 'administration' twice. The card had two examples, and the first was an American county.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "administration"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la Administración (pública) — the civil service"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La administración del condado"
+   ],
+   "ex": [
+    [
+     "Trabaja en la administración de un hospital.",
+     "She works in a hospital's administration."
+    ],
+    [
+     "La Administración pública tiene muchos funcionarios.",
+     "The civil service has a lot of employees."
+    ]
+   ]
+  },
+  "deleb1/el intercambio": {
+   "why": "'interchange' is not a sense a learner needs. The first and third examples were both an exchange student.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "exchange"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Carlos está con una estudiante"
+   ],
+   "ex": [
+    [
+     "Hicimos un intercambio de ideas.",
+     "We had an exchange of ideas."
+    ]
+   ]
+  },
+  "deleb1/la selva": {
+   "why": "The gloss gave 'forest', which is bosque. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "jungle, rainforest"
+     ]
+    ]
+   ]
+  },
+  "deleb1/en cambio": {
+   "why": "The gloss was a list running off the end of the line. The first example, '¿En cambio, por qué no vamos a Boston?', is not natural Spanish, and the second's English said 'on the contrary'.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "on the other hand",
+      "instead"
+     ]
+    ]
+   ],
+   "bold": [
+    "en cambio"
+   ],
+   "dropEx": [
+    "por qué no vamos a Boston"
+   ],
+   "exEn": [
+    [
+     "Tú eres joven. Yo,",
+     "You are young. I, on the other hand, am very old."
+    ]
+   ],
+   "ex": [
+    [
+     "Él quería ir a la playa; ella, en cambio, prefería la montaña.",
+     "He wanted to go to the beach; she, on the other hand, preferred the mountains."
+    ]
+   ]
+  },
+  "deleb1/rezar": {
+   "why": "The gloss's 'to read, say' is the literary sense of a sign that reads. The second example, praying in the meeting room, is not a sentence a learner needs.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to pray"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "en la sala de reuniones"
+   ],
+   "ex": [
+    [
+     "Mi abuela reza todas las noches.",
+     "My grandmother prays every night."
+    ]
+   ]
+  },
+  "deleb1/por cierto": {
+   "why": "The gloss said 'by the by'. The first example's oír de ella is a calque of 'hear from her' (saber de ella), and the third's English, 'I happen to agree with Carlos', left the phrase out.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "by the way"
+     ]
+    ]
+   ],
+   "bold": [
+    "por cierto"
+   ],
+   "dropEx": [
+    "ha oído de ella desde entonces"
+   ],
+   "exEn": [
+    [
+     "estoy de acuerdo con Carlos",
+     "By the way, I agree with Carlos."
+    ]
+   ],
+   "ex": [
+    [
+     "Por cierto, mañana no hay clase.",
+     "By the way, there's no class tomorrow."
+    ]
+   ]
+  },
+  "deleb1/la huelga": {
+   "why": "The gloss is right. The first example is shared with nacional and the third with debido a, both earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "strike"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "estar en huelga — to be on strike"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La huelga ha afectado a la economía nacional.",
+    "cerradas debido a la huelga"
+   ],
+   "ex": [
+    [
+     "Los médicos están en huelga.",
+     "The doctors are on strike."
+    ],
+    [
+     "Mañana hay huelga de metro.",
+     "There's an underground strike tomorrow."
+    ]
+   ]
+  },
+  "deleb1/callado, callada": {
+   "why": "The gloss is right. The second and third examples were one construction.",
+   "dropEx": [
+    "Les dijo a los estudiantes que estuvieran"
+   ],
+   "ex": [
+    [
+     "Es un chico muy callado.",
+     "He's a very quiet boy."
+    ]
+   ]
+  },
+  "deleb1/la dieta": {
+   "why": "The gloss was a definition. The first example is shared with perder in A2, and the third's por dos semanas is a calque. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "diet"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "estar a dieta — to be on a diet"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "una dieta para perder peso",
+    "una dieta por dos semanas"
+   ],
+   "ex": [
+    [
+     "Estoy a dieta.",
+     "I'm on a diet."
+    ],
+    [
+     "La dieta mediterránea es muy sana.",
+     "The Mediterranean diet is very healthy."
+    ]
+   ]
+  },
+  "deleb1/suelto, suelta": {
+   "why": "The gloss was a list. The first example, dólares sueltos, is loose change and was rendered 'I have just three dollars left', and the third was the verb soltar.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "loose"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dinero suelto — (small) change"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "tres dólares sueltos",
+    "mi brazo. Me estás haciendo daño"
+   ],
+   "ex": [
+    [
+     "¿Tienes dinero suelto?",
+     "Have you got any change?"
+    ],
+    [
+     "Lleva el pelo suelto.",
+     "She wears her hair down."
+    ]
+   ]
+  },
+  "deleb1/el comercio": {
+   "why": "The gloss is right. The second example, systematic extortion of shopkeepers, is a crime report.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "trade, commerce",
+      "shop, business"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "extorsionando sistemáticamente"
+   ],
+   "ex": [
+    [
+     "Mi tío tiene un comercio en el centro.",
+     "My uncle has a shop in the centre."
+    ]
+   ]
+  },
+  "deleb1/el cuero": {
+   "why": "The gloss was a list. The first example, a leather picture frame, is not natural, and the third's cuero del pollo is Latin American (Spain: la piel).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "leather"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un marco de cuero",
+    "el cuero del pollo"
+   ],
+   "ex": [
+    [
+     "Llevaba una chaqueta de cuero negra.",
+     "He was wearing a black leather jacket."
+    ],
+    [
+     "Este sofá es de cuero auténtico.",
+     "This sofa is real leather."
+    ]
+   ]
+  },
+  "deleb1/la formación": {
+   "why": "The gloss put 'formation' first. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "training, education",
+      "formation"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la autopista": {
+   "why": "The gloss gave 'freeway', and the examples' English said freeway, expressways and highway. The first and third examples were both an accident on it.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "motorway"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El accidente ocurrió en la"
+   ],
+   "exEn": [
+    [
+     "un accidente terrible en la",
+     "There was a terrible accident on the motorway."
+    ],
+    [
+     "está construyendo nuevas",
+     "Algeria is building new motorways."
+    ]
+   ],
+   "ex": [
+    [
+     "Tardamos dos horas por la autopista.",
+     "It took us two hours on the motorway."
+    ]
+   ]
+  },
+  "deleb1/evidente": {
+   "why": "The gloss was a list. The third example, 'realmente amas el ruso', is not natural Spanish.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "obvious, evident"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "realmente amas el ruso"
+   ],
+   "ex": [
+    [
+     "Es evidente que no quiere venir.",
+     "It's obvious he doesn't want to come."
+    ]
+   ]
   }
  },
  "insert": {
@@ -38129,7 +38727,9 @@
    "el sueldo",
    "clásico, clásica",
    "el documento",
-   "marcharse"
+   "marcharse",
+   "el método",
+   "la asociación"
   ]
  }
 }
