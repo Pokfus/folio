@@ -3024,3 +3024,81 @@ derived from the Russian is an expansion by another name** — take the publishe
 are now the ones to take to CyberLeninka first. Lipetsk already has two leads: Ruban's archival paper on
 the mineral waters (2022) and Belova's on the same subject as an urban-planning factor (2025, whose
 publisher is behind DDoS-Guard from here, though **DOAJ's own API returns its abstract**).
+
+## Batch 36 — Lipetsk, Magadan, Anadyr, Naryan-Mar (2026-09-24)
+
+Four centres, and the batch's real product is a **reading** route rather than a finding one.
+
+**CYBERLENINKA'S `/pdf` ADDRESS IS NOT CAPTCHA-WALLED.** `https://cyberleninka.ru/article/n/<slug>/pdf`
+returned the publisher's own PDF for two of the five articles tried, Belova's *Липецкие минеральные
+воды* among them — which is the whole Lipetsk history, read in full from a publisher that answers only
+behind DDoS-Guard. **It answers 200 either way**: where no PDF was deposited the same address serves
+the captcha page under a `.pdf` name at about 5.8 KB, and `pdf-text.js` run over that reports nothing
+and exits clean. `file` the download before reasoning about it. Batch 35 recorded CyberLeninka as a
+finding tool only; it is both.
+
+**AND `marhi.ru/AMIT/` IS THE OTHER HALF OF THE SAME LESSON.** *Architecture and Modern Information
+Technologies* is not in Crossref at all — a title search there returns three unrelated papers — and it
+publishes every article as a free PDF on the institute's own site. Recent issues link
+`/<slug>/abstract.php`, whose page links `/<slug>/<slug>.pdf`; 2024's issues file them as
+`PDF/NN_<author>.pdf` under `/AMIT/<year>/<n>kvart<yy>/`, and the index pages are windows-1251. It
+carried **Dolinskaia on Magadan's general plans** and **Chaika on Chukotka's settlement**, neither of
+which any English source has.
+
+**READ THE PRINTED CITATION, DO NOT COMPOSE THE PAGINATION.** Both of these journals print their own
+preferred citation in the running head — *2025. № 3. С. 18–25* for Belova, *2024. №3(68). С. 236–262*
+for Dolinskaia — and a guess at Belova's from the DOI tail gave 16–25. The Dolinskaia article was
+additionally identified by its LAST page: CyberLeninka's OCR opened on the fragment `6-262`, which
+matched 236–262 in the third quarter and not the first, where the same author has another paper.
+
+**WHAT EACH CARD RESTS ON.**
+· **`gru-543` Lipetsk.** Charter article 13 ¶3 for the seat. Belova for four history sentences: the
+  provincial reform of 1708 under Peter I with the district first under Yelets; town standing in 1779
+  within Tambov Governorate; the district the most densely settled in the governorate with Kozlov's by
+  1851; the minister of internal affairs' report of 25 April 1805 on the spring having won the public's
+  confidence, with the doctor and apothecary's journal, the chemical testing and the Medical Council's
+  verdict. Anichkina's paper on the Lower Park for the park's 120 hectares, its protected standing, its
+  exotics, its work as a filtration field for the high part of the city — and for the cast-iron cannon
+  and the bath building of 1805 and the People's Will conferring there in 1879. Reclus's own table of
+  the chief towns of Tambov Governorate gives 14,213, fourth among them, which is the historical
+  population `facts-echo.js` explicitly allows beside a modern grid.
+· **`gru-581` Magadan.** Charter article 38 ¶4. Kurovskaia and others on the Magadanka's 48.5 km²
+  catchment and the 2014 flood reconstructed by model for want of a weather station inside the basin.
+  Dolinskaia for the origin — the East Even culture base of 1929 on Nagayevo Bay and the grubbed
+  clearing inland, the order of 3 July 1935 to survey "the town of Magadan-Nagayevo", the
+  general-perspective plan of 10 April 1936, and the 80,000 m² of taiga opened as a park on 6 July 1935
+  four years before the settlement was made a town. Galtseva, Favstritskaya and Sharypova for the
+  planned-against-market contrast; Breslavsky for the okrug's urban network, 15 of 34 urban-type
+  settlements abandoned or abolished by the early 2020s.
+· **`gru-582` Anadyr.** Charter article 16. Tregubov and Uyagansky's ground-radar survey for the taliks
+  — 2.34 km² at six metres or deeper, 67% of the built-up area. Chaika for the linear coastal
+  settlement model and for Dezhnev and Popov's 1647 departure, the Anadyr river reached in 1648, the
+  winter camp that became the ostrog and stood to 1771 near later Markovo. Pelyasov and others for the
+  transfer model; Vashchuk and Kovalenko for the separation from Magadan Oblast settled in the
+  Constitutional Court.
+· **`gru-583` Naryan-Mar.** Charter article 3 ¶2. Popova and others for the two proposed Arkhangelsk
+  roads, 887 km through empty country against 940 km through ten settlements, the longer judged better.
+  Pelyasov for the Arctic "island" and the rental model. Klepikov for the town as one of the Soviet
+  Arctic's planned socialist settlements and its general plan as a case of the programme's faults —
+  standard buildings raised without allowance for permafrost. Korotaev, who works from the town's own
+  museum association, for the Pustozersk earthwork: six tiers of frozen layers in a 64 m² trench in
+  2015 and more than 500 objects, 152 of them leather and footwear.
+
+**A DATE LINE MAY NOT SAY `1930s`.** `gru-583` shipped with *Soviet town plan / 1930s* and
+`test-date-line.js` failed it: `cardYears` yields no sort year from a decade, and the card renders
+perfectly meanwhile. Klepikov dates the programme no more closely than the decade, so the line is
+**empty** and the prose carries the decade — which is what the rule about an empty date line is for.
+
+**MAGADAN, ANADYR AND NARYAN-MAR ALL TAKE `?` IN THREE ROWS.** None is in Rosstat's table 4.9, which
+is *Cities with Population of 100 000 and Over*; nor is any other town of their three subjects, so the
+fifth sentence of each says exactly that rather than naming a sibling town as batch 28's rule allows.
+
+**`Kurgan` IS ALREADY A GLOSSARY TERM AND IT IS THE BARROW.** Before `gru-560` is written, the city
+needs a key of its own — the pairing rule cannot be satisfied by the existing entry, and
+`add-glossary.js` would overwrite it in silence.
+
+**FIVE CENTRES LEFT**: `gru-502` Krasnogorsk, `gru-503` Krasnodar, `gru-524` Gatchina, `gru-560`
+Kurgan, `gru-578` Elista. Gatchina stays refused on the charter's stale seat (batch 34). Krasnodar's
+own subject card `gru-003` has already spent Ekaterinodar's founding, the WMO temperature normals and
+the UN population, so the centre card needs the city's 19th and 20th centuries and the WMO
+wettest/driest leg.

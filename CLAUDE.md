@@ -904,6 +904,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     by JavaScript) **and its ARTICLE pages are captcha-walled**, so it is a FINDING tool: identify the
     paper there, then **resolve its DOI and read the full text at the publisher**. Query in Russian and
     under the pre-revolutionary name. `elibrary.ru` is 403; `naukaru.ru` answers.
+    **AND ITS `/pdf` ADDRESS IS NOT CAPTCHA-WALLED, WHICH MAKES IT A READING TOOL AS WELL** (batch 36).
+    `https://cyberleninka.ru/article/n/<slug>/pdf` hands back the publisher's own PDF for an article
+    whose journal deposited one — which is how Belova's Lipetsk paper was read whole where its
+    publisher is behind DDoS-Guard. **It answers 200 either way, so `file` the download**: where no PDF
+    was deposited the same address serves the captcha page under a `.pdf` name, at about 5.8 KB, and a
+    text extractor run over it reports nothing rather than failing. Two of batch 36's five attempts
+    were real PDFs.
+    **AND `marhi.ru/AMIT/` PUBLISHES EVERY ARTICLE AS ITS OWN FREE PDF** (batch 36), which is the route
+    to *Architecture and Modern Information Technologies* — a journal Crossref does not index at all,
+    and the one carrying Magadan's general plans and Chukotka's settlement history. The per-issue index
+    links `/<slug>/abstract.php`, whose page links `/<slug>/<slug>.pdf`; older issues file articles as
+    `PDF/NN_<author>.pdf` and the index page is windows-1251. **The printed running head carries the
+    journal's own preferred citation, pages and all** — as Belova's does, and as the *Izvestiya* of the
+    Volga region does — so **read the pagination off the first page rather than guessing it**: a guess
+    of 16–25 was really 18–25.
+    **AND A DATE LINE MAY NOT SAY `1930s`**: `cardYears` yields no sort year from a decade, so
+    `test-date-line.js` fails the card outright while the page renders perfectly. Where the sources
+    date a thing only to a decade, **leave the date line EMPTY** and let the prose say the decade —
+    which is what `gru-583` does.
     **AND A RUSSIAN JOURNAL'S PDF MAY BE ENCIPHERED PER FONT RUN, WHICH IS SOLVABLE AND NOT A DEAD END**
     (batch 34). In the `Уфимский археологический вестник` family a Latin run is `\x00`-separated with each
     glyph its character MINUS 29, and a Cyrillic run is **`\x02`-separated with `\x03` for a space and a
@@ -5339,7 +5358,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 154 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, seventy-one of the 80 centres being written (`gru-505`–`gru-523`, `gru-525`–`gru-542`, `gru-544`–`gru-559`, `gru-561`–`gru-569`, `gru-571`–`gru-577` and `gru-579`–`gru-580`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`–`gru-503`, `gru-524`, `gru-543`, `gru-560`, `gru-578` and `gru-581`–`gru-583` are still to write**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 158 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, seventy-five of the 80 centres being written (`gru-505`–`gru-523`, `gru-525`–`gru-559`, `gru-561`–`gru-569`, `gru-571`–`gru-577` and `gru-579`–`gru-583`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`–`gru-503`, `gru-524`, `gru-560` and `gru-578` are still to write**, see below |
 
 The next id for any of them (substitute the prefix):
 
