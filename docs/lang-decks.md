@@ -3481,6 +3481,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S24 | B1 | #139 `fantástico` – #166 `el desastre` | 26 | 2 (`el/la soldado`, `llorar`) | 0 | — | — |
 | S25 | B1 | #167 `el/la colega` – #194 `el humor` | 25 | 3 (`la velocidad`, `el universo`, `proteger`) | 0 | — | — |
 | S26 | B1 | #195 `el peso` – #222 `el genio` | 24 | 4 (`actuar`, `débil`, `funcionar`, `asustado`) | 0 | — | `conj: []` clears a table |
+| S27 | B1 | #223 `el ladrón` – #250 `cortarse` | 26 | 2 (`deprisa`, `destruir`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4624,6 +4625,45 @@ Measured against the S25 commit by card id: **24 changed, 974 untouched**, all 2
 
 **CHECKERS.** `--check` passes; `check-say` reports 0; the batch has no unbolded example. `check-senses
 --deck=DELE-B1` went from 95 to 93, with no card of this batch on it.
+
+### S27 — DELE B1, notes #223–#250 (Sep 2026)
+
+Measured against the S26 commit by card id: **26 changed, 972 untouched**, all 26 of them record entries.
+**`deprisa` and `destruir` were read and left.**
+
+**THE SAME SENTENCE TWICE ON ONE CARD, FIVE TIMES.**
+- `el olor` had the smell of books, and the smell of old books.
+- `la firma` had the date after the signature, and the date under it.
+- `recién` had freshly made bread twice.
+- `el cáncer` had hatred as a cancer on society and violence as the cancer of society.
+- `el lago`'s *el lago más profundo en Japón* was also `profundo`'s.
+
+The generator's "three different inflected forms" rule sees *olor* and *olor*, *pan* and *pan*, as
+different sentences, because they are different strings.
+
+**THE SAME-SPELT WORD.**
+- `el tamaño` had the adjective *tamaña* ("such").
+- `cortar` had the adjective *corta*.
+- `cortarse` had *se cortó su mano*, which wants the article, not the possessive. It is also the sentence S25 dropped from `el cuchillo`.
+
+**GLOSSES THAT PUT THE WRONG SENSE FIRST.**
+- `discutir` led with "to discuss"; in everyday Spanish it is "to argue", and that is what every example meant.
+- `precioso` led with "precious"; it is "beautiful, lovely".
+- `recoger` missed tidying up.
+- `la firma` missed a firm.
+- `el siglo` missed *hace siglos*.
+- `mundial` missed *el Mundial*.
+- `el entrenador` had labelled its senses "(UK)" and "(US)" instead of saying what they are.
+
+**THE REST.**
+- `descubrir` lost a mistranslation and an unverifiable date.
+- `precioso` lost a line comparing wives' looks.
+- The Latin American *carro* and *en la noche* went.
+- Nine sentences shared with A1, A2 or an earlier B1 card were replaced.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 93 to 92. Its one flag from this batch, `en absoluto`, is a
+false positive: its examples agree only on *don't* and *Carlos*.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

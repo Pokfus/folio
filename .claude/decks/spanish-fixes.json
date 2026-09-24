@@ -32843,6 +32843,520 @@
      "He's very bad-tempered in the mornings."
     ]
    ]
+  },
+  "deleb1/el ladrón, la ladrona": {
+   "why": "The gloss ran from 'thief' to 'adapter'. The first example is shared with el brazo in A2 and the second with la región in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "thief, robber"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El policía agarró al ladrón por el brazo.",
+    "Una banda de ladrones actúa por esta región."
+   ],
+   "ex": [
+    [
+     "Los ladrones entraron por la ventana.",
+     "The thieves got in through the window."
+    ],
+    [
+     "¡Al ladrón! ¡Que alguien lo pare!",
+     "Stop, thief! Somebody stop him!"
+    ]
+   ]
+  },
+  "deleb1/el entrenador, la entrenadora": {
+   "why": "The gloss labelled its senses by country instead of saying what they are: a coach, and the manager of a football team.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "coach, trainer",
+      "manager (of a football team)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/descubrir": {
+   "why": "The gloss is right. The second example's English, 'She realised her ambition', does not translate descubrió, and the third dated a diamond find nobody could check.",
+   "dropEx": [
+    "descubrió su ambición",
+    "El diamante fue descubierto"
+   ],
+   "ex": [
+    [
+     "He descubierto un restaurante muy bueno cerca de casa.",
+     "I've discovered a very good restaurant near home."
+    ],
+    [
+     "Descubrieron que el agua estaba contaminada.",
+     "They found out the water was contaminated."
+    ]
+   ]
+  },
+  "deleb1/el tamaño": {
+   "why": "The gloss is right. The third example was the adjective tamaño, tamaña, 'such', not the noun.",
+   "dropEx": [
+    "No puede haber dicho tamaña estupidez."
+   ],
+   "ex": [
+    [
+     "¿De qué tamaño es la habitación?",
+     "What size is the room?"
+    ]
+   ]
+  },
+  "deleb1/profundo, profunda": {
+   "why": "The gloss is right. The third example, 'envió sus profundos deseos', is not natural Spanish, and its English said 'heartfelt'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "deep",
+      "profound"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "envió sus profundos deseos"
+   ],
+   "ex": [
+    [
+     "Cayó en un sueño profundo.",
+     "He fell into a deep sleep."
+    ]
+   ]
+  },
+  "deleb1/discutir": {
+   "why": "The gloss put 'to discuss' first; in everyday Spanish the verb is usually 'to argue', which every example was, and the discussion sense had no example.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to argue",
+      "to discuss"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A menudo los adolescentes discuten"
+   ],
+   "ex": [
+    [
+     "Tenemos que discutir el presupuesto.",
+     "We need to discuss the budget."
+    ]
+   ]
+  },
+  "deleb1/recoger": {
+   "why": "The gloss was a list of phrasal verbs and missed tidying up. The first example used carro, which is Latin American for a car, and the second's English said 'trash day'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to pick up, to collect",
+      "to tidy up (recoger la mesa, la habitación)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Voy a mi carro a recoger mis cosas."
+   ],
+   "exEn": [
+    [
+     "El lunes se recoge la basura",
+     "The rubbish is collected on Mondays."
+    ]
+   ],
+   "ex": [
+    [
+     "Recoge tu habitación, por favor.",
+     "Tidy your room, please."
+    ]
+   ]
+  },
+  "deleb1/original": {
+   "why": "The gloss missed the noun, el original, which two examples are.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "original"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el original — the original"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el olor": {
+   "why": "'odor' is American. The first and third examples were the same sentence, the smell of books, and the second, musk as one of the best scents, is not a sentence a learner needs.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "smell"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "olor a — smell of"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El almizcle es uno de los mejores olores.",
+    "Me gusta el olor de los libros viejos."
+   ],
+   "ex": [
+    [
+     "¿Qué es ese olor tan raro?",
+     "What's that strange smell?"
+    ],
+    [
+     "Hay olor a quemado.",
+     "There's a smell of burning."
+    ]
+   ]
+  },
+  "deleb1/la conexión": {
+   "why": "The gloss said 'connection' twice. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "connection"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la firma": {
+   "why": "The gloss missed a firm, a company. The second and third examples were the same sentence, the date and the signature, and the first, a girl's beautiful signature, is not a sentence a learner needs.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "signature",
+      "firm, company"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La firma de la niña es muy bonita.",
+    "Pon la fecha debajo de la firma."
+   ],
+   "ex": [
+    [
+     "Necesito su firma aquí, por favor.",
+     "I need your signature here, please."
+    ],
+    [
+     "Trabaja en una firma de abogados.",
+     "She works at a law firm."
+    ]
+   ]
+  },
+  "deleb1/recién": {
+   "why": "The gloss did not say that recién stands before a participle. The first and third examples were one construction, pan recién hecho.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "just, newly (recién + participle)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "los recién casados — the newlyweds"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Dónde puedes conseguir el mejor pan recién hecho"
+   ],
+   "ex": [
+    [
+     "Los recién casados se fueron de viaje.",
+     "The newlyweds went off on a trip."
+    ]
+   ]
+  },
+  "deleb1/complicado, complicada": {
+   "why": "The gloss was a list of eight synonyms. The examples are right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "complicated"
+     ]
+    ]
+   ]
+  },
+  "deleb1/precioso, preciosa": {
+   "why": "The gloss put 'precious' first; in everyday Spanish the word is 'beautiful, lovely'. The second example compared two men's wives' looks.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "beautiful, lovely",
+      "precious"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mi esposa no es preciosa."
+   ],
+   "ex": [
+    [
+     "¡Qué vestido tan precioso!",
+     "What a lovely dress!"
+    ]
+   ]
+  },
+  "deleb1/el lago": {
+   "why": "The gloss is right. The third example is shared with profundo earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "Este es el lago más profundo en Japón."
+   ],
+   "ex": [
+    [
+     "Nos bañamos en el lago.",
+     "We swam in the lake."
+    ]
+   ]
+  },
+  "deleb1/por supuesto": {
+   "why": "The gloss is right. The second example is shared with el hospital in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "of course"
+     ]
+    ]
+   ],
+   "bold": [
+    "por supuesto"
+   ],
+   "dropEx": [
+    "Por supuesto que también debería haber hospitales"
+   ],
+   "ex": [
+    [
+     "—¿Puedo sentarme? —Por supuesto.",
+     "'May I sit down?' 'Of course.'"
+    ]
+   ]
+  },
+  "deleb1/el cáncer": {
+   "why": "The gloss is right. The first and third examples were one construction, hate or violence as the cancer of society.",
+   "dropEx": [
+    "La violencia es el cáncer de nuestra sociedad."
+   ],
+   "ex": [
+    [
+     "Fumar puede causar cáncer.",
+     "Smoking can cause cancer."
+    ]
+   ]
+  },
+  "deleb1/la pintura": {
+   "why": "The gloss spelt 'colorant' the American way. The first example was an aphorism and the third is shared with necesitar in A1; the second's English said 'store'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "painting",
+      "paint"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El lenguaje es la pintura de nuestras ideas.",
+    "La casa necesita una nueva capa de pintura."
+   ],
+   "exEn": [
+    [
+     "había pinturas muy interesantes para ver",
+     "There were some very interesting paintings to see in the shop."
+    ]
+   ],
+   "ex": [
+    [
+     "Cuidado, la pintura todavía está fresca.",
+     "Careful, the paint's still wet."
+    ],
+    [
+     "Estudia pintura en la escuela de arte.",
+     "She studies painting at art school."
+    ]
+   ]
+  },
+  "deleb1/vacío, vacía": {
+   "why": "The gloss is right. The third example's English said 'bare'.",
+   "exEn": [
+    [
+     "La cima de la colina se encontraba vacía",
+     "The top of the hill was empty."
+    ]
+   ]
+  },
+  "deleb1/en absoluto": {
+   "why": "The gloss did not say that en absoluto means 'not at all' after a negative and on its own. The first example's English, 'I quite forget your name', is not what the Spanish says.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "not at all (after a negative)",
+      "(on its own) not at all, absolutely not"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "No me acuerdo de tu nombre en absoluto",
+     "I don't remember your name at all."
+    ]
+   ]
+  },
+  "deleb1/construir": {
+   "why": "The gloss is right. The third example's English said 'constructed'.",
+   "exEn": [
+    [
+     "un nuevo restaurante ha sido construido",
+     "They say a new restaurant has been built."
+    ]
+   ]
+  },
+  "deleb1/mundial": {
+   "why": "The gloss was a definition and missed the noun, el Mundial, the World Cup. The first example, World Snake Day, is not a sentence a learner needs.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "world, worldwide, global"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el Mundial — the World Cup"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Hoy es el Día Mundial de la Serpiente."
+   ],
+   "ex": [
+    [
+     "¿Quién ganó el Mundial de 2010?",
+     "Who won the 2010 World Cup?"
+    ]
+   ]
+  },
+  "deleb1/rápidamente": {
+   "why": "The gloss is right. The first example is shared with después in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Las plantas crecen rápidamente después de la lluvia."
+   ],
+   "ex": [
+    [
+     "Tenemos que actuar rápidamente.",
+     "We have to act quickly."
+    ]
+   ]
+  },
+  "deleb1/el siglo": {
+   "why": "The gloss did not give hace siglos, 'for ages', which two examples are. The first, 'Él está perdido en el siglo veinte', is not a sentence a learner needs.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "century"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hace siglos — for ages"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Él está perdido en el siglo veinte."
+   ],
+   "ex": [
+    [
+     "El edificio es del siglo XVIII.",
+     "The building dates from the 18th century."
+    ]
+   ]
+  },
+  "deleb1/cortar": {
+   "why": "The gloss was a list of phrasal verbs. The second example, 'Se cortó la luz gracias a la tormenta', is ironic and its English dropped the verb; the third was the adjective corta and is shared with corto in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cut",
+      "to cut off (the water, the electricity)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Se cortó la luz gracias a la tormenta.",
+    "La gente dice que la vida es corta."
+   ],
+   "ex": [
+    [
+     "Corta el pan en rebanadas.",
+     "Cut the bread into slices."
+    ],
+    [
+     "Nos han cortado el agua.",
+     "They've cut off our water."
+    ]
+   ]
+  },
+  "deleb1/cortarse": {
+   "why": "The gloss did not give cortarse el pelo, which the first example is. The second said en la noche, which is Latin American (por la noche), and the third, 'se cortó su mano', needs the article, not the possessive.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cut oneself"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cortarse el pelo — to get one's hair cut"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Nunca me corto las uñas en la noche.",
+    "Ella se cortó su mano con un cuchillo."
+   ],
+   "ex": [
+    [
+     "Me corté con un papel.",
+     "I cut myself on a piece of paper."
+    ],
+    [
+     "Mañana me corto el pelo.",
+     "I'm getting my hair cut tomorrow."
+    ]
+   ]
   }
  },
  "insert": {
@@ -33141,7 +33655,9 @@
    "actuar",
    "débil",
    "funcionar",
-   "asustado, asustada"
+   "asustado, asustada",
+   "deprisa",
+   "destruir"
   ]
  }
 }
