@@ -3822,6 +3822,63 @@ Two candidates were also refused:
 - *Sun Hao.* The only candidate is a Qing portrait of 365 × 479 pixels.
 - *The Jin dynasty.* The only well-made map of Western Jin in 280 is labelled in French.
 
+## cnh-301 – cnh-310, the fall of the Western Jin and the Sixteen Kingdoms (Sep 2026)
+
+Two cards close `col-18` and eight open `col-19`, the Sixteen Kingdoms deck. Two plan lines are answered by
+a term the line does not contain, the `ru-052` shape, and the plan's own wording is left as it is:
+- `cnh-302` *The fall of the Western Jin* is answered by **Emperor Min of Jin**, the last Western Jin
+  emperor, who surrendered Chang'an in 316. `cnh-301` already carries the fall of Luoyang in 311, so the
+  card takes the end of the dynasty through the ruler it ended with.
+- `cnh-307` *The Murong and the Yan states* is answered by **Former Yan**, the first and largest of them.
+  The later Yan states are named in the card's last sentence. The `Xianbei` term already claims the alias
+  "Murong Xianbei", so the Murong could not be the answer without a collision.
+
+**Two of the answer terms needed disambiguated keys.** There are two rulers of the Former Qin romanised
+*Fu Jian*: 苻健, the founder, and 苻堅, his nephew. The glossary key is `Fu_Jian_(337–385)`, carrying
+the bare alias `Fu Jian`, and the Former Qin card never names the founder, calling him Fu Hong's son.
+`Han-Zhao` carries `Former Zhao` as an alias; `Northern Han` was refused, being also the name of a
+state of the 10th century.
+
+**The sources that carried the batch.** Two new open spines joined de Crespigny's second *East Asian
+History* essay and Cordier:
+- **The *Jin shu* on Chinese Wikisource.** The chapter pages are addressed with three-digit numbers
+  (`晉書/卷005`, `卷056`); a two-digit address such as `卷5` answers 200 and serves an empty page, so
+  read the index rather than composing the address. The *zaiji* chapters (101–130) cover the northern
+  rulers one by one. One Chinese source per card, as rule 6 of `check-cards.js` asks.
+- **Holmgren's *Annals of Tai* (ANU Press, 1982)** is open in the ANU repository. Its page 17 is the
+  source for the name of the period, Cui Hong's *Spring and Autumn Annals of the Sixteen Kingdoms*;
+  pages 30–34 cover the early Murong; page 74 translates the *Wei shu* on the Former Qin conquest of Dai.
+- **Parker's *A Thousand Years of the Tartars* (1895)**, already cited in the collection, covers Liu
+  Yuan, Shi Le and the Murong. Its spellings are archaic ("Zenghi" for shanyu, "Tunguses" for Xianbei),
+  and it is wrong that Liu Cong renamed Han as Zhao, so it was cited only where another source agrees.
+- **Sims-Williams's translation of Sogdian Ancient Letter II** on Silk Road Seattle is a contemporary
+  witness to the fall of Luoyang: a merchant reports famine, fire, and that "Luoyang is no more".
+
+**Where the sources disagree, the cards hedge or leave the point out:**
+- Who took Luoyang in 311: the *Jin shu* has Liu Yao and Wang Mi enter the city; de Crespigny has Shi Le
+  storm it. The card names all three commanders and says the city was taken.
+- Wang Yan's end: Cordier has him captured in the field; de Crespigny says at Luoyang. The card follows
+  Cordier alone and does not say where.
+- Emperor Min's age: Giles and Theobald give a birth year of 270, which cannot be right for the boy of
+  eleven de Crespigny describes in 311; the card follows de Crespigny.
+- Fu Jian's death: Giles and Theobald give 384, Cordier and the *Jin shu* 385. The card says 385, and
+  both date lines avoid a regnal span that would have to pick one.
+- Fu Jian's descent: Cordier calls him a son of Fu Hong, Giles and Theobald's Di page a grandson or
+  nephew. The card calls him a nephew of the state's founder.
+- Cordier calls Xie Shi, Xie Xuan and Xie Yan the three sons of Xie An, which is wrong; the Fei River
+  card cites him for nothing about the Xie family.
+- The Former Yan's capture of Luoyang is dated 364 by Cordier and 367 by Parker; the card gives no year.
+
+**A war block was considered and refused for `cnh-310`**, a battle rather than a war; it carries a
+`battle` locator at Shou County instead. None of the other nine is a decided war between separable sides.
+
+**Pictures.** Five cards carry one, each shared with its own glossary term: a map of the northern states
+in 338 (`cnh-303`), two of Albert Herrmann's 1935 maps (`cnh-305`, `cnh-308`), the gilt bronze Buddha
+dated 338 in the reign of the Later Zhao (`cnh-306`), and Xie Bin's scroll *Reporting Victory at the Huai
+and Fei* (`cnh-310`). The other five have none: the Commons categories searched hold no portrait of Emperor Min or Fu Jian,
+no image of a Sogdian Ancient Letter under a findable name, and its one Former Yan tomb painting is
+293 pixels wide. A thumbnail shard composed by hand (`a/a0`) returned 404 and was replaced from the API.
+
 ## Re-sourcing the mythology cards (batch C7, Sep 2026)
 
 Five China cards were reported by `check-cards.js` rule 1 for resting three deep on one author —

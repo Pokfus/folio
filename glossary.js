@@ -4401,7 +4401,17 @@ window.GLOSSARY = {
 "Seven_Sages_of_the_Bamboo_Grove": "The <b>Seven Sages of the Bamboo Grove</b> were a circle of Chinese scholars, poets and musicians of the middle 3rd century CE, usually named as Ji Kang, Ruan Ji, Shan Tao, Liu Ling, Ruan Xian, Xiang Xiu and Wang Rong.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Drawing on the <i>Laozi</i> and the <i>Zhuangzi</i>, they were remembered for drinking, music and conduct that flouted Confucian ritual, and they are said to have met at Ji Kang's estate at Shanyang, in present-day Henan.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Ji Kang was executed in 262 or 263, while Shan Tao and Wang Rong accepted office under the Jin dynasty.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Sun_Hao": "<b>Sun Hao</b> was the fourth and last emperor of the southern Chinese state of Wu, a grandson of its founder Sun Quan, who came to the throne in 264 CE after the fall of Shu Han had left Wu in a state of emergency.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His reign is remembered for executions, drunkenness and extravagance, and the armies he sent north were defeated each time.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> When the Jin dynasty invaded in 280 he was deserted by his troops and surrendered on 1 May at the camp of the commander Wang Jun, and he died at Luoyang in 283.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "War_of_the_Eight_Princes": "The <b>War of the Eight Princes</b> was a series of coups and civil wars among princes of the Chinese Jin imperial house between 291 and 306 CE, fought for control of the court under the weak Emperor Hui.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It grew from the dynasty's policy of giving imperial relatives fiefs with their own armies, and it turned to open war when the prince Sima Lun seized the throne in 301.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The fighting devastated Luoyang and Chang'an, and the exhausted dynasty soon lost northern China to the Xiongnu and other northern peoples who had served in the princes' armies.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Zhantian": "<b>Zhantian</b>, 'the occupation of fields', was a land law of the Chinese Jin dynasty, proclaimed in 280 CE, which entitled each man to register and hold 70 mu of land and each woman 30, with far larger allowances for officials and nobles according to their rank.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It stood beside a quota of taxed land, called ketian, and let privileged families shelter a set number of tax-free relatives, retainers and tenants.<sup class=\"fn\" data-fn=\"1\"></sup> It set a legal ceiling rather than handing out land, and it proved impossible to enforce against the great landowning families.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Zhantian": "<b>Zhantian</b>, 'the occupation of fields', was a land law of the Chinese Jin dynasty, proclaimed in 280 CE, which entitled each man to register and hold 70 mu of land and each woman 30, with far larger allowances for officials and nobles according to their rank.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It stood beside a quota of taxed land, called ketian, and let privileged families shelter a set number of tax-free relatives, retainers and tenants.<sup class=\"fn\" data-fn=\"1\"></sup> It set a legal ceiling rather than handing out land, and it proved impossible to enforce against the great landowning families.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Fei_River": "The <b>Battle of Fei River</b> was fought in 383 CE near Shouchun, in present-day Anhui, where an army of the Eastern Jin dynasty defeated the far larger invading forces of the Former Qin ruler Fu Jian.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> According to the official history, the Qin army pulled back to let the Jin cross the river, but the withdrawal turned into a rout in which its commander Fu Rong was killed.<sup class=\"fn\" data-fn=\"1\"></sup> The victory, won by troops under Xie Shi and Xie Xuan with the chief minister Xie An directing from the capital, ended the Former Qin's attempt to conquer the south.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Disaster_of_Yongjia": "The <b>Disaster of Yongjia</b> is the name Chinese historians give to the fall of Luoyang, the capital of the Western Jin dynasty, to the armies of the Xiongnu-led state of Han in the summer of 311 CE, during the Yongjia reign period of Emperor Huai.<sup class=\"fn\" data-fn=\"1\"></sup> The starving city was taken, its palaces and temples were burned, more than 30,000 people are said to have been killed, and the emperor was carried off to Pingyang, where he was put to death in 313.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A contemporary letter by a Sogdian merchant reports the famine, the burning of the palace and the loss of Luoyang.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Emperor_Min_of_Jin": "<b>Emperor Min of Jin</b>, personal name Sima Ye, was the last emperor of the Western Jin dynasty, a nephew of Emperor Huai who was enthroned at Chang'an in 313 CE after his uncle had been killed in captivity.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His court held a ruined city with little support, and at the end of 316 Chang'an was starved into submission by the Xiongnu general Liu Yao, to whom he surrendered.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Taken to Pingyang, he was humiliated at the court of the Han ruler Liu Cong and put to death in 317, the second Jin emperor to die at that ruler's hands.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Five_Barbarians": "The <b>Five Barbarians</b>, <i>Wu Hu</i> in Chinese, is a term of Chinese historiography for the Xiongnu, Jie, Xianbei, Di and Qiang, the peoples whose leaders founded most of the states in northern China between 304 CE and 439.<sup class=\"fn\" data-fn=\"1\"></sup> It groups peoples of very different origins, many of whom had been settled inside the empire by force under the Wei and Western Jin dynasties, where their numbers alarmed some officials.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The phrase survives in the traditional Chinese name for the period, the Sixteen States of the Five Barbarians, and the Jie, for one, later merged into the Chinese majority.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Former_Qin": "The <b>Former Qin</b> was a state of northern China founded at Chang'an in 351 CE by a family of Di chieftains, the Fu, who had led Di and Qiang tribes back west after the collapse of the Later Zhao.<sup class=\"fn\" data-fn=\"1\"></sup> Under its ruler Fu Jian and his minister Wang Meng it conquered the Former Yan in 370, the Former Liang in 376 and other rivals, briefly uniting almost the whole of northern China.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> After its defeat at the Fei River in 383 its subject peoples rebelled, Fu Jian was killed in 385, and the last rulers held out until 394.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Former_Yan": "The <b>Former Yan</b> was a state of the Murong branch of the Xianbei in north-eastern China, founded when Murong Huang took the title King of Yan in 337 CE, with capitals at Longcheng, Ji and finally Ye.<sup class=\"fn\" data-fn=\"1\"></sup> It defeated Goguryeo and rival Xianbei groups, expanded into the North China Plain after the collapse of the Later Zhao, and in 352 its ruler Murong Jun proclaimed himself emperor.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> In 370 the Former Qin general Wang Meng captured its capital Ye and its young emperor Murong Wei, and many of its people were moved to Chang'an.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Fu_Jian_(337–385)": "<b>Fu Jian</b> was the ruler of the Former Qin, a state founded by Di chieftains at Chang'an, who seized power in 357 CE by killing his cousin Fu Sheng and took the title Heavenly King of Great Qin.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Aided by his minister Wang Meng, he restored order, conquered the Former Yan, the Former Liang and other rivals, and briefly ruled almost the whole of northern China.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His invasion of the south ended in defeat at the Fei River in 383, his empire broke apart, and he was captured and killed by the Qiang leader Yao Chang in 385.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Han-Zhao": "<b>Han-Zhao</b> is the modern name for a state of northern China founded in 304 CE by the Xiongnu leader Liu Yuan, who claimed descent from a Han princess and called his state Han.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His successors took Luoyang in 311 and Chang'an in 316, and in 319 the ruler Liu Yao moved the capital to Chang'an and renamed the state Zhao, for which reason it is also called the Former Zhao.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was destroyed in 329 by the rival Later Zhao of the Jie leader Shi Le, who had captured Liu Yao the year before.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Later_Zhao": "The <b>Later Zhao</b> was a state of northern China founded in 319 CE by the Jie leader Shi Le, a former slave who had risen as a general of the Xiongnu-led Han state, with its capital first at Xiangguo and later at Ye.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Shi Le destroyed the rival Zhao state of Liu Yao in 329, took the imperial title in 330 and ruled most of the north, with the Huai River as his southern frontier.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> After his kinsman and successor Shi Hu died in 349, his sons fought over the throne, and the general Ran Min destroyed the state in 350.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sixteen_Kingdoms": "The <b>Sixteen Kingdoms</b> is the name for the many short-lived states that divided northern China between 304 CE and 439, most of them founded by leaders of the Xiongnu, Jie, Xianbei, Di and Qiang peoples.<sup class=\"fn\" data-fn=\"1\"></sup> The name comes from the <i>Spring and Autumn Annals of the Sixteen Kingdoms</i>, a history compiled by Cui Hong early in the 6th century, and the number is conventional, since several states are not counted and some had Chinese founders.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The period is often divided at the battle of the Fei River in 383, and it ended when the Northern Wei reunited the north in 439.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6653,7 +6663,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Romance_of_the_Three_Kingdoms": "1522 CE",
 "Seven_Sages_of_the_Bamboo_Grove": "3rd century CE",
 "Sun_Hao": "d. 283 CE",
-"War_of_the_Eight_Princes": "291 – 306 CE"
+"War_of_the_Eight_Princes": "291 – 306 CE",
+"Battle_of_Fei_River": "383 CE",
+"Disaster_of_Yongjia": "311 CE",
+"Emperor_Min_of_Jin": "d. 317 CE",
+"Former_Qin": "351 – 394 CE",
+"Former_Yan": "337 – 370 CE",
+"Fu_Jian_(337–385)": "d. 385 CE",
+"Han-Zhao": "304 – 329 CE",
+"Later_Zhao": "319 – 350 CE",
+"Sixteen_Kingdoms": "304 – 439 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -9164,7 +9183,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Romance_of_the_Three_Kingdoms": ["Sanguo yanyi","Romance of the Three Kingdoms"],
 "Seven_Sages_of_the_Bamboo_Grove": ["Seven Worthies of the Bamboo Grove"],
 "War_of_the_Eight_Princes": ["Rebellion of the Eight Princes"],
-"Zhantian": ["zhantian","zhantian system"]
+"Zhantian": ["zhantian","zhantian system"],
+"Battle_of_Fei_River": ["Battle of the Fei River","Fei River","Feishui"],
+"Disaster_of_Yongjia": ["Yongjia disaster"],
+"Emperor_Min_of_Jin": ["Sima Ye"],
+"Five_Barbarians": ["Wu Hu"],
+"Former_Qin": ["Former Qin"],
+"Former_Yan": ["Former Yan"],
+"Fu_Jian_(337–385)": ["Fu Jian"],
+"Han-Zhao": ["Former Zhao","Han Zhao"],
+"Later_Zhao": ["Later Zhao"],
+"Sixteen_Kingdoms": ["Sixteen States","Sixteen Kingdoms"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -13611,7 +13640,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Seven_Sages_of_the_Bamboo_Grove": ["people","philosophy","literature","history","china","three kingdoms"],
 "Sun_Hao": ["person","ruler","history","politics","china","three kingdoms"],
 "War_of_the_Eight_Princes": ["event","warfare","history","politics","china","jin dynasty"],
-"Zhantian": ["institution","agriculture","economy","history","china","jin dynasty"]
+"Zhantian": ["institution","agriculture","economy","history","china","jin dynasty"],
+"Battle_of_Fei_River": ["battle","warfare","history","china","sixteen kingdoms"],
+"Disaster_of_Yongjia": ["event","warfare","history","china","jin dynasty"],
+"Emperor_Min_of_Jin": ["person","ruler","history","politics","china","jin dynasty"],
+"Five_Barbarians": ["people","history","migration","china","sixteen kingdoms"],
+"Former_Qin": ["state","history","politics","china","sixteen kingdoms"],
+"Former_Yan": ["state","history","politics","china","sixteen kingdoms"],
+"Fu_Jian_(337–385)": ["person","ruler","history","politics","china","sixteen kingdoms"],
+"Han-Zhao": ["state","history","politics","china","sixteen kingdoms"],
+"Later_Zhao": ["state","history","politics","china","sixteen kingdoms"],
+"Sixteen_Kingdoms": ["era","history","politics","china","sixteen kingdoms"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
