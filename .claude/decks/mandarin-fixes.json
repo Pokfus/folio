@@ -17879,15 +17879,15 @@
       ]
     },
     "hsk30l6/后人": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | 地震后人们普遍觉得恐慌 is 地震后 + 人们: the headword straddled the boundary and the sentence is about panic after an earthquake, not about posterity.",
       "ex": [
-        [
-          "地震后人们普遍觉得恐慌。",
-          "There was widespread panic after the earthquake."
-        ],
         [
           "这些经验留给后人。",
           "This experience is left to later generations."
+        ],
+        [
+          "后人会记住这段历史。",
+          "Later generations will remember this period."
         ]
       ]
     },
@@ -18659,16 +18659,24 @@
       ]
     },
     "hsk30l6/宏大": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | AND THE WHITESPACE SWEEP FOUND THIS CARD THROUGH ITS OWN RECORD (batch 25). The couplet is a real deck sentence that this note carries a COPY of, so the same stray space stood on three cards — two generator blocks, repaired with `exSpace`, and this one, where the record is what ships it and the row itself is the thing to fix. **A repair that reaches a sentence through the decks does not reach the record's own copy of it**, and a run of the applier would have put the space straight back.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | AND THE WHITESPACE SWEEP FOUND THIS CARD THROUGH ITS OWN RECORD (batch 25). The couplet is a real deck sentence that this note carries a COPY of, so the same stray space stood on three cards — two generator blocks, repaired with `exSpace`, and this one, where the record is what ships it and the row itself is the thing to fix. **A repair that reaches a sentence through the decks does not reach the record's own copy of it**, and a run of the applier would have put the space straight back. | The gloss was 'great' alone where CC-CEDICT gives 'great; grand', and it is the grand sense the card's own remaining sentences show. 欣赏生活中的小事 was dropped twice over: it wrote 总合 for 总和, and its English (\"they will bring you to a bigger end target\") renders no part of the Chinese. | 宽宏大量 does not contain this word: it is 宽宏 + 大量, so 宏大 straddled the boundary — the shape check-example-fit.js reports, which it cannot here, both halves being its own record rows. The verse it sat in was four clauses long besides.",
       "ex": [
-        [
-          "宽宏大量是个宝; 与人无争结缘好, 放下名利不烦恼; 心生欢喜不觉老.",
-          "Magnanimity is a great treasure; harmonious affinity with others is wonderful, Detachment from name and gain averts trouble; happiness makes older people feel young."
-        ],
         [
           "这是一个宏大的计划。",
           "This is a grand plan."
+        ],
+        [
+          "这座建筑规模宏大。",
+          "The building is on a grand scale."
+        ],
+        [
+          "他有宏大的理想。",
+          "He has grand ambitions."
         ]
+      ],
+      "gloss": "great; grand",
+      "dropEx": [
+        "欣赏生活中的小事"
       ]
     },
     "hsk30l6/定价": {
@@ -20565,7 +20573,7 @@
       ]
     },
     "hsk30l6/欢乐": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | All three sentences were translated with the same frame, 'is full of joy', so the card taught one English phrase three times over. Two are re-rendered; the Chinese is untouched.",
       "ex": [
         [
           "孩子们的笑声很欢乐。",
@@ -20573,11 +20581,11 @@
         ],
         [
           "节日里充满欢乐。",
-          "The festival is full of joy."
+          "The festival is full of merriment."
         ],
         [
           "广场上一片欢乐。",
-          "The square was full of joy."
+          "The square was one scene of gaiety."
         ]
       ]
     },
@@ -21134,7 +21142,7 @@
       ]
     },
     "hsk30l6/滑行": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Two of the three sentences were the same sentence with one word changed; one is replaced by an authored sentence in a different construction. 他在冰上滑行 and 孩子在冰面上滑行 were one sentence twice; the replacement also shows the 'coast' sense the gloss names.",
       "ex": [
         [
           "飞机在跑道上滑行。",
@@ -21145,8 +21153,8 @@
           "He glided over the ice."
         ],
         [
-          "孩子在冰面上滑行。",
-          "The child glides on the ice."
+          "自行车顺着坡滑行。",
+          "The bicycle coasted down the slope."
         ]
       ]
     },
@@ -138457,6 +138465,276 @@
         ]
       ],
       "why": "今天热得狠 is 狠 standing for 很, which CC-CEDICT records as an old variant; it is the intensifier rather than this card's word, so the sentence taught the wrong one. Replaced by an authored sentence using the card's own sense."
+    },
+    "hsk30l6/恨": {
+      "dropEx": [
+        "我不管你说"
+      ],
+      "ex": [
+        [
+          "他恨自己没有早点行动。",
+          "He regretted not having acted sooner."
+        ]
+      ],
+      "compounds": [
+        [
+          "仇恨",
+          "chóuhèn",
+          "hatred; enmity"
+        ],
+        [
+          "痛恨",
+          "tònghèn",
+          "to detest; to loathe"
+        ],
+        [
+          "悔恨",
+          "huǐhèn",
+          "remorse; repentance"
+        ],
+        [
+          "恨不得",
+          "hènbude",
+          "to wish one could; itching to"
+        ]
+      ],
+      "why": "我不管你说，我恨你！ is not a sentence: 我不管你说 wants an object (我不管你说什么) and the row also carried a stray space after the comma. The replacement also shows the card's second gloss, 'regret', which none of the three sentences did. | Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/横": {
+      "dropEx": [
+        "他才华横溢"
+      ],
+      "ex": [
+        [
+          "这张桌子横着放。",
+          "The table is placed crosswise."
+        ]
+      ],
+      "compounds": [
+        [
+          "横穿",
+          "héngchuān",
+          "to cross; to traverse"
+        ],
+        [
+          "横向",
+          "héngxiàng",
+          "horizontal; lateral"
+        ],
+        [
+          "横线",
+          "héngxiàn",
+          "horizontal line"
+        ],
+        [
+          "纵横",
+          "zònghéng",
+          "criss-crossed; length and breadth"
+        ]
+      ],
+      "why": "才华横溢 is a four-character idiom that swallows the headword, and its English, \"He’s overflowing\", renders neither the idiom (brilliantly talented) nor the character. | Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/后退": {
+      "gloss": "to move back; to draw back; to retreat",
+      "why": "The gloss was 'to recoil', CC-CEDICT's first word and the one none of the three sentences shows — all three are moving or stepping back. The dictionary's own list continues 'to draw back; to fall back; to retreat'."
+    },
+    "hsk30l6/壶": {
+      "dropEx": [
+        "你们有提供不同尺寸的咖啡壶吗"
+      ],
+      "ex": [
+        [
+          "他提起壶倒了杯茶。",
+          "He picked up the pot and poured a cup of tea."
+        ]
+      ],
+      "compounds": [
+        [
+          "茶壶",
+          "cháhú",
+          "teapot"
+        ],
+        [
+          "水壶",
+          "shuǐhú",
+          "kettle; canteen"
+        ],
+        [
+          "酒壶",
+          "jiǔhú",
+          "wine pot"
+        ],
+        [
+          "咖啡壶",
+          "kāfēihú",
+          "coffee pot"
+        ]
+      ],
+      "why": "Two of the three sentences had the headword only inside 茶壶 and 咖啡壶; one of them is replaced by a sentence using the bare noun, and the compounds that were doing the work are named in the panel instead. | Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/胡子": {
+      "gloss": "beard; moustache; facial hair",
+      "dropEx": [
+        "你每天早上都刮胡子吗"
+      ],
+      "ex": [
+        [
+          "他留着一把大胡子。",
+          "He wears a big beard."
+        ]
+      ],
+      "why": "All three sentences were 刮胡子, so the card taught one collocation three times and never the noun on its own. CC-CEDICT gives 'beard; mustache or whiskers; facial hair' where the card had 'beard' alone — which is also why every sentence could be about shaving."
+    },
+    "hsk30l6/户": {
+      "senses": [
+        [
+          "noun",
+          "household; family; door"
+        ],
+        [
+          "measure word",
+          "(counting households)"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ],
+      "dropEx": [
+        "请问，我可以开户头吗",
+        "那户井水是许多疾病的源头"
+      ],
+      "ex": [
+        [
+          "这个村有三百户人家。",
+          "There are three hundred households in this village."
+        ],
+        [
+          "每户都要交水费。",
+          "Every household has to pay for water."
+        ]
+      ],
+      "compounds": [
+        [
+          "户口",
+          "hùkǒu",
+          "registered residence"
+        ],
+        [
+          "用户",
+          "yònghù",
+          "user; subscriber"
+        ],
+        [
+          "客户",
+          "kèhù",
+          "client; customer"
+        ],
+        [
+          "账户",
+          "zhànghù",
+          "account"
+        ]
+      ],
+      "why": "The gloss was a different part of speech from the label above it. The glosses were all nouns under a 'measure word' label; 户 is both, so they are split. 开户头 had the headword inside 户头, and 那户井水 is not Chinese — 户 does not classify well water — while its English rendered only the second half of a two-clause sentence whose halves are unrelated. | Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/互助": {
+      "dropEx": [
+        "他常说我们要互帮互助",
+        "非洲地松鼠互帮互助"
+      ],
+      "ex": [
+        [
+          "邻里之间应该互助。",
+          "Neighbours should help one another."
+        ],
+        [
+          "这个小组以互助为原则。",
+          "This group works on the principle of mutual aid."
+        ]
+      ],
+      "why": "All three sentences were the same four-character phrase, 互帮互助, so the card showed one collocation three times and the bare word never. Two are replaced by authored sentences that use it on its own; the dropped squirrel sentence also translated it as 'collaborate'."
+    },
+    "hsk30l6/化妆": {
+      "dropEx": [
+        "我因为化妆品皮肤过敏了"
+      ],
+      "ex": [
+        [
+          "演员正在后台化妆。",
+          "The actors are putting on their make-up backstage."
+        ]
+      ],
+      "why": "A sentence used the headword only inside a longer word, so the card's own word never appeared; replaced by an authored sentence that uses it. Here it was 化妆品, a noun compound, on a card whose label and gloss are the verb."
+    },
+    "hsk30l6/怀": {
+      "dropEx": [
+        "我不喜欢怀男孩"
+      ],
+      "ex": [
+        [
+          "他怀着希望来到这座城市。",
+          "He came to this city full of hope."
+        ]
+      ],
+      "compounds": [
+        [
+          "怀念",
+          "huáiniàn",
+          "to cherish the memory of"
+        ],
+        [
+          "怀疑",
+          "huáiyí",
+          "to doubt; to suspect"
+        ],
+        [
+          "关怀",
+          "guānhuái",
+          "care; solicitude"
+        ],
+        [
+          "怀抱",
+          "huáibào",
+          "to embrace; within the bosom of"
+        ]
+      ],
+      "why": "我不喜欢怀男孩 is a character error that put the headword on this card: the English, \"I don't like bad boys\", renders 坏男孩, and 怀 is 坏 mistyped. The sentence speaks and segments perfectly, so nothing in the pipeline could report it. | Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/环": {
+      "dropEx": [
+        "我想环游世界"
+      ],
+      "ex": [
+        [
+          "这条链子少了一环。",
+          "The chain is missing a link."
+        ]
+      ],
+      "compounds": [
+        [
+          "环境",
+          "huánjìng",
+          "environment; surroundings"
+        ],
+        [
+          "环节",
+          "huánjié",
+          "link; part of a whole"
+        ],
+        [
+          "循环",
+          "xúnhuán",
+          "to cycle; to circulate"
+        ],
+        [
+          "耳环",
+          "ěrhuán",
+          "earring"
+        ]
+      ],
+      "why": "Two of the three sentences had the headword only inside 环顾 and 环游; one is replaced by a sentence using the bare noun in its 'link' sense, which the gloss names and nothing showed. | Single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead. | Batch 83: SEVENTEEN DEAD ONE-SIDED HINTS RETIRED. A `not <other word>` block answers a COLLISION, and a collision is symmetric — so wherever one card of a pair carries the block and its named partner does not carry the reverse, the pair has already been separated and the survivor is disambiguating nothing. Found while repairing 动手, whose `not 上班` had outlived a rewrite of 上班's own gloss. Swept: 17 of 661 hinted cards were one-sided, and every one of the seventeen was dead — in each case the PARTNER's gloss had been sharpened by an earlier batch of this audit (书 `not 本子` against a 本子 rewritten to `a notebook; an exercise book`, 茶 `not 茶叶` against `tea leaves; tea`, 体力 `not 力气` against `muscle power, the strength to lift or push`). TWO of the seventeen were not in this record at all — 体力 and 顺利, shipped by the generator — which is the other half of the finding: THE APPLIER WRITES A HINT AND NEVER STRIPS ONE, so deleting a row here does not take a block off a deck. A dead hint is retired by rewriting the gloss, which rebuilds the English field. Re-run the one-sided sweep after any batch that rewrites a gloss.",

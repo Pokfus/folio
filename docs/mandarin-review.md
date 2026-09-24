@@ -683,6 +683,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 451–480 (攻击 → 拐), deck order | 12 | **顾, glossed from a sense CC-CEDICT does not carry, whose every sentence was 环顾**; and 费用共计一千元 beside 费用共计三千元 |
 | 2026-09-24 | `hsk30l6` notes 481–510 (拐弯 → 过时), deck order | 20 (+1) | **three translations that render a different sentence**, two headwords straddling two shorter words, and a `not X` pair retired because the collision was a gloss error |
 | 2026-09-24 | `hsk30l6` notes 511–540 (海内外 → 狠), deck order | 16 | **a card whose pinyin and bopomofo both say one reading while its gloss is the other reading's**, which `check-polyreading.js` cannot see because it only reads single-character cards |
+| 2026-09-24 | `hsk30l6` notes 541–570 (恨 → 还原), deck order | 14 | **a character error that put the headword on the card** — 怀 for 坏, which speaks and segments perfectly — and six single-character cards given `Compounds` panels |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11344,4 +11345,64 @@ sentence to fix a word order would cost more than it buys.
 
 Coverage unchanged: 11,532 notes at three sentences, 0 repeats, 317 shared-gloss groups with
 still-ambiguous 1. `check-british` reads 0. **Verified against the real diff: 16 of 30 changed and
+nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 148 — `hsk30l6` notes 541–570 (恨 → 还原), 2026-09-24
+
+Fourteen of the thirty changed, and six of those fourteen are single-character cards that had no
+`Compounds` panel: 恨, 横, 壶, 户, 怀, 环. Every reading and gloss in the twenty-four rows was checked
+against CC-CEDICT before it was written; 蛮横 was considered for 横 and left out, its reading being
+`mánhèng` rather than the card's `héng`, which is the one way a compounds panel can teach the wrong
+thing while looking right.
+
+**怀 is the batch's finding, and it is the class from batch 30 again: a character error that put the
+headword on the card.** Its second sentence read 我不喜欢怀男孩 and was translated "I don't like bad
+boys" — which renders 坏男孩. 怀 is 坏 mistyped, so the sentence is not about this character at all,
+and **nothing in the pipeline can see it**: it segments, it speaks, its translation is a perfectly
+good English sentence, and the headword is present as a literal substring. Only reading the Chinese
+against its English finds it.
+
+**Three sentences did not contain their headword as a word.** 宏大's 宽宏大量 is 宽宏 + 大量, so the
+word straddled the boundary — `check-example-fit.js`'s own shape, which it could not report because
+both halves are record rows the harvest guard tests from the other direction. 后人's 地震后人们普遍觉得恐慌
+is 地震后 + 人们, the same straddle, on a sentence about panic after an earthquake. 化妆's remaining
+swallow was 化妆品, a noun compound on a card whose label and gloss are the verb. 壶 and 环 each had
+two of three sentences swallowed — 茶壶/咖啡壶 and 环顾/环游 — one of each replaced, and the compounds
+that were doing the work now named in the panel instead.
+
+**Two cards taught one collocation three times.** 胡子's three sentences were all 刮胡子, so the noun
+never stood on its own; CC-CEDICT gives *beard; mustache or whiskers; facial hair* where the card had
+*beard* alone, which is also why every sentence could be about shaving. 互助's three were all the
+four-character 互帮互助. Two of each replaced.
+
+**后退** is the dictionary's-first-word trap for the third batch running: glossed *to recoil*, which
+is CC-CEDICT's leading word and the one none of its sentences shows — all three are moving or
+stepping back. **宏大** was *great* where the dictionary gives *great; grand*, and grand is the sense
+its sentences carry. **户** had all-noun glosses under a "measure word" label; 户 is genuinely both,
+so it is split, with `exSense [1,2,2]`.
+
+**Two sentences were not Chinese and one English was not a translation.** 户's 那户井水是许多疾病的源头
+does not work — 户 does not classify well water — and its English rendered only the second of two
+unrelated clauses. 恨's 我不管你说，我恨你！ wants an object (我不管你说**什么**) and carried a stray
+space after the comma besides. And 宏大's 欣赏生活中的小事，它们的总合很是宏大 wrote 总合 for 总和 while
+its English, "they will bring you to a bigger end target", renders no part of the Chinese. 横's
+才华横溢 was both faults at once: an idiom swallowing the headword, translated "He's overflowing",
+which renders neither the idiom (*brilliantly talented*) nor the character.
+
+**欢乐 is a fault with no checker and no Chinese in it at all**: its three sentences are fine and all
+three were translated with the same frame, "is full of joy", so the card taught one English phrase
+three times over. `check-mandarin-coverage.js` compares the CHINESE for repeats and the gloss for
+reverse-card collisions; a repeated English *translation* across a card's own three examples is in
+neither test. Two were re-rendered (*merriment*, *gaiety*) and the Chinese left untouched. Worth
+watching for: this is the second batch in which the English side carried the fault while the Chinese
+was sound.
+
+**Sixteen cards were read and left**: 衡量, 洪水, 后代, 后期, 后者, 忽略, 花朵, 花生, 滑冰, 滑雪, 划分,
+化石, 话筒, 怀念, 怀孕, 还原. One question is recorded rather than answered: 花朵's first two sentences
+are both 花园…花朵 (the garden full of flowers; all the garden's flowers withered) — a near-repeat of
+setting rather than of construction, and the two senses they show are different enough that replacing
+one would cost more than it buys.
+
+Coverage unchanged: 11,532 notes at three sentences, 0 repeats, 317 shared-gloss groups with
+still-ambiguous 1. `check-british` reads 0. **Verified against the real diff: 14 of 30 changed and
 nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
