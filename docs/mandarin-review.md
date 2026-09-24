@@ -704,6 +704,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1081–1110 (人家 → 塞), deck order | 23 | **人为's three sentences all straddled** (有人+为, 太空人+为, 人+为); 入门 by 插入+门锁; 撒 by a misspelt 撒谎 |
 | 2026-09-24 | `hsk30l6` notes 1111–1140 (赛事 → 社), deck order | 24 | **散's three sentences all swallowed (散步, 好聚好散, 散心)** and its sǎn reading unshown; 上市 by 名义上+市公司; 社 glossed 'earth god' |
 | 2026-09-24 | `hsk30l6` notes 1141–1170 (射 → 时机), deck order | 23 | **摄像's three sentences all 摄像机, one on surveillance cameras in Urumqi** — this record's own; 声调 by 声+调小; two glosses cut off |
+| 2026-09-24 | `hsk30l6` notes 1171–1200 | 22 changed, 8 read and left: 16 example sentences replaced (a 其实 straddle, the idiom 事后诸葛亮, a political accusation, a passage from *Nineteen Eighty-Four*, near-repeats), one English fixed, 15 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12268,3 +12269,32 @@ Coverage: 11,532 notes at three sentences; same-sentence-twice 142 → 141 (湿�
 still-ambiguous 1 (邻居/街坊). `check-british` reads 0; `check-gloss-source.js` loses 审美 and 剩余. **Verified against
 the real diff: 23 of 30 changed and nothing outside the range.** `build-lang-decks.js` re-run. No changelog line
 and no version bump.
+
+### Batch 169 — `hsk30l6` notes 1171–1200 (时尚 → 受灾)
+
+22 notes changed and 8 read and left (食欲, 视力, 事项, 收取, 收益, 手臂, 手势, 寿命), counted against the real diff.
+
+- **Headword not a word of its own.** 实质's 我们看东西不是看其实质… put 其实 'actually' against 质, and `check-example-fit.js` now drops it. 事后's 事后诸葛亮总是好当 had the headword only inside the idiom 事后诸葛亮 'wise after the event'. Both were replaced.
+- **Unsuitable sentences.** 势力 carried 美国在中东的行为如同恐怖主义势力, a political accusation, and a line from *Nineteen Eighty-Four* in the record's own rows. Both were replaced by authored sentences. 视觉's 魅力冲击视觉，美德征服心灵 was an archaic aphorism and was replaced too.
+- **Near-repeats.** These were replaced by authored sentences, each in a different construction:
+  - 时尚: two trend sentences
+  - 实时: two screens
+  - 时速: two trains
+  - 石油: oil reserves twice
+  - 适度: exercise three times
+  - 事务: meddling in others' business twice
+  - 适宜: 这里的气候适宜… twice
+  - 收藏: two stamp collections (the new one shows "bookmark", from CC-CEDICT)
+  - 手法: a writer's technique twice
+  - 首要: safety twice
+- **Glosses.**
+  - 实质 was "texture", which is not what the word means.
+  - 十足 was "100 per cent" and no longer misses its dictionary entry.
+  - 适度 was the adverb "moderately" over three adjectives.
+  - 释放 was "deliver".
+  - 收购 lacked the sense "to acquire (a company)".
+  - 首要 was missing a space.
+  - 示范, 试图 and 使劲 were missing their "to" or their adverbial use.
+  - 士兵's sentence said "my sons" over 我的儿子是士兵, a singular.
+- **Left.** 适宜's new 这种药不适宜儿童服用 is reported as a 不适 straddle. That is the segmenter losing to the negator 不, which is the checker's known false-positive class.
+
