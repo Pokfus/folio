@@ -182,9 +182,11 @@ const server = http.createServer((req, res) => {
   const PNG2x1 = Buffer.from(
     "iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAIAAADwyuo0AAAAFklEQVR4nGP8//8/AzpgYkAHRIkCAJ0hA/ivbYWlAAAAAElFTkSuQmCC",
     "base64");
-  let flagBlocked = false;
+  let flagBlocked = false, flagSvg = null;
   await page.route("**/upload.wikimedia.org/**", (route) =>
-    flagBlocked ? route.abort() : route.fulfill({ status: 200, contentType: "image/png", body: PNG2x1 }));
+    flagBlocked ? route.abort()
+      : flagSvg ? route.fulfill({ status: 200, contentType: "image/svg+xml", body: flagSvg })
+      : route.fulfill({ status: 200, contentType: "image/png", body: PNG2x1 }));
   const errs = [];
   page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("pageerror", (e) => errs.push("PAGEERROR " + e.message));
@@ -331,6 +333,39 @@ const server = http.createServer((req, res) => {
   });
   ok("the unrevealed flag does not enlarge", !early.opened);
   ok("…and carries no credit to print", !early.revealed && !early.attrs.some((a) => a.indexOf("data-img") === 0), early.attrs);
+
+  /* ---------- 3c. the frame is the flag's own shape: no bars at its sides --------------------- */
+  sect("3c. the frame shrinks to the flag's shape");
+  /* Sep 2026, on request: "the canvas that the flags are displayed in should never have black bars on the
+     side". The frame was full width at a fixed height with the flag contained inside it, so every flag
+     narrower than the card sat between two bands of paper. What is measured is the GAP: the picture's
+     painted width, read off its own box and its natural ratio, against the frame's inner width — at a
+     desktop and a phone width, for a square flag, a 3:2 one and Qatar's 28:11, the last being the one
+     that must narrow its HEIGHT on a phone rather than grow a band above and below. An SVG with explicit
+     dimensions is served so the ratio is the file's own, which is how Commons serves a flag. */
+  for (const [w, h] of [[1, 1], [3, 2], [28, 11]]) {
+    flagSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + (w * 60) + '" height="' + (h * 60) + '"><rect width="100%" height="100%" fill="#c00"/></svg>';
+    for (const vw of [1280, 390]) {
+      await page.setViewportSize({ width: vw, height: 850 });
+      await study(flags[2].id);
+      await page.waitForFunction(() => { const i = document.querySelector(".flag-shot img"); return i && i.complete && i.naturalWidth > 0; }, null, { timeout: 10000 });
+      await page.waitForTimeout(100);
+      const m = await page.evaluate(() => {
+        const fig = document.querySelector(".flag-shot"), img = fig.querySelector("img");
+        const ir = img.getBoundingClientRect(), card = document.querySelector(".study-card").getBoundingClientRect();
+        const ratio = img.naturalWidth / img.naturalHeight;
+        // the painted flag inside a contain box: whichever axis binds
+        const paintW = Math.min(ir.width, ir.height * ratio), paintH = Math.min(ir.height, ir.width / ratio);
+        return { boxW: ir.width, boxH: ir.height, paintW, paintH, figW: fig.clientWidth, cardW: card.width, ratio };
+      });
+      const tag = w + ":" + h + " at " + vw + "px";
+      ok(tag + " — no band beside the flag", Math.abs(m.boxW - m.paintW) <= 1.5, JSON.stringify(m));
+      ok(tag + " — …nor above and below it", Math.abs(m.boxH - m.paintH) <= 1.5, JSON.stringify(m));
+      ok(tag + " — …and the frame stays inside the card", m.figW <= m.cardW + 0.5, JSON.stringify(m));
+    }
+  }
+  flagSvg = null;
+  await page.setViewportSize({ width: 1280, height: 720 });
 
   /* ---------- 4. a dead flag file is the whole question gone ------------------------------- */
   sect("4. a dead flag file says so");

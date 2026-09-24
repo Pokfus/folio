@@ -1925,6 +1925,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     press away rather than in front of the reader — and **the enlargement and the credit are gated
     TOGETHER on the reveal**, the viewer being what says the source. The suite OPENS the viewer and
     reads the credit out of it rather than trusting the attribute.
+  · **THE FRAME IS THE FLAG'S OWN SHAPE** (Sep 2026, on request: "the canvas … should never have black
+    bars on the side"). `fitFlagShot` reads the loaded picture's natural ratio into `--ar` on the figure,
+    and the frame's width is `min(100%, height × ratio)` with the picture's height following through
+    `aspect-ratio` — so a narrow screen shortens a wide flag rather than letterboxing it. The same rule
+    covers a draw card's revealed `.dp-answer`. It is called from the delegated `load` listener AND on
+    render and reveal, a cached file being able to finish before that listener sees it. Guarded by
+    section 3c of `test-flag-cards.js`, which fails on the old full-width frame.
   · **ONE LEAK IS ACCEPTED AND STATED: Commons names every flag `Flag_of_<Country>.svg`**, and a `src`
     is copied from the API rather than composed, so the answer is in the URL on all 233 — measured, 20
     of 20 here against 0 of 10 artwork cards. No reader is SHOWN a src, and the suite asserts the
