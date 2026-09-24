@@ -14923,7 +14923,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-world",
       "title": "World Geography",
-      "total": 926,
+      "total": 468,
       "placeholder": false,
       "children": [
         {
@@ -15407,7 +15407,15 @@ window.COLLECTION_TREE = {
             "gw-731",
             "gw-733"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "flags",
+      "title": "Flags",
+      "total": 458,
+      "placeholder": false,
+      "children": [
         {
           "id": "flags-world",
           "title": "The flags",

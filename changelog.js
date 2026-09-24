@@ -35,17 +35,20 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.892", released: "2026-09-24T21:46Z" };
+window.FOLIO_VERSION = { v: "1.895", released: "2026-09-24T22:22Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-24",
     t: "The Ancient Greece collection is finished at a thousand cards",
     items: [
+      "<b>Who said it? deals five quotations a day</b> again, up from three.",
+      "<b>Admin \u2192 Quotes lists every Myth or fact? statement</b>, each of which an editor can now edit or remove.",
+      "<b>Flags</b> is a collection of its own again, in the Geography section, holding both flag decks.",
       "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
       "<b>Seventy new cards in the Ancient Greece collection</b>, on Greek myth, the journey home from Troy and Greek worship from sacrifice to the mysteries, with sixty-three new glossary terms.",
       "A glossary link that sent the <i>Historia Augusta</i> to a city in Maine now opens an entry on the work itself.",
-      "<b>Fifty new cards in the Ancient Rome collection</b>, from Trajan's eastern war through the Antonines and the Severans to the crisis of the third century, with fifty new glossary terms.",
+      "<b>Sixty new cards in the Ancient Rome collection</b>, from Trajan's eastern war through the Antonines and the Severans into the crisis of the third century, with sixty new glossary terms.",
       "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
       "<b>A study card now says whether it is NEW, REVIEW or REPEAT</b> on a tablet or desktop, where it used to show only a coloured dot.",
       "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",

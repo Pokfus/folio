@@ -1017,6 +1017,43 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-551`–`rm-560`: Maximinus Thrax to Postumus — what this batch found
+
+All ten are in `rm-third-century`, with ten new glossary terms. **Four lines are answered by a term they do
+not contain**, each a PROCESS line wanting the concrete thing it was about: `rm-552` *The soldier emperors*
+by **`Philip the Arab`**, a prefect made emperor by a hungry army and brought down by the army that
+proclaimed his own general; `rm-556` *The Gothic invasions of the third century* by **`Battle of Abritus`**,
+where Decius died in 251 (`Goths` was already a cited term and was left untouched); `rm-557` *Debasement*
+by **`antoninianus`**, the coin whose falling silver IS the debasement, `Denarius` being `rm-748`'s; and
+`rm-558` *Third-century inflation* by **`Aurelian's coinage reform`**, which has no English Wikipedia
+article, so the key is the slug form of the term. Neither "debasement" nor "inflation" was keyed as a bare
+glossary term — the Economics collection owns the generic senses. `rm-555` *The capture of Valerian* is
+answered by **`Valerian`** rather than the Battle of Edessa, because the sources do not agree the capture
+was a battle at all.
+
+**A NEW TERM CAN CLAIM A NAME THAT BELONGS TO SOMEBODY ELSE ON A SHIPPED CARD.** `Postumus` claims the bare
+surface, which is right for the emperor, whom it names on nearly every mention in the corpus — and wrong on
+`rm-100` and `rm-107`, where "Postumus Cominius" is the consul of 493 BCE. Longest-match keeps *Agrippa
+Postumus* with his own term, and a parenthetical key would have denied the emperor his own surface, so the
+two consul sentences were reworded to name him *Cominius*. **Grep the whole corpus for a new term's bare
+surface before shipping it**; `glossOff` is an admin-overlay list and cannot protect shipped prose.
+
+**`Valerian_(emperor)` is keyed with the parenthetical and carries the bare `Valerian` as an alias with
+`caseSensitive`**, lower-case *valerian* being the plant. Its capture is written *259 or 260 CE* on both
+`rm-554` and `rm-555`, the two cards having first disagreed. `Sasanian_Empire` is written deck-agnostic,
+the Mesopotamia and Architecture collections both being due to reach it; `Shapur_I` does not claim bare
+*Shapur*, which Shapur II will need, and `Maximinus_Thrax` does not claim bare *Maximinus*, for Maximinus
+Daza.
+
+**`aurelius victor` and `shapur i` joined `check-cards.js`'s `ANCIENT` list**, the drop set being exactly
+this batch's two cards; card-focus had read *Victor* and *Shapur* as modern researchers. Two
+`SAME_LANGUAGE_OK` rows were declared for `rm-559` and `rm-560`, whose coin chronology is French numismatics
+in the *Revue numismatique*. Dio stops in 229, so from 235 the cards rest on Herodian, Zosimus in the 1814
+translation, Eutropius, the *Historia Augusta*, Lactantius, Jordanes, Aurelius Victor **in Latin** (no
+public-domain English translation was found) and Sprengling's 1953 translation of Shapur's own inscription.
+`rm-556` has only one modern source, in Russian, and nothing openable gives the price jump of about 274, so
+`rm-558` hedges that the inflation evidence rests on Egyptian papyri and states no figure for it.
+
 ## `rm-541`–`rm-550`: the Severan army to the crisis of the third century — what this batch found
 
 All ten are in `rm-third-century`, with nine new glossary terms. **Three lines are answered by a term they
