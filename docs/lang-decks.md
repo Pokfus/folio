@@ -3491,6 +3491,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S34 | B1 | #419 `la infancia` – #446 `el anciano, la anciana` | 28 | 0 | 0 | B1 description: 957 with three | — |
 | S35 | B1 | #447 `el cartel` – #474 `el grito` | 25 | 3 (`clásico, clásica`, `el documento`, `marcharse`) | 0 | — | — |
 | S36 | B1 | #475 `el cirujano, la cirujana` – #502 `evidente` | 26 | 2 (`el método`, `la asociación`) | 0 | B1 description: 958 with three | — |
+| S37 | B1 | #503 `la atmósfera` – #530 `curar` | 26 | 2 (`grabar`, `el comentario`) | 0 | — | `la ave` renamed `el ave`; six more `la` + stressed a- headwords found in B2–C2 |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4996,6 +4997,40 @@ comes up to three examples: 958 of 998.
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 71 → 69.
+
+### S37 — DELE B1, notes #503–#530 (Sep 2026)
+
+Measured against the S36 commit by card id: **26 changed, 972 untouched**, each a record entry. The other two
+were read and left alone: `grabar`, `el comentario`.
+
+**A HEADWORD WITH THE WRONG ARTICLE.** `la ave` is *el ave*: a feminine noun beginning with a stressed *a-*
+takes *el* in the singular, which the deck's own description states of *el agua*, and the card's own examples
+already wrote *un ave*. It is renamed. **A sweep of all six levels for a *la* headword before a stressed *a-*
+found six more, and they are recorded here for their batches**: `la álgebra` and `la alga` (B2), `la arma de
+fuego` and `la alza` (C1), `la alba` and `la ansia` (C2). *La haya*, the beech, belongs in that list too, being
+*el haya*; `la anda` in C2 needs reading, *andas* being a plural noun. Nothing in the pipeline checks this: the
+article is written by the generator from a gender, and gender is right on every one of them.
+
+**TWO CARDS WITH NO SURVIVING EXAMPLE.** `el vidrio`: one example shared with `la arena` earlier in B1, one with
+A1's `estar`, and the third said *departamento*, Latin American for *piso*. `el satélite`: one shared with A2's
+`la luna`, one the same sentence reworded, and one shared with A2's `mediante`. Both carry three new examples.
+`el vidrio` now notes that everyday Spanish in Spain says *el cristal*.
+
+**NOT THE HEADWORD.** `curar`'s second example was *el cura*, a priest. `el retrato`'s first was *Compré un
+marco de cuero para el retrato*, the sentence S36 dropped from `el cuero`.
+
+**VIOLENCE WITH NO TEACHING PURPOSE.** `la rodilla` had Carlos shoot Ana in the knee and a bullet entering above
+it; both replaced, with *de rodillas*.
+
+**AND THE REST.** `la seda` gave one question twice and said "meter" — the one-way spelling row the switch never
+converts. `la república` claimed Europe has eleven monarchies, a count no card should have to defend. `oler`,
+`alimentar` and `la comedia` carried a calqued proverb or ungrammatical Spanish. `cobrar`'s English turned the
+second example's subject round. Glosses: "flood" (`la avenida`), "Mexican wave" (`la ola`), "syndicate"
+(`el sindicato`), "to cancel (a person deemed unacceptable)". Sixteen sentences shared with A1, A2 or an
+earlier B1 card were replaced. B1 stays at 958 with three examples.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+69, unchanged.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

@@ -38410,6 +38410,530 @@
      "It's obvious he doesn't want to come."
     ]
    ]
+  },
+  "deleb1/la atmósfera": {
+   "why": "The gloss is right. All three examples were one construction, the atmosphere of a place; the Earth's was not shown.",
+   "dropEx": [
+    "El hotel tiene una atmósfera agradable"
+   ],
+   "ex": [
+    [
+     "La atmósfera de la Tierra protege la vida.",
+     "The Earth's atmosphere protects life."
+    ]
+   ]
+  },
+  "deleb1/la república": {
+   "why": "The gloss is right. The second example states that Europe has eleven monarchies, a count that depends on what is counted and that no card should have to defend.",
+   "dropEx": [
+    "existen once monarquías"
+   ],
+   "ex": [
+    [
+     "España fue una república entre 1931 y 1939.",
+     "Spain was a republic between 1931 and 1939."
+    ]
+   ]
+  },
+  "deleb1/la embajada": {
+   "why": "The gloss is right. The first and third examples were both the American embassy, and the first is shared with el estado in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Esta es la Embajada de los Estados Unidos",
+    "dónde está la embajada estadounidense"
+   ],
+   "ex": [
+    [
+     "Tuve que ir a la embajada para pedir el visado.",
+     "I had to go to the embassy to apply for the visa."
+    ],
+    [
+     "La embajada de España está cerca del parque.",
+     "The Spanish embassy is near the park."
+    ]
+   ]
+  },
+  "deleb1/el poema": {
+   "why": "The gloss was a definition. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "poem"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el tenis": {
+   "why": "The gloss is right. The first example is shared with jugar in A1 and used luego de, Latin American for después de; the third is shared with la mujer in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Yo jugaba al tenis luego de",
+    "A la mujer le gusta jugar al tenis"
+   ],
+   "ex": [
+    [
+     "Nadal es un gran jugador de tenis.",
+     "Nadal is a great tennis player."
+    ],
+    [
+     "Me he comprado unas zapatillas de tenis.",
+     "I've bought a pair of tennis shoes."
+    ]
+   ]
+  },
+  "deleb1/la rodilla": {
+   "why": "The gloss is right. The first example had Carlos shoot Ana in the knee and the third was a bullet wound, and de rodillas was missing.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "knee"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de rodillas — on one's knees"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Carlos le disparó a Ana",
+    "La bala entró por encima"
+   ],
+   "ex": [
+    [
+     "Me duele la rodilla cuando subo escaleras.",
+     "My knee hurts when I climb stairs."
+    ],
+    [
+     "Se puso de rodillas.",
+     "He knelt down."
+    ]
+   ]
+  },
+  "deleb1/el perfume": {
+   "why": "The gloss is right. The first example is shared with la tapa in A2, and the third's English invented '100 meters' for muy lejos. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "La botella de perfume tiene una tapa azul."
+   ],
+   "exEn": [
+    [
+     "Su perfume se puede oler desde muy",
+     "You can smell her perfume from a long way off."
+    ]
+   ],
+   "ex": [
+    [
+     "Le regalé un perfume por su cumpleaños.",
+     "I gave her a perfume for her birthday."
+    ]
+   ]
+  },
+  "deleb1/organizar": {
+   "why": "The gloss was American. The second example, 'Ella organizó verse con él', is a calque of 'arranged to meet'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to organise"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "organizó verse con él"
+   ],
+   "ex": [
+    [
+     "Estamos organizando una fiesta sorpresa.",
+     "We're organising a surprise party."
+    ]
+   ]
+  },
+  "deleb1/por lo menos": {
+   "why": "The gloss is right. The first example is shared with el peso earlier in B1, and the second with sesenta in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "bold": [
+    "por lo menos"
+   ],
+   "dropEx": [
+    "Por lo menos he perdido algo de peso.",
+    "sesenta personas perdieron la vida"
+   ],
+   "ex": [
+    [
+     "Llámame por lo menos una vez a la semana.",
+     "Call me at least once a week."
+    ],
+    [
+     "Por lo menos no llueve.",
+     "At least it isn't raining."
+    ]
+   ]
+  },
+  "deleb1/el vidrio": {
+   "why": "ALL THREE EXAMPLES WENT. The first is shared with la arena earlier in B1 and the third with estar in A1; the second used departamento, Latin American for piso. The gloss's 'window' is Latin American, and it did not say that in Spain cristal is the everyday word. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "glass (the material)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los vidrios"
+    ],
+    [
+     "note",
+     "in everyday Spanish from Spain, usually el cristal"
+    ]
+   ],
+   "dropEx": [
+    "El vidrio se hace a partir de arena.",
+    "limpiar los vidrios de un departamento",
+    "Las botellas de cerveza están hechas de vidrio."
+   ],
+   "ex": [
+    [
+     "Se cortó con un trozo de vidrio.",
+     "He cut himself on a piece of glass."
+    ],
+    [
+     "Tira el vidrio en el contenedor verde.",
+     "Put the glass in the green bin."
+    ],
+    [
+     "Las botellas de vidrio se pueden reciclar.",
+     "Glass bottles can be recycled."
+    ]
+   ]
+  },
+  "deleb1/alimentar": {
+   "why": "The gloss was a definition. The second example, 'El agua clara no alimenta a los peces', is a calque of a proverb.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to feed",
+      "to be nourishing"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El agua clara no alimenta"
+   ],
+   "ex": [
+    [
+     "Esta comida no alimenta mucho.",
+     "This food isn't very nourishing."
+    ]
+   ]
+  },
+  "deleb1/la ave": {
+   "why": "THE HEADWORD CARRIED THE WRONG ARTICLE. Ave is a feminine noun beginning with a stressed a-, so it takes el in the singular — el ave, las aves — exactly as the deck's own description says of el agua. Its examples already wrote un ave. A sweep of every level finds the same fault on la álgebra and la alga (B2), la arma de fuego and la alza (C1), and la alba and la ansia (C2), which their batches will correct.",
+   "spanish": "el ave",
+   "word": "el ave",
+   "senses": [
+    [
+     "noun, feminine (el ave)",
+     [
+      "bird"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el satélite": {
+   "why": "ALL THREE EXAMPLES WENT. The first is shared with la luna in A2, the third is the same sentence reworded, and the second is shared with mediante in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "La Luna es el satélite de la Tierra.",
+    "mediante satélites",
+    "La luna es un satélite de la tierra."
+   ],
+   "ex": [
+    [
+     "La televisión llega por satélite.",
+     "The television comes by satellite."
+    ],
+    [
+     "Lanzaron un nuevo satélite al espacio.",
+     "They launched a new satellite into space."
+    ],
+    [
+     "Júpiter tiene muchos satélites.",
+     "Jupiter has many moons."
+    ]
+   ]
+  },
+  "deleb1/establecer": {
+   "why": "The gloss did not give establecerse, 'to settle', which the second example is. The first is shared with mundial earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to establish, to set"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "establecerse — to settle"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "establecer la paz mundial"
+   ],
+   "ex": [
+    [
+     "La empresa se estableció en 1990.",
+     "The company was established in 1990."
+    ]
+   ]
+  },
+  "deleb1/el álbum": {
+   "why": "The gloss gave 'album' twice, once as a phonograph record. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "album"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la ola": {
+   "why": "The gloss gave 'Mexican wave' and not ola de calor, which the second example is. The third wrote fué, which takes no accent.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "wave"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ola de calor — heatwave"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La nave fué golpeada"
+   ],
+   "ex": [
+    [
+     "Los niños saltaban las olas.",
+     "The children were jumping over the waves."
+    ]
+   ]
+  },
+  "deleb1/el retrato": {
+   "why": "The gloss gave 'portraiture'. The first example, a leather frame, is the sentence S36 dropped from el cuero, and the third's English said 'picture'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "portrait"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Compré un marco de cuero para el retrato."
+   ],
+   "exEn": [
+    [
+     "está colgado en la pared",
+     "The portrait is hanging on the wall."
+    ]
+   ],
+   "ex": [
+    [
+     "El pintor hizo un retrato de la reina.",
+     "The painter did a portrait of the queen."
+    ]
+   ]
+  },
+  "deleb1/la comedia": {
+   "why": "The gloss said 'comedy' twice. The second example's prefiero las comedias que las tragedias should be a las tragedias.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "comedy",
+      "(theatre) play"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "prefiero las comedias que las tragedias"
+   ],
+   "ex": [
+    [
+     "Vimos una comedia muy divertida en el cine.",
+     "We saw a very funny comedy at the cinema."
+    ]
+   ]
+  },
+  "deleb1/la seda": {
+   "why": "The gloss said 'silk' twice. The second and third examples were the same question, and the English said 'meter', which the site's spelling switch does not correct.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "silk"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "cuesta un metro de esa seda roja"
+   ],
+   "exEn": [
+    [
+     "cuesta un metro de esta seda roja",
+     "How much is a metre of this red silk?"
+    ]
+   ],
+   "ex": [
+    [
+     "Llevaba una blusa de seda.",
+     "She was wearing a silk blouse."
+    ]
+   ]
+  },
+  "deleb1/cobrar": {
+   "why": "The gloss did not give 'to be paid'. The first example's English said 'ask for his money back', and the second's, 'I pay 30 euros', turned the subject round.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to charge",
+      "to be paid, to earn"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Carlos debe cobrar su dinero",
+     "I think Carlos should collect his money."
+    ],
+    [
+     "30 euros cada vez que voy al dentista",
+     "He charges me 30 euros every time I go to the dentist."
+    ]
+   ]
+  },
+  "deleb1/la avenida": {
+   "why": "'flood' is not a sense a learner needs. The first example wrote La Quinta Avenida with a capital article, and the third's English said 'a big street'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "avenue"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "en La Quinta Avenida"
+   ],
+   "exEn": [
+    [
+     "al cruzar una avenida importante",
+     "You should be careful when crossing a main avenue."
+    ]
+   ],
+   "ex": [
+    [
+     "Mi oficina está en la avenida de la Constitución.",
+     "My office is on Constitution Avenue."
+    ]
+   ]
+  },
+  "deleb1/cancelar": {
+   "why": "The gloss gave 'to cancel (a person deemed unacceptable)'. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cancel, to call off"
+     ]
+    ]
+   ]
+  },
+  "deleb1/oler": {
+   "why": "The gloss gave 'to pry into' and not oler a. The first example is shared with el perfume earlier in B1, and the second, a fox smelling its own stink, is a calque of a proverb. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to smell"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "oler a — to smell of"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Su perfume se puede oler",
+    "Un zorro huele"
+   ],
+   "ex": [
+    [
+     "¡Qué bien huele la comida!",
+     "The food smells so good!"
+    ],
+    [
+     "Huele a quemado.",
+     "Something smells burnt."
+    ]
+   ]
+  },
+  "deleb1/el sindicato": {
+   "why": "'syndicate' is a false friend. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "(trade) union"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el globo": {
+   "why": "The gloss is right. The first and third examples were one floating balloon; the globe was not shown.",
+   "dropEx": [
+    "salió flotando hacia el oeste"
+   ],
+   "ex": [
+    [
+     "Tengo un globo terráqueo en mi mesa.",
+     "I have a globe on my desk."
+    ]
+   ]
+  },
+  "deleb1/curar": {
+   "why": "The gloss was a list. The second example was the noun el cura, a priest.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cure, to heal",
+      "to dress (a wound)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el cura que los casó"
+   ],
+   "ex": [
+    [
+     "El médico me curó la herida.",
+     "The doctor dressed my wound."
+    ]
+   ]
   }
  },
  "insert": {
@@ -38729,7 +39253,9 @@
    "el documento",
    "marcharse",
    "el método",
-   "la asociación"
+   "la asociación",
+   "grabar",
+   "el comentario"
   ]
  }
 }
