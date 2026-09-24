@@ -5454,10 +5454,13 @@ body.night .active-deck{ --dk-gold:#D8B355; }
   position:absolute; left:0; right:0; bottom:0; flex:none;
   height:3px; min-width:0; border:0; border-radius:0; background:color-mix(in srgb, var(--ink) 7%, transparent);
 }
-.active-deck .dk-prog .fill{border-radius:0; background:var(--newterm);}
-/* the LEARNED half, laid over the studied half from the same left edge (see adProg): the deep indigo over
-   the undiscovered-term teal, so the teal that shows past its end is the cards met but not yet learned */
-.active-deck .dk-prog .fill-l{position:absolute; left:0; top:0; bottom:0; width:0; background:var(--indigo); transition:width .9s var(--ease);}
+.active-deck .dk-prog .fill{border-radius:0; background:var(--indigo);}
+/* the LEARNED half, laid over the studied half from the same left edge (see adProg): a deep saturated blue
+   over the theme's indigo, so the lighter blue that shows past its end is the cards met but not yet learned.
+   Both halves are blue (Sep 2026, on request — the studied half was the undiscovered-term teal); the learned
+   one is solved to stand clearly apart from the indigo in both light and dark */
+.active-deck .dk-prog .fill-l{position:absolute; left:0; top:0; bottom:0; width:0; background:#0A1F9E; transition:width .9s var(--ease);}
+body.night .active-deck .dk-prog .fill-l{background:#2E4BFF;}
 .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, #C39A2E, #E6C765);}
 body.night .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}
 .active-deck .dk-prog .count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap; flex:none;}
