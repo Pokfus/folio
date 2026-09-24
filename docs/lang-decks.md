@@ -3463,6 +3463,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S6 | A2 | #142 `la obra` – #168 `caerse` | 26 | 1 (`el bosque`) | 0 | back-corrections outside the batch: A2 `cambiarse` and `irse`, A1 `despertarse` | `build_deck.py`'s `add_stress` counts syllables, not vowels |
 | S7 | A2 | #169 `la red` – #195 `cerdo, cerda` | 25 | 2 (`la princesa`, `el ministro, la ministra`) | 0 | — | — |
 | S8 | A2 | #196 `contento` – #222 `la tormenta` | 26 | 1 (`el chocolate`) | 0 | — | — |
+| S9 | A2 | #223 `la ciencia` – #249 `andar` | 27 | 0 | 0 | five coarse or explicit examples removed ahead of their audits: B1 `la pelota`, `el huevo`; B2 `la patada`; C1 `el forro`; C2 `la paja` | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -3799,7 +3800,8 @@ record entries; `el chocolate` was read and left, and is in `reviewed`.
 consoladores, prefiero las pollas de verdad*, translated to match. It is *la polla*, a vulgar word for the
 penis, matched on the shared letters of *pollo*: the look-alike fault this log has recorded every batch,
 at its worst. **Every example in the seven Spanish decks was then swept for vulgar vocabulary** and this
-is the only one. **The first sweep was wrong, and the reason is worth keeping**: JavaScript's `\b` is
+was reported as the only one. **THAT WAS WRONG, and S9 corrects it**: the word list was too short, and
+a wider one found five more. **The first sweep was wrong, and the reason is worth keeping**: JavaScript's `\b` is
 ASCII, so an accented letter counts as a boundary, and *espectáculo* matched `culo`. With Unicode
 lookarounds, `(?<![\p{L}])…(?![\p{L}])`, the list is one real finding and a handful of innocent words
 (*folleto*, *puñetazo*, *capullo* the cocoon, *polvo* the dust).
@@ -3825,6 +3827,68 @@ has come off `elegir` too.
 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 45 → 41. The one
 card of this batch left on it is `romper`, a FALSE POSITIVE: "break" against "broke".
+
+### S9 — DELE A2, notes #223–#249 (Sep 2026)
+
+Measured against the S8 commit by card id: **27 changed, 468 untouched in A2**, all 27 of them this
+batch's record entries; no card in the range was right as it stood. **And 5 cards changed outside A2**,
+one each in B1 (two), B2, C1 and C2, and nothing else in those decks.
+
+**THE S8 SWEEP MISSED FIVE, AND THEY ARE REMOVED NOW RATHER THAN WHEN THEIR BATCHES COME.** Measuring
+something else — English lines shared by different Spanish sentences — turned up *se lo pasa por el forro
+de los cojones* on C1's `el forro`, a word the S8 list did not name. A wider list then found:
+- *Ella me dio una patada en las pelotas / en los huevos*, "kicked me in the balls", on B1 `la pelota`,
+  B1 `el huevo` and B2 `la patada`;
+- `el forro`'s sentence, whose English ("He is indifferent to what others say") hid it;
+- *Tom se está haciendo una paja*, sexually explicit, on C2 `la paja`.
+
+Each entry carries only a `dropEx`, plus a fresh example where the drop would have left one, and says in
+its `why` that the rest of the card is UNREAD: **when that deck's batch reaches the card, extend the entry
+rather than replacing it.**
+**A vulgarity sweep over a corpus is a list of words, and a list is only as good as its longest miss**, so
+the sweep is not re-run here as a guarantee of anything. The innocent words it also returns are
+*la leche*, *los huevos de codorniz*, *la paja* for straw, and *la hostia* in the communion sense on B2's
+`el párroco`, which is correct and stays.
+
+**A TRANSLATION COPIED FROM ANOTHER CARD.** `la nieve`'s *A todo el mundo le gusta la nieve* was
+translated "Everybody likes ice cream": the sentence was cloned from `helado`'s with one word swapped and
+its English was not. **Grouping every English line by the distinct Spanish sentences it translates** finds
+66 such lines across the six DELE decks. Almost all are legitimate, two synonyms translated alike, which is
+the corpus working (*saldar* and *liquidar* are both "pay off"). So it is a list to read, not a check. It
+also surfaced B2's *Tom cantaba como una almeja* translated "stuck out like a sore thumb", which is a
+translation of the idiom on the next line, and is left for that batch.
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, SEVENTH BATCH RUNNING.** `helado, helada` was headed as the
+adjective, "icy, frozen, shocked", while its examples were ice cream. It is now `el helado`, with the
+adjective in Forms.
+
+**THE LOOK-ALIKE, AGAIN.**
+- `parecido`'s first example was the participle of *parecer*.
+- `efectivo`'s gloss put "real, true" first and missed its own first example, *en efectivo*, cash.
+- `tirar`'s third example was a suicide, and also *el tiro*.
+
+**GLOSSES THAT MISSED THE SENSE A READER MEETS FIRST.**
+- `tirar` had no "throw away" and no "pull", though every door in Spain says *Tirar*.
+- `el curso` had no school year.
+- `aburrido` did not separate *estar aburrido* (bored) from *ser aburrido* (boring).
+- `el socio` did not name a club member.
+- `el paquete` had no packet.
+- `andar` did not note that a machine *anda*.
+- `probable` carried "provable", which is not the word.
+
+**AND THE REST.**
+- Nine A1-shared sentences were replaced, plus four shared with earlier A2 cards.
+- `el estómago`'s three examples were one sentence, one of them missing its accent.
+- `el/la piloto` wrote *Está es*.
+- `el rock` gave a plural nobody uses.
+- `la ciencia`'s *ese profesor de ciencias maneja todos los años* is nonsense in Spain.
+- `social`'s first example was `la naturaleza`'s sentence with one word changed.
+- Generalisations and slurs are gone: Mexico's slums, *un idiota útil*.
+- Names that are not Spanish are gone: Tommy, Sami, Jane.
+- `responder` now points to A1's `contestar`, which is the verb for "talk back".
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 41 → 39, with no
+card of this batch left on it.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

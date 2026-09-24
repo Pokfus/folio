@@ -21240,6 +21240,638 @@
      "There was a very heavy storm last night."
     ]
    ]
+  },
+  "delea2/la ciencia": {
+   "why": "'erudition' and 'knowledge' are old senses. The second example, 'Ese profesor de ciencias maneja todos los años', is nonsense in Spain, where manejar is not 'to drive', and its English says nothing either.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "science"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ciencia ficción — science fiction",
+      "(las) ciencias — science (the school subject)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "maneja todos los años"
+   ],
+   "exEn": [
+    [
+     "no le gusta la ciencia ficción",
+     "Ana doesn't like science fiction."
+    ]
+   ],
+   "ex": [
+    [
+     "Mi asignatura favorita es Ciencias Naturales.",
+     "My favourite subject is natural science."
+    ]
+   ]
+  },
+  "delea2/sucio, sucia": {
+   "why": "'sinful' and 'tainted' are figurative senses nobody at A2 needs. The second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "dirty"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los bancos del parque están sucios y rotos."
+   ],
+   "ex": [
+    [
+     "Pon la ropa sucia en la lavadora.",
+     "Put the dirty clothes in the washing machine."
+    ]
+   ]
+  },
+  "delea2/la bebida": {
+   "why": "The third example, 'He comido la comida y bebido la bebida', teaches nothing and its English said 'drank' for the participle; the second, 'los demás tipos de bebidas', is stilted.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "drink"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "He comido la comida y bebido la bebida.",
+    "los demás tipos de bebidas"
+   ],
+   "ex": [
+    [
+     "¿Qué bebidas tienen?",
+     "What drinks have you got?"
+    ],
+    [
+     "La comida y la bebida están incluidas en el precio.",
+     "Food and drink are included in the price."
+    ]
+   ]
+  },
+  "delea2/la lluvia": {
+   "why": "The gloss is right. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "rain"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las plantas crecen rápidamente después de la lluvia."
+   ],
+   "ex": [
+    [
+     "Mañana se espera lluvia en el norte.",
+     "Rain is expected in the north tomorrow."
+    ]
+   ]
+  },
+  "delea2/el curso": {
+   "why": "The gloss ran a course of a river, a trajectory and a class together, and missed the school year, el curso escolar, which is how the word is met most. The first example is also an A1 sentence; the third's English said 'class' for a year group. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "course (un curso de inglés)",
+      "school year, academic year",
+      "year (at school: ¿en qué curso estás?)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Este martes, los alumnos han comenzado el curso."
+   ],
+   "exEn": [
+    [
+     "el más alto de nuestro curso",
+     "Carlos is the tallest in our year."
+    ]
+   ],
+   "ex": [
+    [
+     "El curso empieza en septiembre.",
+     "The school year starts in September."
+    ]
+   ]
+  },
+  "delea2/probable": {
+   "why": "'provable' is not this word. The second example, a weather forecast with 'probables precipitaciones', is the language of the bulletin, not A2.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "likely, probable"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "es probable que + subjunctive — it's likely that…",
+      "lo más probable es que… — most likely…"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "con probables precipitaciones"
+   ],
+   "exEn": [
+    [
+     "Es muy probable que Carlos sepa",
+     "It's very likely that Carlos knows the truth."
+    ]
+   ],
+   "ex": [
+    [
+     "Lo más probable es que lleguemos tarde.",
+     "We'll most likely be late."
+    ]
+   ]
+  },
+  "delea2/parecido, parecida": {
+   "why": "The first example is the verb parecer ('¿Qué les ha parecido su viaje?'), matched on shared letters, and is shared with el viaje earlier in A2. The noun el parecido, 'likeness', had no line. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "similar (parecido a — similar to, like)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el parecido — likeness, resemblance"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Qué les ha parecido su viaje a Australia?"
+   ],
+   "ex": [
+    [
+     "Tenemos gustos muy parecidos.",
+     "We have very similar tastes."
+    ]
+   ]
+  },
+  "delea2/efectivo, efectiva": {
+   "why": "The gloss put 'real, true' first and missed the noun its own first example is: en efectivo, 'in cash', which a reader uses at every till. The second example was about missiles; the third's English said 'the medicine used proved' for solía ser.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "effective"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el efectivo — cash",
+      "en efectivo — in cash"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Esos misiles son cien por ciento"
+   ],
+   "exEn": [
+    [
+     "Esta medicina solía ser muy efectiva",
+     "This medicine used to be very effective."
+    ]
+   ],
+   "ex": [
+    [
+     "¿Aceptan tarjeta o solo efectivo?",
+     "Do you take cards or only cash?"
+    ]
+   ]
+  },
+  "delea2/el/la artista": {
+   "why": "The gloss ran four near-synonyms together. The examples are right; the third is shared with el dibujo later in A2 and stays here.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "artist",
+      "performer (a singer, an actor)"
+     ]
+    ]
+   ]
+  },
+  "delea2/la entrevista": {
+   "why": "The gloss is right. The second example, 'Trata de mirar algunas entrevistas recientes', is a calque of 'try to look at'.",
+   "dropEx": [
+    "Trata de mirar algunas entrevistas recientes."
+   ],
+   "ex": [
+    [
+     "Le hicieron una entrevista en la radio.",
+     "They interviewed him on the radio."
+    ]
+   ]
+  },
+  "delea2/helado, helada": {
+   "spanish": "el helado",
+   "word": "helado",
+   "why": "THE CARD TAUGHT THE WRONG WORD. It was headed as the adjective, glossed 'icy, frozen, shocked', while two of the three examples were el helado, ice cream, which is the A2 word. The headword becomes the noun and the adjective goes in Forms. The second example, 'No hay nada como el verano y helados', is not a sentence; the third was the adjective.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "ice cream"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los helados"
+    ],
+    [
+     "also",
+     "helado, helada (adjective) — frozen, freezing: el agua está helada"
+    ]
+   ],
+   "dropEx": [
+    "No hay nada como el verano y helados.",
+    "despertar en las mañanas heladas"
+   ],
+   "ex": [
+    [
+     "¿De qué sabor quieres el helado?",
+     "What flavour ice cream do you want?"
+    ],
+    [
+     "Un helado de chocolate, por favor.",
+     "A chocolate ice cream, please."
+    ]
+   ]
+  },
+  "delea2/el rock": {
+   "why": "The word has no plural in use, and the card gave one ('los rocks'). The first example is shared with perder earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "forms": [
+    [
+     "plural",
+     "not used"
+    ]
+   ],
+   "dropEx": [
+    "Pablo perdió su interés en la música rock."
+   ],
+   "exEn": [
+    [
+     "el rey del rock",
+     "He was the king of rock and roll."
+    ]
+   ],
+   "ex": [
+    [
+     "Me gusta el rock de los años ochenta.",
+     "I like eighties rock."
+    ]
+   ]
+  },
+  "delea2/responder": {
+   "why": "'to talk back' and 'to answer back' are contestar, which is A1's card. The first example's Tommy is not a Spanish name, and the second is also an A1 sentence. The third is shared with chino later in A2 and stays here. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to answer, to reply (responder a algo)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "also",
+     "contestar — to answer (A1)"
+    ]
+   ],
+   "dropEx": [
+    "Tommy no pudo responder",
+    "Carlos no respondió a la pregunta de Ana."
+   ],
+   "ex": [
+    [
+     "No me has respondido al mensaje.",
+     "You haven't replied to my message."
+    ],
+    [
+     "Llamé tres veces, pero nadie respondió.",
+     "I rang three times, but nobody answered."
+    ]
+   ]
+  },
+  "delea2/la tecnología": {
+   "why": "The gloss is right. The second example's Sami is not a Spanish name and its Tecnologías de la Información is a degree title. The first is shared with moderno later in A2 and stays here.",
+   "dropEx": [
+    "Sami tiene un título"
+   ],
+   "ex": [
+    [
+     "Mi abuela no se lleva bien con la tecnología.",
+     "My grandmother doesn't get on with technology."
+    ]
+   ]
+  },
+  "delea2/la nieve": {
+   "why": "The gloss is right. THE FIRST EXAMPLE'S ENGLISH WAS ANOTHER CARD'S: 'A todo el mundo le gusta la nieve' was translated 'Everybody likes ice cream', the sentence it was cloned from on helado.",
+   "exEn": [
+    [
+     "A todo el mundo le gusta la nieve",
+     "Everybody likes snow."
+    ]
+   ]
+  },
+  "delea2/social": {
+   "why": "The first example, 'animal social por naturaleza', is the sentence on la naturaleza with one word changed, and the second is shared with la red earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "dropEx": [
+    "El hombre es un animal social",
+    "Las redes sociales te hacen perder el tiempo."
+   ],
+   "ex": [
+    [
+     "Mi madre trabaja en los servicios sociales.",
+     "My mother works in social services."
+    ],
+    [
+     "Tenemos una vida social muy activa.",
+     "We have a very busy social life."
+    ]
+   ]
+  },
+  "delea2/el estómago": {
+   "why": "The second example wrote estomago without its accent, and the three were one sentence: the stomach hurting after meals, twice. The first is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Me duele el estómago después de las comidas.",
+    "Tengo dolor de estomago."
+   ],
+   "ex": [
+    [
+     "No me gusta nadar con el estómago lleno.",
+     "I don't like swimming on a full stomach."
+    ],
+    [
+     "Me duele el estómago.",
+     "My stomach hurts."
+    ]
+   ]
+  },
+  "delea2/el barrio": {
+   "why": "The gloss is right. The second example, that Mexico has many slums, is a generalisation about a country and teaches barrio bajo rather than the word.",
+   "dropEx": [
+    "Hay muchos barrios bajos en México."
+   ],
+   "ex": [
+    [
+     "Mi barrio es muy tranquilo.",
+     "My neighbourhood is very quiet."
+    ]
+   ]
+  },
+  "delea2/el/la piloto": {
+   "why": "The gloss is right. The first example wrote 'Está es' for the demonstrative esta.",
+   "dropEx": [
+    "Está es la peor pesadilla"
+   ],
+   "ex": [
+    [
+     "Mi hermano es piloto de una compañía aérea.",
+     "My brother is an airline pilot."
+    ]
+   ]
+  },
+  "delea2/el socio, la socia": {
+   "why": "The gloss named 'member' without saying of what — a club, which is how the word is met most in Spain — and the second and third examples were one construction, socio de negocios.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "partner (in a business)",
+      "member (of a club, of an association)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Carlos es mi socio de negocios."
+   ],
+   "ex": [
+    [
+     "Soy socio del club de tenis.",
+     "I'm a member of the tennis club."
+    ]
+   ]
+  },
+  "delea2/aburrido, aburrida": {
+   "why": "The gloss ran 'bored' and 'boring' together without the rule that separates them: estar aburrido is bored, ser aburrido is boring. Every example was 'boring'; the first's Jane is not a Spanish name, and the third's English said 'lectures'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "bored (estar aburrido)",
+      "boring (ser aburrido)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Jane pasó un fin de semana"
+   ],
+   "exEn": [
+    [
+     "Sus clases son terriblemente aburridas",
+     "His classes are terribly boring."
+    ]
+   ],
+   "ex": [
+    [
+     "Estoy aburrido, no hay nada que hacer.",
+     "I'm bored, there's nothing to do."
+    ]
+   ]
+  },
+  "delea2/el paquete": {
+   "why": "The gloss missed a packet, un paquete de arroz. The first example is also an A1 sentence; the second puts its subject where Spanish would not ('¿Cuántos paquetes de cigarrillos él fuma?'). SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "parcel, package",
+      "packet (un paquete de arroz)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Había un paquete de papeles en la mesa.",
+    "paquetes de cigarrillos él fuma"
+   ],
+   "ex": [
+    [
+     "Ha llegado un paquete para ti.",
+     "A parcel has come for you."
+    ],
+    [
+     "Compra un paquete de arroz.",
+     "Buy a packet of rice."
+    ]
+   ]
+  },
+  "delea2/útil": {
+   "why": "The gloss is right. The third example, 'un idiota útil', is a political idiom and an insult.",
+   "dropEx": [
+    "un idiota útil"
+   ],
+   "ex": [
+    [
+     "Este diccionario es muy útil.",
+     "This dictionary is very useful."
+    ]
+   ]
+  },
+  "delea2/el castillo": {
+   "why": "The first example is also an A1 sentence, and the second, 'Esta ciudad está hecha de castillos de metal', is nonsense. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "El castillo está al otro lado del río.",
+    "castillos de metal"
+   ],
+   "ex": [
+    [
+     "En España hay muchos castillos medievales.",
+     "There are many medieval castles in Spain."
+    ],
+    [
+     "Los niños hicieron un castillo de arena.",
+     "The children built a sandcastle."
+    ]
+   ]
+  },
+  "delea2/tirar": {
+   "why": "The gloss missed 'to throw away', the sense a reader meets at every bin, and 'to pull', which is on every door in Spain. The second example is also an A1 sentence, and the third was a suicide, which is also el tiro, a noun, matched on shared letters. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to throw",
+      "to throw away (tirar a la basura)",
+      "to pull (tirar de — on a door: Tirar, 'Pull')"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "le está tirando el pelo a Ana",
+    "se pegó un tiro en la cabeza"
+   ],
+   "ex": [
+    [
+     "No tires la comida.",
+     "Don't throw food away."
+    ],
+    [
+     "Tira la pelota a tu hermano.",
+     "Throw the ball to your brother."
+    ]
+   ]
+  },
+  "delea2/la taza": {
+   "why": "The first and second examples were one construction, a cup of coffee, twice.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "cup, mug"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Carlos bebe tres tazas de café al día."
+   ],
+   "ex": [
+    [
+     "Me regalaron una taza con mi nombre.",
+     "They gave me a mug with my name on it."
+    ]
+   ]
+  },
+  "delea2/andar": {
+   "why": "'to amble' and 'to travel' are not how the word is met; 'to work' of a machine (el reloj no anda) and the exclamation ¡anda! are. The first example, 'echar a andar este motor', is Latin American. The conjugation, with its irregular anduve, is right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to walk",
+      "to go, to work (of a machine: el reloj no anda)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡anda! — come on! / wow!"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "echado a andar este motor"
+   ],
+   "ex": [
+    [
+     "Me gusta andar por la playa.",
+     "I like walking on the beach."
+    ]
+   ]
+  },
+  "deleb1/la pelota": {
+   "why": "REMOVED AHEAD OF THIS DECK'S OWN AUDIT (batch S9): a coarse or sexually explicit example, found by a sweep of all seven Spanish decks for vulgar vocabulary after S8 found one on el pollo. The rest of the card has not yet been read; when its batch reaches it, extend this entry rather than replacing it. 'Ella me dio una patada en las pelotas' uses las pelotas in its vulgar sense, 'the balls'.",
+   "dropEx": [
+    "patada en las pelotas"
+   ]
+  },
+  "deleb1/el huevo": {
+   "why": "REMOVED AHEAD OF THIS DECK'S OWN AUDIT (batch S9): a coarse or sexually explicit example, found by a sweep of all seven Spanish decks for vulgar vocabulary after S8 found one on el pollo. The rest of the card has not yet been read; when its batch reaches it, extend this entry rather than replacing it. 'Ella me dio una patada en los huevos' uses los huevos in its vulgar sense, 'the balls'.",
+   "dropEx": [
+    "patada en los huevos"
+   ]
+  },
+  "deleb2/la patada": {
+   "why": "REMOVED AHEAD OF THIS DECK'S OWN AUDIT (batch S9): a coarse or sexually explicit example, found by a sweep of all seven Spanish decks for vulgar vocabulary after S8 found one on el pollo. The rest of the card has not yet been read; when its batch reaches it, extend this entry rather than replacing it. 'Ella me dio una patada en los huevos', the same sentence as on el huevo in B1.",
+   "dropEx": [
+    "patada en los huevos"
+   ],
+   "ex": [
+    [
+     "Le dio una patada al balón.",
+     "He kicked the ball."
+    ]
+   ]
+  },
+  "delec1/el forro": {
+   "why": "REMOVED AHEAD OF THIS DECK'S OWN AUDIT (batch S9): a coarse or sexually explicit example, found by a sweep of all seven Spanish decks for vulgar vocabulary after S8 found one on el pollo. The rest of the card has not yet been read; when its batch reaches it, extend this entry rather than replacing it. 'se lo pasa por el forro de los cojones' is vulgar, and its English, 'He is indifferent to what others say', hid it.",
+   "dropEx": [
+    "el forro de los cojones"
+   ],
+   "ex": [
+    [
+     "El abrigo tiene un forro de seda.",
+     "The coat has a silk lining."
+    ]
+   ]
+  },
+  "delec2/la paja": {
+   "why": "REMOVED AHEAD OF THIS DECK'S OWN AUDIT (batch S9): a coarse or sexually explicit example, found by a sweep of all seven Spanish decks for vulgar vocabulary after S8 found one on el pollo. The rest of the card has not yet been read; when its batch reaches it, extend this entry rather than replacing it. 'Tom se está haciendo una paja' is sexually explicit (hacerse una paja, to masturbate).",
+   "dropEx": [
+    "se está haciendo una paja"
+   ]
   }
  },
  "insert": {
