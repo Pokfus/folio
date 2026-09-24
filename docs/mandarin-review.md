@@ -675,6 +675,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 271–300 (档案 → 吊), deck order | 17 (+1 in Level 5) | **THREE cards glossed from the OTHER reading of their own characters**, and one whose three sentences contained the word nowhere at all |
 | 2026-09-24 | `hsk30l6` notes 301–330 (调动 → 蹲), deck order | 21 | **TEN cards carried a near-repeat**, most of them this record's own fill-pass rows — and a spelling that is neither British nor American, which `check-british.js` can never see |
 | 2026-09-24 | **the British pass's own blind spot** — one finding list, all nine decks | 479 | the pass and its checker both read three fields and the card type has six; **547 American spellings sat in `Characters` alone** |
+| 2026-09-24 | **the `-is/-iz` table gap** — 45 rows into `SPELL_PAIRS`, an APP change | 70 (+2 cards, 1 term) | the raw grep's “~45 sites in Folio's own prose” was wrong: **they were CITATIONS**, and the real figure is ONE |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10740,3 +10741,77 @@ mirrors — no field this batch did not intend to touch.** One deck file was edi
 liveness probe above and the applier rewrote it in the same minute; the checksum test confirms it left
 no trace. `build-lang-decks.js` re-run. **No changelog line and no version bump**: both tools are
 `.claude/` helpers and the rest is deck content.
+
+## Batch 140 — the `-is/-iz` table gap (an app change, 70 deck cards)
+
+**The half batch 139 deferred, and the deferral's own reasoning turned out to be wrong in the one way
+that mattered.** `SPELL_PAIRS`'s 39 `-is/-iz` rows were chosen for Folio's own prose — `colonis`,
+`sovietis`, `hellenis`, `fossilis` — and the language decks' English is a different vocabulary
+entirely, so **62 distinct American spellings over 97 occurrences and 45 stems** had no row at all and
+`check-british.js` read 0 on every one of them. **45 rows added; 70 deck cards converted**, every stem
+represented: `fertilizer`, `generalize`, `publicize`, `optimize`, `sympathize`, `jeopardize`,
+`authorization`, `hypnotize`, `synchronize`, `visualize`, `customize`, `baptized`, `uncivilized` and
+the rest.
+
+### THE DEFERRAL'S REASON WAS AN OVERCOUNT, AND SAYING SO IS THE POINT
+
+Batch 139's log said adding the rows would surface **"about 45 American spellings at once in FOLIO'S
+OWN PROSE"**, and listed `nationalization` ×8, `optimization`, `digitized`, `baptized`, `patronizing`.
+That figure came from a raw `grep` over the data files. **With the rows actually added, Folio's own
+prose yields exactly ONE** — `popularized` in the `Genus` glossary term. Every other site is a
+**CITATION**: *The Internationalization of Public Interest Law*, *Nationalization and its Alternatives*
+and 142 more published titles, which `check-spelling-corpus.js` counts apart as borrowed text and which
+must never be rewritten — the mask that, the one time it was missing from `check-style.js`, renamed six
+real works. **A grep over a data file cannot tell a card's prose from the titles it cites**, and the
+checker that can was sitting one command away the whole time. The deferral was still the right call;
+its stated reason was not.
+
+### What the corpus checker actually found, and two of the four were not faults
+
+It was reading **4 findings before this batch even began** — drift since the last pass — and the new
+rows added a fifth:
+
+- **`Civilizational` / `civilizational` on `pea-014`**, in `answer`, `answerText` AND `abstract`: the
+  card's own answer term, in American, on the one collection whose subject makes the word unavoidable.
+  Fixed through `fix-field.js`, one field at a time. (It has no paired glossary term at all — a pairing
+  gap, recorded and out of scope here.)
+- **`popularized` in `gloss:Genus`** — the one site the new rows surfaced. Fixed through
+  `add-sources.js` with its three citations carried through unchanged.
+- **`flavor` in True-or-False #67 is NOT A FAULT**: it sits inside a quotation from the Supreme Court's
+  1911 record — the trade-mark papers say the extracts were used *"for the purpose of obtaining a
+  flavor"*. **A quoted document is borrowed text however British the sentence around it.** Declared in
+  `KEPT`, keyed by item AND word, so a different American spelling creeping into that statement still
+  reports.
+- **`Tumors` in #101 is not a fault either**: the *Registry of Tumors in Lower Animals* is the
+  Smithsonian's own registry, closed in 2013. Declared in `NAMES`, beside *Pearl Harbor* and the
+  *Indian Reorganization Act*.
+
+**Folio's own prose reads ZERO again**, now with 45 more families in the table than when it last did.
+
+### The rows, and the one thing that makes several of them safe
+
+Each stem is justified by a measured occurrence in the decks; none was added on spec. **The suffix list
+deliberately omits the bare stem**, and that is not tidiness — it is what makes `synthesis` the noun,
+`Polaris` the star, `optimism`, `socialist` and `Baptist` unmatchable, since each is the stem plus a
+suffix that is not in the list. **Adding an empty element to any of those rows would rewrite all five.**
+And the measurement's own trap is recorded in the table's comment, because it is the argument against
+ever making this family a rule: the same suffix catches **`prize` 42, `seize` 40, `size` 29 and `maize`
+2**, where `-ize` is the only English spelling there is and a stem rule would write *prise*, *seise*,
+*sise* and *maise*.
+
+### Checks after
+
+`test-spelling.js` 71 passed; `check-truefalse.js` clean over 216 statements;
+`check-spelling-corpus.js` 0 in Folio's own prose; `check-british.js` 0 over the six fields it now
+reads; `split-cards.js --check` clean; the whole fast gate green (295 + 7 + 15 + 72 + 22 + 136 + 15
+assertions, `check-docs`, `check-questions`, `check-style`). `check-claims.js` reads **0 drifted** after
+CLAUDE.md was brought into step — the 196-row figure, the pass's swept fields, the closed family, and
+app.js's own size and line count, which had drifted with this change.
+
+**Verified against the real diff**: 70 deck cards over four decks, plus `pea-014`, the `Genus` term, the
+two declared rows, `app.js`, `changelog.js` and CLAUDE.md. `build-lang-decks.js` re-run.
+
+**THIS ONE DOES CARRY A CHANGELOG LINE AND A VERSION BUMP** — 1.871 → **1.872**, `released` read off the
+clock — because the table is the app's and the change is reader-facing: an American reader now gets
+American spellings on 45 more families of word. The deck files that moved with it are deck content and
+get no line of their own.
