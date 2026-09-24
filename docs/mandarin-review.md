@@ -706,6 +706,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1141–1170 (射 → 时机), deck order | 23 | **摄像's three sentences all 摄像机, one on surveillance cameras in Urumqi** — this record's own; 声调 by 声+调小; two glosses cut off |
 | 2026-09-24 | `hsk30l6` notes 1171–1200 | 22 changed, 8 read and left: 16 example sentences replaced (a 其实 straddle, the idiom 事后诸葛亮, a political accusation, a passage from *Nineteen Eighty-Four*, near-repeats), one English fixed, 15 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1201–1230 | 27 changed, 3 read and left: 31 example sentences replaced (four straddles, 属 used only inside other words, 松 split into its two senses, a sentence that was not Chinese, a calqued 'thoughts and prayers', a generalisation about residents), three Compounds panels, 18 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1231–1260 | 28 changed, 2 read and left: 20 example sentences replaced (特 and 逃 used only inside other words or a name, the name Lata on 塔, two ungrammatical sentences, fragments, near-repeats), 6 translations fixed, six Compounds panels, 22 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12331,4 +12332,40 @@ and no version bump.
   - 薯片 is now British.
   - 输送's and 素质's glosses now differ from their neighbours', so their "not X" hints are no longer needed.
 - **Left.** 算了's new 他不来就算了 is reported as a 就算 straddle. It is 就 + 算了, and the segmenter prefers the longer word.
+
+### Batch 171 — `hsk30l6` notes 1231–1260 (算是 → 特定)
+
+28 notes changed and 2 read and left (台球, 淘气), counted against the real diff.
+
+- **Single characters that never stood alone.**
+  - 特's three sentences were 特别, 特种部队 and the transliterated name Dmitri (德米特里). They are replaced by three sentences using the word itself: before a verb, before an adjective, and 特来.
+  - 逃 had 逃课 and 逃学.
+  - 塔 had the name Lata (拉塔).
+  - 掏 had 掏出 from a pocket three times.
+  
+  Compounds panels were authored for 虽, 塔, 烫, 掏, 逃 and 特.
+- **Not Chinese, or not natural.**
+  - 这件事我算是都不了解 combines 算是 with 都不. Its English supplied the missing sense.
+  - 话虽如此 was followed by a clause it conceded nothing to.
+  - 跟着岁数增长 has 跟着 where Chinese says 随着.
+  - 他探索一切逃走的可能性 was translationese.
+  - 总是会有人谈论 and 因为你们公司的业务能够发挥我的特长 were fragments.
+- **Near-repeats replaced:** 汤圆 (one sentence twice, which `check-senses.js` now drops), 逃跑, 淘汰 (two World Cup exits), 太阳能 (two sets of solar panels), 特地 (特地来 twice), and 踏实 (its record sentence had the word only inside the idiom 脚踏实地).
+- **Translations.**
+  - 谈判's "the treaty" was wrong.
+  - 糖果's "candies" is now "sweets".
+  - 套餐's English was broken.
+  - 特地's two English lines were ungrammatical or dropped "specially".
+  - 特长's "every man" is now "everyone".
+- **Glosses.**
+  - 汤圆 was CC-CEDICT's definition cut off at "usually".
+  - 谈判 is labelled a verb and was glossed only as a noun.
+  - 特 and 淘汰 read as definitions rather than glosses.
+  - 特定's "specially appointed" did not match the sentences.
+  - 太空's "the firmament" and 台风's "stage manners" were replaced.
+  - 烫 lacked "to iron" and "to burn".
+  - 损伤 lacked the noun.
+  - 探讨 lacked "to discuss".
+  - A dozen more lacked their "to".
+- **A collision caught by the coverage checker.** The corrected 虽 gloss matched hsk30l2/虽然 word for word. It now says how the two differ (written, placed after the subject) rather than taking a hint.
 
