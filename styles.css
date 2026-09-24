@@ -1679,7 +1679,26 @@ body[data-theme="folio"].night .collection-deco{
    any other context that ever renders them. */
 .study-card .q-head .label{margin:0; flex:1 1 auto; min-width:0; display:flex; align-items:center;}
 .study-card:has(.tts-mute) .q-head{padding-right:38px;}
-.study-card .card-stars{position:static; flex:none; z-index:2; display:inline-flex; gap:2px; align-items:center; pointer-events:none;}
+.study-card .card-stars{position:static; flex:none; z-index:2; display:inline-flex; gap:2px; align-items:center;}
+/* the stars and the three-day dots are PRESSABLE since Sep 2026 — each opens a bubble saying what it
+   means (openInfoBubble in app.js), which a tooltip could never do on a phone */
+[data-info]{cursor:pointer; -webkit-tap-highlight-color:transparent; border-radius:6px;}
+[data-info]:focus{outline:none;}
+[data-info]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
+.info-bubble{position:fixed; z-index:9700; width:min(280px, calc(100vw - 16px)); background:#1B1A17; color:rgba(255,255,255,.88);
+  padding:11px 13px; border-radius:9px; font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; text-align:left;
+  box-shadow:var(--shadow-md); animation:ibIn .16s var(--ease) both;}
+.night .info-bubble{background:#34343C;}
+.info-bubble::after{content:""; position:absolute; top:100%; left:var(--ib-arrow, 50%); margin-left:-6px; border:6px solid transparent; border-top-color:#1B1A17;}
+.night .info-bubble::after{border-top-color:#34343C;}
+.info-bubble.ib-below::after{top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#1B1A17;}
+.night .info-bubble.ib-below::after{border-bottom-color:#34343C; border-top-color:transparent;}
+.info-bubble .ib-title{display:block; font-weight:600; color:#fff; margin-bottom:7px; font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; opacity:.82;}
+.info-bubble .ib-row{display:block;}
+.info-bubble .ib-row + .ib-row{margin-top:6px;}
+.info-bubble .ib-row b{color:#fff; font-weight:700;}
+.info-bubble .ib-quiet{color:rgba(255,255,255,.62); font-size:calc(11px * var(--fs));}
+@keyframes ibIn{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
 /* WHERE THIS CARD STANDS, in the three colours the study bar's own counts use (Aug 2026, on request) —
    blue for a card never studied, red for one being learned, green for one up for review. It is a mark
    rather than a control, so it takes no pointer; its name is on the element, since three colours say
@@ -2669,6 +2688,9 @@ body.grading .stage{padding-bottom:150px;}
 .tf-verdict.no{color:var(--zh);}
 .tf-why{font-family:var(--serif); font-size:calc(15px * var(--fs)); line-height:1.6; color:var(--ink-soft); margin:0 0 18px;}
 .tf-reveal .btn{width:100%;}
+/* the Sources fold under an explanation keeps its distance from the button below it (Sep 2026, on
+   request: the header sat almost on top of "See results") */
+.tf-reveal .src-note{margin-bottom:18px;}
 .tf-summary{display:flex; flex-direction:column; gap:14px; margin-bottom:22px;}
 .tf-sum-row{display:flex; gap:13px; align-items:flex-start;}
 .tf-sum-mark{flex:none; width:24px; height:24px; border-radius:99px; display:grid; place-items:center; font-weight:700; font-size:calc(13px * var(--fs)); color:#fff; margin-top:2px;}
@@ -3533,7 +3555,16 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
 .q-form-note, .q-form-sub{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); line-height:1.5; color:var(--ink-faint);}
 .q-form-sub{margin:12px 0 6px; padding-top:10px; border-top:1px solid var(--rule);}
 .q-form-acts{display:flex; justify-content:flex-end; gap:8px; margin-top:12px;}
+/* the "Who said it?" pool under the daily quotes — a switch per line rather than a form (see whoSaidAdminHTML) */
+.ws-admin{margin-top:28px; padding-top:18px; border-top:1px solid var(--rule);}
+.ws-admin-head{display:flex; align-items:baseline; gap:10px; margin-bottom:6px;}
+.ws-admin-head b{font-family:var(--display); font-size:calc(17px * var(--fs)); color:var(--ink);}
+.ws-admin-count{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint);}
+.ws-admin .q-main{cursor:default;}
+.ws-row .mini-btn{flex:none; align-self:center; margin-right:8px;}
+.ws-row.ws-off .q-text{color:var(--ink-faint); text-decoration:line-through; text-decoration-color:color-mix(in srgb,var(--ink-faint) 60%,transparent);}
 @media (max-width:640px){
+  .ws-row .mini-btn{align-self:flex-start; margin:0 12px 8px;}
   .q-page{padding:12px 12px 22px;}
   .q-row{flex-direction:column; align-items:stretch; gap:0;}
   .q-when{align-self:flex-start; width:auto; text-align:left; padding:0 12px 8px;}
@@ -4323,6 +4354,21 @@ button.ar-slot:hover .ar-slotmark,button.ar-slot:hover .ar-slotlbl{color:var(--i
 #chestSlot:empty{display:none;}
 /* …and inside that column the gap is what separates it, so it carries no bottom margin of its own there. */
 .banners .chest-banner{margin-bottom:0;}
+/* NOT SIGNED IN (Sep 2026, on request — see guestNoticeHTML). Amber: a caution, not an error. */
+.guest-notice{display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:14px;
+  background:color-mix(in srgb, #D98A1E 13%, var(--card)); border:1px solid color-mix(in srgb, #D98A1E 45%, var(--rule));
+  border-left:4px solid #D98A1E; box-shadow:var(--shadow-sm);}
+body.night .guest-notice{background:color-mix(in srgb, #E6A64A 14%, var(--card)); border-color:color-mix(in srgb, #E6A64A 40%, var(--rule)); border-left-color:#E6A64A;}
+.guest-notice .gn-ic{flex:none; width:26px; height:26px; color:#B06A0E;}
+body.night .guest-notice .gn-ic{color:#E6A64A;}
+.guest-notice .gn-ic svg{width:100%; height:100%; display:block;}
+.guest-notice .gn-body{flex:1; min-width:0; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.5; color:var(--ink);}
+.guest-notice .gn-body b{font-weight:700;}
+.guest-notice .gn-go{flex:none; white-space:nowrap;}
+@media (max-width:640px){
+  .guest-notice{flex-wrap:wrap;}
+  .guest-notice .gn-go{width:100%;}
+}
 .chest-banner{display:flex; align-items:center; gap:14px; padding:14px 16px; margin:0 0 18px;
   background:linear-gradient(105deg, color-mix(in srgb,#C39A2E 22%,transparent), transparent 68%) var(--card);
   border:1px solid color-mix(in srgb,#C39A2E 40%,var(--rule)); border-radius:14px; box-shadow:var(--shadow-sm);}
@@ -4473,6 +4519,22 @@ body.no-anim .ar-frame.ar-loading::after{animation:none;}
   .ar-win.ar-inline .ar-winart{width:100%; max-width:220px; align-self:center;}
 }
 
+/* THE PICTURE SITS IN THE TOP LEFT AND THE WORDS RUN ROUND IT (Sep 2026, on request: on a tablet the
+   plate "has the image in a column on the left and everything else in a column on the right, leaving a
+   lot of empty space in the bottom left"). Five sentences and a fold of citations run far longer than a
+   220px square, so a two-column flex left the rest of the left column empty for most of the plate's
+   height. The picture is FLOATED instead, as a card's own illustration is, and the text column stops
+   being a flex item so its lines can flow round the float and back to the full width below it. The
+   admin preview keeps its own stacked layout below 900px (see `.ar-inline` above). */
+@media (min-width:641px){
+  .ar-win:not(.ar-inline), .ar-win.ar-inline{display:block;}
+  .ar-win .ar-winart{float:left; width:200px; margin:4px 20px 10px 0;}
+  .ar-win .ar-wintext{display:block;}
+  .ar-win .ar-wintext .src-note{clear:both;}
+}
+@media (min-width:641px) and (max-width:899px){
+  .ar-win.ar-inline .ar-winart{float:none; margin:0 auto 14px;}
+}
 @media (max-width:640px){
   .ar-win{flex-direction:column; gap:14px; padding:20px 18px;}
   .ar-winart{width:100%; max-width:260px; align-self:center;}
@@ -4661,6 +4723,13 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    zoomed the page can still pinch back out on, which is the stuck half of the report answered directly. */
 .globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden; touch-action:pan-y;}
 .globe-stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none;}
+/* NO TAP HIGHLIGHT ON A MAP (Sep 2026, on a bug report: "in the Find It minigame, when i select a country,
+   for a split second the whole screen lights up as if everything were selected"). The globe's canvas is
+   one element the size of the stage and it carries click listeners, so a mobile browser paints its own
+   tap highlight — a translucent wash over the WHOLE element — on every press, which on a full-screen map
+   reads exactly as every country being selected at once. The press already has its own answer on the
+   map (the tinted pick), so the browser's is taken away here, and on every other canvas the site draws. */
+canvas{-webkit-tap-highlight-color:transparent;}
 .globe-stage canvas:active{cursor:grabbing;}
 .globe-hint{position:absolute; left:clamp(16px,4vw,40px); bottom:16px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); opacity:.6; pointer-events:none; user-select:none;}
 /* "drag to rotate · scroll or +/− to zoom" is written for a mouse — on touch it is three lines of wrong */
@@ -5385,7 +5454,12 @@ body.night .active-deck{ --dk-gold:#D8B355; }
   position:absolute; left:0; right:0; bottom:0; flex:none;
   height:3px; min-width:0; border:0; border-radius:0; background:color-mix(in srgb, var(--ink) 7%, transparent);
 }
-.active-deck .dk-prog .fill{border-radius:0;}
+.active-deck .dk-prog .fill{border-radius:0; background:var(--newterm);}
+/* the LEARNED half, laid over the studied half from the same left edge (see adProg): the deep indigo over
+   the undiscovered-term teal, so the teal that shows past its end is the cards met but not yet learned */
+.active-deck .dk-prog .fill-l{position:absolute; left:0; top:0; bottom:0; width:0; background:var(--indigo); transition:width .9s var(--ease);}
+.active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, #C39A2E, #E6C765);}
+body.night .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}
 .active-deck .dk-prog .count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap; flex:none;}
 /* ---------- A GROUP HEADER (Aug 2026, on request) ----------
    "A group should appear as a thinner banner": shorter than a deck row, in a DEEPER wash of its own colour,
@@ -6503,6 +6577,11 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
   color:var(--newterm); background:color-mix(in srgb,var(--newterm) 18%,transparent);
 }
 .ttip b,.ttip i,.ttip strong{ color:inherit; }
+/* THE DAILY QUOTE'S AUTHOR AND WORK ARE LINKED WITHOUT AN UNDERLINE (Sep 2026, on request). The caption
+   is a set line of small capitals under a quotation, and a dotted rule under the speaker's name reads as
+   decoration on a signature rather than as a link; the colour alone says it can be pressed, and the
+   hover wash still marks it under the cursor. */
+.daily-quote figcaption .ttip{ text-decoration:none; }
 
 /* ---- discovery chip (shared: the glossary popup's bar and the Atlas info panel) ----
    Shown on the FIRST opening of a term or a place and never again, carrying the running count, because
@@ -8194,6 +8273,18 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
    so moving the band would orphan it); the heading is what had to go. */
 .study-card:has(.uc-back.uc-hasfront) > .q-head .label,
 .study-card:has(.uc-back.uc-hasfront) > .question{display:none;}
+/* …EXCEPT WHILE THE MARKER IS DOWN (Sep 2026, on a bug report: "for Mandarin cards, when the answer is
+   revealed, the extra marker space currently appears above the question instead of staying below it").
+   The writing band (`.scratch`) sits between the shell's question and the reveal, so hiding the shell's
+   copy and letting the back redraw the front put the question BELOW the band. With the pen down the
+   swap runs the other way: the shell's question and its heading stay where they were when the card
+   opened, above the band, and the back's redrawn front (`.uc-frontside`, see cardTypeFieldGetter) is
+   the copy that goes — together with the rule the template draws under it. Nothing moves at the reveal,
+   which is what keeps the reader's ink over the working it was written on. */
+body.wb-down .study-card:has(.uc-back.uc-hasfront) > .q-head .label{display:flex;}
+body.wb-down .study-card:has(.uc-back.uc-hasfront) > .question{display:block;}
+body.wb-down .study-card .uc-back .uc-frontside,
+body.wb-down .study-card .uc-back .uc-frontside + hr{display:none;}
 /* ---------- the two behaviours Folio lends a card type ----------
    A type's own CSS is scoped to its own cards, so anything a type needs to LOOK like it must style itself.
    These two are different: they are things Folio DOES — reading a run of text aloud, and closing a blank —

@@ -2519,8 +2519,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.49 MB and 50,761 lines is hard to find your way around, so this
-  lists its 195 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.51 MB and 51,029 lines is hard to find your way around, so this
+  lists its 197 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -4511,6 +4511,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the era form and `checkWar` — which asks only whether a SIDE resolves ANYTHING on `world.js`, and
     twenty other keys did — passed it in silence. **The card rendered perfectly while shading every
     Allied power but the largest of them.**
+- **A THIRD BATCH OF INTERFACE FIXES, Sep 2026, all on request.**
+  · **THE STARS AND THE THREE-DAY DOTS ARE PRESSABLE** (`openInfoBubble` / `infoBubbleHTML` /
+    `closeInfoBubble` / `[data-info]` / `.info-bubble`). A tooltip is the one thing a phone cannot show,
+    so a press opens a dark bubble ABOVE the mark saying what it means and how it is measured, built from
+    the same figures the mark is drawn from (`cardDifficultyShown`, `critCount`). ONE element on
+    `document.body`, fixed and clamped to the screen, closed by `render()` like every other body overlay.
+  · **A SIGNED-OUT READER IS TOLD SO ON THE HOME PAGE** (`guestNow` / `guestNoticeHTML` / `.guest-notice`),
+    every visit and undismissably, after a reader studied for an hour without knowing they were signed
+    out. **`guestNow` reads the STORED session as well as the live one**, `supaBoot` being asynchronous —
+    without that the notice would flash for every signed-in reader on each load.
+  · **WHO SAID IT? DEALS THREE ROUNDS, IS CITED, AND AN ADMIN CAN REMOVE A QUOTATION** (`WS_ROUNDS = 3` /
+    `whoSaidPool` / `ADMIN_EDITS.whosaidOff` / `whoSaidAdminHTML`). `quotes.js` entries take a `src` array
+    and a marker in `context`, rendered through True or False's own `tfWireWhy`; the removal list is a
+    second section of Admin → Quotes and rides the overlay like any other admin edit.
+  · **A US STATE IS PLACED AT ITS STATEHOOD IN TIMELINE** (`stateStatehood`), read off the Geography
+    collection's own card for that state, so no second table of dates exists.
+  · **A BATTLE IS CROSSED SWORDS ON THE PERSONAL ATLAS TOO** (`paintSwords`, now module-level, and the
+    `battle` flag `atlasRegister` puts on a dot mark).
+  · **A TYPED CARD'S REDRAWN FRONT IS WRAPPED** (`.uc-frontside`, in `cardTypeFieldGetter`) so that while
+    the marker is down the stylesheet keeps the shell's question ABOVE the writing band and hides the
+    back's copy — the band stayed put and the question had moved below it.
+  · Seven badges (`owl`, `lark`, `heart25`, `ages5`, `notes5`, `show4`, `themes3`), all DERIVED from
+    fields the progress blob already carries (`revHourSeen` reads the per-review log, so a friend's
+    profile shows the two clock badges unearned rather than guessed); the artefact plate FLOATS its picture
+    above 640px so the prose wraps round it; the Picture round's description links its glossary terms;
+    `canvas{-webkit-tap-highlight-color:transparent}` stops a phone washing the whole Find it globe on a
+    tap; and the daily quote's author link carries no underline.
 - **Card-of-the-day additions** (`COTD_ENTRY` / `cotdIds` / `cotdAdd`, beside the other entry helpers): the home tile's
   button studies **that one card** (`scope {type:"card", id, addTo:"cotd"}`), and **grading it** — not opening it — drops
   the card into the daily review. It can't be added the usual way: `S.active` holds whole decks, and pulling a deck in
@@ -4577,6 +4604,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Scheduling, Skip today, Colour, Icon, Remove. **NEVER NAME A CLASS `ad-…`**: `.ad-body` and `.ad-title`
     are real ad class names, so EasyList hid the deck's NAME for every reader with an ad blocker; the prefix
     is `dk-` and `adBaitCheck()` in `test-layout.js` is a static guard against it.
+  · **GOLD NOW MEANS EVERY CARD IN THE DECK IS LEARNED, NOT A PERFECT DAY** (Sep 2026, on request —
+    `adDay` tests `atCriterion` over every card the row claims, the same three separate days the dots on
+    each card count, and `adProg` draws TWO bars on one track: the undiscovered-term teal for cards seen
+    once, the indigo `.fill-l` over it for cards learned). The paragraph below is the rule it replaced for
+    the gold half; the green half is unchanged.
   · **A DECK FINISHED FOR THE DAY GOES GREEN, AND GOLD IF NOTHING WAS MISSED** (`adDay` /
     `doneMarkHTML` / `--dk-accent` / `.dk-done` / `.dk-won`; Sep 2026, on request — "in the same way as a
     completed minigame"). It is `.game-tile.done` / `.game-tile.won` transposed onto a row and every rule
@@ -4787,10 +4819,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     must never be refused. **The escape hatch is not optional**: "I don't know" reveals and rings Again
     without submitting it. It never focuses the blank. `syncAttempt` is declared ABOVE the phrasing cycler
     and assigned below it, the cycler replacing the question element and every `.blank-input` in it.
-  · **`elabPromptHTML` — ONE ELABORATION PROMPT PER SESSION: THREE QUESTIONS WITH THEIR ANSWERS BEHIND
-    CHEVRONS** — elaborative interrogation (`card.why`) and nothing else. **Injected by `showAnswer`, not
-    built into `buildBack`**, because the budget belongs to the session and `buildBack` also draws the
-    editor preview and the browser. **The questions AND their answers are AUTHORED and never generated**,
+  · **`elabPromptHTML` — THE THINK-IT-THROUGH SECTION, ON EVERY CARD: THREE QUESTIONS WITH THEIR ANSWERS
+    BEHIND CHEVRONS** — elaborative interrogation (`card.why`) and nothing else. **The one-per-session
+    budget is GONE (Sep 2026, on request: "always visible on the card, not just when first seen")** — a
+    closed fold asks nothing of a reader who does not open it. **Injected by `showAnswer`, not built into
+    `buildBack`**, because `buildBack` also draws the editor preview and the browser. **The questions AND their answers are AUTHORED and never generated**,
     and an answer written from anywhere but the card's own sources is an uncited claim wearing a card's
     apparatus. **`card.why` IS A LIST OF THREE `{ q, a }`**, checked by `.claude/card-links.js`. **The site
     still renders the retired `{ q, at }` shape and the TOOLS refuse it**, since a live cloud overlay
@@ -6512,7 +6545,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE BANNER COUNTS ANKI'S THREE PILES** — New (blue), Learning (red), Review (green), from `pileCounts`,
     repeated unlabelled in the same colours on every added deck's row from the SAME function, so a row can
     never claim work the banner does not. Its hue **changes every day** (`DAY_HUES` / `dayHue`, set inline,
-    turning over at the reader's own day boundary) unless the reader has chosen one. A finished day offers
+    turning over at the reader's own day boundary) unless the reader has chosen one. (An opal gradient
+    replaced it for an hour in Sep 2026 and was reverted on request — do not bring it back.) A finished day offers
     **no button at all**, and completion is a small green check or a gold **Perfect!** ribbon.
   · **EVERY SESSION ENDS AT THE HOME PAGE**, whatever its scope — one answer rather than a rule per surface.
   · **THE COLLECTIONS BUTTON IS THE ONLY ROUTE TO `#decks` ANYWHERE ON THE SITE**, and the About line the only
@@ -8021,6 +8055,14 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   `add-card.js` refuses an English question outside 20–34 words and warns on a translation that has
   not been shortened with it. **The translations follow the same rule in their own idiom** — a
   language does not get to keep the long version.
+  **READ EVERY PHRASING BACK FOR ITS ARTICLE BEFORE THE CARD SHIPS** (Sep 2026, on request). The
+  answer term never carries an article (see the `answer` bullet below), so the article belongs to the
+  sentence: wherever the term needs one, the question supplies it in front of the blank — "the first of
+  the `___`", "one region of the `___`", never "the first of `___`" — and wherever the surrounding words
+  already supply it, not a second time. **No checker can see this**: the blank is grammatical in every
+  shape, and `wh-461` (Five Pillars of Islam) and `gr-381` (Achaemenid Empire) shipped with the article
+  missing from all six of their phrasings. Read the `question` and both `questions` extras with the
+  answer term put back in place of the blank, and fix all three together.
 - `questions` — **REQUIRED for every new card: exactly 2 EXTRA phrasings of the question** (3 in all —
   the study page asks one of the three at random each time the card comes up, so students remember the
   concept rather than the shape of one sentence). Each extra follows every `question` rule above
