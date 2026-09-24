@@ -3554,6 +3554,82 @@ A card and its own term sharing a picture is the pairing `check-image-free.js` s
 the previous batch's choice to leave the terms bare, and it gives a popup read on another card the same
 illustration.
 
+## cnh-271 – cnh-280, the warlords, the end of the Han and the opening of the Three Kingdoms (Sep 2026)
+
+The last two cards of `col-12` and the first eight of `col-16`, which until this batch held no card and
+was coming-soon. Two plan lines were renamed while writing, and the plan's own lines now carry the answer
+terms.
+
+**`cnh-271` "The warlords of the 190s" → *Yuan Shao*.** The line names a decade, not a term. The alliance
+of 190 against Dong Zhuo is the moment the warlord era became visible, and Yuan Shao led it. He then
+became the greatest of the warlords, so his card carries the rest of the decade's contenders as his
+rivals. "The alliance against Dong Zhuo" was considered and refused: it has no settled English name, and
+the answer term would have carried a second person's name inside it.
+
+**`cnh-272` "The end of the Han" → *Emperor Xian of Han*.** World History already cards this subject:
+`wh-413` is answered by *fall of the Han dynasty*, and `End_of_the_Han_dynasty` is a cited glossary term.
+So the line took the last emperor, whose thirty years as a warlords' prisoner are the end of the Han told
+from inside the court.
+
+**`cnh-273` Three Kingdoms is a DELIBERATE PAIR with `wh-414`, and the glossary term is reused, not
+re-keyed.** The two cards divide the subject:
+- `wh-414` tells the period through its states, Chen Shou's history and the novel.
+- `cnh-273` tells it through the geography and the numbers: the Han census of about 140, Wei's two-thirds
+  and Wu's one-sixth, the doubled southern population, and the tax-quota registers at Shu's surrender.
+
+So this batch adds nine new glossary terms, not ten. The pairing rule is satisfied by
+`Three_Kingdoms`, which already exists, and `add-glossary.js` would have overwritten it silently.
+
+**DE CRESPIGNY'S WHOLE THIRD-CENTURY SURVEY IS OPEN.** Two pieces sit in the ANU repository as DSpace
+bitstreams, on the route recorded for the previous batch:
+- "The Three Kingdoms and Western Jin: A History of China in the Third Century AD", in *East Asian
+  History* 1 (1991) and 2 (1991).
+- *Man from the Margin: Cao Cao and the Three Kingdoms*, the 1990 Morrison Lecture.
+
+*Generals of the South* is there too, in its 2018 internet edition, and it gives the pagination of the
+1990 printing in brackets. The 1991 article's printed page is its PDF page minus four.
+*To Establish Peace* (the chronicle for 189–220, used for the last batch) opens with an introduction that
+revises the 1991 article's first part, so where the two overlap the 2025 introduction is preferred.
+
+**THE SAME AUTHOR REVISED A DATE, AND THE SAME BOOK GIVES TWO DATES FOR ONE EVENT.**
+- *Dong Zhuo's entry into Luoyang.* The 1991 article puts it on the evening of 24 September 189 (so does
+  the 1990 lecture). The 2025 introduction says 22 September, and `cnh-270` follows the 2025 text.
+- *The abdication.* *To Establish Peace*'s introduction dates Cao Pi's receipt of the abdication to
+  11 December 220, while its own chronology's note says Liu Xie abdicated on 25 November 220. The cards
+  therefore say "at the end of 220" and "late in 220" and assert neither day.
+
+**THE OLD REFERENCE WORKS DISAGREE WITH THE CHRONICLE ON SIX POINTS, AND NONE OF THE SIX IS CARRIED.**
+- Giles gives Cao Pi as 188–227, against 187–226. `cnh-278`'s last sentence names the discrepancy
+  rather than hiding it.
+- Giles gives Liu Bei's first campaign as 185, against 184.
+- Giles says Liu Xie succeeded in 190, against 28 September 189.
+- Theobald's Liu Bei page gives 161–222, against 161–223.
+- Theobald says Cao Cao drove Dong Zhuo from the capital. It was Sun Jian's army that did so.
+- Cordier says Yuan Shao proclaimed himself emperor. It was Yuan Shu who did, in 197.
+
+Where a source was wrong on one point it is still cited, for the points it gets right.
+
+**THE RED CLIFFS CARRY NO LOCATOR, and the Guandu battle is pinned to Zhongmou.** The Red Cliffs site is
+disputed. *Generals of the South* surveys the debate and follows Lu Bi in placing it at Wulin near Jiayu
+on the north bank, against the modern city named Chibi and the Wuhan tradition. That is the
+disputed-identification refusal CLAUDE.md records for Sarai. The Wikipedia coordinate for the Battle of
+Guandu lies east of Kaifeng, some sixty kilometres from the Zhongmou site *To Establish Peace* gives, so
+the dot is on Zhongmou County instead and is labelled with that name.
+
+**PICTURES: THREE OF TEN.** The shipped pictures are:
+- Cao Pi and Liu Bei, each from Yan Liben's *Thirteen Emperors Scroll*.
+- A modern map of the three states in 262 on the Three Kingdoms card.
+
+The other seven have none, for these reasons:
+- *Emperor Xian and Yuan Shao.* Commons offers only undersized Qing illustrations of the novel.
+- *Cao Cao.* The obvious photograph is of the tomb near Anyang, and a caption would have to assert an
+  identification no source cited here makes.
+- *The two battles, Cao Wei and Shu Han.* No reachable file depicts the thing itself.
+
+The Commons API answered in fits during this batch: `list=search` and `list=categorymembers` returned
+empty bodies for minutes at a time while `en.wikipedia.org`'s `pageimages` answered at once. That is the
+route that found the scroll portraits.
+
 ## Re-sourcing the mythology cards (batch C7, Sep 2026)
 
 Five China cards were reported by `check-cards.js` rule 1 for resting three deep on one author —

@@ -4373,7 +4373,16 @@ window.GLOSSARY = {
 "Xiaolian": "<b>Xiaolian</b>, 'Filial and Incorrupt', was the title under which the commanderies of the Han empire recommended men each year for appointment to the imperial civil service.<sup class=\"fn\" data-fn=\"1\"></sup> The quota of two nominees from each commandery was revised in 92 CE to one for every 200,000 inhabitants, and a man so recommended served a period of probation as a cadet at the capital before receiving office.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Because those who recommended became the patrons of the men they put forward, the title tied officials to powerful families, and a reform of 132 that required nominees to be examined did little to change that.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Yellow_Turban_Rebellion": "The <b>Yellow Turban Rebellion</b> was a rising against the Eastern Han in 184 CE, led by the faith-healer Zhang Jue and named for the strips of yellow cloth his followers wore.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Organised in 36 divisions across eight eastern provinces, the rebels proclaimed that the azure sky was dead and a Yellow Heaven would replace it, and they rose early when their plan was betrayed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Government armies broke the main forces within the year, but bands under the same name fought on for years, and the commanders raised against them became the warlords who divided the empire.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Zhang_Heng": "<b>Zhang Heng</b> was a Chinese astronomer, mathematician and poet of the Eastern Han who served as Court Astronomer and built an armillary sphere turned by water from a clepsydra.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In 132 CE he completed a bronze seismoscope with eight dragons around its outside, each holding a ball that dropped into a bronze toad below to show the direction from which a tremor had come.<sup class=\"fn\" data-fn=\"3\"></sup> The sources describe only its outside, so every modern reconstruction of its mechanism is a proposal, and they record that it once registered a distant earthquake that nobody at the capital had felt.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Zhang_Jue": "<b>Zhang Jue</b> was a Chinese religious leader from Julu who taught the Way of Great Peace and led the Yellow Turban rising against the Eastern Han in 184 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He healed the sick with charmed water and the confession of their faults, and over about ten years his disciples spread his teaching through eight provinces of the east.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Styling himself the Lord of Heaven General, he was besieged in the city of Guangzong and died of illness before it fell, after which his coffin was broken open and his head sent to the capital.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Zhang_Jue": "<b>Zhang Jue</b> was a Chinese religious leader from Julu who taught the Way of Great Peace and led the Yellow Turban rising against the Eastern Han in 184 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He healed the sick with charmed water and the confession of their faults, and over about ten years his disciples spread his teaching through eight provinces of the east.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Styling himself the Lord of Heaven General, he was besieged in the city of Guangzong and died of illness before it fell, after which his coffin was broken open and his head sent to the capital.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Battle_of_Guandu": "The <b>Battle of Guandu</b> was a campaign fought in 200 CE near the small city of Guandu, south of the Yellow River in present-day Henan, in which the warlord Cao Cao defeated the much larger army of Yuan Shao.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> After months of stalemate, Cao Cao learned from a defector that Yuan Shao's supplies were gathered at Wuchao, and a night raid that burned them broke the morale of the opposing army.<sup class=\"fn\" data-fn=\"2\"></sup> Yuan Shao fled north across the river, and the victory gave Cao Cao the ascendancy that let him take the whole North China plain by 207.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Red_Cliffs": "The <b>Battle of Red Cliffs</b> was fought on the Yangzi River in 208 CE, when the allied forces of Sun Quan and Liu Bei defeated the warlord Cao Cao and halted his advance into southern China.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> According to the histories, the allied officer Huang Gai sent burning ships downwind against Cao Cao's fleet after a false offer of surrender, and Cao Cao's weary and sickly army retreated with heavy losses.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Its exact site is disputed and its story was greatly embellished in later literature, but it preserved the southern hold on the Yangzi and with it the division of China.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Cao_Cao": "<b>Cao Cao</b> was a Chinese warlord and poet at the end of the Han dynasty who reunited northern China and laid the foundations of the state of Wei.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Taking control of the young Emperor Xian in 196 CE, he governed in the emperor's name, settled refugee farmers on abandoned land in state agricultural colonies, and defeated his great rival Yuan Shao at Guandu in 200.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Halted at the Red Cliffs in 208, he became King of Wei in 217 and died in 220, and later tradition cast him as the archetype of the cunning usurper.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Cao_Pi": "<b>Cao Pi</b> was the first emperor of the Wei dynasty, a son of the warlord Cao Cao who in 220 CE received the abdication of the last Han emperor and proclaimed a new dynasty.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He moved the capital to Luoyang, kept his brothers under close watch in distant fiefs, barred the families of empresses from acting as regents, and failed in repeated campaigns against the southern state of Wu.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A poet and critic, he wrote an essay on literature often counted the oldest surviving work of Chinese literary criticism, and he died in 226 at the age of forty.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Cao_Wei": "<b>Cao Wei</b> was the northern and largest of the three states into which China divided after the Han dynasty, founded in 220 CE when Cao Pi, son of the warlord Cao Cao, received the abdication of the last Han emperor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Ruling from Luoyang over about seven-tenths of the registered population of the former empire, it developed state farming colonies and a system that graded candidates for office into nine categories.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> From 249 real power passed to the Sima family, and in 266 Sima Yan received the abdication of its last ruler and founded the Jin dynasty.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Emperor_Xian_of_Han": "<b>Emperor Xian of Han</b>, personal name Liu Xie, was the last emperor of the Han dynasty, placed on the throne as a boy of eight by the general Dong Zhuo in 189 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Passed between rival warlords, he was taken under the control of Cao Cao in 196 and held court at Xu as a figurehead whose authority legitimised his protector's rule.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> At the end of 220 he abdicated in favour of Cao Cao's son Cao Pi, who founded the Wei dynasty, and he lived on as Duke of Shanyang until his death in 234.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Liu_Bei": "<b>Liu Bei</b> was a Chinese warlord who founded the state of Shu Han, a man of modest birth who claimed descent from the Han imperial house and first made his name fighting the Yellow Turbans in 184 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> After serving or allying with many of the rival warlords of the 190s, he joined Sun Quan to defeat Cao Cao at the Red Cliffs in 208 and took Chengdu in 214.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> He declared himself emperor in 221, was defeated by Wu in 222 while trying to avenge his general Guan Yu, and died in 223, later becoming the virtuous hero of popular tradition.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Shu_Han": "<b>Shu Han</b> was one of the three states that divided China after the fall of the Han dynasty, founded at Chengdu in present-day Sichuan in 221 CE by Liu Bei, who claimed to continue the Han as a member of its imperial clan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> After his death in 223 it was governed by the regent Zhuge Liang, who campaigned south into present-day Yunnan and repeatedly north against the state of Wei.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Worn down by constant war, it surrendered to Wei in 263, though later historians and popular fiction long treated it as the rightful heir of the Han.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Yuan_Shao": "<b>Yuan Shao</b> was a Chinese warlord of the late Han dynasty, heir to a family that had held the highest offices of state for generations, who was chosen in 190 CE to lead the alliance of provincial leaders against the dictator Dong Zhuo.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> From his base at Ye he brought most of China north of the Yellow River under his control by 199, but in 200 his far larger army was defeated by Cao Cao at Guandu after its grain stores were burned.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He died in 202, and his sons' quarrel over the inheritance let Cao Cao take the whole of the north.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6601,7 +6610,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Liang_Ji": "d. 159 CE",
 "Yellow_Turban_Rebellion": "184 CE",
 "Zhang_Heng": "78 – 139 CE",
-"Zhang_Jue": "d. 184 CE"
+"Zhang_Jue": "d. 184 CE",
+"Battle_of_Guandu": "200 CE",
+"Battle_of_Red_Cliffs": "208 CE",
+"Cao_Cao": "155 – 220 CE",
+"Cao_Pi": "187 – 226 CE",
+"Cao_Wei": "220 – 266 CE",
+"Emperor_Xian_of_Han": "181 – 234 CE",
+"Liu_Bei": "161 – 223 CE",
+"Shu_Han": "221 – 263 CE",
+"Yuan_Shao": "d. 202 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -9096,7 +9114,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Disasters_of_the_Partisan_Prohibitions": ["Partisan Prohibitions","Great Proscription"],
 "Xiaolian": ["Filial and Incorrupt"],
 "Yellow_Turban_Rebellion": ["Yellow Turbans","Yellow Turban rising"],
-"Zhang_Jue": ["Zhang Jiao"]
+"Zhang_Jue": ["Zhang Jiao"],
+"Battle_of_Guandu": ["Guandu"],
+"Battle_of_Red_Cliffs": ["Red Cliffs","battle of the Red Cliffs"],
+"Cao_Pi": ["Emperor Wen of Wei"],
+"Cao_Wei": ["Cao-Wei"],
+"Emperor_Xian_of_Han": ["Emperor Xian"],
+"Shu_Han": ["Shu-Han"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -13515,7 +13539,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Xiaolian": ["institution","history","politics","china","han dynasty"],
 "Yellow_Turban_Rebellion": ["event","history","warfare","religion","china","han dynasty"],
 "Zhang_Heng": ["person","science","astronomy","history","china","han dynasty"],
-"Zhang_Jue": ["person","religion","history","china","han dynasty"]
+"Zhang_Jue": ["person","religion","history","china","han dynasty"],
+"Battle_of_Guandu": ["battle","event","history","warfare","china","han dynasty"],
+"Battle_of_Red_Cliffs": ["battle","event","history","warfare","china","three kingdoms"],
+"Cao_Cao": ["person","ruler","history","warfare","literature","china","three kingdoms"],
+"Cao_Pi": ["person","ruler","history","literature","china","three kingdoms"],
+"Cao_Wei": ["state","dynasty","history","politics","china","three kingdoms"],
+"Emperor_Xian_of_Han": ["person","ruler","history","politics","china","han dynasty"],
+"Liu_Bei": ["person","ruler","history","warfare","china","three kingdoms"],
+"Shu_Han": ["state","dynasty","history","politics","china","three kingdoms"],
+"Yuan_Shao": ["person","ruler","history","warfare","china","han dynasty"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

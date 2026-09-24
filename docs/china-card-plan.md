@@ -668,8 +668,8 @@ already shipped before adding it.
     cnh-268  Yellow Turban Rebellion
     cnh-269  Zhang Jue
     cnh-270  Dong Zhuo
-    cnh-271  The warlords of the 190s
-    cnh-272  The end of the Han
+    cnh-271  Yuan Shao
+    cnh-272  Emperor Xian of Han
 
 ### Three Kingdoms — `col-16`
 
