@@ -20635,6 +20635,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        confusable one. Keep the circle empty. It is also the one emblem of this franchise that is a
        geometric form rather than somebody's design. */
     { k: "ring", n: "Ring", d: '<circle cx="12" cy="12" r="8.2"/>' },
+    /* A BIRD IN FLIGHT (Westeros) — fifty-one marks were in this list and NOT ONE was a bird in
+       flight: `owl` is front-facing, round, with two large eyes and ear tufts, and nothing else comes
+       near. Rendered at 24, 28, 34 and 44px beside `owl`, `plane`, `leaf` and `ship` it is
+       unmistakable at every size. It is the franchise's own messenger — every letter in the series
+       travels by raven, the maesters keep them, and "dark wings, dark words" is a saying a reader
+       meets a dozen times — and, like the hue beside it, it belongs to NO HOUSE, which a direwolf, a
+       lion or a stag would not. THREE OTHER MARKS WERE DRAWN AND REFUSED: a DIREWOLF head is House
+       Stark's sigil and at 24px is `owl` with pointed ears, i.e. a cat; an IRON THRONE drawn as a
+       seat under a row of blades reads at 24px as `castle`, whose whole identity is crenellations;
+       and a DRAGON cannot be drawn at 24px without becoming a bird anyway. Keep the tail and the
+       wing's sweep — the first raven drawn without them read as a snail. */
+    { k: "raven", n: "Raven", d: '<path d="M2.4 8.6 7.8 12.8c1.7-2.4 4.1-3.7 7-3.7l2.6-2.5v2.9l4.2 1.3-3.8 1.7c-.4 4.3-3.7 7.1-7.9 7.1-2.4 0-4.4-.7-5.9-2"/><path d="M9.6 19.5 8 21.6"/><circle cx="14.4" cy="10.9" r=".8"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20713,6 +20725,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ww1: "wire",
     arch: "arch",
     middleearth: "ring",
+    westeros: "raven",
     japan: "torii",
     psych: "head",
     phil: "owl",
@@ -25305,7 +25318,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -26268,6 +26281,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        was not re-measured; the only region that outscores this one and carries no note is a bright
        rose at 20.5, which means nothing here. */
     middleearth: { bg: "#7B8C1F" },
+    /* crimson (Westeros) — MEASURED against the 34 hues then on the shelf, and the one case where the
+       sweep turned up a genuine GAP rather than a trade-off. THE FINDING: the shelf's six reds all
+       lean ORANGE — China's vermilion, Russia's lacquer, the Indonesian deck's maroon, the Mandarin
+       decks' red, Korea's clay and Visual Art's oxblood all sit between hue 25 and 40, and Japan's
+       kuwazome is a red-purple at 345 — so between them, at hue 0-8, the carmine/crimson corner is
+       EMPTY. #B32057 stands 21.3, ABOVE the shelf's median of 20.1, density 5: 21.3 from Japan, 21.4
+       from the Indonesian deck, 23.6 from the Mandarin decks, 28.8 from Russia, 30.0 from China. L 40,
+       chroma 60, and 6.4:1 against white — worth noting on its own account, the last three
+       collections having all landed at the 3.7 floor of the shelf's 3.7-10.4 band.
+       THE STORY IS NOT A HOUSE, which is what the collection needed: crimson is Lannister, but it is
+       also the Red Keep, the Red Wedding, the red comet, the red priests, the red leaves of every
+       heart tree, the Red Viper and the Red Waste — this series' own signal for violence and prophecy
+       at once, belonging to no faction as the Lannister gold and Stark grey do.
+       THREE FAMILIES REFUSED: blood-ORANGE red, the corner a reader reaches for first, is the most
+       crowded on the shelf at 17.1 with TEN neighbours, which is Architecture's brick refusal at a
+       worse number; COLD SLATE-BLUE — winter, the Wall, the show's own palette, the "ice" of the
+       title — tops out at 18.7 with EIGHT, pressed against the Second World War's iron, Philosophy's
+       petrol and the United States' navy; DARK SEA TEAL is 13.3. The magenta was not re-measured (the
+       tenth refusal) and nor was the olive-brass.
+       DO NOT DRIFT IT LIGHTER. The same family at L 43-48 scores 22.2-22.9, which is better, and
+       rendered beside the shelf's reds it is a raspberry PINK rather than a crimson. The two points
+       are given up for the colour, which is Korea's trade exactly. */
+    westeros: { bg: "#B32057" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median

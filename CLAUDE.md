@@ -1114,6 +1114,77 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     2017) rather than on the trade press's summary of it.
   The next card to write is the lowest `mid-NNN` not yet in `data.js`; the index table under "THE
   PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/westeros-card-plan.md` — READ BEFORE WRITING A `wes-` CARD.** The **1000-card running
+  order for the Westeros collection** (`westeros`): every card's number, topic and deck, fixed in
+  advance across 9 decks and 41 leaf subdecks. The twenty-eighth of the planned collections and the
+  **second whose subject is fiction**; the node, its tree, its `COLL_THEME` hue, a new `ICON_SYMBOLS`
+  mark (`raven`) and a `COLLECTION_SECTION` row (`The Arts`, the fourth under that heading) ship with
+  the plan. **Read the Middle-earth plan's "one thing to read before writing anything" first** — its
+  argument that a card is about a TEXT and never about a world is this collection's too, and is not
+  repeated there at length. **The collection is called Westeros because the world has no name**: the
+  books say "the known world", the series is named after a song, and the two alternatives each
+  exclude half the franchise.
+  · **THREE THINGS DIFFER FROM MIDDLE-EARTH AND EACH DECIDES A DECK.** **The series is unfinished** —
+    *A Dance with Dragons* was published in 2011 — so a card describing the story describes **where
+    the last published book left it**, in those words, and never depends on an ending nobody has read.
+    **The television series finished first, in 2019, with a different ending**, so decks 2–6 card the
+    books and say nothing about the show, and deck 8 cards the show's departures AS departures. And
+    **one primary source is an avowed liar**: *Fire & Blood* and *The World of Ice & Fire* are written
+    by in-world maesters who give one event three incompatible accounts and decline to choose, so
+    where they disagree **the card gives the disagreement**, as a Mesopotamia card gives a range.
+  · **📖 THE "DIFFICULT MATERIAL" SECTION IS THE ONE TO READ BEFORE ANY CARD, NOT JUST THE OBVIOUS
+    ONES.** This franchise contains sustained sexual violence, torture and the killing of children,
+    and Folio is written for an upper-secondary reader. **A card names what happens and never renders
+    it** — the Psychology plan's describe-never-diagnose rule against a different danger. **Where a
+    sexual assault must be named the card gives three things and stops**: what happened, to whom, and
+    what the argument about it is, which is the Korea plan's rule for the hardest colonial subjects.
+    **No card is written from the position of enjoying cruelty**; a violent set piece is carded for
+    what it does to the story, which is also the only interesting question. **Child characters are
+    stricter still**: `wes-733` and `wes-734` are about the ADAPTATION's ageing-up decision and the
+    criticism of it, and no other card pairs a child character with sexual content. The material that
+    must be carded lives in the criticism decks, where the scholarship actually discusses it.
+  · **THE HUE FOUND A REAL GAP, WHICH IS RARE THIS LATE.** The shelf's six reds all lean ORANGE
+    (China, Russia, the Indonesian and Mandarin decks, Korea, Visual Art, all between hue 25 and 40)
+    and Japan's kuwazome is a red-purple at 345 — so the carmine corner at hue 0–8 is empty.
+    `#B32057` stands **21.3, above the median of 20.1**, density 5, at 6.4:1 against white, and
+    **crimson belongs to no house**: the Red Keep, the Red Wedding, the red comet, the red priests and
+    every heart tree's leaves. **DO NOT DRIFT IT LIGHTER** — the same family at L 43–48 scores better
+    and renders as raspberry pink. Blood-orange red (17.1, ten neighbours) and cold slate-blue (18.7,
+    eight) were measured and refused.
+  · **NOTHING HERE CAN CARRY A PICTURE FROM THE BOOKS OR THE SHOW AND THE AUTHOR IS ALIVE**, so the
+    copyright wall is total against a bar of PD / CC BY / CC BY-SA. That is the stated
+    reason-why-not, given once for the thousand. **What IS free is the history deck** (Towton,
+    Bosworth, Hadrian's Wall, siege engines, manuscript illumination) **and the filming locations** —
+    Northern Ireland, Croatia, Iceland, Spain and Malta all have freedom of panorama. Expect 60–90 of
+    the thousand to carry one. **`card.quote` is unavailable with no exception**, the Library holding
+    none of this collection's sources; the screen decks have `card.video` for a rights-holder's own
+    upload.
+  · **THE OVERLAPS ARE SMALL AND ALL IN DECK 1.** No plan names Martin or the series. France holds the
+    Hundred Years' War (30 cards), `wh-368 Hadrian's Wall` is shipped, Rome holds Hadrian and
+    Architecture his villa — and **the Wars of the Roses appear in no plan on the shelf**, which is a
+    gap in World History rather than an overlap. **The division of labour is that a history collection
+    cards the event and `wes-history` cards what a novelist made of it**; do not let that deck become
+    a second history collection.
+  · **THE GLOSSARY TRAP IS THE OPPOSITE OF MIDDLE-EARTH'S AND SHARPER.** Tolkien's vocabulary is
+    invented proper nouns claiming no English surface; **Martin's is ordinary English words used as
+    names** — Stark, Wall, Hand, Watch, North, Reach, Vale, Mountain, Hound, Crown, Throne, Winter,
+    Faith, Citadel, Storm. **`Stark` is the sharpest, being an ordinary English adjective the corpus
+    uses in its ordinary sense.** Key them `House_Stark`, `Hand_of_the_King`, `Night's_Watch` on
+    `Life_(biology)`'s rule. Not one of the 3,838 shipped terms is a Westeros term, but **`Citadel`,
+    `Crown_Dependency`, `Winter_War`, `Middle_Ages` and `Lion_Gate` all exist and mean something
+    else** — do not re-key any of them.
+  · **SOURCING IS THINNER AND YOUNGER THAN TOLKIEN'S AND MOSTLY PAYWALLED** — there is no *Mythlore*
+    here. The medievalists are the people to prefer on the realism question (*The Public Medievalist*
+    is free and is written by them), and DOAJ and OpenAIRE are worth searching before assuming a paper
+    is shut. Cite the novels by **chapter**, which is stable where pagination is not. **Martin's blog
+    and the *So Spake Martin* archive are evidence of intention and not of text** — the Architecture
+    plan's manifesto rule in a third medium — and **he has contradicted himself, so date the
+    statement**. A fan wiki is not a source.
+  · **AN IN-WORLD DATE IS WORSE THAN USELESS HERE**: "283 AC" parses as the year 283 and would file
+    Robert's Rebellion in the Roman empire. A card is dated by its TEXT, and **`undatable: true`
+    belongs on nearly every game-reachable card in decks 3–6**.
+  The next card to write is the lowest `wes-NNN` not yet in `data.js`; the index table under "THE
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
   only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
@@ -1632,7 +1703,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.43 MB and 49,972 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.43 MB and 50,008 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6899,6 +6970,7 @@ lookup.
 | The First World War | `ww1` | `ww1-` | `docs/ww1-card-plan.md` | 9 / 37 | empty |
 | Architecture | `arch` | `arch-` | `docs/architecture-card-plan.md` | 9 / 39 | empty — not a history collection |
 | Middle-earth | `middleearth` | `mid-` | `docs/middleearth-card-plan.md` | 9 / 40 | empty — fiction, not a history collection |
+| Westeros | `westeros` | `wes-` | `docs/westeros-card-plan.md` | 9 / 41 | empty — fiction, not a history collection |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
@@ -6926,7 +6998,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (379 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (391 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7887,7 +7959,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 379 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 391 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

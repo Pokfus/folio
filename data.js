@@ -12463,6 +12463,322 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "westeros",
+      "title": "Westeros",
+      "total": 0,
+      "children": [
+        {
+          "id": "wes-author",
+          "title": "The author and the making",
+          "total": 105,
+          "children": [
+            {
+              "id": "wes-martin",
+              "title": "George R. R. Martin",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "wes-history",
+              "title": "The history behind it",
+              "total": 32,
+              "cardIds": []
+            },
+            {
+              "id": "wes-writing",
+              "title": "Writing the books",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "wes-publish",
+              "title": "Publishing and the wait",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-books",
+          "title": "The books",
+          "total": 110,
+          "children": [
+            {
+              "id": "wes-agot",
+              "title": "A Game of Thrones",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-middle",
+              "title": "A Clash of Kings and A Storm of Swords",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "wes-later",
+              "title": "A Feast for Crows and A Dance with Dragons",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "wes-craft",
+              "title": "How the books are built",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-world",
+          "title": "The world",
+          "total": 115,
+          "children": [
+            {
+              "id": "wes-westeros",
+              "title": "Westeros",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "wes-essos",
+              "title": "Essos and beyond",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "wes-wall",
+              "title": "The North and the Wall",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-magic",
+              "title": "Seasons, magic and prophecy",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-maps",
+              "title": "Maps, measure and reckoning",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-houses",
+          "title": "Houses and peoples",
+          "total": 115,
+          "children": [
+            {
+              "id": "wes-great",
+              "title": "The great houses",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "wes-lesser",
+              "title": "Lesser houses and the regions",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-orders",
+              "title": "Orders, institutions and the faith",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "wes-beyond",
+              "title": "Peoples beyond the Seven Kingdoms",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-smallfolk",
+              "title": "Smallfolk, war and daily life",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-past",
+          "title": "The history of Westeros",
+          "total": 125,
+          "children": [
+            {
+              "id": "wes-dawn",
+              "title": "The Dawn Age to the Andals",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "wes-conquest",
+              "title": "Aegon's Conquest and the Targaryen kings",
+              "total": 32,
+              "cardIds": []
+            },
+            {
+              "id": "wes-dance",
+              "title": "The Dance of the Dragons",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "wes-blackfyre",
+              "title": "Blackfyre, Dunk and Egg",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "wes-rebellion",
+              "title": "Robert's Rebellion",
+              "total": 23,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-fivekings",
+          "title": "The War of the Five Kings",
+          "total": 90,
+          "children": [
+            {
+              "id": "wes-war1",
+              "title": "From the Hand's death to the Green Fork",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "wes-war2",
+              "title": "The riverlands and the Blackwater",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-war3",
+              "title": "The Red Wedding and after",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-war4",
+              "title": "Where the published books leave it",
+              "total": 22,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-reading",
+          "title": "Reading the books",
+          "total": 105,
+          "children": [
+            {
+              "id": "wes-themes",
+              "title": "The themes",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "wes-arguments",
+              "title": "The arguments",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "wes-violence",
+              "title": "Violence, sex and what the books are doing",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "wes-genre",
+              "title": "Fantasy after Martin",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-screen",
+          "title": "The screen",
+          "total": 125,
+          "children": [
+            {
+              "id": "wes-got",
+              "title": "Game of Thrones",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "wes-diverge",
+              "title": "Where the show left the books",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "wes-ending",
+              "title": "The ending and the reaction",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "wes-hotd",
+              "title": "House of the Dragon and after",
+              "total": 22,
+              "cardIds": []
+            },
+            {
+              "id": "wes-making",
+              "title": "Making the show",
+              "total": 18,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "wes-franchise",
+          "title": "The franchise",
+          "total": 110,
+          "children": [
+            {
+              "id": "wes-games",
+              "title": "Games",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "wes-companion",
+              "title": "Companion books and the world guides",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "wes-fandom",
+              "title": "Fandom and theory",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "wes-business",
+              "title": "The business and the law",
+              "total": 18,
+              "cardIds": []
+            },
+            {
+              "id": "wes-legacy",
+              "title": "What came after",
+              "total": 17,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-world",
       "title": "World Geography",
       "total": 468,
