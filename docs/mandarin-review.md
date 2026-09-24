@@ -694,6 +694,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 781–810 (空闲 → 牢), deck order | 24 | **ten single-character cards in one range, and the transliteration class three more times** — broccoli on 兰花, Greifswald on 赖, a quart on 夸 |
 | 2026-09-24 | `hsk30l6` notes 811–840 (劳动力 → 凌晨), deck order | 20 (+1 out of range) | **three single-character cards with no sentence using the character on its own** — 立, 料, and 雷 after its third went; and a `not X` hint pair that was hiding a wrong gloss |
 | 2026-09-24 | `hsk30l6` notes 841–870 (流程 → 码头), deck order | 24 | **nine near-repeats, and glosses taken off the top of CC-CEDICT** — 流程 "course", 漏洞 "leak", 路程 "route", and 流量 led with two senses its sentences never used |
+| 2026-09-24 | `hsk30l6` notes 871–900 (蚂蚁 → 描绘), deck order | 20 | **迈 was three sentences about somebody called Mike** — and 密's three were 告密, 密室 and 频密; a gloss cut off mid-phrase on 嘛 |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11924,3 +11925,41 @@ stream; sequence of processes* — which is the proxy disagreeing with a correct
 Coverage: 11,532 notes at three sentences; same-sentence-twice drops 143 → 142 (流动); 315 shared-gloss groups,
 still-ambiguous 1 (邻居/街坊). `check-british` reads 0. **Verified against the real diff: 24 of 30 changed and
 nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 159 — `hsk30l6` notes 871–900 (蚂蚁 → 描绘)
+
+**The transliteration class again, at full strength: 迈's three sentences were all 迈克, *Mike*** — "How are
+you, Mike?", "Mike asked not to be disturbed", "I call him Mike" — a card for *to step, to stride* on which
+the character means nothing. All three replaced by AUTHORED sentences (迈过门槛, 迈不开步, 迈着大步). 密 had the
+same fault in the other shape: its three were 告密, 密室 and 频密, each a word of its own, so the card never
+used 密 once. Replaced, split into *dense* / *close, intimate* / *secret (bound form)*, and tagged.
+
+**A gloss cut off mid-phrase.** 嘛 read "[indicates that something is obvious; calls for the" — the second
+half gone. Split into CC-CEDICT's *obvious* sense and the softened request 你亲自去嘛 actually shows; its
+first sentence was 干嘛, a word of its own, and is replaced.
+
+**Swallows**: 埋头 on 埋, 冒烟 on 冒 (a word CC-CEDICT lists), 免责声明 on 免, and on read-back **this record's own
+免疫力 on 免疫** — caught only because the dictionary was asked about the sentence I was keeping. 冒's gloss
+named *to counterfeit*, which only 冒充 means; it is split into the two senses its sentences use, and 冒充 put
+in its Compounds. 免 gained *to remove from office*, and 免疫 was a VERB glossed "immunisation" — now split into
+the noun and the verb.
+
+**Sentences that were not good Chinese.** 煤's 原材料的价格如石油或者煤的不停地上升 is ungrammatical; 漫长's 五年太
+漫长而无法等待 is a calque of *too long to wait*; 密集's first ran to 57 characters of translationese about
+qipao tailoring. 贸易's 一间贸易公司 counts a company with 间, the southern and Taiwan usage. 眉毛's "Mary has
+green eyebrows" taught nothing. All replaced.
+
+**Near-repeats, three of them this record's own**: 棉 (是棉的 twice), 密度 (population density twice), 免税
+(the duty-free shop twice, the first the deck's).
+
+**Englishes**: 面子's 你就是要面子 was "You're only saving face!", the wrong way round; 盲人's said "blind men";
+漫长's "oh so long"; 冒's "Smoke appeared"; 贸易's "The activity of foreign trade". Three glosses gained their
+"to" (冒险, 弥补, 描绘), 描绘 losing "display", which no sentence does.
+
+**Ten cards were read and left**: 蚂蚁, 麦克风, 漫画, 梅花, 美观, 迷人, 蜜蜂, 勉强, 面部, 面粉. 漫画's 漫画书 is not a
+CC-CEDICT headword and was left. Seven Compounds panels written (埋, 迈, 冒, 煤, 密, 棉, 免), 埋's noting
+that 埋怨 is read mán.
+
+Coverage: 11,532 notes at three sentences; 315 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
+`check-british` reads 0; `check-gloss-source.js` loses 免疫. **Verified against the real diff: 20 of 30 changed
+and nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
