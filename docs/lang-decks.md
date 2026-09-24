@@ -4149,9 +4149,11 @@ and "license plates" are now British, with A&E, rucksack, town hall and number p
 - `la niebla`'s *ya no es más* was a calque of "no longer".
 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 23 → 22. The one
-card of this batch left on it is `las urgencias`, a FALSE POSITIVE of a new kind. Its gloss reads "A&E"
-while the examples' English is stored HTML-escaped, *A&amp;E*, so the two never tokenise alike. **A gloss
-carrying an ampersand will always be reported.**
+card of this batch left on it is `las urgencias`, a FALSE POSITIVE. Its gloss's key term, "A&E", breaks
+into single letters, which the checker drops as too short; its other words, "casualty" and "hospital",
+are not in the examples, which all say "A&E". (A first draft of this entry blamed HTML escaping. The
+checker decodes `&amp;` before comparing, so that was wrong, and it was caught by reading the script
+before committing the claim.)
 
 ## The language-deck catalogue — the Update press and the frequency order
 
