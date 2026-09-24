@@ -687,6 +687,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 571–600 (患 → 激发), deck order | 15 (+1) | **two of 会见's three sentences were 会 + 见**, their own translations saying so; a gloss fix retired a third `not X` pair |
 | 2026-09-24 | `hsk30l6` notes 601–630 (基金 → 加重), deck order | 18 | **夹: not one of its three sentences used the verb the card teaches**, one of them a loanword in which the character means nothing — and two replacements drafted here carried back the very fault they replaced |
 | 2026-09-24 | `hsk30l6` notes 631–660 (假设 → 奖品), deck order | 26 | **eight cards whose headword sat only inside a longer word** (尖叫 twice, 利剑, 箭头, 一箭双雕, 四体健全者) or in a sentence that was not Chinese, and seven near-repeats, three of them this record's own |
+| 2026-09-24 | `hsk30l6` notes 661–690 (酱 → 借助), deck order | 27 | **酱 and 解: not one of either card's three sentences used the character on its own**, and three glosses were cut off mid-phrase or were not the word's meaning at all |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11602,3 +11603,55 @@ out of range), where `check-example-fit.js` already flags it as a 国民 + 众 s
 Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1
 (邻居 / 街坊, carried). `check-british` reads 0. **Verified against the real diff: 26 of 30 changed and
 nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 152 — `hsk30l6` notes 661–690 (酱 → 借助), 2026-09-24
+
+Twenty-seven of the thirty changed. **Two single-character cards had not one sentence using the
+character on its own** — the shape batch 150 found for 夹, arriving twice more. **酱**'s three were
+蛋黄酱 "mayonnaise" twice (one of them the joke "Is mayonnaise an instrument?") and 花生酱 "peanut
+butter"; **解**'s were 解决, 解压 and the proverb 解铃还须系铃人, all three words of their own in
+CC-CEDICT. Both cards were rebuilt: three AUTHORED sentences each, glosses split by sense (解 into
+*untie*, *solve* and the noun *solution*, one sentence per sense and tagged), and `Compounds` panels in
+which the words that had swallowed the headword now live where they belong. **`check-example-fit.js`
+skips one-character headwords by design, so nothing but reading finds this**, and it has now been found
+on three cards in three batches.
+
+**Three glosses were not the word, and two were cut off.** 截止 was **"to put a stop to something"**,
+which it does not mean (CC-CEDICT: *to end; to close*) — and all three of its sentences were 截止日期
+"deadline", so the card never showed the verb its label claimed; two authored sentences now do
+(报名下周五截止, 投票已经截止了). `check-gloss-source.js` had it in its list; this is the first batch to
+reach it. 酱's gloss ended **"made from fermented beans,"** — a trailing comma, the phrase cut — and
+借鉴's ended **"draw on the"**. 戒指 read "ring [jewellry]", misspelt inside square brackets. Smaller:
+解读 was "to decipher" over three sentences that interpret, 解答 lacked "to answer", 节奏 lacked the
+"pace" its own sentence uses, 交际 had a verb label over "social intercourse", and 教训 named only the
+noun while its second sentence is the verb *scolded* — split and tagged.
+
+**Two English translations had the numbers wrong.** 截至's first sentence said **2006 for 二零零七年**
+and **"three million, seven hundred and forty one thousand" for 三千七百四十一万**, which is 37.41
+million — a factor of ten, on the card's longest sentence, and one of two near-identical 60-character
+statistics sentences besides. Dropped. 较为's English dropped the word the card teaches ("the
+conservative Republican Party" for 较为保守的共和党), 杰出's said "challenging" for 给人启发的, 交际's
+invented "socialisers", and 郊外's own authored English put a walk OUT of town into the suburbs.
+
+**Four sentences were not good Chinese.** 接连's 57-character sentence had a character error (分部 for
+分布) that left 更分部广的 ungrammatical; 胶水's 是用胶水黏在一起 was missing the 的 that closes 是 … 的;
+借助's 没有借助他人协助 says *help* twice; 交际's 参加跟外国人交际谈判 was a run-on fragment. 街头's
+news fragment and 焦虑's 焦虑感 sentence (English: "Mennad's anxiety was kicking") went with them.
+
+**Nine near-repeats, five of them this record's own authored sentences** — the lesson batch 151 recorded,
+arriving again: 胶带 (请 taken off, otherwise identical), 焦点 (成了 … 焦点 twice), 节能 (很节能 with the
+appliance changed), 解读, 解说 (他为 … twice), and 借鉴 (experience twice). From the deck: 酱油 (the
+same recipe step twice), 角落 (世界的…角落 twice) and 脚印 (three people finding footprints). And 解放's
+own authored 解放龟岛！ was an activist slogan that taught nothing.
+
+**One replacement was itself redrafted before anything shipped**: 借助望远镜，我们看到了… opened on
+借助 exactly as the card's first sentence 借助工具会更省力 does. It became 要借助轮椅才能行动.
+
+**Three cards were read and left**: 交谈, 结实, 结尾. One question is recorded rather than answered:
+**教训**'s pinyin writes *jiào xùn* where its bopomofo and CC-CEDICT both give a neutral second
+syllable; both readings are current and this audit does not settle tone disagreements as a class.
+
+Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1.
+The three hint pairs in range (焦虑/着急, 脚印/足迹, 街头/马路) are untouched, their glosses unchanged.
+`check-british` reads 0. **Verified against the real diff: 27 of 30 changed and nothing outside the
+range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
