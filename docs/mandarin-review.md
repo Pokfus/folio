@@ -700,6 +700,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 961–990 (赔偿 → 坡), deck order | 25 | **片面 illustrated by 一片面包 "a slice of bread" twice**, 披 by pizza and the Beatles, and 喷 and 坡 swallowed three times each |
 | 2026-09-24 | `hsk30l6` notes 991–1020 (泼 → 谦虚), deck order | 22 | **恰恰's three sentences were all the set phrase 恰恰相反**; 扑 glossed "dedicate all one's energies to a cause"; 铺 illustrated by 床铺, read pù |
 | 2026-09-24 | `hsk30l6` notes 1021–1050 (前景 → 清醒), deck order | 22 | **two generalisations about a people on 勤劳, one about a class on 倾向**; 切实's 切实可行 twice; eleven glosses repaired |
+| 2026-09-24 | `hsk30l6` notes 1051–1080 (情节 → 人工智能), deck order | 20 | **权力 'power' used for 权利 'a right'**; 券 swallowed three times over; 热点 illustrated by 热点儿 'a bit hot' |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12139,3 +12140,31 @@ no sense; 亲属's sentence hung on a Japanese surname; 桥梁's 43-character ko
 Coverage: 11,532 notes at three sentences; 313 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
 `check-british` reads 0; `check-gloss-source.js` loses 清理 and 倾向. **Verified against the real diff: 22 of 30
 changed and nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 165 — `hsk30l6` notes 1051–1080 (情节 → 人工智能)
+
+**A near-homophone confusion presented as an example.** 权力's 妇女有选择的权力 "Women have the right to choose"
+uses 权力 *power* where the sentence means 权利 *a right* — the two are both quán lì, and the card exists partly
+so a learner keeps them apart. Replaced. **The straddle class once more**: 热点's 天气热点儿没关系 is 热 *hot* +
+点儿 *a little*, the headword's characters and not the word.
+
+**券 had three sentences and all three were compounds** — 餐券, 优惠券, 代金券 — on a card whose character is rarely
+free. Three AUTHORED sentences use it on its own (凭券入场, 这张券, 一张券). 圈 lost 圆圈 and 甜甜圈 and now shows the
+measure word for laps; 曲 lost 作曲 and 作曲家, and its qū reading, which had no sentence, got one; 染 lost 染上;
+求职 lost 求职者.
+
+**Englishes that said something else**: 热门's said *the network* for 大数据 *big data*; 缺陷's *inconveniences*,
+with 满 for 蛮 in the Chinese; 权力's *I am devoid of power*; 曲's proverb was rendered *No day without a line*,
+a different proverb. **Translationese**: 情形's lawyer, 渠道's first, 娶's 聪明到不会娶她, 热门's 得标的热门队.
+
+**Near-repeats, four of them this record's own**: 求救, 趣味, 热度, 热水器; and from the deck 晴朗, 求助, 区分.
+**Glosses**: 渠道 now leads with the figurative *channel* two sentences use; 热门 was labelled a NOUN over three
+predicate adjectives; 区分, 趣味, 热度, 热点, 染, 娶, 晴朗 gained what their sentences show.
+
+**Ten cards were read and left**: 情节, 求婚, 取代, 全程, 确立, 群众, 燃料, 热线, 热议, 人工智能.
+`check-example-fit.js` flags 趣味's 很有趣味 as 有趣 + 味 — that is 有 + 趣味, a false positive. Five Compounds panels
+written (求, 曲, 圈, 券, 染).
+
+Coverage: 11,532 notes at three sentences; 313 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
+`check-british` reads 0. **Verified against the real diff: 20 of 30 changed and nothing outside the range.**
+`build-lang-decks.js` re-run. No changelog line and no version bump.
