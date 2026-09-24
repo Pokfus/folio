@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.886", released: "2026-09-24T17:46Z" };
+window.FOLIO_VERSION = { v: "1.891", released: "2026-09-24T21:18Z" };
 
 window.CHANGELOG = [
   {
@@ -45,8 +45,10 @@ window.CHANGELOG = [
       "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
       "<b>Seventy new cards in the Ancient Greece collection</b>, on Greek myth, the journey home from Troy and Greek worship from sacrifice to the mysteries, with sixty-three new glossary terms.",
       "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
+      "<b>A study card now says whether it is NEW, REVIEW or REPEAT</b> on a tablet or desktop, where it used to show only a coloured dot.",
       "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",
-      "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades.",
+      "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades of blue.",
+      "<b>A finished deck's icon turns green or gold with its row</b>, and a card's three-day dots use the bar's two blues, going deep blue once learned.",
       "<b>Who said it? deals three quotations a day</b>, each explanation cites its sources, and editors can take a quotation out of the game.",
       "<b>The Think it through questions show on every card</b>, not only the first time you meet one.",
       "<b>The home page says plainly when you are not signed in</b>, so progress kept only on this device does not come as a surprise.",
@@ -57,7 +59,7 @@ window.CHANGELOG = [
       "One Ancient Rome card is replaced by a card on the Conference of Naupactus, and twelve cards across eight collections have their dates or wording corrected.",
       "Fifty-three Politics: East Asia cards gain a picture, and a Second World War card gets a better portrait.",
       "Twenty cards gain or redraw their atlas window \u2014 mountain chains as ranges, and empires and cultures as the ground they held.",
-      "<b>The Collections page is redesigned like a magazine</b> \u2014 each collection is a cover, the one you are reading leads the page, and Compact brings the list back.",
+      "<b>The Collections page is back to its list layout</b> \u2014 the magazine-style redesign is withdrawn for now.",
       "<b>Flags is a new deck of World Geography</b> \u2014 two hundred and twenty-nine cards, each showing a flag for you to name.",
       "<b>Draw the flags is a second new deck</b> \u2014 it names a country and you draw its flag on a canvas of its own, with pens, a fill and any colour you like.",
       "<b>A flag card shows the flag once and keeps its source off the card</b> \u2014 the credit is there when you tap the flag to enlarge it.",
