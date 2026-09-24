@@ -386,9 +386,9 @@
      It carries its own name rather than being decoration: three colours a reader has to learn are three
      colours a screen reader cannot see at all, so the dot is a `role="img"` with the state in words. */
   const CARD_STATE = {
-    new: ["q-new", "New card"],
-    learn: ["q-learn", "Being learned"],
-    review: ["q-review", "Up for review"],
+    new: ["q-new", "New card", "New"],
+    learn: ["q-learn", "Being learned", "Repeat"],
+    review: ["q-review", "Up for review", "Review"],
   };
   function cardStateOf(id) {
     const c = S.cards[id];
@@ -397,7 +397,9 @@
   }
   function cardStateDotHTML(id) {
     const k = CARD_STATE[cardStateOf(id)];
-    return '<span class="q-dot ' + k[0] + '" role="img" aria-label="' + esc(k[1]) + '" title="' + esc(k[1]) + '"></span>';
+    // The word is drawn from a tablet up and hidden on a phone, where the chip shrinks back to a dot;
+    // the aria-label carries the state either way, so the word is aria-hidden rather than read twice.
+    return '<span class="q-dot ' + k[0] + '" role="img" aria-label="' + esc(k[1]) + '" title="' + esc(k[1]) + '"><span class="q-dot-t" aria-hidden="true">' + k[2] + '</span></span>';
   }
   function cardStarsHTML(c) {
     const d = cardDifficultyShown(c);
