@@ -344,12 +344,13 @@ const server = http.createServer((req, res) => {
   ok("…and does not paint the alt text at full size in it", dead.imgShown === "none", dead.imgShown);
   flagBlocked = false;
 
-  /* ---------- 5. it is a DECK of World Geography, not a collection ------------------------- */
-  sect("5. it is a third deck of World Geography");
-  /* IT SHIPPED AS A COLLECTION AND WAS MOVED ON REQUEST (Sep 2026: "Flags should be a subdeck of the
-     World geography collection"). Asserted BOTH WAYS: a deck row under `geo-world`, and no collection
-     of its own — a leftover `flags` collection node would draw a second, empty shelf row and nothing
-     would throw. */
+  /* ---------- 5. Flags is a collection of its own, in the Geography section ------------------- */
+  sect("5. Flags is its own collection");
+  /* IT HAS MOVED TWICE, BOTH TIMES ON REQUEST: it shipped as a collection, spent a week as two decks of
+     World Geography, and is a collection again (Sep 2026: "give them their own collection named Flags in
+     the geography section"). Asserted BOTH WAYS: a Flags collection in the Geography section holding the
+     two decks, and NO flag deck left inside World Geography — a leftover would draw the same cards under
+     two collections and nothing would throw. */
   await page.goto("http://localhost:" + PORT + "/?c=" + (++visit) + "#decks");
   await page.waitForSelector(".collection", { timeout: 20000 });
   await page.waitForTimeout(300);
@@ -357,35 +358,34 @@ const server = http.createServer((req, res) => {
     /* THE CHEVRON, NOT THE ROW. Clicking a collection's body STUDIES its whole subtree (see
        `wireExpander`'s `rowClick`), so a click on the row navigates away and the deck is never found —
        which reads as the deck being absent. */
-    const gw = [...document.querySelectorAll('[data-libitem="geo-world"]')][0];
-    const chev = gw && gw.querySelector(".collection-actions > .chev");
-    if (chev) chev.click();
+    const open = (id) => { const c = document.querySelector('[data-libitem="' + id + '"]'); const ch = c && c.querySelector(".collection-actions > .chev"); if (ch) ch.click(); return c; };
+    const gw = open("geo-world"), fl = open("flags");
     await new Promise((r) => setTimeout(r, 500));
-    const deck = [...document.querySelectorAll('[data-libitem="flags-world"]')][0];
     const geo = document.getElementById("collection-list-geo");
+    const within = (c) => c && c.closest(".collection");
+    const decks = (c) => c ? [...within(c).querySelectorAll(".node[data-libitem], [data-libitem]")]
+      .filter((n) => n !== c && n.dataset.libitem !== c.dataset.libitem)
+      .map((n) => ((n.querySelector(".node-title") || {}).textContent || "").trim()).filter(Boolean) : [];
     return {
-      noCollection: !document.querySelector('[data-libitem="flags"]'),
-      deckThere: !!deck,
-      title: deck ? (deck.querySelector(".node-title") || deck.querySelector(".collection-title") || {}).textContent || "" : "",
+      flThere: !!fl,
+      flInGeo: !!(fl && geo && geo.contains(fl)),
       gwInGeo: !!(gw && geo && geo.contains(gw)),
-      deckUnderGW: !!(deck && gw && gw.closest(".collection") && gw.closest(".collection").contains(deck)),
-      hue: deck ? getComputedStyle(deck).getPropertyValue("--coll-bg").trim() : "",
-      siblings: [...document.querySelectorAll('[data-libitem^="geo-world"], [data-libitem="flags-world"]')]
-        .filter((n) => n.dataset.libitem !== "geo-world")
-        .map((n) => ((n.querySelector(".node-title") || {}).textContent || "").trim()),
+      flTitle: fl ? ((fl.querySelector(".collection-title") || {}).textContent || "").trim() : "",
+      flDecks: decks(fl),
+      gwDecks: decks(gw),
+      flIcon: !!(fl && fl.querySelector(".coll-ic svg")),
+      hue: fl ? getComputedStyle(within(fl)).getPropertyValue("--coll-bg").trim() : "",
     };
   });
-  ok("there is no Flags COLLECTION on the shelf", shelf.noCollection);
-  ok("…World Geography is still in the Geography section", shelf.gwInGeo);
-  ok("…and Flags is a deck inside it", shelf.deckThere && shelf.deckUnderGW, [shelf.deckThere, shelf.deckUnderGW]);
-  /* AND UNDER A NAME OF ITS OWN. It shipped as "The countries and territories", which is its new
-     SIBLING's title — two decks of one collection under one name, which reaches a reader as a card
-     breadcrumb naming the wrong deck and which no checker looks at. */
-  ok("…under a name that is not its sibling's", /^\s*the flags\s*$/i.test(shelf.title), shelf.title.trim().slice(0, 50));
-  ok("…and its siblings keep theirs", shelf.siblings.join(" | ") === "The countries and territories | The capitals | The flags", shelf.siblings);
-  /* A DECK HAS NO HUE OF ITS OWN and inherits its collection's, which is what made four app.js rows
-     unnecessary when it moved. */
-  ok("…taking World Geography's hue rather than one of its own", shelf.hue === "#106834", shelf.hue);
+  ok("there is a Flags collection", shelf.flThere);
+  ok("…named Flags", /^flags\b/i.test(shelf.flTitle), shelf.flTitle.slice(0, 40));
+  ok("…in the Geography section", shelf.flInGeo);
+  ok("…holding the two flag decks", shelf.flDecks.join(" | ") === "The flags | Draw the flags", shelf.flDecks);
+  ok("World Geography is still in the Geography section", shelf.gwInGeo);
+  ok("…and holds no flag deck any more", shelf.gwDecks.join(" | ") === "The countries and territories | The capitals", shelf.gwDecks);
+  /* A COLLECTION WEARS ITS OWN MARK AND ITS OWN HUE — the two rows it gave up when it became a deck. */
+  ok("Flags wears its own icon", shelf.flIcon);
+  ok("…and its own hue rather than World Geography's", shelf.hue === "#9C5A96", shelf.hue);
 
   ok("no console errors anywhere in the run", errs.length === 0, errs.slice(0, 3));
   await browser.close();

@@ -1840,19 +1840,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     were guessed while writing its table and both were wrong, one an asteroid and one a village in
     Botswana.
 - **📖 `docs/flags-card-plan.md` — READ BEFORE WRITING AN `fl-` CARD, OR BEFORE TOUCHING THE FLAG-CARD
-  FORMAT.** The running order for **Flags** (`flags-world`), **a third DECK of World Geography** — it
-  shipped as a collection of its own and was moved under `geo-world` on request (Sep 2026). **233 cards**,
+  FORMAT.** The running order for **The flags** (`flags-world`), **the first deck of the Flags collection**
+  (`flags`, in the Geography section) — it shipped as a collection of its own, was moved under
+  `geo-world` on request, and was given its own collection back a week later, also on request (Sep 2026). **233 cards**,
   the flag of every country and territory, and the reader names it. The twenty-first plan, **the first
-  that is a DECK's rather than a collection's**, and **the only one whose answer side is another deck's**
+  that is a DECK's rather than a collection's** (Flags carries two), and **the only one whose answer side is another deck's**
   — `fl-NNN` is the same entity as `gw-NNN`, in the same population order, and copies its twin's term,
   date line, facts grid, background and citations verbatim, on request ("the answer side of the card can
   be directly the same as the ones in the World geography collection"). So a card costs a flag file, a
   licence, an authored description and a copy, and **no research and no glossary work at all**.
-  **BEING A DECK RATHER THAN A COLLECTION COST FOUR ROWS AND BOUGHT A RULE**: `COLLECTION_SECTION`,
-  `COLLECTION_ICON`, `COLLECTION_TARGET` and `COLL_THEME` each lost their `flags` entry (the deck
-  inherits `geo-world`'s deep green, and a deck inside a collection carries no icon — see `adIconKey`),
-  `geo-world`'s target went 471 → 704, and **`test-card-plans.js` is now keyed by PLAN SLUG rather than
-  by collection id**, because a collection can carry two plans and keyed the old way the two could not
+  **A COLLECTION COSTS FOUR ROWS, AND THE WEEK AS A DECK BOUGHT A RULE**: `COLLECTION_SECTION`,
+  `COLLECTION_ICON` (`flag`), `COLLECTION_TARGET` (466) and `COLL_THEME` each carry a `flags` row, and
+  `geo-world`'s target is back to 471. **Its hue is NOT the sage grey it first wore** — the First World
+  War's field grey arrived in the meantime at 7.3 from it — but an orchid, `#9C5A96`, the one region
+  above the shelf's median separation that is not a sixth green-olive-brown in the Geography section;
+  the measurement is in its `COLL_THEME` comment. **A boot migration puts the `flags` entry back over
+  `flags-world` and `flags-draw`** for a reader holding both (added with World Geography that week), or
+  they would be drawn as loose rows. And **`test-card-plans.js` is keyed by PLAN SLUG rather than by
+  collection id**, because a collection can carry two plans and keyed the old way the two could not
   both be declared. Five things in it are decisions rather than lists. **THE FORMAT REUSES `answerFlag` PLUS ONE BOOLEAN, `flagCard`** — the
   field already refuses an uncredited `src`, already rides the serializer and `revertCard`, and already
   enlarges — and **the boolean may not be called `flag`**, `cardFlag(id)` being the READER's 1–7 marker
@@ -1997,8 +2002,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     first card away: the tools do not read the plan, so a rule a plan exempts needs the exemption
     written into the tool in the same commit. Not part of the site.
 - **📖 `docs/flags-draw-card-plan.md` — READ BEFORE WRITING AN `fd-` CARD, OR BEFORE TOUCHING THE
-  DRAW-CARD FORMAT.** The running order for **Draw the flags** (`flags-draw`), the **fourth deck of World
-  Geography** and the Flags deck run backwards: `fl-007` shows Brazil's flag and asks whose it is, `fd-007`
+  DRAW-CARD FORMAT.** The running order for **Draw the flags** (`flags-draw`), the **second deck of the
+  Flags collection** and the Flags deck run backwards: `fl-007` shows Brazil's flag and asks whose it is, `fd-007`
   names Brazil and asks the reader to draw the flag from memory on a canvas with its own pens, colours and
   a fill, and then to reveal it and judge how close they came. The twenty-second plan, and the second that
   is a DECK's rather than a collection's. Shipped Sep 2026 on request ("Make a reverse version of each card
@@ -2019,7 +2024,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **IT IS A SEPARATE DECK RATHER THAN AN OPTION ON THE FIRST ONE.** A language deck gets both
     directions out of one note through its templates and `deckPairNew` lets a reader turn one off; curated
     cards have no note layer, so the reverse has to be a card of its own — and once it is a card, a deck
-    is what gives the reader that same choice. `geo-world`'s `COLLECTION_TARGET` went 704 → 937 with it.
+    is what gives the reader that same choice. The Flags collection's `COLLECTION_TARGET` is 466, both decks.
   · **THE PAD IS ITS OWN CANVAS WITH ITS OWN MENU, AND THE FLOATING MARKER IS NOT INVOLVED** (Sep 2026,
     on request: "keep the floating marker separate, simply put a separate whiteboard menu in the top of
     the white canvas which can only be used within that canvas, and also includes a fill option to fill
@@ -4530,7 +4535,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     every visit and undismissably, after a reader studied for an hour without knowing they were signed
     out. **`guestNow` reads the STORED session as well as the live one**, `supaBoot` being asynchronous —
     without that the notice would flash for every signed-in reader on each load.
-  · **WHO SAID IT? DEALS THREE ROUNDS, IS CITED, AND AN ADMIN CAN REMOVE A QUOTATION** (`WS_ROUNDS = 3` /
+  · **WHO SAID IT? DEALS FIVE ROUNDS, IS CITED, AND AN ADMIN CAN REMOVE A QUOTATION** (`WS_ROUNDS = 5` /
     `whoSaidPool` / `ADMIN_EDITS.whosaidOff` / `whoSaidAdminHTML`). `quotes.js` entries take a `src` array
     and a marker in `context`, rendered through True or False's own `tfWireWhy`; the removal list is a
     second section of Admin → Quotes and rides the overlay like any other admin edit.
@@ -7480,6 +7485,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **"Copy as JS" hands the whole pool back as the `SHIPPED_QUOTES` literal**, for pasting into app.js when
     a batch is settled. It is the bake path this tab has instead of `autoSaveFiles`, which writes data files
     and **must never be pointed at app.js**.
+  **…AND A THIRD LIST, "Myth or fact?", EDITS AND REMOVES THE TRUE OR FALSE POOL** (Sep 2026, on
+  request). `truefalsePool()` is the game's one door, as `whoSaidPool()` is Who said it?'s, over
+  `ADMIN_EDITS.truefalse` — keyed by the statement's SHIPPED `q`, a value being the whole replacement
+  `{ q, a, why, cat, src }` or `null` for removed. The overlay key must stay in `normalizeAdminEdits`.
+  Saving the shipped wording back clears the edit; the form refuses a source with no URL and a marker
+  past the end of the list, as `check-truefalse.js` does. **`truefalse.js` is never rewritten by the
+  app** — an edit lives in the overlay and reaches readers through `content_overrides`.
   **A TAB THAT TAKES OVER THE ADMIN AREA MUST LIFT THE ≤860px PANEL CAP** (Aug 2026, on a bug report).
   `.admin-list-items` is capped at `max-height:300px` on a phone, which is right for the Cards and Glossary
   lists — they are one column of a two-column layout — and traps a whole page in a 300px scroll box for a tab
@@ -7929,9 +7941,9 @@ that collection's plan, research it, and add it** with `node .claude/add-card.js
 which is `cn-myth`, in China. The bullets below each collection give the reasoning; this table is the
 lookup.
 
-**ONE ROW PER PLAN, AND A COLLECTION MAY HAVE TWO** — World Geography does, its Flags deck having a
-running order, a numbering and a card format of its own — so the `id` and the deck counts repeat on both
-of its rows, which is the truth about that collection rather than a duplicate. `test-card-plans.js` is
+**ONE ROW PER PLAN, AND A COLLECTION MAY HAVE TWO** — Flags does, its two decks each having a running
+order, a numbering and a card format of their own — so the `id` and the deck counts repeat on both of its
+rows, which is the truth about that collection rather than a duplicate. `test-card-plans.js` is
 keyed by PLAN SLUG for the same reason; keyed by collection the two could not both be declared.
 
 | collection or deck | id | prefix | plan | decks / leaves | state |
@@ -7963,9 +7975,9 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Ancient Mesopotamia | `mesopotamia` | `me-` | `docs/mesopotamia-card-plan.md` | 9 / 40 | empty |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
-| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 4 / 4 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
-| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 4 / 4 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** (Sep 2026) across 233 numbers — `fl-001`–`fl-233` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, whose numbers stay reserved, so the next-card command prints a deferral rather than work, one per `gw-` COUNTRY card and numbered to match it, see below |
-| Draw the flags | `geo-world` | `fd-` | `docs/flags-draw-card-plan.md` | 4 / 4 | **THE FLAGS DECK RUN BACKWARDS** (Sep 2026, on request) — the reader is given a canvas with its own pens, colours and a fill, and draws the flag from memory, then reveals it and judges themselves. A FOURTH deck of World Geography, so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** across 233 numbers — `fd-001`–`fd-233` less the DEFERRED `fd-036`, `fd-171`, `fd-180` and `fd-218`, which are the Flags deck's own four and are deferred here for the same reason one step on: a card that asks for a flag to be drawn and then shows it has nothing to show. `fd-NNN` is the same entity as `fl-NNN` and `gw-NNN` — in this collection the NUMBER is the entity and the PREFIX is the question asked about it, which is why it is NOT numbered +500 like the capitals, see below |
+| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
+| Flags | `flags` | `fl-` | `docs/flags-card-plan.md` | 2 / 2 | **A COLLECTION OF ITS OWN in the Geography section** (Sep 2026, on request, after a week as two decks of World Geography) — it carries two plans, so this row shares its id and deck counts with the one below; **COMPLETE, 229 of 229 writable** (Sep 2026) across 233 numbers — `fl-001`–`fl-233` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, whose numbers stay reserved, so the next-card command prints a deferral rather than work, one per `gw-` COUNTRY card and numbered to match it, see below |
+| Draw the flags | `flags` | `fd-` | `docs/flags-draw-card-plan.md` | 2 / 2 | **THE FLAGS DECK RUN BACKWARDS** (Sep 2026, on request) — the reader is given a canvas with its own pens, colours and a fill, and draws the flag from memory, then reveals it and judges themselves. The second deck of the Flags collection, so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** across 233 numbers — `fd-001`–`fd-233` less the DEFERRED `fd-036`, `fd-171`, `fd-180` and `fd-218`, which are the Flags deck's own four and are deferred here for the same reason one step on: a card that asks for a flag to be drawn and then shows it has nothing to show. `fd-NNN` is the same entity as `fl-NNN` and `gw-NNN` — in this collection the NUMBER is the entity and the PREFIX is the question asked about it, which is why it is NOT numbered +500 like the capitals, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | **COMPLETE, 162 of 162 writable** across 163 numbers — the 83 federal subjects and 79 of the 80 centres; **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION. **`gru-502` Krasnogorsk is DEFERRED, and its number stays reserved**: the deck's question asks for *the administrative centre of the federal subject shaded around it*, and no source of the kind this site cites says which city that is for Moscow Oblast — its own charter of 2022 names none, nor does any law on the state portal. A FACT refusal, `gw-596` Jerusalem's shape one level down, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
