@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,27 +877,31 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 956 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 956 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 957 of them"
     ]
    ]
   }
@@ -36756,6 +36760,571 @@
     [
      "Ha superado el miedo a volar.",
      "He's got over his fear of flying."
+    ]
+   ]
+  },
+  "deleb1/la infancia": {
+   "why": "The gloss is right. The second example's English dropped 'me' (reminds of my childhood).",
+   "exEn": [
+    [
+     "siempre me recuerda a mi",
+     "That song always reminds me of my childhood."
+    ]
+   ]
+  },
+  "deleb1/la recepción": {
+   "why": "The gloss did not give a hotel's reception desk, and the first example's English said 'front desk'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "reception",
+      "(hotel) reception desk"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "La llave se deja en",
+     "Leave the key at reception."
+    ]
+   ]
+  },
+  "deleb1/físico, física": {
+   "why": "The third example was the noun la física and is shared with la física earlier in B1. The gloss did not give the noun. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "physical"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el físico, la física — physicist",
+      "el físico — physique"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La física es una rama de la ciencia."
+   ],
+   "ex": [
+    [
+     "Hace ejercicio físico todos los días.",
+     "He does physical exercise every day."
+    ]
+   ]
+  },
+  "deleb1/el progreso": {
+   "why": "The gloss was a list. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "progress"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la ensalada": {
+   "why": "The gloss gave 'a genre of secular polyphonic music popular in 16th century Spain'. The first and third examples were the same sentence, and both said papas, Latin American for patatas.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "salad"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A él le gusta la ensalada de papas.",
+    "A ella le gusta la ensalada de papas."
+   ],
+   "ex": [
+    [
+     "De primero, una ensalada mixta.",
+     "For a starter, a mixed salad."
+    ],
+    [
+     "¿Aliño la ensalada con aceite y vinagre?",
+     "Shall I dress the salad with oil and vinegar?"
+    ]
+   ]
+  },
+  "deleb1/la cómoda": {
+   "why": "NONE OF THE THREE EXAMPLES WAS THE NOUN. Each was the adjective cómoda, 'comfortable' — a house, trainers, a bed — so the card taught a chest of drawers over three sentences about comfort.",
+   "dropEx": [
+    "Mi casa es más cómoda",
+    "zapatillas más cómodas",
+    "Mi cama es más cómoda"
+   ],
+   "ex": [
+    [
+     "Guardo los jerséis en la cómoda.",
+     "I keep my jumpers in the chest of drawers."
+    ],
+    [
+     "La cómoda tiene cuatro cajones.",
+     "The chest of drawers has four drawers."
+    ],
+    [
+     "Compramos una cómoda antigua.",
+     "We bought an antique chest of drawers."
+    ]
+   ]
+  },
+  "deleb1/por ejemplo": {
+   "why": "The gloss was a list. The first example is shared with la rosa in A2, and the third, '¿le gusta el idioma inglés?', gives por ejemplo nothing to be an example of. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "for example"
+     ]
+    ]
+   ],
+   "bold": [
+    "por ejemplo"
+   ],
+   "dropEx": [
+    "las flores, por ejemplo las rosas",
+    "le gusta el idioma inglés"
+   ],
+   "ex": [
+    [
+     "Hay muchas frutas tropicales, por ejemplo el mango.",
+     "There are many tropical fruits, for example the mango."
+    ],
+    [
+     "Puedes ir en tren, por ejemplo.",
+     "You could go by train, for example."
+    ]
+   ]
+  },
+  "deleb1/votar": {
+   "why": "The gloss is right. The second example was the noun voto.",
+   "dropEx": [
+    "tenía solo un voto"
+   ],
+   "ex": [
+    [
+     "¿A quién vas a votar?",
+     "Who are you going to vote for?"
+    ]
+   ]
+  },
+  "deleb1/ofrecer": {
+   "why": "The gloss was a list, 'to proffer' among it. The third example, 'tomó un trabajo ofrecido en Boston', is a calque.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to offer"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un trabajo ofrecido en Boston"
+   ],
+   "ex": [
+    [
+     "Nos ofrecieron un café.",
+     "They offered us a coffee."
+    ]
+   ]
+  },
+  "deleb1/el drama": {
+   "why": "The gloss gave 'tragedy, plight' and not the colloquial 'fuss'. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "drama"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hacer un drama — to make a fuss"
+     ]
+    ]
+   ]
+  },
+  "deleb1/informado, informada": {
+   "why": "The gloss is right. The first example, 'Es importante que yo sea informado', is a stiff passive no one uses.",
+   "dropEx": [
+    "que yo sea informado"
+   ],
+   "ex": [
+    [
+     "Está muy bien informado sobre política.",
+     "He's very well informed about politics."
+    ]
+   ]
+  },
+  "deleb1/en primer lugar": {
+   "why": "The gloss said 'first up'. The first example is shared with el lugar in A1, and none of the examples used the phrase to open a list of points, which is its main job. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "first of all, firstly"
+     ]
+    ]
+   ],
+   "bold": [
+    "en primer lugar"
+   ],
+   "dropEx": [
+    "terminar nuestra tarea en primer lugar"
+   ],
+   "ex": [
+    [
+     "En primer lugar, quiero daros las gracias.",
+     "First of all, I want to thank you."
+    ]
+   ]
+  },
+  "deleb1/eliminar": {
+   "why": "The gloss did not give 'to remove' or 'to delete', which two of the examples are.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to eliminate",
+      "to remove, to delete"
+     ]
+    ]
+   ]
+  },
+  "deleb1/causar": {
+   "why": "The gloss was a list. The second example was the noun causa and is shared with la lluvia in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cause"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "a causa de la lluvia"
+   ],
+   "ex": [
+    [
+     "El humo le causó problemas respiratorios.",
+     "The smoke caused him breathing problems."
+    ]
+   ]
+  },
+  "deleb1/el ala": {
+   "why": "The gloss is right. The first example is shared with la izquierda in A1, and the second with roto earlier in B1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine (el ala)",
+     [
+      "wing"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El ala izquierda de la paloma",
+    "las alas del águila estaba rota"
+   ],
+   "ex": [
+    [
+     "El pájaro batía las alas.",
+     "The bird was flapping its wings."
+    ],
+    [
+     "Las gallinas tienen alas pero apenas vuelan.",
+     "Hens have wings but can hardly fly."
+    ]
+   ]
+  },
+  "deleb1/la materia": {
+   "why": "The gloss was Wiktionary's definitions and did not give materia prima, which two of the examples were.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "subject (at school)",
+      "matter"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "materia prima — raw material"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Japón importa varias"
+   ],
+   "ex": [
+    [
+     "La materia puede ser sólida, líquida o gaseosa.",
+     "Matter can be solid, liquid or gas."
+    ]
+   ]
+  },
+  "deleb1/el casco": {
+   "why": "'crown (top part of a hat)' is not a sense a learner needs, and casco antiguo was missing. The first and third examples were one construction.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "helmet"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "casco antiguo — old town"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "requiere el uso del casco"
+   ],
+   "ex": [
+    [
+     "Vivimos en el casco antiguo de la ciudad.",
+     "We live in the old town."
+    ]
+   ]
+  },
+  "deleb1/realizar": {
+   "why": "The gloss did not warn that realizar is not 'to realise' (darse cuenta), nor give 'to fulfil'. The first example is shared with la física earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to carry out",
+      "to fulfil (a dream, a wish)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "note",
+     "not 'to realise' — that is darse cuenta"
+    ]
+   ],
+   "dropEx": [
+    "realizar un experimento de física"
+   ],
+   "ex": [
+    [
+     "Realizó su sueño de ser médico.",
+     "She fulfilled her dream of becoming a doctor."
+    ]
+   ]
+  },
+  "deleb1/el tigre, la tigresa": {
+   "why": "'angry or fierce person' is not a sense a learner needs. The first example had Carlos eaten by a tiger.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "tiger, tigress"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "se lo comió un"
+   ],
+   "ex": [
+    [
+     "El tigre es el felino más grande.",
+     "The tiger is the largest of the cats."
+    ]
+   ]
+  },
+  "deleb1/el rollo": {
+   "why": "The gloss gave 'coil' and not the colloquial senses, which are how the word is mostly used in Spain. The first example is shared with raro earlier in B1, and the other two were both a roll of film. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "roll",
+      "(colloquial) bore, drag (¡qué rollo!)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "buen rollo — good vibes"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "de buen rollo",
+    "nadie más manda rollos a revelar"
+   ],
+   "ex": [
+    [
+     "¡Qué rollo de película!",
+     "What a boring film!"
+    ],
+    [
+     "Compra un rollo de papel de cocina.",
+     "Buy a roll of kitchen paper."
+    ]
+   ]
+  },
+  "deleb1/molestar": {
+   "why": "The gloss was a list of six. The second example was the adjective molesto and is shared with el violín in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to bother, to disturb"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¿te molesta…? — do you mind…?"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "llevaba un violín parecía molesto"
+   ],
+   "ex": [
+    [
+     "¿Le molesta si abro la ventana?",
+     "Do you mind if I open the window?"
+    ]
+   ]
+  },
+  "deleb1/colgar": {
+   "why": "The gloss is right. The second example is shared with la toalla and the third with la pared, both in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Cuelga tu toalla",
+    "colgado en la pared"
+   ],
+   "ex": [
+    [
+     "Colgó el abrigo en la percha.",
+     "He hung his coat on the hook."
+    ],
+    [
+     "No me cuelgues, por favor.",
+     "Please don't hang up on me."
+    ]
+   ]
+  },
+  "deleb1/el símbolo": {
+   "why": "'creed' is not a sense a learner needs. The first example is shared with el rey in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "symbol"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el símbolo de los reyes"
+   ],
+   "ex": [
+    [
+     "Este edificio es un símbolo de la ciudad.",
+     "This building is a symbol of the city."
+    ]
+   ]
+  },
+  "deleb1/participar": {
+   "why": "The gloss gave 'to partake', and the third example's English said it too.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to take part, to participate"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "participarán en la obra de teatro",
+     "All the students will take part in the play."
+    ]
+   ]
+  },
+  "deleb1/la lana": {
+   "why": "The gloss is right. The second example wrote está without its accent, and the third's English turned un traje into 'a wool dress'.",
+   "dropEx": [
+    "Esta ropa esta hecha"
+   ],
+   "exEn": [
+    [
+     "limpiar un traje de",
+     "How much does it cost to clean a wool suit?"
+    ]
+   ],
+   "ex": [
+    [
+     "Mi abuela me tejió un jersey de lana.",
+     "My grandmother knitted me a woollen jumper."
+    ]
+   ]
+  },
+  "deleb1/el horario": {
+   "why": "The second and third examples were both zona horaria, the adjective, not the noun.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "timetable",
+      "(opening) hours"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A qué zona horaria",
+    "Rusia tiene once zonas"
+   ],
+   "ex": [
+    [
+     "¿Cuál es el horario de la biblioteca?",
+     "What are the library's opening hours?"
+    ],
+    [
+     "El horario de trenes ha cambiado.",
+     "The train timetable has changed."
+    ]
+   ]
+  },
+  "deleb1/la alfombra": {
+   "why": "The gloss is right. The card had two examples.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "rug, carpet"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Hay una alfombra roja delante del cine.",
+     "There's a red carpet in front of the cinema."
+    ]
+   ]
+  },
+  "deleb1/el anciano, la anciana": {
+   "why": "The gloss read 'an elderly person', a definition. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "elderly man, elderly woman"
+     ]
     ]
    ]
   }

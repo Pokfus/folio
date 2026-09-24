@@ -3488,6 +3488,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S31 | B1 | #335 `utilizar` – #362 `comprobar` | 28 | 0 | 0 | — | — |
 | S32 | B1 | #363 `el círculo` – #390 `mencionar` | 24 | 4 (`el abrazo`, `el trozo`, `la expresión`, `la religión`) | 0 | B1 description: 955 with three | — |
 | S33 | B1 | #391 `la producción` – #418 `el sueldo` | 24 | 4 (`la llegada`, `el capítulo`, `soltero, soltera`, `el sueldo`) | 0 | B1 description: 956 with three | — |
+| S34 | B1 | #419 `la infancia` – #446 `el anciano, la anciana` | 28 | 0 | 0 | B1 description: 957 with three | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4895,6 +4896,32 @@ an earlier B1 card were replaced. `el acero` comes up to three examples: 956 of 
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 80 → 77.
+
+### S34 — DELE B1, notes #419–#446 (Sep 2026)
+
+Measured against the S33 commit by card id: **all 28 changed, 970 untouched**, each a record entry.
+
+**A NOUN CARD WITH NO EXAMPLE OF THE NOUN.** `la cómoda` is a chest of drawers, and all three of its examples
+were the adjective *cómoda*, "comfortable" — a house, trainers, a bed. The substring match found the spelling
+and not the word. It is `el saco`'s and `el alquiler`'s fault at its widest: every example, not one. All three
+were replaced, and `check-senses` had listed it (gloss "chest of drawers", every example about comfort).
+
+**THE ADJECTIVE OR THE NOUN, NOT THE HEADWORD, SIX MORE TIMES.** `el horario`'s second and third examples were
+*zona horaria*; `físico`'s third was *la física*; `votar`'s second was *voto*; `causar`'s *a causa de*;
+`molestar`'s *molesto*. `realizar` now carries a note that it is not "to realise" (*darse cuenta*).
+
+**GLOSSES A LEARNER CANNOT USE.** `la ensalada` was glossed "a genre of secular polyphonic music popular in
+16th century Spain", and two of its examples were one sentence about *ensalada de papas*. `el casco` gave "crown
+(top part of a hat)"; `el símbolo` "creed"; `el rollo` "coil" and not the colloquial *¡qué rollo!*;
+`el anciano` a definition ("an elderly person").
+
+**AND THE REST.** `la lana` wrote *esta* for *está* and turned *un traje* into "a wool dress"; `ofrecer`'s *un
+trabajo ofrecido* is a calque; `por ejemplo` and `en primer lugar` each lacked an example of what the phrase is
+for. Fourteen sentences shared with A1, A2 or an earlier B1 card were replaced. `la alfombra` comes up to three
+examples: 957 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+77 → 73.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
