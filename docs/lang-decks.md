@@ -3500,6 +3500,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S43 | B1 | #671 `el resumen` – #698 `dudar` | 25 | 3 (`publicar`, `la preparación`, `dudar`) | 0 | B1 description: 996 with examples, 966 with three, 2 with none | — |
 | S44 | B1 | #699 `analizar` – #726 `la cuchara` | 24 | 4 (`desarrollar`, `desde luego`, `la cintura`, `el huracán`) | 0 | B1 description: 972 with three | — |
 | S45 | B1 | #727 `casero, casera` – #754 `la oposición` | 26 | 2 (`el bailarín, la bailarina`, `la hipoteca`) | 0 | B1 description: 974 with three | paired feminine that is another noun (`la cartera`) |
+| S46 | B1 | #755 `pretender` – #782 `el cocodrilo, la cocodrila` | 25 | 3 (`sugerir`, `la biología`, `la humedad`) | 0 | B1 description: 997 with examples, 978 with three, one with none | `el pintado` renamed `pintado, pintada` |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5304,6 +5305,40 @@ sentences shared with A2 were replaced. `la resaca` and `el traslado` come up to
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 53 → 49. `resultar` stays on it under "to turn out, to prove" over "turned out", "happens to be" and "come in
 handy" — the stemmer again, named here.
+
+### S46 — DELE B1, notes #755–#782 (Sep 2026)
+
+Measured against the S45 commit by card id: **25 changed, 973 untouched**, each a record entry. The other three
+were read and left alone: `sugerir`, `la biología`, `la humedad`.
+
+**THE WRONG WORD, AND THE THIRD CARD WITH NO EXAMPLE.** `el pintado` was glossed "the tattooed indigenous people
+of Cebu during the Spanish occupation of the Philippines" and carried nothing. The word a B1 learner needs is the
+adjective **pintado, pintada** — *recién pintado*, wet paint. **This is a judgement and is stated as one**: the
+source list gives the bare form and the generator chose the noun. It is renamed, and given three examples.
+**B1 now has examples for 997 of 998 words; the one left is `nublarse` (#997), the deck's last card.** The
+description's sentence about the ones with none had to change grammatical number as well as figure — *the
+remaining one, which is kept* — which is why its chain of `descSub` pairs was rewritten to end on "remaining
+one," with the verb corrected in a pair of its own.
+
+**FALSE FRIENDS, THREE.** `pretender` used *pretender que esto no ocurrió* for "pretend" (*fingir*) and was
+glossed "to woo, to court"; `blando` was glossed "bland" (*soso*). Both now carry a note. `sensible`,
+`educado`, `realizar`, `atender` and `la exhibición` went the same way earlier in B1.
+
+**FACTS THAT HAVE EXPIRED.** `gobernar` said the queen reigns in England, which stopped being true in 2022 — the
+same fault as S40's `el vicepresidente`. `el invento`'s disputed Bell went in S44; here `la mostaza` claimed
+giraffes are mustard-coloured.
+
+**THE OTHER WORD.** `ensayar`'s noun *ensayo*; `gobernar`'s noun *gobierno*, shared with A2's `el gobierno`;
+`el sustituto`'s variant *substituto*; `conforme`, whose two conjunction examples (*conforme pasa el tiempo*) the
+gloss did not describe.
+
+**AND THE REST.** `la ficha` had one example, an idiom rendered "blown a fuse"; it has three. American English:
+"flu shot", "immunizations", "veterinarian", "dorm", "bran" for fibre. `blando`'s third example was a medical
+symptom. `la pulsera` generalised about women. Two sentences shared with A2 or an earlier B1 card were
+replaced. `el insecto`, `el músculo`, `pintado` and `la ficha` come up to three examples: 978 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+49 → 46.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

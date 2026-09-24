@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,11 +865,11 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
-     "there are none at all for the remaining 2,"
+     "there are none at all for the remaining one,"
     ],
     [
      "999 words for level B1 of the DELE",
@@ -877,71 +877,83 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 956 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 957 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 958 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 959 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 962 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 963 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "there are none at all for the remaining 4,",
-     "there are none at all for the remaining 2,"
+     "there are none at all for the remaining one,"
     ],
     [
      "Example sentences come with 995 of the 998 words, three apiece for 965 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "there are none at all for the remaining 3,",
-     "there are none at all for the remaining 2,"
+     "there are none at all for the remaining one,"
     ],
     [
      "Example sentences come with 996 of the 998 words, three apiece for 966 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
     ],
     [
      "Example sentences come with 996 of the 998 words, three apiece for 972 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
+    ],
+    [
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them",
+     "Example sentences come with 997 of the 998 words, three apiece for 978 of them"
+    ],
+    [
+     "there are none at all for the remaining 2,",
+     "there are none at all for the remaining one,"
+    ],
+    [
+     "there are none at all for the remaining one, which are kept",
+     "there are none at all for the remaining one, which is kept"
     ]
    ]
   }
@@ -43434,6 +43446,489 @@
      "He's studying for the competitive exams to become a teacher."
     ]
    ]
+  },
+  "deleb1/pretender": {
+   "why": "A FALSE FRIEND TAUGHT AS A TRUE ONE. The second example, 'No podemos pretender que esto no ocurrió', uses pretender for 'to pretend', which is fingir. The gloss gave 'to woo, to court'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to intend, to aim to",
+      "to try to achieve"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "note",
+     "not 'to pretend' — that is fingir"
+    ]
+   ],
+   "dropEx": [
+    "No podemos pretender que"
+   ],
+   "ex": [
+    [
+     "¿Qué pretendes con eso?",
+     "What are you trying to achieve with that?"
+    ]
+   ]
+  },
+  "deleb1/ensayar": {
+   "why": "The gloss carried a stray 'N' line and a list. The first example was the noun ensayo, an essay.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to rehearse",
+      "to test, to try out"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el propósito de este ensayo"
+   ],
+   "ex": [
+    [
+     "El grupo ensaya dos veces por semana.",
+     "The band rehearses twice a week."
+    ]
+   ]
+  },
+  "deleb1/el veterinario, la veterinaria": {
+   "why": "The gloss was a list of four. The first and third examples were the same sentence, and the second's English said 'veterinarian'.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "vet"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Hoy llevé a mi perro al"
+   ],
+   "exEn": [
+    [
+     "una amiga cuya madre es",
+     "Carlos has a friend whose mother is a vet."
+    ]
+   ],
+   "ex": [
+    [
+     "Estudia para ser veterinaria.",
+     "She's studying to become a vet."
+    ]
+   ]
+  },
+  "deleb1/el insecto": {
+   "why": "The gloss is right. The card had two examples.",
+   "ex": [
+    [
+     "Los mosquitos son insectos.",
+     "Mosquitoes are insects."
+    ]
+   ]
+  },
+  "deleb1/la vacuna": {
+   "why": "The gloss is right. The examples' English said 'flu shot' and 'immunizations'.",
+   "exEn": [
+    [
+     "contra la gripe esta temporada",
+     "Did you have your flu jab this season?"
+    ],
+    [
+     "cuando eras niño",
+     "In which country did you have your vaccinations as a child?"
+    ]
+   ]
+  },
+  "deleb1/comparar": {
+   "why": "The gloss is right. The first example's mi auto es chico is Latin American (mi coche es pequeño).",
+   "dropEx": [
+    "Mi auto es chico"
+   ],
+   "ex": [
+    [
+     "No me compares con mi hermano.",
+     "Don't compare me with my brother."
+    ]
+   ]
+  },
+  "deleb1/conforme": {
+   "why": "The gloss gave 'similar' and not the conjunction conforme, 'as', which the first and third examples both were.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "satisfied, in agreement (estar conforme)"
+     ]
+    ],
+    [
+     "conjunction",
+     [
+      "as (conforme pasa el tiempo)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Conforme pasa el tiempo"
+   ],
+   "ex": [
+    [
+     "No estoy conforme con la decisión.",
+     "I'm not happy with the decision."
+    ]
+   ]
+  },
+  "deleb1/la cesta": {
+   "why": "The gloss is right. All three examples were a basket full of something.",
+   "dropEx": [
+    "Ella tenía una cesta llena de manzanas"
+   ],
+   "ex": [
+    [
+     "Echa la ropa sucia en la cesta.",
+     "Put the dirty clothes in the basket."
+    ]
+   ]
+  },
+  "deleb1/adoptar": {
+   "why": "The gloss carried a stray 'N' line and said 'to adopt' twice. The first and third examples were both adopting an idea or a method.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to adopt"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Me gustó tu idea y la"
+   ],
+   "ex": [
+    [
+     "Adoptamos un perro de la protectora.",
+     "We adopted a dog from the animal shelter."
+    ]
+   ]
+  },
+  "deleb1/el músculo": {
+   "why": "The gloss said 'muscle tissue, muscle (organ)'. The card had two examples, and the first is shared with el acero earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "muscle"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Sus músculos estaban duros como el acero."
+   ],
+   "ex": [
+    [
+     "Hay que estirar los músculos antes de correr.",
+     "You should stretch your muscles before running."
+    ],
+    [
+     "El corazón es un músculo.",
+     "The heart is a muscle."
+    ]
+   ]
+  },
+  "deleb1/la contabilidad": {
+   "why": "The gloss gave 'accountancy' only, where the examples are bookkeeping and the accounts department.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "accounts, bookkeeping",
+      "accountancy"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el pintado": {
+   "why": "THE WRONG WORD, WITH NO EXAMPLES. The card was glossed 'the tattooed indigenous people of Cebu during the Spanish occupation of the Philippines' — a historical ethnonym no B1 syllabus asks for — and carried none. The word a B1 learner needs is the participle-adjective pintado, 'painted', as in recién pintado, 'wet paint'. This is a judgement: the source list gives the bare form, and the generator chose the noun. Renamed and given three examples.",
+   "spanish": "pintado, pintada",
+   "word": "pintado, pintada",
+   "senses": [
+    [
+     "adjective",
+     [
+      "painted"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "recién pintado — wet paint"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "pintados, pintadas"
+    ]
+   ],
+   "ex": [
+    [
+     "Cuidado, recién pintado.",
+     "Careful, wet paint."
+    ],
+    [
+     "Tenía las uñas pintadas de rojo.",
+     "She had her nails painted red."
+    ],
+    [
+     "La puerta está pintada de verde.",
+     "The door is painted green."
+    ]
+   ]
+  },
+  "deleb1/la ficha": {
+   "why": "The card had one example, 'No debería haber saltado la ficha', an idiom its English rendered 'blown a fuse', and the gloss gave 'chip, token' without a form or a counter in a game.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "counter, piece (in a game)",
+      "(index) card, form"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "haber saltado la ficha"
+   ],
+   "ex": [
+    [
+     "Mueve tu ficha.",
+     "Move your piece."
+    ],
+    [
+     "Rellene esta ficha con sus datos.",
+     "Fill in this form with your details."
+    ],
+    [
+     "Cada jugador empieza con diez fichas.",
+     "Each player starts with ten counters."
+    ]
+   ]
+  },
+  "deleb1/gobernar": {
+   "why": "The gloss is right. The first example was the noun gobierno and is shared with el gobierno in A2, and the third said the queen reigns in England, which stopped being true in 2022. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "La culpa de todo la tiene el gobierno",
+    "la reina reina pero no"
+   ],
+   "ex": [
+    [
+     "El partido gobierna desde hace cuatro años.",
+     "The party has been in government for four years."
+    ],
+    [
+     "Es difícil gobernar sin mayoría.",
+     "It's hard to govern without a majority."
+    ]
+   ]
+  },
+  "deleb1/laboral": {
+   "why": "The gloss said 'labor', American. The examples are right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "work, labour (derechos laborales — workers' rights)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/católico, católica": {
+   "why": "The gloss gave 'well (feeling well)' without the phrase it comes from. The first two examples' English wrote catholic in lower case.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "Catholic"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "no estar muy católico — to feel a bit off-colour"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Ser católico no te hace",
+     "Being Catholic doesn't make you better than me."
+    ],
+    [
+     "pero no va a la iglesia",
+     "She's Catholic, but doesn't go to church."
+    ]
+   ]
+  },
+  "deleb1/la extensión": {
+   "why": "The gloss put 'tract (an area)' first. The second example was urban-planning jargon about kerb extensions and the third a sentence about the separation of powers.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "extension",
+      "area, size"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "extensiones del bordillo",
+    "El poder judicial no debería"
+   ],
+   "ex": [
+    [
+     "Llámame a la extensión 214.",
+     "Call me on extension 214."
+    ],
+    [
+     "España tiene una extensión de medio millón de kilómetros cuadrados.",
+     "Spain covers about half a million square kilometres."
+    ]
+   ]
+  },
+  "deleb1/la fibra": {
+   "why": "The gloss gave 'fibre' twice in two spellings. The third example's English said 'bran'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "fibre"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "No te olvides de tomar mucha",
+     "Remember to eat lots of fibre."
+    ]
+   ]
+  },
+  "deleb1/el sustituto, la sustituta": {
+   "why": "The gloss is right. The first example is not a natural sentence, and the third spelt the word substituto, a variant the card does not teach.",
+   "dropEx": [
+    "El nuevo hogar funciona",
+    "Soy profesor substituto"
+   ],
+   "ex": [
+    [
+     "Vino un profesor sustituto.",
+     "A supply teacher came."
+    ],
+    [
+     "La miel es un buen sustituto del azúcar.",
+     "Honey is a good substitute for sugar."
+    ]
+   ]
+  },
+  "deleb1/reclamar": {
+   "why": "The gloss put 'to reclaim, to recover possession of' first and did not give 'to complain'. The second example's English said 'I'll take what's mine'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to demand, to claim",
+      "to complain"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "lo que me pertenece",
+     "I'll claim what belongs to me."
+    ]
+   ]
+  },
+  "deleb1/blando, blanda": {
+   "why": "The gloss gave 'bland', a false friend (soso). The third example was a medical symptom.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "soft"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "blandos, blandas"
+    ],
+    [
+     "note",
+     "not 'bland' — that is soso"
+    ]
+   ],
+   "dropEx": [
+    "Tengo heces blandas"
+   ],
+   "ex": [
+    [
+     "Este colchón es demasiado blando.",
+     "This mattress is too soft."
+    ]
+   ]
+  },
+  "deleb1/la calefacción": {
+   "why": "The gloss is right. The third example's English said 'dorm'.",
+   "exEn": [
+    [
+     "de nuestro dormitorio no está",
+     "The heating in our bedroom isn't working properly."
+    ]
+   ]
+  },
+  "deleb1/la mostaza": {
+   "why": "The gloss is right. The third example said giraffes are mustard-coloured.",
+   "dropEx": [
+    "Las jirafas son color"
+   ],
+   "ex": [
+    [
+     "¿Quieres mostaza en el perrito caliente?",
+     "Do you want mustard on your hot dog?"
+    ]
+   ]
+  },
+  "deleb1/la pulsera": {
+   "why": "The gloss is right. The first and third examples were both reloj de pulsera, and the second, 'Women often use bracelets', is a generalisation with the wrong verb.",
+   "dropEx": [
+    "Tu reloj de pulsera está",
+    "Las mujeres usan frecuentemente"
+   ],
+   "ex": [
+    [
+     "Le regalé una pulsera de plata.",
+     "I gave her a silver bracelet."
+    ],
+    [
+     "Lleva una pulsera en cada muñeca.",
+     "She wears a bracelet on each wrist."
+    ]
+   ]
+  },
+  "deleb1/el cocodrilo, la cocodrila": {
+   "why": "The gloss is right. The second example, crocodiles never eating chocolate, is not a sentence a learner needs.",
+   "dropEx": [
+    "nunca comen chocolate"
+   ],
+   "ex": [
+    [
+     "Vimos cocodrilos en el río.",
+     "We saw crocodiles in the river."
+    ]
+   ]
   }
  },
  "insert": {
@@ -43774,7 +44269,10 @@
    "la cintura",
    "el huracán",
    "el bailarín, la bailarina",
-   "la hipoteca"
+   "la hipoteca",
+   "sugerir",
+   "la biología",
+   "la humedad"
   ]
  }
 }
