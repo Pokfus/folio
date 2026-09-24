@@ -3482,6 +3482,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S25 | B1 | #167 `el/la colega` – #194 `el humor` | 25 | 3 (`la velocidad`, `el universo`, `proteger`) | 0 | — | — |
 | S26 | B1 | #195 `el peso` – #222 `el genio` | 24 | 4 (`actuar`, `débil`, `funcionar`, `asustado`) | 0 | — | `conj: []` clears a table |
 | S27 | B1 | #223 `el ladrón` – #250 `cortarse` | 26 | 2 (`deprisa`, `destruir`) | 0 | — | — |
+| S28 | B1 | #251 `imaginar` – #278 `suave` | 26 | 2 (`imaginar`, `la aventura`) | 0 | B1 description: 950 with three | S9's `la pelota` entry extended |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4664,6 +4665,43 @@ different sentences, because they are different strings.
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example.
 `check-senses --deck=DELE-B1` went from 93 to 92. Its one flag from this batch, `en absoluto`, is a
 false positive: its examples agree only on *don't* and *Carlos*.
+
+### S28 — DELE B1, notes #251–#278 (Sep 2026)
+
+Measured against the S27 commit by card id: **26 changed, 972 untouched**, all 26 of them record entries.
+Two cards, `imaginar` and `la aventura`, were read and left as they were. The `la pelota` entry that
+batch S9 opened for a coarse example is **extended here, not replaced**: its gloss is corrected and a
+third example added. That is the first of S9's five placeholder entries to be read in full.
+
+**`el carro` WAS A CAR THREE TIMES.** All three examples used *carro* in its Latin American sense of a car.
+In Spain a car is *el coche*, which is A1's card, and *un carro* is a cart or a shopping trolley — which
+is what the card's own gloss already said. The replacements show the cart and the trolley, and the Forms
+row gives the Latin American sense as a *not*.
+
+**A FALSE FRIEND THAT HAD BEEN TRANSLATED AS ONE.** On `el compromiso`, the first example's English said
+"compromise", which the word does not mean. It is a commitment, an engagement to marry, or a prior
+engagement. The card now says so, and it gains an example of the engagement it had none of.
+
+**GLOSSES THAT MISSED THE EVERYDAY SENSE.**
+- `la cadena`: a television channel, and a chain of shops.
+- `el grado`: a university degree, which in Spain is *un grado*.
+- `cumplir`: *cumplir años*.
+- `la comunidad`: the autonomous community, and the *comunidad de vecinos*.
+- `la cola`: "queue" before "tail".
+- `soportar`: a warning that "to support" someone is *apoyar*.
+- `permitir`: *permitirse*, "to afford".
+- `el tráfico`: trafficking.
+
+**TWENTY-ONE SENTENCES SHARED WITH A LOWER DECK OR AN EARLIER B1 CARD WERE REPLACED** — the most in one
+batch so far. `cero` and `el grado` each carried the same *cuarenta grados bajo cero*, which is also an
+A1 sentence. Also removed: a "savage tribe", a line about Tatoeba itself, and an article called
+*maldito*.
+
+`la presencia` and `la pelota` go from two examples to three, so the description now says 950 of 998 words
+have three examples.
+
+**CHECKERS.** `--check` passes, `check-say` reports 0, and the batch has no unbolded example.
+`check-senses --deck=DELE-B1` goes from 92 to 89, with no card of this batch on it.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

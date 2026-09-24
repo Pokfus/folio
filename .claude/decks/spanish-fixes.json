@@ -583,7 +583,7 @@
    ]
   },
   "deleb1": {
-   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's. Batch S20 gave asesino, which had none, three: 995 of 999 with examples and 947 with three. Batch S23 folded away el repente, a card the generator made out of the second word of de repente (998 words), and its three examples went with it: 994 of 998 with examples, 948 with three.",
+   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's. Batch S20 gave asesino, which had none, three: 995 of 999 with examples and 947 with three. Batch S23 folded away el repente, a card the generator made out of the second word of de repente (998 words), and its three examples went with it: 994 of 998 with examples, 948 with three. Batch S28 brought la presencia and la pelota up to three: 950 with three.",
    "exNames": [
     [
      "Tom",
@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 948 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 950 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 948 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 950 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,7 +877,11 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 948 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 950 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 950 of them"
     ]
    ]
   }
@@ -22135,9 +22139,23 @@
    ]
   },
   "deleb1/la pelota": {
-   "why": "REMOVED AHEAD OF THIS DECK'S OWN AUDIT (batch S9): a coarse or sexually explicit example, found by a sweep of all seven Spanish decks for vulgar vocabulary after S8 found one on el pollo. The rest of the card has not yet been read; when its batch reaches it, extend this entry rather than replacing it. 'Ella me dio una patada en las pelotas' uses las pelotas in its vulgar sense, 'the balls'.",
+   "why": "REMOVED AHEAD OF THIS DECK'S OWN AUDIT (batch S9): a coarse or sexually explicit example, found by a sweep of all seven Spanish decks for vulgar vocabulary after S8 found one on el pollo. The rest of the card has not yet been read; when its batch reaches it, extend this entry rather than replacing it. 'Ella me dio una patada en las pelotas' uses las pelotas in its vulgar sense, 'the balls'. READ IN BATCH S28: the gloss's 'ball game' is not a separate sense, and the card was left with two examples after S9's removal.",
    "dropEx": [
     "patada en las pelotas"
+   ],
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "ball"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Los niños juegan a la pelota en el parque.",
+     "The children play ball in the park."
+    ]
    ]
   },
   "deleb1/el huevo": {
@@ -33357,6 +33375,650 @@
      "I'm getting my hair cut tomorrow."
     ]
    ]
+  },
+  "deleb1/la presencia": {
+   "why": "The gloss missed buena presencia. The card had two examples and they were one construction, not noticing someone's presence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "presence",
+      "appearance (tener buena presencia — to look presentable)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Yo no era consciente de su presencia."
+   ],
+   "ex": [
+    [
+     "Tiene muy buena presencia.",
+     "He's very presentable."
+    ],
+    [
+     "Su presencia en la reunión es necesaria.",
+     "Your presence at the meeting is necessary."
+    ]
+   ]
+  },
+  "deleb1/la comunidad": {
+   "why": "The gloss missed the autonomous community, the region of Spain, and the residents' association of a block of flats, which the first example is. The second, about the Burning of Judas, is not a sentence a learner needs.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "community",
+      "autonomous community (a region of Spain)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "comunidad de vecinos — residents' association"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La quema de Judas"
+   ],
+   "ex": [
+    [
+     "Vivo en la Comunidad de Madrid.",
+     "I live in the Community of Madrid."
+    ]
+   ]
+  },
+  "deleb1/cero": {
+   "why": "The gloss did not give desde cero. The first and third examples were one construction, below zero, and are shared with cuarenta in A1 and anoche in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "numeral",
+     [
+      "zero, nought"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "desde cero — from scratch"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "cuarenta grados bajo cero",
+    "cayó por debajo de cero anoche"
+   ],
+   "ex": [
+    [
+     "Empezamos desde cero.",
+     "We started from scratch."
+    ],
+    [
+     "Mi número de teléfono empieza por cero.",
+     "My phone number starts with a zero."
+    ]
+   ]
+  },
+  "deleb1/legal": {
+   "why": "'statutory' is not a sense a learner needs. The first example is shared with el dueño earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "legal, lawful"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Él es el dueño legal de la empresa."
+   ],
+   "ex": [
+    [
+     "¿Es legal aparcar aquí?",
+     "Is it legal to park here?"
+    ]
+   ]
+  },
+  "deleb1/respirar": {
+   "why": "The gloss is right. The first example is shared with la carrera earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "apenas podía respirar después de la carrera"
+   ],
+   "ex": [
+    [
+     "Respira hondo y relájate.",
+     "Take a deep breath and relax."
+    ]
+   ]
+  },
+  "deleb1/la campaña": {
+   "why": "'countryside' is archaic. The second example asked whether Tatoeba, the corpus these sentences come from, is the place for political campaigns.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "campaign"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Es Tatoeba el lugar adecuado"
+   ],
+   "ex": [
+    [
+     "La campaña electoral empieza mañana.",
+     "The election campaign starts tomorrow."
+    ]
+   ]
+  },
+  "deleb1/por fin": {
+   "why": "The gloss is right. The first example is shared with el error in A2 and the second with cuándo in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "at last, finally"
+     ]
+    ]
+   ],
+   "bold": [
+    "por fin"
+   ],
+   "dropEx": [
+    "Por fin se dio cuenta de su error.",
+    "vendrá por fin de nuevo la primavera"
+   ],
+   "ex": [
+    [
+     "¡Por fin es viernes!",
+     "It's Friday at last!"
+    ],
+    [
+     "Por fin llegamos a casa.",
+     "At last we got home."
+    ]
+   ]
+  },
+  "deleb1/la amistad": {
+   "why": "The gloss did not give las amistades, 'friends'. The third example is shared with enviar in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "friendship"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "las amistades — friends"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "una solicitud de amistad"
+   ],
+   "ex": [
+    [
+     "Nuestra amistad empezó en el colegio.",
+     "Our friendship started at school."
+    ]
+   ]
+  },
+  "deleb1/el carro": {
+   "why": "NONE OF THE THREE EXAMPLES WAS THE CARD'S WORD. Each used carro for a car, which is Latin American; in Spain a car is el coche, A1's card, and un carro is a cart or a shopping trolley, which is what the gloss already said.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "cart",
+      "(shopping) trolley"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los carros"
+    ],
+    [
+     "not",
+     "a car — el coche (carro in Latin America)"
+    ]
+   ],
+   "dropEx": [
+    "Vamos a ir en carro a la casa.",
+    "Los carros japoneses",
+    "El motor de mi carro"
+   ],
+   "ex": [
+    [
+     "Coge un carro para la compra.",
+     "Grab a trolley for the shopping."
+    ],
+    [
+     "Un burro tiraba del carro.",
+     "A donkey was pulling the cart."
+    ],
+    [
+     "Llevo la compra en un carro de ruedas.",
+     "I carry the shopping in a wheeled trolley."
+    ]
+   ]
+  },
+  "deleb1/la venta": {
+   "why": "The gloss did not give en venta, a la venta. The second example is shared with el departamento earlier in B1 and the third with la entrada in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "sale",
+      "las ventas — sales"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en venta / a la venta — for sale"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Él está a cargo del departamento de ventas.",
+    "Las entradas salen a la venta el lunes."
+   ],
+   "ex": [
+    [
+     "Las ventas han subido este año.",
+     "Sales have risen this year."
+    ],
+    [
+     "Se dedica a la venta de coches.",
+     "He sells cars for a living."
+    ]
+   ]
+  },
+  "deleb1/el compromiso": {
+   "why": "The first example's English said 'compromise', which compromiso does not mean: it is a false friend, and the gloss did not warn of it. The card had no example of an engagement to marry.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "commitment",
+      "engagement (to marry)",
+      "prior engagement, appointment"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los compromisos"
+    ],
+    [
+     "not",
+     "a compromise — un acuerdo, una concesión"
+    ]
+   ],
+   "dropEx": [
+    "Parece no haber alguna posibilidad de un compromiso."
+   ],
+   "ex": [
+    [
+     "Anunciaron su compromiso en junio.",
+     "They announced their engagement in June."
+    ]
+   ]
+  },
+  "deleb1/siempre que": {
+   "why": "The gloss was a thesaurus line and did not say which sense takes the subjunctive.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "whenever",
+      "as long as, provided that (+ subjunctive)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el artículo": {
+   "why": "The gloss said 'article' twice and missed an item in a shop, which the second example is. The third swore.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "article",
+      "item (in a shop)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "escribe el maldito artículo"
+   ],
+   "exEn": [
+    [
+     "Compraste estos artículos",
+     "You bought these items at too high a price."
+    ]
+   ],
+   "ex": [
+    [
+     "Este artículo está rebajado.",
+     "This item is reduced."
+    ]
+   ]
+  },
+  "deleb1/la cola": {
+   "why": "The gloss put 'tail' first and labelled 'line (US)' and 'queue (UK)'. The first example is shared with sacar in A2, and the third's English said 'in line'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "queue",
+      "tail"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hacer cola — to queue"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Esta es la cola para sacar los billetes."
+   ],
+   "exEn": [
+    [
+     "cuida mi lugar en la cola",
+     "Please keep my place in the queue."
+    ]
+   ],
+   "ex": [
+    [
+     "El perro movía la cola.",
+     "The dog was wagging its tail."
+    ]
+   ]
+  },
+  "deleb1/soportar": {
+   "why": "The gloss was a list of eight synonyms and did not warn that 'to support' someone is apoyar. The second example is shared with quinto in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to stand, to put up with",
+      "to bear (weight)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "not",
+     "to support (someone) — apoyar"
+    ]
+   ],
+   "dropEx": [
+    "No soporto a los vecinos del quinto piso."
+   ],
+   "ex": [
+    [
+     "Este puente soporta mucho peso.",
+     "This bridge can bear a lot of weight."
+    ]
+   ]
+  },
+  "deleb1/la copia": {
+   "why": "'abundance' is not a sense a learner needs. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "copy"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "copia de seguridad — backup"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la cadena": {
+   "why": "The gloss put 'necklace' where it meant a chain worn round the neck, and missed a television channel and a chain of shops. The first example is shared with tirar in A2 and the third with el cuello in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "chain",
+      "(television) channel",
+      "chain (of shops)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No te olvides de tirar de la cadena.",
+    "Se puso una cadena de oro al cuello."
+   ],
+   "ex": [
+    [
+     "¿En qué cadena ponen el partido?",
+     "Which channel is the match on?"
+    ],
+    [
+     "Es una cadena de supermercados.",
+     "It's a supermarket chain."
+    ]
+   ]
+  },
+  "deleb1/el grado": {
+   "why": "The gloss missed a university degree, which in Spain is un grado. The second example is shared with hasta in A1 and the third with cuarenta in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "degree (of temperature, of an angle)",
+      "(university) degree",
+      "grade, level"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la temperatura llegó hasta los 30 grados",
+    "cuarenta grados bajo cero"
+   ],
+   "ex": [
+    [
+     "Hoy estamos a treinta grados.",
+     "It's thirty degrees today."
+    ],
+    [
+     "Tiene un grado en Económicas.",
+     "She has a degree in Economics."
+    ]
+   ]
+  },
+  "deleb1/cumplir": {
+   "why": "The gloss said 'to fulfil' and 'to fulfill' and missed cumplir años, which the first example is; that example is shared with treinta in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to fulfil, to keep (a promise)",
+      "to turn (an age)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cumplir años — to have a birthday"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Estoy a punto de cumplir treinta"
+   ],
+   "ex": [
+    [
+     "Mañana cumplo años.",
+     "It's my birthday tomorrow."
+    ]
+   ]
+  },
+  "deleb1/la plata": {
+   "why": "The gloss is right. The first and second examples were one construction, silver against gold, and the third, a proverb, is shared with la palabra earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "silver"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las platas"
+    ],
+    [
+     "note",
+     "money (colloquial, in Latin America)"
+    ]
+   ],
+   "dropEx": [
+    "El oro es más pesado que la plata.",
+    "La palabra es plata y el silencio oro."
+   ],
+   "ex": [
+    [
+     "Ganó la medalla de plata.",
+     "She won the silver medal."
+    ],
+    [
+     "Llevaba un anillo de plata.",
+     "He was wearing a silver ring."
+    ]
+   ]
+  },
+  "deleb1/salvaje": {
+   "why": "The gloss was a list of senses. The first example called a tribe savage, and the second and third were one construction, wild animals.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "wild",
+      "savage, brutal"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Por aquel entonces allí vivía una tribu salvaje.",
+    "Los animales salvajes viven en los bosques."
+   ],
+   "ex": [
+    [
+     "Fue un ataque salvaje.",
+     "It was a savage attack."
+    ],
+    [
+     "Esta playa todavía es salvaje, sin hoteles.",
+     "This beach is still wild, with no hotels."
+    ]
+   ]
+  },
+  "deleb1/sobre todo": {
+   "why": "The gloss is right. The second example's English, 'all the more for her kindness', is not what sobre todo means.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "above all, especially"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Ella me gusta sobre todo por su amabilidad",
+     "I like her above all for her kindness."
+    ]
+   ]
+  },
+  "deleb1/permitir": {
+   "why": "The gloss put 'to afford' beside 'to allow' without saying it is permitirse. The first example is shared with más in A1 and the second with durante in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to allow, to permit"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "permitirse — to afford"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No voy a permitir tus errores",
+    "No se permite la entrada durante la función."
+   ],
+   "ex": [
+    [
+     "¿Me permite pasar?",
+     "May I get past?"
+    ],
+    [
+     "No nos podemos permitir un coche nuevo.",
+     "We can't afford a new car."
+    ]
+   ]
+  },
+  "deleb1/el tráfico": {
+   "why": "All three examples were one construction, a traffic accident; the first is shared with el accidente earlier in B1 and the second with ocurrir in A2. The gloss missed trafficking. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "traffic",
+      "trafficking (tráfico de drogas — drug trafficking)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ricardo estuvo involucrado en un accidente de tráfico.",
+    "Los accidentes de tráfico ocurren todos los días."
+   ],
+   "ex": [
+    [
+     "Hay mucho tráfico a esta hora.",
+     "There's a lot of traffic at this time of day."
+    ],
+    [
+     "El tráfico de drogas es un delito grave.",
+     "Drug trafficking is a serious crime."
+    ]
+   ]
+  },
+  "deleb1/suave": {
+   "why": "The gloss was a list, and 'fluffy' is not a sense. The first example's English put the present into the past.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "soft, smooth",
+      "gentle, mild"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Ese otro ascensor va más suave",
+     "That other lift is smoother than this one."
+    ]
+   ]
   }
  },
  "insert": {
@@ -33657,7 +34319,9 @@
    "funcionar",
    "asustado, asustada",
    "deprisa",
-   "destruir"
+   "destruir",
+   "imaginar",
+   "la aventura"
   ]
  }
 }
