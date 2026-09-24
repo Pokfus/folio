@@ -721,6 +721,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1591–1620 | 22 changed, 8 read and left: 22 example sentences replaced (杂 and 灾 used only inside other words, straddles on 源于 and 乐器, a generalisation about Latin Americans, the Analects, Taiwan's 程式, near-repeats), 5 translations fixed, three Compounds panels, 20 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1621–1650 | 20 changed, 10 read and left: 16 example sentences replaced (招 used only inside other words, 扎 shown in its other reading and in the name Gaddafi, 则 split into its two senses, a straddle on 再生, near-repeats), 1 translation fixed, five Compounds panels, 19 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1651–1680 | 23 changed, 7 read and left: 17 example sentences replaced (three ungrammatical sentences, the headword swallowed by 针线活, 指南针, 镇痛 and 花枝, near-repeats), 2 translations fixed, five senses splits, five Compounds panels, 8 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1681–1710 | 24 changed, 6 read and left: 21 example sentences replaced (种地's two straddles, the headword swallowed by 指挥所, 指示灯, 制胜, 终点线 and 鼻青脸肿, a 法序 typo, near-repeats), 4 translations fixed, two senses splits, two Compounds panels, 14 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12834,4 +12835,25 @@ and no version bump.
 - **Near-repeats:** 招生, 争夺, 阵雨, and 枝's two pen sentences.
 - **Office politics.** 政策's 你不能回避官方政策 was translated "office politics".
 - **Translations:** 征求 and 职位 were each mistranslated.
+
+### Batch 186 — `hsk30l6` notes 1681–1710 (职务 → 众人)
+
+24 notes changed and 6 read and left (职责, 侄子, 至关重要, 钟头, 中奖, and 众人's first sentence), counted against the real diff.
+
+- **A straddle in this record's own additions.** Both of 种地's added sentences were straddles:
+  - 泽兰语是种地区语言 is 种 + 地区.
+  - 在那种地方碰到你的老师 is 那种 + 地方.
+  
+  An earlier batch of this audit wrote them. The segmenter lands squarely on 种地 in both, which is the blind spot the checker's own notes describe.
+- **The headword swallowed by a longer word:**
+  - 指挥所 on 指挥
+  - 指示灯 on 指示
+  - 制胜 on 制
+  - 终点线, twice, on 终点
+  - the idiom 鼻青脸肿 on 肿
+- **A typo.** 秩序's 英国人很尊重法序和秩序 has 法序 for 法律. The corrected sentence replaces it.
+- **Glosses naming the rarer sense.** 至于 read "go so far as to" over three "as for" sentences, and is split into both senses. 制 named only the verb while 共和制 is "system", and is split too. 肿 was labelled a verb over the noun "swelling". 终身 was labelled a noun.
+- **Near-repeats in the record.** 职务, 只得, 治理, 制品, 中断 and 中旬 each carried one sentence twice with a word changed. 众人 had one construction twice.
+- **Too long.** 指定, 只顾 and 智力 each had sentences far past the card's length.
+- **Translations.** 指责 said "accuse" for "criticise". 指示 said "I will obey". 终点 said "The bicycle is racing to finish".
 
