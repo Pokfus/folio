@@ -768,13 +768,16 @@ if (card.locator) {
      transposed pair in an `area` is a region drawn in the wrong ocean and nothing anywhere would throw.
      A `kind` app.js does not know is silently treated as a point, which is the quiet failure this
      refusal exists to turn into a loud one. */
-  const KINDS = ["point", "battle", "river", "range", "region"];
+  /* sea and shelf were missing here for as long as app.js and add-locators.js have drawn them (LOC_KINDS),
+     so this tool refused a card add-locators.js had just written — found re-validating gr-001's Aegean Sea
+     locator through --replace (Sep 2026). A list of kinds lives in three files; keep the three in step. */
+  const KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf"];
   const kind = card.locator.kind == null ? "point" : String(card.locator.kind);
   if (KINDS.indexOf(kind) < 0) {
     console.error("ERROR: card.locator.kind must be one of " + KINDS.join(", ") + " — got " + JSON.stringify(card.locator.kind) + ".");
     process.exit(1);
   }
-  const shape = kind === "region" ? "area" : kind === "range" ? "spine" : null;
+  const shape = kind === "region" || kind === "sea" || kind === "shelf" ? "area" : kind === "range" ? "spine" : null;
   if (shape) {
     const pts = card.locator[shape];
     if (!Array.isArray(pts) || pts.length < 3) {
@@ -789,7 +792,7 @@ if (card.locator) {
   }
   for (const extra of ["area", "spine"]) {
     if (card.locator[extra] && extra !== shape) {
-      console.error("ERROR: card.locator." + extra + " is only read on a locator of kind \"" + (extra === "area" ? "region" : "range") + "\" — this one is \"" + kind + "\", so the shape would be carried in data.js and never drawn.");
+      console.error("ERROR: card.locator." + extra + " is only read on a locator of kind \"" + (extra === "area" ? "region\", \"sea\" or \"shelf" : "range") + "\" — this one is \"" + kind + "\", so the shape would be carried in data.js and never drawn.");
       process.exit(1);
     }
   }

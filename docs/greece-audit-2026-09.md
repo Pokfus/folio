@@ -459,6 +459,17 @@ each.
 `Politics` (Aristotle, 9 cards) and `Eunomia` (Tyrtaeus, 2) are the other two works cited by title
 with no entry behind them.
 
+**Added by the refinement's B1 (2026-09-24)**, measured the same way over the rewritten `gr-001`–`gr-010`
+and then counted across the whole collection's prose, questions and Think-it-through answers:
+
+| cards | term | note |
+|---|---|---|
+| 9 | griffin | the Throne Room's guardians and eight more; `creature`, deck-agnostic |
+| 5 | Kastri | **two places**: Kastri on Kythera and Kastri on Syros (the Kastri Group); needs two keys, never a bare alias |
+| 3 | gypsum · Ashmolean Museum | |
+| 2 | lustral basin · Kephala · Postpalatial | `Postpalatial` has a card (`gr-053`, "Postpalatial Crete") whose term does not claim the bare word |
+| 1 | Prepalatial · Keros-Syros culture · Kavos · Minos Kalokairinos · Mount Juktas · Galatas · Sissi · Duncan Mackenzie · British School at Athens | `Prepalatial` pairs with the two above; spell the mountain as the chosen source does before adding it |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and

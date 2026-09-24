@@ -61,9 +61,11 @@ already cites, taking the earlier of each of its paired figures where it gives t
 | Protopalatial / Old Palace (MM IB – MM IIB) | c. 1900 – 1750 BCE | 1925/1900 – 1750/1720 |
 | Neopalatial / New Palace (MM IIIA – LM IB) | c. 1750 – 1470 BCE | 1750/1720 – 1490/1470 |
 | Postpalatial (LM IIIA – C) | c. 1470 – 1075 BCE | 1490/1470 – 1075/1050 |
-| Early Minoan I / II / III | c. 3100 – 2650 / 2650 – 2200 / 2200 – 2050 BCE | (as shipped on `gr-005`) |
+| Early Minoan I / II / III | c. 3100 – 2650 / 2650 – 2200 / 2200 – 2050 BCE | Manning's phases as tabulated by Graziadio 2025, Table 2.1, pp. 57–58 |
 | Early Cycladic I (Grotta-Pelos) | c. 3100 – 2650 BCE | |
 | Early Cycladic II (Keros-Syros) | c. 2650 – 2400 BCE | |
+| Keros and Dhaskalio in use | c. 2750 – 2250 BCE | the British School gives 2750 – 2240; Carter et al. 2025 end Phase C at 2250 |
+| Knossos first settled | c. 6900 – 6600 BCE | Douka et al. 2017, modelled radiocarbon |
 | Mycenaean palaces | c. 1400 – 1200 BCE | |
 | Shaft graves at Mycenae | c. 1650 – 1500 BCE | |
 
@@ -79,10 +81,15 @@ the question matters, says that some scholars put the end later.
 ### The Thera eruption
 
 **Disputed, and given as a range with whose it is.** Radiocarbon — above all the olive branch buried
-alive on Thera — has put it at `c. 1627 – 1600 BCE`; the archaeological synchronisms with Egypt, and some
-newer tree-ring calibrations, put it in the 16th century, which the collection writes as `c. 1550 – 1540
-BCE` on the cards already carrying it (`gr-043`, `gr-044`). It fell late in LM IA. A card never gives one
-of the two as settled.
+alive on Thera — long put it at `c. 1627 – 1600 BCE`; the archaeological synchronisms with Egypt put it in
+the 16th century. **The newer radiocarbon calibration has moved the science towards the second**:
+Graziadio (2025, p. 56) reports that IntCal20 and the Pearson et al. tree-ring work make 1611 BCE
+"unlikely" and 1561 BCE "a reasonable hypothesis", while calling the date still unsettled, and Manning
+(2022) argues for the Second Intermediate Period. So a card now writes **"recent studies favour the
+16th century BCE, and others allow about 1610 BCE"** (that is `gr-001`'s wording), and a date line gives
+the range `c. 1610 – 1540 BCE` rather than either figure alone. It fell late in LM IA. A card never gives
+one of the two as settled. **`gr-043` and `gr-044` still carry the older `c. 1627 – 1600` framing and are
+to be brought into line in their own batch (B5).**
 
 ## The Early Iron Age and the Archaic period (to be confirmed as each deck's batch reaches it)
 
@@ -135,7 +142,11 @@ sources when its batch comes round, and a disputed one given as a range.
 
 ```chronology-pins
 gr-001: 3100; 1050
+gr-004: 2750; 2250
+gr-005: 3100; 2050
 gr-006: 3100; 1900; 1750; 1470; 1075
+gr-007: 8 July 1851; 11 July 1941
 gr-008: 1900; 1375
 gr-009: 1900; 1750; 1470
+gr-010: 1470; 1375
 ```

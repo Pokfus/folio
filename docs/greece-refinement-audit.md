@@ -170,7 +170,7 @@ one changelog line and a version bump; commit and push.
 
 | batch | deck | cards | n | state |
 |---|---|---|---|---|
-| B1 | Crete and the Cyclades (`gr-crete`) | `gr-001`–`gr-010` | 10 | open |
+| B1 | Crete and the Cyclades (`gr-crete`) | `gr-001`–`gr-010` | 10 | **done 2026-09-24** |
 | B2 | Crete and the Cyclades (`gr-crete`) | `gr-011`–`gr-020` | 10 | open |
 | B3 | Crete and the Cyclades (`gr-crete`) | `gr-021`–`gr-030` | 10 | open |
 | B4 | Crete and the Cyclades (`gr-crete`) | `gr-031`–`gr-040` | 10 | open |
@@ -287,3 +287,74 @@ term, and coverage against the term's own article.
 Shipped the tools in the table above and the chronology. The tiered bar is site-wide from this batch, so
 the Edit page's source chip now reads e.g. `5/8` on a difficulty-2 card that read clean before; that is
 the rule arriving, not a regression. Nothing on any card changed.
+
+### B1 — `gr-001`–`gr-010`, Crete and the Cyclades (2026-09-24)
+
+All ten rewritten in the rule order and applied with `add-card.js --replace`. `greece-audit.js
+--range=gr-001:gr-010` reads **10 of 10 clean**; `check-questions`, `card-length`, `check-citations
+--card` (0 mismatched on every card) and `check-gloss-links --card` (no cross-region link) all pass;
+`check-cards --prefix=gr-` reports nothing on these ten (its one violation is the `gr-598`/`gr-950`
+picture, which is A1's). Every sort year was read back against `cardYears` and is the card's own start
+(`gr-008` sorts at −6900, its first settlement).
+
+**What changed, card by card.**
+
+| card | bar (by difficulty) | sources | the main changes |
+|---|---|---|---|
+| `gr-001` Aegean Bronze Age | 7 | 8 → 8 | rewritten for the register; the Thera date now follows Graziadio 2025 (below); map with burned-in title replaced by a satellite view of the whole Aegean |
+| `gr-002` Cycladic civilisation | 6 | 5 → 7 | question and picture no longer about the figurines, which are `gr-003`'s subject; picture now the hill of Skarkos |
+| `gr-003` Cycladic figurines | 6 | 5 → 8 | caption lost its museum catalogue number; forgery question given its own source |
+| `gr-004` Keros | 5 | 6 → 6 | third Renfrew citation dropped (author cap); "more than 7,000 tonnes" **removed** (below); ferry-rail picture replaced by Dhaskalio from the sea |
+| `gr-005` Early Minoan Crete | 6 | 5 → 6 | Cherry's BMCR review added for the kiln revolution and the "rough equals" reading; a scholar's name taken out of the prose; sealstone (a later object) replaced by the Myrtos hamlet |
+| `gr-006` Minoan civilisation | 8 | 5 → 9 | date line brought to the chronology (1720 → 1750, 1050 → 1075); earthquakes, DNA, the naming, and the Mycenaean-conquest debate each now cited |
+| `gr-007` Arthur Evans | 7 | 6 → 7 | **"he named the culture Minoan" was wrong** (below); a year taken out of the question; date line reordered Born → Died |
+| `gr-008` Knossos | 8 | 5 → 10 | coverage rebuilt: the old background was the palace's floor plan, which is `gr-009`'s; now Neolithic to Strabo's Greek city, with the Final Palatial and the 1375 destruction; fresco fragment replaced by the rebuilt North Entrance |
+| `gr-009` Minoan palace | 7 | 5 → 7 | 1922 plan with printed labels replaced by an aerial of Malia; building method (timber frame, earthquakes) added |
+| `gr-010` Throne Room | 6 | 6 → 7 | Manning 2022 (cited for 1470, which it does not carry) replaced by Graziadio; discovery date taken out of the caption |
+
+Every Think-it-through set was rewritten from scratch as three questions the card itself does not
+answer, each with a numbered marker into the card's own list; the old sets were the background's own
+sentences with "Because" in front, which is what the 4-gram rule was written against.
+
+**Refused or removed, and why.**
+- **`gr-004`'s "more than 7,000 tonnes (7,700 tons) of marble".** No openable source carries it: the
+  British School's own report says only that the marble "had to be brought by sea from … Naxos", Carter
+  et al. 2025 say "imported in tonnes", and the Museum of Cycladic Art is silent on a figure. The
+  Renfrew 2022 PDF could not be reached (the journal serves its landing page only). Cut rather than kept
+  on a citation that may not carry it.
+- **`gr-007`: "the culture … he called Minoan".** Momigliano's review of Gere (BMCR 2009.08.20) says the
+  term "has been in use since the 1830s" and was not invented by Evans, citing Karadimas and Momigliano
+  2004. The card, one of its questions, and `gr-006`'s why-answer now say he made an existing word the
+  culture's name.
+- **`gr-010`'s Manning citation** was on the 1470 BCE sentence; the paper is about Thera. Replaced.
+- **A question naming Arthur Evans on `gr-008`** — he is a modern scholar, and only `gr-007` (his own
+  card) is exempt.
+
+**One source could not be re-verified: the Watrous excerpt** (`assets.cambridge.org`) closes the
+connection from this sandbox (`ws_closed`, three tries). Its claims on `gr-001`, `gr-006`, `gr-008` and
+`gr-009` are kept as the earlier pass wrote them — Crete never one kingdom, Mount Jouktas as Knossos's
+peak shrine — and no new claim was hung on it. **Re-open it in B2 before citing it again.** The two 403s
+(`doi.org/10.2307/506716` JSTOR, and the British Academy behind Cloudflare) are known walls, and the
+first is labelled Paywalled.
+
+**Two rules turned out to conflict, and the floor wins.** A 25-word mean over ten sentences is 250 words,
+under the 270 floor, so no compliant card can meet both. `greece-audit.js` now caps the mean at 285 ÷ the
+sentence count (28.5 for ten), which is the top of the 270–285 band these cards aim at; 25 still binds on
+a longer abstract. All ten sit between 27.0 and 28.5.
+
+**The chronology moved.** Graziadio 2025 (p. 56) reports that IntCal20 makes 1611 BCE unlikely for the
+Thera eruption and 1561 BCE a reasonable hypothesis; `docs/greece-chronology.md` now says so, and
+`gr-043`/`gr-044` are flagged there for B5. Keros (2750–2250), Knossos's first settlement and the
+Early Minoan subphases gained rows, and pins were added for `gr-004`, `gr-005`, `gr-007` and `gr-010`.
+
+**Read by eye.** *Article:* every phrasing read back with the term in the blank ("the Aegean Bronze
+Age", "a Minoan palace", "the Throne Room"; "Knossos" and "Keros" bare). *Confusability:* each checked
+against `gr-011`–`gr-069` — `gr-005`'s round-tomb clue cannot be `gr-035` Mesara tholos tombs because the
+blank takes a period; `gr-008`'s concrete clue was moved off because `gr-007` uses it. *Image depicts the
+whole term:* yes for all ten; for `gr-002` a settlement stands for the culture, since nothing else free
+does, and the figurine was the one subject it must not show. *Coverage:* against each term's Wikipedia
+article as a checklist — `gr-008` was the one real gap (nothing after the palace).
+
+**Locators.** `gr-005`, `gr-006` and `gr-009` were labelled "Minoan civilisation" / "Minoan Crete",
+which are not places; all three now read **Crete**, on one Crete-only ring (the old `gr-005`/`gr-006`
+ring ran north to Thera). `gr-004`, `gr-008` and `gr-010` were re-fetched through `add-locators.js`.

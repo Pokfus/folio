@@ -186,7 +186,12 @@ function audit(c) {
   const bw = qWords(c.abstract);
   if (bw < 270 || bw > 330) finding(out, "B.length", bw + " words (270–330)");
   const nSent = shape.reduce((a, b) => a + b, 0) || 1;
-  if (bw / nSent > 25) finding(out, "B.sentence-length", "mean " + (bw / nSent).toFixed(1) + " words a sentence (≤25)");
+  /* THE TWO BARS CANNOT BOTH HOLD, AND THE WORD FLOOR WINS (B1, Sep 2026). Ten sentences at a mean of
+     25 is 250 words, which is under the 270 floor, so a card that honours the floor necessarily averages
+     27. The ceiling is therefore the mean a card sitting at 285 words would carry — the top of the band
+     the refinement aims at — and 25 still binds on any abstract long enough to afford it. */
+  const meanCap = Math.max(25, 285 / nSent);
+  if (bw / nSent > meanCap + 1e-9) finding(out, "B.sentence-length", "mean " + (bw / nSent).toFixed(1) + " words a sentence (≤" + meanCap.toFixed(1) + ")");
 
   /* S */
   const src = Array.isArray(c.sources) ? c.sources : [];
