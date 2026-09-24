@@ -848,6 +848,20 @@ async function reverseChecks(page, base) {
   await reveal();
   const back = await page.$eval(".reveal-inner", (el) => el.textContent.replace(/\s+/g, " ").trim());
   check("…and its back carries the front and then the answer", /aqua/.test(back) && /water/.test(back), back.slice(0, 60));
+  /* AND ON THE STUDY PAGE THE "QUESTION" HEADING GOES WITH THE QUESTION IT HEADS. The twin of the
+     preview's hidden-question check above, and it went UNGUARDED, so it broke in silence: the rule was
+     written `> .label`, which was right while the label was a direct child of the card, and the q-head
+     restructure moved it to `.q-head > .q-lead` without anything noticing. Nothing looked wrong for
+     months, because the orphaned heading landed directly above the front the back redraws — until the
+     marker's writing band opened between the two and a Chinese vocabulary card read as "Question" over
+     nine centimetres of nothing (reported Sep 2026). It is asserted HERE rather than on the Studio
+     preview, which renders no q-head at all, and it reads back "no-label" rather than skipping when the
+     heading is absent, so it can never pass by finding nothing to measure. */
+  const headState = await page.$eval(".study-card", (el) => {
+    const lab = el.querySelector(".q-head .label");
+    return lab ? getComputedStyle(lab).display : "no-label";
+  });
+  check("…and the shell's \"Question\" heading is hidden with the question it heads", headState === "none", headState);
   // card info names which of the note's cards this is — the question a reverse card provokes
   await page.evaluate(() => document.querySelector("#cardInfo")?.click());
   await page.waitForTimeout(450);

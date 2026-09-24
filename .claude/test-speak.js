@@ -103,6 +103,13 @@ const holdRow = (page, match) => page.evaluate((m) => {
       const orig = speechSynthesis.speak.bind(speechSynthesis);
       speechSynthesis.speak = (u) => { window.__spoke.push({ text: u.text, lang: u.lang }); try { orig(u); } catch (e) {} };
     } catch (e) {}
+    /* AND THE MARKER'S OWN FIRST-VISIT COACH CARD IS SEEDED AWAY (Sep 2026). Opening the marker panel
+       calls `openMarkerHelp()` the first time, and `pageHelp`'s card lays a full-screen overlay over the
+       page — so the pen-down tap below landed on `.page-help` instead of the ink canvas and nothing was
+       spoken, which reads as the read-aloud control having stopped answering. `test-layout.js` already
+       seeds this key the same way; the fixture is part of the feature, exactly as the study page's
+       order-picker taught. */
+    try { localStorage.setItem("folio_marker_tour_v1", "1"); } catch (e) {}
   });
   const page = await ctx.newPage();
   const errs = [];
@@ -310,8 +317,20 @@ const holdRow = (page, match) => page.evaluate((m) => {
     await page.mouse.move(box.x + 40, box.y, { steps: 8 });
     await page.mouse.up();
     await page.waitForTimeout(600);
+    /* AND IT ASSERTS THE INK, not only the silence. `__spoke.length === 0` is true of a drag that drew a
+       line AND of a page where the gesture never reached the canvas at all — which is the state this
+       suite was actually in while the coach card covered it, so the check passed on a marker that could
+       not draw. A count of what was found has to assert that it found ANY. */
+    const drew = await page.evaluate(() => {
+      const c = document.querySelector(".draw-canvas");
+      if (!c) return -1;
+      const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+      let n = 0;
+      for (let i = 3; i < d.length; i += 4 * 4) if (d[i] > 12) n++;
+      return n;
+    });
     check("\u2026while a drag through it draws instead of pressing it",
-      (await page.evaluate(() => window.__spoke)).length === 0);
+      (await page.evaluate(() => window.__spoke)).length === 0 && drew > 0, "ink " + drew);
   }
 
   /* ---------- A PRESS MUST NEVER COME BACK AS SILENCE (Aug 2026, on a bug report) ----------

@@ -98,6 +98,26 @@ const bareMarked = (s) => String(s).toLowerCase().replace(/[āáǎàēéěèīí
    glosses. The `not <other word>` disambiguator goes the same way: it belongs to the reverse card. */
 const POS = "noun verb adjective adverb pronoun preposition conjunction numeral particle interjection " +
   "measure classifier suffix prefix idiom phrase onomatopoeia";
+/* ---------- THE DECKS ARE BRITISH AND CC-CEDICT IS AMERICAN (batch 141) ----------
+   66 of this checker's 993 findings were a correct gloss meeting an American dictionary — `colour`
+   against *color*, `neighbour` against *neighbor*, `kilometre` against *kilometer*, `to apologise`
+   against *to apologize*, `theatre`, `programme`, `criticise`. The decks are authored British by
+   house rule and CC-CEDICT writes American, so the two can never agree on those words and the
+   finding can never be acted on — and the class GROWS every time a row is added to `SPELL_PAIRS`,
+   as 45 were the day before this. A checker that cries wolf on 66 correct cards is one nobody
+   reads, which this file's own header says in as many words.
+   SO THE CARD'S GLOSS IS PUT INTO AMERICAN BEFORE THE COMPARE, through app.js's OWN table sliced
+   out by text with the run STOPPING if the slice fails — never a second copy of a 199-row word
+   list. It changes what is COMPARED and never what is reported: the finding still prints the
+   card's own British wording. */
+const APP_SRC = fs.readFileSync(path.join(__dirname, "..", "..", "app.js"), "utf8");
+const _sa = APP_SRC.indexOf("  const SPELLINGS ="), _sb = _sa < 0 ? -1 : APP_SRC.indexOf("  function setSpelling(", _sa);
+if (_sa < 0 || _sb < 0) {
+  console.error("ERROR: could not slice the spelling engine out of app.js — the anchors moved.");
+  process.exit(2);
+}
+const toUS = new Function("S", APP_SRC.slice(_sa, _sb) + "\nreturn spellText;")({ settings: { spelling: "en-GB" } });
+
 const STOP = new Set(("a an the to of in on for and or by with be is are was were as at from that this it its his her their our your my " +
   "sth sb someone something oneself one ones etc esp eg ie also see used usage abbr lit fig coll fml old " +
   "variant classifier form name surname used also often more most very can may make made do does did " +
@@ -157,7 +177,7 @@ const words = (s) => new Set(String(s).toLowerCase()
       if (!e) { unknown++; continue; }
       known++;
       // ---- gloss overlap
-      const mine = words(fl.English || "");
+      const mine = words(toUS(String(fl.English || ""), true));
       const theirs = words(e.senses.join(" "));
       if (mine.size && theirs.size) {
         let shared = 0;

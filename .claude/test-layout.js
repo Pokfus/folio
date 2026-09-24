@@ -1677,6 +1677,12 @@ function scrimCheck() {
             markRole: m ? m.getAttribute("role") : null,
             markWidth: m ? Math.round(m.getBoundingClientRect().width) : null,
             markInTree: m ? !m.hasAttribute("aria-hidden") : false,
+            // the progress bar's own bottom edge against the ROW's — see the assertion below
+            barGap: (() => {
+              const t = r.querySelector(".dk-prog .track");
+              if (!t) return null;
+              return Math.round(r.getBoundingClientRect().bottom - t.getBoundingClientRect().bottom);
+            })(),
           };
         };
         return { rows: rows.map(read), any: rows.length };
@@ -1688,12 +1694,14 @@ function scrimCheck() {
     check("a deck with nothing left today goes green/gold", !!gold.rows.find((r) => r.done), JSON.stringify(gold.rows.map((r) => r.title + ":" + r.done)));
     check("...and it is the row whose three piles are all zero",
       !!g.piles && g.piles.length === 3 && g.piles.every((n) => n === 0), JSON.stringify(g.piles));
-    check("...a clean day is GOLD, not green", g.won === true, JSON.stringify({ won: g.won, border: g.border }));
+    /* A CLEAN DAY IS GREEN SINCE SEP 2026 (on request): gold now means every card in the deck has its three
+       dots — see adDay — so a perfect day on a deck with cards still unlearned is finished, not complete. */
+    check("...a clean day is GREEN, not gold — gold is a whole deck learned", g.won === false, JSON.stringify({ won: g.won, border: g.border }));
     /* The gold has to reach the row's own WASH, not just the class. The group and language headers declare
        a `--dk-accent` of their own at the same specificity further down the stylesheet, so this is the
        assertion that catches a finished row painting itself in its collection's hue. */
-    check("...with the row's left bar in that gold rather than the collection's hue",
-      /^rgb\(184, 137, 42\)$|^rgb\(216, 179, 85\)$/.test(g.border), g.border);
+    check("...with the row's left bar in that green rather than the collection's hue",
+      /^rgb\(78, 155, 126\)$|^rgb\(79, 157, 103\)$/.test(g.border), g.border);
     check("...and a tick masked into the background at the right of the row",
       g.tickMasked === true && g.tickRight > 0 && g.tickRight < 200, JSON.stringify({ masked: g.tickMasked, right: g.tickRight }));
     check("...in the same colour as the rest of the state", g.tickColour === g.border, g.tickColour + " / " + g.border);
@@ -1701,8 +1709,25 @@ function scrimCheck() {
        the tile's own trade. A row that has changed colour and carries no name for the change has told
        half its readers nothing. */
     check("...and the state is NAMED for a reader who cannot see colour",
-      g.markRole === "img" && /nothing missed/i.test(g.markLabel || ""), JSON.stringify({ role: g.markRole, label: g.markLabel }));
+      g.markRole === "img" && /finished for today/i.test(g.markLabel || ""), JSON.stringify({ role: g.markRole, label: g.markLabel }));
     check("...with that name clipped rather than drawn", g.markWidth === 1 && g.markInTree === true, JSON.stringify({ w: g.markWidth, inTree: g.markInTree }));
+    /* THE BAR STAYS ON THE ROW'S OWN BOTTOM EDGE (Sep 2026, on a bug report: finishing a deck for the day
+       moved its progress bar up to a line under the title). `.dk-prog .track` is `position:absolute;
+       bottom:0`, so it anchors to the nearest POSITIONED ancestor — and it lives inside `.dk-body`, which
+       the `.dk-done` treatment was giving `position:relative` in order to lift it over the tick watermark.
+       That re-pointed the bar at the body's bottom instead of the row's. It is asserted as a MEASUREMENT
+       against the unfinished rows beside it rather than as a style, because the fault is entirely a matter
+       of which box the same declaration resolves against: nothing about the rule, the class or the markup
+       changes, and a screenshot of one state cannot show it.
+       THE FIGURE IS NOT ZERO AND MUST NOT BE ASSERTED AS ZERO: an absolutely-positioned `bottom:0` resolves
+       against its containing block's PADDING box, and `.active-deck` carries a 1px bottom border outside
+       that — so a correctly-placed bar sits one pixel above the row's border-box bottom. What says the bar
+       is where it belongs is that it sits exactly where the UNFINISHED rows' bars sit, which is also the
+       one form of this check that cannot go stale if that border ever changes. */
+    const barOthers = gold.rows.filter((r) => !r.done && r.barGap != null).map((r) => r.barGap);
+    check("...with its progress bar still on the row's own bottom edge",
+      g.barGap != null && barOthers.length > 0 && barOthers.every((n) => n === g.barGap),
+      JSON.stringify({ done: g.barGap, others: barOthers }));
     /* …and a row that still HAS work is left alone, which is the other half of the claim: a treatment that
        fires on every row says nothing at all. */
     check("...while a deck with cards still to study is untouched",
@@ -1721,8 +1746,43 @@ function scrimCheck() {
     check("a day with a miss in it finishes GREEN and not gold",
       n.done === true && n.won === false, JSON.stringify({ done: n.done, won: n.won, border: n.border }));
     check("...in the site's own green", /^rgb\(78, 155, 126\)$|^rgb\(79, 157, 103\)$/.test(n.border || ""), n.border);
-    check("...and says so rather than claiming a clean sheet",
-      /finished/i.test(n.markLabel || "") && !/nothing missed/i.test(n.markLabel || ""), n.markLabel);
+    check("...and says so rather than claiming the deck is learned",
+      /finished/i.test(n.markLabel || "") && !/learned/i.test(n.markLabel || ""), n.markLabel);
+
+    /* GOLD IS A WHOLE DECK LEARNED (Sep 2026, on request): every card in the row carries three separate
+       days (`crit`), and the row goes gold with its bar's LEARNED layer full — whatever today's piles say.
+       Seeded rather than studied, three days of recall being three days. */
+    await page.evaluate(() => localStorage.clear());
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(900);
+    const leaf = await page.evaluate(() => {
+      const walk = (n, out) => { if (!(n.children || []).length && (n.cardIds || []).length) out.push(n); (n.children || []).forEach((c) => walk(c, out)); return out; };
+      const leaves = walk({ children: window.COLLECTION_TREE.collections }, []).filter((n) => n.cardIds.length >= 3 && n.cardIds.length <= 12);
+      return leaves.length ? { id: leaves[0].id, ids: leaves[0].cardIds } : null;
+    });
+    check("there is a small leaf deck to learn in full", !!leaf, JSON.stringify(leaf));
+    if (leaf) {
+      await page.evaluate((leaf) => {
+        const cards = {}, far = Date.now() + 40 * 864e5;
+        leaf.ids.forEach((id) => { cards[id] = { status: "review", interval: 40, ease: 2.5, due: far, reps: 4, first: "2026-09-01", crit: ["2026-09-01", "2026-09-04", "2026-09-10"] }; });
+        localStorage.setItem("folio_v1", JSON.stringify({ active: [leaf.id], cards: cards }));
+      }, leaf);
+      await page.reload({ waitUntil: "load" });
+      await page.waitForTimeout(1600);
+      const L = await page.evaluate((id) => {
+        // the leaf's OWN row — the ancestors above it are signpost rows (see 7c)
+        const r = document.querySelector('.active-deck[data-review="' + id + '"]');
+        if (!r) return null;
+        const m = r.querySelector(".gt-check, .gt-seal"), p = r.querySelector(".dk-prog");
+        return { won: r.classList.contains("dk-won"), border: getComputedStyle(r).borderLeftColor,
+                 label: m ? m.getAttribute("aria-label") : null, done: !!p && p.classList.contains("prog-done"),
+                 pctl: p ? p.getAttribute("data-pctl") : null };
+      }, leaf.id);
+      check("a deck whose every card is learned is GOLD", !!L && L.won === true, JSON.stringify(L));
+      check("...in the gold", !!L && /^rgb\(184, 137, 42\)$|^rgb\(216, 179, 85\)$/.test(L.border), L && L.border);
+      check("...named as such", !!L && /every card learned/i.test(L.label || ""), L && L.label);
+      check("...with its bar's learned layer full and gold", !!L && L.done && Number(L.pctl) === 100, JSON.stringify(L));
+    }
     await page.close();
   }
   /* ================= 7c. the review list's SUBDECK FOLD =================
@@ -2195,6 +2255,21 @@ function scrimCheck() {
 
     // the real test: TAP Show answer with the pen down. A click through page.evaluate would bypass the very
     // hit-testing this is about, so it goes through the mouse.
+    /* SHUT THE PANEL FIRST — WHAT IS UNDER TEST IS THE INK, NOT THE TOOLS (Sep 2026).
+       The pen is down from the colour picker above ("reaching for a colour is asking to draw"), which is
+       what this section wants; the PANEL is also still open, and it is a 200px box floating over the
+       bottom-right of a 390px screen. Since Sep 2026 a study card opens a band to write on while the pen
+       is down (`body.wb-down`, see the marker bullet in CLAUDE.md), which pushes Show answer about 150px
+       down — from y=417 to y=563 on this card, straight under the open panel. Measured: the click landed
+       on `.wb-size`, and what came back was "Show answer still works under the ink" failing with every
+       grade "missing", which reads as the CANVAS swallowing the tap. It was the tools, which a reader
+       puts away with one tap and which this assertion was never about.
+       The scroll is belt and braces for the same growth: `page.mouse.click` takes VIEWPORT coordinates,
+       so a longer card's button below the fold would be a click on nothing. */
+    await page.evaluate(() => document.querySelector(".wb-toggle").click());   // panel away; the pen stays down
+    await page.waitForTimeout(250);
+    await page.evaluate(() => document.querySelector("#reveal-btn").scrollIntoView({ block: "center" }));
+    await page.waitForTimeout(250);
     const rb = await page.evaluate(() => document.querySelector("#reveal-btn").getBoundingClientRect().toJSON());
     await page.mouse.click(rb.x + rb.width / 2, rb.y + rb.height / 2);
     await page.waitForTimeout(700);

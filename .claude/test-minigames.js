@@ -893,6 +893,54 @@ function crosswordForPage(cells) {
       return { lives: document.querySelectorAll(".th-dot").length, mentions: /mistakes remaining/i.test(t) };
     });
     check("[ct] …and four mistakes to spare", groups.lives === 4 && groups.mentions, JSON.stringify(groups));
+
+    /* A TERM MAY ONLY STAND FOR A GROUP IT WOULD BE FILED UNDER (Sep 2026, on request: "genealogy should
+       not be in the 'asia' category, and 'water' should not be in biology"). Two rules do that — a KIND
+       group takes only a term whose own kind it is, and a declared table names the judgements no pattern
+       can make (see THREAD_KINDS / THREAD_NOT in app.js). Both fail SILENTLY: the grid is sixteen tiles,
+       four groups, nothing throws, and what the reader meets is a category with a tile in it they could
+       not possibly have placed.
+       This asserts the rules against the SHIPPED tag data rather than against today's grid, which would
+       only exercise four of the sixty-odd groups. It reads both tables out of app.js by text — a second
+       copy of a sixty-row judgement table goes stale in a file nobody editing the game has reason to open
+       — and STOPS if either slice fails rather than silently checking nothing. */
+    const src = require("fs").readFileSync(require("path").join(__dirname, "..", "app.js"), "utf8");
+    const a = src.indexOf("const THREAD_KINDS = new Set([");
+    const b = src.indexOf("  // may this term stand FOR this group?", a);
+    if (a < 0 || b < 0) { console.log("FAIL  [ct] could not slice THREAD_KINDS / THREAD_NOT out of app.js"); fail++; }
+    else {
+      const T = new Function(src.slice(a, b) + "\nreturn { THREAD_KINDS, THREAD_NOT };")();
+      const ctx2 = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+      const p2 = await ctx2.newPage();
+      watch(p2);
+      await p2.goto(base + "#home", { waitUntil: "load" });
+      await p2.waitForTimeout(1400);
+      const tagsOf = await p2.evaluate(() => window.GLOSSARY_TAGS || {});
+      // the user's own two examples, pinned by name: the rules exist for these
+      const gen = (tagsOf["Genealogy"] || []), wat = (tagsOf["Water"] || []);
+      check("[ct] the reported pair are still tagged the way the rules assume",
+        gen.includes("asia") && wat.includes("biology"), JSON.stringify({ Genealogy: gen, Water: wat }));
+      check("[ct] …and neither may stand for that group now",
+        T.THREAD_NOT.asia.includes("Genealogy") && T.THREAD_NOT.biology.includes("Water"));
+      // every declared exclusion names a term that really carries that tag — a row matching nothing is a
+      // typo that reads exactly like a rule doing its job
+      const dead = [];
+      for (const g of Object.keys(T.THREAD_NOT))
+        for (const k of T.THREAD_NOT[g])
+          if (!(tagsOf[k] || []).includes(g)) dead.push(g + "/" + k);
+      check("[ct] …and every declared exclusion still matches a term that carries the tag", dead.length === 0, dead.join(", "));
+      // the kind rule, over the whole glossary: no term is filed under a kind that is not its own
+      const kindBad = await p2.evaluate((kinds) => {
+        const K = new Set(kinds), T = window.GLOSSARY_TAGS || {}, out = [];
+        for (const k of Object.keys(T)) {
+          const tg = T[k] || [];
+          tg.forEach((g, i) => { if (K.has(g) && i > 1) out.push(k + "/" + g); });
+        }
+        return out.length;
+      }, [...T.THREAD_KINDS]);
+      check("[ct] …and the kind rule has something to do", kindBad > 0, "terms carrying a late kind tag: " + kindBad);
+      await ctx2.close();
+    }
     await ctx.close();
   }
 
@@ -925,14 +973,14 @@ function crosswordForPage(cells) {
       pool: (window.QUOTEGAME || []).length,
       era: (window.QUOTEGAME || []).filter((x) => x.era).length,
     }));
-    check("[ws] the game deals five rounds", /\/ 5\b/.test(head.h1) && head.pips === 5, JSON.stringify(head));
+    check("[ws] the game deals three rounds", /\/ 3\b/.test(head.h1) && head.pips === 3, JSON.stringify(head));   // five until Sep 2026, cut to three on request
     check("[ws] …with four options on the round", head.opts === 4, String(head.opts));
     check("[ws] …and every quotation in the pool carries a period", head.pool > 90 && head.era === head.pool, JSON.stringify(head));
 
-    /* Walk all five rounds, answering each so the page moves on. The tier check is made per round from
+    /* Walk all three rounds, answering each so the page moves on. The tier check is made per round from
        the quote's own entry — the pool is keyed on the English `q`, and the site is English-only. */
     const rows = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
       const row = await page.evaluate(() => {
         const q = (document.querySelector(".ws-quote") || {}).textContent.trim();
         const opts = [...document.querySelectorAll("#opts .opt")].map((b) => b.textContent.replace(/^[ABCD]/, "").trim());
@@ -971,10 +1019,10 @@ function crosswordForPage(cells) {
       tomorrow: (document.querySelector(".tf-tomorrow") || {}).textContent || "",
       again: /play again/i.test((document.querySelector("#view") || {}).textContent),
     }));
-    check("[ws] …five rounds end on a score out of five and no second go",
-      /\/ 5\b/.test(end.h1) && !end.again, JSON.stringify(end));
-    check("[ws] …and the closing line counts the same five",
-      /^Five fresh voices/.test(end.tomorrow.trim()), end.tomorrow);
+    check("[ws] …three rounds end on a score out of three and no second go",
+      /\/ 3\b/.test(end.h1) && !end.again, JSON.stringify(end));
+    check("[ws] …and the closing line counts the same three",
+      /^Three fresh voices/.test(end.tomorrow.trim()), end.tomorrow);
     await ctx.close();
   }
 

@@ -123,10 +123,28 @@ function staticChecks() {
   const cpOrphan = Object.keys(CPCAP).filter((n) => !cpNames.has(CPCAP[n].s));
   ok(!cpOrphan.length, "every China capital names a division the layer actually has", cpOrphan.slice(0, 5).join(", "));
 
+  /* the fourth layer: Russia's federal subjects, built exactly as China's is (see
+     .claude/build-russia-subjects.js). Its point table is DELIBERATELY short of three subjects — Moscow
+     and Saint Petersburg are cities that are themselves subjects, and Abakan is refused because Natural
+     Earth draws it outside its own republic — which is asserted below rather than left to read as a gap. */
+  const rwin = {};
+  new Function("window", fs.readFileSync(path.join(ROOT, "russia-subjects.js"), "utf8"))(rwin);
+  const RS = rwin.RUSSIA_SUBJECTS || [], RCEN = rwin.RUSSIA_CENTRES || {};
+  const rsNames = new Set(RS.map((s) => s.n));
+  ok(RS.length === 83, "russia-subjects.js carries the 83 subjects with an ISO 3166-2:RU code", RS.length);
+  ok(Object.keys(RCEN).length === 80, "russia-subjects.js carries 80 administrative centres, not 83", Object.keys(RCEN).length);
+  ok(["Moscow", "Saint Petersburg"].every((m) => rsNames.has(m) && !Object.values(RCEN).some((v) => v.s === m)),
+     "...two of the three missing are the cities of federal significance, whose shape would be their own answer");
+  ok(rsNames.has("Khakassia") && !Object.values(RCEN).some((v) => v.s === "Khakassia"),
+     "...and the third is Khakassia, whose published capital falls outside the source's own polygon");
+  const rOrphan = Object.keys(RCEN).filter((n) => !rsNames.has(RCEN[n].s));
+  ok(!rOrphan.length, "every Russian centre names a subject the layer actually has", rOrphan.slice(0, 5).join(", "));
+
   const LAYERS = {
     "us-states": { shapes: new Set(ST.map((s) => s.n)), points: CAP, what: "state" },
     world: { shapes: wgNames, points: WCAP, what: "country" },
     "china-provinces": { shapes: cpNames, points: CPCAP, what: "province" },
+    "russia-subjects": { shapes: rsNames, points: RCEN, what: "federal subject" },
   };
 
   const dwin = {};
@@ -189,8 +207,12 @@ function staticChecks() {
   const rev = app.slice(app.indexOf("function revertCard"), app.indexOf("function revertCard") + 1600);
   ok(/\.map\s*=\s*p\.map/.test(rev), "revertCard restores `map`");
   ok(/\.facts\s*=\s*p\.facts/.test(rev), "revertCard restores `facts`");
-  const gset = app.slice(app.indexOf("function gameCardIdSet"), app.indexOf("function gameCardIdSet") + 900);
-  ok(/!cardMapSpec\(/.test(gset), "gameCardIdSet excludes map cards");
+  /* THE PREDICATE, NOT A FIXED WINDOW OF BYTES. This read a 900-character slice from the function's
+     name, which is a window the function's own COMMENT can grow past — and did, in Sep 2026, when the
+     flag card was added to that comment and the assertion started reporting a rule that was still
+     there. A slice keyed on the line that does the work cannot drift that way. */
+  const gline = (app.match(/^\s*availableCardIdSet\(\)\.forEach\(\(id\) => \{ const c = cardById\(id\);.*$/m) || [""])[0];
+  ok(/!cardMapSpec\(/.test(gline), "gameCardIdSet excludes map cards", gline.slice(0, 120));
   // and the bundle really is lazy — a 600 KB file in the eager path would slow the site for every visitor
   ok(!/<script[^>]+us-states\.js/.test(fs.readFileSync(path.join(ROOT, "index.html"), "utf8")), "us-states.js is NOT in index.html's eager path");
   const usb = /usstates:\s*\{\s*files:\s*\[([^\]]*)\]/.exec(app);
@@ -552,6 +574,7 @@ async function browserChecks(page) {
       failed: map.classList.contains("mc-failed"),
       ready: !!(map._folioMap && map._folioMap.ready()),
       shades: shades, btns: l.querySelectorAll(".mc-btn").length,
+      mcKinds: [...l.querySelectorAll(".mc-btn")].map((b) => b.getAttribute("data-mc")).sort().join(","),
       said: cv.getAttribute("aria-label") || "",
       afterBg: !!(bg && (l.compareDocumentPosition(bg) & Node.DOCUMENT_POSITION_PRECEDING)),
       beforeSrc: !!(src && (l.compareDocumentPosition(src) & Node.DOCUMENT_POSITION_FOLLOWING)),
@@ -565,7 +588,11 @@ async function browserChecks(page) {
        alone reports every one of them as a window that never loaded. */
     ok(loc.ready, "…and the globe reports itself mounted");
     ok(loc.shades > 40, "…and really painted a globe rather than a blank rectangle", loc.shades);
-    ok(loc.btns === 3, "it carries the same three zoom controls a map card has", loc.btns);
+    /* A LOCATOR CARRIES ONE CONTROL A MAP CARD DOES NOT (Sep 2026): the way through to the reader's own
+       atlas. Pinned by NAME rather than by count, because the count was what this asserted and a count
+       cannot tell a button that was added from one that was renamed — and the window's own handler
+       dispatches on exactly these names, so a rename here is a control that silently does nothing. */
+    ok(loc.mcKinds === "go,home,in,out", "it carries the map card's three zoom controls plus the atlas button", loc.mcKinds);
     /* A locator is an ANNOTATION on a card whose answer is already showing, so unlike a map card's window
        it NAMES the place from the start — holding it back would be asking a question nobody was asked. */
     ok(/knossos/i.test(loc.said), "the canvas names the place, this being the back of the card", loc.said);

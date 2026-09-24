@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.812", released: "2026-09-24T16:14Z" };
+window.FOLIO_VERSION = { v: "1.885", released: "2026-09-24T17:30Z" };
 
 window.CHANGELOG = [
   {
@@ -43,22 +43,75 @@ window.CHANGELOG = [
     t: "The Ancient Greece collection is finished at a thousand cards",
     items: [
       "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
-      "<b>Seventy new cards in the Ancient Greece collection</b>, on Greek myth, the journey home from Troy and Greek worship from sacrifice to the mysteries, with sixty-three new glossary terms."
-    ]
+      "<b>Seventy new cards in the Ancient Greece collection</b>, on Greek myth, the journey home from Troy and Greek worship from sacrifice to the mysteries, with sixty-three new glossary terms.",
+      "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
+      "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",
+      "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades.",
+      "<b>Who said it? deals three quotations a day</b>, each explanation cites its sources, and editors can take a quotation out of the game.",
+      "<b>The Think it through questions show on every card</b>, not only the first time you meet one.",
+      "<b>The home page says plainly when you are not signed in</b>, so progress kept only on this device does not come as a surprise.",
+      "<b>Seven new badges</b>, among them one for studying late at night and one for studying early in the morning.",
+      "<b>Timeline places a US state at the year it joined the Union</b>, and your own atlas marks a battle with crossed swords.",
+      "On a Mandarin card the writing space opens below the question, the Picture round's descriptions link their glossary terms, and Find it no longer flashes on a tap.",
+      "An artefact's picture sits beside its description on wider screens, and the German decks list the cases Nominativ, Genitiv, Dativ, Akkusativ.",
+      "One Ancient Rome card is replaced by a card on the Conference of Naupactus, and twelve cards across eight collections have their dates or wording corrected.",
+      "Fifty-three Politics: East Asia cards gain a picture, and a Second World War card gets a better portrait.",
+      "Twenty cards gain or redraw their atlas window \u2014 mountain chains as ranges, and empires and cultures as the ground they held.",
+      "<b>Flags is a new deck of World Geography</b> \u2014 two hundred and twenty-nine cards, each showing a flag for you to name.",
+      "<b>Draw the flags is a second new deck</b> \u2014 it names a country and you draw its flag on a canvas of its own, with pens, a fill and any colour you like.",
+      "<b>A flag card shows the flag once and keeps its source off the card</b> \u2014 the credit is there when you tap the flag to enlarge it.",
+      "<b>The Viking Age joins the planned collections</b> \u2014 a thousand cards on Scandinavia and its diaspora, most of them on farming, law, craft, belief and the ships rather than the raids.",
+      "<b>The Cold War joins the planned collections</b> \u2014 a thousand cards from the breakdown of the wartime alliance to the end of the Soviet Union, half of them outside Europe and North America.",
+      "<b>Westeros joins the planned collections</b> \u2014 a thousand cards on A Song of Ice and Fire, the history behind it, and the television, games and fandom around it.",
+      "<b>Middle-earth joins the planned collections</b> \u2014 a thousand cards on Tolkien's world, the books behind it, and the films, games and fandom that grew from them.",
+      "<b>Forty-eight more families of word follow your spelling setting</b> \u2014 <i>sympathise</i>, <i>fertiliser</i>, <i>paediatrics</i> and the rest now change with it.",
+      "Fourteen new cards in the Russia geography collection, each with a paired glossary term.",
+      "<b>The Russia geography collection is finished</b> \u2014 all 83 federal subjects and 79 of the 80 administrative centres; Moscow Oblast\u2019s is left out because no source says which city it is.",
+      "A cited book\u2019s title is corrected in the sources of thirteen Russia geography cards.",
+    ],
   },
   {
     d: "2026-09-18",
-    t: "Forty more cards on Greek myth",
+    t: "The Ancient Egypt collection opens with its first ten cards",
     items: [
-      "<b>Forty new cards in the Ancient Greece collection</b>, on the Olympian gods, Prometheus, the creatures of Greek myth and the heroes, with thirty-four new glossary terms."
-    ]
+      "<b>One hundred and ten new cards and ninety-seven glossary terms</b> \u2014 forty on Greek myth, ten opening the Ancient Egypt collection, thirty carrying Rome to Trajan's column and thirty taking Russia to the Mongol conquest.",
+      "<b>The word \u201cmedian\u201d no longer links to the Medes</b> on cards that use it as a statistic rather than as a people.",
+      "<b>Architecture joins the planned collections</b> \u2014 a thousand cards on how buildings are designed and built, from the arch to the carbon in the concrete.",
+      "<b>The First World War joins the planned collections</b> \u2014 a thousand cards on the whole war, from the alliance system to how it is remembered.",
+      "<b>Ancient Mesopotamia joins the planned collections</b> \u2014 a thousand cards from the first cities to the last cuneiform tablet.",
+      "<b>Economics joins the planned collections</b> \u2014 a thousand cards from scarcity to the arguments economists are still having.",
+      "<b>France joins the planned collections</b> \u2014 a thousand cards from Gaul to the present, with its first cards still to come.",
+      "<b>Astronomy joins the planned collections</b> \u2014 a thousand cards from the naked-eye sky to cosmology, with its first cards still to come.",
+      "<b>Common Thread only groups a term under a category it genuinely belongs to</b> \u2014 genealogy has left Asia and water has left biology.",
+      "<b>Beringia draws the same globe in both collections</b>, the United States card having shown no map at all.",
+      "<b>The Paris Peace Conference card no longer says the conference outlasted the war</b> \u2014 it ran a year and three days.",
+      "<b>The Bosporan Kingdom card says when the kingdom began and ended</b>, and your own atlas draws it across those years.",
+      "<b>Three cards' atlas maps are put right</b> \u2014 the Battle of Alalia and the Phaistos Disc now show where they happened, and municipium no longer marks a town.",
+      "<b>A Chinese vocabulary card's question no longer looks as though it has vanished</b> when the answer is shown with the marker down.",
+      "<b>Three cards' source lists are improved</b> \u2014 two in World History now cite mostly works you can open, and one in Ancient Rome leans less on one scholar.",
+      "Thirty-two new cards in the Russia geography collection, each with a paired glossary term and a picture.",
+    ],
   },
   {
     d: "2026-09-17",
     t: "The Second World War map now shades the United States",
     items: [
+      "<b>A study card now opens a blank space to write on while the marker\u2019s pen is down</b> \u2014 and keeps it when the answer is revealed.",
+      "<b>Timeline sets a literary work in italic and names who wrote it</b>, so <i>Histories</i> is no longer a row you could take for an event.",
+      "<b>Your own atlas now draws the Shang dynasty and the Bosporan Kingdom</b> in the years each of them stood.",
+      "<b>A card\u2019s \u201cwhat came of this\u201d no longer names a modern scholar</b> \u2014 it says what happened rather than who argued it.",
+      "<b>A hundred and eighteen more cards gained an illustration</b> \u2014 in Ancient Greece, Rome, China, Korea, Psychology, Biology, Russia and two other collections.",
+      "<b>Every True or False answer now names its source</b> — a hundred and fifty-three more were cited today, fourteen rewritten, and four that could not be sourced were retired.",
+      "<b>The text size setting now sizes the Atlas's own labels too</b> \u2014 country, sea, river and city names on the globe grow and shrink with the rest of the site.",
+      "<b>A perfect day in every minigame now pays three artefact chests</b> rather than one.",
+      "<b>A deck finished for the day keeps its progress bar along the bottom of its row</b>, where it was jumping up under the title.",
+      "<b>Russia's cards draw a sharper coastline</b> \u2014 the Black Sea, the Sea of Azov, the Caspian and the Baltic at the detail Italy, Greece and China already had.",
+      "<b>Common Thread no longer files a Roman tribune under agriculture.</b>",
+      "<b>Twenty-four capital cards now say which of their sources are free to open</b>, as every other card already did.",
+      "<b>Numbers, centuries and eras read the same way everywhere</b> \u2014 sixty-four places where a figure was spelled out or a date read BC now match the rest of the site.",
+      "<b>A world geography card no longer names the neighbour you can already see beside it</b> on its own map.",
       "<b>The Second World War card shades every major power that fought</b> \u2014 the United States was missing from it altogether, along with a dozen more.",
-      "<b>Four more cards draw a globe of their own</b> \u2014 two marked with a single point and two shaded across the whole region they covered.",
+      "<b>Eleven more cards draw a globe of their own</b> \u2014 five marked with a single point and six shaded across the whole region they covered.",
       "<b>Folio no longer calls itself a history site</b> \u2014 the walkthrough, the About page and the page description name every subject on the shelf.",
       "<b>The walkthrough no longer blurs what it is pointing at</b> \u2014 the ringed control stays readable behind the dimmed page, which on a phone it was not.",
       "<b>Question variety now ships off</b> \u2014 every card asks its first phrasing until you turn the switch on for a deck.",
@@ -69,18 +122,28 @@ window.CHANGELOG = [
       "<b>The daily quote\u2019s author and work are now glossary links</b>, as every other name on the site is.",
       "<b>Opening a place on your own atlas is no longer announced as a discovery</b> \u2014 you discovered it by studying its card.",
       "<b>The admin artefact list is readable on a phone</b> \u2014 its row wraps instead of squeezing the name to nothing.",
-      "<b>Two cards\u2019 dating is clearer</b> \u2014 one no longer reads as though a later date fell inside its period, and two more agree about the same split.",
+      "<b>Twelve cards and eight glossary terms now carry clearer dates</b> \u2014 the seven kings of Rome and a war get the years traditionally given them, and three more no longer read ambiguously.",
       "<b>True or False explains itself properly</b> \u2014 its answers now link glossary terms, carry citations, and give feet and inches to readers who use them.",
       "<b>Your own atlas names every mark it draws</b> \u2014 a dot arrives with its label or not at all, and more of them appear as you zoom in.",
       "<b>Pinching the Atlas no longer zooms the page</b> on a tablet, which used to leave the site enlarged with no easy way back.",
-      "<b>Adding a shared deck now adds it to your daily study</b>, and it reaches your other devices as any added deck does.",
+      "<b>Adding a shared deck now adds it to your daily study</b>, and it appears on your other devices straight away — with a Download button while its cards are still arriving.",
       "<b>Four measurements now convert for imperial readers</b> \u2014 two cards, two glossary terms and the daily-game answers that state a speed.",
       "<b>Forty-two new True or False statements</b> \u2014 a new prehistory round and more in every other subject the game covers.",
       "<b>Five cards now rest on a wider range of scholarship</b> \u2014 each had leaned on one author for more than half of its citations.",
       "<b>Fourteen chapters across five Library books get back a lost full stop, a lost line or a misread word</b> \u2014 each had been reading as though it stopped in mid-sentence."
       ,"<b>Fifteen more True or False answers now cite their sources</b>, and five statements are rewritten to say what those sources actually show."
-      ,"<b>British readers now see British spelling throughout</b> — several dozen cards and glossary terms stored the American form, which the switch cannot correct."
+      ,"<b>British readers now see British spelling throughout</b> — several dozen cards and glossary terms stored the American form, and the switch now covers three more word families besides."
       ,"<b>A deck you have finished for the day turns green with a tick</b>, and gold when you got everything right first time."
+      ,"<b>Two hundred and thirty new cards and a hundred and twenty-five glossary terms</b> \u2014 East Asian politics as a course collection of its own, Rome from Augustus to Jerusalem, and the lands before Rus’."
+      ,"<b>Eighty-eight citations now give the right publication year</b> \u2014 long runs of references to Tacitus and to Cassius Dio named the wrong volume of the same edition."
+      ,"<b>A single-character Mandarin card lists the other words built on that character</b>, with their readings and meanings, whatever else you have downloaded."
+      ,"<b>Two card backgrounds are corrected</b> \u2014 one drops a population figure the card already shows and says when the city was founded instead, the other no longer names a modern scholar."
+      ,"<b>Two cards no longer contradict themselves</b> \u2014 one\u2019s questions gained the article they were missing, and the other\u2019s map no longer carries a name the card says was never formed."
+      ,"<b>A source not written in English now says which language it is in</b> \u2014 a chip beside the open-access one, on 381 citations across nine languages."
+      ,"<b>A card whose place is new to your atlas says so when you turn it over</b> \u2014 a Discovered! chip on its globe, with the sound the Atlas already uses."
+      ,"<b>Every card globe has a button through to your own atlas</b>, and a Back button there returns you to the card you were studying."
+      ,"<b>You can now hide a collection\u2019s places on your own atlas</b> \u2014 a switch per collection, beside where the world atlas keeps its layers."
+      ,"<b>A Library book says how many people have read it</b> \u2014 counted once per reader, and only once they have really read it."
       ,"<b>Seventy new cards in the Ancient Greece collection</b>, on Greek science, the philosophical schools, Greece under Rome and the opening of the myth decks, with fifty-nine new glossary terms."
     ]
   },
@@ -124,6 +187,11 @@ window.CHANGELOG = [
       "<b>The card on Minoan trade with Egypt now rests on the excavators\u2019 own reports</b> \u2014 not on one teaching website, and three of its sentences are rewritten to match.",
       "<b>The card on the Cypriot syllabary now says why the script died out</b> \u2014 the alphabet replaced it only after the Ptolemies took the island, and four of its six sources were one reviewer.",
       "<b>The horns of consecration card now says the symbol outlived the palaces</b> \u2014 it and the card on Minoan religion leaned on one excavator, and each now carries an independent voice.",
+      "Seventy-nine new cards in the Russia geography collection, each with a paired glossary term and a picture.",
+      "Every card in the Russia geography collection now gives its subject's population and area.",
+      "Geography card backgrounds no longer repeat the figures already shown in the answer box.",
+      "<b>Try ten cards now draws the map</b> \u2014 sampling a geography collection showed an empty grey box where the shape you are asked to name should be.",
+      "Thirty-five more cards in the Russia geography collection.",
     ],
   },
   {
@@ -145,6 +213,7 @@ window.CHANGELOG = [
       "<b>Ten cards now rest on several writers rather than on one old handbook</b> \u2014 in China, World History and Ancient Greece, and nine sentences were corrected to what their new source says.",
       "<b>Four glossary terms now cite a second work a reader can open</b> \u2014 each had one free source and one behind a paywall, which is half its apparatus out of reach.",
       "<b>Hundreds of sources on the country cards no longer lead to a dead page</b> \u2014 the UN rebuilt its statistics site, so each now opens an archived copy of the profile it cites.",
+      "<b>Russia joins the Geography section</b> \u2014 a new collection drawing all 83 of its federal subjects on the globe, with its first cards in.",
     ],
   },
   {

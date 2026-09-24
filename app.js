@@ -406,7 +406,8 @@
     const words = d.community
       ? "How hard readers find this card: " + d.pct + " out of 100, from " + d.total + " answers"
       : "How well known this card's answer is: " + (CARD_DIFFICULTY_LABELS[d.rank] || "");
-    let out = '<span class="card-stars' + (d.community ? " cs-community" : "") + '" title="' + esc(words) +
+    // a control since Sep 2026: pressing it opens a bubble saying what the rating means (see infoBubble)
+    let out = '<span class="card-stars' + (d.community ? " cs-community" : "") + '" role="button" tabindex="0" data-info="stars" data-cid="' + esc(c.id || "") + '" title="' + esc(words) +
       '" aria-label="' + esc("Difficulty " + d.rank + " of " + CARD_DIFFICULTY_MAX + ". " + words) + '">' +
       '<span class="cs-lbl" aria-hidden="true">Difficulty</span>';
     for (let i = 1; i <= CARD_DIFFICULTY_MAX; i++) out += '<span class="cs-star' + (i <= d.rank ? " on" : "") + '">' + star + "</span>";
@@ -531,6 +532,9 @@
       // the home page's daily-quote pool, keyed by each quote's SHIPPED English text (see quotesMerged):
       // a whole replacement object, or null to retire the quote. A key matching nothing shipped is a new one.
       quotes: o.quotes && typeof o.quotes === "object" ? o.quotes : {},
+      // the "Who said it?" pool's REMOVALS, keyed by each entry's English `q` → true (see whoSaidPool).
+      // Removal only: the pool is quotes.js, and an entry comes back by deleting its key.
+      whosaidOff: o.whosaidOff && typeof o.whosaidOff === "object" ? o.whosaidOff : {},
       // the artefact pool, keyed by artefact ID (see artefactsMerged): a whole replacement object, or
       // null to retire a shipped artefact. A key matching nothing in artefacts.js is one the admin added.
       artefacts: o.artefacts && typeof o.artefacts === "object" ? o.artefacts : {},
@@ -682,7 +686,12 @@
      declared here for the reason every cache above it is, and busted with them because a deck remounted
      or repaired is a deck whose sentences have moved. */
   let _wordFreq = new Map();
-  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; _atlasMineCache = null; _wordFreq = new Map(); _answerIdx = null; }
+  /* THE ACCOUNT'S SHARED DECKS THIS DEVICE HAS NOT GOT YET (`_sharedPend`; Sep 2026 — see
+     `sharedPendingMap`). Declared here for the reason every cache above it is, and busted with them
+     because mounting or deleting a community deck is exactly what takes one off the pending list. It is
+     also busted by `deckSyncWrite`, the sync record being the other half of the answer. */
+  let _sharedPend = null;
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; _atlasMineCache = null; _wordFreq = new Map(); _answerIdx = null; _sharedPend = null; }
   let _byteEnc = null;
   function cardBytes(id) {
     let n = _cardBytes.get(id);
@@ -968,6 +977,8 @@
     CARD_BY_ID[id].undatable = p.undatable;   // and whether that term happens at a time at all (see cardUndatable)
     CARD_BY_ID[id].map = p.map;               // and the place its question shades on the globe (see cardMapSpec)
     CARD_BY_ID[id].artwork = p.artwork;       // and whether its picture IS its subject (see cardArtSpec)
+    CARD_BY_ID[id].flagCard = p.flagCard;     // and whether that picture is a FLAG on its front (see cardFlagSpec)
+    CARD_BY_ID[id].drawCard = p.drawCard;     // …or a flag the reader is asked to DRAW (see cardDrawSpec)
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
@@ -2047,6 +2058,56 @@
     (Array.isArray(r.data) ? r.data : []).forEach((row) => { if (row && row.game) out[row.game] = row; });
     _gameStats = out; _gameStatsAt = Date.now();
     return out;
+  }
+  /* ---------- HOW MANY TIMES A LIBRARY BOOK HAS BEEN READ (Sep 2026, on request) ----------
+     The third counter of this shape, after the card difficulties and the daily games, and it exists for
+     the same reason: `progress` is readable only by its owner and their accepted friends, so nothing can
+     count across readers — the figure has nowhere to live but a pooled table joined to nobody (schema
+     section 16).
+
+     A READ IS A READER, NOT AN OPENING. It is counted once per book per reader, the first time they have
+     actually spent `BOOK_READ_MIN` reading it, and the fact that it has been counted is written into the
+     reader's OWN progress — which syncs, so the same person on a second device does not count twice, and
+     somebody who opens a book, glances and leaves does not count at all. Counting every open would make
+     the number a measure of browsing, while the word on the page says "read".
+
+     OFF ON A DEV ORIGIN and LATCHING OFF on a 404, like both of its siblings: a project that has not run
+     the block is the normal case, and a shelf showing every book as "0 reads" would be a lie about the
+     books rather than a gap in the database. Nothing is drawn at all until a figure is known. */
+  let _bookStatsOff = false, _bookStats = null, _bookStatsAt = 0;
+  const BOOK_STATS_TTL = 300000;       // five minutes; the shelf must never wait on a fetch to paint
+  const BOOK_READ_MIN = 60000;         // a minute with the book actually open and being read
+  function bookStatsPost(id) {
+    if (_bookStatsOff || isDevOrigin() || !id) return;
+    supaFetch("/rest/v1/rpc/bump_book_read", { method: "POST", body: { b: String(id) } })
+      .then((r) => { if (r && r.status === 404) _bookStatsOff = true; });
+  }
+  /* Every book's count in ONE request — the shelf draws forty-eight tiles, so a fetch per tile would be
+     forty-eight requests for a figure that is a footnote on each. */
+  async function bookStatsLoad() {
+    if (_bookStatsOff || isDevOrigin()) return null;
+    if (_bookStats && Date.now() - _bookStatsAt < BOOK_STATS_TTL) return _bookStats;
+    const r = await supaFetch("/rest/v1/book_stats?select=book,reads");
+    if (!r || !r.ok) { if (r && r.status === 404) _bookStatsOff = true; return null; }
+    const out = Object.create(null);
+    (Array.isArray(r.data) ? r.data : []).forEach((row) => { if (row && row.book) out[row.book] = row.reads | 0; });
+    _bookStats = out; _bookStatsAt = Date.now();
+    return out;
+  }
+  // what this session knows, without asking: null until the first load settles
+  function bookReads(id) { return _bookStats ? (_bookStats[id] | 0) : null; }
+  /* Called from the reading clock. The flag lives on the reader's own reading record beside their place
+     and their time, so it syncs with them; `Object.assign` rather than a fresh object, for the reason
+     `setReadingPos` records — a rebuilt record here would wipe the clock it is reading. */
+  function bookReadMaybeCount(id) {
+    if (!id || _bookStatsOff || isDevOrigin()) return;
+    const r = S.reading && S.reading[id];
+    if (!r || r.cnt || (r.ms | 0) < BOOK_READ_MIN) return;
+    S.reading[id] = Object.assign({}, r, { cnt: 1 });
+    save();
+    bookStatsPost(id);
+    // the shelf's own figure is now one behind the server's; drop the cache so the next visit re-asks
+    _bookStats = null; _bookStatsAt = 0;
   }
   function gamePlayedToday(key) { const g = S.games && S.games[key]; return !!(g && g.date === todayStr() && g.played); }
   function gameWonToday(key) { const g = S.games && S.games[key]; return !!(g && g.date === todayStr() && g.won); }   // won = a perfect run today (gold tile)
@@ -3883,6 +3944,17 @@
      It is cleared by route() on any navigation that is neither the editor nor the study page, so a hold can
      never sit waiting on a page the reader reached some other way. */
   let studyHold = null;
+  /* …AND THE SAME TRIP TO THE ATLAS AND BACK (Sep 2026, on request: a card's atlas window gets a button
+     to "take the user to that location on the personal atlas page, where there should then be a 'Back'
+     button to go back to the card study the user was in").
+     It is `studyHold`'s shape exactly and for the same reason: the Atlas is a PAGE, so reaching it routes,
+     and `route()` clears the study record by design — that being the one choke point that stops a stale
+     queue outliving the page it belongs to. Rather than weaken the rule for a second caller, the record is
+     captured when the button is pressed and written back when the reader presses Back.
+     `atlasFocus` carries the CARD ID rather than a coordinate, so the atlas resolves the place through
+     `atlasRegister` — the same rule that decides what is drawn there. A pair of numbers passed across
+     would be a second answer to "where is this card", free to disagree with the mark the globe draws. */
+  let atlasHold = null, atlasFocus = null;
 
   // remember which gloss popups are open (owning route + term + position) so a page reload can re-open them.
   // Uses sessionStorage: it survives an F5 / dev-server live-reload in the SAME tab, but a tab/browser CLOSE clears it,
@@ -5426,11 +5498,91 @@
       ? "Recalled on " + CRIT_DAYS + " separate days — the point at which the evidence says the gains flatten."
       : "Recalled on " + n + " of " + CRIT_DAYS + " separate days. Recalling a card on separate days is what makes it stick; recalling it twice in one session is not.";
     const lbl = done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days";
-    return '<div class="crit-row' + (done ? " done" : "") + '" role="img" title="' + esc(words) +
+    return '<div class="crit-row' + (done ? " done" : "") + '" role="button" tabindex="0" data-info="crit" data-cid="' + esc(id) + '" title="' + esc(words) +
       '" aria-label="' + esc(words) + '">' +
       '<span class="crit-pips" aria-hidden="true">' + pips + "</span>" +
       '<span class="crit-lbl" aria-hidden="true">' + lbl + "</span></div>";
   }
+
+  /* ---------- A SPEECH BUBBLE SAYING WHAT A MARK MEANS (Sep 2026, on request) ----------
+     "Clicking the difficulty rating in the top right should make a speech bubble appear above it
+     explaining what it means/how it is calculated. Clicking the 3 day dots in the middle should do the
+     same." Both marks were `role="img"` with the explanation in a tooltip, and a tooltip is the one
+     thing a phone cannot show — so a press now opens a small dark bubble above the mark, in the grade
+     bar's own `?` bubble colours, and a second press, Escape, a press anywhere else or a navigation
+     closes it.
+     It is ONE element on `document.body`, positioned in viewport coordinates from the mark's rect and
+     clamped to the screen, because the marks sit in the card's header at the top of the page, inside
+     boxes that clip, and a bubble drawn inside one of those would be cut off at the card's own edge.
+     The words are BUILT FROM THE SAME FIGURES the mark is drawn from (`cardDifficultyShown`,
+     `critCount`), so the bubble can never describe a different rating from the stars under it. */
+  let _infoBub = null, _infoAnchor = null;
+  function closeInfoBubble() {
+    if (_infoBub) { _infoBub.remove(); _infoBub = null; }
+    if (_infoAnchor) { _infoAnchor.setAttribute("aria-expanded", "false"); _infoAnchor = null; }
+  }
+  function infoBubbleHTML(kind, id) {
+    const c = cardById(id);
+    if (kind === "stars") {
+      const d = c ? cardDifficultyShown(c) : null;
+      if (!d) return "";
+      if (d.community) {
+        return '<span class="ib-title">Difficulty · ' + d.rank + " of " + CARD_DIFFICULTY_MAX + "</span>" +
+          "<span class=\"ib-row\">How hard readers actually find this card: <b>" + d.pct + " out of 100</b>, from " + d.total.toLocaleString() + " answers.</span>" +
+          '<span class="ib-row">It is measured from every reader\'s first ' + CARD_STATS_SIGHTINGS + " answers to the card — the more often those are Again or Hard, the more stars — so it rates how hard the card is to learn, not how long anyone has been studying it.</span>" +
+          '<span class="ib-row ib-quiet">Before ' + CARD_STATS_MIN + " answers exist, the stars show an editor's rating of how well known the answer is.</span>";
+      }
+      return '<span class="ib-title">Difficulty · ' + d.rank + " of " + CARD_DIFFICULTY_MAX + "</span>" +
+        '<span class="ib-row">How well known this card\'s answer is to the general public: <b>' + esc(CARD_DIFFICULTY_LABELS[d.rank] || "") + "</b>.</span>" +
+        '<span class="ib-row">One star is a household name and five is a term met almost only in the scholarship. It is an editor\'s rating of the word, not of how hard the card is written.</span>' +
+        '<span class="ib-row ib-quiet">Once ' + CARD_STATS_MIN + " readers' answers are in, it switches to how hard readers actually find the card.</span>";
+    }
+    if (kind === "crit") {
+      const n = critCount(id), done = n >= CRIT_DAYS;
+      return '<span class="ib-title">' + (done ? "Learned" : "Recalled on " + n + " of " + CRIT_DAYS + " days") + "</span>" +
+        '<span class="ib-row">Each dot is a <b>separate day</b> on which you answered this card correctly. Two right answers on the same day fill one dot, not two.</span>' +
+        '<span class="ib-row">After ' + CRIT_DAYS + " separate days the card counts as learned: recalling something on different days is what makes it last, and the evidence says the gains level off at about three.</span>" +
+        '<span class="ib-row ib-quiet">The dots do not change when the card is next due — the schedule decides that on its own.</span>';
+    }
+    return "";
+  }
+  function openInfoBubble(anchor) {
+    const same = _infoAnchor === anchor;
+    closeInfoBubble();
+    if (same) return;
+    const html = infoBubbleHTML(anchor.dataset.info, anchor.dataset.cid);
+    if (!html) return;
+    const b = document.createElement("div");
+    b.className = "info-bubble";
+    b.setAttribute("role", "tooltip");
+    b.innerHTML = html;
+    document.body.appendChild(b);
+    const r = anchor.getBoundingClientRect(), vw = document.documentElement.clientWidth;
+    const w = b.offsetWidth, h = b.offsetHeight;
+    const cx = r.left + r.width / 2;
+    const left = Math.max(8, Math.min(vw - w - 8, cx - w / 2));
+    let top = r.top - h - 12, below = false;
+    // ABOVE, as asked, even where that covers the top bar for a moment — the bubble is on top of it and
+    // closes on the next press; only a mark with no room at all above it opens its bubble underneath
+    if (top < 4) { top = r.bottom + 12; below = true; }
+    b.style.left = left + "px"; b.style.top = top + "px";
+    b.style.setProperty("--ib-arrow", Math.max(14, Math.min(w - 14, cx - left)) + "px");
+    if (below) b.classList.add("ib-below");
+    _infoBub = b; _infoAnchor = anchor;
+    anchor.setAttribute("aria-expanded", "true");
+  }
+  document.addEventListener("click", (e) => {
+    const a = e.target && e.target.closest ? e.target.closest("[data-info]") : null;
+    if (a) { e.preventDefault(); openInfoBubble(a); return; }
+    if (_infoBub && !(e.target.closest && e.target.closest(".info-bubble"))) closeInfoBubble();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && _infoBub) { closeInfoBubble(); return; }
+    const a = (e.key === "Enter" || e.key === " ") && e.target && e.target.closest ? e.target.closest("[data-info]") : null;
+    if (a) { e.preventDefault(); e.stopPropagation(); openInfoBubble(a); }
+  }, true);
+  window.addEventListener("scroll", () => { if (_infoBub) closeInfoBubble(); }, { passive: true, capture: true });
+  window.addEventListener("resize", () => { if (_infoBub) closeInfoBubble(); });
 
   /* ---------- review history ----------
      S.reviewLog is the only record of what happened on a PAST day: a card keeps just its latest
@@ -5647,6 +5799,8 @@
     const add = Math.min(ms, STUDY_TICK_MS * 2);
     r.dms = (r.dms | 0) + add;
     r.ms = (r.ms | 0) + add;
+    // …and once a reader has really read it, count the reading across readers (see bookReadMaybeCount)
+    try { bookReadMaybeCount(bookId); } catch (e) {}
   }
   function readTimeToday(bookId) { const r = S.reading && S.reading[bookId]; return r && r.d === todayStr() ? (r.dms | 0) : 0; }
   function readTimeTotal(bookId) { const r = S.reading && S.reading[bookId]; return (r && (r.ms | 0)) || 0; }
@@ -6087,8 +6241,12 @@
     /* A MAP CARD AND AN ARTWORK CARD ARE BOTH OUT BY CONSTRUCTION, and for one reason: these games deal a
        question COLD, with no globe and no picture beside it, and both of those cards ask about something
        the game cannot show. Neither needs an editorial judgement per card, so neither needs a field.
-       The picture ROUND is the exception and asks for the artworks by name — see picturePool. */
-    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c)) s.add(id); });
+       The picture ROUND is the exception and asks for the artworks by name — see picturePool.
+       A FLAG CARD IS OUT ON THE SAME RULE and needs no field either: its whole question is the flag. It
+       is deliberately NOT added to the picture round in this pass — a flag round wants its own decoy
+       ranking (four flags of similar design rather than four tag-near countries) and is a change to a
+       GAME rather than to a collection; see docs/flags-card-plan.md. */
+    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c) && !cardFlagSpec(c) && !cardDrawSpec(c)) s.add(id); });
     return s;
   }
   /* WHICH PLACE NAMES THE CARDS ACTUALLY TEACH — Find it's own filter, built here beside the door every
@@ -6499,6 +6657,12 @@
        thing that changes on arrival is that the counts start being the reader's own. */
     if (entryPending(id)) {
       const row = langCatalogById(uDeckIdOf(id)), sub = uSubOf(id);
+      /* A SHARED deck has no catalogue at all: its subdeck tree is inside the file, so until that lands
+         the only honest answer is the deck's own name and the card count the account's list gave. */
+      if (!row) {
+        const p = sharedPendingById(uDeckIdOf(id));
+        return { title: p ? p.title : uDeckIdOf(id), parent: "Your decks", count: p ? p.cards : 0 };
+      }
       const node = sub ? langCatalogNode(row, sub) : null;
       return { title: sub ? uSubName(sub) : row.title,
                parent: sub ? (uSubName(uSubParent(sub)) || row.title) : "Your decks",
@@ -7526,10 +7690,12 @@
     }
     return _langById.get(deckId) || null;
   }
-  // the entry names a catalogue deck this device has not downloaded
+  /* The entry names a deck this device has not downloaded — one of the LANGUAGE catalogue's, or one the
+     signed-in account installed on another device (`sharedPendingMap`). Both draw the same row and neither
+     yields a card; what differs is where the row reads its title from and which fetch its button runs. */
   function entryPending(id) {
     const d = uDeckIdOf(id);
-    return !!(d && !UDECKS[d] && langCatalogById(d));
+    return !!(d && !UDECKS[d] && (langCatalogById(d) || sharedPendingById(d)));
   }
   // a node of the catalogue's own subdeck tree, by `::` path — how a pending SUBDECK row knows its size
   function langCatalogNode(row, sub) {
@@ -9821,6 +9987,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        another device, so a POST that failed would have this deck deleted off the device it was just added
        to. Unrecorded, the deck simply stays unannounced and the reader can try again. */
     if (ins.ok || ins.signedOut) deckSyncInstalled(row.id);
+    sharedPendingForget(row.id);   // the file is here, so the account's list no longer owes this device one
     if (!ins.ok && !ins.signedOut) return { ok: true, deck: d, adopted: adopt, unannounced: true };
     // every device files a shared deck under the same local id, which is what carries the reader's own
     // arrangement of it across — an adopted deck still wears the random id its import minted
@@ -9895,16 +10062,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `by`   — remote id → the account this device installed the deck under. NOT per account, and it is
                 what keeps the push honest on a shared device: community decks are device-local and every
                 account signing in here sees them, so without it account B would announce account A's decks
-                as its own — the very adoption `_supaOwner` exists to prevent one layer up. */
+                as its own — the very adoption `_supaOwner` exists to prevent one layer up.
+       `want` — account → remote id → `{t: title, n: cards}` for a deck the account lists that this device
+                has NOT installed. See `sharedPendingMap`: it is what lets the deck draw a row before its
+                file is here, and it is written from ONE metadata request at the head of the sync, before
+                the per-deck fetches, so the row appears while the download is still running. */
   const DECK_SYNC_KEY = "folio_deck_sync_v1";
   function deckSyncRead() {
     try {
       const r = JSON.parse(localStorage.getItem(DECK_SYNC_KEY) || "null");
-      if (r && typeof r === "object") return { seen: r.seen || {}, pend: r.pend || {}, by: r.by || {} };
+      if (r && typeof r === "object") return { seen: r.seen || {}, pend: r.pend || {}, by: r.by || {}, want: r.want || {} };
     } catch (e) {}
-    return { seen: {}, pend: {}, by: {} };
+    return { seen: {}, pend: {}, by: {}, want: {} };
   }
-  function deckSyncWrite(rec) { try { localStorage.setItem(DECK_SYNC_KEY, JSON.stringify(rec)); } catch (e) {} }
+  function deckSyncWrite(rec) {
+    _sharedPend = null;   // the pending map is derived from this record — see sharedPendingMap
+    try { localStorage.setItem(DECK_SYNC_KEY, JSON.stringify(rec)); } catch (e) {}
+  }
   function deckSyncList(rec, part, owner) { const a = rec[part][owner]; return Array.isArray(a) ? a : []; }
   /* DOES THE SIGNED-IN ACCOUNT LIST THIS DECK? — which is NOT the same question as "is this deck on this
      device", and mistaking one for the other is what stranded a reader's decks on the phone they were added
@@ -9920,6 +10094,54 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!supaLoggedIn()) return !!localDeckForRemote(remoteId);
     const rec = deckSyncRead(), me = SUPA.user.id;
     return rec.by[remoteId] === me || deckSyncList(rec, "seen", me).indexOf(remoteId) >= 0;
+  }
+  /* ---------- A SHARED DECK THE ACCOUNT HAS AND THIS DEVICE HAS NOT (Sep 2026, on request) ----------
+     "Adding a shared community collection on one device should also add it on every other device that
+     account is logged into." Both halves of that were already built — the install writes the deck into
+     `S.active`, which syncs, and `deck_installs` carries the file — and the join between them was missing
+     a step: `activeEntryIds()` keeps an entry only while something resolves it, and a `u:<id>` entry whose
+     file has not been fetched yet resolved to NOTHING. So on the second device the deck was invisible
+     until the idle sync finished downloading it, and worse, `addActive`/`removeActive` rebuild `S.active`
+     FROM that filtered list — so any deck the reader added in that window wrote the entry away and pushed
+     the loss back up, un-adding the deck on the device it was added on. The download can be tens of
+     megabytes, and the whole point of the request is the reader who is looking at the other device now.
+     A language deck has had this row since Aug 2026 (`entryPending`), reading its title and size off the
+     eager `lang-decks.js` catalogue. A shared deck has no such catalogue, so the sync records what it
+     learns instead — one metadata request for the whole account's list, ahead of the per-deck fetches.
+     It is DEVICE-local, like the rest of the sync record: it is a statement about what this device is
+     missing, and synced it would be every device's answer at once and true of none of them. */
+  function sharedPendingMap() {
+    if (_sharedPend) return _sharedPend;
+    const out = {};
+    if (supaLoggedIn()) {
+      const rec = deckSyncRead(), mine = rec.want[SUPA.user.id] || {};
+      Object.keys(mine).forEach((remoteId) => {
+        if (localDeckForRemote(remoteId)) return;          // already here under some local id
+        const localId = deckIdFromRemote(remoteId);
+        if (UDECKS[localId]) return;                       // …or that id is spoken for by another deck
+        const m = mine[remoteId] || {};
+        out[localId] = { remoteId: remoteId, title: m.t || "Shared deck", cards: m.n || 0 };
+      });
+    }
+    _sharedPend = out;
+    return out;
+  }
+  function sharedPendingById(localId) { return localId ? (sharedPendingMap()[localId] || null) : null; }
+  /* Record what the account lists, or take a deck off that list once its file has landed. Written through
+     the sync record so the row, the sheet and the sync cannot come to disagree about what is still coming. */
+  function sharedPendingSet(rows) {
+    if (!supaLoggedIn()) return;
+    const rec = deckSyncRead(), me = SUPA.user.id, want = {};
+    rows.forEach((r) => { if (r && r.id) want[r.id] = { t: r.title || "", n: r.card_count || 0 }; });
+    rec.want[me] = want;
+    deckSyncWrite(rec);
+  }
+  function sharedPendingForget(remoteId) {
+    if (!remoteId || !supaLoggedIn()) return;
+    const rec = deckSyncRead(), me = SUPA.user.id;
+    if (!rec.want[me] || !rec.want[me][remoteId]) { _sharedPend = null; return; }
+    delete rec.want[me][remoteId];
+    deckSyncWrite(rec);
   }
   /* Who installed a deck, recorded AT THE INSTALL rather than at the next sync — which is what makes the
      removal half safe. A sync interrupted by a navigation writes nothing, so a deck installed and then
@@ -9985,6 +10207,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       r.data.forEach((row) => { if (row && row.deck_id && server.indexOf(row.deck_id) < 0) server.push(row.deck_id); });
       const keep = new Set(server);   // what `seen` becomes: the server's list, plus anything still ours
       const seen = new Set(deckSyncList(rec, "seen", me));
+      /* WHAT THIS DEVICE IS ABOUT TO FETCH, RECORDED BEFORE IT FETCHES ANY OF IT (Sep 2026, on request).
+         The decks below are pulled one at a time and can be tens of megabytes each, and `S.active` has
+         already arrived with the progress blob — so without this the reader's other device shows nothing
+         at all for the whole of that download, and the entry is prunable meanwhile. One request for the
+         lot, ahead of the loop, gives every missing deck a row with its own title on it; `sharedPendingSet`
+         rewrites the list wholesale, so a deck deleted or hidden since simply stops being claimed. */
+      const missing = server.filter((id) => !localDeckForRemote(id));
+      if (!missing.length) sharedPendingSet([]);           // nothing owing: say so outright
+      else {
+        const meta = await supaFetch("/rest/v1/user_decks?id=in.(" + missing.join(",") +
+          ")&select=id,title,card_count&limit=" + DECK_SYNC_MAX);
+        // a metadata request that failed is NOT an empty list: leaving the previous answer standing keeps
+        // whatever rows are already drawn, and the loop below installs the decks either way
+        if (meta.ok && Array.isArray(meta.data) && meta.data.length) {
+          sharedPendingSet(meta.data);
+          /* HOME ONLY, and quietly: the daily-study list is the one page these rows appear on, and a
+             repaint of any other is a repaint that can only interrupt something. `renderInPlace` keeps
+             the scroll and the entrance animation off, since the reader did not navigate anywhere. */
+          if (current && current.name === "home") renderInPlace();
+        }
+      }
       /* A FULL PAGE MEANS THE LIST MAY BE TRUNCATED, and a truncated list read as the whole of it would
          delete the tail of somebody's shelf. Adding is safe either way; mirroring a removal is not, so it
          is the half that stands down. */
@@ -10033,6 +10276,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         }
       }
       rec.seen[me] = Array.from(keep);
+      /* `sharedPendingSet` above and `sharedPendingForget` inside every install wrote through this same
+         record, so the copy held here has a stale `want` on it — and writing it back would put the whole
+         download list straight back onto a device that has just finished downloading it. */
+      rec.want = deckSyncRead().want;
       deckSyncWrite(rec);
       // 3) and bring any deck installed before this existed onto the id every device agrees on, so the
       //    reader's own arrangement of it syncs with everything else
@@ -10361,6 +10608,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        NOT clipped (measured; see .claude/build-china-provinces.js). Without it Qinghai Lake and Poyang
        are grey fields under a province. Arriving twice is free: lakes.js ASSIGNS window.LAKES. */
     chinaprov: { files: ["china-provinces.js", "lakes.js", "rivers.js"] },
+    /* The 83 federal subjects of the Russian Federation and their 80 administrative centres, for the
+       Geography section's Russia collection. Its own bundle for the reason `chinaprov` is not part of
+       `usstates`: a reader studying the states must not fetch the subjects to be asked which state is
+       shaded, and the reverse. It is the largest of the three national layers by some way — 404 KB
+       gzipped against China's 157 and the states' 181 — which is Russia's Arctic coastline and its
+       thousands of islands rather than a looser tolerance; all three are traced at the same 0.002°/3dp,
+       so the card map cannot tell which it is holding. Measured by `node .claude/check-sizes.js`; it is
+       LAZY, so no reader who never opens the deck pays any of it.
+         `lakes.js` rides here as it does in the other two, and this is the one layer where it is
+       LOAD-BEARING rather than merely harmless. Natural Earth clips a lake lying BETWEEN divisions out of
+       both of them: China has none such, and the China builder measured that the file changed nothing
+       there — but Baikal sits between Irkutsk Oblast and Buryatia and Ladoga between Karelia and
+       Leningrad Oblast, so both are holes in this layer. Under a hole is world.js, which has no lake
+       holes at all, so without lakes.js the two largest lakes in Europe and Asia would draw as grey land
+       inside a shaded subject. Arriving twice is free: lakes.js ASSIGNS window.LAKES. */
+    russubj: { files: ["russia-subjects.js", "lakes.js", "rivers.js"] },
     /* The capital of every country and territory as a POINTS TABLE, for the gold dot on a world capital
        card (see CARD_MAP_LAYERS). Its own bundle rather than a file inside `world`, and fetched only by a
        card that actually asks for a dot: `world` is what every map window loads for the coastline under
@@ -10377,6 +10640,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     coast_italy: { files: ["coast/italy.js"], after: hiresCoastIngest },
     coast_greece: { files: ["coast/greece.js"], after: hiresCoastIngest },
     coast_china: { files: ["coast/china.js"], after: hiresCoastIngest },
+    /* RUSSIA (Sep 2026, on request: Russia's borders at a higher resolution and its rivers drawn, "like in
+       the other country-specific geography collections"). There is no Russia GEOGRAPHY collection — the
+       geography section is the world, the United States and China — so what this serves is the Russia
+       HISTORY collection's locator windows, which is where Russia is actually drawn and which had neither
+       of the two things Rome, Greece and China have had since Sep 2026. The rivers needed nothing: a
+       locator has always drawn `rivers.js` (see `wantRivers`), and there is no `rivers/russia.js` because
+       the steppe frames are 15°–108° wide, where the world file's own chains are already sub-pixel.
+       ITS BOX IS THE COLLECTION'S FRAME AND NOT THE COUNTRY — the Arctic and Pacific shores are left out
+       for the arithmetic China's entry gives about Russia, whose mainland ring is the largest in world.js
+       — so 86 KB gzipped, between Greece's 50 and China's 63. See the builder for what is in it and for
+       why China is left out of it. */
+    coast_russia: { files: ["coast/russia.js"], after: hiresCoastIngest },
     /* The United States, for the Geography section's map cards rather than for a locator (Sep 2026, on
        request: "give the US a higher resolution"). It is the largest of the four by a distance — the
        frame has to hold Hawaii and Maine, and the Canadian shore that shares it is half the file even
@@ -14556,6 +14831,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (name !== "study") clearStudySession();
     // the hold belongs to the trip between the study page and the editor; going anywhere else ends it
     if (name !== "admin" && name !== "study") studyHold = null;
+    // …and the atlas hold to the trip between the study page and the Atlas
+    if (name !== "map" && name !== "study") { atlasHold = null; atlasFocus = null; }
     // the Atlas opens on the reader's own atlas every time — see the note beside `atlasTab`
     if (name === "map") atlasTab = "mine";
     /* An admin-only route is refused HERE and not in the page, so a deep link, a Back and a stray
@@ -14700,6 +14977,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     closeReliquaryPage(); // …and the Reliquary page's repaint hook goes with the page it belonged to
     closeDeckMenu();      // …nor an added deck's options sheet, which also lives on document.body
     closePageHelp();      // …nor a page's first-visit card, which is on the body for the same reason (pageHelp)
+    closeInfoBubble();    // …nor the stars' or the dots' explanation bubble (openInfoBubble)
     closeKeySheet();      // …nor the keyboard sheet: it names the CURRENT page's keys, so it cannot outlive it
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
     closeGlossPicker();
@@ -14957,6 +15235,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const FONT_SIZES = ["tiny", "small", "medium", "large", "huge"];
   const FONT_SIZE_LABELS = { tiny: "Very small", small: "Small", medium: "Medium", large: "Large", huge: "Very large" };
   function fontSizeLabel(f) { return FONT_SIZE_LABELS[f] || f; }
+  /* ---------- …AND THE TEXT SIZE REACHES THE CANVAS TOO (Sep 2026, on request) ----------
+     `--fs` multiplies 519 px font-sizes in the stylesheet and could not reach a single label on the
+     Atlas or on a card's map window, those being PAINTED rather than laid out — so a reader who had
+     asked for Very large met a globe set in the same 10px it has always been, which is the one surface
+     where small type is hardest to read.
+     THE MULTIPLIER IS READ OFF THE STYLESHEET RATHER THAN RESTATED HERE, which is the site's own idiom
+     (`cpSheetMode` asks CSS where the sheet breakpoint is, `--crit-slot` asks it where the pips go): the
+     five steps are declared once, in `body[data-fs="…"]`, and a sixth added later needs no second table.
+     IT IS CACHED, NOT READ PER FRAME. `getComputedStyle` forces a style flush and the Atlas repaints on
+     every pointer move, so the value is taken in `applyTheme` — which runs at boot and on every render(),
+     and is where `data-fs` is written, so the read can never see the previous size.
+     WHAT SCALES WITH IT IS THE COLLISION ARITHMETIC AS WELL AS THE TYPE, and that is the whole care this
+     needs: every label layer de-collides by a box built from its own font size and a `measureText` taken
+     after `ctx.font` is set, so scaling the size scales the box — EXCEPT where a layer wrote its half
+     height as a literal (`y - 8 … 16`), which is why those move with it below. A label that grows while
+     its box does not is a map that overlaps its own names at Very large and says nothing about why. */
+  let MAP_FS = 1;
+  function readMapFs() {
+    const v = parseFloat(getComputedStyle(document.body).getPropertyValue("--fs"));
+    MAP_FS = v > 0 ? v : 1;
+    return MAP_FS;
+  }
+  function mapFs(px) { return px * MAP_FS; }
   /* Light or dark from the operating system. Read LIVE (not cached) for the same reason
      prefersReducedMotion is: the setting can change while the tab is open — a laptop crossing sunset does
      it without a reload — and the listener below repaints when it does. */
@@ -14973,6 +15274,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio";
     document.body.dataset.theme = theme;
     document.body.dataset.fs = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
+    readMapFs();   // the canvas maps have no stylesheet to inherit from — see mapFs above
     /* Two accessibility switches, written here for the same reason `data-fs` is: applyTheme runs on every
        render() and at boot, so neither needs a call site of its own and neither can be missed by a page.
        · no-anim — Settings → Appearance → Animations. The stylesheet's reduced-motion killswitch carries a
@@ -15356,6 +15658,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["reorganis", "reorganiz", "e|es|ed|ing|ation|ations"],
     ["recognis", "recogniz", "e|es|ed|ing|able|ably|ance"],
     ["civilis", "civiliz", "e|es|ed|ing|ation|ations|ational"],
+    /* `Christianisation` is authored British, like every other -ise word in Folio's prose (the
+       corpus writes the s form on the World History cards), and the family had no row — so whichever
+       spelling a card stored was the one BOTH readers saw, and a reader typing the other one into the
+       cloze box was marked wrong.  `sovietis` was added for exactly this in Sep 2026; this is the same
+       hole one word over, found while writing ru-053. */
+    ["christianis", "christianiz", "e|es|ed|ing|ation|ations"],
     ["colonis", "coloniz", "e|es|ed|ing|ation|ations|er|ers"],
     ["decolonis", "decoloniz", "e|es|ed|ing|ation"],
     ["sovietis", "sovietiz", "e|es|ed|ing|ation|ations"],
@@ -15393,6 +15701,64 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["crystallis", "crystalliz", "e|es|ed|ing|ation"],
     ["orientalis", "orientaliz", "e|es|ed|ing|ation"],
     ["hellenis", "helleniz", "e|es|ed|ing|ation"],
+    /* THE ROWS ABOVE WERE CHOSEN FOR FOLIO'S OWN PROSE and the forty-five below for the language
+       decks', which is a different vocabulary entirely — and the gap between them read as ZERO to every
+       checker there is. `check-british.js` asks whether a word is the American member of a DECLARED
+       pair, so a family with members missing is invisible to it exactly as an absent family would be
+       (the batch-76 lesson, met again at fifteen times the scale): measured over the nine Mandarin
+       decks, 62 distinct American spellings over 97 occurrences and these 45 stems had no row.
+       THE SUFFIX LIST DELIBERATELY OMITS THE BARE STEM, which is what makes several of these safe at
+       all — `synthesis` the noun, `Polaris` the star, `optimism`, `socialist` and `Baptist` are all
+       the stem plus a suffix that is NOT in the list, so none of them can ever be matched. Adding an
+       empty element to any row below would rewrite all five.
+       AND A STEM RULE FOR THIS FAMILY IS NOT AN OPTION, which the same measurement showed: the suffix
+       also catches `prize` 42, `seize` 40, `size` 29 and `maize` 2, where -ize is the only English
+       spelling there is and a rule would write *prise*, *seise*, *sise* and *maise*. */
+    ["authoris", "authoriz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["baptis", "baptiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["customis", "customiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["digitis", "digitiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["disorganis", "disorganiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["energis", "energiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["epitomis", "epitomiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["equalis", "equaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["eulogis", "eulogiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["fertilis", "fertiliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["finalis", "finaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["generalis", "generaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["harmonis", "harmoniz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["hypnotis", "hypnotiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["idolis", "idoliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["jeopardis", "jeopardiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["localis", "localiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["marginalis", "marginaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["mobilis", "mobiliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["monopolis", "monopoliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["nationalis", "nationaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["notaris", "notariz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["optimis", "optimiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["oxidis", "oxidiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["patronis", "patroniz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["penalis", "penaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["plagiaris", "plagiariz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["polaris", "polariz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["popularis", "populariz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["publicis", "publiciz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["radicalis", "radicaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["revitalis", "revitaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["satiris", "satiriz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["socialis", "socializ", "e|es|ed|ing|ation|ations|er|ers"],
+    ["stabilis", "stabiliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["sterilis", "steriliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["strategis", "strategiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["subsidis", "subsidiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["sympathis", "sympathiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["synchronis", "synchroniz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["synthesis", "synthesiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["traumatis", "traumatiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["unauthoris", "unauthoriz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["uncivilis", "unciviliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["visualis", "visualiz", "e|es|ed|ing|ation|ations|er|ers"],
     ["analys", "analyz", "e|ed|ing"],
     ["catalys", "catalyz", "e|ed|ing"],
     ["paralys", "paralyz", "e|ed|ing"],
@@ -15409,6 +15775,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["foetal", "fetal", ""],
     ["foetus", "fetus", "|es"],
     ["anaemia", "anemia", ""],
+    /* THREE MORE OF THIS FAMILY (Sep 2026), found by READING a card rather than by any sweep: 儿科 was
+       glossed `pediatrics` over an example saying `pediatrician`, while two of its own sentences said
+       paediatric — the card contradicted itself and `check-british.js` read 0, the family having no row.
+       Measured over both corpora before they were added: 5 sites in the decks (儿科, 知觉, 麻醉, 膜) and
+       NONE in Folio's own prose, which already writes `oestrogens`. */
+    ["paediatric", "pediatric", "|s|ian|ians"],
+    ["anaesthe", "anesthe", "sia|sias|tic|tics|tist|tists"],
+    ["haemorrhag", "hemorrhag", "e|es|ed|ing|ic"],
     ["anaemic", "anemic", ""],
     ["diarrhoea", "diarrhea", ""],
     ["oedema", "edema", ""],
@@ -15433,6 +15807,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["channell", "channel", "ed|ing"],
     ["counsell", "counsel", "ed|ing|or|ors"],
     ["jewell", "jewel", "ed|er|ers"],
+    ["diall", "dial", "ed|ing|er|ers"],
+    ["quarrell", "quarrel", "ed|ing|er|ers"],
+    ["marvell", "marvel", "ed|ing|ous|ously"],
     ["jewellery", "jewelry", ""],
     ["woollen", "woolen", "|s"],
     ["enrol", "enroll", "|s|ment|ments"],
@@ -18790,6 +19167,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return el;
   }
   function applyWBState() {
+    /* THE PEN BEING DOWN IS A FACT ABOUT THE PAGE, not only about the panel (Sep 2026, on request: "if
+       the marker is turned on, the bottom of the card below the question should expand to create an
+       empty space to write on"). A study card is a page or two of prose with nowhere on it to work an
+       answer out, so the card opens a blank band under the question while the pen is down. It is one
+       body class read by the stylesheet rather than a branch in `renderCard`, which is what lets the
+       band appear and go the moment the pen is picked up or put down, on the card already on screen,
+       with no re-render to take a revealed answer away. It rides HERE because this is the one place
+       `WB.enabled` is applied — and it is set before the `wbToolsRef` guard, or a page whose panel has
+       not been built yet would leave the class behind from the page before it. */
+    document.body.classList.toggle("wb-down", !!WB.enabled);
     if (!wbToolsRef) return;
     wbToolsRef.classList.toggle("active", WB.panelOpen);          // the tools are showing
     wbToolsRef.querySelector(".wb-toggle").classList.toggle("on", WB.enabled);   // the pen is down — visible with the panel shut
@@ -18835,6 +19222,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const el = ensureWBTools(); el.classList.add("show"); wbApplyPos(el); applyWBState(); wbUpdateHistBtns();
   }
   function hideWBTools() {
+    document.body.classList.remove("wb-down");   // no marker on this page: no writing band either
     if (wbToolsRef) { wbToolsRef.classList.remove("show"); wbToolsRef.classList.remove("on-atlas"); }
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
@@ -19037,7 +19425,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the case that makes it plain: claimed at pointerdown, a picture could not be drawn on at all, which
        is exactly what the comment above says a marker is for. Here a tap opens it and a line across it is
        a line across it. */
-    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img, .av-flag";
+    /* …AND A DRAW CARD'S REVEALED FLAG (Sep 2026). The pen is DOWN on every draw card by construction,
+       so with the pad's own answer absent from this list the one picture the reader wants to look at
+       closely is the one picture they could not open — a `<figure>` promoted with `role="button"`, which
+       CTL_SEL deliberately cannot see. Here, as everywhere else in this list, a tap opens it and a line
+       drawn across it is a line drawn across it. */
+    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img, .av-flag, .dp-answer";
     const hitUnder = (e, sel) => {
       const prev = canvas.style.pointerEvents;
       canvas.style.pointerEvents = "none";
@@ -20192,8 +20585,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function animateProgs(root) {
     root.querySelectorAll(".prog[data-pct]").forEach((p) => {
-      const f = p.querySelector(".fill");
-      requestAnimationFrame(() => { f.style.width = p.dataset.pct + "%"; });
+      const f = p.querySelector(".fill"), fl = p.querySelector(".fill-l");
+      requestAnimationFrame(() => {
+        f.style.width = p.dataset.pct + "%";
+        if (fl) fl.style.width = (p.dataset.pctl || 0) + "%";   // the learned half of a two-part bar (see adProg)
+      });
     });
     root.querySelectorAll(".xp[data-pct]").forEach((p) => {
       const f = p.querySelector(".xp-fill");
@@ -20321,6 +20717,145 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        bought at a small cost in legibility. A hanok roof was rejected for being China's pagoda at 28px
        and a moon jar for being a circle. The two arcs are exact semicircles (r 4.3 across a chord of 8.6)
        with opposite sweep flags, which is what makes the S symmetrical about the centre. */
+    /* ringed planet — Astronomy. The one mark that says this subject and nothing else at the 24-28px a
+       deck row draws it at. THE COLLISION TO AVOID IS `atom`, NOT `star`: this shelf already carries
+       sun, moon, star and atom, and the first three are each one shape, but the atom is a small disc
+       crossed by an ellipse — the same construction. What separates them is PROPORTION. The atom's
+       nucleus is r 1.9 inside THREE ellipses of rx 9; this is a disc of r 5 inside ONE ring of rx 10.5.
+       A single ring around a large disc is Saturn; three rings around a dot is an atom. If it is ever
+       redrawn, keep the disc large and the ring single, and do not add a second ring. `star` was
+       considered and refused for a different reason — the United States collection already wears it, and
+       two collections sharing a mark is what these exist to prevent (Visual Art's reuse of `brush` is a
+       stated cost, not a precedent). LOOKED AT at 24, 28 and 40px, on dark ground and on light, beside
+       `atom` and `star`: the failure this had to clear is the ring reading as a strike-through, and it
+       does not — the -18 degree tilt and the ring's overhang (x 1.96-22.04 against the disc's 7-17) read
+       as a ring at every size. */
+    { k: "ringed", n: "Ringed planet", d: '<circle cx="12" cy="12" r="5"/><ellipse cx="12" cy="12" rx="10.5" ry="3.4" transform="rotate(-18 12 12)"/>' },
+    /* Eiffel Tower — France. On THIS SHELF'S OWN CONVENTION: a pagoda stands for China, a torii for
+       Japan, a pyramid for Egypt, an onion dome for Russia, a Doric column for Greece and a wall for
+       Chinese geography, so a monument standing for a nation is what these marks already are — and the
+       anachronism (an 1889 structure over a collection that opens in the Palaeolithic) is the pagoda's
+       and the torii's, not a new cost. A FLEUR-DE-LIS was the other candidate and was refused twice
+       over: it says MONARCHY on a collection whose largest deck is the Revolution, and at 24px it is a
+       blob close to the existing `crown`. A Gallic rooster would be a second bird beside the owl.
+       THE COLLISION IS `pyramid` AND `mountain`, both triangles — and THE FIRST DRAFT LOST TO IT. Drawn
+       with the flare spread evenly over the whole height it read as a TRAFFIC CONE at 24px, which four
+       variants of the same construction all did: a shallow curve plus a ground line plus stripes is a
+       cone, whatever the intent. WHAT FIXES IT IS WHERE THE FLARE IS. The real silhouette is a NEEDLE
+       that splays only in its bottom third, so the control points hold x near 12 from y 12 upward and do
+       all the spreading below y 15 — at y 9.5 the shaft is 2.3 wide and at the base it is 10.4. Keep
+       that, and keep the arch; a straight-sided or evenly-tapered tower is a pyramid with a mast on it.
+       A SECOND PLATFORM WAS DRAWN AND DROPPED, on the laurel wreath's precedent above: four horizontal
+       marks inside 17px is a blob, and the arch plus one platform says the same thing. Looked at at 20,
+       24, 28, 40 and 64px on dark ground and on light, beside `pyramid`, `mountain` and `crown`. */
+    { k: "eiffel", n: "Eiffel Tower", d: '<path d="M5 21h14"/><path d="M6.8 21C9.9 19 11.5 12.5 12 2.5"/><path d="M17.2 21C14.1 19 12.5 12.5 12 2.5"/><path d="M8.2 19.6Q12 17 15.8 19.6"/><path d="M9.8 16.3h4.4"/>' },
+    /* supply-and-demand cross — Economics. The Marshallian cross, which is the one image the subject
+       has made entirely its own: nothing else on this shelf is a CHART, and a reader who has had one
+       economics lesson recognises it. `coin` already exists and is claimed by no collection, so reuse
+       was available and was refused — a coin says MONEY, and money is one deck of nine here; the mark
+       should say what the collection is about, which is choice under scarcity.
+       THE COLLISION IS READING AS A BARE X, AND THE AXIS IS THE WHOLE OF WHAT PREVENTS IT — measured,
+       not assumed: rendered without the L the two curves are simply a saltire at every size. KEEP THE
+       AXIS. The CURVATURE is a weaker claim than it looks and the render said so: a straight-line
+       variant reads almost identically below about 28px, and the curve only becomes visible at 40px
+       and up. It is kept because it is what makes the mark a supply-and-demand diagram rather than a
+       generic X-in-axes where it CAN be seen, not because it rescues the small sizes. Looked at at 20,
+       24, 28, 40 and 64px, on dark ground and on light, beside `coin` and `atom`. */
+    { k: "cross", n: "Supply and demand", d: '<path d="M4.5 3.5V19.5H20"/><path d="M7.5 17.5C10.5 16 13 12.5 17.5 6.5"/><path d="M7.5 6.5C10.5 8 13 11.5 17.5 17.5"/>' },
+    /* clay tablet — Ancient Mesopotamia. The object the whole collection is made of. `scroll`, `book`
+       and `letter` exist below and are claimed by no collection, so reuse was available and is wrong:
+       a scroll is papyrus, a book is a codex and an envelope is neither, and none of them is what
+       Mesopotamia wrote on.
+       TWO THINGS WERE LEARNED BY DRAWING IT, and both are why the paths look as they do.
+       FIRST, `stroke-linecap="butt"` ON THE INNER MARKS IS LOAD-BEARING. The svg sets round caps, which
+       add half the stroke width at each end — so the first draft's 1.7-unit marks rendered ~3.2 wide
+       against 1.3-unit gaps and MERGED INTO TWO SOLID BARS at 24px, turning the mark into a generic
+       document icon. Butt caps and three ragged rows keep six separate marks legible down to 20px.
+       SECOND, A CUNEIFORM WEDGE CANNOT BE DRAWN AT THIS SIZE. A small arrowhead was tried and at 40px
+       and up it reads unmistakably as a FAST-FORWARD control; the shape is too fine to survive. What
+       identifies the mark is therefore the SLAB, not the script: the outline is a pillow — bowed on all
+       four sides, wider than tall, no spine and no fold — which is what separates it from `book` and
+       `letter`. KEEP THE BOW.
+       THE HONEST LIMIT, since no redraw fixes it: at 20px this is a rounded slab with texture on it, and
+       a reader who does not already know the collection could read it as a document. Every tablet mark
+       has that problem. Looked at at 20, 24, 28, 40 and 64px on dark ground and on light, beside `book`
+       and `letter`, across nine variants. */
+    { k: "tablet", n: "Clay tablet", d: '<path d="M6 5.4Q12 4.4 18 5.4Q19.2 11 18 18.6Q12 19.6 6 18.6Q4.8 11 6 5.4Z"/><path stroke-linecap="butt" d="M8.2 9h2.4M12.4 9h3.4"/><path stroke-linecap="butt" d="M8.2 12h3.4M13.2 12h2.4"/><path stroke-linecap="butt" d="M8.2 15h2.4M12 15h2.6"/>' },
+    /* barbed wire — The First World War. The object this war found a use for, belonging to every army
+       and to no nation, and the one piece of its furniture that is a SHAPE rather than a silhouette
+       somebody has to recognise. Three obvious marks were rejected before it and each rejection is the
+       same argument: a steel helmet is national in every version (Brodie, Adrian, Stahlhelm), a poppy is
+       one nation-group's emblem of mourning AND a blob at 24px, and a biplane collides outright with
+       `plane`, which the Second World War already wears. The collision to avoid here is `sword` and
+       `shield`, the shelf's two martial marks, and the separation is easy: both are VERTICAL objects,
+       where this is a horizontal band across the full width. RENDERED AND LOOKED AT at 24, 26, 28, 34
+       and 48px, on the collection's own ground and on white, beside sword, shield, plane and cards —
+       fifteen variants over three rounds. What the rendering settled, and none of it was predictable:
+       a WAVY strand scribbles at 24px; THREE barbs merge into a hatched bar; a TWISTED pair of strands
+       reads as a chain of beads; a six-point barb (an X plus a vertical) reads as an asterisk; and a
+       SAGGING strand — which is what real wire does — reads as a bird with wings. A straight strand
+       with TWO four-point barbs is the one that survives, and the failure it had to clear is reading as
+       a strike-through, which it does not: the barbs run y 8-16 on a 24 grid, a third of the box above
+       and below the line, and there are two of them rather than a row. Keep it to two, keep the strand
+       straight, and do not add a second strand. */
+    { k: "wire", n: "Barbed wire", d: '<path d="M2 12h20"/><path d="M6.6 8 9.4 16M9.4 8 6.6 16"/><path d="M14.6 8 17.4 16M17.4 8 14.6 16"/>' },
+    /* arch (Architecture) — the sharpest icon collision on the shelf, because EIGHT of the marks above
+       and below are already buildings: pagoda, column, dome, pyramid, torii, castle, wall and eiffel. An
+       architecture collection may have none of them, so what it wears is a piece of CONSTRUCTION rather
+       than a building — the round arch, which belongs to no one tradition (Mesopotamian, Roman, Sasanian,
+       Islamic, Gothic and Chinese building all turn on it).
+       THE RING IS WHAT MAKES IT LEGIBLE AND IT WAS SETTLED BY RENDERING. A single-line arch — one curve
+       on two legs — reads at 24px as a doorway, a tombstone or a shed; drawing an extrados AND an
+       intrados with the opening inside them says MASONRY and is what separates it from the onion `dome`
+       two rows up. A keystone was tried twice and refused twice: as a wedge projecting above the crown it
+       reads at 24px as a chimney on a hut, and as two radial joint lines it crowds the ring into a smear.
+       Keep the ring and keep the ground line — without the line the shape floats and reads as a
+       horseshoe, without the ring it is a door. */
+    { k: "arch", n: "Arch", d: '<path d="M4 20V11a8 8 0 0 1 16 0v9"/><path d="M7 20v-9a5 5 0 0 1 10 0v9"/><path d="M2 20h20"/>' },
+    /* A PLAIN UNADORNED CIRCLE (Middle-earth) — and it is the plainest mark here on purpose. Fifty
+       marks were already in this list and NOT ONE of them is a bare circle: `coin` is two concentric
+       circles, `globe` a circle with three meridians, `sun` a small disc with rays, `ringed` a disc
+       inside one ellipse, `atom` a nucleus inside three, `moon` a crescent. Rendered at 24, 28 and
+       34px beside all six, the empty ring is unmistakable against every one of them. A ROUND HOBBIT
+       DOOR WAS TRIED AND REFUSED — a circle with a centred knob on a ground line reads at 24px as
+       `coin`'s inner circle with the ground line gone, so the more elaborate mark is the more
+       confusable one. Keep the circle empty. It is also the one emblem of this franchise that is a
+       geometric form rather than somebody's design. */
+    { k: "ring", n: "Ring", d: '<circle cx="12" cy="12" r="8.2"/>' },
+    /* A BIRD IN FLIGHT (Westeros) — fifty-one marks were in this list and NOT ONE was a bird in
+       flight: `owl` is front-facing, round, with two large eyes and ear tufts, and nothing else comes
+       near. Rendered at 24, 28, 34 and 44px beside `owl`, `plane`, `leaf` and `ship` it is
+       unmistakable at every size. It is the franchise's own messenger — every letter in the series
+       travels by raven, the maesters keep them, and "dark wings, dark words" is a saying a reader
+       meets a dozen times — and, like the hue beside it, it belongs to NO HOUSE, which a direwolf, a
+       lion or a stag would not. THREE OTHER MARKS WERE DRAWN AND REFUSED: a DIREWOLF head is House
+       Stark's sigil and at 24px is `owl` with pointed ears, i.e. a cat; an IRON THRONE drawn as a
+       seat under a row of blades reads at 24px as `castle`, whose whole identity is crenellations;
+       and a DRAGON cannot be drawn at 24px without becoming a bird anyway. Keep the tail and the
+       wing's sweep — the first raven drawn without them read as a snail. */
+    { k: "raven", n: "Raven", d: '<path d="M2.4 8.6 7.8 12.8c1.7-2.4 4.1-3.7 7-3.7l2.6-2.5v2.9l4.2 1.3-3.8 1.7c-.4 4.3-3.7 7.1-7.9 7.1-2.4 0-4.4-.7-5.9-2"/><path d="M9.6 19.5 8 21.6"/><circle cx="14.4" cy="10.9" r=".8"/>' },
+    /* THE RADIATION TREFOIL (The Cold War) — fifty-two marks were in this list and nothing resembles
+       it: `atom` is a nucleus inside three ellipses, `ringed` a disc inside one, `sun` a small disc
+       with straight rays, `ring` a bare circle. Rendered at 24, 28, 34 and 44px beside all four it is
+       unmistakable, which is what a three-wedge rotational form buys — a silhouette nothing else here
+       has. IT BELONGS TO NEITHER SIDE, which is the test the hue below had to pass too, and it names
+       the one thing that makes this a subject rather than a chapter of great-power rivalry.
+       A MUSHROOM CLOUD WAS REFUSED and NOT on legibility: it is an image of a hundred thousand deaths
+       used as a decorative mark, and a collection that cards Hiroshima properly should not wear it.
+       A ROCKET was drawn and refused on legibility — at 24px it is a fussy `plane`, and a third
+       vehicle besides. A HALF-FILLED CIRCLE for the divided world reads as `moon`. */
+    { k: "trefoil", n: "Radiation trefoil", d: '<circle cx="12" cy="12" r="2.6"/><path d="M9.8 7.9 L7.1 2.8 A10.4 10.4 0 0 1 16.9 2.8 L14.2 7.9 A4.6 4.6 0 0 0 9.8 7.9 Z"/><path d="M16.6 12.2 L22.4 12.4 A10.4 10.4 0 0 1 17.5 20.8 L14.4 15.9 A4.6 4.6 0 0 0 16.6 12.2 Z"/><path d="M9.6 15.9 L6.5 20.8 A10.4 10.4 0 0 1 1.6 12.4 L7.4 12.2 A4.6 4.6 0 0 0 9.6 15.9 Z"/>' },
+    /* A DANE AXE, and the hammer that was drawn first would not render — see docs/vikingage-card-plan.md
+       for the fifteen proportions. Two rules came out of it and both are general. A SYMMETRIC OBJECT ON A
+       STEM CANNOT CARRY THIS SLOT: head-down a Mjolnir reads as a plant pot, head-up a bar across a vertical
+       stroke is the letter T, and every legible hammer glyph escapes that by being asymmetric, which a
+       Mjolnir by definition is not. And A BLADE BESIDE THE TOP OF AN UPRIGHT HAFT READS AS THE LETTER P —
+       drawn six times — so THE HAFT IS DIAGONAL and CROSSES the blade. The diagonal is also what separates
+       it from everything else here before a reader has resolved the blade: no other mark on this shelf is
+       drawn on an axis. A prow spiral reads as a shepherd's crook, a square sail as a CJK
+       character (bad on a shelf carrying China), a drinking horn collides with moon, a round shield with coin and
+       compass, a runestone with arch, a triquetra with atom and ringed. */
+    { k: "axe", n: "Dane axe", d: '<path d="M3.4 21.4 13.8 8.6"/><path d="M10.6 3.2c5 1 9 4.8 10 9.6-4.8 1.6-10.2 0-13.6-3.6z"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20337,6 +20872,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { k: "wall", n: "Great Wall", d: '<path d="M2 20.4h20"/><path d="M2 20.4v-6.2h7"/><path d="M22 20.4v-4.6h-7"/>' +
       '<path d="M9 20.4v-9.6h6v9.6"/><path d="M8.6 10.8h6.8"/><path d="M10.1 10.8V8.9M12 10.8V8.9M13.9 10.8V8.9"/>' +
       '<path d="M3.9 14.2v-1.7M6.4 14.2v-1.7M17.6 15.8v-1.7M20.1 15.8v-1.7"/>' },
+    /* a flag flying from its staff (Sep 2026, with the Flags deck). IT IS THE READER'S PICKER MARK AND
+       NO COLLECTION'S: Flags began as a collection of its own and is a third DECK of World Geography on
+       request, and a deck inside a collection carries no icon (see `adIconKey`) — so this has no
+       `COLLECTION_ICON` row and is here for somebody to put on a deck of their own. Kept rather than
+       deleted because it is a good generic mark and the picker had none.
+       DRAWN AND LOOKED AT at 28px
+       and 34px, which is the one thing the laurel-wreath note above says cannot be skipped. Four
+       candidates were rendered and read at both sizes: a plain rectangle is legible but reads as a
+       bookmark, a SWALLOWTAIL's notch closes up into a filled wedge at 28px, and a triangular pennant is
+       clean and is not what a national flag is. The WAVE survives 28px — the shallow curve on both edges
+       is still visible — and is the one that says "flag" at a glance. */
+    { k: "flag", n: "Flag", d: '<path d="M7 3v18"/><path d="M7 5.2c3.7-1.6 7.4 1.6 11 0v8c-3.6 1.6-7.3-1.6-11 0z"/>' },
     { k: "compass", n: "Compass rose", d: '<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4 13.6 10.4 20.6 12 13.6 13.6 12 20.6 10.4 13.6 3.4 12 10.4 10.4Z"/>' },
     /* speech bubble — ALL SEVEN language collections share it, which is the one place on this shelf two
        collections wear one mark, and it is a decision rather than an omission. Every icon above says what
@@ -20396,11 +20943,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-43": "lotus",
     egypt: "pyramid",
     ww2: "plane",
+    ww1: "wire",
+    arch: "arch",
+    middleearth: "ring",
+    westeros: "raven",
+    coldwar: "trefoil",
+    vikingage: "axe",
     japan: "torii",
     psych: "head",
     phil: "owl",
     bio: "helix",
     dino: "sauropod",
+    astro: "ringed",
+    france: "eiffel",
+    econ: "cross",
+    mesopotamia: "tablet",
     korea: "taegeuk",
     /* Visual Art takes the EXISTING `brush`, which is the one collection mark on this shelf that was
        reused rather than drawn. Every other was checked by eye at the 24-28px a deck row draws it at,
@@ -20412,6 +20969,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": "compass",
     "geo-world": "map",
     "geo-china": "wall",
+    /* Russia, in the Geography section, takes the EXISTING `mountain` — the second collection mark on
+       this shelf reused rather than drawn, and the cost is stated rather than hidden exactly as Visual
+       Art's is. The Urals are the reason: the conventional Europe-Asia divide, the one feature of
+       Russian geography a reader is most likely to already carry, and a shape that survives the 24-28px
+       a deck row draws it at, which a more distinctly Russian mark does not obviously do. A matryoshka
+       (nested outlines that fill in at small sizes) and a birch were both considered and neither is
+       worth shipping unlooked at. `dome` is the HISTORY collection's onion dome and is deliberately not
+       reused here, on the rule the two Chinas follow: a pagoda for the history collection and a wall for
+       the geography one, so the two never read as one row split in two. If it is to change, draw it and
+       look at it. */
+    "geo-russia": "mountain",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -20770,12 +21338,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      clearing at midnight by something, and nothing runs at midnight.
      Note that a reader's FIRST sweep pays twice, and that is correct rather than a double-count: the
      Clean Sweep badge unlocks on the same day and badges earn chests too, so one chest is for the day's
-     games and one is for the badge, which can never be earned again. */
+     games and one is for the badge, which can never be earned again.
+     IT PAYS THREE (Sep 2026, on request). Finishing all nine whatever the score pays one; a PERFECT run
+     in all nine is a different order of work, and paying the two the same said so nowhere. The figure is
+     a named constant read by both the grant and the sentence beside it, so the chest count and the words
+     announcing it cannot come apart — which is `maybeStreakChest`'s own arrangement one channel over. */
+  const SWEEP_CHESTS = 3;
   function maybeSweepChest() {
     if (S.sweepChest === todayStr() || !allGamesWonToday(S)) return;
     S.sweepChest = todayStr();
-    grantChest();
-    toast("🎯 A perfect score in every game today — a chest is waiting in your account.");
+    grantChest(SWEEP_CHESTS);
+    toast("🎯 A perfect score in every game today — " +
+      (SWEEP_CHESTS === 1 ? "a chest is" : SWEEP_CHESTS + " chests are") + " waiting in your account.");
   }
   /* A FOURTH CHANNEL, AND THE ONLY ONE THE READER HAS TO CLAIM (Sep 2026, on request: "completing (not
      perfecting) all the minigames each day should give the user a free chest… a locked chest which
@@ -20974,6 +21548,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="ho-sub">' + esc(String(h.queue.length)) + " card" + (h.queue.length === 1 ? "" : "s") +
       " left in " + esc(where) + ", started on another device.</span></button>";
   }
+  /* ---------- NOT SIGNED IN — SAID ON THE HOME PAGE, NOT ONLY ON THE ACCOUNT PAGE (Sep 2026, on request) ----------
+     "The home page should make it clearer when a user is not logged in — I just studied for an hour
+     without realising i wasnt logged in, and lost all my progress." Nothing on the page said so: the
+     greeting reads the same name either way, and the one place the state was stated was the account page,
+     which a reader who believes they are signed in has no reason to open. So a signed-out reader meets a
+     notice at the head of the day's work, above the review, every visit — in the high-contrast amber the
+     site uses for a caution rather than the red it uses for an error, since nothing is wrong yet — saying
+     what it costs and with the button that fixes it. It cannot be dismissed, deliberately: a notice the
+     reader closed once is the state that produced the report.
+     IT ASKS THE STORED SESSION AS WELL AS THE LIVE ONE, because `supaBoot` is asynchronous and the home
+     page can paint before it has read the token back — without the stored half, every signed-in reader
+     would see the warning flash on each load, which is the fastest way to teach a reader to ignore it. */
+  function guestNow() {
+    if (supaLoggedIn()) return false;
+    try { const st = JSON.parse(localStorage.getItem(SUPA_SESS_KEY) || "null"); if (st && st.user && st.user.id) return false; } catch (e) {}
+    return true;
+  }
+  function guestNoticeHTML() {
+    if (!guestNow()) return "";
+    const n = Object.keys(S.cards || {}).length;
+    const what = n
+      ? (n === 1 ? "The one card you have studied is" : "The " + n.toLocaleString() + " cards you have studied are") + " saved only in this browser."
+      : "Anything you study will be saved only in this browser.";
+    return '<div class="guest-notice" role="status">' +
+      '<span class="gn-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg></span>' +
+      '<span class="gn-body"><b>You are not signed in.</b> ' + what + " Clearing it, or opening Folio on another device, starts you again from nothing.</span>" +
+      '<button type="button" class="btn gn-go" data-guestgo>Sign in or create an account</button></div>';
+  }
+  document.addEventListener("click", (e) => { if (e.target && e.target.closest && e.target.closest("[data-guestgo]")) route("account"); });
   function chestBannerHTML() {
     const n = chestCount();
     if (!n) return "";
@@ -22833,17 +23436,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (r.correct) dayMissed.delete(r.id); else dayMissed.add(r.id);
       }
     })();
-    const DK_DAY_LABELS = { done: "Finished for today", won: "Finished for today, nothing missed" };
+    /* …AND GOLD NOW MEANS THE WHOLE DECK IS LEARNED, NOT A PERFECT DAY (Sep 2026, on request: "decks
+       should not turn gold when all review cards in a day were correctly answered, but only when the whole
+       deck has been completed, i.e. every card in it studied 3 days with the dots"). A perfect day is a
+       small thing that happens most days on a short deck, and spending the site's achievement gold on it
+       left nothing to say when a deck was genuinely finished. The test is `atCriterion` over every card
+       the row claims — the same three separate days the dots on each card count — so the row goes gold on
+       exactly the day the last card's third dot fills, and it stays gold whatever the day's piles say. The
+       green mark for a day's work finished is unchanged. `dayAnswered` / `dayMissed` above are no longer
+       read by the row and are kept for nothing else; they are left because the walk is cheap and the
+       banner's own reading of "perfectly" is the same rule, stated in one place. */
+    const DK_DAY_LABELS = { done: "Finished for today", won: "Every card learned" };
     /* ONE call to `entryPiles` per row rather than two: the counts and the day's state are the same
        measurement read twice, and that function walks every card in the entry. */
     const adDay = (entryId) => {
       const c = entryPiles(entryId);
       const counts = adCounts(c);
-      const ids = c.skip || c.nw + c.lr + c.rv > 0 ? null : entryCardIds(entryId);
+      const all = entryCardIds(entryId) || [];
+      const won = all.length > 0 && all.every(atCriterion);
+      const ids = won ? all : (c.skip || c.nw + c.lr + c.rv > 0 ? null : all);
       if (!ids || !ids.length) return { counts: counts, cls: "", mark: "" };
-      let answered = 0, missed = 0;
-      ids.forEach((id) => { if (dayAnswered.has(id)) { answered++; if (dayMissed.has(id)) missed++; } });
-      const won = answered > 0 && missed === 0;
       return {
         counts: counts,
         cls: won ? " dk-done dk-won" : " dk-done",
@@ -22898,16 +23510,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        and leaving one row's mark standing would read as a switch that half worked. */
     const adIcon = (entryId, parentKey) =>
       S.settings.deckIcons === false ? "" : entryIconMarkup(entryId, adIconKey(entryId, parentKey), "dk-ic");
+    /* TWO PROGRESSES ON ONE BAR (Sep 2026, on request: "the first general bar should be light
+       blue/teal (same color as undiscovered gloss) and show progress for cards studied once, the darker
+       blue progress bar on top of it should show how many cards have been studied 3 days"). The light
+       fill is `--newterm`, the undiscovered glossary term's own teal, and the dark one is laid over it
+       from the same left edge, so the gap between the two ends is the cards met but not yet learned. The
+       bar goes GOLD when every card is learned, which is the row's gold above — not when every card has
+       merely been seen once. */
     const adProg = (ids) => {
-      const total = ids.length, studied = ids.filter(isSeen).length;
+      const total = ids.length, studied = ids.filter(isSeen).length, learned = ids.filter(atCriterion).length;
       /* `data-total` / `data-studied` are the two numbers the bar is DRAWN from, written down beside the
          percentage. Nothing renders them — the figure itself lives in the row's options sheet — but a
          percentage alone cannot say how many cards a row is counting, and that is exactly what has to be
          readable when a deck is dragged from one container into another (see test-review-decks). */
       // …and the same gold on the review list's own rows — see deckProgMarkup for why it rides on the bar
-      const done = total > 0 && studied >= total;
-      return `<div class="prog dk-prog${done ? " prog-done" : ""}" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}">
-        <div class="track"><div class="fill"></div></div>
+      const done = total > 0 && learned >= total;
+      return `<div class="prog dk-prog${done ? " prog-done" : ""}" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-pctl="${total ? ((learned / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}" data-learned="${learned}">
+        <div class="track"><div class="fill"></div><div class="fill-l"></div></div>
       </div>`;
     };
     /* Each added deck's row wears its COLLECTION's identity hue rather than the review's own (Aug 2026, on
@@ -23005,9 +23624,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            pushes the whole-deck id once per pending deck. Nine "Level" rows each offering to download the
            same 21 MB file would be nine answers to one question, and the levels appear the moment it lands. */
         if (!ud && entryPending(id)) {
-          const cat = langCatalogById(uDeckIdOf(id));
-          rows.push({ pending: uDeckIdOf(id), id, depth, parent: parentKey, drag: id,
-                      title: adTitle(cat ? cat.title : uDeckIdOf(id), parentKey), bytes: cat ? cat.bytes : 0,
+          const dId = uDeckIdOf(id);
+          const cat = langCatalogById(dId), shared = cat ? null : sharedPendingById(dId);
+          rows.push({ pending: dId, id, depth, parent: parentKey, drag: id,
+                      shared: shared ? shared.remoteId : "",
+                      title: adTitle(cat ? cat.title : shared ? shared.title : dId, parentKey),
+                      bytes: cat ? cat.bytes : 0,
                       hue: groupColor(id) || hue, kids: [] });
           return;
         }
@@ -23120,6 +23742,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           if (pendingSeen.has(dId)) return;
           pendingSeen.add(dId);
           langCtxFor(cat.lang).push(uDeckEntry(dId));
+          return;
+        }
+        /* …and a SHARED deck the account holds and this device has not fetched yet. It collapses to one
+           row for the same reason, and it belongs to no language, so it sits at the top level exactly as
+           it will once its file lands. Without this it fell through the test below and was drawn nowhere
+           at all — an entry that syncs, resolves to nothing and is therefore pruned away by the next
+           `addActive`, which is how a deck added on one device came to be un-added on the other. */
+        if (dId && !UDECKS[dId] && sharedPendingById(dId)) {
+          if (pendingSeen.has(dId)) return;
+          pendingSeen.add(dId);
+          tops.push(uDeckEntry(dId));
           return;
         }
         if (!dId || !UDECKS[dId]) return;
@@ -23297,7 +23930,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span><span class="dk-sup">not on this device</span></div>
               </div>
-              <button class="btn tiny dk-dl" type="button" data-langdl="${esc(r.pending)}">Download ${esc(fmtDeckSize(r.bytes))}</button>
+              ${r.shared
+                /* A SHARED deck's button carries no size, deliberately: it is published as rows rather
+                   than as a file and nothing in `user_decks` states its weight, so a figure here would be
+                   one this device had made up. The language catalogue does state one, and says it. */
+                ? `<button class="btn tiny dk-dl" type="button" data-shareddl="${esc(r.shared)}">Download</button>`
+                : `<button class="btn tiny dk-dl" type="button" data-langdl="${esc(r.pending)}">Download ${esc(fmtDeckSize(r.bytes))}</button>`}
               ${chev}
             </div>`;
           }
@@ -23793,6 +24431,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               sits above the review with the first-run hero, which is first-run-only for the same reason,
               and either answer retires it. Settings → Study brings it back. It is what the three-beat
               how-it-works strip under the review used to say, said properly and only where asked for. */""}
+        ${guestNoticeHTML()}
         ${tourOfferHTML()}
         ${/* WAITING CHESTS, DIRECTLY ABOVE THE DAILY-STUDY BANNER (Aug 2026, on request). It was on the
               account page, two taps away from where a chest is actually earned, while the banner carried a
@@ -23959,6 +24598,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            rather than the page scrolling to the top and animating itself back in. */
         if (r.error) { b.disabled = false; b.classList.remove("dk-dl-busy"); b.textContent = was; }
         await uImportDone(r, true);
+      });
+    });
+    /* THE SAME ROW'S BUTTON FOR A SHARED DECK (Sep 2026, on request) — the deck the account added on
+       another device, whose file this one has not fetched. The idle sync fetches it on its own
+       (`communitySyncInstalls`), so this is not the only way in; it is the way in for the reader who is
+       looking at the row NOW, and the only way in at all when that sync failed — offline at boot, or a
+       deck that was hidden and has since been restored.
+       It reports no percentage, unlike the language download beside it: a shared deck arrives as paged
+       rows of JSON rather than as one file, so there is no total to count against and a bar drawn over
+       an unknown length is a bar that says something untrue. The word is what is honest here. */
+    root.querySelectorAll("[data-shareddl]").forEach((b) => {
+      b.addEventListener("pointerdown", (e) => e.stopPropagation());
+      b.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        if (b.disabled) return;
+        b.disabled = true;
+        const was = b.textContent;
+        b.classList.add("dk-dl-busy");
+        b.innerHTML = '<span class="dkdl-t">Downloading…</span><i class="dkdl-fill" style="width:0%"></i>';
+        const back = () => { if (b.isConnected) { b.disabled = false; b.classList.remove("dk-dl-busy"); b.textContent = was; } };
+        const got = await communityFetchDeckById(b.dataset.shareddl);
+        if (got.error || !got.row) {
+          // gone or hidden since the account listed it: the next sync rewrites the account's list from the
+          // server, so the row retires itself rather than being taken away here on one failed fetch
+          toast(got.error === "notfound" ? "That deck is no longer available" : (got.error || "Couldn't load that deck."));
+          back(); return;
+        }
+        const ins = await uDeckInstall(got.row, got.cards, got.gloss);
+        if (ins.error) { toast(ins.error); back(); return; }
+        toast("Downloaded — " + got.row.title);   // toast sets textContent, so the title is not escaped here
+        renderInPlace();   // the reader is standing on this list: the row turns into the deck under them
       });
     });
     /* THE SAME BUTTON, FETCHING THE SAME FILE, FOR A DECK ALREADY HERE (Sep 2026, on the 蛋糕 report).
@@ -24692,11 +25362,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <button type="button" class="btn ghost" id="smpPrev"${i === 0 ? " disabled" : ""}>Previous</button>
           <button type="button" class="btn ghost" id="smpNext">${i + 1 === ids.length ? "Finish" : "Next card"}</button>
         </div>`;
+      /* AND THE QUESTION'S OWN GLOBE, for `PAGES.card`'s reason one page over: a map card's map is the
+         QUESTION, so it is emitted by `cardFrontHTML` OUTSIDE `#smpBack` and `mountCardBack` cannot reach
+         it — this page drew every geography card as a dead grey box until Sep 2026. Unlike that page it
+         is NOT revealed here: the answer is behind a button, and the map naming what it shades would give
+         it away, so `cardMapReveal` waits for `show()` exactly as the study page's does. */
+      mountCardMaps(root);
       const show = () => {
         const inner = root.querySelector("#smpBack");
         if (!inner || inner.innerHTML) return;
         inner.innerHTML = buildBack(c);
         mountCardBack(inner, c, { expand: true });
+        cardMapReveal(root);   // the map may now name what it was shading — the shape and its name together
         root.querySelector("#smpReveal").classList.add("show");
         const sb = root.querySelector("#smpShow");
         if (sb) sb.remove();
@@ -24918,8 +25595,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        nothing else. The collection under it is called Visual Art rather than Art so that it does not
        read as the parent of the siblings that may join it. */
     { label: "The Arts", slot: "collection-list-arts" },
+    /* Special — NOT a subject, which is the whole reason it is its own heading (Sep 2026, on request:
+       "put it in a new section titled Special instead of a normal history or science collection"). What
+       goes here is a collection that is genuinely Folio-made content but is not one of the subjects the
+       shelf is organised by — the first is a university course rebuilt as a deck. Filing it under History
+       would be the claim the Philosophy comment above refuses to make: a heading is a statement about
+       what the thing IS, and "Politics: East Asia" under History is wrong about the subject rather than
+       merely untidy. It sits LAST of the subject sections and above the Planned fold, so the shelf still
+       reads subjects-first and the odd one out is where the eye reaches it last. */
+    { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -24967,7 +25653,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { id: "history", label: "History", sections: ["History"] },
     { id: "geography", label: "Geography", sections: ["Geography"] },
     { id: "language", label: "Language", sections: [] },       // the Languages shelf is its own builder
-    { id: "other", label: "Other", sections: ["Science", "Philosophy", "The Arts"] },
+    { id: "other", label: "Other", sections: ["Science", "Philosophy", "The Arts", "Special"] },
     { id: "community", label: "Community", sections: [] },     // your own decks, then everyone else's
     { id: "all", label: "All", sections: null },               // null = every section; the default
   ];
@@ -24999,7 +25685,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
     china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
     dino: 1000, korea: 1000, art: 1000,
-    "geo-us": 100, "geo-china": 58, "geo-world": 471,
+    /* World Geography's 937 is 233 countries + 238 capitals + the 233 FLAGS and the 233 DRAW cards,
+       which are further decks of this collection rather than ones of their own (Sep 2026, on request).
+       One collection, several plans: see docs/world-geography-card-plan.md and docs/flags-card-plan.md. */
+    "geo-us": 100, "geo-china": 58, "geo-world": 937, "geo-russia": 163,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -25658,6 +26347,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
     ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
     japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
+    /* muted periwinkle (Politics: East Asia, the Special section) — MEASURED, like every hue above it.
+       Swept in CIELAB against all 26 hues on the shelf: it stands 22.0 from its nearest neighbour
+       (Psychology plum) against a TIGHTEST EXISTING PAIR of 12.9 (China vermilion vs Russia lacquer).
+       The unconstrained peak is a hot magenta at 31.5 and chroma 61, rejected on the register the
+       Psychology and Philosophy notes below already state twice — this shelf reads muted, and chroma 34
+       sits below its own median of 44. L 53 and contrast 4.0:1 against white, inside the shelf's 3.7-10.4
+       range. It takes the one family absent here, the blue-violet between Greece's Aegean and Rome's
+       imperial purple, without being either. NOT looked at on a screen yet — see the note below. */
+    pea:      { bg: "#7A7AB5" },
     /* muted plum (Psychology) — MEASURED, like every hue above it. Swept in CIELAB against all eighteen
        hues on the shelf inside its own band (L 28-55, chroma 7-62), the freest region of the whole wheel
        is the mauve/plum quadrant; the peak candidate stands 30.1 from its nearest neighbour against a
@@ -25706,6 +26404,246 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        yellow-green-brown quarter. What remains genuinely open is narrow, and the next collection may have
        to accept a distance nearer the median than the maximum, as Philosophy's petrol did at 19.8. */
     dino:     { bg: "#967B00" },
+    /* deep violet (Astronomy) — MEASURED, like every hue above it, and the one where the OBVIOUS colour
+       was measured and REFUSED. An astronomy collection wants a midnight blue and cannot have one: swept
+       in CIELAB against all 27 hues on the shelf, the best night-sky candidate stands 12.6 from the
+       United States' navy and one a little bluer stands 4.2, against a TIGHTEST EXISTING PAIR of 12.9
+       (China's vermilion vs Russia's lacquer) — so it would ship at or below the worst separation this
+       shelf has ever accepted, which is a floor rather than a target. The blue quarter already carries
+       Greece's Aegean, Geography-China's blue, the French deck's blue and Politics: East Asia's
+       periwinkle. DO NOT RE-RUN THAT SWEEP; it does not come out differently.
+       What is taken instead is the DARK END OF THE VIOLET BAND — the twilight rather than the night, and
+       the one region near the wheel's optimum an astronomy collection can honestly claim. It stands 21.0
+       from Psychology's plum, 21.3 from Rome's imperial purple and 21.5 from Japan's kuwazome, very
+       nearly equidistant from all three, against a median nearest-neighbour distance of 20.1. L 28,
+       chroma 35 (below the shelf's median of 44, so inside the muted register), 10.0:1 against white.
+       IT IS A FOURTH PURPLE and needs the argument Biology's fifth green needed: the other three sit at
+       L 38, L 45 and L 53, and this is at L 28 — far darker than any of them, which is why the
+       measurement puts it a clear 21 from each rather than inside the family. The magenta and the
+       olive-brass were NOT re-measured, on the standing note above. IT WAS LOOKED AT, unlike the last
+       four hues here: rendered as a banner and as its 20% wash beside plum, imperial purple, kuwazome
+       and navy, it is plainly a different colour from all four. If it ever needs moving, go darker and
+       less red, not brighter. */
+    astro:    { bg: "#5E3262" },
+    /* slate blue-grey (France) — MEASURED, and THE FIRST GREY ON THIS SHELF. The obvious colour is the
+       blue of the flag and it cannot be had, for a reason worse than crowding: swept in CIELAB against
+       all 28 hues here, the best bleu de France candidate stands 19.8 from its nearest neighbour — below
+       the median of 20.8 — and THAT NEIGHBOUR IS THE FRENCH LANGUAGE DECK (#107CD0), on the same
+       Collections page one section down. Two things called French, 19.8 apart, is the one collision this
+       shelf must not ship; it is chroma 54 besides, on a shelf whose median is 44. The two other apt
+       families are worse: BORDEAUX tops out at 16.2 against Visual Art's oxblood and the Indonesian
+       deck, LAVENDER at 16.1 against Psychology's plum.
+       What ships is the slate of the ardoise roofs — the Loire, Anjou, Brittany, Normandy — which is
+       national rather than Parisian, and that matters on a collection whose ninth deck opens at "France
+       is not Paris". 20.7 from Greece's Aegean, 22.3 from Philosophy's petrol, 25.9 from Egypt's
+       malachite; L 51, chroma 8, 4.3:1 against white.
+       20.7 IS AT THE MEDIAN AND THAT IS A STATED TRADE, on Philosophy's precedent (petrol shipped at
+       19.8). What buys it is that it adds a FAMILY: there is no grey here at all — WW2's dark iron is a
+       warm brown-grey at L 27 and is the nearest thing to one. AND ONE STEP TOWARD THE OPTIMUM WAS GIVEN
+       UP FOR HUE, which is the opposite of Korea's trade: the best candidate in the band is #6C7F80 at
+       22.4 and sits at hue 203, a neutral grey with a green cast rather than the blue-grey the material
+       is. The magenta and the olive-brass were NOT re-measured, on the standing note above. Looked at as
+       a banner and as its 20% wash beside its four nearest neighbours. */
+    france:   { bg: "#6A7D81" },
+    /* deep cyan-teal (Economics) — MEASURED, and the first hue here CHOSEN ON DENSITY AS WELL AS
+       DISTANCE. Economics has no canonical colour, and the two reached for are the two most crowded
+       quarters on this shelf: the green family's best free candidate scores 20.1 with three neighbours
+       inside 20.3, and the brass-gold band tops out at 19.7 against Dinosaurs' ochre and World
+       History's sepia. THE ONE SPECIFIC ASSOCIATION FAILS ON KOREA'S OWN RULE — the Financial Times
+       salmon is very pale (about #FFF1E5), far above a banner's contrast floor, so what would ship is a
+       DEEPENED salmon that is not FT pink at all ("the versions that DO score are not the colour they
+       are named after"); measured anyway it scores 20.3 with plum, kuwazome and the Mandarin deck all
+       inside 0.4 of each other.
+       So this is chosen on separation and named for what it is: 21.1 from Egypt's malachite, 22.0 from
+       Greece's Aegean, 23.6 from Philosophy's petrol, against a median of 20.7 over the 29 hues here.
+       L 53, chroma 31 (below the shelf's median of 44), 4.0:1 against white — the same as Politics:
+       East Asia's.
+       DENSITY IS THE NEW MEASURE AND IS WORTH KEEPING: a nearest-neighbour figure says nothing about
+       how many hues sit just beyond it, and this shelf is now full enough that it matters. Counting
+       hues within 30, this one has 4 — against Philosophy's 5, Astronomy's 6 and France's 7.
+       IT SHARES A HUE ANGLE WITH PHILOSOPHY'S PETROL (both 208) AND IS 23.6 AWAY, WHICH IS THE POINT:
+       petrol is L 32 / chroma 20 and this is L 53 / chroma 31, so the separation is bought by
+       LIGHTNESS — Biology's fifth-green argument in another family, and the shelf gains the light end
+       of a band it had only the dark end of. The magenta came top of the unconstrained sweep AGAIN at
+       26.5 and is rejected for the SIXTH time; the olive-brass for the fifth. Neither should be
+       measured again. Looked at as a banner and as its 20% wash beside its neighbours. */
+    econ:     { bg: "#008C96" },
+    /* clay brown (Ancient Mesopotamia) — MEASURED, and the sixth member of the yellow-brown quarter,
+       which needs the argument the note below gives.
+       LAPIS LAZULI IS THE OBVIOUS CHOICE AND IS REFUSED ON THE NUMBERS. It is the Mesopotamian luxury
+       material — the Standard of Ur, the royal graves, the Ishtar Gate's glaze — and swept against the
+       30 hues then here its best candidate stands 19.2, below the median of 20.8, WITH NINE HUES WITHIN
+       30 OF IT (US navy, Psychology plum, Greece Aegean, WW2 dark iron, Philosophy petrol). That
+       density figure is the verdict; the blue-violet quarter is the most crowded region left.
+       CLAY IS THE OTHER CLAIM AND IS STRONGER ANYWAY — the cities, the ziggurats and the entire
+       evidence base are baked mud. 21.3 from World History's sepia, 21.4 from the German deck, 21.9
+       from the Spanish deck, above the median, with 5 within 30 — the same density as Philosophy's
+       petrol and four fewer than lapis. L 36, contrast 7.6:1.
+       WHY A SIXTH IN THIS FAMILY IS ALLOWED WHERE FOUR EARLIER CANDIDATES WERE NOT: the standing note
+       above records the OLIVE-BRASS being rejected four times at hue 90-100, on the grounds that a good
+       number is not a look. THIS IS A DIFFERENT SUB-BAND — hue 72, a red-brown — and it is apt in the
+       way none of those were. It is separated from its neighbours by lightness AND chroma together:
+       sepia is L 48 / C 30 and the German deck L 27 / C 32, where this is L 36 / C 47, between them in
+       lightness and above both in saturation.
+       ONE FIGURE IS AGAINST IT AND IS STATED RATHER THAN HIDDEN: chroma 47 sits above the shelf's own
+       median, which has fallen to 35 as the shelf has grown — RE-MEASURE THAT rather than quoting it.
+       It is below India's 61, Dinosaurs' 58 and the Spanish deck's 49, so it is not the loudest thing
+       here, but it is not in the quiet half either. The magenta was NOT re-measured; it has been
+       rejected six times. Looked at as a banner and as its 20% wash beside its neighbours. */
+    mesopotamia: { bg: "#784A00" },
+    /* field grey (The First World War) — MEASURED against the 31 hues now on the shelf, and the entry
+       where EVERY apt family came back crowded. That is what a shelf of thirty-one looks like: median
+       nearest-neighbour 20.8, tightest existing pair 12.9, density (hues within dE 30) median 5, max 9.
+       THE POPPY WAS REFUSED TWICE OVER. A scarlet at a shelf-like chroma is the most crowded corner
+       there is - best candidate 17.1 with TEN hues inside 30 (China, Russia, Korea, Visual Art and four
+       language decks all live there) - and a SATURATED poppy measures beautifully (43.2, density 0) at
+       chroma 104 against a shelf median of 35, which is a banner that shouts where every other murmurs.
+       The editorial argument agrees: the remembrance poppy is a British and Commonwealth emblem adopted
+       in 1921, and this collection covers thirty belligerents and spends a subdeck arguing that each
+       remembers the war differently. Horizon blue (16.4, hard against France's slate) and khaki drab
+       (17.7, hard against World History's sepia) are refused on the same two grounds - crowded, and
+       national.
+       WHAT IS TAKEN IS GREY-GREEN, and the argument is the collection's own subject rather than any
+       army's uniform: this is the war in which armies STOPPED WEARING COLOURS, and it is the one of the
+       four candidate families that names no single belligerent. It stands 20.1 from World History's
+       sepia, 20.3 from Biology's forest, 20.3 from France's slate, 21.4 from the Italian deck and 21.9
+       from the Second World War's dark iron - five neighbours inside a band of two units, the
+       nearly-equidistant shape Astronomy's twilight has. L 45, chroma 17 (well inside the quiet half,
+       against a median of 35), 5.3:1 against white.
+       THE FIGURE AGAINST IT IS DENSITY 8, against a median of 5 and a max of 9, and it is accepted
+       KNOWINGLY: the only genuinely open ground left at a shelf-like chroma is the magenta band, which
+       has now been rejected SEVEN times and which must not be measured again. An uncrowded hue that
+       means nothing is worse than a crowded one that means something. Looked at as a banner and as its
+       20% wash beside its neighbours. */
+    ww1:      { bg: "#686E52" },
+    /* cyanotype blue (Architecture) — MEASURED against the 32 hues then on the shelf, and the collection
+       whose two OBVIOUS colours were both refused on the numbers. STONE first: a warm limestone or
+       travertine is what a reader would expect an architecture banner to wear, and the best mid-toned
+       one stands 16.1 with TEN hues inside dE 30, the best light one 15.0 — against a shelf that already
+       carries France's roof slate, the Second World War's dark iron and the First World War's field grey,
+       so a fourth grey would be pressed against all three. BRICK second, and worse: terracotta is the
+       most crowded corner there is, 16.3 with nine neighbours (China, Russia, Korea, Visual Art and four
+       language decks). Both refusals carry the same editorial point, which is the one to remember here:
+       A MATERIAL NAMES A REGION — limestone says the classical Mediterranean, brick says Mesopotamia and
+       the Low Countries, timber says Japan — and this collection gives 120 cards to Asia in chronological
+       position precisely to say that no one tradition is its subject.
+       WHAT IS TAKEN IS THE DRAWING RATHER THAN THE BUILDING: the blue of a cyanotype, which names no
+       country, no century and no material, and names the act the collection is about. It stands 18.7
+       from Greece's Aegean, 19.7 from the French deck's blue, 26.0 from Politics: East Asia's periwinkle
+       and 29.2 from Economics' teal — BELOW the shelf's median of 20.3, and stated rather than hidden:
+       it is the seventh-closest hue of the thirty-three, ahead of Rome and Geography-China at 18.2, the
+       Mandarin deck at 17.5, the Indonesian at 17.4 and the China-Russia pair at 12.9, so comfortably
+       inside what this shelf has accepted. The figure in its favour is DENSITY 4 against a median of 6.
+       L 55, chroma 40, and 3.7:1 against white — the light end of the shelf's own 3.7-10.4 band, exactly
+       level with India's ochre, which is the lightest hue already on it.
+       IT IS A FIFTH BLUE and needs Astronomy's fourth-purple argument: Greece sits at almost the same hue
+       angle eleven points darker and fifteen less saturated, the United States' navy is at L 29,
+       Geography-China's at L 35, and the French deck's blue is twenty degrees further round toward
+       violet. Looked at as a banner and as its 20% wash beside all five, it is plainly a different
+       colour from each. The magenta and the olive-brass were NOT re-measured, on the standing note above
+       — the magenta topped the unconstrained sweep for the EIGHTH time and the olive-brass scored 21.5,
+       the best non-magenta figure on the wheel, and would be the sixth thing in the yellow-green-brown
+       quarter. If this ever needs moving, go DARKER rather than greener: the true Prussian blue of the
+       print itself was swept across the whole lightness band and tops out at 16.9, sitting on the United
+       States' navy, which is why the light end was taken. */
+    arch:     { bg: "#008DC6" },
+    /* the green of a leaf (Middle-earth) — MEASURED against the 33 hues then on the shelf, and the
+       collection whose obvious colour is refused by a standing note written two collections ago.
+       GOLD FIRST, because a reader asked to name this franchise's colour would say gold and nothing
+       else: the Ring, the mallorn leaves, "all that is gold does not glitter". It is refused twice
+       over. On the numbers the best metallic gold inside the contrast band stands 17.7 with FIVE hues
+       inside dE 30, wedged between India's saffron and Dinosaurs' dark gold, and the best dark gold
+       19.9 with six. And on the note above: the olive-brass beside it scored 21.5 for Architecture and
+       was refused there as the sixth thing in the yellow-green-brown quarter, with an instruction not
+       to measure it again. Gold IS that quarter. DO NOT RE-RUN THE GOLD SWEEP.
+       WHAT IS TAKEN IS THE OTHER EMBLEM: the leaf — the Shire's green, the leaf-brooches of Lorien,
+       the round door. It scores 21.5, ABOVE the shelf's median of 20.1 and the best figure anywhere on
+       the wheel outside the two banded regions, with DENSITY 3 against a median of 6. 21.5 from
+       Geography: United States' olive, 21.8 from Dinosaurs' dark gold, 27.6 from the Italian deck's
+       sage. L 55, chroma 56, 3.7:1 against white — the light end of the shelf's own 3.7-10.4 band,
+       level with India's ochre and Architecture's cyanotype.
+       IT IS A SEVENTH GREEN and needs Biology's fifth-green argument: Biology's forest is at L 27,
+       Geography: United States at L 40, World Geography's emerald at L 38, the Portuguese deck's green
+       is a true green twenty degrees further round, the Italian deck's sage is at chroma 30 and the
+       First World War's field grey at chroma 13. This is the BRIGHT, HIGH-CHROMA, YELLOW-LEANING end
+       of the band and nothing else is within twenty points of it there. Looked at as a banner and as
+       its 20% wash beside all six. The magenta topped the unconstrained sweep for the NINTH time and
+       was not re-measured; the only region that outscores this one and carries no note is a bright
+       rose at 20.5, which means nothing here. */
+    middleearth: { bg: "#7B8C1F" },
+    /* crimson (Westeros) — MEASURED against the 34 hues then on the shelf, and the one case where the
+       sweep turned up a genuine GAP rather than a trade-off. THE FINDING: the shelf's six reds all
+       lean ORANGE — China's vermilion, Russia's lacquer, the Indonesian deck's maroon, the Mandarin
+       decks' red, Korea's clay and Visual Art's oxblood all sit between hue 25 and 40, and Japan's
+       kuwazome is a red-purple at 345 — so between them, at hue 0-8, the carmine/crimson corner is
+       EMPTY. #B32057 stands 21.3, ABOVE the shelf's median of 20.1, density 5: 21.3 from Japan, 21.4
+       from the Indonesian deck, 23.6 from the Mandarin decks, 28.8 from Russia, 30.0 from China. L 40,
+       chroma 60, and 6.4:1 against white — worth noting on its own account, the last three
+       collections having all landed at the 3.7 floor of the shelf's 3.7-10.4 band.
+       THE STORY IS NOT A HOUSE, which is what the collection needed: crimson is Lannister, but it is
+       also the Red Keep, the Red Wedding, the red comet, the red priests, the red leaves of every
+       heart tree, the Red Viper and the Red Waste — this series' own signal for violence and prophecy
+       at once, belonging to no faction as the Lannister gold and Stark grey do.
+       THREE FAMILIES REFUSED: blood-ORANGE red, the corner a reader reaches for first, is the most
+       crowded on the shelf at 17.1 with TEN neighbours, which is Architecture's brick refusal at a
+       worse number; COLD SLATE-BLUE — winter, the Wall, the show's own palette, the "ice" of the
+       title — tops out at 18.7 with EIGHT, pressed against the Second World War's iron, Philosophy's
+       petrol and the United States' navy; DARK SEA TEAL is 13.3. The magenta was not re-measured (the
+       tenth refusal) and nor was the olive-brass.
+       DO NOT DRIFT IT LIGHTER. The same family at L 43-48 scores 22.2-22.9, which is better, and
+       rendered beside the shelf's reds it is a raspberry PINK rather than a crimson. The two points
+       are given up for the colour, which is Korea's trade exactly. */
+    westeros: { bg: "#B32057" },
+    /* cold concrete grey (The Cold War) — MEASURED against the 35 hues then on the shelf, and the one
+       collection where the EDITORIAL CONSTRAINT CAME FIRST: the colour may not be either side's. This
+       collection's central scope decision is that the Cold War was a global system rather than a duel,
+       and that almost everyone who died in it was neither American nor Russian — so a banner in Soviet
+       red or American navy would contradict the plan in a swatch, and both are on the shelf anyway
+       (Russia's lacquer, the United States' navy). The sweep was therefore run over everything EXCEPT
+       red and blue, and what survives is the colour a reader would name regardless: concrete, the
+       Wall, the bunker, the silo, the housing block both blocs built.
+       THE NUMBERS ARE BAD AND ARE STATED IN FULL. 19.2 from its nearest neighbour, BELOW the median of
+       20.1, with DENSITY 9 — equal to the highest on the shelf, the worst either figure has been for a
+       new collection. Psychology's plum 19, the United States' navy 19, the Second World War's iron 20,
+       Greece's Aegean 20, France's slate 21, Philosophy's petrol 21. L 34, chroma 13, and 7.96:1
+       against white, which is the figure in its favour: mid-band, where the last three collections all
+       landed on the 3.7 floor.
+       IT IS A FOURTH GREY AND THE FOUR ARE GENUINELY FOUR COLOURS, which is the argument carrying it:
+       the Second World War's iron is a warm brown-grey at L 27, this a cool blue-grey at L 34, the
+       First World War's field grey an olive at L 45, France's slate a blue-green at L 51 — the spread
+       is in lightness AND hue. Look at that comparison again before moving it.
+       WHAT SCORES BETTER MEANS NOTHING HERE: a bright periwinkle at 20.6 and a light purple at 18.8
+       (density 2) are the best unbanded figures on the wheel, and a Cold War banner in lavender is
+       worse than a crowded grey. The magenta topped the unconstrained sweep for the ELEVENTH time and
+       the olive-brass was not re-measured. IF IT EVER NEEDS MOVING the alternative is #4A3C52 at 19.3
+       and density 8 — marginally better on both — refused because at banner size it reads plum rather
+       than concrete and sits 19 from Psychology's plum for that reason. CHECK THE SWATCH, NOT THE
+       NUMBER. */
+    coldwar:  { bg: "#4C5064" },
+    /* rust, bog iron (The Viking Age) — MEASURED against all 36 hues then on the shelf, and the WORST
+       SEPARATED HUE THIS SHELF HAS ACCEPTED, and it is not one neighbour but FOUR: the German deck's
+       brown 18.8, Mesopotamia's ochre 18.9, the Spanish deck's burnt orange 19.0 and Russia's red 19.2,
+       against a shelf median of 20.0 and below even the Cold War's 19.2. SAY THAT PLAINLY rather than
+       quoting the single nearest. What buys it is the other column and the swatch: the four were rendered
+       side by side as banners before this was accepted, and the rust is plainly a different object from
+       all of them. Density 6 shelf hues within 30 is BETTER than the median
+       7 and much better than the Cold War's 9; and at L 29 chroma 51, 9.7:1 against white, it reads as a
+       deep burnt sienna — plainly a different object from the German deck's flat mid-brown (chroma 32
+       against 51), from Russia's brighter red and from the Spanish deck's lighter burnt orange. It adds an
+       OXIDE family to a shelf whose seven reds are all brighter than it, which is the fifth green's and the
+       fourth grey's argument in another quarter of the wheel.
+       EVERY COLOUR THE SUBJECT ACTUALLY MEANS WAS MEASURED AND REFUSED, and the list is worth having so
+       nobody re-runs it: iron grey #4E4842 stands 4.0 from the Second World War's own hue — not a separate
+       colour at all; North Sea grey-blue #4A6572 11.6 with TEN neighbours; fjord blue-green 8.8; woad and
+       moss 6.9; Baltic amber 7.8; oxblood 13.5 with nine.
+       AND THE ONE CANDIDATE THAT SURVIVED ON NUMBERS WAS REFUSED FOR A BETTER REASON THAN ITS NUMBER: a
+       cold Atlantic blue at #4C6B8A scores 16.1, and ANCIENT GREECE'S HUE IS THE AEGEAN — so it would put
+       two collections one section apart both meaning THE SEA. That is France's own refusal (its bleu de
+       France candidate's nearest neighbour was the French language deck) met from the other side.
+       EVERY SOFTENING COSTS SEPARATION FAST AND WAS MEASURED: #7A3008 16.7, #80340C 15.8, #853610 14.5,
+       #72300A 12.5. This is the local optimum, so DO NOT DRIFT IT LIGHTER. The magenta band topped the
+       unconstrained sweep for the twelfth time and the olive-brass was not re-measured. */
+    vikingage: { bg: "#782C00" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median
@@ -25766,6 +26704,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        split in two. Blue-and-white porcelain is the colour's own argument for the subject, and it is a
        China register the vermilion had not taken. 7.7:1 against white. */
     "geo-china": { bg: "#1A4FA8" },
+    /* burnt amber (Russia, in the Geography section) — MEASURED like every hue above it, and the sweep
+       ruled out the two colours the subject actually suggests. A Russia collection wants a winter blue or
+       a frost teal, and both bands are gone: swept in CIELAB inside the shelf's own band (L 28-55, chroma
+       25-62, 4.5:1 against white), a deep steel blue lands 7.3 of Greece's Aegean and a deep teal 4.5 of
+       Egypt's malachite, against a tightest EXISTING pair of 12.9 (China's vermilion against Russia's own
+       lacquer). The wheel's best-scoring free region is the rose-crimson quadrant at ΔE 24.6, which is the
+       magenta band under another name and is the standing rejection recorded below — now measured and
+       turned down a sixth time; do not re-run that sweep.
+       Outside it the sweep's arithmetic winner is a dark gold-olive (#5D5700, ΔE 22.0), and it was
+       REFUSED on a figure the minimum does not show: it stands only 22 from `geo-us`'s olive, which would
+       make three of the four Geography collections a green. This is 21.4 from its nearest neighbour
+       (Spanish's sienna) and 44, 58 and 100 from its own siblings — a section that reads as four
+       different places rather than a family — at L 39 and chroma 50, both mid-band. 6.8:1 against white.
+       It stands 36 from `col-42`, the Russia HISTORY collection's lacquer, which is deliberate and is the
+       rule the two Chinas already follow: far enough that "Russia" under History and "Russia" under
+       Geography cannot read as one row split in two. Amber is the subject's own argument for the colour —
+       the Baltic amber coast is Kaliningrad Oblast, one of the 83 — and it takes none of the flag's
+       colours, which on this shelf would be a claim rather than a decoration. */
+    "geo-russia": { bg: "#815100" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -26777,6 +27734,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <span class="bk-tile-foot">
             <span class="bk-tile-meta">${len}</span>
             ${orig ? `<span class="bk-tile-orig">${esc(orig)}</span>` : ""}
+            ${/* HOW MANY PEOPLE HAVE READ IT (Sep 2026, on request). Drawn only where there IS a figure:
+                  `bookReads` is null until the pooled table has answered, and on a project that has not
+                  run schema section 16 it stays null for good — a shelf of books each claiming "0 reads"
+                  would be a statement about the books rather than about the database. A book nobody has
+                  finished yet is 0 and says so, which is a real answer and a different one. */""}
+            ${(() => { const rd = bookReads(b.id); return rd == null ? "" : `<span class="bk-tile-reads notranslate" title="${esc(t("How many people have read this"))}">${rd === 1 ? esc(t("read once")) : rd + " " + esc(t("reads"))}</span>`; })()}
             ${pos ? `<span class="bk-tile-resume">${esc(where)}</span>` : `<span class="bk-tile-new">Start reading</span>`}
           </span>
         </span>
@@ -26875,6 +27838,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       wireHoldMenu(el, () => openBookMenu(el.dataset.book), () => route("book", { id: el.dataset.book }))
     );
     wireShelf();
+    /* THE READ COUNTS ARRIVE AFTER THE SHELF DOES, and the shelf is not held back for them. It is one
+       request for all forty-eight books (see `bookStatsLoad`), it is a footnote on each banner, and a
+       project that has not run schema section 16 never answers at all — so the tiles paint at once and
+       are repainted IN PLACE when the figures land, never through `render()`, which would take the
+       reader's search and scroll with it. A second visit inside the cache window redraws from `_bookStats`
+       with no request at all, so the figure is already there on the first paint. */
+    bookStatsLoad().then((st) => {
+      if (!st || !shelf.isConnected) return;
+      shelf.innerHTML = shelfHTML(bookQuery);
+      wireShelf();
+    });
     const f = root.querySelector("#bkFilter");
     const cnt = root.querySelector("#bkCount");
     if (f) f.addEventListener("input", () => {
@@ -30108,11 +31082,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   };
 
   PAGES.study = function (root, params) {
-    /* AT MOST ONE ELABORATION PROMPT PER SESSION — see elabPromptHTML. The budget is shared between the
-       "why" and "connect" prompts and is scoped to this function's closure, so it resets when a session
-       does and never persists: a reader who studies twice in a day is asked twice, which is right, and a
-       reader who studies one long session is asked once, which is the point. */
-    let elabShown = false;
+    /* THE THINK-IT-THROUGH SECTION IS ON EVERY CARD (Sep 2026, on request: the three questions and answers
+       should be "always visible on the card, not just when first seen"). There was a budget here of ONE
+       elaboration prompt per session, on the argument that the prompt was an interruption to be rationed —
+       which it stopped being when it became three authored questions folded shut behind chevrons: a
+       closed fold asks nothing of a reader who does not open it, and a section that appears on one card
+       and is missing from the next reads as content that has gone astray. */
     if (!params.scope) { route("home"); return; }   // #study reached with nothing to study (a pasted address, a lost session)
     const sess = buildSession(params.scope);
     // a session picked back up after a reload — see the STUDY_KEY block for what the record holds and why
@@ -30612,6 +31587,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${cardStarsHTML(c)}
               </div>
               <div class="question">${cardFrontHTML(c)}</div>
+              ${/* THE WRITING BAND (Sep 2026, on request). Empty, ruled and drawn only while the pen is
+                    down (`body.wb-down`, set by applyWBState) — so a reader who never picks the marker up
+                    sees exactly the card they saw before. It sits BETWEEN the question and the reveal
+                    rather than under the card, which is what keeps the request's second half: revealing
+                    the answer leaves the band where it is, with the working still on it, between the
+                    question and the answer box. It is `aria-hidden` and takes no focus: there is nothing
+                    in it to read, and what a reader writes on it is ink on a canvas rather than text. */""}
+              <div class="scratch" id="scratch" aria-hidden="true"></div>
               <div class="reveal" id="reveal"><div class="reveal-inner" id="revealInner"></div></div>
             </div>
             <div class="actions" id="actions"></div>
@@ -30651,6 +31634,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }));
       setupWhiteboard();
       showWBTools();
+      mountDrawCard(cardRoot, c);   // a draw card puts the pen down and pins the marker to its pad
       showAdminEditBtn(id);
       // read-aloud: mute toggle (persisted — stays muted for future cards/decks until unmuted) + the Question play control
       const muteBtn = cardRoot.querySelector("#ttsMute");
@@ -30821,6 +31805,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (typedVals.length) noteConfusion(id, typedVals);
         cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
         cardArtReveal(cardRoot, c);   // …and an artwork may now be titled, credited and enlarged
+        cardFlagReveal(cardRoot, c);  // …and a flag may now be credited and enlarged (see cardFlagReveal)
+        cardDrawReveal(cardRoot, c);  // …and a draw card's flag EXISTS for the first time (see cardDrawReveal)
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
         /* WHAT THEY WROTE, PUT BESIDE THE ANSWER (see deckRecall). It goes at the TOP of the reveal, above
@@ -30846,6 +31832,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            carrying the same file, so the BACK's copy goes rather than the front's — dropping the front's
            would move a picture the reader is looking at by its own height. */
         if (cardArtSpec(c)) { const dup = inner.querySelector(".card-imgslot"); if (dup) dup.remove(); }
+        /* A FLAG CARD IS THE SAME RULE ONE FIELD OVER (Sep 2026, on request: "on the answer side of the
+           cards, the flag in the answer box should not be shown"). `buildBack` still emits the small
+           `.av-flag` — the card browser, `openCardPeek`, Multiple Choice's `mountCardBack` and the editor
+           preview all draw a back with NO front, and without it they would show no flag at all — so what
+           goes is the copy on the STUDY page, where the front's own flag is still on screen two inches
+           above it. The credit it was carrying moves to the front's figure; see cardFlagReveal, without
+           which this drop would take the attribution off the card. */
+        if (cardFlagSpec(c)) { const dup = inner.querySelector(".answer .av-flag"); if (dup) dup.remove(); }
+        /* A DRAW CARD IS THAT RULE FROM THE OTHER END: the flag it was asking for has just been drawn at
+           the pad's own width, immediately above, so the answer box's thumbnail of the same file is the
+           duplicate here too — and dropping the PAD's copy instead would take away the one the reader is
+           comparing their drawing against. The credit rides with the pad's, as cardDrawReveal sets it. */
+        if (cardDrawSpec(c)) { const dup = inner.querySelector(".answer .av-flag"); if (dup) dup.remove(); }
         /* the "nearby in this collection" rail — a PEEK, never a route: a click meant as a glance must
            not end the session the reader is part way through, which is exactly the rule the causal
            strip above it already follows. */
@@ -30870,10 +31869,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         // the causal strip's links (see cardLeadsToHTML) — a glance at the next card, not a jump to it
         inner.querySelectorAll(".lt-go").forEach((b) =>
           b.addEventListener("click", () => openCardPeek(b.dataset.lt)));
-        if (!elabShown) {
+        {
           const eh = elabPromptHTML(c);
           const head = inner.querySelector(".bg-head");
-          if (eh && head) { head.insertAdjacentHTML("beforebegin", eh); elabShown = true; wireElabPrompt(inner); }
+          if (eh && head) { head.insertAdjacentHTML("beforebegin", eh); wireElabPrompt(inner); }
         }
         openLinks(inner);
         processAbstract(inner, c);
@@ -30881,6 +31880,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         wireFootnotes(inner);   // number the in-prose markers and join them to the source list below
         wireSpeakControls(inner);   // a card type's read-aloud spans become real, focusable controls
         mountCardMaps(inner);   // …and start the locator globe, if the card carries one (see cardLocatorHTML)
+        /* …and say so if this reveal has just earned the reader somewhere new (see cardAtlasDiscover).
+           It goes HERE, after `buildBack`, and not beside `cardMapReveal` above: the locator window is
+           part of the card's BACK, so up there the chip does not exist yet and the call found nothing —
+           silently, since a card with no atlas window is the ordinary case and returns early too. */
+        cardAtlasDiscover(inner, c);
         /* …and, if this deck's sheet asked for it, say the first of them without being pressed. The FIRST
            only: a type that marks several runs is asking for a control on each, not for a recital. */
         if (fromReader && autoSpeakOn) {
@@ -31534,6 +32538,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "Open access": { cls: "src-access-open", title: "Free to read" },
     Paywalled: { cls: "src-access-pay", title: "Behind a paywall" },
   };
+  /* THE LANGUAGE A SOURCE IS WRITTEN IN, where it is not English (Sep 2026, on request: "cited sources
+     in non-English languages should feature a chip saying the language they're in"). CLAUDE.md's rule is
+     that a source in any language qualifies — "an English card may cite a French or German work where
+     that work carries detail no English one does, common for European prehistory, where the excavation
+     reports are written where the site is" — so the corpus really does rest on works in a dozen
+     languages, and until now a reader met them with nothing to say so until they followed the link.
+
+     IT IS DECLARED IN THE CITATION, NEVER SNIFFED OUT OF IT, and that is the whole design. The obvious
+     alternative is to guess the language from the work's title, which is what `.claude/check-cards.js`
+     rule 6 does — and that tool's own header records what guessing costs: of its seventeen findings SIX
+     were wrong, because the École française d'Athènes publishes its site notices in English and the
+     Chronique des fouilles en ligne is bilingual. A checker may report a candidate for a human to read;
+     a CHIP is an assertion made to the reader, and an assertion that a paper is in French when it is in
+     English is exactly the kind of quiet wrongness this site must not manufacture. So the author writes
+     the marker and this only draws it.
+
+     The mechanism is the access chip's, one rule further along the same text-node walk: a bracketed word
+     in the stored plain text, lifted out into a chip. `[` cannot appear in a URL match, so the three
+     passes cannot collide, and a citation with no marker simply gets no chip — which is the honest state
+     for the 29,000 English ones and for any whose language nobody has yet declared. The alternation is
+     ENUMERATED rather than `[in (\w+)]` so that a typo is a missing chip rather than a chip reading
+     "Frenhc", and `.claude/src-langs.js` slices this list out of here by text so the content tools refuse
+     a language app.js cannot draw. */
+  const SRC_LANG_NAMES = [
+    "French", "German", "Italian", "Spanish", "Portuguese", "Dutch", "Danish", "Swedish", "Norwegian",
+    "Finnish", "Greek", "Latin", "Russian", "Ukrainian", "Polish", "Czech", "Hungarian", "Romanian",
+    "Serbian", "Croatian", "Bulgarian", "Turkish", "Arabic", "Hebrew", "Persian", "Chinese", "Japanese",
+    "Korean", "Hindi", "Sanskrit", "Thai", "Vietnamese", "Indonesian", "Catalan", "Basque", "Galician",
+    "Estonian", "Latvian", "Lithuanian", "Slovak", "Slovene", "Albanian", "Armenian", "Georgian",
+  ];
+  const SRC_LANG_RX = new RegExp("\\[in (" + SRC_LANG_NAMES.join("|") + ")\\]", "g");
   // one text-node walk, one replacement rule — used for the URLs and then for the access chips
   function replaceInSrcText(li, rx, make, skipInsideLink) {
     const walk = document.createTreeWalker(li, NodeFilter.SHOW_TEXT, null);
@@ -31571,6 +32606,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       el.className = "src-access " + meta.cls;
       el.textContent = t(m[1]);
       el.title = t(meta.title);
+      return el;
+    }, false);
+    /* …and the language chip, on the same walk. It is deliberately the LAST pass: the access marker and
+       the URL are both fixed shapes this one cannot contain, so running after them costs nothing and
+       keeps the two older rules exactly as they were. */
+    replaceInSrcText(li, SRC_LANG_RX, (m) => {
+      const el = document.createElement("span");
+      el.className = "src-access src-lang";
+      el.textContent = t(m[1]);
+      el.title = t("Written in") + " " + t(m[1]);
       return el;
     }, false);
   }
@@ -31890,7 +32935,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function cardTypeFieldGetter(c, frontHTML, seen) {
     const f = (c && c.fields) || {};
     return function (name) {
-      if (/^frontside$/i.test(name)) { if (seen) seen.front = true; return frontHTML == null ? "" : frontHTML; }
+      /* WRAPPED, so the study page can tell the redrawn front from the rest of the back (Sep 2026, on a
+         bug report: with the marker down, a Mandarin card's writing band ended up ABOVE the question once
+         the answer was revealed). The band sits between the shell's question and the reveal, and a back
+         that redraws its front puts the question back BELOW the band — so while the pen is down the
+         stylesheet keeps the shell's copy and hides this one instead. `uc-*` is the class family the
+         sanitizer keeps on community markup. */
+      if (/^frontside$/i.test(name)) { if (seen) seen.front = true; return frontHTML == null ? "" : '<div class="uc-frontside">' + frontHTML + "</div>"; }
       if (Object.prototype.hasOwnProperty.call(f, name)) return f[name];
       // a template and its field list can differ in case; matching loosely beats rendering a silent blank
       const k = Object.keys(f).find((x) => x.toLowerCase() === String(name).toLowerCase());
@@ -32119,6 +33170,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        to point at a valley — where this layer is loaded by nothing but a China map card, and every
        reader of it is studying one of the two decks. One fetch, 13 KB of capitals inside it. */
     "china-provinces": { bundle: "chinaprov", global: "CHINA_PROVINCES", what: "province", plural: "provinces", cell: 0.05, points: "CHINA_CAPITALS", dotWhat: "city" },
+    /* Russia's own federal subjects, and the 80 administrative centres beside them in the SAME bundle,
+       on `china-provinces`'s reasoning exactly: nothing but a Russia map card loads this layer, and
+       every reader of it is studying one of the two decks, so one fetch carries both.
+         `what` is "federal subject" rather than a kind, and that is the deck's whole question shape: the
+       83 are six different kinds of thing — 46 oblasts, 21 republics, 9 krais, 4 autonomous okrugs, 2
+       cities of federal significance and 1 autonomous oblast — so "the province shaded on the map" would
+       be false of 37 of them. Every question asks for the FEDERAL SUBJECT, which is what the constitution
+       calls all six alike and what is true of every card in the deck. */
+    "russia-subjects": { bundle: "russubj", global: "RUSSIA_SUBJECTS", what: "federal subject", plural: "federal subjects", cell: 0.05, points: "RUSSIA_CENTRES", dotWhat: "city" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -32135,7 +33195,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* Which collections' locator windows warm a hi-res coast bundle, by collection root — see DATA_BUNDLES
      and .claude/build-hires-coasts.js. A window substitutes the bundle's rings for world.js's, ring by
      ring, the moment it lands; a collection with no row here draws world.js and nothing else. */
-  const CMAP_HIRES = { "col-40": "italy", "col-13": "greece", china: "china" };
+  const CMAP_HIRES = { "col-40": "italy", "col-13": "greece", china: "china", "col-42": "russia" };
   /* AND THE SAME FOR A MAP CARD, KEYED BY ITS LAYER (Sep 2026, on request: "ensure that in the China
      geography collection, rivers are visible in China, and China's borders are of a higher resolution,
      like in the China history collection. Do the same for the US states geography collection").
@@ -32398,6 +33458,66 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function cardMapReveal(root) {
     if (!root || !root.querySelectorAll) return;
     root.querySelectorAll(".map-card").forEach((h) => { if (h._folioMap) h._folioMap.reveal(); });
+  }
+  /* ---------- "DISCOVERED!" ON THE CARD THAT EARNED IT (Sep 2026, on request) ----------
+     Called from `showAnswer`, next to `cardMapReveal`, because the two are the same moment: the map may
+     now name what it was shading, and it may also be showing somewhere the reader has just earned.
+     It is asked BEFORE the card is graded, which is what makes the test work at all — `grade()` writes
+     `S.cards[id]`, and `atlasPlaceIsNew` reads its absence as "first sighting". */
+  function cardAtlasDiscover(root, c) {
+    if (!root || !root.querySelector || !c) return;
+    const chip = root.querySelector(".card-loc .mc-new");
+    if (!chip) return;                                   // no atlas window on this card
+    if (!atlasPlaceIsNew(c)) return;
+    chip.hidden = false;
+    // the chime is an EVENT and the chip is a STATEMENT: the chip is drawn on every render of this card,
+    // the sound plays once a sitting (see `_atlasHeard`)
+    if (!_atlasHeard.has(c.id)) { _atlasHeard.add(c.id); try { sfx("discover"); } catch (e) {} }
+  }
+  /* The way through to the reader's own globe, DELEGATED once for the document — this markup is drawn by
+     six surfaces and a per-render wiring is one forgotten call away from a button that does nothing. */
+  /* CAPTURE PHASE, for the reason the footnote handlers are: the window's own `.mc-btn` listener calls
+     `stopPropagation()` on every press in that stack, so a bubbling listener here never sees this button
+     at all — the press did nothing and nothing said why. */
+  document.addEventListener("click", (e) => {
+    const b = e.target && e.target.closest && e.target.closest('.map-card [data-mc="go"]');
+    if (!b) return;
+    e.preventDefault(); e.stopPropagation();
+    const host = b.closest(".map-card");
+    const id = host && host.getAttribute("data-map-card");
+    // capture the session BEFORE routing: route() clears it, which is the rule this works around
+    atlasHold = readStudySession();
+    atlasFocus = id ? { id: id } : null;
+    route("map");
+  }, true);
+  /* THE CROSSED SWORDS, lifted to module scope (Sep 2026) so the personal atlas can draw a battle the
+     way the card's own window does — see drawSwords inside startCardGlobe, which now delegates here, and
+     drawMineMarks, where a battle is swords rather than a dot. */
+  function paintSwords(ctx, x, y, sz) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    ctx.shadowColor = "rgba(0,0,0,.5)"; ctx.shadowBlur = 2.5; ctx.shadowOffsetY = 0.7;
+    for (const a of [Math.PI / 4, -Math.PI / 4]) {
+      ctx.save();
+      ctx.rotate(a);
+      ctx.strokeStyle = "rgba(200,205,213,1)"; ctx.lineWidth = sz * 0.34;
+      ctx.beginPath(); ctx.moveTo(0, -sz); ctx.lineTo(0, sz); ctx.stroke();
+      ctx.restore();
+    }
+    ctx.shadowColor = "transparent";
+    for (const a of [Math.PI / 4, -Math.PI / 4]) {
+      ctx.save();
+      ctx.rotate(a);
+      // the fuller
+      ctx.strokeStyle = "rgba(112,118,128,.9)"; ctx.lineWidth = sz * 0.09;
+      ctx.beginPath(); ctx.moveTo(0, -sz * 0.9); ctx.lineTo(0, sz * 0.3); ctx.stroke();
+      // the guard, a short bar across the hilt end
+      ctx.strokeStyle = "rgba(128,134,144,1)"; ctx.lineWidth = sz * 0.2;
+      ctx.beginPath(); ctx.moveTo(-sz * 0.38, sz * 0.52); ctx.lineTo(sz * 0.38, sz * 0.52); ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
   }
   function startCardGlobe(host) {
     const cv = host.querySelector(".mc-canvas");
@@ -32709,32 +33829,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        a battle is a battle whoever's card it is. What separates a flat grey bar from the land it lies on
        is not an outline but a soft shadow under the mark and the FULLER, the darker line down the middle
        of a blade, which is what makes it read as a sword rather than a cross. */
-    function drawSwords(x, y, sz) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.lineCap = "round"; ctx.lineJoin = "round";
-      ctx.shadowColor = "rgba(0,0,0,.5)"; ctx.shadowBlur = 2.5; ctx.shadowOffsetY = 0.7;
-      for (const a of [Math.PI / 4, -Math.PI / 4]) {
-        ctx.save();
-        ctx.rotate(a);
-        ctx.strokeStyle = "rgba(200,205,213,1)"; ctx.lineWidth = sz * 0.34;
-        ctx.beginPath(); ctx.moveTo(0, -sz); ctx.lineTo(0, sz); ctx.stroke();
-        ctx.restore();
-      }
-      ctx.shadowColor = "transparent";
-      for (const a of [Math.PI / 4, -Math.PI / 4]) {
-        ctx.save();
-        ctx.rotate(a);
-        // the fuller
-        ctx.strokeStyle = "rgba(112,118,128,.9)"; ctx.lineWidth = sz * 0.09;
-        ctx.beginPath(); ctx.moveTo(0, -sz * 0.9); ctx.lineTo(0, sz * 0.3); ctx.stroke();
-        // the guard, a short bar across the hilt end
-        ctx.strokeStyle = "rgba(128,134,144,1)"; ctx.lineWidth = sz * 0.2;
-        ctx.beginPath(); ctx.moveTo(-sz * 0.38, sz * 0.52); ctx.lineTo(sz * 0.38, sz * 0.52); ctx.stroke();
-        ctx.restore();
-      }
-      ctx.restore();
-    }
+    function drawSwords(x, y, sz) { paintSwords(ctx, x, y, sz); }
     function draw() {
       if (stopped || !W) return;
       /* Set by the river pass when the card's OWN river was actually traced. The gold dot then stands
@@ -33462,8 +34557,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     host.querySelectorAll(".mc-btn").forEach((b) => b.addEventListener("click", (e) => {
       e.stopPropagation();
       const w = b.getAttribute("data-mc");
+      /* NAMED, not "anything that is not home". The atlas button lives in this same stack and is wired
+         elsewhere; under the old `else` it fell through to the zoom branch and zoomed OUT on every
+         press, while also doing its own job — a control that works and misbehaves at once. */
       if (w === "home") { rotLon = homeLon; rotLat = homeLat; zoom = homeZoom; }
-      else zoom = clampN(zoom * (w === "in" ? 1.45 : 1 / 1.45), CMAP_ZMIN, CMAP_ZMAX);
+      else if (w === "in" || w === "out") zoom = clampN(zoom * (w === "in" ? 1.45 : 1 / 1.45), CMAP_ZMIN, CMAP_ZMAX);
+      else return;
       schedule();
     }));
     // …and from the keyboard, which is the only way a reader who cannot use a pointer reaches it at all
@@ -33595,7 +34694,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        it are the answer box (see the ARTWORK CARDS block). `q` is empty on every such card and is not
        drawn either way, so a hand-authored one that carries a sentence cannot leak it onto the front. */
     const art = cardArtSpec(c);
-    return art ? cardArtHTML(art, c) : q;
+    if (art) return cardArtHTML(art, c);
+    /* a flag card: the flag ABOVE the prompt, which is the map card's arrangement rather than the artwork
+       card's. The picture is the clue and the one short line only says what to do with it — where an
+       artwork card draws no prose at all, because there its answer box's own three labels are the form.
+       See the FLAG CARDS block. */
+    const flg = cardFlagSpec(c);
+    if (flg) return cardFlagHTML(flg) + q;
+    /* a draw card: the flag card run backwards, so the arrangement is too — the PROMPT first, naming the
+       country, and the pad under it. See the DRAW CARDS block. */
+    return cardDrawSpec(c) ? q + cardDrawHTML() : q;
   }
 
   /* ---------- the figures box (Aug 2026, with map cards) ----------
@@ -33974,6 +35082,496 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ' data-img-src="' + esc(f.src) + '" data-img-title="' + esc(f.alt || "") + '" data-img-desc="" data-img-credit="' + esc(f.credit) + '">';
   }
 
+  /* ---------- FLAG CARDS: the flag is the whole question (Sep 2026, on request) ----------
+     "The question side of a card should depict a flag and the user must guess what the flag is from. The
+     answer side of the card can be directly the same as the ones in the World geography collection." A
+     built-in format, like the map card and the artwork card and for their reason: a community card type
+     is templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front of
+     the card with its metadata held back. See docs/flags-card-plan.md, which specifies it in full.
+
+     IT REUSES `answerFlag` RATHER THAN ADDING A FIELD, and that is the decision the format turns on.
+     That field already refuses a `src` with no `credit`, already rides `serializeCardData`, the cloud
+     overlay and `revertCard`, already enlarges into the site's own viewer and is already a `TIP_SEL`
+     target so the tap lands with the marker down. A second field for the same picture would be a second
+     copy of all four, and the copy that goes stale is the one nobody editing a flag has reason to open.
+     So a flag card is `answerFlag` plus one boolean.
+
+     THE BOOLEAN IS `flagCard`, NOT `flag`, AND THE NAMES MUST STAY APART — the same rule `answerFlag`'s
+     own block above states, for the same reason: `cardFlag(id)` is the READER's own 1-7 marker, and a
+     second module-scope `cardFlag` shipped for an hour once and made every reader flag read as unflagged
+     for the whole file, with nothing thrown. The accessor here is `cardFlagSpec`, beside `cardMapSpec`
+     and `cardArtSpec`.
+
+     THE FRONT DRAWS THE FLAG AND NO METADATA AT ALL, which is the artwork card's own first rule and bites
+     harder here: a Commons credit line for a national flag reads "Government of India, public domain",
+     so the title, the description and the credit each hand over the answer. The front therefore carries
+     the picture, the authored `alt` and nothing else — no caption, no `data-img-*` and no way to enlarge
+     it, since the viewer's own caption bar would print the credit. The CREDITED, enlargeable copy is the
+     small one inside the answer box, which `buildBack` draws exactly as it does on a `gw-` map card: the
+     licence's attribution is on the same card, one press away, rather than before the picture has done
+     its job. **Anything that leaks the credit onto the front has broken the collection and will look
+     perfectly fine doing it** — which is what `test-flag-cards.js` asserts first.
+
+     ONE LEAK IS ACCEPTED AND IS STATED RATHER THAN PAPERED OVER: Commons names every national flag
+     `Flag_of_<Country>.svg`, and a picture's `src` is copied from the API and never composed or
+     rewritten, so THE ANSWER IS IN THE URL on all 233 cards. Measured: 20 of 20 flag cards have it,
+     against 0 of 10 artwork cards, whose Commons file names happen not to match their titles — so it is
+     this format's property rather than the site's. What follows is narrow: no reader is SHOWN a src (it
+     is not rendered as text, and a screen reader reads the authored `alt`), so the answer is reachable
+     only by opening devtools, viewing source, or long-pressing the picture on a phone to read its file
+     name — all of which are going looking for the answer, which a reader could do on any card here. The
+     suite therefore asserts the country appears in the `src` AND NOWHERE ELSE on the front, so the
+     accepted leak cannot quietly widen into a title, a credit or a caption.
+
+     THE FLAG IS CONTAINED AND NEVER CROPPED. Flags run from 1:1 (Switzerland, Vatican City) through 2:3
+     and 1:2 to Qatar's 11:28, and Nepal's is not a rectangle at all — so `.card-img`'s fixed 16:9 box and
+     `height:100%` are exactly wrong here, as they are for `.av-flag`, and the frame is a MAXIMUM with
+     `object-fit:contain` inside it. It is also drawn on a RULED GROUND: Japan, Qatar's hoist, the Nordic
+     crosses and every white-bordered flag lose their own edge against a light card and are cut in half by
+     a dark one, so the frame carries a hairline and the card's own paper behind it.
+
+     THE ALT TEXT DESCRIBES AND MAY NOT NAME, which makes this format MORE accessible than the map card
+     rather than less: a shape on a globe cannot be described without answering the question and a flag
+     can — "three horizontal bands of saffron, white and green, with a navy-blue wheel of 24 spokes" is a
+     real question. `add-card.js` refuses a flag card whose alt carries its own answer term.
+
+     A flag card keeps the ORDINARY cloze blank in its prompt, so `setupCloze` and `gradeCloze` answer it
+     with no branch of their own — it is the artwork card that needed its own grading, having four fields
+     rather than one answer. */
+  function cardFlagSpec(c) {
+    if (!c || c.flagCard !== true) return null;
+    const f = answerFlag(c);          // the same field, the same refusal of an uncredited src
+    return f ? f : null;
+  }
+  /* The alt is the author's description of what is on the flag. Where a card has none the label says what
+     the picture is FOR and nothing about what is on it — `answerFlagHTML` falls back to the CREDIT, which
+     is right beside an answer already on screen and would hand the answer over here. */
+  function cardFlagHTML(spec) {
+    return '<figure class="flag-shot"><img src="' + esc(spec.src) + '" alt="' + esc(spec.alt || "The flag to be identified.") +
+      '" loading="lazy" draggable="false"></figure>';
+  }
+  /* AND ON THE REVEAL IT BECOMES ENLARGEABLE, WHICH IS WHERE ITS CREDIT LIVES — `cardArtReveal`'s shape,
+     and here it is REQUIRED rather than a nicety (Sep 2026, on request: "on the answer side of the cards,
+     the flag in the answer box should not be shown").
+
+     The answer box's small `.av-flag` was where the licence's attribution lived, which is what let the
+     front carry none; the study page now drops that copy, so without this the credit would be nowhere the
+     reader could reach at all. A national flag on Commons is nearly always public domain, but not every
+     one of the 233 is, and CC BY wants the creator named.
+
+     THE CREDIT IS IN THE VIEWER AND NOT ON THE CARD (Sep 2026, on request: "the image box should not
+     show the image source or link on the card, only when it is clicked to enlarge should it say the
+     source info"). This wrote a `figcaption` under the frame for a day, which put a Commons URL under
+     every flag — two lines of address on a card whose whole front is one picture. So the figure carries
+     the `data-img-*` attributes and NO caption, and `openMediaViewer` draws the credit under the enlarged
+     picture as `.iv-credit`. **It is the picture round's own trade** — the attribution the licence asks
+     for is one press away rather than in front of the reader before the picture has done its job — and
+     the press is real: `.flag-shot.revealed` is in `IMG_OPEN_SEL`.
+
+     NONE OF IT CAN HAPPEN BEFORE THE REVEAL, which is the whole reason this is a separate pass: a flag's
+     credit reads "Government of India, public domain, via Wikimedia Commons", so a viewer opened from the
+     question side would print the answer. That is also why the ENLARGEMENT is gated here rather than in
+     the frame: the two go together, since the viewer is what says the source. */
+  function cardFlagReveal(root, c) {
+    const spec = cardFlagSpec(c);
+    if (!root || !spec) return;
+    const fig = root.querySelector(".flag-shot");
+    if (!fig || fig.classList.contains("revealed")) return;
+    fig.classList.add("revealed");
+    fig.setAttribute("role", "button");
+    fig.setAttribute("tabindex", "0");
+    fig.setAttribute("title", "Click to enlarge");
+    fig.setAttribute("data-img-src", spec.src);
+    fig.setAttribute("data-img-title", spec.alt || "");
+    fig.setAttribute("data-img-desc", "");
+    fig.setAttribute("data-img-credit", spec.credit);
+  }
+
+  /* ---------- DRAW CARDS: the flag is the ANSWER, and the reader draws it (Sep 2026, on request) ----------
+     "Make a reverse version of each card (similar to language vocabulary cards) where the user is given a
+     small canvas and the floating whiteboard marker is pinned to the top right of the canvas. The user
+     must draw the flag from memory and can then judge how correct they were."
+
+     IT IS THE FLAG CARD RUN BACKWARDS, and that is the whole of the format: `fl-001` shows India's flag
+     and asks for the name, `fl-501` names India and asks for the flag. A language deck does this with
+     one note and two templates; curated cards have no note layer, so the reverse is a CARD of its own,
+     numbered +500 from its twin — which is the geography section's own convention (`gw-501` is `gw-001`'s
+     capital, `geo-501` is `geo-001`'s) and makes the pairing arithmetic rather than a table.
+
+     `drawCard: true` IS THE WHOLE FLAG, BESIDE `flagCard` AND NEVER INSTEAD OF IT. The two say opposite
+     things about the same `answerFlag`: `flagCard` promotes the picture to the front and holds its
+     metadata back, this one holds the PICTURE back until the reveal. A card carrying both would be
+     showing the answer on the question side, which `add-card.js` refuses.
+
+     THE PROMPT NAMES THE COUNTRY AND CARRIES NO CLOZE BLANK, which is the one place this format departs
+     from every other card on the site. There is nothing to type: the answer is a drawing, and the reader
+     grades it themselves on the four buttons the grade bar already has — which is what self-assessment on
+     this site has always been, so the format needs no marking of its own. `ATTEMPT_SEL` finds no field,
+     so the "Answer before revealing" policy correctly stands down rather than locking the card shut.
+
+     THE `src` IS INJECTED AT THE REVEAL AND IS NOT IN THE MARKUP BEFORE IT. Two reasons, and the second
+     is the bigger one: a picture present and hidden is a picture the browser may still fetch, so 229
+     flags would be pulled down by a reader who reveals none of them — and a `src` in the DOM is the
+     answer one devtools press away, which is the leak the flag card's own block accepts on its front and
+     has no reason to accept here, where nothing needs it before the reveal.
+
+     THE PAD DOES NOT MOVE WHEN THE ANSWER LANDS, and that is a constraint rather than a nicety. The ink
+     is on the page-wide whiteboard canvas in PAGE coordinates — it is not owned by the pad — so anything
+     that shifted the pad would slide the drawing out from under the frame it was drawn in. The revealed
+     flag is therefore appended BELOW the pad and nothing above it changes; the reveal's own answer box is
+     below that again. It is the same rule `.scratch` follows one card over.
+
+     AND THE PAD IS A FRAME, NOT A SECOND CANVAS. A canvas of its own would need its own pointer handling,
+     its own undo stack, its own stylus rule and its own colour state — four copies of machinery the
+     marker already has, and the copy that goes stale is the one nobody editing the marker has reason to
+     open. So the pad is a ruled box on the card and the ink that lands in it is the ordinary whiteboard's,
+     exactly as the writing band is. What the reader gets that they did not have is the BOX (somewhere the
+     drawing is meant to go, at a flag's own proportions) and the marker already open at its corner. */
+  function cardDrawSpec(c) {
+    if (!c || c.drawCard !== true) return null;
+    return answerFlag(c);            // the same field, the same refusal of an uncredited src
+  }
+  /* ---- THE PAD IS ITS OWN CANVAS, WITH ITS OWN MENU (Sep 2026, on request) ----
+     "Keep the floating marker separate, simply put a separate whiteboard menu in the top of the white
+     canvas which can only be used within that canvas, and also includes a fill option to fill the whole
+     canvas a particular color."
+
+     THIS REVERSES THE FIRST CUT AND THE REASON IS IN THE REQUEST. The pad began as a FRAME over the
+     page-wide whiteboard, which reused the marker's pointer handling, undo stack, stylus rule and colour
+     state and cost nothing — but ink on that canvas is not bounded by anything, the marker had to be
+     pinned to the pad to be reachable, and there is nowhere in it for a FILL to stop. "Only be used
+     within that canvas" is a bounded surface, and a bounded surface is a canvas of its own. So the
+     duplication that was refused is now the point, and the floating marker goes back to being what it is
+     on every other page: separate, unpinned, and nothing to do with this.
+
+     THE TWO DO NOT INTERFERE AND ARE NOT MADE TO COOPERATE. With the floating pen DOWN its canvas covers
+     the whole visible page, which is what it does everywhere on the site — so it draws over the pad
+     rather than in it, and the pad's own menu keeps working, its buttons being real controls the ink
+     layer already hit-tests through to. A pass-through that forwarded presses into the pad was built and
+     refused: it would take away the one thing the floating marker is for, which is annotating anything
+     on the page including a diagram. The pen is no longer put down for the reader on a draw card either
+     — the card now has a tool of its own, and there is nothing left to force.
+
+     THE STATE IS MODULE-LEVEL AND IS NOT STORED. Which colour you last drew a flag in is a way of
+     working rather than a preference about Folio, the same call `glossSort` and the deck-edit mode make:
+     it survives the next card and resets on reload. */
+  const DP_COLORS = WB_COLORS;
+  const DP_SIZES = [3, 9];              // the pen and the brush — a band of a flag wants the second
+  const DP_HIST_MAX = 24;
+  const DP = { color: DP_COLORS[0], tool: "pen", size: DP_SIZES[0] };
+  let dpStop = null;                    // teardown for the pad currently mounted, if any
+  /* THE READER'S OWN COLOUR IS THE ONE PART OF THIS THAT IS STORED, and the exception is deliberate
+     (Sep 2026, on request: "the top canvas menu should have a color picker so any color can be used").
+     The rest of `DP` is a way of working and resets on reload; a mixed colour is WORK THE READER DID —
+     a flag's exact blue takes a moment to find — and the floating marker already keeps its own for that
+     reason. Device-local, like the marker's and like where the marker sits: which colour this browser
+     last mixed is a fact about this browser. One key, one colour: the pad has one palette, where the
+     marker keeps two (a highlighter yellow is not a pen colour) and needs a pair. */
+  const DP_CUSTOM_KEY = "folio_dp_custom_v1";
+  const DP_CUSTOM_FALLBACK = "#7A5CD6";   // deliberately none of the five, so the sixth swatch reads as its own
+  function dpReadCustom() {
+    try { const v = localStorage.getItem(DP_CUSTOM_KEY); return /^#[0-9a-f]{6}$/i.test(v || "") ? v : DP_CUSTOM_FALLBACK; }
+    catch (e) { return DP_CUSTOM_FALLBACK; }
+  }
+  function dpSaveCustom(c) { try { localStorage.setItem(DP_CUSTOM_KEY, c); } catch (e) {} }
+
+  const DP_ICON = {
+    pen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+    brush: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c0-3 2-4 4-4s3 1 3 3-2 3-4 3H4Z"/><path d="M11 16 20 5a2 2 0 0 0-3-3l-9 9"/></svg>',
+    erase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 6-6 7 7-4 4H9Z"/><path d="M8 20h12"/></svg>',
+    fill: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4l8 8-8 8Z"/><path d="M19 15c1.2 1.6 1.8 2.6 1.8 3.2a1.8 1.8 0 0 1-3.6 0c0-.6.6-1.6 1.8-3.2Z" fill="currentColor" stroke="none"/></svg>',
+    undo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg>',
+    clear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/></svg>',
+  };
+  const DP_BTNS = [
+    ["pen", "Pen"], ["brush", "Broad pen"], ["erase", "Eraser"],
+    ["fill", "Fill the whole canvas with this colour"], ["undo", "Undo"], ["clear", "Clear the canvas"],
+  ];
+  /* The menu is drawn at the TOP OF THE CANVAS and is `aria-hidden` for the reason the pad is: a reader
+     who cannot see the canvas cannot draw in it, and six tools for a surface they cannot use are noise
+     rather than help. The question above and the answer below are both real text, which is where this
+     format's accessibility actually lives.
+     EVERY CONTROL IN IT THEREFORE CARRIES `tabindex="-1"`, and that pairing is the whole point: an
+     `aria-hidden` container whose children are still FOCUSABLE is the one arrangement that is worse than
+     either choice — a keyboard reader tabs onto a control their screen reader has been told does not
+     exist, and lands on it silently. Hidden from assistive technology and out of the tab order is one
+     statement rather than two contradictory ones. A pointer is unaffected, which is what this surface
+     needs anyway: a tool cannot be used from a keyboard on a canvas that cannot be drawn on from one. */
+  function cardDrawHTML() {
+    const cols = DP_COLORS.map((c, i) =>
+      '<button type="button" tabindex="-1" class="dp-col' + (i === 0 ? " on" : "") + '" data-dpcol="' + esc(c) +
+      '" style="--dpc:' + esc(c) + '" title="' + esc(c) + '"></button>').join("");
+    const btns = DP_BTNS.map(([k, label]) =>
+      '<button type="button" tabindex="-1" class="dp-btn' + (k === "pen" ? " on" : "") + '" data-dp="' + k +
+      '" title="' + esc(label) + '"' + (k === "undo" ? " disabled" : "") + '>' + DP_ICON[k] + "</button>").join("");
+    /* THE SIXTH SWATCH IS THE READER'S OWN and opens the picker below the menu — a ROW rather than a
+       popover, which is the marker's own rule for its picker and the same reason: the bar is already a
+       box with a decided position, and a second floating box inside it would have to decide again.
+       Opening it pushes the canvas DOWN, which is free here and was not before: the ink is on the pad's
+       own canvas now, so it moves with the frame rather than being left behind in page coordinates. */
+    return '<div class="draw-pad">' +
+      '<div class="dp-tools" aria-hidden="true"><div class="dp-cols">' + cols +
+      '<button type="button" tabindex="-1" class="dp-col dp-custom" data-dpcustom="" title="Any colour"></button>' +
+      '</div><div class="dp-acts">' + btns + "</div></div>" +
+      '<div class="dp-pick" aria-hidden="true" hidden><div class="wb-sv"><span class="wb-knob"></span></div>' +
+      '<div class="wb-hue"><span class="wb-knob"></span></div><div class="wb-hex"></div></div>' +
+      '<div class="dp-frame" aria-hidden="true"><canvas class="dp-canvas"></canvas><span class="dp-hint">Draw the flag here</span></div>' +
+      '<figure class="dp-answer" hidden></figure></div>';
+  }
+  /* THE REVEAL IS WHERE THE PICTURE FIRST EXISTS. It is drawn at the pad's own width so the comparison is
+     one glance rather than a squint, it is enlargeable (`.dp-answer.revealed` is in `IMG_OPEN_SEL`), and
+     its CREDIT is in the viewer rather than under it — the flag card's own trade, and here for the same
+     reason: a Commons credit line for a national flag names the country. */
+  function cardDrawReveal(root, c) {
+    const spec = cardDrawSpec(c);
+    if (!root || !spec) return;
+    const fig = root.querySelector(".draw-pad .dp-answer");
+    if (!fig || fig.classList.contains("revealed")) return;
+    const img = document.createElement("img");
+    img.src = spec.src;
+    img.alt = spec.alt || "The flag being asked for.";
+    img.loading = "lazy";
+    img.draggable = false;
+    fig.appendChild(img);
+    fig.hidden = false;
+    fig.classList.add("revealed");
+    fig.setAttribute("role", "button");
+    fig.setAttribute("tabindex", "0");
+    fig.setAttribute("title", "Click to enlarge");
+    fig.setAttribute("data-img-src", spec.src);
+    fig.setAttribute("data-img-title", spec.alt || "");
+    fig.setAttribute("data-img-desc", "");
+    fig.setAttribute("data-img-credit", spec.credit);
+    /* The hint is hidden the moment anything is drawn; the reveal brings it back with a different word,
+       so the two frames now standing one above the other say which is which. */
+    const hint = root.querySelector(".draw-pad .dp-hint");
+    if (hint) hint.textContent = "What you drew";
+    const pad = fig.closest(".draw-pad");
+    if (pad) pad.classList.add("dp-revealed");
+  }
+  /* MOUNTING ONE BUILDS THE CANVAS AND WIRES THE MENU TO IT, AND NOTHING ELSE ON THE PAGE IS TOUCHED.
+     Four things are decisions rather than plumbing.
+     · THE BITMAP IS SIZED IN DEVICE PIXELS AND THE CONTEXT IS SCALED, or a stroke is a soft grey smear
+       on every phone made in the last decade. A resize REDRAWS the last snapshot into the new box rather
+       than letting the browser stretch the backing store, which is the same thing at a different
+       resolution and looks like the drawing having been damaged.
+     · `touch-action:none` IS WHAT LETS A FINGER DRAW. Without it the browser claims the gesture as a
+       scroll the moment it passes its own slop and fires `pointercancel`, which is the fault this file
+       records against every horizontal swipe on the site. The cost is real and is the right trade: a
+       finger starting inside the pad cannot scroll the page, exactly as it cannot on the floating
+       marker's own canvas.
+     · UNDO IS A STACK OF BITMAPS, capped, with an empty base at the bottom so it can always get back to
+       a blank canvas — the card whiteboard's own backend, which is a raster canvas for this reason.
+     · AND FILL COVERS, RATHER THAN GOING UNDERNEATH. "Fill the whole canvas a particular color" is
+       literal, and it is undoable, so a mis-press costs one press; going underneath would be a different
+       tool wearing this one's name, and a reader drawing a flag fills the field FIRST anyway. */
+  function mountDrawCard(root, c) {
+    if (dpStop) { dpStop(); dpStop = null; }
+    const spec = cardDrawSpec(c);
+    if (!root || !spec) return;
+    root.classList.add("draw-card");
+    const pad = root.querySelector(".draw-pad");
+    const frame = pad && pad.querySelector(".dp-frame");
+    const cv = pad && pad.querySelector(".dp-canvas");
+    if (!pad || !frame || !cv) return;
+    const ctx = cv.getContext("2d");
+    const hist = [];
+    let drawing = false, pid = null, last = null, w = 0, h = 0;
+
+    const undoBtn = pad.querySelector('[data-dp="undo"]');
+    const syncUndo = () => { if (undoBtn) undoBtn.disabled = hist.length < 2; };
+    const snap = () => {
+      if (!w || !h) return;
+      const s = document.createElement("canvas");
+      s.width = cv.width; s.height = cv.height;
+      s.getContext("2d").drawImage(cv, 0, 0);
+      hist.push(s);
+      while (hist.length > DP_HIST_MAX + 1) hist.shift();
+      syncUndo();
+    };
+    const restore = (s) => {
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      if (s && s.width && s.height) ctx.drawImage(s, 0, 0, cv.width, cv.height);
+      ctx.restore();
+    };
+    /* THE BOX IS READ AS LAYOUT, NEVER AS A RECT. `getBoundingClientRect` is transform-aware, and the
+       page's entrance animation SCALES `.page` for its first third of a second — so a canvas sized from a
+       rect at mount comes out several pixels narrow and stays that way, since a transform changes no
+       layout box and the ResizeObserver therefore never fires to correct it. Measured: 349px of canvas
+       inside a 355.6px frame, a white strip down the right-hand edge of every pad. It is the pin's own
+       fault wearing different clothes, and `clientWidth` does not have it. */
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      const nw = Math.max(1, frame.clientWidth), nh = Math.max(1, frame.clientHeight);
+      if (nw === w && nh === h) return;
+      const prev = hist.length ? hist[hist.length - 1] : null;
+      w = nw; h = nh;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      cv.style.width = w + "px"; cv.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (prev) restore(prev);
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+    };
+    resize();
+    if (!hist.length) snap();          // the blank base undo can always return to
+
+    /* …and a pointer's position IS read off the rect, which is right — client coordinates are in that
+       same transformed space — but scaled back into the canvas's own, so a press during any scale lands
+       where the reader is pointing rather than drifting further from it across the pad. */
+    const at = (e) => {
+      const r = cv.getBoundingClientRect();
+      const kx = r.width ? w / r.width : 1, ky = r.height ? h / r.height : 1;
+      return { x: (e.clientX - r.left) * kx, y: (e.clientY - r.top) * ky };
+    };
+    const stroke = (a, b) => {
+      ctx.save();
+      ctx.globalCompositeOperation = DP.tool === "erase" ? "destination-out" : "source-over";
+      ctx.strokeStyle = DP.color;
+      ctx.lineWidth = DP.tool === "erase" ? 18 : DP.size;
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      ctx.restore();
+    };
+    const down = (e) => {
+      if (e.button != null && e.button !== 0) return;
+      if (drawing) return;                      // one pointer owns the stroke — a palm is not this gesture
+      drawing = true; pid = e.pointerId; last = at(e);
+      try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+      stroke(last, { x: last.x + 0.01, y: last.y });   // a tap is a dot
+      pad.classList.add("dp-drawn");
+      e.preventDefault();
+    };
+    const move = (e) => {
+      if (!drawing || e.pointerId !== pid) return;
+      const p = at(e); stroke(last, p); last = p;
+      e.preventDefault();
+    };
+    const up = (e) => {
+      if (!drawing || e.pointerId !== pid) return;
+      drawing = false; pid = null; last = null;
+      snap();
+    };
+    cv.addEventListener("pointerdown", down);
+    cv.addEventListener("pointermove", move);
+    cv.addEventListener("pointerup", up);
+    cv.addEventListener("pointercancel", up);
+
+    const act = (k) => {
+      if (k === "pen" || k === "brush") { DP.tool = "pen"; DP.size = k === "pen" ? DP_SIZES[0] : DP_SIZES[1]; }
+      else if (k === "erase") DP.tool = "erase";
+      else if (k === "fill") {
+        ctx.save(); ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = DP.color; ctx.fillRect(0, 0, w, h); ctx.restore();
+        pad.classList.add("dp-drawn"); snap();
+      } else if (k === "undo") {
+        if (hist.length > 1) { hist.pop(); restore(hist[hist.length - 1]); syncUndo(); }
+      } else if (k === "clear") {
+        ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); ctx.restore();
+        pad.classList.remove("dp-drawn"); snap();
+      }
+      paintTools();
+    };
+    const paintTools = () => {
+      pad.querySelectorAll("[data-dp]").forEach((b) => {
+        const k = b.dataset.dp;
+        const on = (k === "erase" && DP.tool === "erase") ||
+                   (DP.tool === "pen" && ((k === "pen" && DP.size === DP_SIZES[0]) || (k === "brush" && DP.size === DP_SIZES[1])));
+        b.classList.toggle("on", !!on);
+      });
+      pad.querySelectorAll("[data-dpcol]").forEach((b) => b.classList.toggle("on", b.dataset.dpcol === DP.color));
+    };
+    pad.querySelectorAll("[data-dp]").forEach((b) =>
+      b.addEventListener("click", (e) => { e.stopPropagation(); act(b.dataset.dp); }));
+    const useDpColor = (c) => {
+      DP.color = c;
+      if (DP.tool === "erase") DP.tool = "pen";   // choosing a colour is choosing to draw with it
+      paintTools();
+    };
+    pad.querySelectorAll("[data-dpcol]").forEach((b) =>
+      b.addEventListener("click", (e) => { e.stopPropagation(); useDpColor(b.dataset.dpcol); }));
+
+    /* ---- ANY COLOUR: the sixth swatch and the picker under the menu ----
+       A saturation/brightness field over a hue bar with the hex beneath, which is the ordinary shape and
+       the one the floating marker already uses — the classes are its, so this reuses the stylesheet
+       rather than a second copy of it, and `hsvToHex` / `hexToHSV` are module-level for the same reason.
+       **`<input type="color">` IS NOT USED, AND THAT IS A DECISION THE SITE HAS ALREADY MADE**: its
+       platform dialog on a phone is a full-screen "Select color" sheet of sliders that covers the very
+       card being answered, and `test-layout.js` has asserted for a month that none is left in the
+       marker's panel. Two CSS gradients and two pointer handlers; no canvas, no library.
+       **THE PICKER KEEPS ITS OWN HSV rather than re-deriving it from the hex on each move.** At v=0 or
+       s=0 a colour has NO recoverable hue, so a reader dragging into the black corner and back out would
+       come back red however they arrived.
+       **IT IS POINTER-ONLY, AND THAT IS NOT THE MARKER'S ANSWER.** The marker's picker takes arrow keys,
+       because the control it replaced was a real `<input>` and reachable from a keyboard. Here the whole
+       menu is `aria-hidden` with `tabindex="-1"` on every control, for the reason the pad is: the surface
+       it serves cannot be drawn on from a keyboard either, so a focusable field would be a tab stop that
+       leads nowhere — which is exactly the focusable-inside-`aria-hidden` fault that pairing exists to
+       avoid. */
+    const pick = pad.querySelector(".dp-pick");
+    const swatch = pad.querySelector(".dp-custom");
+    let pickHSV = hexToHSV(dpReadCustom()), pickDrag = -1;
+    const pickHex = () => hsvToHex(pickHSV.h, pickHSV.s, pickHSV.v);
+    const syncPick = () => {
+      const hex = pickHex(), sv = pick.querySelector(".wb-sv"), hue = pick.querySelector(".wb-hue");
+      sv.style.setProperty("--h", pickHSV.h.toFixed(1));
+      sv.firstElementChild.style.left = (pickHSV.s * 100).toFixed(2) + "%";
+      sv.firstElementChild.style.top = ((1 - pickHSV.v) * 100).toFixed(2) + "%";
+      hue.firstElementChild.style.left = ((pickHSV.h / 360) * 100).toFixed(2) + "%";
+      pick.style.setProperty("--wc", hex);
+      pick.querySelector(".wb-hex").textContent = hex.toUpperCase();
+      /* the swatch IS the stored colour, and carries it as its own `data-dpcol` so `paintTools` marks it
+         selected by exactly the rule the other five are marked by */
+      swatch.style.setProperty("--dpc", hex);
+      swatch.dataset.dpcol = hex;
+      swatch.title = hex.toUpperCase();
+    };
+    const wirePickField = (box, set) => {
+      const clamp = (n) => Math.max(0, Math.min(1, n));
+      const at = (e) => {
+        const r = box.getBoundingClientRect();
+        set(clamp((e.clientX - r.left) / (r.width || 1)), clamp((e.clientY - r.top) / (r.height || 1)));
+        const hex = pickHex();
+        dpSaveCustom(hex);
+        DP.color = hex;                 // live, like every other swatch — the pen follows the finger
+        if (DP.tool === "erase") DP.tool = "pen";
+        syncPick(); paintTools();
+      };
+      box.addEventListener("pointerdown", (e) => {
+        if (e.button != null && e.button !== 0) return;
+        e.preventDefault();
+        pickDrag = e.pointerId;
+        try { box.setPointerCapture(e.pointerId); } catch (err) {}
+        at(e);
+      });
+      box.addEventListener("pointermove", (e) => { if (pickDrag === e.pointerId) at(e); });
+      const stopPick = (e) => { if (pickDrag === e.pointerId) pickDrag = -1; };
+      box.addEventListener("pointerup", stopPick);
+      box.addEventListener("pointercancel", stopPick);
+    };
+    wirePickField(pick.querySelector(".wb-sv"), (x, y) => { pickHSV.s = x; pickHSV.v = 1 - y; });
+    wirePickField(pick.querySelector(".wb-hue"), (x) => { pickHSV.h = x * 360; });
+    syncPick();
+    swatch.addEventListener("click", (e) => {
+      e.stopPropagation();
+      /* Pressing it SELECTS the colour and opens the field; pressing it again shuts the field and leaves
+         the colour selected — so one press is "draw in my colour" and two are "and let me change it". */
+      const opening = pick.hidden;
+      pick.hidden = !opening;
+      pad.classList.toggle("dp-picking", opening);
+      if (opening) useDpColor(swatch.dataset.dpcol);
+    });
+    paintTools();
+
+    const onResize = () => resize();
+    window.addEventListener("resize", onResize);
+    const ro = typeof ResizeObserver === "function" ? new ResizeObserver(onResize) : null;
+    if (ro) ro.observe(frame);
+    dpStop = () => {
+      window.removeEventListener("resize", onResize);
+      if (ro) ro.disconnect();
+    };
+  }
   /* ---------- the locator map (Aug 2026, on request) ----------
      `locator: { name, at: [lon, lat], zoom? }` — a globe at the foot of a card whose ANSWER IS A PLACE,
      with that place marked. A reader meeting Knossos, the Cycladic civilisation or the Tiber for the first
@@ -34305,31 +35903,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      unlocked before `worldcaps` lands appears when it lands rather than being dropped. */
   // the card kinds that are a POLITY OR A PEOPLE rather than a piece of geography — see the region branch below
   const MINE_POLITY = new Set(["culture", "people", "state", "dynasty", "empire", "civilisation"]);
-  function atlasUnlocks() {
-    const key = Object.keys(S.cards || {}).length + "|" + ((window.WORLD_GEO || []).length) + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length);
-    if (_atlasMineCache && _atlasMineCache.key === key) return _atlasMineCache.v;
-    const names = new Map(), subdiv = [], marks = [], need = new Set();
-    Object.keys(S.cards || {}).forEach((cid) => {
-      const c = CARD_BY_ID[cid];
-      if (!c) return;                                   // a community card names no place on this globe
+  /* WHAT ONE CARD PUTS ON THE PERSONAL ATLAS, lifted out of `atlasUnlocks` so there is ONE definition of
+     it (Sep 2026). Two callers need the answer and the rule is long: `atlasUnlocks` asks it of every card
+     the reader has a record for, and `atlasPlaceIsNew` asks it of the card in front of them, to decide
+     whether revealing it has just earned them somewhere they did not have. A second copy of ninety lines
+     of "a region is drawn only if its first tag is a polity, a range registers nothing, water is a label"
+     would go stale the first time either rule moved, and the symptom would be a chip announcing a
+     discovery the globe then does not draw. */
+  function atlasRegister(cid, c, out) {
       const title = String(c.answerText || "").trim() || String(cid);
+      /* WHICH COLLECTION EARNED THIS PLACE (Sep 2026, on request: "in the personal atlas, users should be
+         able to toggle locations from specific collections on/off"). Recorded at registration because
+         this is the one pass that has the card in hand; every consumer downstream reads marks and names
+         and would otherwise have to find its way back to the card to ask. */
+      const _root = cardCollectionRoot(cid), coll = _root ? _root.id : "";
       const spec = cardMapSpec(c);
       if (spec) {
         if (spec.layer === "world") {
-          spec.keys.forEach((k) => { const lk = k.toLowerCase(); if (!names.has(lk)) names.set(lk, { id: cid, title: title, key: k }); });
+          spec.keys.forEach((k) => { const lk = k.toLowerCase(); if (!out.names.has(lk)) out.names.set(lk, { id: cid, title: title, key: k, coll: coll }); });
         } else {
-          if (spec.def.bundle) need.add(spec.def.bundle);
-          subdiv.push({ id: cid, title: title, layer: spec.layer, keys: spec.keys, global: spec.def.global });
+          if (spec.def.bundle) out.need.add(spec.def.bundle);
+          out.subdiv.push({ id: cid, title: title, layer: spec.layer, keys: spec.keys, global: spec.def.global, coll: coll });
         }
         if (spec.dot) {
-          if (spec.def.pointsBundle) need.add(spec.def.pointsBundle);
+          if (spec.def.pointsBundle) out.need.add(spec.def.pointsBundle);
           /* A CAPITAL IS A SQUARE ONLY WHERE IT IS A COUNTRY'S (Sep 2026, on request: "province or state
              capitals should not have squares but normal sized circles. Only country capitals should have
              squares"). Every dot on this globe arrives from a geography card's `map.dot`, so all three
              kinds — Paris, Sacramento, Wuhan — were one square, and the mark said "capital" where the
              reader wanted it to say "capital OF WHAT". The layer already answers that in its own `what`,
              so there is nothing new to record and no table to keep in step. */
-          marks.push({ id: cid, title: title, kind: "dot", dot: spec.dot, points: spec.def.points, modern: true, cap: spec.def.what === "country", subcap: spec.def.what !== "country", y0: null, y1: null });
+          out.marks.push({ id: cid, title: title, kind: "dot", dot: spec.dot, points: spec.def.points, modern: true, cap: spec.def.what === "country", subcap: spec.def.what !== "country", y0: null, y1: null , coll: coll });
         }
         return;
       }
@@ -34345,7 +35949,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          decisive battle was fought is not the same claim as the shading that says who fought it. */
       const war = cardWar(c), wy = war ? cardWarYears(c) : null;
       if (war && wy) [["v", war.victors], ["l", war.losers]].forEach((pair) => {
-        marks.push({ id: cid, title: title, kind: "war", side: pair[0], sideName: pair[1].name, keys: pair[1].keys, area: pair[1].area, y0: wy.y0, y1: wy.y1 });
+        out.marks.push({ id: cid, title: title, kind: "war", side: pair[0], sideName: pair[1].name, keys: pair[1].keys, area: pair[1].area, y0: wy.y0, y1: wy.y1 , coll: coll });
       });
       const loc = cardLocator(c);
       if (!loc) return;
@@ -34381,7 +35985,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (loc.kind === "region" || loc.kind === "shelf") {
         if (!loc.area || !MINE_POLITY.has(String((c.tags || [])[0] || "").toLowerCase())) return;
         const y1 = ys.length ? Math.max.apply(null, ys) : null;
-        marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1 });
+        out.marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1 , coll: coll });
         return;
       }
       /* WATER IS NAMED, NOT MARKED (Sep 2026, on request: the Aegean Bronze Age card should "add its
@@ -34396,16 +36000,121 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          A RANGE STILL REGISTERS NOTHING. It is neither water nor a polity, and its mark was a line of
          triangles that at world scale is the rash the earlier request took off. */
       if (loc.kind === "river" || loc.kind === "sea") {
-        marks.push({ id: cid, title: loc.name || title, kind: "water", at: loc.at, area: loc.area || null, y0: y0 });
+        out.marks.push({ id: cid, title: loc.name || title, kind: "water", at: loc.at, area: loc.area || null, y0: y0 , coll: coll });
         return;
       }
       if (loc.kind === "range") return;
-      marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, y0: y0 });
+      /* A BATTLE IS SWORDS HERE TOO (Sep 2026, on request: "on the personal atlas, 'Lake Regillus' is a
+         battle, not a location, like its atlas window"). It is still a `dot` — a point with a name beside
+         it, placed and thinned and clicked exactly as a place is — and `battle` only changes what is
+         painted at the point (see drawMineMarks). */
+      out.marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, battle: loc.kind === "battle", y0: y0 , coll: coll });
+  }
+  /* THE WHOLE REGISTER — every place the reader has earned, whatever they have chosen to look at. It is
+     what `atlasPlaceIsNew` asks (a place hidden behind a collection toggle is still one you have) and
+     what the collection list on the Atlas is built from. `atlasUnlocks` is the FILTERED view of it. */
+  function atlasRegisterAll() {
+    const key = Object.keys(S.cards || {}).length + "|" + ((window.WORLD_GEO || []).length) + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length);
+    if (_atlasMineCache && _atlasMineCache.key === key) return _atlasMineCache.v;
+    const out = { names: new Map(), subdiv: [], marks: [], need: new Set() };
+    Object.keys(S.cards || {}).forEach((cid) => {
+      const c = CARD_BY_ID[cid];
+      if (!c) return;                                   // a community card names no place on this globe
+      atlasRegister(cid, c, out);
     });
-    const v = { names: names, subdiv: subdiv, marks: marks, need: need, count: names.size + subdiv.length + marks.length };
+    const v = { names: out.names, subdiv: out.subdiv, marks: out.marks, need: out.need, count: out.names.size + out.subdiv.length + out.marks.length };
     _atlasMineCache = { key: key, v: v };
     return v;
   }
+  /* ---------- WHICH COLLECTIONS THE READER IS LOOKING AT (Sep 2026, on request) ----------
+     Stored as the ids that are OFF, so a collection the reader has never touched is shown and a
+     collection that ships later is shown too — the same rule `S.deckOpts` follows for a deck's limits.
+     It lives in `S.settings` rather than in the progress blob: it is a way of looking at the globe, like
+     the text size and the theme, and not a fact about what has been studied. */
+  function atlasCollHidden() { const a = S.settings && S.settings.atlasHidden; return Array.isArray(a) ? a : []; }
+  function atlasCollOff(id) { return atlasCollHidden().indexOf(String(id || "")) >= 0; }
+  function setAtlasColl(id, on) {
+    const cur = atlasCollHidden().filter((x) => x !== String(id));
+    if (!on) cur.push(String(id));
+    S.settings.atlasHidden = cur;
+    _atlasViewCache = null;
+    save();
+  }
+  /* Every collection that has put something on this globe, with how many places each holds — the list the
+     toggles are drawn from. Built off the WHOLE register, so turning one off never removes its own row. */
+  function atlasCollections() {
+    const u = atlasRegisterAll(), by = new Map();
+    const bump = (coll) => {
+      const id = String(coll || "");
+      if (!id) return;
+      if (!by.has(id)) {
+        const n = NODE_BY_ID[id];
+        by.set(id, { id: id, title: n ? nodeTitle(n) : id, n: 0 });
+      }
+      by.get(id).n++;
+    };
+    u.names.forEach((v) => bump(v.coll));
+    u.subdiv.forEach((d) => bump(d.coll));
+    u.marks.forEach((m) => bump(m.coll));
+    return [...by.values()].sort((a, b) => b.n - a.n || a.title.localeCompare(b.title));
+  }
+  let _atlasViewCache = null;
+  /* The filtered view every drawing pass reads. Keyed on the register's own cache object AND on the
+     hidden list, so switching a collection off re-derives and nothing else does. */
+  function atlasUnlocks() {
+    const all = atlasRegisterAll(), hid = atlasCollHidden();
+    if (!hid.length) return all;                         // the ordinary case — no copy, no second cache
+    const sig = hid.slice().sort().join(",");
+    if (_atlasViewCache && _atlasViewCache.src === all && _atlasViewCache.sig === sig) return _atlasViewCache.v;
+    const off = new Set(hid);
+    const names = new Map();
+    all.names.forEach((v, k) => { if (!off.has(String(v.coll || ""))) names.set(k, v); });
+    const subdiv = all.subdiv.filter((d) => !off.has(String(d.coll || "")));
+    const marks = all.marks.filter((m) => !off.has(String(m.coll || "")));
+    const v = { names: names, subdiv: subdiv, marks: marks, need: all.need, count: names.size + subdiv.length + marks.length };
+    _atlasViewCache = { src: all, sig: sig, v: v };
+    return v;
+  }
+  /* ---------- DOES REVEALING THIS CARD EARN THE READER A PLACE THEY DID NOT HAVE? (Sep 2026, on
+     request: "when a card with a new personal atlas location is discovered, the atlas window should have
+     a top left chip saying Discovered! and play a sound effect when the answer side is revealed")
+     ----------
+     THIS IS THE DISCOVERY THE PERSONAL ATLAS DELIBERATELY DOES NOT ANNOUNCE, arriving at the moment it
+     actually happens. Clicking a mark on that globe is explicitly NOT a discovery (see `showMinePopup`):
+     the place is drawn there BECAUSE its card has a record, so congratulating a reader for opening it
+     congratulates them for something they earned days ago. Earning it is this — the first reveal of a
+     card that puts somewhere new on the map — and until now it passed in silence.
+
+     THREE THINGS MUST ALL HOLD, and each rules out a way of announcing something that is not news:
+       · the card has NO record yet, so this is its first sighting rather than a review;
+       · it registers something at all, which `atlasRegister` decides and nothing here re-decides;
+       · and what it registers is not ALREADY on the globe from some other card — two cards on Athens
+         are one place, and the second is not a discovery.
+     The last is why this compares against `atlasUnlocks()` rather than just asking whether the card has
+     a locator: the corpus has whole runs of cards sharing a city.
+
+     A MARK IS COMPARED BY THE NAME IT DRAWS, which is what the reader would see appear. `title` is what
+     `drawMineMarks` labels, so two entries with one title are one mark on the map however they were
+     registered. */
+  function atlasPlaceIsNew(c) {
+    if (!c || !c.id) return false;
+    if (S.cards && S.cards[c.id]) return false;          // already studied — the place came in then
+    const mine = { names: new Map(), subdiv: [], marks: [], need: new Set() };
+    try { atlasRegister(c.id, c, mine); } catch (e) { return false; }
+    if (!mine.names.size && !mine.subdiv.length && !mine.marks.length) return false;
+    const u = atlasRegisterAll();   // a place hidden behind a toggle is still one the reader has
+    for (const k of mine.names.keys()) if (!u.names.has(k)) return true;
+    const drawn = new Set(u.marks.map((m) => String(m.title || "").toLowerCase()));
+    if (mine.marks.some((m) => !drawn.has(String(m.title || "").toLowerCase()))) return true;
+    const subs = new Set(u.subdiv.map((d) => d.layer + "|" + (d.keys || []).join("|").toLowerCase()));
+    if (mine.subdiv.some((d) => !subs.has(d.layer + "|" + (d.keys || []).join("|").toLowerCase()))) return true;
+    return false;
+  }
+  /* Announced ONCE per card per session. The chip is a true statement about the card and is drawn on
+     every render of it — a reload, a language switch, an undo — but the chime is an event, and a sound
+     that replays every time the page repaints is a fault rather than a flourish. Module-level, like the
+     held session below: it is a fact about this sitting. */
+  const _atlasHeard = new Set();
   function locatorSiblings(id) {
     const root = cardCollectionRoot(id);
     if (!root) return { dots: [], termName: new Map(), own: new Set() };
@@ -34526,7 +36235,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
       '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
-      "</div></div></div>" + cardWarKeyHTML(w);
+      /* …AND A WAY THROUGH TO THE READER'S OWN GLOBE (Sep 2026, on request: "each atlas window should
+         have an icon button to take the user to that location on the personal atlas page, where there
+         should then be a 'Back' button to go back to the card study the user was in"). It carries
+         `data-mc="go"` so the window's own closure handler can ignore it by name, and it is wired by a
+         DELEGATED document listener rather than in `startCardGlobe`: routing is not the globe's job, and
+         this markup is drawn by six surfaces that would each have to remember to wire it. */
+      '<button type="button" class="mc-btn mc-go" data-mc="go" aria-label="See this on your atlas" title="See this on your atlas">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></button>' +
+      "</div>" +
+      /* THE CHIP SHIPS IN THE MARKUP, HIDDEN, rather than being created when the answer is revealed —
+         `#toast`'s own rule: a live region inserted at the moment it has something to say is one the
+         screen reader has not been watching, and the announcement is lost. */
+      '<span class="mc-new" role="status" hidden>' + esc(t("Discovered!")) + "</span>" +
+      "</div></div>" + cardWarKeyHTML(w);
   }
   /* ---------- THE READER'S OWN NOTE (Sep 2026) ----------
      Rendered on the answer side, directly under the answer box, because a mnemonic is about the TERM and
@@ -35916,16 +37638,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      — so a thin cell degrades one rung at a time instead of refusing to deal. It cannot fail closed:
      `rest` is every remaining name in the pool, so the fourth rung always fills the round.
 
-     AND THE ROUND COUNT IS FIVE AGAIN (Aug 2026, on request), having been cut to three earlier in the
-     month on the argument that three tightly-matched rounds ask more than five loose ones. The matching
-     above is what made that argument, and it is unchanged — so the five rounds this deals are the tight
-     kind, which is the case for having them: at 102 quotations the pool was never the constraint, and a
-     daily game over in three questions is over before it has asked anything. It is a named constant read
-     by the page and by nothing else, so the results screen, the score and the tile all follow the one
-     figure. */
-  const WS_ROUNDS = 5;
+     AND THE ROUND COUNT IS THREE (Sep 2026, on request), having gone 5 → 3 → 5 in August. It is a named
+     constant read by the page and by nothing else, so the results screen, the score and the tile all
+     follow the one figure.
+
+     AN ADMIN CAN TAKE A QUOTATION OUT OF THE POOL (Sep 2026, on request: "on the Admin page should be a
+     list of the quotes in it, so i can remove some manually"). `whoSaidPool` is the one door, and it reads
+     `ADMIN_EDITS.whosaidOff` — an overlay keyed by the entry's English `q`, so the removal travels to
+     every reader through `content_overrides` like any other admin edit and needs no deploy. A removed
+     quotation's SPEAKER stays available as a decoy only if another of their lines is still in the pool,
+     the decoys being drawn from this same filtered list. */
+  const WS_ROUNDS = 3;
+  function whoSaidPool() {
+    const off = (ADMIN_EDITS && ADMIN_EDITS.whosaidOff) || {};
+    return (window.QUOTEGAME || []).filter((x) => x && !off[x.q]);
+  }
   function buildWhoSaidRounds() {
-    const RAW = window.QUOTEGAME || [];
+    const RAW = whoSaidPool();
     const POOL = RAW.map((x) => quoteLocalized(x));
     const catOf = new Map();   // localised speaker name -> the family it is filed under
     const eraOf = new Map();   // localised speaker name -> the period they lived in
@@ -35958,7 +37687,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     detachKeys();
     if (gameLockedToday(root, "whosaid")) return;
     if (gamesI18nPending(root)) return;
-    const POOL = (window.QUOTEGAME || []).map((x) => quoteLocalized(x));
+    const POOL = whoSaidPool().map((x) => quoteLocalized(x));
     if (POOL.length < 4) { root.innerHTML = emptyPlacard("Coming soon", "言", "Not enough quotes to play yet.", () => route("home"), "Back home"); return; }
     const rounds = buildWhoSaidRounds(), ROUNDS = rounds.length;
     let r = 0, score = 0; const results = [];
@@ -36013,8 +37742,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const rev = root.querySelector("#reveal"); rev.hidden = false;
       rev.innerHTML =
         '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — <b>" + esc(it.who) + "</b></div>" +
-        '<p class="tf-why">' + esc(it.context) + "</p>" +
+        /* THE EXPLANATION IS CITED (Sep 2026, on request), exactly as True or False's is: `context` is
+           rendered through the sanitizer so its footnote marker is a marker rather than printed tags, and
+           `src` draws the same shut Sources fold under it (see tfWhyHTML / tfWireWhy). */
+        '<p class="tf-why">' + sanitizeHTML(String(it.context || "")) + "</p>" +
+        sourcesHTML(it.src, { shut: true }) +
         '<button class="btn" id="ws-next">' + (r + 1 < ROUNDS ? "Next round" : "See results") + "</button>";
+      tfWireWhy(rev);
       rev.querySelector("#ws-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : renderEnd(); });
     }
     function renderEnd() {
@@ -36028,11 +37762,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="tf-summary">${rounds.map((rd, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${esc(rd.it.context)}</p></div>
+              <div><p class="tf-sum-q">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${sanitizeHTML(String(rd.it.context || ""))}</p>${sourcesHTML(rd.it.src, { compact: true })}</div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">${["No", "One", "Two", "Three", "Four", "Five"][ROUNDS] || ROUNDS} fresh voices arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="ws-home">Home</button></div>
         </div>`;
+      tfWireWhy(root.querySelector(".tf-summary"));
       root.querySelector("#ws-home").addEventListener("click", () => route("home"));
     }
   };
@@ -36049,13 +37784,97 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      out the ones that did not happen at a time — see the comment on that predicate for why `human
      evolution` must not be ordered at the ape split. Both are facts about the ANSWER TERM, so both are
      read off the card rather than derived from its date line, which cannot tell an onset from a span. */
+  /* ---------- A LITERARY WORK IS SET IN ITALIC AND SAYS WHOSE IT IS ----------
+     (Sep 2026, on request: "literary works should be italicised and mention the author its by to make
+     it clear that its a literary work".) A Timeline row is a bare term in a list of five, so `Histories`,
+     `Birds` and `Frogs` read as an event, a bird and an animal until the reader has the year in front of
+     them — and by then the puzzle is answered. Italic plus a by-line says what kind of thing it is at
+     the moment it is being ordered.
+
+     IT IS A DECLARED TABLE, NEVER A TAG TEST, and `FINDIT_NAMES` is the precedent: a map label is not a
+     question, and here a kind tag is not a genre. Measured over the corpus, 108 cards lead with the kind
+     `text` and they are the Code of Hammurabi, the Amarna letters, the Dipylon inscription and the
+     Knossos Linear B archive as much as they are the Odyssey — a law code and a clay archive are neither
+     italicised nor by anybody, so a rule keyed on the tag would set four wrong things in italic to get
+     one right. Adding `literature` to the test does not save it: `Solon's poems` is a body of verse
+     rather than a title, and `Old Oligarch` is the AUTHOR rather than the work.
+
+     AN EMPTY AUTHOR IS AN ANSWER, not a gap. The Epic of Gilgamesh, the Rigveda and the Classic of
+     Poetry have none; `Prometheus Bound` is transmitted under Aeschylus and its attribution is disputed
+     on the card's own prose. Those get the italic, which already says "this is a work", and no by-line —
+     inventing one would be exactly the fabrication the citation apparatus exists to prevent. The
+     scriptures are out of the table altogether: the Hebrew Bible and the Quran are not set in italic by
+     any style this site follows.
+
+     THE KEY IS THE CARD ID, never the answer term, so a retitled card keeps its entry and a second work
+     of the same name cannot inherit one. */
+  const CHRONO_WORKS = {
+    // Greece
+    "gr-130": "Homer",        "gr-131": "Homer",
+    "gr-141": "Hesiod",       "gr-142": "Hesiod",
+    "gr-439": "Herodotus",    "gr-441": "Aeschylus",
+    "gr-592": "Aeschylus",    "gr-593": "",              // Prometheus Bound — transmitted under Aeschylus, attribution long questioned
+    "gr-594": "Aeschylus",
+    "gr-596": "Sophocles",    "gr-597": "Sophocles",     "gr-598": "Sophocles",   "gr-599": "Sophocles",
+    "gr-601": "Euripides",    "gr-602": "Euripides",     "gr-603": "Euripides",   "gr-604": "Euripides",
+    "gr-608": "Aristophanes", "gr-609": "Aristophanes",  "gr-610": "Aristophanes", "gr-611": "Aristophanes",
+    "gr-620": "Xenophon",     "gr-621": "Xenophon",      "gr-631": "Xenophon",
+    "gr-630": "Plato",        "gr-693": "Demosthenes",
+    "gr-633": "",             // the Hippocratic Corpus — many authors, transmitted under one name
+    // Rome
+    "rm-351": "Julius Caesar",
+    // China and Korea
+    "cnh-067": "Sima Qian",   "cnh-241": "Sima Qian",    "ko-049": "Sima Qian",
+    "cnh-260": "Ban Gu",      "cnh-187": "Qu Yuan",
+    "ko-087": "Kim Busik",    "ko-089": "Chen Shou",
+    "cnh-028": "", "cnh-029": "", "cnh-056": "", "cnh-059": "", "cnh-060": "",
+    "cnh-126": "", "cnh-127": "", "cnh-143": "", "cnh-144": "", "cnh-185": "",
+    // Japan
+    "jp-098": "", "jp-099": "", "wh-543": "Murasaki Shikibu",
+    // the ancient Near East and India
+    "wh-183": "", "wh-193": "", "wh-215": "", "wh-241": "",
+  };
+  // the row's own name, italic where the card is a work and with its author after it where it has one
+  function chronoNameHTML(x) {
+    const name = esc(gameCapFirst(x.name));
+    if (!(x.id in CHRONO_WORKS)) return name;
+    const by = CHRONO_WORKS[x.id];
+    return "<i>" + name + "</i>" + (by ? '<span class="ci-by"> · ' + esc(by) + "</span>" : "");
+  }
+  /* A US STATE IS PLACED AT ITS STATEHOOD (Sep 2026, on request: "in the Timeline minigame, US states
+     should use the dates of when they became states"). A card whose answer is a state — `us-033`
+     California, answered by a card about its first peoples and its first European landfall — sorts at
+     the earliest thing its own date line names, which is right for that card's deck and wrong for a
+     game that deals the bare word "California" and asks the reader to put it in order: nobody placing a
+     state places it thirteen thousand years ago. The statehood date is READ OFF the Geography
+     collection's own card for that state (its `Statehood` / `Admitted` / `Ratified` row), which is
+     already cited and already carries the day, so no second table of fifty dates exists to drift. A state
+     whose card states no such row keeps its own card's year. */
+  let _stateYears = null;
+  function stateStatehood() {
+    if (_stateYears) return _stateYears;
+    const m = new Map();
+    CARDS.forEach((c) => {
+      if (!c || !/^geo-0\d\d$/.test(c.id) || !cardMapSpec(c)) return;
+      const row = dateLineRows(c).find((r) => /^(statehood|admitted|ratified)$/i.test((r.label || "").trim()));
+      if (!row) return;
+      const ys = cardYears({ answerDate: row.value });
+      if (ys.length) m.set(String(c.answerText || "").trim().toLowerCase(), { year: Math.min.apply(null, ys), basis: row.label.trim() });
+    });
+    return (_stateYears = m);
+  }
   function chronoPool() {
     const avail = gameCardIdSet();
+    const states = stateStatehood();
     /* `basis` is the date line's own label for the row the sort year came from — "Founded", "Reigned",
        "In use" — carried through so the reveal can say what each date IS (Sep 2026, on request). It is
        read once here rather than at reveal time because the pool is built once and the reveal is a loop
        over five rows; a card whose basis cannot be established honestly carries "" (see cardYearBasis). */
-    return CARDS.filter((c) => avail.has(c.id) && !cardUndatable(c)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c), basis: cardYearBasis(c) })).filter(
+    return CARDS.filter((c) => avail.has(c.id) && !cardUndatable(c)).map((c) => {
+      const st = states.get(String(c.answerText || "").trim().toLowerCase());
+      if (st) return { id: c.id, name: cardLocalized(c).answerText, year: st.year, basis: st.basis };
+      return { id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c), basis: cardYearBasis(c) };
+    }).filter(
       (x) => x.year != null && x.name
     );
   }
@@ -36210,7 +38029,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               the same reason: a row of a list is a heading naming the thing, not a word inside a sentence,
               and half the deck's answers are common nouns stored lower-case. Display only — the row is
               tracked by its card id, so nothing downstream sees the capital. */""}
-        <span class="ci-name">${esc(gameCapFirst(x.name))}</span>
+        <span class="ci-name">${chronoNameHTML(x)}</span>
         <span class="ci-year"></span>
         <div class="ci-arrows">
           <button class="ci-up" aria-label="Move earlier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
@@ -36364,17 +38183,107 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // inside a period. Everything else (a kind, a discipline, a practice) sits beside its neighbours rather
   // than inside them, so two of those in one puzzle stay distinguishable.
   const THREAD_FAMILY = {};
+  /* The list is every PLACE and every PERIOD tag a group can be seated on, not a sample of them — a tag
+     left out is a hole, and the holes were real (Sep 2026): `rome` nests inside `italy`, `athens` inside
+     `greece`, `iran` `iraq` `korea` inside `asia`, `mexico` inside `americas` inside `north america`,
+     `england` inside `britain`, and `archaic` `classical` and `20th century` are periods exactly as the
+     ages are. The seating's own overlap guard hides most of that most of the time — an Athens term
+     almost always carries `greece` too — which is precisely why it was never noticed, and "almost
+     always" is not the guarantee this rule exists to give. */
   ("greece,united states,south africa,africa,tanzania,kenya,ethiopia,france,spain,germany,china,india,japan," +
-   "italy,russia,egypt,europe,asia,north america,south america,oceania,middle east,britain,mediterranean,denmark")
+   "italy,russia,egypt,europe,asia,north america,south america,oceania,middle east,britain,mediterranean,denmark," +
+   "rome,athens,archaic greece,iran,iraq,korea,mexico,americas,england")
     .split(",").forEach((x) => { THREAD_FAMILY[x] = "where"; });
   ("bronze age,iron age,stone age,neolithic,paleolithic,mesolithic,holocene,pleistocene,classical antiquity," +
-   "middle ages,modern").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
+   "middle ages,modern,archaic,classical,20th century").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
   /* A tag with fewer clean terms than this makes the same row too often — it was 6 while the pool was the
      whole glossary, and came down to 5 when the pool became the well-known terms alone (Aug 2026). The
      number is a trade between two kinds of sameness and both were MEASURED over 730 days rather than
      argued about: at 6 only five tags are ever seatable, so every grid is four of the same five categories;
      at 4 the categories open up to ten but a tag with exactly four clean terms deals the identical four
      tiles every time it appears. At 5: seven categories, 726 of 730 grids distinct, none blank. */
+  /* ---------- A TERM MAY ONLY STAND FOR A GROUP IT WOULD BE FILED UNDER ----------
+     (Sep 2026, on request: "genealogy should not be in the 'asia' category, and 'water' should not be in
+     biology. Scan all possible minigame items for other unusual categorisations that a user would not
+     realistically confine the term to".)
+
+     `THREAD_BROAD` above throws out a TAG that is not a category. This is the other half of the same
+     argument one level down: a tag can be a perfectly good category and still be the wrong thing to file
+     a PARTICULAR term under. Genealogy is tagged `asia` because the card that teaches it is Korean, and
+     Water is tagged `biology` because the card that teaches it is in the Biology collection — both tags
+     are right about the CARD and neither is something a solver could confine the term to. A grid with
+     Water in the Biology four is not a hard puzzle, it is an unfair one.
+
+     THE FIRST RULE IS MECHANICAL, because the glossary's own convention makes it so: tag 1 is the KIND
+     and the rest are subject areas and specifics (see "Add a glossary term" in CLAUDE.md). So a term may
+     stand for a KIND group only where that kind is its OWN — the first two tags, since the convention
+     writes a broad kind and then a narrower one (`person, ruler`; `place, city`; `event, battle`).
+     MEASURED over the shipped pool, that keeps every legitimate member and drops exactly the
+     associative ones: Ramesses II out of Buildings (he is a ruler), Spartacus out of Practices (a
+     person), California out of States (a place — the pun this game could not otherwise see), Maya
+     civilisation and the Kingdom of Benin out of Cities, Genghis Khan and Timur out of States, Biology
+     and the Domesday Book out of Institutions, a cowrie shell out of Animals. The price is a handful of
+     real members filed under a broader kind — Stonehenge and Karnak leave Buildings — which is a group
+     of 24 losing two rather than a category losing its meaning.
+
+     THE SECOND RULE CANNOT BE MECHANICAL AND IS DECLARED, which is this repo's answer wherever a rule
+     needs reading rather than matching (`NOT_A_SCHOLAR`, `CROSSREF_WRONG`, `FINDIT_NAMES`). The obvious
+     pattern — the tag sits LAST in the term's list, as `asia` does on Genealogy and `biology` on Water —
+     was built and MEASURED and is wrong: by the same convention the last tag is usually the most
+     SPECIFIC and most correct one, so it drops Cicero from Rome, Babylon from Iraq (leaving none at
+     all), Persepolis from Iran and the scientific method from Research methods. There is no signal.
+     What is left is a judgement per term, made by reading the group, and recorded with its reason.
+
+     A TERM EXCLUDED HERE IS STILL IN THE POOL. It loses one group, not the grid: Water still answers for
+     Chemistry, Vikings for Europe, Attila for Warfare. */
+  const THREAD_KINDS = new Set([
+    "person", "ruler", "deity", "creature", "place", "mountain", "river", "city", "state", "dynasty",
+    "era", "event", "battle", "text", "festival", "food", "plant", "animal", "object", "concept",
+    "practice", "title", "institution", "school of thought", "symbol", "culture", "building", "people",
+    "hominin", "fossil", "industry", "artwork", "artefact",
+  ]);
+  const THREAD_NOT = {
+    asia: ["Genealogy",            // a universal practice; tagged asia for the Korean card that teaches it
+           "Shamanism"],           // practised in Siberia, the Americas and Africa alike
+    biology: ["Water", "Ice", "Molecule", "Chemical_bond", "Covalent_bond", "Ionic_bonding",
+              "Hydrogen_bond", "Electrolyte", "Solvent", "Specific_heat_capacity", "Thermodynamics",
+              "Activation_energy", "Microscope", "Electron_microscope", "Chromatography"],
+                                   // general chemistry and physics, tagged for the Biology collection
+    // (chemistry needs no row: the seating already keeps a term out of a second group it is tagged for,
+    //  so Water and Protein cannot be dealt under Biology and Chemistry in the same grid)
+    // (agriculture needs no row for Tiberius Gracchus any more: the tag came off the term itself on main,
+    //  which is the better fix wherever the tag is simply wrong about the term rather than merely
+    //  unconfinable — this table is for the ones that are RIGHT about the card and wrong for a solver)
+    agriculture: ["Zoonotic_disease"],   // a disease, not a crop
+    genetics: ["Anglo-Saxon_England", "Black_Death", "Vikings", "Huns", "Neolithic_Europe", "Horse",
+               "Ötzi"],            // tagged for the ancient-DNA evidence about them, not their subject
+    psychology: ["Charles_Darwin", "Immanuel_Kant"],   // a naturalist and a philosopher
+    philosophy: ["Eastern_Orthodox_Church"],           // a church
+    literature: ["Genealogy", "Latin", "Sanskrit", "Lesbos", "Vedic_period"],  // two languages, an island, a period
+    language: ["Koreans", "Ancient_Italy"],            // a people and a place
+    art: ["Nazi_book_burnings", "Scythians", "Olmecs", "Kingdom_of_Benin"],    // an event, two peoples, a state
+    china: ["Kanji"],              // the Japanese writing system, tagged for the characters' origin
+    germany: ["Bombing_of_Guernica"],                  // in Spain, by German aircraft
+    rome: ["Attila"],              // a Hun, tagged for invading it
+    religion: ["Goths", "Mongol_conquests", "Capitoline_geese"],
+    migration: ["Silk_Road", "Syracuse"],              // a trade route and a city
+    trade: ["Golden_Horde", "Mongol_Empire", "Mali_Empire", "Songhai_Empire"],  // states, tagged for their trade
+    law: ["Cato_the_Elder", "Gaius_Gracchus", "Tiberius_Gracchus", "League_of_Nations"],
+                                   // three Roman politicians, tagged for the laws they carried
+    warfare: ["Comanche"],         // a people
+    africa: ["War_elephant"],      // Indian as much as Carthaginian
+    "20th century": ["Gold_standard"],                 // a 19th-century arrangement
+    "research methods": ["Francis_Galton"],            // a person
+    ideology: ["Adolf_Hitler", "Benito_Mussolini", "March_on_Rome"],  // two men and an event
+    architecture: ["Great_Fire_of_Rome",   // a fire (Sep 2026, on request), tagged for the buildings it destroyed
+                   "Zagwe_dynasty"],        // a dynasty, tagged for the churches built under it
+  };
+  // may this term stand FOR this group? — the two rules above, asked in one place
+  function threadFits(it, tag) {
+    if (THREAD_KINDS.has(tag) && it.tags.indexOf(tag) > 1) return false;
+    const no = THREAD_NOT[tag];
+    return !(no && no.indexOf(it.key) >= 0);
+  }
   const THREAD_GROUP_MIN = 5;
   const THREAD_TRIES = 40;       // reshuffles of the candidate order before the day is given up on (see below)
   const THREAD_TITLE_MAX = 24;   // a tile is a quarter of a phone's width — a longer name cannot be read on the grid
@@ -36425,7 +38334,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // The day's four groups, or null if the glossary cannot currently make one (which is what the placard is for).
   function dailyThreadPuzzle() {
     const pool = threadPool(), byTag = {};
-    for (const it of pool) for (const g of it.tags) (byTag[g] = byTag[g] || []).push(it);
+    /* …through `threadFits`, so a term only ever enters a group it would be FILED under — which is both
+       what makes a group seatable at all (a tag needs THREAD_GROUP_MIN members it can honestly claim)
+       and what decides the four tiles. Filtering here rather than at the pick is what keeps the two in
+       step: a tag left seatable on members it cannot use deals a group short. */
+    for (const it of pool) for (const g of it.tags) if (threadFits(it, g)) (byTag[g] = byTag[g] || []).push(it);
     const cand = Object.keys(byTag).filter((g) => !THREAD_BROAD.has(g) && byTag[g].length >= THREAD_GROUP_MIN);
     /* The seating is GREEDY and therefore order-dependent: a tag taken early can rule out the two that
        would have completed the grid, and the run simply ends three groups short. That was survivable while
@@ -37410,6 +39323,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         (picCaption(it) ? '<p class="pic-shows">' + esc(picCaption(it)) + "</p>" : "") +
         '<button class="btn" id="pic-next">' + (r + 1 < ROUNDS ? "Next round" : "See results") + "</button>";
       wireFootnotes(rev);
+      /* …AND THE DESCRIPTION LINKS ITS GLOSSARY TERMS (Sep 2026, on request), as every other stretch of
+         cited prose on the site does. English only, like the daily quote's, the index being built on English
+         surfaces. The caption is linked too: it names what the photograph shows, which is often a place or a
+         material the glossary carries. */
+      if (uiLang() === "en") {
+        rev.querySelectorAll(".pic-note, .pic-shows").forEach((el) => { try { autoLinkGlossary(el, "", null, "site"); } catch (e) {} });
+        try { setupTooltips(rev); } catch (e) {}
+      }
       /* The answered round is written before the reader can leave it — the point of the record is the
          reader who does not press Next at all. */
       setGameProgress("picture", results.slice(0, r + 1));
@@ -37461,6 +39382,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <p class="tf-tomorrow">Five fresh pictures arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="pic-home">Home</button></div>
         </div>`;
+      tfWireWhy(root.querySelector(".tf-summary"));   // the same glossary links on the summary's paragraphs
       root.querySelector("#pic-home").addEventListener("click", () => route("home"));
     }
   };
@@ -37846,6 +39768,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ${GAME ? "" : `<div class="atlas-tabs" role="group" aria-label="Which atlas">
           <button class="at-tab${MINE ? " on" : ""}" type="button" data-atlastab="mine" aria-pressed="${MINE}">Your atlas</button>
           <button class="at-tab${MINE ? "" : " on"}" type="button" data-atlastab="world" aria-pressed="${!MINE}">World atlas</button>
+          ${/* THE WAY BACK, drawn only for a reader who arrived from a card's atlas window (see
+                `atlasHold`). It sits in the tab row rather than over the globe because that row is the
+                one piece of chrome above the map at every width, and a control floating on the canvas
+                would have to dodge the place panel, the zoom stack and the timeline. */""}
+          ${atlasHold ? `<button class="at-tab at-back" type="button" id="atlasBack">&#8617; ${esc(t("Back to studying"))}</button>` : ""}
         </div>`}
         <div class="globe-stage" id="globeStage">
           <div class="globe-limb-glow" id="globeHalo" aria-hidden="true"></div>
@@ -37953,6 +39880,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <label class="legend-row"><input type="checkbox" id="waterToggle"><span>Water</span></label>
             </div>
           </div>
+          ${/* ---------- WHICH COLLECTIONS THIS GLOBE SHOWS (Sep 2026, on request: "in the personal
+                atlas, users should be able to toggle locations from specific collections on/off")
+                ----------
+                It takes the LEGEND'S corner and the legend's shape — the world atlas's legend is hidden
+                on this tab, so the two never share the screen, and a reader who knows where the layer
+                switches live finds these in the same place. It is drawn only where there is something to
+                choose BETWEEN: with places from one collection the row would be a switch that can only
+                turn the map off. */""}
+          ${MINE && !GAME ? (() => {
+            const cs = atlasCollections();
+            if (cs.length < 2) return "";
+            return `<div class="globe-legend atlas-colls" id="atlasColls" role="group" aria-labelledby="collsTitle">
+              <div class="legend-head" id="collsHead">
+                <span class="legend-title" id="collsTitle">${esc(t("Collections"))}</span>
+                <button class="legend-collapse" id="collsCollapse" type="button" aria-label="${esc(t("Collapse legend"))}" aria-expanded="true"><span class="lc-sign">–</span><svg class="lc-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></button>
+              </div>
+              <div class="legend-body" id="collsBody">
+                ${cs.map((x) => `<label class="legend-row"><input type="checkbox" data-atlascoll="${esc(x.id)}"${atlasCollOff(x.id) ? "" : " checked"}><span>${esc(x.title)}</span><span class="lr-n notranslate">${x.n}</span></label>`).join("")}
+              </div>
+            </div>`;
+          })() : ""}
           <div class="map-edit-bar" id="mapEditBar" hidden>
             <span class="meb-title">Editing <b id="mebYear"></b></span>
             <div class="meb-tools">
@@ -38733,7 +40681,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // The map editor is exempt: its pins are what you are dragging, and hiding them mid-drag hides the work.
       if (moving && !editable) return;
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
-      const showLabels = zoom >= CAP_Z && !moving; const baseFs = clamp(10 + (zoom - 2) * 1.1, 10, 13.5); ctx.textAlign = "left"; ctx.textBaseline = "middle";   // same label sizing as the present-day map; labels (and their per-city measureText) wait for the settled frame
+      const showLabels = zoom >= CAP_Z && !moving; const baseFs = mapFs(clamp(10 + (zoom - 2) * 1.1, 10, 13.5)); ctx.textAlign = "left"; ctx.textBaseline = "middle";   // same label sizing as the present-day map; labels (and their per-city measureText) wait for the settled frame
       /* The same crowding rule the present-day layer runs (see CITY_SEP): a pin within `sep` px of one
          already drawn is dropped, and `sep` shrinks with zoom, so a dense region gives up its lesser names
          until you go in. An era's list is capitals-first, so the one that survives is the one that matters.
@@ -38751,7 +40699,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         else drawPin({ x: PX, y: PY, dot: dot, tier: tier });   // identical pin to the present-day map: vermilion CITY_DOT + white CITY_RING
         if (showLabels && c.n) {
           const fs = tier === 0 ? baseFs : baseFs - 1.5, g = dot + 4; ctx.font = (tier === 0 ? "600 " : "500 ") + fs + "px " + labelFont;
-          const tw = ctx.measureText(c.n).width, lr = [PX + g - 2, PY - 8, tw + 4, 16];   // yield to the era territory-name labels (countryLabelRects)
+          const tw = ctx.measureText(c.n).width, lh = mapFs(16), lr = [PX + g - 2, PY - lh / 2, tw + 4, lh];   // yield to the era territory-name labels (countryLabelRects)
           let lhit = false; for (let k = 0; k < countryLabelRects.length; k++) if (rectsHit(lr, countryLabelRects[k])) { lhit = true; break; }
           if (!lhit) { const cn = placeName(c.n); ctx.fillStyle = LBL_TEXT; ctx.strokeStyle = LBL_HALO; ctx.lineWidth = 3; ctx.strokeText(cn, PX + g, PY); ctx.fillText(cn, PX + g, PY); }
         }
@@ -39644,7 +41592,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const CITY_CAP = 260;                                   // a hard ceiling, so a pathological view can't melt a frame
     function computeCityLayout(showCap, showCities, showDiv) {
       ensureCityW();
-      const baseFs = clamp(10 + (zoom - 2) * 1.1, 10, 13.5);
+      const baseFs = mapFs(clamp(10 + (zoom - 2) * 1.1, 10, 13.5));
       const out = [], grid = new Map(), CELL = 22, gk = (gx, gy) => gx * 100000 + gy;   // numeric cell keys → no per-call allocation
       const free = (r) => { const x0 = Math.floor(r[0] / CELL), x1 = Math.floor((r[0] + r[2]) / CELL), y0 = Math.floor(r[1] / CELL), y1 = Math.floor((r[1] + r[3]) / CELL); for (let gx = x0; gx <= x1; gx++) for (let gy = y0; gy <= y1; gy++) { const arr = grid.get(gk(gx, gy)); if (arr) for (let j = 0; j < arr.length; j++) if (rectsHit(r, arr[j])) return false; } return true; };
       const put = (r) => { const x0 = Math.floor(r[0] / CELL), x1 = Math.floor((r[0] + r[2]) / CELL), y0 = Math.floor(r[1] / CELL), y1 = Math.floor((r[1] + r[3]) / CELL); for (let gx = x0; gx <= x1; gx++) for (let gy = y0; gy <= y1; gy++) { const key = gk(gx, gy); let arr = grid.get(key); if (!arr) grid.set(key, arr = []); arr.push(r); } };
@@ -39742,12 +41690,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // range names only from the capital-cities zoom level upward (peaks themselves show at any zoom)
       if (zoom >= CAP_Z) {
         ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        ctx.font = "italic 600 " + clamp(9 + zoom * 0.25, 9.5, 13) + "px " + labelFont;
+        ctx.font = "italic 600 " + mapFs(clamp(9 + zoom * 0.25, 9.5, 13)) + "px " + labelFont;
         const placed = [];
         for (let i = 0; i < RANGES.length; i++) {
           const m = RANGES[i]; proj(m.c[0], m.c[1]); if (PV < 0) continue;
           const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
-          const tw = ctx.measureText(m.n).width, r = [x - tw / 2 - 2, y - 8, tw + 4, 16];
+          const tw = ctx.measureText(m.n).width, lh = mapFs(16), r = [x - tw / 2 - 2, y - lh / 2, tw + 4, lh];
           let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
           if (hit) continue; placed.push(r);
           ctx.lineWidth = 2.6; ctx.strokeStyle = lblHaloSoft; ctx.strokeText(m.n, x, y);
@@ -39786,12 +41734,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ctx.globalAlpha = 1;
       if (zoom >= CAP_Z) {   // forest names from the capitals' zoom upward (trees show at any zoom), de-collided
         ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        ctx.font = "italic 600 " + clamp(9 + zoom * 0.25, 9.5, 13) + "px " + labelFont;
+        ctx.font = "italic 600 " + mapFs(clamp(9 + zoom * 0.25, 9.5, 13)) + "px " + labelFont;
         const placed = [];
         for (let i = 0; i < FORESTS.length; i++) {
           const f = FORESTS[i]; proj(f.c[0], f.c[1]); if (PV < 0) continue;
           const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
-          const tw = ctx.measureText(f.n).width, r = [x - tw / 2 - 2, y - 8, tw + 4, 16];
+          const tw = ctx.measureText(f.n).width, lh = mapFs(16), r = [x - tw / 2 - 2, y - lh / 2, tw + 4, lh];
           let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
           if (hit) continue; placed.push(r);
           ctx.lineWidth = 2.6; ctx.strokeStyle = lblHaloSoft; ctx.strokeText(f.n, x, y);
@@ -39803,14 +41751,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // persistent country-name layer (the "Country names" toggle): every front-facing country, de-collided
     function drawCountryNames() {
       ctx.save(); ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
-      ctx.font = "600 " + Math.round(clamp(10 + zoom * 0.6, 10.5, 16)) + "px " + labelFont;
+      ctx.font = "600 " + Math.round(mapFs(clamp(10 + zoom * 0.6, 10.5, 16))) + "px " + labelFont;
       countryLabelRects.length = 0; const placed = countryLabelRects;   // remember boxes so city labels can avoid them
       for (let p = 0; p < GEO.length; p++) {
         if (!VIS[p]) continue; const c = GEO[p];
         proj(c.c[0], c.c[1]); if (PV < 0) continue;
         const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
         const cn = placeName(c.n);
-        const tw = ctx.measureText(cn).width, r = [x - tw / 2 - 3, y - 8, tw + 6, 16];
+        const tw = ctx.measureText(cn).width, lh = mapFs(16), r = [x - tw / 2 - 3, y - lh / 2, tw + 6, lh];
         let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
         if (hit) continue; placed.push(r);
         ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(cn, x, y);
@@ -39877,7 +41825,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const an = anchors[i]; if (an.a < minA) continue;
         proj(an.lon, an.lat); if (PV < 0) continue;
         const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
-        const fs = Math.round(clamp(9.5 + zoom * 0.6 + Math.min(4.5, Math.sqrt(an.a) * 0.22), 10, 17));
+        const fs = Math.round(mapFs(clamp(9.5 + zoom * 0.6 + Math.min(4.5, Math.sqrt(an.a) * 0.22), 10, 17)));
         ctx.font = "600 " + fs + "px " + labelFont;
         // wrap long (often ethnographic) names onto two lines at the space nearest the middle
         const anN = placeName(an.n);   // localise before wrapping — the wrap measures the drawn string
@@ -39902,7 +41850,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function drawRiverLabels() {
       if (zoom < RIVER_LABEL_Z) return;
       ctx.save(); ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
-      ctx.font = "italic 500 " + clamp(8.5 + zoom * 0.22, 9, 12.5) + "px " + labelFont;
+      ctx.font = "italic 500 " + mapFs(clamp(8.5 + zoom * 0.22, 9, 12.5)) + "px " + labelFont;
       const placed = [];
       for (let i = 0; i < RIVERS.length; i++) {            // RIVERS are importance-ordered, so big rivers win the de-collision
         const segs = RIVERS[i].p; let best = null, bestLen = -1;
@@ -39918,7 +41866,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (ang > Math.PI / 2) ang -= Math.PI; else if (ang < -Math.PI / 2) ang += Math.PI;   // keep text upright
         const nm = RIVERS[i].n, tw = ctx.measureText(nm).width;
         // collision box = AABB of the ROTATED label (tw wide × ~14 tall), so a near-vertical name tests its true footprint
-        const ca = Math.abs(Math.cos(ang)), sa = Math.abs(Math.sin(ang)), hw = (tw / 2) * ca + 7 * sa, hh = (tw / 2) * sa + 7 * ca;
+        const ca = Math.abs(Math.cos(ang)), sa = Math.abs(Math.sin(ang)), lh = mapFs(7), hw = (tw / 2) * ca + lh * sa, hh = (tw / 2) * sa + lh * ca;
         const r = [x - hw - 2, y - hh - 1, hw * 2 + 4, hh * 2 + 2];
         let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
         if (hit) continue; placed.push(r);
@@ -39939,7 +41887,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const wt = WATER[i]; if (zoom < waterLabelZoom(wt.r)) continue;
         proj(wt.c[0], wt.c[1]); if (PV < 0) continue;
         const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
-        const isOcean = wt.r <= 0, fs = clamp((isOcean ? 13.5 : 11.5 - wt.r * 0.5) + zoom * 0.5, 9, isOcean ? 20 : 14.5);
+        const isOcean = wt.r <= 0, fs = mapFs(clamp((isOcean ? 13.5 : 11.5 - wt.r * 0.5) + zoom * 0.5, 9, isOcean ? 20 : 14.5));
         ctx.font = "italic " + (isOcean ? "600 " : "500 ") + fs + "px " + labelFont;
         const tw = ctx.measureText(wt.n).width, r = [x - tw / 2 - 3, y - fs / 2 - 1, tw + 6, fs + 2];
         let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
@@ -40459,7 +42407,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          is four pixels of red, so its name is the whole of what it says, and it keeps one. What a country
          is called is the popup's answer, one click away. */
       const dotFill = "rgba(200,69,60,0.95)", dotRing = CITY_RING;
-      const fs = clamp(11 + (zoom - 2) * 0.9, 11, 14);
+      const fs = mapFs(clamp(11 + (zoom - 2) * 0.9, 11, 14));
       const boxes = [];
       mineDotRects = [];
       ctx.save();
@@ -40469,7 +42417,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // off a neighbour's dot as well as off a neighbour's name. Measured over ALL the candidates rather
       // than only the ones already drawn: a rule that depended on how far the loop had got would place a
       // word differently depending on nothing a reader can see.
-      const dotHalf = (m) => (m.cap ? 6.2 : m.subcap ? 5.2 : 4.1);
+      const dotHalf = (m) => (m.battle ? 6.6 : m.cap ? 6.2 : m.subcap ? 5.2 : 4.1);
       const dotBoxes = dots.map((d) => { const h = dotHalf(d.m); return [d.x - h, d.y - h, h * 2, h * 2]; });
       for (let i = 0; i < dots.length; i++) {
         const m = dots[i].m, x = dots[i].x, y = dots[i].y;
@@ -40505,11 +42453,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         boxes.push(box);
         mineDotRects.push({ m: m, box: box, x: x, y: y });
         // …and NOW the mark, once its name has somewhere to go
-        ctx.beginPath();
-        if (m.cap) ctx.rect(x - 5.4, y - 5.4, 10.8, 10.8);
-        else ctx.arc(x, y, m.subcap ? 4.4 : 3.3, 0, TAU);
-        ctx.fillStyle = dotFill; ctx.fill();
-        ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
+        if (m.battle) paintSwords(ctx, x, y, 6.2);   // a battle is crossed swords, as on its own card's window
+        else {
+          ctx.beginPath();
+          if (m.cap) ctx.rect(x - 5.4, y - 5.4, 10.8, 10.8);
+          else ctx.arc(x, y, m.subcap ? 4.4 : 3.3, 0, TAU);
+          ctx.fillStyle = dotFill; ctx.fill();
+          ctx.lineWidth = 1.4; ctx.strokeStyle = dotRing; ctx.stroke();
+        }
         const tx = box === rBox ? x + 9 : x - 9;
         ctx.textAlign = box === rBox ? "left" : "right";
         ctx.lineWidth = 3.4; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, tx, y);
@@ -40993,7 +42944,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ctx.save();
           ctx.beginPath(); ctx.arc(x, y, 5.5, 0, TAU); ctx.fillStyle = "rgba(255,178,46,1)"; ctx.fill();
           ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke();
-          ctx.font = "600 " + clamp(11 + (zoom - 2) * 0.9, 11, 14) + "px " + labelFont;
+          ctx.font = "600 " + mapFs(clamp(11 + (zoom - 2) * 0.9, 11, 14)) + "px " + labelFont;
           ctx.textAlign = "left"; ctx.textBaseline = "middle";
           const nm = placeName(focusPoint.name);
           ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x + 10, y);
@@ -41024,7 +42975,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ctx.save();
           ctx.beginPath(); ctx.arc(x, y, 5.5, 0, TAU); ctx.fillStyle = gamePin.tint.line; ctx.fill();
           ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(30,20,0,.7)"; ctx.stroke();
-          ctx.font = "600 " + clamp(11 + (zoom - 2) * 0.9, 11, 14) + "px " + labelFont;
+          ctx.font = "600 " + mapFs(clamp(11 + (zoom - 2) * 0.9, 11, 14)) + "px " + labelFont;
           ctx.textAlign = "left"; ctx.textBaseline = "middle";
           ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(gamePin.name, x + 10, y);
           ctx.fillStyle = LBL_TEXT; ctx.fillText(gamePin.name, x + 10, y);
@@ -41582,6 +43533,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (want === atlasTab) return;
       atlasTab = want; sfx("toggle"); render();
     }));
+    /* BACK TO THE CARD THE READER CAME FROM (see `atlasHold`). It is `#adminToStudy`'s handler exactly:
+       take the held record, drop the hold — a session is resumable once — write it back to the place a
+       reload reads, and route. With no record it simply goes home, which is what a pasted `#map` does. */
+    const ab = root.querySelector("#atlasBack");
+    if (ab) ab.addEventListener("click", () => {
+      const rec = atlasHold; atlasHold = null; atlasFocus = null;
+      if (!rec) { route("home"); return; }
+      writeStudySession(rec);
+      route("study", { scope: rec.scope, resume: rec });
+    });
+    /* ---------- THE COLLECTION TOGGLES (Sep 2026, on request) ----------
+       `setAtlasColl` writes the choice and drops the filtered view's cache; everything the globe draws
+       reads `atlasUnlocks()`, so the only thing left here is to invalidate the layers that cache SHAPES
+       of their own — `_mineFor` and `_mineWarFor` key on the register's count, which changes with the
+       filter, but `baseValid` does not. The panel is deliberately NOT re-rendered: re-running `render()`
+       would rebuild the whole page and take the reader's zoom and year with it. */
+    const collsEl = root.querySelector("#atlasColls");
+    if (collsEl) {
+      const cSign = collsEl.querySelector(".lc-sign"), cBtn = collsEl.querySelector("#collsCollapse");
+      const cSetOpen = (open) => {
+        collsEl.classList.toggle("collapsed", !open);
+        if (cSign) cSign.textContent = open ? "–" : "+";
+        if (cBtn) cBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      };
+      if (cBtn) cBtn.addEventListener("click", (e) => { e.stopPropagation(); cSetOpen(collsEl.classList.contains("collapsed")); });
+      // …a chip on a phone, for the legend's own reason: an open panel is a fifth of the map
+      if (window.matchMedia && window.matchMedia("(max-width:640px)").matches) cSetOpen(false);
+      collsEl.querySelectorAll("[data-atlascoll]").forEach((cb) => cb.addEventListener("change", () => {
+        setAtlasColl(cb.getAttribute("data-atlascoll"), cb.checked);
+        _mineFor = ""; _mineWarFor = ""; baseValid = false;
+        hideCountryPopup();   // the panel may be describing a place that has just left the map
+        draw();
+      }));
+    }
     const wire = (id, set, rebuild) => { const cb = root.querySelector(id); if (cb) cb.addEventListener("change", () => { set(cb.checked); if (rebuild) baseValid = false; draw(); }); };
     wire("#bordersToggle", (v) => bordersOn = v, true);
     wire("#riversToggle", (v) => riversOn = v, true);
@@ -42326,7 +44311,42 @@ let prev = null;
         flyTo(place.lon, place.lat, Math.max(zoom, 3.2), land);
       }
     }
+    /* ---------- ARRIVING FROM A CARD'S ATLAS WINDOW (Sep 2026, on request) ----------
+       `atlasFocus` carries the CARD ID, and the place is resolved here through `atlasRegister` — the one
+       rule that decides what this globe draws — rather than from a coordinate handed across, which would
+       be a second answer to "where is this card" and free to disagree with the mark beside it.
+       THE YEAR IS SET BEFORE THE FLIGHT, and it is the half that is easy to miss: a mark outside the
+       rail's current year is not drawn AT ALL, so flying to a civilisation's ground in a year it did not
+       stand lands the reader on an empty patch of map with nothing to say why. */
+    function focusMineCard(id) {
+      if (!id) return;
+      const c = CARD_BY_ID[id]; if (!c) return;
+      const tmp = { names: new Map(), subdiv: [], marks: [], need: new Set() };
+      try { atlasRegister(id, c, tmp); } catch (e) { return; }
+      const m = tmp.marks.filter((x) => !x.modern).find((x) => x.at || x.area) || tmp.marks[0];
+      if (m && m.y0 != null) {
+        const lo = m.y0, hi = m.y1 != null ? m.y1 : MAXY;
+        if (year < lo || year > hi) { year = clamp(Math.round(clamp(lo, MINY, MAXY)), MINY, MAXY); paintYear(); }
+      }
+      const land = () => { pulseCol = "rgba(255,178,46,1)"; scheduleDraw(); };
+      if (m && (m.at || m.area)) {
+        // an authored extent has no single point, so it is framed on the middle of its own bounding box
+        const at = m.at || (m.area && m.area.length ? (() => { const b = areaBBox(m); return [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2]; })() : null);
+        if (at) {
+          mineSel = (m.kind === "area") ? String(m.title || "") : "";
+          flyTo(at[0], at[1], Math.max(zoom, m.kind === "area" ? 2.2 : 3.4), land);
+          return;
+        }
+      }
+      // a COUNTRY is unlocked by name and has no coordinate of its own — the era map supplies its centre
+      const k = tmp.names.keys().next();
+      if (!k.done) {
+        const row = tmp.names.get(k.value), cc = countryCenter(row.key);
+        if (cc) { mineSel = row.key; flyTo(cc.lon, cc.lat, Math.max(zoom, 1.6), land); }
+      }
+    }
     if (params && params.focus) focusPlace(params.focus);
+    if (MINE && atlasFocus && atlasFocus.id) focusMineCard(atlasFocus.id);
   };
   // "Find it" — the daily geography minigame IS the Atlas page in game mode (same globe, same eras, same renderer)
   /* The gate goes here rather than inside PAGES.map, which is the whole Atlas and knows nothing about
@@ -43102,6 +45122,19 @@ let prev = null;
     { id: "read1", icon: "🕮", name: "An Hour in a Book", desc: "Spend an hour reading one book", test: (s) => s.readBookMs >= 3600e3, prog: (s) => [Math.round(s.readBookMs / 60000), 60] },
     { id: "read5", icon: "🪶", name: "Five Hours in One Book", desc: "Spend five hours reading one book", test: (s) => s.readBookMs >= 5 * 3600e3, prog: (s) => [Math.round(s.readBookMs / 3600e3), 5] },
     { id: "read25", icon: "🗝️", name: "Twenty-five Hours in the Library", desc: "Spend twenty-five hours reading, across every book", test: (s) => s.readMs >= 25 * 3600e3, prog: (s) => [Math.round(s.readMs / 3600e3), 25] },
+    /* SEVEN FOR THE WAY A READER STUDIES RATHER THAN HOW MUCH (Sep 2026, on request: "add 7 more unlockable
+       badges for various creative achievements"). Every one is DERIVED from a field the progress blob
+       already carries — nothing new is counted, so nothing new can drift — and none needs a network.
+       The two clock badges read the per-review log, which is this device's own record (it has a table of
+       its own and is not in the synced blob), so on a friend's profile they read as not yet earned rather
+       than as a guess; a badge is only ever added, so a reader who earns one keeps it everywhere. */
+    { id: "owl", icon: "🦉", name: "Night Owl", desc: "Answer a card between midnight and four in the morning", test: (s) => s.nightOwl },
+    { id: "lark", icon: "🐓", name: "Early Bird", desc: "Answer a card between five and seven in the morning", test: (s) => s.earlyBird },
+    { id: "heart25", icon: "❤️", name: "By Heart", desc: "Learn 25 cards — each recalled on three separate days", test: (s) => s.learned >= 25, prog: (s) => [s.learned, 25] },
+    { id: "ages5", icon: "🧳", name: "Across the Ages", desc: "Study cards in five different collections", test: (s) => s.collections >= 5, prog: (s) => [s.collections, 5] },
+    { id: "notes5", icon: "✏️", name: "Marginalia", desc: "Write your own note on five cards", test: (s) => s.notes >= 5, prog: (s) => [s.notes, 5] },
+    { id: "show4", icon: "🪟", name: "On Display", desc: "Fill all four slots of your profile showcase", test: (s) => s.showcase >= 4, prog: (s) => [s.showcase, 4] },
+    { id: "themes3", icon: "🎨", name: "Dressed for the Occasion", desc: "Collect three themes from chests", test: (s) => s.themes >= 3, prog: (s) => [s.themes, 3] },
   ];
   /* `friendsCount` IS AN OVERRIDE, AND THE FALLBACK IS THE FIELD (Aug 2026, on a bug report that the
      First Friend and Well Connected badges "do not work"). They never could: `checkAchievements` passed
@@ -43114,6 +45147,18 @@ let prev = null;
      for their badge grid, is a blob that cannot be joined against a table only they may read. So
      `setFriendCount` writes it into the progress blob whenever the friends list is drawn, and every
      reader's own count travels with their own progress. */
+  // has this reader answered a card with the local clock in [h0, h1)? — off the per-review log (see the
+  // clock badges in ACHIEVEMENTS); walked newest-first and stopped at the first hit
+  function revHourSeen(prog, h0, h1) {
+    const log = Array.isArray(prog && prog.revlog) ? prog.revlog : [];
+    for (let i = log.length - 1; i >= 0; i--) {
+      const r = revRead(log[i]);
+      if (!r || !r.t) continue;
+      const h = new Date(r.t).getHours();
+      if (h >= h0 && h < h1) return true;
+    }
+    return false;
+  }
   function progStats(prog, friendsCount) {
     const cards = prog.cards || {};
     const seen = Object.keys(cards).length;
@@ -43145,6 +45190,13 @@ let prev = null;
          the back-fill beside `studyTotalMs` says about it. */
       studyTotalMs: (prog === S ? studyTotalMs() : (prog.studyTotal | 0)),
       readMs: readTimeAll(prog),
+      // the seven "how you study" badges (see the end of ACHIEVEMENTS)
+      learned: Object.keys(cards).filter((id) => critDays(cards[id]).length >= CRIT_DAYS).length,
+      collections: (function () { const r = new Set(); Object.keys(cards).forEach((id) => { const n = cardCollectionRoot(id); if (n) r.add(n.id); }); return r.size; })(),
+      notes: (prog.notes && typeof prog.notes === "object") ? Object.keys(prog.notes).filter((k) => prog.notes[k]).length : 0,
+      showcase: Array.isArray(prog.showcase) ? prog.showcase.filter((id) => ARTEFACT_BY_ID[id]).length : 0,
+      themes: (prog.themes && typeof prog.themes === "object") ? Object.keys(prog.themes).filter((k) => k !== "folio").length : 0,
+      nightOwl: revHourSeen(prog, 0, 4), earlyBird: revHourSeen(prog, 5, 7),
       readBookMs: (function () {
         const R = prog.reading;
         if (!R || typeof R !== "object") return 0;
@@ -44215,6 +46267,9 @@ let prev = null;
 '  the sentence must keep going after it, never stop on it. The rest of the\n' +
 '  sentence should be enough to work the answer out without giving it away.\n' +
 '- answer - the answer term alone, with no "the" and no "a" in front of it.\n' +
+'  So read each question back with the answer put in the blank, and write\n' +
+'  "the" before the blank wherever the term needs one ("the first of the\n' +
+'  _____"), since the answer itself never carries it.\n' +
 '- answerText - the same term again, as plain text.\n' +
 '- answerDate - the dates worth remembering beside the term, as a two-column\n' +
 '  list, or "" if the term has no date. Write it exactly like this, with at\n' +
@@ -44266,7 +46321,9 @@ let prev = null;
 '- Question - ONE sentence of 20 to 34 words with the answer replaced by\n' +
 '  _____ in the MIDDLE of it, so the sentence keeps going afterwards. Enough\n' +
 '  to work the answer out; never enough to be a giveaway.\n' +
-'- Answer - the term alone, with no "the" or "a".\n' +
+'- Answer - the term alone, with no "the" or "a". Read each question back\n' +
+'  with the answer in the blank, and write "the" before the _____ wherever\n' +
+'  the term needs one, since the answer itself never carries it.\n' +
 '- Date line - at most four label-and-date rows (Born, Died, Built, In use,\n' +
 '  Reigned), or nothing at all if the term has no date.\n' +
 '- Background - exactly ten sentences, about 300 words, in two paragraphs of\n' +
@@ -45646,7 +47703,7 @@ let prev = null;
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -47533,7 +49590,7 @@ let prev = null;
         gloss: gKeys.length, gAtBar, gSrcTotal, gMedia, gTagged, gDated,
         eras: (window.TIMELINE || []).length,
         places: Object.keys(window.COUNTRY_INFO || {}).length,
-        tfPool: (window.TRUEFALSE || []).length, quotePool: (window.QUOTEGAME || []).length,
+        tfPool: (window.TRUEFALSE || []).length, quotePool: whoSaidPool().length,
         localDecks: Object.keys(UDECKS || {}).length,
         overlay: adminEditCount(),
         langs,
@@ -47890,6 +49947,23 @@ let prev = null;
        A quote is identified by its SHIPPED text throughout (`data-qk`), never by its position — see
        quotesMerged for why. */
     let _qEditing = null;   // the shipped key of the quote whose form is open, or "" for a new one
+    function whoSaidAdminHTML() {
+      const all = window.QUOTEGAME || [], off = (ADMIN_EDITS && ADMIN_EDITS.whosaidOff) || {};
+      const live = all.filter((x) => !off[x.q]).length;
+      return '<div class="ws-admin">' +
+        '<div class="ws-admin-head"><b>Who said it?</b> <span class="ws-admin-count">' + live + " of " + all.length + " in play</span></div>" +
+        '<div class="tl-intro">The minigame\'s own pool, from <code>quotes.js</code>. Remove a quotation to take it out of every reader\'s game from the next draw; it stays in the file and comes back with Restore. The game needs at least four in play.</div>' +
+        '<div class="q-list">' + all.map((x) => {
+          const isOff = !!off[x.q];
+          return '<div class="q-row ws-row' + (isOff ? " ws-off" : "") + '">' +
+            '<div class="q-main"><span class="q-text">' + esc(x.q) + "</span>" +
+              '<span class="q-meta"><b>' + esc(x.who || "—") + "</b>" +
+                (Array.isArray(x.src) && x.src.length ? '<span class="q-pill q-orig">cited</span>' : '<span class="q-pill q-noorig">uncited</span>') +
+                (isOff ? '<span class="q-pill q-edited">removed</span>' : "") + "</span></div>" +
+            '<button type="button" class="mini-btn' + (isOff ? "" : " danger") + '" data-wsoff="' + esc(x.q) + '">' + (isOff ? "Restore" : "Remove") + "</button>" +
+          "</div>";
+        }).join("") + "</div></div>";
+    }
     function adminRenderQuotes() {
       const items = root.querySelector("#adminListItems");
       const countEl = root.querySelector("#adminListCount");
@@ -47975,11 +50049,22 @@ let prev = null;
           "</div>" +
           formHTML() +
           '<div class="q-list">' + (rows.length ? rows.map(row).join("") : '<div class="tl-empty">No quotes in the pool.</div>') + "</div>" +
+          whoSaidAdminHTML() +
         "</div>";
 
       items.querySelectorAll("[data-qopen]").forEach((b) => b.addEventListener("click", () => {
         _qEditing = _qEditing === b.dataset.qopen ? null : b.dataset.qopen;
         adminRenderQuotes();
+      }));
+      /* The "Who said it?" pool — a second list under the daily quotes, since both are quotation pools and
+         a tab of its own would be one more colour pair and `*-mode` class for a list of switches. Removing
+         is a toggle and writes the overlay at once (see whoSaidPool). */
+      items.querySelectorAll("[data-wsoff]").forEach((b) => b.addEventListener("click", () => {
+        const q = b.dataset.wsoff, off = ADMIN_EDITS.whosaidOff || (ADMIN_EDITS.whosaidOff = {});
+        if (off[q]) delete off[q]; else off[q] = true;
+        saveAdminEdits();
+        adminRenderQuotes();
+        toast(off[q] ? "Removed from Who said it?" : "Restored to Who said it?");
       }));
       const nb = items.querySelector("#qNew");
       if (nb) nb.addEventListener("click", () => { _qEditing = ""; adminRenderQuotes(); });
@@ -48766,8 +50851,10 @@ let prev = null;
 
   /* Everything the fullscreen viewer opens from. `.card-img` is the framed figure a card, a glossary
      popup, an artefact plate and the editor previews all emit; `.av-flag` is the small flag inside a
-     geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML. */
-  const IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed";
+     geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML;
+     `.flag-shot.revealed` is a FLAG card's own front, which carries no credit and cannot be enlarged
+     until the answer is out, since the caption bar would print the country's name — see cardFlagReveal. */
+  const IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed, .flag-shot.revealed, .dp-answer.revealed";
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
   // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
   // every other click inside it belongs to the player.
@@ -48805,8 +50892,10 @@ let prev = null;
     /* `.art-shot` is here as well as `.card-img`, and on that format a dead file is the worse failure:
        an artwork card's picture IS its question, so a file that never arrives leaves four empty fields
        and nothing to answer — and the alt text, which DESCRIBES the work, is painted at full size in
-       the frame instead, which reads as a broken page. It says so instead; see `.art-shot.media-dead`. */
-    const fig = el.closest && el.closest(".card-img, .art-shot"); if (!fig) return;
+       the frame instead, which reads as a broken page. It says so instead; see `.art-shot.media-dead`.
+       `.flag-shot` is here for exactly that reason one format over: a flag card's picture is its whole
+       question too. */
+    const fig = el.closest && el.closest(".card-img, .art-shot, .flag-shot"); if (!fig) return;
     fig.classList.remove("ar-loading");   // a file that will never arrive must not go on spinning
     fig.classList.add("media-dead");
     // a floated slot would otherwise keep its margin — and the space the prose wraps around — about nothing

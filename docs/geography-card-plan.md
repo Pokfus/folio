@@ -2062,3 +2062,34 @@ wide view of Montpelier (7,900 people), Pierre, Frankfort, Dover, Concord or Jef
 what it offers instead is a 19th-century bird's-eye LITHOGRAPH — a drawing of a town that no longer
 looks like that, which on a card is worse than no picture. Those six ship a downtown streetscape
 with a `desc` that says so rather than "seen from a distance".
+
+## The background against the grid — the facts-echo pass (Sep 2026)
+
+On request: *the background sections should never mention data that is already in the answer box data
+section.* The United States collection was the worst of the four map collections — **182 echoes in 69
+of its 100 cards** — because its opening sentence was built out of the grid: *"Indiana is the 38th
+largest of the American states, covering 94,326 square kilometres (36,420 square miles) with about
+6.9 million residents, and its capital and largest city alike at Indianapolis."* Every figure in that
+sentence but the rank is printed in the box directly above it. Findings, beyond those recorded in
+`docs/russia-geography-card-plan.md`.
+
+- **THE AREA RANK WAS ALREADY THERE AND THE POPULATION RANK WAS THE MISSING HALF.** Forty of the
+  state cards already opened on "the Nth largest of the American states", so the natural replacement
+  for the population figure was the matching rank — a fact the Census Bureau's own estimates publish
+  and the grid does not.
+- **BUT THE RANK COULD NOT BE COMPUTED FROM THE GRID, AND THAT IS THE FINDING TO KEEP.** The grid
+  rounds to three significant figures, which leaves **Wisconsin and Colorado both at 5.96M and Maine
+  and New Hampshire both at 1.41M** — four states with no defensible rank between them. The cards
+  cite the Census file itself (`NST-EST2024-ALLDATA.csv`), so the ranks were read out of it:
+  Wisconsin 5,960,975 against Colorado 5,957,493, New Hampshire 1,409,032 against Maine 1,405,012.
+  **Every one of the fifty grid populations matched that file to three significant figures**, which
+  is what says the ranking is about the same numbers the cards already carry.
+- **A GENERATED DELETION NEEDS A GRAMMAR PASS, AND THE CHECKER CANNOT DO IT.** Cutting a clause out
+  of forty near-identical sentences left "and and the 4th most populous", "is the 47th largest
+  American state but and the 11th most populous", "of its area almost 99,000 are Great Lakes water"
+  and a dozen others — all of which the echo count reports as fixed. **Read every changed sentence
+  back**; a scan for a handful of smells (`and and`, a doubled comma, a dangling unit) found the rest.
+- **`fix-field.js` VALIDATES THE WHOLE BATCH BEFORE WRITING ANYTHING**, which is right and means one
+  bad `find` blocks twenty good ones. **A `<sup>` between a comma and the next word is what breaks a
+  find**: `", and the 22nd most populous,"` does not exist because the comma is followed by two
+  footnote markers. Validate the find strings against the real text first.
