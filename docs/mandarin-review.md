@@ -723,6 +723,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1651–1680 | 23 changed, 7 read and left: 17 example sentences replaced (three ungrammatical sentences, the headword swallowed by 针线活, 指南针, 镇痛 and 花枝, near-repeats), 2 translations fixed, five senses splits, five Compounds panels, 8 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1681–1710 | 24 changed, 6 read and left: 21 example sentences replaced (种地's two straddles, the headword swallowed by 指挥所, 指示灯, 制胜, 终点线 and 鼻青脸肿, a 法序 typo, near-repeats), 4 translations fixed, two senses splits, two Compounds panels, 14 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1711–1740 | 24 changed, 6 read and left: 24 example sentences replaced (every sentence on 砖 and 州 a longer word or a place name, the headword swallowed by 周期表, 女主角, 著作等身, 专利权 and 助理裁判, near-repeats), 1 translation fixed, five senses splits, three Compounds panels, 11 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1741–1770 | 20 changed, 10 read and left: 23 example sentences replaced (two ungrammatical, 转移 used for 'migrate', the headword swallowed by 捉弄, 资本家, 自来水管, 自助餐厅, 足球 and 远足, a Party oath, near-repeats), 3 translations fixed, three senses splits, two Compounds panels, 14 glosses corrected (粽子's stopped mid-sentence) |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12880,4 +12881,20 @@ and no version bump.
   - 重心 "heart; core" with no "centre of gravity".
   - 周边 "perimeter" over a sentence about film merchandise.
 - **Senses split.** 主管, 主演, 主张 and 祝福 were split into their two senses, and 主播 and 专用 lost the wrong part-of-speech label.
+
+### Batch 188 — `hsk30l6` notes 1741–1770 (专注 → 足)
+
+20 notes changed and 10 read and left (转交, 转身, 转动, 庄稼, 资产, 自律, 自杀, 自言自语, 棕色, 总算), counted against the real diff.
+
+- **A gloss that stopped mid-sentence.** 粽子 read "glutinous rice and choice of filling wrapped in leaves and". CC-CEDICT's entry runs on past the cut, so the generator must have truncated it at a fixed length. It is the only such cut in this batch, but the shape is worth grepping for.
+- **Words used for something they do not mean:**
+  - 转移 was used twice for "migrate", once in 非洲是转移的大洲, which is not Chinese.
+  - 转换 was used for changing trains, where Chinese says 换车.
+  - 装备 was used for putting books in a library.
+  - 走廊 in "window or aisle?", where Chinese says 过道.
+- **Two sentences that are not grammatical:** 自豪's 她不自豪她所有的优点, and the Moscow sentence on 转换.
+- **The headword swallowed by a longer word:** 捉弄, 资本家, 自来水管, 自助餐厅 twice, and on 足 both 足球 and 远足. 足 is split into its three senses, and it and 捉 gained Compounds panels.
+- **Political text on a vocabulary card.** 自愿's 我自愿加入中国共产党 is the Party's oath of admission. It is replaced, as 主张's sovereignty claim was in batch 187.
+- **Out of date.** 总理's Berlusconi sentence called him the "current" prime minister.
+- **Translations.** 自我's 你永远都不能太自我 was translated as its opposite, 专注 said "involved in", and 追究 said "looked into" for "held to account".
 
