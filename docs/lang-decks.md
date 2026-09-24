@@ -3498,6 +3498,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S41 | B1 | #615 `vago, vaga` – #642 `deprimido, deprimida` | 27 | 1 (`la competición`) | 0 | B1 description: 963 with three | S29 unbolded phrase cards: 3 of the 4 remaining closed |
 | S42 | B1 | #643 `formal` – #670 `el aparcamiento` | 26 | 2 (`conectarse`, `el terremoto`) | 0 | B1 description: 995 with examples, 965 with three, 3 with none | `la delta` renamed `el delta` |
 | S43 | B1 | #671 `el resumen` – #698 `dudar` | 25 | 3 (`publicar`, `la preparación`, `dudar`) | 0 | B1 description: 996 with examples, 966 with three, 2 with none | — |
+| S44 | B1 | #699 `analizar` – #726 `la cuchara` | 24 | 4 (`desarrollar`, `desde luego`, `la cintura`, `el huracán`) | 0 | B1 description: 972 with three | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5245,6 +5246,31 @@ card were replaced. `el bufete` comes up to three examples: 966 of 998.
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 58 → 55.
+
+### S44 — DELE B1, notes #699–#726 (Sep 2026)
+
+Measured against the S43 commit by card id: **24 changed, 974 untouched**, each a record entry. The other four
+were read and left alone: `desarrollar`, `desde luego`, `la cintura`, `el huracán`.
+
+**SIX CARDS THAT HAD ONE OR TWO EXAMPLES NOW HAVE THREE.** `fenomenal` had one; `analizar`, `tomar el sol`,
+`el codo`, `la barriga` and `la espuma` had two. B1 moves from 966 to **972** with three.
+
+**FALSE FRIENDS FOR SPAIN.** `la exhibición` is a display or a show — a fireworks display, a dance display — and
+an art exhibition is *una exposición*; the card now says so. `el resfriado` was glossed "the flu", which is *la
+gripe*. `el/la conserje` was rendered "superintendent", "custodian" and "janitor" for a caretaker.
+
+**CLAIMS A CARD CANNOT CARRY.** `el invento` credited the telephone to Bell, which is disputed, and its gloss
+gave "leash".
+
+**THE OTHER WORD.** `el resfriado`'s *resfriada*; `la genética`'s *ingeniería genética*; `el/la vigilante`'s
+*permanecer vigilantes*; `recorrer`'s noun *recorrido*; `despegar`'s *el avión se despega*, wrong for a plane.
+
+**AND THE REST.** The Little Mermaid (`la espuma`), two aphorisms and a proverb; *desde atrás de*,
+*estacionamiento* and *cucharas de té* as Latin American or calqued forms; "checkers" for draughts. `tomar el
+sol`'s gloss read "lit. take the sun". Three sentences shared with A1, A2 or an earlier B1 card were replaced.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+55 → 53.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

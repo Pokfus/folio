@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,51 +877,51 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 956 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 957 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 958 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 959 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 962 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 963 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "there are none at all for the remaining 4,",
@@ -929,11 +929,15 @@
     ],
     [
      "Example sentences come with 995 of the 998 words, three apiece for 965 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ],
     [
      "there are none at all for the remaining 3,",
      "there are none at all for the remaining 2,"
+    ],
+    [
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them",
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
     ]
    ]
   }
@@ -42328,6 +42332,523 @@
      "They live on the east coast of the island."
     ]
    ]
+  },
+  "deleb1/analizar": {
+   "why": "The gloss was American and a definition. The card had two examples, and the first's English said 'parse'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to analyse"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "No pude analizar su discurso",
+     "He spoke too quickly. I couldn't analyse his speech."
+    ]
+   ],
+   "ex": [
+    [
+     "Tenemos que analizar los resultados.",
+     "We need to analyse the results."
+    ]
+   ]
+  },
+  "deleb1/la cortina": {
+   "why": "The gloss is right. The second example's desde atrás de is Latin American (de detrás de).",
+   "dropEx": [
+    "desde atrás de la cortina"
+   ],
+   "ex": [
+    [
+     "Abre las cortinas para que entre la luz.",
+     "Open the curtains to let the light in."
+    ]
+   ]
+  },
+  "deleb1/el resfriado": {
+   "why": "The gloss gave 'the flu', which is la gripe. The second example was the adjective resfriada.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "cold"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Alicia ha estado resfriada"
+   ],
+   "ex": [
+    [
+     "Tengo un resfriado muy fuerte.",
+     "I've got a bad cold."
+    ]
+   ]
+  },
+  "deleb1/el tablero": {
+   "why": "The gloss gave 'checkerboard' and the second example's English 'checkers'. The third, 'con un tablero o no', is not a natural sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "board"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tablero de ajedrez — chessboard"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "con un tablero o no"
+   ],
+   "exEn": [
+    [
+     "también se utiliza para las damas",
+     "The chessboard is also used for draughts."
+    ]
+   ],
+   "ex": [
+    [
+     "Coloca las fichas en el tablero.",
+     "Put the pieces on the board."
+    ]
+   ]
+  },
+  "deleb1/tomar el sol": {
+   "why": "The gloss carried 'lit. take the sun' and a stray blank line. The card had two examples: the first is shared with el calor in A1, the second with la galería earlier in B1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to sunbathe"
+     ]
+    ]
+   ],
+   "bold": [
+    "tomar el sol",
+    "tomando el sol",
+    "tomes el sol"
+   ],
+   "dropEx": [
+    "demasiado calor para tomar el sol",
+    "tomar el sol en la galería"
+   ],
+   "ex": [
+    [
+     "Me gusta tomar el sol en la playa.",
+     "I like sunbathing on the beach."
+    ],
+    [
+     "No tomes el sol a mediodía.",
+     "Don't sunbathe at midday."
+    ],
+    [
+     "Estuvimos tomando el sol toda la tarde.",
+     "We spent the whole afternoon sunbathing."
+    ]
+   ]
+  },
+  "deleb1/la exhibición": {
+   "why": "The gloss put 'exhibition' first, which in Spain is una exposición; an exhibición is a show or a display. The first example was an exhibition of weapons and the second a calque of 'exhibits'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "display, show"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las exhibiciones"
+    ],
+    [
+     "note",
+     "an art exhibition is una exposición"
+    ]
+   ],
+   "dropEx": [
+    "una exhibición de armas antiguas",
+    "no tocar las exhibiciones"
+   ],
+   "ex": [
+    [
+     "Hubo una exhibición de fuegos artificiales.",
+     "There was a fireworks display."
+    ],
+    [
+     "Vimos una exhibición de baile flamenco.",
+     "We watched a flamenco dance display."
+    ]
+   ]
+  },
+  "deleb1/la genética": {
+   "why": "The gloss is right. The first example was the adjective genética, in ingeniería genética, and the second, asking whether 'your genetic beauty' makes you more feminine, is not a sentence a learner needs.",
+   "dropEx": [
+    "Mediante la ingeniería",
+    "tu belleza genética"
+   ],
+   "ex": [
+    [
+     "Estudia genética en la universidad.",
+     "She studies genetics at university."
+    ],
+    [
+     "La genética explica por qué nos parecemos a nuestros padres.",
+     "Genetics explains why we look like our parents."
+    ]
+   ]
+  },
+  "deleb1/silencioso, silenciosa": {
+   "why": "The gloss is right. The first example was an aphorism.",
+   "dropEx": [
+    "Cuanto más silencioso seas"
+   ],
+   "ex": [
+    [
+     "Este coche eléctrico es muy silencioso.",
+     "This electric car is very quiet."
+    ]
+   ]
+  },
+  "deleb1/el/la conserje": {
+   "why": "The gloss put 'concierge' first. The examples' English said 'superintendent', 'custodian' and 'janitor' for a caretaker.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "caretaker",
+      "porter, concierge (of a hotel)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Pregúntaselo al",
+     "Ask the caretaker; he's sure to know."
+    ],
+    [
+     "de la escuela limpia el gimnasio",
+     "The school caretaker cleans the gym in the afternoon."
+    ],
+    [
+     "Carlos no es",
+     "Carlos isn't a caretaker."
+    ]
+   ]
+  },
+  "deleb1/realista": {
+   "why": "The gloss is right. The first example's English said 'not practical'.",
+   "exEn": [
+    [
+     "abandonó esa idea por no ser",
+     "The president gave up the idea because it was not realistic."
+    ]
+   ]
+  },
+  "deleb1/fenomenal": {
+   "why": "The card had one example, and the gloss did not give the colloquial adverb (lo pasamos fenomenal).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "fantastic, phenomenal"
+     ]
+    ],
+    [
+     "adverb",
+     [
+      "brilliantly (pasarlo fenomenal — to have a fantastic time)"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Lo pasamos fenomenal en la fiesta.",
+     "We had a fantastic time at the party."
+    ],
+    [
+     "Es un jugador fenomenal.",
+     "He's a phenomenal player."
+    ]
+   ]
+  },
+  "deleb1/el codo": {
+   "why": "The gloss gave 'cubit'. The card had two examples, and the first's se golpeó su codo should be el codo.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "elbow"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hablar por los codos — to talk nineteen to the dozen"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "se golpeó su codo"
+   ],
+   "ex": [
+    [
+     "Tiene un agujero en el codo del jersey.",
+     "He's got a hole in the elbow of his jumper."
+    ],
+    [
+     "Mi tía habla por los codos.",
+     "My aunt talks nineteen to the dozen."
+    ]
+   ]
+  },
+  "deleb1/el/la vigilante": {
+   "why": "The gloss is right. The first example used estacionamiento, Latin American for aparcamiento, and the second was the adjective vigilante.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "(security) guard, watchman"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El vigilante de estacionamiento",
+    "permanecer vigilantes"
+   ],
+   "ex": [
+    [
+     "El vigilante de seguridad revisó mi bolso.",
+     "The security guard checked my bag."
+    ],
+    [
+     "Trabaja de vigilante en un museo.",
+     "He works as a guard in a museum."
+    ]
+   ]
+  },
+  "deleb1/el invento": {
+   "why": "The gloss gave 'leash'. The first example credited the telephone to Bell, which is disputed, and the third was a proverb.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "invention"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "uno de los muchos inventos de Bell",
+    "nacen, por así decirlo"
+   ],
+   "ex": [
+    [
+     "La rueda fue un invento muy importante.",
+     "The wheel was a very important invention."
+    ],
+    [
+     "Esto es un invento mío.",
+     "This is my own invention."
+    ]
+   ]
+  },
+  "deleb1/el pulmón": {
+   "why": "The gloss is right. The first example is shared with el bosque in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Los bosques son los pulmones"
+   ],
+   "ex": [
+    [
+     "Fumar daña los pulmones.",
+     "Smoking damages the lungs."
+    ]
+   ]
+  },
+  "deleb1/obedecer": {
+   "why": "The gloss listed 'to be caused by, to be due to, to be attributable to' as though they were separate senses. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to obey"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "obedecer a — to be due to"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la barriga": {
+   "why": "The gloss put 'paunch' in a list. The card had two examples, and the first was a proverb.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "belly, tummy"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la barriga llena piensa"
+   ],
+   "ex": [
+    [
+     "Está echando barriga.",
+     "He's getting a paunch."
+    ],
+    [
+     "Mi perro duerme con la barriga hacia arriba.",
+     "My dog sleeps belly up."
+    ]
+   ]
+  },
+  "deleb1/despegar": {
+   "why": "The gloss put 'to take off' last. The second example's el avión se despega is wrong for a plane taking off (despega).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to take off (a plane)",
+      "to peel off, to unstick"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El avión se despega"
+   ],
+   "ex": [
+    [
+     "Despega la etiqueta con cuidado.",
+     "Peel the label off carefully."
+    ]
+   ]
+  },
+  "deleb1/el régimen": {
+   "why": "The gloss gave 'regimen' and not 'diet'. The second example, 'El régimen es difícil', has no context to say which.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "regime",
+      "diet (ponerse a régimen)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El régimen es difícil"
+   ],
+   "ex": [
+    [
+     "Vivieron bajo un régimen militar.",
+     "They lived under a military regime."
+    ]
+   ]
+  },
+  "deleb1/interpretar": {
+   "why": "The gloss was a list and did not give playing a part, which the third example is.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to interpret",
+      "to play, to perform (a role, a piece)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la espuma": {
+   "why": "The gloss is right. The card had two examples, and the first was the Little Mermaid.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "foam, froth"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La sirena se convirtió en"
+   ],
+   "ex": [
+    [
+     "Me gusta el café con mucha espuma.",
+     "I like coffee with lots of froth."
+    ],
+    [
+     "Se ha acabado la espuma de afeitar.",
+     "The shaving foam has run out."
+    ]
+   ]
+  },
+  "deleb1/recorrer": {
+   "why": "The gloss was a list. The second example was the noun recorrido.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to go round, to travel around",
+      "to cover (a distance)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un recorrido muy rápido"
+   ],
+   "ex": [
+    [
+     "Recorrimos todo el país en tren.",
+     "We travelled all over the country by train."
+    ]
+   ]
+  },
+  "deleb1/la pastilla": {
+   "why": "The gloss gave 'cake' rather than a bar of soap. All three examples were taking pills.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "pill, tablet"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "pastilla de jabón — bar of soap"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "se tomó tres pastillas para dormir"
+   ],
+   "ex": [
+    [
+     "Compré unas pastillas para la garganta.",
+     "I bought some throat lozenges."
+    ]
+   ]
+  },
+  "deleb1/la cuchara": {
+   "why": "The gloss is right. The second example's cucharas de té is a calque of 'teaspoons' (cucharillas).",
+   "dropEx": [
+    "las cucharas de té"
+   ],
+   "ex": [
+    [
+     "Remueve el café con la cuchara.",
+     "Stir the coffee with the spoon."
+    ]
+   ]
   }
  },
  "insert": {
@@ -42662,7 +43183,11 @@
    "el terremoto",
    "publicar",
    "la preparación",
-   "dudar"
+   "dudar",
+   "desarrollar",
+   "desde luego",
+   "la cintura",
+   "el huracán"
   ]
  }
 }
