@@ -16318,19 +16318,19 @@
       ]
     },
     "hsk30l6/从业": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Found by the ONE-WAY-ROW sweep (batch 32). `check-british.js` reads app.js's own SPELL_PAIRS and EXCLUDES the one-way rows, correctly — reversing metre/meter, licence/license, practis/practic, storey/story, catalogue/catalog, mediaeval/medieval and programme/program would make a parking METRE, the noun PRACTISE, a two-storey novel and a television programme out of nothing. So the checker reads 0 over all seven families whatever the decks contain, and an American spelling in one of them is what BOTH readers see for ever, `applySpelling` returning at once under en-GB and converting only for a reader who asks. All seven families were swept by hand and the whole finding list is 33 sites over 22 cards; this is one of them. | The fault was the RECORD'S OWN, not the deck's: the sentence is an `ex` row authored by the earlier fill pass, which gave a short note its three examples and wrote two of them in one sitting on one construction. So the repair belongs in that `ex` array rather than in a `dropEx` — a sweep over the decks does not reach a sentence this record ships. Here the two rows carried the SAME English word for word — *He has been in the trade for twenty years* — over 他从业**已经**二十年了 and 他从业二十年了, which is `check-senses.js`'s exact duplicate-English check rather than a proxy, and which it had been reporting as `u_hsk30l6_223`.",
       "ex": [
         [
           "他从业已经二十年了。",
           "He has been in the trade for twenty years."
         ],
         [
-          "他从业二十年了。",
-          "He has been in the trade for twenty years."
-        ],
-        [
           "从业人员需要培训。",
           "Practitioners need training."
+        ],
+        [
+          "这一行的从业门槛很高。",
+          "The bar for entering this trade is high."
         ]
       ],
       "gloss": "to practise (a trade)"
@@ -19762,12 +19762,8 @@
       ]
     },
     "hsk30l6/挫折": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | **A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here it was the same causal link as 失恋's, asked as a rhetorical question, on the card for *setback*.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | **A SUICIDE SENTENCE BELONGS ON THE CARD THAT TEACHES THE WORD FOR IT, AND NOWHERE ELSE.** 自杀 is a real Level 6 card and keeps its own examples; what this batch removes is the same subject arriving at random on eleven cards about something else, so that a reader working through Levels 5 to 7 meets it again and again with no context and no reason. That is a judgement about how a flashcard is MET — one sentence at a time, out of order, repeatedly — rather than about the subject, which a language must be able to talk about. Here it was the same causal link as 失恋's, asked as a rhetorical question, on the card for *setback*. | The fault was the RECORD'S OWN, not the deck's: the sentence is an `ex` row authored by the earlier fill pass, which gave a short note its three examples and wrote two of them in one sitting on one construction. So the repair belongs in that `ex` array rather than in a `dropEx` — a sweep over the decks does not reach a sentence this record ships. Here the row was a 78-character paragraph harvested from the sentence bank — *there's an upside to everything so it's unnecessary to focus on the good; on the contrary, we should instead be pushing for reversals* — which is not an example sentence whatever it is.",
       "ex": [
-        [
-          "每件事情都有好的一面,　所以不用计算好处,　相反的要追求挫折,　才得到转机,　洞烛先机.",
-          "There's an upside to everything so it's unnecessary to focus on the good; on the contrary, we should instead be pushing for reversals because it's only through setbacks that we improve and see decisive opportunities clearly."
-        ],
         [
           "遇到挫折不要放弃。",
           "Do not give up when you meet setbacks."
@@ -19775,6 +19771,10 @@
         [
           "这次挫折让他成熟了不少。",
           "The setback made him a good deal more mature."
+        ],
+        [
+          "他在事业上遇到过不少挫折。",
+          "He has met with a good many setbacks in his career."
         ]
       ],
       "dropEx": [
@@ -81249,7 +81249,7 @@
       ]
     },
     "hsk30l6/脆": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
       "ex": [
         [
           "这种饼干很脆。",
@@ -81258,6 +81258,35 @@
         [
           "玻璃很脆，小心别摔。",
           "Glass is brittle; be careful not to drop it."
+        ],
+        [
+          "新摘的黄瓜又嫩又脆。",
+          "Freshly picked cucumbers are tender and crisp."
+        ]
+      ],
+      "dropEx": [
+        "汤姆烤了些巧克力脆饼"
+      ],
+      "compounds": [
+        [
+          "脆弱",
+          "cuì ruò",
+          "weak; frail"
+        ],
+        [
+          "干脆",
+          "gān cuì",
+          "direct and to the point; simply; might as well"
+        ],
+        [
+          "清脆",
+          "qīng cuì",
+          "crisp and clear (of a sound)"
+        ],
+        [
+          "酥脆",
+          "sū cuì",
+          "crisp (of food)"
         ]
       ]
     },
@@ -136074,6 +136103,250 @@
           "闯关",
           "chuǎng guān",
           "to crash through a barrier"
+        ]
+      ]
+    },
+    "hsk30l6/创立": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
+      "dropEx": [
+        "我们的学校是在一九九零年创立的"
+      ],
+      "ex": [
+        [
+          "这个学派创立于战国时期。",
+          "This school of thought was founded during the Warring States period."
+        ]
+      ]
+    },
+    "hsk30l6/纯": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "样本不够纯净",
+        "纯素食者们闻起来更好"
+      ],
+      "ex": [
+        [
+          "这是纯棉的。",
+          "This is pure cotton."
+        ],
+        [
+          "他说的是纯属误会。",
+          "What he said was purely a misunderstanding."
+        ]
+      ],
+      "compounds": [
+        [
+          "纯洁",
+          "chún jié",
+          "pure; clean and honest"
+        ],
+        [
+          "单纯",
+          "dān chún",
+          "simple; unsophisticated; merely"
+        ],
+        [
+          "纯粹",
+          "chún cuì",
+          "pure; unadulterated; purely"
+        ],
+        [
+          "纯真",
+          "chún zhēn",
+          "innocent and unaffected"
+        ]
+      ]
+    },
+    "hsk30l6/此刻": {
+      "why": "The example was off the card altogether — a machine-translated fragment or a passage lifted out of the middle of a longer text — and taught nothing about the headword. Dropped, with an authored replacement.",
+      "dropEx": [
+        "此刻打盹，你将做梦"
+      ],
+      "ex": [
+        [
+          "此刻他正在开会。",
+          "He is in a meeting at this moment."
+        ]
+      ]
+    },
+    "hsk30l6/刺": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | An example's only occurrence of the headword was inside a BORROWED WORD, where the character carries its sound or its foreign shape and none of its own meaning. Nothing in the pipeline can see this — the sentence segments, speaks and translates perfectly. Dropped, with an authored replacement. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "她有刺青吗",
+        "我喜欢吃刺身"
+      ],
+      "ex": [
+        [
+          "手上扎了一根刺。",
+          "A splinter went into my hand."
+        ],
+        [
+          "他用针刺破了气球。",
+          "He pricked the balloon with a needle."
+        ]
+      ],
+      "compounds": [
+        [
+          "刺激",
+          "cì jī",
+          "to stimulate; to provoke; an irritant"
+        ],
+        [
+          "讽刺",
+          "fěng cì",
+          "to satirise; irony"
+        ],
+        [
+          "刺绣",
+          "cì xiù",
+          "to embroider; embroidery"
+        ],
+        [
+          "鱼刺",
+          "yú cì",
+          "a fishbone"
+        ]
+      ]
+    },
+    "hsk30l6/匆匆": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches.",
+      "dropEx": [
+        "他匆匆忙忙地出门"
+      ],
+      "ex": [
+        [
+          "他匆匆看了一眼就走了。",
+          "He gave it a hurried glance and left."
+        ]
+      ]
+    },
+    "hsk30l6/村庄": {
+      "why": "The English translation was idiomatic to the point of saying nothing about the headword, or was not English at all, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own. And the same sentence sits on `hsk30l5/窄`, where batch 123 repaired exactly this English; an `exEn` row is PER NOTE, so the fix reached one card and left the other carrying the fault. Neither card is internally inconsistent, so nothing reports it — see the measurement in this batch's section.",
+      "exEn": [
+        [
+          "到村庄有条窄路",
+          "There is a narrow road to the village."
+        ]
+      ]
+    },
+    "hsk30l6/寸": {
+      "why": "An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "她哭得肝肠寸断",
+        "方寸大乱"
+      ],
+      "ex": [
+        [
+          "这块布比那块长三寸。",
+          "This piece of cloth is three cun longer than that one."
+        ],
+        [
+          "他一寸一寸地量过去。",
+          "He measured it inch by inch."
+        ]
+      ],
+      "compounds": [
+        [
+          "尺寸",
+          "chǐ cùn",
+          "size; dimensions; measurements"
+        ],
+        [
+          "分寸",
+          "fēn cùn",
+          "a sense of propriety; the proper limits"
+        ],
+        [
+          "方寸",
+          "fāng cùn",
+          "a square cun; (literary) the heart, the mind"
+        ]
+      ]
+    },
+    "hsk30l6/搭": {
+      "why": "The gloss was not the sense the card's own three sentences teach, so the reader met a definition the examples do not illustrate. Corrected against CC-CEDICT and against what the sentences show. | One `uc-sense` div carrying several senses under a part of speech naming several categories, with the card's own examples spread across them. Split into the senses the examples actually show, each example tagged with the one it illustrates. | Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "或者你必须搭这辆公车",
+        "他不喜欢搭飞机旅行"
+      ],
+      "senses": [
+        [
+          "verb",
+          "to take (a bus, a train, a plane)"
+        ],
+        [
+          "verb",
+          "to put up; to build; to hang over"
+        ]
+      ],
+      "ex": [
+        [
+          "他们在院子里搭了一个棚子。",
+          "They put up a shed in the courtyard."
+        ],
+        [
+          "他把外套搭在椅背上。",
+          "He hung his coat over the back of the chair."
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ],
+      "compounds": [
+        [
+          "搭配",
+          "dā pèi",
+          "to match; to pair up"
+        ],
+        [
+          "搭车",
+          "dā chē",
+          "to get a lift; to ride in a vehicle"
+        ],
+        [
+          "搭建",
+          "dā jiàn",
+          "to put up; to knock together"
+        ],
+        [
+          "搭档",
+          "dā dàng",
+          "a partner; to team up"
+        ]
+      ]
+    },
+    "hsk30l6/答复": {
+      "why": "The sentence ended with no terminal punctuation. The corpus-wide punctuation pass converts marks and never adds one; a full stop is appended to the visible text and to `data-say` together, and nothing else is touched.",
+      "exStop": [
+        [
+          "我等待她对我的答复"
+        ]
+      ]
+    },
+    "hsk30l6/醋": {
+      "why": "A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "compounds": [
+        [
+          "醋酸",
+          "cù suān",
+          "acetic acid"
+        ],
+        [
+          "吃醋",
+          "chī cù",
+          "to be jealous (in love)"
+        ],
+        [
+          "陈醋",
+          "chén cù",
+          "mature vinegar"
+        ],
+        [
+          "糖醋",
+          "táng cù",
+          "sweet and sour"
         ]
       ]
     }

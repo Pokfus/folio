@@ -670,6 +670,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l6` notes 121–150 (拆除 → 沉重) | 7 | **早产出生 — 早产 + 出生 — on the 产出 card**, a premature birth standing in for industrial output |
 | 2026-09-18 | `hsk30l6` notes 151–180 (趁 → 愁), deck order | 11 | **a `dropEx` that ORPHANED an earlier batch's `exEn` row — and the applier FAILED on it rather than warning** |
 | 2026-09-24 | `hsk30l6` notes 181–210 (筹备 → 创办), deck order | 15 | **six of the batch's findings are the RECORD'S own sentences, not the deck's** — near-repeats the earlier fill pass wrote two at a time |
+| 2026-09-24 | `hsk30l6` notes 211–240 (创建 → 打造), deck order | 13 | **one sentence on TWO cards, repaired on one of them and not the other** — an `exEn` row is per NOTE and nothing reports the twin |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10339,4 +10340,68 @@ paraphrasing.
 shared-gloss groups 320 and still-ambiguous 1, both unchanged. `check-pinyin.js` clean;
 `check-polyreading.js` 0; `check-british.js` 0; `check-example-fit.js`, `check-coarse.js` and
 `check-senses.js` all name nothing in 181–210. **Verified against the real diff: 15 of 30 changed and
+nothing outside the range moved.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+## Batch 135 — `hsk30l6` notes 211–240 (创建 → 打造)
+
+**Thirteen of thirty changed; seventeen read and left.**
+
+**THE BATCH'S FINDING IS A SENTENCE THAT SITS ON TWO CARDS AND WAS REPAIRED ON ONE OF THEM.**
+村庄's second example is 到村庄有条窄路, translated *There's narrow road to the village* — missing its
+article. The same sentence is `hsk30l5/窄`'s second example, where **batch 123 fixed exactly this
+English**, twelve batches ago. The fix did not travel, because **an `exEn` row is keyed by NOTE**: it
+names a sentence *on that card*, and a sentence the corpus uses twice needs the row twice. Nothing
+reports it either — neither card is internally inconsistent, every checker here asks its questions of
+one card at a time, and both cards render perfectly.
+
+**So the class was measured over all nine decks, and it is real but mostly benign.** **2,998 sentences
+appear on two or more cards**, and **145 of those carry DIFFERING English**. Read through, most of that
+145 is not a fault at all: the harvest translated each card's copy separately, so 那里的气候怎么样 is
+*How's the weather there?* on 怎么样 and *What is the climate like there?* on 气候, and a reader meets
+one card at a time. What the list DOES contain is the shape found here — one copy carrying a fault its
+twin has had fixed — and a handful that are simply worse on one side than the other
+(早安，师傅 is *Good morning, master. How can I improve my listening?* on two cards and
+*Good day, lords. In what way can I refine upon my adroitness in aural comprehension?* on a third).
+**That is a report, not a gate**, on `check-senses.js`'s own terms, and it is recorded here as a
+candidate for a checker of its own rather than swept now: 145 findings is five batches of reading, and
+the rule is one batch per sitting.
+
+**搭's gloss named a sense none of its three sentences showed, and the three were one sentence three
+times.** The card read `verb | put up; build` over 我搭地铁上学, 或者你必须搭这辆公车 and
+他不喜欢搭飞机旅行 — underground, bus, plane, the same construction three times, and every one of them
+the *take a vehicle* sense the gloss does not carry. CC-CEDICT gives both. Two senses now, one deck
+sentence kept for the first and two authored for the second.
+
+**Two more borrowed words swallowing their character.** 刺's third example was 我喜欢吃刺身 —
+刺身 is *sashimi*, the Japanese word written in Chinese characters — and its first was 她有刺青吗,
+刺青 being a tattoo, which is also the sentence batch 104 struck off the 青 card for the same reason.
+**One sentence, two cards, the same fault on both**, which is the batch's finding arriving a second
+time from the other direction.
+
+**Three more cards had almost no sentence on them**: 纯 (纯净, 纯素食), 寸 (肝肠寸断, 方寸大乱) and
+匆匆, whose third example is 匆匆忙忙 — the reduplication of 匆忙, the NEXT card, not of this one.
+
+**Two faults were the record's own** — the class batch 134 opened. 从业's first two rows carried the
+**same English word for word** over 他从业**已经**二十年了 and 他从业二十年了, which is
+`check-senses.js`'s exact duplicate-English check and which it had been reporting as `u_hsk30l6_223`.
+挫折's first row was a 78-character paragraph harvested from the sentence bank, about how setbacks let
+us *see decisive opportunities clearly*. Both repaired through `swapOwn`.
+
+**And three smaller things.** 此刻's third English was machine-translated —
+*This moment will nap, you will have a dream; But this moment study,you will interpret a dream* —
+missing space and all. 创立's second and third were both *X was founded in YEAR*. 答复's third ended
+bare and took an `exStop`. 脆's first was 巧克力脆饼 glossed *chocolate chip cookies*, which is a
+different biscuit as well as a swallowed headword.
+
+**Five `Compounds` panels** — 纯, 刺, 醋, 脆, 寸, 搭 (six). 寸步 is not in CC-CEDICT, so 寸 takes a
+three-row panel.
+
+**Read and left.** `check-gloss-source.js` names 匆忙 (*hastily; in a hurry* against *hasty; hurried*),
+which is the proxy paraphrasing. 垂直's 垂直的金发 is hair hanging straight down, which is a real use of
+the word whatever *straight* suggests. 从未's 他从未看不起穷人 is stilted rather than wrong.
+
+**Checks after.** `--check` clean. Coverage 11,532 notes at three sentences with 0 repeats;
+shared-gloss groups 320 and still-ambiguous 1, both unchanged. `check-pinyin.js` clean;
+`check-polyreading.js` 0; `check-british.js` 0; `check-example-fit.js`, `check-coarse.js` and
+`check-senses.js` all name nothing in 211–240. **Verified against the real diff: 13 of 30 changed and
 nothing outside the range moved.** `build-lang-decks.js` re-run. No changelog line and no version bump.
