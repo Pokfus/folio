@@ -681,6 +681,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 391–420 (风雨 → 感想), deck order | 16 | a verb that takes TWO objects given one, an invented compound, and a card glossed *liver* that showed the organ nowhere |
 | 2026-09-24 | `hsk30l6` notes 421–450 (钢笔 → 供给), deck order | 20 | **个体: NOT ONE of its three sentences contained the word**, and its gloss was wrong as well — the worst single card this audit has met |
 | 2026-09-24 | `hsk30l6` notes 451–480 (攻击 → 拐), deck order | 12 | **顾, glossed from a sense CC-CEDICT does not carry, whose every sentence was 环顾**; and 费用共计一千元 beside 费用共计三千元 |
+| 2026-09-24 | `hsk30l6` notes 481–510 (拐弯 → 过时), deck order | 20 (+1) | **three translations that render a different sentence**, two headwords straddling two shorter words, and a `not X` pair retired because the collision was a gloss error |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11190,3 +11191,87 @@ not to sweep that flag, so both are recorded rather than changed — 鼓舞's re
 11,532 notes at three sentences with 0 repeats; shared-gloss groups 318 and still-ambiguous 1, both
 unchanged across four gloss rewrites. **Verified against the real diff: 12 of 30 changed, nothing outside
 the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+## Batch 146 — `hsk30l6` notes 481–510 (拐弯 → 过时)
+
+Twenty of the thirty changed, and **one note outside the range**, deliberately: see the hint pair below.
+
+### Three translations that render a different sentence from the one above them
+
+Not a near-repeat and not a swallow — the English simply says something the Chinese does not, and no
+checker in this collection compares the two halves of a block at all.
+
+**官方**'s 你不能回避官方政策 was translated **"You can't avoid office politics"**. 官方政策 is *official
+policy*; office politics is 办公室政治, a different phrase about a different thing — and one that does not
+contain the headword. **关爱**'s 关爱生命，请勿嬉水 is a warning sign at the water's edge and says *value
+your life*; the card read **"For the sake of living things, please do not play around with the water"**,
+which turns 生命 into wildlife and makes a safety notice an environmental one. And **国产**'s 我的车是德国
+产的 was translated, correctly, as *"My car is German"* — which is the tell for the fault under it.
+
+### The headword straddling two shorter words — twice, and it is the fault the checker was written for
+
+**国产**: 我的车是德**国产**的 is 德国 + 产, *made in Germany*, and the card's word exists in it only as the
+join between the two. **国歌**: 帮我推荐几位法**国歌**手吧 is 法国 + 歌手, *French singers*, and the sentence
+has nothing to do with an anthem. This is the arrangement `check-example-fit.js` exists to report, and it
+reported neither, because both sentences are record rows the harvest added and the harvest's own guard
+tests the other direction — a target swallowed by a LONGER headword — which is batch 26's finding met from
+the far side.
+
+Two ordinary swallows beside them: **棍** had 曲棍球, *field hockey*, on two of its three sentences, so one
+of three used the word; and **官** had 长官, *commanding officer*, translated "sir".
+
+### 归 — not one sentence showed the sense it was glossed with
+
+The gloss was *to return, to go back to*, and all three examples were the belonging sense: 归我, 归谁, and
+工作归工作，学习归学习, which is a third thing again. CC-CEDICT carries all three, so the card was not wrong
+so much as pointed at the wrong one of them. Split, tagged with `exSense`, and given an authored sentence
+for the returning sense, which it had none of. The retired *preposition* label was wrong for the
+reduplication, which is a construction rather than a part of speech.
+
+**规范** is the same shape one step down — three labels (noun, verb, adjective) over a gloss that is three
+nouns, with the third sentence the verb — and **过渡** the same again, below.
+
+### A gloss cut off mid-phrase, and a gloss that was the wrong English word
+
+**国情** read *"the characteristics and circumstances particular to a"* — CC-CEDICT's own wording with its
+last word missing, so the term was defined by a fragment ending on an article. Nothing looks at a gloss for
+a complete phrase; it was found by reading the card. **轨道** read *track; pathway* and left out ORBIT,
+which the dictionary gives second and which is the sense a reader meets in 卫星轨道; no sentence showed it
+either, and the one replaced was a calque besides (5号轨道 for a station platform, where Chinese says 站台).
+**管道** was glossed with CC-CEDICT's first word and only its first word, *tubing*, which in English names
+the material rather than the thing.
+
+### A `not X` pair retired, and why one note outside the range changed
+
+**过渡** was glossed **transit** — which is 过境, passing through a country, and is exactly the Levels 7-9
+card its `not 过境` block named. **The collision was an artefact of the error rather than a real one**: 过渡
+is to pass from one stage to another, and once it says so the two share no English prompt. So both glosses
+are corrected and the pair is retired from `hints` together. Retiring only 过渡's half would have left 过境
+carrying a disambiguator pointing at a card that no longer collides — the dead one-sided hint this audit
+has swept for once already, and worse than none, since a reader takes it for a real distinction.
+`check-mandarin-coverage.js` reads 317 shared-gloss groups against 318 before, which is this pair and
+nothing else.
+
+### The applier refused an authored sentence, and it was right to
+
+The first replacement written for **拐弯** was 这条河在这里拐了个弯 — the river makes a bend here — and
+`mandarin-fix.js` refused the batch: 拐了个弯 splits the headword around 了个, so the sentence does not
+contain 拐弯 as a literal string, and the guard that keeps an added example on its own card cannot tell
+that from a sentence about something else. **A split verb-object compound is a real use of the word and an
+unreachable one here.** Replaced with one that keeps it whole.
+
+### Read and left
+
+关怀, 观赏, 官员, 罐, 广阔, 规划, 归还, 规矩, 贵重, 过后 are sound. `check-gloss-source.js` names 规划,
+whose card gloss (*planning; programming; project*) and dictionary entry (*to draw up a plan; a program*)
+share their substance and not their content words — the overlap half of that checker being the sludge its
+own header says it is.
+
+### Checks after
+
+`--check` clean. `check-pinyin.js`, `check-british.js`, `check-say-reading.js`, `check-example-fit.js`,
+`check-senses.js`, `check-polyreading.js` and `check-coarse.js` all name nothing in 481–510. Coverage
+11,532 notes at three sentences with 0 repeats; shared-gloss groups 318 → 317 (the retired pair) and
+still-ambiguous 1, unchanged. **Verified against the real diff: 20 of 30 changed, and exactly one note
+outside the range — hsk30l7/过境, the retired pair's other half.** `build-lang-decks.js` re-run. No
+changelog line and no version bump.
