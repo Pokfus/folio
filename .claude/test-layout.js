@@ -1769,14 +1769,15 @@ function scrimCheck() {
       }, leaf);
       await page.reload({ waitUntil: "load" });
       await page.waitForTimeout(1600);
-      const L = await page.evaluate(() => {
-        const r = document.querySelector(".active-deck:not(.dk-shut)");
+      const L = await page.evaluate((id) => {
+        // the leaf's OWN row — the ancestors above it are signpost rows (see 7c)
+        const r = document.querySelector('.active-deck[data-review="' + id + '"]');
         if (!r) return null;
         const m = r.querySelector(".gt-check, .gt-seal"), p = r.querySelector(".dk-prog");
         return { won: r.classList.contains("dk-won"), border: getComputedStyle(r).borderLeftColor,
                  label: m ? m.getAttribute("aria-label") : null, done: !!p && p.classList.contains("prog-done"),
                  pctl: p ? p.getAttribute("data-pctl") : null };
-      });
+      }, leaf.id);
       check("a deck whose every card is learned is GOLD", !!L && L.won === true, JSON.stringify(L));
       check("...in the gold", !!L && /^rgb\(184, 137, 42\)$|^rgb\(216, 179, 85\)$/.test(L.border), L && L.border);
       check("...named as such", !!L && /every card learned/i.test(L.label || ""), L && L.label);
