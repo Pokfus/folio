@@ -3932,7 +3932,16 @@ window.GLOSSARY = {
 "Isfahan": "Isfahan is a city on the Zayandeh River in central Iran, and was the Safavid capital from the reign of Abbas the Great until 1722.<sup class=\"fn\" data-fn=\"1\"></sup> Its centre is the Maydan-i Shah, a rectangle of about 510 by 160 metres (560 by 174 yards) enclosed by two storeys of arcaded shops, with the Royal Mosque opening off one end and the raised audience hall of the Ali Qapu on the eastern side.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Across the river stands the suburb built by Armenian merchants brought from Julfa, and the population at its height is put near three hundred thousand.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Twelver_Shi'ism": "Twelver Shia Islam is the branch of Islam that recognises a line of twelve divinely guided Imams beginning with Ali, the cousin and son-in-law of the Prophet.<sup class=\"fn\" data-fn=\"1\"></sup> It is named for the twelfth of that line, held to have passed into concealment in 874: first in a lesser occultation of 69 years during which four intermediaries carried messages, and afterwards in a greater occultation in which nobody has direct access to him.<sup class=\"fn\" data-fn=\"1\"></sup> It became the religion of the Iranian state in 1501, when Shah Ismail made it the only creed tolerated in his new kingdom.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Mughal_Empire": "The Mughal Empire ruled most of the Indian subcontinent from 1526, when Babur destroyed the army of the Delhi sultanate at Panipat, and kept its throne at Delhi until 1857.<sup class=\"fn\" data-fn=\"1\"></sup> Under Akbar it was divided in 1580 into twelve provinces, later fifteen as the Deccan was annexed, each with its own finance, pay, police and record establishments and containing more than a hundred districts; the land revenue reported in 1605 came to 174,500,000 rupees.<sup class=\"fn\" data-fn=\"2\"></sup> Its officers held graded ranks counted in horsemen and drew the taxes of assigned districts in return for bringing troops.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Babur": "Babur was the founder of the Mughal Empire in India, a Timurid prince on his father's side and a descendant of Genghis Khan on his mother's.<sup class=\"fn\" data-fn=\"1\"></sup> His own memoir opens by recording that he became king of Ferghana in his twelfth year; he lost Samarkand more than once to the Uzbeks, took Kabul in 1504, and defeated Sultan Ibrahim Lodi at Panipat in April 1526 behind chained gun carriages, with Mongol horsemen wheeling into the enemy rear.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He died at Agra on 26 December 1530, aged 48, and was buried at Kabul.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Babur": "Babur was the founder of the Mughal Empire in India, a Timurid prince on his father's side and a descendant of Genghis Khan on his mother's.<sup class=\"fn\" data-fn=\"1\"></sup> His own memoir opens by recording that he became king of Ferghana in his twelfth year; he lost Samarkand more than once to the Uzbeks, took Kabul in 1504, and defeated Sultan Ibrahim Lodi at Panipat in April 1526 behind chained gun carriages, with Mongol horsemen wheeling into the enemy rear.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He died at Agra on 26 December 1530, aged 48, and was buried at Kabul.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Akbar": "Akbar was the third Mughal emperor and ruled northern India from 1556 to 1605, turning a recent conquest into an administration that his successors inherited largely unchanged.<sup class=\"fn\" data-fn=\"1\"></sup> He came to the throne at thirteen, having been born at the desert fort of Umarkot while his father was a fugitive, and by 1564 had given up both the dues taken from Hindu pilgrims and the jizya, the poll tax on non-Muslims.<sup class=\"fn\" data-fn=\"1\"></sup> He could neither read nor write and took the contents of books through the ear, and in 1582 he promulgated the Din-i Ilahi, a small order of initiated courtiers that did not survive him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Shah_Jahan": "Shah Jahan was the fifth Mughal emperor, reigning from 1628 to 1658, and is remembered chiefly for what he built.<sup class=\"fn\" data-fn=\"1\"></sup> His favourite wife Mumtaz Mahal, mother of all fourteen of his children, died in childbed at Burhanpur in 1631, and the tomb he raised over her at Agra is the Taj Mahal.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A war of succession among his four sons broke out while he was still alive and ill, and the victor, Aurangzeb, shut him up in the Agra fort, where he lived in near-royal state for seven years and died in December 1666.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Taj_Mahal": "The Taj Mahal is the white marble mausoleum built at Agra by the Mughal emperor Shah Jahan for his wife Mumtaz Mahal, who died in 1631.<sup class=\"fn\" data-fn=\"1\"></sup> The mausoleum is a square of 57 metres (186 feet) a side, set on a platform with a minaret at each corner and standing at one end of a walled garden court with a mosque on one wing.<sup class=\"fn\" data-fn=\"2\"></sup> A jeweller who saw the work put it at 22 years and twenty thousand men, the design is attributed to Ustad Isa, and the long-repeated claim that a European designed it rests on nothing more than an Italian having submitted drawings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Aurangzeb": "Aurangzeb was the sixth Mughal emperor, ruling from 1658 to 1707, and carried the empire to its greatest extent.<sup class=\"fn\" data-fn=\"1\"></sup> He won the throne in a war of succession fought while his father was still alive, executing his eldest brother and imprisoning the old emperor, and he revived the jizya, the poll tax on non-Muslims that Akbar had remitted.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> From 1681 he campaigned in the Deccan without pause, annexing Bijapur and Golconda but never subduing the Marathas, and he died in camp in March 1707 in the fiftieth year of his reign.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Mansabdar": "A mansabdar was a graded officer of the Mughal Empire, the name combining the Arabic <i>mansab</i>, a post or place, with the Persian ending for whoever holds one.<sup class=\"fn\" data-fn=\"1\"></sup> Ranks were expressed as nominal numbers of horsemen, from commanders of ten up to commanders of five thousand, with the grades above that ordinarily reserved for princes of the imperial house.<sup class=\"fn\" data-fn=\"1\"></sup> A rank fixed pay and standing rather than the true size of a contingent, carried civil duties as well as military ones, and was never hereditary, the assignments being grants the emperor could withdraw at will.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sikhism": "Sikhism is a religion founded in the Punjab by Guru Nanak, who was born in 1469, and developed by a line of nine further Gurus ending with Gobind Singh in 1708.<sup class=\"fn\" data-fn=\"1\"></sup> Its scripture, the Adi Granth, was compiled by the fifth Guru, Arjan, who made Amritsar the holy city of the Sikhs and died a prisoner of the Mughal state in 1606.<sup class=\"fn\" data-fn=\"2\"></sup> In 1699 Gobind Singh initiated five volunteers of different castes as the Khalsa and took initiation from them in turn, leaving authority after his death with the scripture and the community rather than with a successor.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Maratha_Empire": "The Maratha Empire was the Hindu power that rose in the western Deccan under Shivaji, who was crowned at the hill fort of Raigarh in June 1674.<sup class=\"fn\" data-fn=\"1\"></sup> Its revenue rested on chauth, a quarter of the land tax taken from districts the Mughal emperor still claimed, and after 1713 real authority passed to the Peshwas, hereditary ministers at Poona, over a confederacy of great houses.<sup class=\"fn\" data-fn=\"2\"></sup> A Maratha army was destroyed by an Afghan invasion at Panipat in 1761, and the confederacy lost the last of its three wars with the British in 1818.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Military_revolution": "The military revolution is the name given to changes in European warfare between roughly 1500 and 1700, among them new infantry tactics, bastioned fortresses, larger armies and heavier taxation, and to the long debate over whether they amount to a revolution.<sup class=\"fn\" data-fn=\"1\"></sup> The term comes from a 1956 essay on the century after 1560, whose author offered his case as one military revolution among several rather than as the decisive break that later writers made of it.<sup class=\"fn\" data-fn=\"1\"></sup> Whether the model describes a general process or one region's history is tested on the Ottoman and Mughal empires, which took up firearms early without developing along the European pattern.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Crimean_Khanate": "The Crimean Khanate was the Tatar state that ruled the Crimean peninsula and the steppe beyond it from the 15th century until Russia annexed it in 1783.<sup class=\"fn\" data-fn=\"1\"></sup> Its rulers all bore the dynastic name Girai and governed from Bakhchisarai, becoming vassals of the Ottoman sultan in 1475, when a Crimean faction invited him in and his fleet also took the Genoese ports on the coast.<sup class=\"fn\" data-fn=\"1\"></sup> Its raids on Muscovy and Poland were almost annual, and in 1571 a Crimean army fired the suburbs of Moscow, a contemporary English account claiming the wooden city burned in about four hours.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -5990,7 +5999,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Safavid_Empire": "1501-1722",
 "Abbas_the_Great": "r. 1587-1629",
 "Mughal_Empire": "1526-1857",
-"Babur": "1483-1530"
+"Babur": "1483-1530",
+"Akbar": "1542–1605",
+"Shah_Jahan": "Reigned 1628–1658",
+"Taj_Mahal": "Built from the 1630s",
+"Aurangzeb": "Reigned 1658–1707",
+"Mansabdar": "Systematised 1575",
+"Sikhism": "Founded 15th century",
+"Maratha_Empire": "1674–1818",
+"Military_revolution": "Debated period 1500–1700",
+"Crimean_Khanate": "15th century–1783"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8331,7 +8349,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Isfahan": ["Ispahan","Esfahan"],
 "Twelver_Shi'ism": ["Twelver Shia Islam","Twelver Shiism","Twelver Shia","Twelvers"],
 "Mughal_Empire": ["Mughals","Mughal","Moghul Empire"],
-"Babur": ["Babar","Baber"]
+"Babur": ["Babar","Baber"],
+"Sikhism": ["Sikh","Sikhs"],
+"Crimean_Khanate": ["Crim Tatar"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12307,7 +12327,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Isfahan": ["city","place","history","iran","architecture","geography"],
 "Twelver_Shi'ism": ["concept","religion","history","iran","islam","middle east"],
 "Mughal_Empire": ["state","history","empire","india","warfare","asia"],
-"Babur": ["person","history","india","ruler","warfare","asia"]
+"Babur": ["person","history","india","ruler","warfare","asia"],
+"Akbar": ["person","ruler","history","india","religion"],
+"Shah_Jahan": ["person","ruler","history","india","architecture"],
+"Taj_Mahal": ["building","architecture","history","india","art"],
+"Aurangzeb": ["person","ruler","history","india","warfare"],
+"Mansabdar": ["title","institution","history","india","warfare"],
+"Sikhism": ["concept","religion","history","india","practice"],
+"Maratha_Empire": ["state","empire","history","india","warfare"],
+"Military_revolution": ["theory","history","warfare","technology","science"],
+"Crimean_Khanate": ["state","history","europe","warfare","asia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
