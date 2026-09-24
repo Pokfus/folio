@@ -3499,6 +3499,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S42 | B1 | #643 `formal` – #670 `el aparcamiento` | 26 | 2 (`conectarse`, `el terremoto`) | 0 | B1 description: 995 with examples, 965 with three, 3 with none | `la delta` renamed `el delta` |
 | S43 | B1 | #671 `el resumen` – #698 `dudar` | 25 | 3 (`publicar`, `la preparación`, `dudar`) | 0 | B1 description: 996 with examples, 966 with three, 2 with none | — |
 | S44 | B1 | #699 `analizar` – #726 `la cuchara` | 24 | 4 (`desarrollar`, `desde luego`, `la cintura`, `el huracán`) | 0 | B1 description: 972 with three | — |
+| S45 | B1 | #727 `casero, casera` – #754 `la oposición` | 26 | 2 (`el bailarín, la bailarina`, `la hipoteca`) | 0 | B1 description: 974 with three | paired feminine that is another noun (`la cartera`) |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5271,6 +5272,38 @@ sol`'s gloss read "lit. take the sun". Three sentences shared with A1, A2 or an 
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 55 → 53.
+
+### S45 — DELE B1, notes #727–#754 (Sep 2026)
+
+Measured against the S44 commit by card id: **26 changed, 972 untouched**, each a record entry. The other two
+were read and left alone: `el bailarín, la bailarina`, `la hipoteca`.
+
+**A PAIRED CARD WHOSE FEMININE IS ANOTHER WORD.** `el cartero, la cartera`: *la cartera* is also a wallet or a
+briefcase, and two of the three examples were that — "Is anything missing from your pocketbook?", "The woman
+has two wallets". The generator, pairing the masculine and feminine of *postman*, found the homonym. Both were
+replaced and the card now carries a note. It is the pairing machinery's version of the same-spelt-word fault,
+and worth watching for in B2 wherever a feminine form is an ordinary noun of its own.
+
+**THE SPAIN SENSE.** `la oposición` now gives *las oposiciones*, the competitive exams for a public post, which
+the gloss had listed without the plural it lives in. `la guardería` is a nursery, not a kindergarten; `el
+casero` gains the noun, a landlord.
+
+**ALL THREE GONE.** `los bolos`: a calque of the English "beer and skittles", then *jugar bolos* twice, dropping
+the *a los* Spain uses.
+
+**AMERICAN ENGLISH AND MEASURES.** `la gasolinera`: "gas station" twice, *qué tan lejos*, and a distance in
+miles; `ancho` measured a valley in miles; `estropeado` called a boiler a "water heater".
+
+**THE OTHER WORD.** `práctico`'s third example was the choir-practice fragment S30 dropped from `la práctica`;
+`prometer`'s *prometida*; `estropeado`'s verb *se ha estropeado*.
+
+**AND THE REST.** Latin American *departamento* and *te hace ver*; calques *soñar en*, *definitivamente*, *en
+señal de oposición*; `la píldora`'s *tomo* for *tomó*; football fans fighting; politicians as wolves. Two
+sentences shared with A2 were replaced. `la resaca` and `el traslado` come up to three examples: 974 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+53 → 49. `resultar` stays on it under "to turn out, to prove" over "turned out", "happens to be" and "come in
+handy" — the stemmer again, named here.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

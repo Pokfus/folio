@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,51 +877,51 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 956 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 957 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 958 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 959 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 962 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 963 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "there are none at all for the remaining 4,",
@@ -929,7 +929,7 @@
     ],
     [
      "Example sentences come with 995 of the 998 words, three apiece for 965 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ],
     [
      "there are none at all for the remaining 3,",
@@ -937,7 +937,11 @@
     ],
     [
      "Example sentences come with 996 of the 998 words, three apiece for 966 of them",
-     "Example sentences come with 996 of the 998 words, three apiece for 972 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
+    ],
+    [
+     "Example sentences come with 996 of the 998 words, three apiece for 972 of them",
+     "Example sentences come with 996 of the 998 words, three apiece for 974 of them"
     ]
    ]
   }
@@ -42849,6 +42853,587 @@
      "Stir the coffee with the spoon."
     ]
    ]
+  },
+  "deleb1/casero, casera": {
+   "why": "The gloss was a list and did not give 'homemade', which two of the examples are. The second example's English said 'authentic food', and the third offered dates for home parties.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "homemade, home (comida casera — home cooking)"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el casero, la casera — landlord, landlady"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "fechas disponibles en Octubre"
+   ],
+   "exEn": [
+    [
+     "un restaurante de comida",
+     "Where can I find a restaurant that serves home cooking?"
+    ]
+   ],
+   "ex": [
+    [
+     "Mi abuela hace mermelada casera.",
+     "My grandmother makes homemade jam."
+    ]
+   ]
+  },
+  "deleb1/el billar": {
+   "why": "The gloss is right. The first two examples were both 'jugar al billar'.",
+   "dropEx": [
+    "¿Vamos a jugar al billar?"
+   ],
+   "ex": [
+    [
+     "Hay una mesa de billar en el bar.",
+     "There's a pool table in the bar."
+    ]
+   ]
+  },
+  "deleb1/el peinado": {
+   "why": "The gloss is right. The third example's te hace ver más viejo is Latin American (te hace parecer mayor).",
+   "dropEx": [
+    "te hace ver más viejo"
+   ],
+   "ex": [
+    [
+     "Se hizo un peinado para la boda.",
+     "She had her hair done for the wedding."
+    ]
+   ]
+  },
+  "deleb1/los bolos": {
+   "why": "ALL THREE EXAMPLES WENT. The first was a calque of the English idiom 'beer and skittles', and the other two said jugar bolos, dropping the a los Spain uses.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "bowling, skittles"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "todo cerveza y bolos",
+    "Te gusta jugar bolos",
+    "vaya a jugar bolos"
+   ],
+   "ex": [
+    [
+     "¿Vamos a jugar a los bolos esta noche?",
+     "Shall we go bowling tonight?"
+    ],
+    [
+     "Soy muy malo jugando a los bolos.",
+     "I'm terrible at bowling."
+    ],
+    [
+     "En el pueblo juegan a los bolos los domingos.",
+     "In the village they play skittles on Sundays."
+    ]
+   ]
+  },
+  "deleb1/la oveja": {
+   "why": "The gloss did not give oveja negra. The third example called politicians wolves in sheep's clothing.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "sheep"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "oveja negra — black sheep"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Algunos políticos son lobos"
+   ],
+   "ex": [
+    [
+     "Es la oveja negra de la familia.",
+     "He's the black sheep of the family."
+    ]
+   ]
+  },
+  "deleb1/resultar": {
+   "why": "The gloss was a list and did not give resulta que. The first example, 'Ana resultó sorprendida', is not natural Spanish.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to turn out, to prove"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "resulta que — it turns out that"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ana resultó sorprendida"
+   ],
+   "ex": [
+    [
+     "El examen resultó muy fácil.",
+     "The exam turned out to be very easy."
+    ]
+   ]
+  },
+  "deleb1/la resaca": {
+   "why": "The gloss was a list. The card had two examples, both a hangover.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "hangover",
+      "undertow"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Cuidado con la resaca en esta playa.",
+     "Watch out for the undertow on this beach."
+    ]
+   ]
+  },
+  "deleb1/estropeado, estropeada": {
+   "why": "The gloss is right. The third example was the verb estropearse in the perfect, and the second's English said 'water heater' for a boiler.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "broken, out of order",
+      "spoilt, off (food)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "se ha estropeado"
+   ],
+   "exEn": [
+    [
+     "Nuestra caldera",
+     "Our broken boiler couldn't be repaired."
+    ]
+   ],
+   "ex": [
+    [
+     "El ascensor está estropeado.",
+     "The lift is out of order."
+    ]
+   ]
+  },
+  "deleb1/enterarse": {
+   "why": "The gloss is right. The third example's definitivamente is a calque of 'definitely'.",
+   "dropEx": [
+    "definitivamente estará furioso"
+   ],
+   "ex": [
+    [
+     "¿Te has enterado de la noticia?",
+     "Have you heard the news?"
+    ]
+   ]
+  },
+  "deleb1/práctico, práctica": {
+   "why": "The gloss was a list. The third example was the noun práctica — the choir-practice fragment S30 dropped from la práctica.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "practical",
+      "handy"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no antes de la práctica del coro"
+   ],
+   "ex": [
+    [
+     "Esta mochila es muy práctica para viajar.",
+     "This rucksack is very handy for travelling."
+    ]
+   ]
+  },
+  "deleb1/mudarse": {
+   "why": "The gloss is right. The first example's la dama is not how anyone says 'the lady', and the second used departamento, Latin American for piso.",
+   "dropEx": [
+    "La dama se mudó",
+    "a un nuevo departamento"
+   ],
+   "ex": [
+    [
+     "Nos mudamos a Sevilla el año pasado.",
+     "We moved to Seville last year."
+    ],
+    [
+     "Se mudaron a una casa más grande.",
+     "They moved to a bigger house."
+    ]
+   ]
+  },
+  "deleb1/la píldora": {
+   "why": "The gloss did not say la píldora is also the contraceptive pill. The second example wrote tomó without its accent.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "pill"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la píldora — the (contraceptive) pill"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ana tomo la"
+   ],
+   "ex": [
+    [
+     "Se tragó la píldora con un vaso de agua.",
+     "He swallowed the pill with a glass of water."
+    ]
+   ]
+  },
+  "deleb1/el/la astronauta": {
+   "why": "The gloss gave 'spaceman'. The first and third examples were both a childhood dream, and the first's soñar en is a calque (soñar con).",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "astronaut"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Yo solía soñar en"
+   ],
+   "ex": [
+    [
+     "La astronauta pasó seis meses en el espacio.",
+     "The astronaut spent six months in space."
+    ]
+   ]
+  },
+  "deleb1/cultural": {
+   "why": "The gloss gave 'culture' first. The third example is not a natural sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "cultural"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Es más, sigo pensando"
+   ],
+   "ex": [
+    [
+     "Madrid tiene una gran oferta cultural.",
+     "Madrid has a lot of cultural events on offer."
+    ]
+   ]
+  },
+  "deleb1/químico, química": {
+   "why": "The gloss gave the adjective only, while the second example was the noun, a chemist. The third is shared with la fórmula in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "chemical"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el químico, la química — chemist"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La fórmula química del agua"
+   ],
+   "ex": [
+    [
+     "Los productos químicos pueden ser peligrosos.",
+     "Chemicals can be dangerous."
+    ]
+   ]
+  },
+  "deleb1/ancho, ancha": {
+   "why": "The gloss gave 'proud'. The first example measured a valley in miles, and the third was an aphorism.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "wide, broad",
+      "(of clothes) loose, too big"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "veinte millas de ancho",
+    "hombros más anchos"
+   ],
+   "ex": [
+    [
+     "Estos pantalones me quedan anchos.",
+     "These trousers are too big for me."
+    ],
+    [
+     "El río tiene cien metros de ancho.",
+     "The river is a hundred metres wide."
+    ]
+   ]
+  },
+  "deleb1/universal": {
+   "why": "The gloss is right. The first and third examples were both 'lenguaje universal', and the first made English it.",
+   "dropEx": [
+    "El inglés es como un lenguaje"
+   ],
+   "ex": [
+    [
+     "Es un tema universal.",
+     "It's a universal theme."
+    ]
+   ]
+  },
+  "deleb1/histórico, histórica": {
+   "why": "The gloss gave Wiktionary's two definitions and not 'historic'. The first example's English said 'historical person'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "historical",
+      "historic"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "tu personaje",
+     "Who's your favourite historical figure?"
+    ]
+   ]
+  },
+  "deleb1/prometer": {
+   "why": "The gloss is right. The first example is shared with doler in A2, and the third was the noun prometida, a fiancée. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Te prometo que no te va a doler",
+    "es su prometida"
+   ],
+   "ex": [
+    [
+     "Me prometió que vendría.",
+     "He promised me he would come."
+    ],
+    [
+     "Prometo no decírselo a nadie.",
+     "I promise not to tell anyone."
+    ]
+   ]
+  },
+  "deleb1/el aficionado, la aficionada": {
+   "why": "The gloss gave 'hobbyist' and not ser aficionado a. The second example's aficionada de should be a, and the third was football fans fighting.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "fan, supporter"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ser aficionado a — to be keen on"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "aficionada de la ópera",
+    "pelearon unos con otros"
+   ],
+   "ex": [
+    [
+     "Es muy aficionado a la fotografía.",
+     "He's very keen on photography."
+    ],
+    [
+     "Los aficionados llenaron el estadio.",
+     "The fans filled the stadium."
+    ]
+   ]
+  },
+  "deleb1/la gasolinera": {
+   "why": "The gloss was a list running to 'petrol can'. The second example's qué tan lejos is Latin American, and its English and the third's said 'gas station'; the third measured in miles.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "petrol station"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Qué tan lejos",
+    "Cuántas millas son"
+   ],
+   "ex": [
+    [
+     "Paramos en una gasolinera a echar gasolina.",
+     "We stopped at a petrol station to fill up."
+    ],
+    [
+     "La gasolinera cierra a las diez.",
+     "The petrol station closes at ten."
+    ]
+   ]
+  },
+  "deleb1/el traslado": {
+   "why": "The gloss is right. The card had two examples, both a move of goods; a transfer was not shown.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "move, removal",
+      "transfer"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Pidió el traslado a otra oficina.",
+     "She asked for a transfer to another office."
+    ]
+   ]
+  },
+  "deleb1/húmedo, húmeda": {
+   "why": "The gloss put 'humid' in a list. The first and second examples' English said 'fresh' and 'sticky'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "damp, wet",
+      "humid"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Las hojas se ven",
+     "The leaves look wet in the rain."
+    ],
+    [
+     "Japón es caliente y",
+     "Japan is hot and humid in summer."
+    ]
+   ]
+  },
+  "deleb1/la guardería": {
+   "why": "The gloss said 'kindergarten', and the first and second examples were the same sentence with the names changed.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "nursery, crèche"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Carlos ha conocido a Ana desde la"
+   ],
+   "exEn": [
+    [
+     "Dani ha conocido a Lucía desde la",
+     "Dani has known Lucía since nursery."
+    ]
+   ],
+   "ex": [
+    [
+     "Llevo al niño a la guardería por las mañanas.",
+     "I take the little one to nursery in the mornings."
+    ]
+   ]
+  },
+  "deleb1/el cartero, la cartera": {
+   "why": "TWO OF THE THREE EXAMPLES WERE ANOTHER WORD. La cartera is also a wallet or a briefcase, and the first and third examples were that — 'Is anything missing from your pocketbook?', 'The woman has two wallets'. The card now says so. The gloss gave 'mailman'.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "postman, postwoman"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los carteros, las carteras"
+    ],
+    [
+     "note",
+     "la cartera is also a wallet or a briefcase"
+    ]
+   ],
+   "dropEx": [
+    "algo en su cartera",
+    "La mujer tiene dos carteras"
+   ],
+   "ex": [
+    [
+     "El cartero trae el correo a las diez.",
+     "The postman brings the post at ten."
+    ],
+    [
+     "Mi madre es cartera.",
+     "My mother is a postwoman."
+    ]
+   ]
+  },
+  "deleb1/la oposición": {
+   "why": "The gloss put 'a civil service entrance examination' without the plural it is used in. The second example, a head shaken 'in opposition', is a calque.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "opposition"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "las oposiciones — competitive exams for a public-sector post"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "movió su cabeza en señal de"
+   ],
+   "ex": [
+    [
+     "Está preparando las oposiciones para ser profesor.",
+     "He's studying for the competitive exams to become a teacher."
+    ]
+   ]
   }
  },
  "insert": {
@@ -43187,7 +43772,9 @@
    "desarrollar",
    "desde luego",
    "la cintura",
-   "el huracán"
+   "el huracán",
+   "el bailarín, la bailarina",
+   "la hipoteca"
   ]
  }
 }
