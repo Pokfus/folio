@@ -449,9 +449,199 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
   grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
   the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
-  under "Generating cards & glossary entries". **The first ten cards have shipped** (Sep 2026) — `ru-001`
-  to `ru-010`, the whole opening of `ru-before` — so the collection is live and its 28 empty decks are
-  coming-soon automatically, `isComingSoon` being true for a node holding no card. It is the first plan that has to
+  under "Generating cards & glossary entries". **`ru-001` to `ru-100` have shipped** (Sep 2026) — the
+  Scythian and Sarmatian steppe, then the Goths, Huns, Avars, Bulgars, Khazars, Magyars and Pechenegs, then
+  the Slavs, the Vyatichi, Slavic paganism, Perun, the Merya, the Balts, the Varangians and the Rus', and
+  then the Normanist controversy, Staraya Ladoga, Gnyozdovo and the two trade routes, which **FINISHES
+  `ru-before` at its full 35 cards**; `ru-kievan` then opens with Kievan Rus', Rurik, the Primary Chronicle,
+  the calling of the Varangians and Novgorod, and runs on through Oleg, the seizure of Kyiv, the
+  Rus'–Byzantine treaties, the raids on Constantinople, Igor, Olga, her baptism, Sviatoslav, the end of
+  Khazaria, the Danube dominion, Vladimir, his pagan reform, the conversion, the Byzantine marriage, the
+  Tithe Church, Boris and Gleb, Yaroslav, the Russkaya Pravda, Saint Sophia and the metropolitanate, and
+  then the Caves monastery, Ilarion's sermon, Old East Slavic and Church Slavonic, the birch bark letters,
+  the druzhina, the towns, the slave trade, the coinage and the rota system, and then the council at
+  Liubech, Vladimir Monomakh, his Instruction, the Cumans, Mstislav the Great, the Novgorod Republic, the
+  veche, Yugra, Vladimir-Suzdal and Andrey Bogolyubsky, and then the sack of Kyiv, Vsevolod the Big
+  Nest, Galicia–Volhynia, Polotsk, Chernigov, the Tale of Igor's Campaign, the architecture of Rus', the
+  Nerl church, Rus' in Byzantine service and the modern claim on the Kievan inheritance, which
+  **FINISHES `ru-kievan` at its full 55 cards**; `ru-horde` then opens with the Mongol Empire, Genghis
+  Khan, the Kalka, Batu, the invasion of Rus', Ryazan, Vladimir, Kyiv in 1240, the invasion of central
+  Europe and the Golden Horde — and
+  the collection is live with its 26 empty decks
+  coming-soon automatically, `isComingSoon` being true for a node holding no card. **Ten lines are now
+  answered by something other than their own words, and the reasons are four rules**: `ru-017` is answered by the **Khazar
+  Correspondence** rather than by "the Khazar conversion to Judaism", `ww2-140`'s shape — a line naming a
+  PROCESS usually wants the document the process is known through; `ru-024` is **Vyatichi** and `ru-027`
+  **Merya**, because a card blanks one word and neither "the East Slavic tribes" nor "the Finno-Ugric
+  peoples of the forest" is one; and `ru-018`'s answer is `Itil` while its glossary key
+  is the Wikipedia slug `Atil`, which carries `Itil` as its first alias; and `ru-040` "Novgorod in the
+  ninth century" is answered by **`Novgorod`** alone, keyed on the article slug `Veliky_Novgorod` with the
+  bare name as its first alias, because the ninth-century site is a hillfort two kilometres upstream and the
+  card's business is that the city and the chronicle's date do not belong to each other.
+  **The second ten add five more of the same four shapes**: `ru-041` is **Oleg the Wise**, which is what
+  the encyclopedia heads the article the plan called *Oleg of Novgorod* — a REDIRECT, which is `ru-039`'s
+  finding from the other side; `ru-042` "the seizure of Kyiv" is **Askold and Dir**, the thing the event
+  was about, `Kyiv` being a cited term already; `ru-047` "the baptism of Olga" is **De Ceremoniis**,
+  `ww2-140`'s document shape, and there the document's SILENCE is the card; `ru-050` "Sviatoslav's Balkan
+  campaigns" is **Pereyaslavets**, the town they were about; and `ru-044` "the Rus' raids on
+  Constantinople" is **Greek fire**.
+  **The third ten add five more, and one of them was decided by what the SOURCES would carry rather than
+  by a rule**: `ru-052` "Vladimir's pagan reform" is **`Dazhbog`** — the reform has no article of its own,
+  `Perun` is `ru-026` and `Slavic_paganism` is `ru-025`, so the term had to be one of the other five
+  deities of the chronicle's list, and **`Mokosh` was the first choice and is unciteable**, the standard
+  open survey of Slavic mythology not mentioning her once while Dazhbog has a dedicated open article.
+  **ASK WHETHER A DEITY CAN BE CITED TO THE BAR BEFORE CHOOSING IT AS AN ANSWER TERM**: a name in a
+  chronicle list is not a literature. `ru-054` "the choice of faiths" is **`Anna Porphyrogenita`**, there
+  being no article for the chronicle's own story and the outside record being a marriage bargain rather
+  than a comparison of religions; `ru-055` "the baptism of Kyiv" is the **`Church of the Tithes`**, the
+  baptism itself being `ru-053`'s own answer; and `ru-059` and `ru-060` take the article titles
+  (*Saint Sophia Cathedral, Kyiv*; *Metropolis of Kyiv*, a redirect target) rather than the plan's wording.
+  **AND `ru-053`'s ANSWER TERM IS AUTHORED BRITISH, WHICH COST A `SPELL_PAIRS` ROW** — the `Sovietisation`
+  finding one word over. Folio's prose writes *Christianisation*, the -ise/-ize family is two-way, and the
+  table had **no `christianis` row at all**, so whichever spelling the card stored was the one BOTH readers
+  saw; `check-spelling-corpus.js` could not see it either, that tool measuring the corpus against
+  `SPELL_PAIRS` and a family absent from the table being one it never asks about. The glossary key stays
+  the real slug `Christianization_of_Kievan_Rus'` with the British form as an alias, `Paleolithic`'s own
+  arrangement.
+  **THE FOURTH TEN RETITLE TWO LINES AND BOTH ARE SHAPES ALREADY IN THIS LIST.** `ru-062` was *Hilarion
+  of Kyiv* and is answered by the **`Sermon on Law and Grace`**, `ww2-133`'s rule — `ru-060` had already
+  carded Ilarion's elevation and his sermon with its own sources, so the line had no term of its own left
+  to teach. And `ru-068` *The trade of Rus'* is now **The slave trade of Rus'**, answered by **`Saqaliba`**:
+  `ru-034` and `ru-035` are the two ROUTES and `ru-069` is the silver, so what the line had left was the
+  commodity, and **the plan's own line was changed to match the card** rather than left to contradict it.
+  **A CARD CAN BE AT THE BAR AND STILL UNABLE TO SAY WHAT AN ENCYCLOPEDIA OPENS WITH**, which is `ru-063`'s
+  finding: nothing openable from here states Old East Slavic's periodisation — four DOAJ and Crossref
+  sweeps returned dialect dictionaries and one paywalled 1975 article — so the card claims only the
+  eleventh-to-thirteenth-century written record its sources carry, and its date line says so.
+  **AND THE TENTH CARD IS THE COLLECTION'S FIRST PICTURE REFUSAL OF ITS OWN KIND**: `ru-070` the rota
+  system has none, because the Russian Wikipedia article on it carries **no image at all** and the one
+  Commons candidate is a contributor's SVG whose six-part legend cannot ride in a caption. **An article
+  with no picture of its own is evidence that its subject has no conventional depiction**, not a gap to
+  fill with a diagram. `ru-068` went the other way and is the reusable half: `Category:Saqaliba` holds a
+  panel of the **Gniezno door** of about 1170 showing captives pleaded for, a contemporary object where
+  every search had returned 19th-century imaginings — **read the CATEGORY before writing a subject off.**
+  **AND `ru-036` AND `ru-044` NEEDED NO NEW GLOSSARY TERM, WHICH IS WORTH CHECKING FOR BEFORE THE RESEARCH
+  RATHER THAN AFTER**: `Kievan_Rus'` has been a cited term since the citation pass and `Greek_fire` has
+  been one, with a picture, for longer still, so the pairing rule was already satisfied and
+  `add-glossary.js` would have overwritten either in silence. **GREP THE KEYS IN THEIR OWN SLUG FORM** —
+  `answer.replace(/ /g, "_")` — since a grep for `greek fire` with a SPACE answers no for every multi-word
+  term there is, which is how that one was missed and then found by accident. **THE COLLECTION WRITES THE
+  ETHNONYM WITH A STRAIGHT APOSTROPHE** — `Rus'`, not `Rus’` — which is not a taste but a constraint: a
+  card's bolded answer term has to match its own `answer` field exactly, and `Kievan_Rus'` already claims
+  the CURLY `Rus’` as an alias, so a curly one in prose auto-links to the state rather than the people.
+  **THE FIFTH TEN RETITLE ONE LINE AND ADD A NEW SHAPE OF KEY.** `ru-075` *The fragmentation of Rus'* is a
+  PROCESS line, so `ww2-129`'s rule applies — it wants the MOMENT the process became visible — and it is
+  answered by **`Mstislav I of Kiev`**, whose death in 1132 ends a Rus' held from one seat, with the plan's
+  own line retitled to match; `ru-078` *Novgorod's northern empire* is answered by **`Yugra`**, the tribute
+  land the empire was about, which is `ru-042`'s shape. **AND `ru-073` HAS NO ENGLISH WIKIPEDIA ARTICLE AT
+  ALL**, so its key is the slug form of the answer term, `Instruction_of_Vladimir_Monomakh` —
+  `Sermon_on_Law_and_Grace`'s arrangement one batch on. **Ask whether a work HAS an article before
+  assuming the key is a real slug.**
+  **AND THE DATE-LINE READ-BACK ABOVE EARNED ITSELF AGAIN, ON A ROW THAT WAS NOT ABOUT THE CARD'S
+  SUBJECT.** `ru-076` **Novgorod Republic** sorted at **862**, off a first row reading *Princely town |
+  862 – 1136 CE* — a true fact about what the town was BEFORE the republic — so a card about a state
+  founded in 1136 filed itself two centuries ahead of `ru-036 Kievan Rus'`. **A DATE LINE ROW ABOUT THE
+  PRECEDING STATE TAKES THE CARD'S SORT YEAR WITH IT**, and the fix belongs in the date line, not the
+  parser: the figure moved into the prose, where it already was.
+  **A BARE ALIAS IS MEASURED AND USUALLY REFUSED.** `Monomakh` was claimed — all 21 surfaces in the corpus
+  are Vladimir Monomakh, read one at a time — while `Mstislav` was NOT, although all seven present
+  surfaces are his: Mstislav of Tmutarakan is already in this collection's period and Mstislav Davidovich
+  is in the Novgorod chronicle, so the alias would be right today and wrong within twenty cards
+  (`Neville_Chamberlain`'s precedent). `Liubech` and `Suzdal` are the TOWN rather than the council or the
+  principality and were refused for that.
+  **THE SIXTH TEN ANSWER THREE LINES WITH A TERM THE LINE DOES NOT CONTAIN, WHICH IS THE `ru-052` SHAPE
+  RATHER THAN A RETITLE.** `ru-087` *The architecture of Rus'* is answered by **`cross-in-square`** —
+  Saint Sophia is `ru-059`, the Tithe Church `ru-055` and the Nerl church `ru-088`, so what the line had
+  left to teach was the PLAN all three were built on; `ru-089` *Rus' and Byzantium* is **`Varangian
+  Guard`**, the treaties, the raids and the metropolitanate being `ru-043`, `ru-044` and `ru-060`; and
+  `ru-090` *The inheritance of Rus'* is **`All-Russian nation`**, which is that claim under the name the
+  literature gives it and can therefore be described impartially where "the inheritance" can only be
+  argued about. **THE PLAN'S OWN LINES ARE UNCHANGED** — a line is a subject to research, and only a line
+  whose own wording has become wrong needs retitling.
+  **AND ONE CARD SHIPS WITH AN EMPTY DATE LINE AND `undatable: true`, WHICH IS THE COLLECTION'S FIRST.**
+  `ru-090`'s subject is a present-day argument whose sources say in terms that it formed over several
+  phases rather than at one moment, so there is no year to print and none is invented. The cost is
+  stated rather than hidden: `cardStartYear` returns 0, so the card files as timeless in a date sort.
+  **A card whose date line is non-empty and yields NO year is the fault `test-date-line.js` catches; an
+  empty one is the honest alternative**, and `ru-088` is the other half of the same lesson — its build
+  year is genuinely disputed, so its line reads *Andrey's reign | 1157 – 1177 CE* over *Begun | 12th
+  century, year disputed*, the first row giving `cardYears` something to sort on and the second saying
+  in the card's own voice that the year is open.
+  **`Anna Comnena` IS NOW IN `check-cards.js`'s `ANCIENT` LIST, AND SHE TRIPPED A DIFFERENT RULE FROM THE
+  SIX MEDIEVAL WITNESSES ABOVE HER.** Those were added for rule 1, the citation count; she was reported
+  by **rule 2**, a modern scholar named in a question, because `ru-089` asks about the axe-bearing
+  barbarians of the Alexiad and names her. One list answers both rules, so one row fixed it — and the
+  whole-name anchoring is what makes it safe, the corpus citing several living scholars called Anna and
+  none of them Comnena.
+  **AND `add-questions.js` IS THE WRITER FOR AN EXTRA PHRASING, NOT `fix-field.js`.** That tool does
+  find-and-replace inside one NAMED STRING field, so it refuses `questions`, which is an array — the
+  error reads "field `questions` is missing or not a string" and is easy to mistake for a missing field.
+  A batch repairing prose across a card therefore needs up to four writers: `add-sources.js` for the
+  abstract, `add-card-links.js` for the why-answers, `add-questions.js` for the extra phrasings and
+  `fix-field.js` for `question` itself.
+  **A SENTENCE MAY NOT END ON A DOUBLE SPACE, AND `add-card.js` REPORTS IT AS THE WRONG FAULT.**
+  `split-abstract.js` splits on a SINGLE space after the stop, so a stray trailing space inside an
+  abstract's sentence merges it with the next one — and the error names the `V. Gordon Childe` initials
+  guard, which sends you looking for a lone capital that is not there. **Look for a double space first.**
+  **THE SEVENTH TEN OPEN `ru-horde`, AND THREE OF THEM ARE SUBJECTS WORLD HISTORY HAS ALREADY CARDED.**
+  `ru-091 Mongol Empire`, `ru-092 Genghis Khan` and `ru-100 Golden Horde` share their answer terms with
+  `wh-594`, `wh-593` and `wh-598`, as `ru-012 Huns` and `ru-016 Khazars` already do with `wh-589` and
+  `wh-592`. **A SHARED ANSWER TERM IS WRITTEN AS A DELIBERATE PAIR RATHER THAN AVOIDED** — Biology's rule
+  for its eighteen shared titles — so World History tells the empire through Marco Polo and the relay
+  posts while these tell it as the power that arrived in Rus', **and the glossary term is written ONCE**:
+  all three existed, cited, and were reused untouched. **GREP THE KEYS BEFORE THE RESEARCH**, which is
+  `ru-036`'s rule, since `add-glossary.js` overwrites in silence.
+  **AND GREP THE ALIASES TOO, BECAUSE AN ANSWER TERM'S SURFACE CAN ALREADY BE SPOKEN FOR.** `ru-098`
+  *The sack of Kyiv in 1240* cannot be answered by **sack of Kyiv**: `Sack_of_Kiev_(1169)` — `ru-081`,
+  one batch back — claims that surface as an alias, so the card is answered by **siege of Kyiv** keyed on
+  the real slug `Siege_of_Kiev_(1240)`, `ru-018`'s `Atil`/`Itil` arrangement. Ryazan and Vladimir took
+  the same `siege of X` form, which is what the encyclopedia heads them; **the plan's own lines are
+  unchanged**, the subject not having moved.
+  **A LOCATOR IS REFUSED WHERE THE IDENTIFICATION IS ITSELF DISPUTED, WHICH IS A DIFFERENT REASON FROM
+  A MISSING COORDINATE.** `ru-094` Batu Khan and `ru-100` Golden Horde both want **Sarai**, and no
+  published coordinate exists to fetch — not on the English article, not on its Wikidata item, not on
+  Selitrennoye. That is not an accident: Folio's own `Golden_Horde` term says the sources use the name
+  for more than one place and the excavated sites have not settled which, so **a gold dot labelled
+  *Sarai* would assert an identification the card declines to make.** The other eight carry one.
+  **AND `ru-098` STATES THE YEAR AND NOT THE DAY.** The chronicles give different days for the fall of
+  Kyiv and nothing openable adjudicates, so the line reads *Taken | 1240 CE* over *Papal mission |
+  February 1246 CE* — a date the sources do fix, and the card's real evidence.
+  **THE JOURNAL OF RECORD FOR THIS DECK IS ONE JOURNAL, AND IT IS SEARCHED BY ISSN.** *Golden Horde
+  Review* (`goldhorde.ru`, ISSN 2313-6197) is open access throughout and publishes exactly this subject;
+  `api.crossref.org/journals/2313-6197/works` with `query.bibliographic` answers in one request where a
+  corpus-wide search returns Ryazan medical journals. Two things about its records: **every one carries a
+  PHANTOM AUTHOR ENTRY** with an empty name, which is a registration quirk and not a fault (the shipped
+  `ru-074` citation of Seleznev has it and passes `check-citations.js`); and **an English abstract is not
+  guaranteed**, so a piece whose content cannot be read is dropped rather than cited for what its title
+  implies. `akjournals.com` answers **403**, which is why the 1235 council that voted the western
+  campaign is claimed on no card here.
+  **AND A WIKIPEDIA-API SWEEP RETURNS 429, WHICH IS `curl --retry`'s JOB RATHER THAN A WALL.** A dozen
+  title lookups in a few seconds rate-limits the host — the BUSY state `check-reach.js` records — and a
+  foreground `sleep` is blocked in this sandbox, so `curl --retry 4 --retry-delay 6 --retry-all-errors`
+  is what waits. **Crossref is also what turns a page byline of initials into a Chicago given name**:
+  the journal prints *A.A. Astaykin* and Crossref holds *Andrey A. Astaykin*, while for Pochekaev and
+  Galimov it holds initials too, so those are cited as initials rather than expanded.
+  **AND `check-gloss-links.js` NO LONGER FINISHES OVER THE WHOLE CORPUS** — 3,903 terms and 13,237
+  surfaces, still running at twenty minutes — so **run it `--card=<id>`**, which answers in a second.
+  **📖 `docs/russia-card-plan.md` — READ BEFORE WRITING A
+  `ru-` CARD.** Besides the plan it carries the batch account of `ru-011`–`ru-100`: the open sources
+  that carry the collection and Léger's own pagination for the chronicle passages, the rule that a
+  Russian-language journal is cited in Russian
+  because that is the title Crossref holds, the `check-cards.js` rule 6 gap that no single Cyrillic row
+  closes, the future `Avars` alias collision with the Caucasus, why four of the second ten cards carry no
+  locator at all, the two pictures whose captions have to argue with them, the four claims written and
+  then cut for want of a source that carried them, and the finding that **`add-card.js` and
+  `set-date-line.js` disagree about what a date line may contain** — the shared module's `isDateList`,
+  which is the half `add-card.js` calls, never checks the LABEL length, so `ru-056` shipped a 17-character
+  label the writer then refused; 154 shipped cards carry one, so closing it is a content pass of its own.
+  **AND IT CARRIES THE COLLECTION'S OWN DATE-LINE TRAP, WHICH IS WHY EVERY `ru-` DATE UNDER 1000 IS
+  WRITTEN `CE`**: `cardYears`' plain-number rule is `\b(1\d{3}|20\d{2})\b`, so a bare first-millennium
+  year reaches it only through the era rule — and a card whose date line mixes one with a LATER readable
+  row takes its sort year off that row in silence. Six of `ru-051`–`ru-060` shipped that way, Vladimir
+  sorting at his death and Dazhbog at a twelfth-century manuscript; only the three yielding NO year were
+  visible, `test-date-line.js` asking whether a card yields a year rather than whether it is the right
+  one. **Read the sort year back against `cardYears` after writing a date line here.**
+  It is the first plan that has to
   set **date, name and transliteration conventions** (the Julian/Gregorian gap, Kyiv against Kiev), and the
   first whose subject reaches the present day — read its "History, not archaeology" and "Sourcing" sections
   before writing anything after 1917. Not part of the site.
@@ -481,8 +671,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the planned collections and **the only one that created its own collection** — Rome, Russia and India were
   empty nodes waiting for a tree and China had one already, where Egypt had nothing, so the collection node,
   its tree and its `COLL_THEME` hue ship with the plan. The next card to write is the lowest `eg-NNN` not
-  yet in `data.js`; see the "ANCIENT EGYPT" bullet under "Generating cards & glossary entries". **No card
-  has been written yet.** Not part of the site.
+  yet in `data.js`; see the "ANCIENT EGYPT" bullet under "Generating cards & glossary entries". **`eg-001`
+  to `eg-010` have shipped** (Sep 2026) — the opening of `eg-prehistory` — so the collection is live and
+  its 25 empty decks are coming-soon automatically, `isComingSoon` being true for a node holding no card.
+  **Three of its first ten lines were retitled while writing**, which is what the plan's own rule asks for,
+  and the plan's "Retitled while writing" section gives each reason: `eg-001` is answered by **`Kemet`**
+  because `Ancient_Egypt` is already a cited glossary term that `wh-201` cards, `eg-007` by **`Western
+  Desert`** because `Deshret` is Wikipedia's article on the Red Crown rather than on the desert, and
+  `eg-009` by **`Kharga Oasis`** because "the oases" is a description rather than a term. Not part of the
+  site.
 - `docs/japan-card-plan.md` — the **1000-card running order for the Japan collection** (`japan`): every
   card's number, topic and deck, fixed in advance across 9 decks and 34 leaf decks. The tenth of the
   planned collections and the third (after Egypt and the Second World War) to **create its own
@@ -1155,7 +1352,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE COMMA ENDS AN AUTHOR FIELD, NOT THE FULL STOP.** A book's title is italicised rather than
     quoted, so a quoted-title pattern cannot see it and a full-stop fallback reads an INITIAL as the
     whole name — three citations of one book filed under a scholar named for a letter. **A citation
-    OPENING on its title has no author at all.**
+    OPENING on its title has no author at all — BUT ONLY WHERE THAT TITLE IS QUOTED** (Sep 2026, on the
+    Russia collection). The guard tests `^["“]`, and an ANONYMOUS BOOK opens on an ITALICISED title, so
+    three citations of the Primary Chronicle on one card were filed under an author called *Chronique
+    dite de Nestor*. The fix is the one the list already uses for such works — they go in `ANCIENT`
+    beside `the anglo-saxon chronicle` — rather than widening the guard to italics, which would change
+    what every card in the corpus counts as an author. **A medieval WITNESS belongs there too**: `leo
+    the deacon`, `liudprand of cremona` and `constantine vii porphyrogenitus` were added with it, on
+    Ibn Battuta's precedent, three passages of one witness being the shape the list exists to excuse.
   · **AND IT CHECKS A `card.quote` AGAINST THE BOOK IT NAMES, WORD FOR WORD.** `test-card-quote.js`
     asserts the placement and the address and neither of them the WORDS, so a quotation can be
     re-punctuated, re-worded or elided across a gap and still render perfectly under a link to the real
@@ -1434,7 +1638,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.41 MB and 49,837 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.41 MB and 49,843 lines is hard to find your way around, so this
   lists its 193 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -5862,6 +6066,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     half: revealing the answer opens the answer box UNDER the band, so the working stays where it was
     rather than being pushed away or written over. It is `aria-hidden` and takes no focus — there is
     nothing in it to read, and what goes on it is ink on the marker's own canvas rather than text.
+    **AND ON A CARD TYPE WHOSE BACK DRAWS ITS OWN FRONT, THE BAND IS WHAT MADE A DEAD SELECTOR VISIBLE**
+    (Sep 2026, on a bug report that "the question side of chinese vocabulary cards turns invisible" once
+    the marker is on). A `{{FrontSide}}` back redraws the question itself, so
+    `.study-card:has(.uc-back.uc-hasfront) > .label, … > .question` hides the shell's copy of both — and
+    the `.label` half had addressed NOTHING since the `q-head` restructure moved the label to
+    `.q-head > .q-lead > .label`. **A selector written against a DOM shape goes stale in silence when the
+    shape moves**, and this one stayed invisible because the orphaned "Question" heading still landed
+    directly above the front the back redraws. The band opening between the two is what exposed it: the
+    card then read as *Question* over nine centimetres of nothing, with the question below the band.
+    **THE BAND IS RIGHT TO STAY WHERE IT IS AND MUST NOT BE MOVED OR HIDDEN AT REVEAL** — the reader's
+    working is on it, and the ink is in PAGE coordinates on a canvas over the whole page, so a band that
+    moved or vanished would orphan the very strokes it is holding. The HEADING is what had to go. The
+    curated path is untouched, a curated card having no `.uc-back` at all.
   · **`WB.enabled` (the pen is down) and `WB.panelOpen` (the tools are showing) are TWO states.** The
     marker button only opens and closes the panel; what puts the pen down is **choosing a tool inside
     it**. **Opening the tools selects NOTHING** — `enabled` lays a canvas over the whole visible page, so
@@ -6498,9 +6715,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - Enforcement: `node .claude/check-style.js` reports violations; `--fix` applies the safe ones (it masks the proper-name
   exceptions, skips plain-text fields and the glossary alias sections). Run it after bulk content additions. **Card text
   edits invalidate baked narration hashes — re-run `build-tts.js` for all four narrators after a style pass.**
-  It reads FOUR files now: rules 1–3 over `data.js` + `glossary.js` as before, and **rule 4 (BCE/CE) over those
-  plus `artefacts.js` and `countries.js`**, which are prose a reader reads and were the last two files still
-  saying "1500 BC". Two masks are what make `--fix` safe to run at all and neither may be dropped: the
+  **READ ITS `FILES` LIST RATHER THAN COUNTING THEM HERE** — this line said FOUR for a year while the list
+  grew to seven and then to twenty-three. What is a RULE rather than a number: rules 1–3 are a card's or a
+  term's own conventions and run over the card and glossary files; **rule 4 (BCE/CE) additionally sweeps
+  `artefacts.js`, `countries.js` and `crossword.js`** (the `ERA_ONLY` set), which are prose a reader reads
+  and were the last files still saying "1500 BC".
+  **AND `data-extra/<collection>.js` WAS MISSING FROM IT FOR AS LONG AS THE CARD SPLIT EXISTED** (added Sep
+  2026). `abstract`, `why` and a card's `image` moved into those sixteen files, so the checker went on
+  sweeping `data.js` — a question, an answer and a date line — and **reported a clean pass over the
+  MAJORITY of the site's text**: 261 findings were standing in the heavy halves the day it was added,
+  across every collection that has shipped a card. It is the fault `glossary-extra.js` and
+  `artefacts-extra.js` each had and each fixed, arriving a third time in the one file nobody thought to
+  add, and **the directory is READ rather than listed** so a collection added later is swept with nobody
+  remembering. All four rules bind there, unlike the two `-extra` files: a card's abstract is a card's own
+  prose. **The remaining backlog is a content pass of its own, per collection** — run it for the figure
+  rather than quoting that 261. Two masks are what make `--fix` safe to run at all and neither may be dropped: the
   CITATIONS (three spellings now — a card's `"sources":[…]`, glossary.js's whole `GLOSSARY_SOURCES` block, and
   artefacts.js's unquoted `sources: [`), and any **URL**, since a Commons file really is called
   `…c_2700_BC_(10465349433).jpg` and renaming it in an href breaks the picture.
@@ -6603,13 +6832,21 @@ the end of a successful add and print the candidates, their licences, their size
   glossary terms and one artefact today, most of them abstract concepts and living scholars — say so in the
   commit message rather than leaving the gap looking like an oversight. `--no-image` skips the lookup for a
   batch run with no network.
-· **WHEN `upload.wikimedia.org` RATE-LIMITS, `Special:FilePath` STILL SERVES THE FILE** (Aug 2026) —
-  `https://commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=900`, or
-  `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=900`, and the file DESCRIPTION page keeps working
-  throughout, which is where the licence and author are read from. **Use those to LOOK at a
-  candidate**; the `src` written into the card stays the normal `/thumb/…/1920px-…` URL, the limit
-  being this container's and not a reader's. **A host that will not serve a picture is a reason to
-  keep trying or to ship without one, never to install one unseen.**
+· **A THUMBNAIL WIDTH MUST COME FROM WIKIMEDIA'S OWN LIST, AND THIS BULLET RECOMMENDED A WIDTH THAT IS
+  NOW REFUSED** (corrected Sep 2026). Commons serves a thumbnail only at **20, 40, 60, 120, 250, 330,
+  500, 960, 1280, 1920 or 3840** pixels and answers anything else **400**, naming the list at
+  `w.wiki/GHai` — so the `?width=900` this bullet advised, and `800` and `640` beside it, are dead, while
+  `1280` is served on first request. **A COMMONS FETCH THAT FAILS IS A SIZE QUESTION BEFORE IT IS A RATE
+  QUESTION: READ THE ERROR BODY.** A 400 names the rule and a 429 says *too many requests*, and treating
+  the two alike is how a working host is written off; it cost a picture pass its afternoon, recorded here
+  first as throttling.
+  **AND A FILE NARROWER THAN THE WIDTH ASKED FOR HAS NO THUMBNAIL AT ALL** — MediaWiki will not upscale,
+  so `iiurlwidth=1280` on an 829-pixel original hands back the ORIGINAL url under `thumburl`, flagged
+  `thumbnail_unscaled`, and the original is the path that really is rate-limited. **Drop to the next
+  listed width DOWN.**
+  The file DESCRIPTION page keeps working throughout, which is where the licence and author are read
+  from. **A host that will not serve a picture is a reason to keep trying or to ship without one, never
+  to install one unseen.**
 · **AND THE `src` IS COPIED FROM THE API, NEVER BUILT BY HAND** (Sep 2026). An upload URL carries a
   two-character shard — `…/commons/0/07/<FILE>` — which is the first characters of the file name's MD5
   and CANNOT be guessed; a hand-typed one is a 404 on a card that otherwise looks finished. Ask
@@ -6618,7 +6855,7 @@ the end of a successful add and print the candidates, their licences, their size
   **AND THE HOST IT ANSWERS WITH HAS CHANGED, SO NEVER GREP FOR ONE** (Sep 2026). `thumburl` now
   returns **`thumb.wikimedia.org`** where it used to return `upload.wikimedia.org`; both resolve, both
   serve byte-identical files, and `img-src` is `https:` so the CSP does not care. Measured over the
-  corpus: **2,908 cards on the old host and 65 on the new one**, the 65 being the last three picture
+  corpus: **3,064 cards on the old host and 71 on the new one**, the 71 being the most recent picture
   batches. **Nothing is rewritten** — overriding the API's own answer on a consistency preference is
   how a working URL becomes a broken one — so a sweep for `upload.wikimedia.org` silently misses those
   65 and will miss more with every batch. **Match on `wikimedia.org` or on `/wikipedia/commons/`.**
@@ -6704,12 +6941,12 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 600 cards, contiguous — next is `wh-601` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 400 cards, contiguous — next is `rm-401` |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 500 cards, contiguous — next is `rm-501` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
-| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 10 cards, contiguous — next is `ru-011` |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 100 cards, contiguous — next is `ru-101` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 259 cards, `cnh-001` to `cnh-260` with `cnh-070` retired in Sep 2026 — next is `cnh-261`; the collection is open to study |
-| Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
+| Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | 10 cards, contiguous — next is `eg-011` |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | 160 cards, contiguous — next is `ww2-161` |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
@@ -6735,7 +6972,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (310 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (313 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7711,7 +7948,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 310 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 313 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -8031,7 +8268,7 @@ division-capital city tier are inert dead code.
     figures (Aug 2026). **Re-run after touching `acctSelfView` / `showcaseHTML` / `openCollectionWin` /
     `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,
-    **bury siblings** and **one card per cloze**, 228 assertions in five parts. **Re-run after touching
+    **bury siblings** and **one card per cloze**, 229 assertions in five parts. **Re-run after touching
     the CARD TYPES block, `cardTypeSideHTML` / `ensureCardTypeStyle` / `cardTypeFieldGetter` /
     `.uc-hasfront` / `uCardSanitize` / `uDeckSanitizeMeta` / `typeCards` / `uCardIdFor` / `uDeckStudyIds`
     / `clozeMark` / `clozeOrds` / `clozeOrd` / `CLOZE_RX` / `type.cloze` / `isBuried` / `buryCard` /
