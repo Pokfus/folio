@@ -3456,8 +3456,9 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | batch | deck | notes (shipped order) | corrected | read, left | deleted | deck-level | tool changes |
 |---|---|---|---|---|---|---|---|
 | S1 | A2 | #0 `como` – #29 `la persona` | 25 | 1 (`realmente`) | 4 (`como`, `cuando`, `la vez`, `donde`) | names, British, usage switched on for A2 (189 further cards touched by them alone) | `exEn`, `dropDup`; `build_deck.py`'s -ír imperative |
+| S2 | A2 | #30 `dentro` – #57 `el oído` | 27 | 1 (`quizás`) | 0 | name table widened on A1 and A2 (6 A1 cards, 6 A2 cards outside the batch) | `el/la` headword bold fix |
 
-Counts are measured against the shipped file by card id (`git show HEAD:decks/…` against the working copy,
+Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
 entries, `realmente` (changed only by the name pass) and 189 cards outside the batch changed only by the
 three deck-level passes. An index-by-index comparison is misaligned by the deletions, so ids are the key.
@@ -3546,6 +3547,52 @@ over three sentences about China, `encantar` glossed "to charm" where the card's
 light off, `la cabina` an aeroplane's cabin over three telephone boxes. **`check-decks.js` fails on HEAD**
 with a 30-second timeout waiting for `[data-uadd]` — the Collections page's add button has moved since it
 was written — so it reports nothing about any deck at present; not fixed here, and worth a session of its own.
+
+### S2 — DELE A2, notes #30–#57 (Sep 2026)
+
+Measured against the S1 commit by card id: **A2 33 changed, 462 untouched** — 27 record entries and 6 cards
+outside the batch touched only by the widened name table (`quizás`, read and left, is unchanged) — and **A1 7
+changed, 485 untouched**, all of them the name repair below.
+
+**THE WORST SHAPE AGAIN WAS A DIFFERENT WORD SHARING THE LETTERS, and four cards had it**: `la lista` was
+illustrated twice by the adjective `listo` (*la cena esté lista*, *¿estáis listas?*); `el oído` twice by the
+participle of `oír` (*haber oído*, *ser oída*); `medio` once by the noun `medios`, "means", mistranslated as
+"proper methods"; and `el/la bebé`'s *su bebe* lost its accent and so bolded the verb `beber`. Each
+coincidence now sits in Forms. **`incluso, inclusa` taught a word nobody uses**: as an adjective, "enclosed",
+it is archaic, and `inclusa` is not its feminine but an old noun for a foundling home, while every example
+was the adverb *incluso*, "even" — so the headword is `incluso` alone.
+
+**THE MISSING-PHRASE CLASS AGAIN**, and here it was the word's main use more than once: `dejar` without
+*dejar de*, "to stop doing" (two of its own three examples) or "to let"; `seguir` without *seguir* + gerund,
+"still"; `mayor` without "older", *mi hermano mayor*; `igual` without *me da igual*; `adelante` without
+*¡adelante!*; `aunque` without the indicative/subjunctive contrast that is the whole rule of the word.
+Dictionary dumps on `único`, `además` (eight words for one meaning), `arriba` ("uphill", "upstream") and
+`importante`, whose gloss carried definition fragments — "that cares", "that matters." — full stop included.
+
+**THE DECK'S OWN SPANISH**: `el agua dada` (wants *abierta*), `Deberías de estas` (a typo for *estar*),
+`Aunque yo te digo, tú no lo haces`, `hace un rato atrás` (says "ago" twice), `sólo` with the accent the
+Academy dropped in 2010, `¡Llama a Seguridad!` capitalised mid-sentence, `ya no ama más` ("no longer"
+twice). A mistranslated proverb (*Las personas que aman a Dios mueren jóvenes*, "whom the gods love") and
+`las seguridades`, a plural nobody uses, went too. **All four conjugation tables in the batch (`dejar`,
+`encontrarse`, `morir`, `seguir`) are right**, including the stem changes and `encontrémonos`.
+
+**THE NAME PASS WAS SPLITTING SENTENCES, IN A1 AS WELL AS A2.** Tatoeba's Spanish side often renders Mary and
+John as *María* and *Juan*, so a table renaming only the English names produced *Quizá Carlos no quiere que
+encontremos a María* over "Maybe Carlos doesn't want us to find Ana" — three such sentences in A1 and five in
+A2. `María`, `Maria`, `Marie` and `Juan` are now in both decks' tables. **And the pass had renamed a real
+person**: Bob → Pablo made A1's *¿Cuál es tu canción favorita de Pablo Dylan?*; that sentence is dropped from
+`la canción`. **A blanket name table cannot tell a character from a celebrity** — grep the output for a
+surname after a renamed first name after any change to the table.
+
+**A BOLDING BUG IN `spanish-fix.js` ITSELF, FOUND BY READING THE OUTPUT**: a headword of the form `el/la
+bebé` was split on the slash before the article came off, so `el` became a bold target and an added *Ana tuvo
+un bebé el mes pasado* came back with *el* marked. The two-gender article is now stripped first. Nothing
+reported it — the example did contain its headword — which is why the batch's own cards are printed and
+read after every apply, not just counted.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded examples 0 in A1 (1,478) and A2 (1,473).
+`check-senses --deck=DELE-A2` falls from 80 to 71; the one card of this batch still on it, `encontrarse`, is a
+false positive — "met" against the gloss's "meet", the checker not stemming.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

@@ -2,7 +2,7 @@
  "why": "The record of every hand edit to the DELE Spanish decks. Applied by spanish-fix.js; see that file's header for what an entry may carry and why the record exists at all. DELE A1 WAS READ IN FULL in Sep 2026, one card at a time in batches of ten - all 493 of them - and this is what that pass changed: 486 cards carry a correction and 8 were read and left alone. The counts in the deck's own description (220 nouns with their article, 63 feminine pairs) are the GENERATOR's and were deliberately not recomputed: they use categories run.py knows and this record cannot reproduce, and a figure quietly rewritten to a different rule is worse than one left as it was. The word count IS maintained, through the descSub chain.",
  "decks": {
   "delea1": {
-   "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator. It moved once more when the DEFINITE and INDEFINITE article cards were folded together into one: 493 to 492. Every figure in the chain is kept, so the record still works on a deck freshly rebuilt from the generator.",
+   "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator. It moved once more when the DEFINITE and INDEFINITE article cards were folded together into one: 493 to 492. Every figure in the chain is kept, so the record still works on a deck freshly rebuilt from the generator. NAME TABLE WIDENED (Sep 2026, DELE A2 batch S2): Tatoeba's Spanish side often renders Mary and John as María and Juan, so a table renaming only the English names split a sentence in two - 'Quizá Carlos no quiere que encontremos a María' over 'Maybe Carlos doesn't want us to find Ana'. María, Maria, Marie and Juan are now renamed on both sides.",
    "subtitle": "492 words · both directions, as two cards per word",
    "descSub": [
     [
@@ -102,6 +102,22 @@
     [
      "Brown",
      "Moreno"
+    ],
+    [
+     "María",
+     "Ana"
+    ],
+    [
+     "Maria",
+     "Ana"
+    ],
+    [
+     "Marie",
+     "Ana"
+    ],
+    [
+     "Juan",
+     "Javier"
     ]
    ],
    "glossMode": "both",
@@ -302,7 +318,7 @@
    ]
   },
   "delea2": {
-   "why": "The A2 read began in Sep 2026, in batches of twenty to thirty cards in deck order. The deck-level passes A1 already carries are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast (Tom alone appears 186 times in A2's English), its American spellings and its American usage. Ann is added to the name table, the A2 sentences carrying her where A1's did not. dropDup removes four cards A1 now teaches — como, cuando and donde were INSERTED by the A1 review after A2 had been built, and la vez was in both levels already — which is exactly what a rebuild of A2 against today's A1 would do, since the generator excludes every word the shipped lower decks hold. The counts of nouns (256), feminine pairs (70), verbs (111) and reflexives (31) are the GENERATOR's and are deliberately not recomputed, on A1's reasoning; the word count and the example-sentence claim are corrected, and the sentence adding the two levels together is taken out, a combined figure being one that goes wrong whenever either deck moves. The example claim was already wrong when the deck shipped: it said three sentences for 496 of 499 words where the file had 487, and now reads 484 of 495, with cabeza brought up to three and the four dropped cards having had three each.",
+   "why": "The A2 read began in Sep 2026, in batches of twenty to thirty cards in deck order. The deck-level passes A1 already carries are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast (Tom alone appears 186 times in A2's English), its American spellings and its American usage. Ann is added to the name table, the A2 sentences carrying her where A1's did not. dropDup removes four cards A1 now teaches — como, cuando and donde were INSERTED by the A1 review after A2 had been built, and la vez was in both levels already — which is exactly what a rebuild of A2 against today's A1 would do, since the generator excludes every word the shipped lower decks hold. The counts of nouns (256), feminine pairs (70), verbs (111) and reflexives (31) are the GENERATOR's and are deliberately not recomputed, on A1's reasoning; the word count and the example-sentence claim are corrected, and the sentence adding the two levels together is taken out, a combined figure being one that goes wrong whenever either deck moves. The example claim was already wrong when the deck shipped: it said three sentences for 496 of 499 words where the file had 487, and now reads 484 of 495, with cabeza brought up to three and the four dropped cards having had three each. The same widening of the name table as A1's (batch S2): five A2 sentences said María in the Spanish and Ana in the English. Batch S2 brought abajo up to three examples: 485 of 495.",
    "subtitle": "495 more words, none of them in A1 · both directions, as two cards per word",
    "dropDup": {
     "como": "delea1",
@@ -325,7 +341,7 @@
     ],
     [
      "Every word also carries real example sentences, three of them for 496 of the 499 and one or two where the corpus had no more,",
-     "Every word also carries example sentences, three of them for 484 of the 495 and one or two where the corpus had no more,"
+     "Every word also carries example sentences, three of them for 485 of the 495 and one or two where the corpus had no more,"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -334,6 +350,10 @@
     [
      "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR.",
      "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR, except those written for this deck."
+    ],
+    [
+     "three of them for 484 of the 495",
+     "three of them for 485 of the 495"
     ]
    ],
    "exNames": [
@@ -404,6 +424,22 @@
     [
      "Ann",
      "Ana"
+    ],
+    [
+     "María",
+     "Ana"
+    ],
+    [
+     "Maria",
+     "Ana"
+    ],
+    [
+     "Marie",
+     "Ana"
+    ],
+    [
+     "Juan",
+     "Javier"
     ]
    ],
    "exBritish": true,
@@ -8637,7 +8673,7 @@
    ]
   },
   "delea1/la canción": {
-   "why": "Its first example is clumsy Spanish - '¿Cuál es tu letra de una canción favorita?' for 'what's your favourite song lyric' - and its third asks the same question again about Bob Dylan. The verb it goes with has a card and neither pointed at the other. The verb cross-reference in Forms then made cantar a bold target and the first example marked it, which is why the tool now reports an example whose only bolded word is another card's headword.",
+   "why": "Its first example is clumsy Spanish - '¿Cuál es tu letra de una canción favorita?' for 'what's your favourite song lyric' - and its third asks the same question again about Bob Dylan. The verb it goes with has a card and neither pointed at the other. The verb cross-reference in Forms then made cantar a bold target and the first example marked it, which is why the tool now reports an example whose only bolded word is another card's headword. THE NAME PASS HAD MADE BOB DYLAN 'PABLO DYLAN' (found in DELE A2 batch S2): the table renames Bob to Pablo wherever it stands, and a real person's name is not a character in an example. The sentence goes, and a fresh one takes its place.",
    "senses": [
     [
      "noun, feminine",
@@ -8657,12 +8693,17 @@
     ]
    ],
    "dropEx": [
-    "¿Cuál es tu letra de una canción favorita?"
+    "¿Cuál es tu letra de una canción favorita?",
+    "Pablo Dylan"
    ],
    "ex": [
     [
      "Esta canción me encanta.",
      "I love this song."
+    ],
+    [
+     "Esta canción es de los años ochenta.",
+     "This song is from the eighties."
     ]
    ],
    "rebold": true,
@@ -16329,6 +16370,823 @@
      "I was the happiest person in the world."
     ]
    ]
+  },
+  "delea2/dentro": {
+   "why": "The gloss gave only the place sense, where one of the three examples was dentro de for time — 'in an hour' — which is how an A2 reader meets it most. 'no dentro de mucho' is a calque of 'before long' rather than Spanish. The third example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "inside, indoors"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dentro de — inside (dentro de la caja)",
+      "dentro de — in, within (time: dentro de una hora)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no dentro de mucho",
+    "cerrada con llave desde dentro"
+   ],
+   "ex": [
+    [
+     "Los niños juegan dentro porque llueve.",
+     "The children are playing inside because it's raining."
+    ],
+    [
+     "El móvil está dentro de mi bolso.",
+     "My mobile is in my bag."
+    ]
+   ]
+  },
+  "delea2/hacia": {
+   "why": "'toward' and 'towards' are one word spelt two ways, the first American; 'around' and 'about' are the time sense. All three examples were also A1 sentences, so all three are replaced, one per sense. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "preposition",
+     [
+      "towards",
+      "at about (time: hacia las nueve)",
+      "towards (a feeling for someone: respeto hacia ella)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "mira hacia el sur",
+    "Miró hacia la izquierda",
+    "no vuelvas a mirar hacia aquí"
+   ],
+   "ex": [
+    [
+     "Caminamos hacia el centro de la ciudad.",
+     "We walked towards the city centre."
+    ],
+    [
+     "Llegaremos hacia las nueve.",
+     "We'll arrive at about nine."
+    ],
+    [
+     "Tengo mucho respeto hacia ella.",
+     "I have a lot of respect for her."
+    ]
+   ]
+  },
+  "delea2/la suerte": {
+   "why": "'lot' is a sense only in echar a suertes — to draw lots — which is the second example and is not A2 Spanish. The phrases a reader does need, ¡buena suerte!, tener suerte and por suerte, were not named. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "luck",
+      "fate, fortune"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡(buena) suerte! — good luck!",
+      "tener suerte — to be lucky",
+      "por suerte — luckily"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El siete es un número de la suerte.",
+    "Echémoslo a suertes."
+   ],
+   "ex": [
+    [
+     "¡Buena suerte en el examen!",
+     "Good luck in the exam!"
+    ],
+    [
+     "Por suerte, no llovió.",
+     "Luckily, it didn't rain."
+    ]
+   ]
+  },
+  "delea2/dejar": {
+   "why": "The gloss missed the two uses an A2 reader needs most: 'to let' (mis padres no me dejan salir) and dejar de + infinitive, 'to stop doing', which two of the three examples actually were. All three were also A1 sentences, and the third, 'el agua dada', is not Spanish (it wants abierta). SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to leave (something somewhere, or someone)",
+      "to let, to allow (dejar + infinitive)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dejar de + infinitive — to stop (doing something)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Acaba de dejar de llover",
+    "dejó de fumar",
+    "el agua dada"
+   ],
+   "ex": [
+    [
+     "He dejado las llaves en la mesa.",
+     "I've left the keys on the table."
+    ],
+    [
+     "Mis padres no me dejan salir por la noche.",
+     "My parents don't let me go out at night."
+    ],
+    [
+     "Mi padre dejó de fumar hace años.",
+     "My father stopped smoking years ago."
+    ]
+   ]
+  },
+  "delea2/importante": {
+   "why": "'that cares' and 'that matters.' are fragments of a dictionary definition, full stop included, standing as translations. The examples are right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "important"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "lo importante — the important thing"
+     ]
+    ]
+   ]
+  },
+  "delea2/el miedo": {
+   "why": "Two of the three examples were dar miedo, one construction twice, and both were also A1 sentences; tener miedo, the way a reader says they are afraid, was not shown. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "fear"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tener miedo (de / a) — to be afraid (of)",
+      "me da miedo — it frightens me, I'm scared of it"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no le dan miedo las serpientes",
+    "les da miedo el fuego"
+   ],
+   "ex": [
+    [
+     "Tengo miedo a la oscuridad.",
+     "I'm afraid of the dark."
+    ],
+    [
+     "A mi hermana le dan miedo las arañas.",
+     "My sister is scared of spiders."
+    ]
+   ]
+  },
+  "delea2/adelante": {
+   "why": "Two of the three examples were de ahora en adelante, and the first was an awkward calque ('dos kilómetros hacia adelante'). ¡Adelante! — 'come in', 'go ahead' — which a reader hears at every door, was nowhere.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "forward, ahead"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡adelante! — come in!, go ahead!",
+      "de ahora en adelante — from now on",
+      "más adelante — later on, further on"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "a dos kilómetros hacia adelante",
+    "Tendrás que estudiar más de ahora en adelante."
+   ],
+   "ex": [
+    [
+     "—¿Se puede? —¡Adelante!",
+     "\"May I come in?\" \"Come in!\""
+    ],
+    [
+     "Da un paso adelante.",
+     "Take a step forward."
+    ]
+   ]
+  },
+  "delea2/encontrarse": {
+   "why": "The gloss gives three senses and all three examples showed one, 'to meet' — and two of them were also A1 sentences. ¿Cómo te encuentras? and se encuentra en, the other two, are both everyday A2 Spanish. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to meet, to run into (encontrarse con alguien)",
+      "to feel (¿cómo te encuentras?)",
+      "to be (located)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "con Ana en el desayuno",
+    "con quien se encontraba"
+   ],
+   "ex": [
+    [
+     "¿Cómo te encuentras hoy?",
+     "How are you feeling today?"
+    ],
+    [
+     "El museo se encuentra en el centro.",
+     "The museum is in the centre."
+    ]
+   ]
+  },
+  "delea2/la mano": {
+   "why": "'front foot' is an animal's forefoot and not what an A2 reader needs, while the card said nothing about the one fact that trips everybody: la mano is feminine though it ends in -o. The first example translated a singular as 'hands', and the third is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "hand"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dar la mano — to shake hands",
+      "a mano — by hand",
+      "de segunda mano — second-hand"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las manos"
+    ],
+    [
+     "gender",
+     "feminine, though it ends in -o: la mano derecha"
+    ]
+   ],
+   "dropEx": [
+    "le está tomando la mano",
+    "La niña tomó la mano de su madre."
+   ],
+   "ex": [
+    [
+     "Lávate las manos antes de comer.",
+     "Wash your hands before you eat."
+    ],
+    [
+     "Me dio la mano.",
+     "He shook my hand."
+    ]
+   ]
+  },
+  "delea2/único, única": {
+   "why": "Five English words for two senses. Two of the three examples were 'the only X', and 'One can but try' is an archaism standing for 'the only thing we can do is try'; the unique sense had no example.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "only (el único, lo único — the only one, the only thing)",
+      "unique"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las fotografías son las únicas pruebas"
+   ],
+   "exEn": [
+    [
+     "Lo único que se puede hacer",
+     "The only thing we can do is try."
+    ]
+   ],
+   "ex": [
+    [
+     "Es una oportunidad única.",
+     "It's a unique opportunity."
+    ]
+   ]
+  },
+  "delea2/incluso, inclusa": {
+   "spanish": "incluso",
+   "word": "incluso",
+   "why": "THE CARD TAUGHT A WORD NOBODY USES AND ITS EXAMPLES TAUGHT ANOTHER. incluso as an adjective, 'enclosed', is archaic, and inclusa is not its feminine but a noun, an old word for a foundling home; every example is the adverb incluso, 'even', which is the word. The headword loses its false feminine and its plurals, and two examples that were also A1 sentences are replaced. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "even",
+      "including"
+     ]
+    ]
+   ],
+   "forms": [],
+   "dropEx": [
+    "incluso le gusta la pizza fría",
+    "incluso en lugares oscuros"
+   ],
+   "ex": [
+    [
+     "Trabaja incluso los domingos.",
+     "She works even on Sundays."
+    ],
+    [
+     "Vinieron todos, incluso mi abuela.",
+     "Everybody came, even my grandmother."
+    ]
+   ]
+  },
+  "delea2/aunque": {
+   "why": "A dictionary's list — 'albeit', 'irrespective of' — where the card needs the one rule: aunque with the indicative states a fact (although), with the subjunctive a possibility (even if). Two of the examples were the subjunctive; the third, 'Aunque yo te digo, tú no lo haces', is not idiomatic Spanish. So one subjunctive stays and a matched pair is added.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "although, even though (+ indicative: aunque llueve)",
+      "even if (+ subjunctive: aunque llueva)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "aunque no lo parezca",
+    "Aunque yo te digo"
+   ],
+   "ex": [
+    [
+     "Aunque llueve, vamos a salir.",
+     "Although it's raining, we're going out."
+    ],
+    [
+     "Iré aunque llueva.",
+     "I'll go even if it rains."
+    ]
+   ]
+  },
+  "delea2/arriba": {
+   "why": "'uphill' and 'upstream' are dictionary senses no A2 reader needs, and all three examples were 'upstairs', one of them an A1 sentence and one carrying an English name and a tense its Spanish does not have. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "up, above",
+      "upstairs"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de arriba abajo — from top to bottom"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mi habitación está en el piso de arriba.",
+    "fue al teléfono del piso de arriba"
+   ],
+   "ex": [
+    [
+     "Mira hacia arriba.",
+     "Look up."
+    ],
+    [
+     "Estoy mojado de arriba abajo.",
+     "I'm soaked from head to toe."
+    ]
+   ]
+  },
+  "delea2/la guerra": {
+   "why": "The first and third examples said the same thing — no more wars — and the third wrote sólo, whose accent the Academy dropped in 2010.",
+   "dropEx": [
+    "Si tan sólo no hubiera"
+   ],
+   "ex": [
+    [
+     "Mi abuelo luchó en la guerra.",
+     "My grandfather fought in the war."
+    ]
+   ]
+  },
+  "delea2/igual": {
+   "why": "The gloss was a dictionary definition in four parts, and none of it said me da igual — 'I don't mind' — though that is the third example and among the commonest things said in Spain. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "equal",
+      "the same (igual que — the same as)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "me da igual — I don't mind, it's all the same to me",
+      "al igual que — like, just as"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Él no es alto, al igual que yo."
+   ],
+   "ex": [
+    [
+     "Tu bolso es igual que el mío.",
+     "Your bag is the same as mine."
+    ]
+   ]
+  },
+  "delea2/abajo": {
+   "why": "Two examples where the corpus had no third, and the second is an awkward rendering of 'he looked down at his shoes'. It stays, being Spanish, and a third is added.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "down, downwards",
+      "downstairs, below"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Vivo dos pisos más abajo.",
+     "I live two floors down."
+    ]
+   ]
+  },
+  "delea2/fuerte": {
+   "why": "'loud' is in the gloss and in no example; the first two examples were más fuerte que, one construction twice, and the third is also an A1 sentence. The adverb — habla más fuerte — was not named. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "strong",
+      "loud (la música está muy fuerte)"
+     ]
+    ],
+    [
+     "adverb",
+     [
+      "hard, loudly (habla más fuerte)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "son más fuertes que nosotros",
+    "le gusta el café fuerte"
+   ],
+   "exEn": [
+    [
+     "El león es más fuerte que el lobo.",
+     "The lion is stronger than the wolf."
+    ]
+   ],
+   "ex": [
+    [
+     "La música está muy fuerte.",
+     "The music is very loud."
+    ],
+    [
+     "Habla más fuerte, por favor.",
+     "Speak louder, please."
+    ]
+   ]
+  },
+  "delea2/atrás": {
+   "why": "'hace un rato atrás' says ago twice, a pleonasm the standard language avoids; años atrás is the construction the gloss's 'ago' means. 'back in time' is a definition rather than a translation.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "back, backwards",
+      "behind (quedarse atrás — to be left behind)",
+      "ago (años atrás — years ago)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "hace un rato atrás"
+   ],
+   "ex": [
+    [
+     "Años atrás vivíamos en Toledo.",
+     "Years ago we lived in Toledo."
+    ]
+   ]
+  },
+  "delea2/el/la bebé": {
+   "why": "THE SECOND EXAMPLE WAS SPELT WRONG AND BOLDED THE WRONG WORD: 'su bebe' without its accent is the verb beber, 'drinks', and that is what the card marked. The first example translated papá as 'dada'.",
+   "dropEx": [
+    "Ella cogió a su bebe"
+   ],
+   "exEn": [
+    [
+     "primera palabra de mi bebé",
+     "My baby's first word was \"Dad\"."
+    ]
+   ],
+   "ex": [
+    [
+     "Ana tuvo un bebé el mes pasado.",
+     "Ana had a baby last month."
+    ]
+   ]
+  },
+  "delea2/mayor": {
+   "why": "The gloss led with 'of age' and 'major' and never said 'older' or 'bigger' — the comparative of grande and viejo, which is what mayor is — nor mi hermano mayor, the phrase an A2 reader needs first. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "older, elder (mi hermano mayor)",
+      "bigger, greater (the comparative of grande)",
+      "el mayor, la mayor — the oldest, the biggest"
+     ]
+    ],
+    [
+     "noun, plural",
+     [
+      "los mayores — adults, older people"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la mayor parte — most",
+      "mayor de edad — adult, of age"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Cuál es mayor, Japón o el Reino Unido?"
+   ],
+   "ex": [
+    [
+     "Mi hermano mayor vive en Londres.",
+     "My older brother lives in London."
+    ]
+   ]
+  },
+  "delea2/morir": {
+   "why": "The first example is a mistranslated proverb ('those whom the gods love die young' rendered as 'those who love God') and is also an A1 sentence. morirse de, the everyday form behind the second example, was not named. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to die"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "morirse de (hambre, risa…) — to be dying of (hunger, laughing…)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las personas que aman a Dios mueren jóvenes."
+   ],
+   "ex": [
+    [
+     "Mi abuelo murió en 2010.",
+     "My grandfather died in 2010."
+    ]
+   ]
+  },
+  "delea2/la lista": {
+   "why": "TWO OF THE THREE EXAMPLES WERE A DIFFERENT WORD: 'la cena esté lista' and '¿Estáis listas?' are the adjective listo, 'ready', matched on shared letters. 'roll' and 'stripe' are not A2 senses. The coincidence goes in Forms, where a reader will want it.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "list"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la lista de la compra — the shopping list",
+      "pasar lista — to take the register"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las listas"
+    ],
+    [
+     "also",
+     "lista — feminine of listo, ready: la cena está lista"
+    ]
+   ],
+   "dropEx": [
+    "La cena probablemente esté lista",
+    "Estáis listas"
+   ],
+   "ex": [
+    [
+     "He hecho la lista de la compra.",
+     "I've made the shopping list."
+    ],
+    [
+     "Tengo una lista de cosas que hacer.",
+     "I have a list of things to do."
+    ]
+   ]
+  },
+  "delea2/seguir": {
+   "why": "The gloss had 'to continue' and 'to keep on' with no word on seguir + gerund — sigue lloviendo, 'it's still raining' — which is how the verb is used most. Two of the examples were 'follow someone's advice', and the first is also an A1 sentence; seguir recto, the directions a reader asks for, was missing. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to follow",
+      "to continue, to go on (seguir + gerund: sigue lloviendo — it's still raining)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "seguir (todo) recto — to go straight on"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "seguir los consejos de su maestro",
+    "haber seguido el consejo"
+   ],
+   "ex": [
+    [
+     "Sigue lloviendo.",
+     "It's still raining."
+    ],
+    [
+     "Siga todo recto.",
+     "Go straight on."
+    ]
+   ]
+  },
+  "delea2/medio, media": {
+   "why": "The second example is the noun medios, 'means', mistranslated as 'proper methods', and the gloss said 'half' twice, the second time with a definition. The third is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "half (medio kilo, media hora)",
+      "middle, average (la clase media)"
+     ]
+    ],
+    [
+     "noun, masculine",
+     [
+      "el medio — the middle; means"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "y media — half past (las tres y media)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "por sus propios medios",
+    "La escuela empieza a las ocho y media."
+   ],
+   "ex": [
+    [
+     "Quiero medio kilo de tomates.",
+     "I'd like half a kilo of tomatoes."
+    ],
+    [
+     "Son las tres y media.",
+     "It's half past three."
+    ]
+   ]
+  },
+  "delea2/la seguridad": {
+   "why": "'Deberías de estas más atento' has a typo for estar, and '¡Llama a Seguridad!' capitalises a common noun mid-sentence. The plural las seguridades is a form nobody uses, so it comes out of Forms.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "safety, security",
+      "confidence (seguridad en sí mismo)"
+     ]
+    ]
+   ],
+   "forms": [],
+   "dropEx": [
+    "¡Llama a Seguridad!",
+    "Deberías de estas"
+   ],
+   "ex": [
+    [
+     "La seguridad de los niños es lo más importante.",
+     "The children's safety is what matters most."
+    ],
+    [
+     "Habla con mucha seguridad.",
+     "He speaks with great confidence."
+    ]
+   ]
+  },
+  "delea2/además": {
+   "why": "Eight English words for one meaning. The first example said María in the Spanish and Ana in the English, and 'ya no ama más' says 'no longer' twice. The second and third were both además de; the third's 'not to mention' reverses the emphasis. The second stays, in British English.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "besides, also, what's more"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "además de — as well as, besides"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "ya no ama más",
+    "además de inglés"
+   ],
+   "exEn": [
+    [
+     "Esa tienda vende muchas cosas",
+     "That shop sells many things besides furniture."
+    ]
+   ],
+   "ex": [
+    [
+     "Es barato y, además, está muy cerca.",
+     "It's cheap and, what's more, it's very close."
+    ],
+    [
+     "Además, no tengo tiempo.",
+     "Besides, I don't have time."
+    ]
+   ]
+  },
+  "delea2/el oído": {
+   "why": "TWO OF THE THREE EXAMPLES WERE A DIFFERENT WORD: 'haber oído' and 'puede ser oída' are the past participle of oír, matched on shared letters. That coincidence goes in Forms; the ear and the ear for music get examples.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "ear (inner ear)",
+      "hearing"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tener buen oído — to have a good ear",
+      "al oído — in someone's ear"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los oídos"
+    ],
+    [
+     "also",
+     "oído — past participle of oír: lo he oído"
+    ]
+   ],
+   "dropEx": [
+    "Recuerdo ya haber oído",
+    "puede ser oída"
+   ],
+   "ex": [
+    [
+     "Me duele el oído.",
+     "I've got earache."
+    ],
+    [
+     "Tiene muy buen oído para la música.",
+     "She has a very good ear for music."
+    ]
+   ]
   }
  },
  "insert": {
@@ -16584,7 +17442,8 @@
    "el restaurante"
   ],
   "delea2": [
-   "realmente"
+   "realmente",
+   "quizás"
   ]
  }
 }

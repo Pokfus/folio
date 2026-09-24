@@ -191,7 +191,10 @@ function boldTargets(fix, spanish, formsHTML, conjHTML) {
      reads "before a stressed a-: el agua, las aguas", and stripping there would bold agua on a card about
      the article, which is the opposite of what that row is showing. */
   const INFL = /^(plural|singular|feminine|masculine|comparative)$/i;
-  const add = (s, label) => String(s).split(/[,/·]| or /).map((x) => x.trim())
+  /* `el/la bebé` is a headword too, and splitting on the slash first turned its article into a bold
+     target of its own: an added "Ana tuvo un bebé el mes pasado" came back with `el` marked (DELE A2,
+     batch S2). The two-gender article comes off before the split. */
+  const add = (s, label) => String(s).replace(/(^|,\s*)(el\/la|los\/las)\s+/g, "$1").split(/[,/·]| or /).map((x) => x.trim())
     .map((x) => (INFL.test(String(label || "")) ? x.replace(/^(el|la|los|las)\s+/, "") : x))
     .forEach((x) => { if (x && !/\s/.test(x)) out.add(x); });
   // the headword is a pair as often as a word ("el señor, la señora"), so the article comes off EACH half:
