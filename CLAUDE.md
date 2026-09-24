@@ -405,6 +405,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   can be grown one card at a time over many sessions. See the "ANCIENT GREECE" bullet under "Generating
   cards & glossary entries" for the workflow — the short version is that the next card to write is the
   lowest `gr-NNN` not yet in `data.js`. Not part of the site.
+  · **📖 `docs/greece-refinement-audit.md` — READ BEFORE OPENING ANY REFINEMENT BATCH ON THE
+    COMPLETED COLLECTION.** The brief for auditing all 1,000 cards (Sep 2026, on request): the
+    request tightened into checkable rules, the measured baseline, the six places it collides with a
+    house rule (Think-it-through answers going beyond the card's prose, a 15-year-old register, a
+    tiered source bar of 9/8/7/6/5 by difficulty that costs 1,403 citations, ancient authors and the
+    two-source cap) and the batch plan — four collection-wide sweeps, then about 103 batches of ten.
+    **The decisions in its section 3 come before batch 1.**
   · **📖 `docs/greece-audit-2026-09.md` — READ BEFORE WRITING A `gr-` CARD, and before opening
     any repair batch on the first 500.** The audit of `gr-001`–`gr-500`: the eight dimensions that
     passed, measured rather than assumed; the five that were fixed (276 picture captions carrying
