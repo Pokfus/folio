@@ -43,7 +43,7 @@ window.CHANGELOG = [
     t: "The Ancient Greece collection is finished at a thousand cards",
     items: [
       "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
-      "<b>Ninety new cards</b> \u2014 seventy in Ancient Greece on Greek myth, the return from Troy and worship, and twenty in China from the Eastern Han to the Three Kingdoms \u2014 with eighty-two glossary terms.",
+      "<b>Ninety new cards</b> \u2014 seventy in Ancient Greece on myth, the return from Troy and worship, and twenty in China from the Eastern Han to the Three Kingdoms \u2014 with eighty-two glossary terms.",
       "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
       "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",
       "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades.",
