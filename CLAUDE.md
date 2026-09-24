@@ -5359,6 +5359,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     answers perfectly well — so the filter is in `chronoPool` rather than in `gameCardIdSet`, and **the
     deck's own order is untouched**: `cardStartYear` knows nothing about the flag, which is why this could
     not be done with the existing "timeless" machinery.
+  · **AND ON A GAME-REACHABLE CARD OF A USUALLY-TIMELESS KIND THE DECISION IS NOW COMPULSORY** (Sep 2026,
+    on request: "abstract things that have no reasonable start date, like Divination or Sphere of
+    influence, should never appear in the Timeline minigame"). A sweep of the 774-card pool found **90**
+    dealt as dated events — concepts, practices found in every age, the Greek and Chinese gods and
+    monsters (all sorting at *Theogony*, c. 700 BCE), generic offices and physical places — every one
+    written while the flag was optional, so it was simply never set. They were flagged through
+    `patch-cards.js` (**not `mark-undatable.js`, which rewrites `data.js` from a template of its own** —
+    the fault the card-split bullet warns about), and `add-card.js` now REFUSES a card at or below the bar
+    whose leading tag is in `TIMELESS_KINDS` unless it says `undatable: true` or `false` out loud.
   · **IT ONLY BITES ON A CARD THE GAMES CAN REACH**, so **a card RE-RATED down into the pool needs the
     judgement made about it** — the one way the corpus can quietly regrow an unflagged process, and nothing
     can detect it. Written by `.claude/mark-undatable.js`, accepted by `add-card.js`, carried by
