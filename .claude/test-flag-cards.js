@@ -164,7 +164,10 @@ const server = http.createServer((req, res) => {
   const cq = fs.readFileSync(path.join(__dirname, "check-questions.js"), "utf8");
   ok("check-questions gives it the map card's short range", /const short = isMap \|\| isFlag \|\| isDraw;/.test(cq));
   const cc = fs.readFileSync(path.join(__dirname, "check-cards.js"), "utf8");
-  ok("check-cards knows its picture is its flag", /c\.flagCard === true && c\.answerFlag && c\.answerFlag\.src/.test(cc));
+  /* The condition widened when the DRAW card arrived — its picture is this same flag, shown at the
+     reveal rather than on the front, which is a fact about WHEN it is drawn and not about whether the
+     card has one. The rule asserted here is unchanged. */
+  ok("check-cards knows its picture is its flag", /c\.flagCard === true \|\| c\.drawCard === true\) && c\.answerFlag && c\.answerFlag\.src/.test(cc));
 
   /* ---------- 2. the front says nothing but the flag --------------------------------------- */
   sect("2. the front says nothing but the flag");

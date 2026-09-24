@@ -4,11 +4,17 @@
 
 The **Draw the flags** deck (`flags-draw`), the fourth deck of World Geography and the reverse direction
 of **The flags**. `fl-007` shows Brazil's flag and asks whose it is; `fd-007` names Brazil and asks the
-reader to draw its flag from memory, on a pad, with the marker already at its corner — and then to reveal
-the flag and judge how close they came. It shipped in Sep 2026 on request: *"Make a reverse version of
-each card (similar to language vocabulary cards) where the user is given a small canvas and the floating
-whiteboard marker is pinned to the top right of the canvas. The user must draw the flag from memory and
-can then judge how correct they were."*
+reader to draw its flag from memory, on a canvas with its own pens, colours and a fill — and then to
+reveal the flag and judge how close they came.
+
+It shipped in Sep 2026 on request: *"Make a reverse version of each card (similar to language vocabulary
+cards) where the user is given a small canvas and the floating whiteboard marker is pinned to the top
+right of the canvas. The user must draw the flag from memory and can then judge how correct they were."*
+The pinned marker was the first cut and **was replaced the same day**, on a second request: *"keep the
+floating marker separate, simply put a separate whiteboard menu in the top of the white canvas which can
+only be used within that canvas, and also includes a fill option to fill the whole canvas a particular
+color."* **The Format section below is the reasoning; read it before changing any of it**, because the
+arrangement that was refused is the obvious one.
 
 **233 numbers, 229 writable cards.** The four deferrals are the Flags deck's own, for its own reasons:
 `fd-036` Afghanistan, `fd-171` Western Sahara, `fd-180` New Caledonia and `fd-218` Saint Martin. A card
@@ -56,25 +62,50 @@ before revealing* policy, a gate the reader could never pass.
 ## The format
 
 Built into app.js as `drawCard: true` beside `flagCard`, and specified in the **DRAW CARDS** block there.
-Four things are worth knowing before changing any of it.
 
-- **The pad is a frame, not a second canvas.** The ink is the ordinary floating marker's, on the
-  page-wide whiteboard canvas, exactly as the writing band under an ordinary card's question is. A canvas
-  of its own would need its own pointer handling, undo stack, stylus rule and colour state — four copies
-  of machinery the marker already has.
-- **The marker is pinned just above the pad's top-right corner** (`wbPinTo` / `wbPinApply`), follows it on
-  scroll and resize, is clamped to the viewport, and does not drag while pinned. The pad reserves the
-  strip above itself for it, so it covers nothing the reader needs. The reader's own stored marker
-  position is untouched and comes back on the next card.
-- **The pen goes down by itself.** This is the one place the marker's standing rule that *opening the
-  panel selects nothing* is overridden, and the reason is that here drawing IS the card: a format that
-  does not work until it is configured is a format that looks broken. With the marker switched off in
-  Settings the pad says so in words rather than sitting inert.
-- **The flag's `src` is injected at the reveal and is not in the markup before it** — so a reader who
-  reveals none of them fetches none of them, and the answer is not one devtools press away.
-- **The pad does not move when the answer lands.** The ink is in page coordinates and is not owned by the
-  pad, so anything that shifted the pad would slide the drawing out from under the frame it was drawn in.
-  The revealed flag is appended below it.
+**THE PAD IS ITS OWN CANVAS WITH ITS OWN MENU, AND THIS REVERSED THE FIRST CUT.** The pad began as a
+FRAME over the page-wide floating whiteboard, with the marker pinned to its top-right corner and the pen
+put down for the reader. That reused the marker's pointer handling, undo stack, stylus rule and colour
+state and cost nothing — and it could not answer the request that followed it (Sep 2026: *"keep the
+floating marker separate, simply put a separate whiteboard menu in the top of the white canvas which can
+only be used within that canvas, and also includes a fill option to fill the whole canvas a particular
+color"*). Ink on a page-wide canvas is bounded by nothing, the marker had to be pinned to be reachable at
+all, and there is nowhere in it for a fill to stop. **A bounded surface is a canvas of its own**, so the
+duplication that was refused is now the point.
+
+Six things follow, and each is a decision rather than plumbing.
+
+- **The floating marker is left entirely alone.** Not pinned, not auto-enabled. With its pen down it
+  draws *over* the pad, as it does over everything else on the page, and the pad's menu goes on working —
+  its buttons are real controls the ink layer already hit-tests through to. A pass-through that forwarded
+  presses into the pad was built and refused: it would take away the one thing the floating marker is
+  for, which is annotating anything on the page, a diagram included.
+- **The menu sits on the canvas's top edge**: five colours, a pen, a broad pen, an eraser, **fill**, undo
+  and clear. On a narrow phone it wraps to two rows rather than shrinking its targets.
+- **Fill covers, rather than going underneath.** "Fill the whole canvas a particular color" is literal,
+  and it is undoable, so a mis-press costs one press. Going underneath would be a different tool wearing
+  this one's name — and a reader drawing a flag fills the field first anyway.
+- **The canvas is sized from LAYOUT, never from a rect.** `getBoundingClientRect` is transform-aware and
+  the page's entrance animation scales `.page` for its first third of a second, so a canvas sized from a
+  rect at mount comes out several pixels narrow and **stays** that way: a transform changes no layout box,
+  so the ResizeObserver never fires to correct it. Measured: 349px of canvas inside a 355.6px frame, a
+  white strip down the right of every pad. The same fault the pin had, which is what says to expect it of
+  anything measured at mount on this page.
+- **`touch-action:none` is what lets a finger draw**, at the stated cost that a finger starting inside the
+  pad cannot scroll the page — exactly as on the floating marker's own canvas.
+- **The pad does not move when the answer lands.** The revealed flag is appended below it, at the same
+  width, so the two can be compared at a glance.
+
+**The menu is `aria-hidden` and its controls carry `tabindex="-1"` with it.** That pairing is the point:
+an `aria-hidden` container whose children are still focusable is the one arrangement worse than either
+choice, since a keyboard reader tabs onto a control their screen reader has been told does not exist and
+lands on it silently. Hidden from assistive technology *and* out of the tab order is one statement rather
+than two contradictory ones, and it costs a pointer nothing — which is what this surface needs anyway,
+a tool being unusable from a keyboard on a canvas that cannot be drawn on from one. The question above
+the pad and the answer below it are both real text, which is where this format's accessibility lives.
+
+The tool, colour and size live in a module-level `DP` and are **not stored**: which colour you last drew a
+flag in is a way of working rather than a preference about Folio.
 
 Guarded by `.claude/test-draw-cards.js`.
 

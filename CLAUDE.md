@@ -1219,11 +1219,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **📖 `docs/flags-draw-card-plan.md` — READ BEFORE WRITING AN `fd-` CARD, OR BEFORE TOUCHING THE
   DRAW-CARD FORMAT.** The running order for **Draw the flags** (`flags-draw`), the **fourth deck of World
   Geography** and the Flags deck run backwards: `fl-007` shows Brazil's flag and asks whose it is, `fd-007`
-  names Brazil and asks the reader to draw the flag from memory on a pad, with the marker already at its
-  corner, and then to reveal it and judge how close they came. The twenty-second plan, and the second that
+  names Brazil and asks the reader to draw the flag from memory on a canvas with its own pens, colours and
+  a fill, and then to reveal it and judge how close they came. The twenty-second plan, and the second that
   is a DECK's rather than a collection's. Shipped Sep 2026 on request ("Make a reverse version of each card
-  (similar to language vocabulary cards) where the user is given a small canvas and the floating whiteboard
-  marker is pinned to the top right of the canvas"). **233 numbers, 229 writable, COMPLETE** — the four
+  (similar to language vocabulary cards) where the user is given a small canvas"), and **rebuilt the same
+  day on a second one** ("keep the floating marker separate, simply put a separate whiteboard menu in the
+  top of the white canvas which can only be used within that canvas, and also includes a fill option") —
+  the reasoning is below, and the arrangement that was refused is the obvious one. **233 numbers, 229 writable, COMPLETE** — the four
   deferrals are the Flags deck's own (`fd-036`, `fd-171`, `fd-180`, `fd-218`) and travel by arithmetic
   rather than by a second judgement: a card that asks for a flag to be drawn and then shows it has nothing
   to show. So a card here costs **no research, no glossary work and no picture** — it is a copy.
@@ -1238,16 +1240,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     directions out of one note through its templates and `deckPairNew` lets a reader turn one off; curated
     cards have no note layer, so the reverse has to be a card of its own — and once it is a card, a deck
     is what gives the reader that same choice. `geo-world`'s `COLLECTION_TARGET` went 704 → 937 with it.
+  · **THE PAD IS ITS OWN CANVAS WITH ITS OWN MENU, AND THE FLOATING MARKER IS NOT INVOLVED** (Sep 2026,
+    on request: "keep the floating marker separate, simply put a separate whiteboard menu in the top of
+    the white canvas which can only be used within that canvas, and also includes a fill option to fill
+    the whole canvas a particular color"). **THIS REVERSED THE FIRST CUT AND THE REASON IS WORTH
+    KEEPING**: the pad began as a FRAME over the page-wide whiteboard, which reused the marker's pointer
+    handling, undo stack, stylus rule and colour state and cost nothing — but ink on that canvas is
+    bounded by nothing, the marker had to be PINNED to the pad to be reachable at all, and there is
+    nowhere in it for a FILL to stop. **A bounded surface is a canvas of its own**, so the duplication
+    that was refused is now the point, and `wbPinTo` / `wbPinApply` / `wbPinFrame` / `wbUnpin` and the
+    forced pen-down are all deleted rather than left lying about.
+    **THE TWO DO NOT INTERFERE AND ARE NOT MADE TO COOPERATE.** With the floating pen down its canvas
+    covers the whole visible page, as it does everywhere on the site, so it draws OVER the pad rather
+    than in it, and the pad's menu keeps working — its buttons are real controls `CTL_SEL` already
+    hit-tests through to. A pass-through that forwarded presses into the pad was built and refused: it
+    would take away the one thing the floating marker is for.
+  · **THE CANVAS IS SIZED FROM LAYOUT AND NEVER FROM A RECT** (`frame.clientWidth`). `getBoundingClientRect`
+    is transform-aware and the page's entrance animation SCALES `.page` for its first third of a second,
+    so a canvas sized from a rect at mount comes out several pixels narrow and **stays** that way — a
+    transform changes no layout box, so the ResizeObserver never fires to correct it. Measured: 349px of
+    canvas inside a 355.6px frame, a white strip down the right of every pad. It is the same fault the
+    pin had, which is what says to expect it of anything measured at mount on this page. A POINTER's
+    position is still read off the rect, which is right — client coordinates are in that same space —
+    but scaled back into the canvas's own, so a press during a scale lands where the reader is pointing.
+  · **AND FILL COVERS RATHER THAN GOING UNDERNEATH.** "Fill the whole canvas a particular color" is
+    literal, and it is undoable, so a mis-press costs one press; going underneath would be a different
+    tool wearing this one's name, and a reader drawing a flag fills the field FIRST anyway. `DP` holds
+    the colour, tool and size at module level and is NOT stored: which colour you last drew a flag in is
+    a way of working rather than a preference about Folio, the same call `glossSort` makes.
+  · **THE MENU IS `aria-hidden`, LIKE THE PAD — AND ITS CONTROLS CARRY `tabindex="-1"` WITH IT.** That
+    pairing is the point: an `aria-hidden` container whose children are still FOCUSABLE is the one
+    arrangement worse than either choice, since a keyboard reader tabs onto a control their screen reader
+    has been told does not exist and lands on it silently. Hidden from assistive technology and out of
+    the tab order is ONE statement rather than two contradictory ones, and it costs a pointer nothing —
+    which is what this surface needs anyway, a tool being unusable from a keyboard on a canvas that
+    cannot be drawn on from one. The question above and the answer below are both real text, which is
+    where this format's accessibility actually lives.
   · **THE FORMAT IS BUILT** — see the DRAW CARDS block in app.js for `cardDrawSpec` / `cardDrawHTML` /
-    `cardDrawReveal` / `mountDrawCard` / the pad's styles, and the marker's `wbPinTo` / `wbPinApply` /
-    `wbPinFrame` / `wbUnpin` / `wbDrawForget` beside `wbApplyPos`. Guarded by
+    `cardDrawReveal` / `mountDrawCard` / `DP` / `DP_COLORS` / `DP_SIZES` / `DP_BTNS` / `dpStop`, and the
+    `.draw-pad` / `.dp-tools` / `.dp-frame` / `.dp-canvas` / `.dp-answer` styles. Guarded by
     `.claude/test-draw-cards.js`.
-  · **AND IT PUTS THE PEN BACK THE WAY IT FOUND IT** (`wbDrawPrev` / `wbDrawForget`). `WB.enabled`
-    persists from card to card WITHIN a session, so without this the pen the reader never asked for stays
-    down on the ordinary card after a draw card — the page under an ink canvas and a writing band opened
-    under the question, neither of which they chose. **`hideWBTools` does not cover this**, which is why
-    the suite grades through a queue of two rather than navigating away and back: leaving the study page
-    puts the pen up for its own reasons and would pass whether or not the restore works.
   · **A CARD IS BUILT BY `.claude/add-draw-cards.js`, WHICH HANDS EACH ONE TO `add-card.js`**, for
     `add-flag-cards.js`'s stated reason. **AND THE `why` EXEMPTION WAS THE SAME LESSON A SECOND TIME**: the
     first card was refused for carrying no Think-it-through set, because `whyExempt` knew about a flag card
@@ -1679,8 +1711,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.43 MB and 50,053 lines is hard to find your way around, so this
-  lists its 194 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.43 MB and 50,150 lines is hard to find your way around, so this
+  lists its 195 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -6161,30 +6193,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the END of the toggle's open branch, after `applyWBState()`, or the card would be laid over a panel
     that has not finished drawing. The one thing a reader cannot discover by pressing things is that
     **choosing a tool is what puts the pen down**, the panel opening with nothing selected on purpose.
-  · **…AND ON A DRAW CARD IT IS PINNED TO THE PAD** (`wbPinTo` / `wbPinApply` / `wbPinFrame` / `wbUnpin` /
-    `WB_PIN_GAP` / `.wb-pinned`; Sep 2026, on request: "the floating whiteboard marker is pinned to the
-    top right of the canvas"). A draw card gives the reader a box to draw a flag in and the marker is the
-    only way to draw in it, so leaving it in whichever corner it was last thrown to would put the format's
-    one tool somewhere else on the screen. Pinned it follows the pad, it does not drag, and it REMEMBERS
-    NOTHING — the pin is a fact about the CARD, and the reader's own stored position is untouched
-    underneath it and comes straight back on the next card. Four things.
-    **IT SITS JUST ABOVE THE PAD'S TOP-RIGHT CORNER, NOT INSIDE IT**: inside, a 46px button covers the
-    corner of the very area it is there to draw in, and `.draw-pad`'s top margin reserves the strip for
-    exactly this.
-    **THE FOLLOW IS A FRAME LOOP AND THE THREE LISTENERS IT REPLACES WERE NOT ENOUGH**, which is the fault
-    that shipped for an hour: scroll and resize are only two of the reasons a pad moves, and **the page's
-    own ENTRANCE ANIMATION is a third**. Pinned at mount, the marker anchored to a rect 32px below where
-    the pad settled a third of a second later and nothing fired afterwards to correct it — so it sat
-    inside the pad's corner, on every card, permanently. Fonts landing and a text-size change are the same
-    shape. A frame loop needs no list of the reasons at all; it writes only when the numbers move, and it
-    stops dead the moment the pin is dropped, which is every card that is not a draw card.
-    **IT IS ALSO THE ONE PLACE `WB.enabled` IS SET WITHOUT THE READER ASKING.** The marker's standing rule
-    is that opening the panel selects nothing, because on an ordinary card that takes the whole page over
-    for somebody who only wanted Undo; here drawing IS the card, so a format that does not work until it
-    is configured is one that looks broken. With the marker switched off in Settings the pad says so in
-    words rather than sitting inert.
-    **AND THE PIN IS DROPPED IN `setupWhiteboard`'S TEARDOWN AS WELL AS IN `hideWBTools`** — a pad
-    belonging to the previous card is a rect that no longer describes anything on screen.
+  · **A DRAW CARD DOES NOT USE IT, AND THAT IS THE SECOND ANSWER RATHER THAN THE FIRST** (Sep 2026, on
+    request: "keep the floating marker separate, simply put a separate whiteboard menu in the top of the
+    white canvas which can only be used within that canvas"). The Draw-the-flags pad began as a FRAME
+    over THIS canvas, with the marker PINNED to its corner and the pen put down for the reader — which
+    reused everything here and cost nothing, and could not answer the request: ink on a page-wide canvas
+    is bounded by nothing, and there is nowhere in it for a FILL to stop. The pad has a canvas and a menu
+    of its own now, and this one is untouched: not pinned, not auto-enabled, and with its pen down it
+    draws OVER the pad exactly as it draws over everything else on the page. **A pass-through that
+    forwarded presses into the pad was built and refused** — it would take away the one thing the
+    floating marker is for, which is annotating anything on the page, a diagram included. The pad's menu
+    goes on working meanwhile, its buttons being real controls `CTL_SEL` already hit-tests through to.
   **📖 `docs/whiteboard.md` — READ BEFORE CHANGING ANY OF IT.** The fling's sample-window arithmetic, the
   snap-home probe and the transition that must be turned off to take it, the inline colour picker and why
   an `<input type="color">` was refused, the pass-through's `preventDefault` consequence, the hand-rolled
@@ -7023,7 +7042,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 4 / 4 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 4 / 4 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** (Sep 2026) across 233 numbers — `fl-001`–`fl-233` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, whose numbers stay reserved, so the next-card command prints a deferral rather than work, one per `gw-` COUNTRY card and numbered to match it, see below |
-| Draw the flags | `geo-world` | `fd-` | `docs/flags-draw-card-plan.md` | 4 / 4 | **THE FLAGS DECK RUN BACKWARDS** (Sep 2026, on request) — the reader is given a pad, the marker is pinned to its corner, and they draw the flag from memory and judge themselves. A FOURTH deck of World Geography, so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** across 233 numbers — `fd-001`–`fd-233` less the DEFERRED `fd-036`, `fd-171`, `fd-180` and `fd-218`, which are the Flags deck's own four and are deferred here for the same reason one step on: a card that asks for a flag to be drawn and then shows it has nothing to show. `fd-NNN` is the same entity as `fl-NNN` and `gw-NNN` — in this collection the NUMBER is the entity and the PREFIX is the question asked about it, which is why it is NOT numbered +500 like the capitals, see below |
+| Draw the flags | `geo-world` | `fd-` | `docs/flags-draw-card-plan.md` | 4 / 4 | **THE FLAGS DECK RUN BACKWARDS** (Sep 2026, on request) — the reader is given a canvas with its own pens, colours and a fill, and draws the flag from memory, then reveals it and judges themselves. A FOURTH deck of World Geography, so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** across 233 numbers — `fd-001`–`fd-233` less the DEFERRED `fd-036`, `fd-171`, `fd-180` and `fd-218`, which are the Flags deck's own four and are deferred here for the same reason one step on: a card that asks for a flag to be drawn and then shows it has nothing to show. `fd-NNN` is the same entity as `fl-NNN` and `gw-NNN` — in this collection the NUMBER is the entity and the PREFIX is the question asked about it, which is why it is NOT numbered +500 like the capitals, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
@@ -8179,21 +8198,24 @@ division-capital city tier are inert dead code.
     **Re-run after touching anything in the ARTWORK CARDS bullet's own list.**
   · `node .claude/test-draw-cards.js` — **the draw card format** (3,700-odd assertions, per-card checks
     growing it with the deck; sections 1 and 2 need no browser, `--data-only`), and every fault it guards
-    LOOKS FINE ON THE PAGE. **The one it was written for is the PIN:** a draw card whose marker sat in its
-    usual screen corner still works — you can draw — and is simply missing the whole of what was asked
-    for; and the pin is applied at MOUNT, while the page's entrance animation still has a third of a
-    second to run, so a pin computed once anchors 32px from where the pad settles. That shipped for an
-    hour and the only symptom was the marker sitting inside the pad rather than above it, which is why
-    the browser half **waits past the entrance and then measures the marker against the pad's own rect**
-    rather than trusting a class. It also **draws a real stroke and counts the ink** — "it did not draw"
-    is the one failure that makes this format useless and says nothing on the page — and asserts that
-    **the pad does not move at the reveal**, the ink being in page coordinates and not owned by the pad,
-    so a shift would slide the drawing out from under the frame it was drawn in. It serves the flag
-    locally for `test-artwork-cards.js`'s reason, and **waits for the picture rather than sleeping at
-    it**: the image is created at the reveal, so a fixed pause races the decode and reports
-    `naturalWidth: 0`, which reads exactly like the dead file the same section is there to tell apart.
-    **Re-run after touching anything in the `docs/flags-draw-card-plan.md` bullet's own list, or the
-    marker's pin.**
+    LOOKS FINE ON THE PAGE. **The one it was written for is the CANVAS's SIZE:** `getBoundingClientRect`
+    is transform-aware and the page's entrance animation scales `.page` for its first third of a second,
+    so a canvas sized from a rect at mount comes out several pixels narrow and STAYS that way — a
+    transform changes no layout box, so the ResizeObserver never fires to correct it. Measured before the
+    fix: 349px of canvas inside a 355.6px frame. It is asserted against the frame's own LAYOUT width
+    rather than a rect, or the check has the fault it is checking for. It also **draws a real stroke and
+    counts the ink on the PAD's canvas** — "it did not draw" is the one failure that makes this format
+    useless and says nothing on the page — **counting ANY ink rather than dark ink**, since the pad opens
+    on the marker's first colour and a check for dark pixels measures which swatch was pressed; it
+    exercises **fill, undo and clear as arithmetic on the bitmap**; and it asserts the floating marker is
+    **left alone**, unpinned and with its pen up, as an ABSENCE in the source as well as in the browser,
+    a pin added back being invisible in review. **`fn()` takes a WHOLE function** where `slice()` caps at
+    2,600 characters: `mountDrawCard` is longer, so assertions about its second half were passing on
+    whether the function happened to be short. It serves the flag locally for `test-artwork-cards.js`'s
+    reason, and **waits for the picture rather than sleeping at it** — the image is created at the
+    reveal, so a fixed pause races the decode and reports `naturalWidth: 0`, which reads exactly like the
+    dead file the same section is there to tell apart.
+    **Re-run after touching anything in the `docs/flags-draw-card-plan.md` bullet's own list.**
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
     restricted pool** (114 assertions), and every one of its checks is for something that fails SILENTLY.
     **AN ASSERTION CAN COME TO GUARD THE OPPOSITE OF THE RULE** — the picture round's reveal check

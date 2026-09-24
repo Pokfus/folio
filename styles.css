@@ -2054,41 +2054,59 @@ body.no-tts .ans-cn .ac-say{display:none;}
 }
 
 /* ---- DRAW CARDS: the pad the reader draws a flag in (Sep 2026, on request) ----
-   The frame is empty and ruled, and the ink that lands in it belongs to the page-wide whiteboard canvas
-   rather than to this box — see the DRAW CARDS block in app.js for why it is not a second canvas. Two
-   things here are load-bearing rather than taste.
-   · THE TOP MARGIN IS WHERE THE MARKER GOES. `wbPinApply` parks the 46px marker button immediately above
-     the pad's top-right corner, so the pad reserves that strip; without it the marker lies over the last
-     line of the prompt, which is the sentence naming what to draw.
-   · THE FRAME IS A FLAG'S OWN PROPORTIONS, near enough — 3:2 is the commonest ratio in the deck — and it
-     is a MINIMUM height rather than a fixed one, so a narrow phone still gets something to draw in. It is
-     deliberately not `aspect-ratio` alone: a reader drawing Nepal's pennant or Qatar's 11:28 needs the
-     room more than they need the box to be the right shape. */
-/* THE WIDTH IS CAPPED ON THE PAD AND NOT THE FRAME, and that is the second correction rather than a
-   preference. Capping the FRAME's height instead (`max-height`) does shrink it back to 3:2 — but only the
-   frame, so on a desktop it ended 114px short of `.draw-pad`'s own right edge while `.dp-answer` below it
-   stayed full width: the marker pinned to a corner the reader could see was not the canvas's, and the
-   drawing and the flag it is compared against were two different widths. One cap on the parent keeps all
-   three edges together at every width. */
-.draw-pad{margin:56px auto 18px; max-width:560px;}
-/* `aspect-ratio` ALONE, with no `min-height` beside it: the two together inflated the USED WIDTH past the
-   card — 34vh of a tall phone is 300px, which at 3:2 asked for a 450px-wide box inside a 366px card, and
-   the pad ran off the right edge taking the card's own border with it. The height is capped instead, which
-   leaves the width where the card put it and lets the box go wide and short on a desktop. */
+   The pad is its OWN canvas with its OWN menu across the top of it, and has nothing to do with the
+   floating marker — see the DRAW CARDS block in app.js for why the first cut (a frame over the page-wide
+   whiteboard) could not answer "only be used within that canvas" or hold a fill.
+   THE WIDTH IS CAPPED ON THE PAD AND NOT THE FRAME. Capping the FRAME's height instead (`max-height`)
+   does shrink it back to 3:2 — but only the frame, so on a desktop it ended short of `.draw-pad`'s own
+   right edge while `.dp-answer` below it stayed full width, and the drawing and the flag it is compared
+   against were two different widths. One cap on the parent keeps all three edges together. */
+.draw-pad{margin:20px auto 18px; max-width:560px;}
+/* The menu sits ON the canvas's top edge: one box, ruled across rather than two. */
+.dp-tools{
+  display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+  padding:7px 9px; border:1px solid var(--rule); border-bottom:none;
+  border-radius:10px 10px 0 0; background:var(--paper-2);
+}
+.dp-cols, .dp-acts{display:flex; align-items:center; gap:6px;}
+.dp-col{
+  width:22px; height:22px; padding:0; border-radius:50%; cursor:pointer;
+  border:2px solid transparent; background:var(--dpc); box-shadow:inset 0 0 0 1px rgba(0,0,0,.18);
+}
+.dp-col.on{border-color:var(--ink); box-shadow:inset 0 0 0 1px rgba(0,0,0,.18), 0 0 0 2px var(--paper-2);}
+.dp-col:focus-visible, .dp-btn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.dp-btn{
+  width:30px; height:30px; padding:0; display:grid; place-items:center; cursor:pointer;
+  border:1px solid var(--rule); border-radius:8px; background:var(--card); color:var(--ink-soft);
+}
+.dp-btn svg{width:17px; height:17px;}
+.dp-btn.on{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+.dp-btn:disabled{opacity:.38; cursor:default;}
+/* `aspect-ratio` ALONE, with no `min-height` beside it: the two together inflated the USED WIDTH past
+   the card — 34vh of a tall phone is 300px, which at 3:2 asked for a 450px-wide box inside a 366px card,
+   and the pad ran off the right edge taking the card's own border with it. */
 .dp-frame{
-  position:relative; aspect-ratio:3 / 2;
-  border:1px dashed var(--rule); border-radius:10px; background:var(--paper-2);
-  display:flex; align-items:flex-end; justify-content:center;
+  position:relative; aspect-ratio:3 / 2; overflow:hidden;
+  border:1px solid var(--rule); border-radius:0 0 10px 10px; background:var(--card);
 }
+/* THE CANVAS IS THE WHOLE FRAME, and `touch-action:none` is what lets a finger draw on it rather than
+   having the gesture claimed as a scroll — the `pointercancel` fault this stylesheet records against
+   every horizontal swipe on the site, here wanted rather than avoided. */
+.dp-canvas{position:absolute; inset:0; width:100%; height:100%; touch-action:none; cursor:crosshair; display:block;}
 /* …and the hint sits at the FOOT of the frame rather than its middle: centred, it is under the reader's
-   own drawing, which is both something to draw over and something that makes the drawing harder to read. */
+   own drawing, which is both something to draw over and something that makes the drawing harder to read.
+   It is `pointer-events:none` so it can never take a press meant for the canvas beneath it, and it goes
+   the moment anything is drawn. */
 .dp-hint{
+  position:absolute; left:0; right:0; bottom:10px;
   font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-faint);
-  letter-spacing:.04em; text-transform:uppercase; pointer-events:none; padding:0 14px 10px; text-align:center;
+  letter-spacing:.04em; text-transform:uppercase; pointer-events:none; padding:0 14px; text-align:center;
 }
-.dp-off{text-transform:none; letter-spacing:0; max-width:34ch;}
-/* The answer lands UNDER the pad and never inside it: the drawing is ink in page coordinates, so anything
-   that resized or moved the frame would slide it out from under the lines it was drawn with. */
+.draw-pad.dp-drawn .dp-hint{opacity:0;}
+/* …and it comes BACK at the reveal, with a different word: two frames are then standing one above the
+   other and the labels are what say which is which. */
+.draw-pad.dp-drawn.dp-revealed .dp-hint{opacity:1;}
+/* The answer lands UNDER the pad and never inside it, so nothing above it moves when it arrives. */
 .dp-answer{
   margin:14px 0 0; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
   background:var(--paper-2); box-shadow:var(--shadow-sm);
@@ -2100,12 +2118,12 @@ body.no-tts .ans-cn .ac-say{display:none;}
 }
 .dp-answer.revealed{cursor:zoom-in;}
 .dp-answer.revealed:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
-/* A draw card has a pad to work in, so the writing band under the question would be a SECOND blank area
-   on one card — and the reader would have no way of telling which of the two the answer belongs in. */
+/* A draw card has a canvas to work in, so the writing band under the question would be a SECOND blank
+   area on one card — and the reader would have no way of telling which of the two the answer belongs in.
+   The floating marker itself is untouched: with its pen down it draws OVER the pad, as it does over
+   everything else on the page. */
 body.wb-down .study-card.draw-card .scratch{display:none;}
-/* Pinned, the marker is positioned against the pad rather than a screen corner, so the transition that
-   eases it towards the grade bar would make it lag the page on every scroll frame. */
-.wb-tools.wb-pinned{transition:none;}
+
 .art-cap{
   display:block; padding:9px 12px 11px; border-top:1px solid var(--rule); background:var(--card);
   font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-soft); text-align:left;

@@ -18456,77 +18456,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // Put the tools where the reader left them, and tell the panel which way to open. With no stored
   // position the inline styles are cleared so the stylesheet's own corner (and the .on-atlas /
   // body.grading offsets) takes over again.
-  /* ---- …AND ON A DRAW CARD IT IS PINNED TO THE PAD INSTEAD (Sep 2026, on request: "the floating
-     whiteboard marker is pinned to the top right of the canvas") ----
-     A draw card gives the reader a box to draw a flag in, and the marker is the only way to draw in it —
-     so leaving it in whichever corner it was last thrown to would mean a format whose one tool is
-     somewhere else on the screen. While pinned it follows the pad, it does not drag, and it does not
-     remember anything: the pin is a fact about the CARD, and the reader's own stored position is
-     untouched underneath it and comes straight back on the next card.
-     THE MARKER SITS JUST ABOVE THE PAD'S TOP-RIGHT CORNER, not inside it. Inside, a 46px button covers
-     the corner of the very area it is there to draw in — and the pad reserves the room above itself for
-     exactly this (`.draw-pad{margin-top:…}`), so nothing it overlaps is anything the reader needs.
-     IT IS STILL CLAMPED TO THE VIEWPORT. A pad scrolled half off the top would otherwise take the marker
-     with it, which is a control the reader cannot reach on a card that needs it. */
-  const WB_PIN_GAP = 6;        // px between the marker's bottom edge and the pad's top edge
-  let wbPinEl = null, wbPinRAF = 0, wbPinAt = null;
-  /* …and the pen state a draw card overrode, so it can be put back. It is declared HERE rather than
-     beside `mountDrawCard`, which is 15,000 lines further down: `hideWBTools` reads it through
-     `wbDrawForget`, and a `let` in the DRAW CARDS block would be in its temporal dead zone for any
-     caller that ran before the module finished evaluating — the fault the lifetime clock's back-fill
-     already shipped once. */
-  let wbDrawPrev = null;
-  function wbDrawForget() { wbDrawPrev = null; }
-  function wbPinApply(el) {
-    const r = wbPinEl.getBoundingClientRect();
-    const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
-    const w = el.offsetWidth || 46, h = el.offsetHeight || 46;
-    const right = Math.max(WB_EDGE, Math.min(vw - r.right, vw - w - WB_EDGE));
-    const bottom = Math.max(WB_EDGE, Math.min(vh - r.top + WB_PIN_GAP, vh - h - WB_EDGE));
-    if (!wbPinAt || Math.abs(wbPinAt.r - right) > 0.5 || Math.abs(wbPinAt.b - bottom) > 0.5) {
-      wbPinAt = { r: right, b: bottom };
-      el.style.right = right + "px"; el.style.bottom = bottom + "px";
-      el.classList.toggle("wb-flip", vh - bottom - h < WB_PANEL_H);
-      el.classList.toggle("wb-left", vw - right - w < WB_PANEL_W);
-    }
-    el.classList.add("wb-pinned");
-  }
-  /* THE FOLLOW IS A FRAME LOOP, AND THE THREE LISTENERS IT REPLACES WERE NOT ENOUGH — which is the whole
-     reason it is written this way rather than the obvious way. Scroll and resize are only two of the
-     reasons a pad moves: the page's own ENTRANCE ANIMATION is a third, and it is the one that bit. Pinned
-     at mount, the marker anchored to a rect 32px below where the pad settled a third of a second later,
-     and nothing fired afterwards to correct it — so the marker sat inside the pad's top-right corner
-     instead of above it, on every card, permanently. Fonts landing and a text-size change are the same
-     shape. A frame loop needs no list of the reasons at all.
-     IT WRITES ONLY WHEN THE NUMBERS MOVE, so a still page costs one `getBoundingClientRect` a frame and
-     no style invalidation, and it stops dead the moment the pin is dropped — which is every card that is
-     not a draw card, and every page that is not the study page. */
-  function wbPinFrame() {
-    wbPinRAF = 0;
-    if (!wbPinEl || !wbPinEl.isConnected || !wbToolsRef) return;
-    wbApplyPos(wbToolsRef);
-    wbPinRAF = requestAnimationFrame(wbPinFrame);
-  }
-  function wbPinTo(el) {
-    if (!el) return wbUnpin();
-    wbPinEl = el;
-    wbPinAt = null;
-    if (wbToolsRef) wbApplyPos(wbToolsRef);
-    if (!wbPinRAF) wbPinRAF = requestAnimationFrame(wbPinFrame);
-  }
-  function wbUnpin() {
-    if (!wbPinEl && !wbPinRAF) return;
-    wbPinEl = null; wbPinAt = null;
-    if (wbPinRAF) { cancelAnimationFrame(wbPinRAF); wbPinRAF = 0; }
-    if (wbToolsRef) { wbToolsRef.classList.remove("wb-pinned"); wbApplyPos(wbToolsRef); }
-  }
   function wbApplyPos(el) {
     if (!el) return;
-    /* the pin wins over the stored position and over the stylesheet's corner alike, and it is checked
-       against the DOM rather than trusted: a pad belonging to the previous card is a rect that no longer
-       describes anything on screen. */
-    if (wbPinEl && wbPinEl.isConnected) return wbPinApply(el);
-    el.classList.remove("wb-pinned");
     const p = wbReadPos();
     if (!p) { el.style.right = ""; el.style.bottom = ""; el.classList.remove("wb-flip", "wb-left"); return; }
     wbClampPos(el);
@@ -18673,11 +18604,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     };
     handle.addEventListener("pointerdown", (e) => {
       if (e.button != null && e.button !== 0) return;
-      /* PINNED IS PINNED: on a draw card the marker belongs to the pad, so a drag would move it off the
-         one thing it is there for — and worse, would write a stored position the reader never chose.
-         The press still reaches wbWireHoldToRelease, which is wired separately on the same handle, so
-         holding to put the pen up and tapping to open the panel both go on working. */
-      if (wbPinEl) return;
       wbStopFling();       // a press catches a marker still coasting, exactly as a finger catches a fling
       wbStopHome(el);      // …and a marker mid-way through sliding home, for the same reason
       wbDragged = false;   // a press that never moved must not be swallowed by a previous drag's flag
@@ -19130,8 +19056,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function hideWBTools() {
     document.body.classList.remove("wb-down");   // no marker on this page: no writing band either
-    wbUnpin();                                   // …and no pad to be pinned to
-    wbDrawForget();                              // …and no pen state held over from a draw card
     if (wbToolsRef) { wbToolsRef.classList.remove("show"); wbToolsRef.classList.remove("on-atlas"); }
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
@@ -19273,7 +19197,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // remove any prior overlay (e.g. from the previous card) and start fresh
     if (WB.canvas && WB.canvas.parentNode) WB.canvas.parentNode.removeChild(WB.canvas);
     if (WB._panStop) { WB._panStop(); WB._panStop = null; }   // a fling from the previous card would keep scrolling this one
-    wbUnpin();   // …and a pad from the previous card would keep the marker pinned to a rect that is gone
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
     /* …and with the marker turned off in Settings there is no second half to build: no canvas over the page
@@ -34646,13 +34569,68 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!c || c.drawCard !== true) return null;
     return answerFlag(c);            // the same field, the same refusal of an uncredited src
   }
-  /* The pad is `aria-hidden`: there is nothing in it to read, and a reader who cannot see it cannot draw
-     in it either — the question sentence above says what is being asked, and the reveal below says what
-     the answer was, both of them real text. That is the honest state rather than a label on an empty box.
-     `.dp-answer` ships EMPTY and hidden; cardDrawReveal fills it. */
+  /* ---- THE PAD IS ITS OWN CANVAS, WITH ITS OWN MENU (Sep 2026, on request) ----
+     "Keep the floating marker separate, simply put a separate whiteboard menu in the top of the white
+     canvas which can only be used within that canvas, and also includes a fill option to fill the whole
+     canvas a particular color."
+
+     THIS REVERSES THE FIRST CUT AND THE REASON IS IN THE REQUEST. The pad began as a FRAME over the
+     page-wide whiteboard, which reused the marker's pointer handling, undo stack, stylus rule and colour
+     state and cost nothing — but ink on that canvas is not bounded by anything, the marker had to be
+     pinned to the pad to be reachable, and there is nowhere in it for a FILL to stop. "Only be used
+     within that canvas" is a bounded surface, and a bounded surface is a canvas of its own. So the
+     duplication that was refused is now the point, and the floating marker goes back to being what it is
+     on every other page: separate, unpinned, and nothing to do with this.
+
+     THE TWO DO NOT INTERFERE AND ARE NOT MADE TO COOPERATE. With the floating pen DOWN its canvas covers
+     the whole visible page, which is what it does everywhere on the site — so it draws over the pad
+     rather than in it, and the pad's own menu keeps working, its buttons being real controls the ink
+     layer already hit-tests through to. A pass-through that forwarded presses into the pad was built and
+     refused: it would take away the one thing the floating marker is for, which is annotating anything
+     on the page including a diagram. The pen is no longer put down for the reader on a draw card either
+     — the card now has a tool of its own, and there is nothing left to force.
+
+     THE STATE IS MODULE-LEVEL AND IS NOT STORED. Which colour you last drew a flag in is a way of
+     working rather than a preference about Folio, the same call `glossSort` and the deck-edit mode make:
+     it survives the next card and resets on reload. */
+  const DP_COLORS = WB_COLORS;
+  const DP_SIZES = [3, 9];              // the pen and the brush — a band of a flag wants the second
+  const DP_HIST_MAX = 24;
+  const DP = { color: DP_COLORS[0], tool: "pen", size: DP_SIZES[0] };
+  let dpStop = null;                    // teardown for the pad currently mounted, if any
+
+  const DP_ICON = {
+    pen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+    brush: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c0-3 2-4 4-4s3 1 3 3-2 3-4 3H4Z"/><path d="M11 16 20 5a2 2 0 0 0-3-3l-9 9"/></svg>',
+    erase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 6-6 7 7-4 4H9Z"/><path d="M8 20h12"/></svg>',
+    fill: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4l8 8-8 8Z"/><path d="M19 15c1.2 1.6 1.8 2.6 1.8 3.2a1.8 1.8 0 0 1-3.6 0c0-.6.6-1.6 1.8-3.2Z" fill="currentColor" stroke="none"/></svg>',
+    undo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg>',
+    clear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/></svg>',
+  };
+  const DP_BTNS = [
+    ["pen", "Pen"], ["brush", "Broad pen"], ["erase", "Eraser"],
+    ["fill", "Fill the whole canvas with this colour"], ["undo", "Undo"], ["clear", "Clear the canvas"],
+  ];
+  /* The menu is drawn at the TOP OF THE CANVAS and is `aria-hidden` for the reason the pad is: a reader
+     who cannot see the canvas cannot draw in it, and six tools for a surface they cannot use are noise
+     rather than help. The question above and the answer below are both real text, which is where this
+     format's accessibility actually lives.
+     EVERY CONTROL IN IT THEREFORE CARRIES `tabindex="-1"`, and that pairing is the whole point: an
+     `aria-hidden` container whose children are still FOCUSABLE is the one arrangement that is worse than
+     either choice — a keyboard reader tabs onto a control their screen reader has been told does not
+     exist, and lands on it silently. Hidden from assistive technology and out of the tab order is one
+     statement rather than two contradictory ones. A pointer is unaffected, which is what this surface
+     needs anyway: a tool cannot be used from a keyboard on a canvas that cannot be drawn on from one. */
   function cardDrawHTML() {
+    const cols = DP_COLORS.map((c, i) =>
+      '<button type="button" tabindex="-1" class="dp-col' + (i === 0 ? " on" : "") + '" data-dpcol="' + esc(c) +
+      '" style="--dpc:' + esc(c) + '" title="' + esc(c) + '"></button>').join("");
+    const btns = DP_BTNS.map(([k, label]) =>
+      '<button type="button" tabindex="-1" class="dp-btn' + (k === "pen" ? " on" : "") + '" data-dp="' + k +
+      '" title="' + esc(label) + '"' + (k === "undo" ? " disabled" : "") + '>' + DP_ICON[k] + "</button>").join("");
     return '<div class="draw-pad">' +
-      '<div class="dp-frame" aria-hidden="true"><span class="dp-hint">Draw the flag here</span></div>' +
+      '<div class="dp-tools" aria-hidden="true"><div class="dp-cols">' + cols + '</div><div class="dp-acts">' + btns + "</div></div>" +
+      '<div class="dp-frame" aria-hidden="true"><canvas class="dp-canvas"></canvas><span class="dp-hint">Draw the flag here</span></div>' +
       '<figure class="dp-answer" hidden></figure></div>';
   }
   /* THE REVEAL IS WHERE THE PICTURE FIRST EXISTS. It is drawn at the pad's own width so the comparison is
@@ -34679,46 +34657,165 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     fig.setAttribute("data-img-title", spec.alt || "");
     fig.setAttribute("data-img-desc", "");
     fig.setAttribute("data-img-credit", spec.credit);
+    /* The hint is hidden the moment anything is drawn; the reveal brings it back with a different word,
+       so the two frames now standing one above the other say which is which. */
     const hint = root.querySelector(".draw-pad .dp-hint");
     if (hint) hint.textContent = "What you drew";
+    const pad = fig.closest(".draw-pad");
+    if (pad) pad.classList.add("dp-revealed");
   }
-  /* MOUNTING ONE PUTS THE PEN DOWN AND PINS THE MARKER TO THE PAD, which is the request's second half.
-     · THE PEN GOES DOWN BY ITSELF, which is the one place this overrides the marker's own standing rule
-       that opening the panel selects nothing. That rule exists because opening the panel on an ordinary
-       card takes the whole page over for a reader who only wanted Undo or a colour; here drawing IS the
-       card, so a reader who had to find the marker and choose a tool before they could answer would be
-       meeting a format that does not work until it is configured. `WB.mode` and `WB.size` already carry a
-       pen at a middle width, so nothing has to be chosen.
-     · AND IT IS HONEST WHEN IT CANNOT. `markerOn()` is the Settings switch, and with it off there is no
-       panel and no canvas at all — so the pad says so in words rather than sitting there inert, which is
-       a card that looks broken rather than one that is turned off. */
-  /* AND IT PUTS THE PEN BACK THE WAY IT FOUND IT. `WB.enabled` persists from card to card within a
-     session, so without this the pen the reader never asked for stays down on the ORDINARY card after a
-     draw card — the whole page under an ink canvas and a blank writing band opened under the question, a
-     state they did not choose and have to undo by hand. The value is remembered on the way in and
-     restored on the first card that is not a draw card; a run of draw cards keeps the original, and
-     `hideWBTools` drops it, since leaving the study page puts the pen up anyway. */
+  /* MOUNTING ONE BUILDS THE CANVAS AND WIRES THE MENU TO IT, AND NOTHING ELSE ON THE PAGE IS TOUCHED.
+     Four things are decisions rather than plumbing.
+     · THE BITMAP IS SIZED IN DEVICE PIXELS AND THE CONTEXT IS SCALED, or a stroke is a soft grey smear
+       on every phone made in the last decade. A resize REDRAWS the last snapshot into the new box rather
+       than letting the browser stretch the backing store, which is the same thing at a different
+       resolution and looks like the drawing having been damaged.
+     · `touch-action:none` IS WHAT LETS A FINGER DRAW. Without it the browser claims the gesture as a
+       scroll the moment it passes its own slop and fires `pointercancel`, which is the fault this file
+       records against every horizontal swipe on the site. The cost is real and is the right trade: a
+       finger starting inside the pad cannot scroll the page, exactly as it cannot on the floating
+       marker's own canvas.
+     · UNDO IS A STACK OF BITMAPS, capped, with an empty base at the bottom so it can always get back to
+       a blank canvas — the card whiteboard's own backend, which is a raster canvas for this reason.
+     · AND FILL COVERS, RATHER THAN GOING UNDERNEATH. "Fill the whole canvas a particular color" is
+       literal, and it is undoable, so a mis-press costs one press; going underneath would be a different
+       tool wearing this one's name, and a reader drawing a flag fills the field FIRST anyway. */
   function mountDrawCard(root, c) {
+    if (dpStop) { dpStop(); dpStop = null; }
     const spec = cardDrawSpec(c);
-    if (!root || !spec) {
-      wbUnpin();
-      if (wbDrawPrev !== null) { wbSetEnabled(wbDrawPrev); wbDrawPrev = null; }
-      return;
-    }
+    if (!root || !spec) return;
     root.classList.add("draw-card");
-    const frame = root.querySelector(".draw-pad .dp-frame");
-    if (!markerOn()) {
-      if (frame) frame.innerHTML = '<span class="dp-hint dp-off">The whiteboard marker is turned off — turn it on under Settings → Study to draw here.</span>';
-      wbUnpin();
-      return;
-    }
-    if (wbDrawPrev === null) wbDrawPrev = WB.enabled;
-    WB.panelOpen = false;          // the pen is down; the panel of eight controls is not in the way
-    wbSetEnabled(true);
     const pad = root.querySelector(".draw-pad");
-    if (pad) wbPinTo(pad);
-  }
+    const frame = pad && pad.querySelector(".dp-frame");
+    const cv = pad && pad.querySelector(".dp-canvas");
+    if (!pad || !frame || !cv) return;
+    const ctx = cv.getContext("2d");
+    const hist = [];
+    let drawing = false, pid = null, last = null, w = 0, h = 0;
 
+    const undoBtn = pad.querySelector('[data-dp="undo"]');
+    const syncUndo = () => { if (undoBtn) undoBtn.disabled = hist.length < 2; };
+    const snap = () => {
+      if (!w || !h) return;
+      const s = document.createElement("canvas");
+      s.width = cv.width; s.height = cv.height;
+      s.getContext("2d").drawImage(cv, 0, 0);
+      hist.push(s);
+      while (hist.length > DP_HIST_MAX + 1) hist.shift();
+      syncUndo();
+    };
+    const restore = (s) => {
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      if (s && s.width && s.height) ctx.drawImage(s, 0, 0, cv.width, cv.height);
+      ctx.restore();
+    };
+    /* THE BOX IS READ AS LAYOUT, NEVER AS A RECT. `getBoundingClientRect` is transform-aware, and the
+       page's entrance animation SCALES `.page` for its first third of a second — so a canvas sized from a
+       rect at mount comes out several pixels narrow and stays that way, since a transform changes no
+       layout box and the ResizeObserver therefore never fires to correct it. Measured: 349px of canvas
+       inside a 355.6px frame, a white strip down the right-hand edge of every pad. It is the pin's own
+       fault wearing different clothes, and `clientWidth` does not have it. */
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      const nw = Math.max(1, frame.clientWidth), nh = Math.max(1, frame.clientHeight);
+      if (nw === w && nh === h) return;
+      const prev = hist.length ? hist[hist.length - 1] : null;
+      w = nw; h = nh;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      cv.style.width = w + "px"; cv.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (prev) restore(prev);
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+    };
+    resize();
+    if (!hist.length) snap();          // the blank base undo can always return to
+
+    /* …and a pointer's position IS read off the rect, which is right — client coordinates are in that
+       same transformed space — but scaled back into the canvas's own, so a press during any scale lands
+       where the reader is pointing rather than drifting further from it across the pad. */
+    const at = (e) => {
+      const r = cv.getBoundingClientRect();
+      const kx = r.width ? w / r.width : 1, ky = r.height ? h / r.height : 1;
+      return { x: (e.clientX - r.left) * kx, y: (e.clientY - r.top) * ky };
+    };
+    const stroke = (a, b) => {
+      ctx.save();
+      ctx.globalCompositeOperation = DP.tool === "erase" ? "destination-out" : "source-over";
+      ctx.strokeStyle = DP.color;
+      ctx.lineWidth = DP.tool === "erase" ? 18 : DP.size;
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      ctx.restore();
+    };
+    const down = (e) => {
+      if (e.button != null && e.button !== 0) return;
+      if (drawing) return;                      // one pointer owns the stroke — a palm is not this gesture
+      drawing = true; pid = e.pointerId; last = at(e);
+      try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+      stroke(last, { x: last.x + 0.01, y: last.y });   // a tap is a dot
+      pad.classList.add("dp-drawn");
+      e.preventDefault();
+    };
+    const move = (e) => {
+      if (!drawing || e.pointerId !== pid) return;
+      const p = at(e); stroke(last, p); last = p;
+      e.preventDefault();
+    };
+    const up = (e) => {
+      if (!drawing || e.pointerId !== pid) return;
+      drawing = false; pid = null; last = null;
+      snap();
+    };
+    cv.addEventListener("pointerdown", down);
+    cv.addEventListener("pointermove", move);
+    cv.addEventListener("pointerup", up);
+    cv.addEventListener("pointercancel", up);
+
+    const act = (k) => {
+      if (k === "pen" || k === "brush") { DP.tool = "pen"; DP.size = k === "pen" ? DP_SIZES[0] : DP_SIZES[1]; }
+      else if (k === "erase") DP.tool = "erase";
+      else if (k === "fill") {
+        ctx.save(); ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = DP.color; ctx.fillRect(0, 0, w, h); ctx.restore();
+        pad.classList.add("dp-drawn"); snap();
+      } else if (k === "undo") {
+        if (hist.length > 1) { hist.pop(); restore(hist[hist.length - 1]); syncUndo(); }
+      } else if (k === "clear") {
+        ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); ctx.restore();
+        pad.classList.remove("dp-drawn"); snap();
+      }
+      paintTools();
+    };
+    const paintTools = () => {
+      pad.querySelectorAll("[data-dp]").forEach((b) => {
+        const k = b.dataset.dp;
+        const on = (k === "erase" && DP.tool === "erase") ||
+                   (DP.tool === "pen" && ((k === "pen" && DP.size === DP_SIZES[0]) || (k === "brush" && DP.size === DP_SIZES[1])));
+        b.classList.toggle("on", !!on);
+      });
+      pad.querySelectorAll("[data-dpcol]").forEach((b) => b.classList.toggle("on", b.dataset.dpcol === DP.color));
+    };
+    pad.querySelectorAll("[data-dp]").forEach((b) =>
+      b.addEventListener("click", (e) => { e.stopPropagation(); act(b.dataset.dp); }));
+    pad.querySelectorAll("[data-dpcol]").forEach((b) =>
+      b.addEventListener("click", (e) => {
+        e.stopPropagation();
+        DP.color = b.dataset.dpcol;
+        if (DP.tool === "erase") DP.tool = "pen";   // choosing a colour is choosing to draw with it
+        paintTools();
+      }));
+    paintTools();
+
+    const onResize = () => resize();
+    window.addEventListener("resize", onResize);
+    const ro = typeof ResizeObserver === "function" ? new ResizeObserver(onResize) : null;
+    if (ro) ro.observe(frame);
+    dpStop = () => {
+      window.removeEventListener("resize", onResize);
+      if (ro) ro.disconnect();
+    };
+  }
   /* ---------- the locator map (Aug 2026, on request) ----------
      `locator: { name, at: [lon, lat], zoom? }` — a globe at the foot of a card whose ANSWER IS A PLACE,
      with that place marked. A reader meeting Knossos, the Cycladic civilisation or the Tiber for the first

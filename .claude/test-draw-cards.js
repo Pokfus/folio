@@ -4,21 +4,25 @@
 //
 //   node .claude/test-draw-cards.js [--data-only]
 //
-// Re-run after touching cardDrawSpec / cardDrawHTML / cardDrawReveal / mountDrawCard / cardFrontHTML's
-// draw branch / showAnswer's draw reveal and its answer-box drop / wbPinTo / wbUnpin / wbPinApply /
-// wbPinFrame / wbApplyPos / wbMakeDraggable's pinned bail / setupWhiteboard's teardown / hideWBTools /
-// gameCardIdSet / IMG_OPEN_SEL / TIP_SEL / serializeCardData / revertCard / whyExempt / the .draw-pad,
-// .dp-frame, .dp-answer and .wb-pinned styles / add-card.js's drawCard guards /
+// Re-run after touching cardDrawSpec / cardDrawHTML / cardDrawReveal / mountDrawCard / DP / DP_COLORS /
+// DP_SIZES / DP_BTNS / DP_ICON / dpStop / cardFrontHTML's draw branch / showAnswer's draw reveal and its
+// answer-box drop / gameCardIdSet / IMG_OPEN_SEL / TIP_SEL / serializeCardData / revertCard / whyExempt /
+// the .draw-pad, .dp-tools, .dp-frame, .dp-canvas and .dp-answer styles / add-card.js's drawCard guards /
 // check-questions.js's exemptions / add-draw-cards.js, or after a batch of draw cards.
 //
 // WHY THIS FILE EXISTS. Every fault this format can have LOOKS FINE ON THE PAGE:
-//  · THE MARKER NOT PINNED. A draw card whose marker sat in its usual screen corner is a card that
-//    works — you can still draw — and is simply missing the whole of what was asked for. Worse, the pin
-//    is applied at MOUNT, when the page's entrance animation still has a third of a second to run, so a
-//    pin that is computed once anchors to a rect 32px from where the pad settles. That shipped for an
-//    hour and the only symptom was the marker sitting inside the pad instead of above it.
-//  · THE PEN NOT DOWN. The reader then has to find the marker, open it and choose a tool before the card
-//    can be answered at all — and nothing says so, because the card is drawn correctly.
+//  · THE CANVAS NOT SIZED FROM LAYOUT. `getBoundingClientRect` is transform-aware and the page's entrance
+//    animation SCALES `.page` for its first third of a second, so a canvas sized from a rect at mount
+//    comes out several pixels narrow and STAYS that way — a transform changes no layout box, so the
+//    ResizeObserver never fires to correct it. Measured before the fix: 349px of canvas inside a 355.6px
+//    frame, a white strip down the right of every pad, on a card that otherwise works perfectly.
+//  · THE INK NOT BOUNDED. "Only be used within that canvas" is the whole of what separates this from the
+//    floating marker, and a stroke that escaped would look like the marker working.
+//  · FILL NOT FILLING, OR NOT BEING UNDOABLE. A fill that covers the canvas and cannot be taken back is
+//    one mis-press away from destroying a drawing, and the card would look fine having done it.
+//  · THE FLOATING MARKER DRAGGED INTO THIS. It is deliberately separate: not pinned, and its pen NOT put
+//    down for the reader, since the card has a tool of its own. A pen forced down here would lay the
+//    page-wide ink canvas over the pad and make the pad unreachable.
 //  · THE FLAG ON THE FRONT. `drawCard` and `flagCard` say OPPOSITE things about the same `answerFlag`,
 //    so a card carrying both, or a front that renders the picture, shows the reader the answer while
 //    looking exactly like a working card.
@@ -125,7 +129,16 @@ const server = http.createServer((req, res) => {
   sect("2. the code that reads them");
   const src = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
   const slice = (name) => { const i = src.indexOf("function " + name + "("); return i < 0 ? "" : src.slice(i, i + 2600); };
-  const body = (name) => slice(name).split("\n  }")[0];
+  /* THE WHOLE FUNCTION, not a fixed window. `slice` caps at 2,600 characters, which is fine for the small
+     accessors and silently truncates `mountDrawCard` — so assertions about its second half passed or
+     failed on whether the function happened to be short, which is not a fact about the code. */
+  const fn = (name) => {
+    const i = src.indexOf("function " + name + "(");
+    if (i < 0) return "";
+    const j = src.indexOf("\n  }", i);
+    return j < 0 ? src.slice(i) : src.slice(i, j);
+  };
+  const body = (name) => fn(name) || slice(name).split("\n  }")[0];
 
   ok("cardDrawSpec keys on `drawCard` and reuses answerFlag",
      /function cardDrawSpec\(c\) \{[\s\S]{0,200}c\.drawCard !== true[\s\S]{0,120}answerFlag\(c\)/.test(src));
@@ -146,29 +159,25 @@ const server = http.createServer((req, res) => {
   const tipSel = (src.match(/const TIP_SEL = [^\n]+/) || [""])[0];
   ok("…and is reachable with the pen down", /\.dp-answer/.test(tipSel), tipSel.slice(16));
 
-  ok("mountDrawCard puts the pen down", /wbSetEnabled\(true\)/.test(body("mountDrawCard")));
-  ok("…and pins the marker to the pad", /wbPinTo\(pad\)/.test(body("mountDrawCard")));
-  ok("…and says so when the marker is switched off", /markerOn\(\)/.test(body("mountDrawCard")) && /dp-off/.test(body("mountDrawCard")));
+  /* THE PAD IS ITS OWN CANVAS WITH ITS OWN MENU, and the floating marker is not involved at all — see
+     the DRAW CARDS block for why the first cut (a frame over the page-wide whiteboard) could not answer
+     "only be used within that canvas" or hold a fill. */
+  ok("mountDrawCard builds the pad's own canvas", /getContext\("2d"\)/.test(body("mountDrawCard")));
+  ok("…sized from LAYOUT, never from a transform-aware rect",
+     /frame\.clientWidth/.test(body("mountDrawCard")) && /frame\.clientHeight/.test(body("mountDrawCard")));
+  ok("…and in device pixels, with the context scaled", /devicePixelRatio/.test(body("mountDrawCard")) && /setTransform\(dpr, 0, 0, dpr, 0, 0\)/.test(body("mountDrawCard")));
+  ok("…with a fill that covers the whole canvas in the chosen colour",
+     /ctx\.fillStyle = DP\.color; ctx\.fillRect\(0, 0, w, h\)/.test(body("mountDrawCard")));
+  ok("…an eraser that erases rather than painting the paper",
+     /destination-out/.test(body("mountDrawCard")));
+  ok("…and an undo stack with a blank base to return to",
+     /DP_HIST_MAX/.test(src) && /if \(!hist\.length\) snap\(\)/.test(body("mountDrawCard")));
+  ok("…and it is torn down when the next card mounts", /if \(dpStop\) \{ dpStop\(\); dpStop = null; \}/.test(body("mountDrawCard")));
   ok("…and is called from renderCard", /mountDrawCard\(cardRoot, c\);/.test(src));
-  /* THE PIN FOLLOWS ON A FRAME LOOP. Scroll and resize listeners are not enough and the reason is in the
-     header: the page's own entrance animation moves the pad after the pin is applied, and nothing fires
-     afterwards to correct it. */
-  ok("the pin follows on a frame loop rather than on listeners",
-     /requestAnimationFrame\(wbPinFrame\)/.test(src) && /function wbPinFrame\(\)/.test(src));
-  ok("…and the loop stops when the pin is dropped", /cancelAnimationFrame\(wbPinRAF\)/.test(body("wbUnpin")));
-  ok("…and writes only when the numbers move", /Math\.abs\(wbPinAt\.r - right\) > 0\.5/.test(body("wbPinApply")));
-  ok("wbApplyPos gives the pin priority over the stored position",
-     /if \(wbPinEl && wbPinEl\.isConnected\) return wbPinApply\(el\);/.test(slice("wbApplyPos")));
-  ok("…and clears the class when there is no pin", /el\.classList\.remove\("wb-pinned"\)/.test(slice("wbApplyPos")));
-  ok("a pinned marker does not drag", /if \(wbPinEl\) return;/.test(slice("wbMakeDraggable")));
-  ok("leaving the card drops the pin", /wbUnpin\(\);/.test(slice("setupWhiteboard")) && /wbUnpin\(\);/.test(slice("hideWBTools")));
-  /* AND THE PEN GOES BACK THE WAY IT WAS FOUND. `WB.enabled` persists from card to card, so without this
-     the pen the reader never asked for stays down on the ORDINARY card after a draw card — the page under
-     an ink canvas and a writing band opened under the question, neither of which they chose. */
-  ok("…and the pen state a draw card overrode is restored",
-     /if \(wbDrawPrev !== null\) \{ wbSetEnabled\(wbDrawPrev\); wbDrawPrev = null; \}/.test(body("mountDrawCard")) &&
-     /if \(wbDrawPrev === null\) wbDrawPrev = WB\.enabled;/.test(body("mountDrawCard")));
-  ok("…and dropped when the page is left", /wbDrawForget\(\);/.test(slice("hideWBTools")));
+  /* THE FLOATING MARKER IS LEFT ALONE, which is the request. Asserted as an ABSENCE in the source as
+     well as in the browser below: a pin or a forced pen-down added back would be invisible in review. */
+  ok("the floating marker is not pinned to anything", !/wbPinTo|wbPinApply|wbPinFrame|wbUnpin/.test(src));
+  ok("…and the pen is not put down for the reader", !/wbSetEnabled\(true\)/.test(body("mountDrawCard")));
 
   ok("showAnswer reveals the flag", /cardDrawReveal\(cardRoot, c\);/.test(src));
   ok("…and drops the answer box's duplicate copy",
@@ -178,11 +187,14 @@ const server = http.createServer((req, res) => {
   ok("revertCard restores it", /\.drawCard = p\.drawCard/.test(src));
 
   const css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8");
-  /* THE PAD RESERVES THE STRIP ABOVE ITSELF FOR THE MARKER. Without it the 46px button lies over the last
-     line of the prompt, which is the sentence naming what to draw. */
-  ok("the pad reserves room above itself for the marker", /\.draw-pad\{margin:5\d+px/.test(css) || /\.draw-pad\{margin:\s*\d\dpx/.test(css), (css.match(/\.draw-pad\{[^}]*\}/) || [""])[0]);
+  /* THE CANVAS TAKES THE GESTURE. Without `touch-action:none` the browser claims a finger's drag as a
+     scroll the moment it passes its own slop and fires `pointercancel` — the fault this stylesheet
+     records against every horizontal swipe on the site, here wanted rather than avoided. */
+  ok("the canvas takes a finger's gesture rather than the page's scroll", /\.dp-canvas\{[^}]*touch-action:none/.test(css));
+  ok("…and the frame clips what is drawn in it", /\.dp-frame\{[^}]*overflow:hidden/.test(css));
+  ok("…and the menu sits on the canvas's top edge", /\.dp-tools\{[^}]*border-radius:10px 10px 0 0/.test(css));
   ok("…and the writing band stands down on a draw card", /body\.wb-down \.study-card\.draw-card \.scratch\{display:none;\}/.test(css));
-  ok("…and a pinned marker does not ease towards the grade bar", /\.wb-tools\.wb-pinned\{transition:none;\}/.test(css));
+  ok("…and no rule is left pinning the marker", !/wb-pinned/.test(css));
   ok("…and the answer figure is hidden until the reveal", /\.dp-answer\[hidden\]\{display:none;\}/.test(css));
   /* THE FLAG IS CONTAINED AND NEVER CROPPED — the flag card's own rule, and the same reason: ratios run
      1:1 to 11:28 and Nepal's is not a rectangle. */
@@ -235,49 +247,134 @@ const server = http.createServer((req, res) => {
 
   const geo = await page.evaluate(() => {
     const pad = document.querySelector(".draw-pad").getBoundingClientRect();
-    const t = document.querySelector(".wb-tools"), r = t.getBoundingClientRect();
-    return { padTop: pad.top, padRight: pad.right, padWidth: pad.width,
-             mBottom: r.bottom, mRight: r.right,
-             pinned: t.classList.contains("wb-pinned"), shown: t.classList.contains("show"),
+    const fr = document.querySelector(".dp-frame");
+    const cv = document.querySelector(".dp-canvas"), cr = cv.getBoundingClientRect();
+    const t = document.querySelector(".wb-tools");
+    return { padWidth: pad.width,
+             cardW: document.querySelector(".study-card").getBoundingClientRect().width,
+             cvW: Math.round(cr.width), frW: fr.clientWidth,
+             bitmapW: cv.width, dpr: window.devicePixelRatio || 1,
+             tools: document.querySelectorAll(".dp-tools .dp-btn").length,
+             cols: document.querySelectorAll(".dp-tools .dp-col").length,
+             hasFill: !!document.querySelector('[data-dp="fill"]'),
+             undoOff: document.querySelector('[data-dp="undo"]').disabled,
+             markerShown: !!t && t.classList.contains("show"),
+             markerPinned: !!t && t.classList.contains("wb-pinned"),
              penDown: document.body.classList.contains("wb-down"),
-             canvas: !!document.querySelector(".draw-canvas.on"),
-             scratch: getComputedStyle(document.querySelector("#scratch")).display,
-             cardW: document.querySelector(".study-card").getBoundingClientRect().width };
+             pageInk: !!document.querySelector(".draw-canvas.on"),   // the canvas exists either way; `.on` is the pen
+             menuHidden: document.querySelector(".dp-tools").getAttribute("aria-hidden") === "true",
+             tabbable: [...document.querySelectorAll(".dp-tools button")].filter((b) => b.tabIndex >= 0).length,
+             scratch: getComputedStyle(document.querySelector("#scratch")).display };
   });
-  ok("the marker is showing and pinned", geo.shown && geo.pinned, geo);
-  ok("…at the pad's right edge", Math.abs(geo.mRight - geo.padRight) < 2, [geo.mRight, geo.padRight]);
-  ok("…and ABOVE the pad, not inside it", geo.mBottom <= geo.padTop && geo.padTop - geo.mBottom < 12,
-     [geo.mBottom, geo.padTop]);
-  ok("the pen is down without the reader choosing a tool", geo.penDown && geo.canvas);
-  ok("…and the writing band stands down", geo.scratch === "none", geo.scratch);
   /* THE PAD FITS THE CARD. `aspect-ratio` beside a `min-height` inflated the used WIDTH past the card's
      own edge, which took the card's border off the screen with it. */
   ok("the pad fits inside the card", geo.padWidth <= geo.cardW, [geo.padWidth, geo.cardW]);
+  /* AND THE CANVAS FILLS THE FRAME. Sized from a transform-aware rect at mount it came out several px
+     narrow and stayed that way — see the header. Compared against the frame's own LAYOUT width. */
+  ok("…and the canvas fills its frame", Math.abs(geo.cvW - geo.frW) <= 1, [geo.cvW, geo.frW]);
+  ok("…with a bitmap in device pixels", geo.bitmapW >= Math.round(geo.cvW * Math.min(geo.dpr, 3)) - 2,
+     [geo.bitmapW, geo.cvW, geo.dpr]);
+  ok("the menu carries its colours and its six tools", geo.cols >= 4 && geo.tools === 6, [geo.cols, geo.tools]);
+  ok("…including a fill", geo.hasFill);
+  ok("…and Undo is dead until there is something to undo", geo.undoOff);
+  /* AN `aria-hidden` CONTAINER WHOSE CHILDREN ARE STILL FOCUSABLE is the one arrangement worse than
+     either choice: a keyboard reader tabs onto a control their screen reader has been told does not
+     exist, and lands on it silently. Hidden and out of the tab order is one statement. */
+  ok("…and the menu is hidden from assistive tech AND out of the tab order",
+     geo.menuHidden && geo.tabbable === 0, [geo.menuHidden, geo.tabbable]);
+  /* THE FLOATING MARKER IS SEPARATE, which is the request: it is still offered, it is NOT pinned to the
+     pad, and its pen is NOT put down — a pen forced down here would lay the page-wide ink canvas over
+     the pad and make the pad itself unreachable. */
+  ok("the floating marker is offered and left alone", geo.markerShown && !geo.markerPinned, geo);
+  ok("…with its pen up, so the pad is reachable", !geo.penDown && !geo.pageInk);
+  ok("…and the writing band stands down", geo.scratch === "none", geo.scratch);
 
-  /* A STROKE INSIDE THE PAD LANDS AS INK. Drawing is the whole of this format, so "it did not draw" is
-     the one failure that makes the card useless — and it says nothing on the page. */
-  const pad = await page.locator(".draw-pad .dp-frame").boundingBox();
-  const inkAt = () => page.evaluate(() => {
-    const c = document.querySelector(".draw-canvas");
-    const x = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
-    let n = 0; for (let i = 3; i < x.length; i += 4) if (x[i] > 8) n++;
-    return n;
+  /* A STROKE INSIDE THE PAD LANDS AS INK ON THE PAD'S OWN CANVAS. Drawing is the whole of this format,
+     so "it did not draw" is the one failure that makes the card useless — and it says nothing on the
+     page. The counts are read off the pad's canvas, never the marker's. */
+  const read = () => page.evaluate(() => {
+    const c = document.querySelector(".dp-canvas");
+    const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+    let any = 0, dark = 0, green = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] <= 8) continue;
+      any++;
+      if (d[i] < 80 && d[i + 1] < 80 && d[i + 2] < 80) dark++;
+      if (d[i] < 120 && d[i + 1] > 130 && d[i + 2] < 130) green++;
+    }
+    /* `px` is ANY ink and is what a stroke is counted by: the pad opens on the marker's own first colour,
+       which is a red, so a check for DARK pixels measures which swatch was pressed rather than whether
+       anything was drawn. */
+    return { pct: Math.round((100 * any) / (c.width * c.height)), px: any, dark, green };
   });
-  ok("the pad is blank before anything is drawn", (await inkAt()) === 0);
-  await page.mouse.move(pad.x + 30, pad.y + 40);
-  await page.mouse.down();
-  await page.mouse.move(pad.x + 220, pad.y + 60, { steps: 14 });
-  await page.mouse.up();
-  await page.waitForTimeout(200);
-  const ink = await inkAt();
-  ok("…and a stroke drawn in it is ink", ink > 200, ink);
+  ok("the pad is blank before anything is drawn", (await read()).pct === 0);
+  const cbox = await page.locator(".dp-canvas").boundingBox();
+  const drawStroke = async () => {
+    await page.mouse.move(cbox.x + 30, cbox.y + 40);
+    await page.mouse.down();
+    await page.mouse.move(cbox.x + cbox.width - 40, cbox.y + 70, { steps: 14 });
+    await page.mouse.up();
+    await page.waitForTimeout(150);
+  };
+  await drawStroke();
+  const drew = await read();
+  ok("…and a stroke drawn in it is ink on the PAD's canvas", drew.px > 200, drew);
+  ok("…and the hint gets out of its way",
+     (await page.evaluate(() => getComputedStyle(document.querySelector(".dp-hint")).opacity)) === "0");
+
+  /* FILL COVERS THE WHOLE CANVAS IN THE CHOSEN COLOUR, and is undoable — "fill the whole canvas a
+     particular color" is literal, so a mis-press has to cost one press rather than a drawing. */
+  await page.click('[data-dpcol="#4F9D67"]');
+  await page.click('[data-dp="fill"]');
+  await page.waitForTimeout(150);
+  const filled = await read();
+  ok("fill covers the whole canvas", filled.pct === 100, filled);
+  ok("…in the colour chosen", filled.green > 1000, filled.green);
+  await page.click('[data-dp="undo"]');
+  await page.waitForTimeout(150);
+  const unfilled = await read();
+  ok("…and undo takes the fill back, leaving the stroke", unfilled.pct < 100 && unfilled.px > 200, unfilled);
+  await page.click('[data-dp="clear"]');
+  await page.waitForTimeout(150);
+  ok("…and clear empties it", (await read()).pct === 0);
+
+  /* THE PAD'S MENU GOES ON WORKING WITH THE FLOATING PEN DOWN, which is the claim that makes "the two do
+     not interfere" true rather than merely intended. With the pen down the marker's canvas covers the
+     whole visible page, so the only thing keeping these buttons pressable is that they are real
+     `<button>`s and `CTL_SEL` hit-tests through to them — asserted by PRESSING one, not by reading the
+     selector. Driven as a real press, since Playwright's actionability check reads the ink canvas as the
+     button being obscured, which is exactly the state that hit-test is written for. */
+  await page.locator(".wb-tools .wb-toggle").click();          // open the panel
+  await page.waitForTimeout(300);
+  await page.locator(".wb-panel .wb-size").first().click();    // choosing a tool is what puts the pen down
+  await page.waitForTimeout(300);
+  const penDown = await page.evaluate(() => ({
+    down: document.body.classList.contains("wb-down"),
+    ink: !!document.querySelector(".draw-canvas.on") }));
+  ok("the floating pen can still be put down over a draw card", penDown.down && penDown.ink, penDown);
+  const fillBtn = await page.locator('[data-dp="fill"]').boundingBox();
+  await page.mouse.move(fillBtn.x + fillBtn.width / 2, fillBtn.y + fillBtn.height / 2);
+  await page.mouse.down(); await page.mouse.up();
+  await page.waitForTimeout(250);
+  ok("…and the pad's own menu still answers a press through the ink layer", (await read()).pct === 100);
+  /* …and the pen goes back up the way a reader puts it up: pressing the SELECTED tool again, which is
+     the panel's own rule now that closing it no longer does. Closing the panel is not enough — that was
+     the first attempt, and every press after it timed out against an ink canvas still covering the page,
+     which is the behaviour working rather than a fault. */
+  await page.locator(".wb-panel .wb-size").first().click({ force: true });
+  await page.waitForTimeout(250);
+  ok("…and putting it back up leaves the pad to its own tools again",
+     !(await page.evaluate(() => document.body.classList.contains("wb-down"))));
+  await page.locator(".wb-tools .wb-toggle").click();   // shut the panel
+  await page.waitForTimeout(250);
+  await page.click('[data-dp="clear"]');
+  await page.waitForTimeout(150);
+
+  await drawStroke();   // something to still be there after the reveal
 
   /* ---------- 4. the reveal ----------------------------------------------------------------- */
   sect("4. the reveal");
   const padTopBefore = await page.evaluate(() => document.querySelector(".draw-pad").getBoundingClientRect().top + window.scrollY);
-  /* The ink canvas covers the page with the pen down, and Playwright's actionability check reads that as
-     the button being obscured — which is exactly the state the app's own pass-through hit-test is written
-     for. So drive a real press rather than click(). */
   const rb = await page.getByRole("button", { name: /reveal/i }).first().boundingBox();
   await page.mouse.move(rb.x + rb.width / 2, rb.y + rb.height / 2);
   await page.mouse.down(); await page.mouse.up();
@@ -310,26 +407,21 @@ const server = http.createServer((req, res) => {
      drawing out from under the frame it was drawn in. */
   ok("the pad has not moved, so the drawing still sits in it", Math.abs(after.padTop - padTopBefore) < 1,
      [padTopBefore, after.padTop]);
-  const inkAfter = await inkAt();
-  ok("…and the ink is still there", inkAfter > 200, inkAfter);
+  const inkAfter = await read();
+  ok("…and the ink is still there", inkAfter.px > 200, inkAfter);
+  ok("…and the pad says which frame is which now that there are two",
+     (await page.evaluate(() => {
+       const h = document.querySelector(".dp-hint");
+       return { text: h.textContent, op: getComputedStyle(h).opacity };
+     })).text === "What you drew");
 
   /* ---------- 5. and the pin is dropped when the card is ------------------------------------ */
-  sect("5. and the pin is dropped when the card is");
-  await page.evaluate(() => { location.hash = "#settings"; });
-  await page.waitForTimeout(700);
-  const gone = await page.evaluate(() => {
-    const t = document.querySelector(".wb-tools");
-    return { pinned: !!t && t.classList.contains("wb-pinned"), shown: !!t && t.classList.contains("show"),
-             penDown: document.body.classList.contains("wb-down") };
-  });
-  ok("the marker is unpinned once the card is gone", !gone.pinned, gone);
-  ok("…and the pen is back up", !gone.penDown);
-
-  /* AND AN ORDINARY CARD AFTER A DRAW CARD GETS THE PEN BACK UP — which is the case `hideWBTools` does
-     NOT cover, and the one this is really about: within ONE session `WB.enabled` persists from card to
-     card, so the pen the reader never asked for would stay down on whatever comes next. The two cards
-     have to be in one QUEUE and the first GRADED; navigating away and back goes through `hideWBTools`,
-     which puts the pen up for its own reasons and would pass whether or not the restore works. */
+  sect("5. one pad per card");
+  /* THE NEXT CARD GETS A BLANK PAD, and the previous card's drawing must not survive into it — a canvas
+     carried over would show the reader their answer to the card before. `mountDrawCard` tears the old
+     pad's listeners down (`dpStop`) and the element itself dies with the card, so what is asserted here
+     is the OUTCOME rather than either mechanism. Two draw cards in one QUEUE, the first graded: a
+     navigation away and back would go through `hideWBTools` and prove nothing about a session. */
   const plainId = CARDS.filter((c) => c.drawCard !== true && c.flagCard !== true && !c.map && c.artwork !== true && c.question)[0].id;
   /* THE RECORD IS WRITTEN AFTER LANDING ON HOME, NEVER BEFORE. `route()` clears the study session on
      every navigation whose page is not `study` — one choke point, by design — so a record written before
@@ -339,11 +431,17 @@ const server = http.createServer((req, res) => {
   await page.evaluate((ids) => {
     sessionStorage.setItem("folio_study_v1", JSON.stringify({ scope: { type: "ids", ids: ids }, queue: ids, id: ids[0], qi: 0, rev: false, studied: 0 }));
     location.hash = "#study";
-  }, [draws[0].id, plainId]);
-  await page.waitForSelector(".draw-pad", { timeout: 20000 });
+  }, [draws[0].id, draws[1].id, plainId]);
+  await page.waitForSelector(".dp-canvas", { timeout: 20000 });
   await page.waitForTimeout(800);
-  ok("a draw card puts the pen down again on the way back in",
-     await page.evaluate(() => document.body.classList.contains("wb-down")));
+
+  const box2 = await page.locator(".dp-canvas").boundingBox();
+  await page.mouse.move(box2.x + 30, box2.y + 40);
+  await page.mouse.down();
+  await page.mouse.move(box2.x + box2.width - 40, box2.y + 70, { steps: 14 });
+  await page.mouse.up();
+  await page.waitForTimeout(150);
+  ok("the first card of the session takes ink", (await read()).px > 200);
 
   const press = async (re) => {
     const b = await page.getByRole("button", { name: re }).first().boundingBox();
@@ -353,13 +451,22 @@ const server = http.createServer((req, res) => {
   await press(/reveal/i);
   await page.waitForTimeout(600);
   await press(/^good/i);
-  await page.waitForTimeout(900);
-  const next = await page.evaluate(() => ({
-    pad: !!document.querySelector(".draw-pad"),
+  await page.waitForTimeout(1000);
+  const second = await page.evaluate(() => ({ pad: !!document.querySelector(".dp-canvas"),
+    undoOff: (document.querySelector('[data-dp="undo"]') || {}).disabled }));
+  ok("the next draw card has a pad of its own", second.pad, second);
+  ok("…and its undo starts dead, so nothing was carried over", second.undoOff === true, second);
+  ok("…and its canvas is blank", (await read()).pct === 0);
+
+  await press(/reveal/i);
+  await page.waitForTimeout(600);
+  await press(/^good/i);
+  await page.waitForTimeout(1000);
+  const third = await page.evaluate(() => ({ pad: !!document.querySelector(".draw-pad"),
     penDown: document.body.classList.contains("wb-down"),
-    pinned: !!document.querySelector(".wb-tools.wb-pinned"),
-    scratch: (document.querySelector("#scratch") || {}) && getComputedStyle(document.querySelector("#scratch") || document.body).display }));
-  ok("…and the next card in the SAME session has the pen back up", !next.pad && !next.penDown && !next.pinned, next);
+    scratch: getComputedStyle(document.querySelector("#scratch") || document.body).display }));
+  ok("…and an ordinary card after them carries no pad", !third.pad, third);
+  ok("…and the floating marker's pen was never put down by any of it", !third.penDown);
 
   ok("no console errors", errs.length === 0, errs.slice(0, 4));
   await browser.close();
