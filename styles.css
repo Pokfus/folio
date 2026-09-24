@@ -2062,12 +2062,22 @@ body.no-tts .ans-cn .ac-say{display:none;}
    state, because a national flag's credit line reads "Government of India, public domain" and the
    viewer's own caption bar would print it. The credited, enlargeable copy is the small `.av-flag` inside
    the answer box, which `buildBack` draws on the reveal. */
+/* THE FRAME TAKES THE FLAG'S OWN SHAPE (Sep 2026, on request: "the canvas … should shrink horizontally to
+   fit the shape of the flag"). `--ar` is the flag's width over its height, written on the figure by
+   `fitFlagShot` once the file has loaded; 1.5 until then, the commonest ratio on the shelf. The frame's
+   width is derived from its target height, `min(100%, height × ratio)`, and the picture's height from the
+   frame's width through `aspect-ratio` — so a narrow screen shortens a wide flag rather than
+   letterboxing it, and no ratio can leave a band of paper beside the flag. It is centred, the one place a
+   frame narrower than the card has to sit. `object-fit:contain` stays as the fallback for a file whose
+   size never arrives. */
 .flag-shot{
-  margin:2px 0 16px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+  --flag-h:clamp(150px, 30vh, 280px);
+  width:min(100%, calc(var(--flag-h) * var(--ar, 1.5))); box-sizing:border-box;
+  margin:2px auto 16px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
   background:var(--paper-2); box-shadow:var(--shadow-sm);
 }
 .flag-shot img{
-  display:block; width:100%; height:clamp(150px, 30vh, 280px);
+  display:block; width:100%; height:auto; aspect-ratio:var(--ar, 1.5);
   object-fit:contain; background:var(--paper-2);
 }
 /* AND ON THE REVEAL IT BECOMES ENLARGEABLE, which is where its credit lives (Sep 2026, on request: "the
@@ -2158,13 +2168,19 @@ body.no-tts .ans-cn .ac-say{display:none;}
    other and the labels are what say which is which. */
 .draw-pad.dp-drawn.dp-revealed .dp-hint{opacity:1;}
 /* The answer lands UNDER the pad and never inside it, so nothing above it moves when it arrives. */
+/* The revealed flag takes its own shape, exactly as a flag card's front does (see `.flag-shot` and
+   `fitFlagShot`), so a flag narrower than the pad sits centred under it with no band of paper beside it.
+   That gives up the three-edges-together rule above for the ANSWER alone, deliberately: it was asked for
+   by name ("should never have black bars on the side"), and the pad itself keeps its width. */
 .dp-answer{
-  margin:14px 0 0; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+  --flag-h:clamp(150px, 30vh, 280px);
+  width:min(100%, calc(var(--flag-h) * var(--ar, 1.5))); box-sizing:border-box;
+  margin:14px auto 0; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
   background:var(--paper-2); box-shadow:var(--shadow-sm);
 }
 .dp-answer[hidden]{display:none;}   /* the author `display:block` would beat the UA rule, as .af-src does */
 .dp-answer img{
-  display:block; width:100%; height:clamp(150px, 30vh, 280px);
+  display:block; width:100%; height:auto; aspect-ratio:var(--ar, 1.5);
   object-fit:contain; background:var(--paper-2);
 }
 .dp-answer.revealed{cursor:zoom-in;}

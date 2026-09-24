@@ -342,6 +342,13 @@ ok(flagged.length > 0, "the corpus carries the flag at all", flagged.map((c) => 
   ok(!!he && sy(he) != null, "…and still carries a sort year, so its place in the deck is unaffected",
     he ? String(sy(he)) : "");
 }
+// and the two named in the Sep 2026 request that widened it to every abstract term the games can reach
+for (const [id, name] of [["gr-984", "divination"], ["ww2-128", "sphere of influence"]]) {
+  const c = CARDS.find((x) => x.id === id);
+  ok(!!c && c.undatable === true, name + " — named in the request — is flagged");
+}
+// and add-card.js refuses a game-reachable card of a usually-timeless kind that has not decided
+ok(/TIMELESS_KINDS/.test(fs.readFileSync(path.join(__dirname, "add-card.js"), "utf8")), "add-card.js makes a timeless-kind card state its Timeline decision");
 /* A flag applied too widely is the opposite failure and just as quiet: the game falls back to a placard
    that reads as content nobody has written. Five distinct years is what a round needs; the floor here is
    well above it so that a batch which starts flagging conventional onsets fails before a reader meets it. */

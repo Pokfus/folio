@@ -31638,6 +31638,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       openLinks(cardRoot);
       setupCloze(cardRoot.querySelector(".question"));
       mountCardMaps(cardRoot);   // a map card's question is a canvas — see the MAP CARDS block
+      fitFlagShots(cardRoot);   // a cached flag can finish loading before the delegated listener sees it
       /* Stepping through the card's phrasings. It swaps the question IN PLACE rather than re-rendering the
          card: the answer may already be showing, and a reader who cycles to compare two wordings has not
          asked for the answer to be taken away again. `c` is a copy whenever there is a pool to cycle, so
@@ -31653,6 +31654,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         qEl.innerHTML = cardFrontHTML(c);
         setupCloze(qEl);
         mountCardMaps(qEl);
+        fitFlagShots(qEl);
         if (revealed) gradeCloze(qEl, c.answer);   // the blank stays filled in — reveal is not undone by this
         if (syncAttempt) syncAttempt();               // a fresh blank is an unattempted one (see deckAttempt)
         const n = cardRoot.querySelector("#qcN"); if (n) n.textContent = (qIdx + 1) + " / " + pool.length;
@@ -35202,6 +35204,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const spec = cardFlagSpec(c);
     if (!root || !spec) return;
     const fig = root.querySelector(".flag-shot");
+    if (fig) fitFlagShots(fig.parentNode || root);
     if (!fig || fig.classList.contains("revealed")) return;
     fig.classList.add("revealed");
     fig.setAttribute("role", "button");
@@ -35211,6 +35214,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     fig.setAttribute("data-img-title", spec.alt || "");
     fig.setAttribute("data-img-desc", "");
     fig.setAttribute("data-img-credit", spec.credit);
+  }
+  /* THE FRAME IS THE FLAG'S OWN SHAPE, SO THERE ARE NO BARS AT ITS SIDES (Sep 2026, on request: "the
+     canvas that the flags are displayed in should never have black bars on the side, i.e. the canvas should
+     shrink horizontally to fit the shape of the flag"). The frame was full width at a fixed height with the
+     picture contained inside it, so a 2:3 flag sat between two bands of paper — black at night — and a
+     square one between two wide ones. The ratio cannot be known before the file arrives, since a flag
+     carries nothing that records it, so it is read off the loaded picture and written as `--ar` on the
+     FIGURE, whose width styles.css then derives from the frame's height: `min(100%, height × ratio)`.
+     The `min` is what keeps a very wide flag (Qatar, 11:28) inside a phone, where it narrows the HEIGHT
+     instead — the picture takes `aspect-ratio` from the same property, so it can never be letterboxed
+     either way. Called from the delegated `load` listener and, because a cached file can finish before
+     that listener sees it, from `cardFlagReveal` and the render path as well. A file with no intrinsic
+     size (an SVG declaring none) keeps the stylesheet's 3:2 default rather than a guess of zero. */
+  function fitFlagShot(img) {
+    const fig = img && img.closest && img.closest(".flag-shot, .dp-answer");
+    if (!fig || !img.naturalWidth || !img.naturalHeight) return;
+    fig.style.setProperty("--ar", String(img.naturalWidth / img.naturalHeight));
+  }
+  function fitFlagShots(root) {
+    (root || document).querySelectorAll(".flag-shot img, .dp-answer img").forEach((im) => { if (im.complete) fitFlagShot(im); });
   }
 
   /* ---------- DRAW CARDS: the flag is the ANSWER, and the reader draws it (Sep 2026, on request) ----------
@@ -35359,6 +35382,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     img.loading = "lazy";
     img.draggable = false;
     fig.appendChild(img);
+    if (img.complete) fitFlagShot(img);   // a cached file can finish before the delegated load listener sees it
     fig.hidden = false;
     fig.classList.add("revealed");
     fig.setAttribute("role", "button");
@@ -51002,6 +51026,7 @@ let prev = null;
     if (!el || el.tagName !== "IMG") return;
     const fig = el.closest && el.closest(".ar-frame");
     if (fig) fig.classList.remove("ar-loading");
+    fitFlagShot(el);   // a flag card's frame takes the flag's own shape (see fitFlagShot)
   }, true);
   document.addEventListener("error", (e) => {
     const el = e.target;
