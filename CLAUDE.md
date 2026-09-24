@@ -4542,7 +4542,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     every visit and undismissably, after a reader studied for an hour without knowing they were signed
     out. **`guestNow` reads the STORED session as well as the live one**, `supaBoot` being asynchronous —
     without that the notice would flash for every signed-in reader on each load.
-  · **WHO SAID IT? DEALS THREE ROUNDS, IS CITED, AND AN ADMIN CAN REMOVE A QUOTATION** (`WS_ROUNDS = 3` /
+  · **WHO SAID IT? DEALS FIVE ROUNDS, IS CITED, AND AN ADMIN CAN REMOVE A QUOTATION** (`WS_ROUNDS = 5` /
     `whoSaidPool` / `ADMIN_EDITS.whosaidOff` / `whoSaidAdminHTML`). `quotes.js` entries take a `src` array
     and a marker in `context`, rendered through True or False's own `tfWireWhy`; the removal list is a
     second section of Admin → Quotes and rides the overlay like any other admin edit.
@@ -7501,6 +7501,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **"Copy as JS" hands the whole pool back as the `SHIPPED_QUOTES` literal**, for pasting into app.js when
     a batch is settled. It is the bake path this tab has instead of `autoSaveFiles`, which writes data files
     and **must never be pointed at app.js**.
+  **…AND A THIRD LIST, "Myth or fact?", EDITS AND REMOVES THE TRUE OR FALSE POOL** (Sep 2026, on
+  request). `truefalsePool()` is the game's one door, as `whoSaidPool()` is Who said it?'s, over
+  `ADMIN_EDITS.truefalse` — keyed by the statement's SHIPPED `q`, a value being the whole replacement
+  `{ q, a, why, cat, src }` or `null` for removed. The overlay key must stay in `normalizeAdminEdits`.
+  Saving the shipped wording back clears the edit; the form refuses a source with no URL and a marker
+  past the end of the list, as `check-truefalse.js` does. **`truefalse.js` is never rewritten by the
+  app** — an edit lives in the overlay and reaches readers through `content_overrides`.
   **A TAB THAT TAKES OVER THE ADMIN AREA MUST LIFT THE ≤860px PANEL CAP** (Aug 2026, on a bug report).
   `.admin-list-items` is capped at `max-height:300px` on a phone, which is right for the Cards and Glossary
   lists — they are one column of a two-column layout — and traps a whole page in a 300px scroll box for a tab

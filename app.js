@@ -537,6 +537,9 @@
       // the "Who said it?" pool's REMOVALS, keyed by each entry's English `q` → true (see whoSaidPool).
       // Removal only: the pool is quotes.js, and an entry comes back by deleting its key.
       whosaidOff: o.whosaidOff && typeof o.whosaidOff === "object" ? o.whosaidOff : {},
+      // the True or False ("Myth or fact?") pool's EDITS, keyed by each statement's SHIPPED English `q`
+      // (see truefalsePool): a whole replacement { q, a, why, cat, src }, or null to take it out of play.
+      truefalse: o.truefalse && typeof o.truefalse === "object" ? o.truefalse : {},
       // the artefact pool, keyed by artefact ID (see artefactsMerged): a whole replacement object, or
       // null to retire a shipped artefact. A key matching nothing in artefacts.js is one the admin added.
       artefacts: o.artefacts && typeof o.artefacts === "object" ? o.artefacts : {},
@@ -37595,12 +37598,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       try { setupTooltips(row); } catch (e) {}
     });
   }
+  /* AN ADMIN CAN EDIT OR REMOVE A STATEMENT (Sep 2026, on request: "on the admin page, allow me to see
+     all the questions for Myth or Fact, so i can edit or remove them"). `truefalsePool` is the one door,
+     the way `whoSaidPool` is for Who said it?, and it reads `ADMIN_EDITS.truefalse` — keyed by the
+     statement's SHIPPED English `q`, never its index, so a statement inserted above it in truefalse.js
+     cannot move an edit onto its neighbour. A value is the whole replacement statement, or null for one
+     taken out of play; the edit reaches every reader through `content_overrides` with no deploy, and
+     truefalse.js itself is never rewritten by the app. */
+  function truefalsePool() {
+    const ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {};
+    return (window.TRUEFALSE || []).map((x) => (x && Object.prototype.hasOwnProperty.call(ov, x.q)) ? ov[x.q] : x).filter(Boolean);
+  }
   PAGES.truefalse = function (root) {
     detachKeys();
     // the gate goes first: a reader who has played does not have to wait on a translation table to be told so
     if (gameLockedToday(root, "truefalse")) return;
     if (gamesI18nPending(root)) return;
-    const POOL = (window.TRUEFALSE || []).map((x) => tfLocalized(x));
+    const POOL = truefalsePool().map((x) => tfLocalized(x));
     const ROUNDS = 5;
     if (POOL.length < ROUNDS) { root.innerHTML = emptyPlacard("Coming soon", "真", "Not enough statements to play yet.", () => route("home"), "Back home"); return; }
     // the day's five, distinct and the same for every reader — see dayPick
@@ -37685,7 +37699,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      — so a thin cell degrades one rung at a time instead of refusing to deal. It cannot fail closed:
      `rest` is every remaining name in the pool, so the fourth rung always fills the round.
 
-     AND THE ROUND COUNT IS THREE (Sep 2026, on request), having gone 5 → 3 → 5 in August. It is a named
+     AND THE ROUND COUNT IS FIVE (Sep 2026, on request), having gone 5 → 3 → 5 in August and to three again
+     earlier in September. It is a named
      constant read by the page and by nothing else, so the results screen, the score and the tile all
      follow the one figure.
 
@@ -37695,7 +37710,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      every reader through `content_overrides` like any other admin edit and needs no deploy. A removed
      quotation's SPEAKER stays available as a decoy only if another of their lines is still in the pool,
      the decoys being drawn from this same filtered list. */
-  const WS_ROUNDS = 3;
+  const WS_ROUNDS = 5;
   function whoSaidPool() {
     const off = (ADMIN_EDITS && ADMIN_EDITS.whosaidOff) || {};
     return (window.QUOTEGAME || []).filter((x) => x && !off[x.q]);
@@ -49637,7 +49652,7 @@ let prev = null;
         gloss: gKeys.length, gAtBar, gSrcTotal, gMedia, gTagged, gDated,
         eras: (window.TIMELINE || []).length,
         places: Object.keys(window.COUNTRY_INFO || {}).length,
-        tfPool: (window.TRUEFALSE || []).length, quotePool: whoSaidPool().length,
+        tfPool: truefalsePool().length, quotePool: whoSaidPool().length,
         localDecks: Object.keys(UDECKS || {}).length,
         overlay: adminEditCount(),
         langs,
@@ -50011,6 +50026,92 @@ let prev = null;
           "</div>";
         }).join("") + "</div></div>";
     }
+    /* The True or False pool — "Myth or fact?" on the reader's side — a third list on this tab, beside
+       the other two game-and-quotation pools. Every statement is listed in file order with Edit and Remove;
+       Edit opens a form in place of the row. See truefalsePool for the overlay's shape. */
+    let _tfEditing = null;   // the shipped `q` of the statement whose form is open
+    function tfAdminHTML() {
+      const all = window.TRUEFALSE || [], ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {};
+      const has = (k) => Object.prototype.hasOwnProperty.call(ov, k);
+      const live = all.filter((x) => !(has(x.q) && ov[x.q] === null)).length;
+      const form = (k, it) => {
+        const src = Array.isArray(it.src) ? it.src.join("\n") : "";
+        return '<div class="q-form tf-form" data-tfform="' + esc(k) + '">' +
+          '<div class="q-form-head"><b>Edit statement</b><span class="q-form-note">The explanation is HTML: <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code> and an empty <code>&lt;sup class="fn" data-fn="1"&gt;&lt;/sup&gt;</code> marker pointing at a source. Metric first with the imperial in brackets, British spelling.</span></div>' +
+          '<label class="admin-field"><span class="af-label">the statement</span><textarea class="af-input" data-tff="q" rows="2">' + esc(it.q || "") + "</textarea></label>" +
+          '<label class="admin-field"><span class="af-label">the answer</span><select class="af-input" data-tff="a">' +
+            '<option value="true"' + (it.a ? " selected" : "") + '>True — a fact</option>' +
+            '<option value="false"' + (it.a ? "" : " selected") + '>False — a myth</option></select></label>' +
+          '<label class="admin-field"><span class="af-label">category</span><input class="af-input" type="text" data-tff="cat" value="' + esc(it.cat || "") + '" /></label>' +
+          '<label class="admin-field"><span class="af-label">the explanation</span><textarea class="af-input" data-tff="why" rows="5">' + esc(it.why || "") + "</textarea></label>" +
+          '<label class="admin-field"><span class="af-label">sources <small>— one Chicago note per line, each ending in its URL</small></span><textarea class="af-input" data-tff="src" rows="3">' + esc(src) + "</textarea></label>" +
+          '<div class="q-form-acts">' +
+            '<button class="mini-btn" type="button" data-tfcancel>Cancel</button>' +
+            (has(k) && ov[k] !== null ? '<button class="mini-btn" type="button" data-tfrevert="' + esc(k) + '">Revert</button>' : "") +
+            '<button class="admin-new" type="button" data-tfsave="' + esc(k) + '">Save</button>' +
+          "</div></div>";
+      };
+      return '<div class="ws-admin tf-admin">' +
+        '<div class="ws-admin-head"><b>Myth or fact?</b> <span class="ws-admin-count">' + live + " of " + all.length + " in play</span></div>" +
+        '<div class="tl-intro">The True or False minigame\'s pool, from <code>truefalse.js</code>. An edit or a removal takes effect at once and travels to every reader from the next draw; the file is untouched, so Revert or Restore brings back the shipped statement. The game needs at least five in play.</div>' +
+        '<div class="q-list">' + all.map((x) => {
+          const k = x.q, isOff = has(k) && ov[k] === null, edited = has(k) && ov[k] !== null;
+          const it = edited ? ov[k] : x;
+          if (_tfEditing === k && !isOff) return form(k, it);
+          return '<div class="q-row ws-row tf-row' + (isOff ? " ws-off" : "") + '">' +
+            '<div class="q-main"><span class="q-text">' + esc(it.q) + "</span>" +
+              '<span class="q-meta"><b>' + (it.a ? "True" : "False") + "</b>" + (it.cat ? '<span class="q-src">' + esc(it.cat) + "</span>" : "") +
+                (Array.isArray(it.src) && it.src.length ? '<span class="q-pill q-orig">cited</span>' : '<span class="q-pill q-noorig">uncited</span>') +
+                (isOff ? '<span class="q-pill q-edited">removed</span>' : edited ? '<span class="q-pill q-edited">edited</span>' : "") + "</span></div>" +
+            (isOff ? "" : '<button type="button" class="mini-btn" data-tfedit="' + esc(k) + '">Edit</button>') +
+            '<button type="button" class="mini-btn' + (isOff ? "" : " danger") + '" data-tfoff="' + esc(k) + '">' + (isOff ? "Restore" : "Remove") + "</button>" +
+          "</div>";
+        }).join("") + "</div></div>";
+    }
+    function wireTfAdmin(items) {
+      const ov = () => ADMIN_EDITS.truefalse || (ADMIN_EDITS.truefalse = {});
+      const shipped = (k) => (window.TRUEFALSE || []).find((x) => x.q === k);
+      items.querySelectorAll("[data-tfedit]").forEach((b) => b.addEventListener("click", () => {
+        _tfEditing = b.dataset.tfedit; adminRenderQuotes();
+        const f = items.querySelector(".tf-form"); if (f) f.scrollIntoView({ block: "nearest" });
+      }));
+      items.querySelectorAll("[data-tfoff]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.tfoff, o = ov();
+        const wasOff = Object.prototype.hasOwnProperty.call(o, k) && o[k] === null;
+        if (wasOff) delete o[k]; else o[k] = null;
+        if (_tfEditing === k) _tfEditing = null;
+        saveAdminEdits(); adminRenderQuotes();
+        toast(wasOff ? "Restored to Myth or fact?" : "Removed from Myth or fact?");
+      }));
+      items.querySelectorAll("[data-tfcancel]").forEach((b) => b.addEventListener("click", () => { _tfEditing = null; adminRenderQuotes(); }));
+      items.querySelectorAll("[data-tfrevert]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.tfrevert;
+        inlineConfirm("Put this statement back to its shipped wording?", () => {
+          delete ov()[k]; _tfEditing = null; saveAdminEdits(); adminRenderQuotes(); toast("Reverted");
+        }, "Revert");
+      }));
+      items.querySelectorAll("[data-tfsave]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.tfsave, f = b.closest(".tf-form"); if (!f) return;
+        const v = (n) => (f.querySelector('[data-tff="' + n + '"]').value || "").trim();
+        const q = v("q").replace(/\s+/g, " "), why = v("why");
+        if (!q) { toast("A statement needs its words."); return; }
+        if (!why) { toast("A statement needs its explanation."); return; }
+        const src = v("src").split(/\n+/).map((x) => x.trim()).filter(Boolean);
+        // the house form ends in the URL, optionally followed by a `[in French]` / `[Open access]` label
+        const bad = src.find((x) => !/https?:\/\/\S+\.?(\s*\[[^\]]+\])*$/.test(x));
+        if (bad) { toast("Every source must end in the URL a reader can check it at."); return; }
+        const marks = (why.match(/data-fn="(\d+)"/g) || []).map((m) => +m.replace(/\D/g, ""));
+        if (marks.some((n) => n < 1 || n > src.length)) { toast("A footnote marker points past the end of the sources."); return; }
+        const it = { q: q, a: v("a") === "true", why: why, cat: v("cat") };
+        if (src.length) it.src = src;
+        const orig = shipped(k);
+        // typing the shipped statement back clears the edit rather than storing a copy of it
+        const same = orig && orig.q === it.q && !!orig.a === it.a && (orig.why || "") === it.why && (orig.cat || "") === it.cat &&
+          JSON.stringify(orig.src || []) === JSON.stringify(it.src || []);
+        if (same) delete ov()[k]; else ov()[k] = it;
+        _tfEditing = null; saveAdminEdits(); adminRenderQuotes(); toast("Statement saved");
+      }));
+    }
     function adminRenderQuotes() {
       const items = root.querySelector("#adminListItems");
       const countEl = root.querySelector("#adminListCount");
@@ -50097,7 +50198,9 @@ let prev = null;
           formHTML() +
           '<div class="q-list">' + (rows.length ? rows.map(row).join("") : '<div class="tl-empty">No quotes in the pool.</div>') + "</div>" +
           whoSaidAdminHTML() +
+          tfAdminHTML() +
         "</div>";
+      wireTfAdmin(items);
 
       items.querySelectorAll("[data-qopen]").forEach((b) => b.addEventListener("click", () => {
         _qEditing = _qEditing === b.dataset.qopen ? null : b.dataset.qopen;
