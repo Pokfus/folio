@@ -4535,7 +4535,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     every visit and undismissably, after a reader studied for an hour without knowing they were signed
     out. **`guestNow` reads the STORED session as well as the live one**, `supaBoot` being asynchronous —
     without that the notice would flash for every signed-in reader on each load.
-  · **WHO SAID IT? DEALS THREE ROUNDS, IS CITED, AND AN ADMIN CAN REMOVE A QUOTATION** (`WS_ROUNDS = 3` /
+  · **WHO SAID IT? DEALS FIVE ROUNDS, IS CITED, AND AN ADMIN CAN REMOVE A QUOTATION** (`WS_ROUNDS = 5` /
     `whoSaidPool` / `ADMIN_EDITS.whosaidOff` / `whoSaidAdminHTML`). `quotes.js` entries take a `src` array
     and a marker in `context`, rendered through True or False's own `tfWireWhy`; the removal list is a
     second section of Admin → Quotes and rides the overlay like any other admin edit.

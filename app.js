@@ -37675,7 +37675,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      — so a thin cell degrades one rung at a time instead of refusing to deal. It cannot fail closed:
      `rest` is every remaining name in the pool, so the fourth rung always fills the round.
 
-     AND THE ROUND COUNT IS THREE (Sep 2026, on request), having gone 5 → 3 → 5 in August. It is a named
+     AND THE ROUND COUNT IS FIVE (Sep 2026, on request), having gone 5 → 3 → 5 in August and to three again
+     earlier in September. It is a named
      constant read by the page and by nothing else, so the results screen, the score and the tile all
      follow the one figure.
 
@@ -37685,7 +37686,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      every reader through `content_overrides` like any other admin edit and needs no deploy. A removed
      quotation's SPEAKER stays available as a decoy only if another of their lines is still in the pool,
      the decoys being drawn from this same filtered list. */
-  const WS_ROUNDS = 3;
+  const WS_ROUNDS = 5;
   function whoSaidPool() {
     const off = (ADMIN_EDITS && ADMIN_EDITS.whosaidOff) || {};
     return (window.QUOTEGAME || []).filter((x) => x && !off[x.q]);
