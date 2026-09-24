@@ -1724,16 +1724,44 @@ neighbouring card whose prose they belong in at all, and stay omitted outright.
              concrete, and the dimensions are his own. The picture is an altar standing in the open
              in FRONT of its temple at Delos, which is the card's claim in one photograph; the
              museum candidates were rejected as mostly modern plaster
-    gr-971  Animal sacrifice
-    gr-972  Hecatomb
-    gr-973  Libation
-    gr-974  Greek priesthood
-    gr-975  Temenos
-    gr-976  Votive offering
-    gr-977  Oracles
-    gr-978  The Delphic oracle
-    gr-979  The Pythia
-    gr-980  The Delphic maxims
+    gr-971  Animal sacrifice — written. Hesiod's Mecone story is the card's spine, and it is given as
+             an explanation after the fact rather than as a rule anyone followed, which is what keeps
+             the card about the rite instead of about the myth
+    gr-972  Hecatomb — written. The word is a scale rather than a count, which Homer's own figures
+             prove: eighty-one bulls at Pylos, an unstated number at Chryse, three thousand beasts at
+             Delphi in Herodotus
+    gr-973  Libation — written, and **the pairing rule was ALREADY SATISFIED**: `Libation` has been a
+             cited term since the prehistory passes. It was NOT re-run through `add-glossary.js`,
+             which overwrites in silence; it was given the picture it lacked instead
+    gr-974  Greek priesthood — written. Its picture is a youth carrying an offering tray to an altar
+             rather than a priest, which is the card's own point: the rites were performed by
+             ordinary citizens holding an office. The paired term takes the Hegeso statue
+    gr-975  Temenos — written, and the card is a word's history: Murray renders it "demesne" in both
+             its Homeric senses, so the same English word covers Bellerophon's estate and Zeus'
+             precinct on Ida, which is the whole argument in one translator's choice
+    gr-976  Votive offering — written, and **the pairing rule was ALREADY SATISFIED** by
+             `Votive_dedication`, which carries "votive offering" as an alias, so the card's answer
+             term auto-links without a second key. Nothing was overwritten
+    gr-977  Oracles — retitled to the singular `oracle`, on the `Siren` precedent at gr-960.
+             **THE BARE SURFACE WAS CLAIMED DELIBERATELY AND THE COST IS MEASURED AND NAMED.**
+             91 shipped abstracts contain the word; 23 of those occurrences are the hyphenated
+             `oracle-bone` compound of the China collection, which a `\b`-anchored match would have
+             linked to a Greek term — so `Oracle_bone_script` was first given the hyphenated and
+             bare forms as aliases, the longest surface winning. What survives after that is
+             **exactly two cards**, `cnh-083` (a Chinese prophecy about the nine cauldrons) and
+             `wh-456` (the oracle arrows at the Kaʿba), and on both the SENSE the term defines — a
+             divine answer — is the right one, only the cultural framing being Greek. That is a
+             better trade than `Cell_(biology)`'s accepted five, and it is recorded here rather than
+             left to be re-derived
+    gr-978  The Delphic oracle — written, and kept distinct from the `Delphi` term, which is the
+             PLACE. Herodotus carries 3 of its 5 sources, which is the ancient-witness carve-out
+    gr-979  The Pythia — written. Pausanias' own sentence that tradition at Delphi "makes mention of
+             prophetesses only" is what the card rests on, and the why-answer says plainly that the
+             sources do not explain the rule rather than inventing a reason for it
+    gr-980  The Delphic maxims — written, and the third maxim is the card's find: Plato's
+             <i>Charmides</i> has "give a pledge and ruin is at hand" standing beside the two famous
+             ones, and argues that "know thyself" was never advice but the god's greeting to those
+             coming in
     gr-981  The omphalos
     gr-982  The oracle at Dodona
     gr-983  The Delphic amphictyony and the First Sacred War
