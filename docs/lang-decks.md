@@ -3496,6 +3496,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S39 | B1 | #559 `la misa` – #586 `el flash` | 25 | 3 (`el voluntario, la voluntaria`, `arrogante`, `entrenar`) | 0 | B1 description: 959 with three | — |
 | S40 | B1 | #587 `tradicional` – #614 `el cohete` | 27 | 1 (`occidental`) | 0 | B1 description: 962 with three | — |
 | S41 | B1 | #615 `vago, vaga` – #642 `deprimido, deprimida` | 27 | 1 (`la competición`) | 0 | B1 description: 963 with three | S29 unbolded phrase cards: 3 of the 4 remaining closed |
+| S42 | B1 | #643 `formal` – #670 `el aparcamiento` | 26 | 2 (`conectarse`, `el terremoto`) | 0 | B1 description: 995 with examples, 965 with three, 3 with none | `la delta` renamed `el delta` |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5179,6 +5180,42 @@ B1 card were replaced. `el maletero` comes up to three examples: 963 of 998.
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 61 → 56. `charlar` stays on it under "to chat" over *chatting* and *chatted*, which the checker's stemmer does
 not join to "chat" — named here as a false positive.
+
+### S42 — DELE B1, notes #643–#670 (Sep 2026)
+
+Measured against the S41 commit by card id: **26 changed, 972 untouched**, each a record entry. The other two
+were read and left alone: `conectarse`, `el terremoto`.
+
+**THE WRONG WORD, AND ONE OF THE FOUR CARDS WITH NO EXAMPLE.** `la delta` was glossed "Greek letter delta" and
+carried no example at all. The noun a B1 geography inventory wants is *el delta*, the delta of a river, which
+is **masculine** — so the generator chose a sense and a gender that are both another word's. It is renamed
+`el delta`, glossed as a river delta, and given three examples (the Ebro, the Nile). **B1 now has examples for
+995 of its 998 words, and the description's count of cards with none goes from 4 to 3** — both figures moved
+through the record's `descSub`.
+
+**A NOUN CARD WHOSE EXAMPLES WERE ALL ANOTHER PART OF SPEECH, AGAIN.** `terminal` was glossed only as the
+adjective, and all three examples were *la terminal*, an airport or bus terminal.
+
+**NOT THE HEADWORD.** `homosexual`'s third example was *Homo Sapiens*; `arriesgar`'s second the adjective
+*arriesgado*; `conectar`'s third *me conecto a Internet*, the reflexive the next card teaches and carries.
+
+**AMERICAN ENGLISH.** `el aparcamiento` said "parking lot" three times; `la caravana` "trailer"; `el buzón`
+"mailbox"; `frito` "potato chips".
+
+**WHAT A LEARNER DOES NOT NEED.** Four aphorisms (`la pobreza` twice — "Poverty is the root of all evil" also
+sat on `la raíz` — `el exceso`, the Catholic *caridad*); a mystical claim about one Consciousness on
+`la separación`; aliens and a "deadly laser" sun on `el láser`; cockfighting; and a question asking the learner's
+opinion of Catalan independence, replaced on `la independencia` with sentences that assert nothing contested.
+
+**AND THE REST.** A Jessie on `mojado` outside the name table; *primero que todo* and *cello* as Latin American
+or English forms; `la separación`'s English turning a separation into "a divorce". `el exceso` lost all three
+examples. Nine sentences shared with A1, A2 or an earlier B1 card were replaced. `la tinta` and `el delta` come
+up to three examples: 965 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+56 → 58. Both new entries are named here: `la raíz` ("root" over three sentences saying "roots") and `formal`
+(its new sense "reliable, responsible" over examples rendered "dependable", "diligent" and "prim"). The first is
+the checker's stemmer; the second is a paraphrase, the meanings agreeing.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

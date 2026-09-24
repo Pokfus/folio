@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,11 +865,11 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
-     "there are none at all for the remaining 4,"
+     "there are none at all for the remaining 3,"
     ],
     [
      "999 words for level B1 of the DELE",
@@ -877,47 +877,55 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 956 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 957 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 958 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 959 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 962 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them",
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+    ],
+    [
+     "there are none at all for the remaining 4,",
+     "there are none at all for the remaining 3,"
     ]
    ]
   }
@@ -41188,6 +41196,570 @@
      "He's been a bit down lately."
     ]
    ]
+  },
+  "deleb1/formal": {
+   "why": "The gloss gave 'reliable, dependable' beside 'formal' without saying the first is a sense for a person. The examples are right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "formal",
+      "(of a person) reliable, responsible"
+     ]
+    ]
+   ]
+  },
+  "deleb1/arriesgar": {
+   "why": "The gloss was a list of five. The first example, 'No podemos arriesgar que esto nos pase', is a calque, and the second was the adjective arriesgado.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to risk"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "arriesgarse — to take a risk"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No podemos arriesgar que",
+    "Es arriesgado que entres"
+   ],
+   "ex": [
+    [
+     "Arriesgó su vida para salvar al niño.",
+     "He risked his life to save the child."
+    ],
+    [
+     "No quiero arriesgar mi dinero.",
+     "I don't want to risk my money."
+    ]
+   ]
+  },
+  "deleb1/el láser": {
+   "why": "The gloss is right. The first example, 'El sol es un láser mortal', is false, and the third was about aliens and flying saucers.",
+   "dropEx": [
+    "El sol es un láser mortal",
+    "los platillos voladores"
+   ],
+   "ex": [
+    [
+     "La impresora láser no funciona.",
+     "The laser printer isn't working."
+    ],
+    [
+     "Le operaron la vista con láser.",
+     "He had laser eye surgery."
+    ]
+   ]
+  },
+  "deleb1/la pobreza": {
+   "why": "The gloss is right. The first two examples were aphorisms, and the third's English said 'ashamed' for le da pena.",
+   "dropEx": [
+    "en cierto sentido, una bendición",
+    "la raíz de todo mal"
+   ],
+   "exEn": [
+    [
+     "Le da pena la",
+     "He feels sorry about his father's poverty."
+    ]
+   ],
+   "ex": [
+    [
+     "Muchas familias viven en la pobreza.",
+     "Many families live in poverty."
+    ],
+    [
+     "La pobreza infantil ha aumentado.",
+     "Child poverty has risen."
+    ]
+   ]
+  },
+  "deleb1/frágil": {
+   "why": "The gloss was a list, 'fragile' twice among it. The examples are right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "fragile",
+      "frail"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la tinta": {
+   "why": "The gloss is right. The card had two examples, and the second, 'Mi tinta es mejor que la tuya', is not a sentence anyone says.",
+   "dropEx": [
+    "Mi tinta es mejor"
+   ],
+   "ex": [
+    [
+     "Escribe con tinta azul.",
+     "Write in blue ink."
+    ],
+    [
+     "Se ha acabado la tinta de la impresora.",
+     "The printer has run out of ink."
+    ]
+   ]
+  },
+  "deleb1/la caravana": {
+   "why": "The gloss put 'camper' first and did not give the Spain sense of a tailback. Two examples' English said 'trailer', and the third is not a natural sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "caravan",
+      "tailback (of traffic)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la caravana pegará en el techo"
+   ],
+   "exEn": [
+    [
+     "Carlos vivía en una",
+     "Carlos lived in a caravan."
+    ]
+   ],
+   "ex": [
+    [
+     "Había mucha caravana en la autopista.",
+     "There was a long tailback on the motorway."
+    ]
+   ]
+  },
+  "deleb1/la postura": {
+   "why": "The gloss did not give 'posture'. The first example's primero que todo is Latin American (ante todo), and the second is a calque of 'scientific basis'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "posture",
+      "position, stance",
+      "(yoga) pose"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Primero que todo",
+    "No hay un trasfondo científico"
+   ],
+   "ex": [
+    [
+     "Siéntate con buena postura.",
+     "Sit with good posture."
+    ],
+    [
+     "Cambió de postura en la reunión.",
+     "He changed his position in the meeting."
+    ]
+   ]
+  },
+  "deleb1/homosexual": {
+   "why": "The gloss is right. The third example was Homo Sapiens, not the headword, and the first is not a sentence a learner needs.",
+   "dropEx": [
+    "mi novia no lo sabe",
+    "Homo Sapiens"
+   ],
+   "ex": [
+    [
+     "Luchan por los derechos de las personas homosexuales.",
+     "They campaign for the rights of gay people."
+    ],
+    [
+     "En España el matrimonio homosexual es legal desde 2005.",
+     "In Spain same-sex marriage has been legal since 2005."
+    ]
+   ]
+  },
+  "deleb1/la delta": {
+   "why": "THE WRONG WORD, WITH NO EXAMPLES. The card was glossed as the Greek letter delta and had none; the geographical noun a B1 learner needs is el delta, masculine, the delta of a river. Renamed, and given three examples.",
+   "spanish": "el delta",
+   "word": "el delta",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "delta (of a river)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los deltas"
+    ]
+   ],
+   "ex": [
+    [
+     "El delta del Ebro es famoso por su arroz.",
+     "The Ebro delta is famous for its rice."
+    ],
+    [
+     "Muchas aves viven en el delta del río.",
+     "Many birds live in the river delta."
+    ],
+    [
+     "El Nilo forma un gran delta.",
+     "The Nile forms a large delta."
+    ]
+   ]
+  },
+  "deleb1/describir": {
+   "why": "The gloss said 'describe' twice and 'to trace'. The first example's English said 'explain'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to describe"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "posible describir un color",
+     "Is it possible to describe a colour to a blind person?"
+    ]
+   ]
+  },
+  "deleb1/la orquesta": {
+   "why": "The gloss was a list. The second example's cello is violonchelo in Spanish.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "orchestra",
+      "band (at a dance, a fiesta)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "toca el cello"
+   ],
+   "ex": [
+    [
+     "La orquesta tocó hasta medianoche en la fiesta del pueblo.",
+     "The band played until midnight at the village fiesta."
+    ]
+   ]
+  },
+  "deleb1/la hembra": {
+   "why": "The gloss is right. The first and third examples were both 'macho o hembra'.",
+   "dropEx": [
+    "Es ese perro macho o"
+   ],
+   "ex": [
+    [
+     "La hembra del caballo es la yegua.",
+     "The female of the horse is the mare."
+    ]
+   ]
+  },
+  "deleb1/picante": {
+   "why": "The gloss was a list. The third example is shared with adolescente in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "hot, spicy",
+      "(of a joke, a show) racy"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "demasiado picante para los adolescentes"
+   ],
+   "ex": [
+    [
+     "¿La salsa es muy picante?",
+     "Is the sauce very hot?"
+    ]
+   ]
+  },
+  "deleb1/el boxeo": {
+   "why": "The gloss is right. The second and third examples were the same sentence, once negated.",
+   "dropEx": [
+    "No me gustan los deportes tales como"
+   ],
+   "ex": [
+    [
+     "Mi hermano hace boxeo dos veces por semana.",
+     "My brother does boxing twice a week."
+    ]
+   ]
+  },
+  "deleb1/la raíz": {
+   "why": "The gloss was a list and did not give a raíz de. The first example is the aphorism dropped from la pobreza in this batch.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "root"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a raíz de — as a result of"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La pobreza es la raíz de todo mal."
+   ],
+   "ex": [
+    [
+     "El árbol tiene raíces muy profundas.",
+     "The tree has very deep roots."
+    ]
+   ]
+  },
+  "deleb1/el buzón": {
+   "why": "The gloss put 'mailbox (US)' first. The first example is shared with el correo in A1, and the others' English said 'mailboxes' and 'e-mail box'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "postbox, letterbox"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "buzón de voz — voicemail"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un buzón de correos cerca"
+   ],
+   "exEn": [
+    [
+     "Estamos revisando nuestros",
+     "We're checking our letterboxes."
+    ],
+    [
+     "revisar su buzón de correo electrónico",
+     "He knows how to check his inbox."
+    ]
+   ],
+   "ex": [
+    [
+     "Echa la carta al buzón.",
+     "Put the letter in the postbox."
+    ]
+   ]
+  },
+  "deleb1/conectar": {
+   "why": "The gloss was a list repeating 'connect'. The third example, me conecto a Internet, is the reflexive conectarse, and conectarse, the next card, carries the same sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to connect",
+      "to plug in"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Me conecto a Internet casi todos los días."
+   ],
+   "ex": [
+    [
+     "Conecta el cable a la tele.",
+     "Connect the cable to the TV."
+    ]
+   ]
+  },
+  "deleb1/el gallo, la gallina": {
+   "why": "The gloss is right. The first example is shared with por supuesto earlier in B1, and the third was cockfighting. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "cockerel, rooster; hen"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "en menos que canta un gallo",
+    "las peleas de gallos"
+   ],
+   "ex": [
+    [
+     "El gallo canta al amanecer.",
+     "The cockerel crows at dawn."
+    ],
+    [
+     "Tenemos gallinas en el corral.",
+     "We keep hens in the yard."
+    ]
+   ]
+  },
+  "deleb1/mojado, mojada": {
+   "why": "The gloss is right. The first example named a Jessie the name table does not know.",
+   "dropEx": [
+    "El pelo largo de Jessie"
+   ],
+   "ex": [
+    [
+     "No te sientes, que el banco está mojado.",
+     "Don't sit down, the bench is wet."
+    ]
+   ]
+  },
+  "deleb1/la independencia": {
+   "why": "The gloss is right. The second example, 'Hoy es el fin de la independencia', has no context, and the third asked the learner's opinion of Catalan independence.",
+   "dropEx": [
+    "Hoy es el fin de la",
+    "la independencia de Cataluña"
+   ],
+   "ex": [
+    [
+     "Los jóvenes buscan su independencia.",
+     "Young people look for their independence."
+    ],
+    [
+     "México celebra su independencia en septiembre.",
+     "Mexico celebrates its independence in September."
+    ]
+   ]
+  },
+  "deleb1/el exceso": {
+   "why": "ALL THREE EXAMPLES WENT. The first is shared with la velocidad earlier in B1 and the third with nervioso in A2; the second was an aphorism. The gloss gave 'surfeit' and not en exceso. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "excess"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en exceso — too much"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "multa por exceso de velocidad",
+    "No hay excesos en la caridad",
+    "por exceso de trabajo"
+   ],
+   "ex": [
+    [
+     "Tuve que pagar por exceso de equipaje.",
+     "I had to pay for excess baggage."
+    ],
+    [
+     "El exceso de azúcar es malo para la salud.",
+     "Too much sugar is bad for your health."
+    ],
+    [
+     "Come en exceso.",
+     "He eats too much."
+    ]
+   ]
+  },
+  "deleb1/frito, frita": {
+   "why": "The gloss is right. The first and third examples were both a fried egg, and the second's English said 'potato chips'.",
+   "dropEx": [
+    "Dos huevos fritos y un café"
+   ],
+   "exEn": [
+    [
+     "ofreció patatas",
+     "Carlos offered Ana and Javier some crisps."
+    ]
+   ],
+   "ex": [
+    [
+     "No me gusta la comida frita.",
+     "I don't like fried food."
+    ]
+   ]
+  },
+  "deleb1/terminal": {
+   "why": "The gloss gave only the adjective while all three examples were the noun la terminal, an airport or bus terminal, in one construction.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "terminal (una enfermedad terminal)"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "la terminal — terminal (at an airport, a bus station)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "esperando a mi novia aquí en la"
+   ],
+   "ex": [
+    [
+     "Tiene una enfermedad terminal.",
+     "He has a terminal illness."
+    ]
+   ]
+  },
+  "deleb1/la separación": {
+   "why": "The gloss is right. The first example's English turned la separación into 'a divorce', and the second was a mystical claim about one Consciousness uniting everything.",
+   "dropEx": [
+    "Una sola Conciencia"
+   ],
+   "exEn": [
+    [
+     "Ya pedí la",
+     "I've asked for a separation several times, but my husband won't accept it."
+    ]
+   ],
+   "ex": [
+    [
+     "La separación de residuos es obligatoria.",
+     "Separating rubbish is compulsory."
+    ]
+   ]
+  },
+  "deleb1/el aparcamiento": {
+   "why": "The gloss gave 'parking garage' and all three examples' English said 'parking lot'. The first example has no context to make sense of.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "car park",
+      "parking space"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Te vi hace seis meses"
+   ],
+   "exEn": [
+    [
+     "Le robaron el coche en ese",
+     "He had his car stolen in that car park."
+    ],
+    [
+     "Un coche en el",
+     "A car in the car park is on fire."
+    ]
+   ],
+   "ex": [
+    [
+     "No encuentro aparcamiento.",
+     "I can't find a parking space."
+    ]
+   ]
   }
  },
  "insert": {
@@ -41517,7 +42089,9 @@
    "arrogante",
    "entrenar",
    "occidental",
-   "la competición"
+   "la competición",
+   "conectarse",
+   "el terremoto"
   ]
  }
 }
