@@ -661,10 +661,10 @@ already shipped before adding it.
     cnh-261  Ban Zhao
     cnh-262  Cai Lun
     cnh-263  Zhang Heng
-    cnh-264  The great families of the Eastern Han
-    cnh-265  Consort clans and eunuchs
+    cnh-264  Filial and Incorrupt
+    cnh-265  Liang Ji
     cnh-266  Partisan Prohibitions
-    cnh-267  The arrival of Buddhism in China
+    cnh-267  White Horse Temple
     cnh-268  Yellow Turban Rebellion
     cnh-269  Zhang Jue
     cnh-270  Dong Zhuo

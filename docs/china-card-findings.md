@@ -3417,7 +3417,7 @@ with a cited source, so the term is attested rather than reconstructed.
 **THE SOURCE BASE FOR THE EASTERN HAN IS EIGHT AUTHORS AND SEVEN OF THEM ARE OUT OF COPYRIGHT.** Cordier's
 *Histoire générale de la Chine* vol. 1 (pp. 253–76) carries the whole narrative from the Xiongnu breach of
 9 CE to the abandonment of the Western Regions in 107; Giles's *Chinese Biographical Dictionary* has
-Liu Xiu (p. 503), Fan Chong (215), Feng Yi (225–26), Gongsun Shu (395), Ban Chao (607–8), Ban Gu (610–11)
+Liu Xiu (p. 503), Fan Chong (215), Feng Yi (225–26), Gongsun Shu (395), Ban Chao (609–10 — this line said 607–8 and `cnh-257` shipped with it; corrected in the next batch), Ban Gu (610–11)
 and Ban Biao (611); Boulger's *China* pp. 36–39 is the English narrative; Wylie's *Notes on Chinese
 Literature* pp. 12–14 is the standard account of the dynastic-history form and of the *Hanshu* itself;
 and **Hirth's *China and the Roman Orient* (1885) is open on archive.org** at
@@ -3479,6 +3479,80 @@ right picture and there is only one of it — a second copy on the term is the w
 than the one already used. `Eastern_Han` took a distinct one (an Eastern Han pottery tower model, CC0).
 
 ---
+
+## cnh-261 – cnh-270, the Eastern Han court to the fall of Luoyang (Sep 2026)
+
+The second ten of `col-12`. Three plan lines were renamed while writing, and the plan's own lines now
+carry the answer terms.
+
+**`cnh-264` "The great families of the Eastern Han" → *Filial and Incorrupt* (孝廉 xiaolian).** "The great
+families" is a description, not a term a reader will meet again. The recommendation system is the thing
+their power ran through: the quota, the probation at Luoyang, the patron–client tie between recommender
+and recommended, and Zuo Xiong's failed test of 132. The card carries the families (the Yang of
+Hongnong, the Yuan of Runan) as what the system produced. The glossary key is the romanised title
+`Xiaolian`, with the English as an alias.
+
+**`cnh-265` "Consort clans and eunuchs" → *Liang Ji*.** `Consort_clan` has been a cited glossary term
+since the Western Han, so the line had no term of its own left to teach. The Liang regency and the coup
+of 159 carry both halves of the line. The coup ends one consort clan's rule and puts five eunuchs in its
+place. This is `ww2-133`'s rule: a line naming something the glossary already holds wants a moment that
+makes it concrete.
+
+**`cnh-267` "The arrival of Buddhism in China" → *White Horse Temple*.** A process line wants the thing it
+is known through. The card tells the dream-and-embassy legend as a legend, citing Maspero's 1910
+critique. It sets the legend beside the documented evidence: Liu Ying's Buddhists in 65 CE, Huan's
+sacrifice of 166 and An Shigao.
+
+**DE CRESPIGNY IS OPEN AFTER ALL, THROUGH A PATH THE LAST BATCH DID NOT TRY.** The ANU repository's handle
+pages, `/handle/…` and `/items/<uuid>` still answered 503. But the DSpace REST path for a bitstream,
+`openresearch-repository.anu.edu.au/server/api/core/bitstreams/<uuid>/content`, served the PDF whole,
+with 200 on every retry. So that URL is what the citations carry. The batch cites eight of his
+works: *Political Protest in Imperial China* (the Great Proscription), "Recruitment Revisited", "Local
+Worthies", "Scholars and Rulers", "Women of Later Han", "Politics and Philosophy under the Government of
+Emperor Huan", and his translations of *Zizhi tongjian* chapters 54–59 and 59–69. **Mind the two-author
+cap**: a Sima Guang chronicle in his translation counts under Sima Guang, not under him. No card cites
+him in more than two sources as author.
+
+**GILES'S PAGE NUMBERS CAN BE READ OFF THE SCAN, AND ONE SHIPPED CITATION WAS WRONG.** The OCR text of
+`chinesebiograph00gile` carries its page numbers in a clump rather than beside the entries. The
+`_djvu.xml` gives each leaf's words, and `_page_numbers.json` maps leaf to printed page. Using both:
+Pan Chao (Ban Zhao) runs 608–9, Pan Ch‘ao (Ban Chao) 609–10, and Pan Ku 610–11. **`cnh-257` had cited
+Ban Chao at 607–8 and is corrected in this batch.** The error was copied from this file's own source
+list for the previous batch, which is corrected too.
+
+**THREE CONTRADICTIONS, EACH HANDLED BY NOT ASSERTING THE CONTESTED FIGURE.**
+- *Cai Lun's death.* Giles dates it 114 and Hirth implies 118, but the investigation that drove him to
+  suicide followed Dowager Deng's death in 121. The card says the accounts disagree and gives the date of
+  the investigation rather than choosing a year.
+- *Liang Ji's death.* Theobald's page writes "159 BCE", a typo for 159 CE. The chronicle is cited for the
+  date.
+- *The Nüjie in the Hanshu.* Rošker places the *Nüjie* inside the *Hanshu*, which is wrong, so that
+  claim is not used. Likewise Cordier's "a thousand scholars executed in 172" contradicts de Crespigny's
+  account of the Proscription and is not carried.
+
+**`Proscription` IS A ROMAN TERM THAT CLAIMS THE BARE WORD.** The Partisan Prohibitions are widely called
+the Great Proscription, and the glossary's `Proscription` term (the Roman lists) auto-links the surface
+"proscription". The card therefore avoids the bare word. The new key
+`Disasters_of_the_Partisan_Prohibitions` takes "Great Proscription" as an alias, which wins as the longer
+surface.
+
+**A DATE LINE CAUGHT BOTH OF CLAUDE.md'S DATE-LINE TRAPS AT ONCE.**
+- `cnh-261` was written `c. 45 – c. 117 CE`. The `c.` inside the range broke the era's leftward carry,
+  so the card sorted at 92 instead of 45. It is now written `c. 45 CE – c. 117 CE`.
+- The rewrite went through `set-date-line.js`, which refused the label "Given the history" at 17
+  characters. `add-card.js` had accepted the same label, which is the `isDateList` gap recorded in the
+  Russia plan.
+
+**FIVE OF THE TEN CARRY A PICTURE, AND THEIR GLOSSARY TERMS SHARE IT.** Ban Zhao (Gai Qi's 1799 album
+leaf), Cai Lun's tomb, Zhang Heng's statue, the White Horse Temple and a map of the Yellow Turban rising
+each have one. For the rest:
+- *Filial and Incorrupt* and the *Partisan Prohibitions* are institutions and events with nothing to show.
+- *Liang Ji* has no portrait from his own time.
+- *Zhang Jue* and *Dong Zhuo* have only undersized late illustrations to the novel.
+
+A card and its own term sharing a picture is the pairing `check-image-free.js` sanctions. It departs from
+the previous batch's choice to leave the terms bare, and it gives a popup read on another card the same
+illustration.
 
 ## Re-sourcing the mythology cards (batch C7, Sep 2026)
 
