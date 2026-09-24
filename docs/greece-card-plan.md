@@ -1796,13 +1796,30 @@ neighbouring card whose prose they belong in at all, and stay omitted outright.
     gr-990  The Eleusinian Mysteries — written, on the <i>Homeric Hymn to Demeter</i>'s own promise
              and Herodotus' story of the Iacchus cry before Salamis, with the profanation of 415 for
              what the secret was worth to Athens
-    gr-991  Demeter at Eleusis
-    gr-992  Mystery cult
-    gr-993  Orphism
-    gr-994  Dionysiac mysteries
-    gr-995  Asclepius
-    gr-996  Epidaurus
-    gr-997  Incubation
-    gr-998  Hero cult
-    gr-999  Greek funerary practice
-    gr-1000 Curse tablets
+    gr-991  Eleusis — RETITLED from "Demeter at Eleusis": <code>Demeter</code> is already a cited
+             glossary term, so the line had no term of its own left to teach (the <code>ww2-133</code>
+             precedent). Written on the place — Pausanias' description up to the sanctuary wall, the
+             Homeric Hymn, Megaron B and the archaeological silence before the classical hall
+    gr-992  Mystery cult — written, keyed <code>Greco-Roman_mysteries</code>, on initiation rather than
+             doctrine, with the now-questioned assumption of a better afterlife stated as questioned
+    gr-993  Orphism — written, keyed <code>Orphism_(religion)</code> (a parenthetical key claims no bare
+             name, so "Orphism" and "Orphic" are aliases), on Herodotus, Plato's begging priests, the
+             gold leaves and the argument over the Titan myth
+    gr-994  Dionysiac mysteries — written, keyed <code>Dionysian_Mysteries</code>, on Demosthenes'
+             attack, the thiasos, the reversal of civic life and the Roman decree on the Bacchanalia
+    gr-995  Asclepius — written, on the Epidaurian birth story, the spread of the cult and the weaving
+             of cult with contemporary medicine
+    gr-996  Epidaurus — written, on the sacred bounds, the inscribed cures and the theatre
+    gr-997  Incubation — written, keyed <code>Incubation_(ritual)</code>. The bare surface
+             <b>incubation</b> is DELIBERATELY NOT claimed: it is ordinary English (eggs, a disease's
+             incubation period) and Biology's 46 leaf decks will reach it, so the term carries
+             <code>ritual incubation</code> and <code>temple sleep</code> instead — the
+             <code>Life_(biology)</code> decision rather than the <code>Cell_(biology)</code> one
+    gr-998  Hero cult — written. NO NEW GLOSSARY TERM: <code>Hero_cult</code> already exists and is
+             cited, so the pairing rule was already satisfied
+    gr-999  Greek funerary practice — written, keyed
+             <code>Ancient_Greek_funeral_and_burial_practices</code>, on the three stages, Solon's
+             restrictions and the public funeral Thucydides describes
+    gr-1000 Curse tablets — written, answered by <b>curse tablet</b> (singular, as the term is keyed),
+             on the lead sheets, Plato's notice and the re-edited Attic corpus. THE LAST CARD OF THE
+             COLLECTION
