@@ -25156,6 +25156,582 @@
      "There's a statue of Cervantes in the square."
     ]
    ]
+  },
+  "delea2/el maletín": {
+   "why": "The gloss is right, and two of the three examples' English said 'suitcase', which is la maleta — the confusion the card most needs to prevent.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "briefcase"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los maletines"
+    ],
+    [
+     "not",
+     "la maleta — suitcase"
+    ]
+   ],
+   "exEn": [
+    [
+     "Dejaré los maletines",
+     "I'll put the briefcases in Carlos's room."
+    ],
+    [
+     "cómo abrir este maletín",
+     "I can't work out how to open this briefcase."
+    ]
+   ]
+  },
+  "delea2/la mochila": {
+   "why": "'backpack' is American. The second example, 'La mochila pesa por los libros de física', is not how Spanish says it; the third's English said 'bag'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "rucksack, backpack",
+      "schoolbag"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La mochila pesa por los libros de física."
+   ],
+   "exEn": [
+    [
+     "Se me olvidó mi mochila",
+     "I left my rucksack somewhere."
+    ],
+    [
+     "Ella puso la llave en su mochila",
+     "She put the key in her rucksack."
+    ]
+   ],
+   "ex": [
+    [
+     "Mete el bocadillo en la mochila.",
+     "Put the sandwich in the rucksack."
+    ]
+   ]
+  },
+  "delea2/los correos": {
+   "spanish": "Correos",
+   "word": "Correos",
+   "why": "The card was headed los correos, a plural nobody uses for this: the post office in Spain is Correos, the name of the postal service, with a capital. The first example is also an A1 sentence, and the third's 'fue derecho' is Latin American. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "the post office (the Spanish postal service)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la oficina de correos — the post office"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "also",
+     "el correo — post, mail; email (A1)"
+    ]
+   ],
+   "dropEx": [
+    "¿Hay un buzón de correos cerca de aquí?",
+    "fue derecho a la oficina de correos"
+   ],
+   "ex": [
+    [
+     "Tengo que ir a Correos a enviar un paquete.",
+     "I have to go to the post office to send a parcel."
+    ],
+    [
+     "Correos abre a las nueve.",
+     "The post office opens at nine."
+    ]
+   ]
+  },
+  "delea2/las urgencias": {
+   "why": "'emergency room' and 'ER' are American; the British is A&E. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine plural",
+     [
+      "A&E, casualty (in a hospital)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "le tuve que llevar a urgencias",
+     "He'd fallen, so I had to take him to A&E."
+    ],
+    [
+     "Tuve que ir a urgencias",
+     "I had to go to A&E."
+    ],
+    [
+     "Se encuentra en urgencias",
+     "He's in A&E."
+    ]
+   ]
+  },
+  "delea2/el pañuelo": {
+   "why": "The gloss missed the tissue, pañuelo de papel, which is the sense a reader uses most. The first and third examples were one sentence, a headscarf taken off and put on.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "handkerchief",
+      "(head)scarf"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "pañuelo de papel — tissue"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ella tenía puesto un pañuelo de cabeza."
+   ],
+   "ex": [
+    [
+     "¿Tienes un pañuelo de papel?",
+     "Have you got a tissue?"
+    ]
+   ]
+  },
+  "delea2/durar": {
+   "why": "The third example is the adjective duro, 'hard', matched on shared letters; it is B1's card. The second's English said 'remains'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to last"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El hierro es más duro que el oro."
+   ],
+   "exEn": [
+    [
+     "nada dura para siempre",
+     "After all, nothing lasts for ever."
+    ]
+   ],
+   "ex": [
+    [
+     "La película dura dos horas.",
+     "The film lasts two hours."
+    ]
+   ]
+  },
+  "delea2/la niebla": {
+   "why": "The gloss said 'fog' twice. The second example, 'Londres ya no es más una ciudad de nieblas', is a calque of 'no longer', where Spanish says ya no es.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "fog"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Londres ya no es más una ciudad de nieblas."
+   ],
+   "ex": [
+    [
+     "Por la mañana hay niebla en el valle.",
+     "There's fog in the valley in the morning."
+    ]
+   ]
+  },
+  "delea2/invitar": {
+   "why": "'to be on' was a garbled 'it's on me': invitar is also to treat someone, te invito, which is how a reader in Spain hears it at every bar and had no line of its own. The second example is the noun los invitados and is shared with recibir earlier in A2. The third is shared with alegrarse later in A2 and stays here. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to invite",
+      "to treat, to pay for (te invito — it's on me)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Estamos a punto de recibir a los invitados."
+   ],
+   "ex": [
+    [
+     "Hoy te invito yo.",
+     "It's on me today."
+    ]
+   ]
+  },
+  "delea2/la talla": {
+   "why": "The gloss said 'size' twice. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "size (of clothes, shoes: ¿qué talla usas?)"
+     ]
+    ]
+   ]
+  },
+  "delea2/la bañera": {
+   "why": "'cockpit' is not this word. The second example, 'Los niños mueren a menudo en la bañera', is a statement about children dying, and the first is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "bath, bathtub"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los niños mueren a menudo en la bañera.",
+    "Deja correr el agua caliente por la bañera."
+   ],
+   "exEn": [
+    [
+     "le gusta cantar en la bañera",
+     "He likes to sing in the bath."
+    ]
+   ],
+   "ex": [
+    [
+     "Me gusta relajarme en la bañera.",
+     "I like to relax in the bath."
+    ],
+    [
+     "Nuestro baño tiene ducha pero no bañera.",
+     "Our bathroom has a shower but no bath."
+    ]
+   ]
+  },
+  "delea2/el pop": {
+   "why": "The word has no plural in use and the card gave one; the first and second examples were one sentence, Russian pop.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "pop (music)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "not used"
+    ]
+   ],
+   "dropEx": [
+    "A ella le gusta el pop ruso."
+   ],
+   "ex": [
+    [
+     "Escucho sobre todo música pop.",
+     "I mostly listen to pop music."
+    ]
+   ]
+  },
+  "delea2/certificado, certificada": {
+   "why": "The gloss gave only 'certified', while two of the examples were the noun, a certificate, and the adjective is met at A2 as una carta certificada, 'registered letter', which the gloss did not name. The third example, the paperwork for a passport, is not A2.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "registered (una carta certificada)",
+      "certified"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el certificado — certificate"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Qué certificados y trámites hacen falta"
+   ],
+   "ex": [
+    [
+     "Necesito un certificado médico para el trabajo.",
+     "I need a doctor's certificate for work."
+    ]
+   ]
+  },
+  "delea2/el menú": {
+   "why": "The plural was given as 'menúes'; the standard plural is menús. The gloss said 'menu' twice and missed el menú del día, the set lunch every Spanish restaurant offers.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "menu"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el menú del día — the set menu"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los menús"
+    ]
+   ],
+   "dropEx": [
+    "déjame echar una mirada al menú"
+   ],
+   "ex": [
+    [
+     "El menú del día cuesta doce euros.",
+     "The set menu costs twelve euros."
+    ]
+   ]
+  },
+  "delea2/la ópera": {
+   "why": "The gloss is right. The first example is also an A1 sentence, with ruta for a bus route; the third wrote 'en frente', which is enfrente. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "La ruta 12 para cerca",
+    "en frente de la ópera"
+   ],
+   "ex": [
+    [
+     "Nunca he ido a la ópera.",
+     "I've never been to the opera."
+    ],
+    [
+     "La ópera empieza a las ocho.",
+     "The opera starts at eight."
+    ]
+   ]
+  },
+  "delea2/nacer": {
+   "why": "'to sprout', 'to grow' and 'to rise' are figurative senses nobody at A2 needs. The second and third examples were one construction, the place where someone was born.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to be born"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ésta es la ciudad en la que nací."
+   ],
+   "ex": [
+    [
+     "¿En qué año naciste?",
+     "What year were you born?"
+    ]
+   ]
+  },
+  "delea2/girar": {
+   "why": "The gloss ran seven English verbs together. The third example is el Giro de Italia, a race, matched on shared letters.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to turn",
+      "to spin, to rotate"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Carlos ganó el Giro de Italia."
+   ],
+   "ex": [
+    [
+     "Gira la llave dos veces.",
+     "Turn the key twice."
+    ]
+   ]
+  },
+  "delea2/moderno, moderna": {
+   "why": "The gloss is right. The first two examples are shared with el arte and la tecnología earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "dropEx": [
+    "A Carlos no le gusta el arte moderno.",
+    "La tecnología moderna nos da muchas cosas nuevas."
+   ],
+   "ex": [
+    [
+     "Vive en un piso muy moderno.",
+     "He lives in a very modern flat."
+    ],
+    [
+     "Mi abuela es muy moderna.",
+     "My grandmother is very modern."
+    ]
+   ]
+  },
+  "delea2/el ajedrez": {
+   "why": "The gloss is right; the word has no plural in use. The third example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "forms": [
+    [
+     "plural",
+     "not used"
+    ]
+   ],
+   "dropEx": [
+    "Te voy a enseñar a jugar al ajedrez."
+   ],
+   "ex": [
+    [
+     "¿Jugamos una partida de ajedrez?",
+     "Shall we have a game of chess?"
+    ]
+   ]
+  },
+  "delea2/el cordero, la cordera": {
+   "why": "The gloss is right. Two of the three examples were the same proverb (a wolf in sheep's clothing), both kept by earlier A2 cards, la piel and político; the lamb a reader eats had no example. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "dropEx": [
+    "Él es un lobo con piel de cordero.",
+    "Algunos políticos son lobos con piel de cordero."
+   ],
+   "exEn": [
+    [
+     "Los corderos estaban haciendo mucho ruido",
+     "The lambs were making a lot of noise."
+    ]
+   ],
+   "ex": [
+    [
+     "Hemos comido cordero asado.",
+     "We had roast lamb."
+    ],
+    [
+     "En primavera nacen los corderos.",
+     "Lambs are born in spring."
+    ]
+   ]
+  },
+  "delea2/la matrícula": {
+   "why": "The gloss put 'matriculation' first; at A2 the word is a car's number plate and enrolment on a course. The second example used the Latin American auto, and the third, a traffic restriction on even number plates, is not A2 and said 'license plates'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "number plate, registration number (of a car)",
+      "enrolment, registration (on a course)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la matrícula del auto",
+    "vehículos con matrícula par"
+   ],
+   "ex": [
+    [
+     "Anoté la matrícula del coche.",
+     "I wrote down the car's number plate."
+    ],
+    [
+     "El plazo de matrícula termina el viernes.",
+     "Enrolment closes on Friday."
+    ]
+   ]
+  },
+  "delea2/el cocinero, la cocinera": {
+   "why": "The gloss is right. The first example is shared with diferente earlier in A2, and the third, 'Los griegos son buenos cocineros', is a generalisation about a nation. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "dropEx": [
+    "El cocinero prepara platos diferentes",
+    "Los griegos son buenos cocineros."
+   ],
+   "ex": [
+    [
+     "Mi padre es cocinero en un restaurante.",
+     "My father is a cook in a restaurant."
+    ],
+    [
+     "Soy muy mal cocinero.",
+     "I'm a terrible cook."
+    ]
+   ]
+  },
+  "delea2/el jazz": {
+   "why": "The gloss is right. The first and third examples were one construction, liking or not liking jazz.",
+   "dropEx": [
+    "A Carlos no le gusta el jazz."
+   ],
+   "ex": [
+    [
+     "Esta noche hay un concierto de jazz.",
+     "There's a jazz concert tonight."
+    ]
+   ]
+  },
+  "delea2/aéreo, aérea": {
+   "why": "'aerial' is not how the word is met: it is 'air' as an adjective, in correo aéreo and línea aérea, which are the examples. The second example was a fragment.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "air (correo aéreo — airmail; compañía aérea — airline)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A la oficina de la línea aérea."
+   ],
+   "ex": [
+    [
+     "Compramos los billetes en una compañía aérea de bajo coste.",
+     "We bought the tickets from a low-cost airline."
+    ]
+   ]
+  },
+  "delea2/las afueras": {
+   "why": "The gloss is right. The second and third examples were one sentence, and the third's English said 'the skirts of the city'.",
+   "dropEx": [
+    "Su casa está a las afueras de la ciudad."
+   ],
+   "ex": [
+    [
+     "En las afueras hay un centro comercial enorme.",
+     "There's a huge shopping centre on the outskirts."
+    ]
+   ]
+  },
+  "delea2/el ayuntamiento": {
+   "why": "The gloss ran five items together, and all three examples' English said 'city hall', which is American.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "town hall",
+      "(town, city) council"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "La oficina del alcalde está en el ayuntamiento",
+     "The mayor's office is in the town hall."
+    ],
+    [
+     "tiene mucha influencia en el ayuntamiento",
+     "My father has a lot of influence at the town hall."
+    ],
+    [
+     "de la estación al ayuntamiento",
+     "Do you know how far it is from the station to the town hall?"
+    ]
+   ]
   }
  },
  "insert": {
@@ -25427,7 +26003,9 @@
    "el virus",
    "quitarse",
    "el/la periodista",
-   "el gimnasio"
+   "el gimnasio",
+   "la araña",
+   "sentarse"
   ]
  }
 }

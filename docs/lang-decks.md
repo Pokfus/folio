@@ -3469,6 +3469,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S12 | A2 | #304 `el cuadro` – #330 `egoísta` | 25 | 2 (`el/la periodista`, `el gimnasio`) | 0 | — | — |
 | S13 | A2 | #331 `el carácter` – #357 `seco, seca` | 27 | 0 | 0 | — | — |
 | S14 | A2 | #358 `la corbata` – #384 `la estatua` | 27 | 0 | 0 | — | — |
+| S15 | A2 | #385 `el maletín` – #411 `sentarse` | 25 | 2 (`la araña`, `sentarse`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4109,6 +4110,48 @@ accent rule had to be written to leave alone.
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 24 → 23. The one
 card of this batch left on it is `cuyo`, a FALSE POSITIVE: a function-word gloss whose only content word,
 "whose", is on the checker's stop list.
+
+### S15 — DELE A2, notes #385–#411 (Sep 2026)
+
+Measured against the S14 commit by card id: **25 changed, 470 untouched**, all 25 of them this batch's
+record entries; `la araña` and `sentarse` were read and left, and are in `reviewed`.
+
+**A HEADWORD THAT IS A NAME.** `los correos` is not what anyone calls the post office. In Spain it is
+**Correos**, the postal service, with a capital, and the card is now headed that way and pointed at A1's
+`el correo`.
+
+**A STATEMENT ABOUT CHILDREN DYING.** `la bañera`'s second example was *Los niños mueren a menudo en la
+bañera*. The S8 and S9 sweeps were for vulgar vocabulary and could not see it, since every word in it is
+ordinary. **Harmful content is not only coarse content, and only reading finds the rest.**
+
+**THE LOOK-ALIKE.** `durar` was illustrated by *duro* ("hard", B1's card), and `girar` by *el Giro de
+Italia*.
+
+**GLOSSES THAT MISSED WHAT A READER NEEDS.**
+- `invitar`'s "to be on" was a garbled *te invito*, "it's on me".
+- `el pañuelo` had no tissue.
+- `el menú` had no *menú del día*, and gave its plural as *menúes*.
+- `la matrícula` put "matriculation" first; the word is a number plate or enrolment.
+- `aéreo` said "aerial" where the word is "air", as in *correo aéreo*.
+- `certificado` had no *carta certificada* and no noun, though two of its examples were the noun.
+- `el maletín` translated itself twice as "suitcase", which is exactly the confusion with *la maleta* the
+  card exists to prevent.
+
+**AMERICAN ENGLISH, A BATCH'S WORTH.** "ER" and "emergency room", "backpack", "city hall" (three times)
+and "license plates" are now British, with A&E, rucksack, town hall and number plate.
+
+**AND THE REST.**
+- Three A1-shared sentences were replaced, plus seven shared with earlier A2 cards.
+- `el cordero` carried the same proverb twice, both copies kept by earlier cards, and none about the
+  lamb anyone eats.
+- A stereotype about Greek cooks is gone.
+- Latin American usage is gone: *auto*, *fue derecho*, *en frente* written as two words.
+- `la niebla`'s *ya no es más* was a calque of "no longer".
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 23 → 22. The one
+card of this batch left on it is `las urgencias`, a FALSE POSITIVE of a new kind. Its gloss reads "A&E"
+while the examples' English is stored HTML-escaped, *A&amp;E*, so the two never tokenise alike. **A gloss
+carrying an ampersand will always be reported.**
 
 ## The language-deck catalogue — the Update press and the frequency order
 
