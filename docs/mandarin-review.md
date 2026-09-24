@@ -696,6 +696,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 841–870 (流程 → 码头), deck order | 24 | **nine near-repeats, and glosses taken off the top of CC-CEDICT** — 流程 "course", 漏洞 "leak", 路程 "route", and 流量 led with two senses its sentences never used |
 | 2026-09-24 | `hsk30l6` notes 871–900 (蚂蚁 → 描绘), deck order | 20 | **迈 was three sentences about somebody called Mike** — and 密's three were 告密, 密室 and 频密; a gloss cut off mid-phrase on 嘛 |
 | 2026-09-24 | `hsk30l6` notes 901–930 (描写 → 南极洲), deck order | 14 (+1 out of range) | **a second `not X` hint pair covering two wrong glosses** — 模拟 and 仿制 both "imitation" under a verb label; and 民众's open item closed |
+| 2026-09-24 | `hsk30l6` notes 931–960 (南美洲 → 泡), deck order | 24 | **four single-character cards with every sentence swallowed or nearly** — 扭 (扭伤 twice), 盘 (汤盘, 存盘, 大盘鸡), 暖 (回暖, 变暖), 泡 (泡汤) |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12002,4 +12003,40 @@ second. 描写 gained the noun its third sentence is.
 Coverage: 11,532 notes at three sentences; shared-gloss groups 315 → 314, still-ambiguous 1 (邻居/街坊).
 `check-british` reads 0; `check-gloss-source.js` loses 命名 and 仿制. **Verified against the real diff: 14 of 30
 changed in range, and one out of range — hsk30l7/仿制, its gloss corrected and its hint removed.**
+`build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 161 — `hsk30l6` notes 931–960 (南美洲 → 泡)
+
+**Single-character cards that barely used their character.** 盘's three sentences were 汤盘 *soup plate*,
+存盘 *to save a file* and 大盘鸡, a dish — none of them 盘 on its own; replaced with the measure word the card
+names (一盘水果, 一盘棋) and the verb *to coil*, and split and tagged. 扭's were 扭伤 *to sprain* twice and a door
+handle whose English said it "came off"; three AUTHORED sentences now show turning the head, twisting a cap
+and swaying the hips. 暖 had 回暖 and 变暖, both CC-CEDICT words, and no sentence for the verb its gloss named;
+泡 had 泡汤 *to come to nothing* and a *chocolate milk* that is not 泡'd. 泥 lost 土豆泥 *mashed potato*.
+**One applier fact relearned**: 暖's record already carried a `gloss`, which the applier applies AFTER
+`senses`, so the split did not take and `exSense` failed ("names sense 2 of 1") until the gloss was deleted.
+
+**Swallows in this record's own sentences**: 内科医生 on 内科, 国内外 on 内外, 年终奖 on 年终 — each a word
+CC-CEDICT lists, each authored in an earlier pass. On read-back, 排除万难 on 排除 too, an idiom.
+
+**Sentences that were not good Chinese, or not sentences.** 能量's 还要花能量砍掉 had no subject or object;
+能源's 如同无限般的 is translationese; 排除's third was translationese without a stop; 农产品's first was 44
+characters on rural internet use; 农田's farms in Russia; 脑袋's 黄鱼脑袋, not an expression Chinese uses for
+a poor memory. And **偶像's first sentence was 70 characters of archaic religious instruction** ("be not an
+observer of omens, since it leadeth to idolatry…"). All replaced.
+
+**Glosses**: 内涵 was "connotation; implication" over three sentences about depth and substance; 能量 "amount
+of energy"; 年度 "year"; and five gained a missing part of speech or "to" (排除 *to rule out*, 排放, 排练, 排名,
+盼望).
+
+**Near-repeats**: 内涵 (很有内涵 twice), 年度 (the annual report twice), 年终 (the bonus twice), 内衣 (not
+wearing any twice), 盼望 (the holidays twice). 内衣's first sentence also got its full stop (`exStop`).
+**Englishes**: 脑袋's "Is your skull broken?", 庞大's "succeeded to his father's large property", 抛's "The coin
+toss decides", 盼望's stilted first, 排练's capital after a semicolon, 泡's past tense.
+
+**Six cards were read and left**: 南美洲, 难免, 脑子, 念书, 浓厚, 暖气. 南美洲's 澳洲 for Australia is widely
+used on the mainland and was left. Five Compounds panels written (泥, 扭, 暖, 盘, 泡).
+
+Coverage: 11,532 notes at three sentences; 314 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
+`check-british` reads 0. **Verified against the real diff: 24 of 30 changed and nothing outside the range.**
 `build-lang-decks.js` re-run. No changelog line and no version bump.
