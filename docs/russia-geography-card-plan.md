@@ -2968,3 +2968,59 @@ just test whether the rung answers.
   has no sibling town to name — which is a case batch 28's rule did not anticipate.
 
 **ONE CENTRE WRITTEN, TEN LEFT.**
+
+## Batch 35 — `gru-561` Syktyvkar, and CyberLeninka
+
+**`cyberleninka.ru` ANSWERS FROM HERE, AND IT IS THE LARGEST UNLOCK THIS HALF OF THE COLLECTION HAS
+HAD.** It is Russia's big open-access aggregator, it holds the regional-history journals these ten cards
+need, and **its full-text search is one POST away**:
+
+    POST https://cyberleninka.ru/api/search   {"mode":"articles","q":"<Russian query>","size":8,"from":0}
+
+The response carries `name`, `annotation`, `authors`, `year`, `journal`, `link` and `ocr` — OCR snippets
+around the match. Four things about it:
+· **The SEARCH PAGE is useless and the API is not.** `/search?q=` returns only the help text, its results
+  being drawn by JavaScript; the API returns them as JSON.
+· **The ARTICLE pages are captcha-walled** (`/article/n/<slug>` answers 200 with *Вы точно человек?*), so
+  CyberLeninka is a FINDING tool, not a reading one.
+· **THE READING IS DONE AT THE PUBLISHER, THROUGH THE DOI.** The `ocr` field gives enough to identify the
+  paper; resolving its DOI landed on `komisc.editorum.ru` with an English abstract **and the whole Russian
+  body inline**. That is the pattern: find on CyberLeninka, read at the publisher.
+· **Query in RUSSIAN and under the PRE-REVOLUTIONARY NAME**, batch 33's rule again — *Усть-Сысольск*
+  returns the town's own social history where *Сыктывкар* returns Komi-language books that merely name it
+  as their place of publication.
+**`elibrary.ru` is 403 and `naukaru.ru` answers**; both measured this batch.
+
+**SO SYKTYVKAR SHIPS, AND IT WAS NEVER THE SEAT THAT BLOCKED IT.** The Komi constitution's article 69 has
+been a recorded `HIT` since the charter sweep — *Столицей Республики Коми является город Сыктывкар* — and
+it was re-fetched and read in full here. What was missing was the city's own history, which batch 31 put
+down to `journals.bsu.by` being dead (it still is, re-tested). CyberLeninka answers it instead: the
+Matsuk and Leyman paper on the townsmen of Ust-Sysolsk at the end of the 18th century carries the town's
+creation in Catherine's local-government reform of 1780, the state peasants passing automatically into
+the estate of townsmen, the 1782 and 1795 revisions (811 and 833 against 799 and 899), the 327 men lost
+to death and conscription between them, and the families moving in and out of the merchantry — five
+history sentences from one paper. Gagieva's public-charity paper, already known from DOAJ, carries the
+later 19th century, and Glushakova's urban-soils paper supplies both a second statement of the seat and
+the modern city's own character.
+
+**A CROSSREF MISMATCH THAT WAS THE CHECKER WORKING, NOT A FAULT.** The citation was written
+*M. A. Matsuk* from the Russian *Мацук Михаил Александрович*; Crossref and the publisher both spell it
+**Macuk**, with the initials **M. M.** `check-citations.js` caught it on the first run. **A romanisation
+derived from the Russian is an expansion by another name** — take the publisher's own.
+
+**THE PICTURE RULES BIT TWICE, AND BOTH ARE WORTH KNOWING.**
+· **A 429 FROM `upload.wikimedia.org` CAN MEAN YOU ASKED FOR THE ORIGINAL, AND THE ERROR BODY SAYS SO** —
+  *"please … instead use thumbnail images in sizes listed on https://w.wiki/GHai"*. The API's own
+  `thumburl` is sometimes the ORIGINAL URL (it was here, for a 1200 px file asked for at 1100), and
+  fetching it failed eight times running while a sibling file downloaded first try. **Asking the API for
+  a width that resolves to a LISTED size — 960 px — succeeded immediately.** Read the error body before
+  concluding the host is throttling the sandbox.
+· **THE ONE HISTORICAL GENERAL VIEW OF UST-SYSOLSK ON COMMONS CARRIES A SITE WATERMARK**
+  (`OldSyktyvkar.ru`, bottom right of an otherwise perfect pre-revolutionary postcard), which fails the
+  no-watermark bar. So the glossary term ships **without a picture**, the card holding the one good modern
+  wide view; the street-level alternative was rejected as a street corner rather than a view of the city.
+
+**NINE CENTRES LEFT**, and the four with a recorded charter hit — Lipetsk, Magadan, Anadyr, Naryan-Mar —
+are now the ones to take to CyberLeninka first. Lipetsk already has two leads: Ruban's archival paper on
+the mineral waters (2022) and Belova's on the same subject as an urban-planning factor (2025, whose
+publisher is behind DDoS-Guard from here, though **DOAJ's own API returns its abstract**).
