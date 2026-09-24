@@ -705,6 +705,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1111–1140 (赛事 → 社), deck order | 24 | **散's three sentences all swallowed (散步, 好聚好散, 散心)** and its sǎn reading unshown; 上市 by 名义上+市公司; 社 glossed 'earth god' |
 | 2026-09-24 | `hsk30l6` notes 1141–1170 (射 → 时机), deck order | 23 | **摄像's three sentences all 摄像机, one on surveillance cameras in Urumqi** — this record's own; 声调 by 声+调小; two glosses cut off |
 | 2026-09-24 | `hsk30l6` notes 1171–1200 | 22 changed, 8 read and left: 16 example sentences replaced (a 其实 straddle, the idiom 事后诸葛亮, a political accusation, a passage from *Nineteen Eighty-Four*, near-repeats), one English fixed, 15 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1201–1230 | 27 changed, 3 read and left: 25 example sentences replaced (four straddles, 属 used only inside other words, 松 split into its two senses, a sentence that was not Chinese, a calqued 'thoughts and prayers', a generalisation about residents), three Compounds panels, 20 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12297,4 +12298,37 @@ and no version bump.
   - 示范, 试图 and 使劲 were missing their "to" or their adverbial use.
   - 士兵's sentence said "my sons" over 我的儿子是士兵, a singular.
 - **Left.** 适宜's new 这种药不适宜儿童服用 is reported as a 不适 straddle. That is the segmenter losing to the negator 不, which is the checker's known false-positive class.
+
+### Batch 170 — `hsk30l6` notes 1201–1230 (输出 → 算了)
+
+27 notes changed and 3 read and left (数字化, 水库, 水泥), counted against the real diff.
+
+- **Straddles.** In these sentences the headword's characters belonged to two different words:
+  - 书画: 给这本书画插画, where 书 is "book" and 画 belongs to 画插画
+  - 书写: 这本书写得很好
+  - 水流: 溪水流进 and 如水流过
+  
+  All were replaced by authored sentences.
+- **Single characters used only inside other words.** 属's three sentences were 纯属, 属实 and the idiom 有情人终成眷属. All three were replaced by sentences using the word itself, including 他属马. 松 was glossed "pine tree" over "to loosen", 松鼠 and 雪松, so it is split into its two senses and tagged. 竖 had one idiom twice. 属, 竖 and 松 each gained a Compounds panel. 艘 gets none, since CC-CEDICT lists no word built on it, as with 栋.
+- **Not Chinese, or not natural.**
+  - 衰老不得，智慧不得不得 is not Chinese.
+  - 思念又祈祷 is "thoughts and prayers" calqued, and its sibling sentence contradicted itself.
+  - 树立世界和平 used the Japanese 究极.
+  - 水稻生长在温暖的气候 lacked the 中 Chinese needs.
+  - 输出's sentence wrote 绵 for 棉.
+  - 死亡时间是？ and 几乎没有任何书籍 were fragments.
+  - 薯片 are crisps, and one sentence set them where fish and chips is 炸鱼薯条.
+- **Unsuitable.** 素质's 这条路上的许多居民素质都很差 was a generalisation about residents, rendered "wrong 'uns". It was replaced.
+- **Near-repeats in the record's own sentences** were replaced with a different construction each: 输送, 率领, 率先, 思路, 搜集, 塑造, 算了, 水面, 书面 (书面语 twice).
+- **Glosses.**
+  - 艘 was "great boat; ship", a noun for a measure word.
+  - 数目 read as a note rather than a gloss.
+  - 衰老 was two verb phrases under an adjective label.
+  - 死亡, 思念, 树立 and 率领 lacked "to".
+  - 竖 lacked the noun its label names.
+  - 瞬间 lacked the adverbial use.
+  - 输出 lacked "to output".
+  - 薯片 is now British.
+  - 输送's and 素质's glosses now differ from their neighbours', so their "not X" hints are no longer needed.
+- **Left.** 算了's new 他不来就算了 is reported as a 就算 straddle. It is 就 + 算了, and the segmenter prefers the longer word.
 
