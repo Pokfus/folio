@@ -3461,6 +3461,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S4 | A2 | #86 `ambos` – #113 `el regalo` | 26 | 2 (`el negocio`, `la respuesta`) | 0 | Michael, Linda, Jenny, Bill added to the name table (1 card outside the batch) | — |
 | S5 | A2 | #114 `amable` – #141 `el arte` | 27 | 1 (`el ejército`) | 0 | Cathy added to the name table; `salvo` ↔ `excepto` hint pair | a hint can name a renamed card |
 | S6 | A2 | #142 `la obra` – #168 `caerse` | 26 | 1 (`el bosque`) | 0 | back-corrections outside the batch: A2 `cambiarse` and `irse`, A1 `despertarse` | `build_deck.py`'s `add_stress` counts syllables, not vowels |
+| S7 | A2 | #169 `la red` – #195 `cerdo, cerda` | 25 | 2 (`la princesa`, `el ministro, la ministra`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -3749,6 +3750,44 @@ sentences, one the same shape as `el brazo`'s.
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 54 → 49. The
 one card of this batch left on it is `intentar`, a FALSE POSITIVE: its gloss says "to try" and its
 examples say "tried" and "trying", which the proxy does not stem.
+
+### S7 — DELE A2, notes #169–#195 (Sep 2026)
+
+Measured against the S6 commit by card id: **25 changed, 470 untouched**, all 25 of them this batch's
+record entries; `la princesa` and `el ministro, la ministra` were read and left, and are in `reviewed`.
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, FIFTH BATCH RUNNING.** `cerdo, cerda` was headed as the adjective
+and glossed "dirty", the colloquial insult, while every example was the noun: pork, pigs, a sow. It is now
+`el cerdo, la cerda`. And `la pasada` was glossed "transit, crossing, moment" while two of its three
+examples were the ADJECTIVE *pasada* (*pasada de moda*, *las pasadas dos horas*), which is the card
+`pasado, pasada` earlier in A2. The noun at A2 is the colloquial *¡qué pasada!* and *dar una pasada*, a
+quick wipe.
+
+**THE LOOK-ALIKE WORD, ONE STEP OVER: THE ADJECTIVE OF THE SAME ROOT.** `bajar` was illustrated twice by
+`bajo, baja` (*la temperatura más baja*, *un poco bajo para mí*), the same shape as `pesar` and *pesado* in
+S6. Now that A2 has shown it three times, it is worth a checker. **An example whose only bolded word is a
+different part of speech of the headword** would be caught by comparing the bolded form against the card's
+own conjugation or Forms rows.
+
+**A GLOSS THAT SAID THE OPPOSITE.** `seguramente` was glossed "surely, certainly", and the examples' English
+said "surely" twice. The word means *probably*: *seguramente lloverá* is a forecast.
+
+**GENDER AND GRAMMAR.** `la pared`'s second example wrote *los paredes*. `la distancia`'s third, *más grande
+que yo esperé*, is not Spanish.
+
+**LATIN AMERICAN USAGE, AND A WARNING THE CARD OWED.** *sala de emergencias* (Spain: *urgencias*), *auto*,
+*bomba de tiempo* and *el puesto del frente* are gone. `coger` now carries a note that in much of Latin
+America the verb is vulgar; a reader travelling needs that more than any gloss.
+
+**AND THE REST.** Seven A1-shared sentences were replaced, and one shared with `la llamada` earlier in A2.
+Eight shared with later A2 cards stayed. `alguno` gained *algún*, as `ninguno` did in S5. `la red` gained
+"network" and a third example. `el/la ex` lost a sentence calling someone a psychopath. `el príncipe` lost
+"Prince Charles will be the next British king", which stopped being true in 2022. Three glosses carried a
+sense that is not the word: `solamente`'s "alone", `nervioso`'s "nerve" and `la emergencia`'s "emergence".
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0; 488 of 495 cards now carry three examples.
+`check-senses --deck=DELE-A2` 49 → 45. The one card of this batch left on it is `arreglar`, a FALSE
+POSITIVE: its gloss says "mend" and "fix", and its examples say "mended" and "fixed".
 
 ## The language-deck catalogue — the Update press and the frequency order
 

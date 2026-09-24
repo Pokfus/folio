@@ -20019,6 +20019,635 @@
      "Careful, you'll fall."
     ]
    ]
+  },
+  "delea2/la red": {
+   "why": "'web' and 'mesh' are not how the word is met; a network — una red social, la red wifi — is, and had no line. The card also carried two examples where the type shows three. The first is shared with social later in A2 and stays here.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "net (for fishing, in football, tennis)",
+      "network (una red social; la red — the internet)"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "No encuentro la red wifi del hotel.",
+     "I can't find the hotel's wifi network."
+    ]
+   ]
+  },
+  "delea2/solamente": {
+   "why": "'alone' is solo, the adjective, and not this word; 'merely' is a register above it. The examples are right.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "only, just"
+     ]
+    ]
+   ]
+  },
+  "delea2/el ruido": {
+   "why": "The gloss was a thesaurus entry ending in a sense from electronics. The first and third examples were one construction, No hagas… ruido, and the first's English dropped its article.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "noise"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "El bebé está durmiendo",
+     "The baby's asleep. Don't make so much noise."
+    ]
+   ],
+   "dropEx": [
+    "No hagas ni un ruido"
+   ],
+   "ex": [
+    [
+     "Hay mucho ruido en esta calle.",
+     "There's a lot of noise in this street."
+    ]
+   ]
+  },
+  "delea2/el gato, la gata": {
+   "why": "'tomcat' and 'gib' are not the word; the card teaches the pair, and the gloss did not say what the feminine is. The second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "cat",
+      "la gata — female cat"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A los gatos no les gusta el agua."
+   ],
+   "ex": [
+    [
+     "Mi gata ha tenido cuatro gatitos.",
+     "My cat has had four kittens."
+    ]
+   ]
+  },
+  "delea2/la pasada": {
+   "why": "TWO OF THE THREE EXAMPLES WERE THE ADJECTIVE pasada, which is the card pasado, pasada earlier in A2: 'pasada de moda' and 'las pasadas dos horas'. The gloss — transit, crossing, moment — describes none of them. What the noun is at A2 is the colloquial ¡qué pasada!, which the third example is, and dar una pasada, a quick wipe or going-over; 'awesome' is American.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "a quick going-over, a wipe (dar una pasada a algo)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡qué pasada! — amazing! (colloquial, Spain)",
+      "de pasada — in passing"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un poco pasada de moda",
+    "en las pasadas dos horas"
+   ],
+   "exEn": [
+    [
+     "la película era una pasada",
+     "I thought the film was amazing."
+    ]
+   ],
+   "ex": [
+    [
+     "Dale una pasada a la mesa con un trapo.",
+     "Give the table a wipe with a cloth."
+    ],
+    [
+     "¡Qué pasada de concierto!",
+     "What an amazing concert!"
+    ]
+   ]
+  },
+  "delea2/alguno": {
+   "boldAlso": [
+    "algún"
+   ],
+   "why": "The card never said that before a masculine noun the word is algún, which is how a reader meets it most, and it named no pronoun use. Two of the three examples were also A1 sentences. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "determiner",
+     [
+      "some, any (algún libro, alguna casa)"
+     ]
+    ],
+    [
+     "pronoun",
+     [
+      "one, someone (alguno de vosotros)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "alguna vez — ever"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "before a masculine noun",
+     "algún"
+    ],
+    [
+     "feminine",
+     "alguna"
+    ],
+    [
+     "plural",
+     "algunos, algunas"
+    ]
+   ],
+   "dropEx": [
+    "si es que hay alguno",
+    "Algunas veces no puedo evitar"
+   ],
+   "ex": [
+    [
+     "¿Tienes algún libro de cocina?",
+     "Have you got a cookery book?"
+    ],
+    [
+     "Alguno de vosotros tendrá un bolígrafo.",
+     "One of you must have a pen."
+    ]
+   ]
+  },
+  "delea2/el hielo": {
+   "why": "The gloss is right. The second example, ice sheets translated as 'permafrost', is not A2 and is not what permafrost is; ice in a drink is. The third is shared with el deporte later in A2 and stays here.",
+   "dropEx": [
+    "cubierta por hielos perpetuos"
+   ],
+   "ex": [
+    [
+     "¿Me pones un refresco con hielo?",
+     "Could I have a soft drink with ice?"
+    ]
+   ]
+  },
+  "delea2/coger": {
+   "why": "The gloss was a list of five near-synonyms and 'harvest'. The first example is also an A1 sentence, and the card did not warn that in much of Latin America coger is vulgar, where tomar or agarrar is used instead. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to take (coger el autobús — to catch the bus)",
+      "to pick up, to take hold of",
+      "to pick (fruit, flowers)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "note",
+     "in much of Latin America coger is vulgar; tomar or agarrar is used instead"
+    ]
+   ],
+   "dropEx": [
+    "Voy a coger el tren de las once."
+   ],
+   "exEn": [
+    [
+     "coge todo lo que te guste",
+     "Please take whatever you like."
+    ]
+   ],
+   "ex": [
+    [
+     "Coge el paraguas, que va a llover.",
+     "Take the umbrella, it's going to rain."
+    ]
+   ]
+  },
+  "delea2/seguramente": {
+   "why": "The word means 'probably', not 'surely': seguramente lloverá is a forecast, not a certainty, and the examples' English said 'surely' twice. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "probably, most likely"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Seguramente él me llamará por teléfono"
+   ],
+   "exEn": [
+    [
+     "habría hecho lo mismo por ti",
+     "Carlos would probably have done the same for you."
+    ],
+    [
+     "está cansada después de una larga marcha",
+     "She's probably tired after a long walk."
+    ]
+   ],
+   "ex": [
+    [
+     "Seguramente lloverá mañana.",
+     "It will probably rain tomorrow."
+    ]
+   ]
+  },
+  "delea2/la pared": {
+   "why": "The second example wrote los paredes: the word is feminine, las paredes. The third is also an A1 sentence. The first is shared with el cuadro later in A2 and stays here. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "wall (of a room, of a building)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No puedo ver a través de los paredes.",
+    "Mirad con atención el mapa de la pared."
+   ],
+   "ex": [
+    [
+     "Vamos a pintar las paredes de blanco.",
+     "We're going to paint the walls white."
+    ],
+    [
+     "Las paredes de este piso son muy finas.",
+     "The walls in this flat are very thin."
+    ]
+   ]
+  },
+  "delea2/la naturaleza": {
+   "why": "The gloss did not separate the natural world from a person's nature, and the second example, about men confronting their 'sensitive inner natures', is neither A2 nor natural. The third is shared with político later in A2 and stays here.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "nature (the natural world)",
+      "nature, character (por naturaleza — by nature)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No son lo bastante hombres"
+   ],
+   "ex": [
+    [
+     "Me encanta pasear por la naturaleza.",
+     "I love walking in the countryside."
+    ]
+   ]
+  },
+  "delea2/arreglar": {
+   "why": "The gloss ran nine English verbs together and missed tidying a room. The first example's English turned a causative (llevar a arreglar) into 'get repaired by tomorrow'; the third used the Latin American auto.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to fix, to repair, to mend",
+      "to tidy (arreglar la habitación)",
+      "to sort out"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "arreglarse — to get ready"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "tu auto alguna vez"
+   ],
+   "exEn": [
+    [
+     "Llevaré a arreglar estos zapatos",
+     "I'll take these shoes to be mended before tomorrow."
+    ]
+   ],
+   "ex": [
+    [
+     "Ya he arreglado el ordenador.",
+     "I've already fixed the computer."
+    ]
+   ]
+  },
+  "delea2/sentado, sentada": {
+   "why": "'el puesto del frente' is not how Spanish says the front seat, and 'una bomba de tiempo' is Latin American (Spain: de relojería). The second example is right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "sitting, seated (estar sentado)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "en el puesto del frente",
+    "sobre una bomba de tiempo"
+   ],
+   "ex": [
+    [
+     "Estaba sentada en el sofá viendo la tele.",
+     "She was sitting on the sofa watching TV."
+    ],
+    [
+     "Los niños están sentados a la mesa.",
+     "The children are sitting at the table."
+    ]
+   ]
+  },
+  "delea2/la política": {
+   "why": "The gloss is right apart from a definition standing in for a translation. The first example's English read saben as 'you know' where it is 'they know'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "politics",
+      "policy"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Saben que la política",
+     "They know nothing good comes of politics."
+    ]
+   ]
+  },
+  "delea2/la enfermedad": {
+   "why": "The gloss and the examples are right; the third example's English said 'most diseases' for muchas, 'many'. The first is shared with la medicina later in A2 and stays here.",
+   "exEn": [
+    [
+     "Como muchas enfermedades",
+     "Like many diseases, it has its own symptoms."
+    ]
+   ]
+  },
+  "delea2/el príncipe": {
+   "why": "'sovereign' and 'ruler' are archaic senses. The third example, 'Prince Charles will be the next British king', stopped being true in 2022.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "prince"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El príncipe Carlos será"
+   ],
+   "ex": [
+    [
+     "El príncipe se casó con una periodista.",
+     "The prince married a journalist."
+    ]
+   ]
+  },
+  "delea2/bajar": {
+   "why": "TWO OF THE THREE EXAMPLES WERE THE ADJECTIVE bajo, baja: 'la temperatura más baja' and 'un poco bajo para mí'. The gloss missed turning something down, prices falling and downloading.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to go down, to come down",
+      "to get off (a bus, a train)",
+      "to lower, to turn down (bajar el volumen)",
+      "to fall, to come down (prices, temperatures)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "bajar(se) una canción — to download a song"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La temperatura más baja de hoy",
+    "un poco bajo para mí"
+   ],
+   "ex": [
+    [
+     "Baja la música, por favor.",
+     "Turn the music down, please."
+    ],
+    [
+     "Los precios han bajado este mes.",
+     "Prices have come down this month."
+    ]
+   ]
+  },
+  "delea2/nervioso, nerviosa": {
+   "why": "'nerve' is a noun, el nervio, and not this word; nervioso also names what belongs to the nerves, el sistema nervioso. The examples are right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "nervous",
+      "nervous (of the nerves: el sistema nervioso)"
+     ]
+    ]
+   ]
+  },
+  "delea2/la emergencia": {
+   "why": "'emergence' is not this word. The first and third examples were the same sentence with a comma, and the second's sala de emergencias is Latin American, where Spain says urgencias.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "emergency"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "salida de emergencia — emergency exit"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las emergencias"
+    ],
+    [
+     "note",
+     "a hospital's A&E is urgencias in Spain"
+    ]
+   ],
+   "dropEx": [
+    "Carlos terminó en la sala de emergencias.",
+    "En caso de emergencia, llama a la policía."
+   ],
+   "ex": [
+    [
+     "Es una emergencia, ¿puede venir un médico?",
+     "It's an emergency: can a doctor come?"
+    ],
+    [
+     "Esta es la salida de emergencia.",
+     "This is the emergency exit."
+    ]
+   ]
+  },
+  "delea2/la botella": {
+   "why": "'tank' is not this word (a gas bottle is una bombona). The second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "bottle"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las botellas de cerveza están hechas de vidrio."
+   ],
+   "ex": [
+    [
+     "Una botella de agua, por favor.",
+     "A bottle of water, please."
+    ]
+   ]
+  },
+  "delea2/la distancia": {
+   "why": "The third example, 'La distancia fue más grande que yo esperé', is not Spanish (the tense is esperaba) and its English said 'gap'. The first is shared with la llamada earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "dropEx": [
+    "una llamada a larga distancia",
+    "más grande que yo esperé"
+   ],
+   "ex": [
+    [
+     "¿Qué distancia hay de Madrid a Toledo?",
+     "How far is it from Madrid to Toledo?"
+    ],
+    [
+     "Vivimos a poca distancia del colegio.",
+     "We live a short distance from the school."
+    ]
+   ]
+  },
+  "delea2/la pierna": {
+   "why": "The gloss is a definition, and it did not say that an animal's or a table's leg is la pata. The second example is also an A1 sentence, and the first and third were one construction, se hizo… en la pierna. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "leg (of a person)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las piernas"
+    ],
+    [
+     "also",
+     "la pata — leg of an animal, of a table"
+    ]
+   ],
+   "dropEx": [
+    "Mis piernas son más pequeñas",
+    "Carlos se ha hecho daño en la pierna."
+   ],
+   "ex": [
+    [
+     "Me duele la pierna izquierda.",
+     "My left leg hurts."
+    ],
+    [
+     "Cruzó las piernas y empezó a leer.",
+     "She crossed her legs and started to read."
+    ]
+   ]
+  },
+  "delea2/el/la ex": {
+   "why": "The gloss split one sense over two bullets. The third example called someone a psychopath, which a vocabulary card has no call to teach.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "ex (ex-husband, ex-wife, ex-partner)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "tu ex es una psicópata"
+   ],
+   "ex": [
+    [
+     "Mi ex y yo seguimos siendo amigos.",
+     "My ex and I are still friends."
+    ]
+   ]
+  },
+  "delea2/recibir": {
+   "why": "The gloss is right bar its layout. The first example's English, 'We're about to have guests', dropped the verb; it is shared with invitar later in A2 and stays here.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to receive, to get",
+      "to welcome (guests)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "a punto de recibir a los invitados",
+     "We're about to welcome the guests."
+    ]
+   ]
+  },
+  "delea2/cerdo, cerda": {
+   "spanish": "el cerdo, la cerda",
+   "word": "cerdo",
+   "why": "THE CARD TAUGHT THE WRONG WORD. It was headed as the adjective, glossed 'dirty', a colloquial insult, while every example was the noun: pork, pigs, a sow. The headword becomes the pair el cerdo, la cerda, with pork; the insult goes in a line. The third example, a sow raffled in a square, is not a sentence a reader will need. The first is shared with la vaca later in A2 and stays here.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "pig",
+      "la cerda — sow"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "carne de cerdo — pork",
+      "(colloquial, as an insult) pig, slob"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los cerdos, las cerdas"
+    ]
+   ],
+   "dropEx": [
+    "En la plaza sortean una cerda."
+   ],
+   "ex": [
+    [
+     "En la granja tienen gallinas y cerdos.",
+     "They have hens and pigs on the farm."
+    ]
+   ]
   }
  },
  "insert": {
@@ -20282,7 +20911,9 @@
    "el negocio",
    "la respuesta",
    "el ejército",
-   "el bosque"
+   "el bosque",
+   "la princesa",
+   "el ministro, la ministra"
   ]
  }
 }
