@@ -1017,6 +1017,43 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-502`–`rm-511`: the empire at its widest to the Bar Kokhba revolt — what this batch found
+
+All ten are in `rm-high-empire` and carry Hadrian's reign. **Four lines are answered by a term the line
+does not contain**, and each for a reason already in this file. `rm-502` *The greatest extent of the Roman
+Empire* is a description, so it is answered by **`Arabia Petraea`**, annexed in 106 CE and the one part of
+Trajan's expansion Hadrian kept. `rm-504` *Hadrian's abandonment of the eastern conquests* had been spent
+by `rm-501`, which already tells the withdrawal, so it is answered by **`Parthamaspates`**, the client king
+the abandonment turned on (key `Parthamaspates_of_Parthia`, the real slug). `rm-505` *Hadrian's travels*
+is answered by **`Panhellenion`**, the league the travels founded. And `rm-507` *Hadrian's frontier
+policy* is answered by **`Lambaesis`**, because `rm-752` is *Limes*: the policy is told through the
+inscribed address to the African army of 1 July 128 CE. **The plan's own lines are unchanged.**
+
+**`rm-506 Hadrian's Wall` is a deliberate pair with `wh-368`**, which already holds the answer term and
+the glossary entry `Hadrians_Wall`. The World History card is built from the building inscriptions; this
+one is the design, the change of plan, the argument over purpose, the Antonine interlude and the end, and
+the two share no source.
+
+**`Pantheon,_Rome` is `caseSensitive`**, keyed on the real slug with `Pantheon` as its alias: the ordinary
+word "pantheon" (a people's gods) occurs about 20 times in the corpus and must not link to a building in
+Rome. **`Hadrian` had no glossary term at all until this batch**, which is why every earlier card naming
+him linked nothing.
+
+**A LONG-STANDING WRONG LINK WAS FOUND HERE: "<i>Historia Augusta</i>" auto-linked its second word to
+`Augusta`, the capital of Maine.** Fifteen Rome passages cite or name the work. The fix is a new term,
+`Historia_Augusta`, whose two-word surface wins because `buildGlossIndex` sorts longest-first — the
+`Sarmizegetusa_Regia` lesson from `rm-496` again. It was seen only by reading the rendered links in a
+browser. **The bare `Augusta` (an empress's title) will still link to Maine** where a card uses it alone.
+
+Findings about sources. **Encyclopaedia Iranica, UNESCO's World Heritage pages, `villae.cultura.gov.it`,
+`degruyter.com` and the SpringerOpen article pages all refused from here**, and DOAJ answered 502 during
+the batch. The Panhellenion rests on Dio, the *Historia Augusta*, Pausanias and two out-of-copyright
+biographies of Hadrian (Gregorovius 1898, Henderson 1923), no open modern article being readable; its
+founding year is inferred from the Olympieion's dedication and the card says so. `rm-511` leans on the
+ERC *Judaism and Rome* database for four of its seven sources, by three different authors. `rm-503`'s
+birth and death days are derived: 24 January 76 CE from the consular date in *Historia Augusta* 1.3 and
+10 July 138 CE from 25.6.
+
 ## `rm-501`: Trajan's Parthian campaign — what this card found
 
 One card, in `rm-high-empire`, answered by the plan's own words, with a new glossary term

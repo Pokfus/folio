@@ -4364,7 +4364,17 @@ window.GLOSSARY = {
 "Incubation_(ritual)": "Incubation was the practice of sleeping within a sanctuary in order to be visited in a dream by its god, most often to be healed but sometimes to be given an oracle.<sup class=\"fn\" data-fn=\"2\"></sup> Aristophanes gives the fullest account of the procedure, with the patient bathed in the sea, offerings burnt, the sick laid on couches, the lamps put out and silence ordered for the night.<sup class=\"fn\" data-fn=\"1\"></sup> The rites surrounding the sleep were essentially those of ordinary Greek sacrifice, local requirements varied widely, and the dormitories are hard to identify because no building type was reserved for them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ancient_Greek_funeral_and_burial_practices": "Greek funerary practice ran in three stages, the washed body laid out at home, the carrying of it to the grave before dawn, and the burial with its offerings and later visits.<sup class=\"fn\" data-fn=\"2\"></sup> Much of the work was women’s and the ritual lament is its best attested element, but Athenian law restricted the display early on, Solon forbidding the laceration of flesh, hired lamentations, the sacrifice of an ox at the grave and the burial of more than three garments.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Burials lined the roads out of the city rather than being set apart from it, so the dead remained close to the living.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Curse_tablet": "A curse tablet was a thin sheet of lead inscribed with a malediction, spell or prayer against a rival, a lover, a wrongdoer or any other person felt to be a threat.<sup class=\"fn\" data-fn=\"2\"></sup> Known in Latin as <i>defixiones</i>, they are attested in Greek from about 500 BCE, were rolled or folded and deposited where the powers addressed could reach them, and at Athens were most often dropped down wells.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Because they record private quarrels rather than public events, they are among the best evidence surviving for lives below the level of political history.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Trajan's_Parthian_campaign": "Trajan's Parthian campaign was the war the emperor Trajan waged against the Parthian empire from 114 to 117 CE, beginning with the annexation of Armenia after a Parthian prince had been given its crown without Rome's consent.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Helped by a civil war among rival claimants to the Parthian throne, Roman armies overran Mesopotamia, entered the capital Ctesiphon in 116 CE and reached the Persian Gulf, where Trajan considered a naval expedition towards India.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Revolts broke out behind the advance and the desert city of Hatra held out, and after Trajan's death in 117 CE his successor Hadrian gave up the new provinces and made the Euphrates the frontier again.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Trajan's_Parthian_campaign": "Trajan's Parthian campaign was the war the emperor Trajan waged against the Parthian empire from 114 to 117 CE, beginning with the annexation of Armenia after a Parthian prince had been given its crown without Rome's consent.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Helped by a civil war among rival claimants to the Parthian throne, Roman armies overran Mesopotamia, entered the capital Ctesiphon in 116 CE and reached the Persian Gulf, where Trajan considered a naval expedition towards India.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Revolts broke out behind the advance and the desert city of Hatra held out, and after Trajan's death in 117 CE his successor Hadrian gave up the new provinces and made the Euphrates the frontier again.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Arabia_Petraea": "Arabia Petraea was the Roman province formed in 106 CE out of the kingdom of the Nabataeans, a long-standing client of Rome whose last king, Rabbel II, had just died.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Coins celebrating the annexation called Arabia 'acquired' rather than captured, and while Bostra became the provincial capital, the old royal city of Petra received the title of metropolis.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> A paved road, the Via Nova Traiana, was built across the province between 111 and 114 CE from Aqaba on the Red Sea towards Syria, and the region remained under Roman rule until the Muslim conquest of 636 CE.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Hadrian": "Hadrian was Roman emperor from 117 to 138 CE, succeeding his kinsman and former guardian Trajan in circumstances questioned at the time, since Trajan had never formally adopted him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He gave up the recent conquests beyond the Euphrates, spent much of his reign travelling through the provinces and inspecting their armies, built a frontier wall in Britain and was a devoted admirer of Greek culture.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> His refoundation of Jerusalem as the colony of Aelia Capitolina provoked a major Jewish revolt, and after adopting Antoninus as his heir he died at Baiae in 138 CE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Parthamaspates_of_Parthia": "Parthamaspates was a prince of the Arsacid dynasty that ruled the Parthian empire, whom the Roman emperor Trajan crowned king of the Parthians at Ctesiphon in 116 CE, after Roman armies had overrun Mesopotamia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The Parthians did not accept a king imposed on them by Rome and rejected him once the Roman forces withdrew, while the former king Osroes seems to have recovered Ctesiphon in 117 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> When Hadrian gave up Trajan's eastern conquests he made the prince ruler of neighbouring peoples instead, a realm later historians have placed either in Osroene or in Armenia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Panhellenion": "The Panhellenion was a league of Greek cities founded at Athens under the Roman emperor Hadrian, probably in the early 130s CE, with a temple of Zeus Panhellenios and a council of delegates that met there.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Membership was restricted to communities accepted as Greek, so the council judged each applicant city, admitting cities of the Greek mainland and Greek communities in Asia Minor by decree.<sup class=\"fn\" data-fn=\"3\"></sup> The league held a festival with athletic contests called the Panhellenia, still held in the 3rd century CE, and it honoured the emperor as Zeus Panhellenios, so historians have debated whether it was political or chiefly a form of emperor worship.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Lambaesis": "Lambaesis was a Roman legionary fortress and town on the high plains of the Aures in Numidia, in present-day Algeria, which became the base of the Third Augustan Legion under Trajan and Hadrian and the pivot of a frontier reaching towards the desert.<sup class=\"fn\" data-fn=\"1\"></sup> In 128 CE Hadrian reviewed the army there, and the speeches he made, praising and correcting each unit's exercises, were inscribed on a monument raised on the parade ground.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The town beside the fortress was the capital of the province of Numidia from the late 2nd century to the early 4th, and its excavated houses show local mosaic workshops and wide use of earth in building.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pantheon,_Rome": "The Pantheon is a temple in the Campus Martius at Rome, first built by Marcus Agrippa between 27 and 25 BCE and replaced after fires by a new domed rotunda under the emperor Hadrian in the 2nd century CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Hadrian kept Agrippa's name in the inscription across its porch, and its concrete dome, lit only by an opening at the crown, has an inner diameter equal to its height of about 43 metres (142 feet).<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In 609 CE Pope Boniface IV consecrated it as the church of Santa Maria ad Martyres, and its continued use as a church preserved it, later as the burial place of Raphael and of kings of Italy.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Hadrian's_Villa": "Hadrian's Villa is the residence the Roman emperor Hadrian built from about 118 CE below Tibur, the modern Tivoli, a complex of palaces, baths, libraries, theatres, pools and gardens covering at least 120 hectares (300 acres).<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its buildings went up in stages until late in his reign, and his ancient biography records that he named parts of it after celebrated places such as the Lyceum, the Academy, Canopus and Tempe.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Searched for statues from the 16th century and bought by the Italian state in 1871, the site was inscribed on the UNESCO World Heritage List in 1999.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Antinous": "Antinous was a young man from Bithynium in Bithynia who became the favourite of the Roman emperor Hadrian and drowned in the Nile in 130 CE, in circumstances already disputed in antiquity between accident, sacrifice and a death accepted willingly for the emperor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Hadrian founded the city of Antinoöpolis where he died, and a cult of Antinous spread quickly from Egypt, where he was identified with Osiris, to Greece and as far as the Balkan provinces.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> At Mantinea he received yearly mysteries and games every four years, and his portraits survive in large numbers as busts and statues.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Bar_Kokhba_revolt": "The Bar Kokhba revolt was a Jewish rising against Roman rule in Judaea from 132 to 135 CE, led by Simon bar Kosiba, whose name was probably turned into Bar Kokhba, 'son of the star', by the messianic hopes the rising stirred.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Ancient writers disagree about its cause, one blaming the Roman colony founded on the ruins of Jerusalem and another a ban on circumcision, and the rebels held fortified positions until they were besieged in the fortress of Betar.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> The war was costly for both sides, and afterwards the province of Judaea was renamed Syria Palaestina.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Historia_Augusta": "The <i>Historia Augusta</i> is a Latin collection of biographies of Roman emperors and usurpers from Hadrian to Carinus, from which the lives from Philip to part of the reign of Valerian are lost.<sup class=\"fn\" data-fn=\"1\"></sup> Its manuscripts name six authors, some writing to Diocletian and others to Constantine, but many of the documents it quotes have been shown to be forgeries, and since the 1890s some scholars have argued that the whole work is a forgery.<sup class=\"fn\" data-fn=\"1\"></sup> The text rests chiefly on one 9th-century manuscript copied at Fulda, the Codex Palatinus now in the Vatican Library, recognised as its only early source.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6586,7 +6596,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Eleusis": "c. 15th century BCE – 4th century CE",
 "Epidaurus": "c. 6th century BCE – 4th century CE",
 "Curse_tablet": "c. 500 BCE – 4th century CE",
-"Trajan's_Parthian_campaign": "114 – 117 CE"
+"Trajan's_Parthian_campaign": "114 – 117 CE",
+"Arabia_Petraea": "106 – 636 CE",
+"Hadrian": "76 – 138 CE",
+"Parthamaspates_of_Parthia": "116 – 117 CE",
+"Panhellenion": "c. 131 – 132 CE",
+"Pantheon,_Rome": "27 BCE – 609 CE",
+"Hadrian's_Villa": "c. 118 – 138 CE",
+"Antinous": "d. 130 CE",
+"Bar_Kokhba_revolt": "132 – 135 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -9077,7 +9095,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Incubation_(ritual)": ["ritual incubation","temple sleep"],
 "Ancient_Greek_funeral_and_burial_practices": ["Greek funerary practice","Greek funeral","Greek funerals","Greek burial practice"],
 "Curse_tablet": ["curse tablets","defixio","defixiones"],
-"Trajan's_Parthian_campaign": ["Trajan's Parthian War","Parthian war of Trajan"]
+"Trajan's_Parthian_campaign": ["Trajan's Parthian War","Parthian war of Trajan"],
+"Arabia_Petraea": ["Roman Arabia","province of Arabia","provincia Arabia"],
+"Parthamaspates_of_Parthia": ["Parthamaspates"],
+"Panhellenion": ["Panhellenium"],
+"Lambaesis": ["Lambèse"],
+"Pantheon,_Rome": ["Pantheon","Santa Maria ad Martyres"],
+"Hadrian's_Villa": ["Hadrian’s Villa","Villa Adriana"],
+"Bar_Kokhba_revolt": ["Bar Kochba revolt","Bar Kokhba War","Bar Kochba War","Bar Kokhba rebellion"],
+"Historia_Augusta": ["Augustan History"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -9119,7 +9145,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Western_Desert": true,
 "Eastern_Desert": true,
 "Medes": true,
-"Chaos_(cosmogony)": true
+"Chaos_(cosmogony)": true,
+"Pantheon,_Rome": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -13487,7 +13514,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Incubation_(ritual)": ["practice","religion","history","greece","medicine"],
 "Ancient_Greek_funeral_and_burial_practices": ["practice","religion","history","greece","attica"],
 "Curse_tablet": ["object","religion","history","greece","archaeology"],
-"Trajan's_Parthian_campaign": ["event","warfare","history","rome","parthia","classical","mesopotamia"]
+"Trajan's_Parthian_campaign": ["event","warfare","history","rome","parthia","classical","mesopotamia"],
+"Arabia_Petraea": ["place","history","politics","rome","classical","province","jordan"],
+"Hadrian": ["person","ruler","history","politics","rome","classical"],
+"Parthamaspates_of_Parthia": ["person","ruler","history","parthia","rome","classical","mesopotamia"],
+"Panhellenion": ["institution","history","greece","rome","classical","religion","athens"],
+"Lambaesis": ["place","history","warfare","rome","africa","classical","algeria"],
+"Pantheon,_Rome": ["building","religion","architecture","history","rome","classical"],
+"Hadrian's_Villa": ["building","architecture","history","rome","classical","italy"],
+"Antinous": ["person","religion","history","rome","egypt","greece","classical"],
+"Bar_Kokhba_revolt": ["event","warfare","history","rome","judaea","religion","classical"],
+"Historia_Augusta": ["text","history","literature","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
