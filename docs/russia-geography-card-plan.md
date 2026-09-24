@@ -2913,3 +2913,58 @@ over the 110 ceiling. The closing check had read `gloss-length.js | tail -3`, wh
 summary** and happened to end on a kind with nothing outside the bar — a line that reads exactly like a
 verdict and is not one. **Run `gloss-length.js --over` and `--under`; the tail is not the answer.** Trimmed
 to 110 in this batch.
+
+## Batch 34 — `gru-539` Cheboksary, and the PDF cipher solved
+
+**THE `Уфимский археологический вестник` CIPHER IS SOLVED, AND IT IS A LINEAR GLYPH MAP.** Batch 33
+recorded Myasnikov's Cheboksary paper as open but unreadable — the Latin block decoding on a fixed +29
+offset while the Cyrillic body "did not fall to a constant shift". It does; the shift is simply into a
+different block, and the reason it looked non-uniform is that **the separator byte differs per font run**.
+The whole recipe, which should work on any PDF of this family:
+· A Latin run is `\x00`-separated and each glyph is its character **minus 29**.
+· A Cyrillic run is **`\x02`-separated**, with **`\x03` for a space**, and the glyph codes are a straight
+  alphabet: **`0x3A`–`0x59` = А–Я, `0x5A`–`0x79` = а–я**. No substitution table, no frequency analysis.
+· **`repr()` the line before reasoning about it.** A terminal prints `\x00` and `\x02` as spaces, which is
+  what made the runs look like UTF-16 spacing and sent the first two attempts after the wrong structure.
+· **The crib that pins each block is a word already visible.** `& K H E R N V D U \` is *Cheboksary* at
+  +29 on every letter, and the twelve-letter word `0x62 0x6b 0x6c 0x68 0x6a 0x62 0x71 0x5f 0x6b 0x64 0x62
+  0x6f` is *исторических*, which fixes и at `0x62` and so the whole alphabet by arithmetic.
+· **A per-line brute force over shifts finds nothing** and was the wasted half of the batch: the score was
+  computed against a Cyrillic word list while the text was still being mapped into the wrong block.
+
+**WHAT THAT UNLOCKED, AND IT IS A WHOLE CARD.** Myasnikov gives Cheboksary's own history in quantity:
+**Russian chronicles first name the place in May 1469**, in the account of the voivode Ivan Dmitrievich
+Runo's march on Kazan, and that entry is taken for the founding (after Dimitriev 2012); the excavations of
+**1969–72 and 1979–80**, run before the hydroelectric station and the reservoir that drowned much of the old
+centre in **1981**, showed an urban-type settlement on the site **already in the 13th–14th centuries**
+(Krasnov and Kakhovsky 1978); the name was **singular until the 20th century**, most linguists taking it
+from a Tatar word for a willow-bed, while the Chuvash **Shupashkar** is traced to a Mari compound of *tub*
+and *river*; the first settlers by toponymic evidence were **Mari**; a **wooden kremlin and ostrog in 1555**
+after the fall of Kazan; a district centre with a garrison and a voivode's administration in the 16th–17th
+centuries and a small merchant town of Kazan Governorate thereafter; and **about 5,000 people in some 600
+hectares by 1917**, the growth coming with the capital status of the Chuvash Autonomous Oblast (1920) and
+ASSR (1925). It also records **56 archaeological sites inside the city limits**, 14 of them stray finds.
+**The 1551 founding `gru-039` carries from Rambaud is the FORTRESS, not the town**, and the card is worded
+so the two do not contradict each other.
+
+**MURCHISON CARRIED THE CARD'S PHYSICAL HALF, as batch 31 predicted** — the ascending section at
+Tcheboksar and the cavernous limestones in the ravines west of it (p. 180–81), and the black earth's
+northern limit on the Volga's left bank west of the town (p. 557 *et seq*, which is the book's own index
+entry rather than a header read off the scan). Search him as **`Tcheboksar`**.
+
+**GATCHINA IS BLOCKED, AND ON A DIFFERENT THING FROM WHAT THE TABLE SAYS.** `gru-524`'s history is now
+richly available — DOAJ under the modern name returns six papers, of which **Alison K. Smith, "New Town,
+New Townspeople: Transforming Gatchina in the 1790s," *Vivliofika* 7 (2019), `10.21900/j.vivliofika.v7.537`,
+is a full English article under CC BY** on Paul's decree of 11 November 1796 making his villages of
+Pavlovsk and Gatchina towns, and on the merchant and *meshchanin* corporations and the *ratusha* that
+followed. What cannot be sourced is the **seat sentence**. Europe PMC has nothing, and **the charter on
+Garant is stale in the one way that matters: article 13 of the Leningrad Oblast charter, fetched and read
+in full, still names Saint Petersburg as the seat of the oblast's supreme bodies.** Citing the primary rung
+here would print the wrong city on the card. **A stale charter that merely omits the sentence costs a
+batch; one that states the OLD answer would have shipped a false claim** — so read the article, do not
+just test whether the rung answers.
+· **ROSSTAT TABLE 4.9 CARRIES NO LENINGRAD OBLAST CITY AT ALL**, Saint Petersburg being a federal subject
+  of its own. So `gru-524` will take `?` in three grid rows whenever it is written, and its fifth sentence
+  has no sibling town to name — which is a case batch 28's rule did not anticipate.
+
+**ONE CENTRE WRITTEN, TEN LEFT.**

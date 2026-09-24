@@ -896,6 +896,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     ARTICLE**: the stating sentence is routinely a numbered PART — Udmurtia's is ¶2 of article 28, behind
     the flag-and-arms paragraph, and Lipetsk's ¶3 — so a verification print that cuts short reads as a
     false positive on a real hit. Print the whole article body.
+    **AND A RUSSIAN JOURNAL'S PDF MAY BE ENCIPHERED PER FONT RUN, WHICH IS SOLVABLE AND NOT A DEAD END**
+    (batch 34). In the `Уфимский археологический вестник` family a Latin run is `\x00`-separated with each
+    glyph its character MINUS 29, and a Cyrillic run is **`\x02`-separated with `\x03` for a space and a
+    straight alphabet, `0x3A`–`0x59` = А–Я and `0x5A`–`0x79` = а–я** — no substitution table and no
+    frequency analysis. **`repr()` a line before reasoning about it**: a terminal prints those separators
+    as spaces, which makes the runs look like UTF-16 spacing and sends you after the wrong structure. **The
+    crib that pins a block is a word already visible in it.**
     **AND `check-style.js` CANNOT SEE A CARD'S BACKGROUND**, the abstract having moved to `data-extra/`:
     rule 3 fired on two century-words in a new glossary entry and was silent about two in the card beside
     it. **Write `13th century` by hand in an abstract**; measured Sep 2026, the Russia geography lazy half
@@ -5324,7 +5331,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 152 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, sixty-nine of the 80 centres being written (`gru-505`–`gru-523`, `gru-525`–`gru-538`, `gru-540`–`gru-542`, `gru-544`–`gru-559`, `gru-562`–`gru-569`, `gru-571`–`gru-577` and `gru-579`–`gru-580`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`–`gru-503`, `gru-524`, `gru-539`, `gru-543`, `gru-560`–`gru-561`, `gru-578` and `gru-581`–`gru-583` are still to write**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 153 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, seventy of the 80 centres being written (`gru-505`–`gru-523`, `gru-525`–`gru-542`, `gru-544`–`gru-559`, `gru-562`–`gru-569`, `gru-571`–`gru-577` and `gru-579`–`gru-580`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`–`gru-503`, `gru-524`, `gru-543`, `gru-560`–`gru-561`, `gru-578` and `gru-581`–`gru-583` are still to write**, see below |
 
 The next id for any of them (substitute the prefix):
 
