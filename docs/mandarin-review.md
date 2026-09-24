@@ -719,6 +719,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1531–1560 | 26 changed, 4 read and left: 24 example sentences replaced (a slur on 议论, a straddle on 一时, headwords inside idioms and longer words, an advertising line, near-repeats), 2 translations fixed, three Compounds panels, 20 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1561–1590 | 27 changed, 3 read and left: 32 example sentences replaced (four straddles on 有机 and 用人, 与其 shown as a different word, 用人 and 用心 split into their two senses, a political aside, jokes, near-repeats), 2 translations fixed, two Compounds panels, 20 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1591–1620 | 22 changed, 8 read and left: 22 example sentences replaced (杂 and 灾 used only inside other words, straddles on 源于 and 乐器, a generalisation about Latin Americans, the Analects, Taiwan's 程式, near-repeats), 5 translations fixed, three Compounds panels, 20 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1621–1650 | 20 changed, 10 read and left: 16 example sentences replaced (招 used only inside other words, 扎 shown in its other reading and in the name Gaddafi, 则 split into its two senses, a straddle on 再生, near-repeats), 1 translation fixed, five Compounds panels, 19 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12778,4 +12779,32 @@ and no version bump.
   - 欲望 said "I don't feel like".
   - 灾 said "the bank secured the city".
 - **Glosses.** 预定 and 源于 had to take CC-CEDICT's wording or `check-gloss-source.js` reported them. 原理 had "tenet; axiom", 远方 was an adverb under a noun label, and 远程's commas became semicolons.
+
+### Batch 184 — `hsk30l6` notes 1621–1650 (灾害 → 招待)
+
+20 notes changed and 10 read and left (灾区, 再三, 在意, 赞同, 遭受, 噪声, 崭新, 占比, 战争, 账单), counted against the real diff.
+
+- **Single characters.**
+  - 招: all three sentences were 招惹, 招领 or 招股. They are replaced, and the record's own translation of the first was removed with it.
+  - 扎: 她扎着辫子 is zā "to tie", the other reading. 穆阿迈尔·卡扎菲 is the transliterated name Gaddafi.
+  - 章: 章鱼 "octopus".
+  - 则: glossed as a conjunction over two sentences where it is the measure word for news and fables. It is split into its two senses and tagged.
+  
+  Five cards gained Compounds panels: 则, 扎, 粘, 章 and 招.
+- **Straddles and swallowed headwords.**
+  - 再生: 再 + 生病, and 可再生.
+  - 占有: 占有率.
+  - 招待: 招待员.
+- **Other replacements.**
+  - 灾害: a 35-character sentence about a nuclear accident.
+  - 遭遇: a 25-character football result, and "catfished".
+  - 战胜: a sentence also standing on 团结.
+  - 粘贴: one of two near-identical sentences.
+- **Translation.** 灾难 said "accident".
+- **Glosses.**
+  - 造型 had "modelling; profiling; mouldmaking".
+  - 占据 had "colonise".
+  - 障碍 was verbs over nouns.
+  - 长辈 named the family only.
+- **A collision caught by the coverage checker.** The corrected 灾害 gloss matched the new 灾 gloss word for word. It now leads with CC-CEDICT's own "calamity".
 
