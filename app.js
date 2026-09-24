@@ -20658,6 +20658,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        A ROCKET was drawn and refused on legibility — at 24px it is a fussy `plane`, and a third
        vehicle besides. A HALF-FILLED CIRCLE for the divided world reads as `moon`. */
     { k: "trefoil", n: "Radiation trefoil", d: '<circle cx="12" cy="12" r="2.6"/><path d="M9.8 7.9 L7.1 2.8 A10.4 10.4 0 0 1 16.9 2.8 L14.2 7.9 A4.6 4.6 0 0 0 9.8 7.9 Z"/><path d="M16.6 12.2 L22.4 12.4 A10.4 10.4 0 0 1 17.5 20.8 L14.4 15.9 A4.6 4.6 0 0 0 16.6 12.2 Z"/><path d="M9.6 15.9 L6.5 20.8 A10.4 10.4 0 0 1 1.6 12.4 L7.4 12.2 A4.6 4.6 0 0 0 9.6 15.9 Z"/>' },
+    /* A DANE AXE, and the hammer that was drawn first would not render — see docs/vikingage-card-plan.md
+       for the fifteen proportions. Two rules came out of it and both are general. A SYMMETRIC OBJECT ON A
+       STEM CANNOT CARRY THIS SLOT: head-down a Mjolnir reads as a plant pot, head-up a bar across a vertical
+       stroke is the letter T, and every legible hammer glyph escapes that by being asymmetric, which a
+       Mjolnir by definition is not. And A BLADE BESIDE THE TOP OF AN UPRIGHT HAFT READS AS THE LETTER P —
+       drawn six times — so THE HAFT IS DIAGONAL and CROSSES the blade. The diagonal is also what separates
+       it from everything else here before a reader has resolved the blade: no other mark on this shelf is
+       drawn on an axis. A prow spiral reads as a shepherd's crook, a square sail as a CJK
+       character (bad on a shelf carrying China), a drinking horn collides with moon, a round shield with coin and
+       compass, a runestone with arch, a triquetra with atom and ringed. */
+    { k: "axe", n: "Dane axe", d: '<path d="M3.4 21.4 13.8 8.6"/><path d="M10.6 3.2c5 1 9 4.8 10 9.6-4.8 1.6-10.2 0-13.6-3.6z"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20738,6 +20749,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     middleearth: "ring",
     westeros: "raven",
     coldwar: "trefoil",
+    vikingage: "axe",
     japan: "torii",
     psych: "head",
     phil: "owl",
@@ -26342,6 +26354,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        than concrete and sits 19 from Psychology's plum for that reason. CHECK THE SWATCH, NOT THE
        NUMBER. */
     coldwar:  { bg: "#4C5064" },
+    /* rust, bog iron (The Viking Age) — MEASURED against all 36 hues then on the shelf, and the WORST
+       SEPARATED HUE THIS SHELF HAS ACCEPTED, and it is not one neighbour but FOUR: the German deck's
+       brown 18.8, Mesopotamia's ochre 18.9, the Spanish deck's burnt orange 19.0 and Russia's red 19.2,
+       against a shelf median of 20.0 and below even the Cold War's 19.2. SAY THAT PLAINLY rather than
+       quoting the single nearest. What buys it is the other column and the swatch: the four were rendered
+       side by side as banners before this was accepted, and the rust is plainly a different object from
+       all of them. Density 6 shelf hues within 30 is BETTER than the median
+       7 and much better than the Cold War's 9; and at L 29 chroma 51, 9.7:1 against white, it reads as a
+       deep burnt sienna — plainly a different object from the German deck's flat mid-brown (chroma 32
+       against 51), from Russia's brighter red and from the Spanish deck's lighter burnt orange. It adds an
+       OXIDE family to a shelf whose seven reds are all brighter than it, which is the fifth green's and the
+       fourth grey's argument in another quarter of the wheel.
+       EVERY COLOUR THE SUBJECT ACTUALLY MEANS WAS MEASURED AND REFUSED, and the list is worth having so
+       nobody re-runs it: iron grey #4E4842 stands 4.0 from the Second World War's own hue — not a separate
+       colour at all; North Sea grey-blue #4A6572 11.6 with TEN neighbours; fjord blue-green 8.8; woad and
+       moss 6.9; Baltic amber 7.8; oxblood 13.5 with nine.
+       AND THE ONE CANDIDATE THAT SURVIVED ON NUMBERS WAS REFUSED FOR A BETTER REASON THAN ITS NUMBER: a
+       cold Atlantic blue at #4C6B8A scores 16.1, and ANCIENT GREECE'S HUE IS THE AEGEAN — so it would put
+       two collections one section apart both meaning THE SEA. That is France's own refusal (its bleu de
+       France candidate's nearest neighbour was the French language deck) met from the other side.
+       EVERY SOFTENING COSTS SEPARATION FAST AND WAS MEASURED: #7A3008 16.7, #80340C 15.8, #853610 14.5,
+       #72300A 12.5. This is the local optimum, so DO NOT DRIFT IT LIGHTER. The magenta band topped the
+       unconstrained sweep for the twelfth time and the olive-brass was not re-measured. */
+    vikingage: { bg: "#782C00" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median

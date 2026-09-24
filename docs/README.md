@@ -80,6 +80,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `middleearth-card-plan.md` | Middle-earth (`middleearth`) — the first whose subject is fiction | `mid-` |
 | `westeros-card-plan.md` | Westeros (`westeros`) — the second whose subject is fiction | `wes-` |
 | `coldwar-card-plan.md` | The Cold War (`coldwar`) | `cw-` |
+| `vikingage-card-plan.md` | The Viking Age (`vikingage`) | `vk-` |
 | `japan-card-plan.md` | Japan (`japan`) | `jp-` |
 | `psychology-card-plan.md` | Psychology (`psych`) — the first that is not history | `ps-` |
 | `philosophy-card-plan.md` | Philosophy (`phil`) | `ph-` |

@@ -1244,6 +1244,62 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     bare surfaces, `The_Wall` is Westeros's problem too, and **`SALT` must not claim `salt`.**
   The next card to write is the lowest `cw-NNN` not yet in `data.js`; the index table under "THE
   PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/vikingage-card-plan.md` — READ BEFORE WRITING A `vk-` CARD.** The **1000-card running
+  order for the Viking Age collection** (`vikingage`): every card's number, topic and deck, fixed in
+  advance across 9 decks and 39 leaf subdecks. The thirtieth of the planned collections and the
+  sixteenth history one; the node, its tree, its `COLL_THEME` hue and a new `ICON_SYMBOLS` mark (`axe`)
+  ship with the plan. **It needs NO `COLLECTION_SECTION` row**, the France rule, and this is the fourth
+  collection it applies to.
+  · **THE CENTRAL CORRECTION IS THAT `víkingr` IS A JOB, NOT A PEOPLE** — a man on a raiding voyage —
+    and the overwhelming majority of the people in this collection never went on one. So the shares
+    are stated rather than left to drift: **120 cards on farming, law, craft and trade, 120 on belief
+    and 100 on the ships**, against 220 for the raids and settlements west and south. `vk-235` *The
+    word Viking and what it meant* sits early in deck 3 so a reader meets the correction before the
+    raids. **No card may use "the Vikings" as the subject of a sentence about ordinary Scandinavian
+    life.**
+  · **THE EVIDENCE IS THE SPINE AND DECK 1 IS WHAT SAYS SO** — 30 cards on the sources, before any
+    raid, because this subject's evidence is lopsided in a way that shapes every conclusion drawn from
+    it. **Nearly all the contemporary writing is by the victims**, the Scandinavian accounts are
+    **sagas written two to three centuries later** by Christians about pagans, and the eyewitness
+    descriptions of Scandinavians in their own element are **Arabic**. `vk-004`, `vk-012` and `vk-016`
+    carry it and **every other card inherits them**.
+  · **A SAGA DATE IS NOT A DATE.** A saga written in 1250 giving a year for an event in 980 is evidence
+    of thirteenth-century tradition, so where the only date is a saga's the date line **says so in
+    words or is left empty** — `test-date-line.js` catches the alternative, a non-empty line yielding
+    no sort year. Two dates are carded as genuinely contested: Iceland's conversion (`vk-596`) and the
+    start of the Viking Age (`vk-110`).
+  · **THE PERIOD IS ABOUT 750 TO 1100, NOT 793 TO 1066** — the familiar dates are an English artefact
+    (a raid on an English monastery and an English battle), and `vk-965`'s honest answer is that the
+    period is a convenience.
+  · **THE SLAVE TRADE IS CARDED PLAINLY** across ten lines rather than as a footnote to the trade
+    cards, with **`vk-029` *The silence of the enslaved in the record*** stating the evidential problem.
+    And **the horned helmet, the nineteenth-century romanticism and the modern extremist appropriation
+    are carded in deck 9** (`vk-973`, `vk-976`, `vk-978`, `vk-979`) — which is also why the collection
+    does not wear a valknut.
+  · **`Vikings` IS ALREADY A GLOSSARY TERM AND IT ALREADY CLAIMS THE BARE ALIASES *Viking* AND *Viking
+    Age*.** Twenty-four of this collection's terms exist already, so **`add-glossary.js` would
+    overwrite them in silence** — the Korea `Seoul` scar, and here it would land on the collection's own
+    name. **Widen, do not re-key.** **The ordinary-word trap is the worst on the shelf**: measured over
+    the corpus, **`thing` occurs in 209 abstracts**, `ship` 80, `hall` 79, `shield` 70 — key them
+    `Thing_(assembly)` and the rest on `Life_(biology)`'s rule. Eight of the collection's own words
+    measure ZERO in the corpus and may claim their bare surfaces: `rune`, `longship`, `thrall`,
+    `skald`, `jarl`, `berserk`, `fjord`, `saga`.
+  · **THE HUE IS THE WORST-SEPARATED ON THE SHELF AND FOUR HUES ARE PACKED INTO HALF A UNIT OF IT** —
+    `#782C00` stands 18.8 from the German deck's brown, 18.9 from Mesopotamia's ochre, 19.0 from the
+    Spanish deck's burnt orange and 19.2 from Russia's red, against a median of 20.0. Density 6 is
+    better than the median 7. **Every colour the subject actually means was measured and refused** —
+    iron grey is **4.0** from the Second World War's own hue — and the one candidate that survived on
+    numbers, a cold Atlantic blue, was refused because **Greece's hue IS the Aegean**. Do not re-sweep,
+    and **do not drift it lighter**: every softening was measured and costs separation fast.
+  · **THE ICON IS AN AXE BECAUSE A THOR'S HAMMER WILL NOT RENDER**, and the plan records fifteen
+    proportions of it. Two general rules came out of that: **a symmetric object on a stem cannot carry
+    this slot** (head-down it is a plant pot, head-up it is the letter T, and every legible hammer glyph
+    escapes that by being asymmetric, which a Mjölnir is not), and **a blade beside the top of an
+    upright haft reads as the letter P**, so the haft is DIAGONAL and CROSSES the blade. **What the axe
+    costs is stated rather than hidden**: it leans on the warrior image deck 9 spends 25 cards unpicking,
+    and if a legible non-martial construction is ever found it should replace this.
+  The next card to write is the lowest `vk-NNN` not yet in `data.js`; the index table under "THE
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
   only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
@@ -1762,7 +1818,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.44 MB and 50,046 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.44 MB and 50,082 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -7031,6 +7087,7 @@ lookup.
 | Middle-earth | `middleearth` | `mid-` | `docs/middleearth-card-plan.md` | 9 / 40 | empty — fiction, not a history collection |
 | Westeros | `westeros` | `wes-` | `docs/westeros-card-plan.md` | 9 / 41 | empty — fiction, not a history collection |
 | The Cold War | `coldwar` | `cw-` | `docs/coldwar-card-plan.md` | 9 / 36 | empty |
+| The Viking Age | `vikingage` | `vk-` | `docs/vikingage-card-plan.md` | 9 / 39 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
@@ -7058,7 +7115,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (403 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (415 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -8019,7 +8076,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 403 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 415 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

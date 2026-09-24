@@ -13065,6 +13065,310 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "vikingage",
+      "title": "The Viking Age",
+      "total": 0,
+      "children": [
+        {
+          "id": "vk-before",
+          "title": "The north before the raids, and how we know",
+          "total": 110,
+          "children": [
+            {
+              "id": "vk-ev",
+              "title": "The evidence and its limits",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-lands",
+              "title": "The northern lands",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-ironage",
+              "title": "Scandinavia in the Iron Age",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-vendel",
+              "title": "The Vendel and Merovingian centuries",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-sea",
+          "title": "Ships, seafaring and the sea road",
+          "total": 100,
+          "children": [
+            {
+              "id": "vk-shipbuild",
+              "title": "Building a ship",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-shiptypes",
+              "title": "Ships and their kinds",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-nav",
+              "title": "Navigation and the sea road",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-shipfinds",
+              "title": "The ship finds",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-west",
+          "title": "Raiding and settlement in Britain and Ireland",
+          "total": 120,
+          "children": [
+            {
+              "id": "vk-first",
+              "title": "The first raids",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-england",
+              "title": "England and the great army",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "vk-danelaw",
+              "title": "The Danelaw and Scandinavian England",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-ireland",
+              "title": "Ireland and the Irish Sea",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-scotland",
+              "title": "Scotland, the isles and the far north",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-south",
+          "title": "Francia, Iberia and the south",
+          "total": 100,
+          "children": [
+            {
+              "id": "vk-francia",
+              "title": "Raids on Francia",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-normandy",
+              "title": "The making of Normandy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-iberia",
+              "title": "Iberia and al-Andalus",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-med",
+              "title": "The Mediterranean and the far south",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-east",
+          "title": "The eastern road: the Baltic, the rivers and the Rus'",
+          "total": 110,
+          "children": [
+            {
+              "id": "vk-baltic",
+              "title": "The Baltic and its shores",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-rivers",
+              "title": "The river roads",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-rus",
+              "title": "The Rus'",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "vk-varangian",
+              "title": "Constantinople and the Varangians",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-atlantic",
+          "title": "The North Atlantic",
+          "total": 110,
+          "children": [
+            {
+              "id": "vk-faroe",
+              "title": "The Northern Isles, the Faroes and the empty lands",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-iceland",
+              "title": "Iceland",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "vk-greenland",
+              "title": "Greenland",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-vinland",
+              "title": "Vinland and North America",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-home",
+          "title": "Life at home: farm, hall, craft and trade",
+          "total": 120,
+          "children": [
+            {
+              "id": "vk-farm",
+              "title": "Farm, field and food",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-house",
+              "title": "House, hall and household",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-craft",
+              "title": "Craft and material",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-trade",
+              "title": "Trade, towns and silver",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-law",
+              "title": "Law, assembly and violence",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-belief",
+          "title": "Belief, the dead, and the coming of Christianity",
+          "total": 120,
+          "children": [
+            {
+              "id": "vk-gods",
+              "title": "The gods and the myths",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "vk-ritual",
+              "title": "Ritual, burial and the dead",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-runes",
+              "title": "Runes, poetry and memory",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-christ",
+              "title": "The coming of Christianity",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "vk-after",
+          "title": "Kingdoms, endings and afterlives",
+          "total": 110,
+          "children": [
+            {
+              "id": "vk-kings",
+              "title": "The making of the three kingdoms",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "vk-empire",
+              "title": "Cnut's North Sea empire",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-end",
+              "title": "1066 and the end of the Viking Age",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "vk-legacy",
+              "title": "Afterlives, romanticism and misuse",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "vk-hist",
+              "title": "The historiography",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-world",
       "title": "World Geography",
       "total": 468,
