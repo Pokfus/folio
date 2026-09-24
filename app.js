@@ -973,6 +973,8 @@
     CARD_BY_ID[id].undatable = p.undatable;   // and whether that term happens at a time at all (see cardUndatable)
     CARD_BY_ID[id].map = p.map;               // and the place its question shades on the globe (see cardMapSpec)
     CARD_BY_ID[id].artwork = p.artwork;       // and whether its picture IS its subject (see cardArtSpec)
+    CARD_BY_ID[id].flagCard = p.flagCard;     // and whether that picture is a FLAG on its front (see cardFlagSpec)
+    CARD_BY_ID[id].drawCard = p.drawCard;     // …or a flag the reader is asked to DRAW (see cardDrawSpec)
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
@@ -6155,8 +6157,12 @@
     /* A MAP CARD AND AN ARTWORK CARD ARE BOTH OUT BY CONSTRUCTION, and for one reason: these games deal a
        question COLD, with no globe and no picture beside it, and both of those cards ask about something
        the game cannot show. Neither needs an editorial judgement per card, so neither needs a field.
-       The picture ROUND is the exception and asks for the artworks by name — see picturePool. */
-    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c)) s.add(id); });
+       The picture ROUND is the exception and asks for the artworks by name — see picturePool.
+       A FLAG CARD IS OUT ON THE SAME RULE and needs no field either: its whole question is the flag. It
+       is deliberately NOT added to the picture round in this pass — a flag round wants its own decoy
+       ranking (four flags of similar design rather than four tag-near countries) and is a change to a
+       GAME rather than to a collection; see docs/flags-card-plan.md. */
+    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c) && !cardFlagSpec(c) && !cardDrawSpec(c)) s.add(id); });
     return s;
   }
   /* WHICH PLACE NAMES THE CARDS ACTUALLY TEACH — Find it's own filter, built here beside the door every
@@ -15551,6 +15557,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["reorganis", "reorganiz", "e|es|ed|ing|ation|ations"],
     ["recognis", "recogniz", "e|es|ed|ing|able|ably|ance"],
     ["civilis", "civiliz", "e|es|ed|ing|ation|ations|ational"],
+    /* `Christianisation` is authored British, like every other -ise word in Folio's prose (the
+       corpus writes the s form on the World History cards), and the family had no row — so whichever
+       spelling a card stored was the one BOTH readers saw, and a reader typing the other one into the
+       cloze box was marked wrong.  `sovietis` was added for exactly this in Sep 2026; this is the same
+       hole one word over, found while writing ru-053. */
+    ["christianis", "christianiz", "e|es|ed|ing|ation|ations"],
     ["colonis", "coloniz", "e|es|ed|ing|ation|ations|er|ers"],
     ["decolonis", "decoloniz", "e|es|ed|ing|ation"],
     ["sovietis", "sovietiz", "e|es|ed|ing|ation|ations"],
@@ -19312,7 +19324,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the case that makes it plain: claimed at pointerdown, a picture could not be drawn on at all, which
        is exactly what the comment above says a marker is for. Here a tap opens it and a line across it is
        a line across it. */
-    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img, .av-flag";
+    /* …AND A DRAW CARD'S REVEALED FLAG (Sep 2026). The pen is DOWN on every draw card by construction,
+       so with the pad's own answer absent from this list the one picture the reader wants to look at
+       closely is the one picture they could not open — a `<figure>` promoted with `role="button"`, which
+       CTL_SEL deliberately cannot see. Here, as everywhere else in this list, a tap opens it and a line
+       drawn across it is a line drawn across it. */
+    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img, .av-flag, .dp-answer";
     const hitUnder = (e, sel) => {
       const prev = canvas.style.pointerEvents;
       canvas.style.pointerEvents = "none";
@@ -20596,6 +20613,145 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        bought at a small cost in legibility. A hanok roof was rejected for being China's pagoda at 28px
        and a moon jar for being a circle. The two arcs are exact semicircles (r 4.3 across a chord of 8.6)
        with opposite sweep flags, which is what makes the S symmetrical about the centre. */
+    /* ringed planet — Astronomy. The one mark that says this subject and nothing else at the 24-28px a
+       deck row draws it at. THE COLLISION TO AVOID IS `atom`, NOT `star`: this shelf already carries
+       sun, moon, star and atom, and the first three are each one shape, but the atom is a small disc
+       crossed by an ellipse — the same construction. What separates them is PROPORTION. The atom's
+       nucleus is r 1.9 inside THREE ellipses of rx 9; this is a disc of r 5 inside ONE ring of rx 10.5.
+       A single ring around a large disc is Saturn; three rings around a dot is an atom. If it is ever
+       redrawn, keep the disc large and the ring single, and do not add a second ring. `star` was
+       considered and refused for a different reason — the United States collection already wears it, and
+       two collections sharing a mark is what these exist to prevent (Visual Art's reuse of `brush` is a
+       stated cost, not a precedent). LOOKED AT at 24, 28 and 40px, on dark ground and on light, beside
+       `atom` and `star`: the failure this had to clear is the ring reading as a strike-through, and it
+       does not — the -18 degree tilt and the ring's overhang (x 1.96-22.04 against the disc's 7-17) read
+       as a ring at every size. */
+    { k: "ringed", n: "Ringed planet", d: '<circle cx="12" cy="12" r="5"/><ellipse cx="12" cy="12" rx="10.5" ry="3.4" transform="rotate(-18 12 12)"/>' },
+    /* Eiffel Tower — France. On THIS SHELF'S OWN CONVENTION: a pagoda stands for China, a torii for
+       Japan, a pyramid for Egypt, an onion dome for Russia, a Doric column for Greece and a wall for
+       Chinese geography, so a monument standing for a nation is what these marks already are — and the
+       anachronism (an 1889 structure over a collection that opens in the Palaeolithic) is the pagoda's
+       and the torii's, not a new cost. A FLEUR-DE-LIS was the other candidate and was refused twice
+       over: it says MONARCHY on a collection whose largest deck is the Revolution, and at 24px it is a
+       blob close to the existing `crown`. A Gallic rooster would be a second bird beside the owl.
+       THE COLLISION IS `pyramid` AND `mountain`, both triangles — and THE FIRST DRAFT LOST TO IT. Drawn
+       with the flare spread evenly over the whole height it read as a TRAFFIC CONE at 24px, which four
+       variants of the same construction all did: a shallow curve plus a ground line plus stripes is a
+       cone, whatever the intent. WHAT FIXES IT IS WHERE THE FLARE IS. The real silhouette is a NEEDLE
+       that splays only in its bottom third, so the control points hold x near 12 from y 12 upward and do
+       all the spreading below y 15 — at y 9.5 the shaft is 2.3 wide and at the base it is 10.4. Keep
+       that, and keep the arch; a straight-sided or evenly-tapered tower is a pyramid with a mast on it.
+       A SECOND PLATFORM WAS DRAWN AND DROPPED, on the laurel wreath's precedent above: four horizontal
+       marks inside 17px is a blob, and the arch plus one platform says the same thing. Looked at at 20,
+       24, 28, 40 and 64px on dark ground and on light, beside `pyramid`, `mountain` and `crown`. */
+    { k: "eiffel", n: "Eiffel Tower", d: '<path d="M5 21h14"/><path d="M6.8 21C9.9 19 11.5 12.5 12 2.5"/><path d="M17.2 21C14.1 19 12.5 12.5 12 2.5"/><path d="M8.2 19.6Q12 17 15.8 19.6"/><path d="M9.8 16.3h4.4"/>' },
+    /* supply-and-demand cross — Economics. The Marshallian cross, which is the one image the subject
+       has made entirely its own: nothing else on this shelf is a CHART, and a reader who has had one
+       economics lesson recognises it. `coin` already exists and is claimed by no collection, so reuse
+       was available and was refused — a coin says MONEY, and money is one deck of nine here; the mark
+       should say what the collection is about, which is choice under scarcity.
+       THE COLLISION IS READING AS A BARE X, AND THE AXIS IS THE WHOLE OF WHAT PREVENTS IT — measured,
+       not assumed: rendered without the L the two curves are simply a saltire at every size. KEEP THE
+       AXIS. The CURVATURE is a weaker claim than it looks and the render said so: a straight-line
+       variant reads almost identically below about 28px, and the curve only becomes visible at 40px
+       and up. It is kept because it is what makes the mark a supply-and-demand diagram rather than a
+       generic X-in-axes where it CAN be seen, not because it rescues the small sizes. Looked at at 20,
+       24, 28, 40 and 64px, on dark ground and on light, beside `coin` and `atom`. */
+    { k: "cross", n: "Supply and demand", d: '<path d="M4.5 3.5V19.5H20"/><path d="M7.5 17.5C10.5 16 13 12.5 17.5 6.5"/><path d="M7.5 6.5C10.5 8 13 11.5 17.5 17.5"/>' },
+    /* clay tablet — Ancient Mesopotamia. The object the whole collection is made of. `scroll`, `book`
+       and `letter` exist below and are claimed by no collection, so reuse was available and is wrong:
+       a scroll is papyrus, a book is a codex and an envelope is neither, and none of them is what
+       Mesopotamia wrote on.
+       TWO THINGS WERE LEARNED BY DRAWING IT, and both are why the paths look as they do.
+       FIRST, `stroke-linecap="butt"` ON THE INNER MARKS IS LOAD-BEARING. The svg sets round caps, which
+       add half the stroke width at each end — so the first draft's 1.7-unit marks rendered ~3.2 wide
+       against 1.3-unit gaps and MERGED INTO TWO SOLID BARS at 24px, turning the mark into a generic
+       document icon. Butt caps and three ragged rows keep six separate marks legible down to 20px.
+       SECOND, A CUNEIFORM WEDGE CANNOT BE DRAWN AT THIS SIZE. A small arrowhead was tried and at 40px
+       and up it reads unmistakably as a FAST-FORWARD control; the shape is too fine to survive. What
+       identifies the mark is therefore the SLAB, not the script: the outline is a pillow — bowed on all
+       four sides, wider than tall, no spine and no fold — which is what separates it from `book` and
+       `letter`. KEEP THE BOW.
+       THE HONEST LIMIT, since no redraw fixes it: at 20px this is a rounded slab with texture on it, and
+       a reader who does not already know the collection could read it as a document. Every tablet mark
+       has that problem. Looked at at 20, 24, 28, 40 and 64px on dark ground and on light, beside `book`
+       and `letter`, across nine variants. */
+    { k: "tablet", n: "Clay tablet", d: '<path d="M6 5.4Q12 4.4 18 5.4Q19.2 11 18 18.6Q12 19.6 6 18.6Q4.8 11 6 5.4Z"/><path stroke-linecap="butt" d="M8.2 9h2.4M12.4 9h3.4"/><path stroke-linecap="butt" d="M8.2 12h3.4M13.2 12h2.4"/><path stroke-linecap="butt" d="M8.2 15h2.4M12 15h2.6"/>' },
+    /* barbed wire — The First World War. The object this war found a use for, belonging to every army
+       and to no nation, and the one piece of its furniture that is a SHAPE rather than a silhouette
+       somebody has to recognise. Three obvious marks were rejected before it and each rejection is the
+       same argument: a steel helmet is national in every version (Brodie, Adrian, Stahlhelm), a poppy is
+       one nation-group's emblem of mourning AND a blob at 24px, and a biplane collides outright with
+       `plane`, which the Second World War already wears. The collision to avoid here is `sword` and
+       `shield`, the shelf's two martial marks, and the separation is easy: both are VERTICAL objects,
+       where this is a horizontal band across the full width. RENDERED AND LOOKED AT at 24, 26, 28, 34
+       and 48px, on the collection's own ground and on white, beside sword, shield, plane and cards —
+       fifteen variants over three rounds. What the rendering settled, and none of it was predictable:
+       a WAVY strand scribbles at 24px; THREE barbs merge into a hatched bar; a TWISTED pair of strands
+       reads as a chain of beads; a six-point barb (an X plus a vertical) reads as an asterisk; and a
+       SAGGING strand — which is what real wire does — reads as a bird with wings. A straight strand
+       with TWO four-point barbs is the one that survives, and the failure it had to clear is reading as
+       a strike-through, which it does not: the barbs run y 8-16 on a 24 grid, a third of the box above
+       and below the line, and there are two of them rather than a row. Keep it to two, keep the strand
+       straight, and do not add a second strand. */
+    { k: "wire", n: "Barbed wire", d: '<path d="M2 12h20"/><path d="M6.6 8 9.4 16M9.4 8 6.6 16"/><path d="M14.6 8 17.4 16M17.4 8 14.6 16"/>' },
+    /* arch (Architecture) — the sharpest icon collision on the shelf, because EIGHT of the marks above
+       and below are already buildings: pagoda, column, dome, pyramid, torii, castle, wall and eiffel. An
+       architecture collection may have none of them, so what it wears is a piece of CONSTRUCTION rather
+       than a building — the round arch, which belongs to no one tradition (Mesopotamian, Roman, Sasanian,
+       Islamic, Gothic and Chinese building all turn on it).
+       THE RING IS WHAT MAKES IT LEGIBLE AND IT WAS SETTLED BY RENDERING. A single-line arch — one curve
+       on two legs — reads at 24px as a doorway, a tombstone or a shed; drawing an extrados AND an
+       intrados with the opening inside them says MASONRY and is what separates it from the onion `dome`
+       two rows up. A keystone was tried twice and refused twice: as a wedge projecting above the crown it
+       reads at 24px as a chimney on a hut, and as two radial joint lines it crowds the ring into a smear.
+       Keep the ring and keep the ground line — without the line the shape floats and reads as a
+       horseshoe, without the ring it is a door. */
+    { k: "arch", n: "Arch", d: '<path d="M4 20V11a8 8 0 0 1 16 0v9"/><path d="M7 20v-9a5 5 0 0 1 10 0v9"/><path d="M2 20h20"/>' },
+    /* A PLAIN UNADORNED CIRCLE (Middle-earth) — and it is the plainest mark here on purpose. Fifty
+       marks were already in this list and NOT ONE of them is a bare circle: `coin` is two concentric
+       circles, `globe` a circle with three meridians, `sun` a small disc with rays, `ringed` a disc
+       inside one ellipse, `atom` a nucleus inside three, `moon` a crescent. Rendered at 24, 28 and
+       34px beside all six, the empty ring is unmistakable against every one of them. A ROUND HOBBIT
+       DOOR WAS TRIED AND REFUSED — a circle with a centred knob on a ground line reads at 24px as
+       `coin`'s inner circle with the ground line gone, so the more elaborate mark is the more
+       confusable one. Keep the circle empty. It is also the one emblem of this franchise that is a
+       geometric form rather than somebody's design. */
+    { k: "ring", n: "Ring", d: '<circle cx="12" cy="12" r="8.2"/>' },
+    /* A BIRD IN FLIGHT (Westeros) — fifty-one marks were in this list and NOT ONE was a bird in
+       flight: `owl` is front-facing, round, with two large eyes and ear tufts, and nothing else comes
+       near. Rendered at 24, 28, 34 and 44px beside `owl`, `plane`, `leaf` and `ship` it is
+       unmistakable at every size. It is the franchise's own messenger — every letter in the series
+       travels by raven, the maesters keep them, and "dark wings, dark words" is a saying a reader
+       meets a dozen times — and, like the hue beside it, it belongs to NO HOUSE, which a direwolf, a
+       lion or a stag would not. THREE OTHER MARKS WERE DRAWN AND REFUSED: a DIREWOLF head is House
+       Stark's sigil and at 24px is `owl` with pointed ears, i.e. a cat; an IRON THRONE drawn as a
+       seat under a row of blades reads at 24px as `castle`, whose whole identity is crenellations;
+       and a DRAGON cannot be drawn at 24px without becoming a bird anyway. Keep the tail and the
+       wing's sweep — the first raven drawn without them read as a snail. */
+    { k: "raven", n: "Raven", d: '<path d="M2.4 8.6 7.8 12.8c1.7-2.4 4.1-3.7 7-3.7l2.6-2.5v2.9l4.2 1.3-3.8 1.7c-.4 4.3-3.7 7.1-7.9 7.1-2.4 0-4.4-.7-5.9-2"/><path d="M9.6 19.5 8 21.6"/><circle cx="14.4" cy="10.9" r=".8"/>' },
+    /* THE RADIATION TREFOIL (The Cold War) — fifty-two marks were in this list and nothing resembles
+       it: `atom` is a nucleus inside three ellipses, `ringed` a disc inside one, `sun` a small disc
+       with straight rays, `ring` a bare circle. Rendered at 24, 28, 34 and 44px beside all four it is
+       unmistakable, which is what a three-wedge rotational form buys — a silhouette nothing else here
+       has. IT BELONGS TO NEITHER SIDE, which is the test the hue below had to pass too, and it names
+       the one thing that makes this a subject rather than a chapter of great-power rivalry.
+       A MUSHROOM CLOUD WAS REFUSED and NOT on legibility: it is an image of a hundred thousand deaths
+       used as a decorative mark, and a collection that cards Hiroshima properly should not wear it.
+       A ROCKET was drawn and refused on legibility — at 24px it is a fussy `plane`, and a third
+       vehicle besides. A HALF-FILLED CIRCLE for the divided world reads as `moon`. */
+    { k: "trefoil", n: "Radiation trefoil", d: '<circle cx="12" cy="12" r="2.6"/><path d="M9.8 7.9 L7.1 2.8 A10.4 10.4 0 0 1 16.9 2.8 L14.2 7.9 A4.6 4.6 0 0 0 9.8 7.9 Z"/><path d="M16.6 12.2 L22.4 12.4 A10.4 10.4 0 0 1 17.5 20.8 L14.4 15.9 A4.6 4.6 0 0 0 16.6 12.2 Z"/><path d="M9.6 15.9 L6.5 20.8 A10.4 10.4 0 0 1 1.6 12.4 L7.4 12.2 A4.6 4.6 0 0 0 9.6 15.9 Z"/>' },
+    /* A DANE AXE, and the hammer that was drawn first would not render — see docs/vikingage-card-plan.md
+       for the fifteen proportions. Two rules came out of it and both are general. A SYMMETRIC OBJECT ON A
+       STEM CANNOT CARRY THIS SLOT: head-down a Mjolnir reads as a plant pot, head-up a bar across a vertical
+       stroke is the letter T, and every legible hammer glyph escapes that by being asymmetric, which a
+       Mjolnir by definition is not. And A BLADE BESIDE THE TOP OF AN UPRIGHT HAFT READS AS THE LETTER P —
+       drawn six times — so THE HAFT IS DIAGONAL and CROSSES the blade. The diagonal is also what separates
+       it from everything else here before a reader has resolved the blade: no other mark on this shelf is
+       drawn on an axis. A prow spiral reads as a shepherd's crook, a square sail as a CJK
+       character (bad on a shelf carrying China), a drinking horn collides with moon, a round shield with coin and
+       compass, a runestone with arch, a triquetra with atom and ringed. */
+    { k: "axe", n: "Dane axe", d: '<path d="M3.4 21.4 13.8 8.6"/><path d="M10.6 3.2c5 1 9 4.8 10 9.6-4.8 1.6-10.2 0-13.6-3.6z"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20612,6 +20768,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { k: "wall", n: "Great Wall", d: '<path d="M2 20.4h20"/><path d="M2 20.4v-6.2h7"/><path d="M22 20.4v-4.6h-7"/>' +
       '<path d="M9 20.4v-9.6h6v9.6"/><path d="M8.6 10.8h6.8"/><path d="M10.1 10.8V8.9M12 10.8V8.9M13.9 10.8V8.9"/>' +
       '<path d="M3.9 14.2v-1.7M6.4 14.2v-1.7M17.6 15.8v-1.7M20.1 15.8v-1.7"/>' },
+    /* a flag flying from its staff (Sep 2026, with the Flags deck). IT IS THE READER'S PICKER MARK AND
+       NO COLLECTION'S: Flags began as a collection of its own and is a third DECK of World Geography on
+       request, and a deck inside a collection carries no icon (see `adIconKey`) — so this has no
+       `COLLECTION_ICON` row and is here for somebody to put on a deck of their own. Kept rather than
+       deleted because it is a good generic mark and the picker had none.
+       DRAWN AND LOOKED AT at 28px
+       and 34px, which is the one thing the laurel-wreath note above says cannot be skipped. Four
+       candidates were rendered and read at both sizes: a plain rectangle is legible but reads as a
+       bookmark, a SWALLOWTAIL's notch closes up into a filled wedge at 28px, and a triangular pennant is
+       clean and is not what a national flag is. The WAVE survives 28px — the shallow curve on both edges
+       is still visible — and is the one that says "flag" at a glance. */
+    { k: "flag", n: "Flag", d: '<path d="M7 3v18"/><path d="M7 5.2c3.7-1.6 7.4 1.6 11 0v8c-3.6 1.6-7.3-1.6-11 0z"/>' },
     { k: "compass", n: "Compass rose", d: '<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4 13.6 10.4 20.6 12 13.6 13.6 12 20.6 10.4 13.6 3.4 12 10.4 10.4Z"/>' },
     /* speech bubble — ALL SEVEN language collections share it, which is the one place on this shelf two
        collections wear one mark, and it is a decision rather than an omission. Every icon above says what
@@ -20671,11 +20839,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-43": "lotus",
     egypt: "pyramid",
     ww2: "plane",
+    ww1: "wire",
+    arch: "arch",
+    middleearth: "ring",
+    westeros: "raven",
+    coldwar: "trefoil",
+    vikingage: "axe",
     japan: "torii",
     psych: "head",
     phil: "owl",
     bio: "helix",
     dino: "sauropod",
+    astro: "ringed",
+    france: "eiffel",
+    econ: "cross",
+    mesopotamia: "tablet",
     korea: "taegeuk",
     /* Visual Art takes the EXISTING `brush`, which is the one collection mark on this shelf that was
        reused rather than drawn. Every other was checked by eye at the 24-28px a deck row draws it at,
@@ -25259,7 +25437,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy", art: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -25339,7 +25517,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
     china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
     dino: 1000, korea: 1000, art: 1000,
-    "geo-us": 100, "geo-china": 58, "geo-world": 471,
+    /* World Geography's 704 is 233 countries + 238 capitals + the 233 FLAGS, which are a third deck of
+       this collection rather than one of their own (Sep 2026, on request). One collection, three plans:
+       see docs/world-geography-card-plan.md and docs/flags-card-plan.md. */
+    "geo-us": 100, "geo-china": 58, "geo-world": 937,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -26055,6 +26236,246 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        yellow-green-brown quarter. What remains genuinely open is narrow, and the next collection may have
        to accept a distance nearer the median than the maximum, as Philosophy's petrol did at 19.8. */
     dino:     { bg: "#967B00" },
+    /* deep violet (Astronomy) — MEASURED, like every hue above it, and the one where the OBVIOUS colour
+       was measured and REFUSED. An astronomy collection wants a midnight blue and cannot have one: swept
+       in CIELAB against all 27 hues on the shelf, the best night-sky candidate stands 12.6 from the
+       United States' navy and one a little bluer stands 4.2, against a TIGHTEST EXISTING PAIR of 12.9
+       (China's vermilion vs Russia's lacquer) — so it would ship at or below the worst separation this
+       shelf has ever accepted, which is a floor rather than a target. The blue quarter already carries
+       Greece's Aegean, Geography-China's blue, the French deck's blue and Politics: East Asia's
+       periwinkle. DO NOT RE-RUN THAT SWEEP; it does not come out differently.
+       What is taken instead is the DARK END OF THE VIOLET BAND — the twilight rather than the night, and
+       the one region near the wheel's optimum an astronomy collection can honestly claim. It stands 21.0
+       from Psychology's plum, 21.3 from Rome's imperial purple and 21.5 from Japan's kuwazome, very
+       nearly equidistant from all three, against a median nearest-neighbour distance of 20.1. L 28,
+       chroma 35 (below the shelf's median of 44, so inside the muted register), 10.0:1 against white.
+       IT IS A FOURTH PURPLE and needs the argument Biology's fifth green needed: the other three sit at
+       L 38, L 45 and L 53, and this is at L 28 — far darker than any of them, which is why the
+       measurement puts it a clear 21 from each rather than inside the family. The magenta and the
+       olive-brass were NOT re-measured, on the standing note above. IT WAS LOOKED AT, unlike the last
+       four hues here: rendered as a banner and as its 20% wash beside plum, imperial purple, kuwazome
+       and navy, it is plainly a different colour from all four. If it ever needs moving, go darker and
+       less red, not brighter. */
+    astro:    { bg: "#5E3262" },
+    /* slate blue-grey (France) — MEASURED, and THE FIRST GREY ON THIS SHELF. The obvious colour is the
+       blue of the flag and it cannot be had, for a reason worse than crowding: swept in CIELAB against
+       all 28 hues here, the best bleu de France candidate stands 19.8 from its nearest neighbour — below
+       the median of 20.8 — and THAT NEIGHBOUR IS THE FRENCH LANGUAGE DECK (#107CD0), on the same
+       Collections page one section down. Two things called French, 19.8 apart, is the one collision this
+       shelf must not ship; it is chroma 54 besides, on a shelf whose median is 44. The two other apt
+       families are worse: BORDEAUX tops out at 16.2 against Visual Art's oxblood and the Indonesian
+       deck, LAVENDER at 16.1 against Psychology's plum.
+       What ships is the slate of the ardoise roofs — the Loire, Anjou, Brittany, Normandy — which is
+       national rather than Parisian, and that matters on a collection whose ninth deck opens at "France
+       is not Paris". 20.7 from Greece's Aegean, 22.3 from Philosophy's petrol, 25.9 from Egypt's
+       malachite; L 51, chroma 8, 4.3:1 against white.
+       20.7 IS AT THE MEDIAN AND THAT IS A STATED TRADE, on Philosophy's precedent (petrol shipped at
+       19.8). What buys it is that it adds a FAMILY: there is no grey here at all — WW2's dark iron is a
+       warm brown-grey at L 27 and is the nearest thing to one. AND ONE STEP TOWARD THE OPTIMUM WAS GIVEN
+       UP FOR HUE, which is the opposite of Korea's trade: the best candidate in the band is #6C7F80 at
+       22.4 and sits at hue 203, a neutral grey with a green cast rather than the blue-grey the material
+       is. The magenta and the olive-brass were NOT re-measured, on the standing note above. Looked at as
+       a banner and as its 20% wash beside its four nearest neighbours. */
+    france:   { bg: "#6A7D81" },
+    /* deep cyan-teal (Economics) — MEASURED, and the first hue here CHOSEN ON DENSITY AS WELL AS
+       DISTANCE. Economics has no canonical colour, and the two reached for are the two most crowded
+       quarters on this shelf: the green family's best free candidate scores 20.1 with three neighbours
+       inside 20.3, and the brass-gold band tops out at 19.7 against Dinosaurs' ochre and World
+       History's sepia. THE ONE SPECIFIC ASSOCIATION FAILS ON KOREA'S OWN RULE — the Financial Times
+       salmon is very pale (about #FFF1E5), far above a banner's contrast floor, so what would ship is a
+       DEEPENED salmon that is not FT pink at all ("the versions that DO score are not the colour they
+       are named after"); measured anyway it scores 20.3 with plum, kuwazome and the Mandarin deck all
+       inside 0.4 of each other.
+       So this is chosen on separation and named for what it is: 21.1 from Egypt's malachite, 22.0 from
+       Greece's Aegean, 23.6 from Philosophy's petrol, against a median of 20.7 over the 29 hues here.
+       L 53, chroma 31 (below the shelf's median of 44), 4.0:1 against white — the same as Politics:
+       East Asia's.
+       DENSITY IS THE NEW MEASURE AND IS WORTH KEEPING: a nearest-neighbour figure says nothing about
+       how many hues sit just beyond it, and this shelf is now full enough that it matters. Counting
+       hues within 30, this one has 4 — against Philosophy's 5, Astronomy's 6 and France's 7.
+       IT SHARES A HUE ANGLE WITH PHILOSOPHY'S PETROL (both 208) AND IS 23.6 AWAY, WHICH IS THE POINT:
+       petrol is L 32 / chroma 20 and this is L 53 / chroma 31, so the separation is bought by
+       LIGHTNESS — Biology's fifth-green argument in another family, and the shelf gains the light end
+       of a band it had only the dark end of. The magenta came top of the unconstrained sweep AGAIN at
+       26.5 and is rejected for the SIXTH time; the olive-brass for the fifth. Neither should be
+       measured again. Looked at as a banner and as its 20% wash beside its neighbours. */
+    econ:     { bg: "#008C96" },
+    /* clay brown (Ancient Mesopotamia) — MEASURED, and the sixth member of the yellow-brown quarter,
+       which needs the argument the note below gives.
+       LAPIS LAZULI IS THE OBVIOUS CHOICE AND IS REFUSED ON THE NUMBERS. It is the Mesopotamian luxury
+       material — the Standard of Ur, the royal graves, the Ishtar Gate's glaze — and swept against the
+       30 hues then here its best candidate stands 19.2, below the median of 20.8, WITH NINE HUES WITHIN
+       30 OF IT (US navy, Psychology plum, Greece Aegean, WW2 dark iron, Philosophy petrol). That
+       density figure is the verdict; the blue-violet quarter is the most crowded region left.
+       CLAY IS THE OTHER CLAIM AND IS STRONGER ANYWAY — the cities, the ziggurats and the entire
+       evidence base are baked mud. 21.3 from World History's sepia, 21.4 from the German deck, 21.9
+       from the Spanish deck, above the median, with 5 within 30 — the same density as Philosophy's
+       petrol and four fewer than lapis. L 36, contrast 7.6:1.
+       WHY A SIXTH IN THIS FAMILY IS ALLOWED WHERE FOUR EARLIER CANDIDATES WERE NOT: the standing note
+       above records the OLIVE-BRASS being rejected four times at hue 90-100, on the grounds that a good
+       number is not a look. THIS IS A DIFFERENT SUB-BAND — hue 72, a red-brown — and it is apt in the
+       way none of those were. It is separated from its neighbours by lightness AND chroma together:
+       sepia is L 48 / C 30 and the German deck L 27 / C 32, where this is L 36 / C 47, between them in
+       lightness and above both in saturation.
+       ONE FIGURE IS AGAINST IT AND IS STATED RATHER THAN HIDDEN: chroma 47 sits above the shelf's own
+       median, which has fallen to 35 as the shelf has grown — RE-MEASURE THAT rather than quoting it.
+       It is below India's 61, Dinosaurs' 58 and the Spanish deck's 49, so it is not the loudest thing
+       here, but it is not in the quiet half either. The magenta was NOT re-measured; it has been
+       rejected six times. Looked at as a banner and as its 20% wash beside its neighbours. */
+    mesopotamia: { bg: "#784A00" },
+    /* field grey (The First World War) — MEASURED against the 31 hues now on the shelf, and the entry
+       where EVERY apt family came back crowded. That is what a shelf of thirty-one looks like: median
+       nearest-neighbour 20.8, tightest existing pair 12.9, density (hues within dE 30) median 5, max 9.
+       THE POPPY WAS REFUSED TWICE OVER. A scarlet at a shelf-like chroma is the most crowded corner
+       there is - best candidate 17.1 with TEN hues inside 30 (China, Russia, Korea, Visual Art and four
+       language decks all live there) - and a SATURATED poppy measures beautifully (43.2, density 0) at
+       chroma 104 against a shelf median of 35, which is a banner that shouts where every other murmurs.
+       The editorial argument agrees: the remembrance poppy is a British and Commonwealth emblem adopted
+       in 1921, and this collection covers thirty belligerents and spends a subdeck arguing that each
+       remembers the war differently. Horizon blue (16.4, hard against France's slate) and khaki drab
+       (17.7, hard against World History's sepia) are refused on the same two grounds - crowded, and
+       national.
+       WHAT IS TAKEN IS GREY-GREEN, and the argument is the collection's own subject rather than any
+       army's uniform: this is the war in which armies STOPPED WEARING COLOURS, and it is the one of the
+       four candidate families that names no single belligerent. It stands 20.1 from World History's
+       sepia, 20.3 from Biology's forest, 20.3 from France's slate, 21.4 from the Italian deck and 21.9
+       from the Second World War's dark iron - five neighbours inside a band of two units, the
+       nearly-equidistant shape Astronomy's twilight has. L 45, chroma 17 (well inside the quiet half,
+       against a median of 35), 5.3:1 against white.
+       THE FIGURE AGAINST IT IS DENSITY 8, against a median of 5 and a max of 9, and it is accepted
+       KNOWINGLY: the only genuinely open ground left at a shelf-like chroma is the magenta band, which
+       has now been rejected SEVEN times and which must not be measured again. An uncrowded hue that
+       means nothing is worse than a crowded one that means something. Looked at as a banner and as its
+       20% wash beside its neighbours. */
+    ww1:      { bg: "#686E52" },
+    /* cyanotype blue (Architecture) — MEASURED against the 32 hues then on the shelf, and the collection
+       whose two OBVIOUS colours were both refused on the numbers. STONE first: a warm limestone or
+       travertine is what a reader would expect an architecture banner to wear, and the best mid-toned
+       one stands 16.1 with TEN hues inside dE 30, the best light one 15.0 — against a shelf that already
+       carries France's roof slate, the Second World War's dark iron and the First World War's field grey,
+       so a fourth grey would be pressed against all three. BRICK second, and worse: terracotta is the
+       most crowded corner there is, 16.3 with nine neighbours (China, Russia, Korea, Visual Art and four
+       language decks). Both refusals carry the same editorial point, which is the one to remember here:
+       A MATERIAL NAMES A REGION — limestone says the classical Mediterranean, brick says Mesopotamia and
+       the Low Countries, timber says Japan — and this collection gives 120 cards to Asia in chronological
+       position precisely to say that no one tradition is its subject.
+       WHAT IS TAKEN IS THE DRAWING RATHER THAN THE BUILDING: the blue of a cyanotype, which names no
+       country, no century and no material, and names the act the collection is about. It stands 18.7
+       from Greece's Aegean, 19.7 from the French deck's blue, 26.0 from Politics: East Asia's periwinkle
+       and 29.2 from Economics' teal — BELOW the shelf's median of 20.3, and stated rather than hidden:
+       it is the seventh-closest hue of the thirty-three, ahead of Rome and Geography-China at 18.2, the
+       Mandarin deck at 17.5, the Indonesian at 17.4 and the China-Russia pair at 12.9, so comfortably
+       inside what this shelf has accepted. The figure in its favour is DENSITY 4 against a median of 6.
+       L 55, chroma 40, and 3.7:1 against white — the light end of the shelf's own 3.7-10.4 band, exactly
+       level with India's ochre, which is the lightest hue already on it.
+       IT IS A FIFTH BLUE and needs Astronomy's fourth-purple argument: Greece sits at almost the same hue
+       angle eleven points darker and fifteen less saturated, the United States' navy is at L 29,
+       Geography-China's at L 35, and the French deck's blue is twenty degrees further round toward
+       violet. Looked at as a banner and as its 20% wash beside all five, it is plainly a different
+       colour from each. The magenta and the olive-brass were NOT re-measured, on the standing note above
+       — the magenta topped the unconstrained sweep for the EIGHTH time and the olive-brass scored 21.5,
+       the best non-magenta figure on the wheel, and would be the sixth thing in the yellow-green-brown
+       quarter. If this ever needs moving, go DARKER rather than greener: the true Prussian blue of the
+       print itself was swept across the whole lightness band and tops out at 16.9, sitting on the United
+       States' navy, which is why the light end was taken. */
+    arch:     { bg: "#008DC6" },
+    /* the green of a leaf (Middle-earth) — MEASURED against the 33 hues then on the shelf, and the
+       collection whose obvious colour is refused by a standing note written two collections ago.
+       GOLD FIRST, because a reader asked to name this franchise's colour would say gold and nothing
+       else: the Ring, the mallorn leaves, "all that is gold does not glitter". It is refused twice
+       over. On the numbers the best metallic gold inside the contrast band stands 17.7 with FIVE hues
+       inside dE 30, wedged between India's saffron and Dinosaurs' dark gold, and the best dark gold
+       19.9 with six. And on the note above: the olive-brass beside it scored 21.5 for Architecture and
+       was refused there as the sixth thing in the yellow-green-brown quarter, with an instruction not
+       to measure it again. Gold IS that quarter. DO NOT RE-RUN THE GOLD SWEEP.
+       WHAT IS TAKEN IS THE OTHER EMBLEM: the leaf — the Shire's green, the leaf-brooches of Lorien,
+       the round door. It scores 21.5, ABOVE the shelf's median of 20.1 and the best figure anywhere on
+       the wheel outside the two banded regions, with DENSITY 3 against a median of 6. 21.5 from
+       Geography: United States' olive, 21.8 from Dinosaurs' dark gold, 27.6 from the Italian deck's
+       sage. L 55, chroma 56, 3.7:1 against white — the light end of the shelf's own 3.7-10.4 band,
+       level with India's ochre and Architecture's cyanotype.
+       IT IS A SEVENTH GREEN and needs Biology's fifth-green argument: Biology's forest is at L 27,
+       Geography: United States at L 40, World Geography's emerald at L 38, the Portuguese deck's green
+       is a true green twenty degrees further round, the Italian deck's sage is at chroma 30 and the
+       First World War's field grey at chroma 13. This is the BRIGHT, HIGH-CHROMA, YELLOW-LEANING end
+       of the band and nothing else is within twenty points of it there. Looked at as a banner and as
+       its 20% wash beside all six. The magenta topped the unconstrained sweep for the NINTH time and
+       was not re-measured; the only region that outscores this one and carries no note is a bright
+       rose at 20.5, which means nothing here. */
+    middleearth: { bg: "#7B8C1F" },
+    /* crimson (Westeros) — MEASURED against the 34 hues then on the shelf, and the one case where the
+       sweep turned up a genuine GAP rather than a trade-off. THE FINDING: the shelf's six reds all
+       lean ORANGE — China's vermilion, Russia's lacquer, the Indonesian deck's maroon, the Mandarin
+       decks' red, Korea's clay and Visual Art's oxblood all sit between hue 25 and 40, and Japan's
+       kuwazome is a red-purple at 345 — so between them, at hue 0-8, the carmine/crimson corner is
+       EMPTY. #B32057 stands 21.3, ABOVE the shelf's median of 20.1, density 5: 21.3 from Japan, 21.4
+       from the Indonesian deck, 23.6 from the Mandarin decks, 28.8 from Russia, 30.0 from China. L 40,
+       chroma 60, and 6.4:1 against white — worth noting on its own account, the last three
+       collections having all landed at the 3.7 floor of the shelf's 3.7-10.4 band.
+       THE STORY IS NOT A HOUSE, which is what the collection needed: crimson is Lannister, but it is
+       also the Red Keep, the Red Wedding, the red comet, the red priests, the red leaves of every
+       heart tree, the Red Viper and the Red Waste — this series' own signal for violence and prophecy
+       at once, belonging to no faction as the Lannister gold and Stark grey do.
+       THREE FAMILIES REFUSED: blood-ORANGE red, the corner a reader reaches for first, is the most
+       crowded on the shelf at 17.1 with TEN neighbours, which is Architecture's brick refusal at a
+       worse number; COLD SLATE-BLUE — winter, the Wall, the show's own palette, the "ice" of the
+       title — tops out at 18.7 with EIGHT, pressed against the Second World War's iron, Philosophy's
+       petrol and the United States' navy; DARK SEA TEAL is 13.3. The magenta was not re-measured (the
+       tenth refusal) and nor was the olive-brass.
+       DO NOT DRIFT IT LIGHTER. The same family at L 43-48 scores 22.2-22.9, which is better, and
+       rendered beside the shelf's reds it is a raspberry PINK rather than a crimson. The two points
+       are given up for the colour, which is Korea's trade exactly. */
+    westeros: { bg: "#B32057" },
+    /* cold concrete grey (The Cold War) — MEASURED against the 35 hues then on the shelf, and the one
+       collection where the EDITORIAL CONSTRAINT CAME FIRST: the colour may not be either side's. This
+       collection's central scope decision is that the Cold War was a global system rather than a duel,
+       and that almost everyone who died in it was neither American nor Russian — so a banner in Soviet
+       red or American navy would contradict the plan in a swatch, and both are on the shelf anyway
+       (Russia's lacquer, the United States' navy). The sweep was therefore run over everything EXCEPT
+       red and blue, and what survives is the colour a reader would name regardless: concrete, the
+       Wall, the bunker, the silo, the housing block both blocs built.
+       THE NUMBERS ARE BAD AND ARE STATED IN FULL. 19.2 from its nearest neighbour, BELOW the median of
+       20.1, with DENSITY 9 — equal to the highest on the shelf, the worst either figure has been for a
+       new collection. Psychology's plum 19, the United States' navy 19, the Second World War's iron 20,
+       Greece's Aegean 20, France's slate 21, Philosophy's petrol 21. L 34, chroma 13, and 7.96:1
+       against white, which is the figure in its favour: mid-band, where the last three collections all
+       landed on the 3.7 floor.
+       IT IS A FOURTH GREY AND THE FOUR ARE GENUINELY FOUR COLOURS, which is the argument carrying it:
+       the Second World War's iron is a warm brown-grey at L 27, this a cool blue-grey at L 34, the
+       First World War's field grey an olive at L 45, France's slate a blue-green at L 51 — the spread
+       is in lightness AND hue. Look at that comparison again before moving it.
+       WHAT SCORES BETTER MEANS NOTHING HERE: a bright periwinkle at 20.6 and a light purple at 18.8
+       (density 2) are the best unbanded figures on the wheel, and a Cold War banner in lavender is
+       worse than a crowded grey. The magenta topped the unconstrained sweep for the ELEVENTH time and
+       the olive-brass was not re-measured. IF IT EVER NEEDS MOVING the alternative is #4A3C52 at 19.3
+       and density 8 — marginally better on both — refused because at banner size it reads plum rather
+       than concrete and sits 19 from Psychology's plum for that reason. CHECK THE SWATCH, NOT THE
+       NUMBER. */
+    coldwar:  { bg: "#4C5064" },
+    /* rust, bog iron (The Viking Age) — MEASURED against all 36 hues then on the shelf, and the WORST
+       SEPARATED HUE THIS SHELF HAS ACCEPTED, and it is not one neighbour but FOUR: the German deck's
+       brown 18.8, Mesopotamia's ochre 18.9, the Spanish deck's burnt orange 19.0 and Russia's red 19.2,
+       against a shelf median of 20.0 and below even the Cold War's 19.2. SAY THAT PLAINLY rather than
+       quoting the single nearest. What buys it is the other column and the swatch: the four were rendered
+       side by side as banners before this was accepted, and the rust is plainly a different object from
+       all of them. Density 6 shelf hues within 30 is BETTER than the median
+       7 and much better than the Cold War's 9; and at L 29 chroma 51, 9.7:1 against white, it reads as a
+       deep burnt sienna — plainly a different object from the German deck's flat mid-brown (chroma 32
+       against 51), from Russia's brighter red and from the Spanish deck's lighter burnt orange. It adds an
+       OXIDE family to a shelf whose seven reds are all brighter than it, which is the fifth green's and the
+       fourth grey's argument in another quarter of the wheel.
+       EVERY COLOUR THE SUBJECT ACTUALLY MEANS WAS MEASURED AND REFUSED, and the list is worth having so
+       nobody re-runs it: iron grey #4E4842 stands 4.0 from the Second World War's own hue — not a separate
+       colour at all; North Sea grey-blue #4A6572 11.6 with TEN neighbours; fjord blue-green 8.8; woad and
+       moss 6.9; Baltic amber 7.8; oxblood 13.5 with nine.
+       AND THE ONE CANDIDATE THAT SURVIVED ON NUMBERS WAS REFUSED FOR A BETTER REASON THAN ITS NUMBER: a
+       cold Atlantic blue at #4C6B8A scores 16.1, and ANCIENT GREECE'S HUE IS THE AEGEAN — so it would put
+       two collections one section apart both meaning THE SEA. That is France's own refusal (its bleu de
+       France candidate's nearest neighbour was the French language deck) met from the other side.
+       EVERY SOFTENING COSTS SEPARATION FAST AND WAS MEASURED: #7A3008 16.7, #80340C 15.8, #853610 14.5,
+       #72300A 12.5. This is the local optimum, so DO NOT DRIFT IT LIGHTER. The magenta band topped the
+       unconstrained sweep for the twelfth time and the olive-brass was not re-measured. */
+    vikingage: { bg: "#782C00" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median
@@ -31025,6 +31446,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }));
       setupWhiteboard();
       showWBTools();
+      mountDrawCard(cardRoot, c);   // a draw card puts the pen down and pins the marker to its pad
       showAdminEditBtn(id);
       // read-aloud: mute toggle (persisted — stays muted for future cards/decks until unmuted) + the Question play control
       const muteBtn = cardRoot.querySelector("#ttsMute");
@@ -31195,6 +31617,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (typedVals.length) noteConfusion(id, typedVals);
         cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
         cardArtReveal(cardRoot, c);   // …and an artwork may now be titled, credited and enlarged
+        cardFlagReveal(cardRoot, c);  // …and a flag may now be credited and enlarged (see cardFlagReveal)
+        cardDrawReveal(cardRoot, c);  // …and a draw card's flag EXISTS for the first time (see cardDrawReveal)
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
         /* WHAT THEY WROTE, PUT BESIDE THE ANSWER (see deckRecall). It goes at the TOP of the reveal, above
@@ -31220,6 +31644,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            carrying the same file, so the BACK's copy goes rather than the front's — dropping the front's
            would move a picture the reader is looking at by its own height. */
         if (cardArtSpec(c)) { const dup = inner.querySelector(".card-imgslot"); if (dup) dup.remove(); }
+        /* A FLAG CARD IS THE SAME RULE ONE FIELD OVER (Sep 2026, on request: "on the answer side of the
+           cards, the flag in the answer box should not be shown"). `buildBack` still emits the small
+           `.av-flag` — the card browser, `openCardPeek`, Multiple Choice's `mountCardBack` and the editor
+           preview all draw a back with NO front, and without it they would show no flag at all — so what
+           goes is the copy on the STUDY page, where the front's own flag is still on screen two inches
+           above it. The credit it was carrying moves to the front's figure; see cardFlagReveal, without
+           which this drop would take the attribution off the card. */
+        if (cardFlagSpec(c)) { const dup = inner.querySelector(".answer .av-flag"); if (dup) dup.remove(); }
+        /* A DRAW CARD IS THAT RULE FROM THE OTHER END: the flag it was asking for has just been drawn at
+           the pad's own width, immediately above, so the answer box's thumbnail of the same file is the
+           duplicate here too — and dropping the PAD's copy instead would take away the one the reader is
+           comparing their drawing against. The credit rides with the pad's, as cardDrawReveal sets it. */
+        if (cardDrawSpec(c)) { const dup = inner.querySelector(".answer .av-flag"); if (dup) dup.remove(); }
         /* the "nearby in this collection" rail — a PEEK, never a route: a click meant as a glance must
            not end the session the reader is part way through, which is exactly the rule the causal
            strip above it already follows. */
@@ -34050,7 +34487,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        it are the answer box (see the ARTWORK CARDS block). `q` is empty on every such card and is not
        drawn either way, so a hand-authored one that carries a sentence cannot leak it onto the front. */
     const art = cardArtSpec(c);
-    return art ? cardArtHTML(art, c) : q;
+    if (art) return cardArtHTML(art, c);
+    /* a flag card: the flag ABOVE the prompt, which is the map card's arrangement rather than the artwork
+       card's. The picture is the clue and the one short line only says what to do with it — where an
+       artwork card draws no prose at all, because there its answer box's own three labels are the form.
+       See the FLAG CARDS block. */
+    const flg = cardFlagSpec(c);
+    if (flg) return cardFlagHTML(flg) + q;
+    /* a draw card: the flag card run backwards, so the arrangement is too — the PROMPT first, naming the
+       country, and the pad under it. See the DRAW CARDS block. */
+    return cardDrawSpec(c) ? q + cardDrawHTML() : q;
   }
 
   /* ---------- the figures box (Aug 2026, with map cards) ----------
@@ -34429,6 +34875,496 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ' data-img-src="' + esc(f.src) + '" data-img-title="' + esc(f.alt || "") + '" data-img-desc="" data-img-credit="' + esc(f.credit) + '">';
   }
 
+  /* ---------- FLAG CARDS: the flag is the whole question (Sep 2026, on request) ----------
+     "The question side of a card should depict a flag and the user must guess what the flag is from. The
+     answer side of the card can be directly the same as the ones in the World geography collection." A
+     built-in format, like the map card and the artwork card and for their reason: a community card type
+     is templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front of
+     the card with its metadata held back. See docs/flags-card-plan.md, which specifies it in full.
+
+     IT REUSES `answerFlag` RATHER THAN ADDING A FIELD, and that is the decision the format turns on.
+     That field already refuses a `src` with no `credit`, already rides `serializeCardData`, the cloud
+     overlay and `revertCard`, already enlarges into the site's own viewer and is already a `TIP_SEL`
+     target so the tap lands with the marker down. A second field for the same picture would be a second
+     copy of all four, and the copy that goes stale is the one nobody editing a flag has reason to open.
+     So a flag card is `answerFlag` plus one boolean.
+
+     THE BOOLEAN IS `flagCard`, NOT `flag`, AND THE NAMES MUST STAY APART — the same rule `answerFlag`'s
+     own block above states, for the same reason: `cardFlag(id)` is the READER's own 1-7 marker, and a
+     second module-scope `cardFlag` shipped for an hour once and made every reader flag read as unflagged
+     for the whole file, with nothing thrown. The accessor here is `cardFlagSpec`, beside `cardMapSpec`
+     and `cardArtSpec`.
+
+     THE FRONT DRAWS THE FLAG AND NO METADATA AT ALL, which is the artwork card's own first rule and bites
+     harder here: a Commons credit line for a national flag reads "Government of India, public domain",
+     so the title, the description and the credit each hand over the answer. The front therefore carries
+     the picture, the authored `alt` and nothing else — no caption, no `data-img-*` and no way to enlarge
+     it, since the viewer's own caption bar would print the credit. The CREDITED, enlargeable copy is the
+     small one inside the answer box, which `buildBack` draws exactly as it does on a `gw-` map card: the
+     licence's attribution is on the same card, one press away, rather than before the picture has done
+     its job. **Anything that leaks the credit onto the front has broken the collection and will look
+     perfectly fine doing it** — which is what `test-flag-cards.js` asserts first.
+
+     ONE LEAK IS ACCEPTED AND IS STATED RATHER THAN PAPERED OVER: Commons names every national flag
+     `Flag_of_<Country>.svg`, and a picture's `src` is copied from the API and never composed or
+     rewritten, so THE ANSWER IS IN THE URL on all 233 cards. Measured: 20 of 20 flag cards have it,
+     against 0 of 10 artwork cards, whose Commons file names happen not to match their titles — so it is
+     this format's property rather than the site's. What follows is narrow: no reader is SHOWN a src (it
+     is not rendered as text, and a screen reader reads the authored `alt`), so the answer is reachable
+     only by opening devtools, viewing source, or long-pressing the picture on a phone to read its file
+     name — all of which are going looking for the answer, which a reader could do on any card here. The
+     suite therefore asserts the country appears in the `src` AND NOWHERE ELSE on the front, so the
+     accepted leak cannot quietly widen into a title, a credit or a caption.
+
+     THE FLAG IS CONTAINED AND NEVER CROPPED. Flags run from 1:1 (Switzerland, Vatican City) through 2:3
+     and 1:2 to Qatar's 11:28, and Nepal's is not a rectangle at all — so `.card-img`'s fixed 16:9 box and
+     `height:100%` are exactly wrong here, as they are for `.av-flag`, and the frame is a MAXIMUM with
+     `object-fit:contain` inside it. It is also drawn on a RULED GROUND: Japan, Qatar's hoist, the Nordic
+     crosses and every white-bordered flag lose their own edge against a light card and are cut in half by
+     a dark one, so the frame carries a hairline and the card's own paper behind it.
+
+     THE ALT TEXT DESCRIBES AND MAY NOT NAME, which makes this format MORE accessible than the map card
+     rather than less: a shape on a globe cannot be described without answering the question and a flag
+     can — "three horizontal bands of saffron, white and green, with a navy-blue wheel of 24 spokes" is a
+     real question. `add-card.js` refuses a flag card whose alt carries its own answer term.
+
+     A flag card keeps the ORDINARY cloze blank in its prompt, so `setupCloze` and `gradeCloze` answer it
+     with no branch of their own — it is the artwork card that needed its own grading, having four fields
+     rather than one answer. */
+  function cardFlagSpec(c) {
+    if (!c || c.flagCard !== true) return null;
+    const f = answerFlag(c);          // the same field, the same refusal of an uncredited src
+    return f ? f : null;
+  }
+  /* The alt is the author's description of what is on the flag. Where a card has none the label says what
+     the picture is FOR and nothing about what is on it — `answerFlagHTML` falls back to the CREDIT, which
+     is right beside an answer already on screen and would hand the answer over here. */
+  function cardFlagHTML(spec) {
+    return '<figure class="flag-shot"><img src="' + esc(spec.src) + '" alt="' + esc(spec.alt || "The flag to be identified.") +
+      '" loading="lazy" draggable="false"></figure>';
+  }
+  /* AND ON THE REVEAL IT BECOMES ENLARGEABLE, WHICH IS WHERE ITS CREDIT LIVES — `cardArtReveal`'s shape,
+     and here it is REQUIRED rather than a nicety (Sep 2026, on request: "on the answer side of the cards,
+     the flag in the answer box should not be shown").
+
+     The answer box's small `.av-flag` was where the licence's attribution lived, which is what let the
+     front carry none; the study page now drops that copy, so without this the credit would be nowhere the
+     reader could reach at all. A national flag on Commons is nearly always public domain, but not every
+     one of the 233 is, and CC BY wants the creator named.
+
+     THE CREDIT IS IN THE VIEWER AND NOT ON THE CARD (Sep 2026, on request: "the image box should not
+     show the image source or link on the card, only when it is clicked to enlarge should it say the
+     source info"). This wrote a `figcaption` under the frame for a day, which put a Commons URL under
+     every flag — two lines of address on a card whose whole front is one picture. So the figure carries
+     the `data-img-*` attributes and NO caption, and `openMediaViewer` draws the credit under the enlarged
+     picture as `.iv-credit`. **It is the picture round's own trade** — the attribution the licence asks
+     for is one press away rather than in front of the reader before the picture has done its job — and
+     the press is real: `.flag-shot.revealed` is in `IMG_OPEN_SEL`.
+
+     NONE OF IT CAN HAPPEN BEFORE THE REVEAL, which is the whole reason this is a separate pass: a flag's
+     credit reads "Government of India, public domain, via Wikimedia Commons", so a viewer opened from the
+     question side would print the answer. That is also why the ENLARGEMENT is gated here rather than in
+     the frame: the two go together, since the viewer is what says the source. */
+  function cardFlagReveal(root, c) {
+    const spec = cardFlagSpec(c);
+    if (!root || !spec) return;
+    const fig = root.querySelector(".flag-shot");
+    if (!fig || fig.classList.contains("revealed")) return;
+    fig.classList.add("revealed");
+    fig.setAttribute("role", "button");
+    fig.setAttribute("tabindex", "0");
+    fig.setAttribute("title", "Click to enlarge");
+    fig.setAttribute("data-img-src", spec.src);
+    fig.setAttribute("data-img-title", spec.alt || "");
+    fig.setAttribute("data-img-desc", "");
+    fig.setAttribute("data-img-credit", spec.credit);
+  }
+
+  /* ---------- DRAW CARDS: the flag is the ANSWER, and the reader draws it (Sep 2026, on request) ----------
+     "Make a reverse version of each card (similar to language vocabulary cards) where the user is given a
+     small canvas and the floating whiteboard marker is pinned to the top right of the canvas. The user
+     must draw the flag from memory and can then judge how correct they were."
+
+     IT IS THE FLAG CARD RUN BACKWARDS, and that is the whole of the format: `fl-001` shows India's flag
+     and asks for the name, `fl-501` names India and asks for the flag. A language deck does this with
+     one note and two templates; curated cards have no note layer, so the reverse is a CARD of its own,
+     numbered +500 from its twin — which is the geography section's own convention (`gw-501` is `gw-001`'s
+     capital, `geo-501` is `geo-001`'s) and makes the pairing arithmetic rather than a table.
+
+     `drawCard: true` IS THE WHOLE FLAG, BESIDE `flagCard` AND NEVER INSTEAD OF IT. The two say opposite
+     things about the same `answerFlag`: `flagCard` promotes the picture to the front and holds its
+     metadata back, this one holds the PICTURE back until the reveal. A card carrying both would be
+     showing the answer on the question side, which `add-card.js` refuses.
+
+     THE PROMPT NAMES THE COUNTRY AND CARRIES NO CLOZE BLANK, which is the one place this format departs
+     from every other card on the site. There is nothing to type: the answer is a drawing, and the reader
+     grades it themselves on the four buttons the grade bar already has — which is what self-assessment on
+     this site has always been, so the format needs no marking of its own. `ATTEMPT_SEL` finds no field,
+     so the "Answer before revealing" policy correctly stands down rather than locking the card shut.
+
+     THE `src` IS INJECTED AT THE REVEAL AND IS NOT IN THE MARKUP BEFORE IT. Two reasons, and the second
+     is the bigger one: a picture present and hidden is a picture the browser may still fetch, so 229
+     flags would be pulled down by a reader who reveals none of them — and a `src` in the DOM is the
+     answer one devtools press away, which is the leak the flag card's own block accepts on its front and
+     has no reason to accept here, where nothing needs it before the reveal.
+
+     THE PAD DOES NOT MOVE WHEN THE ANSWER LANDS, and that is a constraint rather than a nicety. The ink
+     is on the page-wide whiteboard canvas in PAGE coordinates — it is not owned by the pad — so anything
+     that shifted the pad would slide the drawing out from under the frame it was drawn in. The revealed
+     flag is therefore appended BELOW the pad and nothing above it changes; the reveal's own answer box is
+     below that again. It is the same rule `.scratch` follows one card over.
+
+     AND THE PAD IS A FRAME, NOT A SECOND CANVAS. A canvas of its own would need its own pointer handling,
+     its own undo stack, its own stylus rule and its own colour state — four copies of machinery the
+     marker already has, and the copy that goes stale is the one nobody editing the marker has reason to
+     open. So the pad is a ruled box on the card and the ink that lands in it is the ordinary whiteboard's,
+     exactly as the writing band is. What the reader gets that they did not have is the BOX (somewhere the
+     drawing is meant to go, at a flag's own proportions) and the marker already open at its corner. */
+  function cardDrawSpec(c) {
+    if (!c || c.drawCard !== true) return null;
+    return answerFlag(c);            // the same field, the same refusal of an uncredited src
+  }
+  /* ---- THE PAD IS ITS OWN CANVAS, WITH ITS OWN MENU (Sep 2026, on request) ----
+     "Keep the floating marker separate, simply put a separate whiteboard menu in the top of the white
+     canvas which can only be used within that canvas, and also includes a fill option to fill the whole
+     canvas a particular color."
+
+     THIS REVERSES THE FIRST CUT AND THE REASON IS IN THE REQUEST. The pad began as a FRAME over the
+     page-wide whiteboard, which reused the marker's pointer handling, undo stack, stylus rule and colour
+     state and cost nothing — but ink on that canvas is not bounded by anything, the marker had to be
+     pinned to the pad to be reachable, and there is nowhere in it for a FILL to stop. "Only be used
+     within that canvas" is a bounded surface, and a bounded surface is a canvas of its own. So the
+     duplication that was refused is now the point, and the floating marker goes back to being what it is
+     on every other page: separate, unpinned, and nothing to do with this.
+
+     THE TWO DO NOT INTERFERE AND ARE NOT MADE TO COOPERATE. With the floating pen DOWN its canvas covers
+     the whole visible page, which is what it does everywhere on the site — so it draws over the pad
+     rather than in it, and the pad's own menu keeps working, its buttons being real controls the ink
+     layer already hit-tests through to. A pass-through that forwarded presses into the pad was built and
+     refused: it would take away the one thing the floating marker is for, which is annotating anything
+     on the page including a diagram. The pen is no longer put down for the reader on a draw card either
+     — the card now has a tool of its own, and there is nothing left to force.
+
+     THE STATE IS MODULE-LEVEL AND IS NOT STORED. Which colour you last drew a flag in is a way of
+     working rather than a preference about Folio, the same call `glossSort` and the deck-edit mode make:
+     it survives the next card and resets on reload. */
+  const DP_COLORS = WB_COLORS;
+  const DP_SIZES = [3, 9];              // the pen and the brush — a band of a flag wants the second
+  const DP_HIST_MAX = 24;
+  const DP = { color: DP_COLORS[0], tool: "pen", size: DP_SIZES[0] };
+  let dpStop = null;                    // teardown for the pad currently mounted, if any
+  /* THE READER'S OWN COLOUR IS THE ONE PART OF THIS THAT IS STORED, and the exception is deliberate
+     (Sep 2026, on request: "the top canvas menu should have a color picker so any color can be used").
+     The rest of `DP` is a way of working and resets on reload; a mixed colour is WORK THE READER DID —
+     a flag's exact blue takes a moment to find — and the floating marker already keeps its own for that
+     reason. Device-local, like the marker's and like where the marker sits: which colour this browser
+     last mixed is a fact about this browser. One key, one colour: the pad has one palette, where the
+     marker keeps two (a highlighter yellow is not a pen colour) and needs a pair. */
+  const DP_CUSTOM_KEY = "folio_dp_custom_v1";
+  const DP_CUSTOM_FALLBACK = "#7A5CD6";   // deliberately none of the five, so the sixth swatch reads as its own
+  function dpReadCustom() {
+    try { const v = localStorage.getItem(DP_CUSTOM_KEY); return /^#[0-9a-f]{6}$/i.test(v || "") ? v : DP_CUSTOM_FALLBACK; }
+    catch (e) { return DP_CUSTOM_FALLBACK; }
+  }
+  function dpSaveCustom(c) { try { localStorage.setItem(DP_CUSTOM_KEY, c); } catch (e) {} }
+
+  const DP_ICON = {
+    pen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+    brush: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c0-3 2-4 4-4s3 1 3 3-2 3-4 3H4Z"/><path d="M11 16 20 5a2 2 0 0 0-3-3l-9 9"/></svg>',
+    erase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 6-6 7 7-4 4H9Z"/><path d="M8 20h12"/></svg>',
+    fill: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4l8 8-8 8Z"/><path d="M19 15c1.2 1.6 1.8 2.6 1.8 3.2a1.8 1.8 0 0 1-3.6 0c0-.6.6-1.6 1.8-3.2Z" fill="currentColor" stroke="none"/></svg>',
+    undo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg>',
+    clear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/></svg>',
+  };
+  const DP_BTNS = [
+    ["pen", "Pen"], ["brush", "Broad pen"], ["erase", "Eraser"],
+    ["fill", "Fill the whole canvas with this colour"], ["undo", "Undo"], ["clear", "Clear the canvas"],
+  ];
+  /* The menu is drawn at the TOP OF THE CANVAS and is `aria-hidden` for the reason the pad is: a reader
+     who cannot see the canvas cannot draw in it, and six tools for a surface they cannot use are noise
+     rather than help. The question above and the answer below are both real text, which is where this
+     format's accessibility actually lives.
+     EVERY CONTROL IN IT THEREFORE CARRIES `tabindex="-1"`, and that pairing is the whole point: an
+     `aria-hidden` container whose children are still FOCUSABLE is the one arrangement that is worse than
+     either choice — a keyboard reader tabs onto a control their screen reader has been told does not
+     exist, and lands on it silently. Hidden from assistive technology and out of the tab order is one
+     statement rather than two contradictory ones. A pointer is unaffected, which is what this surface
+     needs anyway: a tool cannot be used from a keyboard on a canvas that cannot be drawn on from one. */
+  function cardDrawHTML() {
+    const cols = DP_COLORS.map((c, i) =>
+      '<button type="button" tabindex="-1" class="dp-col' + (i === 0 ? " on" : "") + '" data-dpcol="' + esc(c) +
+      '" style="--dpc:' + esc(c) + '" title="' + esc(c) + '"></button>').join("");
+    const btns = DP_BTNS.map(([k, label]) =>
+      '<button type="button" tabindex="-1" class="dp-btn' + (k === "pen" ? " on" : "") + '" data-dp="' + k +
+      '" title="' + esc(label) + '"' + (k === "undo" ? " disabled" : "") + '>' + DP_ICON[k] + "</button>").join("");
+    /* THE SIXTH SWATCH IS THE READER'S OWN and opens the picker below the menu — a ROW rather than a
+       popover, which is the marker's own rule for its picker and the same reason: the bar is already a
+       box with a decided position, and a second floating box inside it would have to decide again.
+       Opening it pushes the canvas DOWN, which is free here and was not before: the ink is on the pad's
+       own canvas now, so it moves with the frame rather than being left behind in page coordinates. */
+    return '<div class="draw-pad">' +
+      '<div class="dp-tools" aria-hidden="true"><div class="dp-cols">' + cols +
+      '<button type="button" tabindex="-1" class="dp-col dp-custom" data-dpcustom="" title="Any colour"></button>' +
+      '</div><div class="dp-acts">' + btns + "</div></div>" +
+      '<div class="dp-pick" aria-hidden="true" hidden><div class="wb-sv"><span class="wb-knob"></span></div>' +
+      '<div class="wb-hue"><span class="wb-knob"></span></div><div class="wb-hex"></div></div>' +
+      '<div class="dp-frame" aria-hidden="true"><canvas class="dp-canvas"></canvas><span class="dp-hint">Draw the flag here</span></div>' +
+      '<figure class="dp-answer" hidden></figure></div>';
+  }
+  /* THE REVEAL IS WHERE THE PICTURE FIRST EXISTS. It is drawn at the pad's own width so the comparison is
+     one glance rather than a squint, it is enlargeable (`.dp-answer.revealed` is in `IMG_OPEN_SEL`), and
+     its CREDIT is in the viewer rather than under it — the flag card's own trade, and here for the same
+     reason: a Commons credit line for a national flag names the country. */
+  function cardDrawReveal(root, c) {
+    const spec = cardDrawSpec(c);
+    if (!root || !spec) return;
+    const fig = root.querySelector(".draw-pad .dp-answer");
+    if (!fig || fig.classList.contains("revealed")) return;
+    const img = document.createElement("img");
+    img.src = spec.src;
+    img.alt = spec.alt || "The flag being asked for.";
+    img.loading = "lazy";
+    img.draggable = false;
+    fig.appendChild(img);
+    fig.hidden = false;
+    fig.classList.add("revealed");
+    fig.setAttribute("role", "button");
+    fig.setAttribute("tabindex", "0");
+    fig.setAttribute("title", "Click to enlarge");
+    fig.setAttribute("data-img-src", spec.src);
+    fig.setAttribute("data-img-title", spec.alt || "");
+    fig.setAttribute("data-img-desc", "");
+    fig.setAttribute("data-img-credit", spec.credit);
+    /* The hint is hidden the moment anything is drawn; the reveal brings it back with a different word,
+       so the two frames now standing one above the other say which is which. */
+    const hint = root.querySelector(".draw-pad .dp-hint");
+    if (hint) hint.textContent = "What you drew";
+    const pad = fig.closest(".draw-pad");
+    if (pad) pad.classList.add("dp-revealed");
+  }
+  /* MOUNTING ONE BUILDS THE CANVAS AND WIRES THE MENU TO IT, AND NOTHING ELSE ON THE PAGE IS TOUCHED.
+     Four things are decisions rather than plumbing.
+     · THE BITMAP IS SIZED IN DEVICE PIXELS AND THE CONTEXT IS SCALED, or a stroke is a soft grey smear
+       on every phone made in the last decade. A resize REDRAWS the last snapshot into the new box rather
+       than letting the browser stretch the backing store, which is the same thing at a different
+       resolution and looks like the drawing having been damaged.
+     · `touch-action:none` IS WHAT LETS A FINGER DRAW. Without it the browser claims the gesture as a
+       scroll the moment it passes its own slop and fires `pointercancel`, which is the fault this file
+       records against every horizontal swipe on the site. The cost is real and is the right trade: a
+       finger starting inside the pad cannot scroll the page, exactly as it cannot on the floating
+       marker's own canvas.
+     · UNDO IS A STACK OF BITMAPS, capped, with an empty base at the bottom so it can always get back to
+       a blank canvas — the card whiteboard's own backend, which is a raster canvas for this reason.
+     · AND FILL COVERS, RATHER THAN GOING UNDERNEATH. "Fill the whole canvas a particular color" is
+       literal, and it is undoable, so a mis-press costs one press; going underneath would be a different
+       tool wearing this one's name, and a reader drawing a flag fills the field FIRST anyway. */
+  function mountDrawCard(root, c) {
+    if (dpStop) { dpStop(); dpStop = null; }
+    const spec = cardDrawSpec(c);
+    if (!root || !spec) return;
+    root.classList.add("draw-card");
+    const pad = root.querySelector(".draw-pad");
+    const frame = pad && pad.querySelector(".dp-frame");
+    const cv = pad && pad.querySelector(".dp-canvas");
+    if (!pad || !frame || !cv) return;
+    const ctx = cv.getContext("2d");
+    const hist = [];
+    let drawing = false, pid = null, last = null, w = 0, h = 0;
+
+    const undoBtn = pad.querySelector('[data-dp="undo"]');
+    const syncUndo = () => { if (undoBtn) undoBtn.disabled = hist.length < 2; };
+    const snap = () => {
+      if (!w || !h) return;
+      const s = document.createElement("canvas");
+      s.width = cv.width; s.height = cv.height;
+      s.getContext("2d").drawImage(cv, 0, 0);
+      hist.push(s);
+      while (hist.length > DP_HIST_MAX + 1) hist.shift();
+      syncUndo();
+    };
+    const restore = (s) => {
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      if (s && s.width && s.height) ctx.drawImage(s, 0, 0, cv.width, cv.height);
+      ctx.restore();
+    };
+    /* THE BOX IS READ AS LAYOUT, NEVER AS A RECT. `getBoundingClientRect` is transform-aware, and the
+       page's entrance animation SCALES `.page` for its first third of a second — so a canvas sized from a
+       rect at mount comes out several pixels narrow and stays that way, since a transform changes no
+       layout box and the ResizeObserver therefore never fires to correct it. Measured: 349px of canvas
+       inside a 355.6px frame, a white strip down the right-hand edge of every pad. It is the pin's own
+       fault wearing different clothes, and `clientWidth` does not have it. */
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      const nw = Math.max(1, frame.clientWidth), nh = Math.max(1, frame.clientHeight);
+      if (nw === w && nh === h) return;
+      const prev = hist.length ? hist[hist.length - 1] : null;
+      w = nw; h = nh;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      cv.style.width = w + "px"; cv.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (prev) restore(prev);
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+    };
+    resize();
+    if (!hist.length) snap();          // the blank base undo can always return to
+
+    /* …and a pointer's position IS read off the rect, which is right — client coordinates are in that
+       same transformed space — but scaled back into the canvas's own, so a press during any scale lands
+       where the reader is pointing rather than drifting further from it across the pad. */
+    const at = (e) => {
+      const r = cv.getBoundingClientRect();
+      const kx = r.width ? w / r.width : 1, ky = r.height ? h / r.height : 1;
+      return { x: (e.clientX - r.left) * kx, y: (e.clientY - r.top) * ky };
+    };
+    const stroke = (a, b) => {
+      ctx.save();
+      ctx.globalCompositeOperation = DP.tool === "erase" ? "destination-out" : "source-over";
+      ctx.strokeStyle = DP.color;
+      ctx.lineWidth = DP.tool === "erase" ? 18 : DP.size;
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      ctx.restore();
+    };
+    const down = (e) => {
+      if (e.button != null && e.button !== 0) return;
+      if (drawing) return;                      // one pointer owns the stroke — a palm is not this gesture
+      drawing = true; pid = e.pointerId; last = at(e);
+      try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+      stroke(last, { x: last.x + 0.01, y: last.y });   // a tap is a dot
+      pad.classList.add("dp-drawn");
+      e.preventDefault();
+    };
+    const move = (e) => {
+      if (!drawing || e.pointerId !== pid) return;
+      const p = at(e); stroke(last, p); last = p;
+      e.preventDefault();
+    };
+    const up = (e) => {
+      if (!drawing || e.pointerId !== pid) return;
+      drawing = false; pid = null; last = null;
+      snap();
+    };
+    cv.addEventListener("pointerdown", down);
+    cv.addEventListener("pointermove", move);
+    cv.addEventListener("pointerup", up);
+    cv.addEventListener("pointercancel", up);
+
+    const act = (k) => {
+      if (k === "pen" || k === "brush") { DP.tool = "pen"; DP.size = k === "pen" ? DP_SIZES[0] : DP_SIZES[1]; }
+      else if (k === "erase") DP.tool = "erase";
+      else if (k === "fill") {
+        ctx.save(); ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = DP.color; ctx.fillRect(0, 0, w, h); ctx.restore();
+        pad.classList.add("dp-drawn"); snap();
+      } else if (k === "undo") {
+        if (hist.length > 1) { hist.pop(); restore(hist[hist.length - 1]); syncUndo(); }
+      } else if (k === "clear") {
+        ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); ctx.restore();
+        pad.classList.remove("dp-drawn"); snap();
+      }
+      paintTools();
+    };
+    const paintTools = () => {
+      pad.querySelectorAll("[data-dp]").forEach((b) => {
+        const k = b.dataset.dp;
+        const on = (k === "erase" && DP.tool === "erase") ||
+                   (DP.tool === "pen" && ((k === "pen" && DP.size === DP_SIZES[0]) || (k === "brush" && DP.size === DP_SIZES[1])));
+        b.classList.toggle("on", !!on);
+      });
+      pad.querySelectorAll("[data-dpcol]").forEach((b) => b.classList.toggle("on", b.dataset.dpcol === DP.color));
+    };
+    pad.querySelectorAll("[data-dp]").forEach((b) =>
+      b.addEventListener("click", (e) => { e.stopPropagation(); act(b.dataset.dp); }));
+    const useDpColor = (c) => {
+      DP.color = c;
+      if (DP.tool === "erase") DP.tool = "pen";   // choosing a colour is choosing to draw with it
+      paintTools();
+    };
+    pad.querySelectorAll("[data-dpcol]").forEach((b) =>
+      b.addEventListener("click", (e) => { e.stopPropagation(); useDpColor(b.dataset.dpcol); }));
+
+    /* ---- ANY COLOUR: the sixth swatch and the picker under the menu ----
+       A saturation/brightness field over a hue bar with the hex beneath, which is the ordinary shape and
+       the one the floating marker already uses — the classes are its, so this reuses the stylesheet
+       rather than a second copy of it, and `hsvToHex` / `hexToHSV` are module-level for the same reason.
+       **`<input type="color">` IS NOT USED, AND THAT IS A DECISION THE SITE HAS ALREADY MADE**: its
+       platform dialog on a phone is a full-screen "Select color" sheet of sliders that covers the very
+       card being answered, and `test-layout.js` has asserted for a month that none is left in the
+       marker's panel. Two CSS gradients and two pointer handlers; no canvas, no library.
+       **THE PICKER KEEPS ITS OWN HSV rather than re-deriving it from the hex on each move.** At v=0 or
+       s=0 a colour has NO recoverable hue, so a reader dragging into the black corner and back out would
+       come back red however they arrived.
+       **IT IS POINTER-ONLY, AND THAT IS NOT THE MARKER'S ANSWER.** The marker's picker takes arrow keys,
+       because the control it replaced was a real `<input>` and reachable from a keyboard. Here the whole
+       menu is `aria-hidden` with `tabindex="-1"` on every control, for the reason the pad is: the surface
+       it serves cannot be drawn on from a keyboard either, so a focusable field would be a tab stop that
+       leads nowhere — which is exactly the focusable-inside-`aria-hidden` fault that pairing exists to
+       avoid. */
+    const pick = pad.querySelector(".dp-pick");
+    const swatch = pad.querySelector(".dp-custom");
+    let pickHSV = hexToHSV(dpReadCustom()), pickDrag = -1;
+    const pickHex = () => hsvToHex(pickHSV.h, pickHSV.s, pickHSV.v);
+    const syncPick = () => {
+      const hex = pickHex(), sv = pick.querySelector(".wb-sv"), hue = pick.querySelector(".wb-hue");
+      sv.style.setProperty("--h", pickHSV.h.toFixed(1));
+      sv.firstElementChild.style.left = (pickHSV.s * 100).toFixed(2) + "%";
+      sv.firstElementChild.style.top = ((1 - pickHSV.v) * 100).toFixed(2) + "%";
+      hue.firstElementChild.style.left = ((pickHSV.h / 360) * 100).toFixed(2) + "%";
+      pick.style.setProperty("--wc", hex);
+      pick.querySelector(".wb-hex").textContent = hex.toUpperCase();
+      /* the swatch IS the stored colour, and carries it as its own `data-dpcol` so `paintTools` marks it
+         selected by exactly the rule the other five are marked by */
+      swatch.style.setProperty("--dpc", hex);
+      swatch.dataset.dpcol = hex;
+      swatch.title = hex.toUpperCase();
+    };
+    const wirePickField = (box, set) => {
+      const clamp = (n) => Math.max(0, Math.min(1, n));
+      const at = (e) => {
+        const r = box.getBoundingClientRect();
+        set(clamp((e.clientX - r.left) / (r.width || 1)), clamp((e.clientY - r.top) / (r.height || 1)));
+        const hex = pickHex();
+        dpSaveCustom(hex);
+        DP.color = hex;                 // live, like every other swatch — the pen follows the finger
+        if (DP.tool === "erase") DP.tool = "pen";
+        syncPick(); paintTools();
+      };
+      box.addEventListener("pointerdown", (e) => {
+        if (e.button != null && e.button !== 0) return;
+        e.preventDefault();
+        pickDrag = e.pointerId;
+        try { box.setPointerCapture(e.pointerId); } catch (err) {}
+        at(e);
+      });
+      box.addEventListener("pointermove", (e) => { if (pickDrag === e.pointerId) at(e); });
+      const stopPick = (e) => { if (pickDrag === e.pointerId) pickDrag = -1; };
+      box.addEventListener("pointerup", stopPick);
+      box.addEventListener("pointercancel", stopPick);
+    };
+    wirePickField(pick.querySelector(".wb-sv"), (x, y) => { pickHSV.s = x; pickHSV.v = 1 - y; });
+    wirePickField(pick.querySelector(".wb-hue"), (x) => { pickHSV.h = x * 360; });
+    syncPick();
+    swatch.addEventListener("click", (e) => {
+      e.stopPropagation();
+      /* Pressing it SELECTS the colour and opens the field; pressing it again shuts the field and leaves
+         the colour selected — so one press is "draw in my colour" and two are "and let me change it". */
+      const opening = pick.hidden;
+      pick.hidden = !opening;
+      pad.classList.toggle("dp-picking", opening);
+      if (opening) useDpColor(swatch.dataset.dpcol);
+    });
+    paintTools();
+
+    const onResize = () => resize();
+    window.addEventListener("resize", onResize);
+    const ro = typeof ResizeObserver === "function" ? new ResizeObserver(onResize) : null;
+    if (ro) ro.observe(frame);
+    dpStop = () => {
+      window.removeEventListener("resize", onResize);
+      if (ro) ro.disconnect();
+    };
+  }
   /* ---------- the locator map (Aug 2026, on request) ----------
      `locator: { name, at: [lon, lat], zoom? }` — a globe at the foot of a card whose ANSWER IS A PLACE,
      with that place marked. A reader meeting Knossos, the Cycladic civilisation or the Tiber for the first
@@ -46465,7 +47401,7 @@ let prev = null;
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -49585,8 +50521,10 @@ let prev = null;
 
   /* Everything the fullscreen viewer opens from. `.card-img` is the framed figure a card, a glossary
      popup, an artefact plate and the editor previews all emit; `.av-flag` is the small flag inside a
-     geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML. */
-  const IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed";
+     geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML;
+     `.flag-shot.revealed` is a FLAG card's own front, which carries no credit and cannot be enlarged
+     until the answer is out, since the caption bar would print the country's name — see cardFlagReveal. */
+  const IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed, .flag-shot.revealed, .dp-answer.revealed";
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
   // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
   // every other click inside it belongs to the player.
@@ -49624,8 +50562,10 @@ let prev = null;
     /* `.art-shot` is here as well as `.card-img`, and on that format a dead file is the worse failure:
        an artwork card's picture IS its question, so a file that never arrives leaves four empty fields
        and nothing to answer — and the alt text, which DESCRIBES the work, is painted at full size in
-       the frame instead, which reads as a broken page. It says so instead; see `.art-shot.media-dead`. */
-    const fig = el.closest && el.closest(".card-img, .art-shot"); if (!fig) return;
+       the frame instead, which reads as a broken page. It says so instead; see `.art-shot.media-dead`.
+       `.flag-shot` is here for exactly that reason one format over: a flag card's picture is its whole
+       question too. */
+    const fig = el.closest && el.closest(".card-img, .art-shot, .flag-shot"); if (!fig) return;
     fig.classList.remove("ar-loading");   // a file that will never arrive must not go on spinning
     fig.classList.add("media-dead");
     // a floated slot would otherwise keep its margin — and the space the prose wraps around — about nothing

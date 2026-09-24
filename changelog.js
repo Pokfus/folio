@@ -35,24 +35,42 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.873", released: "2026-09-24T11:28Z" };
+window.FOLIO_VERSION = { v: "1.882", released: "2026-09-24T12:57Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-24",
-    t: "Forty-five more families of word follow your spelling setting",
+    t: "Two new decks: name the world\u2019s flags, and draw them from memory",
     items: [
+      "<b>Flags is a new deck of World Geography</b> \u2014 two hundred and twenty-nine cards, each showing a flag for you to name.",
+      "<b>Draw the flags is a second new deck</b> \u2014 it names a country and you draw its flag on a canvas of its own, with pens, a fill and any colour you like.",
+      "<b>A flag card shows the flag once and keeps its source off the card</b> \u2014 the credit is there when you tap the flag to enlarge it.",
+      "<b>The Viking Age joins the planned collections</b> \u2014 a thousand cards on Scandinavia and its diaspora, most of them on farming, law, craft, belief and the ships rather than the raids.",
+      "<b>The Cold War joins the planned collections</b> \u2014 a thousand cards from the breakdown of the wartime alliance to the end of the Soviet Union, half of them outside Europe and North America.",
+      "<b>Westeros joins the planned collections</b> \u2014 a thousand cards on A Song of Ice and Fire, the history behind it, and the television, games and fandom around it.",
+      "<b>Middle-earth joins the planned collections</b> \u2014 a thousand cards on Tolkien's world, the books behind it, and the films, games and fandom that grew from them.",
       "<b>Forty-eight more families of word follow your spelling setting</b> \u2014 <i>sympathise</i>, <i>fertiliser</i>, <i>paediatrics</i> and the rest now change with it.",
     ],
   },
   {
     d: "2026-09-18",
-    t: "Common Thread no longer files a term under a category it does not fit",
+    t: "The Ancient Egypt collection opens with its first ten cards",
     items: [
+      "<b>Seventy new cards and sixty-three glossary terms</b> \u2014 the Ancient Egypt collection opens with ten, thirty carry Rome to Trajan's column, and thirty take Russia to the Mongol conquest.",
+      "<b>The word \u201cmedian\u201d no longer links to the Medes</b> on cards that use it as a statistic rather than as a people.",
+      "<b>Architecture joins the planned collections</b> \u2014 a thousand cards on how buildings are designed and built, from the arch to the carbon in the concrete.",
+      "<b>The First World War joins the planned collections</b> \u2014 a thousand cards on the whole war, from the alliance system to how it is remembered.",
+      "<b>Ancient Mesopotamia joins the planned collections</b> \u2014 a thousand cards from the first cities to the last cuneiform tablet.",
+      "<b>Economics joins the planned collections</b> \u2014 a thousand cards from scarcity to the arguments economists are still having.",
+      "<b>France joins the planned collections</b> \u2014 a thousand cards from Gaul to the present, with its first cards still to come.",
+      "<b>Astronomy joins the planned collections</b> \u2014 a thousand cards from the naked-eye sky to cosmology, with its first cards still to come.",
       "<b>Common Thread only groups a term under a category it genuinely belongs to</b> \u2014 genealogy has left Asia and water has left biology.",
       "<b>Beringia draws the same globe in both collections</b>, the United States card having shown no map at all.",
       "<b>The Paris Peace Conference card no longer says the conference outlasted the war</b> \u2014 it ran a year and three days.",
       "<b>The Bosporan Kingdom card says when the kingdom began and ended</b>, and your own atlas draws it across those years.",
+      "<b>Three cards' atlas maps are put right</b> \u2014 the Battle of Alalia and the Phaistos Disc now show where they happened, and municipium no longer marks a town.",
+      "<b>A Chinese vocabulary card's question no longer looks as though it has vanished</b> when the answer is shown with the marker down.",
+      "<b>Three cards' source lists are improved</b> \u2014 two in World History now cite mostly works you can open, and one in Ancient Rome leans less on one scholar.",
     ],
   },
   {
@@ -63,7 +81,7 @@ window.CHANGELOG = [
       "<b>Timeline sets a literary work in italic and names who wrote it</b>, so <i>Histories</i> is no longer a row you could take for an event.",
       "<b>Your own atlas now draws the Shang dynasty and the Bosporan Kingdom</b> in the years each of them stood.",
       "<b>A card\u2019s \u201cwhat came of this\u201d no longer names a modern scholar</b> \u2014 it says what happened rather than who argued it.",
-      "<b>A hundred and nine more cards gained an illustration</b> \u2014 in Ancient Greece, Rome, China, Korea, Psychology, Biology and two other collections.",
+      "<b>A hundred and eighteen more cards gained an illustration</b> \u2014 in Ancient Greece, Rome, China, Korea, Psychology, Biology, Russia and two other collections.",
       "<b>Every True or False answer now names its source</b> — a hundred and fifty-three more were cited today, fourteen rewritten, and four that could not be sourced were retired.",
       "<b>The text size setting now sizes the Atlas's own labels too</b> \u2014 country, sea, river and city names on the globe grow and shrink with the rest of the site.",
       "<b>A perfect day in every minigame now pays three artefact chests</b> rather than one.",
@@ -97,7 +115,8 @@ window.CHANGELOG = [
       ,"<b>Fifteen more True or False answers now cite their sources</b>, and five statements are rewritten to say what those sources actually show."
       ,"<b>British readers now see British spelling throughout</b> — several dozen cards and glossary terms stored the American form, and the switch now covers three more word families besides."
       ,"<b>A deck you have finished for the day turns green with a tick</b>, and gold when you got everything right first time."
-      ,"<b>A hundred cards on the politics of East Asia</b> — a course collection of 24 decks, in a new Special section of the Collections page."
+      ,"<b>Two hundred and thirty new cards and a hundred and twenty-five glossary terms</b> \u2014 East Asian politics as a course collection of its own, Rome from Augustus to Jerusalem, and the lands before Rus’."
+      ,"<b>Eighty-eight citations now give the right publication year</b> \u2014 long runs of references to Tacitus and to Cassius Dio named the wrong volume of the same edition."
       ,"<b>A single-character Mandarin card lists the other words built on that character</b>, with their readings and meanings, whatever else you have downloaded."
       ,"<b>Two card backgrounds are corrected</b> \u2014 one drops a population figure the card already shows and says when the city was founded instead, the other no longer names a modern scholar."
       ,"<b>Two cards no longer contradict themselves</b> \u2014 one\u2019s questions gained the article they were missing, and the other\u2019s map no longer carries a name the card says was never formed."

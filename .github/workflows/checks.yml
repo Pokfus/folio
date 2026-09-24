@@ -126,9 +126,27 @@ jobs:
       # to the byte: it is a tripwire against the class of change that doubles the path in one
       # commit -- a data file put on the eager list, a translation table re-added. Raise it
       # DELIBERATELY, in the commit that spends it, and say in the message what was bought.
+      #
+      # RAISES SO FAR, so the next session can see what the path is actually spent on rather
+      # than re-deriving it. 3300 -> 3400 (Sep 2026) bought the 229 Draw-the-flags cards,
+      # which tripped the tripwire at 3301 KB -- one kilobyte over, which is what a generous
+      # ceiling looks like when it is finally reached by ordinary growth rather than by a
+      # step change. Measured by stripping the `fd-` lines back out of data.js: the whole
+      # deck costs 32.2 KB gzipped, about 144 bytes a card, LESS than the half-kilobyte a
+      # card the raise below measured -- because a draw card copies its twin's answer side
+      # and the heavy half of that (abstract, sources, why, picture) is already lazy. What
+      # it still spends here is the answer, the date line, the tags, the facts grid and the
+      # `answerFlag` the reveal draws. 3200 -> 3300 (Sep 2026) bought the Russia collection's first
+      # hundred cards. Measured against the commit before them, ninety cards cost data.js
+      # +24.9 KB gzipped and their sixty-three paired glossary terms cost glossary.js
+      # +21.7 KB -- about half a kilobyte a card and a third of one a term, which is the
+      # shape of ordinary growth rather than the step change this tripwire is for. The
+      # heavy half of a card (abstract, sources, why, image) is already lazy and is not in
+      # this figure at all; what a card still spends here is its question pool, its answer,
+      # its date line, its tags and its locator.
       - name: eager path size
         env:
-          EAGER_GZ_MAX_KB: "3200"
+          EAGER_GZ_MAX_KB: "3400"
         run: |
           node .claude/check-sizes.js | tee /tmp/sizes.txt
           gz=$(node .claude/check-sizes.js --json | node -e '
