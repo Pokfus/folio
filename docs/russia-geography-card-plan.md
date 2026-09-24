@@ -3300,3 +3300,31 @@ ever designates the centre, the card is a morning's work and its dot is already 
 
 **THE CENTRE HALF IS THEREFORE FINISHED: 79 of the 80 writable centres, with `gru-502` deferred**, and
 the collection stands at 162 of 163 numbers.
+
+### And the softest source denies it too, which closes the question
+
+Asked (Sep 2026) whether a **less official source or Wikipedia** could carry `gru-502`'s seat sentence
+where the charter and the state portal could not. The answer is better than a source: **the fallback
+contradicts the card.**
+
+**Russian Wikipedia's *Московская область* states in its own first sentence that the administrative
+centre is NOT DETERMINED** — *«Административный центр Московской области не определён, но фактически —
+город Москва (не входит в состав области), основная часть органов административной власти области
+расположена в Красногорске»* — and its infobox reads `Столица = не определён законом`, listing Moscow
+*(de facto; not part of the oblast)* above Krasnogorsk *(part of the state organs)*. **The English
+article does not make the claim at all**: it calls Krasnogorsk the administrative centre of
+*Krasnogorsky District*, and the only sources its infobox hangs on are Resolution 123-PG and Law
+70/2005-OZ, both about the DISTRICT.
+
+So three independent kinds of source now agree, and they agree with each other rather than with the
+question: the oblast's own charter of 2022 names no centre in 61 pages, the state publication portal
+carries no law naming one, and the general encyclopedia says in terms that none is determined. **This is
+not a card waiting for a weaker source. It is a card whose question is false**, and the deck's question
+is fixed — *the administrative centre of the federal subject shaded around it* — so there is no wording
+that rescues it without describing the dispute, which a map card cannot do.
+
+**`gru-502` is therefore closed rather than deferred pending research.** It would reopen only on a
+Moscow Oblast law designating a centre, which is a single checkable event; nothing short of that changes
+the answer, and **no further source hunt should be run on it.** What the sources do carry, and what the
+subject card `gru-002` already says, is the fact rather than the claim: the House of Government has
+stood in Krasnogorsk since 2007.

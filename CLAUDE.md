@@ -1640,6 +1640,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the reference literature still prints Moscow, a city that is a DIFFERENT federal subject. So the card
     is left unwritten with its number reserved and its reason recorded, `gw-596` Jerusalem's shape one
     level down. **A card that cannot ask its own question honestly is deferred, never softened.**
+    **AND THE SOFTEST SOURCE DENIES IT TOO, WHICH IS WHY NO FURTHER HUNT SHOULD BE RUN** (asked Sep
+    2026, whether a less official source or Wikipedia could carry it). **Russian Wikipedia's own first
+    sentence says the administrative centre is NOT DETERMINED** — de facto Moscow, which is a different
+    federal subject, with most of the executive bodies in Krasnogorsk — and its infobox reads *не
+    определён законом*; the ENGLISH article does not make the claim at all, calling the town the centre
+    of Krasnogorsky DISTRICT and citing two district-level acts for it. **A fallback source that
+    contradicts the card is not a weaker source, it is an answer**: the card is closed rather than
+    pending, and only a Moscow Oblast law designating a centre reopens it.
   · **THE FACTS GRID IS FILLED FROM ONE BILINGUAL ROSSTAT TABLE, AND ROSSTAT'S OWN HOSTS CANNOT BE
     REACHED FROM HERE.** `rosstat.gov.ru`, `eng.rosstat.gov.ru` and `gks.ru` fail TLS verification —
     their certificates chain to a Russian national CA nothing here carries — and `fedstat.ru` 403s;
