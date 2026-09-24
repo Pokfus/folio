@@ -11717,7 +11717,7 @@ company"; the missing character turns a sentence into a straddle.
 **A dropped sentence was standing on a second card.** 他终于到了绝望之井 "the Well of Despair", dropped
 from 井 in batch 153, was 绝望's first sentence too — the standing lesson that a `dropEx` is keyed to
 one note, and that a sentence removed for its content should be grepped across the decks the same day.
-It was grepped this time: those two are the only cards carrying it.
+It was grepped this time, and a third card carries it — **`hsk30l4/之`, where it is RIGHT and stays**: 绝望之井 is exactly the literary possessive X之Y that card teaches, and its only sentence showing it free (the other two are 之后 and 之处). **The same sentence is a fault on one card and the best example on another**, which is why a content drop is judged per card and never swept. Open item from that read: 之's 他十分钟之后来 is translated "He came after ten minutes" where the Chinese says he will come in ten minutes.
 
 **Four Englishes were numerically or lexically wrong.** 军人's 数以百万计 was translated
 **"thousands upon thousands"** — off by three orders of magnitude. 剧烈's 进一步的检查 became "Another
