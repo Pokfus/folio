@@ -708,6 +708,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1201–1230 | 27 changed, 3 read and left: 31 example sentences replaced (four straddles, 属 used only inside other words, 松 split into its two senses, a sentence that was not Chinese, a calqued 'thoughts and prayers', a generalisation about residents), three Compounds panels, 18 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1231–1260 | 28 changed, 2 read and left: 20 example sentences replaced (特 and 逃 used only inside other words or a name, the name Lata on 塔, two ungrammatical sentences, fragments, near-repeats), 6 translations fixed, six Compounds panels, 22 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1261–1290 | 21 changed, 9 read and left: 20 example sentences replaced (a restaurant name on 添, a Japanese surname and a playground insult on 田, a sentence that was not Chinese, Classical Chinese, near-repeats), 3 translations fixed, two Compounds panels, 16 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1291–1320 | 25 changed, 5 read and left: 27 example sentences replaced (同行 taught one reading and shown the other, a sexual sentence on 透明, a children's-book title, a political aside, fragments, calques, near-repeats), 2 translations fixed, four Compounds panels, 17 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12402,4 +12403,34 @@ and no version bump.
   - 通风 was "airy" under a verb label.
   - 提示, 跳水, 通话 and 通讯 were missing the noun or the sense their sentences show.
   - 听取's "(news)" did not match the sentences.
+
+### Batch 173 — `hsk30l6` notes 1291–1320 (铜 → 推测)
+
+25 notes changed and 5 read and left (偷偷, 透过, 图案, 图表, 图像), counted against the real diff.
+
+- **A card taught one reading and showed the other.** 同行 teaches tóngháng, "person of the same profession". Two of its three sentences were tóngxíng, "to travel together": 你将伴我同行, and this record's 跟…智者仁人同行. The third, 他已形同行尸走肉, split the characters across 形同 and 行尸走肉. All three were replaced with sentences in the card's own reading. The mixed part-of-speech label is set to the noun.
+- **Single characters.**
+  - 铜's sentences 铜管乐队 and 黄铜 were about brass, and each had the character only inside another word.
+  - 透's 讨厌透顶 had it only inside 透顶.
+  - 吐 showed three sentences for tù ("to vomit") and none for its first sense, tǔ ("to spit"). One is replaced, and all three are now tagged by sense.
+  
+  铜, 偷, 透 and 吐 gained Compounds panels.
+- **Unsuitable.**
+  - 你半透明的裙子让我高度兴奋 was sexual.
+  - 任人唯贤是一个童话 was a cynical political aside.
+  - 没头脑和不高兴 is the title of a children's book.
+- **Fragments, calques and word-for-word translations.**
+  - 投票 had two replacements: 他已经足够大去投票了 had no full stop, and 意见栏… ended on a comma.
+  - 推测's sentence was 我在推测他可能赢得比赛.
+  - 这个土壤 should be 这种 or 这里的.
+  - 带孩子团体去图书馆 is not natural.
+  - 同伴's proverb and 同类's proverb were each translated as a different English proverb.
+- **Near-repeats replaced:** 铜牌 (two Olympic sentences, plus an odd one that said "copper medals"), 突发, 徒弟, 团圆, 透露 and 突破 (the last had 突破性).
+- **Translations.** 投诉's "press charges" is now "make a complaint". 途径's "from the river" is now "across the river".
+- **Glosses.**
+  - 投诉 was a noun under a verb label.
+  - 同类's "similar" missed "of the same kind".
+  - 痛快 lacked "readily".
+  - 头脑 now differs from 脑子, so its hint is gone.
+  - About ten others lacked "to", the noun, or a second sense their sentences show.
 
