@@ -3497,6 +3497,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S40 | B1 | #587 `tradicional` – #614 `el cohete` | 27 | 1 (`occidental`) | 0 | B1 description: 962 with three | — |
 | S41 | B1 | #615 `vago, vaga` – #642 `deprimido, deprimida` | 27 | 1 (`la competición`) | 0 | B1 description: 963 with three | S29 unbolded phrase cards: 3 of the 4 remaining closed |
 | S42 | B1 | #643 `formal` – #670 `el aparcamiento` | 26 | 2 (`conectarse`, `el terremoto`) | 0 | B1 description: 995 with examples, 965 with three, 3 with none | `la delta` renamed `el delta` |
+| S43 | B1 | #671 `el resumen` – #698 `dudar` | 25 | 3 (`publicar`, `la preparación`, `dudar`) | 0 | B1 description: 996 with examples, 966 with three, 2 with none | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5216,6 +5217,34 @@ up to three examples: 965 of 998.
 56 → 58. Both new entries are named here: `la raíz` ("root" over three sentences saying "roots") and `formal`
 (its new sense "reliable, responsible" over examples rendered "dependable", "diligent" and "prim"). The first is
 the checker's stemmer; the second is a paraphrase, the meanings agreeing.
+
+### S43 — DELE B1, notes #671–#698 (Sep 2026)
+
+Measured against the S42 commit by card id: **25 changed, 973 untouched**, each a record entry. The other three
+were read and left alone: `publicar`, `la preparación`, `dudar`.
+
+**ANOTHER CARD WITH NO EXAMPLE.** `el bufete` had none; it has three. **B1 now has examples for 996 of 998
+words, and the two left with none are `el pintado` (#767) and `nublarse` (#997)**, both further on.
+
+**A SPAIN SENSE THE CARD DID NOT TEACH, ON EVERY EXAMPLE.** All three of `la promoción`'s examples were a
+promotion at work, which in Spain is *un ascenso*; the Spanish word is a special offer, a product's promotion or
+a year group. All three were replaced, and the card carries a note — `el clima` in S33 was the same shape.
+
+**CLAIMS A CARD CANNOT CARRY.** `el continente`'s *Hay siete continentes* is a count that varies by convention,
+and Spanish-speaking schools usually teach five or six; `el terrorismo` carried the slogan *El turismo es
+terrorismo*; `la constitución` described the American constitution's rights for the states; `el varón` gave a
+suspect's race.
+
+**THE OTHER WORD.** `suponer`'s first example was *por supuesto*, shared with that card; `separar`'s second was
+*separarse*; `el tronco` carried a garbled *dormir como un tronco* and called a log a "trunk".
+
+**AND THE REST.** `provocar` was glossed "to tease sexually" with an example to match; `inventar` generalised
+about Americans; `oriental` was a hotel's name; `masculino` a sentence rendered as though about gendered
+languages. American English: "trash bin", "analog", "dumpster". Six sentences shared with A2 or an earlier B1
+card were replaced. `el bufete` comes up to three examples: 966 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+58 → 55.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

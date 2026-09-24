@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,11 +865,11 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
-     "there are none at all for the remaining 3,"
+     "there are none at all for the remaining 2,"
     ],
     [
      "999 words for level B1 of the DELE",
@@ -877,55 +877,63 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 956 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 957 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 958 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 959 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 962 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 963 of them",
-     "Example sentences come with 995 of the 998 words, three apiece for 965 of them"
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
     ],
     [
      "there are none at all for the remaining 4,",
-     "there are none at all for the remaining 3,"
+     "there are none at all for the remaining 2,"
+    ],
+    [
+     "Example sentences come with 995 of the 998 words, three apiece for 965 of them",
+     "Example sentences come with 996 of the 998 words, three apiece for 966 of them"
+    ],
+    [
+     "there are none at all for the remaining 3,",
+     "there are none at all for the remaining 2,"
     ]
    ]
   }
@@ -41760,6 +41768,566 @@
      "I can't find a parking space."
     ]
    ]
+  },
+  "deleb1/el resumen": {
+   "why": "The gloss was a list, 'résumé, curriculum vitae' among it, and did not give en resumen. The third example wrote dió, which takes no accent.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "summary"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en resumen — in short"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Él me dió un resumen"
+   ],
+   "ex": [
+    [
+     "En resumen, fue un buen año.",
+     "In short, it was a good year."
+    ]
+   ]
+  },
+  "deleb1/el contenedor": {
+   "why": "The gloss was a list running to 'dumpster (US, Canada)'. The first example's English said 'trash bin'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "container",
+      "(rubbish) bin, skip"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Usa el contenedor para",
+     "Use the bin for the rubbish."
+    ]
+   ]
+  },
+  "deleb1/el varón": {
+   "why": "The gloss was a definition ('person of male sex'). The first example described a suspect by his race, and the second's Toda la gente … son varones does not agree.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "male, man"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hijo varón — son"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un varón de raza negra",
+    "Toda la gente en este cuarto"
+   ],
+   "ex": [
+    [
+     "Tienen dos hijos varones.",
+     "They have two sons."
+    ],
+    [
+     "En la clase hay más mujeres que varones.",
+     "There are more women than men in the class."
+    ]
+   ]
+  },
+  "deleb1/la amabilidad": {
+   "why": "The gloss is right. The first example is shared with sobre todo and the second with agradecer, both earlier in B1; the third's English, 'Please say that again!', lost tenga la amabilidad. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "Ella me gusta sobre todo por su",
+    "Me siento muy agradecido contigo por tu"
+   ],
+   "exEn": [
+    [
+     "tenga la amabilidad de",
+     "Would you be so kind as to tell me again?"
+    ]
+   ],
+   "ex": [
+    [
+     "Gracias por su amabilidad.",
+     "Thank you for your kindness."
+    ],
+    [
+     "Nos trataron con mucha amabilidad.",
+     "They treated us very kindly."
+    ]
+   ]
+  },
+  "deleb1/suponer": {
+   "why": "The gloss was a list of eight. The first example was the noun supuesto and is shared with por supuesto earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to suppose, to assume",
+      "to mean, to involve"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Por supuesto, en menos que canta"
+   ],
+   "ex": [
+    [
+     "Eso supone mucho trabajo.",
+     "That involves a lot of work."
+    ]
+   ]
+  },
+  "deleb1/sólido, sólida": {
+   "why": "The gloss is right. The first and second examples stated the same fact about ice.",
+   "dropEx": [
+    "El hielo es agua en forma"
+   ],
+   "ex": [
+    [
+     "Es un argumento muy sólido.",
+     "It's a very solid argument."
+    ]
+   ]
+  },
+  "deleb1/provocar": {
+   "why": "The gloss gave 'to tease sexually', and the first example was a headline about arousing a woman's desire.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cause",
+      "to provoke"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el deseo de una mujer"
+   ],
+   "ex": [
+    [
+     "El accidente provocó un gran atasco.",
+     "The accident caused a big traffic jam."
+    ]
+   ]
+  },
+  "deleb1/inventar": {
+   "why": "The gloss gave 'to feign' and not inventarse, 'to make up', which the third example is. The first example is shared with antiguo in A2, and the second was a generalisation about Americans. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to invent"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "inventarse — to make up"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "inventado en la antigua China",
+    "Los americanos tienen una gran imaginación"
+   ],
+   "ex": [
+    [
+     "¿Quién inventó el teléfono?",
+     "Who invented the telephone?"
+    ],
+    [
+     "No te lo inventes.",
+     "Don't make it up."
+    ]
+   ]
+  },
+  "deleb1/rechazar": {
+   "why": "The gloss was a list of seven. The first example is shared with la oferta earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to reject, to turn down"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "una oferta que no pude rechazar"
+   ],
+   "ex": [
+    [
+     "Rechazó la invitación con educación.",
+     "She politely turned down the invitation."
+    ]
+   ]
+  },
+  "deleb1/separar": {
+   "why": "The gloss carried a stray 'N' line and did not give separarse, which the second and third examples both were. The first example's English said 'divorce fantasy from reality'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to separate"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "separarse — to split up"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Han pasado dos años desde que nos"
+   ],
+   "exEn": [
+    [
+     "separar la fantasía de la realidad",
+     "Can't you separate fantasy from reality?"
+    ]
+   ],
+   "ex": [
+    [
+     "Separa la ropa blanca de la de color.",
+     "Separate the whites from the coloureds."
+    ]
+   ]
+  },
+  "deleb1/digital": {
+   "why": "The gloss gave 'having to do with the fingers or toes' and not huella digital. The third example's English said 'analog'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "digital"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "huella digital — fingerprint"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "digital o analógico",
+     "Which kind of watch do you prefer, digital or analogue?"
+    ]
+   ]
+  },
+  "deleb1/el paisaje": {
+   "why": "The gloss was a definition and did not give 'scenery', which every example is.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "landscape, scenery"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la promoción": {
+   "why": "ALL THREE EXAMPLES WENT. Each was a promotion at work, which in Spain is un ascenso; a promoción is a special offer, a product's promotion or a year group. The gloss gave 'advocacy'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "special offer",
+      "promotion (of a product)",
+      "year, class (students who finish together)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las promociones"
+    ],
+    [
+     "note",
+     "promotion at work is usually el ascenso"
+    ]
+   ],
+   "dropEx": [
+    "me den una promoción",
+    "próxima persona para la promoción",
+    "no se merece una promoción"
+   ],
+   "ex": [
+    [
+     "Hay una promoción de dos por uno en el supermercado.",
+     "There's a two-for-one offer at the supermarket."
+    ],
+    [
+     "Toda mi promoción terminó la carrera en 2010.",
+     "My whole year finished their degrees in 2010."
+    ],
+    [
+     "Hicieron mucha promoción del nuevo disco.",
+     "They did a lot of promotion for the new album."
+    ]
+   ]
+  },
+  "deleb1/el plomo": {
+   "why": "The gloss gave 'grey' and not los plomos, 'the fuses', which the second example is. The first and third examples both compared lead with gold.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "lead"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "los plomos — the fuses"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El oro es más caro que el plomo"
+   ],
+   "ex": [
+    [
+     "Las tuberías antiguas eran de plomo.",
+     "Old pipes were made of lead."
+    ]
+   ]
+  },
+  "deleb1/el bufete": {
+   "why": "ONE OF THE CARDS WITH NO EXAMPLE AT ALL. Given three.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "law firm, lawyer's office"
+     ]
+    ]
+   ],
+   "ex": [
+    [
+     "Trabaja en un bufete de abogados.",
+     "She works at a law firm."
+    ],
+    [
+     "El bufete está en el centro.",
+     "The law firm is in the centre."
+    ],
+    [
+     "Abrió su propio bufete.",
+     "He opened his own practice."
+    ]
+   ]
+  },
+  "deleb1/la constitución": {
+   "why": "The gloss read 'constitution (all senses)'. The second example described the American constitution's rights for the states.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "constitution"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "les da ciertos derechos a los estados"
+   ],
+   "ex": [
+    [
+     "La Constitución española es de 1978.",
+     "The Spanish Constitution dates from 1978."
+    ]
+   ]
+  },
+  "deleb1/el tronco": {
+   "why": "The gloss did not give dormir como un tronco, of which the first example is a garbled version. The second example's English said 'rude table', and the third's 'trunk' for a log.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "trunk (of a tree)",
+      "log"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dormir como un tronco — to sleep like a log"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "He dormido como un bebé en un"
+   ],
+   "exEn": [
+    [
+     "una mesa basta con",
+     "Miguel made a rough table from logs."
+    ],
+    [
+     "no podían mover el pesado",
+     "Carlos and Ana couldn't move the heavy log."
+    ]
+   ],
+   "ex": [
+    [
+     "El tronco del árbol estaba hueco.",
+     "The tree trunk was hollow."
+    ]
+   ]
+  },
+  "deleb1/el parlamento": {
+   "why": "The gloss gave 'reasoning, wording'. The second example, 'El Parlamento está en la capital', says nothing.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "parliament"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El Parlamento está en la capital"
+   ],
+   "ex": [
+    [
+     "El Parlamento Europeo tiene su sede en Estrasburgo.",
+     "The European Parliament has its seat in Strasbourg."
+    ]
+   ]
+  },
+  "deleb1/el terrorismo": {
+   "why": "The gloss is right. The third example, 'El turismo es terrorismo', is a slogan.",
+   "dropEx": [
+    "El turismo es terrorismo"
+   ],
+   "ex": [
+    [
+     "La policía lucha contra el terrorismo.",
+     "The police fight terrorism."
+    ]
+   ]
+  },
+  "deleb1/masculino, masculina": {
+   "why": "The gloss is right. The second example, 'El disfrute, aunque masculino, es independiente del género', was rendered as a sentence about gendered languages.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "masculine",
+      "male, men's"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El disfrute, aunque"
+   ],
+   "ex": [
+    [
+     "Problema es una palabra masculina.",
+     "Problema is a masculine word."
+    ]
+   ]
+  },
+  "deleb1/el documental": {
+   "why": "The gloss is right. The first example was about aliens.",
+   "dropEx": [
+    "acerca de alienígenas"
+   ],
+   "ex": [
+    [
+     "Vimos un documental sobre los océanos.",
+     "We watched a documentary about the oceans."
+    ]
+   ]
+  },
+  "deleb1/invertir": {
+   "why": "The gloss is right. The third example, 'La realidad y el sueño se invierten', was rendered 'counteract each other'.",
+   "dropEx": [
+    "La realidad y el sueño se"
+   ],
+   "ex": [
+    [
+     "Invirtió todos sus ahorros en una casa.",
+     "He invested all his savings in a house."
+    ]
+   ]
+  },
+  "deleb1/la joya": {
+   "why": "The gloss was a list in two spellings. The third example's piden prestado joyas does not agree.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "jewel"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "las joyas — jewellery"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ustedes piden prestado"
+   ],
+   "ex": [
+    [
+     "Guarda las joyas en una caja fuerte.",
+     "She keeps her jewellery in a safe."
+    ]
+   ]
+  },
+  "deleb1/el continente": {
+   "why": "The gloss is right. The second example, 'Hay siete continentes', is a count that differs by convention — Spanish-speaking schools usually teach five or six.",
+   "dropEx": [
+    "Hay siete continentes"
+   ],
+   "ex": [
+    [
+     "Asia es el continente más grande.",
+     "Asia is the largest continent."
+    ]
+   ]
+  },
+  "deleb1/oriental": {
+   "why": "The gloss gave 'Oriental'. The first example was a hotel's name, and the second's English said 'oriental civilisations'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "eastern"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "en el hotel Oriental"
+   ],
+   "exEn": [
+    [
+     "Es común en las civilizaciones",
+     "It's common in eastern civilisations."
+    ]
+   ],
+   "ex": [
+    [
+     "Viven en la costa oriental de la isla.",
+     "They live on the east coast of the island."
+    ]
+   ]
   }
  },
  "insert": {
@@ -42091,7 +42659,10 @@
    "occidental",
    "la competición",
    "conectarse",
-   "el terremoto"
+   "el terremoto",
+   "publicar",
+   "la preparación",
+   "dudar"
   ]
  }
 }
