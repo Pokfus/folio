@@ -690,6 +690,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 661–690 (酱 → 借助), deck order | 27 | **酱 and 解: not one of either card's three sentences used the character on its own**, and three glosses were cut off mid-phrase or were not the word's meaning at all |
 | 2026-09-24 | `hsk30l6` notes 691–720 (金额 → 镜头), deck order | 26 | **净 and 井 had no sentence using the character on its own**, 尽's three were one idea, and five Englishes rendered a different sentence from the Chinese above them |
 | 2026-09-24 | `hsk30l6` notes 721–750 (纠纷 → 开创), deck order | 26 | **局's traditional field was 侷**, a different character; 就读 and 决策 each had a sentence that straddled; and batch 153's dropped 'Well of Despair' was found standing on a second card |
+| 2026-09-24 | `hsk30l6` notes 751–780 (开关 → 空地), deck order | 21 (+1) | **two cards glossed from the OTHER reading** (看好, 空地 'air-to-surface missile'), 肯's three sentences all about a man called Ken, and an English typo that named a sex toy |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11743,3 +11744,55 @@ CC-CEDICT leads with.
 Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1.
 `check-british` reads 0. **Verified against the real diff: 26 of 30 changed and nothing outside the
 range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 155 — `hsk30l6` notes 751–780 (开关 → 空地), 2026-09-24
+
+Twenty-one of the thirty changed, **plus one note outside the range**, `hsk30l7/筒`, for the reason in
+the next paragraph.
+
+**开启's first sentence was translated "Switching on a FLESHLIGHT won't help you see in the dark"** — a
+one-letter typo for *flashlight* that names a sex toy, on a sentence that is not natural Chinese and
+whose English is American besides. `check-coarse.js` cannot reach it: the word is not in any of its
+lists, being a trade name. **It stood on a second card, `hsk30l7/筒`**, where it is also a swallow
+(手电筒 "torch"), so it was dropped from both in the same batch rather than left for 筒's own turn —
+the lesson batches 153 and 154 recorded, applied on the day. 筒's other two sentences (听筒, 甜筒) are
+swallows too and are LEFT for that card's own batch in Levels 7–9.
+
+**Two cards were glossed from the reading they do not teach.** **空地** is *kòng dì*, "open space" — what
+all three of its sentences say — and was glossed **"air-to-surface (missile)"**, which is CC-CEDICT's
+*kōng dì*, a different entry. **看好** was pinned to *kàn hǎo*, "to be optimistic about" (the HSK word),
+and glossed "to keep an eye on", which is *kān hǎo* — and two of its three sentences did not contain the
+word at all: 你看好吗 is 你看 + 好吗 and 看看好吗 is 看看 + 好吗. It now teaches both readings, as 尽 and
+卷 do, with authored sentences for the *kàn* sense it had never shown. `check-polyreading.js` looks only
+at single-character cards, which is how two-character ones slip past.
+
+**肯's three sentences were all about a man called Ken** — 肯 as the transliteration of an English name,
+meaning nothing: 肯喜欢露营, 你还是肯, 很奇怪肯竟然没有同意. Not one showed *willing to*. All three
+replaced; this is batch 150's 夹克 loanword finding at card scale. **Two more transliteration and straddle
+faults were this record's own authored sentences**: 科普's 斯科普里是北马其顿的首都 is *Skopje*, in which
+科普 is two sounds, and 看中's 她很喜欢看中文书 is 看 + 中文书.
+
+**Single-character cards.** 砍 had 砍价 "to bargain" and a subjectless fragment from a game's help
+text; 科 had 挂科 "to fail a course" twice, one sentence repeated. Both rebuilt with `Compounds` panels,
+as was 肯. Two-character swallows: 考古学 and 考古学家 on 考古 (one also repeating the record's own
+sentence), and 可行性 on 可行.
+
+**Glosses.** 渴望 led with "fall over oneself"; 课题 was a definition, not a gloss; 开设 was CC-CEDICT's
+first sense while all three sentences are its second; 恐惧 put nouns and a verb under an ADJECTIVE label;
+考验 and 科普 were split and tagged. 看待's 我把他看待为老板 was not Chinese (把 … 看作 is), and
+渴望's 如何引起女人的渴望 was a line of sexual advice.
+
+**Near-repeats: 客车 (this record's, destination changed), 科目 (the same question twice), 考验 (two harsh
+ordeals), and 渴望** — where the fix produced one: once 我们渴望和平 had its English corrected, it and
+我渴望冒险 were the same subject + 渴望 + noun frame, and it was replaced by a verb-phrase complement.
+
+**`check-example-fit.js` now reports 科普's 这是一本科普读物 as 本科 + 普. That is a false positive**:
+the sentence is 一本 + 科普读物, and the greedy segmenter took 本科 "undergraduate" out of the middle. It
+was reported before this batch too; only its example number moved.
+
+**Nine cards were read and left**: 开头, 看不起, 看得起, 看似, 看重, 考察, 考核, 可口, 可怜. The 开启/打开
+hint pair is untouched.
+
+Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1.
+`check-british` reads 0. **Verified against the real diff: 21 of 30 changed in range, and exactly one
+note outside it, `hsk30l7/筒`.** `build-lang-decks.js` re-run. No changelog line and no version bump.
