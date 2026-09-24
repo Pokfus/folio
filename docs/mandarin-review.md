@@ -678,6 +678,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | **the `-is/-iz` table gap** — 45 rows into `SPELL_PAIRS`, an APP change | 70 (+2 cards, 1 term) | the raw grep's “~45 sites in Folio's own prose” was wrong: **they were CITATIONS**, and the real figure is ONE |
 | 2026-09-24 | `hsk30l6` notes 331–360 (顿时 → 凡是), deck order | 23 (+3 in 7–9) | **ten near-repeats again**, a card glossed as its own neighbour — and `check-gloss-source.js` crying wolf on 68 correct glosses |
 | 2026-09-24 | `hsk30l6` notes 361–390 (繁殖 → 丰收), deck order | 23 | **fourteen near-repeats, four of them ALL THREE sentences** — the fill pass at its weakest, and five glosses that were the wrong part of speech |
+| 2026-09-24 | `hsk30l6` notes 391–420 (风雨 → 感想), deck order | 16 | a verb that takes TWO objects given one, an invented compound, and a card glossed *liver* that showed the organ nowhere |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10977,4 +10978,77 @@ at great speed* against *swift; rapidly*.
 and `check-example-fit.js` all name nothing in 361–390; `check-senses.js` and `check-coarse.js` likewise.
 Coverage 11,532 notes at three sentences with 0 repeats; shared-gloss groups 318 and still-ambiguous 1,
 both unchanged. **Verified against the real diff: 23 of 30 changed, nothing outside the range.**
+`build-lang-decks.js` re-run. No changelog line and no version bump.
+
+## Batch 143 — `hsk30l6` notes 391–420 (风雨 → 感想)
+
+**Sixteen of thirty changed.** A quieter range than the last, and its faults are mostly of a kind the
+checkers cannot reach.
+
+### Three sentences that are not Chinese
+
+**赋予 takes TWO objects** — 赋予 somebody something — and the card's first two sentences were
+**他赋予价值。** and **赋予自己价值。**, four and five characters giving it one object or none. Both read
+as fragments, and they are near-repeats of each other besides. Replaced by the constitution granting
+freedom of speech and an experience giving somebody new strength.
+
+**夫人's 这位就是谁想见你的夫人 is ungrammatical**: 谁 is the interrogative *who* and cannot head a
+relative clause, which Chinese builds as 这位就是想见你的那位夫人. It renders, speaks and segments
+perfectly, which is why nothing reported it.
+
+**辅导's 营辅员 is not a word at all** — a camp counsellor is 营地辅导员 — so the sentence opened on an
+invented compound built out of the card's own character.
+
+### A card glossed *liver* that showed the organ nowhere
+
+肝's three sentences were 肝肠寸断 (an idiom for heartbreak), 肝炎 (hepatitis) and a drinker's joke
+addressed to alcohol — **not one of them the bare noun**, and all three invisible to
+`check-example-fit.js`, which skips a one-character headword by design. Two replaced; the third's English
+also ran two clauses together with no punctuation (*She got hepatitis no wonder she is losing so much
+weight*). **Three `Compounds` panels** — 服, 浮 and 肝 — authored from CC-CEDICT.
+
+**服's 和服 is a KIMONO** and 符号's 标点符号 *a punctuation mark*, standing in two of that card's three
+sentences; the one replaced was an idiom whose English — *I do not trust a single word that comes out of
+their mouths* — never mentions a symbol at all.
+
+### Nine near-repeats, one of them all three
+
+附件's three sentences were **all an email attachment**, so a card glossed *attachment; appendix;
+enclosure* showed one of its three senses three times over; the replacements give the other two. 改编 had
+the same film adapted from the same novel twice, in the two ways round the sentence can be built, with
+their English differing by one word. 风雨 and 覆盖 each had the same sentence with a noun changed **and
+both pairs were the DECK's own rows**, not this record's.
+
+### Two conventions mixed in six characters
+
+概率's 耶诞节下雪的概率 writes Christmas in the **TAIWAN form** — the mainland writes 圣诞节, which the rest
+of these decks use — while 概率 itself is the mainland term, Taiwan saying 機率. Two spellings of one
+convention in one short sentence.
+
+### And a figurative sense leading its own gloss
+
+干燥 read *dull; dry*, the figurative sense first, over three sentences that are all weather and air.
+CC-CEDICT puts *(of weather, climate, soil etc) dry; arid* first and marks *dull* as figurative, which
+the card now does too.
+
+### THE SEVENTH BATCH RUNNING WITH A SELF-INFLICTED ECHO — AND THIS TIME TWO ON ONE CARD
+
+改编's replacement was a third 改编成 over a row already reading 他把故事改编成话剧, and **both** of
+概率's replacements were *the probability of X is N*. All three caught by reading the finished card and
+replaced again. The pattern is now firm enough to state as a rule: **an authored replacement lands on the
+card's own construction unless it is deliberately built on a different one** — a noun use, a figurative
+sense, a different verb frame — so pick the construction FIRST and the content second.
+
+**Read and left.** 服从, 幅度, 福利, 服用, 辅助, 负面, 富裕, 改造, 干脆, 尴尬, 干旱, 干扰, 赶忙, 感染
+and 感想's survivors are sound. `check-gloss-source.js` names 赶忙 and 感想: the first because CC-CEDICT
+glosses 赶忙 as a verb where the card calls it an adverb and all three of its sentences are adverbial —
+the card is right and the dictionary is phrasing it differently; the second differs from the dictionary
+by the plural alone.
+
+### Checks after
+
+`--check` clean. `check-pinyin.js`, `check-polyreading.js`, `check-british.js`, `check-say-reading.js`,
+`check-example-fit.js`, `check-senses.js` and `check-coarse.js` all name nothing in 391–420. Coverage
+11,532 notes at three sentences with 0 repeats; shared-gloss groups 318 and still-ambiguous 1, both
+unchanged. **Verified against the real diff: 16 of 30 changed, nothing outside the range.**
 `build-lang-decks.js` re-run. No changelog line and no version bump.
