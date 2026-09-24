@@ -3729,6 +3729,99 @@ Each card's paired glossary term takes the same file. Three candidates were refu
 **THUMBNAIL WIDTHS.** A 1280-pixel thumbnail was taken where the original is wider. Sun Quan's and Sima
 Yi's files are narrower than 1280, so their original URLs are used.
 
+## cnh-291 – cnh-300, the novel, the fall of Wu and the Western Jin (Sep 2026)
+
+Two cards close `col-16` and eight open `col-18`, the Western Jin deck. No plan line was renamed, but
+four cards are answered by a term the line does not contain, which is the `ru-052` shape:
+- `cnh-291` *Romance of the Three Kingdoms and the historical record* is answered by the novel's title.
+  The card's second block is the comparison the line asks for.
+- `cnh-292` *The reunification of 280* is answered by **Sun Hao**, the last emperor of Wu. `cnh-295`
+  *The Jin conquest of Wu* carries the campaign itself, so two cards on one event would have taught one
+  term twice. This card takes the reunification from the side that lost it.
+- `cnh-296` *The Jin occupation-of-land system* is answered by **zhantian**, the Chinese name of the law,
+  with its sibling quota *ketian* inside the card.
+- `cnh-298` *The Jin aristocracy* is answered by **menfa**. De Crespigny's survey deliberately avoids
+  "aristocracy" as a term that carries too many implications, so the card says in its own prose that
+  the English names for these families are disputed.
+
+**THE JIN KEY IS THE REAL SLUG `Jin_dynasty_(266–420)`, WITH AN EN DASH.** A parenthetical key claims no
+bare name, so *Jin dynasty*, *Western Jin* and *Eastern Jin* are aliases. Every existing use of *Jin
+dynasty* in the corpus was read first: all of them mean this Jin, and none means the Jurchen Jin of
+1115–1234. When that dynasty's cards are written, the bare alias must move to a narrower form.
+
+**THE WAR BLOCK ON `cnh-295` IS JIN AGAINST WU IN 279–280.** Both sides are authored extents, as every
+war before 1500 must be. They are held apart by a gap along the Yangzi and the Han, and a batch `places`
+block of 36 assertions checks them. Jiangling, Wuhan and Yichang fall inside Wu. Xiangyang, Hefei and
+Chongqing fall inside Jin. Nanjing, on the south bank, falls outside Jin. The Hexi corridor to Dunhuang,
+Liaodong and Nanzhong (present-day Yunnan) are drawn as Jin. The Ordos and the Korean peninsula are
+not, since the 1991 survey puts the Ordos in Xiongnu and Xianbei hands by this date.
+`add-card-wars.js --check` reports no contradiction with any other block.
+
+**`cnh-297` IS REFUSED A WAR BLOCK, and it is the table's "both sides on one ground" row.** Every
+belligerent was a prince of one house, fighting over one court.
+
+**SOURCES.**
+- De Crespigny's companion article, *The Three Kingdoms and Western Jin — II*, *East Asian History* 2
+  (1991): 143–65. It is open at ANU as bitstream `f0da2b74-…`, and the printed page numbers are in its
+  text. It is the spine of all eight Western Jin cards: the reunification (145–46), the land laws
+  (146–49), the princes (152–57) and the withdrawal of the gentry (161–65).
+- Étienne Balazs, "Entre révolte nihiliste et évasion mystique", *Asiatische Studien* 2 (1948): 27–55,
+  DOI `10.5169/seals-145295`, is on e-periodica. Its plain PDF address serves a verification page. The
+  link that page itself offers, with `&bot=1` appended, returns the 30-page PDF. The printed page is the
+  PDF page plus 26. It carries qingtan (30–32), the Seven Sages (37–41) and Wang Yan (48–50).
+- The Stanford Encyclopedia's *Neo-Daoism* entry (Alan Chan, Summer 2019 archive) and Téa Sernelj's
+  2024 article in *Asian Studies*. The latter came from a DOAJ search, and its DOI resolves through
+  `journals.uni-lj.si`.
+- Giles's *History of Chinese Literature* (Appleton, 1901), pages 277–78 on the novel. Chen Huan-chang's
+  *Economic Principles of Confucius and His School*, vol. 2 (Columbia, 1911), pages 508–10: the Jin
+  land law of 280, read as a real distribution of land.
+- Theobald's ChinaKnowledge pages, whose dates sit in each page's HTML rather than its visible footer.
+  Giles's *Biographical Dictionary* and Cordier's *Histoire générale*, pages 300–10, as before.
+
+**`cnh-291` HAD FIVE SOURCES AVAILABLE BUT ONLY TWO FROM DE CRESPIGNY.** *Generals of the South*
+449–54 ("The distortions of Romance") is the fullest open treatment of the novel. The two-per-author cap
+therefore excluded the 1991 survey's page 21, which says the same thing. The Empty City example comes
+from de Crespigny's note to *To Establish Peace*, page 530, which that cap counts under Sima Guang.
+
+**THE SOURCES DISAGREE IN SEVEN PLACES, AND NO CARD TAKES A SIDE.**
+- *Sun Hao's birth.* Giles says 242 and the 1991 survey 241. The card gives only his reign and death.
+- *The founding of Jin.* Theobald dates it to 8 February 266. Cordier, Giles and the survey give 265,
+  the Chinese year. The cards say February 266, as the Three Kingdoms and Cao Wei cards already do.
+- *When the attack on Wu began.* Theobald and Cordier say 279, the survey spring 280. The date line
+  reads 279 – 280.
+- *The War of the Eight Princes.* Theobald counts it from 291 and lists Sima Liang and Sima Wei. The
+  survey, after the Qing scholar Zhao Qi, counts from 300 and begins with Sima Lun. The card carries both
+  as a disagreement. Its date line gives the coups of 291 and the civil war of 300–306 as separate rows.
+- *The secondary adult's allotment under the Jin land law.* The survey and Chen give half the regular
+  50 mu; Theobald gives 10 mu. The card states neither figure.
+- *Ji Kang's dates.* They are 223–262 or 224–263, so the card says "262 or 263", with the era written on
+  both halves of the date line.
+- *Sima Yan's age at death.* The survey says fifty-five, a Chinese reckoning, so the card gives only the
+  day.
+
+**A NOVEL QUOTED ON TWO HISTORY CARDS.** `cnh-291` quotes chapter 120's closing lines. `cnh-292` quotes
+the exchange of seats between Sun Hao and the Jin emperor from the same chapter. Neither card's prose
+relies on the quotation, which stands as the novel's own account.
+
+**LOCATORS: FIVE OF TEN.**
+- Nanjing for Sun Hao.
+- Luoyang for the Jin dynasty, Emperor Wu and the War of the Eight Princes.
+- Xiuwu, the old Shanyang, for the Seven Sages.
+- `cnh-295` needs no coordinate, since its war block gives it the window.
+- The novel, the land law, the great families and qingtan have no single place.
+
+**PICTURES: THREE OF TEN.**
+- The novel: a late Ming woodblock of the three heroes fighting Lü Bu. Commons dates the file 1368, but
+  the edition is late Ming and the caption says so.
+- Emperor Wu: Yan Liben's *Thirteen Emperors Scroll*, as for Sun Quan.
+- The Seven Sages: a rubbing of the Xishanqiao tomb mural (second half of the 5th century), which names
+  four of the seven beside their figures. Two photographs of the mural itself were refused, because at
+  card width the figures cannot be made out.
+
+Two candidates were also refused:
+- *Sun Hao.* The only candidate is a Qing portrait of 365 × 479 pixels.
+- *The Jin dynasty.* The only well-made map of Western Jin in 280 is labelled in French.
+
 ## Re-sourcing the mythology cards (batch C7, Sep 2026)
 
 Five China cards were reported by `check-cards.js` rule 1 for resting three deep on one author —
