@@ -1100,6 +1100,11 @@ what went wrong in the Mongol period — under a term rather than under a headin
 
 ### Slavery and the Atlantic world — `wh-slavery`
 
+*Retitled while writing (Sep 2026): `wh-734` was *Maroon communities*, which is a description rather
+than a term. The people are called **Maroons**, that is the word a reader meets again and the word
+the eighteenth-century treaties and statutes use, and "communities" only says that they lived
+together. The line is now **Maroons**.*
+
 *Retitled while writing (Sep 2026): `wh-730` was *Sugar and the Caribbean*, which is a subject and
 not a term — there is no article of that name to key a glossary entry on, and a card cannot be
 answered by a conjunction. The line is now **Sugar plantations in the Caribbean**, which is the
@@ -1115,7 +1120,7 @@ else in the Americas.*
     wh-731  Chattel slavery
     wh-732  Slave codes
     wh-733  Slave rebellion
-    wh-734  Maroon communities
+    wh-734  Maroons
     wh-735  Asiento
     wh-736  Royal African Company
     wh-737  Kingdom of Dahomey
