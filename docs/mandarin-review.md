@@ -707,6 +707,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1171–1200 | 22 changed, 8 read and left: 16 example sentences replaced (a 其实 straddle, the idiom 事后诸葛亮, a political accusation, a passage from *Nineteen Eighty-Four*, near-repeats), one English fixed, 15 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1201–1230 | 27 changed, 3 read and left: 31 example sentences replaced (four straddles, 属 used only inside other words, 松 split into its two senses, a sentence that was not Chinese, a calqued 'thoughts and prayers', a generalisation about residents), three Compounds panels, 18 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1231–1260 | 28 changed, 2 read and left: 20 example sentences replaced (特 and 逃 used only inside other words or a name, the name Lata on 塔, two ungrammatical sentences, fragments, near-repeats), 6 translations fixed, six Compounds panels, 22 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1261–1290 | 21 changed, 9 read and left: 20 example sentences replaced (a restaurant name on 添, a Japanese surname and a playground insult on 田, a sentence that was not Chinese, Classical Chinese, near-repeats), 3 translations fixed, two Compounds panels, 16 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12368,4 +12369,37 @@ and no version bump.
   - 探讨 lacked "to discuss".
   - A dozen more lacked their "to".
 - **A collision caught by the coverage checker.** The corrected 虽 gloss matched hsk30l2/虽然 word for word. It now says how the two differ (written, placed after the subject) rather than taking a hint.
+
+### Batch 172 — `hsk30l6` notes 1261–1290 (特性 → 通用)
+
+21 notes changed and 9 read and left (题材, 体积, 体系, 天然气, 田径, 听话, 听觉, 通道, 通信), counted against the real diff.
+
+- **Single characters seen only in names or inside other words.**
+  - 添's first sentence had it only in the restaurant name Tim Ho Wan (添好运), and its other two were both 添麻烦.
+  - 田 had the Japanese surname Yasuda (安田) and the playground insult 四眼田鸡. That insult's English was a different insult.
+  
+  Two sentences on each were replaced, and both cards gained Compounds panels. 天文's record sentences were all 天文学 or 天文学家, and the first two were near-identical, so two are replaced by sentences using the word itself.
+- **Not Chinese, or not suitable.**
+  - 对天才的傻瓜来说没有什么不可出乱的 is not Chinese.
+  - 大道之行也，天下为公 is Classical Chinese from the Book of Rites.
+  - 贝朋 on 通用 is obscure.
+  - 贴近's 45-character badger-and-marmot description was translationese.
+  - 跳水's sentence had the name Ken, no full stop, and the word only inside 跳水台.
+- **Near-repeats replaced:**
+  - 天真: the same predicate three times.
+  - 通用: English as a common language twice.
+  - 提示: 给…提示 twice.
+  - 提取: colour from a plant twice. The replacement shows CC-CEDICT's "to collect (luggage)".
+  - 调节: the volume twice.
+  - 通讯: a newspaper report twice. The replacement shows "communications", CC-CEDICT's first sense.
+  - 添加: two sentences about adding sentences to a corpus.
+- **A sentence on two cards.** The soap sentence stood on both 添加 and 天然. It is kept on 添加, where the headword is the point, and replaced on 天然.
+- **Translations.** 特意's English said "church" for 礼堂 and dropped "specially". 体操's "now I do not dislike it" misread 喜欢上了.
+- **Glosses.**
+  - 特性 was "property", which read only in its chemistry sense. It is now "characteristic; property; trait", distinct from 财物, so its hint is gone.
+  - 体操 was an adjective.
+  - 调节 had "monitor".
+  - 通风 was "airy" under a verb label.
+  - 提示, 跳水, 通话 and 通讯 were missing the noun or the sense their sentences show.
+  - 听取's "(news)" did not match the sentences.
 
