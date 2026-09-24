@@ -3470,6 +3470,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S13 | A2 | #331 `el carácter` – #357 `seco, seca` | 27 | 0 | 0 | — | — |
 | S14 | A2 | #358 `la corbata` – #384 `la estatua` | 27 | 0 | 0 | — | — |
 | S15 | A2 | #385 `el maletín` – #411 `sentarse` | 25 | 2 (`la araña`, `sentarse`) | 0 | — | — |
+| S16 | A2 | #412 `la factura` – #438 `la propina` | 22 | 5 (`la fórmula`, `mediante`, `el fotógrafo`, `el ballet`, `la propina`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4154,6 +4155,46 @@ into single letters, which the checker drops as too short; its other words, "cas
 are not in the examples, which all say "A&E". (A first draft of this entry blamed HTML escaping. The
 checker decodes `&amp;` before comparing, so that was wrong, and it was caught by reading the script
 before committing the claim.)
+
+### S16 — DELE A2, notes #412–#438 (Sep 2026)
+
+Measured against the S15 commit by card id: **22 changed, 473 untouched**, all 22 of them this batch's
+record entries. **Five cards were read and left** (`la fórmula`, `mediante`, `el fotógrafo`, `el ballet`,
+`la propina`), the most of any batch so far. The later cards of the frequency list are rarer, more
+concrete nouns, and a concrete noun's examples go wrong less often.
+
+**EVERY EXAMPLE WAS ANOTHER WORD, TWICE.** `la ginebra`, gin, was illustrated three times by *Ginebra*,
+the city of Geneva (a treaty, a man from there, its conferences). `músico, música` was glossed "musical",
+under a part-of-speech label carrying a note to the generator (*[adjective, not musical]*), while one
+example was *la música*, music, which is A1's card. It is now `el músico, la música`, a musician.
+
+**THE ADJECTIVE-AND-NOUN PAIR, FOUR MORE TIMES.** `mecánico`, `postal`, `portátil` and `electrónico` were
+each glossed as adjectives while their examples used the noun or a set phrase: *el mecánico*, *la postal*,
+*el portátil* (the laptop, the A2 word in Spain) and *correo electrónico*. Each now carries both, as S13
+did for `adulto` and `político`. **This is now the commonest gloss fault in A2**: the generator's gloss
+takes the part of speech the list files the word under, and the list files these as adjectives.
+
+**NONE OF THE THREE EXAMPLES COULD STAY, TWICE MORE.**
+- `la gripe` had *se agarró la gripe* (Latin American), *gripa* translated as "a cold", and "summer flu"
+  caught in spring.
+- `la ginebra`, as above.
+
+**THE LOOK-ALIKE.**
+- `reservado` was illustrated by the verb *reservar* (*he reservado una mesa*), which is its own card.
+- `completar` was illustrated by the adjective *completo* (B1's card), in *un completo y total sin
+  sentido*, which is not Spanish.
+- `la gorra`'s *gorras de lana* are woolly hats, *gorros* (B1).
+
+**AND THE REST.**
+- `despedirse`'s gerund (*despidíendose*, S3's fault) is now *despidiéndose*: the sixth instance repaired.
+- `la nevera` lost an insult about a named woman.
+- `encantar` now says it is built like *gustar*, where the gloss gave "to charm, to enchant".
+- `la tapa` now glosses the bar snack its own second example uses.
+- `ordenar` now glosses "to tidy" and warns that ordering food is *pedir*.
+- `la factura` lost "quality, caliber".
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 22 → 18, with no
+card of this batch left on it.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

@@ -25732,6 +25732,582 @@
      "Do you know how far it is from the station to the town hall?"
     ]
    ]
+  },
+  "delea2/la factura": {
+   "why": "'quality' and 'caliber' are not this word. The first example, '¿Cómo hacer un pago de factura en línea?', is a calque of an English search query.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "bill, invoice"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un pago de factura en línea"
+   ],
+   "ex": [
+    [
+     "La factura de la luz ha subido mucho.",
+     "The electricity bill has gone up a lot."
+    ]
+   ]
+  },
+  "delea2/la tapa": {
+   "why": "The gloss missed the tapa, the small dish served in a Spanish bar, which is the second example and the sense every visitor meets; its English said 'small and large portions'. 'the bottom of a shoe's heel' is a cobbler's word.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "lid, cap, top",
+      "tapa (a small dish served in a bar)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Tenemos tapas y raciones",
+     "We have tapas and larger portions."
+    ]
+   ]
+  },
+  "delea2/despedirse": {
+   "why": "The gloss is right; the gerund read despidíendose, S3's fault, and is now despidiéndose. The second example's English said 'tell Ana goodbye'.",
+   "conjSub": [
+    [
+     "<span class=\"uc-cj-e\">despidíendose</span>",
+     "<span class=\"uc-cj-e\">despidiéndose</span>"
+    ]
+   ],
+   "exEn": [
+    [
+     "no tuvo la oportunidad de despedirse de Ana",
+     "Carlos didn't get a chance to say goodbye to Ana."
+    ]
+   ]
+  },
+  "delea2/reservado, reservada": {
+   "why": "The first example is the verb reservar, 'He reservado una mesa', which is its own card later in A2. The gloss did not separate a booked seat from a reserved person, and the third example's English said 'secretive'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "reserved, booked (esta mesa está reservada)",
+      "reserved (of a person)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "He reservado una mesa para cuatro personas."
+   ],
+   "exEn": [
+    [
+     "Ella fue siempre muy reservada",
+     "She was always very reserved."
+    ]
+   ],
+   "ex": [
+    [
+     "Esta mesa está reservada.",
+     "This table is reserved."
+    ]
+   ]
+  },
+  "delea2/mecánico, mecánica": {
+   "why": "The gloss gave only the adjective, while the first example was the noun, a mechanic, which is the sense a car owner needs. The second and third examples were one construction, the escalator.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "mechanical (escalera mecánica — escalator)"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el mecánico, la mecánica — mechanic"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La escalera mecánica se detuvo de repente."
+   ],
+   "ex": [
+    [
+     "Tengo que llevar el coche al mecánico.",
+     "I have to take the car to the mechanic."
+    ]
+   ]
+  },
+  "delea2/la gripe": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY. The first used the Latin American agarrarse for coger; the second spelt the word gripa, which is Latin American, and translated it as 'a cold'; the third caught 'summer flu' in spring.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "flu"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "se agarró la gripe",
+    "algo para la gripa",
+    "cogí una gripe de verano"
+   ],
+   "ex": [
+    [
+     "Estoy en la cama con gripe.",
+     "I'm in bed with flu."
+    ],
+    [
+     "Este invierno ha habido mucha gripe.",
+     "There's been a lot of flu this winter."
+    ],
+    [
+     "Me he vacunado contra la gripe.",
+     "I've had the flu jab."
+    ]
+   ]
+  },
+  "delea2/postal": {
+   "why": "The gloss gave only the adjective, while every example was the noun, la postal, a postcard, and código postal, the postcode, had no line. The first and third examples were one sentence, a postcard to Japan.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "postal (código postal — postcode)"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "la postal — postcard"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Me gustaría enviar esta postal a Japón."
+   ],
+   "ex": [
+    [
+     "¿Cuál es tu código postal?",
+     "What's your postcode?"
+    ]
+   ]
+  },
+  "delea2/portátil": {
+   "why": "The gloss gave only 'portable', while two of the examples were the noun, el portátil, a laptop, which is the A2 word in Spain. The second used the Latin American computadoras; the third, a laptop in the bath, is not a sentence anyone needs.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "portable"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el portátil — laptop"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "nuestras computadoras portátiles",
+    "mi portátil en la bañera"
+   ],
+   "ex": [
+    [
+     "Me he comprado un portátil nuevo.",
+     "I've bought a new laptop."
+    ],
+    [
+     "Llevamos una radio portátil a la playa.",
+     "We took a portable radio to the beach."
+    ]
+   ]
+  },
+  "delea2/ordenar": {
+   "why": "The gloss put 'to order' first and missed 'to tidy', which is the first example and the everyday sense. It also did not warn that ordering food is pedir in Spain.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to tidy (up), to put in order",
+      "to order (someone to do something)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "not",
+     "to order (food, in a restaurant) — pedir"
+    ]
+   ],
+   "exEn": [
+    [
+     "es un rollo ordenar la habitación",
+     "It's a pain tidying the room, though."
+    ],
+    [
+     "me ordenó estar aquí",
+     "Carlos told me to be here at 2:30 tomorrow."
+    ]
+   ]
+  },
+  "delea2/la gorra": {
+   "why": "The second example's 'gorras de lana' are woolly hats, which in Spain are gorros (B1's card), and the third was worn by Sami.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "cap (with a peak)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las gorras"
+    ],
+    [
+     "not",
+     "el gorro — (woolly) hat (B1)"
+    ]
+   ],
+   "dropEx": [
+    "gorras de lana en invierno",
+    "Sami llevaba puesta"
+   ],
+   "ex": [
+    [
+     "Ponte la gorra, hace mucho sol.",
+     "Put your cap on, it's very sunny."
+    ],
+    [
+     "Mi hijo colecciona gorras de béisbol.",
+     "My son collects baseball caps."
+    ]
+   ]
+  },
+  "delea2/el tomate": {
+   "why": "The gloss said 'tomato' twice. The first example, a poem about a tomato, teaches nothing; the third's English said 'can'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "tomato"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un poema sobre un tomate"
+   ],
+   "exEn": [
+    [
+     "esa lata de tomate",
+     "I can't reach that tin of tomatoes."
+    ]
+   ],
+   "ex": [
+    [
+     "Una ensalada de tomate, por favor.",
+     "A tomato salad, please."
+    ]
+   ]
+  },
+  "delea2/la mosca": {
+   "why": "'fly (boxing class)' is not A2. The first and third examples were one idiom, not harming a fly, and the first used the Latin American lastimar.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "fly"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no puede lastimar ni a una mosca"
+   ],
+   "exEn": [
+    [
+     "incapaz de hacer daño a una mosca",
+     "He looks as if he couldn't hurt a fly."
+    ]
+   ],
+   "ex": [
+    [
+     "Hay una mosca en mi sopa.",
+     "There's a fly in my soup."
+    ]
+   ]
+  },
+  "delea2/el jamón": {
+   "why": "The gloss is right. The second example, 'Los cerdos de hoy son los jamones de mañana', is not a sentence anyone says, and the third put jamón in a sándwich, where Spain has un bocadillo.",
+   "dropEx": [
+    "Los cerdos de hoy",
+    "Un sándwich sin jamón"
+   ],
+   "ex": [
+    [
+     "El jamón serrano es típico de España.",
+     "Serrano ham is typical of Spain."
+    ],
+    [
+     "Compré cien gramos de jamón.",
+     "I bought a hundred grams of ham."
+    ]
+   ]
+  },
+  "delea2/la tela": {
+   "why": "The gloss was a definition. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "cloth, fabric"
+     ]
+    ]
+   ]
+  },
+  "delea2/encantar": {
+   "why": "The gloss gave 'to charm, to enchant', which is what the word meant once; at A2 it is me encanta, 'I love it', built like gustar, which is every example. The second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to love (me encanta — I love it; built like gustar)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡encantado! — pleased to meet you!"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El color que me encanta es el rojo."
+   ],
+   "ex": [
+    [
+     "Me encanta viajar.",
+     "I love travelling."
+    ]
+   ]
+  },
+  "delea2/la ginebra": {
+   "why": "EVERY EXAMPLE WAS ANOTHER WORD: Ginebra, the city of Geneva, three times — a treaty, a man who comes from there, and its conferences. The card is gin.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "gin"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las ginebras"
+    ],
+    [
+     "also",
+     "Ginebra — Geneva (the city)"
+    ]
+   ],
+   "dropEx": [
+    "el tratado de Ginebra",
+    "Viene de Ginebra.",
+    "han tenido lugar en Ginebra"
+   ],
+   "ex": [
+    [
+     "No me gusta la ginebra.",
+     "I don't like gin."
+    ],
+    [
+     "Un gin-tonic lleva ginebra y tónica.",
+     "A gin and tonic is made with gin and tonic water."
+    ],
+    [
+     "¿Me pones una ginebra con limón?",
+     "Could I have a gin with lemon?"
+    ]
+   ]
+  },
+  "delea2/músico, música": {
+   "spanish": "el músico, la música",
+   "word": "músico",
+   "why": "THE CARD TAUGHT THE WRONG WORD. It was headed as an adjective with a note to the generator in its label ('[adjective, not musical]'), and glossed 'musical'. The A2 word is the noun, a musician. The second example was la música, 'music', which is A1's card, and that sentence is also an A1 sentence; the first is shared with científico earlier in A2. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "musician"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los músicos, las músicas"
+    ],
+    [
+     "not",
+     "la música — music (A1)"
+    ]
+   ],
+   "dropEx": [
+    "Él es científico a la vez que músico.",
+    "A todo el mundo le gusta la música."
+   ],
+   "exEn": [
+    [
+     "viene de una familia de músicos",
+     "Carlos comes from a family of musicians."
+    ]
+   ],
+   "ex": [
+    [
+     "Mi hermano es músico en una orquesta.",
+     "My brother is a musician in an orchestra."
+    ],
+    [
+     "Es una música muy conocida.",
+     "She's a very well-known musician."
+    ]
+   ]
+  },
+  "delea2/la nevera": {
+   "why": "'refrigerator' is a register above the word. The first example, 'más fea que una nevera por detrás', is an insult about a named woman, and the second, a raffle of two fridges, is not a sentence anyone needs.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "fridge"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "más fea que una nevera",
+    "Sorteamos un viaje a Bali"
+   ],
+   "ex": [
+    [
+     "Guarda la comida en la nevera.",
+     "Put the food in the fridge."
+    ],
+    [
+     "Se ha estropeado la nevera.",
+     "The fridge has broken down."
+    ]
+   ]
+  },
+  "delea2/electrónico, electrónica": {
+   "why": "The gloss did not name correo electrónico, 'email', which two of the examples were, or the noun la electrónica, which the third was. The first is also an A1 sentence, and the second's English wrote 'e-mails'. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "electronic"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "correo electrónico — email",
+      "la electrónica — electronics"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Carlos no revisa su correo electrónico"
+   ],
+   "exEn": [
+    [
+     "envió esos correos electrónicos",
+     "She sent those emails an hour ago."
+    ]
+   ],
+   "ex": [
+    [
+     "Me han regalado un libro electrónico.",
+     "I've been given an e-book."
+    ]
+   ]
+  },
+  "delea2/la literatura": {
+   "why": "The gloss is right. Two of the three examples were aphorisms — 'the soul of literature', 'the future of a nation' — and the third is little more.",
+   "dropEx": [
+    "El lenguaje es el alma de la literatura.",
+    "La literatura es el futuro de una nación."
+   ],
+   "ex": [
+    [
+     "Estudio literatura inglesa en la universidad.",
+     "I study English literature at university."
+    ],
+    [
+     "Mi profesora de literatura es muy buena.",
+     "My literature teacher is very good."
+    ]
+   ]
+  },
+  "delea2/completar": {
+   "why": "The gloss is right. The second and third examples were the adjective completo — 'un completo y total sin sentido', which is not Spanish, and 'la historia completa', which is also an A1 sentence; the adjective is B1's card. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to complete, to fill in (a form)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un completo y total sin sentido",
+    "la historia completa"
+   ],
+   "ex": [
+    [
+     "Completa el formulario con tus datos.",
+     "Fill in the form with your details."
+    ],
+    [
+     "Ya he completado el curso.",
+     "I've already completed the course."
+    ]
+   ]
+  },
+  "delea2/el cepillo": {
+   "why": "'plane (tool for smoothing wood)' is a carpenter's word, and the first example was one. The third is shared with la madera earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "brush"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cepillo de dientes — toothbrush"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los cepillos de carpintero son caros.",
+    "Mi cepillo de pelo está hecho de madera."
+   ],
+   "ex": [
+    [
+     "Me he dejado el cepillo en el hotel.",
+     "I've left my hairbrush at the hotel."
+    ],
+    [
+     "Usa un cepillo para limpiar los zapatos.",
+     "Use a brush to clean your shoes."
+    ]
+   ]
   }
  },
  "insert": {
@@ -26005,7 +26581,12 @@
    "el/la periodista",
    "el gimnasio",
    "la araña",
-   "sentarse"
+   "sentarse",
+   "la fórmula",
+   "mediante",
+   "el fotógrafo, la fotógrafa",
+   "el ballet",
+   "la propina"
   ]
  }
 }
