@@ -3479,6 +3479,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S22 | B1 | #84 `el matrimonio` – #111 `parar` | 28 | 0 | 0 | — | `el san` renamed `san`; share filter corrected |
 | S23 | B1 | #112 `lleno` – #138 `el pedido` | 27 | 0 | 1 (`el repente`) | B1 now 998 words; description recounted | `bold` needs `rebold` on a generator sentence |
 | S24 | B1 | #139 `fantástico` – #166 `el desastre` | 26 | 2 (`el/la soldado`, `llorar`) | 0 | — | — |
+| S25 | B1 | #167 `el/la colega` – #194 `el humor` | 25 | 3 (`la velocidad`, `el universo`, `proteger`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4554,6 +4555,42 @@ is right to say "truck" wherever Spain would say *furgoneta*; it is fixed per ca
 **CHECKERS.** `--check` passes; `check-say` reports 0; the batch has no unbolded example.
 `check-senses --deck=DELE-B1` went from 100 to 97. Its one flag from this batch, `obtener`, is a false
 positive: the only thing its examples agree on is the name *Carlos*.
+
+### S25 — DELE B1, notes #167–#194 (Sep 2026)
+
+Measured against the S24 commit by card id: **25 changed, 973 untouched**, all 25 of them record entries.
+**`la velocidad`, `el universo` and `proteger` were read and left.**
+
+**`echarse` WAS TWICE NOT REFLEXIVE.** Two of its three examples were *echar* with an object pronoun:
+*echarme*, *echarte de la empresa*, "to throw someone out". That form reads exactly like the reflexive
+infinitive with its pronoun attached, and the bolding cannot tell them apart. The card now shows lying down
+and *echarse a llorar*. **All three of `echar`'s examples were A1 sentences**, and its gloss missed *echar
+de menos*, *echar una mano* and *echar a perder*; the replacements use all three.
+
+**THE LAST "completo y total sin sentido".** `total` carried the sentence that S16 dropped from
+`completar`, S19 from `el sentido` and S23 from `completo`. It was generated into four cards because it
+contains four headwords, and it is not Spanish. A sweep of every deck after this batch finds it nowhere.
+
+**GLOSSES THAT MISSED THE EVERYDAY SENSE.**
+- `el puente`: the long weekend.
+- `el descanso`: half-time.
+- `nacional`: domestic flights.
+- `la oferta`: *de oferta*.
+- `presente`: *tener presente*.
+- `borracho`: a drunk, which is what every one of its examples was.
+- `el colega`: Spain's colloquial "mate".
+- `el humor` was spelt the American way and put "mood" first.
+
+**THE REST.**
+- `el espectáculo` lost a mistranslated Netflix line.
+- `robar` lost a sentence about birds that cannot steal.
+- `bajarse` lost a statement written inside question marks.
+- `borracho`'s two proverbs, which were really one, both went.
+- Eight sentences shared with A1 or A2 were replaced.
+
+**CHECKERS.** `--check` passes, `check-say` reports 0, and the batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 97 to 95. Its one flag from this batch, `robar`, is the irregular
+past again: *stole* does not stem to *steal*.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

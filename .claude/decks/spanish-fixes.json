@@ -31746,6 +31746,578 @@
      ]
     ]
    ]
+  },
+  "deleb1/el/la colega": {
+   "why": "The gloss missed the colloquial Spanish sense, 'mate'. The third example's English said 'coworker'.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "colleague",
+      "mate (colloquial, in Spain)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "La del pelo largo es mi colega Ana",
+     "The one with the long hair is Ana, my colleague."
+    ]
+   ]
+  },
+  "deleb1/bajarse": {
+   "why": "The gloss is right. The third example, '¿Creo que nos bajaremos…?', is a statement with question marks round it, and the first's English said 'got out' of a bus.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to get off, to get out (of a vehicle)",
+      "to get down"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Creo que nos bajaremos"
+   ],
+   "exEn": [
+    [
+     "El bus se detuvo, pero nadie se bajó",
+     "The bus stopped, but no one got off."
+    ]
+   ],
+   "ex": [
+    [
+     "Nos bajamos en la próxima parada.",
+     "We get off at the next stop."
+    ]
+   ]
+  },
+  "deleb1/total": {
+   "why": "The gloss is right, but did not give en total. The first example is 'un completo y total sin sentido', which is not Spanish and is now gone from every card that carried it (S16, S19, S23).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "total, complete"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en total — in all, altogether"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "completo y total sin sentido"
+   ],
+   "ex": [
+    [
+     "En total somos doce.",
+     "There are twelve of us altogether."
+    ]
+   ]
+  },
+  "deleb1/el cuchillo": {
+   "why": "'blade of knife' is not a sense. The first and third examples were the same sentence, cutting a hand on a knife, and the first said su mano where Spanish uses the article.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "knife"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ella se cortó su mano con un cuchillo."
+   ],
+   "ex": [
+    [
+     "Pásame el cuchillo del pan, por favor.",
+     "Pass me the bread knife, please."
+    ]
+   ]
+  },
+  "deleb1/el robo": {
+   "why": "The gloss missed burglary, which two examples are. The second's English said 'jail'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "robbery, theft, burglary"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Le enviaron a la cárcel por el robo",
+     "He was sent to prison for the robbery."
+    ]
+   ]
+  },
+  "deleb1/roto, rota": {
+   "why": "'corrupt, rotten' are not this word; torn clothes were missing. The third example is shared with el banco in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "broken",
+      "torn (of clothes)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los bancos del parque están sucios y rotos."
+   ],
+   "ex": [
+    [
+     "Tengo los pantalones rotos.",
+     "My trousers are torn."
+    ]
+   ]
+  },
+  "deleb1/la serie": {
+   "why": "The gloss said 'series' twice. The first and third examples were one construction, a favourite series, and the first wrote cual without its accent; the second's English said 'shows'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "series (on television)",
+      "series, set"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Cual es tu serie de televisión favorita"
+   ],
+   "exEn": [
+    [
+     "se pasa el día viendo series",
+     "Ana spends the day watching series."
+    ]
+   ],
+   "ex": [
+    [
+     "Es el primero de una serie de libros.",
+     "It's the first in a series of books."
+    ]
+   ]
+  },
+  "deleb1/el puente": {
+   "why": "The gloss's third sense was a definition rather than a gloss. The third example is a translation of a Japanese bridge's name.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "bridge",
+      "long weekend (hacer puente — to take the day between a holiday and the weekend)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "fue llamado Puente Arco Iris"
+   ],
+   "ex": [
+    [
+     "El lunes hay puente, así que no trabajamos.",
+     "There's a long weekend on Monday, so we're off."
+    ]
+   ]
+  },
+  "deleb1/echar": {
+   "why": "ALL THREE EXAMPLES ARE ALSO A1 SENTENCES — with la carta, la habitación and la carne — and the gloss missed the phrases the verb lives in: echar de menos, echar una mano, echar a perder. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to throw",
+      "to pour, to put in",
+      "to throw out, to sack (echar de)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "echar de menos — to miss",
+      "echar una mano — to lend a hand",
+      "echar a perder — to spoil"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "recuerda echar al correo esta carta",
+    "echó una mirada alrededor de la habitación",
+    "Toda la carne se había echado a perder."
+   ],
+   "ex": [
+    [
+     "¿Me echas una mano?",
+     "Can you give me a hand?"
+    ],
+    [
+     "Te echo mucho de menos.",
+     "I miss you a lot."
+    ],
+    [
+     "Echa un poco de sal a la sopa.",
+     "Put a bit of salt in the soup."
+    ]
+   ]
+  },
+  "deleb1/echarse": {
+   "why": "Two of the three examples were not echarse at all but echar with an object pronoun, 'to throw someone out' ('echarme', 'echarte de la empresa'). The gloss missed echarse a, 'to burst into'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to lie down",
+      "to throw oneself"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "echarse a + infinitive — to burst into, to start (doing)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No tienes derecho a echarme.",
+    "Cómo han podido echarte de la empresa"
+   ],
+   "ex": [
+    [
+     "Después de comer siempre me echo un rato.",
+     "After lunch I always lie down for a bit."
+    ],
+    [
+     "Al oír la noticia, se echó a llorar.",
+     "When she heard the news, she burst into tears."
+    ]
+   ]
+  },
+  "deleb1/el descanso": {
+   "why": "The gloss missed half-time. The first example is shared with tomar in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "rest, break",
+      "half-time"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Vamos a tomar un descanso de diez minutos."
+   ],
+   "ex": [
+    [
+     "El partido está en el descanso.",
+     "It's half-time in the match."
+    ]
+   ]
+  },
+  "deleb1/el espectáculo": {
+   "why": "The gloss is right. The second example's English, 'binge-watching shows on Netflix', is not what espectáculos de borracheras says, and neither is a sentence a learner needs.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "show, performance",
+      "spectacle, sight"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "espectáculos de borracheras en Netflix"
+   ],
+   "ex": [
+    [
+     "Fue un espectáculo increíble.",
+     "It was an amazing show."
+    ]
+   ]
+  },
+  "deleb1/nacional": {
+   "why": "The gloss said 'national' twice and missed domestic flights. The second example's English is a pun that does not translate the Spanish.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "national",
+      "domestic (vuelos nacionales — domestic flights)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Creías que me refería a asuntos nacionales"
+   ],
+   "ex": [
+    [
+     "Salimos de la terminal de vuelos nacionales.",
+     "We leave from the domestic flights terminal."
+    ]
+   ]
+  },
+  "deleb1/cuidar": {
+   "why": "The gloss's second line was a list. The second example was the noun cuidado, 'ten cuidado', not the verb.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to look after, to take care of"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡cuídate! — take care!"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "ten más cuidado en el futuro"
+   ],
+   "ex": [
+    [
+     "Cuida mucho sus plantas.",
+     "She looks after her plants very carefully."
+    ]
+   ]
+  },
+  "deleb1/aceptar": {
+   "why": "The gloss was a list of phrasal verbs. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to accept"
+     ]
+    ]
+   ]
+  },
+  "deleb1/borracho, borracha": {
+   "why": "The gloss missed the noun, a drunk, which all three examples were, and 'boozy' is not a sense. The second and third examples were the same proverb, that drunks and children tell the truth.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "drunk"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el borracho, la borracha — drunk"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Solo los locos, los borrachos",
+    "Los niños y los borrachos no mienten."
+   ],
+   "ex": [
+    [
+     "Estaba tan borracho que no podía andar.",
+     "He was so drunk he couldn't walk."
+    ],
+    [
+     "No conduzcas nunca borracho.",
+     "Never drive drunk."
+    ]
+   ]
+  },
+  "deleb1/el contrato": {
+   "why": "The gloss is right. The second example, 'un contrato en forma', is not natural Spanish.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "contract"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Hizo usted un contrato en forma"
+   ],
+   "ex": [
+    [
+     "Firmó un contrato de dos años.",
+     "She signed a two-year contract."
+    ]
+   ]
+  },
+  "deleb1/presente": {
+   "why": "'this' is not a sense, and the gloss missed tener presente, which the third example is, and the noun. The second example is shared with casi in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "present (in a place)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tener presente — to bear in mind"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el presente — the present; the present tense"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Casi todos los que estaban presentes"
+   ],
+   "ex": [
+    [
+     "Hay que vivir el presente.",
+     "You have to live in the present."
+    ]
+   ]
+  },
+  "deleb1/la oferta": {
+   "why": "The gloss said 'offer' twice and missed special offers. The first and third examples were one construction, accepting an offer.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "offer",
+      "special offer (de oferta — on offer)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Fue tonto de tu parte aceptar su oferta."
+   ],
+   "ex": [
+    [
+     "Estas camisas están de oferta.",
+     "These shirts are on special offer."
+    ]
+   ]
+  },
+  "deleb1/robar": {
+   "why": "The gloss is right. The second example's English, 'Some kinds of birds can't steal', does not make sense and was not a sentence a learner needs; the third is shared with la cámara in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to steal",
+      "to rob"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ciertas clases de pájaros no pueden robar.",
+    "Carlos podría haber robado la cámara"
+   ],
+   "ex": [
+    [
+     "Me robaron la cartera en el metro.",
+     "My wallet was stolen on the underground."
+    ],
+    [
+     "Robaron un banco en el centro.",
+     "They robbed a bank in the centre."
+    ]
+   ]
+  },
+  "deleb1/enamorado, enamorada": {
+   "why": "The gloss was a thesaurus line and did not give enamorado de or the Día de los Enamorados, which the third example is.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "in love (de — with)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el Día de los Enamorados — Valentine's Day"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la herida": {
+   "why": "The gloss is right. The first example's se ve como is Latin American, and the third was the adjective herida, 'injured', and is shared with la izquierda in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Esta se ve como una herida",
+    "El ala izquierda de la paloma"
+   ],
+   "ex": [
+    [
+     "La herida tardó un mes en curarse.",
+     "The wound took a month to heal."
+    ],
+    [
+     "Le curaron la herida en el hospital.",
+     "They treated his wound at the hospital."
+    ]
+   ]
+  },
+  "deleb1/últimamente": {
+   "why": "The gloss is right. The first example, '¿Por qué has estado en Los Ángeles últimamente?', is not a question anyone asks.",
+   "dropEx": [
+    "has estado en Los Ángeles"
+   ],
+   "ex": [
+    [
+     "Últimamente duermo muy mal.",
+     "I've been sleeping very badly lately."
+    ]
+   ]
+  },
+  "deleb1/la piedra": {
+   "why": "'flint' is not a separate sense. The first and third examples were one construction, throwing a stone at a dog.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "stone"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El niño le lanzó una piedra al perro."
+   ],
+   "ex": [
+    [
+     "La casa está hecha de piedra.",
+     "The house is made of stone."
+    ]
+   ]
+  },
+  "deleb1/el humor": {
+   "why": "The gloss put 'mood' first and spelt 'humor' American. The first and third examples were one construction, de buen humor, and both English lines said 'in high spirits'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "humour",
+      "mood (de buen / mal humor — in a good / bad mood)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mi marido está de muy buen humor hoy."
+   ],
+   "exEn": [
+    [
+     "llegó a casa de muy buen humor",
+     "He came home in a very good mood."
+    ]
+   ],
+   "ex": [
+    [
+     "Me gusta el humor británico.",
+     "I like British humour."
+    ]
+   ]
   }
  },
  "insert": {
@@ -32037,7 +32609,10 @@
    "correcto, correcta",
    "el plan",
    "el/la soldado",
-   "llorar"
+   "llorar",
+   "la velocidad",
+   "el universo",
+   "proteger"
   ]
  }
 }
