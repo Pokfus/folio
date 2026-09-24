@@ -80,8 +80,18 @@ Six things follow, and each is a decision rather than plumbing.
   its buttons are real controls the ink layer already hit-tests through to. A pass-through that forwarded
   presses into the pad was built and refused: it would take away the one thing the floating marker is
   for, which is annotating anything on the page, a diagram included.
-- **The menu sits on the canvas's top edge**: five colours, a pen, a broad pen, an eraser, **fill**, undo
-  and clear. On a narrow phone it wraps to two rows rather than shrinking its targets.
+- **The menu sits on the canvas's top edge**: five colours **and a sixth that is the reader's own**, a
+  pen, a broad pen, an eraser, **fill**, undo and clear. On a narrow phone it wraps to two rows rather
+  than shrinking its targets.
+- **Any colour, through the site's own picker.** The sixth swatch opens a saturation/brightness field
+  over a hue bar with the hex beneath, in a row between the menu and the canvas — built on the floating
+  marker's own `hsvToHex` / `hexToHSV` and wearing its classes, so it reuses that stylesheet rather than
+  keeping a second copy. **`<input type="color">` is not used, and that is a decision the site already
+  made**: its platform dialog on a phone is a full-screen sheet of sliders over the card being answered.
+  It keeps its own HSV rather than re-deriving it from the hex (at v=0 or s=0 a colour has no recoverable
+  hue, so dragging into the black corner and back would come back red), it is pointer-only because the
+  menu is `aria-hidden`, and the mixed colour is **the one part of the pad's state that is stored** —
+  a way of working resets on reload, a colour you spent a moment finding should not.
 - **Fill covers, rather than going underneath.** "Fill the whole canvas a particular color" is literal,
   and it is undoable, so a mis-press costs one press. Going underneath would be a different tool wearing
   this one's name — and a reader drawing a flag fills the field first anyway.

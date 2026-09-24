@@ -1263,6 +1263,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     pin had, which is what says to expect it of anything measured at mount on this page. A POINTER's
     position is still read off the rect, which is right — client coordinates are in that same space —
     but scaled back into the canvas's own, so a press during a scale lands where the reader is pointing.
+  · **ANY COLOUR, AND IT IS THE SITE'S OWN PICKER RATHER THAN A PLATFORM DIALOG** (Sep 2026, on
+    request: "the top canvas menu should have a color picker so any color can be used"). A sixth swatch
+    is the reader's own colour and opens a saturation/brightness field over a hue bar with the hex
+    beneath — `.dp-pick`, built on the floating marker's own `hsvToHex` / `hexToHSV` and wearing its
+    `.wb-sv` / `.wb-hue` / `.wb-knob` / `.wb-hex` classes, so this reuses the stylesheet rather than
+    keeping a second copy of it. **`<input type="color">` IS NOT USED, AND THAT IS A DECISION THE SITE
+    HAS ALREADY MADE**: its platform dialog on a phone is a full-screen "Select color" sheet of sliders
+    covering the very card being answered, and `test-layout.js` has asserted for a month that none is
+    left in the marker's panel. Four things.
+    **IT IS A ROW, NOT A POPOVER** — the marker's own rule for its own picker, and the same reason: the
+    bar above is already a box with a decided position, and a second floating box inside it would have to
+    decide again. **Opening it pushes the canvas DOWN, which is free here and was not before**: the ink is
+    on the pad's own canvas now, so it moves with the frame rather than being left behind in page
+    coordinates — and a FIXTURE holding a stale rect is not free, which is why `test-draw-cards.js`
+    re-reads the canvas box on every stroke.
+    **IT KEEPS ITS OWN HSV, never re-derived from the hex on each move**: at v=0 or s=0 a colour has NO
+    recoverable hue, so a reader dragging into the black corner and back out would come back red however
+    they arrived.
+    **IT IS POINTER-ONLY, WHICH IS NOT THE MARKER'S ANSWER.** The marker's picker takes arrow keys
+    because the control it replaced was a real `<input>` and reachable from a keyboard. Here the whole
+    menu is `aria-hidden` with `tabindex="-1"` on every control, so a focusable field would be the
+    tab-stop-that-leads-nowhere fault that pairing exists to avoid — and the surface it serves cannot be
+    drawn on from a keyboard either.
+    **AND THE MIXED COLOUR IS THE ONE PART OF `DP` THAT IS STORED** (`folio_dp_custom_v1`, device-local):
+    the rest is a way of working and resets on reload, where a mixed colour is WORK THE READER DID — a
+    flag's exact blue takes a moment to find — and the marker already keeps its own for that reason. One
+    key, one colour, where the marker needs a pair (a highlighter yellow is not a pen colour).
   · **AND FILL COVERS RATHER THAN GOING UNDERNEATH.** "Fill the whole canvas a particular color" is
     literal, and it is undoable, so a mis-press costs one press; going underneath would be a different
     tool wearing this one's name, and a reader drawing a flag fills the field FIRST anyway. `DP` holds
@@ -1277,8 +1304,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cannot be drawn on from one. The question above and the answer below are both real text, which is
     where this format's accessibility actually lives.
   · **THE FORMAT IS BUILT** — see the DRAW CARDS block in app.js for `cardDrawSpec` / `cardDrawHTML` /
-    `cardDrawReveal` / `mountDrawCard` / `DP` / `DP_COLORS` / `DP_SIZES` / `DP_BTNS` / `dpStop`, and the
-    `.draw-pad` / `.dp-tools` / `.dp-frame` / `.dp-canvas` / `.dp-answer` styles. Guarded by
+    `cardDrawReveal` / `mountDrawCard` / `DP` / `DP_COLORS` / `DP_SIZES` / `DP_BTNS` / `dpStop` /
+    `DP_CUSTOM_KEY` / `dpReadCustom` / `dpSaveCustom`, and the `.draw-pad` / `.dp-tools` / `.dp-pick` /
+    `.dp-custom` / `.dp-frame` / `.dp-canvas` / `.dp-answer` styles. Guarded by
     `.claude/test-draw-cards.js`.
   · **A CARD IS BUILT BY `.claude/add-draw-cards.js`, WHICH HANDS EACH ONE TO `add-card.js`**, for
     `add-flag-cards.js`'s stated reason. **AND THE `why` EXEMPTION WAS THE SAME LESSON A SECOND TIME**: the
@@ -1711,7 +1739,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.43 MB and 50,150 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.44 MB and 50,244 lines is hard to find your way around, so this
   lists its 195 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —

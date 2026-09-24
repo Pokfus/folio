@@ -34598,6 +34598,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const DP_HIST_MAX = 24;
   const DP = { color: DP_COLORS[0], tool: "pen", size: DP_SIZES[0] };
   let dpStop = null;                    // teardown for the pad currently mounted, if any
+  /* THE READER'S OWN COLOUR IS THE ONE PART OF THIS THAT IS STORED, and the exception is deliberate
+     (Sep 2026, on request: "the top canvas menu should have a color picker so any color can be used").
+     The rest of `DP` is a way of working and resets on reload; a mixed colour is WORK THE READER DID —
+     a flag's exact blue takes a moment to find — and the floating marker already keeps its own for that
+     reason. Device-local, like the marker's and like where the marker sits: which colour this browser
+     last mixed is a fact about this browser. One key, one colour: the pad has one palette, where the
+     marker keeps two (a highlighter yellow is not a pen colour) and needs a pair. */
+  const DP_CUSTOM_KEY = "folio_dp_custom_v1";
+  const DP_CUSTOM_FALLBACK = "#7A5CD6";   // deliberately none of the five, so the sixth swatch reads as its own
+  function dpReadCustom() {
+    try { const v = localStorage.getItem(DP_CUSTOM_KEY); return /^#[0-9a-f]{6}$/i.test(v || "") ? v : DP_CUSTOM_FALLBACK; }
+    catch (e) { return DP_CUSTOM_FALLBACK; }
+  }
+  function dpSaveCustom(c) { try { localStorage.setItem(DP_CUSTOM_KEY, c); } catch (e) {} }
 
   const DP_ICON = {
     pen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
@@ -34628,8 +34642,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const btns = DP_BTNS.map(([k, label]) =>
       '<button type="button" tabindex="-1" class="dp-btn' + (k === "pen" ? " on" : "") + '" data-dp="' + k +
       '" title="' + esc(label) + '"' + (k === "undo" ? " disabled" : "") + '>' + DP_ICON[k] + "</button>").join("");
+    /* THE SIXTH SWATCH IS THE READER'S OWN and opens the picker below the menu — a ROW rather than a
+       popover, which is the marker's own rule for its picker and the same reason: the bar is already a
+       box with a decided position, and a second floating box inside it would have to decide again.
+       Opening it pushes the canvas DOWN, which is free here and was not before: the ink is on the pad's
+       own canvas now, so it moves with the frame rather than being left behind in page coordinates. */
     return '<div class="draw-pad">' +
-      '<div class="dp-tools" aria-hidden="true"><div class="dp-cols">' + cols + '</div><div class="dp-acts">' + btns + "</div></div>" +
+      '<div class="dp-tools" aria-hidden="true"><div class="dp-cols">' + cols +
+      '<button type="button" tabindex="-1" class="dp-col dp-custom" data-dpcustom="" title="Any colour"></button>' +
+      '</div><div class="dp-acts">' + btns + "</div></div>" +
+      '<div class="dp-pick" aria-hidden="true" hidden><div class="wb-sv"><span class="wb-knob"></span></div>' +
+      '<div class="wb-hue"><span class="wb-knob"></span></div><div class="wb-hex"></div></div>' +
       '<div class="dp-frame" aria-hidden="true"><canvas class="dp-canvas"></canvas><span class="dp-hint">Draw the flag here</span></div>' +
       '<figure class="dp-answer" hidden></figure></div>';
   }
@@ -34798,13 +34821,84 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     };
     pad.querySelectorAll("[data-dp]").forEach((b) =>
       b.addEventListener("click", (e) => { e.stopPropagation(); act(b.dataset.dp); }));
+    const useDpColor = (c) => {
+      DP.color = c;
+      if (DP.tool === "erase") DP.tool = "pen";   // choosing a colour is choosing to draw with it
+      paintTools();
+    };
     pad.querySelectorAll("[data-dpcol]").forEach((b) =>
-      b.addEventListener("click", (e) => {
-        e.stopPropagation();
-        DP.color = b.dataset.dpcol;
-        if (DP.tool === "erase") DP.tool = "pen";   // choosing a colour is choosing to draw with it
-        paintTools();
-      }));
+      b.addEventListener("click", (e) => { e.stopPropagation(); useDpColor(b.dataset.dpcol); }));
+
+    /* ---- ANY COLOUR: the sixth swatch and the picker under the menu ----
+       A saturation/brightness field over a hue bar with the hex beneath, which is the ordinary shape and
+       the one the floating marker already uses — the classes are its, so this reuses the stylesheet
+       rather than a second copy of it, and `hsvToHex` / `hexToHSV` are module-level for the same reason.
+       **`<input type="color">` IS NOT USED, AND THAT IS A DECISION THE SITE HAS ALREADY MADE**: its
+       platform dialog on a phone is a full-screen "Select color" sheet of sliders that covers the very
+       card being answered, and `test-layout.js` has asserted for a month that none is left in the
+       marker's panel. Two CSS gradients and two pointer handlers; no canvas, no library.
+       **THE PICKER KEEPS ITS OWN HSV rather than re-deriving it from the hex on each move.** At v=0 or
+       s=0 a colour has NO recoverable hue, so a reader dragging into the black corner and back out would
+       come back red however they arrived.
+       **IT IS POINTER-ONLY, AND THAT IS NOT THE MARKER'S ANSWER.** The marker's picker takes arrow keys,
+       because the control it replaced was a real `<input>` and reachable from a keyboard. Here the whole
+       menu is `aria-hidden` with `tabindex="-1"` on every control, for the reason the pad is: the surface
+       it serves cannot be drawn on from a keyboard either, so a focusable field would be a tab stop that
+       leads nowhere — which is exactly the focusable-inside-`aria-hidden` fault that pairing exists to
+       avoid. */
+    const pick = pad.querySelector(".dp-pick");
+    const swatch = pad.querySelector(".dp-custom");
+    let pickHSV = hexToHSV(dpReadCustom()), pickDrag = -1;
+    const pickHex = () => hsvToHex(pickHSV.h, pickHSV.s, pickHSV.v);
+    const syncPick = () => {
+      const hex = pickHex(), sv = pick.querySelector(".wb-sv"), hue = pick.querySelector(".wb-hue");
+      sv.style.setProperty("--h", pickHSV.h.toFixed(1));
+      sv.firstElementChild.style.left = (pickHSV.s * 100).toFixed(2) + "%";
+      sv.firstElementChild.style.top = ((1 - pickHSV.v) * 100).toFixed(2) + "%";
+      hue.firstElementChild.style.left = ((pickHSV.h / 360) * 100).toFixed(2) + "%";
+      pick.style.setProperty("--wc", hex);
+      pick.querySelector(".wb-hex").textContent = hex.toUpperCase();
+      /* the swatch IS the stored colour, and carries it as its own `data-dpcol` so `paintTools` marks it
+         selected by exactly the rule the other five are marked by */
+      swatch.style.setProperty("--dpc", hex);
+      swatch.dataset.dpcol = hex;
+      swatch.title = hex.toUpperCase();
+    };
+    const wirePickField = (box, set) => {
+      const clamp = (n) => Math.max(0, Math.min(1, n));
+      const at = (e) => {
+        const r = box.getBoundingClientRect();
+        set(clamp((e.clientX - r.left) / (r.width || 1)), clamp((e.clientY - r.top) / (r.height || 1)));
+        const hex = pickHex();
+        dpSaveCustom(hex);
+        DP.color = hex;                 // live, like every other swatch — the pen follows the finger
+        if (DP.tool === "erase") DP.tool = "pen";
+        syncPick(); paintTools();
+      };
+      box.addEventListener("pointerdown", (e) => {
+        if (e.button != null && e.button !== 0) return;
+        e.preventDefault();
+        pickDrag = e.pointerId;
+        try { box.setPointerCapture(e.pointerId); } catch (err) {}
+        at(e);
+      });
+      box.addEventListener("pointermove", (e) => { if (pickDrag === e.pointerId) at(e); });
+      const stopPick = (e) => { if (pickDrag === e.pointerId) pickDrag = -1; };
+      box.addEventListener("pointerup", stopPick);
+      box.addEventListener("pointercancel", stopPick);
+    };
+    wirePickField(pick.querySelector(".wb-sv"), (x, y) => { pickHSV.s = x; pickHSV.v = 1 - y; });
+    wirePickField(pick.querySelector(".wb-hue"), (x) => { pickHSV.h = x * 360; });
+    syncPick();
+    swatch.addEventListener("click", (e) => {
+      e.stopPropagation();
+      /* Pressing it SELECTS the colour and opens the field; pressing it again shuts the field and leaves
+         the colour selected — so one press is "draw in my colour" and two are "and let me change it". */
+      const opening = pick.hidden;
+      pick.hidden = !opening;
+      pad.classList.toggle("dp-picking", opening);
+      if (opening) useDpColor(swatch.dataset.dpcol);
+    });
     paintTools();
 
     const onResize = () => resize();

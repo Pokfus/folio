@@ -176,6 +176,24 @@ const server = http.createServer((req, res) => {
   ok("…and is called from renderCard", /mountDrawCard\(cardRoot, c\);/.test(src));
   /* THE FLOATING MARKER IS LEFT ALONE, which is the request. Asserted as an ABSENCE in the source as
      well as in the browser below: a pin or a forced pen-down added back would be invisible in review. */
+  /* ANY COLOUR. The site has already decided against `<input type="color">` — its platform dialog on a
+     phone is a full-screen sheet of sliders over the very card being answered — and `test-layout.js` has
+     asserted for a month that none is left in the marker's panel. This is the same refusal one surface
+     on, so it is asserted in the source AND in the rendered card below. */
+  ok("the menu carries a colour picker rather than a platform dialog",
+     /class="dp-pick"/.test(body("cardDrawHTML")) && !/input type="color"/.test(body("cardDrawHTML")));
+  ok("…built on the marker's own HSV helpers rather than a second copy",
+     /hexToHSV\(dpReadCustom\(\)\)/.test(body("mountDrawCard")) && /hsvToHex\(pickHSV\.h/.test(body("mountDrawCard")));
+  /* THE PICKER KEEPS ITS OWN HSV rather than re-deriving it from the hex on each move: at v=0 or s=0 a
+     colour has NO recoverable hue, so a reader dragging into the black corner and back out would come
+     back red however they arrived. */
+  ok("…keeping its own HSV, never re-derived from the hex mid-drag",
+     /let pickHSV = hexToHSV/.test(body("mountDrawCard")) && !/pickHSV = hexToHSV\(DP\.color\)/.test(body("mountDrawCard")));
+  ok("…and the mixed colour is remembered between sessions", /localStorage\.setItem\(DP_CUSTOM_KEY/.test(src));
+  /* IT IS POINTER-ONLY, unlike the marker's, which takes arrow keys because the control it replaced was
+     a real `<input>`. Here the whole menu is `aria-hidden` with `tabindex="-1"`, so a focusable field
+     would be the tab-stop-that-leads-nowhere fault that pairing exists to avoid. */
+  ok("…and adds no focusable field to an aria-hidden menu", !/setAttribute\("tabindex", "0"\)/.test(body("mountDrawCard")));
   ok("the floating marker is not pinned to anything", !/wbPinTo|wbPinApply|wbPinFrame|wbUnpin/.test(src));
   ok("…and the pen is not put down for the reader", !/wbSetEnabled\(true\)/.test(body("mountDrawCard")));
 
@@ -263,7 +281,10 @@ const server = http.createServer((req, res) => {
              penDown: document.body.classList.contains("wb-down"),
              pageInk: !!document.querySelector(".draw-canvas.on"),   // the canvas exists either way; `.on` is the pen
              menuHidden: document.querySelector(".dp-tools").getAttribute("aria-hidden") === "true",
-             tabbable: [...document.querySelectorAll(".dp-tools button")].filter((b) => b.tabIndex >= 0).length,
+             tabbable: [...document.querySelectorAll(".dp-tools button, .dp-pick *")].filter((b) => b.tabIndex >= 0).length,
+             swatch: (document.querySelector(".dp-custom") || {}).dataset && document.querySelector(".dp-custom").dataset.dpcol,
+             pickShut: document.querySelector(".dp-pick").hidden,
+             platformDialogs: document.querySelectorAll('input[type="color"]').length,
              scratch: getComputedStyle(document.querySelector("#scratch")).display };
   });
   /* THE PAD FITS THE CARD. `aspect-ratio` beside a `min-height` inflated the used WIDTH past the card's
@@ -276,6 +297,9 @@ const server = http.createServer((req, res) => {
      [geo.bitmapW, geo.cvW, geo.dpr]);
   ok("the menu carries its colours and its six tools", geo.cols >= 4 && geo.tools === 6, [geo.cols, geo.tools]);
   ok("…including a fill", geo.hasFill);
+  ok("…and a sixth swatch that is the reader's own colour", /^#[0-9a-f]{6}$/i.test(geo.swatch || ""), geo.swatch);
+  ok("…whose field is shut until it is asked for", geo.pickShut);
+  ok("…and is the site's own picker, not a platform dialog", geo.platformDialogs === 0);
   ok("…and Undo is dead until there is something to undo", geo.undoOff);
   /* AN `aria-hidden` CONTAINER WHOSE CHILDREN ARE STILL FOCUSABLE is the one arrangement worse than
      either choice: a keyboard reader tabs onto a control their screen reader has been told does not
@@ -308,8 +332,13 @@ const server = http.createServer((req, res) => {
     return { pct: Math.round((100 * any) / (c.width * c.height)), px: any, dark, green };
   });
   ok("the pad is blank before anything is drawn", (await read()).pct === 0);
-  const cbox = await page.locator(".dp-canvas").boundingBox();
+  /* THE BOX IS RE-READ ON EVERY STROKE, not captured once. Opening the colour picker inserts a row
+     between the menu and the canvas and pushes the canvas DOWN — which is free for the drawing, the ink
+     being on the canvas rather than in page coordinates, and is not free for a fixture holding a stale
+     rect: the stroke lands on the menu instead and the canvas reads back empty, which looks exactly like
+     drawing having stopped working. */
   const drawStroke = async () => {
+    const cbox = await page.locator(".dp-canvas").boundingBox();
     await page.mouse.move(cbox.x + 30, cbox.y + 40);
     await page.mouse.down();
     await page.mouse.move(cbox.x + cbox.width - 40, cbox.y + 70, { steps: 14 });
@@ -337,6 +366,54 @@ const server = http.createServer((req, res) => {
   await page.click('[data-dp="clear"]');
   await page.waitForTimeout(150);
   ok("…and clear empties it", (await read()).pct === 0);
+
+  /* ANY COLOUR, END TO END. The picker is what makes "any color can be used" true rather than intended,
+     and every step of it fails quietly: a field that does not move the hex, a hex that does not reach
+     `DP.color`, or a colour that is not what the pen then draws with. The last is checked by counting
+     the stroke's own pixels against the hex the field settled on. */
+  await page.click(".dp-custom");
+  await page.waitForTimeout(250);
+  const opened = await page.evaluate(() => ({ shut: document.querySelector(".dp-pick").hidden,
+    picking: document.querySelector(".draw-pad").classList.contains("dp-picking"),
+    sel: document.querySelector(".dp-custom").classList.contains("on") }));
+  ok("pressing the sixth swatch opens the field and selects the colour", !opened.shut && opened.picking && opened.sel, opened);
+  const hue = await page.locator(".dp-pick .wb-hue").boundingBox();
+  await page.mouse.move(hue.x + hue.width * 0.55, hue.y + hue.height / 2);
+  await page.mouse.down(); await page.mouse.up();
+  await page.waitForTimeout(120);
+  const svBox = await page.locator(".dp-pick .wb-sv").boundingBox();
+  await page.mouse.move(svBox.x + svBox.width * 0.85, svBox.y + svBox.height * 0.2);
+  await page.mouse.down();
+  await page.mouse.move(svBox.x + svBox.width * 0.9, svBox.y + svBox.height * 0.15, { steps: 6 });
+  await page.mouse.up();
+  await page.waitForTimeout(200);
+  const mixed = await page.evaluate(() => ({ hex: document.querySelector(".wb-hex").textContent,
+    swatch: document.querySelector(".dp-custom").dataset.dpcol,
+    stored: localStorage.getItem("folio_dp_custom_v1") }));
+  ok("…dragging its fields mixes a colour none of the five is",
+     /^#[0-9A-F]{6}$/.test(mixed.hex) && !["#D9544C", "#4F74C2", "#1B1A17", "#4F9D67", "#DB8B3A"].includes(mixed.hex), mixed);
+  ok("…which the swatch and the store both follow",
+     mixed.swatch.toLowerCase() === mixed.hex.toLowerCase() && (mixed.stored || "").toLowerCase() === mixed.hex.toLowerCase(), mixed);
+  await drawStroke();
+  const inColour = await page.evaluate((want) => {
+    const c = document.querySelector(".dp-canvas");
+    const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+    const n = parseInt(want.slice(1), 16), R = (n >> 16) & 255, G = (n >> 8) & 255, B = n & 255;
+    let hit = 0, any = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] < 200) continue;
+      any++;
+      if (Math.abs(d[i] - R) < 12 && Math.abs(d[i + 1] - G) < 12 && Math.abs(d[i + 2] - B) < 12) hit++;
+    }
+    return { any, hit };
+  }, mixed.hex.toLowerCase());
+  ok("…and the pen then draws in it", inColour.any > 200 && inColour.hit === inColour.any, inColour);
+  await page.click(".dp-custom");   // shut the field again
+  await page.waitForTimeout(150);
+  ok("…and pressing the swatch again shuts the field, keeping the colour",
+     await page.evaluate(() => document.querySelector(".dp-pick").hidden && document.querySelector(".dp-custom").classList.contains("on")));
+  await page.click('[data-dp="clear"]');
+  await page.waitForTimeout(150);
 
   /* THE PAD'S MENU GOES ON WORKING WITH THE FLOATING PEN DOWN, which is the claim that makes "the two do
      not interfere" true rather than merely intended. With the pen down the marker's canvas covers the
