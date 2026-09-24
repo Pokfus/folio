@@ -934,6 +934,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `""city of Tomsk""` and returns 1,330 OR-matched hits where the phrase itself returns 54. **A
     quoted search that comes back with hundreds of unrelated papers is the quoting, not the corpus** —
     the check is to re-run a phrase whose true count is already recorded.
+    **AND THE WAYBACK MACHINE'S *CONTENT* ENDPOINT WORKS FROM HERE; ONLY ITS CDX INDEX IS BLOCKED**
+    (batch 38, correcting batch 37). `web.archive.org/web/<stamp>/<url>` fetched the Rosstat yearbook,
+    three regional portals and an archived charter PDF; `web.archive.org/cdx/search/cdx` answers a flat
+    `403 Blocked by egress policy` over both schemes. What batch 37 read as a policy block on two hosts
+    was the proxy dropping tunnels under load — `ws_closed_mid_exchange`, three or four tries in a row,
+    then a clean 200. **Retry an archive fetch four or five times with a pause before recording a host
+    as shut**, which is `check-reach.js`'s own BUSY-is-not-SHUT rule one layer down.
+    **SO THE SECOND RUNG OF THE LADDER IS A REAL RUNG, AND IT IS THE SUBJECT'S OWN «О РЕГИОНЕ» PAGE.**
+    Gatchina's seat sentence is on `lenobl.ru/ru/o-regione/` — *Столицей Ленинградской области является
+    город Гатчина* — where the Leningrad Oblast charter on Garant names no centre in any of its 59
+    articles. **Kurgan's is in its charter after all, as a PDF on the oblast's own site**
+    (`kurganobl.ru/sites/default/files/…/Ustav_Kurganskoy_oblasti_2023.pdf`, article 13), which is the
+    document Garant does not carry. **A charter absent from Garant is not a charter that cannot be
+    read.**
     **AND A RUSSIAN JOURNAL'S PDF MAY BE ENCIPHERED PER FONT RUN, WHICH IS SOLVABLE AND NOT A DEAD END**
     (batch 34). In the `Уфимский археологический вестник` family a Latin run is `\x00`-separated with each
     glyph its character MINUS 29, and a Cyrillic run is **`\x02`-separated with `\x03` for a space and a
@@ -5369,7 +5383,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 160 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, seventy-seven of the 80 centres being written (`gru-503`, `gru-505`–`gru-523`, `gru-525`–`gru-559`, `gru-561`–`gru-569` and `gru-571`–`gru-583`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`, `gru-524` and `gru-560` are still to write**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 162 cards — **the 83 federal subjects are COMPLETE** and the capital half is ALL BUT DONE, seventy-nine of the 80 centres being written (`gru-503`, `gru-505`–`gru-569` and `gru-571`–`gru-583`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502` Krasnogorsk is the last one still to write**, see below |
 
 The next id for any of them (substitute the prefix):
 

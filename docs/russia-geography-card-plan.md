@@ -3173,3 +3173,75 @@ the PDF's first page rather than DOAJ alone**, which is what the rule about read
 **THREE CENTRES LEFT**: `gru-502` Krasnogorsk and `gru-560` Kurgan, both waiting on a seat sentence
 alone, and `gru-524` Gatchina, refused since batch 34 on its charter's stale seat. All three are
 one openable document away from being written.
+
+## Batch 38 — Gatchina and Kurgan, and a correction to batch 37 (2026-09-24)
+
+Two of the three centres batch 37 recorded as refused are written, because the reason recorded for
+them was wrong.
+
+**THE WAYBACK MACHINE'S CONTENT ENDPOINT WORKS FROM HERE. ONLY ITS CDX INDEX IS BLOCKED.** Batch 37
+read a `403 Blocked by egress policy` on `web.archive.org/web/…/mosreg.ru` and
+`…/kurganobl.ru` and concluded the proxy refuses archived pages of those hosts. It does not:
+`web.archive.org/web/20240419093918/…/Ejegodnik_2023.pdf` returned 29.5 MB of Rosstat on the first
+try, and `kurganobl.ru` itself came back 200 on the second attempt of the same session. What the
+earlier 403s and the `ws_closed_mid_exchange` failures around them are is the proxy dropping tunnels
+under load — three or four failures in a row, then a clean 200. **`web.archive.org/cdx/search/cdx` IS
+genuinely refused**, flatly and repeatably, over both schemes, which is what batch 28 recorded and
+what stops any enumeration of a host's captures. **Retry four or five times with a pause before
+recording an archive host as shut**; this is `check-reach.js`'s BUSY-is-not-SHUT rule one layer down,
+and it cost two cards a batch.
+
+**SO THE LADDER'S SECOND RUNG IS REAL, AND IT IS THE SUBJECT'S OWN «О РЕГИОНЕ» PAGE.**
+· **`gru-524` Gatchina.** The Leningrad Oblast charter on Garant names no administrative centre in any
+  of its 59 chapters and articles — which also corrects batch 34, that recorded it as stating the old
+  seat of Saint Petersburg; it states neither. The government's own portal does:
+  `lenobl.ru/ru/o-regione/` reads *Столицей Ленинградской области является город Гатчина*.
+· **`gru-560` Kurgan.** `ustav_kurgan` is one of the three charters batch 30 established are not on
+  Garant, and batch 37 stopped there. The charter is published as a PDF on the oblast government's own
+  site, and its **article 13** reads *Административным центром области является город Курган*, in the
+  same article that bounds the oblast against Chelyabinsk, Sverdlovsk, Tyumen and Kazakhstan; article
+  10 fixes those bounds as the ones a decree of the Presidium of the USSR Supreme Soviet set on
+  6 February 1943. **A charter absent from Garant is not a charter that cannot be read.**
+
+**WHAT THE TWO CARDS REST ON.**
+· **Gatchina.** Kokotkina's study of the palace towns for four history sentences: the myza given to
+  Tsarevna Natalya Alekseyevna, the decree of Paul I that made it a town in 1796 and the second stage
+  of building under Nicholas I, the standing of the three palace towns outside ordinary municipal
+  government under the Ministry of the Imperial Court, and the water main of 1850 that served the
+  palace, the menagerie and the parks before a town network reached 268 homesteads by 1912. Polyakova
+  on the palace park's botanical gardens; Veselov and Dorofeeva on the park's restoration between 1944
+  and 1951. **No town of Leningrad Oblast is in Rosstat's table 4.9 at all**, so the card takes `?` in
+  three rows and says so.
+· **Kurgan.** The charter for the seat and the 1943 boundaries. Gordeeva and Ermakova on the city's
+  ecological framework. Sutyagin and Malkova for the Ilizarov apparatus — the first version built in
+  1952, the results in 43 patients treated 1951–1953 published in the town in 1954, and the institute
+  that grew from it. **Its own subject card `gru-060` had already spent Tsaryovo Gorodishche, the
+  fortress, Pugachov, the district town of 1782, the Decembrists and the railway of 1894**, so the
+  centre card is a 20th-century card by necessity.
+
+**`Kurgan` IS THE BARROW, SO THE CITY IS `Kurgan,_Kurgan_Oblast`.** Comma keys are already in use
+(`Gona,_Ethiopia`), the term takes the alias *Kurgan, Russia* and deliberately **no bare alias**, since
+that surface belongs to the burial mound and two keys competing for one surface is what
+`check-gloss-links.js` reports. The pairing rule is satisfied by the entry existing.
+
+**A WATERMARK COST GATCHINA ITS BEST PICTURE.** The one Commons view that shows the town, the palace
+and the lakes of the park together is an aerial carrying the photographer's own watermark across the
+bottom corner, which fails the picture bar exactly as batch 35's Ust-Sysolsk postcard did. The term
+ships with the palace's south front instead — a building rather than a wide view of the city, against
+the geography rule's own preference, and the honest choice when no unwatermarked wide view exists.
+
+**AND A DOI READ OFF AN XML ID IS A COMPOSED DOI.** The World Journal of Orthopedics article's PMC XML
+carries `501932` beside the volume and issue, and the real article number is `110465`; the DOI was
+looked up rather than assembled, which is the only reason the citation is right.
+
+**A BILINGUAL JOURNAL MAY SUPPLY AN ENGLISH TITLE AND NO ENGLISH BYLINE.** Forestry Bulletin registers
+*BOTANICAL GARDENS IN GATCHINA PALACE PARK* with the author as **А. Ю. Полякова**, and nothing
+reachable prints a Latin form of her name, so the citation carries the journal's own English title
+beside the Cyrillic byline rather than a transliteration nobody has published. That is the opposite of
+batch 37's *Ecosystem Transformation* row, where the article's own first page did print the Latin
+byline — **the difference is evidence, not style.**
+
+**ONE CENTRE LEFT**: `gru-502` Krasnogorsk. Moscow Oblast's charter on Garant is the repealed 1996 one
+and names no centre; `mosreg.ru`'s own about-the-region pages returned 403 from the archive across
+several attempts, and the Duma's site is a stub in the capture available. It is the same shape as the
+two solved here and should be retried when the proxy is quieter.
