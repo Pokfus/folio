@@ -3486,6 +3486,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S29 | B1 | #279 `la arena` – #306 `la nación` | 28 | 0 | 0 | B1 description: 952 with three | name table reaches `Virgen María` — B2 warning |
 | S30 | B1 | #307 `la explicación` – #334 `quitar` | 24 | 4 (`la explicación`, `el ganador, la ganadora`, `el océano`, `la despedida`) | 0 | B1 description: 954 with three | `ordenador` glossed "ordinator" |
 | S31 | B1 | #335 `utilizar` – #362 `comprobar` | 28 | 0 | 0 | — | — |
+| S32 | B1 | #363 `el círculo` – #390 `mencionar` | 24 | 4 (`el abrazo`, `el trozo`, `la expresión`, `la religión`) | 0 | B1 description: 955 with three | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4823,6 +4824,50 @@ the batch keeps three examples, so B1 still has 954 cards with three.
 
 **CHECKERS.** `--check` passes, and `check-say` reads 0. The batch has no unbolded example.
 `check-senses --deck=DELE-B1` went from 86 to 83: `el cinturón`, `pesado` and `de modo que` dropped off.
+
+### S32 — DELE B1, notes #363–#390 (Sep 2026)
+
+Measured against the S31 commit by card id: **24 changed, 974 untouched**. The 24 are each a record
+entry. The other four cards were read and left alone: `el abrazo`, `el trozo`, `la expresión` and
+`la religión`.
+
+**A FALSE FRIEND GLOSSED AS A TRUE ONE.** `sensible` was glossed "sensitive, sentient". It now says what
+the learner needs: *sensible* is never "sensible", which is *sensato*.
+
+**GLOSSES FOR THINGS THE CARDS DO NOT MEAN.**
+
+| card | gloss given | what the card means |
+|---|---|---|
+| `el león, la leona` | "antlion" (an insect) | lion |
+| `aguantar` | retaining breath and urine | "to put up with", which all three examples were |
+| `el hierro` | "branding iron" | iron |
+| `el hueso` | "bone • stone • pit)" — a stray bracket | bone; stone (of a fruit) |
+
+**ONE CARD LEFT WITH NO EXAMPLES AT ALL.** `el hierro` had two examples:
+- the first is shared with `el oro`, earlier in B1;
+- the second's English, "They made a new piece with tools", does not translate *hierros*.
+
+Both were dropped, and the card was given three new ones. B1 now has 955 cards with three examples, out
+of 998.
+
+**A SENTENCE CARRIED BY TWO CARDS IN ONE BATCH.** *Un helicóptero iba en círculos por sobre nosotros*
+was on both `el círculo` and `el helicóptero`. Its *por sobre* is Latin American, so it was dropped from
+both cards rather than kept on the earlier one.
+
+**MISTRANSLATIONS.**
+- `el león`: *dio caza a la gacela* was rendered "gave chase". It means "caught".
+- `la temperatura`: the English read "One day was 30 degrees".
+- `la actividad`: the English read "been in this game".
+- `mencionar`: *ni mencionar alemán* is not Spanish for "not to mention", which is *por no hablar de*.
+
+**AND THE REST.**
+- `de pronto` and `aguantar` each had two or three examples of one construction.
+- `sonar` gains *me suena*.
+- `la construcción` and `el perdedor` each carried an aphorism.
+- Fourteen sentences shared with A1, A2 or an earlier B1 card were replaced.
+
+**CHECKERS.** `--check` passes, and `check-say` reads 0. The batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 83 to 80: `aguantar`, `el león` and `la demanda` dropped off.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

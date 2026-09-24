@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,19 +877,23 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 955 of them"
     ]
    ]
   }
@@ -35714,6 +35718,469 @@
      ]
     ]
    ]
+  },
+  "deleb1/el círculo": {
+   "why": "The gloss is right. The first example's por sobre nosotros is Latin American, and el helicóptero carries the same sentence.",
+   "dropEx": [
+    "iba en círculos por sobre nosotros"
+   ],
+   "ex": [
+    [
+     "Nos sentamos en círculo.",
+     "We sat in a circle."
+    ]
+   ]
+  },
+  "deleb1/aparecer": {
+   "why": "The gloss was a list. The first example needs de before cuándo, and the second is shared with de repente earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to appear",
+      "to turn up"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No estoy segura cuándo",
+    "un oso apareció frente a nosotros"
+   ],
+   "ex": [
+    [
+     "Mis llaves aparecieron debajo del sofá.",
+     "My keys turned up under the sofa."
+    ],
+    [
+     "Su nombre no aparece en la lista.",
+     "His name doesn't appear on the list."
+    ]
+   ]
+  },
+  "deleb1/el helicóptero": {
+   "why": "The gloss is right. The first example is shared with el círculo earlier in B1, and the third with el cielo in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "iba en círculos por sobre nosotros",
+    "está dando vueltas en el cielo"
+   ],
+   "ex": [
+    [
+     "Lo llevaron al hospital en helicóptero.",
+     "They took him to hospital by helicopter."
+    ],
+    [
+     "Se oía el ruido de un helicóptero.",
+     "You could hear the noise of a helicopter."
+    ]
+   ]
+  },
+  "deleb1/el hueso": {
+   "why": "The gloss read 'bone • stone • pit)', with a stray bracket and no word to say the stone is a fruit's.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "bone",
+      "stone (of a fruit)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la temperatura": {
+   "why": "The gloss is right. The first example is shared with hasta in A1 and its English read 'One day was 30 degrees'; the third is shared with cuarenta in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "la temperatura llegó hasta los 30 grados",
+    "cuarenta grados bajo cero"
+   ],
+   "ex": [
+    [
+     "¿Le has tomado la temperatura al niño?",
+     "Have you taken the child's temperature?"
+    ],
+    [
+     "Mañana subirán las temperaturas.",
+     "Temperatures will rise tomorrow."
+    ]
+   ]
+  },
+  "deleb1/lentamente": {
+   "why": "The gloss is right. The first example, the Phantom approaching gravely, is a novel's sentence, and the third is shared with típico in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "El Fantasma",
+    "Hablar lentamente es típico"
+   ],
+   "ex": [
+    [
+     "El tráfico avanzaba lentamente.",
+     "The traffic was moving slowly."
+    ],
+    [
+     "Lee lentamente para entenderlo todo.",
+     "Read slowly so you understand everything."
+    ]
+   ]
+  },
+  "deleb1/el león, la leona": {
+   "why": "'antlion' is an insect. The first example is shared with fuerte in A2, and the third's English said 'gave chase', where dio caza is caught. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "lion, lioness"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El león es más fuerte que el lobo."
+   ],
+   "exEn": [
+    [
+     "al final dio caza a la gacela",
+     "The lioness finally caught the gazelle."
+    ]
+   ],
+   "ex": [
+    [
+     "Vimos leones en el zoo.",
+     "We saw lions at the zoo."
+    ]
+   ]
+  },
+  "deleb1/de pronto": {
+   "why": "The gloss was a list. The second and third examples were one construction, de pronto me puse / me sentí.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "suddenly"
+     ]
+    ]
+   ],
+   "bold": [
+    "de pronto"
+   ],
+   "dropEx": [
+    "me sentí muy extraño"
+   ],
+   "ex": [
+    [
+     "De pronto se fue la luz.",
+     "Suddenly the power went off."
+    ]
+   ]
+  },
+  "deleb1/la actividad": {
+   "why": "The gloss said 'activity' twice. The second example's English said 'been in this game'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "activity"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "tiempo lleva usted dedicado a estas",
+     "How long have you been doing these activities?"
+    ]
+   ]
+  },
+  "deleb1/aguantar": {
+   "why": "The gloss gave retaining breath and urine and not 'to put up with', which every example was, and all three were one construction.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to put up with, to stand",
+      "to hold (aguantar la respiración — to hold one's breath)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no aguanta más el comportamiento"
+   ],
+   "ex": [
+    [
+     "Aguanta la respiración bajo el agua.",
+     "Hold your breath under water."
+    ]
+   ]
+  },
+  "deleb1/sonar": {
+   "why": "The gloss did not give me suena, 'it rings a bell'. The first two examples were both a bell.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to sound",
+      "to ring"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "me suena — it sounds familiar"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "después de que sonó la campana"
+   ],
+   "ex": [
+    [
+     "Tu cara me suena.",
+     "Your face looks familiar."
+    ]
+   ]
+  },
+  "deleb1/el aniversario": {
+   "why": "The gloss is right. All three examples were wedding anniversaries, and the third is shared with celebrar earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "Están celebrando su aniversario de bodas."
+   ],
+   "ex": [
+    [
+     "La empresa celebra su décimo aniversario.",
+     "The company is celebrating its tenth anniversary."
+    ]
+   ]
+  },
+  "deleb1/la demanda": {
+   "why": "The gloss gave 'formal complaint' where the third example is a lawsuit. The first example is shared with natural earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "demand",
+      "(legal) claim, lawsuit"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "rechazar esa demanda"
+   ],
+   "ex": [
+    [
+     "Hay mucha demanda de pisos en el centro.",
+     "There's a lot of demand for flats in the centre."
+    ]
+   ]
+  },
+  "deleb1/la construcción": {
+   "why": "The gloss did not give 'building'. The third example was an aphorism.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "construction",
+      "building"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El camino al éxito"
+   ],
+   "ex": [
+    [
+     "Mi padre trabaja en la construcción.",
+     "My father works in construction."
+    ]
+   ]
+  },
+  "deleb1/internacional": {
+   "why": "The gloss is right. The first example is shared with la prensa earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "a la prensa internacional"
+   ],
+   "ex": [
+    [
+     "El aeropuerto internacional está a veinte kilómetros.",
+     "The international airport is twenty kilometres away."
+    ]
+   ]
+  },
+  "deleb1/sensible": {
+   "why": "'sentient' is not a sense of sensible, and the gloss did not warn that sensible is never 'sensible' (sensato).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "sensitive (not 'sensible', which is sensato)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/izquierdo, izquierda": {
+   "why": "The gloss was a list running to 'the opposite of right'. The second example is shared with la derecha in A1, and the third's English wanted a hyphen. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "left"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a la izquierda — on the left",
+      "de izquierdas — left-wing"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Miró hacia la izquierda y hacia la derecha."
+   ],
+   "exEn": [
+    [
+     "un vecino de",
+     "I have a left-wing neighbour."
+    ]
+   ],
+   "ex": [
+    [
+     "Gira a la izquierda en el semáforo.",
+     "Turn left at the traffic lights."
+    ]
+   ]
+  },
+  "deleb1/el perdedor, la perdedora": {
+   "why": "The gloss is right. The first example is shared with admitir earlier in B1, and the second was an aphorism. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "admitir que se es un perdedor",
+    "el primero de los perdedores"
+   ],
+   "ex": [
+    [
+     "El perdedor felicitó al ganador.",
+     "The loser congratulated the winner."
+    ],
+    [
+     "Nadie quiere ser un mal perdedor.",
+     "Nobody wants to be a bad loser."
+    ]
+   ]
+  },
+  "deleb1/el valle": {
+   "why": "The gloss is right. The first example is shared with tras in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "tras esa colina"
+   ],
+   "ex": [
+    [
+     "El pueblo está en un valle rodeado de montañas.",
+     "The village is in a valley surrounded by mountains."
+    ]
+   ]
+  },
+  "deleb1/la alternativa": {
+   "why": "'alternation' is not a sense a learner needs. The first example's al método tuyo is not natural Spanish.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "alternative, option"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "al método tuyo"
+   ],
+   "ex": [
+    [
+     "Buscamos una alternativa más barata.",
+     "We're looking for a cheaper alternative."
+    ]
+   ]
+  },
+  "deleb1/el lujo": {
+   "why": "The gloss said 'luxury' twice and did not give darse el lujo. The first example's 'de ambos' has no referent.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "luxury"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de lujo — luxury (un hotel de lujo)",
+      "darse el lujo de — to afford to"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "darse el lujo de ambos"
+   ],
+   "ex": [
+    [
+     "Se alojaron en un hotel de lujo.",
+     "They stayed in a luxury hotel."
+    ]
+   ]
+  },
+  "deleb1/despejado, despejada": {
+   "why": "The gloss was a Wiktionary list. The second example, a clear mind thanks to all of yesterday's sleeping, is not natural in either language.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "clear (of cloud)",
+      "clear (of obstacles)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "tengo la mente despejada"
+   ],
+   "ex": [
+    [
+     "La carretera ya está despejada.",
+     "The road is clear now."
+    ]
+   ]
+  },
+  "deleb1/el hierro": {
+   "why": "The card had two examples. The first is shared with el oro earlier in B1, and the second's English, 'They made a new piece with tools', does not translate hierros. The gloss gave 'branding iron'. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "iron"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El oro es más pesado que el hierro.",
+    "Hizo una pieza nueva con hierros"
+   ],
+   "ex": [
+    [
+     "La puerta es de hierro.",
+     "The door is made of iron."
+    ],
+    [
+     "Las espinacas tienen mucho hierro.",
+     "Spinach contains a lot of iron."
+    ],
+    [
+     "El hierro se oxida con la humedad.",
+     "Iron rusts in damp conditions."
+    ]
+   ]
+  },
+  "deleb1/mencionar": {
+   "why": "The gloss is right. The first example's 'ni mencionar alemán' is not Spanish for 'not to mention' (por no hablar de).",
+   "dropEx": [
+    "ni mencionar alemán"
+   ],
+   "ex": [
+    [
+     "No lo menciones delante de ella.",
+     "Don't mention it in front of her."
+    ]
+   ]
   }
  },
  "insert": {
@@ -36020,7 +36487,11 @@
    "la explicación",
    "el ganador, la ganadora",
    "el océano",
-   "la despedida"
+   "la despedida",
+   "el abrazo",
+   "el trozo",
+   "la expresión",
+   "la religión"
   ]
  }
 }
