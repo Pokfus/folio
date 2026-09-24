@@ -1490,16 +1490,49 @@ the alias are the same string.
              Homer's Dia: the card gives both and the dot follows the version with a place a reader can
              find. No `Labyrinth` term was coined, the word standing for the Egyptian labyrinth on
              `wh-267` and for Potnia's title at Knossos on `gr-086`
-    gr-931  Daedalus and Icarus
-    gr-932  Jason
-    gr-933  The Argonauts
-    gr-934  The Golden Fleece
-    gr-935  Medea in myth
-    gr-936  Bellerophon
-    gr-937  Pegasus
-    gr-938  Oedipus
-    gr-939  The Sphinx
-    gr-940  The Seven Against Thebes
+    gr-931  Daedalus and Icarus  — the line names two people and a card is answered by ONE term, so the
+             answer is Daedalus and Icarus is carried in the prose. Its dot is KNOSSOS, which `gr-008`,
+             `gr-010`, `gr-051` and `gr-929` also carry and which is still the honest place: the
+             labyrinth, the wooden cow and the Dance of Ariadne Pausanias saw are all there
+    gr-932  Jason  — keyed **`Jason_(mythology)`**, which claims no bare name, and the measurement is
+             why. Over the shipped corpus the bare surface *Jason* occurs eight times and **two are
+             modern given names**: the archaeologist Jason Lewis on `wh-014` and the missionary Jason
+             Lee on `geo-524`. Six right and two wrong is nearer the `Neville_Chamberlain` case
+             CLAUDE.md records as refused than the `Cell_(biology)` case it records as accepted, so
+             the parenthetical takes it. Dot: Iolcus
+    gr-933  The Argonauts  — NO locator: the subject is a voyage and no one place is it, where
+             `gr-932`'s Iolcus is where the crew mustered. Its picture is the Niobid Painter's krater
+             and **the caption hedges the identification**, which is one reading of that vase rather
+             than a settled one
+    gr-934  The Golden Fleece  — dot at PHASIS, the river mouth Pindar has the Argonauts reach,
+             rather than a `region` wash over Colchis, whose frontier nobody can draw. Strabo's own
+             rationalisation is carded, gold being washed from Caucasian torrents in troughs lined
+             with fleeces
+    gr-935  Medea in myth  — **the bare name the `gr-601` line reserves for this card was MEASURED and
+             REFUSED.** Of the nine corpus surfaces of *Medea*, four are the PLAY title (`gr-600`,
+             `gr-840` twice, `gr-601`), which `Medea_(play)` already holds and which a bare key would
+             repoint at the woman. So it is **`Medea_(mythology)`**, neither term claims the bare
+             surface, and nothing already shipped moved. Dot: Corinth
+    gr-936  Bellerophon  — dot at XANTHOS in Lycia, the stream the <i>Iliad</i> sends him to, since
+             Corinth is `gr-935`'s
+    gr-937  Pegasus  — NO locator, Peirene being in Corinth and that dot spent. The Corinthian
+             coinage rests on **Head's <i>Historia Numorum</i> on archive.org**, `numismatics.org`
+             being shut from this sandbox; an earlier draft said the horse was struck "for three
+             centuries", which nothing openable states, and the card says what Head says instead
+    gr-938  Oedipus  — the bare key IS safe here and was measured: all eight corpus surfaces are the
+             man or "the house of Oedipus", and `Oedipus_Tyrannus` keeps its own longer surface, which
+             `buildGlossIndex` sorts first. Dot: Thebes
+    gr-939  The Sphinx  — keyed **`Sphinx_(Greek_mythology)`** with the alias *Theban Sphinx*: bare
+             *Sphinx* is six Egyptian occurrences (`wh-209`, `wh-213`, `wh-228`) against five Greek, so
+             neither sense may claim it. NO locator — Mount Phikion has no coordinate to fetch and
+             Thebes is `gr-938`'s — and the picture is a GRAVE-STELE finial rather than the Theban
+             scene, which the card argues is the unusual use of the figure
+    gr-940  The Seven Against Thebes → **AMPHIARAUS** — retitled, because the plan line's own words are
+             already `gr-594`'s answer term (Aeschylus' play). The card still teaches the expedition and
+             is answered by the seer whose swallowing made him a god: the line names an EVENT and the
+             term wanted is the thing the event left behind, which here is a cult with a sanctuary, an
+             oracle Croesus tested and a healing rite that outlasted the war by a thousand years. Dot:
+             Oropos
     gr-941  The Epigoni
     gr-942  The Judgement of Paris
     gr-943  Helen
