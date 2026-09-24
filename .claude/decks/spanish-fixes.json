@@ -300,6 +300,219 @@
      "mum"
     ]
    ]
+  },
+  "delea2": {
+   "why": "The A2 read began in Sep 2026, in batches of twenty to thirty cards in deck order. The deck-level passes A1 already carries are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast (Tom alone appears 186 times in A2's English), its American spellings and its American usage. Ann is added to the name table, the A2 sentences carrying her where A1's did not. dropDup removes four cards A1 now teaches — como, cuando and donde were INSERTED by the A1 review after A2 had been built, and la vez was in both levels already — which is exactly what a rebuild of A2 against today's A1 would do, since the generator excludes every word the shipped lower decks hold. The counts of nouns (256), feminine pairs (70), verbs (111) and reflexives (31) are the GENERATOR's and are deliberately not recomputed, on A1's reasoning; the word count and the example-sentence claim are corrected, and the sentence adding the two levels together is taken out, a combined figure being one that goes wrong whenever either deck moves. The example claim was already wrong when the deck shipped: it said three sentences for 496 of 499 words where the file had 487, and now reads 484 of 495, with cabeza brought up to three and the four dropped cards having had three each.",
+   "subtitle": "495 more words, none of them in A1 · both directions, as two cards per word",
+   "dropDup": {
+    "como": "delea1",
+    "cuando": "delea1",
+    "la vez": "delea1",
+    "donde": "delea1"
+   },
+   "descSub": [
+    [
+     "500 words for level A2 of the DELE",
+     "495 words for level A2 of the DELE"
+    ],
+    [
+     "None of them appears in the A1 deck, so the two together come to 1,000 words.",
+     "None of them appears in the A1 deck."
+    ],
+    [
+     "the rest of the 500 is filled from the A2 column in order of frequency",
+     "the rest is filled from the A2 column in order of frequency"
+    ],
+    [
+     "Every word also carries real example sentences, three of them for 496 of the 499 and one or two where the corpus had no more,",
+     "Every word also carries example sentences, three of them for 484 of the 495 and one or two where the corpus had no more,"
+    ],
+    [
+     "with the word picked out in colour and a speaker beside it. Word list:",
+     "with the word picked out in colour and a speaker beside it. Most are from Tatoeba; the rest were written for this deck, where the corpus showed a different word from the card's, gave a sentence another card already uses, or gave three of one construction. The people in them have been given Spanish names. Word list:"
+    ],
+    [
+     "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR.",
+     "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR, except those written for this deck."
+    ]
+   ],
+   "exNames": [
+    [
+     "Tom",
+     "Carlos"
+    ],
+    [
+     "Mary",
+     "Ana"
+    ],
+    [
+     "John",
+     "Javier"
+    ],
+    [
+     "Bob",
+     "Pablo"
+    ],
+    [
+     "Paul",
+     "Miguel"
+    ],
+    [
+     "Ken",
+     "Luis"
+    ],
+    [
+     "Amy",
+     "Marta"
+    ],
+    [
+     "Jack",
+     "Diego"
+    ],
+    [
+     "Nancy",
+     "Elena"
+    ],
+    [
+     "Emily",
+     "Clara"
+    ],
+    [
+     "Sam",
+     "Óscar"
+    ],
+    [
+     "Kate",
+     "Laura"
+    ],
+    [
+     "George",
+     "Andrés"
+    ],
+    [
+     "Hudson",
+     "Serrano"
+    ],
+    [
+     "Smith",
+     "García"
+    ],
+    [
+     "Brown",
+     "Moreno"
+    ],
+    [
+     "Ann",
+     "Ana"
+    ]
+   ],
+   "exBritish": true,
+   "exUsage": [
+    [
+     "Cellphones",
+     "Mobile phones"
+    ],
+    [
+     "Cellphone",
+     "Mobile phone"
+    ],
+    [
+     "go to the movies",
+     "go to the cinema"
+    ],
+    [
+     "Movie theatres",
+     "Cinemas"
+    ],
+    [
+     "movie theatres",
+     "cinemas"
+    ],
+    [
+     "Movie theaters",
+     "Cinemas"
+    ],
+    [
+     "movie theaters",
+     "cinemas"
+    ],
+    [
+     "at the movies",
+     "at the cinema"
+    ],
+    [
+     "horror movies",
+     "horror films"
+    ],
+    [
+     "than fall",
+     "than autumn"
+    ],
+    [
+     "in the fall",
+     "in the autumn"
+    ],
+    [
+     "soccer",
+     "football"
+    ],
+    [
+     "movies",
+     "films"
+    ],
+    [
+     "Movie",
+     "Film"
+    ],
+    [
+     "movie",
+     "film"
+    ],
+    [
+     "vacations",
+     "holidays"
+    ],
+    [
+     "vacation",
+     "holiday"
+    ],
+    [
+     "elevator",
+     "lift"
+    ],
+    [
+     "cellphones",
+     "mobile phones"
+    ],
+    [
+     "cellphone",
+     "mobile phone"
+    ],
+    [
+     "downtown",
+     "in the city centre"
+    ],
+    [
+     "candy",
+     "sweets"
+    ],
+    [
+     "math",
+     "maths"
+    ],
+    [
+     "stores",
+     "shops"
+    ],
+    [
+     "Mom",
+     "Mum"
+    ],
+    [
+     "mom",
+     "mum"
+    ]
+   ]
   }
  },
  "hints": {
@@ -15335,6 +15548,787 @@
      "We booked a hotel near the beach."
     ]
    ]
+  },
+  "delea2/así": {
+   "why": "'as such' is a dictionary gloss rather than a translation and 'thus' is a register an A2 reader never needs; the card also never said that así que is how Spanish says 'so' when drawing a conclusion, though two of its three examples are that construction. The second of the two así que sentences goes, and the manner sense — the word's first meaning — gets an example of its own.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "like this, like that, this way",
+      "so, thus"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "así que — so (drawing a conclusion)",
+      "¿no es así? — isn't it?, don't you?"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "que eres un hombre después de todo"
+   ],
+   "ex": [
+    [
+     "Se hace así.",
+     "You do it like this."
+    ]
+   ]
+  },
+  "delea2/entonces": {
+   "why": "The gloss was a dictionary's list run together — 'then, next, thereupon, at that time, at that point' — with no line between the time sense and the 'so, in that case' sense that is the word's commonest use in speech. Two of the three examples were desde entonces, one construction twice, and one of those is also an A1 sentence. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "then, at that time",
+      "then, so, in that case"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "desde entonces — since then"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mis puntos de vista han cambiado desde entonces.",
+    "No he oído más de él desde entonces."
+   ],
+   "ex": [
+    [
+     "Si no quieres ir, entonces me quedo en casa.",
+     "If you don't want to go, then I'll stay at home."
+    ],
+    [
+     "En 1990 vivía en Sevilla; entonces no tenía coche.",
+     "In 1990 I lived in Seville; at that time I didn't have a car."
+    ]
+   ]
+  },
+  "delea2/la verdad": {
+   "why": "'fact' is not what la verdad means, and the card missed the two uses an A2 reader hears daily: ¿verdad? at the end of a sentence for 'isn't it?', and la verdad (es que) for 'to be honest'. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "truth"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¿verdad? — right?, isn't it? (at the end of a sentence)",
+      "la verdad (es que) — to be honest, actually"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Nada podría estar más lejos de la verdad."
+   ],
+   "ex": [
+    [
+     "Hace frío hoy, ¿verdad?",
+     "It's cold today, isn't it?"
+    ]
+   ]
+  },
+  "delea2/tan": {
+   "why": "'very' is not a sense of tan — very is muy — and the card never said the one rule a reader needs, that tan comes before an adjective or adverb where tanto comes before a noun. All three examples were also A1 sentences (el tiempo, encontrar, abril), so all three are replaced, with three constructions: tan … como, ¡qué … tan …! and tan … que. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "so (before an adjective or adverb: tan grande — so big)",
+      "as (tan … como — as … as)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "before a noun",
+     "tanto: tanto dinero"
+    ]
+   ],
+   "dropEx": [
+    "No hay nada tan importante como el tiempo.",
+    "Nunca he encontrado a un hombre tan simpático.",
+    "horrible en abril"
+   ],
+   "ex": [
+    [
+     "Mi hermano es tan alto como mi padre.",
+     "My brother is as tall as my father."
+    ],
+    [
+     "¡Qué día tan bonito!",
+     "What a lovely day!"
+    ],
+    [
+     "Estoy tan cansado que no puedo pensar.",
+     "I'm so tired that I can't think."
+    ]
+   ]
+  },
+  "delea2/mejor": {
+   "why": "Two of the three examples were the superlative — las mejores, el mejor — which the gloss did not name, and none showed the plain comparative 'better than'. 'better off' is a phrase rather than a sense. The dog sentence is also an A1 sentence. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "better",
+      "el mejor, la mejor — the best"
+     ]
+    ],
+    [
+     "adverb",
+     [
+      "better (the comparative of bien)",
+      "mejor + verb — I'd better…, it's best to…"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El perro es el mejor amigo del hombre."
+   ],
+   "ex": [
+    [
+     "Este libro es mejor que la película.",
+     "This book is better than the film."
+    ]
+   ]
+  },
+  "delea2/el dios, la diosa": {
+   "why": "The card teaches a pair and glossed only one half of it. Its first example was the opening of the Hail Mary in its liturgical wording, which teaches a reader a prayer rather than the word, and the everyday use — Dios with a capital, and ¡Dios mío! — was nowhere on the card.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "god",
+      "goddess"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "Dios — God",
+      "¡Dios mío! — my God!, oh dear!"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "llena eres de gracia"
+   ],
+   "ex": [
+    [
+     "¡Dios mío, qué calor hace!",
+     "My God, it's hot!"
+    ]
+   ]
+  },
+  "delea2/la vida": {
+   "why": "'lifestyle' is estilo de vida; what the card was missing is the living one earns, ganarse la vida. The Tatoeba translation 'no object in life' is an older English idiom for what the Spanish says plainly, a goal. The first example is also an A1 sentence. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "life",
+      "living (ganarse la vida — to earn a living)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ahora veo la vida de un modo diferente."
+   ],
+   "exEn": [
+    [
+     "no tiene ninguna meta en la vida",
+     "Diego has no goal in life."
+    ]
+   ],
+   "ex": [
+    [
+     "¿Qué haces para ganarte la vida?",
+     "What do you do for a living?"
+    ]
+   ]
+  },
+  "delea2/irse": {
+   "why": "THE AFFIRMATIVE vosotros IMPERATIVE WAS WRONG. The generator builds a reflexive imperative by dropping the -d of the plain one and adding -os, which is right for levantad → levantaos and wrong twice for irse: ir is the one verb that keeps its d (idos), and every other -ir verb's i takes a written accent once the d goes (sentíos). The rule that the nosotros and vosotros forms must not change in a conjSub was written for the stem-changing corrections, where those two forms are the regular ones; here the vosotros form is itself the fault. 39 cards across the six decks carry an unaccented -ios and the generator is corrected in build_deck.py; the others are repaired as their batches reach them.",
+   "conjSub": [
+    [
+     "<span class=\"uc-cj-p\">vosotros</span><span class=\"uc-cj-f\"><span class=\"uc-cj-e\">ios</span></span>",
+     "<span class=\"uc-cj-p\">vosotros</span><span class=\"uc-cj-f\"><span class=\"uc-cj-e\">idos</span></span>"
+    ]
+   ]
+  },
+  "delea2/tal": {
+   "why": "The gloss was 'such' alone, and two of the three examples were phrases it never mentioned — ¿qué tal? and tal vez, both far commoner than the adjective. The qué tal sentence is also an A1 sentence, and 'tales historias que él cuenta' is not grammatical Spanish (it wants como las que). SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "such (tal cosa — such a thing)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¿qué tal? — how are you?, how is…?",
+      "tal vez — perhaps, maybe"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "¿Qué tal ha ido hoy en el colegio?",
+    "tales historias que él cuenta"
+   ],
+   "ex": [
+    [
+     "¿Qué tal estás?",
+     "How are you?"
+    ],
+    [
+     "Nunca he visto tal cosa.",
+     "I've never seen such a thing."
+    ]
+   ]
+  },
+  "delea2/fuera": {
+   "why": "TWO OF THE THREE EXAMPLES WERE A DIFFERENT WORD. 'Él llegó después de que yo me fuera' and 'como si fuera un niño' are fuera the past subjunctive of irse and ser, matched on shared letters; only the fish sentence shows the adverb. The coincidence is worth a note in Forms rather than an example, since the reader will meet it.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "outside",
+      "out, away (from home)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "fuera de — outside, out of"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "also",
+     "fuera — past subjunctive of ir and ser: si yo fuera rico"
+    ]
+   ],
+   "dropEx": [
+    "después de que yo me",
+    "como si fuera un niño"
+   ],
+   "ex": [
+    [
+     "Hoy cenamos fuera.",
+     "We're eating out tonight."
+    ],
+    [
+     "Te espero fuera.",
+     "I'll wait for you outside."
+    ]
+   ]
+  },
+  "delea2/el mundo": {
+   "why": "The gloss said 'world' three ways, one with a definition in brackets, and never gave todo el mundo — 'everybody' — though two of the three examples were that phrase. Both are also A1 sentences. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "world"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "todo el mundo — everybody, everyone"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "le gusta la música",
+    "Todo el mundo quiere a alguien a veces."
+   ],
+   "ex": [
+    [
+     "Es la ciudad más bonita del mundo.",
+     "It's the most beautiful city in the world."
+    ],
+    [
+     "En mi pueblo todo el mundo se conoce.",
+     "In my village everybody knows everybody."
+    ]
+   ]
+  },
+  "delea2/el vale": {
+   "spanish": "vale",
+   "word": "vale",
+   "why": "ALL THREE EXAMPLES WERE A DIFFERENT WORD, AND THE CARD HAD THE WRONG ONE AT ITS HEAD. 'no lo vale', 'tú lo vales' and 'Carlos lo vale' are the verb valer; and the card sits fifteenth in a deck ordered by frequency because vale is the everyday Spanish for 'OK', which it never mentioned — a reader who learnt 'a voucher' from it would be baffled by the first conversation they heard. The headword becomes vale, the interjection first, and the noun keeps its sense and its plural beneath it.",
+   "senses": [
+    [
+     "interjection",
+     [
+      "OK, all right, fine (very common in Spain)"
+     ]
+    ],
+    [
+     "noun, masculine (el vale)",
+     [
+      "voucher, coupon"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no lo vale",
+    "lo vales",
+    "lo vale, aunque"
+   ],
+   "ex": [
+    [
+     "—¿Nos vemos a las ocho? —Vale.",
+     "\"Shall we meet at eight?\" \"OK.\""
+    ],
+    [
+     "Vale, lo hago yo.",
+     "OK, I'll do it."
+    ],
+    [
+     "Tengo un vale de descuento para el supermercado.",
+     "I've got a discount voucher for the supermarket."
+    ]
+   ]
+  },
+  "delea2/seguro, segura": {
+   "why": "The gloss listed five near-synonyms as five senses; the word has two, sure and safe. All three examples were estar seguro de que, one construction three times, so two go and the safe sense and the short question ¿estás segura? take their place.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "sure, certain (estar seguro)",
+      "safe, secure (ser seguro)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Estamos seguros de que vas a estar bien.",
+    "No estoy segura de que quiera el trabajo."
+   ],
+   "ex": [
+    [
+     "Este barrio es muy seguro.",
+     "This neighbourhood is very safe."
+    ],
+    [
+     "¿Estás segura?",
+     "Are you sure?"
+    ]
+   ]
+  },
+  "delea2/luego": {
+   "why": "Two of the three examples were luego de for 'after', which is Latin American usage — Spain, whose exam this is, says después de — and neither showed either of the senses the gloss gives. One is also an A1 sentence. The Hitchhiker's line stays: hasta luego is the commonest luego there is. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "then, afterwards",
+      "later"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hasta luego — see you later",
+      "desde luego — of course"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Yo jugaba al tenis luego de la escuela.",
+    "fue directo a casa luego del trabajo"
+   ],
+   "ex": [
+    [
+     "Primero comemos y luego vamos al cine.",
+     "First we'll eat and then we'll go to the cinema."
+    ],
+    [
+     "Te llamo luego.",
+     "I'll call you later."
+    ]
+   ]
+  },
+  "delea2/el papá, la mamá": {
+   "why": "'mom' is the American spelling of 'mum' listed as a third sense. The plural's own sense — los papás, parents, which is what the third example shows — was not named. The coffee sentence is also an A1 sentence, and se agarró la gripe is Latin American (Spain says cogió). SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "dad",
+      "mum"
+     ]
+    ],
+    [
+     "noun, masculine plural",
+     [
+      "los papás — parents"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "le gusta el café fuerte",
+    "se agarró la gripe"
+   ],
+   "ex": [
+    [
+     "Mi mamá trabaja en un hospital.",
+     "My mum works in a hospital."
+    ],
+    [
+     "Papá, ¿me ayudas con los deberes?",
+     "Dad, will you help me with my homework?"
+    ]
+   ]
+  },
+  "delea2/cada": {
+   "why": "All three examples were also A1 sentences, two of them were cada vez más — one construction twice — and the first wrote 'de si mismo', where sí takes its accent. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "determiner",
+     [
+      "each, every (it never changes: cada día, cada semana)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cada vez más — more and more",
+      "cada dos días — every other day"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Cada jugador dio lo mejor",
+    "Los días se hacen cada vez más cortos.",
+    "El cielo se puso cada vez más oscuro."
+   ],
+   "ex": [
+    [
+     "Cada alumno tiene un ordenador.",
+     "Each pupil has a computer."
+    ],
+    [
+     "Voy al gimnasio cada dos días.",
+     "I go to the gym every other day."
+    ],
+    [
+     "Los precios suben cada vez más.",
+     "Prices keep going up and up."
+    ]
+   ]
+  },
+  "delea2/tanto": {
+   "why": "Five English glosses for two meanings, and nothing for the adverb (te quiero tanto) or for tanto … como meaning 'both … and', which the first example is. That first example is also an A1 sentence, so the adverb takes its place and the two constructions are named in the gloss. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "determiner, pronoun",
+     [
+      "so much, so many",
+      "as much, as many (tanto … como)"
+     ]
+    ],
+    [
+     "adverb",
+     [
+      "so much (te quiero tanto)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tanto … como — both … and"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Él sabe tanto hablar como escribir en francés."
+   ],
+   "ex": [
+    [
+     "Te quiero tanto.",
+     "I love you so much."
+    ]
+   ]
+  },
+  "delea2/cierto, cierta": {
+   "why": "'true' alone, where the word has a second sense before a noun — cierta gente, 'certain people' — and a phrase, por cierto, 'by the way', that an A2 reader uses constantly. All three examples were ser cierto, one construction three times, so two go.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "true (after the noun or after ser)",
+      "certain, some (before the noun: cierta gente)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "por cierto — by the way"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No me puedo imaginar que eso sea cierto.",
+    "Estas noticias son demasiado buenas para ser ciertas."
+   ],
+   "ex": [
+    [
+     "Ciertas personas no saben escuchar.",
+     "Certain people don't know how to listen."
+    ],
+    [
+     "Por cierto, ¿has visto a Ana?",
+     "By the way, have you seen Ana?"
+    ]
+   ]
+  },
+  "delea2/quien": {
+   "why": "The gloss named neither the plural quienes, which the second example shows, nor the 'whoever' sense of the third. 'Your father wants you' dropped the whole point of 'Es a ti a quien quiere tu padre', which is the emphasis; the Spanish name Ana is now matched in the English, which had Ann.",
+   "senses": [
+    [
+     "pronoun",
+     [
+      "who, whom (after a preposition or a comma: la chica con quien hablé)",
+      "whoever, anyone who"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "quienes"
+    ],
+    [
+     "question word",
+     "¿quién? — who?"
+    ]
+   ],
+   "exEn": [
+    [
+     "Es a ti a quien quiere tu padre.",
+     "It's you your father loves."
+    ]
+   ],
+   "rebold": true,
+   "bold": [
+    "quien",
+    "quienes"
+   ]
+  },
+  "delea2/pasado, pasada": {
+   "why": "THE THIRD EXAMPLE WAS NOT SPANISH: 'el fin de semana pasada' makes the adjective agree with semana rather than with fin de semana, which is masculine. 'former' is antiguo rather than pasado, and the gloss never gave 'last' (el año pasado), which is the commonest use, or the noun el pasado. The año pasado sentence is also an A1 sentence. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "last (el año pasado — last year)",
+      "past"
+     ]
+    ],
+    [
+     "noun, masculine",
+     [
+      "el pasado — the past"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "pasado de moda — out of fashion"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ella se casó con él el año pasado.",
+    "el fin de semana pasada"
+   ],
+   "exEn": [
+    [
+     "pasados de moda",
+     "His methods are already out of fashion."
+    ]
+   ],
+   "ex": [
+    [
+     "¿Qué hiciste el fin de semana pasado?",
+     "What did you do last weekend?"
+    ],
+    [
+     "No quiero hablar del pasado.",
+     "I don't want to talk about the past."
+    ]
+   ]
+  },
+  "delea2/la cabeza": {
+   "why": "Two examples only, one of them the A1 dolor de cabeza sentence and the other head of cattle, a sense the gloss did not give. The cattle stays; the headache comes back in the form a reader will say, and the shake of the head is added. SHARED WITH A1. The generator draws on one Tatoeba corpus for every level, so an A2 card and an A1 card can be given the same sentence — 138 of A2's example sentences are also on an A1 card. A reader who has studied A1 meets it a second time as though it were new, so the A1 card, which the reader meets first, keeps it and this one is given a fresh sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "head",
+      "mind (se me fue de la cabeza — it went out of my head)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cabeza de ganado — head of cattle"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Se me ha ido el dolor de cabeza."
+   ],
+   "ex": [
+    [
+     "Me duele la cabeza.",
+     "My head hurts."
+    ],
+    [
+     "Ana dijo que no con la cabeza.",
+     "Ana shook her head."
+    ]
+   ]
+  },
+  "delea2/mientras": {
+   "why": "Glossed 'meanwhile' as an adverb, which is mientras tanto; on its own mientras is the conjunction 'while', and that is what all three examples show. The third wrote 'un Señor' with a capital, which Spanish does not use for señor before a name.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "while",
+      "as long as (mientras + subjunctive)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "mientras tanto — meanwhile"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "mientras tú no estabas"
+   ],
+   "ex": [
+    [
+     "Mientras tanto, yo preparo la cena.",
+     "Meanwhile, I'll make dinner."
+    ]
+   ]
+  },
+  "delea2/pues": {
+   "why": "The gloss led with 'so, then, in that case, because, since' and never gave 'well', which is what pues most often means in speech and what two of the three examples show — the second an idiom, estar como una cabra. The idiom goes, for the 'then' sense; and the third example's translation had the tense wrong.",
+   "senses": [
+    [
+     "interjection",
+     [
+      "well (at the start of a reply: pues no sé)"
+     ]
+    ],
+    [
+     "conjunction",
+     [
+      "then, so",
+      "since, because (more formal)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Pues sí que estás como una cabra."
+   ],
+   "exEn": [
+    [
+     "Pues yo quería una tarta de chocolate.",
+     "Well, I wanted a chocolate cake."
+    ]
+   ],
+   "ex": [
+    [
+     "—No tengo hambre. —Pues no comas.",
+     "\"I'm not hungry.\" \"Then don't eat.\""
+    ]
+   ]
+  },
+  "delea2/contra": {
+   "why": "Two of the three examples were estar en contra de, the same construction twice, and the physical sense — against a wall, into a tree — was not shown. 'versus' is a real use (España contra Francia) and is kept.",
+   "senses": [
+    [
+     "preposition",
+     [
+      "against",
+      "versus (España contra Francia)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en contra de — against (opposed to)",
+      "los pros y los contras — the pros and cons"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "totalmente en contra de la pena capital"
+   ],
+   "ex": [
+    [
+     "El coche chocó contra un árbol.",
+     "The car crashed into a tree."
+    ]
+   ]
+  },
+  "delea2/la persona": {
+   "why": "The gloss was a definition split into bullets in the wrong place — 'person (an individual', 'usually a human being)' — plus a second sense the Spanish word does not have. What the card did need to say is that la persona is feminine whatever the person, which the first example (él es una persona) shows without saying. Two translations were off: the definite article in 'The people don't like the birds' is Spanish grammar rather than English, and 'the happiest man on earth' for 'la persona más feliz del mundo'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "person"
+     ]
+    ],
+    [
+     "noun, feminine plural",
+     [
+      "las personas — people"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las personas"
+    ],
+    [
+     "gender",
+     "always feminine, even of a man: él es una buena persona"
+    ]
+   ],
+   "exEn": [
+    [
+     "A las personas no les gustan los pájaros.",
+     "People don't like birds."
+    ],
+    [
+     "Yo era la persona más feliz del mundo.",
+     "I was the happiest person in the world."
+    ]
+   ]
   }
  },
  "insert": {
@@ -15588,6 +16582,9 @@
    "la radio",
    "aquello",
    "el restaurante"
+  ],
+  "delea2": [
+   "realmente"
   ]
  }
 }

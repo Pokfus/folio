@@ -98,6 +98,21 @@
       again. Each entry is checked to name a real card, so a typo is an error rather than a silent gap.
       It is deliberately not a `why`: the reason is always the same one.
 
+  `exEn`  `[[spanish, english], ...]` — rewrite the ENGLISH of an example the generator wrote, matched on a
+      SUBSTRING of its Spanish, which is left alone. Before this a wrong translation could only be mended
+      by `dropEx` plus an `ex`, which moved the sentence to the end of the list and turned a generator
+      block into a record one; this keeps the block where it was. It runs after `dropEx` and before
+      `rebold`, and a row matching no kept block is an ERROR (unlike `dropEx`, it is re-asserted on every
+      run, so matching nothing is always a typo rather than a repair already made). The deck-level name
+      pass runs FIRST, so a substring must not contain a name that pass rewrites.
+
+  `decks.<id>.dropDup`  `{headword: lowerDeckId}` — DELETE this deck's card for a word a LOWER level now
+      carries. The generator excludes every word the shipped lower decks hold, but it read them BEFORE the
+      A1 review inserted `como`, `cuando` and `donde`, so A2 went on teaching all three a second time; a
+      rebuild of A2 against today's A1 would leave them out, and this is the record doing the same. The
+      claim is CHECKED: every half of the headword must stand on a card of the named deck, or it is an
+      error, so this can never quietly delete a word nothing else teaches. A card already gone is normal.
+
   `decks`  the deck's own metadata. `subtitle` is set outright; `descSub` is `[find, replace]` pairs over
       the description, applied in order and then checked TOGETHER: a pair is satisfied if it matched, or
       if its replacement stands in the finished text — which is what lets a count be corrected twice
@@ -249,6 +264,21 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
     // one is satisfied by the later one's replacement standing in the finished text
     subPend.forEach(([from, to]) => { if (String(d.meta.desc).indexOf(to) < 0) badSub.push(id + " → " + from); });
     metaHit++;
+  }
+
+  /* A WORD A LOWER LEVEL NOW CARRIES. Checked against the named deck's own headwords before anything is
+     deleted, so the claim that justifies the deletion is the one thing that cannot be wrong. */
+  if (dm && dm.dropDup) {
+    const halves = (h) => String(h).split(",").map((x) => x.trim().replace(/^(el|la|los|las)\s+/, "")).filter(Boolean);
+    for (const [head, lower] of Object.entries(dm.dropDup)) {
+      const lf = fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.test(x))
+        .map((x) => JSON.parse(fs.readFileSync(path.join(DIR, x), "utf8"))).find((x) => x.meta && x.meta.id === lower);
+      const have = new Set(lf ? lf.cards.flatMap((c) => halves(c.fields.Spanish)) : []);
+      if (!lf || !halves(head).every((x) => have.has(x))) { badFold.push(id + " → dropDup " + head + ": " + lower + " does not carry it"); continue; }
+      const n = d.cards.length;
+      d.cards = d.cards.filter((c) => c.fields.Spanish !== head);
+      if (d.cards.length !== n) { dropped += n - d.cards.length; hits += n - d.cards.length; }
+    }
   }
 
   /* THE FOLD RUNS FIRST. A folded-away card may itself be named in `dropEx` or reused as an example on
@@ -465,12 +495,18 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
     }
 
     const targets = boldTargets(fix, fl.Spanish, fl.Forms, fl.Conjugation);
-    if (fix.ex || fix.dropEx || fix.rebold) {
+    if (fix.ex || fix.dropEx || fix.rebold || fix.exEn) {
       let kept = splitEx(fl.Examples);
       if (fix.dropEx) {
         fix.dropEx.forEach((z) => { if (!kept.some((b) => exText(b).indexOf(z) >= 0)) badFold.push(w.key + " → dropEx already gone: " + z); });
         kept = kept.filter((b) => !fix.dropEx.some((z) => exText(b).indexOf(z) >= 0));
       }
+      /* `exEn` mends a generator block's TRANSLATION in place, keeping its position and its Spanish. */
+      (fix.exEn || []).forEach(([z, en]) => {
+        const at = kept.findIndex((b) => exText(b).indexOf(z) >= 0);
+        if (at < 0) { badEx.push(w.key + " → exEn matches no example: " + z); return; }
+        kept[at] = kept[at].replace(/(<div class="uc-exe">)[\s\S]*?(<\/div>)/, "$1" + esc(en).replace(/\$/g, "$$$$") + "$2");
+      });
       if (fix.rebold) kept = kept.map((b) => {
         const t = exText(b);
         return b.replace(/(<div class="uc-exz">(?:<span[^>]*><\/span>)?)[\s\S]*?(<\/div>)/, "$1" + bold(t, targets).replace(/\$/g, "$$$$") + "$2");

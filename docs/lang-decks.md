@@ -3443,6 +3443,109 @@ name a real card, so a typo is an error rather than a silent gap.
 · **`hints` IS THE MECHANICAL HALF, and is a map rather than an entry per note** — the English →
 Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
 with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or
+more gets distinguishing glosses instead.
+
+## The DELE card-by-card audit, beyond A1 — the batch log
+
+**Read this before opening a batch on a DELE deck above A1.** A1 was read in full in batches of ten (see
+above); the other levels are read the same way, one batch of 20–30 consecutive notes per session in deck
+order, on the model of the Mandarin audit logged at the foot of `docs/mandarin-review.md`. The next batch
+starts where the last row below stops. `reviewed` in `spanish-fixes.json` names the cards read and left
+alone, so a card that needed nothing can be told from one nobody has opened.
+
+| batch | deck | notes (shipped order) | corrected | read, left | deleted | deck-level | tool changes |
+|---|---|---|---|---|---|---|---|
+| S1 | A2 | #0 `como` – #29 `la persona` | 25 | 1 (`realmente`) | 4 (`como`, `cuando`, `la vez`, `donde`) | names, British, usage switched on for A2 (189 further cards touched by them alone) | `exEn`, `dropDup`; `build_deck.py`'s -ír imperative |
+
+Counts are measured against the shipped file by card id (`git show HEAD:decks/…` against the working copy,
+comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
+entries, `realmente` (changed only by the name pass) and 189 cards outside the batch changed only by the
+three deck-level passes. An index-by-index comparison is misaligned by the deletions, so ids are the key.
+
+### S1 — DELE A2, notes #0–#29 (Sep 2026)
+
+**FOUR CARDS A1 ALREADY TEACHES, AND THE DECK SAID NONE.** The A2 description claims no word in it appears
+in A1, and four did: `como`, `cuando` and `donde` were INSERTED into A1 by the A1 review after A2 had been
+built, and `la vez` was in both from the start. The generator excludes every word the shipped lower decks
+hold (`words_below`), so a rebuild of A2 against today's A1 would leave all four out; the record now does the
+same through a new deck-level `dropDup`, which CHECKS the claim — every half of the headword must stand on a
+card of the named lower deck — so it cannot quietly delete a word nothing else teaches. Four were
+`dropDup`ped rather than repaired because the A1 cards are the fuller ones (the A1 review gave `como` its
+`como si` and `tan … como`, `donde` its `adonde`). **Any later A1 insert makes the same overlap; run the
+overlap measure after one.**
+
+**138 OF A2'S EXAMPLE SENTENCES ARE ALSO ON AN A1 CARD**, which the A1 deduplication pass could not see: it
+deduplicated within a deck. A reader who has studied A1 meets the sentence again as though it were new. The
+rule this batch applied is A1's own, one level out — the card the reader meets FIRST keeps the sentence, so
+the A1 card keeps it and the A2 card is given a fresh one; within A2 the earlier card keeps it. All three of
+`tan`'s and `cada`'s examples were A1 sentences. **This is a wide, mechanically detectable class** — a
+checker listing every sentence a deck shares with a lower level, on the model of `check-example-fit.js`,
+would let later batches see it at a glance rather than by the ad-hoc script this batch used.
+
+**THE COMMONEST FAULT WAS THE SAME AS A1's: AN EXAMPLE SHOWING A DIFFERENT WORD.** `el vale` was
+illustrated three times by the verb `valer` (`no lo vale`, `tú lo vales`) — and sat fifteenth in a deck
+ordered by frequency because `vale` is the everyday Spanish for "OK", which the card never mentioned, so its
+headword is now `vale` with the interjection first and the voucher beneath it. Two of `fuera`'s three
+examples were the past subjunctive of `ir`/`ser` (`después de que yo me fuera`, `como si fuera un niño`);
+that coincidence now sits in Forms, where a reader will want it.
+
+**SECOND, A DICTIONARY'S SENSE LIST WHERE A CARD WANTS TWO LINES** — `entonces` ("then, next, thereupon, at
+that time, at that point…"), `seguro` (five near-synonyms for two senses), `el mundo` ("world" three ways,
+one with a definition in brackets), `la persona` (a definition split into bullets mid-phrase) — and **THIRD,
+THE PHRASE THE WORD LIVES IN, MISSING**: `¿qué tal?` and `tal vez` on `tal`, `¿verdad?` on `la verdad`,
+`todo el mundo`, `por cierto`, `así que`, `hasta luego`, `¡Dios mío!`, `mientras tanto`. Two glosses were
+simply the wrong sense for the card's own examples: `mientras` glossed "meanwhile" over three sentences
+meaning "while", and `pues` led with "so, because" where two of its three sentences were "well".
+
+**THREE OF ONE CONSTRUCTION** on `seguro` (estar seguro de que ×3), `cierto` (ser cierto ×3), `así` (así que
+×2), `entonces` (desde entonces ×2), `cada` (cada vez más ×2), `contra` (en contra de ×2) — each thinned to
+one and the missing senses given an example.
+
+**THE DECK'S OWN SPANISH WAS WRONG THREE TIMES**: `el fin de semana pasada` (the adjective agreeing with
+`semana` rather than the masculine compound), `de si mismo` (`sí` takes its accent), and `tales historias
+que él cuenta` (wants `como las que`); and twice regional where the exam is Spain's — `luego de` for
+`después de`, `se agarró la gripe` for `cogió`. `un Señor Smith` capitalised `señor`.
+
+**THE CONJUGATION TABLE: `irse`'s affirmative vosotros imperative read `ios`.** The generator makes a
+reflexive imperative by dropping the `-d` and adding `-os`, which is right for `levantad → levantaos` and
+wrong twice here: `ir` keeps its `d` (`idos`), and every other `-ir` verb's `i` takes a written accent once
+the `d` goes (`sentíos`, not `sentios`). **Measured over all six decks: 39 cards** — 7 in A2 (`irse`,
+`sentirse`, `reunirse`, `despedirse`, `vestirse`, `divertirse`, `aburrirse`), 2 in B1, 6 in B2, 15 in C1, 9
+in C2. The GENERAL fix is made in `build_deck.py` (proved only by `py_compile`: the rebuild needs the 1 GB
+cache this sandbox has not got); `irse` is corrected here by `conjSub`, and the other 38 are left for their
+own batches, which will read those cards anyway. This is a vosotros form changing, which the rule "the
+nosotros and vosotros forms must not change" seems to forbid — that rule was written for the stem-changing
+corrections, where those two forms are the regular ones; here the vosotros form IS the fault.
+
+**A NEW RECORD FIELD, `exEn`**, rewrites a generator example's English in place, matched on a substring of
+its Spanish. The instruction for this audit named it, and `spanish-fix.js` did not have it — the only repair
+for a wrong translation was `dropEx` plus `ex`, which moved the sentence to the end and turned a generator
+block into a record one. It errors on a row matching no kept block; the name pass runs first, so its
+substring must avoid a name that pass rewrites. Used in six rows on five cards (`Your father wants you` for `Es a ti a quien
+quiere tu padre`; `the happiest man on earth` for `la persona más feliz del mundo`; the tense of `Pues yo
+quería…`).
+
+**THE DECK-LEVEL PASSES ARE ON FOR A2**, with A1's tables and `Ann` → `Ana` added: 186 `Tom`s in A2's
+English, plus `favorite`, `realized`, `kilometers`, `neighbor`, `movie`, `mom`. **Two count faults in the
+deck's own description**: the subtitle said 500 words against 499 in the file, and the description said three
+examples for "496 of the 499" where the file had 487. It now says 495 and "484 of the 495"; the generator's
+category counts (256 nouns, 70 pairs, 111 verbs, 31 reflexives) are left as they are, on A1's reasoning, and
+the sentence adding the two levels to "1,000 words" is removed, a combined figure being wrong whenever either
+deck moves.
+
+**LEFT, AND WHY.** `realmente` is right as it stands (its three examples are three different uses) and is in
+`reviewed`. `la cabeza` keeps "500 cabezas de ganado" and says what it is. `mejor` keeps
+`Mejor te llevo…`, which is the construction a reader needs and which the A1 review had moved off `bien`.
+
+**THE CHECKERS.** `spanish-fix.js --check` passes; `check-say.js` 0; unbolded examples in A2: 0 of 1,472.
+`check-senses.js --deck=DELE-A2` lists 80 cards (16.2%), two of them this batch's and both false positives: `tan` and
+`tanto` are glossed with "so" and "as", which the checker discards as function words, so their sentences
+cannot match them however right they are. Its top of list is the next batches' reading — `la china` glossed "pebble"
+over three sentences about China, `encantar` glossed "to charm" where the card's own sentences say "I love",
+`el sueño` glossed "sleep" over three about dreams, `apagar` "to extinguish" over three about switching a
+light off, `la cabina` an aeroplane's cabin over three telephone boxes. **`check-decks.js` fails on HEAD**
+with a 30-second timeout waiting for `[data-uadd]` — the Collections page's add button has moved since it
+was written — so it reports nothing about any deck at present; not fixed here, and worth a session of its own.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

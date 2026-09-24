@@ -400,7 +400,14 @@ def conjugation_html(word, rec, reflexive, show_refl_nonfinite=None):
                 if neg:
                     s = cl + ' ' + s
                 else:
-                    if label == 'vosotros' and s.endswith('d'):
+                    if label == 'vosotros' and s == 'id':
+                        s = 'idos'                 # ir is the one verb that keeps its d: idos
+                    elif label == 'vosotros' and s.endswith('id'):
+                        # an -ir verb's i takes a written accent once the d goes,
+                        # or it would form a diphthong with the o: sentid -> sentíos,
+                        # not sentios (39 cards across the six decks shipped that way)
+                        s = s[:-2] + 'íos'
+                    elif label == 'vosotros' and s.endswith('d'):
                         s = s[:-1] + 'os'          # levantad + os -> levantaos
                     elif label == 'nosotros' and s.endswith('s') and cl == 'nos':
                         s = add_stress(s[:-1] + 'nos')
