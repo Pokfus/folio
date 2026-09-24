@@ -674,6 +674,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 241–270 (打仗 → 当选), deck order | 11 | **大都 glossed as a YUAN-DYNASTY CAPITAL** — a proper noun under an adverb label, over three sentences that are all the adverb |
 | 2026-09-24 | `hsk30l6` notes 271–300 (档案 → 吊), deck order | 17 (+1 in Level 5) | **THREE cards glossed from the OTHER reading of their own characters**, and one whose three sentences contained the word nowhere at all |
 | 2026-09-24 | `hsk30l6` notes 301–330 (调动 → 蹲), deck order | 21 | **TEN cards carried a near-repeat**, most of them this record's own fill-pass rows — and a spelling that is neither British nor American, which `check-british.js` can never see |
+| 2026-09-24 | **the British pass's own blind spot** — one finding list, all nine decks | 479 | the pass and its checker both read three fields and the card type has six; **547 American spellings sat in `Characters` alone** |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10659,3 +10660,83 @@ groups 319 and still-ambiguous 1, both unchanged. `check-pinyin.js` clean; `chec
 `check-senses.js`, `check-coarse.js` and `check-say-reading.js` name nothing in 301–330. **Verified
 against the real diff: 21 of 30 changed, nothing outside the range.** `build-lang-decks.js` re-run. No
 changelog line and no version bump.
+
+## Batch 139 — the British pass's own blind spot (all nine decks, 479 cards)
+
+**Not a range of notes but the finding list batch 138 measured and deferred**: `exBritish` swept three
+fields and the Mandarin card type has six. **479 cards changed across all nine decks**, and the diff
+matches the prediction exactly — 475 `Characters` panels, 2 `Compounds`, 1 `Literally`, 1 `English`.
+
+### What was fixed
+
+`exBritish` and `exLexis` in `mandarin-fix.js` now reach `Characters`, `Compounds` and `Literally`
+beside `English`, `Examples` and `answerText`. The words converted are the ones measured last batch:
+**labor 250, color 203, favor 40, plow 18, specialized 16, armor 7, honor 5, armory 5, skillful 3**,
+plus `centralize` in a `Compounds` panel this audit authored and `reorganize` in 重整旗鼓's `Literally`
+line. A reader was meeting `labor` 250 times in a deck authored British.
+
+**THE SELECTOR IS PER FIELD, NOT A UNION, AND THE IDIOMS DECK IS WHY.** Each field is swept only where
+its English lives — an `<i>` gloss in `Characters`, a `uc-cmpg` span in `Compounds`, the whole string in
+`Literally` — because `Characters` carries a pinyin in `uc-ptp` beside every gloss and `Compounds` one
+in `uc-cmpp`, and running an English word list over a romanisation is the thing `answer` is re-derived
+to avoid. A first cut fired all three selectors at every field, which works today and is one line from
+disaster: the Idioms deck's `Origin` line carries **70 bare `<i>` WORK TITLES** — *<i>Analects</i>*,
+*<i>Book of Documents</i>* — so the day `Origin` joins the swept list, a union selector would put a
+word-choice table through the name of a published work.
+
+**`check-british.js` was widened to match, and it is the more important half.** It read the same three
+fields, so it reported 0 truthfully about the two-thirds of the card it was looking at. **A checker's
+reading of zero is only ever a statement about what it reads** — that is this batch's whole lesson, and
+it is the third form of it this audit has met, after batch 76's missing table rows and batch 138's
+`manoeuver`. Proved by planting `specialized` back into one `Characters` panel and watching the widened
+checker name it, then clearing it with the pass.
+
+### Two things the widening broke or found, both caught by reading rather than counting
+
+**THE SWEEP CREATED A DUPLICATE, AND ONLY THE DIFF COULD SHOW IT.** 龙's `Compounds` row — this
+record's own — glossed 龙头 as *tap; faucet; front-runner*, CC-CEDICT's own wording, which lists the
+British and the American word **side by side**. Converting the American one left **`tap; tap;
+front-runner`**. That is batch 26's rule word for word: *read the diff line by line; counting what is
+left cannot see what a swap broke*. The row now reads *tap; front-runner*, which is what an authored
+British panel should have said to begin with. A sweep for a repeated term across all four English
+fields found exactly one other, and it is **not** the sweep's: 替补 has read
+`verb / noun  substitute ; substitute` since before this audit began — two senses glossed with the same
+word, so the noun and the verb were indistinguishable and the reverse card asked one question with one
+answer written twice. Set through `senses` to *to replace; to substitute for* and *a substitute; a
+replacement*.
+
+**AND THE RECORD NEARLY LOST AN ENTRY, WHICH ONLY THE NOTE COUNT COULD SHOW.** The 替补 row was first
+written under the key `hsk3079/替补`; the applier refused it as matching no note — correctly, the deck's
+key is `hsk30l7` — and the rekey **overwrote that note's existing fill-pass entry wholesale**, taking its
+two example sentences and its `why` with it. **`--check` passed afterwards**, and had to: a record that
+has lost an entry and a deck rebuilt from that record agree perfectly. What caught it was arithmetic —
+**8,544 notes before adding a note and 8,544 after** — and nothing else in the pipeline could have. The
+entry is restored and the new `senses` merged into it. **Check the note count after any run that adds
+one**; a rekey is a delete and an insert, and the delete is silent.
+
+### The other half is deferred again, and the measurement says why
+
+`SPELL_PAIRS`'s 39 `-is/-iz` rows still miss **62 distinct American spellings over 97 occurrences and 45
+stems** in the decks' English. Adding the rows is an app change, and this batch measured what it would
+do to the other corpus: **about 45 American spellings would appear at once in FOLIO'S OWN PROSE** —
+`nationalization` ×8 in a Politics card, `optimizing`/`optimization` ×9 across the geography and biology
+collections, `digitized`, `popularized`, `localization`, `sterilization`, `visualization`, `baptized`,
+`monopolized`, `patronizing` in `countries.js`, one in `truefalse.js` and one in `quotes.js`.
+`check-spelling-corpus.js` reads the prose as clean **because those rows are missing**, which is exactly
+the blind spot CLAUDE.md names (*a family nobody added is a family nobody can see*) — now measured on
+both corpora rather than asserted about one. So it is a pass of its own: the rows and the ~45 prose
+fixes in one commit, with a changelog line and a version bump, since that one really is a change to the
+app.
+
+### Checks after
+
+`--check` clean, and the pass is **idempotent** (a second run writes nothing, verified by checksum).
+`check-british.js` 0 over the six fields it now reads; `check-pinyin.js` clean; `check-polyreading.js`
+0; `check-say-reading.js` 0. Coverage 11,532 notes at three sentences with 0 repeats; shared-gloss
+groups 319 and still-ambiguous 1, both unchanged — this batch changed English spelling, not glosses,
+with the two exceptions named above. **Verified against the real diff: 479 cards over nine decks, and
+the changed fields are 475 `Characters`, 2 `Compounds`, 1 `Literally` and 1 `English` with its two
+mirrors — no field this batch did not intend to touch.** One deck file was edited by hand for the
+liveness probe above and the applier rewrote it in the same minute; the checksum test confirms it left
+no trace. `build-lang-decks.js` re-run. **No changelog line and no version bump**: both tools are
+`.claude/` helpers and the rest is deck content.

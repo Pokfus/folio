@@ -324,11 +324,40 @@ function britText(t) {
     return hit ? britCase(m, hit) : m;
   });
 }
-/* Only the ENGLISH of a card is swept — its gloss and each example's `uc-exe` div — never the Chinese
-   and never a `data-say`, which carries its own copy of the sentence. */
-function britExamples(html) {
-  return String(html || "").replace(/(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g, (m, a, mid, b) => a + britText(mid) + b);
+/* Only the ENGLISH of a card is swept — never the Chinese and never a `data-say`, which carries its
+   own copy of the sentence.
+   ---------- WHICH FIELDS ARE SWEPT (batch 139) ----------
+   THIS LIST IS THE WHOLE OF THE PASS, AND IT WAS THREE FIELDS SHORT FOR THIRTY BATCHES. `English`,
+   `Examples` and `answerText` were swept; `Characters`, `Compounds` and `Literally` were not — and
+   they are English a reader reads. Measured across all nine decks against `SPELL_PAIRS`'s own
+   two-way rows before this was written: **547 American spellings in `Characters` over 475 notes**
+   (labor 250, color 203, favor 40, plow 18, specialized 16, armor 7, honor 5, armory 5, skillful 3),
+   one in `Compounds` and one in `Literally`, against ZERO in the three fields the pass did reach. So
+   the pass was working perfectly and looking at 4% of the corpus with its eyes shut, and
+   `check-british.js` — which reads the same fields — reported 0 throughout.
+   THE `Compounds` ONE IS THE SHARP HALF: those panels are authored BY HAND by the deck audit, into a
+   field the pass could not reach, so an American spelling typed into one was stuck for good with
+   nothing able to report it.
+   EACH FIELD IS SWEPT ONLY WHERE ITS ENGLISH LIVES, which is why this is a list of selectors rather
+   than a list of field names: `Characters` carries a pinyin in `uc-ptp` beside each gloss in `<i>`,
+   and `Compounds` carries one in `uc-cmpp` beside each gloss in `uc-cmpg`. Running an English word
+   list over a romanisation is the thing `answer` is re-derived to avoid. */
+const EX_SLOT   = /(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g;        // an example's English translation
+const CHAR_SLOT = /(<i>)([\s\S]*?)(<\/i>)/g;                           // a component's gloss in `Characters`
+const CMP_SLOT  = /(<span class="uc-cmpg">)([\s\S]*?)(<\/span>)/g;     // a compound's gloss in `Compounds`
+function sweepSlot(html, rx, fn) {
+  rx.lastIndex = 0;
+  return String(html || "").replace(rx, (m, a, mid, b) => a + fn(mid) + b);
 }
+/* THE SELECTOR IS PER FIELD, NOT A UNION OF ALL THREE, and the Idioms deck is why: its `Origin` line
+   carries 70 bare `<i>` WORK TITLES — <i>Analects</i>, <i>Book of Documents</i> — so a sweeper that
+   fired the `Characters` selector at every field would be one line away from putting a word list
+   through the name of a published work the day `Origin` joins the list. */
+function britExamples(html) { return sweepSlot(html, EX_SLOT, britText); }
+function britChars(html)    { return sweepSlot(html, CHAR_SLOT, britText); }
+function britCompounds(h)   { return sweepSlot(h, CMP_SLOT, britText); }
+function lexChars(html)     { return sweepSlot(html, CHAR_SLOT, lexText); }
+function lexCompounds(h)    { return sweepSlot(h, CMP_SLOT, lexText); }
 /* ---------- THE AMERICAN-WORD-CHOICE TABLE (batch 24) ----------
    `exBritish` above converts SPELLINGS, and it can do that from app.js's own table because a spelling
    is a fact about a word. A WORD CHOICE is not: `movie`, `vacation`, `elevator` and `faucet` are
@@ -455,9 +484,7 @@ function lexText(t) {
     return hit ? britCase(m, hit) : m;
   });
 }
-function lexExamples(html) {
-  return String(html || "").replace(/(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g, (m, a, mid, b) => a + lexText(mid) + b);
-}
+function lexExamples(html) { return sweepSlot(html, EX_SLOT, lexText); }
 const punctPlain = (s) => punctQuotes(String(s)
   .replace(new RegExp("(" + HAN_RX + ")([,;:!?]) ?", "g"), (m, a, b) => a + FULLWIDTH[b])
   .replace(new RegExp("(" + HAN_RX + ")\\.$"), "$1\u3002"));
@@ -920,16 +947,28 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
   if (dm && dm.exLexis) for (const c of d.cards || []) {
     const fl = c.fields; if (!fl) continue;
     const en = lexText(fl.English), ex = lexExamples(fl.Examples), ans = lexText(c.answerText || "");
-    if (en === fl.English && ex === fl.Examples && ans === (c.answerText || "")) continue;
+    const ch = lexChars(fl.Characters), cp = lexCompounds(fl.Compounds), lit = lexText(fl.Literally);
+    const same = (a, b) => (a || "") === (b || "");
+    if (same(en, fl.English) && same(ex, fl.Examples) && ans === (c.answerText || "")
+        && same(ch, fl.Characters) && same(cp, fl.Compounds) && same(lit, fl.Literally)) continue;
     fl.English = en; fl.Examples = ex; c.answerText = ans;
+    if (fl.Characters) fl.Characters = ch;
+    if (fl.Compounds) fl.Compounds = cp;
+    if (fl.Literally) fl.Literally = lit;
     c.answer = fl.Pinyin + " \u2014 " + ans;
     hitsLex++;
   }
   if (dm && dm.exBritish) for (const c of d.cards || []) {
     const fl = c.fields; if (!fl) continue;
     const en = britText(fl.English), ex = britExamples(fl.Examples), ans = britText(c.answerText || "");
-    if (en === fl.English && ex === fl.Examples && ans === (c.answerText || "")) continue;
+    const ch = britChars(fl.Characters), cp = britCompounds(fl.Compounds), lit = britText(fl.Literally);
+    const same = (a, b) => (a || "") === (b || "");
+    if (same(en, fl.English) && same(ex, fl.Examples) && ans === (c.answerText || "")
+        && same(ch, fl.Characters) && same(cp, fl.Compounds) && same(lit, fl.Literally)) continue;
     fl.English = en; fl.Examples = ex; c.answerText = ans;
+    if (fl.Characters) fl.Characters = ch;
+    if (fl.Compounds) fl.Compounds = cp;
+    if (fl.Literally) fl.Literally = lit;
     c.answer = fl.Pinyin + " — " + ans;
     hitsBrit++;
   }

@@ -27086,7 +27086,7 @@
       ]
     },
     "hsk30l7/替补": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 139: the card read `verb / noun  substitute ; substitute` — two senses glossed with the SAME word, so the noun and the verb were indistinguishable and the reverse card asked one question with one answer written twice. Found by the duplicate-term sweep this batch's widening called for, and it is the generator's own, not the sweep's: it stands that way at HEAD. CC-CEDICT gives the verb *to replace* and the noun *a substitute; a replacement*. | It was also nearly LOST: the first attempt at this row was keyed `hsk3079/替补`, the applier refused it as matching no note, and the rekey to `hsk30l7` OVERWROTE this entry's own fill-pass row wholesale. The applier's `--check` passed afterwards, because a record that has lost an entry and a deck rebuilt from that record agree perfectly. **What caught it was the NOTE COUNT** — 8,544 before and 8,544 after adding a note — and nothing else could have.",
       "ex": [
         [
           "当亚历克斯·弗格森看到自己的球员劳累时，他总是叫替补上场。",
@@ -27095,6 +27095,16 @@
         [
           "他是替补队员。",
           "He is a substitute player."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to replace; to substitute for"
+        ],
+        [
+          "noun",
+          "a substitute; a replacement"
         ]
       ]
     },
@@ -130726,7 +130736,7 @@
       ]
     },
     "hsk30l5/龙": {
-      "why": "龙猫说：“我不会说中文。” turns on 龙猫, which CC-CEDICT gives as *chinchilla* and *Totoro (anime character)* — so the card's character stood inside a cartoon name, used for its shape rather than its sense, and the sentence teaches nothing about dragons. Replaced with an AUTHORED sentence. **买票的人龙竟然那么长 was checked and KEPT**: 人龙 looked like a Hong Kong usage and CC-CEDICT gives it plainly as *a queue of people*, so the sentence stands. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so.",
+      "why": "龙猫说：“我不会说中文。” turns on 龙猫, which CC-CEDICT gives as *chinchilla* and *Totoro (anime character)* — so the card's character stood inside a cartoon name, used for its shape rather than its sense, and the sentence teaches nothing about dragons. Replaced with an AUTHORED sentence. **买票的人龙竟然那么长 was checked and KEPT**: 人龙 looked like a Hong Kong usage and CC-CEDICT gives it plainly as *a queue of people*, so the sentence stands. The card glossed its character and stopped, and the tap panel that lists the other words built on it can only search the deck the READER has downloaded. Every row's reading and gloss was checked against CC-CEDICT before it was written. AUTHORED, and the record says so. | Batch 139: this row was authored as *tap; faucet; front-runner*, CC-CEDICT's own gloss, which lists the British and the AMERICAN word side by side. When the British pass was widened to reach `Compounds` it converted the American one and the row read **tap; tap; front-runner** — the widening's only casualty, and found by reading the diff rather than by counting what was left. The American synonym is dropped at source, which is what an authored British panel should have said to begin with.",
       "dropEx": [
         "龙猫说"
       ],
@@ -130750,7 +130760,7 @@
         [
           "龙头",
           "lóngtóu",
-          "tap; faucet; front-runner"
+          "tap; front-runner"
         ],
         [
           "龙卷风",
