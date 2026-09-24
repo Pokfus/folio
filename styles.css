@@ -1710,11 +1710,27 @@ body[data-theme="folio"].night .collection-deco{
    escape it and no colour, `!important` or otherwise, could have. Standing outside the label it takes
    `--indigo-bright` / `--zh` / `--good` at full strength, which is exactly the ink the study bar's own
    three counts (`.cnt::before`) are drawn in. The size is bumped 7px → 8px with them for the same reason. */
-.study-card .q-dot{display:inline-block; width:calc(8px * var(--fs)); height:calc(8px * var(--fs));
-  border-radius:50%; margin-right:8px; vertical-align:baseline; flex:none; opacity:1;}
-.study-card .q-dot.q-new{background:var(--indigo-bright);}
-.study-card .q-dot.q-learn{background:var(--zh);}
-.study-card .q-dot.q-review{background:var(--good);}
+/* ABOVE A PHONE IT IS A CHIP THAT SAYS WHICH (Sep 2026, on request): NEW, REVIEW or REPEAT, in the same
+   three inks. A coloured dot asks the reader to have learned a key; a word does not, and a tablet or a
+   desktop has the room. The wash is mixed from the state's own colour and the WORD is mixed towards the
+   ink, since `--good` and `--indigo-bright` are quiet tokens that fall under 4.5:1 as 10px text on their
+   own; the plain colour is declared first for a browser without `color-mix`. Below 640px the word is
+   removed and the chip goes back to being the dot, so the phone's row keeps its width. */
+.study-card .q-dot{--qd:var(--indigo-bright); display:inline-flex; align-items:center; flex:none; opacity:1;
+  margin-right:8px; padding:calc(2px * var(--fs)) calc(8px * var(--fs)); border-radius:999px;
+  border:1px solid var(--qd); background:transparent;
+  background:color-mix(in srgb, var(--qd) 14%, transparent);
+  color:var(--qd); color:color-mix(in srgb, var(--qd) 72%, var(--ink));
+  font-size:calc(10px * var(--fs)); font-weight:700; letter-spacing:.09em; line-height:1.3;
+  text-transform:uppercase; white-space:nowrap;}
+.study-card .q-dot.q-new{--qd:var(--indigo-bright);}
+.study-card .q-dot.q-learn{--qd:var(--zh);}
+.study-card .q-dot.q-review{--qd:var(--good);}
+@media (max-width:640px){
+  .study-card .q-dot{display:inline-block; width:calc(8px * var(--fs)); height:calc(8px * var(--fs));
+    padding:0; border:0; border-radius:50%; background:var(--qd); vertical-align:baseline;}
+  .study-card .q-dot .q-dot-t{display:none;}
+}
 .card-stars .cs-star svg{width:calc(12px * var(--fs)); height:calc(12px * var(--fs)); display:block; fill:var(--indigo); opacity:.13;}
 .card-stars .cs-star.on svg{opacity:.5;}
 /* THE WORD, beside the stars (Aug 2026, on request): five small marks in a corner say that something is
