@@ -703,6 +703,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1051–1080 (情节 → 人工智能), deck order | 20 | **权力 'power' used for 权利 'a right'**; 券 swallowed three times over; 热点 illustrated by 热点儿 'a bit hot' |
 | 2026-09-24 | `hsk30l6` notes 1081–1110 (人家 → 塞), deck order | 23 | **人为's three sentences all straddled** (有人+为, 太空人+为, 人+为); 入门 by 插入+门锁; 撒 by a misspelt 撒谎 |
 | 2026-09-24 | `hsk30l6` notes 1111–1140 (赛事 → 社), deck order | 24 | **散's three sentences all swallowed (散步, 好聚好散, 散心)** and its sǎn reading unshown; 上市 by 名义上+市公司; 社 glossed 'earth god' |
+| 2026-09-24 | `hsk30l6` notes 1141–1170 (射 → 时机), deck order | 23 | **摄像's three sentences all 摄像机, one on surveillance cameras in Urumqi** — this record's own; 声调 by 声+调小; two glosses cut off |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12236,3 +12237,34 @@ with 安地斯 the Taiwan spelling of the Andes. **Mistranslations**: 山坡's *
 Coverage: 11,532 notes at three sentences; 313 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
 `check-british` reads 0. **Verified against the real diff: 24 of 30 changed and nothing outside the range.**
 `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 168 — `hsk30l6` notes 1141–1170 (射 → 时机)
+
+**This record's own harvest, wrong three times over on one card.** 摄像 *to film* had three sentences and all
+three were 摄像机 *video camera* — a word of its own — and one was 乌鲁木齐有四万个摄像机, a count of surveillance
+cameras in Urumqi, which is a political fact rather than a vocabulary example. All three replaced by AUTHORED
+sentences showing the verb and the noun *videography*. **The straddle class again**: 声调's 请把音乐声调小 is 声
+*sound* + 调小 *turn down*, with 调 read tiáo.
+
+**Swallows, eleven of them**: 天神 on 神; 发神经 and 神经质 on 神经; this record's 神奇宝贝 *Pokémon* on 神奇; 生态学 on
+生态; 升学率 on 升学; 识拔 and this record's 识字 on 识; the idiom 拾级而上 on 拾, **where 拾 is read shè** (noted in its
+Compounds); 时光机 on 时光.
+
+**Two glosses cut off mid-phrase**: 生成 ("to be formed; to come") and 生态 ("…relation to their"). **Labels**: 审美 and 剩余 were VERBS glossed as nouns ("appreciation of beauty",
+"remainder"). 设想's three sentences show three senses CC-CEDICT gives — a tentative plan, consideration for
+others, to imagine — and are now split and tagged; 神 gained the colloquial *amazing*; 实惠 the noun its label names.
+
+**Sentences that should not be examples**: 射's 别动，不然我就开枪射你 *Don't move, or I'll shoot you*, a threat with no
+context. **Translationese**: 识别's customer-service copy, 时机's press-relations sentence, 师父's game dialogue, 生态印迹.
+
+**Near-repeats, four of them this record's own and three the same sentence twice**: 湿度, 生成, 升学, 实惠; and 涉及
+(astronomy twice), 拾 (拾起了 twice), 时光. 狮子's 狮子是动物 taught nothing.
+
+**Seven cards were read and left**: 摄像头, 身心, 深夜, 生命力, 诗词, 诗歌, 实话. **Noticed out of range, for the Levels
+7–9 pass**: hsk30l7/手枪's 千万别相信一个手里拿手枪的女人 is a generalisation about women, and `check-example-fit.js`
+reads it as 拿手 + 枪. Four Compounds panels written (射, 神, 识, 拾).
+
+Coverage: 11,532 notes at three sentences; same-sentence-twice 142 → 141 (湿度); 313 shared-gloss groups,
+still-ambiguous 1 (邻居/街坊). `check-british` reads 0; `check-gloss-source.js` loses 审美 and 剩余. **Verified against
+the real diff: 23 of 30 changed and nothing outside the range.** `build-lang-decks.js` re-run. No changelog line
+and no version bump.
