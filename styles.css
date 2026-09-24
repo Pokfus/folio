@@ -1819,8 +1819,8 @@ body{--crit-slot:head;}
    line of their own at this width (see `.counts` in the phone block). */
 .counts .crit-row{margin-top:0; margin-right:auto; min-width:0;}
 .crit-pips{display:inline-flex; gap:4px;}
-.crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--ink-faint); box-sizing:border-box;}
-.crit-pip.on{background:var(--ink-faint); border-color:var(--ink-faint);}
+.crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--prog-seen); box-sizing:border-box;}
+.crit-pip.on{background:var(--prog-seen); border-color:var(--prog-seen);}
 /* THE CAPTION IS SET LIKE THE TWO LABELS IT SHARES THE HEADER ROW WITH (Sep 2026, on request:
    "make the 'Recalled on X of 3 days' atop cards the same font and blue color as the Question header
    and difficulty rating"). Both of those are mono-ish small caps in the indigo at half strength —
@@ -1829,12 +1829,10 @@ body{--crit-slot:head;}
    still override the colour with the gold: "Learned" is a state rather than a caption, and the gold is
    how finishing something reads everywhere else on the site. */
 .crit-lbl{font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--indigo); opacity:.5; white-space:nowrap;}
-.crit-row.done .crit-pip{background:#C39A2E; border-color:#C39A2E;}
-body.night .crit-row.done .crit-pip{background:#D4AA3C; border-color:#D4AA3C;}
-/* the caption takes the DEEPER gold, for the reason `.prog-done .xp-lvl` does: #C39A2E at this size on
-   the card is 3.6:1, and this is 10.5px uppercase text */
-.crit-row.done .crit-lbl{color:#8A6A1E; opacity:1;}
-body.night .crit-row.done .crit-lbl{color:#E0C069;}
+/* all three filled: the deep "learned" blue of the deck bar (Sep 2026, on request — it was gold) */
+.crit-row.done .crit-pip{background:var(--prog-learned); border-color:var(--prog-learned);}
+.crit-row.done .crit-lbl{color:var(--prog-learned); opacity:1;}
+body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 /* ...and in the header a PHONE gets the pips alone (Sep 2026, on request: "only display the text on
    desktop and tablet format. on mobile, only show the three dots"). Four things share that line — the
    state dot, the "Question" label with its phrasing counter, this row and the difficulty stars — and
@@ -5302,11 +5300,10 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    `.dk-grip` is `position:absolute` in the row's left padding and giving it `position:relative` would
    drop it back into the flex line.
 
-   THE SUBJECT ICON KEEPS THE COLLECTION'S HUE, which is where this parts company with the tile. The
-   tile's corner glyph is `display:none` once played, because it names a game whose name is written
-   underneath it in words; a row's mark names WHICH collection the deck belongs to and is the reader's own
-   where they have set one, so re-tinting it green would spend the day's colour on the one thing in the
-   row that is not about the day. `.coll-ic.dk-ic` therefore goes on reading `--coll-bg` directly.
+   THE SUBJECT ICON TAKES THE ROW'S GREEN OR GOLD TOO (Sep 2026, on request, reversing the rule that
+   stood here: that the mark names WHICH collection and so should keep its hue). A finished row whose
+   icon stays in the collection colour read as half finished, so `.dk-done .coll-ic.dk-ic` reads
+   `--dk-accent`. An uploaded PNG icon keeps its own colours — an `<img>` has no `currentColor`.
 
    THE CORNER MARK IS CLIPPED, NEVER `display:none`, for the tile's reason: `.gt-check` / `.gt-seal` is
    the only thing on the row that STATES the day in words (`role="img"` + aria-label), so it stays in the
@@ -5323,6 +5320,9 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    the two marks can be on screen together and a banner's seal sits between them */
 .active-deck{ --dk-gold:#B8892A; }
 body.night .active-deck{ --dk-gold:#D8B355; }
+/* the icon joins the row's state; three classes plus the ancestor outrank the day, night and `body.hc`
+   rules on `.coll-ic.dk-ic` up by the row's own block */
+.active-decks .active-deck.dk-done .coll-ic.dk-ic{ color:var(--dk-accent); }
 .active-deck.dk-done::after{
   content:""; position:absolute; z-index:0; pointer-events:none;
   /* Clear of the chevron's column (26px) and the row's own right padding, so the two marks do not sit on
@@ -5449,19 +5449,21 @@ body.night .active-deck{ --dk-gold:#D8B355; }
    both its shape and its place between the two does not.
    The row is `position:relative; overflow:hidden`, so the last row's rounded corners clip the track's ends;
    the figure beside the name stays in the line, that being the part a reader reads rather than glances at. */
+/* THE TWO PROGRESS BLUES, shared with the study card's three-day dots (`.crit-pip`) so a card's dots and
+   its deck's bar say "seen" and "learned" in the same two colours (Sep 2026, on request). */
+body{--prog-seen:var(--indigo); --prog-seen:color-mix(in srgb, var(--indigo) 72%, #fff); --prog-learned:#0A1F9E;}
+body.night{--prog-seen:var(--indigo); --prog-seen:color-mix(in srgb, var(--indigo) 85%, #fff); --prog-learned:#2E4BFF;}
 .active-deck .dk-prog{flex:none; gap:0; min-width:0;}
 .active-deck .dk-prog .track{
   position:absolute; left:0; right:0; bottom:0; flex:none;
   height:3px; min-width:0; border:0; border-radius:0; background:color-mix(in srgb, var(--ink) 7%, transparent);
 }
-.active-deck .dk-prog .fill{border-radius:0; background:var(--indigo); background:color-mix(in srgb, var(--indigo) 72%, #fff);}
-body.night .active-deck .dk-prog .fill{background:var(--indigo); background:color-mix(in srgb, var(--indigo) 85%, #fff);}
+.active-deck .dk-prog .fill{border-radius:0; background:var(--prog-seen);}
 /* the LEARNED half, laid over the studied half from the same left edge (see adProg): a deep saturated blue
    over the theme's indigo, so the lighter blue that shows past its end is the cards met but not yet learned.
    Both halves are blue (Sep 2026, on request — the studied half was the undiscovered-term teal); the learned
    one is solved to stand clearly apart from the indigo in both light and dark */
-.active-deck .dk-prog .fill-l{position:absolute; left:0; top:0; bottom:0; width:0; background:#0A1F9E; transition:width .9s var(--ease);}
-body.night .active-deck .dk-prog .fill-l{background:#2E4BFF;}
+.active-deck .dk-prog .fill-l{position:absolute; left:0; top:0; bottom:0; width:0; background:var(--prog-learned); transition:width .9s var(--ease);}
 .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, #C39A2E, #E6C765);}
 body.night .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}
 .active-deck .dk-prog .count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap; flex:none;}

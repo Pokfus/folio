@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.889", released: "2026-09-24T21:05Z" };
+window.FOLIO_VERSION = { v: "1.890", released: "2026-09-24T21:08Z" };
 
 window.CHANGELOG = [
   {
@@ -47,6 +47,7 @@ window.CHANGELOG = [
       "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
       "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",
       "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades of blue.",
+      "<b>A finished deck's icon turns green or gold with its row</b>, and a card's three-day dots use the bar's two blues, going deep blue once learned.",
       "<b>Who said it? deals three quotations a day</b>, each explanation cites its sources, and editors can take a quotation out of the game.",
       "<b>The Think it through questions show on every card</b>, not only the first time you meet one.",
       "<b>The home page says plainly when you are not signed in</b>, so progress kept only on this device does not come as a surprise.",
