@@ -66,6 +66,17 @@ for (const fn of fs.readdirSync("decks").filter((x) => /^Mandarin-.*\.folio-deck
     String(fl.Examples || "").split(/(?=<div class="uc-exi)/).forEach((b, k) => {
       const m = /<div class="uc-exe">([\s\S]*?)<\/div>/.exec(b); if (m) look("e" + (k + 1), m[1]);
     });
+    /* THE THREE FIELDS THIS CHECKER READ NOTHING OF FOR THIRTY BATCHES (batch 139). A Mandarin card
+       has more English on it than its gloss and its example translations: the `Characters` panel
+       glosses each component, `Compounds` glosses each compound, and the Idioms deck's `Literally`
+       line is English outright. Measured before they were added here: 547 American spellings in
+       `Characters` over 475 notes, one in `Compounds` and one in `Literally` — while this checker
+       reported 0, truthfully, about the two fields it was looking at. A checker's reading of zero is
+       only ever a statement about what it reads. Each is scanned where its English lives, so a
+       component's pinyin in `uc-ptp` and a compound's in `uc-cmpp` are never put through a word list. */
+    String(fl.Characters || "").replace(/<i>([\s\S]*?)<\/i>/g, (m, g) => { look("chars", g); return m; });
+    String(fl.Compounds || "").replace(/<span class="uc-cmpg">([\s\S]*?)<\/span>/g, (m, g) => { look("compound", g); return m; });
+    look("literally", fl.Literally);
   }
 }
 const by = new Map();

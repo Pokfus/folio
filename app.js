@@ -15600,6 +15600,64 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["crystallis", "crystalliz", "e|es|ed|ing|ation"],
     ["orientalis", "orientaliz", "e|es|ed|ing|ation"],
     ["hellenis", "helleniz", "e|es|ed|ing|ation"],
+    /* THE ROWS ABOVE WERE CHOSEN FOR FOLIO'S OWN PROSE and the forty-five below for the language
+       decks', which is a different vocabulary entirely — and the gap between them read as ZERO to every
+       checker there is. `check-british.js` asks whether a word is the American member of a DECLARED
+       pair, so a family with members missing is invisible to it exactly as an absent family would be
+       (the batch-76 lesson, met again at fifteen times the scale): measured over the nine Mandarin
+       decks, 62 distinct American spellings over 97 occurrences and these 45 stems had no row.
+       THE SUFFIX LIST DELIBERATELY OMITS THE BARE STEM, which is what makes several of these safe at
+       all — `synthesis` the noun, `Polaris` the star, `optimism`, `socialist` and `Baptist` are all
+       the stem plus a suffix that is NOT in the list, so none of them can ever be matched. Adding an
+       empty element to any row below would rewrite all five.
+       AND A STEM RULE FOR THIS FAMILY IS NOT AN OPTION, which the same measurement showed: the suffix
+       also catches `prize` 42, `seize` 40, `size` 29 and `maize` 2, where -ize is the only English
+       spelling there is and a rule would write *prise*, *seise*, *sise* and *maise*. */
+    ["authoris", "authoriz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["baptis", "baptiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["customis", "customiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["digitis", "digitiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["disorganis", "disorganiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["energis", "energiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["epitomis", "epitomiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["equalis", "equaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["eulogis", "eulogiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["fertilis", "fertiliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["finalis", "finaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["generalis", "generaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["harmonis", "harmoniz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["hypnotis", "hypnotiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["idolis", "idoliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["jeopardis", "jeopardiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["localis", "localiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["marginalis", "marginaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["mobilis", "mobiliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["monopolis", "monopoliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["nationalis", "nationaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["notaris", "notariz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["optimis", "optimiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["oxidis", "oxidiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["patronis", "patroniz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["penalis", "penaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["plagiaris", "plagiariz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["polaris", "polariz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["popularis", "populariz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["publicis", "publiciz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["radicalis", "radicaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["revitalis", "revitaliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["satiris", "satiriz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["socialis", "socializ", "e|es|ed|ing|ation|ations|er|ers"],
+    ["stabilis", "stabiliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["sterilis", "steriliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["strategis", "strategiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["subsidis", "subsidiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["sympathis", "sympathiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["synchronis", "synchroniz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["synthesis", "synthesiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["traumatis", "traumatiz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["unauthoris", "unauthoriz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["uncivilis", "unciviliz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["visualis", "visualiz", "e|es|ed|ing|ation|ations|er|ers"],
     ["analys", "analyz", "e|ed|ing"],
     ["catalys", "catalyz", "e|ed|ing"],
     ["paralys", "paralyz", "e|ed|ing"],
@@ -15616,6 +15674,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["foetal", "fetal", ""],
     ["foetus", "fetus", "|es"],
     ["anaemia", "anemia", ""],
+    /* THREE MORE OF THIS FAMILY (Sep 2026), found by READING a card rather than by any sweep: 儿科 was
+       glossed `pediatrics` over an example saying `pediatrician`, while two of its own sentences said
+       paediatric — the card contradicted itself and `check-british.js` read 0, the family having no row.
+       Measured over both corpora before they were added: 5 sites in the decks (儿科, 知觉, 麻醉, 膜) and
+       NONE in Folio's own prose, which already writes `oestrogens`. */
+    ["paediatric", "pediatric", "|s|ian|ians"],
+    ["anaesthe", "anesthe", "sia|sias|tic|tics|tist|tists"],
+    ["haemorrhag", "hemorrhag", "e|es|ed|ing|ic"],
     ["anaemic", "anemic", ""],
     ["diarrhoea", "diarrhea", ""],
     ["oedema", "edema", ""],

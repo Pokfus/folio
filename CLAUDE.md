@@ -2276,7 +2276,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.48 MB and 50,633 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.48 MB and 50,699 lines is hard to find your way around, so this
   lists its 195 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -2879,6 +2879,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     example translation, never the Chinese and never a `data-say`, and **re-derives `answerText` and
     `answer` rather than sweeping them**, an English word list over a romanisation being a risk for
     nothing. **It runs LAST**, so the record's own `ex` and `exEn` rows are swept with everything else.
+    **AND SINCE SEP 2026 IT REACHES `Characters`, `Compounds` AND `Literally`, WHICH IT NEVER HAD** —
+    the card type has six English fields and the pass read three, so **547 American spellings sat in the
+    component-breakdown panel across 475 notes** (`labor` 250, `color` 203, `favor` 40, `plow` 18), one
+    in a `Compounds` panel this audit itself authored, and one in the Idioms deck's `Literally` line,
+    while `check-british.js` — reading the same three fields — reported 0 throughout. **A checker's zero
+    is only ever a statement about what it reads.** Each field is swept only where its English lives (an
+    `<i>` gloss, a `uc-cmpg` span, the whole string), never by a union of the three selectors: the Idioms
+    deck's `Origin` line carries **70 bare `<i>` WORK TITLES**, so a union would be one line from putting
+    a word list through the name of a published work.
     Three things bound it and none may be dropped: **the one-way rows are excluded** (app.js's own
     `if (!oneWay)` — reversing them makes every narrative STORY a storey and the noun PRACTICE a verb);
     **five forms are excluded by name** because the reverse mapping is not English (humorous →
@@ -2975,7 +2984,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cards and forgotten on the 117th. `exNames` recasts the example sentences **and rewrites the SPOKEN
     field with the visible ones**, since `data-say` carries its own copy and a rename that missed it would
     show one name and say another. `exBritish` converts the examples' English and **SLICES `SPELL_PAIRS`
-    OUT OF app.js RATHER THAN COPYING IT** — a second copy of a 144-row word list goes stale on a change
+    OUT OF app.js RATHER THAN COPYING IT** — a second copy of a 199-row word list goes stale on a change
     made in a file nobody here has reason to open. `exUsage` is the short DECLARED list of words that are
     not spellings at all. `gloss` + `glossMode` give the deck a glossary of its own. And `conjSub`
     corrects a wrong paradigm, which nothing else can reach.
@@ -3086,6 +3095,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     It also settled `嗯`, whose `ǹg` is not a pinyin syllable and which carries no bopomofo. **Fold erhua
     and split a two-reading card on the slash before comparing**, or every polyphone is a finding — 97
     before those two rules, 2 after.
+- `.claude/decks/check-polyreading.js` — **a single-character card GLOSSED FROM A READING IT DOES NOT
+  TEACH**: `node .claude/decks/check-polyreading.js [--deck=] [--all]`. 哦 was glossed *softly chant*,
+  which is CC-CEDICT's sense for the **é** reading, where the card teaches **ò** and all three of its
+  sentences are *oh*. **NOTHING ELSE HERE CAN SEE IT**: `check-pinyin.js` compares pinyin against
+  bopomofo and both are right; `check-say-reading.js` asks what an engine will GUESS, which is a
+  question about the corpus; and `check-gloss-source.js` compares the gloss against the dictionary entry
+  for the WORD — and **a polyphone's entry holds every reading's senses at once, so it launders a gloss
+  taken from the wrong one**. Report-only, exit 0, and a PROXY: a correct gloss may paraphrase in words
+  the dictionary does not use. **Read the finding and then read the card's SENTENCES**, which decide
+  which half is wrong — on 搞 and 溜 every sentence used the reading the card names, so the GLOSS was
+  corrected; on 揣 and 豁 the sentences used both, so the card was given both, the shape 系, 划 and
+  精神 already use. **The part of speech is stripped before the compare**, or a card glossed
+  *interjection | hmm* matches any reading whose sense says *interjection*. Its first run found eight
+  and all eight were real; it now reads 0.
 - **📖 `.claude/decks/check-coarse.js` — COARSE, OBSCENE AND PREJUDICIAL CONTENT IN THE MANDARIN
   DECKS**, report only, exit 0: `node .claude/decks/check-coarse.js [profanity|sexual|body|adult|
   violence|slur]`. The decks are harvested from a film-subtitle corpus, and a subtitle corpus contains
@@ -3188,7 +3211,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     rule is what to keep**: when a content batch adds English, check the seven families by hand, because
     the checker cannot.
   · **AND A FAMILY CAN BE IN THE TABLE WITH MEMBERS MISSING, WHICH READS AS 0 EXACTLY LIKE AN
-    ABSENT FAMILY** (batch 76). The `-ll-` doubling family has fourteen rows — `travell`, `modell`,
+    ABSENT FAMILY** (batch 76, and again at fifteen times the scale in Sep 2026: the `-is/-iz` family's 39
+    rows had been chosen for FOLIO'S OWN prose — `colonis`, `sovietis`, `hellenis`, `fossilis` — and the
+    decks' English is a different vocabulary, so **62 distinct American spellings over 97 occurrences and
+    45 stems** had no row at all and read as 0. **45 rows added, 70 deck cards converted, and Folio's own
+    prose still reads ZERO**, the ~45 sites a raw grep predicted having turned out to be CITATIONS —
+    published titles, which are borrowed text and never a fault. **The trap that says why this family can
+    never be a rule rather than a table**: the same suffix also catches **`prize` 42, `seize` 40, `size`
+    29 and `maize` 2**, where -ize is the only English spelling there is). **AND THE FAMILY AFTER IT WAS
+    THE `-ae-` ONE, FOUND BY READING A CARD RATHER THAN BY ANY SWEEP**: 儿科 was glossed `pediatrics`
+    over an example saying `pediatrician` while two of its own sentences said *paediatric* — a card
+    contradicting itself while `check-british.js` read 0 — so `paediatric`, `anaesthe` and `haemorrhag`
+    joined it, 5 deck sites and none in Folio's own prose. The `-ll-` doubling family has fourteen rows — `travell`, `modell`,
     `labell`, `cancell`, `counsell`, `jewell` and the rest — and it was missing `diall`, `quarrell`
     and `marvell`, so seven deck sites and one deck GLOSS carried `dialed`, `quarreled` and
     `marvelous` while this checker read 0. **The fix is the TABLE, never the sites**: three rows added

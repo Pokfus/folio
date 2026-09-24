@@ -324,11 +324,40 @@ function britText(t) {
     return hit ? britCase(m, hit) : m;
   });
 }
-/* Only the ENGLISH of a card is swept — its gloss and each example's `uc-exe` div — never the Chinese
-   and never a `data-say`, which carries its own copy of the sentence. */
-function britExamples(html) {
-  return String(html || "").replace(/(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g, (m, a, mid, b) => a + britText(mid) + b);
+/* Only the ENGLISH of a card is swept — never the Chinese and never a `data-say`, which carries its
+   own copy of the sentence.
+   ---------- WHICH FIELDS ARE SWEPT (batch 139) ----------
+   THIS LIST IS THE WHOLE OF THE PASS, AND IT WAS THREE FIELDS SHORT FOR THIRTY BATCHES. `English`,
+   `Examples` and `answerText` were swept; `Characters`, `Compounds` and `Literally` were not — and
+   they are English a reader reads. Measured across all nine decks against `SPELL_PAIRS`'s own
+   two-way rows before this was written: **547 American spellings in `Characters` over 475 notes**
+   (labor 250, color 203, favor 40, plow 18, specialized 16, armor 7, honor 5, armory 5, skillful 3),
+   one in `Compounds` and one in `Literally`, against ZERO in the three fields the pass did reach. So
+   the pass was working perfectly and looking at 4% of the corpus with its eyes shut, and
+   `check-british.js` — which reads the same fields — reported 0 throughout.
+   THE `Compounds` ONE IS THE SHARP HALF: those panels are authored BY HAND by the deck audit, into a
+   field the pass could not reach, so an American spelling typed into one was stuck for good with
+   nothing able to report it.
+   EACH FIELD IS SWEPT ONLY WHERE ITS ENGLISH LIVES, which is why this is a list of selectors rather
+   than a list of field names: `Characters` carries a pinyin in `uc-ptp` beside each gloss in `<i>`,
+   and `Compounds` carries one in `uc-cmpp` beside each gloss in `uc-cmpg`. Running an English word
+   list over a romanisation is the thing `answer` is re-derived to avoid. */
+const EX_SLOT   = /(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g;        // an example's English translation
+const CHAR_SLOT = /(<i>)([\s\S]*?)(<\/i>)/g;                           // a component's gloss in `Characters`
+const CMP_SLOT  = /(<span class="uc-cmpg">)([\s\S]*?)(<\/span>)/g;     // a compound's gloss in `Compounds`
+function sweepSlot(html, rx, fn) {
+  rx.lastIndex = 0;
+  return String(html || "").replace(rx, (m, a, mid, b) => a + fn(mid) + b);
 }
+/* THE SELECTOR IS PER FIELD, NOT A UNION OF ALL THREE, and the Idioms deck is why: its `Origin` line
+   carries 70 bare `<i>` WORK TITLES — <i>Analects</i>, <i>Book of Documents</i> — so a sweeper that
+   fired the `Characters` selector at every field would be one line away from putting a word list
+   through the name of a published work the day `Origin` joins the list. */
+function britExamples(html) { return sweepSlot(html, EX_SLOT, britText); }
+function britChars(html)    { return sweepSlot(html, CHAR_SLOT, britText); }
+function britCompounds(h)   { return sweepSlot(h, CMP_SLOT, britText); }
+function lexChars(html)     { return sweepSlot(html, CHAR_SLOT, lexText); }
+function lexCompounds(h)    { return sweepSlot(h, CMP_SLOT, lexText); }
 /* ---------- THE AMERICAN-WORD-CHOICE TABLE (batch 24) ----------
    `exBritish` above converts SPELLINGS, and it can do that from app.js's own table because a spelling
    is a fact about a word. A WORD CHOICE is not: `movie`, `vacation`, `elevator` and `faucet` are
@@ -455,9 +484,7 @@ function lexText(t) {
     return hit ? britCase(m, hit) : m;
   });
 }
-function lexExamples(html) {
-  return String(html || "").replace(/(<div class="uc-exe">)([\s\S]*?)(<\/div>)/g, (m, a, mid, b) => a + lexText(mid) + b);
-}
+function lexExamples(html) { return sweepSlot(html, EX_SLOT, lexText); }
 const punctPlain = (s) => punctQuotes(String(s)
   .replace(new RegExp("(" + HAN_RX + ")([,;:!?]) ?", "g"), (m, a, b) => a + FULLWIDTH[b])
   .replace(new RegExp("(" + HAN_RX + ")\\.$"), "$1\u3002"));
@@ -490,6 +517,14 @@ let hitsLex = 0;
 let changed = 0, files = 0, missing = [], badGloss = [], badMW = [], badDrop = [], badEx = [], badSense = [], badCmp = [], badExEn = [], badExStop = [], badExSpace = [], badExVar = [];
 let hitsPunct = 0;
 
+/* THE FIELDS A RECORD ENTRY MAY WRITE STRAIGHT THROUGH, and every other key it may legitimately carry.
+   `Traditional` joined the first list in Sep 2026 (batch 98): it was missing, so a correction to it was
+   applied, written nowhere and passed by `--check`. `Simplified` is deliberately NOT here — it is the
+   KEY an entry is looked up by, and writing it would rename the note out from under its own record. */
+const DIRECT_FIELDS = ["Pinyin", "Bopomofo", "Traditional", "Say", "Measure word", "Literally", "Origin", "Examples", "Compounds"];
+const KNOWN_KEYS = new Set(DIRECT_FIELDS.concat(
+  ["why", "senses", "gloss", "glossAll", "mw", "ex", "dropEx", "exEn", "exStop", "exSense", "exSpace", "exVariant"]));
+const badKey = [];
 const hints = Object.entries(fixes.hints || {});
 const hintsByDeck = new Map();
 const seenHint = new Set();
@@ -570,6 +605,21 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
         .map((x) => '<div class="uc-exi' + x).filter((x) => x.indexOf("uc-exadd") < 0).join("");
       hits++;
     }
+    /* AND SO IS EVERY `not X` HINT BLOCK, for the same reason and after one got away (Sep 2026, batch
+       95). The hint below REPLACED a leading block rather than removing one, so a pair retired from
+       `hints` stayed on the card for ever and `--check` went on passing — the exact drift the two
+       strips above exist to prevent, in the one field the header calls authoritative. It went unnoticed
+       because the only pairs ever retired were retired by a note ALSO taking a new gloss in the same
+       batch, and a `senses` rewrite replaces `English` whole and takes the block with it; 拄 was the
+       first note to lose its partner's gloss without changing its own.
+       A BLANKET STRIP IS SAFE HERE BECAUSE THE MAP IS THE COMPLETE LIST, which is measured rather than
+       assumed: of the 640 hint blocks the nine decks carried, 639 were named by `hints` and the one that
+       was not is 拄. The generator's own pairs are in the map beside the ones this record added. If that
+       ever stops being true, this strip deletes a block nothing puts back. */
+    if (/^<div class="uc-pos">not /.test(String(fl.English || ""))) {
+      fl.English = String(fl.English).replace(/^<div class="uc-pos">not [^<]*<\/div>/, "");
+      hits++;
+    }
     /* THE HINT IS APPLIED FIRST AND INDEPENDENTLY, so a note may take a hint and a sense rewrite in one
        pass. It is written as the card type's own `not X` block above the senses — the shape the 104
        pairs the decks already carry use — and is REPLACED rather than appended, so re-running cannot
@@ -589,8 +639,19 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
        record also carries `why`, `senses`, `mw`, `ex` and the rest, which are compact forms this file
        EXPANDS rather than values to be written through. A field added to the deck's type (see
        `decks.addFields`) has to be named here too, or the column is created and never filled. */
-    for (const k of ["Pinyin", "Bopomofo", "Say", "Measure word", "Literally", "Origin", "Examples", "Compounds"]) {
+    for (const k of DIRECT_FIELDS) {
       if (fix[k] !== undefined) fl[k] = fix[k];
+    }
+    /* A KEY THIS FILE DOES NOT HANDLE IS REPORTED, because until Sep 2026 it was silently dropped
+       (batch 98). `Traditional` was not in the list above and is a field every deck carries, so a record
+       entry correcting one — 录 carried 彔, which CC-CEDICT glosses "to carve wood", where the traditional
+       of 录 in this card's sense is 錄 — applied cleanly, wrote nothing, and `--check` passed. The record
+       is the ONE way these decks may be edited, so a field it cannot reach is a field that can never be
+       corrected at all; and a key it drops without a word is worse, because the record then claims an
+       edit the deck has not got. This is a REPORT rather than a failure: the list below is a whitelist of
+       what may be written through, and a typo in a key name is what it is really for. */
+    for (const k of Object.keys(fix)) {
+      if (!KNOWN_KEYS.has(k)) badKey.push(w.key + " → " + k);
     }
     if (fix.ex || fix.dropEx) {
       let kept = String(fl.Examples || "").split('<div class="uc-exi').filter(Boolean)
@@ -886,16 +947,28 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
   if (dm && dm.exLexis) for (const c of d.cards || []) {
     const fl = c.fields; if (!fl) continue;
     const en = lexText(fl.English), ex = lexExamples(fl.Examples), ans = lexText(c.answerText || "");
-    if (en === fl.English && ex === fl.Examples && ans === (c.answerText || "")) continue;
+    const ch = lexChars(fl.Characters), cp = lexCompounds(fl.Compounds), lit = lexText(fl.Literally);
+    const same = (a, b) => (a || "") === (b || "");
+    if (same(en, fl.English) && same(ex, fl.Examples) && ans === (c.answerText || "")
+        && same(ch, fl.Characters) && same(cp, fl.Compounds) && same(lit, fl.Literally)) continue;
     fl.English = en; fl.Examples = ex; c.answerText = ans;
+    if (fl.Characters) fl.Characters = ch;
+    if (fl.Compounds) fl.Compounds = cp;
+    if (fl.Literally) fl.Literally = lit;
     c.answer = fl.Pinyin + " \u2014 " + ans;
     hitsLex++;
   }
   if (dm && dm.exBritish) for (const c of d.cards || []) {
     const fl = c.fields; if (!fl) continue;
     const en = britText(fl.English), ex = britExamples(fl.Examples), ans = britText(c.answerText || "");
-    if (en === fl.English && ex === fl.Examples && ans === (c.answerText || "")) continue;
+    const ch = britChars(fl.Characters), cp = britCompounds(fl.Compounds), lit = britText(fl.Literally);
+    const same = (a, b) => (a || "") === (b || "");
+    if (same(en, fl.English) && same(ex, fl.Examples) && ans === (c.answerText || "")
+        && same(ch, fl.Characters) && same(cp, fl.Compounds) && same(lit, fl.Literally)) continue;
     fl.English = en; fl.Examples = ex; c.answerText = ans;
+    if (fl.Characters) fl.Characters = ch;
+    if (fl.Compounds) fl.Compounds = cp;
+    if (fl.Literally) fl.Literally = lit;
     c.answer = fl.Pinyin + " — " + ans;
     hitsBrit++;
   }
@@ -908,6 +981,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
 }
 for (const [key] of entries) if (!seen.has(key)) missing.push(key);
 for (const [key] of hints) if (!seenHint.has(key)) missing.push(key + " (hint)");
+if (badKey.length) console.log("\n  note  " + badKey.length + " record key(s) this file does not handle:\n        " + badKey.join("\n        "));
 
 if (hitsPunct) console.log("\n  " + hitsPunct + " example block set(s) repunctuated (ASCII marks after a Chinese character)");
 if (hitsLex) console.log("  " + hitsLex + " card(s) put into British word choices from the declared LEXIS table");
