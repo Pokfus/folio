@@ -3465,6 +3465,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S8 | A2 | #196 `contento` – #222 `la tormenta` | 26 | 1 (`el chocolate`) | 0 | — | — |
 | S9 | A2 | #223 `la ciencia` – #249 `andar` | 27 | 0 | 0 | five coarse or explicit examples removed ahead of their audits: B1 `la pelota`, `el huevo`; B2 `la patada`; C1 `el forro`; C2 `la paja` | — |
 | S10 | A2 | #250 `el abrigo` – #276 `el pájaro` | 25 | 2 (`la fábrica`, `el virus`) | 0 | — | — |
+| S11 | A2 | #277 `la salsa` – #303 `enfrente` | 26 | 1 (`quitarse`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -3937,6 +3938,48 @@ are right.
 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 39 → 36, with no
 card of this batch left on it.
+
+### S11 — DELE A2, notes #277–#303 (Sep 2026)
+
+Measured against the S10 commit by card id: **26 changed, 469 untouched**, all 26 of them this batch's
+record entries; `quitarse` was read and left, and is in `reviewed`.
+
+**A GLOSS THAT WAS SIMPLY WRONG.** `la moto` was glossed "milestone", while every example said motorbike.
+
+**GLOSSES THAT MISSED THE SENSE EVERY EXAMPLE USED.**
+- `el anuncio` gave "announcement, notice", while all three examples were advertisements.
+- `el metro` gave "meter, tape measure", while its first example was the underground, the sense a
+  reader in Madrid meets daily.
+- `el cristal` had no window pane, *limpiar los cristales*; all three of its examples were idioms or
+  crystals.
+- `guardar` gave the computing sense twice and missed "to keep, to put away".
+- `presentar` put "to present" first and "to acquaint" last; the A2 sense is *te presento a…*.
+- `enfrente` put "in front of" first, which is *delante de*, where the word means "opposite".
+
+**THE LOOK-ALIKE, SIX MORE TIMES.**
+- `presentar` was illustrated by the adjective *presentes*.
+- `cruzar` by *el cruce*.
+- `montar` by *el monte*.
+- `adivinar` by *el adivino*.
+- `el ron` by a man called Ron: *A Ron le gusta el surf*, the spelling matched and the capital ignored.
+- `chino`'s first example was the language, which its gloss did not name.
+
+**CALQUES AND WRONG REGISTER.**
+- `la crema`: *toma su crema y azúcar con café*. In Spain cream from milk is *la nata*, and the card now
+  says so.
+- `el ron`: *tengo de dejar*.
+- `el piano`: *aprender como afinar*, where the interrogative is *cómo*.
+- `el/la guía`: *perros guías*, where the Academy prefers the invariable *perros guía*.
+- `la salsa`: a sentence about the sauces of the Abkhazians.
+
+**AND THE REST.**
+- Eight A1-shared sentences were replaced, plus five shared with earlier A2 cards.
+- American English is gone: *roommate*, *dresser*, *subway*, *meters*, *commercial*.
+- `chino` lost a generalisation about two peoples.
+- `la garganta` put a gorge beside the throat as an equal; it is now a note.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 36 → 33. The one
+card of this batch left on it is `crecer`, a FALSE POSITIVE: "grow" against "growing" and "grown".
 
 ## The language-deck catalogue — the Update press and the frequency order
 

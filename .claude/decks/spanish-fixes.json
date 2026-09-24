@@ -22511,6 +22511,663 @@
      "My grandfather has two birds in a cage."
     ]
    ]
+  },
+  "delea2/la salsa": {
+   "why": "'gravy' is not what the word means in Spain, and the second example, about which sauces the Abkhazians use, is not a sentence anyone needs. None of the examples was a sauce on a plate.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "sauce",
+      "salsa (music, dance)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "usan los abjasios"
+   ],
+   "ex": [
+    [
+     "¿Quieres salsa de tomate con la pasta?",
+     "Do you want tomato sauce with the pasta?"
+    ]
+   ]
+  },
+  "delea2/la garganta": {
+   "why": "The gloss put 'gorge' beside 'throat' as an equal, and the first example was a gorge. The second, '¿Por qué estoy fumando con dolor de garganta?', is not a sentence anyone says. dolor de garganta, 'sore throat', had no line.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "throat"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dolor de garganta — sore throat"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las gargantas"
+    ],
+    [
+     "also",
+     "gorge (in the mountains; rare)"
+    ]
+   ],
+   "dropEx": [
+    "La casa del pastor estaba en una garganta.",
+    "Por qué estoy fumando"
+   ],
+   "ex": [
+    [
+     "Me duele la garganta.",
+     "I've got a sore throat."
+    ],
+    [
+     "Tómate un caramelo para la garganta.",
+     "Have a throat sweet."
+    ]
+   ]
+  },
+  "delea2/el socorro": {
+   "why": "'relief (provision)' is not how the word is met: socorro is help in an emergency, and above all the cry ¡socorro!, which had no line. The second example, 'Nunca pido socorro', uses it for everyday help.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "help (in an emergency)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡socorro! — help!"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Nunca pido socorro."
+   ],
+   "ex": [
+    [
+     "Un hombre pedía socorro desde el agua.",
+     "A man in the water was calling for help."
+    ]
+   ]
+  },
+  "delea2/presentar": {
+   "why": "The gloss put 'to present' first and 'to acquaint' last; at A2 the word is te presento a…, introducing someone. The second example is the adjective presente, matched on shared letters, and is also an A1 sentence; the third's English said 'roommate'. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to introduce (a person: te presento a mi hermana)",
+      "to present (a programme, a report)",
+      "to hand in"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Casi todos los que estaban presentes"
+   ],
+   "exEn": [
+    [
+     "me presentó a su compañero de habitación",
+     "Carlos introduced me to his flatmate."
+    ]
+   ],
+   "ex": [
+    [
+     "Te presento a mi hermana Lucía.",
+     "This is my sister Lucía."
+    ]
+   ]
+  },
+  "delea2/preparar": {
+   "why": "The gloss is right. The second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to prepare, to make (preparar la cena)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "prepararse — to get ready"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "En ocasiones él prepara la cena para nosotros."
+   ],
+   "ex": [
+    [
+     "Tengo que preparar el examen de mañana.",
+     "I have to prepare for tomorrow's exam."
+    ]
+   ]
+  },
+  "delea2/el ron": {
+   "why": "The third example, 'A Ron le gusta el surf', is a man called Ron, matched on the spelling. The second, 'Tengo de dejar el ron', is not Spanish (tengo que).",
+   "dropEx": [
+    "A Ron le gusta el surf.",
+    "Tengo de dejar el ron."
+   ],
+   "ex": [
+    [
+     "Un ron con cola, por favor.",
+     "A rum and Coke, please."
+    ],
+    [
+     "El ron se hace con caña de azúcar.",
+     "Rum is made from sugar cane."
+    ]
+   ]
+  },
+  "delea2/crecer": {
+   "why": "The gloss did not say that crecer is how a child grows up. The second example is also an A1 sentence. The third, of a river's level, is right. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to grow, to grow up",
+      "to rise, to increase"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las plantas crecen rápidamente después de la lluvia."
+   ],
+   "ex": [
+    [
+     "Mi hijo ha crecido mucho este año.",
+     "My son has grown a lot this year."
+    ]
+   ]
+  },
+  "delea2/chino, china": {
+   "why": "The gloss gave only the adjective, while the first example was the language (responder en chino). That example is shared with responder earlier in A2. The second, that the Japanese have a lot in common with the Chinese, is a generalisation about two peoples. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "Chinese"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el chino — Chinese (the language)",
+      "a Chinese person"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Por favor, responda en chino o en inglés.",
+    "Los japoneses tienen mucho en común"
+   ],
+   "ex": [
+    [
+     "Estoy aprendiendo chino.",
+     "I'm learning Chinese."
+    ],
+    [
+     "Vamos a cenar a un restaurante chino.",
+     "Let's go to a Chinese restaurant for dinner."
+    ]
+   ]
+  },
+  "delea2/la pasta": {
+   "why": "The gloss is right; the second example's English said 'most' for muchas.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "pasta",
+      "paste (pasta de dientes — toothpaste)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Muchas pastas de dientes contienen fluoruro",
+     "Many toothpastes contain fluoride."
+    ]
+   ]
+  },
+  "delea2/el cristal": {
+   "why": "All three examples were idioms or crystals — a glass ceiling, an obsession with crystals, 'clear as crystal' — and none was the everyday sense in Spain: glass, and above all a window pane, limpiar los cristales.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "glass (the material, a pane: los cristales — the windows)",
+      "crystal"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los cristales"
+    ],
+    [
+     "also",
+     "el vidrio — glass (B1)"
+    ]
+   ],
+   "dropEx": [
+    "romper el techo de cristal",
+    "obsesionado con los cristales"
+   ],
+   "ex": [
+    [
+     "Limpio los cristales los sábados.",
+     "I clean the windows on Saturdays."
+    ],
+    [
+     "Cuidado, que hay cristales en el suelo.",
+     "Careful, there's broken glass on the floor."
+    ]
+   ]
+  },
+  "delea2/guardar": {
+   "why": "The gloss gave the computing sense twice over and missed 'to keep, to put away', which two of the examples are. The first is also an A1 sentence; the third's English said 'I'm putting' for guardo and 'dresser', which is American. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to keep, to put away",
+      "to save (a document, a file)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "guardar silencio — to keep quiet"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los estudiantes deben guardar silencio durante la clase."
+   ],
+   "exEn": [
+    [
+     "Guardo la ropa de cama en la cómoda",
+     "I keep the bedding in the chest of drawers."
+    ]
+   ],
+   "ex": [
+    [
+     "Guarda el documento antes de cerrarlo.",
+     "Save the document before you close it."
+    ]
+   ]
+  },
+  "delea2/la fotografía": {
+   "why": "The gloss is right, and the card did not say that la foto, A1's card, is the everyday form. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "forms": [
+    [
+     "plural",
+     "las fotografías"
+    ],
+    [
+     "also",
+     "la foto — photo (A1)"
+    ]
+   ],
+   "dropEx": [
+    "Esa es la fotografía de mi hermana menor."
+   ],
+   "ex": [
+    [
+     "Me encanta la fotografía.",
+     "I love photography."
+    ]
+   ]
+  },
+  "delea2/el anuncio": {
+   "why": "THE GLOSS MISSED THE WORD'S COMMONEST SENSE: every example was an advertisement, and the gloss gave only 'announcement, notice'. 'commercial' is American.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "advert, advertisement",
+      "announcement, notice"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Lea la sección de anuncios",
+     "Read the job adverts if you're looking for work."
+    ],
+    [
+     "tu anuncio de televisión favorito",
+     "What's your favourite TV advert?"
+    ]
+   ]
+  },
+  "delea2/la fiebre": {
+   "why": "The gloss is right. The first and second examples were one construction, un poco de fiebre, twice.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "fever, (high) temperature"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Tienes un poco de fiebre hoy"
+   ],
+   "exEn": [
+    [
+     "Esta mañana he tenido un poco de fiebre",
+     "I had a bit of a temperature this morning."
+    ]
+   ],
+   "ex": [
+    [
+     "Si la fiebre no baja, llama al médico.",
+     "If the fever doesn't come down, call the doctor."
+    ]
+   ]
+  },
+  "delea2/el piano": {
+   "why": "The gloss is right. The second example wrote como for the interrogative cómo ('aprender cómo afinar pianos'). The first is shared with tocar earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "dropEx": [
+    "Mi hermana toca el piano todos los días.",
+    "aprender como afinar pianos"
+   ],
+   "ex": [
+    [
+     "Aprendí a tocar el piano de niña.",
+     "I learnt to play the piano as a girl."
+    ],
+    [
+     "Tenemos un piano viejo en el salón.",
+     "We've got an old piano in the living room."
+    ]
+   ]
+  },
+  "delea2/cruzar": {
+   "why": "'to exchange (words)' is not A2. The third example is el cruce, a crossroads, matched on shared letters, and the first is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cross"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cruzar las piernas — to cross one's legs"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Cuidado con los coches al cruzar la calle.",
+    "Gira a la derecha en el cruce."
+   ],
+   "ex": [
+    [
+     "Cruza la calle por el paso de cebra.",
+     "Cross the street at the zebra crossing."
+    ],
+    [
+     "Hemos cruzado el río en barco.",
+     "We've crossed the river by boat."
+    ]
+   ]
+  },
+  "delea2/el/la guía": {
+   "why": "The card did not say that la guía is also a guidebook, the sense a traveller meets most. The second example wrote 'perros guías', where the Academy prefers the invariable perros guía.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "guide (a person)"
+     ]
+    ],
+    [
+     "noun, feminine",
+     [
+      "guidebook (una guía de Madrid)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los perros guías ayudan a la gente ciega."
+   ],
+   "ex": [
+    [
+     "He comprado una guía de Madrid.",
+     "I've bought a guidebook to Madrid."
+    ]
+   ]
+  },
+  "delea2/el metro": {
+   "why": "THE GLOSS MISSED THE UNDERGROUND, which is the first example and the sense a reader in Madrid meets daily, and spelt the unit 'meter'. The examples' English said 'subway' and 'meters'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "metre",
+      "underground, metro (el metro)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "la estación de metro más cercana",
+     "Where's the nearest metro station?"
+    ],
+    [
+     "está a dos metros de aquí",
+     "The station is two metres away."
+    ]
+   ],
+   "ex": [
+    [
+     "Voy al trabajo en metro.",
+     "I go to work on the metro."
+    ]
+   ]
+  },
+  "delea2/el/la chef": {
+   "why": "The gloss is right. The third example's English said 'came over at our table'.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "chef, head cook"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "El chef se acercó a nuestra mesa",
+     "The chef came over to our table."
+    ]
+   ]
+  },
+  "delea2/el vecino, la vecina": {
+   "why": "The gloss is a definition. The first example, a neighbour with a sword, is not a sentence a reader needs, and the third's English, 'a most gracious neighbour', is two registers above the Spanish.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "neighbour"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "tiene una espada en su casa"
+   ],
+   "exEn": [
+    [
+     "Ella es una vecina de lo más amable",
+     "She's a really kind neighbour."
+    ]
+   ],
+   "ex": [
+    [
+     "Mis vecinos hacen mucho ruido.",
+     "My neighbours make a lot of noise."
+    ]
+   ]
+  },
+  "delea2/montar": {
+   "why": "The gloss missed riding a bike (montar en bicicleta) and assembling furniture, which a reader meets at A2. The second example is el monte, a hill, matched on shared letters, and the first is shared with el caballo earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to ride (a horse; montar en bicicleta — to ride a bike)",
+      "to put together, to assemble (montar un mueble)",
+      "to set up (a business)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Esta mañana ha ido a montar a caballo.",
+    "Pasamos un día fabuloso en el monte."
+   ],
+   "ex": [
+    [
+     "¿Sabes montar en bicicleta?",
+     "Can you ride a bike?"
+    ],
+    [
+     "Tardé dos horas en montar la estantería.",
+     "It took me two hours to put the bookcase together."
+    ]
+   ]
+  },
+  "delea2/la moto": {
+   "why": "THE GLOSS WAS WRONG: 'milestone' is not this word. la moto is a motorbike, short for la motocicleta, which is what every example says.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "motorbike (short for la motocicleta)"
+     ]
+    ]
+   ]
+  },
+  "delea2/el metal": {
+   "why": "The gloss is right. The first example is shared with la madera earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "dropEx": [
+    "¿Esto está hecho de madera o de metal?"
+   ],
+   "ex": [
+    [
+     "Los metales se dilatan con el calor.",
+     "Metals expand when heated."
+    ]
+   ]
+  },
+  "delea2/la crema": {
+   "why": "The first example, 'toma su crema y azúcar con café', is a calque: in Spain, cream in coffee is leche, and cream from milk is la nata. The gloss's 'soup with cream' is a crema de verduras, which is worth a line.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "cream (for the skin: crema para el sol)",
+      "cream soup (crema de calabaza)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las cremas"
+    ],
+    [
+     "not",
+     "cream from milk is la nata in Spain"
+    ]
+   ],
+   "dropEx": [
+    "toma su crema y azúcar con café"
+   ],
+   "ex": [
+    [
+     "Ponte crema para el sol.",
+     "Put some suncream on."
+    ]
+   ]
+  },
+  "delea2/adivinar": {
+   "why": "'to divine' and 'to foretell' are not how the word is met at A2. The third example is el adivino, a fortune-teller, a noun, matched on shared letters.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to guess"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ese adivino no es más que un mentiroso."
+   ],
+   "ex": [
+    [
+     "Nunca adivinarás quién ha venido.",
+     "You'll never guess who's come."
+    ]
+   ]
+  },
+  "delea2/enfrente": {
+   "why": "The gloss put 'in front of' first, which is delante de; enfrente is 'opposite', 'across the road'. Two of the three examples were also A1 sentences, one with the Latin American auto, and the third, 'bailar enfrente de la gente', wants delante. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "opposite, across the road"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "enfrente de — opposite"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "not",
+     "delante de — in front of"
+    ]
+   ],
+   "dropEx": [
+    "El auto está parado enfrente",
+    "¿Ves la figura de algún policía",
+    "No me gusta bailar enfrente de la gente."
+   ],
+   "ex": [
+    [
+     "Vivo enfrente del colegio.",
+     "I live opposite the school."
+    ],
+    [
+     "La farmacia está justo enfrente.",
+     "The chemist's is just across the road."
+    ],
+    [
+     "Se sentó enfrente de mí.",
+     "She sat opposite me."
+    ]
+   ]
   }
  },
  "insert": {
@@ -22779,7 +23436,8 @@
    "el ministro, la ministra",
    "el chocolate",
    "la fábrica",
-   "el virus"
+   "el virus",
+   "quitarse"
   ]
  }
 }
