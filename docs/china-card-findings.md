@@ -3879,6 +3879,77 @@ and Fei* (`cnh-310`). The other five have none: the Commons categories searched 
 no image of a Sogdian Ancient Letter under a findable name, and its one Former Yan tomb painting is
 293 pixels wide. A thumbnail shard composed by hand (`a/a0`) returned 404 and was replaced from the API.
 
+## cnh-311 – cnh-320, the flight south, northern Buddhism and the Eastern Jin (Sep 2026)
+
+Two cards close `col-19` and eight open `col-20`, the Eastern Jin deck. Four plan lines are answered by
+a term the line does not contain, the `ru-052` shape, and the plan's own wording is left as it is:
+- `cnh-311` *The flight of the northern elite to the south* is answered by **lodged commanderies**
+  (僑郡), the units the court created for the refugees. The glossary key is `Lodged_commanderies`, with
+  `qiaojun` and `qiaozhou` as aliases.
+- `cnh-312` *Buddhism in the northern kingdoms* is answered by **Fotudeng**, the monk at the Later Zhao
+  court. `Buddhism` and `Chinese_Buddhism` are already cited terms, so the line had no term of its own.
+- `cnh-315` *The émigré great clans* is answered by **Xie clan**, keyed on `Xie_clan_of_Chen_Commandery`.
+  The Wang of Langya are carried by `cnh-316` Wang Dao.
+- `cnh-317` *The northern expeditions of the Eastern Jin* is answered by **Zu Ti**, whose crossing
+  opened them. `cnh-318` Huan Wen carries the three later campaigns.
+
+**`Eastern_Jin` is a new key, and `Jin_dynasty_(266–420)` gave up its "Eastern Jin" alias to it**, so
+the surface opens the southern dynasty's own term rather than the whole Jin. "Western Jin" stays on the
+older term.
+
+**The sources that carried the batch.** Beyond Theobald, Giles, Cordier and the *Jin shu*:
+- **Chingis Ts. Tsyrenov's two open articles**: the four great clans of the Eastern Jin (*Humanitarian
+  Vector*, 2020) and Wang Dao (*Russian and Chinese Studies*, 2022). **Both are cited under the English
+  titles Crossref registers**, since that is the title the record holds, and marked `[in Russian]`. The
+  2020 record swaps the name fields (given "Tsyrenov", family "Chingis Ts.") beside a phantom empty
+  author, and is declared in `check-citations.js`'s `CROSSREF_WRONG` with the byline as evidence.
+  **The 2022 DOI carries parentheses** and is cited percent-encoded, `6%283%29`.
+- **Alexis Lycas's notices on Wang Dao and Wang Dun** in the *Dictionnaire biographique du haut Moyen Âge
+  chinois* (2020) are open on HAL. The `/document` address serves a bot wall to a browser user-agent;
+  the landing page is what is cited.
+- **Tan Qixiang's 1934 study of the Yongjia migration** in *Yanjing xuebao* 15, on archive.org, is the
+  source for the figure of about 900,000 migrants by the Liu Song, one sixth of the south. It counts the
+  registered people of the lodged units and says itself that the figure is approximate.
+- **Louis Gaillard's *Nankin d'alors et d'aujourd'hui* (1903)** carries Jiankang's plan, its estimated area
+  of at most 90 hectares and the Sui razing. Its gloss dates the razing to "598", a slip for 589, and it
+  says the city was renamed to avoid the name of Yuan Di's "father", which is wrong twice over. **No
+  openable source gives Jiankang's population**, and the card gives none.
+- **Edkins's *Chinese Buddhism* (1880), p. 89**, records under 335 the ruling that let the Later Zhao
+  ruler's subjects become monks, and gives Fotudeng's 893 monasteries on p. 168. **Bingenheimer's
+  network study (2020)** dates Dao'an's time as his pupil to about 335–48.
+- **Shin (2025), Madar (2002) and Li and Zhao (2026)** carry Wang Xizhi. Madar's thesis gives two
+  incompatible pairs of dates for him and was cited only for the gathering of 353. Li and Zhao date the
+  gathering to the sixth month, which is wrong, and were cited only for the Shenlong copy.
+- **Lin Chen's 2014 dissertation** carries the argument over Tao Yuanming's birth year (352, 365, 372 or
+  376) and the late rise of his reputation.
+- **The *Song shu* on Wikisource uses two-digit juan addresses** (`宋書/卷93`), where the *Jin shu*
+  uses three (`晉書/卷093`); each form 404s or serves an empty page for the other book.
+
+**Where the sources disagree, the cards hedge or leave the point out:**
+- The renaming of Jianye: the *Jin shu* treatise ties it to Emperor Min's accession in 313; Theobald's
+  Yuandi page and Cordier give it to Sima Rui in 317. The card gives the *Jin shu*'s reason.
+- Su Jun's rising: 327 in the *Jin shu*, 328 in Theobald and Cordier. The cards say "the late 320s".
+- Wang Dun and Wang Dao: Cordier calls them brothers; the *Jin shu* and Theobald, cousins. The cards say
+  cousin.
+- Wang Dao's birth: 276 in the *Jin shu*, 279 in Tsyrenov's title. The card gives 276 and names the other.
+- Wang Xizhi's dates: 303–361 against 321–379. The card gives both and dates the card by the gathering.
+- Tao Yuanming's birth: the card gives the traditional 365 and the argued range.
+- Fotudeng's origin: the *Jin shu* says India, the *Gaoseng zhuan* the Western Regions. The card calls
+  him a monk from the west and cites the *Jin shu* for India. His death is given as 348 or 349.
+- Huan Wen's Yan campaign: 368 in Giles, 369 everywhere else. The card says 369.
+- Zu Ti's crossing: no openable source dates it, so the card gives no year.
+
+**No war block.** The Eastern Jin's wars are campaigns rather than decided wars between separable
+sides, and the Fei River is already `cnh-310`'s battle locator. `cnh-313` and `cnh-315` carry no
+locator either: a state drawn as a dot and a clan drawn at its lost northern home would both mislead.
+
+**Pictures.** All ten carry one, each shared with its own glossary term. Three are later imaginings and
+their captions say so: Guo Xu's Ming portrait of Xie An, a Qing woodblock of Wang Dao, and Zu Ti in an
+illustrated novel of 1893. Jiankang takes a Liang tomb guardian near Nanjing, the nearest free object
+that stands in the city's own ground, with the caption naming its dynasty. **The Met's photograph of Du
+Jin's Tao Yuanming was refused on sight**: the scroll sits small on a black ground beside a colour bar.
+Chen Hongshou's painting of 1650 replaced it.
+
 ## Re-sourcing the mythology cards (batch C7, Sep 2026)
 
 Five China cards were reported by `check-cards.js` rule 1 for resting three deep on one author —

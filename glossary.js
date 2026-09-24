@@ -4411,7 +4411,17 @@ window.GLOSSARY = {
 "Fu_Jian_(337–385)": "<b>Fu Jian</b> was the ruler of the Former Qin, a state founded by Di chieftains at Chang'an, who seized power in 357 CE by killing his cousin Fu Sheng and took the title Heavenly King of Great Qin.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Aided by his minister Wang Meng, he restored order, conquered the Former Yan, the Former Liang and other rivals, and briefly ruled almost the whole of northern China.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His invasion of the south ended in defeat at the Fei River in 383, his empire broke apart, and he was captured and killed by the Qiang leader Yao Chang in 385.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Han-Zhao": "<b>Han-Zhao</b> is the modern name for a state of northern China founded in 304 CE by the Xiongnu leader Liu Yuan, who claimed descent from a Han princess and called his state Han.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His successors took Luoyang in 311 and Chang'an in 316, and in 319 the ruler Liu Yao moved the capital to Chang'an and renamed the state Zhao, for which reason it is also called the Former Zhao.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was destroyed in 329 by the rival Later Zhao of the Jie leader Shi Le, who had captured Liu Yao the year before.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Later_Zhao": "The <b>Later Zhao</b> was a state of northern China founded in 319 CE by the Jie leader Shi Le, a former slave who had risen as a general of the Xiongnu-led Han state, with its capital first at Xiangguo and later at Ye.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Shi Le destroyed the rival Zhao state of Liu Yao in 329, took the imperial title in 330 and ruled most of the north, with the Huai River as his southern frontier.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> After his kinsman and successor Shi Hu died in 349, his sons fought over the throne, and the general Ran Min destroyed the state in 350.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Sixteen_Kingdoms": "The <b>Sixteen Kingdoms</b> is the name for the many short-lived states that divided northern China between 304 CE and 439, most of them founded by leaders of the Xiongnu, Jie, Xianbei, Di and Qiang peoples.<sup class=\"fn\" data-fn=\"1\"></sup> The name comes from the <i>Spring and Autumn Annals of the Sixteen Kingdoms</i>, a history compiled by Cui Hong early in the 6th century, and the number is conventional, since several states are not counted and some had Chinese founders.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The period is often divided at the battle of the Fei River in 383, and it ended when the Northern Wei reunited the north in 439.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Sixteen_Kingdoms": "The <b>Sixteen Kingdoms</b> is the name for the many short-lived states that divided northern China between 304 CE and 439, most of them founded by leaders of the Xiongnu, Jie, Xianbei, Di and Qiang peoples.<sup class=\"fn\" data-fn=\"1\"></sup> The name comes from the <i>Spring and Autumn Annals of the Sixteen Kingdoms</i>, a history compiled by Cui Hong early in the 6th century, and the number is conventional, since several states are not counted and some had Chinese founders.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The period is often divided at the battle of the Fei River in 383, and it ended when the Northern Wei reunited the north in 439.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Eastern_Jin": "The <b>Eastern Jin</b> was the continuation of the Jin dynasty in southern China from 317 to 420 CE, founded by the prince Sima Rui after the north had been lost and ruled from Jiankang, present-day Nanjing.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its court depended on great émigré families from the north, such as the Wang of Langya and the Xie of Chen, and survived several rebellions as well as a major invasion that was turned back at the Fei River in 383.<sup class=\"fn\" data-fn=\"1\"></sup> It ended in 420, when the general Liu Yu accepted the last emperor's abdication and founded the Song.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Fotudeng": "<b>Fotudeng</b> was a Buddhist monk from the west, called a man of India in the official <i>Jin shu</i>, who reached Luoyang in 310 CE and became adviser to Shi Le and Shi Hu, rulers of the Later Zhao state in northern China.<sup class=\"fn\" data-fn=\"1\"></sup> He was famed for prophecy, said to read the future from the sound of pagoda bells, and tradition credits him with founding 893 monasteries and with the ruling of 335 that allowed local people to become monks.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His pupil Dao'an studied under him for more than ten years before his death at Ye in 348 or 349.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Huan_Wen": "<b>Huan Wen</b> was a general of the Eastern Jin who conquered the Cheng-Han state in Sichuan in 347 CE and led three campaigns into the north, reaching the outskirts of Chang'an in 354 and taking Luoyang in 356.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His third campaign, against the Former Yan in 369, ended in a costly retreat, and in 371 he deposed the reigning emperor and set up Emperor Jianwen in his place.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He was widely suspected of aiming at the throne, and he died in 373 without receiving the honours that traditionally came before a change of dynasty.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Jiankang": "<b>Jiankang</b> was a city on the lower Yangzi River, on the site of present-day Nanjing, which as Jianye had been the capital of the Three Kingdoms state of Wu and was renamed early in the 4th century CE to avoid a character in a Jin emperor's personal name.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It served as the capital of the Eastern Jin from 317 and then of the Song, Qi, Liang and Chen dynasties, so that it gave a home to all six of the Six Dynasties.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> When the Sui conquered the south in 589 the city was razed and part of it turned into fields.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Lodged_commanderies": "<b>Lodged commanderies</b> were refugee provinces, commanderies and districts created in southern China from the early 4th century CE for the officials and peasants who had fled the wars in the north, run by northern officials and named after the northern places their settlers had left.<sup class=\"fn\" data-fn=\"1\"></sup> Their people were first entered on temporary 'white registers', paid no tax at first, and were later moved step by step onto the permanent 'yellow registers' so that they could be taxed like everyone else.<sup class=\"fn\" data-fn=\"1\"></sup> One count of their registered population puts the migrants at about 900,000, roughly one sixth of the south's people.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Tao_Yuanming": "<b>Tao Yuanming</b>, also known as Tao Qian, was a Chinese poet who, after a few minor posts, left the magistracy of Pengze in 405 CE and spent the rest of his life farming near present-day Jiujiang.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His poems of fields, wine and chrysanthemums, his prose tale of the Peach Blossom Spring and his piece 'Returning Home' made him the model of the scholar who chooses a simple life over office.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He died in 427, and while tradition dates his birth to 365, scholars have argued for years between 352 and 376.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Wang_Dao": "<b>Wang Dao</b> was a statesman of the Wang clan of Langya who helped the prince Sima Rui win the support of the southern gentry and found the Eastern Jin, becoming its chief minister and later a regent.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His family's power was such that a saying of the time held that the Wang and the Sima shared the realm, and he kept the emperor's trust even when his cousin Wang Dun rebelled in 322.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He died in 339, having refused to move the capital away from Jiankang after it was sacked by rebels in the late 320s.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Wang_Xizhi": "<b>Wang Xizhi</b> was a Chinese calligrapher of the 4th century CE, a member of the Wang clan of Langya and an official at Kuaiji, whose dates are given variously as 303 to 361 or 321 to 379.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His best-known work, the <i>Preface to the Orchid Pavilion Collection</i> of 353, was written for a gathering of 41 guests, and the original is said to have been buried with the Tang emperor Taizong.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Revered as the Sage of Calligraphy, he became the model against which later calligraphers in China and beyond were judged.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Xie_clan_of_Chen_Commandery": "The <b>Xie clan</b> of Chen commandery was a Chinese aristocratic family from Yangxia, near present-day Taikang in Henan, which moved south in the early 4th century CE and became, with the Wang of Langya, the most eminent lineage of the southern court.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its leading members included the statesman Xie An, who lived from 320 to 385, and his nephew Xie Xuan, who commanded the Jin army that defeated the Former Qin at the Fei River in 383.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The family also produced celebrated writers, among them the poet Xie Lingyun, who lived from 385 to 433.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Zu_Ti": "<b>Zu Ti</b> was a Chinese general of the Jin dynasty who, after the north fell to the Xiongnu and Jie, led a small, poorly supplied army north across the Yangzi and won back much of the land south of the Yellow River.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He is remembered for swearing in midstream, as he struck his oar, that he would not cross the river again until the Central Plain was cleared, and for rising at cockcrow with his friend Liu Kun.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He died at Yongqiu in 321, and most of his gains were soon lost again.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6672,7 +6682,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Fu_Jian_(337–385)": "d. 385 CE",
 "Han-Zhao": "304 – 329 CE",
 "Later_Zhao": "319 – 350 CE",
-"Sixteen_Kingdoms": "304 – 439 CE"
+"Sixteen_Kingdoms": "304 – 439 CE",
+"Eastern_Jin": "317 – 420 CE",
+"Fotudeng": "d. 348 or 349 CE",
+"Huan_Wen": "312 – 373 CE",
+"Jiankang": "317 – 589 CE",
+"Lodged_commanderies": "4th – 6th century CE",
+"Tao_Yuanming": "c. 365 – 427 CE",
+"Wang_Dao": "276 – 339 CE",
+"Wang_Xizhi": "4th century CE",
+"Xie_clan_of_Chen_Commandery": "4th – 5th century CE",
+"Zu_Ti": "266 – 321 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -9177,7 +9197,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Zhuge_Liang's_Northern_Expeditions": ["Northern Expeditions"],
 "Conquest_of_Wu_by_Jin": ["conquest of Wu by Jin","Jin conquest of Wu"],
 "Emperor_Wu_of_Jin": ["Sima Yan"],
-"Jin_dynasty_(266–420)": ["Jin dynasty","Western Jin","Eastern Jin"],
+"Jin_dynasty_(266–420)": ["Jin dynasty","Western Jin"],
 "Menfa": ["menfa","shizu"],
 "Qingtan": ["qingtan","pure conversation"],
 "Romance_of_the_Three_Kingdoms": ["Sanguo yanyi","Romance of the Three Kingdoms"],
@@ -9193,7 +9213,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Fu_Jian_(337–385)": ["Fu Jian"],
 "Han-Zhao": ["Former Zhao","Han Zhao"],
 "Later_Zhao": ["Later Zhao"],
-"Sixteen_Kingdoms": ["Sixteen States","Sixteen Kingdoms"]
+"Sixteen_Kingdoms": ["Sixteen States","Sixteen Kingdoms"],
+"Fotudeng": ["Fotu Cheng","Fotucheng"],
+"Jiankang": ["Jianye"],
+"Lodged_commanderies": ["lodged commandery","qiaojun","qiaozhou"],
+"Tao_Yuanming": ["Tao Qian"],
+"Xie_clan_of_Chen_Commandery": ["Xie clan","Xie family"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -13650,7 +13675,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Fu_Jian_(337–385)": ["person","ruler","history","politics","china","sixteen kingdoms"],
 "Han-Zhao": ["state","history","politics","china","sixteen kingdoms"],
 "Later_Zhao": ["state","history","politics","china","sixteen kingdoms"],
-"Sixteen_Kingdoms": ["era","history","politics","china","sixteen kingdoms"]
+"Sixteen_Kingdoms": ["era","history","politics","china","sixteen kingdoms"],
+"Eastern_Jin": ["state","dynasty","history","politics","china","jin dynasty"],
+"Fotudeng": ["person","religion","buddhism","history","china","sixteen kingdoms"],
+"Huan_Wen": ["person","warfare","history","politics","china","jin dynasty"],
+"Jiankang": ["city","place","history","china","jin dynasty"],
+"Lodged_commanderies": ["institution","history","politics","migration","china","jin dynasty"],
+"Tao_Yuanming": ["person","literature","history","china","jin dynasty"],
+"Wang_Dao": ["person","history","politics","china","jin dynasty"],
+"Wang_Xizhi": ["person","art","history","china","jin dynasty"],
+"Xie_clan_of_Chen_Commandery": ["people","history","politics","china","jin dynasty"],
+"Zu_Ti": ["person","warfare","history","china","jin dynasty"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

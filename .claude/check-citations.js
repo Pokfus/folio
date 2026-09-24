@@ -228,6 +228,11 @@ const CROSSREF_WRONG = [
   // landing page for the DOI prints the byline "Ушаков, М.В." (Ushakov Mikhail Vilorevich),
   // so the Chicago form "M. V. Ushakov" is right and the record is the thing that is wrong.
   ["10.17238/issn2227-6572.2016.2.24", "M. V. Ushakov", "Ushakov M.V."],
+  // Humanitarian Vector reverses the name fields on this record — Crossref carries given "Tsyrenov",
+  // family "Chingis Ts." — beside an empty phantom author entry. The article's own first page prints
+  // the byline "Chingis Ts. Tsyrenov" in English and "Цыренов Ч. Ц." in its copyright line, so
+  // Tsyrenov is the surname and the record is the thing that is wrong.
+  ["10.21209/1996-7853-2020-15-6-189-197", "Chingis Ts. Tsyrenov", "Tsyrenov Chingis Ts."],
   // Kavkazologiya deposits its bylines surname-first with no family/given split, so
   // Crossref carries "Yakhutl Yuri A." The journal's own English article page
   // (caucasology.ru/jour/article/view/588?locale=en_US) prints "Yuri A. Yakhutl".
