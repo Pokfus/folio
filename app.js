@@ -1695,6 +1695,15 @@
      with no way back, so it is cleared on load; a first-time visitor is not admin-eligible at all and
      is unaffected. */
   if (S.settings && S.settings.adminMode === false) S.settings.adminMode = true;
+  /* FLAGS IS A COLLECTION AGAIN (Sep 2026, on request), after a week as two decks of World Geography.
+     Adding a collection adds every deck under it, so a reader who added World Geography in that week
+     holds `flags-world` and `flags-draw` in `S.active` with no parent entry above them — and the two
+     would be drawn as loose rows. Where BOTH are held, the collection entry is put back over them, which
+     is exactly what pressing + on Flags would have written; where only one is, the reader chose that one
+     deck and nothing is widened. Idempotent, so it needs no flag of its own. */
+  if (S && Array.isArray(S.active) && S.active.indexOf("flags") === -1
+      && S.active.indexOf("flags-world") !== -1 && S.active.indexOf("flags-draw") !== -1)
+    S.active.splice(S.active.indexOf("flags-world"), 0, "flags");
   if (S.settings && S.settings.units === undefined) S.settings.units = "metric";
   if (S.settings && S.settings.dayEnd === undefined) S.settings.dayEnd = 0;          // midnight — see dayKey
   if (S.settings && S.settings.animations === undefined) S.settings.animations = true;
@@ -20874,12 +20883,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { k: "wall", n: "Great Wall", d: '<path d="M2 20.4h20"/><path d="M2 20.4v-6.2h7"/><path d="M22 20.4v-4.6h-7"/>' +
       '<path d="M9 20.4v-9.6h6v9.6"/><path d="M8.6 10.8h6.8"/><path d="M10.1 10.8V8.9M12 10.8V8.9M13.9 10.8V8.9"/>' +
       '<path d="M3.9 14.2v-1.7M6.4 14.2v-1.7M17.6 15.8v-1.7M20.1 15.8v-1.7"/>' },
-    /* a flag flying from its staff (Sep 2026, with the Flags deck). IT IS THE READER'S PICKER MARK AND
-       NO COLLECTION'S: Flags began as a collection of its own and is a third DECK of World Geography on
-       request, and a deck inside a collection carries no icon (see `adIconKey`) — so this has no
-       `COLLECTION_ICON` row and is here for somebody to put on a deck of their own. Kept rather than
-       deleted because it is a good generic mark and the picker had none.
-       DRAWN AND LOOKED AT at 28px
+    /* a flag flying from its staff (Sep 2026, with the Flags collection). IT IS THE FLAGS COLLECTION'S
+       MARK AGAIN: Flags began as a collection of its own, spent a week as two decks of World Geography
+       (a deck inside a collection carries no icon, see `adIconKey`), and is a collection of its own once
+       more, on request — so its `COLLECTION_ICON` row is back. DRAWN AND LOOKED AT at 28px
        and 34px, which is the one thing the laurel-wreath note above says cannot be skipped. Four
        candidates were rendered and read at both sizes: a plain rectangle is legible but reads as a
        bookmark, a SWALLOWTAIL's notch closes up into a filled wedge at 28px, and a triangular pennant is
@@ -20970,6 +20977,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     art: "brush",
     "geo-us": "compass",
     "geo-world": "map",
+    flags: "flag",
     "geo-china": "wall",
     /* Russia, in the Geography section, takes the EXISTING `mountain` — the second collection mark on
        this shelf reused rather than drawn, and the cost is stated rather than hidden exactly as Visual
@@ -25607,7 +25615,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -25687,10 +25695,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
     china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
     dino: 1000, korea: 1000, art: 1000,
-    /* World Geography's 937 is 233 countries + 238 capitals + the 233 FLAGS and the 233 DRAW cards,
-       which are further decks of this collection rather than ones of their own (Sep 2026, on request).
-       One collection, several plans: see docs/world-geography-card-plan.md and docs/flags-card-plan.md. */
-    "geo-us": 100, "geo-china": 58, "geo-world": 937, "geo-russia": 163,
+    /* World Geography's 471 is 233 countries + 238 capitals. Flags' 466 is the 233 FLAGS and the 233
+       DRAW cards — two decks that were World Geography's for a week and are a collection of their own
+       again (Sep 2026, on request). See docs/flags-card-plan.md and docs/flags-draw-card-plan.md. */
+    "geo-us": 100, "geo-china": 58, "geo-world": 471, flags: 466, "geo-russia": 163,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -26691,6 +26699,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        — a family resemblance with its sibling collection rather than a confusion with it, at L 38 and
        chroma 44, both mid-band. */
     "geo-world": { bg: "#106834" },
+    /* orchid (Flags, in the Geography section) — MEASURED, CIE76 over the 38 hues on the shelf, and the
+       collection's OLD hue could not come back: the sage grey #6F7866 it wore until it became a deck of
+       World Geography now stands 7.3 from the First World War's field grey, which arrived in the week
+       between. As before, aptness cannot decide — a flag collection has 233 palettes and no hue of its
+       own — so separation does, and the whole wheel returns exactly two regions above the median
+       nearest-neighbour distance of 19.8: the olive-brass (#5A5400, 21.1), refused because it would sit
+       in the Geography section as a sixth member of the green-olive-brown family its four siblings
+       already form, and this one. #9C5A96 is NOT the loud magenta the `dino` note refuses — that was
+       chroma 62; this is L 48, chroma 42, a muted orchid — and it stands 20.1 from Psychology's plum,
+       21.1 from Rome's purple and 21.2 from Astronomy's violet, with density 5 (hues within 30), the
+       lowest in the sweep. Against its own section — two greens, a cobalt and a sandstone brown — it is
+       the one colour that cannot be read as a relative. 4.9:1 against white. */
+    flags: { bg: "#9C5A96" },
     /* cobalt (China, in the Geography section) — MEASURED like every hue above it, and the measurement
        had to be re-run rather than read off the note beside `geo-world`: that sweep compared against the
        CURATED collections alone, and the language collections are drawn on the same page. Including them
