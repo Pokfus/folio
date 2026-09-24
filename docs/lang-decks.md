@@ -3478,6 +3478,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S21 | B1 | #56 `de nuevo` – #83 `la basura` | 28 | 0 | 0 | — | — |
 | S22 | B1 | #84 `el matrimonio` – #111 `parar` | 28 | 0 | 0 | — | `el san` renamed `san`; share filter corrected |
 | S23 | B1 | #112 `lleno` – #138 `el pedido` | 27 | 0 | 1 (`el repente`) | B1 now 998 words; description recounted | `bold` needs `rebold` on a generator sentence |
+| S24 | B1 | #139 `fantástico` – #166 `el desastre` | 26 | 2 (`el/la soldado`, `llorar`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4522,6 +4523,37 @@ untouched**.
 - `check-say` reports 0.
 - The batch has no unbolded examples.
 - `check-senses --deck=DELE-B1` went from 107 to 100, with no card from this batch on it.
+
+### S24 — DELE B1, notes #139–#166 (Sep 2026)
+
+Measured against the S23 commit by card id: **26 changed, 972 untouched**, all 26 of them record entries.
+**`el/la soldado` and `llorar` were read and left as they were.**
+
+**`el papa` WAS NEVER THE POPE.** Two of its examples were *las papas*, "potatoes", which is Latin American
+usage (Spain says *patatas*), and the third was *Papa Noel*. All three are replaced. The Forms row now
+separates the word from *el papá* and *la papa*.
+
+**GLOSSES THAT MISSED THE SENSE A CONVERSATION USES.**
+- `caer`: *caer bien*, "to like someone".
+- `la memoria`: *de memoria*, and a warning that "a memory of something" is *un recuerdo*.
+- `la noticia`: *las noticias*, the news bulletin; its first gloss, "notice", was a false friend.
+- `la prensa`: *rueda de prensa*.
+- `el proyecto`: *proyecto de ley*.
+- `escrito`: *por escrito*.
+
+**`el camión` IS "LORRY".** Every English line said "truck". `exUsage` cannot fix this, because the deck
+is right to say "truck" wherever Spain would say *furgoneta*; it is fixed per card, as `apartment` is.
+
+**THE REST.**
+- `estupendo` lost the Latin American *se ve estupenda*.
+- `el beso` lost the American baseball idiom "first base".
+- `gay` lost the spelling *gays*: the RAE's plural is *gais*, and the card's own Forms row already said so.
+- Twelve sentences shared with A1, A2 or an earlier B1 card were replaced. One replacement, *¿Está libre
+  este asiento?*, was itself A2's `libre` sentence and was changed again.
+
+**CHECKERS.** `--check` passes; `check-say` reports 0; the batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 100 to 97. Its one flag from this batch, `obtener`, is a false
+positive: the only thing its examples agree on is the name *Carlos*.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

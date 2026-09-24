@@ -31168,6 +31168,584 @@
      "The order will arrive on Monday."
     ]
    ]
+  },
+  "deleb1/fantástico, fantástica": {
+   "why": "The gloss put the literary sense first. The first example's Mac, making 'a fantastic shot', is not a sentence a learner needs.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "fantastic, great",
+      "fantastic, imaginary"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Vimos a Mac realizar"
+   ],
+   "ex": [
+    [
+     "Hemos pasado unas vacaciones fantásticas.",
+     "We've had a fantastic holiday."
+    ]
+   ]
+  },
+  "deleb1/escapar": {
+   "why": "The gloss was a list of phrasal verbs. The first example is shared with la información in A1, and the third, 'La vida se me escapa en cada aliento', is poetry. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to escape, to get away"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "escaparse — to escape, to slip out"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Su secretario negó haber dejado escapar",
+    "La vida se me escapa"
+   ],
+   "ex": [
+    [
+     "El preso escapó de la cárcel.",
+     "The prisoner escaped from jail."
+    ],
+    [
+     "El perro se escapó por la puerta.",
+     "The dog got out through the door."
+    ]
+   ]
+  },
+  "deleb1/gay": {
+   "why": "The gloss is right, and the plural is gais as the RAE writes it. The second example spelt it gays and is shared with la pareja in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Ambos son gays"
+   ],
+   "ex": [
+    [
+     "Mi primo es gay y está casado con Luis.",
+     "My cousin is gay and married to Luis."
+    ]
+   ]
+  },
+  "deleb1/estupendo, estupenda": {
+   "why": "'stupendous' is not what the word means in everyday Spanish. The second example's se ve estupenda is Latin American; Spain says está estupenda.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "great, wonderful"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ana se ve estupenda"
+   ],
+   "ex": [
+    [
+     "¡Estupendo! Nos vemos a las ocho.",
+     "Great! See you at eight."
+    ]
+   ]
+  },
+  "deleb1/inmediatamente": {
+   "why": "The gloss is right. The first example is shared with buscar in A1, and the third's English said 'suddenly'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Vaya a buscar un médico inmediatamente"
+   ],
+   "exEn": [
+    [
+     "sintió peligro e inmediatamente",
+     "Carlos sensed danger and immediately felt worried."
+    ]
+   ],
+   "ex": [
+    [
+     "Llama a la policía inmediatamente.",
+     "Call the police immediately."
+    ]
+   ]
+  },
+  "deleb1/la noticia": {
+   "why": "'notice' is a false friend. The gloss did not give las noticias, the news on television, and the first and second examples were one construction, telling someone the news; the second, 'Le has dicho a Carlos sobre las noticias', is a calque.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "piece of news"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "las noticias — the news (on television, the radio)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Le has dicho a Carlos sobre las noticias"
+   ],
+   "ex": [
+    [
+     "Veo las noticias todas las noches.",
+     "I watch the news every night."
+    ]
+   ]
+  },
+  "deleb1/el laboratorio": {
+   "why": "The gloss is right. The second example, 'Antes hablemos sobre los experimentos realizados en laboratorios', is not natural Spanish.",
+   "dropEx": [
+    "Antes hablemos sobre los experimentos"
+   ],
+   "ex": [
+    [
+     "Trabaja en un laboratorio farmacéutico.",
+     "She works in a pharmaceutical laboratory."
+    ]
+   ]
+  },
+  "deleb1/el beso": {
+   "why": "The gloss is right. The second example is shared with siquiera earlier in B1, and the third's English used the American baseball idiom 'first base'. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "No nos hemos dado ni siquiera un beso.",
+    "Solo hemos llegado a darnos besos."
+   ],
+   "ex": [
+    [
+     "Dale un beso a tu abuela.",
+     "Give your grandmother a kiss."
+    ],
+    [
+     "Te mando un beso muy fuerte.",
+     "Sending you a big kiss."
+    ]
+   ]
+  },
+  "deleb1/la conversación": {
+   "why": "The gloss is right. The third example, 'Esta conversación es una obra de arte', is not a sentence a learner needs.",
+   "dropEx": [
+    "Esta conversación es una obra de arte."
+   ],
+   "ex": [
+    [
+     "Tuvimos una larga conversación por teléfono.",
+     "We had a long conversation on the phone."
+    ]
+   ]
+  },
+  "deleb1/enorme": {
+   "why": "The gloss is right. The first and second examples were one construction, a woman alone in a huge house, and the first and third English lines said 'large'.",
+   "dropEx": [
+    "vive sola en una casa de enormes dimensiones"
+   ],
+   "exEn": [
+    [
+     "Ella tiene la enorme casa para ella sola",
+     "She has the huge house to herself."
+    ],
+    [
+     "recibido por una enorme multitud",
+     "The champion was welcomed by a huge crowd."
+    ]
+   ],
+   "ex": [
+    [
+     "Hay un perro enorme en el jardín.",
+     "There's a huge dog in the garden."
+    ]
+   ]
+  },
+  "deleb1/la memoria": {
+   "why": "The gloss missed de memoria, 'by heart', and memorias, 'memoirs', and did not warn that a memory of something is un recuerdo. The first example is shared with si in A1 and the third with el color in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "memory (the faculty)",
+      "memorias — memoirs"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de memoria — by heart"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las memorias"
+    ],
+    [
+     "not",
+     "a memory (of something) — un recuerdo"
+    ]
+   ],
+   "dropEx": [
+    "Si mi memoria es correcta",
+    "Tengo la memoria de un pez de colores."
+   ],
+   "ex": [
+    [
+     "Tiene muy buena memoria.",
+     "She has a very good memory."
+    ],
+    [
+     "Lo aprendí de memoria.",
+     "I learnt it by heart."
+    ]
+   ]
+  },
+  "deleb1/escrito, escrita": {
+   "why": "'having stains or scratches resembling writing' is not B1's. The first example was the verb in a perfect tense and is shared with el libro in A1, and the third's English said 'typed'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "written"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "por escrito — in writing"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Él ha escrito un libro acerca de China."
+   ],
+   "exEn": [
+    [
+     "pueden ser escritas por cualquier secretaria",
+     "These letters can be written by any secretary."
+    ]
+   ],
+   "ex": [
+    [
+     "Necesito una autorización por escrito.",
+     "I need written authorisation."
+    ]
+   ]
+  },
+  "deleb1/caer": {
+   "why": "The gloss said 'to fall' twice and missed caer bien, 'to like someone', which is how the verb is most often used in conversation. The third example is shared with el otoño in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to fall"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "caer bien / mal — to like / dislike (me cae bien — I like him)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "En otoño, las hojas caen de los árboles."
+   ],
+   "ex": [
+    [
+     "Me cae muy bien tu hermana.",
+     "I really like your sister."
+    ]
+   ]
+  },
+  "deleb1/el anillo": {
+   "why": "'annulus' is a mathematician's word. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "ring"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la victoria": {
+   "why": "The gloss is right. The second example, 'Les conduciré hasta otras victorias', is not a sentence a learner needs.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "victory"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Les conduciré hasta otras victorias."
+   ],
+   "ex": [
+    [
+     "El equipo celebró la victoria.",
+     "The team celebrated the win."
+    ]
+   ]
+  },
+  "deleb1/el camión": {
+   "why": "Every English line said 'truck'; this is a British deck. The third example, 'Él fue mandado a volar por un camión', is not natural Spanish, and the first's English said 'jumped back'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "lorry"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "fue mandado a volar por un camión"
+   ],
+   "exEn": [
+    [
+     "se volvió a sentar en su camión",
+     "Carlos sat back down in his lorry."
+    ],
+    [
+     "conducir todo tipo de camiones",
+     "Very few people can drive every kind of lorry."
+    ]
+   ],
+   "ex": [
+    [
+     "Un camión bloqueaba la calle.",
+     "A lorry was blocking the street."
+    ]
+   ]
+  },
+  "deleb1/el sonido": {
+   "why": "The gloss is right. The second example's Yanni making animal sounds is not a sentence a learner needs.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "sound"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Yanni hace muy buenos sonidos"
+   ],
+   "ex": [
+    [
+     "El sonido de este altavoz es excelente.",
+     "The sound from this speaker is excellent."
+    ]
+   ]
+  },
+  "deleb1/la prensa": {
+   "why": "The gloss did not give rueda de prensa. The second and third examples were one construction, a press conference.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "the press, newspapers",
+      "press (machine)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "rueda de prensa — press conference"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No podemos tener una conferencia de prensa"
+   ],
+   "ex": [
+    [
+     "Leo la prensa todas las mañanas.",
+     "I read the papers every morning."
+    ]
+   ]
+  },
+  "deleb1/la posibilidad": {
+   "why": "The gloss did not give 'chance'. The first and third examples were one construction, hay una posibilidad de que, and the first is shared with el éxito earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "possibility, chance",
+      "means (vivir por encima de sus posibilidades)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Hay una posibilidad de que ella tenga éxito."
+   ],
+   "ex": [
+    [
+     "Tenemos pocas posibilidades de ganar.",
+     "We have little chance of winning."
+    ]
+   ]
+  },
+  "deleb1/el asiento": {
+   "why": "'sediment, deposit' are not B1's. The second example is shared with suficiente earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "seat"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Tenemos suficientes asientos para todo el mundo."
+   ],
+   "ex": [
+    [
+     "Pon la bolsa debajo del asiento.",
+     "Put the bag under the seat."
+    ]
+   ]
+  },
+  "deleb1/el proyecto": {
+   "why": "The gloss did not give proyecto de ley, which the first example is; that example is shared with contra in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "project",
+      "plan"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "proyecto de ley — bill (in parliament)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Estoy en contra de este proyecto de ley."
+   ],
+   "ex": [
+    [
+     "Tenemos un proyecto nuevo en el trabajo.",
+     "We have a new project at work."
+    ]
+   ]
+  },
+  "deleb1/obtener": {
+   "why": "The gloss is right. The third example is shared with actualmente in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to obtain, to get"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Actualmente Carlos no obtiene tanto dinero"
+   ],
+   "ex": [
+    [
+     "Para obtener el visado necesitas un pasaporte.",
+     "To get the visa you need a passport."
+    ]
+   ]
+  },
+  "deleb1/de vez en cuando": {
+   "why": "The gloss is right. The first example is shared with bonito in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "from time to time, now and then"
+     ]
+    ]
+   ],
+   "bold": [
+    "de vez en cuando"
+   ],
+   "dropEx": [
+    "Todos merecen sentirse bonitos"
+   ],
+   "ex": [
+    [
+     "De vez en cuando comemos fuera.",
+     "We eat out from time to time."
+    ]
+   ]
+  },
+  "deleb1/la cantidad": {
+   "why": "The gloss is right. The second example is a news line about one country's finances, and the third, 'El niño tiene la mayor cantidad de fruta', is not a sentence a learner needs.",
+   "dropEx": [
+    "Argelia está perdiendo",
+    "El niño tiene la mayor cantidad de fruta."
+   ],
+   "ex": [
+    [
+     "No sé la cantidad exacta.",
+     "I don't know the exact amount."
+    ],
+    [
+     "Hay que beber gran cantidad de agua.",
+     "You need to drink plenty of water."
+    ]
+   ]
+  },
+  "deleb1/el papa": {
+   "why": "NONE OF THE THREE EXAMPLES WAS THE POPE. Two were las papas, 'potatoes', which is Latin American (Spain says patatas), and the third was Papa Noel, Father Christmas.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "pope"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los papas"
+    ],
+    [
+     "not",
+     "el papá — dad; la papa — potato (Latin America; in Spain la patata)"
+    ]
+   ],
+   "dropEx": [
+    "le gusta la ensalada de papas",
+    "Papa Noel trae regalos"
+   ],
+   "ex": [
+    [
+     "El papa vive en el Vaticano.",
+     "The Pope lives in the Vatican."
+    ],
+    [
+     "Eligieron a un nuevo papa.",
+     "A new pope was elected."
+    ],
+    [
+     "Miles de personas fueron a ver al papa.",
+     "Thousands of people went to see the Pope."
+    ]
+   ]
+  },
+  "deleb1/el desastre": {
+   "why": "The gloss was a thesaurus line, and missed a mess, which the third example is.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "disaster",
+      "mess, shambles (colloquial)"
+     ]
+    ]
+   ]
   }
  },
  "insert": {
@@ -31457,7 +32035,9 @@
    "el capitán, la capitana",
    "último, última",
    "correcto, correcta",
-   "el plan"
+   "el plan",
+   "el/la soldado",
+   "llorar"
   ]
  }
 }
