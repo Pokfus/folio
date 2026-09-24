@@ -685,6 +685,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 511–540 (海内外 → 狠), deck order | 16 | **a card whose pinyin and bopomofo both say one reading while its gloss is the other reading's**, which `check-polyreading.js` cannot see because it only reads single-character cards |
 | 2026-09-24 | `hsk30l6` notes 541–570 (恨 → 还原), deck order | 14 | **a character error that put the headword on the card** — 怀 for 坏, which speaks and segments perfectly — and six single-character cards given `Compounds` panels |
 | 2026-09-24 | `hsk30l6` notes 571–600 (患 → 激发), deck order | 15 (+1) | **two of 会见's three sentences were 会 + 见**, their own translations saying so; a gloss fix retired a third `not X` pair |
+| 2026-09-24 | `hsk30l6` notes 601–630 (基金 → 加重), deck order | 18 | **夹: not one of its three sentences used the verb the card teaches**, one of them a loanword in which the character means nothing — and two replacements drafted here carried back the very fault they replaced |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11477,3 +11478,67 @@ Coverage: 11,532 notes at three sentences, 0 repeats, **316 shared-gloss groups*
 was retired) with still-ambiguous 1. `check-british` reads 0. **Verified against the real diff: 15 of
 30 changed and exactly one note outside the range, `hsk30l7/绘制`.** `build-lang-decks.js` re-run. No
 changelog line and no version bump.
+
+### Batch 150 — `hsk30l6` notes 601–630 (基金 → 加重), 2026-09-24
+
+Eighteen of the thirty changed, and **two of the replacements drafted in this batch were themselves
+the fault they were replacing** — both caught reading the cards back before anything shipped. That is
+the standing rule (*pick the construction first and the content second*) earning its keep for the ninth
+batch running, and it is worth recording what it caught rather than quietly fixing it. The draft for
+家常 was 婆媳俩坐着拉家常, a near-repeat of the 我们聊了些家常 standing directly above it — one fault
+swapped for another. The draft for 家居 was worse: 周末他大多待在家居家办公 is 待在家 + 居家办公, the
+**same straddle** the edit existed to remove. **Read the whole card back, not the line you changed.**
+
+**夹 is the batch's finding, and it is a shape none of these batches has produced before: a
+single-character card not one of whose three sentences used the word it teaches.** The gloss is the
+verb — *to press from both sides, to place in between* — and the three sentences were 夹克, 剪报夹 and
+文件夹. Two of those are genuine: CC-CEDICT's 夹 `[jia1]` carries *clip; folder* as well as the verb,
+so 剪报夹 and 文件夹 are the noun sense and were kept. **夹克 is a loanword for "jacket"**, in which
+the character is a phonetic sign and means nothing at all — the one sentence on the card where the
+headword is not the word. It is replaced by an authored verb sentence, and a `Compounds` panel names
+夹子, 夹杂, 文件夹 and 夹缝. **Nothing in the pipeline can see a transliteration**: it segments, it
+speaks, and the headword is present as a literal substring.
+
+**家居 is the harvest guard's own blind spot, demonstrated twice on one note.** This record had
+ALREADY dropped two straddles from it — 国家 + 居住 and 画家 + 居住 — and then harvested
+你家居然有辆日本车, which is 家 + 居然, in their place. The harvest's guard asks whether a LONGER word
+swallows the headword; it says nothing about one spanning two SHORTER words, so **a replacement can
+carry back in the very fault it was replacing**, which is exactly what happened here and then nearly
+happened a second time in this batch's own draft. 家常's 胜败是兵家常事 is the same class: 兵家 +
+常事, on a proverb about soldiers.
+
+**Four glosses kept a sense none of their sentences shows.** 加重 was *to make heavier*, CC-CEDICT's
+first and literal words, over three sentences that are all figurative — a disaster made worse, an
+illness worsened, a burden increased; the dictionary continues *to aggravate (a bad situation); to
+increase (a burden)*. **That is the fifth batch running for this trap.** 集团 was *group; clique;
+circle* and never named the corporate sense two of its three sentences use. 技艺 was *skill* alone
+where the dictionary gives *skill; art*, and its own third sentence is about a craft. 急切 read
+**"eager;urgent; imperative"** — a missing space after the first semicolon and two senses CC-CEDICT
+does not carry at all, where it gives *eager; impatient*, and impatience is what the card's own third
+sentence warns against.
+
+**Four near-repeats, one of them an outright duplicate.** 机遇's 这是一个难得的机遇 and 这是难得的机遇
+are the same sentence with 一个 taken out **and carried the same English word for word** — a duplicate
+`check-mandarin-coverage.js` misses by one character, comparing exactly. Then 机制 (one subject
+changed), 季军 (the setting taken out), 加倍 (both 加倍小心), 继承 (both 继承王位), 吉祥 (both about
+the colour red) and 技艺 (both 他的技艺…).
+
+**Three Englishes dropped the word the card teaches**, which is the third batch running where the fault
+sat on the English side. 极为's two — "His words broke her heart", "All the members made much of her
+opinion" — carried no adverb at all, on a card whose whole subject is a formal intensifier. 激情's
+"full of energetic and splendid competition" is not a grammatical sentence and renders neither the
+word nor the Chinese. And 基因's 基因编辑 was translated *genetic engineering*, which is 基因工程 — a
+different thing and a different word.
+
+**Two sentences were dropped for their content.** 集团's was a police raid on a group of prostitutes,
+which `check-coarse.js` does not carry (娼妓 is in none of its six lists) and which teaches nothing
+about a word meaning *group*. 基金's was the lobbyists' bribe — the same sentence 汇 carried thirty
+notes earlier in this deck, and dropped there too — leaving the card no longer two-thirds about misused
+money. 急救 had the headword only inside 急救箱 and the proper name 海姆利克急救法; one is replaced.
+
+**Twelve cards were read and left**: 激励, 机械, 即便, 极端, 纪律, 寂寞, 技巧, 家家户户, 加剧, 家属,
+加以, 家园.
+
+Coverage unchanged: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with
+still-ambiguous 1. `check-british` reads 0. **Verified against the real diff: 18 of 30 changed and
+nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
