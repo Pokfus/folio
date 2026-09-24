@@ -20648,6 +20648,598 @@
      "They have hens and pigs on the farm."
     ]
    ]
+  },
+  "delea2/contento, contenta": {
+   "why": "The gloss is right. The first example's English, 'I am contented with my lot', is two registers above the Spanish.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "happy, pleased, glad (estar contento)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "con mi situación en la vida",
+     "I'm happy with my situation in life."
+    ]
+   ]
+  },
+  "delea2/romper": {
+   "why": "The gloss named 'to break up' without the construction, romper con alguien. The first and third examples both broke the window, the first in a stilted cleft. The second is shared with la compra later in A2 and stays here.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to break",
+      "to tear (paper, clothes)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "romper con alguien — to break up with someone"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Lo que ellos hicieron fue romper"
+   ],
+   "ex": [
+    [
+     "Ana ha roto con su novio.",
+     "Ana has broken up with her boyfriend."
+    ]
+   ]
+  },
+  "delea2/la medicina": {
+   "why": "The gloss did not separate a medicine from medicine the subject. The first example is shared with la enfermedad earlier in A2; the second's English said 'medications'. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "medicine (a drug)",
+      "medicine (the subject, the profession)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La medicina es el estudio de las enfermedades."
+   ],
+   "exEn": [
+    [
+     "las medicinas que necesites",
+     "Write down the medicines you need on this piece of paper."
+    ]
+   ],
+   "ex": [
+    [
+     "Mi hermana estudia Medicina en Salamanca.",
+     "My sister is studying medicine in Salamanca."
+    ]
+   ]
+  },
+  "delea2/el pollo": {
+   "why": "THE THIRD EXAMPLE WAS SEXUALLY EXPLICIT and not about this word at all: 'prefiero las pollas de verdad' is la polla, a vulgar word for the penis, matched on shared letters, with a translation to match. A sweep of every example in the seven Spanish decks for vulgar vocabulary (with Unicode-aware word boundaries) found no other. The second example kept six chickens as pets, which are gallinas; the first's 'hoy a la noche' is Rioplatense for esta noche.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "chicken (to eat)",
+      "chick, young chicken"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los pollos"
+    ],
+    [
+     "also",
+     "la gallina — hen"
+    ]
+   ],
+   "dropEx": [
+    "prefiero las pollas de verdad",
+    "seis pollos",
+    "cocinar pollo hoy a la noche"
+   ],
+   "ex": [
+    [
+     "Hoy comemos pollo asado.",
+     "We're having roast chicken today."
+    ],
+    [
+     "Me gustaría cocinar pollo esta noche.",
+     "I'd like to cook chicken tonight."
+    ],
+    [
+     "El pollo ya está en el horno.",
+     "The chicken's already in the oven."
+    ]
+   ]
+  },
+  "delea2/varios": {
+   "why": "The gloss is right. The second example's English said 'many times' for varias veces.",
+   "senses": [
+    [
+     "determiner",
+     [
+      "several",
+      "various"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "ver esta película varias veces",
+     "This film is worth seeing several times."
+    ]
+   ]
+  },
+  "delea2/el sombrero": {
+   "why": "'butterfly pea (Clitorea ternatea)' is a plant and nothing a reader will meet. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "hat"
+     ]
+    ]
+   ]
+  },
+  "delea2/menor": {
+   "why": "THE GLOSS GAVE ONLY THE LEGAL SENSE, 'underage', while two of the three examples were 'younger' and 'youngest', which is how the word is met at A2. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "younger (mi hermano menor)",
+      "youngest (la menor de las hijas)",
+      "smaller, less, lesser"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "menor de edad — a minor, under age"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Esa es la fotografía de mi hermana menor."
+   ],
+   "ex": [
+    [
+     "Mi hermano es dos años menor que yo.",
+     "My brother is two years younger than me."
+    ]
+   ]
+  },
+  "delea2/limpio, limpia": {
+   "why": "The third example is the verb limpiar ('¿por qué limpias la casa?'), matched on shared letters.",
+   "dropEx": [
+    "limpias la casa todas las semanas"
+   ],
+   "ex": [
+    [
+     "La ropa limpia está en el armario.",
+     "The clean clothes are in the wardrobe."
+    ]
+   ]
+  },
+  "delea2/la china": {
+   "spanish": "China",
+   "word": "China",
+   "why": "THE CARD WAS HEADED AS THE WRONG WORD. la china is a pebble, which is what it was glossed as, and every example was China, the country. The country is what an A2 reader needs; the pebble goes in Forms, and the nationality, chino, china, is its own card later in A2. Two of the three examples were also one sentence (a book written about China, a book written in China), and the first is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "proper noun",
+     [
+      "China"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "also",
+     "la china — pebble (a different noun)"
+    ],
+    [
+     "nationality",
+     "chino, china — Chinese"
+    ]
+   ],
+   "dropEx": [
+    "Él ha escrito un libro acerca de China.",
+    "Él escribió un libro cuando estaba en China."
+   ],
+   "ex": [
+    [
+     "Mi hermana vive en China desde hace dos años.",
+     "My sister has been living in China for two years."
+    ],
+    [
+     "La Gran Muralla está en el norte de China.",
+     "The Great Wall is in the north of China."
+    ]
+   ]
+  },
+  "delea2/el dedo": {
+   "why": "'digit' is not how English names a finger, and toes, dedos del pie, had no line. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "finger",
+      "toe (dedo del pie)"
+     ]
+    ]
+   ]
+  },
+  "delea2/elegir": {
+   "why": "The gloss is right. The second example, about a horse the speaker picked coming first, is the sentence S5 took off finalmente, where it was also stilted.",
+   "dropEx": [
+    "salió primero un caballo que yo elegí"
+   ],
+   "ex": [
+    [
+     "Elige el postre que quieras.",
+     "Choose whatever dessert you like."
+    ]
+   ]
+  },
+  "delea2/la costa": {
+   "why": "NONE OF THE THREE EXAMPLES WAS THE COAST. All three were a toda costa or a costa de, 'at any cost', which is costa in the sense of cost, built on costar. The phrase stays on the card as a line.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "coast"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a toda costa — at all costs"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "irse a casa a toda costa",
+    "a costas de su vida propia",
+    "defender nuestro país a toda costa"
+   ],
+   "ex": [
+    [
+     "Pasamos el verano en la costa.",
+     "We spent the summer on the coast."
+    ],
+    [
+     "Málaga está en la costa del sur de España.",
+     "Málaga is on the south coast of Spain."
+    ],
+    [
+     "Esta ciudad está a cien kilómetros de la costa.",
+     "This town is a hundred kilometres from the coast."
+    ]
+   ]
+  },
+  "delea2/el cuento": {
+   "why": "All three examples were fairy tales, and the third's English said 'fairy tales' for plain cuentos. The second is shared with la princesa earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "story, tale",
+      "short story"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cuento de hadas — fairy tale"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ana es una princesa de cuento de hadas."
+   ],
+   "exEn": [
+    [
+     "les encanta escuchar cuentos",
+     "Children love listening to stories."
+    ]
+   ],
+   "ex": [
+    [
+     "Mi abuela me contaba cuentos antes de dormir.",
+     "My grandmother used to tell me stories at bedtime."
+    ]
+   ]
+  },
+  "delea2/enviar": {
+   "why": "The gloss is right. The first example's 'mañana en la mañana' is Latin American, where Spain says mañana por la mañana, and its English said 'mail'.",
+   "dropEx": [
+    "mañana en la mañana"
+   ],
+   "ex": [
+    [
+     "Te envío las fotos por correo electrónico.",
+     "I'll send you the photos by email."
+    ]
+   ]
+  },
+  "delea2/impresionante": {
+   "why": "'awesome' is American. The third example, 'Ese vestido se ve impresionante en ti', is a calque of the English 'looks good on you', where Spanish says te queda.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "impressive, amazing, stunning"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ese vestido se ve impresionante en ti."
+   ],
+   "ex": [
+    [
+     "Las vistas desde la torre son impresionantes.",
+     "The views from the tower are amazing."
+    ]
+   ]
+  },
+  "delea2/explicar": {
+   "why": "'to explain oneself' is explicarse, and ¿me explico? had no line. The second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to explain"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "explicarse — to explain oneself",
+      "¿me explico? — do you see what I mean?"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La semana que viene lo explicaré en detalle."
+   ],
+   "ex": [
+    [
+     "¿Me puedes explicar cómo funciona esto?",
+     "Can you explain how this works?"
+    ]
+   ]
+  },
+  "delea2/el alcohol": {
+   "why": "'galena' is a mineral and not this word. The first example is also an A1 sentence, and in the third el cigarro is a cigar in Spain where the English read 'smoking'. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "alcohol"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no tengo ganas de beber alcohol",
+    "dejó el cigarro y el alcohol"
+   ],
+   "exEn": [
+    [
+     "Mi padre ha dejado de beber alcohol",
+     "My father has given up alcohol."
+    ]
+   ],
+   "ex": [
+    [
+     "Esta cerveza no tiene alcohol.",
+     "This beer has no alcohol in it."
+    ],
+    [
+     "Él dejó el tabaco y el alcohol.",
+     "He gave up smoking and drinking."
+    ]
+   ]
+  },
+  "delea2/antiguo, antigua": {
+   "why": "The gloss was a thesaurus ('erstwhile, quondam, onetime'), and it did not say that before a noun the word means 'former': mi antiguo jefe. The first example is also an A1 sentence, set in Boston; the third's English made two ruins one. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "old (una casa antigua), ancient",
+      "former (before the noun: mi antiguo jefe)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el restaurante más antiguo de Boston"
+   ],
+   "exEn": [
+    [
+     "Esas antiguas ruinas",
+     "Those ancient ruins were once a temple."
+    ]
+   ],
+   "ex": [
+    [
+     "Mi antiguo jefe vive ahora en Sevilla.",
+     "My former boss now lives in Seville."
+    ]
+   ]
+  },
+  "delea2/el queso": {
+   "why": "The gloss is right. The third example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "El queso se hace a partir de leche."
+   ],
+   "ex": [
+    [
+     "Un bocadillo de queso, por favor.",
+     "A cheese sandwich, please."
+    ]
+   ]
+  },
+  "delea2/olvidar": {
+   "why": "The gloss did not say that the verb is usually olvidarse de, which two of its examples are. The second is shared with tal earlier in A2. The third is shared with acordarse later in A2 and stays here. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to forget (olvidar algo, olvidarse de algo)",
+      "to leave behind (he olvidado el paraguas)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Tal vez ella se olvidó de mi cumpleaños."
+   ],
+   "ex": [
+    [
+     "He olvidado las llaves en casa.",
+     "I've left my keys at home."
+    ]
+   ]
+  },
+  "delea2/el techo": {
+   "why": "The gloss is right, though a pitched roof in Spain is el tejado. The second example, that Japan's ceilings are low for foreigners, is a claim rather than a sentence; the first's English said 'in behalf of', the third's 'our building' for nuestra casa.",
+   "forms": [
+    [
+     "plural",
+     "los techos"
+    ],
+    [
+     "also",
+     "el tejado — (tiled) roof"
+    ]
+   ],
+   "dropEx": [
+    "Los techos de Japón"
+   ],
+   "exEn": [
+    [
+     "habló en favor de los sin techo",
+     "She spoke on behalf of the homeless."
+    ],
+    [
+     "voló el techo de nuestra casa",
+     "The wind blew the roof off our house."
+    ]
+   ],
+   "ex": [
+    [
+     "Esta habitación tiene el techo muy alto.",
+     "This room has a very high ceiling."
+    ]
+   ]
+  },
+  "delea2/el bote": {
+   "why": "The gloss ran ten words together. The card missed that in Spain el bote is at least as often a jar or a tin, and the first example, de bote en bote, is also an A1 sentence. The phrase stays on the card as a line. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "(small) boat",
+      "jar, tin, can (un bote de tomate)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de bote en bote — packed, full to bursting"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La sala estaba llena de bote en bote."
+   ],
+   "ex": [
+    [
+     "Compra un bote de tomate frito.",
+     "Buy a jar of tomato sauce."
+    ]
+   ]
+  },
+  "delea2/la rosa": {
+   "why": "'pink' is rosa the colour, which is an adjective and invariable (unos zapatos rosa). The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "rose"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "rosa (colour, invariable) — pink"
+     ]
+    ]
+   ]
+  },
+  "delea2/compartir": {
+   "why": "The gloss is right bar a gloss-within-a-gloss. The second example's English said 'apartment'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to share"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Todos en el apartamento compartimos la cocina",
+     "Everyone in the flat shares the kitchen."
+    ]
+   ]
+  },
+  "delea2/la esquina": {
+   "why": "The first and third examples were one sentence, 'vive a la vuelta de la esquina'.",
+   "dropEx": [
+    "Carlos vive a la vuelta de la esquina."
+   ],
+   "ex": [
+    [
+     "Gira a la derecha en la próxima esquina.",
+     "Turn right at the next corner."
+    ]
+   ]
+  },
+  "delea2/la tormenta": {
+   "why": "The first example said the power went off 'gracias a la tormenta', thanks to it, where Spanish says por. The third's English, 'a tempest in a teapot', is American; British English says 'a storm in a teacup'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "storm, thunderstorm"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Se cortó la luz gracias a la tormenta."
+   ],
+   "exEn": [
+    [
+     "una tormenta en un vaso de agua",
+     "It's a storm in a teacup."
+    ]
+   ],
+   "ex": [
+    [
+     "Anoche hubo una tormenta muy fuerte.",
+     "There was a very heavy storm last night."
+    ]
+   ]
   }
  },
  "insert": {
@@ -20913,7 +21505,8 @@
    "el ejército",
    "el bosque",
    "la princesa",
-   "el ministro, la ministra"
+   "el ministro, la ministra",
+   "el chocolate"
   ]
  }
 }

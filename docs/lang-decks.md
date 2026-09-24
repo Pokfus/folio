@@ -3462,6 +3462,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S5 | A2 | #114 `amable` – #141 `el arte` | 27 | 1 (`el ejército`) | 0 | Cathy added to the name table; `salvo` ↔ `excepto` hint pair | a hint can name a renamed card |
 | S6 | A2 | #142 `la obra` – #168 `caerse` | 26 | 1 (`el bosque`) | 0 | back-corrections outside the batch: A2 `cambiarse` and `irse`, A1 `despertarse` | `build_deck.py`'s `add_stress` counts syllables, not vowels |
 | S7 | A2 | #169 `la red` – #195 `cerdo, cerda` | 25 | 2 (`la princesa`, `el ministro, la ministra`) | 0 | — | — |
+| S8 | A2 | #196 `contento` – #222 `la tormenta` | 26 | 1 (`el chocolate`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -3788,6 +3789,42 @@ sense that is not the word: `solamente`'s "alone", `nervioso`'s "nerve" and `la 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0; 488 of 495 cards now carry three examples.
 `check-senses --deck=DELE-A2` 49 → 45. The one card of this batch left on it is `arreglar`, a FALSE
 POSITIVE: its gloss says "mend" and "fix", and its examples say "mended" and "fixed".
+
+### S8 — DELE A2, notes #196–#222 (Sep 2026)
+
+Measured against the S7 commit by card id: **26 changed, 469 untouched**, all 26 of them this batch's
+record entries; `el chocolate` was read and left, and is in `reviewed`.
+
+**A SEXUALLY EXPLICIT EXAMPLE, AND THE SWEEP IT FORCED.** `el pollo`'s third example was *No me gusta usar
+consoladores, prefiero las pollas de verdad*, translated to match. It is *la polla*, a vulgar word for the
+penis, matched on the shared letters of *pollo*: the look-alike fault this log has recorded every batch,
+at its worst. **Every example in the seven Spanish decks was then swept for vulgar vocabulary** and this
+is the only one. **The first sweep was wrong, and the reason is worth keeping**: JavaScript's `\b` is
+ASCII, so an accented letter counts as a boundary, and *espectáculo* matched `culo`. With Unicode
+lookarounds, `(?<![\p{L}])…(?![\p{L}])`, the list is one real finding and a handful of innocent words
+(*folleto*, *puñetazo*, *capullo* the cocoon, *polvo* the dust).
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, SIXTH BATCH RUNNING.** `la china` was glossed "pebble", which is
+right for *la china*, while all three examples were *China*, the country. The card is now `China`; the
+pebble and the nationality (`chino, china`, later in A2) are lines in Forms. **And none of `la costa`'s
+three examples was the coast**: all were *a toda costa* or *a costa de*, "at any cost", the noun built on
+*costar*.
+
+**A GLOSS THAT MISSED THE WORD'S COMMONEST SENSE.** `menor` was glossed "underage" alone, while two of its
+examples meant "younger" and "youngest". `el bote` did not say it is as often a jar or a tin in Spain.
+`antiguo` did not say that before a noun it means "former". Four glosses carried a sense belonging to a
+different word, a sense nobody will meet, or both: `el sombrero`'s "butterfly pea (*Clitorea ternatea*)",
+`el alcohol`'s "galena", and `la rosa`'s "pink", which is the invariable colour adjective.
+
+**AND THE REST.** Six A1-shared sentences were replaced, plus three shared with earlier A2 cards.
+`limpio`'s third example was the verb *limpiar*. `la tormenta` said the power failed *gracias a* the
+storm; its idiom's English is now the British "storm in a teacup". `impresionante`'s *se ve impresionante
+en ti* was a calque. *mañana en la mañana*, *hoy a la noche* and *el cigarro* for a cigarette are gone.
+`la medicina` now separates a medicine from the subject. The horse-race sentence S5 took off `finalmente`
+has come off `elegir` too.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 45 → 41. The one
+card of this batch left on it is `romper`, a FALSE POSITIVE: "break" against "broke".
 
 ## The language-deck catalogue — the Update press and the frequency order
 
