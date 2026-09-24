@@ -1533,16 +1533,43 @@ the alias are the same string.
              term wanted is the thing the event left behind, which here is a cult with a sanctuary, an
              oracle Croesus tested and a healing rite that outlasted the war by a thousand years. Dot:
              Oropos
-    gr-941  The Epigoni
-    gr-942  The Judgement of Paris
-    gr-943  Helen
-    gr-944  The Trojan War in myth
-    gr-945  Agamemnon
-    gr-946  Achilles
-    gr-947  The wrath of Achilles
-    gr-948  Patroclus
-    gr-949  Hector
-    gr-950  Ajax the Great
+    gr-941  The Epigoni — written. No Commons picture shows the Epigoni's own war, so both the card
+             and the term are illustrated from the FIRST expedition, with captions that say so: an
+             Etruscan urn of the fatal duel of Eteocles and Polynices, and Polynices bribing Eriphyle,
+             which is what sent Amphiaraus to Thebes and Alcmaeon back a generation later. Dot: Glisas,
+             where Pausanias puts the Epigoni's victory
+    gr-942  The Judgement of Paris — written. Key `Judgement_of_Paris` with `Judgment of Paris` as an
+             alias, the American spelling being the one an auto-link would otherwise miss (the spelling
+             transform is one-way from authored British and does not reach a glossary key). Picture: the
+             Boccanera panels, among the earliest surviving pictures of the contest. Dot: Mount Ida
+    gr-943  Helen — written. Key `Helen_of_Troy` and the bare alias `Helen` is SAFE: measured over the
+             shipped corpus, every occurrence of the bare name outside this card's own collection is the
+             Spartan queen. The picture is the EARLIER abduction, Theseus carrying her off from Sparta as
+             a girl, which the three-sentence term also has to carry. `check-gloss-links` reports
+             “Egyptian” → `Ancient_Egypt` here and the link is right — the card gives Herodotus' and
+             Stesichorus' version, in which Helen sits out the war in Egypt. Dot: Therapne, her shrine
+    gr-944  The Trojan War in myth — written as **Trojan War**. Picture: the Polyxena Sarcophagus, the
+             earliest large-scale picture of the cycle found near Troy itself. Dot: Troy
+    gr-945  Agamemnon — written. **The glossary term already existed at the bar and was NOT re-run**:
+             `add-glossary.js` overwrites in silence, so the check is one command before the work. What
+             it lacked was a PICTURE, which this batch gave it. Dot: Mycenae
+    gr-946  Achilles — written. Same as `gr-945`: the term was already cited at the bar and only wanted
+             a picture. No dot — a hero is not a place, and Phthia is already spent on the card's prose
+    gr-947  The wrath of Achilles — written as **mēnis**, the word the *Iliad* opens on, keyed `Mēnis`
+             with `mēnis` and `menis` as aliases so the unaccented spelling still links. Difficulty 4:
+             the term is the one specialist word in the batch. Muellner's *The Anger of Achilles* is
+             cited by its own CHS book URL, the CHS reader being JavaScript-rendered — the `NAGY`
+             precedent already in the corpus
+    gr-948  Patroclus — written. Picture: the Sosias cup, whose scene appears in no surviving poem,
+             which is what the caption says rather than calling it an illustration of the *Iliad*
+    gr-949  Hector — written. Bare key `Hector` is safe on the same measurement `Helen` passed. Two of
+             its three phrasings were rewritten after `check-questions.js` refused a blank at the end of
+             the sentence
+    gr-950  Ajax the Great — written, and this is the card `gr-598`'s note above points forward to: the
+             glossary key there is `Ajax_(play)`, which by `bareTaken` claims no bare surface, so
+             `Ajax_the_Great` takes the alias `Ajax` and the two cannot collide. A first draft said he
+             was “never helped by a god”, which nothing openable bears out; it was replaced by the
+             *Iliad*'s own “bulwark of the Achaeans”. Dot: Salamis
     gr-951  Odysseus
     gr-952  The Trojan Horse
     gr-953  The Epic Cycle
