@@ -16380,19 +16380,25 @@
       ]
     },
     "hsk30l6/传输": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The NEAR-repeat was the RECORD'S OWN, not the deck's: both sentences are `ex` rows authored by the earlier fill pass, which gave a short note its three examples and wrote two of them in one sitting on one construction. So the repair belongs in that `ex` array rather than in a `dropEx` — a sweep over the decks does not reach a sentence this record ships. One row is replaced with an authored sentence in a different construction. | The English translation was idiomatic to the point of saying nothing about the headword, or was not English at all, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
       "ex": [
         [
           "数据传输很快。",
           "The data transmits quickly."
         ],
         [
-          "数据传输速度很快。",
-          "The data transmission speed is fast."
-        ],
-        [
           "信号传输受到干扰。",
           "The signal transmission was disturbed."
+        ],
+        [
+          "光纤可以传输大量信息。",
+          "Optical fibre can carry a great deal of information."
+        ]
+      ],
+      "exEn": [
+        [
+          "数据传输很快",
+          "The data is transmitted quickly."
         ]
       ]
     },
@@ -16873,32 +16879,32 @@
       ]
     },
     "hsk30l6/出入": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | An example's occurrence of the headword STRADDLED two shorter words — the first character ending one word and the second opening the next — so the card bolded characters that never formed the word at all. Dropped, with an authored replacement. And it was the RECORD'S own row rather than the deck's: 要找出入侵我们系统的黑客 is 找出 + 入侵, so the card bolded two characters that belong to neither word, on a sentence this record had authored. Replaced in the `ex` array.",
       "ex": [
-        [
-          "要找出入侵我们系统的黑客，我相信不会太难。",
-          "I'm sure it wouldn't be too hard to find out who hacked into our system."
-        ],
         [
           "请登记出入时间。",
           "Please register your times of entry and exit."
+        ],
+        [
+          "这两份报告的数字有出入。",
+          "The figures in the two reports do not tally."
         ]
       ]
     },
     "hsk30l6/出场": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The NEAR-repeat was the RECORD'S OWN, not the deck's: both sentences are `ex` rows authored by the earlier fill pass, which gave a short note its three examples and wrote two of them in one sitting on one construction. So the repair belongs in that `ex` array rather than in a `dropEx` — a sweep over the decks does not reach a sentence this record ships. One row is replaced with an authored sentence in a different construction.",
       "ex": [
         [
           "他一出场，观众就鼓掌。",
           "The moment he came on stage the audience applauded."
         ],
         [
-          "演员一出场就获得掌声。",
-          "The actor drew applause as soon as he came on."
-        ],
-        [
           "他今天不出场。",
           "He is not playing today."
+        ],
+        [
+          "他第三个出场。",
+          "He came on third."
         ]
       ]
     },
@@ -17061,19 +17067,19 @@
       ]
     },
     "hsk30l6/初等": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The NEAR-repeat was the RECORD'S OWN, not the deck's: both sentences are `ex` rows authored by the earlier fill pass, which gave a short note its three examples and wrote two of them in one sitting on one construction. So the repair belongs in that `ex` array rather than in a `dropEx` — a sweep over the decks does not reach a sentence this record ships. One row is replaced with an authored sentence in a different construction.",
       "ex": [
         [
           "这是初等数学的问题。",
           "This is a problem of elementary mathematics."
         ],
         [
-          "这是初等数学的内容。",
-          "This belongs to elementary mathematics."
-        ],
-        [
           "他教初等课程。",
           "He teaches elementary courses."
+        ],
+        [
+          "初等教育是一切的基础。",
+          "Elementary education is the foundation of everything."
         ]
       ]
     },
@@ -18228,19 +18234,19 @@
       ]
     },
     "hsk30l6/处处": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The NEAR-repeat was the RECORD'S OWN, not the deck's: both sentences are `ex` rows authored by the earlier fill pass, which gave a short note its three examples and wrote two of them in one sitting on one construction. So the repair belongs in that `ex` array rather than in a `dropEx` — a sweep over the decks does not reach a sentence this record ships. One row is replaced with an authored sentence in a different construction.",
       "ex": [
         [
           "这里处处都是花。",
           "There are flowers everywhere here."
         ],
         [
-          "春天处处是花香。",
-          "In spring the scent of flowers is everywhere."
-        ],
-        [
           "他处处为别人着想。",
           "He considers others in everything."
+        ],
+        [
+          "这本书处处可见作者的用心。",
+          "The author's care shows on every page of this book."
         ]
       ]
     },
@@ -74430,7 +74436,7 @@
       ]
     },
     "hsk30l6/串": {
-      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information.",
+      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information. | An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
       "senses": [
         [
           "verb",
@@ -74442,9 +74448,45 @@
         ]
       ],
       "exSense": [
-        0,
         2,
-        0
+        2,
+        1
+      ],
+      "dropEx": [
+        "我们有五种烤肉串",
+        "但是我不会烤烤肉串"
+      ],
+      "ex": [
+        [
+          "她买了一串葡萄。",
+          "She bought a bunch of grapes."
+        ],
+        [
+          "把这些珠子串起来。",
+          "String these beads together."
+        ]
+      ],
+      "compounds": [
+        [
+          "串门",
+          "chuàn mén",
+          "to drop in on someone; to visit"
+        ],
+        [
+          "烤串",
+          "kǎo chuàn",
+          "food grilled on skewers"
+        ],
+        [
+          "串联",
+          "chuàn lián",
+          "to link up; to connect in series"
+        ],
+        [
+          "串通",
+          "chuàn tōng",
+          "to collude; to gang up"
+        ]
       ]
     },
     "hsk30l6/款": {
@@ -81129,20 +81171,20 @@
       ]
     },
     "hsk30l6/出力": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The NEAR-repeat was the RECORD'S OWN, not the deck's: both sentences are `ex` rows authored by the earlier fill pass, which gave a short note its three examples and wrote two of them in one sitting on one construction. So the repair belongs in that `ex` array rather than in a `dropEx` — a sweep over the decks does not reach a sentence this record ships. One row is replaced with an authored sentence in a different construction.",
       "ex": [
         [
           "为这件事他出力不少。",
           "He put in a great deal of effort for this."
         ],
         [
-          "这件事他出力最多。",
-          "He contributed the most to this."
+          "大家都出力，很快就做完了。",
+          "Everyone put in some effort and it was soon done."
         ]
       ]
     },
     "hsk30l6/储存": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The example was off the card altogether — a passage lifted out of the middle of a longer text — and taught nothing about the headword. Dropped, with an authored replacement.",
       "ex": [
         [
           "粮食储存在仓库里。",
@@ -81151,7 +81193,14 @@
         [
           "这些数据储存在服务器上。",
           "These data are stored on the server."
+        ],
+        [
+          "请把文件储存好。",
+          "Please store the documents safely."
         ]
+      ],
+      "dropEx": [
+        "该探测器会归纳火星的地质"
       ]
     },
     "hsk30l6/传染病": {
@@ -81168,7 +81217,7 @@
       ]
     },
     "hsk30l6/传授": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The English translation was idiomatic to the point of saying nothing about the headword, or was not English at all, so the card gave the reader no way to tell which word the sentence was teaching. Only the English is rewritten; the Chinese is the deck's own.",
       "ex": [
         [
           "师傅把手艺传授给徒弟。",
@@ -81177,6 +81226,12 @@
         [
           "他愿意传授经验。",
           "He is willing to impart his experience."
+        ]
+      ],
+      "exEn": [
+        [
+          "花代价所换来的一点才智",
+          "An ounce of wit that is bought is worth a pound that is taught."
         ]
       ]
     },
@@ -84346,12 +84401,19 @@
       ]
     },
     "hsk30l6/传达": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | The example was off the card altogether — a passage lifted out of the middle of a longer text — and taught nothing about the headword. Dropped, with an authored replacement.",
       "ex": [
         [
           "请把通知传达给大家。",
           "Please convey the notice to everyone."
+        ],
+        [
+          "他把上级的意思传达了下去。",
+          "He passed the message from above down the line."
         ]
+      ],
+      "dropEx": [
+        "语言有时会变得很复杂"
       ]
     },
     "hsk30l6/创意": {
@@ -127372,11 +127434,20 @@
       ]
     },
     "hsk30l6/储蓄": {
-      "why": "A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it.",
+      "why": "A NON-STANDARD SPELLING OF THE WORD, found by the WORD-LEVEL variant sweep (batch 87). CC-CEDICT marks whole WORDS as variants of other words, not only characters — and batch 77's sweep, which asks whether the dictionary knows a CHARACTER only as a pointer at another character, is blind to every one of them. Repaired through `exVariant` against a pair declared in `VARIANT_PAIRS` with the measurement that settled it. | Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
       "exVariant": [
         [
           "我想开个储蓄帐户。",
           "我想开个储蓄账户。"
+        ]
+      ],
+      "dropEx": [
+        "你现在不好好储蓄金钱的话"
+      ],
+      "ex": [
+        [
+          "他每月储蓄一部分工资。",
+          "He saves part of his wages every month."
         ]
       ]
     },
@@ -135892,6 +135963,117 @@
           "愁苦",
           "chóu kǔ",
           "anxiety; distress"
+        ]
+      ]
+    },
+    "hsk30l6/出示": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
+      "dropEx": [
+        "还有入境表格填好了吗"
+      ],
+      "ex": [
+        [
+          "进场时请出示证件。",
+          "Please show your identification on entry."
+        ]
+      ]
+    },
+    "hsk30l6/除": {
+      "why": "One `uc-sense` div carrying several senses under a part of speech naming several categories, with the card's own examples spread across them. Split into the senses the examples actually show, each example tagged with the one it illustrates. | An example did not contain the headword as a word at all: the characters were inside a longer word, so the card bolded a fragment of something else. check-example-fit.js skips single-character headwords outright and cannot see this. Dropped, with an authored replacement using the word in the sense the card teaches. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "孩子们还没上过除法"
+      ],
+      "senses": [
+        [
+          "verb",
+          "to divide (in arithmetic)"
+        ],
+        [
+          "preposition",
+          "except; apart from"
+        ],
+        [
+          "verb",
+          "to get rid of; to remove"
+        ]
+      ],
+      "ex": [
+        [
+          "这块地里的草已经除干净了。",
+          "The weeds in this plot have all been cleared."
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        3
+      ],
+      "compounds": [
+        [
+          "除了",
+          "chú le",
+          "apart from; besides"
+        ],
+        [
+          "开除",
+          "kāi chú",
+          "to expel; to dismiss"
+        ],
+        [
+          "除非",
+          "chú fēi",
+          "unless; only if"
+        ],
+        [
+          "清除",
+          "qīng chú",
+          "to clear away; to get rid of"
+        ]
+      ]
+    },
+    "hsk30l6/传染": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place.",
+      "dropEx": [
+        "我的感冒传染了他"
+      ],
+      "ex": [
+        [
+          "这种病不会传染。",
+          "This illness is not contagious."
+        ]
+      ]
+    },
+    "hsk30l6/闯": {
+      "why": "Two of the three examples were the same sentence in a different frame — a NEAR-repeat, which the coverage checker cannot see because it compares sentences exactly. The duplicate is dropped and an authored sentence in a different construction put in its place. | A single-character card, so the reader meets the character alone and has no way to see what it builds. Three to five `Compounds` rows authored for it, every reading and gloss verified against CC-CEDICT before it was written.",
+      "dropEx": [
+        "他闯入一间房子"
+      ],
+      "ex": [
+        [
+          "他年轻时到南方去闯。",
+          "He went south to make his way in the world when he was young."
+        ]
+      ],
+      "compounds": [
+        [
+          "闯入",
+          "chuǎng rù",
+          "to break in; to intrude"
+        ],
+        [
+          "闯祸",
+          "chuǎng huò",
+          "to get into trouble; to cause an accident"
+        ],
+        [
+          "闯荡",
+          "chuǎng dàng",
+          "to leave home to make one's way in the world"
+        ],
+        [
+          "闯关",
+          "chuǎng guān",
+          "to crash through a barrier"
         ]
       ]
     }

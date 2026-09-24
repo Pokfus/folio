@@ -669,6 +669,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-18 | `hsk30l6` notes 91–120 (步骤 → 查询) | 9 | **千层面 — LASAGNA — as both of one card's examples**, and 才能 straddling 才 + 能 on two of three |
 | 2026-09-18 | `hsk30l6` notes 121–150 (拆除 → 沉重) | 7 | **早产出生 — 早产 + 出生 — on the 产出 card**, a premature birth standing in for industrial output |
 | 2026-09-18 | `hsk30l6` notes 151–180 (趁 → 愁), deck order | 11 | **a `dropEx` that ORPHANED an earlier batch's `exEn` row — and the applier FAILED on it rather than warning** |
+| 2026-09-24 | `hsk30l6` notes 181–210 (筹备 → 创办), deck order | 15 | **six of the batch's findings are the RECORD'S own sentences, not the deck's** — near-repeats the earlier fill pass wrote two at a time |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10278,3 +10279,64 @@ shared-gloss groups 320 and still-ambiguous 1, both unchanged. `check-pinyin.js`
 `check-senses.js` and `check-gloss-source.js` all name nothing in 151–180. **Verified against the real
 diff: 11 of 30 changed and nothing outside the range moved.** `build-lang-decks.js` re-run. No
 changelog line and no version bump.
+
+## Batch 134 — `hsk30l6` notes 181–210 (筹备 → 创办)
+
+**Fifteen of thirty changed; fifteen read and left.**
+
+**SIX OF THE BATCH'S FINDINGS ARE IN THE RECORD RATHER THAN IN THE DECK, and that is the batch.**
+初等, 出场, 出力, 传输 and 处处 each carried a near-repeat in which **both sentences are `ex` rows this
+record authored** — 这是初等数学的问题 / 这是初等数学的内容, 他一出场，观众就鼓掌 /
+演员一出场就获得掌声, 为这件事他出力不少 / 这件事他出力最多, 数据传输很快 / 数据传输速度很快,
+这里处处都是花 / 春天处处是花香. They came from the **fill pass** that gave every short note its three
+examples: a card needing two sentences got two written in one sitting, and the second was the first in
+a slightly different frame. The pass was right to fill them and wrong about how; this is the bill
+arriving.
+
+**出入's was worse than a repeat — it was a straddle in a sentence this record shipped.**
+要找**出入**侵我们系统的黑客 is 找出 + 入侵, so the card bolded two characters that belong to neither
+word, on a card meaning *entry and exit, discrepancy*. Replaced with 这两份报告的数字有出入, which is
+the third sense the gloss names and no sentence had shown.
+
+**The repair for all six is an edit to the `ex` array, not a `dropEx`.** `dropEx` does filter the
+record's own rows — deliberately — but reaching for it here would be writing a row to cancel a row this
+same file already holds, and the file is meant to be readable. A small `swapOwn` helper in the batch
+script removes the named row and pushes its replacement, and **fails loudly if the substring matches
+anything other than exactly one row**, which is the guard that makes editing our own rows as safe as
+dropping the deck's.
+
+**除's gloss named a sense none of its three sentences shows, and missed the two they do.** The card
+read `verb | get rid of; eliminate; remove` over 六除以二得三 (arithmetic), 除我以外 (*except*) and
+孩子们还没上过除法 (arithmetic again, and 除法 swallows the character). CC-CEDICT carries all three
+senses; the card had taken one and shown none of it. It is now three senses tagged 1, 2, 3, with
+这块地里的草已经除干净了 authored for the one the gloss had.
+
+**串's three sentences were all kebabs** — 烤肉串, 几串烤羊肉, 烤肉串 — two of them swallowing the
+character inside 烤肉串 and the two a near-repeat besides. One real example out of three; the two
+replacements cover the measure word (一串葡萄) and the verb (把这些珠子串起来).
+
+**Two examples were passages rather than sentences.** 储存's first was a paragraph about the Mars
+rover's geology mission; 传达's was a hundred characters of meditation on how hard it is to say what
+you mean. 传达's second, the qipao sentence, is long too and was **kept**: it genuinely turns on the
+word, which is the test.
+
+**And three smaller things.** 传授's first English was a garbled proverb — *An ounce of wit that is
+bought is **worse** a pound that is taught* — where the saying reads *worth*. 传输's survivor said
+*The data transmits quickly*, which is not English. 出示, 储蓄, 传染 and 闯 each lost a deck-side
+near-repeat: 出示 had two passport sentences, 储蓄 two *save now or regret later*, 传染 the same cold
+given in both directions, 闯 two break-ins.
+
+**Two `Compounds` panels** — 除, 串, 闯 (three). 一串, 手串 and 硬闯 are not in CC-CEDICT and were
+replaced.
+
+**Read and left.** 传染病's first sentence is *Life is a fatal sexually transmitted disease* — an
+aphorism, grammatical, and it does teach the word; it is odd on a learner card and it is not a fault,
+so it stays and is recorded here rather than swept. `check-gloss-source.js` names one card in the
+range, 筹备 (*prepare; arrange* against *preparations; to get ready for sth*), which is the proxy
+paraphrasing.
+
+**Checks after.** `--check` clean. Coverage 11,532 notes at three sentences with 0 repeats;
+shared-gloss groups 320 and still-ambiguous 1, both unchanged. `check-pinyin.js` clean;
+`check-polyreading.js` 0; `check-british.js` 0; `check-example-fit.js`, `check-coarse.js` and
+`check-senses.js` all name nothing in 181–210. **Verified against the real diff: 15 of 30 changed and
+nothing outside the range moved.** `build-lang-decks.js` re-run. No changelog line and no version bump.
