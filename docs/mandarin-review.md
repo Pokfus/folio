@@ -672,6 +672,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 181–210 (筹备 → 创办), deck order | 15 | **six of the batch's findings are the RECORD'S own sentences, not the deck's** — near-repeats the earlier fill pass wrote two at a time |
 | 2026-09-24 | `hsk30l6` notes 211–240 (创建 → 打造), deck order | 13 | **one sentence on TWO cards, repaired on one of them and not the other** — an `exEn` row is per NOTE and nothing reports the twin |
 | 2026-09-24 | `hsk30l6` notes 241–270 (打仗 → 当选), deck order | 11 | **大都 glossed as a YUAN-DYNASTY CAPITAL** — a proper noun under an adverb label, over three sentences that are all the adverb |
+| 2026-09-24 | `hsk30l6` notes 271–300 (档案 → 吊), deck order | 17 (+1 in Level 5) | **THREE cards glossed from the OTHER reading of their own characters**, and one whose three sentences contained the word nowhere at all |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10471,3 +10472,81 @@ shared-gloss groups 320 and still-ambiguous 1, both unchanged. `check-pinyin.js`
 `check-polyreading.js` 0; `check-british.js` 0; `check-example-fit.js`, `check-coarse.js` and
 `check-senses.js` all name nothing in 241–270. **Verified against the real diff: 11 of 30 changed and
 nothing outside the range moved.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+## Batch 137 — `hsk30l6` notes 271–300 (档案 → 吊)
+
+**Seventeen of thirty changed, plus one card in Level 5 — the worst range this audit has met.**
+
+**THREE CARDS IN ONE RANGE WERE GLOSSED FROM THE OTHER READING OF THEIR OWN CHARACTERS.** That fault
+has turned up one card at a time for thirty batches; here it is 当天, 地道 and 倒车 within thirty
+notes, which is enough to say something about the pipeline rather than about the cards. CC-CEDICT files
+a two-reading string as two separate entries, and a gloss taken off the top of a `grep` takes the first
+of them whatever the card's pinyin says.
+
+- **当天** reads `dàng tiān`, which the dictionary glosses *the same day*; the card said *on that day*,
+  which is the `dāng tiān` entry. Both of its usable sentences — the post office on Christmas Day, the
+  ticket valid on the day — are the `dàng` reading, so the gloss was the one thing out of step.
+- **地道** reads `dì dao`, the neutral-tone adjective glossed *authentic; genuine; proper*, and all
+  three sentences are that sense: idiomatic Russian, authentic Chinese. The gloss led with
+  *tunnel; underpass*, which is `dì dào`.
+- **倒车 is the same fault at full size and took a different repair.** Its pinyin, its bopomofo AND its
+  gloss all said `dǎo chē`, *to change buses or trains* — and **all three of its sentences were
+  `dào chē`, backing a car into a garage**, two of them the same sentence with the subject changed. Both
+  readings are ordinary words, so the card now **teaches both**, as 重, 系 and 精神 already do, with each
+  sentence tagged with the reading it shows and two authored `dǎo chē` sentences replacing the duplicate
+  pair. A slash in the pinyin field is what makes `check-pinyin.js` skip a card, which is right for a
+  two-reading card and is why its cross-checked total falls by one.
+
+**得了 had the word in none of its three sentences.** 我得了金牌 is 得 + 了, the verb *to get* with its
+aspect marker; 还有几个小时才到得了 and 拿不得了 are the potential complement `de liǎo`, the
+dictionary's second entry and a different reading again. The card teaches the interjection `dé le`,
+*all right! that's enough!*, and nothing on it showed that — while its label read *verb / particle*,
+which is what the two characters are **separately** rather than what the word is. Three authored
+sentences and an `interjection` label.
+
+**地域 was glossed `area`, which is 面积's entire gloss** — so the two cards were one English prompt with
+two right answers, and BOTH carried a `not <other word>` hint to be answerable at all. All three of
+地域's sentences are regions: customs, accents, regional character. The sharper gloss
+*region; district; territory* is the real distinction the hint was papering over, so **both hints are
+removed with it** — which is why this batch touches a Level 5 card. The coverage checker confirms it:
+shared-gloss groups 320 → 319, groups carrying a disambiguator 319 → 318, **still ambiguous unchanged at
+1**. That is the rule this record already follows — a collision hiding a real distinction wants a
+sharper gloss, not a disambiguator — applied in the direction that REMOVES a hint rather than adding one.
+
+**Two straddles and two swallows**, the two arrangements of one fault. 当天's 当天气变冷的时候 is
+当 + 天气; 得以's 错误多得以至于 is 多得 + 以至于 — **both of them this record's own rows from the fill
+pass**. 岛's 长岛家的亲戚 is the Japanese surname Nagashima; 滴's 雨滴敲打窗户玻璃 is *raindrop*, a noun
+of its own; 吊's 吊带是最安全的 is a strap or a sling. All four single-character swallows are invisible
+to `check-example-fit.js`, which skips a one-character headword by design.
+
+**And the rest.** 导师's English said *homeroom teacher*, which is 班主任. 灯笼's said *lamp*. 滴's
+滴酒不沾 was narrowed to *beer*. 得知's 他得知了他的错误 was *He acknowledged his faults*, which 得知
+does not mean, over Chinese that does not work either. 典型 carried a **character error** — 我对中的印象,
+missing the 国 of 中国 — beside a four-character stub. 地质's first example was ninety characters of
+Mars-rover mission copy with regolith in the English; 点燃's third was Exodus 22:6 in classical Chinese
+under the King James; 电源's was an odd simile calling a man a filthy appliance, whose English said
+*battery* where the Chinese says power supply. 地形 and 点燃 each carried a near-repeat besides.
+
+**Three `Compounds` panels** — 岛, 滴, 吊.
+
+**AND THE SITTING INTRODUCED THREE NEAR-REPEATS OF ITS OWN, one of them a NEW SHAPE.** Two were the
+familiar kind, caught by reading the finished card: 得知's replacement was about hearing 消息 from the
+news, which is what the sentence already on the card says, and 岛's opened 岛上, the construction already
+there. **The third is worth naming because no reading of one card could catch it**: the sentence authored
+for 地质 read 这一带的地质结构很复杂, *the geological structure around here is complicated* — all but word
+for word 地形's own 这一带地形复杂, **two cards earlier in the same deck**, in both languages. A near-repeat
+ACROSS two cards, which nothing here asks about and which only reading the two finished cards together
+shows. It belongs with the 2,998-sentence measurement from batch 135 as a candidate for a checker of its
+own.
+
+**Read and left.** 道德, 点击, 典礼, 电饭锅, 电力, 店铺, 抵达, 抵抗, 倒是, 得了's siblings 倒闭 and 档案,
+低碳, 等级 and 打仗 are sound. 大吃一惊's `check-gloss-source.js` finding is batch 136's, unchanged and
+still the proxy paraphrasing.
+
+**Checks after.** `--check` clean. Coverage 11,532 notes at three sentences with 0 repeats; multi-sense
+notes 626 → 627 and multi-category labels 1,383 → 1,382, both the arithmetic of 倒车 and 得了.
+`check-pinyin.js` clean at 11,458 cross-checked and 74 skipped; `check-polyreading.js` 0;
+`check-british.js` 0; `check-example-fit.js`, `check-senses.js`, `check-coarse.js` and
+`check-say-reading.js` all name nothing in 271–300. **Verified against the real diff: 17 of 30 changed
+in Level 6, nothing outside the range, and exactly one card in Level 5 — 面积, whose hint the 地域 gloss
+retired.** `build-lang-decks.js` re-run. No changelog line and no version bump.
