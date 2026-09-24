@@ -6829,21 +6829,6 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Under it, five sections — **History**, **Geography**, **Languages**, **Your decks** (the reader's own,
   and the way into the Studio), then **Shared decks** — and **the order is the point**: the curated
   shelves first, by subject; then your own; then strangers'; one page.
-  **THE PAGE IS DRAWN AS A MAGAZINE BY DEFAULT — THE EDITORIAL LAYOUT** (`.coll-ed` / `.ed-grid` /
-  `.ed-chips` / `.ed-art` / `edLeadHTML` / `edInProgress`; Sep 2026, on request: design 3 of six mocked up,
-  "without the black section divider lines, and without the small grey italic subtitles"). A curated or
-  language section is a grid of COVERS, the Planned fold a row of dashed CHIPS, and the All tab opens on a
-  **lead story** — the collection last studied, read off `S.cards[id].last`, with Continue and the next two
-  beside it. **IT IS THE SAME `buildCollection` ELEMENT, RESTYLED BY THE STYLESHEET**, so the +, Try ten,
-  the chevron, the admin drag and every test reaching a collection through `.collection-row` /
-  `.collection-add` are untouched; a cover OPENED by its chevron spans the grid's row and takes its banner
-  shape back (every cover rule is written `:not(.open)`). **The block sits at the FOOT of styles.css on
-  purpose**, several themes restyling `.collection-deco` under `body[data-theme]`. **Compact still draws the
-  old list.** Two deliberate departures from the mock-up: the phone draws a two-column grid rather than
-  swipeable rows (a cover that opens into its decks cannot span a horizontal scroller), and the languages
-  are titled in English rather than in their own names.
-  **A CLOSED CHIP MUST HIDE ITS FOLD** (`display:none` on `.node-children`): a flex item is as wide as its
-  widest content, and the fold's deck list is laid out at full width inside it even while collapsed.
   **THE SUBJECT SECTIONS ARE A DECLARED TABLE, NOT A LEVEL IN THE TREE** (`COLLECTION_SECTIONS` /
   `COLLECTION_SECTION` / `sectionOf`, just above `PAGES.decks`), and **anything the table does not name is
   History**. **IT IS A TABLE FOR THE REASON `COLL_THEME` AND `COLLECTION_ICON` ARE**: a section is how
