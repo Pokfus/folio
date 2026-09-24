@@ -114,6 +114,11 @@ const NOT_A_RESEARCHER = {
   "wh-675 Grotius": "Hugo Grotius, cited on his own card for the tract he wrote in 1609 against the Portuguese claim of his own day",
   "wh-679 Percy": "George Percy, cited on his own card for the observations he kept at Jamestown through the summer of 1607",
   "wh-680 Bradford": "William Bradford, governor of the colony, cited on his own card for the history of it he wrote himself",
+  // AN ENLIGHTENED MONARCH IS AN ACTOR OF HIS OWN CARD'S PERIOD, cited for what he himself wrote about
+  // how a king should rule. The essays and instructions stand in the author slot of the card's own
+  // sources, so the surname the question carries is the ruler's and not a modern arguer's.
+  "wh-752 Frederick": "Frederick II of Prussia, cited on his own card for his Essay on Forms of Government",
+  "wh-752 Catherine": "Catherine II of Russia, cited on the same card for her own Grand Instructions of 1767",
 };
 
 /* MEASURED, not chosen: over the 269 shipped cards the historiography count is 0 or 1 for 206 of them,
