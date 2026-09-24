@@ -697,6 +697,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 871–900 (蚂蚁 → 描绘), deck order | 20 | **迈 was three sentences about somebody called Mike** — and 密's three were 告密, 密室 and 频密; a gloss cut off mid-phrase on 嘛 |
 | 2026-09-24 | `hsk30l6` notes 901–930 (描写 → 南极洲), deck order | 14 (+1 out of range) | **a second `not X` hint pair covering two wrong glosses** — 模拟 and 仿制 both "imitation" under a verb label; and 民众's open item closed |
 | 2026-09-24 | `hsk30l6` notes 931–960 (南美洲 → 泡), deck order | 24 | **four single-character cards with every sentence swallowed or nearly** — 扭 (扭伤 twice), 盘 (汤盘, 存盘, 大盘鸡), 暖 (回暖, 变暖), 泡 (泡汤) |
+| 2026-09-24 | `hsk30l6` notes 961–990 (赔偿 → 坡), deck order | 25 | **片面 illustrated by 一片面包 "a slice of bread" twice**, 披 by pizza and the Beatles, and 喷 and 坡 swallowed three times each |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12039,4 +12040,36 @@ used on the mainland and was left. Five Compounds panels written (泥, 扭, 暖,
 
 Coverage: 11,532 notes at three sentences; 314 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
 `check-british` reads 0. **Verified against the real diff: 24 of 30 changed and nothing outside the range.**
+`build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 162 — `hsk30l6` notes 961–990 (赔偿 → 坡)
+
+**The straddle class at its plainest: 片面 *one-sided* was illustrated by 我吃一片面包 and 我要另一片面包** —
+一片 *a slice* + 面包 *bread*. The card's characters are there and the word is not, and **both sentences were
+this record's own**, harvested before the harvest's guard could see a headword spanning two shorter words. Both
+replaced. 披 had the transliteration class twice — 披萨 *pizza* and 披头四 *the Beatles* — and 漂 had 漂白剂
+*bleach*, where 漂 is read piǎo and not the card's piāo; its Compounds panel names both other readings.
+
+**Three single-character cards with every sentence swallowed.** 喷 had 喷发, 喷火 and 喷墨; 坡 had 陡坡, 坡道 and
+下坡; each is replaced by three AUTHORED sentences. 皮 lost 眼皮 and 皮革/真皮 and gained 'naughty', which CC-CEDICT
+gives. 捧's three all held something in both hands while its gloss named praise and a measure word; the three
+now show one sense each, tagged. 飘's three were all a cloud in the sky.
+
+**Taiwan vocabulary**: 配备's 摄影头 and 智慧型手机; 品尝's advertisement for Hsinchu's meatballs (29 characters).
+**Sentences that were not good Chinese**: 贫困's 阿尔及利亚仍国境贫困; 频道's 那么你频道换掉也行啊. **This record's
+own archaic legal text on 赔偿**, 39 characters on thorns and stacks of corn, is gone. 平方 lost a fragment on
+平方英里 and a sentence on 平方根, and now shows the colloquial *square metres* and the verb *to square*.
+
+**骗子's three Englishes all said *liar***, which 骗子 is not — it is a swindler or a cheat — and one of them was
+律师都是骗子 *Lawyers are all liars*, a generalisation about a profession, now replaced.
+
+**Near-repeats, five of them this record's own**: 陪同, 培育, 频率, 评选, and from the deck 频道 (the same
+welcome twice). **Glosses**: 评论 was verb-only over three nouns (split, with a verb sentence); 频繁 was
+adverbs over adjectives; nine gained a missing "to" or noun.
+
+**Five cards were read and left**: 疲劳, 片刻, 平等, 平凡, 平方米. Seven Compounds panels written (喷, 捧, 披, 皮,
+飘, 漂, 坡).
+
+Coverage: 11,532 notes at three sentences; 314 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
+`check-british` reads 0. **Verified against the real diff: 25 of 30 changed and nothing outside the range.**
 `build-lang-decks.js` re-run. No changelog line and no version bump.
