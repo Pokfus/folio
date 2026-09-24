@@ -3473,6 +3473,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S16 | A2 | #412 `la factura` – #438 `la propina` | 22 | 5 (`la fórmula`, `mediante`, `el fotógrafo`, `el ballet`, `la propina`) | 0 | — | — |
 | S17 | A2 | #439 `vestirse` – #466 `mexicano` | 25 | 3 (`el cuaderno`, `el medicamento`, `la cebolla`) | 0 | — | — |
 | S18 | A2 | #467 `valer` – #498 `apellidarse` | 30 | 2 (`acostarse`, `amueblar`) | 0 | A2 complete | — |
+| S19 | B1 | #0 `hacerse` – #27 `último` | 26 | 2 (`el capitán`, `último`) | 0 | names, British, usage switched on for B1 (356 further cards touched by them alone); B1 description corrected (999 words, 946 with three examples) and A2's (all 495) | `bold` needed for a phrase headword |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4301,6 +4302,56 @@ The remaining cells with these faults are in B1–C2 and are left for those batc
 - **All 495 A2 cards now carry three examples.**
 - `check-senses --deck=DELE-A2` went from 16 flags to 14. The one card in this batch still flagged, `regalar`, is a false positive: the gloss says *give*, the examples say *gave* and *given*, and the checker's stemming cannot match those irregular English forms.
 - `spanish-fix.js`'s guard refused the first replacement for `divorciarse`, *¿Por qué se quieren divorciar?*. The bare infinitive with a separated clitic is not one of the card's forms, so the sentence is now *¿Por qué quieren divorciarse?*.
+
+### S19 — DELE B1, notes #0–#27 (Sep 2026) — B1 begins
+
+**Measured against the S18 commit by card id.**
+- All 28 of the batch's cards changed: 26 have record entries, and `el capitán` and `último` were read and left alone. Those two changed only because the name table now runs over B1: Tommy is now Carlitos, and Yoko is now Yolanda.
+- **356 further B1 cards changed through the deck-level passes alone.**
+
+**THE DECK-LEVEL PASSES ARE SWITCHED ON FOR B1**, using A2's tables. Before this batch B1's English still said *Tom and Mary* and *realize*.
+- Ten names that B1's sentences use and A2's did not are added to the name table: Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna and Caroline.
+- **Joe is deliberately not added**, because B1 has a sentence about Joe Biden.
+- `dropDup` is not needed: no B1 headword is also an A1 or A2 headword.
+
+**THE NAME TABLE CREATES NEW SHARES.** Once Tom became Carlos, three B1 sentences became word-for-word copies of A2 sentences, which had already been renamed:
+- *El sueño de Carlos se está haciendo realidad*
+- *Carlos sufre a menudo de dolores de cabeza*
+- *Todo el mundo quiere a alguien a veces* (already a copy of an A1 sentence)
+
+Any batch that runs a name table over a deck for the first time has to check shares after the rename, not before.
+
+**THE DESCRIPTION WAS WRONG IN TWO PLACES.**
+- It said 1,000 words; the deck has 999, as the description itself says a few lines later.
+- It said three examples for 977 words; the file had 946 before the read began.
+
+Both are corrected. The combined three-level total is removed on A2's reasoning. The same pass corrects A2's description, which still claimed three examples for 487 of its 495 words; since S18 it is all 495.
+
+**NONE OF THE THREE EXAMPLES WAS THE HEADWORD, FOUR TIMES.** B1's earliest cards are its commonest words, and here the generator most often picked up a same-spelt word instead:
+- `el hecho` was shown three times by the participle *hecho, hecha* ("made").
+- `la ayuda` was shown twice by the verb *ayuda* ("helps").
+- `buenas`, the greeting, was shown three times by the adjective (*buenas notas*).
+- `el camino`'s three examples were all shared with, or aphorisms from, lower decks.
+
+`matar` had *las mates* ("maths"), and `darse` had *lo que estaba pasado* where the verb must be *pasando*.
+
+**PHRASE HEADWORDS NEED `bold`.** `boldTargets` drops any target containing a space. So an added sentence on `a menudo` or `a veces` failed the "an example must contain its headword" guard, even though it plainly did. The record now names those two with `bold`. **Twelve more generator examples in B1 have the same shape and nothing bolded**, because the corpus matched the phrase inside a longer word:
+- `puesto que` is shown by *Por supuesto que* and *Apuesto que*.
+- `dado que` is shown by *olvidado que* and *Cuidado que*.
+- `o sea` is shown three times by *eso sea*.
+- `a menos que` is shown by a plain comparison.
+- `en fin` is shown by *final*.
+- `debido a` is shown by *debido al*, which is correct and only unbolded.
+
+These are left for their own batches.
+
+**CONJUGATION.**
+- `hacerse`: the gerund *hacíendose* is now *haciéndose*, the twelfth fix of this fault.
+- `darse`: the usted imperative *dése* is now *dese*, as the 2010 spelling rules write it.
+
+**CHECKERS.**
+- `--check` passes and `check-say` reports 0.
+- `check-senses --deck=DELE-B1` flags 115 cards. That figure is a baseline for the read, not a result. From this batch it flags only `matar`, which is a stemming false positive: its "kille" does not match "kill".
 
 ## The language-deck catalogue — the Update press and the frequency order
 

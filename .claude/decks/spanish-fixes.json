@@ -318,7 +318,7 @@
    ]
   },
   "delea2": {
-   "why": "The A2 read began in Sep 2026, in batches of twenty to thirty cards in deck order. The deck-level passes A1 already carries are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast (Tom alone appears 186 times in A2's English), its American spellings and its American usage. Ann is added to the name table, the A2 sentences carrying her where A1's did not. dropDup removes four cards A1 now teaches — como, cuando and donde were INSERTED by the A1 review after A2 had been built, and la vez was in both levels already — which is exactly what a rebuild of A2 against today's A1 would do, since the generator excludes every word the shipped lower decks hold. The counts of nouns (256), feminine pairs (70), verbs (111) and reflexives (31) are the GENERATOR's and are deliberately not recomputed, on A1's reasoning; the word count and the example-sentence claim are corrected, and the sentence adding the two levels together is taken out, a combined figure being one that goes wrong whenever either deck moves. The example claim was already wrong when the deck shipped: it said three sentences for 496 of 499 words where the file had 487, and now reads 484 of 495, with cabeza brought up to three and the four dropped cards having had three each. The same widening of the name table as A1's (batch S2): five A2 sentences said María in the Spanish and Ana in the English. Batch S2 brought abajo up to three examples: 485 of 495. Batch S3 brought el sexo up to three: 486 of 495. Batch S4 added Michael, Linda, Jenny and Bill to the name table, the A2 sentences carrying them where A1's did not. Batch S4 brought el dolor up to three: 487 of 495.",
+   "why": "The A2 read began in Sep 2026, in batches of twenty to thirty cards in deck order. The deck-level passes A1 already carries are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast (Tom alone appears 186 times in A2's English), its American spellings and its American usage. Ann is added to the name table, the A2 sentences carrying her where A1's did not. dropDup removes four cards A1 now teaches — como, cuando and donde were INSERTED by the A1 review after A2 had been built, and la vez was in both levels already — which is exactly what a rebuild of A2 against today's A1 would do, since the generator excludes every word the shipped lower decks hold. The counts of nouns (256), feminine pairs (70), verbs (111) and reflexives (31) are the GENERATOR's and are deliberately not recomputed, on A1's reasoning; the word count and the example-sentence claim are corrected, and the sentence adding the two levels together is taken out, a combined figure being one that goes wrong whenever either deck moves. The example claim was already wrong when the deck shipped: it said three sentences for 496 of 499 words where the file had 487, and now reads 484 of 495, with cabeza brought up to three and the four dropped cards having had three each. The same widening of the name table as A1's (batch S2): five A2 sentences said María in the Spanish and Ana in the English. Batch S2 brought abajo up to three examples: 485 of 495. Batch S3 brought el sexo up to three: 486 of 495. Batch S4 added Michael, Linda, Jenny and Bill to the name table, the A2 sentences carrying them where A1's did not. Batch S4 brought el dolor up to three: 487 of 495. Batch S18 brought the last of them to three, so the description now says every one of the 495, and the earlier count corrections are pointed at that wording rather than kept as a trail of intermediate figures.",
    "subtitle": "495 more words, none of them in A1 · both directions, as two cards per word",
    "dropDup": {
     "como": "delea1",
@@ -341,7 +341,7 @@
     ],
     [
      "Every word also carries real example sentences, three of them for 496 of the 499 and one or two where the corpus had no more,",
-     "Every word also carries example sentences, three of them for 487 of the 495 and one or two where the corpus had no more,"
+     "Every word also carries example sentences, three of them for every one of the 495,"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -353,15 +353,19 @@
     ],
     [
      "three of them for 484 of the 495",
-     "three of them for 487 of the 495"
+     "three of them for every one of the 495"
     ],
     [
      "three of them for 485 of the 495",
-     "three of them for 487 of the 495"
+     "three of them for every one of the 495"
     ],
     [
      "three of them for 486 of the 495",
-     "three of them for 487 of the 495"
+     "three of them for every one of the 495"
+    ],
+    [
+     "three of them for 487 of the 495 and one or two where the corpus had no more,",
+     "three of them for every one of the 495,"
     ]
    ],
    "exNames": [
@@ -575,6 +579,289 @@
     [
      "mom",
      "mum"
+    ]
+   ]
+  },
+  "deleb1": {
+   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's.",
+   "exNames": [
+    [
+     "Tom",
+     "Carlos"
+    ],
+    [
+     "Mary",
+     "Ana"
+    ],
+    [
+     "John",
+     "Javier"
+    ],
+    [
+     "Bob",
+     "Pablo"
+    ],
+    [
+     "Paul",
+     "Miguel"
+    ],
+    [
+     "Ken",
+     "Luis"
+    ],
+    [
+     "Amy",
+     "Marta"
+    ],
+    [
+     "Jack",
+     "Diego"
+    ],
+    [
+     "Nancy",
+     "Elena"
+    ],
+    [
+     "Emily",
+     "Clara"
+    ],
+    [
+     "Sam",
+     "Óscar"
+    ],
+    [
+     "Kate",
+     "Laura"
+    ],
+    [
+     "George",
+     "Andrés"
+    ],
+    [
+     "Hudson",
+     "Serrano"
+    ],
+    [
+     "Smith",
+     "García"
+    ],
+    [
+     "Brown",
+     "Moreno"
+    ],
+    [
+     "Ann",
+     "Ana"
+    ],
+    [
+     "María",
+     "Ana"
+    ],
+    [
+     "Maria",
+     "Ana"
+    ],
+    [
+     "Marie",
+     "Ana"
+    ],
+    [
+     "Juan",
+     "Javier"
+    ],
+    [
+     "Michael",
+     "Miguel"
+    ],
+    [
+     "Linda",
+     "Lucía"
+    ],
+    [
+     "Jenny",
+     "Julia"
+    ],
+    [
+     "Bill",
+     "Jorge"
+    ],
+    [
+     "Cathy",
+     "Carmen"
+    ],
+    [
+     "Alice",
+     "Alicia"
+    ],
+    [
+     "Dan",
+     "Dani"
+    ],
+    [
+     "Mike",
+     "Miguel"
+    ],
+    [
+     "Dick",
+     "Ricardo"
+    ],
+    [
+     "Peter",
+     "Pedro"
+    ],
+    [
+     "Yoko",
+     "Yolanda"
+    ],
+    [
+     "Tommy",
+     "Carlitos"
+    ],
+    [
+     "Dave",
+     "David"
+    ],
+    [
+     "Anna",
+     "Ana"
+    ],
+    [
+     "Caroline",
+     "Carolina"
+    ]
+   ],
+   "exBritish": true,
+   "exUsage": [
+    [
+     "Cellphones",
+     "Mobile phones"
+    ],
+    [
+     "Cellphone",
+     "Mobile phone"
+    ],
+    [
+     "go to the movies",
+     "go to the cinema"
+    ],
+    [
+     "Movie theatres",
+     "Cinemas"
+    ],
+    [
+     "movie theatres",
+     "cinemas"
+    ],
+    [
+     "Movie theaters",
+     "Cinemas"
+    ],
+    [
+     "movie theaters",
+     "cinemas"
+    ],
+    [
+     "at the movies",
+     "at the cinema"
+    ],
+    [
+     "horror movies",
+     "horror films"
+    ],
+    [
+     "than fall",
+     "than autumn"
+    ],
+    [
+     "in the fall",
+     "in the autumn"
+    ],
+    [
+     "soccer",
+     "football"
+    ],
+    [
+     "movies",
+     "films"
+    ],
+    [
+     "Movie",
+     "Film"
+    ],
+    [
+     "movie",
+     "film"
+    ],
+    [
+     "vacations",
+     "holidays"
+    ],
+    [
+     "vacation",
+     "holiday"
+    ],
+    [
+     "elevator",
+     "lift"
+    ],
+    [
+     "cellphones",
+     "mobile phones"
+    ],
+    [
+     "cellphone",
+     "mobile phone"
+    ],
+    [
+     "downtown",
+     "in the city centre"
+    ],
+    [
+     "candy",
+     "sweets"
+    ],
+    [
+     "math",
+     "maths"
+    ],
+    [
+     "stores",
+     "shops"
+    ],
+    [
+     "Mom",
+     "Mum"
+    ],
+    [
+     "mom",
+     "mum"
+    ]
+   ],
+   "subtitle": "999 more words, none of them in A1 or A2 · both directions, as two cards per word",
+   "descSub": [
+    [
+     "1,000 words for level B1 of the DELE",
+     "999 words for level B1 of the DELE"
+    ],
+    [
+     "None of them appears in the A1 or A2 deck, so the three together come to 2,000 words.",
+     "None of them appears in the A1 or A2 deck."
+    ],
+    [
+     "the rest of the 1,000 is filled from the B1 column",
+     "the rest is filled from the B1 column"
+    ],
+    [
+     "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
+     "Example sentences come with 994 of the 999 words, three apiece for 946 of them"
+    ],
+    [
+     "with the word picked out in colour and a speaker beside it. Word list:",
+     "with the word picked out in colour and a speaker beside it. Most are from Tatoeba; the rest were written for this deck, where the corpus showed a different word from the card's, gave a sentence another card already uses, or gave three of one construction. The people in them have been given Spanish names. Word list:"
+    ],
+    [
+     "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR.",
+     "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR, except those written for this deck."
     ]
    ]
   }
@@ -27431,6 +27718,660 @@
      "My name is Ana and my surname is García."
     ]
    ]
+  },
+  "deleb1/hacerse": {
+   "why": "The gloss and the examples are right. The gerund read hacíendose, S3's reflexive-gerund fault, and is now haciéndose. The first example's English said 'a member in this library'.",
+   "conjSub": [
+    [
+     "<span class=\"uc-cj-e\">íendose</span>",
+     "<span class=\"uc-cj-e\">iéndose</span>"
+    ]
+   ],
+   "exEn": [
+    [
+     "hacerse miembro de esta biblioteca",
+     "It's very easy to become a member of this library."
+    ]
+   ]
+  },
+  "deleb1/gracias": {
+   "why": "The gloss did not give dar las gracias. The first example is also an A1 sentence, and the second was gracias a, 'thanks to', which is its own card later in B1 and which lost its meaning in the English ('The storm knocked out power'). SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "interjection",
+     [
+      "thank you, thanks"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "dar las gracias — to thank"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Daniel les dio las gracias a los policías.",
+    "gracias a la tormenta"
+   ],
+   "ex": [
+    [
+     "Muchas gracias por venir.",
+     "Thank you very much for coming."
+    ],
+    [
+     "Dale las gracias a tu madre de mi parte.",
+     "Thank your mother for me."
+    ]
+   ]
+  },
+  "deleb1/el hecho": {
+   "why": "NONE OF THE THREE EXAMPLES WAS THE NOUN. Each was the participle hecho, hecha, 'made', of hacer, A1's card: 'la tarta que ha hecho ella', 'hechas de vidrio', 'hecha de plástico'. De hecho, 'in fact', is its own card later in B1.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "fact",
+      "event, incident (los hechos)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "el hecho de que — the fact that"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la tarta que ha hecho ella",
+    "están hechas de vidrio",
+    "está hecha de plástico"
+   ],
+   "ex": [
+    [
+     "El hecho es que no tengo tiempo.",
+     "The fact is that I don't have time."
+    ],
+    [
+     "No me gusta el hecho de que llegues tarde.",
+     "I don't like the fact that you're late."
+    ],
+    [
+     "La policía investiga los hechos.",
+     "The police are investigating what happened."
+    ]
+   ]
+  },
+  "deleb1/el tipo": {
+   "why": "The gloss missed tipo meaning a man, 'bloke', which every Spaniard uses, and ran the two rates in without their nouns. The first example is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "kind, type, sort",
+      "rate (tipo de cambio — exchange rate; tipo de interés — interest rate)",
+      "guy, bloke (informal)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el tipo de cambio de hoy"
+   ],
+   "ex": [
+    [
+     "Es un tipo muy simpático.",
+     "He's a really nice bloke."
+    ]
+   ]
+  },
+  "deleb1/la parte": {
+   "why": "The gloss did not give the phrases this word lives in. The first example is shared with la mochila in A2, and the third with así in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "part, section, share"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en alguna parte — somewhere",
+      "la mayor parte de — most of",
+      "¿de parte de quién? — who's calling?"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Se me olvidó mi mochila en alguna parte.",
+    "no irás a ninguna parte mañana"
+   ],
+   "ex": [
+    [
+     "La mayor parte de mis amigos viven aquí.",
+     "Most of my friends live here."
+    ],
+    [
+     "—¿De parte de quién? —De Ana.",
+     "'Who's calling?' 'Ana.'"
+    ]
+   ]
+  },
+  "deleb1/la idea": {
+   "why": "The gloss is right. The second and third examples were one construction, ideas different from someone else's, and the third is shared with diferente in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "idea"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "no tengo ni idea — I've no idea"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Tu idea es completamente diferente de la mía."
+   ],
+   "ex": [
+    [
+     "No tengo ni idea de dónde está.",
+     "I've no idea where it is."
+    ]
+   ]
+  },
+  "deleb1/el amor": {
+   "why": "The gloss is right. The first example, '¡Por amor de Cristo!', is an oath rather than a sentence a learner needs.",
+   "dropEx": [
+    "Por amor de Cristo"
+   ],
+   "ex": [
+    [
+     "Se casaron por amor.",
+     "They married for love."
+    ]
+   ]
+  },
+  "deleb1/buenas": {
+   "why": "NONE OF THE THREE EXAMPLES WAS THE GREETING. Each was the adjective buenas, the plural of bueno, A1's card: 'buenas intenciones', 'buenas notas', 'cosas buenas'; and the second is also an A1 sentence.",
+   "senses": [
+    [
+     "interjection",
+     [
+      "hello, hi (informal, at any time of day)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "tiene buenas intenciones",
+    "Para tener buenas notas",
+    "merece cosas buenas"
+   ],
+   "ex": [
+    [
+     "¡Buenas! ¿Qué tal estás?",
+     "Hi! How are you?"
+    ],
+    [
+     "Buenas, ¿tienen pan de centeno?",
+     "Hello, have you got rye bread?"
+    ],
+    [
+     "¡Buenas a todos!",
+     "Hello, everyone!"
+    ]
+   ]
+  },
+  "deleb1/la forma": {
+   "why": "The gloss did not give estar en forma, 'to be fit'. The second example is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "shape, form",
+      "way, manner"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "estar en forma — to be fit",
+      "de cualquier forma — anyway"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La lengua se puede usar de diferentes formas."
+   ],
+   "ex": [
+    [
+     "Hago deporte para estar en forma.",
+     "I do sport to keep fit."
+    ]
+   ]
+  },
+  "deleb1/el camino": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY. The first is shared with medio in A2, the second with cualquiera in A2, and the third, a flowery path to glory, is an aphorism shared with conducir in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "way, route",
+      "path, track"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de camino — on the way"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No te des por vencido a medio camino.",
+    "tomar cualquiera de los dos caminos",
+    "Ningún camino de flores"
+   ],
+   "ex": [
+    [
+     "¿Sabes el camino a la estación?",
+     "Do you know the way to the station?"
+    ],
+    [
+     "Nos perdimos por el camino.",
+     "We got lost on the way."
+    ],
+    [
+     "Voy de camino a casa.",
+     "I'm on my way home."
+    ]
+   ]
+  },
+  "deleb1/la ayuda": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY. The first two were the verb ayudar, A1's card ('ayuda a cualquiera', 'si tú nos ayudas'), and the third is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "help, aid"
+     ]
+    ],
+    [
+     "interjection",
+     [
+      "¡ayuda! — help!"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "ayuda a cualquiera que se lo pida",
+    "si tú nos ayudas",
+    "contar con la ayuda de otros"
+   ],
+   "ex": [
+    [
+     "Te agradezco mucho la ayuda.",
+     "I'm very grateful for the help."
+    ],
+    [
+     "¿Necesitas ayuda con las maletas?",
+     "Do you need help with your suitcases?"
+    ],
+    [
+     "¡Ayuda! ¡Me ahogo!",
+     "Help! I'm drowning!"
+    ]
+   ]
+  },
+  "deleb1/siquiera": {
+   "why": "The gloss put 'at least' first; at B1 the word is ni siquiera, 'not even', which every example is. The third, 'Ni siquiera la ciencia es una ciencia exacta', is an aphorism.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "even (ni siquiera — not even)",
+      "at least (si siquiera …)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ni siquiera la ciencia"
+   ],
+   "ex": [
+    [
+     "Se fue sin siquiera decir adiós.",
+     "He left without even saying goodbye."
+    ]
+   ]
+  },
+  "deleb1/feliz": {
+   "why": "'merry (trait)' is not a sense. The first and third examples were one construction, the happiest something in the world.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "happy, glad"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¡Feliz cumpleaños! — Happy birthday!",
+      "¡Feliz Navidad! — Merry Christmas!"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Es el lugar más feliz en la tierra"
+   ],
+   "ex": [
+    [
+     "¡Feliz cumpleaños, Ana!",
+     "Happy birthday, Ana!"
+    ]
+   ]
+  },
+  "deleb1/la muerte": {
+   "why": "'the personification of death as a hooded figure' is not a sense a learner needs. The first and third examples were one construction, a count of deaths.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "death"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El número de muertes resulta impactante."
+   ],
+   "ex": [
+    [
+     "Su muerte fue una sorpresa para todos.",
+     "His death came as a surprise to everyone."
+    ]
+   ]
+  },
+  "deleb1/la realidad": {
+   "why": "'commodity' is not this word. The first and third examples were one construction, a dream coming true; the first, once the name table ran, is also A2's el sueño sentence, and the third is shared with finalmente in A2. En realidad is its own card later in B1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "reality"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hacerse realidad — to come true"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Su sueño se ha convertido finalmente en realidad.",
+    "El sueño de Carlos se está haciendo realidad."
+   ],
+   "ex": [
+    [
+     "La realidad es muy distinta.",
+     "The reality is very different."
+    ],
+    [
+     "A veces la realidad supera a la ficción.",
+     "Sometimes truth is stranger than fiction."
+    ]
+   ]
+  },
+  "deleb1/a menudo": {
+   "why": "'oftentimes' is American. The second example used enojar, which is Latin American; Spain says enfadar. The first, once the name table ran, is also A2's el dolor sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "often"
+     ]
+    ]
+   ],
+   "bold": [
+    "a menudo"
+   ],
+   "dropEx": [
+    "hace enojar a la gente a menudo",
+    "Carlos sufre a menudo de dolores de cabeza."
+   ],
+   "ex": [
+    [
+     "Vamos a menudo a la playa.",
+     "We often go to the beach."
+    ],
+    [
+     "Nos vemos a menudo.",
+     "We see each other often."
+    ]
+   ]
+  },
+  "deleb1/el corazón": {
+   "why": "The gloss is right. The first example's English, 'I'm out of breath', is not what 'se me sale el corazón por la boca' means, and the third, a proverb, is shared with sentir in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "heart"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Se me sale el corazón por la boca.",
+    "Ojos que no ven"
+   ],
+   "ex": [
+    [
+     "Tiene un corazón de oro.",
+     "She has a heart of gold."
+    ],
+    [
+     "El corazón late más rápido cuando corres.",
+     "Your heart beats faster when you run."
+    ]
+   ]
+  },
+  "deleb1/suficiente": {
+   "why": "The gloss is right. The third example, 'A veces el amor simplemente no es suficiente', has no full stop and is shared with a veces later in B1; both cards now lose it. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "A veces el amor simplemente no es suficiente"
+   ],
+   "ex": [
+    [
+     "No hay suficiente comida para todos.",
+     "There isn't enough food for everyone."
+    ]
+   ]
+  },
+  "deleb1/el equipo": {
+   "why": "The gloss put 'hardware' among the senses and did not show equipment, which none of the examples used. The first example is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "team",
+      "equipment, kit"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Su equipo es más fuerte que el nuestro."
+   ],
+   "ex": [
+    [
+     "¿Dónde has dejado el equipo de esquí?",
+     "Where have you left the ski kit?"
+    ]
+   ]
+  },
+  "deleb1/el doctor, la doctora": {
+   "why": "The gloss put 'Ph.D.' first; at B1 the word is a doctor you visit. The first example's English said 'office hours'.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "doctor"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "tiene el doctor la consulta",
+     "What are the doctor's surgery hours?"
+    ]
+   ]
+  },
+  "deleb1/la sangre": {
+   "why": "The gloss is right. The first example, '5 puntos de sangre', is a video game's hit points.",
+   "dropEx": [
+    "solo le quedan 5 puntos de sangre"
+   ],
+   "ex": [
+    [
+     "Me sale sangre de la nariz.",
+     "My nose is bleeding."
+    ]
+   ]
+  },
+  "deleb1/darse": {
+   "why": "The gloss had come apart ('to give oneself • darse cuenta • to realize'). The first example is shared with medio in A2, and the second read 'lo que estaba pasado' for pasando. The usted imperative read dése, which since the 2010 spelling rules is written dese.",
+   "senses": [
+    [
+     "verb",
+     [
+      "darse cuenta (de) — to realise",
+      "darse por vencido — to give up",
+      "darse un golpe — to bump, to hit oneself"
+     ]
+    ]
+   ],
+   "conjSub": [
+    [
+     "d<span class=\"uc-cj-e\">ése</span>",
+     "d<span class=\"uc-cj-e\">ese</span>"
+    ]
+   ],
+   "dropEx": [
+    "No te des por vencido a medio camino.",
+    "lo que estaba pasado"
+   ],
+   "ex": [
+    [
+     "Me di cuenta de lo que estaba pasando.",
+     "I realised what was happening."
+    ],
+    [
+     "Se dio un golpe en la cabeza.",
+     "He hit his head."
+    ]
+   ]
+  },
+  "deleb1/el sentido": {
+   "why": "The gloss gave 'way (manner)' and missed meaning and direction. The third example, 'un completo y total sin sentido', is not Spanish (S16 dropped the same sentence from completar in A2).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "sense",
+      "meaning (no tiene sentido — it makes no sense)",
+      "direction (de sentido único — one-way)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "completo y total sin sentido"
+   ],
+   "ex": [
+    [
+     "Tiene un gran sentido del humor.",
+     "She has a great sense of humour."
+    ]
+   ]
+  },
+  "deleb1/a veces": {
+   "why": "The gloss is right. The first example is also an A1 sentence, the second is shared with el sentido earlier in B1, and the third, with no full stop, with suficiente. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "sometimes"
+     ]
+    ]
+   ],
+   "bold": [
+    "a veces"
+   ],
+   "dropEx": [
+    "A veces el mundo parece no tener sentido.",
+    "A veces el amor simplemente no es suficiente",
+    "Todo el mundo quiere a alguien a veces."
+   ],
+   "ex": [
+    [
+     "A veces voy al trabajo en bici.",
+     "Sometimes I cycle to work."
+    ],
+    [
+     "A veces llueve mucho en abril.",
+     "Sometimes it rains a lot in April."
+    ],
+    [
+     "Mi hermano me ayuda a veces.",
+     "My brother helps me sometimes."
+    ]
+   ]
+  },
+  "deleb1/la palabra": {
+   "why": "'wording' is not a separate sense. The second example is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "word"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "le gustan los juegos de palabras"
+   ],
+   "ex": [
+    [
+     "¿Qué significa esta palabra?",
+     "What does this word mean?"
+    ]
+   ]
+  },
+  "deleb1/matar": {
+   "why": "The gloss put 'slay' among the senses. The second example was the noun las mates, 'maths', not the verb, and the first, a proverb, is shared with morir in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to kill"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El que a hierro mata",
+    "no le gustan las mates"
+   ],
+   "ex": [
+    [
+     "El gato mató un ratón.",
+     "The cat killed a mouse."
+    ],
+    [
+     "El accidente mató a dos personas.",
+     "The accident killed two people."
+    ]
+   ]
   }
  },
  "insert": {
@@ -27715,6 +28656,10 @@
    "la cebolla",
    "acostarse",
    "amueblar"
+  ],
+  "deleb1": [
+   "el capitán, la capitana",
+   "último, última"
   ]
  }
 }
