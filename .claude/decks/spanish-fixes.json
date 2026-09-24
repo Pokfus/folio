@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,39 +877,43 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 956 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 957 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 958 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 959 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 959 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
     ]
    ]
   }
@@ -39975,6 +39979,598 @@
      "This camera has an automatic flash."
     ]
    ]
+  },
+  "deleb1/tradicional": {
+   "why": "The gloss is right. The first example, a conference held in the traditional way, and the second, traditional wooden houses 'en llamas', are not natural sentences.",
+   "dropEx": [
+    "La conferencia se hizo de forma",
+    "casas tradicionales de madera están en llamas"
+   ],
+   "ex": [
+    [
+     "Es un plato tradicional de Valencia.",
+     "It's a traditional dish from Valencia."
+    ],
+    [
+     "Se casaron de forma tradicional.",
+     "They married in the traditional way."
+    ]
+   ]
+  },
+  "deleb1/la tranquilidad": {
+   "why": "The gloss was American (tranquility). The first and third examples were both paz y tranquilidad.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "calm, peace and quiet"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "con tranquilidad — calmly"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Amo la paz y tranquilidad"
+   ],
+   "ex": [
+    [
+     "Lo dijo con mucha tranquilidad.",
+     "He said it very calmly."
+    ]
+   ]
+  },
+  "deleb1/la ficción": {
+   "why": "ALL THREE EXAMPLES WENT. The first is shared with la ciencia in A2, the second with interesante in A1, and the third with real earlier in B1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "A Ana no le gusta la ciencia ficción",
+    "Esta novela de ciencia ficción",
+    "una historia real o es ficción"
+   ],
+   "ex": [
+    [
+     "La novela mezcla realidad y ficción.",
+     "The novel mixes fact and fiction."
+    ],
+    [
+     "Es una obra de ficción.",
+     "It's a work of fiction."
+    ],
+    [
+     "Me gustan las películas de ciencia ficción.",
+     "I like science-fiction films."
+    ]
+   ]
+  },
+  "deleb1/aprovechar": {
+   "why": "The gloss was a list of five, 'to leverage' among it, and did not name aprovecharse de. The second and third examples were both aprovecharse de.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to make the most of, to use"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "aprovecharse de — to take advantage of",
+      "aprovechar para — to take the opportunity to"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los medios se están aprovechando"
+   ],
+   "ex": [
+    [
+     "Aprovecho para darte las gracias.",
+     "I'd like to take this opportunity to thank you."
+    ]
+   ]
+  },
+  "deleb1/la falda": {
+   "why": "'brisket' is a butcher's sense a learner does not need. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "skirt"
+     ]
+    ]
+   ]
+  },
+  "deleb1/impedir": {
+   "why": "The gloss gave 'to impede, hinder' and not 'to prevent', which every example was.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to prevent, to stop"
+     ]
+    ]
+   ]
+  },
+  "deleb1/existir": {
+   "why": "The gloss is right. The second example is shared with el cuento in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Las hadas existen solo en cuentos"
+   ],
+   "ex": [
+    [
+     "¿Crees que existen los fantasmas?",
+     "Do you think ghosts exist?"
+    ]
+   ]
+  },
+  "deleb1/el bus": {
+   "why": "The gloss did not say that in Spain the everyday word is el autobús. The first example's se vino a la casa is Latin American, and the third is shared with el momento in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "forms": [
+    [
+     "plural",
+     "los buses"
+    ],
+    [
+     "note",
+     "in Spain usually el autobús"
+    ]
+   ],
+   "dropEx": [
+    "se vino a la casa en bus",
+    "en ese momento, el bus se detuvo"
+   ],
+   "ex": [
+    [
+     "Cogimos el bus para ir al centro.",
+     "We took the bus into the centre."
+    ],
+    [
+     "El bus número 5 va a la playa.",
+     "The number 5 bus goes to the beach."
+    ]
+   ]
+  },
+  "deleb1/inevitable": {
+   "why": "The gloss was a list of synonyms. The examples are right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "inevitable, unavoidable"
+     ]
+    ]
+   ]
+  },
+  "deleb1/aumentar": {
+   "why": "The gloss put 'augment' in a list. The first example was the noun aumento and is shared with el precio in A1, and the third, augmented reality, is a term rather than a sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to increase, to rise"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El precio de los huevos está en aumento",
+    "realidad aumentada"
+   ],
+   "ex": [
+    [
+     "La población ha aumentado mucho.",
+     "The population has grown a lot."
+    ],
+    [
+     "Me aumentaron el sueldo.",
+     "They gave me a pay rise."
+    ]
+   ]
+  },
+  "deleb1/apoyar": {
+   "why": "The gloss put 'to lean' first in a list of five. The second example was the noun apoyo, and the third's English said 'couch'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to support",
+      "to lean, to rest"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "le dio apoyo moral"
+   ],
+   "exEn": [
+    [
+     "de espaldas sobre el sofá",
+     "Carlos leaned back on the sofa."
+    ]
+   ],
+   "ex": [
+    [
+     "Apoya la bici contra la pared.",
+     "Lean the bike against the wall."
+    ]
+   ]
+  },
+  "deleb1/el vicepresidente, la vicepresidenta": {
+   "why": "The card had two examples. The first, 'Joe Biden es el vicepresidente de los Estados Unidos', is a fact that stopped being true in 2017, and the second, 'Declaro a Allan nuestro vicepresidente', is not a sentence anyone says.",
+   "dropEx": [
+    "Joe Biden es el",
+    "Declaro a Allan"
+   ],
+   "ex": [
+    [
+     "El vicepresidente sustituyó al presidente en la reunión.",
+     "The vice-president stood in for the president at the meeting."
+    ],
+    [
+     "Es el vicepresidente de la empresa.",
+     "He's the company's vice-president."
+    ],
+    [
+     "Fue nombrada vicepresidenta del Gobierno.",
+     "She was appointed deputy prime minister."
+    ]
+   ]
+  },
+  "deleb1/la garantía": {
+   "why": "The gloss did not give 'warranty', which two examples are. The first example's English wanted a hyphen.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "guarantee, warranty"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "tiene dos años de",
+     "This TV has a two-year guarantee."
+    ]
+   ]
+  },
+  "deleb1/pegar": {
+   "why": "The gloss gave 'to match, to fit' and not 'to hit', which the second example is.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to stick, to glue",
+      "to hit"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "pegar con — to go with",
+      "pegársele a alguien las sábanas — to oversleep"
+     ]
+    ]
+   ]
+  },
+  "deleb1/negar": {
+   "why": "The gloss did not give negarse a. The second example is shared with el hijo in A1 and the third with la información in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to deny"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "negarse a — to refuse to"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no les niega nada a sus hijos",
+    "negó haber dejado escapar la información"
+   ],
+   "ex": [
+    [
+     "Negó haberlo visto.",
+     "He denied having seen him."
+    ],
+    [
+     "Se negó a pagar.",
+     "She refused to pay."
+    ]
+   ]
+  },
+  "deleb1/el alimento": {
+   "why": "The gloss was a definition. The second example is shared with salvaje earlier in B1, and the third's English added 'natural'. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "food, foodstuff"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "animales salvajes morirán por falta"
+   ],
+   "exEn": [
+    [
+     "ayudan a reducir el apetito",
+     "What foods help reduce the appetite?"
+    ]
+   ],
+   "ex": [
+    [
+     "La leche es un alimento completo.",
+     "Milk is a complete food."
+    ]
+   ]
+  },
+  "deleb1/por si acaso": {
+   "why": "The gloss gave 'for good measure'. The card had two examples, and the second's English said 'to fall back on'.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "just in case"
+     ]
+    ]
+   ],
+   "bold": [
+    "por si acaso"
+   ],
+   "exEn": [
+    [
+     "tener ahorros por si acaso",
+     "It's always useful to have some savings just in case."
+    ]
+   ],
+   "ex": [
+    [
+     "Apunta mi número por si acaso.",
+     "Write my number down just in case."
+    ]
+   ]
+  },
+  "deleb1/la revisión": {
+   "why": "The gloss put 'revision' first, which in British English means studying for an exam, which revisión does not. The card had two examples, and the first, 'Él llama a una revisión de las reglas', is a calque.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "check, check-up",
+      "service (of a car)",
+      "review, revision (of a text)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "llama a una revisión de las reglas"
+   ],
+   "ex": [
+    [
+     "Tengo que llevar el coche a la revisión.",
+     "I have to take the car in for its service."
+    ],
+    [
+     "Mañana tengo una revisión médica.",
+     "I've got a medical check-up tomorrow."
+    ]
+   ]
+  },
+  "deleb1/el senado": {
+   "why": "The gloss was a list. The first and third examples were both Carlos in the Senate, and the third wrote senado in lower case.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "senate"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "fue expulsado del senado"
+   ],
+   "ex": [
+    [
+     "El Senado aprobó la reforma.",
+     "The Senate approved the reform."
+    ]
+   ]
+  },
+  "deleb1/el baloncesto": {
+   "why": "The gloss is right. The second example's jugamos baloncesto drops the al that Spain uses, and the first and third were both 'le gusta el baloncesto'.",
+   "dropEx": [
+    "Jugamos baloncesto y luego",
+    "A tu hermano le gusta el baloncesto"
+   ],
+   "ex": [
+    [
+     "Mi hermana juega al baloncesto en un equipo.",
+     "My sister plays basketball in a team."
+    ],
+    [
+     "El baloncesto es muy popular en España.",
+     "Basketball is very popular in Spain."
+    ]
+   ]
+  },
+  "deleb1/el césped": {
+   "why": "The gloss is right. All three examples were cortar el césped.",
+   "dropEx": [
+    "Tengo que cortar el césped",
+    "es hora de que corte el césped"
+   ],
+   "ex": [
+    [
+     "Prohibido pisar el césped.",
+     "Keep off the grass."
+    ],
+    [
+     "Los niños jugaban en el césped.",
+     "The children were playing on the lawn."
+    ]
+   ]
+  },
+  "deleb1/respetar": {
+   "why": "The gloss is right. The first example is shared with mayor in A2, and the second was the noun respeto. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Los jóvenes tienen que respetar",
+    "perder todo mi respeto"
+   ],
+   "ex": [
+    [
+     "Hay que respetar las opiniones de los demás.",
+     "You have to respect other people's opinions."
+    ],
+    [
+     "No respetó el semáforo en rojo.",
+     "He went through a red light."
+    ]
+   ]
+  },
+  "deleb1/la rama": {
+   "why": "The gloss did not give irse por las ramas, which the second example is, rendered in the American 'beat around the bush'. The first example is shared with la física earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "branch"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "irse por las ramas — to beat about the bush"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La física es una rama de la ciencia."
+   ],
+   "exEn": [
+    [
+     "gusta irse por las",
+     "He likes to beat about the bush."
+    ]
+   ],
+   "ex": [
+    [
+     "El viento rompió varias ramas del árbol.",
+     "The wind broke several branches off the tree."
+    ]
+   ]
+  },
+  "deleb1/el portero, la portera": {
+   "why": "The gloss was a list running to 'chucker-out', and did not give the goalkeeper, which the third example is. The first two examples' English said 'superintendent' and 'manager' for the caretaker of a block of flats.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "caretaker, doorman (of a block of flats)",
+      "goalkeeper"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "vive en el bajo",
+     "The caretaker lives on the ground floor."
+    ],
+    [
+     "La portera es amable",
+     "The caretaker is nice."
+    ]
+   ]
+  },
+  "deleb1/el algodón": {
+   "why": "The first example is shared with querer in A1 and said 'pants'; the second's English called algodón dulce 'cotton sweets'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "cotton",
+      "cotton wool"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "algodón dulce — candyfloss"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "unos pantalones de algodón"
+   ],
+   "exEn": [
+    [
+     "una máquina de hacer",
+     "One day I'll buy a candyfloss machine."
+    ]
+   ],
+   "ex": [
+    [
+     "Esta camiseta es de algodón.",
+     "This T-shirt is made of cotton."
+    ]
+   ]
+  },
+  "deleb1/el saludo": {
+   "why": "The gloss said 'greetings, salutation'. The first and third examples were both 'dale mis saludos'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "greeting"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "saludos / un saludo — best wishes, regards"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No lo he visto últimamente; dale mis"
+   ],
+   "ex": [
+    [
+     "Un saludo, Ana.",
+     "Best wishes, Ana."
+    ]
+   ]
+  },
+  "deleb1/el cohete": {
+   "why": "The gloss put 'skyrocket' first. The second example priced rockets in Brazilian reais, and the third is shared with la comunicación earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "rocket",
+      "(firework) rocket"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "veinte reales la caja",
+    "puso un satélite de comunicaciones"
+   ],
+   "ex": [
+    [
+     "Lanzaron un cohete a la Luna.",
+     "They launched a rocket to the Moon."
+    ],
+    [
+     "Tiraron cohetes en la fiesta del pueblo.",
+     "They let off rockets at the village fiesta."
+    ]
+   ]
   }
  },
  "insert": {
@@ -40302,7 +40898,8 @@
    "la cortesía",
    "el voluntario, la voluntaria",
    "arrogante",
-   "entrenar"
+   "entrenar",
+   "occidental"
   ]
  }
 }

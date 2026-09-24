@@ -3494,6 +3494,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S37 | B1 | #503 `la atmósfera` – #530 `curar` | 26 | 2 (`grabar`, `el comentario`) | 0 | — | `la ave` renamed `el ave`; six more `la` + stressed a- headwords found in B2–C2 |
 | S38 | B1 | #531 `el elefante, la elefanta` – #558 `trabajador, trabajadora` | 25 | 3 (`necesariamente`, `el mensajero, la mensajera`, `la cortesía`) | 0 | — | — |
 | S39 | B1 | #559 `la misa` – #586 `el flash` | 25 | 3 (`el voluntario, la voluntaria`, `arrogante`, `entrenar`) | 0 | B1 description: 959 with three | — |
+| S40 | B1 | #587 `tradicional` – #614 `el cohete` | 27 | 1 (`occidental`) | 0 | B1 description: 962 with three | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5113,6 +5114,39 @@ American. Its third example was a model plane *a escala*, the shape of the sente
 `check-senses --deck=DELE-B1` went from 67 to 65. `sentar` stays on that list under its new gloss.
 Its examples read "sat", "suits" and "disagreed with", and the checker does not match the irregular
 past "sat" to "sit", so this is a false positive.
+
+### S40 — DELE B1, notes #587–#614 (Sep 2026)
+
+Measured against the S39 commit by card id: **27 changed, 971 untouched**, each a record entry. The other one
+was read and left alone: `occidental`.
+
+**A FACT THAT HAS EXPIRED.** `el vicepresidente` said *Joe Biden es el vicepresidente de los Estados Unidos*,
+true until 2017. A study card cannot carry a claim about who holds an office, which goes stale without anything
+changing in the file; its other example (*Declaro a Allan nuestro vicepresidente*) was not a sentence either.
+Three new examples name no officeholder. S37 dropped `la república`'s count of European monarchies for the same
+reason.
+
+**A FALSE FRIEND IN THE GLOSS.** `la revisión` put "revision" first. In British English that is studying for an
+exam, which *revisión* never is; the card now leads with a check-up and a car's service.
+
+**ALL THREE GONE.** `la ficción` shared every example — with A2's `la ciencia`, A1's `interesante` and B1's own
+`real`.
+
+**THE NOUN FOR THE VERB, TWICE MORE.** `aumentar` (*aumento*), `apoyar` (*apoyo*), `respetar` (*respeto*).
+
+**GLOSSES.** `impedir` was "to impede, hinder" over three examples meaning "to prevent"; `pegar` lacked "to hit";
+`el portero` ran to "chucker-out" without the goalkeeper, and its English turned a block of flats' caretaker into
+a "superintendent" and a "manager"; `la falda` gave "brisket"; `aprovechar` "to leverage".
+
+**AND THE REST.** `el bus` now notes that Spain says *el autobús*, and loses a Latin American *se vino a la
+casa*. `el baloncesto`'s *jugamos baloncesto* drops Spain's *al*. `el algodón`'s candyfloss had been "cotton
+sweets"; `la rama`'s idiom was the American "beat around the bush"; `el cohete` priced rockets in Brazilian
+reais. Thirteen sentences shared with A1, A2 or an earlier B1 card were replaced, and one new sentence for
+`por si acaso` collided with A2's `acaso` and was rewritten before shipping. `el vicepresidente`, `por si acaso`
+and `la revisión` come up to three examples: 962 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+65 → 61.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
