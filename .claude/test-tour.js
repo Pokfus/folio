@@ -103,7 +103,9 @@ const CARD = () => {
         text: el.textContent.replace(/\s+/g, " ").trim(),
         // it is a card in the page, not a layer over it — that is the whole design decision
         pos: getComputedStyle(el).position,
-        first: banners && banners.firstElementChild === el,
+        // first — or directly under the signed-out notice, which leads the day's work for a guest (Sep 2026)
+        first: banners && (banners.firstElementChild === el ||
+          (banners.firstElementChild.classList.contains("guest-notice") && banners.firstElementChild.nextElementSibling === el)),
         // …and nothing is covering the page it sits on
         overlay: !!document.querySelector(".folio-tour, .page-help"),
       } : null;
