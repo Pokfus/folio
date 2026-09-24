@@ -3501,6 +3501,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S44 | B1 | #699 `analizar` – #726 `la cuchara` | 24 | 4 (`desarrollar`, `desde luego`, `la cintura`, `el huracán`) | 0 | B1 description: 972 with three | — |
 | S45 | B1 | #727 `casero, casera` – #754 `la oposición` | 26 | 2 (`el bailarín, la bailarina`, `la hipoteca`) | 0 | B1 description: 974 with three | paired feminine that is another noun (`la cartera`) |
 | S46 | B1 | #755 `pretender` – #782 `el cocodrilo, la cocodrila` | 25 | 3 (`sugerir`, `la biología`, `la humedad`) | 0 | B1 description: 997 with examples, 978 with three, one with none | `el pintado` renamed `pintado, pintada` |
+| S47 | B1 | #783 `el pescador, la pescadora` – #810 `solicitar` | 26 | 2 (`el monumento`, `la colaboración`) | 0 | B1 description: 980 with three | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5339,6 +5340,34 @@ replaced. `el insecto`, `el músculo`, `pintado` and `la ficha` come up to three
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 49 → 46.
+
+### S47 — DELE B1, notes #783–#810 (Sep 2026)
+
+Measured against the S46 commit by card id: **26 changed, 972 untouched**, each a record entry. The other two
+were read and left alone: `el monumento`, `la colaboración`.
+
+**THE SAME-SPELT WORD, FIVE TIMES, AND TWO CARDS WHERE IT WAS MOST OF THE CARD.** `coser`, "to sew", had two
+examples of the noun *cosa*, "thing" — the generator's stem match found *cos-* — and `plantar` two of the noun
+*planta*, both shared with A1. Also: `afectar`'s noun *afecto*; `el titular`'s verb *titularse*; `ingresar`'s
+noun *ingreso*; `cuadrado`'s noun *el cuadrado*. `afectar` lost all three examples: two shared with A2 and an
+earlier B1 card, one the noun.
+
+**THE SPAIN SENSE.** `moreno` now leads with "tanned", the everyday sense of *volver moreno*; `ingresar` with
+paying in and being admitted to hospital; `el funcionario` with "civil servant"; `plantar` gains *dejar
+plantado*, "to stand someone up".
+
+**WHAT A LEARNER DOES NOT NEED.** A dead baby found in a freezer (`el congelador`); a job advert for women only
+(`solicitar`); a line sneering at the speaker's mother for doing nothing (`el funcionario`); Pepperberg's parrot
+and Koko the gorilla (`el psicólogo`); "the fear of death is an artistic sentiment" (`artístico`); an era dated
+by "9.11" (`el atentado`).
+
+**AND THE REST.** Glosses: "control arm" (`el triángulo`), "case-by-case" (`individual`), "to feign"
+(`afectar`), "dark-colored" (`moreno`). English: "tuque", "meter", "the Rio Plata". Latin American *torta*;
+calques *audiencia* and *ingresaron al*. Five sentences shared with A1, A2 or an earlier B1 card were replaced.
+`el funcionario` and `el atentado` come up to three examples: 980 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+46 → 42.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
