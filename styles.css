@@ -5454,7 +5454,8 @@ body.night .active-deck{ --dk-gold:#D8B355; }
   position:absolute; left:0; right:0; bottom:0; flex:none;
   height:3px; min-width:0; border:0; border-radius:0; background:color-mix(in srgb, var(--ink) 7%, transparent);
 }
-.active-deck .dk-prog .fill{border-radius:0; background:var(--indigo);}
+.active-deck .dk-prog .fill{border-radius:0; background:var(--indigo); background:color-mix(in srgb, var(--indigo) 72%, #fff);}
+body.night .active-deck .dk-prog .fill{background:var(--indigo); background:color-mix(in srgb, var(--indigo) 85%, #fff);}
 /* the LEARNED half, laid over the studied half from the same left edge (see adProg): a deep saturated blue
    over the theme's indigo, so the lighter blue that shows past its end is the cards met but not yet learned.
    Both halves are blue (Sep 2026, on request — the studied half was the undiscovered-term teal); the learned
