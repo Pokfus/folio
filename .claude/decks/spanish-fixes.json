@@ -37327,6 +37327,491 @@
      ]
     ]
    ]
+  },
+  "deleb1/el cartel": {
+   "why": "The gloss was a list, 'billing' among it. The first example is shared with la salida in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "poster",
+      "sign"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el cartel de salida"
+   ],
+   "ex": [
+    [
+     "Pusieron carteles por toda la ciudad.",
+     "They put up posters all over the city."
+    ]
+   ]
+  },
+  "deleb1/la escala": {
+   "why": "NO EXAMPLE WAS THE NOUN'S OWN SENSE AS THE GLOSS GAVE IT. The first used armar, Latin American for montar, and its English dropped the word; the second was the verb escalar; the third wrote New York and is shared with el avión in A1. The gloss put 'ladder' first and did not give a stopover. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "scale"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "hacer escala — to stop over"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "armar aviones a escala",
+    "Cuanto más alto escalas",
+    "no hizo escala en New York"
+   ],
+   "ex": [
+    [
+     "Hicimos escala en París.",
+     "We had a stopover in Paris."
+    ],
+    [
+     "El mapa está hecho a escala.",
+     "The map is drawn to scale."
+    ],
+    [
+     "Practica las escalas en el piano.",
+     "She practises her scales on the piano."
+    ]
+   ]
+  },
+  "deleb1/el origen": {
+   "why": "The gloss is right. The first example's English, 'Rats carry the plague', does not say what the Spanish says.",
+   "exEn": [
+    [
+     "Las ratas son el",
+     "Rats are the source of the plague."
+    ]
+   ]
+  },
+  "deleb1/considerar": {
+   "why": "The gloss was a list. The first example was a proverb.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to consider"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "En toda cosa hay que"
+   ],
+   "ex": [
+    [
+     "Estamos considerando mudarnos.",
+     "We're considering moving."
+    ]
+   ]
+  },
+  "deleb1/el embajador, la embajadora": {
+   "why": "The gloss is right. The first and third examples were the same question.",
+   "dropEx": [
+    "el embajador de Inglaterra en Japón"
+   ],
+   "ex": [
+    [
+     "El embajador presentó sus credenciales al rey.",
+     "The ambassador presented his credentials to the king."
+    ]
+   ]
+  },
+  "deleb1/la población": {
+   "why": "The gloss gave both 'town' and 'village' inside a list. The first example is shared with mundial and the third with total, both earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "population",
+      "town"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "crecimiento rápido de la población mundial",
+    "La población total del país"
+   ],
+   "ex": [
+    [
+     "Madrid tiene una población de más de tres millones de habitantes.",
+     "Madrid has a population of over three million."
+    ],
+    [
+     "La población de este pueblo ha bajado mucho.",
+     "This village's population has fallen a lot."
+    ]
+   ]
+  },
+  "deleb1/atender": {
+   "why": "A FALSE FRIEND TAUGHT AS A TRUE ONE. The first two examples used atender a la reunión for 'to attend a meeting', which in Spanish is asistir a. The gloss did not give serving a customer or seeing a patient.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to attend to, to deal with",
+      "to serve (a customer), to see (a patient)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "note",
+     "not 'to attend' a meeting — that is asistir"
+    ]
+   ],
+   "dropEx": [
+    "no tiene que atender a la reunión",
+    "atendió a esa reunión en mi lugar"
+   ],
+   "ex": [
+    [
+     "¿Ya le atienden?",
+     "Are you being served?"
+    ],
+    [
+     "La doctora atiende a sus pacientes por la mañana.",
+     "The doctor sees her patients in the morning."
+    ]
+   ]
+  },
+  "deleb1/besar": {
+   "why": "The gloss gave 'to kiss each other', which is besarse, the next card. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to kiss"
+     ]
+    ]
+   ]
+  },
+  "deleb1/besarse": {
+   "why": "The gloss is right. The third example was besar, not besarse.",
+   "dropEx": [
+    "me besaste en la oscuridad"
+   ],
+   "ex": [
+    [
+     "Nos besamos por primera vez en París.",
+     "We kissed for the first time in Paris."
+    ]
+   ]
+  },
+  "deleb1/el congreso": {
+   "why": "The gloss was a list and did not give el Congreso, Spain's lower house. The first example is too thin to say which congress, and the second was about Esperanto congresses.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "conference, congress"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el Congreso — the Congress of Deputies (Spain's lower house)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El congreso no tenía dinero",
+    "congresos esperantistas"
+   ],
+   "ex": [
+    [
+     "El Congreso aprobó la ley.",
+     "The Congress of Deputies passed the law."
+    ],
+    [
+     "Asistió a un congreso de medicina.",
+     "She attended a medical conference."
+    ]
+   ]
+  },
+  "deleb1/la capa": {
+   "why": "The gloss gave 'cloak, coat' and not 'layer'. The first and third examples were the same coat of paint, and the first is shared with necesitar in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "layer, coat (of paint)",
+      "cape, cloak"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La casa necesita una nueva capa"
+   ],
+   "ex": [
+    [
+     "La capa de ozono nos protege del sol.",
+     "The ozone layer protects us from the sun."
+    ]
+   ]
+  },
+  "deleb1/llenar": {
+   "why": "The gloss was a definition. The first example's formas is a calque of 'forms' (formularios), and the third's English turned escritorio into a computer desktop.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to fill"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "llenar un formulario — to fill in a form (also rellenar)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "llenar estas formas"
+   ],
+   "exEn": [
+    [
+     "Mi escritorio se ha",
+     "My desk has filled up completely with things."
+    ]
+   ],
+   "ex": [
+    [
+     "¿Puedes llenar la jarra de agua?",
+     "Can you fill the jug with water?"
+    ]
+   ]
+  },
+  "deleb1/el presupuesto": {
+   "why": "The gloss did not give 'quote', which the second example is.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "budget",
+      "estimate, quote"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la fruta": {
+   "why": "The gloss gave Wiktionary's two definitions. The first example is shared with el chocolate in A2 and the third with general earlier in B1; the second's English said 'fruits'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "fruit"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "más saludable la fruta que el chocolate",
+    "por lo general como fruta"
+   ],
+   "exEn": [
+    [
+     "no come más que",
+     "Carlos eats nothing but fruit and vegetables."
+    ]
+   ],
+   "ex": [
+    [
+     "Compramos fruta fresca en el mercado.",
+     "We buy fresh fruit at the market."
+    ],
+    [
+     "¿Qué fruta te gusta más?",
+     "Which fruit do you like best?"
+    ]
+   ]
+  },
+  "deleb1/reconocer": {
+   "why": "The gloss was American and gave 'to own'. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to recognise",
+      "to admit, to acknowledge"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el desarrollo": {
+   "why": "The gloss is right. The first example is shared with político in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "la conciencia política requiere tiempo"
+   ],
+   "ex": [
+    [
+     "Es un país en vías de desarrollo.",
+     "It's a developing country."
+    ]
+   ]
+  },
+  "deleb1/el cazador, la cazadora": {
+   "why": "'light infantryman' is not a sense a learner needs, and the gloss did not say la cazadora is also a jacket.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "hunter"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "la cazadora — (also) bomber jacket"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la pesca": {
+   "why": "The gloss is right. The first and third examples were both ir de pesca.",
+   "dropEx": [
+    "hermosa mañana para ir de pesca"
+   ],
+   "ex": [
+    [
+     "La pesca es muy importante en Galicia.",
+     "Fishing is very important in Galicia."
+    ]
+   ]
+  },
+  "deleb1/la química": {
+   "why": "The second example's English, 'I'm a student of chemistry faculty', is not English, and the first rendered la facultad as 'the department's'.",
+   "dropEx": [
+    "Soy estudiante de la facultad"
+   ],
+   "exEn": [
+    [
+     "Me gustan las clases de",
+     "I like the chemistry classes at university."
+    ]
+   ],
+   "ex": [
+    [
+     "Entre ellos hay mucha química.",
+     "There's a lot of chemistry between them."
+    ]
+   ]
+  },
+  "deleb1/dirigir": {
+   "why": "The gloss was a list. The first example is a calque of 'the elephant in the room', which is not a Spanish idiom, and the second is shared with el entrenador earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to direct",
+      "to run, to manage",
+      "to conduct (an orchestra)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el elefante en la habitación",
+    "lo dirige un buen entrenador"
+   ],
+   "ex": [
+    [
+     "Almodóvar dirigió la película.",
+     "Almodóvar directed the film."
+    ],
+    [
+     "Dirige una empresa de cien empleados.",
+     "She runs a company with a hundred employees."
+    ]
+   ]
+  },
+  "deleb1/el horno": {
+   "why": "The gloss is right. The second example, 'Ustedes hacen pan en sus hornos', is not a sentence anyone says.",
+   "dropEx": [
+    "Ustedes hacen pan"
+   ],
+   "ex": [
+    [
+     "Precalienta el horno a 200 grados.",
+     "Preheat the oven to 200 degrees."
+    ]
+   ]
+  },
+  "deleb1/la profesión": {
+   "why": "'calling' is not a sense a learner needs. The first example was an aphorism.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "profession"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mi profesión y mi arte es vivir"
+   ],
+   "ex": [
+    [
+     "¿Cuál es su profesión?",
+     "What's your profession?"
+    ]
+   ]
+  },
+  "deleb1/el ciudadano, la ciudadana": {
+   "why": "The gloss gave 'city-dweller'. The first example is shared with privado earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "citizen"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "debería ser privado de sus derechos"
+   ],
+   "ex": [
+    [
+     "Los ciudadanos votan cada cuatro años.",
+     "Citizens vote every four years."
+    ]
+   ]
+  },
+  "deleb1/los deberes": {
+   "why": "The gloss is right. The second example is shared with acabar in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "acabar los deberes antes de cenar"
+   ],
+   "ex": [
+    [
+     "Hoy no tenemos deberes.",
+     "We haven't got any homework today."
+    ]
+   ]
+  },
+  "deleb1/el grito": {
+   "why": "The gloss was a list, 'a growl' among it, and did not give a gritos.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "shout, scream"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a gritos — shouting"
+     ]
+    ]
+   ]
   }
  },
  "insert": {
@@ -37641,7 +38126,10 @@
    "la llegada",
    "el capítulo",
    "soltero, soltera",
-   "el sueldo"
+   "el sueldo",
+   "clásico, clásica",
+   "el documento",
+   "marcharse"
   ]
  }
 }

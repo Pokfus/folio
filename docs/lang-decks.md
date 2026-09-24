@@ -3489,6 +3489,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S32 | B1 | #363 `el círculo` – #390 `mencionar` | 24 | 4 (`el abrazo`, `el trozo`, `la expresión`, `la religión`) | 0 | B1 description: 955 with three | — |
 | S33 | B1 | #391 `la producción` – #418 `el sueldo` | 24 | 4 (`la llegada`, `el capítulo`, `soltero, soltera`, `el sueldo`) | 0 | B1 description: 956 with three | — |
 | S34 | B1 | #419 `la infancia` – #446 `el anciano, la anciana` | 28 | 0 | 0 | B1 description: 957 with three | — |
+| S35 | B1 | #447 `el cartel` – #474 `el grito` | 25 | 3 (`clásico, clásica`, `el documento`, `marcharse`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4922,6 +4923,48 @@ examples: 957 of 998.
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 77 → 73.
+
+### S35 — DELE B1, notes #447–#474 (Sep 2026)
+
+Measured against the S34 commit by card id: **25 changed, 973 untouched**. The 25 are each a record entry.
+Three cards were read and left alone: `clásico, clásica`, `el documento` and `marcharse`.
+
+**A FALSE FRIEND TAUGHT AS A TRUE ONE.** Two of `atender`'s examples used *atender a la reunión* for "to
+attend a meeting". In Spanish that is *asistir a*. Both were replaced. The card now carries a note, as
+`realizar` did in S34, and shows the verb's real senses: serving a customer and seeing a patient.
+
+**NO EXAMPLE OF THE GLOSSED SENSE.** `la escala` put "ladder" first in its gloss, and none of its three
+examples used the noun in the sense glossed:
+- the first used *armar*, Latin American for *montar*, and its English left the word out;
+- the second was the verb *escalar*;
+- the third wrote *New York* and is shared with A1's `el avión`.
+
+All three were replaced with a stopover, a scale drawing and a musical scale.
+
+**THE WRONG CARD'S SENSE.**
+- `besar` was glossed "to kiss each other". That is *besarse*, the next card.
+- *besarse*'s third example was *besar*.
+- `la capa` gave "cloak, coat" and not "layer".
+- `el congreso` did not give *el Congreso*, Spain's lower house.
+
+**CALQUES AND MISTRANSLATIONS.**
+- `dirigir`: "Vamos a dirigir el elefante en la habitación" is a calque of an idiom that does not exist in
+  Spanish.
+- `llenar`: *formas* is a calque of "forms".
+- `llenar`: *escritorio* was rendered as a computer desktop.
+- `la química`: "a student of chemistry faculty".
+- `el origen`: "Rats carry the plague", where the Spanish says rats are its source.
+
+**AND THE REST.**
+- Twelve sentences shared with A1, A2 or an earlier B1 card were replaced.
+- `el cazador` now says that *la cazadora* is also a jacket.
+- B1 still has 957 cards with three examples, out of 998.
+
+**CHECKERS.**
+- `--check` passes, `check-say` reads 0, and the batch has no unbolded example.
+- `check-senses --deck=DELE-B1` went from 73 to 71.
+- `besar` and `besarse` stay on that list with their new glosses, "to kiss" and "to kiss (each other)". Their
+  examples read "kissed" and "kissing", so these are false positives, not wrong glosses.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
