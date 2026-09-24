@@ -693,6 +693,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 751–780 (开关 → 空地), deck order | 21 (+1) | **two cards glossed from the OTHER reading** (看好, 空地 'air-to-surface missile'), 肯's three sentences all about a man called Ken, and an English typo that named a sex toy |
 | 2026-09-24 | `hsk30l6` notes 781–810 (空闲 → 牢), deck order | 24 | **ten single-character cards in one range, and the transliteration class three more times** — broccoli on 兰花, Greifswald on 赖, a quart on 夸 |
 | 2026-09-24 | `hsk30l6` notes 811–840 (劳动力 → 凌晨), deck order | 20 (+1 out of range) | **three single-character cards with no sentence using the character on its own** — 立, 料, and 雷 after its third went; and a `not X` hint pair that was hiding a wrong gloss |
+| 2026-09-24 | `hsk30l6` notes 841–870 (流程 → 码头), deck order | 24 | **nine near-repeats, and glosses taken off the top of CC-CEDICT** — 流程 "course", 漏洞 "leak", 路程 "route", and 流量 led with two senses its sentences never used |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11886,3 +11887,40 @@ Coverage: 11,532 notes at three sentences, 0 repeats, 315 shared-gloss groups wi
 (邻居/街坊, unchanged). `check-british` reads 0. **Verified against the real diff: 20 of 30 changed in range,
 and one out of range — hsk30l7/利率, its hint removed.** `build-lang-decks.js` re-run. No changelog line and no
 version bump.
+
+### Batch 158 — `hsk30l6` notes 841–870 (流程 → 码头)
+
+**Glosses read off the head of the dictionary entry rather than off the card.** 流程 was "course" over three
+sentences about a procedure; 漏洞 was "leak" over a loophole, a software bug and a flaw in a disguise; 路程 was
+"route" over three distances; 流量 led with "flow rate; throughput of passengers" while its sentences were
+website traffic and mobile data. Each is CC-CEDICT's FIRST sense and none is the card's — the rule batch 31
+recorded, met four times in thirty. 流量 is split into its three senses with an AUTHORED river sentence for
+the one it named and did not show; 流动, 流通, 落地 and 录像 gained the senses their own sentences used, the last
+two split and tagged.
+
+**Nine near-repeats, seven of them this record's own**: 流动 (the river flowing slowly, with and without 地),
+流通 (air circulation twice), 楼道 (no clutter twice), 路况 (poor today twice), 绿化 (well done twice), 旅途
+(旅途愉快 twice), 码头 (the boat at the wharf twice); and from the deck, 路程 (the way to the station twice) and
+轮 (轮到 twice). One more was caught on read-back: once 马虎's tongue-twister (马马马虎虎, the headword inside
+马马虎虎) went, all three were predicate 马虎 after an adverb, so the authored one became attributive.
+
+**Swallows**: 流程图 on 流程, 沐浴露 on 露, 录像带 and 录像机 on 录像, 轮滑 on 轮. 流程's sentence also wrote 图标
+*icon* for 图表 and lacked its stop; 漏洞's misprinted 措施 as 措拖; this record's 28-word disguise sentence on 漏洞
+(its 一角店胡子 a calque of *dime store moustache*) is gone. 浏览器's third used 网路, the Taiwan word.
+
+**露's two readings carried one identical gloss.** CC-CEDICT gives *to show* under both lòu and lù, and 露出 as
+lù "also pr. lòu"; what separates lòu is its set phrases (露面, 露一手, 露马脚). The shower-gel sentence is
+replaced by 露了一手, lòu. **Which reading 太阳露出来了 and 耳朵露出来 take is a judgement and is recorded as one**:
+tagged lù, with the gloss saying colloquial speech often has lòu. 率 had no sentence for shuài — all three were
+lǜ inside a compound — so the weakest (销售率, whose English dropped the rate) is replaced by 率队.
+
+**Englishes**: 路面 said *floor*; 旅程 said *would need*; 旅途 said *voyage*; 落后's said *gains and losses*;
+轮子's was a half-translated proverb (replaced); 履行's 履行命令 is an unnatural collocation (replaced).
+
+**Six cards were read and left**: 流入, 录用, 录制, 轮船, 轮椅, 论坛. Five Compounds panels written (露, 率, 轮;
+淋 and 雷 last batch). `check-gloss-source.js` now lists 流程 — *process; procedure* against CC-CEDICT's *course;
+stream; sequence of processes* — which is the proxy disagreeing with a correction, left.
+
+Coverage: 11,532 notes at three sentences; same-sentence-twice drops 143 → 142 (流动); 315 shared-gloss groups,
+still-ambiguous 1 (邻居/街坊). `check-british` reads 0. **Verified against the real diff: 24 of 30 changed and
+nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
