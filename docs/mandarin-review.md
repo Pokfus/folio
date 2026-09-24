@@ -713,6 +713,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1351–1380 | 24 changed, 6 read and left: 22 example sentences replaced (two 为-straddles, 温和 glossed from its other reading, slogans, opinions, a calqued proverb, near-repeats), 1 translation fixed, two Compounds panels, 16 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1381–1410 | 26 changed, 4 read and left: 30 example sentences replaced (six single characters used only inside other words, a mother-in-law stereotype, transliterated names, proverbs rendered as English proverbs, chat messages, near-repeats), 3 translations fixed, six Compounds panels, 17 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1411–1440 | 25 changed, 5 read and left: 22 example sentences replaced (消除's three unsuitable sentences, climate denial on 效应, a generalisation about the Swiss, 国际象棋 on Chinese chess, headwords inside longer words, near-repeats), 3 translations fixed, one Compounds panel, 19 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1441–1470 | 23 changed, 7 read and left: 19 example sentences replaced (学会 glossed with a sense no sentence showed, a Churchill quotation, a breast reduction, Taiwan's 网路, slogans, fragments, near-repeats), 1 translation fixed, one Compounds panel, 17 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12580,4 +12581,31 @@ and no version bump.
   - 小偷儿 was capitalised.
   - 相连 had to take CC-CEDICT's "to link; to join", or `check-gloss-source.js` reported it.
   - The rest gained a "to" or a sense.
+
+### Batch 178 — `hsk30l6` notes 1441–1470 (心爱 → 学会)
+
+23 notes changed and 7 read and left (心底, 新媒体, 新能源, 薪水, 型号, 修复, 选修), counted against the real diff.
+
+- **Glosses that contradicted the sentences.**
+  - 学会 was glossed "academic society", but all three sentences meant "to learn". It is split into its two senses, and a sentence was added showing the society.
+  - 心灵 was glossed "soul; intelligent". "Intelligent" is the sense CC-CEDICT gives for the adjective, not the noun the card teaches.
+- **Unsuitable.**
+  - 形态 had Churchill's line on democracy.
+  - 胸 had a breast reduction and a transliterated name.
+  - 新颖 had Taiwan's 网路.
+  - 心脏's 农民是国家的心脏 and 心灵's 美德征服心灵 were slogans. The second was already dropped from 视觉 in batch 169.
+  - 心爱 had a 35-character motivational line.
+- **Fragments and prompts.**
+  - 信念's record had 有信念。
+  - 信赖 had a website prompt, 可信赖用户.
+  - 形态's 生气是一种疯狂的形态 was a calqued aphorism.
+- **Near-repeats replaced:**
+  - 袖子: rolling up a sleeve three times.
+  - 旋转: the earth twice.
+  - 叙述: the accident twice.
+  - 心疼: mother and child twice. My own first replacement, 我真心疼, split into 真心 + 疼 and was caught by `check-example-fit.js`.
+  - 新兴: emerging markets twice.
+  - 兴起: online shopping twice.
+- **Translation.** 许可's "I'm not allowed to drink" had dropped "without permission".
+- **Glosses.** 心目 now says "in someone's eyes", which frees it from 脑海. 性价比 is now "value for money", and 性能 is now "performance".
 
