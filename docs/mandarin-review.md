@@ -699,6 +699,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 931–960 (南美洲 → 泡), deck order | 24 | **four single-character cards with every sentence swallowed or nearly** — 扭 (扭伤 twice), 盘 (汤盘, 存盘, 大盘鸡), 暖 (回暖, 变暖), 泡 (泡汤) |
 | 2026-09-24 | `hsk30l6` notes 961–990 (赔偿 → 坡), deck order | 25 | **片面 illustrated by 一片面包 "a slice of bread" twice**, 披 by pizza and the Beatles, and 喷 and 坡 swallowed three times each |
 | 2026-09-24 | `hsk30l6` notes 991–1020 (泼 → 谦虚), deck order | 22 | **恰恰's three sentences were all the set phrase 恰恰相反**; 扑 glossed "dedicate all one's energies to a cause"; 铺 illustrated by 床铺, read pù |
+| 2026-09-24 | `hsk30l6` notes 1021–1050 (前景 → 清醒), deck order | 22 | **two generalisations about a people on 勤劳, one about a class on 倾向**; 切实's 切实可行 twice; eleven glosses repaired |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12104,3 +12105,37 @@ in "dirty water" — a proxy firing on a literal. Four Compounds panels written 
 Coverage: 11,532 notes at three sentences; 314 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
 `check-british` reads 0; `check-gloss-source.js` loses 气质. **Verified against the real diff: 22 of 30 changed
 and nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 164 — `hsk30l6` notes 1021–1050 (前景 → 清醒)
+
+**Generalisations about people, the class `check-coarse.js` watches for and cannot find.** 勤劳 carried
+中国人民非常勤劳 and 日本人是勤劳的民族 — "the Chinese people are exceptionally hardworking", "the Japanese are an
+industrious people" — and 倾向 carried 资本家倾向于压榨工人 "capitalists tend to exploit the workers", a political
+claim presented as a vocabulary example. All three replaced by AUTHORED sentences. **No checker lists any of the
+three**: the vocabulary is flattering or neutral, which is exactly why a word list cannot see it.
+
+**Swallows**: 金枪鱼 *tuna* and 枪支 on 枪; 清白 on 清; and this record's own **切实可行** on 切实, twice — a set phrase
+CC-CEDICT lists, so the card taught *feasible* under a headword meaning *practical, earnest*.
+
+**Eleven glosses repaired**, most of them taken from the wrong end of the entry: 前景 led with "foreground" over
+three sentences about prospects; 清晨 was "daybreak, the small hours of the morning", which is 凌晨; 清理 said
+"disentangle"; 桥梁 "approach"; 亲属 "kin" alone; 倾向 "be inclined to; prefer" missing the noun *tendency* its own
+second sentence is; 前期, 强迫, 倾听, 切实 and 清醒 gained what their sentences show. **清洁 gained "to clean"**, which
+its first sentence is — and that ends its exact collision with hsk30l3/干净 "clean", so the shared-gloss count
+drops 314 → 313; the `not 干净` / `not 清洁` pair stays on both, the two words still being close.
+
+**A fault in the applier worth knowing**: removing a fix from the record does NOT restore the deck — the gloss
+written on the first run stayed on the card after the `gloss` key was deleted, and `--check` could not have seen
+it. Put the value back rather than deleting the key.
+
+**Sentences that were not good Chinese, or not sentences**: 倾听's 倾听... (one word and an ellipsis) and 清晰's 更清晰些,
+both this record's own; 青春's 由跑步保养青春的活力; 清洁's 的 for 地; 巧妙's 迭 for 叠 and a proverb whose English made
+no sense; 亲属's sentence hung on a Japanese surname; 桥梁's 43-character koala sentence.
+
+**Near-repeats**: 潜力, 亲密, 清扫. **Englishes**: 青春期's "Children in puberty are easily emotional", 切实's.
+
+**Eight cards were read and left**: 前提, 前者, 墙壁, 强化, 强壮, 瞧, 清淡, 清洗. Two Compounds panels written (枪, 清).
+
+Coverage: 11,532 notes at three sentences; 313 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
+`check-british` reads 0; `check-gloss-source.js` loses 清理 and 倾向. **Verified against the real diff: 22 of 30
+changed and nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
