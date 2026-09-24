@@ -25562,6 +25562,65 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       "</div>";
   }
 
+  /* ---------- the editorial lead: the collection you are reading (Sep 2026) ----------
+     The collection this reader last studied, drawn big at the head of the All tab with a Continue button,
+     and the next two beside it. RECENCY IS READ OFF THE CARD RECORDS (`S.cards[id].last`, the moment a
+     card was last graded), so it needs no field of its own and cannot disagree with the study history.
+     A finished collection is not "in progress", and a reader who has studied nothing gets no lead at all
+     rather than a lead story about a collection they have never opened. */
+  function edInProgress(available) {
+    const last = {};
+    Object.keys(S.cards).forEach((id) => {
+      const c = S.cards[id];
+      if (!c || !c.last || !CARD_BY_ID[id]) return;
+      const r = cardCollectionRoot(id);
+      if (r && (!last[r.id] || c.last > last[r.id].t)) last[r.id] = { t: c.last, card: id };
+    });
+    return available.map((d) => {
+      const l = last[d.id];
+      if (!l) return null;
+      const total = subtreeCardIds(d).length, studied = studiedInNode(d);
+      if (!studied || studied >= total) return null;
+      // the top-level deck of the card last studied — "you were last in Archaic Greece"
+      let n = (cardLeaves(l.card)[0] || null), deck = null;
+      n = n ? NODE_BY_ID[n.id] : null;
+      while (n && n.parentId) { deck = n; n = NODE_BY_ID[n.parentId]; }
+      return { d, t: l.t, total, studied, deck };
+    }).filter(Boolean).sort((a, b) => b.t - a.t);
+  }
+  function edLeadHTML(available) {
+    const list = edInProgress(available);
+    if (!list.length) return "";
+    const hue = (id) => (COLL_THEME[id] && COLL_THEME[id].bg) || "var(--indigo)";
+    const ic = (id) => iconSvg(COLLECTION_ICON[id] || "cards");
+    const lead = list[0], d = lead.d;
+    const due = subtreeCardIds(d).filter((id) => S.cards[id] && isDueNow(id)).length;
+    const pct = Math.round((100 * lead.studied) / lead.total);
+    const also = list.slice(1, 3);
+    return '<div class="ed-lead' + (also.length ? "" : " solo") + '">' +
+      '<article class="ed-hero" style="--coll-bg:' + hue(d.id) + '">' +
+        '<div class="ed-hero-art" aria-hidden="true">' + ic(d.id) + '</div>' +
+        '<div class="ed-kicker">Continue reading</div>' +
+        '<div class="ed-hero-body">' +
+          '<h2>' + esc(nodeTitle(d)) + '</h2>' +
+          (lead.deck ? '<p>You were last in ' + esc(nodeTitle(lead.deck)) + '.</p>' : "") +
+        '</div>' +
+        '<div class="ed-hero-foot">' +
+          '<button type="button" class="ed-go" data-edgo="' + esc(d.id) + '">Continue' + (due ? " · " + due + " due" : "") + '</button>' +
+          '<div class="ed-hero-prog"><div class="ed-hero-fig">' + lead.studied.toLocaleString() + " of " + lead.total.toLocaleString() + ' studied</div>' +
+          '<div class="ed-hero-track"><div style="width:' + pct + '%"></div></div></div>' +
+        '</div>' +
+      '</article>' +
+      (also.length ? '<div class="ed-also">' + also.map((a) =>
+        '<button type="button" class="ed-also-card" data-edgo="' + esc(a.d.id) + '" style="--coll-bg:' + hue(a.d.id) + '">' +
+          '<span class="ed-also-ic" aria-hidden="true">' + ic(a.d.id) + '</span>' +
+          '<span class="ed-also-txt"><span class="ed-also-k">Also in progress</span>' +
+          '<span class="ed-also-t">' + esc(nodeTitle(a.d)) + '</span>' +
+          '<span class="ed-also-n">' + a.studied.toLocaleString() + " of " + a.total.toLocaleString() + ' studied</span></span>' +
+        '</button>').join("") + '</div>' : "") +
+    '</div>';
+  }
+
   /* ============================================================
      PAGE: DECKS
      ============================================================ */
@@ -25579,11 +25638,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const langShown = collTabIs("language") && (window.LANG_DECKS || []).length;
     const commShown = collTabIs("community");
     const empty = !soonShown.length && !langShown && !commShown && !shown.some((lab) => (bySection[lab] || []).length);
-    const slot = (slotId, count) => `<div class="collection-list" id="${slotId}">${count === 0 && admin ? '<div class="lib-empty">Drag a collection here</div>' : ""}</div>`;
+    /* THE EDITORIAL LAYOUT (Sep 2026, on request — design 3 of six mocked up for this page). The curated
+       sections draw their collections as COVERS in a grid rather than as full-width banners, and the
+       planned ones as chips. It is the SAME `buildCollection` element either way, restyled by the
+       stylesheet under `.coll-ed` — so the +, Try ten, the chevron, the admin drag and every test that
+       reaches a collection through `.collection-row` / `.collection-add` behave exactly as before. A
+       collection OPENED by its chevron spans the grid's whole row and takes its banner shape back, which
+       is where its decks have room to be read. Compact still draws the old list, and is how a reader who
+       preferred it gets it back. */
+    const slot = (slotId, count, kind) => `<div class="collection-list${kind ? " " + kind : ""}" id="${slotId}">${count === 0 && admin ? '<div class="lib-empty">Drag a collection here</div>' : ""}</div>`;
+    /* "See all" is drawn only under All, and only where the section belongs to a tab of its own — it is a
+       shortcut to that tab, and wired by the tab bar's own `[data-colltab]` handler below. */
+    const seeAll = (label) => {
+      if (collTab !== "all") return "";
+      const t = COLLECTION_TABS.find((x) => x.sections && x.sections.indexOf(label) >= 0);
+      return t ? `<button type="button" class="ed-seeall" data-colltab="${t.id}">See all</button>` : "";
+    };
     const section = (label, n, slotId, count) =>
       `<div class="collection-group">
-        <div class="group-head"><span class="group-label">${label}</span><span class="group-line"></span><span class="group-count">${n}</span></div>
-        ${slot(slotId, count)}
+        <div class="group-head"><span class="group-label">${label}</span><span class="group-line"></span><span class="group-count">${n}</span>${seeAll(label)}</div>
+        ${slot(slotId, count, "ed-grid")}
       </div>`;
     // The collections still being written far outnumber the finished ones, so listing them flat makes the
     // Library read as empty. They fold into a disclosure that is CLOSED FOR EVERYONE, admins included
@@ -25606,20 +25680,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <span class="group-label">Planned</span><span class="group-line"></span><span class="group-count">${n}</span>
           <svg class="group-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </summary>
-        ${slot(slotId, count)}
+        ${slot(slotId, count, "ed-chips")}
       </details>`;
 
     // the density class rides on the PAGE, so it dies with the page and needs no reset anywhere
     root.classList.toggle("coll-compact", collDense);
+    root.classList.toggle("coll-ed", !collDense);
     root.innerHTML = `
-      <div class="page-head">
+      <div class="page-head ed-head">
         ${/* The eyebrow read "Library" until Aug 2026, when that name moved to the reading room next
               door (PAGES.library — whole books rather than cards). Two pages called Library, one of them
               titled Collections, is how a reader ends up on the wrong one; this page is the Collections
               page now, top to bottom. */""}
-        <span class="eyebrow">Study</span>
-        <h1>Collections</h1>
-        <p>Curated collections of flashcards. New subjects are on the way.</p>
+        ${/* The masthead line is FACTS, not copy: the day's date in the reader's own clock, and the two
+              counts the shelf below actually holds. */""}
+        <span class="ed-issue">Issue of ${esc(new Date().toLocaleDateString(uiLang() === "en" ? "en-GB" : uiLang(), { day: "numeric", month: "long" }))} · ${available.length} open ${available.length === 1 ? "collection" : "collections"}${comingSoon.length ? ", " + comingSoon.length + " on the way" : ""}</span>
+        <h1>The Collections</h1>
         ${/* The `.lib-cap` line stating how many decks the reader's level allowed is gone with the cap
               itself (Aug 2026, on request) — there is no limit left to state. */""}
       </div>
@@ -25640,6 +25716,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <span>Search cards, terms and books</span>
       </button>
       ${collTabBarHTML()}
+      ${collTab === "all" && !collDense ? edLeadHTML(available) : ""}
       ${COLLECTION_SECTIONS.map((sec, i) => {
         if (shown.indexOf(sec.label) < 0) return "";
         const items = bySection[sec.label] || [];
@@ -25695,6 +25772,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       try { lit.scrollIntoView({ inline: "nearest", block: "nearest" }); }
       catch (e) { lit.parentElement.scrollLeft = lit.offsetLeft - 12; }
     }
+    root.querySelectorAll("[data-edgo]").forEach((b) => b.addEventListener("click", () =>
+      route("study", { scope: { type: "deck", id: b.dataset.edgo } })));
     wireLibraryDnd(root);
     wireLangDecks(root);
     wireCommunityLibrary(root);
@@ -26581,6 +26660,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     collEl.innerHTML = `
         <div class="collection-row" tabindex="${hasSubs ? 0 : -1}" role="button" data-libitem="${esc(d.id)}" data-libkind="col">
           <div class="collection-deco" aria-hidden="true"></div>
+          ${/* The editorial cover's picture (see PAGES.decks): a large faded mark over the hue, the small
+                mark a planned collection's chip wears, and how far the reader is through it. Drawn on
+                every collection and shown only by the `.coll-ed` rules, so the list layout is untouched. */""}
+          <div class="ed-art" aria-hidden="true"><span class="ed-big">${iconSvg(COLLECTION_ICON[d.id] || "cards")}</span><span class="ed-mark">${iconSvg(COLLECTION_ICON[d.id] || "cards")}</span>${!soon && studied && total ? `<span class="ed-pct">${Math.max(1, Math.round((100 * studied) / total))}%</span>` : ""}</div>
           ${libGripHTML(d.id)}
           ${soon ? "" : collectionIconMarkup(d.id)}
           <div class="collection-main">
@@ -30033,6 +30116,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="collection-row" tabindex="0" role="button"' +
         (theme ? ' style="--coll-bg:' + theme.bg + '"' : "") + '>' +
         '<div class="collection-deco" aria-hidden="true"></div>' +
+        '<div class="ed-art" aria-hidden="true"><span class="ed-big">' + iconSvg("speech") + '</span>' +
+          (studied && cards ? '<span class="ed-pct">' + Math.max(1, Math.round((100 * studied) / cards)) + "%</span>" : "") + "</div>" +
         symbolIconMarkup("speech") +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
@@ -30056,7 +30141,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return '<div class="collection-group community-group" id="langDecks">' +
       '<div class="group-head"><span class="group-label">Languages</span><span class="group-line"></span>' +
         '<span class="group-count">' + langs.length + "</span></div>" +
-      '<div class="collection-list">' + langs.map((l) => langCollectionHTML(l, rows.filter((r) => r.lang === l))).join("") + "</div>" +
+      // `ed-grid`: the editorial layout draws a language as a cover like any collection (see PAGES.decks)
+      '<div class="collection-list ed-grid">' + langs.map((l) => langCollectionHTML(l, rows.filter((r) => r.lang === l))).join("") + "</div>" +
     "</div>";
   }
   function wireLangDecks(root) {
