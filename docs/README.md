@@ -79,6 +79,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `architecture-card-plan.md` | Architecture (`arch`) | `arch-` |
 | `middleearth-card-plan.md` | Middle-earth (`middleearth`) — the first whose subject is fiction | `mid-` |
 | `westeros-card-plan.md` | Westeros (`westeros`) — the second whose subject is fiction | `wes-` |
+| `coldwar-card-plan.md` | The Cold War (`coldwar`) | `cw-` |
 | `japan-card-plan.md` | Japan (`japan`) | `jp-` |
 | `psychology-card-plan.md` | Psychology (`psych`) — the first that is not history | `ps-` |
 | `philosophy-card-plan.md` | Philosophy (`phil`) | `ph-` |
@@ -95,7 +96,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
 | `politics-east-asia-card-plan.md` | Politics: East Asia (`pea`) — a COURSE, planned a lecture at a time | `pea-` |
 
-`china-card-findings.md` is China's per-card research log; the other twenty-seven keep theirs in their own plan
+`china-card-findings.md` is China's per-card research log; the other twenty-eight keep theirs in their own plan
 or in the citation plans. `node .claude/test-card-plans.js` checks every plan against `data.js`.
 
 ## Content passes — the finished ones

@@ -20647,6 +20647,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        and a DRAGON cannot be drawn at 24px without becoming a bird anyway. Keep the tail and the
        wing's sweep — the first raven drawn without them read as a snail. */
     { k: "raven", n: "Raven", d: '<path d="M2.4 8.6 7.8 12.8c1.7-2.4 4.1-3.7 7-3.7l2.6-2.5v2.9l4.2 1.3-3.8 1.7c-.4 4.3-3.7 7.1-7.9 7.1-2.4 0-4.4-.7-5.9-2"/><path d="M9.6 19.5 8 21.6"/><circle cx="14.4" cy="10.9" r=".8"/>' },
+    /* THE RADIATION TREFOIL (The Cold War) — fifty-two marks were in this list and nothing resembles
+       it: `atom` is a nucleus inside three ellipses, `ringed` a disc inside one, `sun` a small disc
+       with straight rays, `ring` a bare circle. Rendered at 24, 28, 34 and 44px beside all four it is
+       unmistakable, which is what a three-wedge rotational form buys — a silhouette nothing else here
+       has. IT BELONGS TO NEITHER SIDE, which is the test the hue below had to pass too, and it names
+       the one thing that makes this a subject rather than a chapter of great-power rivalry.
+       A MUSHROOM CLOUD WAS REFUSED and NOT on legibility: it is an image of a hundred thousand deaths
+       used as a decorative mark, and a collection that cards Hiroshima properly should not wear it.
+       A ROCKET was drawn and refused on legibility — at 24px it is a fussy `plane`, and a third
+       vehicle besides. A HALF-FILLED CIRCLE for the divided world reads as `moon`. */
+    { k: "trefoil", n: "Radiation trefoil", d: '<circle cx="12" cy="12" r="2.6"/><path d="M9.8 7.9 L7.1 2.8 A10.4 10.4 0 0 1 16.9 2.8 L14.2 7.9 A4.6 4.6 0 0 0 9.8 7.9 Z"/><path d="M16.6 12.2 L22.4 12.4 A10.4 10.4 0 0 1 17.5 20.8 L14.4 15.9 A4.6 4.6 0 0 0 16.6 12.2 Z"/><path d="M9.6 15.9 L6.5 20.8 A10.4 10.4 0 0 1 1.6 12.4 L7.4 12.2 A4.6 4.6 0 0 0 9.6 15.9 Z"/>' },
     { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
@@ -20726,6 +20737,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     arch: "arch",
     middleearth: "ring",
     westeros: "raven",
+    coldwar: "trefoil",
     japan: "torii",
     psych: "head",
     phil: "owl",
@@ -26304,6 +26316,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        rendered beside the shelf's reds it is a raspberry PINK rather than a crimson. The two points
        are given up for the colour, which is Korea's trade exactly. */
     westeros: { bg: "#B32057" },
+    /* cold concrete grey (The Cold War) — MEASURED against the 35 hues then on the shelf, and the one
+       collection where the EDITORIAL CONSTRAINT CAME FIRST: the colour may not be either side's. This
+       collection's central scope decision is that the Cold War was a global system rather than a duel,
+       and that almost everyone who died in it was neither American nor Russian — so a banner in Soviet
+       red or American navy would contradict the plan in a swatch, and both are on the shelf anyway
+       (Russia's lacquer, the United States' navy). The sweep was therefore run over everything EXCEPT
+       red and blue, and what survives is the colour a reader would name regardless: concrete, the
+       Wall, the bunker, the silo, the housing block both blocs built.
+       THE NUMBERS ARE BAD AND ARE STATED IN FULL. 19.2 from its nearest neighbour, BELOW the median of
+       20.1, with DENSITY 9 — equal to the highest on the shelf, the worst either figure has been for a
+       new collection. Psychology's plum 19, the United States' navy 19, the Second World War's iron 20,
+       Greece's Aegean 20, France's slate 21, Philosophy's petrol 21. L 34, chroma 13, and 7.96:1
+       against white, which is the figure in its favour: mid-band, where the last three collections all
+       landed on the 3.7 floor.
+       IT IS A FOURTH GREY AND THE FOUR ARE GENUINELY FOUR COLOURS, which is the argument carrying it:
+       the Second World War's iron is a warm brown-grey at L 27, this a cool blue-grey at L 34, the
+       First World War's field grey an olive at L 45, France's slate a blue-green at L 51 — the spread
+       is in lightness AND hue. Look at that comparison again before moving it.
+       WHAT SCORES BETTER MEANS NOTHING HERE: a bright periwinkle at 20.6 and a light purple at 18.8
+       (density 2) are the best unbanded figures on the wheel, and a Cold War banner in lavender is
+       worse than a crowded grey. The magenta topped the unconstrained sweep for the ELEVENTH time and
+       the olive-brass was not re-measured. IF IT EVER NEEDS MOVING the alternative is #4A3C52 at 19.3
+       and density 8 — marginally better on both — refused because at banner size it reads plum rather
+       than concrete and sits 19 from Psychology's plum for that reason. CHECK THE SWATCH, NOT THE
+       NUMBER. */
+    coldwar:  { bg: "#4C5064" },
     /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
        agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
        from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median

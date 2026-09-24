@@ -12779,6 +12779,292 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "coldwar",
+      "title": "The Cold War",
+      "total": 0,
+      "children": [
+        {
+          "id": "cw-start",
+          "title": "Origins and the shape of the conflict",
+          "total": 105,
+          "children": [
+            {
+              "id": "cw-origins",
+              "title": "Where it came from",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-1945",
+              "title": "1945 to 1949",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-shape",
+              "title": "What kind of conflict it was",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "cw-blocs",
+              "title": "The two blocs and the rest",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-europe",
+          "title": "Europe divided",
+          "total": 110,
+          "children": [
+            {
+              "id": "cw-germany",
+              "title": "Germany and Berlin",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-east",
+              "title": "The Eastern bloc",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-west",
+              "title": "Western Europe",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-1989",
+              "title": "Nineteen eighty-nine",
+              "total": 22,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-nuclear",
+          "title": "The bomb",
+          "total": 110,
+          "children": [
+            {
+              "id": "cw-bomb",
+              "title": "Building the bomb",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-strategy",
+              "title": "Strategy and deterrence",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-arms",
+              "title": "Arms control",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "cw-risk",
+              "title": "Near misses and the risk",
+              "total": 26,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-home",
+          "title": "The superpowers at home",
+          "total": 110,
+          "children": [
+            {
+              "id": "cw-usa",
+              "title": "The United States",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-ussr",
+              "title": "The Soviet Union",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-fear",
+              "title": "Fear, loyalty and repression",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-money",
+              "title": "The two economies",
+              "total": 22,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-asia",
+          "title": "Asia",
+          "total": 120,
+          "children": [
+            {
+              "id": "cw-china",
+              "title": "China",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-korea",
+              "title": "The Korean War",
+              "total": 24,
+              "cardIds": []
+            },
+            {
+              "id": "cw-vietnam",
+              "title": "Vietnam and Indochina",
+              "total": 34,
+              "cardIds": []
+            },
+            {
+              "id": "cw-asiarest",
+              "title": "The rest of Asia",
+              "total": 34,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-global",
+          "title": "The global Cold War",
+          "total": 120,
+          "children": [
+            {
+              "id": "cw-decol",
+              "title": "Decolonisation and non-alignment",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-mideast",
+              "title": "The Middle East",
+              "total": 26,
+              "cardIds": []
+            },
+            {
+              "id": "cw-africa",
+              "title": "Africa",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-latam",
+              "title": "Latin America",
+              "total": 36,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-secret",
+          "title": "Spies, propaganda and culture",
+          "total": 105,
+          "children": [
+            {
+              "id": "cw-intel",
+              "title": "Intelligence",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-words",
+              "title": "Propaganda and the war of words",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "cw-culture",
+              "title": "Culture and sport",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-space",
+              "title": "The space race",
+              "total": 22,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-endgame",
+          "title": "Détente, the second Cold War and the end",
+          "total": 115,
+          "children": [
+            {
+              "id": "cw-detente",
+              "title": "Détente",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-second",
+              "title": "The second Cold War",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-gorbachev",
+              "title": "Gorbachev",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-collapse",
+              "title": "The collapse of the Soviet Union",
+              "total": 31,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cw-after",
+          "title": "Aftermath and argument",
+          "total": 105,
+          "children": [
+            {
+              "id": "cw-aftermath",
+              "title": "The aftermath",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "cw-legacy",
+              "title": "Nuclear legacies",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "cw-history",
+              "title": "How the Cold War is written",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "cw-memory",
+              "title": "Memory and the present",
+              "total": 27,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-world",
       "title": "World Geography",
       "total": 468,

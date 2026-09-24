@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Card plans ↔ data.js — the check that keeps "generate the next <collection> card" working.
  *
- * Twenty-eight collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
+ * Twenty-nine collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
  * lowest id not yet in data.js, and its deck comes from the plan. That workflow rests on agreements
  * nothing else verifies, and every one of them fails SILENTLY:
  *
@@ -69,6 +69,7 @@ const PLANS = {
   arch: ["architecture", "arch-", 1000],
   middleearth: ["middleearth", "mid-", 1000],
   westeros: ["westeros", "wes-", 1000],
+  coldwar: ["coldwar", "cw-", 1000],
   japan: ["japan", "jp-", 1000],
   psych: ["psychology", "ps-", 1000],
   phil: ["philosophy", "ph-", 1000],

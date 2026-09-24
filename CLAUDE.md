@@ -1185,6 +1185,65 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     belongs on nearly every game-reachable card in decks 3–6**.
   The next card to write is the lowest `wes-NNN` not yet in `data.js`; the index table under "THE
   PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- **📖 `docs/coldwar-card-plan.md` — READ BEFORE WRITING A `cw-` CARD.** The **1000-card running order
+  for the Cold War collection** (`coldwar`): every card's number, topic and deck, fixed in advance
+  across 9 decks and 36 leaf subdecks. The twenty-ninth of the planned collections and the fifteenth
+  history one; the node, its tree, its `COLL_THEME` hue and a new `ICON_SYMBOLS` mark (`trefoil`) ship
+  with the plan. **It needs NO `COLLECTION_SECTION` row** — `sectionOf` returns History for anything
+  the table does not name, so the correct action for a history collection is to add nothing, which is
+  the France plan's rule and this is the second collection it applies to.
+  · **IT IS A GLOBAL HISTORY, NOT A DUEL, AND THE ARITHMETIC IS THE ARGUMENT.** Deck 5 gives **120
+    cards to Asia** and deck 6 **120 to the rest of the world** against 110 for divided Europe and 110
+    for the two superpowers at home — **240 of the thousand outside Europe and North America**, which
+    for a subject written overwhelmingly from Washington and Moscow is a deliberate correction, and is
+    also where the dying happened. **Both superpowers' accounts of their own actions are carded as
+    accounts**, symmetrically and hard, and so are the client states' — the DPRK on Korea, the junta
+    on Chile, the normalisation histories on 1968.
+  · **THE ASYMMETRY OF THE EVIDENCE IS THE METHODOLOGICAL FACT AND `cw-955` IS THE CARD.** Western
+    archives have opened on a statutory timetable for fifty years; the Soviet ones opened suddenly in
+    the 1990s and **the Russian ones have substantially re-closed**. The effect is systematic — it is
+    easier to write a well-evidenced account of American deliberation than of Soviet, which makes
+    American decisions look explicable and Soviet ones opaque — and **every card inherits it**. **A
+    DECLASSIFIED DOCUMENT IS EVIDENCE OF WHAT AN AGENCY WROTE, NOT OF WHAT HAPPENED**: an estimate is a
+    guess with a letterhead, and **a card citing NSC-68 for what the Soviet Union was doing has cited
+    an American argument about the Soviet Union.** Memoirs are the weakest source here and there are
+    hundreds.
+  · **THE SOURCES ARE THE BEST ON THE SHELF AND MOSTLY FREE** — the Wilson Center Digital Archive, the
+    National Security Archive, the full-text *Foreign Relations of the United States*, and the CIA
+    reading room. The journals are paywalled; search DOAJ and OpenAIRE first.
+  · **INTELLIGENCE IS CARDED FOR WHAT IT DID TO POLICY, NOT AS A GENRE** — the popular literature is
+    the largest part of this subject and much of it is unverifiable, so a card needs a document or a
+    scholarly reconstruction rather than a good story, and says so where the claim rests on one
+    defector's word. **THE NUCLEAR CARDS GIVE THE NUMBERS AND NEITHER MINIMISE NOR PREACH**, and the
+    near-miss subdeck's argument (`cw-324`) is about systems rather than luck.
+  · **THE TWO-SCHOLAR CAP IS SPENT IN `cw-history` AND DELIBERATELY** — **William Appleman Williams
+    and John Lewis Gaddis**, because the revisionist turn and the post-revisionist synthesis were
+    events in American public argument. **Every other historian is carded as an argument rather than a
+    name.** And **nothing is written as though the outcome was obvious**: `cw-195 Why 1989 surprised
+    everybody` and `cw-892 Was the collapse inevitable?` exist so that teleology is a subject rather
+    than a habit.
+  · **THE OVERLAP IS REAL AND WAS MEASURED: 66 card lines across 13 plans** — World History 17 (the
+    headline set, one card each), the United States 15, Russia 12, Korea 10. **The division of labour
+    is that a national collection cards what the Cold War did to that country and this collection
+    cards the Cold War**, so `ru-706` is the missile crisis as Soviet history and `cw-301`–`cw-309` are
+    nine cards on the crisis. **KOREA IS THE SHARPEST PAIR**: `ko-751`–`ko-785` is the war from inside
+    Korea and `cw-464`–`cw-487` is the same war from outside — read the `ko-` card before writing its
+    twin.
+  · **THE HUE'S EDITORIAL CONSTRAINT CAME FIRST, WHICH IS UNUSUAL: it may not be either side's**, so
+    the sweep excluded red and blue and what survives is concrete grey. **`#4C5064`'s numbers are the
+    worst yet accepted — 19.2, below the median of 20.1, and DENSITY 9, equal to the shelf maximum** —
+    and the argument carrying it is that the four greys are genuinely four colours (iron L 27 warm,
+    this L 34 cool, field grey L 45 olive, slate L 51 blue-green). What scores better is a periwinkle
+    at 20.6 that means nothing. **Check the swatch, not the number, before moving it.** The icon is the
+    radiation trefoil, which belongs to neither side; **a mushroom cloud was refused, and not on
+    legibility.**
+  · **`undatable` IS RARELY RIGHT HERE**, unlike the two fiction collections: almost everything
+    happened at a datable moment, which makes this unusually good Timeline material. The exceptions are
+    the doctrines — containment, deterrence, bipolarity, the proxy war. **The glossary trap is the
+    ordinary-word one**: `stability`, `escalation`, `linkage` and `containment` must not claim their
+    bare surfaces, `The_Wall` is Westeros's problem too, and **`SALT` must not claim `salt`.**
+  The next card to write is the lowest `cw-NNN` not yet in `data.js`; the index table under "THE
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
   Geography SECTION), and **the
   only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
@@ -1703,7 +1762,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.43 MB and 50,008 lines is hard to find your way around, so this
+  [--functions] [--find <re>]`. 3.44 MB and 50,046 lines is hard to find your way around, so this
   lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
@@ -6971,6 +7030,7 @@ lookup.
 | Architecture | `arch` | `arch-` | `docs/architecture-card-plan.md` | 9 / 39 | empty — not a history collection |
 | Middle-earth | `middleearth` | `mid-` | `docs/middleearth-card-plan.md` | 9 / 40 | empty — fiction, not a history collection |
 | Westeros | `westeros` | `wes-` | `docs/westeros-card-plan.md` | 9 / 41 | empty — fiction, not a history collection |
+| The Cold War | `coldwar` | `cw-` | `docs/coldwar-card-plan.md` | 9 / 36 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | 100 cards, contiguous — next is `jp-101` |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
@@ -6998,7 +7058,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (391 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (403 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7959,7 +8019,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 391 assertions on **the join between the card plans and
+  · `node .claude/test-card-plans.js` — 403 assertions on **the join between the card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
