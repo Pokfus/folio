@@ -4171,8 +4171,9 @@ example was *la música*, music, which is A1's card. It is now `el músico, la m
 **THE ADJECTIVE-AND-NOUN PAIR, FOUR MORE TIMES.** `mecánico`, `postal`, `portátil` and `electrónico` were
 each glossed as adjectives while their examples used the noun or a set phrase: *el mecánico*, *la postal*,
 *el portátil* (the laptop, the A2 word in Spain) and *correo electrónico*. Each now carries both, as S13
-did for `adulto` and `político`. **This is now the commonest gloss fault in A2**: the generator's gloss
-takes the part of speech the list files the word under, and the list files these as adjectives.
+did for `adulto` and `político`. **This is now the commonest gloss fault in A2**, and it has the cause
+S10 found in `build_deck.py`: `pick_primary` glosses from the first Wiktionary record with a real sense,
+and for these words that record is the adjective.
 
 **NONE OF THE THREE EXAMPLES COULD STAY, TWICE MORE.**
 - `la gripe` had *se agarró la gripe* (Latin American), *gripa* translated as "a cold", and "summer flu"
