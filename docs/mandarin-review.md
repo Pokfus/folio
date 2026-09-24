@@ -705,7 +705,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1111–1140 (赛事 → 社), deck order | 24 | **散's three sentences all swallowed (散步, 好聚好散, 散心)** and its sǎn reading unshown; 上市 by 名义上+市公司; 社 glossed 'earth god' |
 | 2026-09-24 | `hsk30l6` notes 1141–1170 (射 → 时机), deck order | 23 | **摄像's three sentences all 摄像机, one on surveillance cameras in Urumqi** — this record's own; 声调 by 声+调小; two glosses cut off |
 | 2026-09-24 | `hsk30l6` notes 1171–1200 | 22 changed, 8 read and left: 16 example sentences replaced (a 其实 straddle, the idiom 事后诸葛亮, a political accusation, a passage from *Nineteen Eighty-Four*, near-repeats), one English fixed, 15 glosses corrected |
-| 2026-09-24 | `hsk30l6` notes 1201–1230 | 27 changed, 3 read and left: 25 example sentences replaced (four straddles, 属 used only inside other words, 松 split into its two senses, a sentence that was not Chinese, a calqued 'thoughts and prayers', a generalisation about residents), three Compounds panels, 20 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1201–1230 | 27 changed, 3 read and left: 31 example sentences replaced (four straddles, 属 used only inside other words, 松 split into its two senses, a sentence that was not Chinese, a calqued 'thoughts and prayers', a generalisation about residents), three Compounds panels, 18 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
