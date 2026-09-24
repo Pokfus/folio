@@ -689,6 +689,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 631–660 (假设 → 奖品), deck order | 26 | **eight cards whose headword sat only inside a longer word** (尖叫 twice, 利剑, 箭头, 一箭双雕, 四体健全者) or in a sentence that was not Chinese, and seven near-repeats, three of them this record's own |
 | 2026-09-24 | `hsk30l6` notes 661–690 (酱 → 借助), deck order | 27 | **酱 and 解: not one of either card's three sentences used the character on its own**, and three glosses were cut off mid-phrase or were not the word's meaning at all |
 | 2026-09-24 | `hsk30l6` notes 691–720 (金额 → 镜头), deck order | 26 | **净 and 井 had no sentence using the character on its own**, 尽's three were one idea, and five Englishes rendered a different sentence from the Chinese above them |
+| 2026-09-24 | `hsk30l6` notes 721–750 (纠纷 → 开创), deck order | 26 | **局's traditional field was 侷**, a different character; 就读 and 决策 each had a sentence that straddled; and batch 153's dropped 'Well of Despair' was found standing on a second card |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11692,6 +11693,52 @@ job title twice on 金融, and 竞赛's 料理竞赛, the Japanese and Taiwan wo
 
 **Four cards were read and left**: 金钱, 金子, 近来, 惊讶. The four hint pairs in range (金钱/钱,
 金子/黄金, 进而/继而, and 景象/画面) are untouched, their glosses unchanged.
+
+Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1.
+`check-british` reads 0. **Verified against the real diff: 26 of 30 changed and nothing outside the
+range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 154 — `hsk30l6` notes 721–750 (纠纷 → 开创), 2026-09-24
+
+Twenty-six of the thirty changed. **局's Traditional field read 侷**, which CC-CEDICT gives only as the
+variant for *cramped; narrow*; in every sense the card teaches — a round of a game, a bureau — the
+character is 局 in both scripts. The fourth wrong-character traditional this audit has found (after 录,
+面向 and the still-open 裤子 and 野), and like the others invisible to every checker, the card rendering
+as 局 / 侷 with nothing to say that the second half was a different word. 局's other fault was the
+single-character one: two of its sentences were 警察局 and 邮政局, both words of their own. Rebuilt with
+authored sentences, split into its two senses and given a `Compounds` panel, as was **卷**, whose 卷发
+is a word too. (卷起, which CC-CEDICT also lists, stays: it is the verb plus 起, transparently.)
+
+**Two straddles, both invisible to the example-fit checker because it sees the right characters in the
+right order.** 就读's 我做完我的功课后，就读这本书 is 就 "then" + 读 "read" — the word is not in the
+sentence at all. 决策's 汤姆名义上市公司的领导 is missing its 是, so it reads 名义 + 上市公司 "listed
+company"; the missing character turns a sentence into a straddle.
+
+**A dropped sentence was standing on a second card.** 他终于到了绝望之井 "the Well of Despair", dropped
+from 井 in batch 153, was 绝望's first sentence too — the standing lesson that a `dropEx` is keyed to
+one note, and that a sentence removed for its content should be grepped across the decks the same day.
+It was grepped this time: those two are the only cards carrying it.
+
+**Four Englishes were numerically or lexically wrong.** 军人's 数以百万计 was translated
+**"thousands upon thousands"** — off by three orders of magnitude. 剧烈's 进一步的检查 became "Another
+step forward revealed", mistaking *further* for a step. 救援队 was "search party", 军队's 彻底 was "once
+and for all", and 舅舅 said "Mommy".
+
+**Near-repeats: nine, and seven of them this record's own authored sentences** — 纠纷 (两家因为 X 起了
+纠纷 twice), 救灾 (the same sentence with 工作 taken off), 救助, 举动, 均匀 (搅拌均匀 twice), 开创 and
+救援; from the deck, 就算 (the same rain sentence with 明天 moved) and 聚集 (a crowd gathering twice,
+replaced by the transitive use the card had not shown), plus 卡片, three cards handed to somebody.
+
+**Glosses.** 局限 ended on **"localisation"** and 均匀 on **"equality"**, neither a sense of the word; 纠纷
+carried "issue", 局面 led with "aspect; phase", 举动 read as physical motion. 救命 named only the verb
+while two sentences are the cry *Help!*; 局限, 捐款, 捐赠 and 局 named only one of two parts of speech
+the card's own sentences use — all split and tagged. **救援 is now reported by `check-gloss-source.js`**,
+and deliberately: the gloss became *to rescue*, which CC-CEDICT does not word that way (*to save; to
+support; to help*), but it is the word's everyday sense and what all three sentences do. That finding is
+the checker working as a proxy, not a fault. 酒精's drinker's joke was replaced by the medical sense
+CC-CEDICT leads with.
+
+**Four cards were read and left**: 纠正, 菊花, 剧本, 俱乐部. The 就读/上学 hint pair is untouched.
 
 Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1.
 `check-british` reads 0. **Verified against the real diff: 26 of 30 changed and nothing outside the
