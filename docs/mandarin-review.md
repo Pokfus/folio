@@ -679,6 +679,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 331–360 (顿时 → 凡是), deck order | 23 (+3 in 7–9) | **ten near-repeats again**, a card glossed as its own neighbour — and `check-gloss-source.js` crying wolf on 68 correct glosses |
 | 2026-09-24 | `hsk30l6` notes 361–390 (繁殖 → 丰收), deck order | 23 | **fourteen near-repeats, four of them ALL THREE sentences** — the fill pass at its weakest, and five glosses that were the wrong part of speech |
 | 2026-09-24 | `hsk30l6` notes 391–420 (风雨 → 感想), deck order | 16 | a verb that takes TWO objects given one, an invented compound, and a card glossed *liver* that showed the organ nowhere |
+| 2026-09-24 | `hsk30l6` notes 421–450 (钢笔 → 供给), deck order | 20 | **个体: NOT ONE of its three sentences contained the word**, and its gloss was wrong as well — the worst single card this audit has met |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11052,3 +11053,80 @@ by the plural alone.
 11,532 notes at three sentences with 0 repeats; shared-gloss groups 318 and still-ambiguous 1, both
 unchanged. **Verified against the real diff: 16 of 30 changed, nothing outside the range.**
 `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+## Batch 144 — `hsk30l6` notes 421–450 (钢笔 → 供给)
+
+**Twenty of thirty changed, and one card was wrong in every part of itself.**
+
+### 个体 — not one of its three sentences contained the word, and the gloss was wrong too
+
+The card teaches **个体**, *an individual*. Its three sentences were:
+
+- 我去做了**个体**检 — 个 + 体检, *I went for a check-up*
+- 我想成为一**个体**育记者 — 一个 + 体育, *a sports reporter*
+- 他是一**个体**育爱好者 — 一个 + 体育 again
+
+**All three are perfectly good Chinese, all three are about something else entirely, and all three were
+this record's own rows from the fill pass.** Three authored sentences replace them — and once they were
+in, `check-gloss-source.js` reported the card again, because the **gloss was wrong as well**:
+*individuality; personality* is an abstract noun where 个体 is a concrete one. A card defining the wrong
+thing and illustrating a third thing three times over is the worst single card this audit has met.
+
+**歌唱 is the same fault at two thirds scale**: 她唱**歌唱**得很好听 is 唱歌 + 唱得, and
+我这个**歌唱**得好不好 is 歌 + 唱得 — both about singing, both carrying the two characters, neither
+carrying the word. Only one of its three sentences used 歌唱 at all. 高等's 最高**等第** is 最高 + 等第
+in the same way.
+
+### Three cards showed the bare character nowhere
+
+公's three sentences were 公害, 公交 and 公车; 宫's were 故宫, 卢浮宫 and 守宫砂; 高原's were
+**志贺高原 twice** — Shiga Kogen, a Japanese ski resort, so the card showed one proper name twice and
+the common noun once. All invisible to `check-example-fit.js`, which skips a one-character headword by
+design. **Three `Compounds` panels** — 割, 公 and 宫.
+
+**宫's 守宫砂 also had to go on its own account**: the sentence explains an old method of testing a
+woman's virginity, which teaches nothing about the character.
+
+### A second Taiwan-vocabulary finding in two batches
+
+高原's surviving sentence used **高丽菜**, the Taiwan word for cabbage — the mainland writes 卷心菜 or
+圆白菜 — so a mainland HSK deck carried Taiwan vocabulary. That is the second in two batches after
+概率's 耶诞节, which suggests the harvest corpus has a Taiwan component worth watching for rather than a
+pair of accidents.
+
+### Two glosses from the wrong place
+
+**工夫 was glossed *(old) labourer***, which CC-CEDICT files under 工夫 **gōngfū** — and the card reads
+**gōngfu**, the neutral tone, whose entry is *period of time; spare time; skill; labour; effort*. All
+three of its sentences are time and effort. **The fourth card this audit has found glossed from the
+other reading of its own characters**, after 当天, 地道 and 倒车. **给予's entire gloss was
+*rendition***, a noun — the dictionary reads *to give; to accord; to render*, and *rendition* is what
+*render* becomes when a gloss is built out of the wrong part of speech.
+
+### And the ordinary run
+
+Eight near-repeats — 港口's ships, 高层's high floor, 高尚's noble character, 高手's tennis player,
+高新技术's cluster of firms, 稿件's editor, 跟前's child, 公告's notice — of which 港口's and 高手's
+were the **deck's** own rows. 岗位's 这个岗位不合适小姑娘 wrote 不合适 for the verb 不适合 and made a
+claim about young women besides. 稿子's 天好以后 means *after the weather clears* under an English
+reading *After today*. 跟随's 跟随他的道路。 is five characters with no subject. 割's 心如刀割 is an
+idiom about grief.
+
+### THE EIGHTH BATCH RUNNING WITH A SELF-INFLICTED FAULT — and this one was the batch's own subject
+
+The replacement first authored for 公 was **这块地是公家的**, and 公家 is a compound of its own — so the
+sentence carried the very swallow that card was being repaired for. Caught by reading the finished card,
+and replaced with the *male (of an animal)* sense, which is bare 公 and a construction the card does not
+otherwise show. Last batch's rule held on the other nineteen: **pick the construction first and the
+content second.**
+
+**Read and left.** 钢笔, 高超, 高端, 高峰, 隔壁, 革命, 跟踪, 公安, 工地, 供给 and 稿子's survivor are
+sound.
+
+### Checks after
+
+`--check` clean. `check-pinyin.js`, `check-polyreading.js`, `check-british.js`, `check-say-reading.js`,
+`check-example-fit.js`, `check-senses.js`, `check-coarse.js` and `check-gloss-source.js` all name nothing
+in 421–450. Coverage 11,532 notes at three sentences with 0 repeats; shared-gloss groups 318 and
+still-ambiguous 1, both unchanged. **Verified against the real diff: 20 of 30 changed, nothing outside
+the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
