@@ -691,6 +691,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 691–720 (金额 → 镜头), deck order | 26 | **净 and 井 had no sentence using the character on its own**, 尽's three were one idea, and five Englishes rendered a different sentence from the Chinese above them |
 | 2026-09-24 | `hsk30l6` notes 721–750 (纠纷 → 开创), deck order | 26 | **局's traditional field was 侷**, a different character; 就读 and 决策 each had a sentence that straddled; and batch 153's dropped 'Well of Despair' was found standing on a second card |
 | 2026-09-24 | `hsk30l6` notes 751–780 (开关 → 空地), deck order | 21 (+1) | **two cards glossed from the OTHER reading** (看好, 空地 'air-to-surface missile'), 肯's three sentences all about a man called Ken, and an English typo that named a sex toy |
+| 2026-09-24 | `hsk30l6` notes 781–810 (空闲 → 牢), deck order | 24 | **nine single-character cards in one range, and the transliteration class three more times** — broccoli on 兰花, Greifswald on 赖, a quart on 夸 |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11796,3 +11797,49 @@ hint pair is untouched.
 Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1.
 `check-british` reads 0. **Verified against the real diff: 21 of 30 changed in range, and exactly one
 note outside it, `hsk30l7/筒`.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 156 — `hsk30l6` notes 781–810 (空闲 → 牢), 2026-09-24
+
+Twenty-four of the thirty changed, nothing outside the range. **Nine of the thirty were single-character
+cards** — 扣, 酷, 夸, 款, 啦, 赖, 栏, 烂, 狼, 牢 counting 啦, which is a particle — the densest run of them
+this audit has met, and **only 啦 was not reached by the swallowed-headword fault.** Every other one had
+at least one sentence where the character lived inside a longer word: 扣子, 酷爱, 借款, 仰赖, 烂泥, 丛林狼,
+监牢, and **栏 had all three** (围栏, 侧边栏, 意见栏 — the last one ending on a comma). All were rebuilt
+with authored sentences and given `Compounds` panels, and six (扣, 夸, 款, 赖, 栏, 烂, 牢) were split into
+the senses the sentences actually show and tagged.
+
+**The transliteration class, three more times, and once on a two-character card.** **兰花 had two of its
+three sentences about BROCCOLI** — 西兰花, in which 兰花 is not an orchid. **赖**'s 格赖夫斯瓦尔德 is
+*Greifswald*, and **夸**'s 一夸脱 is a *quart*. This is batch 155's 肯 "Ken" and 科普 "Skopje" again, and
+the fourth batch running to find it. Nothing in the pipeline can see it: the characters are there, in
+order, and the segmenter finds the headword standing.
+
+**Glosses that named a sense no sentence used.** 困扰 was "to perplex" over three sentences that were
+**all the same construction**, 遭受 X 困扰 "to suffer from X" — two replaced, active and passive. 来往 was
+"to come and go" while all three sentences have dealings with somebody. 夸 was "exaggerate; boast" while
+both its real sentences praise. 赖 was "to rely on", a sense that lives only in 依赖 and 信赖 — the free
+verb *hangs on* and *blames*. 款 led with "sincerity"; 酷 led with "cruel, severe" over three sentences
+saying *cool*; 烂 led with "mashed; mushy" over *rotten* and *lousy*, and got the soft-and-stewed sentence it
+had promised. 会计 said "accountancy" and not "accountant"; 快捷 kept two *shortcut* sentences that were
+快捷方式, a word of its own.
+
+**Englishes.** 烂泥扶不上墙 was translated **"You can't raise a cat to be a dog"** — a different proverb
+entirely. 好啦，老古董 was **"OK, boomer"**. 您吃不吃辣椒 was "Do you want pepper on it?"; 辣椒 was
+"Capsicum"; 口头上的温柔 was "verbal gentleness"; the proverb on 赖 was American and lacked its full stop
+(supplied with `exStop`).
+
+**Near-repeats — six, four of them this record's own**: 口感 (the same rice twice), 口号 (shouted twice),
+口腔 (hygiene twice), 亏损; from the deck, 空闲 (空闲时间 three times) and 夸张 (the same sentence with 现在
+added). And one caught on read-back: once 酷's swallowed 酷爱 sentence was replaced, all three were a
+predicate 很/非常/真酷, so one became attributive.
+
+**Two checker findings are proxies, recorded rather than acted on.** `check-coarse.js` now lists 啦's
+你不要命啦 under VIOLENCE for the word *killed* in its corrected English — "Do you want to get yourself
+killed?" is the ordinary sense of the phrase. And `check-gloss-source.js` still reports 款, now reading
+*sum of money; fund* against CC-CEDICT's *section; paragraph; funds* — the singular against the plural.
+
+**Six cards were read and left**: 枯燥, 夸奖, 款式, 来临, 拦, 朗读. The 夸奖/表扬 hint pair is untouched.
+
+Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1.
+`check-british` reads 0. **Verified against the real diff: 24 of 30 changed and nothing outside the
+range.** `build-lang-decks.js` re-run. No changelog line and no version bump.

@@ -16213,20 +16213,35 @@
       ]
     },
     "hsk30l6/亏损": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 156. This record's 那家公司去年亏损了10亿日元 and 公司今年亏损了 were one sentence twice. The second is replaced by an AUTHORED sentence. The gloss put two nouns under a VERB label; split and tagged.",
       "ex": [
         [
           "那家公司去年亏损了10亿日元。",
           "The company suffered a loss of one billion yen last year."
         ],
         [
-          "公司今年亏损了。",
-          "The company made a loss this year."
-        ],
-        [
           "亏损的原因还在查。",
           "The cause of the deficit is still being looked into."
+        ],
+        [
+          "这个项目一直处于亏损状态。",
+          "The project has been running at a loss all along."
         ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to make a loss"
+        ],
+        [
+          "noun",
+          "loss; deficit"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
       ]
     },
     "hsk30l6/亚军": {
@@ -17711,7 +17726,7 @@
       ]
     },
     "hsk30l6/口号": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 156. This record's 大家一起喊口号 and 他们喊着口号前进 both shouted it. The second is replaced by an AUTHORED sentence.",
       "ex": [
         [
           "大家一起喊口号。",
@@ -17722,35 +17737,31 @@
           "A slogan is written on the wall."
         ],
         [
-          "他们喊着口号前进。",
-          "They advanced shouting slogans."
+          "这个广告口号很好记。",
+          "This advertising slogan is easy to remember."
         ]
       ]
     },
     "hsk30l6/口感": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 156. This record's 这种米的口感很好 and 这种米饭口感很好 were one sentence twice. The second is replaced by an AUTHORED sentence.",
       "ex": [
         [
           "这种米的口感很好。",
           "This rice has a very good texture."
         ],
         [
-          "这种米饭口感很好。",
-          "This rice has a good texture."
-        ],
-        [
           "茶的口感有点苦。",
           "The tea tastes slightly bitter."
+        ],
+        [
+          "这种面包口感松软。",
+          "This bread is soft and light."
         ]
       ]
     },
     "hsk30l6/口腔": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 156. This record's 要保持口腔清洁 and 口腔卫生很重要 were both oral hygiene. The first is replaced by an AUTHORED sentence.",
       "ex": [
-        [
-          "要保持口腔清洁。",
-          "You should keep your mouth clean."
-        ],
         [
           "口腔卫生很重要。",
           "Oral hygiene is important."
@@ -17758,6 +17769,10 @@
         [
           "医生检查了他的口腔。",
           "The doctor examined his mouth."
+        ],
+        [
+          "他的口腔里长了一个小泡。",
+          "He has a small blister in his mouth."
         ]
       ]
     },
@@ -19636,12 +19651,20 @@
       ]
     },
     "hsk30l6/快捷": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Batch 156. Two sentences were 快捷方式 'shortcut', a word of its own in CC-CEDICT and the same idea twice. This record's is replaced by an AUTHORED sentence using the adjective the card teaches. | The deck's own 快捷方式 sentence went too, the gloss no longer naming a shortcut; replaced by an AUTHORED sentence.",
+      "gloss": "quick; fast",
       "ex": [
         [
-          "我想你迟早会知道在桌面建立一个快捷方式是有多方便。",
-          "I think you will find it convenient to put a short-cut on the desktop."
+          "网上购物方便快捷。",
+          "Online shopping is quick and convenient."
+        ],
+        [
+          "地铁让出行变得很快捷。",
+          "The underground makes getting about quick."
         ]
+      ],
+      "dropEx": [
+        "我在桌面上建了一个快捷方式"
       ]
     },
     "hsk30l6/思路": {
@@ -74924,21 +74947,52 @@
       ]
     },
     "hsk30l6/款": {
-      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information.",
+      "why": "The card named two parts of speech against a single gloss, and the second one's MEANING was not on the card at all — a reader was being taught one use and tested on two. Split by hand: this is the small genuine residue of the 1,510 notes that name several parts of speech, almost all of which are Chinese doing what it does (an adjective IS a stative verb) rather than a missing sense. | The note teaches two genuinely different senses and its examples showed both without saying which was which, so a reader met 天 as sky and as day in one fold and had to work the mapping out. Each example now carries the number of the sense it shows; a sentence that shows neither carries none. Tagged only where the senses really differ — most multi-sense notes here carry a dictionary's list of near-synonyms, and numbering those would be noise dressed as information. | Batch 156. 他为了买车向银行借款 had the headword only inside 借款, a word of its own. Replaced by an AUTHORED sentence. The first sense read 'sincerity; an item; money' — 'sincerity' is a literary sense none of the sentences show; it is 'money; fund' that they do. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
       "senses": [
         [
           "noun",
-          "sincerity; an item; money"
+          "sum of money; fund"
         ],
         [
           "measure word",
-          "[for styles and models]"
+          "(for styles and models)"
         ]
       ],
       "exSense": [
         2,
         1,
         1
+      ],
+      "dropEx": [
+        "向银行借款"
+      ],
+      "ex": [
+        [
+          "这笔款已经到账了。",
+          "The money has arrived in the account."
+        ]
+      ],
+      "compounds": [
+        [
+          "付款",
+          "fùkuǎn",
+          "to pay; payment"
+        ],
+        [
+          "贷款",
+          "dàikuǎn",
+          "loan"
+        ],
+        [
+          "存款",
+          "cúnkuǎn",
+          "bank deposit; savings"
+        ],
+        [
+          "款式",
+          "kuǎnshì",
+          "style; design"
+        ]
       ]
     },
     "hsk30l6/捧": {
@@ -83060,7 +83114,7 @@
       "gloss": "research topic; subject; task"
     },
     "hsk30l6/口头": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 156. 我不需要你口头上的温柔's English 'your verbal gentleness' is not English.",
       "ex": [
         [
           "这只是口头承诺。",
@@ -83069,6 +83123,12 @@
         [
           "请做一个口头汇报。",
           "Please give an oral report."
+        ]
+      ],
+      "exEn": [
+        [
+          "口头上的温柔",
+          "I don't need your sweet talk."
         ]
       ]
     },
@@ -85739,12 +85799,24 @@
       ]
     },
     "hsk30l6/兰花": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 156. Two of the three sentences were about BROCCOLI — 西兰花, a word of its own in which 兰花 is not an orchid. Both replaced by AUTHORED sentences.",
       "ex": [
         [
           "窗台上放着一盆兰花。",
           "A pot of orchids sits on the windowsill."
+        ],
+        [
+          "兰花的香味很淡。",
+          "The orchid's scent is faint."
+        ],
+        [
+          "兰花在中国文化里象征高洁。",
+          "In Chinese culture the orchid stands for nobility of character."
         ]
+      ],
+      "dropEx": [
+        "西兰花是最健康的蔬菜",
+        "汤姆往炖菜里加了西兰花"
       ]
     },
     "hsk30l6/乐于": {
@@ -140659,6 +140731,578 @@
         [
           "noun",
           "fear; dread"
+        ]
+      ]
+    },
+    "hsk30l6/空闲": {
+      "why": "Batch 156. All three sentences were 空闲时间 'free time' — the same phrase three times. Two are replaced by AUTHORED sentences showing the other senses CC-CEDICT gives, a person free and a room unoccupied, and the gloss split to name them.",
+      "senses": [
+        [
+          "noun",
+          "free time; spare time"
+        ],
+        [
+          "adjective",
+          "(of a person) free; (of a room etc) unoccupied"
+        ]
+      ],
+      "dropEx": [
+        "她利用空闲时间做布娃娃",
+        "父亲常常在空闲时间读侦探小说"
+      ],
+      "ex": [
+        [
+          "这间会议室现在空闲着。",
+          "This meeting room is free at the moment."
+        ],
+        [
+          "你明天空闲吗？",
+          "Are you free tomorrow?"
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ]
+    },
+    "hsk30l6/扣": {
+      "why": "Batch 156. 你的衬衫没系上扣子 had the headword only inside 扣子 'button', a word of its own. Replaced by an AUTHORED sentence showing 'to deduct', one of the three senses the gloss named and no sentence showed. Split into those three and tagged. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "verb",
+          "to fasten; to button up"
+        ],
+        [
+          "verb",
+          "to deduct (money)"
+        ],
+        [
+          "verb",
+          "to detain; to seize"
+        ]
+      ],
+      "dropEx": [
+        "你的衬衫没系上扣子"
+      ],
+      "ex": [
+        [
+          "公司扣了他一个月工资。",
+          "The company docked a month's pay from him."
+        ]
+      ],
+      "exSense": [
+        3,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "扣子",
+          "kòuzi",
+          "button"
+        ],
+        [
+          "折扣",
+          "zhékòu",
+          "discount"
+        ],
+        [
+          "扣除",
+          "kòuchú",
+          "to deduct"
+        ],
+        [
+          "扣篮",
+          "kòulán",
+          "slam dunk"
+        ]
+      ]
+    },
+    "hsk30l6/酷": {
+      "why": "Batch 156. 我酷爱电视 had the headword only inside 酷爱 'to have a passion for', a word of its own, and its English dropped the passion. Replaced by an AUTHORED sentence. The gloss led with 'cruel, severe', a literary sense that now lives in compounds (残酷, 冷酷), while all three sentences are 'cool'. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written. | Read back, the three were then all a predicate 很/非常/真酷; 这本书非常酷 is replaced by an AUTHORED attributive sentence.",
+      "gloss": "cool; (literary) cruel, harsh",
+      "dropEx": [
+        "我酷爱电视",
+        "这本书非常酷"
+      ],
+      "ex": [
+        [
+          "这辆摩托车真酷！",
+          "This motorbike is really cool!"
+        ],
+        [
+          "他戴着一副很酷的墨镜。",
+          "He was wearing a very cool pair of sunglasses."
+        ]
+      ],
+      "compounds": [
+        [
+          "残酷",
+          "cánkù",
+          "cruel; harsh; merciless"
+        ],
+        [
+          "冷酷",
+          "lěngkù",
+          "unfeeling; callous"
+        ],
+        [
+          "酷爱",
+          "kù'ài",
+          "to have a passion for"
+        ],
+        [
+          "酷热",
+          "kùrè",
+          "torrid heat"
+        ]
+      ]
+    },
+    "hsk30l6/夸": {
+      "why": "Batch 156. 我要一夸脱的牛奶 had the headword only inside 夸脱 'quart', a transliteration in which 夸 means nothing. The gloss 'exaggerate; boast' named the sense none of the other two sentences used — both are 'to praise', which CC-CEDICT gives. Split, with AUTHORED sentences for each. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "verb",
+          "to praise"
+        ],
+        [
+          "verb",
+          "to boast; to exaggerate"
+        ]
+      ],
+      "dropEx": [
+        "一夸脱"
+      ],
+      "ex": [
+        [
+          "他总爱夸自己有多能干。",
+          "He always likes to boast about how capable he is."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "compounds": [
+        [
+          "夸奖",
+          "kuājiǎng",
+          "to praise"
+        ],
+        [
+          "夸张",
+          "kuāzhāng",
+          "to exaggerate"
+        ],
+        [
+          "夸大",
+          "kuādà",
+          "to exaggerate"
+        ],
+        [
+          "夸口",
+          "kuākǒu",
+          "to boast"
+        ]
+      ]
+    },
+    "hsk30l6/夸张": {
+      "why": "Batch 156. 不要再夸张了 and 现在你别夸张了 are one sentence twice. The second is replaced by an AUTHORED sentence using the adjective; the gloss named only the adjective while two sentences are the verb. Split and tagged.",
+      "senses": [
+        [
+          "verb",
+          "to exaggerate"
+        ],
+        [
+          "adjective",
+          "exaggerated; far-fetched"
+        ]
+      ],
+      "dropEx": [
+        "现在你别夸张了"
+      ],
+      "ex": [
+        [
+          "这部电影的情节太夸张了。",
+          "The film's plot is wildly far-fetched."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ]
+    },
+    "hsk30l6/会计": {
+      "why": "Batch 156. The gloss 'accountancy' left out 'accountant', which CC-CEDICT leads with. 我是个会计师 had the headword only inside 会计师, a word of its own; the long banking sentence is 扩展's and teaches that word, not this one. Both replaced by AUTHORED sentences, one for each sense.",
+      "gloss": "accountant; accountancy",
+      "dropEx": [
+        "我是个会计师",
+        "有可能将电脑工作扩展到银行业务"
+      ],
+      "ex": [
+        [
+          "她在一家公司当会计。",
+          "She works as an accountant for a company."
+        ],
+        [
+          "会计把账算错了。",
+          "The accountant got the accounts wrong."
+        ]
+      ]
+    },
+    "hsk30l6/困扰": {
+      "why": "Batch 156. ALL THREE SENTENCES WERE THE SAME CONSTRUCTION — 遭受 X 困扰 'to suffer from X' — and none of them is what the gloss 'to perplex' says. Two are replaced by AUTHORED sentences, active and passive, and the gloss leads with 'to trouble', CC-CEDICT's 'to disturb'.",
+      "gloss": "to trouble; to bother; to perplex",
+      "dropEx": [
+        "他正遭受严重头痛的困扰",
+        "遭受老鼠困扰"
+      ],
+      "ex": [
+        [
+          "这个问题一直困扰着我。",
+          "This problem has been troubling me all along."
+        ],
+        [
+          "他被失眠困扰了很久。",
+          "He has been troubled by insomnia for a long time."
+        ]
+      ]
+    },
+    "hsk30l6/扩展": {
+      "why": "Batch 156. 我们正在努力扩展合作's English 'to cooperate more' dropped the verb the card teaches.",
+      "gloss": "to expand; to extend",
+      "exEn": [
+        [
+          "努力扩展合作",
+          "We are working hard to expand our cooperation."
+        ]
+      ]
+    },
+    "hsk30l6/辣椒": {
+      "why": "Batch 156. 您吃不吃辣椒 was translated 'Do you want pepper on it?', which is not what it asks. 辣椒喷雾 is 'pepper spray', and 'purse' is American for a handbag; replaced by an AUTHORED sentence.",
+      "exEn": [
+        [
+          "您吃不吃辣椒",
+          "Do you eat chilli?"
+        ],
+        [
+          "辣椒是我最喜欢的香料之一",
+          "Chilli is one of my favourite spices."
+        ]
+      ],
+      "dropEx": [
+        "辣椒喷雾"
+      ],
+      "ex": [
+        [
+          "这道菜放了很多辣椒。",
+          "There is a lot of chilli in this dish."
+        ]
+      ]
+    },
+    "hsk30l6/啦": {
+      "why": "Batch 156. 好啦，老古董 was translated 'OK, boomer', an internet meme that teaches nothing, and 你明天有什么安排啦 is unnatural — 啦 fuses 了 and 啊 and does not close a 什么 question. Both replaced by AUTHORED sentences. 你不要命啦's English 'Are you nuts?' is corrected, and the gloss says what the particle does, which CC-CEDICT gives.",
+      "gloss": "sentence-final particle (了 + 啊), for exclamation or a change of state",
+      "dropEx": [
+        "好啦，老古董",
+        "你明天有什么安排啦"
+      ],
+      "ex": [
+        [
+          "下雨啦！",
+          "It's raining!"
+        ],
+        [
+          "我知道啦！",
+          "I know already!"
+        ]
+      ],
+      "exEn": [
+        [
+          "你不要命啦",
+          "Do you want to get yourself killed?"
+        ]
+      ]
+    },
+    "hsk30l6/来往": {
+      "why": "Batch 156. The gloss 'to come and go' is CC-CEDICT's first sense and none of the three sentences uses it; all three are its second, 'to have dealings with'.",
+      "gloss": "to have dealings with; to associate with; to come and go"
+    },
+    "hsk30l6/赖": {
+      "why": "Batch 156. Two of the three sentences did not show the character: 仰赖 'to rely on' is a word of its own, and 格赖夫斯瓦尔德 is 'Greifswald', a transliteration. Both replaced by AUTHORED sentences. The gloss 'to rely on, to depend on' is a sense that lives only in compounds (依赖, 信赖); the free verb means to hang on stubbornly, and to blame. The proverb's missing full stop is supplied and its American English rewritten. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "verb",
+          "to hang on; to stay put stubbornly"
+        ],
+        [
+          "verb",
+          "to blame (on sb else)"
+        ]
+      ],
+      "dropEx": [
+        "现代人太仰赖手机",
+        "格赖夫斯瓦尔德"
+      ],
+      "ex": [
+        [
+          "他赖在床上不肯起来。",
+          "He stayed in bed and refused to get up."
+        ],
+        [
+          "这件事不能赖别人。",
+          "You can't blame this on anyone else."
+        ]
+      ],
+      "exSense": [
+        1,
+        1,
+        2
+      ],
+      "exStop": [
+        [
+          "好死不如赖活着"
+        ]
+      ],
+      "exEn": [
+        [
+          "好死不如赖活着",
+          "Better a wretched life than a good death."
+        ]
+      ],
+      "compounds": [
+        [
+          "依赖",
+          "yīlài",
+          "to depend on"
+        ],
+        [
+          "信赖",
+          "xìnlài",
+          "to trust"
+        ],
+        [
+          "赖床",
+          "làichuáng",
+          "to have a lie-in"
+        ],
+        [
+          "耍赖",
+          "shuǎlài",
+          "to go back on one's word; to act shamelessly"
+        ]
+      ]
+    },
+    "hsk30l6/栏": {
+      "why": "Batch 156. ALL THREE SENTENCES HAD THE HEADWORD ONLY INSIDE LONGER WORDS — 围栏 'fence', 侧边栏 'sidebar' and 意见栏 'opinion column', the last one ending on a comma. All replaced by AUTHORED sentences using 栏 on its own, and the four-part gloss split into its two senses. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "noun",
+          "pen; fence; railing"
+        ],
+        [
+          "noun",
+          "column (of a newspaper); box (on a form)"
+        ]
+      ],
+      "dropEx": [
+        "住宅围栏",
+        "意见栏讨论了",
+        "侧边栏"
+      ],
+      "ex": [
+        [
+          "羊都被赶进了栏里。",
+          "The sheep were all driven into the pen."
+        ],
+        [
+          "请在这一栏里填上你的名字。",
+          "Please write your name in this box."
+        ],
+        [
+          "报纸的这一栏专门介绍新书。",
+          "This column of the paper is given over to new books."
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ],
+      "compounds": [
+        [
+          "栏杆",
+          "lángān",
+          "railing; banister"
+        ],
+        [
+          "围栏",
+          "wéilán",
+          "fence; railings"
+        ],
+        [
+          "专栏",
+          "zhuānlán",
+          "(newspaper) column"
+        ],
+        [
+          "跨栏",
+          "kuàlán",
+          "hurdles"
+        ]
+      ]
+    },
+    "hsk30l6/烂": {
+      "why": "Batch 156. 烂泥扶不上墙 has the headword only inside 烂泥 'mud', and was translated 'You can't raise a cat to be a dog', which is another proverb entirely. Replaced by an AUTHORED sentence showing the 'soft; well-cooked' sense the gloss led with and no sentence showed. The gloss split into the three senses the sentences use; two Englishes corrected ('crappy', and a missing 'away'). | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "adjective",
+          "soft; mushy; well-cooked"
+        ],
+        [
+          "adjective",
+          "rotten"
+        ],
+        [
+          "adjective",
+          "(coll.) bad; lousy"
+        ]
+      ],
+      "dropEx": [
+        "烂泥扶不上墙"
+      ],
+      "ex": [
+        [
+          "肉炖得很烂。",
+          "The meat has been stewed until it is falling apart."
+        ]
+      ],
+      "exSense": [
+        3,
+        2,
+        1
+      ],
+      "exEn": [
+        [
+          "我的法语很烂",
+          "My French is terrible."
+        ],
+        [
+          "扔了这个烂香蕉",
+          "Throw away this rotten banana."
+        ]
+      ],
+      "compounds": [
+        [
+          "腐烂",
+          "fǔlàn",
+          "to rot"
+        ],
+        [
+          "破烂",
+          "pòlàn",
+          "worn out; junk"
+        ],
+        [
+          "灿烂",
+          "cànlàn",
+          "brilliant; splendid"
+        ],
+        [
+          "烂泥",
+          "lànní",
+          "mud; mire"
+        ]
+      ]
+    },
+    "hsk30l6/狼": {
+      "why": "Batch 156. 那是丛林狼吗 had the headword only inside 丛林狼 'coyote', a different animal. Replaced by an AUTHORED sentence. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "dropEx": [
+        "那是丛林狼吗"
+      ],
+      "ex": [
+        [
+          "夜里能听到狼叫。",
+          "You can hear wolves howling at night."
+        ]
+      ],
+      "compounds": [
+        [
+          "狼狈",
+          "lángbèi",
+          "in a sorry state"
+        ],
+        [
+          "狼吞虎咽",
+          "lángtūnhǔyàn",
+          "to wolf down one's food"
+        ],
+        [
+          "豺狼",
+          "cháiláng",
+          "jackal and wolf; a vicious person"
+        ],
+        [
+          "引狼入室",
+          "yǐnlángrùshì",
+          "to let the wolf into the house"
+        ]
+      ]
+    },
+    "hsk30l6/牢": {
+      "why": "Batch 156. 你为何没有在牢里 and 也许我要在牢里度过一生 were the same place twice, and 灵魂是肉体的监牢 had the headword only inside 监牢. Two replaced by AUTHORED sentences showing the 'firm; secure' sense CC-CEDICT gives and the 'noun / adjective' label claimed; split and tagged. | Single-character card, so a `Compounds` panel was authored; every reading and gloss checked against CC-CEDICT before it was written.",
+      "senses": [
+        [
+          "noun",
+          "prison; jail"
+        ],
+        [
+          "adjective",
+          "firm; secure; fast"
+        ]
+      ],
+      "dropEx": [
+        "灵魂是肉体的监牢",
+        "也许我要在牢里度过一生"
+      ],
+      "ex": [
+        [
+          "请把这些字记牢。",
+          "Please learn these characters by heart."
+        ],
+        [
+          "绳子系得很牢。",
+          "The rope is tied fast."
+        ]
+      ],
+      "exSense": [
+        1,
+        2,
+        2
+      ],
+      "compounds": [
+        [
+          "坐牢",
+          "zuòláo",
+          "to be in prison"
+        ],
+        [
+          "牢固",
+          "láogù",
+          "firm; secure"
+        ],
+        [
+          "牢记",
+          "láojì",
+          "to keep in mind"
+        ],
+        [
+          "牢骚",
+          "láosāo",
+          "complaint; to grumble"
         ]
       ]
     }
