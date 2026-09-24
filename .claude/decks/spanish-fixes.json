@@ -29049,6 +29049,644 @@
      "Next, please!"
     ]
    ]
+  },
+  "deleb1/de nuevo": {
+   "why": "The gloss is right. The first example's English, 'The band sprang to life', dropped the again it was there to show, and the third is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "again"
+     ]
+    ]
+   ],
+   "bold": [
+    "de nuevo"
+   ],
+   "dropEx": [
+    "La banda volvió de nuevo a la vida.",
+    "vendrá por fin de nuevo la primavera"
+   ],
+   "exEn": [
+    [
+     "nunca regresó a la escuela de nuevo",
+     "David never went back to school again."
+    ]
+   ],
+   "ex": [
+    [
+     "¿Ya estás enfermo de nuevo?",
+     "Are you ill again already?"
+    ],
+    [
+     "Tuvimos que empezar de nuevo.",
+     "We had to start all over again."
+    ]
+   ]
+  },
+  "deleb1/la pena": {
+   "why": "The gloss put 'punishment' first and missed ¡qué pena!, 'what a shame', which the first example is, and valer la pena and a duras penas, which the second and third are. The second is shared with duro earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "pity, shame (¡qué pena! — what a shame!)",
+      "sorrow, grief",
+      "sentence, penalty (pena de muerte — death penalty)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "valer la pena — to be worth it",
+      "a duras penas — only just, barely"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El coche subió la cuesta a duras penas."
+   ],
+   "ex": [
+    [
+     "Está en contra de la pena de muerte.",
+     "She's against the death penalty."
+    ]
+   ]
+  },
+  "deleb1/la voz": {
+   "why": "'term, word' is a dictionary's sense, not B1's. The first example is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "voice"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en voz alta / baja — aloud / quietly"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "me gusta la voz de ese cantante"
+   ],
+   "ex": [
+    [
+     "Habla en voz baja, el bebé está durmiendo.",
+     "Speak quietly, the baby is asleep."
+    ]
+   ]
+  },
+  "deleb1/futuro, futura": {
+   "why": "The gloss gave only the adjective, while the first example was the noun, el futuro, the future. The third's English, 'Read such books as will be useful in later life', is not a translation of it.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "future"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el futuro — the future; the future tense"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "útil en la vida futura"
+   ],
+   "ex": [
+    [
+     "Te presento a mi futura esposa.",
+     "Let me introduce my future wife."
+    ]
+   ]
+  },
+  "deleb1/terminado, terminada": {
+   "why": "The gloss is right. The first example is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "El trabajo no está terminado ni de cerca."
+   ],
+   "ex": [
+    [
+     "Doy el asunto por terminado.",
+     "I consider the matter closed."
+    ]
+   ]
+  },
+  "deleb1/personal": {
+   "why": "The gloss missed the noun, el personal, 'staff'. The second example was a generalisation about women.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "personal"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el personal — staff"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las mujeres suelen conversar"
+   ],
+   "ex": [
+    [
+     "¿Puedo hacerte una pregunta personal?",
+     "Can I ask you a personal question?"
+    ]
+   ]
+  },
+  "deleb1/la mitad": {
+   "why": "The gloss is right. The second example is shared with el jamón in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Ya me he comido la mitad del jamón."
+   ],
+   "ex": [
+    [
+     "Corta el pan por la mitad.",
+     "Cut the bread in half."
+    ]
+   ]
+  },
+  "deleb1/la compañía": {
+   "why": "The gloss missed company as in being with someone, which the second example is. The first is shared with llamar in A2 and the third with nuevo in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "company, firm",
+      "company (being with someone)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Llama a la compañía mañana por la mañana.",
+    "Su compañía creó cuarenta nuevos puestos"
+   ],
+   "ex": [
+    [
+     "Trabaja en una compañía de seguros.",
+     "She works for an insurance company."
+    ],
+    [
+     "Gracias por tu compañía.",
+     "Thanks for your company."
+    ]
+   ]
+  },
+  "deleb1/la relación": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY. The first, 'Todo depende de vuestra relación, que es sincera', is not natural Spanish and its English did not match; the second said marriage and relationships are slavery; the third defined speed as a relationship between two objects.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "relationship",
+      "relations (between countries, groups)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Todo depende de vuestra relación",
+    "El matrimonio y las relaciones son una esclavitud.",
+    "La velocidad es una relación"
+   ],
+   "ex": [
+    [
+     "Tengo muy buena relación con mis padres.",
+     "I get on very well with my parents."
+    ],
+    [
+     "Terminaron la relación el año pasado.",
+     "They broke up last year."
+    ],
+    [
+     "Las relaciones entre los dos países son buenas.",
+     "Relations between the two countries are good."
+    ]
+   ]
+  },
+  "deleb1/el accidente": {
+   "why": "'accidental' is an adjective, not a sense of this noun. The third example is shared with acaso in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "accident"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no se trata de un simple accidente"
+   ],
+   "ex": [
+    [
+     "Fue un accidente, no lo hice a propósito.",
+     "It was an accident, I didn't do it on purpose."
+    ]
+   ]
+  },
+  "deleb1/la vista": {
+   "why": "The gloss said 'sight' twice and missed the view, which the second example is, and punto de vista, which the first is. The first is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "sight, eyesight",
+      "view (con vistas al mar — with a sea view)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "punto de vista — point of view",
+      "¡hasta la vista! — see you!"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El punto de vista de Carlos ha cambiado."
+   ],
+   "ex": [
+    [
+     "Tengo mala vista.",
+     "I have poor eyesight."
+    ]
+   ]
+  },
+  "deleb1/la línea": {
+   "why": "'a piece of spoken dialogue in a script' is not B1's; a metro line and en línea, 'online', which the first example is, were missing. The second example, 'ten blunders in as many lines', is not a sentence anyone needs.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "line",
+      "(telephone, metro) line"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en línea — online"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Cometió diez errores"
+   ],
+   "ex": [
+    [
+     "Toma la línea 3 del metro.",
+     "Take line 3 on the underground."
+    ]
+   ]
+  },
+  "deleb1/tal vez": {
+   "why": "The gloss is right. The first example is shared with tal in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "bold": [
+    "tal vez"
+   ],
+   "dropEx": [
+    "Tal vez ella se olvidó de mi cumpleaños."
+   ],
+   "ex": [
+    [
+     "Tal vez llueva mañana.",
+     "Maybe it'll rain tomorrow."
+    ]
+   ]
+  },
+  "deleb1/imposible": {
+   "why": "'unable' is not a sense of the word. The examples are right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "impossible"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el servicio": {
+   "why": "The gloss said 'public toilet' where Spain says los servicios, 'the toilets'. The second example, a restaurant preparing two thousand servicios, uses a trade sense a learner does not need.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "service"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "los servicios — the toilets"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ese restaurante prepara dos mil servicios"
+   ],
+   "ex": [
+    [
+     "¿Dónde están los servicios, por favor?",
+     "Where are the toilets, please?"
+    ]
+   ]
+  },
+  "deleb1/la ley": {
+   "why": "The gloss was 'law (a well-established characteristic of nature)', which is only the second example's sense. The first is shared with contra in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "law"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Estoy en contra de este proyecto de ley."
+   ],
+   "ex": [
+    [
+     "Todos somos iguales ante la ley.",
+     "We are all equal before the law."
+    ]
+   ]
+  },
+  "deleb1/la carrera": {
+   "why": "The gloss missed a university degree and a career, which is what most learners will use the word for. All three examples were races; the second's English said 'race car driver'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "race",
+      "(university) degree",
+      "career"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "A qué hora va a terminar la carrera"
+   ],
+   "exEn": [
+    [
+     "tu piloto de carreras favorito",
+     "Who's your favourite racing driver?"
+    ]
+   ],
+   "ex": [
+    [
+     "Estoy haciendo la carrera de Medicina.",
+     "I'm doing a degree in medicine."
+    ]
+   ]
+  },
+  "deleb1/la boda": {
+   "why": "The gloss is right. The first example, 'Un día de boda que no llegó nunca', is a fragment.",
+   "dropEx": [
+    "Un día de boda que no llegó nunca."
+   ],
+   "ex": [
+    [
+     "La boda será en junio.",
+     "The wedding will be in June."
+    ]
+   ]
+  },
+  "deleb1/la prisa": {
+   "why": "The gloss did not give tener prisa or darse prisa. The first and third examples were one construction, telling someone to hurry up.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "hurry, rush"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tener prisa — to be in a hurry",
+      "darse prisa — to hurry (up)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Diles a los demás que se den prisa."
+   ],
+   "ex": [
+    [
+     "Tengo prisa, hablamos luego.",
+     "I'm in a hurry, we'll talk later."
+    ]
+   ]
+  },
+  "deleb1/horrible": {
+   "why": "The gloss said 'horrible' twice. The first example is shared with abril in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "horrible, awful"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "hace un tiempo tan horrible en abril"
+   ],
+   "ex": [
+    [
+     "Hace un calor horrible.",
+     "It's horribly hot."
+    ]
+   ]
+  },
+  "deleb1/la cárcel": {
+   "why": "The gloss is right. The first and third examples were one construction, someone being in prison, and both English lines said 'jail'.",
+   "dropEx": [
+    "El papá de Carlos está en la cárcel."
+   ],
+   "exEn": [
+    [
+     "Carlos podría estar en la cárcel",
+     "I thought Carlos might be in prison."
+    ]
+   ],
+   "ex": [
+    [
+     "Lo metieron en la cárcel por robar.",
+     "He was sent to prison for stealing."
+    ]
+   ]
+  },
+  "deleb1/el silencio": {
+   "why": "'rest' is a musical term. The first example is also an A1 sentence, and the third, a proverb, is shared with la palabra earlier in B1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "silence"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "guardar silencio — to keep quiet"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "deben guardar silencio durante la clase",
+    "La palabra es plata y el silencio oro."
+   ],
+   "ex": [
+    [
+     "¡Silencio, por favor!",
+     "Quiet, please!"
+    ],
+    [
+     "Me gusta el silencio del campo.",
+     "I like the quiet of the countryside."
+    ]
+   ]
+  },
+  "deleb1/el club": {
+   "why": "The gloss is right. The first example is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Pueden los estudiantes extranjeros unirse"
+   ],
+   "ex": [
+    [
+     "Es socio de un club de tenis.",
+     "He's a member of a tennis club."
+    ]
+   ]
+  },
+  "deleb1/dulce": {
+   "why": "The gloss missed the noun, los dulces, 'sweets', which the second example is. The third's English said 'cutest'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "sweet",
+      "sweet, gentle (of a person)"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "los dulces — sweets"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Es el chico más dulce de la ciudad",
+     "He's the sweetest boy in town."
+    ]
+   ]
+  },
+  "deleb1/mantener": {
+   "why": "The gloss is right. The third example is shared with el calor in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Estos platos no mantienen el calor"
+   ],
+   "ex": [
+    [
+     "Trabaja para mantener a su familia.",
+     "He works to support his family."
+    ]
+   ]
+  },
+  "deleb1/mantenerse": {
+   "why": "The gerund read manteníendose, S3's reflexive-gerund fault, and is now manteniéndose. The tú imperative read manténte, which takes no accent: mantén loses it when te makes it a word stressed on the penultimate syllable, mantente. The second example is shared with mientras in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to stay, to keep (in a state)",
+      "to support oneself"
+     ]
+    ]
+   ],
+   "conjSub": [
+    [
+     "<span class=\"uc-cj-e\">íendose</span>",
+     "<span class=\"uc-cj-e\">iéndose</span>"
+    ],
+    [
+     "<span class=\"uc-cj-f\">mantén<span class=\"uc-cj-e\">te</span>",
+     "<span class=\"uc-cj-f\">manten<span class=\"uc-cj-e\">te</span>"
+    ]
+   ],
+   "dropEx": [
+    "Mientras nosotros hablábamos"
+   ],
+   "exEn": [
+    [
+     "mantenerse al día con sus compañeros",
+     "He tries to keep up with his classmates."
+    ]
+   ],
+   "ex": [
+    [
+     "Es difícil mantenerse en forma.",
+     "It's hard to keep fit."
+    ]
+   ]
+  },
+  "deleb1/el principio": {
+   "why": "The gloss put 'principle' first and missed al principio, 'at first', and the beginning, which two examples are. The second had no full stop, and the third is shared with desde in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "beginning, start (al principio — at first)",
+      "principle"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Va en contra de mis principios decir mentiras",
+    "Eso es lo que dije desde el principio."
+   ],
+   "ex": [
+    [
+     "Empecemos por el principio.",
+     "Let's start at the beginning."
+    ],
+    [
+     "Es una persona de principios.",
+     "She's a person of principle."
+    ]
+   ]
+  },
+  "deleb1/la basura": {
+   "why": "The gloss was a thesaurus line. The first and second examples' English said 'garbage'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "rubbish",
+      "bin (tirar a la basura — to throw away)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "convertir la basura en combustible",
+     "He believes in turning rubbish into fuel."
+    ],
+    [
+     "tasa de basuras distinta",
+     "Each town has a different charge for rubbish collection."
+    ]
+   ]
   }
  },
  "insert": {

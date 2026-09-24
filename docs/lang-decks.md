@@ -3475,6 +3475,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S18 | A2 | #467 `valer` – #498 `apellidarse` | 30 | 2 (`acostarse`, `amueblar`) | 0 | A2 complete | — |
 | S19 | B1 | #0 `hacerse` – #27 `último` | 26 | 2 (`el capitán`, `último`) | 0 | names, British, usage switched on for B1 (356 further cards touched by them alone); B1 description corrected (999 words, 946 with three examples) and A2's (all 495) | `bold` needed for a phrase headword |
 | S20 | B1 | #28 `correcto` – #55 `siguiente` | 26 | 2 (`correcto`, `el plan`) | 0 | B1 description: 995 words with examples, 947 with three | — |
+| S21 | B1 | #56 `de nuevo` – #83 `la basura` | 28 | 0 | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4394,6 +4395,39 @@ adelante* — was itself A2's `adelante` sentence and was changed again.
 from this batch are false positives:
 - `llevarse`: the English irregular *took* does not stem to *take*.
 - `así que`: its gloss *so* is shorter than the checker's three-letter minimum.
+
+### S21 — DELE B1, notes #56–#83 (Sep 2026)
+
+Measured against the S20 commit by card id: **all 28 changed, 971 untouched**, each of the 28 a record
+entry. This is the first batch in which no card could be read and left.
+
+**A NEW CONJUGATION FAULT: THE CARRIED ACCENT.** `mantenerse`'s tú imperative read *manténte*. The
+bare imperative *mantén* is accented only because it ends in -n and is stressed on its last syllable;
+once *te* is attached, *mantente* is a word stressed on the penultimate syllable, ending in a vowel, and
+takes no accent. The generator carries the accent across. A scan of every DELE deck's affirmative tú
+cell for an accent on the penultimate syllable before a clitic returns eleven. **Seven are right** —
+*cáete*, *créete*, *peléate*, *estropéate*, *maréate*, *licencíate* and *averíate* keep their accents,
+because each marks a hiatus. **Four are this fault**, all in B2 — *expónte*, *entreténte*, *compónte*
+and *absténte* — and they are left for their batch. The same card's gerund was S3's fault
+(*manteníendose* → *manteniéndose*), the thirteenth repaired.
+
+**THE GLOSSES LED WITH THE WRONG SENSE, FIVE TIMES.**
+- `la pena` put "punishment" first; its examples were *¡qué pena!*, *a duras penas* and *valer la pena*.
+- `el principio` put "principle" first; two examples were *al principio* and *desde el principio*.
+- `la carrera` had only races and missed a university degree and a career.
+- `la vista` said "sight" twice and missed the view.
+- `el servicio` said "public toilet" where Spain says *los servicios*.
+
+**THREE MORE GENERALISATIONS OR APHORISMS.** `personal` said women talk to maintain relationships. `la
+relación` said marriage is slavery. The same card also defined speed as "a relationship between two
+objects". None of `la relación`'s three examples could stay.
+
+**THIRTEEN SENTENCES SHARED WITH A1 OR A2 WERE REPLACED**, along with one shared with an earlier B1 card.
+None of the replacements collided, so every share left in #56–#83 is with a later B1 card, which will
+drop it in its turn.
+
+**CHECKERS.** `--check` passes; `check-say` 0; every card in the batch has three examples.
+`check-senses --deck=DELE-B1` stays at 110, with no card of this batch on it.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
