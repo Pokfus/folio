@@ -304,7 +304,7 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
     await page.click("#reveal-btn"); await page.waitForTimeout(500);
     check("a missed card is told what the thing was, not just its name", !!(await page.$(".miss-lead")));
 
-    head("9) the confusion register, and one elaboration prompt per session");
+    head("9) the confusion register, and an elaboration prompt on every card");
     await seed({ active: ["wh-evolution"], cards: {}, confused: {}, orderPicked: { "review:all": "" },
                  settings: Object.assign({}, await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).settings), { attemptFirst: false }) });
     await page.click("#b-review"); await page.waitForTimeout(800);
@@ -320,7 +320,9 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
       await page.waitForTimeout(320);
     }
     check("at most one elaboration prompt is drawn per card", elab.every((n) => n <= 1), JSON.stringify(elab));
-    check("exactly one is drawn in the whole session", elab.reduce((a, b) => a + b, 0) === 1, JSON.stringify(elab));
+    /* EVERY CARD SINCE SEP 2026, on request — the per-session budget is gone (see elabPromptHTML): every
+       card in this deck carries an authored `why`, so every revealed card draws its section. */
+    check("every revealed card draws its Think-it-through section", elab.length > 0 && elab.every((n) => n === 1), JSON.stringify(elab));
     const conf = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).confused || {});
     check("typing one card's answer into another's blank is recorded", Object.keys(conf).length > 0, JSON.stringify(conf));
     check("…and a repeated pair is counted, not just noted", Object.values(conf).some((n) => n >= 2), JSON.stringify(conf));

@@ -4027,7 +4027,8 @@ window.GLOSSARY = {
 "Mongol_invasion_of_Kievan_Rus'": "The Mongol invasion of Kievan Rus' was the campaign of 1237 to 1241 in which armies of the western Mongol ulus took the towns of the north-east and then those of the south, beginning at Ryazan and ending at Kyiv.<sup class=\"fn\" data-fn=\"1\"></sup> It opened with a demand for a tenth of everything, of men and princes and horses; Ryazan refused, Vladimir sent no help, and the towns fell one after another before the army turned back short of Novgorod.<sup class=\"fn\" data-fn=\"1\"></sup> How far it set the country back is still argued, and the measures used include which bishoprics kept their rank and which settlements were destroyed and left empty.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Siege_of_Kiev_(1240)": "The siege of Kyiv was the taking of the city in 1240 by the army of the western Mongol ulus, at the far end of the campaign begun at Ryazan three years earlier.<sup class=\"fn\" data-fn=\"1\"></sup> Kyiv was the seat of the metropolitan of all Rus', so its fall was a matter for the church as well as the princes, and the dealings between the hierarchy and the conquerors date from these years.<sup class=\"fn\" data-fn=\"2\"></sup> A papal mission that reached it in February 1246 called it a city of Rus' now under the dominion of the Tartars, took counsel with its head man about the road east, and met merchants from Constantinople there.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Siege_of_Ryazan": "The siege of Ryazan was the first assault on a town in the Mongol invasion of Rus', opened on 16 December 1237 and finished on the 21st.<sup class=\"fn\" data-fn=\"1\"></sup> Envoys had demanded a tenth of everything beforehand and been refused, the town was fenced about with a stockade, a relieving force sent from Vladimir was surrounded and destroyed at Kolomna, and the chronicler records the prince, his wife and the townspeople killed, with the bishop escaping only because he had left as the army arrived.<sup class=\"fn\" data-fn=\"1\"></sup> The best-known account of it is a literary tale written down a long time afterwards, and how far that text can be treated as history is disputed.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Siege_of_Vladimir": "The siege of Vladimir was the taking of the capital of north-eastern Rus' in February 1238, a few weeks after Ryazan had fallen.<sup class=\"fn\" data-fn=\"1\"></sup> The grand prince Yuri Vsevolodovich left the city before the army arrived, and his son, the women of his household and the bishop Mitrofan were tonsured into the monastic order once it was plain the walls would not hold; the town was fired and they died in the church they had taken refuge in.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicles name Vladimir as one of the two sees sacked and plundered during the campaign, while the bishops of several others kept both their rank and their means.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Siege_of_Vladimir": "The siege of Vladimir was the taking of the capital of north-eastern Rus' in February 1238, a few weeks after Ryazan had fallen.<sup class=\"fn\" data-fn=\"1\"></sup> The grand prince Yuri Vsevolodovich left the city before the army arrived, and his son, the women of his household and the bishop Mitrofan were tonsured into the monastic order once it was plain the walls would not hold; the town was fired and they died in the church they had taken refuge in.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicles name Vladimir as one of the two sees sacked and plundered during the campaign, while the bishops of several others kept both their rank and their means.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Conference_of_Naupactus": "The <b>Conference of Naupactus</b> was the meeting of 217 BCE at which Philip V of Macedon and his Greek allies made peace with the Aetolian League, ending the Social War with each side keeping what it held.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Polybius reports a speech there by Agelaus of Naupactus, who warned that the victor between Rome and Carthage would not stop at Italy and Sicily and spoke of clouds looming in the west.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius dated the first contact between the affairs of Greece, Italy and Africa to this conference, though how closely his version of the speech follows what was said is uncertain.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6172,7 +6173,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Mongol_invasion_of_Kievan_Rus'": "1237 – 1241 CE",
 "Siege_of_Kiev_(1240)": "1240 CE",
 "Siege_of_Ryazan": "16 – 21 December 1237 CE",
-"Siege_of_Vladimir": "February 1238 CE"
+"Siege_of_Vladimir": "February 1238 CE",
+"Conference_of_Naupactus": "217 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8561,7 +8563,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "The_Tale_of_Igor's_Campaign": ["Tale of Igor's Campaign","Lay of Igor's Campaign","Slovo o polku Igoreve"],
 "Mongol_invasion_of_Kievan_Rus'": ["Mongol invasion of Rus'","Mongol invasion of Rus’"],
 "Siege_of_Kiev_(1240)": ["siege of Kyiv","siege of Kiev"],
-"Siege_of_Ryazan": ["sack of Ryazan"]
+"Siege_of_Ryazan": ["sack of Ryazan"],
+"Conference_of_Naupactus": ["Peace of Naupactus","conference at Naupactus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12633,7 +12636,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mongol_invasion_of_Kievan_Rus'": ["event","warfare","history","kievan rus"],
 "Siege_of_Kiev_(1240)": ["event","warfare","history","kievan rus"],
 "Siege_of_Ryazan": ["event","warfare","history","kievan rus"],
-"Siege_of_Vladimir": ["event","warfare","history","kievan rus"]
+"Siege_of_Vladimir": ["event","warfare","history","kievan rus"],
+"Conference_of_Naupactus": ["event","diplomacy","history","greece","hellenistic","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
