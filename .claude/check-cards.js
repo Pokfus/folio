@@ -190,7 +190,36 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    these seven are the shapes the corpus actually cites — Diodorus Siculus 242 times, Velleius
    Paterculus 83, Pliny the Elder 27.  JS alternation takes the FIRST branch that matches, so a
    long form placed after its own prefix would never be seen. */
-const ANCIENT = /^(ibn fadl allah al-[\u02bf\u2018\u2019']?umari|ibn battuta|ibn khaldun|marco polo|diodorus siculus|lucius ampelius|velleius paterculus|pliny the elder|pliny the younger|ammianus marcellinus|eusebius of caesarea|memnon of heracleia|suda on line|herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|antiphon|lucian|pomponius|sun tz[uŭ]|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|augustus|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ampelius|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)(?![A-Za-z])/i;
+/* FOUR MORE MEDIEVAL WITNESSES, AND ONE ANONYMOUS CHRONICLE CITED BY ITS OWN TITLE (Sep 2026, on the
+   ru-041–ru-050 batch).  The Kievan Rus' cards rest on four texts written between the 820s and the
+   1110s, and rule 1 reported three cards for citing one of them three times: `Leo the Deacon` wrote at
+   Constantinople within living memory of the war he describes, `Liudprand of Cremona` heard the 941 raid
+   from his own stepfather, and `Constantine VII Porphyrogenitus` compiled two of the handbooks the
+   period is reconstructed from.  Three passages of any of them is the same shape as six passages of
+   Herodotus, which is what this list exists to separate from six pages of one scholar.
+   `Chronique dite de Nestor` is the fourth and is not a person at all: the Rus' Primary Chronicle is
+   anonymous, so its citations OPEN on the work's own title, and `authorOf` read that title as an author
+   — the fault the tool already guards against for a title in QUOTES (`^["“]`) and cannot see through
+   an italicised one.  It joins the anonymous works already listed by title (`the anglo-saxon chronicle`,
+   `the annals of the bamboo books`), and the whole-name anchoring makes all four safe: no living scholar
+   is called any of them. */
+/* TWO MORE OF THE SAME TWO SHAPES (Sep 2026, on the ru-051–ru-060 batch).  `Thietmar of Merseburg`
+   was a contemporary of the events he reports — he died in 1018, the year his last book describes
+   Bolesław in Kyiv — so three passages of him are three passages of one witness, exactly as Leo the
+   Deacon's are.  `The Chronicle of Novgorod` is `Chronique dite de Nestor`'s case again: the Novgorod
+   First Chronicle is anonymous, so its citations open on the italicised title of the Michell and
+   Forbes translation, which `authorOf` reads as an author called "The Chronicle of Novgorod
+   1016–1471".  The alternation carries the name only as far as `novgorod`, since the printed title
+   runs on into its date span and the `(?![A-Za-z])` lookahead is satisfied by the space after it. */
+/* AND A SEVENTH MEDIEVAL WITNESS, THIS ONE TRIPPING RULE 2 RATHER THAN RULE 1 (Sep 2026, on the
+   ru-081–ru-090 batch).  `Anna Comnena` is the same shape as Leo the Deacon and Thietmar of
+   Merseburg — a twelfth-century writer reporting her own father's reign — and the Alexiad is the
+   fullest account there is of the Varangian Guard, so `ru-089`'s question naming her is a question
+   naming a WITNESS.  It was reported as a scholar in a question, which is rule 2 rather than the
+   citation-count rule the six names beside her were added for, and the same list answers both: rule 2
+   skips a name `ANCIENT` matches.  Anchored on the whole name, as the seven full forms above are, so
+   it cannot excuse a living scholar called Anna: the corpus cites several, none of them Comnena. */
+const ANCIENT = /^(anna comnena|leo the deacon|liudprand of cremona|constantine vii porphyrogenitus|chronique dite de nestor|thietmar of merseburg|the chronicle of novgorod|ibn fadl allah al-[\u02bf\u2018\u2019']?umari|ibn battuta|ibn khaldun|marco polo|diodorus siculus|lucius ampelius|velleius paterculus|pliny the elder|pliny the younger|ammianus marcellinus|eusebius of caesarea|memnon of heracleia|suda on line|herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|antiphon|lucian|pomponius|sun tz[uŭ]|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|augustus|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|eutropius|quintilian|frontinus|statius|procopius|varro|memnon|ampelius|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)(?![A-Za-z])/i;
 
 /* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
    the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,
@@ -519,7 +548,16 @@ for (const c of cards) {
     imgByFile.get(file).push(id);
     if (/via wikimedia commons|public domain,|\bCC[ -]?BY\b|\bCC0\b/i.test(String(c.image.desc || "")))
       fails.push(["source-in-caption", `${id}: the description carries its own credit`, String(c.image.desc).slice(0, 120)]);
-  } else if (!c.video) {
+  } else if (!c.video && !((c.flagCard === true || c.drawCard === true) && c.answerFlag && c.answerFlag.src)) {
+    /* A DRAW CARD IS THE SAME FIELD ONE DECK ON: it is a flag card run backwards, so its picture is its
+       flag too — shown at the REVEAL rather than on the front, which is a fact about when it is drawn and
+       not about whether the card has one.
+       A FLAG CARD'S PICTURE IS ITS FLAG, and `answerFlag` is a different field from `image` (see the
+       FLAG CARDS block in app.js — the format reuses the field a map card already carries rather than
+       adding one). Without this the whole Flags collection reports here as unillustrated, which is 233
+       notes about the one collection every card of which IS a picture. It is only excused where the
+       flag is actually there: a flag card with no flag draws a prompt naming nothing, and `add-card.js`
+       refuses one. */
     notes.push(["no-picture", `${id}: ${c.answerText || ""}`, id]);
   }
 

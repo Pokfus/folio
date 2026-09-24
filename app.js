@@ -973,6 +973,8 @@
     CARD_BY_ID[id].undatable = p.undatable;   // and whether that term happens at a time at all (see cardUndatable)
     CARD_BY_ID[id].map = p.map;               // and the place its question shades on the globe (see cardMapSpec)
     CARD_BY_ID[id].artwork = p.artwork;       // and whether its picture IS its subject (see cardArtSpec)
+    CARD_BY_ID[id].flagCard = p.flagCard;     // and whether that picture is a FLAG on its front (see cardFlagSpec)
+    CARD_BY_ID[id].drawCard = p.drawCard;     // …or a flag the reader is asked to DRAW (see cardDrawSpec)
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
@@ -6155,8 +6157,12 @@
     /* A MAP CARD AND AN ARTWORK CARD ARE BOTH OUT BY CONSTRUCTION, and for one reason: these games deal a
        question COLD, with no globe and no picture beside it, and both of those cards ask about something
        the game cannot show. Neither needs an editorial judgement per card, so neither needs a field.
-       The picture ROUND is the exception and asks for the artworks by name — see picturePool. */
-    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c)) s.add(id); });
+       The picture ROUND is the exception and asks for the artworks by name — see picturePool.
+       A FLAG CARD IS OUT ON THE SAME RULE and needs no field either: its whole question is the flag. It
+       is deliberately NOT added to the picture round in this pass — a flag round wants its own decoy
+       ranking (four flags of similar design rather than four tag-near countries) and is a change to a
+       GAME rather than to a collection; see docs/flags-card-plan.md. */
+    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c) && !cardFlagSpec(c) && !cardDrawSpec(c)) s.add(id); });
     return s;
   }
   /* WHICH PLACE NAMES THE CARDS ACTUALLY TEACH — Find it's own filter, built here beside the door every
@@ -15551,6 +15557,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["reorganis", "reorganiz", "e|es|ed|ing|ation|ations"],
     ["recognis", "recogniz", "e|es|ed|ing|able|ably|ance"],
     ["civilis", "civiliz", "e|es|ed|ing|ation|ations|ational"],
+    /* `Christianisation` is authored British, like every other -ise word in Folio's prose (the
+       corpus writes the s form on the World History cards), and the family had no row — so whichever
+       spelling a card stored was the one BOTH readers saw, and a reader typing the other one into the
+       cloze box was marked wrong.  `sovietis` was added for exactly this in Sep 2026; this is the same
+       hole one word over, found while writing ru-053. */
+    ["christianis", "christianiz", "e|es|ed|ing|ation|ations"],
     ["colonis", "coloniz", "e|es|ed|ing|ation|ations|er|ers"],
     ["decolonis", "decoloniz", "e|es|ed|ing|ation"],
     ["sovietis", "sovietiz", "e|es|ed|ing|ation|ations"],
@@ -19246,7 +19258,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the case that makes it plain: claimed at pointerdown, a picture could not be drawn on at all, which
        is exactly what the comment above says a marker is for. Here a tap opens it and a line across it is
        a line across it. */
-    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img, .av-flag";
+    /* …AND A DRAW CARD'S REVEALED FLAG (Sep 2026). The pen is DOWN on every draw card by construction,
+       so with the pad's own answer absent from this list the one picture the reader wants to look at
+       closely is the one picture they could not open — a `<figure>` promoted with `role="button"`, which
+       CTL_SEL deliberately cannot see. Here, as everywhere else in this list, a tap opens it and a line
+       drawn across it is a line drawn across it. */
+    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img, .av-flag, .dp-answer";
     const hitUnder = (e, sel) => {
       const prev = canvas.style.pointerEvents;
       canvas.style.pointerEvents = "none";
@@ -20685,6 +20702,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { k: "wall", n: "Great Wall", d: '<path d="M2 20.4h20"/><path d="M2 20.4v-6.2h7"/><path d="M22 20.4v-4.6h-7"/>' +
       '<path d="M9 20.4v-9.6h6v9.6"/><path d="M8.6 10.8h6.8"/><path d="M10.1 10.8V8.9M12 10.8V8.9M13.9 10.8V8.9"/>' +
       '<path d="M3.9 14.2v-1.7M6.4 14.2v-1.7M17.6 15.8v-1.7M20.1 15.8v-1.7"/>' },
+    /* a flag flying from its staff (Sep 2026, with the Flags deck). IT IS THE READER'S PICKER MARK AND
+       NO COLLECTION'S: Flags began as a collection of its own and is a third DECK of World Geography on
+       request, and a deck inside a collection carries no icon (see `adIconKey`) — so this has no
+       `COLLECTION_ICON` row and is here for somebody to put on a deck of their own. Kept rather than
+       deleted because it is a good generic mark and the picker had none.
+       DRAWN AND LOOKED AT at 28px
+       and 34px, which is the one thing the laurel-wreath note above says cannot be skipped. Four
+       candidates were rendered and read at both sizes: a plain rectangle is legible but reads as a
+       bookmark, a SWALLOWTAIL's notch closes up into a filled wedge at 28px, and a triangular pennant is
+       clean and is not what a national flag is. The WAVE survives 28px — the shallow curve on both edges
+       is still visible — and is the one that says "flag" at a glance. */
+    { k: "flag", n: "Flag", d: '<path d="M7 3v18"/><path d="M7 5.2c3.7-1.6 7.4 1.6 11 0v8c-3.6 1.6-7.3-1.6-11 0z"/>' },
     { k: "compass", n: "Compass rose", d: '<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4 13.6 10.4 20.6 12 13.6 13.6 12 20.6 10.4 13.6 3.4 12 10.4 10.4Z"/>' },
     /* speech bubble — ALL SEVEN language collections share it, which is the one place on this shelf two
        collections wear one mark, and it is a decision rather than an omission. Every icon above says what
@@ -25422,7 +25451,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
     china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
     dino: 1000, korea: 1000, art: 1000,
-    "geo-us": 100, "geo-china": 58, "geo-world": 471,
+    /* World Geography's 704 is 233 countries + 238 capitals + the 233 FLAGS, which are a third deck of
+       this collection rather than one of their own (Sep 2026, on request). One collection, three plans:
+       see docs/world-geography-card-plan.md and docs/flags-card-plan.md. */
+    "geo-us": 100, "geo-china": 58, "geo-world": 937,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -31348,6 +31380,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }));
       setupWhiteboard();
       showWBTools();
+      mountDrawCard(cardRoot, c);   // a draw card puts the pen down and pins the marker to its pad
       showAdminEditBtn(id);
       // read-aloud: mute toggle (persisted — stays muted for future cards/decks until unmuted) + the Question play control
       const muteBtn = cardRoot.querySelector("#ttsMute");
@@ -31518,6 +31551,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (typedVals.length) noteConfusion(id, typedVals);
         cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
         cardArtReveal(cardRoot, c);   // …and an artwork may now be titled, credited and enlarged
+        cardFlagReveal(cardRoot, c);  // …and a flag may now be credited and enlarged (see cardFlagReveal)
+        cardDrawReveal(cardRoot, c);  // …and a draw card's flag EXISTS for the first time (see cardDrawReveal)
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
         /* WHAT THEY WROTE, PUT BESIDE THE ANSWER (see deckRecall). It goes at the TOP of the reveal, above
@@ -31543,6 +31578,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            carrying the same file, so the BACK's copy goes rather than the front's — dropping the front's
            would move a picture the reader is looking at by its own height. */
         if (cardArtSpec(c)) { const dup = inner.querySelector(".card-imgslot"); if (dup) dup.remove(); }
+        /* A FLAG CARD IS THE SAME RULE ONE FIELD OVER (Sep 2026, on request: "on the answer side of the
+           cards, the flag in the answer box should not be shown"). `buildBack` still emits the small
+           `.av-flag` — the card browser, `openCardPeek`, Multiple Choice's `mountCardBack` and the editor
+           preview all draw a back with NO front, and without it they would show no flag at all — so what
+           goes is the copy on the STUDY page, where the front's own flag is still on screen two inches
+           above it. The credit it was carrying moves to the front's figure; see cardFlagReveal, without
+           which this drop would take the attribution off the card. */
+        if (cardFlagSpec(c)) { const dup = inner.querySelector(".answer .av-flag"); if (dup) dup.remove(); }
+        /* A DRAW CARD IS THAT RULE FROM THE OTHER END: the flag it was asking for has just been drawn at
+           the pad's own width, immediately above, so the answer box's thumbnail of the same file is the
+           duplicate here too — and dropping the PAD's copy instead would take away the one the reader is
+           comparing their drawing against. The credit rides with the pad's, as cardDrawReveal sets it. */
+        if (cardDrawSpec(c)) { const dup = inner.querySelector(".answer .av-flag"); if (dup) dup.remove(); }
         /* the "nearby in this collection" rail — a PEEK, never a route: a click meant as a glance must
            not end the session the reader is part way through, which is exactly the rule the causal
            strip above it already follows. */
@@ -34373,7 +34421,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        it are the answer box (see the ARTWORK CARDS block). `q` is empty on every such card and is not
        drawn either way, so a hand-authored one that carries a sentence cannot leak it onto the front. */
     const art = cardArtSpec(c);
-    return art ? cardArtHTML(art, c) : q;
+    if (art) return cardArtHTML(art, c);
+    /* a flag card: the flag ABOVE the prompt, which is the map card's arrangement rather than the artwork
+       card's. The picture is the clue and the one short line only says what to do with it — where an
+       artwork card draws no prose at all, because there its answer box's own three labels are the form.
+       See the FLAG CARDS block. */
+    const flg = cardFlagSpec(c);
+    if (flg) return cardFlagHTML(flg) + q;
+    /* a draw card: the flag card run backwards, so the arrangement is too — the PROMPT first, naming the
+       country, and the pad under it. See the DRAW CARDS block. */
+    return cardDrawSpec(c) ? q + cardDrawHTML() : q;
   }
 
   /* ---------- the figures box (Aug 2026, with map cards) ----------
@@ -34752,6 +34809,496 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ' data-img-src="' + esc(f.src) + '" data-img-title="' + esc(f.alt || "") + '" data-img-desc="" data-img-credit="' + esc(f.credit) + '">';
   }
 
+  /* ---------- FLAG CARDS: the flag is the whole question (Sep 2026, on request) ----------
+     "The question side of a card should depict a flag and the user must guess what the flag is from. The
+     answer side of the card can be directly the same as the ones in the World geography collection." A
+     built-in format, like the map card and the artwork card and for their reason: a community card type
+     is templates plus scoped CSS and cannot run code, and this needs a picture promoted to the front of
+     the card with its metadata held back. See docs/flags-card-plan.md, which specifies it in full.
+
+     IT REUSES `answerFlag` RATHER THAN ADDING A FIELD, and that is the decision the format turns on.
+     That field already refuses a `src` with no `credit`, already rides `serializeCardData`, the cloud
+     overlay and `revertCard`, already enlarges into the site's own viewer and is already a `TIP_SEL`
+     target so the tap lands with the marker down. A second field for the same picture would be a second
+     copy of all four, and the copy that goes stale is the one nobody editing a flag has reason to open.
+     So a flag card is `answerFlag` plus one boolean.
+
+     THE BOOLEAN IS `flagCard`, NOT `flag`, AND THE NAMES MUST STAY APART — the same rule `answerFlag`'s
+     own block above states, for the same reason: `cardFlag(id)` is the READER's own 1-7 marker, and a
+     second module-scope `cardFlag` shipped for an hour once and made every reader flag read as unflagged
+     for the whole file, with nothing thrown. The accessor here is `cardFlagSpec`, beside `cardMapSpec`
+     and `cardArtSpec`.
+
+     THE FRONT DRAWS THE FLAG AND NO METADATA AT ALL, which is the artwork card's own first rule and bites
+     harder here: a Commons credit line for a national flag reads "Government of India, public domain",
+     so the title, the description and the credit each hand over the answer. The front therefore carries
+     the picture, the authored `alt` and nothing else — no caption, no `data-img-*` and no way to enlarge
+     it, since the viewer's own caption bar would print the credit. The CREDITED, enlargeable copy is the
+     small one inside the answer box, which `buildBack` draws exactly as it does on a `gw-` map card: the
+     licence's attribution is on the same card, one press away, rather than before the picture has done
+     its job. **Anything that leaks the credit onto the front has broken the collection and will look
+     perfectly fine doing it** — which is what `test-flag-cards.js` asserts first.
+
+     ONE LEAK IS ACCEPTED AND IS STATED RATHER THAN PAPERED OVER: Commons names every national flag
+     `Flag_of_<Country>.svg`, and a picture's `src` is copied from the API and never composed or
+     rewritten, so THE ANSWER IS IN THE URL on all 233 cards. Measured: 20 of 20 flag cards have it,
+     against 0 of 10 artwork cards, whose Commons file names happen not to match their titles — so it is
+     this format's property rather than the site's. What follows is narrow: no reader is SHOWN a src (it
+     is not rendered as text, and a screen reader reads the authored `alt`), so the answer is reachable
+     only by opening devtools, viewing source, or long-pressing the picture on a phone to read its file
+     name — all of which are going looking for the answer, which a reader could do on any card here. The
+     suite therefore asserts the country appears in the `src` AND NOWHERE ELSE on the front, so the
+     accepted leak cannot quietly widen into a title, a credit or a caption.
+
+     THE FLAG IS CONTAINED AND NEVER CROPPED. Flags run from 1:1 (Switzerland, Vatican City) through 2:3
+     and 1:2 to Qatar's 11:28, and Nepal's is not a rectangle at all — so `.card-img`'s fixed 16:9 box and
+     `height:100%` are exactly wrong here, as they are for `.av-flag`, and the frame is a MAXIMUM with
+     `object-fit:contain` inside it. It is also drawn on a RULED GROUND: Japan, Qatar's hoist, the Nordic
+     crosses and every white-bordered flag lose their own edge against a light card and are cut in half by
+     a dark one, so the frame carries a hairline and the card's own paper behind it.
+
+     THE ALT TEXT DESCRIBES AND MAY NOT NAME, which makes this format MORE accessible than the map card
+     rather than less: a shape on a globe cannot be described without answering the question and a flag
+     can — "three horizontal bands of saffron, white and green, with a navy-blue wheel of 24 spokes" is a
+     real question. `add-card.js` refuses a flag card whose alt carries its own answer term.
+
+     A flag card keeps the ORDINARY cloze blank in its prompt, so `setupCloze` and `gradeCloze` answer it
+     with no branch of their own — it is the artwork card that needed its own grading, having four fields
+     rather than one answer. */
+  function cardFlagSpec(c) {
+    if (!c || c.flagCard !== true) return null;
+    const f = answerFlag(c);          // the same field, the same refusal of an uncredited src
+    return f ? f : null;
+  }
+  /* The alt is the author's description of what is on the flag. Where a card has none the label says what
+     the picture is FOR and nothing about what is on it — `answerFlagHTML` falls back to the CREDIT, which
+     is right beside an answer already on screen and would hand the answer over here. */
+  function cardFlagHTML(spec) {
+    return '<figure class="flag-shot"><img src="' + esc(spec.src) + '" alt="' + esc(spec.alt || "The flag to be identified.") +
+      '" loading="lazy" draggable="false"></figure>';
+  }
+  /* AND ON THE REVEAL IT BECOMES ENLARGEABLE, WHICH IS WHERE ITS CREDIT LIVES — `cardArtReveal`'s shape,
+     and here it is REQUIRED rather than a nicety (Sep 2026, on request: "on the answer side of the cards,
+     the flag in the answer box should not be shown").
+
+     The answer box's small `.av-flag` was where the licence's attribution lived, which is what let the
+     front carry none; the study page now drops that copy, so without this the credit would be nowhere the
+     reader could reach at all. A national flag on Commons is nearly always public domain, but not every
+     one of the 233 is, and CC BY wants the creator named.
+
+     THE CREDIT IS IN THE VIEWER AND NOT ON THE CARD (Sep 2026, on request: "the image box should not
+     show the image source or link on the card, only when it is clicked to enlarge should it say the
+     source info"). This wrote a `figcaption` under the frame for a day, which put a Commons URL under
+     every flag — two lines of address on a card whose whole front is one picture. So the figure carries
+     the `data-img-*` attributes and NO caption, and `openMediaViewer` draws the credit under the enlarged
+     picture as `.iv-credit`. **It is the picture round's own trade** — the attribution the licence asks
+     for is one press away rather than in front of the reader before the picture has done its job — and
+     the press is real: `.flag-shot.revealed` is in `IMG_OPEN_SEL`.
+
+     NONE OF IT CAN HAPPEN BEFORE THE REVEAL, which is the whole reason this is a separate pass: a flag's
+     credit reads "Government of India, public domain, via Wikimedia Commons", so a viewer opened from the
+     question side would print the answer. That is also why the ENLARGEMENT is gated here rather than in
+     the frame: the two go together, since the viewer is what says the source. */
+  function cardFlagReveal(root, c) {
+    const spec = cardFlagSpec(c);
+    if (!root || !spec) return;
+    const fig = root.querySelector(".flag-shot");
+    if (!fig || fig.classList.contains("revealed")) return;
+    fig.classList.add("revealed");
+    fig.setAttribute("role", "button");
+    fig.setAttribute("tabindex", "0");
+    fig.setAttribute("title", "Click to enlarge");
+    fig.setAttribute("data-img-src", spec.src);
+    fig.setAttribute("data-img-title", spec.alt || "");
+    fig.setAttribute("data-img-desc", "");
+    fig.setAttribute("data-img-credit", spec.credit);
+  }
+
+  /* ---------- DRAW CARDS: the flag is the ANSWER, and the reader draws it (Sep 2026, on request) ----------
+     "Make a reverse version of each card (similar to language vocabulary cards) where the user is given a
+     small canvas and the floating whiteboard marker is pinned to the top right of the canvas. The user
+     must draw the flag from memory and can then judge how correct they were."
+
+     IT IS THE FLAG CARD RUN BACKWARDS, and that is the whole of the format: `fl-001` shows India's flag
+     and asks for the name, `fl-501` names India and asks for the flag. A language deck does this with
+     one note and two templates; curated cards have no note layer, so the reverse is a CARD of its own,
+     numbered +500 from its twin — which is the geography section's own convention (`gw-501` is `gw-001`'s
+     capital, `geo-501` is `geo-001`'s) and makes the pairing arithmetic rather than a table.
+
+     `drawCard: true` IS THE WHOLE FLAG, BESIDE `flagCard` AND NEVER INSTEAD OF IT. The two say opposite
+     things about the same `answerFlag`: `flagCard` promotes the picture to the front and holds its
+     metadata back, this one holds the PICTURE back until the reveal. A card carrying both would be
+     showing the answer on the question side, which `add-card.js` refuses.
+
+     THE PROMPT NAMES THE COUNTRY AND CARRIES NO CLOZE BLANK, which is the one place this format departs
+     from every other card on the site. There is nothing to type: the answer is a drawing, and the reader
+     grades it themselves on the four buttons the grade bar already has — which is what self-assessment on
+     this site has always been, so the format needs no marking of its own. `ATTEMPT_SEL` finds no field,
+     so the "Answer before revealing" policy correctly stands down rather than locking the card shut.
+
+     THE `src` IS INJECTED AT THE REVEAL AND IS NOT IN THE MARKUP BEFORE IT. Two reasons, and the second
+     is the bigger one: a picture present and hidden is a picture the browser may still fetch, so 229
+     flags would be pulled down by a reader who reveals none of them — and a `src` in the DOM is the
+     answer one devtools press away, which is the leak the flag card's own block accepts on its front and
+     has no reason to accept here, where nothing needs it before the reveal.
+
+     THE PAD DOES NOT MOVE WHEN THE ANSWER LANDS, and that is a constraint rather than a nicety. The ink
+     is on the page-wide whiteboard canvas in PAGE coordinates — it is not owned by the pad — so anything
+     that shifted the pad would slide the drawing out from under the frame it was drawn in. The revealed
+     flag is therefore appended BELOW the pad and nothing above it changes; the reveal's own answer box is
+     below that again. It is the same rule `.scratch` follows one card over.
+
+     AND THE PAD IS A FRAME, NOT A SECOND CANVAS. A canvas of its own would need its own pointer handling,
+     its own undo stack, its own stylus rule and its own colour state — four copies of machinery the
+     marker already has, and the copy that goes stale is the one nobody editing the marker has reason to
+     open. So the pad is a ruled box on the card and the ink that lands in it is the ordinary whiteboard's,
+     exactly as the writing band is. What the reader gets that they did not have is the BOX (somewhere the
+     drawing is meant to go, at a flag's own proportions) and the marker already open at its corner. */
+  function cardDrawSpec(c) {
+    if (!c || c.drawCard !== true) return null;
+    return answerFlag(c);            // the same field, the same refusal of an uncredited src
+  }
+  /* ---- THE PAD IS ITS OWN CANVAS, WITH ITS OWN MENU (Sep 2026, on request) ----
+     "Keep the floating marker separate, simply put a separate whiteboard menu in the top of the white
+     canvas which can only be used within that canvas, and also includes a fill option to fill the whole
+     canvas a particular color."
+
+     THIS REVERSES THE FIRST CUT AND THE REASON IS IN THE REQUEST. The pad began as a FRAME over the
+     page-wide whiteboard, which reused the marker's pointer handling, undo stack, stylus rule and colour
+     state and cost nothing — but ink on that canvas is not bounded by anything, the marker had to be
+     pinned to the pad to be reachable, and there is nowhere in it for a FILL to stop. "Only be used
+     within that canvas" is a bounded surface, and a bounded surface is a canvas of its own. So the
+     duplication that was refused is now the point, and the floating marker goes back to being what it is
+     on every other page: separate, unpinned, and nothing to do with this.
+
+     THE TWO DO NOT INTERFERE AND ARE NOT MADE TO COOPERATE. With the floating pen DOWN its canvas covers
+     the whole visible page, which is what it does everywhere on the site — so it draws over the pad
+     rather than in it, and the pad's own menu keeps working, its buttons being real controls the ink
+     layer already hit-tests through to. A pass-through that forwarded presses into the pad was built and
+     refused: it would take away the one thing the floating marker is for, which is annotating anything
+     on the page including a diagram. The pen is no longer put down for the reader on a draw card either
+     — the card now has a tool of its own, and there is nothing left to force.
+
+     THE STATE IS MODULE-LEVEL AND IS NOT STORED. Which colour you last drew a flag in is a way of
+     working rather than a preference about Folio, the same call `glossSort` and the deck-edit mode make:
+     it survives the next card and resets on reload. */
+  const DP_COLORS = WB_COLORS;
+  const DP_SIZES = [3, 9];              // the pen and the brush — a band of a flag wants the second
+  const DP_HIST_MAX = 24;
+  const DP = { color: DP_COLORS[0], tool: "pen", size: DP_SIZES[0] };
+  let dpStop = null;                    // teardown for the pad currently mounted, if any
+  /* THE READER'S OWN COLOUR IS THE ONE PART OF THIS THAT IS STORED, and the exception is deliberate
+     (Sep 2026, on request: "the top canvas menu should have a color picker so any color can be used").
+     The rest of `DP` is a way of working and resets on reload; a mixed colour is WORK THE READER DID —
+     a flag's exact blue takes a moment to find — and the floating marker already keeps its own for that
+     reason. Device-local, like the marker's and like where the marker sits: which colour this browser
+     last mixed is a fact about this browser. One key, one colour: the pad has one palette, where the
+     marker keeps two (a highlighter yellow is not a pen colour) and needs a pair. */
+  const DP_CUSTOM_KEY = "folio_dp_custom_v1";
+  const DP_CUSTOM_FALLBACK = "#7A5CD6";   // deliberately none of the five, so the sixth swatch reads as its own
+  function dpReadCustom() {
+    try { const v = localStorage.getItem(DP_CUSTOM_KEY); return /^#[0-9a-f]{6}$/i.test(v || "") ? v : DP_CUSTOM_FALLBACK; }
+    catch (e) { return DP_CUSTOM_FALLBACK; }
+  }
+  function dpSaveCustom(c) { try { localStorage.setItem(DP_CUSTOM_KEY, c); } catch (e) {} }
+
+  const DP_ICON = {
+    pen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+    brush: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c0-3 2-4 4-4s3 1 3 3-2 3-4 3H4Z"/><path d="M11 16 20 5a2 2 0 0 0-3-3l-9 9"/></svg>',
+    erase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 6-6 7 7-4 4H9Z"/><path d="M8 20h12"/></svg>',
+    fill: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4l8 8-8 8Z"/><path d="M19 15c1.2 1.6 1.8 2.6 1.8 3.2a1.8 1.8 0 0 1-3.6 0c0-.6.6-1.6 1.8-3.2Z" fill="currentColor" stroke="none"/></svg>',
+    undo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg>',
+    clear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/></svg>',
+  };
+  const DP_BTNS = [
+    ["pen", "Pen"], ["brush", "Broad pen"], ["erase", "Eraser"],
+    ["fill", "Fill the whole canvas with this colour"], ["undo", "Undo"], ["clear", "Clear the canvas"],
+  ];
+  /* The menu is drawn at the TOP OF THE CANVAS and is `aria-hidden` for the reason the pad is: a reader
+     who cannot see the canvas cannot draw in it, and six tools for a surface they cannot use are noise
+     rather than help. The question above and the answer below are both real text, which is where this
+     format's accessibility actually lives.
+     EVERY CONTROL IN IT THEREFORE CARRIES `tabindex="-1"`, and that pairing is the whole point: an
+     `aria-hidden` container whose children are still FOCUSABLE is the one arrangement that is worse than
+     either choice — a keyboard reader tabs onto a control their screen reader has been told does not
+     exist, and lands on it silently. Hidden from assistive technology and out of the tab order is one
+     statement rather than two contradictory ones. A pointer is unaffected, which is what this surface
+     needs anyway: a tool cannot be used from a keyboard on a canvas that cannot be drawn on from one. */
+  function cardDrawHTML() {
+    const cols = DP_COLORS.map((c, i) =>
+      '<button type="button" tabindex="-1" class="dp-col' + (i === 0 ? " on" : "") + '" data-dpcol="' + esc(c) +
+      '" style="--dpc:' + esc(c) + '" title="' + esc(c) + '"></button>').join("");
+    const btns = DP_BTNS.map(([k, label]) =>
+      '<button type="button" tabindex="-1" class="dp-btn' + (k === "pen" ? " on" : "") + '" data-dp="' + k +
+      '" title="' + esc(label) + '"' + (k === "undo" ? " disabled" : "") + '>' + DP_ICON[k] + "</button>").join("");
+    /* THE SIXTH SWATCH IS THE READER'S OWN and opens the picker below the menu — a ROW rather than a
+       popover, which is the marker's own rule for its picker and the same reason: the bar is already a
+       box with a decided position, and a second floating box inside it would have to decide again.
+       Opening it pushes the canvas DOWN, which is free here and was not before: the ink is on the pad's
+       own canvas now, so it moves with the frame rather than being left behind in page coordinates. */
+    return '<div class="draw-pad">' +
+      '<div class="dp-tools" aria-hidden="true"><div class="dp-cols">' + cols +
+      '<button type="button" tabindex="-1" class="dp-col dp-custom" data-dpcustom="" title="Any colour"></button>' +
+      '</div><div class="dp-acts">' + btns + "</div></div>" +
+      '<div class="dp-pick" aria-hidden="true" hidden><div class="wb-sv"><span class="wb-knob"></span></div>' +
+      '<div class="wb-hue"><span class="wb-knob"></span></div><div class="wb-hex"></div></div>' +
+      '<div class="dp-frame" aria-hidden="true"><canvas class="dp-canvas"></canvas><span class="dp-hint">Draw the flag here</span></div>' +
+      '<figure class="dp-answer" hidden></figure></div>';
+  }
+  /* THE REVEAL IS WHERE THE PICTURE FIRST EXISTS. It is drawn at the pad's own width so the comparison is
+     one glance rather than a squint, it is enlargeable (`.dp-answer.revealed` is in `IMG_OPEN_SEL`), and
+     its CREDIT is in the viewer rather than under it — the flag card's own trade, and here for the same
+     reason: a Commons credit line for a national flag names the country. */
+  function cardDrawReveal(root, c) {
+    const spec = cardDrawSpec(c);
+    if (!root || !spec) return;
+    const fig = root.querySelector(".draw-pad .dp-answer");
+    if (!fig || fig.classList.contains("revealed")) return;
+    const img = document.createElement("img");
+    img.src = spec.src;
+    img.alt = spec.alt || "The flag being asked for.";
+    img.loading = "lazy";
+    img.draggable = false;
+    fig.appendChild(img);
+    fig.hidden = false;
+    fig.classList.add("revealed");
+    fig.setAttribute("role", "button");
+    fig.setAttribute("tabindex", "0");
+    fig.setAttribute("title", "Click to enlarge");
+    fig.setAttribute("data-img-src", spec.src);
+    fig.setAttribute("data-img-title", spec.alt || "");
+    fig.setAttribute("data-img-desc", "");
+    fig.setAttribute("data-img-credit", spec.credit);
+    /* The hint is hidden the moment anything is drawn; the reveal brings it back with a different word,
+       so the two frames now standing one above the other say which is which. */
+    const hint = root.querySelector(".draw-pad .dp-hint");
+    if (hint) hint.textContent = "What you drew";
+    const pad = fig.closest(".draw-pad");
+    if (pad) pad.classList.add("dp-revealed");
+  }
+  /* MOUNTING ONE BUILDS THE CANVAS AND WIRES THE MENU TO IT, AND NOTHING ELSE ON THE PAGE IS TOUCHED.
+     Four things are decisions rather than plumbing.
+     · THE BITMAP IS SIZED IN DEVICE PIXELS AND THE CONTEXT IS SCALED, or a stroke is a soft grey smear
+       on every phone made in the last decade. A resize REDRAWS the last snapshot into the new box rather
+       than letting the browser stretch the backing store, which is the same thing at a different
+       resolution and looks like the drawing having been damaged.
+     · `touch-action:none` IS WHAT LETS A FINGER DRAW. Without it the browser claims the gesture as a
+       scroll the moment it passes its own slop and fires `pointercancel`, which is the fault this file
+       records against every horizontal swipe on the site. The cost is real and is the right trade: a
+       finger starting inside the pad cannot scroll the page, exactly as it cannot on the floating
+       marker's own canvas.
+     · UNDO IS A STACK OF BITMAPS, capped, with an empty base at the bottom so it can always get back to
+       a blank canvas — the card whiteboard's own backend, which is a raster canvas for this reason.
+     · AND FILL COVERS, RATHER THAN GOING UNDERNEATH. "Fill the whole canvas a particular color" is
+       literal, and it is undoable, so a mis-press costs one press; going underneath would be a different
+       tool wearing this one's name, and a reader drawing a flag fills the field FIRST anyway. */
+  function mountDrawCard(root, c) {
+    if (dpStop) { dpStop(); dpStop = null; }
+    const spec = cardDrawSpec(c);
+    if (!root || !spec) return;
+    root.classList.add("draw-card");
+    const pad = root.querySelector(".draw-pad");
+    const frame = pad && pad.querySelector(".dp-frame");
+    const cv = pad && pad.querySelector(".dp-canvas");
+    if (!pad || !frame || !cv) return;
+    const ctx = cv.getContext("2d");
+    const hist = [];
+    let drawing = false, pid = null, last = null, w = 0, h = 0;
+
+    const undoBtn = pad.querySelector('[data-dp="undo"]');
+    const syncUndo = () => { if (undoBtn) undoBtn.disabled = hist.length < 2; };
+    const snap = () => {
+      if (!w || !h) return;
+      const s = document.createElement("canvas");
+      s.width = cv.width; s.height = cv.height;
+      s.getContext("2d").drawImage(cv, 0, 0);
+      hist.push(s);
+      while (hist.length > DP_HIST_MAX + 1) hist.shift();
+      syncUndo();
+    };
+    const restore = (s) => {
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      if (s && s.width && s.height) ctx.drawImage(s, 0, 0, cv.width, cv.height);
+      ctx.restore();
+    };
+    /* THE BOX IS READ AS LAYOUT, NEVER AS A RECT. `getBoundingClientRect` is transform-aware, and the
+       page's entrance animation SCALES `.page` for its first third of a second — so a canvas sized from a
+       rect at mount comes out several pixels narrow and stays that way, since a transform changes no
+       layout box and the ResizeObserver therefore never fires to correct it. Measured: 349px of canvas
+       inside a 355.6px frame, a white strip down the right-hand edge of every pad. It is the pin's own
+       fault wearing different clothes, and `clientWidth` does not have it. */
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      const nw = Math.max(1, frame.clientWidth), nh = Math.max(1, frame.clientHeight);
+      if (nw === w && nh === h) return;
+      const prev = hist.length ? hist[hist.length - 1] : null;
+      w = nw; h = nh;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      cv.style.width = w + "px"; cv.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (prev) restore(prev);
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+    };
+    resize();
+    if (!hist.length) snap();          // the blank base undo can always return to
+
+    /* …and a pointer's position IS read off the rect, which is right — client coordinates are in that
+       same transformed space — but scaled back into the canvas's own, so a press during any scale lands
+       where the reader is pointing rather than drifting further from it across the pad. */
+    const at = (e) => {
+      const r = cv.getBoundingClientRect();
+      const kx = r.width ? w / r.width : 1, ky = r.height ? h / r.height : 1;
+      return { x: (e.clientX - r.left) * kx, y: (e.clientY - r.top) * ky };
+    };
+    const stroke = (a, b) => {
+      ctx.save();
+      ctx.globalCompositeOperation = DP.tool === "erase" ? "destination-out" : "source-over";
+      ctx.strokeStyle = DP.color;
+      ctx.lineWidth = DP.tool === "erase" ? 18 : DP.size;
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      ctx.restore();
+    };
+    const down = (e) => {
+      if (e.button != null && e.button !== 0) return;
+      if (drawing) return;                      // one pointer owns the stroke — a palm is not this gesture
+      drawing = true; pid = e.pointerId; last = at(e);
+      try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+      stroke(last, { x: last.x + 0.01, y: last.y });   // a tap is a dot
+      pad.classList.add("dp-drawn");
+      e.preventDefault();
+    };
+    const move = (e) => {
+      if (!drawing || e.pointerId !== pid) return;
+      const p = at(e); stroke(last, p); last = p;
+      e.preventDefault();
+    };
+    const up = (e) => {
+      if (!drawing || e.pointerId !== pid) return;
+      drawing = false; pid = null; last = null;
+      snap();
+    };
+    cv.addEventListener("pointerdown", down);
+    cv.addEventListener("pointermove", move);
+    cv.addEventListener("pointerup", up);
+    cv.addEventListener("pointercancel", up);
+
+    const act = (k) => {
+      if (k === "pen" || k === "brush") { DP.tool = "pen"; DP.size = k === "pen" ? DP_SIZES[0] : DP_SIZES[1]; }
+      else if (k === "erase") DP.tool = "erase";
+      else if (k === "fill") {
+        ctx.save(); ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = DP.color; ctx.fillRect(0, 0, w, h); ctx.restore();
+        pad.classList.add("dp-drawn"); snap();
+      } else if (k === "undo") {
+        if (hist.length > 1) { hist.pop(); restore(hist[hist.length - 1]); syncUndo(); }
+      } else if (k === "clear") {
+        ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); ctx.restore();
+        pad.classList.remove("dp-drawn"); snap();
+      }
+      paintTools();
+    };
+    const paintTools = () => {
+      pad.querySelectorAll("[data-dp]").forEach((b) => {
+        const k = b.dataset.dp;
+        const on = (k === "erase" && DP.tool === "erase") ||
+                   (DP.tool === "pen" && ((k === "pen" && DP.size === DP_SIZES[0]) || (k === "brush" && DP.size === DP_SIZES[1])));
+        b.classList.toggle("on", !!on);
+      });
+      pad.querySelectorAll("[data-dpcol]").forEach((b) => b.classList.toggle("on", b.dataset.dpcol === DP.color));
+    };
+    pad.querySelectorAll("[data-dp]").forEach((b) =>
+      b.addEventListener("click", (e) => { e.stopPropagation(); act(b.dataset.dp); }));
+    const useDpColor = (c) => {
+      DP.color = c;
+      if (DP.tool === "erase") DP.tool = "pen";   // choosing a colour is choosing to draw with it
+      paintTools();
+    };
+    pad.querySelectorAll("[data-dpcol]").forEach((b) =>
+      b.addEventListener("click", (e) => { e.stopPropagation(); useDpColor(b.dataset.dpcol); }));
+
+    /* ---- ANY COLOUR: the sixth swatch and the picker under the menu ----
+       A saturation/brightness field over a hue bar with the hex beneath, which is the ordinary shape and
+       the one the floating marker already uses — the classes are its, so this reuses the stylesheet
+       rather than a second copy of it, and `hsvToHex` / `hexToHSV` are module-level for the same reason.
+       **`<input type="color">` IS NOT USED, AND THAT IS A DECISION THE SITE HAS ALREADY MADE**: its
+       platform dialog on a phone is a full-screen "Select color" sheet of sliders that covers the very
+       card being answered, and `test-layout.js` has asserted for a month that none is left in the
+       marker's panel. Two CSS gradients and two pointer handlers; no canvas, no library.
+       **THE PICKER KEEPS ITS OWN HSV rather than re-deriving it from the hex on each move.** At v=0 or
+       s=0 a colour has NO recoverable hue, so a reader dragging into the black corner and back out would
+       come back red however they arrived.
+       **IT IS POINTER-ONLY, AND THAT IS NOT THE MARKER'S ANSWER.** The marker's picker takes arrow keys,
+       because the control it replaced was a real `<input>` and reachable from a keyboard. Here the whole
+       menu is `aria-hidden` with `tabindex="-1"` on every control, for the reason the pad is: the surface
+       it serves cannot be drawn on from a keyboard either, so a focusable field would be a tab stop that
+       leads nowhere — which is exactly the focusable-inside-`aria-hidden` fault that pairing exists to
+       avoid. */
+    const pick = pad.querySelector(".dp-pick");
+    const swatch = pad.querySelector(".dp-custom");
+    let pickHSV = hexToHSV(dpReadCustom()), pickDrag = -1;
+    const pickHex = () => hsvToHex(pickHSV.h, pickHSV.s, pickHSV.v);
+    const syncPick = () => {
+      const hex = pickHex(), sv = pick.querySelector(".wb-sv"), hue = pick.querySelector(".wb-hue");
+      sv.style.setProperty("--h", pickHSV.h.toFixed(1));
+      sv.firstElementChild.style.left = (pickHSV.s * 100).toFixed(2) + "%";
+      sv.firstElementChild.style.top = ((1 - pickHSV.v) * 100).toFixed(2) + "%";
+      hue.firstElementChild.style.left = ((pickHSV.h / 360) * 100).toFixed(2) + "%";
+      pick.style.setProperty("--wc", hex);
+      pick.querySelector(".wb-hex").textContent = hex.toUpperCase();
+      /* the swatch IS the stored colour, and carries it as its own `data-dpcol` so `paintTools` marks it
+         selected by exactly the rule the other five are marked by */
+      swatch.style.setProperty("--dpc", hex);
+      swatch.dataset.dpcol = hex;
+      swatch.title = hex.toUpperCase();
+    };
+    const wirePickField = (box, set) => {
+      const clamp = (n) => Math.max(0, Math.min(1, n));
+      const at = (e) => {
+        const r = box.getBoundingClientRect();
+        set(clamp((e.clientX - r.left) / (r.width || 1)), clamp((e.clientY - r.top) / (r.height || 1)));
+        const hex = pickHex();
+        dpSaveCustom(hex);
+        DP.color = hex;                 // live, like every other swatch — the pen follows the finger
+        if (DP.tool === "erase") DP.tool = "pen";
+        syncPick(); paintTools();
+      };
+      box.addEventListener("pointerdown", (e) => {
+        if (e.button != null && e.button !== 0) return;
+        e.preventDefault();
+        pickDrag = e.pointerId;
+        try { box.setPointerCapture(e.pointerId); } catch (err) {}
+        at(e);
+      });
+      box.addEventListener("pointermove", (e) => { if (pickDrag === e.pointerId) at(e); });
+      const stopPick = (e) => { if (pickDrag === e.pointerId) pickDrag = -1; };
+      box.addEventListener("pointerup", stopPick);
+      box.addEventListener("pointercancel", stopPick);
+    };
+    wirePickField(pick.querySelector(".wb-sv"), (x, y) => { pickHSV.s = x; pickHSV.v = 1 - y; });
+    wirePickField(pick.querySelector(".wb-hue"), (x) => { pickHSV.h = x * 360; });
+    syncPick();
+    swatch.addEventListener("click", (e) => {
+      e.stopPropagation();
+      /* Pressing it SELECTS the colour and opens the field; pressing it again shuts the field and leaves
+         the colour selected — so one press is "draw in my colour" and two are "and let me change it". */
+      const opening = pick.hidden;
+      pick.hidden = !opening;
+      pad.classList.toggle("dp-picking", opening);
+      if (opening) useDpColor(swatch.dataset.dpcol);
+    });
+    paintTools();
+
+    const onResize = () => resize();
+    window.addEventListener("resize", onResize);
+    const ro = typeof ResizeObserver === "function" ? new ResizeObserver(onResize) : null;
+    if (ro) ro.observe(frame);
+    dpStop = () => {
+      window.removeEventListener("resize", onResize);
+      if (ro) ro.disconnect();
+    };
+  }
   /* ---------- the locator map (Aug 2026, on request) ----------
      `locator: { name, at: [lon, lat], zoom? }` — a globe at the foot of a card whose ANSWER IS A PLACE,
      with that place marked. A reader meeting Knossos, the Cycladic civilisation or the Tiber for the first
@@ -46788,7 +47335,7 @@ let prev = null;
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -49908,8 +50455,10 @@ let prev = null;
 
   /* Everything the fullscreen viewer opens from. `.card-img` is the framed figure a card, a glossary
      popup, an artefact plate and the editor previews all emit; `.av-flag` is the small flag inside a
-     geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML. */
-  const IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed";
+     geography card's answer box, which is deliberately NOT given that class — see answerFlagHTML;
+     `.flag-shot.revealed` is a FLAG card's own front, which carries no credit and cannot be enlarged
+     until the answer is out, since the caption bar would print the country's name — see cardFlagReveal. */
+  const IMG_OPEN_SEL = ".card-img, .av-flag, .art-shot.revealed, .flag-shot.revealed, .dp-answer.revealed";
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
   // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
   // every other click inside it belongs to the player.
@@ -49947,8 +50496,10 @@ let prev = null;
     /* `.art-shot` is here as well as `.card-img`, and on that format a dead file is the worse failure:
        an artwork card's picture IS its question, so a file that never arrives leaves four empty fields
        and nothing to answer — and the alt text, which DESCRIBES the work, is painted at full size in
-       the frame instead, which reads as a broken page. It says so instead; see `.art-shot.media-dead`. */
-    const fig = el.closest && el.closest(".card-img, .art-shot"); if (!fig) return;
+       the frame instead, which reads as a broken page. It says so instead; see `.art-shot.media-dead`.
+       `.flag-shot` is here for exactly that reason one format over: a flag card's picture is its whole
+       question too. */
+    const fig = el.closest && el.closest(".card-img, .art-shot, .flag-shot"); if (!fig) return;
     fig.classList.remove("ar-loading");   // a file that will never arrive must not go on spinning
     fig.classList.add("media-dead");
     // a floated slot would otherwise keep its margin — and the space the prose wraps around — about nothing
