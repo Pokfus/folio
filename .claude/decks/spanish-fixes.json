@@ -38934,6 +38934,476 @@
      "The doctor dressed my wound."
     ]
    ]
+  },
+  "deleb1/el elefante, la elefanta": {
+   "why": "The gloss is right. The third example, '¡Es bueno que has dado cuenta del elefante!', is ungrammatical (te hayas dado cuenta).",
+   "dropEx": [
+    "que has dado cuenta del"
+   ],
+   "ex": [
+    [
+     "El elefante es el animal terrestre más grande.",
+     "The elephant is the largest land animal."
+    ]
+   ]
+  },
+  "deleb1/levantado, levantada": {
+   "why": "The gloss gave 'lofty, high', while every example was 'up, out of bed'. The second and third examples were one construction.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "up, out of bed",
+      "raised"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "acostumbrada a quedarse levantada"
+   ],
+   "ex": [
+    [
+     "Tenía la mano levantada.",
+     "She had her hand up."
+    ]
+   ]
+  },
+  "deleb1/la lotería": {
+   "why": "The gloss is right. The second and third examples were the same sentence.",
+   "dropEx": [
+    "Cuando me toque la lotería"
+   ],
+   "ex": [
+    [
+     "Compramos lotería de Navidad.",
+     "We bought tickets for the Christmas lottery."
+    ]
+   ]
+  },
+  "deleb1/aterrizar": {
+   "why": "The gloss said 'airplane'. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to land"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la galería": {
+   "why": "The gloss gave 'passage' and not a glazed balcony, which the third example is, nor a shopping arcade. The first example is shared with el arte in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "gallery",
+      "(glazed) balcony"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "galería comercial — shopping arcade"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la galería de arte más cercana"
+   ],
+   "ex": [
+    [
+     "La galería comercial está cerca de la estación.",
+     "The shopping arcade is near the station."
+    ]
+   ]
+  },
+  "deleb1/resistir": {
+   "why": "ALL THREE EXAMPLES WENT AND SO DID THE GLOSS. The gloss was aguantar's — 'to tolerate, to put up with' — where resistir is to resist or withstand. The first example was a generalisation about men and women, the second a calqued news headline, and the third is not a natural sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to resist",
+      "to withstand, to hold out"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ningún hombre puede resistir",
+    "Irán se resiste",
+    "Ahora que tengo hijos, resistiré"
+   ],
+   "ex": [
+    [
+     "No pude resistir la tentación.",
+     "I couldn't resist the temptation."
+    ],
+    [
+     "El puente resistió el terremoto.",
+     "The bridge withstood the earthquake."
+    ],
+    [
+     "Resiste un poco más, que ya llegamos.",
+     "Hold on a bit longer, we're nearly there."
+    ]
+   ]
+  },
+  "deleb1/el debate": {
+   "why": "The gloss is right. The second example used luego de, Latin American for después de.",
+   "dropEx": [
+    "Luego de muchos debates"
+   ],
+   "ex": [
+    [
+     "Hubo un debate televisado entre los dos candidatos.",
+     "There was a televised debate between the two candidates."
+    ]
+   ]
+  },
+  "deleb1/el/la poeta": {
+   "why": "The gloss was a definition. The second example, the president of Poets Without Homes, is not a sentence a learner needs, and the third was poetisa, a different word.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "poet"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Poetas Sin Casas",
+    "No es una buena poetisa"
+   ],
+   "ex": [
+    [
+     "Lorca es un poeta muy conocido.",
+     "Lorca is a very well-known poet."
+    ],
+    [
+     "Mi abuela era poeta.",
+     "My grandmother was a poet."
+    ]
+   ]
+  },
+  "deleb1/la manta": {
+   "why": "The gloss was a list, 'poncho' among it. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "blanket"
+     ]
+    ]
+   ]
+  },
+  "deleb1/competir": {
+   "why": "The gloss is right. The third example, 'compitió con una fuerte competencia', repeats the word and was rendered 'a powerful rival'.",
+   "dropEx": [
+    "compitió con una fuerte competencia"
+   ],
+   "ex": [
+    [
+     "Varias empresas compiten por el contrato.",
+     "Several companies are competing for the contract."
+    ]
+   ]
+  },
+  "deleb1/el/la dentista": {
+   "why": "The gloss is right. The first example is shared with el hijo in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "A mi hijo no le gusta el dentista"
+   ],
+   "ex": [
+    [
+     "Tengo cita con el dentista mañana.",
+     "I've got a dentist's appointment tomorrow."
+    ]
+   ]
+  },
+  "deleb1/el descubrimiento": {
+   "why": "The gloss gave Wiktionary's two definitions. The first example is shared with la electricidad earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "discovery"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El descubrimiento de la electricidad"
+   ],
+   "ex": [
+    [
+     "El descubrimiento de América cambió el mundo.",
+     "The discovery of America changed the world."
+    ]
+   ]
+  },
+  "deleb1/organizado, organizada": {
+   "why": "The gloss was American. The second example was about Benjamin Harrison's presidential campaign.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "organised"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Benjamin Harrison"
+   ],
+   "ex": [
+    [
+     "Es una persona muy organizada.",
+     "She's a very organised person."
+    ]
+   ]
+  },
+  "deleb1/acostado, acostada": {
+   "why": "The gloss gave 'recumbent'. The first example was acostarse con, 'to sleep with', in the perfect, not the adjective, and the second's English said 'I'm lying and watching TV'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "lying down",
+      "in bed"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Te has acostado con ella"
+   ],
+   "exEn": [
+    [
+     "y viendo la televisión",
+     "I'm lying down watching TV."
+    ]
+   ],
+   "ex": [
+    [
+     "Estuvo acostado todo el día con fiebre.",
+     "He was in bed all day with a temperature."
+    ]
+   ]
+  },
+  "deleb1/observar": {
+   "why": "The gloss was a list, 'to eye' among it, and did not give 'to notice'. The third example, 'Observa tu líder', lacks its a and is a calqued maxim.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to observe, to watch",
+      "to notice"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Observa tu líder"
+   ],
+   "ex": [
+    [
+     "Observé que no había nadie en la calle.",
+     "I noticed there was no one in the street."
+    ]
+   ]
+  },
+  "deleb1/ordenado, ordenada": {
+   "why": "ALL THREE EXAMPLES WENT. The first's tan ordenado como posible should be como sea posible; the second was Rioplatense (Tenés, pieza); the third was the verb ordenar in a calqued passive. The gloss gave 'ordained'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "tidy",
+      "orderly, organised"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "tan ordenado como posible",
+    "Tenés que mantener",
+    "fueron ordenados a disparar"
+   ],
+   "ex": [
+    [
+     "Tiene la casa siempre muy ordenada.",
+     "She always keeps the house very tidy."
+    ],
+    [
+     "Es un estudiante muy ordenado.",
+     "He's a very organised student."
+    ],
+    [
+     "Pon los libros ordenados por autor.",
+     "Put the books in order by author."
+    ]
+   ]
+  },
+  "deleb1/el balón": {
+   "why": "The gloss gave 'balloon', which is globo. The first example is not a natural sentence and the second wrote fué, which takes no accent.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "ball (for sport)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Este balón es el tesoro",
+    "casi fué golpeado"
+   ],
+   "ex": [
+    [
+     "Los niños jugaban con un balón en el parque.",
+     "The children were playing with a ball in the park."
+    ],
+    [
+     "El portero paró el balón.",
+     "The goalkeeper stopped the ball."
+    ]
+   ]
+  },
+  "deleb1/el test": {
+   "why": "The gloss was a list of three. The examples are right.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "test, quiz"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el campus": {
+   "why": "The gloss is right. The third example had Carlos walking around with a chupón, Latin American for chupete, a dummy.",
+   "dropEx": [
+    "con un chupón"
+   ],
+   "ex": [
+    [
+     "La universidad tiene un campus muy grande.",
+     "The university has a very large campus."
+    ]
+   ]
+  },
+  "deleb1/la democracia": {
+   "why": "The gloss gave Wiktionary's two definitions. The second example was an aphorism.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "democracy"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el menos malo de los sistemas"
+   ],
+   "ex": [
+    [
+     "En una democracia, el pueblo elige a sus gobernantes.",
+     "In a democracy, the people choose their rulers."
+    ]
+   ]
+  },
+  "deleb1/la beca": {
+   "why": "The gloss put 'grant, stipend' before 'scholarship'. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "scholarship, grant"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la orina": {
+   "why": "The gloss is right. The first example is shared with el análisis earlier in B1, and the third was the verb orinar. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "Hagamos un análisis de orina",
+    "orina en este recipiente"
+   ],
+   "ex": [
+    [
+     "Tuvo que dar una muestra de orina.",
+     "He had to give a urine sample."
+    ],
+    [
+     "El olor a orina era insoportable.",
+     "The smell of urine was unbearable."
+    ]
+   ]
+  },
+  "deleb1/soñar": {
+   "why": "The gloss did not give soñar con. The first example was the noun sueño and is shared with el sueño in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to dream"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "soñar con — to dream of, to dream about"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El sueño de Carlos se está haciendo"
+   ],
+   "ex": [
+    [
+     "Anoche soñé contigo.",
+     "I dreamt about you last night."
+    ]
+   ]
+  },
+  "deleb1/líquido, líquida": {
+   "why": "The gloss gave only the adjective while two of the examples were the noun el líquido.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "liquid"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el líquido — liquid"
+     ]
+    ]
+   ]
+  },
+  "deleb1/trabajador, trabajadora": {
+   "why": "The gloss did not give the noun, 'worker'. The second example was a national stereotype and is shared with alemán in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "hard-working"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el trabajador, la trabajadora — worker"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "los alemanes son muy trabajadores"
+   ],
+   "ex": [
+    [
+     "Los trabajadores piden mejores condiciones.",
+     "The workers are asking for better conditions."
+    ]
+   ]
   }
  },
  "insert": {
@@ -39255,7 +39725,10 @@
    "el método",
    "la asociación",
    "grabar",
-   "el comentario"
+   "el comentario",
+   "necesariamente",
+   "el mensajero, la mensajera",
+   "la cortesía"
   ]
  }
 }

@@ -3492,6 +3492,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S35 | B1 | #447 `el cartel` – #474 `el grito` | 25 | 3 (`clásico, clásica`, `el documento`, `marcharse`) | 0 | — | — |
 | S36 | B1 | #475 `el cirujano, la cirujana` – #502 `evidente` | 26 | 2 (`el método`, `la asociación`) | 0 | B1 description: 958 with three | — |
 | S37 | B1 | #503 `la atmósfera` – #530 `curar` | 26 | 2 (`grabar`, `el comentario`) | 0 | — | `la ave` renamed `el ave`; six more `la` + stressed a- headwords found in B2–C2 |
+| S38 | B1 | #531 `el elefante, la elefanta` – #558 `trabajador, trabajadora` | 25 | 3 (`necesariamente`, `el mensajero, la mensajera`, `la cortesía`) | 0 | — | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5031,6 +5032,35 @@ earlier B1 card were replaced. B1 stays at 958 with three examples.
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 69, unchanged.
+
+### S38 — DELE B1, notes #531–#558 (Sep 2026)
+
+Measured against the S37 commit by card id: **25 changed, 973 untouched**, each a record entry. The other three
+were read and left alone: `necesariamente`, `el mensajero, la mensajera`, `la cortesía`.
+
+**ANOTHER CARD'S GLOSS.** `resistir` was glossed "to tolerate, to put up with, to bear, to handle, to stand" —
+`aguantar`'s meaning, which S32 corrected on that card — where *resistir* is to resist or withstand. All three of
+its examples went too: a generalisation about men and women, a calqued news headline, and a sentence nobody says.
+
+**THE ADJECTIVE GLOSSED AS SOMETHING ELSE.** `levantado` was "lofty, high" over three examples meaning "up, out of
+bed"; `el balón` gave "balloon", which is *globo*; `acostado` gave "recumbent", and its first example was
+*acostarse con* in the perfect; `ordenado` gave "ordained" and lost all three examples — *tan ordenado como
+posible*, Rioplatense *tenés* and *pieza*, and the verb *ordenar* in a calqued passive.
+
+**THE OTHER WORD.** `el/la poeta` carried *poetisa*; `la orina` the verb *orinar*; `soñar` the noun *sueño*.
+
+**STEREOTYPES AND OBSCURITIES.** "Germans are said to be hard-working" (`trabajador`, and shared with A1's
+`alemán`); Benjamin Harrison's campaign (`organizado`); a club called Poets Without Homes; Carlos wandering the
+campus with a *chupón*, the Latin American word for a dummy.
+
+**AND THE REST.** Ungrammatical or calqued: *es bueno que has dado cuenta* (`el elefante`), *Observa tu líder*
+(`observar`), *compitió con una fuerte competencia*. *Luego de* on `el debate`. `la lotería` gave one sentence
+twice. Eight sentences shared with A1, A2 or an earlier B1 card were replaced. B1 stays at 958 with three
+examples.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+69 → 67. `levantado` stays on it under its new gloss "up, out of bed": its examples read "was up", "stayed up"
+and "had her hand up", and the checker ignores words under three letters — named here as a false positive.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
