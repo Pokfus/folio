@@ -680,6 +680,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 361–390 (繁殖 → 丰收), deck order | 23 | **fourteen near-repeats, four of them ALL THREE sentences** — the fill pass at its weakest, and five glosses that were the wrong part of speech |
 | 2026-09-24 | `hsk30l6` notes 391–420 (风雨 → 感想), deck order | 16 | a verb that takes TWO objects given one, an invented compound, and a card glossed *liver* that showed the organ nowhere |
 | 2026-09-24 | `hsk30l6` notes 421–450 (钢笔 → 供给), deck order | 20 | **个体: NOT ONE of its three sentences contained the word**, and its gloss was wrong as well — the worst single card this audit has met |
+| 2026-09-24 | `hsk30l6` notes 451–480 (攻击 → 拐), deck order | 12 | **顾, glossed from a sense CC-CEDICT does not carry, whose every sentence was 环顾**; and 费用共计一千元 beside 费用共计三千元 |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11129,4 +11130,63 @@ sound.
 `check-example-fit.js`, `check-senses.js`, `check-coarse.js` and `check-gloss-source.js` all name nothing
 in 421–450. Coverage 11,532 notes at three sentences with 0 repeats; shared-gloss groups 318 and
 still-ambiguous 1, both unchanged. **Verified against the real diff: 20 of 30 changed, nothing outside
+the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+## Batch 145 — `hsk30l6` notes 451–480 (攻击 → 拐)
+
+Twelve of the thirty changed. The rest were read and left.
+
+### 顾 — a gloss from a sense the dictionary does not carry, over three sentences that never used the word
+
+Not one of this card's three sentences contained 顾 as a word: **她环顾了一下四周**, **我环顾四周，却没看
+见任何人** and **汤姆环顾四周，发现自己迷路了** are all 环顾, "to look around", and two of them are 环顾四周
+verbatim. That is the batch's fourth consecutive single-character swallow, and `check-example-fit.js`
+skips a one-character headword by design, so nothing reported it.
+
+What makes this one worse than its predecessors is that **the gloss was wrong with them**. The card read
+*to look back; to turn around and look* — which is the classical sense, and **CC-CEDICT does not carry it
+at all**: its entry is *to look after; to take into consideration; to attend to*, which is also the sense
+behind every compound a reader of this deck actually meets (照顾, 顾客, 不顾, 顾虑, and 顾问 twelve cards
+later in this same range). So the card taught a reading nothing supports, illustrated by a word it was not
+about. Gloss and sentences were corrected together, the three replacements being 只顾/不顾, the potential
+complement 顾不上, and 顾着.
+
+### Two sentences identical but for the number in them
+
+**费用共计一千元** beside **费用共计三千元** — the sharpest near-repeat this audit has found, and to
+`check-mandarin-coverage.js`, which compares example translations exactly ("a thousand yuan in all" against
+"three thousand yuan in total"), two perfectly distinct examples. The replacement counts something that is
+not money. Three more near-repeats in the same thirty: 这道工序很重要/很关键, 这座城市有很多古迹/城里有很多
+古迹, and 公民's two *X is a citizen of Y* sentences.
+
+### The part-of-speech label and the gloss were different parts of speech — three times
+
+Batch 31's third shape, at three times its rate here. **构造** was labelled a VERB over the gloss
+*structure*, with all three sentences the noun and CC-CEDICT giving no verb sense at all. **公认** was
+labelled a verb over *universally acknowledged*, a past participle. And **拐** ran three senses together in
+one line under a single verb label — *to turn, to abduct, or a walking stick*, the last of which is a noun
+— now split as the dictionary splits them, with sense tags on the two examples that show the first two.
+拐's third sentence was a swallow besides: **请在那个拐角左转** uses 拐角, "corner", and its verb is 左转.
+
+### A number written in a form that reads as something else
+
+**公元** dated the arrival of Buddhism to **公元六七年** — sixty-seven only to a reader who already knows
+the year, 六七年 otherwise being "six or seven years". Beyond it, two of that card's three sentences used
+公元**前**, the BCE form, on a card whose headword is the CE one. Both were replaced with sentences that
+state a CE year plainly; the surviving 公元前 sentence stays, being a real use of the word.
+
+### Read and left
+
+攻击, 公开, 功效, 公益, 供应, 公正, 公众, 公主, 巩固, 孤独, 姑姑, 股票, 古人, 股市, 骨头, 固体, 顾问,
+故障 and the survivors of 沟, 古典 and 鼓舞 are sound. 巩固 and 鼓舞 each carry a `verb / adjective` label
+whose adjective half no sentence shows; CC-CEDICT gives 巩固 both and 鼓舞 neither, and the house rule is
+not to sweep that flag, so both are recorded rather than changed — 鼓舞's repair was the near-repeat
+(令人鼓舞 twice), not the label.
+
+### Checks after
+
+`--check` clean. `check-pinyin.js`, `check-british.js`, `check-say-reading.js`, `check-example-fit.js`,
+`check-senses.js`, `check-coarse.js` and `check-gloss-source.js` all name nothing in 451–480. Coverage
+11,532 notes at three sentences with 0 repeats; shared-gloss groups 318 and still-ambiguous 1, both
+unchanged across four gloss rewrites. **Verified against the real diff: 12 of 30 changed, nothing outside
 the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
