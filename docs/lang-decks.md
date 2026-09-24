@@ -3495,6 +3495,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S38 | B1 | #531 `el elefante, la elefanta` – #558 `trabajador, trabajadora` | 25 | 3 (`necesariamente`, `el mensajero, la mensajera`, `la cortesía`) | 0 | — | — |
 | S39 | B1 | #559 `la misa` – #586 `el flash` | 25 | 3 (`el voluntario, la voluntaria`, `arrogante`, `entrenar`) | 0 | B1 description: 959 with three | — |
 | S40 | B1 | #587 `tradicional` – #614 `el cohete` | 27 | 1 (`occidental`) | 0 | B1 description: 962 with three | — |
+| S41 | B1 | #615 `vago, vaga` – #642 `deprimido, deprimida` | 27 | 1 (`la competición`) | 0 | B1 description: 963 with three | S29 unbolded phrase cards: 3 of the 4 remaining closed |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5147,6 +5148,37 @@ and `la revisión` come up to three examples: 962 of 998.
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
 65 → 61.
+
+### S41 — DELE B1, notes #615–#642 (Sep 2026)
+
+Measured against the S40 commit by card id: **27 changed, 971 untouched**, each a record entry. The other one
+was read and left alone: `la competición`.
+
+**THREE PHRASE CARDS WITH NO EXAMPLE OF THE PHRASE.** `puesto que`, `dado que` and `o sea` — three of the four
+S29 left open — each had nine sentences between them and not one contained the headword. The generator
+matched the *que* of *por supuesto que*, *apuesto que*, *hemos olvidado que* and *cuidado que*, and the *sea* of
+*que eso sea*: the headword's last word, standing alone. All nine were replaced with sentences that use the
+phrase, bolded whole. **`en fin` is the last of S29's list still open**, and is further on.
+
+**THREE MORE CARDS THAT LOST EVERY EXAMPLE.** `tardar`: two were the noun *la tarde*, both shared with A1's
+`la tarde`, and the third was garbled (*Tarda uno dos horas*). `charlar`: one shared with A1's `con`, one the
+noun *charla*, and one the name **Charles** — a proper name matched as a verb form. `marcar` lost two to the
+noun *marca*.
+
+**FALSE FRIENDS.** `educado` put "educated" first where it usually means polite, and now carries a note; `vago`
+put "vague" before "lazy", which is the everyday Spanish sense.
+
+**NAMES THE TABLE DOES NOT CATCH.** `femenino` named an Ellie; `el bloque`'s English named Carlos where the
+Spanish said Tomás — the name pass had changed one side of a sentence and not the other.
+
+**AND THE REST.** `el maletero`'s examples said "trunk"; `la farmacia`'s gloss "drugstore"; `el mantenimiento`
+"archeological" and a server-maintenance notice; `el descuento` four names for injury time; `agotado` a verb
+and "out of gas"; `deprimido` *son deprimidos* for *están*. Eleven sentences shared with A1, A2 or an earlier
+B1 card were replaced. `el maletero` comes up to three examples: 963 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+61 → 56. `charlar` stays on it under "to chat" over *chatting* and *chatted*, which the checker's stemmer does
+not join to "chat" — named here as a false positive.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

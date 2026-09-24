@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,43 +877,47 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 954 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 955 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 956 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 957 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 958 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 959 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 962 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 962 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 963 of them"
     ]
    ]
   }
@@ -40571,6 +40575,619 @@
      "They let off rockets at the village fiesta."
     ]
    ]
+  },
+  "deleb1/vago, vaga": {
+   "why": "The gloss put 'vague' first, where in Spain the everyday sense is 'lazy'. The third example was the verb vagar.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "lazy",
+      "vague"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ana vaga de un sitio a otro"
+   ],
+   "ex": [
+    [
+     "Mi hermano es muy vago; nunca ayuda en casa.",
+     "My brother is very lazy; he never helps at home."
+    ]
+   ]
+  },
+  "deleb1/conservar": {
+   "why": "The gloss ended 'retain.' and did not give 'to keep'. The first example's conservar a la naturaleza takes a personal a it cannot have, and the second's English said 'retain'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to keep, to preserve",
+      "to conserve"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "conservar a la naturaleza"
+   ],
+   "exEn": [
+    [
+     "en tu lugar conservaría",
+     "I'd keep that old hat if I were you."
+    ]
+   ],
+   "ex": [
+    [
+     "Conserva la calma.",
+     "Keep calm."
+    ]
+   ]
+  },
+  "deleb1/el crucero": {
+   "why": "The gloss is right. The first example is shared with el puerto in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Un crucero de lujo llegó al puerto"
+   ],
+   "ex": [
+    [
+     "Hicimos un crucero por el Mediterráneo.",
+     "We went on a cruise around the Mediterranean."
+    ]
+   ]
+  },
+  "deleb1/agotado, agotada": {
+   "why": "The gloss was a list. The first example was the verb agotarse, and its English said 'we're out of gas'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "exhausted, worn out",
+      "sold out, out of stock"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "se ha agotado el gas"
+   ],
+   "ex": [
+    [
+     "Las entradas están agotadas.",
+     "The tickets are sold out."
+    ]
+   ]
+  },
+  "deleb1/la farmacia": {
+   "why": "The gloss put 'drugstore' first. The first example is shared with el mercado in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "chemist's, pharmacy"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "farmacia de guardia — duty chemist's"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El mercado está al lado de la farmacia"
+   ],
+   "ex": [
+    [
+     "La farmacia de guardia está abierta toda la noche.",
+     "The duty chemist's is open all night."
+    ]
+   ]
+  },
+  "deleb1/agradecer": {
+   "why": "The gloss is right. The second example, thanking someone for changing their clothes, is not a sentence a learner needs.",
+   "dropEx": [
+    "que te hayas puesto otra ropa"
+   ],
+   "ex": [
+    [
+     "Te agradezco mucho tu ayuda.",
+     "Thank you very much for your help."
+    ]
+   ]
+  },
+  "deleb1/el maletero": {
+   "why": "The gloss put 'trunk' before 'boot', and both examples said 'trunk'. The card had two examples.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "boot (of a car)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Deberías limpiar el",
+     "You should clean out the boot of your car."
+    ],
+    [
+     "dejar tu bolso en el",
+     "Do you want to leave your bag in the boot?"
+    ]
+   ],
+   "ex": [
+    [
+     "Mete las maletas en el maletero.",
+     "Put the suitcases in the boot."
+    ]
+   ]
+  },
+  "deleb1/el mantenimiento": {
+   "why": "The gloss gave 'support'. The second example's English spelt 'archeological' the American way, and the third was a server-maintenance notice.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "maintenance, upkeep"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "arqueológicos están en riesgo",
+     "Many archaeological sites are at risk due to poor maintenance."
+    ]
+   ],
+   "dropEx": [
+    "Nuestro servidor permanecerá fuera de línea"
+   ],
+   "ex": [
+    [
+     "Los gastos de mantenimiento de la casa son altos.",
+     "The house's upkeep costs are high."
+    ]
+   ]
+  },
+  "deleb1/la década": {
+   "why": "The gloss is right. The third example's English said 'Another ten years went by quickly', losing the idiom.",
+   "exEn": [
+    [
+     "en un abrir y cerrar de ojos",
+     "Another decade went by in the blink of an eye."
+    ]
+   ]
+  },
+  "deleb1/puesto que": {
+   "why": "NONE OF THE THREE EXAMPLES CONTAINED THE PHRASE. The generator matched the que of 'por supuesto que' and 'apuesto que', so the card taught 'since' over three sentences that do not say it. S29 named this card among the unbolded phrase examples still open; the first example was also shared with el hospital in A1.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "since, given that"
+     ]
+    ]
+   ],
+   "bold": [
+    "puesto que"
+   ],
+   "dropEx": [
+    "Por supuesto que también debería",
+    "Apuesto que Carlos y Ana",
+    "Apuesto que nadie había dicho"
+   ],
+   "ex": [
+    [
+     "No saldremos, puesto que llueve.",
+     "We won't go out, since it's raining."
+    ],
+    [
+     "Puesto que no tienes tiempo, lo haré yo.",
+     "Since you haven't got time, I'll do it."
+    ],
+    [
+     "No puede conducir, puesto que no tiene carné.",
+     "He can't drive, since he hasn't got a licence."
+    ]
+   ]
+  },
+  "deleb1/dado que": {
+   "why": "NONE OF THE THREE EXAMPLES CONTAINED THE PHRASE, the same fault as puesto que: the generator matched a bare que in 'hemos olvidado que' and 'cuidado que'. The second was also shared with la botella in A2.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "since, given that"
+     ]
+    ]
+   ],
+   "bold": [
+    "dado que"
+   ],
+   "dropEx": [
+    "Hemos olvidado que no te gusta",
+    "Cuidado que no se te caiga",
+    "Hemos olvidado que tienes amigos"
+   ],
+   "ex": [
+    [
+     "Dado que es tarde, nos vamos a casa.",
+     "Since it's late, we're going home."
+    ],
+    [
+     "Dado que no contestaba, le escribí un mensaje.",
+     "As she wasn't answering, I sent her a message."
+    ],
+    [
+     "No podemos ir, dado que han cancelado el tren.",
+     "We can't go, given that the train has been cancelled."
+    ]
+   ]
+  },
+  "deleb1/femenino, femenina": {
+   "why": "The gloss gave Wiktionary's two definitions and not women's sport. The second example named an Ellie the name table does not know, and the third, women looking 'more masculine than feminine', is not a sentence a learner needs.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "feminine",
+      "women's (el fútbol femenino)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ellie es muy",
+    "se ven más masculinas que"
+   ],
+   "ex": [
+    [
+     "La palabra casa es femenina.",
+     "The word casa is feminine."
+    ],
+    [
+     "El equipo femenino ganó la liga.",
+     "The women's team won the league."
+    ]
+   ]
+  },
+  "deleb1/operar": {
+   "why": "The gloss gave 'to produce, to achieve' beside 'to operate'. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to operate (on)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "operarse — to have an operation"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la pausa": {
+   "why": "The gloss was a list of three. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "break, pause"
+     ]
+    ]
+   ]
+  },
+  "deleb1/tardar": {
+   "why": "ALL THREE EXAMPLES WENT. The first two were the noun la tarde and are shared with la tarde in A1, and the third, 'Tarda uno dos horas', is garbled. The gloss did not give tardar en. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to take (time)",
+      "to be long, to be late"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tardar en — to take (time) to"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Son las cuatro y media de la",
+    "una siesta todas las tardes",
+    "Tarda uno dos horas"
+   ],
+   "ex": [
+    [
+     "¿Cuánto se tarda en llegar al aeropuerto?",
+     "How long does it take to get to the airport?"
+    ],
+    [
+     "No tardes, que te esperamos.",
+     "Don't be long, we're waiting for you."
+    ],
+    [
+     "Tardé una hora en hacer los deberes.",
+     "It took me an hour to do my homework."
+    ]
+   ]
+  },
+  "deleb1/soltar": {
+   "why": "The gloss is right. The first and third examples were both soltar la lengua.",
+   "dropEx": [
+    "Ya era hora de que soltaras"
+   ],
+   "ex": [
+    [
+     "Soltó la mano de su hijo.",
+     "She let go of her son's hand."
+    ]
+   ]
+  },
+  "deleb1/marcar": {
+   "why": "The gloss did not give scoring a goal or dialling a number. The first and third examples were the noun marca, and are shared with el teléfono in A1 and especial earlier in B1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to mark",
+      "to score (a goal)",
+      "to dial"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la marca de tu teléfono",
+    "tiene marcas muy especiales"
+   ],
+   "ex": [
+    [
+     "Marcó el gol de la victoria.",
+     "He scored the winning goal."
+    ],
+    [
+     "Marca el número y espera.",
+     "Dial the number and wait."
+    ]
+   ]
+  },
+  "deleb1/educado, educada": {
+   "why": "The gloss put 'educated' first, where educado usually means polite — a false friend worth naming. The first example's English said 'show respect'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "polite, well-mannered",
+      "brought up"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "educados, educadas"
+    ],
+    [
+     "note",
+     "usually 'polite', not 'educated' (culto, instruido)"
+    ]
+   ],
+   "exEn": [
+    [
+     "ser educado con tus invitados",
+     "You have to be polite to your guests."
+    ]
+   ]
+  },
+  "deleb1/el tobillo": {
+   "why": "The gloss is right. The first example, 'Con ése no se te ve el tobillo', has no context to make sense of.",
+   "dropEx": [
+    "Con ése no se te ve"
+   ],
+   "ex": [
+    [
+     "Se torció el tobillo jugando al fútbol.",
+     "He twisted his ankle playing football."
+    ]
+   ]
+  },
+  "deleb1/el bloque": {
+   "why": "The gloss put 'bloc' first. The first example is shared with la planta in A1 and its English said 'condo'; the second's English named Carlos where the Spanish said Tomás. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "block",
+      "block of flats"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Viven en la planta doce"
+   ],
+   "exEn": [
+    [
+     "jugando con bloques de madera",
+     "Tomás is playing with wooden blocks."
+    ]
+   ],
+   "ex": [
+    [
+     "Vivimos en un bloque de pisos.",
+     "We live in a block of flats."
+    ]
+   ]
+  },
+  "deleb1/o sea": {
+   "why": "NONE OF THE THREE EXAMPLES CONTAINED THE PHRASE: each was the subjunctive sea after que or como, and all three are shared with other cards (imaginar and correcto earlier in B1, posible in A1). The third of S29's open unbolded phrase cards. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "I mean, that is",
+      "so"
+     ]
+    ]
+   ],
+   "bold": [
+    "o sea"
+   ],
+   "dropEx": [
+    "No me puedo imaginar que eso sea",
+    "tan claramente como sea posible",
+    "No me parece que eso sea"
+   ],
+   "ex": [
+    [
+     "Llegó el martes, o sea, hace dos días.",
+     "He arrived on Tuesday, that is, two days ago."
+    ],
+    [
+     "No me apetece salir, o sea que me quedo en casa.",
+     "I don't feel like going out, so I'm staying in."
+    ],
+    [
+     "Es mi tía, o sea, la hermana de mi madre.",
+     "She's my aunt, I mean my mother's sister."
+    ]
+   ]
+  },
+  "deleb1/producir": {
+   "why": "The gloss ran six senses of producirse into one line. The first example was an aphorism.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to produce"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "producirse — to happen, to take place"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Toda causa produce"
+   ],
+   "ex": [
+    [
+     "España produce mucho aceite de oliva.",
+     "Spain produces a lot of olive oil."
+    ]
+   ]
+  },
+  "deleb1/charlar": {
+   "why": "ALL THREE EXAMPLES WENT. The first is shared with con in A1, the second was the noun charla, and the third was the name Charles. The gloss carried a stray 'N' line. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to chat"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no tiene amigos con los que",
+    "una pequeña charla",
+    "He cambiado mucho, Charles"
+   ],
+   "ex": [
+    [
+     "Nos quedamos charlando hasta tarde.",
+     "We stayed up chatting until late."
+    ],
+    [
+     "Me encanta charlar con mis abuelos.",
+     "I love chatting with my grandparents."
+    ],
+    [
+     "Charlamos un rato en la cafetería.",
+     "We chatted for a while in the café."
+    ]
+   ]
+  },
+  "deleb1/el descuento": {
+   "why": "The gloss listed four names for football's injury time. The first and third examples were the same question, and the first is shared with efectivo in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "discount"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tiempo de descuento — injury time"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Si pago en efectivo me da un",
+    "Me dará un descuento si pago"
+   ],
+   "ex": [
+    [
+     "Los estudiantes tienen un descuento del 20%.",
+     "Students get a 20% discount."
+    ],
+    [
+     "Compré el abrigo con descuento.",
+     "I bought the coat at a discount."
+    ]
+   ]
+  },
+  "deleb1/recto, recta": {
+   "why": "The gloss was a list of seven. The first example's English said 'Go ahead', losing todo recto.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "straight",
+      "honest, upright"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "todo recto — straight on"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Sigue todo",
+     "Go straight on to the end of the street."
+    ]
+   ]
+  },
+  "deleb1/el calendario": {
+   "why": "The gloss is right. The first and second examples were both a wall calendar.",
+   "dropEx": [
+    "El calendario está colgado en la pared"
+   ],
+   "ex": [
+    [
+     "El calendario escolar empieza en septiembre.",
+     "The school year starts in September."
+    ]
+   ]
+  },
+  "deleb1/deprimido, deprimida": {
+   "why": "The gloss is right. The second example's son deprimidos should be están, a state.",
+   "dropEx": [
+    "me dijeron que son deprimidos"
+   ],
+   "ex": [
+    [
+     "Últimamente está un poco deprimido.",
+     "He's been a bit down lately."
+    ]
+   ]
   }
  },
  "insert": {
@@ -40899,7 +41516,8 @@
    "el voluntario, la voluntaria",
    "arrogante",
    "entrenar",
-   "occidental"
+   "occidental",
+   "la competición"
   ]
  }
 }
