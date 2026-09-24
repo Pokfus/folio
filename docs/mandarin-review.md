@@ -701,6 +701,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 991–1020 (泼 → 谦虚), deck order | 22 | **恰恰's three sentences were all the set phrase 恰恰相反**; 扑 glossed "dedicate all one's energies to a cause"; 铺 illustrated by 床铺, read pù |
 | 2026-09-24 | `hsk30l6` notes 1021–1050 (前景 → 清醒), deck order | 22 | **two generalisations about a people on 勤劳, one about a class on 倾向**; 切实's 切实可行 twice; eleven glosses repaired |
 | 2026-09-24 | `hsk30l6` notes 1051–1080 (情节 → 人工智能), deck order | 20 | **权力 'power' used for 权利 'a right'**; 券 swallowed three times over; 热点 illustrated by 热点儿 'a bit hot' |
+| 2026-09-24 | `hsk30l6` notes 1081–1110 (人家 → 塞), deck order | 23 | **人为's three sentences all straddled** (有人+为, 太空人+为, 人+为); 入门 by 插入+门锁; 撒 by a misspelt 撒谎 |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12168,3 +12169,38 @@ written (求, 曲, 圈, 券, 染).
 Coverage: 11,532 notes at three sentences; 313 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
 `check-british` reads 0. **Verified against the real diff: 20 of 30 changed and nothing outside the range.**
 `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 166 — `hsk30l6` notes 1081–1110 (人家 → 塞)
+
+**The straddle class, three times on one card.** 人为 *man-made* had 有人为您服务吗 (有人 + 为), 太空人为发射做准备
+(太空人 + 为) and 没有人为它做任何事情 (人 + 为) — the two characters side by side in every sentence and the word in
+none. All three replaced. 入门 had it once more, 吉姆将钥匙插入门锁 being 插入 *insert* + 门锁 *lock*; and its gloss
+led with "entrance door", which no sentence is.
+
+**Readings the card does not teach.** 人家's 有钱人家 is rénjiā *household*, where the card is the neutral-tone
+rénjia *other people*; it is replaced by 人家不想去嘛, the colloquial *I* CC-CEDICT gives, and the senses split.
+撒's 她撒慌了 **misspelt 撒谎 as 撒慌**, and 撒谎 is sā anyway; 撒's and 塞's Compounds panels name the other
+readings (sā; sè, sài). 塞 lost 何塞 *José*, a transliteration.
+
+**Swallows and a near-miss sense**: 不省人事 on 人事, 日夜兼程 on 日夜; 认错's 你认错人了 is *to mistake somebody for
+someone else*, not the card's *to admit a mistake*.
+
+**A political aside in Taiwan spelling**: 人士's 玛丽很快就注意到普丁并不是民主人士 (普丁 for 普京). **Translationese**:
+融入's video-game sentence, 认定's 35-character dashcam report, 荣誉's 享誉…荣誉, 融合's jazz fusion defining itself.
+
+**Glosses**: 人均 and 认知 were labelled verbs; 仍旧 was glossed as verbs over three adverbs; 日后 "sometime";
+融合 "a mixture"; 人士, 人事, 认定, 认可, 融入, 塞, 忍受, 融化, 日前 gained what their sentences show. **One collision
+caught before it shipped**: the first corrected 仍旧 gloss, *still; as before*, was hsk30l5/依然's exactly, which
+put a second still-ambiguous pair on the coverage report. A `not X` pair could not carry it — the applier drops
+a note's hint block whenever it takes a `gloss` or `senses` fix, by design — so the gloss takes CC-CEDICT's
+*yet* instead and the two are distinct.
+
+**Near-repeats**: 认同 (disagreeing with you twice), 融化 (ice twice), and this record's own 日前 and 容量.
+
+**Seven cards were read and left**: 人山人海, 人行道, 日益, 柔软, 入境, 入选, 弱点. Two Compounds panels
+written (撒, 塞).
+
+Coverage: 11,532 notes at three sentences; 313 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
+`check-british` reads 0; `check-gloss-source.js` lists 人家 against CC-CEDICT's rénjiā entry, the other reading.
+**Verified against the real diff: 23 of 30 changed and nothing outside the range.** `build-lang-decks.js` re-run.
+No changelog line and no version bump.
