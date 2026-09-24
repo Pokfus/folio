@@ -695,6 +695,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 811–840 (劳动力 → 凌晨), deck order | 20 (+1 out of range) | **three single-character cards with no sentence using the character on its own** — 立, 料, and 雷 after its third went; and a `not X` hint pair that was hiding a wrong gloss |
 | 2026-09-24 | `hsk30l6` notes 841–870 (流程 → 码头), deck order | 24 | **nine near-repeats, and glosses taken off the top of CC-CEDICT** — 流程 "course", 漏洞 "leak", 路程 "route", and 流量 led with two senses its sentences never used |
 | 2026-09-24 | `hsk30l6` notes 871–900 (蚂蚁 → 描绘), deck order | 20 | **迈 was three sentences about somebody called Mike** — and 密's three were 告密, 密室 and 频密; a gloss cut off mid-phrase on 嘛 |
+| 2026-09-24 | `hsk30l6` notes 901–930 (描写 → 南极洲), deck order | 14 (+1 out of range) | **a second `not X` hint pair covering two wrong glosses** — 模拟 and 仿制 both "imitation" under a verb label; and 民众's open item closed |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11963,3 +11964,42 @@ that 埋怨 is read mán.
 Coverage: 11,532 notes at three sentences; 315 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
 `check-british` reads 0; `check-gloss-source.js` loses 免疫. **Verified against the real diff: 20 of 30 changed
 and nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 160 — `hsk30l6` notes 901–930 (描写 → 南极洲)
+
+**The second hint pair in three batches that was a wrong gloss's alibi.** 模拟 was glossed "imitation" under
+a VERB label, and hsk30l7/仿制 was glossed "Imitation" under a verb label too — so the two collided, and the
+deck's answer was a `not 仿制` / `not 模拟` block on each rather than a gloss that was right. CC-CEDICT gives
+模拟 *to simulate* and 仿制 *to copy; to make by imitating a model*. Both corrected, the hint pair removed from
+both (the one change outside the range), and 模拟 split into the verb and the adjective *mock, simulated* its
+own sentences mostly are. **仿制's second sentence, 这件是仿制品, has the headword only inside 仿制品 *replica***,
+and is left for the Levels 7–9 pass rather than written out of range. With batch 157's 利息/利率, the lesson is
+now twice-measured: **a `not X` pair is a claim that two glosses are both right, and it is worth asking.**
+
+**Two glosses cut off mid-phrase, and one that was simply wrong.** 名额 read "quota (of people); [the number
+of people assigned or" — rewritten from CC-CEDICT. 命名 was "nominate; nomenclature", neither of which the word
+means; it is *to name*.
+
+**民众's open item is closed.** The two long sentences recorded as outstanding since batch 91 — 97 characters
+on mission statements and 150 on a speech — are replaced by AUTHORED sentences of ordinary length.
+`check-example-fit.js` still lists the third, 全国民众, as 国民 + 众; that is the segmenter preferring the
+longer word and is a false positive.
+
+**Swallows**: 绝妙 on 妙, 母牛 on 母 (which the coarse checker also listed for 流产 in its English). 母 was an
+ADJECTIVE glossed "mother" — split into the noun and *(of animals) female*, with an AUTHORED sentence for the
+second. 描写 gained the noun its third sentence is.
+
+**Sentences that were not good Chinese.** 模仿's 错误是否能够模仿 rendered "Is the error reproducible?", which is
+复现; 命名's 为他们的婴儿命名为珍 (a baby is 取名); 木材's 发送木材, a verb for messages; 难点's 最难点, 最 on a noun;
+名胜's Edinburgh sentence with 供应 for *offers*; 默默's context-less fragment. All replaced.
+
+**Near-repeats**: 灭 (the lights went out twice), 名额 (this record's own, twice), 模型 (the model plane twice).
+**Englishes**: 母's "maiden name", 默默's "did nothing but weep" and a present tense, 木材's "building wood".
+
+**Sixteen cards were read and left**: 民歌, 民间, 民俗, 民宿, 民主, 明亮, 明明, 名气, 命令, 模特儿, 摩托车, 模样, 母语,
+目录, 奶粉, 南极洲. Three Compounds panels written (妙, 灭, 母).
+
+Coverage: 11,532 notes at three sentences; shared-gloss groups 315 → 314, still-ambiguous 1 (邻居/街坊).
+`check-british` reads 0; `check-gloss-source.js` loses 命名 and 仿制. **Verified against the real diff: 14 of 30
+changed in range, and one out of range — hsk30l7/仿制, its gloss corrected and its hint removed.**
+`build-lang-decks.js` re-run. No changelog line and no version bump.
