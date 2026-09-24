@@ -250,8 +250,13 @@ const ok = (c, m, extra) => {
     const nrows = seen.noun.decl.filter((r) => /^(Nominativ|Akkusativ|Dativ|Genitiv)$/.test(r[0]));
     ok(nrows.length === 4, "its declension shows all four cases",
        JSON.stringify(seen.noun.decl.map((r) => r[0])));
+    // IN THE SCHOOL ORDER, Nominativ / Genitiv / Dativ / Akkusativ (Sep 2026, on
+    // request) -- every case table on the German shelf follows it
+    ok(nrows.map((r) => r[0]).join(" ") === "Nominativ Genitiv Dativ Akkusativ",
+       "in the order Nominativ, Genitiv, Dativ, Akkusativ",
+       JSON.stringify(nrows.map((r) => r[0])));
     ok(nrows.some((r) => r.slice(1).some((c) => /^des |^der |^dem |^den /.test(c))),
-       "with the article declined beside each form", JSON.stringify(nrows[3]));
+       "with the article declined beside each form", JSON.stringify(nrows[1]));
   }
   console.log("   verb:  " + JSON.stringify(seen.verb && [seen.verb.word, seen.verb.conj, seen.verb.conjRows.slice(0, 3)]));
   ok(seen.verb, "a verb came up");
@@ -311,10 +316,10 @@ const ok = (c, m, extra) => {
   ok(seen.pron, "the personal pronoun came up");
   if (seen.pron) {
     const row = (l) => (seen.pron.decl.find((r) => r[0] === l) || []).join(" ");
-    ok(row("1. Sg.") === "1. Sg. ich mich mir", "ich / mich / mir", row("1. Sg."));
-    ok(row("3. Sg. m") === "3. Sg. m er ihn ihm", "er / ihn / ihm", row("3. Sg. m"));
-    ok(row("3. Pl.") === "3. Pl. sie sie ihnen", "sie / sie / ihnen", row("3. Pl."));
-    ok(row("höflich") === "höflich Sie Sie Ihnen", "and the polite Sie / Sie / Ihnen",
+    ok(row("1. Sg.") === "1. Sg. ich mir mich", "ich / mir / mich", row("1. Sg."));
+    ok(row("3. Sg. m") === "3. Sg. m er ihm ihn", "er / ihm / ihn", row("3. Sg. m"));
+    ok(row("3. Pl.") === "3. Pl. sie ihnen sie", "sie / ihnen / sie", row("3. Pl."));
+    ok(row("höflich") === "höflich Sie Ihnen Sie", "and the polite Sie / Ihnen / Sie",
        row("höflich"));
     ok(seen.pron.decl.filter((r) => r.length === 4).length >= 9,
        "nine persons, three cases each");
