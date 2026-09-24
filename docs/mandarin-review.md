@@ -686,6 +686,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 541–570 (恨 → 还原), deck order | 14 | **a character error that put the headword on the card** — 怀 for 坏, which speaks and segments perfectly — and six single-character cards given `Compounds` panels |
 | 2026-09-24 | `hsk30l6` notes 571–600 (患 → 激发), deck order | 15 (+1) | **two of 会见's three sentences were 会 + 见**, their own translations saying so; a gloss fix retired a third `not X` pair |
 | 2026-09-24 | `hsk30l6` notes 601–630 (基金 → 加重), deck order | 18 | **夹: not one of its three sentences used the verb the card teaches**, one of them a loanword in which the character means nothing — and two replacements drafted here carried back the very fault they replaced |
+| 2026-09-24 | `hsk30l6` notes 631–660 (假设 → 奖品), deck order | 26 | **eight cards whose headword sat only inside a longer word** (尖叫 twice, 利剑, 箭头, 一箭双雕, 四体健全者) or in a sentence that was not Chinese, and seven near-repeats, three of them this record's own |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -11541,4 +11542,63 @@ money. 急救 had the headword only inside 急救箱 and the proper name 海姆�
 
 Coverage unchanged: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with
 still-ambiguous 1. `check-british` reads 0. **Verified against the real diff: 18 of 30 changed and
+nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 151 — `hsk30l6` notes 631–660 (假设 → 奖品), 2026-09-24
+
+Twenty-six of the thirty changed. **The batch's largest class is the single-character card whose
+sentences use a longer word instead**, which `check-example-fit.js` skips by design. **尖** had two of
+its three sentences on 尖叫 "to shriek" — the same word twice, and a word of its own. **箭** had 箭头
+(the arrow SIGN) and the idiom 一箭双雕. **剑**'s 恐惧比利剑更伤人 is 利剑 "sharp sword", which
+CC-CEDICT lists. All five are replaced by authored sentences using the character on its own, and the
+four single-character cards in the range (嫁, 尖, 剑, 箭) got `Compounds` panels, every row read off
+CC-CEDICT first — which is also where the swallowing words now belong (尖叫, 箭头, 一箭双雕).
+**健全** is the same shape one level up: its first sentence was a hundred-character passage of a
+translated speech in which the headword appears only inside 四体健全者 "the able-bodied".
+
+**Three sentences were not natural Chinese, and nothing but reading can see that.** 假设得很大 puts a
+得 complement on a noun; 风暴几个小时没有减弱了 closes a 没有 with 了; and 他间隔了很久才作答 uses
+间隔, which spaces THINGS out, for a person pausing, which is 隔. A fourth used the right grammar for
+the wrong verb: 给他讲解一下你的困境 — 讲解 is what a guide or a teacher does to a subject, not how you
+tell someone your troubles. And 鉴定's 经鉴定，此人三观不正 is an internet joke on the neologism 三观,
+whose English ("officially unhealthy") rendered neither.
+
+**Seven near-repeats, and three of them were this record's own authored sentences** — which is the
+standing lesson of the last ten batches arriving from the other side: the record's EARLIER passes
+filled cards to three sentences without reading them against each other. 监督's 工程由专人监督 and
+工程有专人监督 are one character apart; 简介 asked 请写一份公司简介 and 请写一段简介; 坚决 said 坚决反对
+twice; 监测 monitored water quality twice. From the deck's side, 肩膀 hurt a shoulder twice, 坚硬 was
+stone twice, 奖牌 won a medal twice, 奖品 handed over a prize three times, 嫁 said 嫁给 + "you" twice,
+and **减弱 was the weather three times** — now a storm, an eyesight and a transitive 减弱噪音, the
+transitive use being one the card had never shown.
+
+**Eleven glosses changed, and two of them for a word that is not a sense at all.** 检验 began
+**"checkout"**; 健全 read "sound; sane; perfect". 嫁 dropped the one thing that defines the word —
+CC-CEDICT's *(of a woman) to marry* — and kept "shift", which lives only in 嫁祸. 艰辛 put the noun
+"hardships" under an ADJECTIVE label; 坚硬 put the noun "rigidity" into an adjective gloss. 检测 was "to
+detect" over three sentences that all test something; 减压 was the literal "to reduce pressure" over
+three sentences that all relieve stress; 间接 led with "secondhand", 将军 carried "admiral" (海军上将),
+监督 carried "control" and "monitor" (the second being 监测's own gloss one card up), and 奖品 led with
+"award" under three Englishes that all say "prize".
+
+**Five cards were split into senses and tagged.** 假设, 兼职 and 间隔 named a VERB in their label while
+all three sentences were the noun; each got an authored verb sentence. 健全 likewise — **and its verb
+sense, "to perfect (a system)", is NOT in CC-CEDICT**, which gives *robust; sound* only. It is standard in
+the Chinese dictionaries (健全制度), the card's own label already claimed it, and it is recorded as a
+judgement rather than as a dictionary reading. 尖 is split into its two adjective senses, *pointed;
+sharp* and *(of sight or hearing) keen; (of a voice) shrill*. 简介 lost a "verb" half no sentence had.
+
+Three Englishes were corrected: 坚固's 那是个… said "This"; 兼职's 八万日元 sentence added "a month" the
+Chinese does not say, and its neighbour wanted hyphens; 检测's own authored "can detect air quality"
+was not English.
+
+**Four cards were read and left**: 坚定, 艰难, 简化, 建筑物. One question is recorded rather than
+answered: **坚定** is labelled "verb / adjective" and no sentence shows the verb (坚定信心, "to
+strengthen confidence"), which CC-CEDICT does not carry either — so the label stands unillustrated
+rather than being answered from outside the dictionary this audit reads. And one finding travels: the
+hundred-character speech dropped from 健全 is **also 民众's third sentence** (`hsk30l6` note 908,
+out of range), where `check-example-fit.js` already flags it as a 国民 + 众 straddle.
+
+Coverage: 11,532 notes at three sentences, 0 repeats, 316 shared-gloss groups with still-ambiguous 1
+(邻居 / 街坊, carried). `check-british` reads 0. **Verified against the real diff: 26 of 30 changed and
 nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
