@@ -841,7 +841,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     — JS's `\w` is ASCII-only and never matches Cyrillic, so `административн\w+` reported "none" for
     all 85 including the two already read by hand. Prove any scanner over Russian text fires on a hit
     you already hold**), else the subject's own portal through the Wayback Machine,
-    else a UNESCO page, else **Europe PMC's FULL-TEXT phrase search** (added Sep 2026, batch 20: DOAJ
+    else a UNESCO page, else **Europe PMC's FULL-TEXT phrase search — ASKED AS A BARE QUOTED STRING,
+    NEVER WITH THE `FULL_TEXT:` FIELD PREFIX, WHICH IS DEAD AND ANSWERS 0 FOR EVERY PHRASE** (batch 32:
+    `FULL_TEXT:"city of Tomsk"` returns 0 where `"city of Tomsk"` returns 54, and a zero-hit response is
+    well formed and reads exactly like a phrase no paper contains — so the rung was being tested and
+    reported shut on every city it was tried on, for ten batches. **Prove a search engine's field syntax
+    on a phrase you already know is in it before believing a zero.** Fixing it found the seat sentence
+    for FIVE cities at once, three of which shipped in that batch; so **the binding constraint on most of
+    the outstanding centres was the SEAT SENTENCE rather than the history**, which is the opposite of
+    what the plan's own refusal table assumed — re-ask the seat question on a candidate written off
+    before concluding its history is what is wanting. It was added Sep 2026, batch 20: DOAJ
     indexes abstracts, Europe PMC indexes the full text of its open-access subset, so a sentence sitting
     in a Study Area or a Methods section is reachable there and nowhere else — it is what carried
     Yekaterinburg), else an open-access abstract found through DOAJ. **A CENTRE WHOSE SENTENCE NO RUNG
@@ -5309,7 +5318,7 @@ lookup.
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
 | World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 148 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, sixty-five of the 80 centres being written (`gru-505`–`gru-523`, `gru-525`–`gru-529`, `gru-531`–`gru-538`, `gru-540`–`gru-542`, `gru-544`–`gru-545`, `gru-547`–`gru-548`, `gru-550`–`gru-559`, `gru-562`–`gru-563`, `gru-565`–`gru-569`, `gru-571`–`gru-577` and `gru-579`–`gru-580`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`–`gru-503`, `gru-524`, `gru-530`, `gru-539`, `gru-543`, `gru-546`, `gru-549`, `gru-560`–`gru-561`, `gru-564`, `gru-578` and `gru-581`–`gru-583` are still to write**, see below |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | 151 cards — **the 83 federal subjects are COMPLETE** and the capital half is OPEN, sixty-eight of the 80 centres being written (`gru-505`–`gru-523`, `gru-525`–`gru-538`, `gru-540`–`gru-542`, `gru-544`–`gru-559`, `gru-562`–`gru-563`, `gru-565`–`gru-569`, `gru-571`–`gru-577` and `gru-579`–`gru-580`); **163 rather than 1000** (83 subjects + 80 centres), sorted by POPULATION; **the capitals are NOT contiguous — a centre is written when its answer sentence can be sourced and when its own SUBJECT card has not already spent its history, so `gru-502`–`gru-503`, `gru-524`, `gru-539`, `gru-543`, `gru-560`–`gru-561`, `gru-564`, `gru-578` and `gru-581`–`gru-583` are still to write**, see below |
 
 The next id for any of them (substitute the prefix):
 

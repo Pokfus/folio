@@ -2773,3 +2773,85 @@ cleans them, so a 503 there is this sandbox's limit and not a dead link.
 · **COMMONS' ORYOL COVERAGE IS GENUINELY POOR**, and the card ships the honest best: a 2,592px view
   across the Oka to the boat landing and the wooded right bank. The alternative found was a photograph
   taken through a dirty window at dusk with the frame in shot.
+
+## Batch 32 — `gru-530` Grozny, `gru-546` Tomsk, `gru-549` Kaliningrad
+
+**THE `FULL_TEXT:` FIELD PREFIX IS DEAD AND RETURNS 0 FOR EVERYTHING, AND IT HAS BEEN COSTING THIS
+COLLECTION UNLOCKS FOR TEN BATCHES.** Europe PMC's full-text search is the fifth rung of the capital
+half's ladder and it was being asked in the form `FULL_TEXT:"city of Tomsk"`, which answers **0 hits**
+— for that phrase and for every other. The same phrase as a **bare quoted string** answers **54**.
+Nothing about the failure says *bad query*: a zero-hit response is well formed and reads exactly like a
+phrase no paper contains, so the rung was being tested and reported shut on every city it was tried on.
+**Prove a search engine's field syntax on a phrase you already know is in it before believing a zero.**
+
+**IT UNLOCKED FIVE CITIES AT A STROKE**, and three of them ship here. The seat sentence — *X is the
+administrative centre of Y*, the one claim no rung was answering — was found in the Study Area or
+Methods paragraph of an open-access paper for Grozny (Shanks et al., *BMC Medical Ethics* 2015,
+`10.1186/s12910-015-0032-x`, "Grozny, the capital of the Chechen Republic"), Tomsk (Zvonareva et al.,
+*PLOS ONE* 2021, `10.1371/journal.pone.0257379`, "Tomsk is the administrative center of Tomsk Oblast"),
+Kaliningrad (Skrypnik et al., *Plants* 2020), **Cheboksary (PMC10331122)** and **Yoshkar-Ola
+(PMC11668746)**. The last two are carried for a later batch on their history rather than their seat:
+`gru-539` and `gru-564` now need only the five history sentences, which is a different refusal from the
+one batch 31's table records against them. **Batch 31's "no charter, no seat sentence" verdict on
+Grozny, Tomsk and Kaliningrad was an artefact of the dead field, not a fact about the literature.**
+
+**SO THE BINDING CONSTRAINT ON MOST OF THE FIFTEEN WAS THE SEAT SENTENCE RATHER THAN THE HISTORY** —
+the opposite of what batch 31's table assumed. All three of this batch's cities had five history
+sentences available on the out-of-copyright shelf the whole time; what was missing was one modern
+sentence saying the city is the seat. Re-ask the seat question on a candidate the plan has written off
+before concluding its history is what is wanting.
+
+**THE SIBLING SUBJECT CARD WAS READ FIRST IN ALL THREE CASES, WHICH IS WHAT DECIDED THE HISTORY.**
+`gru-030` Chechnya had spent the 1818 founding, the name's meaning, Gunib 1859, the oilfields, the 1944
+deportation and 1999 — so Grozny takes Baddeley's Grebentsi Cossacks (p. 7), Grekov's six years
+(p. 147), Yermolov's preserved *zemlianka* (p. 108), Freitag's 160-verst ride to the relief (pp. 409–11)
+and the bombardment of 24 July 1846 (p. 426). `gru-046` had spent Toyanov Gorodok, 1604 and the
+university's founding — so Tomsk takes Kennan's exile-system material entire (vol. 1 pp. 111–12,
+285–86, 312). `gru-049` had spent the Teutonic Order, 1237, 1758 and Potsdam — so Kaliningrad takes
+Morfill's three Königsberg passages (pp. 19, 81, 335) with the Stanford Encyclopedia's Kant.
+**Fold the page numbers into ONE citation per author**: `check-cards.js`'s rule 1 caps an author at two
+citations per card, and five separate Baddeley pages is five citations of one scholar.
+
+**FOUR TRAPS FROM THE FETCHING, EACH OF WHICH READS AS SOMETHING ELSE.**
+· **`Special:FilePath` 302s, so curl WITHOUT `-L` writes Wikimedia's error page into the output file.**
+  `file` then reports "HTML document" and the whole thing reads exactly like the hard rate-limiting
+  batch 31 recorded. With `-L` every download worked first time. **Check for the redirect before
+  concluding the host is throttling.**
+· **curl returns EMPTY BODIES against `commons.wikimedia.org/w/api.php` where node's `https` module
+  against the same URL works.** All API calls here go through a small node helper instead.
+· **The djvu OCR of the out-of-copyright volumes uses DOUBLE SPACES between words**, so a single-space
+  regex matches nothing: `"City of Tomsk"` returned 0 hits in a file containing it 21 times. Normalise
+  `\s+` → `" "` before searching, in both the finder and the page-number resolver.
+· **MDPI's DOI 403s from here, and so does `europepmc.org`** — cite the PMC canonical
+  (`https://pmc.ncbi.nlm.nih.gov/articles/PMC7154876/`), which `check-citations.js` still verifies.
+
+**THE MORFILL TITLE WAS WRONG ON THIRTEEN CARDS AND THE SCAN'S OWN TITLE PAGE SETTLED IT.** Every
+citation of it read *A History of Russia from the Birth of Peter the Great to Nicholas II*; the title
+page reads **TO THE DEATH OF ALEXANDER II**. Corrected on `gru-001`, `002`, `004`, `005`, `007`, `008`,
+`010`, `011`, `019`, `020`, `022`, `024` and `508` through `add-sources.js`. **Nothing in the pipeline
+can see this** — the URL resolves, the author is right, the pages are right — so read the title page of
+an out-of-copyright work the first time it enters the deck rather than carrying a remembered title.
+
+**PICTURES: FOUR REJECTED AFTER LOOKING, AND ONE LICENCE REFUSED.**
+· `Вид с горы 2011 3.jpg` (Grozny) — portrait, slushy foreground, the city only in the top third.
+· `Grozny panorama.jpg` — a person leaning on a railing in the right foreground, a construction site
+  at the left.
+· `Tomsk Sunset Overview - panoramio.jpg` — two-thirds sky. **Its Commons author field is also
+  truncated at the source** (`Vladimir Zhdanov (WT…`, a Panoramio bot import), which is a second reason
+  not to reach for it: the credit cannot be written in full from what Commons holds.
+· `Tomsk from jet.jpg` — its own Commons description says *South of Tomsk … Кировский район*, so
+  captioning it as the city would over-claim.
+· `Kaliningrad 05-2017 img10 aerial view.jpg` is **FAL**, which is not on Folio's PD / CC BY / CC BY-SA
+  bar, and was refused on the licence rather than on the picture.
+· **`Kaliningrad Russia.jpg` is not Kaliningrad.** It is the red-brick Cranz church and the *Домик
+  Ангелов* museum at **Zelenogradsk**, 30 km up the coast — the right name in the wrong place, which is
+  the one family the contact sheet exists to catch and which no metadata reports.
+So the three CARD pictures are pinned files, and of the three new glossary terms only **`Grozny`** ships
+with one (`City of Grozny in 2011.jpg`, CC BY-SA 3.0, Adam Smit — a wide daylight view across the
+rebuilt civic quarter to the Grozny-City towers). `Tomsk` and `Kaliningrad` ship without, for the
+reasons above; a term with no free, correctly-identified wide view is recorded rather than given a
+picture of somewhere else.
+
+**TWELVE CENTRES LEFT** — `gru-502`, `503`, `524`, `539`, `543`, `560`, `561`, `564`, `578`, `581`,
+`582`, `583` — of which **`gru-539` Cheboksary and `gru-564` Yoshkar-Ola now have their seat sentence**
+and want only history, and the other ten stand as batch 31's table records them.
