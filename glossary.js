@@ -4413,7 +4413,17 @@ window.GLOSSARY = {
 "Severus_Alexander": "Severus Alexander was Roman emperor from 222 to 235 CE, a cousin of Elagabalus who was adopted by him and came to the throne as a boy after the praetorians murdered his predecessor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His government was guided largely by his mother Mamaea, and his costly campaign against the new Persian king Ardashir, which ended in retreat, was later celebrated by Latin writers as a great victory.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> While facing Germanic raiders on the Rhine he offered them money for peace, and his own troops killed him and his mother at Mogontiacum, modern Mainz, in 235 CE and made Maximinus emperor.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Constitutio_Antoniniana": "The Constitutio Antoniniana, or Antonine Constitution, was the decree of the emperor Caracalla, most probably of 212 CE, that made the free inhabitants of the Roman empire Roman citizens, a status previously held outside Italy by a minority.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The jurist Ulpian summarised it in a single sentence, and a damaged Greek papyrus is widely taken to preserve its text, including an apparent exception for a group called the dediticii.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its purpose is debated: the historian Cassius Dio held that it was meant to extend taxes on inheritances and manumissions to everyone, while others stress a wish to unite the empire's subjects under one law.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Baths_of_Caracalla": "The Baths of Caracalla, or Thermae Antoninianae, are the ruins of a great public bathing complex in Rome built under the emperor Caracalla beside the Via Appia and dedicated in 216 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A central block of about 216 by 112 metres (710 by 370 feet), holding a cold pool, a vaulted hall, a warm room, a domed hot room and two exercise courts, stood in gardens within an enclosure containing libraries and reservoirs.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The baths could no longer have been used once the aqueducts supplying Rome were cut during the Gothic siege of 537, and excavations in the 16th century removed many of their statues.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Julia_Mamaea": "Julia Mamaea was a Roman empress of the Severan family, a daughter of Julia Maesa of the Syrian city of Emesa and the mother of the emperor Severus Alexander, who came to the throne as a boy in 222 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The ancient historians present her as the real power in his government, guiding a council of senators and, after her mother's death, ruling in his name, while inscriptions hailed her as mother of the emperor, the camps, the senate and the fatherland.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> She was killed with her son by mutinous troops on the Rhine in 235 CE, and Herodian blamed her avarice for turning the soldiers against him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Julia_Mamaea": "Julia Mamaea was a Roman empress of the Severan family, a daughter of Julia Maesa of the Syrian city of Emesa and the mother of the emperor Severus Alexander, who came to the throne as a boy in 222 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The ancient historians present her as the real power in his government, guiding a council of senators and, after her mother's death, ruling in his name, while inscriptions hailed her as mother of the emperor, the camps, the senate and the fatherland.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> She was killed with her son by mutinous troops on the Rhine in 235 CE, and Herodian blamed her avarice for turning the soldiers against him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Maximinus_Thrax": "Maximinus Thrax was Roman emperor from 235 to 238 CE, a soldier of humble Thracian birth who was proclaimed by recruits he had trained on the Rhine after they killed Severus Alexander, and he is often counted the first of the soldier-emperors.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Ancient writers describe him as a huge, almost illiterate man who spent his reign campaigning against peoples beyond the Rhine and Danube while heavy exactions to pay his armies turned the propertied classes against him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> After a revolt in Africa in 238 CE the senate declared against him, and his own soldiers killed him and his son while he was besieging Aquileia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Philip_the_Arab": "Philip the Arab, Marcus Julius Philippus, was Roman emperor from 244 to 249 CE, a native of the province of Arabia who, as praetorian prefect, was proclaimed by the army on the Persian frontier after the death of the young Gordian III, in which ancient writers accuse him of a hand.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He made peace with Persia, founded a city named Philippopolis in his homeland and in 248 CE celebrated the thousandth anniversary of Rome with lavish games.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Troops on the Danube proclaimed Decius emperor in 249 CE, and Philip was defeated and killed, while a Christian tradition held that he had shared the faith.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Sasanian_Empire": "The Sasanian Empire was the Persian state ruled from 224 to 651 CE by a dynasty named after an ancestor, Sasan, and founded by Ardashir, who defeated the Parthians and killed their last king, Artabanus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Governed from Ctesiphon on the Tigris, it reached at its height from Mesopotamia to the Caucasus, Tashkent and the Punjab, supported Zoroastrianism, and fought repeated wars against Rome and later Byzantium.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Weakened by a Byzantine counter-offensive from 622 CE and by civil war after 628 CE, it fell to the Rashidun Caliphate, and its last king, Yazdegerd III, was murdered at Merv in 651 CE.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Shapur_I": "Shapur I was the second king of the Sasanian dynasty of Persia, the son of Ardashir, and reigned for about thirty years from around 241 CE, the exact dates being uncertain.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He turned his father's kingdom into an empire reaching from Mesopotamia to the Caucasus and the Kushan lands, founded Zoroastrian sacred fires, and recorded his deeds in a trilingual inscription at Naqsh-e Rustam.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In wars with Rome he claimed the death of the emperor Gordian III in battle, took a ransom from Philip, captured Antioch and seized the emperor Valerian in 260 CE.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Valerian_(emperor)": "Valerian was Roman emperor from 253 CE, raised by the troops he commanded in Raetia and Noricum, and he shared power with his son Gallienus, who defended the west while Valerian went east against the Persians.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Christian writers remembered him as a persecutor of the Church, and in 259 or 260 the Persian king Shapur I took him prisoner in Mesopotamia after the Roman army had been weakened by plague.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Shapur boasted in a great inscription that he had captured the emperor with his own hands near Edessa, and the Roman writers say Valerian grew old and died a captive in Persia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Abritus": "The Battle of Abritus was fought in the summer of 251 CE near Abritus, a Roman town of Moesia near modern Razgrad in Bulgaria, between a Roman army under the emperor Decius and Gothic invaders and their allies.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The ancient accounts say the Romans were drawn into marshy ground and shot down, and that Decius and his son both died, the first Roman emperor to be killed in a pitched battle with barbarians.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His successor Gallus let the invaders return home with their plunder and captives in exchange for an annual payment, and Zosimus accused him of having plotted with the enemy.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Antoninianus": "The antoninianus was a Roman silver coin introduced by Caracalla in about 215 CE, somewhat larger than the denarius, showing the emperor in a radiate crown and probably reckoned as two denarii although it weighed only about one and a half.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Little struck after the first years of Severus Alexander, it was revived in 238 CE and soon displaced the denarius as the main silver coin.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its silver fell from about half the alloy under Caracalla to less than 5% by the last issues of Gallienus, when coins were given a silvery surface over a base alloy, and it remained in use until the currency reforms of Diocletian.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Aurelian's_coinage_reform": "Aurelian's coinage reform was the Roman emperor Aurelian's attempt in the early 270s CE to restore a silver coinage that had sunk into almost worthless billon, calling in the counterfeit money and issuing new coin.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its main piece kept the radiate crown of the older antoninianus but was heavier and better made, and though perhaps only 4% silver it had a thin silvered surface and often a mark such as XXI, most probably valuing it at twenty smaller units.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Prices in Egypt, the one province whose papyri record them in quantity, went on rising after the reform, and the coin was later absorbed into the currency system of Diocletian.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Gallic_Empire": "The Gallic Empire is the modern name for the breakaway state that governed the Roman provinces of Gaul, with Britain and for a time part of the Iberian Peninsula, from 260 until 273 or 274 CE under emperors of its own.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Its founder Postumus seized power on the Rhine and was followed by Marius, Victorinus and finally Tetricus, who all called themselves Roman emperors, held consulships and struck coins at mints such as Cologne and Trier.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Tetricus surrendered to the emperor Aurelian during a battle near Châlons-sur-Marne, and Aurelian led him in triumph at Rome before making him governor of Lucania.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Postumus": "Postumus was a Roman general who was proclaimed emperor on the Rhine in 260 CE and ruled the western provinces centred on Gaul until 269, the first ruler of the breakaway state now called the Gallic Empire.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He seized Cologne, where the young son of the emperor Gallienus was based, and had the boy put to death, and for about ten years he took consulships and issued a long series of coins in his own name.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> His soldiers killed him in 269 after he had defeated a rival emperor at Mainz and refused to let them plunder the town.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6673,7 +6683,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Severus_Alexander": "222 – 235 CE",
 "Constitutio_Antoniniana": "212 CE",
 "Baths_of_Caracalla": "216 CE",
-"Julia_Mamaea": "died 235 CE"
+"Julia_Mamaea": "died 235 CE",
+"Maximinus_Thrax": "235 – 238 CE",
+"Philip_the_Arab": "244 – 249 CE",
+"Sasanian_Empire": "224 – 651 CE",
+"Shapur_I": "c. 241 – 271 CE",
+"Valerian_(emperor)": "253 – 260 CE",
+"Battle_of_Abritus": "251 CE",
+"Aurelian's_coinage_reform": "272 – 273 CE",
+"Gallic_Empire": "260 – 274 CE",
+"Postumus": "260 – 269 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -9202,7 +9221,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Severus_Alexander": ["Alexander Severus"],
 "Constitutio_Antoniniana": ["Antonine Constitution","Edict of Caracalla"],
 "Baths_of_Caracalla": ["Thermae Antoninianae","Thermae of Caracalla"],
-"Julia_Mamaea": ["Julia Avita Mamaea","Iulia Mamaea"]
+"Julia_Mamaea": ["Julia Avita Mamaea","Iulia Mamaea"],
+"Maximinus_Thrax": ["Maximinus I"],
+"Philip_the_Arab": ["Philippus Arabs"],
+"Sasanian_Empire": ["Sasanian","Sasanid Empire","Sasanid","Sassanid Empire","Sassanid","Sassanian Empire","Sassanian"],
+"Shapur_I": ["Sapor I","Shabuhr I","Shahpuhr I"],
+"Valerian_(emperor)": ["Valerian"],
+"Battle_of_Abritus": ["Abritus","Abrittus","Battle of Abrittus"],
+"Antoninianus": ["antoniniani","double denarius"],
+"Aurelian's_coinage_reform": ["Aurelian's monetary reform","coinage reform of Aurelian"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -9246,7 +9273,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Medes": true,
 "Chaos_(cosmogony)": true,
 "Pantheon,_Rome": true,
-"Meditations": true
+"Meditations": true,
+"Valerian_(emperor)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -13663,7 +13691,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Severus_Alexander": ["person","ruler","history","politics","rome","classical"],
 "Constitutio_Antoniniana": ["event","law","history","politics","rome","classical"],
 "Baths_of_Caracalla": ["building","architecture","history","rome","classical"],
-"Julia_Mamaea": ["person","history","politics","rome","classical"]
+"Julia_Mamaea": ["person","history","politics","rome","classical"],
+"Maximinus_Thrax": ["person","ruler","history","warfare","rome","classical"],
+"Philip_the_Arab": ["person","ruler","history","politics","rome","classical","near east"],
+"Sasanian_Empire": ["state","history","warfare","politics","iran","persia","mesopotamia"],
+"Shapur_I": ["person","ruler","history","warfare","politics","iran","persia"],
+"Valerian_(emperor)": ["person","ruler","history","warfare","rome","classical"],
+"Battle_of_Abritus": ["event","battle","history","warfare","rome","classical","bulgaria"],
+"Antoninianus": ["object","coinage","economy","history","rome","classical"],
+"Aurelian's_coinage_reform": ["event","coinage","economy","history","rome","classical"],
+"Gallic_Empire": ["state","history","politics","warfare","rome","gaul","classical"],
+"Postumus": ["person","ruler","history","politics","rome","gaul","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
