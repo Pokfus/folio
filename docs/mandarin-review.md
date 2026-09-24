@@ -673,6 +673,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 211–240 (创建 → 打造), deck order | 13 | **one sentence on TWO cards, repaired on one of them and not the other** — an `exEn` row is per NOTE and nothing reports the twin |
 | 2026-09-24 | `hsk30l6` notes 241–270 (打仗 → 当选), deck order | 11 | **大都 glossed as a YUAN-DYNASTY CAPITAL** — a proper noun under an adverb label, over three sentences that are all the adverb |
 | 2026-09-24 | `hsk30l6` notes 271–300 (档案 → 吊), deck order | 17 (+1 in Level 5) | **THREE cards glossed from the OTHER reading of their own characters**, and one whose three sentences contained the word nowhere at all |
+| 2026-09-24 | `hsk30l6` notes 301–330 (调动 → 蹲), deck order | 21 | **TEN cards carried a near-repeat**, most of them this record's own fill-pass rows — and a spelling that is neither British nor American, which `check-british.js` can never see |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -10550,3 +10551,111 @@ notes 626 → 627 and multi-category labels 1,383 → 1,382, both the arithmetic
 `check-say-reading.js` all name nothing in 271–300. **Verified against the real diff: 17 of 30 changed
 in Level 6, nothing outside the range, and exactly one card in Level 5 — 面积, whose hint the 地域 gloss
 retired.** `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+## Batch 138 — `hsk30l6` notes 301–330 (调动 → 蹲)
+
+**Twenty-one of thirty changed.** Two findings here are about the pipeline rather than about any card,
+and both are recorded with their measurements because neither has a checker.
+
+### `manoeuver` is neither spelling, and no checker here can ever see it
+
+调动 was glossed *transfer; shift; **manoeuver***. British English writes **manoeuvre** and American
+English **maneuver**; `manoeuver` is neither, and the same deck writes `manoeuvre` correctly four lines
+over and six more times in Levels 7–9. **`check-british.js` reads 0 on it and always will**: that
+checker asks whether a word is the American member of a declared GB/US pair in `SPELL_PAIRS`, and a
+misspelling belongs to neither side of any pair. It is invisible to the one tool that reads the decks'
+English, and was found by reading the gloss. The rewritten gloss drops the word rather than repairing
+it, *to redeploy* being what the card's own sentences show.
+
+### THE BRITISH PASS DOES NOT REACH THREE OF THE DECKS' FIELDS — 549 SITES, MEASURED
+
+Pulling that thread found something larger. `exBritish` in `mandarin-fix.js` sweeps exactly three
+things — `fields.English`, `fields.Examples` and `answerText` — and the Mandarin card type has more
+English fields than that. Measured across all nine decks against `SPELL_PAIRS`'s own two-way rows:
+
+| field | American spellings in it | notes |
+|---|---|---|
+| `Characters` (the component-breakdown panel) | **547** | 475 |
+| `Compounds` (authored by THIS AUDIT) | 1 | 1 |
+| `Literally` (the Idioms deck) | 1 | 1 |
+| everything the pass does sweep | **0** | — |
+
+The `Characters` count is `labor` 250, `color` 203, `favor` 40, `plow` 18, `specialized` 16, `armor` 7,
+`honor` 5, `armory` 5, `skillful` 3 — **every one of them a word the table already carries**, surviving
+only because the pass does not reach that field, on 4% of the corpus. A reader meets `labor` 250 times
+in a deck authored British.
+
+**And the sharpest part is about this audit's own work.** The `Compounds` panels — forty-odd of them now,
+three more in this batch — are authored by hand into a field `exBritish` cannot reach, and one already
+carries an American spelling (`hsk30l5/集`, *centralize*). Nothing would have caught it; nothing caught
+it until this measurement. `重整旗鼓`'s `Literally` line carries *reorganize* for the same reason.
+
+**Both are left unfixed here, deliberately.** Batch 76's rule is that the fix for a mechanical class is
+the table and never the sites; one level up, the fix here is the PASS and never the sites. Widening the
+swept-field list repairs all 549 mechanically and proves itself by converting 集's row — that is the next
+batch, and it is a `.claude/` helper change, so still no changelog line.
+
+**A second, separate gap measured while there**: `SPELL_PAIRS`'s 39 `-is/-iz` rows were chosen for
+Folio's OWN prose (`colonis`, `sovietis`, `hellenis`, `fossilis`) and the decks' English is a different
+vocabulary — **62 distinct American spellings over 97 occurrences and 45 stems** that no row covers:
+`fertilizer`, `generalize`, `publicize`, `optimize`, `sympathize`, `jeopardize`, `authorization`,
+`hypnotize`, `synchronize`, `visualize`, `customize` and the rest. That is batch 76's finding again
+(*a family can be in the table with members missing, and it reads 0 exactly like an absent family*), and
+it needs rows rather than edits. **The measurement's own trap is worth keeping**: a stem rule over that
+suffix also catches **`prize` 42, `seize` 40, `size` 29 and `maize` 2** — 113 occurrences where `-ize` is
+the only English spelling there is, and where a rule would write *prise*, *seise*, *sise* and *maise*.
+This is why the table is declared and never derived.
+
+### The cards
+
+**Ten of the thirty carried a near-repeat**, which is the most this audit has found in one range, and
+**seven of the ten were this record's own rows** from the fill pass that brought every note to three
+sentences. 定价 had *this book is priced at thirty yuan* beside *this book is priced at forty yuan*;
+对称 had 这座建筑左右对称 beside 这幢建筑左右对称, differing by the measure word alone; 动态 had two
+sentences whose English was word for word identical; 对接 had 两艘飞船成功对接 beside 飞船成功对接, one
+a truncation of the other — so close that **the swap helper matched both rows and refused to write**,
+which is the sharpest possible statement of the problem and is what that guard is for. 调动, 钓鱼, 订婚
+and 定制 are the same shape. 短缺 is the exception that proves it: *the recent coffee shortage caused
+many problems* twice over, and **both were the deck's own rows**, not this record's.
+
+**栋 was a third kind**: all THREE sentences counted 房子 — this house, that small house, a new house —
+so a measure word that classifies buildings of every kind was shown doing one job.
+
+**Four cards had a gloss and a label that were different parts of speech** — 端 (*end; extremity*, two
+nouns, under `verb`, while its own second sentence is the verb and was glossed nowhere), 短缺 (*shortage*
+under `verb`), 对称 (*symmetry* under `adjective`) and 对抗 (the noun *confrontation* leading a `verb`
+label). That is now nine cards this audit has set through `senses` for it.
+
+**蹲 glossed one sense and taught another**: *squat on the heels; to crouch*, with TWO of its three
+sentences 蹲监狱, doing time — CC-CEDICT's third sense, *to stay (somewhere)*, which the card did not
+carry. The gloss now says so and one prison sentence is replaced, so the card shows both.
+
+**定位's entire gloss was *to orientate***, CC-CEDICT's leading word and not what any of its three
+sentences does — bats locating obstacles, a phone finding where you are, a product's market positioning.
+
+**Five swallows**, all on single-character cards and so skipped by `check-example-fit.js` by design:
+顶嘴 on 顶, 逗号 on 逗, 原动力 on 动力, 开端 on 端, and 狠毒 plus 吸毒 and 服毒 on 毒, whose three
+sentences were all compounds so that a card glossed *poison; toxin* never showed the bare noun.
+**渡's was the funniest this audit has met**: 渡渡鸟 is the DODO, so the character appeared twice inside
+one word and the sentence was about an extinct bird. Its third wrote the holiday 度假 as 渡假, the Taiwan
+variant and a different word from the one the card teaches.
+
+**Five `Compounds` panels** — 跌, 顶, 逗, 毒, 渡.
+
+**AND FOR THE FOURTH BATCH RUNNING, THE SITTING INTRODUCED A NEAR-REPEAT OF ITS OWN.** 对称's first
+replacement ended *is not perfectly symmetrical* over a row already reading *is perfectly symmetrical*;
+replaced again with an adverbial construction. Reading the finished card is now catching one of these
+every single batch, which says the habit that produces them is not going away and the read-back is not
+optional.
+
+**Read and left.** 斗争, 都市, 动机, 动漫, 定时, 定义, 对立, 对应, 跌's three sentences and 动听 are
+sound. `check-gloss-source.js` names 定制, 动态 and 对应 — all three the proxy paraphrasing correctly in
+words the dictionary does not use. `check-example-fit.js` names 民众, which is out of this range: its
+全国民众 splits as 国民 + 众, and the sentence is shared with 对抗.
+
+**Checks after.** `--check` clean. Coverage 11,532 notes at three sentences with 0 repeats; shared-gloss
+groups 319 and still-ambiguous 1, both unchanged. `check-pinyin.js` clean; `check-polyreading.js` 0;
+`check-british.js` 0 (which this batch has just shown means less than it looks);
+`check-senses.js`, `check-coarse.js` and `check-say-reading.js` name nothing in 301–330. **Verified
+against the real diff: 21 of 30 changed, nothing outside the range.** `build-lang-decks.js` re-run. No
+changelog line and no version bump.

@@ -17207,19 +17207,19 @@
       ]
     },
     "hsk30l6/动态": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 138: two of the three sentences were near-repeats — the same construction with one word changed — which the coverage checker cannot see, comparing sentences exactly. One replaced by an AUTHORED sentence. Both were this record's own rows from the fill pass that brought every note to three sentences. 我们要关注市场动态 and 请留意市场动态 are the same instruction twice, and the English of the two was word for word identical.",
       "ex": [
         [
           "我们要关注市场动态。",
           "We must keep an eye on market trends."
         ],
         [
-          "请留意市场动态。",
-          "Please keep an eye on market trends."
-        ],
-        [
           "网页上有最新动态。",
           "The latest updates are on the web page."
+        ],
+        [
+          "他随时掌握对手的动态。",
+          "He keeps track of what his rivals are up to."
         ]
       ]
     },
@@ -18590,36 +18590,36 @@
       ]
     },
     "hsk30l6/定价": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 138: two of the three sentences were near-repeats — the same construction with one word changed — which the coverage checker cannot see, comparing sentences exactly. One replaced by an AUTHORED sentence. Both were this record's own rows from the fill pass that brought every note to three sentences. 这本书定价三十元 and 这本书的定价是四十元 are the same book at two prices — the plainest near-repeat this audit has met.",
       "ex": [
         [
           "这本书定价三十元。",
           "The book is priced at thirty yuan."
         ],
         [
-          "这本书的定价是四十元。",
-          "This book is priced at forty yuan."
-        ],
-        [
           "公司重新定价了。",
           "The company re-set its prices."
+        ],
+        [
+          "这家餐厅的定价偏高。",
+          "This restaurant's prices are on the high side."
         ]
       ]
     },
     "hsk30l6/定制": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 138: two of the three sentences were near-repeats — the same construction with one word changed — which the coverage checker cannot see, comparing sentences exactly. One replaced by an AUTHORED sentence. Both were this record's own rows from the fill pass that brought every note to three sentences. 这套家具是定制的 and 这套西装是定制的 differ by one noun.",
       "ex": [
         [
           "这套家具是定制的。",
           "This furniture was made to order."
         ],
         [
-          "这套西装是定制的。",
-          "This suit was made to measure."
-        ],
-        [
           "他们提供定制服务。",
           "They offer a bespoke service."
+        ],
+        [
+          "客人可以定制自己的蛋糕。",
+          "Customers can have a cake made to their own design."
         ]
       ]
     },
@@ -18798,20 +18798,26 @@
       ]
     },
     "hsk30l6/对抗": {
-      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "Fewer than the three example sentences the card type shows. These are REAL sentences from the decks' own bank — written for another card that happens to use this word — so nothing is invented. The target must not be swallowed by a longer headword in the same place, which is what makes the difference between 294 usable matches and the 1,950 a plain substring search returns. No structure line: it cannot be derived for a sentence written for a different headword. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 138: the gloss and its part-of-speech label were different parts of speech. Set through `senses`, since `gloss` replaces the gloss text and leaves the label standing. The gloss led with the noun *confrontation* under a label reading `verb`; CC-CEDICT carries both and the card's sentences use both. | Batch 138: 两队实力对抗激烈 puts 实力 where it cannot stand — the subject of 对抗 is the teams, not their strength. Rewritten as an AUTHORED sentence.",
       "ex": [
         [
           "总统呼吁全国民众在对抗贫穷或疾病的时候，一定要团结一致。",
           "The president called on the people to unite in fighting poverty and disease."
         ],
         [
-          "两队实力对抗激烈。",
-          "The two teams are fiercely matched."
+          "两队在决赛中激烈对抗。",
+          "The two teams fought it out fiercely in the final."
+        ]
+      ],
+      "senses": [
+        [
+          "verb / noun",
+          "to resist; to stand up to; confrontation"
         ]
       ]
     },
     "hsk30l6/对接": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 138: two of the three sentences were near-repeats — the same construction with one word changed — which the coverage checker cannot see, comparing sentences exactly. One replaced by an AUTHORED sentence. Both were this record's own rows from the fill pass that brought every note to three sentences. 两艘飞船成功对接 and 飞船成功对接 are the same sentence with the measure word taken off, and the replacement gives the figurative sense the gloss already promised. The shorter row is a SUBSTRING of the longer one, so the record's own swap helper matched both and refused to write — which is what that guard is for, and is the sharpest possible statement of how close the two were.",
       "ex": [
         [
           "两艘飞船成功对接。",
@@ -18822,25 +18828,31 @@
           "The two systems are not yet connected."
         ],
         [
-          "飞船成功对接。",
-          "The spacecraft docked successfully."
+          "两家公司的业务正在对接。",
+          "The two firms' operations are being brought into line."
         ]
       ]
     },
     "hsk30l6/对称": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 138: two of the three sentences were near-repeats — the same construction with one word changed — which the coverage checker cannot see, comparing sentences exactly. One replaced by an AUTHORED sentence. Both were this record's own rows from the fill pass that brought every note to three sentences. 这座建筑左右对称 and 这幢建筑左右对称 differ by the measure word and nothing else. | Batch 138: the gloss and its part-of-speech label were different parts of speech. Set through `senses`, since `gloss` replaces the gloss text and leaves the label standing. The gloss was the noun *symmetry* under a label reading `adjective`, and all three sentences are the adjective. | (the near-repeat named above is the row this removes) | The first replacement authored here ended *is not perfectly symmetrical*, over a sentence already on the card reading *is perfectly symmetrical* — a third card in a row where this sitting's own replacement echoed the row beside it. Replaced again with an adverbial construction after reading the finished card.",
       "ex": [
         [
           "这座建筑左右对称。",
           "The building is symmetrical."
         ],
         [
-          "这幢建筑左右对称。",
-          "This building is symmetrical."
-        ],
-        [
           "图案完全对称。",
           "The pattern is perfectly symmetrical."
+        ],
+        [
+          "这两边的窗户排列得很对称。",
+          "The windows on the two sides are arranged symmetrically."
+        ]
+      ],
+      "senses": [
+        [
+          "adjective",
+          "symmetrical"
         ]
       ]
     },
@@ -21680,12 +21692,25 @@
       ]
     },
     "hsk30l6/短缺": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | Batch 138: two of the three sentences were near-repeats — the same construction with one word changed — which the coverage checker cannot see, comparing sentences exactly. One replaced by an AUTHORED sentence. 近来咖啡的短缺造成了许多问题 and 最近的咖啡短缺带来了许多问题 are the same sentence written twice, in both languages — and unlike this range's others, BOTH were the deck's own rows rather than this record's. | Batch 138: the gloss and its part-of-speech label were different parts of speech. Set through `senses`, since `gloss` replaces the gloss text and leaves the label standing.",
       "ex": [
         [
           "燃料短缺。",
           "There was a shortage of fuel."
+        ],
+        [
+          "战争期间粮食严重短缺。",
+          "Food was in severe shortage during the war."
         ]
+      ],
+      "senses": [
+        [
+          "noun / verb",
+          "shortage; to be in short supply"
+        ]
+      ],
+      "dropEx": [
+        "最近的咖啡短缺带来了许多问题"
       ]
     },
     "hsk30l6/码头": {
@@ -22521,19 +22546,25 @@
       ]
     },
     "hsk30l6/调动": {
-      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had no example sentence at all, and neither the decks' own bank nor the Tatoeba corpus has one for it — which is what happens at the top of the syllabus, where the vocabulary outruns any free sentence bank. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it. | The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 138: the gloss read *transfer; shift; **manoeuver*** — which is neither spelling of the word. British English writes manoeuvre and American English maneuver; manoeuver is neither, and the same deck writes manoeuvre correctly four lines over. **`check-british.js` reads 0 on it and always will**: that checker asks whether a word is the American member of a declared GB/US pair, and a misspelling belongs to neither side of any pair, so it is invisible to the one tool that looks at the decks' English. Found by reading. The rewritten gloss drops the word rather than repairing it, since *to redeploy* is what the card's own sentences show. | Batch 138: two of the three sentences were near-repeats — the same construction with one word changed — which the coverage checker cannot see, comparing sentences exactly. One replaced by an AUTHORED sentence. Both were this record's own rows from the fill pass that brought every note to three sentences. 公司把他调动到北京 and 他被调动到别的部门 were both X-transferred-to-Y, so the replacement takes the troops sense instead. | (the replacement is written once; this row removes the near-repeat it replaces)",
       "ex": [
         [
           "公司把他调动到北京。",
           "The company transferred him to Beijing."
         ],
         [
-          "他被调动到别的部门。",
-          "He was transferred to another department."
-        ],
-        [
           "这件事调动了大家的积极性。",
           "This roused everyone's enthusiasm."
+        ],
+        [
+          "部队被紧急调动到边境。",
+          "The troops were urgently moved to the border."
+        ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to transfer; to redeploy; to bring into play"
         ]
       ]
     },
@@ -22743,12 +22774,25 @@
       ]
     },
     "hsk30l6/蹲": {
-      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | THE TRADITIONAL 著 WRITTEN INTO AN AUTHORED ROW. 他蹲**著** is the aspect particle zhe, which simplified Chinese writes 着 — and this row is THIS RECORD's own, so an earlier batch of the audit typed the traditional form into a deck that is simplified throughout. Corrected in place. It is one of eight such sites found by sweeping the decks for the character (see batch 85's log); this is the only one the record can reach, the other seven being generator blocks that no field here may rewrite.",
+      "why": "The note had fewer than the three example sentences the card type shows and the decks' own bank had nothing usable left for it. These come from the TATOEBA corpus (CC BY 2.0 FR), which is where the decks' existing sentences come from — 60% of them are verbatim in Tatoeba's own Mandarin-English pairs — so this is the same source rather than a new one. Filters: the sentence must contain the headword and NOT have it swallowed by a longer headword in the same place, must carry no traditional-only character (the decks are simplified, and the corpus is mixed), no Latin letters, 36 characters at most, and a translation not already on the card. No structure line: it cannot be derived for a sentence written for a different headword. | THE TRADITIONAL 著 WRITTEN INTO AN AUTHORED ROW. 他蹲**著** is the aspect particle zhe, which simplified Chinese writes 着 — and this row is THIS RECORD's own, so an earlier batch of the audit typed the traditional form into a deck that is simplified throughout. Corrected in place. It is one of eight such sites found by sweeping the decks for the character (see batch 85's log); this is the only one the record can reach, the other seven being generator blocks that no field here may rewrite. | Batch 138: the card was glossed *squat on the heels; to crouch* and TWO of its three sentences were 蹲监狱, doing time — CC-CEDICT's third sense, *to stay (somewhere)*, which the card did not carry. The gloss now says so and one of the two prison sentences is replaced, so the card shows both senses rather than glossing one and teaching the other. | Its third sentence was 他蹲着 — three characters, no context — and is replaced with the crouch the gloss leads on.",
       "ex": [
         [
-          "他蹲着。",
-          "He was crouching."
+          "蹲久了站起来会头晕。",
+          "Standing up after squatting a long time makes you dizzy."
+        ],
+        [
+          "他蹲在地上系鞋带。",
+          "He crouched down to tie his shoelaces."
         ]
+      ],
+      "senses": [
+        [
+          "verb",
+          "to crouch; to squat; to stay (somewhere, especially in prison)"
+        ]
+      ],
+      "dropEx": [
+        "汤姆蹲了三年多的监狱"
       ]
     },
     "hsk30l6/轨道": {
@@ -81543,7 +81587,7 @@
       ]
     },
     "hsk30l6/定位": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 138: the whole gloss was *to orientate*, which is CC-CEDICT's leading word and is not what any of the three sentences does — bats locating obstacles, a phone finding where you are, a product's market positioning. The dictionary's own entry carries all three.",
       "ex": [
         [
           "手机可以定位。",
@@ -81552,6 +81596,12 @@
         [
           "产品的定位很清楚。",
           "The product's positioning is clear."
+        ]
+      ],
+      "senses": [
+        [
+          "noun / verb",
+          "to locate; to position; positioning"
         ]
       ]
     },
@@ -84574,12 +84624,19 @@
       ]
     },
     "hsk30l6/动力": {
-      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not.",
+      "why": "The note had fewer than the three example sentences the card type shows, and neither the decks' own bank nor the Tatoeba corpus has another for it. AUTHORED, and the record says so: short, ordinary, and using the word in the sense the card's own gloss gives it — and deliberately a DIFFERENT construction from the sentence already on the card, since a second example that repeats the first's shape teaches nothing the first did not. | Batch 138: the headword was SWALLOWED by a longer word here, so the sentence never used the word the card teaches. A single-character headword is skipped by check-example-fit.js outright. Replaced by an AUTHORED sentence. 原动力 is *motive force; prime mover*, a word of its own, and the sentence around it ran to thirty characters. The replacement gives the literal *motive power* sense, which nothing else on the card showed.",
       "ex": [
         [
           "兴趣是最好的动力。",
           "Interest is the best motivation."
+        ],
+        [
+          "这台机器的动力不足。",
+          "This machine is short of power."
         ]
+      ],
+      "dropEx": [
+        "只要你有一个心爱的人"
       ]
     },
     "hsk30l6/对应": {
@@ -136731,6 +136788,245 @@
         ]
       ],
       "why": "Batch 137: the sentence was an odd, faintly insulting simile whose English named a different object from the Chinese. Replaced by an AUTHORED sentence. 这个男人简直像一台被扯掉了电源的肮脏电器 was translated *like a filthy electronic without a battery* — 电源 is a power supply, not a battery."
+    },
+    "hsk30l6/钓鱼": {
+      "dropEx": [
+        "你喜欢钓鱼，没错吧"
+      ],
+      "ex": [
+        [
+          "周末我们去湖边钓鱼吧。",
+          "Let's go fishing at the lake at the weekend."
+        ]
+      ],
+      "why": "Batch 138: two of the three sentences were near-repeats — the same construction with one word changed — which the coverage checker cannot see, comparing sentences exactly. One replaced by an AUTHORED sentence. 他喜欢钓鱼 and 你喜欢钓鱼，没错吧 are one sentence asked twice."
+    },
+    "hsk30l6/跌": {
+      "compounds": [
+        [
+          "跌倒",
+          "diēdǎo",
+          "to fall over; to tumble"
+        ],
+        [
+          "跌落",
+          "diēluò",
+          "to fall; to drop"
+        ],
+        [
+          "下跌",
+          "xiàdiē",
+          "to fall; to tumble (of prices)"
+        ],
+        [
+          "暴跌",
+          "bàodiē",
+          "to slump; a steep fall in value"
+        ]
+      ],
+      "why": "Batch 138: single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written. Its three sentences are sound and are left alone."
+    },
+    "hsk30l6/顶": {
+      "dropEx": [
+        "他习惯顶嘴"
+      ],
+      "ex": [
+        [
+          "他用头顶了一下球。",
+          "He gave the ball a header."
+        ]
+      ],
+      "compounds": [
+        [
+          "屋顶",
+          "wūdǐng",
+          "roof"
+        ],
+        [
+          "山顶",
+          "shāndǐng",
+          "hilltop"
+        ],
+        [
+          "顶端",
+          "dǐngduān",
+          "summit; peak"
+        ],
+        [
+          "顶尖",
+          "dǐngjiān",
+          "top; the very best"
+        ]
+      ],
+      "why": "Batch 138: the headword was SWALLOWED by a longer word here, so the sentence never used the word the card teaches. A single-character headword is skipped by check-example-fit.js outright. Replaced by an AUTHORED sentence. 顶嘴 is *to talk back*, a word of its own, so the card's own verb sense — to carry or push something with the head — was shown nowhere. The replacement gives it. | Batch 138: single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/订单": {
+      "exEn": [
+        [
+          "您的订单确认如下",
+          "Your order is confirmed as follows."
+        ]
+      ],
+      "why": "Batch 138: 您的订单确认如下 is *your order is confirmed as follows*; the English promised a confirmation still to come."
+    },
+    "hsk30l6/订婚": {
+      "dropEx": [
+        "他宣布与她订婚",
+        "我为你的订婚祝贺"
+      ],
+      "ex": [
+        [
+          "他们去年秋天订婚，明年春天结婚。",
+          "They got engaged last autumn and will marry next spring."
+        ],
+        [
+          "恭喜你们订婚！",
+          "Congratulations on your engagement!"
+        ]
+      ],
+      "why": "Batch 138: two of the three sentences were near-repeats — the same construction with one word changed — which the coverage checker cannot see, comparing sentences exactly. One replaced by an AUTHORED sentence. 他们已经宣布订婚了 and 他宣布与她订婚 are the same announcement twice. | The third, 我为你的订婚祝贺, is not how the congratulation is said in Chinese — 恭喜 takes the person and the event directly."
+    },
+    "hsk30l6/栋": {
+      "dropEx": [
+        "您能看到那栋小房子吗",
+        "你买了栋新房子"
+      ],
+      "ex": [
+        [
+          "那栋楼一共有二十层。",
+          "That building has twenty storeys in all."
+        ],
+        [
+          "他们公司在这栋写字楼里。",
+          "Their company is in this office block."
+        ]
+      ],
+      "why": "Batch 138: all THREE sentences counted 房子 — this house, that small house, a new house — so a measure word that classifies buildings of every kind was shown doing one job. Two replaced by AUTHORED sentences that count a tower block and an office block."
+    },
+    "hsk30l6/逗": {
+      "dropEx": [
+        "没有逗号的小句子"
+      ],
+      "ex": [
+        [
+          "他很会逗小孩子。",
+          "He has a real knack for amusing children."
+        ]
+      ],
+      "compounds": [
+        [
+          "逗乐",
+          "dòulè",
+          "to amuse; to provoke laughter"
+        ],
+        [
+          "逗留",
+          "dòuliú",
+          "to stay for a while"
+        ],
+        [
+          "挑逗",
+          "tiǎodòu",
+          "to provoke; to tease"
+        ],
+        [
+          "逗趣",
+          "dòuqù",
+          "to amuse; to make someone laugh"
+        ]
+      ],
+      "why": "Batch 138: the headword was SWALLOWED by a longer word here, so the sentence never used the word the card teaches. A single-character headword is skipped by check-example-fit.js outright. Replaced by an AUTHORED sentence. 逗号 is a comma, so the sentence was about punctuation. | Batch 138: single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/毒": {
+      "dropEx": [
+        "你怎么能如此狠毒"
+      ],
+      "ex": [
+        [
+          "这种蘑菇有毒，不能吃。",
+          "This kind of mushroom is poisonous and must not be eaten."
+        ]
+      ],
+      "compounds": [
+        [
+          "毒品",
+          "dúpǐn",
+          "drugs; narcotics"
+        ],
+        [
+          "病毒",
+          "bìngdú",
+          "virus"
+        ],
+        [
+          "中毒",
+          "zhòngdú",
+          "to be poisoned"
+        ],
+        [
+          "消毒",
+          "xiāodú",
+          "to disinfect; to sterilise"
+        ]
+      ],
+      "why": "Batch 138: all three sentences used the character inside a compound — 服毒, 狠毒, 吸毒 — so a card glossed *poison; toxin* never showed the bare noun. 狠毒 is *vicious*, which is not the card's sense at all, and is the one replaced. | Batch 138: single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/渡": {
+      "dropEx": [
+        "渡渡鸟",
+        "我在箱根渡假"
+      ],
+      "ex": [
+        [
+          "他们乘船渡过了海峡。",
+          "They crossed the strait by boat."
+        ],
+        [
+          "每天早上有船渡人过河。",
+          "Every morning a boat ferries people across the river."
+        ]
+      ],
+      "compounds": [
+        [
+          "渡船",
+          "dùchuán",
+          "ferry"
+        ],
+        [
+          "渡口",
+          "dùkǒu",
+          "ferry crossing"
+        ],
+        [
+          "横渡",
+          "héngdù",
+          "to cross (a body of water)"
+        ],
+        [
+          "摆渡",
+          "bǎidù",
+          "to ferry"
+        ]
+      ],
+      "why": "Batch 138: the headword was SWALLOWED by a longer word here, so the sentence never used the word the card teaches. A single-character headword is skipped by check-example-fit.js outright. Replaced by an AUTHORED sentence. 渡渡鸟 is the DODO — the character appeared twice in one word and the sentence was about an extinct bird. | The third wrote the holiday 度假 as 渡假, which is the Taiwan variant and a different word from the one the card teaches; simplified mainland Chinese writes 度假. Neither could be repaired in place, so both are replaced by AUTHORED sentences. | Batch 138: single-character card, so a `Compounds` panel was authored. Every reading and gloss checked against CC-CEDICT before it was written."
+    },
+    "hsk30l6/端": {
+      "senses": [
+        [
+          "noun / verb",
+          "end; extremity; to carry level in both hands"
+        ]
+      ],
+      "dropEx": [
+        "这是一个好的开端"
+      ],
+      "ex": [
+        [
+          "绳子的两端都要系牢。",
+          "Both ends of the rope must be tied fast."
+        ]
+      ],
+      "why": "Batch 138: the gloss and its part-of-speech label were different parts of speech. Set through `senses`, since `gloss` replaces the gloss text and leaves the label standing. The gloss was *end; extremity*, two nouns, under a label reading `verb` — while the card's own second sentence, 给客人端点咖啡, is the verb and was glossed nowhere. | Batch 138: the headword was SWALLOWED by a longer word here, so the sentence never used the word the card teaches. A single-character headword is skipped by check-example-fit.js outright. Replaced by an AUTHORED sentence. 开端 is *a beginning*, a word of its own."
     }
   },
   "hintsWhy": "AUTHORITATIVE: this map is the complete list of `not X` blocks in the Mandarin decks, including the 104 pairs the generator itself produced — it is regenerated from the finished decks, so a pair that stops colliding loses its block rather than keeping one that points at nothing. The English → Chinese card's front is the gloss and nothing else, so two notes sharing one are a question with two right answers. These are the 251 PAIRS that had no disambiguator; each member is given the deck's own `not <other word>` block, the shape 104 pairs already carry. A group of three or more is not hinted — naming four of five answers on the front is worse than the ambiguity — and is given a distinguishing gloss in `notes` instead. | Batch 83: SEVENTEEN DEAD ONE-SIDED HINTS RETIRED. A `not <other word>` block answers a COLLISION, and a collision is symmetric — so wherever one card of a pair carries the block and its named partner does not carry the reverse, the pair has already been separated and the survivor is disambiguating nothing. Found while repairing 动手, whose `not 上班` had outlived a rewrite of 上班's own gloss. Swept: 17 of 661 hinted cards were one-sided, and every one of the seventeen was dead — in each case the PARTNER's gloss had been sharpened by an earlier batch of this audit (书 `not 本子` against a 本子 rewritten to `a notebook; an exercise book`, 茶 `not 茶叶` against `tea leaves; tea`, 体力 `not 力气` against `muscle power, the strength to lift or push`). TWO of the seventeen were not in this record at all — 体力 and 顺利, shipped by the generator — which is the other half of the finding: THE APPLIER WRITES A HINT AND NEVER STRIPS ONE, so deleting a row here does not take a block off a deck. A dead hint is retired by rewriting the gloss, which rebuilds the English field. Re-run the one-sided sweep after any batch that rewrites a gloss.",
