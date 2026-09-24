@@ -709,6 +709,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1231–1260 | 28 changed, 2 read and left: 20 example sentences replaced (特 and 逃 used only inside other words or a name, the name Lata on 塔, two ungrammatical sentences, fragments, near-repeats), 6 translations fixed, six Compounds panels, 22 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1261–1290 | 21 changed, 9 read and left: 20 example sentences replaced (a restaurant name on 添, a Japanese surname and a playground insult on 田, a sentence that was not Chinese, Classical Chinese, near-repeats), 3 translations fixed, two Compounds panels, 16 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1291–1320 | 25 changed, 5 read and left: 27 example sentences replaced (同行 taught one reading and shown the other, a sexual sentence on 透明, a children's-book title, a political aside, fragments, calques, near-repeats), 2 translations fixed, four Compounds panels, 17 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1321–1350 | 25 changed, 5 read and left: 31 example sentences replaced (推销 and 吞 never used the word itself, 往后 glossed with a sense no sentence showed, an out-of-date fact about Prince Charles, a Taiwan slogan, calqued proverbs, near-repeats), 1 translation fixed, six Compounds panels, 18 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12433,4 +12434,50 @@ and no version bump.
   - 痛快 lacked "readily".
   - 头脑 now differs from 脑子, so its hint is gone.
   - About ten others lacked "to", the noun, or a second sense their sentences show.
+
+### Batch 174 — `hsk30l6` notes 1321–1350 (推销 → 维护)
+
+25 notes changed and 5 read and left (外表, 外交, 顽强, 危机, 微小), counted against the real diff.
+
+- **The headword never stood alone.**
+  - 推销's three sentences were all 推销员 "salesman".
+  - 吞's were 慢吞吞, 狼吞虎咽 and 吞噬.
+  
+  All six were replaced. Other headwords appeared only inside a longer word in one sentence each:
+  - 拖: 拖拉机
+  - 娃娃: 洋娃娃
+  - 歪: 歪路
+  - 外甥: 外甥女
+  - 网: 网游
+  - 外科: 脑外科
+  - 万物: 万事万物
+  - 弯曲: 弯弯曲曲
+  
+  Each of those was replaced.
+- **Glosses that contradicted the sentences.**
+  - 往后 was glossed "from now on", but all three sentences meant "backwards" (往 + 后). It is split into two senses, and one sentence was replaced so both are shown.
+  - 哇 was glossed "wah; sound of crying" over three sentences meaning "Wow!".
+  - 娃娃 was glossed "baby" over three dolls.
+  
+  Each now names what its sentences show.
+- **Unsuitable.**
+  - 查尔斯王子将会是下一任英国国王 has been out of date since 2022.
+  - 台湾将维护自由 is a political slogan.
+  - 万物's replaced sentence made a religious claim.
+- **Proverbs and calques.**
+  - 拖延是时间小偷 is an English proverb calqued.
+  - 上梁不正下梁歪 was rendered as a different proverb.
+  - 外来's slogan had an English line describing something else.
+  - 外界 and 弯曲 each had a sentence of 30–50 characters.
+- **Near-repeats replaced:** 推行, 退税, 挖, 哇, 往来, 往年, 违规.
+- **The applier's headword guard fired twice.** 他今年退了三千元的税 and 他总是拖着不交作业 split 退税 and did not contain 拖延. Both were rewritten to contain the headword.
+- **Glosses.**
+  - 推销 had a noun under a verb label.
+  - 托运 now leads with checking in luggage.
+  - 挖 gained "to poach (staff)".
+  - 外来 now differs from 外在, so its hint is gone.
+  - 望 gained "to hope".
+  - The rest gained their "to" or had commas turned into semicolons.
+  
+  吞, 拖, 挖, 歪, 网 and 望 gained Compounds panels; 哇 gets none, since an interjection builds no words.
 
