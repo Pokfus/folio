@@ -548,7 +548,16 @@ for (const c of cards) {
     imgByFile.get(file).push(id);
     if (/via wikimedia commons|public domain,|\bCC[ -]?BY\b|\bCC0\b/i.test(String(c.image.desc || "")))
       fails.push(["source-in-caption", `${id}: the description carries its own credit`, String(c.image.desc).slice(0, 120)]);
-  } else if (!c.video) {
+  } else if (!c.video && !((c.flagCard === true || c.drawCard === true) && c.answerFlag && c.answerFlag.src)) {
+    /* A DRAW CARD IS THE SAME FIELD ONE DECK ON: it is a flag card run backwards, so its picture is its
+       flag too — shown at the REVEAL rather than on the front, which is a fact about when it is drawn and
+       not about whether the card has one.
+       A FLAG CARD'S PICTURE IS ITS FLAG, and `answerFlag` is a different field from `image` (see the
+       FLAG CARDS block in app.js — the format reuses the field a map card already carries rather than
+       adding one). Without this the whole Flags collection reports here as unillustrated, which is 233
+       notes about the one collection every card of which IS a picture. It is only excused where the
+       flag is actually there: a flag card with no flag draws a prompt naming nothing, and `add-card.js`
+       refuses one. */
     notes.push(["no-picture", `${id}: ${c.answerText || ""}`, id]);
   }
 

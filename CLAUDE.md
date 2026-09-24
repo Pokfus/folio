@@ -1059,6 +1059,260 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Chinese government host outside `stats.gov.cn` refuses the connection here, `whc.unesco.org` and
   `britannica.com` are 403, and `chinadaily.com.cn` answers and is a state newspaper, citable for what
   it is and never as an independent source. Not part of the site.
+- **📖 `docs/flags-card-plan.md` — READ BEFORE WRITING AN `fl-` CARD, OR BEFORE TOUCHING THE FLAG-CARD
+  FORMAT.** The running order for **Flags** (`flags-world`), **a third DECK of World Geography** — it
+  shipped as a collection of its own and was moved under `geo-world` on request (Sep 2026). **233 cards**,
+  the flag of every country and territory, and the reader names it. The twenty-first plan, **the first
+  that is a DECK's rather than a collection's**, and **the only one whose answer side is another deck's**
+  — `fl-NNN` is the same entity as `gw-NNN`, in the same population order, and copies its twin's term,
+  date line, facts grid, background and citations verbatim, on request ("the answer side of the card can
+  be directly the same as the ones in the World geography collection"). So a card costs a flag file, a
+  licence, an authored description and a copy, and **no research and no glossary work at all**.
+  **BEING A DECK RATHER THAN A COLLECTION COST FOUR ROWS AND BOUGHT A RULE**: `COLLECTION_SECTION`,
+  `COLLECTION_ICON`, `COLLECTION_TARGET` and `COLL_THEME` each lost their `flags` entry (the deck
+  inherits `geo-world`'s deep green, and a deck inside a collection carries no icon — see `adIconKey`),
+  `geo-world`'s target went 471 → 704, and **`test-card-plans.js` is now keyed by PLAN SLUG rather than
+  by collection id**, because a collection can carry two plans and keyed the old way the two could not
+  both be declared. Five things in it are decisions rather than lists. **THE FORMAT REUSES `answerFlag` PLUS ONE BOOLEAN, `flagCard`** — the
+  field already refuses an uncredited `src`, already rides the serializer and `revertCard`, and already
+  enlarges — and **the boolean may not be called `flag`**, `cardFlag(id)` being the READER's 1–7 marker
+  and app.js's own comment recording the hour a second module-scope `cardFlag` made every reader flag
+  read as unflagged. **THE FRONT CONTAINS THE FLAG AND NEVER CROPS IT** (ratios run 1:1 to 11:28 and
+  Nepal's is not a rectangle) **on a ruled ground**, since Japan, Qatar's hoist and every white-bordered
+  flag vanish into a light card — those two are the whole test. **THE ALT DESCRIBES AND MAY NOT NAME**,
+  which makes this format MORE accessible than the map card rather than less: a shape on a globe cannot
+  be described without answering the question and a flag can. **THE DECK IS COMPLETE — 229 OF 229 WRITABLE**
+  (Sep 2026), across 233 numbers. **FOUR CARDS ARE DEFERRED AND EACH FOR A DIFFERENT REASON**, and their
+  numbers stay reserved. `fl-036` **Afghanistan** is the
+  Afghanistan decision one collection over, where `gw-036` can ship with no flag because its question is
+  the shape and this card cannot, the flag BEING the question. `fl-171` **Western Sahara** is that with
+  both claimants standing: Commons has no such file and the name redirects to the SADR's flag, credited
+  to the Polisario Front, while Morocco flies its own there. And `fl-180` **New Caledonia** is not about
+  contested sovereignty at all — the territory flies TWO co-official flags, Commons files them as one
+  composite image (`Flags_of_New_Caledonia.svg`, plural), a composite is not a flag, and one of the two
+  is already `fl-023` France's answer, so showing it would mark a reader wrong for being right.
+  And `fl-218` **Saint Martin** (Sep 2026, F11) is the fourth reason: **Commons names no flag of it at
+  all and SAYS SO** — no `File:Flag of Saint Martin.svg` nor any variant, and the one candidate a
+  namespace search returns carries Commons' own banner *"This flag is fictitious, proposed, or
+  unofficial"* — while what the collectivity's institutions fly is the tricolour, which is New
+  Caledonia's objection again. **The other half of that island, `fl-210` Sint Maarten, ships without a
+  murmur**, which is what says this is a fact about the flag rather than about the island.
+  **AND THE TEST IS THE FORMAL BANNER, NEVER THE WORD "UNOFFICIAL"** (Sep 2026, F12, where it nearly
+  cost two cards). Commons captions a French collectivity's local banner "unofficial" as a matter of
+  course — Saint Pierre and Miquelon's says so in four languages, and so does `fl-223` Wallis and
+  Futuna's and `fl-182` French Polynesia's, **both of which ship** — so a rule keyed on the adjective
+  would defer cards the deck already carries. What separates Saint Martin is Commons' own TEMPLATE
+  ("This flag is fictitious, proposed, or unofficial. Such flags should usually not be used in
+  articles"), which is one grep and which five pages measured cleanly apart. **Ask a candidate's test of
+  the shipped corpus too: a test that would defer something already live is wrong.**
+  **THE TEST IS NOT "IS THIS PLACE DISPUTED?"** — Hong Kong, Macau and Kosovo all ship — but **"is there
+  exactly one flag this territory's own institutions fly, and does Commons name it?", asked of a REDIRECT
+  rather than of a map.** A deferred twin is left with no flag at all, since fetching one would put the
+  contested claim on the `gw-` card instead. And **115 of the 233 flags are already fetched, licensed and described on their
+  twins**, all 115 opening "The flag of ⟨country⟩: ", so the work on the first six batches is a trim
+  rather than a write; the other 118 are `gw-117`–`gw-233` contiguous, where the fetch **back-fills the
+  twin as a by-product** and closes a real gap in World Geography. Its one standing cost is stated and
+  has a checker: **a correction to a `gw-` background must be carried to its `fl-` twin in the same
+  commit** — and since Sep 2026 to its `fd-` twin as well, the chain being three cards long — since all
+  of them render perfectly while saying different things, and `check-flag-twins.js` is what says so.
+  · **THE FORMAT IS BUILT** — see the FLAG CARDS block in app.js for `cardFlagSpec` / `cardFlagHTML` /
+    `cardFlagReveal` / the `.flag-shot` frame, and `.claude/test-flag-cards.js` for what it asserts.
+    Guarded there, and by `check-flag-twins.js` (report-only) for the drift above. **Re-run both after
+    touching `cardFlagSpec` / `cardFlagHTML` / `cardFlagReveal` / `cardFrontHTML`'s flag branch /
+    `showAnswer`'s reveal and its answer-box drop / `gameCardIdSet` / `serializeCardData` /
+    `revertCard` / `whyExempt` / `IMG_OPEN_SEL` / the delegated media `error` listener / the
+    `.flag-shot` and `.flag-cap` styles / `add-card.js`'s `flagCard` guards /
+    `check-questions.js`'s exemptions, or after a batch of flag cards.**
+  · **THE ANSWER BOX DRAWS NO FLAG, AND THE CREDIT MOVED TO THE FRONT** (Sep 2026, on request: "on the
+    answer side of the cards, the flag in the answer box should not be shown"). `buildBack` still emits
+    the small `.av-flag` — the card browser, `openCardPeek`, Multiple Choice's `mountCardBack` and the
+    editor preview all draw a back with NO front and would otherwise show no flag at all — so what goes
+    is the copy on the STUDY page, where the front's own flag is two inches above it. That is the
+    artwork card's duplicate-slot rule exactly. **It could not be done without `cardFlagReveal`**: the
+    answer box's flag was where the licence's attribution lived, which is what let the front carry
+    none, so the reveal now captions and credits the FRONT's figure and makes it enlargeable — which
+    it may not be before, a flag's credit naming the country.
+  · **AND THE CREDIT IS IN THE VIEWER, NOT ON THE CARD** (Sep 2026, on request: "the image box should
+    not show the image source or link on the card, only when it is clicked to enlarge should it say the
+    source info"). `cardFlagReveal` wrote a `figcaption` for a day, which put two lines of Commons URL
+    under every flag; it carries the `data-img-*` attributes and no caption now, and `openMediaViewer`
+    draws the credit under the enlarged picture. **The picture round's own trade** — the attribution one
+    press away rather than in front of the reader — and **the enlargement and the credit are gated
+    TOGETHER on the reveal**, the viewer being what says the source. The suite OPENS the viewer and
+    reads the credit out of it rather than trusting the attribute.
+  · **ONE LEAK IS ACCEPTED AND STATED: Commons names every flag `Flag_of_<Country>.svg`**, and a `src`
+    is copied from the API rather than composed, so the answer is in the URL on all 233 — measured, 20
+    of 20 here against 0 of 10 artwork cards. No reader is SHOWN a src, and the suite asserts the
+    country appears there AND NOWHERE ELSE on the front, so it cannot widen into a title or a credit.
+  · **AND A SECOND LEAK IS ACCEPTED FOR A DIFFERENT REASON: THE FLAG ITSELF CAN CARRY THE ANSWER** (Sep
+    2026, F10). `fl-186` Guam prints **GUAM** across its seal and `fl-193` the United States Virgin
+    Islands carries the territory's initials either side of the eagle. **There is no remedy and none
+    should be looked for**: the flag IS the question, so the alternatives are altering the picture,
+    which Folio never does, or deferring a card whose flag is uncontested and which Commons names —
+    which would be refusing a card for what its flag says. The alt describes the letters without
+    spelling the name, so a reader who cannot see the flag still gets a real question. **A MOTTO IS NOT
+    THIS AND IS COMMON** (Andorra's VIRTVS VNITA FORTIOR, the Cayman Islands' HE HATH FOUNDED IT UPON
+    THE SEAS): it names nothing. Ask whether the lettering is a NAME.
+  · **NO TWO CARDS MAY CARRY THE SAME DESCRIPTION**, which is this deck's own form of a duplicate
+    question and which nothing else in the pipeline can see: for a reader who cannot see the flags the
+    alt IS the question, so two cards sharing one are two identical questions with different answers,
+    and both render perfectly. It has fired once — Chad and Romania, whose flags differ only in the
+    shade of blue (measured off the two SVGs at ΔE 14.1, against 4.2 for the yellows and 8.4 for the
+    reds), so each alt names its own blue. **Measure the colour rather than asserting it** — and
+    measure a PREDICTED pair too rather than writing the clause on the prediction, which is what the
+    Netherlands against Luxembourg settled in F9: carried for four batches as the next Chad-and-Romania,
+    they measured ΔE **41.5** on the blues, the furthest-apart pair in the deck, and needed no clause at
+    all.
+  · **AND WHERE A TRIBAND CARRIES ARMS, THE CHARGE IS THE DISCRIMINATOR AND THE COLOUR IS NOT** (F10,
+    the same rule from the other side). `fl-199` Andorra is the third blue-yellow-red vertical triband
+    after `fl-067` Romania and `fl-145` Moldova, and its blue measures ΔE 35.4 and 38.3 from theirs — so
+    the colour separates them outright and is worth a word, but what answers the card is that the arms
+    are unrelated. **The colour clause is for the pairs that carry nothing** (Chad and Romania, Latvia
+    and Austria).
+  · **A WHOLE-DECK SIMILARITY SWEEP RANKS AND ADJUDICATES NOTHING, for `check-twins.js`'s own reason.**
+    A token-overlap measure over the shipped alts reports **551 pairs above 0.42 of 197 cards** — not
+    551 faults but the vocabulary of vexillology, every description saying field, band, star, cross and
+    hoist. Worse, the pairs it scores at **1.00** are alts whose token SETS are identical and whose whole
+    difference is WORD ORDER, which is exactly the distinction that matters: Indonesia is red over white
+    and Poland is white over red, and both cards are right. **Read the top of the list by eye; the one
+    mechanical rule that means anything here is the EXACT-duplicate check**, which `test-flag-cards.js`
+    already carries.
+  · **A FLAG IS FETCHED BY `.claude/add-flags.js`, WHICH WRITES `answerFlag` ONTO A CARD THAT ALREADY
+    EXISTS** — there was no batch writer for that field at all, the 115 shipped ones having been written
+    inline by `add-card.js` at card creation. The same fetch serves both decks, so a batch back-fills
+    its `gw-` twin and closes World Geography's own gap as a by-product. It **refuses rather than
+    guesses** on a missing file, a licence outside the bar, an uncredited file and a page URL carrying
+    `'`, `(` or `)` (percent-encoded, or `SRC_URL_RX` ships the credit truncated), **follows a redirect
+    and REPORTS it** (the Afghanistan case), and **will not invent an `alt`** — Commons' own description
+    names the country in its first three words. **A 429 IS A BUSY HOST AND NOT A SHUT ONE**: measured on
+    its first run, two of four files returned 429 at 350ms apart and both resolved on a retry, so it
+    backs off three times and waits 1.2s between files — and **at twenty files a batch that is not
+    always enough**, four of F7's twenty being refused and all four resolving on a re-run, so re-run the
+    refusals rather than reading one as a missing file. And it **re-execs itself with
+    `NODE_USE_ENV_PROXY=1`**, `check-reach.js`'s own guard — Node's `fetch` does not honour
+    `HTTPS_PROXY` where curl does, and without it the egress policy answers for Commons.
+    **AND IT STRIPS THE API's TRACKING QUERY, WHICH IT DID NOT FOR TWO BATCHES** (Sep 2026, F7).
+    `imageinfo` returns `url` carrying
+    `?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original`, which CLAUDE.md's
+    own picture rule says to drop — and **nothing in the pipeline could see the breach**, the address
+    resolving either way and `check-flag-twins.js` comparing the twins' srcs only against each other.
+    Measured when found: **48 of 371 flag srcs carried it, exactly the ones this tool had written**,
+    against 323 clean ones written before it existed; all 48 were repaired in place. Only the QUERY is
+    stripped — the path carries the two-character MD5 shard and may never be composed or edited.
+    **AND THE FIRST FLAG THE LICENCE BAR REFUSED WAS OMAN'S**, whose canonical Commons file is under the
+    Sultanate's own **OGL-om 1.0**. The answer was another file rather than a wider bar: the CC0
+    alternative omits the khanjar and crossed swords, which is a false claim about the flag that passes
+    every check, so the card takes the CC BY-SA file that carries them. **A file named "(variation)" is
+    the uploader's naming and not a claim about the design** — what decides a picture is whether it
+    depicts its subject.
+  · **AND THERE IS NOW A SECOND DECK RUN THE OTHER WAY** — **Draw the flags** (`fd-`), which copies
+    `fl-NNN`'s whole answer side as this deck copies `gw-NNN`'s, so **the twinning chain is three cards
+    long and `check-flag-twins.js` checks both links**. See the `docs/flags-draw-card-plan.md` bullet
+    below. `fl-501`+ is still free for the subnational flags this plan reserves it for.
+  · **A CARD IS BUILT BY `.claude/add-flag-cards.js`, WHICH HANDS EACH ONE TO `add-card.js`** rather
+    than writing `data.js` itself — so every guard that tool carries runs on every card, and the
+    builder is not a second weaker copy of them. It DERIVES the alt from the twin's by cutting the
+    "The flag of X: " prefix and prints it for reading, and refuses where the cut leaves the answer
+    standing. **THE PLAN SAID THE `why` PASS DID NOT APPLY AND NO GUARD KNEW IT**, which turned the
+    first card away: the tools do not read the plan, so a rule a plan exempts needs the exemption
+    written into the tool in the same commit. Not part of the site.
+- **📖 `docs/flags-draw-card-plan.md` — READ BEFORE WRITING AN `fd-` CARD, OR BEFORE TOUCHING THE
+  DRAW-CARD FORMAT.** The running order for **Draw the flags** (`flags-draw`), the **fourth deck of World
+  Geography** and the Flags deck run backwards: `fl-007` shows Brazil's flag and asks whose it is, `fd-007`
+  names Brazil and asks the reader to draw the flag from memory on a canvas with its own pens, colours and
+  a fill, and then to reveal it and judge how close they came. The twenty-second plan, and the second that
+  is a DECK's rather than a collection's. Shipped Sep 2026 on request ("Make a reverse version of each card
+  (similar to language vocabulary cards) where the user is given a small canvas"), and **rebuilt the same
+  day on a second one** ("keep the floating marker separate, simply put a separate whiteboard menu in the
+  top of the white canvas which can only be used within that canvas, and also includes a fill option") —
+  the reasoning is below, and the arrangement that was refused is the obvious one. **233 numbers, 229 writable, COMPLETE** — the four
+  deferrals are the Flags deck's own (`fd-036`, `fd-171`, `fd-180`, `fd-218`) and travel by arithmetic
+  rather than by a second judgement: a card that asks for a flag to be drawn and then shows it has nothing
+  to show. So a card here costs **no research, no glossary work and no picture** — it is a copy.
+  · **THE NUMBER IS THE ENTITY AND THE PREFIX IS THE QUESTION.** `gw-007`, `fl-007` and `fd-007` are all
+    Brazil. **IT IS DELIBERATELY NOT NUMBERED +500** like the capitals, which is the geography section's
+    own convention everywhere else: there the number means a DIFFERENT entity (`gw-507` is Brasília), so
+    reusing it here would have made `fl-507` Brazil while `gw-507` was Brasília — and
+    `check-flag-twins.js`, which pairs `fl-NNN` with `gw-NNN` by arithmetic, would have compared a drawing
+    card against a capital. A prefix of its own costs one row in `test-card-plans.js` and leaves `fl-501`+
+    free for the subnational flags the Flags plan reserves it for.
+  · **IT IS A SEPARATE DECK RATHER THAN AN OPTION ON THE FIRST ONE.** A language deck gets both
+    directions out of one note through its templates and `deckPairNew` lets a reader turn one off; curated
+    cards have no note layer, so the reverse has to be a card of its own — and once it is a card, a deck
+    is what gives the reader that same choice. `geo-world`'s `COLLECTION_TARGET` went 704 → 937 with it.
+  · **THE PAD IS ITS OWN CANVAS WITH ITS OWN MENU, AND THE FLOATING MARKER IS NOT INVOLVED** (Sep 2026,
+    on request: "keep the floating marker separate, simply put a separate whiteboard menu in the top of
+    the white canvas which can only be used within that canvas, and also includes a fill option to fill
+    the whole canvas a particular color"). **THIS REVERSED THE FIRST CUT AND THE REASON IS WORTH
+    KEEPING**: the pad began as a FRAME over the page-wide whiteboard, which reused the marker's pointer
+    handling, undo stack, stylus rule and colour state and cost nothing — but ink on that canvas is
+    bounded by nothing, the marker had to be PINNED to the pad to be reachable at all, and there is
+    nowhere in it for a FILL to stop. **A bounded surface is a canvas of its own**, so the duplication
+    that was refused is now the point, and `wbPinTo` / `wbPinApply` / `wbPinFrame` / `wbUnpin` and the
+    forced pen-down are all deleted rather than left lying about.
+    **THE TWO DO NOT INTERFERE AND ARE NOT MADE TO COOPERATE.** With the floating pen down its canvas
+    covers the whole visible page, as it does everywhere on the site, so it draws OVER the pad rather
+    than in it, and the pad's menu keeps working — its buttons are real controls `CTL_SEL` already
+    hit-tests through to. A pass-through that forwarded presses into the pad was built and refused: it
+    would take away the one thing the floating marker is for.
+  · **THE CANVAS IS SIZED FROM LAYOUT AND NEVER FROM A RECT** (`frame.clientWidth`). `getBoundingClientRect`
+    is transform-aware and the page's entrance animation SCALES `.page` for its first third of a second,
+    so a canvas sized from a rect at mount comes out several pixels narrow and **stays** that way — a
+    transform changes no layout box, so the ResizeObserver never fires to correct it. Measured: 349px of
+    canvas inside a 355.6px frame, a white strip down the right of every pad. It is the same fault the
+    pin had, which is what says to expect it of anything measured at mount on this page. A POINTER's
+    position is still read off the rect, which is right — client coordinates are in that same space —
+    but scaled back into the canvas's own, so a press during a scale lands where the reader is pointing.
+  · **ANY COLOUR, AND IT IS THE SITE'S OWN PICKER RATHER THAN A PLATFORM DIALOG** (Sep 2026, on
+    request: "the top canvas menu should have a color picker so any color can be used"). A sixth swatch
+    is the reader's own colour and opens a saturation/brightness field over a hue bar with the hex
+    beneath — `.dp-pick`, built on the floating marker's own `hsvToHex` / `hexToHSV` and wearing its
+    `.wb-sv` / `.wb-hue` / `.wb-knob` / `.wb-hex` classes, so this reuses the stylesheet rather than
+    keeping a second copy of it. **`<input type="color">` IS NOT USED, AND THAT IS A DECISION THE SITE
+    HAS ALREADY MADE**: its platform dialog on a phone is a full-screen "Select color" sheet of sliders
+    covering the very card being answered, and `test-layout.js` has asserted for a month that none is
+    left in the marker's panel. Four things.
+    **IT IS A ROW, NOT A POPOVER** — the marker's own rule for its own picker, and the same reason: the
+    bar above is already a box with a decided position, and a second floating box inside it would have to
+    decide again. **Opening it pushes the canvas DOWN, which is free here and was not before**: the ink is
+    on the pad's own canvas now, so it moves with the frame rather than being left behind in page
+    coordinates — and a FIXTURE holding a stale rect is not free, which is why `test-draw-cards.js`
+    re-reads the canvas box on every stroke.
+    **IT KEEPS ITS OWN HSV, never re-derived from the hex on each move**: at v=0 or s=0 a colour has NO
+    recoverable hue, so a reader dragging into the black corner and back out would come back red however
+    they arrived.
+    **IT IS POINTER-ONLY, WHICH IS NOT THE MARKER'S ANSWER.** The marker's picker takes arrow keys
+    because the control it replaced was a real `<input>` and reachable from a keyboard. Here the whole
+    menu is `aria-hidden` with `tabindex="-1"` on every control, so a focusable field would be the
+    tab-stop-that-leads-nowhere fault that pairing exists to avoid — and the surface it serves cannot be
+    drawn on from a keyboard either.
+    **AND THE MIXED COLOUR IS THE ONE PART OF `DP` THAT IS STORED** (`folio_dp_custom_v1`, device-local):
+    the rest is a way of working and resets on reload, where a mixed colour is WORK THE READER DID — a
+    flag's exact blue takes a moment to find — and the marker already keeps its own for that reason. One
+    key, one colour, where the marker needs a pair (a highlighter yellow is not a pen colour).
+  · **AND FILL COVERS RATHER THAN GOING UNDERNEATH.** "Fill the whole canvas a particular color" is
+    literal, and it is undoable, so a mis-press costs one press; going underneath would be a different
+    tool wearing this one's name, and a reader drawing a flag fills the field FIRST anyway. `DP` holds
+    the colour, tool and size at module level and is NOT stored: which colour you last drew a flag in is
+    a way of working rather than a preference about Folio, the same call `glossSort` makes.
+  · **THE MENU IS `aria-hidden`, LIKE THE PAD — AND ITS CONTROLS CARRY `tabindex="-1"` WITH IT.** That
+    pairing is the point: an `aria-hidden` container whose children are still FOCUSABLE is the one
+    arrangement worse than either choice, since a keyboard reader tabs onto a control their screen reader
+    has been told does not exist and lands on it silently. Hidden from assistive technology and out of
+    the tab order is ONE statement rather than two contradictory ones, and it costs a pointer nothing —
+    which is what this surface needs anyway, a tool being unusable from a keyboard on a canvas that
+    cannot be drawn on from one. The question above and the answer below are both real text, which is
+    where this format's accessibility actually lives.
+  · **THE FORMAT IS BUILT** — see the DRAW CARDS block in app.js for `cardDrawSpec` / `cardDrawHTML` /
+    `cardDrawReveal` / `mountDrawCard` / `DP` / `DP_COLORS` / `DP_SIZES` / `DP_BTNS` / `dpStop` /
+    `DP_CUSTOM_KEY` / `dpReadCustom` / `dpSaveCustom`, and the `.draw-pad` / `.dp-tools` / `.dp-pick` /
+    `.dp-custom` / `.dp-frame` / `.dp-canvas` / `.dp-answer` styles. Guarded by
+    `.claude/test-draw-cards.js`.
+  · **A CARD IS BUILT BY `.claude/add-draw-cards.js`, WHICH HANDS EACH ONE TO `add-card.js`**, for
+    `add-flag-cards.js`'s stated reason. **AND THE `why` EXEMPTION WAS THE SAME LESSON A SECOND TIME**: the
+    first card was refused for carrying no Think-it-through set, because `whyExempt` knew about a flag card
+    and could not know about a format that did not exist when it was written. **A new format that reuses
+    another's answer side inherits its exemptions and nothing applies them for you.** Not part of the site.
 - `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
   mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
   the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` and `rivers.js` beside
@@ -1485,8 +1739,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.40 MB and 49,699 lines is hard to find your way around, so this
-  lists its 192 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.44 MB and 50,244 lines is hard to find your way around, so this
+  lists its 195 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -2680,6 +2934,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **satellite imagery and USGS survey photographs are refused**, both being legitimate pictures of a
   place and neither being a view of it. The sheet tiles a fetched batch into one image so every candidate
   can be LOOKED AT, which is the standing rule and does not otherwise scale past a handful.
+  · **A BYTE FLOOR IS NOT A DOWNLOAD TEST, AND AT 800 BYTES THE SHEET DROPPED THE SIMPLEST PICTURES**
+    (Sep 2026, found on a flags batch). The floor was there to reject a 200-status error document, which
+    is the right thing to reject — but a plain tricolour rendered at sheet width is 640–750 bytes of PNG,
+    so four flags came back complete and were thrown away, and **a missing cell reads as a failed fetch
+    rather than as a file that is perfectly fine**. It asks what the bytes ARE now: an image's magic
+    number is four bytes and an HTML page has none, so a recognisable picture is accepted at any size and
+    anything else still has to clear the floor. **A tool that fails on the easy half of its input is
+    worse than one that fails loudly**, since the answer looks like a sourcing problem.
   · **A PINNED `file` IS WHAT A REVIEW PRODUCES.** The searches find a subject's pictures and cannot
     judge one, and no scoring rule turns a landmark's visitor centre into a photograph of the landmark.
     A pinned file still goes through `fileInfo` and `licenceOK`, so it can never smuggle in a non-free or
@@ -5959,6 +6221,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the END of the toggle's open branch, after `applyWBState()`, or the card would be laid over a panel
     that has not finished drawing. The one thing a reader cannot discover by pressing things is that
     **choosing a tool is what puts the pen down**, the panel opening with nothing selected on purpose.
+  · **A DRAW CARD DOES NOT USE IT, AND THAT IS THE SECOND ANSWER RATHER THAN THE FIRST** (Sep 2026, on
+    request: "keep the floating marker separate, simply put a separate whiteboard menu in the top of the
+    white canvas which can only be used within that canvas"). The Draw-the-flags pad began as a FRAME
+    over THIS canvas, with the marker PINNED to its corner and the pen put down for the reader — which
+    reused everything here and cost nothing, and could not answer the request: ink on a page-wide canvas
+    is bounded by nothing, and there is nowhere in it for a FILL to stop. The pad has a canvas and a menu
+    of its own now, and this one is untouched: not pinned, not auto-enabled, and with its pen down it
+    draws OVER the pad exactly as it draws over everything else on the page. **A pass-through that
+    forwarded presses into the pad was built and refused** — it would take away the one thing the
+    floating marker is for, which is annotating anything on the page, a diagram included. The pad's menu
+    goes on working meanwhile, its buttons being real controls `CTL_SEL` already hit-tests through to.
   **📖 `docs/whiteboard.md` — READ BEFORE CHANGING ANY OF IT.** The fling's sample-window arithmetic, the
   snap-home probe and the transition that must be turned off to take it, the inline colour picker and why
   an `<input type="color">` was refused, the pass-through's `preventDefault` consequence, the hand-rolled
@@ -6764,14 +7037,19 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE TWENTY PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE TWENTY PLANNED COLLECTIONS, IN TWENTY-ONE PLANS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
 which is `cn-myth`, in China. The bullets below each collection give the reasoning; this table is the
 lookup.
 
-| collection | id | prefix | plan | decks / leaves | state |
+**ONE ROW PER PLAN, AND A COLLECTION MAY HAVE TWO** — World Geography does, its Flags deck having a
+running order, a numbering and a card format of its own — so the `id` and the deck counts repeat on both
+of its rows, which is the truth about that collection rather than a duplicate. `test-card-plans.js` is
+keyed by PLAN SLUG for the same reason; keyed by collection the two could not both be declared.
+
+| collection or deck | id | prefix | plan | decks / leaves | state |
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 600 cards, contiguous — next is `wh-601` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 800 cards, contiguous — next is `gr-801` |
@@ -6790,7 +7068,9 @@ lookup.
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
-| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
+| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 4 / 4 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
+| Flags | `geo-world` | `fl-` | `docs/flags-card-plan.md` | 4 / 4 | **A THIRD DECK of World Geography, not a collection** (Sep 2026, on request) — so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** (Sep 2026) across 233 numbers — `fl-001`–`fl-233` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, whose numbers stay reserved, so the next-card command prints a deferral rather than work, one per `gw-` COUNTRY card and numbered to match it, see below |
+| Draw the flags | `geo-world` | `fd-` | `docs/flags-draw-card-plan.md` | 4 / 4 | **THE FLAGS DECK RUN BACKWARDS** (Sep 2026, on request) — the reader is given a canvas with its own pens, colours and a fill, and draws the flag from memory, then reveals it and judges themselves. A FOURTH deck of World Geography, so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** across 233 numbers — `fd-001`–`fd-233` less the DEFERRED `fd-036`, `fd-171`, `fd-180` and `fd-218`, which are the Flags deck's own four and are deferred here for the same reason one step on: a card that asks for a flag to be drawn and then shows it has nothing to show. `fd-NNN` is the same entity as `fl-NNN` and `gw-NNN` — in this collection the NUMBER is the entity and the PREFIX is the question asked about it, which is why it is NOT numbered +500 like the capitals, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | 100 cards — a COURSE rather than a subject shelf, planned a lecture at a time, see below |
 
@@ -6805,7 +7085,7 @@ carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-l
 lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
 `# The 2026-08-04 renumbering` will find the wrong entry.
 
-**`node .claude/test-card-plans.js` checks all of this** (298 assertions, no browser, no dependencies):
+**`node .claude/test-card-plans.js` checks all of this** (328 assertions, no browser, no dependencies):
 every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
 running order covers the numbers its own collection declares with no gaps or duplicate ids or repeated
 topics, **every SHIPPED card's number appears in its plan's running order and — wherever a plan line
@@ -7065,6 +7345,21 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   which is why `add-card.js` REFUSES a card with none rather than defaulting, exactly as it refuses one with
   no `difficulty`. The bounds and the tag pattern are sliced out of `.claude/add-card-tags.js`, which is the
   batch tool for cards already shipped. See the card-tags bullet under "How the app is wired".
+  **A TAG IS MATCHED WITH `\p{Ll}` AND NOT `a-z`, AND THE CAP IS 40 CHARACTERS, BECAUSE THE SHIPPED
+  CORPUS CARRIED TAGS `TAG_RX` REFUSED** (Sep 2026, found writing `fl-217`). It was
+  `/^[a-z0-9][a-z0-9 '–-]{1,28}$/`: an ASCII class **cannot say that `åland` is a lowercase word** — the
+  `\b` trap this file records in three other places — and 29 characters is shorter than
+  `saint vincent and the grenadines` and `democratic republic of the congo`, which are 32 and are the
+  longest entities the geography decks name. **Nothing had ever asked the question**, because a tag is
+  written once with its card and never re-validated; **a FLAG card inherits its twin's tags**, so the
+  first thing to ask was a new card reusing a shipped one's. Measured over the cards and the glossary
+  together: **499 distinct tags, exactly one non-ASCII, exactly two over the cap, and NOT ONE carrying an
+  uppercase letter** — so `\p{Ll}` states the "lowercase" rule BETTER than `a-z` did, which said nothing
+  about `É`, and the cap is set from that measurement plus headroom rather than chosen. **`add-glossary.js`
+  CHECKS NO TAG PATTERN AT ALL**, which is how all three got in and is why a glossary tag can be illegal
+  as a card tag. **And a refusal STOPS the batch**: `fl-217` refused and the two cards after it were never
+  attempted, so one cause read as three missing cards — **count what is missing before diagnosing what
+  failed.**
 - `difficulty` — **REQUIRED for every new card: an integer 1–5 rating how well known the ANSWER TERM is to
   the general population.** **1** household name (Stone Age, Homer, Sparta, Neanderthal); **2** generally
   familiar, an ordinary secondary education reaches it (Neolithic, Knossos, phalanx, Lascaux); **3** known
@@ -7632,7 +7927,7 @@ division-capital city tier are inert dead code.
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **56 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **58 committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-panels.js`, `test-scheduler.js`, `test-streak-chest.js` and `test-tense-notes.js` are plain Node with
@@ -7766,7 +8061,7 @@ division-capital city tier are inert dead code.
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 298 assertions on **the join between the nineteen card plans and
+  · `node .claude/test-card-plans.js` — 328 assertions on **the join between the nineteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -7929,6 +8224,26 @@ division-capital city tier are inert dead code.
     reads as the format being broken. A real 2×2 PNG is fulfilled so the `load` event fires and the LIVE
     path is what gets tested; the dead path is then exercised deliberately by aborting the same route.
     **Re-run after touching anything in the ARTWORK CARDS bullet's own list.**
+  · `node .claude/test-draw-cards.js` — **the draw card format** (3,700-odd assertions, per-card checks
+    growing it with the deck; sections 1 and 2 need no browser, `--data-only`), and every fault it guards
+    LOOKS FINE ON THE PAGE. **The one it was written for is the CANVAS's SIZE:** `getBoundingClientRect`
+    is transform-aware and the page's entrance animation scales `.page` for its first third of a second,
+    so a canvas sized from a rect at mount comes out several pixels narrow and STAYS that way — a
+    transform changes no layout box, so the ResizeObserver never fires to correct it. Measured before the
+    fix: 349px of canvas inside a 355.6px frame. It is asserted against the frame's own LAYOUT width
+    rather than a rect, or the check has the fault it is checking for. It also **draws a real stroke and
+    counts the ink on the PAD's canvas** — "it did not draw" is the one failure that makes this format
+    useless and says nothing on the page — **counting ANY ink rather than dark ink**, since the pad opens
+    on the marker's first colour and a check for dark pixels measures which swatch was pressed; it
+    exercises **fill, undo and clear as arithmetic on the bitmap**; and it asserts the floating marker is
+    **left alone**, unpinned and with its pen up, as an ABSENCE in the source as well as in the browser,
+    a pin added back being invisible in review. **`fn()` takes a WHOLE function** where `slice()` caps at
+    2,600 characters: `mountDrawCard` is longer, so assertions about its second half were passing on
+    whether the function happened to be short. It serves the flag locally for `test-artwork-cards.js`'s
+    reason, and **waits for the picture rather than sleeping at it** — the image is created at the
+    reveal, so a fixed pause races the decode and reports `naturalWidth: 0`, which reads exactly like the
+    dead file the same section is there to tell apart.
+    **Re-run after touching anything in the `docs/flags-draw-card-plan.md` bullet's own list.**
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's
     restricted pool** (114 assertions), and every one of its checks is for something that fails SILENTLY.
     **AN ASSERTION CAN COME TO GUARD THE OPPOSITE OF THE RULE** — the picture round's reveal check
