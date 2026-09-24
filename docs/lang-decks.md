@@ -3477,6 +3477,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S20 | B1 | #28 `correcto` – #55 `siguiente` | 26 | 2 (`correcto`, `el plan`) | 0 | B1 description: 995 words with examples, 947 with three | — |
 | S21 | B1 | #56 `de nuevo` – #83 `la basura` | 28 | 0 | 0 | — | — |
 | S22 | B1 | #84 `el matrimonio` – #111 `parar` | 28 | 0 | 0 | — | `el san` renamed `san`; share filter corrected |
+| S23 | B1 | #112 `lleno` – #138 `el pedido` | 27 | 0 | 1 (`el repente`) | B1 now 998 words; description recounted | `bold` needs `rebold` on a generator sentence |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4475,6 +4476,52 @@ well.
 **CHECKERS.** `--check` passes; `check-say` reports 0; the batch has no unbolded examples.
 `check-senses --deck=DELE-B1` has gone from 110 to 107. Its one flag from this batch, `el respecto`, is
 two English lines that share the word *nothing*, which is not a disagreement with the gloss.
+
+### S23 — DELE B1, notes #112–#139 (Sep 2026)
+
+Measured against the S22 commit by card id: **all 27 surviving cards changed, 1 card deleted, 970
+untouched**.
+
+**A PHANTOM HEADWORD, FOLDED AWAY.**
+- `el repente` was glossed "attack, upsurge, fit, sudden movement", and its three examples were `de repente`'s own three sentences.
+- The generator took the second word of a B1 phrase and made it a noun card.
+- `de repente` now carries a `fold` that deletes it.
+- **The deck goes from 999 cards to 998**, the subtitle and description say so, and the example figures are recounted: 994 of 998 words have examples, and 948 have three.
+- As with the A2 folds, a device that already holds the deck keeps the deleted note, because `langDeckUpdate` never deletes.
+- **Shipped positions after #135 are now one lower**, so this batch's last card, `el pedido`, is #138.
+
+**`bold` NEEDS `rebold` TO REACH A GENERATOR SENTENCE.**
+- `debido a`'s second example, *debido al mal tiempo*, had nothing bolded, because *al* fuses *a* with *el*.
+- Naming `debido al` in `bold` changed nothing. `bold` is applied to the sentences the record adds, not to the ones the generator wrote, until `rebold` is set.
+- It was set here, and it closes the first of the twelve unbolded B1 examples that S19 listed.
+
+**THE SAME-SPELT WORD AGAIN.**
+- `probar` was shown by the noun *la prueba*.
+- `el pedido` was shown by the participle of *pedir* and by *la pedida de mano*.
+- `el guardia` was shown by *la guardia*, "duty", which is another word; its Forms row now says so.
+- `paciente` was shown by the noun, which the gloss did not give.
+- `completo` was shown by the Chilean *completo*, a hot dog.
+
+**THE GLOSS DID NOT SAY WHAT THE WORD DOES.** Each of these was missing the construction its own examples used:
+- `tratar` lacked *tratar de*.
+- `en cuanto` lacked *en cuanto a*.
+- `ojalá` did not say it takes the subjunctive.
+- `evitar` lacked *evitar que*.
+- `la pista` lacked a clue.
+- `la bolsa` lacked the stock exchange.
+- `la acción` lacked a share.
+- `la marcha` lacked a gear.
+- `la bomba` lacked a pump.
+
+**LATIN AMERICAN USAGE.** These were replaced: *mañana a la tarde*, *no tiene caso*, *bomba de tiempo*, *abajo de*, *como que*, a road measured in miles, and *coin purse* in a gloss.
+
+**THIRTEEN SENTENCES SHARED WITH A1 OR A2 WERE REPLACED.** All three of `la experiencia`'s examples were among them.
+
+**CHECKERS.**
+- `--check` passes.
+- `check-say` reports 0.
+- The batch has no unbolded examples.
+- `check-senses --deck=DELE-B1` went from 107 to 100, with no card from this batch on it.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

@@ -583,7 +583,7 @@
    ]
   },
   "deleb1": {
-   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's. Batch S20 gave asesino, which had none, three: 995 of 999 with examples and 947 with three.",
+   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's. Batch S20 gave asesino, which had none, three: 995 of 999 with examples and 947 with three. Batch S23 folded away el repente, a card the generator made out of the second word of de repente (998 words), and its three examples went with it: 994 of 998 with examples, 948 with three.",
    "exNames": [
     [
      "Tom",
@@ -837,11 +837,11 @@
      "mum"
     ]
    ],
-   "subtitle": "999 more words, none of them in A1 or A2 · both directions, as two cards per word",
+   "subtitle": "998 more words, none of them in A1 or A2 · both directions, as two cards per word",
    "descSub": [
     [
      "1,000 words for level B1 of the DELE",
-     "999 words for level B1 of the DELE"
+     "998 words for level B1 of the DELE"
     ],
     [
      "None of them appears in the A1 or A2 deck, so the three together come to 2,000 words.",
@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 995 of the 999 words, three apiece for 947 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 948 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,11 +865,19 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 995 of the 999 words, three apiece for 947 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 948 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
      "there are none at all for the remaining 4,"
+    ],
+    [
+     "999 words for level B1 of the DELE",
+     "998 words for level B1 of the DELE"
+    ],
+    [
+     "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 948 of them"
     ]
    ]
   }
@@ -30477,6 +30485,687 @@
     [
      "Paramos a comer en un pueblo.",
      "We stopped to eat in a village."
+    ]
+   ]
+  },
+  "deleb1/lleno, llena": {
+   "why": "The gloss is right. The third example is shared with el autobús in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "El autobús estaba lleno hasta su capacidad máxima."
+   ],
+   "ex": [
+    [
+     "No, gracias, estoy lleno.",
+     "No thanks, I'm full."
+    ]
+   ]
+  },
+  "deleb1/la pista": {
+   "why": "The gloss missed a clue, which the second and third examples are, and a court, a rink or a slope. The first example is shared with la pareja in A1, and the third's English said 'tip'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "track, course",
+      "court, rink, slope, (dance) floor",
+      "clue, hint"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La pareja está en la pista de baile."
+   ],
+   "exEn": [
+    [
+     "Aquí hay una nueva pista para ti",
+     "Here's a new clue for you!"
+    ]
+   ],
+   "ex": [
+    [
+     "Hay una pista de tenis en el hotel.",
+     "There's a tennis court at the hotel."
+    ]
+   ]
+  },
+  "deleb1/ocupado, ocupada": {
+   "why": "The gloss is right. The first example said mañana a la tarde, which is Latin American; Spain says mañana por la tarde. All three examples were 'busy', none 'occupied'.",
+   "dropEx": [
+    "Vas a estar ocupado mañana a la tarde"
+   ],
+   "ex": [
+    [
+     "Este asiento está ocupado.",
+     "This seat is taken."
+    ]
+   ]
+  },
+  "deleb1/en cuanto": {
+   "why": "The gloss gave only 'as soon as', while two of the examples were en cuanto a, 'as for', and were the same construction twice. The first's English said 'when you can'.",
+   "senses": [
+    [
+     "conjunction",
+     [
+      "as soon as (en cuanto + subjunctive for the future)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en cuanto a — as for, as regards"
+     ]
+    ]
+   ],
+   "bold": [
+    "en cuanto"
+   ],
+   "dropEx": [
+    "En cuanto a mí, prefiero café a té."
+   ],
+   "exEn": [
+    [
+     "llámame en cuanto te sea posible",
+     "Please call me as soon as you can."
+    ]
+   ],
+   "ex": [
+    [
+     "Te llamo en cuanto llegue.",
+     "I'll call you as soon as I arrive."
+    ]
+   ]
+  },
+  "deleb1/la experiencia": {
+   "why": "ALL THREE EXAMPLES ARE SHARED WITH A LOWER DECK — with este in A1, peor in A2 and olvidar in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "experience"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La experiencia lo dice todo",
+    "Fue una de las peores experiencias",
+    "Nunca me voy a olvidar de esta experiencia."
+   ],
+   "ex": [
+    [
+     "Tiene mucha experiencia como profesora.",
+     "She has a lot of experience as a teacher."
+    ],
+    [
+     "¿Tienes experiencia en ventas?",
+     "Do you have any experience in sales?"
+    ],
+    [
+     "Viajar sola fue una experiencia increíble.",
+     "Travelling alone was an amazing experience."
+    ]
+   ]
+  },
+  "deleb1/tratar": {
+   "why": "The gloss had come apart ('to treat (to handle • to treat …') and did not give tratar de, 'to try to', which two examples are, or tratarse de, 'to be about'. The first used no tiene caso, which is Latin American, and the third is shared with acaso in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to treat (a person, a patient)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tratar de + infinitive — to try to",
+      "tratar de / tratarse de — to be about"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No tiene caso tratar de resolver",
+    "Acaso no se trata de un simple accidente"
+   ],
+   "ex": [
+    [
+     "Me tratan muy bien en este hotel.",
+     "They treat me very well at this hotel."
+    ],
+    [
+     "¿De qué trata la película?",
+     "What's the film about?"
+    ]
+   ]
+  },
+  "deleb1/próximo, próxima": {
+   "why": "The gloss is right. The first example is shared with el verano in A1, and the third measured the road in miles.",
+   "dropEx": [
+    "Las vacaciones de verano comienzan el próximo lunes.",
+    "por las próximas 50 millas"
+   ],
+   "ex": [
+    [
+     "Nos vemos la próxima semana.",
+     "See you next week."
+    ],
+    [
+     "¿Dónde está la parada más próxima?",
+     "Where's the nearest stop?"
+    ]
+   ]
+  },
+  "deleb1/paciente": {
+   "why": "The gloss gave only the adjective, while the first example was the noun, a patient, and is shared with este in A1. The card had two examples. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "patient"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el / la paciente — patient"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La vida de este paciente está en peligro."
+   ],
+   "ex": [
+    [
+     "Sé paciente, ya casi está.",
+     "Be patient, it's nearly done."
+    ],
+    [
+     "El médico visita a sus pacientes por la mañana.",
+     "The doctor sees his patients in the morning."
+    ]
+   ]
+  },
+  "deleb1/la bolsa": {
+   "why": "'coin purse' is Latin American; the stock exchange was missing. The first example is shared with romper in A2 and the third with el arroz in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "bag",
+      "(la Bolsa) stock exchange"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Se me rompió la bolsa de la compra.",
+    "cargar con una bolsa de arroz"
+   ],
+   "ex": [
+    [
+     "¿Quiere una bolsa?",
+     "Would you like a bag?"
+    ],
+    [
+     "La Bolsa de Madrid subió ayer.",
+     "The Madrid stock exchange rose yesterday."
+    ]
+   ]
+  },
+  "deleb1/completo, completa": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY. The first, 'un completo y total sin sentido', is not Spanish (S16 and S19 dropped it elsewhere); the second is shared with la historia in A1; the third was the Chilean completo, a hot dog. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "complete, whole",
+      "full (no vacancies)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a tiempo completo — full-time"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "completo y total sin sentido",
+    "le contó a Ana la historia completa",
+    "Haz completos para el almuerzo"
+   ],
+   "ex": [
+    [
+     "El hotel está completo.",
+     "The hotel is full."
+    ],
+    [
+     "Tengo la colección completa.",
+     "I've got the complete collection."
+    ],
+    [
+     "Trabaja a tiempo completo.",
+     "She works full-time."
+    ]
+   ]
+  },
+  "deleb1/santo, santa": {
+   "why": "The gloss did not give Semana Santa, which the first example is; that example is also an A1 sentence and its English said 'Easter begins next Wednesday'. The card had two examples. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "holy",
+      "saintly"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "Semana Santa — Holy Week, Easter"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El miércoles que viene empieza la Semana Santa."
+   ],
+   "ex": [
+    [
+     "Jerusalén es una ciudad santa para muchas religiones.",
+     "Jerusalem is a holy city for many religions."
+    ],
+    [
+     "Mi abuela era una mujer santa.",
+     "My grandmother was a saintly woman."
+    ]
+   ]
+  },
+  "deleb1/la acción": {
+   "why": "The gloss listed four senses of action and missed shares on the stock market. The second example is a proverb.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "action",
+      "share (on the stock market)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las acciones hablan más alto"
+   ],
+   "ex": [
+    [
+     "Compró acciones de una empresa eléctrica.",
+     "He bought shares in an electricity company."
+    ]
+   ]
+  },
+  "deleb1/el informe": {
+   "why": "The gloss is right. The first and third examples were one construction, finishing a report, and the second's English said 'turn in'.",
+   "dropEx": [
+    "no tuvo tiempo para acabar el informe"
+   ],
+   "exEn": [
+    [
+     "entregar los informes el lunes",
+     "You have to hand in the reports on Monday."
+    ]
+   ],
+   "ex": [
+    [
+     "Según el informe, el paro ha bajado.",
+     "According to the report, unemployment has fallen."
+    ]
+   ]
+  },
+  "deleb1/ojalá": {
+   "why": "The gloss did not say that ojalá takes the subjunctive, or that the tense decides whether it is a hope or a regret. The first and third examples were one construction, a past regret.",
+   "senses": [
+    [
+     "interjection",
+     [
+      "I hope (ojalá + present subjunctive)",
+      "if only, I wish (ojalá + past subjunctive)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ojalá hubiera comprado un billete"
+   ],
+   "ex": [
+    [
+     "Ojalá haga buen tiempo mañana.",
+     "I hope the weather's good tomorrow."
+    ]
+   ]
+  },
+  "deleb1/el golpe": {
+   "why": "The gloss was a list of five kinds of blow and missed a shock, which the first example is, and golpe de Estado. The second's English did not translate it.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "blow, knock, hit",
+      "shock"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "golpe de Estado — coup"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "abrir la puerta a golpes",
+     "I tried to force the door open, but it was impossible."
+    ]
+   ]
+  },
+  "deleb1/el estilo": {
+   "why": "The gloss said 'style' twice. The second example, about chibi art, is not a sentence anyone needs.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "style"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Prefiero el arte chibi"
+   ],
+   "ex": [
+    [
+     "Me gusta tu estilo.",
+     "I like your style."
+    ]
+   ]
+  },
+  "deleb1/la bomba": {
+   "why": "The gloss missed a pump. The first example's bomba de tiempo is Latin American; Spain says bomba de relojería.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "bomb",
+      "pump (bomba de agua)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "sobre una bomba de tiempo"
+   ],
+   "ex": [
+    [
+     "Hubo una amenaza de bomba en el aeropuerto.",
+     "There was a bomb threat at the airport."
+    ]
+   ]
+  },
+  "deleb1/el guardia": {
+   "why": "The gloss missed the police officer, the guardia civil or municipal, which is what a visitor to Spain meets. The third example, estar de guardia, is la guardia, 'duty', another word.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "guard",
+      "police officer (guardia civil, guardia municipal)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los guardias"
+    ],
+    [
+     "not",
+     "la guardia — guard (the body), duty (estar de guardia — to be on duty)"
+    ]
+   ],
+   "dropEx": [
+    "Hoy estoy de guardia en el trabajo."
+   ],
+   "ex": [
+    [
+     "Un guardia civil nos paró en la carretera.",
+     "A Civil Guard officer stopped us on the road."
+    ]
+   ]
+  },
+  "deleb1/la pistola": {
+   "why": "The gloss is right. The first example, 'Who needs science when you've got guns?', is not a sentence a learner needs, and the second used abajo de, Latin American for debajo de.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "pistol, gun"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la ciencia teniendo pistolas",
+    "abajo de la almohada"
+   ],
+   "ex": [
+    [
+     "El policía llevaba una pistola.",
+     "The police officer carried a pistol."
+    ],
+    [
+     "La pistola no estaba cargada.",
+     "The gun wasn't loaded."
+    ]
+   ]
+  },
+  "deleb1/probar": {
+   "why": "The gloss put 'to prove' first and missed to try and to taste, which the first and third examples were. The second was the noun la prueba and is shared with el reloj in A1; the third is shared with la tarta in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to try, to taste",
+      "to prove",
+      "to test"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "probarse — to try on (clothes)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Este es un reloj a prueba de agua.",
+    "He probado la tarta que ha hecho ella."
+   ],
+   "ex": [
+    [
+     "Prueba esta sopa, está buenísima.",
+     "Try this soup, it's delicious."
+    ],
+    [
+     "No puedes probar que yo estaba allí.",
+     "You can't prove I was there."
+    ]
+   ]
+  },
+  "deleb1/la marcha": {
+   "why": "The gloss missed a gear and en marcha. The first and third examples were one construction, en marcha, and the second's English, 'That motorcycle is an automatic', did not say gears.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "march",
+      "gear (in a vehicle)",
+      "departure"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en marcha — under way, moving"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Una investigación a fondo está ahora en marcha."
+   ],
+   "exEn": [
+    [
+     "cambio automático de marchas",
+     "That motorbike has automatic gears."
+    ]
+   ],
+   "ex": [
+    [
+     "Hubo una marcha contra la guerra.",
+     "There was a march against the war."
+    ]
+   ]
+  },
+  "deleb1/sin embargo": {
+   "why": "The gloss was a thesaurus line and included 'in spite of', which is a pesar de. The second example is shared with ordenar in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "however, nevertheless"
+     ]
+    ]
+   ],
+   "bold": [
+    "sin embargo"
+   ],
+   "dropEx": [
+    "Sin embargo es un rollo ordenar la habitación."
+   ],
+   "ex": [
+    [
+     "Llovió mucho. Sin embargo, el partido se jugó.",
+     "It rained a lot. However, the match went ahead."
+    ]
+   ]
+  },
+  "deleb1/debido a": {
+   "why": "The gloss is right. The second example, debido al, was generated with nothing marked, since the headword is two words and al fuses a with el; it is now bolded. The first, a girl arrogant because of her beauty, is not a sentence a learner needs.",
+   "bold": [
+    "debido a",
+    "debido al"
+   ],
+   "dropEx": [
+    "Esa chica es arrogante"
+   ],
+   "ex": [
+    [
+     "El vuelo se retrasó debido a la niebla.",
+     "The flight was delayed because of the fog."
+    ]
+   ],
+   "rebold": true
+  },
+  "deleb1/de repente": {
+   "why": "The gloss is right. The first example is shared with extraño earlier in B1 and the third with tres in A1. THIS NOTE FOLDS AWAY el repente, a card the generator made out of the second word of this phrase: glossed 'attack, upsurge, fit', and illustrated by exactly this card's three sentences. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "suddenly"
+     ]
+    ]
+   ],
+   "bold": [
+    "de repente"
+   ],
+   "fold": [
+    "el repente"
+   ],
+   "dropEx": [
+    "Por extraño que parezca",
+    "tras tres años de ausencia"
+   ],
+   "ex": [
+    [
+     "De repente se fue la luz.",
+     "Suddenly the lights went out."
+    ],
+    [
+     "Empezó a llover de repente.",
+     "It suddenly started to rain."
+    ]
+   ]
+  },
+  "deleb1/evitar": {
+   "why": "The gloss was a thesaurus line and missed evitar que, 'to prevent'. The first example is shared with no in A1, and the second used como que, which is colloquial Latin American, with English that did not translate it. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to avoid",
+      "to prevent (evitar que + subjunctive)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Algunas veces no puedo evitar",
+    "Me sentí como que él estaba evitando"
+   ],
+   "ex": [
+    [
+     "Intento evitar el azúcar.",
+     "I try to avoid sugar."
+    ],
+    [
+     "Hay que evitar que el fuego se extienda.",
+     "The fire must be stopped from spreading."
+    ]
+   ]
+  },
+  "deleb1/preparado, preparada": {
+   "why": "The gloss missed ready, which is how the word is usually used. The second example is shared with preparar in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "prepared, ready",
+      "qualified, well trained"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La gente no estaba preparada para la tormenta."
+   ],
+   "ex": [
+    [
+     "La cena está preparada.",
+     "Dinner's ready."
+    ]
+   ]
+  },
+  "deleb1/el pedido": {
+   "why": "The first example was the participle pedido of pedir, A1's card, and the third la pedida de mano, a proposal, which is another word. 'bulk purchase' is not what the word means.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "order (from a shop, a restaurant)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "si nos lo hubieras pedido",
+    "Era una hermosa pedida de mano."
+   ],
+   "ex": [
+    [
+     "Quiero hacer un pedido.",
+     "I'd like to place an order."
+    ],
+    [
+     "El pedido llegará el lunes.",
+     "The order will arrive on Monday."
     ]
    ]
   }
