@@ -441,13 +441,6 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
       fl.Examples = splitEx(fl.Examples).filter((x) => x.indexOf("uc-exadd") < 0).join("");
       hits++;
     }
-    const h = wantHint && wantHint.get(fl.Spanish);
-    if (h) {
-      seenHint.add(h.key);
-      const body = String(fl.English || "").replace(/^<div class="uc-pos">not [^<]*<\/div>/, "");
-      fl.English = '<div class="uc-pos">not ' + esc(h.other) + "</div>" + body;
-      hits++;
-    }
     /* Matched by the ORIGINAL key, or by the new headword a rename has already written — so a fold that
        has run once is not reported as a fix that matched nothing.
        …AND BY ANY NAME IN `was`, which is what makes a SECOND fold possible (Sep 2026, with the article
@@ -461,6 +454,16 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
     let w = want && want.get(fl.Spanish);
     if (!w && want) for (const cand of want.values()) {
       if (cand.fix.spanish === fl.Spanish || (cand.fix.was || []).indexOf(fl.Spanish) >= 0) { w = cand; break; }
+    }
+    /* A HINT IS KEYED BY THE HEADWORD THE CARD ENDS UP WITH, so a card this record renames (salvo, salva →
+       salvo) can carry one: on a freshly rebuilt deck the card still bears its old name when the hint is
+       looked up, so the note's rename target is tried as well (DELE A2, batch S5). */
+    const h = wantHint && (wantHint.get(fl.Spanish) || (w && w.fix.spanish !== undefined && wantHint.get(w.fix.spanish)));
+    if (h) {
+      seenHint.add(h.key);
+      const body = String(fl.English || "").replace(/^<div class="uc-pos">not [^<]*<\/div>/, "");
+      fl.English = '<div class="uc-pos">not ' + esc(h.other) + "</div>" + body;
+      hits++;
     }
     if (!w) continue;
     seen.add(w.key);

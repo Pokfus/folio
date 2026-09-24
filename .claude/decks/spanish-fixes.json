@@ -464,6 +464,10 @@
     [
      "Bill",
      "Jorge"
+    ],
+    [
+     "Cathy",
+     "Carmen"
     ]
    ],
    "exBritish": true,
@@ -587,7 +591,9 @@
   "delea1/pensar": "creer",
   "delea1/creer": "pensar",
   "delea1/entender": "comprender",
-  "delea1/comprender": "entender"
+  "delea1/comprender": "entender",
+  "delea2/salvo": "excepto",
+  "delea2/excepto": "salvo"
  },
  "notes": {
   "delea1/de": {
@@ -18596,6 +18602,672 @@
      "I've bought you a present."
     ]
    ]
+  },
+  "delea2/amable": {
+   "why": "'amiable, gracious, affable' are three registers above the word; amable is the everyday 'kind', 'nice'. The third example, 'Ella invita todo el mundo', drops the personal a and its English says something else entirely. muy amable, the thanks a reader will use daily, had no line.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "kind, nice (to people)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "es usted muy amable — that's very kind of you"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ella invita todo el mundo"
+   ],
+   "ex": [
+    [
+     "¿Sería tan amable de ayudarme?",
+     "Would you be so kind as to help me?"
+    ]
+   ]
+  },
+  "delea2/la navidad": {
+   "spanish": "la Navidad",
+   "word": "Navidad",
+   "why": "THE GLOSS WAS WRONG: 'Christmas present' is un regalo de Navidad. The word is Christmas itself, written with a capital, which the headword and the first example lacked; that example's 'un día domingo' is also Latin American. ¡Feliz Navidad! and las Navidades, the season, had no line.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "Christmas"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "las Navidades — the Christmas season",
+      "¡Feliz Navidad! — Happy Christmas!"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Este año, la navidad cae un día domingo."
+   ],
+   "ex": [
+    [
+     "¡Feliz Navidad!",
+     "Happy Christmas!"
+    ]
+   ]
+  },
+  "delea2/delante": {
+   "why": "The gloss put 'in front of' first, which is delante de, and 'forward (with hacia preceding it)' is a note rather than a translation. 'El carro se detuvo…' uses the Latin American carro where Spain says coche.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "in front, at the front"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "delante de — in front of"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El carro se detuvo delante de la casa."
+   ],
+   "ex": [
+    [
+     "Siéntate delante, al lado del conductor.",
+     "Sit in the front, next to the driver."
+    ]
+   ]
+  },
+  "delea2/junto, junta": {
+   "why": "The third example is la junta, a noun meaning a board or a meeting — a different word, matched on shared letters, and now a line in Forms. The card did not say that the adjective lives in the plural, juntos, or name junto a, 'next to', which is the first example.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "together (usually plural: juntos, juntas)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "junto a — next to, beside"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "juntos, juntas"
+    ],
+    [
+     "also",
+     "la junta — board, meeting (a different noun)"
+    ]
+   ],
+   "dropEx": [
+    "Voy a la junta anual"
+   ],
+   "ex": [
+    [
+     "Pon las sillas juntas.",
+     "Put the chairs together."
+    ]
+   ]
+  },
+  "delea2/el rato": {
+   "why": "TWO OF THE THREE EXAMPLES WERE A RAT. 'Las ratas son el origen de la plaga' and 'una rata blanca' are la rata, matched on shared letters; only the card game was el rato. pasar un buen rato, 'to have a good time', had no line.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "a while, a short time"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "pasar un buen rato — to have a good time",
+      "a ratos — at times"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las ratas son el origen",
+    "comiendo una rata blanca"
+   ],
+   "ex": [
+    [
+     "Espérame un rato, vuelvo enseguida.",
+     "Wait for me a while, I'll be right back."
+    ],
+    [
+     "Pasamos un buen rato en la fiesta.",
+     "We had a good time at the party."
+    ]
+   ]
+  },
+  "delea2/ninguno": {
+   "boldAlso": [
+    "ningún"
+   ],
+   "why": "The card never said that before a masculine noun the word is ningún, which is how a reader meets it most. Both of the first two examples were also A1 sentences, and the third used the plural ningunas, which is rare and not A2. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "determiner",
+     [
+      "no, not any (ningún libro, ninguna casa)"
+     ]
+    ],
+    [
+     "pronoun",
+     [
+      "none, not one (ninguno de mis amigos)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "before a masculine noun",
+     "ningún"
+    ],
+    [
+     "feminine",
+     "ninguna"
+    ]
+   ],
+   "dropEx": [
+    "No he leído ninguno de los dos libros.",
+    "No conozco a ninguna de las dos muchachas.",
+    "No tomé ningunas medidas"
+   ],
+   "ex": [
+    [
+     "No tengo ningún problema.",
+     "I have no problem."
+    ],
+    [
+     "Ninguno de mis amigos vino.",
+     "None of my friends came."
+    ],
+    [
+     "—¿Tienes alguna pregunta? —No, ninguna.",
+     "\"Have you got any questions?\" \"No, none.\""
+    ]
+   ]
+  },
+  "delea2/triste": {
+   "why": "The gloss was a thesaurus entry ending in the Spanish word itself. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "sad"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La joven debajo del árbol se ve triste."
+   ],
+   "ex": [
+    [
+     "Estoy triste porque te vas.",
+     "I'm sad because you're leaving."
+    ]
+   ]
+  },
+  "delea2/el caballo, la yegua": {
+   "why": "The card teaches a pair and glossed only one half; 'knight' is the chess piece, not A2. montar a caballo, which the first example is, had no line.",
+   "senses": [
+    [
+     "noun, masculine and feminine",
+     [
+      "horse",
+      "la yegua — mare"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "montar a caballo — to ride a horse"
+     ]
+    ]
+   ]
+  },
+  "delea2/enseguida": {
+   "why": "'Mi oficina está enseguida a la de Carlos' is not Spanish — 'next to' is al lado de — and it is where the gloss's 'next' came from. The second example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "straight away, right away, at once"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mi oficina está enseguida",
+    "Tengo que limpiar el cuarto de baño enseguida."
+   ],
+   "ex": [
+    [
+     "Vuelvo enseguida.",
+     "I'll be right back."
+    ],
+    [
+     "Enseguida te atiendo.",
+     "I'll be with you in a moment."
+    ]
+   ]
+  },
+  "delea2/agradable": {
+   "why": "'agreeable' is a false friend in English, where it means willing to agree; the word is 'pleasant', 'nice'. The examples are right.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "pleasant, nice"
+     ]
+    ]
+   ]
+  },
+  "delea2/la luna": {
+   "why": "'windshield' is American, and la luna for a car's window is not A2; luna de miel, 'honeymoon', is. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "moon"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "luna de miel — honeymoon"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Había luz de luna ayer por la noche."
+   ],
+   "ex": [
+    [
+     "Se fueron de luna de miel a Italia.",
+     "They went to Italy on their honeymoon."
+    ]
+   ]
+  },
+  "delea2/finalmente": {
+   "why": "'lastly' is a list sense no A2 reader needs, and the third example, 'salió primero un caballo que yo elegí', is stilted.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "finally, in the end, at last"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "salió primero un caballo"
+   ],
+   "ex": [
+    [
+     "Finalmente, decidimos quedarnos en casa.",
+     "In the end, we decided to stay at home."
+    ]
+   ]
+  },
+  "delea2/sacar": {
+   "why": "'(e.g. the trash)' is American and a note rather than a translation, and the gloss missed the uses its own examples show: getting something (¿de dónde has sacado…?), buying a ticket, getting a mark. The first translation said 'line' for a queue.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to take out, to get out",
+      "to get (sacar entradas — to get tickets; sacar buena nota — to get a good mark)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "sacar una foto — to take a photo"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "la cola para sacar los billetes",
+     "This is the queue for tickets."
+    ]
+   ]
+  },
+  "delea2/apenas": {
+   "why": "'recently, just' is Latin American usage of apenas; in Spain it means 'hardly'. The first two examples were apenas podía, one construction twice.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "hardly, barely, scarcely"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "apenas podía respirar"
+   ],
+   "ex": [
+    [
+     "Apenas hay gente en la calle.",
+     "There's hardly anyone in the street."
+    ]
+   ]
+  },
+  "delea2/partido, partida": {
+   "spanish": "el partido",
+   "word": "partido",
+   "why": "THE CARD TAUGHT THE WRONG WORD. It was headed as the adjective partido, 'broken', glossed in heraldic language ('per pale'), while every example was a noun: el partido, the match, which is the A2 word, and once la partida, a game of cards or chess. The headword becomes el partido, with the political party beside the match; la partida goes in Forms and its sentence makes way for the party.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "match, game (sport)",
+      "(political) party"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los partidos"
+    ],
+    [
+     "also",
+     "la partida — a game (of cards, chess)"
+    ]
+   ],
+   "dropEx": [
+    "pierdes la partida"
+   ],
+   "ex": [
+    [
+     "Ana es miembro de un partido político.",
+     "Ana is a member of a political party."
+    ]
+   ]
+  },
+  "delea2/el cliente, la clienta": {
+   "why": "The second example is also an A1 sentence, and the feminine half of the pair had no example. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Los clientes dejaron de venir"
+   ],
+   "ex": [
+    [
+     "La clienta pidió la cuenta.",
+     "The customer asked for the bill."
+    ]
+   ]
+  },
+  "delea2/excepto": {
+   "why": "The first example is also an A1 sentence. excepto now shares its gloss with salvo, which S4 gave its proper sense, so the two carry a not-X hint each. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Él trabaja todos los días excepto los domingos."
+   ],
+   "ex": [
+    [
+     "Me gustan todas las frutas excepto el plátano.",
+     "I like all fruit except bananas."
+    ]
+   ]
+  },
+  "delea2/la espalda": {
+   "why": "'backstroke' is nadar a espalda and belongs in a phrase; the third example was a shooting. a espaldas de, the second, is a real idiom and stays.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "back (of the body)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a espaldas de — behind someone's back",
+      "nadar a espalda — to swim backstroke"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "nos dispararon por la espalda"
+   ],
+   "ex": [
+    [
+     "Llevo la mochila a la espalda.",
+     "I carry my rucksack on my back."
+    ]
+   ]
+  },
+  "delea2/pedir": {
+   "why": "The gloss had two definitions and not the sense an A2 reader uses first: to ORDER, in a restaurant. Nor did it say what separates pedir from preguntar, which is the confusion every learner has. Both of the first two examples are also A1 sentences. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to ask for (pedir ayuda)",
+      "to order (food, drinks)",
+      "to ask (someone to do something: pedir a alguien que + subjunctive)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "not",
+     "preguntar — to ask a question"
+    ]
+   ],
+   "dropEx": [
+    "Vamos a pedir que nos hagan una foto.",
+    "ayuda a cualquiera que se lo pida"
+   ],
+   "ex": [
+    [
+     "¿Qué vas a pedir de postre?",
+     "What are you going to order for dessert?"
+    ],
+    [
+     "Le pedí ayuda a mi vecino.",
+     "I asked my neighbour for help."
+    ]
+   ]
+  },
+  "delea2/el planeta": {
+   "why": "Right as a card; it did not say that el planeta is masculine though it ends in -a, which is the thing to learn about it.",
+   "forms": [
+    [
+     "plural",
+     "los planetas"
+    ],
+    [
+     "gender",
+     "masculine, though it ends in -a: el planeta"
+    ]
+   ]
+  },
+  "delea2/debajo": {
+   "why": "Two of the three examples are also A1 sentences — and one of them is triste's too. The card now says that the word is usually debajo de. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adverb",
+     [
+      "underneath, below"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "debajo de — under, underneath"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La joven debajo del árbol",
+    "debajo de la mesa"
+   ],
+   "ex": [
+    [
+     "Llevo una camiseta debajo del jersey.",
+     "I'm wearing a T-shirt under my jumper."
+    ],
+    [
+     "Mi vecina vive en el piso de debajo.",
+     "My neighbour lives in the flat below."
+    ]
+   ]
+  },
+  "delea2/la estrella": {
+   "why": "'Ésta estrella' puts the accent of the pronoun on a determiner, which never took one. The card did not name the star that is a famous person or a hotel rating.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "star (in the sky)",
+      "star (a famous person; a rating: un hotel de cuatro estrellas)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Ésta estrella"
+   ],
+   "ex": [
+    [
+     "Mi hotel tiene cuatro estrellas.",
+     "My hotel has four stars."
+    ]
+   ]
+  },
+  "delea2/el color": {
+   "why": "el color is masculine; the feminine is archaic, so 'masculine or feminine' and a plural 'los/las colores' teach a gender the reader should not use. The gloss led with the American spelling. Two examples are also A1 sentences. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "colour"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "¿de qué color es…? — what colour is…?"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los colores"
+    ]
+   ],
+   "dropEx": [
+    "El color que me encanta es el rojo.",
+    "¿De qué color es el pelo de Carlos?"
+   ],
+   "ex": [
+    [
+     "¿De qué color es tu coche?",
+     "What colour is your car?"
+    ],
+    [
+     "Me gustan los colores vivos.",
+     "I like bright colours."
+    ]
+   ]
+  },
+  "delea2/parecer": {
+   "why": "'to see fit' is a Latin American legal sense, and the card never gave the two things parecer is used for most in conversation: me parece que, 'I think', and ¿qué te parece?, 'what do you think?'. The third example makes way for the second.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to seem, to look (parece cansado — he looks tired)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "me parece que… — I think…",
+      "¿qué te parece? — what do you think?"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Las cosas no son nunca lo que parecen."
+   ],
+   "ex": [
+    [
+     "¿Qué te parece mi nuevo piso?",
+     "What do you think of my new flat?"
+    ]
+   ]
+  },
+  "delea2/parecerse": {
+   "why": "The examples are right; the gerund read parecíendose, the -iendo fault S3 found in the generator (the accent belongs on the e: pareciéndose).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to look like, to resemble (parecerse a)",
+      "to be alike"
+     ]
+    ]
+   ],
+   "conjSub": [
+    [
+     "parec<span class=\"uc-cj-e\">íendose</span>",
+     "parec<span class=\"uc-cj-e\">iéndose</span>"
+    ]
+   ]
+  },
+  "delea2/el/la juez": {
+   "why": "'official' is not what juez means; the sports sense is 'referee', 'umpire'. The third example uses la jueza, the feminine many speakers prefer, which Forms now names.",
+   "senses": [
+    [
+     "noun, masculine or feminine",
+     [
+      "judge",
+      "referee, umpire (sport)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los jueces, las juezas"
+    ],
+    [
+     "feminine",
+     "la juez or la jueza"
+    ]
+   ]
+  },
+  "delea2/el arte": {
+   "why": "'masculine or feminine' and 'los/las artes' left a reader to guess the rule, which is that el arte is masculine in the singular and las artes feminine in the plural (las bellas artes).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "art",
+      "skill"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "las artes (feminine in the plural: las bellas artes)"
+    ]
+   ]
   }
  },
  "insert": {
@@ -18857,7 +19529,8 @@
    "increíble",
    "la llamada",
    "el negocio",
-   "la respuesta"
+   "la respuesta",
+   "el ejército"
   ]
  }
 }

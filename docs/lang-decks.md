@@ -3459,6 +3459,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S2 | A2 | #30 `dentro` – #57 `el oído` | 27 | 1 (`quizás`) | 0 | name table widened on A1 and A2 (6 A1 cards, 6 A2 cards outside the batch) | `el/la` headword bold fix |
 | S3 | A2 | #58 `la luz` – #85 `el sueño` | 25 | 3 (`anoche`, `increíble`, `la llamada`) | 0 | — | `build_deck.py`'s enclitic gerund |
 | S4 | A2 | #86 `ambos` – #113 `el regalo` | 26 | 2 (`el negocio`, `la respuesta`) | 0 | Michael, Linda, Jenny, Bill added to the name table (1 card outside the batch) | — |
+| S5 | A2 | #114 `amable` – #141 `el arte` | 27 | 1 (`el ejército`) | 0 | Cathy added to the name table; `salvo` ↔ `excepto` hint pair | a hint can name a renamed card |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -3663,6 +3664,41 @@ examples on `la cita`; and `el cumpleaños` losing two sentences other cards kee
 
 **CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 65 → 61; the two batch
 cards left on it, `ambos` ("both") and `propio` ("own"), are false positives of the function-word kind.
+
+### S5 — DELE A2, notes #114–#141 (Sep 2026)
+
+Measured against the S4 commit by card id: **28 changed, 467 untouched** — 27 record entries and `salvo`
+(from S4), which gained its hint. The deck file also rebuilt byte-identical from the S4 file plus the
+record.
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, FOURTH BATCH RUNNING**: `partido, partida` was headed as the
+adjective "broken", glossed in heraldic language ("per pale"), while every example was a noun — `el partido`,
+the match — and is now `el partido`, with the political party beside it. And a gloss that was simply wrong:
+`la navidad` was glossed "Christmas present"; it is now `la Navidad`, with its capital, and "Christmas".
+
+**THE LOOK-ALIKE WORD**: `el rato` was illustrated twice by `la rata` (*las ratas son el origen de la
+plaga*); `junto` once by the noun `la junta`, a board or meeting; `enseguida` by a sentence that is not
+Spanish (*Mi oficina está enseguida a la de Carlos*, where the gloss's "next" came from).
+
+**A GLOSS SHARED WITH A CARD S4 RENAMED**: `excepto` and `salvo` now both mean "except", so the English →
+Spanish card had two right answers. They are a PAIR, so each gets a `not X` line — and **`spanish-fix.js`
+could not attach one to `salvo`**, whose card still bears its generator name (`salvo, salva`) on a freshly
+rebuilt deck when the hint is looked up. The hint is now keyed by the headword the card ENDS UP with, the
+note's rename target being tried as well.
+
+**THE CONJUGATION**: `parecerse`'s gerund (*parecíendose*), the S3 fault; its imperative, which attaches a
+pronoun to a `-zc-` subjunctive (*parézcase*), is right.
+
+**AND THE REST**: `ninguno` never said *ningún* before a masculine noun and used the rare plural *ningunas*;
+`el color` taught a feminine and a plural *las colores* nobody should use; `el arte` did not say it is
+masculine singular and feminine plural (*las bellas artes*); `el planeta` did not say it is masculine
+despite its -a; `pedir` never said "to order" (in a restaurant) or what separates it from *preguntar*;
+`apenas` carried the Latin American "just"; `agradable` was glossed with the English false friend
+"agreeable"; `la estrella` wrote *Ésta* as a determiner; `amable` dropped a personal *a*; `el carro` and
+*un día domingo* are Latin American.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 61 → 54, with no card of
+this batch left on it.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
