@@ -718,6 +718,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1501–1530 | 27 changed, 3 read and left: 34 example sentences replaced (一道 shown only as 一 + a measure word, five straddles, 野 and 仰 used only inside other words, slang for menstruation, a threat, Classical Chinese, near-repeats), 3 translations fixed, six Compounds panels, 19 glosses corrected; 野's archaic traditional form 壄 cleared |
 | 2026-09-24 | `hsk30l6` notes 1531–1560 | 26 changed, 4 read and left: 24 example sentences replaced (a slur on 议论, a straddle on 一时, headwords inside idioms and longer words, an advertising line, near-repeats), 2 translations fixed, three Compounds panels, 20 glosses corrected |
 | 2026-09-24 | `hsk30l6` notes 1561–1590 | 27 changed, 3 read and left: 32 example sentences replaced (four straddles on 有机 and 用人, 与其 shown as a different word, 用人 and 用心 split into their two senses, a political aside, jokes, near-repeats), 2 translations fixed, two Compounds panels, 20 glosses corrected |
+| 2026-09-24 | `hsk30l6` notes 1591–1620 | 22 changed, 8 read and left: 22 example sentences replaced (杂 and 灾 used only inside other words, straddles on 源于 and 乐器, a generalisation about Latin Americans, the Analects, Taiwan's 程式, near-repeats), 5 translations fixed, three Compounds panels, 20 glosses corrected |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12750,4 +12751,31 @@ and no version bump.
 - **Near-repeats replaced:** 婴儿 (crying twice), 影子 (afraid of a shadow twice, the replacement showing "reflection"), 涌现, 用功, 有序, 余额, 羽绒服.
 - **Translations.** 用心 said "by heart", and 优异 said "good marks".
 - **Glosses.** 拥挤 had "push and squeeze", 游人 carried an article, and the rest gained a "to" or a sense.
+
+### Batch 183 — `hsk30l6` notes 1591–1620 (预定 → 灾)
+
+22 notes changed and 8 read and left (预期, 园林, 圆满, 元素, 月光, 月球, 晕车, 运送), counted against the real diff.
+
+- **Single characters inside other words.**
+  - 杂: all three sentences were 杂种狗 or 杂草.
+  - 灾: 天灾 and 灾祸. The 灾祸 sentence was a 30-character aphorism.
+  - 晕: the idiom 晕头转向. Its replacement keeps the card's own reading, yūn; 晕船 is yùn and was not used.
+  
+  All three gained Compounds panels.
+- **Straddles.** 恐惧来源于未知 is 来源 + 于, and 电视游乐器 is 游乐 + 器. Both replaced.
+- **Unsuitable or not usable.**
+  - 原始: a line about how "so-called advanced countries" regard Latin Americans, with 原始人.
+  - 远方: Classical Chinese from the Analects.
+  - 运行: Taiwan's 程式.
+  - 源于: a cynical aphorism with no full stop.
+  - 原本: a governor's scandal, among three sentences of 25–30 characters.
+  - 欲望: an aphorism calqued.
+  - 原材料: a garbled sentence.
+- **Near-repeats replaced:** 原理, 原料 (Japan's imports twice, now showing "ingredients"), 远程, 乐曲, 元宵 (元宵节 twice, now showing the food), 运营 (a sentence also standing on 提示).
+- **Translations.**
+  - 预定 said "order", and "the professor" for a doctor.
+  - 浴室 said "bath".
+  - 欲望 said "I don't feel like".
+  - 灾 said "the bank secured the city".
+- **Glosses.** 预定 and 源于 had to take CC-CEDICT's wording or `check-gloss-source.js` reported them. 原理 had "tenet; axiom", 远方 was an adverb under a noun label, and 远程's commas became semicolons.
 
