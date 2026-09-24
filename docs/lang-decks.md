@@ -3476,6 +3476,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S19 | B1 | #0 `hacerse` – #27 `último` | 26 | 2 (`el capitán`, `último`) | 0 | names, British, usage switched on for B1 (356 further cards touched by them alone); B1 description corrected (999 words, 946 with three examples) and A2's (all 495) | `bold` needed for a phrase headword |
 | S20 | B1 | #28 `correcto` – #55 `siguiente` | 26 | 2 (`correcto`, `el plan`) | 0 | B1 description: 995 words with examples, 947 with three | — |
 | S21 | B1 | #56 `de nuevo` – #83 `la basura` | 28 | 0 | 0 | — | — |
+| S22 | B1 | #84 `el matrimonio` – #111 `parar` | 28 | 0 | 0 | — | `el san` renamed `san`; share filter corrected |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4428,6 +4429,52 @@ drop it in its turn.
 
 **CHECKERS.** `--check` passes; `check-say` 0; every card in the batch has three examples.
 `check-senses --deck=DELE-B1` stays at 110, with no card of this batch on it.
+
+### S22 — DELE B1, notes #84–#111 (Sep 2026)
+
+Measured against the S21 commit by card id: **all 28 changed, 971 untouched**, each one a record entry.
+
+**A HEADWORD THAT WAS THE WRONG WORD.** `el san` was glossed "financial" and carried a plural, *los
+sanes*, which does not exist. *San* is the shortened *santo* used before a man's name. It takes no article
+and has no plural, and the noun and the adjective are other cards: `el santo` in A2 and `santo, santa`
+later in B1. The card is renamed to `san`, and its Forms row now says when the full *santo* is used.
+
+**THE NAME TABLE HAD REACHED A PLACE NAME.** The same card's first example read *San Javier es la capital
+de Puerto Rico*. That is San Juan put through the `Juan` → `Javier` row. A sweep of A1, A2 and B1 for a
+renamed name standing after *San*, *Santa*, *Santo*, *Puerto* or *Nueva* finds only this one. **The table
+is not changed**, because a lookbehind for *San* would be one more rule to guard one sentence. But a
+sentence carrying a real Juan cannot be written into a deck that runs this pass. Such a sentence has to
+use another saint, as the replacement here does.
+
+**THE SAME-SPELT WORD, TWELVE TIMES IN ONE BATCH.**
+- `ante` was shown twice by *antes*.
+- `el cargo` by *la carga*.
+- `el tema` by *temer*.
+- `el encuentro` by *encontrar*.
+- `parar` by the preposition *para* and the noun *la parada*.
+- `la salud` by *saludar*, in a sentence about strangling someone.
+- `el corte` by *cortar*, and by *la corte*, the court, in its Latin American legal sense.
+- `el vestido` by *vestida*.
+- `la baja` by the adjective *baja*.
+
+`aun` was glossed with the senses of *aún*, a different word that A1 teaches. `el respecto` did not say
+it is not *el respeto*.
+
+**TWENTY-TWO SENTENCES SHARED WITH A1 OR A2 WERE REPLACED.** Every example on `la mayoría` was an A1
+sentence. **The share filter used for S20 and S21 was also wrong**: it hid any line whose LAST listed
+holder was a later B1 card, even when an earlier holder was A1 or A2. A corrected filter (`share3.js`),
+re-run over #0–#83, finds nothing those batches missed. The earlier outputs had been read unfiltered as
+well.
+
+**LATIN AMERICAN USAGE.** These went: *departamento* for a flat, twice; *la corte* for a court of law;
+*tenés*; and *jugar fútbol* without its article.
+
+**LOOKING AHEAD.** The sweep also turned up *Creo que ésta es la moto de Carlos* on `crear`. That is
+*creer*, and it will be fixed when its batch comes.
+
+**CHECKERS.** `--check` passes; `check-say` reports 0; the batch has no unbolded examples.
+`check-senses --deck=DELE-B1` has gone from 110 to 107. Its one flag from this batch, `el respecto`, is
+two English lines that share the word *nothing*, which is not a disagreement with the gloss.
 
 ## The language-deck catalogue — the Update press and the frequency order
 

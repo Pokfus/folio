@@ -29687,6 +29687,798 @@
      "Each town has a different charge for rubbish collection."
     ]
    ]
+  },
+  "deleb1/el matrimonio": {
+   "why": "The gloss missed a married couple, which the second example is. The first, 'El matrimonio es el cielo y el infierno', is an aphorism shared with el cielo in A2, and the third said jugar fútbol, which Spain writes jugar al fútbol. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "marriage",
+      "married couple"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El matrimonio es el cielo y el infierno.",
+    "jugar fútbol antes de su matrimonio"
+   ],
+   "ex": [
+    [
+     "Llevan veinte años de matrimonio.",
+     "They've been married for twenty years."
+    ],
+    [
+     "Un matrimonio mayor vive en el tercer piso.",
+     "An elderly couple live on the third floor."
+    ]
+   ]
+  },
+  "deleb1/el oro": {
+   "why": "'or' is the heraldic tincture. The first and second examples were one construction, gold heavier than something, and the third is shared with duro earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "gold"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El oro es más pesado que la plata.",
+    "El hierro es más duro que el oro."
+   ],
+   "ex": [
+    [
+     "Le regaló un anillo de oro.",
+     "He gave her a gold ring."
+    ],
+    [
+     "Ganó la medalla de oro.",
+     "She won the gold medal."
+    ]
+   ]
+  },
+  "deleb1/la baja": {
+   "why": "The gloss missed sick leave, estar de baja, the sense a working reader meets. The third example was the adjective bajo, 'una baja colina', not the noun.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "fall, drop (in prices)",
+      "casualty (in war)",
+      "sick leave (estar de baja — to be off sick)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Hay una baja colina"
+   ],
+   "ex": [
+    [
+     "Está de baja por enfermedad.",
+     "She's off sick."
+    ]
+   ]
+  },
+  "deleb1/gracias a": {
+   "why": "The gloss gave 'due to', which is debido a. The first example was dar las gracias a, not gracias a, and is also an A1 sentence; the second, 'Se cortó la luz gracias a la tormenta', is ironic, and its English dropped the phrase. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "preposition",
+     [
+      "thanks to"
+     ]
+    ]
+   ],
+   "bold": [
+    "gracias a"
+   ],
+   "dropEx": [
+    "Daniel les dio las gracias a los policías.",
+    "Se cortó la luz gracias a la tormenta."
+   ],
+   "ex": [
+    [
+     "Aprobé gracias a tu ayuda.",
+     "I passed thanks to your help."
+    ],
+    [
+     "Gracias a internet, es fácil encontrar trabajo.",
+     "Thanks to the internet, it's easy to find work."
+    ]
+   ]
+  },
+  "deleb1/el espacio": {
+   "why": "The gloss said 'space' twice and missed outer space. The first example is also an A1 sentence, and the second's English said 'meters'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "space, room",
+      "(outer) space"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Estas cajas tienen mucho espacio en su interior."
+   ],
+   "exEn": [
+    [
+     "a espacios de treinta metros",
+     "The trees are planted at intervals of thirty metres."
+    ]
+   ],
+   "ex": [
+    [
+     "Quiere viajar al espacio.",
+     "She wants to travel into space."
+    ]
+   ]
+  },
+  "deleb1/la salud": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY. The first is shared with encima in A2 and the third with estar in A1; the second was the verb saludar, in a sentence about strangling someone when greeting them. Its plural, las saludes, is not used, and the gloss missed ¡salud!. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "health"
+     ]
+    ],
+    [
+     "interjection",
+     [
+      "¡salud! — cheers!; bless you!"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "not used"
+    ]
+   ],
+   "dropEx": [
+    "La salud está por encima de la riqueza.",
+    "cuando lo saludes debes estrangularlo",
+    "preocupada por la salud de él"
+   ],
+   "ex": [
+    [
+     "Fumar es malo para la salud.",
+     "Smoking is bad for your health."
+    ],
+    [
+     "Mi abuela tiene muy buena salud.",
+     "My grandmother is in very good health."
+    ],
+    [
+     "Brindemos por tu salud.",
+     "Let's drink to your health."
+    ]
+   ]
+  },
+  "deleb1/aun": {
+   "why": "The gloss gave 'still, yet', which is aún with an accent, a different word that A1 teaches. Unaccented aun means 'even'. The first example, 'No me importaría aun si ella no viene', mixes a conditional with a present.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "even (aun así — even so; aun si — even if)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "not",
+     "aún — still, yet (A1)"
+    ]
+   ],
+   "dropEx": [
+    "No me importaría aun si ella no viene."
+   ],
+   "ex": [
+    [
+     "Aun con lluvia, salimos a correr.",
+     "Even in the rain, we went for a run."
+    ]
+   ]
+  },
+  "deleb1/el infierno": {
+   "why": "The gloss is right. The first example is shared with el cielo in A2 and the second capitalised yo after a semicolon. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "El matrimonio es el cielo y el infierno.",
+    "Al infierno con las circunstancias"
+   ],
+   "ex": [
+    [
+     "El viaje fue un infierno.",
+     "The journey was hell."
+    ],
+    [
+     "Muchas religiones hablan del cielo y del infierno.",
+     "Many religions speak of heaven and hell."
+    ]
+   ]
+  },
+  "deleb1/ante": {
+   "why": "Two of the three examples were antes, 'before (in time)', A1's card, not ante, 'before, in the presence of'; both are also A1 sentences. The gloss's 'against, compared to' are not B1's. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "preposition",
+     [
+      "before, in front of (a person, an authority)",
+      "in the face of (ante la duda — when in doubt)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "ante todo — first of all, above all"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "not",
+     "antes — before (in time), A1"
+    ]
+   ],
+   "dropEx": [
+    "No abrir antes de que pare el tren.",
+    "No empieza antes de las ocho y media."
+   ],
+   "ex": [
+    [
+     "Se presentó ante el juez.",
+     "He appeared before the judge."
+    ],
+    [
+     "Ante todo, gracias por venir.",
+     "First of all, thanks for coming."
+    ]
+   ]
+  },
+  "deleb1/la mayoría": {
+   "why": "ALL THREE EXAMPLES ARE ALSO A1 SENTENCES, with acuerdo, país and cerrado. The gloss did not give la mayoría de, 'most'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "majority"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "la mayoría de — most (of)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La mayoría de la gente está de acuerdo.",
+    "Está prohibido en la mayoría de los países.",
+    "La mayoría de las escuelas hoy están cerradas."
+   ],
+   "ex": [
+    [
+     "La mayoría de mis amigos vive en Madrid.",
+     "Most of my friends live in Madrid."
+    ],
+    [
+     "Ganó por mayoría absoluta.",
+     "He won by an absolute majority."
+    ],
+    [
+     "La mayoría prefiere el verano.",
+     "Most people prefer summer."
+    ]
+   ]
+  },
+  "deleb1/el vestido": {
+   "why": "The gloss is right. The second example was the participle vestida, 'dressed', not the noun, and the third's English said 'clothes' and 'closet'.",
+   "dropEx": [
+    "La chica vestida de blanco"
+   ],
+   "exEn": [
+    [
+     "tengo gran cantidad de vestidos",
+     "I have loads of dresses in my wardrobe."
+    ]
+   ],
+   "ex": [
+    [
+     "Se compró un vestido rojo para la boda.",
+     "She bought a red dress for the wedding."
+    ]
+   ]
+  },
+  "deleb1/el corte": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY. The first is shared with la pierna in A2, the second was the verb cortar ('no lo cortes'), and the third was la corte, 'court', a different word of the other gender, used there in its Latin American legal sense. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "cut"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "corte de luz — power cut",
+      "corte de pelo — haircut"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los cortes"
+    ],
+    [
+     "not",
+     "la corte — (royal) court"
+    ]
+   ],
+   "dropEx": [
+    "Ana se hizo un corte en la pierna.",
+    "no lo cortes",
+    "ir a la corte mañana"
+   ],
+   "ex": [
+    [
+     "Tengo un corte en el dedo.",
+     "I've got a cut on my finger."
+    ],
+    [
+     "Hubo un corte de luz anoche.",
+     "There was a power cut last night."
+    ],
+    [
+     "Me gusta tu nuevo corte de pelo.",
+     "I like your new haircut."
+    ]
+   ]
+  },
+  "deleb1/el departamento": {
+   "why": "Two of the three examples used departamento for a flat, which is Latin American; in Spain that is el piso, A1's card.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "department"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los departamentos"
+    ],
+    [
+     "not",
+     "a flat — el piso (departamento in Latin America)"
+    ]
+   ],
+   "dropEx": [
+    "vivía en un departamento de un dormitorio",
+    "Todos los departamentos están ocupados."
+   ],
+   "ex": [
+    [
+     "El departamento de Historia está en la segunda planta.",
+     "The History department is on the second floor."
+    ],
+    [
+     "Llama al departamento de atención al cliente.",
+     "Call the customer service department."
+    ]
+   ]
+  },
+  "deleb1/la duda": {
+   "why": "The gloss did not give sin duda. The first and third examples were one construction, sin duda.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "doubt",
+      "question, query"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "sin duda — without doubt"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Sin duda alguien se dejó la puerta abierta."
+   ],
+   "ex": [
+    [
+     "Si tienes alguna duda, pregúntame.",
+     "If you have any questions, ask me."
+    ]
+   ]
+  },
+  "deleb1/el cargo": {
+   "why": "The first example is shared with tomar in A1; the second was la carga, 'load', B2's card, and is shared with llevar in A1. The gloss did not give a cargo de. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "post, position",
+      "charge (on a bill; a legal charge)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a cargo de — in charge of"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Él tomó posesión de su cargo",
+    "llevar una carga de 4 toneladas"
+   ],
+   "ex": [
+    [
+     "Ocupa un cargo importante en el Gobierno.",
+     "She holds an important post in the government."
+    ],
+    [
+     "Está a cargo de la tienda.",
+     "He's in charge of the shop."
+    ]
+   ]
+  },
+  "deleb1/la energía": {
+   "why": "The gloss is right. The third example read 'como solía tenerlo', where the pronoun must be la, energía being feminine.",
+   "dropEx": [
+    "como solía tenerlo"
+   ],
+   "ex": [
+    [
+     "La energía solar es limpia.",
+     "Solar energy is clean."
+    ]
+   ]
+  },
+  "deleb1/el baile": {
+   "why": "The gloss is right. The first example is shared with la pareja in A1 and the third with el viernes in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "La pareja está en la pista de baile.",
+    "El viernes pasado nos fuimos a un baile."
+   ],
+   "ex": [
+    [
+     "¿Me concedes este baile?",
+     "May I have this dance?"
+    ],
+    [
+     "Las clases de baile empiezan en octubre.",
+     "The dance classes start in October."
+    ]
+   ]
+  },
+  "deleb1/simple": {
+   "why": "The gloss is right, though 'ordinary' is not a separate sense. The first example is shared with acaso in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "simple",
+      "mere, just (un simple error — just a mistake)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Acaso no se trata de un simple accidente"
+   ],
+   "ex": [
+    [
+     "La receta es muy simple.",
+     "The recipe is very simple."
+    ]
+   ]
+  },
+  "deleb1/la opinión": {
+   "why": "The gloss is right. The second example is shared with parecerse in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "opinion"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en mi opinión — in my opinion"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mis opiniones se parecen a las de él."
+   ],
+   "ex": [
+    [
+     "En mi opinión, deberías ir.",
+     "In my opinion, you should go."
+    ]
+   ]
+  },
+  "deleb1/el tema": {
+   "why": "'plot' is not what the word means. The first example is shared with la novela in A2, and the second was the verb temer ('Nunca le temas'), B2's card. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "subject, topic",
+      "theme"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "cambiar de tema — to change the subject"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Cuál es el tema de su última novela",
+    "Nunca le temas a cometer errores."
+   ],
+   "ex": [
+    [
+     "Cambiemos de tema.",
+     "Let's change the subject."
+    ],
+    [
+     "El tema del debate fue el medio ambiente.",
+     "The topic of the debate was the environment."
+    ]
+   ]
+  },
+  "deleb1/público, pública": {
+   "why": "The gloss missed the noun, el público, 'audience, the public', which the first example is; it is also an A1 sentence. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "adjective",
+     [
+      "public",
+      "state (colegio público — state school)"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "el público — audience; the public"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "El parque está abierto a todo el público."
+   ],
+   "ex": [
+    [
+     "Estudió en un colegio público.",
+     "She went to a state school."
+    ]
+   ]
+  },
+  "deleb1/la zona": {
+   "why": "The gloss is right. The first example, 'the deepest zone of all', is not a sentence anyone needs, and the second's English said 'a part of Canada'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "area, zone"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Esta zona es la más profunda de todas."
+   ],
+   "exEn": [
+    [
+     "se habla en ciertas zonas de Canadá",
+     "French is spoken in certain areas of Canada."
+    ]
+   ],
+   "ex": [
+    [
+     "Vivo en una zona muy tranquila.",
+     "I live in a very quiet area."
+    ]
+   ]
+  },
+  "deleb1/el encuentro": {
+   "why": "'dispute, row' are not B1's senses; a sports match was missing. The third example was the verb encontrar ('No encuentro a Carlos').",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "meeting, encounter",
+      "match (in sport)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No encuentro a Carlos"
+   ],
+   "ex": [
+    [
+     "Fue un encuentro inesperado.",
+     "It was an unexpected encounter."
+    ]
+   ]
+  },
+  "deleb1/el san": {
+   "why": "THE HEADWORD WAS THE WRONG WORD, AND GLOSSED 'financial'. San is the shortened form of santo used before a man's name, with no article and no plural (the card offered los sanes). The noun and adjective are other cards, el santo in A2 and santo, santa later in B1, and the second example, 'El santo eres tú', belonged to them. The first had been through the name table: San Juan, the capital of Puerto Rico, came out as San Javier.",
+   "spanish": "san",
+   "word": "san",
+   "senses": [
+    [
+     "adjective (before a man's name)",
+     [
+      "Saint (San Pedro, San José)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "but",
+     "santo before Tomás, Tomé, Toribio and Domingo; santa for a woman"
+    ]
+   ],
+   "dropEx": [
+    "es la capital de Puerto Rico",
+    "El santo eres tú"
+   ],
+   "ex": [
+    [
+     "San Pedro es el patrón de los pescadores.",
+     "Saint Peter is the patron saint of fishermen."
+    ],
+    [
+     "Vivimos cerca de la iglesia de San José.",
+     "We live near St Joseph's church."
+    ]
+   ]
+  },
+  "deleb1/el éxito": {
+   "why": "The gloss did not give tener éxito, 'to succeed', which the first example is, or warn that éxito is not 'exit'. The second example was an aphorism.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "success",
+      "hit (a success with the public)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "tener éxito — to succeed"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "los éxitos"
+    ],
+    [
+     "not",
+     "exit — la salida"
+    ]
+   ],
+   "dropEx": [
+    "El punto de partida de todos los éxitos"
+   ],
+   "ex": [
+    [
+     "La obra fue un gran éxito.",
+     "The play was a great success."
+    ]
+   ]
+  },
+  "deleb1/el fondo": {
+   "why": "The gloss missed funds, which the second example is, and en el fondo, which the third is; its English said 'at bottom'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "bottom",
+      "back (al fondo — at the back)",
+      "fund(s)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "en el fondo — deep down"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "En el fondo, él es un hombre honesto",
+     "Deep down, he's an honest man."
+    ]
+   ]
+  },
+  "deleb1/el respecto": {
+   "why": "The gloss, 'respect, regard, connection, relation, relationship', did not say that the word lives in two phrases, or that it is not el respeto, 'respect' as esteem. The first example used the Rioplatense voseo, tenés.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "regard, respect (in this respect)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "con respecto a / respecto a — regarding, as for",
+      "al respecto — about it"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "not",
+     "el respeto — respect (esteem)"
+    ]
+   ],
+   "dropEx": [
+    "Tenés toda la razón"
+   ],
+   "ex": [
+    [
+     "No sé nada respecto a su familia.",
+     "I know nothing about his family."
+    ]
+   ]
+  },
+  "deleb1/parar": {
+   "why": "NONE OF THE THREE EXAMPLES COULD STAY. The first is shared with de in A1, the second was the preposition para in a generalisation about women, and the third was the noun la parada, A1's card. 'to become erect' is not B1's. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to stop"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "no parar de + infinitive — to keep on (doing)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No abrir antes de que pare el tren.",
+    "Para muchas mujeres",
+    "el autobús hizo una parada"
+   ],
+   "ex": [
+    [
+     "El autobús para delante del hotel.",
+     "The bus stops outside the hotel."
+    ],
+    [
+     "No para de llover.",
+     "It won't stop raining."
+    ],
+    [
+     "Paramos a comer en un pueblo.",
+     "We stopped to eat in a village."
+    ]
+   ]
   }
  },
  "insert": {
