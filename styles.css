@@ -3577,6 +3577,9 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
 .ws-admin .q-main{cursor:default;}
 .ws-row .mini-btn{flex:none; align-self:center; margin-right:8px;}
 .ws-row.ws-off .q-text{color:var(--ink-faint); text-decoration:line-through; text-decoration-color:color-mix(in srgb,var(--ink-faint) 60%,transparent);}
+.tf-form .admin-field{margin-top:10px;}
+.tf-form textarea.af-input{resize:vertical; font-family:var(--sans); line-height:1.5;}
+.tf-row .mini-btn + .mini-btn{margin-left:-2px;}
 @media (max-width:640px){
   .ws-row .mini-btn{align-self:flex-start; margin:0 12px 8px;}
   .q-page{padding:12px 12px 22px;}
