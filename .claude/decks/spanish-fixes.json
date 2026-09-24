@@ -26831,6 +26831,606 @@
      "My best friend is Mexican."
     ]
    ]
+  },
+  "delea2/valer": {
+   "why": "The gloss missed ¿cuánto vale?, 'how much is it?', the sense a shopper needs, and valer la pena. The first example, 'No todos los libros valen la pena leer', is not grammatical.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to cost, to be worth (¿cuánto vale? — how much is it?)",
+      "to be good (for), to be valid"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "valer la pena — to be worth it"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No todos los libros valen la pena leer."
+   ],
+   "ex": [
+    [
+     "¿Cuánto vale esta camiseta?",
+     "How much is this T-shirt?"
+    ]
+   ]
+  },
+  "delea2/aprobar": {
+   "why": "The gloss put 'to approve, to condone' first; at A2 the word is passing an exam, which every example was. All three were that one construction.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to pass (an exam)",
+      "to approve (a law, a plan)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Estoy seguro de que aprobará el próximo examen."
+   ],
+   "ex": [
+    [
+     "El Parlamento aprobó la nueva ley.",
+     "Parliament passed the new law."
+    ]
+   ]
+  },
+  "delea2/afeitarse": {
+   "why": "The gloss and the examples are right. The affirmative imperatives read afeítate, afeítese, afeítense, the add_stress fault S6 found: the stress falls on the e of the diphthong, aféitate.",
+   "conjSub": [
+    [
+     "afeít<span class=\"uc-cj-e\">ate</span>",
+     "aféit<span class=\"uc-cj-e\">ate</span>"
+    ],
+    [
+     "afeít<span class=\"uc-cj-e\">ese</span>",
+     "aféit<span class=\"uc-cj-e\">ese</span>"
+    ],
+    [
+     "afeít<span class=\"uc-cj-e\">ense</span>",
+     "aféit<span class=\"uc-cj-e\">ense</span>"
+    ]
+   ]
+  },
+  "delea2/consultar": {
+   "why": "The gloss missed looking something up, the everyday sense. The first example was the noun la consulta, the surgery hours, not the verb.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to consult, to see (a doctor)",
+      "to look up (in a dictionary, a timetable)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "tiene el doctor la consulta"
+   ],
+   "ex": [
+    [
+     "Consulta el diccionario si no sabes una palabra.",
+     "Look it up in the dictionary if you don't know a word."
+    ]
+   ]
+  },
+  "delea2/preocuparse": {
+   "why": "The gloss is right. The second and third examples were one construction, 'no te preocupes' and 'no se preocupe'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to worry (preocuparse por — about)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No se preocupe. Es un error muy común."
+   ],
+   "ex": [
+    [
+     "Mi madre se preocupa mucho por mí.",
+     "My mother worries about me a lot."
+    ]
+   ]
+  },
+  "delea2/enfadarse": {
+   "why": "The gloss did not give enfadarse con, which the second and third examples are. The first's English said 'turned away in anger', the third's 'gets mad'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to get angry, to get cross (enfadarse con — with)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Ella se enfadó y se dio la vuelta",
+     "She got angry and turned away."
+    ],
+    [
+     "se enfada conmigo por cada pequeña cosa",
+     "He gets cross with me over every little thing."
+    ]
+   ]
+  },
+  "delea2/acordarse": {
+   "why": "The gloss did not give acordarse de. The first example is also an A1 sentence, and the third, 'Tú no te acuerdas, yo no me olvidaré', is shared with olvidar earlier in A2. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1). SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to remember (acordarse de)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "No me acuerdo de la cara de Carlos.",
+    "Tú no te acuerdas, yo no me olvidaré."
+   ],
+   "ex": [
+    [
+     "¿Te acuerdas de mí?",
+     "Do you remember me?"
+    ],
+    [
+     "Carlos se acordó de su cumpleaños.",
+     "Carlos remembered her birthday."
+    ]
+   ]
+  },
+  "delea2/repasar": {
+   "why": "'to review' is American for revising; in British English a student revises, which the examples already said. The first's English read 'his exam of tomorrow'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to revise (for an exam), to go over"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "está repasando para su examen",
+     "Carlos is revising for tomorrow's exam."
+    ],
+    [
+     "Repasé el presupuesto",
+     "I went over the budget and decided to cut costs."
+    ]
+   ]
+  },
+  "delea2/reservar": {
+   "why": "The gloss did not give 'to book', the British word the examples want, and listed 'keep, save, set aside' separately. The first and third examples' English said 'reservations' and 'reserve'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to book, to reserve (a table, a room)",
+      "to save, to keep (a seat)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Es imposible comer en este restaurante sin reservar",
+     "You can't eat at this restaurant without booking."
+    ],
+    [
+     "Reservaste una habitación",
+     "Did you book a room at the hotel?"
+    ]
+   ]
+  },
+  "delea2/divertirse": {
+   "why": "The gloss and the examples are right. The gerund read divirtíendose (S3's fault) and is now divirtiéndose; the vosotros imperative read divertios and is now divertíos (S2's finding).",
+   "conjSub": [
+    [
+     "<span class=\"uc-cj-e\">divirtíendose</span>",
+     "<span class=\"uc-cj-e\">divirtiéndose</span>"
+    ],
+    [
+     "div<span class=\"uc-cj-e\">ertios</span>",
+     "div<span class=\"uc-cj-e\">ertíos</span>"
+    ]
+   ]
+  },
+  "delea2/regalar": {
+   "why": "'to regale' and 'entertain' are not what the word means in Spanish today. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to give (as a present)"
+     ]
+    ]
+   ]
+  },
+  "delea2/suspender": {
+   "why": "The gloss put 'to suspend' first; at A2 it is failing an exam, which two examples are, and 'to call off', which the first is. The third used entonces for 'so', which is Latin American; Spain says así que.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to fail (an exam)",
+      "to call off, to suspend"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "entonces suspendió"
+   ],
+   "ex": [
+    [
+     "Si no estudias, vas a suspender.",
+     "If you don't study, you're going to fail."
+    ]
+   ]
+  },
+  "delea2/traducir": {
+   "why": "The gloss said 'to translate' twice. The second example's English, 'How long have we been translating', is not what 'nos ha llevado' says, and the third's said 'Father'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to translate (from … into — de … a)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "nos ha llevado traducir este libro",
+     "How long has it taken us to translate this book?"
+    ],
+    [
+     "Mi padre tradujo el documento",
+     "My father translated the French document into Japanese."
+    ]
+   ]
+  },
+  "delea2/barrer": {
+   "why": "The gloss is right. The first example was the noun el barro, 'mud', not the verb, and the third used el piso for the floor, which in Spain is a flat.",
+   "dropEx": [
+    "Mi camión se quedó atascado en el barro.",
+    "que barriera el piso"
+   ],
+   "ex": [
+    [
+     "Barro la terraza todos los sábados.",
+     "I sweep the terrace every Saturday."
+    ],
+    [
+     "Carlos le pidió a Ana que barriera la cocina.",
+     "Carlos asked Ana to sweep the kitchen."
+    ]
+   ]
+  },
+  "delea2/divorciarse": {
+   "why": "The gloss is right. The affirmative imperatives read divorcíate, divorcíese, divorcíense, the add_stress fault: the i of divorcio is unstressed, so it is divórciate. The first and second examples were one construction, a divorce last year.",
+   "conjSub": [
+    [
+     "divorcí<span class=\"uc-cj-e\">ate</span>",
+     "divórci<span class=\"uc-cj-e\">ate</span>"
+    ],
+    [
+     "divorcí<span class=\"uc-cj-e\">ese</span>",
+     "divórci<span class=\"uc-cj-e\">ese</span>"
+    ],
+    [
+     "divorcí<span class=\"uc-cj-e\">ense</span>",
+     "divórci<span class=\"uc-cj-e\">ense</span>"
+    ]
+   ],
+   "dropEx": [
+    "Carlos y Ana se divorciaron el año pasado."
+   ],
+   "ex": [
+    [
+     "¿Por qué quieren divorciarse?",
+     "Why do they want to get divorced?"
+    ]
+   ]
+  },
+  "delea2/interesar": {
+   "why": "The gloss did not say that interesar is built like gustar, which is how every example uses it. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to interest (me interesa — I'm interested in it; built like gustar)"
+     ]
+    ]
+   ]
+  },
+  "delea2/felicitar": {
+   "why": "The gloss is right. The first example, congratulating 'the hands that made this possible', is not a sentence anyone needs.",
+   "dropEx": [
+    "Felicito a las manos"
+   ],
+   "ex": [
+    [
+     "Te felicito por el nuevo trabajo.",
+     "Congratulations on the new job."
+    ]
+   ]
+  },
+  "delea2/anteayer": {
+   "why": "The first and third examples were one construction, a weekday riddle, and their English said 'after tomorrow'. The second spelt the word antier, which is Latin American.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "the day before yesterday"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Antier terminé",
+    "Si anteayer fue miércoles"
+   ],
+   "exEn": [
+    [
+     "Si anteayer fue domingo",
+     "If the day before yesterday was Sunday, the day after tomorrow will be Thursday."
+    ]
+   ],
+   "ex": [
+    [
+     "Anteayer fuimos al cine.",
+     "The day before yesterday we went to the cinema."
+    ],
+    [
+     "Llegó anteayer de Londres.",
+     "He got back from London the day before yesterday."
+    ]
+   ]
+  },
+  "delea2/quejarse": {
+   "why": "The gloss did not give quejarse de. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to complain (quejarse de — about)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La gente se queja a menudo del tiempo."
+   ],
+   "ex": [
+    [
+     "Los vecinos se quejan del ruido.",
+     "The neighbours complain about the noise."
+    ]
+   ]
+  },
+  "delea2/planchar": {
+   "why": "'to overwrite' is not this word. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to iron"
+     ]
+    ]
+   ]
+  },
+  "delea2/memorizar": {
+   "why": "The gloss was spelt American; the examples already said 'memorise'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to memorise, to learn by heart"
+     ]
+    ]
+   ]
+  },
+  "delea2/alegrarse": {
+   "why": "The gloss did not give alegrarse de. The first example is shared with invitar earlier in A2. SHARED WITHIN A2: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to be glad, to be pleased (alegrarse de)",
+      "to cheer up"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Me alegro de que Carlos te haya invitado."
+   ],
+   "ex": [
+    [
+     "Me alegro de verte.",
+     "I'm glad to see you."
+    ]
+   ]
+  },
+  "delea2/aburrirse": {
+   "why": "The gloss is right. The gerund read aburríendose (S3's fault) and the vosotros imperative aburrios (S2's); they are now aburriéndose and aburríos. The second example was sexual, and the third's 'Entre más… más' is Latin American; Spain says cuanto más.",
+   "conjSub": [
+    [
+     "aburr<span class=\"uc-cj-e\">íendose</span>",
+     "aburr<span class=\"uc-cj-e\">iéndose</span>"
+    ],
+    [
+     "aburr<span class=\"uc-cj-e\">ios</span>",
+     "aburr<span class=\"uc-cj-e\">íos</span>"
+    ]
+   ],
+   "dropEx": [
+    "mientras hacíamos el amor",
+    "Entre más hablaba ella"
+   ],
+   "ex": [
+    [
+     "Cuanto más hablaba, más me aburría.",
+     "The more he talked, the more bored I got."
+    ],
+    [
+     "Los niños se aburren en los viajes largos.",
+     "Children get bored on long journeys."
+    ]
+   ]
+  },
+  "delea2/peinarse": {
+   "why": "The gloss is right. The affirmative imperatives read peínate, peínese, peínense, the add_stress fault: the stress falls on the e of the diphthong, péinate. The first example, 'Sabe cómo tiene que peinarse el cabello', is not natural Spanish.",
+   "conjSub": [
+    [
+     "peín<span class=\"uc-cj-e\">ate</span>",
+     "péin<span class=\"uc-cj-e\">ate</span>"
+    ],
+    [
+     "peín<span class=\"uc-cj-e\">ese</span>",
+     "péin<span class=\"uc-cj-e\">ese</span>"
+    ],
+    [
+     "peín<span class=\"uc-cj-e\">ense</span>",
+     "péin<span class=\"uc-cj-e\">ense</span>"
+    ]
+   ],
+   "dropEx": [
+    "Sabe cómo tiene que peinarse el cabello."
+   ],
+   "ex": [
+    [
+     "Me peino todas las mañanas.",
+     "I comb my hair every morning."
+    ]
+   ]
+  },
+  "delea2/cansarse": {
+   "why": "The gloss is right. The first example, 'men tire themselves in pursuit of rest', is an aphorism, and the third was sexual. The second's English said 'store'.",
+   "dropEx": [
+    "Los hombres se cansan en búsqueda del descanso.",
+    "Solíamos hacer el amor"
+   ],
+   "exEn": [
+    [
+     "Ya me canso de andar por la tienda",
+     "I'm getting tired of walking round the shop."
+    ]
+   ],
+   "ex": [
+    [
+     "Me canso mucho cuando subo escaleras.",
+     "I get very tired when I climb stairs."
+    ],
+    [
+     "Los niños nunca se cansan de jugar.",
+     "Children never get tired of playing."
+    ]
+   ]
+  },
+  "delea2/preferir": {
+   "why": "'to rather' is not English. The second example, 'Preferiría que te quedes', breaks the sequence of tenses (quedaras).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to prefer"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Preferiría que te quedes"
+   ],
+   "ex": [
+    [
+     "¿Prefieres té o café?",
+     "Would you rather have tea or coffee?"
+    ]
+   ]
+  },
+  "delea2/cepillarse": {
+   "why": "The gloss is right. The third example, 'Come antes de cepillarse los dientes', is not a sentence anyone needs.",
+   "dropEx": [
+    "Come antes de cepillarse los dientes."
+   ],
+   "ex": [
+    [
+     "Me cepillo los dientes tres veces al día.",
+     "I brush my teeth three times a day."
+    ]
+   ]
+  },
+  "delea2/chatear": {
+   "why": "The card had two examples, and the second, a man called César plugging in an extension lead to chat in bed, is not a sentence anyone needs.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to chat (online)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "César conectó el alargador"
+   ],
+   "ex": [
+    [
+     "Paso horas chateando con mis amigos.",
+     "I spend hours chatting with my friends online."
+    ],
+    [
+     "¿Chateamos luego?",
+     "Shall we chat later?"
+    ]
+   ]
+  },
+  "delea2/soler": {
+   "why": "The gloss was a trailing definition. The first example is also an A1 sentence. SHARED WITH A1: the A1 card, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to usually do, to tend to (suelo + infinitive — I usually …)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Los lobos no suelen atacar a la gente."
+   ],
+   "ex": [
+    [
+     "Suelo levantarme a las siete.",
+     "I usually get up at seven."
+    ]
+   ]
+  },
+  "delea2/apellidarse": {
+   "why": "The card had two examples. The first's English said 'Bro' for tío, and both said 'last name' for the British 'surname'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to have the surname (me apellido García — my surname is García)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "cómo dijiste que te apellidabas",
+     "Mate, what did you say your surname was?"
+    ],
+    [
+     "Sabes cómo se apellida",
+     "Do you know his surname?"
+    ]
+   ],
+   "ex": [
+    [
+     "Me llamo Ana y me apellido García.",
+     "My name is Ana and my surname is García."
+    ]
+   ]
   }
  },
  "insert": {
@@ -27112,7 +27712,9 @@
    "la propina",
    "el cuaderno",
    "el medicamento",
-   "la cebolla"
+   "la cebolla",
+   "acostarse",
+   "amueblar"
   ]
  }
 }

@@ -3472,6 +3472,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S15 | A2 | #385 `el maletín` – #411 `sentarse` | 25 | 2 (`la araña`, `sentarse`) | 0 | — | — |
 | S16 | A2 | #412 `la factura` – #438 `la propina` | 22 | 5 (`la fórmula`, `mediante`, `el fotógrafo`, `el ballet`, `la propina`) | 0 | — | — |
 | S17 | A2 | #439 `vestirse` – #466 `mexicano` | 25 | 3 (`el cuaderno`, `el medicamento`, `la cebolla`) | 0 | — | — |
+| S18 | A2 | #467 `valer` – #498 `apellidarse` | 30 | 2 (`acostarse`, `amueblar`) | 0 | A2 complete | — |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4251,6 +4252,55 @@ The last A2 card with each fault is still to come: `afeitarse`, `divorciarse` an
   `surfi`, which never meet the 4-letter gloss words `sail` and `surf`.
 - The replacement sentence first written for `doler`, *Me duele la cabeza*, was caught by `share.js` as
   `la cabeza`'s own example. It is now *Me duele mucho la espalda*.
+
+### S18 — DELE A2, notes #467–#498 (Sep 2026) — A2 complete
+
+Measured against the S17 commit by card id: **30 changed and 465 untouched**. All 30 changes are this batch's record entries, and nothing before #467 moved. **`acostarse` and `amueblar` were read and left as they were.** The batch is 32 notes, two more than the batch size, because these are the last 32 cards in A2 and splitting off a two-card batch would add nothing. **With this batch every card in DELE A2 has been read.**
+
+**THE CONJUGATION TABLE: EVERY KNOWN A2 GENERATOR FAULT IS NOW REPAIRED.**
+- **The add_stress fault from S6** was in three cards:
+  - `afeitarse` read *afeítate*, *afeítese* and *afeítense*, and `peinarse` read *peínate*, *peínese* and *peínense*. In both verbs the stress falls on the *e* of the diphthong, so the correct forms are *aféitate* and *péinate*.
+  - `divorciarse` read *divorcíate*. The *i* of *divorcio* is unstressed, so the correct form is *divórciate*.
+
+  Each fix is three `conjSub` pairs, one for each affirmative imperative that carries a clitic.
+- **The reflexive-gerund fault from S3** was in two cards: `divertirse` and `aburrirse`, bringing the number repaired to eleven.
+- **The -ir vosotros-imperative fault from S2** was in the same two cards: *divertios* and *aburrios* are now *divertíos* and *aburríos*. That makes four of the 39 cards repaired.
+
+The remaining cells with these faults are in B1–C2 and are left for those batches.
+
+**THE LOOK-ALIKE, THREE MORE TIMES.** In each case the example used a noun that is spelt like the verb:
+- `consultar` was illustrated by *la consulta*, a doctor's surgery hours.
+- `barrer` was illustrated by *el barro*, mud. Its replacement, *Barro la terraza*, uses the same letters as the verb, which is the point.
+- In S17's `vestirse` the example had used the noun for a dress; this is the same fault.
+
+**TWO SEXUAL EXAMPLES AND A GRAMMAR FAULT.**
+- `aburrirse` and `cansarse` each had a sentence about making love. The S8 and S9 vulgarity sweeps missed both, because *hacer el amor* was not on their word list.
+- `preferir` had *Preferiría que te quedes*, which breaks the sequence of tenses.
+- `valer` had *No todos los libros valen la pena leer*, which is not grammatical.
+
+**LATIN AMERICAN USAGE.** These were replaced with the forms used in Spain:
+- *antier* (`anteayer`)
+- *entre más… más* (`aburrirse`)
+- *entonces* for 'so' (`suspender`)
+- *el piso* for the floor (`barrer`)
+
+**GLOSSES.**
+- `aprobar` and `suspender` now put the exam sense first.
+- `valer` now includes *¿cuánto vale?*.
+- `interesar` now says it is built like *gustar*.
+- `reservar` now glosses *to book*.
+- `repasar` now glosses *to revise*.
+- `regalar` has lost *to regale*.
+- `planchar` has lost *to overwrite*.
+- `preferir` has lost *to rather*.
+- `acordarse`, `quejarse`, `enfadarse` and `alegrarse` now name the preposition they take.
+- `chatear` and `apellidarse` had two examples each and now have three.
+
+**CHECKERS.**
+- `--check` passes, `check-say` reports 0, and no example is left unbolded.
+- **All 495 A2 cards now carry three examples.**
+- `check-senses --deck=DELE-A2` went from 16 flags to 14. The one card in this batch still flagged, `regalar`, is a false positive: the gloss says *give*, the examples say *gave* and *given*, and the checker's stemming cannot match those irregular English forms.
+- `spanish-fix.js`'s guard refused the first replacement for `divorciarse`, *¿Por qué se quieren divorciar?*. The bare infinitive with a separated clitic is not one of the card's forms, so the sentence is now *¿Por qué quieren divorciarse?*.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
