@@ -698,6 +698,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 901–930 (描写 → 南极洲), deck order | 14 (+1 out of range) | **a second `not X` hint pair covering two wrong glosses** — 模拟 and 仿制 both "imitation" under a verb label; and 民众's open item closed |
 | 2026-09-24 | `hsk30l6` notes 931–960 (南美洲 → 泡), deck order | 24 | **four single-character cards with every sentence swallowed or nearly** — 扭 (扭伤 twice), 盘 (汤盘, 存盘, 大盘鸡), 暖 (回暖, 变暖), 泡 (泡汤) |
 | 2026-09-24 | `hsk30l6` notes 961–990 (赔偿 → 坡), deck order | 25 | **片面 illustrated by 一片面包 "a slice of bread" twice**, 披 by pizza and the Beatles, and 喷 and 坡 swallowed three times each |
+| 2026-09-24 | `hsk30l6` notes 991–1020 (泼 → 谦虚), deck order | 22 | **恰恰's three sentences were all the set phrase 恰恰相反**; 扑 glossed "dedicate all one's energies to a cause"; 铺 illustrated by 床铺, read pù |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12073,3 +12074,33 @@ adverbs over adjectives; nine gained a missing "to" or noun.
 Coverage: 11,532 notes at three sentences; 314 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
 `check-british` reads 0. **Verified against the real diff: 25 of 30 changed and nothing outside the range.**
 `build-lang-decks.js` re-run. No changelog line and no version bump.
+
+### Batch 163 — `hsk30l6` notes 991–1020 (泼 → 谦虚)
+
+**恰恰 *exactly* had three sentences, and all three were 恰恰相反 *just the opposite***, a set phrase CC-CEDICT
+lists as a headword of its own — two of them long and one mistranslated as "Instead". All three replaced by
+AUTHORED sentences using 恰恰 on its own (恰恰是, 恰恰出在, 恰恰是时候).
+
+**Glosses from the wrong end of the entry.** 扑 led with **"dedicate all one's energies to a cause"**, a sense
+no sentence showed; all three throw themselves at something. 气质 was "manners"; 齐全 "complete; ready"; 恰好
+"as it turns out"; 其间 "in between". 铺's gloss named "display; bed" — senses of other readings — and its first
+sentence was **床铺, read pù, on a card that teaches pū**; its Compounds panel says so.
+
+**Swallows**: 扑鼻 and the idiom 饿虎扑羊 on 扑; 铺设 on 铺 (its English said *floor*); 手牵手 on 牵, whose three were
+all holding hands; 启发性 on 启发; and this record's own 泼水 on 泼.
+
+**A usage error presented as a sentence.** 起初's 我起初来自中国 "I'm originally from China" uses 起初, which is
+*at first* of a time, where Chinese says 原来 or 本来. 迫切's second wrote 的 for adverbial 地; 谦虚's 我是谦虚的 is
+unnatural and undoes itself; 齐全's comparison of editions was awkward; 启发's thanks to Mr Smith was
+translationese. All replaced.
+
+**Near-repeats**: 启动 (restart the computer three times), 期限 (the deadline twice), 气氛 (the mysterious place
+twice), and this record's own 其间, 启示, 千家万户. **Englishes**: 欺骗's *swindled*, 气味's *terrifying*.
+
+**Eight cards were read and left**: 扑灭, 朴素, 棋子, 起点, 启事, 起源, 气体, 恰当. 起初 keeps its Genesis sentence,
+which is the Chinese Union Version's own wording. `check-coarse.js` now lists 泼's 脏水 under SLUR for *dirty*
+in "dirty water" — a proxy firing on a literal. Four Compounds panels written (泼, 扑, 铺, 牵).
+
+Coverage: 11,532 notes at three sentences; 314 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
+`check-british` reads 0; `check-gloss-source.js` loses 气质. **Verified against the real diff: 22 of 30 changed
+and nothing outside the range.** `build-lang-decks.js` re-run. No changelog line and no version bump.
