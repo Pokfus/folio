@@ -601,7 +601,8 @@ wrong. The RULES stay in `CLAUDE.md`, in their imperative form.
 
 · **YOUR OWN ATLAS — A SECOND TAB, AND THE ONE THE PAGE OPENS ON** (`atlasTab` / `MINE` /
 `atlasUnlocks` / `mineShapes` / `mineMarks` / `mineAt` / `mineSel` / `drawMineShapes` /
-`drawMineMarks` / `mineCoastSkip` / `landDim` / `showMinePopup` / `eraIsModern` / `.atlas-tabs` /
+`drawMineMarks` / `mineCoastSkip` / `mineCoastCut` / `countryAtLL` / `mineDotRects` / `landDim` /
+`showMinePopup` / `eraIsModern` / `.atlas-tabs` /
 `.atlas-empty` / `.cp-mine`; Sep 2026, on request). The globe
 starts EMPTY — land, ocean, lakes, rivers and coast, and no border, dot or name anywhere — in every
 year from 4000 BCE, and studying a card is what puts a place on it. Seven things.
@@ -719,6 +720,44 @@ chain's middle first so the fuller vote runs only for the few that look like a b
 once, inside a first paint that already costs 1.4s on this tab, and **a shortcut that skipped CLOSED
 loops was tried and removed** — a country's whole outline chains as one closed loop, its coast and its
 unshared border together, so it took the fix to zero while looking like a five-times speed-up.
+**…AND THE STRAYS THAT ARE NOT A WHOLE CHAIN, WHICH NO WHOLE-CHAIN TEST CAN REACH** (`mineCoastCut`;
+Sep 2026, on a second bug report: "there are some stray lines on the personal atlas", with screenshots
+of ruler-straight lines across Egypt, Arabia, Tanzania, Senegal and the Gulf of California). The mask
+above drops a chain that is a border end to end. These are the same fault a level down: world.js's
+straight desert and colonial borders are traced by BOTH countries a hundredth of a degree apart, so
+neither edge cancels and the chain builder threads the surviving pair into whatever coast it meets —
+the Kenya/Tanzania line rides inside the ONE chain that carries the whole Afro-Eurasian coastline,
+17,109 points of it, which is why no test that judges a chain as a whole could ever have found it.
+**THE SIGNATURE IS A SEGMENT WITH A REVERSE TWIN**, which a real shore never has: a coastline does not
+come back along the line it went out on. Each long segment is hashed on its midpoint and asked whether
+a neighbour runs the other way between the same two ends.
+**AND A DOUBLED SEGMENT IS STILL NOT ENOUGH — 244 of the 259 pairs are REAL.** A fjord, an estuary or a
+strait simplified to 2dp collapses to exactly this hairline: the Hardangerfjord, the Rosetta branch of
+the Nile, the neck of Lake Maracaibo, the Lena delta, the Canadian inlets. So a pair is cut only where
+`mineCoastSkip`'s own discriminator agrees, TWO DIFFERENT COUNTRIES across it — water inside one
+country is geography and stays, a line between two of them is the artefact and goes. Proved by taking
+two renders of the Norwegian fjords and the Nile delta byte-for-byte identical across the change while
+four border views all moved.
+**THE FLOOR IS 0.3° AND BOTH HALVES OF A PAIR MUST CLEAR IT.** A first cut at 0.4° shipped half a
+stray: the Arava is traced 0.48° down one side and 0.39° back up the other, so only one half was a
+candidate, no pair formed, and what was left on screen still read as a stray line. **Set a floor by the
+SHORTER half.**
+**AND MEASURE IT OVER THE CHAINS THAT ARE DRAWN**, which is what its own `skip[k]` line makes it: the
+first figures written down were taken without that line and named borders this pass never sees, their
+chains having already been dropped whole by the mask above. As shipped: 7,473 long segments in the
+drawn chains, 259 doubled pairs, 15 of them cut (30 segments) — the United States/Mexico, Western Sahara/Mauritania,
+Kenya/Tanzania, Saudi Arabia/UAE, Jordan/Saudi Arabia, the Gambia, the Guajira, the Arava, the
+Uruguay, the Cavally, the Rovuma. It costs ~74ms beside `mineCoastSkip`'s ~410, and it returns PIECES
+rather than a mask so `coastCaps()` stays indexed in step with `coastEdges()`.
+**A PLACE'S NAME ANSWERS A CLICK TOO** (`mineDotRects`; Sep 2026, on request: "locations should not
+just open their cards when clicking their dot, but also the text label for it"). The dot is three or
+four pixels of red beside a word several times its width, so the word is by far the larger target and
+was the only thing drawn on this layer that did nothing — a reader aiming at *Olduvai Gorge* hit the
+name and got silence, which reads as a dead map rather than as a small target. The box is RECORDED BY
+THE PASS THAT DRAWS IT, `mineWaterRects`' own rule, because a name is placed to the right of its dot or
+to the left and only that pass knows which side it took; and it is tried after the marks and before the
+water, so a press between two names reaches the one whose DOT it is nearest rather than whichever word
+happened to be drawn first. Measured: the target went from 18px wide to 54px.
 **AND THE POPUP SAYS NOTHING THE CARD ALREADY SAYS** (`.cp-mine`; Sep 2026, on request: "remove the
 'Answer' header and 'From your card' tagline, the title bar (should only display when popup is
 collapsed) and its dating"). Four repetitions of the card back beside them — the answer term is its own
@@ -744,12 +783,23 @@ years.** MEASURED: unclamped it DELAYS 264 countries and takes FRANCE off the 15
 — `gw-`'s date line for France records the United States' recognition in 1778 — and Japan off the same
 three on Perry's 1853. Clamped, 163 move earlier and none later. A state founded before the first map
 that shows it is drawn in THAT map's shape, which is the only shape Folio has for it.
-**THE MARKS AND THEIR NAMES ARE GATED BY ZOOM** (`MINE_SEP`, `MINE_LBL_Z`, `mineDotsShown`): a
-separation in screen pixels thins the marks and the NAMES wait for zoom 2.6 altogether. Which mark
-survives is RANKED — a capital first, then the title — so the set is stable between frames and zooming
-in only ever adds; first-come over `Object.keys(S.cards)` would reshuffle the map on every grade. **And
-`mineAt` reads the same thinned list**, or a click on empty ground opens a popup about a place that is
-not drawn.
+**A MARK IS NEVER DRAWN WITHOUT ITS NAME** (`MINE_SEP`, `dotHalf`, `mineDotsShown`, `mineDotRects`;
+Sep 2026, on request: the dots and squares "should never appear without labels", should "appear
+progressively as you zoom in", and a label should never be "hidden behind other dots"). It used to be
+two gates rather than one: a separation in screen pixels thinned the MARKS, and a second threshold —
+`MINE_LBL_Z`, zoom 2.6 — held every NAME back below it, so a world view was a scatter of dots naming
+nothing. **That threshold is DELETED.** The label is now placed first and the mark drawn only if the
+label was placed (`if (!box) continue;` stands in front of the dot's own path), so the two cannot come
+apart at any zoom, and `MINE_SEP` alone decides how many survive — which makes the appearance
+progressive by construction, zooming in only ever adding. **A name avoids other places' DOTS as well as
+other names**: `dotBoxes` is precomputed from each mark's own `dotHalf` radius (6.2 for a capital, 5.2
+for a dot, 4.1 for a thinned one) and the placement `clear()` tests every box but the mark's own, where
+before a label could be written straight across a neighbouring dot. Which mark survives is still RANKED
+— a capital first, then the title — so the set is stable between frames; first-come over
+`Object.keys(S.cards)` would reshuffle the map on every grade. **And `mineAt` reads `mineDotRects` —
+what was actually DRAWN, name box and all** — rather than re-deriving the thinned list, or a click on
+empty ground opens a popup about a place that is not there. **`mineWaterShown` lost the same gate**,
+having refused to place a sea's name below it.
 **A CAPITAL IS A SQUARE** and everything else a dot, which is the card maps' own convention one tab
 over; **a CIVILISATION'S wash is GREEN** (`mineAreaFill` / `mineAreaLine`), red having made it read as
 one of the reader's places writ large; and **`landDim` went from 0.87 to 0.78**, a step a reader can

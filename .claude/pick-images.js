@@ -242,7 +242,18 @@ function imageObject(slug, file, info, titles) {
     const first = desc.split(/(?<=[.;])\s/)[0].replace(/\.$/, "").trim();
     if (first.length > altOut.length + 4 && first.length <= 140) altOut = first;
   }
-  desc += " " + provenance(info);
+  /* THE ATTRIBUTION GOES IN THE CREDIT, NOT IN THE CAPTION (Sep 2026).  It used to be appended
+     here, which is why every picture this tool wrote tripped `check-cards.js`'s `source-in-caption`
+     rule — a caption that credits itself — and why the Sep 2026 hand pass that took that check to
+     zero was undone by the next batch: the pass cleared the corpus and nothing taught the tool that
+     makes new ones.  Measured on the batch that found it: 47 cards in, 47 findings out.
+     The licence is not weakened by the move.  CC BY and CC BY-SA want the creator named, the
+     licence identified and the source reachable; `provenance()` still says the first two and the
+     Commons page still carries the third — they now sit together in `credit`, which is the field
+     the house form uses (2,173 of the corpus's 2,938 card credits) and the field `mediaCreditHTML`
+     renders under the frame.  What must NOT happen is the clause being cut from the caption while
+     the credit is still a bare URL: on a CC BY file that clause would then be the only attribution
+     the picture has, which is the refusal `strip-credit-captions.js` is built around. */
   /* An SVG keeps its own file — it is scalable, so it is sharp at any size the viewer opens it
      to, and it is a fraction of the bytes.  A raster takes the 1600px rendering rather than the
      original, which is high-resolution for a frame that caps at 680 CSS px while sparing the
@@ -252,7 +263,7 @@ function imageObject(slug, file, info, titles) {
     src,
     title: termTitle(slug, titles),
     desc,
-    credit: info.page,
+    credit: provenance(info) + " " + info.page,
     alt: altOut,
   };
 }
@@ -349,10 +360,28 @@ function build() {
   /* A KEY MAY CARRY A DISAMBIGUATOR THE CARD DOES NOT.  `Lucy_(Australopithecus)` is the glossary's
      key and `Lucy` is what the card answers, and matching only the full key leaves that card with
      no picture while its own term has one.  Registered second, so a bare key of the same name
-     always wins. */
+     always wins.
+     BUT A BARE NAME TWO DISAMBIGUATED KEYS BOTH STRIP TO IS CLAIMED BY NEITHER (Sep 2026), which is
+     `buildGlossIndex`'s own `bareTaken` rule — app.js has had it for the auto-linker and this had
+     not.  First-come is arbitrary here: it is glossary INSERTION ORDER, so which of two keys wins is
+     decided by which was written first, and nothing anywhere says so.  Measured over the corpus,
+     three bare names are contested — `georgia`, `demosthenes`, `social war` — and six cards answer
+     one of them, of which THREE resolved to the wrong term: `geo-027`, the United States card, to
+     `Georgia_(country)`; `rm-305`, the Roman Social War of 91–87, to the Greek one of 357–355; and
+     `gr-692` to the general rather than the orator.  The other three were right by accident.  None
+     had yet shipped a picture through it, so this is prophylactic — but a wrong one would have been
+     a photograph of the wrong country on a card about a state, with nothing to report it. */
+  const bareOwners = {};
   Object.keys(G).forEach((k) => {
     const bare = norm(k.replace(/\s*\([^)]*\)$/, ""));
-    if (bare && !byName[bare]) byName[bare] = k;
+    if (!bare || bare === norm(k)) return;
+    (bareOwners[bare] = bareOwners[bare] || []).push(k);
+  });
+  Object.keys(G).forEach((k) => {
+    const bare = norm(k.replace(/\s*\([^)]*\)$/, ""));
+    if (!bare || byName[bare]) return;
+    if ((bareOwners[bare] || []).length > 1) return;   // contested — nobody claims it
+    byName[bare] = k;
   });
   /* AND THE CARD'S ANSWER IS OFTEN THE PLURAL OF THE TERM — "Denisovans", "Mesara tholos tombs",
      "bronze tripod cauldrons".  The site's own auto-linker pluralises a glossary key when it scans

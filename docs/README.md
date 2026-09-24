@@ -52,6 +52,7 @@ before changing the thing it names.
 | `reliquary.md` | Artefact chests, collectible themes, the showcase, the collector's badges. |
 | `card-difficulty.md` | The 1–5 rating, the community rating, and `undatable`. |
 | `map-cards.md` | The geography format — a shape on a globe as the question. |
+| `war-cards.md` | `card.war` — the two sides of a war shaded on a card's globe and on the reader's own atlas. |
 | `library-books.md` | Per-book findings for all 48 — how each edition is set, what pairs, the licence ground. |
 | `library-importer.md` | `.claude/fetch-book.js` — the 22 layouts, the extraction faults, the per-book options. |
 | `lang-decks.md` | The community and language decks' generators, and every pipeline's findings. |
@@ -74,19 +75,32 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `china-card-plan.md` | China (`china`) | `cnh-` |
 | `egypt-card-plan.md` | Ancient Egypt (`egypt`) | `eg-` |
 | `ww2-card-plan.md` | The Second World War (`ww2`) | `ww2-` |
+| `ww1-card-plan.md` | The First World War (`ww1`) | `ww1-` |
+| `architecture-card-plan.md` | Architecture (`arch`) | `arch-` |
+| `middleearth-card-plan.md` | Middle-earth (`middleearth`) — the first whose subject is fiction | `mid-` |
+| `westeros-card-plan.md` | Westeros (`westeros`) — the second whose subject is fiction | `wes-` |
+| `coldwar-card-plan.md` | The Cold War (`coldwar`) | `cw-` |
+| `vikingage-card-plan.md` | The Viking Age (`vikingage`) | `vk-` |
 | `japan-card-plan.md` | Japan (`japan`) | `jp-` |
 | `psychology-card-plan.md` | Psychology (`psych`) — the first that is not history | `ps-` |
 | `philosophy-card-plan.md` | Philosophy (`phil`) | `ph-` |
 | `biology-card-plan.md` | Biology (`bio`) | `bio-` |
 | `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
+| `astronomy-card-plan.md` | Astronomy (`astro`) | `astro-` |
+| `economics-card-plan.md` | Economics (`econ`) | `ec-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |
+| `france-card-plan.md` | France (`france`) | `fr-` |
+| `mesopotamia-card-plan.md` | Ancient Mesopotamia (`mesopotamia`) | `me-` |
 | `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; the artwork card format is built | `art-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
-| `world-geography-card-plan.md` | World (`geo-world`) — 471 cards, sorted by population | `gw-` |
+| `world-geography-card-plan.md` | World Geography (`geo-world`) — 471 cards, sorted by population | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
 | `russia-geography-card-plan.md` | Russia (`geo-russia`) — 163 cards, sorted by population | `gru-` |
+| `flags-card-plan.md` | The flags (`flags-world`) — a DECK of `geo-world`; 233 cards, the answer side is its twin's | `fl-` |
+| `flags-draw-card-plan.md` | Draw the flags (`flags-draw`) — the Flags deck run backwards; the reader draws the flag and judges themselves | `fd-` |
+| `politics-east-asia-card-plan.md` | Politics: East Asia (`pea`) — a COURSE, planned a lecture at a time | `pea-` |
 
-`china-card-findings.md` is China's per-card research log; the other nineteen keep theirs in their own plan
+`china-card-findings.md` is China's per-card research log; the other thirty-two keep theirs in their own plan
 or in the citation plans. `node .claude/test-card-plans.js` checks every plan against `data.js`.
 
 ## Content passes — the finished ones
@@ -111,6 +125,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 
 | file | what is left |
 |---|---|
+| `truefalse-citation-plan.md` | The daily True-or-False pool, at one openable source per statement. **Run `node .claude/check-truefalse.js` for the standing rather than quoting one.** T1 (Prehistory) is done and written cited; T2–T4 are part done off the corpus; T5–T10 need research. **Two** statements are carried as open (the 1974 terracotta discovery and who built the Giza pyramids); the third, gunpowder, was settled in T2b by rewriting it. |
 | `history-focus-plan.md` | 45 cards flagged on the question and historiography rules; batches F1–F5. |
 | `book-text-plan.md` | Correcting errors baked into the Library's source texts. |
 | `atlas-rewrite-plan.md` | Rewriting every place popup to a card's standard, with citations. |
@@ -119,9 +134,10 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `refinements-plan.md` | ~60 items from one request, batched. |
 | `refinements-2026-08-27.md` | Thirty-five items from one request: what shipped, the four faults the fixes uncovered at scale, the four answers to "suggest a way", and a plan for the nine not built. |
 | `mandarin-review.md` | The Mandarin collection measured end to end and then repaired: why a downloaded deck never saw a fix, the cards a speech engine misreads, the polyphones teaching one of two readings, the unanswerable reverse cards, the Idioms deck — and, for the three of twelve items that could not be finished, exactly where they stop and why. |
-| `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and the seven things still open — the Rutter concentration, the Athens deck's register, and the coverage gaps. |
+| `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and what is still open — the Athens deck's register and the coverage gaps. **The Rutter concentration, its loudest finding, is CLEARED**: no `gr-` card cites that course website in more than two of its sources. |
 | `learning-science.md` | What the learning-science literature says works and does not, and twenty proposals for Folio. **Thirteen shipped Sep 2026; seven still proposals.** |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |
+| `card-pictures-plan.md` | The cards with no illustration, measured rather than guessed. **Run the commands in it rather than quoting its figures.** The four-tool pipeline and which step is the slow one, what the Commons crawl found, why the review step cannot be skipped — and the finding that came out of it: **116 cards whose answer names no glossary term at all**, 99 of them in one newly merged collection, which is a pairing-rule gap rather than a picture one. |
 | `geography-background-plan.md` | The World geography backgrounds, written out of the US recognition guide and therefore about American diplomacy rather than about the country. **THE COUNTRY HALF IS FINISHED (G1–G20); the CAPITAL half is open** — C1–C11 have shipped through `gw-564`. **Run `node .claude/gw-audit.js` for the figures rather than quoting any**; this row quoted three and all three are now years out. The four rules, why it cannot be a find-and-replace, and the batches. |
 
 ---

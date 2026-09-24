@@ -160,7 +160,7 @@ async function shown(page, html) {
     check("the units engine was found in app.js", from > 0 && to > from);
     if (from > 0 && to > from) {
       const src = app.slice(from, to);
-      const mk = new Function("S", src + "\n return { unitizeText: unitizeText, isImperialParen: isImperialParen };");
+      const mk = new Function("S", src + "\n return { unitizeText: unitizeText, isImperialParen: isImperialParen, U_CONV_RX: U_CONV_RX, U_BARE_RX: U_BARE_RX };");
       const U = mk({ settings: { units: "metric" } });
       const win = {};
       const load = (f) => { const g = global.window; global.window = win; delete require.cache[require.resolve(path.join(ROOT, f))]; require(path.join(ROOT, f)); global.window = g; };
@@ -181,11 +181,24 @@ async function shown(page, html) {
         });
         if (imp === txt && met !== txt) missed.push(where + " (imperial pass did nothing)");
       };
-      (win.CARD_DATA || []).forEach((c) => {
-        ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => scan(c[f], c.id + "." + f));
-        (c.questions || []).forEach((q, i) => scan(q, c.id + ".q" + (i + 2)));
-      });
-      Object.keys(win.GLOSSARY || {}).forEach((k) => scan(win.GLOSSARY[k], "gloss:" + k));
+      /* THE FIELDS BELOW `answerText` WERE NEVER SWEPT, AND THAT IS WHERE THE LAST TWO FAULTS WERE
+         (Sep 2026). The transform is a DOM text-node pass, so it reaches everything a reader is shown —
+         a picture's caption, a why-answer, a map or artwork card's figures grid — while these sweeps
+         looked at five fields and the question pool. gr-712's caption read "now several kilometres
+         (two miles) inland" (`U_RUN` needs a NUMBER and `several` is not one) and art-005's Size row
+         read "136 × 54 cm (54 × 21 inches)" (`×` is in neither U_JOIN nor U_FILL): both showed BOTH
+         systems to every reader, in the authored view as well, and nothing here could see either. */
+      const walk = (fn) => {
+        (win.CARD_DATA || []).forEach((c) => {
+          ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => fn(c[f], c.id + "." + f));
+          (c.questions || []).forEach((q, i) => fn(q, c.id + ".q" + (i + 2)));
+          (c.why || []).forEach((w, i) => { fn(w.q, c.id + ".why" + (i + 1) + ".q"); fn(w.a, c.id + ".why" + (i + 1) + ".a"); });
+          (c.facts || []).forEach((r, i) => { fn(r[0], c.id + ".facts" + i + ".k"); fn(r[1], c.id + ".facts" + i + ".v"); });
+          if (c.image) ["title", "desc", "alt"].forEach((f) => fn(c.image[f], c.id + ".image." + f));
+        });
+        Object.keys(win.GLOSSARY || {}).forEach((k) => fn(win.GLOSSARY[k], "gloss:" + k));
+      };
+      walk(scan);
       check("the whole corpus transforms", fields > 200, fields + " fields");
       check("...with no imperial bracket left behind", missed.length === 0, missed.slice(0, 4).join(" | "));
       check("...and no other bracket taken", eaten.length === 0, eaten.slice(0, 4).join(" | "));
@@ -195,7 +208,12 @@ async function shown(page, html) {
          an ordinary bracket correctly left alone and all three pass — which is how `by`, `square` and
          `cubic` shipped unseen across 30 sites. This one decides what a measurement is WITHOUT the engine:
          a bracket holding a digit and a strong imperial unit is one, and the engine must agree. */
-      const STRONG = /(?:^|[^A-Za-z])(?:miles?|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)(?![A-Za-z])/i;
+      /* `Fahrenheit` SPELLED OUT was the blind spot in this list, and it was a real one: gw-230..gw-233
+         wrote "19.9 degrees Celsius (67.8 Fahrenheit)", which U_IMP does not list either — so
+         isImperialParen rejected the bracket, this sweep did not count it as measurement-shaped, and
+         four cards showed BOTH figures to every reader with nothing anywhere reporting it. The cards
+         were rewritten to the °C/°F the other 359 use; this closes the hole behind them. */
+      const STRONG = /(?:^|[^A-Za-z])(?:miles?|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F|Fahrenheit)(?![A-Za-z])/i;
       /* A HISTORICAL UNIT IS NOT AN UNCONVERTED IMPERIAL ONE, and the sweep has to say so.
          The house rule is metric first with the imperial in brackets, and this sweep exists to catch a
          bracket the engine would fail to convert. But four Roman-roads cards write the distance the
@@ -215,13 +233,83 @@ async function shown(page, html) {
           if (/\d/.test(inner) && STRONG.test(inner) && !U.isImperialParen(inner)) unknown.push(where + " " + p);
         });
       };
-      (win.CARD_DATA || []).forEach((c) => {
-        ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => sweep(c[f], c.id + "." + f));
-        (c.questions || []).forEach((q, i) => sweep(q, c.id + ".q" + (i + 2)));
-      });
-      Object.keys(win.GLOSSARY || {}).forEach((k) => sweep(win.GLOSSARY[k], "gloss:" + k));
+      walk(sweep);
       check("...and every measurement-looking bracket is one the engine RECOGNISES",
         unknown.length === 0, unknown.length ? unknown.length + " unseen: " + unknown.slice(0, 4).join(" | ") : "swept independently of isImperialParen");
+
+      /* A TEMPERATURE SCALE SPELLED OUT IS A MEASUREMENT WITH NO BRACKET AT ALL, and every sweep above
+         returns early on a field holding no "(" — so this is the one shape none of them can see (Sep
+         2026). `U_METRIC` lists `°C` and `U_IMP` lists `°F`, and neither knows a word: bio-030 and its
+         paired glossary term both wrote "raise one litre of water by one degree centigrade", a
+         DIFFERENCE, which every reader was shown in Celsius with nothing to say so — the mirror of the
+         `Fahrenheit` hole above, one step further out, since there the bracket existed and was merely
+         unrecognised. Both were rewritten to the °C/°F the other 725 sites use.
+         A difference converts by ×1.8 with NO offset: 1 °C is a rise of 1.8 °F, not 33.8 °F.
+         Scale words only. A bare "degrees" is not in the list and must not be: 169 of the corpus's 172
+         are latitude, an angle of slope, "a high degree of autonomy" or "its degree of disorder", so a
+         rule that claimed the word would report the language rather than a fault. The ~17 sites that
+         really do write a bare temperature degree are a content pass of their own, listed in
+         docs/units-plan.md; this check is the one that can never be argued with. */
+      const SCALE = /(?:\bcentigrade\b|\bCelsius\b|\bFahrenheit\b|\bdegrees?\s+[CF]\b)/;
+      const worded = [];
+      const wsweep = (s, where) => { if (typeof s === "string" && SCALE.test(strip(s))) worded.push(where); };
+      walk(wsweep);
+      check("...and no temperature is written in WORDS, where no bracket sweep can reach it",
+        worded.length === 0, worded.length ? worded.length + ": " + worded.slice(0, 4).join(" | ") : "0 of " + (win.CARD_DATA || []).length + " cards");
+      // ...and the rule still fires: the sentence as it stood before the Sep 2026 fix
+      check("...(and that sweep is live)",
+        SCALE.test("raise one litre of water by one degree centigrade.") &&
+        SCALE.test("19.9 degrees Celsius (67.8 Fahrenheit)") &&
+        !SCALE.test("about 14 degrees north of the equator") &&
+        !SCALE.test("a high degree of autonomy"));
+
+      /* A CONVERSION MAY NOT SWALLOW A FIGURE ITS BRACKET DOES NOT STATE (Sep 2026), and this is the
+         only check here that can see it. Every sweep above asks what a bracket IS; this one asks what
+         the replacement THREW AWAY. The run U_RUN captures is exactly the text the bracket replaces for
+         an imperial reader, so if that run states more figures than the bracket does, one of them is
+         simply deleted — and only for that reader, since the authored metric view is untouched. It is
+         the `from A … in YEAR to B` shape, and `to`, `and`, `or`, `by`, `of` and the bare comma are all
+         joins, so the run walks straight across the year between two measurements:
+           "4,140 millimetres (163 inches) in 1981 to 1,420 millimetres (56 inches) in the El Niño year"
+         rendered as "163 inches in 56 inches in the El Niño year". Thirteen sites shipped this way —
+         eleven cards and two glossary terms, among them a magnitude ("an earthquake of magnitude
+         11 miles deep") and a count of columns — every one of them reading perfectly in the authored
+         prose, and none of them findable by reading it. The repair is always the same: break the join
+         with a word the engine does not list as one (against, but, down to, standing, covering).
+         CLAUDE.md's rule is that an engine change is proved by rendering the whole corpus and diffing
+         it; this is that rule's standing form, and it costs one pass over the same fields. */
+      const NUMW = /\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|half)\b/gi;
+      /* U_NW counts the ARTICLE as a number word, so a bracket reading "(about a mile)" states its
+         figure in words and is swallowing nothing — seven such brackets are the sweep's whole residue. */
+      const ART = /(?:^|[^A-Za-z])an?(?=\s)/gi;
+      const figs = (t, art) => (String(t).match(/\d[\d.,]*/g) || []).length
+        + (String(t).match(NUMW) || []).length + (art ? (String(t).match(ART) || []).length : 0);
+      /* "twenty-five" is ONE figure written as two of the engine's own number words joined by a hyphen */
+      const compound = (run) => /^[a-z]+(?:-[a-z]+)+$/i.test(String(run).trim());
+      const swallowed = [];
+      const eatsweep = (str, where) => {
+        if (typeof str !== "string" || str.indexOf("(") < 0) return;
+        const t = strip(str);
+        [[U.U_CONV_RX, 1, 6], [U.U_BARE_RX, 1, 3]].forEach(([rx, ri, ii]) => {
+          rx.lastIndex = 0;
+          let m;
+          while ((m = rx.exec(t))) {
+            if (!U.isImperialParen(m[ii]) || compound(m[ri])) continue;
+            if (figs(m[ri], false) > figs(m[ii], true)) swallowed.push(where + " [" + m[ri] + "] -> (" + m[ii] + ")");
+          }
+        });
+      };
+      walk(eatsweep);
+      check("...and no conversion swallows a figure its bracket does not state",
+        swallowed.length === 0, swallowed.length ? swallowed.length + ": " + swallowed.slice(0, 4).join(" | ") : "every run accounted for");
+      // ...and the rule still fires: gw-707's own sentence as it stood before the Sep 2026 fix
+      const LIVE = [];
+      eatsweep("totals have swung from 4,140 millimetres (163 inches) in 1981 to 1,420 millimetres (56 inches) in 1998", "PLANT");
+      eatsweep("under two kilometres (about a mile) from the centre", "ARTICLE");
+      eatsweep("40.1 of its 103 square kilometres (15 of 40 square miles)", "FRACTION");
+      check("...(and that sweep is live, and lets the two legitimate shapes through)",
+        swallowed.length === 1 && swallowed[0].indexOf("PLANT") === 0, swallowed.join(" | "));
+      swallowed.length = 0;
 
       /* The three shapes that were unseen, pinned by hand in BOTH directions — a `by` run especially,
          since without `by` in U_JOIN the match starts at the second number and imperial mode renders
@@ -241,6 +329,18 @@ async function shown(page, html) {
         ["the shared-unit pair still works", "averaging 151 centimetres (4 ft 11 in) and females 105 (3 ft 5 in).", "averaging 151 centimetres and females 105.", "averaging 4 ft 11 in and females 3 ft 5 in."],
         ["and an ordinary bracket is still safe", "in the 1920s (about 30 years later)", "in the 1920s (about 30 years later)", "in the 1920s (about 30 years later)"],
         ["...as is a dated aside", "Ephorus (a 4th-century historian) says", "Ephorus (a 4th-century historian) says", "Ephorus (a 4th-century historian) says"],
+        /* A DENSITY puts its denominator BETWEEN the number and the unit, which is the mirror of the
+           `an hour` rate U_RATE crosses on the other side, and 29 geography cards showed both figures to
+           every reader until U_DENOM was added. The gap is CAPTURED and re-emitted to a metric reader, so
+           the denominator has to come back with it — a rule that merely skipped it would render
+           "73.6 kilometre". All three shapes the corpus actually writes are pinned. */
+        ["a density, denominator between number and unit", "counts 73.6 people to the square kilometre (191 to the square mile) across it.", "counts 73.6 people to the square kilometre across it.", "counts 191 to the square mile across it."],
+        ["...with `per` and another noun", "at about 5,000 inhabitants per square kilometre (12,950 per square mile) against", "at about 5,000 inhabitants per square kilometre against", "at about 12,950 per square mile against"],
+        ["...and with no noun at all", "people at 6,500 to the square kilometre (16,800 to the square mile), with", "people at 6,500 to the square kilometre, with", "people at 16,800 to the square mile, with"],
+        /* AND THE NOUN LIST IS DECLARED FOR A REASON: a wildcard there would let the gap swallow ordinary
+           prose between any number and any unit, which corrupts text for the IMPERIAL reader alone and so
+           is invisible in the authored view. This is that case, and it must stay untransformed. */
+        ["an unlisted word does NOT let the gap swallow prose", "12 chapters to the kilometre (5 miles) on", "12 chapters to the kilometre (5 miles) on", "12 chapters to the kilometre (5 miles) on"],
       ].forEach(([label, input, wantMetric, wantImperial]) => {
         const gotM = U.unitizeText(input, false), gotI = U.unitizeText(input, true);
         check(label, gotM === wantMetric && gotI === wantImperial, gotM === wantMetric && gotI === wantImperial ? "" : "metric=" + gotM + "  imperial=" + gotI);

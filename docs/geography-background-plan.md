@@ -94,7 +94,10 @@ date in the third sentence, and where the country page states it rather than a r
 C11's and C12's findings). What has to be added is the geography, and the passes above already record
 what is reachable from this sandbox:
 
-- **UNdata** (`data.un.org/en/iso/<cc>.html`) — the figures, and the Region field.
+- **UNdata** (`data.un.org/en/iso/<cc>.html`) — the figures, and the Region field. ⚠ **DEAD since Sep
+  2026** — the domain is now the UN Data Commons for the SDGs and has no country-profile route; the
+  shipped citations point at archived copies. See "The day UNdata stopped existing" in
+  `docs/world-geography-card-plan.md`.
 - **The World Bank indicator API** — `SP.POP.TOTL` for the population series and `AG.SRF.TOTL.K2` for
   surface area, which is a genuinely independent measurement (C9).
 - **The EU country pages** and **the Commonwealth Secretariat** for the states each covers (C1, C4).
@@ -199,6 +202,8 @@ sweep every citation URL, apply with `add-sources.js` and `set-date-line.js`, re
 through `cardYears`, render in a browser to read the glossary auto-links, then record the figures here.
 
 ## What has shipped
+
+- **2026-09-17, batch C40 — the one rule-4 finding left standing, and the source's own words for the reach it names**: `gw-620` Bratislava said the Danube's Slovak reach ran "142 kilometres (88 miles) bordering Hungary", which is rule 4 exactly — the neighbour is drawn round the shaded country on the card's own globe. Rewritten to the rule's own recipe, the same sentence with the neighbour swapped for the landform it stands in: **"standing as a state border across the Danube lowland"**, which keeps both figures, the bearings and the citation. **The wording is the paper's, not a derivation**: Bačová Mitková and Halmová write "the rest of 142 km is the state border" and describe the reach below the Small Carpathians running out over its alluvial cone across the Danube lowland, so nothing new is asserted and source 4's marker still points at what the source says. **A compass bearing was the obvious replacement and was rejected**: "its southern frontier" is true and the paper does not say it, and rule 4's own recipe asks for the sea, the region or the landform rather than a direction. The audit now reads **zero on all four rules with ten adjudicated**, which is what CLAUDE.md has been claiming.
 
 - **2026-09-14, batch C39 — the last five cards that needed work, and the finding that the other ten never did**: `gw-729` Stanley, `gw-730` Kingston, `gw-754` Putrajaya, `gw-733` Adamstown and `gw-134` Uruguay. **All four rules now read zero**, with the ten standing findings read, adjudicated and DECLARED in `gw-audit.js` with the reason beside each. `gw-754` comes off the deferred list; `check-cards.js` gained two declared rows the batch's reading produced.
 

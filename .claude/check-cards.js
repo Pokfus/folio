@@ -167,6 +167,19 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    characters neither of which JS counts as a word character — so the alternative matched the name and
    the anchor then threw the match away, silently, on the one author it had just been added for.  A
    negative lookahead for a Latin letter says what the anchor meant and is blind to no alphabet. */
+/* A WITNESS NEED NOT BE ANCIENT, AND FOUR MEDIEVAL ONES WERE REPORTING RULE 1 AS A FAULT (Sep 2026,
+   found while verifying a merge).  The house rule is that the line falls between the modern ARGUER and
+   the witness, not at any date: `Ibn Battuta reached Kilwa in 1331 and found a large town` is a
+   fourteenth-century traveller on a fourteenth-century subject, which is Herodotus' relation to Greece
+   exactly.  Seven of main's new Africa cards were reported by `card-focus.js` for naming one, because
+   the mechanism keys on a name's LAST token — `Ibn Battuta` yielded *Battuta*, `Ibn Khaldun` *Khaldun*,
+   `Marco Polo` *Polo*, and `Ibn Fadl Allah al-ʿUmari` yielded **Allah**, which is a latent finding on
+   any Islamic-history card whose question carries the word.  THE WHOLE-NAME TEST IS WHAT MAKES THIS
+   SAFE TO ADD: the corpus cites six living scholars whose given name is Marco — Demichelis five times,
+   plus Tizzoni, Rossi, Romboni, Fratus and Yseki — so a `^marco` prefix would have excused every one of
+   them, and the anchored full form `marco polo` excuses none.  al-ʿUmari is spelled with three
+   different apostrophes across the corpus, hence the class; he trips no card today and is added for the
+   reason the three above him were, that nothing would have said so until one did. */
 /* SEVEN NAMES ARE WRITTEN OUT IN FULL AND LEAD THE ALTERNATION, WHICH IS NOT TIDINESS (Sep 2026).
    `card-focus.js` reads this list to decide whether an author is a witness, and it measures the
    match against the WHOLE name — because the trap on the other side is an ancient author's name
@@ -177,7 +190,36 @@ const plain = s => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ")
    these seven are the shapes the corpus actually cites — Diodorus Siculus 242 times, Velleius
    Paterculus 83, Pliny the Elder 27.  JS alternation takes the FIRST branch that matches, so a
    long form placed after its own prefix would never be seen. */
-const ANCIENT = /^(diodorus siculus|velleius paterculus|pliny the elder|pliny the younger|ammianus marcellinus|eusebius of caesarea|suda on line|herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|antiphon|lucian|pomponius|sun tz[uŭ]|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|quintilian|frontinus|procopius|varro|memnon|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)(?![A-Za-z])/i;
+/* FOUR MORE MEDIEVAL WITNESSES, AND ONE ANONYMOUS CHRONICLE CITED BY ITS OWN TITLE (Sep 2026, on the
+   ru-041–ru-050 batch).  The Kievan Rus' cards rest on four texts written between the 820s and the
+   1110s, and rule 1 reported three cards for citing one of them three times: `Leo the Deacon` wrote at
+   Constantinople within living memory of the war he describes, `Liudprand of Cremona` heard the 941 raid
+   from his own stepfather, and `Constantine VII Porphyrogenitus` compiled two of the handbooks the
+   period is reconstructed from.  Three passages of any of them is the same shape as six passages of
+   Herodotus, which is what this list exists to separate from six pages of one scholar.
+   `Chronique dite de Nestor` is the fourth and is not a person at all: the Rus' Primary Chronicle is
+   anonymous, so its citations OPEN on the work's own title, and `authorOf` read that title as an author
+   — the fault the tool already guards against for a title in QUOTES (`^["“]`) and cannot see through
+   an italicised one.  It joins the anonymous works already listed by title (`the anglo-saxon chronicle`,
+   `the annals of the bamboo books`), and the whole-name anchoring makes all four safe: no living scholar
+   is called any of them. */
+/* TWO MORE OF THE SAME TWO SHAPES (Sep 2026, on the ru-051–ru-060 batch).  `Thietmar of Merseburg`
+   was a contemporary of the events he reports — he died in 1018, the year his last book describes
+   Bolesław in Kyiv — so three passages of him are three passages of one witness, exactly as Leo the
+   Deacon's are.  `The Chronicle of Novgorod` is `Chronique dite de Nestor`'s case again: the Novgorod
+   First Chronicle is anonymous, so its citations open on the italicised title of the Michell and
+   Forbes translation, which `authorOf` reads as an author called "The Chronicle of Novgorod
+   1016–1471".  The alternation carries the name only as far as `novgorod`, since the printed title
+   runs on into its date span and the `(?![A-Za-z])` lookahead is satisfied by the space after it. */
+/* AND A SEVENTH MEDIEVAL WITNESS, THIS ONE TRIPPING RULE 2 RATHER THAN RULE 1 (Sep 2026, on the
+   ru-081–ru-090 batch).  `Anna Comnena` is the same shape as Leo the Deacon and Thietmar of
+   Merseburg — a twelfth-century writer reporting her own father's reign — and the Alexiad is the
+   fullest account there is of the Varangian Guard, so `ru-089`'s question naming her is a question
+   naming a WITNESS.  It was reported as a scholar in a question, which is rule 2 rather than the
+   citation-count rule the six names beside her were added for, and the same list answers both: rule 2
+   skips a name `ANCIENT` matches.  Anchored on the whole name, as the seven full forms above are, so
+   it cannot excuse a living scholar called Anna: the corpus cites several, none of them Comnena. */
+const ANCIENT = /^(anna comnena|leo the deacon|liudprand of cremona|constantine vii porphyrogenitus|chronique dite de nestor|thietmar of merseburg|the chronicle of novgorod|ibn fadl allah al-[\u02bf\u2018\u2019']?umari|ibn battuta|ibn khaldun|marco polo|diodorus siculus|lucius ampelius|velleius paterculus|pliny the elder|pliny the younger|ammianus marcellinus|eusebius of caesarea|memnon of heracleia|suda on line|herodotus|thucydides|aristotle|plutarch|pausanias|strabo|aeschylus|sophocles|euripides|aristophanes|horace|diodorus|xenophon|homer|hesiod|plato|isocrates|demosthenes|lysias|andocides|antiphon|lucian|pomponius|sun tz[uŭ]|pindar|polybius|vitruvius|athenaeus|apollodorus|arrian|nepos|justin|aelian|suda|pliny|cicero|livy|ovid|virgil|tacitus|suetonius|josephus|sima qian|ban gu|hippocrates|galen|euclid|archimedes|ptolemy|theophrastus|diogenes laertius|appian|augustus|dionysius of halicarnassus|velleius|sallust|aulus gellius|gellius|cassius dio|dio cassius|florus|eutropius|quintilian|frontinus|statius|procopius|varro|memnon|ampelius|ammianus|zosimus|martial|julius caesar|historia augusta|eusebius|caesar|kautilya|orosius|confucius|mencius|the sh[uû] king|the y[iî] king|the shoo king|the ch['’]un ts['’][eë]w|the annals of the bamboo books|the she king|the shih king|the religious portions of the shih king|the l[iî] k[iî]|the sacred books of china|the book of lord shang|nihongi|the anglo-saxon chronicle|the laws of manu|vinaya texts|the hymns of the rigveda|the upanishads|the thirteen principal upanishads|the zend-avesta|hymns of the tamil|hymns of the alvars|the code of hammurabi|the greek anthology|the rule of our most holy father st\\. benedict|the trial of jeanne d['’]arc|the glass palace chronicle|the finding of wineland the good|akaranga sutra|gaina sutras)(?![A-Za-z])/i;
 
 /* AN INSTITUTION IS NOT A SCHOLAR, AND THREE OF ITS RECORDS ARE NOT THREE OPINIONS (Sep 2026, out of
    the field audit). Rule 1 was written against a card whose whole apparatus is one researcher's view,
@@ -211,6 +253,16 @@ const INSTITUTIONAL = new Set([
      of a card really is one book, which is the finding this check exists for. */
   "mary ann clark",   // OpenStax, Biology 2e — three authors, cited per chapter (bio-003/014/015)
   "bruce alberts",    // Molecular Biology of the Cell — six authors, cited per chapter (bio-025/026)
+  /* ONE RESOURCE WAS BEING COUNTED TWO WAYS DEPENDING ON CITATION FORM (Sep 2026). "digital egypt
+     for universities" is already declared above, and it works for the 74 corpus citations that open
+     on the page title — but 10 open on the site's two named editors instead, and those bypassed the
+     entry entirely. wh-203 Naqada culture cites FIVE different pages of it (background, chronology,
+     predynastic burial customs, foreign relations, political unification), which is one teaching
+     resource consulted five times, not one scholar's view five times. Measured before adding: the
+     drop set is exactly ONE card — wh-202, wh-216 and wh-201 cite it twice or once and are unmoved —
+     and wh-203 moves from a FAIL to the one-institution note rather than to silence, which is what
+     this table is for. The card was read first. */
+  "wolfram grajetzki and stephen quirke",  // Digital Egypt for Universities, cited per page (wh-203)
 ]);
 
 /* Is this cited author the card's own subject? Folded to letters, digits and single spaces, and
@@ -266,6 +318,33 @@ const ATTRIB = new RegExp(
   "identifies|identified|maintains?|denies|denied|concludes?|concluded|counted|thought|calls|called|" +
   "puts?|sets? out|takes? it|took it|finds?|found))\\b", "g");
 
+/* ---------- 8. a modern scholar named in a "what came of this" line ----------
+
+   `card.leadsTo[].how` is the causal strip at the foot of the answer, headed "What
+   came of this" — one sentence saying how this card's subject led to another's. It is
+   held to rule 2's house rule, on request (Sep 2026: "the 'what came of this' section
+   should never name modern scholars"), and for rule 2's reason one field over: a line
+   reading "Childe made the farming surplus the engine of the first cities" teaches a
+   reader the state of a literature where the strip exists to teach them what happened.
+
+   IT IS A WIDER PATTERN THAN RULE 2's AND MUST NOT BECOME RULE 2's. `ATTRIB` names the
+   verbs an attribution is written with; `made`, `makes`, `credits`, `presents`,
+   `attributes`, `treats` and `dates the` are attribution verbs too, and adding them to
+   the shared regex was built and thrown away — MEASURED, it adds 107 findings over the
+   corpus's questions, almost all of them false ("Copper made an inland member of the
+   ___ worth taking", "Athens made", "Psychology treats"). A question is 20-34 words of
+   narrative prose where the shape is common; a `how` is one short caption and there are
+   22 of them in the whole corpus, so the wider net can be afforded here and nowhere else.
+
+   THE ANCIENT WITNESS IS WELCOME, exactly as in a question. Measured over the corpus the
+   wide pattern fires five times: Pausanias, Plutarch, Xenophon and Livy, every one an
+   ancient author `ANCIENT` already excuses, and Childe — which was the one real finding
+   and is now repaired. */
+const ATTRIB_HOW = new RegExp(
+  "\\b([A-Z][a-zA-Z\\u00C0-\\u024F.'-]+(?:\\s+[A-Z][a-zA-Z\\u00C0-\\u024F.'-]+){0,2})" +
+  "\\s+(?:made|makes?|credits?|credited|presents?|presented|attributes?|attributed|" +
+  "treats?|treated|dates? the|has it)\\b", "g");
+
 /* Words that open a sentence and are not names.  A capitalised place or period followed
    by "puts"/"shows" is the prose doing its job, not an attribution. */
 /* A DECLARED LIST BEATS A LOOSER PATTERN, and it is kept short with a reason beside each entry.
@@ -290,6 +369,13 @@ const NOT_A_SCHOLAR = new Set([
   "Asinius Pollio",   // wh-354: the Augustan historian, who "thought" the Commentarii careless
   "Marcus Aemilius",  // rm-240: M. Aemilius Lepidus, who "put" Rome's terms to Philip
   "BCE Lucius Mummius", // rm-256: the consul of 146; the match swallowed the era from "146 BCE"
+  /* AN OFFICE IS NOT A PERSON, and a Chinese one is two capitalised words in front of a verb of agency
+     exactly as a scholar is. These are titles the Politics collection narrates ("the General Secretary
+     counted only as first among equals"), not people the prose credits. */
+  "General Secretary",  // pea-003: the party office, which "counted" as first among equals
+  "Standing Committee", // the Politburo body, which decides and meets
+  "Central Committee",  // the party body, which elects and meets in plenum
+  "Party Congress",     // the five-yearly assembly, which elects and revises
 ]);
 
 /* ============================================================================
@@ -430,6 +516,21 @@ for (const c of cards) {
     }
   }
 
+  // 8 — the same house rule over the "What came of this" strip. The exemptions are rule 2's, and so is
+  // the reasoning; only the verb list is wider. See the note beside ATTRIB_HOW for why it may be.
+  for (const e of c.leadsTo || []) {
+    const t = plain(e && e.how);
+    if (!t) continue;
+    for (const m of t.matchAll(ATTRIB_HOW)) {
+      const nm = m[1].trim();
+      if (ANCIENT.test(nm) || NOT_A_NAME.test(nm)) continue;
+      if (/^(While|When|Where|After|Before|Since|Though|Although|Because|If|It|The|His|Her|Their)\b/.test(nm)) continue;
+      if (GL.has(nm.toLowerCase())) continue;                 // a glossary surface: a work, a place, a people
+      if (NOT_A_SCHOLAR.has(nm)) continue;
+      fails.push(["scholar-in-leadsto", `${id} → ${e.id}: “${nm}”`, t]);
+    }
+  }
+
   // 3 + 4 + 5
   if (c.image && c.image.src) {
     /* THE KEY IS THE SOURCE FILE, NOT THE THUMBNAIL'S NAME. A thumb URL is
@@ -447,7 +548,16 @@ for (const c of cards) {
     imgByFile.get(file).push(id);
     if (/via wikimedia commons|public domain,|\bCC[ -]?BY\b|\bCC0\b/i.test(String(c.image.desc || "")))
       fails.push(["source-in-caption", `${id}: the description carries its own credit`, String(c.image.desc).slice(0, 120)]);
-  } else if (!c.video) {
+  } else if (!c.video && !((c.flagCard === true || c.drawCard === true) && c.answerFlag && c.answerFlag.src)) {
+    /* A DRAW CARD IS THE SAME FIELD ONE DECK ON: it is a flag card run backwards, so its picture is its
+       flag too — shown at the REVEAL rather than on the front, which is a fact about when it is drawn and
+       not about whether the card has one.
+       A FLAG CARD'S PICTURE IS ITS FLAG, and `answerFlag` is a different field from `image` (see the
+       FLAG CARDS block in app.js — the format reuses the field a map card already carries rather than
+       adding one). Without this the whole Flags collection reports here as unillustrated, which is 233
+       notes about the one collection every card of which IS a picture. It is only excused where the
+       flag is actually there: a flag card with no flag draws a prompt naming nothing, and `add-card.js`
+       refuses one. */
     notes.push(["no-picture", `${id}: ${c.answerText || ""}`, id]);
   }
 

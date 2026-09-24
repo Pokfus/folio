@@ -201,46 +201,100 @@ point, telling the reader outright that what they have is a third of the collect
 
 ---
 
-### C. The Poetic Edda — Old Norse via Bugge 1867, with three real caveats
+### C. The Poetic Edda — DECIDED (Sep 2026): no facing column yet, and the date that changes it
 
-`poetic-edda` is the newest book on the shelf and carries no facing original. There is a route.
+`poetic-edda` carries no facing original. **Four candidate texts were fetched and measured, and the
+answer is to wait rather than to ship one of them.** The reasoning, because "not yet" is worth nothing
+without it, and the date, because the blocker is a date and not a wall.
 
-**Sophus Bugge's *Norrœn fornkvæði* / Sæmundar Edda of 1867 is public domain everywhere** — published
-1867, and Bugge died in 1907, so it clears the pre-1929 rule, life plus seventy and life plus a
-hundred alike, with no limit to state. It is transcribed in full as clean HTML at
-`etext.old.no/Bugge/`, all the poems plus the prose links and fragments.
+**What a facing column is for decides this.** It exists so a reader can check the translation against
+the original. A column that a reader of Old Norse cannot read, and that a reader with no Old Norse gains
+nothing from, is not a facing text — it is a decoration that makes the page longer.
 
-**The pairing key exists on both sides.** Eddic poetry is cited by poem and stanza, Bellows numbers
-his stanzas, and Bugge's transcription sets each stanza number in a right-aligned table cell beside
-its text — with the edition's line numbers as a smaller figure in the same cell. Verified by
-inspecting the markup of Hávamál directly rather than by reading a description of it.
+#### The four candidates, measured
 
-**Three caveats, and the first is the one that decides whether this is worth doing at all:**
+**1. Bugge 1867, `etext.old.no/Bugge/` — public domain everywhere, clean HTML, and the wrong text.**
+It is DIPLOMATIC: the manuscript's own orthography, no length marks, `c` for `k`, and the editor's
+expansions of manuscript suspensions set in italic. Hávamál 1 reads
 
-1. **It is a DIPLOMATIC text, not a reading text.** Bugge prints the manuscript's own orthography
-   with abbreviations expanded in italic: Hávamál 1 opens `Gattir allar, aþr gangi fram, vm scoðaz
-   scyli` where a normalised edition reads *Gáttir allar, áðr gangi fram, um skoðask skyli*. A reader
-   arriving from Bellows would meet a column that does not look like any Old Norse they have seen. It
-   is authentic and it is what Bugge printed, but it is a genuine cost and the front matter would
-   have to say so plainly.
-2. **The italics are load-bearing and must not survive as emphasis.** `v<i>m</i>` means the
-   manuscript wrote a suspension that the editor expanded — it is an apparatus, not stress. Folio's
-   `stripTags` keeps `<i>`, so left alone the column would ship with apparently random italic letters
-   through every line, and **nothing would throw, no word would be lost and every count would read
-   healthy** — the quiet shape this repo has catalogued a dozen times. Either the italics are dropped
-   (losing the distinction the edition makes) or they are kept and explained.
-3. **The poem list does not map one-to-one.** Bugge's index runs to 43 entries against Bellows' 35
-   chapters, including prose links and fragments from the sagas, and Völuspá is a directory rather
-   than a single file — which almost certainly means the Codex Regius and Hauksbók recensions are
-   given separately, a choice that would have to be made rather than inherited.
+> Gattir allar, aþr gangi fram, v*m* scoðaz scyli, v*m* scygnaz scyli
 
-**The obvious modern alternative must be REJECTED, on the shelf's own precedent.** Edward Pettit's
-*The Poetic Edda: A Dual-Language Edition* (Open Book Publishers, 2023) is complete, scholarly,
-openly available and formatted as a parallel text — and it is licensed **CC BY-NC 4.0** (verified on
-the publisher's own page). The Gilgamesh entry rejects the electronic Babylonian Library in exactly
-these words: it "licenses it for non-commercial use, which is not a licence this site can build on
-and, more to the point, is not an expired copyright." The same rule has to bite here or it is not a
-rule. Recorded so it is not rediscovered and adopted by someone who has not seen the Gilgamesh entry.
+against the `Gáttir allar, áðr gangi fram, um skoðask skyli` of every edition a reader has met. Three
+figures, counted over Hávamál alone rather than estimated: **1,467 italic apparatus marks across 1,499
+lines** — one per line — **126 occurrences of `ꜹ` (U+A739)**, and no length accent anywhere.
+
+**And that `ꜹ` does not render.** Folio's serif is Newsreader; its `latin-ext` subset *declares*
+`U+A720-A7FF`, which looks like coverage, but **the font file itself has no glyph for U+A739** —
+checked by fetching the woff2 and reading its cmap, not by reading the CSS. Every other letter the Old
+Norse needs (`þ ð á í ó æ ǫ ę`) IS present. The fallbacks are Georgia and Times New Roman, which have
+no U+A739 either, and **a theme adds no webfont** is a standing rule this book does not get to break.
+So Bugge ships 126 tofu boxes per poem.
+
+The two repairs that would fix it are both refused, and for the same reason. Dropping the italics while
+keeping the letters yields the word Bugge intends, and substituting `ǫ` for `ꜹ` yields the letter every
+reader knows — but together they are **Folio constituting its own text and presenting it as an
+edition**, which is the one thing a Library book may never be.
+
+**2. Guðni Jónsson, `heimskringla.no` — the familiar normalisation, and copyright until 2045.**
+`Gáttir allar, áðr gangi fram, um skoðask skyli ... Gefendr heilir! Gestr er inn kominn` — exactly what
+a reader arriving from Bellows expects, in clean HTML with stanza numbers. Guðni Jónsson died 1974 and
+the edition is 1949, so it is under copyright in life-plus-seventy countries until 2045 and in the US
+until 2045. **A normalisation of a medieval poem is a modern constituted text**, which is the Republic
+entry's own rule (§A) and has to bite here or it is not a rule.
+
+**3. Hildebrand/Gering 1904 — public domain, and unusable.** Pre-1929 in the US, both editors long dead,
+and normalised-ish. The only machine-readable form is the archive.org OCR, and it is not a text that can
+be transcribed. In stanza 1 alone: `Gättir` for `Gáttir`, `äf)r` and `skopask` — **the same letter `ð`
+read two different ways in one stanza** — `J)vit` for `þvít`, `ovinir` for `óvinir` with the accent
+simply gone, `sit ja` for `sitja`. Every length mark in the poem is lost. And the critical apparatus is
+interleaved with the verse, the variants for stanzas 65–66 sitting on the page where stanza 1 begins.
+Separating the two is reconstruction, not parsing. Gering's own orthography is archaising besides —
+`Hǫvamǫl`, `es` for `er`, `umb` for `um` — so it is not the familiar text either.
+
+**4. Finnur Jónsson, *De gamle Eddadigte* (Gads, København, 1932) — the right text, one date away.**
+Also on `heimskringla.no`, as clean structured HTML with stanza numbers and Finnur's commentary, under
+`-mǫ́l` titles (`Hávamǫ́l`, `Grímnismǫ́l`, `Alvíssmǫ́l`). Hávamál 1 reads
+
+> Gáttir allar / áðr gangi framm / (of skoðask skyli) / of skyggnask skyli; / óvíst ’s at vita,
+> / hvar óvinir / sitja á flęti fyrir.
+
+**Zero apparatus italics, and every glyph it uses is present in Newsreader** — measured, same method as
+above. This is the column the book wants.
+
+#### The decision, and the date
+
+**Do not ship a facing column now.** Ship Finnur Jónsson when it clears, and re-derive the date rather
+than reading this back — §A's own lesson, which nearly cost the Republic its Greek.
+
+**The date is 1 January 2028, derived rather than looked up, so here are the steps to check:** the work
+was first published in Denmark in 1932; Denmark implemented the EU term directive with effect from
+1 July 1995, so on the URAA restoration date of 1 January 1996 a work by an author who died in 1934 was
+still under copyright there (life plus seventy ran to the end of 2004); a 1932 Danish book will not have
+carried US notice or renewal, so restoration applies; and a restored work gets 95 years from
+publication, expiring at the end of 2027. It has been **public domain in life-plus-seventy countries
+since 2005**, which is why it is freely readable on a Norwegian site today.
+
+Shipping it now under a stated limit is the one option not taken. The shelf does ship a book clear in
+one jurisdiction and not another — §A's Shorey is exactly that — but that precedent runs the other way,
+US-clear and restricted in Europe, and this site is served from a US host. **Claim less, and say on the
+page what cannot be said.**
+
+**And shipping Bugge in the meantime would make the upgrade worse, not better.** A book's original
+column is not free to replace once readers have used it: the Republic's rebuild had to be announced with
+"highlights made on the old text will not line up". Putting up a text we already intend to remove buys
+fifteen months of a column nobody can read and then charges the reader for taking it away.
+
+**Pettit 2023 stays rejected**, on the Gilgamesh precedent: *The Poetic Edda: A Dual-Language Edition*
+(Open Book Publishers) is complete, scholarly, openly available, formatted as a parallel text, and
+licensed **CC BY-NC 4.0** — "not a licence this site can build on and, more to the point, not an expired
+copyright." Recorded again here so it is not rediscovered and adopted by someone who has not read §A.
+
+**One thing the earlier note got wrong, corrected here.** It said Bugge's poem list "does not map
+one-to-one", 43 entries against Bellows' 35. Read, the gap is almost entirely front matter and
+fragments: two of the 43 are Bugge's preface and his table of abbreviations, two are the fragments in
+Snorra Edda and Völsunga saga, and two are the halves of Svipdagsmál, which Bellows prints as one
+chapter. **The poems themselves pair.** That caveat was never the reason not to do this; the orthography
+and the licence are.
 
 ---
 
@@ -308,7 +362,9 @@ Fixed in the same batch as this audit.
    See §A.
 2. **Write to the Chinese Text Project.** Cheap, and it is the only thing standing between the shelf
    and both a complete Classic of Poetry and two facing Chinese columns.
-3. **Decide whether Bugge's diplomatic text is worth having** for the Poetic Edda. This one is a
-   judgement about the reader rather than about licences, and it could reasonably go either way.
+3. ~~**Decide whether Bugge's diplomatic text is worth having**~~ **Decided in Sep 2026 — no, and
+   the Poetic Edda waits for Finnur Jónsson 1932, which by derivation clears in the United States on
+   1 January 2028.** Four candidate texts were fetched and measured; see §C, which shows the
+   derivation so it can be re-checked rather than read back. **Nothing to do before 2028.**
 4. **Leave the rest.** *Háttatal*, the Prose Edda's Old Norse, Lysistrata, Shakuntala, Gilgamesh and
    Aesop are all correctly recorded as blocked, and the notes are not missing at all.

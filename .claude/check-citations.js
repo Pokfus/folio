@@ -168,7 +168,14 @@ const unent = (s) => s.replace(/&(#x?[0-9a-f]+|[a-zA-Z]+);/gi, (m, k) =>
 /* Crossref writes a hyphenated surname with U+2010 (Marie‐Helene Moncel) where the
    citation has an ASCII hyphen, and both spellings are the same name.  Fold the
    dash family together, or three good citations are reported as three wrong ones. */
+/* AND THE SAME FAULT ONE LETTER OVER: a legacy record writes í as a DOTLESS ı
+   (U+0131) carrying a combining acute, so stripping the accent leaves "Jirı
+   Svoboda" against our "Jiri Svoboda" and a good citation is reported as a wrong
+   one.  Fold the dotless pair onto their dotted forms.  It cannot mask a real
+   difference, because the diacritic strip above has already merged every accented
+   i with a plain one — this only finishes the job on the base letter. */
 const fold = (s) => unent(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  .replace(/\u0131/g, "i").replace(/\u0237/g, "j")
   .replace(/[\u2010\u2011\u2012\u2013\u2014\u2212]/g, "-")
   .replace(/[.\u2019'\u2018]/g, "").replace(/\s+/g, " ").trim().toLowerCase();
 
@@ -268,6 +275,19 @@ const CROSSREF_WRONG = [
   // authors the journal's own English metadata names Anna A. Paizerova and Olga L. Shvets.
   ["10.24852/2587-6112.2023.4.124.128", "Anna A. Paizerova", "\u0410\u043d\u043d\u0430 \u0410\u043b\u0435\u043a\u0441\u0435\u0435\u0432\u043d\u0430 \u041f\u0430\u0439\u0437\u0435\u0440\u043e\u0432\u0430"],
   ["10.24852/2587-6112.2023.4.124.128", "Olga L. Shvets", "\u041e\u043b\u044c\u0433\u0430 \u041b\u044c\u0432\u043e\u0432\u043d\u0430 \u0428\u0432\u0435\u0446"],
+  // Quaestio Rossica deposited this byline with a CYRILLIC А (U+0410) in place of the Latin A,
+  // and spelled the given name "Aleksandr" where the journal prints "Aleksander", so Crossref
+  // carries "Аleksandr Uzhankov". The article's own page at qr.urfu.ru prints "Aleksander
+  // Uzhankov" under Authors, in Latin script; the deposit is the one that is wrong, on both counts.
+  ["10.15826/qr.2019.4.425", "Aleksander Uzhankov", "Аleksandr Uzhankov"],
+  // Springer's own article page for this paper prints the byline "Széll, György" in its
+  // citation metadata, but the deposit reached Crossref in ASCII, where ö became "oe" and
+  // é lost its accent, giving "Gyoergy Szell". The journal is the one that is right.
+  ["10.1186/s40856-017-0014-5", "György Széll", "Gyoergy Szell"],
+  // Routledge deposited this editor's name with the two halves swapped, so Crossref carries
+  // given "Westra" and family "Richard". Crossref's OWN record for a review of the same book
+  // (10.1111/j.1944-8287.2008.01011.x) prints "Richard Westra" in its title, which settles it.
+  ["10.4324/9781315249612", "Richard Westra", "Westra Richard"],
   // The USGS Publications Warehouse catalogue record for this open-file report misspells
   // its first author, and Crossref relays the deposit. The report itself prints "by D. G.
   // Jordan and O. J. Cosner" on its title page, and its own Selected References list a
@@ -336,10 +356,27 @@ const CROSSREF_WRONG = [
   // it carries on that byline (0000-0003-1420-2108) registers Steven Paul Ashby.
   // Crossref itself spells him Steven on 10.3176/arch.2020.1.01, under the same ORCID.
   ["10.11141/ia.30.3", "Steven P. Ashby", "Stephen P. Ashby"],
+  // Persee’s metadata for this article is OCR-derived and mangles the byline twice over:
+  // its reference block reads "Skydou Christian" and Crossref relays it. The article’s own
+  // first page prints "CHRISTIANE SEYDOU" above the title, and the Journal des africanistes
+  // published her under that name throughout.
+  ["10.3406/jafr.1988.2246", "Christiane Seydou", "Christian Skydou"],
+  // Slovene deposited this byline in a different romanisation of the Cyrillic surname
+  // Флоря than the journal itself prints: Crossref carries "Boris Floria", where the
+  // article's own first page heads it "Boris N. Florya" and its own recommended citation
+  // reads "Florya B. N. (2018)". Neither form is a misspelling, so this row is not a
+  // claim that Crossref is wrong about the man — it is a note that Folio follows the
+  // spelling a reader will meet at the top of the PDF the citation points at.
+  ["10.31168/2305-6754.2018.7.2.19", "Boris N. Florya", "Boris Floria"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */
 const CROSSREF_YEAR_WRONG = [
+  // Studia Białorutenistyczne numbers volume 10 as its 2016 volume — the journal's own article
+  // page gives 2016 and the DOI itself is minted `sb.2016.10.55` — while Crossref carries a
+  // published-print date of 11 January 2017, the day the volume was deposited. The Vestnik VolSU
+  // rows below are the same fault: a January deposit of the previous year's volume.
+  ["10.17951/sb.2016.10.55", 2016, 2017],
   // OpenEdition deposits a DOI for an OLD article at the moment of registration, and the
   // "print" year Crossref carries is that registration rather than the article's own date.
   // Brussels Studies states its own: "Collection générale, document 78, mis en ligne le

@@ -57,6 +57,22 @@
 
    Both want an editor, and a tool that guessed at either would be inventing an
    attribution. DO NOT WIDEN THE RULES TO REACH THEM.
+
+   THE EDITOR HAS NOW BEEN, AND THE RULES ARE STILL THE RIGHT ONES (Sep 2026).
+   All 21 were decided by hand and written back through `add-images.js`, so
+   `check-cards.js` reports source-in-caption ZERO. Nothing here changed, and the
+   batch is the argument for that: the three cards that needed most were exactly
+   the ones a rule would have got wrong. `ps-029` is CC BY 4.0 with NO author in
+   its credit, so the caption held the picture's only attribution and a cut would
+   have been a licence breach — Commons files it under "Files with no
+   machine-readable author" and its one author statement is the EXIF "Wellcome
+   Library, London", which went into the credit BEFORE the caption lost it. Three
+   China captions carried the photograph's year, which moved into the credit
+   rather than being thrown away. And `wh-059` had no caption to cut back to at
+   all — its `desc` was the Internet Archive's metadata dump — so the picture was
+   fetched, looked at, and a caption written from the plate's own printed one.
+
+   SO IF THIS REPORT IS NON-ZERO AGAIN, IT IS NEW CONTENT, NOT A BACKLOG.
    ============================================================================
 
    Report-only under `--check` (exit 1 if anything is left to strip, so CI can

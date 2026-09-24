@@ -879,8 +879,25 @@ second half. The glossary term is keyed `Indianisation`, with *Indianization* an
 
 ### Africa — `wh-africa`
 
+*Retitled while writing (Sep 2026): `wh-584` was *Islam in West Africa*, which is a description
+rather than a term — there is no article of that name to key a glossary entry on, and the process
+itself is already carried by `wh-568`, `wh-570`, `wh-571` and `wh-574`, which between them have the
+hajj as a mark of a Mali king, the Maliki rite, Sankore and the Wangarawa at Kano. The line is now
+**Ajami**, the writing of African languages in the Arabic alphabet — a term a reader meets again, the
+one thing in that story the Africa deck had no card for, and the trace of Islam reaching past the
+Arabic-literate court. `wh-585` was *Christian Nubia*: `Nubia` is already `wh-229`'s answer term and
+glossary entry, so the line had no term of its own left to teach. It is now **Makuria**, the middle
+and longest-lived of the three Christian Nubian kingdoms, which is what "Christian Nubia" chiefly
+means and which the glossary lacked.*
+
+*Retitled while writing (Sep 2026): `wh-567` was *Trans-Saharan trade*, which `wh-423` already
+cards under exactly that answer term and which `Trans-Saharan_trade` already has as a glossary entry.
+The line is now **Sijilmasa**, the northern gateway of the western route — a place the sources
+(Ibn Battuta, Leo Africanus) describe at first hand, not taken by any other line in the plan, and the
+half of the trade `wh-423` does not reach.*
+
     wh-566  Ghana Empire
-    wh-567  Trans-Saharan trade
+    wh-567  Sijilmasa
     wh-568  Mali Empire
     wh-569  Sundiata Keita
     wh-570  Mansa Musa
@@ -897,14 +914,25 @@ second half. The glossary term is keyed `Indianisation`, with *Indianization* an
     wh-581  Zagwe dynasty
     wh-582  Lalibela
     wh-583  Griot
-    wh-584  Islam in West Africa
-    wh-585  Christian Nubia
+    wh-584  Ajami
+    wh-585  Makuria
 
 ### Steppe empires and the Mongols — `wh-steppe`
 
-    wh-586  Eurasian Steppe
-    wh-587  Nomadic pastoralism
-    wh-588  Xiongnu
+*Retitled while writing (Sep 2026): the deck's first three lines were each already carded, with the
+same answer term and the same glossary key, in another collection — *Eurasian Steppe* at `ru-001`,
+*Nomadic pastoralism* at `ru-003` (as *pastoral nomadism*) and *Xiongnu* at `cnh-225`. Writing them
+here would have produced three near-verbatim duplicates rather than the deliberate pairs the Biology
+and Psychology plans describe, since `ru-001`'s background is already a general account of the
+grassland belt from the Danube to Manchuria. They are now **composite bow** and **yurt**, the weapon
+and the dwelling the steppe way of life actually rested on and which nothing on the site carded, and
+**Yuezhi**, the people the Xiongnu drove west — which keeps the Xiongnu in the deck as the force that
+started the movement, links forward to `wh-391` Kushan Empire, and gives the deck a migration to open
+on instead of a definition.*
+
+    wh-586  Composite bow
+    wh-587  Yurt
+    wh-588  Yuezhi
     wh-589  Huns
     wh-590  Attila
     wh-591  Göktürks
@@ -916,7 +944,17 @@ second half. The glossary term is keyed `Indianisation`, with *Indianization* an
     wh-597  Siege of Baghdad
     wh-598  Golden Horde
     wh-599  Timur
-    wh-600  Legacy of the Mongol Empire
+    wh-600  Chinggisids
+
+*`wh-600` was **Legacy of the Mongol Empire**, which is a topic rather than an answer term: a card is
+answered by a word a reader will meet again, and nobody meets "the legacy of the Mongol Empire" as a
+name. The legacy that does have a name — and the most durable thing the empire left — is the rule that
+only a descendant of Genghis Khan could hold the title of khan, which governed politics from the Black
+Sea to Manchuria into the 18th century and is exactly what makes `wh-599` Timur intelligible, since he
+beat every army he met and still ruled as an emir. **Chinggisids** is also a real article title, so the
+paired glossary term has a slug; "Legacy of the Mongol Empire" has none. The card still carries the
+legacy in full — the four khanates, the plague argument, and the national histories that still locate
+what went wrong in the Mongol period — under a term rather than under a heading.*
 
 ### The Americas before Columbus — `wh-americas`
 

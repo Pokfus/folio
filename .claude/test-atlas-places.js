@@ -10,6 +10,8 @@
     · a term naming a country or a point shows a map marker in its popup; a term naming neither does not
     · pressing it goes to the Atlas, closes the popup and opens NO info panel (the reader has just read it)
     · a glossary point-location is findable in the Atlas search, and picking it focuses it
+    · the reader's TEXT SIZE reaches the canvas: the same view's country names carry more ink at Very
+      large than at Medium, and less at Very small (Sep 2026, on request)
 
     node .claude/test-atlas-places.js
     (Playwright is a dev dependency and must not be installed into the repo — install it elsewhere and run
@@ -199,6 +201,55 @@ const check = (name, ok, extra) => {
     // the reader has just READ about this place; a second description is not what the marker offered
     check("...and opening no info panel", flown.popup === false, JSON.stringify(flown));
   }
+
+  /* ============================================================
+     THE TEXT SIZE REACHES THE CANVAS (Sep 2026, on request)
+     ============================================================
+     `--fs` multiplies 519 px font-sizes in the stylesheet and reached no label on the globe, those being
+     PAINTED rather than laid out — so a reader who had asked for Very large met a map set in the same
+     10px it has always been. `mapFs` reads the multiplier off the stylesheet and scales every label
+     layer's own size with it.
+     IT IS MEASURED AS INK, because the labels are on a canvas and there is nothing to query, and it is
+     measured on ONE VIEW with one layer on — the persistent country names, which are the layer with the
+     most words on screen at the opening zoom. LBL_TEXT is the day theme's #221808, which nothing else on
+     this globe is near: the same probe section 6 of test-personal-atlas.js uses.
+     THE BAR IS A DIRECTION, NOT A RATIO. Ink does not scale with the multiplier — at Very small the
+     strokes are thin enough that most of their pixels are antialiased out of the colour window, and at
+     Very large a bigger name also crowds its neighbours out of the de-collision — so what is asserted is
+     that the three sizes come back in order, with enough daylight between them that a redraw's noise
+     cannot supply it. A regression here shows as all three being EQUAL, which is the value the check
+     existed to rule out. */
+  const nameInk = async (size) => {
+    const pg = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+    await pg.addInitScript((sz) => {
+      localStorage.setItem("folio_v1", JSON.stringify({ settings: { fontSize: sz, newPerDay: 5 } }));
+    }, size);
+    await pg.goto(base + "#map", { waitUntil: "load" });
+    await pg.reload({ waitUntil: "load" });
+    await pg.waitForTimeout(9000);
+    // the page opens on the reader's OWN atlas, which draws no country names at all
+    await pg.evaluate(() => { const w = document.querySelector('[data-atlastab="world"]'); if (w) w.click(); });
+    await pg.waitForTimeout(4000);
+    await pg.evaluate(() => { const t = document.querySelector("#countryToggle"); if (t && !t.checked) t.click(); });
+    await pg.waitForTimeout(3000);
+    const r = await pg.evaluate(() => {
+      const cv = document.getElementById("globe");
+      if (!cv) return null;
+      const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
+      let label = 0;
+      for (let i = 0; i < d.length; i += 4) {
+        if (d[i + 3] < 8) continue;
+        if (Math.abs(d[i] - 34) < 14 && Math.abs(d[i + 1] - 24) < 14 && Math.abs(d[i + 2] - 8) < 16) label++;
+      }
+      return label;
+    });
+    await pg.close();
+    return r;
+  };
+  const inkTiny = await nameInk("tiny"), inkMed = await nameInk("medium"), inkHuge = await nameInk("huge");
+  check("the Atlas writes its country names at all", inkMed > 200, "ink " + inkMed);
+  check("...bigger when the reader asks for Very large", inkHuge > inkMed * 1.5, JSON.stringify({ medium: inkMed, huge: inkHuge }));
+  check("...and smaller at Very small", inkTiny < inkMed * 0.75, JSON.stringify({ tiny: inkTiny, medium: inkMed }));
 
   console.log("");
   if (errs.length) { console.log("page errors:"); errs.forEach((e) => console.log("  " + e)); fail += errs.length; }

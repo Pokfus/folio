@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
-  Rewrite a MAP CARD's `facts` grid, in batches.
+  Rewrite a MAP CARD's or an ARTWORK CARD's `facts` grid, in batches.
 
     node .claude/set-facts.js <batch.json> [--check]
 
@@ -21,6 +21,12 @@
   `--check` reports every map card's grid and writes nothing — which is how a batch is reviewed by eye
   before it is applied, the grid being four short strings that no test can judge.
 
+  IT TAKES AN ARTWORK CARD TOO, AND THAT IS NOT A WIDENING SO MUCH AS CATCHING UP (Sep 2026). `facts`
+  was the map card's field alone when this was written; the artwork format added in the Visual Art
+  restart reads the SAME field for its Artist / Material / dimension / Location grid, drawn by the same
+  `cardFacts` two to a row and therefore an ORDER in exactly the same way. Refusing one sent the next
+  correction to `update-cards.js`, which is the unvalidated path this tool exists to replace.
+
   A CELL MAY BE "?" AND THAT IS DELIBERATE (Sep 2026, on request: "if you cannot find data for any
   particular one, just put a questionmark there"). It is not a placeholder to be filled in later by a
   guess — it is the card saying the figure was looked for and not found, which is the honest state and
@@ -30,7 +36,18 @@ const fs = require("fs"), path = require("path");
 const DATA = path.join(__dirname, "..", "data.js");
 const die = (m) => { console.error("ERROR: " + m); process.exit(1); };
 
-const MAX_ROWS = 6;          // the grid is drawn two to a row; more than three rows is a table, not a glance
+/* THE ROW BOUNDS ARE `add-card.js`'s, SLICED OUT BY TEXT RATHER THAN COPIED, and the run STOPS if the
+   slice fails (Sep 2026). Two tools write a `facts` grid — that one for a NEW card, this one for a card
+   already shipped — and a second copy of a bound goes stale on a change made in a file nobody editing a
+   grid has reason to open, which is the scar `add-card-tags.js` left. */
+const AC = fs.readFileSync(path.join(__dirname, "add-card.js"), "utf8");
+const sliceNum = (name) => {
+  const m = AC.match(new RegExp("\\b" + name + "\\s*=\\s*(\\d+)"));
+  if (!m) die("could not read " + name + " out of add-card.js — the two tools would disagree about how many rows a grid may carry");
+  return Number(m[1]);
+};
+const MAP_FACTS_MIN = sliceNum("MAP_FACTS_MIN"), MAP_FACTS_MAX = sliceNum("MAP_FACTS_MAX");
+const ART_FACTS_MIN = sliceNum("ART_FACTS_MIN");
 const LABEL_MAX = 24;
 const VALUE_MAX = 64;
 
@@ -41,9 +58,10 @@ if (!Array.isArray(CARDS)) die("data.js did not yield window.CARD_DATA");
 const byId = new Map(CARDS.map((c) => [c.id, c]));
 
 if (process.argv.includes("--check")) {
-  const maps = CARDS.filter((c) => c.map);
-  console.log(maps.length + " map cards");
-  maps.forEach((c) => console.log("  " + c.id + "  " + (c.answerText || "") + "\n      " +
+  const grids = CARDS.filter((c) => c.map || c.artwork === true);
+  console.log(grids.length + " cards with a facts grid (" + grids.filter((c) => c.map).length + " map, " +
+    grids.filter((c) => !c.map).length + " artwork)");
+  grids.forEach((c) => console.log("  " + c.id + "  [" + (c.map ? "map" : "artwork") + "]  " + (c.answerText || "") + "\n      " +
     (c.facts || []).map((f) => f[0] + " = " + f[1]).join("\n      ")));
   process.exit(0);
 }
@@ -60,9 +78,18 @@ const edits = [];
 for (const [id, facts] of Object.entries(batch.cards)) {
   const card = byId.get(id);
   if (!card) die("no card " + id + " in data.js");
-  if (!card.map) die(id + ": not a map card — `facts` is the map card's own figures grid");
+  /* AN ARTWORK CARD CARRIES A `facts` GRID TOO, and this tool refused one for a fortnight after that
+     format shipped — so the only field the artwork format adds had no sanctioned writer at all and the
+     next hand edit of it would have gone straight into data.js. The two kinds take different MINIMA
+     (a map card states capital/population/area; an artwork states artist/date/medium/size/where), so the
+     bound is chosen by the card rather than shared. */
+  const kind = card.map ? "map" : (card.artwork === true ? "artwork" : null);
+  if (!kind) die(id + ": neither a map card nor an artwork card — `facts` is those two formats' figures grid");
   if (!Array.isArray(facts) || !facts.length) die(id + ": facts must be a non-empty array of [label, value]");
-  if (facts.length > MAX_ROWS) die(id + ": " + facts.length + " rows — at most " + MAX_ROWS);
+  const min = kind === "map" ? MAP_FACTS_MIN : ART_FACTS_MIN;
+  if (facts.length < min || facts.length > MAP_FACTS_MAX) {
+    die(id + ": a" + (kind === "map" ? " map" : "n artwork") + " card carries " + min + "\u2013" + MAP_FACTS_MAX + " `facts` rows — this one has " + facts.length);
+  }
   facts.forEach((row, i) => {
     if (!Array.isArray(row) || row.length !== 2) die(id + " row " + (i + 1) + ": each row is [label, value]");
     const [label, value] = row.map((x) => String(x == null ? "" : x).trim());

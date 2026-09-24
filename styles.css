@@ -13,8 +13,8 @@
 
 /* ---------- tokens ---------- */
 :root{
-  --paper:#F6F5F1; --paper-2:#EFEDE6; --card:#FFFFFF;
-  --ink:#1B1A17; --ink-soft:#4A4843; --ink-faint:#8B887F; --rule:#E3E0D7;
+  --paper:#F7F6FB; --paper-2:#EBE9F5; --card:#FDFDFF;
+  --ink:#1D1B29; --ink-soft:#514D68; --ink-faint:#918CA8; --rule:#DEDAEE;
   /* --ink-quiet: QUIET, BUT NOT BELOW THE BAR. See the CONTRAST block below. --ink-faint is
      3.0-3.5:1 and is right for what it was written for — an eyebrow, a caption, a source line —
      but it had spread to things that are not captions at all: the primary nav labels, a page's
@@ -23,9 +23,26 @@
      know the high-contrast mode exists, so those cases take this instead. The value is not a new
      guess: it is the one `body.hc` already solves to, each hue scaled toward the ink until it
      clears 4.6:1 against --paper-2, the darkest of the three papers. */
-  --ink-quiet:#6C6A63;
-  --indigo:#36357A; --indigo-bright:#4E4CB0; --indigo-wash:#ECECF7; --ochre:#B5722A;
-  --zh:#C8453C; --zh-wash:#FBECEA; --geo:#BC7A18; --good:#3F7E5C;
+  --ink-quiet:#69657E;
+  /* THE OPAL'S PERIWINKLE, WALKED DOWN TO THE BAR — the same treatment the red below gets, and needed
+     for the same reason. `--indigo` is the eyebrows, the nav labels, the glossary links and the FILL of
+     every primary button, so as a default it is running text and a control at once. As a collectible
+     the stone wore #6E7FC4 / #8A9BDD, which measured 3.19 and 2.24 on `--paper-2` and put white on a
+     button at 3.82; promoting it unchanged took `test-a11y.js`'s high-contrast sweep from green to 20
+     failures and roughly doubled the default mode's standing backlog. These are those two hues at the
+     same chroma, deep enough to clear 4.5 on all three papers: --indigo 6.89 / 6.51 / 5.83 and 7.0 for
+     white on it, --indigo-bright 5.48 / 5.18 / 4.64. Night needs none of this — reversed out of a dark
+     card the stone's own values are already 8.44 and 10.84 — so it keeps them exactly. */
+  --indigo:#45549C; --indigo-bright:#5263B0; --indigo-wash:#E9ECFA; --ochre:#9A7C55;
+  /* THE ANSWER TERM'S RED IS A DEEP ROSE, NOT THE STONE'S OWN PINK (Sep 2026, on request: "red text
+     should have a deeper red color so there's more contrast"). Opalite wore #C081A8, which is the
+     milky pink an opal actually flashes and measures 2.98:1 on --card, 2.52 on --paper-2 — a long way
+     under the bar for what is the answer to every card and every footnote marker on the site. This is
+     the same hue walked down until it clears 4.5 on all three papers: 6.10 on --card, 5.76 on --paper,
+     5.17 on --paper-2, against the OLD default folio vermilion's 4.73 / 4.47 / 4.00. It is measurably
+     the highest-contrast red Folio has ever shipped as a default, and still an opal's rose rather than
+     a pillar-box red. Keep any replacement above 4.5 on --paper-2, which is the darkest of the three. */
+  --zh:#AE3350; --zh-wash:#F9E9EC; --geo:#5FA5A8; --good:#4E9B7E;
   /* an UNDISCOVERED glossary term (Aug 2026, on request). This teal began life as --bknote, the Library
      books' own note colour, and the two roles were SWAPPED: a book's markers now take the card's
      vermilion (--zh) like every other citation on the site, and the hue that distinguished them moved
@@ -44,13 +61,13 @@
      fall SHORT, and this one does not). */
   --admin:#8E2F86;
   --han:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  --serif:"Newsreader", Georgia, "Times New Roman", serif;
-  --display:"Fraunces", Georgia, serif;
+  --serif:"Lora", Georgia, "Times New Roman", serif;
+  --display:"Nunito Sans", system-ui, sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans:"Inter", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --shadow-sm:0 1px 2px rgba(27,26,23,.05);
-  --shadow-md:0 1px 2px rgba(27,26,23,.05), 0 8px 28px rgba(27,26,23,.06);
-  --shadow-lg:0 2px 4px rgba(27,26,23,.06), 0 18px 50px rgba(27,26,23,.10);
+  --sans:"Nunito Sans", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --shadow-sm:0 1px 2px rgba(29,27,41,.05);
+  --shadow-md:0 1px 2px rgba(29,27,41,.05), 0 8px 28px rgba(29,27,41,.06);
+  --shadow-lg:0 2px 4px rgba(29,27,41,.06), 0 18px 50px rgba(29,27,41,.10);
   --bar-h:60px;
   /* The two bars the Atlas has to sit above. --tabbar-h is 0 until the phone's bottom tab bar appears and
      --timebar-h grows when the timeline goes to two rows, so .globe-stage and .atlas-timebar can each be
@@ -67,11 +84,15 @@
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 body.night{
-  --paper:#161619; --paper-2:#1F1F24; --card:#26262C;
-  --ink:#ECEAE3; --ink-soft:#D6D2C8; --ink-faint:#8A877F; --rule:#34343C;
-  --ink-quiet:#918E87;   /* see the light value — night's own hc figure, 4.6:1 on --card */
-  --indigo:#A6A4F0; --indigo-bright:#B9B7F7; --indigo-wash:#2E2E47; --ochre:#E0A45A;
-  --zh:#F0938B; --zh-wash:#33262A; --geo:#E0A23F; --good:#79C39B;
+  --paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C;
+  --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-faint:#827CA0; --rule:#302C48;
+  --ink-quiet:#8C87A8;   /* see the light value — night's own hc figure, 4.98:1 on --card */
+  --indigo:#A6B4F0; --indigo-bright:#C2CCFF; --indigo-wash:#20203A; --ochre:#C3A47A;
+  /* the red walks the OTHER way at night — see the light value. Reversed out of a dark card the
+     stone's #E4A9CC already measured 8.79:1, so deepening it would have COST contrast; what it
+     lacked was red, sitting at hue ~320 where the light value is ~345. This is that hue at the
+     same weight: 8.89:1 on --card, so it reads as a red and is a shade clearer than before. */
+  --zh:#EFA8B8; --zh-wash:#32202A; --geo:#7FCACD; --good:#75C6A4;
   --newterm:#5FC2CE; --admin:#CF93DC;
   --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35);
   --shadow-lg:0 20px 60px rgba(0,0,0,.5);
@@ -120,14 +141,21 @@ body.night{
    A ghost keeps .btn.ghost's own var(--indigo), which is that same light lavender ON the dark card. */
 body.night .btn:not(.ghost){color:var(--paper);}
 body.night .btn:not(.ghost):hover{color:var(--paper);}
+/* RE-SOLVED Sep 2026 WHEN THE DEFAULT PALETTE CHANGED. These are one set of values applied to every
+   theme, and they always were the DEFAULT theme's own solved values — so when Opalite replaced Folio
+   the row had to move with it, or the mode would have gone on imposing the old warm palette's greys and
+   golds on a cool one (and `--zh` at #BA4038 now measures 4.51 on the new --paper-2, which is under the
+   bar the row exists to clear, and BELOW the base red it replaces — a high-contrast mode that lowers
+   contrast). Each is its own hue scaled toward the ink until it clears 4.6:1 on --paper-2, the darkest
+   of the three papers: ink-faint 4.65, ochre 4.84, geo 4.80, zh 6.05, good 4.89, newterm 6.18. */
 body.hc:not(.night){
-  --ink-faint:#6C6A63; --ochre:#945D22; --geo:#935F13; --zh:#BA4038; --good:#3B7556; --newterm:#155E68;
+  --ink-faint:#69657E; --ochre:#7A6142; --geo:#3A6E71; --zh:#9E2B49; --good:#376F58; --newterm:#155E68;
 }
-body.hc.night{ --ink-faint:#918E87; }
+body.hc.night{ --ink-faint:#8C87A8; }   /* 4.98:1 on the new night --card */
 /* …and the borders, which are not text and so are not in the table above, but are what tells one card from
    the next. A hairline at 1.2:1 is invisible to a reader who needs this mode at all. */
-body.hc:not(.night){ --rule:#B9B4A5; }
-body.hc.night{ --rule:#5A5A66; }
+body.hc:not(.night){ --rule:#B5B0C9; }
+body.hc.night{ --rule:#4E4A6E; }
 body.hc .btn,body.hc .card,body.hc .set-card{border-width:1.5px;}
 /* the gold collection icon is 2.6:1 on card — decorative, but it is the only thing naming the subject */
 body.hc:not(.night) .coll-ic{color:#81661E;}
@@ -240,14 +268,31 @@ body:not(.night)::before{
   filter:blur(64px) saturate(126%); opacity:.96;
 }
 a{color:var(--indigo-bright);}
-::selection{background:rgba(54,53,122,.16);}
-.night ::selection{background:rgba(166,164,240,.22);}
-/* default theme signature: a bookbinder's ribbon — one hairline of indigo → vermilion → gold under the nav */
-body[data-theme="folio"] .topbar::after{
-  content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; pointer-events:none;
-  background:linear-gradient(90deg, var(--indigo), var(--zh) 52%, #C39A2E);
-  opacity:.6;
+::selection{background:rgba(110,127,196,.18);}
+.night ::selection{background:rgba(166,180,240,.22);}
+/* DEFAULT THEME SIGNATURE — the opal (Sep 2026, on request: "replace the default Folio theme with the
+   Opalite theme, which should be renamed to Folio"). What used to sit here was a bookbinder's ribbon, a
+   hairline of indigo → vermilion → gold under the nav, and it went with the palette it belonged to: the
+   default's signature is now the stone's, which is the iridescence below and the cabochon corners with it.
+   THE IRIDESCENCE IS THE POINT: the ground shifts through the whole opal spectrum rather than sitting on
+   one hue, which is what separated this from Amethyst when it was a gemstone theme. Static, like every
+   other theme's ambient.
+   ⚠ IT MUST STAY BELOW `body:not(.night)::before`. Both selectors are (0,1,2) — an attribute and a `:not`
+   weigh the same — so this wins on SOURCE ORDER alone, and moving it above that rule silently gives the
+   default back the four-blob gradient it is replacing. */
+body[data-theme="folio"]::before{
+  background:linear-gradient(135deg,#F4F0FB 0%, #EAF3FB 22%, #EFF8F2 44%, #FBF3F7 68%, #F2EFFC 100%);
+  opacity:1; filter:none;
 }
+body[data-theme="folio"].night::before{
+  background:linear-gradient(135deg,#181630 0%, #101C2A 24%, #0F1F1E 48%, #23142A 72%, #14122A 100%);
+}
+/* the roundest corners on the shelf — an opal is a cabochon, never faceted */
+body[data-theme="folio"] .card, body[data-theme="folio"] .collection,
+body[data-theme="folio"] .study-card, body[data-theme="folio"] .banner,
+body[data-theme="folio"] .game-tile, body[data-theme="folio"] .placard{border-radius:20px;}
+body[data-theme="folio"] .btn, body[data-theme="folio"] .grade{border-radius:999px;}
+body[data-theme="folio"] .page-head h1{font-family:var(--display); font-weight:700; letter-spacing:-.01em;}
 
 /* utility eyebrow */
 .eyebrow{
@@ -685,7 +730,21 @@ body.night .coll-ic{color:#E6C765;}
 .cl-row .coll-ic img, .udeck .coll-ic img{width:calc(28px * var(--fs)); height:calc(28px * var(--fs));}
 /* …and on a review row, where the width belongs to the deck's name (see adIcon). No min-width: the mark
    sits in the flex line rather than reserving a column, so a row without one loses nothing. */
-.active-deck .coll-ic.dk-ic{min-width:0; margin-inline-end:2px;}
+.active-deck .coll-ic.dk-ic{min-width:0; margin-inline-end:2px;
+  /* …AND IT RUNS IN THE DECK'S OWN HUE, not the collection gold (Sep 2026, on request). The row already
+     carries that hue as `--coll-bg` (see hueStyle), and the mark is `currentColor` on a stroke, so this is
+     one declaration rather than a colour per row. It is MIXED TOWARDS `--ink` rather than used raw: the
+     hues are signature washes chosen to sit UNDER a banner, and several of them (Second World War's near
+     black, World History's mid brown) are a wash on paper by day and all but invisible on a dark card by
+     night. Mixing towards the ink raises the contrast in BOTH directions with no per-theme table, which is
+     the ratio `.elab-box`'s tab is solved the same way. The plain hue is declared first for a browser with
+     no `color-mix`. */
+  color:var(--coll-bg, #C39A2E);
+  color:color-mix(in srgb, var(--coll-bg, #C39A2E) 80%, var(--ink));}
+body.night .active-deck .coll-ic.dk-ic{color:color-mix(in srgb, var(--coll-bg, #C39A2E) 55%, var(--ink));}
+/* High contrast drops the hue and keeps the SHAPE, which is what carries the information: the mark says
+   what kind of cards are in the deck, and the colour only repeats the row's own wash. */
+body.hc .active-deck .coll-ic.dk-ic{color:var(--ink);}
 .active-deck .coll-ic.dk-ic svg, .active-deck .coll-ic.dk-ic img{width:calc(22px * var(--fs)); height:calc(22px * var(--fs));}
 /* The Daily-review banner carried a large plain golden numeral of its own — the day's whole pile — and it
    went in Aug 2026 on request, along with pileBadgeMarkup, the tick it showed on a cleared day and the
@@ -1138,6 +1197,11 @@ body.night .game-tile{ --gt-gold:#D8B355; }
   background:var(--rule); transition:background .25s var(--ease), box-shadow .25s var(--ease);
 }
 .sw-chip.on{background:var(--good, #4F9D67); box-shadow:0 0 0 1px color-mix(in srgb, var(--good, #4F9D67) 35%, transparent);}
+/* A PERFECT RUN'S CHIP IS GOLD, the same pair of stops the tile's wax seal is mixed from (`.gt-seal`),
+   so "perfect" is one colour on this page rather than two. It is written AFTER `.on` and at the same
+   specificity, so the later rule wins and a won chip needs no extra weight. */
+.sw-chip.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47;
+  box-shadow:0 0 0 1px color-mix(in srgb, #BE9829 45%, transparent);}
 .sweep-count{
   font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.04em;
 }
@@ -1200,8 +1264,15 @@ body.night .game-tile{ --gt-gold:#D8B355; }
    fullscreen media viewer (9800), which nothing here opens. The scrim is DARK rather than a paper wash —
    the Atlas's coach marks lighten their globe, and this one has to darken a page of prose in eight themes,
    so it is deliberately theme-independent. */
+/* NO `backdrop-filter` HERE, and that is the point rather than an omission (Sep 2026, on a bug report:
+   on mobile the tutorial "blurs the background while also trying to highlight elements from it"). The
+   scrim covers the whole page, targets included, so a blur on it blurs the very element the dashed ring
+   is drawn around — the step says look at this and then makes it unreadable. It bites hardest on a phone,
+   where the card docks to the bottom and the ringed element is the only other thing on screen, but the
+   contradiction is not a phone one and neither is the fix. The 55% black wash does the separating on its
+   own; `.page-help` KEEPS its blur, because a coach mark rings nothing. */
 .folio-tour{position:fixed; inset:0; z-index:9700; display:flex; align-items:center; justify-content:center; padding:20px;
-  background:color-mix(in srgb, #000 55%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
+  background:color-mix(in srgb, #000 55%, transparent);
   animation:tourIn .22s var(--ease) both;}
 @keyframes tourIn{from{opacity:0}to{opacity:1}}
 /* the arrow layer: no viewBox, so its user units are CSS pixels and the rects tourPlace() measures need no
@@ -1365,18 +1436,18 @@ body.night .game-tile{ --gt-gold:#D8B355; }
 /* NOTE: collection banners are deliberately STATIC — no drifting motifs, no animated pattern layers
    (a motif-drift system lived here once and was removed on request; don't reintroduce it). */
 .collection-row > .collection-main, .collection-row > .collection-actions, .collection-row > .coll-ic{position:relative; z-index:1;}
-/* Default (folio) theme — "bookplate": a quiet wash of the collection's hue fading into the card
-   and a fine inner rule like a book plate. */
+/* Default (folio) theme — the opal: the hue SHIFTS rather than fading, the play of colour being the whole
+   of the stone. This replaced the old default's "bookplate" (a wash of the collection's hue into the card
+   under a fine inner rule) when Opalite became the default; the inner rule went with it, a cabochon having
+   no facet to draw. A theme MUST override `.collection-deco` — the base rule washes the banner in its own
+   hue at 46–76%, which leaves the quiet text on it unreadable. */
 body[data-theme="folio"] .collection-deco{
-  /* daylight needs a much stronger mix than night: the hue sinks into the bright card (14% was near-invisible) */
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, #888) 30%, var(--card)), var(--card) 64%);
+  background:linear-gradient(100deg, color-mix(in srgb,var(--coll-bg, #888) 17%, var(--card)) 0%,
+    color-mix(in srgb,var(--coll-bg, #888) 6%, var(--card)) 38%, color-mix(in srgb,#BFD9FF 22%, var(--card)) 68%, var(--card) 100%);
 }
 body[data-theme="folio"].night .collection-deco{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, #888) 22%, var(--card)), var(--card) 64%);
-}
-body[data-theme="folio"] .collection-deco::after{
-  content:""; position:absolute; inset:6px; border-radius:9px; pointer-events:none;
-  border:1px solid color-mix(in srgb, var(--coll-bg, #888) 24%, transparent);
+  background:linear-gradient(100deg, color-mix(in srgb,var(--coll-bg, #888) 40%, var(--card)) 0%,
+    color-mix(in srgb,var(--coll-bg, #888) 16%, var(--card)) 40%, color-mix(in srgb,#3A4980 34%, var(--card)) 70%, var(--card) 100%);
 }
 /* the studied/total count sits in a small solid box so it stays legible over the colour wash */
 .collection-row .prog .count{background:var(--coll-bg, var(--card)); color:#fff; padding:2px 9px; border-radius:6px; box-shadow:0 0 0 1px rgba(0,0,0,.08);}
@@ -1651,6 +1722,19 @@ body[data-theme="folio"] .collection-deco::after{
    and "2 / 3" then breaks across two lines — which makes the whole header two lines tall. */
 .study-card .qc-n{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; min-width:30px; text-align:center; white-space:nowrap;}
 .study-card .question{font-size:calc(18px * var(--fs)); line-height:1.62; margin:0 0 20px; color:var(--ink);}
+/* THE WRITING BAND — empty space under the question to work an answer out on, drawn only while the
+   marker's pen is down (Sep 2026, on request). Three things decide its shape.
+   IT IS NOT DRAWN AT ALL BY DEFAULT: `body.wb-down` is set by applyWBState the moment the pen goes down
+   and cleared when it comes up, so a reader who never picks the marker up sees the card they always saw.
+   IT STAYS WHEN THE ANSWER IS REVEALED, which is the second half of the request — it sits between the
+   question and `.reveal` in the markup, so the answer box opens UNDER it and the working stays on the
+   page beside what it was working out.
+   ITS HEIGHT IS IN `em`, so it scales with the reader's own text size as every other band on the card
+   does; the rule is a hairline at the foot rather than a box, because a boxed area over a canvas the
+   reader can draw straight past would promise a boundary the ink does not keep. */
+.study-card .scratch{display:none;}
+body.wb-down .study-card .scratch{display:block; height:9em; margin:0 0 20px; border-bottom:1px dashed var(--rule);}
+@media (max-width:640px){ body.wb-down .study-card .scratch{height:7em;} }
 .study-card .blank{display:inline-block; box-sizing:border-box; width:2.7em; color:transparent; overflow:hidden; white-space:nowrap; vertical-align:baseline; border-bottom:2px solid var(--ochre); margin:0 3px; line-height:1;}
 /* the golden blank becomes a typing field; on reveal it is replaced by the typed letters, coloured
    green where they directly matched the answer (case-insensitive) and red where they didn't */
@@ -1701,7 +1785,20 @@ body[data-theme="folio"] .collection-deco::after{
    critPipsHTML in app.js, and the `.q-head` grid above for how it is centred. */
 .crit-row{display:flex; align-items:center; gap:7px; margin-top:9px;}
 .study-card .q-head .crit-row{margin-top:0; min-width:0; justify-self:center;}
-.study-card .q-head .card-stars{justify-self:end;}
+/* THE STARS ARE PLACED IN COLUMN 3 EXPLICITLY, not left to fall there (Sep 2026, on a bug report: "when
+   the three dots for three days studied have not yet appeared on the first time a card is shown, the
+   difficulty rating jumps to the center of the card when it should stay in the top right"). `critPipsHTML`
+   returns NOTHING for a card with no record, so on a card's first sighting the grid has two children
+   rather than three and the stars land in the `auto` MIDDLE column — where `justify-self:end` has nothing
+   to push against, an auto column being only as wide as its content. Naming the column is what makes the
+   corner the corner in every state, this one and the phone's, where the row moves to the study bar and
+   the middle child is absent again. */
+.study-card .q-head .card-stars{grid-column:3; justify-self:end;}
+/* WHERE THE ROW GOES — one declaration, read back by `renderCard` (see `--crit-slot` there). */
+body{--crit-slot:head;}
+/* …and in the study bar it keeps its label and sits opposite the three counts, which take a full-width
+   line of their own at this width (see `.counts` in the phone block). */
+.counts .crit-row{margin-top:0; margin-right:auto; min-width:0;}
 .crit-pips{display:inline-flex; gap:4px;}
 .crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--ink-faint); box-sizing:border-box;}
 .crit-pip.on{background:var(--ink-faint); border-color:var(--ink-faint);}
@@ -1853,6 +1950,20 @@ body.no-tts .ans-cn .ac-say{display:none;}
 }
 .mc-btn:hover{background:var(--card); color:var(--ink);}
 .mc-btn svg{width:14px; height:14px;}
+/* "Discovered!" — top LEFT, opposite the control stack, on a card whose reveal has just earned the
+   reader somewhere new (Sep 2026, on request). It takes --newterm, which is the ink the site already
+   uses for a term met for the first time, so a discovery looks the same wherever it happens. */
+.mc-new{
+  position:absolute; left:9px; top:9px; z-index:2; pointer-events:none;
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); font-weight:600; letter-spacing:.08em;
+  text-transform:uppercase; line-height:1.7; padding:0 8px; border-radius:999px; white-space:nowrap;
+  color:var(--newterm);
+  background:color-mix(in srgb, var(--newterm) 13%, var(--card));
+  border:1px solid color-mix(in srgb, var(--newterm) 38%, transparent);
+  animation:mcNewIn .34s var(--ease) both;
+}
+.mc-new[hidden]{display:none;}   /* the author `display` would beat the UA rule and pin it open */
+@keyframes mcNewIn{from{opacity:0; transform:translateY(-4px) scale(.96);} to{opacity:1; transform:none;}}
 /* The "Drag to turn · zoom to look closer" chip that sat bottom-left is gone (Sep 2026, on request); the
    canvas's aria-label still says what to do, which is the one reader the words were for. */
 /* the two lazy bundles behind it. A window that says nothing while it waits reads as one that failed. */
@@ -1885,16 +1996,215 @@ body.no-tts .ans-cn .ac-say{display:none;}
   display:block; width:100%; height:clamp(220px, 46vh, 420px);
   object-fit:contain; background:var(--paper-2);
 }
+/* A DEAD FILE ON THIS FORMAT IS THE WHOLE QUESTION GONE, so it says so rather than hiding (which would
+   leave four empty fields under nothing) and rather than painting the alt text at full size in the frame,
+   which is what a browser does by default and which reads as a broken page. The sentence is in CSS
+   because the frame is built by `cardArtHTML` before anything knows whether the file will arrive, and the
+   site ships in English (see MULTILANG); it follows `.ces-img.media-dead`, which says its own line the
+   same way. */
+.art-shot.media-dead img{display:none;}
+.art-shot.media-dead::after{
+  content:"This picture could not be loaded."; display:block; padding:34px 16px; text-align:center;
+  font:400 calc(13px * var(--fs))/1.5 var(--sans); color:var(--ink-faint);
+}
 .art-shot.revealed{cursor:zoom-in;}
 .art-shot.revealed:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+
+/* THE FLAG ON A FLAG CARD'S FRONT (Sep 2026, with the Flags collection; see the FLAG CARDS block in
+   app.js). `.art-shot`'s sibling and NOT a reuse of it, because the two frames differ in the two things
+   that matter here.
+
+   THE FLAG IS CONTAINED AND NEVER CROPPED, like a painting — flags run from 1:1 (Switzerland, Vatican
+   City) through 2:3 and 1:2 to Qatar's 11:28 — so the height is a MAXIMUM and `object-fit:contain` does
+   the rest. It is shorter than the artwork frame: a flag is a wide shallow thing and a 46vh box would
+   letterbox most of them into a band of paper.
+
+   IT IS DRAWN ON A RULED GROUND, which the artwork frame gets for free and this one genuinely needs.
+   Japan, Qatar's hoist, the Nordic crosses and every white-bordered flag have WHITE at the edge, so
+   against the card they lose their own outline and against a dark card they are cut in half. The border
+   and the paper behind it are what keep the edge visible in both, and Japan and Switzerland at both
+   light and dark are the whole test of this rule.
+
+   IT NEVER GAINS CHROME, unlike `.art-shot.revealed`: there is no zoom glyph and no caption in ANY
+   state, because a national flag's credit line reads "Government of India, public domain" and the
+   viewer's own caption bar would print it. The credited, enlargeable copy is the small `.av-flag` inside
+   the answer box, which `buildBack` draws on the reveal. */
+.flag-shot{
+  margin:2px 0 16px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+  background:var(--paper-2); box-shadow:var(--shadow-sm);
+}
+.flag-shot img{
+  display:block; width:100%; height:clamp(150px, 30vh, 280px);
+  object-fit:contain; background:var(--paper-2);
+}
+/* AND ON THE REVEAL IT BECOMES ENLARGEABLE, which is where its credit lives (Sep 2026, on request: "the
+   image box should not show the image source or link on the card, only when it is clicked to enlarge
+   should it say the source info"). There is deliberately NO caption class here: a `figcaption` under this
+   frame put two lines of Commons URL under every flag, and `openMediaViewer` draws the credit as
+   `.iv-credit` under the enlarged picture instead. `.revealed` is added by `cardFlagReveal` and never
+   before, since a flag's credit names the country. */
+.flag-shot.revealed{cursor:zoom-in;}
+.flag-shot.revealed:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+/* A dead file here is the whole question gone, exactly as on an artwork card, and for the same reason it
+   says so rather than letting the browser paint the alt text at full size in the frame. */
+.flag-shot.media-dead img{display:none;}
+.flag-shot.media-dead::after{
+  content:"This flag could not be loaded."; display:block; padding:34px 16px; text-align:center;
+  font:400 calc(13px * var(--fs))/1.5 var(--sans); color:var(--ink-faint);
+}
+
+/* ---- DRAW CARDS: the pad the reader draws a flag in (Sep 2026, on request) ----
+   The pad is its OWN canvas with its OWN menu across the top of it, and has nothing to do with the
+   floating marker — see the DRAW CARDS block in app.js for why the first cut (a frame over the page-wide
+   whiteboard) could not answer "only be used within that canvas" or hold a fill.
+   THE WIDTH IS CAPPED ON THE PAD AND NOT THE FRAME. Capping the FRAME's height instead (`max-height`)
+   does shrink it back to 3:2 — but only the frame, so on a desktop it ended short of `.draw-pad`'s own
+   right edge while `.dp-answer` below it stayed full width, and the drawing and the flag it is compared
+   against were two different widths. One cap on the parent keeps all three edges together. */
+.draw-pad{margin:20px auto 18px; max-width:560px;}
+/* The menu sits ON the canvas's top edge: one box, ruled across rather than two. */
+.dp-tools{
+  display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+  padding:7px 9px; border:1px solid var(--rule); border-bottom:none;
+  border-radius:10px 10px 0 0; background:var(--paper-2);
+}
+.dp-cols, .dp-acts{display:flex; align-items:center; gap:6px;}
+.dp-col{
+  width:22px; height:22px; padding:0; border-radius:50%; cursor:pointer;
+  border:2px solid transparent; background:var(--dpc); box-shadow:inset 0 0 0 1px rgba(0,0,0,.18);
+}
+.dp-col.on{border-color:var(--ink); box-shadow:inset 0 0 0 1px rgba(0,0,0,.18), 0 0 0 2px var(--paper-2);}
+/* The sixth swatch is the reader's own colour and opens the field below. It wears a small notch so it
+   reads as "and any other" rather than as a seventh fixed colour, and the notch inverts while the field
+   is open so the swatch says which state it is in without a second control. */
+.dp-custom{position:relative;}
+.dp-custom::after{
+  content:""; position:absolute; right:-1px; bottom:-1px; width:9px; height:9px; border-radius:50%;
+  background:var(--paper-2); box-shadow:inset 0 0 0 1px rgba(0,0,0,.28);
+}
+.draw-pad.dp-picking .dp-custom::after{background:var(--ink);}
+/* THE PICKER IS A ROW, NOT A POPOVER — the marker's own rule for its own picker, and the same reason:
+   the bar above is already a box with a decided position, and a second floating box inside it would
+   have to decide again. `[hidden]` has to be said explicitly because the author `display:flex` beats
+   the UA rule (codebase convention, cf. `.wb-pick` and `.ces-imgpanel`). */
+.dp-pick{
+  display:flex; flex-direction:column; gap:8px; padding:9px;
+  border-inline:1px solid var(--rule); background:var(--paper-2);
+}
+.dp-pick[hidden]{display:none;}
+.dp-col:focus-visible, .dp-btn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.dp-btn{
+  width:30px; height:30px; padding:0; display:grid; place-items:center; cursor:pointer;
+  border:1px solid var(--rule); border-radius:8px; background:var(--card); color:var(--ink-soft);
+}
+.dp-btn svg{width:17px; height:17px;}
+.dp-btn.on{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+.dp-btn:disabled{opacity:.38; cursor:default;}
+/* `aspect-ratio` ALONE, with no `min-height` beside it: the two together inflated the USED WIDTH past
+   the card — 34vh of a tall phone is 300px, which at 3:2 asked for a 450px-wide box inside a 366px card,
+   and the pad ran off the right edge taking the card's own border with it. */
+.dp-frame{
+  position:relative; aspect-ratio:3 / 2; overflow:hidden;
+  border:1px solid var(--rule); border-radius:0 0 10px 10px; background:var(--card);
+}
+/* THE CANVAS IS THE WHOLE FRAME, and `touch-action:none` is what lets a finger draw on it rather than
+   having the gesture claimed as a scroll — the `pointercancel` fault this stylesheet records against
+   every horizontal swipe on the site, here wanted rather than avoided. */
+.dp-canvas{position:absolute; inset:0; width:100%; height:100%; touch-action:none; cursor:crosshair; display:block;}
+/* …and the hint sits at the FOOT of the frame rather than its middle: centred, it is under the reader's
+   own drawing, which is both something to draw over and something that makes the drawing harder to read.
+   It is `pointer-events:none` so it can never take a press meant for the canvas beneath it, and it goes
+   the moment anything is drawn. */
+.dp-hint{
+  position:absolute; left:0; right:0; bottom:10px;
+  font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-faint);
+  letter-spacing:.04em; text-transform:uppercase; pointer-events:none; padding:0 14px; text-align:center;
+}
+.draw-pad.dp-drawn .dp-hint{opacity:0;}
+/* …and it comes BACK at the reveal, with a different word: two frames are then standing one above the
+   other and the labels are what say which is which. */
+.draw-pad.dp-drawn.dp-revealed .dp-hint{opacity:1;}
+/* The answer lands UNDER the pad and never inside it, so nothing above it moves when it arrives. */
+.dp-answer{
+  margin:14px 0 0; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+  background:var(--paper-2); box-shadow:var(--shadow-sm);
+}
+.dp-answer[hidden]{display:none;}   /* the author `display:block` would beat the UA rule, as .af-src does */
+.dp-answer img{
+  display:block; width:100%; height:clamp(150px, 30vh, 280px);
+  object-fit:contain; background:var(--paper-2);
+}
+.dp-answer.revealed{cursor:zoom-in;}
+.dp-answer.revealed:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+/* A draw card has a canvas to work in, so the writing band under the question would be a SECOND blank
+   area on one card — and the reader would have no way of telling which of the two the answer belongs in.
+   The floating marker itself is untouched: with its pen down it draws OVER the pad, as it does over
+   everything else on the page. */
+body.wb-down .study-card.draw-card .scratch{display:none;}
+
 .art-cap{
   display:block; padding:9px 12px 11px; border-top:1px solid var(--rule); background:var(--card);
   font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-soft); text-align:left;
 }
 .art-cap-t{display:block; font-weight:600; color:var(--ink);}
 .art-cap-d{display:block; margin-top:2px;}
-.art-cap-c{display:block; margin-top:4px; color:var(--ink-faint); font-size:calc(11px * var(--fs));}
+/* The credit's visible text IS a Commons URL (see mediaCreditHTML), which carries no break opportunity
+   at all — on a phone it ran past the caption's right edge. Nothing else in the block needs this, so it
+   is on the credit line rather than on the caption. */
+.art-cap-c{display:block; margin-top:4px; color:var(--ink-faint); font-size:calc(11px * var(--fs)); overflow-wrap:anywhere;}
 .art-cap-c a{color:inherit;}
+
+/* ---------- the answer box an artwork card is answered in (Sep 2026, on request) ----------
+   "The user must guess the title, artist, date of creation, and current ownership/location in the answer
+   box." THREE labelled fields under the picture now, built by `cardArtHTML`: where the work is now came
+   off the question side on a second request the same month and is stated in the answer's own figures
+   grid instead. They are the only words on the question side, and they are the FORM rather than a clue:
+   none of them says anything about the work.
+
+   THE LABEL IS BESIDE THE FIELD, NOT OVER IT, and the label column is a fixed fraction rather than a
+   `max-content`, so labels of different lengths keep every field left-aligned with the others, which is
+   what makes the block read as one answer rather than three questions. Below 480px it stacks, where a
+   fixed column would leave the widest label almost no room for the field beside it. The 7.5em is kept
+   from the four-field version deliberately: it is the width a returning "Where it is now" would need,
+   and a roomier label column costs the fields nothing at this size.
+
+   GRADED, THE FIELD IS REPLACED RATHER THAN DISABLED (see gradeArtFields), so there is no editable copy
+   left to improve an answer in. The mark takes its own colour and the typed value is struck through only
+   where it is plainly wrong — a `near` date is not a mistake and must not be drawn as one. */
+.art-ask{display:grid; gap:7px; margin:0 0 4px;}
+.art-f{
+  display:grid; grid-template-columns:minmax(0,7.5em) minmax(0,1fr); align-items:center; gap:10px;
+}
+.art-lab{
+  font:600 calc(11px * var(--fs))/1.3 var(--sans); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.art-input{
+  width:100%; min-width:0; padding:7px 10px; border:1px solid var(--rule); border-radius:8px;
+  background:var(--paper-2); color:var(--ink); font:400 calc(15px * var(--fs))/1.4 var(--serif);
+}
+.art-input:focus{outline:none; border-color:var(--indigo-bright); box-shadow:0 0 0 2px color-mix(in srgb, var(--indigo-bright) 26%, transparent);}
+.art-graded{
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 8px; min-width:0;
+  font:400 calc(15px * var(--fs))/1.45 var(--serif); color:var(--ink);
+}
+/* The two verdict colours are the graded cloze's own (`.ch-ok` / `.ch-bad` above), literal and with a
+   night pair, because this is the same thing said about the same kind of answer and two greens for one
+   idea drift apart invisibly. `near` takes --ochre, which is the blank's own colour in both modes. */
+.art-mark{flex:none; font:700 calc(13px * var(--fs))/1 var(--sans);}
+.art-graded.ok .art-mark{color:#15a34a;}
+.art-graded.near .art-mark{color:var(--ochre);}
+.art-graded.bad .art-mark, .art-graded.empty .art-mark{color:#e23a2e;}
+.night .art-graded.ok .art-mark{color:#46d27f;}
+.night .art-graded.bad .art-mark, .night .art-graded.empty .art-mark{color:#ff6155;}
+.art-said{min-width:0; overflow-wrap:anywhere;}
+.art-graded.bad .art-said{text-decoration:line-through; color:var(--ink-faint);}
+.art-true{min-width:0; overflow-wrap:anywhere; font-weight:600;}
+.art-graded.ok .art-true{font-weight:400; color:var(--ink-soft);}
+@media (max-width:480px){
+  .art-f{grid-template-columns:1fr; gap:3px;}
+  .art-lab{letter-spacing:.05em;}
+}
 
 /* ---------- the locator (see cardLocatorHTML in app.js) ----------
    The same window on the back of a card whose answer is a place, saying where it is. It is shorter than a
@@ -1906,6 +2216,25 @@ body.no-tts .ans-cn .ac-say{display:none;}
 .map-card.map-loc{margin-bottom:0;}
 .map-loc .mc-canvas{height:clamp(180px, 30vh, 260px);}
 .map-card.map-loc.mc-failed::after{content:"This map could not be loaded.";}
+
+/* ---------- and who fought, where the card is about a war (see cardWarKeyHTML in app.js) ----------
+   The map says two sides are drawn and it cannot say WHICH is which — green and red being the one pair
+   a red-green colour-blind reader has no purchase on — so the key under it names them. It carries no
+   colours of its own: the swatches are written inline from `TINT_WIN` / `TINT_LOSE`, which the map is
+   painted from, so a key and the map it explains cannot drift apart.
+   IT WRAPS RATHER THAN SHRINKING. Two side names of any length go side by side on a laptop and stack on
+   a phone; a nowrap row would ellipsise the one word on it that matters. */
+.war-key{display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:20px;}
+/* …tucked up under the map when the map is there, and standing on its own when the Atlas popup has
+   taken the globe away (see mountCardBack's `noLocator`). */
+.card-loc + .war-key{margin-top:8px;}
+.war-key .wk-side{display:inline-flex; align-items:baseline; gap:6px; font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-soft);}
+.war-key .wk-sw{
+  flex:none; width:calc(11px * var(--fs)); height:calc(11px * var(--fs)); border-radius:3px;
+  border:1.5px solid; align-self:center;
+}
+.war-key .wk-name{font-weight:600; color:var(--ink);}
+.war-key .wk-role{color:var(--ink-faint); font-size:calc(11px * var(--fs));}
 
 /* the media frame's own chrome — the border, the rounding and the shadow every surface that shows a
    picture or a clip shares. The SHAPE is set by whoever mounts it: 16:9 here, which is what the editor's
@@ -3627,8 +3956,8 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 /* A MODAL SCRIM IS THEME-INDEPENDENT BLACK, NEVER `var(--ink)` (Aug 2026, on a bug report: "the whole
    background is whited out"). These five overlays — this one, the options sheet, the level-up card, an
    artefact's plate and the chest — were each a mix of `--ink`, which reads as "the darkest thing this
-   theme has" and is exactly that in light mode (#1B1A17, so the figures below are unchanged there). At
-   NIGHT the token flips to #ECEAE3, so every one of them became a 38–58% WHITE veil: opening a deck's
+   theme has" and is exactly that in light mode (#1D1B29, so the figures below are unchanged there). At
+   NIGHT the token flips to #EFEDFA, so every one of them became a 38–58% WHITE veil: opening a deck's
    options on a dark theme whited the whole page out behind the sheet. A scrim's job is to push the page
    BACK, which is one direction rather than a colour the theme gets a say in — the same reasoning
    `.folio-tour`, `.page-help` and the media viewer were already written to, and the reason all three
@@ -4256,6 +4585,9 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    corners belong to the search and the legend. It is a pair of buttons rather than a switch because a
    switch says "on/off" about one thing and these are two things. */
 .atlas-tabs{
+  /* …and the tab pill, for `.globe-stage`'s reason: it sits ABOVE the stage rather than inside it, so it
+     does not inherit the narrowing and is a two-finger target of its own. */
+  touch-action:pan-y;
   position:fixed; z-index:6; top:calc(var(--bar-h) + 12px); left:50%; transform:translateX(-50%);
   display:inline-flex; gap:2px; padding:3px; border-radius:99px;
   background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule);
@@ -4269,6 +4601,14 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .at-tab:hover{color:var(--ink);}
 .at-tab.on{background:var(--indigo); color:#fff;}
 .at-tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* The way back to the card the reader came from (Sep 2026). It is a tab in shape so it belongs to the
+   row, and OUTLINED rather than filled: `.on` means "the atlas you are looking at", and a solid third
+   button would read as a third atlas. */
+.at-back{
+  border:1px solid var(--rule); background:color-mix(in srgb, var(--card) 88%, transparent);
+  color:var(--ink-soft); margin-inline-start:6px;
+}
+.at-back:hover{background:var(--card); color:var(--ink);}
 @media (max-width:640px){
   .atlas-tabs{top:10px; left:12px; transform:none;}   /* the search chip owns the right corner at this width */
   .at-tab{padding:5px 10px; font-size:calc(11px * var(--fs));}
@@ -4304,7 +4644,22 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    the one that moves down. */
 .atlas-mine .map-cartouche{top:52px;}
 @media (max-width:640px){ .atlas-mine .map-cartouche{top:14px;} }   /* there the bar is top-LEFT, so nothing is in its way */
-.globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden;}
+/* A PINCH OVER THE ATLAS MUST NOT ZOOM THE PAGE (Sep 2026, on a bug report: "on tablet, sometimes when
+   trying to zoom in on the atlas it zooms in on the webpage itself instead, and then it becomes nearly
+   impossible to zoom out of it again"). The CANVAS has always declared `touch-action:none`, so a pinch
+   that begins on the globe zooms the globe; what the report is about is a pinch that begins anywhere
+   ELSE — the strip beside the canvas, the legend, the timeline, the tab bar — where `body`'s own
+   `pan-y pinch-zoom` still applied and the browser zoomed the document instead.
+   AND THE SECOND HALF OF THE REPORT IS WHY IT STICKS: once the page is zoomed, nearly the whole screen is
+   the canvas, which refuses the pinch that would undo it, so the reader has almost nowhere to put two
+   fingers. Prevention is therefore the fix rather than a recovery.
+   `pan-y` RATHER THAN `none`, and that is load-bearing: `.country-pop` is a descendant of `.globe-stage`
+   and is a scrolling sheet on a phone, and `none` on an ancestor takes a descendant's scrolling with it.
+   `pan-y` forbids exactly the page zoom and leaves the sheet scrolling.
+   THE TOP BAR IS DELIBERATELY LEFT PINCHABLE. Narrowing it would be a site-wide change to a browser
+   accessibility feature for the sake of one route — and it is also the strip a reader who has somehow
+   zoomed the page can still pinch back out on, which is the stuck half of the report answered directly. */
+.globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden; touch-action:pan-y;}
 .globe-stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none;}
 .globe-stage canvas:active{cursor:grabbing;}
 .globe-hint{position:absolute; left:clamp(16px,4vw,40px); bottom:16px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); opacity:.6; pointer-events:none; user-select:none;}
@@ -4595,6 +4950,14 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .globe-legend .legend-collapse{border:none; background:transparent; color:var(--ink-faint); font-size:calc(15px * var(--fs)); line-height:1; width:18px; height:18px; padding:0; margin:-2px -4px -2px 0; cursor:pointer; border-radius:5px; display:flex; align-items:center; justify-content:center;}
 .globe-legend .legend-collapse:hover{background:color-mix(in srgb, var(--ink) 9%, transparent); color:var(--ink);}
 .lc-layers{display:none; width:16px; height:16px;}   /* shown only on the phone's collapsed chip, where a bare dash reads as nothing */
+/* The personal atlas's collection switches (Sep 2026). They take the legend's own corner and shape —
+   the world atlas's legend is hidden on that tab, so the two are never on screen together and a reader
+   who knows where the layer switches live finds these in the same place. The count beside each name is
+   how many places that collection has put on the globe, quiet and monospaced like every other figure. */
+.atlas-colls{max-width:min(240px, 46vw);}
+.atlas-colls .legend-row{justify-content:flex-start; gap:8px;}
+.atlas-colls .legend-row span:not(.lr-n){overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.lr-n{margin-inline-start:auto; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); color:var(--ink-faint);}
 .globe-legend.collapsed .legend-body{display:none;}
 .globe-legend .legend-row{display:flex; align-items:center; gap:8px; font-size:calc(12.5px * var(--fs)); color:var(--ink); cursor:pointer; line-height:1;}
 .globe-legend .legend-row + .legend-row{margin-top:6px;}
@@ -4633,7 +4996,9 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .atlas-empty span{font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
 .atlas-empty .btn{padding:6px 13px; font-size:calc(12px * var(--fs));}
 
-.atlas-timebar{position:fixed; left:0; right:0; bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); height:var(--timebar-h); z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
+/* …and the timeline, which is a full-width strip at the bottom of the screen and so the likeliest
+   place on the Atlas for a thumb to land — see `.globe-stage` above. */
+.atlas-timebar{touch-action:pan-y; position:fixed; left:0; right:0; bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); height:var(--timebar-h); z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
 .tl-play{flex:none; width:34px; height:34px; border-radius:50%; appearance:none; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; margin-right:-8px;}
 .tl-play svg{width:16px; height:16px;}
 .tl-play:hover{border-color:var(--indigo); color:var(--indigo);}
@@ -4834,13 +5199,98 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      and 9% — the right HUE at half the strength, which read as a different, washed-out colour rather
      than as the same one. Keep these four figures in step with `body[data-theme="folio"]
      .collection-deco` and its `.night` pair; the two rules exist to say the same thing. */
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 30%, transparent), transparent 64%) var(--card);
-  border:1px solid var(--rule); border-top:0; border-left:4px solid var(--coll-bg, var(--tile, #9A6634));
+  --dk-accent:var(--coll-bg, var(--tile, #9A6634));
+  background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 30%, transparent), transparent 64%) var(--card);
+  border:1px solid var(--rule); border-top:0; border-left:4px solid var(--dk-accent);
   padding:10px 13px; animation:pageIn .3s var(--ease) both;
 }
 /* like the banner's own wash, weaker on dark themes — the hue sits on a dark card and reads twice as
    strongly there, which is why the banner's own night pair drops from 30% to 22% as well */
-body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--card);}
+body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 22%, transparent), transparent 64%) var(--card);}
+/* ---------- A DECK FINISHED FOR THE DAY (Sep 2026, on request) ----------
+   "When an active deck has been completed for the day … it should turn green and have a checkmark in
+   the right of the deck background, in the same way as a completed minigame, and gold if the review
+   cards were completed perfectly." So this is `.game-tile.done` / `.game-tile.won` transposed onto a
+   row, and everything that made that small makes this small too — read that block before changing it.
+
+   `--dk-accent` IS WHY THIS IS SMALL, and it is `--gt-accent`'s lesson word for word. The row's hue
+   arrives INLINE as `--coll-bg` (PAGES.home writes it per row from COLL_THEME), and an inline
+   declaration beats any selector without `!important` — so `.dk-done` cannot simply re-set `--coll-bg`.
+   It sets a second property that the wash and the left bar read instead, and which merely DEFAULTS to
+   the collection's hue. Two lines for the two states, and nothing derived from it had to be found.
+
+   THE BAR IS DELIBERATELY NOT TOUCHED, and that is the one thing to keep straight here: `.prog-done`
+   already turns a row's BAR and its TITLE gold, and it means something else entirely — every card in
+   this deck has been studied at some point, which is a fact about the deck's whole life. This is a fact
+   about TODAY. They are kept on different parts of the row (the wash, the left bar and the tick against
+   the progress bar and the name) precisely so a reader can hold both at once: a deck can be finished
+   today without being finished, and finished without being finished today.
+
+   THE TICK IS A MASK, NOT A GLYPH — the same 24-box polyline and the same technique as the tile's, so it
+   takes the accent colour with everything else. It sits at the RIGHT, as asked, at z-index 0 with the
+   row's own contents lifted over it: a watermark the row is read across, which is what lets it be this
+   large on a line only 41 to 47px tall. The lift is written out per child rather than as `> *` because
+   `.dk-grip` is `position:absolute` in the row's left padding and giving it `position:relative` would
+   drop it back into the flex line.
+
+   THE SUBJECT ICON KEEPS THE COLLECTION'S HUE, which is where this parts company with the tile. The
+   tile's corner glyph is `display:none` once played, because it names a game whose name is written
+   underneath it in words; a row's mark names WHICH collection the deck belongs to and is the reader's own
+   where they have set one, so re-tinting it green would spend the day's colour on the one thing in the
+   row that is not about the day. `.coll-ic.dk-ic` therefore goes on reading `--coll-bg` directly.
+
+   THE CORNER MARK IS CLIPPED, NEVER `display:none`, for the tile's reason: `.gt-check` / `.gt-seal` is
+   the only thing on the row that STATES the day in words (`role="img"` + aria-label), so it stays in the
+   accessibility tree at 1px. A row that has gone green and says nothing about it to a screen reader is
+   a row that has told half its readers nothing. */
+/* THE ANCESTOR IS SPECIFICITY, NOT DECORATION, and it is `.prog-done`'s own lesson: a group header and a
+   language header declare a `--dk-accent` of their own further down this file — their fallback hue is not
+   a deck row's — at the same two classes as these, so on source order alone the group's declaration wins
+   and a finished COLLECTION goes on painting itself in its collection's colour with a green tick over it.
+   Three selectors beats two wherever the rules happen to sit. `!important` is not used. */
+.active-decks .active-deck.dk-done{ --dk-accent:var(--good, #4F9D67); }
+.active-decks .active-deck.dk-won{ --dk-accent:var(--dk-gold); }
+/* the tile's own gold, which is scoped to `.game-tile` — the same pair rather than a second gold, since
+   the two marks can be on screen together and a banner's seal sits between them */
+.active-deck{ --dk-gold:#B8892A; }
+body.night .active-deck{ --dk-gold:#D8B355; }
+.active-deck.dk-done::after{
+  content:""; position:absolute; z-index:0; pointer-events:none;
+  /* Clear of the chevron's column (26px) and the row's own right padding, so the two marks do not sit on
+     top of each other. THE BOX IS TALLER THAN THE ROW ON PURPOSE and the figure is arithmetic rather than
+     taste: the polyline runs y 6→17 of a 24 viewBox, so its ink is the middle 46% of a square box — at
+     152% of the 41px group header that is a 29px tick on a 41px line, and what overflows into
+     `overflow:hidden` is empty space above and below it. Raising it much past this starts cutting the
+     top-right arm off on the SHORTEST row kind, which is that header — 7px padding against a deck
+     row's 10px. */
+  right:46px; top:50%; transform:translateY(-50%); height:152%; aspect-ratio:1;
+  background:var(--dk-accent); opacity:.18;
+  -webkit-mask:var(--dk-tick) no-repeat center/contain;
+  mask:var(--dk-tick) no-repeat center/contain;
+}
+.active-deck.dk-won::after{ opacity:.30; }
+.active-deck{ --dk-tick:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>"); }
+/* the row is read OVER the watermark — every child that can reach the right-hand end of the line, and
+   NOT `> *`, which would re-position the absolutely-placed grip */
+.active-deck.dk-done .dk-counts,
+.active-deck.dk-done .dk-chev,
+.active-deck.dk-done .dk-chev-gap,
+.active-deck.dk-done .coll-ic,
+.active-deck.dk-done .dk-dl{ position:relative; z-index:2; }
+/* …and `.dk-body` IS RAISED WITHOUT BEING POSITIONED, which is the whole of this rule (Sep 2026, on a bug
+   report: a deck finished for the day had its progress bar jump from the row's bottom edge to a line under
+   the title). `.dk-prog .track` is `position:absolute; bottom:0` and takes its containing block from the
+   nearest POSITIONED ancestor, which is `.active-deck` — the row, whose `overflow:hidden` clips the track
+   to the last row's rounded corners. It lives inside `.dk-body`, so the moment that gets `position:relative`
+   the bar re-anchors to the body's own bottom and the row's underline is gone.
+   `z-index` alone is enough here because `.dk-body` is a FLEX ITEM of `.active-deck`: flexbox applies
+   z-index to items as though they were positioned, so this still lifts the whole body over the `::after`
+   watermark and still carries its descendants with it, while leaving the row as the track's anchor. */
+.active-deck.dk-done .dk-body{ z-index:2; }
+.active-deck .gt-check, .active-deck .gt-seal{
+  width:1px; height:1px; padding:0; border:0; overflow:hidden;
+  clip-path:inset(50%); background:none; box-shadow:none; animation:none; filter:none; flex:none;
+}
 /* THE SUBDECK FOLD (Aug 2026, on request) — see adSyncFold in app.js.
    `.dk-shut` is a CLASS rather than the `hidden` attribute on purpose: `.active-deck` carries an author
    `display:flex`, which beats the UA `[hidden]` rule outright, so the attribute would have needed an
@@ -4945,23 +5395,26 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    decks inside legible.
    An added COLLECTION is drawn this way too: it holds no cards itself, only the decks inside it do. */
 .active-deck.deck-group, .active-deck.dk-langhead{
+  /* its own fallback hue, which is not the deck row's — set on `--dk-accent` rather than written into the
+     gradient, so `.dk-done` can still re-point it (see the dk-done block up by `.active-deck`) */
+  --dk-accent:var(--coll-bg, var(--tile, #5AA9DC));
   padding-top:7px; padding-bottom:7px;
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 38%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 12%, transparent) 78%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 38%, transparent), color-mix(in srgb, var(--dk-accent) 12%, transparent) 78%) var(--card);
 }
 /* …and its own night pair, for the reason `.active-deck.context` needs one: `body.night .active-deck`
    (0,2,1) outranks this (0,2,0) whatever the source order, so without it a group header on every dark
    theme silently lost the darkening that makes it a header at all. */
 body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 28%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 9%, transparent) 78%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 28%, transparent), color-mix(in srgb, var(--dk-accent) 9%, transparent) 78%) var(--card);
 }
-.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}
+.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 48%, transparent), color-mix(in srgb, var(--dk-accent) 16%, transparent) 78%) var(--card);}
 /* …and a LANGUAGE header hovers the same way, its press opening its options rather than a session (Aug
    2026). It must NOT be folded into `.active-deck[data-review]:hover` further down: that one deepens the
    DECK's resting wash, which is weaker than a header's, so hovering a header would LIGHTEN it. The
    attribute is carried only to make this four selectors deep — `body.night .active-deck.dk-langhead` is
    (0,3,1) and would otherwise outrank a plain `.active-deck.dk-langhead:hover` on every dark theme, which
    is the trap the night pair above this already records. */
-.active-deck.dk-langhead[data-langhead]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}
+.active-deck.dk-langhead[data-langhead]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 48%, transparent), color-mix(in srgb, var(--dk-accent) 16%, transparent) 78%) var(--card);}
 /* THE HEADER IS SET IN THE ROWS' OWN FACE (Aug 2026, on request). It used to take `--display` two sizes
    down, bolder, letterspaced and in capitals — which read as a different KIND of thing from the decks under
    it rather than as the heading of them — so the rule that did all that is gone and `.active-deck .dk-title`
@@ -4988,16 +5441,18 @@ body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
 .active-deck[data-review], .active-deck[data-langhead]{cursor:pointer;}
 /* hover deepens the same wash rather than introducing a colour of its own — it must stay ABOVE the resting
    mix in both layers, or hovering a row would lighten it */
-.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 38%, transparent), transparent 64%) color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 10%, var(--card));}
+/* the HOVER wash reads `--dk-accent` too, or a row that has gone green turns back to its collection's
+   hue under the pointer — which is the whole reason that property exists (see the dk-done block) */
+.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 38%, transparent), transparent 64%) color-mix(in srgb, var(--dk-accent) 10%, var(--card));}
 .active-deck[data-review]:focus-visible, .active-deck[data-langhead]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 /* An ancestor SIGNPOST row (not itself added) carries the same collection wash at the same strength — what
    marks it as context is the paper under it and the quieter title, not a different colour, since it names
    the very collection its children are washed in. */
-.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 30%, transparent), transparent 64%) var(--paper-2);}
+.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 30%, transparent), transparent 64%) var(--paper-2);}
 /* …and its own night pair. Without it `body.night .active-deck` (0,2,1) outranks `.active-deck.context`
    (0,2,0) whatever the source order, so on every dark theme a context row silently lost both its weaker
    wash and the --paper-2 under it and rendered identically to an added deck's row. */
-body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--paper-2);}
+body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in srgb, var(--dk-accent) 22%, transparent), transparent 64%) var(--paper-2);}
 .active-deck.context .dk-title{font-size:calc(14px * var(--fs)); color:var(--ink-faint); font-weight:600;}
 /* the ancestor rows' hollow marker went with the active rows' blue dot: it existed to line the two up, and
    left on its own it would have pushed every parent title 21px right of the deck sitting under it. The
@@ -5264,6 +5719,15 @@ sup.fn.src-flash{padding:0 3px;}
   color:var(--ochre);
   background:color-mix(in srgb, var(--ochre) 13%, transparent);
   border-color:color-mix(in srgb, var(--ochre) 34%, transparent);
+}
+/* The language chip (Sep 2026). It takes --geo rather than a colour of its own: green already means
+   "free to read" and amber "paywalled" on the very same line, so a third chip in either would be read as
+   a third verdict about access. --geo is one of the quiet tokens `body.hc` already re-tones, so the
+   high-contrast mode covers this with no rule of its own. */
+.src-lang{
+  color:var(--geo);
+  background:color-mix(in srgb, var(--geo) 12%, transparent);
+  border-color:color-mix(in srgb, var(--geo) 32%, transparent);
 }
 .src-compact .src-access, .cp-src .src-access{font-size:calc(8.5px * var(--fs)); padding:0 5px;}
 /* the in-prose marker: a real superscript, clickable, in the SAME VERMILION as the answer term
@@ -5655,6 +6119,10 @@ button.game-tile .gt-glyph{opacity:.14;}
 .ci-grip:active{cursor:grabbing;}
 .ci-grip svg{width:18px; height:18px;}
 .ci-name{flex:1; min-width:0; font-family:var(--serif); font-size:calc(16px * var(--fs)); color:var(--ink); line-height:1.3;}
+/* A LITERARY WORK'S AUTHOR, after the italic title (Sep 2026, on request) — see CHRONO_WORKS in app.js.
+   It is quieter than the title and never a second line of its own: the row is a thing to be ordered, and
+   the by-line is there to say what kind of thing it is rather than to be read. */
+.ci-name .ci-by{color:var(--ink-faint); font-style:normal; font-size:calc(14px * var(--fs)); white-space:nowrap;}
 /* THE REVEALED DATE IS TWO LINES SINCE SEP 2026 (on request: each year "should also say what that
    starting date is based on") — the year, and under it the date line's own label for the row it came
    from. Ranged RIGHT, because the row's left is the term and the two numbers should line up down the
@@ -5913,6 +6381,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   .collection-row{padding:18px 16px; gap:14px;}
   .collection-title{font-size:calc(20px * var(--fs));}
   .counts{width:100%; margin-left:0; margin-top:4px;}
+  body{--crit-slot:bar;}
   .dp-name{width:120px;}
   .profile{flex-direction:column; text-align:center;}
   .namefield{text-align:center;}
@@ -6754,6 +7223,18 @@ body.grading .admin-edit-fab{bottom:108px;}
   .admin.timeline-mode .admin-list-items,.admin.feedback-mode .admin-list-items,
   .admin.dash-mode .admin-list-items,.admin.quotes-mode .admin-list-items,
   .admin.artefacts-mode .admin-list-items,.admin.themes-mode .admin-list-items{max-height:none;}
+  /* ---- Admin → Artefacts on a phone (Sep 2026, on a bug report: "on mobile, the artefact list on the
+     admin page isn't formatted very well"). The row is a flex line of a rarity bar, the name and FIVE
+     meta pills — the rarity, whether it has a picture, its word and sentence count, its citation count
+     and its edited state — and at 390px those five wrap onto three lines while squeezing the name, which
+     is the one thing on the row with no shorter form, into two or three characters. So the row wraps
+     properly instead: the bar and the name take the first line whole, and the pills take the next,
+     RANGED LEFT rather than right, since right-aligned pills under a left-aligned name read as a second
+     column that is not there. The swatch shortens with the line it is now marking. */
+  .a-main{flex-wrap:wrap; row-gap:8px; padding:10px; gap:10px;}
+  .a-swatch{height:26px;}
+  .a-name{flex:1 1 140px;}
+  .a-meta{flex:1 1 100%; justify-content:flex-start; gap:5px;}
   .tl-edit{padding:18px 14px;}
   .tl-era{flex-wrap:wrap; row-gap:8px;}
   /* the pane stops scrolling inside itself here (the admin stacks into one column and the PAGE scrolls), and
@@ -7335,7 +7816,7 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .theme-swatches{display:flex; gap:5px;}
 .theme-swatches i{width:26px; height:26px; border-radius:6px; border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);}
 .theme-name{font-family:var(--display); font-size:calc(16px * var(--fs)); font-weight:600; color:var(--ink); line-height:1;}
-.theme-opt[data-theme="folio"] .theme-name{font-family:"Fraunces",Georgia,serif;}
+.theme-opt[data-theme="folio"] .theme-name{font-family:"Nunito Sans",system-ui,sans-serif; font-weight:700; letter-spacing:-.01em;}
 .theme-opt[data-theme="synth"] .theme-name{font-family:"Sora",sans-serif;}
 .theme-opt[data-theme="arcade"] .theme-name{font-family:"Press Start 2P",monospace; font-size:calc(10px * var(--fs)); font-weight:400; line-height:1.4;}
 .theme-opt[data-theme="academy"] .theme-name{font-family:"EB Garamond",Georgia,serif; font-variant:small-caps;}
@@ -7702,7 +8183,16 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
    closed blanks all print twice, one under the other. A template that does NOT ask for the front is
    untouched: its question stays above the answer, as a Basic card's does, which is what keeps a reader's
    graded cloze guess on the page beside what it should have been. */
-.study-card:has(.uc-back.uc-hasfront) > .label,
+/* THE "QUESTION" HEADING GOES WITH THE QUESTION IT HEADS, and this half of the rule had stopped
+   matching (Sep 2026, on a bug report that a Chinese card's question "turns invisible" once the marker
+   is down). It was written `> .label`, which was right when the label was a direct child of the card;
+   the q-head restructure moved it to `.q-head > .q-lead > .label`, so the selector silently addressed
+   nothing. Nothing looked wrong while it was broken, because the heading landed directly above the
+   front the back redraws — until the WRITING BAND opened between the two, at which point the card read
+   as "Question" over nine centimetres of nothing, with the question itself pushed below the band. The
+   band is right to stay where it is (a reader's working is on it, and the ink is in page coordinates,
+   so moving the band would orphan it); the heading is what had to go. */
+.study-card:has(.uc-back.uc-hasfront) > .q-head .label,
 .study-card:has(.uc-back.uc-hasfront) > .question{display:none;}
 /* ---------- the two behaviours Folio lends a card type ----------
    A type's own CSS is scoped to its own cards, so anything a type needs to LOOK like it must style itself.
@@ -7978,6 +8468,14 @@ body.night .book-tile, body.night .gloss-book{
   color:var(--bk-accent);
   border:1px solid color-mix(in srgb, var(--bk-accent) 42%, transparent);
   background:color-mix(in srgb, var(--bk-accent) 9%, transparent);
+}
+
+/* How many people have read the book (Sep 2026). Quiet and monospaced like every other figure on the
+   site — it is a footnote on the banner, not a badge: the tile's own chips say what the book IS, and a
+   readership count competing with them would read as a claim about the work. */
+.bk-tile-reads{
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.04em;
+  line-height:1; flex:none; white-space:nowrap; color:var(--ink-faint);
 }
 .bk-tile-new{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
 /* where the reader left off — the tile's one changing fact, so it takes the accent colour */
@@ -8358,7 +8856,12 @@ body.night .book-tile, body.night .gloss-book{
      Ruby        pigeon's blood on warm ivory, garnet-dark night; a soft corner and a heavy serif, the
                  stone being the one people call rich.
      Opalite     milky and iridescent — the accent SHIFTS across a gradient rather than sitting still, and
-                 the corners are the roundest here.
+                 the corners are the roundest here. PROMOTED later the same month, on request, to be the
+                 site's DEFAULT and renamed Folio, so it is no longer one of the ten: read it at the top
+                 of this file, in `:root` / `body.night` and the `body[data-theme="folio"]` rules beside
+                 them. The one thing that changed in the move is the red — the stone's own milky pink was
+                 2.98:1 on its card, which is fine for a collectible and not for the answer term on every
+                 card the site deals.
      Jade        carved nephrite: cool green over cream, a stepped inner rule on cards standing for the
                  relief a carver leaves, and the site's own Chinese ink beside it.
      Emerald     the STEP CUT — an emerald is cut in rectangular steps, so its cards are square-cornered
@@ -8448,36 +8951,12 @@ body[data-theme="ruby"].night::before{
   background:radial-gradient(130% 100% at 50% 0%, #2A1116 0%, #180A0D 55%, #0E0507 100%);
 }
 
-/* ---------- OPALITE ---------- */
-body[data-theme="opalite"]{
-  --paper:#F7F6FB; --paper-2:#EBE9F5; --card:#FDFDFF;
-  --ink:#1D1B29; --ink-soft:#514D68; --ink-faint:#918CA8; --rule:#DEDAEE;
-  --indigo:#6E7FC4; --indigo-bright:#8A9BDD; --indigo-wash:#E9ECFA; --ochre:#9A7C55;
-  --zh:#C081A8; --zh-wash:#F6E9F1; --geo:#5FA5A8; --good:#4E9B7E;
-  --serif:"Lora",Georgia,serif; --display:"Nunito Sans",system-ui,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Nunito Sans",system-ui,sans-serif;
-}
-body[data-theme="opalite"].night{
-  --paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C;
-  --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-faint:#827CA0; --rule:#302C48;
-  --indigo:#A6B4F0; --indigo-bright:#C2CCFF; --indigo-wash:#20203A; --ochre:#C3A47A;
-  --zh:#E4A9CC; --zh-wash:#2E1F2B; --geo:#7FCACD; --good:#75C6A4;
-}
-/* the roundest corners of the ten — an opal is a cabochon, never faceted */
-body[data-theme="opalite"] .card, body[data-theme="opalite"] .collection,
-body[data-theme="opalite"] .study-card, body[data-theme="opalite"] .banner,
-body[data-theme="opalite"] .game-tile, body[data-theme="opalite"] .placard{border-radius:20px;}
-body[data-theme="opalite"] .btn, body[data-theme="opalite"] .grade{border-radius:999px;}
-/* THE IRIDESCENCE IS THE POINT: the ground shifts through the whole opal spectrum rather than sitting on
-   one hue, which is what separates this from Amethyst. Static, like every other theme's ambient. */
-body[data-theme="opalite"]::before{
-  background:linear-gradient(135deg,#F4F0FB 0%, #EAF3FB 22%, #EFF8F2 44%, #FBF3F7 68%, #F2EFFC 100%);
-  opacity:1; filter:none;
-}
-body[data-theme="opalite"].night::before{
-  background:linear-gradient(135deg,#181630 0%, #101C2A 24%, #0F1F1E 48%, #23142A 72%, #14122A 100%);
-}
-body[data-theme="opalite"] .page-head h1{font-family:var(--display); font-weight:700; letter-spacing:-.01em;}
+/* ---------- OPALITE — RETIRED Sep 2026: IT IS THE DEFAULT NOW ----------
+   On request, the Opalite theme replaced the default and took its name, so its tokens live in `:root` /
+   `body.night` at the top of this file and its signature treatments sit beside them under
+   `body[data-theme="folio"]`. There is no `opalite` id left in `THEMES`, so a reader who was wearing it
+   falls through the whitelist in `applyTheme` to `folio` and sees the same thing they always did.
+   Do NOT re-add a gemstone block here under that name: two blocks would then define one palette. */
 
 /* ---------- JADE ---------- */
 body[data-theme="jade"]{
@@ -8742,15 +9221,6 @@ body[data-theme="ruby"] .collection-deco{
 body[data-theme="ruby"].night .collection-deco{
   background:radial-gradient(120% 160% at 0% 0%, color-mix(in srgb,var(--coll-bg) 40%, var(--card)) 0%, var(--card) 66%);
 }
-/* Opalite: the hue SHIFTS rather than fading — the play of colour is the whole of the stone */
-body[data-theme="opalite"] .collection-deco{
-  background:linear-gradient(100deg, color-mix(in srgb,var(--coll-bg) 17%, var(--card)) 0%,
-    color-mix(in srgb,var(--coll-bg) 6%, var(--card)) 38%, color-mix(in srgb,#BFD9FF 22%, var(--card)) 68%, var(--card) 100%);
-}
-body[data-theme="opalite"].night .collection-deco{
-  background:linear-gradient(100deg, color-mix(in srgb,var(--coll-bg) 40%, var(--card)) 0%,
-    color-mix(in srgb,var(--coll-bg) 16%, var(--card)) 40%, color-mix(in srgb,#3A4980 34%, var(--card)) 70%, var(--card) 100%);
-}
 /* Jade: a carved band down the leading edge, the rest left as stone */
 body[data-theme="jade"] .collection-deco{
   background:linear-gradient(90deg, color-mix(in srgb,var(--coll-bg) 30%, var(--card)) 0 6px, color-mix(in srgb,var(--coll-bg) 9%, var(--card)) 6px 100%);
@@ -8887,10 +9357,12 @@ body[data-theme="carnelian"].night .collection-deco{
 
    THE TAB'S GROUND IS MIXED 72% TOWARDS THE INK, AND THAT RATIO IS SOLVED RATHER THAN CHOSEN. A tab is
    reversed type — the label takes `--card` — so its legibility is the contrast between `--zh` and
-   `--card`, and measured across all sixteen themes in both modes that pair fails the 4.5:1 bar four
-   times (synth 3.55, opalite 2.98, marble night 4.01, academy night 4.49). Mixing towards `--ink` moves
+   `--card`, and measured across all fifteen themes in both modes that pair fails the 4.5:1 bar three
+   times (synth 3.55, marble night 4.01, academy night 4.49). Mixing towards `--ink` moves
    the ground AWAY from the card in BOTH directions with no per-theme table, `--ink` being by definition
-   the far end from `--card`: at 72% the worst case on the shelf is opalite at 4.72. The plain `--zh` is
+   the far end from `--card`: at 72% the worst case on the shelf is marble night at 5.71. (Re-measured
+   Sep 2026 when Opalite became the default: it used to BE the worst case at both figures — 2.98 plain
+   and 4.72 mixed — and the deeper red it was promoted with takes it to 6.10 and 8.46.) The plain `--zh` is
    declared first so a browser without `color-mix` still gets a readable tab rather than none. */
 .elab{position:relative; border:1px solid var(--rule); border-radius:3px; background:var(--paper-2);
   padding:24px 16px 15px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}

@@ -39,6 +39,7 @@ const fs = require("fs"), path = require("path");
 const { isDateList } = require("./date-line.js");
 const { figureEchoes: factsEchoes } = require("./facts-echo.js");
 const { checkWhy, checkLeadsTo, loadCardYears, collectionIndex } = require("./card-links.js");
+const { checkWar } = require("./card-war.js");
 const dataPath = path.join(__dirname, "..", "data.js");
 const FIELDS = ["id","num","category","question","answer","answerDate","traditional","hanzi","pinyin","translations","abstract","citation","answerText"];
 const I18N_LANGS = ["es","fr","de","it","nl","ru","ar","zh","ja"];
@@ -64,10 +65,43 @@ const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " 
    and would otherwise squeeze the prose out of a card to make room for arithmetic. So the parenthetical is
    stripped before counting: the limit still binds what the card SAYS, and the conversion rides free. The
    pattern is deliberately narrow — a parenthesis holding a number and an imperial unit — so an ordinary
-   aside is still counted (and asides are banned in an abstract anyway). */
-const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
+   aside is still counted (and asides are banned in an abstract anyway).
+
+   THIS FILE OWNS IT, AND THE OTHER EIGHT TOOLS SLICE IT OUT BY TEXT (Sep 2026). It had been COPIED into
+   nine files and had drifted into THREE different patterns, which is the scar this comment exists to close:
+   `check-questions.js` lacked `tons?` while every other copy had it, so a question carrying a tonnage
+   conversion was charged for it THERE and not here — measured at four words apart on `gr-004`, `gr-065` and
+   `wh-249`, none over a bar today and every one of them a contradiction waiting for the card that is.
+   The artefact tools had a third list, widened with VOLUME units because an artefact is a jar or a cauldron;
+   that argument was right about the corpus and wrong about the fix, since the widening is INERT everywhere
+   else — measured, 0 brackets in 4,945 that the union eats and the narrowest copy did not. So the list is
+   the UNION of all three and one file holds it.
+
+   TWO THINGS THE MEASUREMENT SETTLED and which are worth not re-deriving. `sq mi` / `sq ft` need no rule of
+   their own now that the bare units are in the list, so the redundant branch is gone. And the alarming
+   member is `in`, which has been here since the beginning and would eat "(in 1920)": over the whole corpus
+   the pattern eats 4,945 brackets and EVERY ONE is a measurement — the 53 that are not shaped
+   `<number> <unit>` are hyphenated attributives ("(100-foot)"), densities ("(191 to the square mile)"),
+   "(4 fluid ounces)" and "(11 Roman miles)". Not one ordinary aside. Re-run that check before widening it
+   again; a pattern that eats prose makes the budget looser for the cards that happen to carry a bracket,
+   and does it in silence. */
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*(?:\b(?:miles?|mi|foot|feet|ft|inch(?:es)?|in|yards?|yd|pounds?|lbs?|ounces?|oz|tons?|acres?|gallons?|pints?|quarts?)\b|°F\b)[^)]*\)/gi;
 const unconverted = (s) => String(s || "").replace(IMPERIAL_PAREN, "");
-const qWords = (s) => plain(unconverted(s)).split(" ").filter(Boolean).length;
+/* A TOKEN OF PURE PUNCTUATION IS NOT A WORD, and counting one is how a card meets the floor on a full
+   stop (Sep 2026). `plain` replaces a tag with a SPACE, which is right — it keeps the words either side
+   apart — but it also cuts a footnote marker out from between a word and its terminal stop, leaving the
+   stop standing alone: `set aside<sup …></sup>.` counts as "aside" AND ".". Measured over the corpus,
+   2,448 such tokens were being counted, 1,173 of them a lone full stop across the 114 cards that write
+   the marker BEFORE the stop rather than after it (30,093 sit after), and 718 a standalone em dash, which
+   is the house form of a parenthetical dash and no more a word than the stop is. Fifty-two Greece cards
+   passed this bar on that punctuation alone and hold 260–269 words of prose; wh-145 was reported over the
+   ceiling on it. The UNDERSCORE is deliberately a word character here: `_____` is the cloze blank, and
+   CLAUDE.md's question rule says in terms that the blank counts as a word.
+   THIS PREDICATE IS THE ONE COPY. card-length.js, check-questions.js, add-questions.js and
+   gloss-length.js slice it out of this file by text and stop if the slice fails, because a second copy
+   goes stale on a change made in a file nobody counting words has reason to open. */
+const COUNTS_AS_WORD = /[\p{L}\p{N}_]/u;
+const qWords = (s) => plain(unconverted(s)).split(" ").filter((w) => COUNTS_AS_WORD.test(w)).length;
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 function leafDecks(node, acc) { for (const ch of node.children || []) { if (ch.cardIds) acc.push(ch); if (ch.children) leafDecks(ch, acc); } return acc; }
@@ -85,6 +119,7 @@ const SRC_TARGET = (() => { const m = /const SRC_TARGET = (\d+);/.exec(fs.readFi
 // Every citation carries a link, so a reader can check the claim and follow it further — which also means
 // only publicly reachable scholarship is citable here, and that a page number can always be verified.
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
+const { checkCitationLang } = require("./src-langs.js");
 
 /* ---------- MAP CARDS (Aug 2026, on request) ----------
    A card carrying `map: { layer, key }` asks its question as a WINDOW onto the globe with one place
@@ -141,6 +176,8 @@ if (!card.id) { console.error("ERROR: card.id is empty"); process.exit(1); }
 
 const isMap = !!card.map;
 const isArt = card.artwork === true;   // an ARTWORK card: the picture is its own subject (see the block below)
+const isFlag = card.flagCard === true; // a FLAG card: the flag is its whole question (see the block below)
+const isDraw = card.drawCard === true; // a DRAW card: the flag is its ANSWER and the reader draws it
 if (isMap) {
   const m = card.map;
   if (typeof m !== "object" || Array.isArray(m)) { console.error("ERROR: card.map must be an object: { \"layer\": \"us-states\", \"key\": \"California\" }"); process.exit(1); }
@@ -219,9 +256,11 @@ if (isMap) {
     console.error("       Then: node .claude/facts-echo.js --card=" + card.id);
     process.exit(1);
   }
-} else if (!isArt && Array.isArray(card.facts) && card.facts.length) {
+} else if (!isArt && !isFlag && Array.isArray(card.facts) && card.facts.length) {
   // not refused — the box is general, and an ARTWORK card's facts are its own furniture (the artist, the
-  // date, the medium) — but worth saying on anything else, since the box arrived with map cards
+  // date, the medium) — but worth saying on anything else, since the box arrived with map cards.
+  // A FLAG card's grid is its map-card twin's, copied whole, so it is meant on every one of the 233 and
+  // the warning would be 233 lines of noise about the format working.
   console.warn("WARNING: card." + card.id + " has a `facts` box but no `map`. That is allowed; just check it was meant.");
 }
 
@@ -230,7 +269,7 @@ if (isMap) {
    else, and the reader names it. It is a flag rather than an inference from `image` because an ordinary
    card's picture ILLUSTRATES its subject, which is a different claim — see cardArtSpec in app.js.
 
-   FOUR THINGS ARE CHECKED HERE AND NOWHERE ELSE, and every one of them ships looking perfect:
+   SIX THINGS ARE CHECKED HERE AND NOWHERE ELSE, and every one of them ships looking perfect:
 
    · A picture, with a CREDIT and an ALT. The credit is required of every card already; the alt is
      required HERE because on this format it is not a courtesy, it is the question as a reader who
@@ -239,11 +278,19 @@ if (isMap) {
      "Describe, never name" is the rule the plan states, and an alt reading "Rembrandt's Night Watch"
      hands the answer to exactly the reader the alt exists for — silently, since no sighted reviewer
      ever sees it.
-   · NO EXTRA PHRASINGS, for the map card's reason: three ways of asking "what is this picture?" are
-     one sentence written three times.
-   · A `facts` box, which is where the artist, the date, the medium and the location go. It is the
-     second half of the answer — the request asks the reader for the artist as well, and `gradeCloze`
-     matches one string, so the artist is shown rather than typed. */
+   · AN EMPTY `question`, AND NO EXTRA PHRASINGS. The request is that the question side show no words,
+     so the format renders none — and a sentence stored in a field nothing draws is a thing a reader of
+     the data cannot tell from a bug, so it is refused rather than ignored.
+   · AN ARTIST ROW AND A LOCATION ROW IN `facts`, matching app.js's own declared label tables. The
+     reader is asked for three things — the title, the artist and the date — and `cardArtAnswers`
+     derives every one of them from the card's own display fields rather than keeping a second copy, so
+     a grid with no artist row this can read is a card that silently asks fewer questions than the
+     format promises, and looks finished doing it. The LOCATION row is required for a different reason:
+     it is no longer asked (Sep 2026, on request) but it is still the answer side's statement of where
+     the work is now, and a card whose grid has no row app.js can read as one has stopped making it.
+   · A DATE LINE THAT YIELDS A YEAR. It is the third asked answer AND the card's place in a collection
+     whose whole running order is chronological, so a card without one is unanswerable and unsortable
+     at once. */
 if ("artwork" in card && typeof card.artwork !== "boolean") {
   console.error("ERROR: card.artwork is true or absent — it says the picture IS this card's subject."); process.exit(1);
 }
@@ -270,10 +317,15 @@ if (isArt) {
     console.error("ERROR: image.alt names the artist (" + JSON.stringify(artist) + ") — the card asks for the artist too, so the alt may not give it away.");
     process.exit(1);
   }
+  if (String(card.question || "").trim()) {
+    console.error("ERROR: an artwork card's `question` is EMPTY (\"\") — the picture is the whole question and no prose is drawn on the front. What to type is said by the answer box's own three labels.");
+    process.exit(1);
+  }
   if (Array.isArray(card.questions) && card.questions.length) {
     console.error("ERROR: an artwork card carries no extra question phrasings — the picture is the clue. Give it `\"questions\": []`.");
     process.exit(1);
   }
+  card.question = "";
   card.questions = [];
   const facts = Array.isArray(card.facts) ? card.facts : [];
   const bad = facts.find((r) => !Array.isArray(r) || r.length !== 2 || !String(r[0] || "").trim() || !String(r[1] || "").trim() || /[<>]/.test(String(r[0]) + String(r[1])));
@@ -282,24 +334,136 @@ if (isArt) {
     console.error("ERROR: an artwork card carries " + ART_FACTS_MIN + "–" + MAP_FACTS_MAX + " `facts` rows — the artist, the date, the medium, the size and where it is. This one has " + facts.length + ".");
     process.exit(1);
   }
-  if (!facts.some((r) => /^(artist|maker|sculptor|painter|attributed to|culture)$/i.test(String(r[0] || "").trim()))) {
-    console.warn("  ! no Artist / Maker / Culture row in `facts` — the card asks who made it, so the answer side should say.");
+  /* THE LABEL TABLES ARE app.js's, AND THE MATCH DECIDES WHETHER THE READER IS ASKED AT ALL.
+     `cardArtAnswers` reads the artist and the location out of this grid by label — that is what lets
+     the grid and the grading be one fact rather than two copies of it — so a row these do not match is
+     a field the card silently stops asking for, or, in the location's case, stops stating. Kept in step
+     with ART_ARTIST_LABELS / ART_PLACE_LABELS in app.js; a card that reaches a reader with one missing
+     looks perfectly finished. */
+  const ART_ARTIST_LABELS = /^(artist|maker|sculptor|painter|architect|workshop|attributed to|culture)$/i;
+  const ART_PLACE_LABELS = /^(location|where it is|where it is now|collection|museum|held|home)$/i;
+  const labelOf = (r) => String(r[0] || "").trim();
+  if (!facts.some((r) => ART_ARTIST_LABELS.test(labelOf(r)))) {
+    console.error("ERROR: an artwork card needs an artist row in `facts` — the reader is asked who made it. The label must be one of: artist, maker, sculptor, painter, architect, workshop, attributed to, culture. Write \"Unknown\" where the work is anonymous.");
+    process.exit(1);
+  }
+  if (!facts.some((r) => ART_PLACE_LABELS.test(labelOf(r)))) {
+    console.error("ERROR: an artwork card needs a location row in `facts` — the answer side states where the work is now (it is shown rather than asked). The label must be one of: location, where it is, where it is now, collection, museum, held, home.");
+    process.exit(1);
+  }
+  /* A `Date` row would be a THIRD copy of the date — the date line already carries it and is what
+     `cardStartYear` sorts the collection by, so that is where the asked-for date is read from. */
+  if (facts.some((r) => /^date$/i.test(labelOf(r)))) {
+    console.error("ERROR: an artwork card does not carry a `Date` row in `facts` — the date line above the grid is the date, and is what the reader is graded against and what files the card in chronological order.");
+    process.exit(1);
+  }
+  if (!/<span class="dt-k">[^<]+<\/span><span class="dt-v">[^<]+<\/span>/.test(String(card.answerDate || ""))) {
+    console.error("ERROR: an artwork card needs a date line with a labelled row (Painted / Carved / Cast / Made …) — it is the third thing the reader is asked for and the card's place in the collection's running order.");
+    process.exit(1);
   }
 }
 
-const QMIN = isMap || isArt ? MAPQ_MIN : Q_MIN, QMAX = isMap || isArt ? MAPQ_MAX : Q_MAX;
-if (!isMap && !isArt && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
+/* ---------- A FLAG CARD (Sep 2026, on request) ----------
+   `flagCard: true` says the card's FLAG is its whole question: the front draws it and the reader names
+   the country or territory it belongs to. See docs/flags-card-plan.md and the FLAG CARDS block in
+   app.js. The picture is the existing `answerFlag` field rather than a new one — it already refuses an
+   uncredited `src` and already rides the serializer and the overlay — so what is checked here is the
+   three things the FORMAT adds, every one of which renders perfectly when it is wrong.
+
+   · IT NEEDS THE FLAG. `cardFlagSpec` returns null without one, and a flag card with no flag draws a
+     bare prompt naming nothing — a question with no question in it.
+   · IT NEEDS AN `alt` THAT DOES NOT NAME THE ANSWER. This is the artwork card's own guard, and it is
+     the one rule that makes this format accessible rather than merely drawn: a flag CAN be described
+     without answering ("three horizontal bands of saffron, white and green"), where a shape on a globe
+     cannot. `answerFlagHTML` falls back to the CREDIT where a card has no alt, which is right beside an
+     answer already on screen and would hand the answer over on a front — and a Commons credit for a
+     national flag reads "Government of India, public domain".
+   · IT IS ONE FORMAT AT A TIME. A map card's window and an artwork card's picture both occupy the
+     front, so a card carrying two of the three is two questions in one slot. */
+if ("flagCard" in card && typeof card.flagCard !== "boolean") {
+  console.error("ERROR: card.flagCard is true or absent — it says the card's flag IS its whole question."); process.exit(1);
+}
+if (isFlag) {
+  if (isMap || isArt) { console.error("ERROR: a card is a flag card, a map card or an artwork card, not two of them — each is a different question in the same slot."); process.exit(1); }
+  const fl = card.answerFlag;
+  if (!fl || !String(fl.src || "").trim()) {
+    console.error("ERROR: a flag card needs `answerFlag.src` — the flag IS the question. An entity whose flag cannot be shown is NOT carded here (see `fl-036` Afghanistan in docs/flags-card-plan.md).");
+    process.exit(1);
+  }
+  if (!String(fl.alt || "").trim()) {
+    console.error("ERROR: a flag card needs `answerFlag.alt` — on this format the alt text is the question for a reader who cannot see the flag. Describe the field, the colours and the charge; never name the country.");
+    process.exit(1);
+  }
+  const alt = String(fl.alt).toLowerCase();
+  const ansT = String(card.answerText || "").trim().toLowerCase();
+  if (ansT && alt.indexOf(ansT) >= 0) {
+    console.error("ERROR: answerFlag.alt contains the answer (" + JSON.stringify(card.answerText) + ") — it must DESCRIBE the flag, not name whose it is. The 115 descriptions already on `gw-` cards open \"The flag of X: \"; cut that prefix.");
+    process.exit(1);
+  }
+  if (Array.isArray(card.questions) && card.questions.length) {
+    console.error("ERROR: a flag card carries no extra question phrasings — the flag is the clue, and three ways of saying \"name this flag\" are three ways of saying nothing. Give it `\"questions\": []`.");
+    process.exit(1);
+  }
+  card.questions = [];
+}
+
+/* ---------- DRAW CARDS (Sep 2026, on request) ----------
+   `drawCard: true` says the card's flag is its ANSWER: the prompt names the country and the reader draws
+   the flag from memory on the pad, then reveals it and grades themselves. It is `fl-NNN` run backwards
+   and is numbered +500 from its twin. See docs/flags-card-plan.md and the DRAW CARDS block in app.js.
+   Four things are checked, and every one of them renders perfectly when it is wrong.
+   · IT NEEDS THE FLAG, for the flag card's reason one step later: without one the reveal shows an empty
+     frame and the card simply has no answer in it.
+   · IT IS NOT ALSO A FLAG CARD. The two booleans say OPPOSITE things about the same picture — one puts it
+     on the front and one holds it back — so a card carrying both shows the answer on the question side
+     and looks entirely normal doing it.
+   · ITS PROMPT CARRIES NO CLOZE BLANK, which is the one place this format departs from every other card
+     here. There is nothing to type: the answer is a drawing. A blank would put an ungradeable input on
+     the card and, under the "Answer before revealing" policy, a gate the reader could never pass.
+   · AND ITS PROMPT MUST NAME THE COUNTRY. The whole question is "draw THIS flag", so a prompt that does
+     not say whose is a card asking for nothing — and it is exactly the shape a copy-and-paste from the
+     card above would produce. */
+if ("drawCard" in card && typeof card.drawCard !== "boolean") {
+  console.error("ERROR: card.drawCard is true or absent — it says the card's flag is its ANSWER and the reader draws it."); process.exit(1);
+}
+if (isDraw) {
+  if (isMap || isArt || isFlag) { console.error("ERROR: a card is a draw card, a flag card, a map card or an artwork card, not two of them. A draw card and a flag card in particular are OPPOSITES — `flagCard` puts the flag on the question side and `drawCard` holds it back until the reveal, so a card carrying both shows the reader the answer."); process.exit(1); }
+  const fl = card.answerFlag;
+  if (!fl || !String(fl.src || "").trim()) {
+    console.error("ERROR: a draw card needs `answerFlag.src` — the flag IS the answer, and without one the reveal is an empty frame. An entity whose flag cannot be shown is NOT carded here (see the deferrals in docs/flags-card-plan.md).");
+    process.exit(1);
+  }
+  if (Array.isArray(card.questions) && card.questions.length) {
+    console.error("ERROR: a draw card carries no extra question phrasings — there is one thing to ask and three ways of saying \"draw it\" are three ways of saying nothing. Give it `\"questions\": []`.");
+    process.exit(1);
+  }
+  card.questions = [];
+  if (/class="blank"/.test(String(card.question || ""))) {
+    console.error("ERROR: a draw card's prompt carries NO cloze blank — the answer is a drawing, so there is nothing to type. A blank here also arms the \"Answer before revealing\" policy against a field the reader can never fill.");
+    process.exit(1);
+  }
+  const ansT = String(card.answerText || "").trim();
+  if (ansT && String(card.question || "").toLowerCase().indexOf(ansT.toLowerCase()) < 0) {
+    console.error("ERROR: a draw card's prompt does not name " + JSON.stringify(ansT) + " — the whole question is \"draw THIS flag\", so the prompt has to say whose.");
+    process.exit(1);
+  }
+}
+
+const QMIN = isMap || isArt || isFlag || isDraw ? MAPQ_MIN : Q_MIN, QMAX = isMap || isArt || isFlag || isDraw ? MAPQ_MAX : Q_MAX;
+if (!isMap && !isArt && !isFlag && !isDraw && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
   console.error("ERROR: card needs a `questions` array of exactly " + N_EXTRA + " EXTRA phrasings (3 questions in all — see CLAUDE.md). Each is a full standalone clue with its own mid-sentence blank.");
   process.exit(1);
 }
-for (const [qi, q] of [card.question, ...card.questions].entries()) {
+/* An ARTWORK card has no question prose at all (checked above: `question` is "" and `questions` is
+   empty), so there is nothing here to hold to a length or to a blank. */
+for (const [qi, q] of (isArt ? [] : [card.question, ...card.questions]).entries()) {
   const qn = qWords(q);
   if (qn < QMIN || qn > QMAX) {
     console.error("ERROR: question " + (qi + 1) + " is " + qn + " words — it must be " + QMIN + "–" + QMAX +
-      (isMap || isArt ? " (the picture or the map is the clue, so the prompt is short)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
+      (isMap || isArt || isFlag || isDraw ? " (the picture, the flag or the map is the clue, so the prompt is short)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
     process.exit(1);
   }
-  if (!/class="blank"/.test(q)) {
+  if (!isDraw && !/class="blank"/.test(q)) {
     console.error("ERROR: question " + (qi + 1) + " has no <span class=\"blank\">_____</span> — every phrasing blanks the answer mid-sentence.");
     process.exit(1);
   }
@@ -363,6 +527,61 @@ if (!Number.isInteger(card.difficulty) || card.difficulty < DIFF_MIN || card.dif
   process.exit(1);
 }
 
+/* …AND IT CARRIES ITS CATEGORISING TAGS, ON THE SAME REASONING AND FOR A DIFFERENT GAME (Sep 2026).
+   `tags` is 3–8 lowercase tags in the glossary's own vocabulary — the KIND first (`era`, `place`,
+   `object`, `person`, `industry`…), then the subject areas, then the specifics — and what they are FOR is
+   Multiple Choice: `cardKinship` counts the tags two cards share and offers the three closest as the wrong
+   answers, so the Mousterian is answered against the Oldowan and the Acheulean rather than against a cave,
+   an ice age and a fossil.
+
+   THERE WAS NO GUARD HERE UNTIL NOW, and the corpus records exactly what that cost: 467 cards, 14.5% of
+   it, carry no tags at all, and they arrived in whole CONTIGUOUS RUNS — `gr-611`–`gr-760`,
+   `cnh-147`–`cnh-230`, `us-061`–`us-100`, `wh-151`–`wh-200` — rather than card by card, because nothing
+   ever said no. It is the `difficulty` fault one game over and quieter still: an untagged card falls
+   through to the coarse `answerType` fallback, draws slightly worse distractors, and NOBODY EVER REPORTS A
+   SLIGHTLY WORSE DISTRACTOR. So it is REFUSED rather than defaulted, for `difficulty`'s reason — there is
+   no safe guess, only an invisible one. Batch-tag a card already shipped with `.claude/add-card-tags.js`.
+
+   The rules are that tool's own, SLICED OUT BY TEXT rather than copied, and the run STOPS if the slice
+   fails: a second copy goes stale on a change made in a file nobody here has reason to open, which is the
+   scar `add-card-tags.js` itself left when its private copy of a field list stripped `difficulty` and
+   `undatable` from all 500 cards in one run. */
+const TAG_RULES = (() => {
+  const src = fs.readFileSync(path.join(__dirname, "add-card-tags.js"), "utf8");
+  const n = /const MIN_TAGS = (\d+), MAX_TAGS = (\d+);/.exec(src);
+  const rx = /const TAG_RX = \/((?:\\.|[^\/\\])+)\/([a-z]*);/.exec(src);
+  if (!n || !rx) {
+    console.error("ERROR: could not read the tag rules out of .claude/add-card-tags.js (MIN_TAGS, MAX_TAGS, TAG_RX).\n" +
+      "       They are sliced out by text so the two tools cannot come to disagree about what a tag is.\n" +
+      "       Fix the slice rather than restating the rules here — a second copy is the thing that goes stale.");
+    process.exit(1);
+  }
+  return { min: +n[1], max: +n[2], rx: new RegExp(rx[1], rx[2]) };
+})();
+const TAG_HELP =
+  "       Tag 1 is the KIND (era, place, object, person, industry, culture, event, concept, fossil, …),\n" +
+  "       then the subject areas (archaeology, history, prehistory, science, geography, art, …), then the\n" +
+  "       specifics — a country, a region, a period:\n" +
+  '         "tags": ["industry", "archaeology", "prehistory", "stone tools", "france"]\n' +
+  "       REUSE the vocabulary the glossary and the shipped cards already carry rather than coining a\n" +
+  "       near-synonym: a tag no other card shares can never group anything. Multiple Choice draws its\n" +
+  "       three wrong answers from the cards sharing the most tags, so without them this card falls through\n" +
+  "       to the coarse `answerType` fallback and its distractors get quietly worse.";
+if (!Array.isArray(card.tags)) {
+  console.error("ERROR: card needs `tags` — an array of " + TAG_RULES.min + "–" + TAG_RULES.max + " lowercase category tags.\n" + TAG_HELP);
+  process.exit(1);
+}
+if (card.tags.length < TAG_RULES.min || card.tags.length > TAG_RULES.max) {
+  console.error("ERROR: card.tags has " + card.tags.length + " tag(s) — it wants " + TAG_RULES.min + "–" + TAG_RULES.max + ".\n" + TAG_HELP);
+  process.exit(1);
+}
+for (const t of card.tags) {
+  if (typeof t !== "string" || !TAG_RULES.rx.test(t)) {
+    console.error("ERROR: " + JSON.stringify(t) + " is not a tag — lowercase words, 2–40 characters, as the glossary's are.\n" + TAG_HELP);
+    process.exit(1);
+  }
+}
+
 /* OPTIONAL: `undatable: true` says the ANSWER TERM does not happen at a time — a process, a condition, a
    material, a category or a physical feature — so the Timeline game must not ask a reader to place it.
    It is not required and not guessed at: almost every card names something with a date, and the flag is
@@ -380,6 +599,28 @@ const aWords = qWords(card.abstract);
 if (aWords < A_MIN || aWords > A_MAX) {
   console.error("ERROR: the background is " + aWords + " words — it must be " + A_MIN + "–" + A_MAX +
     " (aim for ~300, in two blocks of five sentences; see CLAUDE.md).");
+  process.exit(1);
+}
+
+/* ...AND THE SHAPE, which this said in its error message for a year and never checked (Sep 2026).
+   The rule is TEN sentences in TWO BLOCKS OF FIVE split by ` <br><br> `, and nothing enforced it:
+   `gr-639` and `gr-678` shipped with NINE sentences, and `cnh-128` and `cnh-258` with ten split 6+4
+   and 4+6 — the break one sentence late and one sentence early. Four cards in 3,215, invisible,
+   because every one reads perfectly and every one is in band on words: THE COUNT IS THE ONLY THING
+   THAT CAN SEE THIS, which is why it is a guard rather than a note.
+     · AND THE BLOCKS ARE CHECKED SEPARATELY, NOT JUST THE TOTAL. Two of the four carried the full
+       ten sentences and were still wrong, because the citation passes place markers by sentence
+       index ACROSS BOTH BLOCKS while a reader meets them as two paragraphs of five — so a mis-placed
+       break moves where the card pauses without moving a single word.
+   THE SPLITTER IS split-abstract.js's, not a second copy: it is the module the citation passes place
+   markers by sentence index with, so a card this accepts is a card those can mark. */
+const SHAPE = require("./split-abstract.js").count(card.abstract);
+if (SHAPE.length !== 2 || SHAPE[0] !== 5 || SHAPE[1] !== 5) {
+  console.error("ERROR: the background splits " + JSON.stringify(SHAPE) + " — it must be exactly ten " +
+    "sentences in two blocks of five, separated by ` <br><br> ` (see CLAUDE.md).");
+  console.error("       If the prose really is 5+5, look for a sentence ending in a lone capital " +
+    "letter: the splitter reads that as an initial (the `V. Gordon Childe` guard), which is how " +
+    "gr-639's \"the letters A and N.\" counted as nine. Reword so the stop follows a word.");
   process.exit(1);
 }
 
@@ -414,6 +655,10 @@ if (!card.skipSources) {
   if (src.length < SRC_TARGET) { console.error("ERROR: card has " + src.length + " source(s) — a new card carries at least " + SRC_TARGET + " (see docs/citation-plan.md, \"How many\"). Ten sentences making ten claims are not honestly covered by fewer."); process.exit(1); }
   const openN = src.filter(s => /\[Open access\]/.test(s)).length;
   if (openN <= src.length / 2) console.warn("WARNING: only " + openN + " of this card's " + src.length + " sources are labelled [Open access]. The majority of any card's list must be open — a paywalled work earns its place only as the landmark a claim is actually built on.");
+  /* A LANGUAGE MARKER MUST BE ONE app.js CAN DRAW (Sep 2026). A non-English citation ends in `[in
+     French]`, lifted into a chip beside the access one; a typo is not an error anywhere, it is a chip
+     that never appears, which nothing on the page can report. The list is SLICED out of app.js. */
+  src.forEach((s) => { const bad = checkCitationLang(s); if (bad) { console.error("ERROR: a citation " + bad); process.exit(1); } });
   const unlinked = src.filter(s => !SRC_URL.test(s));
   if (unlinked.length) {
     console.error("ERROR: every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none.\n" +
@@ -576,7 +821,8 @@ if (card.answerFlag && String(card.answerFlag.src || "").trim() && !String(card.
 
    IT IS REQUIRED HERE AND OPTIONAL THERE (Sep 2026, on request), which is the whole point of the flag:
    a card written from today ships with its Think-it-through set, and `add-card-links.js` stays the tool
-   for the cards written before the rule. A MAP CARD is the one exemption — see `whyExempt`. */
+   for the cards written before the rule. A MAP CARD and a FLAG CARD are the exemptions, for two
+   different reasons — see `whyExempt`. */
 { const e = checkWhy(card, { required: true }); if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); } }
 if (REQUIRE_TRANSLATIONS && !card.skipTranslations) {   // a new card ships in all 9 site languages (i18n block)
   const missing = [];
@@ -628,6 +874,13 @@ if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", lea
     collectionOf: (cid) => (cid === card.id ? deckColl : collIdx[cid] || null),
   });
   if (e) { console.error("ERROR: " + e + " — see CLAUDE.md."); process.exit(1); }
+  /* ---------- WHO FOUGHT, ON A CARD WHOSE ANSWER IS A WAR (Sep 2026) ----------
+     The rules live in `.claude/card-war.js` because `add-card-wars.js` enforces the same ones on the
+     cards already shipped, and a second copy of a validation goes stale in a file nobody here has reason
+     to open. Every one of them is for a failure that renders perfectly: a belligerent named off the map
+     shades nothing, a name on both sides asks one shape for two colours, and a war with no derivable
+     years is simply absent from the personal atlas. */
+  { const ew = checkWar(card, loadCardYears(appSrc)); if (ew) { console.error(/^ERROR/.test(ew) ? ew : "ERROR: " + ew); process.exit(1); } }
 }
 
 cards.push(card);
@@ -657,7 +910,8 @@ console.log("added card " + card.id + " -> deck " + deck.id + " | total cards: "
    already written the card, so a failure prints a line and changes no exit status. */
 // …except a MAP card, whose illustration is its map. A second picture there would sit under the globe
 // answering the same question, and the suggestion is a network round trip nobody is going to act on.
-if (!isMap && !isArt && !(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
+// A FLAG card is the same case: its illustration is the flag on its front.
+if (!isMap && !isArt && !isFlag && !(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
   require("./suggest-image.js").report("cards", card.id, card.answerText || card.answer || card.id)
     .catch((e) => console.log("  (no picture looked for: " + e.message + ")"));
 }

@@ -308,10 +308,23 @@ Ten bullets, in the order they appeared in CLAUDE.md:
   **Known gap:** the `PAGE_META` titles/descriptions have no `i18n/ui-<lang>.js` entries yet, so `document.title` stays
   English in other languages (the documented graceful fallback). Adding them is a content task.
 - **UI sound effects** (the `/* UI sound effects */` block in app.js): tiny synthesized Web-Audio sounds, no files —
-  **`click` and `toggle` are a soft TAP since Aug 2026** (`sfxTap` / `sfxNoiseBuf`, on request: "something more
+  **`click` IS A SOFT BUBBLE POP since Sep 2026** (`sfxBubble`, on request: "replace the default clicking sound
+  effect we have with a soft bubble pop sound effect") — two sines whose pitch glides UP and then HOLDS,
+  and no noise at all, because a bursting bubble is a pitched event rather than a transient and any noise at
+  the onset is exactly the crispness the request asked to be rid of. **`dur` is not the audible length, and
+  that is the trap it was written wrong in first**: the gain ramps exponentially to 0.0001, so the sound is
+  at 3% of peak a third of the way through `dur`, and a glide landing at 55% of it arrives where nobody can
+  hear the bubble — a swoop rather than a pop. `rise` is 0.2, and both readings were **measured by rendering
+  the shipped call through an OfflineAudioContext**: at 0.55 the pitch is still climbing at 42ms and 3% of
+  peak; at 0.2 it reaches the top note by 26ms with a quarter of the level left and holds it through the
+  tail (peak 0.056, 69ms of it above 2% of that). Re-derive `rise` if the decay shape changes. The quieter
+  partial an octave up — `sfxBubble` is called twice — sharpens the attack and dies first, which is what
+  keeps a pure-tone pop from sounding hollow without putting a transient back into it.
+  **`toggle`, the chest lid and the common loot are a soft TAP since Aug 2026** (`sfxTap` / `sfxNoiseBuf`, on
+  request: "something more
   akin to a low soft tapping sound than a high chirp"): a short burst of noise with a light body under it,
   which is what a finger on wood actually is — a broadband transient that dies at once, with no pitch to
-  speak of. A pure oscillator cannot make one, which is why the old click was a triangle sliding
+  speak of. A pure oscillator cannot make one, which is why the click before it was a triangle sliding
   1900 → 1300 Hz. **The filter is a BANDPASS, and that is the second correction** (Aug 2026, on a report that
   the tap had become "a low thud"): a low-pass at 780 Hz keeps everything BELOW it, so most of what was left
   was rumble, and under it sat a sine falling 190 → 120 Hz — which is a bass drum, not a fingertip. A
@@ -321,7 +334,7 @@ Ten bullets, in the order they appeared in CLAUDE.md:
   gains are LARGER than the low-pass version's for a quieter result, a band being less energy than
   everything below a corner. `sfxTap` deliberately has **no attack ramp** where `sfxTone` does: a tap starts
   at full level on its first sample, and a 5ms fade-in turns it into a small swell. The noise buffer is
-  built once and reused; a click is by a wide margin the most frequently played sound on the site. —
+  built once and reused, a toggle being played often enough to notice. —
   `sfx(name)` with click / toggle / pop / good / bad / win / **discover** (a term or place opened for the first
   time — see the discovery-marks bullet above), played by ONE delegated **capture-phase** click listener
   (so a handler's `stopPropagation` can't swallow the tick) that maps button-likes to sounds (grades → good/bad,
@@ -499,7 +512,7 @@ is what keeps the known gap above from mangling the inside of words.
 MutationObserver feeds — had **no skip test at all**, so a citation or a book's prose updated in place
 was rewritten while the same text reached through the walker was protected.
 **Known limit, stated rather than papered over**: the card browser searches stored card TEXT, so
-"color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (83
+"color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (91
 assertions), most of which needs no browser — and its section 4 must stay in **en-GB**, since `favor` is
 an American form and the American-to-British direction is the one that corrupts it; written against
 en-US it passes on the unfixed code. It carries a **liveness check** beside it for the same reason: a
@@ -573,3 +586,70 @@ was rewritten while the same text reached through the walker was protected.
 assertions), and **its section 4 must stay in en-GB** — `favor` is an American form and the
 American-to-British direction is the one that corrupts it, so written against en-US it passes on the
 unfixed code. It carries a **liveness check** beside it for the same reason.
+
+---
+
+## Is the corpus authored British? (2026-09-17)
+
+Nothing had ever asked. `check-style.js` has four rules and spelling is not one of them;
+`check-truefalse.js` asks it, but only of the 220 statements in `truefalse.js`. And it matters more than
+it sounds, because **`applySpelling` returns at once under en-GB**: the transform is one-way from the
+authored system, so an American spelling sitting in the data is never corrected for anybody — it is
+simply what BOTH readers see, while a British-authored word is converted correctly for each of them.
+Authoring British is therefore strictly better for readers, which is why the house rule says British.
+
+`.claude/check-spelling-corpus.js` is the measure. What it found on its first run:
+
+| family | British | American |
+|---|---|---|
+| `centre` / `center` | 641 | 3 |
+| `colonis` / `coloniz` | 128 | 2 |
+| `civilisation` / `civilization` | 112 | 0 |
+| `standardis` / `standardiz` | 36 | 1 |
+| **`Palaeolith` / `Paleolith`** | **38** | **90** |
+
+Everything leaned British except the `palaeo-` family, which leaned the other way by more than two to
+one — so a British reader met both spellings of the same term across the prehistory decks while an
+American reader met one. **The tag vocabulary had been British all along** (`palaeolithic`,
+`palaeontology`), which is what said the house form was not in doubt, and **all eleven `Paleolithic`
+glossary keys already carried the `Palae-` form as an alias**, so nothing was broken by the mixture and
+nothing was broken by converting it: the keys are Wikipedia slugs and were not touched.
+
+**What was converted**: 49 items over the `palaeo-` family, 6 over `haematite`, and 16 one-off sites
+(`colonization`, `standardized`, `encyclopedia`, `Orientalization`, `hybridization`, `fossilized`,
+`organizer`, `colonizer`, `decolonization`, `organized`, `civilization`). The prose now reads zero.
+**Nothing an American reader sees changed at all.**
+
+**What was NOT converted, and why it is declared rather than swept.** Three kinds:
+
+- **Borrowed text** — 124 distinct American spellings across citations, picture captions and credits. A
+  citation names a published work and a Commons caption is somebody else's words. It is the same mask
+  `check-style.js` puts over the citations before its own `--fix`, and the one time that mask was missing
+  it renamed six real works.
+- **Proper names**, seventeen declared rows with a reason each: the Indian Reorganization Act, the
+  Secretary of Labor, the Medal of Honor, the National Association for the Advancement of Colored People,
+  the International Trade Organization, the Oglala Sioux Civil Rights Organization, Pearl Harbor, the fur
+  trader Robert Gray, the University of Wisconsin Armory, the Paleo-Indian culture name, and the word
+  `'civilized'` quoted AS a word in a card explaining why the name fell out of use.
+- **Judged spellings**, seven rows keyed by item AND word on `CROSSREF_WRONG`'s rule, so a different
+  American spelling creeping into an excused item still reports: `fetus` on a biology card (the form
+  modern British scientific writing uses, and the Latin is *fetus*), and four glossary terms naming
+  themselves out of their own Wikipedia slug — `Saber-toothed_cat`, `Smilodon`, `Periodization` and
+  `Functional_specialization_(brain)`, the last of which already writes `localisation` in its next
+  clause.
+
+**Two faults the pass turned up in the tooling, both silent.**
+
+- **A SUFFIX CAN MAKE A NON-WORD OUT OF A ROW THAT IS OTHERWISE RIGHT.** `SPELL_PAIRS` carried
+  `honour`+`ary` and `labour`+`ious`, putting `honourary` and `labourious` into both maps. Inert on the
+  site, the live direction being GB→US only; where it bit was the CHECKERS, which run the reverse
+  direction — `check-truefalse.js` refused a statement carrying `laborious` and told the author to
+  misspell it. Fixed and pinned in `test-spelling.js`, having been proved over 175,126 renderings of the
+  whole corpus in both directions: 8 changed, every one US→GB and every one a non-word becoming the right
+  word.
+- **`fix-field.js` REPLACES THE FIRST OCCURRENCE OF A PAIR AND NO MORE.** `find` is a string, so
+  `text.replace(find, repl)` is a single substitution — right for a figure, which is what the tool was
+  written for, and a trap for a word. The first run of this pass patched 38 abstracts, reported success,
+  and left 13 of them still carrying a second copy of the word. The remedy is to repeat the pair once per
+  occurrence; the `includes` guard is re-asked each time, so a pair too many is a refusal rather than a
+  silent no-op. Now in the tool's own header.

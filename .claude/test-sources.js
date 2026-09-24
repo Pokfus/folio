@@ -157,13 +157,23 @@ async function openStudyCard(page) {
   await page.evaluate(() => { const b = document.querySelector("#b-review"); if (b) b.click(); });
   await page.waitForTimeout(1000);
 }
+/* THE FIRST `.ttip` ON A REVEALED CARD IS NOT A CLICKABLE ONE, AND HAS NOT BEEN SINCE THE
+   ELABORATION PROMPT SHIPPED. `elabPromptHTML` puts "Think it through" ABOVE the Background,
+   and each of its three answers is a native <details> that starts closed — so the terms its
+   paragraphs carry come first in the DOM and are not rendered until the reader presses Show
+   answer. `.first()` therefore resolved to an element Playwright rightly refuses to click, and
+   this whole file died on a 30-second actionability timeout inside a locator, reported as
+   "element is not visible" with no clue which element or why.
+   `:visible` is the fix and it is also the honest question: the suite wants any term a reader
+   could actually press. Both the count and the click use it, or a page whose only terms are
+   inside closed disclosures reports terms it cannot open. */
 async function openAnyGloss(page) {
   await closeGloss(page);
-  if (!(await page.locator(".ttip").count())) {
+  if (!(await page.locator(".ttip:visible").count())) {
     await openStudyCard(page);
     if (await page.locator("#reveal-btn").count()) { await page.click("#reveal-btn"); await page.waitForTimeout(500); }
   }
-  await page.locator(".ttip").first().click();
+  await page.locator(".ttip:visible").first().click();
   await page.waitForTimeout(450);
 }
 /* The seeded abstract carries a glossary term for exactly one reason, and it is worth failing loudly on

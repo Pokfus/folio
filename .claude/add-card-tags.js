@@ -23,7 +23,18 @@
 const fs = require("fs"), path = require("path");
 const dataPath = path.join(__dirname, "..", "data.js");
 const MIN_TAGS = 3, MAX_TAGS = 8;
-const TAG_RX = /^[a-z0-9][a-z0-9 '–-]{1,28}$/;   // lowercase, as the glossary's are
+const TAG_RX = /^[\p{Ll}0-9][\p{Ll}0-9 '–-]{1,39}$/u;   // lowercase, as the glossary's are
+/* THE CLASS IS \p{Ll} RATHER THAN a-z, AND THE CAP IS 40 RATHER THAN 29, BECAUSE THE SHIPPED CORPUS
+   CARRIES TAGS THIS RULE REFUSED (Sep 2026, writing `fl-217`). Two faults, both silent, both found the
+   same way — a flag card inherits its twin's tags, so the first thing that ever asked the question was
+   a NEW card trying to reuse a tag already on a shipped one. `åland` is a lowercase word and an ASCII
+   class cannot say so, which is the `\b` trap this repo records in three other places; and
+   `saint vincent and the grenadines` and `democratic republic of the congo` are 32 characters, the
+   longest entity the geography decks name, against a 29-character cap. Measured over cards and glossary
+   together: 499 distinct tags, exactly ONE non-ASCII, exactly TWO over 29, and NOT ONE carrying an
+   uppercase letter — so the `lowercase` rule is really observed and `\p{Ll}` states it BETTER than
+   `a-z` did, which said nothing about `É`. The cap is set from that measurement plus headroom, not
+   chosen. **`add-glossary.js` CHECKS NO TAG PATTERN AT ALL**, which is how all three got in. */
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 function die(m) { console.error("ERROR: " + m); process.exit(1); }
@@ -49,7 +60,7 @@ for (const id of Object.keys(batch.cards)) {
   if (tags.length > MAX_TAGS) die(id + ": " + tags.length + " tags — the cap is " + MAX_TAGS + "; a tag every card carries sorts nothing");
   const seen = new Set();
   for (const t of tags) {
-    if (typeof t !== "string" || !TAG_RX.test(t)) die(id + ': "' + t + '" is not a tag — lowercase words, 2–29 characters');
+    if (typeof t !== "string" || !TAG_RX.test(t)) die(id + ': "' + t + '" is not a tag — lowercase words, 2–40 characters');
     if (seen.has(t)) die(id + ': "' + t + '" is listed twice');
     seen.add(t);
   }

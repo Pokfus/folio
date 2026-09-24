@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Card plans ↔ data.js — the check that keeps "generate the next <collection> card" working.
  *
- * Nineteen collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
+ * Thirty collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
  * lowest id not yet in data.js, and its deck comes from the plan. That workflow rests on agreements
  * nothing else verifies, and every one of them fails SILENTLY:
  *
@@ -49,33 +49,56 @@ const CARDS = window.CARD_DATA;
 const CLAUDE = fs.readFileSync(path.join(ROOT, "CLAUDE.md"), "utf8");
 const APP = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
 
-/* collection id → [plan slug, card prefix, numbering].
+/* plan slug → [collection id, card prefix, numbering].
    NUMBERING is the set of card numbers the plan is expected to cover, and it exists because a collection
    need not be a thousand cards. Ten of them are: the planned histories all run 1–1000, which is written
    here as the number 1000. Geography is not — its United States deck is fifty states and their fifty
    capitals, and the capitals are numbered 500 higher than their own state so the two subdecks pair by
-   number. A missing number is still a hole either way; what differs is which numbers are expected. */
+   number. A missing number is still a hole either way; what differs is which numbers are expected.
+
+   IT IS KEYED BY THE PLAN AND NOT BY THE COLLECTION, which it was until Sep 2026, because a collection
+   can carry MORE THAN ONE PLAN: Flags became a third deck of World Geography on request, and its 233
+   cards have their own running order, their own numbering and their own format in a file of their own.
+   Keyed the old way the two plans could not both be declared, and the leaf check read each plan against
+   the WHOLE collection's leaves — so whichever was listed would have reported the other's deck as
+   unnamed. What is per COLLECTION is now computed (`plansFor`) rather than assumed. */
 const PLANS = {
-  "col-13": ["greece", "gr-", 1000],
-  "col-8": ["world-history", "wh-", 1000],
-  "col-40": ["rome", "rm-", 1000],
-  "col-41": ["us", "us-", 1000],
-  "col-42": ["russia", "ru-", 1000],
-  "col-43": ["india", "in-", 1000],
+  greece: ["col-13", "gr-", 1000],
+  "world-history": ["col-8", "wh-", 1000],
+  rome: ["col-40", "rm-", 1000],
+  us: ["col-41", "us-", 1000],
+  russia: ["col-42", "ru-", 1000],
+  india: ["col-43", "in-", 1000],
   china: ["china", "cnh-", 1000],
   egypt: ["egypt", "eg-", 1000],
   ww2: ["ww2", "ww2-", 1000],
+  ww1: ["ww1", "ww1-", 1000],
+  architecture: ["arch", "arch-", 1000],
+  middleearth: ["middleearth", "mid-", 1000],
+  westeros: ["westeros", "wes-", 1000],
+  coldwar: ["coldwar", "cw-", 1000],
+  vikingage: ["vikingage", "vk-", 1000],
   japan: ["japan", "jp-", 1000],
-  psych: ["psychology", "ps-", 1000],
-  phil: ["philosophy", "ph-", 1000],
-  bio: ["biology", "bio-", 1000],
-  dino: ["dinosaurs", "dino-", 1000],
+  psychology: ["psych", "ps-", 1000],
+  philosophy: ["phil", "ph-", 1000],
+  biology: ["bio", "bio-", 1000],
+  dinosaurs: ["dino", "dino-", 1000],
+  astronomy: ["astro", "astro-", 1000],
+  economics: ["econ", "ec-", 1000],
+  mesopotamia: ["mesopotamia", "me-", 1000],
   korea: ["korea", "ko-", 1000],
+  france: ["france", "fr-", 1000],
   art: ["art", "art-", 1000],
+  /* Politics: East Asia is a COURSE rather than a subject shelf, so its running order cannot be
+     written ahead of the lectures it covers — the slides arrive one at a time. The numbering is what
+     has been supplied so far, sequential in the order the lectures were covered (30 cards a lecture,
+     10 for each set reading), and it is widened as a lecture lands rather than declared at 480 and
+     left full of holes. A hole inside the declared range still fails here, which is the point. */
+  "politics-east-asia": ["pea", "pea-", [[1, 100]]],
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */
-  "geo-us": ["geography", "geo-", [[1, 50], [501, 550]]],
+  geography: ["geo-us", "geo-", [[1, 50], [501, 550]]],
   /* The world: 233 countries and territories, and 226 capitals rather than 233. The seven missing
      numbers are not gaps to be filled — each is a capital card that would ask nothing, and each is
      argued in the plan: 604 Hong Kong, 614 Singapore, 667 Macau, 713 Gibraltar, 714 Monaco and
@@ -92,13 +115,29 @@ const PLANS = {
      republic and all three published coordinates fall in Krasnoyarsk Krai, so no coordinate reaches a
      shape containing the city and the dot is not snapped. Written out as ranges so that a number quietly
      going missing still fails here. */
-  "geo-russia": ["russia-geography", "gru-", [[1, 83], [502, 503], [505, 569], [571, 583]]],
-  "geo-world": ["world-geography", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 762]]],
+  "russia-geography": ["geo-russia", "gru-", [[1, 83], [502, 503], [505, 569], [571, 583]]],
+  "world-geography": ["geo-world", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 762]]],
   /* China: 31 provincial-level divisions and 27 capitals rather than 31. The four missing numbers are
      not gaps to be filled — 519 Chongqing, 523 Shanghai, 526 Beijing and 527 Tianjin are municipalities,
      cities that are themselves divisions, so a capital card there would shade its own answer. Written
      out as ranges so that a number quietly going missing still fails here. */
-  "geo-china": ["china-geography", "gc-", [[1, 31], [501, 518], [520, 522], [524, 525], [528, 531]]],
+  "china-geography": ["geo-china", "gc-", [[1, 31], [501, 518], [520, 522], [524, 525], [528, 531]]],
+  /* Flags: 233 cards, one per World Geography COUNTRY card and numbered to match it, so `fl-NNN` is the
+     same entity as `gw-NNN`. IT IS THE SECOND PLAN OF `geo-world` — a third DECK of that collection
+     rather than one of its own, on request (Sep 2026) — which is why this table is keyed by plan; see
+     the note above it. The range is unbroken even though `fl-036` Afghanistan is deferred: a deferred
+     card is one the plan LISTS and has not shipped, exactly as `gw-596` Jerusalem is, and leaving the
+     number out of the range here would stop this suite ever noticing if it did ship. The natural
+     extension (subnational flags at `fl-501`+) is deliberately NOT declared until it lands, on the
+     Politics rule — widen a numbering as work arrives rather than declaring it full of holes. */
+  flags: ["geo-world", "fl-", [[1, 233]]],
+  /* Draw the flags: the Flags deck run backwards, and the FOURTH deck of `geo-world` — so this is the
+     collection's third plan, which is the arrangement the keying note above exists for. `fd-NNN` is the
+     same entity as `fl-NNN` and as `gw-NNN`: in this collection the NUMBER is the entity and the PREFIX
+     is the question asked about it, which is why it is not numbered +500 like the capitals (there the
+     number means a DIFFERENT entity). The range is unbroken even though the same four deferrals apply
+     — 036, 171, 180 and 218, each of which has no flag Folio can show and so nothing to draw. */
+  "flags-draw": ["geo-world", "fd-", [[1, 233]]],
 };
 // a numbering as a flat list of the numbers it expects, in order
 const expand = (num) => {
@@ -178,7 +217,11 @@ function readPlan(slug, prefix) {
 
 console.log("Card plans ↔ data.js\n");
 
-for (const [colId, [slug, prefix, numbering]] of Object.entries(PLANS)) {
+/* the plans of one collection — computed rather than assumed, since a collection may carry more than
+   one (World Geography carries `world-geography` and `flags`). */
+const plansFor = (colId) => Object.entries(PLANS).filter(([, v]) => v[0] === colId);
+
+for (const [slug, [colId, prefix, numbering]] of Object.entries(PLANS)) {
   const col = TREE.collections.find((c) => c.id === colId);
   const label = `${slug} (${colId})`;
   console.log(`— ${label}`);
@@ -198,13 +241,20 @@ for (const [colId, [slug, prefix, numbering]] of Object.entries(PLANS)) {
   is(!foreign.length, `${label}: ...and all of them belong to this collection`,
      foreign.length ? "elsewhere: " + foreign.map((d) => d.id + "→" + nodeOf.get(d.id)).join(", ") : "");
 
-  /* and every leaf of this collection must be named by the plan */
+  /* and every leaf of this collection must be named by ONE OF ITS PLANS. The union is what makes a
+     collection with two plans checkable: read against this plan alone, `flags-world` would report as
+     unnamed by `world-geography` and the two World Geography decks as unnamed by `flags`, and the
+     only way to pass would be to stop declaring one of them. A leaf named by NO plan still fails,
+     which is the fault this check exists for. */
   const treeLeaves = [];
   (function walk(n) { if (n.children) n.children.forEach(walk); else treeLeaves.push(n.id); })(col);
-  const named = new Set(plan.decks.map((d) => d.id));
+  const siblings = plansFor(colId);
+  const named = new Set();
+  for (const [s2, [, p2]] of siblings) { const pl = readPlan(s2, p2); if (pl) pl.decks.forEach((d) => named.add(d.id)); }
   const unnamed = treeLeaves.filter((d) => !named.has(d));
-  is(!unnamed.length, `${label}: every leaf deck in data.js is named by the plan`,
-     unnamed.length ? "unnamed: " + unnamed.join(", ") : `${treeLeaves.length} leaves`);
+  is(!unnamed.length, `${label}: every leaf deck in data.js is named by a plan of this collection`,
+     unnamed.length ? "unnamed: " + unnamed.join(", ")
+       : `${treeLeaves.length} leaves, ${siblings.length} plan${siblings.length === 1 ? "" : "s"}`);
 
   /* the running order: exactly the numbers this collection declares, contiguous, no duplicates */
   const ns = plan.cards.map((c) => c.n);
@@ -298,8 +348,10 @@ for (const [colId, [slug, prefix, numbering]] of Object.entries(PLANS)) {
    worse than no table. Note the plan filename may contain a DIGIT (ww2-card-plan.md) — a `[a-z-]+`
    pattern silently skips that row, which is how a first draft of this check "passed" on nine of ten. */
 const rows = [...CLAUDE.matchAll(/^\| ([^|]+?) \| `([a-z0-9-]+)` \| `([a-z0-9-]+)` \| `(docs\/[a-z0-9-]+\.md)` \| (\d+) \/ (\d+) \|/gm)];
-is(rows.length === Object.keys(PLANS).length, "CLAUDE.md's index table has a row per collection",
-   `${rows.length} rows for ${Object.keys(PLANS).length} collections`);
+/* A ROW PER PLAN, not per collection: World Geography has two rows because it has two plans, and the
+   `id` column repeats for both, which is the truth about it rather than a duplicate. */
+is(rows.length === Object.keys(PLANS).length, "CLAUDE.md's index table has a row per plan",
+   `${rows.length} rows for ${Object.keys(PLANS).length} plans`);
 for (const [, name, id, prefix, planFile, decks, leaves] of rows) {
   const col = TREE.collections.find((c) => c.id === id);
   if (!col) { no(`index table: ${id} is a collection in data.js`); continue; }
@@ -308,7 +360,10 @@ for (const [, name, id, prefix, planFile, decks, leaves] of rows) {
   is(+decks === nd && +leaves === lv.length, `index table: ${name.trim()} deck counts match the tree`,
      `table ${decks}/${leaves}, tree ${nd}/${lv.length}`);
   is(fs.existsSync(path.join(ROOT, planFile)), `index table: ${name.trim()} plan file exists`, planFile);
-  is(PLANS[id] && PLANS[id][1] === prefix, `index table: ${name.trim()} prefix is right`, prefix);
+  /* the row is joined to its PLAN by the file name it names, since a collection may have two rows */
+  const rowSlug = planFile.replace(/^docs\/|-card-plan\.md$/g, "");
+  is(PLANS[rowSlug] && PLANS[rowSlug][0] === id && PLANS[rowSlug][1] === prefix,
+     `index table: ${name.trim()} names its own plan, collection and prefix`, `${rowSlug} ${id} ${prefix}`);
 }
 
 /* ---- the "next id" command ----
@@ -325,12 +380,14 @@ is(Object.values(PLANS).some(([, p]) => p === eg),
    'the "next id" command\'s example prefix is a real one', eg || "none");
 
 /* ---- cross-plan: a card prefix must belong to exactly one plan ---- */
-const prefixes = Object.values(PLANS).map(([, p]) => p);
+const prefixes = Object.values(PLANS).map(([, p]) => p);   // [colId, prefix, numbering]
 const clash = prefixes.filter((p, i) => prefixes.some((q, j) => i !== j && (p.startsWith(q) || q.startsWith(p))));
 is(!clash.length, "no card prefix is a prefix of another", clash.join(", "));
 
-/* ---- every leaf in the whole tree belongs to a planned collection ---- */
-const planned = new Set(Object.keys(PLANS));
+/* ---- every leaf in the whole tree belongs to a planned collection ----
+   The set is of COLLECTION ids, read out of the values: the table is keyed by plan slug (see its own
+   note), and reading the keys here made every World History deck an orphan the moment it was rekeyed. */
+const planned = new Set(Object.values(PLANS).map(([c]) => c));
 const orphan = [...leafOf.entries()].filter(([, c]) => !planned.has(c)).map(([l]) => l);
 is(!orphan.length, "every leaf deck in data.js belongs to a collection with a plan",
    orphan.length ? orphan.slice(0, 6).join(", ") : `${leafOf.size} leaves across ${TREE.collections.length} collections`);
