@@ -853,7 +853,7 @@
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 952 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
     ],
     [
      "with the word picked out in colour and a speaker beside it. Word list:",
@@ -865,7 +865,7 @@
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 952 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
     ],
     [
      "the sentence corpus has nothing at all for the remaining 5,",
@@ -877,15 +877,19 @@
     ],
     [
      "Example sentences come with 995 of the 999 words, three apiece for 947 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 952 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 948 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 952 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
     ],
     [
      "Example sentences come with 994 of the 998 words, three apiece for 950 of them",
-     "Example sentences come with 994 of the 998 words, three apiece for 952 of them"
+     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
+    ],
+    [
+     "Example sentences come with 994 of the 998 words, three apiece for 952 of them",
+     "Example sentences come with 994 of the 998 words, three apiece for 954 of them"
     ]
    ]
   }
@@ -22163,9 +22167,34 @@
    ]
   },
   "deleb1/el huevo": {
-   "why": "REMOVED AHEAD OF THIS DECK'S OWN AUDIT (batch S9): a coarse or sexually explicit example, found by a sweep of all seven Spanish decks for vulgar vocabulary after S8 found one on el pollo. The rest of the card has not yet been read; when its batch reaches it, extend this entry rather than replacing it. 'Ella me dio una patada en los huevos' uses los huevos in its vulgar sense, 'the balls'.",
+   "why": "REMOVED AHEAD OF THIS DECK'S OWN AUDIT (batch S9): a coarse or sexually explicit example, found by a sweep of all seven Spanish decks for vulgar vocabulary after S8 found one on el pollo. The rest of the card has not yet been read; when its batch reaches it, extend this entry rather than replacing it. 'Ella me dio una patada en los huevos' uses los huevos in its vulgar sense, 'the balls'. Read in batch S30: the second example is shared with mayo in A1, and the first's English called ensalada rusa a potato salad. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
    "dropEx": [
-    "patada en los huevos"
+    "patada en los huevos",
+    "todos los pájaros ponen un huevo"
+   ],
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "egg"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "Le falta huevo duro",
+     "This Russian salad needs hard-boiled egg."
+    ]
+   ],
+   "ex": [
+    [
+     "Para desayunar tomo un huevo frito.",
+     "I have a fried egg for breakfast."
+    ],
+    [
+     "Las gallinas ponen huevos.",
+     "Hens lay eggs."
+    ]
    ]
   },
   "deleb2/la patada": {
@@ -34639,6 +34668,472 @@
      "The whole nation mourned her death."
     ]
    ]
+  },
+  "deleb1/celebrar": {
+   "why": "'to organize' was American and the gloss did not say 'to hold' is for a meeting or an event, which none of the examples was. The third example's Año Nuevo is New Year, not New Year's Day.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to celebrate",
+      "to hold (a meeting, an event)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "celebra el Año Nuevo con su familia"
+   ],
+   "ex": [
+    [
+     "La reunión se celebrará el lunes.",
+     "The meeting will be held on Monday."
+    ]
+   ]
+  },
+  "deleb1/la fila": {
+   "why": "The gloss read 'queue (British) • line (US)' beside a list. The first example's English said 'in line'.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "queue",
+      "row, line"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "la última persona de la",
+     "Carlos is the last person in the queue."
+    ]
+   ]
+  },
+  "deleb1/lograr": {
+   "why": "The gloss was a list of five. The examples are right.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to achieve",
+      "to manage (to do)"
+     ]
+    ]
+   ]
+  },
+  "deleb1/demostrar": {
+   "why": "The gloss is right. The third example, choosing to fight for the British, is not a sentence a learner needs.",
+   "dropEx": [
+    "pelear por los británicos"
+   ],
+   "ex": [
+    [
+     "Demostró que tenía razón.",
+     "He proved he was right."
+    ]
+   ]
+  },
+  "deleb1/el ambiente": {
+   "why": "The gloss put medio ambiente in brackets inside 'environment'. The third example, 'Éste partido político es muy consciente por el ambiente', is not Spanish: the demonstrative takes no accent before a noun, and it is consciente de.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "atmosphere"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "medio ambiente — the environment"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "partido político es muy consciente"
+   ],
+   "ex": [
+    [
+     "En la fiesta había un ambiente muy agradable.",
+     "There was a very pleasant atmosphere at the party."
+    ]
+   ]
+  },
+  "deleb1/urgente": {
+   "why": "The gloss is right. The first example is shared with el/la piloto in A2, and the third was the same sentence about a different need. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "necesidad urgente de pilotos",
+    "necesidad urgente de comida"
+   ],
+   "ex": [
+    [
+     "Tengo que hacer una llamada urgente.",
+     "I have to make an urgent call."
+    ],
+    [
+     "Es urgente que vengas.",
+     "You must come urgently."
+    ]
+   ]
+  },
+  "deleb1/la hierba": {
+   "why": "The third example was yerba, a different spelling, in the Latin American yerba mate. The second's English said weeds 'sprang up' where se hicieron con means took over, and the gloss did not give mala hierba.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "grass",
+      "herb"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "mala hierba — weed"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "mate pegó en Corea"
+   ],
+   "exEn": [
+    [
+     "se hicieron con el jardín",
+     "Weeds took over the garden."
+    ]
+   ],
+   "ex": [
+    [
+     "Nos sentamos en la hierba del parque.",
+     "We sat on the grass in the park."
+    ]
+   ]
+  },
+  "deleb1/la clínica": {
+   "why": "The card had two examples, and the second gave a Latin American address in an English street. The gloss did not say that in Spain una clínica is usually a private hospital.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "clinic",
+      "private hospital"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la calle Park 1439"
+   ],
+   "ex": [
+    [
+     "Mi hermana trabaja en una clínica dental.",
+     "My sister works in a dental practice."
+    ],
+    [
+     "Lo llevaron a una clínica privada.",
+     "They took him to a private hospital."
+    ]
+   ]
+  },
+  "deleb1/la medida": {
+   "why": "The gloss was a list. The first example was an aphorism.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "measurement",
+      "measure, step (tomar medidas)"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "a medida — made to measure"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La medida del amor es amar"
+   ],
+   "ex": [
+    [
+     "¿Cuáles son las medidas de la habitación?",
+     "What are the room's measurements?"
+    ]
+   ]
+  },
+  "deleb1/nacido, nacida": {
+   "why": "'alive, natural, inborn, innate' are not senses of nacido. The second example's English said 'those who were newly born'.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "born"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "recién nacido — newborn"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "qué sienten los recién",
+     "No one knows what newborn babies feel."
+    ]
+   ]
+  },
+  "deleb1/la física": {
+   "why": "The gloss is right. The second and third examples' English said 'make an experiment' and 'is being weighed down'.",
+   "exEn": [
+    [
+     "realizar un experimento de",
+     "He was trying to do a physics experiment."
+    ],
+    [
+     "La mochila pesa por los libros",
+     "The rucksack is heavy because of the physics books."
+    ]
+   ]
+  },
+  "deleb1/la organización": {
+   "why": "The gloss was American, which the site's spelling switch never corrects inside a Spanish card. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "organisation"
+     ]
+    ]
+   ]
+  },
+  "deleb1/el sentimiento": {
+   "why": "The gloss is right. The first example is shared with no in A1, and the third, 'desesperado por los sentimientos de Ana', was rendered 'desperate for Ana's affection'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "no puedo evitar mostrar mis",
+    "desesperado por los sentimientos"
+   ],
+   "ex": [
+    [
+     "No quiero herir sus sentimientos.",
+     "I don't want to hurt her feelings."
+    ],
+    [
+     "Tengo un sentimiento de culpa.",
+     "I have a feeling of guilt."
+    ]
+   ]
+  },
+  "deleb1/admitir": {
+   "why": "The gloss gave 'to admit' twice and not 'to allow', and the second example, 'Admito que no se siente nada mal', is not a natural sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to admit",
+      "to allow, to accept (no se admiten perros)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "no se siente nada mal"
+   ],
+   "ex": [
+    [
+     "No se admiten perros.",
+     "No dogs allowed."
+    ]
+   ]
+  },
+  "deleb1/la maravilla": {
+   "why": "'marigold' is a botanist's sense, and de maravilla was missing. The examples are right.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "wonder, marvel"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "de maravilla — wonderfully"
+     ]
+    ]
+   ]
+  },
+  "deleb1/la pantalla": {
+   "why": "The gloss is right. The first example ended in two full stops.",
+   "dropEx": [
+    "mirando a su pantalla del ordenador"
+   ],
+   "ex": [
+    [
+     "Carlos está mirando la pantalla del ordenador.",
+     "Carlos is looking at the computer screen."
+    ]
+   ]
+  },
+  "deleb1/la gasolina": {
+   "why": "The gloss is right. All three examples' English said gas or gasoline.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "petrol"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "se nos ha acabado la",
+     "It looks like we've run out of petrol."
+    ],
+    [
+     "Nos quedamos sin",
+     "We ran out of petrol in the middle of the desert."
+    ],
+    [
+     "el depósito de",
+     "The petrol tank was underneath."
+    ]
+   ]
+  },
+  "deleb1/la conferencia": {
+   "why": "The gloss did not give 'lecture', which una conferencia usually is in Spain. The first example is shared with casi in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "lecture, talk",
+      "conference"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "casi se le olvidó la conferencia"
+   ],
+   "ex": [
+    [
+     "Dio una conferencia sobre el cambio climático.",
+     "She gave a lecture on climate change."
+    ]
+   ]
+  },
+  "deleb1/la práctica": {
+   "why": "The gloss did not say that las prácticas is a work placement, nor give en la práctica. The first example was a fragment and the second, participatory practices, is a policy document's sentence.",
+   "senses": [
+    [
+     "noun, feminine",
+     [
+      "practice"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "las prácticas — work placement, internship",
+      "en la práctica — in practice"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "antes de la práctica del coro",
+    "prácticas participativas"
+   ],
+   "ex": [
+    [
+     "En la práctica, es más complicado.",
+     "In practice, it's more complicated."
+    ],
+    [
+     "Hice las prácticas en un hospital.",
+     "I did my work placement in a hospital."
+    ]
+   ]
+  },
+  "deleb1/por lo tanto": {
+   "why": "The gloss was a list of five. The first example used costo, Latin American for coste, and the third, about 'the acceptance', has no context to make sense of.",
+   "senses": [
+    [
+     "adverb",
+     [
+      "therefore, so"
+     ]
+    ]
+   ],
+   "bold": [
+    "por lo tanto"
+   ],
+   "dropEx": [
+    "reducir el costo",
+    "la aceptación es muy diferente"
+   ],
+   "ex": [
+    [
+     "Llueve; por lo tanto, no saldremos.",
+     "It's raining, so we won't go out."
+    ],
+    [
+     "No estudió y, por lo tanto, suspendió.",
+     "He didn't study and therefore failed."
+    ]
+   ]
+  },
+  "deleb1/el alquiler": {
+   "why": "The gloss is right. The second example was the verb alquilar, not the noun, and is shared with alquilar in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "una habitación en París por un mes"
+   ],
+   "ex": [
+    [
+     "El alquiler de un piso en Madrid es muy caro.",
+     "Renting a flat in Madrid is very expensive."
+    ]
+   ]
+  },
+  "deleb1/el ordenador": {
+   "why": "THE GLOSS WAS 'ordinator'. The third example's English said 'a personal computer'.",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "computer"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "le compró un ordenador a su hija",
+     "She bought her daughter a computer."
+    ]
+   ]
+  },
+  "deleb1/quitar": {
+   "why": "The gloss was a list running off the end of the line, and did not give quitarse, 'to take off'. The first example is shared with difícil in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to remove, to take away"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "quitarse — to take off (clothes)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "La mancha de café era difícil de quitar."
+   ],
+   "ex": [
+    [
+     "Me quité los zapatos al entrar.",
+     "I took my shoes off as I came in."
+    ]
+   ]
   }
  },
  "insert": {
@@ -34941,7 +35436,11 @@
    "deprisa",
    "destruir",
    "imaginar",
-   "la aventura"
+   "la aventura",
+   "la explicación",
+   "el ganador, la ganadora",
+   "el océano",
+   "la despedida"
   ]
  }
 }

@@ -3484,6 +3484,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S27 | B1 | #223 `el ladrón` – #250 `cortarse` | 26 | 2 (`deprisa`, `destruir`) | 0 | — | — |
 | S28 | B1 | #251 `imaginar` – #278 `suave` | 26 | 2 (`imaginar`, `la aventura`) | 0 | B1 description: 950 with three | S9's `la pelota` entry extended |
 | S29 | B1 | #279 `la arena` – #306 `la nación` | 28 | 0 | 0 | B1 description: 952 with three | name table reaches `Virgen María` — B2 warning |
+| S30 | B1 | #307 `la explicación` – #334 `quitar` | 24 | 4 (`la explicación`, `el ganador, la ganadora`, `el océano`, `la despedida`) | 0 | B1 description: 954 with three | `ordenador` glossed "ordinator" |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4739,6 +4740,48 @@ of 998.
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example.
 `check-senses --deck=DELE-B1` 89 → 87, with no card of this batch on it.
+
+### S30 — DELE B1, notes #307–#334 (Sep 2026)
+
+Measured against the S29 commit by card id: **24 changed, 974 untouched**. The 24 are 23 new record
+entries and the extended S9 entry for `el huevo`. The other four cards were read and left alone:
+`la explicación`, `el ganador, la ganadora`, `el océano` and `la despedida`.
+
+**`el ordenador` WAS GLOSSED "ordinator"**, which is not an English word for a computer. `check-senses`
+had it among its 87, and it drops to 86. `la organización` was glossed "organization". The site's
+spelling switch never runs inside a Spanish card, so an American gloss there stays American for every
+reader.
+
+**AMERICAN ENGLISH IN THE EXAMPLES.** `la gasolina` said "gas" or "gasoline" in all three
+translations. `la fila` said "in line". `celebrar` was glossed "to organize". Latin American Spanish
+also appeared twice: *costo* on `por lo tanto`, and *yerba mate* on `la hierba`. The second is also a
+different spelling from the headword.
+
+**THE GLOSS MISSED THE SPAIN SENSE.** Three cards gave the dictionary's first sense rather than
+Spain's:
+
+| card | missing sense |
+|---|---|
+| `la conferencia` | a lecture |
+| `la clínica` | a private hospital |
+| `la práctica` | *las prácticas*, a work placement |
+
+**THE SAME-SPELT WORD.** `el alquiler`'s second example was the verb *alquilar*. The same sentence is
+also on A1's `alquilar`.
+
+**AND THE REST.**
+- `el ambiente`'s third example was not Spanish: *Éste partido … consciente por*.
+- `la medida` opened on an aphorism.
+- `el sentimiento`'s English rendered *sentimientos* as "affection".
+- Six sentences shared with A1 or A2 were replaced.
+- `la clínica` and `el huevo` now have three examples each. B1 has 954 cards with three examples, out
+  of 998.
+- One new sentence, `quitar`'s *Quítate los zapatos*, was refused by the applier's contains-headword
+  guard. The card's conjugation table gives the imperative as *quita*, and has no form with an attached pronoun. The sentence
+  was replaced with *Me quité los zapatos*.
+
+**CHECKERS.** `--check` passes, and `check-say` reads 0. `check-senses --deck=DELE-B1` went from 87 to
+86. `lograr` is still on it: its examples say "reached" and "get him to", which is a correct paraphrase.
 
 ## The language-deck catalogue — the Update press and the frequency order
 
