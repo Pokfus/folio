@@ -702,6 +702,7 @@ correct card, and re-deriving that costs a session.
 | 2026-09-24 | `hsk30l6` notes 1021–1050 (前景 → 清醒), deck order | 22 | **two generalisations about a people on 勤劳, one about a class on 倾向**; 切实's 切实可行 twice; eleven glosses repaired |
 | 2026-09-24 | `hsk30l6` notes 1051–1080 (情节 → 人工智能), deck order | 20 | **权力 'power' used for 权利 'a right'**; 券 swallowed three times over; 热点 illustrated by 热点儿 'a bit hot' |
 | 2026-09-24 | `hsk30l6` notes 1081–1110 (人家 → 塞), deck order | 23 | **人为's three sentences all straddled** (有人+为, 太空人+为, 人+为); 入门 by 插入+门锁; 撒 by a misspelt 撒谎 |
+| 2026-09-24 | `hsk30l6` notes 1111–1140 (赛事 → 社), deck order | 24 | **散's three sentences all swallowed (散步, 好聚好散, 散心)** and its sǎn reading unshown; 上市 by 名义上+市公司; 社 glossed 'earth god' |
 
 ### 2026-09-17 — the neighbour-gloss list
 
@@ -12204,3 +12205,34 @@ Coverage: 11,532 notes at three sentences; 313 shared-gloss groups, still-ambigu
 `check-british` reads 0; `check-gloss-source.js` lists 人家 against CC-CEDICT's rénjiā entry, the other reading.
 **Verified against the real diff: 23 of 30 changed and nothing outside the range.** `build-lang-decks.js` re-run.
 No changelog line and no version bump.
+
+### Batch 167 — `hsk30l6` notes 1111–1140 (赛事 → 社)
+
+**散 had no sentence using the character on its own, and none for one of its two readings.** Its three were
+散步 *to take a walk* (split by 了), the idiom 好聚好散 — translated **"Our divorce was amicable"** — and 散心;
+the sǎn reading *loose* had nothing. Three AUTHORED sentences now show one sǎn and two sàn, tagged. 闪 lost 闪退
+and 闪光灯 and gained *to dodge*; 扫描 lost 扫描仪; 上当 lost the idiom 上当受骗. **The straddle class again**: 上市's
+汤姆名义上市公司的领导 is 名义上 + 市公司, in a sentence that is also missing its verb.
+
+**The applier refused one of my own sentences**, and correctly: 上当's first replacement was 别再上他的当了, the
+split form 上…当, which does not contain 上当 literally. The rule that an `ex` must contain its headword as
+written is what caught it; a split separable verb is a real usage but it cannot be a card's example.
+
+**Glosses from the wrong end, again**: 社 was **"earth god, altar of the soil"**, CC-CEDICT's last and oldest sense,
+over a first sentence about a swimming club — its other two were 神社 *shrine* and 社群, both replaced by 社 alone
+for a club; 上台 was *to rise to power* only, over two sentences going on stage; 上市 named the product sense and
+showed only the listing sense; 散发 lacked *to distribute*. 丧失, 刹车, 筛选 ("preparation by screening"), 上级, 上进,
+上旬 corrected.
+
+**Sentences that should not be examples**: 杀's 杀你的敌人 *Kill your enemies*, an imperative to violence with no
+context; 舌头's 女人的舌头是她的剑, a generalisation about women; 上述's 76-character political speech; 山峰's third,
+with 安地斯 the Taiwan spelling of the Andes. **Mistranslations**: 山坡's *had torrential flooding from the west*
+(this record's own), 闪电's *a sharp crack of thunder*, 闪's *a blip*.
+
+**Near-repeats, all three this record's own and each the same sentence twice**: 商标, 伤亡, 伤员. Also 丧失, 散发.
+
+**Six cards were read and left**: 赛事, 散文, 嗓子, 鲨鱼, 山顶, 少儿. Four Compounds panels written (散, 杀, 闪, 社).
+
+Coverage: 11,532 notes at three sentences; 313 shared-gloss groups, still-ambiguous 1 (邻居/街坊).
+`check-british` reads 0. **Verified against the real diff: 24 of 30 changed and nothing outside the range.**
+`build-lang-decks.js` re-run. No changelog line and no version bump.
