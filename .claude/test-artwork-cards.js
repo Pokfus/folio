@@ -376,10 +376,18 @@ const server = http.createServer((req, res) => {
      it lands so the two halves are counted against each other rather than against a warming race. */
   await page.waitForTimeout(3000);
   const pool = await page.evaluate(() => window.__folioPicturePool().map((p) => ({ label: p.label, tag: p.tags[0], note: (p.note || "").length })));
-  const wanted = art.map((c) => c.answerText);
+  /* ONE ENTRY PER SUBJECT: picturePool keeps the first of two items sharing a label, and the artefacts
+     are read first — so an artwork card whose subject is ALSO an artefact (the Venus of Willendorf is
+     both) is deliberately represented by the artefact, or one round could offer the answer twice. Such a
+     card is expected to be absent here, and it is named rather than silently excused. */
+  const artefactLabels = new Set(pool.filter((p) => p.tag === "artefact").map((p) => p.label.toLowerCase()));
+  const shadowed = art.map((c) => c.answerText).filter((w) => artefactLabels.has(w.toLowerCase()));
+  const wanted = art.map((c) => c.answerText).filter((w) => !artefactLabels.has(w.toLowerCase()));
   const got = pool.filter((p) => p.tag === "artwork").map((p) => p.label);
-  ok("every artwork card is in the pool", wanted.every((w) => got.indexOf(w) >= 0), { wanted: wanted.length, got: got });
+  ok("every artwork card is in the pool, or stands behind the artefact of the same name", wanted.every((w) => got.indexOf(w) >= 0),
+    { wanted: wanted.length, shadowed: shadowed, missing: wanted.filter((w) => got.indexOf(w) < 0) });
   ok("…each filed under `artwork`, which is what keeps the draw apart", got.length === wanted.length);
+  ok("…and the subject shared with an artefact appears once, not twice", shadowed.every((w) => pool.filter((p) => p.label.toLowerCase() === w.toLowerCase()).length === 1), shadowed);
   ok("…and carries its own background for the reveal", pool.filter((p) => p.tag === "artwork").every((p) => p.note > 200));
   ok("…beside the artefacts, which have not gone anywhere", pool.filter((p) => p.tag === "artefact").length > 90,
     pool.filter((p) => p.tag === "artefact").length);
