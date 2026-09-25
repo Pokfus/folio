@@ -221,7 +221,11 @@ function audit(c) {
   src.forEach((s) => {
     const l = declaredLang(s);
     if (l) langs[l] = (langs[l] || 0) + 1;
-    else if (/[α-ωΑ-Ω]{4,}|\b(?:des|und|der|dei|della|delle|pour|dans|nella|sur|zur|für|über|et les|les)\b/.test(plain(s).replace(/https?:\/\/\S+/g, "")))
+    /* Two English sources wear a foreign word and must not trip the proxy: the Chronique des
+     * fouilles en ligne publishes its notices in the language of the report (check-cards.js rule 6
+     * dropped it for that reason; a French notice still needs its chip and is read by eye), and a
+     * Dutch or German surname particle ("van der Plicht") is part of an English author's name. */
+    else if (/[α-ωΑ-Ω]{4,}|\b(?:des|und|der|dei|della|delle|pour|dans|nella|sur|zur|für|über|et les|les)\b/.test(plain(s).replace(/https?:\/\/\S+/g, "").replace(/Chronique des fouilles en ligne/g, "").replace(/\b(?:van der|van den|von der)\b/g, "")))
       finding(out, "S.chip?", "may be non-English with no chip: " + plain(s).slice(0, 70));
   });
   Object.keys(langs).forEach((l) => { if (langs[l] > 1) finding(out, "S.lang-cap", langs[l] + " sources in " + l + " (≤1)"); });

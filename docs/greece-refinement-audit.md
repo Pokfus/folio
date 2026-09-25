@@ -174,7 +174,7 @@ one changelog line and a version bump; commit and push.
 | B2 | Crete and the Cyclades (`gr-crete`) | `gr-011`–`gr-020` | 10 | **done 2026-09-24** |
 | B3 | Crete and the Cyclades (`gr-crete`) | `gr-021`–`gr-030` | 10 | **done 2026-09-24** |
 | B4 | Crete and the Cyclades (`gr-crete`) | `gr-031`–`gr-040` | 10 | **done 2026-09-25** |
-| B5 | Crete and the Cyclades (`gr-crete`) | `gr-041`–`gr-050` | 10 | open |
+| B5 | Crete and the Cyclades (`gr-crete`) | `gr-041`–`gr-050` | 10 | **done 2026-09-25** |
 | B6 | Crete and the Cyclades (`gr-crete`) | `gr-051`–`gr-055` | 5 | open |
 | B7 | Mycenaean Greece (`gr-mycenae`) | `gr-056`–`gr-065` | 10 | open |
 | B8 | Mycenaean Greece (`gr-mycenae`) | `gr-066`–`gr-075` | 10 | open |
@@ -522,3 +522,54 @@ The Think-it-through sets were written from scratch to the B1 rule.
 - `gr-035` takes an authored ring round the Mesara plain and the Asterousia foothills.
 - `gr-038` and `gr-039` keep their points.
 - The five class cards take B1's Crete-only ring.
+
+### B5 — `gr-041`–`gr-050`, Crete and the Cyclades (2026-09-25)
+
+All ten were rewritten in the rule order and applied with `add-card.js --replace`.
+
+Checks, all passing:
+- `greece-audit.js --range=gr-041:gr-050` reads **10 of 10 clean**, the chronology pins included.
+- `check-questions` passes.
+- `check-citations --prefix=gr-04` and `--card=gr-050` report 0 mismatched. The one name to check by eye, Paraskevi Nomikou against Crossref's "P.", is her published given name.
+- Every citation URL answers 200.
+- `check-gloss-links --card` reports no cross-region link on any card.
+- `check-cards --prefix=gr-04` and `--prefix=gr-050` report nothing.
+
+The ten abstracts run 273–283 words. Every sort year was read back.
+
+**One tool change: `greece-audit.js` S.chip? had two false positives.** The proxy matched "des" in the journal title *Chronique des fouilles en ligne* and "der" in the surname van der Plicht. Both are now masked before the test, and nothing else changes. A Chronique notice in French still needs its chip, and still gets one: `gr-042`'s 1976 notice, which is Touchais's French text, carries `[in French]`.
+
+**What changed, card by card.** Each "sources" figure below is the count before the batch → after.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `gr-041` Petras | 5 | 5 → 5 | The skull-count and trephination detail from the rock shelter was dropped. The card is rebuilt as the town's history. Caloi's review carries a multi-stage burial, fire in the rites, and Petras as the leading centre of its district before its palace. Smith's review carries House I.1 as a working building for wine, cloth and meals, its imports, and the reoccupation after the LM IB fire. Rupp's reading that the later buildings on the cemetery hill honour the ancestors is also Caloi's. A question carrying "000" was rewritten. |
+| `gr-042` Akrotiri | 7 | 5 → 7 | Rebuilt around the town: storeys, workshops, a public building and Linear A (Odysseus); Cretan ways on a Cycladic base (Graziadio 80, 91–92). Manning and Pearson were added for the date. The beetle date, c. 1607 BCE, stays in the prose as one study's result, off the date line. The 1976 Chronique notice now carries its French chip. A question carrying "1607" was rewritten. The fisherman fresco, which is another card's subject, was replaced by a view over the town. |
+| `gr-043` Thera eruption | 7 | 6 → 7 | The date-line row "Caldera filled: within 2 days", which states no date, is gone. The date line now gives the collection's `c. 1610 – 1540 BCE` range, as the chronology's Thera note requires, and `gr-042`, `gr-044` and `gr-045` give the same range. Graziadio pp. 56–57 carries the finding that the 1628 BCE ice spike is Alaska's Aniakchak. Bruins and van der Plicht carry the spread of the tephra and pumice and the pre-Ahmose date. The Global Volcanism Program was dropped; the Smithsonian host answered only with its outage page. The satellite picture was replaced by an aerial photograph of the caldera. |
+| `gr-044` Flotilla fresco | 5 | 5 → 6 | Odysseus now carries the identification of the arriving town as Akrotiri and the eight stern cabins in the next room. Manning is kept for the date the prose now states. The Marinatos-dug-it sentence went with the archaeology. The picture is now the south wall's town-and-fleet stretch rather than one town detail. |
+| `gr-045` Theran tephra | 5 | 5 → 6 | Bruins and van der Plicht carry the distribution, including the pumice reaching Egypt and Sinai and the tsunami layer at Palaikastro. Manning and Graziadio now carry the date and the Aniakchak correction. A question carrying "century" was rewritten. The date-line row "mid-16th century BCE", which yields no sort year, and the ice-core years that were not in the prose are gone. |
+| `gr-046` Minoan trade with Egypt | 6 | 6 → 6 | **The old abstract carried no bold answer term**; it does now. **The Evans citation was wrong**: the Gurob and Nubia vessels are in *Palace of Minos* vol. 4, part 1 (1935), p. 267, not vol. 1, pp. 266–70. Cannata's review now also carries the Tod cups and the Tell el-Dab'a rhyta. A question carrying "century" was rewritten. |
+| `gr-047` Keftiu | 5 | 5 → 5 | Hall's BSA article, now cited to pp. 163–66 and 182, carries the four quarters, the Great Ring, the Ptolemaic mistake and the Cup-Bearer match. Palaima's review carries the Mari record of the Caphtorian merchant, with its date in the prose. RCH is out; Palaima is in. The bull's-head rhyton, which is not the Keftiu, was replaced by the Rekhmire copy of Aegean gift-bearers. |
+| `gr-048` Minoan thalassocracy | 6 | 5 → 7 | Herodotus 3.122 was added: Polycrates as the first Greek sea-ruler, with Minos set aside. Graziadio and Pullen were added. **"Rutter answers yes" named the scholar in the prose**; it now reads as the claim alone. The copper ingot, which shows no sea power, was replaced by the Chania clay ship model. |
+| `gr-049` Minoan Kythera | 5 | 6 → 5 | **Evans's *Shaft Graves* sentence was historiography** and went with its source. **The Graziadio pages were wrong**: Kastri's Cretan look is p. 80, the Naram-Sin tablet p. 81, and the "friendly newcomers" and Chania exports pp. 91–92. R18 replaces R14 as the source that calls Kastri a colony. **The card had no picture**; it now has the Avlemonas–Palaiopoli coast, where Kastri stands. |
+| `gr-050` Destruction of the Minoan palaces | 6 | 5 → 6 | Odysseus carries Zakros: the only unrobbed Minoan treasury, and the site farmed afterwards. Galanakis's review carries Mochlos rebuilt beside its ruins until c. 1250 BCE. The Q.sibling overlap with `gr-016` was cleared by rewriting the main question. The Knossos North Portico, a building that was not destroyed, was replaced by the Zakros central court. |
+
+The Think-it-through sets were written from scratch to the B1 rule.
+
+**Corrected, refused and not usable.**
+- **The Global Volcanism Program host** answered with "site temporarily unavailable" on every try. It was dropped rather than cited unseen.
+- **Kastri on Kythera** has no Wikipedia article and no Wikidata item a search could find. `gr-049`'s point stays on the island's own coordinate and is labelled Kythera.
+- **Picture credits.** All ten old credits were bare Commons URLs. All ten now name the author and the licence.
+
+**Read by eye.**
+- *Article:* the Thera eruption, the Flotilla fresco, the Minoan thalassocracy and the destruction of the Minoan palaces take one; the other six are bare.
+- *Confusability:* `gr-043` and `gr-045` share one event, so the eruption card asks about the explosion and its waves and the tephra card about where the layer lies. `gr-048` and `gr-049` share Kastri, so the thalassocracy card leans on Thucydides and Thera's warships, and the Kythera card on the shrine and the Laconian stone.
+- *Image depicts the whole term:* for a town, a view over it. For an eruption, the caldera it left. For tephra, a pumice cliff. For trade and the Keftiu, the two Rekhmire copies. For sea power, a ship. For the destruction, a palace that was never rebuilt.
+
+**Locators.**
+- `gr-041` points at Petras.
+- `gr-042` and `gr-044` point at Akrotiri.
+- `gr-043` and `gr-045` point at the Santorini caldera, labelled Santorini.
+- `gr-049` points at Kythera.
+- `gr-047` and `gr-050` take B1's Crete-only ring.
+- `gr-046` and `gr-048` take none. Each is a relation between places rather than a place.

@@ -506,6 +506,15 @@ have keys, and `Messara` is an alias of `Mesara`.
 | 2 | Diktaean Zeus · Labyrinth | Zeus of Dikte is the god of the Palaikastro hymn; `Labyrinth` must not claim the bare word "maze" |
 | 1 | Isopata ring · Kamilari · Mistress of Animals · Caria · light-well | Caria is the Anatolian land whose word Plutarch cites for the double axe |
 
+**Added by the refinement's B5 (2026-09-25)**, counted the same way after `gr-041`–`gr-050` were
+rewritten. Punt, Ugarit, Polycrates, Kommos, Thutmose III, Phylakopi, Ayia Irini, Laconia, Levant, Nubia,
+Pumice and Caldera already have keys, and `Minoan eruption` is an alias.
+
+| cards | term | note |
+|---|---|---|
+| 2 | Kastri (Kythera) · Ahmose I | Kastri must be keyed with its island, since `Kastri` is also the Early Cycladic culture of Syros; Ahmose is dated by Bruins and van der Plicht against the eruption |
+| 1 | Kahun · Harageh · Taweret · Caphtor · Rekhmire · Aniakchak · Ayios Stephanos · Tell el-Dab'a · Mari · Trianda · Siteia · Tylissos · Eshnunna · Vapheio cup · Minoan genius · Carians · West House (Akrotiri) · Gurob · Sklavokampos · Myrtos Pyrgos · house tomb · tsunami | `Minoan genius` is the Cretan form of Taweret, so the two want one key and an alias; `house tomb` would also serve `gr-038` Mochlos |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and

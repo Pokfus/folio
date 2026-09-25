@@ -87,6 +87,11 @@ already cites, taking the earlier of each of its paired figures where it gives t
 | Mochlos | settled c. 3100 – 1200 BCE; town burnt c. 1470 BCE | INSTAP Study Center; the LM III cemetery at Limenaria runs c. 1400 – 1250 BCE (Galanakis's review), which `gr-034` uses |
 | Pseira | early town destroyed c. 1750 BCE; rebuilt town destroyed c. 1470 BCE | INSTAP Study Center: destroyed in MM IIB, rebuilt in LM IA, burnt at the end of LM IB |
 | Shaft graves at Mycenae | c. 1650 – 1500 BCE | |
+| Petras | settled before 3000 BCE; palatial town c. 1900 – 1470 BCE | Late Neolithic on the eastern slope (Chronique 1793); the leading centre of its district by MM IB – IIA (Caloi's review); burnt in LM IB and reoccupied |
+| Kastri, Kythera | Cretan in character c. 1900 – 1470 BCE | Graziadio 2025, p. 80, for the Protopalatial; the end is the collection's LM IB figure |
+| Keftiu in Theban tombs | c. 1479 – 1425 BCE | the Metropolitan Museum's date for the Rekhmire copy, Thutmose III to early Amenhotep II |
+| Mari records of the Caphtorians | c. 1780 – 1760 BCE | the palace of Zimri-Lim, as Palaima and Wilson-Wright's review gives it |
+| Cretan pottery at Kahun and Harageh | c. 1900 – 1850 BCE | Rutter's "early 19th century", MM IB – IIA; Petrie puts the Kahun heaps under Senusret II |
 
 **Three standing notes.** (1) "Neopalatial" and "Postpalatial" do not describe KNOSSOS, which went on
 functioning as an administrative centre after the other palaces fell (Rutter says so in terms); a Knossos
@@ -107,8 +112,8 @@ Graziadio (2025, p. 56) reports that IntCal20 and the Pearson et al. tree-ring w
 (2022) argues for the Second Intermediate Period. So a card now writes **"recent studies favour the
 16th century BCE, and others allow about 1610 BCE"** (that is `gr-001`'s wording), and a date line gives
 the range `c. 1610 – 1540 BCE` rather than either figure alone. It fell late in LM IA. A card never gives
-one of the two as settled. **`gr-043` and `gr-044` still carry the older `c. 1627 – 1600` framing and are
-to be brought into line in their own batch (B5).**
+one of the two as settled. **B5 brought `gr-042`–`gr-045` into line**: each date line reads `c. 1610 – 1540 BCE`,
+and each card's prose gives both ends, with the 1540 BCE end resting on Rutter's `ca. 1550/1540`.
 
 ## The Early Iron Age and the Archaic period (to be confirmed as each deck's batch reaches it)
 
@@ -197,4 +202,14 @@ gr-037: 1750; 1470
 gr-038: 3100; 1200; 1470
 gr-039: 1750; 1470
 gr-040: 1450
+gr-041: 3000; 1900; 1470
+gr-042: 1610; 1540
+gr-043: 1610; 1540
+gr-044: 1610; 1540
+gr-045: 1610; 1540
+gr-046: 1900; 1850
+gr-047: 1479; 1425; 1780; 1760
+gr-048: 1750; 1490
+gr-049: 1900; 1470
+gr-050: 1490; 1470
 ```
