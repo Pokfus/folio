@@ -1954,6 +1954,79 @@ check before each batch** — the glossary is 1,061 terms and growing, and a col
   geo-549 Bismarck
   geo-550 Des Moines
 
+## The states' date lines — colony or territory, statehood, and the order (Sep 2026)
+
+On request ("each state mentions the exact date it officially became a colony, a state, and the number it
+was"), every state card's date line now opens on three rows and keeps at most one of its older ones:
+
+- **Colony** (the thirteen, plus Maine's Gorges patent) — the dating clause of the charter or grant
+  ITSELF, read off the Avalon Project's transcriptions rather than any summary: Virginia 10 April 1606,
+  Massachusetts Bay 4 March 1629, Maryland 20 June 1632, Maine 3 April 1639, Connecticut 23 April 1662,
+  Carolina (both Carolinas) 24 March 1663, Rhode Island 8 July 1663 — the document's own "eighth day of
+  July", where Avalon's index says 15 July — New York 12 March 1664 (the grant to the Duke of York), New
+  Jersey 24 June 1664, New Hampshire's royal commission 18 September 1679, Pennsylvania 4 March 1681 and
+  Georgia 9 June 1732. **The dates are Old Style, as the documents are.** Delaware has no charter of its
+  own before Penn's Charter of Privileges of 28 October 1701, which gave the Lower Counties their own
+  assembly, so that is the row.
+- **Territory** — the date the organic act was APPROVED, one rule for all of them, since the date an act
+  took effect varies by months between sources and between territories. Ohio's is the Northwest Ordinance.
+- The five that were never either say what they were: **Independence** for Texas and Vermont,
+  **Ceded by Mexico** for California (the treaty), **Virginia county** for Kentucky, and West Virginia's
+  **Statehood vote** of 24 October 1861.
+- **Statehood** — for the thirteen, the date each ratified the Constitution; **Admitted as** — the order,
+  the thirteen by ratification and North Dakota 39th and South Dakota 40th by the conventional
+  alphabetical order of two states admitted the same day.
+
+## The largest cities — `geo-us-cities`
+
+Added Sep 2026, on request: "a new deck for the largest cities of each state that is not already in the
+State Capitals deck". It holds the largest city of every state whose largest city is NOT its capital —
+33 of the 50 — and **which city that is comes from the "Largest city" row of the state's own card**, so
+the deck and the states' facts grids cannot disagree. A card is `geo-700+N` for state `N`, so the three
+decks pair by arithmetic; the seventeen missing numbers are the states whose capital is also the largest
+city, where a card here would be the capital card a second time. The deck is dealt in the states deck's
+own order (by population), which is the tree's order.
+
+The format is the capital card's exactly — the state shaded, a dot on the city, "The largest city of the
+state shaded on the map is ___" — and its dot comes from `us-cities.js`, a second point table beside
+`us-states.js`'s capitals, built by `.claude/build-us-cities.js` from Natural Earth and tested inside each
+state's own polygon. Charleston (South Carolina) and the two Portlands are keyed "<city>, <state>" in that
+table, since Charleston is already West Virginia's capital there and the Portlands are two.
+
+  geo-701 Los Angeles
+  geo-702 Houston
+  geo-703 Jacksonville
+  geo-705 Anchorage
+  geo-707 Detroit
+  geo-708 New Orleans
+  geo-709 Portland, Maine
+  geo-711 New York City
+  geo-714 Baltimore
+  geo-715 Las Vegas
+  geo-717 Minneapolis
+  geo-718 Newark
+  geo-721 Chicago
+  geo-722 Virginia Beach
+  geo-723 Seattle
+  geo-724 Portland, Oregon
+  geo-726 Albuquerque
+  geo-728 Charleston, South Carolina
+  geo-729 Charlotte
+  geo-730 Philadelphia
+  geo-731 Milwaukee
+  geo-733 Louisville
+  geo-735 Kansas City
+  geo-737 Huntsville
+  geo-739 Wilmington
+  geo-740 Bridgeport
+  geo-741 Manchester
+  geo-742 Burlington
+  geo-743 Billings
+  geo-746 Wichita
+  geo-747 Omaha
+  geo-748 Sioux Falls
+  geo-749 Fargo
+
 ---
 
 ## The geography picture pass, moved out of CLAUDE.md (2026-09-11)
