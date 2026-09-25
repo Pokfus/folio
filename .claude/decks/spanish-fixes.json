@@ -45988,6 +45988,483 @@
      "They interviewed me for a waiter's job."
     ]
    ]
+  },
+  "deleb1/triunfar": {
+   "why": "The gloss gave only 'to triumph', where the everyday sense is to succeed. The second example was the noun triunfo and the third was an oddity.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to succeed",
+      "to triumph, to win"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "el triunfo de la civilización",
+    "Tú harás lo que ella dice"
+   ],
+   "ex": [
+    [
+     "Quiere triunfar como cantante.",
+     "She wants to make it as a singer."
+    ],
+    [
+     "El equipo local triunfó por tres a cero.",
+     "The home team won three–nil."
+    ]
+   ]
+  },
+  "deleb1/comentar": {
+   "why": "The gloss gave only 'to comment', over three examples meaning to discuss, to mention and to tell.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to comment",
+      "to mention, to tell",
+      "to discuss"
+     ]
+    ]
+   ]
+  },
+  "deleb1/animar": {
+   "why": "The gloss put 'to inspire' first. The first example was the adjective in dibujos animados and is shared with el dibujo in A2. The third example's English said 'go watch'. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to encourage",
+      "to cheer up, to liven up"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "animarse — to cheer up; to make up one's mind"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "ver dibujos animados"
+   ],
+   "exEn": [
+    [
+     "Os animo a ir a ver",
+     "I'd encourage you to go and see that film."
+    ]
+   ],
+   "ex": [
+    [
+     "La música animó la fiesta.",
+     "The music livened up the party."
+    ]
+   ]
+  },
+  "deleb1/copiar": {
+   "why": "The gloss gave 'to crib' and did not say that copiar is also to cheat in an exam, which all three examples are. The third example's English said 'professor' and 'test'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to copy",
+      "to cheat (in an exam)"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "No merece la pena copiar",
+     "It's not worth cheating in the exam."
+    ],
+    [
+     "El profesor vio a alguien",
+     "The teacher saw someone cheating in the exam."
+    ]
+   ]
+  },
+  "deleb1/contribuir": {
+   "why": "The gloss is right. The second example is shared with el desarrollo earlier in B1, and the third example's English said 'anymore'. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "dropEx": [
+    "contribuyó bastante al desarrollo"
+   ],
+   "exEn": [
+    [
+     "Ana ya no contribuye tanto",
+     "Ana doesn't contribute as much as she used to."
+    ]
+   ],
+   "ex": [
+    [
+     "Todos contribuimos a los gastos de la casa.",
+     "We all contribute to the household bills."
+    ]
+   ]
+  },
+  "deleb1/diseñar": {
+   "why": "The gloss carried a stray 'N' line. The first example was the noun diseño and is shared with la web earlier in B1. SHARED WITHIN B1: the earlier card keeps the sentence.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to design"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "francés y diseño de páginas web"
+   ],
+   "ex": [
+    [
+     "Ella diseñó el logotipo de la empresa.",
+     "She designed the company logo."
+    ]
+   ]
+  },
+  "deleb1/vaciar": {
+   "why": "The gloss is right. The second example's English said 'mailbox'.",
+   "exEn": [
+    [
+     "el buzón no ha sido vaciado",
+     "The neighbours can see that the letterbox hasn't been emptied."
+    ]
+   ]
+  },
+  "deleb1/criticar": {
+   "why": "The gloss was spelt the American way. The second example's en frente a is not standard (delante de).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to criticise"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "criticó a Ana en frente"
+   ],
+   "ex": [
+    [
+     "Siempre critica todo lo que hago.",
+     "He always criticises everything I do."
+    ]
+   ]
+  },
+  "deleb1/merecer": {
+   "why": "The gloss is right. The second example is shared with bonito in A1. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "dropEx": [
+    "Todos merecen sentirse bonitos"
+   ],
+   "ex": [
+    [
+     "Te mereces unas buenas vacaciones.",
+     "You deserve a good holiday."
+    ]
+   ]
+  },
+  "deleb1/aparcar": {
+   "why": "The gloss is right. The third example's English said 'vacant lot' for una plaza libre.",
+   "exEn": [
+    [
+     "aparcó el coche en una plaza libre",
+     "She parked the car in a free space."
+    ]
+   ]
+  },
+  "deleb1/advertir": {
+   "why": "The gloss is right. The first example's vas a ser comido is a passive calque.",
+   "dropEx": [
+    "vas a ser comido"
+   ],
+   "ex": [
+    [
+     "Te advierto que no va a ser fácil.",
+     "I'm warning you that it won't be easy."
+    ]
+   ]
+  },
+  "deleb1/fracasar": {
+   "why": "The gloss was a list. The first example was the noun fracaso.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to fail"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "la culpa de su fracaso"
+   ],
+   "ex": [
+    [
+     "El proyecto fracasó por falta de dinero.",
+     "The project failed for lack of money."
+    ]
+   ]
+  },
+  "deleb1/indicar": {
+   "why": "The gloss was a list running to 'to prescribe'. The second example was the adjective indicado, 'the right person'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to indicate, to show",
+      "to tell (the way)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Eres el más indicado"
+   ],
+   "ex": [
+    [
+     "La flecha indica la salida.",
+     "The arrow shows the way out."
+    ]
+   ]
+  },
+  "deleb1/hervir": {
+   "why": "The gloss gave 'to seethe'. The second example, 'Mueva usted la sopa', is not natural Spanish (remueva).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to boil"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Mueva usted la sopa"
+   ],
+   "exEn": [
+    [
+     "Pon agua a hervir",
+     "Put some water on to boil; we're going to make tea."
+    ]
+   ],
+   "ex": [
+    [
+     "El agua hierve a cien grados.",
+     "Water boils at a hundred degrees."
+    ]
+   ]
+  },
+  "deleb1/trasladar": {
+   "why": "THE MISSPELLING. The second example wrote transladar, which is not a word. The gloss carried a stray blank line and did not give trasladarse, which the first and third examples are.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to move, to transfer"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "trasladarse — to move (house, job)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "a transladar los muebles"
+   ],
+   "ex": [
+    [
+     "Lo trasladaron a otro hospital.",
+     "They moved him to another hospital."
+    ]
+   ]
+  },
+  "deleb1/educar": {
+   "why": "The gloss was a list, with 'to educate' first, where the everyday sense is to bring up. The second example's en América was translated 'in America'.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to bring up, to raise",
+      "to educate"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "se educó en América"
+   ],
+   "ex": [
+    [
+     "Educaron a sus hijos con mucho cariño.",
+     "They brought up their children with a lot of love."
+    ]
+   ]
+  },
+  "deleb1/desviar": {
+   "why": "The gloss carried a stray 'N' line. The first example was the noun desvío and the third ('Has hecho que mi mordida se desvíe') is not a sentence anyone says.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to divert",
+      "to deflect"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "desviarse — to turn off, to go off course"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "hacer un desvío",
+    "mi mordida se desvíe"
+   ],
+   "ex": [
+    [
+     "Han desviado el tráfico por las obras.",
+     "The traffic has been diverted because of the roadworks."
+    ],
+    [
+     "No desvíes la conversación.",
+     "Don't change the subject."
+    ]
+   ]
+  },
+  "deleb1/comprometerse": {
+   "why": "THE CONJUGATION: the gerund read comprometíendose, S3's fault; it is now comprometiéndose. The first example's English said 'engaged with' and the second's said 'compromise' for comprometerse, to commit oneself.",
+   "conjSub": [
+    [
+     "compromet<span class=\"uc-cj-e\">íendose</span>",
+     "compromet<span class=\"uc-cj-e\">iéndose</span>"
+    ]
+   ],
+   "senses": [
+    [
+     "verb",
+     [
+      "to commit oneself, to promise",
+      "to get engaged"
+     ]
+    ]
+   ],
+   "exEn": [
+    [
+     "se comprometió con una chica",
+     "Carlos got engaged to a pretty girl."
+    ],
+    [
+     "no quiere comprometerse",
+     "Carlos doesn't want to commit himself."
+    ]
+   ]
+  },
+  "deleb1/batir": {
+   "why": "The first two examples were the nouns bate, a bat, and bata, a dressing gown. The gloss did not give batir un récord.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to beat, to whisk"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "batir un récord — to break a record"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "un bate de béisbol",
+    "mi bata de baño"
+   ],
+   "ex": [
+    [
+     "Bate la nata hasta que esté firme.",
+     "Whisk the cream until it's stiff."
+    ],
+    [
+     "Batió el récord del mundo.",
+     "He broke the world record."
+    ]
+   ]
+  },
+  "deleb1/programar": {
+   "why": "The gloss put 'to program' first. The first two examples were the noun programa and are shared with el programa in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
+   "senses": [
+    [
+     "verb",
+     [
+      "to schedule, to set (a timer, an alarm)",
+      "to program (a computer)"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "Este programa es demasiado picante",
+    "los próximos programas"
+   ],
+   "ex": [
+    [
+     "He programado el despertador para las siete.",
+     "I've set the alarm for seven."
+    ],
+    [
+     "¿Sabes programar?",
+     "Can you write programs?"
+    ]
+   ]
+  },
+  "deleb1/arrepentirse": {
+   "why": "The gloss is right. The second example's English said 'you'll regret' for te arrepentirías.",
+   "exEn": [
+    [
+     "de lo que te arrepentirías",
+     "Don't do anything you'd regret."
+    ]
+   ]
+  },
+  "deleb1/concluir": {
+   "why": "The gloss gave 'to overwhelm', which concluir does not mean.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to conclude, to finish"
+     ]
+    ]
+   ]
+  },
+  "deleb1/disculpar": {
+   "why": "The gloss carried a stray blank line and did not give disculparse or pedir disculpas. The first and third examples were the noun disculpa.",
+   "senses": [
+    [
+     "verb",
+     [
+      "to excuse, to forgive"
+     ]
+    ],
+    [
+     "phrase",
+     [
+      "disculparse — to apologise",
+      "pedir disculpas — to apologise"
+     ]
+    ]
+   ],
+   "dropEx": [
+    "demasiado tarde para pedir disculpas",
+    "le debe una disculpa"
+   ],
+   "ex": [
+    [
+     "Disculpa, ¿me dejas pasar?",
+     "Excuse me, can I get past?"
+    ],
+    [
+     "Espero que me disculpes.",
+     "I hope you'll forgive me."
+    ]
+   ]
   }
  },
  "insert": {
@@ -46342,7 +46819,12 @@
    "la aspirina",
    "el compositor, la compositora",
    "el/la recepcionista",
-   "fijarse"
+   "fijarse",
+   "imprimir",
+   "acercarse",
+   "comunicarse",
+   "sustituir",
+   "renovar"
   ]
  }
 }

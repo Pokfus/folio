@@ -3505,6 +3505,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S48 | B1 | #811 `la barca` – #838 `la pila` | 23 | 5 (`visible`, `corregir`, `atlántico, atlántica`, `oral`, `el recado`) | 0 | B1 description: 982 with three | `pilas` renamed `la pila`; `tercio, tercia` renamed `el tercio` |
 | S49 | B1 | #839 `la aspirina` – #866 `el contestador` | 27 | 1 (`la aspirina`) | 0 | B1 description: 987 with three | `en fin` rebuilt, the last of S29's unbolded phrase cards |
 | S50 | B1 | #867 `rellenar` – #894 `entrevistar` | 25 | 3 (`el compositor, la compositora`, `el/la recepcionista`, `fijarse`) | 0 | B1 description: 990 with three | `el canguro, la cangura` renamed `el/la canguro`; `introducir` false friend noted |
+| S51 | B1 | #895 `triunfar` – #922 `disculpar` | 23 | 5 (`imprimir`, `acercarse`, `comunicarse`, `sustituir`, `renovar`) | 1 (`comprometerse` gerund) | B1 description: 990 with three | `trasladar`'s *transladar*; S3's gerund fault counted at 65 cards still to come |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5482,6 +5483,43 @@ callejero*, a street map. `instalar` gives *instalarse*.
 **CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded.
 `check-senses --deck=DELE-B1` goes from 40 to 38, because `el buscador` and `rellenar` leave the list. One
 new entry is named: `ligar`, whose "to flirt, to pull" sits over *chat her up* and *pulls*.
+### S51 — DELE B1, notes #895–#922 (Sep 2026)
+
+Measured against the S50 commit by card id: **23 changed, 975 untouched**, each a record entry. The other five
+were read and left alone: `imprimir`, `acercarse`, `comunicarse`, `sustituir`, `renovar`.
+
+**S3'S GERUND FAULT, ONE MORE REPAIRED, AND THE REST OF IT COUNTED.** `comprometerse`'s gerund read
+*comprometíendose* and is now *comprometiéndose*, by `conjSub`. The fault is still standing on **65 cards**:
+three more in B1 (`atreverse` #977, `inscribirse` #980, `deprimirse` #996, none of them reached yet), 17 in
+B2, 28 in C1 and 17 in C2 (measured on the gerund cell). Each will be repaired when its batch reaches it, as every earlier one was.
+`build_deck.py` has been right since S3, so a rebuild would not bring the fault back.
+
+**A MISSPELLING.** `trasladar`'s second example wrote *transladar*, which is not a word.
+
+**THE OTHER WORD.** Nine examples were a noun or an adjective rather than the verb:
+- *triunfo* (`triunfar`), *dibujos animados* (`animar`), *diseño* (`diseñar`), *fracaso* (`fracasar`), *desvío*
+  (`desviar`), *programa* twice (`programar`) and *disculpa* twice (`disculpar`);
+- *el más indicado* (`indicar`);
+- `batir` had *un bate de béisbol* and *mi bata de baño*, which are a bat and a dressing gown.
+
+**SHARES.** `animar` with A2 `el dibujo`, `merecer` with A1 `bonito`, `programar` twice with A2 `el programa`,
+and `contribuir` and `diseñar` with earlier B1 cards.
+
+**THE SENSE.**
+- `educar` put "to educate" before "to bring up".
+- `triunfar` gave only "to triumph", where the everyday sense is to succeed.
+- `copiar` did not say it is also cheating in an exam, which all three examples are.
+- `programar` put "to program" before scheduling and setting.
+- `concluir` gave "to overwhelm", which is wrong.
+- `comprometerse`'s English said "compromise" and "engaged with".
+
+**NOT NATURAL SPANISH.** *vas a ser comido* (`advertir`), *en frente a* (`criticar`), *Mueva usted la sopa*
+(`hervir`), a bite that goes sideways (`desviar`). The English had "go watch", "mailbox", "vacant lot" and
+"anymore".
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded. B1 stays at 990
+cards with three examples. `check-senses --deck=DELE-B1` goes from 38 to 36, as `comentar` and `desviar` leave
+the list.
 ## The language-deck catalogue — the Update press and the frequency order
 
 **Read this before changing `langDeckUpdate` or a deck order.** CLAUDE.md keeps the rules; this is
