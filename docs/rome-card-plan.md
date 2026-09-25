@@ -1017,6 +1017,39 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-561`–`rm-570`: the Palmyrene Empire to the Roman diocese — what this batch found
+
+`rm-561`–`rm-565` close `rm-third-century` and `rm-566`–`rm-570` open `rm-dominate`, with nine new glossary
+terms. **Two lines are answered by a term they do not contain**: `rm-565` *The recovery of the empire* by
+**`Probus`**, the reign that followed Aurelian's and the one Eutropius credits with recovering Gaul (Claudius
+Gothicus reigned before Aurelian, so he would sit out of order, and writing him means the bare word
+*Claudius*, which links the Julio-Claudian); and `rm-569` *Diocletian's provincial reform* by **`Laterculus
+Veronensis`**, the Verona List through which the reform is known. `rm-566` *Diocletian* **needed no new
+term**: `Diocletian` was already `wh-371`'s, and this card is written as that one's deliberate pair, taking
+his rise, acclamation and self-presentation and leaving each of the reforms to its own card.
+
+**THE SURFACE CHECK FOUND TWO MORE SHIPPED CARDS A NEW TERM WOULD HAVE CLAIMED.** `Zenobia` would have
+linked *Zenobia Jacobs*, the luminescence dater, in `wh-059`'s prose, and `Aurelian` would have linked
+Cicero's *Aurelian* — the Via Aurelia — in `rm-173`. Both sentences were reworded in the same commit, the
+first by dropping the modern names, which the historiography rule wanted anyway. The citations naming
+Jacobs are not auto-linked and were left alone. **The check is now standing practice: grep the corpus for a
+new term's bare surface before adding it.**
+
+**TWO TERMS ARE `caseSensitive` BECAUSE THEIR WORDS ARE ORDINARY.** `Dominate` shares its spelling with a
+verb the corpus uses 63 times in lower case; `Tetrarchy` with the Galatian *tetrarchs* of Strabo and
+Deiotarus, which are a different office and all lower case. `Roman_diocese` claims no bare *diocese*, every
+lower-case use in the corpus being a church diocese. `Probus_(emperor)` takes the parenthetical key and a
+bare `Probus` alias, the one bare *Probus* in the corpus being the emperor; a later Petronius Probus will
+need that alias narrowed.
+
+**The `rm-567`/`rm-568` drafting agent was cut off before verifying its sources**, and a second agent
+verified every marked sentence before the cards shipped. It confirmed the Panegyric of 291 is III in
+Baehrens's 1874 numbering (XI in the manuscript order), and it took the bare *Caesar* and *Augustus* out of
+the Tetrarchy prose, which would have linked Julius Caesar and the first emperor. `rm-568` is a card about a
+modern label and says so in its first sentence; it names no modern scholar. The Aurelian card carries no
+locator, a Rome dot adding nothing to an emperor, and the Verona List's was dropped, Verona being where the
+manuscript is rather than where the reform happened.
+
 ## `rm-551`–`rm-560`: Maximinus Thrax to Postumus — what this batch found
 
 All ten are in `rm-third-century`, with ten new glossary terms. **Four lines are answered by a term they do

@@ -1925,6 +1925,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     press away rather than in front of the reader — and **the enlargement and the credit are gated
     TOGETHER on the reveal**, the viewer being what says the source. The suite OPENS the viewer and
     reads the credit out of it rather than trusting the attribute.
+  · **THE FRAME IS THE FLAG'S OWN SHAPE** (Sep 2026, on request: "the canvas … should never have black
+    bars on the side"). `fitFlagShot` reads the loaded picture's natural ratio into `--ar` on the figure,
+    and the frame's width is `min(100%, height × ratio)` with the picture's height following through
+    `aspect-ratio` — so a narrow screen shortens a wide flag rather than letterboxing it. The same rule
+    covers a draw card's revealed `.dp-answer`. It is called from the delegated `load` listener AND on
+    render and reveal, a cached file being able to finish before that listener sees it. Guarded by
+    section 3c of `test-flag-cards.js`, which fails on the old full-width frame.
   · **ONE LEAK IS ACCEPTED AND STATED: Commons names every flag `Flag_of_<Country>.svg`**, and a `src`
     is copied from the API rather than composed, so the answer is in the URL on all 233 — measured, 20
     of 20 here against 0 of 10 artwork cards. No reader is SHOWN a src, and the suite asserts the
@@ -5359,6 +5366,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     answers perfectly well — so the filter is in `chronoPool` rather than in `gameCardIdSet`, and **the
     deck's own order is untouched**: `cardStartYear` knows nothing about the flag, which is why this could
     not be done with the existing "timeless" machinery.
+  · **AND ON A GAME-REACHABLE CARD OF A USUALLY-TIMELESS KIND THE DECISION IS NOW COMPULSORY** (Sep 2026,
+    on request: "abstract things that have no reasonable start date, like Divination or Sphere of
+    influence, should never appear in the Timeline minigame"). A sweep of the 774-card pool found **90**
+    dealt as dated events — concepts, practices found in every age, the Greek and Chinese gods and
+    monsters (all sorting at *Theogony*, c. 700 BCE), generic offices and physical places — every one
+    written while the flag was optional, so it was simply never set. They were flagged through
+    `patch-cards.js` (**not `mark-undatable.js`, which rewrites `data.js` from a template of its own** —
+    the fault the card-split bullet warns about), and `add-card.js` now REFUSES a card at or below the bar
+    whose leading tag is in `TIMELESS_KINDS` unless it says `undatable: true` or `false` out loud.
   · **IT ONLY BITES ON A CARD THE GAMES CAN REACH**, so **a card RE-RATED down into the pool needs the
     judgement made about it** — the one way the corpus can quietly regrow an unflagged process, and nothing
     can detect it. Written by `.claude/mark-undatable.js`, accepted by `add-card.js`, carried by
@@ -7950,7 +7966,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 600 cards, contiguous — next is `wh-601` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | **COMPLETE, 1000 of 1000** — `gr-001` to `gr-1000`, the first of the thousand-card plans to close |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 560 cards, contiguous — next is `rm-561` |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 570 cards, contiguous — next is `rm-571` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 100 cards, contiguous — next is `ru-101` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
