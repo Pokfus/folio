@@ -3507,6 +3507,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S50 | B1 | #867 `rellenar` – #894 `entrevistar` | 25 | 3 (`el compositor, la compositora`, `el/la recepcionista`, `fijarse`) | 0 | B1 description: 990 with three | `el canguro, la cangura` renamed `el/la canguro`; `introducir` false friend noted |
 | S51 | B1 | #895 `triunfar` – #922 `disculpar` | 23 | 5 (`imprimir`, `acercarse`, `comunicarse`, `sustituir`, `renovar`) | 1 (`comprometerse` gerund) | B1 description: 990 with three | `trasladar`'s *transladar*; S3's gerund fault counted at 65 cards still to come |
 | S52 | B1 | #923 `surgir` – #950 `sumar` | 25 | 3 (`secarse`, `esforzarse`, `portarse`) | 0 | B1 description: 991 with three | twelve examples shared with lower decks; `freír` had no example of the verb |
+| S53 | B1 | #951 `desobedecer` – #974 `jubilarse` | 20 | 5 (`desobedecer`, `coleccionar`, `aconsejar`, `acostumbrarse`, `jubilarse`) | 2 tables cleared (`triangular`, `el titular`) | B1 description: 994 with three | new `noConj` field; the "stray line" of 25 earlier notes was a viewer artifact, corrected |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -4909,7 +4910,7 @@ of one phrase each — *películas de terror*, *a continuación* — which the g
 **LATIN AMERICAN USAGE.** *Luego de* (`la electricidad`), *bus* (`terrorista`), *auto* (`la batería`), and the
 spelling *beisbol* (`el béisbol`). `la risa`'s *audiencia* is a calque of "audience".
 
-**AND THE REST.** `superar`'s gloss carried a stray line reading "N". Thirteen sentences shared with A1, A2 or
+**AND THE REST.** Thirteen sentences shared with A1, A2 or
 an earlier B1 card were replaced. `el acero` comes up to three examples: 956 of 998.
 
 **CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
@@ -5438,7 +5439,7 @@ perfect tense. `preocupar`'s second was the adjective *preocupada*.
 
 **GLOSSES.** `la ternera` put "veal" first, where in Spain it is ordinarily beef. `la arquitectura` gave
 "architectonics". `el occidente` gave "occident" and did not give *el Occidente*. `afeitar`, `intercambiar`,
-`la reparación`, `travieso`, `el árbitro`, `la programación` and `la carpeta` each had a stray line or a list.
+`la reparación`, `travieso`, `el árbitro`, `la programación` and `la carpeta` each had a list or a sense to trim.
 
 **CARDS WITH TWO EXAMPLES NOW HAVE THREE:** `la pizarra`, `la ternera`, `la programación`, `el contestador`
 and `editorial`. B1 goes from 982 to **987** cards with three examples.
@@ -5563,6 +5564,60 @@ appointment sense. `enfriar`, `envolver`, `componer` and `sumar` now give the ph
 to **991** cards with three examples. `check-senses --deck=DELE-B1` goes from 36 to 33. `disminuir` stays on the
 list and is named: its examples say *slow down*, *lessen* and *fallen*, three sound translations the gloss's
 words don't match.
+### S53 — DELE B1, notes #951–#974 (Sep 2026)
+
+Measured against the S52 commit by card id: **20 changed, 978 untouched**, each a record entry. Nineteen are
+in this batch's range; the twentieth is a catch-up on `el titular`, #805. The other five were read and left
+alone: `desobedecer`, `coleccionar`, `aconsejar`, `acostumbrarse`, `jubilarse`.
+
+**A CORRECTION TO EARLIER BATCHES: THE "STRAY LINE" IN THE GLOSS WAS NEVER THERE.** From S37 to S52, 25 notes
+said a gloss "carried a stray 'N' line" or "a stray blank line". Neither was in the deck. The audit's own viewer
+printed each card's conjugation table cut at 1,500 characters. The cut left a line holding only the first
+letter of the next heading (*N*, from *Negativo*), or nothing, and the filter over that output passed it
+through beneath the gloss. The card that exposed it was `aconsejar`: its entry restated "to advise" as "to
+advise", and the diff reported the card unchanged.
+
+What was done about it:
+- The clause is removed from all 25 notes. Where it was the only reason given, the note now says what really
+  changed (`colaborar`, `decorar`), or the entry goes: `aconsejar`'s changed nothing and is now in `reviewed`.
+- Two sentences in the S37 and S49 sections above that repeated the claim are corrected.
+- The viewer no longer prints the truncated dump.
+
+Nothing in the decks changed: every fix those notes made was to a list or a sense, and those were real.
+
+**A NOUN OR ADJECTIVE WITH A VERB'S TABLE, AND A NEW FIELD FOR IT.** `triangular` was headed as an adjective
+but carried a full conjugation table for the verb *triangular*, "to triangulate". The generator conjugates any
+headword ending in *-ar/-er/-ir* from the dictionary's verb of the same spelling. B1 has one more such card,
+`el titular`, passed in S29 with a table for the verb *titular*. `spanish-fix.js` gains **`noConj`**, which
+clears the table; the template wraps the table in `{{#Conjugation}}`, so an empty field draws nothing. Clearing
+`el titular`'s table took away the only place the headword guard could find *titulares*, which showed that the
+card had never had a Forms field; its plural is now stated. Across the other decks there are **13 more**: B2
+`nuclear`, `el solar`, `escolar`, `circular`, `formular`, `talar`, `domiciliar`; C1 `angular`; C2 `el pilar`,
+`muscular`, `articular`, `calar`, `el alisar`. Some of these (`formular`, `talar`, `domiciliar`, `calar`,
+`alisar`) are probably verbs headed as the wrong part of speech rather than non-verbs with a table. Each gets
+read when its batch reaches it.
+
+**THE OTHER WORD.** `tender`'s *tiendas* and *tienda*, shared with A1 `la calle` and `la tienda`; `caber`'s
+*cabida*; `resumir`'s *resumida*; `triangular`'s one example, *triangulo*, a misspelt noun; and `archivar`'s
+*archivo*, shared with `el archivo` earlier in B1.
+
+**NOT NATURAL SPANISH OR NOT SUITABLE.**
+- Regional or non-standard: *relacionado a* (`relacionar`), *papel de baño* (`reciclar`), and the calque
+  *archivar sus impuestos* (`archivar`).
+- A generalisation about a people (`tender`), phrenology (`implicar`), and a vulgar line (`caber`).
+- *Papá usa el fuego para asar un pollo* (`asar`).
+
+**GLOSSES.**
+- `implicar` gave "to oppose" and "to contradict", which it does not mean.
+- `adelgazar` gave "to make thin, to refine, to purify"; every example meant losing weight.
+- `caber`'s gloss was a broken list.
+
+**CARDS UP TO THREE EXAMPLES:** `insertar` (from one), `redactar` and `triangular`. B1 goes from 991 to **994**
+cards with three examples.
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded.
+`check-senses --deck=DELE-B1` goes from 33 to 29. `plantear` is still flagged: its examples say *ask a
+question* and *posed*, which are sound translations of *plantear una pregunta*.
 ## The language-deck catalogue — the Update press and the frequency order
 
 **Read this before changing `langDeckUpdate` or a deck order.** CLAUDE.md keeps the rules; this is

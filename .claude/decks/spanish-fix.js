@@ -480,6 +480,13 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
        have it corrected — and after `forms`, since neither reads the other. */
     if (fix.conj) fl.Conjugation = renderConj(fix.conj);
 
+    /* `noConj` CLEARS a conjugation table the generator wrote onto a word that is not a verb. It
+       conjugates any headword ending in -ar/-er/-ir from the dictionary's verb entry of the same
+       spelling, so `triangular` the adjective shipped a table for the verb "to triangulate" and
+       `el titular` one for "to entitle" (B1 audit, S53). The template wraps the table in
+       {{#Conjugation}}, so an empty field draws nothing. */
+    if (fix.noConj) fl.Conjugation = "";
+
     /* `conjSub` corrects the CONJUGATION table, which nothing else here can touch and which the
        generator can get wrong: despertarse shipped a fully regular paradigm - me desperto, te
        despertas - where the verb is stem-changing, so its whole present indicative, present
