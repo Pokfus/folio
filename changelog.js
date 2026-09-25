@@ -35,15 +35,24 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.895", released: "2026-09-24T22:27Z" };
+window.FOLIO_VERSION = { v: "1.896", released: "2026-09-25T02:00Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-25",
+    t: "China reaches the Northern and Southern dynasties",
+    items: [
+      "<b>Ten new cards in the China collection</b>, closing the Eastern Jin deck and opening the Northern and Southern dynasties, with ten glossary terms."
+    ]
+  },
   {
     d: "2026-09-24",
     t: "The Ancient Greece collection is finished at a thousand cards",
     items: [
       "<b>Who said it? deals five quotations a day</b> again, up from three.",
       "<b>Admin \u2192 Quotes lists every Myth or fact? statement</b>, each of which an editor can now edit or remove.",
+      "<b>Timeline</b> no longer asks you to date abstract terms, myths or places that have no real start date, such as divination.",
+      "<b>Flags</b> now sit in a frame cut to their own shape, with no bands of background beside them.",
       "<b>Flags</b> is a collection of its own again, in the Geography section, holding both flag decks.",
       "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
       "<b>A hundred and thirty new cards</b> \u2014 seventy in Ancient Greece on myth, Troy's aftermath and worship, and sixty in China from the Eastern Han to the Eastern Jin \u2014 with 121 glossary terms.",
