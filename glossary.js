@@ -4021,7 +4021,17 @@ window.GLOSSARY = {
 "Rail_transport": "A railway is a prepared track of rails on which flanged wheels run, used at collieries long before it carried the public because a given power can draw far heavier loads on rails than on a road.<sup class=\"fn\" data-fn=\"3\"></sup> The Stockton and Darlington Railway, opened on 27 September 1825, was the first public line worked by a steam locomotive, its opening train reckoned good for six to ten kilometres an hour (4 to 6 miles an hour) behind a horseman carrying a flag.<sup class=\"fn\" data-fn=\"1\"></sup> The Liverpool and Manchester Railway, opened on 15 September 1830, was the first built to carry passengers between two cities and worked by locomotives throughout.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Spinning_jenny": "The spinning jenny was a hand-worked frame, invented in Lancashire in the 1760s, on which one person could spin several threads of cotton at once by turning a single wheel.<sup class=\"fn\" data-fn=\"1\"></sup> Its inventor was the weaver James Hargreaves; the date is usually given as 1767, though his first historian argued that he began work as early as 1764, and he patented the machine at Nottingham in 1770.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The first jenny carried eight spindles and the patent claimed sixteen or more, but within a few years twenty or thirty were usual and some were built with as many as a hundred and twenty.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Stephenson's_Rocket": "Stephenson's Rocket was the locomotive built by Robert Stephenson and Company that won the Rainhill trials of October 1829, a competition held by the Liverpool and Manchester Railway with a premium of £500 for the best engine.<sup class=\"fn\" data-fn=\"1\"></sup> Its advantage lay in a boiler carrying the fire through the water in 25 copper tubes instead of one wide flue, an idea of the railway's secretary Henry Booth, together with an exhaust turned up the chimney to force the draught.<sup class=\"fn\" data-fn=\"2\"></sup> The Rocket averaged about 24 kilometres an hour (15 miles an hour) with its load and took the prize when the others broke down.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Urbanisation": "Urbanisation is the movement of a population from the countryside into towns and cities; an observer of 1844 thought the heaping together of a city's millions multiplied their power while dissolving them into isolated individuals.<sup class=\"fn\" data-fn=\"2\"></sup> Where industry drives it, it is rapid and concentrated, because works stand where their power is and hands live within walking distance: Liverpool, Manchester, Birmingham and Sheffield each held four to six thousand people in 1685 and 284,000 to 552,000 by 1881.<sup class=\"fn\" data-fn=\"1\"></sup> Building rarely keeps pace, and the same observer counted two hundred cottages in one Manchester hollow holding four thousand people, twenty to a two-roomed dwelling and one privy to a hundred and twenty.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Urbanisation": "Urbanisation is the movement of a population from the countryside into towns and cities; an observer of 1844 thought the heaping together of a city's millions multiplied their power while dissolving them into isolated individuals.<sup class=\"fn\" data-fn=\"2\"></sup> Where industry drives it, it is rapid and concentrated, because works stand where their power is and hands live within walking distance: Liverpool, Manchester, Birmingham and Sheffield each held four to six thousand people in 1685 and 284,000 to 552,000 by 1881.<sup class=\"fn\" data-fn=\"1\"></sup> Building rarely keeps pace, and the same observer counted two hundred cottages in one Manchester hollow holding four thousand people, twenty to a two-roomed dwelling and one privy to a hundred and twenty.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Luddite": "A Luddite was a textile worker in the English Midlands or the North of England who destroyed machinery between 1811 and 1813, taking the name from Ned Ludd, an apprentice knitter said to have smashed his own frame after a magistrate ordered him whipped.<sup class=\"fn\" data-fn=\"1\"></sup> The campaign opened at Arnold in March 1811 and was answered by a statute of 1812 that turned frame-breaking, until then punishable by transportation, into a capital felony.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Seventeen men were hanged at York in January 1813, and the word has since come to mean hostility to new machinery in general.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Trade_union": "A trade union is a continuous association of wage-earners formed to maintain or improve the conditions of their working lives, a kind of body that existed in England for two centuries before it acquired that name.<sup class=\"fn\" data-fn=\"1\"></sup> Combination among workmen was forbidden there by general statutes of 1799 and 1800, repealed in 1824, after which an Act of 1825 expressly established the right of collective bargaining.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> An Act of 1871 went further and made such societies lawful associations with a definite standing in the courts, while deliberately withholding the power to sue and be sued.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Karl_Marx": "Karl Marx was a writer on economics, history and politics, born at Trier in the Prussian Rhineland in 1818 and buried in London in 1883 after more than thirty years of exile there.<sup class=\"fn\" data-fn=\"1\"></sup> His theory of history holds that the prevailing mode of production in each epoch is the basis from which its politics and ideas can alone be explained, and his economics rests on the claim that profit arises from unpaid labour.<sup class=\"fn\" data-fn=\"2\"></sup> He wrote the Communist Manifesto with Frederick Engels in 1848 and the inaugural address of the International Working Men's Association in 1864.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"The_Communist_Manifesto": "The Communist Manifesto is a pamphlet by Karl Marx and Frederick Engels, written as the platform of the Communist League, which commissioned it at a congress held in London in November 1847.<sup class=\"fn\" data-fn=\"1\"></sup> The German manuscript reached a London printer at the end of January 1848, and the first copies came off the press on 24 February, the day revolution broke out in Paris.<sup class=\"fn\" data-fn=\"2\"></sup> It argues that all written history has been a history of class struggles, opens on a spectre haunting Europe, and closes by calling on workingmen of all countries to unite.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Socialism": "Socialism is a body of doctrine whose economic basis is a collectivism that excludes private possession of land and capital and places them under social ownership in some form.<sup class=\"fn\" data-fn=\"1\"></sup> Its earliest systems were the work of Saint-Simon, Fourier and Robert Owen in the opening decades of the 19th century, none of whom spoke for a particular class, all of them expecting reason and justice to prevail by persuasion.<sup class=\"fn\" data-fn=\"2\"></sup> A later generation claimed that two discoveries, the materialist conception of history and the account of profit as unpaid labour, had turned the doctrine into a science.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Second_Industrial_Revolution": "The Second Industrial Revolution is the name economic historians give to the transformation of industry between about 1870 and 1914, although several of its characteristic events belong to the 1850s.<sup class=\"fn\" data-fn=\"1\"></sup> What distinguishes it from the earlier transformation is that its inventions rested on formal knowledge: the first had produced a chemical industry with no chemistry and power machinery without thermodynamics.<sup class=\"fn\" data-fn=\"1\"></sup> Cheap steel, industrial chemistry, electric power and the internal combustion engine were its principal products, and the economies of scale they carried produced business concerns far larger than anything seen before, together with the research laboratory as a fixture of industry.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Electrification": "Electrification is the replacement of other sources of light, heat and power by electric current drawn from central generating stations.<sup class=\"fn\" data-fn=\"1\"></sup> It became possible during the 1870s and 1880s, once efficient generators, a practical incandescent lamp and a means of transmitting current over distance had all been devised, and it spread through industry, transport and households together.<sup class=\"fn\" data-fn=\"1\"></sup> Because a generating plant is costly to build and cheap to run, supply tended towards a single undertaking for each area; central stations in the United States grew from 3,620 in 1902 to 5,221 ten years later.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Electrical_telegraph": "The electrical telegraph transmits messages by sending a current along a wire to deflect a needle or mark paper at the far end, and it was the first use of electricity to change ordinary commerce.<sup class=\"fn\" data-fn=\"1\"></sup> A British patent of 1837 covered a system in which five needles pointed out letters on a dial, while the system adopted in the United States used a single circuit and a code of dots and dashes.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Submarine cables followed, the Channel being crossed in 1851 by a line that worked for 37 years and the Atlantic in 1866, after which a message could reach another continent within hours rather than weeks.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Steamship": "A steamship is a sea-going vessel driven by a steam engine rather than by sail, a combination that became practical on long routes in the late 1830s.<sup class=\"fn\" data-fn=\"1\"></sup> Early vessels burned so much coal that little room was left for cargo, so they carried sails as well; a scheduled Atlantic mail service began in 1840 with wooden paddle boats making the crossing in about a fortnight.<sup class=\"fn\" data-fn=\"2\"></sup> The compound engine of the 1860s cut the coal needed for a given speed by more than half, which is what allowed long voyages under steam alone.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Suez_Canal": "The Suez Canal is a sea-level waterway about 160 kilometres (100 miles) long, joining the Mediterranean at Port Said to the Red Sea at the town of Suez and running almost due north through a chain of lakes and marshes.<sup class=\"fn\" data-fn=\"1\"></sup> The company that dug it was constituted in 1854 under a concession from the viceroy of Egypt, and the canal was opened to traffic on 17 November 1869.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In November 1875 the Khedive sold his holding of 176,602 shares to the British government for £4,000,000, and the shortened route to Asia ended the sailing ship's hold on the eastern trade.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6152,7 +6162,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Bridgewater_Canal": "opened 1761",
 "Factory_Acts": "1802–1847",
 "Spinning_jenny": "c. 1764–1770",
-"Stephenson's_Rocket": "1829"
+"Stephenson's_Rocket": "1829",
+"Luddite": "1811 – 1813",
+"Karl_Marx": "1818 – 1883",
+"The_Communist_Manifesto": "1848",
+"Second_Industrial_Revolution": "c. 1870 – 1914",
+"Electrification": "from the 1880s",
+"Electrical_telegraph": "from 1837",
+"Steamship": "from 1838",
+"Suez_Canal": "opened 1869"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8530,7 +8548,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Enclosure_(England)": ["enclosure movement","parliamentary enclosure"],
 "Child_labour": ["child labor"],
 "Rail_transport": ["railway","railroad"],
-"Urbanisation": ["urbanization"]
+"Urbanisation": ["urbanization"],
+"Luddite": ["Luddites","Luddism"],
+"Trade_union": ["trade unions","trades union","labour union","labour unions"],
+"Karl_Marx": ["Marx"],
+"The_Communist_Manifesto": ["Communist Manifesto"],
+"Socialism": ["socialist","socialists"],
+"Electrification": ["electrified"],
+"Electrical_telegraph": ["electric telegraph","telegraph"],
+"Steamship": ["steamships","steamer","steamers"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12595,7 +12621,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Rail_transport": ["object","technology","history","economics","transport"],
 "Spinning_jenny": ["object","technology","history","economics","britain"],
 "Stephenson's_Rocket": ["object","technology","engineering","history","britain"],
-"Urbanisation": ["concept","history","geography","economics","society"]
+"Urbanisation": ["concept","history","geography","economics","society"],
+"Luddite": ["people","history","technology","britain","europe"],
+"Trade_union": ["institution","history","politics","economics","europe"],
+"Karl_Marx": ["person","history","philosophy","politics","germany","europe"],
+"The_Communist_Manifesto": ["text","history","politics","philosophy","germany","europe"],
+"Socialism": ["concept","history","politics","philosophy","economics","europe"],
+"Second_Industrial_Revolution": ["era","history","technology","science","economics","europe"],
+"Electrification": ["concept","history","technology","science","economics"],
+"Electrical_telegraph": ["object","history","technology","engineering","europe"],
+"Steamship": ["object","history","technology","engineering","trade"],
+"Suez_Canal": ["place","history","technology","trade","egypt","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
