@@ -3503,6 +3503,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S46 | B1 | #755 `pretender` – #782 `el cocodrilo, la cocodrila` | 25 | 3 (`sugerir`, `la biología`, `la humedad`) | 0 | B1 description: 997 with examples, 978 with three, one with none | `el pintado` renamed `pintado, pintada` |
 | S47 | B1 | #783 `el pescador, la pescadora` – #810 `solicitar` | 26 | 2 (`el monumento`, `la colaboración`) | 0 | B1 description: 980 with three | — |
 | S48 | B1 | #811 `la barca` – #838 `la pila` | 23 | 5 (`visible`, `corregir`, `atlántico, atlántica`, `oral`, `el recado`) | 0 | B1 description: 982 with three | `pilas` renamed `la pila`; `tercio, tercia` renamed `el tercio` |
+| S49 | B1 | #839–#866 | 27 changed, 1 read and left; `en fin` rebuilt; five cards to three examples |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5400,6 +5401,48 @@ up to three. B1 moves to **982** with three examples.
 42 → 40. Two stay on it and are named: `abrazarse` ("to hug" over *hugged*, *hugging*) and `de manera que`
 ("so", a word of two letters the checker ignores).
 
+### S49 — DELE B1, notes #839–#866 (Sep 2026)
+
+Measured against the S48 commit by card id: **27 changed, 971 untouched**, each a record entry. The one card
+read and left alone is `la aspirina`.
+
+**THE LAST OF S29'S UNBOLDED PHRASE CARDS IS CLOSED.** `en fin` had three examples. One of them was *fin de
+semana*, not the phrase. Another, "Estaba ocupado con trabajo para el examen final", did not contain it at
+all. The one that did was translated "Lastly", where the everyday sense is "anyway". The card now has the
+phrase bolded and three examples that use it. With `puesto que`, `dado que` and `o sea` closed earlier, all four
+cards S29 left open are done.
+
+**THE OTHER WORD, OR ANOTHER PART OF SPEECH.** `editorial` was headed as an adjective, but both of its examples
+were nouns (*el editorial*, *la editorial*), and the gloss named neither. `proponer`'s first example was the
+noun *propuesta*. `anular`'s was *dedo anular*, the ring finger. `adoptado`'s third was the verb in the
+perfect tense. `preocupar`'s second was the adjective *preocupada*.
+
+**SHARES.** Four examples were also in other cards: `afeitar`'s third (A2 `afeitarse`), `puntual`'s second
+(B1 `práctico`), `preocupar`'s second and third (A1 `estar`, A2 `preocuparse`), and `incluir`'s second (A1
+`la habitación`).
+
+**DUPLICATES AND NON-SENTENCES.**
+- Two examples on one card were the same sentence on `el doctorado`, `la ventanilla` and `la cereza`.
+- `fabricar` had two doll sentences and a calqued joke.
+- `incluir` had a logic puzzle ("A contiene a B, y B incluye a A").
+- `la agricultura` had "No me disgusta la agricultura de ningún modo".
+
+**REGIONAL AND CALQUED.**
+- `el contestador` used the Latin American *máquina contestadora*.
+- `intercambiar lugares` and *no tomaría mucho* are calques of English phrases.
+- *ingresar al doctorado* is a calque.
+- The English had American forms: "football game", "moving company", "punctual like a clock".
+
+**GLOSSES.** `la ternera` put "veal" first, where in Spain it is ordinarily beef. `la arquitectura` gave
+"architectonics". `el occidente` gave "occident" and did not give *el Occidente*. `afeitar`, `intercambiar`,
+`la reparación`, `travieso`, `el árbitro`, `la programación` and `la carpeta` each had a stray line or a list.
+
+**CARDS WITH TWO EXAMPLES NOW HAVE THREE:** `la pizarra`, `la ternera`, `la programación`, `el contestador`
+and `editorial`. B1 goes from 982 to **987** cards with three examples.
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded.
+`check-senses --deck=DELE-B1` stays at 40. `fabricar` moves within the list: its new gloss "to manufacture, to
+make" sits over *make* and *made*, and the checker does not stem the irregular past tense.
 ## The language-deck catalogue — the Update press and the frequency order
 
 **Read this before changing `langDeckUpdate` or a deck order.** CLAUDE.md keeps the rules; this is
