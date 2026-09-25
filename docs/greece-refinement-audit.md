@@ -173,7 +173,7 @@ one changelog line and a version bump; commit and push.
 | B1 | Crete and the Cyclades (`gr-crete`) | `gr-001`–`gr-010` | 10 | **done 2026-09-24** |
 | B2 | Crete and the Cyclades (`gr-crete`) | `gr-011`–`gr-020` | 10 | **done 2026-09-24** |
 | B3 | Crete and the Cyclades (`gr-crete`) | `gr-021`–`gr-030` | 10 | **done 2026-09-24** |
-| B4 | Crete and the Cyclades (`gr-crete`) | `gr-031`–`gr-040` | 10 | open |
+| B4 | Crete and the Cyclades (`gr-crete`) | `gr-031`–`gr-040` | 10 | **done 2026-09-25** |
 | B5 | Crete and the Cyclades (`gr-crete`) | `gr-041`–`gr-050` | 10 | open |
 | B6 | Crete and the Cyclades (`gr-crete`) | `gr-051`–`gr-055` | 5 | open |
 | B7 | Mycenaean Greece (`gr-mycenae`) | `gr-056`–`gr-065` | 10 | open |
@@ -475,3 +475,50 @@ The Think-it-through sets were written from scratch to the B1 rule.
 - `gr-023` and `gr-024` point at Knossos.
 - The seven class cards take B1's Crete-only ring.
 
+
+### B4 — `gr-031`–`gr-040`, Crete and the Cyclades (2026-09-25)
+
+All ten were rewritten in the rule order and applied with `add-card.js --replace`.
+
+Checks, all passing:
+- `greece-audit.js --range=gr-031:gr-040` reads **10 of 10 clean**, the chronology pins included.
+- `check-questions` passes.
+- `check-citations --prefix=gr-03` reports 0 mismatched.
+- Every citation URL answers 200. Three Commons files answered 429 on the check, which is a busy host; all three `src` strings were copied from the API.
+- `check-gloss-links --card` reports no cross-region link on any card.
+- `check-cards --prefix=gr-03` and `--prefix=gr-040` report nothing.
+
+The ten abstracts run 273–285 words. Every sort year was read back.
+
+**What changed, card by card.** Each "sources" figure below is the count before the batch → after.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `gr-031` Labrys | 6 | 5 → 6 | The Heraklion page for the Malia sceptre-head, a leopard at the front and a double axe at the back, carries the axe as an emblem of power. The Postpalatial end date is now in the prose. |
+| `gr-032` Minoan religion | 6 | 5 → 7 | The Isopata ring, a bronze worshipper and the Gazi Poppy Goddess were added from the museum's pages. Karatzoglou's review now carries the forged snake goddesses. The North House bones, a finding revised down from eight or more children to four, were dropped as too much for one sentence. **The old picture's description named no object**; it is now the Isopata ring with its impression. |
+| `gr-033` Ayia Triada sarcophagus | 5 | 5 → 5 | The museum page replaces *Tree and Pillar Cult*. The card gives the end chariot as "wild goats or a horse", because Rutter and the museum disagree. Nilsson, by name, is gone from the prose; Burke's argument is kept, from his abstract alone. |
+| `gr-034` Larnax | 5 | 5 → 5 | Rebuilt around what the chests say about burial. Galanakis's review now carries the Mochlos cemetery: pithoi in 18 tombs, chest larnakes in 5 and tub larnakes in 4; only adolescents and adults in larnakes; the richest tombs holding one; and the east-central preference over the west and the rest of the Aegean. |
+| `gr-035` Mesara tholos tombs | 5 | 5 → 5 | **Over the author cap** with three Rutter pages. The chronology page and Mosso were dropped. The Heraklion page for the clay shrine model from the Kamilari tholos was added. The start date moved to c. 3000 BCE, cited to Warren's table in Déderix and colleagues, the other half of the collection's 3100/3000. Rebuilt around who the tombs served: family groups, within 250 metres of a village, alike in wealth. A question carrying "decades" was rewritten. The card now has a picture and an authored Mesara ring. |
+| `gr-036` Minoan roads | 5 | 5 → 5 | **The French BCH article carried no language chip**; it does now. The Knossos West Court test pit, an excavation detail, was dropped. The picture is now the Royal Road at Knossos, not Malia's processional way. |
+| `gr-037` Minoan water management | 5 | 5 → 5 | **Two modern sources out of five**, below the half; Mosso out, the INSTAP Pseira page in, with its two dams. **Evans calls the Corridor of the Draught Board pipes drain-pipes** (1902, pp. 13–14), so the card no longer lets them read as a supply line. **The old picture was a diagram carrying a printed caption**; it is now a photograph of the Knossos drains. |
+| `gr-038` Mochlos | 5 | 5 → 5 | Rebuilt as a history of the town on the INSTAP page: the early workshops, the Syrian cylinder seal, the house of the metal merchant, the destruction and the Limenaria cemetery. The Soles-and-Watrous debate on rank, which named two scholars, is gone. Questions carrying "180" and "150" were rewritten. |
+| `gr-039` Pseira | 5 | 5 → 5 | The INSTAP page adds the MM IIB destruction, the rebuilt town of more than 60 houses, the Shrine's reliefs, the Plateia Building and the dams. A question carrying "240" was rewritten, and the Q.sibling overlap with `gr-038` is cleared. |
+| `gr-040` Palaikastro Kouros | 5 | 5 → 5 | **Three French sources**, against one per language. Poursat stays, with a chip; Faure and Touchais are dropped. Sturgeon's BMCR review of Lapatin (piecing, and the young Zeus) and the British School's page (the town, the c. 1450 destruction and the 8th-century sanctuary of Diktaean Zeus) carry the rest. **"Several hundred fragments" was not what Poursat says**: the fragments lay scattered over more than ten metres. The date-of-discovery sentence went with the archaeology. |
+
+The Think-it-through sets were written from scratch to the B1 rule.
+
+**Corrected, refused and not usable.**
+- **Plutarch's *Greek Questions*** is not on LacusCurtius, so the labrys etymology stays on Rutter's statement of it rather than on a translation that could not be opened.
+- **No Heraklion exhibit page shows a double axe.** A scan of object ids 7860–7960 and 8955–8970 found none; the Malia sceptre-head is the nearest.
+- **Picture credits.** All ten old credits were bare Commons URLs. All ten now name the author and the licence.
+
+**Read by eye.**
+- *Article:* the labrys, the larnax, the Ayia Triada sarcophagus, the Mesara tholos tombs, the Minoan roads and the Palaikastro Kouros take one; Minoan religion, Minoan water management, Mochlos and Pseira are bare.
+- *Confusability:* `gr-038` leans on its gold and its merchant, `gr-039` on its reliefs and its cliffs. `gr-033` and `gr-034` share the idea of a burial chest, so each question names what only it has.
+- *Image depicts the whole term:* for a class of object, one example (the gold axe, the Palaikastro-type larnax). For a class of tomb, one real tholos (Kamilari). For roads and drains, the best-known Knossos stretch.
+
+**Locators.**
+- `gr-033` points at Ayia Triada and `gr-040` at Palaikastro, each with `name` passed.
+- `gr-035` takes an authored ring round the Mesara plain and the Asterousia foothills.
+- `gr-038` and `gr-039` keep their points.
+- The five class cards take B1's Crete-only ring.

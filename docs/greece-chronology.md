@@ -81,6 +81,11 @@ already cites, taking the earlier of each of its paired figures where it gives t
 | Marine Style | c. 1500 BCE, ending c. 1470 BCE | LM IB; the museum dates the Phaistos and Zakros rhyta to about 1500 |
 | Peak sanctuaries | worship from c. 1900 BCE; buildings c. 1750 BCE; decline after c. 1470 BCE | Rutter, Lesson 15 |
 | Cult caves | worship from c. 1900 BCE; still visited to c. 1075 BCE | Rutter, Lesson 15, with the chronology page for the end of LM IIIC |
+| Mesara tholos tombs | built from c. 3000 BCE; fewer in use after c. 1900 BCE | Déderix, Schmitt and Caloi 2025 give EM I as 3000 – 2650 after Warren, the other half of the collection's 3100/3000; Rutter has one tomb (Lebena A) in use in the Final Neolithic and a few, such as Kamilari, into LM I or later |
+| Ayia Triada sarcophagus | c. 1400 BCE | LM IIIA1, the early 14th century (Rutter); the Heraklion museum says about 1400 |
+| Palaikastro LM IB destruction | c. 1450 BCE | the British School's own figure, which `gr-040` gives; Poursat's review puts the kouros's context at about 1475 |
+| Mochlos | settled c. 3100 – 1200 BCE; town burnt c. 1470 BCE | INSTAP Study Center; the LM III cemetery at Limenaria runs c. 1400 – 1250 BCE (Galanakis's review), which `gr-034` uses |
+| Pseira | early town destroyed c. 1750 BCE; rebuilt town destroyed c. 1470 BCE | INSTAP Study Center: destroyed in MM IIB, rebuilt in LM IA, burnt at the end of LM IB |
 | Shaft graves at Mycenae | c. 1650 – 1500 BCE | |
 
 **Three standing notes.** (1) "Neopalatial" and "Postpalatial" do not describe KNOSSOS, which went on
@@ -182,4 +187,14 @@ gr-026: 1500; 1470
 gr-027: 1900; 1750
 gr-028: 1900; 1750; 1470
 gr-029: 1900; 1075
+gr-031: 1900; 1470; 1075
+gr-032: 1900; 1075
+gr-033: 1400
+gr-034: 1470; 1400; 1250
+gr-035: 3000; 1900
+gr-036: 1750; 1470
+gr-037: 1750; 1470
+gr-038: 3100; 1200; 1470
+gr-039: 1750; 1470
+gr-040: 1450
 ```

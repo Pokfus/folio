@@ -496,6 +496,16 @@ case-sensitive rather than losing the alias; a term for the mollusc would want a
 | 2 | Temple Repositories · Petsofa · Kahun | Kahun is the Egyptian town, also spelt Lahun |
 | 1 | Arkalochori · Lily Prince · murex · bench sanctuary | `Arkalochori` names both a cave and a village; key the cave |
 
+**Added by the refinement's B4 (2026-09-25)**, counted the same way after `gr-031`–`gr-040` were
+rewritten. Anemospilia, the Royal Road, Mochlos, Pseira, Palaikastro, Kouros and Cylinder seal already
+have keys, and `Messara` is an alias of `Mesara`.
+
+| cards | term | note |
+|---|---|---|
+| 3 | chamber tomb | `gr-033`, `gr-034` and `gr-038` say "tombs cut into rock" in its place; the Mycenaean `Chamber_tomb` would serve both |
+| 2 | Diktaean Zeus · Labyrinth | Zeus of Dikte is the god of the Palaikastro hymn; `Labyrinth` must not claim the bare word "maze" |
+| 1 | Isopata ring · Kamilari · Mistress of Animals · Caria · light-well | Caria is the Anatolian land whose word Plutarch cites for the double axe |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
