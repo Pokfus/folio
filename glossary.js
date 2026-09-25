@@ -4421,7 +4421,17 @@ window.GLOSSARY = {
 "Wang_Dao": "<b>Wang Dao</b> was a statesman of the Wang clan of Langya who helped the prince Sima Rui win the support of the southern gentry and found the Eastern Jin, becoming its chief minister and later a regent.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His family's power was such that a saying of the time held that the Wang and the Sima shared the realm, and he kept the emperor's trust even when his cousin Wang Dun rebelled in 322.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He died in 339, having refused to move the capital away from Jiankang after it was sacked by rebels in the late 320s.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Wang_Xizhi": "<b>Wang Xizhi</b> was a Chinese calligrapher of the 4th century CE, a member of the Wang clan of Langya and an official at Kuaiji, whose dates are given variously as 303 to 361 or 321 to 379.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His best-known work, the <i>Preface to the Orchid Pavilion Collection</i> of 353, was written for a gathering of 41 guests, and the original is said to have been buried with the Tang emperor Taizong.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Revered as the Sage of Calligraphy, he became the model against which later calligraphers in China and beyond were judged.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Xie_clan_of_Chen_Commandery": "The <b>Xie clan</b> of Chen commandery was a Chinese aristocratic family from Yangxia, near present-day Taikang in Henan, which moved south in the early 4th century CE and became, with the Wang of Langya, the most eminent lineage of the southern court.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its leading members included the statesman Xie An, who lived from 320 to 385, and his nephew Xie Xuan, who commanded the Jin army that defeated the Former Qin at the Fei River in 383.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The family also produced celebrated writers, among them the poet Xie Lingyun, who lived from 385 to 433.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Zu_Ti": "<b>Zu Ti</b> was a Chinese general of the Jin dynasty who, after the north fell to the Xiongnu and Jie, led a small, poorly supplied army north across the Yangzi and won back much of the land south of the Yellow River.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He is remembered for swearing in midstream, as he struck his oar, that he would not cross the river again until the Central Plain was cleared, and for rising at cockcrow with his friend Liu Kun.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He died at Yongqiu in 321, and most of his gains were soon lost again.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Zu_Ti": "<b>Zu Ti</b> was a Chinese general of the Jin dynasty who, after the north fell to the Xiongnu and Jie, led a small, poorly supplied army north across the Yangzi and won back much of the land south of the Yellow River.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He is remembered for swearing in midstream, as he struck his oar, that he would not cross the river again until the Central Plain was cleared, and for rising at cockcrow with his friend Liu Kun.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He died at Yongqiu in 321, and most of his gains were soon lost again.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Chen_dynasty": "The <b>Chen dynasty</b> was a Chinese dynasty that ruled southern China from Jiankang, present-day Nanjing, from 557 to 589 CE, founded by the general Chen Baxian after he had deposed the last emperor of the Liang.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its realm was far smaller than that of its predecessors, for northern states held the upper Yangzi and the lands along the Huai River.<sup class=\"fn\" data-fn=\"1\"></sup> In 589 armies of the Sui, which had united the north, took Jiankang and carried the last Chen emperor, known as Houzhu, captive to Chang'an, ending the division between north and south.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Emperor_Wu_of_Liang": "<b>Emperor Wu of Liang</b>, whose personal name was Xiao Yan, was a Chinese emperor from a family of Southern Lanling who overthrew the Southern Qi and founded the Liang dynasty in 502 CE, ruling from Jiankang until 549.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A scholar and poet, he founded schools and revised the laws, and as a devout Buddhist he ate one meal a day and three times offered himself to the Tongtai Monastery, from which his officials redeemed him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He died of hunger in 549 while his palace city was held by the rebel general Hou Jing, whose surrender he had accepted two years earlier.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Emperor_Wu_of_Song": "<b>Emperor Wu of Song</b>, whose personal name was Liu Yu, was a Chinese general of humble birth from Pengcheng who rose in the Eastern Jin army and founded the Song dynasty, later called the Liu Song, in 420 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> As regent from 408 he destroyed the Southern Yan state in 410 and took Luoyang and Chang'an from the Later Qin in 416 and 417, though Chang'an was soon lost again.<sup class=\"fn\" data-fn=\"1\"></sup> In 419 he had Emperor An of Jin killed, and in 420 he received the abdication of Emperor Gong and took the throne at Jiankang, reigning until his death in 422.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Gu_Kaizhi": "<b>Gu Kaizhi</b> was a painter, poet and official of the Eastern Jin from Wuxi, famed in his own time for his talent, his painting and his folly.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He was said to leave the pupils of a portrait's eyes unpainted for years, holding that a figure's spirit lay in the eyes, and later tradition ranked him among the four great masters of early Chinese painting.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Two surviving scrolls bear his name, the <i>Admonitions of the Instructress to the Court Ladies</i> in the British Museum and a picture of the nymph of the Luo River, though neither can be proved to be his own work.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Hou_Jing_rebellion": "The <b>Hou Jing rebellion</b> was the rising of Hou Jing, a general who had come over from the Eastern Wei, against the Liang dynasty of southern China from 548 to 552 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He crossed the Yangzi with a small army, took the palace city of Jiankang in 549 after a long siege, ruled through puppet emperors, and in 551 declared himself emperor of a state he called Han.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He was defeated in 552 by the armies of Wang Sengbian and Chen Baxian and killed by his own men, leaving Jiankang in ruins and the Liang fatally weakened.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Liang_dynasty": "The <b>Liang dynasty</b> was a Chinese dynasty that ruled southern China from Jiankang, present-day Nanjing, from 502 to 557 CE, founded by Xiao Yan, who reigned as Emperor Wu until 549.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His long reign was marked by the patronage of Buddhism and letters, the compilation of the anthology <i>Wenxuan</i>, and a system of appointment to office that required study of the Confucian classics.<sup class=\"fn\" data-fn=\"1\"></sup> The rebellion of the general Hou Jing from 548 to 552 devastated Jiankang, and after years of war between the princes the general Chen Baxian ended the dynasty in 557.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Liu_Song_dynasty": "The <b>Liu Song dynasty</b> was a Chinese dynasty that ruled southern China from Jiankang, present-day Nanjing, from 420 to 479 CE, founded by the general Liu Yu, who took the throne from the last emperor of the Eastern Jin.<sup class=\"fn\" data-fn=\"1\"></sup> Its rulers governed the provinces through imperial princes watched by document clerks, and the reign of Emperor Wen from 424 to 453 was a time of relative calm.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Repeated killings of princes within the ruling house weakened it, and in 479 the general Xiao Daocheng took the throne and founded the Southern Qi.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Northern_Wei": "The <b>Northern Wei</b> was a dynasty founded by the Tuoba clan of the Xianbei people that ruled northern China from 386 to 534 CE, first from Pingcheng, near present-day Datong, and from 494 from Luoyang.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It united the north in 439, introduced the equal-field system of land allotment in 485, and under Emperor Xiaowen adopted Chinese dress, language and surnames at court, the ruling family taking the name Yuan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its rulers sponsored the Buddhist cave temples of Yungang and Longmen, and after the revolt of the northern garrisons from 523 the state split into the Eastern and Western Wei in 534.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Northern_and_Southern_dynasties": "The <b>Northern and Southern dynasties</b> is the period of Chinese history from 420 to 589 CE, when the country was divided between a succession of Chinese courts in the south and states founded by northern peoples in the north.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The south was ruled from Jiankang, present-day Nanjing, by the Song, Qi, Liang and Chen, while the north was held by the Northern Wei and then by the Eastern and Western Wei, the Northern Qi and the Northern Zhou.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The period ended when the Sui, founded in the north in 581, took Jiankang in 589 and reunited China.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Southern_Qi": "The <b>Southern Qi</b> was a Chinese dynasty that ruled southern China from Jiankang, present-day Nanjing, from 479 to 502 CE, called Southern Qi to distinguish it from the Northern Qi of 550 to 577.<sup class=\"fn\" data-fn=\"1\"></sup> It was founded by the general Xiao Daocheng, whose son Emperor Wu presided over the relatively peaceful Yongming era of 483 to 493 and ordered a review of the household registers that provoked revolts.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Murders within the ruling Xiao family weakened the dynasty, and in 502 its distant kinsman Xiao Yan took the throne and founded the Liang.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6692,7 +6702,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Wang_Dao": "276 – 339 CE",
 "Wang_Xizhi": "4th century CE",
 "Xie_clan_of_Chen_Commandery": "4th – 5th century CE",
-"Zu_Ti": "266 – 321 CE"
+"Zu_Ti": "266 – 321 CE",
+"Chen_dynasty": "557 – 589 CE",
+"Emperor_Wu_of_Liang": "464 – 549 CE",
+"Emperor_Wu_of_Song": "363 – 422 CE",
+"Gu_Kaizhi": "4th – 5th century CE",
+"Hou_Jing_rebellion": "548 – 552 CE",
+"Liang_dynasty": "502 – 557 CE",
+"Liu_Song_dynasty": "420 – 479 CE",
+"Northern_Wei": "386 – 534 CE",
+"Northern_and_Southern_dynasties": "420 – 589 CE",
+"Southern_Qi": "479 – 502 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -9218,7 +9238,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Jiankang": ["Jianye"],
 "Lodged_commanderies": ["lodged commandery","qiaojun","qiaozhou"],
 "Tao_Yuanming": ["Tao Qian"],
-"Xie_clan_of_Chen_Commandery": ["Xie clan","Xie family"]
+"Xie_clan_of_Chen_Commandery": ["Xie clan","Xie family"],
+"Emperor_Wu_of_Liang": ["Xiao Yan"],
+"Emperor_Wu_of_Song": ["Liu Yu"],
+"Gu_Kaizhi": ["Ku K'ai-chih"],
+"Hou_Jing_rebellion": ["rebellion of Hou Jing"],
+"Liu_Song_dynasty": ["Liu Song"],
+"Northern_Wei": ["Tuoba Wei"],
+"Northern_and_Southern_dynasties": ["Southern and Northern Dynasties","Nanbeichao"],
+"Southern_Qi": ["Southern Qi dynasty"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -13685,7 +13713,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Wang_Dao": ["person","history","politics","china","jin dynasty"],
 "Wang_Xizhi": ["person","art","history","china","jin dynasty"],
 "Xie_clan_of_Chen_Commandery": ["people","history","politics","china","jin dynasty"],
-"Zu_Ti": ["person","warfare","history","china","jin dynasty"]
+"Zu_Ti": ["person","warfare","history","china","jin dynasty"],
+"Chen_dynasty": ["dynasty","state","history","politics","china","northern and southern dynasties"],
+"Emperor_Wu_of_Liang": ["person","ruler","religion","buddhism","history","china","northern and southern dynasties"],
+"Emperor_Wu_of_Song": ["person","ruler","warfare","history","china","jin dynasty"],
+"Gu_Kaizhi": ["person","art","history","china","jin dynasty"],
+"Hou_Jing_rebellion": ["event","warfare","history","china","northern and southern dynasties"],
+"Liang_dynasty": ["dynasty","state","history","politics","china","northern and southern dynasties"],
+"Liu_Song_dynasty": ["dynasty","state","history","politics","china","northern and southern dynasties"],
+"Northern_Wei": ["dynasty","state","history","politics","china","northern and southern dynasties"],
+"Northern_and_Southern_dynasties": ["era","history","politics","china","northern and southern dynasties"],
+"Southern_Qi": ["dynasty","state","history","politics","china","northern and southern dynasties"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

@@ -3950,6 +3950,60 @@ that stands in the city's own ground, with the caption naming its dynasty. **The
 Jin's Tao Yuanming was refused on sight**: the scroll sits small on a black ground beside a colour bar.
 Chen Hongshou's painting of 1650 replaced it.
 
+## cnh-321 – cnh-330, the end of the Eastern Jin and the Northern and Southern dynasties (Sep 2026)
+
+Two cards close `col-20` and eight open `col-21`. One plan line is answered by a term it does not
+contain: `cnh-322` *The end of the Eastern Jin* is answered by **Liu Yu**, the general who received the
+abdication of 420, keyed on the English Wikipedia's own title `Emperor_Wu_of_Song` with `Liu Yu` as its
+alias. Every "Liu Yu" already in the corpus is this man, so the alias is safe today — but the Liu Song
+itself had two more emperors called Liu Yu (劉彧 and 劉昱), and a card that names either of them will
+need a hand-written link. `cnh-328` has no English article of its own, so its key is the slug form of
+the answer, `Hou_Jing_rebellion`. **`Hou Jing` was deliberately NOT made an alias of it**: the name of a
+person opening the term for an event would be the wrong link on every card that merely names him.
+
+**The sources that carried the batch.** Theobald's ChinaKnowledge has a page for each southern dynasty,
+for the Northern Wei, and for Liu Yu, Xiao Yan, Hou Jing and Chen Baxian, dated where the page says
+when it was written; the overview pages *Southern Dynasties* and *Northern Dynasties* carry no date of
+their own and were not cited. Beyond them:
+- **Cordier, *Histoire générale*, vol. 1, pp. 321–83** narrates the whole period and carries the
+  dynastic tables. He dates the start of the *Nan Pe Tch'ao* to Liu Yu in 420 (p. 328) and its end to
+  589 (p. 382), where he also has the last Chen emperor found hiding in a well.
+- **Giles, *Introduction to the History of Chinese Pictorial Art* (1905), pp. 17–21, Binyon, *Painting
+  in the Far East* (1913), pp. 39–44, and Chavannes's note in *T'oung Pao* 1909, pp. 76–77**, carry Gu
+  Kaizhi. Chavannes identified the scroll's text as Zhang Hua's *Admonitions*, not Ban Zhao's, and
+  showed the roll to be incomplete; Binyon reports both findings and says the attribution cannot be
+  proved. The *T'oung Pao* volume is an Indian digital-library scan whose `_djvu.txt` 404s under the
+  identifier's own name — the file is `31243_djvu.txt`, read off the item's file list.
+- **Wylie's *Notes on Chinese Literature*, pp. 15–16**, carries the authorship of the five dynastic
+  histories, including the uproar over the *Wei shu*. **Parker, pp. 145–48**, carries the Tuoba.
+- **The dynastic histories on Wikisource**: *Song shu* juan 1 and 3, *Nan Qi shu* juan 1, *Liang shu*
+  juan 1, *Chen shu* juan 1 and 6, *Wei shu* juan 2. **The *Liang shu* uses two-digit addresses
+  (`梁書/卷01`) where the *Chen shu* and *Wei shu* use bare ones (`陳書/卷6`)**, and each 404s for the
+  other form. *Liang shu* juan 56, Hou Jing's biography, could not be fetched before the API
+  rate-limited this sandbox, so `cnh-328` cites *Chen shu* juan 1 for the crossing of 548.
+- **Wikimedia's API rate-limits a sandbox that asks it a few dozen questions in a row**, Commons and
+  Wikisource together, answering 429 for many minutes; space the calls rather than retrying at once.
+
+**Where the sources disagree, the cards hedge or leave the point out:**
+- Liu Yu's birth: 363 in Theobald and consistent with Cordier's age at death; Giles gives 356. The card
+  gives 363.
+- The Admonitions scroll: Giles's 1905 caption still calls it the *Female Historian*, the title Chavannes
+  corrected. The card uses the corrected title.
+- Emperor Wu of Liang and the Qi princes: Theobald's dynasty page says he spared them, his biography of
+  the emperor that he killed the sons of the Qi emperor Ming. The cards say neither.
+- The grandsons of Emperor Wu of Qi: Theobald calls them his sons, Cordier his grandsons. The card
+  follows Cordier.
+- Hou Jing's imperial title: 551 in Theobald and Giles, 552 in Cordier. The card says 551.
+- Emperor Wu of Liang's death: Giles has him die in a monastery, Theobald and Cordier in the besieged
+  palace city. The cards follow the latter and cite Giles only for other claims.
+
+**A glossary auto-link caught on the way**: "the National Academy" on `cnh-327` linked "Academy" to
+Plato's school. It now reads "the imperial college".
+
+**No war block and few locators.** The Hou Jing rebellion is a rising inside one state, and the northern
+and southern courts never fought a decided war between separable sides. `cnh-323`, an era, carries no
+locator; six of the others are Jiankang, where the studied siblings group into one dot.
+
 ## Re-sourcing the mythology cards (batch C7, Sep 2026)
 
 Five China cards were reported by `check-cards.js` rule 1 for resting three deep on one author —
