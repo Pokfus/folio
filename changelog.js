@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.896", released: "2026-09-25T02:39Z" };
+window.FOLIO_VERSION = { v: "1.897", released: "2026-09-25T07:26Z" };
 
 window.CHANGELOG = [
   {
@@ -45,6 +45,17 @@ window.CHANGELOG = [
       "<b>Thirty-three new cards in a new Largest cities deck</b> of the United States collection, one for each state whose largest city is not its capital, with thirty-three new glossary terms.",
       "<b>Every state card's dates</b> now say when it became a colony or territory, when it became a state and which number state it was.",
       "<b>Draw the flags</b>: the floating whiteboard marker no longer draws inside the painting canvas, which now has white among its colours and a slider for the brush size.",
+      "<b>The walkthrough now ends on your first real card</b>: you pick a subject, add it, study a card and open the chest it earns.",
+      "<b>The walkthrough no longer darkens what it points at</b>, and shows the forgetting curve on its step about why cards come back.",
+      "<b>A new badge appears in the middle of the screen</b>, and turning it over opens the chest it earned.",
+      "<b>Your first chest always holds an artefact</b>, and the home page's chest notice is now a single line.",
+      "<b>New daily limits</b>: Folio's own collections default to 2 new cards and 20 reviews a day (4 new on the first day), language decks to 10 and 30.",
+      "<b>Try ten cards</b> now draws ten of a collection's best-known cards at random.",
+      "<b>Opening a glossary term for the first time</b> now says New discovery!, without a count of every term on the site.",
+      "<b>A card still being learned</b> is now labelled Learning on the study page rather than Repeat.",
+      "<b>Corrections to four cards</b> in the World History, Ancient Egypt, Ancient Rome and Russia collections, and to one glossary term.",
+      "<b>Two cards gain an Atlas window</b>, in the Second World War and Ancient Rome collections.",
+      "<b>One card removed from the Korea collection</b>, its place in the plan given to a new subject.",
     ],
   },
   {

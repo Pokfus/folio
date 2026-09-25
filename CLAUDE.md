@@ -962,8 +962,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   half**: `Seoul` was already a cited term, so `ko-010` reuses it — **the pairing rule is satisfied by a
   term that already exists, and `add-glossary.js` overwrites in silence, so CHECK before running it.**
   The next card to write is the lowest `ko-NNN` not yet in `data.js`; the index table under "THE SIXTEEN
-  PLANNED COLLECTIONS" is the lookup. **`ko-001` to `ko-100` have shipped** (Sep 2026) — the whole of
-  `ko-early`, and the opening of `ko-tk` — so the collection is live and its 38 empty decks are
+  PLANNED COLLECTIONS" is the lookup. **`ko-001` to `ko-100` have shipped, less `ko-047`** (Sep 2026) —
+  the whole of `ko-early`, and the opening of `ko-tk`. **`ko-047` was the general concept *foundation
+  myth* and was REMOVED on request**; its plan line is now the *Jewang ungi*, unwritten, so it is the
+  lowest unused number and the next card to write — and the collection is live and its 38 empty decks are
   coming-soon automatically, `isComingSoon` being true for a node holding no card.
   **📖 `docs/korea-card-plan.md` — READ BEFORE WRITING A `ko-` CARD.** Besides the plan itself it carries
   the batch account of `ko-001`–`ko-100`: which sources carried each batch, the open hosts found and the
@@ -2561,8 +2563,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
 - `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
-  [--functions] [--find <re>]`. 3.51 MB and 51,029 lines is hard to find your way around, so this
-  lists its 197 dashed section banners with line numbers, byte sizes and function counts, and
+  [--functions] [--find <re>]`. 3.55 MB and 51,607 lines is hard to find your way around, so this
+  lists its 198 dashed section banners with line numbers, byte sizes and function counts, and
   `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
   file is ONE IIFE under `"use strict"` whose ~1,300 top-level functions share a single closure —
   `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
@@ -4363,7 +4365,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `rollArtefact` renormalises over whatever still holds something unowned, so every chest is a NEW
     artefact until the pool is exhausted, and then it SAYS so.
   · **THE CHEST IS THE LEVEL-UP CELEBRATION, not a second one after it** — `announceLevelUps` grants and
-    opens, and `congratsPopup` is no longer raised behind it. **AN UNOPENED CHEST QUEUES** (`S.chests` is a
+    opens, and `congratsPopup` is no longer raised behind it. **A BADGE IS ANNOUNCED IN THE MIDDLE OF THE
+    SCREEN** (`openAchPop` / `.ach-pop`, Sep 2026, on request; it was a toast): the account page's own tile,
+    which turns over into its chest and opens it, or "Keep the chest for later". It owns the keyboard, is
+    `render()`'s to close, and **queues behind an open chest** (`_achPending`) rather than stacking; the
+    delegated `.badge` flip listener skips `.ach-tile`, which turns itself. The home page's chest notice is
+    one line with no subtitle. **AN UNOPENED CHEST QUEUES** (`S.chests` is a
     COUNT), and **Save for later** stands beside the closed chest.
   · **FOUR CHANNELS**: a level; the **daily sweep** (all games WON in one day, `S.sweepChest` recording
     the DAY rather than a boolean, since nothing runs at midnight); the **STREAK, every seventh day**
@@ -4604,8 +4611,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   whichever came first and never saw the second at all. The shape is Anki's. The operational half:
   · **`deckLimits(id)` → `{ newPerDay, maxReviews, newIgnoresReview }`**, stored in **`S.deckOpts`** keyed by
     the same entry id as `S.active` and written only for decks the reader has actually changed;
-    `DECK_MAX_REVIEWS` (50) and `S.settings.newPerDay` (5) / `maxReviewsPerDay` are the DEFAULTS behind them,
-    set in the Daily limits sheet's **All decks** tab. `S.deckDay` holds TODAY only and resets in place.
+    the DEFAULTS behind them are **per kind of deck** (`LIMIT_DEFAULTS`, Sep 2026, on request): a curated
+    deck (history, science, geography, the special collections) **2 new / 20 reviews**, a language deck
+    **10 / 30**, and a reader's own or a shared deck the old **5 / 50** (`limitKind`), and **a collection's FIRST DAY deals 4** (`FIRST_DAY_NEW` /
+    `collectionFirstDay`, derived: no card in the collection has a record from an earlier day), which is what
+    makes the walkthrough's first session four cards. Once the Daily limits sheet's **All decks** tab is
+    saved (`S.settings.limitsCustom`) its `newPerDay` / `maxReviewsPerDay` govern every kind alike, as
+    before; a save predating this is treated as custom only where its figures show a real choice (a review
+    ceiling, or a new figure other than the 5 and 3 the site itself wrote). **The sheet's Save writes only a
+    figure the reader CHANGED** — writing both panes whole pinned a deck to its first-day four and switched
+    every reader off the kind defaults. `S.deckDay` holds TODAY only and resets in place.
   · **EVERY COUNT IS DERIVED, NEVER TALLIED** (`deckDoneToday`): `grade()` writes `c.first`, the day a card
     was introduced, and every per-deck new count is read back off it — which is what makes the figures right
     for a deck outside the review, right after an undo, and right for a card in two decks at once.
@@ -4994,9 +5009,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **TRY TEN CARDS** (`SAMPLE_N` / `sampleIds` / `PAGES.sample` at `#sample/<id>`). **IT WRITES
     NOTHING** — no `S.active`, no `S.cards` — which matters more than it sounds, XP being
     `Object.keys(S.cards).length` and a level buying a chest, so a sampler that scheduled its cards would
-    hand a browsing reader levels and chests for reading ten cards. **The ten are the collection's OWN
-    first ten**, unstudied ones skipped: a plan is a running order and the opening cards are where a
-    collection introduces itself.
+    hand a browsing reader levels and chests for reading ten cards. **The ten are a RANDOM draw from the
+    collection's difficulty-1 cards** (Sep 2026, on request; they were its first ten, which in a running
+    order are often its most specialist vocabulary), topped up from the next rating only where fewer than
+    ten exist, unstudied ones only, and **held per collection for the visit** (`_sampleDraw`) so stepping
+    card to card does not redraw the ten.
   · **UNDO NAMES THE CARD IT WILL GIVE BACK** (`undoLabel`), and **THE FOUR GRADE BUTTONS SAY WHAT "4d"
     MEANS** (`gradeExplainHTML`) — one line in the `?` bubble keyed to the card in hand and derived from
     the same `preview` the buttons are drawn from, so the sentence and the numbers cannot disagree.
@@ -5253,7 +5270,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Discovery marks**: `markSeen` **returns `true` only on first sight**, and that return is the whole
     signal — capture it at the top, since anything asking at render time is always told no. **The
     UNDISCOVERED term is the marked one** (`data-new`, `--newterm` teal); a read term renders exactly as
-    glossary links always have. First opening also shows a gold chip with a ring splash and a chime,
+    glossary links always have. First opening also shows a gold chip reading **"New discovery!"** —
+    on a term exactly as on a place, and with **no counter** since Sep 2026 (on request; it read "New
+    term! 41 / 3,900", measuring the reader against the whole glossary) — with a ring splash and a chime,
     suppressed inside the Find-it game. Four achievements ride on the same counts.
   · **TIME STUDIED AND TIME READING ARE KEPT FOR EVER, NOT JUST FOR TODAY** (`S.studyTotal` /
     `studyTotalMs` / `readTimeAdd` / `readTimeToday` / `readTimeTotal` / `startTimeTicker`; Aug 2026, on
@@ -6531,37 +6550,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     carries it. Its colour is `--ink-faint`, the site's own quiet token — so it joins the captions and source
     lines that the **High contrast** mode re-tones, and `test-a11y.js` covers it with no change of its own
     (3.25:1 reported in the default mode, clearing the bar with the mode on). Guarded by `test-layout.js`.
-- **THE GUIDED WALKTHROUGH — a first visitor's few minutes** (the `THE GUIDED TOUR` block in app.js:
-  `TOUR_KEY` / `TOUR_STEPS` / `tourStart` / `tourGo` / `tourPaint` / `tourPlace` / `tourAfterRender` /
-  `tourOfferHTML`; `.folio-tour` in styles.css). Ten steps that dim the page, put one card in the middle
-  of it, and point at the thing being described. **It deliberately stops short of the Atlas and the
-  Library**, which explain themselves the first time they are opened.
+- **THE GUIDED WALKTHROUGH — a first visitor's few minutes, ending on a real first card** (the `THE GUIDED
+  TOUR` block in app.js: `TOUR_KEY` / `TOUR_STEPS` / `tourStart` / `tourGo` / `tourPaint` / `tourPlace` /
+  `tourHole` / `tourNotify` / `tourFinish` / `tourFarewellMaybe` / `tourAfterRender` / `tourOfferHTML`;
+  `.folio-tour` in styles.css). Fifteen steps. **REBUILT IN SEP 2026, ON REQUEST, FROM A DESCRIPTION INTO
+  SOMETHING DONE**: the reader picks a subject and adds it, taps its row, answers and grades a real first
+  card, turns over the badge that earns and opens its chest (always an artefact — `rollChestItem` never
+  gives a theme from a reader's first chest), and is told what chests hold. **It deliberately stops short
+  of the Atlas and the Library**, which explain themselves the first time they are opened.
   · **THE OFFER IS INLINE, NOT MODAL** — a site that seizes the screen before the reader has seen it is a
     site they leave. `tourOfferHTML()` is a card at the head of `.banners`, shown to a reader who has
     **never graded a card** and never answered it; either answer writes the key for good, and **Settings
     → Study → Walkthrough** is the way back. It is also what keeps every Playwright test that boots a
     fresh reader from meeting an overlay it never asked about.
-  · **THE SCREEN STAYS DARK: the target is RINGED, not spotlit.** Each step draws an **arrow** from the
-    card to a **dashed ring**; a step whose target is missing draws neither and still reads — **a tour
-    must never depend on the state of the page it describes.**
+  · **A STEP MAY WAIT FOR AN EVENT RATHER THAN NEXT** (`wait`: `added` / `study` / `reveal` / `graded` /
+    `chest`), raised by the page through `tourNotify` — from `addActive`, `tourAfterRender`, the end of
+    `showAnswer`, `doGrade`, and the chest and badge overlays' close — and ignored unless it is the event
+    the current step is waiting for. **A `live` step lets the page be used**: the scrim stops taking the
+    pointer and `OVERLAY_SEL` skips a live or hidden tour so the study keys work; `live: "hole"` lets only
+    the target be pressed (`.tour-blocks`). **The deck-order question is skipped while it runs**
+    (`orderAskEntry`), and **a badge earned meanwhile is HELD** (`_achPending`) for the step that shows it.
+  · **THE TARGET IS NOT DARKENED** (Sep 2026, on request): `.tour-hole` sits over it and casts the wash as
+    a box-shadow, the overlay's own background going transparent; the ring and **arrow** are still drawn,
+    and a step whose target is missing draws none of them and still reads — **a tour must never depend on
+    the state of the page it describes.**
   · **IT NAVIGATES, so it is NOT in `render()`'s close list** — a `render()` that dismissed it would do so
     at exactly the moment it was doing its job. What it does need is re-measuring: `tourAfterRender()`.
   · **THE CARD IS NUDGED OFF ITS OWN TARGET, and the base rect is COMPUTED, never measured** — from
-    `offsetWidth`/`offsetHeight` plus the viewport centre, **not from `getBoundingClientRect()`**, the
-    card's transform being transitioned, so a rect read mid-change compounds into a card that walks off
-    the side of the screen taking its own Next button with it.
-  · **…AND ON A PHONE IT IS DOCKED TO THE FOOT OF THE SCREEN INSTEAD.** The layout is a **STYLESHEET
-    decision read back in JS** (`tourPlace` asks the overlay for its computed `align-items`), not a
-    breakpoint written twice, and `tourReveal` scrolls the target into the band ABOVE the docked card.
+    `offsetWidth`/`offsetHeight` plus the overlay's own alignment and padding, **not from
+    `getBoundingClientRect()`**, the card's transform being transitioned, so a rect read mid-change
+    compounds into a card that walks off the side of the screen taking its own Next button with it.
+  · **…ON A PHONE IT IS DOCKED TO THE FOOT, AND THE STUDY STEPS SIT TOP RIGHT ON A DESKTOP** (`pos:
+    "corner"`, `.tour-corner`), off the study card; on a phone a step about the grade bar docks above it
+    (`--tour-above`). Both are **STYLESHEET decisions read back in JS**, not breakpoints written twice.
   · **A RING IS CLAMPED TO THE SCREEN, AND DROPPED WHERE IT WOULD RING THE SCREEN ITSELF** — past 60% of
-    the screen nothing is drawn, the step's own words being what it has to say. **The ARROW goes with
-    it**, and also whenever the card ends up inside the ring.
-  · **THE STUDY STEPS ARE ILLUSTRATED, NOT PERFORMED** — dealing a real card would hijack the reader's
-    schedule — **with the four intervals read from the real scheduler**, a tutorial teaching a schedule
-    the site does not use being worse than one teaching none.
+    the screen no ring or arrow is drawn — **though a LIVE step still leaves that target undarkened**, it
+    being the thing the reader is about to use.
+  · **IT ENDS ON THE STUDY PAGE AND SAYS GOODBYE ON THE HOME PAGE**: Done writes `folio_tour_farewell_v1`
+    and the next home visit shows a congratulation once (`.tour-bye`, deliberately NOT `pageHelp`'s element,
+    which `render()` closes and a repaint in place would take away).
   Escape and Skip close it; the **backdrop deliberately does not**, a stray tap on a dimmed page being the
-  likeliest gesture there is. `.folio-tour` is in `swipeEnabled()`'s overlay list. Guarded by
-  `.claude/test-tour.js`.
+  likeliest gesture there is. `.folio-tour` is in `swipeEnabled()`'s overlay list. Its prose avoids long
+  dashes, on request. Guarded by `.claude/test-tour.js`, which drives the whole flow with real clicks.
   **📖 `docs/chrome-navigation.md` — READ BEFORE CHANGING THE WALKTHROUGH'S PLACEMENT.**
 - **A PAGE'S OWN FIRST-VISIT COACH MARKS** (`pageHelp` / `closePageHelp`; `.page-help` in styles.css). The
   Atlas has had these since it shipped (`folio_atlas_tour_v1`, reopened by `#gzHelp`); the walkthrough stops
@@ -8007,7 +8037,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | empty — not a history collection |
 | Economics | `econ` | `ec-` | `docs/economics-card-plan.md` | 9 / 40 | empty — not a history collection |
-| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 99 cards, `ko-001` to `ko-100` less `ko-047`, removed Sep 2026 and replanned — next is `ko-047` |
 | France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
 | Ancient Mesopotamia | `mesopotamia` | `me-` | `docs/mesopotamia-card-plan.md` | 9 / 40 | empty |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
@@ -9005,7 +9035,7 @@ division-capital city tier are inert dead code.
     `.admin-list-items` / `cpResize` / `cpContentNeedH` / `cpColsContentH` / `cpRoomH` / `cpMaxH` /
     `.cp-titlemain` / `lockHeight` / `atlasTab` / `MARKER_TOUR_KEY` / the `.wb-panel` row markup, or
     after adding an overlay to `document.body`.**
-  · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
+  · `node .claude/test-discovery.js` — 21 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js` —
     including that **`SEEN_CAP` still clears the shipped universe with room to spare**, since every geo
     era grows it and a prune would make a completion count go backwards. Re-run after touching `markSeen`
@@ -9237,7 +9267,7 @@ division-capital city tier are inert dead code.
     `openAvatarCropper` / `openAvatarViewer` / `AVATAR_PX` / `supaSetAvatar` / `monogramHTML` / the
     `img.viewClass` hook in `openMediaViewer`, or the `.av-crop` / `.avc-*` / `.iv-avatar` / `.mono-view`
     styles.**
-  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (72
+  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (75
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /
     `revertCard`, any game's pool function, `add-card.js`'s difficulty or undatable guard,

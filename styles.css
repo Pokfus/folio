@@ -1307,6 +1307,38 @@ body.night .game-tile{ --gt-gold:#D8B355; }
 .tour-skip{appearance:none; border:0; background:transparent; cursor:pointer; padding:4px 2px; color:var(--ink-soft); font-family:inherit; font-size:calc(12px * var(--fs)); text-decoration:underline; text-underline-offset:3px;}
 .tour-skip:hover{color:var(--ink);}
 .tour-back[disabled]{opacity:.4; cursor:default;}
+.tour-next[hidden],.tour-back[hidden]{display:none;}
+/* THE HIGHLIGHTED THING IS NOT DARKENED (Sep 2026, on request). With a target the overlay's own wash is
+   switched off and the HOLE casts it instead, as a box-shadow reaching past every edge of the screen, so
+   the target sits in the one clear window. It is under the card and never takes the pointer. */
+.folio-tour.has-hole{background:transparent;}
+.folio-tour[hidden]{display:none;}
+.tour-hole{position:absolute; z-index:0; border-radius:12px; pointer-events:none;
+  box-shadow:0 0 0 200vmax color-mix(in srgb, #000 55%, transparent);
+  transition:left .22s var(--ease), top .22s var(--ease), width .22s var(--ease), height .22s var(--ease);}
+.tour-hole[hidden]{display:none;}
+.tour-draw{z-index:0;}
+/* A LIVE step uses the page: the scrim stops catching the pointer, and only the card does. On a
+   `live: "hole"` step the four blocks catch it everywhere but the target. */
+.folio-tour.tour-live{pointer-events:none;}
+.folio-tour.tour-live .tour-card{pointer-events:auto;}
+.folio-tour.tour-live:not(.has-hole){background:transparent;}
+.tour-blocks[hidden]{display:none;}
+.tour-blocks i{position:absolute; pointer-events:auto; background:transparent;}
+/* …and the study page's steps sit top right, off the study card. A phone docks them to the foot as ever,
+   lifted above the grade bar when the step is about it (--tour-above, measured in tourPaint). */
+.folio-tour.tour-corner{align-items:flex-start; justify-content:flex-end; padding-top:calc(var(--bar-h) + 14px);}
+.folio-tour.tour-corner .tour-card{width:min(340px, 100%);}
+/* the pile words painted as their counts are on the page (.dkc-new / .dkc-learn / .dkc-rev) */
+.tour-body b.tour-pile-new{color:var(--indigo-bright);}
+.tour-body b.tour-pile-learn{color:var(--zh);}
+.tour-body b.tour-pile-rev{color:var(--good, #4F9D67);}
+.tour-demo .msn-curve{margin:0; padding:12px 10px 10px;}
+.tour-demo .msn-curve figcaption{font-size:calc(9px * var(--fs)); margin-top:7px;}
+.td-rar{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px;}
+.td-rar-row{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; border-radius:9px;
+  background:color-mix(in srgb, var(--rar, var(--rule)) 10%, var(--paper-2)); border:1px solid color-mix(in srgb, var(--rar, var(--rule)) 35%, var(--rule));}
+.td-rar-row i{font-style:normal; font-family:var(--mono); font-size:calc(10px * var(--fs)); color:var(--ink-faint);}
 
 /* the illustrations. A study card is never dealt for real during the walkthrough — the reader's schedule is
    not a demonstration surface, and the grade bar is pinned to the bottom of the viewport under the scrim —
@@ -4417,13 +4449,12 @@ body.night .chest-banner{background:linear-gradient(105deg, color-mix(in srgb,#E
 .cb-ic{flex:none; display:block; color:#C39A2E;}
 body.night .cb-ic{color:#E6C765;}
 .cb-ic .chest-svg{width:calc(42px * var(--fs)); height:auto;}
-.cb-text{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;}
+.cb-text{flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:2px;}
 .cb-text b{font-family:var(--sans); font-size:calc(14px * var(--fs)); font-weight:700; color:var(--ink);}
 .cb-text small{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); line-height:1.4;}
 .cb-open{flex:none;}
 @media (max-width:520px){
   .chest-banner{gap:11px; padding:12px 13px;}
-  .cb-text small{display:none;}   /* the headline says it on a narrow screen; the reason is a tap away */
 }
 
 /* ---- the inventory ---- */
@@ -4590,6 +4621,25 @@ body.no-anim .ar-frame.ar-loading::after{animation:none;}
    overlay where a stray tap outside the card takes the reward away is one nobody trusts. */
 .chest-pop{position:fixed; inset:0; z-index:9750; display:flex; align-items:center; justify-content:center; padding:22px; background:color-mix(in srgb,#000 58%,transparent); opacity:0; transition:opacity .2s ease; overflow:hidden;}
 .chest-pop.show{opacity:1;}
+/* THE BADGE OVERLAY (openAchPop): the account page's own tile, larger, which turns over into its chest. */
+.ach-pop{position:fixed; inset:0; z-index:9750; display:flex; align-items:center; justify-content:center; padding:22px;
+  background:color-mix(in srgb,#000 58%,transparent); opacity:0; transition:opacity .2s ease;}
+.ach-pop.show{opacity:1;}
+.ach-stage{width:min(400px,94vw); text-align:center; background:var(--card); border:1px solid var(--rule); border-radius:16px;
+  box-shadow:0 26px 64px rgba(0,0,0,.45); padding:24px 22px 18px; display:flex; flex-direction:column; align-items:center; gap:14px;}
+.ach-kicker{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:#8A6A14;}
+body.night .ach-kicker{color:#E6C765;}
+.ach-tiles{display:flex; flex-wrap:wrap; justify-content:center; gap:12px;}
+.ach-tile{width:170px; min-height:170px;}
+.ach-tile .badge-ic{font-size:calc(44px * var(--fs));}
+.ach-tile .badge-name{font-size:calc(12px * var(--fs));}
+.ach-tile .badge-sub{font-family:var(--sans); font-size:calc(11px * var(--fs)); line-height:1.35;}
+.ach-tile .badge-face{padding:16px 12px;}
+.ach-chest{color:#C39A2E; display:block;}
+body.night .ach-chest{color:#E6C765;}
+.ach-chest .chest-svg{width:calc(64px * var(--fs)); height:auto;}
+.ach-hint{font-size:calc(12.5px * var(--fs)); color:var(--ink-soft); line-height:1.45;}
+.ach-acts{display:flex; justify-content:center;}
 .chest-stage{position:relative; z-index:1; width:min(420px,94vw); max-height:92vh; overflow-y:auto; text-align:center; background:var(--card); border:1px solid var(--rule); border-radius:16px; box-shadow:0 26px 64px rgba(0,0,0,.45); padding:26px 24px 20px;}
 .chest-pop.opened .chest-stage{border-color:color-mix(in srgb,var(--rar,var(--rule)) 55%,transparent); border-top:4px solid var(--rar,var(--indigo));}
 .chest-lvl{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.18em; text-transform:uppercase; color:#C39A2E; margin-bottom:14px;}
@@ -6477,6 +6527,8 @@ button.game-tile .gt-glyph{opacity:.14;}
      `tourPlace` reads this back off the overlay's own computed style rather than repeating the breakpoint
      in JS — see the `dock` line there. */
   .folio-tour{align-items:flex-end;}
+  .folio-tour.tour-corner{align-items:flex-end; justify-content:center; padding-top:14px; padding-bottom:calc(14px + var(--tour-above, 0px));}
+  .folio-tour.tour-corner .tour-card{width:100%;}
   .td-g b{font-size:calc(11px * var(--fs));}
   .td-g{padding:7px 2px;}
   .chrono-actions{flex-direction:column;} .chrono-actions .btn{width:100%;}

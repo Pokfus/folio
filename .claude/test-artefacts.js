@@ -216,6 +216,10 @@ function syntheticPool() {
     const seen = [], rarSeen = {};
     let exhausted = null;
     for (let i = 0; i < 34; i++) {
+      /* A collector's badge earned by the chest just opened is announced in the middle of the screen
+         since Sep 2026 (openAchPop), queued until that chest closed — keep its chest for later, which is
+         what leaves the balance this loop is counting down. */
+      if (await page.locator(".ach-pop").count()) { await page.locator('.ach-pop [data-act="later"]').click(); await page.waitForTimeout(80); }
       const openBtn = await page.locator("#arOpen").count();
       if (!openBtn) break;
       await page.locator("#arOpen").click();

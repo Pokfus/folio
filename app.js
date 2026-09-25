@@ -387,7 +387,7 @@
      colours a screen reader cannot see at all, so the dot is a `role="img"` with the state in words. */
   const CARD_STATE = {
     new: ["q-new", "New card", "New"],
-    learn: ["q-learn", "Being learned", "Repeat"],
+    learn: ["q-learn", "Being learned", "Learning"],
     review: ["q-review", "Up for review", "Review"],
   };
   function cardStateOf(id) {
@@ -1502,7 +1502,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -1719,6 +1719,14 @@
      no zero to explain it: the banner simply never offers a card again. Found while seeding a
      partial settings object for `test-reset.js`, which is exactly the shape an old save has. */
   if (S.settings && !Number.isFinite(S.settings.newPerDay)) S.settings.newPerDay = 3;
+  /* THE DEFAULT ALLOWANCE BECAME PER KIND OF DECK (Sep 2026, on request) — see LIMIT_DEFAULTS. A save
+     written before then carries `newPerDay: 5` because that was the shipped default, not because anybody
+     chose it, so the kind defaults take over unless the figures show a reader really did set the "All
+     decks" tab: a review ceiling of their own, or a new-card figure other than the two the site ever
+     wrote for them (5 by default, 3 by the back-fill above). */
+  if (S.settings && S.settings.limitsCustom === undefined)
+    S.settings.limitsCustom = Number.isFinite(S.settings.maxReviewsPerDay)
+      || (Number.isFinite(S.settings.newPerDay) && S.settings.newPerDay !== 5 && S.settings.newPerDay !== 3);
   /* THE SYMPOSIUM BECAME A CHAPTER OF THE DIALOGUES (Aug 2026), and both registers that remember a
      book are keyed by its id — so without this a reader who had the dialogue open, or had starred
      it, would find their place and their star simply gone, with nothing on screen to say why. The
@@ -1811,8 +1819,6 @@
     if (!g) return 0;
     return Object.keys((prog && prog.placesSeen) || {}).filter((n) => g.has(n)).length;
   }
-  // "41 / 333" for a discovery chip — the bare ratio, since the chip's own label says what is being counted
-  function discCounter(n, total) { return total ? n + " / " + total : String(n); }
   /* The chip shown the first (and only the first) time a term or place is opened. `count` is optional: an
      Atlas territory that is not a present-day country has nothing honest to be counted against, so it gets
      the label alone rather than a ratio out of a total it was never part of. The figure carries
@@ -4277,7 +4283,7 @@
         '<span class="gloss-title"></span>' +
         // the discovery chip: shown only on the very first opening, and carrying the running count, because
         // the progress is the point — the account page's meter is not where a reader is looking just now
-        (firstSeen ? discChipHTML("New term!", discCounter(glossSeenCount(S), glossTotalCount()), "Glossary terms you have opened") : "") +
+        (firstSeen ? discChipHTML("New discovery!", "", "Glossary terms you have opened") : "") +
         (glossPlace(key) ? '<button class="gloss-map" type="button" aria-label="Show this place on the Atlas" title="Show on the Atlas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.6"/></svg></button>' : "") +
         (isAdmin() && !isDeckGlossKey(key) ? '<button class="gloss-edit" type="button" aria-label="Edit this term" title="Edit this term"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' : "") +
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
@@ -6345,7 +6351,7 @@
     /* A deck that is not on this device yet is added ALONE — its subdecks come with the file, and until the
        file is here there is nothing to divide. `addActive` runs again after the download and cascades them
        then, so the reader who adds a whole deck still ends up with its levels under it. */
-    if (entryPending(id)) { S.active = a.concat([id]); save(); return true; }
+    if (entryPending(id)) { S.active = a.concat([id]); save(); tourNotify("added", id); return true; }
     const ud = !n && !uSubOf(id) ? UDECKS[uDeckIdOf(id)] : null;
     /* …and a SUBDECK brings the subdecks under IT, now that a subdeck may have them: adding `A1` and
        finding one undivided row is the same report this bullet already records one level up. It is still
@@ -6359,6 +6365,7 @@
       : [id];
     S.active = a.concat(wanted.filter((x) => a.indexOf(x) === -1));
     save();
+    tourNotify("added", id);   // the walkthrough's "Pick a subject" step moves on the moment a deck is added
     return true;
   }
   /* Removing takes the node, everything under it, and every ANCESTOR of it — because an ancestor left
@@ -6745,7 +6752,7 @@
     let widest = 0, any = false;
     activeEntryIds().forEach((e) => { any = true; widest = Math.max(widest, deckLimits(e).newPerDay); });
     return {
-      newPerDay: Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : (any ? widest : S.settings.newPerDay),
+      newPerDay: Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : (any ? widest : globalLimits().newPerDay),
       maxReviews: Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : DECK_MAX_REVIEWS,
       newIgnoresReview: o.newIgnoresReview !== false,
     };
@@ -6754,16 +6761,54 @@
      limits dialog (Aug 2026, on request), which is where these moved to when the Settings page's own
      "New cards per day" stepper was removed. `newPerDay` keeps its old home in `S.settings` so that no
      save migrates; `maxReviewsPerDay` is new and back-fills from `DECK_MAX_REVIEWS` by its own absence. */
-  function globalLimits() {
+  /* THE DEFAULT DEPENDS ON WHAT KIND OF DECK IT IS (Sep 2026, on request). A curated card — history,
+     science, geography, the special collections — carries three hundred words of background and three
+     questions to think through, so two new ones a day is a sitting; a language deck's card is one word,
+     and ten is. The review ceilings follow the same reasoning. These are what a deck follows while the
+     reader has set nothing: once the "All decks" tab is saved (`limitsCustom`), its figures govern every
+     kind alike, exactly as they always did. */
+  /* A reader's OWN deck, or one installed from the shared shelf, keeps the figures every deck had before
+     (5 and DECK_MAX_REVIEWS): the request named the curated sections and the language decks, and a
+     stranger's deck may be cards of any shape. */
+  const LIMIT_DEFAULTS = {
+    curated: { newPerDay: 2, maxReviews: 20 },
+    lang: { newPerDay: 10, maxReviews: 30 },
+    own: { newPerDay: 5, maxReviews: DECK_MAX_REVIEWS },
+  };
+  /* …AND A COLLECTION'S FIRST DAY DEALS FOUR, so a first session (the walkthrough's included) is a real
+     taste of the deck rather than two cards and a finished banner. "First day" is derived, never stored:
+     no card in the collection has a record from any earlier day. A card record with no `first` predates
+     that field and so was studied on some earlier day. */
+  const FIRST_DAY_NEW = 4;
+  function limitKind(id) {
+    if (isLangCtxId(id)) return "lang";
+    const d = uDeckIdOf(id);
+    return !d ? "curated" : langCatalogById(d) ? "lang" : "own";
+  }
+  function collectionFirstDay(id) {
+    const n = NODE_BY_ID[id];
+    if (!n) return false;
+    const root = rootCollectionOf(n) || n, today = todayStr();
+    // returns at the first card studied on an earlier day, so an established collection costs one lookup
+    for (const cid of subtreeCardIds(root)) {
+      const c = S.cards[cid];
+      if (c && (!c.first || c.first !== today)) return false;
+    }
+    return true;
+  }
+  function globalLimits(id) {
     const s = S.settings || {};
-    return {
-      newPerDay: Number.isFinite(s.newPerDay) ? Math.max(0, s.newPerDay) : 5,
+    if (s.limitsCustom) return {
+      newPerDay: Number.isFinite(s.newPerDay) ? Math.max(0, s.newPerDay) : LIMIT_DEFAULTS.curated.newPerDay,
       maxReviews: Number.isFinite(s.maxReviewsPerDay) ? Math.max(0, s.maxReviewsPerDay) : DECK_MAX_REVIEWS,
     };
+    const D = LIMIT_DEFAULTS[id ? limitKind(id) : "curated"];
+    return { newPerDay: D.newPerDay, maxReviews: D.maxReviews };
   }
   function setGlobalLimits(patch) {
     if (Number.isFinite(patch.newPerDay)) S.settings.newPerDay = Math.max(0, patch.newPerDay);
     if (Number.isFinite(patch.maxReviews)) S.settings.maxReviewsPerDay = Math.max(0, patch.maxReviews);
+    S.settings.limitsCustom = true;
     save();
   }
   /* ---------- AND A LANGUAGE'S OWN, WHICH ARE A CAP AND NOT A CASCADE (Aug 2026, on request) ----------
@@ -6800,7 +6845,10 @@
   function deckLimits(id) {
     if (id === REVIEW_ENTRY) return reviewLimits();
     if (isLangCtxId(id)) return langCtxLimits(id);
-    const o = (S.deckOpts && S.deckOpts[id]) || {}, G = globalLimits();
+    const o = (S.deckOpts && S.deckOpts[id]) || {}, G = globalLimits(id);
+    // the first-day four applies only to a curated deck following the kind default
+    if (!S.settings.limitsCustom && !Number.isFinite(o.newPerDay) && collectionFirstDay(id))
+      G.newPerDay = Math.max(G.newPerDay, FIRST_DAY_NEW);
     return {
       // the global setting is the DEFAULT rather than a competing limit — a deck the reader has never
       // opened the sheet on simply follows the "All decks" figures, as it always did
@@ -14939,7 +14987,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      ask the same question of it: a page swipe must not fire under an open sheet, and neither must a study
      page's keyboard shortcuts — `3` with a panel open grades the card the reader is reading ABOUT, and
      Ctrl+Z undoes a grade they cannot see. Written twice they would drift, and the drift is invisible. */
-  const OVERLAY_SEL = ".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour, .artefact-pop, .chest-pop";
+  /* A LIVE walkthrough step is using the page (see TOUR_STEPS), so it does not own the keyboard, and a
+     hidden one is waiting behind a chest; the badge overlay does own it. */
+  const OVERLAY_SEL = ".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour:not(.tour-live):not([hidden]), .artefact-pop, .chest-pop, .ach-pop";
   function overlayOpen() { return !!document.querySelector(OVERLAY_SEL); }
   function swipeEnabled() {
     if (!window.matchMedia || !matchMedia("(max-width:640px)").matches) return false;
@@ -14986,6 +15036,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     closeImageViewer();   // the fullscreen image viewer never outlives its page
     closeCongrats();      // …nor the level-up overlay, which a hash change can otherwise strand over the next one
     closeChestPop();      // …nor an artefact chest, which IS the level-up celebration and lives on the body too
+    closeAchPop();        // …nor a newly earned badge, which turns over into that chest (openAchPop)
     closeArtefactWin();   // …nor an artefact's own window
     closeCollectionWin(); // …nor the collection the showcase's "See all" raises over it
     closeReliquaryPage(); // …and the Reliquary page's repaint hook goes with the page it belonged to
@@ -17607,8 +17658,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ov.querySelector('[data-act="cancel"]').addEventListener("click", close);
       ov.querySelector('[data-act="save"]').addEventListener("click", () => {
         const n = (k, cap) => Math.max(0, Math.min(cap, Math.round(+num(k).value || 0)));
-        setGlobalLimits({ newPerDay: n("gNew", 999), maxReviews: n("gRev", 9999) });
-        setDeckLimits(id, { newPerDay: n("dNew", 999), maxReviews: n("dRev", 9999), newIgnoresReview: sw.classList.contains("on") });
+        /* Only a figure the reader CHANGED is written. Save used to write both panes whole, which pinned a
+           deck to whatever it was showing — the collection's first-day four, or the kind default — and set
+           the "All decks" figures as though chosen, taking every deck off the per-kind defaults for good. */
+        const gN = n("gNew", 999), gR = n("gRev", 9999);
+        if (gN !== G.newPerDay || gR !== G.maxReviews) setGlobalLimits({ newPerDay: gN, maxReviews: gR });
+        const dN = n("dNew", 999), dR = n("dRev", 9999), dI = sw.classList.contains("on");
+        if (hasOwn || dN !== L.newPerDay || dR !== L.maxReviews || dI !== L.newIgnoresReview)
+          setDeckLimits(id, { newPerDay: dN, maxReviews: dR, newIgnoresReview: dI });
         close();
         render();
         toast("Daily limits saved");
@@ -17764,54 +17821,108 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        itself is the full-screen thing, and it opens only when asked for. (It is also what keeps every
        Playwright test that boots a fresh reader from meeting an overlay it never asked about.)
 
-     · **THE SCREEN STAYS DARK — the target is RINGED, not spotlit.** A cut-out spotlight would mean holding a
-       hole in the scrim over an element that moves with every scroll and every reflow, and it reads as the
-       page half-lit rather than as an explanation. The scrim is uniform, and the step draws an ARROW from the
-       card to a ring around whatever it is talking about. Where the target is missing (a control that only
-       exists once a deck has been added, say), the arrow and the ring are simply not drawn and the step still
-       reads — a tour must never depend on the state of the page it is describing.
+     · **THE SCREEN STAYS DARK, BUT NOT OVER THE TARGET.** It was a uniform wash with a dashed ring drawn on
+       top, which said "look at this" and then made it harder to read; since Sep 2026 (on request) the
+       target is left undarkened (see tourHole). The ring and the ARROW are still drawn, and where the
+       target is missing the step still reads: a tour must never depend on the state of the page.
 
      · **IT NAVIGATES.** "How to add a deck to your daily study" cannot be taught on the home page, so the
        step that teaches it routes to the collections and points at a real + button. That is why the overlay
        lives on document.body and is deliberately NOT in render()'s close list: it has to survive the very
        navigations it performs. `tourAfterRender()` re-measures at the end of every render instead.
 
-     · **THE STUDY STEPS ARE ILLUSTRATED, NOT PERFORMED.** Dealing a real card mid-tour would hijack the
-       reader's schedule, and the grade bar is pinned to the bottom of the viewport where the scrim is. So the
-       card, the blank and the four grades are drawn INSIDE the popup — with the four intervals read from the
-       real scheduler (`schedPreview`), so the figures a reader is shown are the figures they will meet.
+     · **THE STUDY STEPS ARE PERFORMED, NOT ILLUSTRATED** (Sep 2026, on request, reversing the first cut).
+       The reader adds a deck they chose, opens it, and answers a real card, and the tour waits on each of
+       those events (see TOUR_STEPS and tourNotify). What made the first cut refuse this was the reader's
+       schedule — and the schedule is exactly what the reader is meant to be starting, on a deck they
+       picked, which is what the illustrated version could not give them.
 
      · **THE CARD IS NUDGED OFF ITS OWN TARGET, and its base rect is COMPUTED rather than measured.** A
        centred popup lands on top of the thing it is describing about half the time, and then the arrow is a
        stub between two overlapping boxes. See tourPlace for the placement search and for why reading the
        card's own rect back — the obvious way to find the unshifted box — walks it off the screen instead. */
+  /* THE FORGETTING CURVE, as drawn on the About page — a function at module scope so the walkthrough's
+     second step can show the very same figure (Sep 2026, on request) rather than a second drawing of it
+     that would drift. Theme colours only, so it reads in every theme and at night. */
+  function forgettingCurveFigureHTML() {
+    return `<figure class="msn-curve">
+      <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <line x1="42" y1="24" x2="42" y2="192" stroke="var(--rule)" stroke-width="1.5"/>
+        <line x1="42" y1="192" x2="624" y2="192" stroke="var(--rule)" stroke-width="1.5"/>
+        <text x="36" y="29" text-anchor="end" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)">100%</text>
+        <text x="36" y="195" text-anchor="end" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)">0%</text>
+        <text x="42" y="14" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)" letter-spacing="1">HOW WELL YOU REMEMBER</text>
+        <text x="624" y="208" text-anchor="end" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)" letter-spacing="1">TIME →</text>
+        <path d="M 42,24 C 90,110 150,160 250,178 S 470,190 624,190" fill="none" stroke="var(--ink-faint)" stroke-width="1.8" stroke-dasharray="5 5" opacity=".65"/>
+        <path d="M 150,96 L 150,24" stroke="var(--indigo)" stroke-width="1.4" opacity=".35"/>
+        <path d="M 280,78 L 280,24" stroke="var(--indigo)" stroke-width="1.4" opacity=".35"/>
+        <path d="M 440,64 L 440,24" stroke="var(--indigo)" stroke-width="1.4" opacity=".35"/>
+        <path d="M 42,24 Q 96,52 150,96" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
+        <path d="M 150,24 Q 215,44 280,78" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
+        <path d="M 280,24 Q 360,40 440,64" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
+        <path d="M 440,24 Q 532,34 624,46" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
+        <circle cx="150" cy="96" r="4.2" fill="var(--indigo)" stroke="var(--card)" stroke-width="1.6"/>
+        <circle cx="280" cy="78" r="4.2" fill="var(--indigo)" stroke="var(--card)" stroke-width="1.6"/>
+        <circle cx="440" cy="64" r="4.2" fill="var(--indigo)" stroke="var(--card)" stroke-width="1.6"/>
+        <text x="150" y="114" text-anchor="middle" font-size="9.5" fill="var(--indigo)" font-family="var(--mono)">REVIEW</text>
+        <text x="280" y="96" text-anchor="middle" font-size="9.5" fill="var(--indigo)" font-family="var(--mono)">REVIEW</text>
+        <text x="440" y="82" text-anchor="middle" font-size="9.5" fill="var(--indigo)" font-family="var(--mono)">REVIEW</text>
+        <g font-family="var(--mono)" font-size="10">
+          <line x1="330" y1="146" x2="362" y2="146" stroke="var(--indigo)" stroke-width="2.4"/>
+          <text x="370" y="149.5" fill="var(--ink-soft)">remembering with reviews</text>
+          <line x1="330" y1="166" x2="362" y2="166" stroke="var(--ink-faint)" stroke-width="1.8" stroke-dasharray="5 5"/>
+          <text x="370" y="169.5" fill="var(--ink-soft)">without</text>
+        </g>
+      </svg>
+      <figcaption>Each review lands just before you would forget, and each one makes the memory last longer.</figcaption>
+    </figure>`;
+  }
   const TOUR_KEY = "folio_tour_v1";
   function tourSeen() { try { return localStorage.getItem(TOUR_KEY) === "1"; } catch (e) { return true; } }
   function setTourSeen() { try { localStorage.setItem(TOUR_KEY, "1"); } catch (e) {} }
-  // the demo grades carry the REAL first-step intervals rather than four plausible-looking strings — a
-  // tutorial that teaches numbers the site does not use is worse than one that teaches none
-  function tourGradeDemo() {
-    let p;
-    try { p = schedPreview(null, 0, Date.now()); } catch (e) { p = null; }
-    const iv = (v) => { try { return p ? fmtInterval(v) : ""; } catch (e) { return ""; } };
-    const cell = (cls, label, v) =>
-      '<span class="td-g ' + cls + '"><b>' + label + '</b>' + (p ? "<i>" + esc(iv(v)) + "</i>" : "") + "</span>";
-    return '<div class="td-grades" aria-hidden="true">' +
-      cell("again", "Again", p && p.again) + cell("hard", "Hard", p && p.hard) +
-      cell("good", "Good", p && p.good) + cell("easy", "Easy", p && p.easy) + "</div>";
-  }
   const TOUR_PEN =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
     '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
   /* Each step: where it is taught, what it says, and — optionally — what it points at. `target` is a list of
      selectors tried in order, so a step can name the ideal target and fall back to one that is always there. */
+  /* Each step: where it is taught, what it says, and (optionally) what it points at. `target` is a list of
+     selectors tried in order, or a function returning one, so a step can name the ideal target and fall
+     back to one that is always there.
+
+     THE WALKTHROUGH IS DONE, NOT DESCRIBED (Sep 2026, on request). It used to stop at the home page and
+     draw a pretend card and a pretend grade bar in its popup. Now it has the reader pick a subject, add it,
+     open it and study its first card for real, then open the chest that card earns. Four step fields carry
+     that:
+       · `wait` names the event that advances the step, in place of Next: "added" (a deck was added),
+         "study" (the study page opened), "reveal" (a card's answer was shown), "graded" (a card was
+         graded) and "chest" (the chest overlay closed). The page raises them through `tourNotify`, which
+         does nothing unless the current step is waiting for exactly that event.
+       · `live` lets the page behind be used. The scrim stops catching the pointer and the study page's
+         keys work (OVERLAY_SEL ignores a live tour). With `live: "hole"` only the ringed target can be
+         pressed, which is what keeps "tap your new deck" from ending on some other page.
+       · `pos: "corner"` keeps the card out of the middle of a study card: top right on a wide screen, and
+         docked to the foot of a phone (above the grade bar, when the step is about the grade bar).
+       · `action` runs instead of advancing when Next is pressed, for the one step whose Next opens
+         something (the badge's chest), and `skip` passes over a step that has nothing to show.
+
+     THE HIGHLIGHTED THING IS NOT DARKENED (Sep 2026, on request). The scrim was one uniform wash with a
+     dashed ring drawn on top, so the step said "look at this" and then made it harder to read. A step with
+     a target now darkens everything BUT the target: `.tour-hole` sits over it and casts the wash outwards
+     as a box-shadow, and the overlay's own background goes transparent. */
+  let _tourDeck = null;
+  let _achPending = [];   // badges earned while the walkthrough ran, or while a chest was up (see openAchPop)   // the entry the reader added in the walkthrough — its row is the next thing pointed at
+  function tourDeckRow() {
+    const all = [...document.querySelectorAll(".active-decks .active-deck[data-review]")];
+    return (_tourDeck && all.find((el) => el.dataset.review === _tourDeck)) || all[0] || null;
+  }
   const TOUR_STEPS = [
     {
       route: "home",
       title: "Welcome to Folio",
-      body: "Folio is a study companion — flashcards for history, science, philosophy, art, geography and " +
-        "languages, a globe you can travel back through, and a library of whole books. This walkthrough takes " +
-        "about three minutes and covers the part that matters most: how the cards work.<p>Leave at any point with <b>Skip</b> or the Escape key.</p>",
+      body: "Folio is a study companion: flashcards for history, science, philosophy, art, geography and " +
+        "languages, a globe you can travel back through, and a library of whole books. This walkthrough " +
+        "takes a few minutes, and it ends with you studying your first cards.<p>Leave at any point with " +
+        "<b>Skip</b> or the Escape key.</p>",
     },
     {
       route: "home",
@@ -17820,107 +17931,168 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "with that curve instead of against it: a card you have just met returns within minutes, and one you " +
         "have answered right several times may not return for months.<p>Each correct answer pushes the next " +
         "sighting further out, so a collection of a thousand cards still costs a few minutes a day.</p>",
-      target: [".banners"],   // the `.howit` strip this used to point at is gone — this step is what replaced it
+      // the About page's own figure, not a second drawing of it (see forgettingCurveFigureHTML)
+      demo: () => forgettingCurveFigureHTML(),
     },
     {
       route: "home",
       title: "Your daily study",
-      /* This step is read by someone who has never graded a card, so the banner in front of them is the
-         first-run hero and carries NO pile counts — it says "Start here" and nothing else. Describing the
-         three numbers in the present tense pointed at a banner that has not got them; they arrive with the
-         first deck, which is the very next step, so the sentence waits for them. */
+      /* Read by someone who has never graded a card, so the banner in front of them is the first-run hero
+         and carries no pile counts yet; the sentence says the numbers arrive with the first deck. Each pile
+         word is painted in the colour its count wears on the page (.tour-pile-*), so the two agree. */
       body: "This banner is the day's work. Once you have added a deck it carries three numbers, one for each " +
-        "kind of card waiting: <b>New</b> ones you have never seen, <b>Learning</b> ones you are still " +
-        "getting wrong, and <b>Review</b> ones that have come round again.<p>Press it and Folio deals them " +
-        "in order. When the three reach zero the day is done — there is no benefit in pushing on.</p>",
+        "kind of card waiting: <b class=\"tour-pile-new\">New</b> ones you have never seen, " +
+        "<b class=\"tour-pile-learn\">Learning</b> ones you are still getting wrong, and " +
+        "<b class=\"tour-pile-rev\">Review</b> ones that have come round again.<p>Press it and Folio deals " +
+        "them in order. When the three reach zero the day is done, and there is no benefit in pushing on.</p>",
       target: ["#b-review"],
     },
     {
       route: "home",
       title: "Nothing is scheduled until you choose it",
-      body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>This button under " +
-        "the banner is the way to them — it is the only route to the collections anywhere on the site.</p>",
+      body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>The " +
+        "<b>Collections</b> button under the banner is the way to them.</p>",
       target: [".home-collections", "#b-addDecks"],
     },
     {
       route: "decks",
       title: "Adding a deck",
-      /* This step told the reader that "your Folio level decides how many decks may sit in the review at
-         once — one more with every level" until Aug 2026, and that cap was REMOVED (see the note beside
-         maxActiveDecks): a level buys an artefact chest now, and there is no limit on added decks at all.
-         A walkthrough teaching a rule the site does not have is worse than one that teaches nothing. */
       body: "Here are the collections. The <b>+</b> beside one adds the whole thing to your daily study; open " +
         "it with the chevron to add a single deck inside it instead. Pressing + again takes it back out.<p>Add " +
-        "as many as you like — the daily limits decide how much of them you actually meet in a day, not the " +
-        "number of decks.</p>",
+        "as many as you like. The daily limits decide how much of them you meet in a day, not the number of " +
+        "decks.</p>",
       target: [".collection-add", ".collection-actions", ".collection-list"],
+    },
+    {
+      route: "decks",
+      title: "Pick a subject",
+      body: "Now choose a subject you are curious about and press its <b>+</b>. Any collection will do, and " +
+        "you can add others or take this one out again later.<p>The walkthrough carries on as soon as you " +
+        "have added one.</p>",
+      target: [".collection-list"],
+      wait: "added", live: true,
     },
     {
       route: "home",
       title: "Your decks, once they are added",
-      body: "Each added deck gets a row under the banner, with its own bar and its own share of the day. Tapping " +
-        "a row studies that deck alone.<p><b>Hold a row</b> — or right-click it — for its own options: extra " +
-        "cards today, daily limits of its own, sitting the day out, or removing it again. Holding the banner " +
-        "itself offers much the same for the whole review, bar the removing — there is nothing to take it out " +
-        "of.</p>",
-      target: [".active-decks", "#b-review"],
+      body: "Your new deck has a row under the banner, with its own bar and its own share of the day. Tapping " +
+        "a row studies that deck alone.<p><b>Hold a row</b>, or right-click it, for its own options: extra " +
+        "cards today, daily limits of its own, sitting the day out, or removing it again.</p>",
+      target: () => { const r = tourDeckRow(); return r ? [r] : [".active-decks", "#b-review"]; },
     },
     {
       route: "home",
-      title: "Studying a card",
-      /* The button says "Reveal answer" and the undiscovered-term mark is TEAL — both were written from a
-         version of the page that no longer exists (the button was "Show answer"; the mark wore --ochre until
-         the swap of Aug 2026). A walkthrough naming a control by a label the page has not got is worse than
-         one that names no control at all, so the demo below carries the real words too. */
-      body: "A card asks for one missing name, date or term. Answer it in your head, or type into the blank, " +
-        "then press <b>Reveal answer</b> — the space bar does the same.<p>Behind the answer sits a page of " +
-        "background and the sources it rests on. Terms in <b class=\"tour-newterm\">teal</b> are glossary " +
-        "entries you have not opened yet; a tap defines them.</p>",
-      demo: '<div class="td-card" aria-hidden="true">' +
-        '<div class="td-q">Carthage was destroyed at the end of the <span class="td-blank"></span> Punic War, in 146 BCE.</div>' +
-        '<div class="td-btn">Reveal answer</div></div>',
-    },
-    {
-      route: "home",
-      title: "Grade yourself honestly",
-      body: "Then you say how it went. The figure on each button is when that card comes back — a moment, or " +
-        "months.<p>Honesty is the whole mechanism. Marking a card <b>Easy</b> that you actually fumbled buries " +
-        "it for weeks; <b>Again</b> costs you nothing but a minute. Keys <b>1</b>–<b>4</b> do the same, and " +
-        "Ctrl+Z takes back a misclick.</p>",
-      demo: tourGradeDemo,
-    },
-    {
-      route: "home",
-      title: "Write on the card",
-      body: "A <b>marker</b> floats over every study card. Tap it for pens, a highlighter, an eraser, undo and a " +
-        "colour of your own; tap the chosen tool again to put the pen down.<p>Drag it anywhere on the screen — " +
-        "it has weight, so it can be thrown out of the way. It works on the Atlas globe and on a book's page " +
-        "too, and in a book your notes are kept when you come back.</p>",
-      demo: '<div class="td-marker" aria-hidden="true"><span class="td-pen">' + TOUR_PEN + "</span>" +
-        '<svg class="td-scribble" viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">' +
-        '<path d="M6 30c14-22 22 8 34-6s16 14 30 2 20 6 26-4"/></svg></div>',
-    },
-    {
-      route: "home",
-      title: "And the rest of it",
-      // the count is deliberately not spelled out — the grid has grown from four to nine and a number here
+      title: "A game a day",
+      // the count is deliberately not spelled out: the grid has grown from four to nine, and a number here
       // is one more place to forget when it grows again
-      body: "A grid of <b>minigames</b> sits under the review, one round of each per day. The <b>Atlas</b> is a globe " +
-        "you can wind back to 1000 BCE, and the <b>Library</b> holds whole books to read.<p>Both of those " +
-        "explain themselves the first time you open them, so this is where the tour stops. Your progress is " +
-        "kept on this device; an account carries it between them.</p>",
+      body: "Under your decks sits a grid of <b>minigames</b>, one round of each per day, dealt from the " +
+        "best-known cards on the site.<p>The <b>Atlas</b> is a globe you can wind back to 1000 BCE, and the " +
+        "<b>Library</b> holds whole books to read. Both explain themselves the first time you open them.</p>",
       target: [".games-sec", ".game-grid"],
     },
+    {
+      route: "home",
+      title: "Study your new deck",
+      body: "Time to study. Tap your new deck's row to open its first cards.<p>On its first day a collection " +
+        "deals four new cards, and after that a couple a day. Hold the row any time to change that.</p>",
+      target: () => { const r = tourDeckRow(); return r ? [r] : [".active-decks"]; },
+      wait: "study", live: "hole",
+    },
+    {
+      title: "Write on the card",
+      body: "A <b>marker</b> floats over every study card. Tap it for pens, a highlighter, an eraser, undo and a " +
+        "colour of your own; tap the chosen tool again to put the pen down.<p>Drag it anywhere on the screen. " +
+        "It works on the Atlas globe and on a book's page too, and in a book your notes are kept.</p>",
+      target: [".wb-toggle", ".wb-tools"],
+      pos: "corner", noBack: true,
+    },
+    {
+      title: "Your first card",
+      /* The button says "Reveal answer" and the undiscovered-term mark is TEAL: a walkthrough naming a
+         control by a label the page has not got is worse than one that names no control at all. */
+      body: "A card asks for one missing name, date or term. Think of the answer, or type it into the blank, " +
+        "then press <b>Reveal answer</b>. The space bar does the same.<p>Behind the answer sits a page of " +
+        "background and the sources it rests on. Terms in <b class=\"tour-newterm\">teal</b> are glossary " +
+        "entries you have not opened yet; a tap defines them.</p>",
+      target: [".cardwrap", ".study-card"],
+      wait: "reveal", live: true, pos: "corner", noBack: true,
+    },
+    {
+      title: "Grade yourself honestly",
+      body: "Now say how it went. The figure on each button is when that card comes back: a moment, or " +
+        "months.<p>Honesty is the whole mechanism. Marking a card <b>Easy</b> that you actually fumbled " +
+        "buries it for weeks, while <b>Again</b> costs you nothing but a minute. Keys <b>1</b> to <b>4</b> do " +
+        "the same, and Ctrl+Z takes back a misclick.</p>",
+      target: ["#gradebar .grade-wrap", "#gradebar"],
+      wait: "graded", live: true, pos: "corner", above: "#gradebar", noBack: true,
+    },
+    {
+      title: "Your first badge",
+      body: "Answering your first card earned a badge, and every badge comes with a <b>chest</b>.<p>Tap the " +
+        "badge to turn it over and open the chest inside.</p>",
+      next: "Show me",
+      action: () => tourOpenChest(),
+      skip: () => !_achPending.length && !chestCount(),
+      wait: "chest", noBack: true,
+    },
+    {
+      title: "What a chest can hold",
+      body: "A chest holds a real object from the past, with its story and its sources, and now and then a new " +
+        "look for the whole site instead. Some objects are far rarer than others, and the colour says which.<p>" +
+        "Chests come with every badge and every new Folio level, every seventh day of a study streak, and for " +
+        "finishing all nine minigames in a day. Everything you find is kept in your <b>Reliquary</b>, on the " +
+        "account page.</p>",
+      demo: () => tourRarityDemo(),
+      noBack: true,
+    },
+    {
+      title: "Over to you",
+      body: "That is everything you need. Finish today's cards at your own pace; the day is done when the " +
+        "three counts reach zero.<p>Come back tomorrow and the cards you met today will be waiting to be " +
+        "reviewed, with a few new ones beside them.</p>",
+      noBack: true, finish: true,
+    },
   ];
+  // the four rarities as the chest and the Reliquary draw them, with the odds a chest actually uses
+  function tourRarityDemo() {
+    return '<div class="td-rar" aria-hidden="true">' + RARITIES.map((r) =>
+      '<span class="td-rar-row" data-rar="' + r.id + '"><span class="ar-chip" data-rar="' + r.id + '">' + esc(r.label) +
+      '</span><i>' + r.weight + ' in 100</i></span>').join("") + "</div>";
+  }
+  /* The badge step's Next. The achievement overlay was held back while the walkthrough ran (see
+     checkAchievements), so it is raised here, with the tour card hidden until the chest overlay closes and
+     `tourNotify("chest")` brings it back on the next step. A chest with no badge in front of it (a reader
+     who re-runs the walkthrough later) goes straight to the chest. */
+  function tourOpenChest() {
+    if (!tourEl) return;
+    tourEl.hidden = true;
+    if (_achPending.length) openAchPop(_achPending.splice(0), true);
+    else if (chestCount()) openChestPop();
+    else { tourEl.hidden = false; tourGo(tourAt + 1); }
+  }
+  /* The page tells the walkthrough what just happened; only the event the current step is waiting for does
+     anything. Called from addActive, render, showAnswer, the grade, and the chest and badge overlays. */
+  function tourNotify(ev, arg) {
+    if (!tourEl) return;
+    const st = TOUR_STEPS[tourAt];
+    if (!st || st.wait !== ev) return;
+    if (ev === "added" && arg) _tourDeck = arg;
+    tourEl.hidden = false;
+    // a tick later, so the page that raised the event finishes its own repaint first
+    setTimeout(() => { if (tourEl && TOUR_STEPS[tourAt] === st) tourGo(tourAt + 1); }, 0);
+  }
 
   let tourEl = null, tourAt = 0, _tourKeys = null, _tourWatch = null, _tourShift = [0, 0];
   function tourRunning() { return !!tourEl; }
   function tourStart(at) {
     tourStop();
+    _tourDeck = null;
     tourAt = Math.max(0, Math.min(TOUR_STEPS.length - 1, at || 0));
     const ov = document.createElement("div");
     ov.className = "folio-tour";
     ov.innerHTML =
+      '<div class="tour-hole" aria-hidden="true" hidden></div>' +
+      '<div class="tour-blocks" aria-hidden="true" hidden><i></i><i></i><i></i><i></i></div>' +
       '<svg class="tour-draw" aria-hidden="true"><path class="tour-ring" fill="none"/><path class="tour-line" fill="none"/><path class="tour-head" fill="none"/></svg>' +
       '<div class="tour-card" role="dialog" aria-modal="true" aria-label="Folio walkthrough" tabindex="-1">' +
       '<button class="tour-x" type="button" aria-label="Close the walkthrough">×</button>' +
@@ -17931,15 +18103,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     document.body.appendChild(ov);
     tourEl = ov;
     ov.querySelector(".tour-x").addEventListener("click", () => tourStop(true));
-    ov.querySelector(".tour-skip").addEventListener("click", () => tourStop(true));
-    ov.querySelector(".tour-back").addEventListener("click", () => tourGo(tourAt - 1));
-    ov.querySelector(".tour-next").addEventListener("click", () => tourGo(tourAt + 1));
+    ov.querySelector(".tour-skip").addEventListener("click", () => {
+      if (TOUR_STEPS[tourAt] && TOUR_STEPS[tourAt].finish) tourFinish(); else tourStop(true);
+    });
+    ov.querySelector(".tour-back").addEventListener("click", () => tourGo(tourAt - 1, false, -1));
+    ov.querySelector(".tour-next").addEventListener("click", () => {
+      const st = TOUR_STEPS[tourAt];
+      if (st && st.action) st.action();
+      else if (st && st.finish) tourFinish();
+      else tourGo(tourAt + 1);
+    });
     // the backdrop deliberately does NOT dismiss: a walkthrough is read, and a stray tap on a dimmed page
     // is the likeliest gesture there is — losing the tour to one would be losing it silently
     _tourKeys = (e) => {
-      if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); tourStop(true); }
-      else if (e.key === "ArrowRight") { e.preventDefault(); tourGo(tourAt + 1); }
-      else if (e.key === "ArrowLeft") { e.preventDefault(); tourGo(tourAt - 1); }
+      if (!tourEl || tourEl.hidden) return;          // a chest or a badge is up over it: those own the keys
+      const st = TOUR_STEPS[tourAt] || {};
+      if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); tourStop(true); return; }
+      // a LIVE step is using the page, and the page's keys (space, 1 to 4, typing in the blank) are its own
+      if (st.live) return;
+      if (e.key === "ArrowRight") { e.preventDefault(); if (!st.wait) tourGo(tourAt + 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); if (!st.noBack) tourGo(tourAt - 1, false, -1); }
       else if (e.key === "Tab") {
         // a light containment: the page behind is dimmed and inert to the pointer, so it must not be the
         // next thing a Tab reaches either. Wraps within the card rather than fighting the browser.
@@ -17961,6 +18144,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (_tourWatch) { window.removeEventListener("resize", _tourWatch); window.removeEventListener("scroll", _tourWatch, true); _tourWatch = null; }
     if (tourEl) { tourEl.remove(); tourEl = null; }
     _tourShift = [0, 0];   // the overlay is rebuilt centred; a stale shift would be subtracted from it
+    // a badge held back for the walkthrough is shown now, rather than kept from the reader for good
+    if (_achPending.length) setTimeout(() => { if (!tourEl && _achPending.length) openAchPop(_achPending.splice(0)); }, 0);
     if (remember) {
       setTourSeen();
       // the offer card is first-run markup on the home page — drop it now rather than leave it standing
@@ -17968,11 +18153,52 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (current && current.name === "home" && document.querySelector(".tour-offer")) render();
     }
   }
-  function tourGo(i, first) {
+  /* THE LAST STEP HANDS OVER TO THE HOME PAGE (Sep 2026, on request). The walkthrough ends on the study
+     page, with the reader part way through their first cards, so the congratulation waits for the next
+     time they reach the home page: `TOUR_FAREWELL_KEY` is written here and read by PAGES.home. */
+  const TOUR_FAREWELL_KEY = "folio_tour_farewell_v1";
+  function tourFinish() {
+    if (Object.keys(S.cards).length) { try { localStorage.setItem(TOUR_FAREWELL_KEY, "pending"); } catch (e) {} }
+    tourStop(true);
+  }
+  function tourFarewellMaybe() {
+    let v = null;
+    try { v = localStorage.getItem(TOUR_FAREWELL_KEY); } catch (e) { return; }
+    if (v !== "pending" || tourRunning()) return;
+    try { localStorage.setItem(TOUR_FAREWELL_KEY, "done"); } catch (e) {}
+    /* The coach-mark card's look, but NOT pageHelp's element: that one is render()'s to close, and the home
+       page repaints itself in place (a sync, a deck landing), which would take this away a moment after it
+       appeared, with the key already spent. It closes when the reader closes it. */
+    const ov = document.createElement("div");
+    ov.className = "page-help tour-bye";
+    ov.innerHTML = '<div class="ah-card" role="dialog" aria-modal="true" aria-label="Your first cards are done">' +
+      '<button class="ah-close" type="button" aria-label="Close">×</button>' +
+      "<h3>Your first cards are done</h3>" +
+      '<div class="ah-tip">Well done. You have studied your first cards, and Folio has already worked out when each of them should come back.</div>' +
+      '<div class="ah-tip">Come back <b>tomorrow</b>, or whenever time next allows, to review them and study some more. A few minutes a day is all it takes.</div>' +
+      '<button class="btn ah-go" type="button">See you tomorrow</button></div>';
+    document.body.appendChild(ov);
+    sfx("win");
+    const done = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); };
+    function onKey(e) { if (e.key === "Escape" || e.key === "Enter") { e.preventDefault(); e.stopPropagation(); done(); } }
+    document.addEventListener("keydown", onKey, true);
+    ov.addEventListener("click", (e) => { if (e.target === ov) done(); });
+    ov.querySelector(".ah-close").addEventListener("click", done);
+    ov.querySelector(".ah-go").addEventListener("click", done);
+    setTimeout(() => { const f = ov.querySelector(".ah-go"); if (f) f.focus(); }, 0);
+  }
+  function tourGo(i, first, dir) {
     if (!tourEl) return;
     if (i >= TOUR_STEPS.length) { tourStop(true); return; }
     tourAt = Math.max(0, i);
-    const st = TOUR_STEPS[tourAt];
+    let st = TOUR_STEPS[tourAt];
+    // a step with nothing to show passes the reader on, in whichever direction they were going
+    while (st && st.skip && st.skip()) {
+      tourAt += dir < 0 ? -1 : 1;
+      if (tourAt < 0) { tourAt = 0; break; }
+      if (tourAt >= TOUR_STEPS.length) { tourStop(true); return; }
+      st = TOUR_STEPS[tourAt];
+    }
     // routing repaints the page under the tour; the overlay is on document.body and survives it, and
     // render() calls tourAfterRender() so nothing here has to wait on the paint
     if (st.route && current && current.name !== st.route) route(st.route);
@@ -17981,6 +18207,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function tourPaint(first) {
     const ov = tourEl; if (!ov) return;
     const st = TOUR_STEPS[tourAt], last = tourAt === TOUR_STEPS.length - 1;
+    ov.hidden = false;
     ov.querySelector(".tour-count").textContent = "Step " + (tourAt + 1) + " of " + TOUR_STEPS.length;
     ov.querySelector("h3").textContent = st.title;
     ov.querySelector(".tour-body").innerHTML = "<p>" + st.body + "</p>";
@@ -17988,9 +18215,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const d = typeof st.demo === "function" ? st.demo() : st.demo;
     demo.innerHTML = d || "";
     demo.hidden = !d;
+    ov.classList.toggle("tour-live", !!st.live);
+    ov.classList.toggle("tour-corner", st.pos === "corner");
+    // a step about the grade bar docks ABOVE it on a phone, the bar being pinned to the foot of the screen
+    const above = st.above && document.querySelector(st.above);
+    ov.style.setProperty("--tour-above", above ? Math.round(above.getBoundingClientRect().height) + "px" : "0px");
     const back = ov.querySelector(".tour-back");
     back.disabled = tourAt === 0;
-    ov.querySelector(".tour-next").textContent = last ? "Done" : "Next";
+    // past the deck being opened there is no going back: the steps behind are on another page, and the
+    // reader's first card is already dealt
+    back.hidden = !!st.noBack;
+    const next = ov.querySelector(".tour-next");
+    // a step that waits for the reader to do something has no Next: doing it is how it moves on
+    next.hidden = !!st.wait && !st.action;
+    next.textContent = st.next || (last ? "Done" : "Next");
     ov.querySelector(".tour-skip").textContent = last ? "Close" : "Skip";
     // a target the reader cannot see is a target the arrow cannot usefully point at
     tourReveal(tourTarget());
@@ -18024,8 +18262,33 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function tourTarget() {
     const st = TOUR_STEPS[tourAt];
-    for (const sel of st.target || []) { const el = document.querySelector(sel); if (el && el.getBoundingClientRect().width) return el; }
+    const list = typeof st.target === "function" ? st.target() : st.target;
+    for (const sel of list || []) {
+      const el = typeof sel === "string" ? document.querySelector(sel) : sel;
+      if (el && el.isConnected && el.getBoundingClientRect().width) return el;
+    }
     return null;
+  }
+  /* THE HOLE AND THE BLOCKS. The hole is a rounded box over the target whose box-shadow is the scrim, so
+     everything but the target is darkened; with no target the overlay's own background is the scrim, as it
+     always was. On a `live: "hole"` step four transparent blocks catch the pointer everywhere BUT the hole,
+     so the ringed thing is the only thing that can be pressed. */
+  function tourHole(box) {
+    const ov = tourEl; if (!ov) return;
+    const hole = ov.querySelector(".tour-hole"), blocks = ov.querySelector(".tour-blocks");
+    const st = TOUR_STEPS[tourAt] || {};
+    ov.classList.toggle("has-hole", !!box);
+    hole.hidden = !box;
+    blocks.hidden = !(box && st.live === "hole");
+    if (!box) return;
+    hole.style.cssText = "left:" + box.x + "px;top:" + box.y + "px;width:" + box.w + "px;height:" + box.h + "px";
+    if (!blocks.hidden) {
+      const b = blocks.children, W = innerWidth, H = innerHeight;
+      b[0].style.cssText = "left:0;top:0;width:" + W + "px;height:" + Math.max(0, box.y) + "px";
+      b[1].style.cssText = "left:0;top:" + (box.y + box.h) + "px;width:" + W + "px;height:" + Math.max(0, H - box.y - box.h) + "px";
+      b[2].style.cssText = "left:0;top:" + box.y + "px;width:" + Math.max(0, box.x) + "px;height:" + box.h + "px";
+      b[3].style.cssText = "left:" + (box.x + box.w) + "px;top:" + box.y + "px;width:" + Math.max(0, W - box.x - box.w) + "px;height:" + box.h + "px";
+    }
   }
   /* The arrow. Both rects are in viewport coordinates and the SVG is a fixed full-screen layer with no
      viewBox, so its user units are CSS pixels and nothing has to be converted. The line leaves the card's
@@ -18051,16 +18314,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        underneath it. */
     const ovCS = getComputedStyle(ov);
     const dock = ovCS.alignItems === "flex-end";
+    /* …and a CORNER step (the study page's, on a wide screen) is set top right by the stylesheet, which is
+       read back the same way: align-items:flex-start and justify-content:flex-end. Such a card is not
+       nudged either; it is where it is so as to stay off the study card. */
+    const top = ovCS.alignItems === "flex-start", right = ovCS.justifyContent === "flex-end";
     const baseTop = dock
       ? Math.round(innerHeight - (parseFloat(ovCS.paddingBottom) || 0) - ch)
+      : top ? Math.round(parseFloat(ovCS.paddingTop) || 0)
       : Math.round((innerHeight - ch) / 2);
-    let card = { left: Math.round((innerWidth - cw) / 2), top: baseTop, width: cw, height: ch };
+    const baseLeft = right ? Math.round(innerWidth - (parseFloat(ovCS.paddingRight) || 0) - cw) : Math.round((innerWidth - cw) / 2);
+    let card = { left: baseLeft, top: baseTop, width: cw, height: ch };
     const t = tourTarget();
     const centre = () => { if (_tourShift[0] || _tourShift[1]) { _tourShift = [0, 0]; cardEl.style.transform = ""; } };
-    const clear = () => { line.setAttribute("d", ""); head.setAttribute("d", ""); ring.setAttribute("d", ""); centre(); };
+    const clear = () => { line.setAttribute("d", ""); head.setAttribute("d", ""); ring.setAttribute("d", ""); centre(); tourHole(null); };
     if (!t) return clear();
     const r = t.getBoundingClientRect();
     if (!r.width || !r.height || r.bottom < 0 || r.top > innerHeight) return clear();
+    const liveStep = !!(TOUR_STEPS[tourAt] || {}).live;
     /* THE RING IS CLAMPED TO WHAT IS ACTUALLY ON SCREEN, AND DROPPED WHERE IT WOULD RING THE SCREEN ITSELF
        (Aug 2026, on a bug report: on a phone the walkthrough "doesn't display properly"). On a desktop
        every target fits inside the viewport and the dashed rectangle reads as a highlight. On a 360px
@@ -18078,7 +18348,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const x = Math.max(edge, r.left - pad), y = Math.max(edge, r.top - pad);
     const w = Math.min(innerWidth - edge, r.right + pad) - x, h = Math.min(innerHeight - edge, r.bottom + pad) - y;
     if (w < 26 || h < 26) return clear();                                   // clipped to nothing worth drawing
-    if (w * h > innerWidth * innerHeight * 0.6) return clear();             // a ring round the whole screen
+    /* the target is left undarkened even where it is too big to ring: on a LIVE step it is the thing the
+       reader is about to use (a whole study card, on a phone), and darkening it would defeat the step */
+    if (w * h > innerWidth * innerHeight * 0.6) {
+      line.setAttribute("d", ""); head.setAttribute("d", ""); ring.setAttribute("d", ""); centre();
+      tourHole(liveStep ? { x, y, w, h } : null);
+      return;
+    }
+    tourHole({ x, y, w, h });
     /* THE CARD MOVES OUT OF ITS TARGET'S WAY, and only that far. A centred popup lands on top of whatever
        it is describing about half the time — the daily-study banner is most of the home page — and an
        arrow that starts and ends inside the same box is a stub pointing at nothing. So four placements are
@@ -18095,7 +18372,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          purpose, the band above it is the room the target is scrolled into (tourReveal), and every shift
          available to it would take that room away again. */
       let dx = 0, dy = 0;
-      if (!dock && r.bottom + 20 > card.top && r.top - 20 < cB && r.right + 20 > card.left && r.left - 20 < cR) {
+      if (!dock && !top && r.bottom + 20 > card.top && r.top - 20 < cB && r.right + 20 > card.left && r.left - 20 < cR) {
         for (const gap of [76, 40]) {
           const fit = [
             [0, r.bottom + gap - card.top], [0, r.top - gap - cB],
@@ -18158,7 +18435,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   // every render() ends here: the page under the tour has just been rebuilt, so the arrow is pointing at an
   // element that no longer exists
-  function tourAfterRender() { if (tourEl) requestAnimationFrame(tourPlace); }
+  function tourAfterRender() {
+    if (!tourEl) return;
+    if (current && current.name === "study") tourNotify("study");
+    requestAnimationFrame(tourPlace);
+  }
 
   /* ---------- a page's own first-visit coach marks ----------
      The Atlas has had these since it shipped; the walkthrough above deliberately stops short of the Atlas
@@ -18289,7 +18570,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return '<div class="tour-offer">' +
       '<span class="to-chip" aria-hidden="true">' + TOUR_PEN + "</span>" +
       '<div class="to-body"><b>New here?</b>' +
-      "<span>A three-minute walkthrough of how the cards are scheduled, how to add a deck, and how to study one.</span></div>" +
+      "<span>A few minutes that end with your first cards studied: how the cards are scheduled, how to add a deck, and how to study one.</span></div>" +
       '<div class="to-acts"><button class="btn" id="b-tour" type="button">Take the tour</button>' +
       '<button class="to-no" id="b-tour-no" type="button">No thanks</button></div></div>';
   }
@@ -21449,7 +21730,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function rollChestItem() {
     const locked = lockedThemes();
     const art = rollArtefact();
-    if (locked.length && (!art || Math.random() < THEME_DROP)) {
+    /* THE FIRST CHEST A READER EVER OPENS HOLDS AN ARTEFACT (Sep 2026, on request). It is the one the
+       walkthrough has them open and then explains, and a theme there would be explaining the exception
+       first. `chestsOpened` is incremented by spendChest, so this is exact rather than a guess. */
+    const first = !(Number(S.chestsOpened) > 0);
+    if (locked.length && !(first && art) && (!art || Math.random() < THEME_DROP)) {
       return { kind: "theme", theme: locked[Math.floor(Math.random() * locked.length)] };
     }
     return art ? { kind: "artefact", artefact: art } : null;
@@ -21621,8 +21906,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!n) return "";
     return '<div class="chest-banner" id="chestBanner">' +
       '<span class="cb-ic" aria-hidden="true">' + CHEST_SVG + "</span>" +
-      '<div class="cb-text"><b>' + (n === 1 ? "A chest is waiting" : n + " chests are waiting") + "</b>" +
-      "<small>Every Folio level opens one, and so does finishing all nine of the day's minigames.</small></div>" +
+      // one line and no subtitle (Sep 2026, on request): the headline centres on the chest and the button
+      '<div class="cb-text"><b>' + (n === 1 ? "A chest is waiting" : n + " chests are waiting") + "</b></div>" +
       '<button type="button" class="btn cb-open" id="cbOpen">Open ' + (n === 1 ? "it" : "one") + "</button></div>";
   }
   /* The inventory. `opts.entry` renders the head and a way through to the Reliquary page INSTEAD of the
@@ -22083,7 +22368,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     document.body.appendChild(ov);
     // closing repaints the Reliquary under it: an artefact was claimed and a chest spent, and the section
     // the reader is about to be looking at would otherwise still be describing the moment before
-    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _chestClose = null; refreshReliquary(); };
+    const close = () => {
+      ov.remove(); document.removeEventListener("keydown", onKey, true); _chestClose = null; refreshReliquary();
+      tourNotify("chest");                                    // the walkthrough's badge step waits for this
+      if (_achPending.length && !tourRunning()) openAchPop(_achPending.splice(0));   // a badge that queued behind it
+    };
     _chestClose = close;
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
@@ -24589,6 +24878,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (_homeResize) { window.removeEventListener("resize", _homeResize); _homeResize = null; }
     wireDailyQuote(root);
     wireTourOffer(root);
+    // the walkthrough's goodbye, the first time the reader is back here after finishing it (tourFinish)
+    requestAnimationFrame(tourFarewellMaybe);
     showAdminEditBtn(null);   // the phone's way into the editor, top-right (the tab bar no longer carries Edit)
     root.querySelectorAll(".active-deck[data-review]").forEach((el) => {
       const id = el.dataset.review;
@@ -25354,17 +25645,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      reading ten cards. `PAGES.pretest` made exactly this decision first and for exactly this reason; this
      follows it.
 
-     THE TEN ARE THE COLLECTION'S OWN FIRST TEN, not a random draw. A collection is written in an order —
-     the plans are running orders — and the opening cards are where it introduces itself; a random ten out
-     of a thousand is a fair sample of the SUBJECT and a poor sample of the experience. Cards already
-     studied are skipped, so a reader who samples twice does not meet the same ten.
+     THE TEN ARE A RANDOM DRAW FROM THE COLLECTION'S BEST-KNOWN CARDS (Sep 2026, on request; it was the
+     collection's own first ten). The opening cards of a running order are where a collection introduces its
+     subject, which is often its most specialist vocabulary — the first ten of a prehistory deck are stone
+     industries — and a taster is for somebody deciding whether they like the subject. So the ten are drawn
+     from the cards rated 1 (a household name; see CARD_DIFFICULTY_MIN), and only where a collection has
+     fewer than ten of those is the draw topped up from the next rating, and so on. Cards already studied
+     are skipped. The draw is held per collection for the visit (`_sampleDraw`), since stepping to the
+     next card re-renders the page and a fresh draw each time would change the ten under the reader;
+     a reload draws again.
      A `#sample/<id>` is a real address, so it can be shared and it survives a reload. */
   const SAMPLE_N = 10;
+  const _sampleDraw = {};
   function sampleIds(nodeId) {
     const node = NODE_BY_ID[nodeId];
     if (!node) return [];
+    if (_sampleDraw[nodeId]) return _sampleDraw[nodeId];
     const avail = availableCardIdSet();
-    return subtreeCardIds(node).filter((id) => avail.has(id) && !isSeen(id) && !isSuspended(id)).slice(0, SAMPLE_N);
+    const pool = subtreeCardIds(node).filter((id) => avail.has(id) && !isSeen(id) && !isSuspended(id));
+    const byRating = {};
+    pool.forEach((id) => { const d = cardDifficulty(cardById(id)) || CARD_DIFFICULTY_MAX; (byRating[d] = byRating[d] || []).push(id); });
+    const out = [];
+    Object.keys(byRating).map(Number).sort((a, b) => a - b).forEach((d) => {
+      if (out.length >= SAMPLE_N) return;
+      const g = byRating[d].slice();
+      for (let i = g.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = g[i]; g[i] = g[j]; g[j] = t; }
+      out.push(...g.slice(0, SAMPLE_N - out.length));
+    });
+    return (_sampleDraw[nodeId] = out);
   }
   PAGES.sample = function (root, params) {
     const nodeId = (params && params.id) || "";
@@ -30814,6 +31122,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      deck's order to set. */
   function orderAskEntry(scope) {
     if (!scope || !S.orderPicked) return null;
+    // the walkthrough opens a deck to study it, and a page of prose about orders between the reader and
+    // the card it is about to teach them to answer would break the step; the question waits for next time
+    if (tourRunning()) return null;
     /* A DECK OR A GROUP, AND NOT THE POOLED REVIEW. The request is about "a collection or deck studied for
        the first time", and the pooled review is neither: it is the day's work across every added deck, its
        order is a separate setting on the banner's own sheet, and asking there would put a page of prose
@@ -32001,6 +32312,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (susBtn) susBtn.addEventListener("click", suspendCurrent);
         const undoBarBtn = document.getElementById("undoGradeBar");
         if (undoBarBtn) undoBarBtn.addEventListener("click", undoGrade);
+        tourNotify("reveal");   // the walkthrough's "Your first card" step waits for exactly this
       }
 
       function doGrade(g) {
@@ -32046,9 +32358,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         studyRevealId = null;   // moving on: the next card (or a requeued step) opens at its question, unrevealed
         qIdx = null;            // …and picks a phrasing of its own rather than inheriting this card's
         // …and the time box, asked HERE rather than on a tick, so a session never closes mid-answer
-        if (boxSpent()) return renderComplete({ timeUp: true });
+        if (boxSpent()) { tourNotify("graded"); return renderComplete({ timeUp: true }); }
         // swap animation handled by re-render
         renderCard();
+        tourNotify("graded");   // …and its grading step waits for this
       }
 
       // keyboard
@@ -45381,11 +45694,13 @@ let prev = null;
     ACHIEVEMENTS.forEach((a) => { if (!S.achievements[a.id] && a.test(s)) { S.achievements[a.id] = Date.now(); newly.push(a); } });
     if (newly.length) {
       grantChest(newly.length);
+      /* A BADGE IS ANNOUNCED IN THE MIDDLE OF THE SCREEN (Sep 2026, on request), as the tile the account
+         page draws, which turns over to open its chest — see openAchPop. It was a toast at the foot of the
+         screen that said a chest was waiting somewhere else. While the walkthrough runs it is HELD
+         (`_achPending`): the walkthrough has a step for it, and raises it there. */
       if (!silent) {
-        sfx("win");
-        toast((newly.length === 1 ? newly[0].icon + " Achievement unlocked: " + newly[0].name
-                                  : "🏆 " + newly.length + " achievements unlocked: " + newly.map((a) => a.name).join(", ")) +
-              (newly.length === 1 ? " — a chest is waiting in your account." : " — " + newly.length + " chests are waiting in your account."));
+        if (tourRunning()) _achPending = _achPending.concat(newly);
+        else openAchPop(newly);
       }
     }
     return newly;
@@ -45432,6 +45747,66 @@ let prev = null;
       "</div>" +
       '<span class="sc-chest' + (p.left === 0 && p.count > 0 ? " won" : "") + '" aria-hidden="true">' + CHEST_SVG + "</span>" +
     "</div>";
+  }
+  /* ---------- THE BADGE OVERLAY (Sep 2026, on request) ----------
+     A newly earned badge is shown in the middle of the screen AS THE TILE THE ACCOUNT PAGE DRAWS — the same
+     `.badge` markup, so it looks like the thing it will be on the profile — and it turns over when pressed,
+     as a tile on the account page does. Its back is the chest the badge earned, and turning it over opens
+     that chest (openChestPop). "Keep the chest for later" leaves it waiting, which is what the chest
+     overlay's own "Save for later" does.
+     It owns the keyboard (OVERLAY_SEL) and is render()'s to close, like every overlay on the body. A badge
+     earned while a chest is already up is queued in `_achPending` and shown when that chest closes, since
+     two overlays stacked is one too many. */
+  let _achClose = null;
+  function closeAchPop() { if (_achClose) _achClose(); }
+  function achPopTileHTML(a) {
+    return '<button type="button" class="badge got ach-tile" aria-pressed="false" aria-label="' +
+      esc(a.name + ": " + a.desc + ". Turn it over to open its chest") + '">' +
+      '<span class="badge-inner">' +
+        '<span class="badge-face badge-front"><span class="badge-ic">' + a.icon + '</span><span class="badge-name">' +
+          esc(a.name) + '</span><span class="badge-sub">' + esc(a.desc) + "</span></span>" +
+        '<span class="badge-face badge-back"><span class="ach-chest" aria-hidden="true">' + CHEST_SVG + "</span>" +
+          '<span class="badge-back-h">Opening the chest</span></span>' +
+      "</span></button>";
+  }
+  function openAchPop(list, fromTour) {
+    if (!list || !list.length) return;
+    if (_chestClose || _achClose) { _achPending = _achPending.concat(list); return; }
+    sfx("win");
+    const ov = document.createElement("div");
+    ov.className = "ach-pop";
+    const n = list.length;
+    ov.innerHTML = '<div class="ach-stage" role="dialog" aria-modal="true" aria-label="Achievement unlocked">' +
+      '<div class="ach-kicker">' + (n === 1 ? "Achievement unlocked" : n + " achievements unlocked") + "</div>" +
+      '<div class="ach-tiles">' + list.map(achPopTileHTML).join("") + "</div>" +
+      '<div class="ach-hint">' + (n === 1 ? "Tap the badge to turn it over and open its chest." : "Tap a badge to turn it over and open its chest. Each one earned a chest.") + "</div>" +
+      '<div class="ach-acts"><button type="button" class="btn ghost" data-act="later">Keep the ' + (n === 1 ? "chest" : "chests") + " for later</button></div></div>";
+    document.body.appendChild(ov);
+    let done = false;
+    const close = (kept) => {
+      if (done) return; done = true;
+      ov.remove(); document.removeEventListener("keydown", onKey, true); _achClose = null;
+      if (kept) {
+        toast(chestCount() === 1 ? "Saved — it's waiting in your account." : chestCount() + " chests waiting in your account.");
+        tourNotify("chest");
+        if (_achPending.length && !tourRunning()) openAchPop(_achPending.splice(0));
+      }
+    };
+    _achClose = () => close(false);
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(true); } }
+    document.addEventListener("keydown", onKey, true);
+    requestAnimationFrame(() => ov.classList.add("show"));
+    ov.querySelector('[data-act="later"]').addEventListener("click", () => close(true));
+    ov.querySelectorAll(".ach-tile").forEach((t) => t.addEventListener("click", () => {
+      if (ov.classList.contains("turning")) return;
+      ov.classList.add("turning");
+      t.classList.add("flipped");
+      t.setAttribute("aria-pressed", "true");
+      sfx("toggle");
+      // the turn is half a second (the account page's own .badge-inner transition); the chest opens as it lands
+      setTimeout(() => { close(false); openChestPop(); }, prefersReducedMotion() ? 60 : 620);
+    }));
+    setTimeout(() => { const f = ov.querySelector(".ach-tile"); if (f) f.focus(); }, 0);
   }
   function badgesHTML(achObj, stats) {
     const got = (id) => achObj && achObj[id];
@@ -46579,37 +46954,7 @@ let prev = null;
       "</div>").join("");
     // the forgetting curve, drawn in theme colours: memory fading without help (dashed), and the same
     // memory lifted by reviews timed just before the fall — each hop longer than the last
-    const curveSVG = `<figure class="msn-curve">
-      <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="42" y1="24" x2="42" y2="192" stroke="var(--rule)" stroke-width="1.5"/>
-        <line x1="42" y1="192" x2="624" y2="192" stroke="var(--rule)" stroke-width="1.5"/>
-        <text x="36" y="29" text-anchor="end" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)">100%</text>
-        <text x="36" y="195" text-anchor="end" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)">0%</text>
-        <text x="42" y="14" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)" letter-spacing="1">HOW WELL YOU REMEMBER</text>
-        <text x="624" y="208" text-anchor="end" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)" letter-spacing="1">TIME →</text>
-        <path d="M 42,24 C 90,110 150,160 250,178 S 470,190 624,190" fill="none" stroke="var(--ink-faint)" stroke-width="1.8" stroke-dasharray="5 5" opacity=".65"/>
-        <path d="M 150,96 L 150,24" stroke="var(--indigo)" stroke-width="1.4" opacity=".35"/>
-        <path d="M 280,78 L 280,24" stroke="var(--indigo)" stroke-width="1.4" opacity=".35"/>
-        <path d="M 440,64 L 440,24" stroke="var(--indigo)" stroke-width="1.4" opacity=".35"/>
-        <path d="M 42,24 Q 96,52 150,96" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
-        <path d="M 150,24 Q 215,44 280,78" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
-        <path d="M 280,24 Q 360,40 440,64" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
-        <path d="M 440,24 Q 532,34 624,46" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
-        <circle cx="150" cy="96" r="4.2" fill="var(--indigo)" stroke="var(--card)" stroke-width="1.6"/>
-        <circle cx="280" cy="78" r="4.2" fill="var(--indigo)" stroke="var(--card)" stroke-width="1.6"/>
-        <circle cx="440" cy="64" r="4.2" fill="var(--indigo)" stroke="var(--card)" stroke-width="1.6"/>
-        <text x="150" y="114" text-anchor="middle" font-size="9.5" fill="var(--indigo)" font-family="var(--mono)">REVIEW</text>
-        <text x="280" y="96" text-anchor="middle" font-size="9.5" fill="var(--indigo)" font-family="var(--mono)">REVIEW</text>
-        <text x="440" y="82" text-anchor="middle" font-size="9.5" fill="var(--indigo)" font-family="var(--mono)">REVIEW</text>
-        <g font-family="var(--mono)" font-size="10">
-          <line x1="330" y1="146" x2="362" y2="146" stroke="var(--indigo)" stroke-width="2.4"/>
-          <text x="370" y="149.5" fill="var(--ink-soft)">remembering with reviews</text>
-          <line x1="330" y1="166" x2="362" y2="166" stroke="var(--ink-faint)" stroke-width="1.8" stroke-dasharray="5 5"/>
-          <text x="370" y="169.5" fill="var(--ink-soft)">without</text>
-        </g>
-      </svg>
-      <figcaption>Each review lands just before you would forget — and each one makes the memory last longer.</figcaption>
-    </figure>`;
+    const curveSVG = forgettingCurveFigureHTML();
     const step = (n, b, s) => `<li><span class="hi-num">${n}</span><div class="ms-body"><b>${b}</b><span>${s}</span></div></li>`;
     // …and the same wrapper the changelog body needed, for the same reason: the answer's own padding was
     // keeping a shut question ~18px tall and letting a clipped line of the answer show through it.
@@ -51166,7 +51511,7 @@ let prev = null;
   // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
   // second click (covers both the profile and a friend's badge grid, which render the same markup)
   document.addEventListener("click", (e) => {
-    const b = e.target.closest(".badge"); if (!b) return;
+    const b = e.target.closest(".badge"); if (!b || b.classList.contains("ach-tile")) return;   // openAchPop turns its own
     b.setAttribute("aria-pressed", b.classList.toggle("flipped") ? "true" : "false");
   });
   // UI sounds: one delegated capture-phase listener covers every button-like element (capture so a
