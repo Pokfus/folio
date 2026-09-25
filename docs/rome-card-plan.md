@@ -1017,6 +1017,39 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-571`–`rm-580`: Diocletian's tax system to the Edict of Milan — what this batch found
+
+- **Four lines are answered by a concrete term rather than their own wording.** `rm-571` *Diocletian's tax
+  reform* is **capitatio-iugatio**, keyed on the real article title `Capitatio-Iugatio`. **Indiction was
+  refused**: it is also the Byzantine dating cycle, and two `ru-` cards already write "fifteenth indiction,
+  911", so a term claiming that bare word would link them to a Diocletianic tax card. `rm-574` *the
+  abdication of Diocletian* is **Galerius**, the Caesar who became Augustus on 1 May 305 and who, per
+  Lactantius, pressed for the retirement. `rm-576` *the collapse of the Tetrarchy* is the **Conference of
+  Carnuntum**, the moment the collapse became visible. `rm-579` *the conversion of Constantine* is the
+  **labarum**, the object both accounts of the vision end in.
+- **Constantine_the_Great already existed** (written for World History), so `rm-577` reuses it untouched and
+  tells the reign as a career. The conversion, the Milvian Bridge, Licinius and Constantinople are left to
+  their own cards, and `wh-372`'s milestone narrative is not repeated.
+- **Two carefully narrow aliases.** Bare "Milvian Bridge" is NOT claimed by the battle term, because `rm-173`
+  and `rm-322` use the phrase for the bridge itself; the alias is "battle at the Milvian Bridge". Bare
+  "Carnuntum" is NOT claimed by the conference term, because several Marcus Aurelius and Severan cards name
+  the place; the alias is "conference at Carnuntum". The palace term claims no bare "Split".
+- **`rm-580` says in words that the Edict of Milan was neither an edict nor issued at Milan.** It was a letter
+  to a governor that Licinius published at Nicomedia on 13 June 313, and the word *edictum* is traced to a
+  16th-century Latin translation of Eusebius. The card's picture is that 1570 page.
+- **Two dates are assembled from two sources, and the cards say only what both carry.** The toleration edict of
+  30 April 311 takes its day from Lactantius and its year from the *De Imperatoribus Romanis* entry. The battle
+  of 28 October 312 rests on a 2018 article, and Lactantius's "sixth of the kalends of November" is given
+  beside it rather than converted by hand.
+- **One wrong auto-link was fixed before shipping.** "settlement" in `rm-576` claimed the generic Settlement
+  term; it now reads "arrangement". Other traps were avoided in drafting: bare "Palestine", "Helena",
+  "Persians" and "Socrates" each link something else.
+- **Lactantius and Sozomen are not in `check-cards.js`'s ANCIENT list.** Neither is cited three times on one
+  card, so nothing fires. Add them the first time one is.
+- `rm-571` carries no picture and no locator, with its reason recorded: no Commons file depicts a tax
+  assessment, and there is nowhere to stand. `rm-579` carries no locator, because Eusebius names no place for
+  the vision.
+
 ## `rm-561`–`rm-570`: the Palmyrene Empire to the Roman diocese — what this batch found
 
 `rm-561`–`rm-565` close `rm-third-century` and `rm-566`–`rm-570` open `rm-dominate`, with nine new glossary

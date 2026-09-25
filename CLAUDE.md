@@ -105,7 +105,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 |---|---|---|
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
-| `usstates` | `us-states.js` `lakes.js` `rivers.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing. **`lakes.js` rides here because `world.js` has NO LAKE HOLES** — the Great Lakes sit inside the USA polygon, so a card map drew five inland seas as grey fields with an outline round each; it is listed in `atlas` too, which is harmless because `lakes.js` ASSIGNS `window.LAKES` rather than pushing onto a queue. **The card map STROKES a lake shore where the Atlas does not**, in the world layer's own coast ink: on a world globe a lake is a small blue mark, on a card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked ocean coast reads as two kinds of edge on one map |
+| `usstates` | `us-states.js` `us-cities.js` `lakes.js` `rivers.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing. **`lakes.js` rides here because `world.js` has NO LAKE HOLES** — the Great Lakes sit inside the USA polygon, so a card map drew five inland seas as grey fields with an outline round each; it is listed in `atlas` too, which is harmless because `lakes.js` ASSIGNS `window.LAKES` rather than pushing onto a queue. **The card map STROKES a lake shore where the Atlas does not**, in the world layer's own coast ink: on a world globe a lake is a small blue mark, on a card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked ocean coast reads as two kinds of edge on one map |
 | `river_italy` / `river_greece` | `rivers/<region>.js` | warmed at IDLE by a LOCATOR window in the Rome or Greece collection, never awaited (China has no river file) |
 | `coast_italy` / `coast_greece` / `coast_china` / `coast_russia` / `coast_usa` | `coast/<region>.js` | warmed at IDLE and never awaited: by a LOCATOR window of the collection that frames it (Rome, Greece, China, Russia), and — since Sep 2026 — by a MAP CARD whose layer names a frame (`CMAP_LAYER_HIRES`: the China and United States geography collections) |
 | `worldcaps` | `world-capitals.js` | a map card asks for a DOT on the `world` layer (a capital card in the world collection). Its own bundle, and fetched only when a card carries `map.dot`: the shapes are `world`'s, which every map window already loads for the coastline under it, and a locator card reads those shapes and never this table |
@@ -2042,11 +2042,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     nowhere in it for a FILL to stop. **A bounded surface is a canvas of its own**, so the duplication
     that was refused is now the point, and `wbPinTo` / `wbPinApply` / `wbPinFrame` / `wbUnpin` and the
     forced pen-down are all deleted rather than left lying about.
-    **THE TWO DO NOT INTERFERE AND ARE NOT MADE TO COOPERATE.** With the floating pen down its canvas
-    covers the whole visible page, as it does everywhere on the site, so it draws OVER the pad rather
-    than in it, and the pad's menu keeps working — its buttons are real controls `CTL_SEL` already
-    hit-tests through to. A pass-through that forwarded presses into the pad was built and refused: it
-    would take away the one thing the floating marker is for.
+  · **…AND THE FLOATING MARKER DOES NOT DRAW INSIDE THE PAD** (Sep 2026, on request, reversing the
+    first cut's refusal of a pass-through). With its pen down the marker's canvas covers the whole page,
+    so every press over the pad was the MARKER's and the flag was drawn on the page-wide ink layer, where
+    the pad's Fill, Undo and reveal could not reach it. `setupWhiteboard` now asks `padUnder` at
+    pointerdown and, over `.dp-canvas`, forwards the whole gesture through the `_dpFwd` the pad exposes —
+    `mapUnder`'s arrangement exactly, and for its reason: the ink layer keeps the pointer or the moves
+    stop arriving. **The pad's `down` skips its own `setPointerCapture` when forwarded**, or capture
+    would move off the ink layer mid-gesture and its `gid` would never clear. Outside the pad the marker
+    is unchanged, and the pad's menu is still reached through `CTL_SEL`.
+  · **WHITE IS A DEFAULT SWATCH AND THE SIZE IS A SLIDER** (Sep 2026, on request). `DP_COLORS` is
+    `WB_COLORS` plus white — a white field is paint, where the eraser leaves a hole — and the pen and
+    broad pen became one Pen plus `.dp-size-range`, `DP_SIZE_MIN` 1 to `DP_SIZE_MAX` 60, with the
+    eraser at twice the pen's width. It is an `<input type="range">` carrying `tabindex="-1"` for the
+    menu's own reason, and a dot beside it is drawn at the next stroke's width.
   · **THE CANVAS IS SIZED FROM LAYOUT AND NEVER FROM A RECT** (`frame.clientWidth`). `getBoundingClientRect`
     is transform-aware and the page's entrance animation SCALES `.page` for its first third of a second,
     so a canvas sized from a rect at mount comes out several pixels narrow and **stays** that way — a
@@ -2096,7 +2105,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cannot be drawn on from one. The question above and the answer below are both real text, which is
     where this format's accessibility actually lives.
   · **THE FORMAT IS BUILT** — see the DRAW CARDS block in app.js for `cardDrawSpec` / `cardDrawHTML` /
-    `cardDrawReveal` / `mountDrawCard` / `DP` / `DP_COLORS` / `DP_SIZES` / `DP_BTNS` / `dpStop` /
+    `cardDrawReveal` / `mountDrawCard` / `DP` / `DP_COLORS` / `DP_SIZE_MIN` / `DP_SIZE_MAX` / `DP_BTNS` / `dpStop` /
     `DP_CUSTOM_KEY` / `dpReadCustom` / `dpSaveCustom`, and the `.draw-pad` / `.dp-tools` / `.dp-pick` /
     `.dp-custom` / `.dp-frame` / `.dp-canvas` / `.dp-answer` styles. Guarded by
     `.claude/test-draw-cards.js`.
@@ -2105,6 +2114,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     first card was refused for carrying no Think-it-through set, because `whyExempt` knew about a flag card
     and could not know about a format that did not exist when it was written. **A new format that reuses
     another's answer side inherits its exemptions and nothing applies them for you.** Not part of the site.
+- `us-cities.js` + `.claude/build-us-cities.js` — the LARGEST NON-CAPITAL CITY of every state whose
+  largest city is not its capital (`window.US_CITIES`, 33 rows), the second point table the `us-states`
+  layer's dot is looked up in (`pointsAlt`, read through `layerPoint` in app.js and merged in
+  `add-card.js`), for the Largest cities deck (`geo-us-cities`, `geo-700+N`). **Lazy** (the `usstates`
+  bundle), **generated — never hand-edited**, and its own file rather than a second table in
+  `us-states.js` because that builder refetches 40 MB and re-simplifies all fifty states. **Which city
+  is READ out of each state card's own "Largest city" facts row**, so the deck and the grids cannot
+  disagree; the coordinate is Natural Earth's, tested inside the state's own polygon, with a point just
+  off a traced shore (Detroit, 0.1 km) kept and reported rather than snapped. **A bare name taken by a
+  capital or by another row is keyed "<city>, <state>" and carries `n`**, the name the revealed label
+  prints — Charleston is West Virginia's capital in the first table and South Carolina's largest city in
+  this one, and there are two Portlands. **Re-run it after a state card's Largest city row changes.**
 - `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
   mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
   the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` and `rivers.js` beside
@@ -7133,11 +7154,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     over THIS canvas, with the marker PINNED to its corner and the pen put down for the reader — which
     reused everything here and cost nothing, and could not answer the request: ink on a page-wide canvas
     is bounded by nothing, and there is nowhere in it for a FILL to stop. The pad has a canvas and a menu
-    of its own now, and this one is untouched: not pinned, not auto-enabled, and with its pen down it
-    draws OVER the pad exactly as it draws over everything else on the page. **A pass-through that
-    forwarded presses into the pad was built and refused** — it would take away the one thing the
-    floating marker is for, which is annotating anything on the page, a diagram included. The pad's menu
-    goes on working meanwhile, its buttons being real controls `CTL_SEL` already hit-tests through to.
+    of its own now, and this one is untouched: not pinned and not auto-enabled. **With its pen down it
+    no longer draws over the pad** (Sep 2026, on request, reversing an earlier refusal): a press over
+    the pad's own canvas is forwarded to the pad (`padUnder` / `_dpFwd`), so a flag is always drawn where
+    the pad's tools can reach it. Everywhere else it annotates exactly as before, and the pad's menu is
+    reached through `CTL_SEL`.
   **📖 `docs/whiteboard.md` — READ BEFORE CHANGING ANY OF IT.** The fling's sample-window arithmetic, the
   snap-home probe and the transition that must be turned off to take it, the inline colour picker and why
   an `<input type="color">` was refused, the pass-through's `preventDefault` consequence, the hand-rolled
@@ -7966,7 +7987,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 |---|---|---|---|---|---|
 | World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 600 cards, contiguous — next is `wh-601` |
 | Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | **COMPLETE, 1000 of 1000** — `gr-001` to `gr-1000`, the first of the thousand-card plans to close |
-| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 570 cards, contiguous — next is `rm-571` |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | 580 cards, contiguous — next is `rm-581` |
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | 100 cards, contiguous — next is `us-101` |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | 100 cards, contiguous — next is `ru-101` |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
@@ -7990,7 +8011,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
 | Ancient Mesopotamia | `mesopotamia` | `me-` | `docs/mesopotamia-card-plan.md` | 9 / 40 | empty |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | REMOVED AND RESTARTED Sep 2026; 10 cards, contiguous — next is `art-011`; not a history collection |
-| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | **COMPLETE, 100 of 100** (50 states, 50 capitals) — and it is NOT a 1000-card plan, see below |
+| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 3 / 3 | the 50 states and 50 capitals are **COMPLETE**; the third deck, **the largest cities** (`geo-701`–`geo-749`, 33 numbers — the states whose largest city is not the capital), was added Sep 2026 on request and is **COMPLETE, 33 of 33** — and it is NOT a 1000-card plan, see below |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | **COMPLETE but for three deferred capitals**: 468 of 471 (233 countries, 235 of 238 capitals) — 471 rather than 1000, and sorted by POPULATION, see below |
 | Flags | `flags` | `fl-` | `docs/flags-card-plan.md` | 2 / 2 | **A COLLECTION OF ITS OWN in the Geography section** (Sep 2026, on request, after a week as two decks of World Geography) — it carries two plans, so this row shares its id and deck counts with the one below; **COMPLETE, 229 of 229 writable** (Sep 2026) across 233 numbers — `fl-001`–`fl-233` less the DEFERRED `fl-036`, `fl-171`, `fl-180` and `fl-218`, whose numbers stay reserved, so the next-card command prints a deferral rather than work, one per `gw-` COUNTRY card and numbered to match it, see below |
 | Draw the flags | `flags` | `fd-` | `docs/flags-draw-card-plan.md` | 2 / 2 | **THE FLAGS DECK RUN BACKWARDS** (Sep 2026, on request) — the reader is given a canvas with its own pens, colours and a fill, and draws the flag from memory, then reveals it and judges themselves. The second deck of the Flags collection, so this row shares that collection's id and its deck counts; **COMPLETE, 229 of 229 writable** across 233 numbers — `fd-001`–`fd-233` less the DEFERRED `fd-036`, `fd-171`, `fd-180` and `fd-218`, which are the Flags deck's own four and are deferred here for the same reason one step on: a card that asks for a flag to be drawn and then shows it has nothing to show. `fd-NNN` is the same entity as `fl-NNN` and `gw-NNN` — in this collection the NUMBER is the entity and the PREFIX is the question asked about it, which is why it is NOT numbered +500 like the capitals, see below |
