@@ -4430,7 +4430,9 @@ window.GLOSSARY = {
 "Aurelian_Walls": "The Aurelian Walls are the defensive circuit round the city of Rome begun under the emperor Aurelian in 271 CE and, according to Zosimus, finished under Probus, running for about 19 kilometres (12 miles).<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Built of concrete faced with brick, with square towers at regular intervals and gates named after the roads that passed through them, they took in existing buildings and aqueduct arches and were later heightened and restored, notably under Arcadius and Honorius between 401 and 403 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> More than two-thirds of the circuit still stands, and its line has remained largely unchanged since antiquity.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Probus_(emperor)": "Probus was a Roman emperor who reigned from 276 to 282 CE, a soldier probably born at Sirmium in Pannonia who was proclaimed by the armies of the eastern provinces.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He recovered Gaul from invaders who had crossed into it, defeated several rivals for the throne, and he is remembered for letting vineyards be planted in the frontier provinces and setting his soldiers to plant them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His own troops killed him at Sirmium in 282, according to the Latin writers while he was making them drain marshland, though another account links his death to the proclamation of a rival emperor.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Laterculus_Veronensis": "The Laterculus Veronensis, or Verona List, is a Latin register of the provinces of the Roman Empire arranged under twelve dioceses, each heading stating how many provinces the diocese contains.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It survives in a single manuscript of the 7th century in the chapter library of Verona and a few of its entries carry later notes on changes to the map.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its original is now usually dated to about 314 CE, although some scholars have placed it as early as 297 or given its eastern and western halves different dates, and it is the earliest surviving record of the late Roman grouping of provinces into dioceses.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Roman_diocese": "A Roman diocese was a group of neighbouring provinces in the later Roman Empire, under a civil official usually titled vicarius, who stood between the provincial governors and a praetorian prefect.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest surviving list of them, from the early 4th century CE, names twelve, and by the early 5th century further ones had been formed, among them dioceses for Dacia, Macedonia and the Egyptian provinces.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The word comes from <i>dioikesis</i>, 'housekeeping' and so 'administration', which earlier meant an assize district of a province, and it was later taken over by the church, where in the West it came to mean the territory under a single bishop.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Roman_diocese": "A Roman diocese was a group of neighbouring provinces in the later Roman Empire, under a civil official usually titled vicarius, who stood between the provincial governors and a praetorian prefect.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest surviving list of them, from the early 4th century CE, names twelve, and by the early 5th century further ones had been formed, among them dioceses for Dacia, Macedonia and the Egyptian provinces.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The word comes from <i>dioikesis</i>, 'housekeeping' and so 'administration', which earlier meant an assize district of a province, and it was later taken over by the church, where in the West it came to mean the territory under a single bishop.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Tetrarchy": "The Tetrarchy, meaning 'rule of four', is the modern name for the college of Roman emperors created by Diocletian, in which two senior rulers called <i>Augusti</i> and two junior ones called <i>Caesares</i> shared imperial power.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Diocletian made Maximian a second senior emperor in 286 CE, and in 293 Constantius and Galerius were added as <i>Caesares</i>, each of the four taking charge of a share of the provinces.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its rulers took the names Jovius and Herculius after Jupiter and Hercules, and their coins and porphyry statues showed the four as nearly identical figures, stressing collegiate unity rather than family descent.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Dominate": "The Dominate is a label modern historians give to the Roman empire from the accession of Diocletian in 284 CE, set against the earlier Principate, when the emperor had presented himself as <i>princeps</i>, the foremost citizen.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The emperor was now addressed as <i>dominus</i>, 'lord', and those admitted to his presence knelt and kissed his purple robe, a form of adoration that Roman writers said Diocletian had introduced.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> How sharp the break was is debated, since emperors had long been called <i>dominus</i> informally and earlier rulers such as Aurelian had already adopted the outward display of kings.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6705,7 +6707,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Aurelian": "270 – 275 CE",
 "Aurelian_Walls": "271 CE",
 "Probus_(emperor)": "276 – 282 CE",
-"Laterculus_Veronensis": "c. 314 CE"
+"Laterculus_Veronensis": "c. 314 CE",
+"Dominate": "from 284 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -9290,7 +9293,9 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Chaos_(cosmogony)": true,
 "Pantheon,_Rome": true,
 "Meditations": true,
-"Valerian_(emperor)": true
+"Valerian_(emperor)": true,
+"Tetrarchy": true,
+"Dominate": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -13724,7 +13729,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Aurelian_Walls": ["building","architecture","history","warfare","rome","classical"],
 "Probus_(emperor)": ["person","ruler","history","warfare","politics","rome","classical"],
 "Laterculus_Veronensis": ["text","history","politics","rome","classical","province"],
-"Roman_diocese": ["institution","history","politics","rome","classical","province"]
+"Roman_diocese": ["institution","history","politics","rome","classical","province"],
+"Tetrarchy": ["institution","history","politics","rome","classical"],
+"Dominate": ["era","institution","history","politics","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
