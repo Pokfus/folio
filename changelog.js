@@ -35,19 +35,33 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.890", released: "2026-09-24T22:37Z" };
+window.FOLIO_VERSION = { v: "1.896", released: "2026-09-25T01:49Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-25",
+    t: "Ten more Crete and the Cyclades cards are rewritten",
+    items: [
+      "<b>Ten more cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions."
+    ]
+  },
   {
     d: "2026-09-24",
     t: "The Ancient Greece collection is finished at a thousand cards",
     items: [
+      "<b>Who said it? deals five quotations a day</b> again, up from three.",
+      "<b>Admin \u2192 Quotes lists every Myth or fact? statement</b>, each of which an editor can now edit or remove.",
+      "<b>Timeline</b> no longer asks you to date abstract terms, myths or places that have no real start date, such as divination.",
+      "<b>Flags</b> now sit in a frame cut to their own shape, with no bands of background beside them.",
+      "<b>Flags</b> is a collection of its own again, in the Geography section, holding both flag decks.",
       "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
       "<b>Thirty cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions.",
       "<b>Seventy new cards in the Ancient Greece collection</b>, on Greek myth, the journey home from Troy and Greek worship from sacrifice to the mysteries, with sixty-three new glossary terms.",
       "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
+      "<b>A study card now says whether it is NEW, REVIEW or REPEAT</b> on a tablet or desktop, where it used to show only a coloured dot.",
       "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",
-      "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades.",
+      "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades of blue.",
+      "<b>A finished deck's icon turns green or gold with its row</b>, and a card's three-day dots use the bar's two blues, going deep blue once learned.",
       "<b>Who said it? deals three quotations a day</b>, each explanation cites its sources, and editors can take a quotation out of the game.",
       "<b>The Think it through questions show on every card</b>, not only the first time you meet one.",
       "<b>The home page says plainly when you are not signed in</b>, so progress kept only on this device does not come as a surprise.",

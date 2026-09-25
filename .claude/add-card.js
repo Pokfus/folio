@@ -615,6 +615,27 @@ if ("undatable" in card && typeof card.undatable !== "boolean") {
   console.error("ERROR: card.undatable must be true or false — it is the Timeline game's own filter, not a note. Set it true where the answer term names something with no single moment a reader could place it at (see CLAUDE.md), and leave it out otherwise.");
   process.exit(1);
 }
+/* …AND ON A CARD WHOSE KIND IS USUALLY TIMELESS, THE DECISION MAY NOT BE LEFT UNMADE (Sep 2026, on
+   request: "abstract things that have no reasonable start date, like Divination or Sphere of influence,
+   should never appear in the Timeline minigame"). A sweep of the pool found 90 such cards dealt as dated
+   events — every one of them written before anybody asked, which is the failure: the flag was optional,
+   so it was simply never set. A card the games can reach whose LEADING tag is one of these kinds must now
+   say `undatable: true` or `undatable: false` out loud. `false` is a real answer (coinage, phalanx,
+   heliocentrism all have a start a reader would give) and is dropped below as the absent state. The bar
+   is read out of app.js so this cannot come to guard a different pool from the one the game deals. */
+{
+  const bm = /const GAME_MAX_DIFFICULTY = (\d+);/.exec(fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8"));
+  if (!bm) { console.error("ERROR: could not read GAME_MAX_DIFFICULTY out of app.js — the Timeline guard below would be guessing."); process.exit(1); }
+  const TIMELESS_KINDS = new Set(["concept", "practice", "deity", "creature", "religion", "title", "place",
+    "animal", "plant", "school of thought", "technology", "object", "people", "institution"]);
+  const kind = String((card.tags || [])[0] || "");
+  if (card.difficulty <= +bm[1] && TIMELESS_KINDS.has(kind) && !("undatable" in card) && !card.map && !card.artwork && !card.flagCard && !card.drawCard) {
+    console.error("ERROR: this card can reach the Timeline game (difficulty " + card.difficulty + ") and its kind is '" + kind + "', which is often timeless.\n" +
+      "       Decide and say so: `\"undatable\": true` if the answer term has no reasonable start date (a concept, a practice\n" +
+      "       found in every age, a figure of myth, a physical place), or `\"undatable\": false` if a reader would give it one.");
+    process.exit(1);
+  }
+}
 if (card.undatable === false) delete card.undatable;   // the absent state, written out rather than shipped as a field that says nothing
 
 const aWords = qWords(card.abstract);

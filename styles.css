@@ -1710,11 +1710,27 @@ body[data-theme="folio"].night .collection-deco{
    escape it and no colour, `!important` or otherwise, could have. Standing outside the label it takes
    `--indigo-bright` / `--zh` / `--good` at full strength, which is exactly the ink the study bar's own
    three counts (`.cnt::before`) are drawn in. The size is bumped 7px → 8px with them for the same reason. */
-.study-card .q-dot{display:inline-block; width:calc(8px * var(--fs)); height:calc(8px * var(--fs));
-  border-radius:50%; margin-right:8px; vertical-align:baseline; flex:none; opacity:1;}
-.study-card .q-dot.q-new{background:var(--indigo-bright);}
-.study-card .q-dot.q-learn{background:var(--zh);}
-.study-card .q-dot.q-review{background:var(--good);}
+/* ABOVE A PHONE IT IS A CHIP THAT SAYS WHICH (Sep 2026, on request): NEW, REVIEW or REPEAT, in the same
+   three inks. A coloured dot asks the reader to have learned a key; a word does not, and a tablet or a
+   desktop has the room. The wash is mixed from the state's own colour and the WORD is mixed towards the
+   ink, since `--good` and `--indigo-bright` are quiet tokens that fall under 4.5:1 as 10px text on their
+   own; the plain colour is declared first for a browser without `color-mix`. Below 640px the word is
+   removed and the chip goes back to being the dot, so the phone's row keeps its width. */
+.study-card .q-dot{--qd:var(--indigo-bright); display:inline-flex; align-items:center; flex:none; opacity:1;
+  margin-right:8px; padding:calc(2px * var(--fs)) calc(8px * var(--fs)); border-radius:999px;
+  border:1px solid var(--qd); background:transparent;
+  background:color-mix(in srgb, var(--qd) 14%, transparent);
+  color:var(--qd); color:color-mix(in srgb, var(--qd) 72%, var(--ink));
+  font-size:calc(10px * var(--fs)); font-weight:700; letter-spacing:.09em; line-height:1.3;
+  text-transform:uppercase; white-space:nowrap;}
+.study-card .q-dot.q-new{--qd:var(--indigo-bright);}
+.study-card .q-dot.q-learn{--qd:var(--zh);}
+.study-card .q-dot.q-review{--qd:var(--good);}
+@media (max-width:640px){
+  .study-card .q-dot{display:inline-block; width:calc(8px * var(--fs)); height:calc(8px * var(--fs));
+    padding:0; border:0; border-radius:50%; background:var(--qd); vertical-align:baseline;}
+  .study-card .q-dot .q-dot-t{display:none;}
+}
 .card-stars .cs-star svg{width:calc(12px * var(--fs)); height:calc(12px * var(--fs)); display:block; fill:var(--indigo); opacity:.13;}
 .card-stars .cs-star.on svg{opacity:.5;}
 /* THE WORD, beside the stars (Aug 2026, on request): five small marks in a corner say that something is
@@ -1819,8 +1835,8 @@ body{--crit-slot:head;}
    line of their own at this width (see `.counts` in the phone block). */
 .counts .crit-row{margin-top:0; margin-right:auto; min-width:0;}
 .crit-pips{display:inline-flex; gap:4px;}
-.crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--ink-faint); box-sizing:border-box;}
-.crit-pip.on{background:var(--ink-faint); border-color:var(--ink-faint);}
+.crit-pip{width:7px; height:7px; border-radius:50%; border:1.5px solid var(--prog-seen); box-sizing:border-box;}
+.crit-pip.on{background:var(--prog-seen); border-color:var(--prog-seen);}
 /* THE CAPTION IS SET LIKE THE TWO LABELS IT SHARES THE HEADER ROW WITH (Sep 2026, on request:
    "make the 'Recalled on X of 3 days' atop cards the same font and blue color as the Question header
    and difficulty rating"). Both of those are mono-ish small caps in the indigo at half strength —
@@ -1829,12 +1845,10 @@ body{--crit-slot:head;}
    still override the colour with the gold: "Learned" is a state rather than a caption, and the gold is
    how finishing something reads everywhere else on the site. */
 .crit-lbl{font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--indigo); opacity:.5; white-space:nowrap;}
-.crit-row.done .crit-pip{background:#C39A2E; border-color:#C39A2E;}
-body.night .crit-row.done .crit-pip{background:#D4AA3C; border-color:#D4AA3C;}
-/* the caption takes the DEEPER gold, for the reason `.prog-done .xp-lvl` does: #C39A2E at this size on
-   the card is 3.6:1, and this is 10.5px uppercase text */
-.crit-row.done .crit-lbl{color:#8A6A1E; opacity:1;}
-body.night .crit-row.done .crit-lbl{color:#E0C069;}
+/* all three filled: the deep "learned" blue of the deck bar (Sep 2026, on request — it was gold) */
+.crit-row.done .crit-pip{background:var(--prog-learned); border-color:var(--prog-learned);}
+.crit-row.done .crit-lbl{color:var(--prog-learned); opacity:1;}
+body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 /* ...and in the header a PHONE gets the pips alone (Sep 2026, on request: "only display the text on
    desktop and tablet format. on mobile, only show the three dots"). Four things share that line — the
    state dot, the "Question" label with its phrasing counter, this row and the difficulty stars — and
@@ -2048,12 +2062,22 @@ body.no-tts .ans-cn .ac-say{display:none;}
    state, because a national flag's credit line reads "Government of India, public domain" and the
    viewer's own caption bar would print it. The credited, enlargeable copy is the small `.av-flag` inside
    the answer box, which `buildBack` draws on the reveal. */
+/* THE FRAME TAKES THE FLAG'S OWN SHAPE (Sep 2026, on request: "the canvas … should shrink horizontally to
+   fit the shape of the flag"). `--ar` is the flag's width over its height, written on the figure by
+   `fitFlagShot` once the file has loaded; 1.5 until then, the commonest ratio on the shelf. The frame's
+   width is derived from its target height, `min(100%, height × ratio)`, and the picture's height from the
+   frame's width through `aspect-ratio` — so a narrow screen shortens a wide flag rather than
+   letterboxing it, and no ratio can leave a band of paper beside the flag. It is centred, the one place a
+   frame narrower than the card has to sit. `object-fit:contain` stays as the fallback for a file whose
+   size never arrives. */
 .flag-shot{
-  margin:2px 0 16px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+  --flag-h:clamp(150px, 30vh, 280px);
+  width:min(100%, calc(var(--flag-h) * var(--ar, 1.5))); box-sizing:border-box;
+  margin:2px auto 16px; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
   background:var(--paper-2); box-shadow:var(--shadow-sm);
 }
 .flag-shot img{
-  display:block; width:100%; height:clamp(150px, 30vh, 280px);
+  display:block; width:100%; height:auto; aspect-ratio:var(--ar, 1.5);
   object-fit:contain; background:var(--paper-2);
 }
 /* AND ON THE REVEAL IT BECOMES ENLARGEABLE, which is where its credit lives (Sep 2026, on request: "the
@@ -2144,13 +2168,19 @@ body.no-tts .ans-cn .ac-say{display:none;}
    other and the labels are what say which is which. */
 .draw-pad.dp-drawn.dp-revealed .dp-hint{opacity:1;}
 /* The answer lands UNDER the pad and never inside it, so nothing above it moves when it arrives. */
+/* The revealed flag takes its own shape, exactly as a flag card's front does (see `.flag-shot` and
+   `fitFlagShot`), so a flag narrower than the pad sits centred under it with no band of paper beside it.
+   That gives up the three-edges-together rule above for the ANSWER alone, deliberately: it was asked for
+   by name ("should never have black bars on the side"), and the pad itself keeps its width. */
 .dp-answer{
-  margin:14px 0 0; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
+  --flag-h:clamp(150px, 30vh, 280px);
+  width:min(100%, calc(var(--flag-h) * var(--ar, 1.5))); box-sizing:border-box;
+  margin:14px auto 0; border-radius:10px; overflow:hidden; border:1px solid var(--rule);
   background:var(--paper-2); box-shadow:var(--shadow-sm);
 }
 .dp-answer[hidden]{display:none;}   /* the author `display:block` would beat the UA rule, as .af-src does */
 .dp-answer img{
-  display:block; width:100%; height:clamp(150px, 30vh, 280px);
+  display:block; width:100%; height:auto; aspect-ratio:var(--ar, 1.5);
   object-fit:contain; background:var(--paper-2);
 }
 .dp-answer.revealed{cursor:zoom-in;}
@@ -3563,6 +3593,9 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
 .ws-admin .q-main{cursor:default;}
 .ws-row .mini-btn{flex:none; align-self:center; margin-right:8px;}
 .ws-row.ws-off .q-text{color:var(--ink-faint); text-decoration:line-through; text-decoration-color:color-mix(in srgb,var(--ink-faint) 60%,transparent);}
+.tf-form .admin-field{margin-top:10px;}
+.tf-form textarea.af-input{resize:vertical; font-family:var(--sans); line-height:1.5;}
+.tf-row .mini-btn + .mini-btn{margin-left:-2px;}
 @media (max-width:640px){
   .ws-row .mini-btn{align-self:flex-start; margin:0 12px 8px;}
   .q-page{padding:12px 12px 22px;}
@@ -5302,11 +5335,10 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    `.dk-grip` is `position:absolute` in the row's left padding and giving it `position:relative` would
    drop it back into the flex line.
 
-   THE SUBJECT ICON KEEPS THE COLLECTION'S HUE, which is where this parts company with the tile. The
-   tile's corner glyph is `display:none` once played, because it names a game whose name is written
-   underneath it in words; a row's mark names WHICH collection the deck belongs to and is the reader's own
-   where they have set one, so re-tinting it green would spend the day's colour on the one thing in the
-   row that is not about the day. `.coll-ic.dk-ic` therefore goes on reading `--coll-bg` directly.
+   THE SUBJECT ICON TAKES THE ROW'S GREEN OR GOLD TOO (Sep 2026, on request, reversing the rule that
+   stood here: that the mark names WHICH collection and so should keep its hue). A finished row whose
+   icon stays in the collection colour read as half finished, so `.dk-done .coll-ic.dk-ic` reads
+   `--dk-accent`. An uploaded PNG icon keeps its own colours — an `<img>` has no `currentColor`.
 
    THE CORNER MARK IS CLIPPED, NEVER `display:none`, for the tile's reason: `.gt-check` / `.gt-seal` is
    the only thing on the row that STATES the day in words (`role="img"` + aria-label), so it stays in the
@@ -5323,6 +5355,9 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    the two marks can be on screen together and a banner's seal sits between them */
 .active-deck{ --dk-gold:#B8892A; }
 body.night .active-deck{ --dk-gold:#D8B355; }
+/* the icon joins the row's state; three classes plus the ancestor outrank the day, night and `body.hc`
+   rules on `.coll-ic.dk-ic` up by the row's own block */
+.active-decks .active-deck.dk-done .coll-ic.dk-ic{ color:var(--dk-accent); }
 .active-deck.dk-done::after{
   content:""; position:absolute; z-index:0; pointer-events:none;
   /* Clear of the chevron's column (26px) and the row's own right padding, so the two marks do not sit on
@@ -5449,15 +5484,21 @@ body.night .active-deck{ --dk-gold:#D8B355; }
    both its shape and its place between the two does not.
    The row is `position:relative; overflow:hidden`, so the last row's rounded corners clip the track's ends;
    the figure beside the name stays in the line, that being the part a reader reads rather than glances at. */
+/* THE TWO PROGRESS BLUES, shared with the study card's three-day dots (`.crit-pip`) so a card's dots and
+   its deck's bar say "seen" and "learned" in the same two colours (Sep 2026, on request). */
+body{--prog-seen:var(--indigo); --prog-seen:color-mix(in srgb, var(--indigo) 72%, #fff); --prog-learned:#0A1F9E;}
+body.night{--prog-seen:var(--indigo); --prog-seen:color-mix(in srgb, var(--indigo) 85%, #fff); --prog-learned:#2E4BFF;}
 .active-deck .dk-prog{flex:none; gap:0; min-width:0;}
 .active-deck .dk-prog .track{
   position:absolute; left:0; right:0; bottom:0; flex:none;
   height:3px; min-width:0; border:0; border-radius:0; background:color-mix(in srgb, var(--ink) 7%, transparent);
 }
-.active-deck .dk-prog .fill{border-radius:0; background:var(--newterm);}
-/* the LEARNED half, laid over the studied half from the same left edge (see adProg): the deep indigo over
-   the undiscovered-term teal, so the teal that shows past its end is the cards met but not yet learned */
-.active-deck .dk-prog .fill-l{position:absolute; left:0; top:0; bottom:0; width:0; background:var(--indigo); transition:width .9s var(--ease);}
+.active-deck .dk-prog .fill{border-radius:0; background:var(--prog-seen);}
+/* the LEARNED half, laid over the studied half from the same left edge (see adProg): a deep saturated blue
+   over the theme's indigo, so the lighter blue that shows past its end is the cards met but not yet learned.
+   Both halves are blue (Sep 2026, on request — the studied half was the undiscovered-term teal); the learned
+   one is solved to stand clearly apart from the indigo in both light and dark */
+.active-deck .dk-prog .fill-l{position:absolute; left:0; top:0; bottom:0; width:0; background:var(--prog-learned); transition:width .9s var(--ease);}
 .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, #C39A2E, #E6C765);}
 body.night .active-deck .dk-prog.prog-done .fill-l{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}
 .active-deck .dk-prog .count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap; flex:none;}

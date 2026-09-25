@@ -386,9 +386,9 @@
      It carries its own name rather than being decoration: three colours a reader has to learn are three
      colours a screen reader cannot see at all, so the dot is a `role="img"` with the state in words. */
   const CARD_STATE = {
-    new: ["q-new", "New card"],
-    learn: ["q-learn", "Being learned"],
-    review: ["q-review", "Up for review"],
+    new: ["q-new", "New card", "New"],
+    learn: ["q-learn", "Being learned", "Repeat"],
+    review: ["q-review", "Up for review", "Review"],
   };
   function cardStateOf(id) {
     const c = S.cards[id];
@@ -397,7 +397,9 @@
   }
   function cardStateDotHTML(id) {
     const k = CARD_STATE[cardStateOf(id)];
-    return '<span class="q-dot ' + k[0] + '" role="img" aria-label="' + esc(k[1]) + '" title="' + esc(k[1]) + '"></span>';
+    // The word is drawn from a tablet up and hidden on a phone, where the chip shrinks back to a dot;
+    // the aria-label carries the state either way, so the word is aria-hidden rather than read twice.
+    return '<span class="q-dot ' + k[0] + '" role="img" aria-label="' + esc(k[1]) + '" title="' + esc(k[1]) + '"><span class="q-dot-t" aria-hidden="true">' + k[2] + '</span></span>';
   }
   function cardStarsHTML(c) {
     const d = cardDifficultyShown(c);
@@ -535,6 +537,9 @@
       // the "Who said it?" pool's REMOVALS, keyed by each entry's English `q` → true (see whoSaidPool).
       // Removal only: the pool is quotes.js, and an entry comes back by deleting its key.
       whosaidOff: o.whosaidOff && typeof o.whosaidOff === "object" ? o.whosaidOff : {},
+      // the True or False ("Myth or fact?") pool's EDITS, keyed by each statement's SHIPPED English `q`
+      // (see truefalsePool): a whole replacement { q, a, why, cat, src }, or null to take it out of play.
+      truefalse: o.truefalse && typeof o.truefalse === "object" ? o.truefalse : {},
       // the artefact pool, keyed by artefact ID (see artefactsMerged): a whole replacement object, or
       // null to retire a shipped artefact. A key matching nothing in artefacts.js is one the admin added.
       artefacts: o.artefacts && typeof o.artefacts === "object" ? o.artefacts : {},
@@ -1693,6 +1698,15 @@
      with no way back, so it is cleared on load; a first-time visitor is not admin-eligible at all and
      is unaffected. */
   if (S.settings && S.settings.adminMode === false) S.settings.adminMode = true;
+  /* FLAGS IS A COLLECTION AGAIN (Sep 2026, on request), after a week as two decks of World Geography.
+     Adding a collection adds every deck under it, so a reader who added World Geography in that week
+     holds `flags-world` and `flags-draw` in `S.active` with no parent entry above them — and the two
+     would be drawn as loose rows. Where BOTH are held, the collection entry is put back over them, which
+     is exactly what pressing + on Flags would have written; where only one is, the reader chose that one
+     deck and nothing is widened. Idempotent, so it needs no flag of its own. */
+  if (S && Array.isArray(S.active) && S.active.indexOf("flags") === -1
+      && S.active.indexOf("flags-world") !== -1 && S.active.indexOf("flags-draw") !== -1)
+    S.active.splice(S.active.indexOf("flags-world"), 0, "flags");
   if (S.settings && S.settings.units === undefined) S.settings.units = "metric";
   if (S.settings && S.settings.dayEnd === undefined) S.settings.dayEnd = 0;          // midnight — see dayKey
   if (S.settings && S.settings.animations === undefined) S.settings.animations = true;
@@ -20872,12 +20886,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { k: "wall", n: "Great Wall", d: '<path d="M2 20.4h20"/><path d="M2 20.4v-6.2h7"/><path d="M22 20.4v-4.6h-7"/>' +
       '<path d="M9 20.4v-9.6h6v9.6"/><path d="M8.6 10.8h6.8"/><path d="M10.1 10.8V8.9M12 10.8V8.9M13.9 10.8V8.9"/>' +
       '<path d="M3.9 14.2v-1.7M6.4 14.2v-1.7M17.6 15.8v-1.7M20.1 15.8v-1.7"/>' },
-    /* a flag flying from its staff (Sep 2026, with the Flags deck). IT IS THE READER'S PICKER MARK AND
-       NO COLLECTION'S: Flags began as a collection of its own and is a third DECK of World Geography on
-       request, and a deck inside a collection carries no icon (see `adIconKey`) — so this has no
-       `COLLECTION_ICON` row and is here for somebody to put on a deck of their own. Kept rather than
-       deleted because it is a good generic mark and the picker had none.
-       DRAWN AND LOOKED AT at 28px
+    /* a flag flying from its staff (Sep 2026, with the Flags collection). IT IS THE FLAGS COLLECTION'S
+       MARK AGAIN: Flags began as a collection of its own, spent a week as two decks of World Geography
+       (a deck inside a collection carries no icon, see `adIconKey`), and is a collection of its own once
+       more, on request — so its `COLLECTION_ICON` row is back. DRAWN AND LOOKED AT at 28px
        and 34px, which is the one thing the laurel-wreath note above says cannot be skipped. Four
        candidates were rendered and read at both sizes: a plain rectangle is legible but reads as a
        bookmark, a SWALLOWTAIL's notch closes up into a filled wedge at 28px, and a triangular pennant is
@@ -20968,6 +20980,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     art: "brush",
     "geo-us": "compass",
     "geo-world": "map",
+    flags: "flag",
     "geo-china": "wall",
     /* Russia, in the Geography section, takes the EXISTING `mountain` — the second collection mark on
        this shelf reused rather than drawn, and the cost is stated rather than hidden exactly as Visual
@@ -25605,7 +25618,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reads subjects-first and the odd one out is where the eye reaches it last. */
     { label: "Special", slot: "collection-list-special" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -25685,10 +25698,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
     china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
     dino: 1000, korea: 1000, art: 1000,
-    /* World Geography's 937 is 233 countries + 238 capitals + the 233 FLAGS and the 233 DRAW cards,
-       which are further decks of this collection rather than ones of their own (Sep 2026, on request).
-       One collection, several plans: see docs/world-geography-card-plan.md and docs/flags-card-plan.md. */
-    "geo-us": 100, "geo-china": 58, "geo-world": 937, "geo-russia": 163,
+    /* World Geography's 471 is 233 countries + 238 capitals. Flags' 466 is the 233 FLAGS and the 233
+       DRAW cards — two decks that were World Geography's for a week and are a collection of their own
+       again (Sep 2026, on request). See docs/flags-card-plan.md and docs/flags-draw-card-plan.md. */
+    "geo-us": 100, "geo-china": 58, "geo-world": 471, flags: 466, "geo-russia": 163,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -26689,6 +26702,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        — a family resemblance with its sibling collection rather than a confusion with it, at L 38 and
        chroma 44, both mid-band. */
     "geo-world": { bg: "#106834" },
+    /* orchid (Flags, in the Geography section) — MEASURED, CIE76 over the 38 hues on the shelf, and the
+       collection's OLD hue could not come back: the sage grey #6F7866 it wore until it became a deck of
+       World Geography now stands 7.3 from the First World War's field grey, which arrived in the week
+       between. As before, aptness cannot decide — a flag collection has 233 palettes and no hue of its
+       own — so separation does, and the whole wheel returns exactly two regions above the median
+       nearest-neighbour distance of 19.8: the olive-brass (#5A5400, 21.1), refused because it would sit
+       in the Geography section as a sixth member of the green-olive-brown family its four siblings
+       already form, and this one. #9C5A96 is NOT the loud magenta the `dino` note refuses — that was
+       chroma 62; this is L 48, chroma 42, a muted orchid — and it stands 20.1 from Psychology's plum,
+       21.1 from Rome's purple and 21.2 from Astronomy's violet, with density 5 (hues within 30), the
+       lowest in the sweep. Against its own section — two greens, a cobalt and a sandstone brown — it is
+       the one colour that cannot be read as a relative. 4.9:1 against white. */
+    flags: { bg: "#9C5A96" },
     /* cobalt (China, in the Geography section) — MEASURED like every hue above it, and the measurement
        had to be re-run rather than read off the note beside `geo-world`: that sweep compared against the
        CURATED collections alone, and the language collections are drawn on the same page. Including them
@@ -31612,6 +31638,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       openLinks(cardRoot);
       setupCloze(cardRoot.querySelector(".question"));
       mountCardMaps(cardRoot);   // a map card's question is a canvas — see the MAP CARDS block
+      fitFlagShots(cardRoot);   // a cached flag can finish loading before the delegated listener sees it
       /* Stepping through the card's phrasings. It swaps the question IN PLACE rather than re-rendering the
          card: the answer may already be showing, and a reader who cycles to compare two wordings has not
          asked for the answer to be taken away again. `c` is a copy whenever there is a pool to cycle, so
@@ -31627,6 +31654,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         qEl.innerHTML = cardFrontHTML(c);
         setupCloze(qEl);
         mountCardMaps(qEl);
+        fitFlagShots(qEl);
         if (revealed) gradeCloze(qEl, c.answer);   // the blank stays filled in — reveal is not undone by this
         if (syncAttempt) syncAttempt();               // a fresh blank is an unattempted one (see deckAttempt)
         const n = cardRoot.querySelector("#qcN"); if (n) n.textContent = (qIdx + 1) + " / " + pool.length;
@@ -35189,6 +35217,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const spec = cardFlagSpec(c);
     if (!root || !spec) return;
     const fig = root.querySelector(".flag-shot");
+    if (fig) fitFlagShots(fig.parentNode || root);
     if (!fig || fig.classList.contains("revealed")) return;
     fig.classList.add("revealed");
     fig.setAttribute("role", "button");
@@ -35198,6 +35227,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     fig.setAttribute("data-img-title", spec.alt || "");
     fig.setAttribute("data-img-desc", "");
     fig.setAttribute("data-img-credit", spec.credit);
+  }
+  /* THE FRAME IS THE FLAG'S OWN SHAPE, SO THERE ARE NO BARS AT ITS SIDES (Sep 2026, on request: "the
+     canvas that the flags are displayed in should never have black bars on the side, i.e. the canvas should
+     shrink horizontally to fit the shape of the flag"). The frame was full width at a fixed height with the
+     picture contained inside it, so a 2:3 flag sat between two bands of paper — black at night — and a
+     square one between two wide ones. The ratio cannot be known before the file arrives, since a flag
+     carries nothing that records it, so it is read off the loaded picture and written as `--ar` on the
+     FIGURE, whose width styles.css then derives from the frame's height: `min(100%, height × ratio)`.
+     The `min` is what keeps a very wide flag (Qatar, 11:28) inside a phone, where it narrows the HEIGHT
+     instead — the picture takes `aspect-ratio` from the same property, so it can never be letterboxed
+     either way. Called from the delegated `load` listener and, because a cached file can finish before
+     that listener sees it, from `cardFlagReveal` and the render path as well. A file with no intrinsic
+     size (an SVG declaring none) keeps the stylesheet's 3:2 default rather than a guess of zero. */
+  function fitFlagShot(img) {
+    const fig = img && img.closest && img.closest(".flag-shot, .dp-answer");
+    if (!fig || !img.naturalWidth || !img.naturalHeight) return;
+    fig.style.setProperty("--ar", String(img.naturalWidth / img.naturalHeight));
+  }
+  function fitFlagShots(root) {
+    (root || document).querySelectorAll(".flag-shot img, .dp-answer img").forEach((im) => { if (im.complete) fitFlagShot(im); });
   }
 
   /* ---------- DRAW CARDS: the flag is the ANSWER, and the reader draws it (Sep 2026, on request) ----------
@@ -35346,6 +35395,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     img.loading = "lazy";
     img.draggable = false;
     fig.appendChild(img);
+    if (img.complete) fitFlagShot(img);   // a cached file can finish before the delegated load listener sees it
     fig.hidden = false;
     fig.classList.add("revealed");
     fig.setAttribute("role", "button");
@@ -37561,12 +37611,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       try { setupTooltips(row); } catch (e) {}
     });
   }
+  /* AN ADMIN CAN EDIT OR REMOVE A STATEMENT (Sep 2026, on request: "on the admin page, allow me to see
+     all the questions for Myth or Fact, so i can edit or remove them"). `truefalsePool` is the one door,
+     the way `whoSaidPool` is for Who said it?, and it reads `ADMIN_EDITS.truefalse` — keyed by the
+     statement's SHIPPED English `q`, never its index, so a statement inserted above it in truefalse.js
+     cannot move an edit onto its neighbour. A value is the whole replacement statement, or null for one
+     taken out of play; the edit reaches every reader through `content_overrides` with no deploy, and
+     truefalse.js itself is never rewritten by the app. */
+  function truefalsePool() {
+    const ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {};
+    return (window.TRUEFALSE || []).map((x) => (x && Object.prototype.hasOwnProperty.call(ov, x.q)) ? ov[x.q] : x).filter(Boolean);
+  }
   PAGES.truefalse = function (root) {
     detachKeys();
     // the gate goes first: a reader who has played does not have to wait on a translation table to be told so
     if (gameLockedToday(root, "truefalse")) return;
     if (gamesI18nPending(root)) return;
-    const POOL = (window.TRUEFALSE || []).map((x) => tfLocalized(x));
+    const POOL = truefalsePool().map((x) => tfLocalized(x));
     const ROUNDS = 5;
     if (POOL.length < ROUNDS) { root.innerHTML = emptyPlacard("Coming soon", "真", "Not enough statements to play yet.", () => route("home"), "Back home"); return; }
     // the day's five, distinct and the same for every reader — see dayPick
@@ -37651,7 +37712,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      — so a thin cell degrades one rung at a time instead of refusing to deal. It cannot fail closed:
      `rest` is every remaining name in the pool, so the fourth rung always fills the round.
 
-     AND THE ROUND COUNT IS THREE (Sep 2026, on request), having gone 5 → 3 → 5 in August. It is a named
+     AND THE ROUND COUNT IS FIVE (Sep 2026, on request), having gone 5 → 3 → 5 in August and to three again
+     earlier in September. It is a named
      constant read by the page and by nothing else, so the results screen, the score and the tile all
      follow the one figure.
 
@@ -37661,7 +37723,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      every reader through `content_overrides` like any other admin edit and needs no deploy. A removed
      quotation's SPEAKER stays available as a decoy only if another of their lines is still in the pool,
      the decoys being drawn from this same filtered list. */
-  const WS_ROUNDS = 3;
+  const WS_ROUNDS = 5;
   function whoSaidPool() {
     const off = (ADMIN_EDITS && ADMIN_EDITS.whosaidOff) || {};
     return (window.QUOTEGAME || []).filter((x) => x && !off[x.q]);
@@ -49603,7 +49665,7 @@ let prev = null;
         gloss: gKeys.length, gAtBar, gSrcTotal, gMedia, gTagged, gDated,
         eras: (window.TIMELINE || []).length,
         places: Object.keys(window.COUNTRY_INFO || {}).length,
-        tfPool: (window.TRUEFALSE || []).length, quotePool: whoSaidPool().length,
+        tfPool: truefalsePool().length, quotePool: whoSaidPool().length,
         localDecks: Object.keys(UDECKS || {}).length,
         overlay: adminEditCount(),
         langs,
@@ -49977,6 +50039,92 @@ let prev = null;
           "</div>";
         }).join("") + "</div></div>";
     }
+    /* The True or False pool — "Myth or fact?" on the reader's side — a third list on this tab, beside
+       the other two game-and-quotation pools. Every statement is listed in file order with Edit and Remove;
+       Edit opens a form in place of the row. See truefalsePool for the overlay's shape. */
+    let _tfEditing = null;   // the shipped `q` of the statement whose form is open
+    function tfAdminHTML() {
+      const all = window.TRUEFALSE || [], ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {};
+      const has = (k) => Object.prototype.hasOwnProperty.call(ov, k);
+      const live = all.filter((x) => !(has(x.q) && ov[x.q] === null)).length;
+      const form = (k, it) => {
+        const src = Array.isArray(it.src) ? it.src.join("\n") : "";
+        return '<div class="q-form tf-form" data-tfform="' + esc(k) + '">' +
+          '<div class="q-form-head"><b>Edit statement</b><span class="q-form-note">The explanation is HTML: <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code> and an empty <code>&lt;sup class="fn" data-fn="1"&gt;&lt;/sup&gt;</code> marker pointing at a source. Metric first with the imperial in brackets, British spelling.</span></div>' +
+          '<label class="admin-field"><span class="af-label">the statement</span><textarea class="af-input" data-tff="q" rows="2">' + esc(it.q || "") + "</textarea></label>" +
+          '<label class="admin-field"><span class="af-label">the answer</span><select class="af-input" data-tff="a">' +
+            '<option value="true"' + (it.a ? " selected" : "") + '>True — a fact</option>' +
+            '<option value="false"' + (it.a ? "" : " selected") + '>False — a myth</option></select></label>' +
+          '<label class="admin-field"><span class="af-label">category</span><input class="af-input" type="text" data-tff="cat" value="' + esc(it.cat || "") + '" /></label>' +
+          '<label class="admin-field"><span class="af-label">the explanation</span><textarea class="af-input" data-tff="why" rows="5">' + esc(it.why || "") + "</textarea></label>" +
+          '<label class="admin-field"><span class="af-label">sources <small>— one Chicago note per line, each ending in its URL</small></span><textarea class="af-input" data-tff="src" rows="3">' + esc(src) + "</textarea></label>" +
+          '<div class="q-form-acts">' +
+            '<button class="mini-btn" type="button" data-tfcancel>Cancel</button>' +
+            (has(k) && ov[k] !== null ? '<button class="mini-btn" type="button" data-tfrevert="' + esc(k) + '">Revert</button>' : "") +
+            '<button class="admin-new" type="button" data-tfsave="' + esc(k) + '">Save</button>' +
+          "</div></div>";
+      };
+      return '<div class="ws-admin tf-admin">' +
+        '<div class="ws-admin-head"><b>Myth or fact?</b> <span class="ws-admin-count">' + live + " of " + all.length + " in play</span></div>" +
+        '<div class="tl-intro">The True or False minigame\'s pool, from <code>truefalse.js</code>. An edit or a removal takes effect at once and travels to every reader from the next draw; the file is untouched, so Revert or Restore brings back the shipped statement. The game needs at least five in play.</div>' +
+        '<div class="q-list">' + all.map((x) => {
+          const k = x.q, isOff = has(k) && ov[k] === null, edited = has(k) && ov[k] !== null;
+          const it = edited ? ov[k] : x;
+          if (_tfEditing === k && !isOff) return form(k, it);
+          return '<div class="q-row ws-row tf-row' + (isOff ? " ws-off" : "") + '">' +
+            '<div class="q-main"><span class="q-text">' + esc(it.q) + "</span>" +
+              '<span class="q-meta"><b>' + (it.a ? "True" : "False") + "</b>" + (it.cat ? '<span class="q-src">' + esc(it.cat) + "</span>" : "") +
+                (Array.isArray(it.src) && it.src.length ? '<span class="q-pill q-orig">cited</span>' : '<span class="q-pill q-noorig">uncited</span>') +
+                (isOff ? '<span class="q-pill q-edited">removed</span>' : edited ? '<span class="q-pill q-edited">edited</span>' : "") + "</span></div>" +
+            (isOff ? "" : '<button type="button" class="mini-btn" data-tfedit="' + esc(k) + '">Edit</button>') +
+            '<button type="button" class="mini-btn' + (isOff ? "" : " danger") + '" data-tfoff="' + esc(k) + '">' + (isOff ? "Restore" : "Remove") + "</button>" +
+          "</div>";
+        }).join("") + "</div></div>";
+    }
+    function wireTfAdmin(items) {
+      const ov = () => ADMIN_EDITS.truefalse || (ADMIN_EDITS.truefalse = {});
+      const shipped = (k) => (window.TRUEFALSE || []).find((x) => x.q === k);
+      items.querySelectorAll("[data-tfedit]").forEach((b) => b.addEventListener("click", () => {
+        _tfEditing = b.dataset.tfedit; adminRenderQuotes();
+        const f = items.querySelector(".tf-form"); if (f) f.scrollIntoView({ block: "nearest" });
+      }));
+      items.querySelectorAll("[data-tfoff]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.tfoff, o = ov();
+        const wasOff = Object.prototype.hasOwnProperty.call(o, k) && o[k] === null;
+        if (wasOff) delete o[k]; else o[k] = null;
+        if (_tfEditing === k) _tfEditing = null;
+        saveAdminEdits(); adminRenderQuotes();
+        toast(wasOff ? "Restored to Myth or fact?" : "Removed from Myth or fact?");
+      }));
+      items.querySelectorAll("[data-tfcancel]").forEach((b) => b.addEventListener("click", () => { _tfEditing = null; adminRenderQuotes(); }));
+      items.querySelectorAll("[data-tfrevert]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.tfrevert;
+        inlineConfirm("Put this statement back to its shipped wording?", () => {
+          delete ov()[k]; _tfEditing = null; saveAdminEdits(); adminRenderQuotes(); toast("Reverted");
+        }, "Revert");
+      }));
+      items.querySelectorAll("[data-tfsave]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.tfsave, f = b.closest(".tf-form"); if (!f) return;
+        const v = (n) => (f.querySelector('[data-tff="' + n + '"]').value || "").trim();
+        const q = v("q").replace(/\s+/g, " "), why = v("why");
+        if (!q) { toast("A statement needs its words."); return; }
+        if (!why) { toast("A statement needs its explanation."); return; }
+        const src = v("src").split(/\n+/).map((x) => x.trim()).filter(Boolean);
+        // the house form ends in the URL, optionally followed by a `[in French]` / `[Open access]` label
+        const bad = src.find((x) => !/https?:\/\/\S+\.?(\s*\[[^\]]+\])*$/.test(x));
+        if (bad) { toast("Every source must end in the URL a reader can check it at."); return; }
+        const marks = (why.match(/data-fn="(\d+)"/g) || []).map((m) => +m.replace(/\D/g, ""));
+        if (marks.some((n) => n < 1 || n > src.length)) { toast("A footnote marker points past the end of the sources."); return; }
+        const it = { q: q, a: v("a") === "true", why: why, cat: v("cat") };
+        if (src.length) it.src = src;
+        const orig = shipped(k);
+        // typing the shipped statement back clears the edit rather than storing a copy of it
+        const same = orig && orig.q === it.q && !!orig.a === it.a && (orig.why || "") === it.why && (orig.cat || "") === it.cat &&
+          JSON.stringify(orig.src || []) === JSON.stringify(it.src || []);
+        if (same) delete ov()[k]; else ov()[k] = it;
+        _tfEditing = null; saveAdminEdits(); adminRenderQuotes(); toast("Statement saved");
+      }));
+    }
     function adminRenderQuotes() {
       const items = root.querySelector("#adminListItems");
       const countEl = root.querySelector("#adminListCount");
@@ -50063,7 +50211,9 @@ let prev = null;
           formHTML() +
           '<div class="q-list">' + (rows.length ? rows.map(row).join("") : '<div class="tl-empty">No quotes in the pool.</div>') + "</div>" +
           whoSaidAdminHTML() +
+          tfAdminHTML() +
         "</div>";
+      wireTfAdmin(items);
 
       items.querySelectorAll("[data-qopen]").forEach((b) => b.addEventListener("click", () => {
         _qEditing = _qEditing === b.dataset.qopen ? null : b.dataset.qopen;
@@ -50889,6 +51039,7 @@ let prev = null;
     if (!el || el.tagName !== "IMG") return;
     const fig = el.closest && el.closest(".ar-frame");
     if (fig) fig.classList.remove("ar-loading");
+    fitFlagShot(el);   // a flag card's frame takes the flag's own shape (see fitFlagShot)
   }, true);
   document.addEventListener("error", (e) => {
     const el = e.target;
