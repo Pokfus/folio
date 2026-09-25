@@ -3443,7 +3443,2218 @@ name a real card, so a typo is an error rather than a silent gap.
 · **`hints` IS THE MECHANICAL HALF, and is a map rather than an entry per note** — the English →
 Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
 with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or
+more gets distinguishing glosses instead.
 
+## The DELE card-by-card audit, beyond A1 — the batch log
+
+**Read this before opening a batch on a DELE deck above A1.** A1 was read in full in batches of ten (see
+above); the other levels are read the same way, one batch of 20–30 consecutive notes per session in deck
+order, on the model of the Mandarin audit logged at the foot of `docs/mandarin-review.md`. The next batch
+starts where the last row below stops. `reviewed` in `spanish-fixes.json` names the cards read and left
+alone, so a card that needed nothing can be told from one nobody has opened.
+
+| batch | deck | notes (shipped order) | corrected | read, left | deleted | deck-level | tool changes |
+|---|---|---|---|---|---|---|---|
+| S1 | A2 | #0 `como` – #29 `la persona` | 25 | 1 (`realmente`) | 4 (`como`, `cuando`, `la vez`, `donde`) | names, British, usage switched on for A2 (189 further cards touched by them alone) | `exEn`, `dropDup`; `build_deck.py`'s -ír imperative |
+| S2 | A2 | #30 `dentro` – #57 `el oído` | 27 | 1 (`quizás`) | 0 | name table widened on A1 and A2 (6 A1 cards, 6 A2 cards outside the batch) | `el/la` headword bold fix |
+| S3 | A2 | #58 `la luz` – #85 `el sueño` | 25 | 3 (`anoche`, `increíble`, `la llamada`) | 0 | — | `build_deck.py`'s enclitic gerund |
+| S4 | A2 | #86 `ambos` – #113 `el regalo` | 26 | 2 (`el negocio`, `la respuesta`) | 0 | Michael, Linda, Jenny, Bill added to the name table (1 card outside the batch) | — |
+| S5 | A2 | #114 `amable` – #141 `el arte` | 27 | 1 (`el ejército`) | 0 | Cathy added to the name table; `salvo` ↔ `excepto` hint pair | a hint can name a renamed card |
+| S6 | A2 | #142 `la obra` – #168 `caerse` | 26 | 1 (`el bosque`) | 0 | back-corrections outside the batch: A2 `cambiarse` and `irse`, A1 `despertarse` | `build_deck.py`'s `add_stress` counts syllables, not vowels |
+| S7 | A2 | #169 `la red` – #195 `cerdo, cerda` | 25 | 2 (`la princesa`, `el ministro, la ministra`) | 0 | — | — |
+| S8 | A2 | #196 `contento` – #222 `la tormenta` | 26 | 1 (`el chocolate`) | 0 | — | — |
+| S9 | A2 | #223 `la ciencia` – #249 `andar` | 27 | 0 | 0 | five coarse or explicit examples removed ahead of their audits: B1 `la pelota`, `el huevo`; B2 `la patada`; C1 `el forro`; C2 `la paja` | — |
+| S10 | A2 | #250 `el abrigo` – #276 `el pájaro` | 25 | 2 (`la fábrica`, `el virus`) | 0 | — | — |
+| S11 | A2 | #277 `la salsa` – #303 `enfrente` | 26 | 1 (`quitarse`) | 0 | — | — |
+| S12 | A2 | #304 `el cuadro` – #330 `egoísta` | 25 | 2 (`el/la periodista`, `el gimnasio`) | 0 | — | — |
+| S13 | A2 | #331 `el carácter` – #357 `seco, seca` | 27 | 0 | 0 | — | — |
+| S14 | A2 | #358 `la corbata` – #384 `la estatua` | 27 | 0 | 0 | — | — |
+| S15 | A2 | #385 `el maletín` – #411 `sentarse` | 25 | 2 (`la araña`, `sentarse`) | 0 | — | — |
+| S16 | A2 | #412 `la factura` – #438 `la propina` | 22 | 5 (`la fórmula`, `mediante`, `el fotógrafo`, `el ballet`, `la propina`) | 0 | — | — |
+| S17 | A2 | #439 `vestirse` – #466 `mexicano` | 25 | 3 (`el cuaderno`, `el medicamento`, `la cebolla`) | 0 | — | — |
+| S18 | A2 | #467 `valer` – #498 `apellidarse` | 30 | 2 (`acostarse`, `amueblar`) | 0 | A2 complete | — |
+| S19 | B1 | #0 `hacerse` – #27 `último` | 26 | 2 (`el capitán`, `último`) | 0 | names, British, usage switched on for B1 (356 further cards touched by them alone); B1 description corrected (999 words, 946 with three examples) and A2's (all 495) | `bold` needed for a phrase headword |
+| S20 | B1 | #28 `correcto` – #55 `siguiente` | 26 | 2 (`correcto`, `el plan`) | 0 | B1 description: 995 words with examples, 947 with three | — |
+| S21 | B1 | #56 `de nuevo` – #83 `la basura` | 28 | 0 | 0 | — | — |
+| S22 | B1 | #84 `el matrimonio` – #111 `parar` | 28 | 0 | 0 | — | `el san` renamed `san`; share filter corrected |
+| S23 | B1 | #112 `lleno` – #138 `el pedido` | 27 | 0 | 1 (`el repente`) | B1 now 998 words; description recounted | `bold` needs `rebold` on a generator sentence |
+| S24 | B1 | #139 `fantástico` – #166 `el desastre` | 26 | 2 (`el/la soldado`, `llorar`) | 0 | — | — |
+| S25 | B1 | #167 `el/la colega` – #194 `el humor` | 25 | 3 (`la velocidad`, `el universo`, `proteger`) | 0 | — | — |
+| S26 | B1 | #195 `el peso` – #222 `el genio` | 24 | 4 (`actuar`, `débil`, `funcionar`, `asustado`) | 0 | — | `conj: []` clears a table |
+| S27 | B1 | #223 `el ladrón` – #250 `cortarse` | 26 | 2 (`deprisa`, `destruir`) | 0 | — | — |
+| S28 | B1 | #251 `imaginar` – #278 `suave` | 26 | 2 (`imaginar`, `la aventura`) | 0 | B1 description: 950 with three | S9's `la pelota` entry extended |
+| S29 | B1 | #279 `la arena` – #306 `la nación` | 28 | 0 | 0 | B1 description: 952 with three | name table reaches `Virgen María` — B2 warning |
+| S30 | B1 | #307 `la explicación` – #334 `quitar` | 24 | 4 (`la explicación`, `el ganador, la ganadora`, `el océano`, `la despedida`) | 0 | B1 description: 954 with three | `ordenador` glossed "ordinator" |
+| S31 | B1 | #335 `utilizar` – #362 `comprobar` | 28 | 0 | 0 | — | — |
+| S32 | B1 | #363 `el círculo` – #390 `mencionar` | 24 | 4 (`el abrazo`, `el trozo`, `la expresión`, `la religión`) | 0 | B1 description: 955 with three | — |
+| S33 | B1 | #391 `la producción` – #418 `el sueldo` | 24 | 4 (`la llegada`, `el capítulo`, `soltero, soltera`, `el sueldo`) | 0 | B1 description: 956 with three | — |
+| S34 | B1 | #419 `la infancia` – #446 `el anciano, la anciana` | 28 | 0 | 0 | B1 description: 957 with three | — |
+| S35 | B1 | #447 `el cartel` – #474 `el grito` | 25 | 3 (`clásico, clásica`, `el documento`, `marcharse`) | 0 | — | — |
+| S36 | B1 | #475 `el cirujano, la cirujana` – #502 `evidente` | 26 | 2 (`el método`, `la asociación`) | 0 | B1 description: 958 with three | — |
+| S37 | B1 | #503 `la atmósfera` – #530 `curar` | 26 | 2 (`grabar`, `el comentario`) | 0 | — | `la ave` renamed `el ave`; six more `la` + stressed a- headwords found in B2–C2 |
+| S38 | B1 | #531 `el elefante, la elefanta` – #558 `trabajador, trabajadora` | 25 | 3 (`necesariamente`, `el mensajero, la mensajera`, `la cortesía`) | 0 | — | — |
+| S39 | B1 | #559 `la misa` – #586 `el flash` | 25 | 3 (`el voluntario, la voluntaria`, `arrogante`, `entrenar`) | 0 | B1 description: 959 with three | — |
+| S40 | B1 | #587 `tradicional` – #614 `el cohete` | 27 | 1 (`occidental`) | 0 | B1 description: 962 with three | — |
+| S41 | B1 | #615 `vago, vaga` – #642 `deprimido, deprimida` | 27 | 1 (`la competición`) | 0 | B1 description: 963 with three | S29 unbolded phrase cards: 3 of the 4 remaining closed |
+| S42 | B1 | #643 `formal` – #670 `el aparcamiento` | 26 | 2 (`conectarse`, `el terremoto`) | 0 | B1 description: 995 with examples, 965 with three, 3 with none | `la delta` renamed `el delta` |
+| S43 | B1 | #671 `el resumen` – #698 `dudar` | 25 | 3 (`publicar`, `la preparación`, `dudar`) | 0 | B1 description: 996 with examples, 966 with three, 2 with none | — |
+| S44 | B1 | #699 `analizar` – #726 `la cuchara` | 24 | 4 (`desarrollar`, `desde luego`, `la cintura`, `el huracán`) | 0 | B1 description: 972 with three | — |
+| S45 | B1 | #727 `casero, casera` – #754 `la oposición` | 26 | 2 (`el bailarín, la bailarina`, `la hipoteca`) | 0 | B1 description: 974 with three | paired feminine that is another noun (`la cartera`) |
+| S46 | B1 | #755 `pretender` – #782 `el cocodrilo, la cocodrila` | 25 | 3 (`sugerir`, `la biología`, `la humedad`) | 0 | B1 description: 997 with examples, 978 with three, one with none | `el pintado` renamed `pintado, pintada` |
+| S47 | B1 | #783 `el pescador, la pescadora` – #810 `solicitar` | 26 | 2 (`el monumento`, `la colaboración`) | 0 | B1 description: 980 with three | — |
+| S48 | B1 | #811 `la barca` – #838 `la pila` | 23 | 5 (`visible`, `corregir`, `atlántico, atlántica`, `oral`, `el recado`) | 0 | B1 description: 982 with three | `pilas` renamed `la pila`; `tercio, tercia` renamed `el tercio` |
+| S49 | B1 | #839 `la aspirina` – #866 `el contestador` | 27 | 1 (`la aspirina`) | 0 | B1 description: 987 with three | `en fin` rebuilt, the last of S29's unbolded phrase cards |
+| S50 | B1 | #867 `rellenar` – #894 `entrevistar` | 25 | 3 (`el compositor, la compositora`, `el/la recepcionista`, `fijarse`) | 0 | B1 description: 990 with three | `el canguro, la cangura` renamed `el/la canguro`; `introducir` false friend noted |
+| S51 | B1 | #895 `triunfar` – #922 `disculpar` | 23 | 5 (`imprimir`, `acercarse`, `comunicarse`, `sustituir`, `renovar`) | 1 (`comprometerse` gerund) | B1 description: 990 with three | `trasladar`'s *transladar*; S3's gerund fault counted at 65 cards still to come |
+| S52 | B1 | #923 `surgir` – #950 `sumar` | 25 | 3 (`secarse`, `esforzarse`, `portarse`) | 0 | B1 description: 991 with three | twelve examples shared with lower decks; `freír` had no example of the verb |
+| S53 | B1 | #951 `desobedecer` – #974 `jubilarse` | 20 | 5 (`desobedecer`, `coleccionar`, `aconsejar`, `acostumbrarse`, `jubilarse`) | 2 tables cleared (`triangular`, `el titular`) | B1 description: 994 with three | new `noConj` field; the "stray line" of 25 earlier notes was a viewer artifact, corrected |
+| S54 | B1 | #975 `equivocarse` – #997 `nublarse` | 22 | 1 (`matricularse`) | 3 gerunds (`atreverse`, `inscribirse`, `deprimirse`) | B1 description: every one of the 998, three apiece | **B1 complete**; `descSub` chain reduced to three pairs |
+
+Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
+comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
+entries, `realmente` (changed only by the name pass) and 189 cards outside the batch changed only by the
+three deck-level passes. An index-by-index comparison is misaligned by the deletions, so ids are the key.
+
+### S1 — DELE A2, notes #0–#29 (Sep 2026)
+
+**FOUR CARDS A1 ALREADY TEACHES, AND THE DECK SAID NONE.** The A2 description claims no word in it appears
+in A1, and four did: `como`, `cuando` and `donde` were INSERTED into A1 by the A1 review after A2 had been
+built, and `la vez` was in both from the start. The generator excludes every word the shipped lower decks
+hold (`words_below`), so a rebuild of A2 against today's A1 would leave all four out; the record now does the
+same through a new deck-level `dropDup`, which CHECKS the claim — every half of the headword must stand on a
+card of the named lower deck — so it cannot quietly delete a word nothing else teaches. Four were
+`dropDup`ped rather than repaired because the A1 cards are the fuller ones (the A1 review gave `como` its
+`como si` and `tan … como`, `donde` its `adonde`). **Any later A1 insert makes the same overlap; run the
+overlap measure after one.**
+
+**138 OF A2'S EXAMPLE SENTENCES ARE ALSO ON AN A1 CARD**, which the A1 deduplication pass could not see: it
+deduplicated within a deck. A reader who has studied A1 meets the sentence again as though it were new. The
+rule this batch applied is A1's own, one level out — the card the reader meets FIRST keeps the sentence, so
+the A1 card keeps it and the A2 card is given a fresh one; within A2 the earlier card keeps it. All three of
+`tan`'s and `cada`'s examples were A1 sentences. **This is a wide, mechanically detectable class** — a
+checker listing every sentence a deck shares with a lower level, on the model of `check-example-fit.js`,
+would let later batches see it at a glance rather than by the ad-hoc script this batch used.
+
+**THE COMMONEST FAULT WAS THE SAME AS A1's: AN EXAMPLE SHOWING A DIFFERENT WORD.** `el vale` was
+illustrated three times by the verb `valer` (`no lo vale`, `tú lo vales`) — and sat fifteenth in a deck
+ordered by frequency because `vale` is the everyday Spanish for "OK", which the card never mentioned, so its
+headword is now `vale` with the interjection first and the voucher beneath it. Two of `fuera`'s three
+examples were the past subjunctive of `ir`/`ser` (`después de que yo me fuera`, `como si fuera un niño`);
+that coincidence now sits in Forms, where a reader will want it.
+
+**SECOND, A DICTIONARY'S SENSE LIST WHERE A CARD WANTS TWO LINES** — `entonces` ("then, next, thereupon, at
+that time, at that point…"), `seguro` (five near-synonyms for two senses), `el mundo` ("world" three ways,
+one with a definition in brackets), `la persona` (a definition split into bullets mid-phrase) — and **THIRD,
+THE PHRASE THE WORD LIVES IN, MISSING**: `¿qué tal?` and `tal vez` on `tal`, `¿verdad?` on `la verdad`,
+`todo el mundo`, `por cierto`, `así que`, `hasta luego`, `¡Dios mío!`, `mientras tanto`. Two glosses were
+simply the wrong sense for the card's own examples: `mientras` glossed "meanwhile" over three sentences
+meaning "while", and `pues` led with "so, because" where two of its three sentences were "well".
+
+**THREE OF ONE CONSTRUCTION** on `seguro` (estar seguro de que ×3), `cierto` (ser cierto ×3), `así` (así que
+×2), `entonces` (desde entonces ×2), `cada` (cada vez más ×2), `contra` (en contra de ×2) — each thinned to
+one and the missing senses given an example.
+
+**THE DECK'S OWN SPANISH WAS WRONG THREE TIMES**: `el fin de semana pasada` (the adjective agreeing with
+`semana` rather than the masculine compound), `de si mismo` (`sí` takes its accent), and `tales historias
+que él cuenta` (wants `como las que`); and twice regional where the exam is Spain's — `luego de` for
+`después de`, `se agarró la gripe` for `cogió`. `un Señor Smith` capitalised `señor`.
+
+**THE CONJUGATION TABLE: `irse`'s affirmative vosotros imperative read `ios`.** The generator makes a
+reflexive imperative by dropping the `-d` and adding `-os`, which is right for `levantad → levantaos` and
+wrong twice here: `ir` keeps its `d` (`idos`), and every other `-ir` verb's `i` takes a written accent once
+the `d` goes (`sentíos`, not `sentios`). **Measured over all six decks: 39 cards** — 7 in A2 (`irse`,
+`sentirse`, `reunirse`, `despedirse`, `vestirse`, `divertirse`, `aburrirse`), 2 in B1, 6 in B2, 15 in C1, 9
+in C2. The GENERAL fix is made in `build_deck.py` (proved only by `py_compile`: the rebuild needs the 1 GB
+cache this sandbox has not got); `irse` is corrected here by `conjSub`, and the other 38 are left for their
+own batches, which will read those cards anyway. This is a vosotros form changing, which the rule "the
+nosotros and vosotros forms must not change" seems to forbid — that rule was written for the stem-changing
+corrections, where those two forms are the regular ones; here the vosotros form IS the fault.
+
+**A NEW RECORD FIELD, `exEn`**, rewrites a generator example's English in place, matched on a substring of
+its Spanish. The instruction for this audit named it, and `spanish-fix.js` did not have it — the only repair
+for a wrong translation was `dropEx` plus `ex`, which moved the sentence to the end and turned a generator
+block into a record one. It errors on a row matching no kept block; the name pass runs first, so its
+substring must avoid a name that pass rewrites. Used in six rows on five cards (`Your father wants you` for `Es a ti a quien
+quiere tu padre`; `the happiest man on earth` for `la persona más feliz del mundo`; the tense of `Pues yo
+quería…`).
+
+**THE DECK-LEVEL PASSES ARE ON FOR A2**, with A1's tables and `Ann` → `Ana` added: 186 `Tom`s in A2's
+English, plus `favorite`, `realized`, `kilometers`, `neighbor`, `movie`, `mom`. **Two count faults in the
+deck's own description**: the subtitle said 500 words against 499 in the file, and the description said three
+examples for "496 of the 499" where the file had 487. It now says 495 and "484 of the 495"; the generator's
+category counts (256 nouns, 70 pairs, 111 verbs, 31 reflexives) are left as they are, on A1's reasoning, and
+the sentence adding the two levels to "1,000 words" is removed, a combined figure being wrong whenever either
+deck moves.
+
+**LEFT, AND WHY.** `realmente` is right as it stands (its three examples are three different uses) and is in
+`reviewed`. `la cabeza` keeps "500 cabezas de ganado" and says what it is. `mejor` keeps
+`Mejor te llevo…`, which is the construction a reader needs and which the A1 review had moved off `bien`.
+
+**THE CHECKERS.** `spanish-fix.js --check` passes; `check-say.js` 0; unbolded examples in A2: 0 of 1,472.
+`check-senses.js --deck=DELE-A2` lists 80 cards (16.2%), two of them this batch's and both false positives: `tan` and
+`tanto` are glossed with "so" and "as", which the checker discards as function words, so their sentences
+cannot match them however right they are. Its top of list is the next batches' reading — `la china` glossed "pebble"
+over three sentences about China, `encantar` glossed "to charm" where the card's own sentences say "I love",
+`el sueño` glossed "sleep" over three about dreams, `apagar` "to extinguish" over three about switching a
+light off, `la cabina` an aeroplane's cabin over three telephone boxes. **`check-decks.js` fails on HEAD**
+with a 30-second timeout waiting for `[data-uadd]` — the Collections page's add button has moved since it
+was written — so it reports nothing about any deck at present; not fixed here, and worth a session of its own.
+
+### S2 — DELE A2, notes #30–#57 (Sep 2026)
+
+Measured against the S1 commit by card id: **A2 33 changed, 462 untouched** — 27 record entries and 6 cards
+outside the batch touched only by the widened name table (`quizás`, read and left, is unchanged) — and **A1 7
+changed, 485 untouched**, all of them the name repair below.
+
+**THE WORST SHAPE AGAIN WAS A DIFFERENT WORD SHARING THE LETTERS, and four cards had it**: `la lista` was
+illustrated twice by the adjective `listo` (*la cena esté lista*, *¿estáis listas?*); `el oído` twice by the
+participle of `oír` (*haber oído*, *ser oída*); `medio` once by the noun `medios`, "means", mistranslated as
+"proper methods"; and `el/la bebé`'s *su bebe* lost its accent and so bolded the verb `beber`. Each
+coincidence now sits in Forms. **`incluso, inclusa` taught a word nobody uses**: as an adjective, "enclosed",
+it is archaic, and `inclusa` is not its feminine but an old noun for a foundling home, while every example
+was the adverb *incluso*, "even" — so the headword is `incluso` alone.
+
+**THE MISSING-PHRASE CLASS AGAIN**, and here it was the word's main use more than once: `dejar` without
+*dejar de*, "to stop doing" (two of its own three examples) or "to let"; `seguir` without *seguir* + gerund,
+"still"; `mayor` without "older", *mi hermano mayor*; `igual` without *me da igual*; `adelante` without
+*¡adelante!*; `aunque` without the indicative/subjunctive contrast that is the whole rule of the word.
+Dictionary dumps on `único`, `además` (eight words for one meaning), `arriba` ("uphill", "upstream") and
+`importante`, whose gloss carried definition fragments — "that cares", "that matters." — full stop included.
+
+**THE DECK'S OWN SPANISH**: `el agua dada` (wants *abierta*), `Deberías de estas` (a typo for *estar*),
+`Aunque yo te digo, tú no lo haces`, `hace un rato atrás` (says "ago" twice), `sólo` with the accent the
+Academy dropped in 2010, `¡Llama a Seguridad!` capitalised mid-sentence, `ya no ama más` ("no longer"
+twice). A mistranslated proverb (*Las personas que aman a Dios mueren jóvenes*, "whom the gods love") and
+`las seguridades`, a plural nobody uses, went too. **All four conjugation tables in the batch (`dejar`,
+`encontrarse`, `morir`, `seguir`) are right**, including the stem changes and `encontrémonos`.
+
+**THE NAME PASS WAS SPLITTING SENTENCES, IN A1 AS WELL AS A2.** Tatoeba's Spanish side often renders Mary and
+John as *María* and *Juan*, so a table renaming only the English names produced *Quizá Carlos no quiere que
+encontremos a María* over "Maybe Carlos doesn't want us to find Ana" — three such sentences in A1 and five in
+A2. `María`, `Maria`, `Marie` and `Juan` are now in both decks' tables. **And the pass had renamed a real
+person**: Bob → Pablo made A1's *¿Cuál es tu canción favorita de Pablo Dylan?*; that sentence is dropped from
+`la canción`. **A blanket name table cannot tell a character from a celebrity** — grep the output for a
+surname after a renamed first name after any change to the table.
+
+**A BOLDING BUG IN `spanish-fix.js` ITSELF, FOUND BY READING THE OUTPUT**: a headword of the form `el/la
+bebé` was split on the slash before the article came off, so `el` became a bold target and an added *Ana tuvo
+un bebé el mes pasado* came back with *el* marked. The two-gender article is now stripped first. Nothing
+reported it — the example did contain its headword — which is why the batch's own cards are printed and
+read after every apply, not just counted.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded examples 0 in A1 (1,478) and A2 (1,473).
+`check-senses --deck=DELE-A2` falls from 80 to 71; the one card of this batch still on it, `encontrarse`, is a
+false positive — "met" against the gloss's "meet", the checker not stemming.
+
+### S3 — DELE A2, notes #58–#85 (Sep 2026)
+
+Measured against the S2 commit by card id: **25 changed, 470 untouched, 0 gone**, plus the description (the
+three-example count, 485 → 486). The three cards read and left are unchanged.
+
+**A SECOND CONJUGATION FAULT, AND IT IS WIDER THAN THE FIRST.** `ponerse`'s gerund read `poníendose`. The
+generator's `enclitic_gerund` matched `(a|ie)ndo` and accented the first letter of the match, so every
+`-iendo` gerund took its accent on the `i`; and `-yendo` did not match at all, so `yendose` and `cayendose` got
+none. **Measured over the six decks: 82 reflexive gerunds, every -er and -ir one** (A2 11, B1 7, B2 17, C1 29,
+C2 18); the `-ar` ones (`hablándose`) were right, which is why A1 never showed it. `build_deck.py` now accents
+the `a` or `e` before `-ndo` (checked on `poniendo`, `yendo`, `tiñendo`, `cayendo`, `riendo`), `ponerse` is
+corrected here by `conjSub`, and the other 81 wait for their batches — alongside S1's 38 `-ios` imperatives.
+**Together that is 119 conjugation cells wrong in the same two places, the forms a pronoun is attached to**,
+and a checker over those two cells is cheap and would have caught both on the first day.
+
+**TWO CARDS HAD THE WRONG WORD AT THE HEAD.** `el sino` — "fate", a literary noun — was illustrated three
+times by the conjunction `sino`, "but (rather)", which is the A2 word and the one that has to be told apart
+from `pero`; the headword is now `sino`. And `el sueño` was glossed "sleep, slumber, sleepiness" over three
+sentences that were all a dream coming true — the gloss and every example disagreeing, which is the pattern
+`check-senses.js` exists for and the reason it had the card near the top of its list.
+
+**THE LOOK-ALIKE-WORD CLASS AGAIN**: `conseguir`'s third example was `consigo`, the pronoun "with him";
+`cambiarse`'s first was the plain verb `cambiar`; `derecho` was glossed "straight" over the right glove and
+the noun `derechos`, "rights". **A FALSE FRIEND THE CARD NEVER NAMED**: `libre` is never "free of charge"
+(`gratis`), now in its Forms. The deck's Spanish: `Está es` for `Esta es`, `cuales` unaccented in an indirect
+question, `pieza` for "room" (Latin American), `la venganza de los cielos` and a stilted `lo cual podamos
+hablar`. Senses dumped from a dictionary on `conseguir` (five near-synonyms of "achieve" and not "get"),
+`la luz` ("lumen"), `la boca` ("oral cavity"), `la ropa` ("robes"), `el perro` ("lazy person").
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 71 → 65; the one card
+of this batch left on it, `sino`, is a false positive for the reason `tan` was — "but" is a function word to
+the checker.
+
+### S4 — DELE A2, notes #86–#113 (Sep 2026)
+
+Measured against the S3 commit by card id: **27 changed, 468 untouched** — 26 record entries and `suspender`,
+touched only by the name table — plus the description's three-example count, 486 → 487.
+
+**THREE MORE HEADWORDS WERE THE WRONG WORD.** `salvo, salva` taught an adjective "safe" that survives only in
+*a salvo* and *sano y salvo*, where the A2 word is the preposition *salvo*, "except"; its examples were an A1
+sentence, the verb *salvar* and a sentence no Spanish speaker would say. `el alrededor` is a singular noun
+that does not stand on its own — the word is the adverb *alrededor (de)* and the plural *los alrededores*.
+`la media` was glossed with two OTHER cards' words — "half" is the feminine of `medio` and "stocking" is
+`las medias`, whose own sentence it was carrying — and what it does mean, "the average", had no line; none of
+its three examples could stay. **Three batches running have turned up a card whose headword is a rare
+member of a family whose common member the examples show** (`el vale`, `el sino`, now `salvo`); it is the
+generator choosing the Wiktionary record for the headword's exact spelling rather than for the sense its
+corpus actually uses, and it is worth asking of every noun or adjective whose examples look like another
+part of speech.
+
+**AND THE LOOK-ALIKE WORD, AGAIN**: `ganar`'s three examples were none of them the card — two were the noun
+*las ganas* (*me da la gana*, *no tengo ganas*) and the third was `seguro`'s sentence — and its gloss did not
+say "to win". `la sal` had the verb *salir* (*¿Por qué no te sales…?*), which with the imperative *sal* now
+sits in Forms.
+
+**THE CONJUGATION FAULTS ARE WHERE S1 AND S3 SAID THEY WOULD BE**: `sentirse` carried both — *sintíendose*
+and *sentios* — and both are corrected here. 117 of the 119 remain, in their own batches.
+
+**THE REST**: the deck's Spanish (*¿Que es…?* without its accent, *tras de usted*, *Favor de entregar*
+[Latin American], *hace buen par con*, *hizo la apertura a la reunión*, a word-for-word English idiom on
+`propio`); dictionary junk (`normal` "perpendicular", `la reunión` "powwow", `necesario` "requisite", `la
+caja` "bank", `la cámara` "room"); `el hambre` given the same *el*-before-stressed-*a* note as A1's `el agua`
+and its non-existent plural removed; `cualquiera` finally saying *cualquier* before a noun; two near-identical
+examples on `la cita`; and `el cumpleaños` losing two sentences other cards keep.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 65 → 61; the two batch
+cards left on it, `ambos` ("both") and `propio` ("own"), are false positives of the function-word kind.
+
+### S5 — DELE A2, notes #114–#141 (Sep 2026)
+
+Measured against the S4 commit by card id: **28 changed, 467 untouched** — 27 record entries and `salvo`
+(from S4), which gained its hint. The deck file also rebuilt byte-identical from the S4 file plus the
+record.
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, FOURTH BATCH RUNNING**: `partido, partida` was headed as the
+adjective "broken", glossed in heraldic language ("per pale"), while every example was a noun — `el partido`,
+the match — and is now `el partido`, with the political party beside it. And a gloss that was simply wrong:
+`la navidad` was glossed "Christmas present"; it is now `la Navidad`, with its capital, and "Christmas".
+
+**THE LOOK-ALIKE WORD**: `el rato` was illustrated twice by `la rata` (*las ratas son el origen de la
+plaga*); `junto` once by the noun `la junta`, a board or meeting; `enseguida` by a sentence that is not
+Spanish (*Mi oficina está enseguida a la de Carlos*, where the gloss's "next" came from).
+
+**A GLOSS SHARED WITH A CARD S4 RENAMED**: `excepto` and `salvo` now both mean "except", so the English →
+Spanish card had two right answers. They are a PAIR, so each gets a `not X` line — and **`spanish-fix.js`
+could not attach one to `salvo`**, whose card still bears its generator name (`salvo, salva`) on a freshly
+rebuilt deck when the hint is looked up. The hint is now keyed by the headword the card ENDS UP with, the
+note's rename target being tried as well.
+
+**THE CONJUGATION**: `parecerse`'s gerund (*parecíendose*), the S3 fault; its imperative, which attaches a
+pronoun to a `-zc-` subjunctive (*parézcase*), is right.
+
+**AND THE REST**: `ninguno` never said *ningún* before a masculine noun and used the rare plural *ningunas*;
+`el color` taught a feminine and a plural *las colores* nobody should use; `el arte` did not say it is
+masculine singular and feminine plural (*las bellas artes*); `el planeta` did not say it is masculine
+despite its -a; `pedir` never said "to order" (in a restaurant) or what separates it from *preguntar*;
+`apenas` carried the Latin American "just"; `agradable` was glossed with the English false friend
+"agreeable"; `la estrella` wrote *Ésta* as a determiner; `amable` dropped a personal *a*; `el carro` and
+*un día domingo* are Latin American.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 61 → 54, with no card of
+this batch left on it.
+
+### S6 — DELE A2, notes #142–#168 (Sep 2026)
+
+Measured against the S5 commit by card id: **28 changed in A2, 467 untouched; 1 changed in A1, 491
+untouched** — 26 record entries in the batch (`el bosque` read and left, recorded in `reviewed`), and three
+back-corrections to cards earlier batches had passed: `cambiarse` and `irse` in A2, `despertarse` in A1.
+
+**A NEW GENERATOR FAULT: THE ACCENT ON A DIPHTHONG'S WEAK VOWEL.** `caerse`'s affirmative imperative read
+*caígase*, *caíganse*, where Spanish writes *cáigase*. `add_stress` found the stressed vowel by counting
+VOWELS three from the end, so a diphthong counted twice and the accent landed on its i or u. The same fault
+gave *cambíate* (for *cámbiate*), *peínate*, *afeítate*, *endeúdate* and every unaccented -iar verb's
+imperative. A second, related fault: a bare form already carrying an accent on its last syllable kept it
+once a pronoun was attached, giving *manténte*, *compónte*, *dése*, where the word is *mantente*,
+*componte*, *dese*. **Measured against each card's OWN present and subjunctive tables**, over 1,384
+imperative cells on reflexive cards across the six decks: **58 cells on 23 cards were wrong.** `add_stress`
+now counts syllable nuclei, takes the strong vowel of a diphthong (or the second of two weak ones:
+*cuídate*), and drops a final-syllable accent. Its twenty test forms are in the batch notes, including the
+ones the old rule got right by accident (*siéntese*, *despiértate*). Six cells are corrected here
+(`caerse`, and `cambiarse` back in S3's range); **52 cells on 20 cards remain**, in A2's `afeitarse`,
+`divorciarse` and `peinarse` and across B1–C2, to be repaired as their batches reach them.
+
+**AND TWO FAULTS THE EARLIER BATCHES PASSED OVER.** A1 `despertarse`'s record corrected the stem change
+row by row, and its rows cannot reach the affirmative imperative, where the accent sits on the STEM: the
+card still read *despértate*, *despértese*, *despértense*, now *despiértate*. And `irse`'s gerund still read
+*yendose*, the S3 fault; S1 fixed only its imperative. **A search for imperatives that disagree with their
+own subjunctive** found `despertarse` and nothing else, bar `darse por vencido`, whose *dese* is right.
+
+**THE CARD TAUGHT THE OTHER VERB, OR ANOTHER WORD.** Every example of `quedar` was `quedarse`, the next
+card, which shared two of them. `contar` had not one example of the verb: *a fin de cuentas* and *se dio
+cuenta* are `la cuenta`, and *contar con* was an A1 sentence. `pesar` had none either: *a pesar de*, the
+adjective *pesado*, and a brain weighed in pounds. `tocar` was illustrated by *el toque de queda*, and
+`la nota` by the verb *notar* (*se le nota en la cara*). `la santa` was headed as "saintess" while two
+examples were the adjective in *Semana Santa*, one of them saying Holy Week was Easter and began on a
+Wednesday. The card is now `el santo, la santa`, with the saint's day; the adjective is B1's.
+
+**A MISSING SENSE THE READER MEETS FIRST.** `rico` had no "tasty" (*¡qué rica está la paella!*),
+`la nota` no school mark, `la piel` no leather, `el cuello` no collar, `tocar` no "it's your turn",
+`quedar` no "to arrange to meet" and `cansado` no "tiring". `cansado`'s "boring" was simply wrong.
+`acaso`'s "perhaps" is literary; the word lives in *por si acaso* and in questions expecting "no".
+
+**AND THE REST.** Nine A1-shared sentences were given fresh ones, and three shared later in A2 stayed
+(`la piel`/`el cordero`, `la copa`/`servir`, `subir`/`la bicicleta`). `probarse`'s *suéter* and `acaso`'s
+*auto* are Latin American. `la isla` carried the same sentence twice and a Latin American "block".
+`preocupado` had *de eso es de lo que estoy preocupado*, which is not Spanish. `el cuello` had two violent
+sentences, one the same shape as `el brazo`'s.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 54 → 49. The
+one card of this batch left on it is `intentar`, a FALSE POSITIVE: its gloss says "to try" and its
+examples say "tried" and "trying", which the proxy does not stem.
+
+### S7 — DELE A2, notes #169–#195 (Sep 2026)
+
+Measured against the S6 commit by card id: **25 changed, 470 untouched**, all 25 of them this batch's
+record entries; `la princesa` and `el ministro, la ministra` were read and left, and are in `reviewed`.
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, FIFTH BATCH RUNNING.** `cerdo, cerda` was headed as the adjective
+and glossed "dirty", the colloquial insult, while every example was the noun: pork, pigs, a sow. It is now
+`el cerdo, la cerda`. And `la pasada` was glossed "transit, crossing, moment" while two of its three
+examples were the ADJECTIVE *pasada* (*pasada de moda*, *las pasadas dos horas*), which is the card
+`pasado, pasada` earlier in A2. The noun at A2 is the colloquial *¡qué pasada!* and *dar una pasada*, a
+quick wipe.
+
+**THE LOOK-ALIKE WORD, ONE STEP OVER: THE ADJECTIVE OF THE SAME ROOT.** `bajar` was illustrated twice by
+`bajo, baja` (*la temperatura más baja*, *un poco bajo para mí*), the same shape as `pesar` and *pesado* in
+S6. Now that A2 has shown it three times, it is worth a checker. **An example whose only bolded word is a
+different part of speech of the headword** would be caught by comparing the bolded form against the card's
+own conjugation or Forms rows.
+
+**A GLOSS THAT SAID THE OPPOSITE.** `seguramente` was glossed "surely, certainly", and the examples' English
+said "surely" twice. The word means *probably*: *seguramente lloverá* is a forecast.
+
+**GENDER AND GRAMMAR.** `la pared`'s second example wrote *los paredes*. `la distancia`'s third, *más grande
+que yo esperé*, is not Spanish.
+
+**LATIN AMERICAN USAGE, AND A WARNING THE CARD OWED.** *sala de emergencias* (Spain: *urgencias*), *auto*,
+*bomba de tiempo* and *el puesto del frente* are gone. `coger` now carries a note that in much of Latin
+America the verb is vulgar; a reader travelling needs that more than any gloss.
+
+**AND THE REST.** Seven A1-shared sentences were replaced, and one shared with `la llamada` earlier in A2.
+Eight shared with later A2 cards stayed. `alguno` gained *algún*, as `ninguno` did in S5. `la red` gained
+"network" and a third example. `el/la ex` lost a sentence calling someone a psychopath. `el príncipe` lost
+"Prince Charles will be the next British king", which stopped being true in 2022. Three glosses carried a
+sense that is not the word: `solamente`'s "alone", `nervioso`'s "nerve" and `la emergencia`'s "emergence".
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0; 488 of 495 cards now carry three examples.
+`check-senses --deck=DELE-A2` 49 → 45. The one card of this batch left on it is `arreglar`, a FALSE
+POSITIVE: its gloss says "mend" and "fix", and its examples say "mended" and "fixed".
+
+### S8 — DELE A2, notes #196–#222 (Sep 2026)
+
+Measured against the S7 commit by card id: **26 changed, 469 untouched**, all 26 of them this batch's
+record entries; `el chocolate` was read and left, and is in `reviewed`.
+
+**A SEXUALLY EXPLICIT EXAMPLE, AND THE SWEEP IT FORCED.** `el pollo`'s third example was *No me gusta usar
+consoladores, prefiero las pollas de verdad*, translated to match. It is *la polla*, a vulgar word for the
+penis, matched on the shared letters of *pollo*: the look-alike fault this log has recorded every batch,
+at its worst. **Every example in the seven Spanish decks was then swept for vulgar vocabulary** and this
+was reported as the only one. **THAT WAS WRONG, and S9 corrects it**: the word list was too short, and
+a wider one found five more. **The first sweep was wrong, and the reason is worth keeping**: JavaScript's `\b` is
+ASCII, so an accented letter counts as a boundary, and *espectáculo* matched `culo`. With Unicode
+lookarounds, `(?<![\p{L}])…(?![\p{L}])`, the list is one real finding and a handful of innocent words
+(*folleto*, *puñetazo*, *capullo* the cocoon, *polvo* the dust).
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, SIXTH BATCH RUNNING.** `la china` was glossed "pebble", which is
+right for *la china*, while all three examples were *China*, the country. The card is now `China`; the
+pebble and the nationality (`chino, china`, later in A2) are lines in Forms. **And none of `la costa`'s
+three examples was the coast**: all were *a toda costa* or *a costa de*, "at any cost", the noun built on
+*costar*.
+
+**A GLOSS THAT MISSED THE WORD'S COMMONEST SENSE.** `menor` was glossed "underage" alone, while two of its
+examples meant "younger" and "youngest". `el bote` did not say it is as often a jar or a tin in Spain.
+`antiguo` did not say that before a noun it means "former". Four glosses carried a sense belonging to a
+different word, a sense nobody will meet, or both: `el sombrero`'s "butterfly pea (*Clitorea ternatea*)",
+`el alcohol`'s "galena", and `la rosa`'s "pink", which is the invariable colour adjective.
+
+**AND THE REST.** Six A1-shared sentences were replaced, plus three shared with earlier A2 cards.
+`limpio`'s third example was the verb *limpiar*. `la tormenta` said the power failed *gracias a* the
+storm; its idiom's English is now the British "storm in a teacup". `impresionante`'s *se ve impresionante
+en ti* was a calque. *mañana en la mañana*, *hoy a la noche* and *el cigarro* for a cigarette are gone.
+`la medicina` now separates a medicine from the subject. The horse-race sentence S5 took off `finalmente`
+has come off `elegir` too.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 45 → 41. The one
+card of this batch left on it is `romper`, a FALSE POSITIVE: "break" against "broke".
+
+### S9 — DELE A2, notes #223–#249 (Sep 2026)
+
+Measured against the S8 commit by card id: **27 changed, 468 untouched in A2**, all 27 of them this
+batch's record entries; no card in the range was right as it stood. **And 5 cards changed outside A2**,
+one each in B1 (two), B2, C1 and C2, and nothing else in those decks.
+
+**THE S8 SWEEP MISSED FIVE, AND THEY ARE REMOVED NOW RATHER THAN WHEN THEIR BATCHES COME.** Measuring
+something else — English lines shared by different Spanish sentences — turned up *se lo pasa por el forro
+de los cojones* on C1's `el forro`, a word the S8 list did not name. A wider list then found:
+- *Ella me dio una patada en las pelotas / en los huevos*, "kicked me in the balls", on B1 `la pelota`,
+  B1 `el huevo` and B2 `la patada`;
+- `el forro`'s sentence, whose English ("He is indifferent to what others say") hid it;
+- *Tom se está haciendo una paja*, sexually explicit, on C2 `la paja`.
+
+Each entry carries only a `dropEx`, plus a fresh example where the drop would have left one, and says in
+its `why` that the rest of the card is UNREAD: **when that deck's batch reaches the card, extend the entry
+rather than replacing it.**
+**A vulgarity sweep over a corpus is a list of words, and a list is only as good as its longest miss**, so
+the sweep is not re-run here as a guarantee of anything. The innocent words it also returns are
+*la leche*, *los huevos de codorniz*, *la paja* for straw, and *la hostia* in the communion sense on B2's
+`el párroco`, which is correct and stays.
+
+**A TRANSLATION COPIED FROM ANOTHER CARD.** `la nieve`'s *A todo el mundo le gusta la nieve* was
+translated "Everybody likes ice cream": the sentence was cloned from `helado`'s with one word swapped and
+its English was not. **Grouping every English line by the distinct Spanish sentences it translates** finds
+66 such lines across the six DELE decks. Almost all are legitimate, two synonyms translated alike, which is
+the corpus working (*saldar* and *liquidar* are both "pay off"). So it is a list to read, not a check. It
+also surfaced B2's *Tom cantaba como una almeja* translated "stuck out like a sore thumb", which is a
+translation of the idiom on the next line, and is left for that batch.
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, SEVENTH BATCH RUNNING.** `helado, helada` was headed as the
+adjective, "icy, frozen, shocked", while its examples were ice cream. It is now `el helado`, with the
+adjective in Forms.
+
+**THE LOOK-ALIKE, AGAIN.**
+- `parecido`'s first example was the participle of *parecer*.
+- `efectivo`'s gloss put "real, true" first and missed its own first example, *en efectivo*, cash.
+- `tirar`'s third example was a suicide, and also *el tiro*.
+
+**GLOSSES THAT MISSED THE SENSE A READER MEETS FIRST.**
+- `tirar` had no "throw away" and no "pull", though every door in Spain says *Tirar*.
+- `el curso` had no school year.
+- `aburrido` did not separate *estar aburrido* (bored) from *ser aburrido* (boring).
+- `el socio` did not name a club member.
+- `el paquete` had no packet.
+- `andar` did not note that a machine *anda*.
+- `probable` carried "provable", which is not the word.
+
+**AND THE REST.**
+- Nine A1-shared sentences were replaced, plus four shared with earlier A2 cards.
+- `el estómago`'s three examples were one sentence, one of them missing its accent.
+- `el/la piloto` wrote *Está es*.
+- `el rock` gave a plural nobody uses.
+- `la ciencia`'s *ese profesor de ciencias maneja todos los años* is nonsense in Spain.
+- `social`'s first example was `la naturaleza`'s sentence with one word changed.
+- Generalisations and slurs are gone: Mexico's slums, *un idiota útil*.
+- Names that are not Spanish are gone: Tommy, Sami, Jane.
+- `responder` now points to A1's `contestar`, which is the verb for "talk back".
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 41 → 39, with no
+card of this batch left on it.
+
+### S10 — DELE A2, notes #250–#276 (Sep 2026)
+
+Measured against the S9 commit by card id: **25 changed, 470 untouched**, all 25 of them this batch's
+record entries; `la fábrica` and `el virus` were read and left, and are in `reviewed`.
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, EIGHTH BATCH RUNNING.** `uniforme` was headed as the adjective
+("uniform, even") while every example was the noun `el uniforme`, and is now that noun. **Across A2 that
+is now eight cards**: `vale` (S4), `partido`, `la santa`, `cerdo`, `la pasada`, `la china`, `helado` and
+`uniforme`. Every one of them is a headword where the generator taught the wrong member of a family: the
+adjective where the list meant the noun, the pebble where it meant the country. `build_deck.py`'s
+`pick_primary` takes the first Wiktionary record that has a real sense, unless the word is named in
+`FORCE_POS`. That table exists for exactly this, and already names `hecho`, `vestido` and thirty others.
+**The durable fix is to add these words to it, but not from this audit**: a rebuild would then rename those
+cards, and the record's entries are keyed by the generator's current headword, so they would stop matching
+and `spanish-fix.js` would fail. The two have to be changed together, on the day the decks are rebuilt.
+
+**A FALSE FRIEND THE CARD TRANSLATED AS ITSELF.** `el vaso`'s third example was translated "Put some water
+into the vase": the false friend a learner most needs warning about, stated the wrong way round. A vase is
+*un jarrón*, and the card now says so, and that a stemmed glass is *una copa*.
+
+**THE LOOK-ALIKE, ONE MORE TIME.** `meter` was illustrated by *la meta*; `la compra` by the verb
+(*los compra en el extranjero*); `la cruz` by *el cruce*, a crossroads (*los cruces*).
+
+**GLOSSES THAT MISSED THE EVERYDAY SENSE.**
+- `la educación` had no "manners" (*es de mala educación*).
+- `la compra` had no *hacer la compra*.
+- `servir` had no "to be for" (*¿para qué sirve esto?*), though two of its examples used it.
+- `el despacho` put "dispatch" first.
+- `la regla` showed no ruler.
+- `el pez` did not say that fish to eat is *el pescado*.
+- `enfadado` did not note Latin America's *enojado*.
+
+**THE CONJUGATION.** `moverse`'s gerund (*movíendose*), S3's fault, is now *moviéndose*. Its imperatives
+are right.
+
+**AND THE REST.**
+- Six A1-shared sentences were replaced, plus six shared with earlier A2 cards.
+- `el cheque`'s three examples all spelt it "check".
+- Latin American forms are gone: *jugo*, *celular*, *bienes raíces*, *mañana a la noche*, and *usar* for
+  wearing.
+- `la ambulancia` was missing a personal *a*.
+- `el palacio` dated the first Chinese palaces, which a vocabulary card cannot stand behind.
+- `el pájaro` lost a false generalisation and a shooting.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 39 → 36, with no
+card of this batch left on it.
+
+### S11 — DELE A2, notes #277–#303 (Sep 2026)
+
+Measured against the S10 commit by card id: **26 changed, 469 untouched**, all 26 of them this batch's
+record entries; `quitarse` was read and left, and is in `reviewed`.
+
+**A GLOSS THAT WAS SIMPLY WRONG.** `la moto` was glossed "milestone", while every example said motorbike.
+
+**GLOSSES THAT MISSED THE SENSE EVERY EXAMPLE USED.**
+- `el anuncio` gave "announcement, notice", while all three examples were advertisements.
+- `el metro` gave "meter, tape measure", while its first example was the underground, the sense a
+  reader in Madrid meets daily.
+- `el cristal` had no window pane, *limpiar los cristales*; all three of its examples were idioms or
+  crystals.
+- `guardar` gave the computing sense twice and missed "to keep, to put away".
+- `presentar` put "to present" first and "to acquaint" last; the A2 sense is *te presento a…*.
+- `enfrente` put "in front of" first, which is *delante de*, where the word means "opposite".
+
+**THE LOOK-ALIKE, SIX MORE TIMES.**
+- `presentar` was illustrated by the adjective *presentes*.
+- `cruzar` by *el cruce*.
+- `montar` by *el monte*.
+- `adivinar` by *el adivino*.
+- `el ron` by a man called Ron: *A Ron le gusta el surf*, the spelling matched and the capital ignored.
+- `chino`'s first example was the language, which its gloss did not name.
+
+**CALQUES AND WRONG REGISTER.**
+- `la crema`: *toma su crema y azúcar con café*. In Spain cream from milk is *la nata*, and the card now
+  says so.
+- `el ron`: *tengo de dejar*.
+- `el piano`: *aprender como afinar*, where the interrogative is *cómo*.
+- `el/la guía`: *perros guías*, where the Academy prefers the invariable *perros guía*.
+- `la salsa`: a sentence about the sauces of the Abkhazians.
+
+**AND THE REST.**
+- Eight A1-shared sentences were replaced, plus five shared with earlier A2 cards.
+- American English is gone: *roommate*, *dresser*, *subway*, *meters*, *commercial*.
+- `chino` lost a generalisation about two peoples.
+- `la garganta` put a gorge beside the throat as an equal; it is now a note.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 36 → 33. The one
+card of this batch left on it is `crecer`, a FALSE POSITIVE: "grow" against "growing" and "grown".
+
+### S12 — DELE A2, notes #304–#330 (Sep 2026)
+
+Measured against the S11 commit by card id: **25 changed, 470 untouched**, all 25 of them this batch's
+record entries; `el/la periodista` and `el gimnasio` were read and left, and are in `reviewed`.
+
+**GLOSSES THAT MISSED THE SENSE THE EXAMPLES USED, AGAIN THE LARGEST CLASS.**
+- `el cuadro` gave "square, rectangle", while every example was a picture.
+- `la letra` had no lyrics, though two of its examples were lyrics.
+- `la barra` had neither the loaf, which is its first example, nor the bar counter.
+- `la rueda` had no tyre.
+- `la plaza` had no parking space, which is its second example.
+- `la publicidad` put "advertisement" (*un anuncio*) where the word is advertising.
+- `ocurrir` offered "to come up with", which is *ocurrirse*, without saying so.
+- `el ejercicio` carried "role", which is not the word.
+- `egoísta` carried "egotistic".
+- `la bicicleta`'s gloss included "step over" and "pedalada", which are not English.
+
+**THE LOOK-ALIKE.** `mejorar` was illustrated by the noun *la mejora*. And `científico`'s gloss gave only
+the adjective while two of its examples were the noun, a scientist.
+
+**SPANISH THAT IS NOT SPANISH.**
+- *de poco a poco*, where the phrase is *poco a poco*.
+- *Lava tus manos*, where Spanish says *lávate las manos*.
+- *¿Cuál es tu letra de una canción favorita?*
+- *Sed es la sensación…*, which is missing its article.
+- *escribiendo los ejercicios*, where the verb is *hacer*.
+- *la sección sin reservas*.
+- *Es más americano que la tarta de manzana*, an English idiom translated word for word.
+
+**AND THE REST.**
+- Eleven A1-shared sentences were replaced, plus five shared with earlier A2 cards. `el dormitorio`
+  lost all three of its examples, two to A1 and one to *departamento*.
+- Latin American forms are gone: *jugo*, *departamento*, *ayer a la noche*.
+- Non-Spanish names and dated scenes are gone: Scott, and Lincoln in the present perfect.
+- Sentences with nothing to teach are gone: *Nada es real*, and all scientists being like children.
+- `las gafas`' English said "sunglasses" for plain *gafas*.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 33 → 30, with no
+card of this batch left on it.
+
+### S13 — DELE A2, notes #331–#357 (Sep 2026)
+
+Measured against the S12 commit by card id: **27 changed, 468 untouched**, all 27 of them this batch's
+record entries; no card in the range was right as it stood.
+
+**THE HEADWORD-IS-THE-WRONG-WORD CLASS, NINTH BATCH RUNNING, AND ITS MILDER COUSIN.** `empleado,
+empleada` was headed as the adjective, "employed", while every example was the noun, an employee, and is
+now `el empleado, la empleada`. **Three more cards were glossed as adjectives while their examples used
+the noun**, and a rename would have been wrong for them, since both uses are A2: `adolescente` (both
+examples "teenager"), `adulto` and `político`. Each now carries the noun as its own gloss line. The
+`FORCE_POS` list the S10 log proposes should take `empleado`; the other three should not.
+
+**A GLOSS AND ITS EXAMPLES THAT DISAGREED OUTRIGHT.**
+- `el billete` was glossed "banknote, bill, billet" while every example was a ticket. Its third example
+  was a concert ticket, which is *una entrada* (A1), so the card was teaching the wrong word for its own
+  English.
+- `la cabina` named a plane's and a ship's cabin while every example was a telephone box.
+- `la agenda` put "agenda" first, where the word in Spain is a diary.
+
+**SENSES NOBODY NEEDS, AND ONE NOBODY SHOULD BE TAUGHT.**
+- `naranja` carried "Pertaining to Ciudadanos", a Spanish political party's colour.
+- `las medias` carried "three of a kind (in the game mus)" and the American "pantyhose". The card now
+  says what the word is in Spain, tights, and warns that it means socks in much of Latin America rather
+  than teaching that.
+- `la guitarra` carried "guitarfish" and `el champán` read "champan".
+- `musical`'s part-of-speech label, *[adjective, not músico, música]*, was a note to the generator that
+  reached the card.
+
+**ONE SENTENCE, SEVERAL TIMES.**
+- All three of `la docena`'s examples were a dozen eggs.
+- `las matemáticas` had "the essence of mathematics is liberty" and its reverse.
+- `devolver` returned a book twice.
+- `mandar` could keep none of its three examples: *computadora*, an A1 sentence, and *mandado a volar
+  por un camión*.
+
+**AND THE REST.**
+- Twelve A1-shared sentences were replaced, plus six shared with earlier A2 cards.
+- Two stereotypes are gone, about Italian men and about what adults like.
+- *El agua es mojado* is gone.
+- `la academia` now says it is a private school in Spain, *una academia de idiomas*.
+- `la tarta` now puts cake first.
+- The English idiom *más americano que la tarta de manzana*, dropped from `la manzana` in S12, is dropped
+  from `la tarta` too.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0; 491 of 495 cards now carry three examples.
+`check-senses --deck=DELE-A2` 30 → 24, with no card of this batch left on it.
+
+### S14 — DELE A2, notes #358–#384 (Sep 2026)
+
+Measured against the S13 commit by card id: **27 changed, 468 untouched**, all 27 of them this batch's
+record entries. Three cards were already right in their examples (`cuyo`, `típico`, `la receta`) and
+changed only in the gloss or one line of English.
+
+**THE WRONG MEMBER OF THE FAMILY, THREE WAYS.**
+- `propietario` was headed as the adjective ("proprietary, owning") while every example was the owner,
+  and is now `el propietario, la propietaria`.
+- `plano, plana` was headed as the adjective while the A2 word is `el plano`, a street map, which is its
+  second example. It is now that, pointed at A1's `el mapa`.
+- **`la eléctrica` is the reverse case**: the headword was right, the electricity company, and every
+  example was the ADJECTIVE *eléctrica* (two electric guitars, some power tools). The adjective is
+  `eléctrico, eléctrica` in B2, so the examples went rather than the headword.
+
+**A GLOSS THAT NEVER REACHED ITS SENSE.** `apagar` was glossed "to extinguish, to douse, to slake
+(thirst", cut off mid-parenthesis, and never said "to turn off", which all three examples were.
+`la exposición` gave "exposition, exposure" while every example was an exhibition. `la cafetería`'s
+examples were an American school canteen, a food fight and dirty cafeterias, where in Spain the word is
+a café. And `actualmente` owed its reader the warning that it is not "actually".
+
+**A GENERATOR FAULT, THE FIFTH INSTANCE REPAIRED.** `reunirse`'s gerund read *reuníendose* (S3's fault),
+and is now *reuniéndose*. Its imperatives, *reúnete* and *reúnase*, are right, and are the case the S6
+accent rule had to be written to leave alone.
+
+**AND THE REST.**
+- `generalmente` could keep none of its three examples; all were A1 sentences.
+- Five more A1-shared sentences were replaced, plus three shared with earlier A2 cards.
+- Aphorisms are gone from `la poesía` and `la nube`.
+- `la estatua` carried the Statue of Liberty twice.
+- Generalisations about women are gone from `pintar` and `generalmente`.
+- `la colonia` now glosses cologne, its third example.
+- `la lata` now names *¡qué lata!*.
+- `cuyo` now says it agrees with what is owned.
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 24 → 23. The one
+card of this batch left on it is `cuyo`, a FALSE POSITIVE: a function-word gloss whose only content word,
+"whose", is on the checker's stop list.
+
+### S15 — DELE A2, notes #385–#411 (Sep 2026)
+
+Measured against the S14 commit by card id: **25 changed, 470 untouched**, all 25 of them this batch's
+record entries; `la araña` and `sentarse` were read and left, and are in `reviewed`.
+
+**A HEADWORD THAT IS A NAME.** `los correos` is not what anyone calls the post office. In Spain it is
+**Correos**, the postal service, with a capital, and the card is now headed that way and pointed at A1's
+`el correo`.
+
+**A STATEMENT ABOUT CHILDREN DYING.** `la bañera`'s second example was *Los niños mueren a menudo en la
+bañera*. The S8 and S9 sweeps were for vulgar vocabulary and could not see it, since every word in it is
+ordinary. **Harmful content is not only coarse content, and only reading finds the rest.**
+
+**THE LOOK-ALIKE.** `durar` was illustrated by *duro* ("hard", B1's card), and `girar` by *el Giro de
+Italia*.
+
+**GLOSSES THAT MISSED WHAT A READER NEEDS.**
+- `invitar`'s "to be on" was a garbled *te invito*, "it's on me".
+- `el pañuelo` had no tissue.
+- `el menú` had no *menú del día*, and gave its plural as *menúes*.
+- `la matrícula` put "matriculation" first; the word is a number plate or enrolment.
+- `aéreo` said "aerial" where the word is "air", as in *correo aéreo*.
+- `certificado` had no *carta certificada* and no noun, though two of its examples were the noun.
+- `el maletín` translated itself twice as "suitcase", which is exactly the confusion with *la maleta* the
+  card exists to prevent.
+
+**AMERICAN ENGLISH, A BATCH'S WORTH.** "ER" and "emergency room", "backpack", "city hall" (three times)
+and "license plates" are now British, with A&E, rucksack, town hall and number plate.
+
+**AND THE REST.**
+- Three A1-shared sentences were replaced, plus seven shared with earlier A2 cards.
+- `el cordero` carried the same proverb twice, both copies kept by earlier cards, and none about the
+  lamb anyone eats.
+- A stereotype about Greek cooks is gone.
+- Latin American usage is gone: *auto*, *fue derecho*, *en frente* written as two words.
+- `la niebla`'s *ya no es más* was a calque of "no longer".
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 23 → 22. The one
+card of this batch left on it is `las urgencias`, a FALSE POSITIVE. Its gloss's key term, "A&E", breaks
+into single letters, which the checker drops as too short; its other words, "casualty" and "hospital",
+are not in the examples, which all say "A&E". (A first draft of this entry blamed HTML escaping. The
+checker decodes `&amp;` before comparing, so that was wrong, and it was caught by reading the script
+before committing the claim.)
+
+### S16 — DELE A2, notes #412–#438 (Sep 2026)
+
+Measured against the S15 commit by card id: **22 changed, 473 untouched**, all 22 of them this batch's
+record entries. **Five cards were read and left** (`la fórmula`, `mediante`, `el fotógrafo`, `el ballet`,
+`la propina`), the most of any batch so far. The later cards of the frequency list are rarer, more
+concrete nouns, and a concrete noun's examples go wrong less often.
+
+**EVERY EXAMPLE WAS ANOTHER WORD, TWICE.** `la ginebra`, gin, was illustrated three times by *Ginebra*,
+the city of Geneva (a treaty, a man from there, its conferences). `músico, música` was glossed "musical",
+under a part-of-speech label carrying a note to the generator (*[adjective, not musical]*), while one
+example was *la música*, music, which is A1's card. It is now `el músico, la música`, a musician.
+
+**THE ADJECTIVE-AND-NOUN PAIR, FOUR MORE TIMES.** `mecánico`, `postal`, `portátil` and `electrónico` were
+each glossed as adjectives while their examples used the noun or a set phrase: *el mecánico*, *la postal*,
+*el portátil* (the laptop, the A2 word in Spain) and *correo electrónico*. Each now carries both, as S13
+did for `adulto` and `político`. **This is now the commonest gloss fault in A2**, and it has the cause
+S10 found in `build_deck.py`: `pick_primary` glosses from the first Wiktionary record with a real sense,
+and for these words that record is the adjective.
+
+**NONE OF THE THREE EXAMPLES COULD STAY, TWICE MORE.**
+- `la gripe` had *se agarró la gripe* (Latin American), *gripa* translated as "a cold", and "summer flu"
+  caught in spring.
+- `la ginebra`, as above.
+
+**THE LOOK-ALIKE.**
+- `reservado` was illustrated by the verb *reservar* (*he reservado una mesa*), which is its own card.
+- `completar` was illustrated by the adjective *completo* (B1's card), in *un completo y total sin
+  sentido*, which is not Spanish.
+- `la gorra`'s *gorras de lana* are woolly hats, *gorros* (B1).
+
+**AND THE REST.**
+- `despedirse`'s gerund (*despidíendose*, S3's fault) is now *despidiéndose*: the sixth instance repaired.
+- `la nevera` lost an insult about a named woman.
+- `encantar` now says it is built like *gustar*, where the gloss gave "to charm, to enchant".
+- `la tapa` now glosses the bar snack its own second example uses.
+- `ordenar` now glosses "to tidy" and warns that ordering food is *pedir*.
+- `la factura` lost "quality, caliber".
+
+**CHECKERS.** `--check` passes; `check-say` 0; unbolded 0. `check-senses --deck=DELE-A2` 22 → 18, with no
+card of this batch left on it.
+
+### S17 — DELE A2, notes #439–#466 (Sep 2026)
+
+Measured against the S16 commit by card id: **25 changed, 470 untouched**. All 25 are this batch's record
+entries, and nothing outside #439–#466 moved. **Three cards were read and left**: `el cuaderno`,
+`el medicamento`, `la cebolla`.
+
+**THE LOOK-ALIKE, FIVE TIMES. It is now the commonest example fault in A2.** Each of these was illustrated
+by a different word that shares its spelling or its stem:
+- `doler` by the noun *el duelo*, grief.
+- `odiar` by the noun *el odio*, hatred.
+- `vestirse` by the noun *el vestido*, a dress.
+- `calvo` by the noun *la calva*, a bald patch.
+- `zoológico` by *el zoológico*, the zoo. That card's gloss gave only the adjective, so it now carries
+  the noun as well, as S16's four did.
+
+Each of these examples bolds a form of the headword's spelling, so none of them trips the "an example must
+contain its headword" guard. Only reading finds this class.
+
+**A MACHINE TRANSLATION, AND A SENTENCE THAT IS NOT REFLEXIVE.**
+- `dibujar` carried *Dejad que el té dibuje durante diez minutos*. That is English "let the tea draw"
+  (infuse) put word for word into Spanish, and it means nothing.
+- `separarse` carried *Irlanda e Inglaterra son separados por el mar*. It is not reflexive and gets the
+  agreement wrong.
+
+**THE CONJUGATION TABLE.** `vestirse` had both known generator faults:
+- The gerund read *vistíendose* (S3's fault). It is now *vistiéndose*, the ninth repaired.
+- The vosotros imperative read *vestios* (S2's -ir imperative finding). It is now *vestíos*, the second of
+  the 39 counted there.
+
+The last A2 card with each fault is still to come: `afeitarse`, `divorciarse` and `peinarse` carry
+`add_stress` cells.
+
+**AND THE REST.**
+- `el kilo` lost the variant spelling *quilo* and "the letter K in the spelling alphabet".
+- `mexicano` lost the variant *mejicano*, whose English had dropped the word ("a sombrero"). It also lost
+  the Nahuatl sense.
+- `el paraguas` had one example and `la gimnasia` had two; both now have three.
+- `prestar`'s gloss had fallen apart ("pay (e.g. • attention)"). It now names *pedir prestado*, "to
+  borrow", which its own third example is.
+- `navegar` now glosses surfing the internet.
+- `optimista`: *aun* is now *aún*.
+- `el arquitecto`: *decía que quiere* is now *dice que quiere*.
+- Three sentences shared with A1 (`doler`, `el alumno`, `el violín`) and one shared with `propio` were
+  replaced.
+
+**CHECKERS.**
+- `--check` passes; `check-say` reports 0; there are no unbolded examples. 493 of 495 A2 cards now carry
+  three examples.
+- `check-senses --deck=DELE-A2` went from 18 to 16. The one card from this batch still on the list,
+  `navegar`, is a false positive: its 5-character stemmer reduces *sailing* and *surfing* to `saili` and
+  `surfi`, which never meet the 4-letter gloss words `sail` and `surf`.
+- The replacement sentence first written for `doler`, *Me duele la cabeza*, was caught by `share.js` as
+  `la cabeza`'s own example. It is now *Me duele mucho la espalda*.
+
+### S18 — DELE A2, notes #467–#498 (Sep 2026) — A2 complete
+
+Measured against the S17 commit by card id: **30 changed and 465 untouched**. All 30 changes are this batch's record entries, and nothing before #467 moved. **`acostarse` and `amueblar` were read and left as they were.** The batch is 32 notes, two more than the batch size, because these are the last 32 cards in A2 and splitting off a two-card batch would add nothing. **With this batch every card in DELE A2 has been read.**
+
+**THE CONJUGATION TABLE: EVERY KNOWN A2 GENERATOR FAULT IS NOW REPAIRED.**
+- **The add_stress fault from S6** was in three cards:
+  - `afeitarse` read *afeítate*, *afeítese* and *afeítense*, and `peinarse` read *peínate*, *peínese* and *peínense*. In both verbs the stress falls on the *e* of the diphthong, so the correct forms are *aféitate* and *péinate*.
+  - `divorciarse` read *divorcíate*. The *i* of *divorcio* is unstressed, so the correct form is *divórciate*.
+
+  Each fix is three `conjSub` pairs, one for each affirmative imperative that carries a clitic.
+- **The reflexive-gerund fault from S3** was in two cards: `divertirse` and `aburrirse`, bringing the number repaired to eleven.
+- **The -ir vosotros-imperative fault from S2** was in the same two cards: *divertios* and *aburrios* are now *divertíos* and *aburríos*. That makes four of the 39 cards repaired.
+
+The remaining cells with these faults are in B1–C2 and are left for those batches.
+
+**THE LOOK-ALIKE, THREE MORE TIMES.** In each case the example used a noun that is spelt like the verb:
+- `consultar` was illustrated by *la consulta*, a doctor's surgery hours.
+- `barrer` was illustrated by *el barro*, mud. Its replacement, *Barro la terraza*, uses the same letters as the verb, which is the point.
+- In S17's `vestirse` the example had used the noun for a dress; this is the same fault.
+
+**TWO SEXUAL EXAMPLES AND A GRAMMAR FAULT.**
+- `aburrirse` and `cansarse` each had a sentence about making love. The S8 and S9 vulgarity sweeps missed both, because *hacer el amor* was not on their word list.
+- `preferir` had *Preferiría que te quedes*, which breaks the sequence of tenses.
+- `valer` had *No todos los libros valen la pena leer*, which is not grammatical.
+
+**LATIN AMERICAN USAGE.** These were replaced with the forms used in Spain:
+- *antier* (`anteayer`)
+- *entre más… más* (`aburrirse`)
+- *entonces* for 'so' (`suspender`)
+- *el piso* for the floor (`barrer`)
+
+**GLOSSES.**
+- `aprobar` and `suspender` now put the exam sense first.
+- `valer` now includes *¿cuánto vale?*.
+- `interesar` now says it is built like *gustar*.
+- `reservar` now glosses *to book*.
+- `repasar` now glosses *to revise*.
+- `regalar` has lost *to regale*.
+- `planchar` has lost *to overwrite*.
+- `preferir` has lost *to rather*.
+- `acordarse`, `quejarse`, `enfadarse` and `alegrarse` now name the preposition they take.
+- `chatear` and `apellidarse` had two examples each and now have three.
+
+**CHECKERS.**
+- `--check` passes, `check-say` reports 0, and no example is left unbolded.
+- **All 495 A2 cards now carry three examples.**
+- `check-senses --deck=DELE-A2` went from 16 flags to 14. The one card in this batch still flagged, `regalar`, is a false positive: the gloss says *give*, the examples say *gave* and *given*, and the checker's stemming cannot match those irregular English forms.
+- `spanish-fix.js`'s guard refused the first replacement for `divorciarse`, *¿Por qué se quieren divorciar?*. The bare infinitive with a separated clitic is not one of the card's forms, so the sentence is now *¿Por qué quieren divorciarse?*.
+
+### S19 — DELE B1, notes #0–#27 (Sep 2026) — B1 begins
+
+**Measured against the S18 commit by card id.**
+- All 28 of the batch's cards changed: 26 have record entries, and `el capitán` and `último` were read and left alone. Those two changed only because the name table now runs over B1: Tommy is now Carlitos, and Yoko is now Yolanda.
+- **356 further B1 cards changed through the deck-level passes alone.**
+
+**THE DECK-LEVEL PASSES ARE SWITCHED ON FOR B1**, using A2's tables. Before this batch B1's English still said *Tom and Mary* and *realize*.
+- Ten names that B1's sentences use and A2's did not are added to the name table: Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna and Caroline.
+- **Joe is deliberately not added**, because B1 has a sentence about Joe Biden.
+- `dropDup` is not needed: no B1 headword is also an A1 or A2 headword.
+
+**THE NAME TABLE CREATES NEW SHARES.** Once Tom became Carlos, three B1 sentences became word-for-word copies of A2 sentences, which had already been renamed:
+- *El sueño de Carlos se está haciendo realidad*
+- *Carlos sufre a menudo de dolores de cabeza*
+- *Todo el mundo quiere a alguien a veces* (already a copy of an A1 sentence)
+
+Any batch that runs a name table over a deck for the first time has to check shares after the rename, not before.
+
+**THE DESCRIPTION WAS WRONG IN TWO PLACES.**
+- It said 1,000 words; the deck has 999, as the description itself says a few lines later.
+- It said three examples for 977 words; the file had 946 before the read began.
+
+Both are corrected. The combined three-level total is removed on A2's reasoning. The same pass corrects A2's description, which still claimed three examples for 487 of its 495 words; since S18 it is all 495.
+
+**NONE OF THE THREE EXAMPLES WAS THE HEADWORD, FOUR TIMES.** B1's earliest cards are its commonest words, and here the generator most often picked up a same-spelt word instead:
+- `el hecho` was shown three times by the participle *hecho, hecha* ("made").
+- `la ayuda` was shown twice by the verb *ayuda* ("helps").
+- `buenas`, the greeting, was shown three times by the adjective (*buenas notas*).
+- `el camino`'s three examples were all shared with, or aphorisms from, lower decks.
+
+`matar` had *las mates* ("maths"), and `darse` had *lo que estaba pasado* where the verb must be *pasando*.
+
+**PHRASE HEADWORDS NEED `bold`.** `boldTargets` drops any target containing a space. So an added sentence on `a menudo` or `a veces` failed the "an example must contain its headword" guard, even though it plainly did. The record now names those two with `bold`. **Twelve more generator examples in B1 have the same shape and nothing bolded**, because the corpus matched the phrase inside a longer word:
+- `puesto que` is shown by *Por supuesto que* and *Apuesto que*.
+- `dado que` is shown by *olvidado que* and *Cuidado que*.
+- `o sea` is shown three times by *eso sea*.
+- `a menos que` is shown by a plain comparison.
+- `en fin` is shown by *final*.
+- `debido a` is shown by *debido al*, which is correct and only unbolded.
+
+These are left for their own batches.
+
+**CONJUGATION.**
+- `hacerse`: the gerund *hacíendose* is now *haciéndose*, the twelfth fix of this fault.
+- `darse`: the usted imperative *dése* is now *dese*, as the 2010 spelling rules write it.
+
+**CHECKERS.**
+- `--check` passes and `check-say` reports 0.
+- `check-senses --deck=DELE-B1` flags 115 cards. That figure is a baseline for the read, not a result. From this batch it flags only `matar`, which is a stemming false positive: its "kille" does not match "kill".
+
+### S20 — DELE B1, notes #28–#55 (Sep 2026)
+
+Measured against the S19 commit by card id: **26 changed, 973 untouched**, all 26 of them this batch's
+record entries. **`correcto` and `el plan` were read and left.**
+
+**THE SAME-SPELT WORD, SEVEN MORE TIMES.** S19 found the look-alike class at the head of B1; it is just
+as dense in this batch:
+- `la frente`, the forehead, was never the forehead. Two examples were *en frente de* ("opposite"), and
+  one was *hacer frente*, which is *el frente*.
+- `el puesto` had the participle *puesta*.
+- `la orden` had *el orden*, the other gender and another word.
+- `el paso` had the verb *pasar* twice.
+- `la falta` had *faltar*.
+- `duro` had *durar*.
+- `perdido` had *perder* in a perfect tense.
+
+Two cards whose own FORMS row now says *not el orden* and *not el frente* follow S12's `la gorra`.
+
+**A PHRASE CARD ILLUSTRATED BY A DIFFERENT PHRASE.**
+- `en realidad` ("actually") had *convertirse en realidad* ("to come true").
+- `al menos` had *al menos que le hablen*, which is a mistake for *a menos que*, a later B1 card.
+
+**`asesino` HAD NO EXAMPLES AT ALL** and glossed only the adjective, "murderous", where the word is
+overwhelmingly the noun. It now carries three. The description is brought up to 995 of 999 words with
+examples, and 947 with three.
+
+**AND THE REST.**
+- `la orden`: *órden*, accented in the singular, is gone.
+- `el grupo` lost a generalisation about the Japanese and the Latin American *se robó*.
+- `el dado`: the same Einstein line twice is now one.
+- `otra vez`'s gloss had opened on Wiktionary's own note ("Used other than figuratively…").
+- `extraño`'s gloss was a list of eleven synonyms.
+
+**Nine more sentences shared with A1 or A2 were replaced**, and one of the replacements — *Da un paso
+adelante* — was itself A2's `adelante` sentence and was changed again.
+
+**CHECKERS.** `--check` passes; `check-say` 0. `check-senses --deck=DELE-B1` 115 → 110. Its two flags
+from this batch are false positives:
+- `llevarse`: the English irregular *took* does not stem to *take*.
+- `así que`: its gloss *so* is shorter than the checker's three-letter minimum.
+
+### S21 — DELE B1, notes #56–#83 (Sep 2026)
+
+Measured against the S20 commit by card id: **all 28 changed, 971 untouched**, each of the 28 a record
+entry. This is the first batch in which no card could be read and left.
+
+**A NEW CONJUGATION FAULT: THE CARRIED ACCENT.** `mantenerse`'s tú imperative read *manténte*. The
+bare imperative *mantén* is accented only because it ends in -n and is stressed on its last syllable;
+once *te* is attached, *mantente* is a word stressed on the penultimate syllable, ending in a vowel, and
+takes no accent. The generator carries the accent across. A scan of every DELE deck's affirmative tú
+cell for an accent on the penultimate syllable before a clitic returns eleven. **Seven are right** —
+*cáete*, *créete*, *peléate*, *estropéate*, *maréate*, *licencíate* and *averíate* keep their accents,
+because each marks a hiatus. **Four are this fault**, all in B2 — *expónte*, *entreténte*, *compónte*
+and *absténte* — and they are left for their batch. The same card's gerund was S3's fault
+(*manteníendose* → *manteniéndose*), the thirteenth repaired.
+
+**THE GLOSSES LED WITH THE WRONG SENSE, FIVE TIMES.**
+- `la pena` put "punishment" first; its examples were *¡qué pena!*, *a duras penas* and *valer la pena*.
+- `el principio` put "principle" first; two examples were *al principio* and *desde el principio*.
+- `la carrera` had only races and missed a university degree and a career.
+- `la vista` said "sight" twice and missed the view.
+- `el servicio` said "public toilet" where Spain says *los servicios*.
+
+**THREE MORE GENERALISATIONS OR APHORISMS.** `personal` said women talk to maintain relationships. `la
+relación` said marriage is slavery. The same card also defined speed as "a relationship between two
+objects". None of `la relación`'s three examples could stay.
+
+**THIRTEEN SENTENCES SHARED WITH A1 OR A2 WERE REPLACED**, along with one shared with an earlier B1 card.
+None of the replacements collided, so every share left in #56–#83 is with a later B1 card, which will
+drop it in its turn.
+
+**CHECKERS.** `--check` passes; `check-say` 0; every card in the batch has three examples.
+`check-senses --deck=DELE-B1` stays at 110, with no card of this batch on it.
+
+### S22 — DELE B1, notes #84–#111 (Sep 2026)
+
+Measured against the S21 commit by card id: **all 28 changed, 971 untouched**, each one a record entry.
+
+**A HEADWORD THAT WAS THE WRONG WORD.** `el san` was glossed "financial" and carried a plural, *los
+sanes*, which does not exist. *San* is the shortened *santo* used before a man's name. It takes no article
+and has no plural, and the noun and the adjective are other cards: `el santo` in A2 and `santo, santa`
+later in B1. The card is renamed to `san`, and its Forms row now says when the full *santo* is used.
+
+**THE NAME TABLE HAD REACHED A PLACE NAME.** The same card's first example read *San Javier es la capital
+de Puerto Rico*. That is San Juan put through the `Juan` → `Javier` row. A sweep of A1, A2 and B1 for a
+renamed name standing after *San*, *Santa*, *Santo*, *Puerto* or *Nueva* finds only this one. **The table
+is not changed**, because a lookbehind for *San* would be one more rule to guard one sentence. But a
+sentence carrying a real Juan cannot be written into a deck that runs this pass. Such a sentence has to
+use another saint, as the replacement here does.
+
+**THE SAME-SPELT WORD, TWELVE TIMES IN ONE BATCH.**
+- `ante` was shown twice by *antes*.
+- `el cargo` by *la carga*.
+- `el tema` by *temer*.
+- `el encuentro` by *encontrar*.
+- `parar` by the preposition *para* and the noun *la parada*.
+- `la salud` by *saludar*, in a sentence about strangling someone.
+- `el corte` by *cortar*, and by *la corte*, the court, in its Latin American legal sense.
+- `el vestido` by *vestida*.
+- `la baja` by the adjective *baja*.
+
+`aun` was glossed with the senses of *aún*, a different word that A1 teaches. `el respecto` did not say
+it is not *el respeto*.
+
+**TWENTY-TWO SENTENCES SHARED WITH A1 OR A2 WERE REPLACED.** Every example on `la mayoría` was an A1
+sentence. **The share filter used for S20 and S21 was also wrong**: it hid any line whose LAST listed
+holder was a later B1 card, even when an earlier holder was A1 or A2. A corrected filter (`share3.js`),
+re-run over #0–#83, finds nothing those batches missed. The earlier outputs had been read unfiltered as
+well.
+
+**LATIN AMERICAN USAGE.** These went: *departamento* for a flat, twice; *la corte* for a court of law;
+*tenés*; and *jugar fútbol* without its article.
+
+**LOOKING AHEAD.** The sweep also turned up *Creo que ésta es la moto de Carlos* on `crear`. That is
+*creer*, and it will be fixed when its batch comes.
+
+**CHECKERS.** `--check` passes; `check-say` reports 0; the batch has no unbolded examples.
+`check-senses --deck=DELE-B1` has gone from 110 to 107. Its one flag from this batch, `el respecto`, is
+two English lines that share the word *nothing*, which is not a disagreement with the gloss.
+
+### S23 — DELE B1, notes #112–#139 (Sep 2026)
+
+Measured against the S22 commit by card id: **all 27 surviving cards changed, 1 card deleted, 970
+untouched**.
+
+**A PHANTOM HEADWORD, FOLDED AWAY.**
+- `el repente` was glossed "attack, upsurge, fit, sudden movement", and its three examples were `de repente`'s own three sentences.
+- The generator took the second word of a B1 phrase and made it a noun card.
+- `de repente` now carries a `fold` that deletes it.
+- **The deck goes from 999 cards to 998**, the subtitle and description say so, and the example figures are recounted: 994 of 998 words have examples, and 948 have three.
+- As with the A2 folds, a device that already holds the deck keeps the deleted note, because `langDeckUpdate` never deletes.
+- **Shipped positions after #135 are now one lower**, so this batch's last card, `el pedido`, is #138.
+
+**`bold` NEEDS `rebold` TO REACH A GENERATOR SENTENCE.**
+- `debido a`'s second example, *debido al mal tiempo*, had nothing bolded, because *al* fuses *a* with *el*.
+- Naming `debido al` in `bold` changed nothing. `bold` is applied to the sentences the record adds, not to the ones the generator wrote, until `rebold` is set.
+- It was set here, and it closes the first of the twelve unbolded B1 examples that S19 listed.
+
+**THE SAME-SPELT WORD AGAIN.**
+- `probar` was shown by the noun *la prueba*.
+- `el pedido` was shown by the participle of *pedir* and by *la pedida de mano*.
+- `el guardia` was shown by *la guardia*, "duty", which is another word; its Forms row now says so.
+- `paciente` was shown by the noun, which the gloss did not give.
+- `completo` was shown by the Chilean *completo*, a hot dog.
+
+**THE GLOSS DID NOT SAY WHAT THE WORD DOES.** Each of these was missing the construction its own examples used:
+- `tratar` lacked *tratar de*.
+- `en cuanto` lacked *en cuanto a*.
+- `ojalá` did not say it takes the subjunctive.
+- `evitar` lacked *evitar que*.
+- `la pista` lacked a clue.
+- `la bolsa` lacked the stock exchange.
+- `la acción` lacked a share.
+- `la marcha` lacked a gear.
+- `la bomba` lacked a pump.
+
+**LATIN AMERICAN USAGE.** These were replaced: *mañana a la tarde*, *no tiene caso*, *bomba de tiempo*, *abajo de*, *como que*, a road measured in miles, and *coin purse* in a gloss.
+
+**THIRTEEN SENTENCES SHARED WITH A1 OR A2 WERE REPLACED.** All three of `la experiencia`'s examples were among them.
+
+**CHECKERS.**
+- `--check` passes.
+- `check-say` reports 0.
+- The batch has no unbolded examples.
+- `check-senses --deck=DELE-B1` went from 107 to 100, with no card from this batch on it.
+
+### S24 — DELE B1, notes #139–#166 (Sep 2026)
+
+Measured against the S23 commit by card id: **26 changed, 972 untouched**, all 26 of them record entries.
+**`el/la soldado` and `llorar` were read and left as they were.**
+
+**`el papa` WAS NEVER THE POPE.** Two of its examples were *las papas*, "potatoes", which is Latin American
+usage (Spain says *patatas*), and the third was *Papa Noel*. All three are replaced. The Forms row now
+separates the word from *el papá* and *la papa*.
+
+**GLOSSES THAT MISSED THE SENSE A CONVERSATION USES.**
+- `caer`: *caer bien*, "to like someone".
+- `la memoria`: *de memoria*, and a warning that "a memory of something" is *un recuerdo*.
+- `la noticia`: *las noticias*, the news bulletin; its first gloss, "notice", was a false friend.
+- `la prensa`: *rueda de prensa*.
+- `el proyecto`: *proyecto de ley*.
+- `escrito`: *por escrito*.
+
+**`el camión` IS "LORRY".** Every English line said "truck". `exUsage` cannot fix this, because the deck
+is right to say "truck" wherever Spain would say *furgoneta*; it is fixed per card, as `apartment` is.
+
+**THE REST.**
+- `estupendo` lost the Latin American *se ve estupenda*.
+- `el beso` lost the American baseball idiom "first base".
+- `gay` lost the spelling *gays*: the RAE's plural is *gais*, and the card's own Forms row already said so.
+- Twelve sentences shared with A1, A2 or an earlier B1 card were replaced. One replacement, *¿Está libre
+  este asiento?*, was itself A2's `libre` sentence and was changed again.
+
+**CHECKERS.** `--check` passes; `check-say` reports 0; the batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 100 to 97. Its one flag from this batch, `obtener`, is a false
+positive: the only thing its examples agree on is the name *Carlos*.
+
+### S25 — DELE B1, notes #167–#194 (Sep 2026)
+
+Measured against the S24 commit by card id: **25 changed, 973 untouched**, all 25 of them record entries.
+**`la velocidad`, `el universo` and `proteger` were read and left.**
+
+**`echarse` WAS TWICE NOT REFLEXIVE.** Two of its three examples were *echar* with an object pronoun:
+*echarme*, *echarte de la empresa*, "to throw someone out". That form reads exactly like the reflexive
+infinitive with its pronoun attached, and the bolding cannot tell them apart. The card now shows lying down
+and *echarse a llorar*. **All three of `echar`'s examples were A1 sentences**, and its gloss missed *echar
+de menos*, *echar una mano* and *echar a perder*; the replacements use all three.
+
+**THE LAST "completo y total sin sentido".** `total` carried the sentence that S16 dropped from
+`completar`, S19 from `el sentido` and S23 from `completo`. It was generated into four cards because it
+contains four headwords, and it is not Spanish. A sweep of every deck after this batch finds it nowhere.
+
+**GLOSSES THAT MISSED THE EVERYDAY SENSE.**
+- `el puente`: the long weekend.
+- `el descanso`: half-time.
+- `nacional`: domestic flights.
+- `la oferta`: *de oferta*.
+- `presente`: *tener presente*.
+- `borracho`: a drunk, which is what every one of its examples was.
+- `el colega`: Spain's colloquial "mate".
+- `el humor` was spelt the American way and put "mood" first.
+
+**THE REST.**
+- `el espectáculo` lost a mistranslated Netflix line.
+- `robar` lost a sentence about birds that cannot steal.
+- `bajarse` lost a statement written inside question marks.
+- `borracho`'s two proverbs, which were really one, both went.
+- Eight sentences shared with A1 or A2 were replaced.
+
+**CHECKERS.** `--check` passes, `check-say` reports 0, and the batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 97 to 95. Its one flag from this batch, `robar`, is the irregular
+past again: *stole* does not stem to *steal*.
+
+### S26 — DELE B1, notes #195–#222 (Sep 2026)
+
+Measured against the S25 commit by card id: **24 changed, 974 untouched**, all 24 of them record entries.
+**`actuar`, `débil`, `funcionar` and `asustado` were read and left.**
+
+**A CARD THAT WAS TWO WORDS.**
+- `militar` was glossed as the adjective "military" but carried the full conjugation of the verb *militar* ("to be a member of a party"). Its third example was that verb.
+- The record now sets `conj: []`, which renders an empty Conjugation field. The note is the first to lose a table rather than correct one.
+- The description's "287 verbs" still counts it. That is the generator's figure and is deliberately not recomputed, on A1's reasoning.
+
+**`crear`'s *Creo que…* WAS `creer`.** S22 found it and left it for this batch. All three of `crear`'s examples went: the other two are shared with A1 and A2.
+
+**GLOSSES THAT MISSED THE FIRST SENSE.**
+- `el escenario` had no "stage".
+- `el diario` put "diary" before "newspaper".
+- `el interés` gave only interest on money, while every example was interest in something.
+- `ya que` gave "because" and "now that", but not "since".
+- `el genio` gave "temper" while all three examples were "genius"; one now shows the temper.
+- `continuar` offered "to go off on" and "to go off of".
+- `el agujero` offered "pincushion".
+
+**THE REST.**
+- `romperse`'s gerund (*rompíendose*) is now *rompiéndose*: the fourteenth fix of this fault.
+- `la mirada` could keep none of its three examples. One was also a sequence-of-tenses fault: *me pidió que le eche*.
+- `el diario` lost a line saying diaries are for girls.
+- `el pecho`'s English had put "his hand on his heart" for a woman's hand on her chest.
+- `ya que`'s added sentence needed `bold`, as every phrase headword has.
+- Seventeen sentences shared with A1, A2 or an earlier B1 card were replaced.
+
+**CHECKERS.** `--check` passes; `check-say` reports 0; the batch has no unbolded example. `check-senses
+--deck=DELE-B1` went from 95 to 93, with no card of this batch on it.
+
+### S27 — DELE B1, notes #223–#250 (Sep 2026)
+
+Measured against the S26 commit by card id: **26 changed, 972 untouched**, all 26 of them record entries.
+**`deprisa` and `destruir` were read and left.**
+
+**THE SAME SENTENCE TWICE ON ONE CARD, FIVE TIMES.**
+- `el olor` had the smell of books, and the smell of old books.
+- `la firma` had the date after the signature, and the date under it.
+- `recién` had freshly made bread twice.
+- `el cáncer` had hatred as a cancer on society and violence as the cancer of society.
+- `el lago`'s *el lago más profundo en Japón* was also `profundo`'s.
+
+The generator's "three different inflected forms" rule sees *olor* and *olor*, *pan* and *pan*, as
+different sentences, because they are different strings.
+
+**THE SAME-SPELT WORD.**
+- `el tamaño` had the adjective *tamaña* ("such").
+- `cortar` had the adjective *corta*.
+- `cortarse` had *se cortó su mano*, which wants the article, not the possessive. It is also the sentence S25 dropped from `el cuchillo`.
+
+**GLOSSES THAT PUT THE WRONG SENSE FIRST.**
+- `discutir` led with "to discuss"; in everyday Spanish it is "to argue", and that is what every example meant.
+- `precioso` led with "precious"; it is "beautiful, lovely".
+- `recoger` missed tidying up.
+- `la firma` missed a firm.
+- `el siglo` missed *hace siglos*.
+- `mundial` missed *el Mundial*.
+- `el entrenador` had labelled its senses "(UK)" and "(US)" instead of saying what they are.
+
+**THE REST.**
+- `descubrir` lost a mistranslation and an unverifiable date.
+- `precioso` lost a line comparing wives' looks.
+- The Latin American *carro* and *en la noche* went.
+- Nine sentences shared with A1, A2 or an earlier B1 card were replaced.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 93 to 92. Its one flag from this batch, `en absoluto`, is a
+false positive: its examples agree only on *don't* and *Carlos*.
+
+### S28 — DELE B1, notes #251–#278 (Sep 2026)
+
+Measured against the S27 commit by card id: **26 changed, 972 untouched**, all 26 of them record entries.
+Two cards, `imaginar` and `la aventura`, were read and left as they were. The `la pelota` entry that
+batch S9 opened for a coarse example is **extended here, not replaced**: its gloss is corrected and a
+third example added. That is the first of S9's five placeholder entries to be read in full.
+
+**`el carro` WAS A CAR THREE TIMES.** All three examples used *carro* in its Latin American sense of a car.
+In Spain a car is *el coche*, which is A1's card, and *un carro* is a cart or a shopping trolley — which
+is what the card's own gloss already said. The replacements show the cart and the trolley, and the Forms
+row gives the Latin American sense as a *not*.
+
+**A FALSE FRIEND THAT HAD BEEN TRANSLATED AS ONE.** On `el compromiso`, the first example's English said
+"compromise", which the word does not mean. It is a commitment, an engagement to marry, or a prior
+engagement. The card now says so, and it gains an example of the engagement it had none of.
+
+**GLOSSES THAT MISSED THE EVERYDAY SENSE.**
+- `la cadena`: a television channel, and a chain of shops.
+- `el grado`: a university degree, which in Spain is *un grado*.
+- `cumplir`: *cumplir años*.
+- `la comunidad`: the autonomous community, and the *comunidad de vecinos*.
+- `la cola`: "queue" before "tail".
+- `soportar`: a warning that "to support" someone is *apoyar*.
+- `permitir`: *permitirse*, "to afford".
+- `el tráfico`: trafficking.
+
+**TWENTY-ONE SENTENCES SHARED WITH A LOWER DECK OR AN EARLIER B1 CARD WERE REPLACED** — the most in one
+batch so far. `cero` and `el grado` each carried the same *cuarenta grados bajo cero*, which is also an
+A1 sentence. Also removed: a "savage tribe", a line about Tatoeba itself, and an article called
+*maldito*.
+
+`la presencia` and `la pelota` go from two examples to three, so the description now says 950 of 998 words
+have three examples.
+
+**CHECKERS.** `--check` passes, `check-say` reports 0, and the batch has no unbolded example.
+`check-senses --deck=DELE-B1` goes from 92 to 89, with no card of this batch on it.
+
+### S29 — DELE B1, notes #279–#306 (Sep 2026)
+
+Measured against the S28 commit by card id: **all 28 changed, 970 untouched**, each a record entry.
+
+**THE NAME TABLE HAD REACHED THE VIRGIN MARY.** `virgen`'s first example read *La Virgen Ana es la madre
+de Jesús*: the `María` → `Ana` row, and a sibling of S22's *San Javier*. A sweep of every deck for a
+renamed name standing after *Virgen*, *Santa*, *San*, *Jesús* or *Dios* finds nothing else in A1–B1.
+**B2's `la maría` carries *La Virgen María* and will meet the same row the day B2's passes are switched
+on**, so that batch must drop or protect the sentence before the rename runs. The same card also carried
+an offensive second example.
+
+**THE GLOSS DID NOT SAY WHAT THE EXAMPLES WERE, FIVE TIMES.**
+- `la muñeca` was glossed "wrist" while all three examples were a doll.
+- `el canal` listed canals and straits while all three examples were television channels.
+- `el personaje` gave "personage" and not "character".
+- `el archivo` put "archive" before "file".
+- `súper` had one example, the noun *el súper*, which the gloss did not give.
+
+Each now carries both senses.
+
+**THE SAME-SPELT WORD, AND A PHRASE THAT WAS NOT THERE.** `el saco` had the verb *sacar*; `saltar` had the
+noun *salto*. `a menos que`'s third example, *dura menos que un mes*, did not contain the phrase at all. It
+is S19's class — a phrase matched inside a longer string — and the second of that batch's twelve unbolded
+examples to be closed.
+
+**LATIN AMERICAN USAGE.** *Computadora*, *saco* for a bag (in Latin America it is also a jacket, now
+noted), *a como dé lugar* and the calque *gritar por ayuda*.
+
+**AND THE REST.** `la nación` carried *La literatura es el futuro de una nación*, the aphorism S16 dropped
+from A2's `literatura`. `popular` had been glossed as the Partido Popular. Ten sentences shared with a
+lower deck or an earlier B1 card were replaced. `el personaje` and `súper` come up to three examples: 952
+of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example.
+`check-senses --deck=DELE-B1` 89 → 87, with no card of this batch on it.
+
+### S30 — DELE B1, notes #307–#334 (Sep 2026)
+
+Measured against the S29 commit by card id: **24 changed, 974 untouched**. The 24 are 23 new record
+entries and the extended S9 entry for `el huevo`. The other four cards were read and left alone:
+`la explicación`, `el ganador, la ganadora`, `el océano` and `la despedida`.
+
+**`el ordenador` WAS GLOSSED "ordinator"**, which is not an English word for a computer. `check-senses`
+had it among its 87, and it drops to 86. `la organización` was glossed "organization". The site's
+spelling switch never runs inside a Spanish card, so an American gloss there stays American for every
+reader.
+
+**AMERICAN ENGLISH IN THE EXAMPLES.** `la gasolina` said "gas" or "gasoline" in all three
+translations. `la fila` said "in line". `celebrar` was glossed "to organize". Latin American Spanish
+also appeared twice: *costo* on `por lo tanto`, and *yerba mate* on `la hierba`. The second is also a
+different spelling from the headword.
+
+**THE GLOSS MISSED THE SPAIN SENSE.** Three cards gave the dictionary's first sense rather than
+Spain's:
+
+| card | missing sense |
+|---|---|
+| `la conferencia` | a lecture |
+| `la clínica` | a private hospital |
+| `la práctica` | *las prácticas*, a work placement |
+
+**THE SAME-SPELT WORD.** `el alquiler`'s second example was the verb *alquilar*. The same sentence is
+also on A1's `alquilar`.
+
+**AND THE REST.**
+- `el ambiente`'s third example was not Spanish: *Éste partido … consciente por*.
+- `la medida` opened on an aphorism.
+- `el sentimiento`'s English rendered *sentimientos* as "affection".
+- Six sentences shared with A1 or A2 were replaced.
+- `la clínica` and `el huevo` now have three examples each. B1 has 954 cards with three examples, out
+  of 998.
+- One new sentence, `quitar`'s *Quítate los zapatos*, was refused by the applier's contains-headword
+  guard. The card's conjugation table gives the imperative as *quita*, and has no form with an attached pronoun. The sentence
+  was replaced with *Me quité los zapatos*.
+
+**CHECKERS.** `--check` passes, and `check-say` reads 0. `check-senses --deck=DELE-B1` went from 87 to
+86. `lograr` is still on it: its examples say "reached" and "get him to", which is a correct paraphrase.
+
+### S31 — DELE B1, notes #335–#362 (Sep 2026)
+
+Measured against the S30 commit by card id: **all 28 changed, 970 untouched**, each a record entry.
+
+**THE GLOSS WAS A FALSE FRIEND OR A WRONG SENSE, FOUR TIMES.**
+- `el concurso` was glossed "concourse", which is a hall or a crowd, not a competition.
+- `el cinturón` was glossed "cincture", a vestment. All three of its examples were *cinturón de
+  seguridad*, a seat belt, and the gloss did not give that either.
+- `la biblia` was glossed only as "a comprehensive manual". All three examples were the Bible.
+- `espacial` said "spatial" twice, and none of its examples used that sense; each was *nave espacial* or
+  space travel.
+
+`importar` did not give "to import" or "to mind". `levantar` did not give *levantarse*.
+
+**THE SAME SENTENCE TWICE ON ONE CARD, IN TWO WORDINGS.**
+- `la vía` said *Él fue a Londres vía París* and then *Fui a Londres vía París*.
+- `la unión` gave one proverb, "in unity is strength", in its two Spanish forms.
+
+**NON-STANDARD SPANISH AND ANOTHER WORD.**
+- `poco a poco` twice read *de poco a poco*.
+- `el/la sacerdote`'s third example was *sacerdotisa*, a different word.
+- `la cultura` rendered the calque *evidencias* as "These are evidence".
+
+**WHAT A LEARNER DOES NOT NEED.** Several examples were dropped because they are not ordinary sentences:
+- two aphorisms on `la imaginación`, one of them Einstein's;
+- galaxies in "delicious flavours" on `el sabor`;
+- a racist joke on `el chiste`;
+- a generalisation about which men women dislike on `pesado`;
+- a firm's brochure line about architectural competitions on `el concurso`.
+
+**NAMES OUTSIDE THE NAME TABLE.** Three examples carried non-Spanish names, which were not in the name
+table: Carlos's surname Jackson on `posiblemente`, a Dr White on `la comunicación`, and Santa on
+`el/la ayudante`, whom a Spanish speaker calls Papá Noel. All three sentences were replaced.
+
+**AND THE REST.** Eleven sentences shared with A1 or with an earlier B1 card were replaced. Every card in
+the batch keeps three examples, so B1 still has 954 cards with three.
+
+**CHECKERS.** `--check` passes, and `check-say` reads 0. The batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 86 to 83: `el cinturón`, `pesado` and `de modo que` dropped off.
+
+### S32 — DELE B1, notes #363–#390 (Sep 2026)
+
+Measured against the S31 commit by card id: **24 changed, 974 untouched**. The 24 are each a record
+entry. The other four cards were read and left alone: `el abrazo`, `el trozo`, `la expresión` and
+`la religión`.
+
+**A FALSE FRIEND GLOSSED AS A TRUE ONE.** `sensible` was glossed "sensitive, sentient". It now says what
+the learner needs: *sensible* is never "sensible", which is *sensato*.
+
+**GLOSSES FOR THINGS THE CARDS DO NOT MEAN.**
+
+| card | gloss given | what the card means |
+|---|---|---|
+| `el león, la leona` | "antlion" (an insect) | lion |
+| `aguantar` | retaining breath and urine | "to put up with", which all three examples were |
+| `el hierro` | "branding iron" | iron |
+| `el hueso` | "bone • stone • pit)" — a stray bracket | bone; stone (of a fruit) |
+
+**ONE CARD LEFT WITH NO EXAMPLES AT ALL.** `el hierro` had two examples:
+- the first is shared with `el oro`, earlier in B1;
+- the second's English, "They made a new piece with tools", does not translate *hierros*.
+
+Both were dropped, and the card was given three new ones. B1 now has 955 cards with three examples, out
+of 998.
+
+**A SENTENCE CARRIED BY TWO CARDS IN ONE BATCH.** *Un helicóptero iba en círculos por sobre nosotros*
+was on both `el círculo` and `el helicóptero`. Its *por sobre* is Latin American, so it was dropped from
+both cards rather than kept on the earlier one.
+
+**MISTRANSLATIONS.**
+- `el león`: *dio caza a la gacela* was rendered "gave chase". It means "caught".
+- `la temperatura`: the English read "One day was 30 degrees".
+- `la actividad`: the English read "been in this game".
+- `mencionar`: *ni mencionar alemán* is not Spanish for "not to mention", which is *por no hablar de*.
+
+**AND THE REST.**
+- `de pronto` and `aguantar` each had two or three examples of one construction.
+- `sonar` gains *me suena*.
+- `la construcción` and `el perdedor` each carried an aphorism.
+- Fourteen sentences shared with A1, A2 or an earlier B1 card were replaced.
+
+**CHECKERS.** `--check` passes, and `check-say` reads 0. The batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 83 to 80: `aguantar`, `el león` and `la demanda` dropped off.
+
+### S33 — DELE B1, notes #391–#418 (Sep 2026)
+
+Measured against the S32 commit by card id: **24 changed, 974 untouched**, each a record entry. The other
+four were read and left alone: `la llegada`, `el capítulo`, `soltero, soltera`, `el sueldo`.
+
+**A WORD TAUGHT IN THE WRONG SENSE FOR SPAIN, ON EVERY EXAMPLE.** All three of `el clima`'s examples used
+*clima* for the day's weather — "this cold weather isn't usual for June". In Spain that is *el tiempo*; *clima*
+is the climate. All three were replaced and the gloss now says so. `fatal`'s *víctimas fatales* is the Latin
+American form of *víctimas mortales*, and its English read "lethal victims".
+
+**THE GLOSS WAS WRONG OR MISSING THE SENSE.** `la figura` was glossed "charge" and its third example was the
+verb *figurar*. `el túnel` gave "nutmeg", football slang. `la producción` gave "product". `terrorista` was
+glossed as an adjective while every example was the noun. `el terror` and `la continuación` had three examples
+of one phrase each — *películas de terror*, *a continuación* — which the gloss did not give.
+
+**THE SAME-SPELT NOUN.** `alcanzar`'s second example was the noun *alcance*.
+
+**LATIN AMERICAN USAGE.** *Luego de* (`la electricidad`), *bus* (`terrorista`), *auto* (`la batería`), and the
+spelling *beisbol* (`el béisbol`). `la risa`'s *audiencia* is a calque of "audience".
+
+**AND THE REST.** Thirteen sentences shared with A1, A2 or
+an earlier B1 card were replaced. `el acero` comes up to three examples: 956 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+80 → 77.
+
+### S34 — DELE B1, notes #419–#446 (Sep 2026)
+
+Measured against the S33 commit by card id: **all 28 changed, 970 untouched**, each a record entry.
+
+**A NOUN CARD WITH NO EXAMPLE OF THE NOUN.** `la cómoda` is a chest of drawers, and all three of its examples
+were the adjective *cómoda*, "comfortable" — a house, trainers, a bed. The substring match found the spelling
+and not the word. It is `el saco`'s and `el alquiler`'s fault at its widest: every example, not one. All three
+were replaced, and `check-senses` had listed it (gloss "chest of drawers", every example about comfort).
+
+**THE ADJECTIVE OR THE NOUN, NOT THE HEADWORD, SIX MORE TIMES.** `el horario`'s second and third examples were
+*zona horaria*; `físico`'s third was *la física*; `votar`'s second was *voto*; `causar`'s *a causa de*;
+`molestar`'s *molesto*. `realizar` now carries a note that it is not "to realise" (*darse cuenta*).
+
+**GLOSSES A LEARNER CANNOT USE.** `la ensalada` was glossed "a genre of secular polyphonic music popular in
+16th century Spain", and two of its examples were one sentence about *ensalada de papas*. `el casco` gave "crown
+(top part of a hat)"; `el símbolo` "creed"; `el rollo` "coil" and not the colloquial *¡qué rollo!*;
+`el anciano` a definition ("an elderly person").
+
+**AND THE REST.** `la lana` wrote *esta* for *está* and turned *un traje* into "a wool dress"; `ofrecer`'s *un
+trabajo ofrecido* is a calque; `por ejemplo` and `en primer lugar` each lacked an example of what the phrase is
+for. Fourteen sentences shared with A1, A2 or an earlier B1 card were replaced. `la alfombra` comes up to three
+examples: 957 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+77 → 73.
+
+### S35 — DELE B1, notes #447–#474 (Sep 2026)
+
+Measured against the S34 commit by card id: **25 changed, 973 untouched**. The 25 are each a record entry.
+Three cards were read and left alone: `clásico, clásica`, `el documento` and `marcharse`.
+
+**A FALSE FRIEND TAUGHT AS A TRUE ONE.** Two of `atender`'s examples used *atender a la reunión* for "to
+attend a meeting". In Spanish that is *asistir a*. Both were replaced. The card now carries a note, as
+`realizar` did in S34, and shows the verb's real senses: serving a customer and seeing a patient.
+
+**NO EXAMPLE OF THE GLOSSED SENSE.** `la escala` put "ladder" first in its gloss, and none of its three
+examples used the noun in the sense glossed:
+- the first used *armar*, Latin American for *montar*, and its English left the word out;
+- the second was the verb *escalar*;
+- the third wrote *New York* and is shared with A1's `el avión`.
+
+All three were replaced with a stopover, a scale drawing and a musical scale.
+
+**THE WRONG CARD'S SENSE.**
+- `besar` was glossed "to kiss each other". That is *besarse*, the next card.
+- *besarse*'s third example was *besar*.
+- `la capa` gave "cloak, coat" and not "layer".
+- `el congreso` did not give *el Congreso*, Spain's lower house.
+
+**CALQUES AND MISTRANSLATIONS.**
+- `dirigir`: "Vamos a dirigir el elefante en la habitación" is a calque of an idiom that does not exist in
+  Spanish.
+- `llenar`: *formas* is a calque of "forms".
+- `llenar`: *escritorio* was rendered as a computer desktop.
+- `la química`: "a student of chemistry faculty".
+- `el origen`: "Rats carry the plague", where the Spanish says rats are its source.
+
+**AND THE REST.**
+- Twelve sentences shared with A1, A2 or an earlier B1 card were replaced.
+- `el cazador` now says that *la cazadora* is also a jacket.
+- B1 still has 957 cards with three examples, out of 998.
+
+**CHECKERS.**
+- `--check` passes, `check-say` reads 0, and the batch has no unbolded example.
+- `check-senses --deck=DELE-B1` went from 73 to 71.
+- `besar` and `besarse` stay on that list with their new glosses, "to kiss" and "to kiss (each other)". Their
+  examples read "kissed" and "kissing", so these are false positives, not wrong glosses.
+
+### S36 — DELE B1, notes #475–#502 (Sep 2026)
+
+Measured against the S35 commit by card id: **26 changed, 972 untouched**, each a record entry. The other
+two were read and left alone: `el método`, `la asociación`.
+
+**ONE SENTENCE ON TWO NEIGHBOURING CARDS, AND BELONGING TO NEITHER BY RULE.** *Mercedes se quemó la lengua con
+la sopa* was on both `quemar` and `quemarse`, and on A1's `la sopa` as well. It is dropped from both: A1 keeps
+it. `quemar`'s other example rendered *el cielo* as "Heaven". `la economía` and `la huelga` likewise shared *La
+huelga ha afectado a la economía nacional* with each other and with the earlier `nacional`.
+
+**AMERICAN INSTITUTIONS FOR SPANISH ONES.** `el ministerio`'s English gave "the Department of Labour" and "the
+Treasury Department" for the Spanish ministries; `la autopista` said freeway, expressways and highway;
+`la administración` was an American county.
+
+**MEANINGS MISSED OR MISTRANSLATED.** `suelto`'s *dólares sueltos* is loose change, rendered "I have just three
+dollars left", and its third example was the verb *soltar*. `rezar` gave "to read, say" first. `informar`'s "to
+find out" is *informarse*. `la selva` gave "forest", which is *bosque*. `por cierto`'s third example had its
+English drop the phrase ("I happen to agree"), and its first, *oír de ella*, is a calque.
+
+**LATIN AMERICAN USAGE.** *Le tomó ocho horas* (`el cirujano`), *el cuero del pollo* (`el cuero`).
+
+**A NEW SENTENCE THE GUARD REFUSED.** *Te vas a quemar* on `quemarse`: the table lists *te quemas*, and the
+pronoun standing apart from an infinitive is not a form it carries. Rewritten as *te quemas*.
+
+**AND THE REST.** Fifteen sentences shared with A1, A2 or an earlier B1 card were replaced. `la administración`
+comes up to three examples: 958 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+71 → 69.
+
+### S37 — DELE B1, notes #503–#530 (Sep 2026)
+
+Measured against the S36 commit by card id: **26 changed, 972 untouched**, each a record entry. The other two
+were read and left alone: `grabar`, `el comentario`.
+
+**A HEADWORD WITH THE WRONG ARTICLE.** `la ave` is *el ave*: a feminine noun beginning with a stressed *a-*
+takes *el* in the singular, which the deck's own description states of *el agua*, and the card's own examples
+already wrote *un ave*. It is renamed. **A sweep of all six levels for a *la* headword before a stressed *a-*
+found six more, and they are recorded here for their batches**: `la álgebra` and `la alga` (B2), `la arma de
+fuego` and `la alza` (C1), `la alba` and `la ansia` (C2). *La haya*, the beech, belongs in that list too, being
+*el haya*; `la anda` in C2 needs reading, *andas* being a plural noun. Nothing in the pipeline checks this: the
+article is written by the generator from a gender, and gender is right on every one of them.
+
+**TWO CARDS WITH NO SURVIVING EXAMPLE.** `el vidrio`: one example shared with `la arena` earlier in B1, one with
+A1's `estar`, and the third said *departamento*, Latin American for *piso*. `el satélite`: one shared with A2's
+`la luna`, one the same sentence reworded, and one shared with A2's `mediante`. Both carry three new examples.
+`el vidrio` now notes that everyday Spanish in Spain says *el cristal*.
+
+**NOT THE HEADWORD.** `curar`'s second example was *el cura*, a priest. `el retrato`'s first was *Compré un
+marco de cuero para el retrato*, the sentence S36 dropped from `el cuero`.
+
+**VIOLENCE WITH NO TEACHING PURPOSE.** `la rodilla` had Carlos shoot Ana in the knee and a bullet entering above
+it; both replaced, with *de rodillas*.
+
+**AND THE REST.** `la seda` gave one question twice and said "meter" — the one-way spelling row the switch never
+converts. `la república` claimed Europe has eleven monarchies, a count no card should have to defend. `oler`,
+`alimentar` and `la comedia` carried a calqued proverb or ungrammatical Spanish. `cobrar`'s English turned the
+second example's subject round. Glosses: "flood" (`la avenida`), "Mexican wave" (`la ola`), "syndicate"
+(`el sindicato`), "to cancel (a person deemed unacceptable)". Sixteen sentences shared with A1, A2 or an
+earlier B1 card were replaced. B1 stays at 958 with three examples.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+69, unchanged.
+
+### S38 — DELE B1, notes #531–#558 (Sep 2026)
+
+Measured against the S37 commit by card id: **25 changed, 973 untouched**, each a record entry. The other three
+were read and left alone: `necesariamente`, `el mensajero, la mensajera`, `la cortesía`.
+
+**ANOTHER CARD'S GLOSS.** `resistir` was glossed "to tolerate, to put up with, to bear, to handle, to stand" —
+`aguantar`'s meaning, which S32 corrected on that card — where *resistir* is to resist or withstand. All three of
+its examples went too: a generalisation about men and women, a calqued news headline, and a sentence nobody says.
+
+**THE ADJECTIVE GLOSSED AS SOMETHING ELSE.** `levantado` was "lofty, high" over three examples meaning "up, out of
+bed"; `el balón` gave "balloon", which is *globo*; `acostado` gave "recumbent", and its first example was
+*acostarse con* in the perfect; `ordenado` gave "ordained" and lost all three examples — *tan ordenado como
+posible*, Rioplatense *tenés* and *pieza*, and the verb *ordenar* in a calqued passive.
+
+**THE OTHER WORD.** `el/la poeta` carried *poetisa*; `la orina` the verb *orinar*; `soñar` the noun *sueño*.
+
+**STEREOTYPES AND OBSCURITIES.** "Germans are said to be hard-working" (`trabajador`, and shared with A1's
+`alemán`); Benjamin Harrison's campaign (`organizado`); a club called Poets Without Homes; Carlos wandering the
+campus with a *chupón*, the Latin American word for a dummy.
+
+**AND THE REST.** Ungrammatical or calqued: *es bueno que has dado cuenta* (`el elefante`), *Observa tu líder*
+(`observar`), *compitió con una fuerte competencia*. *Luego de* on `el debate`. `la lotería` gave one sentence
+twice. Eight sentences shared with A1, A2 or an earlier B1 card were replaced. B1 stays at 958 with three
+examples.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+69 → 67. `levantado` stays on it under its new gloss "up, out of bed": its examples read "was up", "stayed up"
+and "had her hand up", and the checker ignores words under three letters — named here as a false positive.
+
+### S39 — DELE B1, notes #559–#586 (Sep 2026)
+
+Measured against the S38 commit by card id: **25 changed, 973 untouched**. The 25 are each a record
+entry. Three cards were read and left alone: `el voluntario, la voluntaria`, `arrogante` and `entrenar`.
+
+**A CARD WHOSE SUBJECT WAS SOMETHING ELSE ENTIRELY.** `el flash` had two examples, and both were about
+Adobe Flash on an iPad. Its gloss read "flash • freezie • freeze pop". The word means a camera flash.
+The card now has three new examples on that sense.
+
+**THREE CARDS THAT LOST EVERY EXAMPLE.**
+- `sentar`:
+  - its first example was shared with `la rodilla` earlier in B1;
+  - its second, *corazón que no siente*, was *sentir*, not *sentar*, and is shared with A1's `sentir`;
+  - its third was shared with A2's `sentado`.
+
+  The gloss now gives *sentarse* and *sentar bien*.
+- `pacífico`: its first example was the Pacific Ocean, a sentence shared with `el océano` earlier in
+  B1. Its third said "We don't want a peaceful solution".
+- `el flash`, above.
+
+**THE OTHER WORD.** `separado`'s first example was the verb *separarse* in the perfect. `el oriente`'s
+second was a line from the Philippine national anthem. Its third rendered *Oriente Medio* as
+"Arabia".
+
+**SENSES THE GLOSS DID NOT HAVE.** Several glosses left out the sense a learner meets most:
+
+| card | sense added |
+|---|---|
+| `despedir` | "to see off" and *despedirse* ("to say goodbye"); all three examples had been a sacking |
+| `el polo` | a polo shirt, and in Spain an ice lolly |
+| `reparar` | "to repair" first; its gloss had led with "to notice", which is *reparar en* |
+| `perdonar` | *perdona* / *perdone*, "excuse me" |
+| `cristiano`, `marinero` | the noun, which was every example |
+
+**SENTENCES DROPPED ELSEWHERE, BACK AGAIN.** `reducir`'s first example was *Por lo tanto es necesario
+reducir el costo*. S30 dropped that same sentence from `por lo tanto`, because *costo* is Latin
+American. Its third example was a model plane *a escala*, the shape of the sentence S35 dropped from
+`la escala`.
+
+**AND THE REST.**
+- `la orilla` translated *Fui a la orilla cerca de aquí* as "I went to the store near by".
+- `la lesbiana` asked why girls are not all lesbians.
+- `comunista` carried the garbled line *¿o si?, sí*.
+- Nine sentences shared with A1, A2 or an earlier B1 card were replaced.
+- `el flash` now has three examples, which brings B1 to 959 cards with three out of 998.
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and the batch has no unbolded example.
+`check-senses --deck=DELE-B1` went from 67 to 65. `sentar` stays on that list under its new gloss.
+Its examples read "sat", "suits" and "disagreed with", and the checker does not match the irregular
+past "sat" to "sit", so this is a false positive.
+
+### S40 — DELE B1, notes #587–#614 (Sep 2026)
+
+Measured against the S39 commit by card id: **27 changed, 971 untouched**, each a record entry. The other one
+was read and left alone: `occidental`.
+
+**A FACT THAT HAS EXPIRED.** `el vicepresidente` said *Joe Biden es el vicepresidente de los Estados Unidos*,
+true until 2017. A study card cannot carry a claim about who holds an office, which goes stale without anything
+changing in the file; its other example (*Declaro a Allan nuestro vicepresidente*) was not a sentence either.
+Three new examples name no officeholder. S37 dropped `la república`'s count of European monarchies for the same
+reason.
+
+**A FALSE FRIEND IN THE GLOSS.** `la revisión` put "revision" first. In British English that is studying for an
+exam, which *revisión* never is; the card now leads with a check-up and a car's service.
+
+**ALL THREE GONE.** `la ficción` shared every example — with A2's `la ciencia`, A1's `interesante` and B1's own
+`real`.
+
+**THE NOUN FOR THE VERB, TWICE MORE.** `aumentar` (*aumento*), `apoyar` (*apoyo*), `respetar` (*respeto*).
+
+**GLOSSES.** `impedir` was "to impede, hinder" over three examples meaning "to prevent"; `pegar` lacked "to hit";
+`el portero` ran to "chucker-out" without the goalkeeper, and its English turned a block of flats' caretaker into
+a "superintendent" and a "manager"; `la falda` gave "brisket"; `aprovechar` "to leverage".
+
+**AND THE REST.** `el bus` now notes that Spain says *el autobús*, and loses a Latin American *se vino a la
+casa*. `el baloncesto`'s *jugamos baloncesto* drops Spain's *al*. `el algodón`'s candyfloss had been "cotton
+sweets"; `la rama`'s idiom was the American "beat around the bush"; `el cohete` priced rockets in Brazilian
+reais. Thirteen sentences shared with A1, A2 or an earlier B1 card were replaced, and one new sentence for
+`por si acaso` collided with A2's `acaso` and was rewritten before shipping. `el vicepresidente`, `por si acaso`
+and `la revisión` come up to three examples: 962 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+65 → 61.
+
+### S41 — DELE B1, notes #615–#642 (Sep 2026)
+
+Measured against the S40 commit by card id: **27 changed, 971 untouched**, each a record entry. The other one
+was read and left alone: `la competición`.
+
+**THREE PHRASE CARDS WITH NO EXAMPLE OF THE PHRASE.** `puesto que`, `dado que` and `o sea` — three of the four
+S29 left open — each had nine sentences between them and not one contained the headword. The generator
+matched the *que* of *por supuesto que*, *apuesto que*, *hemos olvidado que* and *cuidado que*, and the *sea* of
+*que eso sea*: the headword's last word, standing alone. All nine were replaced with sentences that use the
+phrase, bolded whole. **`en fin` is the last of S29's list still open**, and is further on.
+
+**THREE MORE CARDS THAT LOST EVERY EXAMPLE.** `tardar`: two were the noun *la tarde*, both shared with A1's
+`la tarde`, and the third was garbled (*Tarda uno dos horas*). `charlar`: one shared with A1's `con`, one the
+noun *charla*, and one the name **Charles** — a proper name matched as a verb form. `marcar` lost two to the
+noun *marca*.
+
+**FALSE FRIENDS.** `educado` put "educated" first where it usually means polite, and now carries a note; `vago`
+put "vague" before "lazy", which is the everyday Spanish sense.
+
+**NAMES THE TABLE DOES NOT CATCH.** `femenino` named an Ellie; `el bloque`'s English named Carlos where the
+Spanish said Tomás — the name pass had changed one side of a sentence and not the other.
+
+**AND THE REST.** `el maletero`'s examples said "trunk"; `la farmacia`'s gloss "drugstore"; `el mantenimiento`
+"archeological" and a server-maintenance notice; `el descuento` four names for injury time; `agotado` a verb
+and "out of gas"; `deprimido` *son deprimidos* for *están*. Eleven sentences shared with A1, A2 or an earlier
+B1 card were replaced. `el maletero` comes up to three examples: 963 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+61 → 56. `charlar` stays on it under "to chat" over *chatting* and *chatted*, which the checker's stemmer does
+not join to "chat" — named here as a false positive.
+
+### S42 — DELE B1, notes #643–#670 (Sep 2026)
+
+Measured against the S41 commit by card id: **26 changed, 972 untouched**, each a record entry. The other two
+were read and left alone: `conectarse`, `el terremoto`.
+
+**THE WRONG WORD, AND ONE OF THE FOUR CARDS WITH NO EXAMPLE.** `la delta` was glossed "Greek letter delta" and
+carried no example at all. The noun a B1 geography inventory wants is *el delta*, the delta of a river, which
+is **masculine** — so the generator chose a sense and a gender that are both another word's. It is renamed
+`el delta`, glossed as a river delta, and given three examples (the Ebro, the Nile). **B1 now has examples for
+995 of its 998 words, and the description's count of cards with none goes from 4 to 3** — both figures moved
+through the record's `descSub`.
+
+**A NOUN CARD WHOSE EXAMPLES WERE ALL ANOTHER PART OF SPEECH, AGAIN.** `terminal` was glossed only as the
+adjective, and all three examples were *la terminal*, an airport or bus terminal.
+
+**NOT THE HEADWORD.** `homosexual`'s third example was *Homo Sapiens*; `arriesgar`'s second the adjective
+*arriesgado*; `conectar`'s third *me conecto a Internet*, the reflexive the next card teaches and carries.
+
+**AMERICAN ENGLISH.** `el aparcamiento` said "parking lot" three times; `la caravana` "trailer"; `el buzón`
+"mailbox"; `frito` "potato chips".
+
+**WHAT A LEARNER DOES NOT NEED.** Four aphorisms (`la pobreza` twice — "Poverty is the root of all evil" also
+sat on `la raíz` — `el exceso`, the Catholic *caridad*); a mystical claim about one Consciousness on
+`la separación`; aliens and a "deadly laser" sun on `el láser`; cockfighting; and a question asking the learner's
+opinion of Catalan independence, replaced on `la independencia` with sentences that assert nothing contested.
+
+**AND THE REST.** A Jessie on `mojado` outside the name table; *primero que todo* and *cello* as Latin American
+or English forms; `la separación`'s English turning a separation into "a divorce". `el exceso` lost all three
+examples. Nine sentences shared with A1, A2 or an earlier B1 card were replaced. `la tinta` and `el delta` come
+up to three examples: 965 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+56 → 58. Both new entries are named here: `la raíz` ("root" over three sentences saying "roots") and `formal`
+(its new sense "reliable, responsible" over examples rendered "dependable", "diligent" and "prim"). The first is
+the checker's stemmer; the second is a paraphrase, the meanings agreeing.
+
+### S43 — DELE B1, notes #671–#698 (Sep 2026)
+
+Measured against the S42 commit by card id: **25 changed, 973 untouched**, each a record entry. The other three
+were read and left alone: `publicar`, `la preparación`, `dudar`.
+
+**ANOTHER CARD WITH NO EXAMPLE.** `el bufete` had none; it has three. **B1 now has examples for 996 of 998
+words, and the two left with none are `el pintado` (#767) and `nublarse` (#997)**, both further on.
+
+**A SPAIN SENSE THE CARD DID NOT TEACH, ON EVERY EXAMPLE.** All three of `la promoción`'s examples were a
+promotion at work, which in Spain is *un ascenso*; the Spanish word is a special offer, a product's promotion or
+a year group. All three were replaced, and the card carries a note — `el clima` in S33 was the same shape.
+
+**CLAIMS A CARD CANNOT CARRY.** `el continente`'s *Hay siete continentes* is a count that varies by convention,
+and Spanish-speaking schools usually teach five or six; `el terrorismo` carried the slogan *El turismo es
+terrorismo*; `la constitución` described the American constitution's rights for the states; `el varón` gave a
+suspect's race.
+
+**THE OTHER WORD.** `suponer`'s first example was *por supuesto*, shared with that card; `separar`'s second was
+*separarse*; `el tronco` carried a garbled *dormir como un tronco* and called a log a "trunk".
+
+**AND THE REST.** `provocar` was glossed "to tease sexually" with an example to match; `inventar` generalised
+about Americans; `oriental` was a hotel's name; `masculino` a sentence rendered as though about gendered
+languages. American English: "trash bin", "analog", "dumpster". Six sentences shared with A2 or an earlier B1
+card were replaced. `el bufete` comes up to three examples: 966 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+58 → 55.
+
+### S44 — DELE B1, notes #699–#726 (Sep 2026)
+
+Measured against the S43 commit by card id: **24 changed, 974 untouched**, each a record entry. The other four
+were read and left alone: `desarrollar`, `desde luego`, `la cintura`, `el huracán`.
+
+**SIX CARDS THAT HAD ONE OR TWO EXAMPLES NOW HAVE THREE.** `fenomenal` had one; `analizar`, `tomar el sol`,
+`el codo`, `la barriga` and `la espuma` had two. B1 moves from 966 to **972** with three.
+
+**FALSE FRIENDS FOR SPAIN.** `la exhibición` is a display or a show — a fireworks display, a dance display — and
+an art exhibition is *una exposición*; the card now says so. `el resfriado` was glossed "the flu", which is *la
+gripe*. `el/la conserje` was rendered "superintendent", "custodian" and "janitor" for a caretaker.
+
+**CLAIMS A CARD CANNOT CARRY.** `el invento` credited the telephone to Bell, which is disputed, and its gloss
+gave "leash".
+
+**THE OTHER WORD.** `el resfriado`'s *resfriada*; `la genética`'s *ingeniería genética*; `el/la vigilante`'s
+*permanecer vigilantes*; `recorrer`'s noun *recorrido*; `despegar`'s *el avión se despega*, wrong for a plane.
+
+**AND THE REST.** The Little Mermaid (`la espuma`), two aphorisms and a proverb; *desde atrás de*,
+*estacionamiento* and *cucharas de té* as Latin American or calqued forms; "checkers" for draughts. `tomar el
+sol`'s gloss read "lit. take the sun". Three sentences shared with A1, A2 or an earlier B1 card were replaced.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+55 → 53.
+
+### S45 — DELE B1, notes #727–#754 (Sep 2026)
+
+Measured against the S44 commit by card id: **26 changed, 972 untouched**, each a record entry. The other two
+were read and left alone: `el bailarín, la bailarina`, `la hipoteca`.
+
+**A PAIRED CARD WHOSE FEMININE IS ANOTHER WORD.** `el cartero, la cartera`: *la cartera* is also a wallet or a
+briefcase, and two of the three examples were that — "Is anything missing from your pocketbook?", "The woman
+has two wallets". The generator, pairing the masculine and feminine of *postman*, found the homonym. Both were
+replaced and the card now carries a note. It is the pairing machinery's version of the same-spelt-word fault,
+and worth watching for in B2 wherever a feminine form is an ordinary noun of its own.
+
+**THE SPAIN SENSE.** `la oposición` now gives *las oposiciones*, the competitive exams for a public post, which
+the gloss had listed without the plural it lives in. `la guardería` is a nursery, not a kindergarten; `el
+casero` gains the noun, a landlord.
+
+**ALL THREE GONE.** `los bolos`: a calque of the English "beer and skittles", then *jugar bolos* twice, dropping
+the *a los* Spain uses.
+
+**AMERICAN ENGLISH AND MEASURES.** `la gasolinera`: "gas station" twice, *qué tan lejos*, and a distance in
+miles; `ancho` measured a valley in miles; `estropeado` called a boiler a "water heater".
+
+**THE OTHER WORD.** `práctico`'s third example was the choir-practice fragment S30 dropped from `la práctica`;
+`prometer`'s *prometida*; `estropeado`'s verb *se ha estropeado*.
+
+**AND THE REST.** Latin American *departamento* and *te hace ver*; calques *soñar en*, *definitivamente*, *en
+señal de oposición*; `la píldora`'s *tomo* for *tomó*; football fans fighting; politicians as wolves. Two
+sentences shared with A2 were replaced. `la resaca` and `el traslado` come up to three examples: 974 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+53 → 49. `resultar` stays on it under "to turn out, to prove" over "turned out", "happens to be" and "come in
+handy" — the stemmer again, named here.
+
+### S46 — DELE B1, notes #755–#782 (Sep 2026)
+
+Measured against the S45 commit by card id: **25 changed, 973 untouched**, each a record entry. The other three
+were read and left alone: `sugerir`, `la biología`, `la humedad`.
+
+**THE WRONG WORD, AND THE THIRD CARD WITH NO EXAMPLE.** `el pintado` was glossed "the tattooed indigenous people
+of Cebu during the Spanish occupation of the Philippines" and carried nothing. The word a B1 learner needs is the
+adjective **pintado, pintada** — *recién pintado*, wet paint. **This is a judgement and is stated as one**: the
+source list gives the bare form and the generator chose the noun. It is renamed, and given three examples.
+**B1 now has examples for 997 of 998 words; the one left is `nublarse` (#997), the deck's last card.** The
+description's sentence about the ones with none had to change grammatical number as well as figure — *the
+remaining one, which is kept* — which is why its chain of `descSub` pairs was rewritten to end on "remaining
+one," with the verb corrected in a pair of its own.
+
+**FALSE FRIENDS, THREE.** `pretender` used *pretender que esto no ocurrió* for "pretend" (*fingir*) and was
+glossed "to woo, to court"; `blando` was glossed "bland" (*soso*). Both now carry a note. `sensible`,
+`educado`, `realizar`, `atender` and `la exhibición` went the same way earlier in B1.
+
+**FACTS THAT HAVE EXPIRED.** `gobernar` said the queen reigns in England, which stopped being true in 2022 — the
+same fault as S40's `el vicepresidente`. `el invento`'s disputed Bell went in S44; here `la mostaza` claimed
+giraffes are mustard-coloured.
+
+**THE OTHER WORD.** `ensayar`'s noun *ensayo*; `gobernar`'s noun *gobierno*, shared with A2's `el gobierno`;
+`el sustituto`'s variant *substituto*; `conforme`, whose two conjunction examples (*conforme pasa el tiempo*) the
+gloss did not describe.
+
+**AND THE REST.** `la ficha` had one example, an idiom rendered "blown a fuse"; it has three. American English:
+"flu shot", "immunizations", "veterinarian", "dorm", "bran" for fibre. `blando`'s third example was a medical
+symptom. `la pulsera` generalised about women. Two sentences shared with A2 or an earlier B1 card were
+replaced. `el insecto`, `el músculo`, `pintado` and `la ficha` come up to three examples: 978 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+49 → 46.
+
+### S47 — DELE B1, notes #783–#810 (Sep 2026)
+
+Measured against the S46 commit by card id: **26 changed, 972 untouched**, each a record entry. The other two
+were read and left alone: `el monumento`, `la colaboración`.
+
+**THE SAME-SPELT WORD, FIVE TIMES, AND TWO CARDS WHERE IT WAS MOST OF THE CARD.** `coser`, "to sew", had two
+examples of the noun *cosa*, "thing" — the generator's stem match found *cos-* — and `plantar` two of the noun
+*planta*, both shared with A1. Also: `afectar`'s noun *afecto*; `el titular`'s verb *titularse*; `ingresar`'s
+noun *ingreso*; `cuadrado`'s noun *el cuadrado*. `afectar` lost all three examples: two shared with A2 and an
+earlier B1 card, one the noun.
+
+**THE SPAIN SENSE.** `moreno` now leads with "tanned", the everyday sense of *volver moreno*; `ingresar` with
+paying in and being admitted to hospital; `el funcionario` with "civil servant"; `plantar` gains *dejar
+plantado*, "to stand someone up".
+
+**WHAT A LEARNER DOES NOT NEED.** A dead baby found in a freezer (`el congelador`); a job advert for women only
+(`solicitar`); a line sneering at the speaker's mother for doing nothing (`el funcionario`); Pepperberg's parrot
+and Koko the gorilla (`el psicólogo`); "the fear of death is an artistic sentiment" (`artístico`); an era dated
+by "9.11" (`el atentado`).
+
+**AND THE REST.** Glosses: "control arm" (`el triángulo`), "case-by-case" (`individual`), "to feign"
+(`afectar`), "dark-colored" (`moreno`). English: "tuque", "meter", "the Rio Plata". Latin American *torta*;
+calques *audiencia* and *ingresaron al*. Five sentences shared with A1, A2 or an earlier B1 card were replaced.
+`el funcionario` and `el atentado` come up to three examples: 980 of 998.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+46 → 42.
+
+### S48 — DELE B1, notes #811–#838 (Sep 2026)
+
+Measured against the S47 commit by card id: **23 changed, 975 untouched**, each a record entry. The other five
+were read and left alone: `visible`, `corregir`, `atlántico, atlántica`, `oral`, `el recado`.
+
+**TWO MORE HEADWORDS THAT WERE THE WRONG WORD.** `pilas` was glossed "be careful! watch out!" — the Latin
+American slang interjection *¡pilas!* — over three examples that were all *las pilas*, batteries, which is the
+B1 word. Renamed `la pila`. `tercio, tercia` was headed as an adjective with a feminine that is not in current
+use, and its one example of *tercia* ("Una tercia es menos que una mitad") is not Spanish; every sound example
+was the noun. Renamed `el tercio`. With S42's `el delta`, S46's `pintado` and S37's `el ave`, that is five
+renamed headwords in B1, and each passed every check the pipeline has — the generator's word is always a real
+word, just not the one on the syllabus.
+
+**THE OTHER WORD.** `calentar`'s *caliente* twice (one shared with A1's `caliente`, one with *demasiadas
+calientes*); `descargar`'s noun *descarga*; `señalar`'s noun *señales*; `abrazarse`'s *abrazaste*, which is
+*abrazar*.
+
+**THE SENSE THE EXAMPLES WERE.** `descargar` was glossed "to unload" over two download examples; `la
+alimentación` "feeding" over a diet and a power supply; `el ramo` "bough"; `amargo` "sour", which is *agrio*.
+
+**REGIONAL FORMS.** Rioplatense *querés, accedé* (`el reportaje`); Chilean *ramos* for school subjects
+(`el ramo`); *autos* (`estrecho`); American "shopping cart", "flashlight", "dialog".
+
+**AND THE REST.** `descargarse` had one example, Firefox's download figures; it has three. `de manera que` comes
+up to three. B1 moves to **982** with three examples.
+
+**CHECKERS.** `--check` passes; `check-say` 0; the batch has no unbolded example. `check-senses --deck=DELE-B1`
+42 → 40. Two stay on it and are named: `abrazarse` ("to hug" over *hugged*, *hugging*) and `de manera que`
+("so", a word of two letters the checker ignores).
+
+### S49 — DELE B1, notes #839–#866 (Sep 2026)
+
+Measured against the S48 commit by card id: **27 changed, 971 untouched**, each a record entry. The one card
+read and left alone is `la aspirina`.
+
+**THE LAST OF S29'S UNBOLDED PHRASE CARDS IS CLOSED.** `en fin` had three examples. One of them was *fin de
+semana*, not the phrase. Another, "Estaba ocupado con trabajo para el examen final", did not contain it at
+all. The one that did was translated "Lastly", where the everyday sense is "anyway". The card now has the
+phrase bolded and three examples that use it. With `puesto que`, `dado que` and `o sea` closed earlier, all four
+cards S29 left open are done.
+
+**THE OTHER WORD, OR ANOTHER PART OF SPEECH.** `editorial` was headed as an adjective, but both of its examples
+were nouns (*el editorial*, *la editorial*), and the gloss named neither. `proponer`'s first example was the
+noun *propuesta*. `anular`'s was *dedo anular*, the ring finger. `adoptado`'s third was the verb in the
+perfect tense. `preocupar`'s second was the adjective *preocupada*.
+
+**SHARES.** Four examples were also in other cards: `afeitar`'s third (A2 `afeitarse`), `puntual`'s second
+(B1 `práctico`), `preocupar`'s second and third (A1 `estar`, A2 `preocuparse`), and `incluir`'s second (A1
+`la habitación`).
+
+**DUPLICATES AND NON-SENTENCES.**
+- Two examples on one card were the same sentence on `el doctorado`, `la ventanilla` and `la cereza`.
+- `fabricar` had two doll sentences and a calqued joke.
+- `incluir` had a logic puzzle ("A contiene a B, y B incluye a A").
+- `la agricultura` had "No me disgusta la agricultura de ningún modo".
+
+**REGIONAL AND CALQUED.**
+- `el contestador` used the Latin American *máquina contestadora*.
+- `intercambiar lugares` and *no tomaría mucho* are calques of English phrases.
+- *ingresar al doctorado* is a calque.
+- The English had American forms: "football game", "moving company", "punctual like a clock".
+
+**GLOSSES.** `la ternera` put "veal" first, where in Spain it is ordinarily beef. `la arquitectura` gave
+"architectonics". `el occidente` gave "occident" and did not give *el Occidente*. `afeitar`, `intercambiar`,
+`la reparación`, `travieso`, `el árbitro`, `la programación` and `la carpeta` each had a list or a sense to trim.
+
+**CARDS WITH TWO EXAMPLES NOW HAVE THREE:** `la pizarra`, `la ternera`, `la programación`, `el contestador`
+and `editorial`. B1 goes from 982 to **987** cards with three examples.
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded.
+`check-senses --deck=DELE-B1` stays at 40. `fabricar` moves within the list: its new gloss "to manufacture, to
+make" sits over *make* and *made*, and the checker does not stem the irregular past tense.
+### S50 — DELE B1, notes #867–#894 (Sep 2026)
+
+Measured against the S49 commit by card id: **25 changed, 973 untouched**, each a record entry. The other three
+were read and left alone: `el compositor, la compositora`, `el/la recepcionista`, `fijarse`.
+
+**ONE MORE HEADWORD THAT WAS THE WRONG WORD.** `el canguro, la cangura` was glossed "kangaroo, hoodie". Two of
+its three examples were the babysitter, which is the everyday sense in Spain and the B1 one, and that word is
+*el/la canguro*; *la cangura* is not used. Renamed `el/la canguro`, with the babysitter first. That makes six
+renamed headwords in B1.
+
+**THE SENSE THE EXAMPLES WERE.** `el buscador` was glossed "seeker, prospector" over two search-engine
+examples. `ligar` gave only "to link, to tie", and two of its examples were the noun *liga*; in Spain the
+everyday verb is to chat someone up. `rellenar` put "to refill" before filling in a form, and its first
+example's English said "I'll apply for the job today".
+
+**A FALSE FRIEND, NOW NOTED.** `introducir` is to put something in or bring it in. It is never to introduce a
+person, which is *presentar*. Its first example was nonsense and its third used *papas*.
+
+**THE OTHER WORD.** `rellenar`'s adjective *relleno*; `entrevistar`'s noun *entrevistas*, and its first example
+shared with A2 `la entrevista`.
+
+**REGIONAL AND CALQUED.** *mamá* (`ruidoso`), Rioplatense *comprá* (`el cartón`), *depender en* (`depender`),
+and a health system "estresado hasta el límite" (`estresado`). The English had "diarrhea", "catalog", "by
+mail" and "swim team", and archaic English on `el diccionario`.
+
+**NOT SUITABLE.** `republicano` had two American-politics examples, one of them vulgar. They are replaced with
+the Spanish senses: the Republican side of 1931–1939, and opposition to the monarchy. Also removed: a tinfoil
+hat (`el aluminio`), speaking French to cats (`callejero`), and a duplicate sentence (`sorprender`).
+
+**GLOSSES.** `metálico` now gives *en metálico*, "in cash", which its first example is. `callejero` gives *el
+callejero*, a street map. `instalar` gives *instalarse*.
+
+**CARDS WITH TWO EXAMPLES NOW HAVE THREE:** `el buscador`, `la diarrea` and `el catálogo`. B1 goes from 987 to
+**990** cards with three examples.
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded.
+`check-senses --deck=DELE-B1` goes from 40 to 38, because `el buscador` and `rellenar` leave the list. One
+new entry is named: `ligar`, whose "to flirt, to pull" sits over *chat her up* and *pulls*.
+### S51 — DELE B1, notes #895–#922 (Sep 2026)
+
+Measured against the S50 commit by card id: **23 changed, 975 untouched**, each a record entry. The other five
+were read and left alone: `imprimir`, `acercarse`, `comunicarse`, `sustituir`, `renovar`.
+
+**S3'S GERUND FAULT, ONE MORE REPAIRED, AND THE REST OF IT COUNTED.** `comprometerse`'s gerund read
+*comprometíendose* and is now *comprometiéndose*, by `conjSub`. The fault is still standing on **65 cards**:
+three more in B1 (`atreverse` #977, `inscribirse` #980, `deprimirse` #996, none of them reached yet), 17 in
+B2, 28 in C1 and 17 in C2 (measured on the gerund cell). Each will be repaired when its batch reaches it, as every earlier one was.
+`build_deck.py` has been right since S3, so a rebuild would not bring the fault back.
+
+**A MISSPELLING.** `trasladar`'s second example wrote *transladar*, which is not a word.
+
+**THE OTHER WORD.** Nine examples were a noun or an adjective rather than the verb:
+- *triunfo* (`triunfar`), *dibujos animados* (`animar`), *diseño* (`diseñar`), *fracaso* (`fracasar`), *desvío*
+  (`desviar`), *programa* twice (`programar`) and *disculpa* twice (`disculpar`);
+- *el más indicado* (`indicar`);
+- `batir` had *un bate de béisbol* and *mi bata de baño*, which are a bat and a dressing gown.
+
+**SHARES.** `animar` with A2 `el dibujo`, `merecer` with A1 `bonito`, `programar` twice with A2 `el programa`,
+and `contribuir` and `diseñar` with earlier B1 cards.
+
+**THE SENSE.**
+- `educar` put "to educate" before "to bring up".
+- `triunfar` gave only "to triumph", where the everyday sense is to succeed.
+- `copiar` did not say it is also cheating in an exam, which all three examples are.
+- `programar` put "to program" before scheduling and setting.
+- `concluir` gave "to overwhelm", which is wrong.
+- `comprometerse`'s English said "compromise" and "engaged with".
+
+**NOT NATURAL SPANISH.** *vas a ser comido* (`advertir`), *en frente a* (`criticar`), *Mueva usted la sopa*
+(`hervir`), a bite that goes sideways (`desviar`). The English had "go watch", "mailbox", "vacant lot" and
+"anymore".
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded. B1 stays at 990
+cards with three examples. `check-senses --deck=DELE-B1` goes from 38 to 36, as `comentar` and `desviar` leave
+the list.
+### S52 — DELE B1, notes #923–#950 (Sep 2026)
+
+Measured against the S51 commit by card id: **25 changed, 973 untouched**, each a record entry. The other three
+were read and left alone: `secarse`, `esforzarse`, `portarse`.
+
+**THE MOST SHARED EXAMPLES OF ANY BATCH SO FAR: TWELVE, EVERY ONE WITH A LOWER DECK.** Most were a verb card
+illustrated by a noun or an adjective the reader has already met:
+- `freír`'s three were all *frío, fría* ("cold"), shared with A1 `frío`; the card had no example of the verb
+  at all.
+- `emplear`'s three were *empleo* and, twice, *empleado* (A2).
+- `citar`'s were *cita* twice (A2 `la cita`), `fotografiar`'s *fotografía* twice (A1 `joven`, A2
+  `la fotografía`), `sumar`'s *suma* (A1 `doce`), `pelar`'s *pelo* (A1 `el pelo`), and `secar`'s *seca* (A2
+  `seco`).
+
+Every one of those cards now has three examples of its own verb. A replacement sentence for `freír` turned out
+to be A2 `el aceite`'s. The share check caught it before commit, and it was swapped.
+
+**THE OTHER WORD, NOT SHARED.** `destacar`'s *destacado* twice, `sumar`'s *a lo sumo*, `secar`'s adjective
+*seco* in an oddity whose *agua … mojado* is also the wrong gender.
+
+**A CONSTRUCTION.** All three of `influir`'s examples took a direct object (*influye a la memoria*, *influyen a
+las personas*, *la influirán*). The standard construction is *influir en*, so the examples now use it and the
+gloss says so.
+
+**NOT NATURAL SPANISH.**
+- *moja a los árboles* (`mojar`) puts a personal *a* before trees.
+- *a la primera vista* (`enamorarse`) should be *a primera vista*.
+- *luego que* (`fregar`).
+- *¿Cuánto tiempo pasar…?* (`seleccionar`).
+- Rioplatense *congelá* (`congelar`).
+- Two oddities: "Iluminar a la gente" (`iluminar`) and "La materia está compuesta de nada" (`componer`).
+
+**THE CONJUGATION** is right on every card in the batch. `freír`'s *frio*, *friais* and *freído* are all
+current Academy forms, and the gloss now adds that *frito* is the usual participle.
+
+**GLOSSES.** `destacar`'s list broke off in mid-phrase ("…to underline, to"). `citar` did not give the
+appointment sense. `enfriar`, `envolver`, `componer` and `sumar` now give the phrase their own examples use.
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded. B1 goes from 990
+to **991** cards with three examples. `check-senses --deck=DELE-B1` goes from 36 to 33. `disminuir` stays on the
+list and is named: its examples say *slow down*, *lessen* and *fallen*, three sound translations the gloss's
+words don't match.
+### S53 — DELE B1, notes #951–#974 (Sep 2026)
+
+Measured against the S52 commit by card id: **20 changed, 978 untouched**, each a record entry. Nineteen are
+in this batch's range; the twentieth is a catch-up on `el titular`, #805. The other five were read and left
+alone: `desobedecer`, `coleccionar`, `aconsejar`, `acostumbrarse`, `jubilarse`.
+
+**A CORRECTION TO EARLIER BATCHES: THE "STRAY LINE" IN THE GLOSS WAS NEVER THERE.** From S33 to S52, 25 notes
+said a gloss "carried a stray 'N' line" or "a stray blank line". Neither was in the deck. The audit's own viewer
+printed each card's conjugation table cut at 1,500 characters. The cut left a line holding only the first
+letter of the next heading (*N*, from *Negativo*), or nothing, and the filter over that output passed it
+through beneath the gloss. The card that exposed it was `aconsejar`: its entry restated "to advise" as "to
+advise", and the diff reported the card unchanged.
+
+What was done about it:
+- The clause is removed from all 25 notes. Where it was the only reason given, the note now says what really
+  changed (`colaborar`, `decorar`), or the entry goes: `aconsejar`'s changed nothing and is now in `reviewed`.
+- Two sentences in the S33 and S49 sections above that repeated the claim are corrected.
+- The viewer no longer prints the truncated dump.
+
+Nothing in the decks changed: every fix those notes made was to a list or a sense, and those were real.
+
+**A NOUN OR ADJECTIVE WITH A VERB'S TABLE, AND A NEW FIELD FOR IT.** `triangular` was headed as an adjective
+but carried a full conjugation table for the verb *triangular*, "to triangulate". The generator conjugates any
+headword ending in *-ar/-er/-ir* from the dictionary's verb of the same spelling. B1 has one more such card,
+`el titular`, passed in S29 with a table for the verb *titular*. `spanish-fix.js` gains **`noConj`**, which
+clears the table; the template wraps the table in `{{#Conjugation}}`, so an empty field draws nothing. Clearing
+`el titular`'s table took away the only place the headword guard could find *titulares*, which showed that the
+card had never had a Forms field; its plural is now stated. Across the other decks there are **13 more**: B2
+`nuclear`, `el solar`, `escolar`, `circular`, `formular`, `talar`, `domiciliar`; C1 `angular`; C2 `el pilar`,
+`muscular`, `articular`, `calar`, `el alisar`. Some of these (`formular`, `talar`, `domiciliar`, `calar`,
+`alisar`) are probably verbs headed as the wrong part of speech rather than non-verbs with a table. Each gets
+read when its batch reaches it.
+
+**THE OTHER WORD.** `tender`'s *tiendas* and *tienda*, shared with A1 `la calle` and `la tienda`; `caber`'s
+*cabida*; `resumir`'s *resumida*; `triangular`'s one example, *triangulo*, a misspelt noun; and `archivar`'s
+*archivo*, shared with `el archivo` earlier in B1.
+
+**NOT NATURAL SPANISH OR NOT SUITABLE.**
+- Regional or non-standard: *relacionado a* (`relacionar`), *papel de baño* (`reciclar`), and the calque
+  *archivar sus impuestos* (`archivar`).
+- A generalisation about a people (`tender`), phrenology (`implicar`), and a vulgar line (`caber`).
+- *Papá usa el fuego para asar un pollo* (`asar`).
+
+**GLOSSES.**
+- `implicar` gave "to oppose" and "to contradict", which it does not mean.
+- `adelgazar` gave "to make thin, to refine, to purify"; every example meant losing weight.
+- `caber`'s gloss was a broken list.
+
+**CARDS UP TO THREE EXAMPLES:** `insertar` (from one), `redactar` and `triangular`. B1 goes from 991 to **994**
+cards with three examples.
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded.
+`check-senses --deck=DELE-B1` goes from 33 to 29. `plantear` is still flagged: its examples say *ask a
+question* and *posed*, which are sound translations of *plantear una pregunta*.
+### S54 — DELE B1, notes #975–#997 (Sep 2026) — B1 COMPLETE
+
+Measured against the S53 commit by card id: **22 changed, 976 untouched**, each a record entry. The one card read
+and left alone is `matricularse`. **With this batch every one of B1's 998 notes has been read**, across S19–S54.
+
+**EVERY CARD IN B1 NOW CARRIES THREE EXAMPLES.** The last card with none, `nublarse`, gets three written for it,
+and `asimismo`, `aliñar` and `emocionar` come up to three. The description's example-sentence line is rewritten
+to match: "Example sentences come with every one of the 998 words, three apiece". Its `descSub` chain had grown
+to 35 pairs, one for each count on the way. It is reduced to three whole-sentence pairs: one for each wording the
+generator has produced, both recovered from git history, and one for the text as shipped. Replayed against
+both historical descriptions, the chain gives the shipped text byte for byte, with no pair unsatisfied.
+
+**S3'S GERUND FAULT IS GONE FROM B1.** `atreverse`, `inscribirse` and `deprimirse` read *-íendose* and are now
+*atreviéndose*, *inscribiéndose*, *deprimiéndose*. B1 has no reflexive gerund left with the accent on the *i*.
+62 remain in the higher decks (B2 17, C1 28, C2 17).
+
+**A CONNECTIVE USED AS A REPLY.** `asimismo` is a formal "also, likewise". Its first example used it as the
+reply "Likewise!" ("Asimismo, era un gusto conocerte"), which is *igualmente*.
+
+**THE OTHER WORD.**
+- `calzar` had *calzado* (footwear) and *calzada* (the road).
+- `empatar` had *empate* twice. `facturar` had *factura* twice, one of them shared with A2.
+- `recetar` had *receta*, a recipe, twice, both shared with A2 `la receta`.
+- Also: `enchufar`'s *enchufe*, `restar`'s *resto*, `adjuntar`'s *adjunto*, `emocionar`'s *emociones*,
+  `cocer`'s *cocidos*, `equivocarse`'s *equivocados*.
+
+**GLOSSES.**
+- `aliñar` and `condimentar` both gave "to condiment", which is not an English verb.
+- `facturar` put "to bill" before checking in luggage, and `calzar` did not give *¿qué número calzas?*.
+
+**NOT SUITABLE.** Two Japanese universities (`empatar`), New Testament typology (`subrayar`), a claim that acid
+does not evaporate (`evaporarse`), and a recipe fragment (`condimentar`).
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in B1 is unbolded. `check-senses
+--deck=DELE-B1` goes from 29 to **27**; it read 116 on the deck as it stood before S19, the B1 audit's first batch (measured on that commit's file). The 27 are paraphrase
+findings of the kind named batch by batch: *moved*, *failed*, *signed up*.
 ## The language-deck catalogue — the Update press and the frequency order
 
 **Read this before changing `langDeckUpdate` or a deck order.** CLAUDE.md keeps the rules; this is
