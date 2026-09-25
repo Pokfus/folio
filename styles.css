@@ -2143,6 +2143,14 @@ body.no-tts .ans-cn .ac-say{display:none;}
 .dp-btn svg{width:17px; height:17px;}
 .dp-btn.on{background:var(--ink); border-color:var(--ink); color:var(--paper);}
 .dp-btn:disabled{opacity:.38; cursor:default;}
+/* The brush-size slider takes the rest of the menu's row, or a row of its own when the colours and the
+   tools have used the width up. The dot is drawn at the next stroke's own width (capped at its box) in
+   the pen's colour; for the eraser it is a hollow ring. */
+.dp-size{display:flex; align-items:center; gap:8px; flex:1 1 150px; min-width:130px; cursor:pointer;}
+.dp-size-well{flex:none; width:26px; height:26px; display:grid; place-items:center;}
+.dp-size-dot{display:block; width:4px; height:4px; border-radius:50%; box-shadow:0 0 0 1px rgba(0,0,0,.28);}
+.dp-size-dot.dp-size-erase{box-shadow:0 0 0 1.5px var(--ink-soft);}
+.dp-size-range{flex:1 1 auto; min-width:0; width:100%; margin:0; accent-color:var(--ink); cursor:pointer; touch-action:pan-y;}
 /* `aspect-ratio` ALONE, with no `min-height` beside it: the two together inflated the USED WIDTH past
    the card — 34vh of a tall phone is 300px, which at 3:2 asked for a 450px-wide box inside a 366px card,
    and the pad ran off the right edge taking the card's own border with it. */

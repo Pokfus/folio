@@ -139,7 +139,10 @@ const { checkCitationLang } = require("./src-langs.js");
      the quiet failure this whole repo keeps recording: nothing throws, the card ships, and its window
      says "this map could not be loaded" to a reader who has no idea what they were meant to see. */
 const MAP_LAYERS = {
-  "us-states": { file: "us-states.js", global: "US_STATES", what: "state", points: "US_CAPITALS", dotWhat: "state capital" },
+  /* …and a second point table, `us-cities.js`, for the Largest cities deck (Sep 2026): a dot is looked
+     up in the capitals and then in each state's largest non-capital city. app.js does the same through
+     `layerPoint`. */
+  "us-states": { file: "us-states.js", global: "US_STATES", what: "state", points: "US_CAPITALS", pointsAlt: "US_CITIES", pointsAltFile: "us-cities.js", dotWhat: "state capital or largest city" },
   /* The world's own borders, with the capitals in a file of their OWN — `pointsFile` rather than a second
      global inside `file`, because app.js fetches the two as separate bundles for the same reason: a
      locator card reads the shapes and never the table. Keep this table in step with CARD_MAP_LAYERS in
@@ -214,7 +217,12 @@ if (isMap) {
     if (typeof d !== "string" || !d.trim()) { console.error("ERROR: card.map.dot is empty — it names the " + layer.dotWhat + " to mark."); process.exit(1); }
     const pp = path.join(__dirname, "..", layer.pointsFile || layer.file);
     if (!fs.existsSync(pp)) { console.error("ERROR: the " + m.layer + " layer's point table is missing: " + (layer.pointsFile || layer.file) + " — build it first (see .claude/build-world-capitals.js)."); process.exit(1); }
-    const pts = loadWindow(pp)[layer.points] || {};
+    const pts = Object.assign({}, loadWindow(pp)[layer.points] || {});
+    if (layer.pointsAlt) {
+      const ap = path.join(__dirname, "..", layer.pointsAltFile);
+      if (!fs.existsSync(ap)) { console.error("ERROR: " + layer.pointsAltFile + " is missing — build it first (node .claude/build-us-cities.js)."); process.exit(1); }
+      Object.assign(pts, loadWindow(ap)[layer.pointsAlt] || {});
+    }
     const hit = pts[d];
     if (!hit) {
       const near = Object.keys(pts).filter((n) => n.toLowerCase().startsWith(String(d).slice(0, 3).toLowerCase()));
@@ -229,7 +237,7 @@ if (isMap) {
        A warning rather than a refusal: a future card might legitimately mark a city and ask something
        else about it, and this file refuses only what is provably broken. */
     const ans = String(card.answerText || "").trim();
-    if (ans && ans !== d) console.warn("  ! the dot marks " + JSON.stringify(d) + " but the answer is " + JSON.stringify(ans) + " — check that is deliberate.");
+    if (ans && ans !== d && ans !== hit.n) console.warn("  ! the dot marks " + JSON.stringify(d) + " but the answer is " + JSON.stringify(ans) + " — check that is deliberate.");
   }
   if (Array.isArray(card.questions) && card.questions.length) {
     console.error("ERROR: a map card carries no extra question phrasings — the map is the clue, and \"which " + layer.what + " is shaded?\" has no second angle. Give it `\"questions\": []`.");
