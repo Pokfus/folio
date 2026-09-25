@@ -3506,6 +3506,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S49 | B1 | #839 `la aspirina` – #866 `el contestador` | 27 | 1 (`la aspirina`) | 0 | B1 description: 987 with three | `en fin` rebuilt, the last of S29's unbolded phrase cards |
 | S50 | B1 | #867 `rellenar` – #894 `entrevistar` | 25 | 3 (`el compositor, la compositora`, `el/la recepcionista`, `fijarse`) | 0 | B1 description: 990 with three | `el canguro, la cangura` renamed `el/la canguro`; `introducir` false friend noted |
 | S51 | B1 | #895 `triunfar` – #922 `disculpar` | 23 | 5 (`imprimir`, `acercarse`, `comunicarse`, `sustituir`, `renovar`) | 1 (`comprometerse` gerund) | B1 description: 990 with three | `trasladar`'s *transladar*; S3's gerund fault counted at 65 cards still to come |
+| S52 | B1 | #923 `surgir` – #950 `sumar` | 25 | 3 (`secarse`, `esforzarse`, `portarse`) | 0 | B1 description: 991 with three | twelve examples shared with lower decks; `freír` had no example of the verb |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5520,6 +5521,48 @@ and `contribuir` and `diseñar` with earlier B1 cards.
 **CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded. B1 stays at 990
 cards with three examples. `check-senses --deck=DELE-B1` goes from 38 to 36, as `comentar` and `desviar` leave
 the list.
+### S52 — DELE B1, notes #923–#950 (Sep 2026)
+
+Measured against the S51 commit by card id: **25 changed, 973 untouched**, each a record entry. The other three
+were read and left alone: `secarse`, `esforzarse`, `portarse`.
+
+**THE MOST SHARED EXAMPLES OF ANY BATCH SO FAR: TWELVE, EVERY ONE WITH A LOWER DECK.** Most were a verb card
+illustrated by a noun or an adjective the reader has already met:
+- `freír`'s three were all *frío, fría* ("cold"), shared with A1 `frío`; the card had no example of the verb
+  at all.
+- `emplear`'s three were *empleo* and, twice, *empleado* (A2).
+- `citar`'s were *cita* twice (A2 `la cita`), `fotografiar`'s *fotografía* twice (A1 `joven`, A2
+  `la fotografía`), `sumar`'s *suma* (A1 `doce`), `pelar`'s *pelo* (A1 `el pelo`), and `secar`'s *seca* (A2
+  `seco`).
+
+Every one of those cards now has three examples of its own verb. A replacement sentence for `freír` turned out
+to be A2 `el aceite`'s. The share check caught it before commit, and it was swapped.
+
+**THE OTHER WORD, NOT SHARED.** `destacar`'s *destacado* twice, `sumar`'s *a lo sumo*, `secar`'s adjective
+*seco* in an oddity whose *agua … mojado* is also the wrong gender.
+
+**A CONSTRUCTION.** All three of `influir`'s examples took a direct object (*influye a la memoria*, *influyen a
+las personas*, *la influirán*). The standard construction is *influir en*, so the examples now use it and the
+gloss says so.
+
+**NOT NATURAL SPANISH.**
+- *moja a los árboles* (`mojar`) puts a personal *a* before trees.
+- *a la primera vista* (`enamorarse`) should be *a primera vista*.
+- *luego que* (`fregar`).
+- *¿Cuánto tiempo pasar…?* (`seleccionar`).
+- Rioplatense *congelá* (`congelar`).
+- Two oddities: "Iluminar a la gente" (`iluminar`) and "La materia está compuesta de nada" (`componer`).
+
+**THE CONJUGATION** is right on every card in the batch. `freír`'s *frio*, *friais* and *freído* are all
+current Academy forms, and the gloss now adds that *frito* is the usual participle.
+
+**GLOSSES.** `destacar`'s list broke off in mid-phrase ("…to underline, to"). `citar` did not give the
+appointment sense. `enfriar`, `envolver`, `componer` and `sumar` now give the phrase their own examples use.
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded. B1 goes from 990
+to **991** cards with three examples. `check-senses --deck=DELE-B1` goes from 36 to 33. `disminuir` stays on the
+list and is named: its examples say *slow down*, *lessen* and *fallen*, three sound translations the gloss's
+words don't match.
 ## The language-deck catalogue — the Update press and the frequency order
 
 **Read this before changing `langDeckUpdate` or a deck order.** CLAUDE.md keeps the rules; this is
