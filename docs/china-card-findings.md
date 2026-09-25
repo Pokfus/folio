@@ -4000,6 +4000,13 @@ their own and were not cited. Beyond them:
 **A glossary auto-link caught on the way**: "the National Academy" on `cnh-327` linked "Academy" to
 Plato's school. It now reads "the imperial college".
 
+**Pictures are not yet on these ten cards or their terms, and that is a sandbox limit rather than a
+judgement.** Wikimedia's API answered 429 to this session for well over an hour, so no candidate could
+be fetched, licensed or looked at. The candidates found before the limit are a place to start:
+`Admonitions Scroll Scene 4.jpg` (Gu Kaizhi), `Liu Yu (Song Wudi).jpg`, `Southern and Northern Dynasties
+440 CE.png`, `Northern and Southern Dynasties 560 CE.png` and `Liang Wudi.jpg`. **Avoid the Yungang and
+Longmen caves for the Northern Wei card**: `cnh-335` and `cnh-336` are those caves' own cards.
+
 **No war block and few locators.** The Hou Jing rebellion is a rising inside one state, and the northern
 and southern courts never fought a decided war between separable sides. `cnh-323`, an era, carries no
 locator; six of the others are Jiankang, where the studied siblings group into one dot.
