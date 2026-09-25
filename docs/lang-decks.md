@@ -5570,7 +5570,7 @@ Measured against the S52 commit by card id: **20 changed, 978 untouched**, each 
 in this batch's range; the twentieth is a catch-up on `el titular`, #805. The other five were read and left
 alone: `desobedecer`, `coleccionar`, `aconsejar`, `acostumbrarse`, `jubilarse`.
 
-**A CORRECTION TO EARLIER BATCHES: THE "STRAY LINE" IN THE GLOSS WAS NEVER THERE.** From S37 to S52, 25 notes
+**A CORRECTION TO EARLIER BATCHES: THE "STRAY LINE" IN THE GLOSS WAS NEVER THERE.** From S33 to S52, 25 notes
 said a gloss "carried a stray 'N' line" or "a stray blank line". Neither was in the deck. The audit's own viewer
 printed each card's conjugation table cut at 1,500 characters. The cut left a line holding only the first
 letter of the next heading (*N*, from *Negativo*), or nothing, and the filter over that output passed it
@@ -5580,7 +5580,7 @@ advise", and the diff reported the card unchanged.
 What was done about it:
 - The clause is removed from all 25 notes. Where it was the only reason given, the note now says what really
   changed (`colaborar`, `decorar`), or the entry goes: `aconsejar`'s changed nothing and is now in `reviewed`.
-- Two sentences in the S37 and S49 sections above that repeated the claim are corrected.
+- Two sentences in the S33 and S49 sections above that repeated the claim are corrected.
 - The viewer no longer prints the truncated dump.
 
 Nothing in the decks changed: every fix those notes made was to a list or a sense, and those were real.
