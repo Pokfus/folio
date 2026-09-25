@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 // Regression test for DRAW CARDS — the Flags deck run backwards, where the reader draws the flag from
-// memory on a pad and the marker is pinned to its corner (Sep 2026, on request).
+// memory on a pad with its own tools (Sep 2026, on request).
 //
 //   node .claude/test-draw-cards.js [--data-only]
 //
 // Re-run after touching cardDrawSpec / cardDrawHTML / cardDrawReveal / mountDrawCard / DP / DP_COLORS /
-// DP_SIZES / DP_BTNS / DP_ICON / dpStop / cardFrontHTML's draw branch / showAnswer's draw reveal and its
+// DP_SIZE_MIN / DP_SIZE_MAX / DP_BTNS / .dp-size-range / setupWhiteboard's padUnder / _dpFwd / DP_ICON / dpStop / cardFrontHTML's draw branch / showAnswer's draw reveal and its
 // answer-box drop / gameCardIdSet / IMG_OPEN_SEL / TIP_SEL / serializeCardData / revertCard / whyExempt /
 // the .draw-pad, .dp-tools, .dp-frame, .dp-canvas and .dp-answer styles / add-card.js's drawCard guards /
 // check-questions.js's exemptions / add-draw-cards.js, or after a batch of draw cards.
@@ -275,6 +275,9 @@ const server = http.createServer((req, res) => {
              tools: document.querySelectorAll(".dp-tools .dp-btn").length,
              cols: document.querySelectorAll(".dp-tools .dp-col").length,
              hasFill: !!document.querySelector('[data-dp="fill"]'),
+             white: !!document.querySelector('.dp-tools [data-dpcol="#FFFFFF"]'),
+             slider: !!document.querySelector('.dp-tools input.dp-size-range[type="range"]'),
+             brushBtn: !!document.querySelector('[data-dp="brush"]'),
              undoOff: document.querySelector('[data-dp="undo"]').disabled,
              markerShown: !!t && t.classList.contains("show"),
              markerPinned: !!t && t.classList.contains("wb-pinned"),
@@ -295,7 +298,9 @@ const server = http.createServer((req, res) => {
   ok("…and the canvas fills its frame", Math.abs(geo.cvW - geo.frW) <= 1, [geo.cvW, geo.frW]);
   ok("…with a bitmap in device pixels", geo.bitmapW >= Math.round(geo.cvW * Math.min(geo.dpr, 3)) - 2,
      [geo.bitmapW, geo.cvW, geo.dpr]);
-  ok("the menu carries its colours and its six tools", geo.cols >= 4 && geo.tools === 6, [geo.cols, geo.tools]);
+  ok("the menu carries its colours and its five tools", geo.cols >= 4 && geo.tools === 5, [geo.cols, geo.tools]);
+  ok("…white among the default colours", geo.white);
+  ok("…and a brush-size slider in place of the two fixed pens", geo.slider && !geo.brushBtn, [geo.slider, geo.brushBtn]);
   ok("…including a fill", geo.hasFill);
   ok("…and a sixth swatch that is the reader's own colour", /^#[0-9a-f]{6}$/i.test(geo.swatch || ""), geo.swatch);
   ok("…whose field is shut until it is asked for", geo.pickShut);
@@ -367,6 +372,41 @@ const server = http.createServer((req, res) => {
   await page.waitForTimeout(150);
   ok("…and clear empties it", (await read()).pct === 0);
 
+  /* WHITE IS A COLOUR, NOT AN ERASER: a white fill is paint on every pixel, where the eraser leaves the
+     canvas transparent — the difference between a white field and a hole. */
+  await page.click('[data-dpcol="#FFFFFF"]');
+  await page.click('[data-dp="fill"]');
+  await page.waitForTimeout(150);
+  const whiteFill = await page.evaluate(() => {
+    const c = document.querySelector(".dp-canvas");
+    const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+    let white = 0, n = 0;
+    for (let i = 0; i < d.length; i += 4) { n++; if (d[i + 3] > 250 && d[i] > 250 && d[i + 1] > 250 && d[i + 2] > 250) white++; }
+    return Math.round((100 * white) / n);
+  });
+  ok("a white fill paints every pixel white", whiteFill === 100, whiteFill);
+  await page.click('[data-dp="clear"]');
+  await page.click('[data-dpcol="#1B1A17"]');
+  await page.waitForTimeout(100);
+
+  /* THE SLIDER REALLY CHANGES THE STROKE, and widely. The same stroke is drawn at the two ends of the
+     range and its ink is counted: a slider that moved its thumb and not `DP.size` would read equal. */
+  const setSize = (v) => page.evaluate((v) => {
+    const r = document.querySelector(".dp-size-range");
+    r.value = String(v); r.dispatchEvent(new Event("input", { bubbles: true }));
+  }, v);
+  await setSize(1);
+  await drawStroke();
+  const thin = (await read()).px;
+  await page.click('[data-dp="clear"]');
+  await setSize(60);
+  await drawStroke();
+  const thick = (await read()).px;
+  await page.click('[data-dp="clear"]');
+  ok("the size slider takes the stroke from a hairline to a broad band", thick > thin * 15, [thin, thick]);
+  await setSize(4);
+  await page.waitForTimeout(100);
+
   /* ANY COLOUR, END TO END. The picker is what makes "any color can be used" true rather than intended,
      and every step of it fails quietly: a field that does not move the hex, a hex that does not reach
      `DP.color`, or a colour that is not what the pen then draws with. The last is checked by counting
@@ -434,6 +474,29 @@ const server = http.createServer((req, res) => {
   await page.mouse.down(); await page.mouse.up();
   await page.waitForTimeout(250);
   ok("…and the pad's own menu still answers a press through the ink layer", (await read()).pct === 100);
+  await page.mouse.move(fillBtn.x + fillBtn.width / 2, fillBtn.y + fillBtn.height / 2);
+  const clr = await page.locator('[data-dp="clear"]').boundingBox();
+  await page.mouse.move(clr.x + clr.width / 2, clr.y + clr.height / 2);
+  await page.mouse.down(); await page.mouse.up();
+  await page.waitForTimeout(150);
+  /* …AND THE FLOATING MARKER DOES NOT DRAW INSIDE THE PAD (Sep 2026, on request). With the pen down a
+     stroke over the pad is forwarded to the PAD's canvas, and the page-wide ink layer stays empty. */
+  const inkPx = () => page.evaluate(() => {
+    const c = document.querySelector(".draw-canvas");
+    if (!c || !c.width || !c.height) return 0;
+    const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+    let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 8) n++;
+    return n;
+  });
+  const floatBefore = await inkPx();
+  await drawStroke();
+  const padAfter = await read(), floatAfter = await inkPx();
+  ok("with the floating pen down, a stroke over the pad lands on the PAD", padAfter.px > 200, padAfter);
+  ok("…and the floating marker's own ink layer takes none of it", floatAfter === floatBefore, [floatBefore, floatAfter]);
+  const clr2 = await page.locator('[data-dp="clear"]').boundingBox();
+  await page.mouse.move(clr2.x + clr2.width / 2, clr2.y + clr2.height / 2);
+  await page.mouse.down(); await page.mouse.up();
+  await page.waitForTimeout(150);
   /* …and the pen goes back up the way a reader puts it up: pressing the SELECTED tool again, which is
      the panel's own rule now that closing it no longer does. Closing the panel is not enough — that was
      the first attempt, and every press after it timed out against an ink canvas still covering the page,

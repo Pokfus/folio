@@ -19475,6 +19475,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const host = hitUnder(e, ".map-card");
       return host && host._folioMap && host._folioMap.pan ? host._folioMap : null;
     };
+    /* ---- A FOURTH: A DRAW CARD'S OWN CANVAS (Sep 2026, on request: "ensure that in draw the flag the
+       floating whiteboard marker doesn't work inside the painting canvas") ----
+       The pad is a canvas of its own with its own tools, and with this pen down every press over it was
+       the marker's — so the reader drew a flag on the page-wide ink layer, where the pad's Undo, Fill and
+       reveal could not reach it. A press over the pad is now the PAD's, for a pen and a finger alike and
+       in either mode: this layer keeps the pointer (as it must, or the moves stop arriving) and forwards
+       the gesture through the small `_dpFwd` the pad exposes, which is `mapUnder`'s arrangement exactly.
+       Everywhere else on the page the marker is unchanged. */
+    const padUnder = (e) => {
+      const cv = hitUnder(e, ".dp-canvas");
+      return cv && cv._dpFwd ? cv._dpFwd : null;
+    };
+    let passPad = null;
     /* ---- the finger's scroll, performed rather than permitted (stylus mode) ----
        See wbApplyStylusMode for why CSS cannot do this. `scrollerUnder` finds what the finger is actually
        over — the document under a card, but a gloss popup's body or the Atlas panel's columns are their own
@@ -19542,6 +19555,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (gid !== null) { try { canvas.releasePointerCapture(gid); } catch (x) {} }
       gid = null; gpen = false;
       panStop(); panEl = null;
+      if (passPad) { passPad.up({ pointerId: passPad._pid }); passPad = null; }
       passCtl = null; passScroll = false; pendTip = null; passMap = null;
       end();   // commits a finger's stroke rather than losing it; a no-op when nothing was drawn
     };
@@ -19568,6 +19582,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }
       gid = e.pointerId; gpen = e.pointerType === "pen";
       sx = e.clientX; sy = e.clientY;
+      // over a draw card's own canvas the press is the PAD's, whatever the pointer (see padUnder)
+      passPad = padUnder(e);
+      if (passPad) {
+        passPad._pid = e.pointerId;
+        passPad.down(e);
+        try { canvas.setPointerCapture(e.pointerId); } catch (x) {}
+        e.preventDefault();
+        return;
+      }
       /* A FINGER IN STYLUS MODE IS NOT A STROKE — it is a scroll, and possibly a tap on a control. Both are
          done by hand: the scroll above, and the control underneath through the same pass-through the ink
          already uses (a tap must reach Show answer exactly as it does with the pen up), activated on
@@ -19595,6 +19618,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     canvas.addEventListener("pointermove", (e) => {
       if (gid === null || e.pointerId !== gid) return;   // a palm, or a second thumb: not this gesture
+      if (passPad) { passPad.move(e); return; }
       if (passScroll) {   // stylus mode, finger down: this gesture is the page's, not the ink's
         if (passMap) {   // …unless it began on a map window, which turns instead (see mapUnder)
           passMap.pan(e.clientX - panX, e.clientY - panLast);
@@ -19663,6 +19687,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          `end()` at the bottom and took `WB.drawing` down with it, mid-stroke. */
       if (gid === null || e.pointerId !== gid) return;
       gid = null; gpen = false;
+      if (passPad) { const pp = passPad; passPad = null; pp.up(e); return; }
       const ctl = passCtl, scrolled = passScroll, tip = pendTip, onMap = passMap;
       passCtl = null; passScroll = false; pendTip = null; passMap = null;
       /* A map window's own gesture ends with the finger: there is nothing to fling, and `panFling` would
@@ -19697,6 +19722,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          good case, and it must not be allowed to cancel the stroke the pen is in the middle of. */
       if (gid === null || e.pointerId !== gid) return;
       gid = null; gpen = false;
+      if (passPad) { const pp = passPad; passPad = null; pp.up(e); }
       passCtl = null; passScroll = false; pendTip = null; passMap = null; panEl = null; panStop(); end();
     });
     if (WB._onResize) window.removeEventListener("resize", WB._onResize);
@@ -35293,21 +35319,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      duplication that was refused is now the point, and the floating marker goes back to being what it is
      on every other page: separate, unpinned, and nothing to do with this.
 
-     THE TWO DO NOT INTERFERE AND ARE NOT MADE TO COOPERATE. With the floating pen DOWN its canvas covers
-     the whole visible page, which is what it does everywhere on the site — so it draws over the pad
-     rather than in it, and the pad's own menu keeps working, its buttons being real controls the ink
-     layer already hit-tests through to. A pass-through that forwarded presses into the pad was built and
-     refused: it would take away the one thing the floating marker is for, which is annotating anything
-     on the page including a diagram. The pen is no longer put down for the reader on a draw card either
-     — the card now has a tool of its own, and there is nothing left to force.
+     THE FLOATING MARKER DOES NOT DRAW INSIDE THE PAD (Sep 2026, on request, reversing the first answer).
+     With its pen down the marker's canvas covers the whole visible page, and it used to draw OVER the pad
+     — a pass-through was built once and refused, on the argument that the marker annotates anything on
+     the page including a diagram. The request settled it the other way: a press over the pad's own
+     canvas is now forwarded to the pad (`padUnder` in setupWhiteboard, `_dpFwd` here), so a flag is
+     always drawn where Fill, Undo and the reveal can reach it. Everywhere else on the page, and over the
+     pad's MENU, the marker is unchanged — the menu's buttons are real controls `CTL_SEL` hit-tests
+     through to, exactly as before.
 
      THE STATE IS MODULE-LEVEL AND IS NOT STORED. Which colour you last drew a flag in is a way of
      working rather than a preference about Folio, the same call `glossSort` and the deck-edit mode make:
      it survives the next card and resets on reload. */
-  const DP_COLORS = WB_COLORS;
-  const DP_SIZES = [3, 9];              // the pen and the brush — a band of a flag wants the second
+  /* WHITE IS A DEFAULT COLOUR HERE AND NOT ON THE FLOATING MARKER (Sep 2026, on request). A flag is
+     drawn, not annotated, and a great many flags carry a white field, band, cross or star — painting one
+     with the eraser leaves a hole rather than a colour, and a fill of nothing is not a fill. It is the
+     LAST swatch, so the other five keep their places, and it needs no rule of its own to be seen on the
+     pale menu: every swatch already carries a 1px inset ring. */
+  const DP_COLORS = WB_COLORS.concat(["#FFFFFF"]);
+  /* THE SIZE IS A SLIDER, NOT TWO BUTTONS (Sep 2026, on request: "a sliding bar to greatly increase or
+     decrease the size of the brush"). The pen and the broad pen were two fixed widths, 3 and 9, which is
+     enough for a stripe's edge and nowhere near enough to lay down a band on a phone without a hundred
+     strokes. The range is deliberately WIDE — a hairline for a star's point up to a stroke a fifth of the
+     pad high — and the eraser takes twice the pen's width, so shrinking one shrinks both. */
+  const DP_SIZE_MIN = 1, DP_SIZE_MAX = 60, DP_SIZE_DEFAULT = 4;
   const DP_HIST_MAX = 24;
-  const DP = { color: DP_COLORS[0], tool: "pen", size: DP_SIZES[0] };
+  const DP = { color: DP_COLORS[0], tool: "pen", size: DP_SIZE_DEFAULT };
   let dpStop = null;                    // teardown for the pad currently mounted, if any
   /* THE READER'S OWN COLOUR IS THE ONE PART OF THIS THAT IS STORED, and the exception is deliberate
      (Sep 2026, on request: "the top canvas menu should have a color picker so any color can be used").
@@ -35333,7 +35370,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     clear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/></svg>',
   };
   const DP_BTNS = [
-    ["pen", "Pen"], ["brush", "Broad pen"], ["erase", "Eraser"],
+    ["pen", "Pen"], ["erase", "Eraser"],
     ["fill", "Fill the whole canvas with this colour"], ["undo", "Undo"], ["clear", "Clear the canvas"],
   ];
   /* The menu is drawn at the TOP OF THE CANVAS and is `aria-hidden` for the reason the pad is: a reader
@@ -35361,7 +35398,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return '<div class="draw-pad">' +
       '<div class="dp-tools" aria-hidden="true"><div class="dp-cols">' + cols +
       '<button type="button" tabindex="-1" class="dp-col dp-custom" data-dpcustom="" title="Any colour"></button>' +
-      '</div><div class="dp-acts">' + btns + "</div></div>" +
+      '</div><div class="dp-acts">' + btns + "</div>" +
+      '<label class="dp-size" title="Brush size"><span class="dp-size-well"><span class="dp-size-dot"></span></span>' +
+      '<input type="range" tabindex="-1" class="dp-size-range" min="' + DP_SIZE_MIN + '" max="' + DP_SIZE_MAX +
+      '" step="1" value="' + DP.size + '" aria-label="Brush size"></label></div>' +
       '<div class="dp-pick" aria-hidden="true" hidden><div class="wb-sv"><span class="wb-knob"></span></div>' +
       '<div class="wb-hue"><span class="wb-knob"></span></div><div class="wb-hex"></div></div>' +
       '<div class="dp-frame" aria-hidden="true"><canvas class="dp-canvas"></canvas><span class="dp-hint">Draw the flag here</span></div>' +
@@ -35478,16 +35518,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ctx.save();
       ctx.globalCompositeOperation = DP.tool === "erase" ? "destination-out" : "source-over";
       ctx.strokeStyle = DP.color;
-      ctx.lineWidth = DP.tool === "erase" ? 18 : DP.size;
+      ctx.lineWidth = DP.tool === "erase" ? Math.max(8, DP.size * 2) : DP.size;
       ctx.lineCap = "round"; ctx.lineJoin = "round";
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       ctx.restore();
     };
-    const down = (e) => {
+    const down = (e, fwd) => {
       if (e.button != null && e.button !== 0) return;
       if (drawing) return;                      // one pointer owns the stroke — a palm is not this gesture
       drawing = true; pid = e.pointerId; last = at(e);
-      try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+      // a press FORWARDED by the floating marker's ink layer is captured by that layer, and must stay so
+      if (!fwd) { try { cv.setPointerCapture(e.pointerId); } catch (err) {} }
       stroke(last, { x: last.x + 0.01, y: last.y });   // a tap is a dot
       pad.classList.add("dp-drawn");
       e.preventDefault();
@@ -35506,9 +35547,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     cv.addEventListener("pointermove", move);
     cv.addEventListener("pointerup", up);
     cv.addEventListener("pointercancel", up);
+    /* THE FLOATING MARKER DOES NOT DRAW IN HERE (Sep 2026, on request: "ensure that in draw the flag
+       the floating whiteboard marker doesn't work inside the painting canvas"). With its pen down the
+       marker's canvas covers the whole visible page and is the pointer target for every press, so the
+       pad's own listeners never heard one: the reader's strokes landed on the page-wide ink layer, OVER
+       the pad, where they could not be filled, undone by the pad's Undo, or compared at the reveal. That
+       layer now asks what is under a press and, over this canvas, hands the gesture here instead — the
+       map window's own arrangement (`_folioMap.pan`), and for its reason: the ink layer must keep the
+       pointer or the moves stop arriving, so it forwards them rather than stepping aside. Outside the
+       pad the marker is untouched and still annotates anything on the page. */
+    cv._dpFwd = { down: (e) => down(e, true), move, up };
 
     const act = (k) => {
-      if (k === "pen" || k === "brush") { DP.tool = "pen"; DP.size = k === "pen" ? DP_SIZES[0] : DP_SIZES[1]; }
+      if (k === "pen") DP.tool = "pen";
       else if (k === "erase") DP.tool = "erase";
       else if (k === "fill") {
         ctx.save(); ctx.globalCompositeOperation = "source-over";
@@ -35525,14 +35576,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const paintTools = () => {
       pad.querySelectorAll("[data-dp]").forEach((b) => {
         const k = b.dataset.dp;
-        const on = (k === "erase" && DP.tool === "erase") ||
-                   (DP.tool === "pen" && ((k === "pen" && DP.size === DP_SIZES[0]) || (k === "brush" && DP.size === DP_SIZES[1])));
-        b.classList.toggle("on", !!on);
+        b.classList.toggle("on", (k === "erase" && DP.tool === "erase") || (k === "pen" && DP.tool === "pen"));
       });
+      paintSize();
       pad.querySelectorAll("[data-dpcol]").forEach((b) => b.classList.toggle("on", b.dataset.dpcol === DP.color));
     };
     pad.querySelectorAll("[data-dp]").forEach((b) =>
       b.addEventListener("click", (e) => { e.stopPropagation(); act(b.dataset.dp); }));
+    /* The dot beside the slider is drawn at the width the next stroke will have (capped at the dot's own
+       box), in the pen's colour, so the slider says what it does without a number. */
+    const sizeIn = pad.querySelector(".dp-size-range"), sizeDot = pad.querySelector(".dp-size-dot");
+    function paintSize() {
+      if (sizeIn && +sizeIn.value !== DP.size) sizeIn.value = DP.size;
+      if (sizeDot) {
+        const d = Math.max(3, Math.min(26, DP.tool === "erase" ? Math.max(8, DP.size * 2) : DP.size));
+        sizeDot.style.width = sizeDot.style.height = d + "px";
+        sizeDot.style.background = DP.tool === "erase" ? "transparent" : DP.color;
+        sizeDot.classList.toggle("dp-size-erase", DP.tool === "erase");
+      }
+    }
+    if (sizeIn) {
+      sizeIn.addEventListener("input", () => {
+        DP.size = Math.max(DP_SIZE_MIN, Math.min(DP_SIZE_MAX, Math.round(+sizeIn.value) || DP_SIZE_DEFAULT));
+        paintSize();
+      });
+      sizeIn.addEventListener("click", (e) => e.stopPropagation());
+    }
     const useDpColor = (c) => {
       DP.color = c;
       if (DP.tool === "erase") DP.tool = "pen";   // choosing a colour is choosing to draw with it

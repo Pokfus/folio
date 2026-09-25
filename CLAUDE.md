@@ -2042,11 +2042,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     nowhere in it for a FILL to stop. **A bounded surface is a canvas of its own**, so the duplication
     that was refused is now the point, and `wbPinTo` / `wbPinApply` / `wbPinFrame` / `wbUnpin` and the
     forced pen-down are all deleted rather than left lying about.
-    **THE TWO DO NOT INTERFERE AND ARE NOT MADE TO COOPERATE.** With the floating pen down its canvas
-    covers the whole visible page, as it does everywhere on the site, so it draws OVER the pad rather
-    than in it, and the pad's menu keeps working — its buttons are real controls `CTL_SEL` already
-    hit-tests through to. A pass-through that forwarded presses into the pad was built and refused: it
-    would take away the one thing the floating marker is for.
+  · **…AND THE FLOATING MARKER DOES NOT DRAW INSIDE THE PAD** (Sep 2026, on request, reversing the
+    first cut's refusal of a pass-through). With its pen down the marker's canvas covers the whole page,
+    so every press over the pad was the MARKER's and the flag was drawn on the page-wide ink layer, where
+    the pad's Fill, Undo and reveal could not reach it. `setupWhiteboard` now asks `padUnder` at
+    pointerdown and, over `.dp-canvas`, forwards the whole gesture through the `_dpFwd` the pad exposes —
+    `mapUnder`'s arrangement exactly, and for its reason: the ink layer keeps the pointer or the moves
+    stop arriving. **The pad's `down` skips its own `setPointerCapture` when forwarded**, or capture
+    would move off the ink layer mid-gesture and its `gid` would never clear. Outside the pad the marker
+    is unchanged, and the pad's menu is still reached through `CTL_SEL`.
+  · **WHITE IS A DEFAULT SWATCH AND THE SIZE IS A SLIDER** (Sep 2026, on request). `DP_COLORS` is
+    `WB_COLORS` plus white — a white field is paint, where the eraser leaves a hole — and the pen and
+    broad pen became one Pen plus `.dp-size-range`, `DP_SIZE_MIN` 1 to `DP_SIZE_MAX` 60, with the
+    eraser at twice the pen's width. It is an `<input type="range">` carrying `tabindex="-1"` for the
+    menu's own reason, and a dot beside it is drawn at the next stroke's width.
   · **THE CANVAS IS SIZED FROM LAYOUT AND NEVER FROM A RECT** (`frame.clientWidth`). `getBoundingClientRect`
     is transform-aware and the page's entrance animation SCALES `.page` for its first third of a second,
     so a canvas sized from a rect at mount comes out several pixels narrow and **stays** that way — a
@@ -2096,7 +2105,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cannot be drawn on from one. The question above and the answer below are both real text, which is
     where this format's accessibility actually lives.
   · **THE FORMAT IS BUILT** — see the DRAW CARDS block in app.js for `cardDrawSpec` / `cardDrawHTML` /
-    `cardDrawReveal` / `mountDrawCard` / `DP` / `DP_COLORS` / `DP_SIZES` / `DP_BTNS` / `dpStop` /
+    `cardDrawReveal` / `mountDrawCard` / `DP` / `DP_COLORS` / `DP_SIZE_MIN` / `DP_SIZE_MAX` / `DP_BTNS` / `dpStop` /
     `DP_CUSTOM_KEY` / `dpReadCustom` / `dpSaveCustom`, and the `.draw-pad` / `.dp-tools` / `.dp-pick` /
     `.dp-custom` / `.dp-frame` / `.dp-canvas` / `.dp-answer` styles. Guarded by
     `.claude/test-draw-cards.js`.
@@ -7133,11 +7142,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     over THIS canvas, with the marker PINNED to its corner and the pen put down for the reader — which
     reused everything here and cost nothing, and could not answer the request: ink on a page-wide canvas
     is bounded by nothing, and there is nowhere in it for a FILL to stop. The pad has a canvas and a menu
-    of its own now, and this one is untouched: not pinned, not auto-enabled, and with its pen down it
-    draws OVER the pad exactly as it draws over everything else on the page. **A pass-through that
-    forwarded presses into the pad was built and refused** — it would take away the one thing the
-    floating marker is for, which is annotating anything on the page, a diagram included. The pad's menu
-    goes on working meanwhile, its buttons being real controls `CTL_SEL` already hit-tests through to.
+    of its own now, and this one is untouched: not pinned and not auto-enabled. **With its pen down it
+    no longer draws over the pad** (Sep 2026, on request, reversing an earlier refusal): a press over
+    the pad's own canvas is forwarded to the pad (`padUnder` / `_dpFwd`), so a flag is always drawn where
+    the pad's tools can reach it. Everywhere else it annotates exactly as before, and the pad's menu is
+    reached through `CTL_SEL`.
   **📖 `docs/whiteboard.md` — READ BEFORE CHANGING ANY OF IT.** The fling's sample-window arithmetic, the
   snap-home probe and the transition that must be turned off to take it, the inline colour picker and why
   an `<input type="color">` was refused, the pass-through's `preventDefault` consequence, the hand-rolled
