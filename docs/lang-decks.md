@@ -3508,6 +3508,7 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S51 | B1 | #895 `triunfar` – #922 `disculpar` | 23 | 5 (`imprimir`, `acercarse`, `comunicarse`, `sustituir`, `renovar`) | 1 (`comprometerse` gerund) | B1 description: 990 with three | `trasladar`'s *transladar*; S3's gerund fault counted at 65 cards still to come |
 | S52 | B1 | #923 `surgir` – #950 `sumar` | 25 | 3 (`secarse`, `esforzarse`, `portarse`) | 0 | B1 description: 991 with three | twelve examples shared with lower decks; `freír` had no example of the verb |
 | S53 | B1 | #951 `desobedecer` – #974 `jubilarse` | 20 | 5 (`desobedecer`, `coleccionar`, `aconsejar`, `acostumbrarse`, `jubilarse`) | 2 tables cleared (`triangular`, `el titular`) | B1 description: 994 with three | new `noConj` field; the "stray line" of 25 earlier notes was a viewer artifact, corrected |
+| S54 | B1 | #975 `equivocarse` – #997 `nublarse` | 22 | 1 (`matricularse`) | 3 gerunds (`atreverse`, `inscribirse`, `deprimirse`) | B1 description: every one of the 998, three apiece | **B1 complete**; `descSub` chain reduced to three pairs |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5618,6 +5619,42 @@ cards with three examples.
 **CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded.
 `check-senses --deck=DELE-B1` goes from 33 to 29. `plantear` is still flagged: its examples say *ask a
 question* and *posed*, which are sound translations of *plantear una pregunta*.
+### S54 — DELE B1, notes #975–#997 (Sep 2026) — B1 COMPLETE
+
+Measured against the S53 commit by card id: **22 changed, 976 untouched**, each a record entry. The one card read
+and left alone is `matricularse`. **With this batch every one of B1's 998 notes has been read**, across S19–S54.
+
+**EVERY CARD IN B1 NOW CARRIES THREE EXAMPLES.** The last card with none, `nublarse`, gets three written for it,
+and `asimismo`, `aliñar` and `emocionar` come up to three. The description's example-sentence line is rewritten
+to match: "Example sentences come with every one of the 998 words, three apiece". Its `descSub` chain had grown
+to 35 pairs, one for each count on the way. It is reduced to three whole-sentence pairs: one for each wording the
+generator has produced, both recovered from git history, and one for the text as shipped. Replayed against
+both historical descriptions, the chain gives the shipped text byte for byte, with no pair unsatisfied.
+
+**S3'S GERUND FAULT IS GONE FROM B1.** `atreverse`, `inscribirse` and `deprimirse` read *-íendose* and are now
+*atreviéndose*, *inscribiéndose*, *deprimiéndose*. B1 has no reflexive gerund left with the accent on the *i*.
+62 remain in the higher decks (B2 17, C1 28, C2 17).
+
+**A CONNECTIVE USED AS A REPLY.** `asimismo` is a formal "also, likewise". Its first example used it as the
+reply "Likewise!" ("Asimismo, era un gusto conocerte"), which is *igualmente*.
+
+**THE OTHER WORD.**
+- `calzar` had *calzado* (footwear) and *calzada* (the road).
+- `empatar` had *empate* twice. `facturar` had *factura* twice, one of them shared with A2.
+- `recetar` had *receta*, a recipe, twice, both shared with A2 `la receta`.
+- Also: `enchufar`'s *enchufe*, `restar`'s *resto*, `adjuntar`'s *adjunto*, `emocionar`'s *emociones*,
+  `cocer`'s *cocidos*, `equivocarse`'s *equivocados*.
+
+**GLOSSES.**
+- `aliñar` and `condimentar` both gave "to condiment", which is not an English verb.
+- `facturar` put "to bill" before checking in luggage, and `calzar` did not give *¿qué número calzas?*.
+
+**NOT SUITABLE.** Two Japanese universities (`empatar`), New Testament typology (`subrayar`), a claim that acid
+does not evaporate (`evaporarse`), and a recipe fragment (`condimentar`).
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in B1 is unbolded. `check-senses
+--deck=DELE-B1` goes from 29 to **27**; it read 116 on the deck as it stood before S19, the B1 audit's first batch (measured on that commit's file). The 27 are paraphrase
+findings of the kind named batch by batch: *moved*, *failed*, *signed up*.
 ## The language-deck catalogue — the Update press and the frequency order
 
 **Read this before changing `langDeckUpdate` or a deck order.** CLAUDE.md keeps the rules; this is
