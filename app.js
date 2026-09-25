@@ -10613,7 +10613,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        asking which state is shaded has no use for at all, and this bundle exists precisely so the two
        decks do not pay each other's weight. Listing the one file twice costs nothing: rivers.js ASSIGNS
        window.RIVERS rather than pushing onto a queue, exactly as lakes.js does above. */
-    usstates: { files: ["us-states.js", "lakes.js", "rivers.js"] },
+    usstates: { files: ["us-states.js", "us-cities.js", "lakes.js", "rivers.js"] },
     /* The 31 provincial-level divisions of mainland China and their 27 capitals, for the Geography
        section's China collection. Its own bundle rather than a file inside `usstates` for the reason
        `usstates` is not part of `atlas`: a reader studying the states must not fetch the provinces to be
@@ -33210,7 +33210,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const CARD_MAP_LAYERS = {
     // a layer names the bundle that carries its polygons, the global that bundle assigns, and — where the
     // layer has one — the global holding the POINTS a card may put a dot on (see `map.dot`)
-    "us-states": { bundle: "usstates", global: "US_STATES", what: "state", plural: "states", cell: 0.05, points: "US_CAPITALS", dotWhat: "city" },
+    /* `pointsAlt` is a SECOND point table a dot may name (Sep 2026, the Largest cities deck): the states'
+       capitals are one table and each state's largest non-capital city another (`us-cities.js`), so a
+       dot is looked up in the first and then the second — see `layerPoint`. The keys cannot collide:
+       where a city's bare name is a capital's (Charleston) the second table keys it "<city>, <state>"
+       and carries the name to print. */
+    "us-states": { bundle: "usstates", global: "US_STATES", what: "state", plural: "states", cell: 0.05, points: "US_CAPITALS", pointsAlt: "US_CITIES", dotWhat: "city" },
     /* The world's own borders, which every map window already loads for the coastline under it. Its POINT
        TABLE is the capitals, and it is in a bundle of its OWN (`pointsBundle`) rather than in `world`
        beside the shapes: a locator gives its coordinates outright and never reads the table, so a history
@@ -33455,6 +33460,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const CMAP_DEG = Math.PI / 180;
   /* The card's map, or null. Validated rather than trusted: `map` is a hand-authored field in data.js and a
      layer name with a typo in it would otherwise reach the renderer and paint an empty window. */
+  /* A dot's row, looked up in each of a layer's point tables in turn (`points`, then `pointsAlt`). A
+     table whose bundle has not landed is simply skipped, exactly as a missing single table was. */
+  function layerPoint(tables, name) {
+    const list = Array.isArray(tables) ? tables : [tables];
+    for (let i = 0; i < list.length; i++) {
+      const t = list[i] && window[list[i]];
+      if (t && t[name]) return t[name];
+    }
+    return null;
+  }
   function cardMapSpec(c) {
     const m = c && c.map;
     if (!m || typeof m !== "object") return null;
@@ -34722,10 +34737,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            name against the same table when the card is written, so reaching here means the table moved. */
         const dotName = host.getAttribute("data-map-dot");
         if (dotName) {
-          const tbl = (def.points && window[def.points]) || null;
-          const p = tbl && tbl[dotName];
+          const p = layerPoint([def.points, def.pointsAlt], dotName);
           if (!p || !Array.isArray(p.c)) { host.classList.add("mc-failed"); return; }
-          dot = { n: dotName, c: p.c };
+          dot = { n: p.n || dotName, c: p.c };
         }
       }
       // …and a WAR window has neither a shaded key nor a coordinate: its two sides are the whole of it
@@ -36052,7 +36066,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              kinds — Paris, Sacramento, Wuhan — were one square, and the mark said "capital" where the
              reader wanted it to say "capital OF WHAT". The layer already answers that in its own `what`,
              so there is nothing new to record and no table to keep in step. */
-          out.marks.push({ id: cid, title: title, kind: "dot", dot: spec.dot, points: spec.def.points, modern: true, cap: spec.def.what === "country", subcap: spec.def.what !== "country", y0: null, y1: null , coll: coll });
+          out.marks.push({ id: cid, title: title, kind: "dot", dot: spec.dot, points: [spec.def.points, spec.def.pointsAlt], modern: true, cap: spec.def.what === "country", subcap: spec.def.what !== "country", y0: null, y1: null , coll: coll });
         }
         return;
       }
@@ -42323,8 +42337,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const m = u.marks[i];
         if (m.modern) {
           if (!modern) continue;
-          const tbl = window[m.points]; if (!tbl) continue;
-          const row = tbl[m.dot]; if (!row || !Array.isArray(row.c)) continue;
+          const row = layerPoint(m.points, m.dot); if (!row || !Array.isArray(row.c)) continue;
           // `cap` / `subcap` are carried from the register rather than re-asserted: a country's capital is
           // a square and a province's a circle (see drawMineMarks), and a fresh `cap: true` here made
           // every one of them a square again

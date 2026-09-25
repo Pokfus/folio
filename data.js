@@ -15772,7 +15772,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-us",
       "title": "United States",
-      "total": 100,
+      "total": 133,
       "placeholder": false,
       "children": [
         {
@@ -15888,6 +15888,12 @@ window.COLLECTION_TREE = {
             "geo-548",
             "geo-542"
           ]
+        },
+        {
+          "id": "geo-us-cities",
+          "title": "The largest cities",
+          "placeholder": false,
+          "cardIds": []
         }
       ]
     },

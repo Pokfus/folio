@@ -1954,6 +1954,56 @@ check before each batch** — the glossary is 1,061 terms and growing, and a col
   geo-549 Bismarck
   geo-550 Des Moines
 
+## The largest cities — `geo-us-cities`
+
+Added Sep 2026, on request: "a new deck for the largest cities of each state that is not already in the
+State Capitals deck". It holds the largest city of every state whose largest city is NOT its capital —
+33 of the 50 — and **which city that is comes from the "Largest city" row of the state's own card**, so
+the deck and the states' facts grids cannot disagree. A card is `geo-700+N` for state `N`, so the three
+decks pair by arithmetic; the seventeen missing numbers are the states whose capital is also the largest
+city, where a card here would be the capital card a second time. The deck is dealt in the states deck's
+own order (by population), which is the tree's order.
+
+The format is the capital card's exactly — the state shaded, a dot on the city, "The largest city of the
+state shaded on the map is ___" — and its dot comes from `us-cities.js`, a second point table beside
+`us-states.js`'s capitals, built by `.claude/build-us-cities.js` from Natural Earth and tested inside each
+state's own polygon. Charleston (South Carolina) and the two Portlands are keyed "<city>, <state>" in that
+table, since Charleston is already West Virginia's capital there and the Portlands are two.
+
+  geo-701 Los Angeles
+  geo-702 Houston
+  geo-703 Jacksonville
+  geo-705 Anchorage
+  geo-707 Detroit
+  geo-708 New Orleans
+  geo-709 Portland, Maine
+  geo-711 New York City
+  geo-714 Baltimore
+  geo-715 Las Vegas
+  geo-717 Minneapolis
+  geo-718 Newark
+  geo-721 Chicago
+  geo-722 Virginia Beach
+  geo-723 Seattle
+  geo-724 Portland, Oregon
+  geo-726 Albuquerque
+  geo-728 Charleston, South Carolina
+  geo-729 Charlotte
+  geo-730 Philadelphia
+  geo-731 Milwaukee
+  geo-733 Louisville
+  geo-735 Kansas City
+  geo-737 Huntsville
+  geo-739 Wilmington
+  geo-740 Bridgeport
+  geo-741 Manchester
+  geo-742 Burlington
+  geo-743 Billings
+  geo-746 Wichita
+  geo-747 Omaha
+  geo-748 Sioux Falls
+  geo-749 Fargo
+
 ---
 
 ## The geography picture pass, moved out of CLAUDE.md (2026-09-11)

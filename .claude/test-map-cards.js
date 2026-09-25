@@ -77,6 +77,16 @@ function staticChecks() {
   ok(new Set(capNames.map((n) => CAP[n].s)).size === 50, "one capital per state, and fifty states", new Set(capNames.map((n) => CAP[n].s)).size);
   const stByName = new Map(ST.map((s) => [s.n, s]));
   ok(capNames.every((n) => stByName.has(CAP[n].s)), "every capital names a state the layer actually has");
+  /* …AND THE SECOND POINT TABLE, THE LARGEST NON-CAPITAL CITIES (us-cities.js, Sep 2026). Its keys may not
+     collide with a capital's — a dot is looked up in the capitals FIRST, so a clash would silently mark the
+     capital — and a row keyed "<city>, <state>" must carry the bare name its label prints. */
+  new Function("window", fs.readFileSync(path.join(ROOT, "us-cities.js"), "utf8"))(win);
+  const UCITY = win.US_CITIES || {};
+  const ucNames = Object.keys(UCITY);
+  ok(ucNames.length >= 30, "us-cities.js carries the largest non-capital cities", ucNames.length);
+  ok(ucNames.every((n) => !CAP[n]), "…no key of which is also a capital's", ucNames.filter((n) => CAP[n]).join(", "));
+  ok(ucNames.every((n) => stByName.has(UCITY[n].s) && Array.isArray(UCITY[n].c) && isFinite(UCITY[n].c[0]) && isFinite(UCITY[n].c[1])), "…each in a real state with a finite coordinate");
+  ok(ucNames.every((n) => n.indexOf(",") < 0 || (UCITY[n].n && n.indexOf(UCITY[n].n + ", ") === 0)), "…and a disambiguated key carries the name to print");
   /* AND EACH ONE FALLS INSIDE ITS OWN STATE'S BOX. A capital keyed to the wrong state paints its dot
      somewhere else entirely on the globe — off the shaded shape, or off the visible hemisphere — so this
      is the cheap check that catches a source whose fields have moved under the builder. A bounding box
@@ -141,7 +151,7 @@ function staticChecks() {
   ok(!rOrphan.length, "every Russian centre names a subject the layer actually has", rOrphan.slice(0, 5).join(", "));
 
   const LAYERS = {
-    "us-states": { shapes: new Set(ST.map((s) => s.n)), points: CAP, what: "state" },
+    "us-states": { shapes: new Set(ST.map((s) => s.n)), points: Object.assign({}, UCITY, CAP), what: "state" },
     world: { shapes: wgNames, points: WCAP, what: "country" },
     "china-provinces": { shapes: cpNames, points: CPCAP, what: "province" },
     "russia-subjects": { shapes: rsNames, points: RCEN, what: "federal subject" },
@@ -181,7 +191,7 @@ function staticChecks() {
          three and cannot admit a card pointing at a different city: no two capitals in the table differ
          only by that word. */
       const dotBare = String(c.map.dot).replace(/^City of /, "").replace(/ City$/, "");
-      ok((c.answerText || "").trim() === c.map.dot || (c.answerText || "").trim() === dotBare,
+      ok((c.answerText || "").trim() === c.map.dot || (c.answerText || "").trim() === dotBare || (P && (c.answerText || "").trim() === P.n),
         c.id + ": …and the answer is that city", c.answerText + " / " + c.map.dot);
     }
   });
