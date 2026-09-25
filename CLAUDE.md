@@ -105,7 +105,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 |---|---|---|
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
-| `usstates` | `us-states.js` `lakes.js` `rivers.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing. **`lakes.js` rides here because `world.js` has NO LAKE HOLES** — the Great Lakes sit inside the USA polygon, so a card map drew five inland seas as grey fields with an outline round each; it is listed in `atlas` too, which is harmless because `lakes.js` ASSIGNS `window.LAKES` rather than pushing onto a queue. **The card map STROKES a lake shore where the Atlas does not**, in the world layer's own coast ink: on a world globe a lake is a small blue mark, on a card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked ocean coast reads as two kinds of edge on one map |
+| `usstates` | `us-states.js` `us-cities.js` `lakes.js` `rivers.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing. **`lakes.js` rides here because `world.js` has NO LAKE HOLES** — the Great Lakes sit inside the USA polygon, so a card map drew five inland seas as grey fields with an outline round each; it is listed in `atlas` too, which is harmless because `lakes.js` ASSIGNS `window.LAKES` rather than pushing onto a queue. **The card map STROKES a lake shore where the Atlas does not**, in the world layer's own coast ink: on a world globe a lake is a small blue mark, on a card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked ocean coast reads as two kinds of edge on one map |
 | `river_italy` / `river_greece` | `rivers/<region>.js` | warmed at IDLE by a LOCATOR window in the Rome or Greece collection, never awaited (China has no river file) |
 | `coast_italy` / `coast_greece` / `coast_china` / `coast_russia` / `coast_usa` | `coast/<region>.js` | warmed at IDLE and never awaited: by a LOCATOR window of the collection that frames it (Rome, Greece, China, Russia), and — since Sep 2026 — by a MAP CARD whose layer names a frame (`CMAP_LAYER_HIRES`: the China and United States geography collections) |
 | `worldcaps` | `world-capitals.js` | a map card asks for a DOT on the `world` layer (a capital card in the world collection). Its own bundle, and fetched only when a card carries `map.dot`: the shapes are `world`'s, which every map window already loads for the coastline under it, and a locator card reads those shapes and never this table |
@@ -2114,6 +2114,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     first card was refused for carrying no Think-it-through set, because `whyExempt` knew about a flag card
     and could not know about a format that did not exist when it was written. **A new format that reuses
     another's answer side inherits its exemptions and nothing applies them for you.** Not part of the site.
+- `us-cities.js` + `.claude/build-us-cities.js` — the LARGEST NON-CAPITAL CITY of every state whose
+  largest city is not its capital (`window.US_CITIES`, 33 rows), the second point table the `us-states`
+  layer's dot is looked up in (`pointsAlt`, read through `layerPoint` in app.js and merged in
+  `add-card.js`), for the Largest cities deck (`geo-us-cities`, `geo-700+N`). **Lazy** (the `usstates`
+  bundle), **generated — never hand-edited**, and its own file rather than a second table in
+  `us-states.js` because that builder refetches 40 MB and re-simplifies all fifty states. **Which city
+  is READ out of each state card's own "Largest city" facts row**, so the deck and the grids cannot
+  disagree; the coordinate is Natural Earth's, tested inside the state's own polygon, with a point just
+  off a traced shore (Detroit, 0.1 km) kept and reported rather than snapped. **A bare name taken by a
+  capital or by another row is keyed "<city>, <state>" and carries `n`**, the name the revealed label
+  prints — Charleston is West Virginia's capital in the first table and South Carolina's largest city in
+  this one, and there are two Portlands. **Re-run it after a state card's Largest city row changes.**
 - `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
   mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
   the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` and `rivers.js` beside
