@@ -3503,7 +3503,8 @@ alone, so a card that needed nothing can be told from one nobody has opened.
 | S46 | B1 | #755 `pretender` – #782 `el cocodrilo, la cocodrila` | 25 | 3 (`sugerir`, `la biología`, `la humedad`) | 0 | B1 description: 997 with examples, 978 with three, one with none | `el pintado` renamed `pintado, pintada` |
 | S47 | B1 | #783 `el pescador, la pescadora` – #810 `solicitar` | 26 | 2 (`el monumento`, `la colaboración`) | 0 | B1 description: 980 with three | — |
 | S48 | B1 | #811 `la barca` – #838 `la pila` | 23 | 5 (`visible`, `corregir`, `atlántico, atlántica`, `oral`, `el recado`) | 0 | B1 description: 982 with three | `pilas` renamed `la pila`; `tercio, tercia` renamed `el tercio` |
-| S49 | B1 | #839–#866 | 27 changed, 1 read and left; `en fin` rebuilt; five cards to three examples |
+| S49 | B1 | #839 `la aspirina` – #866 `el contestador` | 27 | 1 (`la aspirina`) | 0 | B1 description: 987 with three | `en fin` rebuilt, the last of S29's unbolded phrase cards |
+| S50 | B1 | #867 `rellenar` – #894 `entrevistar` | 25 | 3 (`el compositor, la compositora`, `el/la recepcionista`, `fijarse`) | 0 | B1 description: 990 with three | `el canguro, la cangura` renamed `el/la canguro`; `introducir` false friend noted |
 
 Shipped-order note numbers are the ones the deck carried before S1's four deletions. Counts are measured against the previous commit's file by card id (`git show HEAD:decks/…` against the working copy,
 comparing `JSON.stringify` per note): 215 notes changed, 280 untouched, 4 gone — the 215 being 25 record
@@ -5443,6 +5444,44 @@ and `editorial`. B1 goes from 982 to **987** cards with three examples.
 **CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded.
 `check-senses --deck=DELE-B1` stays at 40. `fabricar` moves within the list: its new gloss "to manufacture, to
 make" sits over *make* and *made*, and the checker does not stem the irregular past tense.
+### S50 — DELE B1, notes #867–#894 (Sep 2026)
+
+Measured against the S49 commit by card id: **25 changed, 973 untouched**, each a record entry. The other three
+were read and left alone: `el compositor, la compositora`, `el/la recepcionista`, `fijarse`.
+
+**ONE MORE HEADWORD THAT WAS THE WRONG WORD.** `el canguro, la cangura` was glossed "kangaroo, hoodie". Two of
+its three examples were the babysitter, which is the everyday sense in Spain and the B1 one, and that word is
+*el/la canguro*; *la cangura* is not used. Renamed `el/la canguro`, with the babysitter first. That makes six
+renamed headwords in B1.
+
+**THE SENSE THE EXAMPLES WERE.** `el buscador` was glossed "seeker, prospector" over two search-engine
+examples. `ligar` gave only "to link, to tie", and two of its examples were the noun *liga*; in Spain the
+everyday verb is to chat someone up. `rellenar` put "to refill" before filling in a form, and its first
+example's English said "I'll apply for the job today".
+
+**A FALSE FRIEND, NOW NOTED.** `introducir` is to put something in or bring it in. It is never to introduce a
+person, which is *presentar*. Its first example was nonsense and its third used *papas*.
+
+**THE OTHER WORD.** `rellenar`'s adjective *relleno*; `entrevistar`'s noun *entrevistas*, and its first example
+shared with A2 `la entrevista`.
+
+**REGIONAL AND CALQUED.** *mamá* (`ruidoso`), Rioplatense *comprá* (`el cartón`), *depender en* (`depender`),
+and a health system "estresado hasta el límite" (`estresado`). The English had "diarrhea", "catalog", "by
+mail" and "swim team", and archaic English on `el diccionario`.
+
+**NOT SUITABLE.** `republicano` had two American-politics examples, one of them vulgar. They are replaced with
+the Spanish senses: the Republican side of 1931–1939, and opposition to the monarchy. Also removed: a tinfoil
+hat (`el aluminio`), speaking French to cats (`callejero`), and a duplicate sentence (`sorprender`).
+
+**GLOSSES.** `metálico` now gives *en metálico*, "in cash", which its first example is. `callejero` gives *el
+callejero*, a street map. `instalar` gives *instalarse*.
+
+**CARDS WITH TWO EXAMPLES NOW HAVE THREE:** `el buscador`, `la diarrea` and `el catálogo`. B1 goes from 987 to
+**990** cards with three examples.
+
+**CHECKERS.** `--check` passes, `check-say` reads 0, and no example in the batch is unbolded.
+`check-senses --deck=DELE-B1` goes from 40 to 38, because `el buscador` and `rellenar` leave the list. One
+new entry is named: `ligar`, whose "to flirt, to pull" sits over *chat her up* and *pulls*.
 ## The language-deck catalogue — the Update press and the frequency order
 
 **Read this before changing `langDeckUpdate` or a deck order.** CLAUDE.md keeps the rules; this is
