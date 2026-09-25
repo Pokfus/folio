@@ -774,6 +774,38 @@ it lives; several claims (Brassempouy as *mammoth* ivory, Lespugue at 28,000 yea
 finder) were dropped rather than cited to a second French work. `SAME_LANGUAGE_OK` in `check-cards.js` is the
 declared route if a card ever needs two.
 
+**BATCH A5 — `art-021` TO `art-030`, Sep 2026: the first ten of the first villages.** The Shigir Idol, the
+Vulture Stone, Zoo Rock at Bhimbetka, the Cueva de las Manos, an 'Ain Ghazal statue, the Jericho Skull, the
+Praroditeljka of Lepenski Vir, the Seated Woman of Çatalhöyük, the Great God of Sefar and the Thinker of
+Cernavodă, each with a new paired glossary term. Five findings.
+
+**A SITE'S GLOSSARY TERM IS NOT THE WORK'S, SO FIVE NEW TERMS SIT BESIDE FIVE OLD ONES.** `Göbekli_Tepe`,
+`Bhimbetka_rock_shelters`, `'Ain_Ghazal`, `Jericho` and `Çatalhöyük` all existed and none was touched; the
+card's answer is the object, and a term for the place would have satisfied the pairing rule on the wrong
+subject. Where Wikipedia has no article for the object the key is the answer in slug form (`Vulture_Stone`,
+`Zoo_Rock`, `Jericho_Skull`, `Great_God_of_Sefar`).
+
+**TWO LINES NAMED A GROUP AND ONE NAMED THE WRONG BOULDER, AND ALL THREE WERE RETITLED TO THE OBJECT
+CARDED.** `art-025` is the full-length statue from the 1985 cache on loan to the Louvre (DAO 96), whose own
+record gives its size and restoration history, and `art-026` is the British Museum's skull from Kenyon's
+1953 group — the museum's own title. `art-027` was the *Danubius* boulder, which has no identifiable free
+photograph; the *Praroditeljka*, which stood beside it at the hearth of House XLIV, has two, and the line now
+names it, at the 2018 radiocarbon date of c. 6200 BCE rather than the popular 7000.
+
+**'AIN GHAZAL'S DATES ARE RADIOCARBON YEARS.** The 1980s ages for the caches are uncalibrated, about a
+thousand years younger than the calendar dates they calibrate to; the prose says "radiocarbon dates" and does
+not claim calibration, and the date line keeps the published range because that is the figure a reader will
+meet. **Recalibrate both if an open source gives the calibrated range.**
+
+**THE SEATED WOMAN'S HEAD IS A MODERN RESTORATION AND THE CARD DOES NOT SAY SO**, because no source that
+could be opened states it; the alt describes what is seen without calling the head original. **Add the
+sentence when a source is reachable.** Her grid carries no Material or size row for the same reason, and the
+Vulture Stone's no size row: no dimension for Pillar 43 appeared in anything openable.
+
+**ZOO ROCK'S RANGE ENDS AT 1300 CE, WHICH IS WAKANKAR'S SCHEME AS DUBEY-PATHAK REPORTS IT**, the
+Archaeological Survey saying only "to the Mediaeval"; its start is Wakankar's own "8000(?)", and the prose
+keeps the question mark.
+
 # The list
 
 ## Before History, to 700 BCE — `art-early`
@@ -807,9 +839,9 @@ declared route if a card ever needs two.
     art-022  Göbekli Tepe Pillar 43, the Vulture Stone — Anatolia, c. 9500 BCE
     art-023  The Bhimbetka Zoo Rock panel — India, c. 8000 BCE
     art-024  The Cueva de las Manos hand-stencil panel — Argentina, c. 7300 BCE
-    art-025  The 'Ain Ghazal monumental figure — Jordan, c. 7200 BCE
-    art-026  The Jericho plastered skull — the Levant, c. 7000 BCE
-    art-027  The Lepenski Vir Danubius boulder — Serbia, c. 6500 BCE
+    art-025  The 'Ain Ghazal statue in the Louvre — Jordan, c. 7100 BCE
+    art-026  The Jericho Skull in the British Museum — the Levant, c. 7000 BCE
+    art-027  The Praroditeljka boulder of Lepenski Vir — Serbia, c. 6200 BCE
     art-028  The Seated Woman of Çatalhöyük — Anatolia, c. 6000 BCE
     art-029  The Sefar Great God panel, Tassili n'Ajjer — the Sahara, c. 6000 BCE
     art-030  The Thinker of Cernavodă — Romania, c. 5000 BCE
