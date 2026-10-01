@@ -4823,7 +4823,12 @@ window.GLOSSARY = {
 "Taiping_Rebellion": "The Taiping Rebellion was a civil war in China from 1851 to 1864 between the Qing dynasty and the Taiping Heavenly Kingdom, a movement whose leader, Hong Xiuquan, a Hakka who had failed the civil-service examinations, believed himself the younger brother of Jesus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The rebels held Nanjing as the capital of their Heavenly Kingdom from 1853 until regional militia forces mobilised by the Qing government finally destroyed the movement in 1864.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was among the deadliest wars of the 19th century, its dead usually reckoned at 20 million or more, and one recent study putting them as high as 100 million.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Boxer_Rebellion": "The Boxer Rebellion was an anti-foreign and anti-Christian movement in northern China whose members called themselves the Righteous and Harmonious Fists and were known to foreigners as Boxers from their martial arts.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In 1900, backed by the Qing court, Boxer militias and Qing troops besieged diplomats and missionaries in the foreign legations of Beijing until armies sent by eight foreign powers marched from Tianjin and lifted the siege.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The final protocol of 7 September 1901 demanded the execution of officials who had supported the Boxers and an indemnity of 450 million taels, about one and a half times the dynasty’s yearly tax revenue.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Meiji_Restoration": "The Meiji Restoration was the political revolution of 1868 in which a movement led mostly by young samurai overthrew the Tokugawa shogunate and returned formal authority to the emperor, whose reign gave the Meiji era its name.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It followed the crisis caused by the forced opening of Japan to Western trade after 1853, and in the Charter Oath of 1868 the new government promised deliberative assemblies and decisions by public opinion.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Within a few years it had replaced the feudal domains with prefectures, ended the hereditary warrior class and raised a conscript army.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Zaibatsu": "Zaibatsu were the large family-controlled business groups that dominated the Japanese economy from the late 19th century until 1945, among them the Mitsui, Mitsubishi and Sumitomo groups.<sup class=\"fn\" data-fn=\"1\"></sup> Many grew from merchant houses that enjoyed state favour, including government factories and mines sold to them on preferential terms, and each came to be organised as a pyramid of companies under a family holding company.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> After the Second World War the American-led occupation set out to break them up, and a law of 1947 banned the holding companies that had stood at their head.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Zaibatsu": "Zaibatsu were the large family-controlled business groups that dominated the Japanese economy from the late 19th century until 1945, among them the Mitsui, Mitsubishi and Sumitomo groups.<sup class=\"fn\" data-fn=\"1\"></sup> Many grew from merchant houses that enjoyed state favour, including government factories and mines sold to them on preferential terms, and each came to be organised as a pyramid of companies under a family holding company.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> After the Second World War the American-led occupation set out to break them up, and a law of 1947 banned the holding companies that had stood at their head.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Western_Front_(World_War_I)": "The Western Front was the decisive land theatre of the First World War, a line of trenches through Belgium and north-eastern France between Switzerland and the North Sea, on which the German army faced the French, Belgian and British armies and their allies.<sup class=\"fn\" data-fn=\"1\"></sup> It took shape in the autumn of 1914, when both sides tried and failed to outflank each other to the north, and it grew to about 750 kilometres (466 miles) long.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Repeated offensives failed to break it for more than three years, until in 1918 the Allies found the methods and the weapons with which to win there.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Trench_warfare": "Trench warfare is a form of land combat in which opposing forces fight from lines of dug trenches, because the fire of rifles, machine guns and artillery makes movement across open ground almost suicidal.<sup class=\"fn\" data-fn=\"1\"></sup> An early example was the siege of Petersburg in the American Civil War, from June 1864 to April 1865, which produced an entrenched front nearly 64 kilometres (40 miles) long and some 70,000 casualties.<sup class=\"fn\" data-fn=\"2\"></sup> It reached its fullest form in the First World War, above all on the Western Front, where by the end of 1914 two lines of trenches stretched between Switzerland and the North Sea and grew steadily more elaborate.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"First_Battle_of_the_Marne": "The First Battle of the Marne was an Allied counter-offensive fought east of Paris from 6 to 11 September 1914, in which the French and the British Expeditionary Force, after weeks of retreat, attacked along a front of some 300 kilometres (190 miles).<sup class=\"fn\" data-fn=\"1\"></sup> They struck while a gap was opening between the German First and Second Armies, and the Germans were forced to retreat to a line behind Verdun, Soissons and Reims.<sup class=\"fn\" data-fn=\"2\"></sup> The battle ended German hopes of a quick victory over France and, once neither side could outflank the other, opened the way to years of static trench warfare on the Western Front.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Battle_of_Verdun": "The Battle of Verdun was a German offensive against the French fortified region of Verdun on the river Meuse, launched on 21 February 1916 and fought for some ten months.<sup class=\"fn\" data-fn=\"1\"></sup> Its German commander, Erich von Falkenhayn, later presented it as a deliberate attempt to wear out the French army, an account that historians regard as a reconstruction made after the offensive had failed.<sup class=\"fn\" data-fn=\"2\"></sup> French counter-attacks retook Fort Douaumont in October, and the battle, which cost each army some 300,000 killed and wounded, became the emblem of the whole war in French memory.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Battle_of_the_Somme": "The Battle of the Somme was a British and French offensive against the German army in northern France, fought from 1 July to 18 November 1916 as part of a general Allied effort to wear down the Central Powers.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its first day cost the British Army about 57,000 casualties, the heaviest in its history, and tanks went into battle for the first time on 15 September.<sup class=\"fn\" data-fn=\"1\"></sup> The Allies advanced about 12 kilometres (7 miles), at a cost of some 420,000 British and 200,000 French casualties against probably more than 500,000 German, and the battle remains Britain’s most notorious of the war.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7433,7 +7438,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Taiping_Rebellion": "1851–1864",
 "Boxer_Rebellion": "1899–1901",
 "Meiji_Restoration": "1868",
-"Zaibatsu": "c. 1880–1945"
+"Zaibatsu": "c. 1880–1945",
+"Western_Front_(World_War_I)": "1914–1918",
+"First_Battle_of_the_Marne": "6–11 September 1914",
+"Battle_of_Verdun": "21 February – 18 December 1916",
+"Battle_of_the_Somme": "1 July – 18 November 1916"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10189,7 +10198,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Reconstruction_era": ["Reconstruction"],
 "World_War_I": ["First World War"],
 "Christian_mission": ["Christian missions"],
-"Unequal_treaties": ["unequal treaty"]
+"Unequal_treaties": ["unequal treaty"],
+"Western_Front_(World_War_I)": ["Western Front"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15066,7 +15076,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Taiping_Rebellion": ["war","history","religion","warfare","china","19th century"],
 "Boxer_Rebellion": ["event","history","warfare","religion","china","20th century"],
 "Meiji_Restoration": ["event","history","politics","japan","19th century"],
-"Zaibatsu": ["institution","history","economics","japan","20th century"]
+"Zaibatsu": ["institution","history","economics","japan","20th century"],
+"Western_Front_(World_War_I)": ["event","history","warfare","europe","20th century"],
+"Trench_warfare": ["practice","warfare","history","technology"],
+"First_Battle_of_the_Marne": ["battle","history","warfare","france","20th century"],
+"Battle_of_Verdun": ["battle","history","warfare","france","germany","20th century"],
+"Battle_of_the_Somme": ["battle","history","warfare","france","britain","20th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
