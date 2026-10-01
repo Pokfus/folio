@@ -224,8 +224,11 @@ function audit(c) {
     /* Two English sources wear a foreign word and must not trip the proxy: the Chronique des
      * fouilles en ligne publishes its notices in the language of the report (check-cards.js rule 6
      * dropped it for that reason; a French notice still needs its chip and is read by eye), and a
-     * Dutch or German surname particle ("van der Plicht") is part of an English author's name. */
-    else if (/[α-ωΑ-Ω]{4,}|\b(?:des|und|der|dei|della|delle|pour|dans|nella|sur|zur|für|über|et les|les)\b/.test(plain(s).replace(/https?:\/\/\S+/g, "").replace(/Chronique des fouilles en ligne/g, "").replace(/\b(?:van der|van den|von der)\b/g, "")))
+     * Dutch or German surname particle ("van der Plicht") is part of an English author's name. A
+     * REVIEW keeps the title of the book it reviews, so an English review of an Italian corpus
+     * (Judson on Godart and Sacconi, `gr-053`, B6) tripped on "al" and "delle"; the reviewed title is
+     * masked, and the review's own words are still tested. */
+    else if (/[α-ωΑ-Ω]{4,}|\b(?:des|und|der|dei|della|delle|pour|dans|nella|sur|zur|für|über|et les|les)\b/.test(plain(/\breview of\b/.test(s) ? s.replace(/<i>(?!Bryn Mawr Classical Review<)[^<]*<\/i>/g, "") : s).replace(/https?:\/\/\S+/g, "").replace(/Chronique des fouilles en ligne/g, "").replace(/\b(?:van der|van den|von der)\b/g, "")))
       finding(out, "S.chip?", "may be non-English with no chip: " + plain(s).slice(0, 70));
   });
   Object.keys(langs).forEach((l) => { if (langs[l] > 1) finding(out, "S.lang-cap", langs[l] + " sources in " + l + " (≤1)"); });
