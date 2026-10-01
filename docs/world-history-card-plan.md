@@ -1035,26 +1035,26 @@ what went wrong in the Mongol period — under a term rather than under a headin
     wh-667  Francisco Pizarro
     wh-668  Spanish conquest of the Inca Empire
     wh-669  Columbian exchange
-    wh-670  Epidemics in the early Americas
+    wh-670  Cocoliztli
     wh-671  Potosí
-    wh-672  Global silver trade
+    wh-672  Piece of eight
     wh-673  Encomienda
     wh-674  Spanish Empire
     wh-675  Portuguese Empire
     wh-676  Dutch East India Company
-    wh-677  English East India Company
+    wh-677  East India Company
     wh-678  Manila galleon
     wh-679  Jamestown
-    wh-680  New England colonies
+    wh-680  New England
     wh-681  New France
     wh-682  Russian conquest of Siberia
-    wh-683  Voyages of James Cook
+    wh-683  James Cook
     wh-684  Mercantilism
-    wh-685  Early modern cartography
+    wh-685  Mercator projection
 
 ### The gunpowder empires — `wh-gunpowder`
 
-    wh-686  Gunpowder empires
+    wh-686  Bombard
     wh-687  Ottoman Empire
     wh-688  Mehmed II
     wh-689  Janissary
@@ -1066,7 +1066,7 @@ what went wrong in the Mongol period — under a term rather than under a headin
     wh-695  Safavid Empire
     wh-696  Abbas the Great
     wh-697  Isfahan
-    wh-698  Shia Islam in Iran
+    wh-698  Twelver Shia Islam
     wh-699  Mughal Empire
     wh-700  Babur
     wh-701  Akbar
@@ -1100,15 +1100,33 @@ what went wrong in the Mongol period — under a term rather than under a headin
 
 ### Slavery and the Atlantic world — `wh-slavery`
 
+*Retitled while writing (Sep 2026): `wh-745` was *Legacy of Atlantic slavery*, which is a subject and
+not a term — there is no article of that name to key a glossary entry on, and a card cannot be answered
+by the word "legacy". The line is now **African diaspora**, which is the thing the legacy IS: the
+population the three trades made, the term a reader meets again, and the one card able to gather the
+Atlantic, Indian Ocean and Saharan traffics this deck has just carded into a single answer.*
+
+*Retitled while writing (Sep 2026): `wh-734` was *Maroon communities*, which is a description rather
+than a term. The people are called **Maroons**, that is the word a reader meets again and the word
+the eighteenth-century treaties and statutes use, and "communities" only says that they lived
+together. The line is now **Maroons**.*
+
+*Retitled while writing (Sep 2026): `wh-730` was *Sugar and the Caribbean*, which is a subject and
+not a term — there is no article of that name to key a glossary entry on, and a card cannot be
+answered by a conjunction. The line is now **Sugar plantations in the Caribbean**, which is the
+thing the subject is about, has an article of its own, and is what a reader meets again: the estate
+that combined field and mill under one management and consumed more enslaved labour than anywhere
+else in the Americas.*
+
     wh-726  Atlantic slave trade
     wh-727  Middle Passage
     wh-728  Triangular trade
     wh-729  Plantation economy
-    wh-730  Sugar and the Caribbean
+    wh-730  Sugar plantations in the Caribbean
     wh-731  Chattel slavery
     wh-732  Slave codes
     wh-733  Slave rebellion
-    wh-734  Maroon communities
+    wh-734  Maroons
     wh-735  Asiento
     wh-736  Royal African Company
     wh-737  Kingdom of Dahomey
@@ -1119,7 +1137,7 @@ what went wrong in the Mongol period — under a term rather than under a headin
     wh-742  Olaudah Equiano
     wh-743  Slave Trade Act 1807
     wh-744  Creolisation
-    wh-745  Legacy of Atlantic slavery
+    wh-745  African diaspora
 
 ## Revolutions and Empire — `wh-revolutions`
 
@@ -1169,7 +1187,7 @@ what went wrong in the Mongol period — under a term rather than under a headin
     wh-784  Bessemer process
     wh-785  Rail transport
     wh-786  Stephenson's Rocket
-    wh-787  Canals of the United Kingdom
+    wh-787  Bridgewater Canal
     wh-788  Urbanisation
     wh-789  Child labour
     wh-790  Factory Acts
@@ -1195,7 +1213,7 @@ what went wrong in the Mongol period — under a term rather than under a headin
     wh-807  Austria-Hungary
     wh-808  Tanzimat
     wh-809  Crimean War
-    wh-810  Serfdom in Russia
+    wh-810  Serfdom in Russia  — written as the general term *serfdom* (glossary key `Serfdom`), its Russian case being the card's subject
     wh-811  Emancipation reform of 1861
     wh-812  American Civil War
     wh-813  Abraham Lincoln
