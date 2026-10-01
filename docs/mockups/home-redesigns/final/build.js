@@ -72,7 +72,7 @@ const CSS = `
 .week .stats .g b{color:var(--good);}
 .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 @media (max-width:1024px){ .list{grid-template-columns:1fr 1fr;} }
-@media (max-width:640px){ .ribbon .days{gap:8px;} .ribbon .days i{width:12px; height:12px;} .ribbon .chest{width:24px;} .ribbon .note{flex-basis:100%;} .ribbon .r{margin-left:0;}
+@media (max-width:640px){ .phone-head .brand small{display:none;} .ribbon .days{gap:8px;} .ribbon .days i{width:12px; height:12px;} .ribbon .chest{width:24px;} .ribbon .note{flex-basis:100%;} .ribbon .r{margin-left:0;}
  .wrap{padding:18px 16px 100px;} .study .stack{width:100%;} .study .stack .pile{justify-content:space-between;} .fr{grid-template-columns:1fr auto; padding:12px 14px 16px;} .fr .pct{display:none;}
   .fr::before{top:auto; height:5px; border-right:0; background:var(--c); border-radius:0 3px 3px 0;} .fr .m{display:none;} .list{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} }`;
 
