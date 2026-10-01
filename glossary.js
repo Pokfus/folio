@@ -4871,7 +4871,11 @@ window.GLOSSARY = {
 "Joseph_Stalin": "Joseph Stalin, born Yosif Dzhugashvili in Gori in Georgia, was the Bolshevik revolutionary who became general secretary of the Soviet Communist Party in 1922 and ruled the Soviet Union as its dictator until his death in March 1953.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His rule brought forced industrialisation, the collectivisation of farming and the famine of 1932–33, and the Great Terror of 1936–38, in which much of the party and army leadership was destroyed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He led the country through the Second World War as supreme commander, and in 1956 his successor Nikita Khrushchev denounced the cult that had been built around him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Five-year_plans_of_the_Soviet_Union": "The five-year plans of the Soviet Union were the programmes of production targets, drawn up by the State Planning Commission, Gosplan, through which the Soviet state directed its whole economy from 1928 onwards.<sup class=\"fn\" data-fn=\"1\"></sup> The first plan, for 1928–32, put investment above all into heavy industry, launched the collectivisation of farming and was declared fulfilled ahead of time, though the rush, shortages and waste proved lethal to millions of people.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> A second plan, for 1933–37, set out to abolish classes altogether and promised the population two to three times as many goods for consumption.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Holodomor": "The Holodomor was the famine of 1932–33 in Soviet Ukraine and the largely Ukrainian Kuban region of the northern Caucasus, in which millions of people, most of them peasants, starved to death after the state seized their grain during the forced collectivisation of farming.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its toll is disputed because many deaths went unrecorded, and demographers’ estimates of excess deaths in Ukraine alone run from about 2.6 to 3.9 million.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Ukraine’s parliament declared it a genocide of the Ukrainian people in 2006, while Russia rejects that view and historians remain divided over whether the famine targeted Ukrainians as a nation.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Great_Purge": "The Great Purge, also called the Great Terror, was the campaign of arrests, show trials and executions conducted by the Soviet state against the Communist Party, the Red Army and the wider Soviet population, at its height in 1936–38.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Three elaborately staged show trials in Moscow convicted leading old Bolsheviks of invented plots, while secret mass operations of the NKVD set quotas for arresting and shooting former kulaks and other “anti-Soviet elements”.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Estimates of its toll still vary widely, and one archive-based count gives about 1.55 million political convictions in 1937–38 and some 800,000 people shot.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Great_Purge": "The Great Purge, also called the Great Terror, was the campaign of arrests, show trials and executions conducted by the Soviet state against the Communist Party, the Red Army and the wider Soviet population, at its height in 1936–38.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Three elaborately staged show trials in Moscow convicted leading old Bolsheviks of invented plots, while secret mass operations of the NKVD set quotas for arresting and shooting former kulaks and other “anti-Soviet elements”.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Estimates of its toll still vary widely, and one archive-based count gives about 1.55 million political convictions in 1937–38 and some 800,000 people shot.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Surrender_of_Japan": "The surrender of Japan ended the Second World War in Asia and the Pacific in August and September 1945, when Japan accepted the Potsdam Declaration’s demand for the unconditional surrender of all its armed forces.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> A first Japanese offer of 10 August tried to keep the emperor’s prerogatives as a sovereign ruler, but Japan accepted an Allied reply that placed his authority under the Supreme Commander of the Allied Powers.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The instrument of surrender, signed in Tokyo Bay on 2 September 1945, ordered all Japanese forces wherever situated to cease hostilities and surrender unconditionally.<sup class=\"fn\" data-fn=\"5\"></sup>",
+"Nuremberg_trials": "The Nuremberg trials were the war crimes trials held at Nuremberg in Germany after the Second World War, the first before an International Military Tribunal of the United States, the Soviet Union, Britain and France from November 1945 to October 1946.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> That tribunal tried 22 leading Nazis for crimes against peace, war crimes and crimes against humanity, convicting 19 and sentencing 12 to death.<sup class=\"fn\" data-fn=\"1\"></sup> The United States then held 12 further trials in the city, and in all 199 defendants were tried there, of whom 161 were convicted and 37 sentenced to death.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Forced_displacement": "Forced displacement is the uprooting of people from their homes against their will, whether by war, by persecution or by deliberate state policy such as deportation and expulsion.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The term displaced person came into wide use at the end of the Second World War for the millions of civilians found far from home, and in 1946 the United Nations resolved that none with valid objections should be compelled to return.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The 1951 Refugee Convention, the centre of international refugee protection since, defines a refugee by a well-founded fear of persecution and a lack of protection.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Universal_Declaration_of_Human_Rights": "The Universal Declaration of Human Rights is the statement of fundamental rights adopted by the United Nations General Assembly in Paris on 10 December 1948 as a common standard of achievement for all peoples and all nations.<sup class=\"fn\" data-fn=\"1\"></sup> Its 30 articles declare that all human beings are born free and equal in dignity and rights, and set civil and political rights beside economic, social and cultural ones.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Adopted by 48 votes to none with eight abstentions, it is not itself a treaty, but it is widely recognised as having inspired the binding human rights treaties that followed it.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7512,7 +7516,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Korean_War": "1950–1953",
 "Invasion_of_Poland": "1 September – 6 October 1939",
 "Blitzkrieg": "1939–1941",
-"Battle_of_France": "10 May – 22 June 1940"
+"Battle_of_France": "10 May – 22 June 1940",
+"Surrender_of_Japan": "1945",
+"Nuremberg_trials": "1945–1949",
+"Universal_Declaration_of_Human_Rights": "1948"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10287,7 +10294,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Joseph_Stalin": ["Stalin"],
 "Five-year_plans_of_the_Soviet_Union": ["five-year plans","Five-Year Plan","First Five-Year Plan"],
 "Holodomor": ["Ukrainian famine of 1932–33","Great Famine"],
-"Great_Purge": ["Great Terror","Yezhovshchina"]
+"Great_Purge": ["Great Terror","Yezhovshchina"],
+"Surrender_of_Japan": ["surrender of Japan","Japanese surrender"],
+"Nuremberg_trials": ["Nuremberg trial","International Military Tribunal"],
+"Forced_displacement": ["displaced persons","displaced person","DP","DPs"],
+"Universal_Declaration_of_Human_Rights": ["UDHR","Universal Declaration"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15212,7 +15223,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Joseph_Stalin": ["person","history","politics","communism","russia","20th century"],
 "Five-year_plans_of_the_Soviet_Union": ["event","history","economics","politics","communism","russia","20th century"],
 "Holodomor": ["event","history","famine","politics","ukraine","20th century"],
-"Great_Purge": ["event","history","politics","communism","russia","20th century"]
+"Great_Purge": ["event","history","politics","communism","russia","20th century"],
+"Surrender_of_Japan": ["event","history","warfare","diplomacy","japan","second world war"],
+"Nuremberg_trials": ["event","history","law","germany","second world war"],
+"Forced_displacement": ["concept","history","migration","law","politics"],
+"Universal_Declaration_of_Human_Rights": ["text","history","law","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
