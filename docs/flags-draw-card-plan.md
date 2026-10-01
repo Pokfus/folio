@@ -2,7 +2,7 @@
 
 **READ BEFORE WRITING AN `fd-` CARD, OR BEFORE TOUCHING THE DRAW-CARD FORMAT.**
 
-The **Draw the flags** deck (`flags-draw`), the fourth deck of World Geography and the reverse direction
+The **Draw the flags** deck (`flags-draw`), the second deck of the Flags collection and the reverse direction
 of **The flags**. `fl-007` shows Brazil's flag and asks whose it is; `fd-007` names Brazil and asks the
 reader to draw its flag from memory, on a canvas with its own pens, colours and a fill — and then to
 reveal the flag and judge how close they came.

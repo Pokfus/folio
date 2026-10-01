@@ -182,9 +182,11 @@ const server = http.createServer((req, res) => {
   const PNG2x1 = Buffer.from(
     "iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAIAAADwyuo0AAAAFklEQVR4nGP8//8/AzpgYkAHRIkCAJ0hA/ivbYWlAAAAAElFTkSuQmCC",
     "base64");
-  let flagBlocked = false;
+  let flagBlocked = false, flagSvg = null;
   await page.route("**/upload.wikimedia.org/**", (route) =>
-    flagBlocked ? route.abort() : route.fulfill({ status: 200, contentType: "image/png", body: PNG2x1 }));
+    flagBlocked ? route.abort()
+      : flagSvg ? route.fulfill({ status: 200, contentType: "image/svg+xml", body: flagSvg })
+      : route.fulfill({ status: 200, contentType: "image/png", body: PNG2x1 }));
   const errs = [];
   page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("pageerror", (e) => errs.push("PAGEERROR " + e.message));
@@ -332,6 +334,39 @@ const server = http.createServer((req, res) => {
   ok("the unrevealed flag does not enlarge", !early.opened);
   ok("…and carries no credit to print", !early.revealed && !early.attrs.some((a) => a.indexOf("data-img") === 0), early.attrs);
 
+  /* ---------- 3c. the frame is the flag's own shape: no bars at its sides --------------------- */
+  sect("3c. the frame shrinks to the flag's shape");
+  /* Sep 2026, on request: "the canvas that the flags are displayed in should never have black bars on the
+     side". The frame was full width at a fixed height with the flag contained inside it, so every flag
+     narrower than the card sat between two bands of paper. What is measured is the GAP: the picture's
+     painted width, read off its own box and its natural ratio, against the frame's inner width — at a
+     desktop and a phone width, for a square flag, a 3:2 one and Qatar's 28:11, the last being the one
+     that must narrow its HEIGHT on a phone rather than grow a band above and below. An SVG with explicit
+     dimensions is served so the ratio is the file's own, which is how Commons serves a flag. */
+  for (const [w, h] of [[1, 1], [3, 2], [28, 11]]) {
+    flagSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + (w * 60) + '" height="' + (h * 60) + '"><rect width="100%" height="100%" fill="#c00"/></svg>';
+    for (const vw of [1280, 390]) {
+      await page.setViewportSize({ width: vw, height: 850 });
+      await study(flags[2].id);
+      await page.waitForFunction(() => { const i = document.querySelector(".flag-shot img"); return i && i.complete && i.naturalWidth > 0; }, null, { timeout: 10000 });
+      await page.waitForTimeout(100);
+      const m = await page.evaluate(() => {
+        const fig = document.querySelector(".flag-shot"), img = fig.querySelector("img");
+        const ir = img.getBoundingClientRect(), card = document.querySelector(".study-card").getBoundingClientRect();
+        const ratio = img.naturalWidth / img.naturalHeight;
+        // the painted flag inside a contain box: whichever axis binds
+        const paintW = Math.min(ir.width, ir.height * ratio), paintH = Math.min(ir.height, ir.width / ratio);
+        return { boxW: ir.width, boxH: ir.height, paintW, paintH, figW: fig.clientWidth, cardW: card.width, ratio };
+      });
+      const tag = w + ":" + h + " at " + vw + "px";
+      ok(tag + " — no band beside the flag", Math.abs(m.boxW - m.paintW) <= 1.5, JSON.stringify(m));
+      ok(tag + " — …nor above and below it", Math.abs(m.boxH - m.paintH) <= 1.5, JSON.stringify(m));
+      ok(tag + " — …and the frame stays inside the card", m.figW <= m.cardW + 0.5, JSON.stringify(m));
+    }
+  }
+  flagSvg = null;
+  await page.setViewportSize({ width: 1280, height: 720 });
+
   /* ---------- 4. a dead flag file is the whole question gone ------------------------------- */
   sect("4. a dead flag file says so");
   flagBlocked = true;
@@ -344,12 +379,13 @@ const server = http.createServer((req, res) => {
   ok("…and does not paint the alt text at full size in it", dead.imgShown === "none", dead.imgShown);
   flagBlocked = false;
 
-  /* ---------- 5. it is a DECK of World Geography, not a collection ------------------------- */
-  sect("5. it is a third deck of World Geography");
-  /* IT SHIPPED AS A COLLECTION AND WAS MOVED ON REQUEST (Sep 2026: "Flags should be a subdeck of the
-     World geography collection"). Asserted BOTH WAYS: a deck row under `geo-world`, and no collection
-     of its own — a leftover `flags` collection node would draw a second, empty shelf row and nothing
-     would throw. */
+  /* ---------- 5. Flags is a collection of its own, in the Geography section ------------------- */
+  sect("5. Flags is its own collection");
+  /* IT HAS MOVED TWICE, BOTH TIMES ON REQUEST: it shipped as a collection, spent a week as two decks of
+     World Geography, and is a collection again (Sep 2026: "give them their own collection named Flags in
+     the geography section"). Asserted BOTH WAYS: a Flags collection in the Geography section holding the
+     two decks, and NO flag deck left inside World Geography — a leftover would draw the same cards under
+     two collections and nothing would throw. */
   await page.goto("http://localhost:" + PORT + "/?c=" + (++visit) + "#decks");
   await page.waitForSelector(".collection", { timeout: 20000 });
   await page.waitForTimeout(300);
@@ -357,35 +393,34 @@ const server = http.createServer((req, res) => {
     /* THE CHEVRON, NOT THE ROW. Clicking a collection's body STUDIES its whole subtree (see
        `wireExpander`'s `rowClick`), so a click on the row navigates away and the deck is never found —
        which reads as the deck being absent. */
-    const gw = [...document.querySelectorAll('[data-libitem="geo-world"]')][0];
-    const chev = gw && gw.querySelector(".collection-actions > .chev");
-    if (chev) chev.click();
+    const open = (id) => { const c = document.querySelector('[data-libitem="' + id + '"]'); const ch = c && c.querySelector(".collection-actions > .chev"); if (ch) ch.click(); return c; };
+    const gw = open("geo-world"), fl = open("flags");
     await new Promise((r) => setTimeout(r, 500));
-    const deck = [...document.querySelectorAll('[data-libitem="flags-world"]')][0];
     const geo = document.getElementById("collection-list-geo");
+    const within = (c) => c && c.closest(".collection");
+    const decks = (c) => c ? [...within(c).querySelectorAll(".node[data-libitem], [data-libitem]")]
+      .filter((n) => n !== c && n.dataset.libitem !== c.dataset.libitem)
+      .map((n) => ((n.querySelector(".node-title") || {}).textContent || "").trim()).filter(Boolean) : [];
     return {
-      noCollection: !document.querySelector('[data-libitem="flags"]'),
-      deckThere: !!deck,
-      title: deck ? (deck.querySelector(".node-title") || deck.querySelector(".collection-title") || {}).textContent || "" : "",
+      flThere: !!fl,
+      flInGeo: !!(fl && geo && geo.contains(fl)),
       gwInGeo: !!(gw && geo && geo.contains(gw)),
-      deckUnderGW: !!(deck && gw && gw.closest(".collection") && gw.closest(".collection").contains(deck)),
-      hue: deck ? getComputedStyle(deck).getPropertyValue("--coll-bg").trim() : "",
-      siblings: [...document.querySelectorAll('[data-libitem^="geo-world"], [data-libitem="flags-world"]')]
-        .filter((n) => n.dataset.libitem !== "geo-world")
-        .map((n) => ((n.querySelector(".node-title") || {}).textContent || "").trim()),
+      flTitle: fl ? ((fl.querySelector(".collection-title") || {}).textContent || "").trim() : "",
+      flDecks: decks(fl),
+      gwDecks: decks(gw),
+      flIcon: !!(fl && fl.querySelector(".coll-ic svg")),
+      hue: fl ? getComputedStyle(within(fl)).getPropertyValue("--coll-bg").trim() : "",
     };
   });
-  ok("there is no Flags COLLECTION on the shelf", shelf.noCollection);
-  ok("…World Geography is still in the Geography section", shelf.gwInGeo);
-  ok("…and Flags is a deck inside it", shelf.deckThere && shelf.deckUnderGW, [shelf.deckThere, shelf.deckUnderGW]);
-  /* AND UNDER A NAME OF ITS OWN. It shipped as "The countries and territories", which is its new
-     SIBLING's title — two decks of one collection under one name, which reaches a reader as a card
-     breadcrumb naming the wrong deck and which no checker looks at. */
-  ok("…under a name that is not its sibling's", /^\s*the flags\s*$/i.test(shelf.title), shelf.title.trim().slice(0, 50));
-  ok("…and its siblings keep theirs", shelf.siblings.join(" | ") === "The countries and territories | The capitals | The flags", shelf.siblings);
-  /* A DECK HAS NO HUE OF ITS OWN and inherits its collection's, which is what made four app.js rows
-     unnecessary when it moved. */
-  ok("…taking World Geography's hue rather than one of its own", shelf.hue === "#106834", shelf.hue);
+  ok("there is a Flags collection", shelf.flThere);
+  ok("…named Flags", /^flags\b/i.test(shelf.flTitle), shelf.flTitle.slice(0, 40));
+  ok("…in the Geography section", shelf.flInGeo);
+  ok("…holding the two flag decks", shelf.flDecks.join(" | ") === "The flags | Draw the flags", shelf.flDecks);
+  ok("World Geography is still in the Geography section", shelf.gwInGeo);
+  ok("…and holds no flag deck any more", shelf.gwDecks.join(" | ") === "The countries and territories | The capitals", shelf.gwDecks);
+  /* A COLLECTION WEARS ITS OWN MARK AND ITS OWN HUE — the two rows it gave up when it became a deck. */
+  ok("Flags wears its own icon", shelf.flIcon);
+  ok("…and its own hue rather than World Geography's", shelf.hue === "#9C5A96", shelf.hue);
 
   ok("no console errors anywhere in the run", errs.length === 0, errs.slice(0, 3));
   await browser.close();

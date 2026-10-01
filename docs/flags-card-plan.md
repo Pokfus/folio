@@ -1,7 +1,7 @@
 # Flags — the card plan
 
-**Flags is a DECK of World Geography** (`flags-world`, titled *The flags*, the third deck of
-`geo-world` beside *The countries and territories* and *The capitals*). It is **233 cards**, `fl-001`–`fl-233`, and it asks one
+**The flags is the first deck of the Flags COLLECTION** (`flags-world`, titled *The flags*, in the
+`flags` collection beside *Draw the flags*, and filed in the Geography section of the Collections page). It is **233 cards**, `fl-001`–`fl-233`, and it asks one
 question: the card shows a flag and nothing else, and the reader names the country or territory it
 belongs to.
 
@@ -15,6 +15,17 @@ says what a sibling collection did not. What the move cost, all of it mechanical
 by collection id**, since a collection may now carry two plans and keyed the old way the two could not
 both be declared. **The measured sage grey `#6F7866` went with the collection**; the measurement is kept
 in the batch log below, because the next collection that needs a hue will want it.
+
+**AND IT WAS GIVEN ITS OWN COLLECTION BACK A WEEK LATER, ALSO ON REQUEST** (Sep 2026: "give them their own
+collection named Flags in the geography section of the Collections page"). By then there were two flag
+decks — this one and *Draw the flags* — and together they are more than World Geography's own two, so the
+collection `flags` holds both and `geo-world` is its countries and capitals again. The four rows came back
+(`COLLECTION_SECTION` Geography, `COLLECTION_ICON` `flag`, `COLLECTION_TARGET` 466, `COLL_THEME`), and
+`geo-world`'s target went back to 471. **The sage grey could NOT come back**: the First World War's field
+grey `#686E52` arrived in the week between and stands 7.3 from it, so the hue was re-measured and is the
+orchid `#9C5A96` — the reasoning is in its `COLL_THEME` comment. The plan-slug keying stays, since the
+collection still carries two plans. **A boot migration puts the `flags` entry back** over `flags-world`
+and `flags-draw` for a reader who holds both, which is what adding World Geography during that week wrote.
 
 **It is the twin of the World Geography countries deck, id for id.** `fl-NNN` is the same entity as
 `gw-NNN`, in the same running order, and **its whole answer side is `gw-NNN`'s** — the term, the date
@@ -406,7 +417,8 @@ described — and where each batch also back-fills its twin, closing World Geogr
 
 Everything below ships together, because none of it is testable alone.
 
-**In `data.js`** — `flags-world` ("The flags") as a third child of the `geo-world` collection node.
+**In `data.js`** — `flags-world` ("The flags") as a third child of the `geo-world` collection node
+(now the first child of the `flags` collection — see the note at the head of this file).
 **ITS TITLE MAY NOT BE "The countries and territories"**, which is what it shipped as while it was a
 collection of its own and which is its new SIBLING's title — two decks of one collection under one name.
 Found by reading a card's own breadcrumb, which no checker looks at. **Edit the tree as TEXT**: `writeCards` splices the collection tree back verbatim and

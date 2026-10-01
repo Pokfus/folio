@@ -3417,7 +3417,7 @@ with a cited source, so the term is attested rather than reconstructed.
 **THE SOURCE BASE FOR THE EASTERN HAN IS EIGHT AUTHORS AND SEVEN OF THEM ARE OUT OF COPYRIGHT.** Cordier's
 *Histoire générale de la Chine* vol. 1 (pp. 253–76) carries the whole narrative from the Xiongnu breach of
 9 CE to the abandonment of the Western Regions in 107; Giles's *Chinese Biographical Dictionary* has
-Liu Xiu (p. 503), Fan Chong (215), Feng Yi (225–26), Gongsun Shu (395), Ban Chao (607–8), Ban Gu (610–11)
+Liu Xiu (p. 503), Fan Chong (215), Feng Yi (225–26), Gongsun Shu (395), Ban Chao (609–10 — this line said 607–8 and `cnh-257` shipped with it; corrected in the next batch), Ban Gu (610–11)
 and Ban Biao (611); Boulger's *China* pp. 36–39 is the English narrative; Wylie's *Notes on Chinese
 Literature* pp. 12–14 is the standard account of the dynastic-history form and of the *Hanshu* itself;
 and **Hirth's *China and the Roman Orient* (1885) is open on archive.org** at
@@ -3479,6 +3479,597 @@ right picture and there is only one of it — a second copy on the term is the w
 than the one already used. `Eastern_Han` took a distinct one (an Eastern Han pottery tower model, CC0).
 
 ---
+
+## cnh-261 – cnh-270, the Eastern Han court to the fall of Luoyang (Sep 2026)
+
+The second ten of `col-12`. Three plan lines were renamed while writing, and the plan's own lines now
+carry the answer terms.
+
+**`cnh-264` "The great families of the Eastern Han" → *Filial and Incorrupt* (孝廉 xiaolian).** "The great
+families" is a description, not a term a reader will meet again. The recommendation system is the thing
+their power ran through: the quota, the probation at Luoyang, the patron–client tie between recommender
+and recommended, and Zuo Xiong's failed test of 132. The card carries the families (the Yang of
+Hongnong, the Yuan of Runan) as what the system produced. The glossary key is the romanised title
+`Xiaolian`, with the English as an alias.
+
+**`cnh-265` "Consort clans and eunuchs" → *Liang Ji*.** `Consort_clan` has been a cited glossary term
+since the Western Han, so the line had no term of its own left to teach. The Liang regency and the coup
+of 159 carry both halves of the line. The coup ends one consort clan's rule and puts five eunuchs in its
+place. This is `ww2-133`'s rule: a line naming something the glossary already holds wants a moment that
+makes it concrete.
+
+**`cnh-267` "The arrival of Buddhism in China" → *White Horse Temple*.** A process line wants the thing it
+is known through. The card tells the dream-and-embassy legend as a legend, citing Maspero's 1910
+critique. It sets the legend beside the documented evidence: Liu Ying's Buddhists in 65 CE, Huan's
+sacrifice of 166 and An Shigao.
+
+**DE CRESPIGNY IS OPEN AFTER ALL, THROUGH A PATH THE LAST BATCH DID NOT TRY.** The ANU repository's handle
+pages, `/handle/…` and `/items/<uuid>` still answered 503. But the DSpace REST path for a bitstream,
+`openresearch-repository.anu.edu.au/server/api/core/bitstreams/<uuid>/content`, served the PDF whole,
+with 200 on every retry. So that URL is what the citations carry. The batch cites eight of his
+works: *Political Protest in Imperial China* (the Great Proscription), "Recruitment Revisited", "Local
+Worthies", "Scholars and Rulers", "Women of Later Han", "Politics and Philosophy under the Government of
+Emperor Huan", and his translations of *Zizhi tongjian* chapters 54–59 and 59–69. **Mind the two-author
+cap**: a Sima Guang chronicle in his translation counts under Sima Guang, not under him. No card cites
+him in more than two sources as author.
+
+**GILES'S PAGE NUMBERS CAN BE READ OFF THE SCAN, AND ONE SHIPPED CITATION WAS WRONG.** The OCR text of
+`chinesebiograph00gile` carries its page numbers in a clump rather than beside the entries. The
+`_djvu.xml` gives each leaf's words, and `_page_numbers.json` maps leaf to printed page. Using both:
+Pan Chao (Ban Zhao) runs 608–9, Pan Ch‘ao (Ban Chao) 609–10, and Pan Ku 610–11. **`cnh-257` had cited
+Ban Chao at 607–8 and is corrected in this batch.** The error was copied from this file's own source
+list for the previous batch, which is corrected too.
+
+**THREE CONTRADICTIONS, EACH HANDLED BY NOT ASSERTING THE CONTESTED FIGURE.**
+- *Cai Lun's death.* Giles dates it 114 and Hirth implies 118, but the investigation that drove him to
+  suicide followed Dowager Deng's death in 121. The card says the accounts disagree and gives the date of
+  the investigation rather than choosing a year.
+- *Liang Ji's death.* Theobald's page writes "159 BCE", a typo for 159 CE. The chronicle is cited for the
+  date.
+- *The Nüjie in the Hanshu.* Rošker places the *Nüjie* inside the *Hanshu*, which is wrong, so that
+  claim is not used. Likewise Cordier's "a thousand scholars executed in 172" contradicts de Crespigny's
+  account of the Proscription and is not carried.
+
+**`Proscription` IS A ROMAN TERM THAT CLAIMS THE BARE WORD.** The Partisan Prohibitions are widely called
+the Great Proscription, and the glossary's `Proscription` term (the Roman lists) auto-links the surface
+"proscription". The card therefore avoids the bare word. The new key
+`Disasters_of_the_Partisan_Prohibitions` takes "Great Proscription" as an alias, which wins as the longer
+surface.
+
+**A DATE LINE CAUGHT BOTH OF CLAUDE.md'S DATE-LINE TRAPS AT ONCE.**
+- `cnh-261` was written `c. 45 – c. 117 CE`. The `c.` inside the range broke the era's leftward carry,
+  so the card sorted at 92 instead of 45. It is now written `c. 45 CE – c. 117 CE`.
+- The rewrite went through `set-date-line.js`, which refused the label "Given the history" at 17
+  characters. `add-card.js` had accepted the same label, which is the `isDateList` gap recorded in the
+  Russia plan.
+
+**FIVE OF THE TEN CARRY A PICTURE, AND THEIR GLOSSARY TERMS SHARE IT.** Ban Zhao (Gai Qi's 1799 album
+leaf), Cai Lun's tomb, Zhang Heng's statue, the White Horse Temple and a map of the Yellow Turban rising
+each have one. For the rest:
+- *Filial and Incorrupt* and the *Partisan Prohibitions* are institutions and events with nothing to show.
+- *Liang Ji* has no portrait from his own time.
+- *Zhang Jue* and *Dong Zhuo* have only undersized late illustrations to the novel.
+
+A card and its own term sharing a picture is the pairing `check-image-free.js` sanctions. It departs from
+the previous batch's choice to leave the terms bare, and it gives a popup read on another card the same
+illustration.
+
+## cnh-271 – cnh-280, the warlords, the end of the Han and the opening of the Three Kingdoms (Sep 2026)
+
+The last two cards of `col-12` and the first eight of `col-16`, which until this batch held no card and
+was coming-soon. Two plan lines were renamed while writing, and the plan's own lines now carry the answer
+terms.
+
+**`cnh-271` "The warlords of the 190s" → *Yuan Shao*.** The line names a decade, not a term. The alliance
+of 190 against Dong Zhuo is the moment the warlord era became visible, and Yuan Shao led it. He then
+became the greatest of the warlords, so his card carries the rest of the decade's contenders as his
+rivals. "The alliance against Dong Zhuo" was considered and refused: it has no settled English name, and
+the answer term would have carried a second person's name inside it.
+
+**`cnh-272` "The end of the Han" → *Emperor Xian of Han*.** World History already cards this subject:
+`wh-413` is answered by *fall of the Han dynasty*, and `End_of_the_Han_dynasty` is a cited glossary term.
+So the line took the last emperor, whose thirty years as a warlords' prisoner are the end of the Han told
+from inside the court.
+
+**`cnh-273` Three Kingdoms is a DELIBERATE PAIR with `wh-414`, and the glossary term is reused, not
+re-keyed.** The two cards divide the subject:
+- `wh-414` tells the period through its states, Chen Shou's history and the novel.
+- `cnh-273` tells it through the geography and the numbers: the Han census of about 140, Wei's two-thirds
+  and Wu's one-sixth, the doubled southern population, and the tax-quota registers at Shu's surrender.
+
+So this batch adds nine new glossary terms, not ten. The pairing rule is satisfied by
+`Three_Kingdoms`, which already exists, and `add-glossary.js` would have overwritten it silently.
+
+**DE CRESPIGNY'S WHOLE THIRD-CENTURY SURVEY IS OPEN.** Two pieces sit in the ANU repository as DSpace
+bitstreams, on the route recorded for the previous batch:
+- "The Three Kingdoms and Western Jin: A History of China in the Third Century AD", in *East Asian
+  History* 1 (1991) and 2 (1991).
+- *Man from the Margin: Cao Cao and the Three Kingdoms*, the 1990 Morrison Lecture.
+
+*Generals of the South* is there too, in its 2018 internet edition, and it gives the pagination of the
+1990 printing in brackets. The 1991 article's printed page is its PDF page minus four.
+*To Establish Peace* (the chronicle for 189–220, used for the last batch) opens with an introduction that
+revises the 1991 article's first part, so where the two overlap the 2025 introduction is preferred.
+
+**THE SAME AUTHOR REVISED A DATE, AND THE SAME BOOK GIVES TWO DATES FOR ONE EVENT.**
+- *Dong Zhuo's entry into Luoyang.* The 1991 article puts it on the evening of 24 September 189 (so does
+  the 1990 lecture). The 2025 introduction says 22 September, and `cnh-270` follows the 2025 text.
+- *The abdication.* *To Establish Peace*'s introduction dates Cao Pi's receipt of the abdication to
+  11 December 220, while its own chronology's note says Liu Xie abdicated on 25 November 220. The cards
+  therefore say "at the end of 220" and "late in 220" and assert neither day.
+
+**THE OLD REFERENCE WORKS DISAGREE WITH THE CHRONICLE ON SIX POINTS, AND NONE OF THE SIX IS CARRIED.**
+- Giles gives Cao Pi as 188–227, against 187–226. `cnh-278`'s last sentence names the discrepancy
+  rather than hiding it.
+- Giles gives Liu Bei's first campaign as 185, against 184.
+- Giles says Liu Xie succeeded in 190, against 28 September 189.
+- Theobald's Liu Bei page gives 161–222, against 161–223.
+- Theobald says Cao Cao drove Dong Zhuo from the capital. It was Sun Jian's army that did so.
+- Cordier says Yuan Shao proclaimed himself emperor. It was Yuan Shu who did, in 197.
+
+Where a source was wrong on one point it is still cited, for the points it gets right.
+
+**THE RED CLIFFS CARRY NO LOCATOR, and the Guandu battle is pinned to Zhongmou.** The Red Cliffs site is
+disputed. *Generals of the South* surveys the debate and follows Lu Bi in placing it at Wulin near Jiayu
+on the north bank, against the modern city named Chibi and the Wuhan tradition. That is the
+disputed-identification refusal CLAUDE.md records for Sarai. The Wikipedia coordinate for the Battle of
+Guandu lies east of Kaifeng, some sixty kilometres from the Zhongmou site *To Establish Peace* gives, so
+the dot is on Zhongmou County instead and is labelled with that name.
+
+**PICTURES: THREE OF TEN.** The shipped pictures are:
+- Cao Pi and Liu Bei, each from Yan Liben's *Thirteen Emperors Scroll*.
+- A modern map of the three states in 262 on the Three Kingdoms card.
+
+The other seven have none, for these reasons:
+- *Emperor Xian and Yuan Shao.* Commons offers only undersized Qing illustrations of the novel.
+- *Cao Cao.* The obvious photograph is of the tomb near Anyang, and a caption would have to assert an
+  identification no source cited here makes.
+- *The two battles, Cao Wei and Shu Han.* No reachable file depicts the thing itself.
+
+The Commons API answered in fits during this batch: `list=search` and `list=categorymembers` returned
+empty bodies for minutes at a time while `en.wikipedia.org`'s `pageimages` answered at once. That is the
+route that found the scroll portraits.
+
+## cnh-281 – cnh-290, Zhuge Liang, Wu and the institutions of Wei (Sep 2026)
+
+Ten more cards in `col-16`. No plan line was renamed. The plan's line for `cnh-283` reads *Zhuge
+Liang's Northern Expeditions*, and the card is answered by **Northern Expeditions**. Its glossary key is
+the real slug `Zhuge_Liang's_Northern_Expeditions`, with the answer as an alias.
+
+**NO ALIAS CLAIMS THE SINGULAR *Northern Expedition*, AND THAT IS DELIBERATE.** The Eastern Jin's
+expeditions north (Zu Ti, Huan Wen, Liu Yu) lie ahead in this collection's own plan, and the Guomindang's
+Northern Expedition of 1926 is the best-known use of the phrase in English. A bare alias would be right
+today and wrong within a few batches, which is `Neville_Chamberlain`'s precedent.
+
+**`cnh-286` Guan Yu is a DELIBERATE PAIR with `cnh-039` Guandi, and the two glossary terms were
+separated.** `Guandi`, written for `cnh-039`, claimed *Guan Yu* as its first alias, so every sentence
+naming the general opened a definition of the god. That alias is now removed and *Guan Yu* is a term of
+its own. The man is `Guan_Yu`; the deity is `Guandi`, reached by *Guan Gong*, *Kuan Ti* and *Lord Guan*.
+`cnh-039`'s own prose names the historical general, so its link now opens the man, which is the right
+reading there too.
+
+**`Sanguozhi` WAS WIDENED, NOT RE-KEYED.** It was written for `ko-089` and described the history only
+through its chapter on the eastern peoples. `add-sources.js` rewrote the description to open on the book
+as a whole (Chen Shou, Pei Songzhi, the three states). All three Korean citations were kept, still
+pointing at the Korean claims, and two sources were added. It already carried the alias *Records of the
+Three Kingdoms*, so `cnh-290` needed no new term. That is why this batch adds nine terms, not ten.
+
+**SOURCES.** The spine is the batch-before's:
+- de Crespigny's 1991 *East Asian History* survey (printed page = PDF page − 4) and *Generals of the
+  South*, whose pages 415–23 are the fullest open account of Chen Shou and Pei Songzhi.
+- *To Establish Peace*, the Zizhi tongjian for 189–220 (pages 363–66 for the Longzhong Plan).
+- Theobald's ChinaKnowledge pages, dated individually. The *menfa* page, of 16 September 2017, is the
+  open statement that the nine ranks were abolished under the Sui and Tang.
+- Giles, Cordier and Wylie's *Notes on Chinese Literature* (pages 14–15 for the Sanguozhi).
+
+**THE NINE-RANK SYSTEM HAD ONE OPEN SOURCE OUTSIDE THOSE FAMILIES.** DOAJ, OpenAlex and Crossref were
+searched under *nine-rank system*, *jiupin zhongzheng* and *nine ranks impartial and just*. Holzman's
+1957 study, the standard work, is not open. The one hit was a 2025 paper by Tao Jia and Yan Zhang in the
+*Academic Journal of Management and Social Sciences*, a management journal whose argument is about
+modern institutional reform. `cnh-288` cites it only for the Jin memorials it quotes, and it is marked
+on exactly one sentence of the card.
+
+**THE SOURCES DISAGREE IN NINE PLACES, AND NO CARD TAKES A SIDE.**
+- *Sun Quan's birth.* Giles says 181 and de Crespigny 182, reckoned from his age of seventy-one sui at
+  death in 252. The card follows *Generals of the South*.
+- *Sima Yi's birth.* Giles says 178 and Theobald 179, so the card gives no birth year.
+- *When Sima Yi joined Cao Cao.* Theobald says 201, the 1991 survey 208 and Giles 211. The card
+  gives no year.
+- *When Sun Quan took the imperial title.* Theobald's Sun Quan page says 222 at Wuchang; his own Wu
+  page, Giles, Cordier and the 1991 survey (23 June 229) all say 229. The cards say 229 and cite the
+  majority.
+- *When Sun Quan was made King of Wu.* It was 221 or 222, so it is left undated.
+- *When Cao Rui died.* The 1991 survey says 238 and Cordier 239, so it is left undated.
+- *Guan Yu's home.* Giles puts it in Shandong and Theobald at Xie in Shanxi. The card follows Theobald.
+- *The oath in the peach garden.* Giles reports it as fact, but it is the novel's. The card calls it
+  "later tradition".
+- *Guan Yu's death.* *To Establish Peace* puts it in the twelfth month of the Chinese year 219, which
+  runs into 220 by the Western calendar. The prose says "the twelfth month of the Chinese year", and
+  the date line keeps the conventional 219.
+
+**TWO ORIGINS ARE GIVEN AS TRADITION, NOT FACT.**
+- The 1991 survey's main text says Cao Cao instituted the nine ranks. Its note 84 records that the full
+  form "is said" to be Chen Qun's work under Cao Pi and that the system was developing before that.
+  `cnh-288` gives the tradition and the hedge together.
+- Giles calls Zhao Chongguo the originator of the *tuntian*, where Theobald dates the first colonies to
+  Emperor Wu. `cnh-287` cites Giles only for Zhao's settlements.
+
+**CHEN SHOU'S DEATH IS "c. 300".** The *Jin shu* puts it about 297, and Giles follows it. The *Huayang
+guo zhi*, as *Generals of the South* reads it, has him dismissed after Zhang Hua's fall in 300.
+
+**A QUOTATION FROM THE NOVEL ON A HISTORY CARD.** `cnh-282` quotes chapter 38 of *Romance of the Three
+Kingdoms* in Brewitt-Taylor's translation: the speech itself, which the novel takes closely from Zhuge
+Liang's biography. That is `cnh-280`'s arrangement, and the card's own prose says where the historical
+record of the conversation lies.
+
+**LOCATORS: EIGHT OF TEN.**
+- Chengdu for Zhuge Liang and Luoyang for Sima Yi's coup.
+- Crossed swords at the Wuzhang Plains for the Northern Expeditions.
+- Nanjing for Eastern Wu and Sun Quan.
+- Dangyang for Guan Yu's death and Xuchang for the first *tuntian*.
+- **The Longzhong Plan is on Xiangyang, labelled Xiangyang.** Wikipedia has no *Gulongzhong* article to
+  read a coordinate from, and a dot labelled Longzhong on the city centre would be about thirteen
+  kilometres out.
+
+The nine-rank system and the Records have no single place.
+
+**PICTURES: FOUR OF TEN.**
+- Zhuge Liang: a Ming portrait on silk in the National Museum of China.
+- Sun Quan: Yan Liben's *Thirteen Emperors Scroll*, the source of the Cao Pi and Liu Bei pictures before
+  it.
+- Guan Yu: Shang Xi's *Guan Yu Captures Pang De* of about 1430, in the Palace Museum.
+- Sima Yi: a Ming woodblock portrait.
+
+Each card's paired glossary term takes the same file. Three candidates were refused:
+- *The Eastern Jin manuscript fragment of the Sanguozhi.* It is already on `wh-414`, `ko-089` and the
+  `Sanguozhi` term, as `check-image-free.js` reported.
+- *The CC BY-SA map of the Longzhong Plan.* It is only 436 × 556 pixels.
+- *A Qing illustration of the Wei River battle.* It is only 500 pixels wide.
+
+**THUMBNAIL WIDTHS.** A 1280-pixel thumbnail was taken where the original is wider. Sun Quan's and Sima
+Yi's files are narrower than 1280, so their original URLs are used.
+
+## cnh-291 – cnh-300, the novel, the fall of Wu and the Western Jin (Sep 2026)
+
+Two cards close `col-16` and eight open `col-18`, the Western Jin deck. No plan line was renamed, but
+four cards are answered by a term the line does not contain, which is the `ru-052` shape:
+- `cnh-291` *Romance of the Three Kingdoms and the historical record* is answered by the novel's title.
+  The card's second block is the comparison the line asks for.
+- `cnh-292` *The reunification of 280* is answered by **Sun Hao**, the last emperor of Wu. `cnh-295`
+  *The Jin conquest of Wu* carries the campaign itself, so two cards on one event would have taught one
+  term twice. This card takes the reunification from the side that lost it.
+- `cnh-296` *The Jin occupation-of-land system* is answered by **zhantian**, the Chinese name of the law,
+  with its sibling quota *ketian* inside the card.
+- `cnh-298` *The Jin aristocracy* is answered by **menfa**. De Crespigny's survey deliberately avoids
+  "aristocracy" as a term that carries too many implications, so the card says in its own prose that
+  the English names for these families are disputed.
+
+**THE JIN KEY IS THE REAL SLUG `Jin_dynasty_(266–420)`, WITH AN EN DASH.** A parenthetical key claims no
+bare name, so *Jin dynasty*, *Western Jin* and *Eastern Jin* are aliases. Every existing use of *Jin
+dynasty* in the corpus was read first: all of them mean this Jin, and none means the Jurchen Jin of
+1115–1234. When that dynasty's cards are written, the bare alias must move to a narrower form.
+
+**THE WAR BLOCK ON `cnh-295` IS JIN AGAINST WU IN 279–280.** Both sides are authored extents, as every
+war before 1500 must be. They are held apart by a gap along the Yangzi and the Han, and a batch `places`
+block of 36 assertions checks them. Jiangling, Wuhan and Yichang fall inside Wu. Xiangyang, Hefei and
+Chongqing fall inside Jin. Nanjing, on the south bank, falls outside Jin. The Hexi corridor to Dunhuang,
+Liaodong and Nanzhong (present-day Yunnan) are drawn as Jin. The Ordos and the Korean peninsula are
+not, since the 1991 survey puts the Ordos in Xiongnu and Xianbei hands by this date.
+`add-card-wars.js --check` reports no contradiction with any other block.
+
+**`cnh-297` IS REFUSED A WAR BLOCK, and it is the table's "both sides on one ground" row.** Every
+belligerent was a prince of one house, fighting over one court.
+
+**SOURCES.**
+- De Crespigny's companion article, *The Three Kingdoms and Western Jin — II*, *East Asian History* 2
+  (1991): 143–65. It is open at ANU as bitstream `f0da2b74-…`, and the printed page numbers are in its
+  text. It is the spine of all eight Western Jin cards: the reunification (145–46), the land laws
+  (146–49), the princes (152–57) and the withdrawal of the gentry (161–65).
+- Étienne Balazs, "Entre révolte nihiliste et évasion mystique", *Asiatische Studien* 2 (1948): 27–55,
+  DOI `10.5169/seals-145295`, is on e-periodica. Its plain PDF address serves a verification page. The
+  link that page itself offers, with `&bot=1` appended, returns the 30-page PDF. The printed page is the
+  PDF page plus 26. It carries qingtan (30–32), the Seven Sages (37–41) and Wang Yan (48–50).
+- The Stanford Encyclopedia's *Neo-Daoism* entry (Alan Chan, Summer 2019 archive) and Téa Sernelj's
+  2024 article in *Asian Studies*. The latter came from a DOAJ search, and its DOI resolves through
+  `journals.uni-lj.si`.
+- Giles's *History of Chinese Literature* (Appleton, 1901), pages 277–78 on the novel. Chen Huan-chang's
+  *Economic Principles of Confucius and His School*, vol. 2 (Columbia, 1911), pages 508–10: the Jin
+  land law of 280, read as a real distribution of land.
+- Theobald's ChinaKnowledge pages, whose dates sit in each page's HTML rather than its visible footer.
+  Giles's *Biographical Dictionary* and Cordier's *Histoire générale*, pages 300–10, as before.
+
+**`cnh-291` HAD FIVE SOURCES AVAILABLE BUT ONLY TWO FROM DE CRESPIGNY.** *Generals of the South*
+449–54 ("The distortions of Romance") is the fullest open treatment of the novel. The two-per-author cap
+therefore excluded the 1991 survey's page 21, which says the same thing. The Empty City example comes
+from de Crespigny's note to *To Establish Peace*, page 530, which that cap counts under Sima Guang.
+
+**THE SOURCES DISAGREE IN SEVEN PLACES, AND NO CARD TAKES A SIDE.**
+- *Sun Hao's birth.* Giles says 242 and the 1991 survey 241. The card gives only his reign and death.
+- *The founding of Jin.* Theobald dates it to 8 February 266. Cordier, Giles and the survey give 265,
+  the Chinese year. The cards say February 266, as the Three Kingdoms and Cao Wei cards already do.
+- *When the attack on Wu began.* Theobald and Cordier say 279, the survey spring 280. The date line
+  reads 279 – 280.
+- *The War of the Eight Princes.* Theobald counts it from 291 and lists Sima Liang and Sima Wei. The
+  survey, after the Qing scholar Zhao Qi, counts from 300 and begins with Sima Lun. The card carries both
+  as a disagreement. Its date line gives the coups of 291 and the civil war of 300–306 as separate rows.
+- *The secondary adult's allotment under the Jin land law.* The survey and Chen give half the regular
+  50 mu; Theobald gives 10 mu. The card states neither figure.
+- *Ji Kang's dates.* They are 223–262 or 224–263, so the card says "262 or 263", with the era written on
+  both halves of the date line.
+- *Sima Yan's age at death.* The survey says fifty-five, a Chinese reckoning, so the card gives only the
+  day.
+
+**A NOVEL QUOTED ON TWO HISTORY CARDS.** `cnh-291` quotes chapter 120's closing lines. `cnh-292` quotes
+the exchange of seats between Sun Hao and the Jin emperor from the same chapter. Neither card's prose
+relies on the quotation, which stands as the novel's own account.
+
+**LOCATORS: FIVE OF TEN.**
+- Nanjing for Sun Hao.
+- Luoyang for the Jin dynasty, Emperor Wu and the War of the Eight Princes.
+- Xiuwu, the old Shanyang, for the Seven Sages.
+- `cnh-295` needs no coordinate, since its war block gives it the window.
+- The novel, the land law, the great families and qingtan have no single place.
+
+**PICTURES: THREE OF TEN.**
+- The novel: a late Ming woodblock of the three heroes fighting Lü Bu. Commons dates the file 1368, but
+  the edition is late Ming and the caption says so.
+- Emperor Wu: Yan Liben's *Thirteen Emperors Scroll*, as for Sun Quan.
+- The Seven Sages: a rubbing of the Xishanqiao tomb mural (second half of the 5th century), which names
+  four of the seven beside their figures. Two photographs of the mural itself were refused, because at
+  card width the figures cannot be made out.
+
+Two candidates were also refused:
+- *Sun Hao.* The only candidate is a Qing portrait of 365 × 479 pixels.
+- *The Jin dynasty.* The only well-made map of Western Jin in 280 is labelled in French.
+
+## cnh-301 – cnh-310, the fall of the Western Jin and the Sixteen Kingdoms (Sep 2026)
+
+Two cards close `col-18` and eight open `col-19`, the Sixteen Kingdoms deck. Two plan lines are answered by
+a term the line does not contain, the `ru-052` shape, and the plan's own wording is left as it is:
+- `cnh-302` *The fall of the Western Jin* is answered by **Emperor Min of Jin**, the last Western Jin
+  emperor, who surrendered Chang'an in 316. `cnh-301` already carries the fall of Luoyang in 311, so the
+  card takes the end of the dynasty through the ruler it ended with.
+- `cnh-307` *The Murong and the Yan states* is answered by **Former Yan**, the first and largest of them.
+  The later Yan states are named in the card's last sentence. The `Xianbei` term already claims the alias
+  "Murong Xianbei", so the Murong could not be the answer without a collision.
+
+**Two of the answer terms needed disambiguated keys.** There are two rulers of the Former Qin romanised
+*Fu Jian*: 苻健, the founder, and 苻堅, his nephew. The glossary key is `Fu_Jian_(337–385)`, carrying
+the bare alias `Fu Jian`, and the Former Qin card never names the founder, calling him Fu Hong's son.
+`Han-Zhao` carries `Former Zhao` as an alias; `Northern Han` was refused, being also the name of a
+state of the 10th century.
+
+**The sources that carried the batch.** Two new open spines joined de Crespigny's second *East Asian
+History* essay and Cordier:
+- **The *Jin shu* on Chinese Wikisource.** The chapter pages are addressed with three-digit numbers
+  (`晉書/卷005`, `卷056`); a two-digit address such as `卷5` answers 200 and serves an empty page, so
+  read the index rather than composing the address. The *zaiji* chapters (101–130) cover the northern
+  rulers one by one. One Chinese source per card, as rule 6 of `check-cards.js` asks.
+- **Holmgren's *Annals of Tai* (ANU Press, 1982)** is open in the ANU repository. Its page 17 is the
+  source for the name of the period, Cui Hong's *Spring and Autumn Annals of the Sixteen Kingdoms*;
+  pages 30–34 cover the early Murong; page 74 translates the *Wei shu* on the Former Qin conquest of Dai.
+- **Parker's *A Thousand Years of the Tartars* (1895)**, already cited in the collection, covers Liu
+  Yuan, Shi Le and the Murong. Its spellings are archaic ("Zenghi" for shanyu, "Tunguses" for Xianbei),
+  and it is wrong that Liu Cong renamed Han as Zhao, so it was cited only where another source agrees.
+- **Sims-Williams's translation of Sogdian Ancient Letter II** on Silk Road Seattle is a contemporary
+  witness to the fall of Luoyang: a merchant reports famine, fire, and that "Luoyang is no more".
+
+**Where the sources disagree, the cards hedge or leave the point out:**
+- Who took Luoyang in 311: the *Jin shu* has Liu Yao and Wang Mi enter the city; de Crespigny has Shi Le
+  storm it. The card names all three commanders and says the city was taken.
+- Wang Yan's end: Cordier has him captured in the field; de Crespigny says at Luoyang. The card follows
+  Cordier alone and does not say where.
+- Emperor Min's age: Giles and Theobald give a birth year of 270, which cannot be right for the boy of
+  eleven de Crespigny describes in 311; the card follows de Crespigny.
+- Fu Jian's death: Giles and Theobald give 384, Cordier and the *Jin shu* 385. The card says 385, and
+  both date lines avoid a regnal span that would have to pick one.
+- Fu Jian's descent: Cordier calls him a son of Fu Hong, Giles and Theobald's Di page a grandson or
+  nephew. The card calls him a nephew of the state's founder.
+- Cordier calls Xie Shi, Xie Xuan and Xie Yan the three sons of Xie An, which is wrong; the Fei River
+  card cites him for nothing about the Xie family.
+- The Former Yan's capture of Luoyang is dated 364 by Cordier and 367 by Parker; the card gives no year.
+
+**A war block was considered and refused for `cnh-310`**, a battle rather than a war; it carries a
+`battle` locator at Shou County instead. None of the other nine is a decided war between separable sides.
+
+**Pictures.** Five cards carry one, each shared with its own glossary term: a map of the northern states
+in 338 (`cnh-303`), two of Albert Herrmann's 1935 maps (`cnh-305`, `cnh-308`), the gilt bronze Buddha
+dated 338 in the reign of the Later Zhao (`cnh-306`), and Xie Bin's scroll *Reporting Victory at the Huai
+and Fei* (`cnh-310`). The other five have none: the Commons categories searched hold no portrait of Emperor Min or Fu Jian,
+no image of a Sogdian Ancient Letter under a findable name, and its one Former Yan tomb painting is
+293 pixels wide. A thumbnail shard composed by hand (`a/a0`) returned 404 and was replaced from the API.
+
+## cnh-311 – cnh-320, the flight south, northern Buddhism and the Eastern Jin (Sep 2026)
+
+Two cards close `col-19` and eight open `col-20`, the Eastern Jin deck. Four plan lines are answered by
+a term the line does not contain, the `ru-052` shape, and the plan's own wording is left as it is:
+- `cnh-311` *The flight of the northern elite to the south* is answered by **lodged commanderies**
+  (僑郡), the units the court created for the refugees. The glossary key is `Lodged_commanderies`, with
+  `qiaojun` and `qiaozhou` as aliases.
+- `cnh-312` *Buddhism in the northern kingdoms* is answered by **Fotudeng**, the monk at the Later Zhao
+  court. `Buddhism` and `Chinese_Buddhism` are already cited terms, so the line had no term of its own.
+- `cnh-315` *The émigré great clans* is answered by **Xie clan**, keyed on `Xie_clan_of_Chen_Commandery`.
+  The Wang of Langya are carried by `cnh-316` Wang Dao.
+- `cnh-317` *The northern expeditions of the Eastern Jin* is answered by **Zu Ti**, whose crossing
+  opened them. `cnh-318` Huan Wen carries the three later campaigns.
+
+**`Eastern_Jin` is a new key, and `Jin_dynasty_(266–420)` gave up its "Eastern Jin" alias to it**, so
+the surface opens the southern dynasty's own term rather than the whole Jin. "Western Jin" stays on the
+older term.
+
+**The sources that carried the batch.** Beyond Theobald, Giles, Cordier and the *Jin shu*:
+- **Chingis Ts. Tsyrenov's two open articles**: the four great clans of the Eastern Jin (*Humanitarian
+  Vector*, 2020) and Wang Dao (*Russian and Chinese Studies*, 2022). **Both are cited under the English
+  titles Crossref registers**, since that is the title the record holds, and marked `[in Russian]`. The
+  2020 record swaps the name fields (given "Tsyrenov", family "Chingis Ts.") beside a phantom empty
+  author, and is declared in `check-citations.js`'s `CROSSREF_WRONG` with the byline as evidence.
+  **The 2022 DOI carries parentheses** and is cited percent-encoded, `6%283%29`.
+- **Alexis Lycas's notices on Wang Dao and Wang Dun** in the *Dictionnaire biographique du haut Moyen Âge
+  chinois* (2020) are open on HAL. The `/document` address serves a bot wall to a browser user-agent;
+  the landing page is what is cited.
+- **Tan Qixiang's 1934 study of the Yongjia migration** in *Yanjing xuebao* 15, on archive.org, is the
+  source for the figure of about 900,000 migrants by the Liu Song, one sixth of the south. It counts the
+  registered people of the lodged units and says itself that the figure is approximate.
+- **Louis Gaillard's *Nankin d'alors et d'aujourd'hui* (1903)** carries Jiankang's plan, its estimated area
+  of at most 90 hectares and the Sui razing. Its gloss dates the razing to "598", a slip for 589, and it
+  says the city was renamed to avoid the name of Yuan Di's "father", which is wrong twice over. **No
+  openable source gives Jiankang's population**, and the card gives none.
+- **Edkins's *Chinese Buddhism* (1880), p. 89**, records under 335 the ruling that let the Later Zhao
+  ruler's subjects become monks, and gives Fotudeng's 893 monasteries on p. 168. **Bingenheimer's
+  network study (2020)** dates Dao'an's time as his pupil to about 335–48.
+- **Shin (2025), Madar (2002) and Li and Zhao (2026)** carry Wang Xizhi. Madar's thesis gives two
+  incompatible pairs of dates for him and was cited only for the gathering of 353. Li and Zhao date the
+  gathering to the sixth month, which is wrong, and were cited only for the Shenlong copy.
+- **Lin Chen's 2014 dissertation** carries the argument over Tao Yuanming's birth year (352, 365, 372 or
+  376) and the late rise of his reputation.
+- **The *Song shu* on Wikisource uses two-digit juan addresses** (`宋書/卷93`), where the *Jin shu*
+  uses three (`晉書/卷093`); each form 404s or serves an empty page for the other book.
+
+**Where the sources disagree, the cards hedge or leave the point out:**
+- The renaming of Jianye: the *Jin shu* treatise ties it to Emperor Min's accession in 313; Theobald's
+  Yuandi page and Cordier give it to Sima Rui in 317. The card gives the *Jin shu*'s reason.
+- Su Jun's rising: 327 in the *Jin shu*, 328 in Theobald and Cordier. The cards say "the late 320s".
+- Wang Dun and Wang Dao: Cordier calls them brothers; the *Jin shu* and Theobald, cousins. The cards say
+  cousin.
+- Wang Dao's birth: 276 in the *Jin shu*, 279 in Tsyrenov's title. The card gives 276 and names the other.
+- Wang Xizhi's dates: 303–361 against 321–379. The card gives both and dates the card by the gathering.
+- Tao Yuanming's birth: the card gives the traditional 365 and the argued range.
+- Fotudeng's origin: the *Jin shu* says India, the *Gaoseng zhuan* the Western Regions. The card calls
+  him a monk from the west and cites the *Jin shu* for India. His death is given as 348 or 349.
+- Huan Wen's Yan campaign: 368 in Giles, 369 everywhere else. The card says 369.
+- Zu Ti's crossing: no openable source dates it, so the card gives no year.
+
+**No war block.** The Eastern Jin's wars are campaigns rather than decided wars between separable
+sides, and the Fei River is already `cnh-310`'s battle locator. `cnh-313` and `cnh-315` carry no
+locator either: a state drawn as a dot and a clan drawn at its lost northern home would both mislead.
+
+**Pictures.** All ten carry one, each shared with its own glossary term. Three are later imaginings and
+their captions say so: Guo Xu's Ming portrait of Xie An, a Qing woodblock of Wang Dao, and Zu Ti in an
+illustrated novel of 1893. Jiankang takes a Liang tomb guardian near Nanjing, the nearest free object
+that stands in the city's own ground, with the caption naming its dynasty. **The Met's photograph of Du
+Jin's Tao Yuanming was refused on sight**: the scroll sits small on a black ground beside a colour bar.
+Chen Hongshou's painting of 1650 replaced it.
+
+## cnh-321 – cnh-330, the end of the Eastern Jin and the Northern and Southern dynasties (Sep 2026)
+
+Two cards close `col-20` and eight open `col-21`. One plan line is answered by a term it does not
+contain: `cnh-322` *The end of the Eastern Jin* is answered by **Liu Yu**, the general who received the
+abdication of 420, keyed on the English Wikipedia's own title `Emperor_Wu_of_Song` with `Liu Yu` as its
+alias. Every "Liu Yu" already in the corpus is this man, so the alias is safe today — but the Liu Song
+itself had two more emperors called Liu Yu (劉彧 and 劉昱), and a card that names either of them will
+need a hand-written link. `cnh-328` has no English article of its own, so its key is the slug form of
+the answer, `Hou_Jing_rebellion`. **`Hou Jing` was deliberately NOT made an alias of it**: the name of a
+person opening the term for an event would be the wrong link on every card that merely names him.
+
+**The sources that carried the batch.** Theobald's ChinaKnowledge has a page for each southern dynasty,
+for the Northern Wei, and for Liu Yu, Xiao Yan, Hou Jing and Chen Baxian, dated where the page says
+when it was written; the overview pages *Southern Dynasties* and *Northern Dynasties* carry no date of
+their own and were not cited. Beyond them:
+- **Cordier, *Histoire générale*, vol. 1, pp. 321–83** narrates the whole period and carries the
+  dynastic tables. He dates the start of the *Nan Pe Tch'ao* to Liu Yu in 420 (p. 328) and its end to
+  589 (p. 382), where he also has the last Chen emperor found hiding in a well.
+- **Giles, *Introduction to the History of Chinese Pictorial Art* (1905), pp. 17–21, Binyon, *Painting
+  in the Far East* (1913), pp. 39–44, and Chavannes's note in *T'oung Pao* 1909, pp. 76–77**, carry Gu
+  Kaizhi. Chavannes identified the scroll's text as Zhang Hua's *Admonitions*, not Ban Zhao's, and
+  showed the roll to be incomplete; Binyon reports both findings and says the attribution cannot be
+  proved. The *T'oung Pao* volume is an Indian digital-library scan whose `_djvu.txt` 404s under the
+  identifier's own name — the file is `31243_djvu.txt`, read off the item's file list.
+- **Wylie's *Notes on Chinese Literature*, pp. 15–16**, carries the authorship of the five dynastic
+  histories, including the uproar over the *Wei shu*. **Parker, pp. 145–48**, carries the Tuoba.
+- **The dynastic histories on Wikisource**: *Song shu* juan 1 and 3, *Nan Qi shu* juan 1, *Liang shu*
+  juan 1, *Chen shu* juan 1 and 6, *Wei shu* juan 2. **The *Liang shu* uses two-digit addresses
+  (`梁書/卷01`) where the *Chen shu* and *Wei shu* use bare ones (`陳書/卷6`)**, and each 404s for the
+  other form. *Liang shu* juan 56, Hou Jing's biography, could not be fetched before the API
+  rate-limited this sandbox, so `cnh-328` cites *Chen shu* juan 1 for the crossing of 548.
+- **Wikimedia's API rate-limits a sandbox that asks it a few dozen questions in a row**, Commons and
+  Wikisource together, answering 429 for many minutes; space the calls rather than retrying at once.
+
+**Where the sources disagree, the cards hedge or leave the point out:**
+- Liu Yu's birth: 363 in Theobald and consistent with Cordier's age at death; Giles gives 356. The card
+  gives 363.
+- The Admonitions scroll: Giles's 1905 caption still calls it the *Female Historian*, the title Chavannes
+  corrected. The card uses the corrected title.
+- Emperor Wu of Liang and the Qi princes: Theobald's dynasty page says he spared them, his biography of
+  the emperor that he killed the sons of the Qi emperor Ming. The cards say neither.
+- The grandsons of Emperor Wu of Qi: Theobald calls them his sons, Cordier his grandsons. The card
+  follows Cordier.
+- Hou Jing's imperial title: 551 in Theobald and Giles, 552 in Cordier. The card says 551.
+- Emperor Wu of Liang's death: Giles has him die in a monastery, Theobald and Cordier in the besieged
+  palace city. The cards follow the latter and cite Giles only for other claims.
+
+**A glossary auto-link caught on the way**: "the National Academy" on `cnh-327` linked "Academy" to
+Plato's school. It now reads "the imperial college".
+
+**Pictures are not yet on these ten cards or their terms, and that is a sandbox limit rather than a
+judgement.** Wikimedia's API answered 429 to this session for well over an hour, so no candidate could
+be fetched, licensed or looked at. The candidates found before the limit are a place to start:
+`Admonitions Scroll Scene 4.jpg` (Gu Kaizhi), `Liu Yu (Song Wudi).jpg`, `Southern and Northern Dynasties
+440 CE.png`, `Northern and Southern Dynasties 560 CE.png` and `Liang Wudi.jpg`. **Avoid the Yungang and
+Longmen caves for the Northern Wei card**: `cnh-335` and `cnh-336` are those caves' own cards.
+
+**No war block and few locators.** The Hou Jing rebellion is a rising inside one state, and the northern
+and southern courts never fought a decided war between separable sides. `cnh-323`, an era, carries no
+locator; six of the others are Jiankang, where the studied siblings group into one dot.
+
+## cnh-331 – cnh-340, the Northern Wei to the Northern Zhou (Sep 2026)
+
+Ten cards continue `col-21`, with **twelve** glossary terms rather than ten: `Western_Wei` and
+`Northern_Qi` are not answer terms but are named on nearly every card of the batch, and a term with no
+entry auto-links to nothing. Four lines are answered by a term the plan line does not contain:
+- `cnh-333` *The sinicisation reforms of Emperor Xiaowen* is answered by **Emperor Xiaowen**, keyed on
+  `Emperor_Xiaowen_of_Northern_Wei`; every "Emperor Xiaowen" already in the corpus is this ruler.
+- `cnh-334` *The move of the Northern Wei capital to Luoyang* is answered by **Pingcheng**, the capital
+  the court left, **because `Luoyang` is already `cnh-256`'s answer**. English Wikipedia redirects
+  *Pingcheng* to *Datong*, so the key is the slug form of the answer. The plan line is unchanged, the
+  subject not having moved.
+- `cnh-337` *Six Frontier Towns revolt* is answered by **Six Garrisons**, which is the English article's
+  own title (*Six Frontier Towns* redirects to it and is the term's alias). **The term carries no date**:
+  the garrisons stood long before the revolt of 523–529, and a date line on the settlements naming the
+  revolt would date the wrong thing.
+- `cnh-338` *Eastern Wei and Western Wei* is answered by **Eastern Wei**; the western state has its own
+  term and is carried by `cnh-340`.
+
+**The sources that carried the batch.** Theobald has pages for the Tuoba, the equal-field system, the
+fubing, the Six Garrisons revolt (2025) and each of the four successor states; **two of them carry slips
+a card must not repeat** — the *Western Wei* page dates Emperor Xiaowu's flight and Su Chuo's six rules
+to 543 and 641 where the events are 534 and 541, and the *Northern Zhou* page gives Yuwen Tai the title
+of the first emperor and dates the victory at Jinzhou to 565 for 576. Beyond him:
+- **The *Wei shu* on Wikisource**, juan 1, 7B, 9, 12, 110 and 114. Juan 110 carries the equal-field edict
+  of 485 and Li Chong's neighbourhood system of 486; juan 114 carries both **Tanyao's five caves** (70 and
+  60 *chi*) and **the imperial caves at Longmen**, modelled on Yungang's "Lingyan Monastery", moved lower
+  after 505 and costing 802,366 days of labour by 523. **Juan 12 is itself a restoration** — its own
+  editorial note says Wei Shou's chapter was lost and rebuilt from the *Bei shi* — which `cnh-338` says.
+- **The *Zhou shu*, juan 6 and 16**: the conquest of the Qi in 577 with its count of 3,302,528 households,
+  and the eight Pillars and twelve generals that make the 24 armies.
+- **Chen Huan-chang, *Economic Principles of Confucius*, pp. 510–18 and 665**, translates the equal-field
+  edict clause by clause and carries Zhang Yue's hired army of 722. **Holmgren's *Annals of Tai*,
+  pp. 51–77**, translates *Wei shu* 1 with page numbers, which is what lets the Tuoba card cite it by page.
+- **Four open MDPI papers and one PLOS paper** carry the caves and the capital. **`mdpi.com` answers 403
+  (Akamai) from this sandbox, and `mdpi-res.com` serves the same PDFs**: the address is
+  `https://mdpi-res.com/d_attachment/<journal>/<article>/article_deploy/<article>.pdf`. Cite the DOI.
+- **Bosch Reitz's note on a Yungang bodhisattva, *Metropolitan Museum of Art Bulletin* 17 (1922)**, is
+  JSTOR Early Journal Content, free on archive.org as `jstor-3254490`.
+- **UNESCO's pages (`whc.unesco.org`) answer 403**, so no card claims an inscription date.
+
+**Where the sources disagree, the cards hedge or leave the point out:**
+- The capital's move: one of the open papers dates it 495. The *Wei shu* has the plan settled in 493,
+  the announcement and the move in 494, and the burial order in 495; the cards follow the *Wei shu*.
+- Polouhan Baling's rising: Theobald puts it in 523, the *Wei shu* early in 524. `cnh-337` says that
+  the official history dates it to 524.
+- Emperor Xiaoming's death in 528: poisoned by his mother according to Cordier, used by Erzhu Rong as a
+  pretext according to Theobald. The card says "poisoned, it was said".
+- Giles dates the killing of Yuwen Hu to 567; Theobald and the Zhou chronology to 572. The card says 572
+  and cites Giles only for other claims.
+- The equal-field edict's women: Theobald's page reads "each female above 20 sui"; the edict gives
+  women 20 *mu* and states no age. The card follows the edict.
+
+**Three glossary auto-links caught on the way.** "Allotment" linked to the American allotment policy on
+`cnh-332` and `cnh-333` and in two terms, and "votive" to a Greek term on `cnh-336`; they now read
+"distribution", "land-sharing", "grants" and "devotional".
+
+**Pictures are again absent**, for the same rate limit as the batch before. Obvious candidates are the
+Yungang Cave 20 Buddha and the Longmen Fengxian or Binyang caves; the Tang Fengxian Buddha would be a
+picture of the right site and the wrong dynasty for a card that is about the Northern Wei work.
 
 ## Re-sourcing the mythology cards (batch C7, Sep 2026)
 

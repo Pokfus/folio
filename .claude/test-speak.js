@@ -217,7 +217,7 @@ const holdRow = (page, match) => page.evaluate((m) => {
      assertion. */
   await page.keyboard.press("3");
   await page.waitForTimeout(900);
-  if (await page.$(".chest-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(500); }
+  while (await page.$(".chest-pop, .ach-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(500); }
   check("grading moves on to the next card, unrevealed",
     await page.evaluate(() => !document.querySelector(".uc-card.uc-back")));
   const before = (await page.evaluate(() => window.__spoke)).length;

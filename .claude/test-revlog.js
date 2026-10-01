@@ -118,6 +118,9 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
     if (ms) await page.waitForTimeout(ms);   // …so the duration is a measurable figure rather than a rounding
     await page.evaluate(() => document.querySelector('.grade[data-g="good"]')?.click());
     await page.waitForTimeout(420);
+    /* A first grade earns a badge, whose centred popup owns the keyboard while it is up — so Ctrl+Z
+       would reach it rather than the study page. Put it away, as a reader would. */
+    while (await page.$(".chest-pop, .ach-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(200); }
   };
   /* Start a session. `#study` is deliberately NOT a restorable hash (a pasted study link goes home), so the
      only way in is the review banner — which is also the route a reader takes. `newPerDay: 1` is what makes
@@ -129,7 +132,7 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
     await page.evaluate((a) => {
       const S = JSON.parse(localStorage.folio_v1 || "{}");
       S.active = [a.deck];
-      S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 1 });
+      S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 1, limitsCustom: true });
       Object.assign(S, a.extra || {});
       localStorage.folio_v1 = JSON.stringify(S);
       localStorage.folio_tour_v1 = "no";                 // the walkthrough offer is not what this measures
@@ -234,7 +237,7 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
          among the due ones (`mixPiles`), so at one a day the session opens on a card this seed knows
          nothing about roughly as often as not — the sheet then honestly reports "New — not studied yet"
          while every assertion below asks about a mature record, and a coin toss reads as a broken panel. */
-      S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 0 });
+      S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 0, limitsCustom: true });
       S.cards = {};
       S.revlog = [];
       a.ids.forEach((id) => {

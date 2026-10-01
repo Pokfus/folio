@@ -98,7 +98,11 @@ const PLANS = {
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */
-  geography: ["geo-us", "geo-", [[1, 50], [501, 550]]],
+  /* …and 701-750 is the LARGEST CITIES deck (Sep 2026, on request): the largest city of every state whose
+     largest city is not its capital, numbered 700 + the state's own number so the three decks pair by
+     arithmetic as the capitals do. The seventeen missing numbers are the states whose capital IS the
+     largest city — Phoenix, Boston, Denver and the rest — which would be the capital card a second time. */
+  geography: ["geo-us", "geo-", [[1, 50], [501, 550], [701, 703], [705, 705], [707, 709], [711, 711], [714, 715], [717, 718], [721, 724], [726, 726], [728, 731], [733, 733], [735, 735], [737, 737], [739, 743], [746, 749]]],
   /* The world: 233 countries and territories, and 226 capitals rather than 233. The seven missing
      numbers are not gaps to be filled — each is a capital card that would ask nothing, and each is
      argued in the plan: 604 Hong Kong, 614 Singapore, 667 Macau, 713 Gibraltar, 714 Monaco and
@@ -126,21 +130,21 @@ const PLANS = {
      out as ranges so that a number quietly going missing still fails here. */
   "china-geography": ["geo-china", "gc-", [[1, 31], [501, 518], [520, 522], [524, 525], [528, 531]]],
   /* Flags: 233 cards, one per World Geography COUNTRY card and numbered to match it, so `fl-NNN` is the
-     same entity as `gw-NNN`. IT IS THE SECOND PLAN OF `geo-world` — a third DECK of that collection
-     rather than one of its own, on request (Sep 2026) — which is why this table is keyed by plan; see
-     the note above it. The range is unbroken even though `fl-036` Afghanistan is deferred: a deferred
+     same entity as `gw-NNN`. IT IS ONE OF THE TWO PLANS OF THE `flags` COLLECTION — which is why this
+     table is keyed by plan; see the note above it. (It spent a week as a deck of `geo-world` and is a
+     collection of its own again, on request, Sep 2026.) The range is unbroken even though `fl-036` Afghanistan is deferred: a deferred
      card is one the plan LISTS and has not shipped, exactly as `gw-596` Jerusalem is, and leaving the
      number out of the range here would stop this suite ever noticing if it did ship. The natural
      extension (subnational flags at `fl-501`+) is deliberately NOT declared until it lands, on the
      Politics rule — widen a numbering as work arrives rather than declaring it full of holes. */
-  flags: ["geo-world", "fl-", [[1, 233]]],
-  /* Draw the flags: the Flags deck run backwards, and the FOURTH deck of `geo-world` — so this is the
-     collection's third plan, which is the arrangement the keying note above exists for. `fd-NNN` is the
+  flags: ["flags", "fl-", [[1, 233]]],
+  /* Draw the flags: the Flags deck run backwards, and the second deck of the `flags` collection — so
+     this is that collection's second plan, which is the arrangement the keying note above exists for. `fd-NNN` is the
      same entity as `fl-NNN` and as `gw-NNN`: in this collection the NUMBER is the entity and the PREFIX
      is the question asked about it, which is why it is not numbered +500 like the capitals (there the
      number means a DIFFERENT entity). The range is unbroken even though the same four deferrals apply
      — 036, 171, 180 and 218, each of which has no flag Folio can show and so nothing to draw. */
-  "flags-draw": ["geo-world", "fd-", [[1, 233]]],
+  "flags-draw": ["flags", "fd-", [[1, 233]]],
 };
 // a numbering as a flat list of the numbers it expects, in order
 const expand = (num) => {

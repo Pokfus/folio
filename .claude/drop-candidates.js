@@ -44,7 +44,8 @@ const { authorOf, surnameKey } = new Function(
 
 /* The bar is app.js's, read rather than restated — the same rule add-sources.js follows. */
 const APP = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
-const SRC_TARGET = (() => { const m = /const SRC_TARGET = (\d+);/.exec(APP); return m ? +m[1] : die("no SRC_TARGET in app.js"); })();
+// …and it is PER CARD (tiered by difficulty) since Sep 2026 — src-target.js slices it and stops if it cannot
+const { srcTargetFor } = require("./src-target.js");
 
 /* The over-cited cards come from check-cards.js's own report, so this can never drift from what that
    tool considers a violation — including its ancient-author and institutional exemptions. */
@@ -111,7 +112,7 @@ for (const f of FAILS) {
   for (const m of mine) stat[m] = { alone: 0, shared: 0 };
   for (const fns of rows) for (const m of mine) if (fns.includes(m)) (fns.length === 1 ? stat[m].alone++ : stat[m].shared++);
   const cheap = mine.filter(m => stat[m].alone === 0);
-  const underBar = srcs.length - 1 < SRC_TARGET;
+  const underBar = srcs.length - 1 < srcTargetFor(c);
   shown++;
   if (cheap.length && !underBar) anyCandidate++;
   if (underBar) blockedByBar++;

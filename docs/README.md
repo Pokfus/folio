@@ -29,6 +29,8 @@ before changing the thing it names.
 
 | file | what it holds |
 |---|---|
+| `reference.md` | **The full CLAUDE.md of Sep 2026, moved here verbatim** (930 KB) when CLAUDE.md was cut to its rules to save tokens. Never read whole — grep it for a name. |
+| `card-authoring.md` | The complete, self-contained spec for writing a card and its glossary term, with a worked example — also the prompt pasted into ChatGPT; its output is loaded by `.claude/import-batch.js`. |
 | `atlas.md` | The globe's render path, the timeline, the eras, the place popup and the Find-it game. |
 | `library-feature.md` | The reading room — the shelf, the bilingual columns, the ink, the highlights, the per-book licence reasoning. |
 | `community-decks.md` | The nine phases of community decks, every guard, and the faults that shipped silently. |
@@ -96,7 +98,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `world-geography-card-plan.md` | World Geography (`geo-world`) — 471 cards, sorted by population | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
 | `russia-geography-card-plan.md` | Russia (`geo-russia`) — 163 cards, sorted by population | `gru-` |
-| `flags-card-plan.md` | The flags (`flags-world`) — a DECK of `geo-world`; 233 cards, the answer side is its twin's | `fl-` |
+| `flags-card-plan.md` | The flags (`flags-world`) — the first deck of the Flags collection (`flags`); 233 cards, the answer side is its twin's | `fl-` |
 | `flags-draw-card-plan.md` | Draw the flags (`flags-draw`) — the Flags deck run backwards; the reader draws the flag and judges themselves | `fd-` |
 | `politics-east-asia-card-plan.md` | Politics: East Asia (`pea`) — a COURSE, planned a lecture at a time | `pea-` |
 
@@ -134,6 +136,8 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `refinements-plan.md` | ~60 items from one request, batched. |
 | `refinements-2026-08-27.md` | Thirty-five items from one request: what shipped, the four faults the fixes uncovered at scale, the four answers to "suggest a way", and a plan for the nine not built. |
 | `mandarin-review.md` | The Mandarin collection measured end to end and then repaired: why a downloaded deck never saw a fix, the cards a speech engine misreads, the polyphones teaching one of two readings, the unanswerable reverse cards, the Idioms deck — and, for the three of twelve items that could not be finished, exactly where they stop and why. |
+| `greece-refinement-audit.md` | The Sep 2026 refinement of all 1,000 Ancient Greece cards: the settled rules, the 105 batches and their state, and the ledger of what each batch changed, refused and read by eye. **Open.** |
+| `greece-chronology.md` | The dates and spellings the Ancient Greece collection commits to, with the pins `greece-audit.js` checks. |
 | `greece-audit-2026-09.md` | The 500-card Ancient Greece audit: what passed, what was fixed, and what is still open — the Athens deck's register and the coverage gaps. **The Rutter concentration, its loudest finding, is CLEARED**: no `gr-` card cites that course website in more than two of its sources. |
 | `learning-science.md` | What the learning-science literature says works and does not, and twenty proposals for Folio. **Thirteen shipped Sep 2026; seven still proposals.** |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |

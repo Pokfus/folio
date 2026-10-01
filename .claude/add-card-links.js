@@ -12,6 +12,11 @@
  * `why` is THREE questions with their own brief answers (Sep 2026, on request) — the retired single
  * `{ q, at }` shape is refused, with the migration named; see card-links.js.
  *
+ * AN ANSWER'S MARKERS ARE CHECKED AGAINST THE CARD'S OWN SOURCE LIST (Sep 2026): every marker must carry
+ * an explicit `data-fn="N"` (a bare one would be numbered ahead of the abstract's and shift them all) and
+ * N must have an entry behind it. A source that ONLY an answer cites has to be added to the list first —
+ * with `add-sources.js`, whose batch can carry the new `why` beside the new list so the two land at once.
+ *
  * WHY THIS EXISTS. `add-card.js` only ever adds a WHOLE new card, and `add-sources.js` touches only
  * `sources` and the abstract. Without this the two fields could be set on nothing but a card written
  * after today, which on a corpus of 1,400 shipped cards makes both features permanently dormant.

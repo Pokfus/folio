@@ -115,7 +115,8 @@ const N_EXTRA = 2;
 // mirrors SRC_MAX in app.js — more citations than this on one study card is a bibliography, not footnotes
 const SRC_MAX = 24;
 // the editorial floor, read out of app.js (SRC_TARGET) so the two can never disagree about what it is
-const SRC_TARGET = (() => { const m = /const SRC_TARGET = (\d+);/.exec(fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8")); return m ? +m[1] : 5; })();
+// …and PER CARD since Sep 2026: tiered by the card's difficulty, 1 → 9 … 5 → 5 (src-target.js slices it)
+const { srcTargetFor } = require("./src-target.js");
 // Every citation carries a link, so a reader can check the claim and follow it further — which also means
 // only publicly reachable scholarship is citable here, and that a page number can always be verified.
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
@@ -139,7 +140,10 @@ const { checkCitationLang } = require("./src-langs.js");
      the quiet failure this whole repo keeps recording: nothing throws, the card ships, and its window
      says "this map could not be loaded" to a reader who has no idea what they were meant to see. */
 const MAP_LAYERS = {
-  "us-states": { file: "us-states.js", global: "US_STATES", what: "state", points: "US_CAPITALS", dotWhat: "state capital" },
+  /* …and a second point table, `us-cities.js`, for the Largest cities deck (Sep 2026): a dot is looked
+     up in the capitals and then in each state's largest non-capital city. app.js does the same through
+     `layerPoint`. */
+  "us-states": { file: "us-states.js", global: "US_STATES", what: "state", points: "US_CAPITALS", pointsAlt: "US_CITIES", pointsAltFile: "us-cities.js", dotWhat: "state capital or largest city" },
   /* The world's own borders, with the capitals in a file of their OWN — `pointsFile` rather than a second
      global inside `file`, because app.js fetches the two as separate bundles for the same reason: a
      locator card reads the shapes and never the table. Keep this table in step with CARD_MAP_LAYERS in
@@ -168,9 +172,30 @@ const MAPQ_MIN = 5, MAPQ_MAX = 20;
 const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;
 const ART_FACTS_MIN = 3;   // an artwork card: artist / maker, date, medium, size, where it is
 
-const cardFile = process.argv[2], deckId = process.argv[3];
-if (!cardFile) { console.error("usage: node .claude/add-card.js <card.json> [deckId]"); process.exit(1); }
-const card = JSON.parse(fs.readFileSync(cardFile, "utf8"));
+/* --replace: REFINE A CARD ALREADY SHIPPED THROUGH EVERY GUARD IN THIS FILE (Sep 2026, out of the Greece
+   refinement audit). The other writers each own one field — add-sources.js the list and the abstract,
+   add-card-links.js the `why`, set-date-line.js the date line, add-questions.js the extra phrasings — and a
+   card rewritten end to end would pass through four of them, each checking only its own field against a
+   card whose other fields are still the OLD ones (a new `why` validated against the old source list, an old
+   question measured beside a new abstract). With --replace the file is a PATCH merged over the card as it
+   stands — a key set to null deletes that field — and the WHOLE merged card is then held to every rule a new
+   card is held to: the question limits, the 5 + 5 shape and the word bar, the difficulty's source bar, the
+   marker rules across abstract and answers, the date line, the locator, the war block. It keeps the card's
+   place in the tree (no deck argument) and writes through card-io's writeCards, so a field removed in the
+   patch is really removed from the heavy half rather than filled back in by the merge. */
+const REPLACE = process.argv.includes("--replace");
+const posArgs = process.argv.slice(2).filter((a) => !a.startsWith("--"));
+const cardFile = posArgs[0], deckId = posArgs[1];
+if (!cardFile) { console.error("usage: node .claude/add-card.js <card.json> [deckId]   |   node .claude/add-card.js <patch.json> --replace"); process.exit(1); }
+const card = (() => {
+  const raw = JSON.parse(fs.readFileSync(cardFile, "utf8"));
+  if (!REPLACE) return raw;
+  const cur = require("./card-io").loadCards().cards.find((c) => c.id === raw.id);
+  if (!cur) { console.error("ERROR: --replace names " + raw.id + ", which is not a card."); process.exit(1); }
+  const merged = JSON.parse(JSON.stringify(cur));
+  for (const k of Object.keys(raw)) { if (raw[k] === null) delete merged[k]; else merged[k] = raw[k]; }
+  return merged;
+})();
 for (const f of FIELDS) if (!(f in card)) { console.error("ERROR: card is missing field:", f); process.exit(1); }
 if (!card.id) { console.error("ERROR: card.id is empty"); process.exit(1); }
 
@@ -214,7 +239,12 @@ if (isMap) {
     if (typeof d !== "string" || !d.trim()) { console.error("ERROR: card.map.dot is empty — it names the " + layer.dotWhat + " to mark."); process.exit(1); }
     const pp = path.join(__dirname, "..", layer.pointsFile || layer.file);
     if (!fs.existsSync(pp)) { console.error("ERROR: the " + m.layer + " layer's point table is missing: " + (layer.pointsFile || layer.file) + " — build it first (see .claude/build-world-capitals.js)."); process.exit(1); }
-    const pts = loadWindow(pp)[layer.points] || {};
+    const pts = Object.assign({}, loadWindow(pp)[layer.points] || {});
+    if (layer.pointsAlt) {
+      const ap = path.join(__dirname, "..", layer.pointsAltFile);
+      if (!fs.existsSync(ap)) { console.error("ERROR: " + layer.pointsAltFile + " is missing — build it first (node .claude/build-us-cities.js)."); process.exit(1); }
+      Object.assign(pts, loadWindow(ap)[layer.pointsAlt] || {});
+    }
     const hit = pts[d];
     if (!hit) {
       const near = Object.keys(pts).filter((n) => n.toLowerCase().startsWith(String(d).slice(0, 3).toLowerCase()));
@@ -229,7 +259,7 @@ if (isMap) {
        A warning rather than a refusal: a future card might legitimately mark a city and ask something
        else about it, and this file refuses only what is provably broken. */
     const ans = String(card.answerText || "").trim();
-    if (ans && ans !== d) console.warn("  ! the dot marks " + JSON.stringify(d) + " but the answer is " + JSON.stringify(ans) + " — check that is deliberate.");
+    if (ans && ans !== d && ans !== hit.n) console.warn("  ! the dot marks " + JSON.stringify(d) + " but the answer is " + JSON.stringify(ans) + " — check that is deliberate.");
   }
   if (Array.isArray(card.questions) && card.questions.length) {
     console.error("ERROR: a map card carries no extra question phrasings — the map is the clue, and \"which " + layer.what + " is shaded?\" has no second angle. Give it `\"questions\": []`.");
@@ -593,6 +623,27 @@ if ("undatable" in card && typeof card.undatable !== "boolean") {
   console.error("ERROR: card.undatable must be true or false — it is the Timeline game's own filter, not a note. Set it true where the answer term names something with no single moment a reader could place it at (see CLAUDE.md), and leave it out otherwise.");
   process.exit(1);
 }
+/* …AND ON A CARD WHOSE KIND IS USUALLY TIMELESS, THE DECISION MAY NOT BE LEFT UNMADE (Sep 2026, on
+   request: "abstract things that have no reasonable start date, like Divination or Sphere of influence,
+   should never appear in the Timeline minigame"). A sweep of the pool found 90 such cards dealt as dated
+   events — every one of them written before anybody asked, which is the failure: the flag was optional,
+   so it was simply never set. A card the games can reach whose LEADING tag is one of these kinds must now
+   say `undatable: true` or `undatable: false` out loud. `false` is a real answer (coinage, phalanx,
+   heliocentrism all have a start a reader would give) and is dropped below as the absent state. The bar
+   is read out of app.js so this cannot come to guard a different pool from the one the game deals. */
+{
+  const bm = /const GAME_MAX_DIFFICULTY = (\d+);/.exec(fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8"));
+  if (!bm) { console.error("ERROR: could not read GAME_MAX_DIFFICULTY out of app.js — the Timeline guard below would be guessing."); process.exit(1); }
+  const TIMELESS_KINDS = new Set(["concept", "practice", "deity", "creature", "religion", "title", "place",
+    "animal", "plant", "school of thought", "technology", "object", "people", "institution"]);
+  const kind = String((card.tags || [])[0] || "");
+  if (card.difficulty <= +bm[1] && TIMELESS_KINDS.has(kind) && !("undatable" in card) && !card.map && !card.artwork && !card.flagCard && !card.drawCard) {
+    console.error("ERROR: this card can reach the Timeline game (difficulty " + card.difficulty + ") and its kind is '" + kind + "', which is often timeless.\n" +
+      "       Decide and say so: `\"undatable\": true` if the answer term has no reasonable start date (a concept, a practice\n" +
+      "       found in every age, a figure of myth, a physical place), or `\"undatable\": false` if a reader would give it one.");
+    process.exit(1);
+  }
+}
 if (card.undatable === false) delete card.undatable;   // the absent state, written out rather than shipped as a field that says nothing
 
 const aWords = qWords(card.abstract);
@@ -652,7 +703,7 @@ if (!card.skipSources) {
   // A NEW card ships at the bar. The backfill pass is allowed to leave an old card short (add-sources.js
   // warns instead), because raising it may be genuinely impossible; a card being written now is not in
   // that position — if five qualifying sources cannot be found for it, its ten sentences are not ready.
-  if (src.length < SRC_TARGET) { console.error("ERROR: card has " + src.length + " source(s) — a new card carries at least " + SRC_TARGET + " (see docs/citation-plan.md, \"How many\"). Ten sentences making ten claims are not honestly covered by fewer."); process.exit(1); }
+  if (src.length < srcTargetFor(card)) { console.error("ERROR: card has " + src.length + " source(s) — a new card at difficulty " + card.difficulty + " carries at least " + srcTargetFor(card) + " (the bar is tiered: 1 → 9, 2 → 8, 3 → 7, 4 → 6, 5 → 5; SRC_TARGET_BY_DIFFICULTY in app.js). Ten sentences making ten claims are not honestly covered by fewer."); process.exit(1); }
   const openN = src.filter(s => /\[Open access\]/.test(s)).length;
   if (openN <= src.length / 2) console.warn("WARNING: only " + openN + " of this card's " + src.length + " sources are labelled [Open access]. The majority of any card's list must be open — a paywalled work earns its place only as the landmark a claim is actually built on.");
   /* A LANGUAGE MARKER MUST BE ONE app.js CAN DRAW (Sep 2026). A non-English citation ends in `[in
@@ -675,8 +726,11 @@ if (!card.skipSources) {
   }
   const bad = marks.filter(n => n < 1 || n > src.length);
   if (bad.length) { console.error("ERROR: card.abstract has a footnote marker for source " + bad[0] + ", but the card has " + src.length + ". A marker with no entry behind it is dropped at render time."); process.exit(1); }
-  const unused = src.map((_, i) => i + 1).filter(n => marks.indexOf(n) < 0);
-  if (unused.length) { console.error("ERROR: source " + unused.join(", ") + " is never referenced from the abstract. Every citation is a footnote to a specific claim — add a <sup class=\"fn\" data-fn=\"" + unused[0] + "\"></sup> marker, or drop the source."); process.exit(1); }
+  /* a Think-it-through answer's markers are references too (Sep 2026): an answer may go beyond the
+     background, and a source it alone rests on is not an unused one. card-links.js checks their numbers. */
+  const whyMarks = Array.isArray(card.why) ? card.why.flatMap(w => [...String((w && w.a) || "").matchAll(/data-fn="(\d+)"/g)].map(m => +m[1])) : [];
+  const unused = src.map((_, i) => i + 1).filter(n => marks.indexOf(n) < 0 && whyMarks.indexOf(n) < 0);
+  if (unused.length) { console.error("ERROR: source " + unused.join(", ") + " is never referenced from the abstract or a Think-it-through answer. Every citation is a footnote to a specific claim — add a <sup class=\"fn\" data-fn=\"" + unused[0] + "\"></sup> marker, or drop the source."); process.exit(1); }
   // markers belong to the ENGLISH abstract and every translation of it, or a language silently loses the apparatus
   if (!card.skipTranslations) {
     // only the languages the card actually carries — an English-only card has nothing to be out of step with
@@ -743,13 +797,16 @@ if (card.locator) {
      transposed pair in an `area` is a region drawn in the wrong ocean and nothing anywhere would throw.
      A `kind` app.js does not know is silently treated as a point, which is the quiet failure this
      refusal exists to turn into a loud one. */
-  const KINDS = ["point", "battle", "river", "range", "region"];
+  /* sea and shelf were missing here for as long as app.js and add-locators.js have drawn them (LOC_KINDS),
+     so this tool refused a card add-locators.js had just written — found re-validating gr-001's Aegean Sea
+     locator through --replace (Sep 2026). A list of kinds lives in three files; keep the three in step. */
+  const KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf"];
   const kind = card.locator.kind == null ? "point" : String(card.locator.kind);
   if (KINDS.indexOf(kind) < 0) {
     console.error("ERROR: card.locator.kind must be one of " + KINDS.join(", ") + " — got " + JSON.stringify(card.locator.kind) + ".");
     process.exit(1);
   }
-  const shape = kind === "region" ? "area" : kind === "range" ? "spine" : null;
+  const shape = kind === "region" || kind === "sea" || kind === "shelf" ? "area" : kind === "range" ? "spine" : null;
   if (shape) {
     const pts = card.locator[shape];
     if (!Array.isArray(pts) || pts.length < 3) {
@@ -764,7 +821,7 @@ if (card.locator) {
   }
   for (const extra of ["area", "spine"]) {
     if (card.locator[extra] && extra !== shape) {
-      console.error("ERROR: card.locator." + extra + " is only read on a locator of kind \"" + (extra === "area" ? "region" : "range") + "\" — this one is \"" + kind + "\", so the shape would be carried in data.js and never drawn.");
+      console.error("ERROR: card.locator." + extra + " is only read on a locator of kind \"" + (extra === "area" ? "region\", \"sea\" or \"shelf" : "range") + "\" — this one is \"" + kind + "\", so the shape would be carried in data.js and never drawn.");
       process.exit(1);
     }
   }
@@ -857,10 +914,11 @@ if (card.i18n && Object.keys(card.i18n).length) {
   delete card.i18n;
 }
 
-const win = loadWindow(dataPath), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
-if (cards.some(c => c.id === card.id)) { console.error("ERROR: duplicate id:", card.id); process.exit(1); }
+const win = REPLACE ? require("./card-io").loadCards() : loadWindow(dataPath);
+const cards = REPLACE ? win.cards : win.CARD_DATA, tree = REPLACE ? win.tree : win.COLLECTION_TREE;
+if (!REPLACE && cards.some(c => c.id === card.id)) { console.error("ERROR: duplicate id:", card.id); process.exit(1); }
 const leaves = []; for (const col of tree.collections) leafDecks(col, leaves);
-const deck = deckId ? leaves.find(d => d.id === deckId) : leaves[0];
+const deck = REPLACE ? leaves.find(d => (d.cardIds || []).indexOf(card.id) >= 0) : deckId ? leaves.find(d => d.id === deckId) : leaves[0];
 if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", leaves.map(d=>d.id).join(", ")); process.exit(1); }
 
 {
@@ -883,6 +941,14 @@ if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", lea
   { const ew = checkWar(card, loadCardYears(appSrc)); if (ew) { console.error(/^ERROR/.test(ew) ? ew : "ERROR: " + ew); process.exit(1); } }
 }
 
+if (REPLACE) {
+  const at = cards.findIndex((c) => c.id === card.id);
+  cards[at] = card;
+  require("./card-io").writeCards(cards, tree);
+  loadWindow(dataPath);
+  console.log("replaced card " + card.id + " in place (deck " + deck.id + ")");
+  process.exit(0);
+}
 cards.push(card);
 deck.cardIds.push(card.id);
 for (const col of tree.collections) col.total = Math.max(col.total || 0, countIds(col));   // keep total >= card count

@@ -35,18 +35,59 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.885", released: "2026-09-24T17:30Z" };
+window.FOLIO_VERSION = { v: "1.902", released: "2026-10-01T09:55Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-10-01",
+    t: "Two hundred and ten new World History cards, from Tikal to serfdom",
+    items: [
+      "<b>Two hundred and ten new cards in the World History collection</b> \u2014 the Americas before Columbus, the Renaissance and the new science, the age of discovery, and the nation-building of the 19th century, with a glossary term for each.",
+      "<b>Eighty new cards in the China collection</b>, from the Eastern Han through the Jin to the Northern Zhou, each with a cited glossary term.",
+      "<b>Twenty new cards in the Visual Art collection</b>, finishing its Ice Age art and opening the first villages, with 19 new glossary terms.",
+      "<b>Twenty more cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions.",
+    ]
+  },
+  {
+    d: "2026-09-25",
+    t: "A new deck of each state's largest city",
+    items: [
+      "<b>Thirty-three new cards in a new Largest cities deck</b> of the United States collection, one for each state whose largest city is not its capital, with thirty-three new glossary terms.",
+      "<b>Twenty new cards in the Ancient Rome collection</b>, from Zenobia's Palmyrene Empire and Diocletian's reforms to Constantine and the Edict of Milan, with eighteen new glossary terms.",
+      "<b>Every state card's dates</b> now say when it became a colony or territory, when it became a state and which number state it was.",
+      "<b>Draw the flags</b>: the floating whiteboard marker no longer draws inside the painting canvas, which now has white among its colours and a slider for the brush size.",
+      "<b>The walkthrough now ends on your first real card</b>: you pick a subject, add it, study a card and open the chest it earns.",
+      "<b>The walkthrough no longer darkens what it points at</b>, and shows the forgetting curve on its step about why cards come back.",
+      "<b>A new badge appears in the middle of the screen</b>, and turning it over opens the chest it earned.",
+      "<b>Your first chest always holds an artefact</b>, and the home page's chest notice is now a single line.",
+      "<b>New daily limits</b>: Folio's own collections default to 2 new cards and 20 reviews a day (4 new on the first day), language decks to 10 and 30.",
+      "<b>Try ten cards</b> now draws ten of a collection's best-known cards at random.",
+      "<b>Opening a glossary term for the first time</b> now says New discovery!, without a count of every term on the site.",
+      "<b>A card still being learned</b> is now labelled Learning on the study page rather than Repeat.",
+      "<b>Corrections to four cards</b> in the World History, Ancient Egypt, Ancient Rome and Russia collections, and to one glossary term.",
+      "<b>Two cards gain an Atlas window</b>, in the Second World War and Ancient Rome collections.",
+      "<b>One card removed from the Korea collection</b>, its place in the plan given to a new subject.",
+    ],
+  },
   {
     d: "2026-09-24",
     t: "The Ancient Greece collection is finished at a thousand cards",
     items: [
+      "<b>Who said it? deals five quotations a day</b> again, up from three.",
+      "<b>Admin \u2192 Quotes lists every Myth or fact? statement</b>, each of which an editor can now edit or remove.",
+      "<b>Timeline</b> no longer asks you to date abstract terms, myths or places that have no real start date, such as divination.",
+      "<b>Flags</b> now sit in a frame cut to their own shape, with no bands of background beside them.",
+      "<b>Flags</b> is a collection of its own again, in the Geography section, holding both flag decks.",
       "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
+      "<b>Thirty cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions.",
       "<b>Seventy new cards in the Ancient Greece collection</b>, on Greek myth, the journey home from Troy and Greek worship from sacrifice to the mysteries, with sixty-three new glossary terms.",
+      "A glossary link that sent the <i>Historia Augusta</i> to a city in Maine now opens an entry on the work itself.",
+      "<b>Sixty new cards in the Ancient Rome collection</b>, from Trajan's eastern war through the Antonines and the Severans into the crisis of the third century, with sixty new glossary terms.",
       "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
+      "<b>A study card now says whether it is NEW, REVIEW or REPEAT</b> on a tablet or desktop, where it used to show only a coloured dot.",
       "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",
-      "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades.",
+      "<b>A deck turns gold only once every card in it is learned</b>, and its bar now shows the cards seen and the cards learned in two shades of blue.",
+      "<b>A finished deck's icon turns green or gold with its row</b>, and a card's three-day dots use the bar's two blues, going deep blue once learned.",
       "<b>Who said it? deals three quotations a day</b>, each explanation cites its sources, and editors can take a quotation out of the game.",
       "<b>The Think it through questions show on every card</b>, not only the first time you meet one.",
       "<b>The home page says plainly when you are not signed in</b>, so progress kept only on this device does not come as a surprise.",
@@ -57,6 +98,7 @@ window.CHANGELOG = [
       "One Ancient Rome card is replaced by a card on the Conference of Naupactus, and twelve cards across eight collections have their dates or wording corrected.",
       "Fifty-three Politics: East Asia cards gain a picture, and a Second World War card gets a better portrait.",
       "Twenty cards gain or redraw their atlas window \u2014 mountain chains as ranges, and empires and cultures as the ground they held.",
+      "<b>The Collections page is back to its list layout</b> \u2014 the magazine-style redesign is withdrawn for now.",
       "<b>Flags is a new deck of World Geography</b> \u2014 two hundred and twenty-nine cards, each showing a flag for you to name.",
       "<b>Draw the flags is a second new deck</b> \u2014 it names a country and you draw its flag on a canvas of its own, with pens, a fill and any colour you like.",
       "<b>A flag card shows the flag once and keeps its source off the card</b> \u2014 the credit is there when you tap the flag to enlarge it.",
