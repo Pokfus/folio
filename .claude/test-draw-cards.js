@@ -584,6 +584,9 @@ const server = http.createServer((req, res) => {
   ok("the first card of the session takes ink", (await read()).px > 200);
 
   const press = async (re) => {
+    /* A first grade earns a badge, and a badge now opens a centred popup over the card, so it is
+       dismissed here rather than left to swallow the next press. */
+    while (await page.$(".chest-pop, .ach-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(250); }
     const b = await page.getByRole("button", { name: re }).first().boundingBox();
     await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2);
     await page.mouse.down(); await page.mouse.up();

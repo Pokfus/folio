@@ -570,7 +570,7 @@ function scrimCheck() {
        firing would put the false failure back. */
     let jammed = 0, ungraded = 0, chests = 0;
     for (let i = 0; i < 6; i++) {
-      if (await page.$(".chest-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(250); chests++; }
+      while (await page.$(".chest-pop, .ach-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(250); chests++; }
       await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
       await page.waitForTimeout(420);
       // hammer it: the second press lands while the first fold is still in flight, which is the case
@@ -602,7 +602,7 @@ function scrimCheck() {
        reports a fold that never started. (It passed before the chest was dismissed above, for the wrong
        reason: round 6's grade was being swallowed, so the bar was still up.) Reveal again first, and clear
        any chest that grade may have bought. */
-    if (await page.$(".chest-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(250); }
+    while (await page.$(".chest-pop, .ach-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(250); }
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(500);
     check("...the grade bar is up again to fold", await page.evaluate(() => {
@@ -1625,7 +1625,7 @@ function scrimCheck() {
       await page.evaluate(() => {
         const st = JSON.parse(localStorage.getItem("folio_v1") || "null");
         if (!st || !st.settings) throw new Error("no saved state to cap: the + was never pressed");
-        st.settings.newPerDay = 1;
+        st.settings.newPerDay = 1; st.settings.limitsCustom = true;
         localStorage.setItem("folio_v1", JSON.stringify(st));
       });
       await page.reload({ waitUntil: "load" });          // …or the in-memory S saves the old figure back
@@ -2756,7 +2756,7 @@ function scrimCheck() {
         if (!raw) return;
         const st = JSON.parse(raw);
         if (!st || !st.settings) return;
-        st.settings.newPerDay = n;
+        st.settings.newPerDay = n; st.settings.limitsCustom = true;
         localStorage.setItem("folio_v1", JSON.stringify(st));
       } catch (e) { /* leave the day as it is; the assertion below will say so */ }
     }, XP_STEP + 2);

@@ -469,6 +469,9 @@ function syntheticPool() {
        overlays, so this is a stacking question and the failure is a click that appears to do nothing. */
     await page.locator(".ar-wdesc .ttip").first().click();
     await page.waitForTimeout(400);
+    /* The first term a reader ever opens earns a badge, and a badge opens its own popup in the middle of
+       the screen — put it away first, since what is asked here is the popup's place against the PLATE. */
+    if (await page.locator(".ach-pop").count()) { await page.locator('.ach-pop [data-act="later"]').click(); await page.waitForTimeout(250); }
     const gloss = await page.evaluate(() => {
       const w = document.querySelector(".gloss-win");
       if (!w) return { open: false };
