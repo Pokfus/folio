@@ -4840,7 +4840,12 @@ window.GLOSSARY = {
 "Gladius": "The gladius was the Latin word for a sword, used above all for the short, two-edged sword of Roman infantry, which Polybius calls a Spanish sword, excellent for thrusting and cutting well with both edges.<sup class=\"fn\" data-fn=\"1\"></sup> Roman soldiers were trained to strike with its point rather than its edge, since a thrust of a few centimetres could kill while a cut was often stopped by armour and bone.<sup class=\"fn\" data-fn=\"2\"></sup> In the late empire Vegetius describes heavier infantry swords called the spatha and the semispathium, names that by his day had replaced the older terms for the infantry sword.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Pilum": "The pilum was the heavy javelin of the Roman legionary, which Polybius describes as a wooden shaft of about three cubits carrying a barbed iron head of the same length, riveted so firmly that the iron would break before it came loose.<sup class=\"fn\" data-fn=\"1\"></sup> Thrown in a volley before close combat, it could pierce shields and pin them together, and because its iron bent it could not be pulled out or thrown back.<sup class=\"fn\" data-fn=\"2\"></sup> In the late empire Vegetius says that the weapon formerly called the pilum had come to be known as the spiculum.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Scutum_(shield)": "The scutum was the large, curved, usually oblong shield of the Roman legionary, which Polybius describes as two planks glued together, faced with canvas and calf-skin, edged with iron and fitted with an iron boss.<sup class=\"fn\" data-fn=\"1\"></sup> Livy believed the Romans adopted it in place of the large round shield called the clipeus once their soldiers began to receive pay.<sup class=\"fn\" data-fn=\"2\"></sup> The best-preserved example, of painted wood and rawhide and decorated with an eagle, winged Victories and a lion, was found in a tower of the city wall at Dura-Europos and dates to the mid-3rd century CE.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Lorica_segmentata": "Lorica segmentata is the modern name for Roman body armour made of articulated iron plates and hoops, worn over a padded garment and protecting the shoulders and upper back but stopping at the hips.<sup class=\"fn\" data-fn=\"1\"></sup> Finds from Kalkriese show that it had been developed under Augustus, and a hoard buried at Corbridge in about 122 to 138 CE first allowed a complete suit to be reconstructed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Sculpture shows it on citizen troops, but mail remained the commonest Roman armour, and plate cuirasses were still in limited use in the mid-3rd century.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Lorica_segmentata": "Lorica segmentata is the modern name for Roman body armour made of articulated iron plates and hoops, worn over a padded garment and protecting the shoulders and upper back but stopping at the hips.<sup class=\"fn\" data-fn=\"1\"></sup> Finds from Kalkriese show that it had been developed under Augustus, and a hoard buried at Corbridge in about 122 to 138 CE first allowed a complete suit to be reconstructed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Sculpture shows it on citizen troops, but mail remained the commonest Roman armour, and plate cuirasses were still in limited use in the mid-3rd century.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Auxilia": "The auxilia were the regular units of the Roman imperial army other than the legions and the guards, organised as infantry cohorts and cavalry wings and recruited for the most part from provincials who did not hold Roman citizenship.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They grew out of the foreign contingents of the late Republic, on which generals came to depend for cavalry and light troops once the Italian allies had been enfranchised, and Augustus made them a permanent part of the army.<sup class=\"fn\" data-fn=\"2\"></sup> Long service brought citizenship on discharge, and as citizens increasingly served in the units the difference in status from the legions faded, effectively vanishing after 212 CE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Ala_(Roman_cavalry_unit)": "An ala, Latin for 'wing', was a regiment of auxiliary cavalry in the Roman imperial army, raised almost always among provincials and serving apart from the legions under a prefect drawn from the equestrian order.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The word earlier named the cavalry on the flanks of a citizen army and then the allied contingents posted on the wings of the legions, and it took its imperial sense once Rome came to rely on foreign horsemen.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A regiment was nominally 500 or 1,000 strong and was divided into 16 or 24 troops called turmae, each commanded by a decurion, the smaller size being commoner in the 1st century.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Cohortes_urbanae": "The cohortes urbanae, or urban cohorts, were a body of troops created by Augustus to keep order in the city of Rome, occupying a place between regular soldiers and an armed police.<sup class=\"fn\" data-fn=\"1\"></sup> They were commanded by the city prefect, whose office Augustus turned from an occasional stand-in for absent consuls into a permanent post with the powers needed to keep the peace.<sup class=\"fn\" data-fn=\"2\"></sup> Tacitus counts three cohorts at Rome under Tiberius, recruited mainly in central Italy and numbered on from the praetorian cohorts, and further cohorts served at Lugdunum in Gaul and elsewhere in the empire.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Vigiles": "The vigiles, or 'watchmen', were the fire brigade and night watch of ancient Rome, organised by Augustus in 6 CE as seven cohorts under an equestrian prefect after a series of fires.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Each cohort guarded two of the city's fourteen regions, patrolling at night with hooks and axes and warning every householder to take care with fire and to keep water to hand.<sup class=\"fn\" data-fn=\"2\"></sup> The corps was at first recruited from freedmen, but by the 3rd century it drew men from other classes too, and its prefect also judged arsonists, burglars and thieves.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Roman_navy": "The Roman navy was the war fleet of the Roman state, built up for particular wars under the Republic, most famously the First Punic War, and organised by Augustus into standing fleets.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The two main fleets were based at Misenum and Ravenna to guard the seas of Italy, with smaller squadrons in the provinces, and they were manned by long-service sailors under equestrian prefects.<sup class=\"fn\" data-fn=\"2\"></sup> The old fleets had largely disappeared as effective forces by the early 4th century, although warships, small local fleets and campaign fleets gathered for particular wars continued in late antiquity.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7451,7 +7456,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ricimer": "d. 472 CE",
 "Odoacer": "d. 493 CE",
 "Ostrogothic_Kingdom": "493–553 CE",
-"Gothic_War_(535–554)": "535–552 CE"
+"Gothic_War_(535–554)": "535–552 CE",
+"Auxilia": "c. 200 BCE – 400 CE",
+"Ala_(Roman_cavalry_unit)": "c. 50 BCE – 400 CE",
+"Cohortes_urbanae": "c. 13 BCE – 300 CE",
+"Vigiles": "6 – 300 CE",
+"Roman_navy": "c. 260 BCE – 476 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10231,7 +10241,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Roman_military_diploma": ["military diploma"],
 "Gothic_War_(535–554)": ["Gothic War"],
 "Classis_Misenensis": ["Misene fleet"],
-"Scutum_(shield)": ["scutum"]
+"Scutum_(shield)": ["scutum"],
+"Ala_(Roman_cavalry_unit)": ["ala","alae"],
+"Cohortes_urbanae": ["urban cohorts","urban cohort","city cohorts"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10284,7 +10296,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Dominate": true,
 "Julian's_School_Edict": true,
 "The_City_of_God": true,
-"Gothic_War_(535–554)": true
+"Gothic_War_(535–554)": true,
+"Ala_(Roman_cavalry_unit)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -15128,7 +15141,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Gladius": ["object","warfare","history","rome"],
 "Pilum": ["object","warfare","history","rome"],
 "Scutum_(shield)": ["object","warfare","history","rome"],
-"Lorica_segmentata": ["object","warfare","history","rome"]
+"Lorica_segmentata": ["object","warfare","history","rome"],
+"Auxilia": ["institution","warfare","history","rome"],
+"Ala_(Roman_cavalry_unit)": ["institution","warfare","history","rome"],
+"Cohortes_urbanae": ["institution","warfare","history","rome"],
+"Vigiles": ["institution","history","rome"],
+"Roman_navy": ["institution","warfare","history","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
