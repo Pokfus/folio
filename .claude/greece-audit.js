@@ -38,11 +38,23 @@
  * counter and IMPERIAL_PAREN are add-card.js's, sliced the same way.
  *
  * Exits 0 whatever it finds: it is the batch's report, not a gate. Zero dependencies. Not part of the site.
+ *
+ * ONE AUDIT, SEVERAL COLLECTIONS (Oct 2026, the World History audit). The rules are the same settled rules
+ * for every collection refined this way, so a second collection does not get a second copy of this file:
+ * `wh-audit.js` sets `global.AUDIT_CFG` (prefix, chronology file, a few collection-specific additions)
+ * and requires this one. Run directly, the defaults below are the Greece audit, unchanged.
  */
 "use strict";
 const fs = require("fs"), path = require("path");
 const ROOT = path.join(__dirname, "..");
 const die = (m) => { console.error("ERROR: " + m); process.exit(2); };
+const CFG = Object.assign({
+  prefix: "gr", chronology: "greece-chronology.md", name: "greece-audit", max: 1000,
+  extraQDate: null,        // a further pattern a question may not carry (deep time: "million years ago")
+  extraPlaceKinds: [],     // further tag-1 kinds that ought to carry a locator
+  extraChecks: null,       // (card, finding, out) => void, for a collection's own mechanical rules
+}, global.AUDIT_CFG || {});
+const ID_RE = new RegExp("^" + CFG.prefix + "-\\d+$");
 
 /* ---------- slices ---------- */
 const ADD = fs.readFileSync(path.join(__dirname, "add-card.js"), "utf8");
@@ -77,12 +89,12 @@ const { loadCards } = require("./card-io.js");
 
 /* ---------- the chronology pins ---------- */
 function loadPins() {
-  const f = path.join(ROOT, "docs", "greece-chronology.md");
+  const f = path.join(ROOT, "docs", CFG.chronology);
   if (!fs.existsSync(f)) return {};
   const m = /```chronology-pins\n([\s\S]*?)```/.exec(fs.readFileSync(f, "utf8"));
   const out = {};
   if (m) m[1].split("\n").forEach((l) => {
-    const r = /^(gr-\d+)\s*:\s*(.+)$/.exec(l.trim());
+    const r = new RegExp("^(" + CFG.prefix + "-\\d+)\\s*:\\s*(.+)$").exec(l.trim());
     if (r) out[r[1]] = r[2].split(/\s*;\s*/).filter(Boolean);
   });
   return out;
@@ -93,13 +105,13 @@ const PINS = loadPins();
 const args = process.argv.slice(2);
 const arg = (k) => { const a = args.find((x) => x.startsWith("--" + k + "=")); return a ? a.slice(k.length + 3) : null; };
 const SUMMARY = args.includes("--summary"), ALL = args.includes("--all");
-const num = (id) => +String(id).replace(/^gr-/, "");
-let lo = 1, hi = 1000;
+const num = (id) => +String(id).replace(new RegExp("^" + CFG.prefix + "-"), "");
+let lo = 1, hi = CFG.max;
 if (arg("range")) { const [a, b] = arg("range").split(":"); lo = num(a); hi = num(b || a); }
 if (arg("card")) { lo = hi = num(arg("card")); }
 
 const { cards } = loadCards();
-const gr = cards.filter((c) => /^gr-\d+$/.test(c.id));
+const gr = cards.filter((c) => ID_RE.test(c.id));
 const byId = new Map(gr.map((c) => [c.id, c]));
 const scope = gr.filter((c) => num(c.id) >= lo && num(c.id) <= hi).sort((a, b) => num(a.id) - num(b.id));
 
@@ -114,7 +126,7 @@ const content = (s) => new Set(toks(String(s).replace(/<span class="blank">_+<\/
 function jacc(a, b) { let k = 0; a.forEach((w) => { if (b.has(w)) k++; }); return k / Math.max(1, Math.min(a.size, b.size)); }
 const QDATE = /\b\d{3,4}\b|\bB\.?C\.?E?\b|\bC\.?E\.?\b|\bA\.?D\.?\b|\b\w*centur\w*|\b\w*millenni\w*|\bdecades?\b|\b\d0s\b/i;
 const dateRows = (html) => [...String(html || "").matchAll(/<span class="dt-(k|v)(?: dt-sub)?">([^<]*)<\/span>/g)].map((m) => ({ k: m[1], t: m[2] }));
-const PLACE_KINDS = new Set(["place", "site", "city", "building", "battle", "island", "sanctuary", "palace", "settlement", "tomb", "monument"]);
+const PLACE_KINDS = new Set(["place", "site", "city", "building", "battle", "island", "sanctuary", "palace", "settlement", "tomb", "monument"].concat(CFG.extraPlaceKinds));
 const ALL_IMG = new Map();
 for (const c of cards) if (c.image && c.image.src) {
   const k = decodeURIComponent(String(c.image.src).split("/").pop()).replace(/^\d+px-/, "").replace(/_/g, " ").toLowerCase();
@@ -139,7 +151,7 @@ function audit(c) {
     if (sent > 1) finding(out, "Q.sentence", "phrasing " + (i + 1) + " looks like more than one sentence");
     if (/_{3,}\s*[.?!]?\s*$/.test(p)) finding(out, "Q.blank-end", "phrasing " + (i + 1) + " ends on the blank");
     if (!/class="blank"/.test(q)) finding(out, "Q.no-blank", "phrasing " + (i + 1) + " has no blank");
-    const d = QDATE.exec(p.replace(/_+/g, ""));
+    const d = QDATE.exec(p.replace(/_+/g, "")) || (CFG.extraQDate && CFG.extraQDate.exec(p.replace(/_+/g, "")));
     if (d) finding(out, "Q.date", "phrasing " + (i + 1) + " carries a date: \"" + d[0] + "\"");
   });
   // the phrasing most like one on ANOTHER card — a confusability lead, never a verdict
@@ -268,6 +280,7 @@ function audit(c) {
   /* L */
   const kind = (c.tags || [])[0];
   if (PLACE_KINDS.has(kind) && !c.locator && !c.war) finding(out, "L.missing", "a " + kind + " card with no locator");
+  if (CFG.extraChecks) CFG.extraChecks(c, (rule, msg) => finding(out, rule, msg), byId);
   return out;
 }
 
@@ -281,7 +294,7 @@ if (!SUMMARY) {
   }
   console.log("");
 }
-console.log("greece-audit: " + scope.length + " card(s), " + results.filter((r) => !r.f.length).length + " with no finding");
+console.log(CFG.name + ": " + scope.length + " card(s), " + results.filter((r) => !r.f.length).length + " with no finding");
 Object.keys(RULES).sort().forEach((k) => {
   const n = results.filter((r) => r.f.some(([x]) => x === k)).length;
   console.log("  " + k.padEnd(18) + n + " card(s)");
