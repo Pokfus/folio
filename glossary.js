@@ -4854,7 +4854,12 @@ window.GLOSSARY = {
 "Caligae": "Caligae were the heavy leather boots of Roman soldiers, worn by the rank and file and by centurions but not by senior officers, with soles thickly studded with iron hobnails.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The boot came to stand for the common soldier, so that the rank and file could be called caligati, and a man who rose to high office from the caliga had begun his career in the ranks.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers mention the nails as a hazard, from Josephus's centurion slipping on a marble pavement at Jerusalem to Juvenal's soldier treading heavily on a civilian's toe in a crowded street.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Roman_military_standards": "Roman military standards were the poles and emblems that units of the Roman army followed in battle and on the march, called in Latin signa, with the eagle as the first and most important standard of the legion.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Standard-bearers were picked men, chosen for honesty and literacy, and Vegetius says they also kept the accounts of the soldiers' savings, which were deposited with the standards.<sup class=\"fn\" data-fn=\"2\"></sup> The standards were objects of worship, housed in a shrine in a permanent camp, and Romans held it a point of honour to keep them out of enemy hands.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Aquila_(Roman)": "The aquila was the eagle standard of a Roman legion, a golden eagle carried on a long shaft with a spike at its foot, kept in a small shrine and moved from winter quarters only when the whole army marched.<sup class=\"fn\" data-fn=\"2\"></sup> Pliny says that the eagle had been one of five animal standards until Marius, in his second consulship, abolished the others and made it the legions' sole emblem.<sup class=\"fn\" data-fn=\"1\"></sup> Tacitus describes the recovery of an eagle lost with Varus from a grove in Germania, and has Germanicus hail real eagles in flight as the guardian spirits of the legions.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Vexillum": "The vexillum was a Roman military flag of cloth carried on a pole, its name a diminutive of the Latin velum, and in particular the red flag raised on a general's tent as the signal for marching or battle.<sup class=\"fn\" data-fn=\"1\"></sup> The word could also mean the company or troop of men serving under such a flag, and late Roman cavalry units were called vexillationes after their cloth banners.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Under Augustus legionary veterans kept on after discharge served under a vexillum of their own, spared routine duties but bound to help repel an enemy.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Vexillum": "The vexillum was a Roman military flag of cloth carried on a pole, its name a diminutive of the Latin velum, and in particular the red flag raised on a general's tent as the signal for marching or battle.<sup class=\"fn\" data-fn=\"1\"></sup> The word could also mean the company or troop of men serving under such a flag, and late Roman cavalry units were called vexillationes after their cloth banners.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Under Augustus legionary veterans kept on after discharge served under a vexillum of their own, spared routine duties but bound to help repel an enemy.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Disciplina": "Disciplina was the Latin word for training and orderly obedience, and in the army, as disciplina militaris, it meant the whole system of drill, routine and punishment that bound soldiers to their commanders.<sup class=\"fn\" data-fn=\"1\"></sup> Roman writers treated it as a cause of the state's success, and Livy has a consul execute his own son for breaking it by fighting against orders, though the son had won his duel.<sup class=\"fn\" data-fn=\"2\"></sup> By the late 2nd or early 3rd century CE it was also worshipped as a divine power, and units in northern Britain set up altars to the Discipline of the Emperor.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Decimation_(punishment)": "Decimation was a military punishment, best known from the Roman army, in which a unit guilty of cowardice or desertion drew lots and every tenth man was put to death, usually by being beaten by his comrades.<sup class=\"fn\" data-fn=\"1\"></sup> The survivors were commonly put on barley rations instead of wheat and made to camp outside the fortified lines, so that the shame fell on everyone.<sup class=\"fn\" data-fn=\"1\"></sup> It was used only occasionally, being revived by commanders such as Crassus after long disuse, and it is recorded at intervals in the civil wars of the late Republic and under the emperors.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Dona_militaria": "Dona militaria were the military decorations of the Roman army, awarded by a general before the assembled troops, together with a speech praising each man's deeds, to soldiers who had shown conspicuous courage.<sup class=\"fn\" data-fn=\"1\"></sup> In the Republic they included spears, cups, horse trappings and gold crowns, and later lists add twisted gold neck-rings called torques, armlets and metal discs called phalerae, worn as public and lasting marks of bravery.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Soldiers' tombstones and memorials often recorded the decorations a man had won, and some carved portraits show the dead soldier wearing his torques, crowns and phalerae on his armour.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Civic_Crown": "The civic crown, in Latin corona civica, was a Roman military decoration of oak leaves given to a citizen who had saved the life of a fellow citizen in battle.<sup class=\"fn\" data-fn=\"1\"></sup> It was presented by the man whose life had been saved, and the holder could wear it for life and was honoured at public games, while its plain leaves set it apart from the gold crowns of other awards.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> From the reign of Augustus it was also a symbol of the emperor, fixed above his door as the saviour of the citizens.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Ovation": "An ovation was the lesser form of the Roman triumph, granted when a victory did not qualify for the full honour, because war had not been formally declared, the enemy was thought unworthy, or the success had cost little blood.<sup class=\"fn\" data-fn=\"1\"></sup> The general entered the city on foot or, in later times, on horseback, in a magistrate's toga and a crown of myrtle, to the sound of flutes rather than trumpets.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient writers disagreed about the origin of the name, deriving it either from the sheep sacrificed at its close in place of an ox or from a shout of joy.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10259,7 +10264,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Caligae": ["caliga"],
 "Roman_military_standards": ["signum"],
 "Aquila_(Roman)": ["aquila"],
-"Vexillum": ["vexilla"]
+"Vexillum": ["vexilla"],
+"Disciplina": ["disciplina militaris"],
+"Decimation_(punishment)": ["decimation"],
+"Civic_Crown": ["corona civica"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10315,7 +10323,9 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Gothic_War_(535–554)": true,
 "Ala_(Roman_cavalry_unit)": true,
 "Cohort_(military_unit)": true,
-"Aquila_(Roman)": true
+"Aquila_(Roman)": true,
+"Disciplina": true,
+"Ovation": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -15173,7 +15183,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Caligae": ["object","warfare","history","rome","italy","classical"],
 "Roman_military_standards": ["object","warfare","religion","history","rome"],
 "Aquila_(Roman)": ["object","warfare","religion","history","rome"],
-"Vexillum": ["object","warfare","history","rome","italy","classical"]
+"Vexillum": ["object","warfare","history","rome","italy","classical"],
+"Disciplina": ["concept","warfare","religion","rome","classical"],
+"Decimation_(punishment)": ["practice","warfare","history","rome"],
+"Dona_militaria": ["practice","warfare","history","rome"],
+"Civic_Crown": ["object","warfare","history","rome"],
+"Ovation": ["practice","warfare","religion","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
