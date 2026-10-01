@@ -62,7 +62,9 @@ async function atlas(page, base, ms, tab) {
   await page.evaluate(() => { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); });
   await page.goto(base + "#map", { waitUntil: "load" });
   await page.waitForTimeout(ms || 4500);
-  const want = tab || "world";
+  // the world atlas tab was removed (Oct 2026, on request); the page opens on the reader's own, and "full"
+  // is the only other tab there is
+  const want = tab || "mine";
   const sel = '[data-atlastab="' + want + '"]';
   const need = await page.evaluate((s) => { const b = document.querySelector(s); return !!b && !b.classList.contains("on"); }, sel);
   if (need) { await page.click(sel); await page.waitForTimeout(2200); }

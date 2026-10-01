@@ -227,11 +227,12 @@ const check = (name, ok, extra) => {
     await pg.goto(base + "#map", { waitUntil: "load" });
     await pg.reload({ waitUntil: "load" });
     await pg.waitForTimeout(9000);
-    // the page opens on the reader's OWN atlas, which draws no country names at all
-    await pg.evaluate(() => { const w = document.querySelector('[data-atlastab="world"]'); if (w) w.click(); });
+    /* the page opens on the reader's OWN atlas, which is empty for a reader with no progress — so the FULL
+       one, every card's places with their names (Oct 2026: the world atlas tab, whose country names this
+       measured, was removed on request). A place's name is drawn in the same `LBL_TEXT` ink and through
+       the same `mapFs`, so it answers the text-size question the country names did. */
+    await pg.evaluate(() => { const w = document.querySelector('[data-atlastab="full"]'); if (w) w.click(); });
     await pg.waitForTimeout(4000);
-    await pg.evaluate(() => { const t = document.querySelector("#countryToggle"); if (t && !t.checked) t.click(); });
-    await pg.waitForTimeout(3000);
     const r = await pg.evaluate(() => {
       const cv = document.getElementById("globe");
       if (!cv) return null;
@@ -247,7 +248,7 @@ const check = (name, ok, extra) => {
     return r;
   };
   const inkTiny = await nameInk("tiny"), inkMed = await nameInk("medium"), inkHuge = await nameInk("huge");
-  check("the Atlas writes its country names at all", inkMed > 200, "ink " + inkMed);
+  check("the Atlas writes its place names at all", inkMed > 200, "ink " + inkMed);
   check("...bigger when the reader asks for Very large", inkHuge > inkMed * 1.5, JSON.stringify({ medium: inkMed, huge: inkHuge }));
   check("...and smaller at Very small", inkTiny < inkMed * 0.75, JSON.stringify({ tiny: inkTiny, medium: inkMed }));
 

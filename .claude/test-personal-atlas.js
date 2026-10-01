@@ -50,15 +50,20 @@ const PX = `(() => {
      exactly the pair of failures section 7 and section 5 are each about. Green is tested the way red is,
      on the DOMINANT channel rather than on a value, so it survives the theme's own light and dark
      paper without either count being written down twice. */
-  let mine = 0, marks = 0, green = 0, label = 0;
+  /* …AND A PEOPLE'S WASH IS BLUE SINCE OCT 2026 (on request), its green going to nobody but a war's
+     victors. The blue is an INDIGO, counted where blue leads green by a wide margin and green does not
+     lead red by much — which the light sea (#b3ebff), the rivers and the water labels all fail, each of
+     them a cyan whose green is far above its red. */
+  let mine = 0, marks = 0, green = 0, label = 0, blue = 0;
   for (let i = 0; i < d.length; i += 4) {
     if (d[i + 3] < 8) continue;
     if (Math.abs(d[i] - L[0]) <= 3 && Math.abs(d[i + 1] - L[1]) <= 3 && Math.abs(d[i + 2] - L[2]) <= 3) mine++;
     if (d[i] > 140 && d[i] - d[i + 1] > 45 && d[i] - d[i + 2] > 45) marks++;
     if (d[i + 1] - d[i] > 22 && d[i + 1] - d[i + 2] > 22) green++;
+    if (d[i + 2] - d[i + 1] > 40 && d[i + 1] - d[i] < 40) blue++;
     if (Math.abs(d[i] - 34) < 14 && Math.abs(d[i + 1] - 24) < 14 && Math.abs(d[i + 2] - 8) < 16) label++;
   }
-  return { mine: mine, marks: marks, green: green, label: label };
+  return { mine: mine, marks: marks, green: green, label: label, blue: blue };
 })()`;
 
 const seed = (ids, home) => `localStorage.setItem("folio_v1", JSON.stringify({
@@ -193,13 +198,27 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   const px3 = await page.evaluate(PX);
   check("...and in a century BEFORE it stood, nothing of the reader's is drawn", px3.marks === 0 && px3.mine === 0, JSON.stringify(px3));
 
-  /* ---------- 5) the world atlas is still the world atlas ---------- */
-  console.log("\n5) the other tab");
-  await page.evaluate(() => { document.querySelector('[data-atlastab="world"]').click(); });
+  /* ---------- 5) the full atlas ---------- */
+  /* Oct 2026, on request: "Remove the current World Atlas from the website … The toggle … should instead
+     toggle between Personal and Full, with Full including all locations from all atlas boxes on all
+     cards, including the ones the user hasn't unlocked yet". The full tab is the SAME globe over every
+     card's register, so what it must show is the reader's own marks and more — measured at the present,
+     where the reader's own few marks are drawn and the corpus's thousands are too. */
+  console.log("\n5) the full atlas");
+  check("there is no world atlas tab any more", await page.evaluate(() => !document.querySelector('[data-atlastab="world"]')));
+  await setYear(new Date().getFullYear());
+  const minePx = await page.evaluate(PX);
+  await page.evaluate(() => { document.querySelector('[data-atlastab="full"]').click(); });
   await page.waitForTimeout(3000);
-  check("switching tab keeps the reader there rather than resetting", await page.$eval('[data-atlastab="world"]', (e) => e.classList.contains("on")));
-  check("...and gives the legend back", await page.evaluate(() => !document.getElementById("globeLegend").hidden));
-  check("...and the world rail, which starts at 1000 BCE", (await page.$$eval(".tl-tick", (els) => els.map((e) => e.textContent)))[0] === "1000 BCE");
+  check("switching tab keeps the reader there rather than resetting", await page.$eval('[data-atlastab="full"]', (e) => e.classList.contains("on")));
+  check("...on the personal globe still: no legend and no search",
+    await page.evaluate(() => document.getElementById("globeLegend").hidden && document.getElementById("globeSearch").hidden));
+  check("...and the personal rail, from 4000 BCE", (await page.$$eval(".tl-tick", (els) => els.map((e) => e.textContent)))[0] === "4000 BCE");
+  await setYear(new Date().getFullYear());
+  const fullPx = await page.evaluate(PX);
+  check("...drawing places the reader has NOT studied as well as their own",
+    fullPx.marks > minePx.marks && fullPx.mine > minePx.mine, JSON.stringify({ mine: minePx, full: fullPx }));
+  check("...and never the empty-register note", await page.evaluate(() => !document.getElementById("atlasEmpty")));
   /* NAVIGATING to the Atlas resets the tab; a repaint must not. That split is what "opening the page
      defaults to this tab" means, and a setting would have got it wrong in the other direction. */
   await page.evaluate(() => { location.hash = "#home"; });
@@ -325,11 +344,20 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   await freshPage(["cnh-047"]);   // the Hongshan culture, c. 4500–3000 BCE
   await setYear(-3800);
   const inSpan = await page.evaluate(PX);
-  check("a culture is on the globe inside its own span", inSpan.green > 0, JSON.stringify(inSpan));
-  check("...in green rather than in the marks' red", inSpan.green > inSpan.marks, JSON.stringify(inSpan));
+  check("a culture is on the globe inside its own span", inSpan.blue > 0, JSON.stringify(inSpan));
+  check("...in blue rather than in the marks' red or the old green", inSpan.blue > inSpan.marks && inSpan.green === 0, JSON.stringify(inSpan));
   await setYear(-1000);
   const after = await page.evaluate(PX);
-  check("...and gone from it after the culture ends", after.green === 0, JSON.stringify(after));
+  check("...and gone from it after the culture ends", after.blue === 0, JSON.stringify(after));
+  /* A HISTORICAL STATE IS DRAWN AS A COUNTRY IS (Oct 2026, on request: "Historical states which currently
+     appear as green areas should instead be displayed the same way as modern countries"). So it adds the
+     earned LAND shade — the `mine` count, which is what an unlocked modern country is measured by in
+     section 2 — and no culture's blue or old green at all. */
+  await freshPage(["gr-381"]);   // the Achaemenid Empire, c. 550–330 BCE, tagged `state`
+  await setYear(-450);
+  const st = await page.evaluate(PX);
+  check("a historical state is painted in the earned land shade, as a country is", st.mine > 400, JSON.stringify(st));
+  check("...and not as a people's wash", st.blue === 0 && st.green === 0, JSON.stringify(st));
 
   /* A RIVER IS NEITHER A DOT NOR A NAME (Sep 2026, on request: "'Tiber' should not have a dot or
      label"). It is drawn already, as one of the Atlas's own blue threads, so a dot on one pins a 400 km

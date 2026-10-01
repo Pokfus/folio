@@ -810,6 +810,48 @@ year is reachable they mark nothing while suggesting the pin will jump to them. 
 declared starts, each with its own ticks — a rail from 1900 wants decades where one from 4000 BCE wants
 millennia — and it is closure state rather than a setting, like the glossary record's sort.
 
+**OCT 2026: THE WORLD ATLAS TAB IS GONE, AND THE SECOND TAB IS THE FULL ATLAS** (`atlasTab` "mine" |
+"full", `_atlasFull`, `atlasRegisterAll(full)`, `_atlasFullCache`; on request: "Remove the current World
+Atlas from the website; we'll only use the personal atlas from now on. The toggle … should instead toggle
+between Personal and Full, with Full including all locations from all atlas boxes on all cards, including
+the ones the user hasn't unlocked yet"). Five decisions.
+**THE FULL TAB IS THE SAME GLOBE OVER A DIFFERENT REGISTER.** `atlasRegisterAll(true)` runs the one
+`atlasRegister` over every card in `CARDS` instead of over `S.cards`, so a place on the full globe is drawn
+exactly as it will be on the reader's own once earned, and nothing else in the draw path knows which tab it
+is on: `atlasUnlocks()` reads the module-level `_atlasFull`, which `PAGES.map` sets on every render. Its
+cache is keyed on the corpus size, not the progress count, and is busted by `uCacheBust` beside the
+reader's. **`atlasPlaceIsNew` passes `false` explicitly** — it asks about the READER's register, and over
+the full one nothing would ever be new. The empty-register note is not drawn on the full tab.
+**THE WORLD ATLAS'S DRAW PATH STAYS IN `PAGES.map`**, unreachable from any tab: the Find-it game is built
+on it (`GAME` still sets `MINE` false). Deleting it would be deleting the game. `#map/<year>/<slug>` and a
+glossary term's map marker already landed on the personal tab before this change and still do.
+**WHERE MARKS CROWD, THE EASIER CARD'S MARK SURVIVES** (`mineDiff`, in `mineDotsShown` and
+`mineWaterShown`; on request: "the cards difficulty should be guiding. Easier cards locations should be
+shown when zoomed out, and more difficult ones appear when zooming in"). The thinning and the label
+placement were already ranked passes in which first place wins; the rank now leads with
+`cardDifficultyRank` — the rating the card's own stars show, community once it has `CARD_STATS_MIN`
+answers, editorial before — then the capital/province/place rank, then the title. An unrated card ranks
+last. Cached per page by card id, since it runs every frame over every mark and the full tab has thousands.
+**A HISTORICAL STATE IS DRAWN AS A COUNTRY; A PEOPLE OR CULTURE IS A BLUE WASH** (`MINE_STATE`, the
+`state` flag on an `area` mark, `drawMineAreas`; on request: "Historical states which currently appear as
+green areas should instead be displayed the same way as modern countries (except when in a war).
+Historical areas which are not states (such as peoples or cultures) should be blue instead of green").
+The card's first kind tag decides: `state`, `dynasty`, `empire` → the earned `land` shade and a solid
+`border` edge, the selection gold on a click, exactly as `mineShapes` paints an unlocked country;
+`culture`, `people`, `civilisation` → the dashed wash, now in an INDIGO (`mineAreaFill` / `mineAreaLine`),
+deliberately not the rivers' or seas' blue. "Except when in a war" needs no rule: `drawMineWar` runs after
+`drawMineAreas`, so a state that is a side that year is shaded in the war's colours. Green now means only a
+war's victors on this globe.
+**THE POPUP'S TAP GUARD COVERS PICTURES, FOOTNOTES AND LINKS TOO** (on request: "sometimes the split
+second the popup opens, my finger already touches a gloss term or image in that popup and opens it").
+`CP_GLOSS_ARM_MS` guarded `.ttip` alone; the capture listener now also swallows clicks on `IMG_OPEN_SEL`,
+`sup.fn` and links in the prose during the window, and `showMinePopup` re-arms it when the card's lazy
+heavy half lands — which can be after the panel opened, so the window started before there was anything
+under the finger. The panel's own chrome (close, chevron, section heads) is never held.
+**THE BORDERS THEMSELVES ARE BEING AUDITED** — every state, people and war the globe draws, the sources
+that could replace each authored polygon with dated, changing borders, and the order to do them in:
+📖 `docs/atlas-borders-audit.md`.
+
 ---
 
 ## Generating timeline eras — the section as it stood in CLAUDE.md (2026-09-12)

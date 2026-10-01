@@ -686,6 +686,9 @@
      `applyAdminEdits`, so a `let` declared beside `atlasUnlocks` 31,000 lines down would be in its
      temporal dead zone and throw on the way in. */
   let _atlasMineCache = null;
+  /* THE FULL ATLAS (Oct 2026) keeps its own register beside the reader's, for the same TDZ reason and
+     busted with it; `_atlasFull` is which of the two the Atlas page is drawing — see `atlasUnlocks`. */
+  let _atlasFullCache = null, _atlasFull = false;
   /* HOW OFTEN A DECK USES ITS OWN WORDS (`_wordFreq`; Sep 2026, on request that a deck be ordered by
      frequency rather than by the alphabet). See `uDeckWordFreq` for what it counts and what it cannot;
      declared here for the reason every cache above it is, and busted with them because a deck remounted
@@ -696,7 +699,7 @@
      because mounting or deleting a community deck is exactly what takes one off the pending list. It is
      also busted by `deckSyncWrite`, the sync record being the other half of the answer. */
   let _sharedPend = null;
-  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; _atlasMineCache = null; _wordFreq = new Map(); _answerIdx = null; _sharedPend = null; }
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; _atlasMineCache = null; _atlasFullCache = null; _wordFreq = new Map(); _answerIdx = null; _sharedPend = null; }
   let _byteEnc = null;
   function cardBytes(id) {
     let n = _cardBytes.get(id);
@@ -36399,6 +36402,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      unlocked before `worldcaps` lands appears when it lands rather than being dropped. */
   // the card kinds that are a POLITY OR A PEOPLE rather than a piece of geography — see the region branch below
   const MINE_POLITY = new Set(["culture", "people", "state", "dynasty", "empire", "civilisation"]);
+  // …and the ones among them that are a STATE, drawn as a country rather than as a people's wash (Oct 2026)
+  const MINE_STATE = new Set(["state", "dynasty", "empire"]);
   /* WHAT ONE CARD PUTS ON THE PERSONAL ATLAS, lifted out of `atlasUnlocks` so there is ONE definition of
      it (Sep 2026). Two callers need the answer and the rule is long: `atlasUnlocks` asks it of every card
      the reader has a record for, and `atlasPlaceIsNew` asks it of the card in front of them, to decide
@@ -36479,9 +36484,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // a SHELF is judged as a region here: Beringia and Doggerland are `place`, so both fall to the
       // polity test below and register nothing, which is what the "no regions on this globe" request asks
       if (loc.kind === "region" || loc.kind === "shelf") {
-        if (!loc.area || !MINE_POLITY.has(String((c.tags || [])[0] || "").toLowerCase())) return;
+        const pol = String((c.tags || [])[0] || "").toLowerCase();
+        if (!loc.area || !MINE_POLITY.has(pol)) return;
         const y1 = ys.length ? Math.max.apply(null, ys) : null;
-        out.marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1 , coll: coll });
+        // `state` says whether it is drawn as a country or as a people's wash — see `drawMineAreas`
+        out.marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1 , coll: coll, state: MINE_STATE.has(pol) });
         return;
       }
       /* WATER IS NAMED, NOT MARKED (Sep 2026, on request: the Aegean Bronze Age card should "add its
@@ -36509,17 +36516,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* THE WHOLE REGISTER — every place the reader has earned, whatever they have chosen to look at. It is
      what `atlasPlaceIsNew` asks (a place hidden behind a collection toggle is still one you have) and
      what the collection list on the Atlas is built from. `atlasUnlocks` is the FILTERED view of it. */
-  function atlasRegisterAll() {
-    const key = Object.keys(S.cards || {}).length + "|" + ((window.WORLD_GEO || []).length) + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length);
-    if (_atlasMineCache && _atlasMineCache.key === key) return _atlasMineCache.v;
+  /* THE FULL REGISTER (Oct 2026, on request: the Atlas's toggle "should instead toggle between Personal
+     and Full, with Full including all locations from all atlas boxes on all cards, including the ones the
+     user hasn't unlocked yet"). It is the same pass over EVERY shipped card instead of over `S.cards`,
+     which is the whole of the difference: one `atlasRegister`, so a place is drawn on the full globe
+     exactly as it would be on the reader's own once earned — and nothing the reader does changes it, so
+     its key carries the corpus size rather than the progress count. A community card is not in `CARDS`
+     and so names nothing here either. `full` is passed by `atlasUnlocks` alone; `atlasPlaceIsNew` asks
+     about the READER's register and must never see this one, or nothing would ever be new. */
+  function atlasRegisterAll(full) {
+    const shapes = ((window.WORLD_GEO || []).length) + "|" + ((window.US_STATES || []).length) + "|" + ((window.CHINA_PROVINCES || []).length);
+    const key = (full ? "F" + CARDS.length : Object.keys(S.cards || {}).length) + "|" + shapes;
+    const hit = full ? _atlasFullCache : _atlasMineCache;
+    if (hit && hit.key === key) return hit.v;
     const out = { names: new Map(), subdiv: [], marks: [], need: new Set() };
-    Object.keys(S.cards || {}).forEach((cid) => {
+    (full ? CARDS.map((c) => c.id) : Object.keys(S.cards || {})).forEach((cid) => {
       const c = CARD_BY_ID[cid];
       if (!c) return;                                   // a community card names no place on this globe
       atlasRegister(cid, c, out);
     });
     const v = { names: out.names, subdiv: out.subdiv, marks: out.marks, need: out.need, count: out.names.size + out.subdiv.length + out.marks.length };
-    _atlasMineCache = { key: key, v: v };
+    if (full) _atlasFullCache = { key: key, v: v }; else _atlasMineCache = { key: key, v: v };
     return v;
   }
   /* ---------- WHICH COLLECTIONS THE READER IS LOOKING AT (Sep 2026, on request) ----------
@@ -36539,7 +36556,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* Every collection that has put something on this globe, with how many places each holds — the list the
      toggles are drawn from. Built off the WHOLE register, so turning one off never removes its own row. */
   function atlasCollections() {
-    const u = atlasRegisterAll(), by = new Map();
+    const u = atlasRegisterAll(_atlasFull), by = new Map();
     const bump = (coll) => {
       const id = String(coll || "");
       if (!id) return;
@@ -36558,7 +36575,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* The filtered view every drawing pass reads. Keyed on the register's own cache object AND on the
      hidden list, so switching a collection off re-derives and nothing else does. */
   function atlasUnlocks() {
-    const all = atlasRegisterAll(), hid = atlasCollHidden();
+    const all = atlasRegisterAll(_atlasFull), hid = atlasCollHidden();
     if (!hid.length) return all;                         // the ordinary case — no copy, no second cache
     const sig = hid.slice().sort().join(",");
     if (_atlasViewCache && _atlasViewCache.src === all && _atlasViewCache.sig === sig) return _atlasViewCache.v;
@@ -36598,7 +36615,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const mine = { names: new Map(), subdiv: [], marks: [], need: new Set() };
     try { atlasRegister(c.id, c, mine); } catch (e) { return false; }
     if (!mine.names.size && !mine.subdiv.length && !mine.marks.length) return false;
-    const u = atlasRegisterAll();   // a place hidden behind a toggle is still one the reader has
+    const u = atlasRegisterAll(false);   // a place hidden behind a toggle is still one the reader has — and the FULL register is never asked
     for (const k of mine.names.keys()) if (!u.names.has(k)) return true;
     const drawn = new Set(u.marks.map((m) => String(m.title || "").toLowerCase()));
     if (mine.marks.some((m) => !drawn.has(String(m.title || "").toLowerCase()))) return true;
@@ -40179,7 +40196,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      rather than a setting, and `route()` puts it back to "mine" on every navigation TO the Atlas — which
      is what "opening the page defaults to this tab" means and what a `S.settings` value would get wrong,
      since a reader who once looked at the world atlas would be sent back to it for ever. `render()` does
-     not go through `route()`, so switching tab (which repaints) keeps the reader where they are. */
+     not go through `route()`, so switching tab (which repaints) keeps the reader where they are.
+     THE SECOND TAB IS NOW THE FULL ATLAS, NOT THE WORLD ATLAS (Oct 2026, on request: "Remove the current
+     World Atlas from the website; we'll only use the personal atlas from now on. The toggle … should
+     instead toggle between Personal and Full"). Both tabs are the personal globe — one drawing the
+     reader's register, the other every card's (see `atlasRegisterAll`). The world atlas's draw path is
+     still in this page because the Find-it game is built on it; no tab reaches it any more. */
   let atlasTab = "mine";
   const atlasView = { rotLon: _home && isFinite(_home.lon) ? _home.lon : 90, rotLat: _home && isFinite(_home.lat) ? _home.lat : 22, zoom: 1 };
   PAGES.map = function (root, params) {
@@ -40211,7 +40233,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* YOUR OWN ATLAS (Sep 2026, on request) — the same globe with its political layer replaced by what
        this reader has studied. See `atlasUnlocks` for the register and `drawMine` for what is drawn.
        Never in the game, which needs the whole world to ask a question about it. */
-    const MINE = !GAME && atlasTab === "mine";
+    const MINE = !GAME;
+    // which register the globe draws — the reader's, or every card's (see `atlasRegisterAll`)
+    const FULL = MINE && atlasTab === "full";
+    _atlasFull = FULL;
     /* IT REACHES BACK TO 4000 BCE, where the world atlas stops at 1000 BCE. The request asks for the
        empty earth "in every year since 4000 BCE", and it can be offered here precisely because nothing
        there depends on an era map: before 1500 the personal globe is landscape and the reader's own
@@ -40274,8 +40299,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               proper: the panel is a canvas the same element in both states, so there is no second panel
               to point at. */""}
         ${GAME ? "" : `<div class="atlas-tabs" role="group" aria-label="Which atlas">
-          <button class="at-tab${MINE ? " on" : ""}" type="button" data-atlastab="mine" aria-pressed="${MINE}">Your atlas</button>
-          <button class="at-tab${MINE ? "" : " on"}" type="button" data-atlastab="world" aria-pressed="${!MINE}">World atlas</button>
+          <button class="at-tab${FULL ? "" : " on"}" type="button" data-atlastab="mine" aria-pressed="${!FULL}">Your atlas</button>
+          <button class="at-tab${FULL ? " on" : ""}" type="button" data-atlastab="full" aria-pressed="${FULL}">Full atlas</button>
           ${/* THE WAY BACK, drawn only for a reader who arrived from a card's atlas window (see
                 `atlasHold`). It sits in the tab row rather than over the globe because that row is the
                 one piece of chrome above the map at every width, and a control floating on the canvas
@@ -40295,7 +40320,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 meets a world with no marks on it, which is exactly right and says nothing about itself —
                 and the one thing they need to know is that the marks are earned. It is drawn only while
                 the register really is empty, and goes the moment the first place lands. */""}
-          ${MINE ? `<div class="atlas-empty" id="atlasEmpty" role="status" aria-live="polite"${atlasUnlocks().count ? " hidden" : ""}>
+          ${MINE && !FULL ? `<div class="atlas-empty" id="atlasEmpty" role="status" aria-live="polite"${atlasUnlocks().count ? " hidden" : ""}>
             <strong>Your atlas is empty</strong>
             <span>Study a card from a geography or history collection and the place it is about appears here, in the years it belongs to.</span>
             <button class="btn" type="button" data-goto="decks">Find a collection</button>
@@ -40333,6 +40358,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <div class="ah-tip"><b>It starts empty</b> — the earth, its coasts, its lakes and its rivers, and nothing else. Every place on it is one you have put there.</div>
               <div class="ah-tip"><b>Study a card to unlock its place</b> — a country from the geography decks appears in every year Folio's maps carry a state of that name, and a place from a history card appears in the years its own card gives it.</div>
               <div class="ah-tip"><b>Click a place</b> to see the card it came from, answer side and all.</div>
+              <div class="ah-tip"><b>Full atlas</b> — the second tab shows every place on every card, studied or not. Where places crowd, the easier card's is shown first and the harder ones appear as you zoom in.</div>
+              <div class="ah-tip"><b>A state is drawn as a country, a people in blue</b> — a kingdom or empire has a border; a culture or a people is a dashed blue wash over roughly where they lived.</div>
               ${/* THE ONE THING ON THIS GLOBE THAT IS NOT A PLACE (Sep 2026, with `card.war`). Every
                     other mark here answers "somewhere you have been taught about"; a green and a red
                     wash answer "who fought", and nothing on the map says so — the card window's own
@@ -40569,9 +40596,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          kinds of claim a personal globe makes — here is a thing you studied, and here is roughly where a
          people were. It is a variable set with the theme rather than a literal at the draw, for the
          reason `riverCol` is: a saturated forest green reads on the light land and disappears on the
-         dark one, so each mode takes its own. */
-      mineAreaFill = dark ? "rgba(104,196,132,0.18)" : "rgba(31,122,62,0.16)";
-      mineAreaLine = dark ? "rgba(120,206,146,0.92)" : "rgba(24,104,52,0.88)";
+         dark one, so each mode takes its own.
+         …AND NOW BLUE, AND ONLY FOR A PEOPLE OR A CULTURE (Oct 2026, on request: "Historical states which
+         currently appear as green areas should instead be displayed the same way as modern countries
+         (except when in a war). Historical areas which are not states (such as peoples or cultures)
+         should be blue instead of green"). A state is drawn as a country is (see `drawMineAreas`), so this
+         wash is left meaning one thing — roughly where a people were — and green is left to the victors of
+         a war, which it already meant one pass up. It is an INDIGO blue, not the rivers' or the seas' own:
+         a culture's wash beside a river must not read as a flood. */
+      mineAreaFill = dark ? "rgba(128,150,240,0.18)" : "rgba(58,88,190,0.15)";
+      mineAreaLine = dark ? "rgba(150,170,250,0.9)" : "rgba(48,72,170,0.85)";
       waterCol = dark ? "rgba(150,196,226,0.92)" : "rgba(18,74,118,0.82)";        // sea / ocean / lake labels (reads on the cyan ocean)
       lblHaloSoft = dark ? "rgba(8,12,20,0.82)" : "rgba(255,255,255,0.92)";       // halo for the light-coloured labels (water/river/range): dark in dark mode so the glyph reads
       adminCol = rgba(ink, 0.34);                                                 // admin-1 borders (dotted)
@@ -41091,6 +41125,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         cpDescEl.innerHTML = '<div class="study-card cp-cardback"><div class="reveal show"><div class="reveal-inner">' + buildBack(c) + "</div></div></div>";
         const inner = cpDescEl.querySelector(".reveal-inner");
         if (inner) mountCardBack(inner, c, { expand: true, shutSources: true, noLocator: true });
+        cpArmGloss();   // the card's prose may land after the panel did (its heavy half is lazy) — the window starts when there is something under the finger
         cpResize();   // the body just changed height — re-fit the sheet
       });
       cpEl.hidden = false;
@@ -42729,14 +42764,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        tab that needs one and it runs ONLY when the reader has a civilisation live in this year — most
        frames build no path at all. Its cost is one geometry walk over visible `GEO`, the same walk the
        fill above just made. */
+    /* A HISTORICAL STATE IS DRAWN AS A COUNTRY IS (Oct 2026, on request: "Historical states which currently
+       appear as green areas should instead be displayed the same way as modern countries (except when in
+       a war)"). Its card's own kind tag says it is a state, dynasty or empire (`MINE_STATE`), so it is
+       painted exactly as `mineShapes` paints an unlocked country — the earned `land` shade over the dark
+       earth, with a SOLID edge in the map's `border` ink, and the selection gold when clicked — and the
+       reader no longer meets Carthage looking like a culture and France looking like a country. "Except
+       when in a war" needs no rule here: the war pass runs AFTER this one, so a state that is a side in a
+       war that year is shaded in the war's colours. It is still clipped to the land, its area being a
+       dozen authored points where a coast is a thousand.
+       A PEOPLE OR A CULTURE KEEPS ITS DASHED WASH, now in blue (see `mineAreaFill`), drawn after the states
+       so a culture inside a state's borders is still seen. */
     function drawMineAreas(bw) {
       // `m.area` is a list of RINGS since Sep 2026 (see cardLocator) — a civilisation may be several blocks
-      const areas = mineMarks().filter((m) => m.kind === "area" && m.area && m.area.length);
-      if (!areas.length) return;
+      const all = mineMarks().filter((m) => m.kind === "area" && m.area && m.area.length);
+      if (!all.length) return;
+      const states = all.filter((m) => m.state), areas = all.filter((m) => !m.state);
       ctx.save();
       ctx.beginPath();
       for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
       ctx.clip("evenodd");
+      if (states.length) {
+        // the fill first and every edge after it, so one state's land never paints over its neighbour's border
+        for (let i = 0; i < states.length; i++) {
+          const sel = mineSel && states[i].title === mineSel, rings = states[i].area;
+          ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true);
+          ctx.fillStyle = land; ctx.fill("nonzero");
+          if (sel) { ctx.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; ctx.fill("nonzero"); }
+        }
+        for (let i = 0; i < states.length; i++) {
+          const sel = mineSel && states[i].title === mineSel, rings = states[i].area;
+          ctx.lineWidth = sel ? Math.max(1.6, bw * 2) : bw; ctx.strokeStyle = sel ? TINT_SEL.line : border;
+          ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], false); ctx.stroke();
+        }
+      }
       ctx.setLineDash([Math.max(3, bw * 4), Math.max(3, bw * 4)]);
       ctx.lineWidth = Math.max(1.1, bw * 1.6);
       for (let i = 0; i < areas.length; i++) {
@@ -42884,13 +42945,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        label boxes alone, so a word could land squarely on a neighbour's dot and hide it. The candidates'
        own footprints are measured up front and tested too. */
     const MINE_SEP = (z) => clamp(58 - z * 7, 9, 58);   // screen px between two shown marks, by zoom
+    /* THE EASIER CARD'S PLACE IS THE ONE THAT SURVIVES A CROWD (Oct 2026, on request: "to determine the
+       priority in which locations should overlap each other, the cards difficulty should be guiding.
+       Easier cards locations should be shown when zoomed out, and more difficult ones appear when zooming
+       in"). The rating is the one the card's own stars show (`cardDifficultyRank` — the community score
+       once it has spoken, the editorial one until then), so the map's order of importance and the card's
+       agree; an unrated card ranks last, an unknown not being an easy. Cached per page by card id: the
+       ranking runs every frame over every mark, and the full atlas has thousands. */
+    const _mineDiff = new Map();
+    const mineDiff = (m) => { const id = m && m.id; if (!_mineDiff.has(id)) _mineDiff.set(id, cardDifficultyRank(id)); return _mineDiff.get(id); };
     function mineDotsShown() {
       const sep = MINE_SEP(zoom), sep2 = sep * sep, out = [];
-      // a country's seat, then a province's, then a place — so a thinning keeps the mark that says most,
-      // and the order is stable between frames, which first-come over `S.cards` would not be
+      // the easier card first (see `mineDiff`); then a country's seat, a province's, a place — so a
+      // thinning keeps the mark that says most; then the title, so the order is stable between frames,
+      // which first-come over `S.cards` would not be
       const rank = (m) => (m.cap ? 0 : m.subcap ? 1 : 2);
       const marks = mineMarks().filter((m) => m.kind === "dot" && m.at)
-        .sort((a, b) => rank(a) - rank(b) ||
+        .sort((a, b) => mineDiff(a) - mineDiff(b) || rank(a) - rank(b) ||
                         String(a.title || "").localeCompare(String(b.title || "")));
       for (let i = 0; i < marks.length; i++) {
         proj(marks[i].at[0], marks[i].at[1]); if (PV < 0) continue;
@@ -43029,8 +43100,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the box collision below, which is the regime the dots are now under too. */
     function mineWaterShown() {
       const out = [];
+      // the easier card's water is named first, as its places are (see `mineDiff`)
       const marks = mineMarks().filter((m) => m.kind === "water" && m.at)
-        .sort((a, b) => String(a.title || "").localeCompare(String(b.title || "")));
+        .sort((a, b) => mineDiff(a) - mineDiff(b) || String(a.title || "").localeCompare(String(b.title || "")));
       for (let i = 0; i < marks.length; i++) {
         const spots = mineWaterSpots(marks[i]);
         // the FIRST spot decides whether the mark is on screen at all and answers a click; the rest are
@@ -44149,9 +44221,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { const more = root.querySelector("#cpMore"); if (more) more.addEventListener("click", () => cpSetShut(!cpShut)); }
     /* …and the arming window itself — see CP_GLOSS_ARM_MS. CAPTURE, so it runs before the term's own
        handler (which `setupTooltips` binds to the element) and can stop the event ever reaching it. */
+    /* …AND A PICTURE IS HELD WITH IT (Oct 2026, on request: "the split second the popup opens, my finger
+       already touches a gloss term or image in that popup and opens it"). The card back carries pictures
+       as well as terms, and a picture opens a lightbox over the map exactly as a term opens its window —
+       so the window covers everything in the panel's prose that OPENS something: a term, a picture, a
+       footnote marker, a link. The panel's own chrome (close, chevron, a section head) is not on the list:
+       those answer the panel, and a reader reaching for the close button must never find it dead. */
     if (cpEl) cpEl.addEventListener("click", (e) => {
       if (cpGlossArmed()) return;
-      const t = e.target && e.target.closest && e.target.closest(".ttip");
+      // read at the click, not at mount: `IMG_OPEN_SEL` is declared further down the file
+      const t = e.target && e.target.closest && e.target.closest(".ttip, " + IMG_OPEN_SEL + ", sup.fn, .cp-cols a[href]");
       if (t && cpEl.contains(t)) { e.preventDefault(); e.stopPropagation(); }
     }, true);
     /* One delegated listener folds any of the sections open or shut, so a reader can put away the part they
@@ -44226,7 +44305,7 @@ let prev = null;
       // year's plate is "THE WORLD · <year>", so on this one the two words before the date were the only
       // part carrying no information — the globe under it is the world either way.
       // on the personal atlas the cartouche names whose map it is, since that is the thing that differs
-      if (cartEl) cartEl.textContent = year >= MAXY ? "TODAY" : (MINE ? "YOUR ATLAS · " : "THE WORLD · ") + ff.n + (ff.e === "BCE" ? " BCE" : "");
+      if (cartEl) cartEl.textContent = year >= MAXY ? "TODAY" : (FULL ? "FULL ATLAS · " : MINE ? "YOUR ATLAS · " : "THE WORLD · ") + ff.n + (ff.e === "BCE" ? " BCE" : "");
       // show the work-in-progress note only when no map (present-day or a historical era) covers this year
       // …and never on the personal atlas, where a year with no era map is not a gap but the empty earth
       if (wipEl) wipEl.classList.toggle("show", !MINE && activeEra(year) == null);
