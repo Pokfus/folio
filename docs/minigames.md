@@ -559,6 +559,57 @@ pool already use, so a deck's own term is excluded here as it is there. It emits
 rather than escaping (a description carries `<i>` on a work's title) and strips footnote markers, a
 superscript number with no list under it pointing nowhere.
 
+## Find it asks for the Full Atlas's places (Oct 2026, on request)
+
+> "Since we're no longer using the World Atlas, ensure that the Find It minigame now uses locations from
+> the Full Atlas instead."
+
+The game used to deal from the WORLD atlas's own lists — every country on `world.js`, every named territory
+on every era map, every capital an era file marks — and then ask whether any card taught the name (the
+old `finditTaughtNames`, now deleted). The Full Atlas is that question answered the other way round:
+`atlasRegisterAll(true)` is every place any card puts on the globe, so `finditPools()` builds the pool
+from it and nothing is checked against the cards afterwards. A day is still five rounds, in a fixed order
+that `test-minigames.js` ("Find it asks for the Full Atlas's places") reads off the questions:
+
+| round | pool | asked as | answered by |
+|---|---|---|---|
+| 1, 3 | a country name a geography card files under `world.js` (`reg.names`) — 235 | "Find X on today's map" | tapping the country, matched by name, as before |
+| 2, 4 | an `area` mark: a historical state or people — 29 | "Find X — as it stood in <year>", the middle of its years | a tap INSIDE its extent in that year: the dated series where the card has one, its authored outline where it does not |
+| 5 | a `dot` mark: a city, site, battlefield or a country's capital — 180 | "Find X on today's map" ("the city of X" for a capital) | a tap within 300 km of a capital, 150 km of any other place |
+
+**What stays out.** A war's sides and a province are ground a state or a country already gives; a river or
+sea is a label with no point; a province capital is a dot nobody could be asked for cold. A place or a
+people is dealt only when one of ITS cards passes the rating bar every cold-dealing game uses
+(`GAME_MAX_DIFFICULTY`, "generally familiar") — **a state or people gets one grade more**
+(`FINDIT_AREA_MAX_DIFFICULTY` = 3, "known to the interested"), because the Full Atlas holds about 60
+distinct states and peoples in all and the stricter bar leaves 10, which repeat within a week. A country is
+not held to the rating: it is asked for as a shape, and the geography cards that name them are map cards,
+which `gameCardIdSet` excludes by construction. Only available cards count, never a community deck's.
+
+**One place is one round however many cards name it** (`atlasStackKey`, the Atlas's own merge), and its
+reveal opens that place's whole stack of cards, easiest first, with the same swipe bar as the Full Atlas
+(`showMinePopup`). A country still ends on its own country panel.
+
+**A place inside a better-known place's tolerance is not asked for.** The Palatine Hill is 2 km from Rome,
+and "within 150 km" would mark Rome right and the Palatine wrong in the same breath, so the easier card's
+place keeps the neighbourhood (180 of 387 places survive) and the rest are left to its reveal.
+
+**The board is today's map for every kind**, and that is a loss to name: the old historical rounds were
+asked on the era maps, which begin in 1500, so a state of 500 BCE had no map and neither does a place;
+today's coast and rivers are what it is found against and the question says which year a state is asked in.
+A wrong guess at a state is given the distance to the nearest point of its outline, not to a centre that an
+empire's width makes meaningless.
+
+**The rounds are built after two lazy bundles have landed** — `worldcaps` (a capital is a row of it) and
+`polities` (the dated outlines) — because built before them the pool is smaller on a cold load than a
+warm one and "the same five rounds all day" would depend on the browser's cache.
+
+**Limits.** 29 states and peoples is a small pool: two a day, so the same ones come round about every
+fortnight. Some are authored outlines of a dozen points and judge a tap generously or harshly accordingly;
+the reveal draws the outline so a reader can see what they were measured against.
+
+Re-run after touching `finditPools` / `buildGameRounds`: `test-minigames.js`.
+
 ## A tile turns over to its record (Aug 2026, on request)
 
 > "When long-pressing a minigame tile on the home page, the tile should flip around and reveal the user's

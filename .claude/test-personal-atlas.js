@@ -50,15 +50,20 @@ const PX = `(() => {
      exactly the pair of failures section 7 and section 5 are each about. Green is tested the way red is,
      on the DOMINANT channel rather than on a value, so it survives the theme's own light and dark
      paper without either count being written down twice. */
-  let mine = 0, marks = 0, green = 0, label = 0;
+  /* …AND A PEOPLE'S WASH IS BLUE SINCE OCT 2026 (on request), its green going to nobody but a war's
+     victors. The blue is an INDIGO, counted where blue leads green by a wide margin and green does not
+     lead red by much — which the light sea (#b3ebff), the rivers and the water labels all fail, each of
+     them a cyan whose green is far above its red. */
+  let mine = 0, marks = 0, green = 0, label = 0, blue = 0;
   for (let i = 0; i < d.length; i += 4) {
     if (d[i + 3] < 8) continue;
     if (Math.abs(d[i] - L[0]) <= 3 && Math.abs(d[i + 1] - L[1]) <= 3 && Math.abs(d[i + 2] - L[2]) <= 3) mine++;
     if (d[i] > 140 && d[i] - d[i + 1] > 45 && d[i] - d[i + 2] > 45) marks++;
     if (d[i + 1] - d[i] > 22 && d[i + 1] - d[i + 2] > 22) green++;
+    if (d[i + 2] - d[i + 1] > 40 && d[i + 1] - d[i] < 40) blue++;
     if (Math.abs(d[i] - 34) < 14 && Math.abs(d[i + 1] - 24) < 14 && Math.abs(d[i + 2] - 8) < 16) label++;
   }
-  return { mine: mine, marks: marks, green: green, label: label };
+  return { mine: mine, marks: marks, green: green, label: label, blue: blue };
 })()`;
 
 const seed = (ids, home) => `localStorage.setItem("folio_v1", JSON.stringify({
@@ -146,6 +151,8 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   }
   check("a click on an unlocked place opens the panel", !!title, title || "nothing opened");
   check("...headed with the card's own answer", /China|Egypt/.test(title), title);
+  // the card's heavy half is lazy, so its back can land a moment after the panel opens — wait for it
+  await page.waitForSelector("#cpDesc .cp-cardback .answer .val", { timeout: 3000 }).catch(() => {});
   check("...showing the card's ANSWER SIDE, not a country description",
     await page.evaluate(() => !!document.querySelector("#cpDesc .cp-cardback .answer .val")));
   check("...with its footnote markers numbered, so the apparatus is live",
@@ -193,13 +200,27 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   const px3 = await page.evaluate(PX);
   check("...and in a century BEFORE it stood, nothing of the reader's is drawn", px3.marks === 0 && px3.mine === 0, JSON.stringify(px3));
 
-  /* ---------- 5) the world atlas is still the world atlas ---------- */
-  console.log("\n5) the other tab");
-  await page.evaluate(() => { document.querySelector('[data-atlastab="world"]').click(); });
+  /* ---------- 5) the full atlas ---------- */
+  /* Oct 2026, on request: "Remove the current World Atlas from the website … The toggle … should instead
+     toggle between Personal and Full, with Full including all locations from all atlas boxes on all
+     cards, including the ones the user hasn't unlocked yet". The full tab is the SAME globe over every
+     card's register, so what it must show is the reader's own marks and more — measured at the present,
+     where the reader's own few marks are drawn and the corpus's thousands are too. */
+  console.log("\n5) the full atlas");
+  check("there is no world atlas tab any more", await page.evaluate(() => !document.querySelector('[data-atlastab="world"]')));
+  await setYear(new Date().getFullYear());
+  const minePx = await page.evaluate(PX);
+  await page.evaluate(() => { document.querySelector('[data-atlastab="full"]').click(); });
   await page.waitForTimeout(3000);
-  check("switching tab keeps the reader there rather than resetting", await page.$eval('[data-atlastab="world"]', (e) => e.classList.contains("on")));
-  check("...and gives the legend back", await page.evaluate(() => !document.getElementById("globeLegend").hidden));
-  check("...and the world rail, which starts at 1000 BCE", (await page.$$eval(".tl-tick", (els) => els.map((e) => e.textContent)))[0] === "1000 BCE");
+  check("switching tab keeps the reader there rather than resetting", await page.$eval('[data-atlastab="full"]', (e) => e.classList.contains("on")));
+  check("...on the personal globe still: no legend and no search",
+    await page.evaluate(() => document.getElementById("globeLegend").hidden && document.getElementById("globeSearch").hidden));
+  check("...and the personal rail, from 4000 BCE", (await page.$$eval(".tl-tick", (els) => els.map((e) => e.textContent)))[0] === "4000 BCE");
+  await setYear(new Date().getFullYear());
+  const fullPx = await page.evaluate(PX);
+  check("...drawing places the reader has NOT studied as well as their own",
+    fullPx.marks > minePx.marks && fullPx.mine > minePx.mine, JSON.stringify({ mine: minePx, full: fullPx }));
+  check("...and never the empty-register note", await page.evaluate(() => !document.getElementById("atlasEmpty")));
   /* NAVIGATING to the Atlas resets the tab; a repaint must not. That split is what "opening the page
      defaults to this tab" means, and a setting would have got it wrong in the other direction. */
   await page.evaluate(() => { location.hash = "#home"; });
@@ -325,11 +346,20 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   await freshPage(["cnh-047"]);   // the Hongshan culture, c. 4500–3000 BCE
   await setYear(-3800);
   const inSpan = await page.evaluate(PX);
-  check("a culture is on the globe inside its own span", inSpan.green > 0, JSON.stringify(inSpan));
-  check("...in green rather than in the marks' red", inSpan.green > inSpan.marks, JSON.stringify(inSpan));
+  check("a culture is on the globe inside its own span", inSpan.blue > 0, JSON.stringify(inSpan));
+  check("...in blue rather than in the marks' red or the old green", inSpan.blue > inSpan.marks && inSpan.green === 0, JSON.stringify(inSpan));
   await setYear(-1000);
   const after = await page.evaluate(PX);
-  check("...and gone from it after the culture ends", after.green === 0, JSON.stringify(after));
+  check("...and gone from it after the culture ends", after.blue === 0, JSON.stringify(after));
+  /* A HISTORICAL STATE IS DRAWN AS A COUNTRY IS (Oct 2026, on request: "Historical states which currently
+     appear as green areas should instead be displayed the same way as modern countries"). So it adds the
+     earned LAND shade — the `mine` count, which is what an unlocked modern country is measured by in
+     section 2 — and no culture's blue or old green at all. */
+  await freshPage(["gr-381"]);   // the Achaemenid Empire, c. 550–330 BCE, tagged `state`
+  await setYear(-450);
+  const st = await page.evaluate(PX);
+  check("a historical state is painted in the earned land shade, as a country is", st.mine > 400, JSON.stringify(st));
+  check("...and not as a people's wash", st.blue === 0 && st.green === 0, JSON.stringify(st));
 
   /* A RIVER IS NEITHER A DOT NOR A NAME (Sep 2026, on request: "'Tiber' should not have a dot or
      label"). It is drawn already, as one of the Atlas's own blue threads, so a dot on one pins a 400 km
@@ -576,6 +606,92 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
     await page.waitForTimeout(150);
     check("...armed again by the chevron", (await page.evaluate(() => document.querySelectorAll(".gloss-win").length)) === 0);
   }
+
+  /* ---------- 11) one place, many cards ---------- */
+  /* Oct 2026, on request: "When several cards feature the same atlas location, create only a single
+     location on the Atlas, but when clicking on it to open the card popup, swiping right/left should allow
+     the user to browse through all the cards that refer to that location." Three Rome cards are ONE mark,
+     and the popup that mark opens carries all three: the arrows, the arrow keys and a sideways drag each
+     step through them, and the card on show really changes. */
+  console.log("\n11) one place, many cards");
+  await freshPage(["rm-052", "rm-053", "rm-058"], 3, { lon: 12.49, lat: 41.89 });
+  await page.keyboard.press("Escape");
+  const gst = await page.$eval("#globe", (e) => { const r = e.getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; });
+  let stackTxt = "";
+  for (let dx = -60; dx <= 120 && !stackTxt; dx += 12) {
+    for (let dy = -40; dy <= 40 && !stackTxt; dy += 10) {
+      await page.mouse.click(gst.x + gst.w / 2 + dx, gst.y + gst.h / 2 + dy);
+      await page.waitForTimeout(90);
+      stackTxt = await page.evaluate(() => { const e = document.getElementById("countryPop"), b = document.getElementById("cpStack");
+        return e && !e.hidden && b && !b.hidden ? document.getElementById("cpStackN").textContent.trim() : ""; });
+    }
+  }
+  check("three cards about Rome open as ONE place carrying all three", /^1 of 3/.test(stackTxt), stackTxt || "no stacked popup opened");
+  const head = () => page.evaluate(() => { const v = document.querySelector("#cpDesc .answer .val"); return v ? v.textContent.trim() : ""; });
+  await page.waitForTimeout(600);
+  const h1 = await head();
+  await page.click("#cpStackNext"); await page.waitForTimeout(700);
+  const h2 = await head(), n2 = await page.$eval("#cpStackN", (e) => e.textContent.trim());
+  check("...the arrow steps to the next card", /^2 of 3/.test(n2) && h2 && h2 !== h1, JSON.stringify({ h1: h1, h2: h2, n2: n2 }));
+  await page.focus("#cpStackNext"); await page.keyboard.press("ArrowRight"); await page.waitForTimeout(500);
+  check("...and so does the right arrow key", /^3 of 3/.test(await page.$eval("#cpStackN", (e) => e.textContent.trim())));
+  // a sideways drag across the card body, the way a finger swipes: left brings the next card, wrapping to the first
+  const body = await page.$eval(".cp-cols", (e) => { const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + Math.min(r.height / 2, 160) }; });
+  await page.mouse.move(body.x + 80, body.y); await page.mouse.down(); await page.mouse.move(body.x - 40, body.y + 6, { steps: 6 }); await page.mouse.up();
+  await page.waitForTimeout(600);
+  check("...and a swipe left, wrapping round to the first", /^1 of 3/.test(await page.$eval("#cpStackN", (e) => e.textContent.trim())));
+  await page.mouse.move(body.x - 40, body.y); await page.mouse.down(); await page.mouse.move(body.x + 80, body.y - 6, { steps: 6 }); await page.mouse.up();
+  await page.waitForTimeout(600);
+  check("...and a swipe right goes back", /^3 of 3/.test(await page.$eval("#cpStackN", (e) => e.textContent.trim())));
+  // and a single-card place has no bar at all
+  await freshPage(["gr-058"], 3, { lon: 22.76, lat: 37.73 });   // Mycenae, alone
+  await page.keyboard.press("Escape");
+  let single = null;
+  for (let dx = -60; dx <= 120 && single === null; dx += 12) {
+    for (let dy = -40; dy <= 40 && single === null; dy += 10) {
+      await page.mouse.click(gst.x + gst.w / 2 + dx, gst.y + gst.h / 2 + dy);
+      await page.waitForTimeout(90);
+      single = await page.evaluate(() => { const e = document.getElementById("countryPop"); return e && !e.hidden ? document.getElementById("cpStack").hidden : null; });
+    }
+  }
+  check("a place with one card shows no stack bar", single === true, String(single));
+
+  /* ---------- 12) the Second World War's fronts, one map a year ---------- */
+  /* Oct 2026, on request: "Add front line border maps for World War 2", then "we only need year by year border
+     changes, not month by month". The bundle carries one map per year 1939–1945 and nothing finer; the rail's
+     year IS the map (no month control, no month in the cartouche); a year with fronts draws them and one
+     without draws nothing; and on the reader's own atlas they wait for the card to be studied. "Draws" is
+     measured as the canvas changing when the fronts are hidden — the fill is a tint over whatever is under
+     it, so a colour count would depend on the theme and the view. */
+  console.log("\n12) the Second World War's fronts");
+  await freshPage([]);
+  await page.evaluate(() => { document.querySelector('[data-atlastab="full"]').click(); });
+  await page.waitForTimeout(3500);
+  await page.waitForFunction(() => !!window.WW2_FRONTS, { timeout: 20000 }).catch(() => {});
+  const fy = await page.evaluate(() => { const F = window.WW2_FRONTS || {}; return { y: Object.keys(F.y || {}).sort().join(","), m: !!F.m }; });
+  check("the fronts are one map a year, 1939 to 1945, and no months", fy.y === "1939,1940,1941,1942,1943,1944,1945" && !fy.m, JSON.stringify(fy));
+  check("...so the atlas has no month control", await page.evaluate(() => !document.getElementById("atlasMonth")));
+  const snap = () => page.evaluate(() => { const cv = document.getElementById("globe"); return Array.from(cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data.filter((v, i) => i % 16 === 0)); });
+  // the canvas with the fronts, then with them hidden (an unknown card), for the same year — the difference is the fronts
+  const frontPx = async (y) => {
+    await setYear(y); const a = await snap();
+    await page.evaluate(() => { window.__ww2card = window.WW2_FRONTS.card; window.WW2_FRONTS.card = "no-such-card"; });
+    await setYear(y === 1945 ? 1944 : y + 1); await setYear(y); const b = await snap();
+    await page.evaluate(() => { window.WW2_FRONTS.card = window.__ww2card; });
+    let n = 0; for (let i = 0; i < a.length; i++) if (Math.abs(a[i] - b[i]) > 6) n++;
+    return n;
+  };
+  const d44 = await frontPx(1944);
+  check("in 1944 the full atlas draws the fronts", d44 > 500, d44 + " pixels differ");
+  check("...and the cartouche is the year alone", await page.evaluate(() => /^FULL ATLAS · 1944$/.test(document.getElementById("mapCartouche").textContent.trim())), await page.$eval("#mapCartouche", (e) => e.textContent));
+  const d41 = await frontPx(1941);
+  check("in 1941 too (the 1939–42 source)", d41 > 500, d41 + " pixels differ");
+  const d38 = await frontPx(1938);
+  check("a year with no fronts draws none", d38 === 0, d38 + " pixels differ");
+  await freshPage([]);   // the reader's own atlas, nothing studied
+  await page.waitForFunction(() => !!window.WW2_FRONTS, { timeout: 20000 }).catch(() => {});
+  const dOwn = await frontPx(1944);
+  check("...and the reader's own atlas has none until the card is studied", dOwn === 0, dOwn + " pixels differ");
 
   check("no console or page errors throughout", errs.length === 0, errs.slice(0, 3).join(" | "));
   await browser.close();
