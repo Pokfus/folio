@@ -14,7 +14,9 @@ today and why it does not move (§1), the full inventory (§2), the sources and 
 entity in five tiers from easy to impossible (§4), the one piece of plumbing every tier needs first (§5),
 and the batches (§6). A ledger at the foot (§7) records what each batch did.
 
-The research behind it was done on 2026-10-01 by matching every entity against two datasets downloaded
+📖 The evidence for every rating is in three research notes — `docs/atlas-borders-cliopatria.md`,
+`docs/atlas-borders-states-wars.md`, `docs/atlas-borders-cultures.md` — READ THE ONE A BATCH NEEDS, BY
+GREPPING FOR THE ENTITY, BEFORE STARTING IT. The research behind it was done on 2026-10-01 by matching every entity against two datasets downloaded
 whole (Cliopatria and every historical-basemaps snapshot) and by a source-by-source survey of everything
 else. Every URL in §3 was opened that day. A rating here is a judgement about SOURCES, not about history:
 a tier-1 entity has an open, dated, machine-readable border series; it does not mean that border is
@@ -239,7 +241,59 @@ OpenHistoricalMap series.
 
 ### 4.C Peoples and cultures
 
-*(Filled in from the cultures survey below.)*
+Cliopatria is a polity dataset, so it holds the steppe khaganates and a few civilisations and no
+archaeological culture. For those the open material is DATED SITE DATA, from which a hull per phase can
+be drawn: **Hosner et al. 2016** (51,074 Chinese Neolithic and Bronze Age sites with culture labels,
+PANGAEA, CC BY 3.0), **AADR** (dated, located ancient-DNA individuals with group labels, CC0 — a genetics
+sample, so a hull around it is biased toward where people were sampled), **Rado.NB** (the Kiel European
+radiocarbon database with culture and phase, CC BY 3.0; no working CSV export was found) and **Bourgeois
+et al. 2025** (*Science Advances*, CC BY 4.0: dated Bell Beaker burials and an arrival-date surface).
+Pleiades and AWMC hold only the Barrington Atlas's LABEL LINES for the Italic peoples, not areas — enough
+to centre a soft zone, not to draw a border. Four works named below as references (Sedov 1982, Moshkova
+1989, Salmon 1967, *Monumenta Linguae Messapicae*) were NOT opened and must be checked before use.
+
+| # | people / culture | tier | best source | approach |
+|---|---|---|---|---|
+| C19 | Sumer (wh-172) | **1** | Cl 8 rows ("Sumerian City-States", Akkadian), 100% | the row nearest each date; Ur III (2112–2004) as its own step |
+| C5 | Mycenaean civilisation (gr-056) | **1** | Cl 7 rows ("Mycenaean Greece"), 67% | shaft graves → the −1500 row, palaces → −1300, collapse → −1150 |
+| C15 | Etruscan civilisation (rm-022) | **1** | Cl 13 rows ("Etruscans"), 49% | Etruria, Po-valley Etruria and Campania at the c. −530 maximum; the c. 1000 BCE nucleation predates Cl (take it from C8) |
+| C3 | Cyclades (gr-002) | **1** | island coastlines | a multipolygon of the islands instead of a blob — no tracing; Keros–Syros traits reaching Attica and Euboea are said in text, not drawn |
+| C4, C25 | Crete / Minoan civilisation (gr-006, gr-047, wh-262) | **1** | Crete's coastline; Cl "Minoan civilization" 2 rows | the island itself; Thera, Kythera and Rhodes as soft Neopalatial satellites if wanted |
+| C29 | Scythians (ru-005) | **1** | Cl 5 rows ("Scythia"), 88% | the −550…−451 row for "dominant c. 700–300"; the 7th-century row is maximalist (it includes the Near-Eastern raids) |
+| C32 | Galatia (gr-788) | **1** | Cl 7 rows | the −279…−128 rows for the settlement, the −27 row for the province — high confidence |
+| C33 | Gothia (ru-011) | **1** | Cl 10 rows | the 270…372 rows, steppe era only |
+| C34 | Huns (ru-012) | **1** | Cl 18 rows | the 371–469 rows — moderate confidence: they are maximal hegemony, not settlement |
+| C35 | Avars (ru-013) | **1** | Cl 20 rows ("Avar Khaganate") | the Carpathian Basin core rows — high confidence |
+| C36 | Old Great Bulgaria (ru-014) | **1** (partial) | Cl 3 rows, 14% of the span | the 633–655 core row; the Volga and Danube branches as later rows |
+| C37 | Khazaria (ru-016) | **1** | Cl 21 rows | the khaganate at its height; its archaeological correlate (Saltovo–Mayaki) is narrower |
+| C38 | Etelköz (ru-019) | **1** data / contested | Cl 6 rows ("Magyars"), 860–895 | the row exists; where Etelköz WAS is disputed — a soft edge, and the dispute said on the card |
+| C26 | Bell Beaker culture (wh-273) | **2** | Bourgeois et al. 2025 (CC BY 4.0) | **the best moving shape among the cultures**: contour the arrival surface at c. 2750, 2500 and 2300 BCE |
+| C16 | Linear Pottery (wh-137) | **2** | Rado.NB / EUROEVOL dated sites | hull the dated sites in two bins, which is the card's own "second wave" |
+| C24 | Yamnaya (wh-258) | **2** | AADR (CC0); one cited maximal-extent figure | early Volga–Don core (c. 3300–3000) and a westward Danube–Tisza phase (c. 3000–2600) |
+| C27 | Únětice (wh-274) | **2** | Rado.NB phases | early vs classical hull, clipped to Bohemia, Moravia, central Germany, Silesia, Lower Austria |
+| C17 | Yangshao (wh-147, cnh-045) | **2** | Hosner 2016 | a concave hull per phase (early / middle / late), checked against a cited distribution map |
+| C18 | Longshan (wh-148, cnh-050) | **2** | Hosner 2016 | hull, Early–Middle vs Late where the phase field allows; Shaanxi and Hebei by hand |
+| C6 | Natufian (wh-116) | **2** | NERD radiocarbon (CC BY 4.0) — no culture field, so sites are filtered by hand | Early vs Late hull |
+| C2 | Clovis (wh-101) | **2** | PIDBA point densities; Waters 2020 dated sites | a hull of the point-density counties, clipped to the Late Glacial coast |
+| C22 | Hongshan (cnh-047) | **3** | Hosner has no Hongshan label | trace western Liaoning / SE Inner Mongolia / N Hebei from a cited regional map |
+| C23 | Liangzhu (cnh-048) | **3** | Hosner covers Zhejiang only | the Taihu basin core, traced from a cited figure; one phase |
+| C21 | Erlitou (wh-243, cnh-062) | **3** | cited figures; Hosner for checking | Yiluo basin core plus the western Henan / southern Shanxi periphery; the four phases are not mappable from open data |
+| C20 | Naqada (wh-203) | **3** | cited phase maps | Naqada I / II / III along the Nile valley, I in Upper Egypt, III the whole valley |
+| C7 | Terramare (rm-007) | **3** | cited maps | the central Po plain; the c. 1150 collapse is one cut-off |
+| C8 | Villanovan (rm-008) | **3** | one cited open figure | Etruria + the Bologna area + outliers, one phase |
+| C9 | Sabines (rm-012) | **3** | Barrington label + rivers | Tiber–Anio–Nar–Apennine crest; clipped at 290 BCE by Rome's series |
+| C10 | Samnium (rm-013 and the Samnite Wars) | **3** | Barrington positions of the Pentri, Caudini, Hirpini, Caraceni | one block; steps by subtracting Rome's series at 343, 304, 290 |
+| C13 | Venetia (rm-019) | **3** | inscription findspots | Po to the Alps and the Isonzo, one phase |
+| C14 | Messapia (rm-020) | **3** | coastline + one land boundary | one phase |
+| C30 | Sarmatia (ru-008) | **3** | **Cl has no Sarmatians**, so the steppe is empty between Scythia (to 224 BCE) and Gothia (from 207 CE) | phase shapes by hand from cited maps |
+| C31 | Mumun (jp-033) | **3** | a cited figure for Songguk-ri | the southern Korean peninsula; a soft zone on northern Kyushu for the "crossing" |
+| C40 | Upper Oka / Vyatichi (ru-024) | **3** | temple-ring and kurgan distribution (Sedov 1982 — not opened) | upper Oka, Moskva, Ugra, Zhizdra, Pronya |
+| C41 | Desht-i Qipchaq / Cumans (ru-074) | **3** | Cl's Kipchak polygon stops at 37.8° E; its "Cuman-Kipchak Confederation" row is a 315 km² sliver (a data fault) | Cl's polygon extended west to the Dnieper and lower Danube from a cited map |
+| C11 | Umbria (rm-015) | **4** | the earlier, larger range is text-only | a modest static shape, labelled softly |
+| C12 | Liguria (rm-018) | **4** | none beyond texts | a soft zone along the Ligurian Apennines and coast, uncertainty stated |
+| C39 | Patzinakia / Pechenegs (ru-020) | **4** | **Cl has no Pechenegs**; historical-basemaps only | a soft text-based shape for c. 950 (Don → Siret); very little archaeology |
+| C1 | Mal'ta–Buret' (wh-096) | **5** | two sites | a soft ~50 km zone round the two sites — not a territory |
+| C28 | Cimmerians (ru-004) | **5** | texts only | a soft labelled zone over the north-Pontic steppe |
 
 ### 4.D Wars
 
@@ -289,8 +343,9 @@ those series exist; the war block then names polities rather than carrying polyg
 | cnh-103 | Fall of the Shang | Zhou — Cl rows start 1000 BCE | Shang — Cl 3 | **3** | the pre-conquest Zhou homeland in the Wei valley needs a cited map |
 | gr-235, 236, 237, 461 | Messenian Wars, First, Second, Third | Sparta | Messenia | **2** | OHM Sparta split at Taygetos; static — the course of the wars is recorded nowhere, so do not invent it |
 
-**Counts.** States: tier 1 — 14, tier 2 — 4, tier 4 — 1. War cards: tier 1 — 30, tier 2 — 13, tier 3 —
-12 (fronts and occupations, where wanted, are tier 3 on top). Cultures: see §4.C.
+**Counts.** States (19): tier 1 — 14, tier 2 — 4, tier 4 — 1. Peoples and cultures (41): tier 1 — 14,
+tier 2 — 8, tier 3 — 14, tier 4 — 3, tier 5 — 2. War cards (55): tier 1 — 30, tier 2 — 13, tier 3 — 12
+(fronts and occupations, where wanted, are tier 3 on top). Era maps: tier 2 from 1700, tier 3 before.
 
 ---
 
@@ -332,11 +387,11 @@ against the cited source, run `test-personal-atlas.js` and `test-war-cards.js`, 
 | **1** | tier-1 states | B2, B3, B5, B6, B9–B12, B14–B16, B18, B19 | 15 |
 | **2** | tier-1 war sides not already built | Macedon, Seleucid, Pontus, Numidia, Achaean/Aetolian Leagues, Lydia, the seven Warring States, Han, Xiongnu, Jin, Wu, Rashidun, Byzantium, Sasanians, Normandy, England, France | ~20 war cards |
 | **3** | WW2-era sides by date | Allies/Axis membership by entry/exit date over yearly OHM/Cl borders; Italy, Ethiopia, Finland, USSR, Mongolia, China | ww2-001, 042, 096, 100, 159 |
-| **4** | tier-1 and tier-2 peoples and cultures | see §4.C | — |
+| **4** | tier-1 peoples (Cliopatria rows and coastlines), then tier-2 site hulls, Bell Beaker first | C3–C5, C15, C19, C25, C29, C32–C38; then C2, C6, C16–C18, C24, C26, C27 | 22 |
 | **5** | tier-2 assembly | B1, B8, B13, B17; the Messenian, Samnite, Etruscan, Illyrian, Spanish and US wars | ~20 |
 | **6** | tier-3 tracing from public-domain plates and cited maps | Athens' empire, the Hellenic League, the Lamian coalition, Italic and Gallic and Iberian peoples, Zhou homeland, Hundred Years' War check | ~15 |
 | **7** | the era maps by year | the OHM pipeline in §4.A, 1886→2010 first, then 1700→1886 | every geography card |
-| **8** | tier 4–5: soft outlines and honest silence | B7 and the cultures so rated | — |
+| **8** | tier 4–5: soft outlines and honest silence | B7, C1, C11, C12, C28, C39 | 6 |
 
 **Open questions for the owner before batch 0** (each changes what gets built):
 
@@ -354,4 +409,4 @@ against the cited source, run `test-personal-atlas.js` and `test-war-cards.js`, 
 
 | date | batch | what was done |
 |---|---|---|
-| 2026-10-01 | — | audit and plan written; nothing built |
+| 2026-10-01 | — | audit and plan written; nothing built. The evidence behind §3–§4 is kept as three research notes: 📖 `docs/atlas-borders-cliopatria.md` (every entity matched row by row), `docs/atlas-borders-states-wars.md` (the source catalogue and OHM's holdings), `docs/atlas-borders-cultures.md` (the cultures' sources) — read the one a batch needs, by grepping for the entity |
