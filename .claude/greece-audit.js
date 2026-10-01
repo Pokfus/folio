@@ -224,11 +224,15 @@ function audit(c) {
     /* Two English sources wear a foreign word and must not trip the proxy: the Chronique des
      * fouilles en ligne publishes its notices in the language of the report (check-cards.js rule 6
      * dropped it for that reason; a French notice still needs its chip and is read by eye), and a
-     * Dutch or German surname particle ("van der Plicht") is part of an English author's name. A
-     * REVIEW keeps the title of the book it reviews, so an English review of an Italian corpus
-     * (Judson on Godart and Sacconi, `gr-053`, B6) tripped on "al" and "delle"; the reviewed title is
-     * masked, and the review's own words are still tested. */
-    else if (/[α-ωΑ-Ω]{4,}|\b(?:des|und|der|dei|della|delle|pour|dans|nella|sur|zur|für|über|et les|les)\b/.test(plain(/\breview of\b/.test(s) ? s.replace(/<i>(?!Bryn Mawr Classical Review<)[^<]*<\/i>/g, "") : s).replace(/https?:\/\/\S+/g, "").replace(/Chronique des fouilles en ligne/g, "").replace(/\b(?:van der|van den|von der)\b/g, "")))
+     * Dutch or German surname particle ("van der Plicht") is part of an English author's name. An English
+     * article may also open its title on a Greek phrase (Whitley's ΚΑΤΕΣΚΑΨΑΝ ΙΕΡΑΠΥΤΝΙΟΙ, `gr-054`, B6):
+     * a Greek run followed by a colon and an English subtitle is masked. NOT masked, on measurement (B6):
+     * a reviewed book's title, a foreign-titled container and a publisher. Each would clear an English
+     * source (Judson's review of an Italian corpus on `gr-053`, Mikrakis's English entry in an Italian
+     * encyclopedia on `gr-055`), but between them they also hid some fifty BMCR reviews that may be in
+     * Spanish, German or Italian, a German article in <i>Mètis</i> and a German edition of Philo — so
+     * those stay flagged and are read by eye. */
+    else if (/[α-ωΑ-Ω]{4,}|\b(?:des|und|der|dei|della|delle|pour|dans|nella|sur|zur|für|über|et les|les)\b/.test(plain(s).replace(/https?:\/\/\S+/g, "").replace(/Chronique des fouilles en ligne/g, "").replace(/[Α-Ω][Α-Ω\s]*:\s(?=[A-Z][a-z]+ [A-Za-z])/g, "").replace(/\b(?:van der|van den|von der)\b/g, "")))
       finding(out, "S.chip?", "may be non-English with no chip: " + plain(s).slice(0, 70));
   });
   Object.keys(langs).forEach((l) => { if (langs[l] > 1) finding(out, "S.lang-cap", langs[l] + " sources in " + l + " (≤1)"); });
