@@ -478,26 +478,17 @@ async function requireTerm(page) {
   await page.goto(base + "#map", { waitUntil: "load" });
   await page.waitForFunction(() => !!window.WORLD_GEO && !!window.COUNTRY_INFO, { timeout: 60000 });
   await page.waitForTimeout(1500);
-  /* THE ATLAS OPENS ON THE READER'S OWN TAB NOW (Sep 2026), and this section is about the WORLD one — it
-     reaches the panel through the search box, which the personal tab hides outright (it is the world
-     atlas's index, and a hit there would open a panel about a place the reader has not unlocked). Without
-     this press the fill below waited sixty seconds on an invisible field and took the suite down with a
-     TimeoutError, which is a stale fixture reported as a broken apparatus. Its coach marks are dismissed
-     for the same reason `test-layout.js` dismisses them: an undismissed card sits over the chrome. */
+  /* The coach marks are dismissed for the reason `test-layout.js` dismisses them: an undismissed card
+     sits over the chrome. */
   await page.evaluate(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); } catch (e) {} });
-  const toWorld = await page.evaluate(() => { const b = document.querySelector('[data-atlastab="world"]'); if (!b || b.classList.contains("on")) return false; b.click(); return true; });
-  if (toWorld) await page.waitForTimeout(2200);
   check("the panel has a Sources section", await page.locator("#cpSrcSec").count() === 1);
   check("...hidden while nothing is selected", await page.evaluate(() => document.querySelector("#cpSrcSec").hidden === true));
-  // reach the panel through the search box, the one public entry point that does not need a canvas hit-test
-  await page.fill("#globeSearch input", "France");
-  await page.waitForTimeout(700);
-  const picked = await page.evaluate(() => {
-    const r = document.querySelector(".gs-results button, .gs-results .gs-row");
-    if (r) { r.click(); return true; }
-    return false;
-  });
-  await page.waitForTimeout(2000);
+  /* REACHED THROUGH THE DEEP LINK NOW (Oct 2026). The world atlas TAB, whose search box this used, was
+     removed on request; the place panel and its citations are still what `#map/<year>/<slug>` opens, so
+     that is the one public entry point left, and it needs no canvas hit-test either. */
+  await page.evaluate(() => { location.hash = "#map/2026/france"; });
+  await page.waitForTimeout(2500);
+  const picked = true;
   if (picked && await page.evaluate(() => document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden)) {
     check("selecting a place opens its panel", true);
     check("the panel's Sources section is shown", await page.evaluate(() => document.querySelector("#cpSrcSec").hidden === false));
@@ -515,7 +506,7 @@ async function requireTerm(page) {
     const texts = await page.evaluate(() => [...document.querySelectorAll("#cpSrc .src-item")].map((i) => i.textContent));
     check("no citation appears twice", new Set(texts).size === texts.length, texts.join(" | "));
   } else {
-    check("selecting a place opens its panel", false, "the Atlas search path changed");
+    check("selecting a place opens its panel", false, "the #map/<year>/<slug> deep link opened no panel");
   }
 
   /* ================= 5. a stranger's deck is sanitized on ingest ================= */
