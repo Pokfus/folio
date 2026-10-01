@@ -716,9 +716,16 @@ Checks:
   as English, as on `gr-053`.
 - `check-questions`, `check-style`, `check-cards --prefix=gr-06`…`gr-10`, `check-docs` and
   `split-cards --check` pass; `check-citations --card` reports 0 mismatched on every card.
-- Every citation URL was curled. **Powell et al. 2022 (`gr-094`) is cited at its PMC copy**: the DOI goes
-  to science.org, which answers 403 to scripts. The AJA articles are cited at `ajaonline.org`, as in B7.
-- The abstracts run 270–285 words; every sort year was read back.
+- `check-gloss-links --card`: four cards link a term from another region (*Egyptian* on `gr-073`,
+  `gr-089` and `gr-093`, *Pharaoh* on `gr-093`, *Etruscan* on `gr-075`); each was read and means what it
+  links to.
+- All 167 citation URLs answer 200. **Graziadio's DOI (`gr-092`) answered 200 on one try in three**: the
+  proxy drops the tunnel to edizionicafoscari.it mid-exchange. **Powell et al. 2022 (`gr-094`) is cited at
+  its PMC copy**: the DOI goes to science.org, which answers 403 to scripts. The AJA articles are cited at
+  `ajaonline.org`, as in B7.
+- The abstracts run 270–285 words. Every sort year was read back with app.js's own `cardYears`;
+  **`gr-092`'s "15th century BCE" was not read as a year** and sorted at 1889, so its line is now
+  c. 1500 – 1400 BCE.
 
 **What changed, card by card** (sources before → after).
 
@@ -750,7 +757,17 @@ Checks:
 **Corrected, refused and not usable.**
 - **Not usable:** the Hesperia pages at ascsa.edu.gr (TLS failure), Heidelberg journals and Arctos (Anubis
   challenge), Project MUSE (verification page), science.org (403), the Batagianis thesis (no body).
-- **Picture credits.** Every replaced or kept credit now names the author and the licence.
+- **Picture credits.** All 35 credits now name the author and the licence (29 were bare URLs, six cards had
+  no picture). The Commons API was rate-limited for most of the run, so licences were read from the file
+  pages. **Replaced:** `gr-066` (the Lion Gate, `gr-059`'s subject), `gr-067` (Dodwell's engraving),
+  `gr-071` (a plan), `gr-073` (a Gilliéron facsimile), `gr-082` (the Pylos hearth, not the economy),
+  `gr-086` (an Archaic Artemis Orthia plaque), `gr-095` (the Lady of Mycenae; now a Hittite-court
+  letter from Hattusa) and `gr-097` (a map with printed labels). **Added:** `gr-079`, `gr-080`, `gr-081`,
+  `gr-096` (Pylos tablets), `gr-098` (the site of Miletus) and `gr-099` (Dodwell's drawing of a Kopais
+  sinkhole). No free photograph of the Bronze Age levels at Miletus or of Pylos's storerooms was found.
+  **`gr-076`'s old caption said the tablet was "Minoan"** and named its excavator; it is now a Linear B
+  tablet recording oil for the gods. Every caption that carried a museum number, a photographer or a
+  Commons wrapper ("Information Description:") was rewritten.
 
 **Read by eye.** Tiryns, Midea, Gla and Thebes are bare; the megaron, the Palace of Nestor and the
 Vapheio cups take "the". `gr-093` and `gr-094` both ask about ships; `gr-094`'s first question was
