@@ -1017,6 +1017,81 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-601`–`rm-700`: the Gothic crossing to the Roman assemblies — what this batch found
+
+A hundred cards in twenty batches of five: `rm-601`–`rm-620` close `rm-christian-empire`, `rm-621`–`rm-640`
+fill `rm-fall-west`, `rm-641`–`rm-695` are the whole of `rm-army`, and `rm-696`–`rm-700` open `rm-government`.
+93 new glossary terms; `Fall_of_the_Western_Roman_Empire`, `Attila`, `Romulus_Augustulus`, `Byzantine_Empire`
+(through its alias "Eastern Roman Empire"), `Roman_legion`, `Donativum` and `Roman_Senate` are reused, each card
+written as the existing card's pair. Standing practice that held across the round:
+
+- **A new term's surfaces were grepped across the whole corpus before it was added**, and four shipped texts
+  changed for it: `wh-064` and the `Toba_catastrophe_theory` gloss no longer name the anthropologist Ambrose,
+  `wh-462` calls the Quran recension the ʿUthmānic codex rather than a Vulgate (abstract and a why answer), and
+  `geo-030`'s oil rig drives "a ram". Ordinary-word terms are `caseSensitive` or claim only a narrow alias:
+  `Cohort_(military_unit)`, `Ovation`, `Disciplina`, `Aquila_(Roman)`, `Ala_(Roman_cavalry_unit)`, `The_City_of_God`,
+  `Gothic_War_(535–554)`.
+- **The `rm-army` deck is thematic and mostly Latin terms**, each card running from the Republic to late
+  antiquity where the sources allow; its essay-shaped lines are answered by a concrete term.
+- **No card carries a picture except `rm-669`.** Wikipedia and Commons rate-limited the whole round.
+- **Dates the sources do not give are left out rather than computed**, and the one estimate that reached a
+  date line (Marius's canal on `rm-674`) was removed before shipping.
+
+- **`rm-601`–`rm-605`.** rm-601 Gothic crossing → Tervingi (slug Thervingi, alias Tervingi); rm-604 Gothic settlement of 382 → foederati (no name for the treaty; "settlement" kept out of prose). No bare "Adrianople" (rm-582 uses the city) or "Theodosius" (ru-061 Kyiv monk). Edict date "late February 380" (leap-year conversion not done by hand); Theodosius' accession January 379 (DIR 19 vs Socrates 16).
+- **`rm-606`–`rm-610`.** rm-606 end of public paganism → Theodosian decrees (slug Persecution_of_pagans_under_Theodosius_I + alias); rm-610 division of 395 → Arcadius (eastern side; west left to rm-fall-west). New Ambrose term claims bare name: wh-064 abstract and the Toba_catastrophe_theory gloss reworded to drop Stanley Ambrose. Thessalonica massacre 390 (one review says 391, in notes). "Victoria" kept out of prose (Seychelles term).
+- **`rm-611`–`rm-615`.** rm-612 rise of the bishop → metropolitan bishop (bare "bishop" in ~70 texts; episcopalis audientia has no article); rm-613 early monasticism → Desert Fathers (wh-492 has the Life of Antony); slug Christianisation_of_the_Roman_Empire with US-spelling alias. Vulgate claims the bare word: wh-462's "Vulgate of ʿUthmān" (abstract and a why answer) now reads "ʿUthmānic codex". "Hippo" kept out of prose (Hippopotamus alias); "Anthony" not "Antony".
+- **`rm-616`–`rm-620`.** rm-619 papacy in late antiquity → Damasus I (Papacy term is wh-494's medieval one). City of God caseSensitive; no bare "Leo I" (the eastern emperor of 457–474). Leo and Genseric in 455 hedged as "is said to".
+- **`rm-621`–`rm-625`.** rm-621 reuses Fall_of_the_Western_Roman_Empire as wh-375's pair (the provinces lost one by one, not 476 itself). rm-624 Sack of Rome, 410 → Gothic sack of Rome (like rm-124's Gallic sack; no bare "sack of Rome", which wh-621 uses for 1527). rm-625 → Crossing of the Rhine. Alaric I claims no bare "Alaric" (wh-488/489 name Alaric II). No ransom figures (Zosimus and Olympiodorus disagree).
+- **`rm-626`–`rm-630`.** rm-627 Vandal conquest of Africa → Vandal Kingdom (429–442 only); rm-628 slug Gaiseric with aliases Genseric/Geiseric; rm-629 Flavius_Aetius with alias Aetius; rm-630 reuses Attila as wh-590's pair (treaties, invasions, Honoria, 451–452). Carthage article has no coordinate, so rm-627's locator is Byrsa. Bare "Clovis" (the culture) and "Thermopylae" kept out.
+- **`rm-631`–`rm-635`.** rm-633 the last western emperors → Ricimer (the kingmaker of 456–472). rm-632 → Vandal sack of Rome (Sack_of_Rome_(455), matching rm-624). rm-634 reuses wh's Romulus_Augustulus. No exact days for the Catalaunian battle or the 455 entry (not in any source fetched); no casualty figures. Orestes never named bare (links the myth).
+- **`rm-636`–`rm-640`.** rm-637 survival of the East → Eastern Roman Empire, an existing alias of Byzantine_Empire (wh-436's pair); rm-638 Justinian's reconquest → Gothic War (slug Gothic_War_(535–554), caseSensitive so lower-case "Gothic war" of 376–382 stays unlinked); rm-639 → Historiography of the fall of the Western Roman Empire, the question rather than a scholar, Gibbon named once; rm-640 Legacy_of_the_Roman_Empire, undatable. Gothic War's end given as last battles 552 and the settlement law 554.
+- **`rm-641`–`rm-645`.** rm-642 reuses Roman_legion (now paired by wh-344, rm-119, rm-642; this card takes the imperial and late legion). rm-643 Cohort_(military_unit) links only capitalised "Cohort" (caseSensitive): lower-case cohort means a study cohort in psychology and biology cards. rm-645 keyed on Roman_army_of_the_late_Republic with alias "cohortal legion". The rebel governor of 42 CE left unnamed (bare "Camillus" links the Republican hero).
+- **`rm-646`–`rm-650`.** rm-647 legionary recruitment → dilectus; rm-649 keeps "legionary pay" (stipendium is rm-122's); rm-648 Sacramentum_(oath) with alias; rm-650 military diploma, locator Malpas (the 103 CE find). Legionary now claims bare "legionary" in 26 right-sense places, including adjectival uses. Severus's pay rise left out (Herodian speaks of rations); Vegetius cited in Latin.
+- **`rm-651`–`rm-655`.** rm-652 auxiliary cavalry → ala (slug Ala_(Roman_cavalry_unit), caseSensitive, aliases ala/alae); rm-653 urban cohorts keyed on Cohortes_urbanae. "auxiliaries" deliberately not an alias (the corpus uses it of Carthaginian and other troops). rm-653 has no date line (no founding year in a source).
+- **`rm-656`–`rm-660`.** rm-656 Classis → Classis Misenensis, the senior fleet (rm-655 holds the navy in general). rm-659 slug Scutum_(shield) with alias. Shipped pilum/scutum mentions (rm-119, rm-155, rm-161) now link in the right sense. Josephus' sword-side detail dropped (contradicts Polybius); Vegetius' spiculum measurements left unconverted.
+- **`rm-661`–`rm-665`.** rm-663 military standards → signum (keyed on Roman_military_standards; aquila and vexillum left to rm-664/665). Aquila_(Roman) is caseSensitive on lower-case "aquila", so the constellation in cnh-036 stays unlinked. Galea_(helmet), Caligae (alias caliga, now linking rm-427's right-sense use). The common claim that caligae gave way to closed boots is left out (no source opened says so). "draco" kept out (links the lawgiver).
+- **`rm-666`–`rm-670`.** rm-668 siege warfare → battering ram (Caesar's rule that a town surrendering before the ram touched the wall was spared); rm-669 artillery → ballista (gr-800 holds the torsion engine; this card is the Roman name and its shift of meaning to a bolt-shooter). Battering_ram claimed geo-030's oil-rig "battering ram", reworded to "ram". rm-667 Legionary_fortress has no Wikipedia article (descriptive slug); its Vetera coordinate copied from rm-464, since the article publishes none. rm-669 carries a CC BY-SA photo of a reconstructed ballista at Yodfat.
+- **`rm-671`–`rm-675`.** rm-673 battle tactics → triplex acies; rm-675 bridge building → Caesar's Rhine bridges (rm-495 and rm-993 keep Trajan's and Roman bridges in general). Testudo_formation claims no bare "tortoise". rm-674 keeps its wording; bare "military engineering" left to wh-627. The estimated date for Marius's canal was dropped from rm-674's date line, since no cited page states it.
+- **`rm-676`–`rm-680`.** rm-676 military discipline → disciplina militaris (Disciplina, caseSensitive, so rm-029/030's Etrusca disciplina stays unlinked); rm-678 decorations → dona militaria; rm-677 Decimation_(punishment) and rm-679 Civic_Crown now link right-sense uses in wh-352, rm-328, wh-353, rm-390. Ovation is caseSensitive and written not to repeat rm-176. "Augusta" (Maine), "Titus", "Latin" and "Claudius" inside longer names kept out.
+- **`rm-681`–`rm-685`.** rm-681 the legionary's career → primus pilus; rm-682 veteran settlement → Augusta Emerita (colonia, Camulodunum and Timgad already carded); rm-683 soldiers' families → canabae (slug Canaba); rm-684 the army and the emperor → adlocutio; rm-685 reuses Donativum as rm-431's pair, Galba to Justinian. Augusta Emerita's founding year 25 BCE is the year Cassius Dio tells it under. Whether Severus legalised marriage is left as Herodian says it.
+- **`rm-686`–`rm-690`.** rm-686 army and the provincial economy → annona militaris (rm-571's pair; no bare "annona"); rm-687 military medicine → valetudinarium; rm-688 military supply → horreum (no bare "horrea", left for rm-767); rm-690 the army on the frontiers → limitanei, rm-589's pair (Hadrian's Wall and the Antonine Wall are already terms; limes is rm-752). "medici" kept out (House of Medici).
+- **`rm-691`–`rm-695`.** rm-691 barbarians in the army → laeti (clear of rm-604's foederati; no "laetus" alias, which names the praetorian prefect); rm-692 late cavalry → clibanarii; rm-693 military manuals → Strategemata (rm-694 keeps Vegetius, whose name now links about 20 right-sense mentions); rm-695 the army and Roman success → virtus, the modern debate in one sentence and no scholar named.
+- **`rm-696`–`rm-700`.** rm-700 the Roman assemblies → comitia, keyed on Roman_assemblies (comitia centuriata rm-071, curiata rm-081, concilium plebis rm-105 and tributa rm-701 have their own cards), the system as a whole. rm-696 keyed on Constitution_of_the_Roman_Republic and written beside gr-866's mixed constitution; rm-697 reuses Roman_Senate as the pair of wh-341, rm-082 and rm-133; rm-699 Senatorial_order is descriptive (Wikipedia's "Senatorial class" redirects to Nobiles, rm-130's term). The two ancient figures for the senatorial census (Dio against Suetonius) are both given.
+
+## `rm-581`–`rm-600`: Licinius to Valentinian I — what this batch found
+
+`rm-581`–`rm-595` close `rm-dominate` and `rm-596`–`rm-600` open `rm-christian-empire`, with eighteen new
+glossary terms. `First_Council_of_Nicaea` (wh-374's) and `Constantinople` (wh-437's) are reused untouched,
+and each card is written as that card's pair: `rm-583` tells how Constantine ran the meeting, `rm-586` keeps
+to the foundation of 324–330.
+
+- **Eight lines are answered by a concrete term rather than their own wording.** `rm-582` *the reunification
+  of 324* is the **Battle of Chrysopolis**; `rm-588` *the late Roman army* is the **magister militum**, which
+  keeps clear of `rm-589`; `rm-589` *comitatenses and limitanei* is **comitatenses**, the frontier troops
+  carried as the contrast; `rm-590` *the late Roman bureaucracy* is the **magister officiorum**; `rm-592` *Constantine's
+  church building* is the **Lateran Basilica**, the wider programme in its second half; `rm-595` *the sons
+  of Constantine* is **Constantine II**, whose reign carries 326, 335, the killings of 337 and the war of 340;
+  `rm-598` *Julian's pagan restoration* is the **School Edict** of 17 June 362, the one dated measure; and
+  `rm-600` *Valentinian and Valens* is **Valentinian I**, Adrianople left to its own card. `rm-591`
+  *colonate* is keyed on `Colonus_(person)`, so the Attic deme keeps bare "Colonus".
+- **`Licinius` claims the bare name, and nine shipped sentences were reworded for it.** Wikipedia's title is
+  bare, and the card needs the surface to pair. `rm-090`, `rm-101`, `rm-116`, `rm-128`, `rm-260`, `rm-303`,
+  `rm-459`, `wh-343` and `wh-352` named a Republican or Flavian-era Licinius, and the Licinio-Sextian gloss
+  named Stolo; each now reads by cognomen or by office. "Marcus Licinius Crassus" is safe as the longer
+  surface. A future card naming another Licinius must avoid the bare word.
+- **`rm-597` answers "Julian the Apostate", not "Julian".** Bare *Julian* is the Julian house, the Julian
+  Alps, Port St Julian and the calendar in about twenty cards, so `Julian_(emperor)` claims only the
+  epithet, and the card's answer uses it so that the card pairs with its term. No term claims bare
+  "Valentinian" (`wh-373` means Valentinian II) or "Valens" (`rm-459`, `rm-460` mean Fabius Valens).
+- **Words that link the wrong sense were kept out of the prose**: bare "Caesar" and "Augustus" as titles
+  (junior and senior emperor instead), "council", "coin", "Socrates", "Helena", "Egyptian", "Susa",
+  "Carrhae" for Julian's Carrae, and "Theognis" for the bishop of Nicaea.
+- **Dates that the sources disagree on are left out or hedged.** Cibalae is given no year (314 against 316 in
+  the two DIR entries); Constantius II's death is 361 only (3 November against 5 October); the solidus has
+  no introduction year, its date line giving the Trier issues of 310–313 and the laws of 325 and 363.
+- **No card carries a picture.** The Commons API rate-limited every request in this session, so no licence
+  could be read. A Met CC0 solidus of Valentinian I is a ready candidate for `rm-587` or `rm-600`.
+
 ## `rm-571`–`rm-580`: Diocletian's tax system to the Edict of Milan — what this batch found
 
 - **Four lines are answered by a concrete term rather than their own wording.** `rm-571` *Diocletian's tax
