@@ -4838,7 +4838,12 @@ window.GLOSSARY = {
 "Eastern_Front_(World_War_I)": "The Eastern Front of the First World War was the theatre in which Germany and Austria-Hungary fought the Russian Empire, and from 1916 Romania, on a front that in 1914 already ran from the Baltic Sea to the Romanian border.<sup class=\"fn\" data-fn=\"1\"></sup> Its distances kept it a war of movement, from Germany’s destruction of a Russian army at Tannenberg in 1914 through the Central Powers’ breakthrough at Gorlice–Tarnów in 1915 to Russia’s Brusilov offensive of 1916.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> After the revolutions of 1917 Russia left the war, and by the Treaty of Brest-Litovsk of 3 March 1918 it gave up eighteen provinces holding almost 30 percent of its pre-war population.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Unrestricted_submarine_warfare": "Unrestricted submarine warfare is the sinking of merchant ships, enemy or neutral, by submarines without warning and without regard to the prize rules, which allowed a warship to sink a merchant ship only after providing for its crew.<sup class=\"fn\" data-fn=\"1\"></sup> Germany first proclaimed a war zone around Britain and Ireland in February 1915, held back under the threat of an American break in relations, and resumed unrestricted attacks early in 1917.<sup class=\"fn\" data-fn=\"2\"></sup> The renewed campaign nearly crippled Britain’s economy but was defeated by convoys, and by bringing the United States into the war it helped to seal Germany’s defeat.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Chemical_warfare": "Chemical warfare is the use of toxic chemical substances as weapons to cause casualties, a method of war first employed on a large scale in the First World War.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In that war, from an attack near Ypres on 22 April 1915 onwards, the armies used chlorine, phosgene and mustard gas, and estimates of the casualties run to more than a million.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Geneva Protocol of 1925 banned the use of poison gas in war, and the Chemical Weapons Convention, in force since 1997, turned the ban into a global prohibition of the weapons themselves.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Home_front": "The home front is the civilian population and economy of a country at war, as distinct from its forces at the fighting fronts, a term that spread during the First World War.<sup class=\"fn\" data-fn=\"1\"></sup> It covers the mobilisation of a whole society for total war, in which governments take control of food supplies, ration scarce goods, censor the press and assume emergency powers over civilian life.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its strains could decide the fate of governments, as when bread riots in Petrograd in March 1917 grew into a mass revolt that forced the Russian tsar, Nicholas II, to abdicate.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Home_front": "The home front is the civilian population and economy of a country at war, as distinct from its forces at the fighting fronts, a term that spread during the First World War.<sup class=\"fn\" data-fn=\"1\"></sup> It covers the mobilisation of a whole society for total war, in which governments take control of food supplies, ration scarce goods, censor the press and assume emergency powers over civilian life.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its strains could decide the fate of governments, as when bread riots in Petrograd in March 1917 grew into a mass revolt that forced the Russian tsar, Nicholas II, to abdicate.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Munitionette": "Munitionettes were the women who worked in Britain’s munitions factories during the First World War, making bullets, shells and explosives, and by 1918 the industry employed almost a million women, while others worked in transport, the post and the police.<sup class=\"fn\" data-fn=\"1\"></sup> Munitions employed more working-class women than any other war work, most of whom took it for the wages, although these were often only about half of men’s, and many met hostility from male workers who feared being undercut.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Handling TNT turned the skin of many workers yellow, earning them the nickname ‘canary girls’, and explosions and poisoning killed more than 200 of them.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Armenian_genocide": "The Armenian genocide was the destruction of the Armenian Christians of the Ottoman Empire by the Young Turk government of the Committee of Union and Progress during the First World War, chiefly in 1915 and 1916.<sup class=\"fn\" data-fn=\"1\"></sup> After the arrest of Armenian leaders in Constantinople on 24 April 1915, communities across Anatolia were deported towards the deserts of Syria, and hundreds of thousands died in massacres or from starvation, thirst, exposure and disease.<sup class=\"fn\" data-fn=\"1\"></sup> Most scholars hold that the killings were genocide, a word coined in 1944, and estimates of the dead range from several hundred thousand to 1.5 million, but the Turkish state has long denied the genocide.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Arab_Revolt": "The Arab Revolt of 1916 to 1918 was a rising against Ottoman rule led by Sharif Hussein of Mecca with British support, whose aim was an independent Arab state with Hussein as its king.<sup class=\"fn\" data-fn=\"1\"></sup> British and French officers, among them T. E. Lawrence, worked with Hussein’s Hashemite family, and the rebels’ raids on the Hejaz railway cut Ottoman supply lines and tied down troops needed elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> Britain’s studiously vague wartime correspondence with Hussein seemed to promise Arab independence, so the post-war division of Syria and the growth of Jewish immigration into Palestine provoked lasting bitterness.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sykes–Picot_Agreement": "The Sykes–Picot Agreement was a secret understanding of May 1916 between Britain and France, made with Russian consent, on dividing the Arab provinces of the Ottoman Empire after the First World War.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Named after the negotiators Sir Mark Sykes and François Georges-Picot, it gave France a blue zone and Britain a red zone to rule directly or indirectly, set aside areas for an Arab state or confederation, and reserved Palestine for international administration.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Made public in <i>Izvestia</i> by the Bolsheviks in November 1917, it shaped the post-war League of Nations mandates, although Mosul and Palestine, French and international under the 1916 plan, went to Britain.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Balfour_Declaration": "The Balfour Declaration was a letter of 2 November 1917 from the British foreign secretary, Arthur James Balfour, to Lord Rothschild, stating that the British government favoured the creation of a Jewish national home in Palestine.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It also undertook not to harm the civil and religious rights of Palestine’s existing non-Jewish communities or the rights of Jews in other countries, and it was written into Britain’s League of Nations mandate for Palestine, approved in 1922.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Issued for a mix of sympathetic and wartime motives, it became one of the documents that led to the State of Israel, while unsettling the position of the country’s non-Zionist population.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7455,7 +7460,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_the_Somme": "1 July – 18 November 1916",
 "War_of_the_Pacific": "1879–1884",
 "Gallipoli_campaign": "1915–1916",
-"Eastern_Front_(World_War_I)": "1914–1918"
+"Eastern_Front_(World_War_I)": "1914–1918",
+"Munitionette": "1914–1918",
+"Armenian_genocide": "1915–1916",
+"Arab_Revolt": "1916–1918",
+"Sykes–Picot_Agreement": "1916",
+"Balfour_Declaration": "1917"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10214,7 +10224,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Unequal_treaties": ["unequal treaty"],
 "Western_Front_(World_War_I)": ["Western Front"],
 "European_emigration": ["Age of Mass Migration"],
-"Eastern_Front_(World_War_I)": ["Eastern Front"]
+"Eastern_Front_(World_War_I)": ["Eastern Front"],
+"Munitionette": ["munitionettes"],
+"Sykes–Picot_Agreement": ["Sykes-Picot Agreement"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15106,7 +15118,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Eastern_Front_(World_War_I)": ["war","history","warfare","russia","germany","europe","20th century"],
 "Unrestricted_submarine_warfare": ["practice","history","warfare","germany","20th century"],
 "Chemical_warfare": ["practice","warfare","history","diplomacy","20th century"],
-"Home_front": ["concept","history","society","economics","politics"]
+"Home_front": ["concept","history","society","economics","politics"],
+"Munitionette": ["people","history","society","industry","britain","20th century"],
+"Armenian_genocide": ["event","history","genocide","ottoman empire","armenia","20th century"],
+"Arab_Revolt": ["event","history","warfare","ottoman empire","middle east","20th century"],
+"Sykes–Picot_Agreement": ["event","history","diplomacy","middle east","britain","france","20th century"],
+"Balfour_Declaration": ["text","history","diplomacy","palestine","britain","20th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

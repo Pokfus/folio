@@ -1300,7 +1300,7 @@ else in the Americas.*
     wh-883  Unrestricted submarine warfare
     wh-884  Chemical weapons in the First World War  — written as the general term *chemical warfare* (glossary key `Chemical_warfare`), its First World War use being the card's subject
     wh-885  Home front
-    wh-886  Women's war work
+    wh-886  Women's war work  — written as *munitionettes* (glossary key `Munitionette`), the other belligerents' women workers in its general half
     wh-887  Armenian genocide
     wh-888  Arab Revolt
     wh-889  Sykes–Picot Agreement
