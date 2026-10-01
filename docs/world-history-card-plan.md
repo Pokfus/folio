@@ -1254,9 +1254,9 @@ else in the Americas.*
     wh-845  Industrialisation of Japan
     wh-846  First Sino-Japanese War
     wh-847  Russo-Japanese War
-    wh-848  Cash crop economies
-    wh-849  Indentured labour
-    wh-850  Colonial railways
+    wh-848  Cash crop economies  — written as the general term *cash crop* (glossary key `Cash_crop`), colonial export farming being the card's subject
+    wh-849  Indentured labour  — written as *Indian indenture system* (glossary key `Indian_indenture_system`)
+    wh-850  Colonial railways  — written as *Uganda Railway* (glossary key `Uganda_Railway`), the case the sources serve best
     wh-851  Christian missions and empire
     wh-852  Settler colonialism
     wh-853  Colonisation of Australia
