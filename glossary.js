@@ -4809,7 +4809,12 @@ window.GLOSSARY = {
 "Metropolitan_bishop": "A metropolitan bishop is a bishop who presides over the other bishops of an ecclesiastical province, taking the title from the metropolis, the chief city in which his see lies.<sup class=\"fn\" data-fn=\"2\"></sup> In the Roman Empire the office was fixed by the council of Nicaea in 325, whose canons left the confirmation of every new bishop to the metropolitan and required the bishops of each province to meet in synod twice a year.<sup class=\"fn\" data-fn=\"1\"></sup> A synod at Antioch in 341 justified his precedence by the provincial capital's place as the city to which men of business came from every quarter.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Desert_Fathers": "The Desert Fathers were the Christian hermits and monks who settled in the deserts of Egypt in the 4th and 5th centuries, living either alone as anchorites or together in communities under an elder.<sup class=\"fn\" data-fn=\"2\"></sup> Their best-remembered figure, Anthony, spent nearly twenty years alone in a deserted fort before drawing many others into the solitary life, and a visitor about 390 counted some 5,000 men on the mountain of Nitria alone.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Their teaching was carried to the Latin West by writers such as John Cassian and shaped monastic life there for centuries.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Vulgate": "The Vulgate is the Latin translation of the Bible made largely by Jerome, who began at Rome in the early 380s by revising the old Latin Gospels against the Greek and from 391, at Bethlehem, translated the Old Testament from the Hebrew.<sup class=\"fn\" data-fn=\"1\"></sup> It became the standard Bible of the Latin West, though Jerome did not translate all of its books and the text as later read was not wholly his.<sup class=\"fn\" data-fn=\"2\"></sup> The Council of Trent declared it authentic in 1546, and a revised Catholic edition of 1592 remained standard until the New Vulgate of 1979.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Augustine_of_Hippo": "Augustine of Hippo was a Christian bishop and writer from Roman Africa, born at Thagaste in 354 and dead in 430 during a Vandal siege of his city, whose views on sin, grace and freedom shaped Western Christian thought for more than a thousand years.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Trained in rhetoric at Carthage, he became a public professor of rhetoric at Milan, where Ambrose baptised him in 387 after nine years among the Manichaeans.<sup class=\"fn\" data-fn=\"1\"></sup> His <i>Confessions</i>, letters, sermons and some 100 books survive, and his biographer Possidius described him as priest and bishop for almost forty years.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Augustine_of_Hippo": "Augustine of Hippo was a Christian bishop and writer from Roman Africa, born at Thagaste in 354 and dead in 430 during a Vandal siege of his city, whose views on sin, grace and freedom shaped Western Christian thought for more than a thousand years.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Trained in rhetoric at Carthage, he became a public professor of rhetoric at Milan, where Ambrose baptised him in 387 after nine years among the Manichaeans.<sup class=\"fn\" data-fn=\"1\"></sup> His <i>Confessions</i>, letters, sermons and some 100 books survive, and his biographer Possidius described him as priest and bishop for almost forty years.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"The_City_of_God": "The <i>City of God</i> is a Latin work in 22 books by Augustine, begun in 412 CE and completed in 426, written to defend Christianity after the Goths sacked Rome in 410.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its first ten books answer those who held that the old gods must be worshipped for prosperity in this life or for the life to come, and its last twelve trace the origin, history and destined ends of two cities.<sup class=\"fn\" data-fn=\"1\"></sup> Those cities, Augustine says, were formed by two loves, the earthly by love of self and the heavenly by love of God, and their citizens are mixed together in church and state until the end of time.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Donatism": "Donatism was a schism in the church of Roman Africa, named after Donatus, bishop of Carthage, which from the early 4th century CE kept a set of bishops rival to those in communion with Rome.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It arose from the persecution of 303–305, when its founders refused to accept clergy who had handed over the Scriptures, and it rebaptised those who joined it, while holding almost all the same doctrine as its opponents.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Synods called by Constantine at Rome in 313 and at Arles in 314 found against it, and imperial laws from 405, with a conference held at Carthage in 411, set out to suppress it.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Council_of_Chalcedon": "The Council of Chalcedon was the church assembly summoned by the emperor Marcian, which met late in 451 CE in the church of the martyr Euphemia at Chalcedon in Bithynia, near the Bosphorus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It deposed Dioscorus, bishop of Alexandria, and issued a definition of faith, following a letter of Leo, bishop of Rome, which confessed Christ in two natures united in one person.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A further canon ranked the see of Constantinople next after old Rome over Leo's objections, and many eastern Christians rejected the definition and later honoured the deposed Dioscorus as a saint.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Pope_Damasus_I": "Damasus I was bishop of Rome from 366 to 384 CE, and perhaps the first holder of that see who can properly be called a pope.<sup class=\"fn\" data-fn=\"1\"></sup> His election was contested by the deacon Ursinus, and the fighting between their parties left 137 dead in a single day in one Roman basilica before Damasus prevailed and his rival was banished.<sup class=\"fn\" data-fn=\"2\"></sup> He composed verses that were carved and set up in the churches and catacombs of Rome, and in 380 an imperial law named the faith he followed, with that of Peter of Alexandria, as the standard of catholic Christianity.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pope_Leo_I": "Pope Leo I, called Leo the Great, was bishop of Rome from 440 to 461 CE, whose 173 surviving letters set out a doctrine of papal primacy grounded on the apostle Peter.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His letter to Flavian on the two natures of Christ, known as the Tome, was acclaimed at the Council of Chalcedon in 451, though he would not accept the canon there that raised the rank of Constantinople.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In 452 he met Attila at the ford of the river Mincius in northern Italy, when Rome sought peace, after which the king turned back.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7404,7 +7409,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ambrose": "c. 340–397 CE",
 "Massacre_of_Thessalonica": "390 CE",
 "Arcadius": "c. 377–408 CE",
-"Augustine_of_Hippo": "354–430"
+"Augustine_of_Hippo": "354–430",
+"The_City_of_God": "412–426 CE",
+"Council_of_Chalcedon": "451 CE",
+"Pope_Damasus_I": "366–384 CE",
+"Pope_Leo_I": "440–461 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10169,7 +10178,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Thervingi": ["Tervingi"],
 "Persecution_of_pagans_under_Theodosius_I": ["Theodosian decrees"],
 "Massacre_of_Thessalonica": ["massacre at Thessalonica"],
-"Christianisation_of_the_Roman_Empire": ["Christianization of the Roman Empire"]
+"Christianisation_of_the_Roman_Empire": ["Christianization of the Roman Empire"],
+"The_City_of_God": ["City of God"],
+"Pope_Damasus_I": ["Damasus I","Damasus"],
+"Pope_Leo_I": ["Leo the Great"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10220,7 +10232,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Valerian_(emperor)": true,
 "Tetrarchy": true,
 "Dominate": true,
-"Julian's_School_Edict": true
+"Julian's_School_Edict": true,
+"The_City_of_God": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -15033,7 +15046,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Metropolitan_bishop": ["institution","religion","history","christianity","late antiquity"],
 "Desert_Fathers": ["people","religion","history","christianity","egypt","late antiquity"],
 "Vulgate": ["text","religion","literature","christianity","late antiquity"],
-"Augustine_of_Hippo": ["person","religion","philosophy","history","christianity","africa","late antiquity"]
+"Augustine_of_Hippo": ["person","religion","philosophy","history","christianity","africa","late antiquity"],
+"The_City_of_God": ["text","literature","religion","philosophy","christianity"],
+"Donatism": ["religion","history","christianity","africa","rome"],
+"Council_of_Chalcedon": ["event","religion","history","christianity"],
+"Pope_Damasus_I": ["person","religion","history","christianity","rome"],
+"Pope_Leo_I": ["person","religion","history","christianity","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
