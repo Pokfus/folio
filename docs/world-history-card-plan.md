@@ -1298,7 +1298,7 @@ else in the Americas.*
     wh-881  Gallipoli campaign
     wh-882  Eastern Front
     wh-883  Unrestricted submarine warfare
-    wh-884  Chemical weapons in the First World War
+    wh-884  Chemical weapons in the First World War  — written as the general term *chemical warfare* (glossary key `Chemical_warfare`), its First World War use being the card's subject
     wh-885  Home front
     wh-886  Women's war work
     wh-887  Armenian genocide
