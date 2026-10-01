@@ -4822,7 +4822,11 @@ window.GLOSSARY = {
 "Visigothic_Kingdom": "The Visigothic Kingdom was the state of the Visigoths in south-western Gaul and later in Spain, which grew from the Roman government's grant of land in Aquitaine to a Gothic army in 418 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It held Toulouse until the Frankish king Clovis I defeated and killed Alaric II at Vouillé in 507, after which it was centred on Spain, with its royal seat at Toledo.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Its kings and people held to Arian Christianity until the end of the 6th century, and the kingdom lasted until the Arab conquest of the Iberian peninsula.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Vandal_Kingdom": "The Vandal Kingdom was the state ruled by the Vandals and Alans in Roman North Africa, which they invaded from Spain in 429 CE and centred on Carthage after capturing the city in 439.<sup class=\"fn\" data-fn=\"1\"></sup> A treaty of 442 recognised their hold on the richest African provinces, and their Arian kings pressed their own creed on the Nicene clergy while ruling a population whose high culture stayed Roman.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The kingdom lasted about a century, until the forces of the eastern emperor Justinian under Belisarius overthrew its last king, Gelimer, and brought the African provinces back into the empire.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Gaiseric": "Gaiseric, also written Genseric, was king of the Vandals and Alans from 428 to 477 CE, who led his people from Spain into Roman Africa in 429 and captured Carthage in 439.<sup class=\"fn\" data-fn=\"1\"></sup> Jordanes describes him as lame from a fall from his horse, a man of few words who despised luxury but was greedy for gain and skilled at sowing discord.<sup class=\"fn\" data-fn=\"2\"></sup> He made his kingdom a sea power that raided Sicily, Italy and Greece, destroyed an eastern Roman invasion fleet with fireships in 468, and at last made an endless peace with the emperor Zeno.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Flavius_Aetius": "Flavius Aetius was the leading general of the western Roman empire from the 430s until 454 CE, a former hostage of Alaric and of the Huns who made use of Hunnic forces throughout his career.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He fought rival generals for control of the government, held the consulship three times, and in 451 joined with the Visigoths to turn back Attila's invasion of Gaul.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The emperor Valentinian III killed him with his own hand in 454, and a chronicler wrote that with him the western realm fell and could not raise its head again.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Flavius_Aetius": "Flavius Aetius was the leading general of the western Roman empire from the 430s until 454 CE, a former hostage of Alaric and of the Huns who made use of Hunnic forces throughout his career.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He fought rival generals for control of the government, held the consulship three times, and in 451 joined with the Visigoths to turn back Attila's invasion of Gaul.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The emperor Valentinian III killed him with his own hand in 454, and a chronicler wrote that with him the western realm fell and could not raise its head again.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_the_Catalaunian_Plains": "The Battle of the Catalaunian Plains was fought in Gaul in 451 CE between the Huns of Attila with their subject peoples and an alliance of Romans under Aetius and Visigoths under their king Theodoric, who was killed in the fighting.<sup class=\"fn\" data-fn=\"1\"></sup> The sources place it variously on the Catalaunian or Mauriacian plains and at a place called Mauriacum near Troyes, so the exact site is unknown.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Neither side gave way, but the Huns were judged beaten because their survivors lost heart and withdrew, and Attila turned instead to invade Italy the following year.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Sack_of_Rome_(455)": "The Vandal sack of Rome was the plundering of the city in 455 CE by Gaiseric, king of the Vandals in Africa, who sailed from Carthage after the murder of Valentinian III and the seizure of the throne by the senator Maximus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> According to Prosper, Bishop Leo persuaded him to spare the city burning, slaughter and torture, but for fourteen days its movable wealth was carried off.<sup class=\"fn\" data-fn=\"2\"></sup> Many thousands of captives were taken to Carthage, among them the widowed empress Eudoxia and her daughters, together with the palace treasure and half the gilded roof of the Capitoline temple.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Ricimer": "Ricimer was a general of mixed Suevic and Visigothic descent who held the supreme military command in the western Roman empire from 457 until his death in 472 CE.<sup class=\"fn\" data-fn=\"1\"></sup> He helped to depose the emperor Avitus, then made Majorian emperor and had him executed in 461, and afterwards raised Libius Severus to the throne in his place.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In 467 he married the daughter of the emperor Anthemius, but in 472 he besieged him in Rome, set up Olybrius as a rival emperor and died a few weeks after Anthemius was killed.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Odoacer": "Odoacer, also called Odovacar, was a soldier who in 476 CE deposed Romulus Augustulus, the last emperor in Italy, and ruled the peninsula as king until 493.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Raised by the barbarian troops after they were refused a third of the land of Italy, he asked the eastern emperor Zeno for the rank of patricius rather than the imperial title, and later extended his rule into Dalmatia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Theoderic and his Goths, sent by Zeno, besieged him in Ravenna for almost three years, and after his surrender in 493 Theoderic killed him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7427,7 +7431,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sack_of_Rome_(410)": "410 CE",
 "Crossing_of_the_Rhine": "406 CE",
 "Gaiseric": "r. 428–477 CE",
-"Flavius_Aetius": "d. 454 CE"
+"Flavius_Aetius": "d. 454 CE",
+"Battle_of_the_Catalaunian_Plains": "451 CE",
+"Sack_of_Rome_(455)": "455 CE",
+"Ricimer": "d. 472 CE",
+"Odoacer": "d. 493 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10199,7 +10207,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sack_of_Rome_(410)": ["Gothic sack of Rome","sack of Rome in 410"],
 "Crossing_of_the_Rhine": ["Rhine crossing of 406"],
 "Gaiseric": ["Genseric","Geiseric"],
-"Flavius_Aetius": ["Aetius"]
+"Flavius_Aetius": ["Aetius"],
+"Battle_of_the_Catalaunian_Plains": ["Catalaunian Plains","Battle of Châlons"],
+"Sack_of_Rome_(455)": ["Vandal sack of Rome","sack of Rome in 455"],
+"Odoacer": ["Odovacar"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15077,7 +15088,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Visigothic_Kingdom": ["state","history","politics","europe","classical"],
 "Vandal_Kingdom": ["state","history","politics","africa","classical"],
 "Gaiseric": ["person","ruler","history","warfare","africa","classical"],
-"Flavius_Aetius": ["person","history","warfare","politics","europe","classical"]
+"Flavius_Aetius": ["person","history","warfare","politics","europe","classical"],
+"Battle_of_the_Catalaunian_Plains": ["battle","event","history","warfare","rome","europe","classical"],
+"Sack_of_Rome_(455)": ["event","warfare","history","rome","europe","classical"],
+"Ricimer": ["person","history","warfare","politics","rome","europe","classical"],
+"Odoacer": ["ruler","person","history","politics","rome","europe","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
