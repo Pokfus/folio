@@ -890,6 +890,106 @@ read by `.claude/ww2-plates/` (`WW2_FRONTS.at` gives each map's date). The plate
 `drawFronts` fills even-odd, as `pointInRings` already tests. Guarded by `test-personal-atlas.js` section 12
 and `test-polities.js` section 4.
 
+**OCT 2026, THIRD ROUND: CAPITALS FIRST, A PLACE ONLY UNDER ITS OWN NAME, AND ROME AS A STATE.**
+**A CAPITAL WINS A CROWD WHATEVER ITS CARD'S RATING** (`mineDotsShown`'s `tier`; on request: "Keep this
+system, but ensure that capital cities always take display priority over non-capital cards"). The ranking
+is now capital-or-not (a country's or a province's seat), then `mineDiff`, then country-before-province, then
+the title. **AND THE PLACEMENT NO LONGER REVERSES THE RANKING** (`drawMineMarks`' `labelBoxes`): a name used
+to avoid the dots of ALL the candidates, so a lower-ranked place could veto a capital's name on both sides
+and the capital was dropped while the place that blocked it was drawn. A name now avoids only the marks
+placed before it (names and dots), and a mark is refused when its own dot would fall under a name already
+placed — the same two guarantees, in rank order. Water names now avoid dots too. Guarded by
+`test-personal-atlas.js` section 11b (Tunis, rated 2, beats Carthage, rated 1, 15 km away; checked to FAIL
+without the tier).
+**A PLACE IS DRAWN ONLY UNDER ITS OWN CARD'S NAME** (`atlasNameFits`, in `atlasRegister`; on request: "If a
+location label name doesn't identically match the answer term of the card it relates to (e.g. place
+'Brixellum' for the card 'Otho'), then the personal atlas and full atlas should not display that location at
+all"). Measured first and put to the owner: an exact match keeps 245 of the 1,247 locator places and takes 53
+of the 80 battles off ("Battle of Marathon" @ Marathon); the owner chose **exact OR the name standing inside
+the answer as whole words**, which keeps 378. Folded for case, accents, punctuation and a leading "the". It
+binds the LABELLED marks (a dot, a battle, a water name); an extent has no label and is untouched, and so is a
+geography card's `map.dot`, whose label is its answer. The card's own map window is untouched. Because the
+Find-it game draws from the full register, its pool shrinks with it. Guarded by section 11b ("Romulus and
+Remus" @ Rome is not drawn); section 11's three Rome cards are now ones whose answer names Rome.
+**THE ROMAN KINGDOM, REPUBLIC AND EMPIRE ARE ON THE ATLAS** (rm-046, wh-339, rm-091, wh-340, wh-358). Four
+cards gained a region locator, and the first kind tag of four became `state` (`era` kept second), so each is
+drawn as a state. Their extents come from Cliopatria through `polity-spec.json`: the Kingdom from a new
+`roman_kingdom` series, the Republic from `roman_kingdom` + `rome`, the Empire from `rome`. **AN EXTENT WHOSE
+CARD DATES ONLY ITS START RUNS AS LONG AS ITS SERIES** (the `open` flag on an `area` mark, read in
+`mineMarks`): wh-358's date line says "from 27 BCE" and nothing after, which drew it for one year; linked, it
+is drawn in exactly the years `rome` has a step for (to 475) and not at all before the bundle lands, since its
+authored polygon has no end to fall back on. `build-polities.js` already read a one-date extent that way. An
+unlinked one-date extent is unchanged (one year). **KNOWN FAULT IN THE SOURCE**: Cliopatria's Rome before
+337 BCE (its Roman Kingdom, and its Republic's first two rows) is a coarse block of 900 km² whose eastern edge
+is 12.45° E — the city itself, at 12.48° E, lies about 3 km outside it, and the block covers the Veientine
+side of the Tiber. It was shipped already in `rome`'s −480…−338 step; it now draws the Kingdom too. The fix
+is a traced early-Rome outline from a public-domain plate (the audit's batch 6).
+
+**OCT 2026, FOURTH ROUND: COASTS, OVERLAPPING WARS, SEARCH, PROGRESS, 100 STATES AND THEIR CAPITALS** (on
+request: "Implement the border fixes that you recommend. For the wars, do the multiple tap to cycle system, as
+well as the wars per year list, and drawing less specific ones as hatching … implement 1, 2, 4, and 7 (but make
+sure that Historical capitals are year specific and not state specific …)").
+**A GENERATED BORDER STROKES ITS LAND BORDERS ONLY AND BANDS ITS COASTS** (`stepEdges`, `edgesSplit`,
+`snapBand`, `snapBandOutside`, `SNAP_KM`; geo-util's `coastSnap`, `edgeRuns`, `landGrid`). A step of
+`polities.js` or `country-series.js` is now `[from, to, rings, edges]`: rings CCW, `edges` each ring's edges as
+runs alternating coast and land border. Cliopatria's coast is not world.js's, and a coast drawn a few km INLAND
+used to read as land on both sides and was stroked as a border — the red lines down the Aegean coast in 638, the
+gold line inside Estonia's shore. The builder now grows the shape over its own shore (`coastSnap`: sea, and
+land within 1 cell of the sea, within 3 cells of the shape, on a 0.05° raster of world.js) and an edge whose two
+probes both fall in that grown shape is COAST. The atlas strokes the borders and paints a 7 km band of the fill
+along the coasts, clipped to the land, which closes the dark sliver of unclaimed shore. A translucent fill gets
+its band only OUTSIDE its own rings (`snapBandOutside`), so the two never stack into a darker seam; opaque fills
+draw every band first and every fill over them, so a band reaching across a strait lies under the neighbour's
+own fill. **A HISTORICAL ERA'S TERRITORY DOES THE SAME** from the `c` mask build-era.js already ships ('1' coast,
+'0' border; `terrEdges`). **Tried and dropped: a shipped fringe** — the coastal strip as data, first as traced
+rings (64,000 rings, 9 MB) then as merged cell rectangles (6.5 MB); the band is a few numbers per ring.
+**The band is 7 km, not 10**: `node .claude/check-coast-fit.js` (report only) measures the coast still drawn
+further inland than the band — 13% at 7 km, 6% at 10 km — but 10 km paints across the Corfu strait and Lesbos.
+The coastal strip is one cell, not two: at two, Achaea (a coastal strip outside the Peloponnesian League)
+was taken for the League's own misplaced shore and coloured in. Screenshots at 638, 1939 and 410 BCE checked
+against the bug report's.
+**WHAT IS UNDER A POINT IS A LIST, AND A SECOND TAP STEPS THROUGH IT** (`mineStackAt`, `mineCyc`): the
+ladder is unchanged — the reader's country, then every war side smallest-first, then the fronts, then every
+extent smallest-first — but it returns every rung that hits, and a tap at the same spot (14 px) while the panel
+is open opens the next, wrapping, with a toast "2 of 3 here". A dot or a name answers alone. The province drill
+keeps its 400 ms double-click and is tried first.
+**A WAR OVERLAPPED BY A NARROWER ONE IS HATCHED** (`warExtents`, `warSpecific`, `warHatched`, `hatchFor`): a
+war's specificity is the box round both its sides this year; where it overlaps a smaller war's box by a fifth of
+the smaller one's, the wider war is drawn as diagonal hatching in its own colours, and first, so the narrower
+war lies over it. The selected war side is outlined in gold (`mineSel` = `war|<id>|<side>`).
+**THE WARS OF THE YEAR ARE LISTED** (`refreshWarList`, `#atlasWars`): at the top of the collections panel,
+narrowest first, each with its two colours (hatched where the map hatches it) and its years; a press selects the
+war, opens its card and frames it. Refreshed from `paintYear`. The panel body now scrolls rather than growing
+over the zoom buttons.
+**THE FULL ATLAS HAS A SEARCH AGAIN** (`msIndex`, `msPick`, `seriesEnd`): the world atlas's box, indexed over
+the full register — places, battles, water, states, peoples, wars (once), countries, provinces. A pick moves the
+rail into the mark's years (an open state's end is its series' end), flies there and opens the card; a country
+not on this year's map goes to the present, and the card whose answer IS the name searched leads the stack.
+Your atlas still has no search.
+**YOUR ATLAS SAYS HOW MUCH OF EACH COLLECTION YOU HAVE FOUND** (`atlasCollections`' `total`): "3/132" beside
+each collection, both counts taken the same way over the reader's and the full register; with one collection
+the row is shown without its switch.
+**A HUNDRED AND SIX STATE CARDS GAINED AN EXTENT** (`polity-spec.json`, 91 new series; matched card by card
+against Cliopatria in a research pass whose notes are in this round's commit message and the audit ledger).
+Each got a region locator whose fallback polygon is Cliopatria's largest row inside the card's years and whose
+point is the card's own existing coordinate (`add-locators.js`'s new `keepAt`) or its capital's Wikidata P625.
+Left out on purpose: fifteen with no honest Cliopatria match (the Xia, Ur III, Manchukuo, Buyeo, Yamato,
+Wallis and Futuna, Benin, Dahomey, the Wari, the Hausa kingdoms, Chengjia, the Cypriot city-kingdoms), the
+mahajanapadas (no coordinate to anchor), and eleven doubtful ones — al-Andalus, Anglo-Saxon England and the
+Holy Roman Empire (Cliopatria's shape is not the thing), the Japanese colonial empire and New France (it holds
+more than the thing), the three Roman dynasties and Roman Italy (they would redraw the Roman Empire), and the
+Golden Horde (ru-100) and Later Zhao, whose cards' years fall outside every row.
+**A STATE'S CAPITAL IS DRAWN IN THE YEARS IT WAS THE CAPITAL** (`mineCapitals`, `DATA_BUNDLES.statecaps`,
+`state-capitals.js` from `.claude/build-state-capitals.js` and `.claude/state-capitals-spec.json`). Wikidata's
+P36 statements with their start/end qualifiers: the Ottomans at Söğüt, Bursa, Edirne, Constantinople in turn;
+the Han at Chang'an then Luoyang; the Abbasids at Baghdad, Samarra, Baghdad, Cairo. **Year-specific, and silent
+where the source is**: undated statements are ignored where dated ones exist (one of PREFERRED rank fills the
+gaps), and a state with several undated capitals — the Achaemenids, Elam, the Golden Horde — gets none, since
+the source does not say which was the capital when. **The query service counts years astronomically** (year 0 =
+1 BCE), so a BCE year is shifted by one. The square is the STATE's mark and opens the state's card; where a place
+card stands at that city under the same name, that place is drawn as the square instead and keeps its card.
+Capitals rank first in a crowd, as country capitals do.
+
 ---
 
 ## Generating timeline eras — the section as it stood in CLAUDE.md (2026-09-12)

@@ -210,11 +210,13 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   check("there is no world atlas tab any more", await page.evaluate(() => !document.querySelector('[data-atlastab="world"]')));
   await setYear(new Date().getFullYear());
   const minePx = await page.evaluate(PX);
+  check("your own atlas has no search", await page.evaluate(() => document.getElementById("globeSearch").hidden));
   await page.evaluate(() => { document.querySelector('[data-atlastab="full"]').click(); });
   await page.waitForTimeout(3000);
   check("switching tab keeps the reader there rather than resetting", await page.$eval('[data-atlastab="full"]', (e) => e.classList.contains("on")));
-  check("...on the personal globe still: no legend and no search",
-    await page.evaluate(() => document.getElementById("globeLegend").hidden && document.getElementById("globeSearch").hidden));
+  // the Full atlas gained a search of its own register in Oct 2026 ("search on the Full atlas"); Your atlas still has none
+  check("...on the personal globe still: no legend, but the full atlas's own search",
+    await page.evaluate(() => document.getElementById("globeLegend").hidden && !document.getElementById("globeSearch").hidden));
   check("...and the personal rail, from 4000 BCE", (await page.$$eval(".tl-tick", (els) => els.map((e) => e.textContent)))[0] === "4000 BCE");
   await setYear(new Date().getFullYear());
   const fullPx = await page.evaluate(PX);
@@ -612,9 +614,10 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
      location on the Atlas, but when clicking on it to open the card popup, swiping right/left should allow
      the user to browse through all the cards that refer to that location." Three Rome cards are ONE mark,
      and the popup that mark opens carries all three: the arrows, the arrow keys and a sideways drag each
-     step through them, and the card on show really changes. */
+     step through them, and the card on show really changes. The three are cards whose answer NAMES Rome —
+     since Oct 2026 a place is drawn only under its own card's name (see section 11b). */
   console.log("\n11) one place, many cards");
-  await freshPage(["rm-052", "rm-053", "rm-058"], 3, { lon: 12.49, lat: 41.89 });
+  await freshPage(["rm-052", "rm-313", "ww2-115"], 3, { lon: 12.49, lat: 41.89 });
   await page.keyboard.press("Escape");
   const gst = await page.$eval("#globe", (e) => { const r = e.getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; });
   let stackTxt = "";
@@ -655,6 +658,36 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
     }
   }
   check("a place with one card shows no stack bar", single === true, String(single));
+
+  /* ---------- 11b) which places are drawn, and which wins a crowd ---------- */
+  /* Oct 2026, on request: "If a location label name doesn't identically match the answer term of the card
+     it relates to (e.g. place 'Brixellum' for the card 'Otho'), then the personal atlas and full atlas
+     should not display that location at all" — the owner chose the reading where the name may also stand
+     inside the answer ("founding of Rome" keeps Rome; "Romulus and Remus" does not). And "capital cities
+     always take display priority over non-capital cards": Tunis (a capital, rated 2) and Carthage (a place,
+     rated 1) are 15 km apart, so at the opening zoom only one can be drawn, and it is now the capital. */
+  console.log("\n11b) which places are drawn, and which wins a crowd");
+  const sweepHead = async () => {
+    const g = await page.$eval("#globe", (e) => { const r = e.getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; });
+    // the centre first: a click answers for the NEAREST drawn mark, so a mark at the centre wins it if drawn
+    for (let dx = 0, first = true; dx <= 120; dx = first ? -60 : dx + 12, first = false) {
+      for (let dy = first ? 0 : -40; dy <= (first ? 0 : 40); dy += 10) {
+        await page.mouse.click(g.x + g.w / 2 + dx, g.y + g.h / 2 + dy);
+        await page.waitForTimeout(90);
+        const open = await page.evaluate(() => { const e = document.getElementById("countryPop"); return !!(e && !e.hidden); });
+        if (open) { await page.waitForTimeout(600); return page.evaluate(() => { const v = document.querySelector("#cpDesc .answer .val"); return v ? v.textContent.trim() : "(open)"; }); }
+      }
+    }
+    return "";
+  };
+  await freshPage(["rm-053"], 3, { lon: 12.49, lat: 41.89 });   // Romulus and Remus, located at Rome
+  await page.keyboard.press("Escape");
+  const notName = await sweepHead();
+  check("a place whose name is not its card's answer is not drawn", notName === "", notName);
+  await freshPage(["gw-580", "rm-181"], 0, { lon: 10.3233, lat: 36.8528 });   // centred ON Carthage, Tunis beside it
+  await page.keyboard.press("Escape");
+  const crowd = await sweepHead();
+  check("where a capital and an easier place crowd, the capital is drawn", /^Tunis$/i.test(crowd), crowd || "no popup opened");
 
   /* ---------- 12) the Second World War's fronts, one map a year ---------- */
   /* Oct 2026, on request: "Add front line border maps for World War 2", then "we only need year by year border
