@@ -6,6 +6,9 @@
 > is the pass's own and is to be re-checked against the source before a batch relies on it. Any work this
 > note marks "not opened" has not been seen at all. Paths it mentions (`research/…`, `inventory.txt`) were
 > scratch files of that session and no longer exist.
+> **Folio uses open and free sources only** (the audit's §3 rule): anything this note lists under a
+> non-commercial, "academic use", no-redistribution, paid, proprietary or unclear licence is EXCLUDED, even
+> where the note recommends it as a cross-check.
 
 
 Research date: 2026-10-01. Input: the 44 `A |` lines tagged `culture` or `people` in `inventory.txt`. Several cards share an entity, so there are **40 unique entities** below.

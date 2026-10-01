@@ -194,8 +194,13 @@ function checkWar(card, cardYears) {
   const w = card && card.war;
   if (w == null) return null;
   if (typeof w !== "object" || Array.isArray(w)) return "card.war must be an object with `victors` and `losers`.";
-  const extra = Object.keys(w).filter((k) => ["victors", "losers", "years", "zoom"].indexOf(k) < 0);
-  if (extra.length) return "card.war carries " + extra.join(", ") + " — it takes `victors`, `losers` and an optional `years` and `zoom`.";
+  const extra = Object.keys(w).filter((k) => ["victors", "losers", "years", "zoom", "group"].indexOf(k) < 0);
+  if (extra.length) return "card.war carries " + extra.join(", ") + " — it takes `victors`, `losers` and an optional `years`, `zoom` and `group`.";
+  /* `group: true` marks a war that GROUPS other war cards — the Samnite Wars over the First, Second and
+     Third (Oct 2026, on request: "Wars cards which group several other cards should not be included on the
+     personal or full atlas"). Its own card window still shades both sides; the personal atlas skips it, so
+     the same ground is not drawn twice in the same years by the umbrella and by its parts. */
+  if (w.group != null && w.group !== true) return "card.war.group is either `true` or absent — it marks a war that groups other war cards.";
   if (w.zoom != null && (!isFinite(Number(w.zoom)) || Number(w.zoom) <= 0)) return "card.war.zoom must be a positive number — it overrides the frame the two sides would otherwise choose.";
   const N = mapNames();
   const seen = new Map();

@@ -151,6 +151,8 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   }
   check("a click on an unlocked place opens the panel", !!title, title || "nothing opened");
   check("...headed with the card's own answer", /China|Egypt/.test(title), title);
+  // the card's heavy half is lazy, so its back can land a moment after the panel opens — wait for it
+  await page.waitForSelector("#cpDesc .cp-cardback .answer .val", { timeout: 3000 }).catch(() => {});
   check("...showing the card's ANSWER SIDE, not a country description",
     await page.evaluate(() => !!document.querySelector("#cpDesc .cp-cardback .answer .val")));
   check("...with its footnote markers numbered, so the apparatus is live",
@@ -604,6 +606,55 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
     await page.waitForTimeout(150);
     check("...armed again by the chevron", (await page.evaluate(() => document.querySelectorAll(".gloss-win").length)) === 0);
   }
+
+  /* ---------- 11) one place, many cards ---------- */
+  /* Oct 2026, on request: "When several cards feature the same atlas location, create only a single
+     location on the Atlas, but when clicking on it to open the card popup, swiping right/left should allow
+     the user to browse through all the cards that refer to that location." Three Rome cards are ONE mark,
+     and the popup that mark opens carries all three: the arrows, the arrow keys and a sideways drag each
+     step through them, and the card on show really changes. */
+  console.log("\n11) one place, many cards");
+  await freshPage(["rm-052", "rm-053", "rm-058"], 3, { lon: 12.49, lat: 41.89 });
+  await page.keyboard.press("Escape");
+  const gst = await page.$eval("#globe", (e) => { const r = e.getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; });
+  let stackTxt = "";
+  for (let dx = -60; dx <= 120 && !stackTxt; dx += 12) {
+    for (let dy = -40; dy <= 40 && !stackTxt; dy += 10) {
+      await page.mouse.click(gst.x + gst.w / 2 + dx, gst.y + gst.h / 2 + dy);
+      await page.waitForTimeout(90);
+      stackTxt = await page.evaluate(() => { const e = document.getElementById("countryPop"), b = document.getElementById("cpStack");
+        return e && !e.hidden && b && !b.hidden ? document.getElementById("cpStackN").textContent.trim() : ""; });
+    }
+  }
+  check("three cards about Rome open as ONE place carrying all three", /^1 of 3/.test(stackTxt), stackTxt || "no stacked popup opened");
+  const head = () => page.evaluate(() => { const v = document.querySelector("#cpDesc .answer .val"); return v ? v.textContent.trim() : ""; });
+  await page.waitForTimeout(600);
+  const h1 = await head();
+  await page.click("#cpStackNext"); await page.waitForTimeout(700);
+  const h2 = await head(), n2 = await page.$eval("#cpStackN", (e) => e.textContent.trim());
+  check("...the arrow steps to the next card", /^2 of 3/.test(n2) && h2 && h2 !== h1, JSON.stringify({ h1: h1, h2: h2, n2: n2 }));
+  await page.focus("#cpStackNext"); await page.keyboard.press("ArrowRight"); await page.waitForTimeout(500);
+  check("...and so does the right arrow key", /^3 of 3/.test(await page.$eval("#cpStackN", (e) => e.textContent.trim())));
+  // a sideways drag across the card body, the way a finger swipes: left brings the next card, wrapping to the first
+  const body = await page.$eval(".cp-cols", (e) => { const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + Math.min(r.height / 2, 160) }; });
+  await page.mouse.move(body.x + 80, body.y); await page.mouse.down(); await page.mouse.move(body.x - 40, body.y + 6, { steps: 6 }); await page.mouse.up();
+  await page.waitForTimeout(600);
+  check("...and a swipe left, wrapping round to the first", /^1 of 3/.test(await page.$eval("#cpStackN", (e) => e.textContent.trim())));
+  await page.mouse.move(body.x - 40, body.y); await page.mouse.down(); await page.mouse.move(body.x + 80, body.y - 6, { steps: 6 }); await page.mouse.up();
+  await page.waitForTimeout(600);
+  check("...and a swipe right goes back", /^3 of 3/.test(await page.$eval("#cpStackN", (e) => e.textContent.trim())));
+  // and a single-card place has no bar at all
+  await freshPage(["gr-058"], 3, { lon: 22.76, lat: 37.73 });   // Mycenae, alone
+  await page.keyboard.press("Escape");
+  let single = null;
+  for (let dx = -60; dx <= 120 && single === null; dx += 12) {
+    for (let dy = -40; dy <= 40 && single === null; dy += 10) {
+      await page.mouse.click(gst.x + gst.w / 2 + dx, gst.y + gst.h / 2 + dy);
+      await page.waitForTimeout(90);
+      single = await page.evaluate(() => { const e = document.getElementById("countryPop"); return e && !e.hidden ? document.getElementById("cpStack").hidden : null; });
+    }
+  }
+  check("a place with one card shows no stack bar", single === true, String(single));
 
   check("no console or page errors throughout", errs.length === 0, errs.slice(0, 3).join(" | "));
   await browser.close();

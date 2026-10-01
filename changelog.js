@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.904", released: "2026-10-01T10:35Z" };
+window.FOLIO_VERSION = { v: "1.904", released: "2026-10-01T11:29Z" };
 
 window.CHANGELOG = [
   {
@@ -53,6 +53,9 @@ window.CHANGELOG = [
       "On the Atlas, <b>places from easier cards show first</b> when zoomed out, and harder ones appear as you zoom in.",
       "<b>Historical states</b> on the Atlas are drawn like countries, and <b>peoples and cultures</b> in blue rather than green.",
       "An Atlas popup now ignores taps on its <b>pictures and footnotes</b> for a moment after it opens, as it already did for glossary terms.",
+      "A place several cards share is now <b>one place on the Atlas</b>; open it and swipe, or use the arrows, to browse every card about it.",
+      "<b>Rome, Carthage and thirteen more historical states</b>, from the Achaemenids to the Mongols, now have Atlas borders that change year by year.",
+      "War cards that group other wars, such as the Samnite Wars, are no longer drawn on the Atlas; the wars they group still are.",
     ]
   },
   {

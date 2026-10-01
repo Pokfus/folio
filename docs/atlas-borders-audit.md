@@ -146,10 +146,20 @@ their sides through era-map `keys`; the other 51 are authored polygons.
 
 ## 3. The sources
 
-Licence key, for a public site that ships its data files: **OK** = CC0, public domain, CC BY (credit
-required). **SA** = CC BY-SA or ODbL: usable, but the derived DATA FILE must carry the same licence and
-credit (not the site). **NC** = non-commercial: do not ship. **closed** = all rights reserved, paid or "no
-redistribution": a cited reference for independent tracing at most.
+**THE RULE: OPEN AND FREE SOURCES ONLY** (Oct 2026, on request: "Ensure we only use open source/free info
+sources so we never have commercial rights problems"). A source is an input to ANY batch — built from,
+traced from or used to check — only if its licence lets anyone reuse it commercially:
+
+- **allowed, no conditions**: public domain, CC0;
+- **allowed, with credit**: CC BY (the credit, a licence link and a note of changes go in the generated
+  file's header and in the Atlas's help card — `build-polities.js` does both for Cliopatria);
+- **allowed, with share-alike**: CC BY-SA, ODbL, GPL — the DERIVED DATA FILE must carry the same licence
+  and credit (not the site); such a source goes into a file of its own so its obligation stays contained.
+
+**EXCLUDED, for everything — not even as a cross-check**: non-commercial (NC) licences, "academic" or
+"educational use", "no redistribution", all rights reserved, paid, proprietary, and any source whose
+licence is unstated or conflicting. Those rows are struck through below and no batch names them. A source
+whose licence is unclear is EXCLUDED until its own published terms say otherwise.
 
 ### The two that do most of the work
 
@@ -174,14 +184,16 @@ redistribution": a cited reference for independent tracing at most.
 | **historical-basemaps** (A. Ourednik) — https://github.com/aourednik/historical-basemaps | world, 54 snapshots from 123,000 BCE to 2010 (Folio uses 11) | static snapshot | **GPL-3.0 per the repo's `LICENSE` file** — see the warning below | the only open source with some CULTURES (Yamnaya, Beaker, Únětice, Cycladic, Minoan …), and 43 unused snapshots |
 | **AWMC geodata** (Ancient World Mapping Center) | Persian Empire, Alexander's empire, Roman Republic 60 BCE, Roman provinces 117/200 CE | one snapshot each, 2.4k–4.6k vertices | **ODbL** (SA) | the best open Achaemenid and Alexander envelopes |
 | **USFS "Indian Land Cessions"** (Royce 1899, digitised) | 752 cession polygons 1784–1894, each tied to a treaty date | per treaty | US federal, **public domain** | the Native-held interior for the Northwest Indian War |
-| **Newberry AHCB** US states and territories | 1783–2000, day-dated | day | conflicting (metadata NC-SA; OHM import says CC0) | take it through OHM's import |
+| ~~**Newberry AHCB** US states and territories~~ | 1783–2000, day-dated | day | **conflicting** (its own metadata says NC-SA; OHM's import page reports CC0 by email) | **EXCLUDED** until Newberry's own published terms say CC0 — and with it OHM's US features imported from it |
 | **Shepherd, *Historical Atlas*** (1923/1926), UT Austin PCL | plates: Persian Empire c. 500 BCE, Athenian Empire c. 450, Greece 431 and 362 BCE, Rome in Italy, Rome and Carthage 218 BCE, France 1328/1453, Europe 1000/1097/1190/1360, Italy 1494, Kievan Rus' | plate per date | **public domain** | tracing base for tier 3 |
 | **Atlas of the World Battle Fronts in Semimonthly Phases** (US Army, 1945) | WW2 fronts, Europe and Pacific incl. China | fortnightly, Jul 1943 – Aug 1945 | **public domain** | fronts, traced |
 | **Pleiades** gazetteer | ~40k ancient places | attestation periods | CC BY 3.0 | points to build coalitions from member lists |
-| CShapes 2.0 (ETH Zürich) | states 1886–2019, day-dated | day | **NC-SA — do not ship** | cross-check OHM's change dates only |
-| CHGIS (Harvard/Fudan) | China, 221 BCE–1911 | yearly | **no redistribution** | reference only; nothing before 221 BCE |
-| Euratlas, GeaCron | Europe / world | 100 years / yearly | **paid / proprietary** | not recommended; GeaCron is the only annual world set and would need a negotiated licence |
-| Stanford "Building the New Order" | Europe 1938–44 | monthly | all rights reserved; download dead | none |
+| ~~CShapes 2.0 (ETH Zürich)~~ | states 1886–2019, day-dated | day | NC-SA | **EXCLUDED** |
+| ~~CHGIS (Harvard/Fudan)~~ | China, 221 BCE–1911 | yearly | no redistribution | **EXCLUDED** |
+| ~~Euratlas, GeaCron~~ | Europe / world | 100 years / yearly | paid / proprietary | **EXCLUDED** |
+| ~~Stanford "Building the New Order"~~ | Europe 1938–44 | monthly | all rights reserved | **EXCLUDED** |
+| ~~HGIS de las Indias~~ | Spanish America 1701–1808 | 7 snapshots | NC-SA | **EXCLUDED** |
+| ~~POLIS dataset (Stanford)~~ | Greek poleis | attributes | "academic use", no licence | **EXCLUDED** |
 
 **A LICENCE QUESTION FOR THE OWNER, FOUND BY THIS AUDIT.** `docs/atlas.md` describes historical-basemaps
 as CC BY-SA 4.0. The repository's `LICENSE` file, fetched 2026-10-01, is the GNU GPL-3.0, and its README
@@ -210,10 +222,10 @@ OpenHistoricalMap series.
 
 | span | tier | source | note |
 |---|---|---|---|
-| 1886 – 2010 | **2** | OHM yearly (CC0), cross-checked against CShapes' change dates | a pipeline rather than a polygon: cut OHM's `admin_level=2` set at 1 January of each year; fall back to the current snapshot where OHM has a hole (USSR 1922–48 was not found by name) |
+| 1886 – 2010 | **2** | OHM yearly (CC0); Cliopatria (CC BY) to fill and check | a pipeline rather than a polygon: cut OHM's `admin_level=2` set at 1 January of each year; fall back to the current snapshot where OHM has a hole (USSR 1922–48 was not found by name) |
 | 1700 – 1886 | **2** | OHM (≈190 countries alive in any year) | Europe from 1648 and East Asia are dense; colonial Africa and the Americas are partial |
-| 1500 – 1700 | **3** | OHM where present; otherwise the existing snapshots | no open yearly world set; GeaCron would need a licence |
-| 1783 – 2000, United States | **1** | Newberry AHCB through OHM | day-dated states and territories |
+| 1500 – 1700 | **3** | OHM and Cliopatria where present; otherwise the existing snapshots | no open yearly world set exists |
+| 1783 – 2000, United States | **3** | OHM's US features NOT imported from Newberry, Cliopatria's United States rows, the Royce cessions (PD) | the convenient day-dated source (Newberry AHCB) is excluded for its conflicting licence |
 
 ### 4.B Historical states
 
@@ -297,6 +309,13 @@ to centre a soft zone, not to draw a border. Four works named below as reference
 
 ### 4.D Wars
 
+**EIGHT WAR CARDS ARE NOT DRAWN ON THE ATLAS AT ALL** (Oct 2026, on request: "Wars cards which group
+several other cards should not be included on the personal or full atlas"): the Messenian Wars (gr-235),
+the Samnite Wars (rm-151), the Punic Wars (wh-345), the Roman conquest of Greece (wh-349), the Roman
+conquest of Spain (rm-261), the Peloponnesian War (wh-330, gr-521) and the Second World War (ww2-001) each
+GROUP other war cards, and carry `war.group: true` (see `card-war.js`). They need no series of their own;
+their rows below are kept for the record. The Second World War is drawn instead as its FRONT LINES (§6).
+
 A war is as easy as its harder side. Where both sides are tier 1 the war draws year by year as soon as
 those series exist; the war block then names polities rather than carrying polygons (see §5).
 
@@ -323,8 +342,8 @@ those series exist; the war block then names polities rather than carrying polyg
 | ww2-100 | Soviet–Japanese border conflicts | USSR + Mongolia — Cl 4 | Japan — Cl 24 | **1** | |
 | ww2-159 | Winter War | USSR | Finland — Cl 2, OHM 1940-03-12 | **1** | |
 | ww2-096 | Second Sino-Japanese War | China — Cl 10 | Japan | **1** sides / **3** occupation | occupied China 1937–43 from cited maps; 1943–45 from the PD fronts atlas |
-| us-072 | Northwest Indian War | United States — Cl 5, AHCB | Western Confederacy — none | **2** | the Confederacy's lands = the Ohio country minus the Royce cessions (PD), by treaty date |
-| us-071 | Sullivan Expedition | United States | Seneca and Cayuga — Cl "Haudenosaunee" 1 | **2** | split the Haudenosaunee shape to the two nations from a cited map |
+| us-072 | Northwest Indian War | United States — Cl 5 | Western Confederacy — none | **2** | the Confederacy's lands = the Ohio country minus the Royce cessions (PD), by treaty date |
+| us-071 | Sullivan Expedition | United States — Cl | Seneca and Cayuga — Cl "Haudenosaunee" 1 | **2** | split the Haudenosaunee shape to the two nations from an openly licensed or public-domain map |
 | gr-448 | Carthaginian invasion of Sicily | Sicilian Greeks — Cl "Greek City-States"; OHM Syracuse | Carthage | **2** | Syracuse + Akragas from OHM |
 | gr-552 | Sicilian Expedition | Syracuse — OHM 1 | Athens and its empire | **3** | Athens' side as below |
 | gr-676 | Social War (357–355) | the allies — Chios, Rhodes, Cos, Byzantium | Athens — Cl "Second Athenian League" 1 | **2** | the allies are four islands/cities: coastlines, no tracing |
@@ -349,30 +368,38 @@ tier 2 — 8, tier 3 — 14, tier 4 — 3, tier 5 — 2. War cards (55): tier 1 
 
 ---
 
-## 5. The plumbing every tier needs first (batch 0)
+## 5. The plumbing every tier needs (batch 0 — BUILT 2026-10-01)
 
-None of the tiers can be delivered with today's data format: a locator `area` and a war side's `area`
-are one polygon with no time dimension. One addition makes every tier possible and leaves every card
-that is never upgraded exactly as it is:
+A locator `area` and a war side's `area` were one polygon with no time dimension. What was built makes
+every tier possible and leaves every card that is never upgraded exactly as it was:
 
-- **A lazy dated-polity bundle**, e.g. `polities.js` registered in `DATA_BUNDLES` (never on the eager
-  path — 📖 `docs/eager-path.md`): `window.POLITIES = { "<slug>": { name, src, steps: [{ from, to, p:
-  [rings] }] } }`, generated by a `.claude/build-polities.js` from Cliopatria / OHM extracts, simplified
-  topology-preservingly (`build-era.js`'s rule — never per-ring Douglas–Peucker), with each step's source
-  recorded.
-- **A card names a polity instead of carrying a polygon**: `locator.polity: "<slug>"` and, on a war side,
-  `polity: ["<slug>", …]` (a side is a LIST — Rome plus its allies, the six Warring States). The authored
-  `area` stays as the fallback for a year no step covers and for any reader whose bundle has not loaded.
-- **The draw path resolves the step for the year on the rail**: `drawMineAreas` and `mineWarShapes` look
-  the slug up, pick the step with `from ≤ year ≤ to`, and cache on the step, not the year (the
-  `mineWarShapes` rule). That is the whole of "borders that change as the slider moves".
-- **One series per polity, shared**: Rome's 26 war cards resolve against one `rome` series; the seven
-  shapes they carry today go.
-- **Credit**: Cliopatria is CC BY 4.0, so the Atlas needs a visible credit line and a licence link
-  (the help card or a sources fold), and the bundle's header must say what was changed (simplified,
-  clipped). OHM is CC0 but its `source:url` is kept in the build notes.
-- **A guard**: a test that every `polity` slug a card names exists in the bundle, and that a stepped
-  shape actually changes between two years of one card (the failure that looks like success).
+- **A lazy dated-polity bundle, `polities.js`** (`DATA_BUNDLES.polities`; never on the eager path —
+  📖 `docs/eager-path.md`), warmed at idle by the Atlas and never awaited:
+  `window.POLITIES = { "<slug>": { n: label, s: [[from, to, rings], …] } }`.
+- **It is GENERATED** by `.claude/build-polities.js` from `.claude/polity-spec.json` — which Cliopatria
+  names make up each series, its years, and which card draws it. Per-ring Douglas–Peucker (0.03°) is
+  ACCEPTED here, unlike in `build-era.js`: each series is drawn on its own, so two series that meet differ
+  by a hair at most; the era maps' shared borders must stay bit-identical and that rule still holds there.
+- **THE LINK IS IN THE SPEC, NOT ON THE CARD** (`window.POLITY_LINKS = { "<card id>": { area | v | l:
+  [slugs] } }`), which is a change from the plan: putting `polity` on the card would have meant a new field
+  through `add-locators.js` and `card-war.js` and a `data.js` rewrite for every batch, where one table in
+  the generated bundle is rebuilt in a second and checked by the builder against the cards.
+- **The draw path resolves the step for the year on the rail** (`polityLink`, `polityStep`, `polityRings`,
+  `mineAreaOf` in app.js): `drawMineAreas`, `mineWarShapes` and the hit-test all read the same rings, and
+  `mineWarShapes` caches on the STEP, not the year. A year no step covers, or a bundle not yet loaded, falls
+  back to the authored polygon — nothing ever draws less than it did.
+- **An authored side facing a dated one is drawn OUTSIDE it** (even-odd clip): Rome's series grows across
+  Italy while Samnium's polygon stays put, and the shared ground would otherwise be both colours.
+- **One series per polity, shared**: every Roman war card resolves against one `rome` series.
+- **Credit**: the bundle's header carries Cliopatria's credit, licence link and note of changes; the
+  Atlas help card carries the credit a reader sees.
+- **The guard**: `node .claude/test-polities.js` (no browser; in CI's fast job) — every series sorted and
+  well-formed, every link to a real card, side and slug, no link to a grouping war, a step inside every
+  linked card's years, and the border really MOVING across a war that spans a step.
+
+To add a polity: add it to `polity-spec.json` (`cliopatria` names, `years`), link the cards, run
+`node .claude/build-polities.js <cliopatria_polities_only.geojson>` (its header says where to fetch it),
+then `node .claude/test-polities.js`.
 
 ---
 
@@ -383,8 +410,8 @@ against the cited source, run `test-personal-atlas.js` and `test-war-cards.js`, 
 
 | batch | what | entities | cards touched |
 |---|---|---|---|
-| **0** | the plumbing in §5, piloted on **Rome and Carthage** | 2 series | 32 (26 Roman wars, 5 Carthaginian, rm-182) |
-| **1** | tier-1 states | B2, B3, B5, B6, B9–B12, B14–B16, B18, B19 | 15 |
+| **0** ✓ | the plumbing in §5, piloted on **Rome and Carthage** | 2 series | 24 links (the grouping wars excluded) |
+| **1** ✓ | tier-1 states | B2, B3, B5, B6, B9–B12, B14–B16, B18, B19 | 15 |
 | **2** | tier-1 war sides not already built | Macedon, Seleucid, Pontus, Numidia, Achaean/Aetolian Leagues, Lydia, the seven Warring States, Han, Xiongnu, Jin, Wu, Rashidun, Byzantium, Sasanians, Normandy, England, France | ~20 war cards |
 | **3** | WW2-era sides by date | Allies/Axis membership by entry/exit date over yearly OHM/Cl borders; Italy, Ethiopia, Finland, USSR, Mongolia, China | ww2-001, 042, 096, 100, 159 |
 | **4** | tier-1 peoples (Cliopatria rows and coastlines), then tier-2 site hulls, Bell Beaker first | C3–C5, C15, C19, C25, C29, C32–C38; then C2, C6, C16–C18, C24, C26, C27 | 22 |
@@ -393,15 +420,18 @@ against the cited source, run `test-personal-atlas.js` and `test-war-cards.js`, 
 | **7** | the era maps by year | the OHM pipeline in §4.A, 1886→2010 first, then 1700→1886 | every geography card |
 | **8** | tier 4–5: soft outlines and honest silence | B7, C1, C11, C12, C28, C39 | 6 |
 
-**Open questions for the owner before batch 0** (each changes what gets built):
+**Decisions taken before batch 0** (Oct 2026, by the owner):
 
-1. **The historical-basemaps licence** (§3). Ask before shipping anything new derived from it.
-2. **Polity, or people?** Cliopatria treats the Avar, Khazar and Hunnic khaganates, Gothia, the Magyars
-   in Etelköz and the Cuman–Kipchak confederation as polities with borders, and Folio's cards tag them
-   `people` — so they are drawn as a blue wash. Importing a bordered series for them argues for retagging
-   them `state` (drawn as a country). That is an editorial call per card.
-3. **Wars drawn as fronts, or as the two sides' territory?** Every source above gives territory. Front
-   lines exist openly only for 1943–45 (traced). The default here is territory.
+1. **Open and free sources only** — see §3's rule. The historical-basemaps licence (§3) stays an open
+   question for the eleven era maps already shipped; no new shape is derived from it while Cliopatria or
+   OHM can supply one, and anything that is goes into a file of its own under its licence.
+2. **The khaganates and confederations stay PEOPLES** ("The people's you mentioned (Avars, Magyar etc.)
+   should indeed be people's and not states"). Avars, Khazars, Huns, Goths, the Magyars in Etelköz and the
+   Cumans keep their `people` tag and are drawn as a blue wash; batch 4 may still take their EXTENT from
+   Cliopatria's rows — the series decides where the wash lies in a year, the tag decides how it is drawn.
+3. **The Second World War gets FRONT LINES** ("Add front line border maps for World War 2 if that's the
+   only one you can find"). Its card groups other wars and is not shaded as two sides (§4.D); its fronts
+   are a layer of their own, from an open source only.
 
 ---
 
@@ -409,4 +439,6 @@ against the cited source, run `test-personal-atlas.js` and `test-war-cards.js`, 
 
 | date | batch | what was done |
 |---|---|---|
+| 2026-10-01 | 1 | the **tier-1 states**, each from Cliopatria: Shang (3 steps), Achaemenid Empire (13; gr-381, wh-301), Bosporan Kingdom ("Cimmerian Bosporus", 7), Empire of Japan (27, 1868–1945), Nanyue (4), Ptolemaic Egypt (26), Macedon (the Argead "Macedonian Empire" → "Antigonid Dynasty" → "Antigonid Macedonia", 39 steps, 675–165 BCE; gr-770), Graeco-Bactria (7), Mongol Empire (12, 1206–1293; wh-594, ru-091), Aztec (12), Inca (8), Volga Bulgaria (4), Kievan Rus' ("Rus'" → "Kievan Rus'", 16). Where one of them is also a war side the side was linked in the same pass: the Achaemenids in wh-310, wh-319 and gr-383, the Shang in cnh-103, Macedon in wh-310, gr-755, rm-240 and rm-249. 15 series, 44 links; consecutive rows identical after simplification are now joined by the builder. Screenshots at 500 BCE (the Achaemenids, Egypt included) and 1250 (the Mongols) checked by eye. ru-091's card runs past 1293, where Cliopatria's "Mongol Empire" ends; its later years fall back to the authored polygon (the Golden Horde is a series of its own, 1294–1695, not yet linked). `test-polities.js` 239/0 |
+| 2026-10-01 | 0 | the plumbing in §5 built and piloted on **Rome** (Cliopatria's Roman Republic, Roman Empire and Western Roman Empire, 123 steps, 500 BCE–475 CE) and **Carthage** (29 steps, 650–146 BCE): 24 card links — rm-182's extent and both sides of every Roman and Carthaginian war that is not a grouping war. Screenshots at 260, 215 and 140 BCE checked by eye: Rome holds the peninsula in 260 and the islands by 215, Carthage holds Spain in 215, and nothing is drawn in 140, the last Punic war having ended in 146. `test-polities.js` 134/0 |
 | 2026-10-01 | — | audit and plan written; nothing built. The evidence behind §3–§4 is kept as three research notes: 📖 `docs/atlas-borders-cliopatria.md` (every entity matched row by row), `docs/atlas-borders-states-wars.md` (the source catalogue and OHM's holdings), `docs/atlas-borders-cultures.md` (the cultures' sources) — read the one a batch needs, by grepping for the entity |

@@ -852,6 +852,32 @@ under the finger. The panel's own chrome (close, chevron, section heads) is neve
 that could replace each authored polygon with dated, changing borders, and the order to do them in:
 📖 `docs/atlas-borders-audit.md`.
 
+**OCT 2026, SECOND ROUND: ONE PLACE PER PLACE, NO GROUPING WARS, AND BORDERS THAT MOVE.**
+**A PLACE SHARED BY SEVERAL CARDS IS ONE MARK** (`atlasStackKey`, `atlasStackOrder`, the stacking in
+`atlasUnlocks`; on request: "When several cards feature the same atlas location, create only a single
+location … swiping right/left should allow the user to browse through all the cards that refer to that
+location"). Measured first: 504 places on two or more cards, 1,345 cards — Rome on 65, the Roman Forum on
+34. THE REGISTER STAYS PER CARD and the VIEW stacks it, keyed on what the reader sees (a place's name, a
+capital's point, a country's name, a culture's name, a war's title and side), so a collection toggle
+filters cards before they stack and `atlasPlaceIsNew` still asks per card. The stack's first card is the
+EASIEST (`cardDifficultyRank`, then the card's own year, then its id): it ranks the mark (`mineDiff`), it
+is where the mark is drawn, and it is the card the popup opens on. `names` now keeps EVERY card naming a
+country (`ids`, `colls`), where it kept the first. **THE POPUP BROWSES THE STACK** (`mineStack`,
+`mineShowCard`, `mineStep`, `#cpStack`): "2 of 9" with an arrow either side, the left/right keys, and a
+sideways swipe on `.cp-cols` (48px, clearly more sideways than down; `touch-action:pan-y` lets a phone hand
+the drag over; the click a swipe ends on is swallowed). It wraps, and every step re-arms the tap guard.
+Guarded by `test-personal-atlas.js` section 11.
+**A WAR THAT GROUPS OTHER WAR CARDS IS NOT ON THE ATLAS** (`war.group: true`, allowed by `card-war.js`,
+read by `cardWar` and skipped in `atlasRegister`; on request: "do not include 'Samnite Wars', but do
+include 'First Samnite War' …"). Eight cards: the Messenian, Samnite and Punic Wars, the Roman conquests
+of Greece and Spain, the Peloponnesian War (two cards) and the Second World War. Their own card windows
+still shade both sides.
+**A STATE OR A WAR SIDE MAY HAVE DATED BORDERS** (`DATA_BUNDLES.polities`, `polityLink`, `polityStep`,
+`polityRings`, `mineAreaOf`; batch 0 of 📖 `docs/atlas-borders-audit.md`, which is where the rules are —
+READ ITS §5 BEFORE TOUCHING ANY OF THEM). A card linked in `POLITY_LINKS` draws its extent or its side from
+the series step for the year on the rail, so the border moves with the slider; anything unlinked or
+unloaded falls back to the authored polygon. Credit for Cliopatria (CC BY 4.0) is in the help card.
+
 ---
 
 ## Generating timeline eras — the section as it stood in CLAUDE.md (2026-09-12)

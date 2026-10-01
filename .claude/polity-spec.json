@@ -1,0 +1,348 @@
+{
+  "_about": "Which dated polity series .claude/build-polities.js cuts out of Cliopatria, and which cards draw them. Edit this file, then re-run the builder. See docs/atlas-borders-audit.md §5. `cliopatria` lists the Name values whose rows make up the series (they must not overlap in time); `years` clips the series to the span any card needs. `links`: a card id → { area: [slugs] } for a locator's extent, or { v: [slugs], l: [slugs] } for a war's two sides. A card not listed here keeps its authored polygon.",
+  "polities": {
+    "rome": {
+      "label": "Rome",
+      "cliopatria": [
+        "Roman Republic",
+        "Roman Empire",
+        "Western Roman Empire"
+      ],
+      "years": [
+        -500,
+        476
+      ]
+    },
+    "carthage": {
+      "label": "Carthage",
+      "cliopatria": [
+        "Carthage"
+      ],
+      "years": [
+        -650,
+        -146
+      ]
+    },
+    "shang": {
+      "label": "Shang",
+      "cliopatria": [
+        "Shang Dynasty"
+      ]
+    },
+    "achaemenid": {
+      "label": "Achaemenid Empire",
+      "cliopatria": [
+        "Achaemenid Empire"
+      ]
+    },
+    "bosporus": {
+      "label": "Bosporan Kingdom",
+      "cliopatria": [
+        "Cimmerian Bosporus"
+      ]
+    },
+    "japan": {
+      "label": "Empire of Japan",
+      "cliopatria": [
+        "Empire of Japan"
+      ]
+    },
+    "nanyue": {
+      "label": "Nanyue",
+      "cliopatria": [
+        "Nanyue"
+      ]
+    },
+    "ptolemaic": {
+      "label": "Ptolemaic Egypt",
+      "cliopatria": [
+        "Ptolemaic Kingdom"
+      ]
+    },
+    "macedon": {
+      "label": "Macedon",
+      "cliopatria": [
+        "Macedonian Empire",
+        "Antigonid Dynasty",
+        "Antigonid Macedonia"
+      ]
+    },
+    "bactria": {
+      "label": "Graeco-Bactria",
+      "cliopatria": [
+        "Greco-Bactrian Kingdom"
+      ]
+    },
+    "mongol": {
+      "label": "Mongol Empire",
+      "cliopatria": [
+        "Mongol Empire"
+      ]
+    },
+    "aztec": {
+      "label": "Aztec Empire",
+      "cliopatria": [
+        "Aztec Triple Alliance"
+      ]
+    },
+    "inca": {
+      "label": "Inca Empire",
+      "cliopatria": [
+        "Inca Empire"
+      ]
+    },
+    "volga_bulgaria": {
+      "label": "Volga Bulgaria",
+      "cliopatria": [
+        "Volga Bulgaria"
+      ]
+    },
+    "rus": {
+      "label": "Kievan Rus'",
+      "cliopatria": [
+        "Rus'",
+        "Kievan Rus'"
+      ]
+    }
+  },
+  "links": {
+    "cnh-103": {
+      "l": [
+        "shang"
+      ]
+    },
+    "cnh-232": {
+      "area": [
+        "nanyue"
+      ]
+    },
+    "gr-381": {
+      "area": [
+        "achaemenid"
+      ]
+    },
+    "gr-383": {
+      "v": [
+        "achaemenid"
+      ]
+    },
+    "gr-448": {
+      "l": [
+        "carthage"
+      ]
+    },
+    "gr-755": {
+      "v": [
+        "macedon"
+      ]
+    },
+    "gr-767": {
+      "area": [
+        "ptolemaic"
+      ]
+    },
+    "gr-770": {
+      "area": [
+        "macedon"
+      ]
+    },
+    "gr-783": {
+      "area": [
+        "bactria"
+      ]
+    },
+    "rm-152": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-153": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-156": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-158": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-159": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-162": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-182": {
+      "area": [
+        "carthage"
+      ]
+    },
+    "rm-186": {
+      "v": [
+        "rome"
+      ],
+      "l": [
+        "carthage"
+      ]
+    },
+    "rm-209": {
+      "v": [
+        "rome"
+      ],
+      "l": [
+        "carthage"
+      ]
+    },
+    "rm-234": {
+      "v": [
+        "rome"
+      ],
+      "l": [
+        "carthage"
+      ]
+    },
+    "rm-237": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-240": {
+      "v": [
+        "rome"
+      ],
+      "l": [
+        "macedon"
+      ]
+    },
+    "rm-245": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-249": {
+      "v": [
+        "rome"
+      ],
+      "l": [
+        "macedon"
+      ]
+    },
+    "rm-255": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-262": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-263": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-265": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-292": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-310": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-333": {
+      "v": [
+        "rome"
+      ]
+    },
+    "rm-350": {
+      "v": [
+        "rome"
+      ]
+    },
+    "ru-010": {
+      "area": [
+        "bosporus"
+      ]
+    },
+    "ru-015": {
+      "area": [
+        "volga_bulgaria"
+      ]
+    },
+    "ru-036": {
+      "area": [
+        "rus"
+      ]
+    },
+    "ru-091": {
+      "area": [
+        "mongol"
+      ]
+    },
+    "wh-245": {
+      "area": [
+        "shang"
+      ]
+    },
+    "wh-301": {
+      "area": [
+        "achaemenid"
+      ]
+    },
+    "wh-310": {
+      "v": [
+        "macedon"
+      ],
+      "l": [
+        "achaemenid"
+      ]
+    },
+    "wh-319": {
+      "l": [
+        "achaemenid"
+      ]
+    },
+    "wh-354": {
+      "v": [
+        "rome"
+      ]
+    },
+    "wh-594": {
+      "area": [
+        "mongol"
+      ]
+    },
+    "wh-605": {
+      "area": [
+        "aztec"
+      ]
+    },
+    "wh-612": {
+      "area": [
+        "inca"
+      ]
+    },
+    "ww2-081": {
+      "area": [
+        "japan"
+      ]
+    }
+  }
+}
