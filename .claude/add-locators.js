@@ -99,7 +99,13 @@ for (const id of Object.keys(want)) {
      one error nothing downstream can see. */
   const qid = String(spec.wikidata || "").trim();
   if (qid && !/^Q\d+$/.test(qid)) die(id + ": `wikidata` must be an item id like \"Q190927\" — got " + JSON.stringify(spec.wikidata));
-  if (!title && !qid) die(id + ": no `title` or `wikidata` — name the Wikipedia article or the Wikidata item whose coordinate is wanted");
+  /* …OR THE CARD'S OWN COORDINATE, ALREADY FETCHED (Oct 2026, turning 60-odd state cards' points into
+     regions for the atlas). `keepAt: true` keeps the `at` the card's locator already carries — fetched by
+     this script when the point was written — and changes only the rest. It is still a fetched pair, never
+     a typed one; it is refused on a card with no coordinate to keep. */
+  const keepAt = spec.keepAt === true;
+  if (keepAt && !(card.locator && Array.isArray(card.locator.at) && card.locator.at.length === 2)) die(id + ": `keepAt` on a card with no locator coordinate to keep");
+  if (!title && !qid && !keepAt) die(id + ": no `title`, `wikidata` or `keepAt` — name the Wikipedia article or the Wikidata item whose coordinate is wanted");
   const zoom = spec.zoom == null ? 0 : Number(spec.zoom);
   if (spec.zoom != null && (!isFinite(zoom) || zoom <= 0)) die(id + ": `zoom` must be a positive number");
   const name = String(spec.name || card.answerText || "").trim();
@@ -162,7 +168,7 @@ for (const id of Object.keys(want)) {
     if (kind !== "region" && kind !== "sea" && kind !== "shelf") die(id + ": `label` is only read on a region, a sea or a shelf — this one is \"" + kind + "\", so it would sit in data.js and never be used");
     label = [Number(L[0]), Number(L[1])];
   }
-  jobs.push({ id, card, title, qid, name, zoom, kind, shapeKey, shape, within, label });
+  jobs.push({ id, card, title, qid, keepAt, name, zoom, kind, shapeKey, shape, within, label });
 }
 
 /* A shape is a polyline (a spine) or a list of RINGS (an area) — say which, so the run's own report
@@ -191,8 +197,10 @@ async function getJSON(url, label) {
 (async () => {
   const done = [];
   for (const j of jobs) {
-    let got = null, redirected = "", source = j.qid || j.title;
-    if (j.qid) {
+    let got = null, redirected = "", source = j.qid || j.title || "kept";
+    if (j.keepAt) {
+      got = [Number(j.card.locator.at[0]), Number(j.card.locator.at[1])];
+    } else if (j.qid) {
       // Special:EntityData rather than the API's wbgetentities: it is the plain, cacheable JSON route
       const e = await getJSON("https://www.wikidata.org/wiki/Special:EntityData/" + j.qid + ".json", j.qid);
       if (!e) { console.error("gave up (rate limited): " + j.id + " / " + j.qid); continue; }
@@ -225,7 +233,7 @@ async function getJSON(url, label) {
     if (j.label) loc.label = j.label;
     j.card.locator = loc;
     done.push(j.id + "  " + j.name + "  " + (j.kind === "point" ? "" : j.kind + (j.shape ? " (" + shapeSize(j.shape) + ")" : "") + "  ") + "[" + got.join(", ") + "]" + (redirected && redirected !== source ? "  ← " + redirected : ""));
-    await new Promise((r) => setTimeout(r, 900));   // be polite to the API
+    if (!j.keepAt) await new Promise((r) => setTimeout(r, 900));   // be polite to the API
   }
 
   if (!done.length) { console.error("nothing to write"); process.exit(1); }

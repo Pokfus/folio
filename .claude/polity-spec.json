@@ -13,6 +13,16 @@
         476
       ]
     },
+    "roman_kingdom": {
+      "label": "Roman Kingdom",
+      "cliopatria": [
+        "Roman Kingdom"
+      ],
+      "years": [
+        -753,
+        -481
+      ]
+    },
     "carthage": {
       "label": "Carthage",
       "cliopatria": [
@@ -547,6 +557,575 @@
     "longshan": {
       "label": "Longshan culture",
       "sites": "longshan"
+    },
+    "akkad": {
+      "label": "Akkadian Empire",
+      "cliopatria": [
+        "Akkadian Empire"
+      ]
+    },
+    "elam": {
+      "label": "Elam",
+      "cliopatria": [
+        "Elam"
+      ]
+    },
+    "mitanni": {
+      "label": "Mitanni",
+      "cliopatria": [
+        "Mitanni"
+      ]
+    },
+    "neo_assyria": {
+      "label": "Neo-Assyrian Empire",
+      "cliopatria": [
+        "Neo-Assyrian Empire"
+      ]
+    },
+    "neo_babylonia": {
+      "label": "Neo-Babylonian Empire",
+      "cliopatria": [
+        "Neo-Babylonian Empire"
+      ]
+    },
+    "israel": {
+      "label": "Kingdom of Israel",
+      "cliopatria": [
+        "Kingdom of Israel"
+      ]
+    },
+    "judah": {
+      "label": "Kingdom of Judah",
+      "cliopatria": [
+        "Kingdom of Judah"
+      ]
+    },
+    "urartu": {
+      "label": "Urartu",
+      "cliopatria": [
+        "Kingdom of Urartu"
+      ]
+    },
+    "maurya": {
+      "label": "Maurya Empire",
+      "cliopatria": [
+        "Maurya Empire"
+      ]
+    },
+    "kushan": {
+      "label": "Kushan Empire",
+      "cliopatria": [
+        "Kushan Empire"
+      ]
+    },
+    "gupta": {
+      "label": "Gupta Empire",
+      "cliopatria": [
+        "Gupta Empire"
+      ]
+    },
+    "kush": {
+      "label": "Kingdom of Kush",
+      "cliopatria": [
+        "Kingdom of Kush"
+      ]
+    },
+    "aksum": {
+      "label": "Kingdom of Aksum",
+      "cliopatria": [
+        "Kingdom of Axum"
+      ]
+    },
+    "bulgaria_first": {
+      "label": "First Bulgarian Empire",
+      "cliopatria": [
+        "First Bulgarian Empire"
+      ]
+    },
+    "georgia": {
+      "label": "Kingdom of Georgia",
+      "cliopatria": [
+        "Kingdom of Georgia"
+      ]
+    },
+    "umayyad": {
+      "label": "Umayyad Caliphate",
+      "cliopatria": [
+        "Umayyad Caliphate"
+      ]
+    },
+    "abbasid": {
+      "label": "Abbasid Caliphate",
+      "cliopatria": [
+        "Abbasid Caliphate"
+      ]
+    },
+    "fatimid": {
+      "label": "Fatimid Caliphate",
+      "cliopatria": [
+        "Fatimid Caliphate"
+      ]
+    },
+    "seljuk": {
+      "label": "Seljuk Empire",
+      "cliopatria": [
+        "Great Seljuk Empire"
+      ]
+    },
+    "mamluk_egypt": {
+      "label": "Mamluk Sultanate",
+      "cliopatria": [
+        "Mamluk Sultanate"
+      ]
+    },
+    "estonia_1918": {
+      "label": "Estonia",
+      "cliopatria": [
+        "Estonia"
+      ]
+    },
+    "latvia_1918": {
+      "label": "Latvia",
+      "cliopatria": [
+        "Republic of Latvia"
+      ]
+    },
+    "lithuania_1918": {
+      "label": "Lithuania",
+      "cliopatria": [
+        "Kingdom of Lithuania"
+      ]
+    },
+    "poland_1918": {
+      "label": "Second Polish Republic",
+      "cliopatria": [
+        "Second Polish Republic"
+      ]
+    },
+    "czechoslovakia": {
+      "label": "Czechoslovakia",
+      "cliopatria": [
+        "Czechoslovakia"
+      ]
+    },
+    "austria_1918": {
+      "label": "Republic of Austria",
+      "cliopatria": [
+        "Republic of Austria"
+      ]
+    },
+    "hungary_1918": {
+      "label": "Hungarian Republic",
+      "cliopatria": [
+        "Hungarian Republic"
+      ]
+    },
+    "weimar": {
+      "label": "Weimar Republic",
+      "cliopatria": [
+        "Weimar Republic"
+      ],
+      "years": [
+        1918,
+        1933
+      ]
+    },
+    "wiman_joseon": {
+      "label": "Wiman Joseon",
+      "cliopatria": [
+        "Gojoseon"
+      ]
+    },
+    "baekje": {
+      "label": "Baekje",
+      "cliopatria": [
+        "Baekje"
+      ]
+    },
+    "jin_state": {
+      "label": "Jin",
+      "cliopatria": [
+        "Jin"
+      ]
+    },
+    "lu": {
+      "label": "Lu",
+      "cliopatria": [
+        "Lu"
+      ]
+    },
+    "song_state": {
+      "label": "Song",
+      "cliopatria": [
+        "Song"
+      ]
+    },
+    "yue": {
+      "label": "Yue",
+      "cliopatria": [
+        "Yue"
+      ]
+    },
+    "xin": {
+      "label": "Xin dynasty",
+      "cliopatria": [
+        "Xin Dynasty"
+      ]
+    },
+    "sui": {
+      "label": "Sui dynasty",
+      "cliopatria": [
+        "Sui Dynasty"
+      ]
+    },
+    "tang": {
+      "label": "Tang dynasty",
+      "cliopatria": [
+        "Tang Dynasty"
+      ]
+    },
+    "song": {
+      "label": "Song dynasty",
+      "cliopatria": [
+        "Northern Song",
+        "Southern Song"
+      ]
+    },
+    "yuan": {
+      "label": "Yuan dynasty",
+      "cliopatria": [
+        "Yuan Dynasty"
+      ]
+    },
+    "goryeo": {
+      "label": "Goryeo",
+      "cliopatria": [
+        "Goryeo"
+      ]
+    },
+    "kamakura": {
+      "label": "Kamakura shogunate",
+      "cliopatria": [
+        "Kamakura Shogunate"
+      ]
+    },
+    "chola": {
+      "label": "Chola dynasty",
+      "cliopatria": [
+        "Chola Empire"
+      ]
+    },
+    "delhi_sultanate": {
+      "label": "Delhi Sultanate",
+      "cliopatria": [
+        "(Delhi Sultanate)"
+      ]
+    },
+    "vijayanagara": {
+      "label": "Vijayanagara Empire",
+      "cliopatria": [
+        "Vijayanagara Empire"
+      ]
+    },
+    "srivijaya": {
+      "label": "Srivijaya",
+      "cliopatria": [
+        "Srivijaya"
+      ]
+    },
+    "majapahit": {
+      "label": "Majapahit",
+      "cliopatria": [
+        "Majapahit"
+      ]
+    },
+    "khmer": {
+      "label": "Khmer Empire",
+      "cliopatria": [
+        "Khmer Empire"
+      ],
+      "years": [
+        802,
+        1431
+      ]
+    },
+    "pagan": {
+      "label": "Pagan Kingdom",
+      "cliopatria": [
+        "Pagan Kingdom"
+      ]
+    },
+    "dai_viet": {
+      "label": "Dai Viet",
+      "cliopatria": [
+        "Ngô Dynasty"
+      ]
+    },
+    "pergamon": {
+      "label": "Attalid dynasty",
+      "cliopatria": [
+        "Kingdom of Pergamon"
+      ]
+    },
+    "malacca": {
+      "label": "Malacca Sultanate",
+      "cliopatria": [
+        "Sultanate of Malacca"
+      ],
+      "years": [
+        1409,
+        1511
+      ]
+    },
+    "ghana_empire": {
+      "label": "Ghana Empire",
+      "cliopatria": [
+        "Ghana Empire"
+      ]
+    },
+    "mali": {
+      "label": "Mali Empire",
+      "cliopatria": [
+        "Mali Empire"
+      ]
+    },
+    "songhai": {
+      "label": "Songhai Empire",
+      "cliopatria": [
+        "Songhai Empire"
+      ]
+    },
+    "kanem_bornu": {
+      "label": "Kanem-Bornu",
+      "cliopatria": [
+        "Empire of Kanem",
+        "Bornu Empire"
+      ]
+    },
+    "kongo": {
+      "label": "Kingdom of Kongo",
+      "cliopatria": [
+        "Kingdom of Kongo"
+      ]
+    },
+    "zagwe": {
+      "label": "Zagwe dynasty",
+      "cliopatria": [
+        "Zagwe dynasty"
+      ]
+    },
+    "makuria": {
+      "label": "Makuria",
+      "cliopatria": [
+        "Makuria"
+      ]
+    },
+    "golden_horde": {
+      "label": "Golden Horde",
+      "cliopatria": [
+        "Golden Horde"
+      ],
+      "years": [
+        1242,
+        1502
+      ]
+    },
+    "spanish_empire": {
+      "label": "Spanish Empire",
+      "cliopatria": [
+        "(Spanish Empire)"
+      ]
+    },
+    "portuguese_empire": {
+      "label": "Portuguese Empire",
+      "cliopatria": [
+        "(Portuguese Empire)"
+      ]
+    },
+    "ottoman": {
+      "label": "Ottoman Empire",
+      "cliopatria": [
+        "Ottoman Empire"
+      ]
+    },
+    "safavid": {
+      "label": "Safavid Empire",
+      "cliopatria": [
+        "Safavid Dynasty"
+      ]
+    },
+    "mughal": {
+      "label": "Mughal Empire",
+      "cliopatria": [
+        "Mughal Empire"
+      ]
+    },
+    "maratha": {
+      "label": "Maratha Empire",
+      "cliopatria": [
+        "Maratha Empire"
+      ]
+    },
+    "crimean_khanate": {
+      "label": "Crimean Khanate",
+      "cliopatria": [
+        "Crimean Khanate"
+      ]
+    },
+    "ming": {
+      "label": "Ming dynasty",
+      "cliopatria": [
+        "Ming Dynasty"
+      ]
+    },
+    "qing": {
+      "label": "Qing dynasty",
+      "cliopatria": [
+        "Later Jin Dynasty",
+        "Qing Dynasty"
+      ]
+    },
+    "tokugawa": {
+      "label": "Tokugawa shogunate",
+      "cliopatria": [
+        "Tokugawa Shogunate"
+      ]
+    },
+    "ashanti": {
+      "label": "Ashanti Empire",
+      "cliopatria": [
+        "Ashanti Empire"
+      ]
+    },
+    "austria_hungary": {
+      "label": "Austria-Hungary",
+      "cliopatria": [
+        "Austria-Hungary"
+      ]
+    },
+    "novgorod": {
+      "label": "Novgorod Republic",
+      "cliopatria": [
+        "Novgorod Republic"
+      ],
+      "years": [
+        1136,
+        1478
+      ]
+    },
+    "vladimir_suzdal": {
+      "label": "Vladimir-Suzdal",
+      "cliopatria": [
+        "Principality of Rostov-Suzdal",
+        "Principality of Vladimir-Suzdal"
+      ]
+    },
+    "galicia_volhynia": {
+      "label": "Galicia–Volhynia",
+      "cliopatria": [
+        "Principality of Galicia-Volhynia",
+        "Galicia-Volhynia"
+      ]
+    },
+    "polotsk": {
+      "label": "Principality of Polotsk",
+      "cliopatria": [
+        "Principality of Polotsky"
+      ]
+    },
+    "chernigov": {
+      "label": "Principality of Chernigov",
+      "cliopatria": [
+        "Principality of Chernigov"
+      ]
+    },
+    "cao_wei": {
+      "label": "Cao Wei",
+      "cliopatria": [
+        "Cao Wei"
+      ]
+    },
+    "shu_han": {
+      "label": "Shu Han",
+      "cliopatria": [
+        "Shu Han"
+      ]
+    },
+    "han_zhao": {
+      "label": "Han-Zhao",
+      "cliopatria": [
+        "Former Zhao"
+      ]
+    },
+    "former_yan": {
+      "label": "Former Yan",
+      "cliopatria": [
+        "Former Yan"
+      ]
+    },
+    "former_qin": {
+      "label": "Former Qin",
+      "cliopatria": [
+        "Former Qin"
+      ]
+    },
+    "liu_song": {
+      "label": "Liu Song",
+      "cliopatria": [
+        "Liu Song Dynasty"
+      ]
+    },
+    "southern_qi": {
+      "label": "Southern Qi",
+      "cliopatria": [
+        "Southern Qi"
+      ]
+    },
+    "liang": {
+      "label": "Liang dynasty",
+      "cliopatria": [
+        "Liang Dynasty"
+      ]
+    },
+    "chen": {
+      "label": "Chen dynasty",
+      "cliopatria": [
+        "Chen Dynasty"
+      ]
+    },
+    "northern_wei": {
+      "label": "Northern Wei",
+      "cliopatria": [
+        "Northern Wei"
+      ]
+    },
+    "gallic_empire": {
+      "label": "Gallic Empire",
+      "cliopatria": [
+        "Gallic Empire"
+      ],
+      "years": [
+        260,
+        274
+      ]
+    },
+    "palmyra": {
+      "label": "Palmyrene Empire",
+      "cliopatria": [
+        "Palmyrene Empire"
+      ]
+    },
+    "eastern_wei": {
+      "label": "Eastern Wei",
+      "cliopatria": [
+        "Eastern Wei"
+      ]
+    },
+    "northern_zhou": {
+      "label": "Northern Zhou",
+      "cliopatria": [
+        "Northern Zhou"
+      ]
     }
   },
   "links": {
@@ -560,6 +1139,11 @@
         "longshan"
       ]
     },
+    "cnh-066": {
+      "area": [
+        "shang"
+      ]
+    },
     "cnh-103": {
       "l": [
         "shang"
@@ -568,6 +1152,57 @@
     "cnh-111": {
       "area": [
         "zhou"
+      ]
+    },
+    "cnh-152": {
+      "area": [
+        "qi"
+      ]
+    },
+    "cnh-153": {
+      "area": [
+        "jin_state"
+      ]
+    },
+    "cnh-154": {
+      "area": [
+        "chu"
+      ]
+    },
+    "cnh-155": {
+      "area": [
+        "qin"
+      ]
+    },
+    "cnh-156": {
+      "area": [
+        "lu"
+      ]
+    },
+    "cnh-157": {
+      "area": [
+        "song_state"
+      ]
+    },
+    "cnh-158": {
+      "area": [
+        "yue"
+      ]
+    },
+    "cnh-164": {
+      "area": [
+        "qin",
+        "chu",
+        "qi",
+        "yan",
+        "han_state",
+        "zhao",
+        "wei"
+      ]
+    },
+    "cnh-170": {
+      "area": [
+        "qin"
       ]
     },
     "cnh-188": {
@@ -583,9 +1218,19 @@
         "qi"
       ]
     },
+    "cnh-191": {
+      "area": [
+        "qin"
+      ]
+    },
     "cnh-205": {
       "v": [
         "qin"
+      ]
+    },
+    "cnh-213": {
+      "area": [
+        "han"
       ]
     },
     "cnh-224": {
@@ -601,12 +1246,97 @@
         "nanyue"
       ]
     },
+    "cnh-245": {
+      "area": [
+        "xin"
+      ]
+    },
+    "cnh-253": {
+      "area": [
+        "han"
+      ]
+    },
+    "cnh-277": {
+      "area": [
+        "cao_wei"
+      ]
+    },
+    "cnh-279": {
+      "area": [
+        "shu_han"
+      ]
+    },
+    "cnh-284": {
+      "area": [
+        "eastern_wu"
+      ]
+    },
+    "cnh-293": {
+      "area": [
+        "western_jin"
+      ]
+    },
     "cnh-295": {
       "v": [
         "western_jin"
       ],
       "l": [
         "eastern_wu"
+      ]
+    },
+    "cnh-305": {
+      "area": [
+        "han_zhao"
+      ]
+    },
+    "cnh-307": {
+      "area": [
+        "former_yan"
+      ]
+    },
+    "cnh-308": {
+      "area": [
+        "former_qin"
+      ]
+    },
+    "cnh-313": {
+      "area": [
+        "western_jin"
+      ]
+    },
+    "cnh-324": {
+      "area": [
+        "liu_song"
+      ]
+    },
+    "cnh-325": {
+      "area": [
+        "southern_qi"
+      ]
+    },
+    "cnh-326": {
+      "area": [
+        "liang"
+      ]
+    },
+    "cnh-329": {
+      "area": [
+        "chen"
+      ]
+    },
+    "cnh-330": {
+      "area": [
+        "northern_wei"
+      ]
+    },
+    "cnh-338": {
+      "area": [
+        "eastern_wei"
+      ]
+    },
+    "cnh-339": {
+      "area": [
+        "northern_zhou"
       ]
     },
     "gr-002": {
@@ -667,6 +1397,11 @@
         "ptolemaic"
       ]
     },
+    "gr-769": {
+      "area": [
+        "seleucid"
+      ]
+    },
     "gr-770": {
       "area": [
         "macedon"
@@ -687,9 +1422,40 @@
         "galatia"
       ]
     },
+    "gr-789": {
+      "area": [
+        "pergamon"
+      ]
+    },
+    "jp-054": {
+      "area": [
+        "baekje"
+      ]
+    },
+    "ko-054": {
+      "area": [
+        "wiman_joseon"
+      ]
+    },
+    "ko-056": {
+      "area": [
+        "yan"
+      ]
+    },
     "rm-022": {
       "area": [
         "etruscans"
+      ]
+    },
+    "rm-046": {
+      "area": [
+        "roman_kingdom"
+      ]
+    },
+    "rm-091": {
+      "area": [
+        "roman_kingdom",
+        "rome"
       ]
     },
     "rm-152": {
@@ -838,6 +1604,21 @@
         "rome"
       ]
     },
+    "rm-553": {
+      "area": [
+        "sasanian"
+      ]
+    },
+    "rm-559": {
+      "area": [
+        "gallic_empire"
+      ]
+    },
+    "rm-561": {
+      "area": [
+        "palmyra"
+      ]
+    },
     "ru-005": {
       "area": [
         "scythia"
@@ -888,6 +1669,31 @@
         "rus"
       ]
     },
+    "ru-076": {
+      "area": [
+        "novgorod"
+      ]
+    },
+    "ru-079": {
+      "area": [
+        "vladimir_suzdal"
+      ]
+    },
+    "ru-083": {
+      "area": [
+        "galicia_volhynia"
+      ]
+    },
+    "ru-084": {
+      "area": [
+        "polotsk"
+      ]
+    },
+    "ru-085": {
+      "area": [
+        "chernigov"
+      ]
+    },
     "ru-091": {
       "area": [
         "mongol"
@@ -918,14 +1724,60 @@
         "sumer"
       ]
     },
+    "wh-185": {
+      "area": [
+        "akkad"
+      ]
+    },
+    "wh-199": {
+      "area": [
+        "elam"
+      ]
+    },
+    "wh-200": {
+      "area": [
+        "mitanni"
+      ]
+    },
     "wh-245": {
       "area": [
         "shang"
       ]
     },
+    "wh-251": {
+      "area": [
+        "zhou"
+      ]
+    },
     "wh-262": {
       "area": [
         "crete"
+      ]
+    },
+    "wh-282": {
+      "area": [
+        "neo_assyria"
+      ]
+    },
+    "wh-286": {
+      "area": [
+        "neo_babylonia"
+      ]
+    },
+    "wh-290": {
+      "area": [
+        "israel",
+        "judah"
+      ]
+    },
+    "wh-296": {
+      "area": [
+        "urartu"
+      ]
+    },
+    "wh-297": {
+      "area": [
+        "lydia"
       ]
     },
     "wh-301": {
@@ -946,9 +1798,95 @@
         "achaemenid"
       ]
     },
+    "wh-339": {
+      "area": [
+        "roman_kingdom"
+      ]
+    },
+    "wh-340": {
+      "area": [
+        "roman_kingdom",
+        "rome"
+      ]
+    },
     "wh-354": {
       "v": [
         "rome"
+      ]
+    },
+    "wh-358": {
+      "area": [
+        "rome"
+      ]
+    },
+    "wh-383": {
+      "area": [
+        "maurya"
+      ]
+    },
+    "wh-390": {
+      "area": [
+        "indo_greeks"
+      ]
+    },
+    "wh-391": {
+      "area": [
+        "kushan"
+      ]
+    },
+    "wh-393": {
+      "area": [
+        "gupta"
+      ]
+    },
+    "wh-396": {
+      "area": [
+        "zhou"
+      ]
+    },
+    "wh-405": {
+      "area": [
+        "qin"
+      ]
+    },
+    "wh-408": {
+      "area": [
+        "han"
+      ]
+    },
+    "wh-416": {
+      "area": [
+        "kush"
+      ]
+    },
+    "wh-418": {
+      "area": [
+        "aksum"
+      ]
+    },
+    "wh-436": {
+      "area": [
+        "byzantium"
+      ]
+    },
+    "wh-448": {
+      "area": [
+        "rus"
+      ]
+    },
+    "wh-449": {
+      "area": [
+        "bulgaria_first"
+      ]
+    },
+    "wh-454": {
+      "area": [
+        "georgia"
+      ]
+    },
+    "wh-462": {
+      "area": [
+        "rashidun"
       ]
     },
     "wh-463": {
@@ -958,6 +1896,31 @@
       "l": [
         "byzantium",
         "sasanian"
+      ]
+    },
+    "wh-465": {
+      "area": [
+        "umayyad"
+      ]
+    },
+    "wh-469": {
+      "area": [
+        "abbasid"
+      ]
+    },
+    "wh-478": {
+      "area": [
+        "fatimid"
+      ]
+    },
+    "wh-483": {
+      "area": [
+        "seljuk"
+      ]
+    },
+    "wh-485": {
+      "area": [
+        "mamluk_egypt"
       ]
     },
     "wh-504": {
@@ -976,9 +1939,124 @@
         "england"
       ]
     },
+    "wh-521": {
+      "area": [
+        "sui"
+      ]
+    },
+    "wh-523": {
+      "area": [
+        "tang"
+      ]
+    },
+    "wh-528": {
+      "area": [
+        "song"
+      ]
+    },
+    "wh-535": {
+      "area": [
+        "yuan"
+      ]
+    },
+    "wh-540": {
+      "area": [
+        "goryeo"
+      ]
+    },
+    "wh-545": {
+      "area": [
+        "kamakura"
+      ]
+    },
+    "wh-547": {
+      "area": [
+        "chola"
+      ]
+    },
+    "wh-548": {
+      "area": [
+        "delhi_sultanate"
+      ]
+    },
+    "wh-549": {
+      "area": [
+        "vijayanagara"
+      ]
+    },
+    "wh-554": {
+      "area": [
+        "srivijaya"
+      ]
+    },
+    "wh-555": {
+      "area": [
+        "majapahit"
+      ]
+    },
+    "wh-556": {
+      "area": [
+        "khmer"
+      ]
+    },
+    "wh-558": {
+      "area": [
+        "pagan"
+      ]
+    },
+    "wh-559": {
+      "area": [
+        "dai_viet"
+      ]
+    },
+    "wh-565": {
+      "area": [
+        "malacca"
+      ]
+    },
+    "wh-566": {
+      "area": [
+        "ghana_empire"
+      ]
+    },
+    "wh-568": {
+      "area": [
+        "mali"
+      ]
+    },
+    "wh-572": {
+      "area": [
+        "songhai"
+      ]
+    },
+    "wh-573": {
+      "area": [
+        "kanem_bornu"
+      ]
+    },
+    "wh-580": {
+      "area": [
+        "kongo"
+      ]
+    },
+    "wh-581": {
+      "area": [
+        "zagwe"
+      ]
+    },
+    "wh-585": {
+      "area": [
+        "makuria"
+      ]
+    },
     "wh-594": {
       "area": [
         "mongol"
+      ]
+    },
+    "wh-598": {
+      "area": [
+        "golden_horde"
       ]
     },
     "wh-605": {
@@ -1000,6 +2078,83 @@
         "milan",
         "papal_states",
         "savoy"
+      ]
+    },
+    "wh-674": {
+      "area": [
+        "spanish_empire"
+      ]
+    },
+    "wh-675": {
+      "area": [
+        "portuguese_empire"
+      ]
+    },
+    "wh-687": {
+      "area": [
+        "ottoman"
+      ]
+    },
+    "wh-695": {
+      "area": [
+        "safavid"
+      ]
+    },
+    "wh-699": {
+      "area": [
+        "mughal"
+      ]
+    },
+    "wh-707": {
+      "area": [
+        "maratha"
+      ]
+    },
+    "wh-710": {
+      "area": [
+        "crimean_khanate"
+      ]
+    },
+    "wh-711": {
+      "area": [
+        "ming"
+      ]
+    },
+    "wh-716": {
+      "area": [
+        "qing"
+      ]
+    },
+    "wh-723": {
+      "area": [
+        "tokugawa"
+      ]
+    },
+    "wh-738": {
+      "area": [
+        "ashanti"
+      ]
+    },
+    "wh-807": {
+      "area": [
+        "austria_hungary"
+      ]
+    },
+    "ww2-008": {
+      "area": [
+        "finland",
+        "estonia_1918",
+        "latvia_1918",
+        "lithuania_1918",
+        "poland_1918",
+        "czechoslovakia",
+        "austria_1918",
+        "hungary_1918"
+      ]
+    },
+    "ww2-015": {
+      "area": [
+        "weimar"
       ]
     },
     "ww2-042": {
