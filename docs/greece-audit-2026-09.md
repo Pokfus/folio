@@ -543,6 +543,20 @@ wants a case-sensitive rule or a hand-written `data-k`. `Lerna` is not `Lernaean
 | 2 | Panagiotis Stamatakis · Menidi · Michael Ventris | Stamatakis is also spelt Panayotis by the Athens museum; key one form, alias the other |
 | 1 | Wilhelm Dörpfeld · Frank Calvert · Hisarlik · Priam's Treasure · Treasury of Minyas · Kom el-Hetan · Plasi · Lord Sligo · Palamidi | `Treasury of Minyas` is the tholos at Orchomenos |
 
+**Added by the refinement's B8–B11 (2026-10-01)**, counted the same way after `gr-066`–`gr-100` were
+rewritten. Orchomenos, Nichoria, Enkomi, Amarna, Wilusa, Hattusa, Phylakopi, Ayia Irini, Nefertiti, Cape
+Gelidonya and the Hittites already have keys. **Bare `Hittite` (15 cards) links nowhere**: the key is
+`Hittites`, and the adjective wants an alias.
+
+| cards | term | note |
+|---|---|---|
+| 15 | Hittite | alias of the `Hittites` key |
+| 5 | Eurystheus · Cadmus | the king of Tiryns or Mycenae in the Heracles myth; the founder of Thebes |
+| 4 | Dendra | the cemetery by Midea, distinct from the `Dendra_panoply` key |
+| 3 | Millawanda · Kopais · Carl Blegen | Millawanda is the Hittite name of Miletus; Kopais is also spelt Copais |
+| 2 | Wilhelm Dörpfeld · Proetus · Hattusili III · Griffin Warrior · Trianda · Berbati | Dörpfeld was listed at B7 with 1 |
+| 1 | Piyamaradu · Krates · Keramopoullos · Kadmeia · Iklaina · Iasos · Emil Forrer · Axel Persson · Electryon · Amenhotep III | |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
