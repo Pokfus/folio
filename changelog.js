@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.897", released: "2026-09-25T07:26Z" };
+window.FOLIO_VERSION = { v: "1.898", released: "2026-10-01T09:25Z" };
 
 window.CHANGELOG = [
   {
@@ -43,6 +43,7 @@ window.CHANGELOG = [
     t: "A new deck of each state's largest city",
     items: [
       "<b>Thirty-three new cards in a new Largest cities deck</b> of the United States collection, one for each state whose largest city is not its capital, with thirty-three new glossary terms.",
+      "<b>Twenty new cards in the Ancient Rome collection</b>, from Zenobia's Palmyrene Empire and Diocletian's reforms to Constantine and the Edict of Milan, with eighteen new glossary terms.",
       "<b>Every state card's dates</b> now say when it became a colony or territory, when it became a state and which number state it was.",
       "<b>Draw the flags</b>: the floating whiteboard marker no longer draws inside the painting canvas, which now has white among its colours and a slider for the brush size.",
       "<b>The walkthrough now ends on your first real card</b>: you pick a subject, add it, study a card and open the chest it earns.",
@@ -69,6 +70,8 @@ window.CHANGELOG = [
       "<b>Flags</b> is a collection of its own again, in the Geography section, holding both flag decks.",
       "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
       "<b>Seventy new cards in the Ancient Greece collection</b>, on Greek myth, the journey home from Troy and Greek worship from sacrifice to the mysteries, with sixty-three new glossary terms.",
+      "A glossary link that sent the <i>Historia Augusta</i> to a city in Maine now opens an entry on the work itself.",
+      "<b>Sixty new cards in the Ancient Rome collection</b>, from Trajan's eastern war through the Antonines and the Severans into the crisis of the third century, with sixty new glossary terms.",
       "<b>Artefact pictures load again</b> \u2014 they now link the picture sizes Wikimedia Commons serves to other sites, which it had begun refusing to do for full-size originals.",
       "<b>A study card now says whether it is NEW, REVIEW or REPEAT</b> on a tablet or desktop, where it used to show only a coloured dot.",
       "<b>The difficulty stars and the three-day dots explain themselves</b> \u2014 tap either on a study card to see what it means.",
