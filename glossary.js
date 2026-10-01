@@ -4898,7 +4898,12 @@ window.GLOSSARY = {
 "Normandy_landings": "The Normandy landings of 6 June 1944, known as D-Day, were the Allied seaborne and airborne assault on German-occupied France that opened Operation Overlord, the largest amphibious operation in history.<sup class=\"fn\" data-fn=\"1\"></sup> American, British and Canadian troops came ashore on five beaches codenamed Utah, Omaha, Gold, Juno and Sword, helped by deception plans that kept German reserves waiting for a second, larger landing elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> The battle for Normandy that followed lasted more than two months, from June into August 1944, and killed nearly 20,000 Norman civilians, most of them in Allied bombing of towns and communications.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Battle_of_the_Bulge": "The Battle of the Bulge was the German offensive launched through the Ardennes forest of Belgium and Luxembourg on 16 December 1944, Germany's last great attack on the Western Front.<sup class=\"fn\" data-fn=\"1\"></sup> Hitler aimed to reach the port of Antwerp and split the British from the Americans, but his armies were held at Saint-Vith, on the Elsenborn ridge and at Bastogne, and were driven back by late January 1945.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It cost the United States more dead than any other battle of the war, and between 2,000 and 2,500 Belgian civilians were killed, many of them by Allied bombing.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Berlin": "The Battle of Berlin was the final Soviet offensive of the Second World War in Europe, opened on 16 April 1945 against the Seelow Heights east of the city and ended with the surrender of Berlin's garrison on 2 May.<sup class=\"fn\" data-fn=\"1\"></sup> Soviet forces encircled the capital by 25 April, and Hitler killed himself in his bunker on 30 April while the Reichstag was being stormed nearby.<sup class=\"fn\" data-fn=\"1\"></sup> For the civilians who remained the conquest brought hunger, ruin and mass rape, with current research suggesting about 100,000 girls and women were raped by Soviet soldiers.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Atomic_bombings_of_Hiroshima_and_Nagasaki": "The atomic bombings of Hiroshima and Nagasaki were the American nuclear attacks on two Japanese cities on 6 and 9 August 1945, still the only use of nuclear weapons in war.<sup class=\"fn\" data-fn=\"3\"></sup> The number of dead can never be known exactly, and estimates for deaths within months run from 90,000 to 166,000 at Hiroshima and from 60,000 to 80,000 at Nagasaki.<sup class=\"fn\" data-fn=\"1\"></sup> Whether the bombings were needed to end the war has been argued over ever since, alongside the weight of the Soviet declaration of war and of Japan's own readiness to surrender.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Atomic_bombings_of_Hiroshima_and_Nagasaki": "The atomic bombings of Hiroshima and Nagasaki were the American nuclear attacks on two Japanese cities on 6 and 9 August 1945, still the only use of nuclear weapons in war.<sup class=\"fn\" data-fn=\"3\"></sup> The number of dead can never be known exactly, and estimates for deaths within months run from 90,000 to 166,000 at Hiroshima and from 60,000 to 80,000 at Nagasaki.<sup class=\"fn\" data-fn=\"1\"></sup> Whether the bombings were needed to end the war has been argued over ever since, alongside the weight of the Soviet declaration of war and of Japan's own readiness to surrender.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Nuclear_arms_race": "The nuclear arms race was the Cold War competition, chiefly between the United States and the Soviet Union, in which each side tried to outdo the other by developing new nuclear weapons and fielding more of them.<sup class=\"fn\" data-fn=\"3\"></sup> It began when the Soviet Union tested its first atomic bomb on 29 August 1949, ending the American monopoly, and within a few years both powers had tested thermonuclear weapons far more destructive than the bombs of 1945.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The world’s stockpile peaked at an estimated 70,300 warheads in 1986, and most of the reductions since then were made in the 1990s, after the Cold War had ended.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Mutual_assured_destruction": "Mutual assured destruction, known by its mocking acronym MAD, is the condition in which two nuclear-armed powers can each destroy the other as a functioning society even after absorbing a surprise first strike, so that neither can gain by attacking first.<sup class=\"fn\" data-fn=\"1\"></sup> The idea grew out of the American strategy of Assured Destruction announced in 1965, and by the mid-1960s the security of the United States and the Soviet Union rested on it.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Because it treats mutual vulnerability as stabilising, the doctrine regards missile defences with suspicion, which shaped the Anti-Ballistic Missile Treaty of 1972.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Hungarian_Revolution_of_1956": "The Hungarian Revolution of 1956 was a nationwide rising against Hungary’s Soviet-backed communist government, which began with a student demonstration in Budapest on 23 October 1956 and spread into armed resistance against Soviet troops.<sup class=\"fn\" data-fn=\"1\"></sup> Under the reform communist Imre Nagy the government ended one-party rule, and on 1 November it renounced the Warsaw Pact and declared Hungary neutral.<sup class=\"fn\" data-fn=\"2\"></sup> Soviet forces attacked on 4 November and crushed the revolution within about a week and installed a new government under János Kádár, after which some 200,000 Hungarians fled abroad and Nagy’s execution was announced in June 1958.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Berlin_Wall": "The Berlin Wall was the fortified border, about 155 kilometres (96 miles) long, with which the ruling party of East Germany sealed off West Berlin from 13 August 1961 until it was opened on 9 November 1989.<sup class=\"fn\" data-fn=\"1\"></sup> It was built to stop the mass flight of East Germans to the West, which had cost the country a sixth of its population, and it grew into a deep system of walls, watchtowers and a guarded death strip.<sup class=\"fn\" data-fn=\"1\"></sup> Research has established that at least 140 people were killed at the Wall or died in connection with the border regime between 1961 and 1989.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Cuban_Revolution": "The Cuban Revolution was the armed rising led by Fidel Castro against the dictatorship of Fulgencio Batista, which ended when Batista fled the country on 1 January 1959.<sup class=\"fn\" data-fn=\"3\"></sup> It began with a failed attack on the Moncada Barracks in 1953 and grew into a guerrilla war waged from the Sierra Maestra mountains after a small rebel force landed from Mexico in 1956.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The new government under Castro expropriated American economic assets, drew close to the Soviet Union, survived an American-backed invasion at the Bay of Pigs in April 1961 and then openly proclaimed its intention to adopt socialism.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7565,7 +7570,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Normandy_landings": "1944",
 "Battle_of_the_Bulge": "1944–1945",
 "Battle_of_Berlin": "1945",
-"Atomic_bombings_of_Hiroshima_and_Nagasaki": "1945"
+"Atomic_bombings_of_Hiroshima_and_Nagasaki": "1945",
+"Nuclear_arms_race": "1949–1991",
+"Mutual_assured_destruction": "1965–1991",
+"Hungarian_Revolution_of_1956": "23 October – 11 November 1956",
+"Berlin_Wall": "1961–1989",
+"Cuban_Revolution": "1953–1959"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10359,7 +10369,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Normandy_landings": ["D-Day"],
 "Battle_of_the_Bulge": ["Ardennes Counteroffensive","Ardennes offensive"],
 "Battle_of_Berlin": ["Fall of Berlin"],
-"Atomic_bombings_of_Hiroshima_and_Nagasaki": ["Atomic bombing of Hiroshima","Atomic bombing of Nagasaki"]
+"Atomic_bombings_of_Hiroshima_and_Nagasaki": ["Atomic bombing of Hiroshima","Atomic bombing of Nagasaki"],
+"Nuclear_arms_race": ["arms race"],
+"Mutual_assured_destruction": ["MAD","mutually assured destruction"],
+"Hungarian_Revolution_of_1956": ["Hungarian Revolution","Hungarian Uprising"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15311,7 +15324,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Normandy_landings": ["battle","history","warfare","second world war","france","europe"],
 "Battle_of_the_Bulge": ["battle","history","warfare","second world war","belgium","europe"],
 "Battle_of_Berlin": ["battle","history","warfare","second world war","germany","europe"],
-"Atomic_bombings_of_Hiroshima_and_Nagasaki": ["event","history","warfare","second world war","japan","asia"]
+"Atomic_bombings_of_Hiroshima_and_Nagasaki": ["event","history","warfare","second world war","japan","asia"],
+"Nuclear_arms_race": ["event","history","warfare","science","cold war"],
+"Mutual_assured_destruction": ["concept","history","warfare","politics","cold war"],
+"Hungarian_Revolution_of_1956": ["event","history","politics","hungary","cold war"],
+"Berlin_Wall": ["building","history","politics","germany","cold war"],
+"Cuban_Revolution": ["event","history","politics","cuba","cold war"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
