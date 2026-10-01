@@ -29,7 +29,8 @@ const ribbonChests = () => {
   for (let w = 0; w < Math.max(weeks, 2); w++) {
     const days = Array.from({ length: every }, (_, i) => { const d = w * every + i + 1; return `<i class="${d <= streak ? (d === streak ? "t" : "") : "o"}"></i>`; }).join("");
     const paid = (w + 1) * every <= streak;
-    out += `<span class="wk">${days}<span class="chest ${paid ? "won" : ""}" title="${paid ? "Week " + (w + 1) + " paid" : "Worth " + (w + 1) + (w ? " chests" : " chest")}">${CHEST}</span></span>`;
+    const cur = w === weeks - 1;
+    out += `<span class="wk${cur ? " cur" : ""}">${days}<span class="chest ${paid ? "won" : ""}" title="${paid ? "Week " + (w + 1) + " paid" : "Worth " + (w + 1) + (w ? " chests" : " chest")}">${CHEST}</span></span>`;
   }
   return out;
 };
@@ -72,7 +73,12 @@ const CSS = `
 .week .stats .g b{color:var(--good);}
 .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 @media (max-width:1024px){ .list{grid-template-columns:1fr 1fr;} }
-@media (max-width:640px){ .phone-head .brand small{display:none;} .ribbon .days{gap:8px;} .ribbon .days i{width:12px; height:12px;} .ribbon .chest{width:24px;} .ribbon .note{flex-basis:100%;} .ribbon .r{margin-left:0;}
+@media (max-width:640px){ .phone-head .brand small{display:none;}
+  /* the phone's ribbon: two rows, the current week only */
+  .ribbon{display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:10px 10px; padding:12px 16px;}
+  .ribbon > b{grid-column:1; grid-row:1;} .ribbon > .t{grid-column:2; grid-row:1;} .ribbon .r{grid-column:3; grid-row:1; justify-self:end; margin:0;}
+  .ribbon .days{grid-column:1 / 3; grid-row:2; gap:6px;} .ribbon .wk:not(.cur){display:none;} .ribbon .days i{width:14px; height:14px;} .ribbon .chest{width:26px;}
+  .ribbon .note{grid-column:3; grid-row:2; justify-self:end; text-align:right; line-height:1.3;}
  .wrap{padding:18px 16px 100px;} .study .stack{width:100%;} .study .stack .pile{justify-content:space-between;} .fr{grid-template-columns:1fr auto; padding:12px 14px 16px;} .fr .pct{display:none;}
   .fr::before{top:auto; height:5px; border-right:0; background:var(--c); border-radius:0 3px 3px 0;} .fr .m{display:none;} .list{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} }`;
 
