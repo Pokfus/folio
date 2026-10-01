@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.901", released: "2026-10-01T09:48Z" };
+window.FOLIO_VERSION = { v: "1.902", released: "2026-10-01T09:55Z" };
 
 window.CHANGELOG = [
   {
@@ -44,8 +44,8 @@ window.CHANGELOG = [
     items: [
       "<b>Two hundred and ten new cards in the World History collection</b> \u2014 the Americas before Columbus, the Renaissance and the new science, the age of discovery, and the nation-building of the 19th century, with a glossary term for each.",
       "<b>Eighty new cards in the China collection</b>, from the Eastern Han through the Jin to the Northern Zhou, each with a cited glossary term.",
-      "<b>Twenty new cards in the Visual Art collection</b>, finishing its Ice Age art and opening the first villages, with 19 new glossary terms."
-
+      "<b>Twenty new cards in the Visual Art collection</b>, finishing its Ice Age art and opening the first villages, with 19 new glossary terms.",
+      "<b>Twenty more cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions.",
     ]
   },
   {
@@ -79,6 +79,7 @@ window.CHANGELOG = [
       "<b>Flags</b> now sit in a frame cut to their own shape, with no bands of background beside them.",
       "<b>Flags</b> is a collection of its own again, in the Geography section, holding both flag decks.",
       "<b>The Ancient Greece collection is complete</b> at a thousand cards, the first of Folio's thousand-card collections to be finished.",
+      "<b>Thirty cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions.",
       "<b>Seventy new cards in the Ancient Greece collection</b>, on Greek myth, the journey home from Troy and Greek worship from sacrifice to the mysteries, with sixty-three new glossary terms.",
       "A glossary link that sent the <i>Historia Augusta</i> to a city in Maine now opens an entry on the work itself.",
       "<b>Sixty new cards in the Ancient Rome collection</b>, from Trajan's eastern war through the Antonines and the Severans into the crisis of the third century, with sixty new glossary terms.",

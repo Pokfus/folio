@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Where the citation pass stands: every card measured against the SRC_TARGET bar in app.js (5 sources).
+// Where the citation pass stands: every card measured against ITS OWN bar — tiered by difficulty since Sep 2026 (1 → 9 … 5 → 5), SRC_TARGET the floor.
 //
 //   node .claude/source-audit.js            # the summary + every card below the bar
 //   node .claude/source-audit.js --all      # …and the cards that have met it
@@ -16,9 +16,9 @@ const fs = require("fs"), path = require("path");
 const root = path.join(__dirname, "..");
 
 const appSrc = fs.readFileSync(path.join(root, "app.js"), "utf8");
-const m = /const SRC_TARGET = (\d+);/.exec(appSrc);
-if (!m) { console.error("ERROR: could not find `const SRC_TARGET` in app.js — has the constant been renamed?"); process.exit(1); }
-const TARGET = +m[1];
+/* THE BAR IS PER CARD NOW (Sep 2026): tiered by difficulty, 1 → 9 … 5 → 5, with SRC_TARGET the floor for
+   an unrated card. Sliced out of app.js by src-target.js, which stops the run if either constant is gone. */
+const { SRC_TARGET: TARGET, srcTargetFor } = require("./src-target.js");
 
 /* THROUGH card-io, NEVER THROUGH A `new Function` LOADER OF ITS OWN. `sources` is one of the fields
    the split moved out to data-extra/<collection>.js, and data.js closes that gap with a Node-only tail
@@ -40,8 +40,8 @@ const rows = cards.map((c) => {
   return {
     id: c.id,
     name: (c.answerText || c.answer || "").replace(/<[^>]*>/g, "").trim(),
-    n: src.length, open, pay, why,
-    state: src.length >= TARGET ? "met" : why ? "blocked" : "short",
+    n: src.length, bar: srcTargetFor(c), open, pay, why,
+    state: src.length >= srcTargetFor(c) ? "met" : why ? "blocked" : "short",
     // a paywalled-majority list breaks the plan's rule even at full count, so it is worth surfacing here
     majorityOpen: src.length ? open > src.length / 2 : false,
   };
@@ -65,7 +65,7 @@ const drifted = cards.map((c) => {
 
 const by = (s) => rows.filter((r) => r.state === s);
 const met = by("met"), short = by("short"), blocked = by("blocked");
-const need = short.concat(blocked).reduce((a, r) => a + (TARGET - r.n), 0);
+const need = short.concat(blocked).reduce((a, r) => a + (r.bar - r.n), 0);
 
 if (process.argv.includes("--csv")) {
   console.log("id,name,sources,open,paywalled,state,reason");
@@ -73,10 +73,10 @@ if (process.argv.includes("--csv")) {
   process.exit(0);
 }
 
-const line = (r) => "  " + r.id + "  " + String(r.n) + "/" + TARGET + "  (o" + r.open + "/p" + r.pay + ")  " + r.name +
+const line = (r) => "  " + r.id + "  " + String(r.n) + "/" + r.bar + "  (o" + r.open + "/p" + r.pay + ")  " + r.name +
   (r.n && !r.majorityOpen ? "   [!] list is not majority-open" : "") + (r.why ? "\n      ↳ " + r.why : "");
 
-console.log("Citation coverage — bar is " + TARGET + " sources per card (SRC_TARGET in app.js)\n");
+console.log("Citation coverage — the bar is tiered by difficulty (1→9 … 5→5; " + TARGET + " for an unrated card), from app.js\n");
 console.log("  " + cards.length + " cards");
 console.log("  " + met.length + " at the bar");
 console.log("  " + short.length + " below it, not yet researched");

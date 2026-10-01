@@ -459,6 +459,62 @@ each.
 `Politics` (Aristotle, 9 cards) and `Eunomia` (Tyrtaeus, 2) are the other two works cited by title
 with no entry behind them.
 
+**Added by the refinement's B1 (2026-09-24)**, measured the same way over the rewritten `gr-001`–`gr-010`
+and then counted across the whole collection's prose, questions and Think-it-through answers:
+
+| cards | term | note |
+|---|---|---|
+| 9 | griffin | the Throne Room's guardians and eight more; `creature`, deck-agnostic |
+| 5 | Kastri | **two places**: Kastri on Kythera and Kastri on Syros (the Kastri Group); needs two keys, never a bare alias |
+| 3 | gypsum · Ashmolean Museum | |
+| 2 | lustral basin · Kephala · Postpalatial | `Postpalatial` has a card (`gr-053`, "Postpalatial Crete") whose term does not claim the bare word |
+| 1 | Prepalatial · Keros-Syros culture · Kavos · Minos Kalokairinos · Mount Juktas · Galatas · Sissi · Duncan Mackenzie · British School at Athens | `Prepalatial` pairs with the two above; spell the mountain as the chosen source does before adding it |
+
+**Added by the refinement's B2 (2026-09-24)**, counted the same way over the whole collection after
+`gr-011`–`gr-020` were rewritten. Quartier Mu, kouloura, oxhide ingot, Ayia Triada, Archanes, Kommos and
+Mesara were checked and already have keys or aliases.
+
+| cards | term | note |
+|---|---|---|
+| 7 | syllabary | general, not Greek; `gr-019` and `gr-020` both rest on it |
+| 5 | silo | Malia's round granaries; check against `kouloura` before keying, which already claims the stone-lined pits |
+| 4 | Trianda · sealing | Trianda on Rhodes; `sealing` is an ordinary English word, so it wants a narrower key such as `Clay_sealing` |
+| 2 | Tylissos · eggshell ware | Tylissos is the villa pictured on `gr-016`; eggshell ware is the Protopalatial fine ware |
+| 1 | roundel · libation formula | the Linear A receipt and the set phrase on offering tables |
+
+**Added by the refinement's B3 (2026-09-24)**, counted the same way after `gr-021`–`gr-030` were
+rewritten. Rhyton, stirrup jar, Palaikastro, Psychro Cave, Mount Juktas and faience already have keys.
+**`argonaut` was an alias of `Argonauts`, the heroes of the Argo**, so the sea creature on the Marine
+Style card linked to Jason's crew. Every mythic use in the corpus is capitalised, so the term is now
+case-sensitive rather than losing the alias; a term for the mollusc would want a key such as
+`Argonaut_(animal)`.
+
+| cards | term | note |
+|---|---|---|
+| 6 | offering table | also written "libation table" and "table of offerings"; one key, the other two as aliases |
+| 3 | Cup-bearer · Shrine of the Double Axes | |
+| 2 | Temple Repositories · Petsofa · Kahun | Kahun is the Egyptian town, also spelt Lahun |
+| 1 | Arkalochori · Lily Prince · murex · bench sanctuary | `Arkalochori` names both a cave and a village; key the cave |
+
+**Added by the refinement's B4 (2026-09-25)**, counted the same way after `gr-031`–`gr-040` were
+rewritten. Anemospilia, the Royal Road, Mochlos, Pseira, Palaikastro, Kouros and Cylinder seal already
+have keys, and `Messara` is an alias of `Mesara`.
+
+| cards | term | note |
+|---|---|---|
+| 3 | chamber tomb | `gr-033`, `gr-034` and `gr-038` say "tombs cut into rock" in its place; the Mycenaean `Chamber_tomb` would serve both |
+| 2 | Diktaean Zeus · Labyrinth | Zeus of Dikte is the god of the Palaikastro hymn; `Labyrinth` must not claim the bare word "maze" |
+| 1 | Isopata ring · Kamilari · Mistress of Animals · Caria · light-well | Caria is the Anatolian land whose word Plutarch cites for the double axe |
+
+**Added by the refinement's B5 (2026-09-25)**, counted the same way after `gr-041`–`gr-050` were
+rewritten. Punt, Ugarit, Polycrates, Kommos, Thutmose III, Phylakopi, Ayia Irini, Laconia, Levant, Nubia,
+Pumice and Caldera already have keys, and `Minoan eruption` is an alias.
+
+| cards | term | note |
+|---|---|---|
+| 2 | Kastri (Kythera) · Ahmose I | Kastri must be keyed with its island, since `Kastri` is also the Early Cycladic culture of Syros; Ahmose is dated by Bruins and van der Plicht against the eruption |
+| 1 | Kahun · Harageh · Taweret · Caphtor · Rekhmire · Aniakchak · Ayios Stephanos · Tell el-Dab'a · Mari · Trianda · Siteia · Tylissos · Eshnunna · Vapheio cup · Minoan genius · Carians · West House (Akrotiri) · Gurob · Sklavokampos · Myrtos Pyrgos · house tomb · tsunami | `Minoan genius` is the Cretan form of Taweret, so the two want one key and an alias; `house tomb` would also serve `gr-038` Mochlos |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
