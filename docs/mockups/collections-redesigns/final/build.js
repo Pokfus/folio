@@ -25,7 +25,18 @@ const CSS = `
 .fr .acts2{display:flex; gap:6px; align-items:center;}
 .mine{grid-template-columns:44px 1fr auto auto;} .mine .mark{border-radius:50%;}
 .ledger .editor{border:0; border-radius:0; border-top:1px solid var(--rule); box-shadow:none; background:var(--paper);}
-@media (max-width:640px){ .fr{grid-template-columns:40px 1fr auto; padding:12px 14px;} .fr .try, .fr .reach{display:none;} .fr::before{top:auto; height:5px; border-right:0; background:var(--c);} .fr[style*="--w:0%"]::before{display:none;} .mine .pub{display:none;} .mine .acts2 .ghost{display:none;} }`;
+@media (max-width:640px){
+  /* the head: search first, full width; then the tabs as one scrolling strip */
+  .tabrow{flex-direction:column-reverse; align-items:stretch; gap:10px;} .tabrow .search{width:100%;}
+  .tabs{flex-wrap:nowrap; overflow-x:auto; min-width:0; width:100%; padding-bottom:4px; scrollbar-width:none;} .tabs::-webkit-scrollbar{display:none;} .ctab{flex:none;}
+  /* Your decks' three actions: one full button, two half buttons */
+  .acts{display:grid; grid-template-columns:1fr 1fr; gap:8px;} .acts .btn{justify-content:center;} .acts .btn:first-child{grid-column:1 / -1;}
+  /* the editor's actions: a 3 + 2 grid, each centred */
+  .ed-head{flex-direction:column; align-items:stretch;} .ed-acts{display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; min-width:0;} .ed-acts .btn{justify-content:center; padding:9px 4px; font-size:9.5px; letter-spacing:.08em; min-width:0;} .ed-acts .btn:nth-child(4){grid-column:1 / 3;} .ed-acts .btn:nth-child(5){grid-column:3;}
+  .ed-tabs{overflow-x:auto; min-width:0; scrollbar-width:none;} .editor{padding:16px 14px;} .ed-cols{min-width:0;} .ed-tabs::-webkit-scrollbar{display:none;} .et{white-space:nowrap; flex:none; padding:9px 10px;}
+  /* the orphan: title and meta stacked, the two buttons on their own row */
+  .orow{display:grid; grid-template-columns:1fr 1fr; gap:4px 8px;} .orow b{grid-column:1 / -1;} .orow span{grid-column:1 / -1; flex:none;} .orow .btn{justify-content:center;}
+  .fr{grid-template-columns:40px 1fr auto; padding:12px 14px;} .fr .try, .fr .reach{display:none;} .fr::before{top:auto; height:5px; border-right:0; background:var(--c);} .fr[style*="--w:0%"]::before{display:none;} .mine .pub{display:none;} .mine .acts2 .ghost{display:none;} }`;
 
 const row = ([id,n,have,plan,st,decks]) => `<a class="fr" href="#coll" style="--c:${col(id)}; --w:${pct(st,have)}%"><span class="mark" style="--c:${col(id)}">${ic(id)}</span><span><b class="name">${n}</b><span class="m">${decks} decks · ${fmt(have)} cards${st?` · ${st} learned · ${pct(st,have)}%`:""}</span></span><span class="reach${have>=plan?" full":""}">${have>=plan?"Complete":""}</span><span class="try">Try ten</span><span class="acts2"><span class="ic-btn${ACTIVE.has(id)?" on":""}" aria-label="Add to review"><svg viewBox="0 0 24 24"><path d="${ACTIVE.has(id)?"m5 12 5 5 9-10":"M12 5v14M5 12h14"}"/></svg></span><span class="ic-btn" aria-label="Expand"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></span></a>`;
 const langRow = ([id,n,cards,decks]) => `<a class="fr" href="#coll" style="--c:${col(id)}; --w:0%"><span class="mark" style="--c:${col(id)}">${ic(id)}</span><span><b class="name">${n}</b><span class="m">${decks} decks · ${fmt(cards)} cards</span></span><span class="reach"></span><span class="try" style="visibility:hidden">Try ten</span><span class="acts2"><span class="ic-btn" aria-label="Add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="ic-btn" aria-label="Expand"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></span></a>`;
