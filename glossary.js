@@ -4860,7 +4860,11 @@ window.GLOSSARY = {
 "Bolsheviks": "The Bolsheviks were the radical faction of the Russian Social Democratic Labour Party led by Lenin, named from the Russian word for ‘majority’ after the votes they won at the second party congress in 1903, when their opponents became the Mensheviks.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They organised as a separate party from 1912, set themselves the goal of taking power at their congress of July 1917 and seized it in the October Revolution.<sup class=\"fn\" data-fn=\"3\"></sup> In March 1918 they took the name Russian Communist Party, and by 1921 theirs was the only legal party in Soviet Russia, the forerunner of the Communist Party of the Soviet Union.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Russian_Civil_War": "The Russian Civil War was the series of conflicts fought across the former Russian Empire from late 1917 to about 1921, in which the Bolsheviks’ Red Army defeated the White armies, other revolutionary parties, independence movements and rebellious peasants.<sup class=\"fn\" data-fn=\"1\"></sup> Foreign powers intervened, both camps used terror against civilians, and many armed groups carried out pogroms against Jews, the worst of them in Ukraine.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Fighting, epidemics and famine killed millions of people across the former empire, and the war ended with a restored central state in which the Communist Party was the only legal party.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Soviet_Union": "The Soviet Union, formally the Union of Soviet Socialist Republics or USSR, was a communist federal state founded on 30 December 1922 by a treaty joining the Soviet republics of Russia, Ukraine, Belorussia and Transcaucasia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its founding documents promised each republic the right to secede, but power lay with the Communist Party, and the union came to include 15 republics on the lands of the former Russian Empire.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> After more than 40 years as the chief rival of the United States, it broke up after a failed coup in August 1991 and was formally dissolved in December 1991.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"New_Deal": "The New Deal was the programme of relief, recovery and reform with which the United States government under Franklin Roosevelt responded to the Great Depression from 1933, named after his pledge in July 1932 of a new deal for the American people.<sup class=\"fn\" data-fn=\"1\"></sup> Its measures included a national bank holiday, the separation of commercial from investment banking, federal deposit insurance, industry codes under the National Industrial Recovery Act and old-age and unemployment insurance under the Social Security Act of 1935.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> How far it caused the recovery is still debated, and one influential study credited the growth after 1933 mainly to a rising money supply rather than to government spending.<sup class=\"fn\" data-fn=\"5\"></sup>"
+"New_Deal": "The New Deal was the programme of relief, recovery and reform with which the United States government under Franklin Roosevelt responded to the Great Depression from 1933, named after his pledge in July 1932 of a new deal for the American people.<sup class=\"fn\" data-fn=\"1\"></sup> Its measures included a national bank holiday, the separation of commercial from investment banking, federal deposit insurance, industry codes under the National Industrial Recovery Act and old-age and unemployment insurance under the Social Security Act of 1935.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> How far it caused the recovery is still debated, and one influential study credited the growth after 1933 mainly to a rising money supply rather than to government spending.<sup class=\"fn\" data-fn=\"5\"></sup>",
+"Warsaw_Pact": "The Warsaw Pact, formally the Treaty of Friendship, Cooperation and Mutual Assistance, was a military alliance signed in Warsaw on 14 May 1955 by the Soviet Union, Albania, Bulgaria, Czechoslovakia, East Germany, Hungary, Poland and Romania.<sup class=\"fn\" data-fn=\"1\"></sup> Its members pledged to aid any member attacked in Europe and placed their forces under a joint command, but the Soviet Union controlled most of its decisions and used it to contain dissent within the bloc, in Hungary in 1956 and Czechoslovakia in 1968.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It lost its purpose after the revolutions of 1989 in Eastern Europe and was formally dissolved by a protocol signed in Prague on 1 July 1991.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Chinese_Communist_Revolution": "The Chinese Communist Revolution was the process by which the Chinese Communist Party, founded in Shanghai in 1921, won control of mainland China after more than two decades of intermittent conflict with the Nationalist Party, or Kuomintang.<sup class=\"fn\" data-fn=\"1\"></sup> Communist support grew among the peasantry during the war against Japan, and in the civil war that resumed after 1945 communist armies defeated the Nationalists, whose government retreated to the island of Taiwan.<sup class=\"fn\" data-fn=\"1\"></sup> Mao Zedong proclaimed the Central People’s Government of the People’s Republic of China in Beijing on 1 October 1949, declaring it the sole legal government representing the whole Chinese people.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Mao_Zedong": "Mao Zedong was a Chinese communist revolutionary, born in 1893 in Shaoshan in Hunan province, who attended the founding congress of the Chinese Communist Party in Shanghai in 1921, rose to lead it and remained its chairman until his death in 1976.<sup class=\"fn\" data-fn=\"1\"></sup> He proclaimed the People’s Republic of China in Beijing on 1 October 1949, and his Great Leap Forward was followed by a famine in which demographers estimate that some 30 million people died.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In 1981 the Communist Party judged that he had made gross mistakes, above all in the Cultural Revolution, but that his merits were primary and his errors secondary.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Korean_War": "The Korean War began on 25 June 1950, when North Korean forces invaded South Korea across the 38th parallel, the line along which the peninsula had been divided after the Second World War.<sup class=\"fn\" data-fn=\"1\"></sup> A United Nations command led by the United States fought for the South, while the North was backed by the Soviet Union and, from late 1950, by Chinese forces intervening on a massive scale.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> An armistice signed at Panmunjom on 27 July 1953 ended the fighting without a peace treaty, leaving the two Korean states on almost the same territory as before, after millions of soldiers and civilians had died.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7494,7 +7498,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Russian_Revolution": "1917",
 "Vladimir_Lenin": "1870–1924",
 "Russian_Civil_War": "1917–1921",
-"Soviet_Union": "1922–1991"
+"Soviet_Union": "1922–1991",
+"Warsaw_Pact": "1955–1991",
+"Chinese_Communist_Revolution": "1921–1949",
+"Mao_Zedong": "1893–1976",
+"Korean_War": "1950–1953"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10261,7 +10269,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "American_entry_into_World_War_I": ["American entry into the First World War"],
 "Vladimir_Lenin": ["Lenin"],
 "Bolsheviks": ["Bolshevik"],
-"Soviet_Union": ["USSR"]
+"Soviet_Union": ["USSR"],
+"Warsaw_Pact": ["Warsaw Treaty Organization"],
+"Mao_Zedong": ["Mao Tse-tung","Chairman Mao"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15175,7 +15185,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Bolsheviks": ["party","history","politics","revolution","russia","20th century"],
 "Russian_Civil_War": ["war","history","warfare","politics","russia","20th century"],
 "Soviet_Union": ["state","history","politics","communism","russia","20th century"],
-"New_Deal": ["event","history","politics","economics","united states"]
+"New_Deal": ["event","history","politics","economics","united states"],
+"Warsaw_Pact": ["institution","history","politics","warfare","cold war","soviet union","europe"],
+"Chinese_Communist_Revolution": ["event","history","politics","revolution","communism","china"],
+"Mao_Zedong": ["person","history","politics","revolution","communism","china"],
+"Korean_War": ["war","history","warfare","politics","cold war","korea"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
