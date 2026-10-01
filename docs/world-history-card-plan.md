@@ -1411,7 +1411,7 @@ else in the Americas.*
     wh-982  Apartheid
     wh-983  Nelson Mandela
     wh-984  Iranian Revolution
-    wh-985  Postcolonial nation-building
+    wh-985  Ujamaa
 
 ### The contemporary world — `wh-contemporary`
 
