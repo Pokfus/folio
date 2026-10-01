@@ -4869,7 +4869,11 @@ window.GLOSSARY = {
 "Testudo_formation": "The testudo, Latin for 'tortoise', was a Roman infantry formation in which soldiers locked their shields over their heads and along its sides to make a roof that turned missiles aside.<sup class=\"fn\" data-fn=\"1\"></sup> It was used to approach the walls of a besieged town and also in the open, where men might crouch under it as if beaten to lure archers close before springing up to attack.<sup class=\"fn\" data-fn=\"1\"></sup> Livy traces its drill to displays in the circus games and describes one carrying soldiers level with the top of a wall at Heracleum in 169 BCE.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Triplex_acies": "The triplex acies, Latin for 'triple battle line', was the usual deployment of Roman legionary infantry in the late Republic, with each legion's cohorts arranged in three successive lines.<sup class=\"fn\" data-fn=\"1\"></sup> The rear lines could relieve or reinforce the front, or dig fortifications while the front lines stood guard, as Caesar describes in his campaign against Ariovistus.<sup class=\"fn\" data-fn=\"2\"></sup> It grew out of the older manipular order of hastati, principes and triarii, in which a beaten front line fell back through the gaps of the line behind and the veteran triarii formed the last reserve.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Roman_military_engineering": "Roman military engineering was the construction carried out by the Roman army itself, including fortified camps, roads, canals, bridges and siege works, mostly built by ordinary soldiers.<sup class=\"fn\" data-fn=\"1\"></sup> A legion kept its own carpenters, masons, smiths and tunnellers under a prefect of craftsmen, and commanders sometimes set troops to dig canals chiefly to keep them occupied, a labour the soldiers could resent, as when legions digging for a silver mine asked that generals be given triumphal honours in advance.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In provinces with no fighting to do, army units also met engineering and maintenance needs alongside police and customs duties.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Caesar's_Rhine_bridges": "Caesar's Rhine bridges were two timber bridges built by Julius Caesar's army across the Rhine, in 55 BCE and 53 BCE, to carry Roman troops against the Germans beyond the river.<sup class=\"fn\" data-fn=\"1\"></sup> The first, finished in ten days, stood on pairs of piles driven into the riverbed at a slant and was guarded upstream by fenders against tree trunks floated down to break it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Neither crossing led to a battle, and Caesar cut the first bridge behind him after eighteen days and broke down only the far end of the second, leaving a tower and garrison on the rest.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Caesar's_Rhine_bridges": "Caesar's Rhine bridges were two timber bridges built by Julius Caesar's army across the Rhine, in 55 BCE and 53 BCE, to carry Roman troops against the Germans beyond the river.<sup class=\"fn\" data-fn=\"1\"></sup> The first, finished in ten days, stood on pairs of piles driven into the riverbed at a slant and was guarded upstream by fenders against tree trunks floated down to break it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Neither crossing led to a battle, and Caesar cut the first bridge behind him after eighteen days and broke down only the far end of the second, leaving a tower and garrison on the rest.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Primus_pilus": "The primus pilus was the senior centurion of a Roman legion, who in Vegetius' account had charge of the eagle and commanded four centuries, 400 men, in the front line.<sup class=\"fn\" data-fn=\"1\"></sup> The post stood at the top of the centurions' ladder of promotion, and former holders, called primipilares, could go on to serve as camp prefect of a legion or to higher posts for a fortunate few.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In the later 3rd century the title also named a provincial governor's quartermaster, responsible for the army's provisions, whose debts under a law of Aurelian could fall on his children.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Augusta_Emerita": "Augusta Emerita, the modern Mérida, was a Roman colony in Lusitania founded by Augustus for veterans discharged at the end of the war against the Astures and Cantabri, which Dio records under 25 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> As its name shows, it was a settlement of soldiers who had completed their service, and it grew into a regional capital and a focus for the elites of the surrounding communities.<sup class=\"fn\" data-fn=\"2\"></sup> As one of the three provincial capitals of Roman Spain, with Corduba and Tarraco, it developed its own form of funerary altar carrying a bust of the dead, which stayed in use into the late 3rd century.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Canaba": "Canabae were the civilian settlements that grew up beside the permanent fortresses of the Roman legions, where people who served the garrison lived alongside veterans and the women and children of soldiers.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Some stood under the authority of the fortress commander rather than a town council, and under the Severan emperors such settlements were made into self-governing towns.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Those of Apulum and Potaissa in Dacia became important centres of urban life, while at Bonn most of the settlement was abandoned in the late 3rd century as civilians moved inside the rebuilt fortress.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Adlocutio": "An adlocutio was a formal speech by a Roman commander or emperor to assembled soldiers, delivered from a raised platform known as the tribunal.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Emperors advertised such addresses on their coinage, and a bronze sestertius of Caligula struck in 37–38 CE shows him on a low platform, stretching out his hand to five helmeted soldiers.<sup class=\"fn\" data-fn=\"1\"></sup> In late antiquity the speech from the tribunal was also the setting in which an army acclaimed or challenged a new ruler, as Ammianus describes at Nicaea in 364, when the troops interrupted Valentinian I to demand a colleague.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7485,7 +7489,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ala_(Roman_cavalry_unit)": "c. 50 BCE – 400 CE",
 "Cohortes_urbanae": "c. 13 BCE – 300 CE",
 "Vigiles": "6 – 300 CE",
-"Roman_navy": "c. 260 BCE – 476 CE"
+"Roman_navy": "c. 260 BCE – 476 CE",
+"Augusta_Emerita": "from 25 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10283,7 +10288,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battering_ram": ["battering rams"],
 "Ballista": ["ballistae"],
 "Siege_tower": ["siege towers"],
-"Testudo_formation": ["testudo"]
+"Testudo_formation": ["testudo"],
+"Primus_pilus": ["primipilus"],
+"Augusta_Emerita": ["Emerita Augusta"],
+"Canaba": ["canabae","canabae legionis"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15214,7 +15222,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Testudo_formation": ["practice","warfare","history","rome","classical"],
 "Triplex_acies": ["practice","warfare","history","rome","republic","classical"],
 "Roman_military_engineering": ["technology","warfare","history","rome","classical"],
-"Caesar's_Rhine_bridges": ["building","warfare","history","rome","gaul","classical"]
+"Caesar's_Rhine_bridges": ["building","warfare","history","rome","gaul","classical"],
+"Primus_pilus": ["title","warfare","history","military","rome","classical"],
+"Augusta_Emerita": ["city","history","rome","spain","classical"],
+"Canaba": ["place","history","archaeology","warfare","rome","classical"],
+"Adlocutio": ["practice","politics","warfare","history","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
