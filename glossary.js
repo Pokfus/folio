@@ -4818,7 +4818,11 @@ window.GLOSSARY = {
 "Stilicho": "Stilicho was a Roman general of Vandal descent who, as guardian of the emperor Honorius, directed the government and armies of the western empire from 395 until 408 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Married to Serena, niece of Theodosius I, he made his daughters Maria and Thermantia empresses in turn and fought Alaric's Goths in Greece and Italy while pursuing a claim to eastern Illyricum.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Accused of plotting to make his son Eucherius emperor, he was killed by the army at Ravenna in August 408, and ancient writers judged him either a just commander or a traitor who had let invaders into the empire.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
 "Alaric_I": "Alaric I was the king of the Goths who led them from the death of Theodosius I in 395 until his own death in 410 CE, and whose army sacked Rome in August 410.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He sought high Roman command and supplies for his followers as much as plunder, fought Stilicho in Italy in 402 and 403, and between 408 and 410 blockaded Rome three times and set up Attalus as a rival emperor.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He died at Consentia in southern Italy, and Jordanes says his people buried him with treasure in the bed of the diverted river Busentus and killed the men who dug the grave.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Sack_of_Rome_(410)": "The Gothic sack of Rome was the capture and plundering of the city by Alaric's Goths, who entered through the Salarian Gate on 24 August 410 CE and left about three days later.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Alaric ordered that those who had fled to the basilicas of Peter and Paul be spared, and the Goths carried off great booty and the emperor's sister Galla Placidia.<sup class=\"fn\" data-fn=\"2\"></sup> Pagans blamed the disaster on the abandonment of the old gods, and Augustine opened the <i>City of God</i> by answering them, while excavation has found few physical traces of the sack itself.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Crossing_of_the_Rhine": "The crossing of the Rhine was the entry of Vandals, Alans and Suevi into Roman Gaul, traditionally dated to the last day of December 406 CE and placed near Moguntiacum, the modern Mainz.<sup class=\"fn\" data-fn=\"1\"></sup> Contemporaries described the massacre at Mainz and the fall of cities across northern and eastern Gaul, and after more than two years of plunder the invaders crossed the Pyrenees into Spain in the autumn of 409.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Some historians have argued for 405 rather than 406, and the often-repeated detail that the river was frozen has no support in any ancient source.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Crossing_of_the_Rhine": "The crossing of the Rhine was the entry of Vandals, Alans and Suevi into Roman Gaul, traditionally dated to the last day of December 406 CE and placed near Moguntiacum, the modern Mainz.<sup class=\"fn\" data-fn=\"1\"></sup> Contemporaries described the massacre at Mainz and the fall of cities across northern and eastern Gaul, and after more than two years of plunder the invaders crossed the Pyrenees into Spain in the autumn of 409.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Some historians have argued for 405 rather than 406, and the often-repeated detail that the river was frozen has no support in any ancient source.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Visigothic_Kingdom": "The Visigothic Kingdom was the state of the Visigoths in south-western Gaul and later in Spain, which grew from the Roman government's grant of land in Aquitaine to a Gothic army in 418 CE.<sup class=\"fn\" data-fn=\"1\"></sup> It held Toulouse until the Frankish king Clovis I defeated and killed Alaric II at Vouillé in 507, after which it was centred on Spain, with its royal seat at Toledo.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Its kings and people held to Arian Christianity until the end of the 6th century, and the kingdom lasted until the Arab conquest of the Iberian peninsula.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Vandal_Kingdom": "The Vandal Kingdom was the state ruled by the Vandals and Alans in Roman North Africa, which they invaded from Spain in 429 CE and centred on Carthage after capturing the city in 439.<sup class=\"fn\" data-fn=\"1\"></sup> A treaty of 442 recognised their hold on the richest African provinces, and their Arian kings pressed their own creed on the Nicene clergy while ruling a population whose high culture stayed Roman.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The kingdom lasted about a century, until the forces of the eastern emperor Justinian under Belisarius overthrew its last king, Gelimer, and brought the African provinces back into the empire.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Gaiseric": "Gaiseric, also written Genseric, was king of the Vandals and Alans from 428 to 477 CE, who led his people from Spain into Roman Africa in 429 and captured Carthage in 439.<sup class=\"fn\" data-fn=\"1\"></sup> Jordanes describes him as lame from a fall from his horse, a man of few words who despised luxury but was greedy for gain and skilled at sowing discord.<sup class=\"fn\" data-fn=\"2\"></sup> He made his kingdom a sea power that raided Sicily, Italy and Greece, destroyed an eastern Roman invasion fleet with fireships in 468, and at last made an endless peace with the emperor Zeno.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Flavius_Aetius": "Flavius Aetius was the leading general of the western Roman empire from the 430s until 454 CE, a former hostage of Alaric and of the Huns who made use of Hunnic forces throughout his career.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He fought rival generals for control of the government, held the consulship three times, and in 451 joined with the Visigoths to turn back Attila's invasion of Gaul.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The emperor Valentinian III killed him with his own hand in 454, and a chronicler wrote that with him the western realm fell and could not raise its head again.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7421,7 +7425,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Stilicho": "d. 408 CE",
 "Alaric_I": "d. 410 CE",
 "Sack_of_Rome_(410)": "410 CE",
-"Crossing_of_the_Rhine": "406 CE"
+"Crossing_of_the_Rhine": "406 CE",
+"Gaiseric": "r. 428–477 CE",
+"Flavius_Aetius": "d. 454 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10191,7 +10197,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Pope_Damasus_I": ["Damasus I","Damasus"],
 "Pope_Leo_I": ["Leo the Great"],
 "Sack_of_Rome_(410)": ["Gothic sack of Rome","sack of Rome in 410"],
-"Crossing_of_the_Rhine": ["Rhine crossing of 406"]
+"Crossing_of_the_Rhine": ["Rhine crossing of 406"],
+"Gaiseric": ["Genseric","Geiseric"],
+"Flavius_Aetius": ["Aetius"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15065,7 +15073,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Stilicho": ["person","history","warfare","politics","rome","classical"],
 "Alaric_I": ["person","ruler","history","warfare","rome","classical"],
 "Sack_of_Rome_(410)": ["event","history","warfare","religion","rome","classical"],
-"Crossing_of_the_Rhine": ["event","history","warfare","migration","rome","classical"]
+"Crossing_of_the_Rhine": ["event","history","warfare","migration","rome","classical"],
+"Visigothic_Kingdom": ["state","history","politics","europe","classical"],
+"Vandal_Kingdom": ["state","history","politics","africa","classical"],
+"Gaiseric": ["person","ruler","history","warfare","africa","classical"],
+"Flavius_Aetius": ["person","history","warfare","politics","europe","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
