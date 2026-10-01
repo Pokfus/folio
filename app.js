@@ -42805,11 +42805,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           if (cs) {
             if (drawn.has(lk)) continue;                    // an era may file one country as several territories; the step is all of them
             drawn.add(lk);
-            if (cs !== "gone") out.push({ id: hit.id, ids: hit.ids, title: hit.title, name: String(nm), rings: cs[2], lines: cs[3], bb: null, at: null, series: true });
+            if (cs !== "gone") { const ed = stepEdges(cs); out.push({ id: hit.id, ids: hit.ids, title: hit.title, name: String(nm), rings: cs[2], lines: ed.lines, coasts: ed.coasts, bb: null, at: null, series: true }); }
             continue;
           }
           drawn.add(lk);
-          out.push({ id: hit.id, ids: hit.ids, title: hit.title, name: String(nm), rings: te.terr[i].p || [], bb: te.bb[i], at: null });
+          // a historical era's territory is drawn as a generated step is (see `terrEdges`)
+          const ed = eraIsModern(e) ? null : terrEdges(te.terr[i]);
+          out.push({ id: hit.id, ids: hit.ids, title: hit.title, name: String(nm), rings: te.terr[i].p || [], bb: te.bb[i], at: null, lines: ed ? ed.lines : undefined, coasts: ed ? ed.coasts : undefined, series: !!ed });
         }
         /* …AND A STATE FOUNDED BEFORE THE FIRST MAP THAT SHOWS IT is drawn from that map's own shape, which
            is the only shape Folio has for it. The United States between 1776 and 1799 is the 1800 outline:
@@ -42914,7 +42916,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function drawMineAreas(bw) {
       // `m.area` is a list of RINGS since Sep 2026 (see cardLocator) — a civilisation may be several blocks
       // the extent this year — a dated series where the card has one (see `mineAreaOf`)
-      const all = mineMarks().filter((m) => m.kind === "area" && m.area && m.area.length).map((m) => Object.assign({}, m, { area: mineAreaOf(m) }));
+      const all = mineMarks().filter((m) => m.kind === "area" && m.area && m.area.length).map((m) => { const pp = mineAreaParts(m); return Object.assign({}, m, { area: pp.rings, lines: pp.lines, coasts: pp.coasts }); });
       if (!all.length) return;
       const states = all.filter((m) => m.state), areas = all.filter((m) => !m.state);
       ctx.save();
@@ -42922,17 +42924,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
       ctx.clip("evenodd");
       if (states.length) {
-        // the fill first and every edge after it, so one state's land never paints over its neighbour's border
+        // the fill first and every edge after it, so one state's land never paints over its neighbour's border —
+        // and before both, every coast band, so a band reaching across a strait lies under the neighbour's fill
+        for (let i = 0; i < states.length; i++) snapBand(states[i].coasts, land);
         for (let i = 0; i < states.length; i++) {
           const sel = mineSel && states[i].title === mineSel, rings = states[i].area;
           ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true);
           ctx.fillStyle = land; ctx.fill("nonzero");
-          if (sel) { ctx.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; ctx.fill("nonzero"); }
+          if (sel) {
+            const selFill = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")";
+            ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true);
+            ctx.fillStyle = selFill; ctx.fill("nonzero");
+            snapBandOutside(rings, states[i].coasts, selFill);
+          }
         }
         for (let i = 0; i < states.length; i++) {
-          const sel = mineSel && states[i].title === mineSel, rings = states[i].area;
+          const sel = mineSel && states[i].title === mineSel, rings = states[i].area, lines = states[i].lines;
           ctx.lineWidth = sel ? Math.max(1.6, bw * 2) : bw; ctx.strokeStyle = sel ? TINT_SEL.line : border;
-          ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], false); ctx.stroke();
+          ctx.beginPath();
+          if (lines) for (let r = 0; r < lines.length; r++) addClipped(lines[r], false);   // a dated step strokes its land borders only
+          else for (let r = 0; r < rings.length; r++) addClipped(rings[r], false);
+          ctx.stroke();
         }
       }
       ctx.setLineDash([Math.max(3, bw * 4), Math.max(3, bw * 4)]);
@@ -42942,10 +42954,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const rings = areas[i].area;
         // one path over every ring, so two blocks that touch are washed once rather than twice
         ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true);
-        ctx.fillStyle = sel ? "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")" : mineAreaFill;
+        const fillA = sel ? "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")" : mineAreaFill;
+        ctx.fillStyle = fillA;
         ctx.fill("nonzero");
+        snapBandOutside(rings, areas[i].coasts, fillA);
         ctx.strokeStyle = sel ? TINT_SEL.line : mineAreaLine;
-        ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], false); ctx.stroke();
+        const lines = areas[i].lines;
+        ctx.beginPath();
+        if (lines) for (let r = 0; r < lines.length; r++) addClipped(lines[r], false);
+        else for (let r = 0; r < rings.length; r++) addClipped(rings[r], false);
+        ctx.stroke();
       }
       ctx.restore();
     }
@@ -42993,21 +43011,105 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       while (lo <= hi) { const mid = (lo + hi) >> 1; if (y < st[mid][0]) hi = mid - 1; else if (y > st[mid][1]) lo = mid + 1; else return st[mid][2] ? st[mid] : "gone"; }
       return null;
     }
-    // the rings of every linked series for `y`, plus a key that changes exactly when one of them steps
+    /* ---------- A GENERATED STEP'S COASTS AND BORDERS (Oct 2026, on request: "implement the border fixes that
+       you recommend") ----------
+       A step from `polities.js` or `country-series.js` is [from, to, rings, edges], where `edges` gives each
+       ring's edges as RUNS, alternately coast and land border, starting with coast (geo-util's `edgeRuns`).
+       The source's coast is Cliopatria's, not world.js's, so two things are done with it:
+         · ONLY THE BORDERS ARE STROKED. A coast drawn a few km inland used to read as land on both sides and
+           was stroked as a border — a second coastline inside the real one (the gold line inside Estonia's
+           shore, the red lines down the Aegean coast). The builder now counts such an edge as coast.
+         · THE COASTS ARE PAINTED OVER WITH A BAND OF THE FILL (`snapBand`), `SNAP_KM` either side, clipped to
+           the land like the fill — which closes the dark sliver of unclaimed shore a coast drawn inland
+           leaves, and takes in an island just off it. A band rather than a shipped fringe: the fringe as
+           data came to 8 MB, and this is a few numbers per ring.
+       Decoded once per step and kept on it. */
+    const SNAP_KM = 7;
+    // split each ring into coast and border polylines; `isCoast(k, i)` says whether ring k's edge i (from
+    // point i to the next) is coast
+    function edgesSplit(rings, isCoast) {
+      const lines = [], coasts = [];
+      for (let k = 0; k < rings.length; k++) {
+        const r = rings[k], n = r.length, pieces = [];
+        let cur = null;
+        for (let i = 0; i < n; i++) {
+          const c = !!isCoast(k, i);
+          if (!cur || cur.coast !== c) { cur = { coast: c, pts: [r[i]] }; pieces.push(cur); }
+          cur.pts.push(r[(i + 1) % n]);
+        }
+        if (pieces.length > 1 && pieces[0].coast === pieces[pieces.length - 1].coast) { const last = pieces.pop(); pieces[0].pts = last.pts.concat(pieces[0].pts.slice(1)); }
+        for (const pc of pieces) (pc.coast ? coasts : lines).push(pc.pts);
+      }
+      return { lines: lines, coasts: coasts };
+    }
+    /* AN ERA MAP'S TERRITORY HAS THE SAME FAULT AND ALREADY CARRIES THE ANSWER: its `c` is a mask per ring,
+       '1' for an edge that is coast and '0' for a land border (build-era.js), and its coast is
+       historical-basemaps', a few km off world.js's — the dark rim round Estonia's shore in 1939. So on a
+       historical era a territory is drawn as a generated step is: clipped to the land, a band along its
+       coasts, its land borders stroked. A present-day map is world.js itself, and keeps its own path. */
+    function terrEdges(t) {
+      if (!t) return null;
+      if (t._e !== undefined) return t._e;
+      const mask = t.c, rings = t.p || [];
+      t._e = Array.isArray(mask) && typeof mask[0] === "string" && mask.length === rings.length
+        ? edgesSplit(rings, (k, i) => mask[k].charAt(i) !== "0") : null;
+      return t._e;
+    }
+    function stepEdges(st) {
+      if (st._e) return st._e;
+      const rings = st[2] || [], runs = st[3];
+      // a step built before the edge classes (or a list of polylines) strokes its whole outline, as it always did
+      if (!Array.isArray(runs) || !runs.length || !Array.isArray(runs[0]) || typeof runs[0][0] !== "number") {
+        st._e = { lines: Array.isArray(runs) && runs.length ? runs : rings.map((r) => r.concat([r[0]])), coasts: [] };
+        return st._e;
+      }
+      // expand each ring's runs into one flag per edge, then split as an era territory is
+      const flags = rings.map((r, k) => { const f = new Uint8Array(r.length), rr = runs[k] || [r.length]; let e = 0, coast = 1; for (let q = 0; q < rr.length; q++) { for (let t = 0; t < rr[q] && e < r.length; t++) f[e++] = coast; coast = 1 - coast; } return f; });
+      st._e = edgesSplit(rings, (k, i) => flags[k][i] === 1);
+      return st._e;
+    }
+    // the band laid along a shape's coasts, as wide as SNAP_KM either side at the current zoom; the caller has
+    // already clipped to the land (and, for a translucent fill, away from the shape itself — see `snapBand`'s callers)
+    function snapBand(coasts, style) {
+      if (!coasts || !coasts.length) return;
+      ctx.save();
+      ctx.lineWidth = Math.max(1, 2 * R * SNAP_KM / 6371); ctx.lineJoin = "round"; ctx.lineCap = "round";
+      ctx.strokeStyle = style; ctx.setLineDash([]);
+      ctx.beginPath(); for (let i = 0; i < coasts.length; i++) addClipped(coasts[i], false); ctx.stroke();
+      ctx.restore();
+    }
+    // …for a TRANSLUCENT fill: the band only where the shape is not, so the two never stack into a darker seam
+    function snapBandOutside(rings, coasts, style) {
+      if (!coasts || !coasts.length) return;
+      ctx.save();
+      ctx.beginPath(); ctx.rect(0, 0, W, H); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.clip("evenodd");
+      snapBand(coasts, style);
+      ctx.restore();
+    }
+    // the rings of every linked series for `y`, plus a key that changes exactly when one of them steps — and
+    // the steps' borders and coasts (see `stepEdges`)
     function polityRings(slugs, y) {
       if (!slugs) return null;
-      const rings = [], key = [];
+      const rings = [], key = [], lines = [], coasts = [];
       for (let i = 0; i < slugs.length; i++) {
         const st = polityStep(slugs[i], y); if (!st) continue;
         key.push(slugs[i] + st[0]);
         for (let r = 0; r < st[2].length; r++) rings.push(st[2][r]);
+        const ed = stepEdges(st);
+        for (let r = 0; r < ed.lines.length; r++) lines.push(ed.lines[r]);
+        for (let r = 0; r < ed.coasts.length; r++) coasts.push(ed.coasts[r]);
       }
-      return rings.length ? { rings: rings, key: key.join("+") } : null;
+      return rings.length ? { rings: rings, key: key.join("+"), lines: lines, coasts: coasts } : null;
     }
     // a locator extent as drawn this year: the dated series where the card has one, else its authored rings
     function mineAreaOf(m) {
       const p = polityRings(polityLink(m, "area"), year);
       return p ? p.rings : m.area;
+    }
+    // …and with its borders and coasts, for the drawing pass (an authored extent strokes its whole outline)
+    function mineAreaParts(m) {
+      const p = polityRings(polityLink(m, "area"), year);
+      return p ? p : { rings: m.area, lines: null, coasts: null };
     }
     /* ---------- THE SECOND WORLD WAR'S FRONTS (Oct 2026, on request: "Add front line border maps for World
        War 2 if that's the only one you can find", then "we only need year by year border changes, not month by
@@ -43075,7 +43177,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       wars.forEach((m, i) => { if (pol[i]) dated.set(m.id + "|" + m.side, pol[i].rings); });
       for (let i = 0; i < wars.length; i++) {
         const m = wars[i];
-        if (pol[i]) { out.push({ m: m, rings: null, area: null, poly: pol[i].rings, bb: null }); continue; }
+        if (pol[i]) { out.push({ m: m, rings: null, area: null, poly: pol[i].rings, lines: pol[i].lines, coasts: pol[i].coasts, bb: null }); continue; }
         /* AN AUTHORED SIDE FACING A DATED ONE IS DRAWN OUTSIDE IT. Rome's series grows across Italy
            while Samnium's polygon stays where it was drawn, and the ground both claim would be washed
            green and red at once — the overlap `card-war.js` refuses between two authored extents. The
@@ -43090,7 +43192,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           if (!nm || !want.has(String(nm).toLowerCase())) continue;
           // batch 7: a named side takes the year's own shape too (see `countryStep`), drawn as a dated side
           const lk = String(nm).toLowerCase(), cs = countryStep(lk, year);
-          if (cs) { if (!stepped.has(lk)) { stepped.add(lk); if (cs !== "gone") out.push({ m: m, rings: null, area: null, poly: cs[2], bb: null }); } continue; }
+          if (cs) { if (!stepped.has(lk)) { stepped.add(lk); if (cs !== "gone") { const ed = stepEdges(cs); out.push({ m: m, rings: null, area: null, poly: cs[2], lines: ed.lines, coasts: ed.coasts, bb: null }); } } continue; }
+          // a historical era's territory: land-clipped, its coasts banded and its land borders stroked (see `terrEdges`)
+          const ted = eraIsModern(e) ? null : terrEdges(te.terr[j]);
+          if (ted) { out.push({ m: m, rings: null, area: null, poly: te.terr[j].p || [], lines: ted.lines, coasts: ted.coasts, bb: null }); continue; }
           out.push({ m: m, rings: te.terr[j].p || [], bb: te.bb[j], area: null });
         }
       }
@@ -43131,9 +43236,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         for (let i = 0; i < polys.length; i++) {
           const w = polys[i], t = w.m.side === "v" ? TINT_WIN : TINT_LOSE;
           ctx.beginPath(); for (let r = 0; r < w.poly.length; r++) addClipped(w.poly[r], true);
-          ctx.fillStyle = "rgba(" + t.rgb + "," + t.fillA + ")"; ctx.fill("nonzero");
+          const fillA = "rgba(" + t.rgb + "," + t.fillA + ")";
+          ctx.fillStyle = fillA; ctx.fill("nonzero");
+          snapBandOutside(w.poly, w.coasts, fillA);
           ctx.strokeStyle = t.line;
-          ctx.beginPath(); for (let r = 0; r < w.poly.length; r++) addClipped(w.poly[r], false); ctx.stroke();
+          ctx.beginPath();
+          if (w.lines) for (let r = 0; r < w.lines.length; r++) addClipped(w.lines[r], false);   // land borders only — see `stepEdges`
+          else for (let r = 0; r < w.poly.length; r++) addClipped(w.poly[r], false);
+          ctx.stroke();
         }
         ctx.setLineDash([Math.max(3, bw * 4), Math.max(3, bw * 4)]);
         ctx.lineWidth = Math.max(1.1, bw * 1.6);
@@ -43171,6 +43281,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ctx.beginPath();
       for (let i = 0; i < shapes.length; i++) for (let r = 0; r < shapes[i].rings.length; r++) addClipped(shapes[i].rings[r], true);
       ctx.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; ctx.fill("nonzero");
+      if (ser) for (let i = 0; i < shapes.length; i++) if (shapes[i].series) snapBandOutside(shapes[i].rings, shapes[i].coasts, "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")");
       if (ser) ctx.restore();
       if (!moving) { ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9; }
       ctx.lineWidth = Math.max(1.6, bw * 2); ctx.strokeStyle = TINT_SEL.line;
@@ -43560,6 +43671,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             ctx.beginPath();
             for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
             ctx.clip("evenodd");
+            // the coast bands FIRST and the fills over them, so a band that reaches across a strait onto a
+            // neighbour's shore is covered by that neighbour's own fill wherever it is drawn (see `stepEdges`)
+            for (let i = 0; i < mser.length; i++) snapBand(mser[i].coasts, land);
             ctx.beginPath();
             for (let i = 0; i < mser.length; i++) for (let r = 0; r < mser[i].rings.length; r++) addClipped(mser[i].rings[r], true);
             ctx.fillStyle = land; ctx.fill("nonzero");
