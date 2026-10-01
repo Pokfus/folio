@@ -1223,7 +1223,7 @@ else in the Americas.*
     wh-817  Trail of Tears
     wh-818  Women's suffrage
     wh-819  Mary Wollstonecraft
-    wh-820  Sanitation and public health reform
+    wh-820  Sanitation and public health reform  — written as *sanitary movement* (glossary key `Sanitary_movement`); `Public_Health_Act_1848` is only a redirect
     wh-821  Germ theory of disease
     wh-822  Charles Darwin
     wh-823  On the Origin of Species
