@@ -4845,7 +4845,11 @@ window.GLOSSARY = {
 "Ala_(Roman_cavalry_unit)": "An ala, Latin for 'wing', was a regiment of auxiliary cavalry in the Roman imperial army, raised almost always among provincials and serving apart from the legions under a prefect drawn from the equestrian order.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The word earlier named the cavalry on the flanks of a citizen army and then the allied contingents posted on the wings of the legions, and it took its imperial sense once Rome came to rely on foreign horsemen.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A regiment was nominally 500 or 1,000 strong and was divided into 16 or 24 troops called turmae, each commanded by a decurion, the smaller size being commoner in the 1st century.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Cohortes_urbanae": "The cohortes urbanae, or urban cohorts, were a body of troops created by Augustus to keep order in the city of Rome, occupying a place between regular soldiers and an armed police.<sup class=\"fn\" data-fn=\"1\"></sup> They were commanded by the city prefect, whose office Augustus turned from an occasional stand-in for absent consuls into a permanent post with the powers needed to keep the peace.<sup class=\"fn\" data-fn=\"2\"></sup> Tacitus counts three cohorts at Rome under Tiberius, recruited mainly in central Italy and numbered on from the praetorian cohorts, and further cohorts served at Lugdunum in Gaul and elsewhere in the empire.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Vigiles": "The vigiles, or 'watchmen', were the fire brigade and night watch of ancient Rome, organised by Augustus in 6 CE as seven cohorts under an equestrian prefect after a series of fires.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Each cohort guarded two of the city's fourteen regions, patrolling at night with hooks and axes and warning every householder to take care with fire and to keep water to hand.<sup class=\"fn\" data-fn=\"2\"></sup> The corps was at first recruited from freedmen, but by the 3rd century it drew men from other classes too, and its prefect also judged arsonists, burglars and thieves.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Roman_navy": "The Roman navy was the war fleet of the Roman state, built up for particular wars under the Republic, most famously the First Punic War, and organised by Augustus into standing fleets.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The two main fleets were based at Misenum and Ravenna to guard the seas of Italy, with smaller squadrons in the provinces, and they were manned by long-service sailors under equestrian prefects.<sup class=\"fn\" data-fn=\"2\"></sup> The old fleets had largely disappeared as effective forces by the early 4th century, although warships, small local fleets and campaign fleets gathered for particular wars continued in late antiquity.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Roman_navy": "The Roman navy was the war fleet of the Roman state, built up for particular wars under the Republic, most famously the First Punic War, and organised by Augustus into standing fleets.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The two main fleets were based at Misenum and Ravenna to guard the seas of Italy, with smaller squadrons in the provinces, and they were manned by long-service sailors under equestrian prefects.<sup class=\"fn\" data-fn=\"2\"></sup> The old fleets had largely disappeared as effective forces by the early 4th century, although warships, small local fleets and campaign fleets gathered for particular wars continued in late antiquity.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Roman_army": "The Roman army was the land force of the Roman state from its early centuries to late antiquity, passing from an early militia and the manipular legion through the regular army of the late Republic to a standing army under the emperors and the changed forces of the 3rd to 5th centuries CE.<sup class=\"fn\" data-fn=\"1\"></sup> Augustus made it permanent, stationing legions and auxiliaries in the provinces and fixing pay, length of service and discharge rewards for every rank.<sup class=\"fn\" data-fn=\"2\"></sup> By the 4th century it was divided between mobile field troops and frontier troops, whom a law of 325 ranked differently in their privileges.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Cohort_(military_unit)": "A cohort, in Latin <i>cohors</i>, was a Roman infantry unit of several hundred men, which Polybius, describing the battle of Ilipa in 206 BCE, defines as a body of three maniples.<sup class=\"fn\" data-fn=\"1\"></sup> From the late Republic a legion was made up of ten cohorts of roughly 480 men, and under the emperors the guard at Rome was organised in cohorts as well, Tacitus counting nine praetorian and three city cohorts in 23 CE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Much of the auxiliary infantry also served in cohorts, at first sometimes named after their commanders and later after the peoples or provinces that supplied them.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Centurion": "A centurion was an officer of the Roman army who commanded a company of foot soldiers, a legion having sixty of them in Polybius’s description, two to each maniple.<sup class=\"fn\" data-fn=\"1\"></sup> Chosen by the tribunes for steadiness rather than daring, centurions kept discipline and stood between the senior officers and the ranks, and the vine-stick was the badge of their rank.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In the imperial army they also served as police and administrators, were paid far more than their men, and the senior post of primus pilus could lead a few of them to higher command.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Roman_army_of_the_late_Republic": "The Roman army of the late Republic was the citizen army of the last century or so of the Roman Republic, whose legions were organised in ten cohorts of roughly 480 men rather than in lines of maniples.<sup class=\"fn\" data-fn=\"1\"></sup> The change is traditionally credited to Gaius Marius, but it has been argued that it grew out of the way Italian allies were organised and deployed in cohorts during the 2nd and 1st centuries BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Older accounts made it an army of landless volunteers, yet the evidence shows that most of its soldiers were still raised by conscription and that many came from the propertied classes.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10243,7 +10247,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Classis_Misenensis": ["Misene fleet"],
 "Scutum_(shield)": ["scutum"],
 "Ala_(Roman_cavalry_unit)": ["ala","alae"],
-"Cohortes_urbanae": ["urban cohorts","urban cohort","city cohorts"]
+"Cohortes_urbanae": ["urban cohorts","urban cohort","city cohorts"],
+"Cohort_(military_unit)": ["Cohort"],
+"Roman_army_of_the_late_Republic": ["cohortal legion"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10297,7 +10303,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Julian's_School_Edict": true,
 "The_City_of_God": true,
 "Gothic_War_(535–554)": true,
-"Ala_(Roman_cavalry_unit)": true
+"Ala_(Roman_cavalry_unit)": true,
+"Cohort_(military_unit)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -15146,7 +15153,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ala_(Roman_cavalry_unit)": ["institution","warfare","history","rome"],
 "Cohortes_urbanae": ["institution","warfare","history","rome"],
 "Vigiles": ["institution","history","rome"],
-"Roman_navy": ["institution","warfare","history","rome"]
+"Roman_navy": ["institution","warfare","history","rome"],
+"Roman_army": ["institution","warfare","history","rome","classical"],
+"Cohort_(military_unit)": ["institution","warfare","history","rome","classical"],
+"Centurion": ["title","warfare","history","rome","classical"],
+"Roman_army_of_the_late_Republic": ["institution","warfare","history","rome","classical","republic"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
