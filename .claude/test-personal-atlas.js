@@ -656,31 +656,42 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   }
   check("a place with one card shows no stack bar", single === true, String(single));
 
-  /* ---------- 12) the Second World War's fronts, month by month ---------- */
-  /* Oct 2026, on request: "Add front line border maps for World War 2". The rail moves by years and the
-     fronts by months, so a month control appears for exactly the years that have them (Aug 1939 – Dec 1942),
-     names the month in the cartouche, steps a month at a time — across a year boundary, moving the rail — and
-     is gone in a year with no fronts. On the reader's own atlas it waits for the card to be studied. */
+  /* ---------- 12) the Second World War's fronts, one map a year ---------- */
+  /* Oct 2026, on request: "Add front line border maps for World War 2", then "we only need year by year border
+     changes, not month by month". The bundle carries one map per year 1939–1945 and nothing finer; the rail's
+     year IS the map (no month control, no month in the cartouche); a year with fronts draws them and one
+     without draws nothing; and on the reader's own atlas they wait for the card to be studied. "Draws" is
+     measured as the canvas changing when the fronts are hidden — the fill is a tint over whatever is under
+     it, so a colour count would depend on the theme and the view. */
   console.log("\n12) the Second World War's fronts");
   await freshPage([]);
   await page.evaluate(() => { document.querySelector('[data-atlastab="full"]').click(); });
   await page.waitForTimeout(3500);
   await page.waitForFunction(() => !!window.WW2_FRONTS, { timeout: 20000 }).catch(() => {});
-  await setYear(1941);
-  const mon = () => page.evaluate(() => { const e = document.getElementById("atlasMonth"); return e && !e.hidden ? document.getElementById("amLabel").textContent.trim() : ""; });
-  const m1 = await mon();
-  check("in 1941 the full atlas offers the month", /1941$/.test(m1), m1 || "no month control");
-  check("...and the cartouche names it", await page.evaluate(() => /1941/.test(document.getElementById("mapCartouche").textContent) && /[A-Z]{3,} 1941/.test(document.getElementById("mapCartouche").textContent)));
-  await page.click("#amPrev"); await page.waitForTimeout(500);
-  const m2 = await mon();
-  check("...and steps back a month", m2 && m2 !== m1 && /1941$/.test(m2), m1 + " → " + m2);
-  for (let i = 0; i < 12 && /1941$/.test(await mon()); i++) { await page.click("#amPrev"); await page.waitForTimeout(250); }
-  check("...across the new year, moving the rail with it", /1940$/.test(await mon()) && (await page.$eval("#ayNum", (e) => e.textContent.trim())) === "1940", await mon());
-  await setYear(1938);
-  check("a year with no fronts has no month control", (await mon()) === "");
+  const fy = await page.evaluate(() => { const F = window.WW2_FRONTS || {}; return { y: Object.keys(F.y || {}).sort().join(","), m: !!F.m }; });
+  check("the fronts are one map a year, 1939 to 1945, and no months", fy.y === "1939,1940,1941,1942,1943,1944,1945" && !fy.m, JSON.stringify(fy));
+  check("...so the atlas has no month control", await page.evaluate(() => !document.getElementById("atlasMonth")));
+  const snap = () => page.evaluate(() => { const cv = document.getElementById("globe"); return Array.from(cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data.filter((v, i) => i % 16 === 0)); });
+  // the canvas with the fronts, then with them hidden (an unknown card), for the same year — the difference is the fronts
+  const frontPx = async (y) => {
+    await setYear(y); const a = await snap();
+    await page.evaluate(() => { window.__ww2card = window.WW2_FRONTS.card; window.WW2_FRONTS.card = "no-such-card"; });
+    await setYear(y === 1945 ? 1944 : y + 1); await setYear(y); const b = await snap();
+    await page.evaluate(() => { window.WW2_FRONTS.card = window.__ww2card; });
+    let n = 0; for (let i = 0; i < a.length; i++) if (Math.abs(a[i] - b[i]) > 6) n++;
+    return n;
+  };
+  const d44 = await frontPx(1944);
+  check("in 1944 the full atlas draws the fronts", d44 > 500, d44 + " pixels differ");
+  check("...and the cartouche is the year alone", await page.evaluate(() => /^FULL ATLAS · 1944$/.test(document.getElementById("mapCartouche").textContent.trim())), await page.$eval("#mapCartouche", (e) => e.textContent));
+  const d41 = await frontPx(1941);
+  check("in 1941 too (the 1939–42 source)", d41 > 500, d41 + " pixels differ");
+  const d38 = await frontPx(1938);
+  check("a year with no fronts draws none", d38 === 0, d38 + " pixels differ");
   await freshPage([]);   // the reader's own atlas, nothing studied
-  await setYear(1941);
-  check("...and the reader's own atlas has none until the card is studied", (await mon()) === "");
+  await page.waitForFunction(() => !!window.WW2_FRONTS, { timeout: 20000 }).catch(() => {});
+  const dOwn = await frontPx(1944);
+  check("...and the reader's own atlas has none until the card is studied", dOwn === 0, dOwn + " pixels differ");
 
   check("no console or page errors throughout", errs.length === 0, errs.slice(0, 3).join(" | "));
   await browser.close();

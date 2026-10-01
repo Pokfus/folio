@@ -877,14 +877,16 @@ still shade both sides.
 READ ITS §5 BEFORE TOUCHING ANY OF THEM). A card linked in `POLITY_LINKS` draws its extent or its side from
 the series step for the year on the rail, so the border moves with the slider; anything unlinked or
 unloaded falls back to the authored polygon. Credit for Cliopatria (CC BY 4.0) is in the help card.
-**THE SECOND WORLD WAR IS DRAWN AS ITS FRONTS, MONTH BY MONTH** (`DATA_BUNDLES.fronts`, `frontsShown`,
-`frontKey`, `frontStep`, `drawFronts`, `frontAt`, `#atlasMonth`; on request: "Add front line border maps
-for World War 2"). Its card groups other wars, so it is not shaded as two sides; who held what is drawn
-instead, Axis red and Allied green, occupied fainter. THE RAIL MOVES BY YEARS AND THE FRONTS BY MONTHS, so a
-month control appears for exactly the years `WW2_FRONTS` covers and stepping past December moves the rail;
-the month is in `viewKey`, or a month step would redraw nothing. Europe, Aug 1939 – Dec 1942 only — the
-audit's ledger says what the source lacks and where 1943–45 will come from. Guarded by
-`test-personal-atlas.js` section 12 and `test-polities.js` section 4.
+**THE SECOND WORLD WAR IS DRAWN AS ITS FRONTS, ONE MAP A YEAR** (`DATA_BUNDLES.fronts`, `frontsShown`,
+`frontKey`, `drawFronts`, `frontAt`; on request: "Add front line border maps for World War 2", then "we only
+need year by year border changes, not month by month"). Its card groups other wars, so it is not shaded as two
+sides; who held what is drawn instead, Axis red and Allied green, occupied fainter. `WW2_FRONTS.y` holds one
+map per year 1939–1945 and `frontKey` is simply the rail's year — no month control, no month in the
+cartouche (the Oct 2026 monthly version had both, and was replaced). 1939–42 is Europe at each December, from
+the PD Commons/ww2-atlas source; 1943–45 is Europe and the Pacific from the PD US Army battle-front atlas,
+read by `.claude/ww2-plates/` (`WW2_FRONTS.at` gives each map's date). The plate years' sets carry HOLES, so
+`drawFronts` fills even-odd, as `pointInRings` already tests. Guarded by `test-personal-atlas.js` section 12
+and `test-polities.js` section 4.
 
 ---
 
