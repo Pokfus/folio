@@ -1411,7 +1411,7 @@ else in the Americas.*
     wh-982  Apartheid
     wh-983  Nelson Mandela
     wh-984  Iranian Revolution
-    wh-985  Postcolonial nation-building
+    wh-985  Ujamaa
 
 ### The contemporary world — `wh-contemporary`
 
@@ -1419,7 +1419,7 @@ else in the Americas.*
     wh-987  Dissolution of the Soviet Union
     wh-988  German reunification
     wh-989  European Union
-    wh-990  Chinese economic reform
+    wh-990  Reform and opening up
     wh-991  Yugoslav Wars
     wh-992  Rwandan genocide
     wh-993  Globalisation
