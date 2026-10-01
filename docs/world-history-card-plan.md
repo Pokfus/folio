@@ -1277,9 +1277,9 @@ else in the Americas.*
     wh-865  Young Turk Revolution
     wh-866  Zionism
     wh-867  Gold standard
-    wh-868  Submarine communications cable
+    wh-868  Submarine communications cable  — written as *transatlantic telegraph cable* (glossary key `Transatlantic_telegraph_cable`)
     wh-869  World's fair
-    wh-870  The world in 1914
+    wh-870  The world in 1914  — written as the general term *great power* (glossary key `Great_power`), the powers and the world economy of 1914 being the card's subject
 
 ## The Modern World — `wh-modern`
 
