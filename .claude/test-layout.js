@@ -322,64 +322,35 @@ function scrimCheck() {
     await page.close();
   }
 
-  /* ================= 4. the Atlas chrome as chips on a phone ================= */
-  {
-    const page = await browser.newPage({ viewport: PHONE, hasTouch: true });
-    await watch(page);
-    await atlas(page, base);
-    const chips = await page.evaluate(() => {
-      const r = (s) => { const e = document.querySelector(s); const b = e.getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), shown: e.checkVisibility() }; };
-      const stage = document.querySelector(".globe-stage").getBoundingClientRect();
-      const legend = document.querySelector("#globeLegend").getBoundingClientRect();
-      const search = document.querySelector("#globeSearch").getBoundingClientRect();
-      return { toggle: r("#gsToggle"), legend: r("#globeLegend"), field: r("#gsInput"),
-        cover: Math.round(((legend.width * legend.height) + (search.width * search.height)) / (stage.width * stage.height) * 1000) / 10 };
-    });
-    // this is the assertion that would have caught the source-order bug: the desktop `display:none` and the
-    // phone rule have equal specificity, so the chip silently never rendered
-    check("the search collapses to a chip", chips.toggle.shown && chips.toggle.w <= 40, JSON.stringify(chips.toggle));
-    check("...and the legend to another", chips.legend.shown && chips.legend.w <= 40, JSON.stringify(chips.legend));
-    check("...with the field itself put away", !chips.field.shown);
-    check("together they cover under 3% of the map", chips.cover < 3, chips.cover + "%");
-
-    // .click() on an element the CSS has hidden waits 30s and then THROWS, taking the rest of the file with
-    // it — and a missing chip is exactly what this section exists to catch, so it has to REPORT, not abort
-    await page.evaluate(() => { const b = document.querySelector("#gsToggle"); if (b) b.click(); });
-    await page.waitForTimeout(400);
-    const open = await page.evaluate(() => {
-      const i = document.querySelector("#gsInput"), b = i.getBoundingClientRect();
-      return { w: Math.round(b.width), focused: document.activeElement === i, legend: document.querySelector("#globeLegend").checkVisibility(), stageW: Math.round(document.querySelector(".globe-stage").getBoundingClientRect().width) };
-    });
-    check("tapping it gives the field the width of the stage", open.w > open.stageW * 0.8, open.w + " of " + open.stageW);
-    check("...with the cursor already in it", open.focused);
-    check("...and the legend chip out of its way", !open.legend);
-    await page.keyboard.press("Escape");
-    await page.waitForTimeout(400);
-    check("Escape puts it back to a chip", await page.evaluate(() => document.querySelector("#gsToggle").checkVisibility() && !document.querySelector("#gsInput").checkVisibility()));
-
-    await page.evaluate(() => { const b = document.querySelector("#legendCollapse"); if (b) b.click(); });
-    await page.waitForTimeout(350);
-    const leg = await page.evaluate(() => { const b = document.querySelector("#globeLegend").getBoundingClientRect(); return { w: Math.round(b.width), rows: document.querySelectorAll("#globeLegend .legend-row").length, bodyShown: document.querySelector("#legendBody").checkVisibility() }; });
-    check("tapping the legend chip opens the legend", leg.bodyShown && leg.w > 90, JSON.stringify(leg));
-    await page.close();
+  /* ================= 4. the Atlas chrome ================= */
+  /* THE SEARCH AND THE LEGEND WERE THE WORLD ATLAS'S, and that tab was removed (Oct 2026, on request: "we'll
+     only use the personal atlas from now on"). This section measured them as chips on a phone and as a field
+     and an open panel on a desktop; what is left to assert is that neither tab shows them, at either width —
+     a control left visible from a removed page is a control that does nothing. */
+  for (const vp of [PHONE, DESKTOP]) {
+    for (const tab of ["mine", "full"]) {
+      const page = await browser.newPage({ viewport: vp, hasTouch: vp === PHONE });
+      await watch(page);
+      await atlas(page, base, null, tab);
+      const tag = (vp === PHONE ? "phone" : "desktop") + " · " + tab;
+      const d = await page.evaluate(() => ({
+        search: document.querySelector("#globeSearch").checkVisibility(),
+        legend: document.querySelector("#globeLegend").checkVisibility(),
+        world: !!document.querySelector('[data-atlastab="world"]'),
+      }));
+      check("[" + tag + "] no search and no legend on the atlas", !d.search && !d.legend, JSON.stringify(d));
+      check("[" + tag + "] ...and no world atlas tab to reach them by", !d.world);
+      await page.close();
+    }
   }
   {
     const page = await browser.newPage({ viewport: DESKTOP });
     await watch(page);
     await atlas(page, base);
-    const d = await page.evaluate(() => ({
-      chip: document.querySelector("#gsToggle").checkVisibility(),
-      field: document.querySelector("#gsInput").checkVisibility(),
-      legendBody: document.querySelector("#legendBody").checkVisibility(),
-    }));
-    check("on a desktop the search is a plain field, not a chip", d.field && !d.chip, JSON.stringify(d));
-    check("...and the legend opens on arrival", d.legendBody);
-
     // Copy link was taken off the place panel (Aug 2026, on request). The #map/<year>/<slug> deep link
     // itself stays — links already shared have to go on working, and nothing on screen says they do.
-    await page.evaluate(() => { const i = document.querySelector("#gsInput"); i.focus(); i.value = "France"; i.dispatchEvent(new Event("input", { bubbles: true })); });
-    await page.waitForTimeout(700);
-    await page.evaluate(() => { const r = document.querySelector(".gs-row"); if (r) r.click(); });
+    // reached through that deep link rather than the search box, which went with the world atlas tab
+    await page.evaluate(() => { location.hash = "#map/2026/france"; });
     await page.waitForTimeout(2500);
     const cp = await page.evaluate(() => ({
       open: !!document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden,
