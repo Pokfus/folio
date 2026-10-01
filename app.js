@@ -36394,6 +36394,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      of "a region is drawn only if its first tag is a polity, a range registers nothing, water is a label"
      would go stale the first time either rule moved, and the symptom would be a chip announcing a
      discovery the globe then does not draw. */
+  // does a locator's label name what its card answers? (see the rule at its use in `atlasRegister`)
+  function atlasNameFold(s) {
+    return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, " ").trim().replace(/^the /, "");
+  }
+  function atlasNameFits(name, answer) {
+    const n = atlasNameFold(name), a = atlasNameFold(answer);
+    if (!n) return true;                                 // no name of its own — it is labelled with the answer
+    return n === a || (" " + a + " ").indexOf(" " + n + " ") >= 0;
+  }
   function atlasRegister(cid, c, out) {
       const title = String(c.answerText || "").trim() || String(cid);
       /* WHICH COLLECTION EARNED THIS PLACE (Sep 2026, on request: "in the personal atlas, users should be
@@ -36448,6 +36458,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!loc) return;
       const ys = cardSpanYears(c);
       const y0 = ys.length ? Math.min.apply(null, ys) : null;   // the START only — see mineMarks: a place does not stop existing
+      /* A PLACE IS ON THIS GLOBE ONLY UNDER ITS OWN CARD'S NAME (Oct 2026, on request: "If a location label
+         name doesn't identically match the answer term of the card it relates to (e.g. place 'Brixellum' for
+         the card 'Otho'), then the personal atlas and full atlas should not display that location at all").
+         A dot's label is the locator's `name`, and a click on it opens the card — so "Brixellum" opening a
+         card about an emperor is a label that does not say what is behind it. The owner's choice between two
+         measured readings was the looser one: the name must BE the answer or stand inside it as whole words,
+         so "Battle of Marathon" keeps its swords at Marathon and "Otho" loses Brixellum (378 of the 1,247
+         locator places kept, against 245 for an exact match, which would also have taken 53 of the 80
+         battles off). Folded for case, accents, punctuation and a leading "the". It binds the LABELLED
+         marks, a dot and a water name; an extent carries no label and is untouched. The card's own map
+         window is untouched too — there the place is the setting of the card, not its name. */
+      if (loc.kind !== "region" && loc.kind !== "shelf" && loc.kind !== "range" && !atlasNameFits(loc.name, title)) return;
       /* A GEOGRAPHIC REGION AND A RANGE ARE NOT ON THIS GLOBE (Sep 2026, on request: "mountain ranges
          like the Apennines should not be displayed … areas or regions (like Etruria, Attica) should not
          show. countries or civilisations should"). They were drawn as a dashed wash and a spine — the
@@ -36480,7 +36502,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (!loc.area || !MINE_POLITY.has(pol)) return;
         const y1 = ys.length ? Math.max.apply(null, ys) : null;
         // `state` says whether it is drawn as a country or as a people's wash — see `drawMineAreas`
-        out.marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1 , coll: coll, state: MINE_STATE.has(pol) });
+        /* `open`: the card dates only its BEGINNING (the Roman Empire's reads "from 27 BCE"), so its own
+           span is one year. Unlinked, that is still one year; linked to a dated series, the series says
+           when it ended — see `mineMarks`, and `build-polities.js`, which already reads it that way. */
+        out.marks.push({ id: cid, title: loc.name || title, kind: "area", area: loc.area, at: loc.at, y0: y0, y1: y1 , coll: coll, state: MINE_STATE.has(pol), open: new Set(ys).size === 1 });
         return;
       }
       /* WATER IS NAMED, NOT MARKED (Sep 2026, on request: the Aegean Bronze Age card should "add its
@@ -42846,6 +42871,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           continue;
         }
         if (m.y0 != null && year < m.y0) continue;
+        /* AN EXTENT WHOSE CARD GIVES ONLY ITS START RUNS AS LONG AS ITS DATED SERIES DOES (Oct 2026, with the
+           Roman Empire, whose card dates it "from 27 BCE" and nothing after): drawn in exactly the years the
+           series has a step for, and not at all until the bundle has landed — the authored polygon has no
+           end to fall back on, and drawing it to the present would be a claim nobody made. */
+        if (m.kind === "area" && m.open) {
+          const sl = polityLink(m, "area");
+          if (sl) { if (polityRings(sl, year)) out.push(m); continue; }
+        }
         // a civilisation ends, and so does a war; a place does not
         if ((m.kind === "area" || m.kind === "war") && m.y1 != null && year > m.y1) continue;
         out.push(m);
@@ -43199,12 +43232,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const mineDiff = (m) => { const id = m && m.id; if (!_mineDiff.has(id)) _mineDiff.set(id, cardDifficultyRank(id)); return _mineDiff.get(id); };
     function mineDotsShown() {
       const sep = MINE_SEP(zoom), sep2 = sep * sep, out = [];
-      // the easier card first (see `mineDiff`); then a country's seat, a province's, a place — so a
-      // thinning keeps the mark that says most; then the title, so the order is stable between frames,
-      // which first-come over `S.cards` would not be
+      /* A CAPITAL FIRST, WHATEVER ITS CARD'S RATING (Oct 2026, on request: "label display priority is
+         defined by card difficulty. Keep this system, but ensure that capital cities always take display
+         priority over non-capital cards"). A country's or a province's seat outranks every other place, and
+         the easier card decides only WITHIN each of the two tiers (see `mineDiff`); then a country's seat
+         before a province's, so a thinning keeps the mark that says most; then the title, so the order is
+         stable between frames, which first-come over `S.cards` would not be. */
       const rank = (m) => (m.cap ? 0 : m.subcap ? 1 : 2);
+      const tier = (m) => (m.cap || m.subcap ? 0 : 1);
       const marks = mineMarks().filter((m) => m.kind === "dot" && m.at)
-        .sort((a, b) => mineDiff(a) - mineDiff(b) || rank(a) - rank(b) ||
+        .sort((a, b) => tier(a) - tier(b) || mineDiff(a) - mineDiff(b) || rank(a) - rank(b) ||
                         String(a.title || "").localeCompare(String(b.title || "")));
       for (let i = 0; i < marks.length; i++) {
         proj(marks[i].at[0], marks[i].at[1]); if (PV < 0) continue;
@@ -43234,12 +43271,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ctx.save();
       ctx.font = "600 " + fs + "px " + labelFont;
       ctx.textBaseline = "middle";
-      // every candidate's own footprint — its mark plus the white ring round it — so a name can be kept
-      // off a neighbour's dot as well as off a neighbour's name. Measured over ALL the candidates rather
-      // than only the ones already drawn: a rule that depended on how far the loop had got would place a
-      // word differently depending on nothing a reader can see.
+      /* every candidate's own footprint — its mark plus the white ring round it — so a name can be kept
+         off a neighbour's dot as well as off a neighbour's name.
+         ONLY A MARK ALREADY PLACED CAN STAND IN THE WAY (Oct 2026). The boxes used to be measured over ALL
+         the candidates, so a lower-ranked place's dot could veto a capital's name on both sides and the
+         capital was dropped while the place that blocked it was drawn — the ranking above reversed by the
+         placement. Now a name avoids the names AND the dots of the marks ranked ahead of it, and a mark is
+         refused when its own dot would fall under a name already placed; the order is the ranking, which
+         is what a reader can see, so the result is still the same in every frame. */
       const dotHalf = (m) => (m.battle ? 6.6 : m.cap ? 6.2 : m.subcap ? 5.2 : 4.1);
       const dotBoxes = dots.map((d) => { const h = dotHalf(d.m); return [d.x - h, d.y - h, h * 2, h * 2]; });
+      const labelBoxes = [];
       for (let i = 0; i < dots.length; i++) {
         const m = dots[i].m, x = dots[i].x, y = dots[i].y;
         /* A CAPITAL IS A SQUARE (Sep 2026, on request: "make dots of capital cities instead slightly
@@ -43266,12 +43308,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const clear = (b) => {
           if (b[0] < 2 || b[0] + b[2] > W - 2) return false;
           for (let k = 0; k < boxes.length; k++) if (rectsHit(b, boxes[k])) return false;
-          for (let k = 0; k < dotBoxes.length; k++) if (k !== i && rectsHit(b, dotBoxes[k])) return false;
           return true;
         };
+        // its own dot may not sit under a name placed before it (see `labelBoxes` above)
+        let under = false;
+        for (let k = 0; k < labelBoxes.length; k++) if (rectsHit(dotBoxes[i], labelBoxes[k])) { under = true; break; }
+        if (under) continue;
         const box = clear(rBox) ? rBox : clear(lBox) ? lBox : null;
         if (!box) continue;   // nowhere to write the name — so the mark is not drawn either
-        boxes.push(box);
+        boxes.push(box, dotBoxes[i]);
+        labelBoxes.push(box);
         mineDotRects.push({ m: m, box: box, x: x, y: y });
         // …and NOW the mark, once its name has somewhere to go
         if (m.battle) paintSwords(ctx, x, y, 6.2);   // a battle is crossed swords, as on its own card's window

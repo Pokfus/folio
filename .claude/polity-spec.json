@@ -13,6 +13,16 @@
         476
       ]
     },
+    "roman_kingdom": {
+      "label": "Roman Kingdom",
+      "cliopatria": [
+        "Roman Kingdom"
+      ],
+      "years": [
+        -753,
+        -481
+      ]
+    },
     "carthage": {
       "label": "Carthage",
       "cliopatria": [
@@ -692,6 +702,17 @@
         "etruscans"
       ]
     },
+    "rm-046": {
+      "area": [
+        "roman_kingdom"
+      ]
+    },
+    "rm-091": {
+      "area": [
+        "roman_kingdom",
+        "rome"
+      ]
+    },
     "rm-152": {
       "v": [
         "rome"
@@ -946,8 +967,24 @@
         "achaemenid"
       ]
     },
+    "wh-339": {
+      "area": [
+        "roman_kingdom"
+      ]
+    },
+    "wh-340": {
+      "area": [
+        "roman_kingdom",
+        "rome"
+      ]
+    },
     "wh-354": {
       "v": [
+        "rome"
+      ]
+    },
+    "wh-358": {
+      "area": [
         "rome"
       ]
     },

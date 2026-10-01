@@ -890,6 +890,41 @@ read by `.claude/ww2-plates/` (`WW2_FRONTS.at` gives each map's date). The plate
 `drawFronts` fills even-odd, as `pointInRings` already tests. Guarded by `test-personal-atlas.js` section 12
 and `test-polities.js` section 4.
 
+**OCT 2026, THIRD ROUND: CAPITALS FIRST, A PLACE ONLY UNDER ITS OWN NAME, AND ROME AS A STATE.**
+**A CAPITAL WINS A CROWD WHATEVER ITS CARD'S RATING** (`mineDotsShown`'s `tier`; on request: "Keep this
+system, but ensure that capital cities always take display priority over non-capital cards"). The ranking
+is now capital-or-not (a country's or a province's seat), then `mineDiff`, then country-before-province, then
+the title. **AND THE PLACEMENT NO LONGER REVERSES THE RANKING** (`drawMineMarks`' `labelBoxes`): a name used
+to avoid the dots of ALL the candidates, so a lower-ranked place could veto a capital's name on both sides
+and the capital was dropped while the place that blocked it was drawn. A name now avoids only the marks
+placed before it (names and dots), and a mark is refused when its own dot would fall under a name already
+placed — the same two guarantees, in rank order. Water names now avoid dots too. Guarded by
+`test-personal-atlas.js` section 11b (Tunis, rated 2, beats Carthage, rated 1, 15 km away; checked to FAIL
+without the tier).
+**A PLACE IS DRAWN ONLY UNDER ITS OWN CARD'S NAME** (`atlasNameFits`, in `atlasRegister`; on request: "If a
+location label name doesn't identically match the answer term of the card it relates to (e.g. place
+'Brixellum' for the card 'Otho'), then the personal atlas and full atlas should not display that location at
+all"). Measured first and put to the owner: an exact match keeps 245 of the 1,247 locator places and takes 53
+of the 80 battles off ("Battle of Marathon" @ Marathon); the owner chose **exact OR the name standing inside
+the answer as whole words**, which keeps 378. Folded for case, accents, punctuation and a leading "the". It
+binds the LABELLED marks (a dot, a battle, a water name); an extent has no label and is untouched, and so is a
+geography card's `map.dot`, whose label is its answer. The card's own map window is untouched. Because the
+Find-it game draws from the full register, its pool shrinks with it. Guarded by section 11b ("Romulus and
+Remus" @ Rome is not drawn); section 11's three Rome cards are now ones whose answer names Rome.
+**THE ROMAN KINGDOM, REPUBLIC AND EMPIRE ARE ON THE ATLAS** (rm-046, wh-339, rm-091, wh-340, wh-358). Four
+cards gained a region locator, and the first kind tag of four became `state` (`era` kept second), so each is
+drawn as a state. Their extents come from Cliopatria through `polity-spec.json`: the Kingdom from a new
+`roman_kingdom` series, the Republic from `roman_kingdom` + `rome`, the Empire from `rome`. **AN EXTENT WHOSE
+CARD DATES ONLY ITS START RUNS AS LONG AS ITS SERIES** (the `open` flag on an `area` mark, read in
+`mineMarks`): wh-358's date line says "from 27 BCE" and nothing after, which drew it for one year; linked, it
+is drawn in exactly the years `rome` has a step for (to 475) and not at all before the bundle lands, since its
+authored polygon has no end to fall back on. `build-polities.js` already read a one-date extent that way. An
+unlinked one-date extent is unchanged (one year). **KNOWN FAULT IN THE SOURCE**: Cliopatria's Rome before
+337 BCE (its Roman Kingdom, and its Republic's first two rows) is a coarse block of 900 km² whose eastern edge
+is 12.45° E — the city itself, at 12.48° E, lies about 3 km outside it, and the block covers the Veientine
+side of the Tiber. It was shipped already in `rome`'s −480…−338 step; it now draws the Kingdom too. The fix
+is a traced early-Rome outline from a public-domain plate (the audit's batch 6).
+
 ---
 
 ## Generating timeline eras — the section as it stood in CLAUDE.md (2026-09-12)
