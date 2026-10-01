@@ -423,6 +423,9 @@ body[data-theme="folio"] .page-head h1{font-family:var(--display); font-weight:7
 /* …and an admin-only tab wears --admin instead, in every state. It is the colour that says so and not a
    badge: the nav is icons and one word each, and a second mark on two of six tabs would be more furniture
    than fact. `applyMode` still HIDES these for everyone else — this is what an editor sees, not a gate. */
+/* The Admin tab ships `hidden` and applyMode reveals it for an admin; the author `display` on `.tab`
+   would otherwise beat the UA's [hidden] rule and show it to everybody. */
+.tab[hidden]{display:none;}
 .tab.tab-admin{color:color-mix(in srgb, var(--admin) 62%, var(--ink-faint));}
 .tab.tab-admin:hover{color:var(--admin); background:color-mix(in srgb, var(--admin) 8%, transparent);}
 .tab.tab-admin.active{color:var(--admin);}
@@ -941,6 +944,18 @@ body.night .rv-edit-icons.on{color:#E6C765; border-color:color-mix(in srgb,#E6C7
 }
 .rv-chestnext span{font-family:var(--display); font-weight:600; font-size:calc(13px * var(--fs)); line-height:1; letter-spacing:0; text-transform:none; color:var(--ink-soft);}
 @media (max-width:430px){ .rv-chestnext{display:none;} }
+/* HOW LONG HAVE YOU GOT? (Oct 2026) — the home page's time chips under the deck list, which start the
+   day's review with the study page's own time box running. Quiet pills on the page's own paper: they are
+   a second way into the same session the banner already offers, so they must not compete with it. */
+.rv-time{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:12px 0 0;}
+.rv-time-lbl{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-inline-end:4px;}
+.rv-time-chip{font:inherit; font-size:calc(13px * var(--fs)); padding:6px 12px; min-height:32px; border-radius:999px; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer;}
+.rv-time-chip:hover{border-color:var(--indigo); color:var(--indigo);}
+.rv-time-chip:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+/* …and a first visitor's way to try ten cards without choosing anything (Oct 2026). */
+.hero-sample{margin:12px 2px 0; font-size:calc(14px * var(--fs)); color:var(--ink-soft);}
+.hero-sample button{font:inherit; color:var(--indigo); background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px;}
+@media (max-width:640px){ .rv-time{justify-content:center;} .hero-sample{text-align:center;} }
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:calc(150px * var(--fs)); line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
@@ -3925,6 +3940,9 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 .set-row .info h3{font-family:var(--serif); font-weight:600; font-size:calc(16.5px * var(--fs)); margin:0 0 4px;}
 .set-row .info p{margin:0; font-size:calc(13.5px * var(--fs)); color:var(--ink-faint);}
 .set-row .ctl{flex:none;}
+/* a second, quieter line under a row's description — the Data card's storage and backup status (Oct 2026) */
+.set-row .info p.set-sub{margin-top:6px; font-size:calc(12.5px * var(--fs)); font-style:italic;}
+.set-row .ctl [hidden]{display:none;}
 
 .switch{position:relative; width:50px; height:28px; border-radius:99px; background:var(--paper-2); border:1px solid var(--rule); cursor:pointer; transition:background .25s var(--ease), border-color .25s;}
 .switch::after{content:""; position:absolute; top:2px; left:2px; width:22px; height:22px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.2); transition:transform .26s var(--ease);}
