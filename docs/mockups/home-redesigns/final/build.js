@@ -19,6 +19,8 @@ const greet = () => `<div class="greet"><span class="eyebrow">Good afternoon, Sc
 const thisWeek = () => `<section class="box week"><span class="k">This week</span><div class="stats"><div><b>184</b><span>cards studied</span></div><div><b>71 min</b><span>at the desk</span></div><div class="g"><b>87%</b><span>recalled</span></div></div>${P.globeDeco().replace('class="gdeco "','class="gdeco" style="right:-40px;bottom:-60px;width:150px;height:150px"')}</section>`;
 
 const CSS = `
+/* the pile's figures sit centred over their labels */
+.study .pile div{text-align:center;} .study .pile .t{text-align:center;}
 .wrap{max-width:1040px; margin:0 auto; padding:26px 24px 60px;}
 .gap{height:22px;}
 /* Keys' active decks: the row's own fill is the share of the collection learned */
