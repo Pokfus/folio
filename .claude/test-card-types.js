@@ -644,7 +644,7 @@ async function clozeChecks(page, base) {
   await page.evaluate((d) => {
     const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
     s.active = ["u:" + d];
-    s.settings = Object.assign({}, s.settings, { newPerDay: 20, sfx: false, animations: false });
+    s.settings = Object.assign({}, s.settings, { newPerDay: 20, limitsCustom: true, sfx: false, animations: false });
     // burying would put a note's other cards off until tomorrow, and this section is about which cards EXIST
     s.deckOpts = Object.assign({}, s.deckOpts, { ["u:" + d]: { burySiblings: false, newPerDay: 20, maxReviews: 200 } });
     localStorage.setItem("folio_v1", JSON.stringify(s));
@@ -804,7 +804,7 @@ async function reverseChecks(page, base) {
      deck and a section of its own below. */
   await page.evaluate((did) => {
     const S = JSON.parse(localStorage.folio_v1 || "{}");
-    S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, reviewRandom: false });
+    S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, limitsCustom: true, reviewRandom: false });
     S.deckOpts = Object.assign({}, S.deckOpts); S.deckOpts["u:" + did] = Object.assign({}, S.deckOpts["u:" + did], { burySiblings: false });
     localStorage.folio_v1 = JSON.stringify(S); localStorage.folio_tour_v1 = "no";
   }, deck.id);
@@ -985,7 +985,7 @@ async function buryChecks(page, base) {
     const S = JSON.parse(localStorage.folio_v1 || "{}");
     S.active = ["u:burydeck"];
     S.buried = {};
-    S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, reviewRandom: false });
+    S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, limitsCustom: true, reviewRandom: false });
     localStorage.folio_v1 = JSON.stringify(S);
     localStorage.folio_tour_v1 = "no";
     sessionStorage.removeItem("folio_study_v1");
