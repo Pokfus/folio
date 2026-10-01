@@ -175,7 +175,7 @@ one changelog line and a version bump; commit and push.
 | B3 | Crete and the Cyclades (`gr-crete`) | `gr-021`–`gr-030` | 10 | **done 2026-09-24** |
 | B4 | Crete and the Cyclades (`gr-crete`) | `gr-031`–`gr-040` | 10 | **done 2026-09-25** |
 | B5 | Crete and the Cyclades (`gr-crete`) | `gr-041`–`gr-050` | 10 | **done 2026-09-25** |
-| B6 | Crete and the Cyclades (`gr-crete`) | `gr-051`–`gr-055` | 5 | open |
+| B6 | Crete and the Cyclades (`gr-crete`) | `gr-051`–`gr-055` | 5 | **done 2026-10-01** |
 | B7 | Mycenaean Greece (`gr-mycenae`) | `gr-056`–`gr-065` | 10 | open |
 | B8 | Mycenaean Greece (`gr-mycenae`) | `gr-066`–`gr-075` | 10 | open |
 | B9 | Mycenaean Greece (`gr-mycenae`) | `gr-076`–`gr-085` | 10 | open |
@@ -368,6 +368,7 @@ Checks, all passing:
 - `greece-audit.js --range=gr-011:gr-020` reads **10 of 10 clean**.
 - `check-questions` and `card-length` pass.
 - `check-citations --card` reports 0 mismatched on every card.
+- `check-gloss-links --card` reports one link to read by eye: `gr-055`'s "Egyptian" goes to `Ancient_Egypt`, which is right.
 - Every citation URL was curled and answers 200. Graziadio's DOI 302s to the publisher.
 - `check-gloss-links --card` reports one proxy finding, on `gr-015`: "Egyptian" links to `Ancient_Egypt`. That is the right term.
 - `check-cards --prefix=gr-` reports nothing new.
@@ -434,6 +435,7 @@ Checks, all passing:
 - `greece-audit.js --range=gr-021:gr-030` reads **10 of 10 clean**, and `gr-001`–`gr-030` read 30 of 30.
 - `check-questions` passes.
 - `check-citations --card` reports 0 mismatched on every card.
+- `check-gloss-links --card` reports one link to read by eye: `gr-055`'s "Egyptian" goes to `Ancient_Egypt`, which is right.
 - All 38 citation URLs answer 200.
 - `check-gloss-links --card` reports no cross-region link on any card.
 - `check-cards --prefix=gr-` reports nothing new.
@@ -573,3 +575,59 @@ The Think-it-through sets were written from scratch to the B1 rule.
 - `gr-049` points at Kythera.
 - `gr-047` and `gr-050` take B1's Crete-only ring.
 - `gr-046` and `gr-048` take none. Each is a relation between places rather than a place.
+
+### B6 — `gr-051`–`gr-055`, Crete and the Cyclades (2026-10-01)
+
+The last five cards of the deck. All five were rewritten in the rule order and applied with `add-card.js
+--replace`. The deck ends at `gr-055`, so B6 is five cards, not ten; B7 opens `gr-mycenae`.
+
+Checks:
+- `greece-audit.js --range=gr-051:gr-055` reads **3 of 5 clean**, the chronology pins included. The two
+  findings are `S.chip?` proxies, read by eye and English: Judson's BMCR review of an Italian corpus
+  (`gr-053`) and Mikrakis's English entry in the Italian-titled *Dizionario Enciclopedico della Civiltà
+  Fenicia* (`gr-055`). See the tool change below for why neither is masked.
+- `check-questions`, `check-style`, `check-cards --prefix=gr-05`, `check-docs` and `split-cards --check` pass.
+- `check-citations --card` reports 0 mismatched on every card.
+- `check-gloss-links --card` reports one link to read by eye: `gr-055`'s "Egyptian" goes to `Ancient_Egypt`, which is right.
+- Every citation URL answers 200 except the three PA-I-TO pages on `gr-052`. Each answered 200 and was
+  read in full while the card was written; later re-checks timed out with no body (the host is
+  `webx.aruba.it`), so a later batch should curl them again.
+
+The five abstracts run 274–285 words. Every sort year was read back.
+
+**One tool change: `greece-audit.js` S.chip? masks a Greek phrase that opens an English title.** Whitley's
+BSA article (`gr-054`) is titled "ΚΑΤΕΣΚΑΨΑΝ ΙΕΡΑΠΥΤΝΙΟΙ: The Destruction of …", and a Greek run followed by
+a colon and an English subtitle is now masked. **Three wider masks were tried and refused on measurement.**
+Masking a reviewed book's title cleared some fifty BMCR reviews of foreign books, and BMCR also publishes
+reviews in Spanish, German and Italian. Masking a foreign-titled container hid a German article in *Mètis*,
+and masking a publisher hid a German edition of Philo. So those stay flagged and are read by eye.
+
+**What changed, card by card.** Each "sources" figure below is the count before the batch → after.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `gr-051` Mycenaean Knossos | 6 | 5 → 6 | Rebuilt as the history of who ruled Knossos: Linear B in Greek; Bennet's almost 100 place names, the reach over half to two-thirds of Crete, and no place in the far east; the Warrior Graves; and the 2024 BSA paper's strontium result, which shows the dead at Knossos and Sellopoulo grew up locally. **The old card said the chamber tombs' wooden coffins were a mainland idea**; Rutter and the BSA paper both say Cretan coffins go back to MM III. **Chania was not among Rutter's Warrior-Grave sites.** The date line moves from c. 1490 to the collection's c. 1470. Two named scholars are gone from the prose. |
+| `gr-052` Knossos Linear B archive | 5 | 5 → 9 | Now opens on the size of the archive: the largest anywhere, about 3,400 records in over 10,000 fragments (PA-I-TO), about three times Pylos's. It covers the sheep tablets (about 990), the collectors, cloth, the Room of the Chariot Tablets (Evans: over 350 pieces) and Phaistos as the second commonest place name. **"Written c. 1400" was in no source**; the line now gives the Chariot Tablets c. 1390 – 1370 BCE (Driessen, via Lane) and the bulk at c. 1375 or c. 1250 BCE (Firth and Skelton, n. 38, for Hallager). **"Redated by twenty years" was not what Lane says.** **Hands 103 and 105** contradicts the review's own body text, so it is gone. |
+| `gr-053` Postpalatial Crete | 5 | 5 → 9 | Now covers the whole period to c. 1075 BCE. It adds Building P's size (Scotton), Chania's inscribed stirrup jars (Judson), and the hilltop refuges from c. 1200 BCE: Karphi, the Kavousi Kastro at 713 metres, and Vronda's 26 goddesses (INSTAP; Antoniadis; Kotsonas). **"16 kilometres" to Kommos overstated Rutter's "less than ten miles"**; the distance is gone. **The claim that rock-cut chamber tombs were "the island's commonest" was in no source.** The date line's "c. 1385 – 1375" is now the collection's c. 1375. |
+| `gr-054` Eteocretan | 5 | 5 → 9 | Homer is cited directly (Murray's "great-hearted native Cretans"). It adds the corpus of six texts and 422 letters from c. 650 BCE (Zitelli, after Duhoux), the Linear A hypothesis left open (Mnamon), the Dreros bilingual (PECS) and Praisos razed between 145 and 140 BCE (Whitley 2023). **"Staphylus gave the Dorians the east" made Strabo's source an allotter**; Strabo only reports where the peoples lived "according to Staphylus". **"Occupation from about 1200 to 500 BCE" misread Chaniotis**, who gives the survey's earliest phase. **The 1884 find was cited to Conway**; it is Bosanquet, p. 232. The date line's "c. 600 – 200" was in no source. |
+| `gr-055` Idaean Cave | 5 | 7 → 7 | **The card's Kamares-ware date belonged to a different cave**: Kamares ware is named after the Kamares cave on Ida's south slope, and Evans's 1900 report does not date this one. The new dates come from Mikrakis (DECF 2016): shelter from the late 4th millennium BCE, cult from c. 1700 BCE, the greatest age 900 – 600 BCE, the 8th-century bronze shields, and a last initiation under Julian, 361 – 363 CE. **Four Strabo sources against a cap of two**: there is now one, which carries Minos's ninth-year visits with the story's own hedge (Strabo names only "the cave of Zeus", and Dionysius set it on Dicte, per Hogarth). Diodorus 5.70 and Porphyry's Pythagoras were added. **The Evans citation's title was wrong**; Evans is no longer cited. |
+
+The Think-it-through sets were written from scratch to the B1 rule.
+
+**Corrected, refused and not usable.**
+- **"Idaean Cave" on English Wikipedia redirects to the Psychro (Dictaean) Cave.** `add-locators.js` followed the redirect and wrote the wrong cave's coordinate onto `gr-055`. It is now Wikidata Q935991's P625, read off the item that Greek Wikipedia's *Ιδαίο Άντρο* links to. **A Cretan cave card should check the `←` article name `add-locators.js` prints.**
+- **The research subagents' Commons traffic tripped Wikimedia's rate limit for this container for over an hour.** Picture licences and authors were then read off the File pages' HTML rather than the API; every `src` is the upload URL those pages and the earlier API answers give.
+- **Not usable:** the Kernos 1988 Sakellarakis article (behind an Anubis challenge); Nafplioti 2008 in *JAS* (closed, no abstract; its finding reaches `gr-051` through the 2024 BSA paper); and the Heraklion Museum's object pages (TLS errors, then 503).
+- **Picture credits.** All five old credits were bare Commons URLs. All five now name the author and the licence.
+
+**Read by eye.**
+- *Article:* the Knossos Linear B archive and the Idaean Cave take one; Mycenaean Knossos, Postpalatial Crete and Eteocretan are bare.
+- *Confusability:* `gr-051` and `gr-052` share the tablets, so the Knossos card asks about the graves, the place names as reach, and the bones, while the archive card asks about the deposits, the sheep and Phaistos as a count. `gr-053` asks about Building P and the refuges, which no sibling has. `gr-055` and `gr-029` Cretan cult caves share the caves of Zeus, so `gr-055` asks about Pythagoras, the shields and the Roman initiation, none of which is `gr-029`'s.
+- *Image depicts the whole term:* for Mycenaean Knossos, the Throne Room; for the archive, one Knossos tablet; for the period, Karphi, its emblematic refuge; for the language, a Praisos inscription in it; for the cave, its mouth.
+
+**Locators.**
+- `gr-051` and `gr-052` point at Knossos.
+- `gr-053` takes B1's Crete-only ring.
+- `gr-054` points at Praisos.
+- `gr-055` points at the Idaean Cave (Wikidata Q935991).
+
