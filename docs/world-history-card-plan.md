@@ -1251,7 +1251,7 @@ else in the Americas.*
     wh-842  Taiping Rebellion
     wh-843  Boxer Rebellion
     wh-844  Meiji Restoration
-    wh-845  Industrialisation of Japan
+    wh-845  Industrialisation of Japan  — written as *zaibatsu* (glossary key `Zaibatsu`), the state-led start of Meiji industry in its general half
     wh-846  First Sino-Japanese War
     wh-847  Russo-Japanese War
     wh-848  Cash crop economies  — written as the general term *cash crop* (glossary key `Cash_crop`), colonial export farming being the card's subject
