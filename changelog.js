@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.903", released: "2026-10-01T10:10Z" };
+window.FOLIO_VERSION = { v: "1.906", released: "2026-10-01T14:25Z" };
 
 window.CHANGELOG = [
   {
@@ -45,10 +45,20 @@ window.CHANGELOG = [
       "<b>Two hundred and ten new cards in the World History collection</b> \u2014 the Americas before Columbus, the Renaissance and the new science, the age of discovery, and the nation-building of the 19th century, with a glossary term for each.",
       "<b>Eighty new cards in the China collection</b>, from the Eastern Han through the Jin to the Northern Zhou, each with a cited glossary term.",
       "<b>Twenty new cards in the Visual Art collection</b>, finishing its Ice Age art and opening the first villages, with 19 new glossary terms.",
-      "<b>Twenty more cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions.",
+      "<b>Twenty-five more cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions.",
       "<b>Settings \u2192 Data</b> now says where your progress is kept, asks the browser to keep it, and can restore a backup as well as download one.",
       "<b>Short on time?</b> Chips under your decks start the day's review for 5, 10, 20 or 30 minutes.",
       "<b>Ctrl+K</b> (or Cmd+K) now opens search from anywhere, and a first visit offers ten sample cards to try before choosing anything.",
+      "<b>The Atlas</b> now switches between <b>Your atlas</b> and a <b>Full atlas</b> of every place on every card; the World atlas tab is gone.",
+      "On the Atlas, <b>places from easier cards show first</b> when zoomed out, and harder ones appear as you zoom in.",
+      "<b>Historical states</b> on the Atlas are drawn like countries, and <b>peoples and cultures</b> in blue rather than green.",
+      "An Atlas popup now ignores taps on its <b>pictures and footnotes</b> for a moment after it opens, as it already did for glossary terms.",
+      "A place several cards share is now <b>one place on the Atlas</b>; open it and swipe, or use the arrows, to browse every card about it.",
+      "<b>Sixty states, peoples and sides in wars</b>, from Sumer to the Winter War, now have Atlas borders that change year by year.",
+      "War cards that group other wars, such as the Samnite Wars, are no longer drawn on the Atlas; the wars they group still are.",
+      "The Atlas now shows <b>the Second World War's fronts year by year</b>, from 1939 to 1945, adding the Pacific from 1943.",
+      "<b>Countries' borders on the Atlas now change year by year</b> between its historical maps, from the First World War's occupations to a divided Germany.",
+      "<b>Find it</b> now asks for places from the Full Atlas: countries, historical states and peoples, and cities and sites.",
     ]
   },
   {

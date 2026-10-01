@@ -1267,6 +1267,60 @@ function crosswordForPage(cells) {
     await ctx.close();
   }
 
+  /* ---------- Find it asks for the FULL ATLAS's places (Oct 2026) ----------
+     "Since we're no longer using the World Atlas, ensure that the Find It minigame now uses locations from
+     the Full Atlas instead." The pool is `atlasRegisterAll(true)` — countries, historical states and
+     peoples, and places — so a day is five rounds in a fixed order: a country, a state or people, a
+     country, a state or people, a place. THE ROUND KIND IS READ OFF THE QUESTION, which is all the page
+     says: a state is asked "as it stood in <year>", the others "on today's map". Each round is played to
+     its end through the controls a reader has (a grid of taps until one lands, Guess, a second try), and
+     what is asserted is what the reader sees: the shape of each question, and that a state or a place ends
+     on the CARD about it — the study card, not a country panel — with its swipe bar where more than one
+     card names it. A same-day replay is turned away, so this is the day's one play. */
+  {
+    const [ctx, page] = await fresh({ width: 1280, height: 900 });
+    watch(page);
+    await page.goto(base + "#findit", { waitUntil: "load" });
+    await page.waitForTimeout(3500);
+    const box = await page.locator("canvas").first().boundingBox();
+    const st = () => page.evaluate(() => {
+      const t = (s) => { const e = document.querySelector(s); return e ? (e.textContent || "").trim() : ""; };
+      const h = (s) => { const e = document.querySelector(s); return !e || e.hidden; };
+      const pop = document.getElementById("countryPop");
+      return { q: t("#mgQ"), round: t("#mgRound"), fb: t("#mgFeedback"), confirmHidden: h("#mgConfirm"), nextHidden: h("#mgNext"),
+               card: !!(pop && !pop.hidden && pop.querySelector(".cp-cardback")), cardPanel: !!(pop && !pop.hidden && pop.classList.contains("cp-mine")) };
+    });
+    // the right-hand half of the stage only: the card panel a reveal opens covers the left third, and a tap
+    // there opens one of ITS glossary terms (and that window sits over the Next button)
+    const grid = []; for (let a = 0; a < 10; a++) for (let b = 0; b < 10; b++) grid.push([0.46 + a * 0.05, 0.32 + b * 0.06]);
+    const asked = [], ended = [];
+    for (let r = 0; r < 5; r++) {
+      const s0 = await st(); asked.push(s0.q);
+      for (let go = 0; go < 2; go++) {
+        let picked = false;
+        for (const [fx, fy] of grid) { await page.mouse.click(box.x + box.width * fx, box.y + box.height * fy); if (!(await st()).confirmHidden) { picked = true; break; } }
+        if (!picked) break;
+        await page.click("#mgConfirm"); await page.waitForTimeout(1100);
+        if (!(await st()).nextHidden) break;
+      }
+      await page.waitForTimeout(600);
+      ended.push(await st());
+      if (!ended[r].nextHidden) { await page.evaluate(() => document.getElementById("mgNext").click()); await page.waitForTimeout(700); }
+    }
+    const isState = (q) => /^Find .+ — as it stood in (\d+|\d+ BCE)$/.test(q), isToday = (q) => /^Find (the city of )?.+ on today's map$/.test(q);
+    check("[fi-atlas] a day is five rounds", asked.length === 5 && asked.every(Boolean), JSON.stringify(asked));
+    check("[fi-atlas] …a country, a state or people, a country, a state or people, then a place",
+      isToday(asked[0]) && isState(asked[1]) && isToday(asked[2]) && isState(asked[3]) && isToday(asked[4]), JSON.stringify(asked));
+    check("[fi-atlas] …every round was played to its end", ended.every((e) => /Found it|It was here/.test(e.fb)), JSON.stringify(ended.map((e) => e.fb)));
+    check("[fi-atlas] a state or people ends on the study card about it, not on a country's panel",
+      ended[1].card && ended[1].cardPanel && ended[3].card && ended[3].cardPanel, JSON.stringify([ended[1], ended[3]]));
+    check("[fi-atlas] …and so does a place", ended[4].card && ended[4].cardPanel, JSON.stringify(ended[4]));
+    check("[fi-atlas] …while a country still ends on its own panel", !ended[0].cardPanel && !ended[2].cardPanel, JSON.stringify([ended[0], ended[2]]));
+    const done = await page.evaluate(() => (document.getElementById("mgQ") || {}).textContent || "");
+    check("[fi-atlas] …and the game ends with a score", /\d \/ 5 found/.test(done), done);
+    await ctx.close();
+  }
+
   check("[all] no page errors anywhere", errs.length === 0, errs.slice(0, 4).join(" | "));
 
   await browser.close();

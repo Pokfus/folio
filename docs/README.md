@@ -131,6 +131,10 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `history-focus-plan.md` | 45 cards flagged on the question and historiography rules; batches F1–F5. |
 | `book-text-plan.md` | Correcting errors baked into the Library's source texts. |
 | `atlas-rewrite-plan.md` | Rewriting every place popup to a card's standard, with citations. |
+| `atlas-borders-audit.md` | Every state, people and war on the Atlas: sources for dated, changing borders, ranked easy → impossible, and the batches. |
+| `atlas-borders-cliopatria.md` | Research note behind the borders audit: every entity matched against Cliopatria and historical-basemaps, row by row. |
+| `atlas-borders-states-wars.md` | Research note behind the borders audit: the source catalogue (OHM, AWMC, Royce, Shepherd…) and the states and wars ratings. |
+| `atlas-borders-cultures.md` | Research note behind the borders audit: dated-site and polygon sources for every people and culture. |
 | `glossary-expansion-plan.md` | Three jobs asked for together — audit, expansion, and the terms still to write. |
 | `library-gaps.md` | What the 29 shelved books are missing and what can still be added. |
 | `refinements-plan.md` | ~60 items from one request, batched. |
