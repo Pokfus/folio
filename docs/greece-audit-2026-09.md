@@ -528,6 +528,21 @@ puts him second only to the *Constitution of the Athenians*.
 | 2 | Staphylus · Postpalatial · Kavousi · Curetes | `Curetes` and `Kouretes` want one key and an alias; `Postpalatial` was already listed at B1 |
 | 1 | Warrior Graves · Building P · Vronda · Nida plateau · Cydonians · Dictaean Zeus · ship shed · Amaltheia · Room of the Chariot Tablets · Porphyry | `Dictaean Zeus` and B4's `Diktaean Zeus` are one god, so one key with the other spelling as an alias |
 
+**Added by the refinement's B7 (2026-10-01)**, counted the same way after `gr-056`–`gr-065` were
+rewritten. Wanax, Ahhiyawa, Dromos, Electrum, Tholos tomb, Cyclopean masonry, Treasury of Atreus and
+Heinrich Schliemann already have keys. **Bare `Perseus` links nowhere**: the hero is keyed
+`Perseus_(mythology)` and a king `Perseus_of_Macedon`, so the bare word cannot be an alias of either and
+wants a case-sensitive rule or a hand-written `data-k`. `Lerna` is not `Lernaean_Hydra`.
+
+| cards | term | note |
+|---|---|---|
+| 9 | chamber tomb | listed at B4 with 3; now nine Greece cards use it |
+| 6 | Atreus | the king of myth, distinct from the `Treasury_of_Atreus` key |
+| 5 | Troad · Lord Elgin | |
+| 3 | Lerna | the Argolid site, not the Hydra |
+| 2 | Panagiotis Stamatakis · Menidi · Michael Ventris | Stamatakis is also spelt Panayotis by the Athens museum; key one form, alias the other |
+| 1 | Wilhelm Dörpfeld · Frank Calvert · Hisarlik · Priam's Treasure · Treasury of Minyas · Kom el-Hetan · Plasi · Lord Sligo · Palamidi | `Treasury of Minyas` is the tholos at Orchomenos |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
