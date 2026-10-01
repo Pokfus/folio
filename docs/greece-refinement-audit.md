@@ -176,11 +176,11 @@ one changelog line and a version bump; commit and push.
 | B4 | Crete and the Cyclades (`gr-crete`) | `gr-031`–`gr-040` | 10 | **done 2026-09-25** |
 | B5 | Crete and the Cyclades (`gr-crete`) | `gr-041`–`gr-050` | 10 | **done 2026-09-25** |
 | B6 | Crete and the Cyclades (`gr-crete`) | `gr-051`–`gr-055` | 5 | **done 2026-10-01** |
-| B7 | Mycenaean Greece (`gr-mycenae`) | `gr-056`–`gr-065` | 10 | open |
-| B8 | Mycenaean Greece (`gr-mycenae`) | `gr-066`–`gr-075` | 10 | open |
-| B9 | Mycenaean Greece (`gr-mycenae`) | `gr-076`–`gr-085` | 10 | open |
-| B10 | Mycenaean Greece (`gr-mycenae`) | `gr-086`–`gr-095` | 10 | open |
-| B11 | Mycenaean Greece (`gr-mycenae`) | `gr-096`–`gr-105` | 10 | open |
+| B7 | Mycenaean Greece (`gr-mycenae`) | `gr-056`–`gr-065` | 10 | **done 2026-10-01** |
+| B8 | Mycenaean Greece (`gr-mycenae`) | `gr-066`–`gr-075` | 10 | **done 2026-10-01** |
+| B9 | Mycenaean Greece (`gr-mycenae`) | `gr-076`–`gr-085` | 10 | **done 2026-10-01** |
+| B10 | Mycenaean Greece (`gr-mycenae`) | `gr-086`–`gr-095` | 10 | **done 2026-10-01** |
+| B11 | Mycenaean Greece (`gr-mycenae`) | `gr-096`–`gr-105` | 10 | `gr-096`–`gr-100` done 2026-10-01; `gr-101`–`gr-105` open |
 | B12 | Mycenaean Greece (`gr-mycenae`) | `gr-106`–`gr-110` | 5 | open |
 | B13 | Early Iron Age (`gr-iron`) | `gr-111`–`gr-120` | 10 | open |
 | B14 | Early Iron Age (`gr-iron`) | `gr-121`–`gr-130` | 10 | open |
@@ -631,3 +631,148 @@ The Think-it-through sets were written from scratch to the B1 rule.
 - `gr-054` points at Praisos.
 - `gr-055` points at the Idaean Cave (Wikidata Q935991).
 
+
+### B7 — `gr-056`–`gr-065`, Mycenaean Greece (2026-10-01)
+
+The first ten cards of `gr-mycenae`. All ten were rewritten in the rule order and applied with `add-card.js
+--replace`, the picture in a second `--replace`.
+
+Checks:
+- `greece-audit.js --range=gr-056:gr-065` reads **10 of 10 clean**, the chronology pins included.
+- `check-questions`, `check-style`, `check-cards --prefix=gr-05` and `--prefix=gr-06`, `check-docs` and
+  `split-cards --check` pass.
+- `check-citations --card` reports 0 mismatched on every card.
+- `check-gloss-links --card` reports no cross-region link on any card.
+- All 49 citation URLs answer 200. The Galanakis chapter (`gr-064`) is a 5 MB PDF and times out under a
+  60-second limit; it answers 200 given longer.
+- **The three PA-I-TO pages on `gr-052`, re-curled as B6 asked:** `/en/class-d-2/` and
+  `/en/the-pa-i-to-linear-b-epigraphic-project-2/` answer 200; `/en/knossos/` still times out with no
+  body after three tries. It stays on the card, and a later batch should try it again.
+
+The ten abstracts run 270–285 words. Every sort year was read back.
+
+**`gr-058` needs `"undatable": false` in every patch.** `add-card.js` asks a difficulty-2 place card to say
+whether it is datable, but the flag is not stored when false, so a picture-only patch is refused until it
+carries the flag again.
+
+**`cardYears` reads a range before a single year.** `gr-058`'s first draft opened `First rulers c. 1700 BCE`
+and sorted at −1350, its second row's range. The line now opens `Bronze Age rule c. 1700 – 1100 BCE`.
+
+**What changed, card by card.** Each "sources" figure below is the count before the batch → after.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `gr-056` Mycenaean civilisation | 8 | 10 → 9 | Rebuilt for the register around the palace states: shaft graves, palaces from c. 1400 BCE (Rutter L20), the wanax, Linear B as Greek, Cyclopean walls and their cost (Blackwell on Boswinkel), Ahhiyawa, the collapse (Middleton 2024) and what went on after (Mikrakis). **The old date line ended at 1050, which no source on the card gave**; it now ends c. 1100 BCE (the Athens museum). A question carrying "1200" was rewritten. The Gilliéron facsimile drawing was replaced by a photograph of the Warrior Krater. |
+| `gr-057` Heinrich Schliemann | 8 | 6 → 10 | Calder 1972 carries the self-invention (the California citizenship, really New York, 1869); Gill on Traill carries the field notes disagreeing on Sophia's part and the date; Kennell carries the smuggling and the lawsuits; the Athens museum carries Stamatakis and the four-century gap. **"Demolishing the upper strata, by his own account" and "the Ottoman government was owed half" were in no source read**, and are gone. A question carrying "1876" was rewritten, and one opening on "His" was reworded. The 1892 almanac drawing was replaced by a Library of Congress photograph; its mount carries a small handwritten catalogue mark in the margin, outside the picture. |
+| `gr-058` Mycenae | 8 | 8 → 8 | Now the citadel's whole history from the ministry's history tab: first rulers c. 1700 BCE, walls c. 1350, the Lion Gate c. 1250, abandonment c. 1100, the sack of 468 BCE, and the Hellenistic village Diodorus' "uninhabited down to our own times" leaves out. Thucydides went; Holoka on Gere and the Mukanu statue base came in. **The picture was a boar's-tusk helmet fresco, which is `gr-089`'s subject**; it is now the citadel under Profitis Ilias. A question carrying "468" was rewritten. |
+| `gr-059` Lion Gate | 7 | 7 → 9 | **The old prose named Blackwell and Evans.** Tsountas and Manatt (1897) now carry the measurements, the separate heads and the seven-abreast approach; Blackwell's AJA abstract carries the heads turned back and the Anatolian sawing, cited at `ajaonline.org` because the DOI resolves to a 403. The two head readings are both given. The Underwood stereograph was replaced by a photograph. **The card had no locator**; it now has one. |
+| `gr-060` Grave Circle A | 6 | 5 → 8 | **"The ring cuts a corner off two of the graves" was not found in Schuchhardt**, and is gone. Added: the 870 gold objects of Grave III and over 15 kg of gold (Tsountas; Rutter), the refurbishment for ancestor cult (Odysseus), and Frank et al. 2026 (PLOS One) on non-local burials. The Q.sibling overlap with `gr-062` was cleared. **The picture's description ended on the photographer's name**, and the credit was a bare URL. |
+| `gr-061` Grave Circle B | 5 | 6 → 8 | **Bouwman et al. 2008, cited for "reported kinship", could not be read** (closed, 403); Brown et al. 2000, the first DNA report, replaces it on its free abstract. Spantidaki (CHS 2022) now carries Grave N's cloth as the oldest tapestry in Greece. The dates are given as Rutter's 1650 – 1550 BCE with the ministry's c. 1700 BCE as a second row. The sword from Grave Alpha was replaced by a view of the circle. A question carrying "1995" was rewritten. |
+| `gr-062` Mask of Agamemnon | 7 | 5 → 9 | Rebuilt on Schliemann's own description (pp. 311–12) and the 1999 *Archaeology* dossier: Calder, Traill, Demakopoulou and Lapatin each cited on their own page. **The "gazed on the face of Agamemnon" telegram is now called a legend**, as Harrington and Lapatin both say. A question naming Schliemann (a modern scholar, outside his own card) and one carrying "centuries" were rewritten. **The picture's description and alt were the file name and the photographer.** |
+| `gr-063` shaft grave | 6 | 5 → 7 | **The old sizes, "2.7 by 3 metres to 5 by 6.7", did not convert Tsountas's feet**, and his larger figure is an uncertain OCR fraction, so only the 24-foot length and the 16-foot depth are used. Boyd 2015 carries the roofed chamber as the innovation and the rise of the elite; Eder and Zavadil carry Plasi at Marathon. **The picture was shared with the glossary's `Shaft_grave`**; it is now two open shafts in Grave Circle B. |
+| `gr-064` tholos tomb | 6 | 5 → 8 | Zavadil and Galanakis (2021, open access) carry the Messenian origin, about 300 known tholoi and the end of the great ones by c. 1250 BCE; Pausanias 9.38.2 carries the Orchomenos "keystone". Two questions carrying "1879" were rewritten. The German section drawing with printed labels was replaced by the passage of the Tomb of Aegisthus. **The tags now open on `practice`**, as `gr-063`'s do: the card is a building type with no place to point at, and a dot would be invented. |
+| `gr-065` Treasury of Atreus | 6 | 5 → 7 | **The chamber was "15 metres across and as high"**; the ministry's page (Psychogiou) gives 14.20 × 13.20 m. **The date line "c. 1300 – 1275 BCE" is now the disputed c. 1350 – 1250 BCE**, saying whose each end is. Evans's Amarna comparison went. The ministry page calls the lintel "granite", which it is not, so the card gives its size only. **The card had no locator**; it now has one. |
+
+The Think-it-through sets were written from scratch to the B1 rule.
+
+**Corrected, refused and not usable.**
+- **Not usable:** the Met's essays (429 bot checkpoint), Smarthistory, Britannica, UNESCO and the British
+  Museum collection pages (403 challenges), the ASCSA Schliemann papers (TLS error), Wace's *Mycenae* and
+  Mylonas's books on archive.org (borrow only), Dickinson's 2005 *Hesperia* article (verification wall),
+  and Bouwman et al. 2008 (closed).
+- **Skourtanioti et al. 2023 does not include Mycenae**, so it is not cited for Grave Circle B.
+- **Picture credits.** All ten old credits were bare Commons URLs. All ten now name the author and the licence.
+
+**Read by eye.**
+- *Article:* the Mycenaean civilisation, the Lion Gate, the Mask of Agamemnon and the Treasury of Atreus
+  take one; Mycenae, Heinrich Schliemann and the two grave circles are bare; shaft grave and tholos tomb
+  take "a" or "the" as the sentence needs.
+- *Confusability:* `gr-060` and `gr-061` share the shaft graves, so A asks about the Lion Gate, Pausanias
+  and the ancestor cult, and B about the walls it stayed outside, Grave Gamma and the faces. `gr-063` asks
+  about the type's roof and the twenty tombs, which neither circle card asks. `gr-064` asks about the
+  vault, Messenia and Menidi; `gr-065` about its passage, its façade and its name.
+- *Image depicts the whole term:* for the civilisation, its soldiers on the Warrior Krater; for the
+  citadel, the whole hill; for each monument, the monument itself; for the two types, an open shaft and a
+  tholos passage leading to its door.
+
+**Locators.**
+- `gr-058` was re-fetched at Mycenae.
+- `gr-059` Lion Gate, `gr-060` Grave Circle A, `gr-061` Grave Circle B and `gr-065` Treasury of Atreus
+  point at their own articles' coordinates, each `within` Mycenae.
+- `gr-056` keeps its region ring.
+- `gr-057`, `gr-062`, `gr-063` and `gr-064` take none: a person, an object and two types.
+
+### B8–B10 and half of B11 — `gr-066`–`gr-100`, Mycenaean Greece (2026-10-01)
+
+Thirty-five cards of `gr-mycenae`, done as one run on request ("the next 35 cards"): B8 (`gr-066`–`gr-075`),
+B9 (`gr-076`–`gr-085`), B10 (`gr-086`–`gr-095`) and the first five of B11 (`gr-096`–`gr-100`). Each was
+rewritten in the rule order and applied with `add-card.js --replace --no-image`, the picture in a second
+`--replace`. Research went out to six agents (neutral User-Agent, spaced calls); every key quote was then
+checked against the saved copy before it was written.
+
+Checks:
+- `greece-audit.js --range=gr-066:gr-100` reads clean on every card but one: `gr-091` keeps an
+  `S.chip?` for Judson's English review of an Italian corpus (`delle` in the reviewed title), read by eye
+  as English, as on `gr-053`.
+- `check-questions`, `check-style`, `check-cards --prefix=gr-06`…`gr-10`, `check-docs` and
+  `split-cards --check` pass; `check-citations --card` reports 0 mismatched on every card.
+- `check-gloss-links --card`: four cards link a term from another region (*Egyptian* on `gr-073`,
+  `gr-089` and `gr-093`, *Pharaoh* on `gr-093`, *Etruscan* on `gr-075`); each was read and means what it
+  links to.
+- All 167 citation URLs answer 200. **Graziadio's DOI (`gr-092`) answered 200 on one try in three**: the
+  proxy drops the tunnel to edizionicafoscari.it mid-exchange. **Powell et al. 2022 (`gr-094`) is cited at
+  its PMC copy**: the DOI goes to science.org, which answers 403 to scripts. The AJA articles are cited at
+  `ajaonline.org`, as in B7.
+- The abstracts run 270–285 words. Every sort year was read back with app.js's own `cardYears`;
+  **`gr-092`'s "15th century BCE" was not read as a year** and sorted at 1889, so its line is now
+  c. 1500 – 1400 BCE.
+
+**What changed, card by card** (sources before → after).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `gr-066` Cyclopean masonry | 6 | 5 → 8 | **"The stones were held to be past the strength of men" is in neither Strabo 8.6.11 nor Pausanias 2.16.5**; Pausanias 2.25.8's mules now carry it. **The site list leaned on an Odysseus page that names only Mycenae**; Rutter 21 alone carries it. Added Boswinkel's labour figures (Blackwell's BMCR), the Tiryns circuit (Odysseus) and Midea's wall (Swedish Institute). The Lion Gate photograph (`gr-059`'s subject) was replaced by the walls of Tiryns. |
+| `gr-067` Tiryns | 6 | 6 → 9 | **"The lower citadel was left undug" was Schuchhardt's 1891 position**; Kilian dug it in 1976–83. **The Homeric-house passage is Leaf's introduction, p. xxxi, not Schuchhardt pp. xxi–xxii**, and is no longer cited. Added the post-palatial Lower Citadel (Kramer-Hajos on Damm-Meinhardt), the lower town rebuilt at once (Bennet, *Chronique* 5591), Heracles (Apollodorus 2.4.12). The Dodwell engraving was replaced by a photograph. |
+| `gr-068` Palace of Nestor | 6 | 6 → 10 | **"The worst depopulation of any part of Greece" drops Rutter's "southern"**; restored. **The why-answer's 1,107 tablets and 32 scribes came from a lesson not on the card** and disagreed with the abstract; Judson's c. 1,000 and 30–40 are used throughout. Added the 1939 discovery and war stoppage (the excavation project's site), *pu-ro* and Messenia (Petrakis), and the Griffin Warrior. |
+| `gr-069` Mycenaean Thebes | 6 | 5 → 7 | **The two round towers of the Electran Gate are Kassander's (315 BCE)**, not Mycenaean, and are gone. The 1993–95 tablets are now 238 (Dickey's BMCR review), found in the Armoury in Pelopidou Street (the Thebes museum reconciles the two names). The destruction is "not long after 1225 BCE" (Aravantinos et al.) against "around 1200" (museum). |
+| `gr-070` Midea | 5 | 6 → 6 | **"Two gates, east and west" was only implied by the old source**; the Swedish Institute's page now carries the East and West Gates and the sally port (Rutter 21 says one gate and a postern). Added the wheat sealing, the crushed skeletons, and Millek's warfare reading (Middleton 2024). |
+| `gr-071` Gla | 5 | 5 → 7 | **The old "destroyed before 1200 BCE, earlier than the Argive citadels" is superseded**: the excavators (Lane and Kountouri, MYNEKO 2016) date it ca. 1300 – 1190 BCE, burnt, rebuilt, burnt again ca. 1190. **"A palace" softened** to Rutter's "a citadel but arguably not a palace". Added the 2,000 tonnes of grain (AROURA) and the Thebes–Orchomenos joint-venture reading (Knodell on Kramer-Hajos). The plan was replaced by a photograph of the slab walls. |
+| `gr-072` megaron | 6 | 5 → 7 | **The Leaf quotation was cited to the wrong pages**; dropped. Added Homer's hall (*Od.* 6.303–9), Tsountas's measurements and Darcque's doubt about a cult role. The tags now open on `practice`: a building type with no place of its own. |
+| `gr-073` Mycenaean fresco | 6 | 5 → 7 | **"Earliest c. 1500 BCE" is out of date**: Egan and Van de Moortel put the first mainland fragments at Pylos in MH III. **"Painted on wet plaster" is the disputed half of a debate** (Brecoulaki's secco against Brysbaert); both are given. The Gilliéron facsimile was replaced by a photograph of the Tiryns boar-hunt fragments. |
+| `gr-074`–`gr-086`, `gr-096` | | | Rewritten before this ledger entry was drafted, on the Linear B and institutions sources (Palaima's PASP papers, Nakassis, Nikoloudis, Lupack, Judson, the AJA 2011 redistribution forum, the Cambridge Mycenaean Epigraphy Group). **Dropped as unsourced or wrong**: Linear A "unread", Linear B "forgotten after the collapse", "40–50 tusk plates", "~100,000 sheep" and the Pylos A-series head-counts. |
+| `gr-087` Mycenaean chariot | 6 | 6 → 10 | **Rutter's "no chariots in northern Europe" was a point in a debate**, not a fact, and is gone. Added the Knossos force as 500 – 1,000 (Drews, via Gill) against 173 – 250 (Palaima 1999), the 151 wheels, Nestor's order of battle (*Il.* 4.297–309) and the Mycenae wheel ruts. |
+| `gr-088` Dendra panoply | 5 | 5 → 6 | **"Buried c. 1500 BCE" is now c. 1400 BCE** (Swedish Institute: end of the 15th century). **Tomb 12 held a single man and was reached by a shaft**, so "among his relatives" and "a long passage" are gone. **Drews said cavalryman, not chariot rider.** "Hellenic Army marine brigade" is now "Greek marines"; the PLOS paper is 2024, not 2023. |
+| `gr-089` boar's tusk helmet | 6 | 5 → 7 | **"40–50 tusk plates" is in no open scholarly source**; Tsountas's sixty tusks from Shaft Grave IV replace it. Added the Battle in the Glen seal (Lewartowski 2019), the Griffin Warrior's helmet and the 12th-century disappearance (Rutter 28). |
+| `gr-090` figure-of-eight shield | 5 | 5 → 9 | **The chevron "decoration" was a sentence about shading**, and "named from its two lobes" was in no source. **The silver Battle Krater page says nothing about shields**; dropped. Periphetes is cited at 15.645–51. Added Weilhartner (Minoan cult symbol), Janko and van Wees (Bloedow) for and against Homeric memory. |
+| `gr-091` stirrup jar | 5 | 5 → 9 | The Cretan origin and the Uluburun jars (Bachhuber 2006), the trade from Sardinia to the Levant (Capra), the WA fragment from Gla (Lane). |
+| `gr-092` Vapheio cups | 5 | 5 → 7 | **Graziadio's pages and site were wrong** (pp. 125 and 128; the painted cup is from Ayia Irini, not Toumba tou Skourou). **The "xenia" reading is Wiener's, not Davis's.** "Buried c. 1500 BCE" was unsourced; the date line is the tomb's 15th century (the Athens museum's seal) and the 1889 dig. Riegl (via Blakolmer) added for the both-Minoan view. |
+| `gr-093` Mycenaean trade | 6 | 5 → 8 | Kelder 2009 is cited at its open AJA abstract (the DOI is a 403). Added the Gelidonya excavation (INA), the Amenhotep III objects (Bachhuber) and Anatolia's little pottery (Kelder 2004–5). |
+| `gr-094` Uluburun shipwreck | 6 | 5 → 7 | **Berger et al. 2019 was framed as an answer to Powell 2022**, three years later; dropped. **"Tin in far greater quantity than any earlier find" was in no source.** The date line keeps INA's c. 1320 BCE, and the prose gives the debate (Smith; Bachhuber on the superseded 1305 dendro date). |
+| `gr-095` Ahhiyawa | 5 | 5 → 7 | **Melchert's "frontier outposts" was one possibility**, stated as fact; now a why-answer saying so. **"Hiyawa-men as mercenaries" overstated** and is gone. The spelling is Nagy's *a-ah-hi-ya-a*. *The Ahhiyawa Texts* (2011) was **not** cited: the only copy found is a third-party archive.org upload whose open status the publisher's page could not confirm. Tags now open on `concept`. |
+| `gr-097` Mycenaean expansion | 5 | 5 → 6 | Kalamianos is "thought to have been" Mycenae's main harbour **on the Saronic Gulf**, as Earle has it. Added Kos, Naxos and Keos (Petrakis's AJA review) and Rhodes (Lewartowski). The map with printed labels was replaced by Phylakopi's Mycenaean wall. |
+| `gr-098` Mycenaean Miletus | 5 | 5 → 7 | **The Bronze Age town is by the temple of Athena, not on Kalabaktepe** (the Hamburg excavation). The two Hittite conquests (end of the 14th century, c. 1200 BCE) and the Ionian refoundation come from the same site. |
+| `gr-099` drainage of Lake Copais | 5 | 5 → 8 | **"Reflooded c. 1100 BCE" traces to Mamassis's misreading of Strabo**; the date line drops it. **"The greater part of the Kephisos"** is now "one branch". The dyke is mid-13th century (Kountouri et al.), and the modern drainage 1882 – 1931 (AROURA). |
+| `gr-100` Mycenaean road network | 5 | 5 → 6 | **Karaś and Tuan 2017 dropped** (predatory publisher), and with it **the mixing of the Kazarma bridge with an abutment near Mycenae**. The Kazarma bridge is 22 × 5.6 × 4 m, "about 1300 BC" (Odysseus). Added the Iklaina paved road (Cosmopoulos) and Tsountas on pack animals. |
+
+**Corrected, refused and not usable.**
+- **Not usable:** the Hesperia pages at ascsa.edu.gr (TLS failure), Heidelberg journals and Arctos (Anubis
+  challenge), Project MUSE (verification page), science.org (403), the Batagianis thesis (no body).
+- **Picture credits.** All 35 credits now name the author and the licence (29 were bare URLs, six cards had
+  no picture). The Commons API was rate-limited for most of the run, so licences were read from the file
+  pages. **Replaced:** `gr-066` (the Lion Gate, `gr-059`'s subject), `gr-067` (Dodwell's engraving),
+  `gr-071` (a plan), `gr-073` (a Gilliéron facsimile), `gr-082` (the Pylos hearth, not the economy),
+  `gr-086` (an Archaic Artemis Orthia plaque), `gr-095` (the Lady of Mycenae; now a Hittite-court
+  letter from Hattusa) and `gr-097` (a map with printed labels). **Added:** `gr-079`, `gr-080`, `gr-081`,
+  `gr-096` (Pylos tablets), `gr-098` (the site of Miletus) and `gr-099` (Dodwell's drawing of a Kopais
+  sinkhole). No free photograph of the Bronze Age levels at Miletus or of Pylos's storerooms was found.
+  **`gr-076`'s old caption said the tablet was "Minoan"** and named its excavator; it is now a Linear B
+  tablet recording oil for the gods. Every caption that carried a museum number, a photographer or a
+  Commons wrapper ("Information Description:") was rewritten.
+
+**Read by eye.** Tiryns, Midea, Gla and Thebes are bare; the megaron, the Palace of Nestor and the
+Vapheio cups take "the". `gr-093` and `gr-094` both ask about ships; `gr-094`'s first question was
+reworded off `gr-093`'s Gelidonya question (Q.sibling 44%).
+
+**Locators.** `gr-099` points at Lake Copais and `gr-100` at the Kazarma (Arkadiko) bridge, neither
+title a redirect. `gr-072` megaron and `gr-095` Ahhiyawa take none: a building type, and a land with no
+agreed place.
