@@ -39,6 +39,8 @@ const greet = () => `<div class="greet"><span class="eyebrow">Good afternoon, Sc
 const thisWeek = () => `<section class="box week"><span class="k">This week</span><div class="stats"><div><b>184</b><span>cards studied</span></div><div><b>71 min</b><span>at the desk</span></div><div class="g"><b>87%</b><span>recalled</span></div></div>${P.globeDeco().replace('class="gdeco "','class="gdeco" style="right:-40px;bottom:-60px;width:150px;height:150px"')}</section>`;
 
 const CSS = `
+.sec-r{display:inline-flex; align-items:center; gap:14px;} .add-decks{font-family:var(--sans); font-size:13px; font-weight:700; letter-spacing:0; text-transform:none; color:var(--indigo); white-space:nowrap;}
+@media (max-width:640px){ .sec-r .legend{display:none;} }
 /* the ribbon's weeks and chests */
 .ribbon .days{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
 .ribbon .wk{display:inline-flex; gap:4px; align-items:center;}
@@ -73,6 +75,12 @@ const CSS = `
 .week .stats .g b{color:var(--good);}
 .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 @media (max-width:1024px){ .list{grid-template-columns:1fr 1fr;} }
+@media (max-width:1024px){
+  /* the tablet's ribbon: two rows, both weeks kept */
+  .ribbon{display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:8px 12px;}
+  .ribbon > b{grid-column:1; grid-row:1;} .ribbon > .t:first-of-type{grid-column:2; grid-row:1;} .ribbon .r{grid-column:3; grid-row:1; justify-self:end; margin:0;}
+  .ribbon .days{grid-column:1 / 3; grid-row:2;} .ribbon .t:nth-of-type(2){display:none;} .ribbon .note{grid-column:3; grid-row:2; justify-self:end; text-align:right;}
+}
 @media (max-width:640px){ .phone-head .brand small{display:none;} .foot{justify-content:center; text-align:center;}
   /* the phone's ribbon: two rows, the current week only */
   .ribbon{display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:10px 10px; padding:12px 16px;}
@@ -105,7 +113,7 @@ ${P.topbar()}
   <div class="gap"></div>
   ${ribbon()}
   <div class="gap"></div>
-  <div class="sec-h"><span>Your collections</span>${P.legend()}</div>
+  <div class="sec-h"><span>Your collections</span><span class="sec-r">${P.legend()}<a class="add-decks" href="#decks">+ Add decks</a></span></div>
   <div class="fill">${P.DECKS.map(d => `<a class="fr" href="#study" style="--c:${d[1]}; --w:${P.pct(d)}%"><span><b class="name">${d[0]}</b><span class="m" data-pct="${P.pct(d)}">${d[6]} of ${d[5].toLocaleString()} cards learned</span></span><span class="pct">${P.pct(d)}%</span>${P.boxes(d)}</a>`).join("")}</div>
   <div class="gap"></div>
   <div class="sec-h"><span>Minigames · 3 of 9</span><a href="#chest">Play all nine for the chest</a></div>

@@ -93,6 +93,8 @@
 }
 
 
+.sec-r{display:inline-flex; align-items:center; gap:14px;} .add-decks{font-family:var(--sans); font-size:13px; font-weight:700; letter-spacing:0; text-transform:none; color:var(--indigo); white-space:nowrap;}
+@media (max-width:640px){ .sec-r .legend{display:none;} }
 /* the ribbon's weeks and chests */
 .ribbon .days{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
 .ribbon .wk{display:inline-flex; gap:4px; align-items:center;}
@@ -127,6 +129,12 @@
 .week .stats .g b{color:var(--good);}
 .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 @media (max-width:1024px){ .list{grid-template-columns:1fr 1fr;} }
+@media (max-width:1024px){
+  /* the tablet's ribbon: two rows, both weeks kept */
+  .ribbon{display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:8px 12px;}
+  .ribbon > b{grid-column:1; grid-row:1;} .ribbon > .t:first-of-type{grid-column:2; grid-row:1;} .ribbon .r{grid-column:3; grid-row:1; justify-self:end; margin:0;}
+  .ribbon .days{grid-column:1 / 3; grid-row:2;} .ribbon .t:nth-of-type(2){display:none;} .ribbon .note{grid-column:3; grid-row:2; justify-self:end; text-align:right;}
+}
 @media (max-width:640px){ .phone-head .brand small{display:none;} .foot{justify-content:center; text-align:center;}
   /* the phone's ribbon: two rows, the current week only */
   .ribbon{display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:10px 10px; padding:12px 16px;}
@@ -158,7 +166,7 @@
   <div class="gap"></div>
   <div class="ribbon"><b>12</b><span class="t">day streak</span><span class="days"><span class="wk"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><span class="chest won" title="Week 1 paid"><svg class="chest-svg" viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="chest-lid"><path d="M14 40V30a46 16 0 0 1 92 0v10z" fill="currentColor" fill-opacity=".14"/><path d="M6 40h108v11H6z" fill="currentColor" fill-opacity=".22"/></g><g class="chest-box"><path d="M14 51h92v35a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".14"/><path d="M52 51h16v17H52z" fill="currentColor" fill-opacity=".3"/><path d="M60 60v6"/></g></svg></span></span><span class="wk cur"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="t"></i><i class="o"></i><i class="o"></i><span class="chest " title="Worth 2 chests"><svg class="chest-svg" viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="chest-lid"><path d="M14 40V30a46 16 0 0 1 92 0v10z" fill="currentColor" fill-opacity=".14"/><path d="M6 40h108v11H6z" fill="currentColor" fill-opacity=".22"/></g><g class="chest-box"><path d="M14 51h92v35a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".14"/><path d="M52 51h16v17H52z" fill="currentColor" fill-opacity=".3"/><path d="M60 60v6"/></g></svg></span></span></span><span class="note">2 more days for <b class="n2">2 chests</b></span><span class="r">Longest · 31 days</span></div>
   <div class="gap"></div>
-  <div class="sec-h"><span>Your collections</span><span class="legend"><span class="n"><i></i>New</span><span class="l"><i></i>Learning</span><span class="r"><i></i>Review</span></span></div>
+  <div class="sec-h"><span>Your collections</span><span class="sec-r"><span class="legend"><span class="n"><i></i>New</span><span class="l"><i></i>Learning</span><span class="r"><i></i>Review</span></span><a class="add-decks" href="#decks">+ Add decks</a></span></div>
   <div class="fill"><a class="fr" href="#study" style="--c:#4F74C2; --w:51%"><span><b class="name">World History</b><span class="m" data-pct="51">412 of 810 cards learned</span></span><span class="pct">51%</span><span class="boxes"><i class="n">1</i><i class="l">2</i><i class="r">8</i></span></a><a class="fr" href="#study" style="--c:#2BA6A0; --w:66%"><span><b class="name">Ancient Greece</b><span class="m" data-pct="66">655 of 1,000 cards learned</span></span><span class="pct">66%</span><span class="boxes"><i class="n">1</i><i class="l">1</i><i class="r">6</i></span></a><a class="fr" href="#study" style="--c:#D9544C; --w:33%"><span><b class="name">Ancient Rome</b><span class="m" data-pct="33">190 of 580 cards learned</span></span><span class="pct">33%</span><span class="boxes"><i class="z">0</i><i class="l">1</i><i class="r">5</i></span></a><a class="fr" href="#study" style="--c:#DB8B3A; --w:71%"><span><b class="name">Japan</b><span class="m" data-pct="71">71 of 100 cards learned</span></span><span class="pct">71%</span><span class="boxes"><i class="z">0</i><i class="z">0</i><i class="r">4</i></span></a></div>
   <div class="gap"></div>
   <div class="sec-h"><span>Minigames · 3 of 9</span><a href="#chest">Play all nine for the chest</a></div>
