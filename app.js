@@ -6273,42 +6273,6 @@
     availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c) && !cardFlagSpec(c) && !cardDrawSpec(c)) s.add(id); });
     return s;
   }
-  /* WHICH PLACE NAMES THE CARDS ACTUALLY TEACH — Find it's own filter, built here beside the door every
-     other game's pool goes through rather than inside the Atlas closure that calls it. It hands back a
-     PREDICATE rather than a set because the caller has a map label in hand and the resolving is the
-     interesting half: the answer terms are matched outright, and anything else is put through the
-     glossary's `byAnySurface`, which folds case and carries a term's aliases — so `world.js`'s "United
-     States of America" finds the card answering "United States".
-     IT IS `availableCardIdSet`, NEVER `gameCardIdSet`, and that is the Picture round's own rule for the
-     Picture round's own reason. That narrower door filters on `difficultyOK` because the games behind it
-     deal a TERM cold; here the reader is handed the name and asked to find the SHAPE, so how well known
-     the word is is not what is being tested. More to the point it also excludes every map card by
-     construction — and the map cards ARE the geography collections, so `gw-`'s 468 country and capital
-     cards would have been thrown away by it. MEASURED both ways over 730 days: through that door the
-     pool comes to 8 names and the two years deal FOUR distinct places between them, three of them some
-     spelling of Japan; through this one it is 54, every day is distinct, and no day comes back short.
-     A DECK'S OWN GLOSSARY IS NOT AN ANSWER HERE (`isDeckGlossKey`): a community deck can define whatever
-     it likes, and a stranger's term must not decide what the site's own game asks for.
-     It is built once per call and closed over, since the caller asks it 284 times. */
-  function finditTaughtNames() {
-    const avail = availableCardIdSet();
-    const idx = glossIndexFor(GLOSS_SCOPE_SITE);
-    const surfaces = new Set(), keys = new Set();
-    CARDS.forEach((c) => {
-      if (!avail.has(c.id) || !c.answerText) return;
-      const t = String(c.answerText).trim().toLowerCase();
-      surfaces.add(t);
-      const k = idx && idx.byAnySurface ? idx.byAnySurface[t] : null;
-      if (k && !isDeckGlossKey(k)) keys.add(k);
-    });
-    return (name) => {
-      const n = String(name || "").trim().toLowerCase();
-      if (!n) return false;
-      if (surfaces.has(n)) return true;
-      const k = idx && idx.byAnySurface ? idx.byAnySurface[n] : null;
-      return !!(k && keys.has(k));
-    };
-  }
   function activeCardIds() {
     const avail = availableCardIdSet();
     const set = new Set();
@@ -42614,7 +42578,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       for (const m of gameMarks) {
         const groups = [];
         for (const i of m.idxs) if (i >= 0 && i < terr.length) groups.push({ p: terr[i].p, c: ht ? terr[i].c : null });
-        paintFillGroups(groups, true, null, !!ht, m.tint);   // `selected` — a mark is an assertion, not a hover
+        if (m.rings) groups.push({ p: m.rings, c: null });   // a revealed state's own extent (Find it's area rounds)
+        paintFillGroups(groups, true, null, !!ht || !!m.rings, m.tint);   // `selected` — a mark is an assertion, not a hover
       }
     }
     function drawSelectionOverlay() {
@@ -44884,57 +44849,120 @@ let prev = null;
       const a = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(lat1 * DEG) * Math.cos(lat2 * DEG) * Math.sin(dLo / 2) * Math.sin(dLo / 2);
       return 2 * 6371 * Math.asin(Math.sqrt(a));
     };
-    function buildGameRounds() {   // 5 date-seeded rounds: 2 present-day countries, 2 historical territories, 1 capital
+    /* ---------- FIND IT ASKS FOR THE FULL ATLAS'S PLACES (Oct 2026, on request: "since we're no longer using
+       the World Atlas, ensure that the Find It minigame now uses locations from the Full Atlas instead") ----------
+       The game used to deal from the WORLD atlas's own lists — every country on `world.js`, every named
+       territory on every era map, every capital an era file marks — and then ask whether any card taught
+       the name. The Full Atlas is that question answered the other way round: `atlasRegisterAll(true)` is
+       every place any card puts on the globe, so the pool IS the register and nothing needs to be checked
+       against the cards afterwards. Three kinds of place come out of it:
+         · a COUNTRY — a name a geography card files under `world.js` (`reg.names`), asked for as a shape on
+           today's map, tapped by name exactly as before;
+         · a HISTORICAL STATE OR PEOPLE — an `area` mark, asked for "as it stood in" the middle of its
+           years and answered by a tap INSIDE its extent in that year (the dated series where the card has
+           one, its authored outline where it does not);
+         · a PLACE — a `dot` mark: a city, a site, a battlefield, or a country's capital, answered by a tap
+           within a radius of the point (300 km for a capital as before, 150 km for the rest, so Rome and
+           Naples are two different answers).
+       WHAT STAYS OUT, AND WHY. A war's sides and a province are the same ground a state or a country already
+       gives, a river or a sea is a label with no point, and a province capital is a dot nobody could be
+       asked for cold. A place is dealt only when one of ITS cards passes `difficultyOK` (rated at most
+       "generally familiar") — the same bar every other game that deals a term cold uses — and only from
+       the available cards, never a community deck's. A COUNTRY IS NOT HELD TO THE RATING: it is asked for as a
+       shape, the geography collections are where the countries live, and the bar would throw them away
+       (the old `finditTaughtNames` filter, which matched each era-map label against the cards' answers, is
+       gone: the register already is the list of what the cards place).
+       ONE PLACE IS ONE ROUND however many cards name it (`atlasStackKey`, the Atlas's own merge), and the
+       round's reveal opens that place's whole stack of cards, easiest first, with the same swipe the Atlas has.
+       THE BOARD IS TODAY'S MAP for every kind. The eras that the old historical rounds were asked on begin
+       in 1500, so a state of 500 BCE had no map to be asked on and a place has none either; today's coast and
+       rivers are what a place is found against, and the question says which year the state is asked "as it
+       stood in". */
+    const FINDIT_AREA_MAX_DIFFICULTY = 3;   // "known to the interested" — see finditPools
+    function finditPools() {
+      const reg = atlasRegisterAll(true), avail = availableCardIdSet();
+      const bbA = (rings) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; rings.forEach((ring) => ring.forEach((p) => { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; })); return (x1 - x0) * (y1 - y0); };
+      const countryNames = new Set();
+      reg.names.forEach((v, lk) => { if ((v.ids || [v.id]).some((id) => avail.has(id))) countryNames.add(lk); });
+      // the place marks, stacked as the Atlas stacks them: key → every available card on it
+      const stacks = new Map();
+      reg.marks.forEach((m) => {
+        if (!avail.has(m.id) || !CARD_BY_ID[m.id]) return;
+        const placeDot = m.kind === "dot" && (m.modern ? m.cap : Array.isArray(m.at));
+        if (m.kind !== "area" && !placeDot) return;
+        const k = atlasStackKey(m);
+        if (!stacks.has(k)) stacks.set(k, []);
+        stacks.get(k).push(m);
+      });
+      const areas = [], places = [];
+      stacks.forEach((ms) => {
+        // the bar is per kind: the Full Atlas holds only ~60 historical states and peoples in all, and
+        // "generally familiar" (rated 2) leaves 10 of them, so a state or people may be rated 3 too
+        const bar = ms[0].kind === "area" ? FINDIT_AREA_MAX_DIFFICULTY : GAME_MAX_DIFFICULTY;
+        if (!ms.some((m) => { const d = cardDifficulty(m.id); return d > 0 && d <= bar; })) return;   // nobody on the stack is well enough known
+        const ids = atlasStackOrder(ms.map((m) => m.id));
+        const first = ms.find((m) => m.id === ids[0]) || ms[0];
+        if (first.kind === "dot") {
+          let at = first.at;
+          if (first.modern) { const row = layerPoint(first.points, first.dot); at = row && row.c; }   // a capital is a row of its own layer's table
+          if (!Array.isArray(at) || !isFinite(at[0]) || !isFinite(at[1])) return;
+          places.push({ n: first.title, lon: at[0], lat: at[1], tol: first.cap ? 300 : 150, cap: !!first.cap, ids: ids });
+          return;
+        }
+        // an area: the middle of its years, in whose extent a tap counts
+        const y0s = ms.map((m) => m.y0).filter((v) => v != null), y1s = ms.map((m) => m.y1).filter((v) => v != null);
+        if (!y0s.length) return;                                    // an undated extent cannot be asked "as it stood in"
+        const y0 = Math.min.apply(null, y0s), y1 = y1s.length === ms.length ? Math.max.apply(null, y1s) : y0;
+        const yr = Math.round((y0 + y1) / 2);
+        const dated = polityRings(polityLink({ ids: ids }, "area"), yr);
+        const rings = dated ? dated.rings : first.area;
+        if (!rings || !rings.length || bbA(rings) <= 20) return;    // too small to be clicked on a whole globe
+        let x0 = 180, yy0 = 90, x1 = -180, yy1 = -90;
+        rings.forEach((ring) => ring.forEach((q) => { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < yy0) yy0 = q[1]; if (q[1] > yy1) yy1 = q[1]; }));
+        const ctr = Array.isArray(first.at) && isFinite(first.at[0]) ? first.at : [(x0 + x1) / 2, (yy0 + yy1) / 2];
+        areas.push({ n: first.title, shown: yr, rings: rings, lon: ctr[0], lat: ctr[1], ids: ids });
+      });
+      /* A PLACE INSIDE A BETTER-KNOWN PLACE'S TOLERANCE IS NOT ASKED FOR: the Palatine Hill is 2 km from
+         Rome and "within 150 km" would mark Rome right and the Palatine wrong in the same breath. The
+         better-known place (the easier card, then the name) keeps the neighbourhood and the rest are left
+         to its reveal, which opens every card on it. */
+      places.sort((a, b) => cardDifficultyRank(a.ids[0]) - cardDifficultyRank(b.ids[0]) || (a.n < b.n ? -1 : a.n > b.n ? 1 : 0));
+      const kept = [];
+      places.forEach((pl) => { if (!kept.some((k) => havKm(pl.lon, pl.lat, k.lon, k.lat) <= Math.max(pl.tol, k.tol))) kept.push(pl); });
+      return { countryNames: countryNames, areas: areas, places: kept };
+    }
+    function buildGameRounds() {   // 5 date-seeded rounds: 2 present-day countries, 2 historical states or peoples, 1 place
       // each pool gets its OWN seeded stream — a shared stream would reshuffle every later pool whenever an earlier
       // pool's size shifts (e.g. an admin materializing a groups era intraday), breaking "same rounds all day"
       const rngC = mulberry32(hashStr("findit-c-" + todayStr())), rngT = mulberry32(hashStr("findit-t-" + todayStr())), rngK = mulberry32(hashStr("findit-k-" + todayStr()));
       const bbA = (t) => { let best = 0; (t.p || []).forEach((ring) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; ring.forEach((p) => { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }); const a = (x1 - x0) * (y1 - y0); if (a > best) best = a; }); return best; };
-      // quality gates: big enough to click at a fair zoom, documented (a countries.js description exists), not an ethnographic grouping
-      const ETHNO = /people|forager|hunter|fisher|gatherer|nomad|tribe|khoisan|bantu|aborigin|inuit|paleo/i;
-      const countries = seededShuffle(GEO.filter((g) => g.n && countryDesc(g.n) && bbA(g) > 30), rngC);
-      /* A HISTORICAL ROUND ASKS ONLY FOR A PLACE SOME CARD TEACHES (Sep 2026, on request: "the only
-         historical places that the minigame Find It should ask for should be ones that are also in
-         cards"). The pool was every named territory on every era map with a `countries.js` description
-         and enough area to click — 172 of them, most of which Folio says nothing about anywhere else, so
-         a round could ask a reader to place the Mamluk Sultanate or the Kalmar Union on a globe having
-         never once mentioned either. A game is a test of what the site has taught; the map is not the
-         syllabus.
-         IT GOES THROUGH `gameCardIdSet()`, which is the one door every card-fed pool on the site uses, so
-         the well-known-terms bar this game deals cold is inherited rather than restated — and it costs
-         exactly one name (the Mamluk Sultanate, rated 3).
-         AND THE MATCH IS BY GLOSSARY SURFACE, NOT BY ANSWER TEXT ALONE. `world.js` and the era files
-         label a place in their own words, so the map's "United States of America" and "Imperial Japan"
-         are the cards' "United States" and "Empire of Japan" — the same divergence `locatorSiblings`
-         handles for a river Natural Earth files under its Italian name. Resolving the map's label
-         through `byAnySurface` recovers both. Measured over the shipped corpus: the 172 names that pass
-         this pool's own gates come to 54, and a 730-day sweep deals all 54, no blank day, no short day
-         and 730 distinct days — so the one-target-per-name-per-day rule below is nowhere near starved. */
-      const taught = finditTaughtNames();
-      const terrPool = [];
-      (window.TIMELINE || []).forEach((e) => {
-        if (!e.geo || !e.geo.length) return;
-        e.geo.forEach((t) => { if (t.n && !ETHNO.test(t.n) && taught(t.n) && countryDesc(t.n) && bbA(t) > 60) terrPool.push({ n: t.n, year: e.year }); });
-      });
-      const terrs = seededShuffle(terrPool, rngT);
-      const capPool = [];
-      (window.TIMELINE || []).forEach((e) => (e.cities || []).forEach((c) => { if (c.cap && c.n) capPool.push({ n: c.n, lon: c.lon, lat: c.lat, year: e.year }); }));
-      for (let i = 0; i < CITIES.length; i++) if (CITIES[i].r === 0) capPool.push({ n: CITIES[i].n, lon: CITIES[i].c[0], lat: CITIES[i].c[1], year: MAXY });
-      const caps = seededShuffle(capPool, rngK);
-      // one target per NAME across the whole day (France-today + France-1800 would make the second round a freebie)
+      const pools = finditPools();
+      // quality gates for a country: big enough to click at a fair zoom, and documented (a countries.js description exists)
+      const countries = seededShuffle(GEO.filter((g) => g.n && pools.countryNames.has(g.n.toLowerCase()) && countryDesc(g.n) && bbA(g) > 30), rngC);
+      const areas = seededShuffle(pools.areas, rngT);
+      const places = seededShuffle(pools.places, rngK);
+      // one target per NAME across the whole day (France-today + a state called France would make the second round a freebie)
       const used = new Set();
       const pick = (pool) => { for (let i = 0; i < pool.length; i++) { const k = pool[i].n.toLowerCase(); if (!used.has(k)) { used.add(k); return pool[i]; } } return null; };
-      const c1 = pick(countries), t1 = pick(terrs), c2 = pick(countries), t2 = pick(terrs), k1 = pick(caps);
+      const c1 = pick(countries), a1 = pick(areas), c2 = pick(countries), a2 = pick(areas), p1 = pick(places);
+      const area = (a) => a && { kind: "area", n: a.n, year: MAXY, shown: a.shown, rings: a.rings, lon: a.lon, lat: a.lat, ids: a.ids };
       const rounds = [
         c1 && { kind: "entity", n: c1.n, year: MAXY },
-        t1 && { kind: "entity", n: t1.n, year: t1.year },
+        area(a1),
         c2 && { kind: "entity", n: c2.n, year: MAXY },
-        t2 && { kind: "entity", n: t2.n, year: t2.year },
-        k1 && { kind: "capital", n: k1.n, lon: k1.lon, lat: k1.lat, year: k1.year },
+        area(a2),
+        p1 && { kind: "point", n: p1.n, lon: p1.lon, lat: p1.lat, tol: p1.tol, cap: p1.cap, ids: p1.ids, year: MAXY },
       ].filter(Boolean);
       return rounds;
     }
+    // the nearest an outline's own points come to a tap, in km — the hint a missed state is given
+    function finditEdgeKm(rings, lon, lat) {
+      let best = Infinity;
+      for (let r = 0; r < rings.length; r++) for (let i = 0; i < rings[r].length; i++) { const d = havKm(lon, lat, rings[r][i][0], rings[r][i][1]); if (d < best) best = d; }
+      return best;
+    }
     function gameTargetLL(r) {   // where the round's answer lives (for distance feedback + the reveal fly)
-      if (r.kind === "capital") return [r.lon, r.lat];
+      if (r.kind !== "entity") return [r.lon, r.lat];
       const k = r.n.toLowerCase();
       const ht = histTerr();
       if (ht) { const an = (eraLabelAnchors() || []).find((a) => (a.n || "").toLowerCase() === k); if (an) return [an.lon, an.lat]; }
@@ -44999,7 +45027,8 @@ let prev = null;
       setYear(r.year);
       mgRoundEl.textContent = "Round " + (gameRi + 1) + " / " + gameRounds.length;
       mgScoreEl.textContent = gameFound + " found";
-      mgQEl.innerHTML = (r.kind === "capital" ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(finditName(r.n)) + "</b>") + (r.year >= MAXY ? " on today's map" : " — in " + fmtYearG(r.year));
+      mgQEl.innerHTML = r.kind === "area" ? "Find <b>" + esc(r.n) + "</b> — as it stood in " + fmtYearG(r.shown)
+        : (r.kind === "point" && r.cap ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(finditName(r.n)) + "</b>") + " on today's map";
       mgFeedbackEl.hidden = true; mgNextEl.hidden = true;
       selSet.clear(); subSelGeo = -1; subSelUK = []; pulseSet = null;
       gameMarks = []; gamePin = null;   // last round's wrong guesses and its answer come off the board with it
@@ -45012,7 +45041,7 @@ let prev = null;
       const tgt = gameTargetLL(r);
       const tint = ok ? TINT_FOUND : TINT_ANSWER;
       pulseCol = ok ? GAME_GREEN : "rgba(255,178,46,1)";   // green = you found it; gold = "here's the one you missed"
-      if (r.kind !== "capital") {   // flash ALL same-named polygons via the pulse machinery (the 1900 map has 35 "Fiji" pieces)
+      if (r.kind === "entity") {   // flash ALL same-named polygons via the pulse machinery (the 1900 map has 35 "Fiji" pieces)
         const terr = histTerr() || GEO, k = r.n.toLowerCase(), idxs = [];
         for (let i = 0; i < terr.length; i++) if ((terr[i].n || "").toLowerCase() === k) idxs.push(i);
         if (idxs.length) {
@@ -45021,13 +45050,15 @@ let prev = null;
           if (tgt) popPointLL = [tgt[0], tgt[1]];
           showCountryPopup(idxs[0]);   // the answer's info panel — the round ends on something learned
         }
-      } else {   // capitals: a geo-anchored ring marker (the fly alone is cancellable — the marker isn't) + the owning state's panel
+      } else if (r.kind === "area") {   // a state or people: its extent, laid over today's map, and its cards
+        gameMarks.push({ idxs: [], rings: r.rings, tint: tint });
+        showMinePopup({ ids: r.ids, title: r.n });
+      } else {   // a place: a geo-anchored ring marker (the fly alone is cancellable — the marker isn't) + the place's cards
         pulsePin = [r.lon, r.lat]; pulseT0 = performance.now();
         gamePin = { lon: r.lon, lat: r.lat, name: r.n, tint: tint };   // the ring fades; the named dot does not
-        const oi = ownerIdxAt(activeEra(year), r.lon, r.lat);
-        if (oi >= 0) { popPointLL = [r.lon, r.lat]; showCountryPopup(oi); }
+        showMinePopup({ ids: r.ids, title: r.n });
       }
-      if (tgt) flyTo(tgt[0], tgt[1], Math.max(zoom, r.kind === "capital" ? 2.8 : 1.5), null);
+      if (tgt) flyTo(tgt[0], tgt[1], Math.max(zoom, r.kind === "point" ? 2.8 : 1.5), null);
       mgFeedbackEl.textContent = ok ? (gameTries === 0 ? "Found it — first try!" : "Found it!") : "It was here.";
       mgFeedbackEl.hidden = false;
       mgScoreEl.textContent = gameFound + " found";
@@ -45063,15 +45094,16 @@ let prev = null;
       const r = gameRounds[gameRi];
       const ll = screenToLonLat(px, py); if (!ll) return;   // clicked the sky
       const clickedIdx = countryAt(px, py);
-      /* A capital round is answered with a POINT, so a tap in the open sea is a legitimate guess there
-         and an entity round's is not — tapping the ocean when asked for a country is a miss of the
+      /* A place or a state is answered with a POINT, so a tap in the open sea is a legitimate guess there
+         and a country round's is not — tapping the ocean when asked for a country is a miss of the
          globe rather than a wrong answer, and spending a guess on it would be the mis-tap this change
          exists to stop. */
-      if (r.kind !== "capital" && clickedIdx < 0) return;
+      if (r.kind === "entity" && clickedIdx < 0) return;
       gameMarks = gameMarks.filter((m) => !m.pick);
       gamePick = { idx: clickedIdx, lon: ll[0], lat: ll[1] };
-      if (clickedIdx >= 0) gameMarks.push({ idxs: [clickedIdx], tint: TINT_PICK, pick: true });
-      gamePickPin = r.kind === "capital" ? [ll[0], ll[1]] : null;
+      // only a country round tints the country under the finger: a state's extent or a place is not any one country
+      if (clickedIdx >= 0 && r.kind === "entity") gameMarks.push({ idxs: [clickedIdx], tint: TINT_PICK, pick: true });
+      gamePickPin = r.kind !== "entity" ? [ll[0], ll[1]] : null;
       /* THE BUTTON SAYS "GUESS" AND NAMES NOTHING (Sep 2026, on a bug report: "when selecting a country
          in the Find It minigame, it says on the button 'GUESS [selected place]', but that gives away
          whether the answer is right or not, so it should only say the word guess"). It read "Guess
@@ -45095,9 +45127,12 @@ let prev = null;
       { const pll = ll; popPointLL = [pll[0], pll[1]]; }   // the guess's own point — feeds the panel's crumb and "Through the ages"
       gameClearPick();
       let correct = false, distKm = null;
-      if (r.kind === "capital") {
+      if (r.kind === "point") {
         distKm = havKm(ll[0], ll[1], r.lon, r.lat);
-        correct = distKm <= 300;   // within ~300 km of the city counts — zoom in for precision
+        correct = distKm <= r.tol;   // within ~300 km of a capital, ~150 km of any other place — zoom in for precision
+      } else if (r.kind === "area") {
+        correct = pointInRings(r.rings, ll[0], ll[1]);   // anywhere inside its extent in that year
+        if (!correct) distKm = finditEdgeKm(r.rings, ll[0], ll[1]);
       } else {
         correct = clickedIdx >= 0 && (entityName(clickedIdx) || "").toLowerCase() === r.n.toLowerCase();
         if (!correct) { const tgt = gameTargetLL(r); if (tgt) distKm = havKm(ll[0], ll[1], tgt[0], tgt[1]); }
@@ -45156,9 +45191,16 @@ let prev = null;
       });
       if (mgConfirmEl) mgConfirmEl.addEventListener("click", gameCommit);
       if (mgClearEl) mgClearEl.addEventListener("click", () => { gameClearPick(); scheduleDraw(); });
-      gameRounds = buildGameRounds();
-      if (gameRounds.length) { mgEl.hidden = false; gameShowRound(); }
-      else route("map");   // no data to play with (should never happen) — fall back to the plain Atlas
+      /* THE POOL NEEDS TWO LAZY BUNDLES, so the rounds are built once they have landed: the capitals table
+         (a country's capital is a row of it) and the dated outlines (a state is asked for in a year, and
+         is judged against its outline in that year). Built before them, the pool would hold fewer places on
+         a cold load than on a warm one and "the same five rounds all day" would depend on the cache. */
+      Promise.all([ensureData("worldcaps"), ensureData("polities")]).then(() => {
+        if (!root.isConnected) return;   // the reader left before the data landed
+        gameRounds = buildGameRounds();
+        if (gameRounds.length) { mgEl.hidden = false; gameShowRound(); }
+        else route("map");   // no data to play with (should never happen) — fall back to the plain Atlas
+      });
     }
     /* ---------- first-visit coach marks + the "?" help button ---------- */
     { const helpEl = root.querySelector("#atlasHelp"), helpBtn = root.querySelector("#gzHelp");

@@ -194,10 +194,12 @@ The bullet below is as it stood in CLAUDE.md, verbatim.
     flyRAF || playT || mapDragging`** — an rIC timeout landing during a drag would freeze the globe under the pointer.
   **Game mode + approachability (batch 3):** `PAGES.findit` routes to `PAGES.map(root, {game:true})` — the **"Find it"
   daily minigame** plays on the real globe (`const GAME` gates everything): 5 date-seeded rounds from
-  `buildGameRounds()` (2 present-day countries, 2 historical territories, 1 capital; **one seeded RNG stream PER pool**
-  so intraday data changes can't reshuffle the day; a `used`-names Set dedupes targets across rounds; quality gates =
-  bbox area + `countryDesc` exists + an ETHNO name regex). Taps route to `gameTap` (countryAt name match, or
-  haversine ≤300 km for capitals) — a wrong pick **flashes RED and opens ITS info panel** (`GAME_RED` via the shared
+  `buildGameRounds()` (2 present-day countries, 2 historical states or peoples, 1 place, **all from the Full Atlas's
+  register since Oct 2026** — see `docs/minigames.md` "Find it asks for the Full Atlas's places"; **one seeded RNG
+  stream PER pool** so intraday data changes can't reshuffle the day; a `used`-names Set dedupes targets across rounds;
+  quality gates = bbox area + `countryDesc` exists for a country, a card rated at most 2 (3 for a state) for the rest).
+  Taps route to `gameTap` (countryAt name match for a country; a point inside the extent for a state; haversine ≤300 km
+  for a capital and ≤150 km for any other place) — a wrong pick **flashes RED and opens ITS info panel** (`GAME_RED` via the shared
   `pulseCol`; a miss still teaches), one retry with a km-distance hint, then `gameReveal`: **GREEN pulse when found,
   gold when missed**, over ALL same-named polygons (capitals get a **geo-anchored `pulsePin` ring** since the fly alone
   is cancellable), and the **answer's info panel opens** (capitals → the owning state via `ownerIdxAt`). The country
