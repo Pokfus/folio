@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Folio — home redesign r3-5: Console</title>
+<link rel="stylesheet" href="../../../../fonts.css" />
+<link rel="stylesheet" href="../_tokens.css" />
+<link rel="stylesheet" href="../round-2/_parts.css" />
+<style>
+
+.dq{margin:0; padding:38px 16px; text-align:center;}
+.dq .mark{display:block; font-family:var(--serif); font-size:34px; line-height:.6; color:var(--zh); margin-bottom:16px;}
+.dq blockquote{margin:0 auto; max-width:40ch; font-family:var(--serif); font-style:italic; font-size:22px; line-height:1.45; color:var(--ink);}
+.dq figcaption{margin-top:14px; font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-quiet);}
+.dq .who::before{content:""; display:inline-block; width:16px; height:2px; background:var(--ochre); vertical-align:middle; margin-right:9px;}
+.dq .src{display:block; font-family:var(--serif); font-size:13px; letter-spacing:0; text-transform:none; color:var(--ink-quiet); margin-top:6px;}
+.dkc{display:inline-flex; gap:8px; font-family:var(--mono); font-size:13px; font-weight:600; font-variant-numeric:tabular-nums;}
+.dkc .n{color:var(--indigo-bright);} .dkc .l{color:var(--zh);} .dkc .r{color:var(--good);} .dkc .z{color:var(--ink-faint); font-weight:500;}
+.legend{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); display:inline-flex; gap:10px;}
+.legend i{display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:4px; vertical-align:1px;}
+.legend .n i{background:var(--indigo-bright);} .legend .l i{background:var(--zh);} .legend .r i{background:var(--good);}
+.sec-h{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin:0 0 12px; font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600;}
+.sec-h a{color:var(--indigo); font-family:var(--sans); font-size:13px; font-weight:700; letter-spacing:0; text-transform:none;}
+@media (max-width:640px){ .dq{padding:28px 8px;} .dq blockquote{font-size:19px;} }
+
+
+.wrap{max-width:1280px; margin:0 auto; padding:22px 28px 60px;}
+.top-row{display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;}
+.heatstrip{display:flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:10px 14px;}
+.heatstrip b{font-size:26px; font-weight:800; color:var(--good); letter-spacing:-.03em; line-height:1;}
+.heatstrip .t{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); line-height:1.35;}
+.heatstrip .hs{display:grid; grid-template-columns:repeat(21,8px); gap:2px;} .heatstrip .hs i{width:8px; height:8px; border-radius:2px; background:var(--paper-2);} .heatstrip .hs i.b{background:var(--good);} .heatstrip .hs i.a{background:color-mix(in srgb, var(--good) 45%, var(--paper-2));} .heatstrip .hs i.t{outline:2px solid var(--indigo); outline-offset:1px;}
+.grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:20px; margin-top:16px; align-items:start;}
+.grid .study{grid-column:1 / -1; grid-template-columns:1fr auto;}
+.panel{background:var(--card); border:1px solid var(--rule); border-radius:16px; padding:18px 20px;}
+.mono-rows{display:grid; gap:6px;}
+.mr{display:grid; grid-template-columns:40px 1fr auto; gap:12px; align-items:center; padding:8px 8px; border-radius:10px;}
+.mr:hover{background:var(--paper);}
+.mr .mg{width:40px; height:40px; border-radius:10px; background:var(--c); color:#fff; display:grid; place-content:center; font-family:var(--serif); font-weight:600; font-size:18px;}
+.mr b{display:block; font-weight:700; font-size:14.5px;} .mr .m{font-size:11.5px; color:var(--ink-quiet);}
+.score{display:grid; grid-template-columns:repeat(3,34px); gap:4px;}
+.score i{display:grid; place-content:center; height:30px; border-radius:7px; font-family:var(--mono); font-style:normal; font-weight:700; font-size:13px; color:#fff;}
+.score .n{background:var(--indigo-bright);} .score .l{background:var(--zh);} .score .r{background:var(--good);} .score .z{background:var(--paper-2); color:var(--ink-faint);}
+.score-h{display:grid; grid-template-columns:repeat(3,34px); gap:4px; justify-content:end; font-family:var(--mono); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; text-align:center; color:var(--ink-quiet); margin-bottom:4px;}
+.tickets{display:grid; grid-template-columns:1fr; gap:8px;}
+.tk{display:grid; grid-template-columns:56px 1fr; border:1px solid var(--rule); border-radius:10px; overflow:hidden; background:var(--paper); min-height:54px;}
+.tk .stub{background:var(--tile); color:#fff; display:grid; place-content:center; border-right:2px dashed var(--card); position:relative;} .tk .stub svg{width:24px; height:24px;}
+.tk .stub::before,.tk .stub::after{content:""; position:absolute; right:-7px; width:12px; height:12px; border-radius:50%; background:var(--card);} .tk .stub::before{top:-6px;} .tk .stub::after{bottom:-6px;}
+.tk .in{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 12px;} .tk b{font-weight:700; font-size:14px;} .tk .st{font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet);}
+.tk.done .stub{background:color-mix(in srgb, var(--tile) 55%, var(--card));} .tk.done .st{color:var(--good); font-weight:700;} .tk.done .in::after{content:"✓"; color:var(--good); font-weight:800;}
+.col3{display:grid; gap:20px;}
+@media (max-width:1024px){ .wrap{padding:20px 22px 48px;} .grid{grid-template-columns:1fr 1fr;} .col3{grid-column:1 / -1; grid-template-columns:1fr 1fr;} .top-row{grid-template-columns:1fr;} .heatstrip .hs{grid-template-columns:repeat(21,7px);} .heatstrip .hs i{width:7px; height:7px;} }
+@media (max-width:640px){ .wrap{padding:18px 16px 100px;} .grid{grid-template-columns:1fr;} .col3{grid-template-columns:1fr;} .heatstrip{flex-wrap:wrap;} .score{grid-template-columns:repeat(3,30px);} .score-h{grid-template-columns:repeat(3,30px);} }
+</style>
+</head>
+<body>
+
+<header class="topbar"><span class="brand ">Folio<span class="dot">.</span><small>Memorise anything</small></span><nav class="nav"><a class="nl on" href="#home"><svg viewBox="0 0 24 24"><path d="M3 11.4 12 4l9 7.4"/><path d="M5.5 9.8V20h13V9.8"/></svg><span>Home</span></a><a class="nl" href="#decks"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="14" rx="2"/><path d="M7 4h11a2 2 0 0 1 2 2v11"/></svg><span>Collections</span></a><a class="nl" href="#library"><svg viewBox="0 0 24 24"><path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg><span>Library</span></a><a class="nl" href="#map"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>Atlas</span></a></nav><nav class="nav right"><a class="nl" href="#search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></a><a class="nl adm" href="#admin"><svg viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><span>Admin</span></a><a class="nl" href="#account"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Account</span></a><a class="nl" href="#settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Settings</span></a></nav></header>
+<main class="wrap">
+  <div class="phone-head"><span class="brand ">Folio<span class="dot">.</span><small>Memorise anything</small></span><span class="adm-pill">Admin</span></div>
+  <div class="top-row"><div class="greet"><span class="eyebrow">Wednesday 1 October · Good afternoon, Scholar</span><h1>Today</h1></div><div class="heatstrip"><b>12</b><span class="t">day streak<br>longest 31</span><span class="hs"><i class="a"></i><i class="b"></i><i class="b"></i><i class=""></i><i class="a"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="a"></i><i class=""></i><i class=""></i><i class="b"></i><i class="b"></i><i class="a"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="a"></i><i class="b"></i><i class="b"></i><i class="t"></i></span></div></div>
+  <figure class="dq "><span class="mark">“</span><blockquote>Life has a limit, but knowledge has none.</blockquote><figcaption><span class="who">Zhuangzi</span><span class="src"><i>Zhuangzi</i>, ch. 3</span></figcaption></figure>
+  <div class="grid">
+    <section class="study ">
+  <div class="study-body">
+    <span class="eyebrow">Today's review</span>
+    <h2><b>29 cards</b> waiting</h2>
+    <div class="pile"><div><b>2</b><span>New</span></div><div><b>4</b><span>Learning</span></div><div><b>23</b><span>Review</span></div></div>
+    <div class="est"><b>≈ 12 min</b><span>from your pace in each deck · World History 31 s/card · Greece 22 s · Rome 26 s · Japan 14 s</span></div>
+    <div class="acts"><a class="go" href="#review"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Start review</a><a class="try" href="#sample">Try ten cards — nothing is saved</a></div>
+  </div>
+  <div class="preview in-banner">
+  <div class="pc c3"><span class="eb">World History</span><p>Muʿāwiya founded <u></u> in 661 and ruled it from Damascus…</p></div>
+  <div class="pc c2"><span class="eb">Ancient Rome</span><p>Appius Claudius laid the <u></u> southward from Rome during his censorship…</p></div>
+  <div class="pc c1"><span class="eb">Ancient Greece <em>next up</em></span><p>Open to any Greek who wished, women and slaves included, the <u></u> promised the initiate a better lot after death.</p><span class="ft">Learning · step 2 of 3</span></div>
+</div>
+  
+</section>
+    <section class="panel">
+      <div class="sec-h"><span>Active decks</span><a href="#decks">+ Add decks</a></div>
+      <div class="score-h"><span>New</span><span>Learn</span><span>Review</span></div>
+      <div class="mono-rows"><a class="mr" href="#study"><span class="mg" style="--c:#4F74C2">W</span><span><b>World History</b><span class="m">810 cards · 8 decks</span></span><span class="score"><i class="n">1</i><i class="l">2</i><i class="r">8</i></span></a><a class="mr" href="#study"><span class="mg" style="--c:#2BA6A0">A</span><span><b>Ancient Greece</b><span class="m">1,000 cards · 6 decks</span></span><span class="score"><i class="n">1</i><i class="l">1</i><i class="r">6</i></span></a><a class="mr" href="#study"><span class="mg" style="--c:#D9544C">A</span><span><b>Ancient Rome</b><span class="m">580 cards · 7 decks</span></span><span class="score"><i class="z">0</i><i class="l">1</i><i class="r">5</i></span></a><a class="mr" href="#study"><span class="mg" style="--c:#DB8B3A">J</span><span><b>Japan</b><span class="m">100 cards · 9 decks</span></span><span class="score"><i class="z">0</i><i class="z">0</i><i class="r">4</i></span></a></div>
+    </section>
+    <section class="panel">
+      <div class="sec-h"><span>Minigames · 3 of 9</span></div>
+      <div class="tickets"><a class="tk done" href="#challenge" style="--tile:var(--g-challenge)"><span class="stub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><line x1="10" y1="6" x2="20" y2="6"/><circle cx="5" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="10" y1="12" x2="20" y2="12"/><circle cx="5" cy="18" r="2"/><line x1="10" y1="18" x2="20" y2="18"/></svg></span><span class="in"><b>Multiple Choice</b><span class="st">Played · 5/5</span></span></a><a class="tk done" href="#chrono" style="--tile:var(--g-chrono)"><span class="stub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><circle cx="6" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="2.4" fill="currentColor" stroke="none"/></svg></span><span class="in"><b>Timeline</b><span class="st">Played · 4/5</span></span></a><a class="tk " href="#truefalse" style="--tile:var(--g-truefalse)"><span class="stub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 13 6 17 11 8"/><line x1="15" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="15" y2="15"/></svg></span><span class="in"><b>True or False</b><span class="st">Admit one</span></span></a><a class="tk " href="#whosaid" style="--tile:var(--g-whosaid)"><span class="stub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span><span class="in"><b>Who said it?</b><span class="st">Admit one</span></span></a><a class="tk done" href="#findit" style="--tile:var(--g-findit)"><span class="stub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="in"><b>Find it</b><span class="st">Played · 3/5</span></span></a><a class="tk " href="#thread" style="--tile:var(--g-thread)"><span class="stub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/></svg></span><span class="in"><b>Common Thread</b><span class="st">Admit one</span></span></a><a class="tk " href="#crossword" style="--tile:var(--g-crossword)"><span class="stub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="9" y="16" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" stroke="none"/></svg></span><span class="in"><b>Crossword</b><span class="st">Admit one</span></span></a><a class="tk " href="#picture" style="--tile:var(--g-picture)"><span class="stub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.6" cy="10" r="1.8" fill="currentColor" stroke="none"/><polyline points="21 16.5 15.4 10.9 6.2 19.5"/></svg></span><span class="in"><b>Picture round</b><span class="st">Admit one</span></span></a><a class="tk " href="#whatyear" style="--tile:var(--g-whatyear)"><span class="stub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="18" x2="21" y2="18"/><line x1="7" y1="15.2" x2="7" y2="20.8"/><line x1="12" y1="15.2" x2="12" y2="20.8"/><line x1="17" y1="15.2" x2="17" y2="20.8"/><path d="M9.3 5.9a2.9 2.9 0 0 1 5.4 1.5c0 2-2.7 2.4-2.7 4"/><line x1="12" y1="13.2" x2="12" y2="13.2"/></svg></span><span class="in"><b>What year?</b><span class="st">Admit one</span></span></a></div>
+    </section>
+    <div class="col3"><a class="box reading " href="#library"><span class="k">Continue reading</span><div class="bk"><div class="spine"></div><div><b>The Histories</b><span>Herodotus · Book II</span><div class="bar"><b></b></div><em>38% read</em></div></div></a><a class="box atlas " href="#map"><span class="k">Atlas</span><b>Every border, every year</b><span class="s">3000 BCE → today</span><div class="globe"><i></i><i></i><i></i><i></i></div></a></div>
+  </div>
+  <footer class="foot"><span>About Folio · Changelog</span><span>v1.906 · 1 Oct 2026, 14:25</span></footer>
+</main>
+<nav class="tabbar"><a class="on" href="#home"><svg viewBox="0 0 24 24"><path d="M3 11.4 12 4l9 7.4"/><path d="M5.5 9.8V20h13V9.8"/></svg>Home</a><a class="" href="#library"><svg viewBox="0 0 24 24"><path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg>Library</a><a class="" href="#map"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Atlas</a><a class="" href="#account"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Account</a><a class="" href="#settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a></nav>
+<script src="../_theme.js"></script>
+</body>
+</html>
