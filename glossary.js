@@ -4776,7 +4776,11 @@ window.GLOSSARY = {
 "Six_Garrisons": "The <b>Six Garrisons</b> were military settlements built by the Northern Wei dynasty along its northern frontier, in present-day Inner Mongolia and northern Hebei, China, whose households, many of them Xianbei, were registered to supply soldiers for generations.<sup class=\"fn\" data-fn=\"1\"></sup> Their standing declined after the capital moved south to Luoyang in 494 CE, and from 523 their soldiers rose against their commanders in a revolt that spread across the north.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The court turned the garrisons into ordinary provinces in 524, but the risings went on until 529 and left frontier generals in control of the Northern Wei court.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Tuoba": "The <b>Tuoba</b> were a branch of the Xianbei, a confederation of steppe peoples north of China, whose chiefs used the name of their people as a family name and founded the Northern Wei dynasty, which ruled northern China from 386 to 534 CE.<sup class=\"fn\" data-fn=\"1\"></sup> Their own later history traced them to a son of the Yellow Emperor, explained their name from northern words for 'earth' and 'lord', and recorded a move south that brought their leader to Shengle, in present-day Inner Mongolia, in 258.<sup class=\"fn\" data-fn=\"2\"></sup> In 496 the ruling clan took the Chinese surname Yuan, and over the 7th and 8th centuries the Tuoba ceased to be a distinct people.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Western_Wei": "The <b>Western Wei</b> was one of the two states into which the Northern Wei empire split in the 530s CE, ruling Shaanxi, Gansu and neighbouring regions from Chang'an from 535 until 557.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its emperors, members of the old Tuoba house, were puppets of the general Yuwen Tai, whose administrative reforms, household registers and garrison militia strengthened a state poorer in land and people than its eastern rival.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It took Sichuan and Jiangling from the Liang in the 550s, and after Yuwen Tai's death his son Yuwen Jue took the throne and founded the Northern Zhou.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Yungang_Grottoes": "The <b>Yungang Grottoes</b> are a complex of Buddhist cave temples cut into the cliffs of Wuzhou Mountain, 16 kilometres (10 miles) west of Datong in Shanxi, China, where 254 caves are now counted.<sup class=\"fn\" data-fn=\"1\"></sup> They were carved under the patronage of the Northern Wei court from about 460 to about 524 CE, beginning with five caves of colossal Buddhas that the monk Tanyao proposed to the emperor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Their halls, niches and figures are one of the two principal sources for early Chinese Buddhist stone carving, and many of their sculptures still carry traces of their original paint.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Yungang_Grottoes": "The <b>Yungang Grottoes</b> are a complex of Buddhist cave temples cut into the cliffs of Wuzhou Mountain, 16 kilometres (10 miles) west of Datong in Shanxi, China, where 254 caves are now counted.<sup class=\"fn\" data-fn=\"1\"></sup> They were carved under the patronage of the Northern Wei court from about 460 to about 524 CE, beginning with five caves of colossal Buddhas that the monk Tanyao proposed to the emperor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Their halls, niches and figures are one of the two principal sources for early Chinese Buddhist stone carving, and many of their sculptures still carry traces of their original paint.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Emancipation_reform_of_1861": "The Emancipation reform of 1861 was the set of laws by which Alexander II of Russia abolished serfdom on private estates, signed on 19 February 1861 by the Old Style calendar, which was 3 March in the New Style.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It made more than 20 million serfs legally free, but each village commune kept only roughly the land it already worked and owed dues for it in money or labour until they were bought out with state credit.<sup class=\"fn\" data-fn=\"1\"></sup> Former serfs could no longer be sold or moved into house service, yet they remained bound to village groups that paid taxes collectively under a system of mutual guarantee.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"American_Civil_War": "The American Civil War was fought from 1861 to 1865 between the United States and the Confederate States of America, formed by slaveholding Southern states that seceded after Abraham Lincoln was elected president in 1860.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It began when Confederate guns fired on Fort Sumter on 12 April 1861, and after his re-election in 1864 Lincoln pressed for a constitutional amendment ending slavery everywhere in the nation.<sup class=\"fn\" data-fn=\"1\"></sup> It was the deadliest war in American history, and census-based studies have revised the long-standing official count of 618,222 dead to about 698,000 or more than 750,000.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Emancipation_Proclamation": "The Emancipation Proclamation was the order by which Abraham Lincoln, as commander in chief and as a war measure, declared on 1 January 1863 that all persons held as slaves in the states and parts of states then in rebellion against the United States were free.<sup class=\"fn\" data-fn=\"1\"></sup> It did not apply to the slaveholding border states that remained in the Union or to Confederate areas already under Union control, so its effect depended on the advance of the Union armies.<sup class=\"fn\" data-fn=\"2\"></sup> It also opened the Union army and navy to Black men, and almost 200,000 Black soldiers and sailors fought for the Union.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Reconstruction_era": "The Reconstruction era was the period from 1865 to 1877 after the American Civil War, in which the United States restored the Union and the whole nation, the South above all, had to reckon with what slavery had left behind and what freedom would now mean.<sup class=\"fn\" data-fn=\"1\"></sup> The 14th and 15th Amendments made those born in the country citizens, promised them the equal protection of the laws and barred racial discrimination in voting, and Black men voted and held office across the South.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The South openly disregarded those amendments for decades after the era closed, but they stayed in the Constitution, where later generations could call on them again.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7350,7 +7354,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Northern_Zhou": "557 – 581 CE",
 "Pingcheng": "398 – 494 CE",
 "Western_Wei": "535 – 557 CE",
-"Yungang_Grottoes": "c. 460 – 524 CE"
+"Yungang_Grottoes": "c. 460 – 524 CE",
+"Emancipation_reform_of_1861": "1861",
+"American_Civil_War": "1861–1865",
+"Emancipation_Proclamation": "1863",
+"Reconstruction_era": "1865–1877"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10102,7 +10110,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Equal-field_system": ["juntian system"],
 "Fubing_system": ["fubing","garrison militia"],
 "Six_Garrisons": ["Six Frontier Towns"],
-"Tuoba": ["Taghbach","Tabgach"]
+"Tuoba": ["Taghbach","Tabgach"],
+"Reconstruction_era": ["Reconstruction"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -14932,7 +14941,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Six_Garrisons": ["place","warfare","history","china","northern and southern dynasties"],
 "Tuoba": ["people","history","migration","china","northern and southern dynasties"],
 "Western_Wei": ["dynasty","state","history","politics","china","northern and southern dynasties"],
-"Yungang_Grottoes": ["place","art","religion","buddhism","history","china","northern and southern dynasties"]
+"Yungang_Grottoes": ["place","art","religion","buddhism","history","china","northern and southern dynasties"],
+"Emancipation_reform_of_1861": ["law","history","politics","russia","19th century"],
+"American_Civil_War": ["war","history","warfare","united states","19th century"],
+"Emancipation_Proclamation": ["text","history","politics","united states","19th century"],
+"Reconstruction_era": ["era","history","politics","united states","19th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
