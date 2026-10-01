@@ -4917,7 +4917,12 @@ window.GLOSSARY = {
 "1989_Tiananmen_Square_protests_and_massacre": "The 1989 Tiananmen Square protests were demonstrations for political reform, against corruption and inflation, that began in Beijing's central square in April 1989 and spread to other Chinese cities.<sup class=\"fn\" data-fn=\"1\"></sup> The government declared martial law on 20 May, and on the night of 3–4 June the army forced its way into the centre of Beijing with tanks and automatic weapons, killing protesters and bystanders mostly in the surrounding avenues.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The number killed has never been established, since the government has released no data, and estimates range from its own figure of over 200 to the hundreds or thousands suggested by other sources.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Dissolution_of_the_Soviet_Union": "The dissolution of the Soviet Union was the breakup of the Union of Soviet Socialist Republics into independent states during 1991.<sup class=\"fn\" data-fn=\"1\"></sup> A failed coup by communist hardliners in August 1991, timed to stop a new treaty giving the republics more power, weakened the central government and was followed by declarations of independence across the union.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> On 8 December the leaders of Russia, Ukraine and Belarus declared that the union no longer existed and founded a Commonwealth of Independent States in its place, and Mikhail Gorbachev resigned as Soviet president on 25 December.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "German_reunification": "German reunification was the accession of the German Democratic Republic to the Federal Republic of Germany on 3 October 1990, which ended the division of Germany into two states after the Second World War.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It followed the peaceful revolution of 1989 in East Germany and the opening of the Berlin Wall, a free East German election in March 1990, and an economic and currency union in July 1990.<sup class=\"fn\" data-fn=\"1\"></sup> Its international terms were settled in the Two Plus Four treaty of 12 September 1990, in which the four wartime Allies gave up their rights over Germany and its borders were declared final.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Reform_and_opening_up": "Reform and opening up is the name for the economic reforms begun in China under Deng Xiaoping in 1978, which moved the country away from rigid central planning towards markets and foreign trade.<sup class=\"fn\" data-fn=\"1\"></sup> Its first steps were a household responsibility system that replaced the rural people's communes, letting families keep produce above a state quota, and special economic zones such as Shenzhen opened to foreign investment from 1979.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> China's economy grew rapidly in the decades that followed and extreme poverty fell sharply, while the gap between urban and rural incomes and the damage to the environment both grew.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Reform_and_opening_up": "Reform and opening up is the name for the economic reforms begun in China under Deng Xiaoping in 1978, which moved the country away from rigid central planning towards markets and foreign trade.<sup class=\"fn\" data-fn=\"1\"></sup> Its first steps were a household responsibility system that replaced the rural people's communes, letting families keep produce above a state quota, and special economic zones such as Shenzhen opened to foreign investment from 1979.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> China's economy grew rapidly in the decades that followed and extreme poverty fell sharply, while the gap between urban and rural incomes and the damage to the environment both grew.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Yugoslav_Wars": "The Yugoslav Wars were a series of conflicts fought between 1991 and 2001 as the Socialist Federal Republic of Yugoslavia broke apart, beginning when Slovenia and Croatia declared independence on 25 June 1991.<sup class=\"fn\" data-fn=\"1\"></sup> The deadliest was the war in Bosnia and Herzegovina from 1992 to 1995, which drove about two million people from their homes and included the killing of more than 8,000 Bosnian Muslim men and boys at Srebrenica in July 1995.<sup class=\"fn\" data-fn=\"1\"></sup> The fighting ended in Bosnia with the Dayton agreement, signed in Paris on 14 December 1995, and in Kosovo after a NATO air campaign of 78 days in 1999.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Rwandan_genocide": "The Rwandan genocide was the mass killing of Rwanda’s Tutsi minority, and of Hutu who opposed it, carried out by soldiers, militia and ordinary citizens mobilised by Hutu extremists between April and July 1994.<sup class=\"fn\" data-fn=\"1\"></sup> It began within hours of the shooting down of President Juvénal Habyarimana’s plane over Kigali on 6 April 1994 and ended when the Rwandan Patriotic Front took control of the country.<sup class=\"fn\" data-fn=\"1\"></sup> Estimates of the dead run from at least half a million, the count of Human Rights Watch, to about a million, and the UN tribunal for Rwanda declared in 2006 that the genocide against the Tutsi was a fact of common knowledge.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Globalization": "Globalisation is the growing integration of the world’s economies through the movement of goods, services and capital across borders, and in a wider sense of people, technology, knowledge and ideas.<sup class=\"fn\" data-fn=\"1\"></sup> The word came into common use in the 1980s, as new technology made trade and payments faster, though economic historians trace a first wave of integration to the 19th century and a second to the decades after about 1960.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It remains politically contested, with supporters crediting it with faster growth and lower poverty and critics pointing to unequal gains and a backlash led by nationalist and populist movements.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Internet": "The Internet is the worldwide network of computer networks that exchange data under a shared set of rules, the TCP/IP protocols, which let machines on networks of any design communicate with one another.<sup class=\"fn\" data-fn=\"1\"></sup> It grew from the ARPANET, a packet-switching network funded by the United States Department of Defense, whose first message was sent on 29 October 1969 and which switched to TCP/IP on 1 January 1983.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> By 2024 about 5.5 billion people, some 68 per cent of the world’s population, were using it, though only about a quarter of the people of low-income countries were online.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"September_11_attacks": "The September 11 attacks were four coordinated suicide hijackings of American airliners carried out on 11 September 2001 by 19 members of the Islamist network al-Qaeda.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Two planes destroyed the towers of the World Trade Center in New York, a third struck the Pentagon outside Washington, and the fourth crashed in Pennsylvania after its passengers fought back.<sup class=\"fn\" data-fn=\"2\"></sup> The attacks killed nearly 3,000 people from 90 nations, the largest loss of life from a hostile attack on American soil, and led NATO to invoke its mutual-defence clause for the first time in its history.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7596,7 +7601,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Vietnam_War": "1955–1975",
 "Prague_Spring": "1968",
 "Mahatma_Gandhi": "1869–1948",
-"Indonesian_National_Revolution": "1945–1949"
+"Indonesian_National_Revolution": "1945–1949",
+"Yugoslav_Wars": "1991–2001",
+"Rwandan_genocide": "1994",
+"Internet": "1969–present",
+"September_11_attacks": "11 September 2001"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10397,7 +10406,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Decolonization": ["Decolonisation"],
 "Mahatma_Gandhi": ["Mohandas Gandhi","Mohandas Karamchand Gandhi"],
 "1989_Tiananmen_Square_protests_and_massacre": ["Tiananmen Square protests"],
-"Reform_and_opening_up": ["Chinese economic reform"]
+"Reform_and_opening_up": ["Chinese economic reform"],
+"Globalization": ["Globalisation","globalisation"],
+"September_11_attacks": ["9/11","September 11 attacks"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15368,7 +15379,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "1989_Tiananmen_Square_protests_and_massacre": ["event","history","politics","china"],
 "Dissolution_of_the_Soviet_Union": ["event","history","politics","russia"],
 "German_reunification": ["event","history","politics","germany"],
-"Reform_and_opening_up": ["event","history","economics","china"]
+"Reform_and_opening_up": ["event","history","economics","china"],
+"Yugoslav_Wars": ["war","history","warfare","yugoslavia","balkans"],
+"Rwandan_genocide": ["event","history","genocide","africa","rwanda"],
+"Globalization": ["concept","economics","history","trade"],
+"Internet": ["technology","history","science","communications"],
+"September_11_attacks": ["event","history","terrorism","united states"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
