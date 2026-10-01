@@ -515,6 +515,19 @@ Pumice and Caldera already have keys, and `Minoan eruption` is an alias.
 | 2 | Kastri (Kythera) · Ahmose I | Kastri must be keyed with its island, since `Kastri` is also the Early Cycladic culture of Syros; Ahmose is dated by Bruins and van der Plicht against the eruption |
 | 1 | Kahun · Harageh · Taweret · Caphtor · Rekhmire · Aniakchak · Ayios Stephanos · Tell el-Dab'a · Mari · Trianda · Siteia · Tylissos · Eshnunna · Vapheio cup · Minoan genius · Carians · West House (Akrotiri) · Gurob · Sklavokampos · Myrtos Pyrgos · house tomb · tsunami | `Minoan genius` is the Cretan form of Taweret, so the two want one key and an alias; `house tomb` would also serve `gr-038` Mochlos |
 
+**Added by the refinement's B6 (2026-10-01)**, counted the same way after `gr-051`–`gr-055` were
+rewritten. Kydonia, Chania, Pylos, Praisos, Dreros, Hierapytna, Cronus, Dicte and Mount Ida already have
+keys or aliases. **Diodorus has no entry at all** although 134 Greece cards name him in their prose, which
+puts him second only to the *Constitution of the Athenians*.
+
+| cards | term | note |
+|---|---|---|
+| 134 | Diodorus Siculus | key the full name with `Diodorus` as an alias |
+| 6 | collector | the Linear B official over a flock; an ordinary English word, so key it narrowly, e.g. `Collector_(Linear_B)` |
+| 3 | Karphi | the hilltop refuge above the Lasithi plain |
+| 2 | Staphylus · Postpalatial · Kavousi · Curetes | `Curetes` and `Kouretes` want one key and an alias; `Postpalatial` was already listed at B1 |
+| 1 | Warrior Graves · Building P · Vronda · Nida plateau · Cydonians · Dictaean Zeus · ship shed · Amaltheia · Room of the Chariot Tablets · Porphyry | `Dictaean Zeus` and B4's `Diktaean Zeus` are one god, so one key with the other spelling as an alias |
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
