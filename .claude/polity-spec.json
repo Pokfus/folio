@@ -539,9 +539,27 @@
           ]
         ]
       }
+    },
+    "yangshao": {
+      "label": "Yangshao culture",
+      "sites": "yangshao"
+    },
+    "longshan": {
+      "label": "Longshan culture",
+      "sites": "longshan"
     }
   },
   "links": {
+    "cnh-045": {
+      "area": [
+        "yangshao"
+      ]
+    },
+    "cnh-050": {
+      "area": [
+        "longshan"
+      ]
+    },
     "cnh-103": {
       "l": [
         "shang"
@@ -883,6 +901,16 @@
     "us-072": {
       "v": [
         "usa"
+      ]
+    },
+    "wh-147": {
+      "area": [
+        "yangshao"
+      ]
+    },
+    "wh-148": {
+      "area": [
+        "longshan"
       ]
     },
     "wh-172": {
