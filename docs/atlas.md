@@ -810,6 +810,84 @@ year is reachable they mark nothing while suggesting the pin will jump to them. 
 declared starts, each with its own ticks — a rail from 1900 wants decades where one from 4000 BCE wants
 millennia — and it is closure state rather than a setting, like the glossary record's sort.
 
+**OCT 2026: THE WORLD ATLAS TAB IS GONE, AND THE SECOND TAB IS THE FULL ATLAS** (`atlasTab` "mine" |
+"full", `_atlasFull`, `atlasRegisterAll(full)`, `_atlasFullCache`; on request: "Remove the current World
+Atlas from the website; we'll only use the personal atlas from now on. The toggle … should instead toggle
+between Personal and Full, with Full including all locations from all atlas boxes on all cards, including
+the ones the user hasn't unlocked yet"). Five decisions.
+**THE FULL TAB IS THE SAME GLOBE OVER A DIFFERENT REGISTER.** `atlasRegisterAll(true)` runs the one
+`atlasRegister` over every card in `CARDS` instead of over `S.cards`, so a place on the full globe is drawn
+exactly as it will be on the reader's own once earned, and nothing else in the draw path knows which tab it
+is on: `atlasUnlocks()` reads the module-level `_atlasFull`, which `PAGES.map` sets on every render. Its
+cache is keyed on the corpus size, not the progress count, and is busted by `uCacheBust` beside the
+reader's. **`atlasPlaceIsNew` passes `false` explicitly** — it asks about the READER's register, and over
+the full one nothing would ever be new. The empty-register note is not drawn on the full tab.
+**THE WORLD ATLAS'S DRAW PATH STAYS IN `PAGES.map`**, unreachable from any tab: the Find-it game is built
+on it (`GAME` still sets `MINE` false). Deleting it would be deleting the game. `#map/<year>/<slug>` and a
+glossary term's map marker already landed on the personal tab before this change and still do.
+**WHERE MARKS CROWD, THE EASIER CARD'S MARK SURVIVES** (`mineDiff`, in `mineDotsShown` and
+`mineWaterShown`; on request: "the cards difficulty should be guiding. Easier cards locations should be
+shown when zoomed out, and more difficult ones appear when zooming in"). The thinning and the label
+placement were already ranked passes in which first place wins; the rank now leads with
+`cardDifficultyRank` — the rating the card's own stars show, community once it has `CARD_STATS_MIN`
+answers, editorial before — then the capital/province/place rank, then the title. An unrated card ranks
+last. Cached per page by card id, since it runs every frame over every mark and the full tab has thousands.
+**A HISTORICAL STATE IS DRAWN AS A COUNTRY; A PEOPLE OR CULTURE IS A BLUE WASH** (`MINE_STATE`, the
+`state` flag on an `area` mark, `drawMineAreas`; on request: "Historical states which currently appear as
+green areas should instead be displayed the same way as modern countries (except when in a war).
+Historical areas which are not states (such as peoples or cultures) should be blue instead of green").
+The card's first kind tag decides: `state`, `dynasty`, `empire` → the earned `land` shade and a solid
+`border` edge, the selection gold on a click, exactly as `mineShapes` paints an unlocked country;
+`culture`, `people`, `civilisation` → the dashed wash, now in an INDIGO (`mineAreaFill` / `mineAreaLine`),
+deliberately not the rivers' or seas' blue. "Except when in a war" needs no rule: `drawMineWar` runs after
+`drawMineAreas`, so a state that is a side that year is shaded in the war's colours. Green now means only a
+war's victors on this globe.
+**THE POPUP'S TAP GUARD COVERS PICTURES, FOOTNOTES AND LINKS TOO** (on request: "sometimes the split
+second the popup opens, my finger already touches a gloss term or image in that popup and opens it").
+`CP_GLOSS_ARM_MS` guarded `.ttip` alone; the capture listener now also swallows clicks on `IMG_OPEN_SEL`,
+`sup.fn` and links in the prose during the window, and `showMinePopup` re-arms it when the card's lazy
+heavy half lands — which can be after the panel opened, so the window started before there was anything
+under the finger. The panel's own chrome (close, chevron, section heads) is never held.
+**THE BORDERS THEMSELVES ARE BEING AUDITED** — every state, people and war the globe draws, the sources
+that could replace each authored polygon with dated, changing borders, and the order to do them in:
+📖 `docs/atlas-borders-audit.md`.
+
+**OCT 2026, SECOND ROUND: ONE PLACE PER PLACE, NO GROUPING WARS, AND BORDERS THAT MOVE.**
+**A PLACE SHARED BY SEVERAL CARDS IS ONE MARK** (`atlasStackKey`, `atlasStackOrder`, the stacking in
+`atlasUnlocks`; on request: "When several cards feature the same atlas location, create only a single
+location … swiping right/left should allow the user to browse through all the cards that refer to that
+location"). Measured first: 504 places on two or more cards, 1,345 cards — Rome on 65, the Roman Forum on
+34. THE REGISTER STAYS PER CARD and the VIEW stacks it, keyed on what the reader sees (a place's name, a
+capital's point, a country's name, a culture's name, a war's title and side), so a collection toggle
+filters cards before they stack and `atlasPlaceIsNew` still asks per card. The stack's first card is the
+EASIEST (`cardDifficultyRank`, then the card's own year, then its id): it ranks the mark (`mineDiff`), it
+is where the mark is drawn, and it is the card the popup opens on. `names` now keeps EVERY card naming a
+country (`ids`, `colls`), where it kept the first. **THE POPUP BROWSES THE STACK** (`mineStack`,
+`mineShowCard`, `mineStep`, `#cpStack`): "2 of 9" with an arrow either side, the left/right keys, and a
+sideways swipe on `.cp-cols` (48px, clearly more sideways than down; `touch-action:pan-y` lets a phone hand
+the drag over; the click a swipe ends on is swallowed). It wraps, and every step re-arms the tap guard.
+Guarded by `test-personal-atlas.js` section 11.
+**A WAR THAT GROUPS OTHER WAR CARDS IS NOT ON THE ATLAS** (`war.group: true`, allowed by `card-war.js`,
+read by `cardWar` and skipped in `atlasRegister`; on request: "do not include 'Samnite Wars', but do
+include 'First Samnite War' …"). Eight cards: the Messenian, Samnite and Punic Wars, the Roman conquests
+of Greece and Spain, the Peloponnesian War (two cards) and the Second World War. Their own card windows
+still shade both sides.
+**A STATE OR A WAR SIDE MAY HAVE DATED BORDERS** (`DATA_BUNDLES.polities`, `polityLink`, `polityStep`,
+`polityRings`, `mineAreaOf`; batch 0 of 📖 `docs/atlas-borders-audit.md`, which is where the rules are —
+READ ITS §5 BEFORE TOUCHING ANY OF THEM). A card linked in `POLITY_LINKS` draws its extent or its side from
+the series step for the year on the rail, so the border moves with the slider; anything unlinked or
+unloaded falls back to the authored polygon. Credit for Cliopatria (CC BY 4.0) is in the help card.
+**THE SECOND WORLD WAR IS DRAWN AS ITS FRONTS, ONE MAP A YEAR** (`DATA_BUNDLES.fronts`, `frontsShown`,
+`frontKey`, `drawFronts`, `frontAt`; on request: "Add front line border maps for World War 2", then "we only
+need year by year border changes, not month by month"). Its card groups other wars, so it is not shaded as two
+sides; who held what is drawn instead, Axis red and Allied green, occupied fainter. `WW2_FRONTS.y` holds one
+map per year 1939–1945 and `frontKey` is simply the rail's year — no month control, no month in the
+cartouche (the Oct 2026 monthly version had both, and was replaced). 1939–42 is Europe at each December, from
+the PD Commons/ww2-atlas source; 1943–45 is Europe and the Pacific from the PD US Army battle-front atlas,
+read by `.claude/ww2-plates/` (`WW2_FRONTS.at` gives each map's date). The plate years' sets carry HOLES, so
+`drawFronts` fills even-odd, as `pointInRings` already tests. Guarded by `test-personal-atlas.js` section 12
+and `test-polities.js` section 4.
+
 ---
 
 ## Generating timeline eras — the section as it stood in CLAUDE.md (2026-09-12)

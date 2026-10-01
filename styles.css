@@ -4810,6 +4810,16 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    and `.af-src`. `showMinePopup` hides this row, and without the rule the Atlas's own "Through the ages"
    button stayed on a panel that is showing a card rather than a country. */
 .cp-tools[hidden]{display:none;}
+/* SEVERAL CARDS, ONE PLACE (Oct 2026, on request): the personal atlas's popup browses every card about a
+   place — "2 of 9", an arrow either side, and a swipe on the body. `pan-y` lets a phone scroll the card
+   and still hand a SIDEWAYS drag to the page, which is what the swipe is read from (see `mineStep`). */
+.cp-stack{display:flex; align-items:center; justify-content:center; gap:10px; margin:0 0 8px; padding:4px 0; border-bottom:1px solid var(--rule);}
+.cp-stack[hidden]{display:none;}
+.cp-stk-n{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); min-width:9em; text-align:center;}
+.cp-stk-btn{display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; appearance:none; border:1px solid var(--rule); background:none; border-radius:99px; cursor:pointer; color:var(--ink-soft); padding:0;}
+.cp-stk-btn svg{width:14px; height:14px;}
+.cp-stk-btn:hover, .cp-stk-btn:focus-visible{border-color:var(--indigo); color:var(--indigo);}
+.cp-mine .cp-cols{touch-action:pan-y;}
 /* The era cartouche is centred at the top of the stage and so is the tab bar — on the personal atlas the
    two were printed over each other. The bar is a control and the cartouche a caption, so the caption is
    the one that moves down. */
