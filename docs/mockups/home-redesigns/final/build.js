@@ -73,7 +73,7 @@ const CSS = `
 .week .stats .g b{color:var(--good);}
 .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 @media (max-width:1024px){ .list{grid-template-columns:1fr 1fr;} }
-@media (max-width:640px){ .phone-head .brand small{display:none;}
+@media (max-width:640px){ .phone-head .brand small{display:none;} .foot{justify-content:center; text-align:center;}
   /* the phone's ribbon: two rows, the current week only */
   .ribbon{display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:10px 10px; padding:12px 16px;}
   .ribbon > b{grid-column:1; grid-row:1;} .ribbon > .t{grid-column:2; grid-row:1;} .ribbon .r{grid-column:3; grid-row:1; justify-self:end; margin:0;}
