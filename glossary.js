@@ -4932,7 +4932,12 @@ window.GLOSSARY = {
 "Arab_Spring": "The Arab Spring was a wave of popular uprisings against authoritarian rulers that began in Tunisia in 2010 and 2011 and spread across North Africa and the Middle East.<sup class=\"fn\" data-fn=\"1\"></sup> It forced out the long-ruling presidents of Tunisia in January 2011 and of Egypt the following month, while the governments of Bahrain and Syria answered protest with mass arrests and force.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its results were mixed: Tunisia's transition was recognised with the 2015 Nobel Peace Prize, but in most other countries the struggle for democracy stalled or suffered setbacks, and Syria's uprising became a long civil war.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Climate_change": "Climate change, in its modern sense, is the long-term warming of the Earth's climate caused principally by human emissions of greenhouse gases such as carbon dioxide.<sup class=\"fn\" data-fn=\"1\"></sup> The Intergovernmental Panel on Climate Change found it unequivocal that human influence has warmed the atmosphere, ocean and land, with global surface temperature in 2011–2020 about 1.09 °C (1.96 °F) above that of 1850–1900.<sup class=\"fn\" data-fn=\"2\"></sup> Governments have responded through a UN convention of 1992, the Kyoto Protocol of 1997 and the Paris Agreement of 2015, which aims to hold warming well below 2 °C (3.6 °F).<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "COVID-19_pandemic": "The COVID-19 pandemic was the global outbreak of the disease caused by the coronavirus SARS-CoV-2, first detected in a cluster of pneumonia cases in Wuhan, China, at the end of 2019 and called a pandemic by the World Health Organization on 11 March 2020.<sup class=\"fn\" data-fn=\"1\"></sup> WHO estimated about 14.9 million excess deaths in 2020 and 2021, within a range of 13.3 to 16.6 million, far more than the deaths reported in those years.<sup class=\"fn\" data-fn=\"2\"></sup> WHO ended the global health emergency on 5 May 2023, judging the disease an established and ongoing health issue.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Anthropocene": "The Anthropocene is a proposed name for the present interval of Earth's history, in which many conditions and processes on the planet have been profoundly altered by human activity; the term was coined in 2000 by Paul Crutzen and Eugene Stoermer.<sup class=\"fn\" data-fn=\"1\"></sup> A working group proposed it as a formal epoch beginning in 1952, marked by plutonium from nuclear weapons tests, but in March 2024 the International Union of Geological Sciences upheld a vote that rejected the proposal.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The term remains widely used across the sciences, social sciences and politics as a descriptor of human impact on the Earth system.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Anthropocene": "The Anthropocene is a proposed name for the present interval of Earth's history, in which many conditions and processes on the planet have been profoundly altered by human activity; the term was coined in 2000 by Paul Crutzen and Eugene Stoermer.<sup class=\"fn\" data-fn=\"1\"></sup> A working group proposed it as a formal epoch beginning in 1952, marked by plutonium from nuclear weapons tests, but in March 2024 the International Union of Geological Sciences upheld a vote that rejected the proposal.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The term remains widely used across the sciences, social sciences and politics as a descriptor of human impact on the Earth system.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Détente": "Détente, from the French for ‘relaxation’, is a term long used in diplomacy for an easing of tension between rival states, and it came to describe above all the relations between the United States and the Soviet Union from the late 1960s to the late 1970s.<sup class=\"fn\" data-fn=\"1\"></sup> Its main results were agreements limiting nuclear arms, beginning with the first Strategic Arms Limitation Talks in 1972, and the Helsinki Final Act of 1975, which recognised Europe’s post-war borders and promoted human rights.<sup class=\"fn\" data-fn=\"2\"></sup> The two powers understood it differently, and by the Soviet invasion of Afghanistan in 1979 cooperation had given way to renewed competition.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Great_Leap_Forward": "The Great Leap Forward was the campaign launched by Mao Zedong and the Chinese Communist Party in 1958 to industrialise China within a few years through mass mobilisation, rural people’s communes and a drive to raise steel output.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Inflated harvest reports, heavy state procurement of grain and the end of private farming turned a fall in output into the largest famine in history, concentrated in the years 1959 to 1961.<sup class=\"fn\" data-fn=\"2\"></sup> Estimates of the excess deaths run from about 16.5 to 30 million in demographic studies to 45 million in archival research, while the Party’s own verdict of 1981 speaks only of serious losses.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Cultural_Revolution": "The Cultural Revolution, formally the Great Proletarian Cultural Revolution, was the political campaign initiated by Mao Zedong in China, which the Communist Party dates from May 1966 to October 1976.<sup class=\"fn\" data-fn=\"1\"></sup> It turned students organised as Red Guards against supposed bourgeois enemies inside the Party and the state, paralysed Party organisations and gave way to a harsh regime of military control.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Estimates drawn from county and city annals put the deaths at 1.1 to 1.6 million, most of them at the hands of the authorities, and the Party’s verdict of 1981 called it the most severe setback since 1949.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Soviet–Afghan_War": "The Soviet–Afghan War was the conflict of December 1979 to February 1989 in which Soviet forces fought in Afghanistan to keep a friendly communist government in power against an Islamic insurgency.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It began when Soviet troops seized Kabul, killed the Afghan leader Hafizullah Amin and installed Babrak Karmal, and the guerrillas who called themselves mujahideen fought on for a decade with American aid sent through Pakistan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The last Soviet troops left on 15 February 1989, and an American study written in 1990 estimated that the war had killed about a million Afghans.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Fall_of_the_Berlin_Wall": "The fall of the Berlin Wall was the opening of the border between East and West Berlin on the night of 9 November 1989, when crowds pressed through the crossings after an East German spokesman announced new travel rules that he said applied immediately.<sup class=\"fn\" data-fn=\"1\"></sup> It followed months of flight through Hungary and mass peaceful demonstrations in East Germany, and it was followed by the overthrow of communist rule throughout Eastern Europe.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Less than a year later the Two-Plus-Four Treaty settled united Germany’s borders, and the two German states were united on 3 October 1990.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7619,7 +7624,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Suez_Crisis": "1956–1957",
 "Algerian_War": "1954–1962",
 "Year_of_Africa": "1960",
-"Kwame_Nkrumah": "1909–1972"
+"Kwame_Nkrumah": "1909–1972",
+"Détente": "1969–1979",
+"Great_Leap_Forward": "1958–1962",
+"Cultural_Revolution": "1966–1976",
+"Soviet–Afghan_War": "1979–1989",
+"Fall_of_the_Berlin_Wall": "1989"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10426,7 +10436,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "War_on_terror": ["War on Terror","Global War on Terrorism"],
 "Arab_Spring": ["Arab Uprisings"],
 "Climate_change": ["Global warming"],
-"COVID-19_pandemic": ["COVID-19","Coronavirus pandemic"]
+"COVID-19_pandemic": ["COVID-19","Coronavirus pandemic"],
+"Soviet–Afghan_War": ["Soviet–Afghan War","Soviet invasion of Afghanistan"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15412,7 +15423,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Arab_Spring": ["event","history","politics","revolution","middle east"],
 "Climate_change": ["concept","science","environment","politics","history"],
 "COVID-19_pandemic": ["event","history","medicine","science"],
-"Anthropocene": ["concept","science","geology","environment"]
+"Anthropocene": ["concept","science","geology","environment"],
+"Détente": ["concept","history","politics","diplomacy","cold war"],
+"Great_Leap_Forward": ["event","history","economics","politics","china"],
+"Cultural_Revolution": ["event","history","politics","communism","china"],
+"Soviet–Afghan_War": ["war","history","warfare","cold war","afghanistan"],
+"Fall_of_the_Berlin_Wall": ["event","history","politics","cold war","germany"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
