@@ -57,6 +57,7 @@ window.CHANGELOG = [
       "<b>Sixty states, peoples and sides in wars</b>, from Sumer to the Winter War, now have Atlas borders that change year by year.",
       "War cards that group other wars, such as the Samnite Wars, are no longer drawn on the Atlas; the wars they group still are.",
       "The Atlas now shows <b>the Second World War's fronts in Europe month by month</b>, from August 1939 to December 1942.",
+      "<b>Countries' borders on the Atlas now change year by year</b> between its historical maps, from the First World War's occupations to a divided Germany.",
     ]
   },
   {

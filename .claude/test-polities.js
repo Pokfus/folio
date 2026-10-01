@@ -103,5 +103,34 @@ console.log("\n4) the Second World War's fronts (fronts.js)");
   check("its header names the public-domain source", /San Jose/.test(fsrc) && /public\s+domain/i.test(fsrc));
 }
 
+console.log("\n5) a country between two era maps (country-series.js, batch 7)");
+{
+  const csrc = fs.readFileSync(path.join(ROOT, "country-series.js"), "utf8"), cw = {};
+  new Function("window", csrc)(cw);   // eslint-disable-line no-new-func
+  const C = cw.COUNTRY_STEPS || {}, names = Object.keys(C);
+  const tw = {}; new Function("window", fs.readFileSync(path.join(ROOT, "timeline.js"), "utf8"))(tw);   // eslint-disable-line no-new-func
+  const eraNames = new Set();
+  (tw.TIMELINE || []).forEach((e) => { (e.geo || []).forEach((t) => t.n && eraNames.add(String(t.n).toLowerCase())); Object.values(e.groups || {}).forEach((g) => eraNames.add(String(g).toLowerCase())); });
+  const ww = {}; new Function("window", fs.readFileSync(path.join(ROOT, "world.js"), "utf8"))(ww);   // eslint-disable-line no-new-func
+  (ww.WORLD_GEO || []).forEach((g) => eraNames.add(String(g.n).toLowerCase()));
+  check("the bundle carries countries", names.length > 0, names.length + " countries");
+  check("…each a name some era map carries (a step resolves only through the era maps)", names.every((n) => eraNames.has(n)), names.filter((n) => !eraNames.has(n)).join(", "));
+  let ok = true, bad = "";
+  for (const n of names) {
+    const st = C[n];
+    for (let i = 0; i < st.length; i++) {
+      const s = st[i];
+      if (!(s[0] <= s[1]) || (i && s[0] <= st[i - 1][1])) { ok = false; bad = n + " " + s[0]; }
+      if (s[2] !== null && !(Array.isArray(s[2]) && s[2].length && s[2].every((r) => r.length >= 4 && r.every((q) => isFinite(q[0]) && isFinite(q[1]))) && Array.isArray(s[3]))) { ok = false; bad = n + " " + s[0] + " rings"; }
+    }
+  }
+  check("…every step sorted, not overlapping, with valid rings and interior lines (or null for an ended state)", ok, bad);
+  // the change the batch exists for: the 1960 map draws a UNIFIED Germany, and the bundle replaces it with West Germany until 1990
+  const de = C["germany"] || [];
+  check("Germany between the 1960 and 1994 maps is drawn from its own years (West Germany), not the unified 1960 shape", de.some((s) => s[0] <= 1975 && s[1] >= 1975 && s[2]), JSON.stringify(de.map((s) => s[0] + "-" + s[1])));
+  check("…and the USSR is gone in 1992, not held over to the 1994 map", (C["ussr"] || []).some((s) => s[0] <= 1992 && s[1] >= 1992 && s[2] === null));
+  check("its header credits Cliopatria under CC BY 4.0", /Cliopatria/.test(csrc) && /creativecommons\.org\/licenses\/by\/4\.0/.test(csrc));
+}
+
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
