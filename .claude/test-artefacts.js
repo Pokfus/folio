@@ -209,9 +209,17 @@ function syntheticPool() {
     await page.waitForTimeout(600);
 
     const badgesBefore = await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem("folio_v1")).achievements || {}).length);
+    /* READ THE BALANCE AFTER BOOT rather than assuming the seeded 40: the boot backfill unlocks any badge
+       the seeded state already earns, and each pays a chest — owning every theme earns "Dressed for the
+       Occasion" (Sep 2026), so the sweep starts on 41. */
+    const chestsBefore = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).chests | 0);
     const seen = [], rarSeen = {};
     let exhausted = null;
     for (let i = 0; i < 34; i++) {
+      /* A collector's badge earned by the chest just opened is announced in the middle of the screen
+         since Sep 2026 (openAchPop), queued until that chest closed — keep its chest for later, which is
+         what leaves the balance this loop is counting down. */
+      if (await page.locator(".ach-pop").count()) { await page.locator('.ach-pop [data-act="later"]').click(); await page.waitForTimeout(80); }
       const openBtn = await page.locator("#arOpen").count();
       if (!openBtn) break;
       await page.locator("#arOpen").click();
@@ -243,7 +251,7 @@ function syntheticPool() {
        assumed — an assertion of 8 would fail the day another collector badge is added. */
     const badgesAfter = Object.keys(st.achievements || {}).length;
     check("…and the balance is what the badges earned along the way leave",
-      st.chests === 40 - 32 + (badgesAfter - badgesBefore),
+      st.chests === chestsBefore - 32 + (badgesAfter - badgesBefore),
       st.chests + " left, " + (badgesAfter - badgesBefore) + " badges earned");
     check("…and the inventory holds all 32", Object.keys(st.artefacts).length === 32);
   }
@@ -461,6 +469,9 @@ function syntheticPool() {
        overlays, so this is a stacking question and the failure is a click that appears to do nothing. */
     await page.locator(".ar-wdesc .ttip").first().click();
     await page.waitForTimeout(400);
+    /* The first term a reader ever opens earns a badge, and a badge opens its own popup in the middle of
+       the screen — put it away first, since what is asked here is the popup's place against the PLATE. */
+    if (await page.locator(".ach-pop").count()) { await page.locator('.ach-pop [data-act="later"]').click(); await page.waitForTimeout(250); }
     const gloss = await page.evaluate(() => {
       const w = document.querySelector(".gloss-win");
       if (!w) return { open: false };

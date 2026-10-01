@@ -127,6 +127,36 @@ async function installInk(page) {
   watch(page);
   await penDownOnACard(page, base);
   check("the pen is down over a study card", await page.evaluate(() => !!document.querySelector(".draw-canvas.on")));
+
+  /* ---------- 0. THE WRITING BAND (Sep 2026, on request) ----------
+     A study card opens an empty band under the question while the pen is down, and keeps it when the
+     answer is revealed. Every way it can break is silent: a dropped stylesheet rule leaves no band and
+     reads as a feature never built, a body class never cleared leaves nine centimetres of nothing on
+     every card for a reader who put the pen away, and a band written AFTER `.reveal` still measures as
+     "there" while sitting under the answer it was meant to be above. So all three are asserted, and the
+     last one by GEOMETRY rather than by looking for the element. */
+  const bandNow = () => page.evaluate(() => {
+    const c = document.querySelector(".study-card");
+    const s = c && c.querySelector(".scratch"), q = c && c.querySelector(".question"), r = c && c.querySelector(".reveal");
+    const box = (e) => (e ? Math.round(e.getBoundingClientRect().top) : null);
+    return { down: document.body.classList.contains("wb-down"), there: !!s,
+             h: s ? Math.round(s.getBoundingClientRect().height) : -1,
+             qTop: box(q), sTop: box(s), rTop: box(r) };
+  });
+  let wband = await bandNow();
+  check("the card opens a band to write on while the pen is down", wband.down && wband.there && wband.h > 40, JSON.stringify(wband));
+  check("...between the question and the answer box, not under either", wband.qTop < wband.sTop && wband.sTop < wband.rTop, JSON.stringify(wband));
+
+  // pick the pen up: the band goes with it, so a reader who never reaches for the marker sees the card
+  // they always saw. The size button is the pen, and pressing the selected one puts it back up.
+  await page.evaluate(() => { const b = document.querySelector(".wb-size.on"); if (b) b.click(); });
+  await page.waitForTimeout(300);
+  wband = await bandNow();
+  check("...and it goes when the pen does", !wband.down && wband.h === 0, JSON.stringify(wband));
+  await page.evaluate(() => { const b = document.querySelector(".wb-size"); if (b) b.click(); });
+  await page.waitForTimeout(300);
+  check("...and comes back with it", (await bandNow()).h > 40);
+
   await installInk(page);
 
   const rect = await page.evaluate(() => document.querySelector(".draw-canvas").getBoundingClientRect().toJSON());

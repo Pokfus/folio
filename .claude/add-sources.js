@@ -37,6 +37,7 @@ const GLOSS_TARGET = (() => { const m = /const GLOSS_SRC_TARGET = (\d+);/.exec(A
 // Every citation carries a link, so a reader can check the claim and follow it further — which also means
 // only publicly reachable scholarship is citable, and that a cited page number can always be verified.
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
+const { checkCitationLang } = require("./src-langs.js");
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 /* data.js keeps a card's abstract, sources, why, quote and image in data-extra/<prefix>.js and merges
@@ -56,6 +57,11 @@ function cleanSources(list, where) {
   if (list.length > SRC_MAX) die(where + " has " + list.length + " sources — at most " + SRC_MAX + ". More than that is a bibliography, not footnotes.");
   const unlinked = list.filter((s) => !SRC_URL.test(s));
   if (unlinked.length) die(where + ": every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none. Put the DOI or permalink last, as plain text; the site links it.");
+  /* A LANGUAGE MARKER MUST BE ONE app.js CAN DRAW (Sep 2026). A non-English citation ends in `[in
+     French]`, which the site lifts into a chip beside the access one; a typo there is not an error
+     anywhere, it is simply a chip that never appears, which nothing on the page can report. The list is
+     SLICED out of app.js so the two can never disagree about which languages exist. */
+  list.forEach((s) => { const bad = checkCitationLang(s); if (bad) die(where + ": a citation " + bad); });
   const out = [];
   list.forEach((s) => { const t = String(s).replace(/\s+/g, " ").trim(); if (t && out.indexOf(t) < 0) out.push(t); });
   return out;

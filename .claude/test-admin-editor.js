@@ -9,6 +9,21 @@ fs.readFile(f,(e,d)=>{if(e){r.writeHead(404);r.end();return;}r.writeHead(200,{"C
 (async()=>{await new Promise(r=>s.listen(5603,r));
 const b=await chromium.launch({...(process.env.FOLIO_CHROMIUM?{executablePath:process.env.FOLIO_CHROMIUM}:{})});
 const p=await b.newPage();const errs=[];
+/* THE ACCOUNT DATABASE IS HELD OPEN, AND THAT IS WHAT MAKES SECTION 4's LAST CHECK MEAN ANYTHING
+   (Sep 2026, after this suite went red on CI and green here).  "…and inventing no figures before the
+   database has answered" asserted that the People panel draws NO tiles, on the reasoning that a
+   signed-out editor may read nothing — and that reasoning is wrong: `user_decks`, `deck_installs`,
+   `deck_ratings`, `feedback` and `deck_reports` are all PUBLICLY readable, so a machine that can
+   reach Supabase gets real counts and seven tiles, which is the panel working exactly as designed.
+   It passed in the sandbox only because egress to supabase.co fails there — a test whose verdict is
+   a property of the network it happens to run on.  Holding `/rest/v1/**` open makes "before the
+   database has answered" a state the fixture actually CREATES, so the check now tests what its own
+   comment says, everywhere.  `dashLoadRemote`'s own DASH_WAIT is 12s and section 4 reads the panel
+   after 1.6s, so the request is genuinely still in flight.
+   It also takes the LIVE CONTENT OVERLAY out of the run, which rides the same path: a row in
+   `content_overrides` can add, edit or retire cards, so "counted from the real data" was comparing
+   two numbers that both moved whenever somebody edited the live site from a phone. */
+await p.route("**/rest/v1/**",()=>{/* never fulfilled, never aborted: the request is left in flight */});
 p.on("pageerror",e=>errs.push("pageerror: "+String(e).slice(0,200)));
 p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
 let fail=0;

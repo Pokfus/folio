@@ -71,6 +71,11 @@ const CARD = () => {
     ring: ((ov.querySelector(".tour-ring").getAttribute("d")) || "").length > 0,
     demo: !ov.querySelector(".tour-demo").hidden,
     nextLabel: next.textContent,
+    nextShown: !next.hidden,
+    html: c.querySelector(".tour-body").innerHTML,
+    curve: !!ov.querySelector(".tour-demo .msn-curve svg"),
+    // THE TARGET IS LEFT UNDARKENED (Sep 2026): with a target the overlay's own wash is off and the hole casts it
+    hole: !ov.querySelector(".tour-hole").hidden && getComputedStyle(ov).backgroundColor === "rgba(0, 0, 0, 0)",
     // the whole card, and the button that advances it, inside the viewport
     onScreen: r.top >= 0 && r.left >= 0 && r.bottom <= innerHeight + 1 && r.right <= innerWidth + 1,
     nextOnScreen: nr.top >= 0 && nr.bottom <= innerHeight + 1 && nr.left >= 0 && nr.right <= innerWidth + 1,
@@ -103,13 +108,15 @@ const CARD = () => {
         text: el.textContent.replace(/\s+/g, " ").trim(),
         // it is a card in the page, not a layer over it — that is the whole design decision
         pos: getComputedStyle(el).position,
-        first: banners && banners.firstElementChild === el,
+        // first — or directly under the signed-out notice, which leads the day's work for a guest (Sep 2026)
+        first: banners && (banners.firstElementChild === el ||
+          (banners.firstElementChild.classList.contains("guest-notice") && banners.firstElementChild.nextElementSibling === el)),
         // …and nothing is covering the page it sits on
         overlay: !!document.querySelector(".folio-tour, .page-help"),
       } : null;
     });
     check("a first-time reader is offered the walkthrough", !!(o && o.vis), o ? "" : "no .tour-offer");
-    check("...it says how long it takes", !!(o && /three-minute|3-minute/i.test(o.text)), o && o.text.slice(0, 60));
+    check("...it says how long it takes", !!(o && /few minutes|three-minute|3-minute/i.test(o.text)), o && o.text.slice(0, 60));
     check("...INLINE, never a modal over the first paint", !!(o && o.pos === "static" && !o.overlay), o && o.pos);
     check("...at the head of the day's work", !!(o && o.first));
     // the page's OWN first element is still the version line — the test-layout assertion this must not break
@@ -129,7 +136,7 @@ const CARD = () => {
   }
 
   /* ================= 2. the walk ================= */
-  console.log("\n2. The walk — ten steps, two navigations, nothing off screen");
+  console.log("\n2. The walk — from the offer to a real first card, nothing off screen");
   {
     const page = await browser.newPage({ viewport: DESKTOP });
     watch(page);
@@ -138,20 +145,46 @@ const CARD = () => {
     await page.click("#b-tour");
     await page.waitForTimeout(700);
 
+    /* THE WALK IS DONE, NOT DESCRIBED (Sep 2026, on request): six steps wait for the reader to DO the thing
+       rather than press Next, so the loop does it — adds the first collection, taps its row, reveals the
+       card, grades it Good, turns the badge over and opens the chest — exactly as a reader would. A step
+       that waits is recognised by its hidden Next and acted on by its title; an unknown one fails loudly. */
     const seen = [];
-    let offScreen = 0, nextOff = 0, routed = 0, illustrated = 0, pointed = 0;
+    let offScreen = 0, nextOff = 0, routed = 0, illustrated = 0, pointed = 0, holes = 0, studied = 0;
+    let achTile = false, chestItem = "";
     for (let i = 1; ; i++) {
       const st = await page.evaluate(CARD);
       if (!st) { check("the walkthrough is still open at step " + i, false); break; }
       seen.push(st);
       if (!st.onScreen) offScreen++;
-      if (!st.nextOnScreen) nextOff++;
+      if (st.nextShown && !st.nextOnScreen) nextOff++;
       if (st.hash === "#decks") routed++;
+      if (st.hash === "#study") studied++;
       if (st.demo) illustrated++;
+      if (st.hole) holes++;
       if (st.arrow && st.ring) pointed++;
       if (st.nextLabel === "Done") break;
-      await page.click(".tour-next");
-      await page.waitForTimeout(620);
+      if (st.nextShown && st.title !== "Your first badge") await page.click(".tour-next");
+      else if (/Pick a subject/.test(st.title)) await page.click(".collection-add");
+      else if (/Study your new deck/.test(st.title)) {
+        const xy = await page.evaluate(() => { const e = document.querySelector(".active-decks .active-deck[data-review]"); const r = e.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; });
+        await page.mouse.click(xy[0], xy[1]);   // a REAL pointer, so the blocks round the hole are tested too
+      }
+      else if (/Your first card/.test(st.title)) await page.click("#reveal-btn");
+      else if (/Grade yourself/.test(st.title)) await page.click("#gradebar .grade.good");
+      else if (/Your first badge/.test(st.title)) {
+        await page.click(".tour-next");
+        await page.waitForTimeout(500);
+        achTile = await page.evaluate(() => !!document.querySelector(".ach-pop .badge.ach-tile") && document.querySelector(".folio-tour").hidden);
+        await page.click(".ach-tile");
+        await page.waitForTimeout(1100);
+        await page.click("#chestBtn");
+        await page.waitForSelector("#chestReveal:not([hidden])", { timeout: 8000 });
+        chestItem = await page.evaluate(() => document.querySelector("#chestReveal .ar-chip").textContent);
+        await page.click("#chestActs .btn:last-child");
+      }
+      else { check("a waiting step this test knows how to answer", false, st.title); break; }
+      await page.waitForTimeout(900);
       if (i > 30) { check("the walkthrough terminates", false, "ran past 30 steps"); break; }
     }
     check("it runs a walkthrough of several minutes", seen.length >= 8 && seen.length <= 16, seen.length + " steps");
@@ -171,20 +204,35 @@ const CARD = () => {
        place. A tutorial naming a control by a label the page has not got is the exact failure this file
        exists to catch, so the expectation now comes from the same source the button does and drifts with
        it. If the id ever changes, the check below fails loudly rather than quietly matching nothing. */
-    const revealLabel = (/id="reveal-btn"[^>]*>([^<]+)</.exec(APP_SRC) || [])[1];
-    check("the reveal control's label was found in app.js", !!revealLabel, revealLabel || "(none)");
+    /* …AND THE LABEL IS NOT ALWAYS A LITERAL (Sep 2026). The button gained a second wording when
+       "Recall in full" shipped — the markup now reads `>" + (recallOn ? "Reveal and compare" : "Reveal
+       answer") + "<` — so the slice captured a fragment of JavaScript and this check failed against it,
+       which is the check being wrong rather than the tour. What is read off app.js is therefore every
+       LABEL the expression can produce, and the tour has to name one of them: a literal capture yields a
+       single candidate and behaves exactly as before. The glue between the strings is dropped by asking
+       for a candidate that carries a letter, no operator and no outer spaces — and an EMPTY candidate
+       list still fails loudly, which is the property the paragraph above promises. */
+    const revealRaw = (/id="reveal-btn"[^>]*>([^<]+)</.exec(APP_SRC) || [])[1] || "";
+    /* The capture OPENS AND CLOSES on the string-concatenation's own quote when the label is an
+       expression, so the quoted runs inside it are the JavaScript glue and not the words — strip that
+       outer pair first and the pairing lands on the labels. */
+    const inner = revealRaw.replace(/^"/, "").replace(/"$/, "");
+    const quoted = inner.match(/"[^"]*"/g);
+    const revealLabels = (quoted ? quoted.map((t) => t.slice(1, -1)) : [inner])
+      .filter((t) => /[A-Za-z]/.test(t) && t.trim() === t);
+    check("the reveal control's label was found in app.js", revealLabels.length > 0, revealLabels.join(" | ") || "(none)");
     check("...it teaches revealing a card, by the button's real name",
-      !!revealLabel && prose.toLowerCase().includes(revealLabel.toLowerCase()), JSON.stringify(revealLabel || ""));
-    const grades = (seen.find((s) => s.grades.length) || {}).grades || [];
-    check("...and grading it, all four buttons named",
-      grades.map((g) => g.split(":")[0]).join(",") === "Again,Hard,Good,Easy", grades.join(" "));
-    /* The four figures are read from the real scheduler (schedPreview), so the tour cannot teach a
-       schedule the site has not got — and the four must DIFFER, which is what the old grade bar got wrong
-       (three of them read "<10m") and what a hard-coded illustration would hide for ever. */
-    const iv = grades.map((g) => g.split(":")[1]);
-    check("...with intervals from the real scheduler, all four different",
-      iv.length === 4 && iv.every((v) => /^\d/.test(v)) && new Set(iv).size === 4, iv.join(" "));
-
+      revealLabels.some((l) => prose.toLowerCase().includes(l.toLowerCase())), JSON.stringify(revealLabels));
+    check("...and grading it, by the buttons' real names", /\bEasy\b/.test(prose) && /\bAgain\b/.test(prose));
+    check("THE READER STUDIES A REAL CARD: the walk reaches the study page", studied >= 3, studied + " step(s) on #study");
+    check("...the badge is announced as the account page's own tile, over a hidden tour", achTile);
+    check("...and the first chest holds an ARTEFACT, never a theme", !!chestItem && chestItem !== "Theme", chestItem || "(none)");
+    check("THE FORGETTING CURVE is drawn on the spaced-repetition step", seen.some((x) => /Why the cards come back/.test(x.title) && x.curve));
+    check("THE PILES ARE PAINTED in their own colours",
+      /tour-pile-new[^>]*>New</.test(prose.replace(/\s+/g, " ")) || seen.some((x) => /tour-pile-new">New/.test(x.html) && /tour-pile-learn">Learning/.test(x.html) && /tour-pile-rev">Review/.test(x.html)));
+    check("NO LONG DASHES in what the walkthrough says", !seen.some((x) => /—/.test(x.text)), (seen.find((x) => /—/.test(x.text)) || {}).title || "");
+    check("...and it no longer calls the Collections button the only way in", !/only route/i.test(prose));
+    check("A TARGET IS LEFT UNDARKENED on the steps that point at one", holes >= 5, holes + " step(s)");
     check("A STEP THAT NEEDS ANOTHER PAGE GOES THERE — the tour survives its own navigation", routed >= 1, routed + " step(s) on #decks");
     check("...and comes back", seen[seen.length - 1].hash !== "#decks", seen[seen.length - 1].hash || "(home)");
     /* THREE, not four, since Aug 2026 — and the step that stopped counting never drew a visible arrow.
@@ -212,7 +260,17 @@ const CARD = () => {
     }));
     check("Done closes it", done.gone);
     check("...and takes the offer with it", !done.offer);
-    check("...leaving the reader on the home page", done.hash === "" || done.hash === "#home", done.hash);
+    check("...leaving the reader where they are studying", done.hash === "#study", done.hash);
+    // …and the goodbye waits for their next visit to the home page (tourFinish / tourFarewellMaybe)
+    await page.evaluate(() => { location.hash = "home"; });
+    await page.waitForTimeout(900);
+    check("THE FIRST RETURN HOME CONGRATULATES THEM", await page.evaluate(() => !!document.querySelector(".tour-bye") && /tomorrow/i.test(document.querySelector(".tour-bye").textContent)));
+    await page.click(".tour-bye .ah-go");
+    await page.evaluate(() => { location.hash = "decks"; });
+    await page.waitForTimeout(500);
+    await page.evaluate(() => { location.hash = "home"; });
+    await page.waitForTimeout(900);
+    check("...once", await page.evaluate(() => !document.querySelector(".tour-bye")));
     await page.close();
   }
 
@@ -331,6 +389,9 @@ const CARD = () => {
     check("...on the body and on the screen, like the shelf's", !!(bk && bk.onBody && bk.onScreen));
     check("...the marker is here, where a page exists to draw on", !!(bk && /marker/i.test(bk.text)));
     check("...with the chapter bar and the facing original", !!(bk && /chapters/i.test(bk.text) && /original/i.test(bk.text)));
+    /* Opening a first book earns a badge, and since Sep 2026 a badge is a centred overlay rather than a toast
+       (openAchPop) — it sits over this card, so it is answered first, as a reader would. */
+    if (await page.evaluate(() => !!document.querySelector(".ach-pop"))) { await page.click('.ach-pop [data-act="later"]'); await page.waitForTimeout(300); }
     await page.click(".page-help .ah-go");
     await page.waitForTimeout(300);
     check("dismissing it clears the book", await page.evaluate(() => !document.querySelector(".page-help")));
@@ -443,7 +504,7 @@ const CARD = () => {
         return {
           fits: r.top >= 0 && r.bottom <= innerHeight + 1 && r.left >= 0 && r.right <= innerWidth + 1,
           docW: document.documentElement.scrollWidth,
-          last: document.querySelector(".tour-next").textContent === "Done",
+          last: document.querySelector(".tour-next").textContent === "Done" || document.querySelector(".tour-next").hidden,
           // DOCKED: the card's foot is at the foot of the screen, within the overlay's own padding
           docked: innerHeight - r.bottom <= 20,
           cardTop: r.top,

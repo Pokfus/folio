@@ -209,6 +209,27 @@ surface cannot answer for two subjects, and `buildGlossIndex` resolves a KEY bef
 alias added there would simply lose and sit in the table doing nothing. Give Persephone `Kore` only
 if the sculpture term is renamed in the same commit, which would mean renaming `gr-333`'s answer.
 
+**AND THE SAME TRAP CAUGHT CALLIMACHUS, WHERE THE ANSWER WAS THE OTHER WAY ROUND** (Sep 2026,
+writing `gr-807`). The corpus holds two men of that name: the poet, and the Athenian polemarch of
+`gr-405`, whose term is already keyed `Callimachus_(polemarch)`. Measured over the shipped
+abstracts before this batch, the bare surface *Callimachus* occurred nine times and **five of them
+were the polemarch** (`wh-320`, `gr-403`, `gr-404`, `gr-405`, `gr-515`) against four the poet. So
+the poet is keyed **`Callimachus_(poet)`** even though the bare `Callimachus` IS his Wikipedia slug:
+a parenthetical key claims no bare name (`bareTaken` in `buildGlossIndex`), so neither man claims
+it, nothing already shipped was repointed, and the poet is reached through the alias *Callimachus of
+Cyrene*. It is `Life_(biology)`'s decision in a second subject, and it is deliberately NOT
+`Cell_(biology)`'s: there the dominant sense was worth buying and the wrong links were a handful of
+common nouns, where here a wrong link sends a reader reading about Marathon to a Cyrenean poet.
+**Re-measure before claiming the bare name** — the Alexandria deck will make the poet dominant, and
+the trade then becomes five hand-written `data-k` links against one alias.
+
+**`Pharos` IS NOT CLAIMED EITHER, AND FOR A CLEANER REASON.** `gr-804`'s term is keyed
+`Lighthouse_of_Alexandria` with the aliases *Pharos of Alexandria* and *Pharos lighthouse*. Of the
+five shipped abstracts carrying the bare word, **three are Pharos in Illyria** — Demetrius of
+Pharos, in `rm-237`, `rm-238` and `rm-239` — which is the island of Hvar and not a lighthouse. The
+card's own answer term is therefore *Pharos of Alexandria* rather than *Pharos*, so the answer and
+the alias are the same string.
+
 ---
 
 # The list
@@ -1114,14 +1135,21 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-811  Theocritus
     gr-812  Bucolic poetry
     gr-813  Hellenistic epigram
-    gr-814  Alexandrian scholarship
+    gr-814  Pinakes  — retitled from "Alexandrian scholarship" when the card was written:
+             Zenodotus correcting Homer is already carded, and Aristarchus is the next line,
+             so the general subject was spread over three cards with no term of its own;
+             Callimachus's catalogue is the word a reader will meet again, and Athenaeus
+             quotes two of its entries in full
     gr-815  Aristarchus of Samothrace
     gr-816  The Septuagint
     gr-817  Euclid
     gr-818  Euclid's Elements
     gr-819  Archimedes
     gr-820  Archimedes' principle
-    gr-821  Archimedes at the siege of Syracuse
+    gr-821  Claw of Archimedes  — retitled from "Archimedes at the siege of Syracuse" when the card
+             was written: the siege itself is already carded in Ancient Rome as rm-222, with the
+             engines in it, so the line had no term of its own left to teach; the iron hand that
+             Polybius and Plutarch both describe is the thing a reader will meet again
     gr-822  Apollonius of Perga
     gr-823  Conic sections
     gr-824  Eratosthenes
@@ -1134,149 +1162,503 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-831  Philo of Byzantium
     gr-832  Herophilus
     gr-833  Erasistratus
-    gr-834  Alexandrian anatomy
+    gr-834  Alexandrian anatomy  — answered by "human dissection" when the card was written:
+             the two anatomists are already gr-832 and gr-833, so the line's own term is the
+             PRACTICE they were licensed to carry out, which is what a reader meets again and
+             what Celsus argues about at length
     gr-835  The Antikythera mechanism
-    gr-836  Hellenistic geography
+    gr-836  Hellenistic geography  — answered by "oikoumene" when the card was written:
+             Eratosthenes and the measurement of the earth are already gr-824 and gr-825, and the
+             thing the period's geography actually bequeathed is the inhabited world itself, as a
+             shape with stated dimensions and a grid across it
     gr-837  Pytheas of Massalia
     gr-838  Stoicism
     gr-839  Zeno of Citium
     gr-840  Chrysippus
     gr-841  Epicureanism
     gr-842  Epicurus
-    gr-843  The Garden
-    gr-844  Pyrrho and scepticism
+    gr-843  The Garden  — answered by "Garden of Epicurus" when the card was written: an
+             answer term never carries an article, and a bare "Garden" is an ordinary English
+             word that could not be a glossary key
+    gr-844  Pyrrho and scepticism  — answered by "Pyrrhonism" when the card was written: the
+             line names a man and a doctrine and one card can teach one term, and the tradition
+             is the name a reader meets again in Sextus Empiricus and in modern philosophy;
+             "Pyrrho" rides as an alias of it
     gr-845  Hellenistic sculpture
 
 ### Greece under Rome — `gr-under-rome`
 
-    gr-846  Pyrrhus of Epirus
+    gr-846  Pyrrhus of Epirus  — written as a DELIBERATE PAIR with rm-164, which carries the
+             same answer term: a line named after a man cannot be answered by anything else, so
+             the glossary term is REUSED rather than rewritten and the two cards are written from
+             opposite sides — Rome's on the Italian campaign, this one on Epirus, the Molossian
+             kingship, the two Macedonian reigns and the death at Argos
     gr-847  The Pyrrhic War
-    gr-848  Rome and the Greek East
-    gr-849  The Illyrian Wars
-    gr-850  The First Macedonian War
-    gr-851  Philip V of Macedon
-    gr-852  The Second Macedonian War
-    gr-853  Battle of Cynoscephalae
-    gr-854  Flamininus
-    gr-855  The declaration at the Isthmus
-    gr-856  The Roman–Seleucid War
-    gr-857  Battle of Magnesia
-    gr-858  The Treaty of Apamea
-    gr-859  The Third Macedonian War
-    gr-860  Perseus of Macedon
-    gr-861  Battle of Pydna
-    gr-862  The province of Macedonia
-    gr-863  The Achaean War
-    gr-864  The sack of Corinth
-    gr-865  Polybius
-    gr-866  Polybius on the constitution
-    gr-867  Delos as a free port
-    gr-868  The bequest of Attalus III
-    gr-869  The Mithridatic Wars
-    gr-870  Sulla at Athens
-    gr-871  Greece in the Roman civil wars
-    gr-872  Battle of Pharsalus
-    gr-873  Battle of Philippi
-    gr-874  Battle of Actium
-    gr-875  The end of Ptolemaic Egypt
-    gr-876  Cleopatra VII
-    gr-877  The province of Achaea
-    gr-878  Hellenisation at Rome
-    gr-879  The Second Sophistic
-    gr-880  The afterlife of Greek learning
+    gr-848  Rome and the Greek East  — answered by "symploke" when the card was written:
+             "Rome and the Hellenistic world" is already rm-236's answer term, and the thing this
+             line is actually about has a name of its own — Polybius' word for the interweaving
+             of Greek, Italian and African affairs, dated by him to Naupactus in 217 BCE
+    gr-849  The Illyrian Wars  — answered by "Teuta" when the card was written: the wars are
+             already rm-237's answer term, and the Greek side of them is the Ardiaean queen whose
+             fleets took Phoenice and whose murder of a Roman envoy brought the fleet across
+    gr-850  The First Macedonian War  — answered by "Peace of Phoenice" when the card was
+             written: the war is already rm-238's answer term, and what it left behind is its
+             settlement, negotiated in the Epirote city the Illyrians had sacked a generation
+             earlier and resolving nothing between the two powers
+    gr-851  Philip V of Macedon  — written as a DELIBERATE PAIR with rm-239, which carries the
+             same answer term: a line named after a king cannot be answered by anything else, so
+             the glossary term is REUSED and the two cards are written from opposite sides — Rome's
+             on Polybius' character sketch, this one on the reign as Greek politics, the Social War,
+             Thermum, Messene and the rebuilding of Macedon after 197 BCE
+    gr-852  The Second Macedonian War  — answered by "siege of Abydos" when the card was
+             written: the war is already rm-240's answer term, and its Greek ground is the city on
+             the Hellespont narrows where Philip's last siege and Rome's formal warning met.
+             The glossary key is `Siege_of_Abydos` and it claims NO bare "Abydos" alias — three
+             World History cards use the name for the EGYPTIAN Abydos, which is a different place
+    gr-853  Battle of Cynoscephalae  — the pair `docs/rome-card-plan.md` names by name, so the
+             answer term and the glossary entry are shared with rm-241: Rome's card is the day
+             itself and this one is Polybius' explanation of why the phalanx lost, written for
+             Greeks who thought the defeat incredible
+    gr-854  Flamininus  — answered by "Nabis" when the card was written: Flamininus is already
+             rm-242's answer term, and the Greek side of his command is the war of 195 BCE against
+             the last ruler to make Sparta an independent power, whose land redistribution and
+             killing by the Aetolians the collection had nowhere else to put
+    gr-855  The declaration at the Isthmus  — answered by "eleutheria" when the card was
+             written: "freedom of the Greeks" is already rm-243's answer term, and what this line
+             is about is the Greek political formula the declaration used — free, ungarrisoned,
+             untaxed, living under its own laws — proclaimed by Antigonus in 315 BCE and by Rome
+             at the Isthmus in 196. Flagged `undatable`: a status has no date of its own
+    gr-856  The Roman–Seleucid War  — answered by "siege of Ambracia" when the card was
+             written: the war is rm-245's answer term and its Greek battle is rm-246's, so what is
+             left for this collection is how the war ended IN GREECE — the siege of 189 BCE that
+             broke the Aetolian League and bound it to Rome's enemies and friends for good
+    gr-857  Battle of Magnesia  — answered by "Eumenes II" when the card was written: the battle
+             is already rm-247's answer term, and the Greek who won its decisive action and took
+             most of Seleucid Asia Minor at Apamea was absent from the collection, the Attalid deck
+             having carded the dynasty, the altar and the library but not the king
+    gr-858  The Treaty of Apamea  — written as a DELIBERATE PAIR with rm-248, which carries the
+             same answer term and the same glossary entry: Rome's card is the terms imposed on
+             Antiochus and this one is what the settlement did to the Greek cities of Asia, freed
+             or made tributary to Pergamon according to the side each had taken
+    gr-859  The Third Macedonian War  — answered by "Callicrates of Leontium" when the card was
+             written: the war is already rm-249's answer term, and the Greek story of those years
+             is the Achaean embassy of 180 BCE that taught the senate to govern Greece through its
+             own partisans. The key is qualified — `Ictinus_and_Callicrates` holds the architect,
+             so `Callicrates_of_Leontium` claims no bare "Callicrates" surface
+    gr-860  Perseus of Macedon  — written as a DELIBERATE PAIR with rm-250, on gr-851's reasoning:
+             a king's line has no other answer, so the glossary term is REUSED and this card is the
+             last Antigonid as Greek opinion saw him — the amnesty posted at Delos and Delphi, the
+             states that wished him well, the nerve that failed at Pydna and the flight to Samothrace
+    gr-861  Battle of Pydna  — answered by "monument of Aemilius Paullus" when the card was
+             written: the battle is already rm-251's answer term, and what is left for this
+             collection is what the victor did IN GREECE — the pillar at Delphi that Perseus had
+             cut for his own statue and the Roman took over, and the tour of the sanctuaries
+    gr-862  The province of Macedonia  — answered by "Via Egnatia" when the card was written: the
+             province is rm-257's answer term and the settlement of 167 BCE is rm-253's, so what is
+             left is the thing Roman Macedonia built and the Greek world used — the measured road
+             from the Adriatic to the Hebrus, with its milestones and its stages
+    gr-863  The Achaean War  — answered by "Diaeus" when the card was written: the war is already
+             rm-255's answer term, and the Greek side of it is the general who freed slaves to fill
+             a beaten army, sent a quarter of it away to Megara, and died at Megalopolis by his own
+             hand rather than face Mummius
+    gr-864  The sack of Corinth  — written as a DELIBERATE PAIR with rm-256, which carries the same
+             answer term and the same glossary entry: Rome's card is the storming and the settlement
+             that followed it, and this one is what the Greeks lost — the art diced on by soldiers,
+             the walls taken down, the confederacies dissolved and a site left empty until Caesar
+    gr-865  Polybius  — no Rome card carries this term, so it is written as itself: the Achaean
+             detained in Italy after Pydna who set out to explain how one city took the world in
+             about fifty years, and whose relief at Megalopolis says he stayed Rome's wrath
+    gr-866  Polybius on the constitution  — answered by "mixed constitution" when the card was
+             written: a line naming a person and a subject wants the TERM the reader will meet
+             again, and the glossary key is the article title `Mixed_government` with "mixed
+             constitution" as its alias. Plato and Aristotle carry the idea's earlier history
+    gr-867  Delos as a free port  — answered by "Delos" and paired with the glossary term that
+             already existed: the card is the island as the Aegean's market after 167 BCE, the
+             grant to Athens, the Delians who were made to leave, and the boom that followed Corinth
+    gr-868  The bequest of Attalus III  — answered by "Attalus III" when the card was written: the
+             bequest is already rm-259's answer term, and what is left is the king himself, whom
+             Strabo dismisses in a line and Justin makes a poisoner and a metalworker. The key is
+             `Attalus_III` and claims NO bare "Attalus" surface — the corpus's nineteen mentions
+             include Attalus I, Attalus II and a Pergamene general
+    gr-869  The Mithridatic Wars  — answered by "Archelaus" when the card was written: the wars are
+             rm-310's and rm-333's answer terms, and the Greek theatre of them belongs to the Pontic
+             general who took the Aegean, held Athens and then asked Sulla for terms at Delium. The
+             key is qualified, `Archelaus_(general)`, and carries the bare alias, the corpus's one
+             other mention of the name being this same man
+    gr-870  Sulla at Athens  — answered by "siege of Athens" when the card was written: the Roman
+             is rm-309's answer term, so this card is the siege — the famine, the abuse from the
+             walls, the unguarded stretch at the Heptachalcum and the blood in the Cerameicus. The
+             key is dated, `Siege_of_Athens_(87-86_BCE)`, and like `Siege_of_Athens_(404_BCE)` it
+             claims no bare surface of its own
+    gr-871  Greece in the Roman civil wars  — answered by "Thessalonica" when the card was written: the
+             line names a condition rather than a term, and the Greek city that WAS the war is Cassander's
+             foundation on the Thermaic Gulf, where Pompey and the consuls ordered the senate to assemble
+             and about two hundred of them sat for one winter. The key is `Thessaloniki`, the article
+             title, with "Thessalonica" and "Thessalonike" as aliases
+    gr-872  Battle of Pharsalus  — answered by "Thessaly" when the card was written: the battle is
+             rm-362's answer term AND `Battle_of_Pharsalus` already claims the bare "Pharsalus" surface as
+             an alias, so a card answered by the town's name would auto-link to the battle. What is left
+             is the plain itself — the corn near ripe that fed both armies, Gomphi stormed and Metropolis
+             spared — and `Thessaly` was ALREADY a cited glossary term, so the pairing rule needed nothing
+             new
+    gr-873  Battle of Philippi  — answered by "Philippi" when the card was written: the battle is
+             rm-377's answer term, and the plan had no card anywhere for the city, a Thasian colony of 360
+             BCE that Philip II took for its gold. The key is `Philippi` and claims the bare surface, the
+             corpus's eleven mentions all being this one place
+    gr-874  Battle of Actium  — written as a DELIBERATE PAIR with rm-387, which carries the same answer
+             term and the same glossary entry: Rome's card is the end of the civil wars and this one is the
+             end of the Hellenistic age — the last Hellenistic fleet, the Greek cities left stripped of
+             money, slaves and beasts of burden, and the victory kept as a Greek games at Nicopolis
+    gr-875  The end of Ptolemaic Egypt  — answered by "Caesarion" when the card was written:
+             `Ptolemaic_Egypt` is gr-767's answer term and the annexation is rm-388's, so what is left is
+             the boy the dynasty ended with, whom Antony proclaimed King of Kings and Octavian killed
+             because there were too many Caesars
+    gr-876  Cleopatra VII  — written as a DELIBERATE PAIR with rm-384, sharing the answer term and the
+             glossary entry: Rome's card is the annexation of Egypt and this one is the last of the
+             Ptolemies — the queen who spoke the languages her Macedonian family had not troubled to
+             learn, running a grain state through a decade of failed Nile floods
+    gr-877  The province of Achaea  — the only one of these ten to keep its own line as its answer term.
+             Rome plans `rm-775 Achaea` and has not written it, so the collision is the later card's to
+             resolve; the key is qualified, `Achaea_(Roman_province)`, and therefore claims no bare
+             "Achaea" surface, which the region and the League also use
+    gr-878  Hellenisation at Rome  — answered by "Carneades" when the card was written: `Hellenisation`
+             is gr-750's answer term and philhellenism is rm-272's, so what is left is the Greek who
+             carried it there — the head of the Academy who argued both sides of justice on successive
+             days in 155 BCE and whom Cato had voted out of the city
+    gr-879  The Second Sophistic  — answered by its own term, and the one card of these ten whose
+             question names an ancient author. Philostratus coined the phrase, so `card-focus.js` gained
+             `Philostratus` in its ANCIENT set: the diff over the whole corpus took rule 1 from one card
+             to none and corrected gr-402, which cites the Life of Apollonius as a witness
+    gr-880  The afterlife of Greek learning  — answered by "Manuel Chrysoloras" when the card was
+             written: the line is a process and the term is the man it turned on, the Byzantine envoy who
+             taught Greek at Florence from 1397 and whose Erotemata was the only Greek grammar in general
+             use in Italy until 1476
 
 ## Myth and Religion
 
 ### Olympians and cosmogony — `gr-olympians`
 
     gr-881  Greek mythology
-    gr-882  Greek cosmogony
-    gr-883  Chaos
+    gr-882  Greek cosmogony  — answered by the general word *cosmogony*, which is what the line names:
+             the card is about the Greek accounts and the glossary term is deck-agnostic, as the house
+             rule requires of a general concept. Its second block is the Near Eastern half of the
+             subject, the succession pattern being attested in Hurro-Hittite and Babylonian poetry
+             before it appears in Greek. The picture is NOT the Derveni papyrus, which `gr-366` and the
+             `Presocratic_philosophy` term already carry
+    gr-883  Chaos  — keyed `Chaos_(cosmogony)`, the article title, which claims no bare surface. It is
+             given the bare alias **Chaos** with `caseSensitive: true`, so the seven ordinary lower-case
+             uses in the corpus are not claimed. Measured before the batch: six capitalised occurrences,
+             five of them this god (`gr-141`, `gr-366`, `gr-611`) and one of them NOT — `cnh-027`, where
+             Chaos is one of four monsters Shun banished to the four distant regions. That one wrong
+             link is the accepted cost of the alias, on `Cell_(biology)`'s reasoning; it is recorded
+             here rather than papered over, and if it is ever thought too expensive the answer is to
+             narrow the alias, never to reword the China card
     gr-884  Gaia
-    gr-885  Uranus
+    gr-885  Uranus  — keyed `Uranus_(mythology)`, the bare name being the planet, with `Ouranos` and
+             `Uranus` as aliases: the corpus has no astronomy collection and the bare word occurred
+             nowhere in it before this card
     gr-886  The Titans
     gr-887  Cronus
     gr-888  The Titanomachy
-    gr-889  Rhea
-    gr-890  Zeus
-    gr-891  Hera
+    gr-889  Rhea  — keyed `Rhea_(mythology)`, the bare name being a bird and a moon of Saturn, with
+             `Rhea` as an alias. That is safe because `Rhea_Silvia` already claims the longer surface
+             and `buildGlossIndex` sorts surfaces longest-first, so `rm-054` still resolves to the Vestal
+    gr-890  Zeus  — **the one card of the ten that needed no new glossary term**: `Zeus` has been a
+             cited term since the citation pass and the pairing rule is satisfied by a term that already
+             exists, so `add-glossary.js` was deliberately not run on it. Its description is about cult
+             at Olympia and on the Peloponnesian mountaintops where the card is about the myth, which is
+             the division of labour the two are meant to have. None of the other nine lines needed a
+             retitle either, allowing for the article: "The Titans" is answered by *Titans* and "The
+             Titanomachy" by *Titanomachy*
+    gr-891  Hera  — **five of these ten needed no new glossary term**: `Hera`, `Poseidon`, `Athena`,
+             `Apollo` and `Artemis` have been cited terms since the citation pass, so the pairing rule
+             was already satisfied and `add-glossary.js` was deliberately not run on any of them. Check
+             the keys before reaching for that helper on an Olympian; it overwrites in silence
     gr-892  Poseidon
     gr-893  Demeter
-    gr-894  Hestia
-    gr-895  Hades
+    gr-894  Hestia  — **carries no locator, deliberately**. A locator names somewhere a reader could
+             stand, and the hearth is in every Greek house rather than in one place; the public hearth
+             of a particular city would be a claim the card does not make
+    gr-895  Hades  — **carries no locator either**, for the same reason one step further: the kingdom
+             he drew by lot is not a place with a coordinate, and the one site that advertises itself
+             as an entrance to it is disputed
     gr-896  Athena
     gr-897  Apollo
     gr-898  Artemis
-    gr-899  Ares
-    gr-900  Aphrodite
+    gr-899  Ares  — answered by *Ares*, and its apparatus is three Homeric passages of six sources,
+             which `check-cards.js` reports under the ancient-witness carve-out rather than as an
+             over-cited author: the god's whole literary character is Homer's, so the passages are the
+             evidence and not one scholar's repeated opinion
+    gr-900  Aphrodite  — the one card of the ten with a live disagreement to state: Pironti reads her
+             province as *mixis* and so as covering war, where Budin holds she was a war goddess at
+             Sparta and nowhere else before the Roman period, and the card gives both
     gr-901  Hephaestus
     gr-902  Hermes
     gr-903  Dionysus
-    gr-904  The Twelve Olympians
-    gr-905  Mount Olympus
-    gr-906  Persephone
-    gr-907  The abduction of Persephone
+    gr-904  The Twelve Olympians  — the one card of the ten with NO locator, deliberately: the set is a
+             concept, and an altar in the Athenian Agora would have drawn a second mark on the collection’s
+             own anchor city. Nothing openable states which twelve, so the card gives the NUMBER as cult
+             attests it — Thucydides’ altar, Plato’s twelve tribal feasts — and does not assert a membership
+    gr-905  Mount Olympus  — the summit height and its distance from the sea come from an open GREEK
+             GEOLOGICAL journal (Styllas and Kaskaoutis, *Bull. Geol. Soc. Greece* 52), which was the only
+             openable source found for either figure: UNESCO’s biosphere pages serve a bot wall, Britannica
+             is 403 and the ministry’s own site has no page for the mountain. Reach for an open science
+             journal for a physical figure before reaching for a reference work
+    gr-906  Persephone  — written WITHOUT the `Kore` alias, as the warning under “Glossary” above requires;
+             the term carries no alias at all rather than a near-miss one
+    gr-907  The abduction of Persephone  — RETITLED in the writing: answered by `Homeric Hymn to Demeter`,
+             the poem the abduction is known from, because the line names an EVENT and gr-906 had already
+             taken the goddess with the abduction in her own prose. The card is about the poem — its
+             Eleusinian aetiology, its concentration on female experience, the Megaron B question
     gr-908  Prometheus
-    gr-909  The theft of fire
+    gr-909  The theft of fire  — RETITLED in the writing: answered by `narthex`, the giant fennel stalk the
+             fire is carried in, which Hesiod, Aeschylus and Pliny all name, because gr-908 had already
+             carded the theft and its punishment. Keyed `Ferula_communis`, the real article slug, with
+             `narthex` as an alias — the bare word occurs nowhere else in the corpus, so it is safe to claim
     gr-910  Pandora
     gr-911  The Ages of Man
-    gr-912  Deucalion's flood
+    gr-912  Deucalion's flood  — RETITLED in the writing: answered by `Deucalion` rather than by the event,
+             on the rule a line naming an event wants the thing the event is about; the card's own last two
+             sentences state that the flood story is unknown to Hesiod and reaches Greece perhaps only in the
+             sixth century BCE, which is the one thing about it worth a reader's memory
     gr-913  The Gigantomachy
     gr-914  Typhon
-    gr-915  The Muses
-    gr-916  The Moirai
-    gr-917  The Erinyes
-    gr-918  Nymphs
-    gr-919  Satyrs and centaurs
-    gr-920  The Greek underworld
+    gr-915  The Muses  — the count of nine is stated as CONTESTED, not as the fact: Pausanias' three
+             (Melete, Mneme, Aoede) and the measured rarity of nine in Archaic and Classical evidence are
+             both on the card, which is what the sources carry
+    gr-916  The Moirai  — no locator: the Fates happen nowhere, and the two genealogies inside one poem of
+             Hesiod are the card's subject
+    gr-917  The Erinyes  — no locator either, and NOT because the card has no place: the Areopagus is
+             `gr-899`'s dot and Delphi is `gr-897`'s, so a third card on the same two pixels would only
+             crowd the collection's own map
+    gr-918  Nymphs  — answered by `nymph`, the singular, as `gr-909` is by `narthex`; its dot is ITHACA
+             rather than the Polis cave above Stavros, which has no article of its own to read a published
+             coordinate off, and a hand-typed pair is the one error nothing downstream can see
+    gr-919  Satyrs and centaurs  — a card has ONE answer term, so the line was resolved to `centaur`, which
+             the corpus had nothing on; the satyr is on the card as the OTHER man-horse, contrasted rather
+             than grouped with it, and the satyr play already has `gr-605` and its own glossary term
+    gr-920  The Greek underworld  — keyed `Greek_underworld` and DELIBERATELY WITHOUT the bare alias
+             `underworld`: measured over the corpus, the word appears on a Chinese and a Maya card
+             (`cnh-031`, `cnh-032`, `wh-426`), so claiming it would auto-link two other continents' lands
+             of the dead to the Greek one. No locator: the place is nowhere on any map Folio draws
 
 ### Heroes and the epic cycle — `gr-heroes`
 
-    gr-921  The Greek hero
-    gr-922  Heracles
-    gr-923  The Labours of Heracles
-    gr-924  The Nemean Lion
-    gr-925  The Lernaean Hydra
-    gr-926  Perseus
-    gr-927  Medusa
-    gr-928  Theseus
-    gr-929  The Minotaur
-    gr-930  Ariadne
-    gr-931  Daedalus and Icarus
-    gr-932  Jason
-    gr-933  The Argonauts
-    gr-934  The Golden Fleece
-    gr-935  Medea in myth
-    gr-936  Bellerophon
-    gr-937  Pegasus
-    gr-938  Oedipus
-    gr-939  The Sphinx
-    gr-940  The Seven Against Thebes
-    gr-941  The Epigoni
-    gr-942  The Judgement of Paris
-    gr-943  Helen
-    gr-944  The Trojan War in myth
-    gr-945  Agamemnon
-    gr-946  Achilles
-    gr-947  The wrath of Achilles
-    gr-948  Patroclus
-    gr-949  Hector
-    gr-950  Ajax the Great
-    gr-951  Odysseus
-    gr-952  The Trojan Horse
-    gr-953  The Epic Cycle
-    gr-954  The Nostoi
-    gr-955  The return of Agamemnon
-    gr-956  Orestes
-    gr-957  The wanderings of Odysseus
-    gr-958  Polyphemus
-    gr-959  Circe
-    gr-960  The Sirens
-    gr-961  Scylla and Charybdis
-    gr-962  Calypso
-    gr-963  Penelope
-    gr-964  Telemachus
-    gr-965  Aeneas in Greek myth
+    gr-921  The Greek hero  — answered by `hero`, keyed `Hero_(Greek_mythology)` and DELIBERATELY
+             WITHOUT the bare surface `hero`: a parenthetical key claims no bare name, and measured over
+             the corpus the word appears 19 times outside Greece, of which the Chinese culture heroes, a
+             Korean mine, a novel's protagonist and two Second World War uses are the wrong sense. It is
+             reached by the aliases `Greek hero` / `Greek heroes` instead. No locator: the class happens
+             nowhere
+    gr-922  Heracles  — the ONE card of this batch whose glossary term ALREADY EXISTED, written as a
+             supporting term for an earlier card, so the pairing rule was satisfied and `add-glossary.js`
+             was NOT run on it: that helper overwrites in silence, and the shipped entry is at the bar.
+             No locator either: Thebes is `gr-069`'s, `gr-705`'s and `gr-903`'s dot and Tiryns is
+             `gr-067`'s, so a fourth Theban dot would say nothing this collection's map does not
+    gr-923  The Labours of Heracles  — the one card here that `check-cards.js` leaves a NOTE on,
+             Apollodorus carrying 4 of its 8 sources, which is the documented ancient-witness carve-out:
+             four separate books of the Library are four passages of one witness rather than four pages of
+             one scholar. Its date line rests on the ONE dated fact the labours have — the lost poem of
+             Peisander of Camirus, which the Loeb note to Pausanias 2.37.4 puts at about 645 BCE — since
+             the temple at Olympia's own date is stated by nothing the card cites. No locator: a set of
+             twelve tasks is not a place
+    gr-924  The Nemean Lion  — answered by `Nemean lion`, the lower-case form both the translations and
+             Wikipedia use. Its dot is NEMEA, which no other card had taken
+    gr-925  The Lernaean Hydra  — its term CLAIMS the bare alias `hydra`, which is measured rather than
+             assumed: the word appears on three cards (`rm-167`, and this batch's two) and every one of
+             them means this creature, `Carbohydrate`'s alias being unreachable under the index's own
+             word boundaries. Its dot is LERNA
+    gr-926  Perseus  — keyed `Perseus_(mythology)` and NOT `Perseus`, which is the Wikipedia slug: the
+             bare surface is claimed by nobody today, and of the 48 occurrences in the corpus the
+             majority are the Macedonian king `Perseus_of_Macedon` already holds (`rm-176`, `rm-249`–
+             `rm-251`, `gr-860`, `gr-861`). A parenthetical key claims no bare name, so the hero's entry
+             is reachable by hand-written link and by its own title and mislinks nothing. Its dot is
+             SERIPHOS, where the chest came ashore — Mycenae is `gr-058`'s, `gr-060`'s and `gr-061`'s and
+             Argos is `gr-195`'s. `check-gloss-links.js` reports one link by eye on this card, "the
+             Egyptian Thebaid" resolving to `Ancient_Egypt`, which is the right term for the word
+    gr-927  Medusa  — no locator: Hesiod puts the Gorgons beyond Ocean in the frontier land towards
+             Night, so there is nowhere on any map Folio draws to mark. Its term claims no `Gorgon`
+             alias, the Gorgons being three and the word standing for all of them on seven other cards
+    gr-928  Theseus  — its dot is TROEZEN rather than Athens: the anchor city is drawn on every map in
+             the collection already, and Troezen is the origin one strand of the argument gives him,
+             which the card states. Its date line's second row rests on Plutarch's "after the Median
+             wars" rather than on a year he does not give
+    gr-929  The Minotaur  — the plan's cross-listing line above would also file this in `gr-crete`; it
+             is NOT applied, ONE DECK PER CARD having been the rule since Aug 2026. Its dot is Knossos,
+             which `gr-008`, `gr-010` and `gr-051` also carry and which is still the honest place
+    gr-930  Ariadne  — its dot is NAXOS, the island Apollodorus and Plutarch put her on, rather than
+             Homer's Dia: the card gives both and the dot follows the version with a place a reader can
+             find. No `Labyrinth` term was coined, the word standing for the Egyptian labyrinth on
+             `wh-267` and for Potnia's title at Knossos on `gr-086`
+    gr-931  Daedalus and Icarus  — the line names two people and a card is answered by ONE term, so the
+             answer is Daedalus and Icarus is carried in the prose. Its dot is KNOSSOS, which `gr-008`,
+             `gr-010`, `gr-051` and `gr-929` also carry and which is still the honest place: the
+             labyrinth, the wooden cow and the Dance of Ariadne Pausanias saw are all there
+    gr-932  Jason  — keyed **`Jason_(mythology)`**, which claims no bare name, and the measurement is
+             why. Over the shipped corpus the bare surface *Jason* occurs eight times and **two are
+             modern given names**: the archaeologist Jason Lewis on `wh-014` and the missionary Jason
+             Lee on `geo-524`. Six right and two wrong is nearer the `Neville_Chamberlain` case
+             CLAUDE.md records as refused than the `Cell_(biology)` case it records as accepted, so
+             the parenthetical takes it. Dot: Iolcus
+    gr-933  The Argonauts  — NO locator: the subject is a voyage and no one place is it, where
+             `gr-932`'s Iolcus is where the crew mustered. Its picture is the Niobid Painter's krater
+             and **the caption hedges the identification**, which is one reading of that vase rather
+             than a settled one
+    gr-934  The Golden Fleece  — dot at PHASIS, the river mouth Pindar has the Argonauts reach,
+             rather than a `region` wash over Colchis, whose frontier nobody can draw. Strabo's own
+             rationalisation is carded, gold being washed from Caucasian torrents in troughs lined
+             with fleeces
+    gr-935  Medea in myth  — **the bare name the `gr-601` line reserves for this card was MEASURED and
+             REFUSED.** Of the nine corpus surfaces of *Medea*, four are the PLAY title (`gr-600`,
+             `gr-840` twice, `gr-601`), which `Medea_(play)` already holds and which a bare key would
+             repoint at the woman. So it is **`Medea_(mythology)`**, neither term claims the bare
+             surface, and nothing already shipped moved. Dot: Corinth
+    gr-936  Bellerophon  — dot at XANTHOS in Lycia, the stream the <i>Iliad</i> sends him to, since
+             Corinth is `gr-935`'s
+    gr-937  Pegasus  — NO locator, Peirene being in Corinth and that dot spent. The Corinthian
+             coinage rests on **Head's <i>Historia Numorum</i> on archive.org**, `numismatics.org`
+             being shut from this sandbox; an earlier draft said the horse was struck "for three
+             centuries", which nothing openable states, and the card says what Head says instead
+    gr-938  Oedipus  — the bare key IS safe here and was measured: all eight corpus surfaces are the
+             man or "the house of Oedipus", and `Oedipus_Tyrannus` keeps its own longer surface, which
+             `buildGlossIndex` sorts first. Dot: Thebes
+    gr-939  The Sphinx  — keyed **`Sphinx_(Greek_mythology)`** with the alias *Theban Sphinx*: bare
+             *Sphinx* is six Egyptian occurrences (`wh-209`, `wh-213`, `wh-228`) against five Greek, so
+             neither sense may claim it. NO locator — Mount Phikion has no coordinate to fetch and
+             Thebes is `gr-938`'s — and the picture is a GRAVE-STELE finial rather than the Theban
+             scene, which the card argues is the unusual use of the figure
+    gr-940  The Seven Against Thebes → **AMPHIARAUS** — retitled, because the plan line's own words are
+             already `gr-594`'s answer term (Aeschylus' play). The card still teaches the expedition and
+             is answered by the seer whose swallowing made him a god: the line names an EVENT and the
+             term wanted is the thing the event left behind, which here is a cult with a sanctuary, an
+             oracle Croesus tested and a healing rite that outlasted the war by a thousand years. Dot:
+             Oropos
+    gr-941  The Epigoni — written. No Commons picture shows the Epigoni's own war, so both the card
+             and the term are illustrated from the FIRST expedition, with captions that say so: an
+             Etruscan urn of the fatal duel of Eteocles and Polynices, and Polynices bribing Eriphyle,
+             which is what sent Amphiaraus to Thebes and Alcmaeon back a generation later. Dot: Glisas,
+             where Pausanias puts the Epigoni's victory
+    gr-942  The Judgement of Paris — written. Key `Judgement_of_Paris` with `Judgment of Paris` as an
+             alias, the American spelling being the one an auto-link would otherwise miss (the spelling
+             transform is one-way from authored British and does not reach a glossary key). Picture: the
+             Boccanera panels, among the earliest surviving pictures of the contest. Dot: Mount Ida
+    gr-943  Helen — written. Key `Helen_of_Troy` and the bare alias `Helen` is SAFE: measured over the
+             shipped corpus, every occurrence of the bare name outside this card's own collection is the
+             Spartan queen. The picture is the EARLIER abduction, Theseus carrying her off from Sparta as
+             a girl, which the three-sentence term also has to carry. `check-gloss-links` reports
+             “Egyptian” → `Ancient_Egypt` here and the link is right — the card gives Herodotus' and
+             Stesichorus' version, in which Helen sits out the war in Egypt. Dot: Therapne, her shrine
+    gr-944  The Trojan War in myth — written as **Trojan War**. Picture: the Polyxena Sarcophagus, the
+             earliest large-scale picture of the cycle found near Troy itself. Dot: Troy
+    gr-945  Agamemnon — written. **The glossary term already existed at the bar and was NOT re-run**:
+             `add-glossary.js` overwrites in silence, so the check is one command before the work. What
+             it lacked was a PICTURE, which this batch gave it. Dot: Mycenae
+    gr-946  Achilles — written. Same as `gr-945`: the term was already cited at the bar and only wanted
+             a picture. No dot — a hero is not a place, and Phthia is already spent on the card's prose
+    gr-947  The wrath of Achilles — written as **mēnis**, the word the *Iliad* opens on, keyed `Mēnis`
+             with `mēnis` and `menis` as aliases so the unaccented spelling still links. Difficulty 4:
+             the term is the one specialist word in the batch. Muellner's *The Anger of Achilles* is
+             cited by its own CHS book URL, the CHS reader being JavaScript-rendered — the `NAGY`
+             precedent already in the corpus
+    gr-948  Patroclus — written. Picture: the Sosias cup, whose scene appears in no surviving poem,
+             which is what the caption says rather than calling it an illustration of the *Iliad*
+    gr-949  Hector — written. Bare key `Hector` is safe on the same measurement `Helen` passed. Two of
+             its three phrasings were rewritten after `check-questions.js` refused a blank at the end of
+             the sentence
+    gr-950  Ajax the Great — written, and this is the card `gr-598`'s note above points forward to: the
+             glossary key there is `Ajax_(play)`, which by `bareTaken` claims no bare surface, so
+             `Ajax_the_Great` takes the alias `Ajax` and the two cannot collide. A first draft said he
+             was “never helped by a god”, which nothing openable bears out; it was replaced by the
+             *Iliad*'s own “bulwark of the Achaeans”. Dot: Salamis
+    gr-951  Odysseus — written. The glossary already held `Odysseus`, cited and at the bar, so the
+             pairing rule was satisfied and `add-glossary.js` was NOT run on it; the term was given a
+             picture instead. Its locator cost a round: the Wikipedia article *Ithaca* carries no
+             primary coordinate, so `add-locators.js` refused it, and a hand-typed pair written while
+             drafting had to be removed rather than kept. `Ithaki`, which redirects to *Ithaca
+             (island)*, resolves and yields the island's own coordinate — **when an article has no
+             coordinate, try its redirects before typing one**
+    gr-952  The Trojan Horse — written, answered by `Trojan Horse`. Homer's account of it is a SONG
+             INSIDE the poem, sung by Demodocus at Odysseus' own request, which is the shape the card
+             takes; the three courses the Trojans debate (cut it open, throw it from the rocks, leave
+             it as an offering) are the *Odyssey*'s own. Dot: Troy
+    gr-953  The Epic Cycle — written. Answered by `Epic Cycle`, whose bare surface was measured over
+             the shipped corpus at three card abstracts, all three correct. Aristotle is cited for the
+             contrast between Homer's unity and a poem that strings a period together, and the
+             card states that whether the lost poems drew on Homer or on the same older tradition is
+             still argued. No locator: a group of poems stands nowhere
+    gr-954  The Nostoi — written, answered by `Nostoi`. **It is the batch's one card with no picture,
+             recorded rather than skipped**: the subject is a poem that does not survive, and every
+             free picture of what it narrated is already carried by a card on that episode — five
+             searches (the returns, a bard singing, Diomedes, the wreck off Euboea, a Cycle papyrus)
+             returned nothing whose subject is this poem. The `Nostoi` term has none for the same
+             reason. Its own theme is carded from the *Odyssey*'s own performance of it, Phemius
+             singing the returns until Penelope asks for something else
+    gr-955  Clytemnestra — retitled from *The return of Agamemnon*, which is an event where the card
+             wants a term, and the term is the one a reader meets again. Homer tells the murder TWICE
+             and not alike — Nestor makes Aegisthus the mover and says she at first put the deed from
+             her, Agamemnon's own ghost puts her hand on Cassandra — so both passages are cited rather
+             than one harmonised account. Dot: Mycenae
+    gr-956  Orestes — written. **The key is the bare `Orestes` and the cost is recorded here rather
+             than hidden**: the surface matches nine shipped abstracts, of which three are a different
+             man — `wh-375` Orestes the patrician, father of Romulus Augustulus, and `rm-255` and
+             `gr-863` the Roman commissioner Lucius Aurelius Orestes. The `Neville_Chamberlain`
+             refusal (six right, three wrong) says no; `Cell_(biology)`'s dominant-sense rule says
+             yes, and on a Greek-myth site the myth is the dominant sense and `Orestes` is the
+             Wikipedia slug. Taken deliberately, with those three cards named. Dot: Tegea, where
+             Delphi told Sparta the bones lay
+    gr-957  The wanderings of Odysseus — retitled to `Apologoi`, the scholarly name for the four
+             books in which Odysseus narrates his own adventures. The term was VERIFIED LIVE before
+             being adopted, appearing in BMCR 2026.08.28 (Grethlein) and 1996.04.27 (Cook/Ford)
+             rather than being coined here. Difficulty 5. No locator: the section is a stretch of
+             text, not a place
+    gr-958  Polyphemus — written. The card rests on the Cyclops book's finding that the Greeks knew
+             THREE kinds of Cyclops — this pastoral ogre, the smiths at the forge, and the builders
+             credited with the Cyclopean walls — so the term is not a single creature. No locator:
+             Homer does not say where the Cyclopes' land is, and a dot would assert what the poem
+             declines to
+    gr-959  Circe — written. The card says she is never actually called a magician and that “magic” is
+             an anachronism applied to Homer, which is Franco's argument in the Mythologica volume and
+             is cited to Edmunds' English review of it rather than asserted. The Italian TITLE is
+             the only non-English thing in the apparatus, and it is one source, so `check-cards.js`
+             rule 6 does not bind. No locator: Aeaea is not a place on any map
+    gr-960  The Sirens — retitled to the singular `Siren`, on the `nymph` precedent at gr-918. Two
+             findings shape it: what they sing is KNOWLEDGE, since they claim to know everything
+             suffered at Troy and promise the listener goes away wiser, and Homer uses the DUAL of
+             them, which is why the names, the parents, the instruments and even the number are all
+             later. `Siren` auto-pluralises, so no alias was needed; its bare surface matches three
+             abstracts, all of them siren protomai on orientalising cauldrons and all correct
+    gr-961  Scylla and Charybdis — written, and answered by `Scylla` alone. Two monsters cannot be
+             one answer term, and the Odyssey's own weight is on the one Circe tells Odysseus to
+             steer TOWARDS; Charybdis is carried in the prose and as an alias on the glossary key,
+             so the plan's own phrase still resolves. The card's third rule-shaping finding is
+             Hopman's, read in review: the vase painters' pretty Scylla and Homer's horror are one
+             figure because a mythical name is a composite of ideas — dog, sea, woman — rather than
+             a body, which is how the card can show a 4th-century krater beside a Homeric question
+             without contradicting itself
+    gr-962  Calypso — written. The offer refused is the card: `check-cards.js` reports Homer at 4 of
+             6 sources, which is the ancient-witness carve-out working as intended. Ogygia is on no
+             map and gets no locator
+    gr-963  Penelope — written. The bed test is the card's spine, and the review used is a HOSTILE
+             one (Olson on Katz), cited for the single point the reviewer himself endorses, that the
+             murder of Agamemnon stands in the poem as the homecoming this one might have been. Read
+             a review before citing it, and cite it for what it says rather than for what it reviews
+    gr-964  Telemachus — written. Its picture is the OTHER SIDE of the same Chiusi skyphos that
+             illustrates gr-963, which is not a duplicate by `check-cards.js`'s file-name rule and is
+             deliberate: the Penelope Painter's cup is the canonical image of both of them, and the
+             obvious alternative was REJECTED — Meynier's *Telemachus, Urged by Mentor, Leaving the
+             Island of Calypso* is Fénelon's *Télémaque*, not Homer's, and Telemachus never goes to
+             Ogygia in the Odyssey at all. **A beautiful picture of the wrong story is still the
+             wrong picture.** Locator at Pylos rather than Ithaca, which gr-951 and gr-963 already
+             carry
+    gr-965  Aeneas in Greek myth — written, and **the pairing rule was ALREADY SATISFIED**: `Aeneas`
+             has been a cited glossary term since the Rome collection reached him, at the bar and
+             with a picture. Running `add-glossary.js` blind would have overwritten it in silence.
+             What was done instead is a deliberate REWRITE of the existing term, because its three
+             sentences were wholly Roman and a Greek card's answer would have auto-linked to a
+             definition that never mentions the Iliad: sentence 1 now carries Poseidon's prophecy
+             with two Greek sources added beside the four Roman ones, and the cost is stated rather
+             than hidden — the Alba Longa king list and Caesar's funeral speech came out to make
+             room, the term being held to three sentences and 110 words
 
 ## Known omissions of this plan, and why they stay omitted (Sep 2026 audit)
 
@@ -1319,38 +1701,125 @@ neighbouring card whose prose they belong in at all, and stay omitted outright.
 
 ### Cult, oracles and festivals — `gr-cult`
 
-    gr-966  Greek religion
-    gr-967  Civic cult
-    gr-968  What a Greek temple was for
-    gr-969  The cult statue
-    gr-970  The Greek altar
-    gr-971  Animal sacrifice
-    gr-972  Hecatomb
-    gr-973  Libation
-    gr-974  Greek priesthood
-    gr-975  Temenos
-    gr-976  Votive offering
-    gr-977  Oracles
-    gr-978  The Delphic oracle
-    gr-979  The Pythia
-    gr-980  The Delphic maxims
-    gr-981  The omphalos
-    gr-982  The oracle at Dodona
-    gr-983  The Delphic amphictyony and the First Sacred War
-    gr-984  Divination
-    gr-985  The crown games: Pythian, Isthmian and Nemean
-    gr-986  The Panathenaia
-    gr-987  The Greek festival calendar
-    gr-988  The Thesmophoria
-    gr-989  The Anthesteria
-    gr-990  The Eleusinian Mysteries
-    gr-991  Demeter at Eleusis
-    gr-992  Mystery cult
-    gr-993  Orphism
-    gr-994  Dionysiac mysteries
-    gr-995  Asclepius
-    gr-996  Epidaurus
-    gr-997  Incubation
-    gr-998  Hero cult
-    gr-999  Greek funerary practice
-    gr-1000 Curse tablets
+    gr-966  Greek religion — written, and the deck's opening card. Answered by `Greek religion`,
+             keyed `Ancient_Greek_religion` (the Wikipedia slug) with the short form as an alias
+    gr-967  Civic cult — retitled, and answered by **`polis religion`**, which is the term the
+             literature actually uses and the one a reader meets again; "civic cult" defines nothing
+             a reader could look up. The card's answer term IS a modern model, so the
+             no-researchers exemption would have covered it — it is deliberately NOT used: the card
+             is written about the THING (the calendar, the public funds, the metics admitted to some
+             cults) with the model and its critics held to three sentences, so `card-focus.js` rule
+             2 is satisfied on its own terms and no `EXEMPT` row was needed
+    gr-968  What a Greek temple was for — answered by `Greek temple`. The question the plan's line
+             asks is the card's argument: the altar is outside, so the building is the god's house
+             and the city's treasury, and many sanctuaries never had one. Thucydides 2.13 carries
+             both this card and gr-969 — the forty talents of removable gold on the Parthenos is a
+             fact about a temple's wealth and a fact about what a cult image was made of
+    gr-969  The cult statue — answered by **`cult image`**, which is the scholarly term and is
+             honest about the thing: the Mylonopoulos volume's own point, read in review, is that
+             Greek had NO single word for one and that votive and cult image are often the same
+             object. A card answered by "cult statue" would assert the distinction the sources deny;
+             the phrase survives as the glossary alias
+    gr-970  The Greek altar — written. Pausanias on the ash altar at Olympia is what makes the card
+             concrete, and the dimensions are his own. The picture is an altar standing in the open
+             in FRONT of its temple at Delos, which is the card's claim in one photograph; the
+             museum candidates were rejected as mostly modern plaster
+    gr-971  Animal sacrifice — written. Hesiod's Mecone story is the card's spine, and it is given as
+             an explanation after the fact rather than as a rule anyone followed, which is what keeps
+             the card about the rite instead of about the myth
+    gr-972  Hecatomb — written. The word is a scale rather than a count, which Homer's own figures
+             prove: eighty-one bulls at Pylos, an unstated number at Chryse, three thousand beasts at
+             Delphi in Herodotus
+    gr-973  Libation — written, and **the pairing rule was ALREADY SATISFIED**: `Libation` has been a
+             cited term since the prehistory passes. It was NOT re-run through `add-glossary.js`,
+             which overwrites in silence; it was given the picture it lacked instead
+    gr-974  Greek priesthood — written. Its picture is a youth carrying an offering tray to an altar
+             rather than a priest, which is the card's own point: the rites were performed by
+             ordinary citizens holding an office. The paired term takes the Hegeso statue
+    gr-975  Temenos — written, and the card is a word's history: Murray renders it "demesne" in both
+             its Homeric senses, so the same English word covers Bellerophon's estate and Zeus'
+             precinct on Ida, which is the whole argument in one translator's choice
+    gr-976  Votive offering — written, and **the pairing rule was ALREADY SATISFIED** by
+             `Votive_dedication`, which carries "votive offering" as an alias, so the card's answer
+             term auto-links without a second key. Nothing was overwritten
+    gr-977  Oracles — retitled to the singular `oracle`, on the `Siren` precedent at gr-960.
+             **THE BARE SURFACE WAS CLAIMED DELIBERATELY AND THE COST IS MEASURED AND NAMED.**
+             91 shipped abstracts contain the word; 23 of those occurrences are the hyphenated
+             `oracle-bone` compound of the China collection, which a `\b`-anchored match would have
+             linked to a Greek term — so `Oracle_bone_script` was first given the hyphenated and
+             bare forms as aliases, the longest surface winning. What survives after that is
+             **exactly two cards**, `cnh-083` (a Chinese prophecy about the nine cauldrons) and
+             `wh-456` (the oracle arrows at the Kaʿba), and on both the SENSE the term defines — a
+             divine answer — is the right one, only the cultural framing being Greek. That is a
+             better trade than `Cell_(biology)`'s accepted five, and it is recorded here rather than
+             left to be re-derived
+    gr-978  The Delphic oracle — written, and kept distinct from the `Delphi` term, which is the
+             PLACE. Herodotus carries 3 of its 5 sources, which is the ancient-witness carve-out
+    gr-979  The Pythia — written. Pausanias' own sentence that tradition at Delphi "makes mention of
+             prophetesses only" is what the card rests on, and the why-answer says plainly that the
+             sources do not explain the rule rather than inventing a reason for it
+    gr-980  The Delphic maxims — written, and the third maxim is the card's find: Plato's
+             <i>Charmides</i> has "give a pledge and ruin is at hand" standing beside the two famous
+             ones, and argues that "know thyself" was never advice but the god's greeting to those
+             coming in
+    gr-981  The omphalos — written. Pausanias and Strabo BOTH report the claim and Strabo also
+             reports the doubt, that geographers denied Delphi is the centre of the earth, so the
+             card can state the belief and its ancient critics out of two open sources
+    gr-982  The oracle at Dodona — written, and it is the counterweight to the Delphi run above:
+             the lead strips make it the fullest record there is of what ordinary people asked an
+             oracle, where Delphi's fame rests on literary reports of grand enquiries
+    gr-983  The Delphic amphictyony and the First Sacred War — RETITLED to the amphictyony alone,
+             gr-977's own reason: a line naming an EVENT usually wants the THING the event made or
+             was about, and the war is carded in the prose. Aeschines' speech of 330 carries the
+             oath and the curse, and the card says plainly that he is a prosecutor using them
+    gr-984  Divination — written. Its picture is the seer of the Olympia east pediment, whose
+             identification is disputed, and the caption says so rather than naming him
+    gr-985  The crown games: Pythian, Isthmian and Nemean — written, answered by `crown games`, an
+             alias that had to be TAKEN OFF `Panhellenic_sanctuary` and given to the new
+             `Panhellenic_Games`: the sanctuaries are the places, the games are what this card is
+             about, and one surface can only point at one of them. Pausanias carries 3 of its 5
+             sources, which `check-cards.js` reports as the ancient-witness note
+    gr-986  The Panathenaia — written, on Thucydides' account of the killing of Hipparchus during
+             the procession, which is the one classical narrative of the festival in action
+    gr-987  The Greek festival calendar — written, keyed `Ancient_Greek_calendars` (there is no
+             article under the card's own words) with `Greek festival calendar` as an alias. The
+             Thorikos stone is its picture, which shows the claim rather than asserting it: a
+             calendar is a schedule of public spending
+    gr-988  The Thesmophoria — written. Herodotus declines to describe the rite, and the card says
+             that the difficulty of knowing what happened at a women's festival is a standing
+             problem rather than filling the gap
+    gr-989  The Anthesteria — written, and REWRITTEN once in draft: the first version rested a day
+             count, the dead, pitch and buckthorn on EVANS (BMCR 2010.11.04), which carries none of
+             it. The claims were DROPPED rather than re-sourced, and the card was rebuilt on
+             Thucydides 2.15.4 and on the Choes jugs, which are the best evidence Greece has for
+             childhood
+    gr-990  The Eleusinian Mysteries — written, on the <i>Homeric Hymn to Demeter</i>'s own promise
+             and Herodotus' story of the Iacchus cry before Salamis, with the profanation of 415 for
+             what the secret was worth to Athens
+    gr-991  Eleusis — RETITLED from "Demeter at Eleusis": <code>Demeter</code> is already a cited
+             glossary term, so the line had no term of its own left to teach (the <code>ww2-133</code>
+             precedent). Written on the place — Pausanias' description up to the sanctuary wall, the
+             Homeric Hymn, Megaron B and the archaeological silence before the classical hall
+    gr-992  Mystery cult — written, keyed <code>Greco-Roman_mysteries</code>, on initiation rather than
+             doctrine, with the now-questioned assumption of a better afterlife stated as questioned
+    gr-993  Orphism — written, keyed <code>Orphism_(religion)</code> (a parenthetical key claims no bare
+             name, so "Orphism" and "Orphic" are aliases), on Herodotus, Plato's begging priests, the
+             gold leaves and the argument over the Titan myth
+    gr-994  Dionysiac mysteries — written, keyed <code>Dionysian_Mysteries</code>, on Demosthenes'
+             attack, the thiasos, the reversal of civic life and the Roman decree on the Bacchanalia
+    gr-995  Asclepius — written, on the Epidaurian birth story, the spread of the cult and the weaving
+             of cult with contemporary medicine
+    gr-996  Epidaurus — written, on the sacred bounds, the inscribed cures and the theatre
+    gr-997  Incubation — written, keyed <code>Incubation_(ritual)</code>. The bare surface
+             <b>incubation</b> is DELIBERATELY NOT claimed: it is ordinary English (eggs, a disease's
+             incubation period) and Biology's 46 leaf decks will reach it, so the term carries
+             <code>ritual incubation</code> and <code>temple sleep</code> instead — the
+             <code>Life_(biology)</code> decision rather than the <code>Cell_(biology)</code> one
+    gr-998  Hero cult — written. NO NEW GLOSSARY TERM: <code>Hero_cult</code> already exists and is
+             cited, so the pairing rule was already satisfied
+    gr-999  Greek funerary practice — written, keyed
+             <code>Ancient_Greek_funeral_and_burial_practices</code>, on the three stages, Solon's
+             restrictions and the public funeral Thucydides describes
+    gr-1000 Curse tablets — written, answered by <b>curse tablet</b> (singular, as the term is keyed),
+             on the lead sheets, Plato's notice and the re-edited Attic corpus. THE LAST CARD OF THE
+             COLLECTION

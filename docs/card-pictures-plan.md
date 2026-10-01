@@ -1,0 +1,469 @@
+# Card pictures — what is left, measured
+
+The rule is under "Generating cards & glossary entries" in `CLAUDE.md`: **a new card, glossary term or
+artefact ships with a picture, or with a stated reason why not.** That rule is what keeps the corpus
+from regrowing a backlog. This file is about the backlog that predates it.
+
+**Run the measurements; do not quote the numbers below.** They were taken on 2026-09-17 and every one
+of them moves as cards ship.
+
+    # cards with no picture, by collection
+    node -e 'global.window={};const{loadCards}=require("./.claude/card-io.js");
+      const c=loadCards().cards, no=c.filter(x=>!x.image&&!x.video&&!x.map);
+      const by={};no.forEach(x=>{const p=x.id.replace(/[-_]?\d+$/,"");by[p]=(by[p]||0)+1});
+      console.log(c.length+" cards, "+no.length+" with no picture");
+      Object.entries(by).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>console.log("  "+k,v))'
+
+## The pipeline, and which step is the expensive one
+
+Four tools, in this order. The first is the only slow one and its cache is the thing worth keeping.
+
+1. **`node .claude/fetch-images.js`** — reads every glossary article on Wikipedia, then every file on
+   those articles from Commons, and caches the licence, size, author and description of each into
+   `.claude/image-cache/` (gitignored). **Resumable, and safe to re-run.**
+2. **`node .claude/pick-images.js --review`** — ranks the candidates per term and prints them to be
+   READ. This is the irreducible step; see below.
+3. **`node .claude/check-image-free.js`** — refuses a file already on another card, term or artefact.
+   **Run it BEFORE fetching a candidate, never after.**
+4. **`node .claude/add-images.js <batch.json>`** — writes.
+
+· **THE CACHE IS WRITTEN AT THE END OF EACH PASS, NOT INCREMENTALLY.** `pages.json` lands when the
+  article pass finishes and `files.json` when the file pass does. A run killed part way through the
+  file pass loses that half and has to redo it; the article half survives. Measured on the full
+  corpus: the article pass took about 25 minutes and the file pass about 40, for **58,432 distinct
+  files across 3,838 terms**.
+· **IT COMPETES WITH YOUR OWN WIKIPEDIA CALLS.** While the crawl runs, `en.wikipedia.org/w/api.php`
+  answers **429** to everything else in the session. Do not run source discovery and the crawl
+  together.
+
+## What the crawl found, and what is actually left
+
+Over the whole glossary: **3,326 of 3,838 terms have a usable candidate**, 256 have files but none
+that clear the licence and size bar, 246 have no image on their article at all, and 10 resolve to no
+article.
+
+Broken down over the cards that have no picture, through `pick-images.js`'s own matcher:
+
+| | cards |
+|---|---|
+| term already has a picture — copy it across | 25 |
+| **term has a usable candidate — ready to review** | **265** |
+| term has files but none usable | 62 |
+| term's article has no image | 60 |
+| term resolves to no article | 6 |
+| **answer names no glossary term at all** | **116** |
+
+So **290 are actionable** and the rest are a genuine absence, which under the rule is recorded rather
+than treated as an oversight.
+
+## The review step is the work, and it cannot be skipped
+
+`fetch-images.js`'s scorer is a name match, and the standing example in its own header is the
+congressman who shares a palaeoanthropologist's name. The crawl produced a fresh one immediately:
+**`Abolition_of_the_fengjian_order` resolves to the Wikipedia article *Feudalism*, so its three top
+candidates are a French manuscript knight, the Bayeux Tapestry and a Slovak castle.** Nothing
+downstream can catch that.
+
+So the batch shape is the geography pass's: choose by judgement, then **look at them** through
+`.claude/contact-sheet.py`, which tiles a fetched batch into one image. That pass rejected roughly one
+in eight and almost none was a near miss.
+
+## THE 116 CARDS WITH NO GLOSSARY TERM ARE A PAIRING-RULE FINDING, NOT A PICTURE ONE
+
+A card's picture comes through its answer term, so a card with no term gets no picture — and the
+reason it has no term is that it broke the rule that **a new card ships with a glossary entry for its
+own answer term, in the same commit**. The picture pass is where that shows up first, which is what
+`pick-images.js`'s own report was written for.
+
+Measured 2026-09-17, by collection: **`pea` 99**, `gr` 10, `ps` 3, `rm` 2, `bio` 2.
+
+**Ninety-nine of them are one collection, and it is the newest.** `pea`, the Politics: East Asia
+course collection, shipped 100 cards in which **exactly one answer matches a glossary key and none of
+the hundred carries a picture**. Its plan, `docs/politics-east-asia-card-plan.md`, does not mention
+either rule. This is recorded rather than repaired: 99 glossary terms written and cited at the
+`GLOSS_SRC_TARGET` bar is a content pass of its own, and it is the collection author's to plan.
+
+The other 17 are the ordinary long tail and are worth doing with the pictures.
+
+## The first batch: 25 candidates, 10 shipped
+
+The 25 whose term already carried a picture looked like the free ones — no research, no fetching, the
+illustration already chosen and credited. **Fifteen of the twenty-five were wrong**, for two separate
+reasons, and both are reasons to review this category as carefully as any other.
+
+**Ten were wrong about the SUBJECT**, because a term's picture illustrates a CONCEPT and a card asks
+about a particular thing:
+
+· **`gr-556` is the worst of them and the one to remember.** The card is the **Athenian** siege of
+  Syracuse, 415–413 BCE; the term's picture is *The Death of Archimedes*, which is the **Roman** siege
+  of 212. Same city, same word, wrong war by two centuries — and a reader would take the picture as
+  the card's subject.
+· **`gr-139` basileus** — the card's whole point is that the word means a minor figure in the Bronze
+  Age tablets and only *later* means king. The picture is a Byzantine icon of crowned emperors: it
+  illustrates the sense the card exists to say it did not have.
+· **`gr-225` Lydian electrum coinage** — the card says the commonest coins are "stamped with a lion's
+  head in profile"; the picture is two gold coins showing a head and a horse.
+· **`gr-035` Mesara tholos tombs** — the card is circular stone burial chambers 4 to 13 m across; the
+  picture is figurines found in one.
+· And `gr-096` (drawings of objects for a card about a LANGUAGE), `gr-158` (a 16th-century decorative
+  map for ancient city-kingdoms), `gr-244` (a modern infographic of Spartan society for the Great
+  Rhetra), `gr-267` (Hecataeus's world map for a card about Cleomenes), `gr-383` (a stele from a
+  century after the conquest it is meant to show), and `gr-311`, which is the SAME Attica map as
+  `gr-176` and would have been a within-collection duplicate.
+
+**Five more were right about the subject and already on ANOTHER CARD**, which `check-image-free.js`
+caught and nothing else would have: `gr-364`'s tyrannicides are on `gr-303` and `bio-091`'s dividing
+*E. coli* is on `bio-004` — both **within** their own collection, which is the duplicate fault the
+rule says to repair first rather than create. `gr-417`, `rm-328` and `rm-360` would each have made a
+new cross-collection pair.
+
+**READING THE CARD IS WHAT DECIDES IT, NOT THE SHEET ALONE.** Two of the ten I first rejected off the
+contact sheet turned out to be right once the card was read: `gr-486`'s jurors' tickets look like a
+card about democracy rather than empire, and the card's own abstract says the empire's "daily working
+was as much legal as military". **The sheet finds the wrong picture; the card decides the borderline
+one.**
+
+So: **10 shipped** — `gr-122`, `gr-138`, `gr-169`, `gr-176`, `gr-227`, `gr-486`, `ko-035`, `ko-079`,
+`rm-362`, `pea-075`. The 15 rejected keep their empty frame, which is the honest state.
+
+## The second batch was not applied at all, and that is the more useful result
+
+Thirty Rome cards, taken the sanctioned way: `pick-images.js --build` over a `chosen-*.json` naming
+each term's own top-ranked candidate, then the contact sheet. **Of the 27 that built, roughly half
+were wrong, and the wrong ones were not near-misses.**
+
+· **`rm-288` extortion court** — an American political cartoon captioned *HOW THEY DO IT IN SEATTLE*.
+· **`rm-278` decline of the Italian smallholder** — a map of the modern **Kingdom of Italy**.
+· **`rm-282` lex Sempronia agraria** — a 19th-century cartoon of skeletons in top hats.
+· **`rm-167` Pyrrhic victory** — a modern satirical cartoon with flags and top hats.
+· **`rm-272` philhellenism** — Delacroix's massacre at Chios. That is **19th-century** philhellenism,
+  the Greek War of Independence, on a card about Rome in the 2nd century BCE. Exactly the `gr-139`
+  fault: the right word, the wrong century.
+· **`rm-180` Roman Italy** and **`rm-267` Roman provincial system** — maps of the praetorian
+  prefectures and dioceses of **AD 380–395**, four centuries after the Republic these cards are in.
+· **`rm-203` Mercenary War** and **`rm-268` publicani** — Christian iconography (three crosses at
+  Golgotha; the calling of Matthew the publican) for a Carthaginian revolt and a Roman tax-farming
+  company.
+· **`rm-172` formula togatorum** — the Capitoline Wolf, which is not a register of allied levies and
+  is already on `rm-054`.
+· **`rm-010` Latins** — the article *Latins* is about the **Crusader** Latins, so the top candidate is
+  a 12th-century painting of crusaders.
+
+**THE LESSON IS ABOUT THE KIND OF TERM, NOT THE TOOL.** The first batch was concrete things — a cist
+grave, a stone cist, a map of Attica — and two thirds were usable. This one is Roman INSTITUTIONS: a
+law, a court, a levy register, a fiscal company, a constitutional crisis. **Nothing depicts an
+institution**, so the scorer falls back on whatever the article carries, and a Wikipedia article about
+an abstraction carries whatever anyone has uploaded near it. **Sort a batch by how picturable its
+answer terms are before fetching anything**, and expect the abstract end to need a hand-chosen file
+or an empty frame.
+
+The batch was discarded rather than half-applied. Nothing from it shipped.
+
+## Batch 3 — the concrete end, 47 of 90
+
+**Sorted by how picturable the answer term is, which is what batch 2 asked for — and the card already
+carries that judgement in `tags[0]`, its KIND.** Over the 265 with a ready candidate the split is
+stark: 73 `concept`, 56 `event`, 22 `institution`, 7 `practice`, 5 `title` and 3 `theory` against 41
+`person`, 16 `text`, 12 `place`, 8 `battle`, 7 `object`, 6 `people`, 2 `building` and 2 `ruler`. So
+two thirds of the remaining backlog is the abstract end batch 2 failed on, and it was knowable
+without fetching a single file.
+
+Ninety-six concrete terms built, ninety reviewed on three sheets, **forty-seven usable** — against
+about half on batch 2's institutions. **The rule holds and is cheap to apply: filter on `tags[0]`
+before fetching.**
+
+**The forty-three rejections fall into four kinds, and none is a near miss.**
+
+· **THE WRONG SENSE OF AN ENGLISH WORD.** `gr-626` **Antiphon** the Athenian orator got a page of
+  **Gregorian chant**; `gr-631` **Memorabilia**, Xenophon's, got a **souvenir stall in Namibia**;
+  `gr-558` **Battle of the Great Harbour** got **Battle Harbour, Newfoundland**, a fishing village in
+  Labrador; `ko-084` **iron ingot** got a modern **aluminium billet stamped AFFIMET**. No scorer can
+  see any of these, because in each case the name matches perfectly.
+· **THE WRONG BEARER OF A SHARED NAME.** `gr-300`'s term is `Hippias_(tyrant)` and the candidate was a
+  plate from a 1919 arithmetic textbook about **Hippias of Elis**, the sophist of the quadratrix.
+  `gr-220` **Olbia** got an aerial view of **Olbia in Sardinia**, a modern port, where the card is the
+  Milesian city on the Bug.
+· **RIGHT PLACE, WRONG CENTURY — the `gr-139` fault again.** `gr-524` **Epidamnus** got the **Roman**
+  amphitheatre at Durrës, 2nd century AD, for a card about the stasis of 435 BCE; `gr-611` **Birds**
+  got a Lakonian kylix of about 550 BCE, 140 years older than Aristophanes' play.
+· **A LOCATOR MAP IS NOT AN ILLUSTRATION.** `wh-093` **Madjedbebe** got a relief map of Australia,
+  `rm-298` **Arausio** one of France, `cnh-218` **Gaixia** one of China, `gr-543` **Amphipolis** one of
+  Greece. **The card already draws its own Atlas window**, so a second map tells the reader less than
+  the one they have; and `gr-759` **Triparadisus** got a map of *Greece* for a place in Syria.
+
+Two more worth naming because they are judgements rather than errors. `gr-582` **Critias** got a
+**genealogy chart** of Plato's relatives — on subject, honest, and unreadable at the size a card frame
+draws. `ww2-120` **Guilty Men** got a **1981 photograph of Michael Foot**, one of the three
+pseudonymous authors, forty years after the pamphlet; a portrait of a co-author is not the book.
+
+### Two pipeline faults the batch exposed, both fixed in the tool
+
+**`check-image-free.js` passed a re-crop of the very file its own header cites.** It folded the
+`\d+px-` prefix and underscores and nothing else, so `Eugene Guillaume - the Gracchi (cropped).jpg`
+reported free while `Eugene Guillaume - the Gracchi.jpg` is already on `wh-350` and on the
+`Gracchi_brothers` term — which is the exact pair the tool was written to prevent, and the exact pair
+its header names. `DERIV_RX` now folds Commons' derivation suffixes. **The list is DECLARED and short
+— cropped, crop, retouched, restored, edited — and `detail` is deliberately NOT in it**, because a
+detail of one figure out of a sculpture group is a different picture on the page; so
+`… the Gracchi (cropped) Gaius.jpg` still reports free and stays a judgement rather than a refusal.
+**Measured over the shipped corpus the fold changes exactly one group**, and that group is a card and
+its own glossary term, which is the sanctioned pairing — so this half is prophylactic rather than a
+repair, and the fault it caught was a candidate, not something already live.
+
+**`pick-images.js` was re-creating the fault a whole hand pass had cleared.** It wrote the bare
+Commons page URL as `credit` and appended the attribution to the caption, so every picture it produced
+tripped `check-cards.js`'s `source-in-caption` rule: **47 cards in, 47 findings out**, against a check
+`CLAUDE.md` records as reporting **zero** since the Sep 2026 pass. **A pass clears a backlog; only a
+rule in the tool keeps it cleared**, and nobody had put one there. The attribution now goes in
+`credit`, which is the house form — **2,173 of the corpus's 2,938 card credits already carry an
+author-and-licence prose line before the URL** — and the field `mediaCreditHTML` renders under the
+frame. **The licence is not weakened by the move**: CC BY and CC BY-SA want the creator named, the
+licence identified and the source reachable, and all three now sit together rather than being split
+across two fields. What must never happen is the reverse order — cutting the clause out of the caption
+while the credit is still a bare URL would leave a CC BY picture with no attribution at all, which is
+the refusal `strip-credit-captions.js` is built around. The five cards batch 1 shipped this morning
+were repaired the same way, credit first and caption second.
+
+### And half the alts had to be written by hand
+
+What the tool emits for `alt` is the cleaned file NAME, and for this batch that was Italian, Dutch and
+Slovenian, two museum accession numbers, and four that simply repeated the card's own title — the
+useless kind `CLAUDE.md` names, since a title NAMES a picture for someone who can see it and alt
+DESCRIBES it to someone who cannot. Twenty-two were rewritten from the picture after looking at it.
+**Budget for this: on a batch of concrete subjects it is about half of them**, because a file named
+after its subject produces an alt that is the subject's name.
+
+## Batch 4 — the second-choice candidates, and the abstract end
+
+Two halves, both cheap, and the second is where the pass stops paying.
+
+**THE SECOND-CHOICE PASS: 7 of 52.** Candidate 0 having been rejected for 52 concrete terms, candidates
+1 and 2 were put on a sheet — and 52 terms yielded only 64 further candidates, most having just one
+usable file. Seven were right and are shipped: `gr-301` Hipparchus insulting Harmodius' sister,
+`gr-302` the Syriskos Painter's stamnos of Hipparchus' death, `gr-541` the silver ossuary and gold
+crown from Amphipolis identified as Brasidas', `gr-601` Mucha's *Médée* poster, `gr-620` the
+Oxyrhynchus papyrus of the *Hellenica* itself rather than a bust of its author, `bio-061` a ribbon
+diagram, and `rm-266` Scipio Aemilianus at the deathbed of Masinissa.
+**Where the ARTICLE is wrong, every candidate is wrong**, which is most of the failures here:
+`Archaic_period_(North_America)` offered a fir tree and a copper knife, `Memorabilia` a souvenir album,
+`Battle_Harbour` a clapboard church. **So a rejected candidate 0 is worth a second look only when the
+article was right and the file was not.**
+
+**THE `event` KINDS: 14 of 71, and one real distinction came out of it.** **A map made OF the event
+works; a map of the REGION does not.** Four shipped are purpose-drawn historical maps — the Rebellion
+of the Seven States with the rebel kingdoms marked, the First Mithridatic War's campaign routes, the
+Ephesian Vespers' cities, Sulla's march on Rome with its gates — and every generic relief map of
+Greece, France, China or the Aegean was rejected, because **the card already draws its own Atlas
+window** and a second map of the same ground says less than the one the reader has.
+The rest are pictures of the event: Jamin's Brennus for the Gallic sack, Sweerts' *Plague in an Ancient
+City*, the destruction of the Athenian army at Syracuse, Gérôme's *Death of Caesar*, the seventeen
+executed soldiers excavated at Valencia, the Warsaw crowds outside the British embassy on 3 September
+1939.
+**Two more wrong-sense catches**, which is now this pass's most reliable failure: `rm-315` **Marian
+terror** got a shrine of **Our Lady**, and `ww2-133` **Quarantine Speech** got a 1942 poster reading
+*Fool the Axis — Use Prophylaxis*.
+**And a portrait is not an event.** A bust of Caesar for the First Triumvirate and one of Marius for
+the Social War were refused; a bust of Cicero for *the consulship of Cicero* was kept, because there
+the card's subject is one man's year.
+
+**Two cards were added BY HAND rather than by loosening the rule that declined them.** `cnh-247`'s file
+is named in Chinese, so `mostlyNonLatin` correctly refused to let a caption be made from it — an alt
+written by eye answers that objection without weakening the rule for the next batch. `rm-335`'s term is
+keyed `Pompeys_settlement_of_the_East` while the card answers *Pompey's settlement of the East*, and
+the resolver folds spaces and underscores but not apostrophes.
+
+### A third pipeline fault: the resolver guessed between two terms of the same name
+
+`pick-images.js` lets a disambiguated key claim its bare name, which is right for `Lucy_(Australopithecus)`
+and wrong the moment TWO keys strip to the same thing — first come wins, and first come is glossary
+insertion order, so which of two terms a card resolves to was decided by which was typed first.
+**Measured: three bare names are contested — `georgia`, `demosthenes`, `social war` — six cards answer
+one of them, and THREE resolved to the wrong term**: `geo-027`, the United States card, to
+`Georgia_(country)`; `rm-305`, the Roman Social War of 91–87, to the Greek one of 357–355; `gr-692` to
+the general rather than the orator. The other three were right by accident.
+**The rule is app.js's own** — `bareTaken` in `buildGlossIndex`, which has refused a contested bare name
+for the auto-linker all along; this had simply never been carried across. **No picture had yet shipped
+through a wrong resolution**, so it is prophylactic, and the cost is honest: `gr-559` and `rm-305` now
+resolve to nothing at all and report so, which is the right answer for a card whose answer names two
+terms.
+
+## What to do next
+
+1. ~~The 25 whose term already has a picture.~~ **DONE — and it was not the free win it looked like;
+   see the batch above.** Note for anyone tempted to treat a term's picture as automatic: **933 of the
+   2,881 cards that have a picture already share it with their own glossary term**, so that pairing is
+   sanctioned practice and `check-image-free.js` will report it as TAKEN every time. The line that
+   matters in its output is a **card id**, not a glossary slug.
+2. **The rest of the 265 in batches of about fifty**, through the contact sheet, **filtered on
+   `tags[0]` and concrete kinds first** — see batch 3. Ninety-six of the concrete ones are spent, so
+   what is left is the 166 abstract terms, where batch 2 measured about half wrong and wrong badly.
+   Expect a much lower yield there, and expect several to need a hand-chosen file or an empty frame.
+   Rome and Greece are the biggest two and Rome's obvious pictures are already spent (see the
+   duplicate-picture bullet in `CLAUDE.md`), so expect a lower hit rate there than the raw count
+   suggests. **Run `node .claude/check-image-free.js --batch=…` before the contact sheet, not after**:
+   it is cheaper to drop a taken file than to review one.
+3. **Leave the 128 that have nothing**, and say so rather than letting the gap read as an oversight.
+
+## Batch 5 — the abstract end, 22 of 100, and the yield the Rome batch predicted
+
+The first batch to go at the kinds `tags[0]` says are hard: **110 terms of kind `concept` (73),
+`institution` (22), `practice` (7), `title` (5) and `theory` (3)**, of which 100 built a candidate.
+Four contact sheets, **26 judged usable, 4 of those already taken, 22 applied** — 22%, against 52% on
+the concrete kinds in batch 3. **The hypothesis holds at both ends**, and the figure is now measured
+rather than feared.
+
+Cards with no picture: 457 → **435**. `source-in-caption` still **0**; `duplicate-image` unchanged at
+**21**.
+
+### What the abstract end rejects, and it is one fault wearing five coats
+
+Nothing depicts an abstraction, so the scorer falls back on whatever the term's article happens to
+carry — and an article about an abstraction carries whatever anyone uploaded near it.
+
+- **A METAPHOR IS NOT A DEPICTION.** `ps-012` determinism got railway tracks running to the horizon
+  and `bio-081` activation energy a sparking flame. Both are stock photographs standing for an idea,
+  and a reader who cannot already see the point learns nothing from either. This is the commonest
+  shape at this end and none of it is catchable by rule.
+- **THE WRONG SENSE OF AN ENGLISH WORD**, again: `gr-081` damos got a black-and-white photograph of a
+  singer at a microphone, `gr-170` eighth-century revival an American street with a shopfront reading
+  CASKETS DIRECT, `bio-036` organic chemistry a child on a swimming float, `ps-018` hypothesis
+  Cellarius's *Hypothesis Ptolemaica* star chart.
+- **THE RIGHT CONCEPT IN THE WRONG CIVILISATION.** `ko-096` tributary system got the Apadana tribute
+  reliefs at Persepolis — a perfect picture of tribute and the wrong continent and millennium.
+- **A GENERIC MONUMENT FOR AN INSTITUTION.** The Parthenon was offered for `gr-080` qa-si-re-u (a
+  Linear B title eight centuries older), `gr-256` mora and `rm-271` Greek influence on Roman culture.
+- **AND COMMONS' OWN PLACEHOLDER.** `ko-080` prestige goods and `gr-642` Classical Greek sculpture
+  both resolved to the file that reads **"Please choose a more precise name for your image."** It is
+  a real, usably-licensed, high-resolution image of nothing at all, and it ranks because it sits in
+  articles. Worth knowing: it will come back.
+
+### What works at this end, and it is one shape
+
+**A NAMED DOCTRINE HAS A CANONICAL PERSON, AND A PERSON CAN BE PHOTOGRAPHED.** Nine of the 22 are
+psychology's philosophical background — empiricism → Bacon, rationalism → Leibniz, associationism →
+Locke, the blank slate → a wax tablet, reductionism → Vaucanson's duck, eugenics → a Eugenics Society
+stand — and Greece's are the same shape: atomism → Lucretius pointing at the *casus*, humoral theory →
+a Thurneisser woodcut quartered into the four humours. **The other thing that works is a purpose-made
+DIAGRAM** (the null hypothesis's shaded tail, DNA's bases labelled, an amide hydrolysis mechanism,
+denaturation by formamide), which is batch 4's "a map made OF the subject" one discipline over.
+
+**AND AN OBJECT THAT IS THE INSTITUTION.** `gr-471` dikasteria got the Athenian jurors' own bronze
+ballots and `rm-295` the Marian reforms a denarius struck in 101 BC showing Marius in his triumphal
+chariot. Where an institution left a THING behind, the thing is the picture; where it left only a
+procedure, there is nothing.
+
+### Four of the 26 were already in the corpus, and all four were adjacent cards
+
+`check-image-free.js` earned the batch: the Etruscan League map is on `rm-024` (and its own glossary
+term), Giordano's *Leucippus* on `gr-640`, Shepherd's *Growth of Roman Power in Italy* on `rm-170`,
+and the inscribed Pericles bust on `gr-534` and `glossary:Pericles`. **Every one is a neighbour of the
+card that wanted it** — `rm-024`/`rm-025`, `rm-170`/`rm-171`, `gr-531`/`gr-534` — which is the
+within-collection duplicate a reader working through a deck actually meets. **Run it before the
+contact sheet, not after.**
+
+### The picture host has changed under us, and nothing says so
+
+The Commons API's `thumburl` now answers **`thumb.wikimedia.org`** where it used to answer
+`upload.wikimedia.org`. Both resolve and serve byte-identical files, `img-src` in `_headers` is
+`https:` so the CSP does not care, and `fetch-images.js` copies whatever the API gives — which is the
+house rule and is right, the two-character path shard being unguessable. Measured over the corpus:
+**2,908 cards on `upload.wikimedia.org` and 65 on `thumb.wikimedia.org`**, the 65 being exactly
+batches 3, 4 and 5.
+
+**Nothing was rewritten**, deliberately: overriding the API's own answer on a consistency preference
+is how a working URL becomes a broken one the day the old host retires. What the split costs is a
+grep — **a sweep for `upload.wikimedia.org` now silently misses 65 cards**, and will miss more with
+every batch. Match on `wikimedia.org` or on `/wikipedia/commons/`, never on the host.
+
+## Batch 6 — the abstract end is genuinely exhausted, and this is the measurement
+
+Five cards and seven glossary terms: `rm-285` Gaius Gracchus, `bio-033` acid, `cnh-182` Bai Qi,
+`gr-524` Epidamnus, `gr-731` Philotas, plus the terms `Demosthenes_(orator)` and
+`Archaic_period_(North_America)`, whose paired cards already had one.
+
+**THE YIELD WAS 7 OF 304, AND THE 304 IS THE NUMBER THAT MATTERS.** Measured this batch: 434 cards
+carry no picture; **318 of them resolve to a glossary term** and **304 of those terms have a cached
+Wikipedia page and no picture of their own** — so the candidate pool is not the card count but that
+304, and the whole of it was put through the reviewer. Batch 3 took 52% of the concrete kinds and
+batch 5 took 22% of the abstract ones; **this batch took about 2%.** The remaining backlog is not
+work waiting to be done at a rate — it is mostly cards whose answer term nothing free depicts.
+
+**THE OTHER 116 ARE A PAIRING GAP AND NOT A PICTURE ONE**, which this batch measured again: 99 of
+them are `pea-` cards whose answers name no glossary term at all (*Roh Moo-hyun*, *Miracle on the Han
+River*, *Reds and experts*). No picture pass can reach them; they want the pairing rule applied to
+that collection first.
+
+**AN AUTOMATIC NAME MATCH FOUND 21 CANDIDATES IN 304 AND MOST OF THEM WERE STILL WRONG.** Ranking a
+candidate by how many of the term's own words appear in its file name is the cheapest filter there
+is, and it surfaced *Battle Harbour, Newfoundland* for the **Battle of the Great Harbour**,
+*Maharashtra State Board of Secondary and Higher Secondary Education* for **secondary state
+formation**, and an aerial view of *Olbia in Sardinia* for the Greek **Olbia** on the Black Sea.
+**A name match is a way of ordering the reading, never of skipping it.**
+
+**FOUR CANDIDATES WERE REFUSED BY `check-image-free.js` AND ALL FOUR WERE CROSS-COLLECTION.** The
+*Four Commanderies of Han* map is on `ko-071`, `jp-044` and the `Han_commanderies` term; the *King of
+Na* gold seal is on `jp-041`; the *Wei Zhi* page is on `ko-070`, `jp-043` and `Dongyi`. Korea, Japan
+and China share their early sources, so **expect the free-check to bite hardest where two collections
+cover the same centuries** — and running it before the contact sheet, as the plan says, saved
+fetching all four.
+
+**AND ONE FINDING IS NOT THIS BATCH'S TO FIX BUT IS WORTH RECORDING.** The free-check reports a file
+literally named `thumbnail.jpg` shared by **13 cards, 14 glossary terms and 10 artefacts** — which is
+not one picture on 37 surfaces but 37 different pictures whose `src` all end in the same generic
+name, so the check's file-name comparison cannot tell them apart. It is a false positive of the
+tool's own rule, it is pre-existing, and it will go on reporting until those `src` values are
+re-fetched with their real file names.
+
+**TWO CANDIDATES WERE HELD BACK BECAUSE THEY COULD NOT BE LOOKED AT.** `ww2-011` (Article 22 of the
+League Covenant) and `gr-566` (Lichas bringing the poisoned robe) are both free and both apt on
+their descriptions, and `upload.wikimedia.org` was in its BUSY state throughout — five retries, a
+`Special:FilePath` fallback and the `api.php` route all returned nothing or a rate-limit notice.
+**The standing rule is that a picture is looked at before it is applied, so they stay out**; they are
+named here so the next batch starts with them rather than re-deriving them.
+
+**`check-style.js` READS THESE CAPTIONS AND HAS A STANDING BACKLOG OF 23**, measured before and after
+this batch and unchanged by it: mostly "2nd century BC" inside a caption borrowed from Commons, plus
+two `title-AMBIGUOUS` findings on Laozi. **Run it before and after a picture batch and compare the
+COUNT** — the findings are in other people's prose, so a new one is easy to miss in a list that is
+never empty.
+
+**BATCH 6a — one of the two held-back pictures came back.** `gr-566` (Lichas) fetched on the eighth
+attempt, forty minutes after the six that returned zero bytes, from the same `Special:FilePath`
+address that had been failing. **The BUSY state clears; retry before re-deriving a candidate.**
+Looking at it also corrected the caption drafted from its file name: it is a sixteenth-century
+ENGRAVING signed HSB, not a painting, inscribed *Deianira Nessi vestem per Licham servum Herculi
+mittit* — which is a better caption than anything the metadata offered. `ww2-011` (Article 22 of the
+League Covenant) stayed unfetched through that batch; batch 6b below says why, and it was not the
+BUSY state.
+
+**BATCH 6b — the second held-back picture came back, and the 429 was never about waiting.** `ww2-011`
+(Article 22 of the League Covenant) is in. It had been retried across two sessions on the reasoning
+that `upload.wikimedia.org` was in its BUSY state and that BUSY clears — which is what happened with
+`gr-566` in batch 6a, and which is why nobody read the error body. **Read it.** Wikimedia's 429 page
+says in terms: *"Too many requests — please contact noc@wikimedia.org to discuss a less disruptive
+approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai."*
+
+**THE LIMIT IS PER RENDER, NOT PER HOST, AND THE WIDTH IN THE URL IS WHAT TRIPS IT.** Every failed
+attempt had asked for `?width=900`, which is not a size that file already had a thumbnail for, so each
+request asked the thumbnailer to render a new one. Measured on this file in one run, seconds apart:
+**`width=900` 429, `width=800` 429, `width=640` 429, `width=1024` 200 and 821 KB of real JPEG.** It is
+not "standard sizes" in the abstract either — 640 and 800 are as standard as 1024 — it is **which
+renders already exist for that particular file**. So a 429 from `Special:FilePath` is a fact about the
+width you asked for, and the fix is to ask for a different one rather than to wait forty minutes.
+**Try two or three widths before recording a file as unfetchable**; `gr-566` very likely came back in
+batch 6a because the eighth attempt happened to name a width that was already cached, not because
+time had passed.
+
+**THE DESCRIPTION PAGE AND `api.php` FAIL SEPARATELY, AND THE PAGE IS THE ONE THAT ANSWERS.** In the
+same minutes, `api.php` returned 429 ("You are ma…") while
+`commons.wikimedia.org/wiki/File:<FILE>` served 99,865 bytes carrying the Author, the licence, the
+source and — the part that matters — **the canonical `upload.wikimedia.org` URL with its own two-character
+shard**, which is the one thing that must never be composed by hand. This is CLAUDE.md's own
+"reach for those two before concluding Commons is shut" with the api leg knocked out.
+
+**A PAGE OF TEXT IS USUALLY A REJECT AND HERE IT IS THE RIGHT ANSWER.** Batch 6 threw out two museum
+TEXT PANELS, and the rule behind that stands: a panel ABOUT an object is not a picture OF it. This
+file is different in kind — the card's answer term is a legal category that this text created, its
+question quotes the very paragraph ("a sacred trust of civilisation"), and the scan has the three
+classes boxed in red, blue and yellow, which is a thing the prose says and the reader cannot otherwise
+see. **Ask whether the text IS the subject before rejecting a picture for being text.**

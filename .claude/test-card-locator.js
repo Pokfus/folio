@@ -374,6 +374,66 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   check("a modern city puts nothing on the map — neither a square nor a name", capInk === 0, "dark px " + capInk);
   await rng.close();
 
+  /* ============================================================
+     5. THE RUSSIA FRAME (Sep 2026, on request)
+     ============================================================
+     Rome, Greece and China have had a hi-res coastline under their locator windows since Sep 2026; the
+     Russia collection had none, and the request was for Russia to have what the other country frames
+     have. What is asserted is the same thing section 4 asserts about the Italian rivers and for the same
+     reason: a bundle that stops being fetched, stops being ingested or stops being CONSULTED leaves a
+     perfectly good map drawn on world.js, and nothing anywhere says so.
+     IT IS MEASURED BY TAKING IT AWAY, on the card's own opening view. The figure matters as well as the
+     sign: on this card — the Pontic-Caspian steppe, a frame that holds the Black Sea, the Sea of Azov and
+     the Caspian — the bundle changes about 3,000 pixels of 169,520, where the United States frame changes
+     117 of 224,322 on the California card. The bar is set well under that so a re-run of the builder at a
+     different tolerance does not fail it, and well over the noise a redraw of an identical view produces,
+     which is zero. */
+  const ru = await browser.newPage({ viewport: { width: 1200, height: 1000 } });
+  await ru.addInitScript(IS_WATER);
+  const ruAsked = [];
+  ru.on("request", (r) => ruAsked.push(r.url()));
+  await ru.addInitScript(() => {
+    localStorage.setItem("folio_v1", JSON.stringify({
+      active: ["cotd:added"], cotd: ["ru-002"],
+      cards: { "ru-001": { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" } },
+      settings: { newPerDay: 5 },
+    }));
+  });
+  await ru.goto(base + "#home", { waitUntil: "load" });
+  await ru.reload({ waitUntil: "load" });
+  await ru.waitForTimeout(1600);
+  await ru.evaluate(() => { const r = document.querySelector('[data-review="cotd:added"]'); if (r) r.click(); });
+  await ru.waitForTimeout(1200);
+  await ru.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+  await ru.waitForTimeout(12000);
+  const ruState = await ru.evaluate(() => ({
+    loc: !!document.querySelector(".map-card.map-loc"),
+    frames: Object.keys(window.HIRES_COAST || {}),
+    rivers: (window.RIVERS || []).length,
+  }));
+  check("a Russia locator warms its own hi-res coast", ruState.loc && ruState.frames.indexOf("russia") >= 0,
+    JSON.stringify(ruState));
+  check("...fetched at idle rather than bundled into the eager path",
+    ruAsked.some((u) => /coast\/russia\.js/.test(u)));
+  check("...and it draws the Atlas's rivers, which needed no file of its own", ruState.rivers > 500, "rivers " + ruState.rivers);
+  const ruSnap = () => ru.evaluate(() => {
+    const cv = document.querySelector(".map-card.map-loc .mc-canvas");
+    const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
+    return { n: cv.width * cv.height, px: Array.from(d) };
+  });
+  await redraw(ru);
+  const ruA = await ruSnap();
+  await ru.evaluate(() => { window.HIRES_COAST = {}; });   // a NEW object, so effRings drops its memo
+  await redraw(ru);
+  const ruB = await ruSnap();
+  let ruDiff = 0;
+  for (let i = 0; i < ruA.px.length; i += 4) {
+    if (ruA.px[i] !== ruB.px[i] || ruA.px[i + 1] !== ruB.px[i + 1] || ruA.px[i + 2] !== ruB.px[i + 2]) ruDiff++;
+  }
+  check("...and the map really draws it, on the view the card opens at", ruDiff > 800,
+    JSON.stringify({ changed: ruDiff, of: ruA.n }));
+  await ru.close();
+
   check("no console or page errors on the extent cards", errs.length === 0, errs.join(" | ").slice(0, 300));
 
   await browser.close();

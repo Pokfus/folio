@@ -73,13 +73,24 @@ async function openStudyCard(page) {
   await page.evaluate(() => { const b = document.querySelector("#b-review"); if (b) b.click(); });
   await page.waitForTimeout(1000);
 }
+/* THE FIRST `.ttip` ON A REVEALED CARD IS NOT A CLICKABLE ONE — the same fault `test-sources.js`
+   carries the long note about, one file over, and this suite kept it after that one was fixed.
+   `elabPromptHTML` puts "Think it through" ABOVE the Background and each of its three answers is a
+   native <details> that starts closed, so the terms in those paragraphs come FIRST in the DOM and
+   are not rendered until the reader presses Show answer. `.first()` resolved to an element
+   Playwright rightly refuses to click, and the whole file died on a 30-second actionability
+   timeout reported as "element is not visible", naming neither the element nor the reason.
+   `:visible` is the fix and it is the honest question too: the suite wants any term a reader could
+   actually press. BOTH the count and the click take it, or a page whose only terms are inside
+   closed disclosures reports terms it cannot open. (The `.abstract .ttip` locator further down is
+   already scoped INSIDE the Background and is not affected.) */
 async function openAnyGloss(page) {
   await closeGloss(page);
-  if (!(await page.locator(".ttip").count())) {
+  if (!(await page.locator(".ttip:visible").count())) {
     await openStudyCard(page);
     if (await page.locator("#reveal-btn").count()) { await page.click("#reveal-btn"); await page.waitForTimeout(500); }
   }
-  await page.locator(".ttip").first().click();
+  await page.locator(".ttip:visible").first().click();
   await page.waitForTimeout(450);
 }
 async function openGlossEditor(page, base, key) {

@@ -27,7 +27,10 @@
 
 const fs = require("fs"), path = require("path"), cp = require("child_process");
 const ROOT = path.join(__dirname, "..");
-const MD = fs.readFileSync(path.join(ROOT, "CLAUDE.md"), "utf8");
+/* CLAUDE.md was cut to its rules in Oct 2026 and its old text moved verbatim to docs/reference.md, which
+   still states most of the figures this measures — so both are read, the short file first. */
+const MD = fs.readFileSync(path.join(ROOT, "CLAUDE.md"), "utf8") + "\n" +
+  fs.readFileSync(path.join(ROOT, "docs", "reference.md"), "utf8");
 const ALL = process.argv.includes("--all");
 
 const rows = [];

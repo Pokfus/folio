@@ -41,11 +41,27 @@ const LEADS_MAX = 3, HOW_MIN_WORDS = 4, HOW_MAX_WORDS = 28;
  * `add-card-links.js` still treats the field as optional, since it is the tool for repairing the backlog
  * that rule exists to stop growing.
  *
- * THE ONE EXEMPTION IS A MAP CARD, and it is `card.map` rather than a collection list because that field
- * is exactly the Geography section and is readable from the card alone. Such a card asks for a shape and
- * answers with a grid of figures; the pass excluded them from the start.
+ * THE EXEMPTIONS ARE THE TWO GEOGRAPHY FORMATS, and both are read off a FIELD rather than a collection
+ * list, because the field is readable from the card alone.
+ *
+ * A MAP CARD (`card.map`) asks for a shape and answers with a grid of figures; the pass excluded them
+ * from the start, there being no prose on the back to draw an answer out of.
+ *
+ * A FLAG CARD (`card.flagCard`) is exempt for a DIFFERENT reason, and it is worth stating rather than
+ * folding into the first, because a flag card's back DOES carry prose — it is its World Geography twin's
+ * background, copied verbatim (see docs/flags-card-plan.md). So a set COULD be written from it. It is
+ * still out: `fl-NNN` and `gw-NNN` are the same answer side, so a set written here would put a
+ * Think-it-through section on one of a pair of identical backs and not the other, and both twins would
+ * want the same three questions written once and copied — which is a pass of its own over 233 cards
+ * rather than something a card ships with. A manufactured question is worse than an absent section,
+ * which is why the self-explanation fallback was removed in the first place.
+ *
+ * A DRAW CARD (`card.drawCard`) is the flag card's reason with a THIRD back wearing the same prose. It
+ * is `fl-NNN` run backwards and carries `gw-NNN`'s background too, so the pair above is now a trio: a
+ * set written here would appear on one of three identical backs. Nothing about a draw card's own
+ * question — "draw this flag" — offers a why to ask, either.
  */
-const whyExempt = (card) => !!(card && card.map);
+const whyExempt = (card) => !!(card && (card.map || card.flagCard === true || card.drawCard === true));
 
 function checkWhy(card, opts) {
   const w = card && card.why;

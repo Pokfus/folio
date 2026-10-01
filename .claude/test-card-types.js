@@ -644,7 +644,7 @@ async function clozeChecks(page, base) {
   await page.evaluate((d) => {
     const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
     s.active = ["u:" + d];
-    s.settings = Object.assign({}, s.settings, { newPerDay: 20, sfx: false, animations: false });
+    s.settings = Object.assign({}, s.settings, { newPerDay: 20, limitsCustom: true, sfx: false, animations: false });
     // burying would put a note's other cards off until tomorrow, and this section is about which cards EXIST
     s.deckOpts = Object.assign({}, s.deckOpts, { ["u:" + d]: { burySiblings: false, newPerDay: 20, maxReviews: 200 } });
     localStorage.setItem("folio_v1", JSON.stringify(s));
@@ -804,7 +804,7 @@ async function reverseChecks(page, base) {
      deck and a section of its own below. */
   await page.evaluate((did) => {
     const S = JSON.parse(localStorage.folio_v1 || "{}");
-    S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, reviewRandom: false });
+    S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, limitsCustom: true, reviewRandom: false });
     S.deckOpts = Object.assign({}, S.deckOpts); S.deckOpts["u:" + did] = Object.assign({}, S.deckOpts["u:" + did], { burySiblings: false });
     localStorage.folio_v1 = JSON.stringify(S); localStorage.folio_tour_v1 = "no";
   }, deck.id);
@@ -848,6 +848,20 @@ async function reverseChecks(page, base) {
   await reveal();
   const back = await page.$eval(".reveal-inner", (el) => el.textContent.replace(/\s+/g, " ").trim());
   check("…and its back carries the front and then the answer", /aqua/.test(back) && /water/.test(back), back.slice(0, 60));
+  /* AND ON THE STUDY PAGE THE "QUESTION" HEADING GOES WITH THE QUESTION IT HEADS. The twin of the
+     preview's hidden-question check above, and it went UNGUARDED, so it broke in silence: the rule was
+     written `> .label`, which was right while the label was a direct child of the card, and the q-head
+     restructure moved it to `.q-head > .q-lead` without anything noticing. Nothing looked wrong for
+     months, because the orphaned heading landed directly above the front the back redraws — until the
+     marker's writing band opened between the two and a Chinese vocabulary card read as "Question" over
+     nine centimetres of nothing (reported Sep 2026). It is asserted HERE rather than on the Studio
+     preview, which renders no q-head at all, and it reads back "no-label" rather than skipping when the
+     heading is absent, so it can never pass by finding nothing to measure. */
+  const headState = await page.$eval(".study-card", (el) => {
+    const lab = el.querySelector(".q-head .label");
+    return lab ? getComputedStyle(lab).display : "no-label";
+  });
+  check("…and the shell's \"Question\" heading is hidden with the question it heads", headState === "none", headState);
   // card info names which of the note's cards this is — the question a reverse card provokes
   await page.evaluate(() => document.querySelector("#cardInfo")?.click());
   await page.waitForTimeout(450);
@@ -971,7 +985,7 @@ async function buryChecks(page, base) {
     const S = JSON.parse(localStorage.folio_v1 || "{}");
     S.active = ["u:burydeck"];
     S.buried = {};
-    S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, reviewRandom: false });
+    S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, limitsCustom: true, reviewRandom: false });
     localStorage.folio_v1 = JSON.stringify(S);
     localStorage.folio_tour_v1 = "no";
     sessionStorage.removeItem("folio_study_v1");

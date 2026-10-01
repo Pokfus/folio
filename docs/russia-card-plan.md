@@ -327,6 +327,928 @@ glossary entries were written to match — `Cimmerians`, `Scythians`, `Sarmatian
 `Animal_style`, `Eurasian_Steppe`, `Pontic-Caspian_steppe`, `Pastoral_nomadism` and
 `Bosporan_Kingdom` are all new; `Olbia` already existed, cited, from the glossary pass.
 
+**2026-09-17, `ru-011`–`ru-020` written** — the Goths, the Huns, the Avars, the Bulgars, Volga
+Bulgaria, the Khazars, the Khazar Correspondence, Itil, the Magyars and the Pechenegs, which finishes
+the steppe-neighbours half of `ru-before`. **One line was renamed and one answer term is not the
+line's own words.**
+
+**`ru-017` "The Khazar conversion to Judaism" is now "The Khazar Correspondence."** A card blanks one
+word, and the conversion is not a word a reader can be asked for; what the conversion is *known from*
+is, and it is the term a reader meets again. The card is therefore about the evidence — the letters
+Hasdai ibn Shaprut and King Joseph exchanged, recovered in the 16th century, and the different
+account in the Cairo Genizah fragment — with al-Mas'udi's third dating and the *Kuzari*'s fourth
+beside them. This is the shape `ww2-140` takes with the Hossbach Memorandum: **a line naming a
+PROCESS usually wants the document the process is known through.**
+
+**`ru-018`'s answer is `Itil` and its glossary key is `Atil`.** The house rule keys a term on the
+Wikipedia article slug, and the article is *Atil*; the translation the card rests on writes Itil, and
+so does most of the literature, so the term carries `Itil` as its first alias and the card blanks
+that form. A reader clicking "Itil" meets a popup headed "Atil" whose first clause says both, which
+is the honest way round.
+
+### What carried the batch, and what to reuse
+
+**The spine is four open sources and it will carry the next twenty cards too.** Léger's 1884 French
+translation of the *Chronique dite de Nestor* is the Primary Chronicle in an edition whose copyright
+has expired, and it carries the Obri proverb, the Khazar sword tribute, the 915 and 968 Pecheneg
+entries, Sviatoslav's skull cup and the 985 Bulgar campaign. **Bury's *A History of the Eastern Roman
+Empire* (1912) is the structural narrative** for the Khazars' neighbours, the Magyars' two steppe
+homes and the Pechenegs' eight tribes, all of it drawn from *De administrando imperio*, which has no
+open English translation. **Sprenger's 1841 al-Mas'udi** is the Arabic geography of the lower Volga —
+Itil in three parts, the nine judges, the Khwarezmian guard, the Volga Bulgar conversion. And the
+**ancient-DNA literature is open and excellent**: Gnecchi-Ruscone 2022 on the Avar elite, the same
+author's 2025 PNAS paper on the Huns, and Maróti 2022 on all three of Huns, Avars and Magyars at
+once.
+
+**A Russian-language journal registers its metadata in Russian, so cite the work in Russian.**
+`check-citations.js` reported three mismatches against Crossref for *Археология Евразийских степей*,
+because the citations had been written from the journal's own English article pages. Crossref is not
+wrong there and the `CROSSREF_WRONG` table is the wrong instrument: the article's own title IS
+Russian, and CLAUDE.md's rule already says to cite a foreign-language work untranslated. Rewritten in
+Cyrillic, all three match. **Expect this on every Russian, Ukrainian and Tatar journal this collection
+reaches for.**
+
+**AND RULE 6 OF `check-cards.js` CANNOT SEE ANY OF THEM, WHICH IS A GAP THIS COLLECTION WILL WIDEN.**
+Its `LANGS` table keys on journal-name patterns per language and has no Cyrillic row at all, so two
+Russian sources on one card pass in silence. `ru-018` is such a card and the judgement is deliberate:
+Samosdelka is published by its own excavator in Russian and nowhere else, so both papers are his and
+both are in that language. **The fix is NOT a single "Cyrillic" row** — Cyrillic is Russian,
+Ukrainian, Bulgarian and Serbian at once, and `wh-448` already cites a Ukrainian journal, so the
+table would conflate four languages the way its own header warns against. It wants a row per language,
+which is a tool change with its own measuring to do; measured on 2026-09-17, exactly two cards in the
+corpus would be reported.
+
+**The locator span rule bites hardest here.** A `people` or `state` card with an authored `area` is
+drawn on the personal atlas only for the years its own date line names, and BOTH ends bind
+(`test-date-line.js` section 4) — so a date line written in centuries draws nothing a reader will
+ever see. Every one of these ten states two readable years, which meant declining to assert an end
+date that could not be sourced: the Pechenegs are drawn 830–972 rather than to their real end,
+because Bury gives the westward move "early in the ninth century" and the chronicle gives 972, and
+nothing openable gave the rest. **A narrow honest window beats a wide invented one.**
+
+**Curta's negative finding is the most useful thing in the batch** and is why `ru-013` is what it is:
+early Avar belt fittings are absent from the lands north, east and south of the Carpathians beyond a
+couple of pieces, so the Avar dominion over eastern Europe that the Primary Chronicle's proverb
+implies is a historians' inference the archaeology does not support. The card carries the proverb AND
+the finding, which is this file's rule about a state's account of itself applied to a chronicle's.
+
+**One alias is a known future collision.** `Pannonian_Avars` claims the surfaces "Avars" and "Avar",
+which are also the names of a people of Dagestan — and `ru-peoples` will card the Caucasus. When that
+card is written, the Dagestani term needs a narrower head word and its own alias list, and this one's
+may need trimming; `check-gloss-links.js` is what will report it.
+
+The glossary entries were written to match: `Pannonian_Avars`, `Bulgars`, `Volga_Bulgaria`,
+`Khazar_Correspondence`, `Atil`, `Magyars` and `Pechenegs` are all new, cited at the bar and
+illustrated. **`Goths`, `Huns` and `Khazars` already existed**, cited, from earlier collections — so
+three of the ten cards satisfied the pairing rule without a new term, which is the head start this
+file predicted the collection would NOT have and does, wherever World History has been there first.
+
+**2026-09-17, `ru-021`–`ru-030` written** — Proto-Slavic, the Sclaveni, the East Slavs, the Vyatichi,
+Slavic paganism, Perun, the Merya, the Balts, the Varangians and the Rus' people, which finishes
+`ru-before` except for its last five cards. **Two lines were renamed and one was left exactly as it
+stood, against this file's own prediction.**
+
+**`ru-024` "The East Slavic tribes" is now "The Vyatichi."** A card blanks one word and a dozen tribal
+names is not one; the chronicle's own list belongs in the background, and the one tribe it says most
+about — a founder called Vyatko, a funeral rite described in the present tense, a tribute in silver
+per plough, three campaigns to subdue it — is the term a reader meets again. **`ru-027` "The
+Finno-Ugric peoples of the forest" is now "The Merya,"** for the same reason one step further: the
+chronicle lists fifteen such peoples, and the Merya is the one with a reconstructed language, a
+4th-century notice under another name and an archaeology that can be mapped.
+
+**`ru-025` stands as written, which is worth recording because this file warned it would not.** The
+line was flagged at the top as "an area" whose answer would have to be chosen while writing. It
+turned out that *Slavic paganism* is itself a term the scholarship heads and the glossary can carry,
+so the line and the answer are the same words. **A line flagged as too broad is still worth testing
+before it is narrowed.**
+
+### What carried this batch, and what the next twenty will want
+
+**Two ancient works carry six of the ten cards and both are open.** Mierow's 1915 *Getica* gives
+Jordanes' Venethi, Antes and Sclaveni as three names for one stock, the Sclaveni's bounds from
+Noviodunum and Lake Mursianus to the Dniester and the Vistula, the Aesti on the shore of Ocean, and
+Ermanaric's northern peoples; Dewing's Loeb *Wars* VII.14 gives Procopius' ethnography — one god who
+makes the lightning, no fate, rivers and nymphs, scattered hovels, no single ruler, one tongue, and
+the older name Spori — plus Chilbudius and the raids that made the Danube crossable at will. **Both
+are cited twice on some cards at different page ranges**, which `check-cards.js` allows because its
+first rule counts ancient authors apart and caps at two.
+
+**The chronicle is now the collection's spine rather than one source among four.** Léger's pagination
+matters, so it is recorded here: the Varangian Sea and the sons of Japheth at 2, the tribal and
+tribute-paying lists at 7–8, Radim and Vyatko and the funeral rite at 9–10, the 859 tribute at 14,
+Rurik's towns at 16, the 907 oath by Perun and Volos at 24, Igor's treaty at 41, Sviatoslav and the
+Vyatichi at 51, Vladimir's idols at 64 and 66, the destruction of the Kyiv idol at 96–97, and
+Monomakh's road to Rostov through Vyatichi country at 251.
+
+**Four Russian-language journals are open and answer, and three of them are one journal.** *Вопросы
+ономастики* carries the reconstruction of Merya from substrate toponymy, the Mari–Merya–Muroma
+ethnonyms, Jordanes' forest-zone peoples and the Baltic hydronymy of the upper Dnieper and middle
+Oka; *Stratum plus*, *History: Facts and Symbols*, *Archaeology and Early History of Ukraine* and
+*Locus* carry the temple rings, the upper Oka as a contested frontier, the Zbruch idol and the
+argument over where the Rhos ruler sat. **Crossref holds the ENGLISH article title and the Russian
+journal title for all of them**, so the citation is written that way round and matches; this is the
+same journal-metadata rule the last batch found, from the other side.
+
+**A `region` locator was authored for the first time in this collection.** `ru-024` is drawn as a
+dashed wash over the upper and middle Oka rather than as a dot, because the Vyatichi are a people and
+a dot in the middle of a river basin is the false precision the dashed shape exists to avoid. Its
+date line had to be extended to `to c. 1150 CE` for the reason the last batch recorded: a `people`
+card with an authored area is drawn only between the two years its own date line yields, so the wash
+would otherwise have stopped in 982 while the card's own prose ran to the twelfth century.
+
+**Four of the ten carry no locator at all, and that is the answer rather than a gap.** Proto-Slavic
+has a disputed homeland and a wash would settle it; the East Slavs and Slavic paganism are spread
+across the whole East European Plain; and the Varangians are men on a route rather than a place, so
+the honest mark would have been Constantinople, which says something about the guard and nothing
+about the people. **Ask what a reader could stand on, and take the empty answer when there is one.**
+
+**Two pictures needed a caption that argues with them.** The Zbruch pillar is the most reproduced
+image of Slavic paganism there is and its antiquity has been contested since 2011, so the caption
+says so and the card gives the dispute a sentence; and the Radziwiłł miniature of Perun's idol is a
+Christian illustrator's guess five centuries after the event, which the caption states rather than
+letting the drawing pass as a witness.
+
+**One thing was measured and not acted on.** The glossary term `Coinage` is tagged greece and
+anatolia, so `check-gloss-links.js` reports `ru-024`'s "a silver coin" as a cross-region auto-link.
+The term's own description is a general definition of coined money and the link is right in sense;
+the tags record where the western series began, not what the term is about. **Left as it is.**
+
+The glossary entries were written to match: `Proto-Slavic`, `Sclaveni`, `East_Slavs`, `Vyatichi`,
+`Slavic_paganism`, `Perun`, `Merya`, `Balts`, `Varangians` and `Rus'_people` are all new, cited at
+the bar and illustrated — **ten new terms for ten cards, with no head start at all this time**, which
+is what this file predicted and the last batch did not deliver. Two aliases are deliberate and worth
+knowing: `East_Slavs` claims the adjective "East Slavic", and `Rus'_people` does NOT claim the bare
+"Rus'", which `Kievan_Rus'` already carries in its curly-apostrophe form. **This collection writes the
+ethnonym with a STRAIGHT apostrophe** — the corpus is mixed, but `ru-001`–`ru-020` are straight and a
+card's bolded answer term has to match its own `answer` field exactly.
+
+**2026-09-17, `ru-031`–`ru-040` written** — the Normanist controversy, Staraya Ladoga, Gnyozdovo and
+the two trade routes, which **finishes `ru-before` at its full 35 cards**, and then Kievan Rus',
+Rurik, the Primary Chronicle, the calling of the Varangians and Novgorod, which opens `ru-kievan`.
+**Two lines were retitled, one answer term was narrowed, and one card needed no glossary term at
+all.**
+
+**`ru-034` is now "The route from the Varangians to the Greeks."** The word *trade* was this file's
+and not the chronicle's: the passage at Léger 4–5 calls it simply the road from the Varangians to the
+Greeks, and that is also the title of the English article the glossary key follows. **Where a line
+paraphrases a source's own phrase, prefer the phrase.**
+
+**`ru-039` stands exactly as written, and that is worth recording because it looked like a
+retitle.** "The calling of the Varangians" reads like a description rather than a term, and the
+obvious candidate was *Invitation of the Varangians* — which turns out to be a REDIRECT to an
+English article titled *Calling of the Varangians*. **Check which of two names the encyclopedia
+actually heads before assuming the plan's wording is the loose one.**
+
+**`ru-040` "Novgorod in the ninth century" is answered by `Novgorod` alone**, keyed on the article
+slug `Veliky_Novgorod` with the bare name as its first alias. The line's own subject is the ninth
+century and the card keeps it — the likeliest history of the name is that both the Slavonic
+*Хълмъгородъ* and the Norse *Hólmgarðr* belonged first to the centre now called Rurik's Hillfort, two
+kilometres upstream, and were carried over to the city beside it, with Hedeby passing its name to
+Schleswig as the parallel. **A bare `Novgorod` alias was measured before it was claimed**: twelve
+occurrences in the corpus, none of them inside *Nizhny Novgorod* or *Novgorod-Seversky*. `ru-147`
+(the annexation of Nizhny Novgorod) will need its own term or a hand-written link when it is written.
+
+**`ru-036` needed no new glossary term, and this is the shape to check for FIRST.** `Kievan_Rus'` has
+been a cited term at the bar since the citation pass, so the pairing rule was already satisfied —
+and `add-glossary.js` overwrites in silence, so writing one would have replaced a four-source
+description with a three-sentence one. **Grep the glossary keys before the research, not after.**
+
+### What carried this batch
+
+**Four open works carry eight of the ten cards.** Shchavelev's survey of the tenth-century towns in
+*Shagi / Steps* is the spine: of 25 town names in the chronicle only Kyiv, Vyshgorod, Vruchiy and
+Rodnya can be confidently placed in that century (45); Ladoga's Norse *Aldeigjuborg* is the only
+oikonym in eastern Europe built to the standard Scandinavian X + borg pattern, first written in a
+skaldic poem of about 1010 (47); *Hólmgarðr* belonged first to Rurik's Hillfort and was transferred,
+on the Hedeby–Schleswig model (47–48); and Gnyozdovo — the largest tenth-century complex in the lands
+of the Rus' and an almost unreadable ninth-century farmstead before that — is named in no source, so
+*Sýrnesgarðr* and the treatise's *Miliniska* are both hypotheses (40, 48). Musin and Stanisławski in
+*Przegląd Archeologiczny* give Ladoga's post-and-plank halls (after 880, floors of the 920s and 930s,
+the large building of the 940s with balances, weights and wooden figures), the trade-diaspora reading
+of them, and the tenth-century pottery chronology for Novgorod and the hillfort (176, 207–208).
+Howard-Johnston's "Rus and Khazars" gives the dirham evidence, the fur argument, Gotland as the
+financial centre, and the **six or seven hectares** of the hillfort's fortified core in the middle of
+the ninth century (383–385, 389). And Montgomery's translation of Ibn Faḍlān gives the Rūsiyyah at
+the Atil, the ten-thousand-dirham neck bands and the merchants' prayer (5, 7, 8, 10) — plus, on p. 3,
+the sentence that let `ru-031` be written at all: *I am neither a Normanist nor an anti-Normanist.*
+
+**The Bonn corpus edition of `De administrando imperio` is open and is the primary source for the
+Dnieper road.** Bekker's 1840 *De thematibus et de administrando imperio* carries chapter 9 whole at
+pp. 74–80, Greek with a Latin translation facing — the monoxyla coming down from Nemogardas,
+Miliniska, Teliutza, Tzernegoga and Vousegrade, the gathering below Kyiv, and the named cataracts with
+their glosses (*Gelandri*, "the noise of the rapid"; *Neaset*, where the pelicans nest in the stones).
+**Look for the nineteenth-century corpus edition before writing a Byzantine work off as untranslated.**
+
+**Fomin and Isakova in the *RUDN Journal of Russian History* is the historiography, and it has to be
+read for what it establishes rather than for the side it takes.** Its author is an anti-Normanist;
+what the article documents, and what `ru-031` and `Normanist_controversy` rest on, is Schlözer's
+five-volume *Nestor* (Göttingen, 1802–1809) deriving *Rus'* from Roslagen, Ewers answering it in 1808
+and again in 1814 and 1826, the demonstration that Roslagen is a late name where Uppland was earlier
+*Sialand*, the "convincing silence" of the sagas about Rurik against their memory of Rollo, the Swede
+Petreius first claiming Rurik for Sweden in 1614–1615, and — the sharpest thing in it — that the
+charge of *Russian national pride* was introduced into the argument by Schlözer himself (153–156).
+
+**A student-section article was found, read and REFUSED.** *Norman Theory and the Formation of Russian
+Statehood* (RUDN Journal of Public Administration, 2023) is open, on subject, and dates the beginning
+of East Slavic statehood to "the beginning of the VIth century" in its own abstract. **Read the source
+before citing it**; a peer-reviewed journal's student section is not the bar this collection is held to.
+
+**Crossref registers Márta Font's article under its printed CYRILLIC byline.** The Slavia Antiqua
+piece on the early Slavs in the Primary Chronicle is printed «МАРТА ФоНТ» over a Russian title, and
+`check-citations.js` reported the Latin form as a mismatch on three cards. The citation was corrected
+to **Марта Фонт** — the byline the work carries. This is the last batch's journal-metadata rule met
+from a third side: the title, the journal name AND the author all follow the printing.
+
+**Two cards carry no locator, and both refusals are about disagreement rather than absence.** A
+controversy has no place a reader could stand, so `ru-031` has none; and `ru-037` has none because the
+chronicle's two recensions seat Rurik at two different towns, so a dot would settle what the card says
+is unsettled. `ru-034` and `ru-035` are routes rather than places and are marked at their cruces
+instead — the **Dnieper rapids** and **Bulgar** — which is the honest answer to "is there somewhere a
+reader could stand?" for a road hundreds of miles long.
+
+**And one locator name had to be set by hand.** `add-locators.js` defaults the dot's label to the
+card's own answer term, which for `ru-039` gave a dot labelled *Calling of the Varangians* — a place
+called an event. Passing `name` fixed it. **Read the tool's own report line for every locator it
+writes**; a wrong label draws perfectly.
+
+**Three pictures needed a caption that argues with them, and a fourth needed no date at all.** The
+Prokudin-Gorsky plate of Staraya Ladoga shows a collapsed rubble rampart rather than a fortress, so
+the caption says the walls were then in ruin; the 1805 engraving of Rurik sits above a plinth bearing
+his name and title, so the caption says no contemporary description of him survives and every portrait
+is an invention; and Kivshenko's painting of the calling is dated in the caption to 1889, a thousand
+years after the meeting it imagines. The fourth is the Black Chamber at Bolgar, whose standing
+building is much later than the ninth-century traffic — so the caption says the photograph was taken
+in 1886 **on the site of** the market rather than dating the building at all. **Where a date cannot
+be sourced, say where rather than when.**
+
+**`upload.wikimedia.org` and `api.php` both rate-limited hard in the middle of the picture pass, and
+`commons.wikimedia.org/w/thumb.php?f=<FILE>&width=N` was what still served.** Three candidates could
+not be looked at by either of the routes the contact sheet tries; that one fetched all three on the
+first attempt. **It is in CLAUDE.md's own list of fallbacks and it is the one that worked.**
+
+**One thing was measured and not acted on, for the second batch running.** `check-gloss-links.js`
+reports `ru-035`'s "coins" as a cross-region link to `Coinage`, tagged greece and anatolia. The term
+is a general definition of coined money and the link is right in sense. **Left as it is**, exactly as
+on `ru-024`.
+
+The glossary entries were written to match: `Normanist_controversy`, `Staraya_Ladoga`, `Gnyozdovo`,
+`Route_from_the_Varangians_to_the_Greeks`, `Volga_trade_route`, `Rurik`, `Primary_Chronicle`,
+`Calling_of_the_Varangians` and `Veliky_Novgorod` are all new, cited at the bar and illustrated —
+**nine new terms for ten cards**, the tenth being `Kievan_Rus'` above. `Normanist_controversy` is keyed
+on a REDIRECT rather than an article title, deliberately: English Wikipedia heads the subject
+*Anti-Normanism*, which names one side of a two-sided argument, and the controversy is what the
+literature calls it — Montgomery capitalises it. Its aliases carry *Normanist theory*, *Normanism*,
+*anti-Normanism* and *Norman theory*, so every surface reaches it. `Staraya_Ladoga` deliberately does
+NOT claim the bare "Ladoga", which is a lake.
+
+**2026-09-17, `ru-041`–`ru-050` written** — Oleg, the seizure of Kyiv, the treaties, the raids on
+Constantinople, Igor, Olga, her baptism, Sviatoslav, the end of Khazaria and the Danube dominion.
+**Five of the ten lines are answered by something other than their own words, and the reasons are
+four different rules.** `ru-041` is **Oleg the Wise**, which is what the encyclopedia heads the
+article — *Oleg of Novgorod*, the plan's own wording, is a redirect to it, which is `ru-039`'s
+finding from the other side. `ru-042` "The seizure of Kyiv" is **Askold and Dir**, the thing the
+event was about, because `Kyiv` has been a cited glossary term since the geography collection and
+the line therefore had no term of its own left to teach — the `ww2-133` shape, a line named after
+something the glossary already holds wanting the moment rather than the name. `ru-047` "The baptism
+of Olga" is **De Ceremoniis**, `ww2-140`'s shape: a line naming a process wants the document the
+process is known through, and here the document's SILENCE is the card, the one contemporary
+Byzantine record of the visit describing two receptions to the coin and never mentioning a baptism
+or a year. `ru-050` "Sviatoslav's Balkan campaigns" is **Pereyaslavets**, the town the campaigns
+were about and the one the prince said was the centre of his lands.
+
+**AND `ru-044` IS THE FIFTH FOR A DIFFERENT REASON: ITS ANSWER TERM ALREADY EXISTED, CITED AND
+ILLUSTRATED.** "The Rus' raids on Constantinople" is answered by **`Greek fire`**, which decided the
+largest of them, and `Greek_fire` has been a three-source glossary term with a picture since long
+before this collection — so the pairing rule was satisfied and `add-glossary.js` would have
+overwritten it in silence, exactly as it nearly did to `Kievan_Rus'` on the last batch. **It was
+found by accident**: a sweep measuring bare-alias surfaces printed `gloss:Greek_fire`, where the
+grep that should have caught it had searched the keys for `greek fire` with a SPACE and the keys use
+an UNDERSCORE. **Grep the glossary keys in their own slug form** — `answer.replace(/ /g, "_")` — or
+the check silently answers no for every multi-word term there is.
+
+**`ru-044` IS ALSO THE ONLY CARD IN THE BATCH MARKED `undatable`.** Its date line carries the years
+of the RAIDS, 860, 907 and 941, because that is what the card is about; Greek fire is conventionally
+dated to the 670s, so the sort year is one arbitrary moment inside the term rather than a date the
+term is given. It is rated 2, so it is the only card here the minigames can reach, which is the only
+place the flag bites.
+
+**RULE 1 REPORTED FIVE OF THE TEN AND FOUR OF THE FIVE WERE THE CHECKER MISREADING A MEDIEVAL
+WITNESS.** This stretch of the collection rests on four texts written between the 820s and the
+1110s, and three passages of any one of them tripped `check-cards.js`'s cap on an author cited in
+more than two of a card's sources. That list exists precisely to separate six passages of one
+witness from six pages of one scholar, so `leo the deacon`, `liudprand of cremona` and
+`constantine vii porphyrogenitus` were added to its `ANCIENT` alternation, on the Ibn Battuta
+precedent and with the same whole-name anchoring that makes such an addition safe. **The fourth is
+not a person at all and is the interesting one**: the Primary Chronicle is anonymous, so its
+citations open on the work's own title, and `authorOf` read *Chronique dite de Nestor* as an author —
+the fault the tool already guards against for a title in QUOTES and cannot see through an
+ITALICISED one. It joins the anonymous works the list already carries by title. **The fifth finding
+was real**: Howard-Johnston stood in three of `ru-049`'s six sources and two of his page references
+were merged into one citation. Rule 1 now reads zero over the whole corpus.
+
+**ONE SOURCE WAS OPENED, READ AND REFUSED, WHICH IS THE SECOND TIME IN THREE BATCHES.** Pivén's
+"The Anthroponym of Prince Oleg Veshchy as a Possible Legacy of the Venetians" (*Izvestiya of Altai
+State University* 2022, `10.14258/izvasu(2022)5-09`) is open, peer-reviewed and squarely on the
+subject, and it argues that Oleg's name is a Slavic demonym from Ologost — modern Wolgast — rather
+than a form of Old Norse *Helgi*. That is a heterodox etymology, and citing it for the name would
+put a card's weight on a marginal position when Howard-Johnston's Helgo/Oleg equation carries the
+same point from the mainstream. **An open source on the exact subject is not therefore a source for
+the claim you want.**
+
+**TWO SENTENCES WERE WRITTEN AND THEN UNWRITTEN BECAUSE THE SOURCE TO HAND DID NOT CARRY THEM, and
+the second repair made a better card.** `ru-049` closed on the Sarkel site being excavated before
+the Don was dammed — true as far as I know and carried by nothing I had read, so it was replaced by
+the Vyatichi's silver coin a plough, which Léger does carry. `ru-050` said Pereyaslavets is not
+Preslav and its site is argued over; neither Léger nor Theotokis says so. What they DO each say is
+the honest version: **the chronicle writes Pereyaslavets where Leo the Deacon's account of the same
+war calls the city Preslav**, so the card now describes what the two traditions NAME rather than
+adjudicating between them. **Where a claim needs a source you have not read, say what your sources
+say instead** — it is usually the sharper sentence.
+
+**THE OPEN SOURCES THAT CARRY THIS STRETCH.** Léger's chronicle remains the spine (Oleg at 17–18 and
+22–25, his death at 30, Igor at 32–34 and 42, Olga at 42–48, Sviatoslav at 49–50, 53–54 and 59–60).
+Beside it: **Constantine VII's *De administrando imperio*** in Bekker's Bonn edition, whose ninth
+chapter names Sviatoslav son of Ingor at Novgorod — the one contemporary trace of two of these
+princes — and whose forty-second tells how Sarkel was built, kilns and river-gravel lime and all;
+**his *De cerimoniis*** in Reiske's Bonn edition, pages 594–598, the two receptions of the
+archontissa of Rus'; **Leo the Deacon** in Hase's Bonn edition, for the portrait of Sviatoslav in the
+boat, the Dorostolon terms and the twenty-two thousand of sixty thousand; **Liudprand of Cremona**,
+Wright's 1930 translation, pages 184–186, whose stepfather was in Constantinople when the fleet of
+941 arrived; **Siwko** on the 944 treaty's preamble; **Fylypchuk** arguing that the Chronicon
+Bruxellense's precise 18 June 860 is a late compiler's work and not a contemporary note;
+**Floria** on how the sixteenth century rewrote Olga and the emperor; **Theotokis** for the
+mercenary clauses of 911 and 944 in translation; and **Howard-Johnston** throughout.
+
+**A BARE "Oleg" ALIAS COSTS ONE WRONG LINK AND IT IS MEASURED.** Thirteen surfaces in the corpus
+carry the bare name; twelve are this Oleg and the thirteenth is `gw-509`, the Moscow capital card,
+where Yuri Dolgoruki entertains "Sviatoslaf and Oleg" in 1147 — Oleg Sviatoslavich, two centuries
+later. The alias is claimed anyway, on `Cell_(biology)`'s trade, and **the later princes of that name
+in this plan's own running order will need their own terms or a hand-written `data-k`**.
+`Igor_of_Kiev`, `Olga_of_Kiev` and `Sviatoslav_I` claim their bare names with no cost at all, every
+surface measured being the right man; `Askold_and_Dir` deliberately does not claim the bare **Dir**,
+which is three characters and a word in several languages.
+
+**AND CROSSREF HOLDS A DIFFERENT ROMANISATION OF ONE BYLINE, WHICH IS NOT A DEPOSIT ERROR.**
+*Slovene* prints Floria's name as **Boris N. Florya** on its own first page and gives *Florya B. N.*
+as its own recommended citation; Crossref carries **Boris Floria**. Neither is a misspelling of
+Флоря, so the `CROSSREF_WRONG` row added for it says in terms that it is not a claim Crossref is
+wrong about the man — it records that Folio follows the spelling a reader meets at the top of the PDF
+the citation points at.
+
+**TWO WORD-COUNT TRAPS COST A ROUND EACH.** Nine of the ten cards were refused first time over the
+**60-word cap on a `why` answer**, which is easy to overrun when the answer has a measurement and a
+reason in it. And `check-style`'s number-word rule caught "twenty-five envoys" in `ru-045`'s QUESTION
+and could not see the same words in its ABSTRACT, because it reads `data.js` and not `data-extra/`:
+four abstracts carried a hyphenated tens-and-units number and were fixed through `fix-field.js`.
+**Sweep your own abstracts for that rule by hand** — the checker cannot.
+
+**2026-09-17, `ru-051`–`ru-060` written** — Vladimir, his pagan reform, the conversion, the Byzantine
+marriage, the Tithe Church, Boris and Gleb, Yaroslav, the Russkaya Pravda, Saint Sophia and the
+metropolitanate. All ten sit in `ru-kievan`, which now holds 25 cards.
+
+**FIVE OF THE TEN LINES ARE ANSWERED BY SOMETHING OTHER THAN THEIR OWN WORDS, AND ONE OF THEM WAS
+DECIDED BY WHAT THE SOURCES WOULD CARRY RATHER THAN BY A RULE.** `ru-052` "Vladimir's pagan reform" has
+no article of its own (checked: *Pantheon of Vladimir* and *Vladimir's pagan reform* are both missing on
+English Wikipedia), and `Perun` is `ru-026` while `Slavic_paganism` is `ru-025`, so the reform's
+remaining teachable term had to be one of the other five deities of the chronicle's list. **The first
+choice was `Mokosh` and it was wrong, measurably.** She is the only female deity of the six and the most
+interesting on paper; what settled it is that **nothing openable carries her** — Máchal's *Slavic
+Mythology*, the standard older survey and the one open work with chapters on the Rus' deities, has
+chapters on Perun, Dazbog, Svarog, Chors, Veles and Stribog and **does not mention Mokosh once**, and a
+DOAJ and Crossref sweep returns only Russian linguistic-culture papers about the modern CONCEPT of
+Makosh. **`Dazhbog` has a dedicated open article** (Kutarev in *Studia mythologica Slavica* 24) and a
+Máchal chapter, so the card is his. **Check that a deity can be cited to the bar before choosing it as
+an answer term**: a name in a chronicle list is not a literature.
+
+`ru-054` "The choice of faiths" is **`Anna Porphyrogenita`**, for two reasons at once. There is no
+article for the chronicle's own story — *Choice of faith*, *Testing of the faiths* and *Philosopher's
+Speech* are all missing — and the outside record of the same events is a marriage bargain rather than a
+comparison of religions: Theotokis has Basil II, facing the Phokades and Skleroi, buy six thousand
+troops with the hand of a purple-born princess. **The card keeps the chronicle's four embassies as what
+the chronicle SAYS and sets the Greek record beside it**, which is a sharper card than either alone, and
+it is the plan's line honoured rather than dropped.
+
+`ru-055` "The baptism of Kyiv" is **`Church of the Tithes`**, because the baptism itself is
+`ru-053`'s answer under its own name and the line had no term left of its own — the `ww2-133` shape
+again. `ru-059` and `ru-060` take the article titles rather than the plan's wording (*Saint Sophia
+Cathedral, Kyiv* for "Saint Sophia Cathedral in Kyiv"; *Metropolis of Kyiv*, the redirect target of
+*Metropolitanate of Kiev*, for "The metropolitanate of Kyiv").
+
+**`ru-053`'s ANSWER TERM IS AUTHORED BRITISH AND THAT COST A `SPELL_PAIRS` ROW** — the `sovietis`
+finding one word over. Folio's prose writes *Christianisation* (four surfaces on the World History
+cards, none with a z), the -ise/-ize family is two-way, and the table had **no `christianis` row at
+all** — so whichever spelling the card stored was the one BOTH readers saw, and a reader typing the
+other into the cloze box would have been marked wrong. **`check-spelling-corpus.js` could not see it
+either**, since that tool measures the corpus against `SPELL_PAIRS` and a family absent from the table
+is a family it never asks about. One row added, the card converted to the s form, and the glossary key
+left on the real Wikipedia slug `Christianization_of_Kievan_Rus'` with the British form as an alias —
+`Paleolithic`'s own arrangement.
+
+**`add-card.js` AND `set-date-line.js` DISAGREE ABOUT WHAT A DATE LINE MAY CONTAIN, AND THE LOOSER ONE
+IS THE DOOR A NEW CARD GOES THROUGH.** `ru-056` shipped with the label *First translation*, 17
+characters, which `add-card.js` accepted and `set-date-line.js` then REFUSED on the same field: the
+shared module's `buildDateLine` checks `LABEL_MAX` and its `isDateList`, which is the half `add-card.js`
+calls, checks the row count and the value length and **never the label**. Measured over the corpus,
+**154 shipped cards carry a label over 16 characters** — so closing the gap in `isDateList` is a
+content pass of its own, because `test-date-line.js` runs that predicate over every card and would fail
+all 154. Recorded rather than fixed; `ru-056`'s line was rewritten as *Relics moved | 1072 and 1115*.
+
+**THE BATCH'S OPEN SOURCES, all fetched and read.** Léger's chronicle carries nearly all of it and the
+pages are worth having: **64–65** the six idols and Vladimir's household, **67** the 983 sacrifice,
+**69** the Muslim Bulgars, **89–90** the envoys' report and the boyars' argument from Olga,
+**91** the siege of Kherson and the demand for the emperors' sister, **96** the Kherson spoils and the
+bronze horses standing before the Mother of God, **100** the twelve sons and their towns, **101** the
+stone church and its Greek architects, **103** the tithe and the curse laid inside it, **108** Vladimir's
+death and Anna's, **121** Anastasius made the Polish king's treasurer, **128** Saint Sophia founded in
+1037 and Yaroslav's books, **132** Ilarion made metropolitan, **137** Yaroslav's death and marble
+coffin, **189** the church called Desyatinnaya, and **290** Léger's own note on Dajbog and the Igor Tale.
+Beside it: **Thietmar of Merseburg** (Kurze 1889, VIII.72–73 pp. 236–237 for Vladimir, Helena and
+Reinbern; IX.31–32 pp. 257–258 for Bolesław in Kyiv and the Sophia that burnt in 1017), **the
+Chronicle of Novgorod** in Michell and Forbes (pp. 1–2 — the whole 1016 campaign and, on p. 2, the
+notice that *St Sophia was founded at Kiev* in **1017**), **Kluchevsky**'s *History of Russia* vol. 1
+(pp. 145–166 and 171 — the Pravda's two versions, the vira tariff, Vladimir's Church Ordinance and
+Yaroslav's agreement with Ilarion), **Máchal**'s *Slavic Mythology* (pp. 293–302), **Kutarev** on
+Dazhbog, **Kroczak** in *Studia Ceranea* 6 on Ilarion and *On Law and Grace*, **Babie** in the
+*Ecclesiastical Law Journal* on the metropolitanate, **Vinogradov** in *Slovene* on the Boris and Gleb
+translations, **Joukovskaia** in *Quaestio Rossica* on Tolochko's Short Pravda thesis, **Zakharova** in
+ΔΧΑΕ on Saint Sophia's wall paintings, **Bulanin** in *Slovene* on the several baptisms of Rus', and
+**Theotokis** and the *De administrando imperio* carried over from the last batch.
+
+**THE NOVGOROD CHRONICLE'S PAGINATION IS NOT MACHINE-READABLE AND THE ANSWER IS THE FACING HEAD.** Its
+running heads are OCR'd as `.;2.'        THE  CHRONICLE  OF  NOVGOROD`, so a page map built on a digit
+finds nothing and one built on the readable heads extrapolates over the gaps — on Léger the same
+approach put the Desyatinnaya notice on p. 180 when the garbled head above it plainly reads 189.
+**Pin a page by reading the nearest printed head, not by interpolating**, which is two lines of Python
+and is the only thing that catches it.
+
+**TWO MEDIEVAL WITNESSES WENT INTO `check-cards.js`'s `ANCIENT`**, the same two shapes the last batch
+added: `thietmar of merseburg`, a contemporary of the events he reports, and `the chronicle of
+novgorod`, an anonymous work whose citations open on an italicised title that `authorOf` reads as an
+author called "The Chronicle of Novgorod 1016–1471". Rule 6 also fired once, on `ru-059` — two
+sources in Greek, both of them the SAME Zakharova article, whose journal title is Greek while the
+article carries an English title and abstract. **Merging the two page citations into one is the right
+answer rather than a `SAME_LANGUAGE_OK` row**: the card cites one work twice, which is what the merge
+says, and a declaration would have excused a second Greek work that is not there.
+
+**FOUR CLAIMS WERE WRITTEN AND THEN CUT FOR WANT OF A SOURCE THAT CARRIED THEM.** `ru-056`'s opening
+called Boris and Gleb "the first native saints of Rus'" and cited Kroczak, who **does not mention them
+at all** — the sentence now says they were venerated within a generation, which Vinogradov's account
+of the translations does carry. `ru-054`'s first sentence cited Babie for Anna's parentage, which Babie
+never gives, and her date line carried a birth date of 13 March 963 that no open source here states:
+both went, the line now reading *Died | between 1008 and 1011*, which is Léger p. 108. `ru-055`'s date
+line claimed the church was destroyed in 1240, which none of its sources covers, and its first sentence
+called it "the first stone church of Rus'", which is an inference rather than a quotation. **Audit the
+marker-to-source mapping sentence by sentence before committing**: `add-sources.js` checks that every
+source is referenced and every marker resolves, and passes a marker pointing at a source that says
+something else.
+
+**A BARE YEAR UNDER 1000 IS NOT A DATE `cardYears` CAN READ, AND SIX OF THIS BATCH'S TEN SHIPPED THAT
+WAY.** `cardYears`' plain-number rule is `\b(1\d{3}|20\d{2})\b`, so a first-millennium year reaches
+it only through the era rule — which needs `CE` beside the digits. Everything from `ru-030` to `ru-050`
+writes it (`839 CE`, `c. 879 – 912 CE`), and this batch stopped because most of its dates are in the
+second millennium and parse without one; the effect is that a card's sort year was silently taken from
+whichever LATER row happened to be readable. **`ru-051` Vladimir sorted at 1015, his DEATH**, the reign
+row `980 – 1015` yielding only its closing year and `988 or 989` yielding nothing at all; `ru-052`
+Dazhbog sorted at **1114** off the Hypatian Codex rather than at 980; `ru-060` at **1051** rather than
+988. **Three yielded no year at all** — `ru-053`, `ru-055` and `ru-058` — which is the only part
+`test-date-line.js` can see, since its assertion is that a card stating a date yields A year and not
+that the year is the right one. **So a date line whose rows are all pre-1000 FAILS LOUDLY and one with
+a later row beside them fails silently**, which is the worse half and the reason to read the sort year
+back after writing any date line on this collection: two lines of Node against `cardYears`, as
+CLAUDE.md's own date-line bullet says.
+· **The era marker reaches only the year it FOLLOWS**, so an alternative-year row is written
+  `988 CE or 989 CE`; with the era once, the earlier figure is simply dropped and the card sorts a year
+  late. The RANGE form is the exception and carries leftwards: `989 – 996 CE` gives both.
+· **`ru-058`'s rows were centuries only** — *Yaroslav and his sons, 11th century* over *late 13th
+  century* — and a century is unreadable in either direction, so the row now states the span the
+  century MEANS, `1000 – 1100`, per CLAUDE.md's rule. The card sorts at 1000, which is inside the
+  century its sources give and asserts no precision they have not got.
+· **AND REWRITING THROUGH `set-date-line.js` SHORTENED FOUR LABELS `add-card.js` HAD ACCEPTED.**
+  *Novgorod's idols cast down* (25), *Cult of Perun ended* (19), *First native head* (17) and *Second
+  native head* (18) are all over `LABEL_MAX`; `add-card.js` calls `isDateList`, which checks the VALUES
+  and never the label, where `buildDateLine` checks both. That divergence is the gap this plan recorded
+  last batch — 154 shipped cards carry an over-long label — and it is worth knowing that **any card
+  put back through `set-date-line.js` pays it off on the way past**.
+
+**2026-09-17, `ru-061`–`ru-070` written** — the Caves monastery, Ilarion's sermon, the two languages,
+the birch bark letters, the druzhina, the towns, the slave trade, the coinage and the rota system. All
+ten sit in `ru-kievan`, which now holds 35 cards.
+
+**TWO LINES WERE RETITLED AND BOTH FOR REASONS THE PLAN'S OWN RULE ASKS FOR.** `ru-062` was
+*Hilarion of Kyiv* and is now answered by the **`Sermon on Law and Grace`**, because `ru-060` The
+metropolitanate of Kyiv already spends much of its prose on Ilarion's elevation of 1051 and on the
+sermon itself — the `ww2-133` shape, a line named after a person an earlier card has already carded.
+`ru-068` was *The trade of Rus'* and is now **The slave trade of Rus'**, answered by **`Saqaliba`**:
+the two trade ROUTES are `ru-034` and `ru-035`, the silver is `ru-069`, and what was left of the line
+was the commodity nobody else cards. The plan's line is changed to match the card rather than the card
+left to contradict it.
+
+**THE SAQALIBA CARD IS THE `Mokosh` LESSON WITH A HAPPY ENDING, AND THE SEARCH THAT FOUND IT IS THE
+REUSABLE PART.** The first draft was written from the etymology — Greek *sklavos* to Arabic
+*ṣaqāliba* to the European word for a slave — and **not one source in hand carried it**:
+Kluchevsky has the commodities, Howard-Johnston the routes, Montgomery the Volga market, and none of
+them the word. Two searches settled it, and the order matters: DOAJ on the bare term returned seven
+records of which three are on point, and Crossref on `saqaliba Slavic slaves Islamic world trade`
+returned **Marek Jankowiak twice, both open**. The IJMES piece opens on Cambridge Core without a
+paywall and carries the definition, the palatial demand, Ibn Fadlan at Bulgar in 921, the Prague
+market forty years later, the 400,000 dirhams and the shift of the route from Iraq to the Samanids
+after about 900 — a whole card in four pages. **Ask the bare term of DOAJ before assuming a word has
+no literature**; the multi-word DOAJ queries that failed earlier in the batch returned zero every time.
+
+**AND `ru-063` IS THE OPPOSITE OUTCOME, WHICH IS WORTH RECORDING BECAUSE IT CHANGED THE CARD.** The
+obvious first sentence of an Old East Slavic card is its periodisation — seventh or eighth century to
+the thirteenth or fourteenth, then Russian and Ruthenian — and **nothing openable states it**. Four
+searches (DOAJ on *Old East Slavic*, on *Ruthenian language divergence* and on *Old Novgorod dialect*,
+Crossref on the periodisation and on diglossia in Kievan Rus') returned dialect dictionaries, a 1975
+*Russian Review* article behind a paywall and nothing else. So the card was rewritten to claim only
+what the sources carry: Keipert's East Slavonic recension of the eleventh to thirteenth centuries,
+Galinskaya's vьxe, Saltovskaia's suffixes, Temchin's Ruthenian, Nikolaev's Germanic names and
+Mikheev's Lucca graffiti — and the date line says *Written record, 11th – 13th century* rather than
+asserting a span. **A card can be at the bar and still not be able to say the one thing an encyclopedia
+opens with.**
+
+**THE HOSTS THIS BATCH MEASURED, since the last one's list is the kind that goes stale.** OPEN and
+carrying real text: `volsu.ru` (Vestnik VolGU ser. 4 and the Lower Volga Archaeological Bulletin, three
+articles), `czasopisma.uni.lodz.pl` (Studia Ceranea, PDF by `citation_pdf_url`), `slovene.ru`,
+`slavistica` at `zurnalai.vu.lt`, `voprosy-onomastiki` at `journals.urfu.ru`, `mics.org.ua`
+(City: History, Culture, Society), `arheologia.com.ua`, `fis.uni-bamberg.de`, `historickycasopis.sk`,
+`oajournals.fupress.net` (Studi Slavistici), `18384`-DOIs at `mgou`, and **`cambridge.org`, which
+serves Jankowiak's IJMES article in full**. SHUT or walled: `journal.fi` (an Anubis bot wall, so
+Yurayong's SUSA paper cannot be read at all), `link.springer.com` (a JavaScript client challenge),
+`doiserbia.nb.rs` (connection reset), `revistas.usal.es` (SSL certificate failure, twice), `mdpi.com`
+(403), and `septentrio.uit.no` at the DOI's own address (404).
+
+**AND `upload.wikimedia.org` IS BUSY RATHER THAN SHUT, WHICH COST THE PICTURE PASS ITS AFTERNOON.**
+`api.php` returned an empty body for three searches in a row at three-second spacing and answered at
+twenty. **Space a Commons pass at twenty seconds a request and expect a batch of ten to take four
+minutes**, which is cheaper than concluding the host is closed.
+
+**HALF OF THAT WAS NOT A RATE LIMIT AT ALL, AND THIS PARAGRAPH SAID IT WAS.** `Special:FilePath`
+returned a *Wikimedia Error* page for four of five files and it was recorded here as throttling, on the
+evidence that an eighteen-second gap did not help. It did not help because **Wikimedia now serves a
+thumbnail only at a width from a FIXED LIST** — 20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920,
+3840 — and answers anything else **400**, with the list one request away at `w.wiki/GHai`. The
+afternoon's `?width=900`, `?width=800` and `?width=640` are all off it; `1280` was served on first
+request for every file wide enough to have one. **So a Commons fetch that fails is a SIZE question
+before it is a rate question: read the error body.** A 400 names the rule and a 429 says *too many
+requests*, and the two were being treated alike.
+
+**A FILE NARROWER THAN THE WIDTH ASKED FOR HAS NO THUMBNAIL, WHICH IS THE OTHER HALF OF THAT RULE.**
+MediaWiki will not upscale, so `iiurlwidth=1280` on an 829-pixel original hands back the ORIGINAL url
+under `thumburl`, flagged `thumbnail_unscaled` in the tracking query — and the original is the one path
+that really was rate-limited here. **Drop to the next listed width DOWN** (500 for the Liubech
+miniature and the Novgorod wall, each under 960), which both served at once.
+
+**AND THE `src` GOES THROUGH TWO CORRECTIONS THAT ARE EASY TO MISS.** The API's `url` and `thumburl`
+carry a `?utm_source=…&utm_campaign=imageinfo` **tracking query**, which is stripped; and `thumburl`
+now names the host **`thumb.wikimedia.org`**, where the 3,400-odd pictures already shipped use
+`upload.wikimedia.org` with an identical path after it. The host is rewritten to the corpus's own, the
+shard and the filename being the API's own strings either way — which is what the rule against
+hand-building a `src` is actually about.
+
+**NINE OF THE TEN CARRY A PICTURE AND THE TWO REFUSALS ARE DIFFERENT SHAPES.** `ru-068` **Saqaliba**
+has one after all: Commons' own `Category:Saqaliba` holds a panel of the **Gniezno door** of about 1170
+showing Adalbert of Prague pleading for captives standing bound — a CONTEMPORARY object on the card's
+own subject, where the category's alternatives are a 1909 painting and a 19th-century slave-market
+canvas, both of them imaginings. **Read the category before writing a subject off**; the search that
+preceded it returned nothing usable. What was refused there is `File:02019 1103 Eiserne Fesseln…`, iron
+fetters of the 11th and 12th centuries and perfectly on point, whose `author` field names **the author
+of the 1985 book the plate was scanned from** rather than the photographer — so the credit line would
+have named the wrong person, which is the fault `fix-image-credits.js` exists to prevent.
+`ru-070` **rota system** has none and is recorded as picture-not-found: the Russian Wikipedia article
+*Лествичное право* carries **no image at all**, and the one Commons candidate is a contributor's SVG
+whose six-part legend (dead, incumbent, predecessor, undisplaceable, excluded) cannot ride in a caption,
+so a reader would meet grey and crossed rectangles with no key. **An article with no picture of its own
+is evidence that its subject has no conventional depiction**, not a gap to be filled with a diagram.
+
+**AND `check-style.js` COULD NOT SEE ANY OF THIS BATCH'S PROSE, WHICH IS THE BIGGEST FINDING HERE.**
+Its `FILES` list was written when a card's abstract lived in `data.js`, and the card split moved
+`abstract`, `why` and `image` into `data-extra/<collection>.js` — so from the split until this batch the
+checker swept a card's question, answer and date line and **reported a clean pass over the majority of
+the site's text**. It is the fault the artefact and the glossary splits each had and each fixed, arriving
+a third time in the one file nobody thought to add. The directory is now READ rather than listed, so a
+collection added later is swept with nobody remembering; `--fix` is as safe there as on `data.js`, the
+citation mask already matching the card-shaped `"sources":[…]` these files write.
+**261 findings were standing in the heavy halves the day it was added** — every collection that has
+shipped a card — of which **33 were this batch's own**, all of rule 1 and rule 2: *eleventh to
+thirteenth centuries* for *11th to 13th*, *twenty-five envoys* for *25*, *nine hundred and sixty* for
+*960*. They were repaired through the sanctioned writers, which took **five** of them, because no single
+tool can reach all five fields: `add-sources.js` for the abstract, `add-questions.js --partial` for the
+extras, `add-card-links.js` for the why-answers, `add-images.js` for a caption and `fix-field.js` for the
+first question — **and `fix-field.js` reads `data.js` alone, so since the split it cannot reach an
+abstract at all**, which it refuses rather than mis-writes. **An ELLIPTICAL ordinal is not a rule-2
+finding and must be carried by hand**: the century word stands only after the first of a pair, so *the
+early 9th century and the early eleventh* passes the checker and numbers one half of its own sentence.
+The remaining 228 findings are a content pass of their own, per collection, and are not this batch's.
+
+**A DATE LINE READ BACK, AS THIS COLLECTION'S OWN RULE NOW REQUIRES.** All ten sort years were checked
+against `cardYears` after writing, by slicing it out of app.js on the markers `test-date-line.js` uses,
+and all ten are the intended year: `ru-064` at 988 off *from 988 CE*, `ru-067` at 900 off
+*c. 900 – 950 CE*, `ru-068` at 921 off the Bulgar market, `ru-069` at 980 off Vladimir's coins.
+**The slice needs the whole `DEEP_MAG` block**, not `cardYears` alone: three separate attempts failed on
+`_SY_DASH`, `deepNum` and `ADMIN_EDITS` in turn, and `_SY_DASH` is indented, so a `^const` anchor misses
+it.
+
+**`check-questions.js` CAUGHT TWO BLANKS AT THE END OF A SENTENCE THAT `add-card.js` HAD TAKEN**, on
+`ru-061` and `ru-069`. Both were third phrasings whose final clause ended on the answer, which reads
+perfectly and is exactly what the mid-sentence rule exists to stop; `add-questions.js --partial`
+replaces a card's extras in place, so the repair is one batch rather than a rewrite. **Run
+`check-questions.js` after a batch even when every card was accepted.**
+
+### What carried this batch — `ru-071` to `ru-080`
+
+**Two lines were answered by something other than their own words, on rules this file already holds.**
+`ru-075` *The fragmentation of Rus'* is a PROCESS line, and `ww2-129`'s rule is that such a line wants
+the moment the process became visible rather than a paraphrase of it: the card is answered by
+**`Mstislav I of Kiev`**, whose death in 1132 is the conventional end of a Rus' held together from one
+seat, and **the running order above was retitled to match the card** rather than left to contradict it.
+`ru-078` *Novgorod's northern empire* is `ru-042`'s shape — a line naming a thing wants the thing it was
+about — and is answered by **`Yugra`**, the land on both flanks of the northern Urals that was the
+furthest place the republic drew tribute from.
+
+**AND `ru-073` HAS NO ENGLISH WIKIPEDIA ARTICLE AT ALL**, which decides its glossary key rather than its
+answer term: *Instruction of Vladimir Monomakh* and *Testament of Vladimir Monomakh* are both missing,
+and a Wikipedia search for the Pouchenie returns the article on the man. So the key is the slug form of
+the answer term, `Instruction_of_Vladimir_Monomakh`, which is `Sermon_on_Law_and_Grace`'s own
+arrangement one batch earlier. **Check whether a work has an article before assuming the key is a real
+slug.**
+
+**THE DATE-LINE READ-BACK EARNED ITS PLACE THIS BATCH AND CAUGHT THREE SORT YEARS.** The loudest was
+`ru-076` **Novgorod Republic**, which sorted at **862** — its first row read *Princely town |
+862 – 1136 CE*, Burov's own framing, and `cardYears` takes the minimum, so a card about a republic
+founded in 1136 filed itself two centuries before `ru-036 Kievan Rus'`. **A row stating a date about the
+PRECEDING state takes the card's sort year with it**, and the fix is in the DATE LINE rather than in the
+parser: 862 moved into the prose, where it already was. `ru-075` sorted at 1088 off an uncited *At
+Novgorod* row and `ru-077` carried an uncited 1478; both were cut back to what the sources say, which is
+1125 and 1136. All ten were then read back against `cardYears` and all ten are the intended year.
+
+**THE BARE ALIASES WERE MEASURED AND THREE OF FOUR WERE REFUSED.** `Monomakh` was claimed: all 21
+surfaces in the corpus are Vladimir Monomakh, read one at a time. `Mstislav` was **not**, although all
+seven present surfaces are his — Mstislav of Tmutarakan is already in the collection's own period and
+Mstislav Davidovich is in the Novgorod chronicle, so the alias would be right today and wrong within
+twenty cards; `Neville_Chamberlain`'s precedent. `Liubech` and `Suzdal` were refused for the other
+reason: both are the TOWN rather than the council or the principality, and `ru-057`'s locator is already
+Liubech.
+
+**A LOOP THAT GREPS A TOOL'S OUTPUT CAN HIDE A CRASH, AND THIS ONE DID.** The ten glossary terms were
+first added with a wrong path — `add-glossary.js` had been pointed at `b8/gout/` where the generator
+writes `b8/cards/gout/` — and every run died with an ENOENT stack trace that the loop's
+`grep -E "^(added|ERROR|…)"` swallowed whole. The output was ten term names and nothing else, which
+reads exactly like ten silent successes. **Check the DIFF, not the loop**: `git diff --stat glossary.js`
+showed nothing, which is what caught it.
+
+**`check-gloss-links.js` NO LONGER FINISHES OVER THE WHOLE CORPUS** — 3,903 terms and 13,237 surfaces,
+still running at twenty minutes — so run it `--card=<id>`, which answers in a second or two. Its one
+finding here is the proxy working as designed and is the RIGHT link: `ru-079` auto-links *Vyatichi* to
+the `Vyatichi` term, which is tagged `europe` against a card tagged `russia`.
+
+**A `region` LOCATOR'S `at` IS COMPUTED, NOT FETCHED**, there being no article to read a region's centre
+off, so the rule that a coordinate is never typed binds on the RING instead: both authored rings were
+checked by point-in-polygon against coordinates fetched from Wikipedia — Salekhard and Khanty-Mansiysk
+inside `Yugra`, Sarkel and Crimea inside `Desht-i Qipchaq`, and Kyiv, Moscow and Novgorod outside it.
+The Cuman ring deliberately overlaps `ru-020`'s Patzinakia, which is what displacing a people looks
+like; overlap is a fault in a WAR block and a fact in a locator.
+
+**AND `ru-073` CARRIES NO LOCATOR, WHICH IS A DECISION.** A book of precepts whose author says he wrote
+it sitting in his sledge has nowhere a reader could stand, so it takes `ru-063`'s and `ru-066`'s answer
+rather than `ru-038`'s — the Primary Chronicle gets Kyiv because it was compiled there, and this does
+not.
+
+**A GARBLED CROSSREF TITLE IS A BILINGUAL RECORD, NOT A WRONG DOI.** Osypenko's Cuman article is
+registered in English as *"Four reminiscences of ancient Rus' chronicles about first Rus' and Cumans
+contacts in the of the century"* — words simply missing — and DOAJ holds the same broken string, so
+**completing it would have been composing a title**. The citation gives the Ukrainian title the journal
+prints, under the English journal name Crossref registers; `check-citations.js` reports it as a title
+differing while the author matches and sends it to the eye, which is the documented right answer.
+
+**THE HOSTS THIS BATCH MEASURED.** OPEN and serving real text: `lsej.org.ua` (a PDF at the DOI itself),
+`nauka-dialog.ru`, `slavica-petropolitana.spbu.ru`, `journals.rudn.ru` (PDF by `viewFile`),
+`goldhorde.ru`, `slovene.ru` (four papers), `zenodo.org`, `vestnik-pses.kemsu.ru`,
+`periodicals.karazin.ua`, `history.jes.su`, `slavras.ru`, `scrisla.gpntbsib.ru`, `humanities.fa.ru`,
+`journals.ed.ac.uk`, `journals.rcsi.science`, `oriental-world.org.ua`, `qr.urfu.ru`, `journalec.com` and
+`historickycasopis.sk` again. SHUT or walled: `nbpublish.com` (a CAPTCHA page), `akjournals.com` (403),
+`brill.com` (403), `elibrary.ru` (403), `old-rus-imli.ru` (401), `degruyterbrill.com` (**202 with an
+empty body**, which is a wall wearing a success code), `digilib.phil.muni.cz` (a challenge page) and
+`journals.openedition.org` (404 at the DOI's own address). **And `russian-history.ru` resets the
+connection while `history.jes.su` and `slavras.ru`, the same academy's other journals, answer 200** —
+so a refusal from one Russian Academy host says nothing about its siblings.
+
+**THE CHECKERS' OWN COUNT, since `check-style.js` can now see the heavy halves.** This batch introduced
+**ten** findings and every one was repaired the same day: seven in `data-extra/ru.js`, one in `data.js`
+and two in `glossary-extra.js`, all of rule 1 and rule 2 — *eleventh century* for *11th*,
+*eighty-three journeys* for *83*. Four writers were needed, which is the split doing its work:
+`add-sources.js` for the abstracts and the two glossary descriptions, `fix-field.js` for the question,
+`add-card-links.js` for a why-question. `ru.js` is back to the ten findings it carried before, which are
+the 228 pre-existing ones and not this batch's.
+
+### What carried this batch — `ru-081` to `ru-090`
+
+**Three lines are answered by a TERM rather than by their own wording, which is the rule the earlier
+batches established rather than anything new.** `ru-087` *The architecture of Rus'* is answered by
+**`cross-in-square`**: the collection had already carded Saint Sophia (`ru-059`), the Church of the
+Tithes (`ru-055`) and, in this batch, the Nerl church, so what the line had left to teach was the PLAN
+all three were built on — a word a reader meets again in every Orthodox country. `ru-089` *Rus' and
+Byzantium* is answered by **`Varangian Guard`**, the treaties being `ru-043`, the raids `ru-044` and
+the metropolitanate `ru-060`: what was left of the relationship was the men who went south and stayed.
+And `ru-090` *The inheritance of Rus'* is answered by **`All-Russian nation`**, which is that claim
+under the name the literature gives it; the plan's own scope decision asks for the modern claim to be
+carded rather than assumed, and a claim with a name can be described impartially where "the
+inheritance" can only be argued about.
+
+**THE SOURCES THAT CARRY THE BATCH, and the two archive.org editions that carry most of it.** Magnus's
+1915 Oxford edition of the Tale of Igor's Campaign is the find: its Introduction is a 60-page survey of
+Rus' history to the Mongols with the printed page numbers listed in its own Contents (§10 *The four
+great princes* at xx, §13 *The fall of Kiev and rise of Suzdal & Moscow* at xxiv), so it cites like a
+monograph, and the poem itself sits at pp. 1–48 with running heads that give the page. **Cite the
+Introduction AUTHOR-FIRST and the poem TITLE-FIRST** — the Introduction is Magnus's own scholarship and
+its locators are lower-case roman, which is exactly the front-matter shape `fix-citation-form.js`
+tests for. Léger's Primary Chronicle carried Polotsk end to end (Rogvolod and Rogneda at 61, Izyaslav
+seated at 100, the Nemiga and the Kyiv rising at 141–2 and 147, Vseslav's death at 215, Monomakh's
+campaigns against the town at 251) and Yaroslav's testament at 137; the Michell and Forbes Novgorod
+chronicle carried the march on Kyiv and the siege of Novgorod at 26–7, Vsevolod's princes at 30–1 and
+Galich at 18. The modern half is Kuznetsov twice (ISTORIYA on Vsevolod 1169–1183, DGVE on the fifty
+years against Chernigov), Noha twice (the Kyivan chronicle's wars for the capital, and its image of
+Andrey), Kezha on the bells, Uzhankov and Leonova on the Tale, Theotokis on mercenaries in imperial
+service, Vinogradov on the middle Byzantine church type, Skvortsov and Sedov on white stone, Solntsev
+on the Nerl church's date, and Radzik, Moysiyenko and Fylypchuk on the inheritance.
+
+**A DATE THAT IS DISPUTED IS A DATE LINE THAT SAYS SO, AND IT STILL HAS TO YIELD A SORT YEAR.**
+`ru-088`'s own build year is argued over — Solntsev's paper is about exactly that — so its date line
+reads *Andrey's reign | 1157 – 1177 CE* and *Begun | 12th century, year disputed*: the first row gives
+`cardYears` something to sort on and the second says in the card's own voice that the year is open. A
+line of nothing but the second row would have shipped a card that STATES a date and cannot be ordered
+by it, which is what `test-date-line.js` exists to catch.
+
+**AND ONE CARD SHIPS WITH AN EMPTY DATE LINE AND `undatable: true`, WHICH IS THE HONEST ANSWER RATHER
+THAN A GAP.** `ru-090`'s subject is a present-day argument: Radzik's own finding is that the idea
+"developed through multiple historical phases rather than originating from a single formulation point",
+so there is no year to print. The cost is stated rather than hidden — `cardStartYear` returns 0, so in
+a date sort the card files as timeless — and `undatable` keeps Timeline from asking a reader to place
+it, which is exactly the flag's own case (*a term not located in time at all*).
+
+**`Anna Comnena` IS NOW IN `check-cards.js`'s `ANCIENT` LIST, AND THE REASON IS WORTH KNOWING BECAUSE
+IT IS A DIFFERENT RULE FROM THE SIX NAMES ABOVE HER.** The six medieval witnesses added by the
+`ru-041`–`ru-060` batches were added for rule 1, the citation-count rule: three passages of Leo the
+Deacon are three passages of one witness. Anna Comnena tripped **rule 2** instead — a modern scholar
+named in a question — because `ru-089` asks about the axe-bearing barbarians of the Alexiad and names
+her. The same list answers both rules, so one row fixed it; the whole-name anchoring is what makes it
+safe, the corpus citing several living scholars called Anna and none of them Comnena.
+
+**TWO CROSSREF ROWS WERE DECLARED, ONE PER TABLE, AND BOTH ARE PRECEDENTS THE FILE ALREADY HELD.**
+Quaestio Rossica deposited Uzhankov's byline with a **Cyrillic А** in place of the Latin A and spelled
+the given name *Aleksandr* where the journal's own page prints *Aleksander*, which is the Kharlamov row
+one journal over — so `CROSSREF_WRONG` carries it, read off the article's own Authors line. And
+*Studia Białorutenistyczne* numbers volume 10 as its 2016 volume, in its own metadata and in the DOI
+it minted (`sb.2016.10.55`), while Crossref holds a published-print date of **11 January 2017**: the
+Vestnik VolSU rows are the same fault, a January deposit of the previous year's volume, so it goes in
+`CROSSREF_YEAR_WRONG`. **Neither was added before reading the article's own byline and volume page.**
+
+**A ONE-WITNESS NOTE IS WORTH FIXING WHEN IT IS THIS BATCH'S OWN.** `ru-084` first shipped with four of
+its six sources being Léger, which `check-cards.js` reports as a note rather than a violation — and
+rightly, since four passages of one chronicle is not four scholars' opinions. It was still the worst
+concentration in the collection, so the Léger citations were consolidated into two and Magnus's
+Introduction and Leonova's article brought in, which took it to two of six. **The fix is to find
+another source, never to drop a claim the chronicle is the only witness for.**
+
+**AND THE BATCH'S OWN `check-style` FINDINGS WERE ALL ONE RULE.** Nineteen century-words across six
+cards — *twelfth century* for *12th*, *fourteenth, fifteenth or sixteenth* for *14th, 15th or 16th* —
+repaired through four writers, since the prose lives in three different places: `add-sources.js` for the
+abstracts, `add-card-links.js` for the why-answers, `add-questions.js` for an extra phrasing (NOT
+`fix-field.js`, which wants a STRING field and refuses the `questions` array), and `fix-field.js` for
+`ru-090`'s own question. The corpus-wide count fell from 336 findings to 322, which is the batch's
+nineteen minus the ones that were double-counted per ordinal in one context.
+
+**`check-gloss-links.js --card=ru-089` REPORTS ONE LINK AND IT IS THE RIGHT ONE.** "Varangian" resolves
+to the `Varangians` term, tagged `europe` against a card tagged `byzantium` — which is `ru-079`'s
+`Vyatichi` finding exactly, the proxy working as designed. The one REAL finding it turned up was worth
+having: the Alexiad's **Immortals** are a Byzantine palace regiment named after the Achaemenid ones, and
+the word was auto-linking to the Persian term, tagged `iran`. There is no Folio term for the Byzantine
+regiment, so neither a hand-written link nor a narrower alias was available and the sentence was
+reworded — which is the third of the tool's three fixes and the right one when the phrase really does
+belong to somebody else.
+
+**TEN CARDS SHIP WITHOUT A PICTURE, AND SO DO `ru-071`–`ru-080`.** Twenty of the collection's ninety are
+now uncaptioned; `add-card.js`'s own candidate lists show why the pass has to be its own batch rather
+than a by-product. For an abstraction the search returns furniture — "cross-in-square" offered a magic
+square, a Ljubljana postcard and a Cornish pub — and for a principality it offers 19th-century
+provincial maps of the wrong governorate. Two candidates are worth going back for: the 1899 photograph
+of the Nerl church for `ru-088`, and the *Prince Dmitry (Vsevolod Yurievich)* portrait for `ru-082`,
+both public domain and both plainly of their subject. **Look at each before installing it.**
+
+
+### What carried this batch — `ru-091` to `ru-100`
+
+The first ten of `ru-horde`, and the first batch in the collection whose subjects were **already
+carded in World History**. `wh-593 Genghis Khan`, `wh-594 Mongol Empire` and `wh-598 Golden Horde`
+exist, with the glossary terms they pair with; so do `ru-012 Huns` / `wh-589` and `ru-016 Khazars` /
+`wh-592`, which is the precedent. **A SHARED ANSWER TERM IS WRITTEN AS A DELIBERATE PAIR, NOT
+AVOIDED** — the Biology plan's rule for its eighteen shared titles, applied here: World History tells
+the empire through Marco Polo and the relay posts, and these three tell it as the power that arrived
+in Rus', so `ru-091` turns on the chronicler who did not know who the attackers were and `ru-092` on
+the two commanders sent round the Caspian. **AND THE TERM IS WRITTEN ONCE**: `Mongol_Empire`,
+`Genghis_Khan` and `Golden_Horde` were reused untouched, which is `ru-036`'s rule (`add-glossary.js`
+overwrites in silence, so the keys were grepped in their own slug form first). `Mongol_conquests`,
+`Chinggisids` and `Pax_Mongolica` exist too and were left alone.
+
+**THREE LINES ARE ANSWERED BY `siege of X` WHERE THE PLAN WROTE `sack of X`, AND ONE OF THE THREE HAD
+NO CHOICE.** *The sack of Kyiv in 1240* cannot be answered by **sack of Kyiv**: that surface is
+already claimed, as an alias, by `Sack_of_Kiev_(1169)` — `ru-081`, nine batches back — so the answer
+is **siege of Kyiv** keyed on the article slug `Siege_of_Kiev_(1240)`, with `siege of Kyiv` and `siege
+of Kiev` as its aliases (`ru-018`'s `Atil`/`Itil` arrangement). Ryazan and Vladimir took the same form
+for consistency and because *Siege of Ryazan* and *Siege of Vladimir* are what the encyclopedia heads
+them, with `sack of Ryazan` carried as an alias. **The plan's own lines are unchanged**: a line is a
+subject to research, and these three subjects have not moved.
+
+**THE TWO PRIMARY SOURCES CARRY THE WHOLE BATCH AND BOTH ARE PAGE-MAPPED.** The **Novgorod First
+Chronicle** in Michell and Forbes (1914), the edition `ru-071`–`ru-090` already use: the Kalka is
+pp. 64–66 and the invasion of 1237–38 pp. 81–84, read off the running heads, with the chronicle's own
+index confirming both. What it gives is exact where the modern literature is general — the demand for
+*one-tenth of everything: of men and Knyazes and horses*, the princes' answer that *only when none of
+us remain then all will be yours*, **Ryazan invested on 16 December and taken on the 21st**, the
+tonsure inside the Church of the Holy Mother of God, the grand prince run down on the Sit with *God
+knows how he died*, and the turn for home *within 100 versts of Novgorod*. **The second is
+`journeyofwilliam00ruys` on archive.org**, Rockhill's Hakluyt volume of 1900, which despite its title
+prints **Carpini's own narrative** (pp. 1–32) and **Benedict the Pole's** (pp. 33–39) as well as
+Rubruck's. Carpini pp. 3–4 is the ride to Kyiv and the sentence the invasion cards need — the greater
+part of the men of Rus' killed or taken, so that nobody could resist Lithuanian raiders; p. 12 is the
+skulls and bones lying *like cattle-dung*; pp. 8 and 10–11 are Batu, more powerful than any prince but
+the emperor, the two fires, and **the linen tents that had belonged to the king of Hungary**, which
+ties `ru-094` to `ru-099` in one line of eyewitness prose. **Both are cited author-first or
+title-first and never by their translator**, and `the chronicle of novgorod` was already in
+`check-cards.js`'s `ANCIENT`. **CARPINI AND BENEDICT ARE NOT, AND THAT IS WORTH KNOWING BEFORE THE NEXT
+BATCH**: `John of Pian de Carpine` yields the surname *Carpine* to rule 1's last-token mechanism, so a
+card citing him in **three** of its sources would be reported as resting on one modern scholar, and a
+question naming him would trip rule 2. No card here does either — `ru-094` is the heaviest at two — so
+nothing was added to the list; a card that wants a third passage of him needs the row first.
+
+**THE MODERN HALF IS ONE JOURNAL, AND IT IS THE JOURNAL OF RECORD.** *Golden Horde Review*
+(`goldhorde.ru`, ISSN 2313-6197) is open access throughout, Crossref-registered with full given names,
+and publishes exactly this subject: Astaykin on the Kalka's geography, Pow on Jebe's last campaign,
+Stavitsky on the Volga Bulgar battle, Vorotyntsev twice on Ryazan, Fomina on the dioceses, Galimov on
+the hierarchy, Gorsky on the summonses of 1242–43, Halperin on the state of the English-language
+field, Ivanov on the archaeology of the Jochid steppe, Drobyshev on Mongol imperial ideas in Russian
+sources, Pochekaev on the Yasa, Luniak on the western imagination of Batu, and Somer, Kurstjens and
+Szabó on 1241. **Search it by ISSN rather than by free text**: `api.crossref.org/journals/2313-6197/works`
+with `query.bibliographic` answers in one request where a corpus-wide search returns Ryazan medical
+journals. Two things about its records. **Every one carries a PHANTOM AUTHOR ENTRY** — an element with
+an empty name — which is the journal's registration quirk and not a fault; the shipped `ru-074`
+citation of Seleznev has it too and passes `check-citations.js`. And **an English abstract is not
+guaranteed**: Narozhnyi's 2017 piece on the limits of the 13th-century catastrophe has none on the
+journal's site, so it was dropped rather than cited for what its title implies.
+
+**FOUR FINDINGS ABOUT GETTING AT SOURCES, MEASURED HERE.** `akjournals.com` answers **403**, so
+Hautala's *Acta Orientalia* article on the beginning of the western campaign — the obvious source for
+the 1235 council that voted it — is shut, and the council is therefore not claimed on any card in this
+batch. `czasopisma.uni.lodz.pl` (Sebők, *Faces of War*) and `archeologickerozhledy.cz` (Dobai on the
+Mohi encampments) are both open with a PDF and a Creative Commons line. **`en.wikipedia.org/w/api.php`
+RETURNS 429 ON A FAST SWEEP** — the BUSY state `check-reach.js` records — and since a foreground
+`sleep` is blocked in this sandbox the answer is `curl --retry 4 --retry-delay 6 --retry-all-errors`,
+which waits inside curl. And **`api.crossref.org/works/<doi>` is what turns a page byline of initials
+into a Chicago given name**: the journal prints *A.A. Astaykin* and Crossref holds *Andrey A.
+Astaykin*, while for Pochekaev and Galimov it holds initials too, so those are cited as initials
+rather than expanded — the one place a fabricated given name hides.
+
+**TWO CARDS SHIP WITH NO LOCATOR AND THE REASON IS A DISPUTE, NOT A GAP.** `ru-094` Batu Khan and
+`ru-100` Golden Horde both want **Sarai**, and Sarai has no published coordinate to fetch: the English
+article carries none, its Wikidata item (Q477152) has no `P625`, and Selitrennoye — the village at the
+site usually identified with Sarai-Batu — has none either. That is not an accident of the data.
+Folio's own `Golden_Horde` term says the written sources use the name for more than one place and that
+the excavated sites have not settled which was meant, so **a gold dot labelled *Sarai* would assert an
+identification the card itself declines to make**. The other eight carry one, all fetched: Karakorum,
+Burkhan Khaldun, the Kalka, Torzhok, Old Ryazan (Wikidata Q4439776, the historic site rather than the
+modern city 50 km away), Vladimir, Kyiv and Mohi.
+
+**`ru-098` STATES THE YEAR AND NOT THE DAY, WHICH IS THE HONEST FORM.** The chronicles give different
+days for the fall of Kyiv and nothing openable from here adjudicates between them, so the date line
+reads *Taken | 1240 CE* over *Papal mission | February 1246 CE* — the second row being a date the
+sources do fix, and the card's real evidence. `cardYears` reads 1240 and 1246 and the card sorts at
+1240. **Every sort year in the batch was read back against `cardYears`** and the run is 1206, 1162,
+1223, 1237, 1237, 1237, 1238, 1240, 1241, 1242; `ru-092` sorts at his birth, which is right for a
+person, and the collection's `CE`-on-every-date rule was followed throughout even though every year
+here is over 1000 and parses as a plain number.
+
+**`check-questions.js` CAUGHT A PHRASING NOTHING ELSE WOULD HAVE.** `ru-091`'s first extra opened
+*Its soldiers counted in tens and ten thousands, the ___ …* — a possessive pronoun whose only
+antecedent is the hidden answer, which is three words saying nothing until the reader has read past
+the blank. It was rewritten to open on *An army counted in tens and ten thousands*, through
+**`add-questions.js`**, which is the writer for an extra phrasing where `fix-field.js` refuses an
+array.
+
+**AND ONE AUTO-LINK WAS JUDGED AND KEPT.** `check-gloss-links.js --card=ru-092` reports *coin* →
+`Coinage`, a term tagged `greece` and `anatolia` on a card tagged `asia`. Read, the link is right: the
+term's own first sentence is a general definition of what coinage is, and its Greek and Anatolian tags
+describe where the western series began rather than what the word means. A reader who taps it from a
+sentence about who could strike coin in his own name gets the definition they wanted.
+
+**TEN MORE CARDS AND SEVEN MORE TERMS SHIP WITHOUT A PICTURE, and this batch has an unusually strong
+lead for the pass that fixes it.** The **Illustrated Chronicle of Ivan the Terrible** (the *Litsevoy
+letopisny svod*, 1560s–70s) illustrates the invasion episode by episode — Ryazan, Vladimir, the Sit,
+Kyiv — in miniatures that are public domain by age and are on Commons; so does the western manuscript
+tradition for Legnica and Mohi. Each is a picture OF the card's own subject rather than furniture, so
+the fetch is worth making, but it is a fetch-and-look pass on thirty or forty candidates and belongs
+in its own batch. Thirty of the collection's hundred cards are now uncaptioned.
+
+
 ---
 
 # The list
@@ -358,17 +1280,17 @@ glossary entries were written to match — `Cimmerians`, `Scythians`, `Sarmatian
     ru-021  The origin of the Slavs
     ru-022  The Slavic migrations
     ru-023  East Slavs
-    ru-024  The East Slavic tribes
+    ru-024  The Vyatichi
     ru-025  Slavic paganism
     ru-026  Perun
-    ru-027  The Finno-Ugric peoples of the forest
+    ru-027  The Merya
     ru-028  The Balts
     ru-029  The Varangians
     ru-030  The Rus' people
     ru-031  The Normanist controversy
     ru-032  Staraya Ladoga
     ru-033  Gnyozdovo
-    ru-034  The trade route from the Varangians to the Greeks
+    ru-034  The route from the Varangians to the Greeks
     ru-035  The Volga trade route
 
 ### Kievan Rus' — `ru-kievan`
@@ -405,14 +1327,14 @@ glossary entries were written to match — `Cimmerians`, `Scythians`, `Sarmatian
     ru-065  Birch bark letters
     ru-066  Druzhina
     ru-067  The towns of Rus'
-    ru-068  The trade of Rus'
+    ru-068  The slave trade of Rus'
     ru-069  The coinage of Rus'
     ru-070  The rota system of succession
     ru-071  The Council of Liubech
     ru-072  Vladimir Monomakh
     ru-073  The Instruction of Vladimir Monomakh
     ru-074  The Cumans
-    ru-075  The fragmentation of Rus'
+    ru-075  Mstislav the Great and the fragmentation of Rus'
     ru-076  Novgorod Republic
     ru-077  The Novgorod veche
     ru-078  Novgorod's northern empire

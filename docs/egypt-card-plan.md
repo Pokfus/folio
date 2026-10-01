@@ -53,6 +53,28 @@ card and a late card in the same deck sort together on the study page, since car
 `cardYears(answerDate)` and not by id. The last three decks are thematic and their order is a reading
 order rather than a claim about dates.
 
+## Retitled while writing
+
+A line is a subject to research, and three of the first ten turned out to want a different answer term.
+Each was changed here in the same commit as the card that changed it.
+
+**`eg-001` Ancient Egypt → Kemet, the Black Land.** `Ancient_Egypt` has been a cited glossary term since
+Phase 3 of the citation pass and `wh-201` already cards it at survey altitude, so the line had no term of
+its own left to teach. **Kemet** is the word the Egyptians used for their own country, and it sets up the
+Black Land / Red Land frame the whole deck rests on — which is the `ww2-133` reason: a line named after
+something the glossary already holds wants the thing beside it, not the thing itself.
+
+**`eg-007` The Egyptian deserts → The Western Desert.** There is no term for "the Egyptian deserts" taken
+together: the Egyptian word for the desert is *deshret*, and `Deshret` is Wikipedia's article on the RED
+CROWN of Lower Egypt, so keying a term there would have pointed a reader at a hat. The Eastern Desert is
+`eg-008` and the oases `eg-009`, so what this line genuinely lacked was the Western Desert itself — much
+the larger of the two, and the flank the oasis chain runs down.
+
+**`eg-009` The oases of the Western Desert → Kharga Oasis and the oasis chain.** A card is answered by a
+term, and "the oases" is not one. Kharga is the southernmost of the chain and the one classical writers
+called simply the Great Oasis; the card carries the chain, the ten-day spacing Herodotus gives it and the
+fossil aquifer under all of them.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -343,15 +365,15 @@ safe.
 
 ### The Nile before the pharaohs — `eg-prehistory`
 
-    eg-001  Ancient Egypt
+    eg-001  Kemet, the Black Land
     eg-002  The Nile
     eg-003  The Nile flood
     eg-004  Upper and Lower Egypt
     eg-005  The Nile Delta
     eg-006  The Faiyum
-    eg-007  The Egyptian deserts
+    eg-007  The Western Desert
     eg-008  The Eastern Desert and the Red Sea
-    eg-009  The oases of the Western Desert
+    eg-009  Kharga Oasis and the oasis chain
     eg-010  The African Humid Period
     eg-011  The drying of the Sahara
     eg-012  Palaeolithic Egypt

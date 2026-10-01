@@ -108,6 +108,29 @@ const REGIONS = {
      so the box is narrowed to the belt that faces the lower 48 and the Lakes (52°N) rather than the 72°N
      the frame needs for Alaska. Coarsening to 0.006° was measured too and saves a quarter of the bytes
      for a coast that stair-steps at the ceiling; the ring count, not the vertex count, is the bulk. */
+  /* RUSSIA — the steppe belt and the seas the Russia collection's cards frame (Sep 2026, on request).
+     ITS BOX IS THE COLLECTION'S OWN FRAME AND NOT THE COUNTRY, which is the China entry's arithmetic
+     rather than a shortcut: Russia's mainland ring is the largest in world.js, so a box holding the
+     Arctic and the Pacific would carry tens of thousands of points for shores no shipped card can see.
+     The five locators shipped span 19°E–127°E and 42°N–55°N (the Eurasian and Pontic-Caspian steppes,
+     the Cimmerians, Scythians and Sarmatians), so the box holds the Black Sea, the Sea of Azov, the
+     Caspian, the Aral and the Baltic down to the Gulf of Finland, and stops at 62°N and 130°E.
+     EXTEND IT WHEN A CARD FRAMES SOMETHING OUTSIDE IT — the Arctic, Kamchatka, Sakhalin — and re-run;
+     the bundle is regenerated whole, so widening costs a run rather than a merge.
+     CHINA IS LEFT OUT although its Yellow Sea shore falls inside the box, and the figure is why: measured
+     at this tolerance it is 15.8 KB gzipped of a 100 KB bundle, the second largest entry after Russia
+     itself, to sharpen a corner that only the Eurasian Steppe card reaches at all and only at the very
+     bottom of its frame. It has a frame of its own, so nothing is lost to the cards that look at it.
+     Sweden and Finland ARE kept at 13.5 KB between them although no shipped card frames the Baltic: the
+     collection's plan runs to Novgorod, St Petersburg and the Great Northern War, and a bundle rebuilt
+     for those would be rebuilt for this anyway. */
+  russia: {
+    tol: 0.003,
+    bbox: [18.0, 35.0, 130.0, 62.0],
+    countries: ["Russia", "Ukraine", "Turkey", "Romania", "Bulgaria", "Georgia", "Kazakhstan",
+      "Turkmenistan", "Azerbaijan", "Iran", "Uzbekistan", "Estonia", "Latvia", "Lithuania", "Finland",
+      "Poland", "Sweden"],
+  },
   usa: {
     tol: 0.003,
     bbox: [-179.9, 17.5, -66.0, 72.0],

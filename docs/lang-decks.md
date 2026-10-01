@@ -1625,6 +1625,15 @@ changed was the one that had been wrong all along.
   Goethe-Institut publishes no Wortliste for. Adding a B2 row to those tables would put a fifth German
   deck beside `German-B2-Vocabulary` rather than replacing it; **look at the file names in `decks/` before
   adding a level.**
+  **EVERY CASE TABLE RUNS NOMINATIV, GENITIV, DATIV, AKKUSATIV** (Sep 2026, on request: the German school
+  order, not the Nom/Akk/Dat/Gen the pipeline first printed). The source is `CASES` in `build_deck.py`,
+  and the composed pronoun tables follow it with the genitive left out (Nominativ, Dativ, Akkusativ; the
+  reflexive's Dativ, Akkusativ). **The shipped files were reordered by `.claude/goethe/case-order.py`
+  rather than rebuilt**, for two reasons: four of the six are not this generator's output at all, and the
+  two that are cannot be rebuilt byte for byte, the Wiktionary extraction being fetched fresh. That script
+  moves whole rows and cells and nothing else, refuses a table it cannot read, and proves the untouched
+  file round-trips first; 8,783 cards changed over the six decks. **`python3 .claude/goethe/case-order.py
+  --check` exits 1 on a table out of order**, so run it after any rebuild or any new German deck.
   `python3 .claude/goethe/run.py [--level a1|a2|b1] [--no-fetch]`. Seven stages, caching its corpora and the
   Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.3 GB, gitignored). PYTHON, like `.claude/dele/`
   and unlike every other helper here, and for the same reason: a further level is a re-run against the next

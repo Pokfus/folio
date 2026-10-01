@@ -70,6 +70,7 @@ const NAMES = [
   [/\bRobert Gray\b|\bGrays Harbor\b/g, "the fur trader who found the Columbia, and the harbour named after him"],
   [/\bthe Armory\b|\bArmory\b(?=<|\s*opened|\s+Building|\s+Show)/g, "the University of Wisconsin building, known as the Armory \u2014 including as a bare date-line label"],
   [/\bPaleo-?(?:Indian|Eskimo|Arctic|Aleut)[a-z]*\b/gi, "the culture's established name in the literature, and a glossary key with the British form aliased"],
+  [/\bRegistry of Tumors in Lower Animals\b/g, "the Smithsonian's own registry, closed in 2013 \u2014 an institution's name, and the True-or-False statement on sharks and cancer cites the survey drawn from it"],
 ];
 const mask = (t) => NAMES.reduce((s, [rx]) => s.replace(rx, (m) => "@".repeat(m.length)), t);
 
@@ -77,6 +78,7 @@ const mask = (t) => NAMES.reduce((s, [rx]) => s.replace(rx, (m) => "@".repeat(m.
    both agree, so a different American spelling creeping into an excused item still reports. Add a row
    only after reading the item, and write the reason. */
 const KEPT = {
+  "tf:#67|flavor": "inside a QUOTATION \u2014 the trade-mark papers in the Supreme Court's 1911 record say the extracts were used \u201cfor the purpose of obtaining a flavor\u201d, and a quoted document is borrowed text however British the sentence around it",
   "bio-048|fetus": "the form modern British scientific and medical writing uses; `foetus` is the older general spelling and an etymological error besides, the Latin being fetus",
   "gloss:Saber-toothed_cat|Saber": "the term's own name \u2014 the key is the Wikipedia slug and the machairodont literature writes it this way",
   "gloss:Saber-toothed_cat|saber": "ditto, mid-sentence",

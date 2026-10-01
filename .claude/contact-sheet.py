@@ -24,11 +24,28 @@ batch = json.load(open(args[0], encoding="utf-8"))
 cards = batch.get("cards", batch)
 UA = {"User-Agent": "folio-dev/1.0 (contact sheet)"}
 
+# A BYTE FLOOR IS NOT A DOWNLOAD TEST, AND AT 800 BYTES IT DROPPED THE SIMPLEST FLAGS (Sep 2026, batch
+# F7). The floor was there to reject a 200-status error document, which is the right thing to reject —
+# but a plain tricolour rendered at this width is 640 to 750 bytes of PNG, so Ireland, Costa Rica,
+# Armenia and Lithuania all came back complete and were thrown away, and a missing cell reads as a failed
+# fetch rather than as a file that is perfectly fine. Ask what the bytes ARE instead: an image's magic
+# number is four bytes and an HTML page has none, so a recognisable picture is accepted at any size and
+# anything else still has to clear the floor. That cannot cache an error page, which is what the floor
+# was for.
+def looks_like_image(b):
+    return bool(b) and (b[:8] == b"\x89PNG\r\n\x1a\n" or b[:3] == b"\xff\xd8\xff" or b[:6] in (b"GIF87a", b"GIF89a")
+                        or b[:4] == b"RIFF" or b.lstrip()[:5].lower() in (b"<?xml", b"<svg "))
+
+def usable(b):
+    return looks_like_image(b) or (b is not None and len(b) > 800)
+
 def grab(src, name):
     cache = os.path.join("/tmp/folio-cs", re.sub(r"[^A-Za-z0-9._-]", "_", name)[:110] + ".img")
     os.makedirs("/tmp/folio-cs", exist_ok=True)
-    if os.path.exists(cache) and os.path.getsize(cache) > 800:
-        return open(cache, "rb").read()
+    if os.path.exists(cache):
+        b = open(cache, "rb").read()
+        if usable(b):
+            return b
     # the file name out of the URL, fetched through Special:FilePath at a small width
     m = re.search(r"/([^/]+)$", src)
     fn = urllib.parse.unquote(m.group(1)) if m else ""
@@ -38,7 +55,7 @@ def grab(src, name):
         try:
             with urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=40) as r:
                 b = r.read()
-            if len(b) > 800:
+            if usable(b):
                 open(cache, "wb").write(b); return b
         except Exception:
             continue

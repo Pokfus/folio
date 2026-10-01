@@ -47,6 +47,7 @@ const GLOSS = win.GLOSSARY || {}, DATES = win.GLOSSARY_DATES || {}, ALIASES = wi
 const PLACES = win.GLOSSARY_PLACES || {}, MAPC = win.GLOSSARY_MAP_COUNTRY || {};
 const SRC_MAX = 24;   // mirrors SRC_MAX in app.js
 const SRC_URL = /https?:\/\/[^\s<>"']+/;   // every citation carries a link the reader can follow
+const { checkCitationLang } = require("./src-langs.js");
 
 let action;
 if (e.delete) {
@@ -70,6 +71,8 @@ if (e.delete) {
   }
   if (Array.isArray(e.sources) && e.sources.length > SRC_MAX) { console.error("ERROR: " + e.slug + " has " + e.sources.length + " sources — at most " + SRC_MAX + "."); process.exit(1); }
   if (Array.isArray(e.sources)) {
+    // a language marker app.js cannot draw ships as a citation with no chip — see .claude/src-langs.js
+    e.sources.forEach((s) => { const bad = checkCitationLang(s); if (bad) { console.error("ERROR: " + e.slug + ": a citation " + bad); process.exit(1); } });
     const unlinked = e.sources.filter((s) => !SRC_URL.test(s));
     if (unlinked.length) { console.error("ERROR: " + e.slug + ": every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none. Put the DOI or permalink last, as plain text; the site links it."); process.exit(1); }
   }
