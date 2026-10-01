@@ -1223,12 +1223,12 @@ else in the Americas.*
     wh-817  Trail of Tears
     wh-818  Women's suffrage
     wh-819  Mary Wollstonecraft
-    wh-820  Sanitation and public health reform
+    wh-820  Sanitation and public health reform  — written as *sanitary movement* (glossary key `Sanitary_movement`); `Public_Health_Act_1848` is only a redirect
     wh-821  Germ theory of disease
     wh-822  Charles Darwin
     wh-823  On the Origin of Species
     wh-824  Compulsory education
-    wh-825  Mass-circulation press
+    wh-825  Mass-circulation press  — written as *penny press* (glossary key `Penny_press`), the cheap daily of New York, London and Paris
 
 ### Empire and the colonised world — `wh-imperialism`
 
@@ -1251,42 +1251,42 @@ else in the Americas.*
     wh-842  Taiping Rebellion
     wh-843  Boxer Rebellion
     wh-844  Meiji Restoration
-    wh-845  Industrialisation of Japan
+    wh-845  Industrialisation of Japan  — written as *zaibatsu* (glossary key `Zaibatsu`), the state-led start of Meiji industry in its general half
     wh-846  First Sino-Japanese War
     wh-847  Russo-Japanese War
-    wh-848  Cash crop economies
-    wh-849  Indentured labour
-    wh-850  Colonial railways
-    wh-851  Christian missions and empire
+    wh-848  Cash crop economies  — written as the general term *cash crop* (glossary key `Cash_crop`), colonial export farming being the card's subject
+    wh-849  Indentured labour  — written as *Indian indenture system* (glossary key `Indian_indenture_system`)
+    wh-850  Colonial railways  — written as *Uganda Railway* (glossary key `Uganda_Railway`), the case the sources serve best
+    wh-851  Christian missions and empire  — written as the general term *Christian mission* (glossary key `Christian_mission`), its imperial century being the card's subject
     wh-852  Settler colonialism
-    wh-853  Colonisation of Australia
+    wh-853  Colonisation of Australia  — written as *First Fleet* (glossary key `First_Fleet`)
     wh-854  Treaty of Waitangi
     wh-855  Scientific racism
 
 ### A connected world, 1850–1914 — `wh-global-1900`
 
-    wh-856  Age of mass migration
-    wh-857  Chinese and Indian diaspora
-    wh-858  Immigration to the Americas
-    wh-859  Latin America after independence
+    wh-856  Age of mass migration  — written as *European emigration* (glossary key `European_emigration`, alias *Age of Mass Migration*, which has no article of its own)
+    wh-857  Chinese and Indian diaspora  — written as *Overseas Chinese* (glossary key `Overseas_Chinese`); the Indian diaspora is wh-849's
+    wh-858  Immigration to the Americas  — written as *Immigration to Argentina* (glossary key `Immigration_to_Argentina`), the Americas' other destinations in its background
+    wh-859  Latin America after independence  — written as *War of the Pacific* (glossary key `War_of_the_Pacific`)
     wh-860  Caudillo
     wh-861  Mexican Revolution
-    wh-862  Abolition of slavery in Brazil
+    wh-862  Abolition of slavery in Brazil  — written as *Lei Áurea* (glossary key `Lei_Áurea`, alias *Golden Law*)
     wh-863  Qajar Iran
-    wh-864  Modernisation of Siam
+    wh-864  Modernisation of Siam  — written as *Chulalongkorn* (glossary key `Chulalongkorn`), the reforms of his reign being the card's subject
     wh-865  Young Turk Revolution
     wh-866  Zionism
     wh-867  Gold standard
-    wh-868  Submarine communications cable
+    wh-868  Submarine communications cable  — written as *transatlantic telegraph cable* (glossary key `Transatlantic_telegraph_cable`)
     wh-869  World's fair
-    wh-870  The world in 1914
+    wh-870  The world in 1914  — written as the general term *great power* (glossary key `Great_power`), the powers and the world economy of 1914 being the card's subject
 
 ## The Modern World — `wh-modern`
 
 ### The First World War — `wh-ww1`
 
     wh-871  First World War
-    wh-872  European alliance system
+    wh-872  European alliance system  — written as *Triple Entente* (glossary key `Triple_Entente`), its background covering both blocs
     wh-873  Assassination of Archduke Franz Ferdinand
     wh-874  July Crisis
     wh-875  Schlieffen Plan
@@ -1298,9 +1298,9 @@ else in the Americas.*
     wh-881  Gallipoli campaign
     wh-882  Eastern Front
     wh-883  Unrestricted submarine warfare
-    wh-884  Chemical weapons in the First World War
+    wh-884  Chemical weapons in the First World War  — written as the general term *chemical warfare* (glossary key `Chemical_warfare`), its First World War use being the card's subject
     wh-885  Home front
-    wh-886  Women's war work
+    wh-886  Women's war work  — written as *munitionettes* (glossary key `Munitionette`), the other belligerents' women workers in its general half
     wh-887  Armenian genocide
     wh-888  Arab Revolt
     wh-889  Sykes–Picot Agreement
@@ -1411,7 +1411,7 @@ else in the Americas.*
     wh-982  Apartheid
     wh-983  Nelson Mandela
     wh-984  Iranian Revolution
-    wh-985  Postcolonial nation-building
+    wh-985  Ujamaa
 
 ### The contemporary world — `wh-contemporary`
 
@@ -1419,7 +1419,7 @@ else in the Americas.*
     wh-987  Dissolution of the Soviet Union
     wh-988  German reunification
     wh-989  European Union
-    wh-990  Chinese economic reform
+    wh-990  Reform and opening up
     wh-991  Yugoslav Wars
     wh-992  Rwandan genocide
     wh-993  Globalisation

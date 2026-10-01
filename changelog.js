@@ -35,16 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.907", released: "2026-10-01T15:22Z" };
+window.FOLIO_VERSION = { v: "1.910", released: "2026-10-01T19:57Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-01",
-    t: "Two hundred and ten new World History cards, from Tikal to serfdom",
+    t: "Four hundred new World History cards, from Tikal to the Anthropocene",
     items: [
-      "<b>Two hundred and ten new cards in the World History collection</b> \u2014 the Americas before Columbus, the Renaissance and the new science, the age of discovery, and the nation-building of the 19th century, with a glossary term for each.",
+      "<b>Four hundred new cards in the World History collection</b>, from the Americas before Columbus through empire and two world wars to the present, each with a glossary term, completing the collection.",
       "<b>Eighty new cards in the China collection</b>, from the Eastern Han through the Jin to the Northern Zhou, each with a cited glossary term.",
-      "<b>Twenty new cards in the Ancient Rome collection</b>, from Licinius and the Council of Nicaea to Julian and Valentinian I, with eighteen new glossary terms.",
+      "<b>A hundred and twenty new cards in the Ancient Rome collection</b>, from Licinius and Nicaea through the fall of the West to the Roman army and the Senate, with 111 new glossary terms.",
       "<b>Twenty new cards in the Visual Art collection</b>, finishing its Ice Age art and opening the first villages, with 19 new glossary terms.",
       "<b>Twenty-five more cards in the Crete and the Cyclades deck are rewritten</b>, with more sources, clearer backgrounds, new pictures and new Think it through questions.",
       "<b>Settings \u2192 Data</b> now says where your progress is kept, asks the browser to keep it, and can restore a backup as well as download one.",
@@ -79,8 +79,14 @@ window.CHANGELOG = [
       "<b>Opening a glossary term for the first time</b> now says New discovery!, without a count of every term on the site.",
       "<b>A card still being learned</b> is now labelled Learning on the study page rather than Repeat.",
       "<b>Corrections to four cards</b> in the World History, Ancient Egypt, Ancient Rome and Russia collections, and to one glossary term.",
-      "<b>Two cards gain an Atlas window</b>, in the Second World War and Ancient Rome collections.",
+      "<b>Fifty cards gain an Atlas window</b>, in the World History, China, Second World War, Korea, Japan and Ancient Rome collections.",
       "<b>One card removed from the Korea collection</b>, its place in the plan given to a new subject.",
+      "On the Atlas, <b>capital cities now always win a crowd</b>, and a place shows only where its label names its card's answer.",
+      "The <b>Roman Kingdom, Republic and Empire</b> now appear on the Atlas in their own years, with borders that change over time.",
+      "Atlas borders now <b>meet the coastline</b>: no more stray coast lines, and no dark slivers of shore left outside a state.",
+      "Where wars overlap on the Atlas, <b>tap again</b> to reach the one underneath; wider wars are hatched, and the panel lists each year's wars.",
+      "The <b>Full atlas has a search</b> again, and Your atlas shows how many of each collection's places you have found.",
+      "<b>Over a hundred historical states</b> now appear on the Atlas with moving borders, each with its <b>capital in that year</b>.",
     ],
   },
   {
