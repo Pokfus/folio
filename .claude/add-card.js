@@ -3,6 +3,7 @@
 // (it parses + rewrites the array programmatically — no whole-file Edit). See CLAUDE.md.
 //
 //   node .claude/add-card.js <card.json> [deckId]
+//   node .claude/add-card.js <patch.json> --replace [--no-image] [--dry-run]   (--dry-run: check, write nothing)
 //
 // <card.json>  a file holding ONE card object (all 13 fields), PLUS a `questions` array of 2 extra
 //              question phrasings (3 in all — the site asks one at random), PLUS a `sources` array of
@@ -941,6 +942,9 @@ if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", lea
   { const ew = checkWar(card, loadCardYears(appSrc)); if (ew) { console.error(/^ERROR/.test(ew) ? ew : "ERROR: " + ew); process.exit(1); } }
 }
 
+/* --dry-run (Oct 2026, the World History audit): every guard above, and no write. Research agents
+   drafting patches in parallel check a draft against the real rules without touching data.js. */
+if (process.argv.includes("--dry-run")) { console.log("dry run: " + card.id + " passes every guard (nothing written)"); process.exit(0); }
 if (REPLACE) {
   const at = cards.findIndex((c) => c.id === card.id);
   cards[at] = card;
