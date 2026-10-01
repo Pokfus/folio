@@ -36572,20 +36572,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   /* Every collection that has put something on this globe, with how many places each holds — the list the
      toggles are drawn from. Built off the WHOLE register, so turning one off never removes its own row. */
+  /* …AND ON THE READER'S OWN ATLAS, HOW MUCH OF EACH THEY HAVE FOUND (Oct 2026, on request: "progress per
+     collection, e.g. '37 of 152 places discovered', next to the collection toggles"). `total` is the same
+     count taken over the FULL register, so the two numbers are measured the same way — one entry per card a
+     place, a country or a war comes from — and the reader's can never exceed it. */
   function atlasCollections() {
-    const u = atlasRegisterAll(_atlasFull), by = new Map();
-    const bump = (coll) => {
-      const id = String(coll || "");
-      if (!id) return;
-      if (!by.has(id)) {
-        const n = NODE_BY_ID[id];
-        by.set(id, { id: id, title: n ? nodeTitle(n) : id, n: 0 });
-      }
-      by.get(id).n++;
+    const count = (u) => {
+      const by = new Map();
+      const bump = (coll) => {
+        const id = String(coll || "");
+        if (!id) return;
+        if (!by.has(id)) {
+          const n = NODE_BY_ID[id];
+          by.set(id, { id: id, title: n ? nodeTitle(n) : id, n: 0 });
+        }
+        by.get(id).n++;
+      };
+      u.names.forEach((v) => (v.colls || [v.coll]).forEach(bump));   // every card naming the country, not just the first
+      u.subdiv.forEach((d) => bump(d.coll));
+      u.marks.forEach((m) => bump(m.coll));
+      return by;
     };
-    u.names.forEach((v) => (v.colls || [v.coll]).forEach(bump));   // every card naming the country, not just the first
-    u.subdiv.forEach((d) => bump(d.coll));
-    u.marks.forEach((m) => bump(m.coll));
+    const by = count(atlasRegisterAll(_atlasFull));
+    if (!_atlasFull) { const all = count(atlasRegisterAll(true)); by.forEach((x, id) => { const f = all.get(id); x.total = f ? Math.max(f.n, x.n) : x.n; }); }
     return [...by.values()].sort((a, b) => b.n - a.n || a.title.localeCompare(b.title));
   }
   let _atlasViewCache = null;
@@ -40452,11 +40461,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 a legend"). Its layers are the earth's — there is no political toggle to offer — and the
                 search is the WORLD atlas's index, so a hit there would open a country panel about a
                 place the reader has not unlocked, on the tab that exists to show only what they have. */""}
-          <div class="globe-search" id="globeSearch"${MINE ? " hidden" : ""}>
+          ${/* …EXCEPT THE FULL ATLAS (Oct 2026, on request: search "on the Full atlas, since the world atlas tab
+                and its search are gone"). There every place is on the map already, so a hit names nothing the
+                reader is not allowed to see; its index is the full register itself (see `msIndex`). Your atlas
+                still has none, for the reason above. */""}
+          <div class="globe-search" id="globeSearch"${MINE && !FULL ? " hidden" : ""}>
             ${/* the phone's collapsed state: a chip that opens the field across the stage. Hidden on desktop,
                   where a 240px box in the corner costs nothing. */""}
             <button class="gs-toggle" id="gsToggle" type="button" aria-label="Search the atlas" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></button>
-            <input type="text" id="gsInput" placeholder="Search the atlas…" autocomplete="off" spellcheck="false" aria-label="Search countries, territories and capitals" />
+            <input type="text" id="gsInput" placeholder="${MINE ? "Search the full atlas…" : "Search the atlas…"}" autocomplete="off" spellcheck="false" aria-label="${MINE ? "Search places, states, peoples and wars" : "Search countries, territories and capitals"}" />
             <div class="gs-results" id="gsResults" role="listbox" hidden></div>
           </div>
           <div class="globe-zoom">
@@ -40505,9 +40518,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 either half has something to say. */""}
           ${MINE && !GAME ? (() => {
             const cs = atlasCollections();
-            return `<div class="globe-legend atlas-colls" id="atlasColls" role="group" aria-labelledby="collsTitle"${cs.length < 2 ? " hidden" : ""} data-colls="${cs.length < 2 ? 0 : 1}">
+            const rows = cs.length >= 2 || (cs.length === 1 && !FULL);
+            return `<div class="globe-legend atlas-colls" id="atlasColls" role="group" aria-labelledby="collsTitle"${rows ? "" : " hidden"} data-colls="${rows ? 1 : 0}">
               <div class="legend-head" id="collsHead">
-                <span class="legend-title" id="collsTitle">${esc(t(cs.length < 2 ? "Wars" : "Collections"))}</span>
+                <span class="legend-title" id="collsTitle">${esc(t(!rows ? "Wars" : FULL ? "Collections" : "Collections · found"))}</span>
                 <button class="legend-collapse" id="collsCollapse" type="button" aria-label="${esc(t("Collapse legend"))}" aria-expanded="true"><span class="lc-sign">–</span><svg class="lc-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></button>
               </div>
               <div class="legend-body" id="collsBody">
@@ -40515,7 +40529,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   <div class="aw-title" id="atlasWarsTitle"></div>
                   <div class="aw-list" id="atlasWarsList" role="list"></div>
                 </div>
-                ${cs.length < 2 ? "" : cs.map((x) => `<label class="legend-row"><input type="checkbox" data-atlascoll="${esc(x.id)}"${atlasCollOff(x.id) ? "" : " checked"}><span>${esc(x.title)}</span><span class="lr-n notranslate">${x.n}</span></label>`).join("")}
+                ${(() => {
+                  // the count: on your own atlas, how many of the collection's places you have found
+                  const cnt = (x) => x.total != null
+                    ? `<span class="lr-n notranslate" title="${esc(x.n + " of " + x.total + " places discovered")}" aria-label="${esc(x.n + " of " + x.total + " places discovered")}">${x.n}<span class="lr-of">/${x.total}</span></span>`
+                    : `<span class="lr-n notranslate">${x.n}</span>`;
+                  // one collection on your own atlas: its progress, without a switch that could only turn the map off
+                  if (cs.length === 1 && !FULL) return `<div class="legend-row lr-solo"><span>${esc(cs[0].title)}</span>${cnt(cs[0])}</div>`;
+                  return cs.length < 2 ? "" : cs.map((x) => `<label class="legend-row"><input type="checkbox" data-atlascoll="${esc(x.id)}"${atlasCollOff(x.id) ? "" : " checked"}><span>${esc(x.title)}</span>${cnt(x)}</label>`).join("");
+                })()}
               </div>
             </div>`;
           })() : ""}
@@ -44524,16 +44546,101 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       };
       flyRAF = requestAnimationFrame(stepFly);
     }
+    /* ---------- THE FULL ATLAS'S OWN INDEX (Oct 2026) ----------
+       Every mark the full register draws, by the name it is drawn under: a place or a battle, a sea or a
+       river, a state or a people's extent, a war (once, not once per side), a country and a province. Each
+       row keeps its mark and its years, so a pick can set the rail to a year the mark is drawn in before it
+       flies there — a mark outside the year on the rail is not drawn at all (see `focusMineCard`). */
+    let _msIdx = null, _msSrc = null, _msPol = false;
+    function msIndex() {
+      const u = atlasUnlocks();
+      if (_msIdx && _msSrc === u && _msPol === !!window.POLITIES) return _msIdx;   // an open state's end needs the series
+      _msPol = !!window.POLITIES;
+      const out = [], seen = new Set();
+      // a place stands from its start to today; a state, a people or a war has an end (an open state's is
+      // its series' — see `seriesEnd`)
+      const add = (n, kind, y0, y1, ref) => {
+        n = gameCapFirst(String(n || "").trim()); if (!n) return;
+        const k = kind + "|" + gsFold(n); if (seen.has(k)) return; seen.add(k);
+        const ends = kind === "state" || kind === "people" || kind === "war";
+        const years = y0 == null ? [] : y1 != null && y1 !== y0 ? [y0, y1] : ends ? [y0] : [y0, MAXY];
+        out.push({ n: n, kind: kind, years: years, ref: ref, y0: y0, y1: y1 });
+      };
+      u.marks.forEach((m) => {
+        if (m.kind === "dot") add(m.title, m.modern ? (m.cap ? "capital" : "city") : m.battle ? "battle" : "place", m.modern ? MAXY : m.y0, null, m);
+        else if (m.kind === "water") add(m.title, "water", m.y0, null, m);
+        else if (m.kind === "area") add(m.title, m.state ? "state" : "people", m.y0, m.open ? seriesEnd(m) : m.y1, m);
+        else if (m.kind === "war") { if (m.side === "v") add(m.title, "war", m.y0, m.y1, m); }
+      });
+      u.names.forEach((v) => add(v.key, "country", null, null, v));
+      u.subdiv.forEach((d) => add(d.title, "province", MAXY, null, d));
+      out.sort((a, b) => a.n.length - b.n.length);
+      _msIdx = out; _msSrc = u;
+      return out;
+    }
+    // the last year an open extent is drawn in: where its dated series ends (see `mineMarks`), or its start
+    function seriesEnd(m) {
+      const sl = polityLink(m, "area"); if (!sl || !window.POLITIES) return m.y0;
+      let hi = null;
+      sl.forEach((k) => { const ser = window.POLITIES[k]; if (ser && ser.s.length) { const e = ser.s[ser.s.length - 1][1]; if (hi == null || e > hi) hi = e; } });
+      return hi == null ? m.y0 : hi;
+    }
+    function msPick(entry) {
+      gsHide(); gsInput.blur();
+      const m = entry.ref; if (!m) return;
+      playStop();
+      // a year the mark is drawn in: stay if the rail is already inside its span, else go to its start
+      const lo = entry.y0, hi = entry.y1 != null ? entry.y1 : MAXY;
+      if (lo != null && (year < lo || year > hi)) { year = clamp(Math.round(clamp(lo, MINY, MAXY)), MINY, MAXY); paintYear(); _mineFor = ""; _mineWarFor = ""; baseValid = false; }
+      mineCyc = null;
+      const open = (hit) => { if (hit) { showMinePopup(hit); } draw(); };
+      if (entry.kind === "country" || entry.kind === "province") {
+        const want = gsFold(m.key || (m.keys || [])[0] || "");
+        let shape = mineShapes().find((sh) => gsFold(sh.name || "") === want);
+        // not on this year's map (no era map draws it, or it was not yet founded): go to the present day
+        if (!shape && year < MAXY) { year = MAXY; paintYear(); _mineFor = ""; _mineWarFor = ""; baseValid = false; shape = mineShapes().find((sh) => gsFold(sh.name || "") === want); }
+        const cc = countryCenter(m.key || (m.keys || [])[0] || "");
+        mineSel = shape ? shape.name : (m.key || "");
+        // the card whose answer IS what was searched leads the stack (a country's capital card names it too)
+        const base = shape || { id: m.id, ids: m.ids, title: m.key }, ids = (base.ids || [base.id]).slice();
+        const lead = ids.findIndex((id) => CARD_BY_ID[id] && gsFold(CARD_BY_ID[id].answerText || "") === gsFold(entry.n));
+        if (lead > 0) ids.unshift(ids.splice(lead, 1)[0]);
+        const hit = Object.assign({}, base, { id: ids[0], ids: ids });
+        if (cc) flyTo(cc.lon, cc.lat, Math.max(zoom, 1.6), () => open(hit));
+        else open(hit);
+        return;
+      }
+      if (entry.kind === "war") {
+        mineSel = warSelKey(m);
+        const ex = warExtents().get(m.id);
+        if (ex) { const bb = ex.bb, span = Math.max(1, bb[2] - bb[0], bb[3] - bb[1]); flyTo((bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2, clamp(0.7 * Math.min(W, H) / (span * Math.PI / 180 * baseR), 1, 30), () => open(m)); }
+        else open(m);
+        return;
+      }
+      if (m.kind === "area") {
+        mineSel = String(m.title || "");
+        const rings = mineAreaOf(m), bb = rings === m.area ? areaBBox(m) : ringsBox(rings);
+        const span = Math.max(1, bb[2] - bb[0], bb[3] - bb[1]);
+        flyTo((bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2, clamp(0.7 * Math.min(W, H) / (span * Math.PI / 180 * baseR), 1, 30), () => open(m));
+        return;
+      }
+      mineSel = "";
+      // a capital's point is resolved at draw time, so it is read back from this year's marks
+      const live = m.modern ? mineMarks().find((x) => x.id === m.id && x.kind === "dot") : m;
+      const at = live && live.at;
+      if (at) flyTo(at[0], at[1], Math.max(zoom, 3.4), () => open(live)); else open(live || m);
+    }
     function gsYears(e) {
+      if (!e.years || !e.years.length) return "";
       const f = (y) => (y >= MAXY ? "Today" : y < 0 ? -y + " BCE" : String(y));
       return e.years.length === 1 ? f(e.years[0]) : f(e.years[0]) + " – " + f(e.years[e.years.length - 1]);
     }
-    const GS_KIND = { country: "Country", territory: "Territory", capital: "Capital", site: "Place" };
+    const GS_KIND = { country: "Country", territory: "Territory", capital: "Capital", site: "Place", city: "City", place: "Place", battle: "Battle", water: "Water", state: "State", people: "People", war: "War", province: "Province" };
     function gsHide() { gsResults.hidden = true; gsResults.innerHTML = ""; gsRows = []; gsActive = -1; }
     function gsShow(q) {
       const qq = gsFold(q.trim());
       if (qq.length < 2) { gsHide(); return; }
-      const idx = gsIndex(), starts = [], words = [], subs = [];
+      const idx = MINE ? msIndex() : gsIndex(), starts = [], words = [], subs = [];
       for (let i = 0; i < idx.length && starts.length < 10; i++) {
         const f = gsFold(idx[i].n), p = f.indexOf(qq);
         if (p < 0) continue;
@@ -44547,6 +44654,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function gsPick(entry) {
       if (!entry) return;
+      if (MINE) { msPick(entry); return; }
       gsHide(); gsInput.blur();
       if (mapEdit) return;   // after closing the dropdown — the editor pins the year, so search can't navigate
       playStop();   // a search pick pauses the timeline player even when the entity is on the CURRENT map (no setYear then — a later tick would cancel the flight mid-air and wipe the landing selection)
