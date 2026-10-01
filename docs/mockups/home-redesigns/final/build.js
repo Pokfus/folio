@@ -16,10 +16,35 @@ const P = new Function("G", "fs", "path", "__dirname", helpers2 + helpers2b + he
   "\nreturn {I, topbar, tabbar, phoneHead, readingBox, foot, GAMES, DECKS, pct, boxes, legend, quote, globeDeco, banner, ribbon, PARTS};")(G, fs, path, path.join(__dirname, "..", "round-4"));
 
 const bannerStacked = () => P.banner().replace(/(<div class="pile">[\s\S]*?<\/div>)\s*(<a class="go"[\s\S]*?<\/a>)/, '<div class="stack">$1$2</div>');
+const CHEST = `<svg class="chest-svg" viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="chest-lid"><path d="M14 40V30a46 16 0 0 1 92 0v10z" fill="currentColor" fill-opacity=".14"/><path d="M6 40h108v11H6z" fill="currentColor" fill-opacity=".22"/></g><g class="chest-box"><path d="M14 51h92v35a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".14"/><path d="M52 51h16v17H52z" fill="currentColor" fill-opacity=".3"/><path d="M60 60v6"/></g></svg>`;
+/* THE STREAK RIBBON WITH ITS CHESTS. Seven days in a row earn a chest and every week after that is worth one
+   more (STREAK_CHEST_EVERY = 7 in app.js; maybeStreakChest pays it). The strip shows the current run in
+   weeks: each week's seven days end in a chest, gold once that week is paid, quiet while it is being
+   earned. With a 12-day streak the first chest is paid and the second is two days off and worth two.
+   IMPLEMENTATION NOTE: this ribbon takes over `streakChestHTML` (the "Next streak chest" box on the
+   Account page), which is removed there so the chest is said once. */
+const ribbonChests = () => {
+  const streak = 12, every = 7, weeks = Math.ceil(streak / every) || 1;
+  let out = "";
+  for (let w = 0; w < Math.max(weeks, 2); w++) {
+    const days = Array.from({ length: every }, (_, i) => { const d = w * every + i + 1; return `<i class="${d <= streak ? (d === streak ? "t" : "") : "o"}"></i>`; }).join("");
+    const paid = (w + 1) * every <= streak;
+    out += `<span class="wk">${days}<span class="chest ${paid ? "won" : ""}" title="${paid ? "Week " + (w + 1) + " paid" : "Worth " + (w + 1) + (w ? " chests" : " chest")}">${CHEST}</span></span>`;
+  }
+  return out;
+};
+const ribbon = () => `<div class="ribbon"><b>12</b><span class="t">day streak</span><span class="days">${ribbonChests()}</span><span class="note">2 more days for <b class="n2">2 chests</b></span><span class="r">Longest · 31 days</span></div>`;
 const greet = () => `<div class="greet"><span class="eyebrow">Good afternoon, Scholar</span><h1>Today</h1></div>`;
 const thisWeek = () => `<section class="box week"><span class="k">This week</span><div class="stats"><div><b>184</b><span>cards studied</span></div><div><b>71 min</b><span>at the desk</span></div><div class="g"><b>87%</b><span>recalled</span></div></div>${P.globeDeco().replace('class="gdeco "','class="gdeco" style="right:-40px;bottom:-60px;width:150px;height:150px"')}</section>`;
 
 const CSS = `
+/* the ribbon's weeks and chests */
+.ribbon .days{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+.ribbon .wk{display:inline-flex; gap:4px; align-items:center;}
+.ribbon .days i.o{background:var(--paper-2); border:1px solid var(--rule); box-sizing:border-box;}
+.ribbon .chest{display:inline-block; width:30px; margin-left:6px; color:var(--ink-faint); opacity:.55;} .ribbon .chest svg{width:100%; height:auto; display:block;}
+.ribbon .chest.won{color:#C39A2E; opacity:1;} .night .ribbon .chest.won{color:#E6C765;} @media (prefers-color-scheme: dark){ :root:not(.light) .ribbon .chest.won{color:#E6C765;} }
+.ribbon .note{text-transform:none; letter-spacing:0; font-family:var(--sans); font-size:12.5px; color:var(--ink-quiet);} .ribbon .note .n2{font-family:var(--sans); font-size:12.5px; color:#C39A2E; font-weight:800; letter-spacing:0;} .night .ribbon .note .n2{color:#E6C765;} @media (prefers-color-scheme: dark){ :root:not(.light) .ribbon .note .n2{color:#E6C765;} }
 /* the pile's figures sit centred over their labels */
 .study .pile div{text-align:center;} .study .pile .t{text-align:center;}
 /* the pile and the button share one width: a stack as wide as the figures, and the button fills it */
@@ -47,7 +72,8 @@ const CSS = `
 .week .stats .g b{color:var(--good);}
 .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 @media (max-width:1024px){ .list{grid-template-columns:1fr 1fr;} }
-@media (max-width:640px){ .wrap{padding:18px 16px 100px;} .fr{grid-template-columns:1fr auto; padding:12px 14px 16px;} .fr .pct{display:none;}
+@media (max-width:640px){ .ribbon .days{gap:8px;} .ribbon .days i{width:12px; height:12px;} .ribbon .chest{width:24px;} .ribbon .note{flex-basis:100%;} .ribbon .r{margin-left:0;}
+ .wrap{padding:18px 16px 100px;} .study .stack{width:100%;} .study .stack .pile{justify-content:space-between;} .fr{grid-template-columns:1fr auto; padding:12px 14px 16px;} .fr .pct{display:none;}
   .fr::before{top:auto; height:5px; border-right:0; background:var(--c); border-radius:0 3px 3px 0;} .fr .m{display:none;} .list{grid-template-columns:1fr;} .two{grid-template-columns:1fr;} }`;
 
 const html = `<!DOCTYPE html>
@@ -71,7 +97,7 @@ ${P.topbar()}
   ${P.quote()}
   ${bannerStacked()}
   <div class="gap"></div>
-  ${P.ribbon()}
+  ${ribbon()}
   <div class="gap"></div>
   <div class="sec-h"><span>Your collections</span>${P.legend()}</div>
   <div class="fill">${P.DECKS.map(d => `<a class="fr" href="#study" style="--c:${d[1]}; --w:${P.pct(d)}%"><span><b class="name">${d[0]}</b><span class="m" data-pct="${P.pct(d)}">${d[6]} of ${d[5].toLocaleString()} cards learned</span></span><span class="pct">${P.pct(d)}%</span>${P.boxes(d)}</a>`).join("")}</div>
