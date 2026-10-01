@@ -210,11 +210,13 @@ const APP = require("fs").readFileSync(require("path").join(__dirname, "..", "ap
   check("there is no world atlas tab any more", await page.evaluate(() => !document.querySelector('[data-atlastab="world"]')));
   await setYear(new Date().getFullYear());
   const minePx = await page.evaluate(PX);
+  check("your own atlas has no search", await page.evaluate(() => document.getElementById("globeSearch").hidden));
   await page.evaluate(() => { document.querySelector('[data-atlastab="full"]').click(); });
   await page.waitForTimeout(3000);
   check("switching tab keeps the reader there rather than resetting", await page.$eval('[data-atlastab="full"]', (e) => e.classList.contains("on")));
-  check("...on the personal globe still: no legend and no search",
-    await page.evaluate(() => document.getElementById("globeLegend").hidden && document.getElementById("globeSearch").hidden));
+  // the Full atlas gained a search of its own register in Oct 2026 ("search on the Full atlas"); Your atlas still has none
+  check("...on the personal globe still: no legend, but the full atlas's own search",
+    await page.evaluate(() => document.getElementById("globeLegend").hidden && !document.getElementById("globeSearch").hidden));
   check("...and the personal rail, from 4000 BCE", (await page.$$eval(".tl-tick", (els) => els.map((e) => e.textContent)))[0] === "4000 BCE");
   await setYear(new Date().getFullYear());
   const fullPx = await page.evaluate(PX);

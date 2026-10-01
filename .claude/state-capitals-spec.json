@@ -1,0 +1,439 @@
+{
+ "_about": "Which Wikipedia article names each state card for .claude/build-state-capitals.js (its Wikidata item is the state; its P36 capitals, with their start/end qualifiers, are the capitals drawn). A group card lists several. `label` renames a capital item whose Wikidata label is not the name a map prints (a prefecture, a district, a fort); `drop` refuses an item that is not a capital city at all (a museum, a wall) or duplicates another. Edit, then re-run the builder.",
+ "cards": {
+  "cnh-066": [
+   "Shang dynasty"
+  ],
+  "cnh-111": [
+   "Zhou dynasty"
+  ],
+  "cnh-152": [
+   "Qi (state)"
+  ],
+  "cnh-153": [
+   "Jin (Chinese state)"
+  ],
+  "cnh-154": [
+   "Chu (state)"
+  ],
+  "cnh-155": [
+   "Qin (state)"
+  ],
+  "cnh-156": [
+   "Lu (state)"
+  ],
+  "cnh-157": [
+   "Song (state)"
+  ],
+  "cnh-158": [
+   "Yue (state)"
+  ],
+  "cnh-164": [
+   "Qin (state)",
+   "Chu (state)",
+   "Qi (state)",
+   "Yan (state)",
+   "Han (state)",
+   "Zhao (state)",
+   "Wei (state)"
+  ],
+  "cnh-170": [
+   "Qin (state)"
+  ],
+  "cnh-191": [
+   "Qin dynasty"
+  ],
+  "cnh-213": [
+   "Han dynasty"
+  ],
+  "cnh-232": [
+   "Nanyue"
+  ],
+  "cnh-245": [
+   "Xin dynasty"
+  ],
+  "cnh-253": [
+   "Han dynasty"
+  ],
+  "cnh-277": [
+   "Cao Wei"
+  ],
+  "cnh-279": [
+   "Shu Han"
+  ],
+  "cnh-284": [
+   "Eastern Wu"
+  ],
+  "cnh-293": [
+   "Jin dynasty (266–420)"
+  ],
+  "cnh-305": [
+   "Han-Zhao"
+  ],
+  "cnh-307": [
+   "Former Yan"
+  ],
+  "cnh-308": [
+   "Former Qin"
+  ],
+  "cnh-313": [
+   "Jin dynasty (266–420)"
+  ],
+  "cnh-324": [
+   "Liu Song dynasty"
+  ],
+  "cnh-325": [
+   "Southern Qi"
+  ],
+  "cnh-326": [
+   "Liang dynasty"
+  ],
+  "cnh-329": [
+   "Chen dynasty"
+  ],
+  "cnh-330": [
+   "Northern Wei"
+  ],
+  "cnh-338": [
+   "Eastern Wei"
+  ],
+  "cnh-339": [
+   "Northern Zhou"
+  ],
+  "gr-233": [
+   "Sparta"
+  ],
+  "gr-381": [
+   "Achaemenid Empire"
+  ],
+  "gr-767": [
+   "Ptolemaic Kingdom"
+  ],
+  "gr-769": [
+   "Seleucid Empire"
+  ],
+  "gr-770": [
+   "Antigonid dynasty"
+  ],
+  "gr-783": [
+   "Greco-Bactrian Kingdom"
+  ],
+  "gr-784": [
+   "Indo-Greek Kingdom"
+  ],
+  "gr-789": [
+   "Attalid kingdom"
+  ],
+  "jp-054": [
+   "Baekje"
+  ],
+  "ko-046": [
+   "Gojoseon"
+  ],
+  "ko-054": [
+   "Gojoseon"
+  ],
+  "ko-056": [
+   "Yan (state)"
+  ],
+  "rm-046": [
+   "Roman Kingdom"
+  ],
+  "rm-091": [
+   "Roman Republic"
+  ],
+  "rm-182": [
+   "Ancient Carthage"
+  ],
+  "rm-553": [
+   "Sasanian Empire"
+  ],
+  "rm-559": [
+   "Gallic Empire"
+  ],
+  "rm-561": [
+   "Palmyrene Empire"
+  ],
+  "ru-010": [
+   "Bosporan Kingdom"
+  ],
+  "ru-015": [
+   "Volga Bulgaria"
+  ],
+  "ru-036": [
+   "Kievan Rus'"
+  ],
+  "ru-076": [
+   "Novgorod Republic"
+  ],
+  "ru-079": [
+   "Vladimir-Suzdal"
+  ],
+  "ru-083": [
+   "Kingdom of Galicia–Volhynia"
+  ],
+  "ru-084": [
+   "Principality of Polotsk"
+  ],
+  "ru-085": [
+   "Principality of Chernigov"
+  ],
+  "ru-091": [
+   "Mongol Empire"
+  ],
+  "wh-185": [
+   "Akkadian Empire"
+  ],
+  "wh-199": [
+   "Elam"
+  ],
+  "wh-200": [
+   "Mitanni"
+  ],
+  "wh-245": [
+   "Shang dynasty"
+  ],
+  "wh-251": [
+   "Western Zhou"
+  ],
+  "wh-282": [
+   "Neo-Assyrian Empire"
+  ],
+  "wh-286": [
+   "Neo-Babylonian Empire"
+  ],
+  "wh-290": [
+   "Kingdom of Israel (Samaria)",
+   "Kingdom of Judah"
+  ],
+  "wh-296": [
+   "Urartu"
+  ],
+  "wh-297": [
+   "Lydia"
+  ],
+  "wh-301": [
+   "Achaemenid Empire"
+  ],
+  "wh-339": [
+   "Roman Kingdom"
+  ],
+  "wh-340": [
+   "Roman Republic"
+  ],
+  "wh-358": [
+   "Roman Empire"
+  ],
+  "wh-383": [
+   "Maurya Empire"
+  ],
+  "wh-390": [
+   "Indo-Greek Kingdom"
+  ],
+  "wh-391": [
+   "Kushan Empire"
+  ],
+  "wh-393": [
+   "Gupta Empire"
+  ],
+  "wh-396": [
+   "Eastern Zhou"
+  ],
+  "wh-405": [
+   "Qin dynasty"
+  ],
+  "wh-408": [
+   "Han dynasty"
+  ],
+  "wh-416": [
+   "Kingdom of Kush"
+  ],
+  "wh-418": [
+   "Kingdom of Aksum"
+  ],
+  "wh-436": [
+   "Byzantine Empire"
+  ],
+  "wh-448": [
+   "Kievan Rus'"
+  ],
+  "wh-449": [
+   "First Bulgarian Empire"
+  ],
+  "wh-454": [
+   "Kingdom of Georgia"
+  ],
+  "wh-462": [
+   "Rashidun Caliphate"
+  ],
+  "wh-465": [
+   "Umayyad Caliphate"
+  ],
+  "wh-469": [
+   "Abbasid Caliphate"
+  ],
+  "wh-478": [
+   "Fatimid Caliphate"
+  ],
+  "wh-483": [
+   "Seljuk Empire"
+  ],
+  "wh-485": [
+   "Mamluk Sultanate"
+  ],
+  "wh-521": [
+   "Sui dynasty"
+  ],
+  "wh-523": [
+   "Tang dynasty"
+  ],
+  "wh-528": [
+   "Song dynasty"
+  ],
+  "wh-535": [
+   "Yuan dynasty"
+  ],
+  "wh-540": [
+   "Goryeo"
+  ],
+  "wh-545": [
+   "Kamakura shogunate"
+  ],
+  "wh-547": [
+   "Chola dynasty"
+  ],
+  "wh-548": [
+   "Delhi Sultanate"
+  ],
+  "wh-549": [
+   "Vijayanagara Empire"
+  ],
+  "wh-554": [
+   "Srivijaya"
+  ],
+  "wh-555": [
+   "Majapahit"
+  ],
+  "wh-556": [
+   "Khmer Empire"
+  ],
+  "wh-558": [
+   "Pagan Kingdom"
+  ],
+  "wh-559": [
+   "Đại Việt"
+  ],
+  "wh-565": [
+   "Malacca Sultanate"
+  ],
+  "wh-566": [
+   "Ghana Empire"
+  ],
+  "wh-568": [
+   "Mali Empire"
+  ],
+  "wh-572": [
+   "Songhai Empire"
+  ],
+  "wh-573": [
+   "Kanem–Bornu Empire"
+  ],
+  "wh-580": [
+   "Kingdom of Kongo"
+  ],
+  "wh-581": [
+   "Zagwe dynasty"
+  ],
+  "wh-585": [
+   "Makuria"
+  ],
+  "wh-594": [
+   "Mongol Empire"
+  ],
+  "wh-598": [
+   "Golden Horde"
+  ],
+  "wh-605": [
+   "Aztec Empire"
+  ],
+  "wh-612": [
+   "Inca Empire"
+  ],
+  "wh-674": [
+   "Spanish Empire"
+  ],
+  "wh-675": [
+   "Portuguese Empire"
+  ],
+  "wh-687": [
+   "Ottoman Empire"
+  ],
+  "wh-695": [
+   "Safavid Iran"
+  ],
+  "wh-699": [
+   "Mughal Empire"
+  ],
+  "wh-707": [
+   "Maratha Confederacy"
+  ],
+  "wh-710": [
+   "Crimean Khanate"
+  ],
+  "wh-711": [
+   "Ming dynasty"
+  ],
+  "wh-716": [
+   "Qing dynasty"
+  ],
+  "wh-723": [
+   "Tokugawa shogunate"
+  ],
+  "wh-738": [
+   "Ashanti Empire"
+  ],
+  "wh-807": [
+   "Austria-Hungary"
+  ],
+  "ww2-008": [
+   "Finland",
+   "Estonia",
+   "Latvia",
+   "Lithuania",
+   "Second Polish Republic",
+   "Czechoslovakia",
+   "First Austrian Republic",
+   "Hungarian Republic (1919–1920)"
+  ],
+  "ww2-015": [
+   "Weimar Republic"
+  ],
+  "ww2-081": [
+   "Empire of Japan"
+  ]
+ },
+ "label": {
+  "Q7334692": "Beijing",
+  "Q10054424": "Mukden",
+  "Q10923028": "Chang'an",
+  "Q15912502": "Nanjing",
+  "Q15936775": "Lin'an",
+  "Q31844059": "Toledo",
+  "Q31925679": "Valladolid",
+  "Q116170766": "Madrid",
+  "Q865988": "Linzi",
+  "Q1070000": "Pingcheng",
+  "Q1198957": "Shangqiu",
+  "Q962410": "Trowulan",
+  "Q3626515": "Raigad",
+  "Q1207735": "Tokyo",
+  "Q15927358": "Handan",
+  "Q80484": "Pataliputra",
+  "Q200797": "Polotsk"
+ },
+ "drop": [
+  "Q18287233",
+  "Q1740592",
+  "Q15921459"
+ ]
+}
