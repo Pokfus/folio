@@ -40497,16 +40497,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 switches live finds these in the same place. It is drawn only where there is something to
                 choose BETWEEN: with places from one collection the row would be a switch that can only
                 turn the map off. */""}
+          ${/* …AND THE WARS OF THE YEAR ON THE RAIL (Oct 2026, on request: "the wars per year list"), in the
+                same panel: a war under another can now be reached by a second tap (see the click handler),
+                but a reader has to know it is there to tap for it. The list names every war drawn this year,
+                narrowest first, and a press selects the war, opens its card and frames it. Refilled by
+                `refreshWarList` whenever the year or the collections change. The panel is drawn whenever
+                either half has something to say. */""}
           ${MINE && !GAME ? (() => {
             const cs = atlasCollections();
-            if (cs.length < 2) return "";
-            return `<div class="globe-legend atlas-colls" id="atlasColls" role="group" aria-labelledby="collsTitle">
+            return `<div class="globe-legend atlas-colls" id="atlasColls" role="group" aria-labelledby="collsTitle"${cs.length < 2 ? " hidden" : ""} data-colls="${cs.length < 2 ? 0 : 1}">
               <div class="legend-head" id="collsHead">
-                <span class="legend-title" id="collsTitle">${esc(t("Collections"))}</span>
+                <span class="legend-title" id="collsTitle">${esc(t(cs.length < 2 ? "Wars" : "Collections"))}</span>
                 <button class="legend-collapse" id="collsCollapse" type="button" aria-label="${esc(t("Collapse legend"))}" aria-expanded="true"><span class="lc-sign">–</span><svg class="lc-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></button>
               </div>
               <div class="legend-body" id="collsBody">
-                ${cs.map((x) => `<label class="legend-row"><input type="checkbox" data-atlascoll="${esc(x.id)}"${atlasCollOff(x.id) ? "" : " checked"}><span>${esc(x.title)}</span><span class="lr-n notranslate">${x.n}</span></label>`).join("")}
+                <div class="atlas-wars" id="atlasWars" hidden>
+                  <div class="aw-title" id="atlasWarsTitle"></div>
+                  <div class="aw-list" id="atlasWarsList" role="list"></div>
+                </div>
+                ${cs.length < 2 ? "" : cs.map((x) => `<label class="legend-row"><input type="checkbox" data-atlascoll="${esc(x.id)}"${atlasCollOff(x.id) ? "" : " checked"}><span>${esc(x.title)}</span><span class="lr-n notranslate">${x.n}</span></label>`).join("")}
               </div>
             </div>`;
           })() : ""}
@@ -40754,6 +40763,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ghnEl.style.left = Math.max(4, x) + "px"; ghnEl.style.top = y + "px";
     }
     const selSet = new Set();            // multi-select: indices of chosen countries (era territories, or present-day countries)
+    let mineCyc = null;                  // the last cycling tap: where, over which stack, and which member it opened (see the click handler)
     let mineSel = "";                    // the personal atlas's own selection: the NAME of the shape last clicked (see drawMineShapes)
     let subSelGeo = -1;                  // double-click drill-down inside a historical era: index of a present-day country picked WITHIN a larger era entity (a "country that is part of another"); -1 = none
     // UK constituent countries (England / Scotland / Wales / Northern Ireland; + Ireland, the whole island, for the pre-1922
@@ -43202,16 +43212,73 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       _mineWarFor = key; _mineWarCache = out;
       return out;
     }
+    /* ---------- WHERE WARS OVERLAP, THE WIDER ONE IS HATCHED (Oct 2026, on request: "drawing less specific
+       ones as hatching") ----------
+       Two wars in one year over the same ground were two translucent washes stacked into one muddy colour,
+       and the one underneath read as part of the one on top. A war's SPECIFICITY is the box round both its
+       sides this year — smaller is the narrower claim, the same rule the click ladder uses (`mineStackAt`).
+       Where a war's box overlaps a smaller war's by at least a fifth of the smaller one's, the wider war is
+       drawn as diagonal hatching in its own colours rather than as a wash: both stay readable, and the
+       narrower war is the solid one, which is also the one a first tap reaches. Cached on the shape list,
+       which `mineWarShapes` rebuilds only when a war or a step changes. */
+    let _warExtFor = null, _warExt = null;
+    function warExtents() {
+      const list = mineWarShapes();
+      if (_warExtFor === list && _warExt) return _warExt;
+      const by = new Map();
+      for (let i = 0; i < list.length; i++) {
+        const w = list[i], rings = w.rings || w.poly || w.area;
+        if (!rings || !rings.length) continue;
+        if (!w.bb) w.bb = ringsBox(rings);
+        const b = by.get(w.m.id), q = w.bb;
+        by.set(w.m.id, b ? [Math.min(b[0], q[0]), Math.min(b[1], q[1]), Math.max(b[2], q[2]), Math.max(b[3], q[3])] : q.slice());
+      }
+      const ext = new Map();
+      by.forEach((b, id) => ext.set(id, { bb: b, ar: Math.max(1e-6, (b[2] - b[0]) * (b[3] - b[1])), hatch: false }));
+      const ids = [...ext.keys()];
+      for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
+        const A = ext.get(ids[i]), B = ext.get(ids[j]);
+        const ix = Math.min(A.bb[2], B.bb[2]) - Math.max(A.bb[0], B.bb[0]), iy = Math.min(A.bb[3], B.bb[3]) - Math.max(A.bb[1], B.bb[1]);
+        if (ix <= 0 || iy <= 0) continue;
+        const small = A.ar <= B.ar ? A : B, big = small === A ? B : A;
+        if (ix * iy >= 0.2 * small.ar && big.ar > small.ar) big.hatch = true;
+      }
+      _warExtFor = list; _warExt = ext;
+      return ext;
+    }
+    function warSpecific(m) { const e = m && warExtents().get(m.id); return e ? e.ar : Infinity; }
+    function warHatched(m) { const e = m && warExtents().get(m.id); return !!(e && e.hatch); }
+    // a diagonal hatch in a war colour, one tile per colour, in CSS pixels
+    const _hatchPat = new Map();
+    function hatchFor(t) {
+      const k = t.rgb;
+      if (_hatchPat.has(k)) return _hatchPat.get(k);
+      const n = 9, c = document.createElement("canvas"); c.width = n * 2; c.height = n * 2;
+      const g = c.getContext("2d");
+      g.strokeStyle = "rgba(" + t.rgb + ",0.62)"; g.lineWidth = 2.6; g.lineCap = "square";
+      g.beginPath();
+      for (let o = -2 * n; o <= 4 * n; o += n) { g.moveTo(o, 2 * n); g.lineTo(o + 2 * n, 0); }
+      g.stroke();
+      const pat = ctx.createPattern(c, "repeat");
+      if (pat && pat.setTransform && typeof DOMMatrix !== "undefined") pat.setTransform(new DOMMatrix().scale(0.5));
+      _hatchPat.set(k, pat);
+      return pat;
+    }
+    // the selected war side, as `mineSel` names it (see the click handler and the wars list)
+    const warSelKey = (m) => "war|" + m.id + "|" + m.side;
     /* THE VICTORS GREEN AND THE DEFEATED RED, in `TINT_WIN` / `TINT_LOSE` — the same two the card's own
        atlas window paints them in, read from the same module-level pair, so a war looks the same on both
        surfaces. A NAMED side is stroked SOLID, because it is a real territory off a real map; an
        AUTHORED one is dashed and clipped to the land, exactly as a culture's extent is one function up
-       and for exactly the same reason.
+       and for exactly the same reason. A war overlapped by a narrower one is HATCHED (see `warExtents`),
+       and drawn first, so the narrower war lies over it.
        IT RUNS AFTER `drawMineAreas`, so a war lies over a culture whose ground it was fought on: the war
        is the narrower claim and the one that is only true for these few years. */
     function drawMineWar(bw) {
-      const list = mineWarShapes();
-      if (!list.length) return;
+      const list0 = mineWarShapes();
+      if (!list0.length) return;
+      const list = list0.slice().sort((a, b) => (warHatched(b.m) ? 1 : 0) - (warHatched(a.m) ? 1 : 0) || warSpecific(b.m) - warSpecific(a.m));
+      const fillOf = (w) => { const t = w.m.side === "v" ? TINT_WIN : TINT_LOSE; return warHatched(w.m) ? hatchFor(t) : "rgba(" + t.rgb + "," + t.fillA + ")"; };
       ctx.save();
       for (let i = 0; i < list.length; i++) {
         const w = list[i];
@@ -43220,47 +43287,63 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ctx.beginPath(); for (let r = 0; r < w.rings.length; r++) addClipped(w.rings[r], true);
         // NONZERO, like the shapes pass: an era's rings are CCW-normalized and overlapping territories
         // must read as one wash rather than punching a hole through each other
-        ctx.fillStyle = "rgba(" + t.rgb + "," + t.fillA + ")"; ctx.fill("nonzero");
+        ctx.fillStyle = fillOf(w); ctx.fill("nonzero");
         ctx.lineWidth = Math.max(1.2, bw * 1.7); ctx.strokeStyle = t.line;
         ctx.beginPath(); for (let r = 0; r < w.rings.length; r++) addClipped(w.rings[r], false); ctx.stroke();
       }
-      const areas = list.filter((w) => w.area), polys = list.filter((w) => w.poly);
-      if (areas.length || polys.length) {
+      const rest = list.filter((w) => w.area || w.poly);
+      if (rest.length) {
         ctx.save();
         ctx.beginPath();
         for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
         ctx.clip("evenodd");
-        /* A DATED SIDE IS A REAL BORDER, SO IT IS SOLID — but it is clipped to the land like an authored
-           one, its coast being Cliopatria's rather than world.js's. */
-        ctx.lineWidth = Math.max(1.2, bw * 1.7);
-        for (let i = 0; i < polys.length; i++) {
-          const w = polys[i], t = w.m.side === "v" ? TINT_WIN : TINT_LOSE;
-          ctx.beginPath(); for (let r = 0; r < w.poly.length; r++) addClipped(w.poly[r], true);
-          const fillA = "rgba(" + t.rgb + "," + t.fillA + ")";
-          ctx.fillStyle = fillA; ctx.fill("nonzero");
-          snapBandOutside(w.poly, w.coasts, fillA);
-          ctx.strokeStyle = t.line;
-          ctx.beginPath();
-          if (w.lines) for (let r = 0; r < w.lines.length; r++) addClipped(w.lines[r], false);   // land borders only — see `stepEdges`
-          else for (let r = 0; r < w.poly.length; r++) addClipped(w.poly[r], false);
-          ctx.stroke();
-        }
-        ctx.setLineDash([Math.max(3, bw * 4), Math.max(3, bw * 4)]);
-        ctx.lineWidth = Math.max(1.1, bw * 1.6);
-        for (let i = 0; i < areas.length; i++) {
-          const w = areas[i], t = w.m.side === "v" ? TINT_WIN : TINT_LOSE;
+        for (let i = 0; i < rest.length; i++) {
+          const w = rest[i], t = w.m.side === "v" ? TINT_WIN : TINT_LOSE;
+          if (w.poly) {
+            /* A DATED SIDE IS A REAL BORDER, SO IT IS SOLID — but it is clipped to the land like an
+               authored one, its coast being Cliopatria's rather than world.js's; its coasts are banded and
+               only its land borders stroked (see `stepEdges`). */
+            ctx.setLineDash([]); ctx.lineWidth = Math.max(1.2, bw * 1.7);
+            ctx.beginPath(); for (let r = 0; r < w.poly.length; r++) addClipped(w.poly[r], true);
+            const fillA = fillOf(w);
+            ctx.fillStyle = fillA; ctx.fill("nonzero");
+            snapBandOutside(w.poly, w.coasts, fillA);
+            ctx.strokeStyle = t.line;
+            ctx.beginPath();
+            if (w.lines) for (let r = 0; r < w.lines.length; r++) addClipped(w.lines[r], false);
+            else for (let r = 0; r < w.poly.length; r++) addClipped(w.poly[r], false);
+            ctx.stroke();
+            continue;
+          }
           ctx.save();
+          ctx.setLineDash([Math.max(3, bw * 4), Math.max(3, bw * 4)]);
+          ctx.lineWidth = Math.max(1.1, bw * 1.6);
           if (w.excl) {   // outside the dated opponent: the whole canvas, minus its rings, by the even-odd rule
             ctx.beginPath(); ctx.rect(0, 0, W, H);
             for (let r = 0; r < w.excl.length; r++) addClipped(w.excl[r], true);
             ctx.clip("evenodd");
           }
           ctx.beginPath(); for (let r = 0; r < w.area.length; r++) addClipped(w.area[r], true);
-          ctx.fillStyle = "rgba(" + t.rgb + "," + t.fillA + ")"; ctx.fill("nonzero");
+          ctx.fillStyle = fillOf(w); ctx.fill("nonzero");
           ctx.strokeStyle = t.line;
           ctx.beginPath(); for (let r = 0; r < w.area.length; r++) addClipped(w.area[r], false); ctx.stroke();
           ctx.restore();
         }
+        ctx.restore();
+      }
+      // the SELECTED side, outlined in the map's selection gold over everything else of the war layer
+      if (mineSel && mineSel.indexOf("war|") === 0) {
+        ctx.save();
+        if (!moving) { ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9; }
+        ctx.setLineDash([]); ctx.lineWidth = Math.max(1.8, bw * 2.2); ctx.strokeStyle = TINT_SEL.line;
+        ctx.beginPath();
+        for (let i = 0; i < list.length; i++) {
+          const w = list[i]; if (warSelKey(w.m) !== mineSel) continue;
+          const rings = w.rings || w.poly || w.area;
+          if (w.lines && w.lines.length) for (let r = 0; r < w.lines.length; r++) addClipped(w.lines[r], false);
+          else for (let r = 0; r < rings.length; r++) addClipped(rings[r], false);
+        }
+        ctx.stroke();
         ctx.restore();
       }
       ctx.restore();
@@ -43570,25 +43653,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         // a couple of pixels of slack, since a word is a thin target and the halo reads as part of it
         if (px >= b[0] - 3 && px <= b[0] + b[2] + 3 && py >= b[1] - 3 && py <= b[1] + b[3] + 3) return mineWaterRects[i].m;
       }
+      const list = mineStackAt(lon, lat, sub);
+      return list.length ? list[0] : null;
+    }
+    /* EVERYTHING UNDER A POINT THAT IS A SHAPE, in the order a click reaches it (Oct 2026, on request: "for the
+       wars, do the multiple tap to cycle system"). It was a ladder that answered with the FIRST rung that hit,
+       so where two wars overlapped the wider one could never be reached — the second screenshot of the bug
+       report. The ladder is unchanged, and this hands back every rung that hits, so the click handler can
+       step through them on a second tap at the same spot (see `mineCycle`):
+         the reader's own COUNTRY (or, with `sub`, the province — that drill has its own double-click),
+         then every WAR side under the point, smallest first (a belligerent inside a wider one's theatre is
+         the more specific answer), then the Second World War's FRONTS, then every CULTURE OR STATE extent,
+         smallest first. */
+    function mineStackAt(lon, lat, sub) {
+      const marks = mineMarks(), out = [];
       const shapes = mineShapes();
       let hit = null, ba = Infinity;
       for (let i = 0; i < shapes.length; i++) {
         if (!shapes[i].sub !== !sub) continue;              // first click: countries only; second: provinces only
-        const b = shapes[i].bb;
+        const b = shapes[i].bb || (shapes[i].bb = ringsBox(shapes[i].rings));
         if (lon < b[0] || lon > b[2] || lat < b[1] || lat > b[3]) continue;
         if (!pointInRings(shapes[i].rings, lon, lat)) continue;
         const ar = (b[2] - b[0]) * (b[3] - b[1]);           // smallest wins, so an enclave beats the state round it
         if (ar < ba) { ba = ar; hit = shapes[i]; }
       }
-      if (hit || sub) return hit;
+      if (sub) return hit ? [hit] : [];
+      if (hit) out.push(hit);
       /* A WAR'S TWO SIDES, under the reader's own countries and over a culture's extent. Under the
          countries because a shape the reader has UNLOCKED is what this globe is a record of, and the war
          shading is a temporary wash laid over it; over a culture because a war is the narrower claim —
          it is true of these few years where a civilisation's extent is true of centuries. Where the
-         reader has NOT unlocked the country, this is the only thing under the pointer and it answers.
-         SMALLEST WINS, the same rule the countries use: a belligerent inside a wider one's theatre is
-         the more specific answer. */
-      let wr = null, wa = Infinity;
+         reader has NOT unlocked the country, this is the only thing under the pointer and it answers. */
+      const wars = [];
       const wlist = mineWarShapes();
       for (let i = 0; i < wlist.length; i++) {
         const w = wlist[i], rings = w.rings || w.poly || w.area;
@@ -43598,29 +43694,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            it hands back edges above 180 that reject every negative longitude, so a click inside the
            eastern half of the USSR would miss. The box is only a pre-filter here — `pointInRings` is the
            real test — so a box that is too wide costs a walk and a box that is too narrow loses a click. */
-        if (!w.bb) { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const rg of rings) for (const q of rg) { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < y0) y0 = q[1]; if (q[1] > y1) y1 = q[1]; } w.bb = [x0, y0, x1, y1]; }
+        if (!w.bb) w.bb = ringsBox(rings);
         const b = w.bb;
         if (lon < b[0] || lon > b[2] || lat < b[1] || lat > b[3]) continue;
         if (!pointInRings(rings, lon, lat)) continue;
+        // one entry per war SIDE, however many territories it is drawn as
+        const prev = wars.find((x) => x.m === w.m);
         const ar = (b[2] - b[0]) * (b[3] - b[1]);
-        if (ar < wa) { wa = ar; wr = w.m; }
+        if (prev) { if (ar < prev.ar) prev.ar = ar; continue; }
+        wars.push({ m: w.m, ar: ar });
       }
-      if (wr) return wr;
+      wars.sort((x, y) => warSpecific(x.m) - warSpecific(y.m) || x.ar - y.ar).forEach((x) => out.push(x.m));
       // the Second World War's fronts, under a war's own sides and over a culture's extent
-      const fr = frontAt(lon, lat); if (fr) return fr;
+      const fr = frontAt(lon, lat); if (fr) out.push(fr);
       /* A CULTURE'S EXTENT, under the countries: its polygon is authored and approximate, so a country
          drawn from a real map is the better answer wherever the two overlap. */
-      let area = null, aa = Infinity;
+      const areas = [];
       for (let i = 0; i < marks.length; i++) {
         const m = marks[i];
         if (m.kind !== "area" || !m.area) continue;
         const rings = mineAreaOf(m);                         // the extent as drawn THIS year, dated or authored
         if (!pointInRings(rings, lon, lat)) continue;
         const bb = rings === m.area ? areaBBox(m) : ringsBox(rings);
-        const ar = (bb[2] - bb[0]) * (bb[3] - bb[1]);
-        if (ar < aa) { aa = ar; area = m; }
+        areas.push({ m: m, ar: (bb[2] - bb[0]) * (bb[3] - bb[1]) });
       }
-      return area;
+      areas.sort((x, y) => x.ar - y.ar).forEach((x) => out.push(x.m));
+      return out;
     }
     function ringsBox(rings) {
       let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
@@ -44222,8 +44321,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               tapCount = same ? tapCount + 1 : 1;
               lastTapT = now; lastTapX = tpx; lastTapY = tpy;
               let hit = tapCount >= 2 ? mineAt(tpx, tpy, true) : null;   // 2nd click → the province under it, where the reader holds one
-              if (!hit) hit = mineAt(tpx, tpy);
-              mineSel = hit ? (hit.rings ? hit.name : hit.kind === "area" ? hit.title : "") : "";
+              if (!hit) {
+                hit = mineAt(tpx, tpy);
+                /* TAP AGAIN TO REACH WHAT IS UNDERNEATH (Oct 2026, on request: "the multiple tap to cycle
+                   system"). A shape answers with the first rung of the ladder that hits (see `mineStackAt`),
+                   so a war under a narrower one, or a culture under a war, could never be opened. A second tap
+                   at the same spot while the panel is open steps to the next thing under the point, and wraps;
+                   a place's dot or name answers alone and never cycles. */
+                const ll = hit ? screenToLonLat(tpx, tpy) : null;
+                const list = ll ? mineStackAt(ll[0], ll[1], false) : [];
+                const sig = list.map((m) => (m.kind || "c") + "|" + (m.id || m.name) + "|" + (m.side || "")).join(",");
+                if (list.length > 1 && list.indexOf(hit) === 0) {
+                  const again = mineCyc && mineCyc.sig === sig && Math.hypot(tpx - mineCyc.x, tpy - mineCyc.y) < 14 && cpEl && !cpEl.hidden;
+                  const i = again ? (mineCyc.i + 1) % list.length : 0;
+                  hit = list[i];
+                  mineCyc = { x: tpx, y: tpy, sig: sig, i: i };
+                  toast(t("{n} of {m} here").replace("{n}", i + 1).replace("{m}", list.length) + " — " + t("tap again for the next"), 1800);
+                } else mineCyc = null;
+              } else mineCyc = null;
+              mineSel = hit ? (hit.rings ? hit.name : hit.kind === "area" ? hit.title : hit.kind === "war" ? warSelKey(hit) : "") : "";
               if (hit) showMinePopup(hit); else hideCountryPopup();
               draw(); return;
             }
@@ -44575,7 +44691,47 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         _mineFor = ""; _mineWarFor = ""; baseValid = false;
         hideCountryPopup();   // the panel may be describing a place that has just left the map
         draw();
+        refreshWarList();
       }));
+      const wl = collsEl.querySelector("#atlasWarsList");
+      if (wl) wl.addEventListener("click", (e) => {
+        const b = e.target.closest("[data-war]"); if (!b) return;
+        const w = (_warListNow || []).find((x) => x.id === b.getAttribute("data-war")); if (!w) return;
+        const m = w.sides.find((x) => x.side === "v") || w.sides[0];
+        mineCyc = null; mineSel = warSelKey(m); showMinePopup(m);
+        const ex = warExtents().get(m.id);
+        if (ex) {
+          const bb = ex.bb, span = Math.max(1, bb[2] - bb[0], bb[3] - bb[1]);
+          const zt = clamp(0.7 * Math.min(W, H) / (span * Math.PI / 180 * baseR), 1, 30);
+          flyTo((bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2, zt, () => scheduleDraw());
+        }
+        draw();
+      });
+    }
+    /* THE WARS DRAWN THIS YEAR, one row per war — narrowest first, as the click ladder reaches them — each
+       with its years and a swatch of its two colours; a hatched war's swatch is hatched too. */
+    let _warListSig = "", _warListNow = null;
+    function refreshWarList() {
+      const box = root.querySelector("#atlasWars"), listEl = root.querySelector("#atlasWarsList"), panel = root.querySelector("#atlasColls");
+      if (!box || !listEl || !panel) return;
+      const by = new Map(), ext = warExtents();
+      mineMarks().forEach((m) => {
+        if (m.kind !== "war" || !ext.has(m.id)) return;   // a war with no side on this year's map draws nothing, so it is not listed
+        if (!by.has(m.id)) by.set(m.id, { id: m.id, title: m.title, y0: m.y0, y1: m.y1, sides: [] });
+        by.get(m.id).sides.push(m);
+      });
+      const wars = [...by.values()].sort((a, b) => ext.get(a.id).ar - ext.get(b.id).ar || String(a.title).localeCompare(String(b.title)));
+      const ff = fmt(year), yl = ff.n + (ff.e === "BCE" ? " BCE" : "");
+      const sig = yl + "|" + wars.map((w) => w.id + (warHatched(w.sides[0]) ? "h" : "")).join(",");
+      _warListNow = wars;
+      if (sig === _warListSig) return;
+      _warListSig = sig;
+      box.hidden = !wars.length;
+      const hasColls = panel.getAttribute("data-colls") === "1";
+      panel.hidden = !hasColls && !wars.length;
+      root.querySelector("#atlasWarsTitle").textContent = wars.length === 1 ? t("1 war in {y}").replace("{y}", yl) : t("{n} wars in {y}").replace("{n}", wars.length).replace("{y}", yl);
+      const span = (w) => w.y0 == null ? "" : (w.y1 != null && w.y1 !== w.y0 ? fmtYearSpan(w.y0, w.y1) : yearLabel(w.y0));
+      listEl.innerHTML = wars.map((w) => `<button type="button" class="aw-row${warHatched(w.sides[0]) ? " hatched" : ""}" role="listitem" data-war="${esc(w.id)}"><span class="aw-sw" aria-hidden="true"><i class="v"></i><i class="l"></i></span><span class="aw-name">${esc(gameCapFirst(w.title || ""))}</span><span class="aw-yr notranslate">${esc(span(w))}</span></button>`).join("");
     }
     const wire = (id, set, rebuild) => { const cb = root.querySelector(id); if (cb) cb.addEventListener("change", () => { set(cb.checked); if (rebuild) baseValid = false; draw(); }); };
     wire("#bordersToggle", (v) => bordersOn = v, true);
@@ -44764,6 +44920,7 @@ let prev = null;
       // part carrying no information — the globe under it is the world either way.
       // on the personal atlas the cartouche names whose map it is, since that is the thing that differs
       if (cartEl) cartEl.textContent = year >= MAXY ? "TODAY" : (FULL ? "FULL ATLAS · " : MINE ? "YOUR ATLAS · " : "THE WORLD · ") + ff.n + (ff.e === "BCE" ? " BCE" : "");
+      if (MINE && !GAME) refreshWarList();
       // show the work-in-progress note only when no map (present-day or a historical era) covers this year
       // …and never on the personal atlas, where a year with no era map is not a gap but the empty earth
       if (wipEl) wipEl.classList.toggle("show", !MINE && activeEra(year) == null);
