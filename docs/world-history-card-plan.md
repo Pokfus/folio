@@ -1265,10 +1265,10 @@ else in the Americas.*
 
 ### A connected world, 1850–1914 — `wh-global-1900`
 
-    wh-856  Age of mass migration
-    wh-857  Chinese and Indian diaspora
-    wh-858  Immigration to the Americas
-    wh-859  Latin America after independence
+    wh-856  Age of mass migration  — written as *European emigration* (glossary key `European_emigration`, alias *Age of Mass Migration*, which has no article of its own)
+    wh-857  Chinese and Indian diaspora  — written as *Overseas Chinese* (glossary key `Overseas_Chinese`); the Indian diaspora is wh-849's
+    wh-858  Immigration to the Americas  — written as *Immigration to Argentina* (glossary key `Immigration_to_Argentina`), the Americas' other destinations in its background
+    wh-859  Latin America after independence  — written as *War of the Pacific* (glossary key `War_of_the_Pacific`)
     wh-860  Caudillo
     wh-861  Mexican Revolution
     wh-862  Abolition of slavery in Brazil
