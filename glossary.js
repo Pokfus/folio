@@ -4880,7 +4880,12 @@ window.GLOSSARY = {
 "Iron_Curtain": "The Iron Curtain was the dividing line between Soviet-dominated Eastern Europe and the West after the Second World War, and in time the fortified and guarded frontier that ran along it, sealed with barbed wire and border guards.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Winston Churchill made the phrase famous at Fulton, Missouri on 5 March 1946, when he said that an iron curtain had descended across the Continent “from Stettin in the Baltic to Trieste in the Adriatic”.<sup class=\"fn\" data-fn=\"1\"></sup> The barrier began to come down in 1989, when Hungary removed the defences on its border with Austria and East Germans crossed to the West, shortly before the Berlin Wall fell.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Truman_Doctrine": "The Truman Doctrine was the policy announced by President Harry S. Truman to Congress on 12 March 1947, that the United States would support free peoples resisting attempted subjugation by armed minorities or by outside pressures.<sup class=\"fn\" data-fn=\"1\"></sup> Its occasion was Britain’s decision to end its financial aid to Greece, then fighting a Communist-led insurgency, and Truman asked Congress for $400 million in military and economic aid for Greece and Turkey.<sup class=\"fn\" data-fn=\"2\"></sup> The doctrine marked a sharp break with the American tradition of avoiding foreign commitments in peacetime, and later administrations used its reasoning to justify action in Korea, Cuba and Vietnam.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Marshall_Plan": "The Marshall Plan, formally the European Recovery Program, was the programme of American economic aid for the reconstruction of Western Europe after the Second World War, named after Secretary of State George Marshall.<sup class=\"fn\" data-fn=\"1\"></sup> Marshall proposed it at Harvard University on 5 June 1947, the Economic Cooperation Act that created it was signed on 3 April 1948, and Congress appropriated $13.3 billion for it over the following four years.<sup class=\"fn\" data-fn=\"2\"></sup> The Soviet Union refused to take part or to let its East European satellites do so, and economic historians still debate how much the plan contributed to Western Europe’s recovery.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Berlin_Blockade": "The Berlin Blockade was the Soviet closure of all road, rail and canal access to the western sectors of Berlin from 24 June 1948 to 12 May 1949, the first Berlin crisis of the Cold War.<sup class=\"fn\" data-fn=\"1\"></sup> It followed the introduction of a new currency in the western zones of occupied Germany, and the United States and Britain answered it with an airlift that kept the city supplied with food and fuel.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The American and British air forces delivered more than two million tonnes of cargo over about fifteen months, and the crisis hastened the division of Germany into two states.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Berlin_Blockade": "The Berlin Blockade was the Soviet closure of all road, rail and canal access to the western sectors of Berlin from 24 June 1948 to 12 May 1949, the first Berlin crisis of the Cold War.<sup class=\"fn\" data-fn=\"1\"></sup> It followed the introduction of a new currency in the western zones of occupied Germany, and the United States and Britain answered it with an airlift that kept the city supplied with food and fuel.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The American and British air forces delivered more than two million tonnes of cargo over about fifteen months, and the crisis hastened the division of Germany into two states.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Dunkirk_evacuation": "The Dunkirk evacuation, code-named Operation Dynamo, was the rescue by sea of British, French and other Allied troops cut off around the port of Dunkirk in northern France between 26 May and 4 June 1940.<sup class=\"fn\" data-fn=\"2\"></sup> Ships of every size, many of them civilian craft worked by their own crews, brought 338,226 men to England, nearly 100,000 of them lifted from the open beaches and most of the rest from the harbour mole.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The army was saved but abandoned nearly all its heavy equipment, and the evacuation, which preceded the fall of France by three weeks, became a lasting national legend in Britain.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Britain": "The Battle of Britain was the struggle for command of the air over southern England in 1940, which British reckoning dates from 10 July to 31 October, between the German Luftwaffe and the fighters of the Royal Air Force.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Germany needed air superiority before it could attempt Operation Sealion, a seaborne invasion, and the destruction of Fighter Command was therefore the Luftwaffe’s essential aim.<sup class=\"fn\" data-fn=\"2\"></sup> After heavy German losses on 15 September, Hitler postponed the invasion until further notice, having been denied the air superiority it required by a defence that rested on radar warning and centralised control.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"The_Blitz": "The Blitz was the German air offensive against British cities, carried out mostly by night from 7 September 1940 to May 1941, after mass attacks in daylight had brought the Luftwaffe heavy losses.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> London was the most heavily and frequently attacked city, but the raids also struck industrial cities and ports such as Liverpool, Birmingham, Coventry, Plymouth, Glasgow and Belfast.<sup class=\"fn\" data-fn=\"1\"></sup> Official figures record about 43,000 civilians killed by enemy action in Great Britain in 1940 and 1941, most of them in these raids, though British industry and communications survived the offensive.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Operation_Barbarossa": "Operation Barbarossa was the code name for the invasion of the Soviet Union by Germany and its allies, launched on 22 June 1941 along a front from the Baltic to the Black Sea.<sup class=\"fn\" data-fn=\"1\"></sup> Planned from December 1940 as a quick campaign and a war of annihilation, it was accompanied by orders to shoot captured political commissars, mass shootings of Jews and the deaths of millions of Soviet prisoners of war.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> German forces reached the outskirts of Moscow but failed to destroy the Soviet state, and a Soviet counter-offensive in December 1941 drove them back.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Siege_of_Leningrad": "The Siege of Leningrad was the blockade of the Soviet city of Leningrad, now Saint Petersburg, by German and Finnish forces from 8 September 1941 to 27 January 1944.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Cut off except across Lake Ladoga and by air, the city starved, and from November 1941 most civilians received only 125 grams of bread a day and manual workers 250.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> A Soviet commission counted 632,253 deaths from hunger, most of them in the first winter, and a land corridor reached the city in January 1943, though the blockade was broken for good only in January 1944.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7529,7 +7534,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Iron_Curtain": "1945–1989",
 "Truman_Doctrine": "1947",
 "Marshall_Plan": "1948–1951",
-"Berlin_Blockade": "1948–1949"
+"Berlin_Blockade": "1948–1949",
+"Dunkirk_evacuation": "1940",
+"Battle_of_Britain": "1940",
+"The_Blitz": "1940–1941",
+"Operation_Barbarossa": "1941",
+"Siege_of_Leningrad": "1941–1944"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10308,7 +10318,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Surrender_of_Japan": ["surrender of Japan","Japanese surrender"],
 "Nuremberg_trials": ["Nuremberg trial","International Military Tribunal"],
 "Forced_displacement": ["displaced persons","displaced person","DP","DPs"],
-"Universal_Declaration_of_Human_Rights": ["UDHR","Universal Declaration"]
+"Universal_Declaration_of_Human_Rights": ["UDHR","Universal Declaration"],
+"Dunkirk_evacuation": ["Operation Dynamo"],
+"The_Blitz": ["Blitz"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15242,7 +15254,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Iron_Curtain": ["concept","history","politics","cold war","europe"],
 "Truman_Doctrine": ["concept","history","politics","cold war","united states"],
 "Marshall_Plan": ["event","history","economics","cold war","europe"],
-"Berlin_Blockade": ["event","history","politics","cold war","germany","berlin"]
+"Berlin_Blockade": ["event","history","politics","cold war","germany","berlin"],
+"Dunkirk_evacuation": ["event","history","warfare","second world war","france","britain"],
+"Battle_of_Britain": ["battle","history","warfare","second world war","britain","germany"],
+"The_Blitz": ["event","history","warfare","second world war","britain","london"],
+"Operation_Barbarossa": ["event","history","warfare","second world war","russia","germany"],
+"Siege_of_Leningrad": ["event","history","warfare","second world war","russia","famine"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
