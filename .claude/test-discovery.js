@@ -53,8 +53,7 @@ const code = [
   slice(/^  function countryNameSet\(/m, "\n", "countryNameSet"),
   slice(/^  function countryTotalCount\(/m, "\n", "countryTotalCount"),
   slice(/^  function countrySeenCount\(/m, "\n  }", "countrySeenCount"),
-  slice(/^  function discCounter\(/m, "\n", "discCounter"),
-  "  return { SEEN_CAP, seenCount, glossSeenCount, glossTotalCount, countryNameSet, countryTotalCount, countrySeenCount, discCounter };",
+  "  return { SEEN_CAP, seenCount, glossSeenCount, glossTotalCount, countryNameSet, countryTotalCount, countrySeenCount };",
 ].join("\n");
 const A = new Function("window", code)(global.window);
 
@@ -138,11 +137,12 @@ ok(A.SEEN_CAP > Object.keys(GLOSS).length,
 const headroom = A.SEEN_CAP - allPlaceNames.size;
 ok(headroom >= 1000, "with room for the eras still to be added", headroom + " names of headroom");
 
-// ---- the chip's own counter ----
-console.log("\n-- the discovery chip's counter --");
-ok(A.discCounter(41, 333) === "41 / 333", "reads as a ratio");
-ok(A.discCounter(0, 258) === "0 / 258", "…including before anything is found");
-ok(A.discCounter(7, 0) === "7", "…and falls back to the bare figure when the total is unknown");
+// ---- the chip carries no counter (Sep 2026, on request) ----
+// "New term! 41 / 3,900" measured the reader against the whole glossary on every first opening; the chip
+// now says "New discovery!" and nothing else, on a term exactly as on a place.
+console.log("\n-- the discovery chip --");
+ok(!/discCounter/.test(src), "the counter helper is gone");
+ok(/discChipHTML\("New discovery!", "", "Glossary terms you have opened"\)/.test(src), "a glossary term's chip reads New discovery! with no count");
 
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);
