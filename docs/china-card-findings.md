@@ -4011,6 +4011,66 @@ Longmen caves for the Northern Wei card**: `cnh-335` and `cnh-336` are those cav
 and southern courts never fought a decided war between separable sides. `cnh-323`, an era, carries no
 locator; six of the others are Jiankang, where the studied siblings group into one dot.
 
+## cnh-331 – cnh-340, the Northern Wei to the Northern Zhou (Sep 2026)
+
+Ten cards continue `col-21`, with **twelve** glossary terms rather than ten: `Western_Wei` and
+`Northern_Qi` are not answer terms but are named on nearly every card of the batch, and a term with no
+entry auto-links to nothing. Four lines are answered by a term the plan line does not contain:
+- `cnh-333` *The sinicisation reforms of Emperor Xiaowen* is answered by **Emperor Xiaowen**, keyed on
+  `Emperor_Xiaowen_of_Northern_Wei`; every "Emperor Xiaowen" already in the corpus is this ruler.
+- `cnh-334` *The move of the Northern Wei capital to Luoyang* is answered by **Pingcheng**, the capital
+  the court left, **because `Luoyang` is already `cnh-256`'s answer**. English Wikipedia redirects
+  *Pingcheng* to *Datong*, so the key is the slug form of the answer. The plan line is unchanged, the
+  subject not having moved.
+- `cnh-337` *Six Frontier Towns revolt* is answered by **Six Garrisons**, which is the English article's
+  own title (*Six Frontier Towns* redirects to it and is the term's alias). **The term carries no date**:
+  the garrisons stood long before the revolt of 523–529, and a date line on the settlements naming the
+  revolt would date the wrong thing.
+- `cnh-338` *Eastern Wei and Western Wei* is answered by **Eastern Wei**; the western state has its own
+  term and is carried by `cnh-340`.
+
+**The sources that carried the batch.** Theobald has pages for the Tuoba, the equal-field system, the
+fubing, the Six Garrisons revolt (2025) and each of the four successor states; **two of them carry slips
+a card must not repeat** — the *Western Wei* page dates Emperor Xiaowu's flight and Su Chuo's six rules
+to 543 and 641 where the events are 534 and 541, and the *Northern Zhou* page gives Yuwen Tai the title
+of the first emperor and dates the victory at Jinzhou to 565 for 576. Beyond him:
+- **The *Wei shu* on Wikisource**, juan 1, 7B, 9, 12, 110 and 114. Juan 110 carries the equal-field edict
+  of 485 and Li Chong's neighbourhood system of 486; juan 114 carries both **Tanyao's five caves** (70 and
+  60 *chi*) and **the imperial caves at Longmen**, modelled on Yungang's "Lingyan Monastery", moved lower
+  after 505 and costing 802,366 days of labour by 523. **Juan 12 is itself a restoration** — its own
+  editorial note says Wei Shou's chapter was lost and rebuilt from the *Bei shi* — which `cnh-338` says.
+- **The *Zhou shu*, juan 6 and 16**: the conquest of the Qi in 577 with its count of 3,302,528 households,
+  and the eight Pillars and twelve generals that make the 24 armies.
+- **Chen Huan-chang, *Economic Principles of Confucius*, pp. 510–18 and 665**, translates the equal-field
+  edict clause by clause and carries Zhang Yue's hired army of 722. **Holmgren's *Annals of Tai*,
+  pp. 51–77**, translates *Wei shu* 1 with page numbers, which is what lets the Tuoba card cite it by page.
+- **Four open MDPI papers and one PLOS paper** carry the caves and the capital. **`mdpi.com` answers 403
+  (Akamai) from this sandbox, and `mdpi-res.com` serves the same PDFs**: the address is
+  `https://mdpi-res.com/d_attachment/<journal>/<article>/article_deploy/<article>.pdf`. Cite the DOI.
+- **Bosch Reitz's note on a Yungang bodhisattva, *Metropolitan Museum of Art Bulletin* 17 (1922)**, is
+  JSTOR Early Journal Content, free on archive.org as `jstor-3254490`.
+- **UNESCO's pages (`whc.unesco.org`) answer 403**, so no card claims an inscription date.
+
+**Where the sources disagree, the cards hedge or leave the point out:**
+- The capital's move: one of the open papers dates it 495. The *Wei shu* has the plan settled in 493,
+  the announcement and the move in 494, and the burial order in 495; the cards follow the *Wei shu*.
+- Polouhan Baling's rising: Theobald puts it in 523, the *Wei shu* early in 524. `cnh-337` says that
+  the official history dates it to 524.
+- Emperor Xiaoming's death in 528: poisoned by his mother according to Cordier, used by Erzhu Rong as a
+  pretext according to Theobald. The card says "poisoned, it was said".
+- Giles dates the killing of Yuwen Hu to 567; Theobald and the Zhou chronology to 572. The card says 572
+  and cites Giles only for other claims.
+- The equal-field edict's women: Theobald's page reads "each female above 20 sui"; the edict gives
+  women 20 *mu* and states no age. The card follows the edict.
+
+**Three glossary auto-links caught on the way.** "Allotment" linked to the American allotment policy on
+`cnh-332` and `cnh-333` and in two terms, and "votive" to a Greek term on `cnh-336`; they now read
+"distribution", "land-sharing", "grants" and "devotional".
+
+**Pictures are again absent**, for the same rate limit as the batch before. Obvious candidates are the
+Yungang Cave 20 Buddha and the Longmen Fengxian or Binyang caves; the Tang Fengxian Buddha would be a
+picture of the right site and the wrong dynasty for a card that is about the Northern Wei work.
+
 ## Re-sourcing the mythology cards (batch C7, Sep 2026)
 
 Five China cards were reported by `check-cards.js` rule 1 for resting three deep on one author —
