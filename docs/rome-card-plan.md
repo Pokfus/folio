@@ -1017,6 +1017,40 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-581`–`rm-600`: Licinius to Valentinian I — what this batch found
+
+`rm-581`–`rm-595` close `rm-dominate` and `rm-596`–`rm-600` open `rm-christian-empire`, with eighteen new
+glossary terms. `First_Council_of_Nicaea` (wh-374's) and `Constantinople` (wh-437's) are reused untouched,
+and each card is written as that card's pair: `rm-583` tells how Constantine ran the meeting, `rm-586` keeps
+to the foundation of 324–330.
+
+- **Eight lines are answered by a concrete term rather than their own wording.** `rm-582` *the reunification
+  of 324* is the **Battle of Chrysopolis**; `rm-588` *the late Roman army* is the **magister militum**, which
+  keeps clear of `rm-589`; `rm-589` *comitatenses and limitanei* is **comitatenses**, the frontier troops
+  carried as the contrast; `rm-590` *the late Roman bureaucracy* is the **magister officiorum**; `rm-592` *Constantine's
+  church building* is the **Lateran Basilica**, the wider programme in its second half; `rm-595` *the sons
+  of Constantine* is **Constantine II**, whose reign carries 326, 335, the killings of 337 and the war of 340;
+  `rm-598` *Julian's pagan restoration* is the **School Edict** of 17 June 362, the one dated measure; and
+  `rm-600` *Valentinian and Valens* is **Valentinian I**, Adrianople left to its own card. `rm-591`
+  *colonate* is keyed on `Colonus_(person)`, so the Attic deme keeps bare "Colonus".
+- **`Licinius` claims the bare name, and nine shipped sentences were reworded for it.** Wikipedia's title is
+  bare, and the card needs the surface to pair. `rm-090`, `rm-101`, `rm-116`, `rm-128`, `rm-260`, `rm-303`,
+  `rm-459`, `wh-343` and `wh-352` named a Republican or Flavian-era Licinius, and the Licinio-Sextian gloss
+  named Stolo; each now reads by cognomen or by office. "Marcus Licinius Crassus" is safe as the longer
+  surface. A future card naming another Licinius must avoid the bare word.
+- **`rm-597` answers "Julian the Apostate", not "Julian".** Bare *Julian* is the Julian house, the Julian
+  Alps, Port St Julian and the calendar in about twenty cards, so `Julian_(emperor)` claims only the
+  epithet, and the card's answer uses it so that the card pairs with its term. No term claims bare
+  "Valentinian" (`wh-373` means Valentinian II) or "Valens" (`rm-459`, `rm-460` mean Fabius Valens).
+- **Words that link the wrong sense were kept out of the prose**: bare "Caesar" and "Augustus" as titles
+  (junior and senior emperor instead), "council", "coin", "Socrates", "Helena", "Egyptian", "Susa",
+  "Carrhae" for Julian's Carrae, and "Theognis" for the bishop of Nicaea.
+- **Dates that the sources disagree on are left out or hedged.** Cibalae is given no year (314 against 316 in
+  the two DIR entries); Constantius II's death is 361 only (3 November against 5 October); the solidus has
+  no introduction year, its date line giving the Trier issues of 310–313 and the laws of 325 and 363.
+- **No card carries a picture.** The Commons API rate-limited every request in this session, so no licence
+  could be read. A Met CC0 solidus of Valentinian I is a ready candidate for `rm-587` or `rm-600`.
+
 ## `rm-571`–`rm-580`: Diocletian's tax system to the Edict of Milan — what this batch found
 
 - **Four lines are answered by a concrete term rather than their own wording.** `rm-571` *Diocletian's tax

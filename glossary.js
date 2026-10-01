@@ -4789,7 +4789,12 @@ window.GLOSSARY = {
 "Solidus": "The solidus was the gold coin of the late Roman empire, struck from the reign of Constantine at 72 to the Roman pound, a standard at which it remained for the rest of the empire's history.<sup class=\"fn\" data-fn=\"1\"></sup> It came out of Constantine's reform of the currency, won wide acceptance and stayed the standard gold coin for centuries, and his law of 325 set out how coins of four scruples each were to be weighed when taxes were paid in them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its reliability made it a coin of long-distance trade, and Cosmas Indicopleustes wrote that all nations traded in Roman coinage from one extremity of the earth to the other.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Magister_militum": "The magister militum, 'master of soldiers', was the highest military command of the late Roman empire, a rank created probably under Constantine in the 320s.<sup class=\"fn\" data-fn=\"1\"></sup> Zosimus says that the first masters, some over the cavalry and some over the infantry, took over the discipline of the soldiers from the praetorian prefects, who became civilian ministers.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The <i>Notitia Dignitatum</i>, a register of late Roman offices, lists five such commands in the East, two at the imperial court and three for the regional armies of the Orient, Thrace and Illyricum, though when that system took its settled form is disputed.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Comitatenses": "The comitatenses were the soldiers of the late Roman field armies, mobile forces kept near the emperor or in the regions and set apart from the frontier troops called ripenses and later limitanei.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A law of 325 exempted serving comitatenses and ripenses from poll tax on themselves, their parents and their wives, and let frontier veterans earn their privileges on the model of the field soldiers.<sup class=\"fn\" data-fn=\"3\"></sup> Field troops were often billeted on the households of cities, which brought abuses against their hosts, and in the East the distinction between them and the frontier troops weakened over time.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Magister_officiorum": "The magister officiorum, 'master of the offices', was a senior minister of the late Roman court who headed the imperial messengers, the palace guards called scholae and several of the palace departments.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The office existed by the early 320s, when a law of Constantine names Heraclianus as tribune and master of the offices, and its origin has been traced to Diocletian.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its holder came to control much of the public post and the arsenals and arranged imperial audiences and the reception of foreign envoys, powers gained at the praetorian prefect's expense.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Magister_officiorum": "The magister officiorum, 'master of the offices', was a senior minister of the late Roman court who headed the imperial messengers, the palace guards called scholae and several of the palace departments.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The office existed by the early 320s, when a law of Constantine names Heraclianus as tribune and master of the offices, and its origin has been traced to Diocletian.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its holder came to control much of the public post and the arsenals and arranged imperial audiences and the reception of foreign envoys, powers gained at the praetorian prefect's expense.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Colonus_(person)": "The <i>coloni</i> of the later Roman Empire were farmers attached to a particular estate, whose owner could recall them if they left and demand services from them, a condition modern historians call the colonate.<sup class=\"fn\" data-fn=\"1\"></sup> Their status is known chiefly from imperial laws gathered in the Theodosian and Justinian Codes, the oldest a law of Constantine I of 332 CE ordering runaway <i>coloni</i> returned to their place of origin.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> How it arose is debated, explanations ranging from tenants' debts and Diocletian's tax census to a private contract of personal service, and it may never have bound the whole peasantry.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Archbasilica_of_Saint_John_Lateran": "The Archbasilica of Saint John Lateran is the cathedral of the bishop of Rome, founded by Constantine I around 313 CE on the Caelian Hill as a church dedicated to Christ the Saviour.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was built on the levelled platform of a fort for the emperors' mounted guard, raised by Septimius Severus and abandoned in 312, on imperial land that included a residence known as the house of Fausta.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The first church collapsed in the 9th century and has been rebuilt and remodelled many times, but enough of it survives for its original plan to be reconstructed.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Old_St._Peter's_Basilica": "Old St Peter's Basilica was the church built by Constantine I on the Vatican Hill in Rome over the grave Christians honoured as that of the apostle Peter, whose coffin he is said to have enclosed in bronze.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Begun after 324 on one recent reading and completed by his sons, it was assembled largely from columns taken from older buildings and became a burial place for senators and emperors.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was demolished in stages from 1506 to make way for the present St Peter's, and the last of the old building was cleared away in 1615.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Arch_of_Constantine": "The Arch of Constantine is a triple triumphal arch beside the Colosseum in Rome, dedicated by the senate to Constantine I for his victory over Maxentius in 312 CE and completed in 315 or 316.<sup class=\"fn\" data-fn=\"1\"></sup> Much of its sculpture was taken from older monuments, including roundels of Hadrian's time and panels from a monument of Marcus Aurelius, while a narrow frieze of Constantine's own day shows scenes from his career.<sup class=\"fn\" data-fn=\"1\"></sup> Its inscription credits the victory to the prompting of the divinity, a phrase that names no god and has long been read as a compromise between a Christian emperor and a largely pagan senate.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Constantine_II_(emperor)": "Constantine II was a Roman emperor from 337 to 340 CE, the eldest son of Constantine I and Fausta, given junior imperial rank in 317 as a small child and later sent to hold court in Gaul.<sup class=\"fn\" data-fn=\"1\"></sup> After his father's death and the killing of other men of the dynasty in 337, he and his brothers Constantius and Constans divided the empire, his own share being Britain, Gaul and Spain.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In 340 he made war on his youngest brother Constans and was killed near Aquileia, which left the empire to his two surviving brothers.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7372,7 +7377,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Julian_(emperor)": "360–363 CE",
 "Julian's_School_Edict": "362 CE",
 "Julian's_Persian_expedition": "363 CE",
-"Valentinian_I": "364–375 CE"
+"Valentinian_I": "364–375 CE",
+"Archbasilica_of_Saint_John_Lateran": "c. 313 CE",
+"Arch_of_Constantine": "315–316 CE",
+"Constantine_II_(emperor)": "c. 316–340 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10129,7 +10137,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Julian's_School_Edict": ["School Edict"],
 "Solidus": ["solidi"],
 "Magister_militum": ["magistri militum"],
-"Magister_officiorum": ["master of the offices"]
+"Magister_officiorum": ["master of the offices"],
+"Colonus_(person)": ["colonate"],
+"Archbasilica_of_Saint_John_Lateran": ["Lateran Basilica","Saint John Lateran"],
+"Old_St._Peter's_Basilica": ["Old St Peter's Basilica","Old St Peter's"],
+"Constantine_II_(emperor)": ["Constantine II"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -14973,7 +14985,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Solidus": ["object","economy","coinage","history","rome"],
 "Magister_militum": ["title","warfare","military","history","rome"],
 "Comitatenses": ["institution","warfare","military","history","rome"],
-"Magister_officiorum": ["title","politics","government","history","rome"]
+"Magister_officiorum": ["title","politics","government","history","rome"],
+"Colonus_(person)": ["institution","history","law","economy","rome"],
+"Archbasilica_of_Saint_John_Lateran": ["building","religion","architecture","christianity","rome"],
+"Old_St._Peter's_Basilica": ["building","religion","architecture","christianity","rome"],
+"Arch_of_Constantine": ["building","history","art","architecture","rome"],
+"Constantine_II_(emperor)": ["ruler","person","history","politics","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
