@@ -435,6 +435,56 @@ against the cited source, run `test-personal-atlas.js` and `test-war-cards.js`, 
 
 ---
 
+## 6b. Batches 6 and 8: what stands in the way, area by area (Oct 2026 — LISTED, NOT CHANGED)
+
+On request: "For batch 6 and 8, dont make any changes but make a list of the relevant areas with the
+constraints/issues preventing easy accurate borders." Every area below still draws its AUTHORED polygon
+(a dozen hand-placed points, one shape for its whole span). Nothing here was altered. Each row names what
+an accurate, open-source border would need and why it is not simply available — read with §3's rule, which
+excludes any source that is not free for commercial reuse. "Cl" is Cliopatria; "HB" historical-basemaps.
+
+### Batch 6 — tier 3: no open polygon; a border would have to be traced or derived
+
+| area | cards | the constraint |
+|---|---|---|
+| **Athens and its empire** | gr-552 (l), gr-561 (l) | No open polygon: Cl and OHM have none; Cl folds the poleis into one "Greek City-States" blob. The empire is a scatter of tribute-paying islands and coastal cities whose membership changed year by year (431, 421, 413–404). An accurate shape means a member list (Athenian Tribute Lists) placed through Pleiades (CC BY) — a research task per phase, and the lists are themselves fragmentary. The public-domain Shepherd plates (c. 450 and 431 BCE) are images that would have to be traced by eye. |
+| **Greek allies / the Hellenic League** | wh-319 (v), gr-755 (l) | Same problem: a coalition of poleis, not a territory. The Serpent Column names the 31 states of 479 BCE; the Lamian coalition of 323 BCE has no such list. Building either from Pleiades points needs each member located and a rule for how much land a polis "holds". |
+| **Syracuse / the Sicilian Greeks** | gr-448 (v), gr-552 (v) | OHM has a "Tyranny of Syracuse" (CC0) but not Akragas or Gela; Cl only the Greek blob. The Sicilian Greeks of 480 BCE are a coalition again. |
+| **Sparta and Messenia** | gr-233, gr-236, gr-237, gr-461 | OHM's one Sparta polygon (CC0) already INCLUDES Messenia, so it cannot serve a war between the two: Messenia needs its own line (the Taygetos watershed), which no open dataset draws. Folio's shape would have to be split along a traced ridge. |
+| **Samnium** | rm-013, rm-152, rm-153, rm-156 (l) | Not in Cl. HB has "Samnites" (GPL, a static snapshot, and HB's licence question is still open). Pleiades/AWMC give only Barrington label LINES for the Pentri, Caudini, Hirpini and Caraceni — positions, not borders. |
+| **Umbria and Picenum** | rm-159 (l) | Not in Cl; OHM has only the AUGUSTAN regiones V and VI (7 CE), drawn three centuries after the war — a later administrative border, not the peoples'. |
+| **Cisalpine Gauls** | rm-162 (l) | HB has the Boii only; no open tribal map of the Insubres, Boii and Cenomani. The defeated side is the Po valley minus Rome, which needs Rome's series (built) plus a northern limit no dataset draws. |
+| **Celtiberians, Lusitanians** | rm-262, rm-263, rm-265 (l) | No open tribal polygons. OHM's Lusitania is the Augustan province of 27 BCE. HB's "Celtiberians" is GPL and static. |
+| **Gallic tribes** | wh-354, rm-350 (l) | No open polygons for the Gallic civitates. The war moved campaign by campaign (58–51 BCE) — the shape that matters changes every year and is recorded only in Caesar's text. |
+| **The Zhou homeland before the conquest** | cnh-103 (v) | Cl's Zhou rows begin at 1000 BCE, after the 1046 BCE conquest; CHGIS starts in 221 BCE and is excluded anyway (no redistribution). The Wei-valley homeland would have to be traced from a cited map. |
+| **The Yue peoples** | cnh-205 (l) | Cl's "Minyue" is in Fujian; the 214 BCE conquest was in Lingnan (Guangdong, Guangxi). The three commanderies of 214 BCE have no open polygon. |
+| **The Seneca and Cayuga** | us-071 (l) | Cl's "Haudenosaunee" is the whole Six Nations — an over-claim for two of them. Splitting it needs a cited map of each nation's homeland; the Royce cessions (PD) start in 1784, after the 1779 expedition. |
+| **The Western Confederacy** | us-072 (l) | DERIVABLE but not yet derived: the Ohio country minus the Royce cession polygons (USFS, public domain) by treaty date. It needs the USFS layer fetched and a northern/western limit for "the Ohio country", which is an editorial line. |
+| **The Ardiaean kingdom, 219 BCE** | rm-237 (l) | Cl's "Illyrian Kingdom" ends at 226 BCE, so the second Illyrian War (219) has no row; one cited map would cover it. |
+| **The Hundred Years' War, English holdings** | wh-518 | BUILT from Cl, but unchecked: Gascony and Calais are thin in Cl's England rows. A check against the public-domain Shepherd plates (France 1328, 1360, 1453) is still owed. |
+| **Hongshan** | cnh-047 | Hosner has no Hongshan label (its Liaoning and Inner Mongolia sites are "undistinguished"); the open surveys cover two small windows. Needs a cited regional map. |
+| **Liangzhu** | cnh-048 | Hosner's 180 Liangzhu sites are Zhejiang only; the Taihu-basin core straddles Jiangsu and Shanghai, so an outline from them would cut the culture in half. |
+| **Erlitou** | wh-243, cnh-062 | No Hosner label; the Yiluo-basin core and western-Henan periphery are in published figures only; its four phases are not mappable from open data. |
+| **Naqada** | wh-203 | Not in Cl (its "Early Dynastic Egypt" starts at 3000 BCE); the literature gives territory sizes, not polygons. Phases I–III along the Nile would be traced from a cited map. |
+| **Terramare, Villanovan** | rm-007, rm-008 | Open site data covers only one slice of Emilia (Terramare); the Villanovan has one cited open figure, single-phase. Both are tracing jobs. |
+| **Sabines, Venetia, Messapia** | rm-012, rm-019, rm-020 | Not in Cl; Pleiades/AWMC hold Barrington label lines only; the Messapic inscription corpus that would place Messapia is not open. Defensible shapes are drawable from rivers, coasts and the Apennine crest, but they are editorial lines. |
+| **Sarmatia** | ru-008 | Cl has no Sarmatians — the steppe is empty between Scythia (to 224 BCE) and the Goths (from 207 CE). Phases would be hand-drawn from cited maps. |
+| **Mumun** | jp-033 | The Korean radiocarbon set (17,000+ dates) has no open download found; one cited figure exists for Songguk-ri. |
+| **Upper Oka (the Vyatichi)** | ru-024 | Known from temple-ring and kurgan distributions in Sedov 1982 (not open; not opened). |
+| **Desht-i Qipchaq (the Cumans)** | ru-074 | Cl's "Cuman-Kipchak Confederation" is a one-row 315 km² sliver — a data fault — and its Kimek–Kipchak shape stops at 37.8° E, short of the Dnieper; extending it is hand-drawing. |
+| **The European site cultures** — Linear Pottery, Únětice, Bell Beaker, Yamnaya, Natufian, Clovis | wh-137, wh-274, wh-273, wh-258, wh-116, wh-101 | The method exists and works (Yangshao, Longshan), but the INPUT does not: Rado.NB and EUROEVOL (both CC BY) have no working export found; the AADR (CC0) was tried and rejected as a genetics sample, not a distribution; NERD has no culture field (Natufian sites would be hand-filtered); PIDBA (Clovis) has no open licence. Bourgeois et al. 2025 (CC BY 4.0) has Bell Beaker's arrival surface, still to be processed. |
+
+### Batch 8 — tiers 4 and 5: sparse, conflicting or no evidence
+
+| area | card | the constraint |
+|---|---|---|
+| **Gojoseon** | ko-046 | The scholarship disagrees on WHERE it was — a Liaodong-centred and a Pyongyang-centred school — and Cl's two rows cover under half the card's span. Any single border takes a side in a live dispute; the honest form is a soft outline with the disagreement on the card. |
+| **Mal'ta–Buret'** | wh-096 | Known from essentially two sites on the upper Angara. There is no extent to draw, only a point; a polygon of any size claims a territory nobody has evidence for. |
+| **Umbria** | rm-015 | Ancient writers give an early, larger Umbria reaching the Adriatic, then the coast lost to the Senones about 390 BCE; the Augustan region differs again. No open phased map. |
+| **Liguria** | rm-018 | Known from texts and later Roman administration; the Ligurian range moved over a thousand years and the sources do not fix it. |
+| **The Cimmerians** | ru-004 | Known only from Greek and Assyrian texts; their north-Pontic homeland has no agreed archaeology (the attribution of the Chernogorovka–Novocherkassk horizon is disputed). No location is defensible beyond "the north-Pontic steppe". |
+| **The Pechenegs (Patzinakia)** | ru-020 | Not in Cl (only the Oghuz, further east); HB's shape is GPL and static; very little archaeology. A text-based zone from the Don to the Siret around 950 is all the evidence supports. |
+
 ## 7. Ledger
 
 | date | batch | what was done |
