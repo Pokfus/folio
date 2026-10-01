@@ -995,6 +995,11 @@ function aeneidChecks() {
         localStorage.setItem("folio_book_tour_v1", "1");
         localStorage.setItem("folio_tour_v1", "1");
       } catch (e) {}
+      /* A badge earned while reading (opening a book, a favourite) opens a centred popup over the page,
+         which is the reader's reward and not this suite's subject — so it is put away as it arrives. */
+      new MutationObserver(() => {
+        const b = document.querySelector('.ach-pop [data-act="later"]'); if (b) b.click();
+      }).observe(document, { childList: true, subtree: true });   // `document`, since the root element does not exist yet when an init script runs
     });
   };
 

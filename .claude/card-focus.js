@@ -104,6 +104,25 @@ const NOT_A_RESEARCHER = {
   "wh-593 Polo": "Marco Polo, cited for his own account of the election of Chinghis Kaan",
   "wh-597 Polo": "the same, cited for his own account of the fall of Baghdad and the death of the caliph",
   "wh-598 Battuta": "Ibn Battuta, cited for his own account of crossing the Kipchak steppe in the 1330s",
+  // A CONQUISTADOR IS AN ACTOR OF HIS OWN CARD'S PERIOD, cited for what he himself did and wrote. The
+  // letters to Charles V stand in the author slot of the card's own first source, so every sentence of
+  // the siege narrative that attributes a figure to him read as historiography.
+  "wh-666 Cortés": "Hernán Cortés, cited on his own card for his third letter's account of the siege he laid",
+  // AN EARLY MODERN WITNESS IS THE SAME CASE AGAIN. Each is cited on his own card for what he himself
+  // wrote about the events of his own lifetime, so the surname the question carries belongs to an actor
+  // or an eyewitness rather than to a modern arguer.
+  "wh-675 Grotius": "Hugo Grotius, cited on his own card for the tract he wrote in 1609 against the Portuguese claim of his own day",
+  "wh-679 Percy": "George Percy, cited on his own card for the observations he kept at Jamestown through the summer of 1607",
+  "wh-680 Bradford": "William Bradford, governor of the colony, cited on his own card for the history of it he wrote himself",
+  // AN ENLIGHTENED MONARCH IS AN ACTOR OF HIS OWN CARD'S PERIOD, cited for what he himself wrote about
+  // how a king should rule. The essays and instructions stand in the author slot of the card's own
+  // sources, so the surname the question carries is the ruler's and not a modern arguer's.
+  "wh-752 Frederick": "Frederick II of Prussia, cited on his own card for his Essay on Forms of Government",
+  "wh-752 Catherine": "Catherine II of Russia, cited on the same card for her own Grand Instructions of 1767",
+  // AN INVENTOR WHOSE NAME IS THE CARD'S OWN ANSWER TERM. Every sentence saying "the Bessemer process"
+  // carries the surname, and his autobiography stands in the author slot of the card's own first source,
+  // so the measure read the subject of the card as a modern arguer about it.
+  "wh-784 Bessemer": "Henry Bessemer, cited on his own card for the autobiography in which he describes making the process work \u2014 and the name is half the answer term",
 };
 
 /* MEASURED, not chosen: over the 269 shipped cards the historiography count is 0 or 1 for 206 of them,
