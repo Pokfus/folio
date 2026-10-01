@@ -4864,7 +4864,10 @@ window.GLOSSARY = {
 "Warsaw_Pact": "The Warsaw Pact, formally the Treaty of Friendship, Cooperation and Mutual Assistance, was a military alliance signed in Warsaw on 14 May 1955 by the Soviet Union, Albania, Bulgaria, Czechoslovakia, East Germany, Hungary, Poland and Romania.<sup class=\"fn\" data-fn=\"1\"></sup> Its members pledged to aid any member attacked in Europe and placed their forces under a joint command, but the Soviet Union controlled most of its decisions and used it to contain dissent within the bloc, in Hungary in 1956 and Czechoslovakia in 1968.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It lost its purpose after the revolutions of 1989 in Eastern Europe and was formally dissolved by a protocol signed in Prague on 1 July 1991.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Chinese_Communist_Revolution": "The Chinese Communist Revolution was the process by which the Chinese Communist Party, founded in Shanghai in 1921, won control of mainland China after more than two decades of intermittent conflict with the Nationalist Party, or Kuomintang.<sup class=\"fn\" data-fn=\"1\"></sup> Communist support grew among the peasantry during the war against Japan, and in the civil war that resumed after 1945 communist armies defeated the Nationalists, whose government retreated to the island of Taiwan.<sup class=\"fn\" data-fn=\"1\"></sup> Mao Zedong proclaimed the Central People’s Government of the People’s Republic of China in Beijing on 1 October 1949, declaring it the sole legal government representing the whole Chinese people.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Mao_Zedong": "Mao Zedong was a Chinese communist revolutionary, born in 1893 in Shaoshan in Hunan province, who attended the founding congress of the Chinese Communist Party in Shanghai in 1921, rose to lead it and remained its chairman until his death in 1976.<sup class=\"fn\" data-fn=\"1\"></sup> He proclaimed the People’s Republic of China in Beijing on 1 October 1949, and his Great Leap Forward was followed by a famine in which demographers estimate that some 30 million people died.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In 1981 the Communist Party judged that he had made gross mistakes, above all in the Cultural Revolution, but that his merits were primary and his errors secondary.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Korean_War": "The Korean War began on 25 June 1950, when North Korean forces invaded South Korea across the 38th parallel, the line along which the peninsula had been divided after the Second World War.<sup class=\"fn\" data-fn=\"1\"></sup> A United Nations command led by the United States fought for the South, while the North was backed by the Soviet Union and, from late 1950, by Chinese forces intervening on a massive scale.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> An armistice signed at Panmunjom on 27 July 1953 ended the fighting without a peace treaty, leaving the two Korean states on almost the same territory as before, after millions of soldiers and civilians had died.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Korean_War": "The Korean War began on 25 June 1950, when North Korean forces invaded South Korea across the 38th parallel, the line along which the peninsula had been divided after the Second World War.<sup class=\"fn\" data-fn=\"1\"></sup> A United Nations command led by the United States fought for the South, while the North was backed by the Soviet Union and, from late 1950, by Chinese forces intervening on a massive scale.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> An armistice signed at Panmunjom on 27 July 1953 ended the fighting without a peace treaty, leaving the two Korean states on almost the same territory as before, after millions of soldiers and civilians had died.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Invasion_of_Poland": "The invasion of Poland was the attack on Poland by Nazi Germany from 1 September 1939, joined by the Soviet Union from the east on 17 September, and it began the Second World War in Europe.<sup class=\"fn\" data-fn=\"1\"></sup> Britain and France, which had guaranteed Poland’s borders, declared war on Germany on 3 September, but the Polish army, short of armour and aircraft, was beaten within weeks and its last units gave up on 6 October.<sup class=\"fn\" data-fn=\"1\"></sup> Germany and the Soviet Union then divided the country between them, and German units began at once a campaign of terror against Polish civilians.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Blitzkrieg": "Blitzkrieg, German for ‘lightning war’, is the name given to the short, fast campaigns by which Nazi Germany defeated Poland, France and other states early in the Second World War, in order to avoid a long war.<sup class=\"fn\" data-fn=\"1\"></sup> In the usual account, tanks, aircraft and artillery were massed on a narrow front to break the enemy line, armoured divisions drove deep behind it, and air power stopped reinforcements from sealing the breach.<sup class=\"fn\" data-fn=\"1\"></sup> Whether it was ever a planned doctrine is disputed, since most German divisions still marched on foot with horse-drawn supplies and propaganda exaggerated how motorised the army was.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_France": "The Battle of France was the German conquest of France and the Low Countries, begun on 10 May 1940, which in less than six weeks drove the British army off the continent and ended in a French armistice signed on 22 June.<sup class=\"fn\" data-fn=\"1\"></sup> Its decisive stroke was the advance of most of Germany’s panzer divisions through the Ardennes forest, which crossed the Meuse near Sedan on 13 May and reached the sea a week later, trapping the Allied armies in Belgium.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Under the armistice Germany occupied northern France and the Atlantic coast, while a collaborating French government sat at Vichy in the south.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7502,7 +7505,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Warsaw_Pact": "1955–1991",
 "Chinese_Communist_Revolution": "1921–1949",
 "Mao_Zedong": "1893–1976",
-"Korean_War": "1950–1953"
+"Korean_War": "1950–1953",
+"Invasion_of_Poland": "1 September – 6 October 1939",
+"Blitzkrieg": "1939–1941",
+"Battle_of_France": "10 May – 22 June 1940"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10271,7 +10277,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Bolsheviks": ["Bolshevik"],
 "Soviet_Union": ["USSR"],
 "Warsaw_Pact": ["Warsaw Treaty Organization"],
-"Mao_Zedong": ["Mao Tse-tung","Chairman Mao"]
+"Mao_Zedong": ["Mao Tse-tung","Chairman Mao"],
+"Invasion_of_Poland": ["invasion of Poland"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15189,7 +15196,10 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Warsaw_Pact": ["institution","history","politics","warfare","cold war","soviet union","europe"],
 "Chinese_Communist_Revolution": ["event","history","politics","revolution","communism","china"],
 "Mao_Zedong": ["person","history","politics","revolution","communism","china"],
-"Korean_War": ["war","history","warfare","politics","cold war","korea"]
+"Korean_War": ["war","history","warfare","politics","cold war","korea"],
+"Invasion_of_Poland": ["event","history","warfare","poland","germany","20th century"],
+"Blitzkrieg": ["concept","history","warfare","germany","20th century"],
+"Battle_of_France": ["battle","history","warfare","france","germany","20th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
