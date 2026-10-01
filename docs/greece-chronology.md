@@ -92,6 +92,12 @@ already cites, taking the earlier of each of its paired figures where it gives t
 | Keftiu in Theban tombs | c. 1479 – 1425 BCE | the Metropolitan Museum's date for the Rekhmire copy, Thutmose III to early Amenhotep II |
 | Mari records of the Caphtorians | c. 1780 – 1760 BCE | the palace of Zimri-Lim, as Palaima and Wilson-Wright's review gives it |
 | Cretan pottery at Kahun and Harageh | c. 1900 – 1850 BCE | Rutter's "early 19th century", MM IB – IIA; Petrie puts the Kahun heaps under Senusret II |
+| Final Palatial (Mycenaean) Knossos | c. 1470 – 1375 BCE | LM II – IIIA2 early; Rutter's pair is 1490/1470 – 1385/1375, and the collection takes the later of the first and the conventional fire date for the second (`gr-051`) |
+| Knossos Linear B tablets | Chariot Tablets c. 1390 – 1370 BCE; the bulk c. 1375 BCE or c. 1250 BCE | the Room of the Chariot Tablets is LM IIIA1 (Driessen, as Lane's BMCR review gives it; Firth and Skelton 2016); the bulk is early LM IIIA2 on the conventional view and c. 1250 BCE, LM IIIB1/2, on Hallager's (Firth and Skelton, n. 38); `gr-052` gives both |
+| Hilltop refuge settlements | from c. 1200 BCE; Karphi c. 1200 – 1000 BCE | the Kavousi Kastro founded at the start of LM IIIC and Vronda's settlement LM IIIC, c. 1200 – 1100 (INSTAP Study Center); Karphi after Wallace, as Antoniadis's BMCR review gives it; `gr-053` |
+| Eteocretan inscriptions | c. 650 BCE to the 3rd century BCE | the Dreros text mid-7th century, the five from Praisos 6th – 3rd century (Zitelli 2024, after Duhoux 1982); Mnamon gives 7th – 3rd century |
+| Praisos destroyed by Hierapytna | 145 – 140 BCE | Whitley 2023, between the death of Ptolemy Philometor and the consulship of C. Laelius (Strabo 10.4.12 for the event) |
+| Idaean Cave | sheltering from the late 4th millennium BCE; cult from c. 1700 BCE; greatest age 900 – 600 BCE; last known rite 361 – 363 CE | Mikrakis (DECF 2016): cult from the early Late Bronze Age, "c. 1700 – 1450 BC"; the bronze shields 8th century BCE; an initiation under Julian. **Kamares ware is named after the Kamares cave, a different cave on Ida**, and is no evidence for this one (`gr-055` carried that error before B6) |
 
 **Three standing notes.** (1) "Neopalatial" and "Postpalatial" do not describe KNOSSOS, which went on
 functioning as an administrative centre after the other palaces fell (Rutter says so in terms); a Knossos
@@ -212,4 +218,9 @@ gr-047: 1479; 1425; 1780; 1760
 gr-048: 1750; 1490
 gr-049: 1900; 1470
 gr-050: 1490; 1470
+gr-051: 1470; 1375
+gr-052: 1390; 1370; 1375; 1250
+gr-053: 1375; 1200; 1075
+gr-054: 650; 145; 140
+gr-055: 1700; 900; 600; 361; 363
 ```
