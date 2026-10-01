@@ -177,7 +177,7 @@ have not this session.
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | live |
 | France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
 | Ancient Mesopotamia | `mesopotamia` | `me-` | `docs/mesopotamia-card-plan.md` | 9 / 40 | empty |
-| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | live (artwork-card format) |
+| Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | 30 cards, contiguous — next is `art-031`; not a history collection (artwork-card format) |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 3 / 3 | complete (map cards) |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | complete but 3 deferred |
 | Flags | `flags` | `fl-` | `docs/flags-card-plan.md` | 2 / 2 | complete (4 deferred) |

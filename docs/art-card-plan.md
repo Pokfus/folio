@@ -727,6 +727,85 @@ commit, and `art-001`–`art-003` have theirs. *Vogelherd mammoth*, *Vogelherd b
 waterbird*, *Venus of Galgenberg* and *Brno II figurine* have none, so nothing in a later card's prose
 can auto-link to them. `art-009` and `art-010` shipped with theirs; the five are owed.
 
+**BATCH A4 — `art-011` TO `art-020`, Sep 2026: the Ice Age subdeck is finished.** Willendorf, Lespugue,
+Brassempouy, Laussel, the Pech Merle spotted horses, the Hall of the Bulls, the Altamira ceiling, *Bison
+Licking Insect Bite*, the *Fawn with Birds* and the *Swimming Reindeer*, each with its paired glossary term
+(Willendorf's already existed and was reused). Six findings.
+
+**THE APOLLO 11 CAVE PLAQUES CAME OUT OF THE RUNNING ORDER, AND THE LINES BEHIND THEM MOVED UP ONE.** Both
+Commons photographs of the original slabs have the words *APOLLO 11 STONE — AGE: 30,000 YEARS* printed into
+the image, which is the answer written on the question side, and Folio never alters a picture; the one clean
+file is a replica in Burgos painted red where the original figure is dark, which fails the facsimile rule's
+own premise that the copy shows what the original looks like. The line also named a group of plaques rather
+than one object. Nothing had shipped past `art-010`, so the nine lines behind it moved up one and `art-019`
+became the Mas-d'Azil *Fawn with Birds* spear-thrower, which keeps the subdeck at twenty. **It costs the
+subdeck its only African work**, which is stated rather than hidden; a free photograph of the Apollo 11
+slabs would put it back, and the same-horizon replacements checked did not survive either — the Venus of
+Savignano has no openable literature, and the free photographs of the Venus of Petřkovice show a replica
+and a modern statue.
+
+**A SUBJECT THAT IS ALSO AN ARTEFACT IS DEALT ONCE IN THE PICTURE ROUND.** The Venus of Willendorf is one
+of the 200 artefacts, and `picturePool` keeps one entry per label with the artefacts read first, so the card
+stands behind the artefact there — which is the pool's own "never offer the answer twice" rule working.
+`test-artwork-cards.js` asserted that every artwork card is in the pool and now names the shadowed subjects
+instead. **Grep `artefacts.js` for a work's name before carding it**: the picture must also differ from the
+artefact's, which `check-image-free.js` catches.
+
+**TWO CAVE PAINTINGS SHIP ON DISCLOSED FACSIMILES.** Pech Merle is shown by the full-size replica in the
+Anthropos pavilion at Brno, and the Hall of the Bulls by Lascaux II; both say so in the `alt` as well as the
+caption. Altamira did not need one: a 1959 photograph of the ceiling itself is free, and it predates the
+Neocueva, so it cannot be the replica.
+
+**THE DATE LINE CARRIES THE NUMBER A READER WILL TYPE, AND ON THIS DECK THAT MEANS TWO SCALES.** Altamira's
+bison are about 14,000 radiocarbon years, which calibrates to about 18,500–15,200 years ago; the line reads
+`c. 18,500 – 14,000 years ago` so the textbook figure is not marked wrong, and the prose says which number is
+which — the `art-010` rule again. **And years-ago is not BCE**: the Middle Magdalenian's 18,000–16,000 years
+ago is 16,000–14,000 BCE, which is where the *Fawn with Birds* line already sat.
+
+**WHERE THE *FAWN WITH BIRDS* IS HELD IS THE WEAKEST FACT IN THE BATCH.** The Musée d'Archéologie nationale's
+own fawn-and-bird thrower is the Bédeilhac piece, a different object; exhibition captions name the lender as
+the Ariège département's museum; and the département's own press dossier says the Mas-d'Azil museum shows a
+reproduction. The grid says *Musée de la Préhistoire, Le Mas-d'Azil* and the prose claims only that the
+museum presents it as its most celebrated piece. **Correct the grid if a source says where the original is
+kept.**
+
+**ONE FRENCH SOURCE A CARD BINDS HARD ON THIS DECK**, the French excavation literature being where most of
+it lives; several claims (Brassempouy as *mammoth* ivory, Lespugue at 28,000 years, the La Madeleine bison's
+finder) were dropped rather than cited to a second French work. `SAME_LANGUAGE_OK` in `check-cards.js` is the
+declared route if a card ever needs two.
+
+**BATCH A5 — `art-021` TO `art-030`, Sep 2026: the first ten of the first villages.** The Shigir Idol, the
+Vulture Stone, Zoo Rock at Bhimbetka, the Cueva de las Manos, an 'Ain Ghazal statue, the Jericho Skull, the
+Praroditeljka of Lepenski Vir, the Seated Woman of Çatalhöyük, the Great God of Sefar and the Thinker of
+Cernavodă, each with a new paired glossary term. Five findings.
+
+**A SITE'S GLOSSARY TERM IS NOT THE WORK'S, SO FIVE NEW TERMS SIT BESIDE FIVE OLD ONES.** `Göbekli_Tepe`,
+`Bhimbetka_rock_shelters`, `'Ain_Ghazal`, `Jericho` and `Çatalhöyük` all existed and none was touched; the
+card's answer is the object, and a term for the place would have satisfied the pairing rule on the wrong
+subject. Where Wikipedia has no article for the object the key is the answer in slug form (`Vulture_Stone`,
+`Zoo_Rock`, `Jericho_Skull`, `Great_God_of_Sefar`).
+
+**TWO LINES NAMED A GROUP AND ONE NAMED THE WRONG BOULDER, AND ALL THREE WERE RETITLED TO THE OBJECT
+CARDED.** `art-025` is the full-length statue from the 1985 cache on loan to the Louvre (DAO 96), whose own
+record gives its size and restoration history, and `art-026` is the British Museum's skull from Kenyon's
+1953 group — the museum's own title. `art-027` was the *Danubius* boulder, which has no identifiable free
+photograph; the *Praroditeljka*, which stood beside it at the hearth of House XLIV, has two, and the line now
+names it, at the 2018 radiocarbon date of c. 6200 BCE rather than the popular 7000.
+
+**'AIN GHAZAL'S DATES ARE RADIOCARBON YEARS.** The 1980s ages for the caches are uncalibrated, about a
+thousand years younger than the calendar dates they calibrate to; the prose says "radiocarbon dates" and does
+not claim calibration, and the date line keeps the published range because that is the figure a reader will
+meet. **Recalibrate both if an open source gives the calibrated range.**
+
+**THE SEATED WOMAN'S HEAD IS A MODERN RESTORATION AND THE CARD DOES NOT SAY SO**, because no source that
+could be opened states it; the alt describes what is seen without calling the head original. **Add the
+sentence when a source is reachable.** Her grid carries no Material or size row for the same reason, and the
+Vulture Stone's no size row: no dimension for Pillar 43 appeared in anything openable.
+
+**ZOO ROCK'S RANGE ENDS AT 1300 CE, WHICH IS WAKANKAR'S SCHEME AS DUBEY-PATHAK REPORTS IT**, the
+Archaeological Survey saying only "to the Mediaeval"; its start is Wakankar's own "8000(?)", and the prose
+keeps the question mark.
+
 # The list
 
 ## Before History, to 700 BCE — `art-early`
@@ -743,15 +822,15 @@ can auto-link to them. `art-009` and `art-010` shipped with theirs; the five are
     art-008  The Brno II figurine — Moravia, c. 28,000 years ago
     art-009  The Venus of Předmostí — Moravia, c. 26,000 BCE
     art-010  The Venus of Dolní Věstonice — Moravia, c. 26,000 BCE
-    art-011  The Apollo 11 Cave painted plaques — Namibia, c. 25,500 BCE
-    art-012  The Venus of Willendorf — Austria, c. 25,000 BCE
-    art-013  The Venus of Lespugue — France, c. 24,000 BCE
-    art-014  The Venus of Brassempouy — France, c. 23,000 BCE
-    art-015  The Venus of Laussel — France, c. 23,000 BCE
-    art-016  The Pech Merle spotted horse panel — France, c. 23,000 BCE
-    art-017  The Hall of the Bulls, Lascaux — France, c. 17,000 BCE
-    art-018  The Altamira polychrome ceiling — Spain, c. 15,000 BCE
-    art-019  Bison Licking an Insect Bite — La Madeleine, c. 15,000 BCE
+    art-011  The Venus of Willendorf — Austria, c. 25,000 BCE
+    art-012  The Venus of Lespugue — France, c. 24,000 BCE
+    art-013  The Venus of Brassempouy — France, c. 23,000 BCE
+    art-014  The Venus of Laussel — France, c. 23,000 BCE
+    art-015  The Pech Merle spotted horse panel — France, c. 23,000 BCE
+    art-016  The Hall of the Bulls, Lascaux — France, c. 17,000 BCE
+    art-017  The Altamira polychrome ceiling — Spain, c. 15,000 BCE
+    art-018  Bison Licking an Insect Bite — La Madeleine, c. 15,000 BCE
+    art-019  The Fawn with Birds spear-thrower — Le Mas-d'Azil, c. 14,000 BCE
     art-020  The Swimming Reindeer — Montastruc, c. 13,000 BCE
 
 ### The first villages, 10,000–3000 BCE — `art-neolithic`
@@ -760,9 +839,9 @@ can auto-link to them. `art-009` and `art-010` shipped with theirs; the five are
     art-022  Göbekli Tepe Pillar 43, the Vulture Stone — Anatolia, c. 9500 BCE
     art-023  The Bhimbetka Zoo Rock panel — India, c. 8000 BCE
     art-024  The Cueva de las Manos hand-stencil panel — Argentina, c. 7300 BCE
-    art-025  The 'Ain Ghazal monumental figure — Jordan, c. 7200 BCE
-    art-026  The Jericho plastered skull — the Levant, c. 7000 BCE
-    art-027  The Lepenski Vir Danubius boulder — Serbia, c. 6500 BCE
+    art-025  The 'Ain Ghazal statue in the Louvre — Jordan, c. 7100 BCE
+    art-026  The Jericho Skull in the British Museum — the Levant, c. 7000 BCE
+    art-027  The Praroditeljka boulder of Lepenski Vir — Serbia, c. 6200 BCE
     art-028  The Seated Woman of Çatalhöyük — Anatolia, c. 6000 BCE
     art-029  The Sefar Great God panel, Tassili n'Ajjer — the Sahara, c. 6000 BCE
     art-030  The Thinker of Cernavodă — Romania, c. 5000 BCE
