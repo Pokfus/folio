@@ -1257,9 +1257,9 @@ else in the Americas.*
     wh-848  Cash crop economies  — written as the general term *cash crop* (glossary key `Cash_crop`), colonial export farming being the card's subject
     wh-849  Indentured labour  — written as *Indian indenture system* (glossary key `Indian_indenture_system`)
     wh-850  Colonial railways  — written as *Uganda Railway* (glossary key `Uganda_Railway`), the case the sources serve best
-    wh-851  Christian missions and empire
+    wh-851  Christian missions and empire  — written as the general term *Christian mission* (glossary key `Christian_mission`), its imperial century being the card's subject
     wh-852  Settler colonialism
-    wh-853  Colonisation of Australia
+    wh-853  Colonisation of Australia  — written as *First Fleet* (glossary key `First_Fleet`)
     wh-854  Treaty of Waitangi
     wh-855  Scientific racism
 
