@@ -4814,7 +4814,11 @@ window.GLOSSARY = {
 "Donatism": "Donatism was a schism in the church of Roman Africa, named after Donatus, bishop of Carthage, which from the early 4th century CE kept a set of bishops rival to those in communion with Rome.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It arose from the persecution of 303–305, when its founders refused to accept clergy who had handed over the Scriptures, and it rebaptised those who joined it, while holding almost all the same doctrine as its opponents.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Synods called by Constantine at Rome in 313 and at Arles in 314 found against it, and imperial laws from 405, with a conference held at Carthage in 411, set out to suppress it.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Council_of_Chalcedon": "The Council of Chalcedon was the church assembly summoned by the emperor Marcian, which met late in 451 CE in the church of the martyr Euphemia at Chalcedon in Bithynia, near the Bosphorus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It deposed Dioscorus, bishop of Alexandria, and issued a definition of faith, following a letter of Leo, bishop of Rome, which confessed Christ in two natures united in one person.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A further canon ranked the see of Constantinople next after old Rome over Leo's objections, and many eastern Christians rejected the definition and later honoured the deposed Dioscorus as a saint.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Pope_Damasus_I": "Damasus I was bishop of Rome from 366 to 384 CE, and perhaps the first holder of that see who can properly be called a pope.<sup class=\"fn\" data-fn=\"1\"></sup> His election was contested by the deacon Ursinus, and the fighting between their parties left 137 dead in a single day in one Roman basilica before Damasus prevailed and his rival was banished.<sup class=\"fn\" data-fn=\"2\"></sup> He composed verses that were carved and set up in the churches and catacombs of Rome, and in 380 an imperial law named the faith he followed, with that of Peter of Alexandria, as the standard of catholic Christianity.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Pope_Leo_I": "Pope Leo I, called Leo the Great, was bishop of Rome from 440 to 461 CE, whose 173 surviving letters set out a doctrine of papal primacy grounded on the apostle Peter.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His letter to Flavian on the two natures of Christ, known as the Tome, was acclaimed at the Council of Chalcedon in 451, though he would not accept the canon there that raised the rank of Constantinople.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In 452 he met Attila at the ford of the river Mincius in northern Italy, when Rome sought peace, after which the king turned back.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Pope_Leo_I": "Pope Leo I, called Leo the Great, was bishop of Rome from 440 to 461 CE, whose 173 surviving letters set out a doctrine of papal primacy grounded on the apostle Peter.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His letter to Flavian on the two natures of Christ, known as the Tome, was acclaimed at the Council of Chalcedon in 451, though he would not accept the canon there that raised the rank of Constantinople.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In 452 he met Attila at the ford of the river Mincius in northern Italy, when Rome sought peace, after which the king turned back.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Stilicho": "Stilicho was a Roman general of Vandal descent who, as guardian of the emperor Honorius, directed the government and armies of the western empire from 395 until 408 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Married to Serena, niece of Theodosius I, he made his daughters Maria and Thermantia empresses in turn and fought Alaric's Goths in Greece and Italy while pursuing a claim to eastern Illyricum.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Accused of plotting to make his son Eucherius emperor, he was killed by the army at Ravenna in August 408, and ancient writers judged him either a just commander or a traitor who had let invaders into the empire.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Alaric_I": "Alaric I was the king of the Goths who led them from the death of Theodosius I in 395 until his own death in 410 CE, and whose army sacked Rome in August 410.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He sought high Roman command and supplies for his followers as much as plunder, fought Stilicho in Italy in 402 and 403, and between 408 and 410 blockaded Rome three times and set up Attalus as a rival emperor.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He died at Consentia in southern Italy, and Jordanes says his people buried him with treasure in the bed of the diverted river Busentus and killed the men who dug the grave.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Sack_of_Rome_(410)": "The Gothic sack of Rome was the capture and plundering of the city by Alaric's Goths, who entered through the Salarian Gate on 24 August 410 CE and left about three days later.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Alaric ordered that those who had fled to the basilicas of Peter and Paul be spared, and the Goths carried off great booty and the emperor's sister Galla Placidia.<sup class=\"fn\" data-fn=\"2\"></sup> Pagans blamed the disaster on the abandonment of the old gods, and Augustine opened the <i>City of God</i> by answering them, while excavation has found few physical traces of the sack itself.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Crossing_of_the_Rhine": "The crossing of the Rhine was the entry of Vandals, Alans and Suevi into Roman Gaul, traditionally dated to the last day of December 406 CE and placed near Moguntiacum, the modern Mainz.<sup class=\"fn\" data-fn=\"1\"></sup> Contemporaries described the massacre at Mainz and the fall of cities across northern and eastern Gaul, and after more than two years of plunder the invaders crossed the Pyrenees into Spain in the autumn of 409.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Some historians have argued for 405 rather than 406, and the often-repeated detail that the river was frozen has no support in any ancient source.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7413,7 +7417,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "The_City_of_God": "412–426 CE",
 "Council_of_Chalcedon": "451 CE",
 "Pope_Damasus_I": "366–384 CE",
-"Pope_Leo_I": "440–461 CE"
+"Pope_Leo_I": "440–461 CE",
+"Stilicho": "d. 408 CE",
+"Alaric_I": "d. 410 CE",
+"Sack_of_Rome_(410)": "410 CE",
+"Crossing_of_the_Rhine": "406 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10181,7 +10189,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Christianisation_of_the_Roman_Empire": ["Christianization of the Roman Empire"],
 "The_City_of_God": ["City of God"],
 "Pope_Damasus_I": ["Damasus I","Damasus"],
-"Pope_Leo_I": ["Leo the Great"]
+"Pope_Leo_I": ["Leo the Great"],
+"Sack_of_Rome_(410)": ["Gothic sack of Rome","sack of Rome in 410"],
+"Crossing_of_the_Rhine": ["Rhine crossing of 406"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15051,7 +15061,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Donatism": ["religion","history","christianity","africa","rome"],
 "Council_of_Chalcedon": ["event","religion","history","christianity"],
 "Pope_Damasus_I": ["person","religion","history","christianity","rome"],
-"Pope_Leo_I": ["person","religion","history","christianity","rome"]
+"Pope_Leo_I": ["person","religion","history","christianity","rome"],
+"Stilicho": ["person","history","warfare","politics","rome","classical"],
+"Alaric_I": ["person","ruler","history","warfare","rome","classical"],
+"Sack_of_Rome_(410)": ["event","history","warfare","religion","rome","classical"],
+"Crossing_of_the_Rhine": ["event","history","warfare","migration","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
