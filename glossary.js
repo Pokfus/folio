@@ -4893,7 +4893,12 @@ window.GLOSSARY = {
 "North_African_campaign": "The North African campaign was the fighting between the Axis powers and the British Empire and its allies across Egypt, Libya and French North Africa from June 1940 to May 1943.<sup class=\"fn\" data-fn=\"1\"></sup> It began with an Italian invasion of Egypt from Libya, drew in German forces under Rommel in 1941 and swung back and forth along the coast until the British victory at El Alamein and the Anglo-American landings in Morocco and Algeria in November 1942.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Axis armies, trapped in Tunisia, surrendered on 13 May 1943, and counts of the prisoners taken range from about 240,000 to about 275,000.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Second_Battle_of_El_Alamein": "The Second Battle of El Alamein was fought near Egypt’s western frontier between 23 October and 4 November 1942, when the British Eighth Army under Bernard Montgomery defeated the German and Italian army commanded by Erwin Rommel.<sup class=\"fn\" data-fn=\"1\"></sup> After a long build-up that gave the British a large superiority in men, tanks and guns, the attack cleared lanes through deep minefields and wore down the Axis infantry until a final assault broke through.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The victory drove the Axis out of Egypt and was the British Army’s first clear and lasting success against it, though its fame as a turning point of the whole war is disputed.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "The_Holocaust": "The Holocaust was the systematic, state-sponsored persecution and murder of six million European Jews by Nazi Germany and its allies and collaborators between 1933 and 1945, also known by the Hebrew word Shoah.<sup class=\"fn\" data-fn=\"1\"></sup> Persecution by law and violence in Germany after 1933 became mass murder after the invasion of the Soviet Union in 1941, carried out above all in mass shootings and in five killing centres built in occupied Poland.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Nazi Germany and its allies also murdered millions of non-Jewish victims, among them Soviet prisoners of war, non-Jewish Polish civilians, Roma, people with disabilities and political opponents.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Auschwitz_concentration_camp": "Auschwitz was the largest Nazi German concentration camp, a complex built from 1940 on the edge of the town of Oświęcim in German-occupied Poland, and the only one that also contained a killing centre, at Birkenau.<sup class=\"fn\" data-fn=\"1\"></sup> Almost 1.1 million Jews were deported there from across Europe, most of them murdered in gas chambers on arrival, and about 1.1 million people in all were killed there, roughly one million of them Jews.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Soviet troops reached the camp on 27 January 1945, and the site became a Polish state museum by act of parliament in July 1947.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Auschwitz_concentration_camp": "Auschwitz was the largest Nazi German concentration camp, a complex built from 1940 on the edge of the town of Oświęcim in German-occupied Poland, and the only one that also contained a killing centre, at Birkenau.<sup class=\"fn\" data-fn=\"1\"></sup> Almost 1.1 million Jews were deported there from across Europe, most of them murdered in gas chambers on arrival, and about 1.1 million people in all were killed there, roughly one million of them Jews.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Soviet troops reached the camp on 27 January 1945, and the site became a Polish state museum by act of parliament in July 1947.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Resistance_during_World_War_II": "Resistance during the Second World War was the opposition of people under Axis occupation in Europe and Asia, ranging from underground newspapers, escape lines and intelligence work to sabotage, assassination and guerrilla war.<sup class=\"fn\" data-fn=\"1\"></sup> It was always the work of a minority, often split between rival groups, and occupiers answered it with harsh reprisals against civilians, such as the shooting of 100 hostages for every German killed in Serbia in 1941.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its direct military contribution to liberation is generally judged to have been small, although organised resistance did disrupt the German war machine on a small scale.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Normandy_landings": "The Normandy landings of 6 June 1944, known as D-Day, were the Allied seaborne and airborne assault on German-occupied France that opened Operation Overlord, the largest amphibious operation in history.<sup class=\"fn\" data-fn=\"1\"></sup> American, British and Canadian troops came ashore on five beaches codenamed Utah, Omaha, Gold, Juno and Sword, helped by deception plans that kept German reserves waiting for a second, larger landing elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> The battle for Normandy that followed lasted more than two months, from June into August 1944, and killed nearly 20,000 Norman civilians, most of them in Allied bombing of towns and communications.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Battle_of_the_Bulge": "The Battle of the Bulge was the German offensive launched through the Ardennes forest of Belgium and Luxembourg on 16 December 1944, Germany's last great attack on the Western Front.<sup class=\"fn\" data-fn=\"1\"></sup> Hitler aimed to reach the port of Antwerp and split the British from the Americans, but his armies were held at Saint-Vith, on the Elsenborn ridge and at Bastogne, and were driven back by late January 1945.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It cost the United States more dead than any other battle of the war, and between 2,000 and 2,500 Belgian civilians were killed, many of them by Allied bombing.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Berlin": "The Battle of Berlin was the final Soviet offensive of the Second World War in Europe, opened on 16 April 1945 against the Seelow Heights east of the city and ended with the surrender of Berlin's garrison on 2 May.<sup class=\"fn\" data-fn=\"1\"></sup> Soviet forces encircled the capital by 25 April, and Hitler killed himself in his bunker on 30 April while the Reichstag was being stormed nearby.<sup class=\"fn\" data-fn=\"1\"></sup> For the civilians who remained the conquest brought hunger, ruin and mass rape, with current research suggesting about 100,000 girls and women were raped by Soviet soldiers.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Atomic_bombings_of_Hiroshima_and_Nagasaki": "The atomic bombings of Hiroshima and Nagasaki were the American nuclear attacks on two Japanese cities on 6 and 9 August 1945, still the only use of nuclear weapons in war.<sup class=\"fn\" data-fn=\"3\"></sup> The number of dead can never be known exactly, and estimates for deaths within months run from 90,000 to 166,000 at Hiroshima and from 60,000 to 80,000 at Nagasaki.<sup class=\"fn\" data-fn=\"1\"></sup> Whether the bombings were needed to end the war has been argued over ever since, alongside the weight of the Soviet declaration of war and of Japan's own readiness to surrender.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7555,7 +7560,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "North_African_campaign": "1940–1943",
 "Second_Battle_of_El_Alamein": "1942",
 "The_Holocaust": "1933–1945",
-"Auschwitz_concentration_camp": "1940–1945"
+"Auschwitz_concentration_camp": "1940–1945",
+"Resistance_during_World_War_II": "1937–1945",
+"Normandy_landings": "1944",
+"Battle_of_the_Bulge": "1944–1945",
+"Battle_of_Berlin": "1945",
+"Atomic_bombings_of_Hiroshima_and_Nagasaki": "1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10344,7 +10354,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "North_African_campaign": ["Desert War","Western Desert campaign"],
 "Second_Battle_of_El_Alamein": ["El Alamein","Battle of El Alamein","Second Alamein"],
 "The_Holocaust": ["Holocaust","Shoah"],
-"Auschwitz_concentration_camp": ["Auschwitz","Auschwitz-Birkenau"]
+"Auschwitz_concentration_camp": ["Auschwitz","Auschwitz-Birkenau"],
+"Resistance_during_World_War_II": ["Resistance movements","Resistance movement"],
+"Normandy_landings": ["D-Day"],
+"Battle_of_the_Bulge": ["Ardennes Counteroffensive","Ardennes offensive"],
+"Battle_of_Berlin": ["Fall of Berlin"],
+"Atomic_bombings_of_Hiroshima_and_Nagasaki": ["Atomic bombing of Hiroshima","Atomic bombing of Nagasaki"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15291,7 +15306,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "North_African_campaign": ["war","history","warfare","africa","britain"],
 "Second_Battle_of_El_Alamein": ["battle","history","warfare","egypt","britain"],
 "The_Holocaust": ["event","history","genocide","germany","europe"],
-"Auschwitz_concentration_camp": ["place","history","genocide","poland","germany"]
+"Auschwitz_concentration_camp": ["place","history","genocide","poland","germany"],
+"Resistance_during_World_War_II": ["event","history","warfare","second world war","europe","asia"],
+"Normandy_landings": ["battle","history","warfare","second world war","france","europe"],
+"Battle_of_the_Bulge": ["battle","history","warfare","second world war","belgium","europe"],
+"Battle_of_Berlin": ["battle","history","warfare","second world war","germany","europe"],
+"Atomic_bombings_of_Hiroshima_and_Nagasaki": ["event","history","warfare","second world war","japan","asia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
