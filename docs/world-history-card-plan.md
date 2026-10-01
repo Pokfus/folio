@@ -1271,9 +1271,9 @@ else in the Americas.*
     wh-859  Latin America after independence  — written as *War of the Pacific* (glossary key `War_of_the_Pacific`)
     wh-860  Caudillo
     wh-861  Mexican Revolution
-    wh-862  Abolition of slavery in Brazil
+    wh-862  Abolition of slavery in Brazil  — written as *Lei Áurea* (glossary key `Lei_Áurea`, alias *Golden Law*)
     wh-863  Qajar Iran
-    wh-864  Modernisation of Siam
+    wh-864  Modernisation of Siam  — written as *Chulalongkorn* (glossary key `Chulalongkorn`), the reforms of his reign being the card's subject
     wh-865  Young Turk Revolution
     wh-866  Zionism
     wh-867  Gold standard

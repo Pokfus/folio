@@ -4843,7 +4843,12 @@ window.GLOSSARY = {
 "Armenian_genocide": "The Armenian genocide was the destruction of the Armenian Christians of the Ottoman Empire by the Young Turk government of the Committee of Union and Progress during the First World War, chiefly in 1915 and 1916.<sup class=\"fn\" data-fn=\"1\"></sup> After the arrest of Armenian leaders in Constantinople on 24 April 1915, communities across Anatolia were deported towards the deserts of Syria, and hundreds of thousands died in massacres or from starvation, thirst, exposure and disease.<sup class=\"fn\" data-fn=\"1\"></sup> Most scholars hold that the killings were genocide, a word coined in 1944, and estimates of the dead range from several hundred thousand to 1.5 million, but the Turkish state has long denied the genocide.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Arab_Revolt": "The Arab Revolt of 1916 to 1918 was a rising against Ottoman rule led by Sharif Hussein of Mecca with British support, whose aim was an independent Arab state with Hussein as its king.<sup class=\"fn\" data-fn=\"1\"></sup> British and French officers, among them T. E. Lawrence, worked with Hussein’s Hashemite family, and the rebels’ raids on the Hejaz railway cut Ottoman supply lines and tied down troops needed elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> Britain’s studiously vague wartime correspondence with Hussein seemed to promise Arab independence, so the post-war division of Syria and the growth of Jewish immigration into Palestine provoked lasting bitterness.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Sykes–Picot_Agreement": "The Sykes–Picot Agreement was a secret understanding of May 1916 between Britain and France, made with Russian consent, on dividing the Arab provinces of the Ottoman Empire after the First World War.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Named after the negotiators Sir Mark Sykes and François Georges-Picot, it gave France a blue zone and Britain a red zone to rule directly or indirectly, set aside areas for an Arab state or confederation, and reserved Palestine for international administration.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Made public in <i>Izvestia</i> by the Bolsheviks in November 1917, it shaped the post-war League of Nations mandates, although Mosul and Palestine, French and international under the 1916 plan, went to Britain.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Balfour_Declaration": "The Balfour Declaration was a letter of 2 November 1917 from the British foreign secretary, Arthur James Balfour, to Lord Rothschild, stating that the British government favoured the creation of a Jewish national home in Palestine.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It also undertook not to harm the civil and religious rights of Palestine’s existing non-Jewish communities or the rights of Jews in other countries, and it was written into Britain’s League of Nations mandate for Palestine, approved in 1922.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Issued for a mix of sympathetic and wartime motives, it became one of the documents that led to the State of Israel, while unsettling the position of the country’s non-Zionist population.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Balfour_Declaration": "The Balfour Declaration was a letter of 2 November 1917 from the British foreign secretary, Arthur James Balfour, to Lord Rothschild, stating that the British government favoured the creation of a Jewish national home in Palestine.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It also undertook not to harm the civil and religious rights of Palestine’s existing non-Jewish communities or the rights of Jews in other countries, and it was written into Britain’s League of Nations mandate for Palestine, approved in 1922.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Issued for a mix of sympathetic and wartime motives, it became one of the documents that led to the State of Israel, while unsettling the position of the country’s non-Zionist population.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Mexican_Revolution": "The Mexican Revolution was the period of risings, civil wars and reform that began in November 1910 against the long rule of Porfirio Díaz and ended in 1920, when Álvaro Obregón was elected president.<sup class=\"fn\" data-fn=\"1\"></sup> Its leaders, among them Francisco Madero, Emiliano Zapata, Pancho Villa and Venustiano Carranza, fought the old regime and then one another, while the United States sent troops into northern Mexico in 1916 and 1917.<sup class=\"fn\" data-fn=\"1\"></sup> Its Constitution of 1917 made the nation the owner of the land and of the resources beneath it, and one demographic study puts the revolution’s total human cost at about 2.1 million people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Lei_Áurea": "The Lei Áurea, or Golden Law, was the Brazilian law of 13 May 1888, signed by the princess imperial regent in the name of Emperor Pedro II, that declared slavery extinct in Brazil from that date and revoked every provision to the contrary.<sup class=\"fn\" data-fn=\"1\"></sup> It followed gradual measures such as the Free Womb Law of 1871 and the Sexagenarian Law of 1885, and it came after a broad abolitionist campaign in which Afro-Brazilian crowds took part and enslaved people seized their own freedom.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The law paid slave owners no compensation, and with it Brazil became the last country in the Americas to end legal slavery.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Qajar_Iran": "Qajar Iran was the Iranian state ruled from Tehran by the Qajar dynasty, which began when Agha Mohammad Qajar overcame the last Zand ruler in 1794 and ended when the Majlis abolished Qajar sovereignty in October 1925.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> During the 19th century it lost its Caucasian provinces to Russia in two wars and came under growing British and Russian commercial and political pressure.<sup class=\"fn\" data-fn=\"1\"></sup> Anger at concessions sold to foreigners fed the protests that forced the cancellation of a British tobacco monopoly granted in 1890 and the Constitutional Revolution that gave Iran an elected parliament, the Majlis, in 1906.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Chulalongkorn": "Chulalongkorn, also called Rama V, was king of Siam from 1868 to 1910 and the central figure in the kingdom’s modernisation in the late 19th century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Under his rule slavery was abolished in stages completed in 1905, the old labour service gave way to a head tax and conscription, functional ministries were planned, provincial government was centralised and the first railways were built.<sup class=\"fn\" data-fn=\"1\"></sup> His reign also saw Siam give up Laos to France in 1893 and four Malay states to Britain in 1909, while the kingdom survived as an independent buffer between British and French territory.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Young_Turk_Revolution": "The Young Turk Revolution was the rising of July 1908 in which army officers of the Committee of Union and Progress, strongest in Ottoman Macedonia, forced Sultan Abdülhamid II to restore the constitution of 1876, which had been suspended since 1878.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It brought elections and a new parliament, which opened in December 1908, and after a failed counter-revolution in April 1909 parliament deposed Abdülhamid in favour of his brother.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> The Committee took full power in a coup in January 1913, and the leaders who had risen through the revolution took the empire into the First World War in 1914.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7465,7 +7470,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Armenian_genocide": "1915–1916",
 "Arab_Revolt": "1916–1918",
 "Sykes–Picot_Agreement": "1916",
-"Balfour_Declaration": "1917"
+"Balfour_Declaration": "1917",
+"Mexican_Revolution": "1910–1920",
+"Lei_Áurea": "1888",
+"Qajar_Iran": "1794–1925",
+"Chulalongkorn": "1868–1910",
+"Young_Turk_Revolution": "1908"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10226,7 +10236,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "European_emigration": ["Age of Mass Migration"],
 "Eastern_Front_(World_War_I)": ["Eastern Front"],
 "Munitionette": ["munitionettes"],
-"Sykes–Picot_Agreement": ["Sykes-Picot Agreement"]
+"Sykes–Picot_Agreement": ["Sykes-Picot Agreement"],
+"Lei_Áurea": ["Golden Law"],
+"Chulalongkorn": ["Rama V"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15123,7 +15135,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Armenian_genocide": ["event","history","genocide","ottoman empire","armenia","20th century"],
 "Arab_Revolt": ["event","history","warfare","ottoman empire","middle east","20th century"],
 "Sykes–Picot_Agreement": ["event","history","diplomacy","middle east","britain","france","20th century"],
-"Balfour_Declaration": ["text","history","diplomacy","palestine","britain","20th century"]
+"Balfour_Declaration": ["text","history","diplomacy","palestine","britain","20th century"],
+"Mexican_Revolution": ["event","history","politics","mexico","20th century"],
+"Lei_Áurea": ["law","history","society","slavery","brazil","19th century"],
+"Qajar_Iran": ["state","history","politics","iran","19th century"],
+"Chulalongkorn": ["ruler","history","politics","thailand","19th century"],
+"Young_Turk_Revolution": ["event","history","politics","ottoman empire","20th century"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
