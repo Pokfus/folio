@@ -4882,7 +4882,12 @@ window.GLOSSARY = {
 "Constitution_of_the_Roman_Republic": "The constitution of the Roman Republic was the body of statutes, precedents and ancestral customs by which the Republic divided power among its annual magistrates, the Senate and the assemblies of the people, never gathered into a single written document.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Polybius, describing it as it stood during the war with Hannibal, held that the consuls, the Senate and the people each controlled part of the state and could each obstruct or support the others, so that no single element could dominate.<sup class=\"fn\" data-fn=\"3\"></sup> Its forms outlived the Republic itself, for Augustus claimed to have handed the state back to the Senate and the Roman people.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Senatus_consultum": "A senatus consultum was a decree of the Roman Senate, made when a presiding magistrate consulted the house and recorded with the date, the place of meeting and the names of the senators who witnessed its drafting.<sup class=\"fn\" data-fn=\"1\"></sup> Under the Roman Republic its legal force was debated and a tribune's veto could block it, but the jurist Gaius states that it had come to have the force of a statute.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> From the reign of Augustus such decrees increasingly took the place of laws voted by the people, and many were known by the name of the consul or emperor who proposed them.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Senatorial_order": "The senatorial order was the highest rank of Roman society, made up of senators and their families and set apart by dress and privilege, above all a tunic with a broad purple stripe, the latus clavus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Roman Republic seems to have set no fixed property threshold for it, but Augustus introduced one, which Cassius Dio puts first at 400,000 and later at one million sesterces.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In late antiquity the rank could pass by descent, come with high office at court or be granted by the emperor, and by the end of the 4th century the order had filled with newcomers.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Roman_assemblies": "The Roman assemblies, or comitia, were the formal meetings in which the citizens of Rome voted on what a presiding magistrate put to them, sharing the government of the state with the Senate and the magistrates.<sup class=\"fn\" data-fn=\"1\"></sup> The same citizens met in different groupings for different business, by curiae, by centuries graded by property or by local tribes, and each group cast one collective vote settled by the majority of its members.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius credits the people with electing magistrates, judging capital cases, passing or rejecting laws and deciding on war and peace, though an assembly could not itself propose or amend a measure.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Roman_assemblies": "The Roman assemblies, or comitia, were the formal meetings in which the citizens of Rome voted on what a presiding magistrate put to them, sharing the government of the state with the Senate and the magistrates.<sup class=\"fn\" data-fn=\"1\"></sup> The same citizens met in different groupings for different business, by curiae, by centuries graded by property or by local tribes, and each group cast one collective vote settled by the majority of its members.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius credits the people with electing magistrates, judging capital cases, passing or rejecting laws and deciding on war and peace, though an assembly could not itself propose or amend a measure.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Laeti": "The laeti were communities of barbarian origin settled on land in the late Roman Empire, chiefly in the Gallic provinces, under Roman prefects and liable in return to supply recruits to the Roman army.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A law of 400 counts the laetus among men liable to the levy, and the Notitia Dignitatum lists twelve prefects of laeti in Gaul over groups such as Franks, Batavians and Suebi.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> They are first explicitly attested in 296 or 297 CE, and one modern view traces the system back to freed prisoners of war resettled on new land.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Clibanarii": "The clibanarii were heavily armoured cavalry of the late Roman army, riders encased in iron whose horses were often armoured as well, used to break an enemy line by the weight of their charge.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Their name is usually explained from the Greek word for an oven, and Ammianus describes them as masked riders whose limbs were covered with thin, skilfully jointed iron plates.<sup class=\"fn\" data-fn=\"1\"></sup> An orator praising Constantine in 321 CE also calls such horsemen cataphracts, and the Notitia Dignitatum, a late Roman register of offices, lists eastern units of clibanarii and state factories making their armour.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Strategemata": "The <i>Strategemata</i>, or 'Stratagems', is a Latin collection of ruses used by past generals, compiled by Sextus Julius Frontinus in the late 1st century CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its preface explains that the examples, which the Greeks called strategemata, supplement an earlier work on military science, and it sorts them by situation into three books, on stratagems before battle, in battle and in sieges.<sup class=\"fn\" data-fn=\"1\"></sup> References to Domitian as a living emperor bearing a victory title date the first three books between 84 and 96 CE, while a fourth book on discipline has been judged the work of a later author.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Vegetius": "Vegetius, Publius Vegetius Renatus, was a late Roman civil official who wrote the <i>Epitoma rei militaris</i>, a four-book summary of military matters dedicated to an unnamed emperor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He was not a soldier and drew on earlier writers such as Cato the Censor, Cornelius Celsus, Frontinus and Paternus, urging a return to the drill and organisation of the old legion.<sup class=\"fn\" data-fn=\"2\"></sup> His work, written at some point between 383 and 450 CE, became the most widely read Western book of military theory before Clausewitz and survives in more than 300 manuscripts and translations.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Virtus": "Virtus, from the Latin 'vir', a man, was the Roman quality of manliness, above all courage and prowess in war, and in a wider sense excellence of character.<sup class=\"fn\" data-fn=\"1\"></sup> Roman writers credited it with the growth of their state, and Sallust says that in the early republic virtus had mastered everything, while the quality was also worshipped as a goddess beside Honos.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Modern scholars still disagree over whether the word first meant martial prowess alone and took on its ethical sense from Greek thought, or covered several kinds of excellence from the start.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7500,7 +7505,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Vigiles": "6 – 300 CE",
 "Roman_navy": "c. 260 BCE – 476 CE",
 "Augusta_Emerita": "from 25 BCE",
-"Vindolanda_tablets": "c. 85–130"
+"Vindolanda_tablets": "c. 85–130",
+"Laeti": "296–5th century",
+"Strategemata": "c. 84–96 CE",
+"Vegetius": "fl. 383–450 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10305,7 +10313,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Constitution_of_the_Roman_Republic": ["Roman constitution"],
 "Senatus_consultum": ["senatus consulta"],
 "Senatorial_order": ["ordo senatorius"],
-"Roman_assemblies": ["comitia"]
+"Roman_assemblies": ["comitia"],
+"Clibanarii": ["clibanarius"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15249,7 +15258,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Constitution_of_the_Roman_Republic": ["concept","politics","history","law","rome"],
 "Senatus_consultum": ["text","law","politics","rome"],
 "Senatorial_order": ["institution","history","society","rome"],
-"Roman_assemblies": ["institution","politics","history","rome"]
+"Roman_assemblies": ["institution","politics","history","rome"],
+"Laeti": ["people","warfare","history","rome","late antiquity"],
+"Clibanarii": ["institution","warfare","history","rome","late antiquity"],
+"Strategemata": ["text","warfare","literature","rome","classical"],
+"Vegetius": ["person","warfare","literature","rome","late antiquity"],
+"Virtus": ["concept","religion","history","rome","republic"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
