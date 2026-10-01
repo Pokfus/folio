@@ -1213,7 +1213,7 @@ else in the Americas.*
     wh-807  Austria-Hungary
     wh-808  Tanzimat
     wh-809  Crimean War
-    wh-810  Serfdom in Russia
+    wh-810  Serfdom in Russia  — written as the general term *serfdom* (glossary key `Serfdom`), its Russian case being the card's subject
     wh-811  Emancipation reform of 1861
     wh-812  American Civil War
     wh-813  Abraham Lincoln

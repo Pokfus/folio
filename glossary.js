@@ -4031,7 +4031,17 @@ window.GLOSSARY = {
 "Electrification": "Electrification is the replacement of other sources of light, heat and power by electric current drawn from central generating stations.<sup class=\"fn\" data-fn=\"1\"></sup> It became possible during the 1870s and 1880s, once efficient generators, a practical incandescent lamp and a means of transmitting current over distance had all been devised, and it spread through industry, transport and households together.<sup class=\"fn\" data-fn=\"1\"></sup> Because a generating plant is costly to build and cheap to run, supply tended towards a single undertaking for each area; central stations in the United States grew from 3,620 in 1902 to 5,221 ten years later.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Electrical_telegraph": "The electrical telegraph transmits messages by sending a current along a wire to deflect a needle or mark paper at the far end, and it was the first use of electricity to change ordinary commerce.<sup class=\"fn\" data-fn=\"1\"></sup> A British patent of 1837 covered a system in which five needles pointed out letters on a dial, while the system adopted in the United States used a single circuit and a code of dots and dashes.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Submarine cables followed, the Channel being crossed in 1851 by a line that worked for 37 years and the Atlantic in 1866, after which a message could reach another continent within hours rather than weeks.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Steamship": "A steamship is a sea-going vessel driven by a steam engine rather than by sail, a combination that became practical on long routes in the late 1830s.<sup class=\"fn\" data-fn=\"1\"></sup> Early vessels burned so much coal that little room was left for cargo, so they carried sails as well; a scheduled Atlantic mail service began in 1840 with wooden paddle boats making the crossing in about a fortnight.<sup class=\"fn\" data-fn=\"2\"></sup> The compound engine of the 1860s cut the coal needed for a given speed by more than half, which is what allowed long voyages under steam alone.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Suez_Canal": "The Suez Canal is a sea-level waterway about 160 kilometres (100 miles) long, joining the Mediterranean at Port Said to the Red Sea at the town of Suez and running almost due north through a chain of lakes and marshes.<sup class=\"fn\" data-fn=\"1\"></sup> The company that dug it was constituted in 1854 under a concession from the viceroy of Egypt, and the canal was opened to traffic on 17 November 1869.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In November 1875 the Khedive sold his holding of 176,602 shares to the British government for £4,000,000, and the shortened route to Asia ended the sailing ship's hold on the eastern trade.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Suez_Canal": "The Suez Canal is a sea-level waterway about 160 kilometres (100 miles) long, joining the Mediterranean at Port Said to the Red Sea at the town of Suez and running almost due north through a chain of lakes and marshes.<sup class=\"fn\" data-fn=\"1\"></sup> The company that dug it was constituted in 1854 under a concession from the viceroy of Egypt, and the canal was opened to traffic on 17 November 1869.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In November 1875 the Khedive sold his holding of 176,602 shares to the British government for £4,000,000, and the shortened route to Asia ended the sailing ship's hold on the eastern trade.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Austria-Hungary": "Austria-Hungary was the dual monarchy established in 1867, in which the Habsburg ruler reigned as emperor in one half and as king in the other, the two states sharing a sovereign, an army and a foreign policy. The Compromise of 1867 was, in Louis Eisenmann's words, the constitutive act of Austro-Hungarian dualism, and it followed the defeat of Austria by Prussia in the previous year.<sup class=\"fn\" data-fn=\"1\"></sup> It restored Hungary to full legal equality with the lands governed from Vienna while leaving it free to manage its own internal affairs, which made the treatment of the kingdom's other nationalities a permanent political problem.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Crimean_War": "The Crimean War was fought by Russia against an alliance of the Ottoman Empire, France, Britain and Sardinia, chiefly on the Crimean peninsula from which it takes its name. The allies besieged the naval base of Sevastopol, whose works included the Malakoff tower, and fought a costly battle on Mount Inkerman in November 1854.<sup class=\"fn\" data-fn=\"1\"></sup> A general treaty of peace signed at Paris on 30 March 1856 declared the integrity and independence of the Ottoman Empire, and a convention of the same day limited the naval forces permitted in the Black Sea.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Franco-Prussian_War": "The Franco-Prussian War was fought between the French Second Empire and a coalition of German states led by Prussia, and it ended both the empire that declared it and the division of Germany. The French northern army was manoeuvred away from Paris and the German command concentrated on Sedan, where that army surrendered with Napoleon III on 1 September 1870.<sup class=\"fn\" data-fn=\"1\"></sup> A preliminary peace concluded at Versailles imposed an indemnity of five thousand million francs, and the definitive treaty signed at Frankfurt on 10 May 1871 confirmed the transfer of Alsace and much of Lorraine to the new German Empire.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Giuseppe_Garibaldi": "Giuseppe Garibaldi was an Italian soldier and guerrilla commander whose volunteer forces played a decisive part in the creation of a united Italy, and whose name became one of the best known in 19th-century Europe. He was born at Nice on 4 July 1807 in a house on the sea-shore, went to sea young, and spent more than a decade fighting in South America before returning to Europe.<sup class=\"fn\" data-fn=\"1\"></sup> In May 1860 he landed at Marsala in western Sicily with about a thousand red-shirted volunteers, and the campaign that followed delivered the south to Victor Emmanuel II.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Nation_state": "A nation state is a political community whose borders are meant to coincide with those of a people who regard themselves as one, sharing a history and a wish to be governed together.<sup class=\"fn\" data-fn=\"1\"></sup> Nineteenth-century writers disagreed about what made such a people: John Stuart Mill traced the feeling above all to a common political history, while Ernest Renan called a nation a spiritual principle resting on a shared past and a consent renewed daily.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Because few territories hold one people alone, states built on the principle have generally contained minorities, and the distance between political and national boundaries has been a recurring source of conflict.",
+"Otto_von_Bismarck": "Otto von Bismarck was a Prussian statesman who served as minister-president of Prussia from 1862 and as chancellor of the German Empire from 1871 until 1890. He built the North German Confederation after the defeat of Austria, using the term without hesitation because he judged it impossible for the moment to include the southern German states.<sup class=\"fn\" data-fn=\"1\"></sup> In 1870 he issued a shortened version of a telegram from Ems whose effect, by his own account, came not from stronger words but from a form that made the announcement appear decisive.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Serfdom": "Serfdom is a condition of bondage in which a cultivator is tied to the land he works and owes labour, produce or money to the lord who holds it, and may not leave without permission. Widespread in medieval Europe and gone from most of the west by the end of the Middle Ages, it grew more severe in Russia instead, where it was ended only in 1861 by imperial decree.<sup class=\"fn\" data-fn=\"2\"></sup> At its height Russian landowners could sell serfs singly or with their families, move them from the fields into household service and alter their status at will, and the law left them no rights whatever.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Tanzimat": "The Tanzimat, meaning the reorganisation, was the period of Ottoman reform running from 1839 to 1876, during which the empire rebuilt its administration, its finances and its law on European models. It opened with an edict proclaimed at Gülhane which announced a regular and uniform system of taxation and of military conscription, and promised subjects of every religion security for their life, honour and fortune.<sup class=\"fn\" data-fn=\"1\"></sup> A second and wider edict, the imperial firman of 18 February 1856, was issued as the Crimean War was being settled and was referred to in the general treaty signed at Paris the following month.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Unification_of_Germany": "The unification of Germany was the gathering of the German states into a single empire between 1864 and 1871, carried through by Prussian arms and Prussian diplomacy. Central Europe had contained more than three hundred independent kingdoms, duchies, principalities and free cities in the 18th century, and the German Empire established in 1871 recognised the king of Prussia as German emperor.<sup class=\"fn\" data-fn=\"1\"></sup> The decisive intermediate step was the North German Confederation, formed after Prussia defeated Austria in 1866 and declared dissolved the Germanic Confederation that had held the German states loosely together since 1815.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Unification_of_Italy": "The unification of Italy, called the Risorgimento by contemporaries, was the process by which a peninsula divided among kingdoms, duchies and the lands of the Papal States became a single country between 1859 and 1870.<sup class=\"fn\" data-fn=\"3\"></sup> Most of it was gathered under the House of Savoy as the Kingdom of Italy in 1861, and the first Italian parliament met at Turin on 2 April of that year.<sup class=\"fn\" data-fn=\"1\"></sup> Venetia followed in 1866 and Rome in 1870, when troops entered through a breach near the Porta Pia, forty years after Mazzini had first pointed his followers towards the city.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -6170,7 +6180,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Electrification": "from the 1880s",
 "Electrical_telegraph": "from 1837",
 "Steamship": "from 1838",
-"Suez_Canal": "opened 1869"
+"Suez_Canal": "opened 1869",
+"Austria-Hungary": "1867–1918",
+"Crimean_War": "1853–1856",
+"Franco-Prussian_War": "1870–1871",
+"Giuseppe_Garibaldi": "4 July 1807 – 2 June 1882",
+"Otto_von_Bismarck": "1815–1898",
+"Tanzimat": "1839–1876",
+"Unification_of_Germany": "1864–1871",
+"Unification_of_Italy": "1859–1870"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -8556,7 +8574,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Socialism": ["socialist","socialists"],
 "Electrification": ["electrified"],
 "Electrical_telegraph": ["electric telegraph","telegraph"],
-"Steamship": ["steamships","steamer","steamers"]
+"Steamship": ["steamships","steamer","steamers"],
+"Austria-Hungary": ["Austro-Hungarian Empire","Dual Monarchy"],
+"Franco-Prussian_War": ["Franco-German War"],
+"Nation_state": ["nation-state"],
+"Serfdom": ["serfage"],
+"Tanzimat": ["Tanzimat reforms"],
+"Unification_of_Germany": ["German unification"],
+"Unification_of_Italy": ["Risorgimento","Italian unification"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -12631,7 +12656,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Electrification": ["concept","history","technology","science","economics"],
 "Electrical_telegraph": ["object","history","technology","engineering","europe"],
 "Steamship": ["object","history","technology","engineering","trade"],
-"Suez_Canal": ["place","history","technology","trade","egypt","africa"]
+"Suez_Canal": ["place","history","technology","trade","egypt","africa"],
+"Austria-Hungary": ["state","history","politics","austria","hungary"],
+"Crimean_War": ["event","history","warfare","diplomacy","russia"],
+"Franco-Prussian_War": ["event","history","warfare","france","germany"],
+"Giuseppe_Garibaldi": ["person","history","politics","warfare","italy"],
+"Nation_state": ["concept","politics","history","nationalism","state"],
+"Otto_von_Bismarck": ["person","history","politics","diplomacy","germany"],
+"Serfdom": ["institution","society","history","agriculture","law"],
+"Tanzimat": ["era","history","politics","law","turkey"],
+"Unification_of_Germany": ["event","history","politics","germany","europe"],
+"Unification_of_Italy": ["event","history","politics","italy","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
