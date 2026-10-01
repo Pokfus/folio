@@ -29,6 +29,8 @@ before changing the thing it names.
 
 | file | what it holds |
 |---|---|
+| `reference.md` | **The full CLAUDE.md of Sep 2026, moved here verbatim** (930 KB) when CLAUDE.md was cut to its rules to save tokens. Never read whole — grep it for a name. |
+| `card-authoring.md` | The complete, self-contained spec for writing a card and its glossary term, with a worked example — also the prompt pasted into ChatGPT; its output is loaded by `.claude/import-batch.js`. |
 | `atlas.md` | The globe's render path, the timeline, the eras, the place popup and the Find-it game. |
 | `library-feature.md` | The reading room — the shelf, the bilingual columns, the ink, the highlights, the per-book licence reasoning. |
 | `community-decks.md` | The nine phases of community decks, every guard, and the faults that shipped silently. |

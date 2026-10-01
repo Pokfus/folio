@@ -1017,6 +1017,301 @@ Peel marsh near Deurne: two different famous Dutch finds, and a caption cannot b
 contradiction. **`rm-445` has no locator either** — Tacitus does not name Rhandeia and the Loeb note calls
 the exact site of the camp doubtful, so there is no coordinate to fetch that would not be an assertion.
 
+## `rm-571`–`rm-580`: Diocletian's tax system to the Edict of Milan — what this batch found
+
+- **Four lines are answered by a concrete term rather than their own wording.** `rm-571` *Diocletian's tax
+  reform* is **capitatio-iugatio**, keyed on the real article title `Capitatio-Iugatio`. **Indiction was
+  refused**: it is also the Byzantine dating cycle, and two `ru-` cards already write "fifteenth indiction,
+  911", so a term claiming that bare word would link them to a Diocletianic tax card. `rm-574` *the
+  abdication of Diocletian* is **Galerius**, the Caesar who became Augustus on 1 May 305 and who, per
+  Lactantius, pressed for the retirement. `rm-576` *the collapse of the Tetrarchy* is the **Conference of
+  Carnuntum**, the moment the collapse became visible. `rm-579` *the conversion of Constantine* is the
+  **labarum**, the object both accounts of the vision end in.
+- **Constantine_the_Great already existed** (written for World History), so `rm-577` reuses it untouched and
+  tells the reign as a career. The conversion, the Milvian Bridge, Licinius and Constantinople are left to
+  their own cards, and `wh-372`'s milestone narrative is not repeated.
+- **Two carefully narrow aliases.** Bare "Milvian Bridge" is NOT claimed by the battle term, because `rm-173`
+  and `rm-322` use the phrase for the bridge itself; the alias is "battle at the Milvian Bridge". Bare
+  "Carnuntum" is NOT claimed by the conference term, because several Marcus Aurelius and Severan cards name
+  the place; the alias is "conference at Carnuntum". The palace term claims no bare "Split".
+- **`rm-580` says in words that the Edict of Milan was neither an edict nor issued at Milan.** It was a letter
+  to a governor that Licinius published at Nicomedia on 13 June 313, and the word *edictum* is traced to a
+  16th-century Latin translation of Eusebius. The card's picture is that 1570 page.
+- **Two dates are assembled from two sources, and the cards say only what both carry.** The toleration edict of
+  30 April 311 takes its day from Lactantius and its year from the *De Imperatoribus Romanis* entry. The battle
+  of 28 October 312 rests on a 2018 article, and Lactantius's "sixth of the kalends of November" is given
+  beside it rather than converted by hand.
+- **One wrong auto-link was fixed before shipping.** "settlement" in `rm-576` claimed the generic Settlement
+  term; it now reads "arrangement". Other traps were avoided in drafting: bare "Palestine", "Helena",
+  "Persians" and "Socrates" each link something else.
+- **Lactantius and Sozomen are not in `check-cards.js`'s ANCIENT list.** Neither is cited three times on one
+  card, so nothing fires. Add them the first time one is.
+- `rm-571` carries no picture and no locator, with its reason recorded: no Commons file depicts a tax
+  assessment, and there is nowhere to stand. `rm-579` carries no locator, because Eusebius names no place for
+  the vision.
+
+## `rm-561`–`rm-570`: the Palmyrene Empire to the Roman diocese — what this batch found
+
+`rm-561`–`rm-565` close `rm-third-century` and `rm-566`–`rm-570` open `rm-dominate`, with nine new glossary
+terms. **Two lines are answered by a term they do not contain**: `rm-565` *The recovery of the empire* by
+**`Probus`**, the reign that followed Aurelian's and the one Eutropius credits with recovering Gaul (Claudius
+Gothicus reigned before Aurelian, so he would sit out of order, and writing him means the bare word
+*Claudius*, which links the Julio-Claudian); and `rm-569` *Diocletian's provincial reform* by **`Laterculus
+Veronensis`**, the Verona List through which the reform is known. `rm-566` *Diocletian* **needed no new
+term**: `Diocletian` was already `wh-371`'s, and this card is written as that one's deliberate pair, taking
+his rise, acclamation and self-presentation and leaving each of the reforms to its own card.
+
+**THE SURFACE CHECK FOUND TWO MORE SHIPPED CARDS A NEW TERM WOULD HAVE CLAIMED.** `Zenobia` would have
+linked *Zenobia Jacobs*, the luminescence dater, in `wh-059`'s prose, and `Aurelian` would have linked
+Cicero's *Aurelian* — the Via Aurelia — in `rm-173`. Both sentences were reworded in the same commit, the
+first by dropping the modern names, which the historiography rule wanted anyway. The citations naming
+Jacobs are not auto-linked and were left alone. **The check is now standing practice: grep the corpus for a
+new term's bare surface before adding it.**
+
+**TWO TERMS ARE `caseSensitive` BECAUSE THEIR WORDS ARE ORDINARY.** `Dominate` shares its spelling with a
+verb the corpus uses 63 times in lower case; `Tetrarchy` with the Galatian *tetrarchs* of Strabo and
+Deiotarus, which are a different office and all lower case. `Roman_diocese` claims no bare *diocese*, every
+lower-case use in the corpus being a church diocese. `Probus_(emperor)` takes the parenthetical key and a
+bare `Probus` alias, the one bare *Probus* in the corpus being the emperor; a later Petronius Probus will
+need that alias narrowed.
+
+**The `rm-567`/`rm-568` drafting agent was cut off before verifying its sources**, and a second agent
+verified every marked sentence before the cards shipped. It confirmed the Panegyric of 291 is III in
+Baehrens's 1874 numbering (XI in the manuscript order), and it took the bare *Caesar* and *Augustus* out of
+the Tetrarchy prose, which would have linked Julius Caesar and the first emperor. `rm-568` is a card about a
+modern label and says so in its first sentence; it names no modern scholar. The Aurelian card carries no
+locator, a Rome dot adding nothing to an emperor, and the Verona List's was dropped, Verona being where the
+manuscript is rather than where the reform happened.
+
+## `rm-551`–`rm-560`: Maximinus Thrax to Postumus — what this batch found
+
+All ten are in `rm-third-century`, with ten new glossary terms. **Four lines are answered by a term they do
+not contain**, each a PROCESS line wanting the concrete thing it was about: `rm-552` *The soldier emperors*
+by **`Philip the Arab`**, a prefect made emperor by a hungry army and brought down by the army that
+proclaimed his own general; `rm-556` *The Gothic invasions of the third century* by **`Battle of Abritus`**,
+where Decius died in 251 (`Goths` was already a cited term and was left untouched); `rm-557` *Debasement*
+by **`antoninianus`**, the coin whose falling silver IS the debasement, `Denarius` being `rm-748`'s; and
+`rm-558` *Third-century inflation* by **`Aurelian's coinage reform`**, which has no English Wikipedia
+article, so the key is the slug form of the term. Neither "debasement" nor "inflation" was keyed as a bare
+glossary term — the Economics collection owns the generic senses. `rm-555` *The capture of Valerian* is
+answered by **`Valerian`** rather than the Battle of Edessa, because the sources do not agree the capture
+was a battle at all.
+
+**A NEW TERM CAN CLAIM A NAME THAT BELONGS TO SOMEBODY ELSE ON A SHIPPED CARD.** `Postumus` claims the bare
+surface, which is right for the emperor, whom it names on nearly every mention in the corpus — and wrong on
+`rm-100` and `rm-107`, where "Postumus Cominius" is the consul of 493 BCE. Longest-match keeps *Agrippa
+Postumus* with his own term, and a parenthetical key would have denied the emperor his own surface, so the
+two consul sentences were reworded to name him *Cominius*. **Grep the whole corpus for a new term's bare
+surface before shipping it**; `glossOff` is an admin-overlay list and cannot protect shipped prose.
+
+**`Valerian_(emperor)` is keyed with the parenthetical and carries the bare `Valerian` as an alias with
+`caseSensitive`**, lower-case *valerian* being the plant. Its capture is written *259 or 260 CE* on both
+`rm-554` and `rm-555`, the two cards having first disagreed. `Sasanian_Empire` is written deck-agnostic,
+the Mesopotamia and Architecture collections both being due to reach it; `Shapur_I` does not claim bare
+*Shapur*, which Shapur II will need, and `Maximinus_Thrax` does not claim bare *Maximinus*, for Maximinus
+Daza.
+
+**`aurelius victor` and `shapur i` joined `check-cards.js`'s `ANCIENT` list**, the drop set being exactly
+this batch's two cards; card-focus had read *Victor* and *Shapur* as modern researchers. Two
+`SAME_LANGUAGE_OK` rows were declared for `rm-559` and `rm-560`, whose coin chronology is French numismatics
+in the *Revue numismatique*. Dio stops in 229, so from 235 the cards rest on Herodian, Zosimus in the 1814
+translation, Eutropius, the *Historia Augusta*, Lactantius, Jordanes, Aurelius Victor **in Latin** (no
+public-domain English translation was found) and Sprengling's 1953 translation of Shapur's own inscription.
+`rm-556` has only one modern source, in Russian, and nothing openable gives the price jump of about 274, so
+`rm-558` hedges that the inflation evidence rests on Egyptian papyri and states no figure for it.
+
+## `rm-541`–`rm-550`: the Severan army to the crisis of the third century — what this batch found
+
+All ten are in `rm-third-century`, with nine new glossary terms. **Three lines are answered by a term they
+do not contain**: `rm-541` *Severan military reform* by **`Legio II Parthica`**, the legion quartered on the
+Alban Mount being the one reform Dio describes in concrete terms, not a paraphrase of the policy; `rm-543` *Severus in Britain* by
+**`Eboracum`**, where the court sat from 208 and Severus died in 211; and `rm-549` *The end of the Severan
+dynasty* by **`Julia Mamaea`**, whose murder with her son in 235 is the end. `rm-550` *Crisis of the Third
+Century* needed **no new term**: `Crisis_of_the_Third_Century` was already `wh-370`'s, cited, and was reused
+untouched.
+
+**Neither Dio nor Herodian names Eboracum.** The Severan court's residence there rests on the *Historia
+Augusta*, Eutropius, the rescript of 5 May 210 and the RCHME and VCH surveys, and the card says which. The
+two surveys disagree on Constantius's death, 305 against 306, and the card follows RCHME's 306.
+
+**Two locators were refused.** `rm-549` would have put Mamaea's death at Mogontiacum, which rests on an
+editor's footnote rather than on any ancient source the card cites. `rm-545` carries no locator either,
+the grant applying across the empire and its papyrus being of unknown provenance. The papyrus's
+publication year was also dropped from `rm-545`'s date line, a modern event on a card about 212.
+
+**The wrong-link traps met this time**, each avoided in the prose rather than keyed: *Marcus Aurelius
+Antoninus*, Caracalla's official name, links the earlier emperor, so the card says *Antoninus*; bare
+*Carrhae* links the battle of 53 BCE; the legate *Claudius Hieronymianus* would link the emperor Claudius;
+*Julia Augusta*, Dio's name for Julia Domna, is already an alias of Livia's term; and *sophists* links the
+Greek term, so the card says "men of learning". The **Syria** and **Greece** country terms still take the
+adjectives *Syrian* and *Greek*, which is how 174 shipped Rome cards already link.
+
+Several dates rest on Magie's Loeb notes to the *Historia Augusta*, and Herodian is cited by the page
+numbers of Hart's 1749 translation, read off the scans. **No figure for the Alexandrian massacre of 215–216
+is given**, Dio giving none. **Legio II Parthica's founding is dated "c. 197" and hedged as "probably"**,
+the year resting on one paper. Commons rate-limited the picture fetches heavily throughout, and two glossary
+pictures are the 960px thumbnail for that reason.
+
+## `rm-531`–`rm-540`: the equestrian career to the Battle of Lugdunum — what this batch found
+
+`rm-531`–`rm-535` close `rm-high-empire` and `rm-536`–`rm-540` open `rm-third-century`, with eleven new
+glossary terms. **Six lines are answered by a term they do not contain**: `rm-531` *The equestrian career*
+by **`procurator`** (`Equestrian_order` being `rm-287`'s), `rm-532` *The emperor and the cities* by
+**`curator rei publicae`** (no English Wikipedia article exists, so the key is the slug form of the term),
+`rm-533` *Panegyric and the ideal emperor* by **`Dio Chrysostom`** (Pliny's *Panegyricus* still has no
+public-domain English translation reachable from here, where Cohoon's Loeb Dio is on Thayer), `rm-534` *The
+economy of the high empire* by **`Monte Testaccio`**, `rm-535` *Rome at its height* by **`Forma Urbis
+Romae`**, and `rm-540` *The civil wars of 193–197* by **`Battle of Lugdunum`**. `Lugdunum` the city stays
+`rm-760`'s and no city term was made.
+
+**THE PESCENNIUS NIGER TRAP, AND A TERM TO CLOSE IT.** `Niger` is the glossary key of the modern country,
+so "Pescennius Niger" linked its second word there; a `Pescennius_Niger` term now wins on the full name.
+**Never write him bare.** The same batch found **"Year of the Five Emperors" linking to the Chinese
+`Three_Sovereigns_and_Five_Emperors`** until its own term existed, **"Claudius Pompeianus" linking the
+emperor Claudius**, and **the Roman provinces of Germany linking the modern country** — written now as
+*Germania* and *Germania Inferior*, which claim no surface.
+
+**`dio chrysostom` joined `check-cards.js`'s `ANCIENT` list**, the drop set being this batch's two cards;
+the agent had held him to two citations of his own speeches to stay under the modern-author cap. `rm-534`
+carries two Spanish sources, the Barcelona team that excavates the hill publishing in Spanish, and rule 6 did
+not fire on it, so no `SAME_LANGUAGE_OK` row was needed.
+
+**No figure for the total number of amphorae in Monte Testaccio could be sourced** — the popular "53
+million" appears in nothing openable from here, the CEIPAC site answering 404 — so the card gives none.
+Several of the 193 dates come from Magie's Loeb notes, Herodian is cited by Hart's 1749 page numbers where
+that edition prints no chapters, and the Commons upload host returned 429 for the Albinus denarius on
+`rm-540` throughout the final check (its address was read from the API).
+
+## `rm-521`–`rm-530`: the Aurelian Column to the emperor's council — what this batch found
+
+All ten are in `rm-high-empire`. **Six lines are answered by a term they do not contain**, and the reason
+is that four later lines already hold the obvious answer: `rm-650` is the military diploma, `rm-738` the
+imperial rescripts, `rm-764` Leptis Magna and `rm-545` the Antonine Constitution. So `rm-523` *Commodus in
+the arena* is answered by **`secutor`**, the gladiator type he fought as; `rm-524` *The assassination of
+Commodus* by **`Marcia`**, who organised it (keyed `Marcia_(mistress_of_Commodus)`, with the narrow alias
+*concubine Marcia* only — a bare alias would have linked World History's sentence on the Aqua Marcia and
+three citations of a living scholar); `rm-526` *The prosperity of the second century* by **`Herodes
+Atticus`**; `rm-527` *The cities of the high empire* by **`Timgad`**; `rm-529` *Roman citizenship in the
+second century* by **`honestiores`** (key `Honestiores_and_humiliores`), the legal line that came to
+matter more than citizenship; and `rm-530` *Imperial administration under the Antonines* by **`consilium
+principis`**. **The plan's own lines are unchanged.**
+
+**`rm-525 Pax Romana` is a deliberate pair with `wh-359`** and reuses `Pax_Romana`; it shares no citation
+with the World History card, taking the Janus gate from Suetonius, Calgacus from a different translation,
+and building the rest on Pliny's phrase and Aelius Aristides' *To Rome*.
+
+**A SECOND WRONG LINK OF THE `Historia Augusta` KIND WAS CAUGHT BEFORE IT SHIPPED**: "Aelius Aristides"
+would have linked its second word to **Aristides the Just**, the fifth-century Athenian. The fix was again a
+term, `Aelius_Aristides`, whose longer surface wins. **Ask of every two-word name whether its last word is
+already somebody else's glossary term.** `Philostratus`, `Herodian` and `Aelius Aristides` also joined
+`check-cards.js`'s `ANCIENT` list, the drop set being this batch's four cards and nothing else.
+
+**Two pictures were declined.** `rm-524`'s draft carried Pelez's *La Mort de Commode* of 1879 — an
+imagining that does not depict its subject, refused on the Antonine Plague's reasoning — and no reliable
+portrait of Marcia exists. `rm-527` first carried Cagnat in three of five sources, over the two-per-author
+cap; one citation was merged and a milestone of 100 CE naming Trajan's legate (Dessau, *ILS* 284) added.
+Several dates rest on Magie's Loeb notes rather than the ancient text (Cleander's fall, Lucilla's plot), and
+Commodus's birth year of 161 CE is derived from the consular date and Dio's length of life.
+
+## `rm-512`–`rm-520`: Aelia Capitolina to the *Meditations* — what this batch found
+
+All nine are in `rm-high-empire`, each with a new glossary term. **One line is answered by a term it does
+not contain**: `rm-515` *Marcus Aurelius* is answered by **`Avidius Cassius`**, on `ww2-133`'s rule —
+`Marcus_Aurelius` has been a cited term, with its own World History card `wh-369`, since long before this
+batch, so the line had no term of its own left to teach. The usurpation of 175 CE is the moment the reign
+is remembered by. `rm-517`'s answer carries **en dashes** (`Roman–Parthian War of 161–166`), matching the
+slug; the hyphenated spelling is an alias, and `normAnswer` strips both when grading.
+
+**TWO ANCIENT WRITERS WERE MISSING FROM `check-cards.js`'s `ANCIENT` LIST, and the drop set was measured.**
+`rm-520` cites the *Meditations* by its author three times and was reported OVER-CITED as a modern scholar;
+`rm-512` quotes Justin Martyr in a question and `card-focus.js` reported **Martyr** as a researcher, the
+list's bare `justin` covering only part of the name. `marcus aurelius` and `justin martyr` now lead the
+alternation. Measured over the whole corpus, the change moves exactly these two findings and `wh-369`
+(whose Marcus quotation had been read as a scholar's), and rule 1 still fires on three other cards.
+
+**Two cards carry no picture, each for a stated reason.** Commons holds no portrait, coin or inscription of
+**Avidius Cassius**, whose category is a single map; and nothing from the period shows the **Antonine
+Plague**, the one ready candidate being a painting of about 1871 and the other a plaque whose link to the
+plague is only an uploader's caption. A 19th-century imagining was judged worse than no picture.
+
+**`rm-520` carries the collection's first `card.quote` from the Library** — *Meditations* 1.7, Rusticus and
+the *Memoirs of Epictetus* — checked word for word against `books/marcus-aurelius-meditations.js`. 2.1 was
+not used, `wh-369` already quoting it. **`Meditations` is `caseSensitive`**, the ordinary word occurring in
+the corpus in a Buddhist sense, and the Philosophy collection's later Descartes card must take its own
+full-title key.
+
+Four wrong links were found by reading the rendered cards and reworded away: "Lucius Aelius **Caesar**"
+linked the dictator, "the **German** provinces" linked the modern country, "all **Asia**" the continent and
+the bare legion name "Second **Augusta**" the capital of Maine. **Two sources were cited from their abstract
+alone** (Mittag's *Electrum* article on the 900th anniversary, and the Starinar paper on the cult of
+Antinous in the previous batch) and each carries one sentence paraphrasing what that abstract says. Most
+dates for the Parthian war and Verus's career come from Magie's Loeb notes rather than the ancient text, and
+a Serbian paper of 2023 (Vukadinović and Tošović) is the only modern source for both the war and Avidius
+Cassius — no open English work on either was found.
+
+## `rm-502`–`rm-511`: the empire at its widest to the Bar Kokhba revolt — what this batch found
+
+All ten are in `rm-high-empire` and carry Hadrian's reign. **Four lines are answered by a term the line
+does not contain**, and each for a reason already in this file. `rm-502` *The greatest extent of the Roman
+Empire* is a description, so it is answered by **`Arabia Petraea`**, annexed in 106 CE and the one part of
+Trajan's expansion Hadrian kept. `rm-504` *Hadrian's abandonment of the eastern conquests* had been spent
+by `rm-501`, which already tells the withdrawal, so it is answered by **`Parthamaspates`**, the client king
+the abandonment turned on (key `Parthamaspates_of_Parthia`, the real slug). `rm-505` *Hadrian's travels*
+is answered by **`Panhellenion`**, the league the travels founded. And `rm-507` *Hadrian's frontier
+policy* is answered by **`Lambaesis`**, because `rm-752` is *Limes*: the policy is told through the
+inscribed address to the African army of 1 July 128 CE. **The plan's own lines are unchanged.**
+
+**`rm-506 Hadrian's Wall` is a deliberate pair with `wh-368`**, which already holds the answer term and
+the glossary entry `Hadrians_Wall`. The World History card is built from the building inscriptions; this
+one is the design, the change of plan, the argument over purpose, the Antonine interlude and the end, and
+the two share no source.
+
+**`Pantheon,_Rome` is `caseSensitive`**, keyed on the real slug with `Pantheon` as its alias: the ordinary
+word "pantheon" (a people's gods) occurs about 20 times in the corpus and must not link to a building in
+Rome. **`Hadrian` had no glossary term at all until this batch**, which is why every earlier card naming
+him linked nothing.
+
+**A LONG-STANDING WRONG LINK WAS FOUND HERE: "<i>Historia Augusta</i>" auto-linked its second word to
+`Augusta`, the capital of Maine.** Fifteen Rome passages cite or name the work. The fix is a new term,
+`Historia_Augusta`, whose two-word surface wins because `buildGlossIndex` sorts longest-first — the
+`Sarmizegetusa_Regia` lesson from `rm-496` again. It was seen only by reading the rendered links in a
+browser. **The bare `Augusta` (an empress's title) will still link to Maine** where a card uses it alone.
+
+Findings about sources. **Encyclopaedia Iranica, UNESCO's World Heritage pages, `villae.cultura.gov.it`,
+`degruyter.com` and the SpringerOpen article pages all refused from here**, and DOAJ answered 502 during
+the batch. The Panhellenion rests on Dio, the *Historia Augusta*, Pausanias and two out-of-copyright
+biographies of Hadrian (Gregorovius 1898, Henderson 1923), no open modern article being readable; its
+founding year is inferred from the Olympieion's dedication and the card says so. `rm-511` leans on the
+ERC *Judaism and Rome* database for four of its seven sources, by three different authors. `rm-503`'s
+birth and death days are derived: 24 January 76 CE from the consular date in *Historia Augusta* 1.3 and
+10 July 138 CE from 25.6.
+
+## `rm-501`: Trajan's Parthian campaign — what this card found
+
+One card, in `rm-high-empire`, answered by the plan's own words, with a new glossary term
+`Trajan's_Parthian_campaign`. `Crassus_Parthian_campaign` already claims the bare alias
+`Parthian campaign`; the new key's longer surface wins wherever the full phrase appears, so the
+two do not collide.
+
+**It carries NO war block, deliberately.** The block says who won, and this war's outcome is the
+card's own subject: Ctesiphon fell and three provinces were made, then the conquests revolted,
+Hatra held out and Hadrian gave everything beyond the Euphrates back. A green Rome over
+Mesopotamia would state a victory the card spends five sentences taking apart.
+
+**The two ancient accounts disagree about Parthamasiris and the card says so**: Dio 68.20 has
+him sent away under escort, Eutropius 8.3 has him put to death. Neither is preferred.
+
+**The modern source is in Russian** — V. N. Parfyonov's 2025 article in the *RUDN Journal of World
+History*, open access and read whole — and is cited under the English title the journal itself
+publishes and Crossref holds, with a `[in Russian]` chip, so `check-citations.js` can match it.
+It carries the Armenian background since the settlement of 63 CE, the Parthian civil war, the
+surrender of Ctesiphon in 116 CE and the reading of Eutropius's "Red Sea" as the Persian Gulf.
+**Two hosts refused**: `iranicaonline.org` answers 403 on every article, and the Aristonothos
+paper on the Antioch earthquake of 115 CE (`riviste.unimi.it`) reset the connection.
+
+The card's picture is the REX PARTHIS DATVS sestertius of 116–117 CE and the term's the REGNA
+ADSIGNATA aureus, both CNG photographs on Commons; the locator is Ctesiphon.
+
 ## `rm-491`-`rm-500`: Nerva to the alimenta — what this batch found
 
 All ten are in `rm-high-empire`, and they carry the collection from the murder of Domitian to Trajan's

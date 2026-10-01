@@ -48,7 +48,7 @@ const check = (name, ok, extra) => {
 // a card record that is neither new nor due — just enough history to be past the first-run hero
 const done = () => ({ reps: 1, lapses: 0, ease: 2.5, interval: 9, due: Date.now() + 9 * 864e5, status: "review", last: Date.now() - 864e5, first: "2026-01-01" });
 const SETTINGS = {
-  night: false, theme: "folio", fontSize: "medium", newPerDay: 5, bgCollapsed: false, trCollapsed: true,
+  night: false, theme: "folio", fontSize: "medium", newPerDay: 5, limitsCustom: true, bgCollapsed: false, trCollapsed: true,
   srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: false, tts: false,
   ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 },
 };
