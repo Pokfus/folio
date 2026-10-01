@@ -4831,7 +4831,11 @@ window.GLOSSARY = {
 "Dilectus": "The dilectus was the Roman military levy, the procedure by which men were selected and enrolled for service in the legions.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius describes the Republican form, in which citizens of military age assembled on the Capitol each year and the military tribunes chose recruits tribe by tribe, taking young men in batches of four of similar age and build.<sup class=\"fn\" data-fn=\"1\"></sup> Under the emperors levies were held in the provinces to supplement volunteers, and by the late 4th century the levy owed by each province every year could be paid instead in gold.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Sacramentum_(oath)": "The sacramentum was the oath sworn by Roman soldiers on enlistment, binding each man to obey his commander and carry out his orders.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius describes one chosen man swearing it in full and every other recruit then swearing to do the same, and Livy places in the levy before Cannae the first oath administered formally by the military tribunes.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Under the emperors it was sworn to the emperor and renewed on occasions such as the anniversary of his accession, and in the late Roman form recorded by Vegetius it invoked God, Christ and the Holy Spirit.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Legionary_pay": "Legionary pay was the regular wage of the Roman citizen soldier, under the emperors paid in three instalments a year on the first of January, May and September.<sup class=\"fn\" data-fn=\"1\"></sup> The only secure literary figure is for the common legionary of the 1st century CE, 300 sesterces an instalment or 900 a year, a rate raised by a quarter under Domitian and again under later emperors.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> In the 4th century the instalments continued at rates that are not known, while payments in kind and imperial donatives made up a growing share of what soldiers received.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Roman_military_diploma": "A Roman military diploma was a pair of inscribed bronze tablets certifying that a soldier had been granted Roman citizenship and the right of legal marriage by the emperor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Each was a private copy of a general imperial grant posted at Rome, issued to auxiliaries, sailors of the fleets and men of the praetorian and urban cohorts, normally on discharge after a fixed term such as 25 years.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Auxiliary diplomas disappear after 203 CE, and after the grant of citizenship to nearly all free inhabitants in 212 they were issued only to the guard units and the Italian fleets.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Roman_military_diploma": "A Roman military diploma was a pair of inscribed bronze tablets certifying that a soldier had been granted Roman citizenship and the right of legal marriage by the emperor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Each was a private copy of a general imperial grant posted at Rome, issued to auxiliaries, sailors of the fleets and men of the praetorian and urban cohorts, normally on discharge after a fixed term such as 25 years.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Auxiliary diplomas disappear after 203 CE, and after the grant of citizenship to nearly all free inhabitants in 212 they were issued only to the guard units and the Italian fleets.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Ostrogothic_Kingdom": "The Ostrogothic Kingdom was the state ruled by Theoderic and his successors in Italy from 493 CE, after Theoderic, sent west by the eastern emperor Zeno, had besieged Odoacer in Ravenna and killed him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Theoderic promised the Roman senate and people to keep whatever earlier emperors had decreed, and letters written in his name called his rule an imitation of the emperor's.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> After his death in 526 the regency of his daughter Amalasuntha and her killing under her cousin Theodahad gave Justinian the occasion for a war, begun in 535, that ended Gothic rule in Italy by 553.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Gothic_War_(535–554)": "The Gothic War was the war fought from 535 to 552 CE in which the eastern emperor Justinian took Italy from the Ostrogothic kingdom, after the murder of the Gothic queen Amalasuntha gave him a pretext.<sup class=\"fn\" data-fn=\"1\"></sup> Belisarius took Sicily, Rome and in 540 Ravenna, but the Goths recovered under Totila until the eunuch Narses defeated him at Busta Gallorum in 552 and the last Gothic forces agreed to leave Italy.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The fighting left Italy ruined and Rome repeatedly captured, the Roman senate ceased to matter as a body, and the Lombards took much of the peninsula from 568.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Historiography_of_the_fall_of_the_Western_Roman_Empire": "The historiography of the fall of the Western Roman Empire is the debate over why Roman rule in the west came to an end, carried on from the 5th century to the present without agreement.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its first explanations were religious: pagans blamed the neglect of the old gods, Orosius answered them at Augustine's request, and the historian Zosimus traced the ruin to the ending of public sacrifices.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Later writers have stressed in turn immoderate greatness, the influence of Christianity, barbarian invasion, the collapse of the tax base, and a gradual transformation of the ancient world rather than its end.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Legacy_of_the_Roman_Empire": "The legacy of the Roman Empire is the body of languages, law, religious institutions and political ideas that outlived Roman rule in the west and in the east.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Spoken Latin developed into the Romance languages, and the Roman church preserved Justinian's compilation of Roman law in Italy through the Middle Ages.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The claim to be Rome itself was made by the eastern empire, whose people called themselves Romans until 1453, by the western emperors crowned from Charlemagne in 800 until 1806, and by Muscovite writers of the 16th century who called their own realm a third Rome.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7440,7 +7444,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_the_Catalaunian_Plains": "451 CE",
 "Sack_of_Rome_(455)": "455 CE",
 "Ricimer": "d. 472 CE",
-"Odoacer": "d. 493 CE"
+"Odoacer": "d. 493 CE",
+"Ostrogothic_Kingdom": "493–553 CE",
+"Gothic_War_(535–554)": "535–552 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -10217,7 +10223,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sack_of_Rome_(455)": ["Vandal sack of Rome","sack of Rome in 455"],
 "Odoacer": ["Odovacar"],
 "Sacramentum_(oath)": ["sacramentum"],
-"Roman_military_diploma": ["military diploma"]
+"Roman_military_diploma": ["military diploma"],
+"Gothic_War_(535–554)": ["Gothic War"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -10269,7 +10276,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Tetrarchy": true,
 "Dominate": true,
 "Julian's_School_Edict": true,
-"The_City_of_God": true
+"The_City_of_God": true,
+"Gothic_War_(535–554)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -15104,7 +15112,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Dilectus": ["practice","institution","warfare","history","rome","classical"],
 "Sacramentum_(oath)": ["practice","religion","warfare","history","rome","classical"],
 "Legionary_pay": ["institution","warfare","economics","history","rome","classical"],
-"Roman_military_diploma": ["object","text","warfare","law","history","rome","classical"]
+"Roman_military_diploma": ["object","text","warfare","law","history","rome","classical"],
+"Ostrogothic_Kingdom": ["state","history","politics","rome","italy"],
+"Gothic_War_(535–554)": ["war","history","warfare","rome","italy"],
+"Historiography_of_the_fall_of_the_Western_Roman_Empire": ["concept","history","historiography","rome"],
+"Legacy_of_the_Roman_Empire": ["concept","history","law","politics","rome"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
